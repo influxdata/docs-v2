@@ -1,97 +1,126 @@
 ---
 title: stateCount() function
-description: The `stateCount()` function computes the number of consecutive records in a given state.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/statecount
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/statecount/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/statecount/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/statecount/
+description: >
+  `stateCount()` returns the number of consecutive rows in a given state.
 menu:
   flux_0_x_ref:
     name: stateCount
     parent: universe
-weight: 102
+    identifier: universe/stateCount
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/monitor-states/
 introduced: 0.7.0
 ---
 
-The `stateCount()` function computes the number of consecutive records in a given state.
-The state is defined via the function `fn`.
-For each consecutive point that evaluates as `true`, the state count is incremented.
-When a point evaluates as `false`, the state count is reset.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3890-L3892
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`stateCount()` returns the number of consecutive rows in a given state.
+
+The state is defined by the `fn` predicate function. For each consecutive
+record that evaluates to `true`, the state count is incremented. When a record
+evaluates to `false`, the value is set to `-1` and the state count is reset.
+If the record generates an error during evaluation, the point is discarded,
+and does not affect the state count.
 The state count is added as an additional column to each record.
 
+##### Function type signature
+
 ```js
-stateCount(fn: (r) => r._field == "state", column: "stateCount")
+(<-tables: stream[A], fn: (r: A) => bool, ?column: string) => stream[B] where A: Record, B: Record
 ```
 
-_If the expression generates an error during evaluation, the point is discarded
-and does not affect the state count._
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-{{% note %}}
-Make sure `fn` parameter names match each specified parameter.
-To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
-{{% /note %}}
-
-### fn {data-type="function"}
+### fn
 ({{< req >}})
-A single argument function that evaluates true or false to identify the state of the record.
-Records are passed to the function.
-Those that evaluate to `true` increment the state count.
-Those that evaluate to `false` reset the state count.
+Predicate function that identifies the state of a record.
 
-### column {data-type="string"}
-Name of the column added to each record that contains the incremented state count.
-Default is `stateCount`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+### column
+
+Column to store the state count in. Default is `stateCount`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+### Count the number rows in a specific state
 
 ```js
 import "sampledata"
 
 sampledata.int()
-    |> stateCount(fn: (r) => r._value > 10)
+    |> stateCount(fn: (r) => r._value < 10)
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value | stateCount |
-| :------------------- | :-- | -----: | ---------: |
-| 2021-01-01T00:00:00Z | t1  |     -2 |         -1 |
-| 2021-01-01T00:00:10Z | t1  |     10 |         -1 |
-| 2021-01-01T00:00:20Z | t1  |      7 |         -1 |
-| 2021-01-01T00:00:30Z | t1  |     17 |          1 |
-| 2021-01-01T00:00:40Z | t1  |     15 |          2 |
-| 2021-01-01T00:00:50Z | t1  |      4 |         -1 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value | stateCount |
-| :------------------- | :-- | -----: | ---------: |
-| 2021-01-01T00:00:00Z | t2  |     19 |          1 |
-| 2021-01-01T00:00:10Z | t2  |      4 |         -1 |
-| 2021-01-01T00:00:20Z | t2  |     -3 |         -1 |
-| 2021-01-01T00:00:30Z | t2  |     19 |          1 |
-| 2021-01-01T00:00:40Z | t2  |     13 |          2 |
-| 2021-01-01T00:00:50Z | t2  |      1 |         -1 |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag | stateCount  |
+| -------------------- | ------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | -2      | t1   | 1           |
+| 2021-01-01T00:00:10Z | 10      | t1   | -1          |
+| 2021-01-01T00:00:20Z | 7       | t1   | 1           |
+| 2021-01-01T00:00:30Z | 17      | t1   | -1          |
+| 2021-01-01T00:00:40Z | 15      | t1   | -1          |
+| 2021-01-01T00:00:50Z | 4       | t1   | 1           |
+
+| _time                | _value  | *tag | stateCount  |
+| -------------------- | ------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | 19      | t2   | -1          |
+| 2021-01-01T00:00:10Z | 4       | t2   | 1           |
+| 2021-01-01T00:00:20Z | -3      | t2   | 2           |
+| 2021-01-01T00:00:30Z | 19      | t2   | -1          |
+| 2021-01-01T00:00:40Z | 13      | t2   | -1          |
+| 2021-01-01T00:00:50Z | 1       | t2   | 1           |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

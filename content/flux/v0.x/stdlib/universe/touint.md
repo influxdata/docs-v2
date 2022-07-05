@@ -1,144 +1,237 @@
 ---
 title: toUInt() function
-description: The `toUInt()` function converts all values in the `_value` column to UIntegers.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/touint
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/touint/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/touint/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/touint/
+description: >
+  `toUInt()` converts all values in the `_value` column to unsigned integer types.
 menu:
   flux_0_x_ref:
     name: toUInt
     parent: universe
-weight: 102
-flux/v0.x/tags: [type-conversions, transformations]
-related:
-  - /flux/v0.x/data-types/basic/uint/
-  - /flux/v0.x/stdlib/universe/uint/
+    identifier: universe/toUInt
+weight: 101
+flux/v0.x/tags: [transformations, type-conversions]
 introduced: 0.7.0
 ---
 
-The `toUInt()` function converts all values in the `_value` column to UIntegers.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L4580-L4580
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`toUInt()` converts all values in the `_value` column to unsigned integer types.
+
+#### Supported types and behaviors
+`toUInt()` behavior depends on the `_value` column type:
+
+| _value type | Returned value                                  |
+| :---------- | :---------------------------------------------- |
+| string      | UInteger equivalent of the numeric string       |
+| bool        | 1 (true) or 0 (false)                           |
+| duration    | Number of nanoseconds in the specified duration |
+| time        | Equivalent nanosecond epoch timestamp           |
+| float       | Value truncated at the decimal                  |
+| int         | UInteger equivalent of the integer              |
+
+##### Function type signature
 
 ```js
-toUInt()
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _value: uint}]
 ```
 
-{{% note %}}
-To convert values in a column other than `_value`, use `map()` and `uint()`
-as shown in [this example](/flux/v0.x/stdlib/universe/uint/#convert-all-values-in-a-column-to-uinteger-values).
-{{% /note %}}
-
-##### Supported data types
-
-- bool
-- duration
-- float
-- int
-- string (numeric)
-- time
-
-`toInt()` behavior depends on the `_value` column data type:
-
-| \_value type | Returned value                                                  |
-| :----------- | :-------------------------------------------------------------- |
-| bool         | 1 (true) or 0 (false)                                           |
-| duration     | Number of nanoseconds in the specified duration                 |
-| float        | UInteger equivalent of the float value truncated at the decimal |
-| int          | UInteger equivalent of the integer                              |
-| string       | UInteger equivalent of the numeric string                       |
-| time         | Equivalent nanosecond epoch timestamp                           |
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro plural=true %}}
 
-- [Convert a float value column to a uinteger column](#convert-a-float-value-column-to-a-uinteger-column)
-- [Convert a boolean value column to a uinteger column](#convert-a-boolean-value-column-to-a-uinteger-column)
-- [Convert a uinteger value column to a integer column](#convert-a-uinteger-value-column-to-a-integer-column)
+- [Convert a float _value column to uintegers](#convert-a-float-_value-column-to-uintegers)
+- [Convert a boolean _value column to uintegers](#convert-a-boolean-_value-column-to-uintegers)
+- [Convert a uinteger _value column to an uintegers](#convert-a-uinteger-_value-column-to-an-uintegers)
 
-#### Convert a float value column to a uinteger column
+### Convert a float _value column to uintegers
+
 ```js
 import "sampledata"
 
 sampledata.float()
     |> toUInt()
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "float" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
 
-##### Output data
-{{% flux/sample "uint" %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
 
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value               | *tag |
+| -------------------- | -------------------- | ---- |
+| 2021-01-01T00:00:00Z | 18446744073709551614 | t1   |
+| 2021-01-01T00:00:10Z | 10                   | t1   |
+| 2021-01-01T00:00:20Z | 7                    | t1   |
+| 2021-01-01T00:00:30Z | 17                   | t1   |
+| 2021-01-01T00:00:40Z | 15                   | t1   |
+| 2021-01-01T00:00:50Z | 4                    | t1   |
+
+| _time                | _value               | *tag |
+| -------------------- | -------------------- | ---- |
+| 2021-01-01T00:00:00Z | 19                   | t2   |
+| 2021-01-01T00:00:10Z | 4                    | t2   |
+| 2021-01-01T00:00:20Z | 18446744073709551613 | t2   |
+| 2021-01-01T00:00:30Z | 19                   | t2   |
+| 2021-01-01T00:00:40Z | 13                   | t2   |
+| 2021-01-01T00:00:50Z | 1                    | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Convert a boolean value column to a uinteger column
+### Convert a boolean _value column to uintegers
+
 ```js
 import "sampledata"
 
 sampledata.bool()
     |> toUInt()
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "bool" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | true    |
+| 2021-01-01T00:00:10Z | t1   | true    |
+| 2021-01-01T00:00:20Z | t1   | false   |
+| 2021-01-01T00:00:30Z | t1   | true    |
+| 2021-01-01T00:00:40Z | t1   | false   |
+| 2021-01-01T00:00:50Z | t1   | false   |
 
-##### Output data
-{{% flux/sample "numericBool" %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | false   |
+| 2021-01-01T00:00:10Z | t2   | true    |
+| 2021-01-01T00:00:20Z | t2   | false   |
+| 2021-01-01T00:00:30Z | t2   | true    |
+| 2021-01-01T00:00:40Z | t2   | true    |
+| 2021-01-01T00:00:50Z | t2   | false   |
 
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 1       | t1   |
+| 2021-01-01T00:00:10Z | 1       | t1   |
+| 2021-01-01T00:00:20Z | 0       | t1   |
+| 2021-01-01T00:00:30Z | 1       | t1   |
+| 2021-01-01T00:00:40Z | 0       | t1   |
+| 2021-01-01T00:00:50Z | 0       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 0       | t2   |
+| 2021-01-01T00:00:10Z | 1       | t2   |
+| 2021-01-01T00:00:20Z | 0       | t2   |
+| 2021-01-01T00:00:30Z | 1       | t2   |
+| 2021-01-01T00:00:40Z | 1       | t2   |
+| 2021-01-01T00:00:50Z | 0       | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Convert a uinteger value column to a integer column
+### Convert a uinteger _value column to an uintegers
+
 ```js
 import "sampledata"
 
 sampledata.uint()
     |> toUInt()
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "uint" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value               | *tag |
+| -------------------- | -------------------- | ---- |
+| 2021-01-01T00:00:00Z | 18446744073709551614 | t1   |
+| 2021-01-01T00:00:10Z | 10                   | t1   |
+| 2021-01-01T00:00:20Z | 7                    | t1   |
+| 2021-01-01T00:00:30Z | 17                   | t1   |
+| 2021-01-01T00:00:40Z | 15                   | t1   |
+| 2021-01-01T00:00:50Z | 4                    | t1   |
 
-##### Output data
-{{% flux/sample "int" %}}
+| _time                | _value               | *tag |
+| -------------------- | -------------------- | ---- |
+| 2021-01-01T00:00:00Z | 19                   | t2   |
+| 2021-01-01T00:00:10Z | 4                    | t2   |
+| 2021-01-01T00:00:20Z | 18446744073709551613 | t2   |
+| 2021-01-01T00:00:30Z | 19                   | t2   |
+| 2021-01-01T00:00:40Z | 13                   | t2   |
+| 2021-01-01T00:00:50Z | 1                    | t2   |
 
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value               | *tag |
+| -------------------- | -------------------- | ---- |
+| 2021-01-01T00:00:00Z | 18446744073709551614 | t1   |
+| 2021-01-01T00:00:10Z | 10                   | t1   |
+| 2021-01-01T00:00:20Z | 7                    | t1   |
+| 2021-01-01T00:00:30Z | 17                   | t1   |
+| 2021-01-01T00:00:40Z | 15                   | t1   |
+| 2021-01-01T00:00:50Z | 4                    | t1   |
+
+| _time                | _value               | *tag |
+| -------------------- | -------------------- | ---- |
+| 2021-01-01T00:00:00Z | 19                   | t2   |
+| 2021-01-01T00:00:10Z | 4                    | t2   |
+| 2021-01-01T00:00:20Z | 18446744073709551613 | t2   |
+| 2021-01-01T00:00:30Z | 19                   | t2   |
+| 2021-01-01T00:00:40Z | 13                   | t2   |
+| 2021-01-01T00:00:50Z | 1                    | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

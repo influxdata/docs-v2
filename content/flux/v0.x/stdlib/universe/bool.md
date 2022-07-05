@@ -1,94 +1,151 @@
 ---
 title: bool() function
-description: The `bool()` function converts a single value to a boolean.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/bool/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/bool/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/bool/
+description: >
+  `bool()` converts a value to a boolean type.
 menu:
   flux_0_x_ref:
     name: bool
     parent: universe
-weight: 102
+    identifier: universe/bool
+weight: 101
 flux/v0.x/tags: [type-conversions]
-related:
-  - /flux/v0.x/data-types/basic/bool/
-  - /flux/v0.x/stdlib/universe/tobool/
 introduced: 0.7.0
 ---
 
-The `bool()` function converts a single value to a boolean.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Boolean_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3024-L3024
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`bool()` converts a value to a boolean type.
+
+
+
+##### Function type signature
 
 ```js
-bool(v: "true")
+(v: A) => bool
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### v {data-type="string, int, uint, float"}
-The value to convert.
+### v
+({{< req >}})
+Value to convert.
+
+
+
 
 ## Examples
 
-#### Convert a numeric column to a boolean column
+- [Convert strings to booleans](#convert-strings-to-booleans)
+- [Convert numeric values to booleans](#convert-numeric-values-to-booleans)
+- [Convert all values in a column to booleans](#convert-all-values-in-a-column-to-booleans)
+
+### Convert strings to booleans
+
 ```js
-import "sampledata"
+bool(v: "true")
 
-data = sampledata.numericBool()
-    |> rename(columns: {_value: "online"})
+// Returns true
+bool(v: "false")// Returns false
 
+
+```
+
+
+### Convert numeric values to booleans
+
+```js
+bool(v: 1.0)
+
+// Returns true
+bool(v: 0.0)
+
+// Returns false
+bool(v: 1)
+
+// Returns true
+bool(v: 0)
+
+// Returns false
+bool(v: uint(v: 1))
+
+// Returns true
+bool(v: uint(v: 0))// Returns false
+
+
+```
+
+
+### Convert all values in a column to booleans
+
+If converting the `_value` column to boolean types, use `toBool()`.
+If converting columns other than `_value`, use `map()` to iterate over each
+row and `bool()` to covert a column value to a boolean type.
+
+```js
 data
-    |> map(fn: (r) => ({r with online: bool(v: r.online)}))
+    |> map(fn: (r) => ({r with powerOn: bool(v: r.powerOn)}))
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-| _time                | tag | online |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |      1 |
-| 2021-01-01T00:00:10Z | t1  |      1 |
-| 2021-01-01T00:00:20Z | t1  |      0 |
-| 2021-01-01T00:00:30Z | t1  |      1 |
-| 2021-01-01T00:00:40Z | t1  |      0 |
-| 2021-01-01T00:00:50Z | t1  |      0 |
+#### Input data
 
-| _time                | tag | online |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t2  |      0 |
-| 2021-01-01T00:00:10Z | t2  |      1 |
-| 2021-01-01T00:00:20Z | t2  |      0 |
-| 2021-01-01T00:00:30Z | t2  |      1 |
-| 2021-01-01T00:00:40Z | t2  |      1 |
-| 2021-01-01T00:00:50Z | t2  |      0 |
+| _time                | powerOn  | *tag |
+| -------------------- | -------- | ---- |
+| 2021-01-01T00:00:00Z | 1        | t1   |
+| 2021-01-01T00:00:10Z | 1        | t1   |
+| 2021-01-01T00:00:20Z | 0        | t1   |
+| 2021-01-01T00:00:30Z | 1        | t1   |
+| 2021-01-01T00:00:40Z | 0        | t1   |
+| 2021-01-01T00:00:50Z | 0        | t1   |
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | powerOn  | *tag |
+| -------------------- | -------- | ---- |
+| 2021-01-01T00:00:00Z | 0        | t2   |
+| 2021-01-01T00:00:10Z | 1        | t2   |
+| 2021-01-01T00:00:20Z | 0        | t2   |
+| 2021-01-01T00:00:30Z | 1        | t2   |
+| 2021-01-01T00:00:40Z | 1        | t2   |
+| 2021-01-01T00:00:50Z | 0        | t2   |
 
-##### Output data
-| _time                | tag | online |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |   true |
-| 2021-01-01T00:00:10Z | t1  |   true |
-| 2021-01-01T00:00:20Z | t1  |  false |
-| 2021-01-01T00:00:30Z | t1  |   true |
-| 2021-01-01T00:00:40Z | t1  |  false |
-| 2021-01-01T00:00:50Z | t1  |  false |
 
-| _time                | tag | online |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t2  |  false |
-| 2021-01-01T00:00:10Z | t2  |   true |
-| 2021-01-01T00:00:20Z | t2  |  false |
-| 2021-01-01T00:00:30Z | t2  |   true |
-| 2021-01-01T00:00:40Z | t2  |   true |
-| 2021-01-01T00:00:50Z | t2  |  false |
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | powerOn  | *tag |
+| -------------------- | -------- | ---- |
+| 2021-01-01T00:00:00Z | true     | t1   |
+| 2021-01-01T00:00:10Z | true     | t1   |
+| 2021-01-01T00:00:20Z | false    | t1   |
+| 2021-01-01T00:00:30Z | true     | t1   |
+| 2021-01-01T00:00:40Z | false    | t1   |
+| 2021-01-01T00:00:50Z | false    | t1   |
+
+| _time                | powerOn  | *tag |
+| -------------------- | -------- | ---- |
+| 2021-01-01T00:00:00Z | false    | t2   |
+| 2021-01-01T00:00:10Z | true     | t2   |
+| 2021-01-01T00:00:20Z | false    | t2   |
+| 2021-01-01T00:00:30Z | true     | t2   |
+| 2021-01-01T00:00:40Z | true     | t2   |
+| 2021-01-01T00:00:50Z | false    | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

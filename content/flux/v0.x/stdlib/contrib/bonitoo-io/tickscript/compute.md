@@ -1,67 +1,69 @@
 ---
 title: tickscript.compute() function
 description: >
-  The `tickscript.compute()` function is an alias for `tickscript.select()` that
-  changes a column's name and optionally applies an aggregate or selector function
-  to values in the column.
+  `tickscript.compute()` is an alias for `tickscript.select()` that changes a column’s name and
+  optionally applies an aggregate or selector function.
 menu:
   flux_0_x_ref:
     name: tickscript.compute
-    parent: tickscript
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/compute/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/compute/
-related:
-  - /flux/v0.x/stdlib/contrib/bonitoo-io/tickscript/select/
-  - /{{< latest "kapacitor" >}}/nodes/query_node/
+    parent: contrib/bonitoo-io/tickscript
+    identifier: contrib/bonitoo-io/tickscript/compute
+weight: 301
 flux/v0.x/tags: [transformations]
 ---
 
-The `tickscript.compute()` function is an **alias for
-[`tickscript.select()`](/flux/v0.x/stdlib/contrib/bonitoo-io/tickscript/select/)**
-that changes a column's name and optionally applies an aggregate or selector function.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L389-L389
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`tickscript.compute()` is an alias for `tickscript.select()` that changes a column’s name and
+optionally applies an aggregate or selector function.
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/bonitoo-io/tickscript"
-
-tickscript.compute(
-    column: "_value",
-    fn: sum,
-    as: "example-name",
-)
+(<-tables: B, as: string, ?column: A, ?fn: (<-: B, column: A) => stream[C]) => stream[D] where A: Equatable, C: Record, D: Record
 ```
 
-#### TICKscript helper function
-`tickscript.select()` is a helper function meant to replicate TICKscript operations
-like the following:
-
-```js
-// Rename
-query("SELECT x AS y")
-
-// Aggregate and rename
-query("SELECT f(x) AS y")
-```
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### column {data-type="string"}
-Column to operate on.
-Default is `_value`.
-
-### fn {data-type="function"}
-[Aggregate](/flux/v0.x/function-types/#aggregates) or [selector](/flux/v0.x/function-types/#selectors)
-function to apply.
-
-### as {data-type="string"}
+### as
 ({{< req >}})
 New column name.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
-## Examples
 
-For examples, see [`tickscript.select()`](/flux/v0.x/stdlib/contrib/bonitoo-io/tickscript/select/#examples).
+### column
+
+Column to operate on. Default is `_value`.
+
+
+
+### fn
+
+Aggregate or selector function to apply.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+

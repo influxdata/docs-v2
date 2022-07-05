@@ -1,31 +1,44 @@
 ---
-title: Flux regexp package
-list_title: regexp package
+title: regexp package
 description: >
-  The Flux `regexp` package includes functions for working with regular expressions.
-  Import the `regexp` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/regexp/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/
-  - /influxdb/cloud/reference/flux/stdlib/regexp/
+  The `regexp` package provides tools for working with regular expressions.
 menu:
   flux_0_x_ref:
-    name: regexp
-    parent: Standard library
+    name: regexp 
+    parent: stdlib
+    identifier: regexp
 weight: 11
-flux/v0.x/tags: [regex, functions]
 cascade:
-  related:
-    - /flux/v0.x/data-types/regexp/
-introduced: 0.33.0
+
+  introduced: 0.33.0
 ---
 
-The Flux `regexp` package includes functions for working with regular expressions.
-Import the `regexp` package.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/regexp/regexp.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `regexp` package provides tools for working with regular expressions.
+Import the `regexp` package:
 
 ```js
 import "regexp"
 ```
 
+
+
+
 ## Functions
+
 {{< children type="functions" show="pages" >}}

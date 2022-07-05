@@ -1,51 +1,102 @@
 ---
 title: experimental.spread() function
 description: >
-  The `experimental.spread()` function outputs the difference between the minimum
-  and maximum values in the `_value` column for each input table.
+  `experimental.spread()` returns the difference between the minimum and maximum values in the
+  `_value` column for each input table.
 menu:
   flux_0_x_ref:
     name: experimental.spread
     parent: experimental
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/spread/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/spread/
-related:
-  - /flux/v0.x/stdlib/universe/spread/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#spread, InfluxQL – SPREAD()
+    identifier: experimental/spread
+weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.107.0
 ---
 
-The `experimental.spread()` function outputs the difference between the minimum
-and maximum values in the `_value` column for each input table.
-_`experimental.spread()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+<!------------------------------------------------------------------------------
 
-The function supports `uint`, `int`, and `float` values.
-The output value type depends on the input value type:
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-- `uint` or `int` input values return `int` values
-- `float` input values return float values
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L928-L928
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.spread()` returns the difference between the minimum and maximum values in the
+`_value` column for each input table.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental"
-
-experimental.spread()
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}] where B: Numeric
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
+
+### Return the difference between minimum and maximum values
+
 ```js
 import "experimental"
+import "sampledata"
 
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
+sampledata.float()
     |> experimental.spread()
+
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
+
+
+#### Output data
+
+| *tag | _value  |
+| ---- | ------- |
+| t1   | 19.71   |
+
+| *tag | _value  |
+| ---- | ------- |
+| t2   | 23.6    |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

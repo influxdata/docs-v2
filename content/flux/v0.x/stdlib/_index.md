@@ -15,6 +15,7 @@ flux/v0.x/tags: [flux, functions, package]
 menu:
   flux_0_x_ref:
     name: Standard library
+    identifier: stdlib
 weight: 1
 ---
 

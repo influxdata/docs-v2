@@ -1,97 +1,158 @@
 ---
 title: tickscript.alert() function
 description: >
-  The `tickscript.alert()` function identifies events of varying severity levels
-  and writes them to the `statuses` measurement in the InfluxDB
-  `_monitoring` system bucket.
+  `tickscript.alert()` identifies events of varying severity levels
+  and writes them to the `statuses` measurement in the InfluxDB `_monitoring`
+  system bucket.
 menu:
   flux_0_x_ref:
     name: tickscript.alert
-    parent: tickscript
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/alert/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/alert/
-related:
-  - /{{< latest "kapacitor" >}}/nodes/alert_node/, Kapacitor AlertNode
-flux/v0.x/tags: [transformations]
-introduced: 0.111.0
+    parent: contrib/bonitoo-io/tickscript
+    identifier: contrib/bonitoo-io/tickscript/alert
+weight: 301
+flux/v0.x/tags: [transformations, outputs]
 ---
 
-The `tickscript.alert()` function identifies events of varying severity levels
-and writes them to the `statuses` measurement in the InfluxDB
-[`_monitoring` system bucket](/{{< latest "influxdb" >}}/reference/internals/system-buckets/).
+<!------------------------------------------------------------------------------
 
-_This function is comparable to the [Kapacitor AlertNode](/{{< latest "kapacitor" >}}/nodes/alert_node/)._
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L105-L142
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`tickscript.alert()` identifies events of varying severity levels
+and writes them to the `statuses` measurement in the InfluxDB `_monitoring`
+system bucket.
+
+This function is comparable to
+TICKscript [`alert()`](https://docs.influxdata.com/kapacitor/v1.6/nodes/alert_node/).
+
+##### Function type signature
 
 ```js
-import "contrib/bonitoo-io/tickscript"
-
-tickscript.alert(
-    check: {id: "000000000000", name: "Example check name", type: "threshold", tags: {}},
-    id: (r) => "000000000000",
-    details: (r) => "",
-    message: (r) => "Threshold Check: ${r._check_name} is: ${r._level}",
-    crit: (r) => false,
-    warn: (r) => false,
-    info: (r) => false,
-    ok: (r) => true,
-    topic: "",
-)
+(
+    <-tables: stream[M],
+    check: {A with tags: E, _type: D, _check_name: C, _check_id: B},
+    ?crit: (r: {F with _time: H, _measurement: G}) => bool,
+    ?details: (r: {I with id: J, _check_name: C, _check_id: B}) => K,
+    ?id: (r: {I with _check_name: C, _check_id: B}) => J,
+    ?info: (r: {F with _time: H, _measurement: G}) => bool,
+    ?message: (
+        r: {
+            F with
+            _type: D,
+            _time: H,
+            _time: time,
+            _source_timestamp: int,
+            _source_measurement: G,
+            _measurement: G,
+            _measurement: string,
+            _level: string,
+            _check_name: C,
+            _check_id: B,
+        },
+    ) => L,
+    ?ok: (r: {F with _time: H, _measurement: G}) => bool,
+    ?topic: string,
+    ?warn: (r: {F with _time: H, _measurement: G}) => bool,
+) => stream[{
+    F with
+    _type: D,
+    _time: H,
+    _time: time,
+    _source_timestamp: int,
+    _source_measurement: G,
+    _message: L,
+    _measurement: G,
+    _measurement: string,
+    _level: string,
+    _check_name: C,
+    _check_id: B,
+}] where E: Record, I: Record, M: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### check {data-type="record"}
+### check
 ({{< req >}})
 InfluxDB check data.
-_See [`tickscript.defineCheck()`](/flux/v0.x/stdlib/contrib/bonitoo-io/tickscript/definecheck/)._
+See `tickscript.defineCheck()`.
 
-### id {data-type="function"}
-Function that returns the InfluxDB check ID provided by the [`check` record](#check).
+
+
+### id
+
+Function that returns the InfluxDB check ID provided by the check record.
 Default is `(r) => "${r._check_id}"`.
 
-### details {data-type="function"}
+
+
+### details
+
 Function to return the InfluxDB check details using data from input rows.
 Default is `(r) => ""`.
 
-### message {data-type="function"}
+
+
+### message
+
 Function to return the InfluxDB check message using data from input rows.
 Default is `(r) => "Threshold Check: ${r._check_name} is: ${r._level}"`.
 
-### crit {data-type="function"}
-Predicate function to determine `crit` status.
-Default is `(r) => false`.
 
-### warn {data-type="function"}
-Predicate function to determine `warn` status.
-Default is `(r) => false`.
 
-### info {data-type="function"}
-Predicate function to determine `info` status.
-Default is `(r) => false`.
+### crit
 
-### ok {data-type="function"}
-Predicate function to determine `ok` status.
-Default is `(r) => true`.
+Predicate function to determine `crit` status. Default is `(r) => false`.
 
-### topic {data-type="string"}
-Check topic.
-Default is `""`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+### warn
+
+Predicate function to determine `warn` status. Default is `(r) => false`.
+
+
+
+### info
+
+Predicate function to determine `info` status. Default is `(r) => false`.
+
+
+
+### ok
+
+Predicate function to determine `ok` status. Default is `(r) => true`.
+
+
+
+### topic
+
+Check topic. Default is `""`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-##### Store alert statuses for error counts
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Flux](#)
-[TICKscript](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+### Store alert statuses for error counts
+
 ```js
 import "contrib/bonitoo-io/tickscript"
 
@@ -110,21 +171,6 @@ from(bucket: "example-bucket")
         warn: (r) => r._value > 20,
         info: (r) => r._value > 10,
     )
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```javascript
-data = batch
-  |query('SELECT count(value) from errors')
-    .every(1m)
 
-data
-  |alert()
-    .id('kapacitor/{{ index .Tags "service" }}')
-    .message('{{ .ID }} is {{ .Level }} value:{{ index .Fields "value" }}')
-    .info(lambda: "value" > 10)
-    .warn(lambda: "value" > 20)
-    .crit(lambda: "value" > 30)
 ```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
+

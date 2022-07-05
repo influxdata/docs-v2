@@ -10,6 +10,69 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+
+## v0.173.0 [2022-06-29]
+
+### Breaking changes
+
+- Format scripts with a trailing newline by default when running the formatter.
+
+### Features
+
+- Deprecate [`experimental.http.get`](/flux/v0.x/stdlib/experimental/http/get/).
+- Deprecate [`experimental.csv.from()`](/flux/v0.x/stdlib/experimental/csv/from/).
+- Promote the following functions from `experimental.array` into the 
+  [`array`](/flux/v0.x/stdlib/array) package:
+  - [`array.concat()`](/flux/v0.x/stdlib/array/concat/) 
+  - [`array.filter()`](/flux/v0.x/stdlib/array/filter/)
+  - [`array.map()`](/flux/v0.x/stdlib/array/map/)
+- Promote the following functions from `experimental.http.requests` into the 
+  [`http.requests`](/flux/v0.x/stdlib/http/requests/) package:
+  - [`http.requests.do()`](/flux/v0.x/stdlib/http/requests/do/)
+  - [`http.requests.get()`](/flux/v0.x/stdlib/http/requests/get/)
+  - [`http.requests.peek()`](/flux/v0.x/stdlib/http/requests/peek/)
+  - [`http.requests.post()`](/flux/v0.x/stdlib/http/requests/post/)
+- Promote `experimental.bitwise` into the [`bitwise`](/flux/v0.x/stdlib/bitwise/) 
+  package.
+- Remove all `Test` statements. New statements are written with `TestCase`.
+- Format scripts with a trailing newline by default when running the formatter.
+
+### Bug fixes
+
+- Return an error if the user modifies group key while using 
+  [`join`](/flux/v0.x/stdlib/join/)
+
+---
+
+## v0.172.0 [2022-06-24]
+
+### Features
+- Add multiple new join functions to the [`join`](/flux/v0.x/stdlib/join/) 
+  package such as [`join.full()`](/flux/v0.x/stdlib/join/full/).
+- Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) 
+  parameter to the derivative function. 
+- Allow features to enable builtin statements. 
+- Provide the comments for each `Symbol` from `PackageExports`.
+- Suggestions now start off by default and added a new flag.
+- Add builtin function [`time`](/flux/v0.x/stdlib/date/time/) to the `date` 
+  package to convert any timeable into datetime. 
+- Allow vector types to be specified in Flux source. 
+
+### Bug fixes
+- Replace extra boolean parameter for suggestions with Flux REPL options. 
+- Remove [`testing.load()`](/flux/v0.x/stdlib/testing/load/) 
+  from [`testutil.yield()`](/flux/v0.x/stdlib/internal/testutil/yield/). 
+- Fix a bug in how sort nodes are created for a new join. 
+- Removed extra indentation for test cases. 
+- Retain the package for identifier referencing the prelude. 
+- Only return an error in tests if an assertion fails. 
+- Fix [`findColumn()`](/flux/v0.x/stdlib/universe/findcolumn/)
+  to handle multi-buffer tables. 
+- Point to the function being piped to on argument mismatches. 
+- Visit successors before continuing DFS on node. 
+
+---
+
 ## v0.171.0 [2022-06-14]
 
 ### Breaking changes
@@ -87,7 +150,7 @@ aliases:
 - Add [`experimental.preview()`](/flux/v0.x/stdlib/experimental/preview/).
 
 ### Bug fixes
-- Update `date.add()` and `date.sub()` to ork correctly with timezones enabled.
+- Update `date.add()` and `date.sub()` to work correctly with timezones enabled.
 - Fix failing continuous integration tests.
 - Update `hourSelection()` to support overnight time ranges.
 - Fix logic error in aggregate window planner rule preserve the rule if

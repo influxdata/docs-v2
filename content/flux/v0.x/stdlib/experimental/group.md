@@ -1,63 +1,119 @@
 ---
 title: experimental.group() function
 description: >
-  The `experimental.group()` function introduces an `extend` mode to the existing
-  `group()` function.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/group/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/group/
+  `experimental.group()` introduces an `extend` mode to the existing `group()` function.
 menu:
   flux_0_x_ref:
     name: experimental.group
     parent: experimental
-weight: 302
+    identifier: experimental/group
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /flux/v0.x/stdlib/universe/group/
-introduced: 0.39.0
 ---
 
-The `experimental.group()` function introduces an `extend` mode to the existing
-[`group()`](/flux/v0.x/stdlib/universe/group/) function.
+<!------------------------------------------------------------------------------
 
-{{% warn %}}
-This function will be removed once the proposed `extend` mode is sufficiently vetted.
-{{% /warn %}}
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L174-L174
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.group()` introduces an `extend` mode to the existing `group()` function.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental"
-
-experimental.group(columns: ["host", "_measurement"], mode:"extend")
+(<-tables: stream[A], columns: [string], mode: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### columns {data-type="array of strings"}
-List of columns to use in the grouping operation.
-Defaults to `[]`.
+### columns
+({{< req >}})
+List of columns to use in the grouping operation. Default is `[]`.
 
-### mode {data-type="string"}
-The mode used to group columns.
 
-{{% note %}}
-`extend` is the only mode available to `experimental.group()`.
-{{% /note %}}
 
-#### extend
-Appends columns defined in the [`columns` parameter](#columns) to all existing
-[group keys](/flux/v0.x/get-started/data-model/#group-key).
+### mode
+({{< req >}})
+Grouping mode. `extend` is the only mode available to `experimental.group()`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+#### Grouping modes
+- **extend**: Appends columns defined in the `columns` parameter to group keys.
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-###### Include the value column in each groups' group key
+### Add a column to the group key
+
 ```js
 import "experimental"
 
-from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> experimental.group(columns: ["_value"], mode: "extend")
+data
+    |> experimental.group(columns: ["region"], mode: "extend")
+
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | *host | region  | _value  |
+| -------------------- | ----- | ------- | ------- |
+| 2021-01-01T00:00:00Z | host1 | east    | 41      |
+| 2021-01-01T00:01:00Z | host1 | east    | 48      |
+| 2021-01-01T00:00:00Z | host1 | west    | 34      |
+| 2021-01-01T00:01:00Z | host1 | west    | 12      |
+
+| _time                | *host | region  | _value  |
+| -------------------- | ----- | ------- | ------- |
+| 2021-01-01T00:00:00Z | host2 | east    | 56      |
+| 2021-01-01T00:01:00Z | host2 | east    | 72      |
+| 2021-01-01T00:00:00Z | host2 | west    | 43      |
+| 2021-01-01T00:01:00Z | host2 | west    | 22      |
+
+
+#### Output data
+
+| _time                | *host | *region | _value  |
+| -------------------- | ----- | ------- | ------- |
+| 2021-01-01T00:00:00Z | host1 | east    | 41      |
+| 2021-01-01T00:01:00Z | host1 | east    | 48      |
+
+| _time                | *host | *region | _value  |
+| -------------------- | ----- | ------- | ------- |
+| 2021-01-01T00:00:00Z | host1 | west    | 34      |
+| 2021-01-01T00:01:00Z | host1 | west    | 12      |
+
+| _time                | *host | *region | _value  |
+| -------------------- | ----- | ------- | ------- |
+| 2021-01-01T00:00:00Z | host2 | east    | 56      |
+| 2021-01-01T00:01:00Z | host2 | east    | 72      |
+
+| _time                | *host | *region | _value  |
+| -------------------- | ----- | ------- | ------- |
+| 2021-01-01T00:00:00Z | host2 | west    | 43      |
+| 2021-01-01T00:01:00Z | host2 | west    | 22      |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

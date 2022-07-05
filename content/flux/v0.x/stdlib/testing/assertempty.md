@@ -1,52 +1,71 @@
 ---
 title: testing.assertEmpty() function
-description: The testing.assertEmpty() function tests if an input stream is empty.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/testing/assertempty/
-  - /influxdb/v2.0/reference/flux/stdlib/testing/assertempty/
-  - /influxdb/cloud/reference/flux/stdlib/testing/assertempty/
+description: >
+  `testing.assertEmpty()` tests if an input stream is empty. If not empty, the function returns an error.
 menu:
   flux_0_x_ref:
     name: testing.assertEmpty
     parent: testing
-weight: 301
-flux/v0.x/tags: [tests, transformations]
+    identifier: testing/assertEmpty
+weight: 101
+flux/v0.x/tags: [tests]
 introduced: 0.18.0
 ---
 
-The `testing.assertEmpty()` function tests if an input stream is empty.
-If not empty, the function returns an error. 
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L83-L83
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`testing.assertEmpty()` tests if an input stream is empty. If not empty, the function returns an error.
+
+assertEmpty can be used to perform in-line tests in a query.
+
+##### Function type signature
 
 ```js
-import "testing"
-
-testing.assertEmpty()
+(<-tables: stream[A]) => stream[A]
 ```
 
-_The `testing.assertEmpty()` function can be used to perform in-line tests in a query._
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-#### Check if there is a difference between streams
-This example uses the [`testing.diff()` function](/flux/v0.x/stdlib/testing/diff)
-which outputs the diff for the two streams.
-The `.testing.assertEmpty()` function checks to see if the diff is empty.
+### Check if there is a difference between streams
+
+This example uses `testing.diff()` to output the difference between two streams of tables.
+`testing.assertEmpty()` checks to see if the difference is empty.
 
 ```js
+import "sampledata"
 import "testing"
 
-got = from(bucket: "example-bucket")
-    |> range(start: -15m)
-want = from(bucket: "backup_example-bucket")
-    |> range(start: -15m)
+want = sampledata.int()
+got = sampledata.float() |> toInt()
 
 got
     |> testing.diff(want: want)
     |> testing.assertEmpty()
+
 ```
+
