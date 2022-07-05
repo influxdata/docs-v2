@@ -1,89 +1,110 @@
 ---
 title: mode() function
 description: >
-  The `mode()` function computes the mode or value that occurs most often in a
-  specified column in the input table.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/mode/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mode/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/mode/
+  `mode()` returns the non-null value or values that occur most often in a
+  specified column in each input table.
 menu:
   flux_0_x_ref:
     name: mode
     parent: universe
-weight: 102
-flux/v0.x/tags: [aggregates, transformations]
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#mode, InfluxQL – MODE()
-  - /flux/v0.x/stdlib/experimental/mode/
+    identifier: universe/mode
+weight: 101
+flux/v0.x/tags: [transformtions, aggregates]
 introduced: 0.36.0
 ---
 
-The `mode()` function computes the mode or value that occurs most often in a
-specified column in the input table.
-_`mode()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+<!------------------------------------------------------------------------------
 
-```js
-mode(column: "_value")
-```
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-If there are multiple modes, it returns all of them in a sorted table.
-Mode only considers non-null values.
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1790-L1790
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`mode()` returns the non-null value or values that occur most often in a
+specified column in each input table.
+
+If there are multiple modes, `mode()` returns all mode values in a sorted table.
 If there is no mode, `mode()` returns `null`.
 
-{{% warn %}}
-#### Empty tables
-`mode()` drops empty tables.
-{{% /warn %}}
+**Note**: `mode()` drops empty tables.
 
-##### Supported data types
+##### Function type signature
 
-- String
-- Float
-- Integer
-- UInteger
-- Boolean
-- Time
+```js
+(<-tables: stream[A], ?column: string) => stream[{B with _value: C}] where A: Record, B: Record
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### column {data-type="string"}
-The column to use to compute the mode.
-Default is `"_value"`.
+### column
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+Column to return the mode from. Default is `_value`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+### Return the mode of each input table
 
 ```js
 import "sampledata"
 
 sampledata.int()
     |> mode()
+
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| tag | _value |
-| :-- | -----: |
-| t1  |        |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| tag | _value |
-| :-- | -----: |
-| t2  |     19 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| *tag | _value  |
+| ---- | ------- |
+| t1   |         |
+
+| *tag | _value  |
+| ---- | ------- |
+| t2   | 19      |
+
 {{% /expand %}}
+{{< /expand-wrapper >}}

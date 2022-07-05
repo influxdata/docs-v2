@@ -1,112 +1,145 @@
 ---
 title: tickscript.selectWindow() function
 description: >
-  The `tickscript.selectWindow()` function changes a column's name, windows rows by time,
-  and applies an aggregate or selector function the specified column for each window of time.
+  `tickscript.selectWindow()` changes a column’s name, windows rows by time, and then applies an
+  aggregate or selector function the specified column for each window of time.
 menu:
   flux_0_x_ref:
     name: tickscript.selectWindow
-    parent: tickscript
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/selectwindow/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/selectwindow/
-related:
-  - /flux/v0.x/stdlib/contrib/bonitoo-io/tickscript/select/
-  - /{{< latest "kapacitor" >}}/nodes/query_node/
+    parent: contrib/bonitoo-io/tickscript
+    identifier: contrib/bonitoo-io/tickscript/selectWindow
+weight: 301
 flux/v0.x/tags: [transformations]
-introduced: 0.111.0
 ---
 
-The `tickscript.selectWindow()` function changes a column's name, windows rows by time,
-and applies an aggregate or selector function the specified column for each window of time.
+<!------------------------------------------------------------------------------
 
-```js
-import "contrib/bonitoo-io/tickscript"
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-tickscript.selectWindow(
-    column: "_value",
-    fn: sum,
-    as: "example-name",
-    every: 1m,
-    defaultValue: 0.0,
-)
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L358-L375
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`tickscript.selectWindow()` changes a column’s name, windows rows by time, and then applies an
+aggregate or selector function the specified column for each window of time.
+
+## TICKscript helper function
+`tickscript.selectWindow` is a helper function meant to replicate TICKscript operations like the following:
+
 ```
-
-#### TICKscript helper function
-`tickscript.selectWindow()` is a helper function meant to replicate TICKscript operations
-like the following:
-
-```js
 // Rename, window, and aggregate
 query("SELECT f(x) AS y")
   .groupBy(time(t), ...)
 ```
 
+##### Function type signature
+
+```js
+(
+    <-tables: stream[D],
+    as: string,
+    defaultValue: A,
+    every: duration,
+    fn: (<-: stream[B], column: string) => stream[C],
+    ?column: string,
+) => stream[E] where B: Record, C: Record, D: Record, E: Record
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
 ## Parameters
 
-### column {data-type="string"}
-Column to operate on.
-Default is `_value`.
+### column
 
-_**Data type:** String_
+Column to operate on. Default is _value.
 
-### fn {data-type="function"}
+
+
+### fn
 ({{< req >}})
-[Aggregate](/flux/v0.x/function-types/#aggregates) or [selector](/flux/v0.x/function-types/#selectors)
-function to apply.
+Aggregate or selector function to apply.
 
-### as {data-type="string"}
+
+
+### as
 ({{< req >}})
 New column name.
 
-### every {data-type="duration"}
+
+
+### every
 ({{< req >}})
 Duration of windows.
 
-### defaultValue {data-type="string, bool, int, uint, float, bytes"}
+
+
+### defaultValue
 ({{< req >}})
-Default fill value for null values in [`column`](#column).
+Default fill value for null values in column.
+Must be the same data type as column.
 
-_Must be the same data type as `column`._
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-#### Change the name of, window, and then aggregate the value column
+### Change the name of, window, and then aggregate the value column
+
 ```js
 import "contrib/bonitoo-io/tickscript"
 
 data
-    |> tickscript.selectWindow(
-        fn: sum,
-        as: "example-name",
-        every: 1h,
-        defaultValue: 0.0,
-    )
+    |> tickscript.selectWindow(fn: sum, as: "example-name", every: 1h, defaultValue: 0)
+
 ```
 
-{{< flex >}}
-{{% flex-content %}}
-##### Input data
-| _time                | _value |
-|:-----                | ------:|
-| 2021-01-01T00:00:00Z | 1.2    |
-| 2021-01-01T00:30:00Z | 0.8    |
-| 2021-01-01T01:00:00Z | 3.2    |
-| 2021-01-01T01:30:00Z | 3.9    |
-| 2021-01-01T02:00:00Z |        |
-| 2021-01-01T02:30:00Z | 3.3    |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### Output data
-| _time               | example-name |
-|:-----               | ------------:|
-| 2021-01-01T00:59:59 | 2.0          |
-| 2021-01-01T01:59:59 | 7.1          |
-| 2021-01-01T02:59:59 | 3.3          |
-{{% /flex-content %}}
-{{< /flex >}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| *_start              | *_stop               | _time                | _value  | *tag |
+| -------------------- | -------------------- | -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 4       | t1   |
+
+| *_start              | *_stop               | _time                | _value  | *tag |
+| -------------------- | -------------------- | -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| *_start              | *_stop               | *tag | example-name  | _time                |
+| -------------------- | -------------------- | ---- | ------------- | -------------------- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t1   | 51            | 2021-01-01T00:01:00Z |
+
+| *_start              | *_stop               | *tag | example-name  | _time                |
+| -------------------- | -------------------- | ---- | ------------- | -------------------- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 53            | 2021-01-01T00:01:00Z |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

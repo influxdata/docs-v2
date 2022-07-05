@@ -1,80 +1,115 @@
 ---
 title: cumulativeSum() function
-description: The `cumulativeSum()` function computes a running sum for non-null records in the table.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/cumulativesum
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/cumulativesum/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/cumulativesum/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/cumulativesum/
+description: >
+  `cumulativeSum()`  computes a running sum for non-null records in a table.
 menu:
   flux_0_x_ref:
     name: cumulativeSum
     parent: universe
-weight: 102
+    identifier: universe/cumulativeSum
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/cumulativesum/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#cumulative-sum, InfluxQL – CUMULATIVE_SUM()
 introduced: 0.7.0
 ---
 
-The `cumulativeSum()` function computes a running sum for non-null records in the table.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L204-L204
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`cumulativeSum()`  computes a running sum for non-null records in a table.
+
 The output table schema will be the same as the input table.
 
-_**Output data type:** Float_
+##### Function type signature
 
 ```js
-cumulativeSum(columns: ["_value"])
+(<-tables: stream[A], ?columns: [string]) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### columns {data-type="array of strings"}
-A list of columns on which to operate.
-Defaults to `["_value"]`.
+### columns
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+List of columns to operate on. Default is `["_value"]`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+### Return the running total of values in each table
 
 ```js
 import "sampledata"
 
-sampledata.string()
+sampledata.int()
     |> cumulativeSum()
+
 ```
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
 
-##### Input data
-{{% flux/sample set="int" %}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-{{% /flex-content %}}
-{{% flex-content %}}
+#### Input data
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |     -2 |
-| 2021-01-01T00:00:10Z | t1  |      8 |
-| 2021-01-01T00:00:20Z | t1  |     15 |
-| 2021-01-01T00:00:30Z | t1  |     32 |
-| 2021-01-01T00:00:40Z | t1  |     47 |
-| 2021-01-01T00:00:50Z | t1  |     51 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t2  |     19 |
-| 2021-01-01T00:00:10Z | t2  |     23 |
-| 2021-01-01T00:00:20Z | t2  |     20 |
-| 2021-01-01T00:00:30Z | t2  |     39 |
-| 2021-01-01T00:00:40Z | t2  |     52 |
-| 2021-01-01T00:00:50Z | t2  |     53 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 8       | t1   |
+| 2021-01-01T00:00:20Z | 15      | t1   |
+| 2021-01-01T00:00:30Z | 32      | t1   |
+| 2021-01-01T00:00:40Z | 47      | t1   |
+| 2021-01-01T00:00:50Z | 51      | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 23      | t2   |
+| 2021-01-01T00:00:20Z | 20      | t2   |
+| 2021-01-01T00:00:30Z | 39      | t2   |
+| 2021-01-01T00:00:40Z | 52      | t2   |
+| 2021-01-01T00:00:50Z | 53      | t2   |
+
 {{% /expand %}}
+{{< /expand-wrapper >}}

@@ -1,46 +1,100 @@
 ---
 title: experimental.sum() function
-description: The `experimental.sum()` function computes the sum of non-null records in a specified column.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/sum
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/sum/
+description: >
+  `experimental.sum()` returns the sum of non-null values in the `_value` column for each input table.
 menu:
   flux_0_x_ref:
     name: experimental.sum
     parent: experimental
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/sum/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/sum/
-related:
-  - /flux/v0.x/stdlib/universe/sum/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#sum, InfluxQL – SUM()
+    identifier: experimental/sum
+weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.107.0
 ---
 
-The `experimental.sum()` function computes the sum of non-null values in the `_value`
-column for each input table.
-_`experimental.sum()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L989-L989
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.sum()` returns the sum of non-null values in the `_value` column for each input table.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental"
-
-experimental.sum()
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: B}] where B: Numeric
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
+
+### Return the sum of each input table
+
 ```js
 import "experimental"
+import "sampledata"
 
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
+sampledata.int()
     |> experimental.sum()
+
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| *tag | _value  |
+| ---- | ------- |
+| t1   | 51      |
+
+| *tag | _value  |
+| ---- | ------- |
+| t2   | 53      |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

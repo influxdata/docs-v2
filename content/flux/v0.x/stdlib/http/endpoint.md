@@ -1,47 +1,83 @@
 ---
 title: http.endpoint() function
 description: >
-  The `http.endpoint()` function sends output data to an HTTP URL using the POST request method.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/http/endpoint/
-  - /influxdb/v2.0/reference/flux/stdlib/http/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/http/endpoint/
+  `http.endpoint()` iterates over input data and sends a single POST request per input row to
+  a specficied URL.
 menu:
   flux_0_x_ref:
     name: http.endpoint
     parent: http
-weight: 202
+    identifier: http/endpoint
+weight: 101
 flux/v0.x/tags: [notification endpoints]
-introduced: 0.39.0
 ---
 
-The `http.endpoint()` function sends output data to an HTTP URL using the POST request method.
+<!------------------------------------------------------------------------------
 
-```js
-import "http"
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-http.endpoint(
-    url: "http://localhost:1234/"
-)
-```
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-## Parameters
+https://github.com/influxdata/flux/blob/master/stdlib/http/http.flux#L155-L166
 
-### url {data-type="string"}
-The URL to POST to.
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
-### mapFn {data-type="function"}
-A function that builds the record used to generate the POST request.
+------------------------------------------------------------------------------->
 
-{{% note %}}
-_You should rarely need to override the default `mapFn` parameter.
-To see the default `mapFn` value or for insight into possible overrides, view the
-[`http.endpoint()` source code](https://github.com/influxdata/flux/blob/master/stdlib/http/http.flux)._
-{{% /note %}}
+`http.endpoint()` iterates over input data and sends a single POST request per input row to
+a specficied URL.
 
-`mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
+This function is designed to be used with `monitor.notify()`.
+
+`http.endpoint()` outputs a function that requires a `mapFn` parameter.
+`mapFn` is the function that builds the record used to generate the POST request.
+It accepts a table row (`r`) and returns a record that must include the
+following properties:
 
 - `headers`
 - `data`
 
-_For more information, see [`http.post()`](/flux/v0.x/stdlib/http/post/)_
+_For information about properties, see `http.post`._
+
+##### Function type signature
+
+```js
+(
+    url: string,
+) => (mapFn: (r: A) => {B with headers: C, data: bytes}) => (<-tables: stream[A]) => stream[{A with _sent: string}] where C: Record
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### url
+({{< req >}})
+URL to send the POST reqeust to.
+
+
+
+
+## Examples
+
+### Send an HTTP POST request for each row
+
+```js
+import "http"
+import "sampledata"
+
+endpoint =
+    http.endpoint(url: "http://example.com/")(
+        mapfn: (r) =>
+            ({headers: {header1: "example1", header2: "example2"}, data: bytes(v: "The value is ${r._value}")}),
+    )
+
+sampledata.int()
+    |> endpoint()
+
+```
+

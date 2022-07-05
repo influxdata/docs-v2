@@ -65,6 +65,16 @@ The application architecture has four layers:
 For the complete code referenced in this tutorial, see the [influxdata/iot-api-js repository](https://github.com/influxdata/iot-api-js).
 {{% /note %}}
 
+## Install Yarn
+
+If you haven't already installed `yarn`, follow the [Yarn package manager installation instructions](https://yarnpkg.com/getting-started/install#nodejs-1610-1) for your version of Node.js.
+
+- To check the installed `yarn` version, enter the following code into your terminal:
+
+   ```bash
+   yarn --version
+   ```
+
 ## Create the application
 
 Create a directory that will contain your `iot-api` projects.
@@ -76,19 +86,19 @@ mkdir ~/iot-api-apps
 cd ~/iot-api-apps
 ```
 
-Use [Next.js](https://nextjs.org/), a framework for full-stack JavaScript applications, to create your application.
+Follow these steps to create a JavaScript application with [Next.js](https://nextjs.org/):
 
 1. In your `~/iot-api-apps` directory, open a terminal and enter the following commands to create the `iot-api-js` app from the NextJS [learn-starter template](https://github.com/vercel/next-learn/tree/master/basics/learn-starter):
 
    ```bash
-   npx create-next-app iot-api-js --use-npm --example "https://github.com/vercel/next-learn/tree/master/basics/learn-starter"
+   yarn create-next-app iot-api-js --example "https://github.com/vercel/next-learn/tree/master/basics/learn-starter"
    ```
 
 2. After the installation completes, enter the following commands in your terminal to go into your `./iot-api-js` directory and start the development server:
 
    ```bash
    cd iot-api-js
-   npm run dev -p 3001
+   yarn dev -p 3001
    ```
 
 To view the application, visit <http://localhost:3001> in your browser.
@@ -105,13 +115,13 @@ The InfluxDB client library provides the following InfluxDB API interactions:
 1. Enter the following command into your terminal to install the client library:
 
    ```bash
-   npm i @influxdata/influxdb-client
+   yarn add @influxdata/influxdb-client
    ```
 
 2. Enter the following command into your terminal to install `@influxdata/influxdb-client-apis`, the _management APIs_ that create, modify, and delete authorizations, buckets, tasks, and other InfluxDB resources:
 
    ```bash
-   npm i @influxdata/influxdb-client-apis
+   yarn add @influxdata/influxdb-client-apis
    ```
 
 For more information about the client library, see the [influxdata/influxdb-client-js repo](https://github.com/influxdata/influxdb-client-js).
@@ -160,7 +170,7 @@ INFLUX_ORG=48c88459ee424a04
 Enter the following commands into your terminal to restart and load the `.env` files:
 
   1. `CONTROL+C` to stop the application.
-  2. `npm run dev` to start the application.
+  2. `yarn dev` to start the application.
 
 Next.js sets variables that you can access in the `process.env` object--for example:
 
@@ -350,7 +360,7 @@ In `./api/devices/create.js`, add the following `createAuthorization(deviceId)` 
 
 {{% truncate %}}
 
-```ts
+```js
 import { InfluxDB } from '@influxdata/influxdb-client'
 import { getDevices } from './_devices'
 import { AuthorizationsAPI, BucketsAPI } from '@influxdata/influxdb-client-apis'
@@ -375,22 +385,25 @@ async function createAuthorization(deviceId) {
   const buckets = await bucketsAPI.getBuckets({name: INFLUX_BUCKET, orgID: INFLUX_ORG})
   const bucketId = buckets.buckets[0]?.id
   
-  return await authorizationsAPI.postAuthorizations({
-    body: {
-      orgID: INFLUX_ORG,
-      description: DESC_PREFIX + deviceId,
-      permissions: [
-        {
-          action: 'read',
-          resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
-        },
-        {
-          action: 'write',
-          resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
-        },
-      ],
-    },
-  })
+  return await authorizationsAPI.postAuthorizations(
+    {
+      body: {
+              orgID: INFLUX_ORG,
+              description: DESC_PREFIX + deviceId,
+              permissions: [
+                {
+                  action: 'read',
+                  resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
+                },
+                {
+                  action: 'write',
+                  resource: {type: 'buckets', id: bucketId, orgID: INFLUX_ORG},
+                },
+              ],
+            },
+    }
+  )
+
 }
 ```
 

@@ -1,51 +1,84 @@
 ---
 title: logarithmicBins() function
-description: The `logarithmicBins()` function generates a list of exponentially separated floats.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/misc/logarithmicbins
-  - /influxdb/v2.0/reference/flux/functions/built-in/misc/logarithmicbins/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/misc/logarithmicbins/
+description: >
+  `logarithmicBins()` generates a list of exponentially separated float values.
 menu:
   flux_0_x_ref:
     name: logarithmicBins
     parent: universe
-weight: 102
+    identifier: universe/logarithmicBins
+weight: 101
+
+introduced: 0.19.0
 ---
 
-The `logarithmicBins()` function generates a list of exponentially separated floats.
-It is a helper function meant to generate bin bounds for the
-[`histogram()` function](/flux/v0.x/stdlib/universe/histogram).
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Array of floats_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3505-L3505
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`logarithmicBins()` generates a list of exponentially separated float values.
+
+Use `linearBins()` to generate bin bounds for `histogram()`.
+
+##### Function type signature
 
 ```js
-logarithmicBins(
-    start:1.0, 
-    factor: 2.0, 
-    count: 10, 
-    infinity: true,
-)
+(count: int, factor: float, start: float, ?infinity: bool) => [float]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### start {data-type="float"}
-The first value in the returned bin list.
+### start
+({{< req >}})
+First value to return in the list.
 
-### factor {data-type="float"}
-The multiplier applied to each subsequent bin.
 
-### count {data-type="int"}
-The number of bins to create.
 
-### infinity {data-type="bool"}
-When `true`, adds an additional bin with a value of positive infinity.
-Defaults to `true`.
+### factor
+({{< req >}})
+Multiplier to apply to subsequent values.
+
+
+
+### count
+({{< req >}})
+Number of values to return.
+
+
+
+### infinity
+
+Include an infinite value at the end of the list. Default is `true`.
+
+
+
 
 ## Examples
-```js
-logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
 
-// Generated list: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, +Inf]
+### Generate a list of exponentially increasing values
+
+```js
+logarithmicBins(
+    start: 1.0,
+    factor: 2.0,
+    count: 10,
+    infinity: true,
+)// Returns [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, +Inf]
+
+
 ```
+
