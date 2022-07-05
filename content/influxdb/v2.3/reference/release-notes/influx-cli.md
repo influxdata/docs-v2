@@ -8,6 +8,23 @@ menu:
     name: influx CLI 
 ---
 
+## v2.4 [TBD]
+
+## Features
+
+- Allow setting membership type with `influx org members add`; previously `member` was the only option.
+- Add back the InfluxQL Shell (REPL) from 1.x with an enhanced experience.
+- {{% oss-only %}}Add username and password authentication as alternative to tokens.{{% /oss-only %}}
+- {{% cloud-only %}}Ability to call [`invokable scripts`](/influxdb/cloud/api-guide/api-invokable-scripts/){{% /cloud-only %}}
+
+## Bug fixes
+- User and org permissions no longer scoped to an individual org, removing unwanted restricitons.
+- Improve token handling for tokens starting with a hyphen (-).  Can pass to CLI without (=) (i.e., influx cmd --token <token>).
+- Add mutual exclusion for --org/$INFLUX_ORG and org_id/$INFLUX_ORG_ID. Eliminate confusion on which to use and whether env vars were overriding flags.
+
+## Maintenance
+- Upgrade to [Go 1.18.3](https://go.dev/doc/go1.18).
+
 ## v2.3 [2022-04-08]
 
 ## Features
