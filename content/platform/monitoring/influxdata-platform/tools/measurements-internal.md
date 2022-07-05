@@ -441,7 +441,7 @@ The `hh_node` measurement has one additional tag:
 #### queueTotalSize
 The sum total number of bytes of disk space used by all hinted handoff queues for a single node.
 Tracks the disk usage of all hinted handoff queues for a given node (not the bytes waiting to be processed). Due to the implementation of the hinted handoff queue, 
-be a lag between the bytes being processed and when they are removed from the disk.
+a lag occurs between when bytes are processed and when they're removed from the disk.
 
 `queueTotalSize` is the metric used to determine if a node's hinted handoff queue has reached the
 configured maximum size as given by the [[hinted-handoff]max-size configuration parameter](https://docs.influxdata.com/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#max-size).
