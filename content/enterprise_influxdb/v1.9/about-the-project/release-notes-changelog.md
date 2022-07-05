@@ -25,11 +25,11 @@ menu:
 ### Bug fixes
 - Fix race condition causing `influxd-ctl restore` command to fail.
 - Fix issue where measurement cardinality dips below zero.
-- Resolve issue regarding RPC retries for non-RPC errors, which had caused hinted handoff to build constantly.
+- Fix issue regarding RPC retries for non-RPC errors, which caused hinted handoff to build constantly.
 - Correctly calculate hinted handoff queue size on disk to prevent unnecessary `queue is full` errors.
 
 #### Error Messaging
-- Replace unprintable and invalid characters in error messaging, making errors pertaining to invalid line protocol easier to read.
+- Resolve unprintable and invalid characters in error messaging, making errors pertaining to invalid line protocol easier to read.
 - Improve error messaging for `max series per database exceeded`error.
 - Improve influxd-ctl error messages when invalid JSON is received.
 - Add detail to `error creating subscription` message.
