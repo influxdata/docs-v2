@@ -439,7 +439,7 @@ The `hh_node` measurement has one additional tag:
 
 
 #### queueTotalSize
-The sum total number of bytes of disk space used by all hinted handoff queues for a single node.
+Total bytes of disk space used by all hinted handoff queues for a single node.
 Tracks the disk usage of all hinted handoff queues for a given node (not the bytes waiting to be processed). Due to the implementation of the hinted handoff queue, 
 a lag occurs between when bytes are processed and when they're removed from the disk.
 
