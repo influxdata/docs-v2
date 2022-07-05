@@ -430,8 +430,8 @@ The total number of points enqueued into the hinted handoff queue.
 ---
 
 ### hh_node (Enterprise only)
+Available in InfluxDB Enterprise 1.9.8 and later.
 The `hh_node` measurement stores hinted handoff statistics for all queues (shards) for a given node.
-The `hh_node` measurement is available in InfluxDB Enterprise 1.9.8 and later.
 
 The `hh_node` measurement has one additional tag:
 
