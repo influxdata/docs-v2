@@ -18,7 +18,7 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ### Private InfluxDB Cloud offering
 
-New support for private InfluxDB Cloud offering for annual customers. Please contact sales@influxdata.com for more information.
+New support for private InfluxDB Cloud offering on AWS, Azure, and Google Cloud Marketplaces for annual customers. Please contact sales@influxdata.com for more information.
 
 ### Sample IoT application and code snippets for Node.js
 
