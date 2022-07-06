@@ -17,13 +17,15 @@ aliases:
 
 - Add coloring highlights to test outputs.
 - Promote [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/) to 
-  [`influxdata.influxdb.wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/)
+  [`influxdata.influxdb.wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
 - Allow physical plan
   [`attributes`](https://github.com/influxdata/flux/blob/master/plan/attributes.go) 
   to contribute to 
   [`formatter`](https://github.com/influxdata/flux/blob/master/plan/format.go) 
   details.
 - Add tagging support to Flux tests.
+- Add new function [`experimental.catch()`](/flux/v0.x/stdlib/experimental/catch/).
+- Add new function [`testing.shouldError()`](flux/v0.x/stdlib/testing/shoulderror/).
 
 ### Bug fixes
 
