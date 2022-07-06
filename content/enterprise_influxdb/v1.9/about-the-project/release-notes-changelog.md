@@ -14,6 +14,7 @@ menu:
 ### Features
 - Expose passive node feature to influxd-ctl and the API.
 - Throttle inter-node data replication, both incoming writes and hinted hand-off, when errors are encountered.
+- Add new `hh_node` measurement to the `/debug/vars` monitoring telemetry. This tracks more accurately with the `max-size` configuration setting for hinted handoff in data nodes.
 
 #### Flux updates
 - Add [http requests package](/{{< latest "flux" >}}/stdlib/experimental/http/requests/).
