@@ -1,15 +1,15 @@
 ---
-title: testing.assertEmpty() function
+title: testing.shouldError() function
 description: >
-  `testing.assertEmpty()` tests if an input stream is empty. If not empty, the function returns an error.
+  `testing.shouldError()` calls a function catches any error and checks that the error matches the expected value.
 menu:
   flux_0_x_ref:
-    name: testing.assertEmpty
+    name: testing.shouldError
     parent: testing
-    identifier: testing/assertEmpty
+    identifier: testing/shouldError
 weight: 101
 flux/v0.x/tags: [tests]
-introduced: 0.18.0
+introduced: 0.174.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,51 +21,48 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L92-L92
+https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L256-L260
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`testing.assertEmpty()` tests if an input stream is empty. If not empty, the function returns an error.
+`testing.shouldError()` calls a function catches any error and checks that the error matches the expected value.
 
-assertEmpty can be used to perform in-line tests in a query.
+
 
 ##### Function type signature
 
 ```js
-(<-tables: stream[A]) => stream[A]
+(fn: () => A, want: string) => stream[{v: string, _diff: string}]
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### tables
+### fn
+({{< req >}})
+Function to call.
 
-Input data. Default is piped-forward data (`<-`).
+
+
+### want
+({{< req >}})
+Expected error string.
 
 
 
 
 ## Examples
 
-### Check if there is a difference between streams
-
-This example uses `testing.diff()` to output the difference between two streams of tables.
-`testing.assertEmpty()` checks to see if the difference is empty.
+### Test die function errors
 
 ```js
-import "sampledata"
 import "testing"
 
-want = sampledata.int()
-got = sampledata.float() |> toInt()
-
-got
-    |> testing.diff(want: want)
-    |> testing.assertEmpty()
+testing.shouldError(fn: () => die(msg: "error message"), want: "error message")
 
 ```
 
