@@ -56,6 +56,7 @@ import "strings"
 
 data
     |> filter(fn: (r) => strings.isUpper(v: r._value))
+
 ```
 
 {{< expand-wrapper >}}

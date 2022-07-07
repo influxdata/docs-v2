@@ -67,6 +67,7 @@ import "date"
 
 date.hour(t: 2020-02-11T12:21:03.29353494Z)// Returns 12
 
+
 ```
 
 
@@ -78,6 +79,7 @@ import "date"
 option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.hour(t: -8h)// Returns 7
+
 
 ```
 

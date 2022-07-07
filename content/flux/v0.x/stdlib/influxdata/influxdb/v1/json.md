@@ -101,6 +101,7 @@ jsonData =
 }"
 
 v1.json(json: jsonData)
+
 ```
 
 {{< expand-wrapper >}}
@@ -123,5 +124,6 @@ v1.json(json: jsonData)
 import "influxdata/influxdb/v1"
 
 v1.json(file: "/path/to/results.json")
+
 ```
 

@@ -102,5 +102,6 @@ discord.send(
     content: "The current status is \"${lastReported.status}\".",
     avatar_url: "https://staff-photos.net/pic.jpg",
 )
+
 ```
 

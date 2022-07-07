@@ -59,6 +59,7 @@ import "strings"
 
 data
     |> filter(fn: (r) => strings.strlen(v: r._value) <= 6)
+
 ```
 
 {{< expand-wrapper >}}
@@ -108,6 +109,7 @@ import "strings"
 
 data
     |> map(fn: (r) => ({r with length: strings.strlen(v: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

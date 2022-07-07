@@ -59,6 +59,7 @@ import "math"
 
 math.ilogb(x: 123.45)// 6
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "math"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.ilogb(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

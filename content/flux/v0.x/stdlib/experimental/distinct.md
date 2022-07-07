@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L1042-L1042
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L1038-L1038
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -63,6 +63,7 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
     |> experimental.distinct()
+
 ```
 
 {{< expand-wrapper >}}

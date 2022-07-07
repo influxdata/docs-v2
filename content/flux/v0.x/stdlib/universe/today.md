@@ -53,6 +53,7 @@ option now = () => 2022-01-01T13:45:28Z
 
 today()// Returns 2022-01-01T00:00:00.000000000Z
 
+
 ```
 
 
@@ -61,5 +62,6 @@ today()// Returns 2022-01-01T00:00:00.000000000Z
 ```js
 from(bucket: "example-bucket")
     |> range(start: today())
+
 ```
 

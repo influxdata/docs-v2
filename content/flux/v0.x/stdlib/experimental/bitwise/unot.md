@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L93-L93
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L104-L104
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -28,7 +28,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.unot()` inverts every bit in `a`, an unsigned integer.
 
-
+**Deprecated**: `unot` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/unot/).
 
 ##### Function type signature
 
@@ -59,6 +59,7 @@ import "experimental/bitwise"
 
 bitwise.unot(a: uint(v: 1234))// Returns 18446744073709550381 (uint)
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.uint()
     |> map(fn: (r) => ({r with _value: bitwise.unot(a: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

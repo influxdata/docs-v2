@@ -80,6 +80,7 @@ data
             }
         },
     )
+
 ```
 
 {{< expand-wrapper >}}
@@ -187,6 +188,7 @@ array.from(
                 },
             ),
 )
+
 ```
 
 {{< expand-wrapper >}}
@@ -194,10 +196,10 @@ array.from(
 
 #### Output data
 
-| id       | color  | pendingDuration  |
-| -------- | ------ | ---------------- |
-| 15612462 | red    | 3                |
-| 15612462 | blue   | 16               |
+| pendingDuration  | id       | color  |
+| ---------------- | -------- | ------ |
+| 3                | 15612462 | red    |
+| 16               | 15612462 | blue   |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

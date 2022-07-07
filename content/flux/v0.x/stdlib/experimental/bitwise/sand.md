@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L230-L230
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L251-L251
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -28,7 +28,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.sand()` performs the bitwise operation, `a AND b`, with integers.
 
-
+**Deprecated**: `sand` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/sand/).
 
 ##### Function type signature
 
@@ -65,6 +65,7 @@ import "experimental/bitwise"
 
 bitwise.sand(a: 1234, b: 4567)// Returns 210
 
+
 ```
 
 
@@ -76,6 +77,7 @@ import "sampledata"
 
 sampledata.int()
     |> map(fn: (r) => ({r with _value: bitwise.sand(a: r._value, b: 3)}))
+
 ```
 
 {{< expand-wrapper >}}

@@ -62,6 +62,7 @@ import "influxdata/influxdb/v1"
 
 data
     |> v1.fieldsAsCols()
+
 ```
 
 {{< expand-wrapper >}}

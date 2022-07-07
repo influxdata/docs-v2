@@ -80,6 +80,7 @@ uint(v: 10.12)
 // Returns 10
 uint(v: -100)// Returns 18446744073709551516
 
+
 ```
 
 
@@ -92,6 +93,7 @@ row and `uint()` to covert a column value to a uint type.
 ```js
 data
     |> map(fn: (r) => ({r with exampleCol: uint(v: r.exampleCol)}))
+
 ```
 
 {{< expand-wrapper >}}

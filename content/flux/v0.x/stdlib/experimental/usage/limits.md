@@ -92,6 +92,7 @@ _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 import "experimental/usage"
 
 usage.limits()
+
 ```
 
 
@@ -104,6 +105,7 @@ import "influxdata/influxdb/secrets"
 token = secrets.get(key: "INFLUX_TOKEN")
 
 usage.limits(host: "https://us-west-2-1.aws.cloud2.influxdata.com", orgID: "x000X0x0xx0X00x0", token: token)
+
 ```
 
 
@@ -155,6 +157,7 @@ array.from(
         },
     ],
 )
+
 ```
 
 
@@ -174,5 +177,6 @@ buckets()
     |> map(fn: (r) => ({bucket: r.name, Cardinality: bucketCardinality(bucket: r.name)}))
     |> sum(column: "Cardinality")
     |> map(fn: (r) => ({r with "Cardinality Limit": limits.rate.cardinality}))
+
 ```
 

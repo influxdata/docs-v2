@@ -76,5 +76,6 @@ pushbullet.pushData(
         "url": "http://example-url.com",
     },
 )
+
 ```
 

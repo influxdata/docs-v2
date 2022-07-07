@@ -65,6 +65,7 @@ import "regexp"
 
 regexp.findString(r: /foo.?/, v: "seafood fool")// Returns "food"
 
+
 ```
 
 
@@ -78,6 +79,7 @@ regex = /.{6}$/
 
 sampledata.string()
     |> map(fn: (r) => ({r with _value: regexp.findString(v: r._value, r: regex)}))
+
 ```
 
 {{< expand-wrapper >}}

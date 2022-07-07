@@ -60,6 +60,7 @@ import "math"
 
 math.erfcinv(x: 0.42345)// 0.5660037715858239
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.erfcinv(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

@@ -59,6 +59,7 @@ import "math"
 
 math.sincos(x: 1.23)// {cos: 0.3342377271245026, sin: 0.9424888019316975}
 
+
 ```
 
 
@@ -76,6 +77,7 @@ sampledata.float()
             return {_time: r._time, tag: r._tag, sin: result.sin, cos: result.cos}
         },
     )
+
 ```
 
 {{< expand-wrapper >}}

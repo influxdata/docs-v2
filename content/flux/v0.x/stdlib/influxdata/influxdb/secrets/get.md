@@ -58,6 +58,7 @@ Secret key to retrieve.
 import "influxdata/influxdb/secrets"
 
 secrets.get(key: "KEY_NAME")
+
 ```
 
 
@@ -75,5 +76,6 @@ sql.from(
     dataSourceName: "postgresql://${username}:${password}@localhost",
     query: "SELECT * FROM example-table",
 )
+
 ```
 

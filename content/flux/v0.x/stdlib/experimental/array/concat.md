@@ -10,6 +10,7 @@ menu:
 weight: 201
 
 introduced: 0.155.0
+deprecated: 0.173.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L84-L84
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L88-L88
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +31,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `array.concat()` appends two arrays and returns a new array.
 
-
+**Deprecated**: `concat()` is deprecated in favor of [`concat()`](https://docs.influxdata.com/flux/v0.x/stdlib/array/concat).
 
 Neither input array is mutated and a new array is returned.
 
@@ -72,6 +73,7 @@ c = a |> array.concat(v: b)
 // Returns [1, 2, 3, 4, 5, 6]
 // Output each value in the array as a row in a table
 array.from(rows: c |> array.map(fn: (x) => ({_value: x})))
+
 ```
 
 {{< expand-wrapper >}}

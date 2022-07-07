@@ -63,6 +63,7 @@ import "strings"
 
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.trimPrefix(v: r._value, prefix: "smpl_")}))
+
 ```
 
 {{< expand-wrapper >}}

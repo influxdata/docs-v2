@@ -114,6 +114,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> histogramQuantile(quantile: 0.9)
+
 ```
 
 {{< expand-wrapper >}}

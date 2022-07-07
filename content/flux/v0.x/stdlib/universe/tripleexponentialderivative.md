@@ -89,5 +89,6 @@ import "sampledata"
 
 sampledata.float()
     |> tripleExponentialDerivative(n: 2)
+
 ```
 

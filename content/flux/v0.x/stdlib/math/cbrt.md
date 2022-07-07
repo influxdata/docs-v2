@@ -59,6 +59,7 @@ import "math"
 
 math.cbrt(x: 1728.0)// 12.0
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.cbrt(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

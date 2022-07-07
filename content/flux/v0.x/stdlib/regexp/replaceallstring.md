@@ -73,6 +73,7 @@ import "regexp"
 
 regexp.replaceAllString(r: /a(x*)b/, v: "-ab-axxb-", t: "T")// Returns "-T-T-"
 
+
 ```
 
 
@@ -84,6 +85,7 @@ import "sampledata"
 
 sampledata.string()
     |> map(fn: (r) => ({r with _value: regexp.replaceAllString(r: /smpl_/, v: r._value, t: "")}))
+
 ```
 
 {{< expand-wrapper >}}

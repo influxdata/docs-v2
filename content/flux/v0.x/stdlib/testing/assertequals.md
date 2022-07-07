@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L52-L52
+https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L61-L61
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -78,6 +78,7 @@ want = sampledata.int()
 got = sampledata.float() |> toInt()
 
 testing.assertEquals(name: "test_equality", got: got, want: want)
+
 ```
 
 
@@ -93,5 +94,6 @@ want =
 from(bucket: "example-bucket")
     |> range(start: -5m)
     |> testing.assertEquals(want: want)
+
 ```
 

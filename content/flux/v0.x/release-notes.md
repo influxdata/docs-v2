@@ -10,6 +10,65 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+
+## v0.174.0 [2022-07-05]
+
+### Features
+
+- Add coloring highlights to test outputs.
+- Promote [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/) to 
+  [`influxdata.influxdb.wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
+- Allow physical plan
+  [`attributes`](https://github.com/influxdata/flux/blob/master/plan/attributes.go) 
+  to contribute to 
+  [`formatter`](https://github.com/influxdata/flux/blob/master/plan/format.go) 
+  details.
+- Add tagging support to Flux tests.
+- Add new function [`experimental.catch()`](/flux/v0.x/stdlib/experimental/catch/).
+- Add new function [`testing.shouldError()`](flux/v0.x/stdlib/testing/shoulderror/).
+
+### Bug fixes
+
+- Update `httpWriter` struct to skip invalid floats.
+- Update [`join()`](/flux/v0.x/stdlib/join/) to validate group keys.
+- Fix unit tests for [`covariance()`](/flux/v0.x/stdlib/universe/covariance/).
+- Update all Flux packages to additionally live as Go packages. 
+
+---
+
+## v0.173.0 [2022-06-29]
+
+### Breaking changes
+
+- Format scripts with a trailing newline by default when running the formatter.
+
+### Features
+
+- Deprecate [`experimental.http.get`](/flux/v0.x/stdlib/experimental/http/get/).
+- Deprecate [`experimental.csv.from()`](/flux/v0.x/stdlib/experimental/csv/from/).
+- Promote the following functions from `experimental.array` into the 
+  [`array`](/flux/v0.x/stdlib/array) package:
+  - [`array.concat()`](/flux/v0.x/stdlib/array/concat/) 
+  - [`array.filter()`](/flux/v0.x/stdlib/array/filter/)
+  - [`array.map()`](/flux/v0.x/stdlib/array/map/)
+- Promote the following functions from `experimental.http.requests` into the 
+  [`http.requests`](/flux/v0.x/stdlib/http/requests/) package:
+  - [`http.requests.do()`](/flux/v0.x/stdlib/http/requests/do/)
+  - [`http.requests.get()`](/flux/v0.x/stdlib/http/requests/get/)
+  - [`http.requests.peek()`](/flux/v0.x/stdlib/http/requests/peek/)
+  - [`http.requests.post()`](/flux/v0.x/stdlib/http/requests/post/)
+- Promote `experimental.bitwise` into the [`bitwise`](/flux/v0.x/stdlib/bitwise/) 
+  package.
+- Remove all `Test` statements. New statements are written with `TestCase`.
+- Format scripts with a trailing newline by default when running the formatter.
+
+### Bug fixes
+
+- Return an error if the user modifies group key while using 
+  [`join`](/flux/v0.x/stdlib/join/)
+
+---
+
 ## v0.172.0 [2022-06-24]
 
 ### Features
@@ -116,7 +175,7 @@ aliases:
 - Add [`experimental.preview()`](/flux/v0.x/stdlib/experimental/preview/).
 
 ### Bug fixes
-- Update `date.add()` and `date.sub()` to ork correctly with timezones enabled.
+- Update `date.add()` and `date.sub()` to work correctly with timezones enabled.
 - Fix failing continuous integration tests.
 - Update `hourSelection()` to support overnight time ranges.
 - Fix logic error in aggregate window planner rule preserve the rule if

@@ -65,6 +65,7 @@ import "regexp"
 
 regexp.matchRegexpString(r: /(gopher){2}/, v: "gophergophergopher")// Returns true
 
+
 ```
 
 
@@ -76,5 +77,6 @@ import "sampledata"
 
 sampledata.string()
     |> filter(fn: (r) => regexp.matchRegexpString(r: /_\d/, v: r._value))
+
 ```
 

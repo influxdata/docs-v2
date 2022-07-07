@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L199-L199
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L200-L200
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -59,6 +59,7 @@ import "experimental"
 user = {firstName: "John", lastName: "Doe", age: 42}
 
 experimental.objectKeys(o: user)// Returns [firstName, lastName, age]
+
 
 ```
 

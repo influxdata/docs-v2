@@ -61,6 +61,7 @@ import "experimental/geo"
 
 data
     |> geo.ST_LineString()
+
 ```
 
 {{< expand-wrapper >}}

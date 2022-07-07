@@ -67,6 +67,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> keyValues(keyColumns: ["sensorID", "_field"])
+
 ```
 
 {{< expand-wrapper >}}

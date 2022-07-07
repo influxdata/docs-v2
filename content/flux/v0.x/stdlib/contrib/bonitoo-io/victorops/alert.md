@@ -127,5 +127,6 @@ victorops.alert(
     entityDisplayName: "Example Alert 1",
     stateMessage: "Last reported cpu_idle was ${string(v: r._value)}.",
 )
+
 ```
 

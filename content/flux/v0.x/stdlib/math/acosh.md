@@ -58,6 +58,7 @@ Value to operate on.
 import "math"
 
 math.acosh(x: 1.22)
+
 ```
 
 
@@ -68,6 +69,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.acosh(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

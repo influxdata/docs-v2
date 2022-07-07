@@ -67,6 +67,7 @@ import "date"
 
 date.year(t: 2020-02-11T12:21:03.29353494Z)// Returns 2020
 
+
 ```
 
 
@@ -78,6 +79,7 @@ import "date"
 option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.year(t: -14y)// Returns 2007
+
 
 ```
 

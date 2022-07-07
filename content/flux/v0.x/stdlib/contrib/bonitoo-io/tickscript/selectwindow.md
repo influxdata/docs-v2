@@ -104,6 +104,7 @@ import "contrib/bonitoo-io/tickscript"
 
 data
     |> tickscript.selectWindow(fn: sum, as: "example-name", every: 1h, defaultValue: 0)
+
 ```
 
 {{< expand-wrapper >}}

@@ -56,6 +56,7 @@ import "strings"
 
 data
     |> filter(fn: (r) => strings.isDigit(v: r._value))
+
 ```
 
 {{< expand-wrapper >}}

@@ -125,6 +125,7 @@ Default is `(r) => true`.
 import "influxdata/influxdb"
 
 influxdb.cardinality(bucket: "example-bucket", start: -1y)
+
 ```
 
 
@@ -134,6 +135,7 @@ influxdb.cardinality(bucket: "example-bucket", start: -1y)
 import "influxdata/influxdb"
 
 influxdb.cardinality(bucket: "example-bucket", start: -1y, predicate: (r) => r._measurement == "example-measurement")
+
 ```
 
 
@@ -143,5 +145,6 @@ influxdb.cardinality(bucket: "example-bucket", start: -1y, predicate: (r) => r._
 import "influxdata/influxdb"
 
 influxdb.cardinality(bucket: "example-bucket", start: -1y, predicate: (r) => r.exampleTag == "foo")
+
 ```
 

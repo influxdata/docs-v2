@@ -83,6 +83,7 @@ stream2 =
         |> toFloat()
 
 cov(x: stream1, y: stream2, on: ["_time"])
+
 ```
 
 {{< expand-wrapper >}}

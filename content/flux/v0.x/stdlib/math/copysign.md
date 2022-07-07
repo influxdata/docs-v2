@@ -64,6 +64,7 @@ Sign to use in the operation.
 import "math"
 
 math.copysign(x: 1.0, y: 2.0)
+
 ```
 
 
@@ -74,6 +75,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.copysign(x: r.x, y: r.y)}))
+
 ```
 
 {{< expand-wrapper >}}

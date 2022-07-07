@@ -62,6 +62,7 @@ math.roundtoeven(x: 3.14)
 // 3.0
 math.roundtoeven(x: 3.5)// 4.0
 
+
 ```
 
 
@@ -73,6 +74,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.roundtoeven(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

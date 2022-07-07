@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L399-L403
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L395-L399
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -107,6 +107,7 @@ experimental.join(
     right: right,
     fn: (left, right) => ({left with lv: left._value, rv: right._value, diff: left._value - right._value}),
 )
+
 ```
 
 {{< expand-wrapper >}}
@@ -146,5 +147,6 @@ experimental.join(
     right: s2,
     fn: (left, right) => ({left with bar_value: left._value, quz_value: right._value}),
 )
+
 ```
 

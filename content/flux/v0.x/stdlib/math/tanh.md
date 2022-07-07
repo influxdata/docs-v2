@@ -59,6 +59,7 @@ import "math"
 
 math.tanh(x: 1.23)// 0.8425793256589296
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.tanh(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

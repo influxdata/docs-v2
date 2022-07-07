@@ -68,6 +68,7 @@ string(v: 2021-01-01T00:00:00Z)
 // Returns "2021-01-01T00:00:00Z"
 string(v: 10.12)// Returns "10.12"
 
+
 ```
 
 
@@ -80,6 +81,7 @@ row and `string()` to covert a column value to a string type.
 ```js
 data
     |> map(fn: (r) => ({r with exampleCol: string(v: r.exampleCol)}))
+
 ```
 
 {{< expand-wrapper >}}

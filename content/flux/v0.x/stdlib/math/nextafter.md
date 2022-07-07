@@ -65,6 +65,7 @@ import "math"
 
 math.nextafter(x: 1.23, y: 4.56)// 1.2300000000000002
 
+
 ```
 
 
@@ -75,6 +76,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.nextafter(x: r.t1, y: r.t2)}))
+
 ```
 
 {{< expand-wrapper >}}

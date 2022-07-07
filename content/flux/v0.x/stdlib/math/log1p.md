@@ -63,6 +63,7 @@ import "math"
 
 math.log1p(x: 0.56)// 0.44468582126144574
 
+
 ```
 
 
@@ -73,6 +74,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.log1p(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

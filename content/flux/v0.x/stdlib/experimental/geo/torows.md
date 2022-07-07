@@ -59,6 +59,7 @@ import "experimental/geo"
 
 data
     |> geo.toRows()
+
 ```
 
 {{< expand-wrapper >}}

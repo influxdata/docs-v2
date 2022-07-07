@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L143-L160
+https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L152-L169
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -106,6 +106,7 @@ got =
         |> map(fn: (r) => ({r with _value: if r._value > 15 then r._value + 1 else r._value}))
 
 testing.diff(got: got, want: want)
+
 ```
 
 {{< expand-wrapper >}}
@@ -138,5 +139,6 @@ want = from(bucket: "backup-example-bucket") |> range(start: -5m)
 from(bucket: "example-bucket")
     |> range(start: -5m)
     |> testing.diff(want: want)
+
 ```
 

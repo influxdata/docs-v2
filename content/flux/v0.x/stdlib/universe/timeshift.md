@@ -74,6 +74,7 @@ import "sampledata"
 
 sampledata.int()
     |> timeShift(duration: 12h)
+
 ```
 
 {{< expand-wrapper >}}
@@ -130,6 +131,7 @@ import "sampledata"
 
 sampledata.int()
     |> timeShift(duration: -12h)
+
 ```
 
 {{< expand-wrapper >}}

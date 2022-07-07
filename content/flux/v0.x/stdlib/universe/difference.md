@@ -108,6 +108,7 @@ import "sampledata"
 
 sampledata.int()
     |> difference()
+
 ```
 
 {{< expand-wrapper >}}
@@ -162,6 +163,7 @@ import "sampledata"
 
 sampledata.int()
     |> difference(nonNegative: true)
+
 ```
 
 {{< expand-wrapper >}}
@@ -216,6 +218,7 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
     |> difference()
+
 ```
 
 {{< expand-wrapper >}}
@@ -270,6 +273,7 @@ import "sampledata"
 
 sampledata.int()
     |> difference(keepFirst: true)
+
 ```
 
 {{< expand-wrapper >}}

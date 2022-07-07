@@ -80,6 +80,7 @@ header row and all subsequent rows as data.
 import "csv"
 
 csv.from(file: "path/to/data-file.csv")
+
 ```
 
 
@@ -89,6 +90,7 @@ csv.from(file: "path/to/data-file.csv")
 import "csv"
 
 csv.from(file: "/path/to/data-file.csv", mode: "raw")
+
 ```
 
 
@@ -112,6 +114,7 @@ csvData =
 "
 
 csv.from(csv: csvData)
+
 ```
 
 {{< expand-wrapper >}}
@@ -151,6 +154,7 @@ _start,_stop,_time,region,host,_value
 "
 
 csv.from(csv: csvData, mode: "raw")
+
 ```
 
 {{< expand-wrapper >}}

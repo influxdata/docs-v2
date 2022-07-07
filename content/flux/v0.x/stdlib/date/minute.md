@@ -67,6 +67,7 @@ import "date"
 
 date.minute(t: 2020-02-11T12:21:03.29353494Z)// Returns 21
 
+
 ```
 
 
@@ -78,6 +79,7 @@ import "date"
 option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.minute(t: -45m)// Returns 6
+
 
 ```
 

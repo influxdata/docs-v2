@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L260-L274
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L272-L289
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -29,7 +29,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `requests.get()` makes a http GET request. This identical to calling `request.do(method: "GET", ...)`.
 
-
+**Deprecated**: `get` is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/get/).
 
 ##### Function type signature
 
@@ -93,6 +93,7 @@ import "experimental/http/requests"
 response = requests.get(url: "http://example.com")
 
 requests.peek(response: response)
+
 ```
 
 
@@ -119,6 +120,7 @@ data = json.parse(data: response.body)
 // Use array.from() to construct a table with one row containing our response data.
 // We do not care about the count so only include name and age.
 array.from(rows: [{name: data.name, age: data.age}])
+
 ```
 
 {{< expand-wrapper >}}

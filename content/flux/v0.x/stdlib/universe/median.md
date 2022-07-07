@@ -99,6 +99,7 @@ import "sampledata"
 
 sampledata.float()
     |> median()
+
 ```
 
 {{< expand-wrapper >}}
@@ -145,6 +146,7 @@ import "sampledata"
 
 sampledata.float()
     |> median(method: "exact_selector")
+
 ```
 
 {{< expand-wrapper >}}
