@@ -1,5 +1,5 @@
 ---
-title: API Invocable Scripts
+title: API Invokable Scripts
 description: >
   InfluxDB lets you [invoke scripts](/influxdb/cloud/api-guide/api-invokable-scripts/) using the [InfluxDB API](/influxdb/cloud/api/). Here, Jay Clifford explains how to use this feature with custom endpoints to improve the functionality, efficiency, and security of your applications.
 menu:
