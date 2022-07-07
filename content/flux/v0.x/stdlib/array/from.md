@@ -62,6 +62,7 @@ import "array"
 rows = [{foo: "bar", baz: 21.2}, {foo: "bar", baz: 23.8}]
 
 array.from(rows: rows)
+
 ```
 
 {{< expand-wrapper >}}
@@ -88,5 +89,6 @@ tags = v1.tagValues(bucket: "example-bucket", tag: "host")
 wildcard_tag = array.from(rows: [{_value: "*"}])
 
 union(tables: [tags, wildcard_tag])
+
 ```
 

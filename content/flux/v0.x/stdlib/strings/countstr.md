@@ -63,6 +63,7 @@ import "strings"
 
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.countStr(v: r._value, substr: "p")}))
+
 ```
 
 {{< expand-wrapper >}}

@@ -92,6 +92,7 @@ date.truncate(t: 2019-06-03T13:59:01Z, unit: 1mo)
 // Returns 2019-05-31T22:00:00.000000000Z
 date.truncate(t: 2019-06-03T13:59:01Z, unit: 1y)// Returns 2018-12-31T23:00:00.000000000Z
 
+
 ```
 
 
@@ -109,6 +110,7 @@ date.truncate(t: -1m, unit: 1m)
 
 // Returns 2019-12-31T23:59:00.000000000Z
 date.truncate(t: -1h, unit: 1h)// Returns 2019-12-31T23:00:00.000000000Z
+
 
 ```
 

@@ -86,6 +86,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> hourSelection(start: 9, stop: 17)
+
 ```
 
 {{< expand-wrapper >}}

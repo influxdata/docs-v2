@@ -63,6 +63,7 @@ data =
 
 data
     |> table.fill()
+
 ```
 
 {{< expand-wrapper >}}

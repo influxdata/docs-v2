@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L188-L202
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L195-L212
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -29,7 +29,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `requests.post()` makes a http POST request. This identical to calling `request.do(method: "POST", ...)`.
 
-
+**Deprecated**: `post` is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/post/).
 
 ##### Function type signature
 
@@ -100,6 +100,7 @@ response =
 data = ejson.parse(data: response.body)
 
 array.from(rows: [data])
+
 ```
 
 {{< expand-wrapper >}}

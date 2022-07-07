@@ -59,6 +59,7 @@ import "math"
 
 math.isNaN(f: 12.345)// false
 
+
 ```
 
 
@@ -69,6 +70,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.isNaN(f: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

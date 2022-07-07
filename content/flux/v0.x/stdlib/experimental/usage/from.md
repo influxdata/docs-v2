@@ -126,6 +126,7 @@ import "influxdata/influxdb/secrets"
 token = secrets.get(key: "INFLUX_TOKEN")
 
 usage.from(start: -30d, stop: now())
+
 ```
 
 
@@ -138,6 +139,7 @@ import "influxdata/influxdb/secrets"
 token = secrets.get(key: "INFLUX_TOKEN")
 
 usage.from(start: -1h, stop: now(), raw: true)
+
 ```
 
 
@@ -156,6 +158,7 @@ usage.from(
     orgID: "x000X0x0xx0X00x0",
     token: token,
 )
+
 ```
 
 
@@ -171,6 +174,7 @@ usage.from(start: -30d, stop: now())
     |> group(columns: ["_time"])
     |> sum()
     |> group()
+
 ```
 
 
@@ -186,6 +190,7 @@ usage.from(start: -30d, stop: now())
     |> group(columns: ["_time"])
     |> sum()
     |> group()
+
 ```
 
 
@@ -202,6 +207,7 @@ import "experimental/usage"
 usage.from(start: -30d, stop: now())
     |> filter(fn: (r) => r._measurement == "query_count")
     |> sort(columns: ["_time"])
+
 ```
 
 
@@ -243,5 +249,6 @@ write =
         |> checkLimit(limit: limits.rate.writeKBs)
 
 union(tables: [read, write])
+
 ```
 

@@ -65,6 +65,7 @@ import "math"
 
 math.dim(x: 12.2, y: 8.1)// 4.1
 
+
 ```
 
 
@@ -75,6 +76,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({_time: r._time, _value: math.dim(x: r.x, y: r.y)}))
+
 ```
 
 {{< expand-wrapper >}}

@@ -66,6 +66,7 @@ import "sampledata"
 
 sampledata.int()
     |> min()
+
 ```
 
 {{< expand-wrapper >}}

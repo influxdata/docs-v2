@@ -63,6 +63,7 @@ import "strings"
 
 sampledata.string()
     |> filter(fn: (r) => strings.hasSuffix(v: r._value, suffix: "4"))
+
 ```
 
 {{< expand-wrapper >}}

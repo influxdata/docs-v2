@@ -84,6 +84,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 from(bucket: "example-bucket")
     |> range(start: -12h)
+
 ```
 
 
@@ -92,6 +93,7 @@ from(bucket: "example-bucket")
 ```js
 from(bucket: "example-bucket")
     |> range(start: 2021-05-22T23:30:00Z, stop: 2021-05-23T00:00:00Z)
+
 ```
 
 
@@ -100,5 +102,6 @@ from(bucket: "example-bucket")
 ```js
 from(bucket: "example-bucket")
     |> range(start: 1621726200000000000, stop: 1621728000000000000)
+
 ```
 

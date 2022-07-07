@@ -61,6 +61,7 @@ import "math"
 
 math.float64bits(f: 1234.56)// 4653144467747100426
 
+
 ```
 
 
@@ -72,6 +73,7 @@ import "math"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.float64bits(f: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

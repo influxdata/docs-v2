@@ -64,6 +64,7 @@ option now = () => 2022-05-10T10:10:00Z
 
 boundaries.month()// Returns {start:2022-05-01T00:00:00.000000000Z, stop:2022-06-01T00:00:00.000000000Z}
 
+
 ```
 
 
@@ -76,6 +77,7 @@ thisMonth = boundaries.month()
 
 from(bucket: "example-bucket")
     |> range(start: thisMonth.start, stop: thisMonth.stop)
+
 ```
 
 
@@ -88,5 +90,6 @@ lastMonth = boundaries.month(month_offset: -1)
 
 from(bucket: "example-bucket")
     |> range(start: lastMonth.start, stop: lastMonth.stop)
+
 ```
 

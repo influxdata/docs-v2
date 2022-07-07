@@ -63,6 +63,7 @@ import "math"
 
 math.float64frombits(b: uint(v: 4))// 2e-323
 
+
 ```
 
 
@@ -73,6 +74,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.float64frombits(b: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

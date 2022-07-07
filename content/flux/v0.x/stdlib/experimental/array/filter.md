@@ -11,6 +11,7 @@ menu:
 weight: 201
 
 introduced: 0.155.0
+deprecated: 0.173.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -22,7 +23,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L136-L136
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L146-L146
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -32,7 +33,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `array.filter()` iterates over an array, evaluates each element with a predicate function, and then returns
 a new array with only elements that match the predicate.
 
-
+**Deprecated**: `filter()` is deprecated in favor of [`filter()`](https://docs.influxdata.com/flux/v0.x/stdlib/array/filter).
 
 ##### Function type signature
 
@@ -77,6 +78,7 @@ b = a |> array.filter(fn: (x) => x >= 3)
 // b returns [3, 4, 5]
 // Output the filtered array as a table
 array.from(rows: b |> array.map(fn: (x) => ({_value: x})))
+
 ```
 
 {{< expand-wrapper >}}

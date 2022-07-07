@@ -76,5 +76,6 @@ import "sampledata"
 sampledata.int()
     |> findColumn(fn: (key) => key.tag == "t1", column: "_value")// Returns [-2, 10, 7, 17, 15, 4]
 
+
 ```
 

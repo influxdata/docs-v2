@@ -88,5 +88,6 @@ Records that evaluate to _null_ or `false` are not included in output tables.
 import "influxdata/influxdb/monitor"
 
 monitor.from(start: -1h, fn: (r) => r._level == "crit")
+
 ```
 

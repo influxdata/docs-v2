@@ -63,6 +63,7 @@ import "strings"
 
 sampledata.string()
     |> filter(fn: (r) => strings.containsStr(v: r._value, substr: "5"))
+
 ```
 
 {{< expand-wrapper >}}

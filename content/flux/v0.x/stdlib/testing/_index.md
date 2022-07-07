@@ -42,11 +42,22 @@ import "testing"
 
 ```js
 option testing.load = (tables=<-) => tables
+
+option testing.tags = []
 ```
  
 ### load
 
 `load` loads test data from a stream of tables.
+
+### tags
+
+`tags` is a list of tags that will be applied to a test case.
+
+The test harness allows filtering based on included tags.
+
+ Tags are expected to be overridden per test file and test case
+ using normal option semantics.
 
 
 ## Functions

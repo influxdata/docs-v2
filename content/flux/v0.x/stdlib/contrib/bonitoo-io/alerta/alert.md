@@ -184,5 +184,6 @@ alerta.alert(
     type: "exampleAlertType",
     timestamp: now(),
 )
+
 ```
 

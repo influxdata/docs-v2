@@ -144,5 +144,6 @@ sensu.event(
     checkName: "diskUsage",
     text: "Disk usage is **${lastReported.status}**.",
 )
+
 ```
 

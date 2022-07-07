@@ -61,6 +61,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> toTime()
+
 ```
 
 {{< expand-wrapper >}}

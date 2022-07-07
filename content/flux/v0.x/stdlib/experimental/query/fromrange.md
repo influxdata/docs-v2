@@ -85,5 +85,6 @@ Durations are relative to `now()`.
 import "experimental/query"
 
 query.fromRange(bucket: "example-bucket", start: -1h)
+
 ```
 

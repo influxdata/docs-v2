@@ -59,6 +59,7 @@ import "math"
 
 math.trunc(x: 3.14)// 3.0
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.trunc(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

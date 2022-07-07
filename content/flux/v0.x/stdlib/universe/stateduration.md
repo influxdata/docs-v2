@@ -107,6 +107,7 @@ import "sampledata"
 
 sampledata.int()
     |> stateDuration(fn: (r) => r._value < 15)
+
 ```
 
 {{< expand-wrapper >}}

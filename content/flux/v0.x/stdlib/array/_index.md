@@ -1,7 +1,7 @@
 ---
 title: array package
 description: >
-  The `array` package provides functions for building tables from Flux arrays.
+  The `array` package provides functions for manipulating array and building tables from arrays.
 menu:
   flux_0_x_ref:
     name: array 
@@ -29,7 +29,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-The `array` package provides functions for building tables from Flux arrays.
+The `array` package provides functions for manipulating array and building tables from arrays.
 Import the `array` package:
 
 ```js

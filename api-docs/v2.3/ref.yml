@@ -7385,7 +7385,7 @@ paths:
 
 
         - [View your runtime server
-        configuration](https://docs.influxdata.com/influxdb/v2.3/reference/config-options/#view-your-runtime-server-configuration)
+        configuration](/influxdb/v2.3/reference/config-options/#view-your-runtime-server-configuration)
       operationId: GetConfig
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -8389,7 +8389,7 @@ paths:
         primitives
 
         - **cpu**: (Optional) Program counters sampled from the executing stack.
-          Include by passing the `cpu` query parameter with a [duration](https://docs.influxdata.com/influxdb/v2.3/reference/glossary/#duration) value.
+          Include by passing the `cpu` query parameter with a [duration](/influxdb/v2.3/reference/glossary/#duration) value.
           Equivalent to the report from [`GET /debug/pprof/profile?seconds=NUMBER_OF_SECONDS`](#operation/GetDebugPprofProfile).
         - **goroutine**: All current goroutines
 
@@ -9282,17 +9282,16 @@ paths:
         `write` rate limits apply.
 
         For more information, see [limits and adjustable
-        quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/).
+        quotas](/influxdb/cloud/account-management/limits/).
 
 
         #### Related guides
 
 
-        - [Delete
-        data](https://docs.influxdata.com/influxdb/v2.3/write-data/delete-data/).
+        - [Delete data](/influxdb/v2.3/write-data/delete-data/).
 
         - Learn how to use [delete predicate
-        syntax](https://docs.influxdata.com/influxdb/v2.3/reference/syntax/delete-predicate/).
+        syntax](/influxdb/v2.3/reference/syntax/delete-predicate/).
 
         - Learn how InfluxDB handles [deleted
         tags](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagkeys/)
@@ -9391,11 +9390,10 @@ paths:
           #### Related guides
 
 
-          - [Delete
-          data](https://docs.influxdata.com/influxdb/v2.3/write-data/delete-data/).
+          - [Delete data](/influxdb/v2.3/write-data/delete-data/).
 
           - Learn how to use [delete predicate
-          syntax](https://docs.influxdata.com/influxdb/v2.3/reference/syntax/delete-predicate/).
+          syntax](/influxdb/v2.3/reference/syntax/delete-predicate/).
         required: true
       responses:
         '204':
@@ -9702,13 +9700,13 @@ paths:
 
 
         - For the list of metrics categories, see [InfluxDB OSS
-        metrics](https://docs.influxdata.com/influxdb/v2.3/reference/internals/metrics/).
+        metrics](/influxdb/v2.3/reference/internals/metrics/).
 
         - Learn how to use InfluxDB to [scrape Prometheus
-        metrics](https://docs.influxdata.com/influxdb/v2.3write-data/developer-tools/scrape-prometheus-metrics/).
+        metrics](/influxdb/v2.3write-data/developer-tools/scrape-prometheus-metrics/).
 
         - Learn how InfluxDB [parses the Prometheus exposition
-        format](https://docs.influxdata.com/influxdb/v2.3/reference/prometheus-metrics/).
+        format](/influxdb/v2.3/reference/prometheus-metrics/).
       operationId: GetMetrics
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10907,14 +10905,14 @@ paths:
         `read` rate limits apply.
 
         For more information, see [limits and adjustable
-        quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/).
+        quotas](/influxdb/cloud/account-management/limits/).
 
 
         #### Related guides
 
 
         - [Query with the InfluxDB
-        API](https://docs.influxdata.com/influxdb/v2.3/query-data/execute-queries/influx-api/).
+        API](/influxdb/v2.3/query-data/execute-queries/influx-api/).
 
         - [Get started with
         Flux](https://docs.influxdata.com/flux/v0.x/get-started/)
@@ -14406,8 +14404,8 @@ paths:
 
 
         Use this endpoint to send data in [line
-        protocol](https://docs.influxdata.com/influxdb/v2.3/reference/syntax/line-protocol/)
-        format to InfluxDB.
+        protocol](/influxdb/v2.3/reference/syntax/line-protocol/) format to
+        InfluxDB.
 
 
         #### InfluxDB Cloud
@@ -14447,20 +14445,20 @@ paths:
         `write` rate limits apply.
 
         For more information, see [limits and adjustable
-        quotas](https://docs.influxdata.com/influxdb/cloud/account-management/limits/).
+        quotas](/influxdb/cloud/account-management/limits/).
 
 
         #### Related guides
 
 
         - [Write data with the InfluxDB
-        API](https://docs.influxdata.com/influxdb/v2.3/write-data/developer-tools/api).
+        API](/influxdb/v2.3/write-data/developer-tools/api).
 
         - [Optimize writes to
-        InfluxDB](https://docs.influxdata.com/influxdb/v2.3/write-data/best-practices/optimize-writes/).
+        InfluxDB](/influxdb/v2.3/write-data/best-practices/optimize-writes/).
 
         - [Troubleshoot issues writing
-        data](https://docs.influxdata.com/influxdb/v2.3/write-data/troubleshoot/)
+        data](/influxdb/v2.3/write-data/troubleshoot/)
       operationId: PostWrite
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -14628,7 +14626,7 @@ paths:
 
 
           - [Best practices for optimizing
-          writes](https://docs.influxdata.com/influxdb/v2.3/write-data/best-practices/optimize-writes/).
+          writes](/influxdb/v2.3/write-data/best-practices/optimize-writes/).
         required: true
       responses:
         '204':

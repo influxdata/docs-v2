@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L307-L317
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L324-L324
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -27,6 +27,8 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ------------------------------------------------------------------------------->
 
 `requests.peek()` converts an HTTP response into a table for easy inspection.
+
+**Deprecated**: `peek` is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/peek/).
 
 The output table includes the following columns:
  - **body** with the response body as a string
@@ -65,6 +67,7 @@ Response data from an HTTP request.
 import "experimental/http/requests"
 
 requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name": ["natalie"]]))
+
 ```
 
 {{< expand-wrapper >}}
@@ -72,8 +75,8 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
 
 #### Output data
 
-| body                                      | duration  | headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | statusCode  |
-| ----------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| body                                      | duration  | headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | statusCode  |
+| ----------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | {"name":"natalie","age":34,"count":20959} | 100000000 | [
     Access-Control-Allow-Headers: Content-Type, X-Genderize-Source, 
     Access-Control-Allow-Methods: GET, 
@@ -81,12 +84,12 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
     Connection: keep-alive, 
     Content-Length: 41, 
     Content-Type: application/json; charset=utf-8, 
-    Date: Fri, 24 Jun 2022 21:16:10 GMT, 
+    Date: Tue, 05 Jul 2022 20:54:45 GMT, 
     Etag: W/"29-klDahUESBLxHyQ7NiaetCn2CvCI", 
     Server: nginx/1.16.1, 
     X-Rate-Limit-Limit: 1000, 
     X-Rate-Limit-Remaining: 998, 
-    X-Rate-Reset: 9830
+    X-Rate-Reset: 11115
 ]                           | 200         |
 
 {{% /expand %}}

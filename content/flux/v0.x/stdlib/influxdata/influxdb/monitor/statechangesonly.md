@@ -73,6 +73,7 @@ data =
 
 data
     |> monitor.stateChangesOnly()
+
 ```
 
 {{< expand-wrapper >}}

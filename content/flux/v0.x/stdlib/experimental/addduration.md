@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L74-L74
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L75-L75
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -76,6 +76,7 @@ import "experimental"
 
 experimental.addDuration(d: 6h, to: 2019-09-16T12:00:00Z)// Returns 2019-09-16T18:00:00.000000000Z
 
+
 ```
 
 
@@ -92,6 +93,7 @@ option now = () => 2021-12-10T16:27:40Z
 
 experimental.addDuration(d: 1mo, to: -1d)// Returns 2022-01-09T16:27:40Z
 
+
 ```
 
 
@@ -103,6 +105,7 @@ import "experimental"
 option now = () => 2022-01-01T12:00:00Z
 
 experimental.addDuration(d: 6h, to: 3h)// Returns 2022-01-01T21:00:00.000000000Z
+
 
 ```
 

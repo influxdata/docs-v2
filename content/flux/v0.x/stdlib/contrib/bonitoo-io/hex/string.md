@@ -68,6 +68,7 @@ import "contrib/bonitoo-io/hex"
 
 hex.string(v: 1234)// Returns 4d2
 
+
 ```
 
 
@@ -77,6 +78,7 @@ hex.string(v: 1234)// Returns 4d2
 import "contrib/bonitoo-io/hex"
 
 hex.string(v: true)// Returns "true"
+
 
 ```
 
@@ -88,6 +90,7 @@ import "contrib/bonitoo-io/hex"
 
 hex.string(v: 1m)// Returns "1m"
 
+
 ```
 
 
@@ -97,6 +100,7 @@ hex.string(v: 1m)// Returns "1m"
 import "contrib/bonitoo-io/hex"
 
 hex.string(v: 2021-01-01T00:00:00Z)// Returns "2021-01-01T00:00:00Z"
+
 
 ```
 
@@ -108,6 +112,7 @@ import "contrib/bonitoo-io/hex"
 
 hex.string(v: 1234)// Returns "4d2"
 
+
 ```
 
 
@@ -117,6 +122,7 @@ hex.string(v: 1234)// Returns "4d2"
 import "contrib/bonitoo-io/hex"
 
 hex.string(v: uint(v: 5678))// Returns "162e"
+
 
 ```
 
@@ -128,6 +134,7 @@ import "contrib/bonitoo-io/hex"
 
 hex.string(v: 10.12)// Returns "10.12"
 
+
 ```
 
 
@@ -137,6 +144,7 @@ hex.string(v: 10.12)// Returns "10.12"
 import "contrib/bonitoo-io/hex"
 
 hex.string(v: bytes(v: "Hello world!"))// Returns "48656c6c6f20776f726c6421"
+
 
 ```
 
@@ -157,6 +165,7 @@ data =
 
 data
     |> map(fn: (r) => ({r with _value: hex.string(v: r.foo)}))
+
 ```
 
 {{< expand-wrapper >}}

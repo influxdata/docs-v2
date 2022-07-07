@@ -101,6 +101,7 @@ slack.message(
     text: "Example slack message",
     color: "warning",
 )
+
 ```
 
 
@@ -116,5 +117,6 @@ slack.message(
     text: "Example slack message",
     color: "warning",
 )
+
 ```
 

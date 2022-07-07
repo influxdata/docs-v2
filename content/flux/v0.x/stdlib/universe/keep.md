@@ -77,6 +77,7 @@ import "sampledata"
 
 sampledata.int()
     |> keep(columns: ["_time", "_value"])
+
 ```
 
 {{< expand-wrapper >}}
@@ -130,6 +131,7 @@ import "sampledata"
 
 sampledata.int()
     |> keep(fn: (column) => column =~ /^_?t/)
+
 ```
 
 {{< expand-wrapper >}}

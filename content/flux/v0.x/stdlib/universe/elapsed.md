@@ -78,6 +78,7 @@ import "sampledata"
 
 sampledata.int()
     |> elapsed(unit: 1s)
+
 ```
 
 {{< expand-wrapper >}}

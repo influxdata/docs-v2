@@ -109,6 +109,7 @@ join.tables(
     on: (l, r) => l._time == r._time,
     as: (l, r) => ({l with label: r._value}),
 )
+
 ```
 
 {{< expand-wrapper >}}
@@ -185,6 +186,7 @@ join.tables(
     on: (l, r) => l.label == r.id and l._time == r._time,
     as: (l, r) => ({_time: l._time, label: l.label, v_left: l._value, v_right: r._value}),
 )
+
 ```
 
 {{< expand-wrapper >}}
@@ -237,6 +239,7 @@ join.tables(
     on: (l, r) => l.label == r.id and l._time == r._time,
     as: (l, r) => ({_time: r._time, label: r.id, v_left: l._value, v_right: r._value}),
 )
+
 ```
 
 {{< expand-wrapper >}}
@@ -300,6 +303,7 @@ join.tables(
         return {_time: time, label: label, v_left: l._value, v_right: r._value}
     },
 )
+
 ```
 
 {{< expand-wrapper >}}

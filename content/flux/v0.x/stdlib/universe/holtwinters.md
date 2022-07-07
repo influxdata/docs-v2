@@ -144,6 +144,7 @@ import "sampledata"
 
 sampledata.int()
     |> holtWinters(n: 6, interval: 10s)
+
 ```
 
 {{< expand-wrapper >}}
@@ -200,6 +201,7 @@ import "sampledata"
 
 sampledata.int()
     |> holtWinters(n: 4, interval: 10s, seasonality: 4)
+
 ```
 
 {{< expand-wrapper >}}
@@ -252,6 +254,7 @@ import "sampledata"
 
 sampledata.int()
     |> holtWinters(n: 3, interval: 10s, withFit: true)
+
 ```
 
 {{< expand-wrapper >}}

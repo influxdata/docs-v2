@@ -3,14 +3,12 @@ module.exports = ReplaceShortcodes;
 function replaceDocsUrl(field) {
   if(!field) { return }
   /** Regex to match the URL "shortcode" {{% INFLUXDB_DOCS_URL %}}.
-   * [^]* matches line breaks (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#using_regular_expression_on_multiple_lines).
+   * [^]* matches line breaks. See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#using_regular_expression_on_multiple_lines
    */
-  const shortcodeRe = /\{\{[^]*%\s*[^]*INFLUXDB_DOCS_URL[^]*\s*[^]*%\}\}/g
+  const shortcode = /\{\{[^]*%\s*[^]*INFLUXDB_DOCS_URL[^]*\s*[^]*%\}\}/g
   let replacement = `/influxdb/${process.env.INFLUXDB_VERSION}`;
-  let replaced = field.replaceAll(shortcodeRe, replacement);
-  const fullUrl = 'https://docs.influxdata.com/influxdb/';
-  replacement = "/influxdb/";
-  return replaced.replaceAll(fullUrl, replacement);
+  return field.replaceAll(shortcode, replacement)
+              .replaceAll('https://docs.influxdata.com/influxdb/', '/influxdb/');
 }
 
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
@@ -27,7 +25,17 @@ function docsUrl() {
           node.description = replaceDocsUrl(node.description);
         },
       },
+      Header: {
+        leave(node, ctx) {
+          node.description = replaceDocsUrl(node.description);
+        },
+      },
       Info: {
+        leave(node, ctx) {
+          node.description = replaceDocsUrl(node.description);
+        },
+      },
+      Operation: {
         leave(node, ctx) {
           node.description = replaceDocsUrl(node.description);
         },
@@ -38,6 +46,11 @@ function docsUrl() {
         }
       },
       PathItem: {
+        leave(node, ctx) {
+          node.description = replaceDocsUrl(node.description);
+        }
+      },
+      RequestBody: {
         leave(node, ctx) {
           node.description = replaceDocsUrl(node.description);
         }
@@ -57,6 +70,11 @@ function docsUrl() {
           node.description = replaceDocsUrl(node.description);
         }
       },
+      Server: {
+        leave(node, ctx) {
+          node.description = replaceDocsUrl(node.description);
+        }
+      },
       Tag: {
         leave(node, ctx) {
           node.description = replaceDocsUrl(node.description);
@@ -68,7 +86,6 @@ function docsUrl() {
         }
       }
     }
-
   }
 }
 

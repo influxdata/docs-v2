@@ -63,6 +63,7 @@ import "strings"
 
 sampledata.string()
     |> filter(fn: (r) => strings.hasPrefix(v: r._value, prefix: "smpl_5"))
+
 ```
 
 {{< expand-wrapper >}}

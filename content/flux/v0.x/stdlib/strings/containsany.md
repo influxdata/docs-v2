@@ -63,6 +63,7 @@ import "strings"
 
 sampledata.string()
     |> filter(fn: (r) => strings.containsAny(v: r._value, chars: "a79"))
+
 ```
 
 {{< expand-wrapper >}}

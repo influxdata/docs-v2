@@ -60,6 +60,7 @@ import "math"
 
 math.acos(x: 0.22)// 1.3489818562981022
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.acos(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

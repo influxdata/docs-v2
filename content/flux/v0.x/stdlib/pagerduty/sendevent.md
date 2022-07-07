@@ -177,5 +177,6 @@ pagerduty.sendEvent(
     timestamp: now(),
     customDetails: {"example-key": "example value"},
 )
+
 ```
 

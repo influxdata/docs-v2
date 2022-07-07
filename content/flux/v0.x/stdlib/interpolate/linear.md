@@ -67,6 +67,7 @@ import "interpolate"
 
 data
     |> interpolate.linear(every: 1d)
+
 ```
 
 {{< expand-wrapper >}}

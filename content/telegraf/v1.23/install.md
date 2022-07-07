@@ -1,4 +1,4 @@
-1.23---
+---
 title: Install Telegraf
 description: Install Telegraf on your operating system.
 menu:

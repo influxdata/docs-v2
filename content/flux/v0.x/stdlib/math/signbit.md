@@ -59,6 +59,7 @@ import "math"
 
 math.signbit(x: -1.2)// true
 
+
 ```
 
 
@@ -69,6 +70,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.signbit(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

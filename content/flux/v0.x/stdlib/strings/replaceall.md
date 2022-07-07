@@ -69,6 +69,7 @@ import "strings"
 
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.replaceAll(v: r._value, t: "p", u: "XX")}))
+
 ```
 
 {{< expand-wrapper >}}

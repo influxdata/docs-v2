@@ -128,6 +128,7 @@ token = secrets.get(key: "INFLUX_TOKEN")
 response = influxdb.api(method: "get", path: "/health", host: "http://localhost:8086", token: token)
 
 string(v: response.body)
+
 ```
 
 
@@ -155,5 +156,6 @@ influxdb.api(
             },
         ),
 )
+
 ```
 

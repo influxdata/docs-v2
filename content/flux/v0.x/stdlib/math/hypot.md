@@ -67,6 +67,7 @@ import "math"
 
 math.hypot(p: 2.0, q: 5.0)// 5.385164807134505
 
+
 ```
 
 
@@ -77,6 +78,7 @@ import "math"
 
 data
     |> map(fn: (r) => ({r with _value: math.hypot(p: r.a, q: r.b)}))
+
 ```
 
 {{< expand-wrapper >}}
