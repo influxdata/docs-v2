@@ -1,7 +1,7 @@
 ---
 title:  Using reduce() to construct a JSON. 
 description: >
-  Learn how how to send multiple points with http.post() by creating a JSON object with reduce(). 
+  Learn how to send multiple points with `http.post()` by creating a JSON object with `reduce()`. 
 menu:
   resources:
     parent: How-to guides
