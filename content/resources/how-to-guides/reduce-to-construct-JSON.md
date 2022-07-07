@@ -14,7 +14,7 @@ Users want to send data with [http.post()](/flux/v0.x/stdlib/http/post/) but the
 Use the [reduce()](/flux/v0.x/stdlib/universe/reduce/) function to create a JSON object and include it as the body with the `http.post()` function. 
 
 1. Boilerplate. Import packages. The [array](/flux/v0.x/stdlib/array/) package is used to construct tables so you can run this script yourself. The [http package](/flux/v0.x/stdlib/http/) is used to transfer the JSON over http.  
-2. Construct a table with the `array.from()` function. You could also query for your own data. 
+2. Use `array.from()` to query data and construct a table. Or, use another method [to query data with Flux](/influxdb/v2.3/query-data/flux/). 
 3. Use the `reduce()` function to start constructing a JSON. The output of reduce is stored in the result `output of reduce`. This table looks like: 
 
     | field                 | tag                            |
