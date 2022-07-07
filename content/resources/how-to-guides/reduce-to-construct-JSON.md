@@ -19,7 +19,7 @@ Use the [reduce()](/flux/v0.x/stdlib/universe/reduce/) function to create a JSON
     | :-------------------- | :----------------------------- |
     | example-field:["3"4"1 | {example-tag-key:["bar"bar"bar |
 
-4. Next, use the [map()](/flux/v0.x/stdlib/universe/map/) function to combine the two components together to complete our JSON and store it in the column `final`. Use a second yield() function to store the result as `final JSON`. This table looks like:
+4. Use the [map()](/flux/v0.x/stdlib/universe/map/) function to combine the two components together into a JSON object, and then use a second `yield()` function to store this object as `final JSON`. This table looks like:
 
     | field                 | tag                            | final                                                     |
     | :-------------------- | :----------------------------- | :-------------------------------------------------------  |
