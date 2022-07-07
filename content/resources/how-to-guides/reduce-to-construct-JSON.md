@@ -27,7 +27,7 @@ Use the [reduce()](/flux/v0.x/stdlib/universe/reduce/) function to create a JSON
     | :-------------------- | :----------------------------- | :-------------------------------------------------------  |
     | example-field:["3"4"1 | {example-tag-key:["bar"bar"bar | {example-tag-key:["bar"bar"bar] , example-field:["3"4"1]} |
 
-5. Finally, use the findRecord() function to extract the value from the final column, the JSON. 
+5. Use the `findRecord()` function to extract the value from the final column, the JSON. 
 6. This example usest the [Post Test Server](https://ptsv2.com/) to grab a URL to dump the JSON and test the `http.post()` function. 
 
 ```js
