@@ -7,10 +7,8 @@ menu:
     parent: How-to guides
 weight: 105
 ---
-## Problem
-Users want to send data with [http.post()](/flux/v0.x/stdlib/http/post/) but they want to send more than just one point at a time, as shown in the following example. 
 
-## Solution 
+## Send data in JSON body with `http.post()`
 Use the [reduce()](/flux/v0.x/stdlib/universe/reduce/) function to create a JSON object and include it as the body with the `http.post()` function. 
 
 1. Boilerplate. Import packages. The [array](/flux/v0.x/stdlib/array/) package is used to construct tables so you can run this script yourself. The [http package](/flux/v0.x/stdlib/http/) is used to transfer the JSON over http.  
