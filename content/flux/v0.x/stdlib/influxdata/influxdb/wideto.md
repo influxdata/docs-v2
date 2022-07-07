@@ -1,16 +1,16 @@
 ---
-title: experimental.to() function
+title: influxdb.wideTo() function
 description: >
-  `experimental.to()` writes _pivoted_ data to an InfluxDB 2.x or InfluxDB Cloud bucket.
+  `influxdb.wideTo()` writes wide data to an InfluxDB 2.x or InfluxDB Cloud bucket.
+  Wide data is _pivoted_ in that its fields are represented as columns making the table wider.
 menu:
   flux_0_x_ref:
-    name: experimental.to
-    parent: experimental
-    identifier: experimental/to
-weight: 101
+    name: influxdb.wideTo
+    parent: influxdata/influxdb
+    identifier: influxdata/influxdb/wideTo
+weight: 201
 flux/v0.x/tags: [outputs]
-introduced: 0.40.0
-deprecated: 0.174.0
+introduced: 0.174.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -22,17 +22,15 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L311-L311
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/influxdb.flux#L440-L450
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`experimental.to()` writes _pivoted_ data to an InfluxDB 2.x or InfluxDB Cloud bucket.
-
-**Deprecated**: `experimental.to()` is deprecated in favor of [`wideTo()`](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/wideTo/),
-which is an equivalent function.
+`influxdb.wideTo()` writes wide data to an InfluxDB 2.x or InfluxDB Cloud bucket.
+Wide data is _pivoted_ in that its fields are represented as columns making the table wider.
 
 #### Requirements and behavior
 - Requires both a `_time` and a `_measurement` column.
@@ -121,12 +119,13 @@ Input data. Default is piped-forward data (`<-`).
 ### Pivot and write data to InfluxDB
 
 ```js
-import "experimental"
+import "influxdata/influxdb"
+import "influxdata/influxdb/schema"
 
 from(bucket: "example-bucket")
     |> range(start: -1h)
-    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
-    |> experimental.to(bucket: "example-target-bucket")
+    |> schema.fieldsAsCols()
+    |> wideTo(bucket: "example-target-bucket")
 
 ```
 

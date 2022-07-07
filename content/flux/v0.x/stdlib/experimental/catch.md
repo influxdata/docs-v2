@@ -1,15 +1,16 @@
 ---
-title: testing.assertEqualValues() function
+title: experimental.catch() function
 description: >
-  `testing.assertEqualValues()` tests whether two values are equal.
+  `experimental.catch()` calls a function and returns any error as a string value.
+  If the function does not error the returned value is made into a string and returned.
 menu:
   flux_0_x_ref:
-    name: testing.assertEqualValues
-    parent: testing
-    identifier: testing/assertEqualValues
+    name: experimental.catch
+    parent: experimental
+    identifier: experimental/catch
 weight: 101
-flux/v0.x/tags: [tests]
-introduced: 0.141.0
+
+introduced: 0.174.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,60 +22,44 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L232-L234
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L1317-L1317
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`testing.assertEqualValues()` tests whether two values are equal.
+`experimental.catch()` calls a function and returns any error as a string value.
+If the function does not error the returned value is made into a string and returned.
 
 
 
 ##### Function type signature
 
 ```js
-(got: A, want: A) => stream[{v: A, _diff: string}]
+(fn: () => A) => string
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### got
+### fn
 ({{< req >}})
-Value to test.
-
-
-
-### want
-({{< req >}})
-Expected value to test against.
+Function to call.
 
 
 
 
 ## Examples
 
-### Test if two values are equal
+### Catch an explicit error
 
 ```js
-import "testing"
+import "experimental"
 
-testing.assertEqualValues(got: 5, want: 12)
+experimental.catch(fn: () => die(msg: "error message"))// Returns "error message"
+
 
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View example input" %}}
-
-#### Input data
-
-| _diff  | v  |
-| ------ | -- |
-| -      | 12 |
-| +      | 5  |
-
-{{% /expand %}}
-{{< /expand-wrapper >}}
