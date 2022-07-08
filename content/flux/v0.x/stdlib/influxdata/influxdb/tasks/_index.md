@@ -1,46 +1,55 @@
 ---
-title: Flux InfluxDB `tasks` package
-list_title: tasks package
+title: tasks package
 description: >
-  The Flux InfluxDB `tasks` package provides options and functions for working with
-  [InfluxDB tasks](/influxdb/cloud/process-data/get-started/).
-  Import the `influxdata/influxdb/tasks` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-tasks/
+  The `tasks` package provides tools for working with InfluxDB tasks.
 menu:
   flux_0_x_ref:
-    name: tasks
-    parent: influxdb-pkg
-weight: 202
-flux/v0.x/tags: [functions, tasks, package]
-related:
-  - /{{< latest "influxdb" >}}/process-data/get-started/
-introduced: 0.84.0
+    name: tasks 
+    parent: influxdata/influxdb
+    identifier: influxdata/influxdb/tasks
+weight: 31
+cascade:
+
+  introduced: 0.84.0
 ---
 
-The Flux InfluxDB `tasks` package provides options and functions for working with
-[InfluxDB tasks](/influxdb/cloud/process-data/get-started/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/tasks/tasks.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `tasks` package provides tools for working with InfluxDB tasks.
 Import the `influxdata/influxdb/tasks` package:
 
 ```js
 import "influxdata/influxdb/tasks"
 ```
 
+
+
 ## Options
-The `influxdata/influxdb/tasks` package provides the following options:
 
 ```js
-import "influxdata/influxdb/tasks"
-
-option tasks.lastSuccessTime = 0000-01-01T00:00:00Z
+option tasks.lastSuccessTime = _zeroTime
 ```
+ 
+### lastSuccessTime
 
-### lastSuccessTime {data-type="time"}
-Define the time of the last successful task run.
-_Only use this option to override the time of the last successful run provided by
-the InfluxDB task engine._
+`lastSuccessTime` is the last time this task ran successfully.
+
+
+
 
 ## Functions
 

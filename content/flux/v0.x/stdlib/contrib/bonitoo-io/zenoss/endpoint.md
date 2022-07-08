@@ -1,118 +1,111 @@
 ---
 title: zenoss.endpoint() function
 description: >
-  The `zenoss.endpoint()` function sends events to Zenoss using data from input rows.
+  `zenoss.endpoint()` sends events to Zenoss using data from input rows.
 menu:
   flux_0_x_ref:
     name: zenoss.endpoint
-    parent: zenoss
-weight: 202
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/zenoss/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/zenoss/endpoint/
-flux/v0.x/tags: [notification endpoints]
-introduced: 0.108.0
+    parent: contrib/bonitoo-io/zenoss
+    identifier: contrib/bonitoo-io/zenoss/endpoint
+weight: 301
 ---
 
-The `zenoss.endpoint()` function sends events to Zenoss using data from input rows.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/zenoss/zenoss.flux#L204-L243
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`zenoss.endpoint()` sends events to Zenoss using data from input rows.
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/bonitoo-io/zenoss"
-
-zenoss.endpoint(
-    url: "https://example.zenoss.io:8080/zport/dmd/evconsole_router",
-    username: "example-user",
-    password: "example-password",
-    action: "EventsRouter",
-    method: "add_event",
-    type: "rpc",
-    tid: 1,
-)
+(
+    password: string,
+    url: string,
+    username: string,
+    ?action: A,
+    ?method: B,
+    ?tid: C,
+    ?type: D,
+) => (
+    mapFn: (
+        r: E,
+    ) => {
+        F with
+        summary: N,
+        severity: M,
+        message: L,
+        eventClassKey: K,
+        eventClass: J,
+        device: I,
+        component: H,
+        collector: G,
+    },
+) => (<-tables: stream[E]) => stream[{E with _sent: string}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
+### url
 ({{< req >}})
 Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints).
 
-### username {data-type="string"}
+
+
+### username
 ({{< req >}})
 Zenoss username to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-### password {data-type="string"}
+
+
+### password
 ({{< req >}})
 Zenoss password to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-### action {data-type="string"}
-Zenoss [router name](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/anatomy-of-an-api-request#AnatomyofanAPIrequest-RouterURL).
+
+
+### action
+
+Zenoss router name.
 Default is `"EventsRouter"`.
 
-### method {data-type="string"}
-[EventsRouter method](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/codebase/routers/router-reference/eventsrouter).
+
+
+### method
+
+EventsRouter method.
 Default is `"add_event"`.
 
-### type {data-type="string"}
-Event type.
-Default is `"rpc"`.
 
-### tid {data-type="int"}
+
+### type
+
+Event type. Default is `"rpc"`.
+
+
+
+### tid
+
 Temporary request transaction ID.
 Default is `1`.
 
-## Usage
-`zenoss.endpoint` is a factory function that outputs another function.
-The output function requires a `mapFn` parameter.
 
-### mapFn {data-type="function"}
-A function that builds the object used to generate the POST request.
-Requires an `r` parameter.
 
-`mapFn` accepts a table row (`r`) and returns an object that must include the
-following fields:
-
-- `summary`
-- `device`
-- `component`
-- `severity`
-- `eventClass`
-- `eventClassKey`
-- `collector`
-- `message`
-
-_For more information, see [`zenoss.event()` parameters](/flux/v0.x/stdlib/contrib/bonitoo-io/zenoss/event/#parameters)._
-
-## Examples
-
-##### Send critical events to Zenoss
-```js
-import "contrib/bonitoo-io/zenoss"
-import "influxdata/influxdb/secrets"
-
-url = "https://tenant.zenoss.io:8080/zport/dmd/evconsole_router"
-username = secrets.get(key: "ZENOSS_USERNAME")
-password = secrets.get(key: "ZENOSS_PASSWORD")
-endpoint = zenoss.endpoint(url: url, username: username, password: password)
-
-crit_events =
-    from(bucket: "example-bucket")
-        |> range(start: -1m)
-        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
-
-crit_events
-    |> endpoint(
-        mapFn: (r) =>
-            ({
-                summary: "Critical event for ${r.host}",
-                device: r.deviceID,
-                component: r.host,
-                severity: "Critical",
-                eventClass: "/App",
-                eventClassKey: "",
-                collector: "",
-                message: "${r.host} is in a critical state.",
-            }),
-    )()
-```

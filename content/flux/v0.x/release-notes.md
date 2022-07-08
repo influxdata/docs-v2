@@ -10,6 +10,87 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.172.0 [2022-06-24]
+
+### Features
+- Add multiple new join functions to the [`join`](/flux/v0.x/stdlib/join/) 
+  package such as [`join.full()`](/flux/v0.x/stdlib/join/full/).
+- Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) 
+  parameter to the derivative function. 
+- Allow features to enable builtin statements. 
+- Provide the comments for each `Symbol` from `PackageExports`.
+- Suggestions now start off by default and added a new flag.
+- Add builtin function [`time`](/flux/v0.x/stdlib/date/time/) to the `date` 
+  package to convert any timeable into datetime. 
+- Allow vector types to be specified in Flux source. 
+
+### Bug fixes
+- Replace extra boolean parameter for suggestions with Flux REPL options. 
+- Remove [`testing.load()`](/flux/v0.x/stdlib/testing/load/) 
+  from [`testutil.yield()`](/flux/v0.x/stdlib/internal/testutil/yield/). 
+- Fix a bug in how sort nodes are created for a new join. 
+- Removed extra indentation for test cases. 
+- Retain the package for identifier referencing the prelude. 
+- Only return an error in tests if an assertion fails. 
+- Fix [`findColumn()`](/flux/v0.x/stdlib/universe/findcolumn/)
+  to handle multi-buffer tables. 
+- Point to the function being piped to on argument mismatches. 
+- Visit successors before continuing DFS on node. 
+
+---
+
+## v0.171.0 [2022-06-14]
+
+### Breaking changes
+- Remove `testing.loadStorage()`.
+
+### Features
+- Add `FromStr` to allow the Flux LSP (language server protocol) CLI to run with
+  optional Flux features.
+- Add method to parallelize aggregate transformations.
+- Report unused symbols.
+- Add `From` implementations for `Node/NodeMut`.
+
+### Bug fixes
+- Pass a seed to the tables generator.
+- Ensure buffers are retained when copying a buffered table.
+- Return an error when using a label variable without the Label constraint.
+
+---
+
+## v0.170.1 [2022-06-06]
+
+### Bug fixes
+- Require an earlier minimum version of `lsp-types`.
+
+---
+
+## v0.170.0 [2022-06-02]
+
+### Features
+- Add a `pretty.rs`-based MonoType formatter.
+
+### Bug fixes
+- Update vectorized `map()` to properly handle shadowed columns.
+
+---
+
+## v0.169.0 [2022-05-31]
+
+### Features
+- Add a `_status` tag to PagerDuty records.
+- Refactor the operator profile to be in the query statistics.
+
+### Bug fixes
+- Ensure that constraints are checked and propagated fully.
+- Fix math for integral with a single value.
+- Add `json` tags for the transport profiles in statistics.
+- Initialize `Metadata` in Flux statistics.
+- Return a more helpful error message when an HTTP response body exceeds 100MB.
+- Correct several issues found during the implementation of polymorphic labels.
+
+---
+
 ## v0.168.0 [2022-05-23]
 
 ### Features

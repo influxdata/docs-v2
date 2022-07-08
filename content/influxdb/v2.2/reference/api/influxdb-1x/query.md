@@ -165,8 +165,8 @@ curl --get http://localhost:8086/query \
 curl --get http://localhost:8086/query \
   --header "Authorization: Token INFLUX_API_TOKEN" \
   --data-urlencode "db=mydb" \
-  --form "q=@path/to/influxql.txt" \
-  --form "async=true"
+  --data-urlencode "q@path/to/influxql.txt" \
+  --data-urlencode "async=true"
 ```
 
 Replace the following:

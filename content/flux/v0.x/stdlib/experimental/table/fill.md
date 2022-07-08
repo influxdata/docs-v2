@@ -1,91 +1,102 @@
 ---
 title: table.fill() function
 description: >
-  The `table.fill()` function adds a single row to empty tables in a stream of tables.
-  Columns in the group key are filled with the column value defined in the group key.
-  Columns not in the group key are filled with a null value.
+  `table.fill()` adds a single row to empty tables in a stream of tables.
 menu:
   flux_0_x_ref:
     name: table.fill
-    parent: table-exp
-weight: 401
-flux/v0.x/tags: [transformations, fill]
+    parent: experimental/table
+    identifier: experimental/table/fill
+weight: 201
+flux/v0.x/tags: [transformations, table]
 ---
 
-The `table.fill()` function adds a single row to empty tables in a stream of tables.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/table/table.flux#L33-L33
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`table.fill()` adds a single row to empty tables in a stream of tables.
+
 Columns that are in the group key are filled with the column value defined in the group key.
 Columns not in the group key are filled with a null value.
 
-```js
-import "experimental/table"
+##### Function type signature
 
-table.fill()
+```js
+(<-tables: stream[A]) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-##### Query
+### Fill empty tables
+
 ```js
 import "experimental/table"
+import "sampledata"
+
+data =
+    sampledata.int()
+        |> filter(fn: (r) => r.tag != "t2", onEmpty: "keep")
 
 data
     |> table.fill()
 ```
 
-{{< flex >}}
-{{% flex-content %}}
-##### Input data
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-<p class="table-group-key">Group key = [host: "host1", _field: "f1"]</p>
+#### Input data
 
-| host  | _field | time | _value |
-| :---- | :----- | :--- | -----: |
-| host1 | f1     | 0001 |    2.8 |
-| host1 | f1     | 0002 |    3.2 |
-| host1 | f1     | 0003 |    3.3 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-<p class="table-group-key">Group key = [host: "host2", _field: "f1"]</p>
+| _time  | _value  | *tag |
+| ------ | ------- | ---- |
 
-| host | _field | time | _value |
-| :--- | :----- | :--- | -----: |
 
-<p class="table-group-key">Group key = [host: "host3", _field: "f1"]</p>
+#### Output data
 
-| host  | _field | time | _value |
-| :---- | :----- | :--- | -----: |
-| host3 | f1     | 0001 |    1.4 |
-| host3 | f1     | 0002 |    1.5 |
-| host3 | f1     | 0003 |    2.7 |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### Output data
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-<p class="table-group-key">Group key = [host: "host1", _field: "f1"]</p>
+| _time  | _value  | *tag |
+| ------ | ------- | ---- |
+|        |         | t2   |
 
-| host  | _field | time | _value |
-| :---- | :----- | :--- | -----: |
-| host1 | f1     | 0001 |    2.8 |
-| host1 | f1     | 0002 |    3.2 |
-| host1 | f1     | 0003 |    3.3 |
-
-<p class="table-group-key">Group key = [host: "host2", _field: "f1"]</p>
-
-| host  | _field | time | _value |
-| :---- | :----- | :--- | -----: |
-| host2 | f1     |      |        |
-
-<p class="table-group-key">Group key = [host: "host3", _field: "f1"]</p>
-
-| host  | _field | time | _value |
-| :---- | :----- | :--- | -----: |
-| host3 | f1     | 0001 |    1.4 |
-| host3 | f1     | 0002 |    1.5 |
-| host3 | f1     | 0003 |    2.7 |
-{{% /flex-content %}}
-{{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}

@@ -514,7 +514,7 @@ By default, this option is set to false and writes are processed in the order th
 
 If set to `true`, writes may process in a different order than they were received. This can reduce the time required to drain the HH queue and increase throughput during recovery.
 
-Whn a remote write fails, the database will send data to the hinted handoff (HH) queue for a short period of time before allowing incoming remote writes to be retried again. This time period grows with each failed write. The greater the number of successive write failures, the longer a node will delay writes before retrying them. Consecutive write failures will cause increased delay times before retrying writes in both emptying HH queues and in remote writes.
+When a remote write fails, the database sends data to the hinted handoff (HH) queue for a short period of time (up to a maximum time set in the configuration parameter [retry-max-interval](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#retry-max-interval)) before retrying the failed writes. Each successive write failure extends the delay in retrying failed writes in the HH queue and retrying remote writes.
 
 This could result in temporarily large HH queues and more partial write errors if the [write consistency](https://docs.influxdata.com/enterprise_influxdb/v1.9/concepts/clustering/#write-consistency) level is not set to `any` when hinted handoff is written, but fewer "remote write failed" errors as the HH queues empty, and much lower memory usage when a node is unavailable. This is because remote writes, which keep data in memory while timing out, will be suppressed. Note that only **repeated** write failures will slow down the retry rate.
 
@@ -746,11 +746,9 @@ Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_INTERVAL`
 
 #### `retry-max-interval`
 
-Default is `"10s"`.
+Default is `"200s"`.
 
 The maximum interval after which the hinted handoff retries a write after the write fails.
-The `retry-max-interval` option is no longer in use and will be removed from the configuration file in a future release.
-Changing the `retry-max-interval` setting has no effect on your cluster.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_MAX_INTERVAL`
 

@@ -1,97 +1,111 @@
 ---
 title: experimental.alignTime() function
 description: >
-  The `experimental.alignTime()` function aligns input tables to a common start time.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/aligntime/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/aligntime/
+  `experimental.alignTime()` shifts time values in input tables to all start at a common start time.
 menu:
   flux_0_x_ref:
     name: experimental.alignTime
     parent: experimental
-weight: 302
-flux/v0.x/tags: [transformations, date/time]
+    identifier: experimental/alignTime
+weight: 101
+flux/v0.x/tags: [transformations, data/time]
 introduced: 0.66.0
 ---
 
-The `experimental.alignTime()` function aligns input tables to a common start time.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L490-L494
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.alignTime()` shifts time values in input tables to all start at a common start time.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental"
-
-experimental.alignTime(
-    alignTo: 1970-01-01T00:00:00.000000000Z
-)
+(<-tables: stream[B], ?alignTo: A) => stream[C] where B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### alignTo {data-type="time"}
-The **UTC time** to align tables to.
-Default is `1970-01-01T00:00:00Z`.
+### alignTo
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+Time to align tables to. Default is `1970-01-01T00:00:00Z`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-### Compare values month-over-month
+### Compare month-over-month values
+
+1. Window data by calendar month creating two separate tables (one for January and one for February).
+2. Align tables to `2021-01-01T00:00:00Z`.
+
+Each output table represents data from a calendar month.
+When visualized, data is still grouped by month, but timestamps are aligned
+to a common start time and values can be compared by time.
+
 ```js
 import "experimental"
 
-from(bucket: "example-bucket")
-    |> range(start: -12mo)
-    |> filter(fn: (r) => r._measurement == "example-measurement")
+data
     |> window(every: 1mo)
-    |> experimental.alignTime()
+    |> experimental.alignTime(alignTo: 2021-01-01T00:00:00Z)
 ```
 
-**Given the following input:**
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-| _time                | _value |
-|:-----                | ------:|
-| 2020-01-01T00:00:00Z | 32.1   |
-| 2020-01-02T00:00:00Z | 32.9   |
-| 2020-01-03T00:00:00Z | 33.2   |
-| 2020-01-04T00:00:00Z | 34.0   |
-| 2020-02-01T00:00:00Z | 38.3   |
-| 2020-02-02T00:00:00Z | 38.4   |
-| 2020-02-03T00:00:00Z | 37.8   |
-| 2020-02-04T00:00:00Z | 37.5   |
+#### Input data
 
-**The following functions:**
+| *_start              | *_stop               | _time                | _value  |
+| -------------------- | -------------------- | -------------------- | ------- |
+| 2021-01-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-01-01T00:00:00Z | 32.1    |
+| 2021-01-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-01-02T00:00:00Z | 32.9    |
+| 2021-01-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-01-03T00:00:00Z | 33.2    |
+| 2021-01-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-01-04T00:00:00Z | 34      |
+| 2021-01-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-02-01T00:00:00Z | 38.3    |
+| 2021-01-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-02-02T00:00:00Z | 38.4    |
+| 2021-01-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-02-03T00:00:00Z | 37.8    |
+| 2021-01-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-02-04T00:00:00Z | 37.5    |
 
-1. Window data by calendar month creating two separate tables (one for January and one for February).
-2. Align tables to `2020-01-01T00:00:00Z`.
 
-```js
-//...
-    |> window(every: 1mo)
-    |> alignTime(alignTo: 2020-01-01T00:00:00Z)
-```
+#### Output data
 
-**And output:**
+| *_start              | *_stop               | _time                | _value  |
+| -------------------- | -------------------- | -------------------- | ------- |
+| 2021-01-01T00:00:00Z | 2021-02-01T00:00:00Z | 2021-01-01T00:00:00Z | 32.1    |
+| 2021-01-01T00:00:00Z | 2021-02-01T00:00:00Z | 2021-01-02T00:00:00Z | 32.9    |
+| 2021-01-01T00:00:00Z | 2021-02-01T00:00:00Z | 2021-01-03T00:00:00Z | 33.2    |
+| 2021-01-01T00:00:00Z | 2021-02-01T00:00:00Z | 2021-01-04T00:00:00Z | 34      |
 
-{{< flex >}}
-{{% flex-content %}}
-| _time                | _value |
-|:-----                | ------:|
-| 2020-01-01T00:00:00Z | 32.1   |
-| 2020-01-02T00:00:00Z | 32.9   |
-| 2020-01-03T00:00:00Z | 33.2   |
-| 2020-01-04T00:00:00Z | 34.0   |
-{{% /flex-content %}}
-{{% flex-content %}}
-| _time                | _value |
-|:-----                | ------:|
-| 2020-01-01T00:00:00Z | 38.3   |
-| 2020-01-02T00:00:00Z | 38.4   |
-| 2020-01-03T00:00:00Z | 37.8   |
-| 2020-01-04T00:00:00Z | 37.5   |
-{{% /flex-content %}}
-{{< /flex >}}
+| *_start              | *_stop               | _time                | _value  |
+| -------------------- | -------------------- | -------------------- | ------- |
+| 2021-02-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-01-01T00:00:00Z | 38.3    |
+| 2021-02-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-01-02T00:00:00Z | 38.4    |
+| 2021-02-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-01-03T00:00:00Z | 37.8    |
+| 2021-02-01T00:00:00Z | 2021-03-01T00:00:00Z | 2021-01-04T00:00:00Z | 37.5    |
 
-Each output table represents data from a calendar month.
-When visualized, data is still grouped by month, but timestamps are aligned to a
-common start time and values can be compared by time.
+{{% /expand %}}
+{{< /expand-wrapper >}}

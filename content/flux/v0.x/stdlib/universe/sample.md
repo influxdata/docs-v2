@@ -1,52 +1,76 @@
 ---
 title: sample() function
-description: The `sample()` function selects a subset of the records from the input table.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/sample
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/sample/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/sample/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/sample/
+description: >
+  `sample()` selects a subset of the rows from each input table.
 menu:
   flux_0_x_ref:
     name: sample
     parent: universe
-weight: 102
-flux/v0.x/tags: [selectors, transformations]
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#sample, InfluxQL – SAMPLE()
+    identifier: universe/sample
+weight: 101
+flux/v0.x/tags: [transformations, selectors]
 introduced: 0.7.0
 ---
 
-The `sample()` function selects a subset of the records from the input table.
-_`sample()` is a [selector function](/flux/v0.x/function-types/#selectors)._
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2236-L2236
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`sample()` selects a subset of the rows from each input table.
+
+**Note:** `sample()` drops empty tables.
+
+##### Function type signature
 
 ```js
-sample(n:5, pos: -1)
+(<-tables: stream[A], n: int, ?column: string, ?pos: int) => stream[A] where A: Record
 ```
 
-{{% warn %}}
-#### Empty tables
-`sample()` drops empty tables.
-{{% /warn %}}
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### n {data-type="int"}
+### n
 ({{< req >}})
 Sample every Nth element.
 
-### pos {data-type="int"}
-Position offset from the start of results where sampling begins.
-`pos` must be less than `n`.
-If `pos` is less than 0, a random offset is used.
-Default is `-1` (random offset).
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+### pos
+
+Position offset from the start of results where sampling begins.
+Default is -1 (random offset).
+
+`pos` must be less than `n`. If pos is less than 0, a random offset is used.
+
+### column
+
+Column to operate on.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+### Sample every other result
 
 ```js
 import "sampledata"
@@ -56,29 +80,42 @@ sampledata.int()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:10Z | t1  |     10 |
-| 2021-01-01T00:00:30Z | t1  |     17 |
-| 2021-01-01T00:00:50Z | t1  |      4 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:10Z | t2  |      4 |
-| 2021-01-01T00:00:30Z | t2  |     19 |
-| 2021-01-01T00:00:50Z | t2  |      1 |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

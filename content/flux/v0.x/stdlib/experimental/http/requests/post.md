@@ -1,114 +1,115 @@
 ---
 title: requests.post() function
 description: >
-  `requests.post()` makes an HTTP request using the POST request method.
+  `requests.post()` makes a http POST request. This identical to calling `request.do(method: "POST", ...)`.
 menu:
   flux_0_x_ref:
     name: requests.post
-    parent: requests
-weight: 401
-flux/v0.x/tags: [http, inputs, outputs]
-introduced: 0.152.0
+    parent: experimental/http/requests
+    identifier: experimental/http/requests/post
+weight: 301
+flux/v0.x/tags: [http, inputs]
 ---
 
-`requests.post()` makes an HTTP request using the POST request method.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L188-L202
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`requests.post()` makes a http POST request. This identical to calling `request.do(method: "POST", ...)`.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental/http/requests"
-
-requests.post(
-    url: "http://example.com",
-    params: ["example-param": ["example-param-value"]],
-    headers: ["Example-Header": "example-header-value"],
-    body: bytes(v: ""),
-    config: requests.defaultConfig,
-)
+(
+    url: string,
+    ?body: bytes,
+    ?config: {A with timeout: duration, insecureSkipVerify: bool},
+    ?headers: [string:string],
+    ?params: [string:[string]],
+) => {statusCode: int, headers: [string:string], duration: duration, body: bytes}
 ```
 
-`requests.post()` returns a record with the following properties:
-
-- **statusCode**: HTTP status code of the request.
-- **body**: Response body. A maximum size of 100MB is read from the response body.
-- **headers**: Response headers.
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
-URL to send the request to.
+### url
+({{< req >}})
+URL to request. This should not include any query parameters.
 
-{{% note %}}
-The URL should not include any query parameters.
-Use [`params`](#params) to specify query parameters.
-{{% /note %}}
 
-### params {data-type="dict"}
-Set of key-value pairs to add to the URL as query parameters.
-Query parameters are URL-encoded.
-All values for a key are appended to the query.
 
-### headers {data-type="dict"}
-Set of key values pairs to include as request headers.
+### params
 
-### body {data-type="bytes"}
+Set of key value pairs to add to the URL as query parameters.
+Query parameters will be URL encoded.
+All values for a key will be appended to the query.
+
+
+
+### headers
+
+Set of key values pairs to include on the request.
+
+
+
+### body
+
 Data to send with the request.
 
-### config {data-type="record"}
-Set of request configuration options.
-_See [HTTP configuration option examples](/flux/v0.x/stdlib/experimental/http/requests/#examples)._
+
+
+### config
+
+Set of options to control how the request should be performed.
+
+
+
 
 ## Examples
 
-- [Make a POST request](#make-a-post-request)
-- [Make a POST request with authorization](#make-a-post-request-with-authorization)
-- [Make a POST request with a JSON body](#make-a-post-request-with-a-json-body)
-- [Output HTTP POST response data in a table](#output-http-post-response-data-in-a-table)
+### Make a POST request with a JSON body and decode JSON response
 
-### Make a POST request
 ```js
+import "experimental/http/requests"
+import ejson "experimental/json"
 import "json"
-import "experimental/http/requests"
+import "array"
 
-requests.post(url:"http://example.com", body: json.encode(v: {data: {x:1, y: 2, z:3}))
+response =
+    requests.post(
+        url: "https://goolnk.com/api/v1/shorten",
+        body: json.encode(v: {url: "http://www.influxdata.com"}),
+        headers: ["Content-Type": "application/json"],
+    )
+
+data = ejson.parse(data: response.body)
+
+array.from(rows: [data])
 ```
 
-### Make a POST request with authorization
-```js
-import "json"
-import "experimental/http/requests"
-import "influxdata/influxdb/secrets"
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
-token = secrets.get(key: "TOKEN")
+#### Output data
 
-requests.post(
-    url: "http://example.com",
-    body: json.encode(v: {data: {x: 1, y: 2, z: 3}}),
-    headers: ["Authorization": "Bearer ${token}"],
-)
-```
+| result_url                |
+| ------------------------- |
+| https://goolnk.com/BnXAE6 |
 
-### Make a POST request with a JSON body
-Use [`json.encode()`](/flux/v0.x/stdlib/json/encode/) to encode a Flux record as
-a JSON object.
-
-```js
-import "experimental/http/requests"
-import "json"
-
-requests.post(
-    url: "https://goolnk.com/api/v1/shorten",
-    body: json.encode(v: {url: "http://www.influxdata.com"}),
-    headers: ["Content-Type": "application/json"],
-)
-```
-
-### Output HTTP POST response data in a table
-To quickly inspect HTTP response data, use [`requests.peek()`](/flux/v0.x/stdlib/experimental/http/requests/peek/)
-to output HTTP response data in a table.
-
-```js
-import "experimental/http/requests"
-
-response = requests.post(url: "http://example.com")
-
-requests.peek(response: response)
-```
+{{% /expand %}}
+{{< /expand-wrapper >}}

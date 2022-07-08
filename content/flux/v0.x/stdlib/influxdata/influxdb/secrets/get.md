@@ -1,22 +1,58 @@
 ---
 title: secrets.get() function
 description: >
-  The `secrets.get()` function retrieves a secret from the InfluxDB secret store.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/secrets/get/
-  - /influxdb/v2.0/reference/flux/stdlib/secrets/get/
-  - /influxdb/cloud/reference/flux/stdlib/secrets/get/
+  `secrets.get()` retrieves a secret from the InfluxDB secret store.
 menu:
   flux_0_x_ref:
     name: secrets.get
-    parent: secrets
-weight: 202
-flux/v0.x/tags: [security, secrets]
-introduced: 0.41.0
+    parent: influxdata/influxdb/secrets
+    identifier: influxdata/influxdb/secrets/get
+weight: 301
 ---
 
-The `secrets.get()` function retrieves a secret from the
-[InfluxDB secret store](/{{< latest "influxdb" >}}/security/secrets/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/secrets/secrets.flux#L39-L39
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`secrets.get()` retrieves a secret from the InfluxDB secret store.
+
+
+
+##### Function type signature
+
+```js
+(key: string) => string
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### key
+({{< req >}})
+Secret key to retrieve.
+
+
+
+
+## Examples
+
+- [Retrive a key from the InfluxDB secret store](#retrive-a-key-from-the-influxdb-secret-store)
+- [Populate sensitive credentials with secrets//](#populate-sensitive-credentials-with-secrets)
+
+### Retrive a key from the InfluxDB secret store
 
 ```js
 import "influxdata/influxdb/secrets"
@@ -24,14 +60,9 @@ import "influxdata/influxdb/secrets"
 secrets.get(key: "KEY_NAME")
 ```
 
-## Parameters
 
-### key {data-type="string"}
-The secret key to retrieve.
+### Populate sensitive credentials with secrets//
 
-## Examples
-
-### Populate sensitive credentials with secrets
 ```js
 import "sql"
 import "influxdata/influxdb/secrets"
@@ -42,6 +73,7 @@ password = secrets.get(key: "POSTGRES_PASSWORD")
 sql.from(
     driverName: "postgres",
     dataSourceName: "postgresql://${username}:${password}@localhost",
-    query:"SELECT * FROM example-table",
+    query: "SELECT * FROM example-table",
 )
 ```
+

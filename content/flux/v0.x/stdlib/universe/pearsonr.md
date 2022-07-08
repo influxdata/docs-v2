@@ -1,97 +1,93 @@
 ---
 title: pearsonr() function
-description: The `pearsonr()` function computes the Pearson R correlation coefficient between two streams by first joining the streams, then performing the covariance operation normalized to compute R.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/pearsonr
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/pearsonr/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/pearsonr/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/pearsonr/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/pearsonr/
+description: >
+  `pearsonr()` returns the covariance of two streams of tables normalized to the
+  Pearson R coefficient.
 menu:
   flux_0_x_ref:
     name: pearsonr
     parent: universe
-weight: 102
-flux/v0.x/tags: [transformations]
+    identifier: universe/pearsonr
+weight: 101
+flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.7.0
 ---
 
-The `pearsonr()` function computes the Pearson R correlation coefficient between two streams
-by first joining the streams, then performing the covariance operation normalized to compute R.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3601-L3601
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`pearsonr()` returns the covariance of two streams of tables normalized to the
+Pearson R coefficient.
+
+
+
+##### Function type signature
 
 ```js
-pearsonr(x: stream1, y: stream2, on: ["_time", "_field"])
+(on: [string], x: A, y: B) => stream[C] where C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### x {data-type="stream of tables"}
-First input stream used in the operation.
+### x
+({{< req >}})
+First input stream.
 
-### y {data-type="stream of tables"}
-Second input stream used in the operation.
 
-### on {data-type="array of strings"}
+
+### y
+({{< req >}})
+Second input stream.
+
+
+
+### on
+({{< req >}})
 List of columns to join on.
 
+
+
+
 ## Examples
-The following example uses [`generate.from()`](/flux/v0.x/stdlib/generate/from/)
-to generate sample data and show how `pearsonr()` transforms data.
+
+### Return the covariance between two streams of tables
 
 ```js
 import "generate"
 
-stream1 = generate.from(
-    count: 5,
-    fn: (n) => n * n,
-    start: 2021-01-01T00:00:00Z,
-    stop: 2021-01-01T00:01:00Z,
-)
-    |> toFloat()
+stream1 =
+    generate.from(count: 5, fn: (n) => n * n, start: 2021-01-01T00:00:00Z, stop: 2021-01-01T00:01:00Z)
+        |> toFloat()
 
-stream2 = generate.from(
-    count: 5,
-    fn: (n) => n * n * n / 2,
-    start: 2021-01-01T00:00:00Z,
-    stop: 2021-01-01T00:01:00Z,
-)
-    |> toFloat()
+stream2 =
+    generate.from(count: 5, fn: (n) => n * n * n / 2, start: 2021-01-01T00:00:00Z, stop: 2021-01-01T00:01:00Z)
+        |> toFloat()
 
 pearsonr(x: stream1, y: stream2, on: ["_time"])
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-
-#### Input data
-{{< flex >}}
-{{% flex-content %}}
-##### stream1
-| _time                | _value |
-| :------------------- | -----: |
-| 2021-01-01T00:00:00Z |    0.0 |
-| 2021-01-01T00:00:12Z |    1.0 |
-| 2021-01-01T00:00:24Z |    4.0 |
-| 2021-01-01T00:00:36Z |    9.0 |
-| 2021-01-01T00:00:48Z |   16.0 |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### stream2
-| _time                | _value |
-| :------------------- | -----: |
-| 2021-01-01T00:00:00Z |    0.0 |
-| 2021-01-01T00:00:12Z |    0.0 |
-| 2021-01-01T00:00:24Z |    4.0 |
-| 2021-01-01T00:00:36Z |   13.0 |
-| 2021-01-01T00:00:48Z |   32.0 |
-{{% /flex-content %}}
-{{< /flex >}}
+{{% expand "View example output" %}}
 
 #### Output data
-|             _value |
-| -----------------: |
+
+| _value             |
+| ------------------ |
 | 0.9856626734271221 |
 
 {{% /expand %}}

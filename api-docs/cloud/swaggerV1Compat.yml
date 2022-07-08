@@ -292,11 +292,20 @@ components:
       properties:
         results:
           type: array
+          oneOf:
+            - required:
+                - statement_id
+                - error
+            - required:
+                - statement_id
+                - series
           items:
             type: object
             properties:
               statement_id:
                 type: integer
+              error:
+                type: string
               series:
                 type: array
                 items:
@@ -304,10 +313,16 @@ components:
                   properties:
                     name:
                       type: string
+                    tags:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    partial:
+                      type: boolean
                     columns:
                       type: array
                       items:
-                        type: integer
+                        type: string
                     values:
                       type: array
                       items:

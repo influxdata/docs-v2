@@ -24,7 +24,10 @@ By default, each user has full permissions on resources in your organization.
   - [Resend an invitation](#resend-an-invitation)
   - [Withdraw an invitation](#withdraw-an-invitation)
 - [Remove a user from your organization](#remove-a-user-from-your-organization)
-  - [Remove yourself from an organization](#remove-yourself-from-an-organization)
+
+{{% note %}}
+If you have multiple users, we recommend creating a system account for administrative purposes. For example, if you have applications writing to InfluxDB, ensure the applications use the system account credentials.
+{{% /note %}}
 
 ## Members page
 Manage your organization's users from your organization's **Members page**.
@@ -67,6 +70,10 @@ Accounts can have up to 50 pending invitations at one time.
 3.  Click **{{< caps >}}Withdraw Invitation{{< /caps >}}**.
 
 ## Remove a user from your organization
+
+{{% warn %}}
+For security purposes, once an InfluxDB user account is deleted, the user (and their token) cannot be reactivated.
+{{% /warn %}} 
 
 1.  Navigate to your organization's [Members page](#members-page).
 2.  Click the **{{< icon "delete" >}}** icon next to the user you want to remove.

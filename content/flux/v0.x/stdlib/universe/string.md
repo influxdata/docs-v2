@@ -1,129 +1,130 @@
 ---
 title: string() function
-description: The `string()` function converts a single value to a string.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/string/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/string/
+description: >
+  `string()` converts a value to a string type.
 menu:
   flux_0_x_ref:
     name: string
     parent: universe
-weight: 102
-related:
-  - /flux/v0.x/stdlib/universe/tostring/
+    identifier: universe/string
+weight: 101
 flux/v0.x/tags: [type-conversions]
 introduced: 0.7.0
 ---
 
-The `string()` function converts a single value to a string.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3222-L3222
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`string()` converts a value to a string type.
+
+
+
+##### Function type signature
 
 ```js
-string(v: 123456789)
+(v: A) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### v {data-type="bool, int, uint, float, duration, time, bytes"}
+### v
+({{< req >}})
 Value to convert.
+
+
+
 
 ## Examples
 
-- [Convert a boolean to a string value](#convert-a-boolean-to-a-string-value)
-- [Convert a duration to a string value](#convert-a-duration-to-a-string-value)
-- [Convert a time to a string value](#convert-a-time-to-a-string-value)
-- [Convert a float to a string value](#convert-a-float-to-a-string-value)
-- [Convert all values in a column to string values](#convert-all-values-in-a-column-to-string-values)
+- [Convert basic types to strings](#convert-basic-types-to-strings)
+- [Convert all values in a column to strings](#convert-all-values-in-a-column-to-strings)
 
-#### Convert a boolean to a string value
+### Convert basic types to strings
+
 ```js
 string(v: true)
 
 // Returns "true"
-```
-
-#### Convert a duration to a string value
-```js
 string(v: 1m)
 
 // Returns "1m"
-```
-
-#### Convert a time to a string value
-```js
 string(v: 2021-01-01T00:00:00Z)
 
 // Returns "2021-01-01T00:00:00Z"
+string(v: 10.12)// Returns "10.12"
+
 ```
 
-#### Convert a float to a string value
-```js
-string(v: 10.12)
 
-// Returns "10.12"
-```
+### Convert all values in a column to strings
 
-#### Convert all values in a column to string values
-If updating values in the `_value` column, use [`toString()`](/flux/v0.x/stdlib/universe/tostring/).
-To update values in columns other than `_value`:
-
-1. Use [`map()`](/flux/v0.x/stdlib/universe/map/) to iterate over and update all input rows.
-2. Use `string()` to update the value of a column.
-
-_The following example uses data provided by the [`sampledata` package](/flux/v0.x/stdlib/sampledata/)._
+If converting the `_value` column to string types, use `toString()`.
+If converting columns other than `_value`, use `map()` to iterate over each
+row and `string()` to covert a column value to a string type.
 
 ```js
-import "sampledata"
-
-data = sampledata.int()
-    |> rename(columns: {_value: "foo"})
-
 data
-    |> map(fn: (r) => ({r with foo: string(v: r.foo)}))
+    |> map(fn: (r) => ({r with exampleCol: string(v: r.exampleCol)}))
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
-##### Input data
-| tag | _time                | foo _<span style="opacity:.5;">(int)</span>_ |
-| :-- | :------------------- | -------------------------------------------: |
-| t1  | 2021-01-01T00:00:00Z |                                           -2 |
-| t1  | 2021-01-01T00:00:10Z |                                           10 |
-| t1  | 2021-01-01T00:00:20Z |                                            7 |
-| t1  | 2021-01-01T00:00:30Z |                                           17 |
-| t1  | 2021-01-01T00:00:40Z |                                           15 |
-| t1  | 2021-01-01T00:00:50Z |                                            4 |
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-| tag | _time                | foo _<span style="opacity:.5;">(int)</span>_ |
-| :-- | :------------------- | -------------------------------------------: |
-| t2  | 2021-01-01T00:00:00Z |                                           19 |
-| t2  | 2021-01-01T00:00:10Z |                                            4 |
-| t2  | 2021-01-01T00:00:20Z |                                           -3 |
-| t2  | 2021-01-01T00:00:30Z |                                           19 |
-| t2  | 2021-01-01T00:00:40Z |                                           13 |
-| t2  | 2021-01-01T00:00:50Z |                                            1 |
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
-##### Output data
-| _time                | tag | foo _<span style="opacity:.5;">(string)</span>_ |
-| :------------------- | :-- | ----------------------------------------------: |
-| 2021-01-01T00:00:00Z | t1  |                                              -2 |
-| 2021-01-01T00:00:10Z | t1  |                                              10 |
-| 2021-01-01T00:00:20Z | t1  |                                               7 |
-| 2021-01-01T00:00:30Z | t1  |                                              17 |
-| 2021-01-01T00:00:40Z | t1  |                                              15 |
-| 2021-01-01T00:00:50Z | t1  |                                               4 |
+| _time                | *tag | exampleCol  |
+| -------------------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18       |
+| 2021-01-01T00:00:10Z | t1   | 10.92       |
+| 2021-01-01T00:00:20Z | t1   | 7.35        |
+| 2021-01-01T00:00:30Z | t1   | 17.53       |
+| 2021-01-01T00:00:40Z | t1   | 15.23       |
+| 2021-01-01T00:00:50Z | t1   | 4.43        |
 
-| _time                | tag | foo _<span style="opacity:.5;">(string)</span>_ |
-| :------------------- | :-- | ----------------------------------------------: |
-| 2021-01-01T00:00:00Z | t2  |                                              19 |
-| 2021-01-01T00:00:10Z | t2  |                                               4 |
-| 2021-01-01T00:00:20Z | t2  |                                              -3 |
-| 2021-01-01T00:00:30Z | t2  |                                              19 |
-| 2021-01-01T00:00:40Z | t2  |                                              13 |
-| 2021-01-01T00:00:50Z | t2  |                                               1 |
-{{% /flex-content %}}
-{{< /flex >}}
+| _time                | *tag | exampleCol  |
+| -------------------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85       |
+| 2021-01-01T00:00:10Z | t2   | 4.97        |
+| 2021-01-01T00:00:20Z | t2   | -3.75       |
+| 2021-01-01T00:00:30Z | t2   | 19.77       |
+| 2021-01-01T00:00:40Z | t2   | 13.86       |
+| 2021-01-01T00:00:50Z | t2   | 1.86        |
+
+
+#### Output data
+
+| _time                | exampleCol  | *tag |
+| -------------------- | ----------- | ---- |
+| 2021-01-01T00:00:00Z | -2.18       | t1   |
+| 2021-01-01T00:00:10Z | 10.92       | t1   |
+| 2021-01-01T00:00:20Z | 7.35        | t1   |
+| 2021-01-01T00:00:30Z | 17.53       | t1   |
+| 2021-01-01T00:00:40Z | 15.23       | t1   |
+| 2021-01-01T00:00:50Z | 4.43        | t1   |
+
+| _time                | exampleCol  | *tag |
+| -------------------- | ----------- | ---- |
+| 2021-01-01T00:00:00Z | 19.85       | t2   |
+| 2021-01-01T00:00:10Z | 4.97        | t2   |
+| 2021-01-01T00:00:20Z | -3.75       | t2   |
+| 2021-01-01T00:00:30Z | 19.77       | t2   |
+| 2021-01-01T00:00:40Z | 13.86       | t2   |
+| 2021-01-01T00:00:50Z | 1.86        | t2   |
+
 {{% /expand %}}
+{{< /expand-wrapper >}}
