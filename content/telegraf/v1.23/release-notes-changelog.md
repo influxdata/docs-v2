@@ -11,6 +11,47 @@ menu:
     weight: 60
 ---
 
+## v1.23.1 [2022-7-5]
+
+## Bug fixes
+- Jolokia2 input plugin (`jolikia2`): Resolve panic on null response.
+- RabbitMQ input plugin (`rabbitmq`) Don't require listeners to be present in overview.
+- Sync back `sample.confs` for Couchbuse input plugin (`couchbase`) and Groundwork output plugin (`groundwork`).
+- Filter out views in MongoDB lookup.
+- Fix race condition in configuration and prevent concurrent map writes to `c.UnusedFields`.
+- Restore sample configurations broken during initial migration
+- Sync back sample.confs for inputs.couchbase and outputs.groundwork.
+
+## Dependency updates
+- Bump `cloud.google.com/go/monitoring` from 1.2.0 to 1.5.0.
+- Bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.12.2 to 1.12.5.
+- Bump `google.golang.org/grpc` from 1.46.2 to 1.47.0.
+- Bump `k8s.io/client-go` from 0.23.3 to 0.24.1.
+- Bump `github.com/go-logfmt/logfmt` from 0.5.0 to 0.5.1.
+- Bump `github.com/aws/aws-sdk-go-v2/service/dynamodb` from 1.15.3 to 1.15.7.
+- Bump `go.mongodb.org/mongo-driver` from 1.9.0 to 1.9.1.
+- Bump `github.com/gophercloud/gophercloud` from 0.24.0 to 0.25.0.
+- Bump `google.golang.org/api` from 0.74.0 to 0.84.0.
+- Bump `github.com/fatih/color` from 1.10.0 to 1.13.0.
+- Bump `github.com/aws/aws-sdk-go-v2/service/timestreamwrite` from 1.3.2 to 1.13.6.
+- Bump `github.com/shopify/sarama` from 1.32.0 to 1.34.1.
+- Bump `github.com/dynatrace-oss/dynatrace-metric-utils-go` from 0.3.0 to 0.5.0.
+- Bump `github.com/nats-io/nats.go` from 1.15.0 to 1.16.0.
+- Bump `cloud.google.com/go/pubsub` from 1.18.0 to 1.22.2.
+- Bump `go.opentelemetry.io/collector/pdata` from 0.52.0 to 0.54.0.
+- Bump `github.com/jackc/pgx/v4` from 4.15.0 to 4.16.1.
+- Bump `cloud.google.com/go/bigquery` from 1.8.0 to 1.33.0.
+- Bump `github.com/Azure/azure-kusto-go` from 0.6.0 to 0.7.0.
+- Bump `cloud.google.com/go/pubsub` from 1.22.2 to 1.23.0.
+- Bump `github.com/aws/aws-sdk-go-v2/service/kinesis` from 1.13.0 to 1.15.7.
+- Bump `github.com/aws/aws-sdk-go-v2/service/ec2` from 1.1.0 to 1.46.0.
+- Bump `github.com/golang-jwt/jwt/v4` from 4.4.1 to 4.4.2.
+- Bump `github.com/vmware/govmomi` from 0.27.3 to 0.28.0.
+- Bump `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs` from 1.15.4 to 1.15.8.
+- Bump `github.com/influxdata/influxdb-observability/otel2influx` from 0.2.21 to 0.2.22.
+- Bump `k8s.io/api` from 0.24.1 to 0.24.2.
+- Bump `github.com/prometheus/client_golang` from 1.12.1 to 1.12.2.
+
 ## v1.23.0 [2022-6-13]
 
 - Sample configuration (`sample.conf`) files for the different plugins are now embedded into the Golang code by the Go compiler. You can now download the sample configuration from
