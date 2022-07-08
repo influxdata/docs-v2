@@ -15,10 +15,12 @@ influxdb/v2.3/tags: [glossary]
 
 ### abstract syntax tree (AST)
 
-Tree representation of source code that shows the structure, content, and rules of programming statements and discards additional syntax elements.
-The tree is hierarchical, with elements of program statements broken down into their parts.
+A tree representation of the abstract syntactic structure of source code.
 
-For more information about AST design, see [Abstract Syntax Tree on Wikipedia](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
+Each node of the tree denotes a construct occurring in the code. The syntax is
+abstracted away and does not represent every detail appearing in the syntax, but
+rather just the structural details. 
+
 ### agent
 
 A background process started by (or on behalf of) a user that typically requires user input.
