@@ -62,6 +62,7 @@ import "sampledata"
 
 sampledata.numericBool()
     |> toBool()
+
 ```
 
 {{< expand-wrapper >}}

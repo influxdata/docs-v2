@@ -61,6 +61,7 @@ import "timezone"
 
 timezone.fixed(offset: -8h)// Returns {offset: -8h, zone: "UTC"}
 
+
 ```
 
 
@@ -71,5 +72,6 @@ import "timezone"
 
 // This results in midnight at 00:00:00-08:00 on any day.
 option location = timezone.fixed(offset: -8h)
+
 ```
 

@@ -65,6 +65,7 @@ import "experimental/geo"
 
 data
     |> geo.strictFilter(region: {lat: 40.69335938, lon: -73.30078125, radius: 50.0})
+
 ```
 
 {{< expand-wrapper >}}

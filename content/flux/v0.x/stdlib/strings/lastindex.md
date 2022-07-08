@@ -65,6 +65,7 @@ import "strings"
 
 sampledata.string()
     |> map(fn: (r) => ({r with _value: strings.lastIndex(v: r._value, substr: "g")}))
+
 ```
 
 {{< expand-wrapper >}}

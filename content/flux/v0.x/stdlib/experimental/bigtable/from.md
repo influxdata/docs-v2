@@ -77,5 +77,6 @@ Cloud Bigtable table name.
 import "experimental/bigtable"
 
 bigtable.from(token: "example-token", project: "example-project", instance: "example-instance", table: "example-table")
+
 ```
 

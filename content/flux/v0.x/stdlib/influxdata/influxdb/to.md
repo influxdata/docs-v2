@@ -195,6 +195,7 @@ data =
 
 data
     |> to(bucket: "example-bucket", org: "example-org", token: "mYSuP3rSecR37t0k3N", host: "http://localhost:8086")
+
 ```
 
 The example above produces the following line protocol and sends it to the
@@ -252,6 +253,7 @@ data
         tagColumns: ["tag2"],
         fieldFn: (r) => ({"hum": r.hum, "temp": r.temp}),
     )
+
 ```
 
 The example above produces the following line protocol and sends it to the
@@ -282,5 +284,6 @@ data
     |> count()
     |> map(fn: (r) => ({r with _time: now(), _measurement: "writeStats", _field: "numPointsWritten"}))
     |> to(bucket: "bucket2")
+
 ```
 

@@ -78,6 +78,7 @@ import "sampledata"
 
 sampledata.int()
     |> highestCurrent(n: 1, groupColumns: ["tag"])
+
 ```
 
 {{< expand-wrapper >}}

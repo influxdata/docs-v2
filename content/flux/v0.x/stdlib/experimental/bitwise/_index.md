@@ -11,6 +11,7 @@ weight: 21
 cascade:
   flux/v0.x/tags: [bitwise]
   introduced: 0.138.0
+  deprecated: 0.173.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -35,6 +36,8 @@ Import the `experimental/bitwise` package:
 ```js
 import "experimental/bitwise"
 ```
+
+**Deprecated**: This package is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/).
 
 All integers are 64 bit integers.
 

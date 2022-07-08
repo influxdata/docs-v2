@@ -78,6 +78,7 @@ import "sampledata"
 
 sampledata.int()
     |> lowestMin(n: 2, groupColumns: ["tag"])
+
 ```
 
 {{< expand-wrapper >}}

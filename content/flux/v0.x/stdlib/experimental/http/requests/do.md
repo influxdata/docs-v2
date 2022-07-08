@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L136-L151
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L138-L156
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -29,7 +29,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `requests.do()` makes an http request.
 
-
+**Deprecated**: `do` is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/do/).
 
 The returned response contains the following properties:
 
@@ -109,6 +109,7 @@ import "experimental/http/requests"
 response = requests.do(url: "http://example.com", method: "GET")
 
 requests.peek(response: response)
+
 ```
 
 
@@ -123,6 +124,7 @@ token = secrets.get(key: "TOKEN")
 response = requests.do(method: "GET", url: "http://example.com", headers: ["Authorization": "token ${token}"])
 
 requests.peek(response: response)
+
 ```
 
 
@@ -134,5 +136,6 @@ import "experimental/http/requests"
 response = requests.do(method: "GET", url: "http://example.com", params: ["start": ["100"]])
 
 requests.peek(response: response)
+
 ```
 

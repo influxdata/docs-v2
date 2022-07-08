@@ -77,6 +77,7 @@ Use `array.from()` and `display()` to quickly observe any value.
 import "array"
 
 array.from(rows: [{dict: display(v: ["a": 1, "b": 2]), record: display(v: {x: 1, y: 2}), array: display(v: [5, 6, 7])}])
+
 ```
 
 
@@ -86,6 +87,7 @@ array.from(rows: [{dict: display(v: ["a": 1, "b": 2]), record: display(v: {x: 1,
 x = {a: 1, b: 2, c: 3}
 
 display(v: x)// Returns {a: 1, b: 2, c: 3}
+
 
 ```
 
@@ -97,6 +99,7 @@ x = [1, 2, 3]
 
 display(v: x)// Returns [1, 2, 3]
 
+
 ```
 
 
@@ -107,6 +110,7 @@ x = ["a": 1, "b": 2, "c": 3]
 
 display(v: x)// Returns [a: 1, b: 2, c: 3]
 
+
 ```
 
 
@@ -116,6 +120,7 @@ display(v: x)// Returns [a: 1, b: 2, c: 3]
 x = bytes(v: "abc")
 
 display(v: x)// Returns 0x616263
+
 
 ```
 
@@ -132,6 +137,7 @@ display(v: x)// Returns
 //    dict: [a: 1, b: 2, c: 3],
 //    string: str
 // }
+
 
 ```
 

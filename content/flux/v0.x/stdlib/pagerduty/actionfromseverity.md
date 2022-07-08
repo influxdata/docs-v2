@@ -57,5 +57,6 @@ import "pagerduty"
 
 pagerduty.actionFromSeverity(severity: "crit")// Returns trigger
 
+
 ```
 

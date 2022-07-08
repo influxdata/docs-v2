@@ -85,5 +85,6 @@ import "sampledata"
 
 sampledata.float()
     |> statsmodels.linearRegression()
+
 ```
 

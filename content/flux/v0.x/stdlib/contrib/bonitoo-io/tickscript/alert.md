@@ -171,5 +171,6 @@ from(bucket: "example-bucket")
         warn: (r) => r._value > 20,
         info: (r) => r._value > 10,
     )
+
 ```
 

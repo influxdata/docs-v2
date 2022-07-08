@@ -86,6 +86,7 @@ import "sampledata"
 
 sampledata.int()
     |> truncateTimeColumn(unit: 1m)
+
 ```
 
 {{< expand-wrapper >}}

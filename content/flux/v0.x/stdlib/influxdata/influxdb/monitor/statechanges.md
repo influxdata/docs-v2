@@ -83,6 +83,7 @@ data =
 
 data
     |> monitor.stateChanges(toLevel: "crit")
+
 ```
 
 {{< expand-wrapper >}}

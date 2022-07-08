@@ -75,6 +75,7 @@ import "types"
 
 data
     |> filter(fn: (r) => types.isType(v: r._value, type: "string"))
+
 ```
 
 {{< expand-wrapper >}}
@@ -125,6 +126,7 @@ numericData =
         |> aggregateWindow(every: 30s, fn: mean)
 
 union(tables: [nonNumericData, numericData])
+
 ```
 
 {{< expand-wrapper >}}

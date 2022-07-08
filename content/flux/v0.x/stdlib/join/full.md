@@ -121,6 +121,7 @@ join.full(
         return {_time: time, label: label, v_left: l._value, v_right: r._value}
     },
 )
+
 ```
 
 {{< expand-wrapper >}}

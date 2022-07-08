@@ -132,6 +132,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> window(every: 30s)
+
 ```
 
 {{< expand-wrapper >}}
@@ -192,6 +193,7 @@ data
 ```js
 data
     |> window(every: 20s, period: 40s)
+
 ```
 
 {{< expand-wrapper >}}
@@ -276,6 +278,7 @@ data
 ```js
 data
     |> window(every: 1mo)
+
 ```
 
 {{< expand-wrapper >}}

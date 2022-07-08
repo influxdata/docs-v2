@@ -61,6 +61,7 @@ import "influxdata/influxdb/schema"
 
 data
     |> schema.fieldsAsCols()
+
 ```
 
 {{< expand-wrapper >}}

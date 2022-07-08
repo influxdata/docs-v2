@@ -78,6 +78,7 @@ d = [1: "foo", 2: "bar"]
 
 dict.insert(dict: d, key: 3, value: "baz")// Returns [1: "foo", 2: "bar", 3: "baz"]
 
+
 ```
 
 
@@ -89,6 +90,7 @@ import "dict"
 d = [1: "foo", 2: "bar"]
 
 dict.insert(dict: d, key: 2, value: "baz")// Returns [1: "foo", 2: "baz"]
+
 
 ```
 

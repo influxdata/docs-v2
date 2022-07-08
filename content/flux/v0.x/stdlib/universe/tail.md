@@ -77,6 +77,7 @@ import "sampledata"
 
 sampledata.int()
     |> tail(n: 3)
+
 ```
 
 {{< expand-wrapper >}}
@@ -127,6 +128,7 @@ import "sampledata"
 
 sampledata.int()
     |> tail(n: 3, offset: 1)
+
 ```
 
 {{< expand-wrapper >}}

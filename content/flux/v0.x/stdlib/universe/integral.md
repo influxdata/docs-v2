@@ -93,6 +93,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> integral(unit: 10s)
+
 ```
 
 {{< expand-wrapper >}}
@@ -137,6 +138,7 @@ data
 ```js
 data
     |> integral(unit: 10s, interpolate: "linear")
+
 ```
 
 {{< expand-wrapper >}}

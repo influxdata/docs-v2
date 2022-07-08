@@ -62,6 +62,7 @@ import "strings"
 
 data
     |> map(fn: (r) => ({r with _value: strings.repeat(v: "ha", i: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

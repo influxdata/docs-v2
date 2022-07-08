@@ -114,6 +114,7 @@ username and password using the `<username>:<password>` syntax.
 
 ```js
 from(bucket: "example-bucket")
+
 ```
 
 
@@ -121,6 +122,7 @@ from(bucket: "example-bucket")
 
 ```js
 from(bucketID: "0261d8287f4d6000")
+
 ```
 
 
@@ -132,5 +134,6 @@ import "influxdata/influxdb/secrets"
 token = secrets.get(key: "INFLUXDB_CLOUD_TOKEN")
 
 from(bucket: "example-bucket", host: "https://us-west-2-1.aws.cloud2.influxdata.com", org: "example-org", token: token)
+
 ```
 

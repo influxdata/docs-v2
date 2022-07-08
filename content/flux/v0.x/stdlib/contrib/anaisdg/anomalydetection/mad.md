@@ -69,6 +69,7 @@ import "sampledata"
 
 sampledata.float()
     |> anomalydetection.mad(threshold: 1.0)
+
 ```
 
 {{< expand-wrapper >}}

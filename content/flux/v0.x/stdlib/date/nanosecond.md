@@ -62,6 +62,7 @@ import "date"
 
 date.nanosecond(t: 2020-02-11T12:21:03.29353494Z)// Returns 293534940
 
+
 ```
 
 
@@ -73,6 +74,7 @@ import "date"
 option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.nanosecond(t: -2111984ns)// Returns 128412016
+
 
 ```
 

@@ -59,6 +59,7 @@ import "math"
 
 math.erf(x: 22.6)// 1.0
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.erf(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

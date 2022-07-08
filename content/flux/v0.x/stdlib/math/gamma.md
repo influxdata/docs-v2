@@ -59,6 +59,7 @@ import "math"
 
 math.gamma(x: 2.12)// 1.056821007887572
 
+
 ```
 
 
@@ -70,6 +71,7 @@ import "math"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.gamma(x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

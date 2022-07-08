@@ -57,5 +57,6 @@ import "sampledata"
 
 sampledata.float()
     |> map(fn: (r) => ({_time: r._time, _value: math.cosh(x: r._value)}))
+
 ```
 

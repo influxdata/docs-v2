@@ -51,6 +51,7 @@ day = boundaries.wednesday()
 
 from(bucket: "example-bucket")
     |> range(start: day.start, stop: day.stop)
+
 ```
 
 This will return all records from Wednesday this week

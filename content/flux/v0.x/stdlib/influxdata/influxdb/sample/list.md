@@ -55,5 +55,6 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 import "influxdata/influxdb/sample"
 
 sample.list()
+
 ```
 

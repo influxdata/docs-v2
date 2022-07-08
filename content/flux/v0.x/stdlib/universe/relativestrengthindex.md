@@ -81,6 +81,7 @@ import "sampledata"
 
 sampledata.int()
     |> relativeStrengthIndex(n: 3)
+
 ```
 
 {{< expand-wrapper >}}

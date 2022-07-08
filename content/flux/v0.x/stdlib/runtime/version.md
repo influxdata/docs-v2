@@ -48,6 +48,7 @@ import "array"
 import "runtime"
 
 array.from(rows: [{version: runtime.version()}])
+
 ```
 
 {{< expand-wrapper >}}

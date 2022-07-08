@@ -74,6 +74,7 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 data
     |> covariance(columns: ["x", "y"])
+
 ```
 
 {{< expand-wrapper >}}

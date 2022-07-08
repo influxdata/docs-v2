@@ -79,6 +79,7 @@ stream2 =
         |> toFloat()
 
 pearsonr(x: stream1, y: stream2, on: ["_time"])
+
 ```
 
 {{< expand-wrapper >}}

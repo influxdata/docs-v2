@@ -129,5 +129,6 @@ sampledata.int()
         name: "example-metric-name",
         tagColumns: ["tag"],
     )
+
 ```
 

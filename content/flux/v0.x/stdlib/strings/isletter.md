@@ -56,6 +56,7 @@ import "strings"
 
 data
     |> filter(fn: (r) => strings.isLetter(v: r._value))
+
 ```
 
 {{< expand-wrapper >}}

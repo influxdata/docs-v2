@@ -65,6 +65,7 @@ import "math"
 
 math.jn(n: 2, x: 1.23)// 0.16636938378681407
 
+
 ```
 
 
@@ -76,6 +77,7 @@ import "math"
 
 sampledata.float()
     |> map(fn: (r) => ({r with _value: math.jn(n: 4, x: r._value)}))
+
 ```
 
 {{< expand-wrapper >}}

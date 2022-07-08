@@ -77,6 +77,7 @@ import "sampledata"
 
 sampledata.int()
     |> exponentialMovingAverage(n: 3)
+
 ```
 
 {{< expand-wrapper >}}
@@ -129,6 +130,7 @@ import "sampledata"
 
 sampledata.int(includeNull: true)
     |> exponentialMovingAverage(n: 3)
+
 ```
 
 {{< expand-wrapper >}}
