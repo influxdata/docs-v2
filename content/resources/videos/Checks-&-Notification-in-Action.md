@@ -1,7 +1,7 @@
 ---
 title: Checks & Notification in Action
 description: >
-  Here, Zoe Steinkamp uses a real world example to demonstrate how and when to use the different types of checks and notifications available in InfluxDB. To learn about InfluxDB checks and notifications, see Zoe's video on [Intro to Checks and Notifications](https://youtu.be/-QdldB3RxMw).  
+  Here, Zoe Steinkamp uses a real world example to demonstrate how and when to use the different types of checks and notifications available in InfluxDB. If you're just getting started, see Zoe's video on [Intro to Checks and Notifications](https://youtu.be/-QdldB3RxMw).  
 menu:
   resources:
     parent: Videos

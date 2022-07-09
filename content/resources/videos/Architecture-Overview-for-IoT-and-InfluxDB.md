@@ -1,7 +1,7 @@
 ---
 title: Architecture Overview for IoT and InfluxDB
 description: >
-  InfluxDB benefits stakeholders up and down the corporate hierarchy. Here, Brian Gilmore discusses the different layers of IoT technology infrastructure and the ways that InfluxDB benefits people in various roles at each level.
+  InfluxDB benefits stakeholders throughout the IoT industry. Here, Brian Gilmore discusses the different layers of IoT technology infrastructure, and the ways that InfluxDB benefits people in various roles.
 menu:
   resources:
     parent: Videos
