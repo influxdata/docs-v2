@@ -9,7 +9,7 @@ menu:
     parent: About the project
 ---
 
-## 1.9.8 [2022-07-05]
+## 1.9.8 [2022-07-11]
 
 ### Features
 - Expose passive node feature to influxd-ctl and the API.
