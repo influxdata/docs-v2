@@ -63,7 +63,7 @@ Input data. Default is piped-forward data (`<-`).
 import "sampledata"
 
 sampledata.int()
-    |> stddev()
+    |> sum()
 
 ```
 
@@ -93,13 +93,14 @@ sampledata.int()
 
 #### Output data
 
-| *tag | _value            |
-| ---- | ----------------- |
-| t1   | 7.063993204979744 |
+| *tag | _value  |
+| ---- | ------- |
+| t1   | 51      |
 
-| *tag | _value            |
-| ---- | ----------------- |
-| t2   | 9.474527252938094 |
+| *tag | _value  |
+| ---- | ------- |
+| t2   | 53      |
+
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
