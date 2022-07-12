@@ -17,6 +17,7 @@ Load data from the following sources in the InfluxDB user interface (UI):
 - [Line protocol](#load-data-using-line-protocol)
 - [Client libraries](#load-data-from-a-client-library-in-the-ui)
 - [Telegraf plugins](#load-data-from-a-telegraf-plugin-in-the-ui)
+- {{% cloud-only %}}[Cloud native subscriptions](#set-up-a-cloud-native-subscription){{% /cloud-only %}}
 
 ### Load CSV or line protocol in UI
 
@@ -77,3 +78,75 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 9. Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully sending data to InfluxDB.
    Once confirmed, a **Connection Found!** message appears.
 10. Click **Finish**. Your Telegraf configuration name and the associated bucket name appears in the list of Telegraf configurations.
+
+{{% cloud-only %}}
+
+### Set up a Cloud native subscription
+
+To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the following to set up a Cloud native subscription:
+
+1. [Subscribe to an MQTT topic](#subscribe-to-an-mqtt-topic) in InfluxDB Cloud by configuring an MQTT broker, and specifying the topic(s) to subscribe to.
+2. [Define parsing rules](#define-parsing-rules) for JSON or regex data (line protocol requires no configuration).
+
+#### Subscribe to an MQTT topic
+
+1. In the navigation menu on the left, click **Load Data** > **Cloud Native Subscriptions**.
+    {{< nav-icon "data" >}}
+2. Click **Create Subscription**.
+3. On the **Setting Up - MQTT Connector** page, under **Broker Details**, enter the following:
+   - Subscription name (MQTT broker to subscribe to)
+   - Description
+   - Protocol
+   - Hostname or IP address (hostname or URL of the MQTT broker)
+   - Port (TCP/IP port number the MQTT broker uses)
+   - Security details: none or username/password (authentication, if the MQTT broker uses)
+
+4. Under **Subscribe to a topic**, in the **Topic** field, enter the MQTT topic name to subscribe to. Note, MQTT brokers typically support the wild cards `+` and  `#`.
+
+   - To subscribe to all topics in a directory, use `+`. For example, if an `iotdevices` directory includes two directories called `asia` and `europe`, to subscribe to a `sensor` topic in either directory, use `iotdevices/+/sensors` to subscribe to `iotdevices/asia/sensors`, and `iotdevices/europe/sensors`.
+   - To subscribe to all topics in a directory, use `#`. For example, `iotdevices/#` subscribes to all topics in the  `iotdevices` directory.
+
+5. Under **Write Destination**, select an existing InfluxDB bucket to write data to or click **Create a bucket**. For more information, see [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/).
+
+#### Define parsing rules
+
+- Under **Define Data Parsing Rules**, select one of the following MQTT data formats:
+
+   - **Line protocol** (no configuration required)
+   - **JSON**. To define parsing rules to ingest JSON data, click the **JSON** tab below.
+   - **String**. To define parsing rules to ingest String data, click the **String** tab below.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[JSON](#)
+[String](#)
+[Line protocol](#)
+{{% /tabs %}}
+
+<!-------------------------------- BEGIN JSON -------------------------------->
+{{% tab-content %}}
+
+To associate **JSON** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags), do the following:
+
+- On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
+
+  1. (Optional) In the **JSON path to timestamp** field, specify the path in the MQTT message to the JSON key that holds the timestamp. For example, `"time":1653998899010000000`. Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
+
+   {{% warn %}}
+   **Important**: Configure the timestamp format that matches the format in your messages.
+   {{% /warn %}}
+
+  2. Under **Measurement**, enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key, for example, `$.device_id` or `$.device_information.device_id` for a nested measurement key.
+  3. Select the **Data Type** for the measurement.
+  4. Specify the JSON paths to tag and field names as needed, and then select the data type for the tag or field. At least one field is required. Note, JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`
+
+{{% /tab-content %}}
+
+<!-------------------------------- BEGIN String -------------------------------->
+{{% tab-content %}
+
+{{% /tab-content %}}
+
+{{< /tabs-wrapper >}}
+
+{{% /cloud-only %}}
