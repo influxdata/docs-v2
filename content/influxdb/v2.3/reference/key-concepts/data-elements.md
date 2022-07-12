@@ -202,6 +202,6 @@ If you're just starting out, we recommend taking a look at the following guides:
 - [Write data](/influxdb/v2.3/write-data)
 - [Query data](/influxdb/v2.3/query-data)
 
-For an overview of how these elements interconnect within InfluxDB's data model, watch the follwoing video:
+For an overview of how these elements interconnect within InfluxDB's data model, watch the following video:
 
 {{< youtube 3qTTqsL27lI >}}
