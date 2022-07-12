@@ -139,9 +139,9 @@ JSON parsing is faster and more efficient than string parsing. We recommend usin
 <!-------------------------------- BEGIN JSON -------------------------------->
 {{% tab-content %}}
 
-To associate **JSON** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags), do the following:
+Associate **JSON** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags).
 
-- On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
+1. On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
 
   1. (Optional) In the **JSON path to timestamp** field, specify the path in the MQTT message to the JSON key that holds the timestamp. For example, `"time":1653998899010000000`. Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
 
@@ -158,9 +158,9 @@ To associate **JSON** key/value pairs with **InfluxDB elements** (measurements, 
 <!-------------------------------- BEGIN String -------------------------------->
 {{% tab-content %}}
 
-To associate **String** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags), do the following:
+Associate **String** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags).
 
-- On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
+1. On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
 
   1. (Optional) In the **Regex pattern to find timestamp** field, enter the regex to find the timestamp in the MQTT message.  Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
   
@@ -171,7 +171,6 @@ To associate **String** key/value pairs with **InfluxDB elements** (measurements
       For example, if the timestamp string is `time=1653998899010000000`, use a regex to find the string you're looking for and capture the timestamp:
    - `time=([\s\S]*?)\n` (captures value after `=` until the EOL (end of line) is reached)
    - `time=([\s\S]*?),` (captures value after `=` until comma is reached)
-   - time=([\s\S]*?),
 
    {{% warn %}}
    **Important**: Configure the timestamp format that matches the format in your messages.
@@ -179,11 +178,10 @@ To associate **String** key/value pairs with **InfluxDB elements** (measurements
 
   2. Under **Measurement**, enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key, for example, `$.device_id` or `$.device_information.device_id` for a nested measurement key.
   3. Select the **Data Type** for the measurement.
-  4. For tag and field names, use the regex to find the tag or field name, and what to capture. For example: 
-     - `device_id=\d\d\d\d-([0-9][0-9][0-9][0-9])` (matches on the `devicecaptures
+  4. Enter **Tag** and **Field**. At least one field is required. For tag and field names, use the regex to find the tag or field name, and what to capture. For example:
+     - `device_id=\d\d\d\d-([0-9][0-9][0-9][0-9])` (matches on the `device_id=` and also matches on the first four digits of the device id, and then captures the four digits.
   
-  
-  , and then select the data type for the tag or field. At least one field is required. JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`. 
+  5. Select the data type for the tag or field. JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`.
 
 {{% /tab-content %}}
 
