@@ -50,11 +50,26 @@ function SetTagGroups() {
           root['x-tagGroups'] = data;
         }
 
+        let nonEndpointTags = []
         root['x-tagGroups'].map(
           function(grp) {
-            grp.tags = grp.name === 'All endpoints' ? endpointTags : grp.tags;
-            return grp;
+            if(grp.name !== 'All endpoints') {
+              nonEndpointTags = nonEndpointTags.concat(grp.tags);
+            }
+            if(!['All endpoints', 'Overview'].includes(grp.name)) {
+              grp.name = ""
+            }
           });
+        
+        root['x-tagGroups'].map(
+          function(grp) {         
+            if(grp.name === 'All endpoints') {
+              grp.tags = endpointTags
+                         .filter(t => !nonEndpointTags.includes(t));
+            }
+            return grp;
+          }
+        )
       }
     }
   }

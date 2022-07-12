@@ -11,6 +11,18 @@ aliases:
 ---
 
 
+## v0.174.1 [2022-07-12]
+
+### Bug fixes
+
+- Update [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow/) 
+  to correctly handle null values when using `sum` or `mean`.
+- Update [`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/) and
+  [`wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/) to skip empty tag
+  values.
+
+---
+
 ## v0.174.0 [2022-07-05]
 
 ### Features
