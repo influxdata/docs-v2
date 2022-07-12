@@ -2194,7 +2194,8 @@ components:
       description: Flux query to be analyzed.
       properties:
         query:
-          description: Flux query script to be analyzed
+          description: |
+            The Flux query script to be analyzed.
           type: string
       required:
         - query
@@ -10159,6 +10160,44 @@ paths:
                       |> filter(fn: (r) => r._measurement == "example-measurement")'
   /api/v2/query/analyze:
     post:
+      description: >
+        Analyzes a [Flux query](https://docs.influxdata.com/flux/v0.x/) for
+        syntax
+
+        errors and returns the list of errors.
+
+
+        In the following example `Query` object, `query` is missing a `from()`
+        property key:
+
+            ```json
+            { "query": "from(: \"iot_center\")\
+                        |> range(start: -90d)\
+                        |> filter(fn: (r) => r._measurement == \"environment\")",
+              "type": "flux"
+            }
+            ```
+
+        Passing this to `/api/v2/analyze` returns an `errors` list that contains
+        an error object for the missing key.
+
+
+        #### Limitations
+
+
+        -  The endpoint doesn't validate values in the query--for example:
+
+          - The following query has correct syntax, but contains an incorrect `from()` property key:
+
+            ```json
+            { "query": "from(foo: \"iot_center\")\
+                        |> range(start: -90d)\
+                        |> filter(fn: (r) => r._measurement == \"environment\")",
+              "type": "flux"
+            }
+            ```
+
+            Passing this to `/api/v2/analyze` returns an empty `errors` list.
       operationId: PostQueryAnalyze
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10178,30 +10217,156 @@ paths:
         '200':
           content:
             application/json:
+              examples:
+                missingQueryPropertyKey:
+                  description: >
+                    Returns an error object if the Flux query is missing a
+                    property key.
+
+
+                    The following example is missing the `bucket` property key:
+
+                      ```json
+                      {
+                        "query": "from(: \"iot_center\")\
+
+                        ...
+
+                      }
+                      ```
+                  summary: Missing property key error
+                  value:
+                    errors:
+                      - character: 0
+                        column: 6
+                        line: 1
+                        message: missing property key
               schema:
                 $ref: '#/components/schemas/AnalyzeQueryResponse'
-          description: Query analyze results. Errors will be empty if the query is valid.
+          description: >
+            Success.
+
+            The response body contains the list of `errors`.
+
+            If the query syntax is valid, the endpoint returns an empty `errors`
+            list.
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidJSONStringValue:
+                  description: >-
+                    If the request body contains invalid JSON, returns `invalid`
+                    and problem detail.
+                  summary: Invalid JSON
+                  value:
+                    code: invalid
+                    message: >-
+                      invalid json: invalid character '\'' looking for beginning
+                      of value
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: |
+            Bad request.
+            InfluxDB is unable to parse the request.
+            The response body contains detail about the problem.
+          headers:
+            X-Platform-Error-Code:
+              description: |
+                The reason for the error.
+              schema:
+                example: invalid
+                type: string
         default:
           content:
             application/json:
+              examples:
+                emptyJSONObject:
+                  description: >
+                    If the request body contains an empty JSON object, returns
+                    `internal error`.
+                  summary: Empty JSON object in request body
+                  value:
+                    code: internal error
+                    message: An internal error has occurred - check server logs
               schema:
                 $ref: '#/components/schemas/Error'
           description: Internal server error
           headers:
             X-Influx-Error:
-              description: Error string describing the problem
+              description: A string that describes the problem.
               schema:
                 type: string
             X-Influx-Reference:
-              description: Reference code unique to the error type
+              description: The numeric reference code for the error type.
               schema:
                 type: integer
+            X-Platform-Error-Code:
+              description: The reason for the error.
+              schema:
+                example: internal error
+                type: string
       summary: Analyze a Flux query
       tags:
         - Query
+      x-codeSamples:
+        - label: 'cURL: Analyze a Flux query'
+          lang: Shell
+          source: |
+            curl -v --request POST \
+              "http://localhost:8086/api/v2/query/analyze" \
+              --header "Authorization: Token INFLUX_TOKEN" \
+              --header 'Content-type: application/json' \
+              --header 'Accept: application/json' \
+              --data-binary @- << EOF
+              { "query": "from(bucket: \"iot_center\")\
+                          |> range(start: -90d)\
+                          |> filter(fn: (r) => r._measurement == \"environment\")",
+                "type": "flux"
+              }
+            EOF
   /api/v2/query/ast:
     post:
-      description: Analyzes flux query and generates a query specification.
+      description: >
+        Analyzes a Flux query and returns a complete package source [Abstract
+        Syntax
+
+        Tree
+        (AST)](https:///influxdb/v2.3/reference/glossary/#abstract-syntax-tree)
+
+        for the query.
+
+
+        Use this endpoint for deep query analysis such as debugging unexpected
+        query
+
+        results.
+
+
+        A Flux query AST provides a semantic, tree-like representation with
+        contextual
+
+        information about the query. The AST illustrates how the query is
+        distributed
+
+        into different components for execution.
+
+
+
+        #### Limitations
+
+
+        -  The endpoint doesn't validate values in the query--for example:
+
+            The following query has correct syntax, but contains an incorrect `from()` property key:
+            ```json
+            { "query": "from(foo: \"iot_center\")\
+                        |> range(start: -90d)\
+                        |> filter(fn: (r) => r._measurement == \"environment\")"
+            }
+            ```
+            Passing this to `/api/v2/query/ast` will return a successful response
+            with a generated AST.
       operationId: PostQueryAst
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10216,23 +10381,410 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/LanguageRequest'
-        description: Analyzed Flux query to generate abstract syntax tree.
+        description: The Flux query to analyze.
       responses:
         '200':
           content:
             application/json:
+              examples:
+                successResponse:
+                  value:
+                    ast:
+                      files:
+                        - body:
+                            - expression:
+                                argument:
+                                  argument:
+                                    arguments:
+                                      - location:
+                                          end:
+                                            column: 25
+                                            line: 1
+                                          source: 'bucket: "example-bucket"'
+                                          start:
+                                            column: 6
+                                            line: 1
+                                        properties:
+                                          - key:
+                                              location:
+                                                end:
+                                                  column: 12
+                                                  line: 1
+                                                source: bucket
+                                                start:
+                                                  column: 6
+                                                  line: 1
+                                              name: bucket
+                                              type: Identifier
+                                            location:
+                                              end:
+                                                column: 25
+                                                line: 1
+                                              source: 'bucket: "example-bucket"'
+                                              start:
+                                                column: 6
+                                                line: 1
+                                            type: Property
+                                            value:
+                                              location:
+                                                end:
+                                                  column: 25
+                                                  line: 1
+                                                source: '"example-bucket"'
+                                                start:
+                                                  column: 14
+                                                  line: 1
+                                              type: StringLiteral
+                                              value: example-bucket
+                                        type: ObjectExpression
+                                    callee:
+                                      location:
+                                        end:
+                                          column: 5
+                                          line: 1
+                                        source: from
+                                        start:
+                                          column: 1
+                                          line: 1
+                                      name: from
+                                      type: Identifier
+                                    location:
+                                      end:
+                                        column: 26
+                                        line: 1
+                                      source: 'from(bucket: "example-bucket")'
+                                      start:
+                                        column: 1
+                                        line: 1
+                                    type: CallExpression
+                                  call:
+                                    arguments:
+                                      - location:
+                                          end:
+                                            column: 46
+                                            line: 1
+                                          source: 'start: -5m'
+                                          start:
+                                            column: 36
+                                            line: 1
+                                        properties:
+                                          - key:
+                                              location:
+                                                end:
+                                                  column: 41
+                                                  line: 1
+                                                source: start
+                                                start:
+                                                  column: 36
+                                                  line: 1
+                                              name: start
+                                              type: Identifier
+                                            location:
+                                              end:
+                                                column: 46
+                                                line: 1
+                                              source: 'start: -5m'
+                                              start:
+                                                column: 36
+                                                line: 1
+                                            type: Property
+                                            value:
+                                              argument:
+                                                location:
+                                                  end:
+                                                    column: 46
+                                                    line: 1
+                                                  source: 5m
+                                                  start:
+                                                    column: 44
+                                                    line: 1
+                                                type: DurationLiteral
+                                                values:
+                                                  - magnitude: 5
+                                                    unit: m
+                                              location:
+                                                end:
+                                                  column: 46
+                                                  line: 1
+                                                source: '-5m'
+                                                start:
+                                                  column: 43
+                                                  line: 1
+                                              operator: '-'
+                                              type: UnaryExpression
+                                        type: ObjectExpression
+                                    callee:
+                                      location:
+                                        end:
+                                          column: 35
+                                          line: 1
+                                        source: range
+                                        start:
+                                          column: 30
+                                          line: 1
+                                      name: range
+                                      type: Identifier
+                                    location:
+                                      end:
+                                        column: 47
+                                        line: 1
+                                      source: 'range(start: -5m)'
+                                      start:
+                                        column: 30
+                                        line: 1
+                                    type: CallExpression
+                                  location:
+                                    end:
+                                      column: 47
+                                      line: 1
+                                    source: >-
+                                      from(bucket: "example-bucket") |>
+                                      range(start: -5m)
+                                    start:
+                                      column: 1
+                                      line: 1
+                                  type: PipeExpression
+                                call:
+                                  arguments:
+                                    - location:
+                                        end:
+                                          column: 108
+                                          line: 1
+                                        source: >-
+                                          fn: (r) => r._measurement ==
+                                          "example-measurement"
+                                        start:
+                                          column: 58
+                                          line: 1
+                                      properties:
+                                        - key:
+                                            location:
+                                              end:
+                                                column: 60
+                                                line: 1
+                                              source: fn
+                                              start:
+                                                column: 58
+                                                line: 1
+                                            name: fn
+                                            type: Identifier
+                                          location:
+                                            end:
+                                              column: 108
+                                              line: 1
+                                            source: >-
+                                              fn: (r) => r._measurement ==
+                                              "example-measurement"
+                                            start:
+                                              column: 58
+                                              line: 1
+                                          type: Property
+                                          value:
+                                            body:
+                                              left:
+                                                location:
+                                                  end:
+                                                    column: 83
+                                                    line: 1
+                                                  source: r._measurement
+                                                  start:
+                                                    column: 69
+                                                    line: 1
+                                                object:
+                                                  location:
+                                                    end:
+                                                      column: 70
+                                                      line: 1
+                                                    source: r
+                                                    start:
+                                                      column: 69
+                                                      line: 1
+                                                  name: r
+                                                  type: Identifier
+                                                property:
+                                                  location:
+                                                    end:
+                                                      column: 83
+                                                      line: 1
+                                                    source: _measurement
+                                                    start:
+                                                      column: 71
+                                                      line: 1
+                                                  name: _measurement
+                                                  type: Identifier
+                                                type: MemberExpression
+                                              location:
+                                                end:
+                                                  column: 108
+                                                  line: 1
+                                                source: r._measurement == "example-measurement"
+                                                start:
+                                                  column: 69
+                                                  line: 1
+                                              operator: '=='
+                                              right:
+                                                location:
+                                                  end:
+                                                    column: 108
+                                                    line: 1
+                                                  source: '"example-measurement"'
+                                                  start:
+                                                    column: 87
+                                                    line: 1
+                                                type: StringLiteral
+                                                value: example-measurement
+                                              type: BinaryExpression
+                                            location:
+                                              end:
+                                                column: 108
+                                                line: 1
+                                              source: >-
+                                                (r) => r._measurement ==
+                                                "example-measurement"
+                                              start:
+                                                column: 62
+                                                line: 1
+                                            params:
+                                              - key:
+                                                  location:
+                                                    end:
+                                                      column: 64
+                                                      line: 1
+                                                    source: r
+                                                    start:
+                                                      column: 63
+                                                      line: 1
+                                                  name: r
+                                                  type: Identifier
+                                                location:
+                                                  end:
+                                                    column: 64
+                                                    line: 1
+                                                  source: r
+                                                  start:
+                                                    column: 63
+                                                    line: 1
+                                                type: Property
+                                                value: null
+                                            type: FunctionExpression
+                                      type: ObjectExpression
+                                  callee:
+                                    location:
+                                      end:
+                                        column: 57
+                                        line: 1
+                                      source: filter
+                                      start:
+                                        column: 51
+                                        line: 1
+                                    name: filter
+                                    type: Identifier
+                                  location:
+                                    end:
+                                      column: 109
+                                      line: 1
+                                    source: >-
+                                      filter(fn: (r) => r._measurement ==
+                                      "example-measurement")
+                                    start:
+                                      column: 51
+                                      line: 1
+                                  type: CallExpression
+                                location:
+                                  end:
+                                    column: 109
+                                    line: 1
+                                  source: >-
+                                    from(bucket: "example-bucket") |>
+                                    range(start: -5m) |> filter(fn: (r) =>
+                                    r._measurement == "example-measurement")
+                                  start:
+                                    column: 1
+                                    line: 1
+                                type: PipeExpression
+                              location:
+                                end:
+                                  column: 109
+                                  line: 1
+                                source: >-
+                                  from(bucket: "example-bucket") |> range(start:
+                                  -5m) |> filter(fn: (r) => r._measurement ==
+                                  "example-measurement")
+                                start:
+                                  column: 1
+                                  line: 1
+                              type: ExpressionStatement
+                          imports: null
+                          location:
+                            end:
+                              column: 109
+                              line: 1
+                            source: >-
+                              from(bucket: "example-bucket") |> range(start:
+                              -5m) |> filter(fn: (r) => r._measurement ==
+                              "example-measurement")
+                            start:
+                              column: 1
+                              line: 1
+                          metadata: parser-type=rust
+                          package: null
+                          type: File
+                      package: main
+                      type: Package
               schema:
                 $ref: '#/components/schemas/ASTResponse'
-          description: Abstract syntax tree of the flux query.
+          description: >
+            Success.
+
+            The response body contains an Abstract Syntax Tree (AST) of the Flux
+            query.
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidASTValue:
+                  description: >
+                    If the request body contains a missing property key in
+                    `from()`,
+
+                    returns `invalid` and problem detail.
+                  summary: Invalid AST
+                  value:
+                    code: invalid
+                    message: 'invalid AST: loc 1:6-1:19: missing property key'
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: |
+            Bad request.
+            InfluxDB is unable to parse the request.
+            The response body contains detail about the problem.
+          headers:
+            X-Platform-Error-Code:
+              description: |
+                The reason for the error.
+              schema:
+                example: invalid
+                type: string
         default:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Any response other than 200 is an internal server error
-      summary: Generate an Abstract Syntax Tree (AST) from a query
+          description: Internal server error.
+      summary: Generate a query Abstract Syntax Tree (AST)
       tags:
         - Query
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: |
+            curl --request POST 'INFLUX_URL/api/v2/query/ast' \
+            --header 'Content-Type: application/json' \
+            --header 'Accept: application/json \
+            --header 'Authorization: Token INFLUX_TOKEN' \
+            --data 'from(bucket: "example-bucket")
+                      |> range(start: -5m)
+                      |> filter(fn: (r) => r._measurement == "example-measurement")'
   /api/v2/query/suggestions:
     get:
       operationId: GetQuerySuggestions

@@ -2250,7 +2250,8 @@ components:
       description: Flux query to be analyzed.
       properties:
         query:
-          description: Flux query script to be analyzed
+          description: |
+            The Flux query script to be analyzed.
           type: string
       required:
         - query
@@ -6337,6 +6338,7 @@ paths:
       summary: List all top level routes
       tags:
         - Routes
+        - System information endpoints
   /api/v2/authorizations:
     get:
       operationId: GetAuthorizations
@@ -6375,6 +6377,7 @@ paths:
       summary: List all authorizations
       tags:
         - Authorizations
+        - Security and access endpoints
     post:
       operationId: PostAuthorizations
       parameters:
@@ -6445,6 +6448,7 @@ paths:
       summary: Retrieve an authorization
       tags:
         - Authorizations
+        - Security and access endpoints
     patch:
       operationId: PatchAuthorizationsID
       parameters:
@@ -7407,6 +7411,7 @@ paths:
       summary: Retrieve runtime configuration
       tags:
         - Config
+        - System information endpoints
   /api/v2/dashboards:
     get:
       operationId: GetDashboards
@@ -8411,7 +8416,7 @@ paths:
             externalDocs:
               description: InfluxDB duration
               url: >-
-                https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#duration
+                https://docs.influxdata.com/influxdb/latest/reference/glossary/#duration
             format: duration
             type: string
       responses:
@@ -8438,6 +8443,7 @@ paths:
       summary: Retrieve all runtime profiles
       tags:
         - Debug
+        - System information endpoints
       x-codeSamples:
         - label: 'Shell: Get all profiles'
           lang: Shell
@@ -8570,6 +8576,7 @@ paths:
       summary: Retrieve the memory allocations runtime profile
       tags:
         - Debug
+        - System information endpoints
       x-codeSamples:
         - label: 'Shell: go tool pprof'
           lang: Shell
@@ -8669,6 +8676,7 @@ paths:
       summary: Retrieve the block runtime profile
       tags:
         - Debug
+        - System information endpoints
       x-codeSamples:
         - label: 'Shell: go tool pprof'
           lang: Shell
@@ -8713,6 +8721,7 @@ paths:
       summary: Retrieve the command line invocation
       tags:
         - Debug
+        - System information endpoints
   /debug/pprof/goroutine:
     get:
       description: >
@@ -8789,6 +8798,7 @@ paths:
       summary: Retrieve the goroutines runtime profile
       tags:
         - Debug
+        - System information endpoints
       x-codeSamples:
         - label: 'Shell: go tool pprof'
           lang: Shell
@@ -8907,6 +8917,7 @@ paths:
       summary: Retrieve the heap runtime profile
       tags:
         - Debug
+        - System information endpoints
       x-codeSamples:
         - label: 'Shell: go tool pprof'
           lang: Shell
@@ -9017,6 +9028,7 @@ paths:
       summary: Retrieve the mutual exclusion (mutex) runtime profile
       tags:
         - Debug
+        - System information endpoints
       x-codeSamples:
         - label: 'Shell: go tool pprof'
           lang: Shell
@@ -9081,6 +9093,7 @@ paths:
       summary: Retrieve the CPU runtime profile
       tags:
         - Debug
+        - System information endpoints
       x-codeSamples:
         - label: 'Shell: go tool pprof'
           lang: Shell
@@ -9177,6 +9190,7 @@ paths:
       summary: Retrieve the threadcreate runtime profile
       tags:
         - Debug
+        - System information endpoints
       x-codeSamples:
         - label: 'Shell: go tool pprof'
           lang: Shell
@@ -9233,6 +9247,7 @@ paths:
       summary: Retrieve the runtime execution trace
       tags:
         - Debug
+        - System information endpoints
       x-codeSamples:
         - label: 'Shell: go tool trace'
           lang: Shell
@@ -9440,7 +9455,21 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Delete data
       tags:
+        - Data I/O endpoints
         - Delete
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: >
+            curl --request POST
+            INFLUX_URL/api/v2/delete?org=INFLUX_ORG&bucket=INFLUX_BUCKET \
+              --header 'Authorization: Token INFLUX_TOKEN' \
+              --header 'Content-Type: application/json' \
+              --data '{
+                "start": "2020-03-01T00:00:00Z",
+                "stop": "2020-11-14T00:00:00Z",
+                "predicate": "tag1=\"value1\" and (tag2=\"value2\" and tag3!=\"value3\")"
+              }'
   /api/v2/flags:
     get:
       operationId: GetFlags
@@ -9490,6 +9519,7 @@ paths:
       summary: Retrieve the health of the instance
       tags:
         - Health
+        - System information endpoints
   /api/v2/labels:
     get:
       operationId: GetLabels
@@ -9703,7 +9733,7 @@ paths:
         metrics](/influxdb/v2.3/reference/internals/metrics/).
 
         - Learn how to use InfluxDB to [scrape Prometheus
-        metrics](/influxdb/v2.3write-data/developer-tools/scrape-prometheus-metrics/).
+        metrics](/influxdb/v2.3/write-data/developer-tools/scrape-prometheus-metrics/).
 
         - Learn how InfluxDB [parses the Prometheus exposition
         format](/influxdb/v2.3/reference/prometheus-metrics/).
@@ -9768,6 +9798,7 @@ paths:
       summary: Retrieve workload performance metrics
       tags:
         - Metrics
+        - System information endpoints
   /api/v2/notificationEndpoints:
     get:
       operationId: GetNotificationEndpoints
@@ -10428,6 +10459,7 @@ paths:
       summary: List all organizations
       tags:
         - Organizations
+        - Security and access endpoints
     post:
       operationId: PostOrgs
       parameters:
@@ -10510,6 +10542,7 @@ paths:
       summary: Retrieve an organization
       tags:
         - Organizations
+        - Security and access endpoints
     patch:
       operationId: PatchOrgsID
       parameters:
@@ -10576,6 +10609,7 @@ paths:
       summary: List all members of an organization
       tags:
         - Organizations
+        - Security and access endpoints
     post:
       operationId: PostOrgsIDMembers
       parameters:
@@ -10638,6 +10672,7 @@ paths:
       summary: Remove a member from an organization
       tags:
         - Organizations
+        - Security and access endpoints
   /api/v2/orgs/{orgID}/owners:
     get:
       operationId: GetOrgsIDOwners
@@ -10671,6 +10706,7 @@ paths:
       summary: List all owners of an organization
       tags:
         - Organizations
+        - Security and access endpoints
     post:
       operationId: PostOrgsIDOwners
       parameters:
@@ -10733,6 +10769,7 @@ paths:
       summary: Remove an owner from an organization
       tags:
         - Organizations
+        - Security and access endpoints
   /api/v2/orgs/{orgID}/secrets:
     get:
       operationId: GetOrgsIDSecrets
@@ -10760,6 +10797,7 @@ paths:
       summary: List all secret keys for an organization
       tags:
         - Secrets
+        - Security and access endpoints
     patch:
       operationId: PatchOrgsIDSecrets
       parameters:
@@ -10815,6 +10853,7 @@ paths:
       summary: Delete a secret from an organization
       tags:
         - Secrets
+        - Security and access endpoints
   /api/v2/orgs/{orgID}/secrets/delete:
     post:
       deprecated: true
@@ -10846,6 +10885,7 @@ paths:
       summary: Delete secrets from an organization
       tags:
         - Secrets
+        - Security and access endpoints
   /ping:
     get:
       description: Returns the status and InfluxDB version of the instance.
@@ -10868,6 +10908,7 @@ paths:
       summary: Get the status and version of the instance
       tags:
         - Ping
+        - System information endpoints
     head:
       description: Returns the status and InfluxDB version of the instance.
       operationId: HeadPing
@@ -10895,7 +10936,7 @@ paths:
         Retrieves data from buckets.
 
 
-        Use this endpoint to send a Flux query request and retreive data from a
+        Use this endpoint to send a Flux query request and retrieve data from a
         bucket.
 
 
@@ -10998,13 +11039,16 @@ paths:
       responses:
         '200':
           content:
-            text/csv:
+            application/csv:
+              example: >
+                result,table,_start,_stop,_time,region,host,_value
+
+                mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
+
+                mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
+
+                mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
               schema:
-                example: >
-                  result,table,_start,_stop,_time,region,host,_value
-                  mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
-                  mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
-                  mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
                 type: string
           description: Success. The response body contains query results.
           headers:
@@ -11057,9 +11101,59 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Query data
       tags:
+        - Data I/O endpoints
         - Query
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: |
+            curl --request POST 'INFLUX_URL/api/v2/query?org=INFLUX_ORG' \
+            --header 'Content-Type: application/vnd.flux' \
+            --header 'Accept: application/csv \
+            --header 'Authorization: Token INFLUX_TOKEN' \
+            --data 'from(bucket: "example-bucket")
+                      |> range(start: -5m)
+                      |> filter(fn: (r) => r._measurement == "example-measurement")'
   /api/v2/query/analyze:
     post:
+      description: >
+        Analyzes a [Flux query](https://docs.influxdata.com/flux/v0.x/) for
+        syntax
+
+        errors and returns the list of errors.
+
+
+        In the following example `Query` object, `query` is missing a `from()`
+        property key:
+
+            ```json
+            { "query": "from(: \"iot_center\")\
+                        |> range(start: -90d)\
+                        |> filter(fn: (r) => r._measurement == \"environment\")",
+              "type": "flux"
+            }
+            ```
+
+        Passing this to `/api/v2/analyze` returns an `errors` list that contains
+        an error object for the missing key.
+
+
+        #### Limitations
+
+
+        -  The endpoint doesn't validate values in the query--for example:
+
+          - The following query has correct syntax, but contains an incorrect `from()` property key:
+
+            ```json
+            { "query": "from(foo: \"iot_center\")\
+                        |> range(start: -90d)\
+                        |> filter(fn: (r) => r._measurement == \"environment\")",
+              "type": "flux"
+            }
+            ```
+
+            Passing this to `/api/v2/analyze` returns an empty `errors` list.
       operationId: PostQueryAnalyze
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11079,30 +11173,156 @@ paths:
         '200':
           content:
             application/json:
+              examples:
+                missingQueryPropertyKey:
+                  description: >
+                    Returns an error object if the Flux query is missing a
+                    property key.
+
+
+                    The following example is missing the `bucket` property key:
+
+                      ```json
+                      {
+                        "query": "from(: \"iot_center\")\
+
+                        ...
+
+                      }
+                      ```
+                  summary: Missing property key error
+                  value:
+                    errors:
+                      - character: 0
+                        column: 6
+                        line: 1
+                        message: missing property key
               schema:
                 $ref: '#/components/schemas/AnalyzeQueryResponse'
-          description: Query analyze results. Errors will be empty if the query is valid.
+          description: >
+            Success.
+
+            The response body contains the list of `errors`.
+
+            If the query syntax is valid, the endpoint returns an empty `errors`
+            list.
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidJSONStringValue:
+                  description: >-
+                    If the request body contains invalid JSON, returns `invalid`
+                    and problem detail.
+                  summary: Invalid JSON
+                  value:
+                    code: invalid
+                    message: >-
+                      invalid json: invalid character '\'' looking for beginning
+                      of value
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: |
+            Bad request.
+            InfluxDB is unable to parse the request.
+            The response body contains detail about the problem.
+          headers:
+            X-Platform-Error-Code:
+              description: |
+                The reason for the error.
+              schema:
+                example: invalid
+                type: string
         default:
           content:
             application/json:
+              examples:
+                emptyJSONObject:
+                  description: >
+                    If the request body contains an empty JSON object, returns
+                    `internal error`.
+                  summary: Empty JSON object in request body
+                  value:
+                    code: internal error
+                    message: An internal error has occurred - check server logs
               schema:
                 $ref: '#/components/schemas/Error'
           description: Internal server error
           headers:
             X-Influx-Error:
-              description: Error string describing the problem
+              description: A string that describes the problem.
               schema:
                 type: string
             X-Influx-Reference:
-              description: Reference code unique to the error type
+              description: The numeric reference code for the error type.
               schema:
                 type: integer
+            X-Platform-Error-Code:
+              description: The reason for the error.
+              schema:
+                example: internal error
+                type: string
       summary: Analyze a Flux query
       tags:
         - Query
+      x-codeSamples:
+        - label: 'cURL: Analyze a Flux query'
+          lang: Shell
+          source: |
+            curl -v --request POST \
+              "http://localhost:8086/api/v2/query/analyze" \
+              --header "Authorization: Token INFLUX_TOKEN" \
+              --header 'Content-type: application/json' \
+              --header 'Accept: application/json' \
+              --data-binary @- << EOF
+              { "query": "from(bucket: \"iot_center\")\
+                          |> range(start: -90d)\
+                          |> filter(fn: (r) => r._measurement == \"environment\")",
+                "type": "flux"
+              }
+            EOF
   /api/v2/query/ast:
     post:
-      description: Analyzes flux query and generates a query specification.
+      description: >
+        Analyzes a Flux query and returns a complete package source [Abstract
+        Syntax
+
+        Tree
+        (AST)](https:///influxdb/v2.3/reference/glossary/#abstract-syntax-tree)
+
+        for the query.
+
+
+        Use this endpoint for deep query analysis such as debugging unexpected
+        query
+
+        results.
+
+
+        A Flux query AST provides a semantic, tree-like representation with
+        contextual
+
+        information about the query. The AST illustrates how the query is
+        distributed
+
+        into different components for execution.
+
+
+
+        #### Limitations
+
+
+        -  The endpoint doesn't validate values in the query--for example:
+
+            The following query has correct syntax, but contains an incorrect `from()` property key:
+            ```json
+            { "query": "from(foo: \"iot_center\")\
+                        |> range(start: -90d)\
+                        |> filter(fn: (r) => r._measurement == \"environment\")"
+            }
+            ```
+            Passing this to `/api/v2/query/ast` will return a successful response
+            with a generated AST.
       operationId: PostQueryAst
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11117,23 +11337,410 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/LanguageRequest'
-        description: Analyzed Flux query to generate abstract syntax tree.
+        description: The Flux query to analyze.
       responses:
         '200':
           content:
             application/json:
+              examples:
+                successResponse:
+                  value:
+                    ast:
+                      files:
+                        - body:
+                            - expression:
+                                argument:
+                                  argument:
+                                    arguments:
+                                      - location:
+                                          end:
+                                            column: 25
+                                            line: 1
+                                          source: 'bucket: "example-bucket"'
+                                          start:
+                                            column: 6
+                                            line: 1
+                                        properties:
+                                          - key:
+                                              location:
+                                                end:
+                                                  column: 12
+                                                  line: 1
+                                                source: bucket
+                                                start:
+                                                  column: 6
+                                                  line: 1
+                                              name: bucket
+                                              type: Identifier
+                                            location:
+                                              end:
+                                                column: 25
+                                                line: 1
+                                              source: 'bucket: "example-bucket"'
+                                              start:
+                                                column: 6
+                                                line: 1
+                                            type: Property
+                                            value:
+                                              location:
+                                                end:
+                                                  column: 25
+                                                  line: 1
+                                                source: '"example-bucket"'
+                                                start:
+                                                  column: 14
+                                                  line: 1
+                                              type: StringLiteral
+                                              value: example-bucket
+                                        type: ObjectExpression
+                                    callee:
+                                      location:
+                                        end:
+                                          column: 5
+                                          line: 1
+                                        source: from
+                                        start:
+                                          column: 1
+                                          line: 1
+                                      name: from
+                                      type: Identifier
+                                    location:
+                                      end:
+                                        column: 26
+                                        line: 1
+                                      source: 'from(bucket: "example-bucket")'
+                                      start:
+                                        column: 1
+                                        line: 1
+                                    type: CallExpression
+                                  call:
+                                    arguments:
+                                      - location:
+                                          end:
+                                            column: 46
+                                            line: 1
+                                          source: 'start: -5m'
+                                          start:
+                                            column: 36
+                                            line: 1
+                                        properties:
+                                          - key:
+                                              location:
+                                                end:
+                                                  column: 41
+                                                  line: 1
+                                                source: start
+                                                start:
+                                                  column: 36
+                                                  line: 1
+                                              name: start
+                                              type: Identifier
+                                            location:
+                                              end:
+                                                column: 46
+                                                line: 1
+                                              source: 'start: -5m'
+                                              start:
+                                                column: 36
+                                                line: 1
+                                            type: Property
+                                            value:
+                                              argument:
+                                                location:
+                                                  end:
+                                                    column: 46
+                                                    line: 1
+                                                  source: 5m
+                                                  start:
+                                                    column: 44
+                                                    line: 1
+                                                type: DurationLiteral
+                                                values:
+                                                  - magnitude: 5
+                                                    unit: m
+                                              location:
+                                                end:
+                                                  column: 46
+                                                  line: 1
+                                                source: '-5m'
+                                                start:
+                                                  column: 43
+                                                  line: 1
+                                              operator: '-'
+                                              type: UnaryExpression
+                                        type: ObjectExpression
+                                    callee:
+                                      location:
+                                        end:
+                                          column: 35
+                                          line: 1
+                                        source: range
+                                        start:
+                                          column: 30
+                                          line: 1
+                                      name: range
+                                      type: Identifier
+                                    location:
+                                      end:
+                                        column: 47
+                                        line: 1
+                                      source: 'range(start: -5m)'
+                                      start:
+                                        column: 30
+                                        line: 1
+                                    type: CallExpression
+                                  location:
+                                    end:
+                                      column: 47
+                                      line: 1
+                                    source: >-
+                                      from(bucket: "example-bucket") |>
+                                      range(start: -5m)
+                                    start:
+                                      column: 1
+                                      line: 1
+                                  type: PipeExpression
+                                call:
+                                  arguments:
+                                    - location:
+                                        end:
+                                          column: 108
+                                          line: 1
+                                        source: >-
+                                          fn: (r) => r._measurement ==
+                                          "example-measurement"
+                                        start:
+                                          column: 58
+                                          line: 1
+                                      properties:
+                                        - key:
+                                            location:
+                                              end:
+                                                column: 60
+                                                line: 1
+                                              source: fn
+                                              start:
+                                                column: 58
+                                                line: 1
+                                            name: fn
+                                            type: Identifier
+                                          location:
+                                            end:
+                                              column: 108
+                                              line: 1
+                                            source: >-
+                                              fn: (r) => r._measurement ==
+                                              "example-measurement"
+                                            start:
+                                              column: 58
+                                              line: 1
+                                          type: Property
+                                          value:
+                                            body:
+                                              left:
+                                                location:
+                                                  end:
+                                                    column: 83
+                                                    line: 1
+                                                  source: r._measurement
+                                                  start:
+                                                    column: 69
+                                                    line: 1
+                                                object:
+                                                  location:
+                                                    end:
+                                                      column: 70
+                                                      line: 1
+                                                    source: r
+                                                    start:
+                                                      column: 69
+                                                      line: 1
+                                                  name: r
+                                                  type: Identifier
+                                                property:
+                                                  location:
+                                                    end:
+                                                      column: 83
+                                                      line: 1
+                                                    source: _measurement
+                                                    start:
+                                                      column: 71
+                                                      line: 1
+                                                  name: _measurement
+                                                  type: Identifier
+                                                type: MemberExpression
+                                              location:
+                                                end:
+                                                  column: 108
+                                                  line: 1
+                                                source: r._measurement == "example-measurement"
+                                                start:
+                                                  column: 69
+                                                  line: 1
+                                              operator: '=='
+                                              right:
+                                                location:
+                                                  end:
+                                                    column: 108
+                                                    line: 1
+                                                  source: '"example-measurement"'
+                                                  start:
+                                                    column: 87
+                                                    line: 1
+                                                type: StringLiteral
+                                                value: example-measurement
+                                              type: BinaryExpression
+                                            location:
+                                              end:
+                                                column: 108
+                                                line: 1
+                                              source: >-
+                                                (r) => r._measurement ==
+                                                "example-measurement"
+                                              start:
+                                                column: 62
+                                                line: 1
+                                            params:
+                                              - key:
+                                                  location:
+                                                    end:
+                                                      column: 64
+                                                      line: 1
+                                                    source: r
+                                                    start:
+                                                      column: 63
+                                                      line: 1
+                                                  name: r
+                                                  type: Identifier
+                                                location:
+                                                  end:
+                                                    column: 64
+                                                    line: 1
+                                                  source: r
+                                                  start:
+                                                    column: 63
+                                                    line: 1
+                                                type: Property
+                                                value: null
+                                            type: FunctionExpression
+                                      type: ObjectExpression
+                                  callee:
+                                    location:
+                                      end:
+                                        column: 57
+                                        line: 1
+                                      source: filter
+                                      start:
+                                        column: 51
+                                        line: 1
+                                    name: filter
+                                    type: Identifier
+                                  location:
+                                    end:
+                                      column: 109
+                                      line: 1
+                                    source: >-
+                                      filter(fn: (r) => r._measurement ==
+                                      "example-measurement")
+                                    start:
+                                      column: 51
+                                      line: 1
+                                  type: CallExpression
+                                location:
+                                  end:
+                                    column: 109
+                                    line: 1
+                                  source: >-
+                                    from(bucket: "example-bucket") |>
+                                    range(start: -5m) |> filter(fn: (r) =>
+                                    r._measurement == "example-measurement")
+                                  start:
+                                    column: 1
+                                    line: 1
+                                type: PipeExpression
+                              location:
+                                end:
+                                  column: 109
+                                  line: 1
+                                source: >-
+                                  from(bucket: "example-bucket") |> range(start:
+                                  -5m) |> filter(fn: (r) => r._measurement ==
+                                  "example-measurement")
+                                start:
+                                  column: 1
+                                  line: 1
+                              type: ExpressionStatement
+                          imports: null
+                          location:
+                            end:
+                              column: 109
+                              line: 1
+                            source: >-
+                              from(bucket: "example-bucket") |> range(start:
+                              -5m) |> filter(fn: (r) => r._measurement ==
+                              "example-measurement")
+                            start:
+                              column: 1
+                              line: 1
+                          metadata: parser-type=rust
+                          package: null
+                          type: File
+                      package: main
+                      type: Package
               schema:
                 $ref: '#/components/schemas/ASTResponse'
-          description: Abstract syntax tree of the flux query.
+          description: >
+            Success.
+
+            The response body contains an Abstract Syntax Tree (AST) of the Flux
+            query.
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidASTValue:
+                  description: >
+                    If the request body contains a missing property key in
+                    `from()`,
+
+                    returns `invalid` and problem detail.
+                  summary: Invalid AST
+                  value:
+                    code: invalid
+                    message: 'invalid AST: loc 1:6-1:19: missing property key'
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: |
+            Bad request.
+            InfluxDB is unable to parse the request.
+            The response body contains detail about the problem.
+          headers:
+            X-Platform-Error-Code:
+              description: |
+                The reason for the error.
+              schema:
+                example: invalid
+                type: string
         default:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Any response other than 200 is an internal server error
-      summary: Generate an Abstract Syntax Tree (AST) from a query
+          description: Internal server error.
+      summary: Generate a query Abstract Syntax Tree (AST)
       tags:
         - Query
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: |
+            curl --request POST 'INFLUX_URL/api/v2/query/ast' \
+            --header 'Content-Type: application/json' \
+            --header 'Accept: application/json \
+            --header 'Authorization: Token INFLUX_TOKEN' \
+            --data 'from(bucket: "example-bucket")
+                      |> range(start: -5m)
+                      |> filter(fn: (r) => r._measurement == "example-measurement")'
   /api/v2/query/suggestions:
     get:
       operationId: GetQuerySuggestions
@@ -11201,6 +11808,7 @@ paths:
       summary: Get the readiness of an instance at startup
       tags:
         - Ready
+        - System information endpoints
   /api/v2/remotes:
     get:
       operationId: GetRemoteConnections
@@ -11526,6 +12134,7 @@ paths:
       summary: List all known resources
       tags:
         - Resources
+        - System information endpoints
   /api/v2/restore/bucket/{bucketID}:
     post:
       deprecated: true
@@ -12715,35 +13324,57 @@ paths:
         - Templates
   /api/v2/tasks:
     get:
+      description: >
+        Retrieves a list of [tasks](/influxdb/v2.3/process-data/).
+
+
+        To limit which tasks are returned, pass query parameters in your
+        request.
+
+        If no query parameters are passed, InfluxDB returns all tasks up to the
+        default `limit`.
       operationId: GetTasks
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: Returns task with a specific name.
+        - description: |
+            Task name.
+            Only returns tasks with this name.
+            Different tasks may have the same name.
           in: query
           name: name
           schema:
             type: string
-        - description: Return tasks after a specified ID.
+        - description: |
+            Task ID.
+            Only returns tasks created after this task.
           in: query
           name: after
           schema:
             type: string
-        - description: Filter tasks to a specific user ID.
+        - description: |
+            User ID.
+            Only returns tasks owned by this user.
           in: query
           name: user
           schema:
             type: string
-        - description: Filter tasks to a specific organization name.
+        - description: |
+            Organization name.
+            Only returns tasks owned by this organization.
           in: query
           name: org
           schema:
             type: string
-        - description: Filter tasks to a specific organization ID.
+        - description: |
+            Organization ID.
+            Only returns tasks owned by this organization.
           in: query
           name: orgID
           schema:
             type: string
-        - description: Filter tasks by a status--"inactive" or "active".
+        - description: |
+            Task status (`active` or `inactive`).
+            Only returns tasks with this status.
           in: query
           name: status
           schema:
@@ -12751,7 +13382,9 @@ paths:
               - active
               - inactive
             type: string
-        - description: The number of tasks to return
+        - description: |
+            Limits the number of tasks returned.
+            The minimum is `1`, the maximum is `500`, and the default is `100`.
           in: query
           name: limit
           schema:
@@ -12759,7 +13392,15 @@ paths:
             maximum: 500
             minimum: 1
             type: integer
-        - description: Type of task, unset by default.
+        - description: >
+            Task type (`basic` or `system`). Default is `system`.
+
+
+            The default (`system`) response contains all the metadata properties
+            for tasks.
+
+            To reduce the payload size, pass `basic` to omit some task
+            properties (`flux`, `createdAt`, `updatedAt`) from the response.
           in: query
           name: type
           required: false
@@ -12773,19 +13414,145 @@ paths:
         '200':
           content:
             application/json:
+              examples:
+                basicTypeTaskOutput:
+                  description: Task fields returned with `?type=basic`
+                  summary: Basic output
+                  value:
+                    links:
+                      self: /api/v2/tasks?limit=100
+                    tasks:
+                      - every: 30m
+                        flux: ''
+                        id: 09956cbb6d378000
+                        labels: []
+                        lastRunStatus: success
+                        latestCompleted: '2022-06-30T15:00:00Z'
+                        links:
+                          labels: /api/v2/tasks/09956cbb6d378000/labels
+                          logs: /api/v2/tasks/09956cbb6d378000/logs
+                          members: /api/v2/tasks/09956cbb6d378000/members
+                          owners: /api/v2/tasks/09956cbb6d378000/owners
+                          runs: /api/v2/tasks/09956cbb6d378000/runs
+                          self: /api/v2/tasks/09956cbb6d378000
+                        name: task1
+                        org: ''
+                        orgID: 48c88459ee424a04
+                        ownerID: 0772396d1f411000
+                        status: active
+                      - every: 30m
+                        flux: ''
+                        id: 09956e2b48778000
+                        labels: []
+                        lastRunStatus: success
+                        latestCompleted: '2022-06-28T14:00:00Z'
+                        links:
+                          labels: /api/v2/tasks/09956e2b48778000/labels
+                          logs: /api/v2/tasks/09956e2b48778000/logs
+                          members: /api/v2/tasks/09956e2b48778000/members
+                          owners: /api/v2/tasks/09956e2b48778000/owners
+                          runs: /api/v2/tasks/09956e2b48778000/runs
+                          self: /api/v2/tasks/09956e2b48778000
+                        name: task2
+                        org: ''
+                        orgID: 48c88459ee424a04
+                        ownerID: 0772396d1f411000
+                        status: inactive
+                systemTypeTaskOutput:
+                  description: Task fields returned with `?type=system`
+                  summary: System output
+                  value:
+                    links:
+                      self: /api/v2/tasks?limit=100
+                    tasks:
+                      - createdAt: '2022-06-27T15:09:06Z'
+                        description: IoT Center 90-day environment average.
+                        every: 30m
+                        flux: |-
+                          option task = {name: "task1", every: 30m}
+
+                          from(bucket: "iot_center")
+                              |> range(start: -90d)
+                              |> filter(fn: (r) => r._measurement == "environment")
+                              |> aggregateWindow(every: 1h, fn: mean)
+                        id: 09956cbb6d378000
+                        labels: []
+                        lastRunStatus: success
+                        latestCompleted: '2022-06-30T15:00:00Z'
+                        links:
+                          labels: /api/v2/tasks/09956cbb6d378000/labels
+                          logs: /api/v2/tasks/09956cbb6d378000/logs
+                          members: /api/v2/tasks/09956cbb6d378000/members
+                          owners: /api/v2/tasks/09956cbb6d378000/owners
+                          runs: /api/v2/tasks/09956cbb6d378000/runs
+                          self: /api/v2/tasks/09956cbb6d378000
+                        name: task1
+                        org: my-iot-center
+                        orgID: 48c88459ee424a04
+                        ownerID: 0772396d1f411000
+                        status: active
+                        updatedAt: '2022-06-28T18:10:15Z'
+                      - createdAt: '2022-06-27T15:15:23Z'
+                        description: IoT Center 30-day environment average.
+                        every: 30m
+                        flux: |-
+                          option task = { 
+                            name: "task1",
+                            every: 30m,
+                          }
+
+                          from(bucket: "iot_center")
+                              |> range(start: -30d)
+                              |> filter(fn: (r) => r._measurement == "environment")
+                              |> aggregateWindow(every: 1h, fn: mean)
+                        id: 09956e2b48778000
+                        labels: []
+                        lastRunStatus: success
+                        latestCompleted: '2022-06-28T14:00:00Z'
+                        links:
+                          labels: /api/v2/tasks/09956e2b48778000/labels
+                          logs: /api/v2/tasks/09956e2b48778000/logs
+                          members: /api/v2/tasks/09956e2b48778000/members
+                          owners: /api/v2/tasks/09956e2b48778000/owners
+                          runs: /api/v2/tasks/09956e2b48778000/runs
+                          self: /api/v2/tasks/09956e2b48778000
+                        name: task2
+                        org: my-iot-center
+                        orgID: 48c88459ee424a04
+                        ownerID: 0772396d1f411000
+                        status: inactive
+                        updatedAt: '2022-06-28T14:25:26Z'
               schema:
                 $ref: '#/components/schemas/Tasks'
-          description: A list of tasks
+          description: |
+            Success.
+            The response body contains the list of tasks.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: List all tasks
+          $ref: '#/components/responses/GeneralServerError'
+      summary: List tasks
       tags:
+        - Data I/O endpoints
         - Tasks
     post:
+      description: >
+        Creates a [task](/influxdb/v2.3/process-data/) and returns the created
+        task.
+
+
+        #### Related guides
+
+
+        - [Create a
+        task](/influxdb/v2.3/process-data/manage-tasks/create-task/).
+
+        - [Common tasks](/influxdb/v2.3/process-data/common-tasks/)
+
+        - [Task configuration
+        options](/influxdb/v2.3/process-data/task-options/)
       operationId: PostTasks
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12794,7 +13561,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TaskCreateRequest'
-        description: Task to create
+        description: Task to create.
         required: true
       responses:
         '201':
@@ -12802,16 +13569,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
-          description: Task created
+          description: >-
+            Success. The response body contains a `tasks` list with the new
+            task.
+        '400':
+          content:
+            application/json:
+              examples:
+                missingFluxError:
+                  summary: Task in request body is missing Flux query
+                  value:
+                    code: invalid
+                    message: 'failed to decode request: missing flux'
+              schema:
+                $ref: '#/components/responses/BadRequestError'
+          description: Bad request
         default:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
-      summary: Create a new task
+      summary: Create a task
       tags:
+        - Data I/O endpoints
         - Tasks
+      x-codeSamples:
+        - label: 'cURL: create a task'
+          lang: Shell
+          source: |
+            curl -v --request POST \
+            http://localhost:8086/api/v2/tasks \
+            --header "Content-type: application/json" \
+            --header "Authorization: Token INFLUX_TOKEN" \
+            --data-binary @- << EOF
+              {
+              "orgID": "INFLUX_ORG_ID",
+              "description": "IoT Center 30d environment average.",
+              "flux": "option task = {name: \"iot-center-task-1\", every: 30m}\
+                      from(bucket: \"iot_center\")\
+                        |> range(start: -30d)\
+                        |> filter(fn: (r) => r._measurement == \"environment\")\
+                        |> aggregateWindow(every: 1h, fn: mean)"
+              }
+            EOF
   /api/v2/tasks/{taskID}:
     delete:
       description: Deletes a task and all associated records
@@ -12861,6 +13662,7 @@ paths:
           description: Unexpected error
       summary: Retrieve a task
       tags:
+        - Data I/O endpoints
         - Tasks
     patch:
       description: Update a task. This will cancel all queued runs.
@@ -13277,6 +14079,7 @@ paths:
           description: Unexpected error
       summary: Manually start a task run, overriding the current schedule
       tags:
+        - Data I/O endpoints
         - Tasks
   /api/v2/tasks/{taskID}/runs/{runID}:
     delete:
@@ -14011,6 +14814,7 @@ paths:
           description: Unexpected error
       summary: List all users
       tags:
+        - Security and access endpoints
         - Users
     post:
       operationId: PostUsers
@@ -14078,6 +14882,7 @@ paths:
           description: Unexpected error
       summary: Retrieve a user
       tags:
+        - Security and access endpoints
         - Users
     patch:
       operationId: PatchUsersID
@@ -14140,6 +14945,7 @@ paths:
         - BasicAuthentication: []
       summary: Update a password
       tags:
+        - Security and access endpoints
         - Users
   /api/v2/variables:
     get:
@@ -14726,11 +15532,13 @@ paths:
 
             #### InfluxDB Cloud
 
-              - Returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
-                or if a **delete** request exceeds the maximum
-                [global limit](/influxdb/cloud/account-management/limits/#global-limits).
-              - Returns `Retry-After` header that describes when to try the write again.
+              - Returns this error if a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
+                or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits).
+              - For rate limits that reset automatically, returns a `Retry-After` header that describes when to try the write again.
+              - For limits that can't reset (for example, **cardinality limit**), doesn't return a `Retry-After` header.
+
+              Rates (data-in (writes), queries (reads), and deletes) accrue within a fixed five-minute window.
+              Once a rate limit is exceeded, InfluxDB returns an error response until the current five-minute window resets.
 
             #### InfluxDB OSS
 
@@ -14746,20 +15554,14 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         '503':
-          description: |
+          description: >
             Service unavailable.
 
-            #### InfluxDB Cloud
 
-              - Returns this error if series cardinality exceeds your plan's
-                [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas).
-                See [how to resolve high series cardinality](/influxdb/v2.3/write-data/best-practices/resolve-high-cardinality/).
-
-            #### InfluxDB OSS
-
-              - Returns this error if
-                the server is temporarily unavailable to accept writes.
-              - Returns `Retry-After` header that describes when to try the write again.
+            - Returns this error if
+              the server is temporarily unavailable to accept writes.
+            - Returns a `Retry-After` header that describes when to try the
+            write again.
           headers:
             Retry-After:
               description: >-
@@ -14772,6 +15574,7 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Write data
       tags:
+        - Data I/O endpoints
         - Write
   /legacy/authorizations:
     get:
@@ -15322,6 +16125,7 @@ tags:
     x-traitTag: true
   - name: Config
   - name: Dashboards
+  - name: Data I/O endpoints
   - name: DBRPs
   - description: >
       Generates profiling and trace reports.
@@ -15345,7 +16149,9 @@ tags:
         - [Google pprof tool](https://github.com/google/pprof)
         - [Golang diagnostics](https://go.dev/doc/diagnostics)
     name: Debug
-  - name: Delete
+  - description: |
+      Delete data from an InfluxDB bucket.
+    name: Delete
   - description: >
       InfluxDB API endpoints use standard HTTP request and response headers.
 
@@ -15441,8 +16247,8 @@ tags:
       following: <li>`Authorization: Token` header is missing or
       malformed</li><li>API token value is missing from the header</li><li>API
       token does not have permission. For more information about token types and
-      permissions, see [Manage API tokens](/influxdb/v2.1/security/tokens/)</li>
-      |
+      permissions, see [Manage API
+      tokens](/influxdb/latest/security/tokens/)</li> |
 
       | `404`       | Not found                | Requested resource was not
       found. `message` in the response body provides details about the requested
@@ -15470,10 +16276,12 @@ tags:
   - name: Rules
   - name: Scraper Targets
   - name: Secrets
+  - name: Security and access endpoints
   - name: Setup
   - name: Signin
   - name: Signout
   - name: Sources
+  - name: System information endpoints
   - name: Tasks
   - name: Telegraf Plugins
   - name: Telegrafs
@@ -15491,32 +16299,11 @@ x-tagGroups:
       - Authentication
       - Headers
       - Response codes
-  - name: Data I/O endpoints
+  - name: ''
     tags:
-      - Write
-      - Query
-      - Delete
-      - Tasks
-  - name: Resource endpoints
-    tags:
-      - Buckets
-      - Dashboards
-      - Tasks
-      - Resources
-  - name: Security and access endpoints
-    tags:
-      - Authorizations
-      - Organizations
-      - Users
-  - name: System information endpoints
-    tags:
-      - Config
-      - Debug
-      - Health
-      - Metrics
-      - Ping
-      - Ready
-      - Routes
+      - Data I/O endpoints
+      - Security and access endpoints
+      - System information endpoints
   - name: All endpoints
     tags:
       - Authorizations
