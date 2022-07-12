@@ -11,6 +11,16 @@ aliases:
 ---
 
 
+## v0.174.1 [2022-07-12]
+
+### Bug fixes
+
+- Update [`aggregate.mean()`](/flux/v0.x/stdlib/contrib/jsternberg/aggregate/mean/) 
+  and [`aggregate.sum()`](/flux/v0.x/stdlib/contrib/jsternberg/aggregate/sum/) 
+  to handle null values.
+- Update []
+
+
 ## v0.174.0 [2022-07-05]
 
 ### Features
