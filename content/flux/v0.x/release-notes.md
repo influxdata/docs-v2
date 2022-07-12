@@ -15,9 +15,8 @@ aliases:
 
 ### Bug fixes
 
-- Update [`aggregate.mean()`](/flux/v0.x/stdlib/contrib/jsternberg/aggregate/mean/) 
-  and [`aggregate.sum()`](/flux/v0.x/stdlib/contrib/jsternberg/aggregate/sum/) 
-  to handle null values.
+- Update [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow/) 
+  to correctly handle null values when using `sum` or `mean`.
 - Update [`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/) and
   [`wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/) to skip empty tag
   values.
