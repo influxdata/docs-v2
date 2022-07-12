@@ -6203,6 +6203,7 @@ paths:
       summary: List all top level routes
       tags:
         - Routes
+        - System information endpoints
   /api/v2/authorizations:
     get:
       operationId: GetAuthorizations
@@ -8506,7 +8507,21 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Delete data
       tags:
+        - Data I/O endpoints
         - Delete
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: >
+            curl --request POST
+            INFLUX_URL/api/v2/delete?org=INFLUX_ORG&bucket=INFLUX_BUCKET \
+              --header 'Authorization: Token INFLUX_TOKEN' \
+              --header 'Content-Type: application/json' \
+              --data '{
+                "start": "2020-03-01T00:00:00Z",
+                "stop": "2020-11-14T00:00:00Z",
+                "predicate": "tag1=\"value1\" and (tag2=\"value2\" and tag3!=\"value3\")"
+              }'
   /api/v2/flags:
     get:
       operationId: GetFlags
@@ -9385,6 +9400,7 @@ paths:
       summary: List all organizations
       tags:
         - Organizations
+        - Security and access endpoints
     post:
       operationId: PostOrgs
       parameters:
@@ -9467,6 +9483,7 @@ paths:
       summary: Retrieve an organization
       tags:
         - Organizations
+        - Security and access endpoints
     patch:
       operationId: PatchOrgsID
       parameters:
@@ -9562,6 +9579,7 @@ paths:
       summary: List all members of an organization
       tags:
         - Organizations
+        - Security and access endpoints
     post:
       operationId: PostOrgsIDMembers
       parameters:
@@ -9624,6 +9642,7 @@ paths:
       summary: Remove a member from an organization
       tags:
         - Organizations
+        - Security and access endpoints
   /api/v2/orgs/{orgID}/owners:
     get:
       operationId: GetOrgsIDOwners
@@ -9657,6 +9676,7 @@ paths:
       summary: List all owners of an organization
       tags:
         - Organizations
+        - Security and access endpoints
     post:
       operationId: PostOrgsIDOwners
       parameters:
@@ -9719,6 +9739,7 @@ paths:
       summary: Remove an owner from an organization
       tags:
         - Organizations
+        - Security and access endpoints
   /api/v2/orgs/{orgID}/secrets:
     get:
       operationId: GetOrgsIDSecrets
@@ -9746,6 +9767,7 @@ paths:
       summary: List all secret keys for an organization
       tags:
         - Secrets
+        - Security and access endpoints
     patch:
       operationId: PatchOrgsIDSecrets
       parameters:
@@ -9801,6 +9823,7 @@ paths:
       summary: Delete a secret from an organization
       tags:
         - Secrets
+        - Security and access endpoints
   /api/v2/orgs/{orgID}/secrets/delete:
     post:
       deprecated: true
@@ -9832,6 +9855,7 @@ paths:
       summary: Delete secrets from an organization
       tags:
         - Secrets
+        - Security and access endpoints
   /api/v2/orgs/{orgID}/usage:
     get:
       operationId: GetOrgUsageID
@@ -9927,6 +9951,7 @@ paths:
       summary: Get the status and version of the instance
       tags:
         - Ping
+        - System information endpoints
     head:
       description: Returns the status and InfluxDB version of the instance.
       operationId: HeadPing
@@ -9954,7 +9979,7 @@ paths:
         Retrieves data from buckets.
 
 
-        Use this endpoint to send a Flux query request and retreive data from a
+        Use this endpoint to send a Flux query request and retrieve data from a
         bucket.
 
 
@@ -10057,13 +10082,16 @@ paths:
       responses:
         '200':
           content:
-            text/csv:
+            application/csv:
+              example: >
+                result,table,_start,_stop,_time,region,host,_value
+
+                mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
+
+                mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
+
+                mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
               schema:
-                example: >
-                  result,table,_start,_stop,_time,region,host,_value
-                  mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
-                  mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
-                  mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
                 type: string
           description: Success. The response body contains query results.
           headers:
@@ -10116,7 +10144,19 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Query data
       tags:
+        - Data I/O endpoints
         - Query
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: |
+            curl --request POST 'INFLUX_URL/api/v2/query?org=INFLUX_ORG' \
+            --header 'Content-Type: application/vnd.flux' \
+            --header 'Accept: application/csv \
+            --header 'Authorization: Token INFLUX_TOKEN' \
+            --data 'from(bucket: "example-bucket")
+                      |> range(start: -5m)
+                      |> filter(fn: (r) => r._measurement == "example-measurement")'
   /api/v2/query/analyze:
     post:
       operationId: PostQueryAnalyze
@@ -10264,6 +10304,7 @@ paths:
       summary: List all known resources
       tags:
         - Resources
+        - System information endpoints
   /api/v2/scripts:
     get:
       operationId: GetScripts
@@ -10292,6 +10333,7 @@ paths:
           description: Unexpected error
       summary: List scripts
       tags:
+        - Data I/O endpoints
         - Invokable Scripts
     post:
       operationId: PostScripts
@@ -10357,6 +10399,7 @@ paths:
           description: Unexpected error
       summary: Retrieve a script
       tags:
+        - Data I/O endpoints
         - Invokable Scripts
     patch:
       description: >
@@ -10419,6 +10462,7 @@ paths:
           description: Unexpected error
       summary: Invoke a script
       tags:
+        - Data I/O endpoints
         - Invokable Scripts
   /api/v2/setup:
     get:
@@ -10852,6 +10896,7 @@ paths:
           description: Unexpected error
       summary: List all tasks
       tags:
+        - Data I/O endpoints
         - Tasks
     post:
       operationId: PostTasks
@@ -10879,6 +10924,7 @@ paths:
           description: Unexpected error
       summary: Create a new task
       tags:
+        - Data I/O endpoints
         - Tasks
   /api/v2/tasks/{taskID}:
     delete:
@@ -10929,6 +10975,7 @@ paths:
           description: Unexpected error
       summary: Retrieve a task
       tags:
+        - Data I/O endpoints
         - Tasks
     patch:
       description: Update a task. This will cancel all queued runs.
@@ -11345,6 +11392,7 @@ paths:
           description: Unexpected error
       summary: Manually start a task run, overriding the current schedule
       tags:
+        - Data I/O endpoints
         - Tasks
   /api/v2/tasks/{taskID}/runs/{runID}:
     delete:
@@ -12197,6 +12245,7 @@ paths:
         - BasicAuthentication: []
       summary: Update a password
       tags:
+        - Security and access endpoints
         - Users
   /api/v2/variables:
     get:
@@ -12783,11 +12832,13 @@ paths:
 
             #### InfluxDB Cloud
 
-              - Returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
-                or if a **delete** request exceeds the maximum
-                [global limit](/influxdb/cloud/account-management/limits/#global-limits).
-              - Returns `Retry-After` header that describes when to try the write again.
+              - Returns this error if a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas)
+                or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits).
+              - For rate limits that reset automatically, returns a `Retry-After` header that describes when to try the write again.
+              - For limits that can't reset (for example, **cardinality limit**), doesn't return a `Retry-After` header.
+
+              Rates (data-in (writes), queries (reads), and deletes) accrue within a fixed five-minute window.
+              Once a rate limit is exceeded, InfluxDB returns an error response until the current five-minute window resets.
 
             #### InfluxDB OSS
 
@@ -12803,20 +12854,14 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         '503':
-          description: |
+          description: >
             Service unavailable.
 
-            #### InfluxDB Cloud
 
-              - Returns this error if series cardinality exceeds your plan's
-                [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas).
-                See [how to resolve high series cardinality](/influxdb/cloud/write-data/best-practices/resolve-high-cardinality/).
-
-            #### InfluxDB OSS
-
-              - Returns this error if
-                the server is temporarily unavailable to accept writes.
-              - Returns `Retry-After` header that describes when to try the write again.
+            - Returns this error if
+              the server is temporarily unavailable to accept writes.
+            - Returns a `Retry-After` header that describes when to try the
+            write again.
           headers:
             Retry-After:
               description: >-
@@ -12829,6 +12874,7 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Write data
       tags:
+        - Data I/O endpoints
         - Write
   /legacy/authorizations:
     get:
@@ -13379,8 +13425,11 @@ tags:
     name: Common parameters
     x-traitTag: true
   - name: Dashboards
+  - name: Data I/O endpoints
   - name: DBRPs
-  - name: Delete
+  - description: |
+      Delete data from an InfluxDB bucket.
+    name: Delete
   - description: >
       InfluxDB API endpoints use standard HTTP request and response headers.
 
@@ -13523,9 +13572,11 @@ tags:
   - name: Routes
   - name: Rules
   - name: Secrets
+  - name: Security and access endpoints
   - name: Setup
   - name: Signin
   - name: Signout
+  - name: System information endpoints
   - name: Tasks
   - name: Telegraf Plugins
   - name: Telegrafs
@@ -13544,28 +13595,11 @@ x-tagGroups:
       - Authentication
       - Headers
       - Response codes
-  - name: Data I/O endpoints
+  - name: ''
     tags:
-      - Write
-      - Query
-      - Delete
-      - Invokable Scripts
-      - Tasks
-  - name: Resource endpoints
-    tags:
-      - Buckets
-      - Dashboards
-      - Tasks
-      - Resources
-  - name: Security and access endpoints
-    tags:
-      - Authorizations
-      - Organizations
-      - Users
-  - name: System information endpoints
-    tags:
-      - Ping
-      - Routes
+      - Data I/O endpoints
+      - Security and access endpoints
+      - System information endpoints
   - name: All endpoints
     tags:
       - Authorizations
