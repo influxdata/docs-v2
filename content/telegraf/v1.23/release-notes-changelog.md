@@ -14,8 +14,9 @@ menu:
 ## v1.23.2 [2022-7-11]
 
 ## Bug fixes
+
 - Remove unexpected deprecation warnings for non-deprecated packages that occurred in 1.23.1.
-- HTTP input plugin (`inputs.http`): Allow both 200 and 201 response codes when generating authentication using the cookie authentication plugin. Also update the cookie header docs to show a TOML map rather than a string.
+- HTTP input plugin (`inputs.http`): Allow both 200 and 201 response codes when generating cookie authentication. Also update the cookie header docs to show a TOML map rather than a string.
 - Microsoft SQL Server input plugin (`inputs.sqlserver`): Use `bigint` for `backupsize` in `sqlserver` queries.
 - gNMI input plugin (`inputs.gnmi`): Refactor `tag_only` subscriptions for complex keys (such as `network-instances`) and to improve concurrrency. The subscription key is no longer hardcoded to the device name and the `name` tag. Adds ability to specify a subscription key on a per-tag basis. 
 - SNMP input plugin (`inputs.snmp`): Now sets gosnmp's `UseUnconnectedUDPSocket` to true when using UDP. Adds support to accept SNMP responses from any address (not just the requested address). Useful when gathering responses from redundant/failover systems.
