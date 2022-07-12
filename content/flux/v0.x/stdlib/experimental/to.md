@@ -10,6 +10,7 @@ menu:
 weight: 101
 flux/v0.x/tags: [outputs]
 introduced: 0.40.0
+deprecated: 0.174.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L305-L315
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L311-L311
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -29,6 +30,9 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ------------------------------------------------------------------------------->
 
 `experimental.to()` writes _pivoted_ data to an InfluxDB 2.x or InfluxDB Cloud bucket.
+
+**Deprecated**: `experimental.to()` is deprecated in favor of [`wideTo()`](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/wideTo/),
+which is an equivalent function.
 
 #### Requirements and behavior
 - Requires both a `_time` and a `_measurement` column.
