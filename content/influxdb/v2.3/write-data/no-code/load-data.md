@@ -4,7 +4,7 @@ seotitle: Load data source in UI
 list_title: Load data source in UI
 weight: 101
 description: >
-  Load data from sources in the InfluxDB user interface (UI). Choose from popular client libraries (such as Python, Ruby, Scala, and more!) or load data with a Telegraf plugin (like MQTT Consumer, MySQL, File, and many more!).
+  Load data from sources in the InfluxDB user interface (UI). Choose from popular client libraries (such as Python, Ruby, Scala, and more!), load data with a Telegraf plugin (like MQTT Consumer, MySQL, File, and many more!), and InfluxDB Cloud users have the option to load data natively by subscribing to an MQTT topic.
 menu:
   influxdb_2_3:
     name: Load data source in UI
@@ -110,6 +110,10 @@ To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the 
 
 #### Define parsing rules
 
+{{% note %}}
+JSON parsing is faster and more efficient than string parsing. We recommend using JSON parsing when your MQTT messages are in JSON format.
+{{% /note %}}
+
 - Under **Define Data Parsing Rules**, select one of the following MQTT data formats:
 
    - **Line protocol** (no configuration required)
@@ -118,10 +122,19 @@ To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the 
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
+
+[Line protocol](#)
 [JSON](#)
 [String](#)
-[Line protocol](#)
+
 {{% /tabs %}}
+
+<!-------------------------------- BEGIN Line protocol -------------------------------->
+{{% tab-content %}}
+
+<what is on this tab?>
+
+{{% /tab-content %}}
 
 <!-------------------------------- BEGIN JSON -------------------------------->
 {{% tab-content %}}
@@ -138,12 +151,39 @@ To associate **JSON** key/value pairs with **InfluxDB elements** (measurements, 
 
   2. Under **Measurement**, enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key, for example, `$.device_id` or `$.device_information.device_id` for a nested measurement key.
   3. Select the **Data Type** for the measurement.
-  4. Specify the JSON paths to tag and field names as needed, and then select the data type for the tag or field. At least one field is required. Note, JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`
+  4. Specify the JSON paths to tag and field names as needed, and then select the data type for the tag or field. At least one field is required. Note, JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`.
 
 {{% /tab-content %}}
 
 <!-------------------------------- BEGIN String -------------------------------->
-{{% tab-content %}
+{{% tab-content %}}
+
+To associate **String** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags), do the following:
+
+- On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
+
+  1. (Optional) In the **Regex pattern to find timestamp** field, enter the regex to find the timestamp in the MQTT message.  Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
+  
+      {{% note %}}
+      **Note**: Parsing rules only support finding one value at a time.
+      {{% /note %}}
+      
+      For example, if the timestamp string is `time=1653998899010000000`, use a regex to find the string you're looking for and capture the timestamp:
+   - `time=([\s\S]*?)\n` (captures value after `=` until the EOL (end of line) is reached)
+   - `time=([\s\S]*?),` (captures value after `=` until comma is reached)
+   - time=([\s\S]*?),
+
+   {{% warn %}}
+   **Important**: Configure the timestamp format that matches the format in your messages.
+   {{% /warn %}}
+
+  2. Under **Measurement**, enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key, for example, `$.device_id` or `$.device_information.device_id` for a nested measurement key.
+  3. Select the **Data Type** for the measurement.
+  4. For tag and field names, use the regex to find the tag or field name, and what to capture. For example: 
+     - `device_id=\d\d\d\d-([0-9][0-9][0-9][0-9])` (matches on the `devicecaptures
+  
+  
+  , and then select the data type for the tag or field. At least one field is required. JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`. 
 
 {{% /tab-content %}}
 
