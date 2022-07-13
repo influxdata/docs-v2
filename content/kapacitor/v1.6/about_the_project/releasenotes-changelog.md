@@ -7,6 +7,18 @@ menu:
     name: Release notes
 ---
 
+## v1.6.5 [TBD]
+
+### Features
+
+- Ability to generate random numbers for `TICKScript` lambdas.
+- Update `InfluxQL` for v.1.9.x compatibility.
+
+### Bug fixes
+
+- Update the `Kafka` client to fix a bug regarding write latency.
+- Update to [Flux v0.171.0](/flux/v0.x/release-notes/#v01710-2022-06-14) to fix "'interface {} is nil, not string" issue.
+
 ## v1.6.4 [2022-03-15]
 
 ### Features
