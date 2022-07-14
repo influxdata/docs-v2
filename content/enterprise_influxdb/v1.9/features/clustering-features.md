@@ -134,7 +134,7 @@ version 0.7.1.
 See [Backup and restore](/enterprise_influxdb/v1.9/administration/backup-and-restore/) for
 more information.
 
-<!-- ## Passive node setup (experimental)
+## Passive node setup (experimental)
 
 Passive nodes act as load balancers--they accept write calls, perform shard lookup and RPC calls (on active data nodes), and distribute writes to active data nodes. They do not own shards or accept writes.
 
@@ -149,4 +149,4 @@ For more inforrmation, see how to [add a passive node to a cluster](/enterprise_
 
 {{% note %}}
 **Note:**  This feature is experimental and available only in InfluxDB Enterprise.
-{{% /note %}} -->
+{{% /note %}}

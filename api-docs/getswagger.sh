@@ -3,7 +3,7 @@
 # This script provides a simple way grab the latest fully resolved openapi (OAS, OpenAPI Specification) contract files
 # from the influxdata/openapi repo.
 #
-# Specify a context to retrieve (cloud, oss, v1compat, all).
+# Specify a platform to retrieve (cloud, oss, v1compat, all).
 # Optionally specify:
 # - an OSS version as the second argument or using the -o flag.
 #   The version specifies where to write the updated openapi.
@@ -15,9 +15,9 @@
 #   For local development, pass your openapi directory using the file:/// protocol.
 #
 # Syntax:
-#   sh ./getswagger.sh <context>
-#   sh ./getswagger.sh <context> -b <baseUrl>
-#   sh ./getswagger.sh -c <context> -o <version> -b <baseUrl>
+#   sh ./getswagger.sh <platform>
+#   sh ./getswagger.sh <platform> -b <baseUrl>
+#   sh ./getswagger.sh -c <platform> -o <version> -b <baseUrl>
 #
 # Examples:
 #   sh ./getswagger.sh cloud
@@ -33,13 +33,15 @@ baseUrl="https://raw.githubusercontent.com/influxdata/openapi/master"
 baseUrlOSS="https://raw.githubusercontent.com/influxdata/openapi/docs-release/influxdb-oss"
 ossVersion=${latestOSS%/}
 verbose=""
-context=""
+platform=""
 
 function showHelp {
-  echo "Usage: ./getswagger.sh <context>"
+  echo "Usage: ./getswagger.sh <platform>"
   echo "    With optional arguments:"
-  echo "       ./getswagger.sh <context> -b <baseUrl> -V"
+  echo "       ./getswagger.sh <platform> -b <baseUrl> -V"
+  echo "       ./getswagger.sh cloud"
   echo "       ./getswagger.sh oss -o <ossVersion> -V"
+  echo "       ./getswagger.sh all -o <ossVersion>"
   echo "Commands:"
   echo "-b <URL> The base URL to fetch from."
   echo "      ex. ./getswagger.sh -b file:///Users/yourname/github/openapi"
@@ -55,7 +57,7 @@ subcommand=$1
 
 case "$subcommand" in
   cloud|oss|v1compat|all)
-    context=$1
+    platform=$1
     shift
 
   while getopts ":o:b:hV" opt; do
@@ -77,10 +79,12 @@ case "$subcommand" in
       \?)
         echo "Invalid option: $OPTARG" 1>&2
         showHelp
+        exit 22
         ;;
       :)
         echo "Invalid option: $OPTARG requires an argument" 1>&2
         showHelp
+        exit 22
         ;;
      esac
   done
@@ -89,7 +93,7 @@ case "$subcommand" in
 esac
 
 function showArgs {
-  echo "context: $context";
+  echo "platform: $platform";
   echo "baseUrl: $baseUrl";
   echo "ossVersion: $ossVersion";
 }
@@ -116,44 +120,52 @@ function postProcess() {
 }
 
 function updateCloud {
-  curl ${verbose} ${baseUrl}/contracts/ref/cloud.yml -s -o cloud/ref.yml
-  postProcess $_ cloud
+  outFile="cloud/ref.yml"
+  curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  postProcess $outFile cloud
 }
 
 function updateOSS {
-  mkdir -p ${ossVersion} && curl ${verbose} ${baseUrlOSS}/contracts/ref/oss.yml -s -o $_/ref.yml
-  postProcess $_ $ossVersion
+  mkdir -p ${ossVersion}
+  outFile="$ossVersion/ref.yml"
+  curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
+  postProcess $outFile $ossVersion
 }
 
 function updateV1Compat {
-  curl ${verbose} ${baseUrl}/contracts/swaggerV1Compat.yml -s -o cloud/swaggerV1Compat.yml
-  postProcess $_ cloud v1compat
+  outFile="cloud/swaggerV1Compat.yml"
+  curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+  postProcess $outFile cloud v1compat
 
-  mkdir -p ${ossVersion} && cp cloud/swaggerV1Compat.yml $_/swaggerV1Compat.yml
-  postProcess $_ $ossVersion v1compat
+  outFile="$ossVersion/swaggerV1Compat.yml"
+  mkdir -p ${ossVersion} && cp cloud/swaggerV1Compat.yml $outFile
+  postProcess $outFile $ossVersion v1compat
 }
+
+UPDATE_OPTIONS="--fail"
 
 if [ ! -z ${verbose} ];
 then
+  UPDATE_OPTIONS="-v $UPDATE_OPTIONS"
   showArgs
   echo ""
 fi
 
-if [ "$context" = "cloud" ];
+if [ "$platform" = "cloud" ];
 then
   updateCloud
-elif [ "$context" = "oss" ];
+elif [ "$platform" = "oss" ];
 then
   updateOSS
-elif [ "$context" = "v1compat" ];
+elif [ "$platform" = "v1compat" ];
 then
   updateV1Compat
-elif [ "$context" = "all" ];
+elif [ "$platform" = "all" ];
 then
   updateCloud
   updateOSS
   updateV1Compat
 else
-  echo "Provide a context (cloud, oss, v1compat, all)"
+  echo "Provide a platform argument: cloud, oss, v1compat, or all."
   showHelp
 fi

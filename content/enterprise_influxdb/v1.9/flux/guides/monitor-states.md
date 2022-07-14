@@ -106,7 +106,7 @@ calculates how many points have `closed` as their `_value`.
 ```js
 from(bucket: "doors")
     |> range(start: -5m)
-    |> stateDuration(fn: (r) => r._value == "closed", column: "door_closed")
+    |> stateCount(fn: (r) => r._value == "closed", column: "door_closed")
 ```
 
 This example stores the **state count** in the `door_closed` column.

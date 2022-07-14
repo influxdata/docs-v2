@@ -1,7 +1,7 @@
 ---
 title: testing.shouldError() function
 description: >
-  `testing.shouldError()` calls a function catches any error and checks that the error matches the expected value.
+  `testing.shouldError()` calls a function that catches any error and checks that the error matches the expected value.
 menu:
   flux_0_x_ref:
     name: testing.shouldError
@@ -28,7 +28,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`testing.shouldError()` calls a function catches any error and checks that the error matches the expected value.
+`testing.shouldError()` calls a function that catches any error and checks that the error matches the expected value.
 
 
 
