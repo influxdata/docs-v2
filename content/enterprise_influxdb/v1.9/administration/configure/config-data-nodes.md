@@ -519,7 +519,7 @@ With successive write failures, if the [write consistency](https://docs.influxda
 - temporarily large HH queues
 - more partial write errors
 - fewer "remote write failed" errors as the HH queues empty (This is because remote writes, which keep data in memory while timing out, will be suppressed.)
-- much lower memory usage when a node is unavailable
+- much lower memory usage on nodes with hinted handoff queues
 
 Note that only repeated write failures will slow down the retry rate.
 
