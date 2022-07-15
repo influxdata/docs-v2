@@ -33,6 +33,9 @@ jobs:
       - run:
           name: Inject Flux stdlib frontmatter
           command: node ./inject-flux-stdlib-frontmatter.js
+      - run:
+          name: Update Flux/InfluxDB versions
+          command: node ./update-flux-versions.js
       - save_cache:
           key: install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
           paths:
