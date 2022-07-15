@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.3 [2022-6-17]
+## v2.3.0 [2022-6-17]
 
 This release includes the following [maintenance](#maintenance), [features](#features), [security updates](#security-updates) and [bug fixes](#bug-fixes).
 
@@ -61,7 +61,7 @@ Several security issues were fixed in dependencies and the toolchain used to bui
 - Fix rare case where measurement cardinality reported less than zero.
 - Resolve panic on cleaning up failed iterators.
 
-## v2.3 [2022-04-06]
+## v2.2.0 [2022-04-06]
 
 This release includes the following new [features](#features) and several [bug fixes](#bug-fixes).
 
