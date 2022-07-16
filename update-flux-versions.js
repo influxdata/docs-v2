@@ -57,8 +57,8 @@ const productData = yaml.load(fs.readFileSync('./data/products.yml', 'utf8'))
 
 // Update InfluxDB version arrays by removing 'v' from each version and filtering
 // out InfluxDB versions that don't have a Flux dependency in their go.mod
-const ossVersionArr = productData.influxdb.versions.map((element, index) => {return element.replace('v', '')}).filter(element => parseFloat(element) >= 1.7);
-const enterpriseVersionArr = productData.enterprise_influxdb.versions.map((element, index) => {return element.replace('v', '')}).filter(element => parseFloat(element) >= 1.9);
+const ossVersionArr = productData.influxdb.versions.map((element, index) => {return element.replace('v', '')}).filter(element => parseFloat(element) >= 1.7).reverse();
+const enterpriseVersionArr = productData.enterprise_influxdb.versions.map((element, index) => {return element.replace('v', '')}).filter(element => parseFloat(element) >= 1.9).reverse();
 
 // Instantiate base Flux version variables
 var latestFlux;
@@ -74,8 +74,8 @@ var fluxVersions = {};
 
   // Manually add versions that aren't included in the original versions arrays
   await addVersion(ossVersions, 'nightly', await getFluxVersion('master'));
-  await addVersion(enterpriseVersions, '1.7', await getFluxVersion('1.7'));
   await addVersion(enterpriseVersions, '1.8', await getFluxVersion('1.8'));
+  await addVersion(enterpriseVersions, '1.7', await getFluxVersion('1.7'));
 
   // Build the Flux versions object that contains all necessary flux version information
   fluxVersions = {

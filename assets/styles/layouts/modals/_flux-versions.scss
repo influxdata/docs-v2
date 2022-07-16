@@ -1,0 +1,63 @@
+#flux-influxdb-versions {
+  .version-list {
+    display: flex;
+    flex-direction: column-reverse;
+
+    &.cloud {margin-top: 2.5rem;}
+  }
+  .version-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: .15rem 0;
+    border-bottom: 1px solid $article-hr;
+    &:last-child { border-top: 1px solid $article-hr; }
+
+    .version-col {
+      flex: 1 0 0;
+      &:nth-child(2) { text-align: center; }
+      &:last-child { padding-right: 1rem; text-align: right; }
+    }
+  }
+  
+  h4 {margin-top: 1.5rem;}
+
+  h4, span.medium {
+    font-size: 1.15rem;
+  }
+
+  h3 code {
+    background: $article-code-bg;
+    font-family: $code;
+    color: $article-code;
+    padding: .1rem .4rem .2rem;
+    border-radius: $radius;
+    white-space: nowrap;
+    font-size: .9em;
+    font-style: normal;
+  }
+
+  span{
+    &.medium {
+      font-weight: $medium;
+      color: $article-heading;
+    }
+    &.flux-version {
+      opacity: .5;
+      font-size: .9rem;
+      letter-spacing: .04rem;
+    }
+    &.deprecated:before{
+      content: '•';
+      color: rgba($article-text, .5);
+      margin-right: .4rem;
+    }
+    &.checkmark-new {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: $gr-rainforest;
+      &.pending { color: $b-dodger } 
+    }
+  }
+}
