@@ -134,6 +134,10 @@ When restarting nodes within an active cluster, during upgrades or maintenance, 
 
 If a node with pending hinted handoff writes for another data node receives a write destined for that node, it adds the write to the end of the hinted handoff queue rather than attempt a direct write. This ensures that data nodes receive data in mostly chronological order, as well as preventing unnecessary connection attempts while the other node is offline.
 
+Whn a remote write fails, the database will send data to the hinted handoff (HH) queue for a short period of time before allowing incoming remote writes to be retried again. This time period grows with each failed write. The greater the number of successive write failures, the longer a node will delay writes before retrying them. Consecutive write failures will cause increased delay times before retrying writes in both emptying HH queues and in remote writes.
+
+This could result in temporarily large HH queues and more partial write errors if the [write consistency](https://docs.influxdata.com/enterprise_influxdb/v1.9/concepts/clustering/#write-consistency) level is not set to `any` when hinted handoff is written, but fewer "remote write failed" errors as the HH queues empty, and much lower memory usage when a node is unavailable. This is because remote writes, which keep data in memory while timing out, will be suppressed. Note that only **repeated** write failures will slow down the retry rate.
+
 ## Queries in a cluster
 
 Queries in a cluster are distributed based on the time range being queried and the replication factor of the data. For example if the retention policy has a replication factor of 4, the coordinating data node receiving the query randomly picks any of the 4 data nodes that store a replica of the shard(s) to receive the query. If we assume that the system has shard durations of one day, then for each day of time covered by a query the coordinating node selects one data node to receive the query for that day.
