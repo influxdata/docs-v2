@@ -11,6 +11,9 @@ weight: 31
 cascade:
 
   introduced: 0.91.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/events/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/events/
 ---
 
 <!------------------------------------------------------------------------------

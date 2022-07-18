@@ -9,6 +9,8 @@ menu:
     identifier: influxdata/influxdb/sample/alignToNow
 weight: 301
 flux/v0.x/tags: [transformations]
+related:
+  - /{{< latest "influxdb" >}}/reference/sample-data/
 ---
 
 <!------------------------------------------------------------------------------

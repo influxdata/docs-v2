@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/sinh
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/sinh/
+  - /influxdb/v2.0/reference/flux/stdlib/math/sinh/
+  - /influxdb/cloud/reference/flux/stdlib/math/sinh/
 ---
 
 <!------------------------------------------------------------------------------

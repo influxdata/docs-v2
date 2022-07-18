@@ -8,6 +8,12 @@ menu:
     parent: regexp
     identifier: regexp/quoteMeta
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/regexp/quotemeta/
+  - /influxdb/v2.0/reference/flux/stdlib/regexp/quotemeta/
+  - /influxdb/cloud/reference/flux/stdlib/regexp/quotemeta/
+related:
+  - /flux/v0.x/data-types/basic/regexp/
 ---
 
 <!------------------------------------------------------------------------------

@@ -9,6 +9,9 @@ menu:
     identifier: experimental/query/filterMeasurement
 weight: 201
 flux/v0.x/tags: [transformations, filters]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/query/filtermeasurement/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/query/filtermeasurement/
 ---
 
 <!------------------------------------------------------------------------------

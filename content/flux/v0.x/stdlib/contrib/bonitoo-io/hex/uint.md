@@ -9,6 +9,8 @@ menu:
     identifier: contrib/bonitoo-io/hex/uint
 weight: 301
 
+related:
+  - /flux/v0.x/data-types/basic/uint/
 ---
 
 <!------------------------------------------------------------------------------

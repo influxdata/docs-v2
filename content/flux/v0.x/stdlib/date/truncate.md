@@ -8,6 +8,10 @@ menu:
     parent: date
     identifier: date/truncate
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/date/truncate/
+  - /influxdb/v2.0/reference/flux/stdlib/date/truncate/
+  - /influxdb/cloud/reference/flux/stdlib/date/truncate/
 ---
 
 <!------------------------------------------------------------------------------

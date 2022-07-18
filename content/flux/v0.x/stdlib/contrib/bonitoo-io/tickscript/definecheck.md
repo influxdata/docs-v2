@@ -8,6 +8,9 @@ menu:
     parent: contrib/bonitoo-io/tickscript
     identifier: contrib/bonitoo-io/tickscript/defineCheck
 weight: 301
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/definecheck/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/definecheck/
 ---
 
 <!------------------------------------------------------------------------------

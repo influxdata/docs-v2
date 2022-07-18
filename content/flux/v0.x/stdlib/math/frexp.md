@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/frexp
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/frexp/
+  - /influxdb/v2.0/reference/flux/stdlib/math/frexp/
+  - /influxdb/cloud/reference/flux/stdlib/math/frexp/
 ---
 
 <!------------------------------------------------------------------------------

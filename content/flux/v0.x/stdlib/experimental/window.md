@@ -10,6 +10,11 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, date/time]
 introduced: 0.106.0
+related:
+  - /influxdb/v2.0/query-data/flux/window-aggregate/
+  - /flux/v0.x/stdlib/universe/window/
+  - /flux/v0.x/stdlib/universe/aggregatewindow/
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY time()
 ---
 
 <!------------------------------------------------------------------------------

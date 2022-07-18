@@ -11,6 +11,11 @@ weight: 101
 flux/v0.x/tags: [outputs]
 introduced: 0.40.0
 deprecated: 0.174.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/to/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/to/
+related:
+  - /flux/v0.x/stdlib/influxdata/influxdb/to/
 ---
 
 <!------------------------------------------------------------------------------

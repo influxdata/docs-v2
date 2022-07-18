@@ -9,6 +9,14 @@ menu:
     parent: strings
     identifier: strings/splitAfterN
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/strings/splitaftern/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/splitaftern/
+  - /influxdb/cloud/reference/flux/stdlib/strings/splitaftern/
+related:
+  - /flux/v0.x/stdlib/strings/split/
+  - /flux/v0.x/stdlib/strings/splitafter/
+  - /flux/v0.x/stdlib/strings/splitn/
 ---
 
 <!------------------------------------------------------------------------------

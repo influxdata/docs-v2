@@ -9,6 +9,10 @@ menu:
     identifier: date/sub
 weight: 101
 flux/v0.x/tags: [date/time]
+aliases:
+  - /flux/v0.x/stdlib/date/subduration/
+related:
+  - /flux/v0.x/stdlib/date/addduration/
 ---
 
 <!------------------------------------------------------------------------------

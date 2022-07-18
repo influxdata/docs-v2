@@ -11,6 +11,10 @@ menu:
 weight: 301
 flux/v0.x/tags: [transformations]
 introduced: 0.42.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/monitor/statechanges/
+  - /influxdb/v2.0/reference/flux/stdlib/monitor/statechanges/
+  - /influxdb/cloud/reference/flux/stdlib/monitor/statechanges/
 ---
 
 <!------------------------------------------------------------------------------

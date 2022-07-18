@@ -11,6 +11,9 @@ weight: 31
 cascade:
 
   introduced: 0.115.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/alerta/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/alerta/
 ---
 
 <!------------------------------------------------------------------------------

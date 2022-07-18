@@ -9,6 +9,11 @@ menu:
     parent: dict
     identifier: dict/fromList
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/dict/fromlist/
+  - /influxdb/cloud/reference/flux/stdlib/dict/fromlist/
+related:
+  - /flux/v0.x/data-types/composite/dict/
 ---
 
 <!------------------------------------------------------------------------------

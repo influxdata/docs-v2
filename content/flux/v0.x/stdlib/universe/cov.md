@@ -10,6 +10,14 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.7.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/cov
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/cov/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/cov/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/cov/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/cov/
+related:
+  - /flux/v0.x/stdlib/universe/covariance/
 ---
 
 <!------------------------------------------------------------------------------

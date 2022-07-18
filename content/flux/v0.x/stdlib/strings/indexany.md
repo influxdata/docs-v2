@@ -9,6 +9,14 @@ menu:
     parent: strings
     identifier: strings/indexAny
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/strings/indexany/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/indexany/
+  - /influxdb/cloud/reference/flux/stdlib/strings/indexany/
+related:
+  - /flux/v0.x/stdlib/strings/index-fn/
+  - /flux/v0.x/stdlib/strings/lastindex/
+  - /flux/v0.x/stdlib/strings/lastindexany/
 ---
 
 <!------------------------------------------------------------------------------

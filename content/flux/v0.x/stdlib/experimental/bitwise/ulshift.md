@@ -9,6 +9,8 @@ menu:
     parent: experimental/bitwise
     identifier: experimental/bitwise/ulshift
 weight: 201
+related:
+  - /flux/v0.x/data-types/basic/uint/
 ---
 
 <!------------------------------------------------------------------------------

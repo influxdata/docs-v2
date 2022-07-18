@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/remainder
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/remainder/
+  - /influxdb/v2.0/reference/flux/stdlib/math/remainder/
+  - /influxdb/cloud/reference/flux/stdlib/math/remainder/
 ---
 
 <!------------------------------------------------------------------------------

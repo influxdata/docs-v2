@@ -10,6 +10,13 @@ menu:
 weight: 101
 flux/v0.x/tags: [date/time]
 introduced: 0.7.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/built-in/misc/now/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/misc/now/
+related:
+  - /flux/v0.x/stdlib/universe/today/
+  - /flux/v0.x/stdlib/system/time/
 ---
 
 <!------------------------------------------------------------------------------

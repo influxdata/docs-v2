@@ -9,6 +9,9 @@ menu:
     identifier: contrib/rhajek/bigpanda/sendAlert
 weight: 301
 flux/v0.x/tags: [single notification]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/sendAlert/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/bigpanda/sendAlert/
 ---
 
 <!------------------------------------------------------------------------------

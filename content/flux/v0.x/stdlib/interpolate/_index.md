@@ -12,6 +12,9 @@ weight: 11
 cascade:
 
   introduced: 0.87.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/interpolate/
+  - /influxdb/cloud/reference/flux/stdlib/interpolate/
 ---
 
 <!------------------------------------------------------------------------------

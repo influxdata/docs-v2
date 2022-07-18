@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/copysign
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/copysign/
+  - /influxdb/v2.0/reference/flux/stdlib/math/copysign/
+  - /influxdb/cloud/reference/flux/stdlib/math/copysign/
 ---
 
 <!------------------------------------------------------------------------------

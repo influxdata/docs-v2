@@ -8,6 +8,12 @@ menu:
     parent: strings
     identifier: strings/isDigit
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/strings/isdigit/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/isdigit/
+  - /influxdb/cloud/reference/flux/stdlib/strings/isdigit/
+related:
+  - /flux/v0.x/stdlib/strings/isletter/
 ---
 
 <!------------------------------------------------------------------------------

@@ -8,6 +8,14 @@ menu:
     parent: experimental/usage
     identifier: experimental/usage/limits
 weight: 201
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/usage/limits/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/usage/limits/
+related:
+  - /flux/v0.x/stdlib/influxdata/influxdb/cardinality/
+  - /influxdb/cloud/account-management/data-usage/
+  - /influxdb/cloud/account-management/limits/
+  - https://www.influxdata.com/influxdb-templates/influxdb-cloud-usage-dashboard/, InfluxDB Cloud Usage – Community Template
 ---
 
 <!------------------------------------------------------------------------------

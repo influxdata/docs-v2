@@ -8,6 +8,10 @@ menu:
     parent: strings
     identifier: strings/strlen
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/strings/strlen/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/strlen/
+  - /influxdb/cloud/reference/flux/stdlib/strings/strlen/
 ---
 
 <!------------------------------------------------------------------------------

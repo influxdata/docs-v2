@@ -8,6 +8,11 @@ menu:
     parent: influxdata/influxdb/sample
     identifier: influxdata/influxdb/sample/list
 weight: 301
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-sample/list
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-sample/list
+related:
+  - /{{< latest "influxdb" >}}/reference/sample-data/
 ---
 
 <!------------------------------------------------------------------------------

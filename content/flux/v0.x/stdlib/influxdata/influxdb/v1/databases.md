@@ -9,6 +9,17 @@ menu:
     identifier: influxdata/influxdb/v1/databases
 weight: 301
 flux/v0.x/tags: [metadata]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/databases/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/databases/
+related:
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-databases, SHOW DATABASES in InfluxQL
+append:
+  block: warn
+  content: |
+    #### Not supported in the Flux REPL
+    `v1` functions can retrieve schema information when executed within
+    the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
 <!------------------------------------------------------------------------------

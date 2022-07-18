@@ -10,6 +10,10 @@ menu:
     identifier: influxdata/influxdb/monitor/check
 weight: 301
 flux/v0.x/tags: [transformations]
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/monitor/check/
+  - /influxdb/v2.0/reference/flux/stdlib/monitor/check/
+  - /influxdb/cloud/reference/flux/stdlib/monitor/check/
 ---
 
 <!------------------------------------------------------------------------------

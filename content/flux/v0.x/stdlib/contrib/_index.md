@@ -8,6 +8,9 @@ menu:
     parent: stdlib
     identifier: contrib
 weight: 11
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/
+  - /influxdb/cloud/reference/flux/stdlib/contrib
 ---
 
 <!------------------------------------------------------------------------------

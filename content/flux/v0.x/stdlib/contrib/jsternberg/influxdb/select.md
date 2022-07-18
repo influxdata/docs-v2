@@ -12,6 +12,15 @@ menu:
     identifier: contrib/jsternberg/influxdb/select
 weight: 301
 flux/v0.x/tags: [inputs]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/influxdb/select/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/influxdb/select/
+related:
+  - /flux/v0.x/stdlib/influxdata/influxdb/from/
+  - /flux/v0.x/stdlib/universe/range/
+  - /flux/v0.x/stdlib/universe/filter/
+  - /flux/v0.x/stdlib/influxdata/influxdb/schema/fieldsascols/
+  - /flux/v0.x/stdlib/universe/pivot/
 ---
 
 <!------------------------------------------------------------------------------

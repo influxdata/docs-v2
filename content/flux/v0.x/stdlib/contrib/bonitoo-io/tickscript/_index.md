@@ -12,6 +12,9 @@ weight: 31
 cascade:
 
   introduced: 0.111.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/
 ---
 
 <!------------------------------------------------------------------------------

@@ -8,6 +8,12 @@ menu:
     parent: sql
     identifier: sql/from
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/sql/from/
+  - /influxdb/v2.0/reference/flux/stdlib/sql/from/
+  - /influxdb/cloud/reference/flux/stdlib/sql/from/
+related:
+  - /flux/v0.x/query-data/sql/
 ---
 
 <!------------------------------------------------------------------------------

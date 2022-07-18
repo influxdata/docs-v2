@@ -8,6 +8,13 @@ menu:
     parent: regexp
     identifier: regexp/findString
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/regexp/findstring/
+  - /influxdb/v2.0/reference/flux/stdlib/regexp/findstring/
+  - /influxdb/cloud/reference/flux/stdlib/regexp/findstring/
+related:
+  - /flux/v0.x/stdlib/regexp/splitregexp
+  - /flux/v0.x/data-types/basic/regexp/
 ---
 
 <!------------------------------------------------------------------------------

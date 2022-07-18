@@ -11,6 +11,15 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.40.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/kaufmansama/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/kaufmansama/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/kaufmansama/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/kaufmansama/
+related:
+  - /flux/v0.x/stdlib/universe/kaufmanser/
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#kaufmans-adaptive-moving-average, InfluxQL KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
+  - /flux/v0.x/stdlib/experimental/kaufmansama/
 ---
 
 <!------------------------------------------------------------------------------

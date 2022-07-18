@@ -9,6 +9,11 @@ menu:
     identifier: experimental/geo/groupByArea
 weight: 201
 flux/v0.x/tags: [transformations, geotemporal]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/groupbyarea/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/groupbyarea/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 ---
 
 <!------------------------------------------------------------------------------

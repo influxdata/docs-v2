@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/modf
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/modf/
+  - /influxdb/v2.0/reference/flux/stdlib/math/modf/
+  - /influxdb/cloud/reference/flux/stdlib/math/modf/
 ---
 
 <!------------------------------------------------------------------------------

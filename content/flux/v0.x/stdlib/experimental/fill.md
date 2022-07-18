@@ -10,6 +10,13 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.112.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/fill/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/fill/
+related:
+  - /influxdb/v2.0/query-data/flux/fill/
+  - /flux/v0.x/stdlib/universe/fill
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#group-by-time-intervals-and-fill, InfluxQL – FILL
 ---
 
 <!------------------------------------------------------------------------------

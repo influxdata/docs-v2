@@ -11,6 +11,9 @@ weight: 21
 cascade:
   flux/v0.x/tags: [json]
   introduced: 0.69.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/json/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/json/
 ---
 
 <!------------------------------------------------------------------------------

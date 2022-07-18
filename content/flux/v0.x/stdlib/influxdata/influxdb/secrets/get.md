@@ -8,6 +8,12 @@ menu:
     parent: influxdata/influxdb/secrets
     identifier: influxdata/influxdb/secrets/get
 weight: 301
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/secrets/get/
+  - /influxdb/v2.0/reference/flux/stdlib/secrets/get/
+  - /influxdb/cloud/reference/flux/stdlib/secrets/get/
+related:
+  - /{{< latest "influxdb" >}}/security/secrets/, Manage secrets in InfluxDB
 ---
 
 <!------------------------------------------------------------------------------

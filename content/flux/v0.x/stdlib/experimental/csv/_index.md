@@ -12,6 +12,9 @@ cascade:
   flux/v0.x/tags: [csv]
   introduced: 0.64.0
   deprecated: 0.173.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/csv/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/csv/
 ---
 
 <!------------------------------------------------------------------------------

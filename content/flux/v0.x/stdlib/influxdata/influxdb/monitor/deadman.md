@@ -10,6 +10,10 @@ menu:
     identifier: influxdata/influxdb/monitor/deadman
 weight: 301
 flux/v0.x/tags: [transformations]
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/monitor/deadman/
+  - /influxdb/v2.0/reference/flux/stdlib/monitor/deadman/
+  - /influxdb/cloud/reference/flux/stdlib/monitor/deadman/
 ---
 
 <!------------------------------------------------------------------------------

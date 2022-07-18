@@ -10,6 +10,12 @@ menu:
     identifier: csv/from
 weight: 101
 flux/v0.x/tags: [csv, inputs]
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/inputs/fromcsv
+  - /influxdb/v2.0/reference/flux/functions/built-in/inputs/fromcsv
+  - /influxdb/v2.0/reference/flux/functions/csv/from/
+  - /influxdb/v2.0/reference/flux/stdlib/csv/from/
+  - /influxdb/cloud/reference/flux/stdlib/csv/from/
 ---
 
 <!------------------------------------------------------------------------------

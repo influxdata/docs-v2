@@ -9,6 +9,11 @@ menu:
     parent: experimental/geo
     identifier: experimental/geo/shapeData
 weight: 201
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/shapedata/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/shapedata/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 ---
 
 <!------------------------------------------------------------------------------

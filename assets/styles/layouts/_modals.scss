@@ -27,7 +27,7 @@
     position: relative;
     display: flex;
     overflow: hidden;
-    width: 100%;
+    // width: 100%;
     max-width: 650px;
     max-height: 97.5vh;
     margin-top: 10vh;
@@ -60,7 +60,8 @@
   .modal-content{
     display: none;
     overflow: visible;
-    width: 100%;
+    width: 586px;
+    max-width: 100%;
 
     h3 {
       color: $article-heading;

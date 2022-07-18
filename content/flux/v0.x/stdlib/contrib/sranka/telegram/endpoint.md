@@ -9,6 +9,9 @@ menu:
     identifier: contrib/sranka/telegram/endpoint
 weight: 301
 
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/telegram/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/telegram/endpoint/
 ---
 
 <!------------------------------------------------------------------------------

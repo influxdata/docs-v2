@@ -10,6 +10,11 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, selectors]
 introduced: 0.112.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/unique/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/unique/
+related:
+  - /flux/v0.x/stdlib/universe/unique/
 ---
 
 <!------------------------------------------------------------------------------

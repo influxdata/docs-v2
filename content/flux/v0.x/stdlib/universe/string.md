@@ -10,6 +10,13 @@ menu:
 weight: 101
 flux/v0.x/tags: [type-conversions]
 introduced: 0.7.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/string/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/string/
+related:
+  - /flux/v0.x/data-types/basic/string/
+  - /flux/v0.x/stdlib/universe/tostring/
 ---
 
 <!------------------------------------------------------------------------------

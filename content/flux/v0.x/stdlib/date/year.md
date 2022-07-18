@@ -8,6 +8,10 @@ menu:
     parent: date
     identifier: date/year
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/date/year/
+  - /influxdb/v2.0/reference/flux/stdlib/date/year/
+  - /influxdb/cloud/reference/flux/stdlib/date/year/
 ---
 
 <!------------------------------------------------------------------------------

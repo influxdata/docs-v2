@@ -11,6 +11,9 @@ weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.65.0
 deprecated: 0.172.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/join/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/join/
 ---
 
 <!------------------------------------------------------------------------------

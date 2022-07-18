@@ -11,6 +11,11 @@ menu:
     identifier: contrib/bonitoo-io/tickscript/alert
 weight: 301
 flux/v0.x/tags: [transformations, outputs]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/alert/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/alert/
+related:
+  - /{{< latest "kapacitor" >}}/nodes/alert_node/, Kapacitor AlertNode
 ---
 
 <!------------------------------------------------------------------------------

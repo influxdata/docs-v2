@@ -9,6 +9,14 @@ menu:
     parent: strings
     identifier: strings/lastIndex
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/strings/lastindex/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/lastindex/
+  - /influxdb/cloud/reference/flux/stdlib/strings/lastindex/
+related:
+  - /flux/v0.x/stdlib/strings/index-fn/
+  - /flux/v0.x/stdlib/strings/indexany/
+  - /flux/v0.x/stdlib/strings/lastindexany/
 ---
 
 <!------------------------------------------------------------------------------

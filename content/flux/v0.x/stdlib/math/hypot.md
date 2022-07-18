@@ -9,6 +9,10 @@ menu:
     parent: math
     identifier: math/hypot
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/hypot/
+  - /influxdb/v2.0/reference/flux/stdlib/math/hypot/
+  - /influxdb/cloud/reference/flux/stdlib/math/hypot/
 ---
 
 <!------------------------------------------------------------------------------

@@ -10,6 +10,12 @@ menu:
     identifier: contrib/bonitoo-io/tickscript/join
 weight: 301
 flux/v0.x/tags: [transformations]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/join/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/join/
+related:
+  - /{{< latest "kapacitor" >}}/nodes/join_node/, Kapacitor JoinNode
+  - /flux/v0.x/stdlib/universe/join/
 ---
 
 <!------------------------------------------------------------------------------

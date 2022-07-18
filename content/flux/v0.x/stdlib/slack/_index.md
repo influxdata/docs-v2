@@ -11,6 +11,10 @@ weight: 11
 cascade:
 
   introduced: 0.41.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/slack/
+  - /influxdb/v2.0/reference/flux/stdlib/slack/
+  - /influxdb/cloud/reference/flux/stdlib/slack/
 ---
 
 <!------------------------------------------------------------------------------

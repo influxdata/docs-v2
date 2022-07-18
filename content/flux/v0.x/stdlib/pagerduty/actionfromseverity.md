@@ -8,6 +8,10 @@ menu:
     parent: pagerduty
     identifier: pagerduty/actionFromSeverity
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/pagerduty/actionfromseverity/
+  - /influxdb/v2.0/reference/flux/stdlib/pagerduty/actionfromseverity/
+  - /influxdb/cloud/reference/flux/stdlib/pagerduty/actionfromseverity/
 ---
 
 <!------------------------------------------------------------------------------

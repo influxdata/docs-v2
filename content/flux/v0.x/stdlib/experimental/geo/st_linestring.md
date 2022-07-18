@@ -10,6 +10,11 @@ menu:
 weight: 201
 flux/v0.x/tags: [geotemporal, transformations, aggregates]
 introduced: 0.78.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/st_linestring/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/st_linestring/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 ---
 
 <!------------------------------------------------------------------------------

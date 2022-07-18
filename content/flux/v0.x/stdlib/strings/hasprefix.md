@@ -8,6 +8,12 @@ menu:
     parent: strings
     identifier: strings/hasPrefix
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/strings/hasprefix/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/hasprefix/
+  - /influxdb/cloud/reference/flux/stdlib/strings/hasprefix/
+related:
+  - /flux/v0.x/stdlib/strings/hassuffix
 ---
 
 <!------------------------------------------------------------------------------

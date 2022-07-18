@@ -9,6 +9,8 @@ menu:
     identifier: contrib/bonitoo-io/hex/bytes
 weight: 301
 
+related:
+  - /flux/v0.x/data-types/basic/bytes/
 ---
 
 <!------------------------------------------------------------------------------

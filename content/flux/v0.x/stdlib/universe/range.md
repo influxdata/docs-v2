@@ -10,6 +10,13 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, filters]
 introduced: 0.7.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/transformations/range
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/range/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/range/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/range/
+related:
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-where-clause, InfluxQL – WHERE
 ---
 
 <!------------------------------------------------------------------------------

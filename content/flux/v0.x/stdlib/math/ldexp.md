@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/ldexp
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/ldexp/
+  - /influxdb/v2.0/reference/flux/stdlib/math/ldexp/
+  - /influxdb/cloud/reference/flux/stdlib/math/ldexp/
 ---
 
 <!------------------------------------------------------------------------------

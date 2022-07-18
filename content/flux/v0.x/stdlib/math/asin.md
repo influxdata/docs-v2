@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/asin
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/asin/
+  - /influxdb/v2.0/reference/flux/stdlib/math/asin/
+  - /influxdb/cloud/reference/flux/stdlib/math/asin/
 ---
 
 <!------------------------------------------------------------------------------

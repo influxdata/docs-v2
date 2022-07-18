@@ -12,6 +12,16 @@ weight: 31
 cascade:
 
   introduced: 0.16.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/
+append:
+  block: warn
+  content: |
+    #### Not supported in the Flux REPL
+    `v1` functions can retrieve schema information when executed within
+    the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
 <!------------------------------------------------------------------------------

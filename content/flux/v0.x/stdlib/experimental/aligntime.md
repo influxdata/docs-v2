@@ -10,6 +10,9 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, data/time]
 introduced: 0.66.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/aligntime/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/aligntime/
 ---
 
 <!------------------------------------------------------------------------------

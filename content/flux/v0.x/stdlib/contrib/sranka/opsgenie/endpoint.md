@@ -8,6 +8,9 @@ menu:
     parent: contrib/sranka/opsgenie
     identifier: contrib/sranka/opsgenie/endpoint
 weight: 301
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/opsgenie/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/opsgenie/endpoint/
 ---
 
 <!------------------------------------------------------------------------------

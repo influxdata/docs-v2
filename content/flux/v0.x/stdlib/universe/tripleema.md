@@ -11,6 +11,17 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.38.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/tripleema/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/tripleema/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tripleema/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/tripleema/
+related:
+  - /flux/v0.x/stdlib/universe/movingaverage/
+  - /flux/v0.x/stdlib/universe/doubleema/
+  - /flux/v0.x/stdlib/universe/timedmovingaverage/
+  - /flux/v0.x/stdlib/universe/exponentialmovingaverage/
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#triple-exponential-moving-average, InfluxQL TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
 ---
 
 <!------------------------------------------------------------------------------

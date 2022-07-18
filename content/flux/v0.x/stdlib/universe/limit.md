@@ -10,6 +10,15 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, selectors]
 introduced: 0.7.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/transformations/limit
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/limit/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/limit/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/sort-limit/
+  - /flux/v0.x/stdlib/universe/tail/
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-limit-and-slimit-clauses, InfluxQL LIMIT
 ---
 
 <!------------------------------------------------------------------------------

@@ -10,6 +10,15 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.7.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/transformations/map
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/map/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/map/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/map/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/conditional-logic/
+  - /{{< latest "influxdb" >}}/query-data/flux/mathematic-operations/
+  - /flux/v0.x/stdlib/contrib/jsternberg/rows/map/
 ---
 
 <!------------------------------------------------------------------------------

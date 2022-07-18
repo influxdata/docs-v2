@@ -9,6 +9,13 @@ menu:
     identifier: experimental/usage/from
 weight: 201
 flux/v0.x/tags: [inputs]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/usage/from/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/usage/from/
+related:
+  - /influxdb/cloud/account-management/data-usage/
+  - /influxdb/cloud/account-management/limits/
+  - https://www.influxdata.com/influxdb-templates/influxdb-cloud-usage-dashboard/, InfluxDB Cloud Usage – Community Template
 ---
 
 <!------------------------------------------------------------------------------

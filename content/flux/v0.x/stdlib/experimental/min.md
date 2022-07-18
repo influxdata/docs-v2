@@ -11,6 +11,12 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, selectors]
 introduced: 0.112.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/min/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/min/
+related:
+  - /{{< latest "influxdb" >}}/flux/stdlib/built-in/transformations/selectors/min/
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#min, InfluxQL – MIN()
 ---
 
 <!------------------------------------------------------------------------------

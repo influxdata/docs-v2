@@ -10,6 +10,15 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.7.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/transformations/group
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/group/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/group/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/group/
+related:
+  - /flux/v0.x/get-started/data-model/#restructure-tables, Data model - Restructure tables
+  - /{{< latest "influxdb" >}}/query-data/flux/group-data/
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-group-by-clause, InfluxQL – GROUP BY
 ---
 
 <!------------------------------------------------------------------------------

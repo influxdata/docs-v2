@@ -8,6 +8,9 @@ menu:
     parent: pushbullet
     identifier: pushbullet/endpoint
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/pushbullet/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/pushbullet/endpoint/
 ---
 
 <!------------------------------------------------------------------------------

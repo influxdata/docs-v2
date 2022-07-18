@@ -11,6 +11,11 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.83.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/
+related:
+  - /flux/v0.x/stdlib/universe/integral/
 ---
 
 <!------------------------------------------------------------------------------

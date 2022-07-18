@@ -10,6 +10,9 @@ menu:
 weight: 101
 
 introduced: 0.18.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/testing/inspect/
+  - /influxdb/cloud/reference/flux/stdlib/testing/inspect/
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,7 +24,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L256-L268
+https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L237-L249
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md

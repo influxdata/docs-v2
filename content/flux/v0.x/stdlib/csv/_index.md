@@ -11,6 +11,10 @@ weight: 11
 cascade:
   flux/v0.x/tags: [csv]
   introduced: 0.14.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/csv/
+  - /influxdb/v2.0/reference/flux/stdlib/csv/
+  - /influxdb/cloud/reference/flux/stdlib/csv/
 ---
 
 <!------------------------------------------------------------------------------

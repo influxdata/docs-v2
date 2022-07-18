@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/round
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/round/
+  - /influxdb/v2.0/reference/flux/stdlib/math/round/
+  - /influxdb/cloud/reference/flux/stdlib/math/round/
 ---
 
 <!------------------------------------------------------------------------------

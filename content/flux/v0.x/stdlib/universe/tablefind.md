@@ -11,6 +11,12 @@ menu:
 weight: 101
 flux/v0.x/tags: [dynamic queries]
 introduced: 0.29.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/scalar-values/
 ---
 
 <!------------------------------------------------------------------------------

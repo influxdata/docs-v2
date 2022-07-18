@@ -11,6 +11,10 @@ menu:
 weight: 101
 
 introduced: 0.40.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/http/post/
+  - /influxdb/v2.0/reference/flux/stdlib/http/post/
+  - /influxdb/cloud/reference/flux/stdlib/http/post/
 ---
 
 <!------------------------------------------------------------------------------

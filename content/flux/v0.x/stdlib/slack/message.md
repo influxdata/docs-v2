@@ -10,6 +10,10 @@ menu:
     identifier: slack/message
 weight: 101
 flux/v0.x/tags: [single notification]
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/slack/message/
+  - /influxdb/v2.0/reference/flux/stdlib/slack/message/
+  - /influxdb/cloud/reference/flux/stdlib/slack/message/
 ---
 
 <!------------------------------------------------------------------------------

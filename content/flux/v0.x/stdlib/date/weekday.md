@@ -9,6 +9,10 @@ menu:
     parent: date
     identifier: date/weekDay
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/date/weekday/
+  - /influxdb/v2.0/reference/flux/stdlib/date/weekday/
+  - /influxdb/cloud/reference/flux/stdlib/date/weekday/
 ---
 
 <!------------------------------------------------------------------------------

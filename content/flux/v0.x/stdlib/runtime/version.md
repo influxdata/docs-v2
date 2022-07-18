@@ -8,6 +8,10 @@ menu:
     parent: runtime
     identifier: runtime/version
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/runtime/version/
+  - /influxdb/v2.0/reference/flux/stdlib/runtime/version/
+  - /influxdb/cloud/reference/flux/stdlib/runtime/version/
 ---
 
 <!------------------------------------------------------------------------------

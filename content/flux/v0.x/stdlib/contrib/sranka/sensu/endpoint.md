@@ -10,6 +10,13 @@ menu:
     parent: contrib/sranka/sensu
     identifier: contrib/sranka/sensu/endpoint
 weight: 301
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/sensu/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/sensu/endpoint/
+related:
+  - https://docs.sensu.io/sensu-go/latest/api/events/, Sensu Events API
+  - https://docs.sensu.io/sensu-go/latest/api/apikeys/, Sensu APIKeys API
+  - https://docs.sensu.io/sensu-go/latest/reference/handlers/, Sensu handlers
 ---
 
 <!------------------------------------------------------------------------------

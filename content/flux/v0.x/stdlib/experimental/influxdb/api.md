@@ -9,6 +9,9 @@ menu:
     parent: experimental/influxdb
     identifier: experimental/influxdb/api
 weight: 201
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/influxdb/api/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/influxdb/api/
 ---
 
 <!------------------------------------------------------------------------------

@@ -10,6 +10,13 @@ menu:
 weight: 101
 flux/v0.x/tags: [type-conversions]
 introduced: 0.7.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/time/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/time/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/time/
+related:
+  - /flux/v0.x/data-types/basic/time/
+  - /flux/v0.x/stdlib/universe/totime/
 ---
 
 <!------------------------------------------------------------------------------

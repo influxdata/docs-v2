@@ -9,6 +9,11 @@ menu:
     identifier: experimental/group
 weight: 101
 flux/v0.x/tags: [transformations]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/group/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/group/
+related:
+  - /flux/v0.x/stdlib/universe/group/
 ---
 
 <!------------------------------------------------------------------------------

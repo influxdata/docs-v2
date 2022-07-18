@@ -10,6 +10,16 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, filters]
 introduced: 0.7.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/transformations/filter
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/filter/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/filter/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/filter/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/query-fields/
+  - /{{< latest "influxdb" >}}/query-data/flux/conditional-logic/
+  - /{{< latest "influxdb" >}}/query-data/flux/exists/
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-basic-select-statement, InfluxQL – SELECT
 ---
 
 <!------------------------------------------------------------------------------

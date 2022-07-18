@@ -9,6 +9,9 @@ menu:
     identifier: pushbullet/pushNote
 weight: 101
 flux/v0.x/tags: [single notification]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/pushbullet/pushnote/
+  - /influxdb/cloud/reference/flux/stdlib/pushbullet/pushnote/
 ---
 
 <!------------------------------------------------------------------------------

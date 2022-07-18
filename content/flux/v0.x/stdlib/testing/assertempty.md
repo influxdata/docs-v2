@@ -10,6 +10,10 @@ menu:
 weight: 101
 flux/v0.x/tags: [tests]
 introduced: 0.18.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/testing/assertempty/
+  - /influxdb/v2.0/reference/flux/stdlib/testing/assertempty/
+  - /influxdb/cloud/reference/flux/stdlib/testing/assertempty/
 ---
 
 <!------------------------------------------------------------------------------

@@ -10,6 +10,14 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.71.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/increase
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/increase/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/increase/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/increase/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/increase/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/increase/
 ---
 
 <!------------------------------------------------------------------------------

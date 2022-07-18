@@ -8,6 +8,8 @@ menu:
     parent: experimental/bitwise
     identifier: experimental/bitwise/sand
 weight: 201
+related:
+  - /flux/v0.x/data-types/basic/int/
 ---
 
 <!------------------------------------------------------------------------------

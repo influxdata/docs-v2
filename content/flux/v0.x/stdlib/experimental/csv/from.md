@@ -8,6 +8,9 @@ menu:
     parent: experimental/csv
     identifier: experimental/csv/from
 weight: 201
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/csv/from/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/csv/from/
 ---
 
 <!------------------------------------------------------------------------------

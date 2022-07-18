@@ -11,6 +11,9 @@ menu:
 weight: 101
 
 introduced: 0.68.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/chain/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/chain/
 ---
 
 <!------------------------------------------------------------------------------

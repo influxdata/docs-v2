@@ -9,6 +9,9 @@ menu:
     identifier: experimental/mqtt/to
 weight: 201
 flux/v0.x/tags: [mqtt, outputs]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/mqtt/to/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/mqtt/to/
 ---
 
 <!------------------------------------------------------------------------------

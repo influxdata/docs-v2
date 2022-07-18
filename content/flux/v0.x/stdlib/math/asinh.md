@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/asinh
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/asinh/
+  - /influxdb/v2.0/reference/flux/stdlib/math/asinh/
+  - /influxdb/cloud/reference/flux/stdlib/math/asinh/
 ---
 
 <!------------------------------------------------------------------------------

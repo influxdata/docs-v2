@@ -9,6 +9,10 @@ menu:
     parent: date
     identifier: date/monthDay
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/date/monthday/
+  - /influxdb/v2.0/reference/flux/stdlib/date/monthday/
+  - /influxdb/cloud/reference/flux/stdlib/date/monthday/
 ---
 
 <!------------------------------------------------------------------------------

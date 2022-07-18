@@ -9,6 +9,9 @@ menu:
     parent: influxdata/influxdb/tasks
     identifier: influxdata/influxdb/tasks/lastSuccess
 weight: 301
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/lastsuccess/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-tasks/lastsuccess/
 ---
 
 <!------------------------------------------------------------------------------

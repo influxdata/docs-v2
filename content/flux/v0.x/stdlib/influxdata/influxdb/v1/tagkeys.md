@@ -10,6 +10,25 @@ menu:
 weight: 301
 flux/v0.x/tags: [metadata]
 deprecated: 0.88.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagkeys/
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/tagkeys/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/tagkeys/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-keys, SHOW TAG KEYS in InfluxQL
+prepend:
+  block: warn
+  content: |
+    #### Deprecated
+    `v1.tagkeys()` was deprecated in **Flux v0.88.0** in favor of
+    [`schema.tagkeys()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagkeys/).
+append:
+  block: warn
+  content: |
+    #### Not supported in the Flux REPL
+    `v1` functions can retrieve schema information when executed within
+    the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
 <!------------------------------------------------------------------------------

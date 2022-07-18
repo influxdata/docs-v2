@@ -9,6 +9,12 @@ menu:
     identifier: experimental/geo/toRows
 weight: 201
 flux/v0.x/tags: [transformations, geotemporal]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/torows/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/torows/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
+  - /flux/v0.x/stdlib/universe/pivot/
 ---
 
 <!------------------------------------------------------------------------------

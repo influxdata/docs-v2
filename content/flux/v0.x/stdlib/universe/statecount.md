@@ -10,6 +10,13 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.7.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/transformations/statecount
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/statecount/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/statecount/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/statecount/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/monitor-states/
 ---
 
 <!------------------------------------------------------------------------------

@@ -11,6 +11,8 @@ weight: 201
 
 introduced: 0.155.0
 deprecated: 0.173.0
+related:
+  - /flux/v0.x/data-types/composite/array/
 ---
 
 <!------------------------------------------------------------------------------

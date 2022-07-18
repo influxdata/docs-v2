@@ -10,6 +10,12 @@ menu:
     identifier: regexp/compile
 weight: 101
 flux/v0.x/tags: [type-conversions]
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/regexp/compile/
+  - /influxdb/v2.0/reference/flux/stdlib/regexp/compile/
+  - /influxdb/cloud/reference/flux/stdlib/regexp/compile/
+related:
+  - /flux/v0.x/data-types/basic/regexp/
 ---
 
 <!------------------------------------------------------------------------------

@@ -8,6 +8,14 @@ menu:
     parent: strings
     identifier: strings/toTitle
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/strings/totitle/
+  - /influxdb/v2.0/reference/flux/stdlib/strings/totitle/
+  - /influxdb/cloud/reference/flux/stdlib/strings/totitle/
+related:
+  - /flux/v0.x/stdlib/strings/toupper/
+  - /flux/v0.x/stdlib/strings/tolower/
+  - /flux/v0.x/stdlib/strings/title/
 ---
 
 <!------------------------------------------------------------------------------

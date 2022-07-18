@@ -9,6 +9,12 @@ menu:
     parent: regexp
     identifier: regexp/splitRegexp
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/regexp/splitregexp/
+  - /influxdb/v2.0/reference/flux/stdlib/regexp/splitregexp/
+  - /influxdb/cloud/reference/flux/stdlib/regexp/splitregexp/
+related:
+  - /flux/v0.x/data-types/basic/regexp/
 ---
 
 <!------------------------------------------------------------------------------

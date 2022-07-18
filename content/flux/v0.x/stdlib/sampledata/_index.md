@@ -11,6 +11,8 @@ weight: 11
 cascade:
   flux/v0.x/tags: [sample data]
   introduced: 0.128.0
+related:
+  - /flux/v0.x/stdlib/influxdata/influxdb/sample/
 ---
 
 <!------------------------------------------------------------------------------

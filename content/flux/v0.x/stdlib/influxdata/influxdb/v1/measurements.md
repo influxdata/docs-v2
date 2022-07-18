@@ -10,6 +10,25 @@ menu:
 weight: 301
 flux/v0.x/tags: [metadata]
 deprecated: 0.88.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurements/
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/measurements/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurements/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-measurements, SHOW MEASUREMENTS in InfluxQL
+prepend:
+  block: warn
+  content: |
+    #### Deprecated
+    `v1.measurements()` was deprecated in **Flux v0.88.0** in favor of
+    [`schema.measurements()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/measurements/).
+append:
+  block: warn
+  content: |
+    #### Not supported in the Flux REPL
+    `v1` functions can retrieve schema information when executed within
+    the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
 <!------------------------------------------------------------------------------

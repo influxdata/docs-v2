@@ -8,6 +8,9 @@ menu:
     parent: contrib/bonitoo-io/alerta
     identifier: contrib/bonitoo-io/alerta/endpoint
 weight: 301
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/alerta/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/alerta/endpoint/
 ---
 
 <!------------------------------------------------------------------------------

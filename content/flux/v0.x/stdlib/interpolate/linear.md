@@ -10,6 +10,9 @@ menu:
     identifier: interpolate/linear
 weight: 101
 flux/v0.x/tags: [transformations]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/interpolate/linear/
+  - /influxdb/cloud/reference/flux/stdlib/interpolate/linear/
 ---
 
 <!------------------------------------------------------------------------------

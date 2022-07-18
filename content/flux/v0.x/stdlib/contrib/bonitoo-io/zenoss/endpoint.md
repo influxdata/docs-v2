@@ -8,6 +8,9 @@ menu:
     parent: contrib/bonitoo-io/zenoss
     identifier: contrib/bonitoo-io/zenoss/endpoint
 weight: 301
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/zenoss/endpoint/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/zenoss/endpoint/
 ---
 
 <!------------------------------------------------------------------------------

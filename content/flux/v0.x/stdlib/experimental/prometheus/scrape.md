@@ -10,6 +10,11 @@ menu:
     identifier: experimental/prometheus/scrape
 weight: 201
 flux/v0.x/tags: [inputs, prometheus]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/prometheus/scrape/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/prometheus/scrape/
+related:
+  - /{{< latest "influxdb" >}}/write-data/no-code/scrape-data/scrapable-endpoints/
 ---
 
 <!------------------------------------------------------------------------------

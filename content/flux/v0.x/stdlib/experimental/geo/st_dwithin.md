@@ -11,6 +11,11 @@ menu:
 weight: 201
 flux/v0.x/tags: [geotemporal]
 introduced: 0.78.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/st_dwithin/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/st_dwithin/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 ---
 
 <!------------------------------------------------------------------------------

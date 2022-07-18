@@ -11,6 +11,14 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.7.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/spread
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/spread/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/spread/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/spread/
+related:
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#spread, InfluxQL – SPREAD()
+  - /flux/v0.x/stdlib/experimental/spread/
 ---
 
 <!------------------------------------------------------------------------------

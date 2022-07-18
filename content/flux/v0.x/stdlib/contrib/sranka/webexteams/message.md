@@ -10,6 +10,9 @@ menu:
     identifier: contrib/sranka/webexteams/message
 weight: 301
 flux/v0.x/tags: [single notification]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/webexteams/message/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/webexteams/message/
 ---
 
 <!------------------------------------------------------------------------------

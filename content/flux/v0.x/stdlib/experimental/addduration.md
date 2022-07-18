@@ -11,6 +11,11 @@ weight: 101
 flux/v0.x/tags: [date/time]
 introduced: 0.39.0
 deprecated: 0.162.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/addduration/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/addduration/
+related:
+  - /flux/v0.x/stdlib/experimental/subduration/
 ---
 
 <!------------------------------------------------------------------------------

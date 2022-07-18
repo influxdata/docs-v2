@@ -9,6 +9,11 @@ menu:
     identifier: testing/assertEquals
 weight: 101
 flux/v0.x/tags: [tests]
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/tests/assertequals
+  - /influxdb/v2.0/reference/flux/functions/testing/assertequals/
+  - /influxdb/v2.0/reference/flux/stdlib/testing/assertequals/
+  - /influxdb/cloud/reference/flux/stdlib/testing/assertequals/
 ---
 
 <!------------------------------------------------------------------------------

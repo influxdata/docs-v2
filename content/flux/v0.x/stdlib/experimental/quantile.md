@@ -11,6 +11,13 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, aggregates, selectors]
 introduced: 0.107.0
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/quantile/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/quantile/
+related:
+  - /influxdb/v2.0/query-data/flux/percentile-quantile/
+  - /flux/v0.x/stdlib/universe/quantile/
+  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#percentile, InfluxQL – PERCENTILE()
 ---
 
 <!------------------------------------------------------------------------------

@@ -9,6 +9,19 @@ menu:
     identifier: influxdata/influxdb/schema/tagKeys
 weight: 301
 flux/v0.x/tags: [metadata]
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagkeys/
+  - /influxdb/v2.0/reference/flux/stdlib/influxdb-schema/tagkeys/
+  - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/tagkeys/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
+  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-keys, SHOW TAG KEYS in InfluxQL
+append:
+  block: warn
+  content: |
+    #### Not supported in the Flux REPL
+    `schema` functions can retrieve schema information when executed within
+    the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
 <!------------------------------------------------------------------------------

@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/abs
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/abs/
+  - /influxdb/v2.0/reference/flux/stdlib/math/abs/
+  - /influxdb/cloud/reference/flux/stdlib/math/abs/
 ---
 
 <!------------------------------------------------------------------------------

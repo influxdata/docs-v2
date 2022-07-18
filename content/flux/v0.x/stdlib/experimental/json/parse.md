@@ -9,6 +9,9 @@ menu:
     identifier: experimental/json/parse
 weight: 201
 flux/v0.x/tags: [type-conversions]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/experimental/json/parse/
+  - /influxdb/cloud/reference/flux/stdlib/experimental/json/parse/
 ---
 
 <!------------------------------------------------------------------------------

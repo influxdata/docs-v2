@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/sin
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/sin/
+  - /influxdb/v2.0/reference/flux/stdlib/math/sin/
+  - /influxdb/cloud/reference/flux/stdlib/math/sin/
 ---
 
 <!------------------------------------------------------------------------------

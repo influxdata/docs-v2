@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/trunc
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/trunc/
+  - /influxdb/v2.0/reference/flux/stdlib/math/trunc/
+  - /influxdb/cloud/reference/flux/stdlib/math/trunc/
 ---
 
 <!------------------------------------------------------------------------------

@@ -10,6 +10,11 @@ menu:
 weight: 101
 
 introduced: 0.19.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/misc/logarithmicbins
+  - /influxdb/v2.0/reference/flux/functions/built-in/misc/logarithmicbins/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/misc/logarithmicbins/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/misc/logarithmicbins/
 ---
 
 <!------------------------------------------------------------------------------

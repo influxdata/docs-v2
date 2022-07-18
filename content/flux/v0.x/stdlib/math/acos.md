@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/acos
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/acos/
+  - /influxdb/v2.0/reference/flux/stdlib/math/acos/
+  - /influxdb/cloud/reference/flux/stdlib/math/acos/
 ---
 
 <!------------------------------------------------------------------------------

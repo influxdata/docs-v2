@@ -9,6 +9,11 @@ menu:
     identifier: contrib/bonitoo-io/tickscript/groupBy
 weight: 301
 flux/v0.x/tags: [transformations]
+aliases:
+  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/groupby/
+  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/groupby/
+related:
+  - /{{< latest "kapacitor" >}}/nodes/query_node/#groupby, Kapacitor QueryNode - groupBy
 ---
 
 <!------------------------------------------------------------------------------

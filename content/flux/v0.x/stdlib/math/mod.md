@@ -8,6 +8,10 @@ menu:
     parent: math
     identifier: math/mod
 weight: 101
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/math/mod/
+  - /influxdb/v2.0/reference/flux/stdlib/math/mod/
+  - /influxdb/cloud/reference/flux/stdlib/math/mod/
 ---
 
 <!------------------------------------------------------------------------------

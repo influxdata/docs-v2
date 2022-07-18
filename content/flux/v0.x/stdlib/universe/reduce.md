@@ -10,6 +10,13 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.23.0
+aliases:
+  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/reduce/
+  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/reduce/
+related:
+  - /{{< latest "influxdb" >}}/query-data/flux/custom-functions/custom-aggregate/
+  - /{{< latest "influxdb" >}}/query-data/flux/conditional-logic/
 ---
 
 <!------------------------------------------------------------------------------
