@@ -9,14 +9,6 @@ menu:
     identifier: influxdata/influxdb/from
 weight: 201
 flux/v0.x/tags: [inputs]
-aliases:
-  - /flux/v0.x/stdlib/universe/from
-  - /influxdb/v2.0/reference/flux/functions/inputs/from
-  - /influxdb/v2.0/reference/flux/functions/built-in/inputs/from/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/inputs/from/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#from-clause, InfluxQL - FROM
 ---
 
 <!------------------------------------------------------------------------------

@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/signbit
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/signbit/
-  - /influxdb/v2.0/reference/flux/stdlib/math/signbit/
-  - /influxdb/cloud/reference/flux/stdlib/math/signbit/
 ---
 
 <!------------------------------------------------------------------------------

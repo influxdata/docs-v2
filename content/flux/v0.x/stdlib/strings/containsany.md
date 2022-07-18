@@ -8,10 +8,6 @@ menu:
     parent: strings
     identifier: strings/containsAny
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/containsany/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/containsany/
-  - /influxdb/cloud/reference/flux/stdlib/strings/containsany/
 ---
 
 <!------------------------------------------------------------------------------

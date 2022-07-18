@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/yn
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/yn/
-  - /influxdb/v2.0/reference/flux/stdlib/math/yn/
-  - /influxdb/cloud/reference/flux/stdlib/math/yn/
 ---
 
 <!------------------------------------------------------------------------------

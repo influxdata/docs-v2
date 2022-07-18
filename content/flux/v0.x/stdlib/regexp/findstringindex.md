@@ -9,13 +9,6 @@ menu:
     parent: regexp
     identifier: regexp/findStringIndex
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/regexp/findstringindex/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/findstringindex/
-  - /influxdb/cloud/reference/flux/stdlib/regexp/findstringindex/
-related:
-  - /flux/v0.x/stdlib/regexp/compile/
-  - /flux/v0.x/data-types/basic/regexp/
 ---
 
 <!------------------------------------------------------------------------------

@@ -10,13 +10,6 @@ menu:
 weight: 201
 flux/v0.x/tags: [metadata]
 introduced: 0.92.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb/cardinality/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb/cardinality/
-  - /flux/v0.x/stdlib/influxdb/cardinality/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality, SHOW CARDINALITY in InfluxQL
-  - /flux/v0.x/stdlib/experimental/usage/limits/
 ---
 
 <!------------------------------------------------------------------------------

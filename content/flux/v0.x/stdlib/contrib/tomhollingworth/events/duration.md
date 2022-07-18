@@ -9,12 +9,6 @@ menu:
     identifier: contrib/tomhollingworth/events/duration
 weight: 301
 flux/v0.x/tags: [transformations, events]
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/events/duration/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/events/duration/
-related:
-  - /flux/v0.x/stdlib/universe/elapsed/
-  - /flux/v0.x/stdlib/universe/stateduration/
 ---
 
 <!------------------------------------------------------------------------------

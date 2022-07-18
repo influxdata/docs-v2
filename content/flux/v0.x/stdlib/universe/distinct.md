@@ -10,13 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, selectors]
 introduced: 0.7.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/distinct
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/distinct/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/distinct/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/distinct/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#distinct, InfluxQL – DISTINCT()
 ---
 
 <!------------------------------------------------------------------------------

@@ -11,19 +11,6 @@ menu:
     identifier: influxdata/influxdb/schema/fieldsAsCols
 weight: 301
 flux/v0.x/tags: [transformations]
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/inputs/fromrows
-  - /influxdb/v2.0/reference/flux/functions/transformations/influxfieldsascols
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/fieldsascols/
-  - /influxdb/v2.0/reference/flux/functions/influxdb-schema/fieldsascols/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-schema/fieldsascols/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/fieldsascols/
-append:
-  block: warn
-  content: |
-    #### Not supported in the Flux REPL
-    `schema` functions can retrieve schema information when executed within
-    the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
 <!------------------------------------------------------------------------------

@@ -9,9 +9,6 @@ menu:
     identifier: experimental/prometheus/histogramQuantile
 weight: 201
 flux/v0.x/tags: [transformations, aggregates, prometheus]
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/prometheus/histogramquantile/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/prometheus/histogramquantile/
 ---
 
 <!------------------------------------------------------------------------------

@@ -12,9 +12,6 @@ weight: 21
 cascade:
   flux/v0.x/tags: [prometheus]
   introduced: 0.50.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/prometheus/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/prometheus/
 ---
 
 <!------------------------------------------------------------------------------

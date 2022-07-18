@@ -8,12 +8,6 @@ menu:
     parent: strings
     identifier: strings/replaceAll
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/replaceall/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/replaceall/
-  - /influxdb/cloud/reference/flux/stdlib/strings/replaceall/
-related:
-  - /flux/v0.x/stdlib/strings/replace/
 ---
 
 <!------------------------------------------------------------------------------

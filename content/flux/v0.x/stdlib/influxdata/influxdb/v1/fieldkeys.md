@@ -10,25 +10,6 @@ menu:
 weight: 301
 flux/v0.x/tags: [metadata]
 deprecated: 0.88.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/fieldkeys
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/fieldkeys/
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-field-keys, SHOW FIELD KEYS in InfluxQL
-prepend:
-  block: warn
-  content: |
-    #### Deprecated
-    `v1.fieldKeys()` was deprecated in **Flux v0.88.0** in favor of
-    [`schema.fieldKeys()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldkeys/).
-append:
-  block: warn
-  content: |
-    #### Not supported in the Flux REPL
-    `v1` functions can retrieve schema information when executed within
-    the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
 <!------------------------------------------------------------------------------

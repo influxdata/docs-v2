@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/gamma
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/gamma/
-  - /influxdb/v2.0/reference/flux/stdlib/math/gamma/
-  - /influxdb/cloud/reference/flux/stdlib/math/gamma/
 ---
 
 <!------------------------------------------------------------------------------

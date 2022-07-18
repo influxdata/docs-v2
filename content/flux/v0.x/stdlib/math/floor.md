@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/floor
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/floor/
-  - /influxdb/v2.0/reference/flux/stdlib/math/floor/
-  - /influxdb/cloud/reference/flux/stdlib/math/floor/
 ---
 
 <!------------------------------------------------------------------------------

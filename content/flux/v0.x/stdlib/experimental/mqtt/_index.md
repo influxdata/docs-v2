@@ -11,9 +11,6 @@ weight: 21
 cascade:
   flux/v0.x/tags: [mqtt]
   introduced: 0.40.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/mqtt/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/mqtt/
 ---
 
 <!------------------------------------------------------------------------------

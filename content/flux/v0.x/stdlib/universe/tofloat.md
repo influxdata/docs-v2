@@ -10,14 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, type-conversions]
 introduced: 0.7.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/tofloat
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/tofloat/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/tofloat/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/tofloat/
-related:
-  - /flux/v0.x/data-types/basic/float/
-  - /flux/v0.x/stdlib/universe/float/
 ---
 
 <!------------------------------------------------------------------------------

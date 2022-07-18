@@ -10,12 +10,6 @@ menu:
     identifier: contrib/bonitoo-io/tickscript/selectWindow
 weight: 301
 flux/v0.x/tags: [transformations]
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/selectwindow/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/selectwindow/
-related:
-  - /flux/v0.x/stdlib/contrib/bonitoo-io/tickscript/select/
-  - /{{< latest "kapacitor" >}}/nodes/query_node/
 ---
 
 <!------------------------------------------------------------------------------

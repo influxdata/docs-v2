@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/erfcinv
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/erfcinv/
-  - /influxdb/v2.0/reference/flux/stdlib/math/erfcinv/
-  - /influxdb/cloud/reference/flux/stdlib/math/erfcinv/
 ---
 
 <!------------------------------------------------------------------------------

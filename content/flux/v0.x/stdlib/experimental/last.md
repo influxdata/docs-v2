@@ -11,13 +11,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, selectors]
 introduced: 0.112.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/last/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/last/
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/first-last/
-  - /flux/v0.x/stdlib/universe/last
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#last, InfluxQL – LAST()
 ---
 
 <!------------------------------------------------------------------------------

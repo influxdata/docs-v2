@@ -8,10 +8,6 @@ menu:
     parent: date
     identifier: date/minute
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/date/minute/
-  - /influxdb/v2.0/reference/flux/stdlib/date/minute/
-  - /influxdb/cloud/reference/flux/stdlib/date/minute/
 ---
 
 <!------------------------------------------------------------------------------

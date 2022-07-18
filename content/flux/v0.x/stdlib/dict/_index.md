@@ -11,11 +11,6 @@ weight: 11
 cascade:
 
   introduced: 0.97.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/dict/
-  - /influxdb/cloud/reference/flux/stdlib/dict/
-related:
-  - /flux/v0.x/data-types/composite/dict/
 ---
 
 <!------------------------------------------------------------------------------

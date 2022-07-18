@@ -10,9 +10,6 @@ menu:
     identifier: experimental/http/get
 weight: 201
 flux/v0.x/tags: [http, inputs]
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/http/get/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/http/get/
 ---
 
 <!------------------------------------------------------------------------------

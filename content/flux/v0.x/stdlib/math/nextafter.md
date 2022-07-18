@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/nextafter
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/nextafter/
-  - /influxdb/v2.0/reference/flux/stdlib/math/nextafter/
-  - /influxdb/cloud/reference/flux/stdlib/math/nextafter/
 ---
 
 <!------------------------------------------------------------------------------

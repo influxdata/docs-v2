@@ -12,17 +12,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.13.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/keyvalues
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/keyvalues/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/keyvalues/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/keyvalues/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-measurements, InfluxQL – SHOW MEASUREMENTS
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-field-keys, InfluxQL – SHOW FIELD KEYS
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-keys, InfluxQL – SHOW TAG KEYS
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-values, InfluxQL – SHOW TAG VALUES
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-serie, InfluxQL – SHOW SERIES
 ---
 
 <!------------------------------------------------------------------------------

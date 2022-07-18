@@ -8,9 +8,6 @@ menu:
     parent: contrib/bonitoo-io/victorops
     identifier: contrib/bonitoo-io/victorops/endpoint
 weight: 301
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/victorops/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/victorops/endpoint/
 ---
 
 <!------------------------------------------------------------------------------

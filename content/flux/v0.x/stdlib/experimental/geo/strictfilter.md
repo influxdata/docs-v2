@@ -9,14 +9,6 @@ menu:
     identifier: experimental/geo/strictFilter
 weight: 201
 flux/v0.x/tags: [transformations, filters, geotemporal]
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/strictfilter/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/strictfilter/
-related:
-  - /flux/v0.x/stdlib/experimental/geo/gridfilter/
-  - /flux/v0.x/stdlib/experimental/geo/filterRows/
-  - /flux/v0.x/stdlib/experimental/geo/toRows/
-  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 ---
 
 <!------------------------------------------------------------------------------

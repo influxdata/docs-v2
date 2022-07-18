@@ -11,9 +11,6 @@ weight: 31
 cascade:
   flux/v0.x/tags: [sample data]
   introduced: 0.123.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-sample
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-sample
 ---
 
 <!------------------------------------------------------------------------------

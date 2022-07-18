@@ -10,14 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.7.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/cumulativesum
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/cumulativesum/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/cumulativesum/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/cumulativesum/
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/cumulativesum/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#cumulative-sum, InfluxQL – CUMULATIVE_SUM()
 ---
 
 <!------------------------------------------------------------------------------

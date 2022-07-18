@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/isNaN
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/isnan/
-  - /influxdb/v2.0/reference/flux/stdlib/math/isnan/
-  - /influxdb/cloud/reference/flux/stdlib/math/isnan/
 ---
 
 <!------------------------------------------------------------------------------

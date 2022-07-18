@@ -8,10 +8,6 @@ menu:
     parent: strings
     identifier: strings/countStr
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/countstr/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/countstr/
-  - /influxdb/cloud/reference/flux/stdlib/strings/countstr/
 ---
 
 <!------------------------------------------------------------------------------

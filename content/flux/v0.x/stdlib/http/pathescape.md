@@ -11,9 +11,6 @@ menu:
 weight: 101
 
 introduced: 0.71.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/http/pathescape/
-  - /influxdb/cloud/reference/flux/stdlib/http/pathescape/
 ---
 
 <!------------------------------------------------------------------------------

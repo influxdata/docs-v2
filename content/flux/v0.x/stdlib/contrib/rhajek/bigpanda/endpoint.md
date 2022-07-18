@@ -8,9 +8,6 @@ menu:
     parent: contrib/rhajek/bigpanda
     identifier: contrib/rhajek/bigpanda/endpoint
 weight: 301
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/bigpanda/endpoint/
 ---
 
 <!------------------------------------------------------------------------------

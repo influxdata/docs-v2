@@ -10,11 +10,6 @@ menu:
     identifier: contrib/bonitoo-io/tickscript/deadman
 weight: 301
 flux/v0.x/tags: [transformations]
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/deadman/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/deadman/
-related:
-  - /{{< latest "kapacitor" >}}/nodes/batch_node/#deadman, Kapacitor BatchNode – Deadman
 ---
 
 <!------------------------------------------------------------------------------

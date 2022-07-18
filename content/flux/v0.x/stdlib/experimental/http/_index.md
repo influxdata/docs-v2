@@ -12,9 +12,6 @@ cascade:
   flux/v0.x/tags: [http]
   introduced: 0.39.0
   deprecated: 0.173.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/http/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/http/
 ---
 
 <!------------------------------------------------------------------------------

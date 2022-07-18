@@ -8,10 +8,6 @@ menu:
     parent: slack
     identifier: slack/endpoint
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/slack/endpoint/
-  - /influxdb/v2.0/reference/flux/stdlib/slack/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/slack/endpoint/
 ---
 
 <!------------------------------------------------------------------------------

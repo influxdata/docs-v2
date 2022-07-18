@@ -13,9 +13,6 @@ weight: 31
 cascade:
 
   introduced: 0.70.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/teams/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/teams/
 ---
 
 <!------------------------------------------------------------------------------

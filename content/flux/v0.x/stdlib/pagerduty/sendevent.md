@@ -9,10 +9,6 @@ menu:
     identifier: pagerduty/sendEvent
 weight: 101
 flux/v0.x/tags: [single notification]
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/pagerduty/sendevent/
-  - /influxdb/v2.0/reference/flux/stdlib/pagerduty/sendevent/
-  - /influxdb/cloud/reference/flux/stdlib/pagerduty/sendevent/
 ---
 
 <!------------------------------------------------------------------------------

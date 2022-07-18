@@ -11,12 +11,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.112.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/histogram/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/histogram/
-related:
-  - /influxdb/v2.0/query-data/flux/histograms/
-  - /flux/v0.x/stdlib/universe/histogram/
 ---
 
 <!------------------------------------------------------------------------------

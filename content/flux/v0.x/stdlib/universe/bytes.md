@@ -10,12 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [type-conversions]
 introduced: 0.40.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/bytes/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/bytes/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/bytes/
-related:
-  - /flux/v0.x/data-types/basic/bytes/
 ---
 
 <!------------------------------------------------------------------------------

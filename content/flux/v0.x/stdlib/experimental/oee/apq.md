@@ -9,9 +9,6 @@ menu:
     parent: experimental/oee
     identifier: experimental/oee/APQ
 weight: 201
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/oee/apq/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/oee/apq/
 ---
 
 <!------------------------------------------------------------------------------

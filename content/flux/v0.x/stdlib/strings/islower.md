@@ -8,12 +8,6 @@ menu:
     parent: strings
     identifier: strings/isLower
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/islower/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/islower/
-  - /influxdb/cloud/reference/flux/stdlib/strings/islower/
-related:
-  - /flux/v0.x/stdlib/strings/isupper
 ---
 
 <!------------------------------------------------------------------------------

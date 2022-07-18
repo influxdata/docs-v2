@@ -8,10 +8,6 @@ menu:
     parent: strings
     identifier: strings/containsStr
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/containsstr/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/containsstr/
-  - /influxdb/cloud/reference/flux/stdlib/strings/containsstr/
 ---
 
 <!------------------------------------------------------------------------------

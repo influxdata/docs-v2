@@ -10,9 +10,6 @@ menu:
 weight: 101
 
 introduced: 0.112.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/testing/load/
-  - /influxdb/cloud/reference/flux/stdlib/testing/load/
 ---
 
 <!------------------------------------------------------------------------------

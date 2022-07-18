@@ -11,13 +11,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.39.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/chandemomentumoscillator/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/chandemomentumoscillator/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/chandemomentumoscillator/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/chandemomentumoscillator/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#triple-exponential-moving-average, InfluxQL CHANDE_MOMENTUM_OSCILLATOR()
 ---
 
 <!------------------------------------------------------------------------------

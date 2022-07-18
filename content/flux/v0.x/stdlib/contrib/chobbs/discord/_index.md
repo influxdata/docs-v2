@@ -11,9 +11,6 @@ weight: 31
 cascade:
 
   introduced: 0.69.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/discord/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/discord/
 ---
 
 <!------------------------------------------------------------------------------

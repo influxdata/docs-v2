@@ -8,9 +8,6 @@ menu:
     parent: contrib/sranka/webexteams
     identifier: contrib/sranka/webexteams/endpoint
 weight: 301
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/webexteams/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/webexteams/endpoint/
 ---
 
 <!------------------------------------------------------------------------------

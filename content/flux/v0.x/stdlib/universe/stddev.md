@@ -10,14 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.7.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/stddev
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/stddev/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/stddev/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/stddev/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#stddev, InfluxQL – STDDEV()
-  - /flux/v0.x/stdlib/experimental/stddev/
 ---
 
 <!------------------------------------------------------------------------------

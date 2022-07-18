@@ -9,12 +9,6 @@ menu:
     parent: regexp
     identifier: regexp/replaceAllString
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/regexp/replaceallstring/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/replaceallstring/
-  - /influxdb/cloud/reference/flux/stdlib/regexp/replaceallstring/
-related:
-  - /flux/v0.x/data-types/basic/regexp/
 ---
 
 <!------------------------------------------------------------------------------

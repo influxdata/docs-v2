@@ -10,10 +10,6 @@ menu:
     identifier: influxdata/influxdb/monitor/logs
 weight: 301
 flux/v0.x/tags: [inputs]
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/monitor/logs/
-  - /influxdb/v2.0/reference/flux/stdlib/monitor/logs/
-  - /influxdb/cloud/reference/flux/stdlib/monitor/logs/
 ---
 
 <!------------------------------------------------------------------------------

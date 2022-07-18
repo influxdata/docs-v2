@@ -11,14 +11,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.40.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/kaufmanser/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/kaufmanser/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/kaufmanser/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/kaufmanser/
-related:
-  - /flux/v0.x/stdlib/universe/kaufmansama/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#kaufmans-efficiency-ratio, InfluxQL KAUFMANS_EFFICIENCY_RATIO()
 ---
 
 <!------------------------------------------------------------------------------

@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/isInf
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/isinf/
-  - /influxdb/v2.0/reference/flux/stdlib/math/isinf/
-  - /influxdb/cloud/reference/flux/stdlib/math/isinf/
 ---
 
 <!------------------------------------------------------------------------------

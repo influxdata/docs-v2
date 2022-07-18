@@ -8,10 +8,6 @@ menu:
     parent: strings
     identifier: strings/joinStr
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/joinstr/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/joinstr/
-  - /influxdb/cloud/reference/flux/stdlib/strings/joinstr/
 ---
 
 <!------------------------------------------------------------------------------

@@ -11,14 +11,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, aggregates, selectors]
 introduced: 0.7.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/median
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/median/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/median/
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/median/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#median, InfluxQL – MEDIAN()
 ---
 
 <!------------------------------------------------------------------------------

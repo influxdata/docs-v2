@@ -10,14 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.38.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/holtwinters
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/holtwinters/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/holtwinters/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/holtwinters/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/holtwinters/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters, InfluxQL HOLT_WINTERS()
 ---
 
 <!------------------------------------------------------------------------------

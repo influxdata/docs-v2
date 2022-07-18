@@ -11,10 +11,6 @@ weight: 11
 cascade:
 
   introduced: 0.40.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/json/
-  - /influxdb/v2.0/reference/flux/stdlib/json/
-  - /influxdb/cloud/reference/flux/stdlib/json/
 ---
 
 <!------------------------------------------------------------------------------

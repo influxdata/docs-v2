@@ -8,10 +8,6 @@ menu:
     parent: strings
     identifier: strings/compare
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/compare/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/compare/
-  - /influxdb/cloud/reference/flux/stdlib/strings/compare/
 ---
 
 <!------------------------------------------------------------------------------

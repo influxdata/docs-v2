@@ -1,15 +1,13 @@
 ---
-title: geo.s2CellLatLon() function
+title: join.join() function
 description: >
-  `geo.s2CellLatLon()` returns the latitude and longitude of the center of an S2 cell.
+  `join.join()` is under active development and is not yet ready for public consumption.
 menu:
   flux_0_x_ref:
-    name: geo.s2CellLatLon
-    parent: experimental/geo
-    identifier: experimental/geo/s2CellLatLon
-weight: 201
-flux/v0.x/tags: [geotemporal]
-introduced: 0.78.0
+    name: join.join
+    parent: join
+    identifier: join/join
+weight: 101
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,43 +19,60 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/geo/geo.flux#L489-L489
+https://github.com/influxdata/flux/blob/master/stdlib/join/join.flux#L13-L23
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`geo.s2CellLatLon()` returns the latitude and longitude of the center of an S2 cell.
+`join.join()` is under active development and is not yet ready for public consumption.
 
 
 
 ##### Function type signature
 
 ```js
-(token: string) => {lon: float, lat: float}
+(
+    <-left: stream[A],
+    as: (l: A, r: B) => C,
+    method: string,
+    on: (l: A, r: B) => bool,
+    right: stream[B],
+) => stream[C] where A: Record, B: Record, C: Record
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### token
+### left
+
+left:
+
+
+
+### right
 ({{< req >}})
-S2 cell ID token.
+right:
 
 
 
-
-## Examples
-
-### Return the center coordinates of an S2 cell
-
-```js
-import "experimental/geo"
-
-geo.s2CellLatLon(token: "89c284")// Returns {lat: 40.812535546624574, lon: -73.55941282728273}
+### on
+({{< req >}})
+on:
 
 
-```
+
+### as
+({{< req >}})
+as:
+
+
+
+### method
+({{< req >}})
+method:
+
+
 

@@ -10,12 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, date/time]
 introduced: 0.7.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/shift
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/shift
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/timeshift/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timeshift/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/timeshift/
 ---
 
 <!------------------------------------------------------------------------------

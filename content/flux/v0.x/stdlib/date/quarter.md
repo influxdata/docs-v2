@@ -8,10 +8,6 @@ menu:
     parent: date
     identifier: date/quarter
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/date/quarter/
-  - /influxdb/v2.0/reference/flux/stdlib/date/quarter/
-  - /influxdb/cloud/reference/flux/stdlib/date/quarter/
 ---
 
 <!------------------------------------------------------------------------------

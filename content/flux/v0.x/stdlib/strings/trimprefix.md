@@ -8,16 +8,6 @@ menu:
     parent: strings
     identifier: strings/trimPrefix
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/trimprefix/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/trimprefix/
-  - /influxdb/cloud/reference/flux/stdlib/strings/trimprefix/
-related:
-  - /flux/v0.x/stdlib/strings/trim/
-  - /flux/v0.x/stdlib/strings/trimleft/
-  - /flux/v0.x/stdlib/strings/trimright/
-  - /flux/v0.x/stdlib/strings/trimsuffix/
-  - /flux/v0.x/stdlib/strings/trimspace/
 ---
 
 <!------------------------------------------------------------------------------

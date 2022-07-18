@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/sqrt
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/sqrt/
-  - /influxdb/v2.0/reference/flux/stdlib/math/sqrt/
-  - /influxdb/cloud/reference/flux/stdlib/math/sqrt/
 ---
 
 <!------------------------------------------------------------------------------

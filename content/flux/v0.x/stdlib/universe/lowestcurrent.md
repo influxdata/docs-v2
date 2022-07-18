@@ -11,11 +11,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, selectors]
 introduced: 0.7.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/lowestcurrent
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/lowestcurrent/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestcurrent/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/lowestcurrent/
 ---
 
 <!------------------------------------------------------------------------------

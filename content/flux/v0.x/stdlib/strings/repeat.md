@@ -8,10 +8,6 @@ menu:
     parent: strings
     identifier: strings/repeat
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/repeat/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/repeat/
-  - /influxdb/cloud/reference/flux/stdlib/strings/repeat/
 ---
 
 <!------------------------------------------------------------------------------

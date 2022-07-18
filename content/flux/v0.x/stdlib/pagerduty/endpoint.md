@@ -8,10 +8,6 @@ menu:
     parent: pagerduty
     identifier: pagerduty/endpoint
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/pagerduty/endpoint/
-  - /influxdb/v2.0/reference/flux/stdlib/pagerduty/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/pagerduty/endpoint/
 ---
 
 <!------------------------------------------------------------------------------

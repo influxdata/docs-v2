@@ -11,10 +11,6 @@ weight: 11
 cascade:
 
   introduced: 0.14.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/testing/
-  - /influxdb/v2.0/reference/flux/stdlib/testing/
-  - /influxdb/cloud/reference/flux/stdlib/testing/
 ---
 
 <!------------------------------------------------------------------------------

@@ -10,10 +10,6 @@ menu:
     identifier: http/endpoint
 weight: 101
 flux/v0.x/tags: [notification endpoints]
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/http/endpoint/
-  - /influxdb/v2.0/reference/flux/stdlib/http/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/http/endpoint/
 ---
 
 <!------------------------------------------------------------------------------

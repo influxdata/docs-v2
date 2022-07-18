@@ -10,13 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, selectors]
 introduced: 0.7.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/sample
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/sample/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/sample/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/sample/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#sample, InfluxQL – SAMPLE()
 ---
 
 <!------------------------------------------------------------------------------

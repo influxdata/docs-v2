@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/jn
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/jn/
-  - /influxdb/v2.0/reference/flux/stdlib/math/jn/
-  - /influxdb/cloud/reference/flux/stdlib/math/jn/
 ---
 
 <!------------------------------------------------------------------------------

@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/exp2
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/exp2/
-  - /influxdb/v2.0/reference/flux/stdlib/math/exp2/
-  - /influxdb/cloud/reference/flux/stdlib/math/exp2/
 ---
 
 <!------------------------------------------------------------------------------

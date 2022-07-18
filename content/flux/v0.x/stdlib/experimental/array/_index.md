@@ -11,13 +11,6 @@ weight: 21
 cascade:
   flux/v0.x/tags: [array, tables]
   introduced: 0.79.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/array/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/array/
-  - /influxdb/v2.0/reference/flux/stdlib/array/
-  - /influxdb/cloud/reference/flux/stdlib/array/
-related:
-  - /flux/v0.x/data-types/composite/array/
 ---
 
 <!------------------------------------------------------------------------------

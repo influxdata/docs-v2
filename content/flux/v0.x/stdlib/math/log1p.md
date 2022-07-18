@@ -10,10 +10,6 @@ menu:
     parent: math
     identifier: math/log1p
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/log1p/
-  - /influxdb/v2.0/reference/flux/stdlib/math/log1p/
-  - /influxdb/cloud/reference/flux/stdlib/math/log1p/
 ---
 
 <!------------------------------------------------------------------------------

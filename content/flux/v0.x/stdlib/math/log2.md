@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/log2
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/log2/
-  - /influxdb/v2.0/reference/flux/stdlib/math/log2/
-  - /influxdb/cloud/reference/flux/stdlib/math/log2/
 ---
 
 <!------------------------------------------------------------------------------

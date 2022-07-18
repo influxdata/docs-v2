@@ -10,13 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.7.1
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/difference
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/difference/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/difference/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/difference/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#difference, InfluxQL – DIFFERENCE()
 ---
 
 <!------------------------------------------------------------------------------

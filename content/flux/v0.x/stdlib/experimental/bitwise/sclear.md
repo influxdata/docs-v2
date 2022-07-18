@@ -9,8 +9,6 @@ menu:
     parent: experimental/bitwise
     identifier: experimental/bitwise/sclear
 weight: 201
-related:
-  - /flux/v0.x/data-types/basic/int/
 ---
 
 <!------------------------------------------------------------------------------

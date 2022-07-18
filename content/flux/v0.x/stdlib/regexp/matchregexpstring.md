@@ -8,12 +8,6 @@ menu:
     parent: regexp
     identifier: regexp/matchRegexpString
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/regexp/matchregexpstring/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/matchregexpstring/
-  - /influxdb/cloud/reference/flux/stdlib/regexp/matchregexpstring/
-related:
-  - /flux/v0.x/data-types/basic/regexp/
 ---
 
 <!------------------------------------------------------------------------------

@@ -13,9 +13,6 @@ weight: 31
 cascade:
 
   introduced: 0.84.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/opsgenie/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/opsgenie/
 ---
 
 <!------------------------------------------------------------------------------

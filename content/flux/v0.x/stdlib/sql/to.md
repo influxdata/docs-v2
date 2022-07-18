@@ -8,12 +8,6 @@ menu:
     parent: sql
     identifier: sql/to
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/sql/to/
-  - /influxdb/v2.0/reference/flux/stdlib/sql/to/
-  - /influxdb/cloud/reference/flux/stdlib/sql/to/
-related:
-  - /flux/v0.x/write-data/sql/
 ---
 
 <!------------------------------------------------------------------------------

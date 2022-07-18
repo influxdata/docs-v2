@@ -11,9 +11,6 @@ weight: 11
 cascade:
 
   introduced: 0.66.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/pushbullet/
-  - /influxdb/cloud/reference/flux/stdlib/pushbullet/
 ---
 
 <!------------------------------------------------------------------------------

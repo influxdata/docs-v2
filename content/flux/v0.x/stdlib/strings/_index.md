@@ -11,10 +11,6 @@ weight: 11
 cascade:
 
   introduced: 0.18.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/
-  - /influxdb/cloud/reference/flux/stdlib/strings/
 ---
 
 <!------------------------------------------------------------------------------

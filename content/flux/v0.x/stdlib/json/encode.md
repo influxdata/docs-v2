@@ -9,10 +9,6 @@ menu:
     identifier: json/encode
 weight: 101
 flux/v0.x/tags: [type-conversions]
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/json/encode/
-  - /influxdb/v2.0/reference/flux/stdlib/json/encode/
-  - /influxdb/cloud/reference/flux/stdlib/json/encode/
 ---
 
 <!------------------------------------------------------------------------------

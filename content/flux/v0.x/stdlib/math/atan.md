@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/atan
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/atan/
-  - /influxdb/v2.0/reference/flux/stdlib/math/atan/
-  - /influxdb/cloud/reference/flux/stdlib/math/atan/
 ---
 
 <!------------------------------------------------------------------------------

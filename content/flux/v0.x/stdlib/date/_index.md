@@ -11,11 +11,6 @@ weight: 11
 cascade:
   flux/v0.x/tags: [date/time]
   introduced: 0.37.0
-aliases:
-  - /influxdb/v2.0/reference/flux/language/built-ins/time-constants/
-  - /influxdb/v2.0/reference/flux/functions/date/
-  - /influxdb/v2.0/reference/flux/stdlib/date/
-  - /influxdb/cloud/reference/flux/stdlib/date/
 ---
 
 <!------------------------------------------------------------------------------

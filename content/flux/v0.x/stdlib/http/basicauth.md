@@ -11,10 +11,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [single notification]
 introduced: 0.44.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/http/basicauth/
-  - /influxdb/v2.0/reference/flux/stdlib/http/basicauth/
-  - /influxdb/cloud/reference/flux/stdlib/http/basicauth/
 ---
 
 <!------------------------------------------------------------------------------

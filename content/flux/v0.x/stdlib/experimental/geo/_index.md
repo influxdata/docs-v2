@@ -12,11 +12,6 @@ weight: 21
 cascade:
   flux/v0.x/tags: [geotemporal]
   introduced: 0.63.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/geo/
 ---
 
 <!------------------------------------------------------------------------------

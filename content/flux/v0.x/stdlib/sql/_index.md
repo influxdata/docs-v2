@@ -11,12 +11,6 @@ weight: 11
 cascade:
 
   introduced: 0.34.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/sql/
-  - /influxdb/v2.0/reference/flux/stdlib/sql/
-  - /influxdb/cloud/reference/flux/stdlib/sql/
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/sql/
 ---
 
 <!------------------------------------------------------------------------------

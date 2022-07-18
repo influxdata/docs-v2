@@ -10,25 +10,6 @@ menu:
 weight: 301
 flux/v0.x/tags: [metadata]
 deprecated: 0.88.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagvalues/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/tagvalues/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/tagvalues/
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-values, SHOW TAG VALUES in InfluxQL
-prepend:
-  block: warn
-  content: |
-    #### Deprecated
-    `v1.tagValues()` was deprecated in **Flux v0.88.0** in favor of
-    [`schema.tagValues()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagvalues/).
-append:
-  block: warn
-  content: |
-    #### Not supported in the Flux REPL
-    `v1` functions can retrieve schema information when executed within
-    the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
 <!------------------------------------------------------------------------------

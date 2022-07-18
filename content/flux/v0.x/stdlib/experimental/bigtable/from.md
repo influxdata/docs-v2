@@ -9,9 +9,6 @@ menu:
     identifier: experimental/bigtable/from
 weight: 201
 flux/v0.x/tags: [inputs]
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/bigtable/from/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/bigtable/from/
 ---
 
 <!------------------------------------------------------------------------------

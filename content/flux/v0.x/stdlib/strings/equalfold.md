@@ -8,10 +8,6 @@ menu:
     parent: strings
     identifier: strings/equalFold
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/equalfold/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/equalfold/
-  - /influxdb/cloud/reference/flux/stdlib/strings/equalfold/
 ---
 
 <!------------------------------------------------------------------------------

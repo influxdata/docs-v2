@@ -11,10 +11,6 @@ menu:
     parent: pagerduty
     identifier: pagerduty/dedupKey
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/pagerduty/dedupkey/
-  - /influxdb/v2.0/reference/flux/stdlib/pagerduty/dedupkey/
-  - /influxdb/cloud/reference/flux/stdlib/pagerduty/dedupkey/
 ---
 
 <!------------------------------------------------------------------------------

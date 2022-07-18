@@ -9,11 +9,6 @@ menu:
     identifier: experimental/aggregate/rate
 weight: 201
 flux/v0.x/tags: [transformations, aggregates]
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/aggregate/rate/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/aggregate/rate/
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/rate/
 ---
 
 <!------------------------------------------------------------------------------

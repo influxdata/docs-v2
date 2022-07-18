@@ -11,12 +11,6 @@ weight: 11
 cascade:
 
   introduced: 0.33.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/regexp/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/
-  - /influxdb/cloud/reference/flux/stdlib/regexp/
-related:
-  - /flux/v0.x/data-types/basic/regexp/
 ---
 
 <!------------------------------------------------------------------------------

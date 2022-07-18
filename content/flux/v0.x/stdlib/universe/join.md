@@ -14,14 +14,6 @@ weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.7.0
 deprecated: 0.172.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/join
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/join/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/join/
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/join/
-  - /flux/v0.x/stdlib/universe/union/
 ---
 
 <!------------------------------------------------------------------------------

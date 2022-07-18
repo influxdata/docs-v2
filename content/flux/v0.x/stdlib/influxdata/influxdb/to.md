@@ -9,15 +9,6 @@ menu:
     identifier: influxdata/influxdb/to
 weight: 201
 flux/v0.x/tags: [outputs]
-aliases:
-  - /flux/v0.x/stdlib/universe/to
-  - /influxdb/v2.0/reference/flux/functions/outputs/to
-  - /influxdb/v2.0/reference/flux/functions/built-in/outputs/to/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/outputs/to/
-related:
-  - /flux/v0.x/stdlib/experimental/to/
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-into-clause, InfluxQL – SELECT INTO
 ---
 
 <!------------------------------------------------------------------------------

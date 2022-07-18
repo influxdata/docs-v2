@@ -10,14 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.7.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/stateduration
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stateduration/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stateduration/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stateduration/
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/monitor-states/
-  - /flux/v0.x/stdlib/contrib/tomhollingworth/events/duration/
 ---
 
 <!------------------------------------------------------------------------------

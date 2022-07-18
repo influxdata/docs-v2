@@ -10,12 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.106.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/integral/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/integral/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#integral, InfluxQL – INTEGRAL()
-  - /flux/v0.x/stdlib/universe/integral/
 ---
 
 <!------------------------------------------------------------------------------

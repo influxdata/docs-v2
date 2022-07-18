@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/tanh
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/tanh/
-  - /influxdb/v2.0/reference/flux/stdlib/math/tanh/
-  - /influxdb/cloud/reference/flux/stdlib/math/tanh/
 ---
 
 <!------------------------------------------------------------------------------

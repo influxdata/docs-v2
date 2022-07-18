@@ -9,10 +9,6 @@ menu:
     parent: date
     identifier: date/nanosecond
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/date/nanosecond/
-  - /influxdb/v2.0/reference/flux/stdlib/date/nanosecond/
-  - /influxdb/cloud/reference/flux/stdlib/date/nanosecond/
 ---
 
 <!------------------------------------------------------------------------------

@@ -9,10 +9,6 @@ menu:
     parent: influxdata/influxdb/monitor
     identifier: influxdata/influxdb/monitor/notify
 weight: 301
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/monitor/notify/
-  - /influxdb/v2.0/reference/flux/stdlib/monitor/notify/
-  - /influxdb/cloud/reference/flux/stdlib/monitor/notify/
 ---
 
 <!------------------------------------------------------------------------------

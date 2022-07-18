@@ -8,10 +8,6 @@ menu:
     parent: strings
     identifier: strings/substring
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/substring/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/substring/
-  - /influxdb/cloud/reference/flux/stdlib/strings/substring/
 ---
 
 <!------------------------------------------------------------------------------

@@ -8,12 +8,6 @@ menu:
     parent: strings
     identifier: strings/isUpper
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/isupper/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/isupper/
-  - /influxdb/cloud/reference/flux/stdlib/strings/isupper/
-related:
-  - /flux/v0.x/stdlib/strings/islower
 ---
 
 <!------------------------------------------------------------------------------

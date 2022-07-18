@@ -9,10 +9,6 @@ menu:
     parent: date
     identifier: date/yearDay
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/date/yearday/
-  - /influxdb/v2.0/reference/flux/stdlib/date/yearday/
-  - /influxdb/cloud/reference/flux/stdlib/date/yearday/
 ---
 
 <!------------------------------------------------------------------------------

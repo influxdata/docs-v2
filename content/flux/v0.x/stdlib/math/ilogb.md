@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/ilogb
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/ilogb/
-  - /influxdb/v2.0/reference/flux/stdlib/math/ilogb/
-  - /influxdb/cloud/reference/flux/stdlib/math/ilogb/
 ---
 
 <!------------------------------------------------------------------------------

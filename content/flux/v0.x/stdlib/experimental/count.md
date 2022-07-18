@@ -10,12 +10,6 @@ menu:
 weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.107.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/count/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/count/
-related:
-  - /flux/v0.x/stdlib/universe/count/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#count, InfluxQL – COUNT()
 ---
 
 <!------------------------------------------------------------------------------

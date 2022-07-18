@@ -12,25 +12,6 @@ menu:
 weight: 301
 flux/v0.x/tags: [transformations]
 deprecated: 0.88.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/inputs/fromrows
-  - /influxdb/v2.0/reference/flux/functions/transformations/influxfieldsascols
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/fieldsascols/
-  - /influxdb/v2.0/reference/flux/functions/influxdb-schema/fieldsascols/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/fieldsascols/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/fieldsascols/
-append:
-  block: warn
-  content: |
-    #### Deprecated
-    `v1.fieldsAsCols()` was deprecated in **Flux v0.88.0** in favor of
-    [`schema.fieldsAsCols()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldsascols/).
-append:
-  block: warn
-  content: |
-    #### Not supported in the Flux REPL
-    `v1` functions can retrieve schema information when executed within
-    the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 ---
 
 <!------------------------------------------------------------------------------

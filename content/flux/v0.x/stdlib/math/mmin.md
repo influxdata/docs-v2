@@ -8,11 +8,6 @@ menu:
     parent: math
     identifier: math/mMin
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/m_min/
-  - /influxdb/v2.0/reference/flux/stdlib/math/m_min/
-  - /influxdb/v2.0/reference/flux/stdlib/math/mmin/
-  - /influxdb/cloud/reference/flux/stdlib/math/mmin/
 ---
 
 <!------------------------------------------------------------------------------

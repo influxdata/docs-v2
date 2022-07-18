@@ -9,14 +9,6 @@ menu:
     identifier: array/from
 weight: 101
 flux/v0.x/tags: [inputs]
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/array/from/
-  - /influxdb/cloud/reference/flux/stdlib/array/from/
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/array/from/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/array/from/
-  - /flux/v0.x/stdlib/experimental/array/from/
-related:
-  - /flux/v0.x/data-types/composite/array/
 ---
 
 <!------------------------------------------------------------------------------

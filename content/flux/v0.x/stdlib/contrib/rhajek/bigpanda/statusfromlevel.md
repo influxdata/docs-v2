@@ -8,9 +8,6 @@ menu:
     parent: contrib/rhajek/bigpanda
     identifier: contrib/rhajek/bigpanda/statusFromLevel
 weight: 301
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/statusfromlevel/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/bigpanda/statusfromlevel/
 ---
 
 <!------------------------------------------------------------------------------

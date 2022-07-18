@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/pow10
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/pow10/
-  - /influxdb/v2.0/reference/flux/stdlib/math/pow10/
-  - /influxdb/cloud/reference/flux/stdlib/math/pow10/
 ---
 
 <!------------------------------------------------------------------------------

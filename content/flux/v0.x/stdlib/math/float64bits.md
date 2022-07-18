@@ -9,10 +9,6 @@ menu:
     parent: math
     identifier: math/float64bits
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/float64bits/
-  - /influxdb/v2.0/reference/flux/stdlib/math/float64bits/
-  - /influxdb/cloud/reference/flux/stdlib/math/float64bits/
 ---
 
 <!------------------------------------------------------------------------------

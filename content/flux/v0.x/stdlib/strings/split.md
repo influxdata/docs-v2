@@ -8,14 +8,6 @@ menu:
     parent: strings
     identifier: strings/split
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/split/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/split/
-  - /influxdb/cloud/reference/flux/stdlib/strings/split/
-related:
-  - /flux/v0.x/stdlib/strings/splitafter/
-  - /flux/v0.x/stdlib/strings/splitaftern/
-  - /flux/v0.x/stdlib/strings/splitn/
 ---
 
 <!------------------------------------------------------------------------------

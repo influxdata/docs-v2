@@ -10,13 +10,6 @@ menu:
 weight: 201
 flux/v0.x/tags: [metadata]
 introduced: 0.16.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/inputs/buckets
-  - /influxdb/v2.0/reference/flux/functions/built-in/inputs/buckets/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/buckets/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/inputs/buckets/
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-databases, InfluxQL - SHOW DATABASES]()
 ---
 
 <!------------------------------------------------------------------------------

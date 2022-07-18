@@ -11,11 +11,6 @@ weight: 11
 cascade:
   flux/v0.x/tags: [optimize]
   introduced: 0.82.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/profiler/
-  - /influxdb/cloud/reference/flux/stdlib/profiler/
-related:
-  - /{{< latest "influxdb" >}}/query-data/optimize-queries/
 ---
 
 <!------------------------------------------------------------------------------

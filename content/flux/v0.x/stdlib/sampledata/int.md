@@ -8,8 +8,6 @@ menu:
     parent: sampledata
     identifier: sampledata/int
 weight: 101
-related:
-  - /flux/v0.x/stdlib/influxdata/influxdb/sample/
 ---
 
 <!------------------------------------------------------------------------------

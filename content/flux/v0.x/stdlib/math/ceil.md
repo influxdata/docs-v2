@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/ceil
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/ceil/
-  - /influxdb/v2.0/reference/flux/stdlib/math/ceil/
-  - /influxdb/cloud/reference/flux/stdlib/math/ceil/
 ---
 
 <!------------------------------------------------------------------------------

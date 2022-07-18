@@ -11,12 +11,6 @@ weight: 31
 cascade:
 
   introduced: 0.84.0
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-tasks/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-tasks/
-related:
-  - /{{< latest "influxdb" >}}/process-data/get-started/
 ---
 
 <!------------------------------------------------------------------------------

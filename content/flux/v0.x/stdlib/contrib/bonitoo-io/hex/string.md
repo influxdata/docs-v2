@@ -9,8 +9,6 @@ menu:
     identifier: contrib/bonitoo-io/hex/string
 weight: 301
 
-related:
-  - /flux/v0.x/stdlib/universe/string/
 ---
 
 <!------------------------------------------------------------------------------

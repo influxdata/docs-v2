@@ -8,10 +8,6 @@ menu:
     parent: math
     identifier: math/lgamma
 weight: 101
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/math/lgamma/
-  - /influxdb/v2.0/reference/flux/stdlib/math/lgamma/
-  - /influxdb/cloud/reference/flux/stdlib/math/lgamma/
 ---
 
 <!------------------------------------------------------------------------------

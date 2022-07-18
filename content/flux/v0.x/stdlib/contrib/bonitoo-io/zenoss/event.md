@@ -9,9 +9,6 @@ menu:
     identifier: contrib/bonitoo-io/zenoss/event
 weight: 301
 flux/v0.x/tags: [single notification]
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/zenoss/event/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/zenoss/event/
 ---
 
 <!------------------------------------------------------------------------------

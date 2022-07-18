@@ -10,9 +10,6 @@ menu:
     identifier: contrib/sranka/telegram/message
 weight: 301
 flux/v0.x/tags: [single notification]
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/telegram/message/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/telegram/message/
 ---
 
 <!------------------------------------------------------------------------------

@@ -11,9 +11,6 @@ weight: 21
 cascade:
 
   introduced: 0.114.0
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/influxdb/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/influxdb/
 ---
 
 <!------------------------------------------------------------------------------
