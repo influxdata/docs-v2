@@ -262,6 +262,10 @@ must be defined at the _end_ of the plugin definition, otherwise subsequent
 plugin config options will be interpreted as part of the tagpass/tagdrop
 tables.
 
+To learn more about metric filtering, watch the following video:
+
+{{< youtube R3DnObs_OKA >}}
+
 ## Examples
 
 #### Input configuration examples
