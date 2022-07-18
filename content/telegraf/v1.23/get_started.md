@@ -47,6 +47,11 @@ telegraf --sample-config --input-filter cpu:mem --output-filter influxdb_v2 > te
 
 The resulting configuration will collect CPU and memory data and sends it to InfluxDB V2.
 
+For an overview of how to configure a plugin, watch the following video:
+
+{{< youtube a0js7wiQEJ4 >}}
+
+
 ## Set environment variables
 
 Add environment variables anywhere in the configuration file by prepending them with `$`.
