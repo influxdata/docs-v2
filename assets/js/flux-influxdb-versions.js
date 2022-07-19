@@ -18,6 +18,7 @@ function keysPresent() {
 if ($(fluxInfluxDBModal).length > 0) {
   var presentKeys = keysPresent()
 
+  // Remove color key list items if the colors/states are present in the version list
   if (presentKeys.pending === false) { $(fluxInfluxDBModal + ' .color-key #pending-key' ).remove() }
   if (presentKeys.deprecated === false) { $(fluxInfluxDBModal + ' .color-key #deprecated-key' ).remove() }
   if (presentKeys.pending === false && presentKeys.deprecated === false) { $(fluxInfluxDBModal + ' .color-key' ).remove() }
