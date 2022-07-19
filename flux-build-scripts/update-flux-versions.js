@@ -101,5 +101,5 @@ var fluxVersions = {};
   fluxVersionsYAML = yaml.dump(fluxVersions)
 
   // Write the comment and yaml to the flux_influxdb_versions.yml data file
-  fs.writeFileSync('../data/flux_influxdb_versions.yml', commentString + '\n' + fluxVersionsYAML)
+  fs.writeFileSync(path.resolve(__dirname,'../data/flux_influxdb_versions.yml'), commentString + '\n' + fluxVersionsYAML)
 })().then(data => console.log('Flux versions updated!'))
