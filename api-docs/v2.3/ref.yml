@@ -71,11 +71,27 @@ components:
     BadRequestError:
       content:
         application/json:
+          examples:
+            orgProvidedNotFound:
+              summary: >-
+                The org or orgID passed doesn't own the token passed in the
+                header
+              value:
+                code: invalid
+                message: 'failed to decode request body: organization not found'
           schema:
             $ref: '#/components/schemas/Error'
-      description: |
+      description: >
         Bad request.
+
         The response body contains detail about the error.
+
+
+        #### InfluxDB OSS
+
+
+        - Returns this error if an incorrect value is passed for `org` or
+        `orgID`.
     GeneralServerError:
       content:
         application/json:
@@ -3311,13 +3327,6 @@ components:
           type: string
         name:
           type: string
-        users:
-          description: >-
-            An optional list of email address's to be invited to the
-            organization
-          items:
-            type: string
-          type: array
       required:
         - name
       type: object
@@ -4706,7 +4715,7 @@ components:
           format: duration
           type: string
         flux:
-          description: The Flux script to run for this task.
+          description: The Flux script that the task runs.
           type: string
         id:
           readOnly: true
@@ -4772,13 +4781,10 @@ components:
           description: The ID of the organization that owns the task.
           type: string
         ownerID:
-          description: The ID of the user who owns this Task.
+          description: The ID of the user who owns the Task.
           type: string
         status:
           $ref: '#/components/schemas/TaskStatusType'
-        type:
-          description: The type of the task, useful for filtering a task list.
-          type: string
         updatedAt:
           format: date-time
           readOnly: true
@@ -4809,6 +4815,8 @@ components:
         - flux
       type: object
     TaskStatusType:
+      description: |
+        `inactive` cancels scheduled runs and prevents manual runs of the task.
       enum:
         - active
         - inactive
@@ -4816,22 +4824,22 @@ components:
     TaskUpdateRequest:
       properties:
         cron:
-          description: Override the 'cron' option in the flux script.
+          description: Update the 'cron' option in the flux script.
           type: string
         description:
-          description: An optional description of the task.
+          description: Update the description of the task.
           type: string
         every:
-          description: Override the 'every' option in the flux script.
+          description: Update the 'every' option in the flux script.
           type: string
         flux:
-          description: The Flux script to run for this task.
+          description: The Flux script that the task runs.
           type: string
         name:
-          description: Override the 'name' option in the flux script.
+          description: Update the 'name' option in the flux script.
           type: string
         offset:
-          description: Override the 'offset' option in the flux script.
+          description: Update the 'offset' option in the flux script.
           type: string
         status:
           $ref: '#/components/schemas/TaskStatusType'
@@ -9739,6 +9747,11 @@ paths:
         - Users
   /api/v2/me/password:
     put:
+      description: |
+        #### InfluxDB Cloud
+
+        InfluxDB Cloud does not support changing user passwords through the API.
+        Use the InfluxDB Cloud user interface to update your password.
       operationId: PutMePassword
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -9752,6 +9765,12 @@ paths:
       responses:
         '204':
           description: Success. The password was updated.
+        '400':
+          description: >
+            Bad request.
+
+            InfluxDB Cloud does not support changing passwords through the API
+            and always responds with this status.
         default:
           content:
             application/json:
@@ -13459,7 +13478,7 @@ paths:
             minimum: 1
             type: integer
         - description: >
-            Task type (`basic` or `system`). Default is `system`.
+            Task type (`basic` or `system`).
 
 
             The default (`system`) response contains all the metadata properties
@@ -13506,24 +13525,6 @@ paths:
                         orgID: 48c88459ee424a04
                         ownerID: 0772396d1f411000
                         status: active
-                      - every: 30m
-                        flux: ''
-                        id: 09956e2b48778000
-                        labels: []
-                        lastRunStatus: success
-                        latestCompleted: '2022-06-28T14:00:00Z'
-                        links:
-                          labels: /api/v2/tasks/09956e2b48778000/labels
-                          logs: /api/v2/tasks/09956e2b48778000/logs
-                          members: /api/v2/tasks/09956e2b48778000/members
-                          owners: /api/v2/tasks/09956e2b48778000/owners
-                          runs: /api/v2/tasks/09956e2b48778000/runs
-                          self: /api/v2/tasks/09956e2b48778000
-                        name: task2
-                        org: ''
-                        orgID: 48c88459ee424a04
-                        ownerID: 0772396d1f411000
-                        status: inactive
                 systemTypeTaskOutput:
                   description: Task fields returned with `?type=system`
                   summary: System output
@@ -13558,36 +13559,6 @@ paths:
                         ownerID: 0772396d1f411000
                         status: active
                         updatedAt: '2022-06-28T18:10:15Z'
-                      - createdAt: '2022-06-27T15:15:23Z'
-                        description: IoT Center 30-day environment average.
-                        every: 30m
-                        flux: |-
-                          option task = { 
-                            name: "task1",
-                            every: 30m,
-                          }
-
-                          from(bucket: "iot_center")
-                              |> range(start: -30d)
-                              |> filter(fn: (r) => r._measurement == "environment")
-                              |> aggregateWindow(every: 1h, fn: mean)
-                        id: 09956e2b48778000
-                        labels: []
-                        lastRunStatus: success
-                        latestCompleted: '2022-06-28T14:00:00Z'
-                        links:
-                          labels: /api/v2/tasks/09956e2b48778000/labels
-                          logs: /api/v2/tasks/09956e2b48778000/logs
-                          members: /api/v2/tasks/09956e2b48778000/members
-                          owners: /api/v2/tasks/09956e2b48778000/owners
-                          runs: /api/v2/tasks/09956e2b48778000/runs
-                          self: /api/v2/tasks/09956e2b48778000
-                        name: task2
-                        org: my-iot-center
-                        orgID: 48c88459ee424a04
-                        ownerID: 0772396d1f411000
-                        status: inactive
-                        updatedAt: '2022-06-28T14:25:26Z'
               schema:
                 $ref: '#/components/schemas/Tasks'
           description: |
@@ -13627,7 +13598,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TaskCreateRequest'
-        description: Task to create.
+        description: The task to create.
         required: true
       responses:
         '201':
@@ -13650,6 +13621,10 @@ paths:
               schema:
                 $ref: '#/components/responses/BadRequestError'
           description: Bad request
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
           content:
             application/json:
@@ -13681,7 +13656,19 @@ paths:
             EOF
   /api/v2/tasks/{taskID}:
     delete:
-      description: Deletes a task and all associated records
+      description: >
+        Deletes a task and associated records.
+
+
+        Use this endpoint to delete a task and all associated records (task
+        runs, logs, and labels).
+
+        Once the task is deleted, InfluxDB cancels all scheduled runs of the
+        task.
+
+
+        If you want to disable a task instead of delete it, [update the task
+        status to `inactive`](#operation/PatchTasksID).
       operationId: DeleteTasksID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13693,17 +13680,24 @@ paths:
             type: string
       responses:
         '204':
-          description: Task deleted
+          description: Success. Task and runs are deleted. Scheduled runs are canceled.
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Delete a task
       tags:
         - Tasks
     get:
+      description: |
+        Retrieves a [task](/influxdb/v2.3/reference/glossary/#task)
+        by task ID.
       operationId: GetTasksID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13719,19 +13713,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
-          description: Task details
+          description: Success. The response body contains the task.
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Retrieve a task
       tags:
         - Data I/O endpoints
         - Tasks
     patch:
-      description: Update a task. This will cancel all queued runs.
+      description: >
+        Updates a task and then cancels all scheduled runs of the task.
+
+
+        Use this endpoint to modify task properties (for example: `cron`,
+        `name`, `flux`, `status`).
+
+        Once InfluxDB applies the update, it cancels all scheduled runs of the
+        task.
+
+
+        To update a task, pass an object that contains the updated key-value
+        pairs.
+
+        To activate or inactivate a task, set the `status` property.
+
+        _`"status": "inactive"`_ cancels scheduled runs and prevents manual runs
+        of the task.
       operationId: PatchTasksID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13746,7 +13761,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TaskUpdateRequest'
-        description: Task update to apply
+        description: An object that contains updated task properties to apply.
         required: true
       responses:
         '200':
@@ -13754,13 +13769,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
-          description: Task updated
+          description: Success. The response body contains the updated task.
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Update a task
       tags:
         - Tasks
@@ -13883,6 +13902,21 @@ paths:
         - Tasks
   /api/v2/tasks/{taskID}/logs:
     get:
+      description: >
+        Retrieves a list of all logs for a
+        [task](/influxdb/v2.3/reference/glossary/#task).
+
+
+        When an InfluxDB task runs, a “run” record is created in the task’s
+        history.
+
+        Logs associated with each run provide relevant log messages, timestamps,
+        and the exit status of the run attempt.
+
+
+        Use this endpoint to retrieve only the log events for a task,
+
+        without additional task metadata.
       operationId: GetTasksIDLogs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13896,15 +13930,62 @@ paths:
         '200':
           content:
             application/json:
+              examples:
+                taskFailure:
+                  summary: Events for a failed task.
+                  value:
+                    events:
+                      - message: >-
+                          Started task from script: "option task = {name: \"test
+                          task\", every: 3d, offset: 0s}"
+                        runID: 09a946fc3167d000
+                        time: '2022-07-13T07:06:54.198167Z'
+                      - message: Completed(failed)
+                        runID: 09a946fc3167d000
+                        time: '2022-07-13T07:07:13.104037Z'
+                      - message: >-
+                          error exhausting result iterator: error in query
+                          specification while starting program: this Flux script
+                          returns no streaming data. Consider adding a "yield"
+                          or invoking streaming functions directly, without
+                          performing an assignment
+                        runID: 09a946fc3167d000
+                        time: '2022-07-13T08:24:37.115323Z'
+                taskSuccess:
+                  summary: Events for successful task.
+                  value:
+                    events:
+                      - message: >-
+                          Started task from script: "option task = {name:
+                          \"task1\", every: 30m} from(bucket: \"iot_center\") |>
+                          range(start: -90d) |> filter(fn: (r) => r._measurement
+                          == \"environment\") |> aggregateWindow(every: 1h, fn:
+                          mean)"
+                        runID: 09b070dadaa7d000
+                        time: '2022-07-18T14:46:07.101231Z'
+                      - message: Completed(success)
+                        runID: 09b070dadaa7d000
+                        time: '2022-07-18T14:46:07.242859Z'
               schema:
                 $ref: '#/components/schemas/Logs'
-          description: All logs for a task
+          description: >
+            Success. The response body contains an `events` list with logs for
+            the task.
+
+            Each log event `message` contains detail about the event.
+
+            If a task run fails, InfluxDB logs an event with the reason for the
+            failure.
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Retrieve all logs for a task
       tags:
         - Tasks
@@ -14171,6 +14252,14 @@ paths:
         - Tasks
   /api/v2/tasks/{taskID}/runs/{runID}:
     delete:
+      description: |
+        Cancels a running [task](/influxdb/v2.3/reference/glossary/#task).
+
+        Use this endpoint with InfluxDB OSS to cancel a running task.
+
+        #### InfluxDB Cloud
+
+          - Doesn't support this operation.
       operationId: DeleteTasksIDRunsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -14180,7 +14269,7 @@ paths:
           required: true
           schema:
             type: string
-        - description: The run ID.
+        - description: The ID of the task run to cancel.
           in: path
           name: runID
           required: true
@@ -14188,7 +14277,18 @@ paths:
             type: string
       responses:
         '204':
-          description: Delete has been accepted.
+          description: |
+            Success. The `DELETE` is accepted and the run will be cancelled.
+
+            #### InfluxDB Cloud
+
+              - Doesn't support this operation.
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
         '405':
           content:
             application/json:
@@ -14199,26 +14299,25 @@ paths:
 
             #### InfluxDB Cloud
 
-              - Cancelling task runs is not supported in InfluxDB Cloud.
+              - Always returns this error; cancelling a task run is not supported.
 
             #### InfluxDB OSS
 
               - Doesn't return this error.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error.
-      summary: |
-        Cancel a running task.
-
-        #### InfluxDB Cloud
-
-          - Doesn't support this operation.
+          $ref: '#/components/responses/GeneralServerError'
+      summary: Cancel a running task
       tags:
         - Tasks
     get:
+      description: >
+        Retrieves a specific run for a
+        [task](/influxdb/v2.3/reference/glossary/#task).
+
+
+        Use this endpoint to retrieve detail and logs for a specific task run.
       operationId: GetTasksIDRunsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -14238,16 +14337,50 @@ paths:
         '200':
           content:
             application/json:
+              examples:
+                runSuccess:
+                  summary: A successful task run.
+                  value:
+                    finishedAt: '2022-07-18T14:46:07.308254Z'
+                    id: 09b070dadaa7d000
+                    links:
+                      logs: >-
+                        /api/v2/tasks/0996e56b2f378000/runs/09b070dadaa7d000/logs
+                      retry: >-
+                        /api/v2/tasks/0996e56b2f378000/runs/09b070dadaa7d000/retry
+                      self: /api/v2/tasks/0996e56b2f378000/runs/09b070dadaa7d000
+                      task: /api/v2/tasks/0996e56b2f378000
+                    log:
+                      - message: >-
+                          Started task from script: "option task = {name:
+                          \"task1\", every: 30m} from(bucket: \"iot_center\") |>
+                          range(start: -90d) |> filter(fn: (r) => r._measurement
+                          == \"environment\")               |>
+                          aggregateWindow(every: 1h, fn: mean)"
+                        runID: 09b070dadaa7d000
+                        time: '2022-07-18T14:46:07.101231Z'
+                      - message: Completed(success)
+                        runID: 09b070dadaa7d000
+                        time: '2022-07-18T14:46:07.242859Z'
+                    requestedAt: '2022-07-18T14:46:06Z'
+                    scheduledFor: '2022-07-18T14:46:06Z'
+                    startedAt: '2022-07-18T14:46:07.16222Z'
+                    status: success
+                    taskID: 0996e56b2f378000
               schema:
                 $ref: '#/components/schemas/Run'
-          description: Returns the run record.
+          description: Success. The response body contains the task run.
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error.
-      summary: Retrieve a single run for a task.
+          $ref: '#/components/responses/GeneralServerError'
+      summary: Retrieve a run for a task.
       tags:
         - Tasks
   /api/v2/tasks/{taskID}/runs/{runID}/logs:
@@ -15004,6 +15137,11 @@ paths:
         - Users
   /api/v2/users/{userID}/password:
     post:
+      description: |
+        #### InfluxDB Cloud
+
+        InfluxDB Cloud does not support changing user passwords through the API.
+        Use the InfluxDB Cloud user interface to update your password.
       operationId: PostUsersIDPassword
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -15023,6 +15161,12 @@ paths:
       responses:
         '204':
           description: Password successfully updated
+        '400':
+          description: >
+            Bad request.
+
+            InfluxDB Cloud doesn't support changing passwords through the API
+            and always responds with this status.
         default:
           content:
             application/json:
@@ -16239,7 +16383,7 @@ tags:
   - name: Data I/O endpoints
   - name: DBRPs
   - description: >
-      Generates profiling and trace reports.
+      Generate profiling and trace reports.
 
 
       Use routes under `/debug/pprof` to analyze the Go runtime of InfluxDB.
@@ -16393,7 +16537,23 @@ tags:
   - name: Signout
   - name: Sources
   - name: System information endpoints
-  - name: Tasks
+  - description: >
+      Process and analyze your data with tasks in the InfluxDB task engine.
+
+      With tasks, you can schedule Flux scripts to query, analyze, modify, and
+      act on data.
+
+
+      Use the `/api/v2/tasks` endpoints to create and manage tasks, retry task
+      runs, and retrieve run logs.
+
+
+      #### Related guides
+
+
+      - [Common data processing
+      tasks](/influxdb/v2.3/process-data/common-tasks/)
+    name: Tasks
   - name: Telegraf Plugins
   - name: Telegrafs
   - name: Templates

@@ -71,11 +71,27 @@ components:
     BadRequestError:
       content:
         application/json:
+          examples:
+            orgProvidedNotFound:
+              summary: >-
+                The org or orgID passed doesn't own the token passed in the
+                header
+              value:
+                code: invalid
+                message: 'failed to decode request body: organization not found'
           schema:
             $ref: '#/components/schemas/Error'
-      description: |
+      description: >
         Bad request.
+
         The response body contains detail about the error.
+
+
+        #### InfluxDB OSS
+
+
+        - Returns this error if an incorrect value is passed for `org` or
+        `orgID`.
     GeneralServerError:
       content:
         application/json:
@@ -11675,6 +11691,17 @@ paths:
         task.
 
 
+        Use this endpoint to create a scheduled task that runs a Flux script.
+
+        In your task, provide one of the following:
+
+          - _`flux`_ property with an inline Flux script
+          - _`scriptID`_ property with an [invokable script](#tag/Invokable-Scripts) ID
+
+        #### InfluxDB Cloud
+
+          - Requires either _`flux`_ (Flux query) or _`scriptID`_ (invokable script ID) in the task.
+
         #### Related guides
 
 
@@ -11708,14 +11735,27 @@ paths:
           content:
             application/json:
               examples:
-                missingFluxError:
-                  summary: Task in request body is missing Flux query
+                fluxAndScriptError:
+                  summary: The request body can't contain both flux and scriptID
                   value:
                     code: invalid
-                    message: 'failed to decode request: missing flux'
+                    message: >-
+                      failed to decode request: can not provide both scriptID
+                      and flux
+                missingFluxError:
+                  summary: The request body requires either flux or scriptID
+                  value:
+                    code: invalid
+                    message: 'failed to decode request: flux required'
               schema:
                 $ref: '#/components/responses/BadRequestError'
-          description: Bad request
+          description: |
+            Bad request
+
+            #### InfluxDB Cloud
+
+              - Returns this error if the task doesn't contain one of _`flux`_ or _`scriptID`_.
+              - Returns this error if the task contains _`flux`_ _and_ _`scriptID`_.
         '401':
           $ref: '#/components/responses/AuthorizationError'
         '500':
@@ -11726,7 +11766,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Unexpected error
-      summary: Create a new task
+      summary: Create a task
       tags:
         - Data I/O endpoints
         - Tasks
@@ -12018,6 +12058,21 @@ paths:
         - Tasks
   /api/v2/tasks/{taskID}/logs:
     get:
+      description: >
+        Retrieves a list of all logs for a
+        [task](/influxdb/cloud/reference/glossary/#task).
+
+
+        When an InfluxDB task runs, a “run” record is created in the task’s
+        history.
+
+        Logs associated with each run provide relevant log messages, timestamps,
+        and the exit status of the run attempt.
+
+
+        Use this endpoint to retrieve only the log events for a task,
+
+        without additional task metadata.
       operationId: GetTasksIDLogs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12031,15 +12086,62 @@ paths:
         '200':
           content:
             application/json:
+              examples:
+                taskFailure:
+                  summary: Events for a failed task.
+                  value:
+                    events:
+                      - message: >-
+                          Started task from script: "option task = {name: \"test
+                          task\", every: 3d, offset: 0s}"
+                        runID: 09a946fc3167d000
+                        time: '2022-07-13T07:06:54.198167Z'
+                      - message: Completed(failed)
+                        runID: 09a946fc3167d000
+                        time: '2022-07-13T07:07:13.104037Z'
+                      - message: >-
+                          error exhausting result iterator: error in query
+                          specification while starting program: this Flux script
+                          returns no streaming data. Consider adding a "yield"
+                          or invoking streaming functions directly, without
+                          performing an assignment
+                        runID: 09a946fc3167d000
+                        time: '2022-07-13T08:24:37.115323Z'
+                taskSuccess:
+                  summary: Events for successful task.
+                  value:
+                    events:
+                      - message: >-
+                          Started task from script: "option task = {name:
+                          \"task1\", every: 30m} from(bucket: \"iot_center\") |>
+                          range(start: -90d) |> filter(fn: (r) => r._measurement
+                          == \"environment\") |> aggregateWindow(every: 1h, fn:
+                          mean)"
+                        runID: 09b070dadaa7d000
+                        time: '2022-07-18T14:46:07.101231Z'
+                      - message: Completed(success)
+                        runID: 09b070dadaa7d000
+                        time: '2022-07-18T14:46:07.242859Z'
               schema:
                 $ref: '#/components/schemas/Logs'
-          description: All logs for a task
+          description: >
+            Success. The response body contains an `events` list with logs for
+            the task.
+
+            Each log event `message` contains detail about the event.
+
+            If a task run fails, InfluxDB logs an event with the reason for the
+            failure.
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Retrieve all logs for a task
       tags:
         - Tasks
@@ -12306,6 +12408,14 @@ paths:
         - Tasks
   /api/v2/tasks/{taskID}/runs/{runID}:
     delete:
+      description: |
+        Cancels a running [task](/influxdb/cloud/reference/glossary/#task).
+
+        Use this endpoint with InfluxDB OSS to cancel a running task.
+
+        #### InfluxDB Cloud
+
+          - Doesn't support this operation.
       operationId: DeleteTasksIDRunsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12315,7 +12425,7 @@ paths:
           required: true
           schema:
             type: string
-        - description: The run ID.
+        - description: The ID of the task run to cancel.
           in: path
           name: runID
           required: true
@@ -12323,7 +12433,18 @@ paths:
             type: string
       responses:
         '204':
-          description: Delete has been accepted.
+          description: |
+            Success. The `DELETE` is accepted and the run will be cancelled.
+
+            #### InfluxDB Cloud
+
+              - Doesn't support this operation.
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
         '405':
           content:
             application/json:
@@ -12334,26 +12455,25 @@ paths:
 
             #### InfluxDB Cloud
 
-              - Cancelling task runs is not supported in InfluxDB Cloud.
+              - Always returns this error; cancelling a task run is not supported.
 
             #### InfluxDB OSS
 
               - Doesn't return this error.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error.
-      summary: |
-        Cancel a running task.
-
-        #### InfluxDB Cloud
-
-          - Doesn't support this operation.
+          $ref: '#/components/responses/GeneralServerError'
+      summary: Cancel a running task
       tags:
         - Tasks
     get:
+      description: >
+        Retrieves a specific run for a
+        [task](/influxdb/cloud/reference/glossary/#task).
+
+
+        Use this endpoint to retrieve detail and logs for a specific task run.
       operationId: GetTasksIDRunsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12373,16 +12493,50 @@ paths:
         '200':
           content:
             application/json:
+              examples:
+                runSuccess:
+                  summary: A successful task run.
+                  value:
+                    finishedAt: '2022-07-18T14:46:07.308254Z'
+                    id: 09b070dadaa7d000
+                    links:
+                      logs: >-
+                        /api/v2/tasks/0996e56b2f378000/runs/09b070dadaa7d000/logs
+                      retry: >-
+                        /api/v2/tasks/0996e56b2f378000/runs/09b070dadaa7d000/retry
+                      self: /api/v2/tasks/0996e56b2f378000/runs/09b070dadaa7d000
+                      task: /api/v2/tasks/0996e56b2f378000
+                    log:
+                      - message: >-
+                          Started task from script: "option task = {name:
+                          \"task1\", every: 30m} from(bucket: \"iot_center\") |>
+                          range(start: -90d) |> filter(fn: (r) => r._measurement
+                          == \"environment\")               |>
+                          aggregateWindow(every: 1h, fn: mean)"
+                        runID: 09b070dadaa7d000
+                        time: '2022-07-18T14:46:07.101231Z'
+                      - message: Completed(success)
+                        runID: 09b070dadaa7d000
+                        time: '2022-07-18T14:46:07.242859Z'
+                    requestedAt: '2022-07-18T14:46:06Z'
+                    scheduledFor: '2022-07-18T14:46:06Z'
+                    startedAt: '2022-07-18T14:46:07.16222Z'
+                    status: success
+                    taskID: 0996e56b2f378000
               schema:
                 $ref: '#/components/schemas/Run'
-          description: Returns the run record.
+          description: Success. The response body contains the task run.
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error.
-      summary: Retrieve a single run for a task.
+          $ref: '#/components/responses/GeneralServerError'
+      summary: Retrieve a run for a task.
       tags:
         - Tasks
   /api/v2/tasks/{taskID}/runs/{runID}/logs:
@@ -14527,6 +14681,11 @@ tags:
       With tasks, you can schedule Flux scripts to query, analyze, modify, and
       act on data.
 
+      In InfluxDB Cloud, you can create tasks that run [invokable
+      scripts](#tag/Invokable-Scripts)
+
+      with parameters.
+
 
       Use the `/api/v2/tasks` endpoints to create and manage tasks, retry task
       runs, and retrieve run logs.
@@ -14537,6 +14696,9 @@ tags:
 
       - [Common data processing
       tasks](/influxdb/cloud/process-data/common-tasks/)
+
+      - [Invoke custom scripts as API
+      endpoints](/influxdb/cloud/api-guide/api-invokable-scripts/)
     name: Tasks
   - name: Telegraf Plugins
   - name: Telegrafs
