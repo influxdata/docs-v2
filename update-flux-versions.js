@@ -11,29 +11,37 @@ const githubToken = process.env.GITHUB_TOKEN
 
 // Get the latest version of Flux
 async function getLatestFlux() {
-  var res = await axios.get('https://github.com/influxdata/flux/releases/latest');
+  const { request } = await axios
+    .get('https://github.com/influxdata/flux/releases/latest')
+    .catch(error => console.error(error))
 
-  return res.request.path.match(/\/v(\d.*)$/)[1];
+  return request.path.match(/\/v(\d.*)$/)[1];
 }
 
 // Retrieve the dependency file for a specific InfluxDB version
 async function getVersionDeps(minorVersion, repo) {
-  var url = `https://raw.githubusercontent.com/influxdata/${repo}/${minorVersion}/go.mod`;
-  var data = axios.get(url, {
+  const url = `https://raw.githubusercontent.com/influxdata/${repo}/${minorVersion}/go.mod`;
+  const data = axios.get(url, {
       headers: {
         Authorization: `Token ${githubToken}`
       }
-    }).then(res => res.data);
+    }).then(res => res.data).catch(error => console.log(error.toJSON));
 
   return data
 }
 
 // Extract the Flux version from the InfluxDB dependency list
 async function getFluxVersion(minorVersion, product='oss') {
-  var repo = (product === 'oss') ? 'influxdb' : 'plutonium';
-  var depsBody = await getVersionDeps(minorVersion, repo)
+  const repo = (product === 'oss') ? 'influxdb' : 'plutonium';
+  const depsBody = await getVersionDeps(minorVersion, repo);
 
-  return depsBody.match(/github.com\/influxdata\/flux v(\d+\.\d+\.\d+)/)[1]
+  if (depsBody == null) {
+    console.error(`Could not find flux version for ${minorVersion} (${product})`)
+  } else {
+    const fluxVersion = depsBody.match(/github.com\/influxdata\/flux v(\d+\.\d+\.\d+)/)[1]
+
+    return fluxVersion 
+  }
 }
 
 // Loop through an InfluxDB version array, retrieve the Flux version packaged with
@@ -43,6 +51,7 @@ async function getAllFluxVersions(versionArr, product='oss', baseObj) {
   for (let index = 0; index < versionArr.length; index++) {
     const influxdbVersion = versionArr[index]
     const fluxVersion = await getFluxVersion(influxdbVersion, product)
+
     baseObj[influxdbVersion] = fluxVersion
   }
 }

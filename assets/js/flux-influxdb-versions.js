@@ -14,7 +14,7 @@ function keysPresent() {
   }
 }
 
-// Only execute run the function if the Flux/InfluxDB modal is present in the DOM
+// Only execute if the Flux/InfluxDB modal is present in the DOM
 if ($(fluxInfluxDBModal).length > 0) {
   var presentKeys = keysPresent()
 
