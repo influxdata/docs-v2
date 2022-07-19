@@ -9,7 +9,7 @@ menu:
     parent: http
     identifier: http/post
 weight: 101
-
+flux/v0.x/tags: [single notification]
 introduced: 0.40.0
 ---
 
@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/http/http.flux#L49-L49
+https://github.com/influxdata/flux/blob/master/stdlib/http/http.flux#L50-L50
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md

@@ -10,6 +10,22 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.175.0 [2022-07-19]
+
+### Features
+- Update [`testing.diff()`](/flux/v0.x/stdlib/testing/diff/) to use
+  [`experimental.diff()`](/flux/v0.x/stdlib/experimental/diff/) as its base.
+- Add a new diff implementation to the [experimental package](/flux/v0.x/stdlib/experimental/).
+- Generalize attributes in the query planner.
+- Add support for constants and literals in vectorized `map()`.
+- Optimize the Holt Winters implementation by using the
+  [gonum Nelder-Mead optimization](https://github.com/gonum/gonum/blob/master/optimize/neldermead.go).
+
+### Bug fixes
+- When joining data, provide a default schema for unmatched group keys.
+- Update the join package to be resilient to schema changes.
+
+---
 
 ## v0.174.1 [2022-07-12]
 
