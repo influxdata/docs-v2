@@ -10,7 +10,7 @@ const fs = require('fs')
 
 // Check to see if frontmatter has already been injected
 hasFrontmatter = () => {
-  var sampleFile = fs.readFileSync("./content/flux/v0.x/stdlib/array/_index.md").toString();
+  var sampleFile = fs.readFileSync("../content/flux/v0.x/stdlib/array/_index.md").toString();
 
   return sampleFile.includes("aliases:");
 }
@@ -22,16 +22,16 @@ exitWithSuccess = (message) => {
 }
 
 injectFrontmatter = () => {
-  const frontmatter = yaml.load(fs.readFileSync('./data/flux_stdlib_frontmatter.yml', 'utf8'))
+  const frontmatter = yaml.load(fs.readFileSync('../data/flux_stdlib_frontmatter.yml', 'utf8'))
 
   for (const [key, value] of Object.entries(frontmatter)) {
 
-    let pageText = fs.readFileSync(`./content${key}`).toString()
+    let pageText = fs.readFileSync(`../content${key}`).toString()
     let i = 0
     
     pageText = pageText.replace(/^---/gm, (match) => ++i === 2 ? `${value}---` : match);
   
-    fs.writeFile(`./content${key}`, pageText, (err) => {
+    fs.writeFile(`../content${key}`, pageText, (err) => {
       if (err) throw err;
     });
   }
