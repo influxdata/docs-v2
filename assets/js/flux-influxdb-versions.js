@@ -23,3 +23,20 @@ if ($(fluxInfluxDBModal).length > 0) {
   if (presentKeys.deprecated === false) { $(fluxInfluxDBModal + ' .color-key #deprecated-key' ).remove() }
   if (presentKeys.pending === false && presentKeys.deprecated === false) { $(fluxInfluxDBModal + ' .color-key' ).remove() }
 }
+
+
+// Open version modal and add query param
+const queryParams = new URLSearchParams(window.location.search);
+
+function openFluxVersionModal() {
+  const anchor = window.location.hash;
+
+  toggleModal('#flux-influxdb-versions');
+  queryParams.set('view', 'influxdb-support');
+  window.history.replaceState({}, '', `${location.pathname}?${queryParams}${anchor}`);
+};
+
+// Check for the modal query param and open the modal if it exists
+if (queryParams.get('view') !== null) {
+  openFluxVersionModal();
+};
