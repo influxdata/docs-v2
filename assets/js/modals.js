@@ -17,4 +17,13 @@ function toggleModal(modalID="") {
 $("#modal-close, .modal-overlay").click(function(e) {
   e.preventDefault()
   toggleModal()
+  
+  // Remove modal query param ('view') if it exists
+  const queryParams = new URLSearchParams(window.location.search);
+  const anchor = window.location.hash;
+
+  if (queryParams.get('view') !== null) {
+    queryParams.delete('view');
+    window.history.replaceState({}, '', `${location.pathname}${anchor}`);
+  };
 })
