@@ -5,6 +5,7 @@ This script auto-populates Flux versions in data/flux_influxdb_versions.yml.
 const axios = require('axios')
 const yaml = require('js-yaml')
 const fs = require('fs')
+const path = require('path')
 
 // GitHub token to access files in the private InfluxDB Enterprise repo
 const githubToken = process.env.GITHUB_TOKEN
@@ -62,7 +63,7 @@ function addVersion(versionObj, influxdbVer, fluxVer) {
 }
 
 // Load product data from the product data file
-const productData = yaml.load(fs.readFileSync('../data/products.yml', 'utf8'))
+const productData = yaml.load(fs.readFileSync(path.resolve(__dirname,'../data/products.yml'), 'utf8'))
 
 // Update InfluxDB version arrays by removing 'v' from each version and filtering
 // out InfluxDB versions that don't have a Flux dependency in their go.mod
