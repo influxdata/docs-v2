@@ -120,28 +120,164 @@ option task = {
 ## Create a task using the InfluxDB API
 
 Send a request using the **POST** method to the `/api/v2/tasks` InfluxDB API endpoint.
-Provide the following in your API request:
 
+{{% oss-only %}}
+Use the `/api/v2/tasks` InfluxDB API endpoint to create a task.
+
+[{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" >}}](/influxdb/v2.3/api/#operation/PostTasks)
+
+Provide the following in your API request:
 ##### Request headers
+
 - **Content-Type**: application/json
 - **Authorization**: Token *`INFLUX_API_TOKEN`*
 
 ##### Request body
 JSON object with the following fields:
 
-- **flux** : raw Flux task string
+- **flux** : raw Flux task string that contains [`options`](/flux/v0.x/spec/options/) and the query.
 - **orgID**: your [InfluxDB organization ID](/influxdb/v2.3/organizations/view-orgs/#view-your-organization-id)
 - **status**: task status ("active" or "inactive")
 - **description**: task description
 
 ```sh
-curl --request POST 'https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/tasks' \
+curl --request POST 'http://localhost:8086/api/v2/tasks' \
   --header 'Content-Type: application/json' \
   --header 'Authorization: Token INFLUX_API_TOKEN' \
   --data-raw '{
-    "flux": "option task = {name: \"CPU Total 1 Hour New\", every: 1h}\n\nfrom(bucket: \"telegraf\")\n\t|> range(start: -1h)\n\t|> filter(fn: (r) =>\n\t\t(r._measurement == \"cpu\"))\n\t|> filter(fn: (r) =>\n\t\t(r._field == \"usage_system\"))\n\t|> filter(fn: (r) =>\n\t\t(r.cpu == \"cpu-total\"))\n\t|> aggregateWindow(every: 1h, fn: max)\n\t|> to(bucket: \"cpu_usage_user_total_1h\", org: \"<MYORG>\")",
+    "flux": "option task = {name: \"CPU Total 1 Hour New\", every: 1h}\n\nfrom(bucket: \"telegraf\")\n\t|> range(start: -1h)\n\t|> filter(fn: (r) =>\n\t\t(r._measurement == \"cpu\"))\n\t|> filter(fn: (r) =>\n\t\t(r._field == \"usage_system\"))\n\t|> filter(fn: (r) =>\n\t\t(r.cpu == \"cpu-total\"))\n\t|> aggregateWindow(every: 1h, fn: max)\n\t|> to(bucket: \"cpu_usage_user_total_1h\", org: \"INFLUX_ORG\")",
     "orgID": "INFLUX_ORG_ID",
     "status": "active",
     "description": "This task downsamples CPU data every hour"
 }'
 ```
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+An InfluxDB Cloud task can run either an [invokable script]() or raw Flux stored in the task.
+
+- [Create a task to run an invokable script](#create-a-task-to-run-an-invokable-script)
+- [Create a task to run an inline Flux script](#create-a-task-to-run-an-inline-flux-script)
+
+### Create a task to run an invokable script
+
+With InfluxDB Cloud invokable scripts, you can manage scripts, reuse them, and invoke them as API endpoints.
+You can use tasks to pass script parameters and schedule runs.
+
+Use the `/api/v2/tasks` InfluxDB API endpoint to create a task.
+
+[{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" >}}](/influxdb/cloud/api/#operation/PostTasks)
+
+Provide the following in your API request:
+
+#### Request headers
+
+- **Content-Type**: application/json
+- **Authorization**: Token *`INFLUX_API_TOKEN`*
+
+#### Request body
+
+JSON object with the following fields:
+
+- **scriptID** : [invokable script](/influxdb/cloud/api-guide/api-invokable-scripts/) ID
+- **status**: task status ("active" or "inactive")
+- **description**: task description
+
+```sh
+curl --request POST 'https://cloud2.influxdata.com/api/v2/tasks' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token INFLUX_API_TOKEN' \
+    "scriptID": "085a2960eaa20000",
+    "status": "active",
+    "description": "This task downsamples CPU data every hour"
+}'
+```
+
+To create a task that passes parameters when invoking the script, pass the _`scriptParameters`_
+property in the request body.
+The following sample code creates a script that accepts parameters and then
+creates a task to schedule the script run with parameter values:
+
+```sh
+SCRIPT_ID=$(
+  curl -v -X 'POST' \
+    "${INFLUX_URL}/api/v2/scripts" \
+    --header "Authorization: Token ${INFLUX_API_TOKEN}" \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data-binary @- << EOF | jq -r '.id' 
+    {
+      "name": "filter-and-group",
+      "description": "Returns filtered and grouped points from a bucket.",
+      "script": "from(bucket: params.bucket) \
+                 |> range(start: duration(v: params.rangeStart)) \
+                 |> filter(fn: (r) => r._field == params.filterField) \
+                 |> group(columns: [params.groupColumn])",
+       "language": "flux"
+    }
+EOF)
+
+curl -v --request POST \
+https://cloud2.influxdata.com/api/v2/tasks \
+--header "Content-type: application/json" \
+--header "Authorization: Token INFLUX_TOKEN" \
+--data-binary @- << EOF
+  {
+  "orgID": "INFLUX_ORG_ID",
+  "description": "IoT Center 30d environment average.",
+  "scriptID": "${SCRIPT_ID}",
+  "scriptParameters":
+    {
+      "rangeStart": "-30d",
+      "bucket": "air_sensor",
+      "filterField": "temperature",
+      "groupColumn": "_time"
+    }
+  }
+EOF
+
+```
+### Create a task to run an inline Flux script
+
+Use the `/api/v2/tasks` InfluxDB API endpoint to create a task.
+
+[{{< api-endpoint method="POST" endpoint="https://cloud2.influxdata.com/api/v2/tasks/" >}}](/influxdb/cloud/api/#operation/PostTasks)
+
+Provide the following in your API request:
+#### Request headers
+
+- **Content-Type**: application/json
+- **Authorization**: Token *`INFLUX_API_TOKEN`*
+
+#### Request body
+
+JSON object with the following fields:
+
+- **flux** : raw Flux task string that contains [`options`](/flux/v0.x/spec/options/) and the query.
+- **status**: task status ("active" or "inactive")
+- **description**: task description
+
+```sh
+curl --request POST 'https://cloud2.influxdata.com/api/v2/tasks' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token INFLUX_API_TOKEN' \
+    --data-binary @- << EOF
+      {
+        "flux": "option task = {name: \"CPU Total 1 Hour New\", every: 1h}\
+        from(bucket: \"telegraf\")
+          |> range(start: -1h)
+          |> filter(fn: (r) => (r._measurement == \"cpu\"))
+          |> filter(fn: (r) =>\n\t\t(r._field == \"usage_system\"))
+          |> filter(fn: (r) => (r.cpu == \"cpu-total\"))
+          |> aggregateWindow(every: 1h, fn: max)
+          |> to(bucket: \"cpu_usage_user_total_1h\", org: \"INFLUX_ORG\")",
+        "orgID": "INFLUX_ORG_ID",
+        "status": "active",
+        "description": "This task downsamples CPU data every hour"
+      }
+EOF
+```
+
+{{% /cloud-only %}}
