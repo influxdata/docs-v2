@@ -17,7 +17,7 @@ menu:
 ### Bug fixes
 
 - Update the `Kafka` client to fix a bug regarding write latency.
-- Update to [Flux v0.171.0](/flux/v0.x/release-notes/#v01710-2022-06-14) to fix "'interface {} is nil, not string" issue.
+- Update to [Flux v0.171.0](/flux/v0.x/release-notes/#v01710-2022-06-14) to fix "interface {} is nil, not string" issue.
 
 ## v1.6.4 [2022-03-15]
 
