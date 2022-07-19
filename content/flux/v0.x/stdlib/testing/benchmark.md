@@ -23,7 +23,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L372-L376
+https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L353-L357
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
