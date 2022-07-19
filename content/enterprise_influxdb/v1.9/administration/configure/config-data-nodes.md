@@ -512,9 +512,18 @@ Default is `false`.
 
 By default, this option is set to false and writes are processed in the order that they are received. This means if any points are in the hinted handoff (HH) queue for a shard, all incoming points must go into the HH queue.
 
-If true, writes may process in a different order than they were received. This can reduce the time required to drain the HH queue and increase throughput during recovery.
+If set to `true`, writes may process in a different order than they were received. This can reduce the time required to drain the HH queue and increase throughput during recovery.
 
-**Do not enable if your use case involves updating points, which may cause points to be overwritten.** To overwrite an existing point, the measurement name, tag keys and values (if the point includes tags), field keys, and timestamp all have to be the same as a previous write.
+With successive write failures, if the [write consistency](https://docs.influxdata.com/enterprise_influxdb/v1.9/concepts/clustering/#write-consistency) level is not set to `any` when hinted handoff is written, you may see the following:
+
+- temporarily large HH queues
+- more partial write errors
+- fewer "remote write failed" errors as the HH queues empty (This is because remote writes, which keep data in memory while timing out, will be suppressed.)
+- much lower memory usage on nodes with hinted handoff queues
+
+Note that only repeated write failures will slow down the retry rate.
+
+**Do not enable if your use case involves updating points because points may be overwritten.** Overwrites happen when a point's measurement name, tag keys and values (if the point includes tags), field keys, and timestamp are the same as a previous write. 
 
 For example, if you have two points with the same measurement (`cpu`), field key (`v`), and timestamp (`1234`), the following could happen:
 
