@@ -29,7 +29,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `tickscript.groupBy()` groups results by the `_measurement` column and other specified columns.
 
-This function is comparable to [Kapacitor QueryNode .groupBy](https://docs.influxdata.com/kapacitor/latest/nodes/query_node/#groupby).
+This function is comparable to [Kapacitor QueryNode .groupBy](/kapacitor/latest/nodes/query_node/#groupby).
 
 **Note**: To group by time intervals, use `window()` or `tickscript.selectWindow()`.
 

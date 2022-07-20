@@ -28,7 +28,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `requests.peek()` converts an HTTP response into a table for easy inspection.
 
-**Deprecated**: `peek` is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/peek/).
+{{% warn %}}
+#### Deprecated
+`peek` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/peek/).
+{{% /warn %}}
 
 The output table includes the following columns:
  - **body** with the response body as a string

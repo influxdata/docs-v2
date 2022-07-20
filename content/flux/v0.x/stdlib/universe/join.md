@@ -37,9 +37,12 @@ Null values are not considered equal when comparing column values.
 The resulting schema is the union of the input schemas.
 The resulting group key is the union of the input group keys.
 
-**Deprecated**: `join()` is deprecated in favor of [`join.inner()`](https://docs.influxdata.com/flux/v0.x/stdlib/join/inner/).
-The [`join` package](https://docs.influxdata.com/flux/v0.x/stdlib/join/) provides support
+{{% warn %}}
+#### Deprecated
+`join()` is deprecated in favor of [`join.inner()`](/flux/v0.x/stdlib/join/inner/).
+The [`join` package](/flux/v0.x/stdlib/join/) provides support
 for multiple join methods.
+{{% /warn %}}
 
 #### Output data
 The schema and group keys of the joined output output data is the union of
