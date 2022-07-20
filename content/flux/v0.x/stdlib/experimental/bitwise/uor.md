@@ -28,7 +28,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.uor()` performs the bitwise operation, `a OR b`, with unsigned integers.
 
-**Deprecated**: `uor` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/uor/).
+{{% warn %}}
+#### Deprecated
+`uor` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/uor/).
+{{% /warn %}}
 
 ##### Function type signature
 

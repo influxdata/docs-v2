@@ -85,7 +85,7 @@ Sensu handlers to execute. Default is `[]`.
 
 ### status
 
-Event status code that indicates [state](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/sranka/sensu/event/#state).
+Event status code that indicates [state](/flux/v0.x/stdlib/contrib/sranka/sensu/event/#state).
 Default is `0`.
 
 | Status code     | State                   |
@@ -98,7 +98,7 @@ Default is `0`.
 ### state
 
 Event state.
-Default is `"passing"` for `0` [status](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/sranka/sensu/event/#status) and `"failing"` for other statuses.
+Default is `"passing"` for `0` [status](/flux/v0.x/stdlib/contrib/sranka/sensu/event/#status) and `"failing"` for other statuses.
 
 **Accepted values**:
 - `"failing"`

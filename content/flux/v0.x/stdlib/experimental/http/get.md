@@ -31,7 +31,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `http.get()` submits an HTTP GET request to the specified URL and returns the HTTP
 status code, response body, and response headers.
 
-**Deprecated**: `http.get()` is deprecated in favor of [`requests.get()`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/get/).
+{{% warn %}}
+#### Deprecated
+`http.get()` is deprecated in favor of [`requests.get()`](/flux/v0.x/stdlib/http/requests/get/).
+{{% /warn %}}
 
 ## Response format
 `http.get()` returns a record with the following properties:
