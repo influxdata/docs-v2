@@ -12,16 +12,16 @@ related:
   - /influxdb/v2.3/reference/cli/influx/task/create
 ---
 
-InfluxDB provides multiple ways to create tasks both in the InfluxDB user interface (UI)
-and the `influx` command line interface (CLI).
+Create tasks with the InfluxDB user interface (UI), `influx` command line interface (CLI), or `/api/v2` API.
 
-_Before creating a task, review the [basics criteria for writing a task](/influxdb/v2.3/process-data/get-started)._
+_Before creating a task, review the [basics for writing a task](/influxdb/v2.3/process-data/get-started)._
 
 - [InfluxDB UI](#create-a-task-in-the-influxdb-ui)
 - [`influx` CLI](#create-a-task-using-the-influx-cli)
 - [InfluxDB API](#create-a-task-using-the-influxdb-api)
 
 ## Create a task in the InfluxDB UI
+
 The InfluxDB UI provides multiple ways to create a task:
 
 - [Create a task from the Data Explorer](#create-a-task-from-the-data-explorer)
@@ -31,6 +31,7 @@ The InfluxDB UI provides multiple ways to create a task:
 - [Clone a task](#clone-a-task)
 
 ### Create a task from the Data Explorer
+
 1. In the navigation menu on the left, select **Data Explorer**.
 
     {{< nav-icon "data-explorer" >}}
@@ -41,8 +42,8 @@ The InfluxDB UI provides multiple ways to create a task:
    for detailed information about each option.
 5. Click **{{< caps >}}Save as Task{{< /caps >}}**.
 
-
 ### Create a task in the Task UI
+
 1. In the navigation menu on the left, select **Tasks**.
 
     {{< nav-icon "tasks" >}}
@@ -53,7 +54,9 @@ The InfluxDB UI provides multiple ways to create a task:
 4. In the right panel, enter your task script.
 
     {{% note %}}
+
 ##### Leave out the option tasks assignment
+
 When creating a _new_ task in the InfluxDB Task UI, leave the code editor empty.
 When you save the task, the Task UI uses the [task options](/influxdb/v2.3/process-data/task-options/) you specify in the **Task options** form to populate `option task = {task_options}` for you.
 
@@ -63,6 +66,7 @@ When you edit the saved task, you'll see the injected `option task = {task_optio
 7. Click **Save** in the upper right.
 
 ### Import a task
+
 1. In the navigation menu on the left, select **Tasks**.
 
     {{< nav-icon "tasks" >}}
@@ -74,6 +78,7 @@ When you edit the saved task, you'll see the injected `option task = {task_optio
 5. Click **{{< caps >}}Save{{< /caps >}}** in the upper right.
 
 ### Create a task from a template
+
 1. In the navigation menu on the left, select **Settings** > **Templates**.
 
     {{< nav-icon "Settings" >}}
@@ -81,20 +86,22 @@ When you edit the saved task, you'll see the injected `option task = {task_optio
 2. Find the template you want to use and click its **Resources** list to expand the list of resources.
 3. In the **Resources** list, click the task you want to use.
 
-
 ### Clone a task
+
 1. In the navigation menu on the left, select **Tasks**.
 
     {{< nav-icon "tasks" >}}
 
 2. Find the task you would like to clone and click the **{{< icon "settings" >}}** icon located far right of the task name.
-4. Click **Clone**.
+3. Click **Clone**.
 
 ## Create a task using the influx CLI
+
 Use the `influx task create` command to create a new task.
 It accepts either a file path or raw Flux.
 
-###### Create a task using a file
+### Create a task using a file
+
 ```sh
 # Syntax
 influx task create --org <org-name>  -f </path/to/task-script>
@@ -103,7 +110,8 @@ influx task create --org <org-name>  -f </path/to/task-script>
 influx task create --org my-org -f /tasks/cq-mean-1h.flux
 ```
 
-###### Create a task using raw Flux
+### Create a task using raw Flux
+
 ```sh
 influx task create --org my-org - # <return> to open stdin pipe
 
@@ -119,12 +127,10 @@ option task = {
 
 ## Create a task using the InfluxDB API
 
-Send a request using the **POST** method to the `/api/v2/tasks` InfluxDB API endpoint.
-
 {{% oss-only %}}
-Use the `/api/v2/tasks` InfluxDB API endpoint to create a task.
+Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/v2.3/api/#operation/PostTasks) to create a task.
 
-[{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" >}}](/influxdb/v2.3/api/#operation/PostTasks)
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" >}}
 
 Provide the following in your API request:
 ##### Request headers
@@ -133,6 +139,7 @@ Provide the following in your API request:
 - **Authorization**: Token *`INFLUX_API_TOKEN`*
 
 ##### Request body
+
 JSON object with the following fields:
 
 - **flux** : raw Flux task string that contains [`options`](/flux/v0.x/spec/options/) and the query.
@@ -156,19 +163,20 @@ curl --request POST 'http://localhost:8086/api/v2/tasks' \
 
 {{% cloud-only %}}
 
-An InfluxDB Cloud task can run either an [invokable script]() or raw Flux stored in the task.
+An InfluxDB Cloud task can run either an [invokable script](/influxdb/cloud/api-guide/api-invokable-scripts/) or raw Flux stored in the task.
 
-- [Create a task to run an invokable script](#create-a-task-to-run-an-invokable-script)
-- [Create a task to run an inline Flux script](#create-a-task-to-run-an-inline-flux-script)
+- [Create a task that references a script](#create-a-task-that-references-a-script)
+- [Create a task that contains a Flux script](#create-a-task-that-contains-a-flux-script)
 
-### Create a task to run an invokable script
+### Create a task that references a script
 
 With InfluxDB Cloud invokable scripts, you can manage scripts, reuse them, and invoke them as API endpoints.
 You can use tasks to pass script parameters and schedule runs.
 
-Use the `/api/v2/tasks` InfluxDB API endpoint to create a task.
+Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/cloud/api/#operation/PostTasks) to create a task
+that references a script ID.
 
-[{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" >}}](/influxdb/cloud/api/#operation/PostTasks)
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" >}}
 
 Provide the following in your API request:
 
@@ -181,52 +189,55 @@ Provide the following in your API request:
 
 JSON object with the following fields:
 
-- **scriptID** : [invokable script](/influxdb/cloud/api-guide/api-invokable-scripts/) ID
-- **status**: task status ("active" or "inactive")
-- **description**: task description
+- **cron** or **every**: task schedule
+- **name**: task name
+- **scriptID**: [invokable script](/influxdb/cloud/api-guide/api-invokable-scripts/) ID
 
 ```sh
 curl --request POST 'https://cloud2.influxdata.com/api/v2/tasks' \
   --header 'Content-Type: application/json' \
   --header 'Authorization: Token INFLUX_API_TOKEN' \
+    "cron": "0 * * * *",
+    "name": "downsample cpu",
     "scriptID": "085a2960eaa20000",
-    "status": "active",
     "description": "This task downsamples CPU data every hour"
 }'
 ```
 
 To create a task that passes parameters when invoking the script, pass the _`scriptParameters`_
 property in the request body.
-The following sample code creates a script that accepts parameters and then
-creates a task to schedule the script run with parameter values:
+The following sample code creates a script with parameters and then creates a
+task to run the new script daily:
 
 ```sh
 SCRIPT_ID=$(
-  curl -v -X 'POST' \
-    "${INFLUX_URL}/api/v2/scripts" \
-    --header "Authorization: Token ${INFLUX_API_TOKEN}" \
-    --header 'Accept: application/json' \
-    --header 'Content-Type: application/json' \
-    --data-binary @- << EOF | jq -r '.id' 
-    {
-      "name": "filter-and-group",
-      "description": "Returns filtered and grouped points from a bucket.",
-      "script": "from(bucket: params.bucket) \
-                 |> range(start: duration(v: params.rangeStart)) \
-                 |> filter(fn: (r) => r._field == params.filterField) \
-                 |> group(columns: [params.groupColumn])",
-       "language": "flux"
-    }
-EOF)
-
-curl -v --request POST \
-https://cloud2.influxdata.com/api/v2/tasks \
---header "Content-type: application/json" \
---header "Authorization: Token INFLUX_TOKEN" \
---data-binary @- << EOF
+curl https://cloud2.influxdata.com/api/v2/scripts \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data-binary @- << EOF | jq -r '.id'
   {
-  "orgID": "INFLUX_ORG_ID",
+    "name": "filter-and-group19",
+    "description": "Returns filtered and grouped points from a bucket.",
+    "script": "from(bucket: params.bucket)\
+               |> range(start: duration(v: params.rangeStart))\
+               |> filter(fn: (r) => r._field == params.filterField)\
+               |> group(columns: [params.groupColumn])",
+     "language": "flux"
+  }
+EOF
+)
+
+echo $SCRIPT_ID
+
+curl https://cloud2.influxdata.com/api/v2/tasks \
+--header "Content-type: application/json" \
+--header "Authorization: Token INFLUX_API_TOKEN" \
+--data @- << EOF
+  {
+  "name": "30-day-avg-temp",
   "description": "IoT Center 30d environment average.",
+  "every": "1d",
   "scriptID": "${SCRIPT_ID}",
   "scriptParameters":
     {
@@ -237,19 +248,22 @@ https://cloud2.influxdata.com/api/v2/tasks \
     }
   }
 EOF
-
 ```
-### Create a task to run an inline Flux script
 
-Use the `/api/v2/tasks` InfluxDB API endpoint to create a task.
+Replace **`INFLUX_API_TOKEN`** with your InfluxDB API token.
 
-[{{< api-endpoint method="POST" endpoint="https://cloud2.influxdata.com/api/v2/tasks/" >}}](/influxdb/cloud/api/#operation/PostTasks)
+### Create a task that contains a Flux script
+
+Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/cloud/api/#operation/PostTasks) to create a task that contains a Flux script with task options.
+
+{{< api-endpoint method="POST" endpoint="https://cloud2.influxdata.com/api/v2/tasks/" >}}
 
 Provide the following in your API request:
+
 #### Request headers
 
 - **Content-Type**: application/json
-- **Authorization**: Token *`INFLUX_API_TOKEN`*
+- **Authorization**: Token **`INFLUX_API_TOKEN`**
 
 #### Request body
 
@@ -279,5 +293,11 @@ curl --request POST 'https://cloud2.influxdata.com/api/v2/tasks' \
       }
 EOF
 ```
+
+Replace the following:
+
+- **`INFLUX_API_TOKEN`**: your InfluxDB API token
+- **`INFLUX_ORG`**: your InfluxDB organization name
+- **`INFLUX_ORG_ID`**: your InfluxDB organization ID
 
 {{% /cloud-only %}}
