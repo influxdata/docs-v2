@@ -66,9 +66,11 @@ option monitor.write = (tables=<-) => tables |> experimental.to(bucket: bucket)
 
 `log` persists notification events to an InfluxDB bucket.
 
+
 ### write
 
 `write` persists check statuses to an InfluxDB bucket.
+
 
 
 ## Functions

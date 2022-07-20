@@ -50,6 +50,7 @@ option testing.tags = []
 
 `load` loads test data from a stream of tables.
 
+
 ### tags
 
 `tags` is a list of tags that will be applied to a test case.

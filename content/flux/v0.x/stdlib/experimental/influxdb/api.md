@@ -81,7 +81,7 @@ Default is `""`.
 
 ### token
 
-[InfluxDB API token](https://docs.influxdata.com/influxdb/cloud/security/tokens/)
+[InfluxDB API token](/influxdb/cloud/security/tokens/)
 _(Required when executed outside of InfluxDB)_.
 Default is `""`.
 
