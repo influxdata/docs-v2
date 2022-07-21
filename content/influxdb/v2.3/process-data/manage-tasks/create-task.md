@@ -170,7 +170,7 @@ An InfluxDB Cloud task can run either an [invokable script](/influxdb/cloud/api-
 
 ### Create a task that references a script
 
-With InfluxDB Cloud invokable scripts, you can manage scripts, reuse them, and invoke them as API endpoints.
+With InfluxDB Cloud invokable scripts, you can manage, reuse, and invoke scripts as API endpoints.
 You can use tasks to pass script parameters and schedule runs.
 
 Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/cloud/api/#operation/PostTasks) to create a task
