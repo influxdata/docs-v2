@@ -12,10 +12,10 @@ menu:
 
 ### Features
 
-- Update the admin UI to provide database-level role-based access control. The UI also shows permissions mappings more intuitively and includes:
-  - improved user creation
-  - improved role creation
-  - improved visualization of effective permissions on Users and Roles pages
+- Update the admin UI to provide database-level role-based access control (RBAC). The UI also shows permissions mappings more intuitively and includes:
+ - improved user creation
+ - improved role creation
+ - improved visualization of effective permissions on Users and Roles pages
 - Add `reader` role for users that should only have read access to the UI.
 - Ability to customize annotation color.
 - Improve communication with InfluxDB so that a configured InfluxDB connection URL path is preserved as a context path when calling InfluxDB APIs. Previously, the InfluxDB connection URL context path was ignored.
