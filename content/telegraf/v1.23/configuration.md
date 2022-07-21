@@ -206,6 +206,10 @@ aggregator and will not get sent to the output plugins.
 * **name_suffix**: Specifies a suffix to attach to the measurement name.
 * **tags**: A map of tags to apply to a specific input's measurements.
 
+For a demonstration of how to configure SNMP, MQTT, and PostGRE SQL plugins to get data into Telegraf, see the following video:
+
+{{< youtube 6XJdZ_kdx14 >}}
+
 ## Processor configuration
 
 The following config parameters are available for all processors:
@@ -257,6 +261,10 @@ will be discarded from the point.
 must be defined at the _end_ of the plugin definition, otherwise subsequent
 plugin config options will be interpreted as part of the tagpass/tagdrop
 tables.
+
+To learn more about metric filtering, watch the following video:
+
+{{< youtube R3DnObs_OKA >}}
 
 ## Examples
 

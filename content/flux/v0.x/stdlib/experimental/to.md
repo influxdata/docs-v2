@@ -31,8 +31,11 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `experimental.to()` writes _pivoted_ data to an InfluxDB 2.x or InfluxDB Cloud bucket.
 
-**Deprecated**: `experimental.to()` is deprecated in favor of [`wideTo()`](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/wideTo/),
+{{% warn %}}
+#### Deprecated
+`experimental.to()` is deprecated in favor of [`wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/),
 which is an equivalent function.
+{{% /warn %}}
 
 #### Requirements and behavior
 - Requires both a `_time` and a `_measurement` column.
@@ -41,7 +44,7 @@ which is an equivalent function.
 - All columns **not** in the group key (other than `_time`) are written as
   fields with the column name as the field key and the column value as the field value.
 
-If using the `from()` to query data from InfluxDB, use pivot() to transform
+If using `from()` to query data from InfluxDB, use `pivot()` to transform
 data into the structure `experimental.to()` expects.
 
 ##### Function type signature
@@ -80,8 +83,8 @@ _`bucket` and `bucketID` are mutually exclusive_.
 
 URL of the InfluxDB instance to write to.
 
-See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
-or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
+See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
+or [InfluxDB OSS URLs](/influxdb/latest/reference/urls/).
 `host` is required when writing to a remote InfluxDB instance.
 If specified, `token` is also required.
 
