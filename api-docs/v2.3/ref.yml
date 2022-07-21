@@ -15722,9 +15722,14 @@ paths:
             InfluxDB returns this error if the line protocol data in the request
             is malformed.
 
-            The response body contains the first malformed line in the data.
+            The response body contains the first malformed line in the data, and
+            indicates what was expected.
 
-            InfluxDB rejected the batch and did not write any data.
+            For partial writes, the number of points written and the number of
+            points rejected are also included.
+
+            For more information, check the `rejected_points` measurement in
+            your `_monitoring` bucket.
 
 
             #### InfluxDB Cloud
@@ -16494,9 +16499,14 @@ tags:
       indicates that InfluxDB accepted the request and request data is valid.
       Asynchronous operations, such as `write`, might not have completed yet. |
 
-      | `400`       | Bad request              | `Authorization` header is
-      missing or malformed or the API token does not have permission for the
-      operation. |
+      | `400`       | Bad request              | May indicate one of the
+      following: <li>Line protocol is malformed. The response body contains the
+      first malformed line in the data and indicates what was expected. For
+      partial writes, the number of points written and the number of points
+      rejected are also included. For more information, check the
+      `rejected_points` measurement in your `_monitoring`
+      bucket.</li><li>`Authorization` header is missing or malformed or the API
+      token does not have permission for the operation.</li> |
 
       | `401`       | Unauthorized             | May indicate one of the
       following: <li>`Authorization: Token` header is missing or
@@ -16512,7 +16522,7 @@ tags:
       | `413`       | Request entity too large | Request payload exceeds the
       size limit. |
 
-      | `422`       | Unprocessible entity     | Request data is invalid. `code`
+      | `422`       | Unprocessable entity     | Request data is invalid. `code`
       and `message` in the response body provide details about the problem. |
 
       | `429`       | Too many requests        | API token is temporarily over
