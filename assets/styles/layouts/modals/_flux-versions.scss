@@ -85,4 +85,12 @@
   .more-info {
     margin-top: 1.5rem;
   }
+
+  .no-support {
+    margin: 1rem 1rem 3rem;
+    text-align: center;
+    font-size: 1.15rem;
+    font-style: italic;
+    color: rgba($article-text, .65);
+  }
 }
