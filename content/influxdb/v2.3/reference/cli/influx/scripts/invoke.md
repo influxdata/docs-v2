@@ -1,6 +1,6 @@
 ---
 title: influx scripts invoke
-description: The `influx scripts invoke` command runs a script in InfluxDB.
+description: The `influx scripts invoke` command executes an invokable script in InfluxDB.
 menu:
   influxdb_2_3_ref:
     name: influx scripts invoke
@@ -8,7 +8,7 @@ menu:
 weight: 201
 ---
 
-The `influx scripts invoke` command runs a script in InfluxDB.
+The `influx scripts invoke` command executes an invokable script in InfluxDB.
 
 ## Usage
 ```
@@ -26,7 +26,7 @@ influx scripts invoke [flags]
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`         |
 |      | `--http-debug`    | Inspect communication with InfluxDB servers.                          | string     |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
-| `-p` | `--params`        | JSON string containing the parameters                                 | string     |                       |
+| `-p` | `--params`        | JSON string containing script parameters                              | string     |                       |
 | `-i` | `--scriptID`      | ({{< req >}}) Script ID                                               | string     |                       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
@@ -45,5 +45,7 @@ influx scripts invoke -i 0Xx0oox00XXoxxoo1
 
 ##### Invoke a script with parameters
 ```sh
-influx scripts invoke -i 0Xx0oox00XXoxxoo1 -p "{ \"myParameter\": \"example-data\" }"
+influx scripts invoke \
+  -i 0Xx0oox00XXoxxoo1 \
+  -p "{ \"myParameter\": \"example-data\" }"
 ```

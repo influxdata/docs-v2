@@ -11,10 +11,11 @@ cascade:
   related:
     - /influxdb/v2.3/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
     - /influxdb/v2.3/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
-  metadata: [influx CLI 2.3.0+, InfluxDB 2.3.0+]
+    - /influxdb/cloud/api-guide/api-invokable-scripts/
+  metadata: [influx CLI 2.4.0+, InfluxDB Cloud only]
 ---
 
-The `influx scripts` command and its subcommands manage invokable scripts in InfluxDB.
+The `influx scripts` command and its subcommands manage [invokable scripts](/influxdb/cloud/api-guide/api-invokable-scripts/) in InfluxDB.
 
 ### Usage
 ```

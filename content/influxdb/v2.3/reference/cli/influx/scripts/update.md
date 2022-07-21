@@ -1,6 +1,6 @@
 ---
 title: influx scripts update
-description: The `influx scripts update` command updates information related to scripts in InfluxDB.
+description: The `influx scripts update` command updates information related to an invokable script in InfluxDB.
 menu:
   influxdb_2_3_ref:
     name: influx scripts update
@@ -8,7 +8,7 @@ menu:
 weight: 201
 ---
 
-The `influx scripts update` command updates information related to scripts in InfluxDB.
+The `influx scripts update` command updates information related to an invokable script in InfluxDB.
 
 ## Usage
 ```
@@ -36,9 +36,7 @@ influx scripts update [flags]
 
 {{< cli/influx-creds-note >}}
 
-- [Update a script flux](#update-a-script-flux)
-
-##### Update a script Flux
+##### Update the source code of an invokable script
 ```sh
 export UPDATED_FLUX='
   from(bucket: "example-bucket")
@@ -48,5 +46,7 @@ export UPDATED_FLUX='
     |> to(bucket: "default-ds-1d", org: "my-org")
 '
 
-influx scripts update -i 0Xx0oox00XXoxxoo1 -s $UPDATED_FLUX
+influx scripts update \
+  -i 0Xx0oox00XXoxxoo1 \
+  -s $UPDATED_FLUX
 ```
