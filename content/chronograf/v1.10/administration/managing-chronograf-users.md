@@ -16,6 +16,7 @@ menu:
   * [InfluxDB and Kapacitor users within Chronograf](#influxdb-and-kapacitor-users-within-chronograf)
   * [Chronograf-owned resources](#chronograf-owned-resources)
   * [Chronograf-accessed resources](#chronograf-accessed-resources)
+  * [Readers](#readers-role-reader)
   * [Members](#members-role-member)
   * [Viewers](#viewers-role-viewer)
   * [Editors](#editors-role-editor)
@@ -43,14 +44,15 @@ Chronograf includes four organization-bound user roles and one cross-organizatio
 
 ### Organization-bound users
 
-Chronograf users are assigned one of the following four organization-bound user roles, listed here in order of increasing capabilities:
+Chronograf users are assigned one of the following organization-bound user roles, listed here in order of increasing capabilities:
 
+- [`reader`](#readers-role-reader)
 - [`member`](#members-role-member)
 - [`viewer`](#viewers-role-viewer)
 - [`editor`](#editors-role-editor)
 - [`admin`](#admins-role-admin)
 
-Each of these four roles, described in detail below, have different capabilities for the following Chronograf-owned or Chronograf-accessed resources.
+Each of these roles, described in detail below, have different capabilities for the following Chronograf-owned or Chronograf-accessed resources.
 
 #### InfluxDB and Kapacitor users within Chronograf
 
@@ -82,6 +84,10 @@ Chronograf-accessed resources include external resources that can be accessed us
 
 - InfluxDB databases, users, queries, and time series data (if using InfluxDB Enterprise, InfluxDB roles can be accessed too)
 - Kapacitor alerts and alert rules (called tasks in Kapacitor)
+
+#### Readers (role:`reader`)
+
+Readers are Chronograf users who are only able to view dashboards in read-only mode. They are not able to alter or manipulate dashboard queries. Readers are not able to view tasks, alerts, admin pages, logs or any artifacts other than dashboards.
 
 #### Members (role:`member`)
 
