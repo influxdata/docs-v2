@@ -120,7 +120,7 @@ contain values in the 99th percentile of data in the table.
 
 ```js
 data
-  |> quantile(q: 0.99)
+    |> quantile(q: 0.99)
 ```
 
 ## Find the average of values closest to the quantile
@@ -130,7 +130,7 @@ For example, to calculate the `0.99` quantile:
 
 ```js
 data
-  |> quantile(q: 0.99, method: "exact_mean")
+    |> quantile(q: 0.99, method: "exact_mean")
 ```
 
 ## Find the point with the quantile value
@@ -140,7 +140,7 @@ For example, to calculate the `0.99` quantile:
 
 ```js
 data
-  |> quantile(q: 0.99, method: "exact_selector")
+    |> quantile(q: 0.99, method: "exact_selector")
 ```
 
 ## Use quantile() with aggregateWindow()
@@ -154,10 +154,9 @@ To specify the [quantile calculation method](#select-a-method-for-calculating-th
 
 ```js
 data
-  |> aggregateWindow(
-    every: 5m,
-    fn: (tables=<-, column) =>
-      tables
-        |> quantile(q: 0.99, method: "exact_selector")
-  )
+    |> aggregateWindow(
+        every: 5m,
+        fn: (tables=<-, column) => tables
+            |> quantile(q: 0.99, method: "exact_selector"),
+    )
 ```

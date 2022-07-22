@@ -1,21 +1,11 @@
-$rubik: 'Rubik', sans-serif;
-$code: 'IBM Plex Mono', monospace;;
-
-// Font weights
-$medium: 500;
-$bold: 700;
-
-
 html {
   height: 100%;
 }
 
 body {
   min-height: 100%;
-  font-family: 'Rubik', sans-serif;
+  font-family: $proxima;
   background: $body-bg;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -30,6 +20,9 @@ a {
   display: flex;
   flex-grow: 1;
 }
+
+// Used to hide honeypot form fields
+.bowlofsweets {display: none;}
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////

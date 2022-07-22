@@ -16,9 +16,9 @@ list_code_example: |
   import "sql"
 
   sql.from(
-    driverName: "sqlserver",
-    dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
-    query: "GO SELECT * FROM Example.Table"
+      driverName: "sqlserver",
+      dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
+      query: "GO SELECT * FROM Example.Table",
   )
   ```
 ---
@@ -36,9 +36,9 @@ To query [Microsoft SQL Server](https://www.microsoft.com/sql-server/) with Flux
 import "sql"
 
 sql.from(
-  driverName: "sqlserver",
-  dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
-  query: "GO SELECT * FROM Example.Table"
+    driverName: "sqlserver",
+    dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
+    query: "GO SELECT * FROM Example.Table",
 )
 ```
 

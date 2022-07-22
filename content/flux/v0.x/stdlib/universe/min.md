@@ -1,73 +1,107 @@
 ---
 title: min() function
-description: The `min()` function selects record with the lowest _value from the input table.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/min
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/min/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/min/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/min/
+description: >
+  `min()` returns the row with the minimum value in a specified column from each
+  input table.
 menu:
   flux_0_x_ref:
     name: min
     parent: universe
-weight: 102
-flux/v0.x/tags: [selectors, transformations]
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#min, InfluxQL – MIN()
+    identifier: universe/min
+weight: 101
+flux/v0.x/tags: [transformations, selectors]
 introduced: 0.7.0
 ---
 
-The `min()` function selects record with the lowest `_value` from the input table.
-_`min()` is a [selector function](/flux/v0.x/function-types/#selectors)._
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1784-L1784
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`min()` returns the row with the minimum value in a specified column from each
+input table.
+
+**Note:** `min()` drops empty tables.
+
+##### Function type signature
 
 ```js
-min(column: "_value")
+(<-tables: stream[A], ?column: string) => stream[A] where A: Record
 ```
 
-{{% warn %}}
-#### Empty tables
-`min()` drops empty tables.
-{{% /warn %}}
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### column {data-type="string"}
-The column to use to calculate the minimum value.
-Default is `"_value"`.
+### column
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+Column to return minimum values from. Default is `_value`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+### Return the row with the minimum value
 
 ```js
 import "sampledata"
 
 sampledata.int()
-  |> min()
+    |> min()
+
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |     -2 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:20Z | t2  |     -3 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+
 {{% /expand %}}
+{{< /expand-wrapper >}}

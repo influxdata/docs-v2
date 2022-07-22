@@ -1,49 +1,48 @@
 ---
 title: regexp.getString() function
-description: The `regexp.getString()` function returns the source string used to compile a regular expression.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/regexp/getstring/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/getstring/
-  - /influxdb/cloud/reference/flux/stdlib/regexp/getstring/
+description: >
+  `regexp.getString()` returns the source string used to compile a regular expression.
 menu:
   flux_0_x_ref:
     name: regexp.getString
     parent: regexp
-weight: 301
-related:
-  - /flux/v0.x/stdlib/regexp/compile
-  - /flux/v0.x/data-types/regexp/
-introduced: 0.33.3
+    identifier: regexp/getString
+weight: 101
 ---
 
-The `regexp.getString()` function returns the source string used to compile a regular expression.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** String_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/regexp/regexp.flux#L190-L190
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`regexp.getString()` returns the source string used to compile a regular expression.
+
+
+
+##### Function type signature
 
 ```js
-import "regexp"
-
-regexp.getString(r: /[a-zA-Z]/)
-
-// Returns "[a-zA-Z]"
+(r: regexp) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### r {data-type="regexp"}
-The regular expression object to convert to a string.
+### r
+({{< req >}})
+Regular expression object to convert to a string.
 
-## Examples
 
-###### Convert regular expressions into strings in each row
-```js
-import "regexp"
 
-data
-  |> map(fn: (r) => ({
-      r with
-      regex: r.regex,
-      regexStr: regexp.getString(r: r.regex)
-    })
-  )
-```

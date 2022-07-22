@@ -34,10 +34,8 @@ InfluxDB requires queries to be time-bound, so `from()` must always be followed 
 
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1h)
+    |> range(start: -1h)
 ```
-
-
 
 ## Query InfluxDB Cloud or 2.x remotely
 To query InfluxDB Cloud or 2.x remotely, provide the following parameters
@@ -50,10 +48,10 @@ in addition to **bucket** or **bucketID**.
 
 ```js
 from(
-  bucket: "example-bucket",
-  host: "http://localhost:8086",
-  org: "example-org",
-  token: "mYSup3r5Ecr3T70keN"
+    bucket: "example-bucket",
+    host: "http://localhost:8086",
+    org: "example-org",
+    token: "mYSup3r5Ecr3T70keN",
 )
 ```
 
@@ -64,7 +62,7 @@ For example, to query data from the `autogen` retention policy in the `telegraf`
 
 ```js
 from(bucket: "telegraf/autogen")
-  |> range(start: -30m)
+    |> range(start: -30m)
 ```
 
 To query the [default retention policy](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#create-a-retention-policy) in a database, use the same bucket naming
@@ -72,7 +70,7 @@ convention, but do not provide a retention policy:
 
 ```js
 from(bucket: "telegraf/")
-  |> range(start: -30m)
+    |> range(start: -30m)
 ```
 
 

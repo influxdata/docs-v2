@@ -119,7 +119,7 @@ and convert columns to integers.
 
 ```js
 data
-  |> toInt()
+    |> toInt()
 ```
 
 {{< flex >}}
@@ -151,7 +151,7 @@ data
 
 ```js
 data
-  |> map(fn: (r) => ({ r with uid: int(v: r.uid) }))
+    |> map(fn: (r) => ({ r with uid: int(v: r.uid) }))
 ```
 
 {{< flex >}}

@@ -7,7 +7,8 @@ menu:
     name: Contributing event handler integrations
     weight: 30
     parent: About the project
-    url: https://github.com/influxdata/kapacitor/blob/master/alert/HANDLERS.md
+    params:
+      url: https://github.com/influxdata/kapacitor/blob/master/alert/HANDLERS.md
 ---
 
 This page explains how you can create event handlers for alerting within Kapacitor.

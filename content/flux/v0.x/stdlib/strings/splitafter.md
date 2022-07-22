@@ -1,52 +1,69 @@
 ---
 title: strings.splitAfter() function
 description: >
-  The strings.splitAfter() function splits a string after a specified separator and returns
-  an array of substrings.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/splitafter/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/splitafter/
-  - /influxdb/cloud/reference/flux/stdlib/strings/splitafter/
+  `strings.splitAfter()` splits a string after a specified separator and returns an array of substrings.
+  Split substrings include the separator, `t`.
 menu:
   flux_0_x_ref:
     name: strings.splitAfter
     parent: strings
-weight: 301
-related:
-  - /flux/v0.x/stdlib/strings/split
-  - /flux/v0.x/stdlib/strings/splitaftern
-  - /flux/v0.x/stdlib/strings/splitn
-introduced: 0.18.0
+    identifier: strings/splitAfter
+weight: 101
 ---
 
-The `strings.splitAfter()` function splits a string after a specified separator and returns
-an array of substrings.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/strings/strings.flux#L711-L711
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`strings.splitAfter()` splits a string after a specified separator and returns an array of substrings.
 Split substrings include the separator, `t`.
 
-_**Output data type:** Array of strings_
+
+
+##### Function type signature
 
 ```js
-import "strings"
-
-strings.splitAfter(v: "a flux of foxes", t: " ")
-
-// returns ["a ", "flux ", "of ", "foxes"]
+(t: string, v: string) => [string]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### v {data-type="string"}
-The string value to split.
+### v
+({{< req >}})
+String value to split.
 
-### t {data-type="string"}
-The string value that acts as the separator.
+
+
+### t
+({{< req >}})
+String value that acts as the separator.
+
+
+
 
 ## Examples
 
-###### Split a string into an array of substrings
+### Split a string into an array of substrings
+
 ```js
 import "strings"
 
-data
-  |> map (fn:(r) => strings.splitAfter(v: r.searchTags, t: ","))
+strings.splitAfter(v: "foo, bar, baz, quz", t: ", ")// Returns ["foo, ", "bar, ", "baz, ", "quz"]
+
+
 ```
+

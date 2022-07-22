@@ -1,103 +1,130 @@
 ---
 title: sensu.event() function
 description: >
-  The `sensu.event()` function sends a single event to the
-  [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event).
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/sensu/event/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/sensu/event/
-flux/v0.x/tags: [single notification]
+  `sensu.event()` sends a single event to the [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event).
 menu:
   flux_0_x_ref:
     name: sensu.event
-    parent: sensu
+    parent: contrib/sranka/sensu
+    identifier: contrib/sranka/sensu/event
 weight: 301
-related:
-  - https://docs.sensu.io/sensu-go/latest/api/events/, Sensu Events API
-  - https://docs.sensu.io/sensu-go/latest/api/apikeys/, Sensu APIKeys API
-  - https://docs.sensu.io/sensu-go/latest/reference/handlers/, Sensu handlers
-introduced: 0.90.0
+flux/v0.x/tags: [single notification]
 ---
 
-The `sensu.event()` function sends a single event to the
-[Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/sensu/sensu.flux#L109-L137
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`sensu.event()` sends a single event to the [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event).
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/sranka/sensu"
-
-sensu.event(
-  url: "http://localhost:8080",
-  apiKey: "mYSuP3rs3cREtApIK3Y",
-  checkName: "checkName",
-  text: "Event output text",
-  handlers: [],
-  status: 0,
-  state: "passing",
-  namespace: "default",
-  entityName: "influxdb"
-)
+(
+    apiKey: string,
+    checkName: string,
+    text: A,
+    url: string,
+    ?entityName: string,
+    ?handlers: B,
+    ?namespace: string,
+    ?state: string,
+    ?status: C,
+) => int where C: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
+### url
 ({{< req >}})
 Base URL of [Sensu API](https://docs.sensu.io/sensu-go/latest/migrate/#architecture)
-**without a trailing slash**. Example: `http://localhost:8080`.
+without a trailing slash.
 
-### apiKey {data-type="string"}
+Example: `http://localhost:8080`
+
+### apiKey
 ({{< req >}})
 Sensu [API Key](https://docs.sensu.io/sensu-go/latest/operations/control-access/).
 
-### checkName {data-type="string"}
+
+
+### checkName
 ({{< req >}})
 Check name.
+
 Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
 All other characters are replaced with an underscore.
 
-### text {data-type="string"}
+### text
 ({{< req >}})
 Event text.
+
 Mapped to `output` in the Sensu Events API request.
 
-### handlers {data-type="array of strings"}
-[Sensu handlers](https://docs.sensu.io/sensu-go/latest/reference/handlers/) to execute.
-Default is `[]`.
+### handlers
 
-### status {data-type="int"}
-Event status code that indicates [state](#state).
+Sensu handlers to execute. Default is `[]`.
+
+
+
+### status
+
+Event status code that indicates [state](/flux/v0.x/stdlib/contrib/sranka/sensu/event/#state).
 Default is `0`.
 
 | Status code     | State                   |
-|:-----------     |:-----                   |
-| `0`             | OK                      |
-| `1`             | WARNING                 |
-| `2`             | CRITICAL                |
+| :-------------- | :---------------------- |
+| 0               | OK                      |
+| 1               | WARNING                 |
+| 2               | CRITICAL                |
 | Any other value | UNKNOWN or custom state |
 
-### state {data-type="string"}
+### state
+
 Event state.
-Default is `"passing"` for `0` [status](#status) and `"failing"` for other statuses.
+Default is `"passing"` for `0` [status](/flux/v0.x/stdlib/contrib/sranka/sensu/event/#status) and `"failing"` for other statuses.
 
-The following values are accepted:
-
+**Accepted values**:
 - `"failing"`
 - `"passing"`
 - `"flapping"`
 
-### namespace {data-type="string"}
+### namespace
+
 [Sensu namespace](https://docs.sensu.io/sensu-go/latest/reference/rbac/).
 Default is `"default"`.
 
-### entityName {data-type="string"}
+
+
+### entityName
+
 Event source.
+Default is `influxdb`.
+
 Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
 All other characters are replaced with an underscore.
-Default is `influxdb`.
+
 
 ## Examples
 
-##### Send the last reported status to Sensu
+### Send the last reported status to Sensu
+
 ```js
 import "influxdata/influxdb/secrets"
 import "contrib/sranka/sensu"
@@ -105,16 +132,18 @@ import "contrib/sranka/sensu"
 apiKey = secrets.get(key: "SENSU_API_KEY")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) => r._measurement == "statuses")
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
-    sensu.event(
-      url: "http://localhost:8080",
-      apiKey: apiKey,
-      checkName: "diskUsage",
-      text: "Disk usage is **${lastReported.status}**.",
-    )
+sensu.event(
+    url: "http://localhost:8080",
+    apiKey: apiKey,
+    checkName: "diskUsage",
+    text: "Disk usage is **${lastReported.status}**.",
+)
+
 ```
+

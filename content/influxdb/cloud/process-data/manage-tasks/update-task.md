@@ -12,4 +12,4 @@ related:
   - /influxdb/cloud/reference/cli/influx/task/update
 ---
 
-{{% duplicate-oss %}}
+{{< duplicate-oss >}}

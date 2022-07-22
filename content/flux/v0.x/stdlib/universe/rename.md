@@ -1,145 +1,182 @@
 ---
 title: rename() function
-description: The `rename()` function renames specified columns in a table.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/rename
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/rename/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/rename/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/rename/
+description: >
+  `rename()` renames columns in a table.
 menu:
   flux_0_x_ref:
     name: rename
     parent: universe
-weight: 102
+    identifier: universe/rename
+weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.7.0
 ---
 
-The `rename()` function renames specified columns in a table.
-If a column is renamed and is part of the group key, the column name in the group key will be updated.
+<!------------------------------------------------------------------------------
 
-There are two variants:
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-- one which maps old column names to new column names
-- one which takes a mapping function.
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2224-L2228
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`rename()` renames columns in a table.
+
+If a column in group key is renamed, the column name in the group key is updated.
+
+##### Function type signature
 
 ```js
-rename(columns: {host: "server", facility: "datacenter"})
-
-// OR
-
-rename(fn: (column) => "{column}_new")
+(<-tables: stream[B], ?columns: A, ?fn: (column: string) => string) => stream[C] where A: Record, B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-{{% note %}}
-Make sure `fn` parameter names match each specified parameter. To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
-{{% /note %}}
+### columns
 
-### columns {data-type="record"}
+Record that maps old column names to new column names.
 
-A map of columns to rename and their corresponding new names.
-Cannot be used with `fn`.
 
-### fn {data-type="function"}
 
-A function mapping between old and new column names.
-Cannot be used with `columns`.
+### fn
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+Function that takes the current column name (`column`) and returns a
+new column name.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro plural=true %}}
 
-- [Rename specific columns](#rename-specific-columns)
-- [Rename all columns using a function](#rename-all-columns-using-a-function)
+- [Map column names to new column names](#map-column-names-to-new-column-names)
+- [Rename columns using a function](#rename-columns-using-a-function)
 
-#### Rename specific columns
+### Map column names to new column names
 
 ```js
 import "sampledata"
 
 sampledata.int()
-  |> rename(columns: {tag: "uid", _value: "val"})
+    |> rename(columns: {tag: "uid", _value: "val"})
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | uid | val |
-| :------------------- | :-- | --: |
-| 2021-01-01T00:00:00Z | t1  |  -2 |
-| 2021-01-01T00:00:10Z | t1  |  10 |
-| 2021-01-01T00:00:20Z | t1  |   7 |
-| 2021-01-01T00:00:30Z | t1  |  17 |
-| 2021-01-01T00:00:40Z | t1  |  15 |
-| 2021-01-01T00:00:50Z | t1  |   4 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | uid | val |
-| :------------------- | :-- | --: |
-| 2021-01-01T00:00:00Z | t2  |  19 |
-| 2021-01-01T00:00:10Z | t2  |   4 |
-| 2021-01-01T00:00:20Z | t2  |  -3 |
-| 2021-01-01T00:00:30Z | t2  |  19 |
-| 2021-01-01T00:00:40Z | t2  |  13 |
-| 2021-01-01T00:00:50Z | t2  |   1 |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | val  | *uid |
+| -------------------- | ---- | ---- |
+| 2021-01-01T00:00:00Z | -2   | t1   |
+| 2021-01-01T00:00:10Z | 10   | t1   |
+| 2021-01-01T00:00:20Z | 7    | t1   |
+| 2021-01-01T00:00:30Z | 17   | t1   |
+| 2021-01-01T00:00:40Z | 15   | t1   |
+| 2021-01-01T00:00:50Z | 4    | t1   |
+
+| _time                | val  | *uid |
+| -------------------- | ---- | ---- |
+| 2021-01-01T00:00:00Z | 19   | t2   |
+| 2021-01-01T00:00:10Z | 4    | t2   |
+| 2021-01-01T00:00:20Z | -3   | t2   |
+| 2021-01-01T00:00:30Z | 19   | t2   |
+| 2021-01-01T00:00:40Z | 13   | t2   |
+| 2021-01-01T00:00:50Z | 1    | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-
-#### Rename all columns using a function
+### Rename columns using a function
 
 ```js
 import "sampledata"
 
 sampledata.int()
-  |> rename(fn: (column) => "${column}_new")
+    |> rename(fn: (column) => "${column}_new")
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time_new            | tag_new | _value_new |
-| :------------------- | :------ | ---------: |
-| 2021-01-01T00:00:00Z | t1      |         -2 |
-| 2021-01-01T00:00:10Z | t1      |         10 |
-| 2021-01-01T00:00:20Z | t1      |          7 |
-| 2021-01-01T00:00:30Z | t1      |         17 |
-| 2021-01-01T00:00:40Z | t1      |         15 |
-| 2021-01-01T00:00:50Z | t1      |          4 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time_new            | tag_new | _value_new |
-| :------------------- | :------ | ---------: |
-| 2021-01-01T00:00:00Z | t2      |         19 |
-| 2021-01-01T00:00:10Z | t2      |          4 |
-| 2021-01-01T00:00:20Z | t2      |         -3 |
-| 2021-01-01T00:00:30Z | t2      |         19 |
-| 2021-01-01T00:00:40Z | t2      |         13 |
-| 2021-01-01T00:00:50Z | t2      |          1 |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time_new            | _value_new  | *tag_new |
+| -------------------- | ----------- | -------- |
+| 2021-01-01T00:00:00Z | -2          | t1       |
+| 2021-01-01T00:00:10Z | 10          | t1       |
+| 2021-01-01T00:00:20Z | 7           | t1       |
+| 2021-01-01T00:00:30Z | 17          | t1       |
+| 2021-01-01T00:00:40Z | 15          | t1       |
+| 2021-01-01T00:00:50Z | 4           | t1       |
+
+| _time_new            | _value_new  | *tag_new |
+| -------------------- | ----------- | -------- |
+| 2021-01-01T00:00:00Z | 19          | t2       |
+| 2021-01-01T00:00:10Z | 4           | t2       |
+| 2021-01-01T00:00:20Z | -3          | t2       |
+| 2021-01-01T00:00:30Z | 19          | t2       |
+| 2021-01-01T00:00:40Z | 13          | t2       |
+| 2021-01-01T00:00:50Z | 1           | t2       |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

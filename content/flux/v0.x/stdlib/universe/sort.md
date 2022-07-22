@@ -1,179 +1,127 @@
 ---
 title: sort() function
-description: The `sort()` function orders the records within each table.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/sort
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/sort/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/sort/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/sort/
+description: >
+  `sort()` orders rows in each intput table based on values in specified columns.
 menu:
   flux_0_x_ref:
     name: sort
     parent: universe
-weight: 102
+    identifier: universe/sort
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/sort-limit/
 introduced: 0.7.0
 ---
 
-The `sort()` function orders the records within each table.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2435-L2435
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`sort()` orders rows in each intput table based on values in specified columns.
+
+#### Output data
 One output table is produced for each input table.
-The output tables will have the same schema as their corresponding input tables.
+Output tables have the same schema as their corresponding input tables.
 
 #### Sorting with null values
-When sorting, `null` values will always be first.
-When `desc: false`, nulls are less than every other value.
-When `desc: true`, nulls are greater than every value.
+When `desc: false`, null values are last in the sort order.
+When `desc: true`, null values are first in the sort order.
+
+##### Function type signature
 
 ```js
-sort(columns: ["_value"], desc: false)
+(<-tables: stream[A], ?columns: [string], ?desc: bool) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### columns {data-type="array of strings"}
-List of columns by which to sort.
+### columns
+
+List of columns to sort by. Default is ["_value"].
+
 Sort precedence is determined by list order (left to right).
-Default is `["_value"]`.
 
-### desc {data-type="bool"}
-Sort results in descending order.
-Default is `false`.
+### desc
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+Sort results in descending order. Default is `false`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
 
-- [Sort values in ascending order](#sort-values-in-ascending-order)
-- [Sort values in descending order](#sort-values-in-descending-order)
-- [Sort by multiple columns](#sort-by-multiple-columns)
+### Sort values in ascending order
 
-#### Sort values in ascending order
 ```js
 import "sampledata"
 
 sampledata.int()
-  |> sort()
+    |> sort()
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |     -2 |
-| 2021-01-01T00:00:50Z | t1  |      4 |
-| 2021-01-01T00:00:20Z | t1  |      7 |
-| 2021-01-01T00:00:10Z | t1  |     10 |
-| 2021-01-01T00:00:40Z | t1  |     15 |
-| 2021-01-01T00:00:30Z | t1  |     17 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:20Z | t2  |     -3 |
-| 2021-01-01T00:00:50Z | t2  |      1 |
-| 2021-01-01T00:00:10Z | t2  |      4 |
-| 2021-01-01T00:00:40Z | t2  |     13 |
-| 2021-01-01T00:00:00Z | t2  |     19 |
-| 2021-01-01T00:00:30Z | t2  |     19 |
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
 
-#### Sort values in descending order
-```js
-import "sampledata"
+#### Output data
 
-sampledata.int()
-  |> sort(desc: true)
-```
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
 
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
 
-##### Input data
-{{% flux/sample "int" %}}
-
-{{% /flex-content %}}
-{{% flex-content %}}
-
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:30Z | t1  |     17 |
-| 2021-01-01T00:00:40Z | t1  |     15 |
-| 2021-01-01T00:00:10Z | t1  |     10 |
-| 2021-01-01T00:00:20Z | t1  |      7 |
-| 2021-01-01T00:00:50Z | t1  |      4 |
-| 2021-01-01T00:00:00Z | t1  |     -2 |
-
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t2  |     19 |
-| 2021-01-01T00:00:30Z | t2  |     19 |
-| 2021-01-01T00:00:40Z | t2  |     13 |
-| 2021-01-01T00:00:10Z | t2  |      4 |
-| 2021-01-01T00:00:50Z | t2  |      1 |
-| 2021-01-01T00:00:20Z | t2  |     -3 |
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
-#### Sort by multiple columns
-```js
-import "sampledata"
-
-sampledata.int()
-  |> sort(columns: ["tag", "_value"])
-```
-
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
-
-##### Input data
-{{% flux/sample "int" %}}
-
-{{% /flex-content %}}
-{{% flex-content %}}
-
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |     -2 |
-| 2021-01-01T00:00:50Z | t1  |      4 |
-| 2021-01-01T00:00:20Z | t1  |      7 |
-| 2021-01-01T00:00:10Z | t1  |     10 |
-| 2021-01-01T00:00:40Z | t1  |     15 |
-| 2021-01-01T00:00:30Z | t1  |     17 |
-
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:20Z | t2  |     -3 |
-| 2021-01-01T00:00:50Z | t2  |      1 |
-| 2021-01-01T00:00:10Z | t2  |      4 |
-| 2021-01-01T00:00:40Z | t2  |     13 |
-| 2021-01-01T00:00:00Z | t2  |     19 |
-| 2021-01-01T00:00:30Z | t2  |     19 |
-{{% /flex-content %}}
-{{< /flex >}}
 {{% /expand %}}
 {{< /expand-wrapper >}}

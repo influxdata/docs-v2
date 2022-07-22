@@ -124,11 +124,11 @@ Use the Go library to query data to InfluxDB.
 
 1. Create a Flux query and supply your `bucket` parameter.
 
-   ```js
-   from(bucket:"<bucket>")
-    |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "stat")
-   ```
+    ```js
+    from(bucket:"<bucket>")
+        |> range(start: -1h)
+        |> filter(fn: (r) => r._measurement == "stat")
+    ```
 
    The query client sends the Flux query to InfluxDB and returns the results as a FluxRecord object with a table structure.
 

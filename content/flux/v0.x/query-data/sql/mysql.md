@@ -15,9 +15,9 @@ list_code_example: |
   import "sql"
   
   sql.from(
-    driverName: "mysql",
-    dataSourceName: "user:password@tcp(localhost:3306)/db",
-    query: "SELECT * FROM example_table"
+      driverName: "mysql",
+      dataSourceName: "user:password@tcp(localhost:3306)/db",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---
@@ -35,9 +35,9 @@ To query [MySQL](https://www.mysql.com/) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "mysql",
-  dataSourceName: "user:password@tcp(localhost:3306)/db",
-  query: "SELECT * FROM example_table"
+    driverName: "mysql",
+    dataSourceName: "user:password@tcp(localhost:3306)/db",
+    query: "SELECT * FROM example_table",
 )
 ```
 

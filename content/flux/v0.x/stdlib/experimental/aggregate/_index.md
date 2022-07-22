@@ -1,27 +1,44 @@
 ---
-title: Flux experimental aggregate package
-list_title: aggregate package
+title: aggregate package
 description: >
-  The Flux experimental `aggregate` package provides functions to simplify common aggregate operations.
-  Import the `experimental/aggregate` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/aggregate/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/aggregate/
+  The `aggregate` package provides functions to simplify common aggregate operations.
 menu:
   flux_0_x_ref:
-    name: aggregate
+    name: aggregate 
     parent: experimental
-weight: 301
-flux/v0.x/tags: [package]
-introduced: 0.61.0
+    identifier: experimental/aggregate
+weight: 21
+cascade:
+
+  introduced: 0.61.0
 ---
 
-The Flux experimental `aggregate` package provides functions to simplify common aggregate operations.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/aggregate/aggregate.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `aggregate` package provides functions to simplify common aggregate operations.
 Import the `experimental/aggregate` package:
 
 ```js
 import "experimental/aggregate"
 ```
 
+
+
+
 ## Functions
+
 {{< children type="functions" show="pages" >}}

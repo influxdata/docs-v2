@@ -1,107 +1,92 @@
 ---
 title: sensu.endpoint() function
 description: >
-  The `sensu.endpoint()` function sends an event to the
-  [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event)
+  `sensu.endpoint()` sends an event
+  to the [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event)
   using data from table rows.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/sensu/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/sensu/endpoint/
 menu:
   flux_0_x_ref:
     name: sensu.endpoint
-    parent: sensu
+    parent: contrib/sranka/sensu
+    identifier: contrib/sranka/sensu/endpoint
 weight: 301
-related:
-  - https://docs.sensu.io/sensu-go/latest/api/events/, Sensu Events API
-  - https://docs.sensu.io/sensu-go/latest/api/apikeys/, Sensu APIKeys API
-  - https://docs.sensu.io/sensu-go/latest/reference/handlers/, Sensu handlers
-flux/v0.x/tags: [transformations, notification endpoints]
-introduced: 0.90.0
 ---
 
-The `sensu.endpoint()` function sends an event to the
-[Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event)
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/sensu/sensu.flux#L201-L231
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`sensu.endpoint()` sends an event
+to the [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event)
 using data from table rows.
 Output tables include a `_sent` column that indicates whether the
 the row's notification was sent successfully (`true` or `false`).
 
-```js
-import "contrib/sranka/sensu"
 
-sensu.endpoint(
-  url: "http://localhost:8080",
-  apiKey: "mYSuP3rs3cREtApIK3Y",
-  handlers: [],
-  namespace: "default",
-  entityName: "influxdb"
-)
+
+##### Function type signature
+
+```js
+(
+    apiKey: string,
+    url: string,
+    ?entityName: string,
+    ?handlers: A,
+    ?namespace: string,
+) => (
+    mapFn: (r: B) => {C with text: E, status: D, checkName: string},
+) => (<-tables: stream[B]) => stream[{B with _sent: string}] where D: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
+### url
 ({{< req >}})
 Base URL of [Sensu API](https://docs.sensu.io/sensu-go/latest/migrate/#architecture)
-**without a trailing slash**. Example: `http://localhost:8080`.
+*without a trailing slash*.
+Example: `http://localhost:8080`.
 
-### apiKey {data-type="string"}
+
+
+### apiKey
 ({{< req >}})
 Sensu [API Key](https://docs.sensu.io/sensu-go/latest/operations/control-access/).
 
-### handlers {data-type="array of strings"}
+
+
+### handlers
+
 [Sensu handlers](https://docs.sensu.io/sensu-go/latest/reference/handlers/) to execute.
 Default is `[]`.
 
-### namespace {data-type="string"}
+
+
+### namespace
+
 [Sensu namespace](https://docs.sensu.io/sensu-go/latest/reference/rbac/).
 Default is `default`.
 
-### entityName {data-type="string"}
+
+
+### entityName
+
 Event source.
-Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
-All other characters are replaced with an underscore.
 Default is `influxdb`.
 
-## Usage
-`sensu.endpoint` is a factory function that outputs another function.
-The output function requires a `mapFn` parameter.
+Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
+All other characters are replaced with an underscore.
 
-### mapFn {data-type="function"}
-A function that builds the object used to generate the POST request.
-Requires an `r` parameter.
-
-`mapFn` accepts a table row (`r`) and returns an object that must include the
-following properties:
-
-- `checkName`
-- `text`
-- `status`
-
-_For more information, see [`sensu.event()` parameters](/v2.0/reference/flux/stdlib/contrib/sensu/event/#parameters)._
-
-## Examples
-
-##### Send critical status events to Sensu
-```js
-import "influxdata/influxdb/secrets"
-import "contrib/sranka/sensu"
-
-token = secrets.get(key: "TELEGRAM_TOKEN")
-endpoint = sensu.endpoint(
-  url: "http://localhost:8080",
-  apiKey: apiKey
-)
-
-crit_statuses = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
-
-crit_statuses
-  |> endpoint(mapFn: (r) => ({
-      checkName: "critStatus",
-      text: "Status is critical",
-      status: 2
-    })
-  )()
-```

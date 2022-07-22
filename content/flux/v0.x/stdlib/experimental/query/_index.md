@@ -1,44 +1,45 @@
 ---
-title: Flux Query package
-list_title: query package
+title: query package
 description: >
-  The Flux Query package provides functions meant to simplify common InfluxDB queries.
-  Import the `experimental/query` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/query/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/query/
+  The `query` package provides functions meant to simplify common InfluxDB queries.
 menu:
   flux_0_x_ref:
-    name: query
+    name: query 
     parent: experimental
-weight: 301
-flux/v0.x/tags: [package]
-introduced: 0.60.0
+    identifier: experimental/query
+weight: 21
+cascade:
+
+  introduced: 0.60.0
 ---
 
-Flux Query functions provide functions meant to simplify common InfluxDB queries.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/query/query.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `query` package provides functions meant to simplify common InfluxDB queries.
 Import the `experimental/query` package:
 
 ```js
 import "experimental/query"
 ```
 
+The primary function in this package is `query.inBucket()`, which uses all
+other functions in this package.
+
+
 ## Functions
+
 {{< children type="functions" show="pages" >}}
-
-## inBucket()
-The primary function in this package is [`query.inBucket()`](/flux/v0.x/stdlib/experimental/query/inbucket/),
-which uses all other functions in this package.
-
-```js
-import "experimental/query"
-
-query.inBucket(
-  bucket: "example-bucket",
-  start: -1h,
-  stop: now(),
-  measurement: "example-measurement",
-  fields: ["exampleField1", "exampleField2"],
-  predicate: (r) => r.tagA == "foo" and r.tagB != "bar"
-)
-```

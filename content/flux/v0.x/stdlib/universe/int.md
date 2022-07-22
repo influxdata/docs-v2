@@ -1,34 +1,34 @@
 ---
 title: int() function
-description: The `int()` function converts a single value to an integer.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/int/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/int/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/int/
+description: >
+  `int()` converts a value to an integer type.
 menu:
   flux_0_x_ref:
     name: int
     parent: universe
-weight: 102
+    identifier: universe/int
+weight: 101
 flux/v0.x/tags: [type-conversions]
-related:
-  - /flux/v0.x/data-types/basic/int/
-  - /flux/v0.x/stdlib/universe/toint/
 introduced: 0.7.0
 ---
 
-The `int()` function converts a single value to an integer.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Integer_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-```js
-int(v: "4")
-```
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-## Parameters
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3220-L3220
 
-### v {data-type="string, bool, uint, float, time, duration"}
-Value to convert.
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`int()` converts a value to an integer type.
 
 `int()` behavior depends on the input data type:
 
@@ -41,111 +41,104 @@ Value to convert.
 | float      | Value truncated at the decimal                  |
 | uint       | Integer equivalent of the unsigned integer      |
 
+##### Function type signature
+
+```js
+(v: A) => int
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### v
+({{< req >}})
+Value to convert.
+
+
+
+
 ## Examples
 
-- [Convert a string to an integer value](#convert-a-string-to-an-integer-value)
-- [Convert a boolean to an integer value](#convert-a-boolean-to-an-integer-value)
-- [Convert a duration to an integer value](#convert-a-duration-to-an-integer-value)
-- [Convert a time to an integer value](#convert-a-time-to-an-integer-value)
-- [Convert a float to an integer value](#convert-a-float-to-an-integer-value)
-- [Convert all values in a column to integer values](#convert-all-values-in-a-column-to-integer-values)
+- [Convert basic types to integers](#convert-basic-types-to-integers)
+- [Convert all values in a column to integers](#convert-all-values-in-a-column-to-integers)
 
-#### Convert a string to an integer value
-```js
-int(v: "3")
+### Convert basic types to integers
 
-// Returns 3 (int)
-```
-
-#### Convert a boolean to an integer value
-```js
-int(v: true)
-
-// Returns 1
-```
-
-#### Convert a duration to an integer value
-```js
-int(v: 1m)
-
-// Returns 160000000000
-```
-
-#### Convert a time to an integer value
-```js
-int(v: 2021-01-01T00:00:00Z)
-
-// Returns 1609459200000000000
-```
-
-#### Convert a float to an integer value
 ```js
 int(v: 10.12)
 
 // Returns 10
+int(v: "3")
+
+// Returns 3
+int(v: true)
+
+// Returns 1
+int(v: 1m)
+
+// Returns 160000000000
+int(v: 2022-01-01T00:00:00Z)// Returns 1640995200000000000
+
+
 ```
 
-#### Convert all values in a column to integer values
-If updating values in the `_value` column, use [`toInt()`](/flux/v0.x/stdlib/universe/toint/).
-To update values in columns other than `_value`:
 
-1. Use [`map()`](/flux/v0.x/stdlib/universe/map/) to iterate over and update all input rows.
-2. Use `int()` to update the value of a column.
+### Convert all values in a column to integers
 
-_The following example uses data provided by the [`sampledata` package](/flux/v0.x/stdlib/sampledata/)._
+If converting the `_value` column to integer types, use `toInt()`.
+If converting columns other than `_value`, use `map()` to iterate over each
+row and `int()` to covert a column value to a integer type.
 
 ```js
-import "sampledata"
-
-data = sampledata.float()
-  |> rename(columns: {_value: "foo"})
-
 data
-  |> map(fn:(r) => ({ r with foo: int(v: r.foo) }))
+    |> map(fn: (r) => ({r with exampleCol: int(v: r.exampleCol)}))
+
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
-##### Input data
-| tag | _time                |   foo |
-| :-- | :------------------- | ----: |
-| t1  | 2021-01-01T00:00:00Z | -2.18 |
-| t1  | 2021-01-01T00:00:10Z | 10.92 |
-| t1  | 2021-01-01T00:00:20Z |  7.35 |
-| t1  | 2021-01-01T00:00:30Z | 17.53 |
-| t1  | 2021-01-01T00:00:40Z | 15.23 |
-| t1  | 2021-01-01T00:00:50Z |  4.43 |
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-| tag | _time                |   foo |
-| :-- | :------------------- | ----: |
-| t2  | 2021-01-01T00:00:00Z | 19.85 |
-| t2  | 2021-01-01T00:00:10Z |  4.97 |
-| t2  | 2021-01-01T00:00:20Z | -3.75 |
-| t2  | 2021-01-01T00:00:30Z | 19.77 |
-| t2  | 2021-01-01T00:00:40Z | 13.86 |
-| t2  | 2021-01-01T00:00:50Z |  1.86 |
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
-##### Output data
-| _time                | tag |  foo |
-| :------------------- | :-- | ---: |
-| 2021-01-01T00:00:00Z | t1  | -2 |
-| 2021-01-01T00:00:10Z | t1  | 10 |
-| 2021-01-01T00:00:20Z | t1  |  7 |
-| 2021-01-01T00:00:30Z | t1  | 17 |
-| 2021-01-01T00:00:40Z | t1  | 15 |
-| 2021-01-01T00:00:50Z | t1  |  4 |
+| _time                | *tag | exampleCol  |
+| -------------------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18       |
+| 2021-01-01T00:00:10Z | t1   | 10.92       |
+| 2021-01-01T00:00:20Z | t1   | 7.35        |
+| 2021-01-01T00:00:30Z | t1   | 17.53       |
+| 2021-01-01T00:00:40Z | t1   | 15.23       |
+| 2021-01-01T00:00:50Z | t1   | 4.43        |
 
-| _time                | tag |  foo |
-| :------------------- | :-- | ---: |
-| 2021-01-01T00:00:00Z | t2  | 19 |
-| 2021-01-01T00:00:10Z | t2  |  4 |
-| 2021-01-01T00:00:20Z | t2  | -3 |
-| 2021-01-01T00:00:30Z | t2  | 19 |
-| 2021-01-01T00:00:40Z | t2  | 13 |
-| 2021-01-01T00:00:50Z | t2  |  1 |
-{{% /flex-content %}}
-{{< /flex >}}
+| _time                | *tag | exampleCol  |
+| -------------------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85       |
+| 2021-01-01T00:00:10Z | t2   | 4.97        |
+| 2021-01-01T00:00:20Z | t2   | -3.75       |
+| 2021-01-01T00:00:30Z | t2   | 19.77       |
+| 2021-01-01T00:00:40Z | t2   | 13.86       |
+| 2021-01-01T00:00:50Z | t2   | 1.86        |
+
+
+#### Output data
+
+| _time                | exampleCol  | *tag |
+| -------------------- | ----------- | ---- |
+| 2021-01-01T00:00:00Z | -2          | t1   |
+| 2021-01-01T00:00:10Z | 10          | t1   |
+| 2021-01-01T00:00:20Z | 7           | t1   |
+| 2021-01-01T00:00:30Z | 17          | t1   |
+| 2021-01-01T00:00:40Z | 15          | t1   |
+| 2021-01-01T00:00:50Z | 4           | t1   |
+
+| _time                | exampleCol  | *tag |
+| -------------------- | ----------- | ---- |
+| 2021-01-01T00:00:00Z | 19          | t2   |
+| 2021-01-01T00:00:10Z | 4           | t2   |
+| 2021-01-01T00:00:20Z | -3          | t2   |
+| 2021-01-01T00:00:30Z | 19          | t2   |
+| 2021-01-01T00:00:40Z | 13          | t2   |
+| 2021-01-01T00:00:50Z | 1           | t2   |
+
 {{% /expand %}}
+{{< /expand-wrapper >}}

@@ -39,8 +39,8 @@ Query variable values are populated using the `_value` column of a Flux query.
 ```js
 // List all buckets
 buckets()
-  |> rename(columns: {"name": "_value"})
-  |> keep(columns: ["_value"])
+    |> rename(columns: {"name": "_value"})
+    |> keep(columns: ["_value"])
 ```
 
 _For examples of dashboard variable queries, see [Common variable queries](/influxdb/cloud/visualize-data/variables/common-variables)._

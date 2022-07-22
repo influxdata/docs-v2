@@ -1,56 +1,80 @@
 ---
 title: date.nanosecond() function
 description: >
-  The `date.nanosecond()` function returns the nanosecond of a specified time.
+  `date.nanosecond()` returns the nanoseconds for a specified time.
   Results range from `[0-999999999]`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/date/nanosecond/
-  - /influxdb/v2.0/reference/flux/stdlib/date/nanosecond/
-  - /influxdb/cloud/reference/flux/stdlib/date/nanosecond/
 menu:
   flux_0_x_ref:
     name: date.nanosecond
     parent: date
-weight: 301
-introduced: 0.37.0
+    identifier: date/nanosecond
+weight: 101
 ---
 
-The `date.nanosecond()` function returns the nanosecond of a specified time.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L540-L540
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`date.nanosecond()` returns the nanoseconds for a specified time.
 Results range from `[0-999999999]`.
 
+
+
+##### Function type signature
+
 ```js
-import "date"
-
-date.nanosecond(t: 2019-07-17T12:05:21.012934584Z)
-
-// Returns 12934584
+(t: A) => int where A: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### t {data-type="time, duration"}
-The time to operate on.
+### t
+({{< req >}})
+Time to operate on.
+
 Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
 
+
 ## Examples
 
-##### Return the nanosecond for a time value
+- [Return the nanosecond for a time value](#return-the-nanosecond-for-a-time-value)
+- [Return the nanosecond for a relative duration](#return-the-nanosecond-for-a-relative-duration)
+
+### Return the nanosecond for a time value
+
 ```js
 import "date"
 
-date.nanosecond(t: 2020-02-11T12:21:03.293534940Z)
+date.nanosecond(t: 2020-02-11T12:21:03.29353494Z)// Returns 293534940
 
-// Returns 293534940Z
+
 ```
 
-##### Return the nanosecond for a relative duration
+
+### Return the nanosecond for a relative duration
+
 ```js
 import "date"
 
-option now = () => 2020-02-11T12:21:03.293534940Z
+option now = () => 2020-02-11T12:21:03.29353494Z
 
-date.nanosecond(t: -2111984ns)
+date.nanosecond(t: -2111984ns)// Returns 128412016
 
-// Returns 291422956
+
 ```
+

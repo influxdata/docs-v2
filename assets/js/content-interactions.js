@@ -1,12 +1,25 @@
 ///////////////////////////// Make headers linkable /////////////////////////////
 
-$(".article--content h2, \
-   .article--content h3, \
-   .article--content h4, \
-   .article--content h5, \
-   .article--content h6" ).each(function() {
-  var link = "<a href=\"#" + $(this).attr("id") + "\"></a>"
-  $(this).wrapInner( link );
+var headingWhiteList = $("\
+  .article--content h2, \
+  .article--content h3, \
+  .article--content h4, \
+  .article--content h5, \
+  .article--content h6 \
+");
+
+var headingBlackList = ("\
+  .influxdbu-banner h4 \
+");
+
+headingElements = headingWhiteList.not(headingBlackList);
+
+headingElements.each(function() {
+    function getLink(element) {
+      return ((element.attr('href') === undefined ) ? $(element).attr("id") : element.attr('href'))
+    }
+    var link = "<a href=\"#" + getLink($(this)) + "\"></a>"
+    $(this).wrapInner( link );
   })
 
 ///////////////////////////////// Smooth Scroll /////////////////////////////////
@@ -17,7 +30,8 @@ var elementWhiteList = [
   ".truncate-toggle",
   ".children-links a",
   ".list-links a",
-  "a.url-trigger"
+  "a.url-trigger",
+  "a.fullscreen-close"
 ]
 
 function scrollToAnchor(target) {
@@ -28,6 +42,15 @@ function scrollToAnchor(target) {
     }, 400, 'swing', function () {
       window.location.hash = target;
     });
+
+    // Unique accordion functionality
+    // If the target is an accordion element, open the accordion after scrolling
+    if ($target.hasClass('expand')) {
+      if ($(target + ' .expand-label .expand-toggle').hasClass('open')) {}
+      else {
+        $(target + '> .expand-label').trigger('click');
+      };
+    };
   }
 }
 
@@ -85,7 +108,7 @@ tabbedContent('.tabs-wrapper', '.tabs p a', '.tab-content');
 
 // Retrieve the user's programming language (client library) preference.
 function getApiLibPreference() {
-  return Cookies.get('influx-docs-api-lib');
+  return Cookies.get('influx-docs-api-lib') || '';
 }
 
 function getTabQueryParam() {
@@ -139,12 +162,35 @@ $(".truncate-toggle").click(function(e) {
   $(this).closest('.truncate').toggleClass('closed');
 })
 
-////////////////////////////// Expand Accordians ///////////////////////////////
+////////////////////////////// Expand Accordions ///////////////////////////////
 
 $('.expand-label').click(function() {
   $(this).children('.expand-toggle').toggleClass('open')
   $(this).next('.expand-content').slideToggle(200)
 })
+
+// Expand accordions on load based on URL anchor
+function openAccordionByHash() {
+  var anchor = window.location.hash;
+
+  function expandElement() {
+    if ($(anchor).parents('.expand').length > 0) {
+      return $(anchor).closest('.expand').children('.expand-label');
+    } else if ($(anchor).hasClass('expand')){
+      return $(anchor).children('.expand-label');
+    }
+  };
+
+  if (expandElement() != null) {
+    if (expandElement().children('.expand-toggle').hasClass('open')) {}
+    else {
+      expandElement().children('.expand-toggle').trigger('click');
+    };
+  };
+};
+
+// Open accordions by hash on page load.
+openAccordionByHash()
 
 ////////////////////////// Inject tooltips on load //////////////////////////////
 
@@ -158,7 +204,7 @@ $('.tooltip').each( function(){
 
 $('.article--content table').each(function() {
   var table = $(this);
-  var timeColumns = ['_time', '_start', '_stop'];
+  var timeColumns = ['_time', '*_time', '_start', '*_start', '_stop', '*_stop'];
   let header = [];
   let timeColumnIndexes = [];
 

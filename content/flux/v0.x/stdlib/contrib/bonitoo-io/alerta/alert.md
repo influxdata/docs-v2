@@ -1,115 +1,157 @@
 ---
 title: alerta.alert() function
 description: >
-  The `alerta.alert()` function sends an alert to Alerta.
+  `alerta.alert()` sends an alert to [Alerta](https://alerta.io/).
 menu:
   flux_0_x_ref:
     name: alerta.alert
-    parent: alerta
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/alerta/alert/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/alerta/alert/
+    parent: contrib/bonitoo-io/alerta
+    identifier: contrib/bonitoo-io/alerta/alert
+weight: 301
 flux/v0.x/tags: [single notification]
-introduced: 0.115.0
 ---
 
-The `alerta.alert()` function sends an alert to [Alerta](https://www.alerta.io/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/alerta/alerta.flux#L76-L115
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`alerta.alert()` sends an alert to [Alerta](https://alerta.io/).
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/bonitoo-io/alerta"
-
-alerta.alert(
-  url: "https://alerta.io:8080/alert",
-  apiKey: "0Xx00xxXx00Xxx0x0X",
-  resource: "example-resource",
-  event: "Example event",
-  environment: "",
-  severity: "critical",
-  service: [],
-  group: "",
-  value: "",
-  text: "",
-  tags: [],
-  attributes: {},
-  origin: "InfluxDB",
-  type: "",
-  timestamp: now(),
-)
+(
+    apiKey: string,
+    attributes: A,
+    event: B,
+    resource: C,
+    severity: D,
+    url: string,
+    ?environment: E,
+    ?group: F,
+    ?origin: G,
+    ?service: H,
+    ?tags: I,
+    ?text: J,
+    ?timestamp: K,
+    ?type: L,
+    ?value: M,
+) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
+### url
 ({{< req >}})
-Alerta URL.
+(Required) Alerta URL.
 
-### apiKey {data-type="string"}
+
+
+### apiKey
 ({{< req >}})
-Alerta API key.
+(Required) Alerta API key.
 
-### resource {data-type="string"}
+
+
+### resource
 ({{< req >}})
-Resource associated with the alert.
+(Required) Resource associated with the alert.
 
-### event {data-type="string"}
+
+
+### event
 ({{< req >}})
-Event name.
+(Required) Event name.
 
-### environment {data-type="string"}
-Alert environment.
-Default is `""`.
 
-**Valid values:**
 
-- `""`
-- `"Production"`
-- `"Development"`
+### environment
 
-### severity {data-type="string"}
+Alerta environment. Valid values: "Production", "Development" or empty string (default).
+
+
+
+### severity
 ({{< req >}})
-Event severity.
-See [Alerta severities](https://docs.alerta.io/en/latest/api/alert.html#alert-severities).
+(Required) Event severity. See [Alerta severities](https://docs.alerta.io/en/latest/api/alert.html#alert-severities).
 
-### service {data-type="array of strings"}
-List of affected services.
-Default is `[]`.
 
-### group {data-type="string"}
-Alerta event group.
-Default is `""`.
 
-### value {data-type="string"}
-Event value.
-Default is `""`.
+### service
 
-### text {data-type="string"}
-Alert text description.
-Default is `""`.
+List of affected services. Default is `[]`.
 
-### tags {data-type="array of strings"}
-List of event tags.
-Default is `[]`.
 
-### attributes {data-type="record"}
+
+### group
+
+Alerta event group. Default is `""`.
+
+
+
+### value
+
+Event value.  Default is `""`.
+
+
+
+### text
+
+Alerta text description. Default is `""`.
+
+
+
+### tags
+
+List of event tags. Default is `[]`.
+
+
+
+### attributes
 ({{< req >}})
-Alert attributes.
+(Required) Alert attributes.
 
-### origin {data-type="string"}
-Alert origin.
-Default is `"InfluxDB"`.
 
-### type {data-type="string"}
-Event type.
-Default is `""`.
 
-### timestamp {data-type="time"}
-time alert was generated.
-Default is `now()`.
+### origin
+
+monitoring component.
+
+
+
+### type
+
+Event type. Default is `""`.
+
+
+
+### timestamp
+
+time alert was generated. Default is `now()`.
+
+
+
 
 ## Examples
 
-##### Send the last reported value and status to Alerta
+### Send the last reported value and status to Alerta
+
 ```js
 import "contrib/bonitoo-io/alerta"
 import "influxdata/influxdb/secrets"
@@ -117,32 +159,31 @@ import "influxdata/influxdb/secrets"
 apiKey = secrets.get(key: "ALERTA_API_KEY")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) =>
-      r._measurement == "example-measurement" and
-      r._field == "level"
-    )
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "level")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
 severity = if lastReported._value > 50 then "warning" else "ok"
 
 alerta.alert(
-  url: "https://alerta.io:8080/alert",
-  apiKey: apiKey,
-  resource: "example-resource",
-  event: "Example event",
-  environment: "Production",
-  severity: severity,
-  service: ["example-service"],
-  group: "example-group",
-  value: string(v: lastReported._value),
-  text: "Service is ${severity}. The last reported value was ${string(v: lastReported._value)}.",
-  tags: ["ex1", "ex2"],
-  attributes: {},
-  origin: "InfluxDB",
-  type: "exampleAlertType",
-  timestamp: now(),
+    url: "https://alerta.io:8080/alert",
+    apiKey: apiKey,
+    resource: "example-resource",
+    event: "Example event",
+    environment: "Production",
+    severity: severity,
+    service: ["example-service"],
+    group: "example-group",
+    value: string(v: lastReported._value),
+    text: "Service is ${severity}. The last reported value was ${string(v: lastReported._value)}.",
+    tags: ["ex1", "ex2"],
+    attributes: {},
+    origin: "InfluxDB",
+    type: "exampleAlertType",
+    timestamp: now(),
 )
+
 ```
+

@@ -8,6 +8,7 @@ menu:
   influxdb_2_0:
     name: Swift
     parent: Client libraries
-    url: https://github.com/influxdata/influxdb-client-swift
+    params:
+      url: https://github.com/influxdata/influxdb-client-swift
 weight: 201
 ---

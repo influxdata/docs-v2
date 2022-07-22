@@ -1,66 +1,92 @@
 ---
 title: bigpanda.sendAlert() function
 description: >
-  The `bigpanda.sendAlert()` function sends an alert to BigPanda.
+  `bigpanda.sendAlert()` sends an alert to [BigPanda](https://www.bigpanda.io/).
 menu:
   flux_0_x_ref:
     name: bigpanda.sendAlert
-    parent: bigpanda
-weight: 202
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/sendAlert/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/bigpanda/sendAlert/
+    parent: contrib/rhajek/bigpanda
+    identifier: contrib/rhajek/bigpanda/sendAlert
+weight: 301
 flux/v0.x/tags: [single notification]
-introduced: 0.108.0
 ---
 
-The `bigpanda.sendAlert()` function sends an alert to [BigPanda](https://www.bigpanda.io/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/rhajek/bigpanda/bigpanda.flux#L142-L154
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`bigpanda.sendAlert()` sends an alert to [BigPanda](https://www.bigpanda.io/).
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/rhajek/bigpanda"
-
-bigpanda.sendAlert(
-  url: "https://api.bigpanda.io/data/v2/alerts",
-  token: "my5uP3rS3cRe7t0k3n",
-  appKey: "example-app-key",
-  status: "critical",
-  rec: {},
-)
+(
+    appKey: A,
+    rec: B,
+    status: C,
+    token: string,
+    url: string,
+) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
+### url
+({{< req >}})
 BigPanda [alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works).
-Default is the value of the [`bigpanda.defaultURL` option](/flux/v0.x/stdlib/contrib/rhajek/bigpanda/#defaulturl).
+Default is the value of the `bigpanda.defaultURL` option.
 
-### token {data-type="string"}
+
+
+### token
 ({{< req >}})
 BigPanda [API Authorization token (API key)](https://docs.bigpanda.io/docs/api-key-management).
 
-### appKey {data-type="string"}
+
+
+### appKey
 ({{< req >}})
 BigPanda [App Key](https://docs.bigpanda.io/reference#integrating-monitoring-systems).
 
-### status {data-type="string"}
+
+
+### status
 ({{< req >}})
 BigPanda [alert status](https://docs.bigpanda.io/reference#alerts).
 
-**Supported statuses:**
-
+Supported statuses:
 - `ok`
 - `critical`
 - `warning`
 - `acknowledged`
 
-### rec {data-type="record"}
+### rec
 ({{< req >}})
-Additional [alert parameters](https://docs.bigpanda.io/reference#alert-object)
-to send to the BigPanda alert API.
+Additional [alert parameters](https://docs.bigpanda.io/reference#alert-object) to send to the BigPanda alert API.
+
+
+
 
 ## Examples
 
-##### Send the last reported value and status to BigPanda
+### Send the last reported value and status to BigPanda
+
 ```js
 import "contrib/rhajek/bigpanda"
 import "influxdata/influxdb/secrets"
@@ -69,23 +95,22 @@ import "json"
 token = secrets.get(key: "BIGPANDA_API_KEY")
 
 lastReported =
-  from(bucket: "example-bucket")
-    |> range(start: -1m)
-    |> filter(fn: (r) =>
-      r._measurement == "example-measurement" and
-      r._field == "level"
-    )
-    |> last()
-    |> findRecord(fn: (key) => true, idx: 0)
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "level")
+        |> last()
+        |> findRecord(fn: (key) => true, idx: 0)
 
 bigpanda.sendAlert(
-  token: token,
-  appKey: "example-app-key",
-  status: bigpanda.statusFromLevel(level: "${lastReported.status}"),
-  rec: {
-    tags: json.encode(v: [{"name": "host", "value": "my-host"}]),
-    check: "my-check",
-    description: "${lastReported._field} is ${lastReported.status}: ${string(v: lastReported._value)}"
-  }
+    token: token,
+    appKey: "example-app-key",
+    status: bigpanda.statusFromLevel(level: "${lastReported.status}"),
+    rec: {
+        tags: json.encode(v: [{"name": "host", "value": "my-host"}]),
+        check: "my-check",
+        description: "${lastReported._field} is ${lastReported.status}: ${string(v: lastReported._value)}",
+    },
 )
+
 ```
+

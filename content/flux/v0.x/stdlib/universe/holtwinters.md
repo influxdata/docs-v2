@@ -1,252 +1,320 @@
 ---
 title: holtWinters() function
 description: >
-  The `holtWinters()` function applies the Holt-Winters forecasting method to input tables.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/holtwinters
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/holtwinters/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/holtwinters/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/holtwinters/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/holtwinters/
+  `holtWinters()` applies the Holt-Winters forecasting method to input tables.
 menu:
   flux_0_x_ref:
     name: holtWinters
     parent: universe
-weight: 102
+    identifier: universe/holtWinters
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters, InfluxQL HOLT_WINTERS()
 introduced: 0.38.0
 ---
 
-The `holtWinters()` function applies the Holt-Winters forecasting method to input tables.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-```js
-holtWinters(
-  n: 10,
-  seasonality: 4,
-  interval: 30d,
-  withFit: false,
-  timeColumn: "_time",
-  column: "_value",
-)
-```
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-The Holt-Winters method predicts [`n`](#n) seasonally-adjusted values for the
-specified [`column`](#column) at the specified [`interval`](#interval).
-For example, if `interval` is six minutes (`6m`) and `n` is `3`, results include three predicted
-values six minutes apart.
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L952-L964
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`holtWinters()` applies the Holt-Winters forecasting method to input tables.
+
+The Holt-Winters method predicts `n` seasonally-adjusted values for the
+specified column at the specified interval. For example, if interval is six
+minutes (`6m`) and `n` is `3`, results include three predicted values six
+minutes apart.
 
 #### Seasonality
-[`seasonality`](#seasonality) delimits the length of a seasonal pattern according to `interval`.
-If your `interval` is two minutes (`2m`) and `seasonality` is `4`, then the seasonal pattern occurs every eight minutes or every four data points. Likewise, if your `interval` is two months (`2mo`) and `seasonality` is `4`, then the seasonal pattern occurs every eight months or every four data points.
-If data doesn't have a seasonal pattern, set `seasonality` to `0`.
+`seasonality` delimits the length of a seasonal pattern according to interval.
+If the interval is two minutes (`2m`) and `seasonality` is `4`, then the
+seasonal pattern occurs every eight minutes or every four data points.
+If your interval is two months (`2mo`) and `seasonality` is `4`, then the
+seasonal pattern occurs every eight months or every four data points.
+If data doesn’t have a seasonal pattern, set `seasonality` to `0`.
 
-#### Space values evenly in time
-`holtWinters()` expects values evenly spaced in time.
-To ensure `holtWinters()` values are spaced evenly in time, the following rules apply:
+#### Space values at even time intervals
+`holtWinters()` expects values to be spaced at even time intervales.
+To ensure values are spaced evenly in time, `holtWinters()` applies the
+following rules:
 
-- Data is grouped into time-based "buckets" determined by the `interval`.
+- Data is grouped into time-based "buckets" determined by the interval.
 - If a bucket includes many values, the first value is used.
 - If a bucket includes no values, a missing value (`null`) is added for that bucket.
 
-By default, `holtWinters()` uses the first value in each time bucket to run the Holt-Winters calculation.
-To specify other values to use in the calculation, use:
-
-- [`window()`](/flux/v0.x/stdlib/universe/window/)
-  with [selectors](/flux/v0.x/function-types/#selectors)
-  or [aggregates](/flux/v0.x/function-types/#aggregates)
-- [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow)
-
-###### Use aggregateWindow to normalize irregular times
-```js
-data
-  |> aggregateWindow(every: 1d, fn: first)
-  |> holtWinters(n: 10, seasonality: 4, interval: 1d)
-```
+By default, `holtWinters()` uses the first value in each time bucket to run
+the Holt-Winters calculation. To specify other values to use in the
+calculation, use `aggregateWindow` to normalize irregular times and apply
+an aggregate or selector transformation.
 
 #### Fitted model
-The `holtWinters()` function applies the [Nelder-Mead optimization](https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method)
-to include "fitted" data points in results when [`withFit`](#withfit) is set to `true`.
+`holtWinters()` applies the [Nelder-Mead optimization](https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method)
+to include "fitted" data points in results when `withFit` is set to `true`.
 
 #### Null timestamps
-`holtWinters()` discards rows with `null` timestamps before running the Holt-Winters calculation.
+`holtWinters()` discards rows with null timestamps before running the
+Holt-Winters calculation.
 
 #### Null values
-`holtWinters()` treats `null` values as missing data points and includes them in the Holt-Winters calculation.
+`holtWinters()` treats `null` values as missing data points and includes them
+in the Holt-Winters calculation.
+
+##### Function type signature
+
+```js
+(
+    <-tables: stream[A],
+    interval: duration,
+    n: int,
+    ?column: string,
+    ?seasonality: int,
+    ?timeColumn: string,
+    ?withFit: bool,
+    ?withMinSSE: bool,
+) => stream[B] where A: Record, B: Record
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### n {data-type="int"}
+### n
 ({{< req >}})
-The number of values to predict.
+Number of values to predict.
 
-### seasonality {data-type="int"}
-The number of points in a season.
-Default is `0`.
 
-### interval {data-type="duration"}
+
+### interval
 ({{< req >}})
-The interval between two data points.
+Interval between two data points.
 
-### withFit {data-type="bool"}
-Return [fitted data](#fitted-model) in results.
-Default is `false`.
 
-### timeColumn {data-type="string"}
-The time column to use.
-Default is `"_time"`.
 
-### column {data-type="string"}
-The column to operate on.
-Default is `"_value"`.
+### withFit
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+Return fitted data in results. Default is `false`.
+
+
+
+### column
+
+Column to operate on. Default is `_value`.
+
+
+
+### timeColumn
+
+Column containing time values to use in the calculating.
+Default is `_time`.
+
+
+
+### seasonality
+
+Number of points in a season. Default is `0`.
+
+
+
+### withMinSSE
+
+Return minSSE data in results. Default is `false`.
+
+minSSE is the minimum sum squared error found when optimizing the holt winters fit to the data.
+A smaller minSSE means a better fit.
+Examining the minSSE value can help understand when the algorithm is getting a good fit versus not.
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro plural=true %}}
 
 - [Use holtWinters to predict future values](#use-holtwinters-to-predict-future-values)
 - [Use holtWinters with seasonality to predict future values](#use-holtwinters-with-seasonality-to-predict-future-values)
 - [Use the holtWinters fitted model to predict future values](#use-the-holtwinters-fitted-model-to-predict-future-values)
 
-#### Use holtWinters to predict future values
+### Use holtWinters to predict future values
+
 ```js
 import "sampledata"
 
 sampledata.int()
-  |> holtWinters(n: 6, interval: 10s)
+    |> holtWinters(n: 6, interval: 10s)
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag |             _value |
-| :------------------- | :-- | -----------------: |
-| 2021-01-01T00:01:00Z | t1  | 10.955834804389518 |
-| 2021-01-01T00:01:10Z | t1  | 10.930165921204969 |
-| 2021-01-01T00:01:20Z | t1  | 10.914688653595203 |
-| 2021-01-01T00:01:30Z | t1  | 10.905759343909201 |
-| 2021-01-01T00:01:40Z | t1  | 10.900719277060372 |
-| 2021-01-01T00:01:50Z | t1  | 10.897906726242955 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag |             _value |
-| :------------------- | :-- | -----------------: |
-| 2021-01-01T00:01:00Z | t2  |  6.781008791726221 |
-| 2021-01-01T00:01:10Z | t2  |  6.781069271640753 |
-| 2021-01-01T00:01:20Z | t2  |  6.781073869897851 |
-| 2021-01-01T00:01:30Z | t2  | 6.7810742195001135 |
-| 2021-01-01T00:01:40Z | t2  |  6.781074246080124 |
-| 2021-01-01T00:01:50Z | t2  |  6.781074248100982 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| *tag | _time                | _value             |
+| ---- | -------------------- | ------------------ |
+| t1   | 2021-01-01T00:01:00Z | 10.955057903416249 |
+| t1   | 2021-01-01T00:01:10Z | 10.929417869181442 |
+| t1   | 2021-01-01T00:01:20Z | 10.913931836435774 |
+| t1   | 2021-01-01T00:01:30Z | 10.9049848302089   |
+| t1   | 2021-01-01T00:01:40Z | 10.899928358379444 |
+| t1   | 2021-01-01T00:01:50Z | 10.89710330009353  |
+
+| *tag | _time                | _value            |
+| ---- | -------------------- | ----------------- |
+| t2   | 2021-01-01T00:01:00Z | 6.798303631428536 |
+| t2   | 2021-01-01T00:01:10Z | 6.798303631555017 |
+| t2   | 2021-01-01T00:01:20Z | 6.798303631555328 |
+| t2   | 2021-01-01T00:01:30Z | 6.798303631555329 |
+| t2   | 2021-01-01T00:01:40Z | 6.798303631555329 |
+| t2   | 2021-01-01T00:01:50Z | 6.798303631555329 |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Use holtWinters with seasonality to predict future values
+### Use holtWinters with seasonality to predict future values
+
 ```js
 import "sampledata"
 
 sampledata.int()
-  |> holtWinters(
-    n: 4,
-    interval: 10s,
-    seasonality: 4
-  )
+    |> holtWinters(n: 4, interval: 10s, seasonality: 4)
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag |             _value |
-| :------------------- | :-- | -----------------: |
-| 2021-01-01T00:01:00Z | t1  |  7.179098046049717 |
-| 2021-01-01T00:01:10Z | t1  |  17.01106624302682 |
-| 2021-01-01T00:01:20Z | t1  | 14.576432091790977 |
-| 2021-01-01T00:01:30Z | t1  |  6.968535480723005 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag |               _value |
-| :------------------- | :-- | -------------------: |
-| 2021-01-01T00:01:00Z | t2  | 0.008498516062705495 |
-| 2021-01-01T00:01:10Z | t2  |    4.311588701815885 |
-| 2021-01-01T00:01:20Z | t2  |    4.306517319025279 |
-| 2021-01-01T00:01:30Z | t2  |    2.473640466434541 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| *tag | _time                | _value            |
+| ---- | -------------------- | ----------------- |
+| t1   | 2021-01-01T00:01:00Z | 4.6673129595221   |
+| t1   | 2021-01-01T00:01:10Z | 9.937498954744212 |
+| t1   | 2021-01-01T00:01:20Z | 3.59073602964091  |
+| t1   | 2021-01-01T00:01:30Z | 6.523905777397829 |
+
+| *tag | _time                | _value                |
+| ---- | -------------------- | --------------------- |
+| t2   | 2021-01-01T00:01:00Z | -0.000320397929233291 |
+| t2   | 2021-01-01T00:01:10Z | 4.986867840774593     |
+| t2   | 2021-01-01T00:01:20Z | 3.4989671640270354    |
+| t2   | 2021-01-01T00:01:30Z | -0.05530077960375555  |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Use the holtWinters fitted model to predict future values
+### Use the holtWinters fitted model to predict future values
+
 ```js
 import "sampledata"
 
 sampledata.int()
-  |> holtWinters(
-    n: 3,
-    interval: 10s,
-    withFit: true
-  )
+    |> holtWinters(n: 3, interval: 10s, withFit: true)
+
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag |             _value |
-| :------------------- | :-- | -----------------: |
-| 2021-01-01T00:00:00Z | t1  |               -2.0 |
-| 2021-01-01T00:00:10Z | t1  |  9.218975712746163 |
-| 2021-01-01T00:00:20Z | t1  | 10.724838162080957 |
-| 2021-01-01T00:00:30Z | t1  |  11.02931521239947 |
-| 2021-01-01T00:00:40Z | t1  |   11.0379002238265 |
-| 2021-01-01T00:00:50Z | t1  | 10.994404043609528 |
-| 2021-01-01T00:01:00Z | t1  | 10.955834804389518 |
-| 2021-01-01T00:01:10Z | t1  | 10.930165921204969 |
-| 2021-01-01T00:01:20Z | t1  | 10.914688653595203 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag |            _value |
-| :------------------- | :-- | ----------------: |
-| 2021-01-01T00:00:00Z | t2  |              19.0 |
-| 2021-01-01T00:00:10Z | t2  | 8.907308429189435 |
-| 2021-01-01T00:00:20Z | t2  | 4.983321898435179 |
-| 2021-01-01T00:00:30Z | t2  | 6.633066160485693 |
-| 2021-01-01T00:00:40Z | t2  | 6.769755828568384 |
-| 2021-01-01T00:00:50Z | t2  | 6.780213338483446 |
-| 2021-01-01T00:01:00Z | t2  | 6.781008791726221 |
-| 2021-01-01T00:01:10Z | t2  | 6.781069271640753 |
-| 2021-01-01T00:01:20Z | t2  | 6.781073869897851 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| *tag | _time                | _value             |
+| ---- | -------------------- | ------------------ |
+| t1   | 2021-01-01T00:00:00Z | -2                 |
+| t1   | 2021-01-01T00:00:10Z | 9.22029510454727   |
+| t1   | 2021-01-01T00:00:20Z | 10.72226534418895  |
+| t1   | 2021-01-01T00:00:30Z | 11.027321424181121 |
+| t1   | 2021-01-01T00:00:40Z | 11.036624575789808 |
+| t1   | 2021-01-01T00:00:50Z | 10.993493462224441 |
+| t1   | 2021-01-01T00:01:00Z | 10.955057903416249 |
+| t1   | 2021-01-01T00:01:10Z | 10.929417869181442 |
+| t1   | 2021-01-01T00:01:20Z | 10.913931836435774 |
+
+| *tag | _time                | _value             |
+| ---- | -------------------- | ------------------ |
+| t2   | 2021-01-01T00:00:00Z | 19                 |
+| t2   | 2021-01-01T00:00:10Z | 10.269974995821258 |
+| t2   | 2021-01-01T00:00:20Z | 3.343711756293869  |
+| t2   | 2021-01-01T00:00:30Z | 6.789784945101966  |
+| t2   | 2021-01-01T00:00:40Z | 6.798282676851281  |
+| t2   | 2021-01-01T00:00:50Z | 6.798303580010179  |
+| t2   | 2021-01-01T00:01:00Z | 6.798303631428536  |
+| t2   | 2021-01-01T00:01:10Z | 6.798303631555017  |
+| t2   | 2021-01-01T00:01:20Z | 6.798303631555328  |
+
 {{% /expand %}}
+{{< /expand-wrapper >}}

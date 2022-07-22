@@ -1,235 +1,148 @@
 ---
 title: join() function
 description: >
-  The `join()` function merges two input streams into a single output stream
-  based on columns with equal values.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/join
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/join/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/join/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/join/
+  `join()` merges two streams of tables into a single output stream based on columns with equal values.
+  Null values are not considered equal when comparing column values.
+  The resulting schema is the union of the input schemas.
+  The resulting group key is the union of the input group keys.
 menu:
   flux_0_x_ref:
     name: join
     parent: universe
-weight: 102
+    identifier: universe/join
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/join/
-  - /flux/v0.x/stdlib/universe/union/
 introduced: 0.7.0
+deprecated: 0.172.0
 ---
 
-The `join()` function merges two input streams into a single output stream
-based on columns with equal values.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1152-L1152
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`join()` merges two streams of tables into a single output stream based on columns with equal values.
 Null values are not considered equal when comparing column values.
 The resulting schema is the union of the input schemas.
 The resulting group key is the union of the input group keys.
 
+{{% warn %}}
+#### Deprecated
+`join()` is deprecated in favor of [`join.inner()`](/flux/v0.x/stdlib/join/inner/).
+The [`join` package](/flux/v0.x/stdlib/join/) provides support
+for multiple join methods.
+{{% /warn %}}
+
+#### Output data
+The schema and group keys of the joined output output data is the union of
+the input schemas and group keys.
+Columns that exist in both input streams that are not part specified as
+columns to join on are renamed using the pattern `<column>_<table>` to
+prevent ambiguity in joined tables.
+
+### Join vs union
+`join()` creates new rows based on common values in one or more specified columns.
+Output rows also contain the differing values from each of the joined streams.
+`union()` does not modify data in rows, but unions separate streams of tables
+into a single stream of tables and groups rows of data based on existing group keys.
+
+##### Function type signature
+
 ```js
-join(
-  tables: {key1: table1, key2: table2},
-  on: ["_time", "_field"],
-  method: "inner"
-)
+(<-tables: A, ?method: string, ?on: [string]) => stream[B] where A: Record, B: Record
 ```
 
-#### Output schema
-The column schema of the output stream is the union of the input schemas.
-It is also the same for the output group key.
-Columns are renamed using the pattern `<column>_<table>` to prevent ambiguity in joined tables.
-
-##### Example:
-If you have two streams of data, **data_1** and **data_2**, with the following group keys:
-
-**data_1**: `[_time, _field]`  
-**data_2**: `[_time, _field]`
-
-And join them with:
-
-```js
-join(tables: {d1: data_1, d2: data_2}, on: ["_time"])
-```
-
-The resulting group keys for all tables will be: `[_time, _field_d1, _field_d2]`
-
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### tables {data-type="record"}
-({{< req >}})
-Map of two streams to join.
+### tables
 
-{{% note %}}
-`join()` currently only supports two input streams.
-{{% /note %}}
+Record containing two input streams to join.
 
-### on {data-type="array of strings"}
-({{< req >}})
+
+
+### on
+
 List of columns to join on.
 
-### method {data-type="string"}
-Join method to use to join. Default is `"inner"`.
 
-###### Possible Values:
-- `inner`
 
-<!--
-- `cross`
-- `left`
-- `right`
-- `full`
+### method
 
-{{% note %}}
-The `on` parameter and the `cross` method are mutually exclusive.
-{{% /note %}}
--->
+Join method. Default is `inner`.
+
+**Supported methods**:
+- inner
+
 
 ## Examples
-The following example uses [`generate.from()`](/flux/v0.x/stdlib/generate/from/)
-to illustrate how `join()` transforms data.
+
+- [Join two streams of tables](#join-two-streams-of-tables)
+- [Join data from separate data sources](#join-data-from-separate-data-sources)
+
+### Join two streams of tables
 
 ```js
 import "generate"
 
-t1 = generate.from(count: 4, fn: (n) => n + 1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
-    |> set(key: "tag", value: "foo")
+t1 =
+    generate.from(count: 4, fn: (n) => n + 1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
+        |> set(key: "tag", value: "foo")
 
-t2 = generate.from(count: 4, fn: (n) => n * -1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
-    |> set(key: "tag", value: "foo")
+t2 =
+    generate.from(count: 4, fn: (n) => n * (-1), start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
+        |> set(key: "tag", value: "foo")
 
-join(
-    tables: {t1: t1, t2: t2},
-    on: ["_time", "tag"],
-)
+join(tables: {t1: t1, t2: t2}, on: ["_time", "tag"])
+
 ```
 
-#### Input data streams
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
-{{< flex >}}
-{{% flex-content %}}
+#### Output data
 
-##### t1 
+| _time                | _value_t1  | _value_t2  | tag  |
+| -------------------- | ---------- | ---------- | ---- |
+| 2021-01-01T00:00:00Z | 1          | 0          | foo  |
+| 2021-01-02T00:00:00Z | 2          | -1         | foo  |
+| 2021-01-03T00:00:00Z | 3          | -2         | foo  |
+| 2021-01-04T00:00:00Z | 4          | -3         | foo  |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | foo |      1 |
-| 2021-01-02T00:00:00Z | foo |      2 |
-| 2021-01-03T00:00:00Z | foo |      3 |
-| 2021-01-04T00:00:00Z | foo |      4 |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### t2
-
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | foo |      0 |
-| 2021-01-02T00:00:00Z | foo |     -1 |
-| 2021-01-03T00:00:00Z | foo |     -2 |
-| 2021-01-04T00:00:00Z | foo |     -3 |
-{{% /flex-content %}}
-{{< /flex >}}
-
-#### Output data stream
-
-| _time                | tag | _value_t1 | _value_t2 |
-| :------------------- | :-- | --------: | --------: |
-| 2021-01-01T00:00:00Z | foo |         1 |         0 |
-| 2021-01-02T00:00:00Z | foo |         2 |        -1 |
-| 2021-01-03T00:00:00Z | foo |         3 |        -2 |
-| 2021-01-04T00:00:00Z | foo |         4 |        -3 |
-
-
-### InfluxDB cross-measurement join
-The following example shows how data in different InfluxDB measurements can be
-joined with Flux.
-
-```js
-data_1 = from(bucket:"example-bucket")
-    |> range(start:-15m)
-    |> filter(fn: (r) =>
-        r._measurement == "cpu" and
-        r._field == "usage_system"
-    )
-
-data_2 = from(bucket:"example-bucket")
-    |> range(start:-15m)
-    |> filter(fn: (r) =>
-        r._measurement == "mem" and
-        r._field == "used_percent"
-    )
-
-join(
-    tables: {d1: data_1, d2: data_2},
-    on: ["_time", "host"],
-)
-```
-
-## join() versus union()
-`join()` creates new rows based on common values in one or more specified columns.
-Output rows also contain the differing values from each of the joined streams.
-`union()` does not modify data in rows, but unifies separate streams of tables
-into a single stream of tables and groups rows of data based on existing
-[group keys](/flux/v0.x/get-started/data-model/#group-key).
-
-{{% expand "View join() vs union() example" %}}
-Given two streams of tables, `t1` and `t2`, the results of `join()` and `union()`
-are illustrated below:
-
-#### Input streams
-
-{{< flex >}}
-{{% flex-content %}}
-
-##### t1 
-
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | foo |      1 |
-| 2021-01-02T00:00:00Z | foo |      2 |
-| 2021-01-03T00:00:00Z | foo |      3 |
-| 2021-01-04T00:00:00Z | foo |      4 |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### t2
-
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | foo |      0 |
-| 2021-01-02T00:00:00Z | foo |     -1 |
-| 2021-01-03T00:00:00Z | foo |     -2 |
-| 2021-01-04T00:00:00Z | foo |     -3 |
-{{% /flex-content %}}
-{{< /flex >}}
-
-#### join() output
-```js
-join(
-    tables: {t1: t1, t2: t2},
-    on: ["_time", "tag"],
-)
-```
-
-| _time                | tag | _value_t1 | _value_t2 |
-| :------------------- | :-- | --------: | --------: |
-| 2021-01-01T00:00:00Z | foo |         1 |         0 |
-| 2021-01-02T00:00:00Z | foo |         2 |        -1 |
-| 2021-01-03T00:00:00Z | foo |         3 |        -2 |
-| 2021-01-04T00:00:00Z | foo |         4 |        -3 |
-
-#### union() output
-```js
-union(tables: [t1, t2])
-```
-
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | foo |      0 |
-| 2021-01-02T00:00:00Z | foo |     -1 |
-| 2021-01-03T00:00:00Z | foo |     -2 |
-| 2021-01-04T00:00:00Z | foo |     -3 |
-| 2021-01-01T00:00:00Z | foo |      1 |
-| 2021-01-02T00:00:00Z | foo |      2 |
-| 2021-01-03T00:00:00Z | foo |      3 |
-| 2021-01-04T00:00:00Z | foo |      4 |
 {{% /expand %}}
+{{< /expand-wrapper >}}
+
+### Join data from separate data sources
+
+```js
+import "sql"
+
+sqlData =
+    sql.from(
+        driverName: "postgres",
+        dataSourceName: "postgresql://username:password@localhost:5432",
+        query: "SELECT * FROM example_table",
+    )
+
+tsData =
+    from(bucket: "example-bucket")
+        |> range(start: -1h)
+        |> filter(fn: (r) => r._measurement == "example-measurement")
+        |> filter(fn: (r) => exists r.sensorID)
+
+join(tables: {sql: sqlData, ts: tsData}, on: ["_time", "sensorID"])
+
+```
+
