@@ -1,6 +1,6 @@
 ---
 title: influx scripts retrieve
-description: The `influx scripts retrieve` command retrieves a script in InfluxDB.
+description: The `influx scripts retrieve` command retrieves invokable script information from InfluxDB.
 menu:
   influxdb_2_3_ref:
     name: influx scripts retrieve
@@ -8,7 +8,7 @@ menu:
 weight: 201
 ---
 
-The `influx scripts retrieve` command retrieve a script in InfluxDB.
+The `influx scripts retrieve` command retrieves invokable script information from InfluxDB.
 
 ## Usage
 ```
