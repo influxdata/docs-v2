@@ -28,7 +28,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.sor()` performs the bitwise operation, `a OR b`, with integers.
 
-**Deprecated**: `sor` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/sor/).
+{{% warn %}}
+#### Deprecated
+`sor` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/sor/).
+{{% /warn %}}
 
 ##### Function type signature
 

@@ -12,6 +12,12 @@ weight: 101
 
 This release includes the following [maintenance](#maintenance), [features](#features), [security updates](#security-updates) and [bug fixes](#bug-fixes).
 
+{{% note %}}
+#### Production ready: replicate data remotely
+
+InfluxDB 2.2 introduced a technical preview of how to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.3/write-data/replication). This feature is now production ready.
+{{% /note %}}
+
 ### Maintenance
 
 - Upgrade from Flux 0.161.0 to [Flux 0.171.0](/flux/v0.x/release-notes/#v01710-2022-06-14).
@@ -81,7 +87,7 @@ This release includes the following new [features](#features) and several [bug f
 Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.3/write-data/replication).
 
 {{% warn %}}
-On rare occasions, remote write failures may cause data in the replication queue to get stuck. To ensure data is not dropped, restart the InfluxDB instance you're replicating data to as soon as possible.
+On rare occasions, remote write failures may cause data in the replication queue to get stuck. To ensure data is not dropped, restart the InfluxDB instance replicating data.
 
 To assess whether this issue is occurring, we recommend periodically doing one of the following:
 - Verify your data is successfully replicated to your target bucket. 
