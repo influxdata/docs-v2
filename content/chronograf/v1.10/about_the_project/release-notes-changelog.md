@@ -17,8 +17,10 @@ menu:
  - improved role creation
  - improved visualization of effective permissions on Users and Roles pages
 - Add `reader` role for users that should only have read access to the UI.
+- Add convenient redirection back to an original URL after OAuth authentication.
+- Allow InfluxDB connection with context path.
 - Ability to customize annotation color.
-- Improve communication with InfluxDB so that a configured InfluxDB connection URL path is preserved as a context path when calling InfluxDB APIs. Previously, the InfluxDB connection URL context path was ignored.
+
 
 ### Bug fixes
 
