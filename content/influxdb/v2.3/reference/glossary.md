@@ -13,6 +13,14 @@ influxdb/v2.3/tags: [glossary]
 
 ## A
 
+### abstract syntax tree (AST)
+
+A tree representation of the abstract syntactic structure of source code.
+
+Each node of the tree denotes a construct occurring in the code. The syntax is
+abstracted away and does not represent every detail appearing in the syntax, but
+rather just the structural details. 
+
 ### agent
 
 A background process started by (or on behalf of) a user and typically requires user input.
