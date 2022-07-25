@@ -11,6 +11,19 @@ menu:
     weight: 60
 ---
 
+## v1.23.3 [2022-07-25]
+
+## Bug fixes
+- Openstack input plugin (`inputs.openstack`): Use v3 volume library.
+- MQTT Consumer input plugin (`inputs.mqtt_consumer`): Topic parsing error when topic having prefix '/'.
+- SNMP Trap input plugin (`inputs.snmp_trap`): Prevent map panic when using with `netsnmp` translator.
+- SQL Server input plugin (`inputs.sqlserver`): Set lower deadlock priority on queries.
+- `common.cookie`: Use reader over readcloser, regenerate `cookie-jar` at reauthorization.
+- Prometheus parser (`parsers.prometheus`): Histogram infinity bucket is now always present.
+
+## Dependency updates
+- Bump `github.com/antchfx/jsonquery` from 1.1.5 to 1.2.0.
+
 ## v1.23.2 [2022-7-11]
 
 ## Bug fixes
