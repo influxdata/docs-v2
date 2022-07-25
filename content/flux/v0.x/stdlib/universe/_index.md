@@ -58,6 +58,7 @@ option now = system.time
 so all executions of `now()` in a Flux script return the same time value.
 `system.time()` returns the system time (UTC) at which `system.time()` is executed.
 Each instance of `system.time()` in a Flux script returns a unique value.
+
 ## Functions
 
 {{< children type="functions" show="pages" >}}

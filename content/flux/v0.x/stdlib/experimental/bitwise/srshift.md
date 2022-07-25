@@ -30,7 +30,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `bitwise.srshift()` shifts the bits in `a` right by `b` bits.
 Both `a` and `b` are integers.
 
-**Deprecated**: `srshift` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/srshift/).
+{{% warn %}}
+#### Deprecated
+`srshift` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/srshift/).
+{{% /warn %}}
 
 ##### Function type signature
 

@@ -79,7 +79,7 @@ default record. Because `l` is more likely to contain null values, the output re
 is built almost entirely from proprties of `r`, with the exception of `v_left`, which
 we expect to sometimes be null.
 
-For more information about the behavior of outer joins, see the [Outer joins](https://docs.influxdata.com/flux/v0.x/stdlib/join/#outer-joins)
+For more information about the behavior of outer joins, see the [Outer joins](/flux/v0.x/stdlib/join/#outer-joins)
 section in the `join` package documentation.
 
 ```js

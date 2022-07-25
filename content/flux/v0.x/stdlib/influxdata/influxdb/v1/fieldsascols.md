@@ -34,7 +34,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 on `_field` and `_time` columns to align fields within each input table that
 have the same timestamp.
 
-**Deprecated**: See influxdata/influxdata/schema.fieldsAsCols.
+{{% warn %}}
+#### Deprecated
+See influxdata/influxdata/schema.fieldsAsCols.
+{{% /warn %}}
 
 ##### Function type signature
 
