@@ -1,7 +1,7 @@
 ---
 title: csv.from() function
 description: >
-  `csv.from()` retrieves [annotated CSV](https://docs.influxdata.com/influxdb/latest/reference/syntax/annotated-csv/) **from a URL**.
+  `csv.from()` retrieves [annotated CSV](/influxdb/latest/reference/syntax/annotated-csv/) **from a URL**.
 menu:
   flux_0_x_ref:
     name: csv.from
@@ -26,9 +26,12 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`csv.from()` retrieves [annotated CSV](https://docs.influxdata.com/influxdb/latest/reference/syntax/annotated-csv/) **from a URL**.
+`csv.from()` retrieves [annotated CSV](/influxdb/latest/reference/syntax/annotated-csv/) **from a URL**.
 
-**Deprecated**: `csv.from()` is deprecated in favor of a combination of [`requests.get()`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/get/) and [`csv.from()`](https://docs.influxdata.com/flux/v0.x/stdlib/csv/from/).
+{{% warn %}}
+#### Deprecated
+`csv.from()` is deprecated in favor of a combination of [`requests.get()`](/flux/v0.x/stdlib/http/requests/get/) and [`csv.from()`](/flux/v0.x/stdlib/csv/from/).
+{{% /warn %}}
 
 **Note:** Experimental `csv.from()` is an alternative to the standard
 `csv.from()` function.

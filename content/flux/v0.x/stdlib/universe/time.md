@@ -46,7 +46,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ({{< req >}})
 Value to convert.
 
-Strings must be valid [RFC3339 timestamps](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
+Strings must be valid [RFC3339 timestamps](/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
 Integer and unsigned integer values are parsed as nanosecond epoch timestamps.
 
 

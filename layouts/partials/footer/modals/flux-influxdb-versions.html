@@ -33,7 +33,7 @@
           <div class="version-col"><p>
             {{ if $cloudExcluded }}
             {{ else if $cloudDeprecated }}<span class="deprecated"></span>
-            {{ else if $cloudSupported }}<span class="cf-icon checkmark-new{{ if $sameAsLatest }} pending{{ end }}"></span>
+            {{ else if $cloudSupported }}<span class="cf-icon checkmark-new{{ if $sameAsLatest }} pending{{ end }} supported"></span>
             {{ end }}
           </p></div>
         </div>
@@ -51,7 +51,7 @@
           <div class="version-col"><p>
             {{ if $excluded }}
             {{ else if $deprecated }}<span class="deprecated"></span>      
-            {{ else if $supported }}<span class="cf-icon checkmark-new{{ if $sameAsLatest }} pending{{ end }}"></span>
+            {{ else if $supported }}<span class="cf-icon checkmark-new{{ if $sameAsLatest }} pending{{ end }} supported"></span>
             {{ end }}
           </div>
         </div>
@@ -70,7 +70,7 @@
         <div class="version-col"><p>
           {{ if $excluded }}
           {{ else if $deprecated }}<span class="deprecated"></span>
-          {{ else if $supported }}<span class="cf-icon checkmark-new{{ if $sameAsLatest }} pending{{ end }}"></span>
+          {{ else if $supported }}<span class="cf-icon checkmark-new{{ if $sameAsLatest }} pending{{ end }} supported"></span>
           {{ end }}
         </div>
       </div>

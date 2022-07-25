@@ -3,6 +3,7 @@ Interactions related to the Flux/InfluxDB version modal
 */
 
 const fluxInfluxDBModal = '.modal-content#flux-influxdb-versions'
+const pageType = ($(document).attr('title')).includes("package") ? "package" : "function";
 
 // Check for deprecated or pending versions
 function keysPresent() {
@@ -11,6 +12,7 @@ function keysPresent() {
   return {
     pending: list.find('.pending').length !== 0,
     deprecated: list.find('.deprecated').length !== 0,
+    supported: list.find('.supported').length !== 0,
   }
 }
 
@@ -22,6 +24,12 @@ if ($(fluxInfluxDBModal).length > 0) {
   if (presentKeys.pending === false) { $(fluxInfluxDBModal + ' .color-key #pending-key' ).remove() }
   if (presentKeys.deprecated === false) { $(fluxInfluxDBModal + ' .color-key #deprecated-key' ).remove() }
   if (presentKeys.pending === false && presentKeys.deprecated === false) { $(fluxInfluxDBModal + ' .color-key' ).remove() }
+
+  // If no versions are supported, remove and replace InfluxDB version tables
+  if (Object.values(presentKeys).every(value => !value)) {
+    $(fluxInfluxDBModal + ' .influxdb-versions > :not(".more-info")').remove();
+    $(fluxInfluxDBModal + ' .influxdb-versions').prepend(`<p class="no-support">No versions of InfluxDB currently support this ${pageType}.</p>`)
+  }
 }
 
 

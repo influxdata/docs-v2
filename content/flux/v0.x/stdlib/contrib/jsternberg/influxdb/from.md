@@ -84,8 +84,8 @@ Durations are relative to `now()`.
 
 URL of the InfluxDB instance to query.
 
-See [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/)
-or [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/).
+See [InfluxDB OSS URLs](/influxdb/latest/reference/urls/)
+or [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/).
 
 ### org
 
@@ -95,7 +95,7 @@ Organization name.
 
 ### token
 
-InfluxDB [API token](https://docs.influxdata.com/influxdb/latest/security/tokens/).
+InfluxDB [API token](/influxdb/latest/security/tokens/).
 
 
 

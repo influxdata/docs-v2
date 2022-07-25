@@ -60,7 +60,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ### host
 
-[InfluxDB Cloud region URL](https://docs.influxdata.com/influxdb/cloud/reference/regions/).
+[InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/).
 Default is `""`.
 
 _(Required if executed outside of your InfluxDB Cloud organization or region)_.
@@ -73,7 +73,7 @@ _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 
 ### token
 
-InfluxDB Cloud [API token](https://docs.influxdata.com/influxdb/cloud/security/tokens/).
+InfluxDB Cloud [API token](/influxdb/cloud/security/tokens/).
 Default is `""`.
 
 _(Required if executed outside of your InfluxDB Cloud organization or region)_.

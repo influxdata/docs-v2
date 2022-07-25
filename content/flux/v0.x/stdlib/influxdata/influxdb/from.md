@@ -78,8 +78,8 @@ _`bucket` and `bucketID` are mutually exclusive_.
 
 URL of the InfluxDB instance to query.
 
-See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
-or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
+See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
+or [InfluxDB OSS URLs](/influxdb/latest/reference/urls/).
 
 ### org
 

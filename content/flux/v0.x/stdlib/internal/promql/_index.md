@@ -8,6 +8,9 @@ menu:
     parent: internal
     identifier: internal/promql
 weight: 21
+cascade:
+
+  introduced: 0.47.0
 ---
 
 <!------------------------------------------------------------------------------

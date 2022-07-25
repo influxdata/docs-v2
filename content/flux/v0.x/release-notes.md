@@ -10,6 +10,19 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.176.0 [2022-07-25]
+
+## Features
+- Promote various feature-flagged features and optimizations to be used by default.
+
+### Bug fixes
+- Support the [`location` option](/flux/v0.x/stdlib/internal/location/#options)
+  in the [`boundaries` package](/flux/v0.x/stdlib/date/boundaries/).
+- Pass epsilon value from Go tests to the Flux test framework.
+- Ignore unknown messages rather than erroring.
+
+---
+
 ## v0.175.0 [2022-07-19]
 
 ### Features

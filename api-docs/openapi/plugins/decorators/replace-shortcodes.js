@@ -5,7 +5,7 @@ function replaceDocsUrl(field) {
   /** Regex to match the URL "shortcode" {{% INFLUXDB_DOCS_URL %}}.
    * [^]* matches line breaks. See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#using_regular_expression_on_multiple_lines
    */
-  const shortcode = /\{\{[^]*%\s*[^]*INFLUXDB_DOCS_URL[^]*\s*[^]*%\}\}/g
+  const shortcode = /\{\{%([^]|\s)*?INFLUXDB_DOCS_URL([^]|\s)*?%\}\}/g
   let replacement = `/influxdb/${process.env.INFLUXDB_VERSION}`;
   return field.replaceAll(shortcode, replacement)
               .replaceAll('https://docs.influxdata.com/influxdb/', '/influxdb/');

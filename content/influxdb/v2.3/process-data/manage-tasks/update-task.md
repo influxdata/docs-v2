@@ -15,7 +15,7 @@ related:
 ## Update a task in the InfluxDB UI
 1. In the navigation menu on the left, select **Tasks**.
 
-    {{% nav-icon "tasks" %}}
+    {{< nav-icon "tasks" "v2" >}}
 
 2. Find the task you would like to edit and click the **{{< icon "settings" >}}** icon located far right of the task name.
 3. Click **Edit**.

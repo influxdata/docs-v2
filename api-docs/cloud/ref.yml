@@ -4144,13 +4144,12 @@ components:
     ScriptCreateRequest:
       properties:
         description:
+          description: Script description. A description of the script.
           type: string
         language:
           $ref: '#/components/schemas/ScriptLanguage'
         name:
-          description: >-
-            The name of the script. The name must be unique within the
-            organization.
+          description: Script name. The name must be unique within the organization.
           type: string
         script:
           description: The script to execute.
@@ -11039,35 +11038,135 @@ paths:
         - System information endpoints
   /api/v2/scripts:
     get:
+      description: >
+        Retrieves a list of
+        [scripts](/influxdb/cloud/api-guide/api-invokable-scripts/).
+
+
+        #### Limitations
+
+
+        - Paging with an `offset` greater than the number of records will result
+        in
+
+        an empty response--for example:
+
+          The following request is paging to the 50th record, but the user has only
+          created two scripts.
+
+            ```sh
+            $ curl --request GET "INFLUX_URL/api/v2/scripts?limit=1&offset=50"
+
+            $ {"scripts":[]}
+            ```
+
+        #### Related Guides
+
+
+        - [Invoke custom
+        scripts](/influxdb/cloud/api-guide/api-invokable-scripts/)
       operationId: GetScripts
       parameters:
-        - description: The number of scripts to return.
+        - description: |
+            Limits the number of scripts returned. Default is `100`.
           in: query
           name: limit
           required: false
           schema:
+            default: 100
+            maximum: 500
+            minimum: 0
             type: integer
-        - description: The offset for pagination.
+        - description: |
+            The offset for pagination.
+            The number of records to skip.
           in: query
           name: offset
           required: false
           schema:
+            default: 0
+            minimum: 0
             type: integer
       responses:
         '200':
           content:
             application/json:
+              examples:
+                successResponse:
+                  value:
+                    scripts:
+                      - createdAt: '2022-07-17T23:49:45.731237Z'
+                        description: find the last point from Sample Bucket
+                        id: 09afa3b220fe4000
+                        language: flux
+                        name: getLastPointFromSampleBucket
+                        orgID: bea7ea952287f70d
+                        script: >-
+                          from(bucket: SampleBucket) |> range(start: -7d) |>
+                          limit(n:1)
+                        updatedAt: '2022-07-17T23:49:45.731237Z'
+                      - createdAt: '2022-07-17T23:43:26.660308Z'
+                        description: getLastPoint finds the last point in a bucket
+                        id: 09afa23ff13e4000
+                        language: flux
+                        name: getLastPoint
+                        orgID: bea7ea952287f70d
+                        script: >-
+                          from(bucket: params.mybucket) |> range(start: -7d) |>
+                          limit(n:1)
+                        updatedAt: '2022-07-17T23:43:26.660308Z'
               schema:
                 $ref: '#/components/schemas/Scripts'
-          description: The list of scripts.
+          description: |
+            Success.
+            The response body contains the list of scripts.
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidSyntaxError:
+                  summary: Query parameter contains invalid syntax.
+                  value:
+                    code: 3
+                    details: []
+                    message: >-
+                      parsing field "limit": strconv.ParseUint: parsing "-1":
+                      invalid syntax
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: |
+            Bad request.
         default:
           $ref: '#/components/responses/ServerError'
-          description: Unexpected error
+          description: Internal server error.
       summary: List scripts
       tags:
         - Data I/O endpoints
         - Invokable Scripts
+      x-codeSamples:
+        - label: cUrl
+          lang: Shell
+          source: >
+            curl --request GET
+            "https://cloud2.influxdata.com/api/v2/scripts?limit=100&offset=0" \
+              --header "Authorization: Token INFLUX_TOKEN" \
+              --header "Accept: application/json" \
+              --header "Content-Type: application/json"
     post:
+      description: >
+        Creates an [invokable
+        script](https://docs.influxdata.com/resources/videos/api-invokable-scripts/)
+
+        and returns the created script.
+
+
+        #### Related Guides
+
+
+        - [Invokable scripts](/influxdb/cloud/api-guide/api-invokable-scripts/).
+
+        - [Creating custom InfluxDB
+        endpoints](https://docs.influxdata.com/resources/videos/api-invokable-scripts/).
       operationId: PostScripts
       requestBody:
         content:
@@ -11080,15 +11179,86 @@ paths:
         '201':
           content:
             application/json:
+              examples:
+                successResponse:
+                  value:
+                    createdAt: '2022-07-17T23:43:26.660308Z'
+                    description: getLastPoint finds the last point in a bucket
+                    id: 09afa23ff13e4000
+                    language: flux
+                    name: getLastPoint
+                    orgID: bea7ea952287f70d
+                    script: >-
+                      from(bucket: params.mybucket) |> range(start: -7d) |>
+                      limit(n:1)
+                    updatedAt: '2022-07-17T23:43:26.660308Z'
               schema:
                 $ref: '#/components/schemas/Script'
-          description: The created script.
+          description: |
+            Success.
+            The response body contains the script and its metadata.
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidCharacterValue:
+                  description: |
+                    If the request body contains an invalid character, returns
+                    `invalid` with detail about the problem.
+                  summary: Invalid character
+                  value:
+                    code: invalid
+                    details: []
+                    message: invalid character ',' looking for beginning of value
+                invalidJSONStringValue:
+                  description: |
+                    If the request body contains invalid JSON, returns `invalid`
+                    with detail about the problem.
+                  summary: Invalid JSON
+                  value:
+                    code: invalid
+                    message: >-
+                      invalid json: invalid character '\'' looking for beginning
+                      of value
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: |
+            Bad request.
+        '422':
+          content:
+            application/json:
+              examples:
+                uniquenessError:
+                  description: |
+                    A script with the same `name` exists.
+                  value:
+                    code: conflict
+                    message: uniqueness violation
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: |
+            Unprocessable entity.
         default:
           $ref: '#/components/responses/ServerError'
-          description: Unexpected error
+          description: Internal Server Error
       summary: Create a script
       tags:
         - Invokable Scripts
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: |
+            curl --request POST "https://cloud2.influxdata.com/api/v2/scripts" \
+              --header "Authorization: Token INFLUX_TOKEN" \
+              --header "Accept: application/json" \
+              --header "Content-Type: application/json" \
+              --data '{
+                  "name": "getLastPoint",
+                  "description": "getLastPoint finds the last point in a bucket",
+                  "orgID": "INFLUX_ORG_ID",
+                  "script": "from(bucket: INFLUX_BUCKET) |> range(start: -7d) |> limit(n:1)",
+                  "language": "flux"
+                }'
   /api/v2/scripts/{scriptID}:
     delete:
       description: Deletes a script and all associated records.
@@ -13865,9 +14035,14 @@ paths:
             InfluxDB returns this error if the line protocol data in the request
             is malformed.
 
-            The response body contains the first malformed line in the data.
+            The response body contains the first malformed line in the data, and
+            indicates what was expected.
 
-            InfluxDB rejected the batch and did not write any data.
+            For partial writes, the number of points written and the number of
+            points rejected are also included.
+
+            For more information, check the `rejected_points` measurement in
+            your `_monitoring` bucket.
 
 
             #### InfluxDB Cloud
@@ -14635,9 +14810,14 @@ tags:
       indicates that InfluxDB accepted the request and request data is valid.
       Asynchronous operations, such as `write`, might not have completed yet. |
 
-      | `400`       | Bad request              | `Authorization` header is
-      missing or malformed or the API token does not have permission for the
-      operation. |
+      | `400`       | Bad request              | May indicate one of the
+      following: <li>Line protocol is malformed. The response body contains the
+      first malformed line in the data and indicates what was expected. For
+      partial writes, the number of points written and the number of points
+      rejected are also included. For more information, check the
+      `rejected_points` measurement in your `_monitoring`
+      bucket.</li><li>`Authorization` header is missing or malformed or the API
+      token does not have permission for the operation.</li> |
 
       | `401`       | Unauthorized             | May indicate one of the
       following: <li>`Authorization: Token` header is missing or
@@ -14653,7 +14833,7 @@ tags:
       | `413`       | Request entity too large | Request payload exceeds the
       size limit. |
 
-      | `422`       | Unprocessible entity     | Request data is invalid. `code`
+      | `422`       | Unprocessable entity     | Request data is invalid. `code`
       and `message` in the response body provide details about the problem. |
 
       | `429`       | Too many requests        | API token is temporarily over
