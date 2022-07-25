@@ -44,12 +44,12 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
     routingKey: G,
     severity: H,
     source: I,
-    summary: J,
-    timestamp: K,
-    ?component: L,
-    ?customDetails: M,
+    summary: string,
+    timestamp: J,
+    ?component: K,
+    ?customDetails: L,
     ?pagerdutyURL: string,
-) => int where M: Equatable
+) => {statusCode: int, headers: [string:string], duration: duration, body: bytes} where L: Equatable
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
