@@ -139,15 +139,26 @@ Remove `READ`, `WRITE`, or `ALL` permissions from non-admin users by replacing `
 
 ## InfluxDB Enterprise user management
 
-On the `Admin` page:
+Click **{{< icon "crown" "v2" >}} Admin** in the left navigation bar. You will be taken to the `InfluxDB Admin` page.  
 
-* View, create, and delete users
+1. Select the **Users** tab.
+2. Click **+ Create User**.
+3. Add a user name.
+4. Add a password.
+5. Click **Create**.
+6.  Assign a role to the user. 
+
+
+
+
+<!-- * View, create, and delete users
 * Change user passwords
 * Assign and remove permissions to or from a user
 * Create, edit, and delete roles
 * Assign and remove roles to or from a user
 
-![InfluxDB Enterprise user management](/img/chronograf/1-6-admin-usermanagement-cluster.png)
+![InfluxDB Enterprise user management](/img/chronograf/1-6-admin-usermanagement-cluster.png) -->
+
 
 ### User types
 
@@ -320,8 +331,23 @@ Permission to write data.
 Roles are groups of permissions.
 Assign roles to one or more users.
 
-For example, the image below contains three roles: `CREATOR`, `DESTROYER`, and `POWERLESS`.
+Click **{{< icon "crown" "v2" >}} Admin** in the left navigation bar. You will be taken to the `InfluxDB Admin` page. 
+
+1. Select the **Roles** tab.
+2. Click **+ Create Role**. 
+3. Give the role a name.
+4. Click **Create**.
+5. Assign users to the role in the `Users` section
+6. Add permissions to the role in the `Permissions` section.  You will see a list of databases and all permissions for that database. Select
+the permssions that you want for the role.
+7. Click **Apply Changes**. 
+
+The role with all permissions will appear in the list.
+
+
+
+<!-- For example, the image below contains three roles: `CREATOR`, `DESTROYER`, and `POWERLESS`.
 `CREATOR` includes two permissions (`CreateDatbase` and `CreateUserAndRole`) and is assigned to one user (`chrononut`).
 `DESTROYER` also includes two permissions (`DropDatabase` and `DropData`) and is assigned to two users (`chrononut` and `chronelda`).
 
-![InfluxDB OSS user management](/img/chronograf/1-6-admin-usermanagement-roles.png)
+![InfluxDB OSS user management](/img/chronograf/1-6-admin-usermanagement-roles.png) -->
