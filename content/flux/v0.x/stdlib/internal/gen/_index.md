@@ -8,6 +8,9 @@ menu:
     parent: internal
     identifier: internal/gen
 weight: 21
+cascade:
+
+  introduced: 0.50.0
 ---
 
 <!------------------------------------------------------------------------------
