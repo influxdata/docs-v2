@@ -88,25 +88,32 @@ To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the 
 1. [Subscribe to an MQTT topic](#subscribe-to-an-mqtt-topic) in InfluxDB Cloud by configuring an MQTT broker, and specifying the topic(s) to subscribe to.
 2. [Define parsing rules](#define-parsing-rules) for JSON or regex data (line protocol requires no configuration).
 
+{{% note %}}
+For troubleshooting help, see [Troubleshoot MQTT ingest errors](/influxdb/cloud/write-data/troubleshoot/#troubleshoot-mqtt-ingest-errors/)
+{{% /note %}}
+
 #### Subscribe to an MQTT topic
 
 1. In the navigation menu on the left, click **Load Data** > **Cloud Native Subscriptions**.
     {{< nav-icon "data" >}}
-2. Click **Create Subscription**.
-3. On the **Setting Up - MQTT Connector** page, under **Broker Details**, enter the following:
-   - Subscription name (MQTT broker to subscribe to)
+2. Click **+ Create Subscription**.
+3. On the **Setting Up - MQTT Subscriber** page, under **Connect to Broker**, enter the following:
+   - Subscription Name
    - Description
    - Protocol
    - Hostname or IP address (hostname or URL of the MQTT broker)
    - Port (TCP/IP port number the MQTT broker uses)
-   - Security details: none or username/password (authentication, if the MQTT broker uses)
+   - Security details. Choose one of the following: 
+      - **None**
+      - **Basic** (username/password)
+      - **Certificate**
 
 4. Under **Subscribe to a topic**, in the **Topic** field, enter the MQTT topic name to subscribe to. Note, MQTT brokers typically support the wild cards `+` and  `#`.
 
    - To subscribe to all topics in a directory, use `+`. For example, if an `iotdevices` directory includes two directories called `asia` and `europe`, to subscribe to a `sensor` topic in either directory, use `iotdevices/+/sensors` to subscribe to `iotdevices/asia/sensors`, and `iotdevices/europe/sensors`.
    - To subscribe to all topics in a directory, use `#`. For example, `iotdevices/#` subscribes to all topics in the  `iotdevices` directory.
 
-5. Under **Write Destination**, select an existing InfluxDB bucket to write data to or click **Create a bucket**. For more information, see [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/).
+5. Under **Write Destination**, select an existing InfluxDB bucket to write data to or click **+ Create bucket**. For more information, see [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/).
 
 #### Define parsing rules
 
@@ -131,8 +138,13 @@ JSON parsing is faster and more efficient than string parsing. We recommend usin
 
 <!-------------------------------- BEGIN Line protocol -------------------------------->
 {{% tab-content %}}
+Use line protocol to write data into InfluxDB. 
 
-<what is on this tab?>
+Select a **Timepstamp precision** from the dropdown menu:
+   - **MS**: Milliseconds
+   - **S**: Seconds
+   - **US**: Microseconds
+   - **NS**: Nanoseconds
 
 {{% /tab-content %}}
 
