@@ -8,6 +8,9 @@ menu:
     parent: internal
     identifier: internal/boolean
 weight: 21
+cascade:
+
+  introduced: 0.129.0
 ---
 
 <!------------------------------------------------------------------------------
