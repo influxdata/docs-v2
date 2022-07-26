@@ -174,7 +174,7 @@ Associate **String** key/value pairs with **InfluxDB elements** (measurements, t
 
 1. On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
 
-  1. (Optional) In the **Regex pattern to find timestamp** field, enter the regex to find the timestamp in the MQTT message.  Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
+  1. (Optional) In the **Regex pattern to find timestamp** field, enter the regex (regular expression) to find the timestamp in the MQTT message.  Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
   
       {{% note %}}
       **Note**: Parsing rules only support finding one value at a time.
