@@ -158,6 +158,14 @@ curl -XGET "localhost:8086/health"
 
 ### `/api/v2/buckets/` HTTP endpoint
 
+The `/api/v2/buckets` endpoint accepts `GET`, `POST` and `DELETE` HTTP requests. Use this endpoint to create, delete, list and retrieve buckets in your InfluxDB instance. 
+
+```bash
+curl --request GET "http://localhost:8086/api/v2/buckets"   
+  --header "Content-type: application/json" 
+  -H 'Authorization: Token <username>:<password>'
+```
+
 ### `/api/v2/delete/` HTTP endpoint
 
 The `/api/v2/delete` endpoint accepts `POST` HTTP requests. Use this endpoint to delete points from InfluxDB, including points with specific tag values, timestamps and measurements.  
