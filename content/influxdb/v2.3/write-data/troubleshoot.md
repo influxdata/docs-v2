@@ -326,7 +326,11 @@ InfluxDB logs the following `rejected_points` entry to the `_monitoring` bucket:
 
 ## Troubleshoot MQTT ingest errors
 
-If you're having issues ingesting [MQTT data](/influxdb/v2.3/write-data/no-code/load-data/#set-up-a-cloud-native-subscription/) into InfluxDB, 
+If you're having issues ingesting [MQTT data](/influxdb/v2.3/write-data/no-code/load-data/#set-up-a-cloud-native-subscription/) into InfluxDB, try the following:
+
+- [Validate parsing rules and subscription path](#validate-parsing-rules-and-subscription-path).
+- [View the `_monitoring` bucket](#view-the-monitoring-bucket) to check for parsing errors.
+- [Set up a deadman check](#set-up-a-deadman-check).
 
 ### Validate parsing rules and subscription path
 
