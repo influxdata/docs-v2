@@ -8,6 +8,9 @@ menu:
     parent: internal
     identifier: internal/debug
 weight: 21
+cascade:
+
+  introduced: 0.68.0
 ---
 
 <!------------------------------------------------------------------------------

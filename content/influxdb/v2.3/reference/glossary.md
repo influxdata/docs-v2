@@ -844,11 +844,19 @@ For more information about retention policies, see the
 Related entries:  [retention period](#retention-period),
 
 ### RFC3339 timestamp
-A timestamp that uses the human readable DateTime format proposed in
+A timestamp that uses the human-readable DateTime format proposed in
 [RFC 3339](https://tools.ietf.org/html/rfc3339) (for example: `2020-01-01T00:00:00.00Z`).
 Flux and InfluxDB clients return query results with RFC3339 timestamps.
 
-Related entries: [timestamp](#timestamp), [unix timestamp](#unix-timestamp)
+Related entries: [RFC3339Nano timestamp](#rfc3339nano-timestamp), [timestamp](#timestamp), [unix timestamp](#unix-timestamp)
+
+### RFC3339Nano timestamp
+A [Golang representation of the RFC 3339 DateTime format](https://go.dev/src/time/format.go) that uses nanosecond resolution--for example:
+`2006-01-02T15:04:05.999999999Z07:00`.
+
+InfluxDB clients can return RFC3339Nano timestamps in log events and CSV-formatted query results.
+
+Related entries: [RFC3339 timestamp](#rfc3339-timestamp), [timestamp](#timestamp), [unix timestamp](#unix-timestamp)
 
 ## S
 

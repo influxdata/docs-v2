@@ -8,6 +8,9 @@ menu:
     parent: internal
     identifier: internal/influxql
 weight: 21
+cascade:
+
+  introduced: 0.60.0
 ---
 
 <!------------------------------------------------------------------------------

@@ -29,7 +29,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `requests.get()` makes a http GET request. This identical to calling `request.do(method: "GET", ...)`.
 
-**Deprecated**: `get` is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/get/).
+{{% warn %}}
+#### Deprecated
+`get` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/get/).
+{{% /warn %}}
 
 ##### Function type signature
 

@@ -39,7 +39,7 @@ structure that includes, at a minimum, the following columns:
 - `_value`
 
 All other columns are written to InfluxDB as
-[tags](https://docs.influxdata.com/influxdb/cloud/reference/key-concepts/data-elements/#tags).
+[tags](/influxdb/cloud/reference/key-concepts/data-elements/#tags).
 
 **Note**: `to()` drops rows with null `_time` values and does not write them
 to InfluxDB.
@@ -88,8 +88,8 @@ _`bucket` and `bucketID` are mutually exclusive_.
 
 URL of the InfluxDB instance to write to.
 
-See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
-or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
+See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
+or [InfluxDB OSS URLs](/influxdb/latest/reference/urls/).
 `host` is required when writing to a remote InfluxDB instance.
 If specified, `token` is also required.
 
