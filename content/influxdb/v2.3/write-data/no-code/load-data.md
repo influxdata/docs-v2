@@ -108,7 +108,7 @@ For troubleshooting help, see [Troubleshoot MQTT ingest errors](/influxdb/cloud/
       - **Basic** (username/password)
       - **Certificate**
 
-4. Under **Subscribe to a topic**, in the **Topic** field, enter the MQTT topic name to subscribe to. Note, MQTT brokers typically support the wild cards `+` and  `#`.
+4. Under **Subscribe to a topic**, in the **Topic** field, enter the MQTT topic name to subscribe to. Note, MQTT brokers typically support wildcard subscriptions with the wildcard characters `+` and  `#`. 
 
    - To subscribe to all topics in a directory, use `+`. For example, if an `iotdevices` directory includes two directories called `asia` and `europe`, to subscribe to a `sensor` topic in either directory, use `iotdevices/+/sensors` to subscribe to `iotdevices/asia/sensors`, and `iotdevices/europe/sensors`.
    - To subscribe to all topics in a directory, use `#`. For example, `iotdevices/#` subscribes to all topics in the  `iotdevices` directory. For more information about MQTT subscriptions and wildcards, see [the MQTT specification for Topic Names and Topic Filters](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901241).
