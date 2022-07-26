@@ -81,7 +81,7 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 
 {{% cloud-only %}}
 
-### Set up a Cloud native subscription
+### Set up a native subscription
 
 To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the following to set up a Cloud native subscription:
 
@@ -94,7 +94,7 @@ For troubleshooting help, see [Troubleshoot MQTT ingest errors](/influxdb/cloud/
 
 #### Subscribe to an MQTT topic
 
-1. In the navigation menu on the left, click **Load Data** > **Cloud Native Subscriptions**.
+1. In the navigation menu on the left, click **Load Data** > **Native Subscriptions**.
     {{< nav-icon "data" >}}
 2. Click **+ Create Subscription**.
 3. On the **Setting Up - MQTT Subscriber** page, under **Connect to Broker**, enter the following:
@@ -138,7 +138,7 @@ JSON parsing is faster and more efficient than string parsing. We recommend usin
 
 <!-------------------------------- BEGIN Line protocol -------------------------------->
 {{% tab-content %}}
-Use line protocol to write data into InfluxDB. 
+Use line protocol to write data into InfluxDB. Line protocol doesn't require any parsing or configuration. 
 
 Select a **Timepstamp precision** from the dropdown menu:
    - **MS**: Milliseconds
@@ -151,19 +151,35 @@ Select a **Timepstamp precision** from the dropdown menu:
 <!-------------------------------- BEGIN JSON -------------------------------->
 {{% tab-content %}}
 
-Associate **JSON** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags).
+Associate **JSON** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags) using parsing rules. 
+
+{{% expand "Example JSON" %}}
+```
+{
+"device_type":"temperature_sensor",
+"device_id":2036,
+“model_id”:”KN24683”,
+ "temperature":25.0,
+ "time":1653998899010000000
+ "error_state":"in_error"
+}
+```
+{{% /expand %}}
 
 1. On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
 
-  1. (Optional) In the **JSON path to timestamp** field, specify the path in the MQTT message to the JSON key that holds the timestamp. For example, `"time":1653998899010000000`. Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
+  1. (Optional) In the **JSON path to timestamp** field, specify the path in the MQTT message to the JSON key that holds the timestamp: for the example above, `"time":1653998899010000000`. Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
 
    {{% warn %}}
    **Important**: Configure the timestamp format that matches the format in your messages.
    {{% /warn %}}
 
-  2. Under **Measurement**, enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key, for example, `$.device_id` or `$.device_information.device_id` for a nested measurement key.
-  3. Select the **Data Type** for the measurement.
-  4. Specify the JSON paths to tag and field names as needed, and then select the data type for the tag or field. At least one field is required. Note, JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`.
+2. Configure the JSON parsing rules: 
+   1. Under **Measurement**, enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key. For the above example, enter `$.temperature_sensor`.
+3. Select the **Data Type** for the measurement.
+4. Specify the JSON paths to tag and field names as needed, and then select the data type for the tag or field. At least one field is required. For the above example, add fields with the JSON paths `$.temperature` and `$.error_state` and a tag with the path `$.error_state`.
+Note that JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`.
+
 
 {{% /tab-content %}}
 
