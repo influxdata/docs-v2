@@ -8,6 +8,9 @@ menu:
     parent: internal
     identifier: internal/testutil
 weight: 21
+cascade:
+
+  introduced: 0.68.0
 ---
 
 <!------------------------------------------------------------------------------
