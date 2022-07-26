@@ -1,13 +1,14 @@
 ---
 title: iox.from() function
 description: >
-  `iox.from()` reads from the selected bucket and measurement in an iox storage node.
+  `iox.from()` reads from the selected bucket and measurement in an IOx storage node.
 menu:
   flux_0_x_ref:
     name: iox.from
     parent: experimental/iox
     identifier: experimental/iox/from
 weight: 201
+flux/v0.x/tags: [inputs]
 ---
 
 <!------------------------------------------------------------------------------
@@ -19,14 +20,14 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/iox/iox.flux#L14-L14
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/iox/iox.flux#L20-L20
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`iox.from()` reads from the selected bucket and measurement in an iox storage node.
+`iox.from()` reads from the selected bucket and measurement in an IOx storage node.
 
 This function creates a source that reads data from IOx. Output data is
 "pivoted" on the time column and includes columns for each returned

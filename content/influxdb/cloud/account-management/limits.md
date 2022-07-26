@@ -77,16 +77,19 @@ InfluxDB Cloud applies global (non-adjustable) system limits to all accounts, wh
 
 Limits include:
 
-- Write request limits:
+- **Write request limits**:
   - 50 MB maximum HTTP request batch size (compressed or uncompressed--defined in the `Content-Encoding` header)
   - 250 MB maximum HTTP request batch size after decompression
-- Query processing time: 90 seconds
-- Task processing time: 150 seconds
-- Delete request limit: Rate of 300 every 5 minutes
-  {{% note %}}
+- **Query processing time**: 90 seconds
+- **Total query time**: 1500 seconds of _total_ query time every 30 seconds
+- **Task processing time**: 150 seconds
+- **Total task time**: 1500 seconds of _total_ task time every 30 seconds
+- **Delete request limit**: Rate of 300 every 5 minutes
+  
+    {{% note %}}
 **Tip:**
-Combine predicate expressions (if possible) into a single request. InfluxDB limits delete requests by number of requests (not points in request).
-{{% /note %}}
+Combine delete predicate expressions (if possible) into a single request. InfluxDB limits delete requests by number of requests (not points per request).
+    {{% /note %}}
 
 ## UI error messages
 

@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/pagerduty/pagerduty.flux#L306-L335
+https://github.com/influxdata/flux/blob/master/stdlib/pagerduty/pagerduty.flux#L306-L338
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -40,8 +40,8 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
         r: {A with _pagerdutyDedupKey: string},
     ) => {
         B with
-        timestamp: L,
-        summary: K,
+        timestamp: K,
+        summary: string,
         source: J,
         severity: I,
         routingKey: H,
@@ -51,7 +51,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
         client: D,
         class: C,
     },
-) => (<-tables: stream[A]) => stream[{A with _status: string, _sent: string, _pagerdutyDedupKey: string}]
+) => (<-tables: stream[A]) => stream[{A with _status: string, _sent: string, _pagerdutyDedupKey: string, _body: string}]
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
