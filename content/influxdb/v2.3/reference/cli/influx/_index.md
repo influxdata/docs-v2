@@ -77,7 +77,6 @@ influx [command]
 | [ping](/influxdb/v2.3/reference/cli/influx/ping/)                   | Check the InfluxDB `/health` endpoint                                      |
 | [query](/influxdb/v2.3/reference/cli/influx/query/)                 | Execute a Flux query                                                       |
 | [restore](/influxdb/v2.3/reference/cli/influx/restore/)             | Restore backup data _(InfluxDB OSS only)_                                  |
-| [scripts](/influxdb/v2.3/reference/cli/influx/scripts)              | Scripts management commands                                                |
 | [secret](/influxdb/v2.3/reference/cli/influx/secret/)               | Manage secrets                                                             |
 | [setup](/influxdb/v2.3/reference/cli/influx/setup/)                 | Create default username, password, org, bucket, etc. _(InfluxDB OSS only)_ |
 | [stacks](/influxdb/v2.3/reference/cli/influx/stacks/)               | Manage InfluxDB stacks                                                     |

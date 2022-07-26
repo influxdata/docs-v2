@@ -1,18 +1,18 @@
 ---
-title: influx scripts retrieve
-description: The `influx scripts retrieve` command retrieves invokable script information from InfluxDB.
+title: influx scripts delete
+description: The `influx scripts delete` command deletes an invokable script in InfluxDB.
 menu:
-  influxdb_2_3_ref:
-    name: influx scripts retrieve
+  influxdb_2_4_ref:
+    name: influx scripts delete
     parent: influx scripts
 weight: 201
 ---
 
-The `influx scripts retrieve` command retrieves invokable script information from InfluxDB.
+The `influx scripts delete` command deletes an invokable script in InfluxDB.
 
 ## Usage
 ```
-influx scripts retrieve [flags]
+influx scripts delete [flags]
 ```
 
 ## Flags
@@ -33,7 +33,9 @@ influx scripts retrieve [flags]
 
 {{< cli/influx-creds-note >}}
 
-##### Retrieve a script
+##### Delete a script
 ```sh
-influx scripts retrieve -i 0Xx0oox00XXoxxoo1
+influx scripts delete -i 0Xx0oox00XXoxxoo1
 ```
+
+
