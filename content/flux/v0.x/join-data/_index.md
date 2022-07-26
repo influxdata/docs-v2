@@ -1,6 +1,6 @@
 ---
-title: Join data sets
-seotitle: Join data sets with Flux
+title: Join data
+seotitle: Join data with Flux
 description: >
   Flux supports inner, full outer, left outer, and right outer joins.
   Learn how to use the `join` package to join two data sets with common values.
@@ -10,25 +10,28 @@ menu:
 weight: 8
 ---
 
-- Introduction to the `join` package
-
-## Join types
+- Introduction to the [`join` package](/flux/v0.x/stdlib/join/)
 
 
 ## How join functions work
 
-The `join` package provides functions for each of the different join types:
-
-- `join.inner()` - Inner join
-- `join.full()` - Full outer join
-- `join.left()` - Left outer join
-- `join.right()` - Right outer join
-
 All functions in the `join` package join _two_ streams of tables together based 
 on common values in each input stream.
 Each input stream is assigned to the `left` or `right` parameter.
+Input streams _must have the same [group key](/flux/v0.x/get-started/)_
 The input streams assigned to these parameters are used in functions assigned to
 the `on` and `as` parameters.
+
+## Join types
+The `join` package supports the following join types and special use cases:
+
+{{< children >}}
+
+<!-- - `join.inner()` - Inner join
+- `join.full()` - Full outer join
+- `join.left()` - Left outer join
+- `join.right()` - Right outer join -->
+
 
 
 - Join types
