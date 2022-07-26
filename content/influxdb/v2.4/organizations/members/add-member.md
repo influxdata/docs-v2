@@ -1,7 +1,9 @@
 ---
 title: Add a member
 seotitle: Add a member to an organization in InfluxDB
-description: Add a member to an organization.
+description: >
+  Use the `influx` command line interface (CLI) to add a member to an organization
+  and optionally make that member an owner of the organization.
 menu:
   influxdb_2_4:
     name: Add a member
@@ -9,28 +11,44 @@ menu:
 weight: 201
 ---
 
-Use the `influx` command line interface (CLI) to add a member to an organization.
-
-<!-- ## Add a member to an organization in the InfluxDB UI
-
-1. In the navigation menu on the left, select **Org (Organization)** > **Members**.
-
-    {{< nav-icon "org" >}}
-
-_Complete content coming soon_ -->
+Use the `influx` command line interface (CLI) to add a member to an organization
+and optionally make that member an owner of the organization.
 
 ## Add a member to an organization using the influx CLI
 
 1. Get a list of users and their IDs by running the following:
 
-```sh
-influx user list
-```
+    ```sh
+    influx user list
+    ```
 
-2. To add a user to an organization, run the following command:
+2. To add a user as a member of an organization, use the `influx org members add command`.
+   Provide the following:
+   
+   - Organization name
+   - User ID
+   - _(Optional)_ `--owner` flag to add the user as an organization owner
 
+    {{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Add member](#)
+[Add owner](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```sh
-influx org members add -n <org-name> -m <user-ID>
+influx org members add \
+  -n <org-name> \
+  -m <user-ID>
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+influx org members add \
+  -n <org-name> \
+  -m <user-ID> \
+  --owner
+```
+{{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}
 
 For more information, see the [`influx org members add` command](/influxdb/v2.4/reference/cli/influx/org/members/add).

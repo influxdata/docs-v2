@@ -6,6 +6,7 @@ menu:
     name: influx org members add
     parent: influx org members
 weight: 301
+updated_in: CLI v2.4.0
 ---
 
 {{% note %}}
