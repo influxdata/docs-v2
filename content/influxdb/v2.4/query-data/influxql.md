@@ -13,6 +13,7 @@ related:
   - /influxdb/v2.4/reference/api/influxdb-1x/
   - /influxdb/v2.4/reference/api/influxdb-1x/query
   - /influxdb/v2.4/reference/api/influxdb-1x/dbrp
+  - /influxdb/v2.4/tools/influxql-shell/
 ---
 
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
@@ -221,6 +222,9 @@ Execute and InfluxQL query inside the InfluxQL shell.
 ```sql
 > SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
 ```
+
+For more information about using the InfluxQL shell, see
+[Use the InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/).
 
 <!----------------------------- END InfluxQL shell ---------------------------->
 {{% /tab-content %}}

@@ -8,6 +8,8 @@ menu:
     parent: Tools & integrations
 weight: 104
 influxdb/cloud/tags: [InfluxQL]
+related:
+  - /influxdb/cloud/reference/cli/influx/v1/shell/
 ---
 
 {{< duplicate-oss >}}

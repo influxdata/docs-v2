@@ -8,6 +8,8 @@ menu:
     parent: Tools & integrations
 weight: 104
 influxdb/v2.4/tags: [InfluxQL]
+related:
+  - /influxdb/v2.4/reference/cli/influx/v1/shell/
 ---
 
 Use the InfluxQL interactive shell to execute InfluxQL queries with InfluxDB.
