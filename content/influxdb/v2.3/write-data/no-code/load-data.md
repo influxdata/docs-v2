@@ -17,7 +17,7 @@ Load data from the following sources in the InfluxDB user interface (UI):
 - [Line protocol](#load-data-using-line-protocol)
 - [Client libraries](#load-data-from-a-client-library-in-the-ui)
 - [Telegraf plugins](#load-data-from-a-telegraf-plugin-in-the-ui)
-- {{% cloud-only %}}[Cloud native subscriptions](#set-up-a-cloud-native-subscription){{% /cloud-only %}}
+- {{% cloud-only %}}[Cloud native subscriptions](#set-up-a-native-subscription){{% /cloud-only %}}
 
 ### Load CSV or line protocol in UI
 
