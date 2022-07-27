@@ -17,7 +17,7 @@ Load data from the following sources in the InfluxDB user interface (UI):
 - [Line protocol](#load-data-using-line-protocol)
 - [Client libraries](#load-data-from-a-client-library-in-the-ui)
 - [Telegraf plugins](#load-data-from-a-telegraf-plugin-in-the-ui)
-- {{% cloud-only %}}[Cloud native subscriptions](#set-up-a-native-subscription){{% /cloud-only %}}
+- {{% cloud-only %}}[Native subscriptions](#set-up-a-native-subscription){{% /cloud-only %}}
 
 ### Load CSV or line protocol in UI
 
@@ -95,7 +95,6 @@ For troubleshooting help, see [Troubleshoot MQTT ingest errors](/influxdb/cloud/
 #### Subscribe to an MQTT topic
 
 1. In the navigation menu on the left, click **Load Data** > **Native Subscriptions**.
-   {{< nav-icon "data" >}}
 2. Click **+ Create Subscription**.
 3. On the **Setting Up - MQTT Subscriber** page, under **Connect to Broker**, enter the following:
    - Subscription Name
