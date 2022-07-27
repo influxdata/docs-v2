@@ -10,7 +10,7 @@ menu:
     parent: contrib/chobbs/discord
     identifier: contrib/chobbs/discord/endpoint
 weight: 301
-tags: [notification endpoints, transformations]
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------
