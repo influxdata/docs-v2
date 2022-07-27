@@ -8,6 +8,7 @@ menu:
     parent: pushbullet
     identifier: pushbullet/endpoint
 weight: 101
+tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------

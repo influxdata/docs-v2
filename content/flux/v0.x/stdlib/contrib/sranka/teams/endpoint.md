@@ -8,6 +8,7 @@ menu:
     parent: contrib/sranka/teams
     identifier: contrib/sranka/teams/endpoint
 weight: 301
+tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------
