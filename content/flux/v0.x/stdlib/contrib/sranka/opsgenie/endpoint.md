@@ -8,6 +8,7 @@ menu:
     parent: contrib/sranka/opsgenie
     identifier: contrib/sranka/opsgenie/endpoint
 weight: 301
+tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------

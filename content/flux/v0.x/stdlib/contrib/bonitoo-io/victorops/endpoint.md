@@ -8,6 +8,7 @@ menu:
     parent: contrib/bonitoo-io/victorops
     identifier: contrib/bonitoo-io/victorops/endpoint
 weight: 301
+tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------

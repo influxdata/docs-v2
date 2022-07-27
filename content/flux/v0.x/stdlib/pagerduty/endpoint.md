@@ -8,6 +8,7 @@ menu:
     parent: pagerduty
     identifier: pagerduty/endpoint
 weight: 101
+tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------
