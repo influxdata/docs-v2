@@ -464,7 +464,7 @@
       ],
       "tableOptions": {
        "verticalTimeAxis": true,
-       "orderBy": {
+       "sortBy": {
         "internalName": "",
         "displayName": "",
         "visible": false

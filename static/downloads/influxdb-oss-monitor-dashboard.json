@@ -102,7 +102,7 @@
 				"legend": {},
 				"tableOptions": {
 					"verticalTimeAxis": false,
-					"orderBy": {
+					"sortBy": {
 						"internalName": "",
 						"displayName": "",
 						"visible": false
@@ -213,7 +213,7 @@
 				"legend": {},
 				"tableOptions": {
 					"verticalTimeAxis": false,
-					"orderBy": {
+					"sortBy": {
 						"internalName": "",
 						"displayName": "",
 						"visible": false
@@ -324,7 +324,7 @@
 				"legend": {},
 				"tableOptions": {
 					"verticalTimeAxis": false,
-					"orderBy": {
+					"sortBy": {
 						"internalName": "",
 						"displayName": "",
 						"visible": false
@@ -455,7 +455,7 @@
 				"legend": {},
 				"tableOptions": {
 					"verticalTimeAxis": true,
-					"orderBy": {
+					"sortBy": {
 						"internalName": "",
 						"displayName": "",
 						"visible": false
@@ -602,7 +602,7 @@
 				"legend": {},
 				"tableOptions": {
 					"verticalTimeAxis": false,
-					"orderBy": {
+					"sortBy": {
 						"internalName": "",
 						"displayName": "",
 						"visible": false
@@ -713,7 +713,7 @@
 				"legend": {},
 				"tableOptions": {
 					"verticalTimeAxis": false,
-					"orderBy": {
+					"sortBy": {
 						"internalName": "",
 						"displayName": "",
 						"visible": false
@@ -824,7 +824,7 @@
 				"legend": {},
 				"tableOptions": {
 					"verticalTimeAxis": false,
-					"orderBy": {
+					"sortBy": {
 						"internalName": "",
 						"displayName": "",
 						"visible": false
@@ -995,7 +995,7 @@
 				"legend": {},
 				"tableOptions": {
 					"verticalTimeAxis": false,
-					"orderBy": {
+					"sortBy": {
 						"internalName": "",
 						"displayName": "",
 						"visible": false
