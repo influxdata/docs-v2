@@ -8,6 +8,7 @@ menu:
     parent: contrib/bonitoo-io/alerta
     identifier: contrib/bonitoo-io/alerta/endpoint
 weight: 301
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------

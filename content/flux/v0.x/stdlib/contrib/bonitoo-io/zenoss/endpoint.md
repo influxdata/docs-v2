@@ -8,6 +8,7 @@ menu:
     parent: contrib/bonitoo-io/zenoss
     identifier: contrib/bonitoo-io/zenoss/endpoint
 weight: 301
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------
