@@ -3,7 +3,7 @@ title: Add a member
 seotitle: Add a member to an organization in InfluxDB
 description: >
   Use the `influx` command line interface (CLI) to add a member to an organization
-  and optionally make that member an owner of the organization.
+  and optionally make that member an owner across all organizations.
 menu:
   influxdb_2_4:
     name: Add a member
@@ -12,7 +12,7 @@ weight: 201
 ---
 
 Use the `influx` command line interface (CLI) to add a member to an organization
-and optionally make that member an owner of the organization.
+and optionally make that member an owner across all organizations.
 
 ## Add a member to an organization using the influx CLI
 
@@ -27,7 +27,8 @@ and optionally make that member an owner of the organization.
    
    - Organization name
    - User ID
-   - _(Optional)_ `--owner` flag to add the user as an organization owner
+   - _(Optional)_ `--owner` flag to add the user as an owner 
+    _(requires an [operator token](/influxdb/v2.4/security/tokens/#operator-token))_
 
     {{< code-tabs-wrapper >}}
 {{% code-tabs %}}

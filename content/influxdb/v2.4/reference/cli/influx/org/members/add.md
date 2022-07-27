@@ -7,6 +7,7 @@ menu:
     parent: influx org members
 weight: 301
 updated_in: CLI v2.4.0
+metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 related:
   - /influxdb/v2.4/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2.4/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
@@ -43,7 +44,7 @@ influx org members add \
   --name example-org
 ```
 
-##### Add a member to an organization as an owner
+##### Add a member to an organization and make them an owner
 ```sh
 influx org members add \
   --member 00x0oo0X0xxxo000 \
