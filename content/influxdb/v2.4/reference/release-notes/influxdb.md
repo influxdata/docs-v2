@@ -8,6 +8,22 @@ menu:
 weight: 101
 ---
 
+## v2.4 [TBD]
+
+### Features
+
+- Add back the InfluxQL REPL.
+- Support v1 dbrp names as bucket IDs in replications API.
+- Change to operator model so that admin user has instance-level permissions without operator token.
+- Add UDP Support to 2.x.
+- Automate DBRP mappings.
+- Instance reporting replication stream error when no replications are present.
+
+
+### Bug fixes
+
+### Maintenance
+
 ## v2.3.0 [2022-6-17]
 
 This release includes the following [maintenance](#maintenance), [features](#features), [security updates](#security-updates) and [bug fixes](#bug-fixes).
