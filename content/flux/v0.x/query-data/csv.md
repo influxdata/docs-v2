@@ -72,7 +72,7 @@ The structure of results returned by `csv.from()` depends on the
 
 ## Examples
 
-_If just getting started, use the [Flux REPL](/influxdb/cloud/tools/repl/) or the
+_If just getting started, use the [Flux REPL](/influxdb/cloud/tools/flux-repl/) or the
 [InfluxDB Data Explorer](/influxdb/cloud/query-data/execute-queries/data-explorer/)
 to execute Flux queries._
 

@@ -3,12 +3,14 @@ title: Use the Interactive Flux REPL
 description: >
   Use the Flux REPL (Read–Eval–Print Loop) to execute Flux scripts and interact
   with InfluxDB and other data sources.
-influxdb/cloud/tags: [flux]
+influxdb/v2.4/tags: [flux]
 menu:
-  influxdb_cloud:
+  influxdb_2_4:
     name: Use the Flux REPL
     parent: Tools & integrations
 weight: 103
+aliases:
+  - /influxdb/v2.4/tools/repl/
 ---
 
 Use the Flux REPL (Read–Eval–Print Loop) to execute Flux scripts and interact with InfluxDB and other data sources.
@@ -39,14 +41,14 @@ To open a new REPL session, run:
 
 ### Query data from InfluxDB
 To query data from InfluxDB (local or remote), provide the host, organization, and token parameters
-to the [`from()` function](/influxdb/cloud/reference/flux/stdlib/built-in/inputs/from/).
+to the [`from()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/).
 
 ```js
 from(
     bucket: "example-bucket",
-    host: "https://cloud2.influxdata.com",
+    host: "http://localhost:8086",
     org: "example-org",
-    token: "My5uP3rS3cRetT0k3n"
+    token: "My5uP3rS3cRetT0k3n",
 )
 ```
 
