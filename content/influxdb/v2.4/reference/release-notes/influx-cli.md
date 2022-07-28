@@ -8,7 +8,7 @@ menu:
     name: influx CLI 
 ---
 
-## v2.4.0
+## v2.4.0 [TBD]
 
 ### Features
 
