@@ -72,9 +72,9 @@ The structure of results returned by `csv.from()` depends on the
 
 ## Examples
 
-_If just getting started, use the [Flux REPL](/influxdb/cloud/tools/flux-repl/) or the
+If just getting started, use the [Flux REPL](/influxdb/cloud/tools/flux-repl/) or the
 [InfluxDB Data Explorer](/influxdb/cloud/query-data/execute-queries/data-explorer/)
-to execute Flux queries._
+to execute Flux queries.
 
 - [Query an annotated CSV string](#query-an-annotated-csv-string)
 - [Query a raw CSV string](#query-a-raw-csv-string)
