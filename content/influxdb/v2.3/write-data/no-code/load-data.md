@@ -204,7 +204,7 @@ Associate **String** key/value pairs with **InfluxDB elements** (measurements, t
    {{% /warn %}}
 
   2. Under **Measurement**, if the string is `device_type=temperature_sensor` use regex to find the measurement name. For example:
-      - `device_type=([\s\S]*?)\n` captures the value after the `=` until the EOL (end of line) is reached) in this case the value would be temperature_sensor.
+      - `device_type=([\s\S]*?)\n` captures the value after the `=` until the EOL (end of line) is reached), in this case the value would be `temperature_sensor`.
   3. Select the **Data Type** for the measurement.
   4. Enter **Tag** and **Field**. At least one field is required. For tag and field names, use the regex to find the tag or field name, and what to capture. For example:
      - `device_id=\d\d\d\d-([0-9][0-9][0-9][0-9])` (matches on the `device_id=` and also matches on the first four digits of the device id, and then captures the four digits.
