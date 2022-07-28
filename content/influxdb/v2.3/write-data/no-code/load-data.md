@@ -83,7 +83,7 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 
 ### Set up a native subscription
 
-To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the following to set up a Cloud native subscription:
+To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the following to set up a native subscription:
 
 1. [Subscribe to an MQTT topic](#subscribe-to-an-mqtt-topic) in InfluxDB Cloud by configuring an MQTT broker, and specifying the topic(s) to subscribe to.
 2. [Define parsing rules](#define-parsing-rules) for JSON or regex data (line protocol requires no configuration).
@@ -157,10 +157,10 @@ Associate **JSON** key/value pairs with **InfluxDB elements** (measurements, tim
 {
 "device_type":"temperature_sensor",
 "device_id":2036,
-“model_id”:”KN24683”,
- "temperature":25.0,
- "time":1653998899010000000
- "error_state":"in_error"
+"model_id":"KN24683",
+"temperature":25.0,
+"time":1653998899010000000
+"error_state":"in_error"
 }
 ```
 {{% /expand %}}
@@ -174,7 +174,7 @@ Associate **JSON** key/value pairs with **InfluxDB elements** (measurements, tim
    {{% /warn %}}
 
 2. Configure the JSON parsing rules: 
-   1. Under **Measurement**, enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key. For the above example, enter `$.temperature_sensor`.
+   1. Under **Measurement**, enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key. For the above example, enter `$.device_type`.
 3. Select the **Data Type** for the measurement.
 4. Specify the JSON paths to tag and field names as needed, and then select the data type for the tag or field. At least one field is required. For the above example, add fields with the JSON paths `$.temperature` and `$.error_state` and a tag with the path `$.error_state`.
 Note that JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`.
@@ -203,12 +203,12 @@ Associate **String** key/value pairs with **InfluxDB elements** (measurements, t
    **Important**: Configure the timestamp format that matches the format in your messages.
    {{% /warn %}}
 
-  2. Under **Measurement**, enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key, for example, `$.device_id` or `$.device_information.device_id` for a nested measurement key.
+  2. Under **Measurement**, if the string is `device_type=temperature_sensor` use regex to find the measurement name. For example:
+      - `device_type=([\s\S]*?)\n` captures the value after the `=` until the EOL (end of line) is reached) in this case the value would be temperature_sensor.
   3. Select the **Data Type** for the measurement.
   4. Enter **Tag** and **Field**. At least one field is required. For tag and field names, use the regex to find the tag or field name, and what to capture. For example:
      - `device_id=\d\d\d\d-([0-9][0-9][0-9][0-9])` (matches on the `device_id=` and also matches on the first four digits of the device id, and then captures the four digits.
-  
-  5. Select the data type for the tag or field. JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`.
+  5. Select the **Data Type** for the tag or field.
 
 {{% /tab-content %}}
 
