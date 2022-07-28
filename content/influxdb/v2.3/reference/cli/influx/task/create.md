@@ -20,15 +20,20 @@ influx task create [task literal] [flags]
 |:-----|:------------------|:----------------------------------------------------------------------|:----------:|:----------------------|
 | `-c` | `--active-config` | CLI configuration to use for command                                  | string     |                       |
 |      | `--configs-path`  | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string     | `INFLUX_CONFIGS_PATH` |
+| `-r` | `--cron`          | [Cloud only] Cron expression to define when the task should run       | string     |                       |
+| `-e` | `--every`         | [Cloud only] Interval at which the task runs                          | string     |                       |
 | `-f` | `--file`          | Path to Flux script file                                              | string     |                       |
 | `-h` | `--help`          | Help for the `create` command                                         |            |                       |
 |      | `--hide-headers`  | Hide table headers (default `false`)                                  |            | `INFLUX_HIDE_HEADERS` |
 |      | `--host`          | HTTP address of InfluxDB (default `http://localhost:8086`)            | string     | `INFLUX_HOST`         |
 |      | `--http-debug`    | Inspect communication with InfluxDB servers.                          | string     |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
+| `-n` | `--name`          | [Cloud only] Name of the task                                         | string     |                       |
 | `-o` | `--org`           | Organization name (mutually exclusive with `--org-id`)                | string     | `INFLUX_ORG`          |
 |      | `--org-id`        | Organization ID (mutually exclusive with `--org`)                     | string     | `INFLUX_ORG_ID`       |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
+|      | `--script-id`     | [Cloud only] Script ID that gets executed instead of Flux             | string     |                       |
+|      | `--script-params` | [Cloud only] JSON parameters for the script to be executed            | string     |                       |
 | `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
 
 ## Example
@@ -56,4 +61,9 @@ influx task create $FLUX_TASK
 ##### Create a task from a file
 ```sh
 influx task create --file /path/to/example-task.flux
+```
+
+##### Create a task with a script
+```sh
+influx task create --name "my task" --every "10h" --script-id 0001234
 ```
