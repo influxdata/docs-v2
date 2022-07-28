@@ -202,10 +202,10 @@ it will overwrite the existing DBRP mapping.
 <!---------------------------- BEGIN InfluxQL shell --------------------------->
 
 The [`influx` CLI](/influxdb/v2.4/tools/influx-cli/) provides an InfluxQL shell
-where you can executed InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
+where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
 
 {{% note %}}
-If you haven't already, be sure to do the following when using the `influx` CLI:
+If you haven't already, be sure to do the following:
 
 - [Download and install the `influx` CLI](/influxdb/v2.4/tools/influx-cli/#install-the-influx-cli)
 - [Configure your authentication credentials](/influxdb/v2.4/tools/influx-cli/#provide-required-authentication-credentials)
@@ -217,7 +217,7 @@ Use the following command to start an InfluxQL shell:
 influx v1 shell
 ```
 
-Execute and InfluxQL query inside the InfluxQL shell.
+Execute an InfluxQL query inside the InfluxQL shell.
 
 ```sql
 > SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
