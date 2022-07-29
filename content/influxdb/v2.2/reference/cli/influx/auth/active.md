@@ -39,4 +39,4 @@ influx auth active [flags]
 influx auth active --id 06c86c40a9f36000
 ```
 
-**Note:** For an overview of tokens and how they work see [Manage tokens](/influxdb/v2.2/security/tokens/). For more information on viewing tokens see [View tokens](/influxdb/v2.2/security/tokens/view-tokens/).
+**Note:** For an overview of tokens and how they work see [Manage tokens](/influxdb/v2.2/security/tokens/). For more information on viewing tokens, see [View tokens](/influxdb/v2.2/security/tokens/view-tokens/).
