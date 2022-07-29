@@ -162,35 +162,40 @@ The `/api/v2/buckets` endpoint accepts `GET`, `POST` and `DELETE` HTTP requests.
 
 ```bash
 curl --request GET "http://localhost:8086/api/v2/buckets"   
-  --header "Content-type: application/json" 
   -H 'Authorization: Token <username>:<password>'
+```
+InfluxDB responds with a list of buckets in the organization.
+
+```bash
+curl --request DELETE /api/v2/buckets/{bucketID}
+```
+
+Delete the `test` database:
+
+```bash
+curl --request DELETE "http://localhost:8086/api/v2/buckets/test/autogen" 
+  --header "Content-type: application/json"   
+  -H 'Authorization: Token <user>:<password>'
 ```
 
 ### `/api/v2/delete/` HTTP endpoint
 
 The `/api/v2/delete` endpoint accepts `POST` HTTP requests. Use this endpoint to delete points from InfluxDB, including points with specific tag values, timestamps and measurements.  
 
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[No Auth](#)
-[Auth Enabled](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
 ```bash
-curl -XPOST "localhost:8086/api/v2/write?bucket=db/rp&precision=s" \
-  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
+POST https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/delete
 ```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```bash
-curl -XPOST "localhost:8086/api/v2/write?bucket=db/rp&precision=s" \
-  -H 'Authorization: Token <username>:<password>' \
-  --data-raw "mem,host=host1 used_percent=23.43234543 1556896326"
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
+Delete all points in a specified time range:
+
+```bash
+curl --request POST https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/delete?org=example-org&bucket=example-bucket \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "start": "2020-03-01T00:00:00Z",
+    "stop": "2020-11-14T00:00:00Z"
+```
 
 
 ## InfluxDB 1.x HTTP endpoints
