@@ -160,17 +160,33 @@ curl -XGET "localhost:8086/health"
 
 The `/api/v2/buckets` endpoint accepts `GET`, `POST` and `DELETE` HTTP requests. Use this endpoint to create, delete, list and retrieve buckets in your InfluxDB instance. 
 
+InfluxDB 2.x uses organizations and buckets instead of databases and retention policies.  
+
+**Include the following URL parameters:**
+
+- `bucket`: Provide the database name and retention policy separated by a forward slash (`/`).
+  For example: `database/retention-policy`.
+  Empty retention policies map to the default retention policy.
+- `org`: In InfluxDB 1.x, there is no concept of organization. The `org` parameter is ignored and can be left empty.
+
+In this example, the response will produce a list of all databases:
+
 ```bash
 curl --request GET "http://localhost:8086/api/v2/buckets"   
   -H 'Authorization: Token <username>:<password>'
 ```
-InfluxDB responds with a list of buckets in the organization.
 
 ```bash
 curl --request DELETE /api/v2/buckets/{bucketID}
 ```
 
-Delete the `test` database:
+In InfluxDB Enterprise, database and retetntion policy are separate and the curl command must be structured in the f:
+
+```bash
+curl --request GET "http://localhost:8086/api/v2/buckets/db-name/rp-name"  
+```
+
+Delete the "test" database:
 
 ```bash
 curl --request DELETE "http://localhost:8086/api/v2/buckets/test/autogen" 
