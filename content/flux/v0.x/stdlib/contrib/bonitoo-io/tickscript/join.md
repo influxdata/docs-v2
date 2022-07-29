@@ -31,7 +31,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `tickscript.join()` merges two input streams into a single output stream
 based on specified columns with equal values and appends a new measurement name.
 
-This function is comparable to [Kapacitor JoinNode](https://docs.influxdata.com/kapacitor/latest/nodes/join_node/).
+This function is comparable to [Kapacitor JoinNode](/kapacitor/latest/nodes/join_node/).
 
 ##### Function type signature
 

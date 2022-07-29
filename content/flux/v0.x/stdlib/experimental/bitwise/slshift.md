@@ -30,7 +30,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `bitwise.slshift()` shifts the bits in `a` left by `b` bits.
 Both `a` and `b` are integers.
 
-**Deprecated**: `slshift` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/slshift/).
+{{% warn %}}
+#### Deprecated
+`slshift` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/slshift/).
+{{% /warn %}}
 
 ##### Function type signature
 

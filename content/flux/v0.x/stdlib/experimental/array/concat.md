@@ -31,7 +31,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `array.concat()` appends two arrays and returns a new array.
 
-**Deprecated**: `concat()` is deprecated in favor of [`concat()`](https://docs.influxdata.com/flux/v0.x/stdlib/array/concat).
+{{% warn %}}
+#### Deprecated
+`concat()` is deprecated in favor of [`concat()`](/flux/v0.x/stdlib/array/concat).
+{{% /warn %}}
 
 Neither input array is mutated and a new array is returned.
 
