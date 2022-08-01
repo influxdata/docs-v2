@@ -29,7 +29,29 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `pagerduty.endpoint()` returns a function that sends a message to PagerDuty that includes output data.
 
+### Usage
+`pagerduty.endpoint()` is a factory function that outputs another function.
+ The output function requires a `mapFn` parameter.
 
+#### mapFn
+Function that builds the record used to generate the POST request.
+Requires an `r` parameter.
+
+`mapFn` accepts a table row (`r`) and returns a record that must include the
+following properties:
+
+- routingKey
+- client
+- client_url
+- class
+- eventAction
+- group
+- severity
+- source
+- component
+- summary
+- timestamp
+- customDetails
 
 ##### Function type signature
 
@@ -64,4 +86,42 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 PagerDuty v2 Events API URL.
 
 Default is `https://events.pagerduty.com/v2/enqueue`.
+
+
+## Examples
+
+### Send critical statuses to a PagerDuty endpoint
+
+```js
+import "pagerduty"
+import "influxdata/influxdb/secrets"
+
+routingKey = secrets.get(key: "PAGERDUTY_ROUTING_KEY")
+toPagerDuty = pagerduty.endpoint()
+
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and r.status == "crit")
+
+crit_statuses
+    |> toPagerDuty(
+        mapFn: (r) =>
+            ({r with
+                routingKey: routingKey,
+                client: r.client,
+                clientURL: r.clientURL,
+                class: r.class,
+                eventAction: r.eventAction,
+                group: r.group,
+                severity: r.severity,
+                source: r.source,
+                component: r.component,
+                summary: r.summary,
+                timestamp: r._time,
+                customDetails: {"ping time": r.ping, load: r.load},
+            }),
+    )()
+
+```
 

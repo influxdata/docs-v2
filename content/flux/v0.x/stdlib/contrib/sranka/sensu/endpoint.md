@@ -33,7 +33,20 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 to the [Sensu Events API](https://docs.sensu.io/sensu-go/latest/api/events/#create-a-new-event)
 using data from table rows.
 
+### Usage
+`sensu.endpoint()` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
 
+#### mapFn
+A function that builds the object used to generate the POST request. Requires an `r` parameter.
+
+`mapFn` accepts a table row (`r`) and returns an object that must include the following fields:
+
+- `checkName`
+- `text`
+- `status`
+
+For more information, see `sensu.event()` parameters.
 
 ##### Function type signature
 
@@ -88,4 +101,26 @@ Default is `influxdb`.
 
 Use alphanumeric characters, underscores (`_`), periods (`.`), and hyphens (`-`).
 All other characters are replaced with an underscore.
+
+
+## Examples
+
+### Send critical status events to Sensu
+
+```js
+import "influxdata/influxdb/secrets"
+import "contrib/sranka/sensu"
+
+token = secrets.get(key: "TELEGRAM_TOKEN")
+endpoint = sensu.endpoint(url: "http://localhost:8080", apiKey: apiKey)
+
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+
+crit_statuses
+    |> endpoint(mapFn: (r) => ({checkName: "critStatus", text: "Status is critical", status: 2}))()
+
+```
 

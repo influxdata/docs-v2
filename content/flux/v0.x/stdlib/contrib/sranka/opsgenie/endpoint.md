@@ -29,7 +29,26 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `opsgenie.endpoint()` sends an alert message to Opsgenie using data from table rows.
 
+### Usage
+opsgenie.endpoint is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
 
+#### mapFn
+A function that builds the record used to generate the POST request. Requires an `r` parameter.
+
+`mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
+
+- message
+- alias
+- description
+- priority
+- responders
+- tags
+- actions
+- details
+- visibleTo
+
+For more information, see `opsgenie.sendAlert`.
 
 ##### Function type signature
 
@@ -77,4 +96,40 @@ Opsgenie API URL. Defaults to `https://api.opsgenie.com/v2/alerts`.
 Alert entity used to specify the alert domain.
 
 
+
+
+## Examples
+
+### Send critical statuses to Opsgenie
+
+```js
+import "influxdata/influxdb/secrets"
+import "contrib/sranka/opsgenie"
+
+apiKey = secrets.get(key: "OPSGENIE_APIKEY")
+endpoint = opsgenie.endpoint(apiKey: apiKey)
+
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+
+crit_statuses
+    |> endpoint(
+        mapFn: (r) =>
+            ({
+                message: "Great Scott!- Disk usage is: ${r.status}.",
+                alias: "disk-usage-${r.status}",
+                description: "",
+                priority: "P3",
+                responders: ["user:john@example.com", "team:itcrowd"],
+                tags: [],
+                entity: "my-lab",
+                actions: [],
+                details: "{}",
+                visibleTo: [],
+            }),
+    )()
+
+```
 

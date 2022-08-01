@@ -29,7 +29,20 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `webexteams.endpoint()` returns a function that sends a message that includes data from input rows to a Webex room.
 
+### Usage
+`webexteams.endpoint` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
 
+#### mapFn
+A function that builds the object used to generate the POST request. Requires an `r` parameter.
+
+`mapFn` accepts a table row (`r`) and returns an object that must include the following fields:
+
+- `roomId`
+- `text`
+- `markdown`
+
+For more information, see `webexteams.message` parameters.
 
 ##### Function type signature
 
@@ -58,4 +71,31 @@ Default is `https://webexapis.com`.
 [Webex API access token](https://developer.webex.com/docs/api/getting-started).
 
 
+
+
+## Examples
+
+### Send the last reported status to Webex Teams
+
+```js
+import "contrib/sranka/webexteams"
+import "influxdata/influxdb/secrets"
+
+token = secrets.get(key: "WEBEX_API_KEY")
+
+from(bucket: "example-bucket")
+    |> range(start: -1m)
+    |> filter(fn: (r) => r._measurement == "statuses")
+    |> last()
+    |> tableFind(fn: (key) => true)
+    |> webexteams.endpoint(token: token)(
+        mapFn: (r) =>
+            ({
+                roomId: "Y2lzY29zcGFyazovL3VzL1JPT00vYmJjZWIxYWQtNDNmMS0zYjU4LTkxNDctZjE0YmIwYzRkMTU0",
+                text: "",
+                markdown: "Disk usage is **${r.status}**.",
+            }),
+    )()
+
+```
 

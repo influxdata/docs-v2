@@ -10,7 +10,7 @@ menu:
     parent: contrib/chobbs/discord
     identifier: contrib/chobbs/discord/endpoint
 weight: 301
-flux/v0.x/tags: [notification endpoints, transformations]
+flux/v0.x/tags: [notifcation endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------
@@ -33,7 +33,19 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&?page=3)
 and data from table rows.
 
+### Usage
+`discord.endpoint` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
 
+#### mapFn
+A function that builds the record used to generate the Discord webhook request.
+Requires an `r` parameter.
+
+`mapFn` accepts a table row (`r`) and returns a record that must include the following field:
+
+- `content`
+
+For more information, see the `discord.send()` `content` parameter.
 
 ##### Function type signature
 
@@ -73,4 +85,26 @@ Override the Discord webhook’s default username.
 Override the Discord webhook’s default avatar.
 
 
+
+
+## Examples
+
+### Send critical statuses to a Discord channel
+
+```js
+import "influxdata/influxdb/secrets"
+import "contrib/chobbs/discord"
+
+discordToken = secrets.get(key: "DISCORD_TOKEN")
+endpoint = telegram.endpoint(webhookToken: discordToken, webhookID: "123456789", username: "critBot")
+
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+
+crit_statuses
+    |> endpoint(mapFn: (r) => ({content: "The status is critical!"}))()
+
+```
 
