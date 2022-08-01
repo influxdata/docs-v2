@@ -10,6 +10,7 @@ menu:
     parent: contrib/sranka/sensu
     identifier: contrib/sranka/sensu/endpoint
 weight: 301
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------
