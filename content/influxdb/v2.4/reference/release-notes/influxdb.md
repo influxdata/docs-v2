@@ -1,5 +1,5 @@
 ---
-title: InfluxDB v2.3 release notes
+title: InfluxDB OSS release notes
 description: Important changes and what's new in each version of InfluxDB.
 menu:
   influxdb_2_4_ref:
@@ -13,16 +13,23 @@ weight: 101
 ### Features
 
 - Add back the InfluxQL REPL.
-- Support v1 dbrp names as bucket IDs in replications API.
-- Change to operator model so that admin user has instance-level permissions without operator token.
 - Add UDP Support to 2.x.
-- Automate DBRP mappings.
+- Support InfluxDB 1.x dbrp names as bucket IDs in replications API.
+- Change to operator model so that `admin` user has instance-level permissions without operator token.
+- Automate dbrp mappings.
 - Instance reporting replication stream error when no replications are present.
 
+#### Flux updates
+- Fix panic from `CreateIterator` in Flux queries. 
 
 ### Bug fixes
 
-### Maintenance
+- Remove MATCHER_BEHAVIOR environment variable.
+- Fix InfluxQL shell being unresponsive if query results are empty.
+
+### Maintenance 
+
+- Upgrade to [Go 1.18.4](https://go.dev/doc/go1.18).
 
 ## v2.3.0 [2022-6-17]
 
