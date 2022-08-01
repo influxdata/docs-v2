@@ -158,9 +158,7 @@ curl -XGET "localhost:8086/health"
 
 ### `/api/v2/buckets/` HTTP endpoint
 
-The `/api/v2/buckets` endpoint accepts `GET`, `POST` and `DELETE` HTTP requests. Use this endpoint to create, delete, list and retrieve buckets in your InfluxDB instance. 
-
-InfluxDB 2.x uses organizations and buckets instead of databases and retention policies.  
+The `/api/v2/buckets` endpoint accepts `GET`, `POST` and `DELETE` HTTP requests. Use this endpoint to create, delete, list and retrieve buckets in your InfluxDB instance. Note that InfluxDB 2.x uses organizations and buckets instead of databases and retention policies.  
 
 **Include the following URL parameters:**
 
@@ -169,6 +167,14 @@ InfluxDB 2.x uses organizations and buckets instead of databases and retention p
   Empty retention policies map to the default retention policy.
 - `org`: In InfluxDB 1.x, there is no concept of organization. The `org` parameter is ignored and can be left empty.
 
+**Include the following HTTP header:**
+
+- `Authorization`: In InfluxDB 2.x uses [API Tokens](/influxdb/v2.0/security/tokens/)
+  to access the platform and all its capabilities.
+  InfluxDB v1.x uses a username and password combination when accessing the HTTP APIs.
+  Use the Token schema to provide your InfluxDB 1.x username and password separated by a colon (`:`).
+  For example: `Authorization: Token username:password`.
+
 In this example, the response will produce a list of all databases:
 
 ```bash
@@ -176,17 +182,7 @@ curl --request GET "http://localhost:8086/api/v2/buckets"
   -H 'Authorization: Token <username>:<password>'
 ```
 
-```bash
-curl --request DELETE /api/v2/buckets/{bucketID}
-```
-
-In InfluxDB Enterprise, database and retetntion policy are separate and the curl command must be structured in the f:
-
-```bash
-curl --request GET "http://localhost:8086/api/v2/buckets/db-name/rp-name"  
-```
-
-Delete the "test" database:
+In this example we are deleting the "test" database:
 
 ```bash
 curl --request DELETE "http://localhost:8086/api/v2/buckets/test/autogen" 
@@ -198,21 +194,31 @@ curl --request DELETE "http://localhost:8086/api/v2/buckets/test/autogen"
 
 The `/api/v2/delete` endpoint accepts `POST` HTTP requests. Use this endpoint to delete points from InfluxDB, including points with specific tag values, timestamps and measurements.  
 
-```bash
-POST https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/delete
-```
+**Include the following URL parameters:**
+
+- `bucket`: Provide the database name and retention policy separated by a forward slash (`/`).
+  For example: `database/retention-policy`.
+- `precision`: Precision of timestamps in the line protocol.
+  Accepts `ns` (nanoseconds), `us`(microseconds), `ms` (milliseconds) and `s` (seconds).
+
+**Include the following HTTP header:**
+
+- `Authorization`: In InfluxDB 2.x uses [API Tokens](/influxdb/v2.0/security/tokens/)
+  to access the platform and all its capabilities.
+  InfluxDB v1.x uses a username and password combination when accessing the HTTP APIs.
+  Use the Token schema to provide your InfluxDB 1.x username and password separated by a colon (`:`).
+  For example: `Authorization: Token username:password`.
 
 Delete all points in a specified time range:
 
 ```bash
-curl --request POST https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/delete?org=example-org&bucket=example-bucket \
+curl --request POST "http://localhost:8086/api/v2/delete/exampleDB/autogen \
   --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{
     "start": "2020-03-01T00:00:00Z",
     "stop": "2020-11-14T00:00:00Z"
 ```
-
 
 ## InfluxDB 1.x HTTP endpoints
 The following InfluxDB 1.x API endpoints are available:
