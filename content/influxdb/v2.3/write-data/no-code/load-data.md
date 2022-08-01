@@ -24,7 +24,9 @@ Load data from the following sources in the InfluxDB user interface (UI):
 Load CSV or line protocol data by uploading a file or pasting the data manually into the UI.
 
 1. In the navigation menu on the left, click **Load Data** > **Sources**.
+
     {{< nav-icon "data" >}}
+
 2. Under **File Upload**, select the type of data to upload:
     - **Annotated CSV**. Verify your CSV file follows the supported [annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv/) syntax.
     - **Line Protocol**. Verify your line protocol file adheres to the following conventions:  
@@ -46,7 +48,9 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 ### Load data from a client library in the UI
 
 1.  In the navigation menu on the left, click **Load Data** > **Sources**.
+
     {{< nav-icon "data" >}}
+
 2. Do one of the following:
    - Enter a specific client library to search for in the **Search data writing methods** field.
    - Scroll down to browse available client libraries.
@@ -61,7 +65,9 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 ### Load data from a Telegraf plugin in the UI
 
 1. In the navigation menu on the left, click **Load Data** > **Sources**.
-    {{< nav-icon "data" >}}
+
+   {{< nav-icon "data" >}}
+
 2. Do one of the following:
    - Enter a specific Telegraf plugin to search for in the **Search data writing methods** field.
    - Scroll down to **Telegraf Plugins** and browse available input plugins.
@@ -95,6 +101,9 @@ For troubleshooting help, see [Troubleshoot MQTT ingest errors](/influxdb/cloud/
 #### Subscribe to an MQTT topic
 
 1. In the navigation menu on the left, click **Load Data** > **Native Subscriptions**.
+
+{{< nav-icon "data" >}}
+
 2. Click **+ Create Subscription**.
 3. On the **Setting Up - MQTT Subscriber** page, under **Connect to Broker**, enter the following:
    - Subscription Name
