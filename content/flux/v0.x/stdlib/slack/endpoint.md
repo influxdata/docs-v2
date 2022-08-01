@@ -32,6 +32,20 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 Each output row includes a `_sent` column that indicates if the message for
 that row was sent successfully.
 
+### Usage
+`slack.endpoint()` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
+
+#### mapFn
+A function that builds the record used to generate the POST request.
+
+`mapFn` accepts a table row (`r`) and returns a record that must include the
+following properties:
+
+- channel
+- color
+- text
+
 ##### Function type signature
 
 ```js
@@ -58,4 +72,25 @@ If using the Slack webhook API, this URL is provided ine Slack webhook setup pro
 Slack API token. Default is `""`.
 
 If using the Slack Webhook API, a token is not required.
+
+
+## Examples
+
+### Send status alerts to a Slack endpoint
+
+```js
+import "sampledata"
+import "slack"
+
+data =
+    sampledata.int()
+        |> map(fn: (r) => ({r with status: if r._value > 15 then "alert" else "ok"}))
+        |> filter(fn: (r) => r.status == "alert")
+
+data
+    |> slack.endpoint(token: "mY5uP3rSeCr37T0kEN")(
+        mapFn: (r) => ({channel: "Alerts", text: r._message, color: "danger"}),
+    )()
+
+```
 

@@ -29,7 +29,25 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `zenoss.endpoint()` sends events to Zenoss using data from input rows.
 
+### Usage
+`zenoss.endpoint` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
 
+#### mapFn
+A function that builds the object used to generate the POST request. Requires an `r` parameter.
+
+`mapFn` accepts a table row (`r`) and returns an object that must include the following fields:
+
+- summary
+- device
+- component
+- severity
+- eventClass
+- eventClassKey
+- collector
+- message
+
+For more information, see `zenoss.event()` parameters.
 
 ##### Function type signature
 
@@ -109,4 +127,40 @@ Temporary request transaction ID.
 Default is `1`.
 
 
+
+
+## Examples
+
+### Send critical events to Zenoss
+
+```js
+import "contrib/bonitoo-io/zenoss"
+import "influxdata/influxdb/secrets"
+
+url = "https://tenant.zenoss.io:8080/zport/dmd/evconsole_router"
+username = secrets.get(key: "ZENOSS_USERNAME")
+password = secrets.get(key: "ZENOSS_PASSWORD")
+endpoint = zenoss.endpoint(url: url, username: username, password: password)
+
+crit_events =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+
+crit_events
+    |> endpoint(
+        mapFn: (r) =>
+            ({
+                summary: "Critical event for ${r.host}",
+                device: r.deviceID,
+                component: r.host,
+                severity: "Critical",
+                eventClass: "/App",
+                eventClassKey: "",
+                collector: "",
+                message: "${r.host} is in a critical state.",
+            }),
+    )()
+
+```
 
