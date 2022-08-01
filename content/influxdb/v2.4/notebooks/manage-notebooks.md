@@ -32,7 +32,7 @@ Manage your notebooks in the UI:
 
 1.  In the navigation menu on the left, click **Notebooks**.
 
-    {{< nav-icon "notebooks" >}}
+{{< nav-icon "notebooks" >}}
 
 2.  Click the notebook to open it, and then click the **{{< icon "share" >}}** icon.
 3.  Select an API token with read-access to all resources in the notebook,

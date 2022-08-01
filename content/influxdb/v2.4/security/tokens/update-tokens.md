@@ -24,7 +24,7 @@ using the InfluxDB user interface (UI).
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "load-data" >}}
+{{< nav-icon "load-data" >}}
 
 2. Click the pencil icon {{< icon "pencil" >}} next to the token's name in the **Description** column.
 3. Update the token description, then click anywhere else to save.
@@ -35,7 +35,7 @@ using the InfluxDB user interface (UI).
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "load-data" >}}
+{{< nav-icon "load-data" >}}
 
 2. Click the **{{< icon "toggle-green" >}} Status** toggle.
 
