@@ -6,6 +6,7 @@ menu:
     name: influx task update
     parent: influx task
 weight: 201
+updated_in: CLI v2.4.0
 ---
 
 The `influx task update` command updates information related to tasks in InfluxDB.
