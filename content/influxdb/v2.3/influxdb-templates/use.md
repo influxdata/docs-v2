@@ -291,15 +291,24 @@ with the **file path** of the template manifest.
 ```sh
 # Syntax
 influx apply -o <INFLUX_ORG> -f <FILE_PATH>
+```
 
-# Examples
-# Apply a single template
-influx apply -o example-org -f /path/to/template.yml
+The following code sample shows how to apply a template from a file path.
 
+```sh
+influx apply -o INFLUX_ORG -f /PATH/TO/TEMPLATE.yml
+```
+
+Replace **`/PATH/TO/TEMPLATE.yml`** with the absolute file path of the template.
+
+To use one command to apply multiple templates from the file system, pass the `-f` option
+and the file path for each template--for example:
+
+```sh
 # Apply multiple templates
 influx apply -o example-org \
-  -f /path/to/this/template.yml \
-  -f /path/to/that/template.yml
+  -f /path/to/first/template.yml \
+  -f /path/to/second/template.yml
 ```
 
 ### Apply all templates in a directory
@@ -308,18 +317,22 @@ To apply all templates in a directory, pass the `-f` or `--file` option with
 the **directory path** where template manifests are stored.
 By default, this only applies templates stored in the specified directory.
 To apply all templates stored in the specified directory and its subdirectories,
-include the `-R`, `--recurse` flag.
+pass the `-R`, `--recurse` flag.
 
 ```sh
 # Syntax
 influx apply -o <INFLUX_ORG> -f <DIRECTORY_PATH>
+```
 
+The following code samples show how to apply all templates from a directory:
+
+```sh
 # Examples
 # Apply all templates in a directory
-influx apply -o example-org -f /path/to/template/dir/
+influx apply -o INFLUX_ORG -f /path/to/template/dir/
 
 # Apply all templates in a directory and its subdirectories
-influx apply -o example-org -f /path/to/template/dir/ -R
+influx apply -o INFLUX_ORG -f /path/to/template/dir/ -R
 ```
 
 ### Apply a template from a URL
@@ -330,32 +343,40 @@ of the template manifest.
 ```sh
 # Syntax
 influx apply -o <INFLUX_ORG> -u <FILE_URL>
+```
 
+The following code sample shows how to apply a template from a remote URL:
+
+```sh
 # Examples
 # Apply a single template from a URL
 influx apply -o example-org -u https://example.com/templates/template.yml
+```
 
+To use one command to apply multiple templates from URLs, pass the `-u` option
+and the URL for each template--for example:
+
+```sh
 # Apply multiple templates from URLs
 influx apply -o example-org \
   -u https://example.com/templates/template1.yml \
   -u https://example.com/templates/template2.yml
 ```
 
-### Apply templates from files and URLs
+### Apply multiple templates from files and URLs
 
-To apply templates from file paths and URLs in a single command, pass each template
-with the appropriate `-f` or `-u` option.
+To use a single command to apply templates from multiple file paths and URLs, pass each template with the appropriate `-f` or `-u` option.
 
 ```sh
 # Syntax
 influx apply -o <INFLUX_ORG> -u <FILE_URL> -f <FILE_PATH>
 ```
 
-The following code sample shows how to apply templates from URLs and from the
-local file system:
+The following code sample shows a single command to apply multiple templates from URLs
+the file system:
 
 ```sh
-influx apply -o example-org \
+influx apply -o INFLUX_ORG \
   -u https://example.com/templates/template1.yml \
   -u https://example.com/templates/template2.yml \
   -f ~/templates/custom-template.yml \
@@ -368,15 +389,164 @@ directory and subdirectories.
 
 ## Apply templates with the API
 
-Use the `/api/v2/templates/apply` endpoint to install templates to your InfluxDB organization.
+Use the `/api/v2/templates/apply` endpoint to install templates to your InfluxDB instance.
 
-{{% api-endpoint method="POST" endpoint="/api/v2/templates/apply" %}}
+[{{% api-endpoint method="POST" endpoint="/api/v2/templates/apply" %}}](/influxdb/v2.3/api/#operation/ApplyTemplate)
 
 With the API, you can apply templates from remote URLs or template objects in your request.
 
+### Apply templates from template objects
+
+To apply a template from a template object, pass the _`template`_ property with the template in the request body.
+The following code sample shows how to dry-run a template that defines a `Bucket`
+resource and a `Label` resource:
+
+```sh
+curl "http://localhost:8086/api/v2/templates/apply" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
+  --data @- << EOF
+  { "orgID": "INFLUX_ORG_ID",
+    "dryRun": true,
+    "template": {
+      "contents": [
+        {
+          "apiVersion": "influxdata.com/v2alpha1",
+          "kind": "Bucket",
+          "metadata": {
+            "name": "heuristic-sinoussi-004"
+          },
+          "spec": {
+            "name": "docker",
+            "retentionRules": [
+              {
+                "everySeconds": 604800,
+                "type": "expire"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "influxdata.com/v2alpha1",
+          "kind": "Label",
+          "metadata": {
+            "name": "unruffled-benz-004"
+          },
+          "spec": {
+            "color": "#326BBA",
+            "name": "inputs.cpu"
+          }
+        }
+      ]
+    }  
+  }
+EOF
+```
+
+Replace the following:
+
+- **`INFLUX_API_TOKEN`**: your InfluxDB API token that has `write` permission for the organization.
+- **`INFLUX_ORG_ID`**: your InfluxDB organization ID.
+
+To apply multiple templates in a single request, pass the _`templates`_ property with
+an array of template objects in the request body--for example:
+
+```sh
+curl "http://localhost:8086/api/v2/templates/apply" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
+  --data @- << EOF
+  { "orgID": "INFLUX_ORG_ID",
+    "dryRun": true,
+    "templates": [
+      { "contents": [{
+          "apiVersion": "influxdata.com/v2alpha1",
+          "kind": "Label",
+          "metadata": {
+            "name": "unruffled-benz-001"
+          },
+          "spec": {
+            "color": "#326BBA",
+            "name": "inputs.cpu"
+          }
+        }]
+      },
+      { "contents": [{
+          "apiVersion": "influxdata.com/v2alpha1",
+          "kind": "Bucket",
+          "metadata": {
+            "name": "heuristic-sinoussi-004"
+          },
+          "spec": {
+            "name": "docker",
+            "retentionRules": [
+              {
+                "everySeconds": 604800,
+                "type": "expire"
+              }
+            ]
+          }
+        }]
+      }
+    ]
+  }
+EOF
+```
+
+Replace the following:
+
+- **`INFLUX_API_TOKEN`**: your InfluxDB API token that has `write` permission for the organization.
+- **`INFLUX_ORG_ID`**: your InfluxDB organization ID.
+
+The _`template`_ and _`templates`_ properties are mutually exclusive; if you pass both in your request, InfluxDB responds with an error--for example:
+
+```json
+{
+...
+  "errors": [
+          {
+                  "kind": "Label",
+                  "fields": [
+                          "root",
+                          "spec",
+                          "name"
+                  ],
+                  "idxs": [
+                          2,
+                          null,
+                          null
+                  ],
+                  "reason": "duplicate name: unruffled-benz-004"
+          }
+  ],
+  "code": "unprocessable entity",
+  "message": "unprocessable entity"
+}
+```
+
+### Apply templates from URLs with the API
+
+To apply a template located at a URL, pass the _`remotes`_ property with an array.
+In the array, pass an object with the `url` property for each template you want to apply--for example,
+the following code sample dry-runs the `docker` and `linux_system` [community templates](#use-influxdb-community-templates):
+
+```sh
+curl "http://localhost:8086/api/v2/templates/apply" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
+  --data @- << EOF
+    {
+      "dryRun": true,
+      "remotes": [
+        {
+          "url": "https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml"
+        },
+        {
+        "url": "https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml"
+        }
+      ]
+    }
+EOF
+```
+
 ### Apply templates from URLs and template objects
-
-
 
 ### Define environment references
 
