@@ -28,6 +28,8 @@ influx task update [task literal] [flags]
 | `-i` | `--id`            | ({{< req >}}) Task ID                                                 | string     |                       |
 |      | `--json`          | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 |      | `--skip-verify`   | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
+|      | `--script-id`     | _(InfluxDB Cloud only)_ Invokable script ID to execute                | string     |                       |
+|      | `--script-params` | _(InfluxDB Cloud only)_ Invokable script JSON parameters              | string     |                       |
 |      | `--status`        | Update task status (`active` or `inactive`)                           | string     |                       |
 | `-t` | `--token`         | API token                                                             | string     | `INFLUX_TOKEN`        |
 
@@ -37,6 +39,7 @@ influx task update [task literal] [flags]
 
 - [Update a task from a Flux string](#update-a-task-from-a-flux-string)
 - [Update a task from a Flux file](#update-a-task-from-a-flux-file)
+- [Update a task from a script ID](#update-a-task-from-a-script-id)
 - [Enable a task](#enable-a-task)
 - [Disable a task](#disable-a-task)
 
@@ -55,20 +58,35 @@ export UPDATED_FLUX_TASK='
     |> to(bucket: "default-ds-1d", org: "my-org")
 '
 
-influx task update $UPDATED_FLUX_TASK
+influx task update \
+  --id 0001234 \
+  $UPDATED_FLUX_TASK
 ```
 
 ##### Update a task from a Flux file
 ```sh
-influx task update --file /path/to/example-task.flux
+influx task update \
+  --id 0001234 \
+  --file /path/to/example-task.flux
+```
+
+##### Update a task from a script ID
+```sh
+influx task update \
+  --id 0001234 \
+  --script-id 0004567
 ```
 
 ##### Enable a task
 ```sh
-influx task update --status active
+influx task update \
+  --id 0001234 \
+  --status active
 ```
 
 ##### Disable a task
 ```sh
-influx task update --status inactive
+influx task update \
+  --id 0001234 \
+  --status inactive
 ```
