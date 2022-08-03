@@ -13,6 +13,7 @@ related:
   - /influxdb/v2.3/reference/cli/influx/apply/
   - /influxdb/v2.3/reference/cli/influx/template/
   - /influxdb/v2.3/reference/cli/influx/template/validate/
+  - /influxdb/v2.3/api/
 ---
 
 Summarize, validate, and apply templates for InfluxDB resources.
@@ -395,6 +396,11 @@ Use the `/api/v2/templates/apply` endpoint to install templates to your InfluxDB
 
 With the API, you can apply templates from remote URLs or template objects in your request.
 
+When running the code samples, replace the following placeholders with your own values:
+
+- **`INFLUX_API_TOKEN`**: your InfluxDB API token that has `write` permission for the organization.
+- **`INFLUX_ORG_ID`**: your InfluxDB organization ID.
+
 ### Apply templates from template objects
 
 To apply a template from a template object, pass the _`template`_ property with the template in the request body.
@@ -442,11 +448,6 @@ curl "http://localhost:8086/api/v2/templates/apply" \
 EOF
 ```
 
-Replace the following:
-
-- **`INFLUX_API_TOKEN`**: your InfluxDB API token that has `write` permission for the organization.
-- **`INFLUX_ORG_ID`**: your InfluxDB organization ID.
-
 To apply multiple templates in a single request, pass the _`templates`_ property with
 an array of template objects in the request body--for example:
 
@@ -491,12 +492,7 @@ curl "http://localhost:8086/api/v2/templates/apply" \
 EOF
 ```
 
-Replace the following:
-
-- **`INFLUX_API_TOKEN`**: your InfluxDB API token that has `write` permission for the organization.
-- **`INFLUX_ORG_ID`**: your InfluxDB organization ID.
-
-The _`template`_ and _`templates`_ properties are mutually exclusive; if you pass both in your request, InfluxDB responds with an error--for example:
+The _`template`_ and _`templates`_ parameters are mutually exclusive; if you pass both parameters in your request, InfluxDB responds with an error--for example:
 
 ```json
 {
@@ -524,22 +520,19 @@ The _`template`_ and _`templates`_ properties are mutually exclusive; if you pas
 
 ### Apply templates from URLs with the API
 
-To apply a template located at a URL, pass the _`remotes`_ property with an array.
-In the array, pass an object with the `url` property for each template you want to apply--for example,
-the following code sample dry-runs the `docker` and `linux_system` [community templates](#use-influxdb-community-templates):
+To apply a template located at a URL, pass _`remotes`_ with an array in the request body.
+In the array, pass an object with the `url` property for the template you want to apply--for example,
+the following code sample dry-runs the `linux_system` [community template](#use-influxdb-community-templates):
 
 ```sh
 curl "http://localhost:8086/api/v2/templates/apply" \
   --header "Authorization: Token INFLUX_API_TOKEN" \
   --data @- << EOF
-    {
+    { "orgID": "INFLUX_ORG_ID",
       "dryRun": true,
       "remotes": [
         {
-          "url": "https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml"
-        },
-        {
-        "url": "https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml"
+          "url": "https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml"
         }
       ]
     }
@@ -547,6 +540,54 @@ EOF
 ```
 
 ### Apply templates from URLs and template objects
+
+The following code sample passes _`remotes`_ and _`templates`_ to apply templates
+from a URL and template objects:
+
+```sh
+curl "http://localhost:8086/api/v2/templates/apply" \
+  --header "Authorization: Token INFLUX_API_TOKEN" \
+  --data @- << EOF
+    { "orgID": "INFLUX_ORG_ID",
+      "dryRun": true,
+      "remotes": [
+        {
+          "url": "https://raw.githubusercontent.com/influxdata/community-templates/master/docker/docker.yml"
+        }
+      ],
+      "templates": [
+      { "contents": [{
+          "apiVersion": "influxdata.com/v2alpha1",
+          "kind": "Label",
+          "metadata": {
+            "name": "unruffled-benz-001"
+          },
+          "spec": {
+            "color": "#326BBA",
+            "name": "inputs.cpu"
+          }
+        }]
+      },
+      { "contents": [{
+          "apiVersion": "influxdata.com/v2alpha1",
+          "kind": "Bucket",
+          "metadata": {
+            "name": "heuristic-sinoussi-004"
+          },
+          "spec": {
+            "name": "docker",
+            "retentionRules": [
+              {
+                "everySeconds": 604800,
+                "type": "expire"
+              }
+            ]
+          }
+        }]
+      }]
+    }
+EOF
+```
 
 ### Define environment references
 
@@ -556,8 +597,8 @@ Some templates include [environment references](/influxdb/v2.3/influxdb-template
 
 The `influx apply` command prompts you to provide a value for each environment
 reference in the template.
-You can also provide values for environment references by including an `--env-ref`
-flag with a key-value pair comprised of the environment reference key and the
+You can also provide values for environment references by passing an `--env-ref`
+option with a key-value pair comprised of the environment reference key and the
 value to replace it.
 
 ```sh
@@ -568,6 +609,77 @@ influx apply -o example-org -f /path/to/template.yml \
 ```
 
 #### Define environment references with the API
+
+To provide environment reference values when you apply a template with the
+`/api/v2/templates/apply` API endpoint, pass _`envRefs`_ with key-value pairs
+in the request body.
+
+The following example shows how to define environment references in template objects
+and how to provide values for the references:
+
+{{% truncate %}}
+
+```sh
+  curl -v "http://localhost:8086/api/v2/templates/apply" \
+    --header "Authorization: Token INFLUX_API_TOKEN" \
+    --data @- << EOF
+    { "orgID": "INFLUX_ORG_ID",
+      "dryRun": true,
+      "envRefs": {
+        "linux-cpu-label": "MY-CPU-LABEL",
+        "docker-bucket": "MY-DOCKER-BUCKET",
+        "docker-spec-1": "MY-DOCKER-SPEC"
+      },
+      "templates": [
+        { "contents": [{
+            "apiVersion": "influxdata.com/v2alpha1",
+            "kind": "Label",
+            "metadata": {
+              "name": {
+                "envRef": {
+                  "key": "linux-cpu-label"
+                }
+              }
+            },
+            "spec": {
+              "color": "#326BBA",
+              "name": "inputs.cpu"
+            }
+          }]
+        },
+        { "contents": [{
+            "apiVersion": "influxdata.com/v2alpha1",
+            "kind": "Bucket",
+            "metadata": {
+              "name": {
+                "envRef": {
+                  "key": "docker-bucket"
+                }
+              }
+            },
+            "spec": {
+              "name": {
+                "envRef": {
+                  "key": "docker-spec-1"
+                }
+              },
+              "retentionRules": [
+                {
+                  "everySeconds": 604800,
+                  "type": "expire"
+                }
+              ]
+            }
+          }]
+        }
+      ]
+    }
+EOF
+```
+
+{{% /truncate %}}
+
+For more API schema detail, see the [`/api/v2/templates/apply` reference documentation](/influxdb/v2.3/api/#operation/ApplyTemplate).
 
 ### Include a secret when installing a template
 
@@ -601,5 +713,86 @@ _To add a secret after applying a template, see [Add secrets](/influxdb/v2.3/sec
 
 #### Include secrets with the API
 
+The following `wins` task (from the **fortnite** community template) contains a `query`
+that requires a`SLACK_WEBHOOK` secret for sending a Slack message:
 
+{{% truncate %}}
+{{% code-callout "secrets.get(key: "SLACK_WEBHOOK")" %}}
 
+```yaml
+apiVersion: influxdata.com/v2alpha1
+kind: Task
+metadata:
+    name: alerting-gates-b84003
+spec:
+    associations:
+      - kind: Label
+        name: jolly-mendel-784001
+    every: 1h0m0s
+    name: wins
+    offset: 5m0s
+    query: |-
+        import "slack"
+        import "strings"
+        import "influxdata/influxdb/secrets"
+        webhook = secrets.get(key: "SLACK_WEBHOOK")
+        sendSlackMessage = (text) =>
+        	(slack.message(
+        		url: webhook,
+        		token: "",
+        		channel: "",
+        		text: text,
+        		color: "good",
+        	))
+        from(bucket: "fortnite")
+              	|> range(start: -2h, stop: -30m)
+              	|> filter(fn: (r) =>
+              		(r["_measurement"] == "exec_fortnite"))
+              	|> filter(fn: (r) =>
+              		(r["_field"] == "squad_placetop1" or r["_field"] == "solo_placetop1" or r["_field"] == "duo_placetop1"))
+              	|> filter(fn: (r) =>
+              		(r["pro"] == "no" or r["pro"] == "yes"))
+              	|> group(columns: ["name", "_field"])
+              	|> drop(columns: ["_start", "_stop", "pro"])
+              	|> difference()
+              	|> group(columns: ["_time", "name"])
+              	|> filter(fn: (r) =>
+              		(r["_value"] == 1))
+              	|> map(fn: (r) =>
+              		({r with newColumn: if r["_value"] == 1 then sendSlackMessage(text: "Congratulations to *${string(v: r.name)}* for winning a Fortnite *${strings.trimSuffix(v: r._field, suffix: "_placetop1")}* match! :boom: :boom: :boom:") else 100}))
+---
+
+```
+
+{{% /code-callout %}}
+{{% caption %}}
+[community-templates/fortnite/fn-template.yml on GitHub](https://github.com/influxdata/community-templates/blob/adb5c7cad12e195baa587ae123bdac7ec8cc0f3f/fortnite/fn-template.yml#L23)
+{{% /caption %}}
+
+{{% /truncate %}}
+
+To provide a value for `SLACK_WEBHOOK` when applying the template, pass the `secrets`
+parameter with a key-value pair in the request body--for example:
+
+```sh
+  curl "http://localhost:8086/api/v2/templates/apply" \
+    --header "Authorization: Token INFLUX_API_TOKEN" \
+    --data @- << EOF | jq .
+      {
+        "dryRun": false,
+        "orgID": "INFLUX_ORG_ID",
+        "secrets": {
+          "SLACK_WEBHOOK": "YOUR SECRET WEBHOOK URL"
+        },
+        "remotes": [
+          {
+            "url": "https://raw.githubusercontent.com/influxdata/community-templates/master/fortnite/fn-template.yml" 
+          }
+        ]
+      }
+EOF
+```
+
+The secret value is not exposed in the `/api/v2/templates/apply` response.
+
+For API schema detail, see the [`/api/v2/templates/apply` reference documentation](/influxdb/v2.3/api/#operation/ApplyTemplate).
