@@ -18,11 +18,11 @@ related:
 
 Summarize, validate, and apply templates for InfluxDB resources.
 
-- [Use InfluxDB community templates](#use-influxdb-community-templates)
+- [Get prebuilt templates](#get-prebuilt-templates)
 - [Use templates with the CLI](#use-templates-with-the-cli)
 - [Use templates with the API](#use-templates-with-the-api)
 
-## Use InfluxDB community templates
+## Get prebuilt templates
 
 The [InfluxDB community templates repository](https://github.com/influxdata/community-templates/)
 is home to a growing number of InfluxDB templates developed and maintained by
@@ -55,7 +55,7 @@ https://raw.githubusercontent.com/influxdata/community-templates/master/docker/d
 
 ## Use templates
 
-Use the `influx` command line interface (CLI) or the InfluxDB `/api/v2` API to summarize, validate, and apply templates from URLs and file systems.
+Use the `influx` command line interface (CLI) and the InfluxDB `/api/v2` API to summarize, validate, and apply templates.
 
 - [View a template summary](#view-a-template-summary)
 - [Validate a template](#validate-a-template)
@@ -63,11 +63,19 @@ Use the `influx` command line interface (CLI) or the InfluxDB `/api/v2` API to s
 
 ### View a template summary
 
-View a summary of a template stored in your local file system or from a URL.
+With the `influx` CLI, you can generate a summary
+of template resources.
+The summary contains resource metadata in table format that you can review before
+applying the template to your InfluxDB instance.
+You can generate a summary for a template located at a file path or at a URL.
+
+{{% warn %}}
+You can't generate a template summary with the InfluxDB `/api/v2` API.
+{{% /warn %}}
 
 #### View a template summary with the CLI
 
-To view a summary of what's included in a template before applying the template,
+To view a template summary,
 use the [`influx template` command](/influxdb/v2.3/reference/cli/influx/template/).
 
 ```sh
@@ -76,28 +84,28 @@ influx template -f <FILE_PATH>
 influx template -u <FILE_URL>
 ```
 
-The following sample code validates a template located on the local file system:
+`-f` and `-u` aren't repeatable; you can only generate a summary for one template at a time.
 
-```sh
-influx template -f /PATH/TEMPLATE_FILE.yml
-```
+The following code samples show how to generate a template summary:
 
-The following sample code validates the `linux_system` community template located at a remote URL:
+- for a template located on the local file system:
 
-```sh
-influx template -u https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml
-```
+   ```sh
+   influx template -f /PATH/TEMPLATE_FILE.yml
+   ```
 
-#### View a template summary with the API
+- for a template located at a remote URL:
 
+  ```sh
+  influx template -u https://raw.githubusercontent.com/influxdata/community-templates/master/linux_system/linux_system.yml
+  ```
 
-
-
+The output is a series of tables that contain template resource metadata.
 
 ## Validate a template
 
-Use the CLI or API to validate and troubleshoot templates before you apply them to your InfluxDB instance.
-
+Use the CLI or API to validate and troubleshoot templates before you apply them
+to your InfluxDB instance.
 
 ### Validate a template with the CLI
 
@@ -443,7 +451,7 @@ curl "http://localhost:8086/api/v2/templates/apply" \
           }
         }
       ]
-    }  
+    }
   }
 EOF
 ```
@@ -684,40 +692,14 @@ For more API schema detail, see the [`/api/v2/templates/apply` reference documen
 ### Include a secret when installing a template
 
 Some templates use [secrets](/influxdb/v2.3/security/secrets/) in queries.
-Secret values are not included in templates.
-When you apply templates, you can pass secrets in your request.
 
-#### Include secrets with the CLI
+#### Example template with a secret
 
-To define secret values when installing a template, include the `--secret` flag
-with the secret key-value pair.
-
-```sh
-# Syntax
-influx apply -o <INFLUX_ORG> -f <FILE_PATH> \
-  --secret=<secret-key>=<secret-value>
-
-# Examples
-# Define a single secret when applying a template
-influx apply -o example-org -f /path/to/template.yml \
-  --secret=FOO=BAR
-
-# Define multiple secrets when applying a template
-influx apply -o example-org -f /path/to/template.yml \
-  --secret=FOO=bar \
-  --secret=BAZ=quz
-```
-
-_To add a secret after applying a template, see [Add secrets](/influxdb/v2.3/security/secrets/manage-secrets/add/)._
-
-
-#### Include secrets with the API
-
-The following `wins` task (from the **fortnite** community template) contains a `query`
+For example, the following `wins` task (from the **fortnite** community template) contains a `query`
 that requires a`SLACK_WEBHOOK` secret for sending a Slack message:
 
 {{% truncate %}}
-{{% code-callout "secrets.get(key: "SLACK_WEBHOOK")" %}}
+{{% code-callout "secrets.get(key: \"SLACK_WEBHOOK\")" %}}
 
 ```yaml
 apiVersion: influxdata.com/v2alpha1
@@ -771,7 +753,37 @@ spec:
 
 {{% /truncate %}}
 
-To provide a value for `SLACK_WEBHOOK` when applying the template, pass the `secrets`
+Secret values are not included in templates.
+When you apply templates, you can pass secrets in your request.
+Secret values are not exposed in CLI or API responses.
+
+#### Include secrets with the CLI
+
+To define secret values when installing a template, include the `--secret` flag
+with the secret key-value pair.
+
+```sh
+# Syntax
+influx apply -o <INFLUX_ORG> -f <FILE_PATH> \
+  --secret=<secret-key>=<secret-value>
+
+# Examples
+# Define a single secret when applying a template
+influx apply -o example-org -f /path/to/template.yml \
+  --secret=FOO=BAR
+
+# Define multiple secrets when applying a template
+influx apply -o example-org -f /path/to/template.yml \
+  --secret=FOO=bar \
+  --secret=BAZ=quz
+```
+
+_To add a secret after applying a template, see [Add secrets](/influxdb/v2.3/security/secrets/manage-secrets/add/)._
+
+
+#### Include secrets with the API
+
+To provide a value for `SLACK_WEBHOOK` when applying the [**fortnite** template](#example-template-with-a-secret), pass the `secrets`
 parameter with a key-value pair in the request body--for example:
 
 ```sh
@@ -786,13 +798,13 @@ parameter with a key-value pair in the request body--for example:
         },
         "remotes": [
           {
-            "url": "https://raw.githubusercontent.com/influxdata/community-templates/master/fortnite/fn-template.yml" 
+            "url": "https://raw.githubusercontent.com/influxdata/community-templates/master/fortnite/fn-template.yml"
           }
         ]
       }
 EOF
 ```
 
-The secret value is not exposed in the `/api/v2/templates/apply` response.
+The secret value is not exposed in the InfluxDB `/api/v2/templates/apply` API response.
 
-For API schema detail, see the [`/api/v2/templates/apply` reference documentation](/influxdb/v2.3/api/#operation/ApplyTemplate).
+For API schema details, see the [`/api/v2/templates/apply` reference documentation](/influxdb/v2.3/api/#operation/ApplyTemplate).
