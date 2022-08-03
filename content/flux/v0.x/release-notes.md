@@ -10,6 +10,19 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.177.0 [2022-08-01]
+
+### Features
+- Support conditional expressions in vectorized `map()`.
+- Compute minimum required dispatcher concurrency from the plan graph.
+- Add a query planner rule to remove redundant sort nodes.
+
+### Bug fixes
+- Guard message processing with mutexes.
+- Update Flux REPL to use unique planner node IDs.
+
+---
+
 ## v0.176.0 [2022-07-25]
 
 ## Features

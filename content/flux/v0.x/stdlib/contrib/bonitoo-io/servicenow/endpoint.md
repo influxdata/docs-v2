@@ -8,7 +8,7 @@ menu:
     parent: contrib/bonitoo-io/servicenow
     identifier: contrib/bonitoo-io/servicenow/endpoint
 weight: 301
-flux/v0.x/tags: [notification endpoints, transformations]
+flux/v0.x/tags: [notification endpoints]
 ---
 
 <!------------------------------------------------------------------------------
@@ -29,7 +29,27 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `servicenow.endpoint()` sends events to [ServiceNow](https://servicenow.com/) using data from input rows.
 
+### Usage
 
+`servicenow.endpoint` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
+
+#### mapFn
+A function that builds the object used to generate the ServiceNow API request. Requires an `r` parameter.
+
+`mapFn` accepts a table row (`r`) and returns an object that must include the following properties:
+
+- `description`
+- `severity`
+- `source`
+- `node`
+- `metricType`
+- `resource`
+- `metricName`
+- `messageKey`
+- `additionalInfo`
+
+For more information, see `servicenow.event()` parameters.
 
 ##### Function type signature
 
@@ -82,4 +102,43 @@ ServiceNow password to use for HTTP BASIC authentication.
 Source name. Default is `"Flux"`.
 
 
+
+
+## Examples
+
+### Send critical events to ServiceNow
+
+```js
+import "contrib/bonitoo-io/servicenow"
+import "influxdata/influxdb/secrets"
+
+username = secrets.get(key: "SERVICENOW_USERNAME")
+password = secrets.get(key: "SERVICENOW_PASSWORD")
+
+endpoint =
+    servicenow.endpoint(
+        url: "https://example-tenant.service-now.com/api/global/em/jsonv2",
+        username: username,
+        password: password,
+    )
+
+crit_events =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+
+crit_events
+    |> endpoint(
+        mapFn: (r) =>
+            ({
+                node: r.host,
+                metricType: r._measurement,
+                resource: r.instance,
+                metricName: r._field,
+                severity: "critical",
+                additionalInfo: {"devId": r.dev_id},
+            }),
+    )()
+
+```
 

@@ -378,7 +378,7 @@ Below are some possible workarounds:
         |> filter(fn: (r) => r._measurement == "exampled-measurement")
         |> filter(fn: (r) => r._field == "example-string-field")
         |> toBool()
-        |> set(key: "_field", as: "example-boolean-field")
+        |> set(key: "_field", value: "example-boolean-field")
         |> to(bucket: "example-bucket")
     ```
 
@@ -396,7 +396,7 @@ Below are some possible workarounds:
         |> filter(fn: (r) => r._measurement == "exampled-measurement")
         |> filter(fn: (r) => r._field == "example-int-field")
         |> toFloat()
-        |> set(key: "_field", as: "example-float-field")
+        |> set(key: "_field", value: "example-float-field")
         |> to(bucket: "example-bucket-2")
     ```
 
