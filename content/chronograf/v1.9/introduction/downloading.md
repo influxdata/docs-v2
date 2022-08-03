@@ -7,4 +7,7 @@ menu:
     parent: Introduction
 ---
 
-Download the latest Chronograf release at the [InfluxData download page](https://portal.influxdata.com/downloads).  Go to the section **Are you interested in InfluxDB 1.x Open Source?** and click on the down arrow to expand all 1.x download options.  
+Download the latest Chronograf release at the [InfluxData download page](https://portal.influxdata.com/downloads/#influx1x).
+Click **Are you interested in InfluxDB 1.x Open Source?** to expand the 1.x options.
+Scroll to the **Chronograf** section and select your desired Chronograf version and operating system.
+Execute the provided download commands.
