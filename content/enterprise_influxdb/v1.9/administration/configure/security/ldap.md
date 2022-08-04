@@ -268,9 +268,9 @@ sudo systemctl restart influxdb-meta
 {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
 
-3. On each meta node, [create, verify, and upload the _new_ LDAP configuration file](#create,-verify,-and-upload-the-ldap-configuration-file).
+3.  On each meta node, [create, verify, and upload the _new_ LDAP configuration file](#create-verify-and-upload-the-ldap-configuration-file).
 
-4. On each meta node, update the `auth-enabled` setting to `true` in your `influxdb-meta.conf`
+4.  On each meta node, update the `auth-enabled` setting to `true` in your `influxdb-meta.conf`
     configuration file to reenable authentication.
 
     ```toml
