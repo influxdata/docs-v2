@@ -85,7 +85,7 @@ influx template --template-url <FILE_URL>
 influx template -u <FILE_URL>
 ```
 
-`-f` and `-u` aren't repeatable; you can only generate a summary for one template at a time.
+`--file` and `--template-url` aren't repeatable; you can only generate a summary for one template at a time.
 
 The following code samples show how to generate a template summary:
 
