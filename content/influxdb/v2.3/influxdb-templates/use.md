@@ -421,7 +421,7 @@ directory and subdirectories.
 
 Use the `/api/v2/templates/apply` endpoint to install templates to your InfluxDB instance.
 
-[{{< api-endpoint method="POST" endpoint="/api/v2/templates/apply" >}}]({{% latest "influxdb" %}}/api/#operation/ApplyTemplate)
+[{{< api-endpoint method="POST" endpoint="/api/v2/templates/apply" >}}](/influxdb/v2.3/api/#operation/ApplyTemplate)
 
 With the API, you can apply templates from remote URLs or template objects in your request.
 
