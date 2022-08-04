@@ -268,7 +268,7 @@ Use the [`influx apply` command](/influxdb/v2.3/reference/cli/influx/apply/) to 
 You can apply templates stored in your local file system or from URLs.
 
 The following code sample uses `influx apply` with an
-[all-access token]({{< latest "influxdb" >}}/security/tokens/) to
+[all-access token](/influxdb/v2.3/security/tokens/) to
 apply the `sample-data` template to the `$INFLUX_ORG` configured in the environment:
 
 ```sh
@@ -834,4 +834,4 @@ EOF
 
 The secret value is not exposed in the InfluxDB `/api/v2/templates/apply` API response.
 
-For more detail about the API schema, see the [`/api/v2/templates/apply` reference documentation]({{% latest "influxdb" %}}/api/#operation/ApplyTemplate).
+For more detail about the API schema, see the [`/api/v2/templates/apply` reference documentation](/influxdb/v2.3/api/#operation/ApplyTemplate).
