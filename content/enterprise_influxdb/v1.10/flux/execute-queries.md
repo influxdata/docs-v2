@@ -4,14 +4,15 @@ description: Use the InfluxDB CLI, API, and the Chronograf Data Explorer to exec
 menu:
   enterprise_influxdb_1_10:
     name: Execute Flux queries
-    parent: Query with Flux
+    parent: Flux
 weight: 1
 aliases:
   - /enterprise_influxdb/v1.10/flux/guides/executing-queries/
+  - /enterprise_influxdb/v1.10/flux/guides/execute-queries/
 v2: /influxdb/v2.0/query-data/execute-queries/
 ---
 
-There are multiple ways to execute Flux queries with InfluxDB and Chronograf v1.8+.
+There are multiple ways to execute Flux queries with InfluxDB Enterprise and Chronograf v1.8+.
 This guide covers the different options:
 
 1. [Chronograf's Data Explorer](#chronograf-s-data-explorer)
@@ -24,12 +25,6 @@ This guide covers the different options:
 ## Chronograf's Data Explorer
 Chronograf v1.8+ supports Flux in its Data Explorer.
 Flux queries can be built, executed, and visualized from within the Chronograf user interface.
-
-{{% note %}}
-If [authentication is enabled](/enterprise_influxdb/v1.10/administration/authentication_and_authorization)
-on your InfluxDB instance, use the `-username` flag to provide your InfluxDB username and
-the `-password` flag to provide your password.
-{{% /note %}}
 
 ## Influx CLI
 To start an interactive Flux read-eval-print-loop (REPL) with the InfluxDB Enterprise 1.10+
