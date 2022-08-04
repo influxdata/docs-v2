@@ -17,10 +17,33 @@ related:
 ---
 
 Summarize, validate, and apply templates for InfluxDB resources.
+Learn how to find and use InfluxDB community templates that bootstrap resources
+for common applications and sample data.
 
 - [Get prebuilt templates](#get-prebuilt-templates)
-- [Use templates with the CLI](#use-templates-with-the-cli)
-- [Use templates with the API](#use-templates-with-the-api)
+- [View a template summary](#view-a-template-summary)
+  - [View a template summary with the CLI](#view-a-template-summary-with-the-cli)
+- [Validate a template](#validate-a-template)
+  - [Validate a template with the CLI](#validate-a-template-with-the-cli)
+  - [Validate a template with the API](#validate-a-template-with-the-api)
+- [Use a template dry run to preview changes](#use-a-template-dry-run-to-preview-changes)
+- [Apply templates to an InfluxDB instance](#apply-templates-to-an-influxdb-instance)
+- [Apply templates with the CLI](#apply-templates-with-the-cli)
+  - [Apply a template from the file system](#apply-a-template-from-the-file-system)
+  - [Apply all templates in a directory](#apply-all-templates-in-a-directory)
+  - [Apply a template from a URL](#apply-a-template-from-a-url)
+  - [Apply multiple templates from files and URLs](#apply-multiple-templates-from-files-and-urls)
+- [Apply templates with the API](#apply-templates-with-the-api)
+  - [Apply templates from template objects](#apply-templates-from-template-objects)
+  - [Apply templates from URLs with the API](#apply-templates-from-urls-with-the-api)
+  - [Apply templates from URLs and template objects](#apply-templates-from-urls-and-template-objects)
+- [Define environment references](#define-environment-references)
+  - [Define environment references with the CLI](#define-environment-references-with-the-cli)
+  - [Define environment references with the API](#define-environment-references-with-the-api)
+- [Pass secrets when installing a template](#pass-secrets-when-installing-a-template)
+  - [Example template with a secret](#example-template-with-a-secret)
+  - [Pass secrets with the CLI](#pass-secrets-with-the-cli)
+  - [Pass secrets with the API](#pass-secrets-with-the-api)
 
 ## Get prebuilt templates
 
@@ -53,15 +76,7 @@ https://raw.githubusercontent.com/influxdata/community-templates/master/docker/d
 
 <a class="btn" href="https://github.com/influxdata/community-templates/" target="\_blank">View InfluxDB Community Templates</a>
 
-## Use templates
-
-Use the `influx` command line interface (CLI) and the InfluxDB `/api/v2/templates` API to summarize, validate, and apply templates.
-
-- [View a template summary](#view-a-template-summary)
-- [Validate a template](#validate-a-template)
-- [Apply templates](#apply-templates)
-
-### View a template summary
+## View a template summary
 
 With the `influx` CLI, you can generate a summary
 of template resources.
@@ -73,7 +88,7 @@ You can generate a summary for a template located at a file path or at a URL.
 You can't generate a template summary with the InfluxDB `/api/v2` API.
 {{% /warn %}}
 
-#### View a template summary with the CLI
+### View a template summary with the CLI
 
 To view a template summary,
 use the [`influx template` command](/influxdb/v2.3/reference/cli/influx/template/).
@@ -139,9 +154,9 @@ To validate a template and preview the changes for your InfluxDB instance, see h
 
 ### Validate a template with the API
 
-To validate a template with the API, [dry-run a template](#dry-run-a-template-with-the-api).
+To validate a template with the API, [apply a dry run](#dry-run-a-template-with-the-api).
 
-## Dry-run a template
+## Use a template dry run to preview changes
 
 To validate a template and preview the changes for your InfluxDB instance, pass `"dryRun": true` in a request to the `/api/v2/templates/apply` endpoint.
 
@@ -243,7 +258,8 @@ the template fails validation and the response contains the following:
 
 When you apply a template, you specify the organization that owns the template resources.
 InfluxDB validates and then installs the template to create and update resources in the organization.
-If you apply a template without providing a **stack ID**, InfluxDB initializes a new stack with all new resources.
+If you provide a **stack ID** when applying a template, InfluxDB updates the installed stack in your instance.
+If you apply a template without providing a stack ID, InfluxDB initializes a new stack with all new resources.
 
 To learn how to use InfluxDB stacks, see [InfluxDB stacks](/influxdb/v2.3/influxdb-templates/stacks/).
 
@@ -260,9 +276,18 @@ resource types configured in the template.
 Use the `influx` CLI or `/api/v2` API to apply templates to an InfluxDB instance.
 
 - [Apply templates with the CLI](#apply-templates-with-the-cli)
+  - [Apply a template from the file system](#apply-a-template-from-the-file-system)
+  - [Apply all templates in a directory](#apply-all-templates-in-a-directory)
+  - [Apply a template from a URL](#apply-a-template-from-a-url)
+  - [Apply multiple templates from files and URLs](#apply-multiple-templates-from-files-and-urls)
 - [Apply templates with the API](#apply-templates-with-the-api)
+  - [Apply templates from template objects](#apply-templates-from-template-objects)
+  - [Apply templates from URLs with the API](#apply-templates-from-urls-with-the-api)
+  - [Apply templates from URLs and template objects](#apply-templates-from-urls-and-template-objects)
+- [Define environment references](#define-environment-references)
+- [Pass secrets when installing a template](#pass-secrets-when-installing-a-template)
 
-## Apply templates with the CLI
+### Apply templates with the CLI
 
 Use the [`influx apply` command](/influxdb/v2.3/reference/cli/influx/apply/) to install templates to your InfluxDB organization.
 You can apply templates stored in your local file system or from URLs.
@@ -308,14 +333,7 @@ BUCKETS
 Stack ID: 09bd87cd33be3000
 ```
 
-- [Apply a template from the file system](#apply-a-template-from-the-file-system)
-- [Apply all templates in a directory](#apply-all-templates-in-a-directory)
-- [Apply a template from a URL](#apply-a-template-from-a-url)
-- [Apply templates from files and URLs](#apply-templates-from-files-and-urls)
-- [Define environment references](#define-environment-references)
-- [Include a secret when installing a template](#include-a-secret-when-installing-a-template)
-
-### Apply a template from the file system
+#### Apply a template from the file system
 
 To install templates stored on your local machine, pass the `-f` or `--file` option
 with the **file path** of the template manifest.
@@ -342,7 +360,7 @@ influx apply -o example-org \
   -f /path/to/second/template.yml
 ```
 
-### Apply all templates in a directory
+#### Apply all templates in a directory
 
 To apply all templates in a directory, pass the `-f` or `--file` option with
 the **directory path** where template manifests are stored.
@@ -366,7 +384,7 @@ influx apply -o INFLUX_ORG -f /path/to/template/dir/
 influx apply -o INFLUX_ORG -f /path/to/template/dir/ -R
 ```
 
-### Apply a template from a URL
+#### Apply a template from a URL
 
 To apply templates from a URL, pass the `-u` or `--template-url` option with the URL
 of the template manifest.
@@ -394,7 +412,7 @@ influx apply -o example-org \
   -u https://example.com/templates/template2.yml
 ```
 
-### Apply multiple templates from files and URLs
+#### Apply multiple templates from files and URLs
 
 To use a single command to apply templates from multiple file paths and URLs, pass each template with the appropriate `-f` or `-u` option.
 
@@ -417,7 +435,7 @@ influx apply -o INFLUX_ORG \
 The `--recurse` flag applies any templates from the `~/templates/iot/home/`
 directory and subdirectories.
 
-## Apply templates with the API
+### Apply templates with the API
 
 Use the `/api/v2/templates/apply` endpoint to install templates to your InfluxDB instance.
 
@@ -430,7 +448,11 @@ To run the API code samples, replace the following in each sample:
 - **`INFLUX_API_TOKEN`**: your InfluxDB API token that has `write` permission for the organization.
 - **`INFLUX_ORG_ID`**: your InfluxDB organization ID.
 
-### Apply templates from template objects
+- [Apply templates from template objects](#apply-templates-from-template-objects)
+- [Apply templates from URLs with the API](#apply-templates-from-urls-with-the-api)
+- [Apply templates from URLs and template objects](#apply-templates-from-urls-and-template-objects)
+
+#### Apply templates from template objects
 
 To apply a template from a template object, pass the _`template`_ property with the template in the request body.
 The following code sample shows how to _dry-run_ a template that defines a `Bucket`
@@ -527,27 +549,27 @@ The _`template`_ and _`templates`_ parameters are mutually exclusive; if you pas
 {
 ...
   "errors": [
-          {
-                  "kind": "Label",
-                  "fields": [
-                          "root",
-                          "spec",
-                          "name"
-                  ],
-                  "idxs": [
-                          2,
-                          null,
-                          null
-                  ],
-                  "reason": "duplicate name: unruffled-benz-004"
-          }
+    {
+      "kind": "Label",
+      "fields": [
+              "root",
+              "spec",
+              "name"
+      ],
+      "idxs": [
+              2,
+              null,
+              null
+      ],
+      "reason": "duplicate name: unruffled-benz-004"
+    }
   ],
   "code": "unprocessable entity",
   "message": "unprocessable entity"
 }
 ```
 
-### Apply templates from URLs with the API
+#### Apply templates from URLs with the API
 
 To apply a template located at a URL, pass _`remotes`_ with an array in the request body.
 In the array, pass an object with the `url` property for the template you want to apply.
@@ -568,7 +590,7 @@ curl "http://localhost:8086/api/v2/templates/apply" \
 EOF
 ```
 
-### Apply templates from URLs and template objects
+#### Apply templates from URLs and template objects
 
 The following code sample shows how to pass _`remotes`_ and _`templates`_ parameters to apply templates
 from a URL and template objects:
@@ -618,14 +640,14 @@ curl "http://localhost:8086/api/v2/templates/apply" \
 EOF
 ```
 
-## Define environment references
+### Define environment references
 
 Some templates include [environment references](/influxdb/v2.3/influxdb-templates/create/#include-user-definable-resource-names) that let you provide custom names for resources and specs.
 
 - [Define environment references with the CLI](#define-environment-references-with-the-cli)
 - [Define environment references with the API](#define-environment-references-with-the-api)
 
-### Define environment references with the CLI
+#### Define environment references with the CLI
 
 The `influx apply` command prompts you to provide a value for each environment
 reference in the template.
@@ -640,7 +662,7 @@ influx apply -o INFLUX_ORG_ID -f /path/to/template.yml \
   --env-ref=label-name-2=Label2
 ```
 
-### Define environment references with the API
+#### Define environment references with the API
 
 To provide environment reference values when you apply a template with the
 `/api/v2/templates/apply` API endpoint, pass _`envRefs`_ with key-value pairs
@@ -713,14 +735,14 @@ EOF
 
 For more API schema detail, see the [`/api/v2/templates/apply` reference documentation](/influxdb/v2.3/api/#operation/ApplyTemplate).
 
-## Pass secrets when installing a template
+### Pass secrets when installing a template
 
 Some templates use [secrets](/influxdb/v2.3/security/secrets/) in queries.
 
 - [Pass secrets with the CLI](#pass-secrets-with-the-cli)
 - [Pass secrets with the API](#pass-secrets-with-the-api)
 
-### Example template with a secret
+#### Example template with a secret
 
 The following sample shows the `wins` task (from the **fortnite** community template). The task contains a `query`
 that requires a`SLACK_WEBHOOK` secret for sending a Slack message:
@@ -784,7 +806,7 @@ Secret values are not included in templates.
 When you apply templates, you can pass secrets in your request.
 Secret values are not exposed in CLI or API responses.
 
-### Pass secrets with the CLI
+#### Pass secrets with the CLI
 
 To define secret values when installing a template with the `influx` CLI, include the `--secret` flag
 with the secret key-value pair.
@@ -807,7 +829,7 @@ influx apply -o example-org -f /path/to/template.yml \
 
 _To add a secret after applying a template, see [Add secrets](/influxdb/v2.3/security/secrets/manage-secrets/add/)._
 
-### Pass secrets with the API
+#### Pass secrets with the API
 
 To define secret values when installing a template with the InfluxDB `/api/v2/templates/apply` endpoint, pass the `secrets` parameter in the request body with an object that contains key-value pairs.
 
