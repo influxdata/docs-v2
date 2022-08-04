@@ -80,6 +80,7 @@ use the [`influx template` command](/influxdb/v2.3/reference/cli/influx/template
 
 ```sh
 # Syntax
+influx template --file <FILE_PATH>
 influx template -f <FILE_PATH>
 influx template --template-url <FILE_URL>
 influx template -u <FILE_URL>
