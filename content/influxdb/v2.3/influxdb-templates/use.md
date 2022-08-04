@@ -722,7 +722,7 @@ Some templates use [secrets](/influxdb/v2.3/security/secrets/) in queries.
 
 ### Example template with a secret
 
-For example, the following `wins` task (from the **fortnite** community template) contains a `query`
+The following sample shows the `wins` task (from the **fortnite** community template). The task contains a `query`
 that requires a`SLACK_WEBHOOK` secret for sending a Slack message:
 
 {{% truncate %}}
