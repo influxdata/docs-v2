@@ -16,7 +16,7 @@ menu:
   * [InfluxDB and Kapacitor users within Chronograf](#influxdb-and-kapacitor-users-within-chronograf)
   * [Chronograf-owned resources](#chronograf-owned-resources)
   * [Chronograf-accessed resources](#chronograf-accessed-resources)
-  * [Readers](#readers-role-reader)
+  * [Readers](#readers-rolereader)
   * [Members](#members-role-member)
   * [Viewers](#viewers-role-viewer)
   * [Editors](#editors-role-editor)
@@ -46,7 +46,7 @@ Chronograf includes four organization-bound user roles and one cross-organizatio
 
 Chronograf users are assigned one of the following organization-bound user roles, listed here in order of increasing capabilities:
 
-- [`reader`](#readers-role-reader)
+- [`reader`](#readers-rolereader)
 - [`member`](#members-role-member)
 - [`viewer`](#viewers-role-viewer)
 - [`editor`](#editors-role-editor)
