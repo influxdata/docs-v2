@@ -249,8 +249,8 @@ To learn how to use InfluxDB stacks, see [InfluxDB stacks](/influxdb/v2.3/influx
 
 After applying the template, InfluxDB responds with the following:
 
-- stack ID for the stack that was created or updated
-- diff of added and removed resources
+- Stack ID for the stack that was created or updated
+- A diff of added and removed resources
 
 {{% note %}}
 When applying templates, you must pass a token that has `write` permission for the
