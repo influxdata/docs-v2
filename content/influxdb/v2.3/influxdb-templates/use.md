@@ -1,8 +1,8 @@
 ---
 title: Use InfluxDB templates
 description: >
-  Use the `influx` command line interface (CLI) to summarize, validate, and apply
-  templates from your local filesystem and from URLs.
+  Use the `influx` command line interface (CLI) and the InfluxDB `/api/v2/templates` API to summarize, validate, and apply
+  templates from file systems and URLs.
 menu:
   influxdb_2_3:
     parent: InfluxDB templates
@@ -16,34 +16,15 @@ related:
   - /influxdb/v2.3/api/
 ---
 
-Summarize, validate, and apply templates for InfluxDB resources.
-Learn how to find and use InfluxDB community templates that bootstrap resources
-for common applications and sample data.
+Preview, validate, and apply templates for InfluxDB resources.
+Learn how to find and use InfluxDB community templates.
+Learn how to use secrets and custom names in templates.
 
 - [Get prebuilt templates](#get-prebuilt-templates)
 - [View a template summary](#view-a-template-summary)
-  - [View a template summary with the CLI](#view-a-template-summary-with-the-cli)
 - [Validate a template](#validate-a-template)
-  - [Validate a template with the CLI](#validate-a-template-with-the-cli)
-  - [Validate a template with the API](#validate-a-template-with-the-api)
 - [Use a template dry run to preview changes](#use-a-template-dry-run-to-preview-changes)
 - [Apply templates to an InfluxDB instance](#apply-templates-to-an-influxdb-instance)
-- [Apply templates with the CLI](#apply-templates-with-the-cli)
-  - [Apply a template from the file system](#apply-a-template-from-the-file-system)
-  - [Apply all templates in a directory](#apply-all-templates-in-a-directory)
-  - [Apply a template from a URL](#apply-a-template-from-a-url)
-  - [Apply multiple templates from files and URLs](#apply-multiple-templates-from-files-and-urls)
-- [Apply templates with the API](#apply-templates-with-the-api)
-  - [Apply templates from template objects](#apply-templates-from-template-objects)
-  - [Apply templates from URLs with the API](#apply-templates-from-urls-with-the-api)
-  - [Apply templates from URLs and template objects](#apply-templates-from-urls-and-template-objects)
-- [Define environment references](#define-environment-references)
-  - [Define environment references with the CLI](#define-environment-references-with-the-cli)
-  - [Define environment references with the API](#define-environment-references-with-the-api)
-- [Pass secrets when installing a template](#pass-secrets-when-installing-a-template)
-  - [Example template with a secret](#example-template-with-a-secret)
-  - [Pass secrets with the CLI](#pass-secrets-with-the-cli)
-  - [Pass secrets with the API](#pass-secrets-with-the-api)
 
 ## Get prebuilt templates
 
@@ -154,7 +135,7 @@ To validate a template and preview the changes for your InfluxDB instance, see h
 
 ### Validate a template with the API
 
-To validate a template with the API, [apply a dry run](#dry-run-a-template-with-the-api).
+To validate a template with the API, [use a template dry run](#use-a-template-dry-run-to-preview-changes).
 
 ## Use a template dry run to preview changes
 
@@ -455,7 +436,7 @@ To run the API code samples, replace the following in each sample:
 #### Apply templates from template objects
 
 To apply a template from a template object, pass the _`template`_ property with the template in the request body.
-The following code sample shows how to _dry-run_ a template that defines a `Bucket`
+The following code sample shows how to dry-run a template that defines a `Bucket`
 resource and a `Label` resource:
 
 ```sh
@@ -857,3 +838,31 @@ EOF
 The secret value is not exposed in the InfluxDB `/api/v2/templates/apply` API response.
 
 For more detail about the API schema, see the [`/api/v2/templates/apply` reference documentation](/influxdb/v2.3/api/#operation/ApplyTemplate).
+
+
+
+## Troubleshoot templates
+
+If applying a template fails, check the InfluxDB response for your specific error.
+Below are common causes of template failures.
+
+### API error responses
+
+{{% oss-only %}}
+
+| HTTP response code                      | Error message                                                             | Description  |
+| :-----------------------------          | :-----------------------------------------                                | :----------- |
+| `HTTP 401 "Unauthorized"`               |  unauthorized access                                                      | The API token may not have `read` or `write` access for resources in the template.
+| `HTTP 422 "Unprocessable Entity"`       |  duplicate name: `RESOURCE NAME`                                          | You may have passed a parameter combination that InfluxDB doesn't support--for example, `template` and `templates` in the same request.
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+| HTTP response code                      | Error message                                                             | Description  |
+| :-----------------------------          | :-----------------------------------------                                | :----------- |
+| `HTTP 401 "Unauthorized"`               |  unauthorized access                                                      | The API token may not have `read` or `write` access for resources in the template.
+| `HTTP 422 "Unprocessable Entity"`       |  duplicate name: `RESOURCE NAME`                                          | You may have passed a parameter combination that InfluxDB doesn't support--for example, `template` and `templates` in the same request.
+| `HTTP 500 "Internal Server Error"`      | failed to create `RESOURCE NAME`]: creating `RESOURCE` would exceed quota | Creating the requested resource (bucket, dashboard, task, user) would exceed your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas). |  
+
+{{% /cloud-only %}}
