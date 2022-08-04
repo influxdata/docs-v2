@@ -127,7 +127,7 @@ influx template validate -f /PATH/TO/TEMPLATE.yml
 
 Replace **`/PATH/TO/TEMPLATE.yml`** with the file path for your template.
 
-To validate a template located at a URL, pass the `u` option with the URL.
+To validate a template located at a URL, pass the `-u` option with the URL.
 
 The following code sample shows how to validate the `linux_system` community template located on GitHub:
 
@@ -139,7 +139,7 @@ To validate a template and preview the changes for your InfluxDB instance, see h
 
 ### Validate a template with the API
 
-To validate a template with the API, see how to [dry-run a template](#dry-run-a-template-with-the-api).
+To validate a template with the API, [dry-run a template](#dry-run-a-template-with-the-api).
 
 ## Dry-run a template
 
@@ -249,8 +249,8 @@ To learn how to use InfluxDB stacks, see [InfluxDB stacks](/influxdb/v2.3/influx
 
 After applying the template, InfluxDB responds with the following:
 
-- the stack ID for the stack that was created or updated
-- the diff of added and removed resources
+- stack ID for the stack that was created or updated
+- diff of added and removed resources
 
 {{% note %}}
 When applying templates, you must pass a token that has `write` permission for the
