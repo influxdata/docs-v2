@@ -16,7 +16,7 @@ menu:
   - improved user creation
   - improved role creation
   - improved visualization of effective permissions on `Users` and `Roles` pages
-- Add `reader` role for users that require read-only access to dashboards.
+- Add [`reader role`](/chronograf/v1.10/administration/managing-chronograf-users/#readers-rolereader) for users that require read-only access to dashboards.
 - Add convenient redirection back to an original URL after OAuth authentication.
 - Allow InfluxDB connection with context path.
 - Ability to customize annotation color.
