@@ -55,7 +55,7 @@ https://raw.githubusercontent.com/influxdata/community-templates/master/docker/d
 
 ## Use templates
 
-Use the `influx` command line interface (CLI) and the InfluxDB `/api/v2` API to summarize, validate, and apply templates.
+Use the `influx` command line interface (CLI) and the InfluxDB `/api/v2/templates` API to summarize, validate, and apply templates.
 
 - [View a template summary](#view-a-template-summary)
 - [Validate a template](#validate-a-template)
@@ -126,6 +126,7 @@ influx template validate -f /PATH/TO/TEMPLATE.yml
 Replace **`/PATH/TO/TEMPLATE.yml`** with the file path for your template.
 
 To validate a template located at a URL, pass the `u` option with the URL.
+
 The following code sample shows how to validate the `linux_system` community template located on GitHub:
 
 ```sh
@@ -373,12 +374,12 @@ of the template manifest.
 influx apply -o <INFLUX_ORG> -u <FILE_URL>
 ```
 
-The following code sample shows how to apply a template from a remote URL:
+The following code sample shows how to apply a community template located on GitHub:
 
 ```sh
 # Examples
 # Apply a single template from a URL
-influx apply -o example-org -u https://example.com/templates/template.yml
+influx apply -o example-org -u https://raw.githubusercontent.com/influxdata/community-templates/master/kafka/kafka-template.yml
 ```
 
 To use one command to apply multiple templates from URLs, pass the `-u` option
