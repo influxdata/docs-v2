@@ -1045,6 +1045,6 @@ Below are common causes of template failures.
 | :-----------------------------          | :-----------------------------------------                                | :----------- |
 | `HTTP 401 "Unauthorized"`               |  unauthorized access                                                      | The API token may not have `read` or `write` access for resources in the template.
 | `HTTP 422 "Unprocessable Entity"`       |  duplicate name: `RESOURCE NAME`                                          | You may have passed a parameter combination that InfluxDB doesn't support--for example, `template` and `templates` in the same request.
-| `HTTP 500 "Internal Server Error"`      | failed to create `RESOURCE NAME`]: creating `RESOURCE` would exceed quota | Creating the requested resource (bucket, dashboard, task, user) would exceed your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas). |  
+| `HTTP 500 "Internal Server Error"`      | failed to create `RESOURCE NAME`: creating `RESOURCE` would exceed quota | Creating the requested resource (bucket, dashboard, task, user) would exceed your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas). |  
 
 {{% /cloud-only %}}
