@@ -34,10 +34,14 @@ Whenever you send a write request to the `/api/v2/write` endpoint, the following
 _For more information, see [`/api/v2/write` documentation](/influxdb/cloud/api/#operation/PostWrite)._
 
 {{% note %}}
-The returned 204 status code code does not mean that the point is queryable;
-it means the write request has been added to the durable write queue.
+The returned 204 status code does not mean that the point is queryable;
+it means the write request has been added to the durable write queue
+_(for more information, see
+[Handle write and delete responses](/influxdb/cloud/write-data/troubleshoot/#handle-write-and-delete-responses))_.
 TTBR represents the time it takes for the write request to be queued,
 the write operation to be executed, **and** the data to become queryable.
+
+For more information about status codes returned from the `/api/v1/write` endpoint
 {{% /note %}}
 
 ## Flux vs InfluxQL
