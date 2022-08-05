@@ -83,6 +83,9 @@ weight: 9
     - [Does the order timestamps in a query matter?](#does-the-order-timestamps-in-a-query-matter)
     - [How do I query data by a tag with a null value?](#how-do-i-query-data-by-a-tag-with-a-null-value)
 
+##### InfluxDB tasks {href="influxdb-tasks-1"}
+- [How does retrying a task affect relative time ranges?](#how-does-retrying-a-task-affect-relative-time-ranges)
+
 ##### Series and series cardinality {href="series-and-series-cardinality-1"}
 - [What is series cardinality?](#what-is-series-cardinality)
 - [Why does series cardinality matter?](#why-does-series-cardinality-matter)
@@ -875,6 +878,22 @@ In your `WHERE` clause, specify an empty or null tag value with `''`. For exampl
 ```sql
 SELECT * FROM "vases" WHERE priceless=''
 ```
+
+---
+
+## InfluxDB tasks
+
+#### How does retrying a task affect relative time ranges?
+
+When you retry a task that uses relative time ranges, it will query the original
+time range of the task execution (run).
+Whenever a task executes, InfluxDB sets the [`now` option ](/flux/v0.x/stdlib/universe/#options)
+in the task to the scheduled execution time of the task.
+When using [`range()`](/flux/v0.x/stdlib/universe/range/)
+or other functions that support relative duration values, these duration values
+are relative to [`now()`](/flux/v0.x/stdlib/universe/now/), which returns the
+value of the `now` option. Every task run has a unique `now` option based on
+the time the run was scheduled to execute.
 
 ---
 
