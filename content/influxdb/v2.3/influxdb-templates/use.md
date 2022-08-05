@@ -1006,7 +1006,7 @@ The following code sample shows how to pass `SLACK_WEBHOOK` in `secrets` when ap
         "dryRun": false,
         "orgID": "INFLUX_ORG_ID",
         "secrets": {
-          "SLACK_WEBHOOK": "YOUR SECRET WEBHOOK URL"
+          "SLACK_WEBHOOK": "YOUR_SECRET_WEBHOOK_URL"
         },
         "remotes": [
           {
