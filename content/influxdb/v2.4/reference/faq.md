@@ -82,6 +82,7 @@ weight: 9
     - [How do I query data across measurements?](#how-do-i-query-data-across-measurements)
     - [Does the order timestamps in a query matter?](#does-the-order-timestamps-in-a-query-matter)
     - [How do I query data by a tag with a null value?](#how-do-i-query-data-by-a-tag-with-a-null-value)
+- {{% cloud-only %}}[Why am I getting the error, "total duration of queries in the last 30s exceeds limit of 25m0s"?](#why-am-i-getting-the-error-total-duration-of-queries-in-the-last-30s-exceeds-limit-of-25m0s){{% /cloud-only %}}
 
 ##### Deleting data {href="deleting-data"}
 - [Can I delete a field?](#can-i-delete-a-field)
@@ -887,6 +888,30 @@ In your `WHERE` clause, specify an empty or null tag value with `''`. For exampl
 ```sql
 SELECT * FROM "vases" WHERE priceless=''
 ```
+
+{{% cloud-only %}}
+
+#### Why am I getting the error, "total duration of queries in the last 30s exceeds limit of 25m0s"?
+
+This error indicates you are exceeding the [Total query time global limit](/influxdb/cloud/account-management/limits/#global-limits)
+for your organization.
+Potential causes include:
+
+- A single long-running query.
+- Running too many queries at once.
+- A combination of both.
+
+If you are encountering this error due to a single long-running query, the query
+and potentially your schema should be analyzed for optimization.
+The following resources may help:
+
+- [Optimize Flux queries](/influxdb/cloud/query-data/optimize-queries/)
+- [Schema design best practices](/influxdb/cloud/write-data/best-practices/schema-design/)
+
+If you are encountering this error due to the number of concurrent queries,
+try delaying or staggering queries so they don't all run at the same time.
+
+{{% /cloud-only %}}
 
 ---
 
