@@ -853,9 +853,9 @@ and passes environment reference values (`envRefs`):
     { "orgID": "INFLUX_ORG_ID",
       "dryRun": true,
       "envRefs": {
-        "linux-cpu-label": "MY-CPU-LABEL",
-        "docker-bucket": "MY-DOCKER-BUCKET",
-        "docker-spec-1": "MY-DOCKER-SPEC"
+        "linux-cpu-label": "MY_CPU_LABEL",
+        "docker-bucket": "MY_DOCKER_BUCKET",
+        "docker-spec-1": "MY_DOCKER_SPEC"
       },
       "templates": [
         { "contents": [{
