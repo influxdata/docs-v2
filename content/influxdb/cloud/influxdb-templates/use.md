@@ -13,7 +13,7 @@ related:
   - /influxdb/cloud/reference/cli/influx/apply/
   - /influxdb/cloud/reference/cli/influx/template/
   - /influxdb/cloud/reference/cli/influx/template/validate/
-  - /influxdb/v2.3/api/
+  - /influxdb/cloud/api/
 ---
 
 {{< duplicate-oss >}}
