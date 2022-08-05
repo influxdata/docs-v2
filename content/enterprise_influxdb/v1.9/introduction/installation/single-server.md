@@ -463,5 +463,5 @@ For Chronograf installation instructions, see
   See [Manage users and permissions](/enterprise_influxdb/v1.9/administration/manage/users-and-permissions/)
   for more information.
 - [Enable TLS](/enterprise_influxdb/v1.9/guides/enable-tls/).
-- [Write data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/write_data/)
-- [Query data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/query_data/)
+- [Write data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/write_data/).
+- [Query data with the InfluxDB API](/enterprise_influxdb/v1.9/guides/query_data/).
