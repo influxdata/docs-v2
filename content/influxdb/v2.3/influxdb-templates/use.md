@@ -78,11 +78,11 @@ use the [`influx template` command](/influxdb/v2.3/reference/cli/influx/template
 
 ```sh
 # Syntax
-influx template --file FILE_PATH
-influx template -f FILE_PATH
+influx template --file TEMPLATE_FILE_PATH
+influx template -f TEMPLATE_FILE_PATH
 
-influx template --template-url FILE_URL
-influx template -u FILE_URL
+influx template --template-url TEMPLATE_FILE_URL
+influx template -u TEMPLATE_FILE_URL
 ```
 
 `--file` and `--template-url` aren't repeatable with the `influx template` command; you can only generate a summary for one template at a time.
@@ -114,11 +114,11 @@ Use the [`influx template validate` command](/influxdb/v2.3/reference/cli/influx
 
 ```sh
 # Syntax
-influx template validate --file FILE_PATH
-influx template validate -f FILE_PATH
+influx template validate --file TEMPLATE_FILE_PATH
+influx template validate -f TEMPLATE_FILE_PATH
 
-influx template validate --template-url FILE_URL
-influx template validate -u FILE_URL
+influx template validate --template-url TEMPLATE_FILE_URL
+influx template validate -u TEMPLATE_FILE_URL
 ```
 
 The following code sample shows how to validate a template located on the local file system:
@@ -501,8 +501,8 @@ with the relative or absolute **file path** of the template manifest.
 
 ```sh
 # Syntax
-influx apply --file FILE_PATH
-influx apply -f FILE_PATH
+influx apply --file TEMPLATE_FILE_PATH
+influx apply -f TEMPLATE_FILE_PATH
 ```
 
 The following code sample shows how to apply a template from a file path.
@@ -555,7 +555,7 @@ of the template file.
 
 ```sh
 # Syntax
-influx apply --org INFLUX_ORG --template-url FILE_URL
+influx apply --org INFLUX_ORG --template-url TEMPLATE_FILE_URL
 ```
 
 The following code sample shows how to apply a community template located on GitHub:
@@ -582,7 +582,7 @@ pass each template with the appropriate `--file` or `--template-url` option.
 
 ```sh
 # Syntax
-influx apply --org my-org --template-url FILE_URL --file FILE_PATH
+influx apply --org my-org --template-url TEMPLATE_FILE_URL --file TEMPLATE_FILE_PATH
 ```
 
 The following code sample shows a single command to apply multiple templates from URLs and file paths:
@@ -971,7 +971,7 @@ with the secret key-value pair.
 
 ```sh
 # Syntax
-influx apply --org INFLUX_ORG --file FILE_PATH \
+influx apply --org INFLUX_ORG --file TEMPLATE_FILE_PATH \
   [--secret=SECRET_KEY=SECRET_VALUE]
 
 # Examples
