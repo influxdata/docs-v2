@@ -87,7 +87,7 @@ weight: 9
 - [Can I delete a field?](#can-i-delete-a-field)
 - [Can I delete a measurement?](#can-i-delete-a-measurement)
 - [Can I delete multiple measurements at the same time?](#can-i-delete-multiple-measurements-at-the-same-time)
-- [Do I need to verify that data is delete?](#do-i-need-to-verify-that-data-is-delete)
+- [Do I need to verify that data is deleted?](#do-i-need-to-verify-that-data-is-deleted)
 
 ##### InfluxDB tasks {href="influxdb-tasks-1"}
 - [How does retrying a task affect relative time ranges?](#how-does-retrying-a-task-affect-relative-time-ranges)
