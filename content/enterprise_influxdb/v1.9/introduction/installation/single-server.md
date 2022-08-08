@@ -59,6 +59,17 @@ The `influxdb` user also owns certain files that are needed for the service to s
 In some cases, local policies may prevent the local user account from being created and the service fails to start.
 Contact your systems administrator for assistance with this requirement.
 
+#### Static hostname
+If running InfluxDB Enterprise on a cloud provider like Amazon Web Services (AWS)
+or Google Cloud Platform (GCP), ensure the hostname for your server is static.
+If the server is every restarted, the hostname must remain the same to ensure
+network connectivity between your InfluxDB Enterprise meta and data processes.
+
+#### Persistent disk storage
+If running InfluxDB Enterprise on a cloud provider like AWS or GCP, ensure the
+your server is configured to use a persistent disk store that will persist 
+through server restarts.
+
 ## Set up, configure, and start the meta service
 
 The InfluxDB Enterprise meta process oversees and manages the InfluxDB Enterprise
@@ -145,7 +156,7 @@ The `license-key` and `license-path` settings are mutually exclusive and one mus
     ```toml
     # Hostname advertised by this host for remote addresses.  This must be resolvable by all
     # other nodes in the cluster
-    hostname="localhost:8091"
+    hostname="<your-host-name>:8091"
 
     [enterprise]
       # license-key and license-path are mutually exclusive, use only one and leave the other blank
@@ -208,13 +219,13 @@ sudo systemctl start influxdb-meta
 5. **Use `influx-ctl` to add the meta process to the InfluxDB Enterprise "cluster"**:
 
     ```sh
-    influxd-ctl add-meta localhost:8091
+    influxd-ctl add-meta <your-host-name>:8091
     ```
 
     The output should be similar to:
 
     ```
-    Added meta node x at localhost:8091
+    Added meta node x at <your-host-name>:8091
     ```
 
 6. **Use `influx-ctl` to verify the meta node was added to the InfluxDB Enterprise "cluster"**:
@@ -233,7 +244,7 @@ sudo systemctl start influxdb-meta
     Meta Nodes
     ==========
     TCP Address      Version
-    localhost:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+    <your-host-name>:8091   {{< latest-patch >}}-c{{< latest-patch >}}
     ```
 
     If you do not see your meta node in the output, repeat **steps 5–6** to 
@@ -398,13 +409,13 @@ sudo systemctl start influxdb
 5. **Use `influx-ctl` to add the data process to the InfluxDB Enterprise "cluster"**:
 
     ```sh
-    influxd-ctl add-data localhost:8088
+    influxd-ctl add-data <your-host-name>:8088
     ```
 
     The output should be similar to:
 
     ```
-    Added meta node y at localhost:8088
+    Added meta node y at <your-host-name>:8088
     ```
 
 6. **Use `influx-ctl` to verify the data node was added to the InfluxDB Enterprise "cluster"**:
@@ -419,12 +430,12 @@ sudo systemctl start influxdb
     Data Nodes
     ==========
     ID   TCP Address      Version
-    2    localhost:8088   {{< latest-patch >}}-c{{< latest-patch >}}
+    2    <your-host-name>:8088   {{< latest-patch >}}-c{{< latest-patch >}}
 
     Meta Nodes
     ==========
     TCP Address      Version
-    localhost:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+    <your-host-name>:8091   {{< latest-patch >}}-c{{< latest-patch >}}
     ```
 
     If you do not see your data node in the output, repeat **steps 5–6** to 
