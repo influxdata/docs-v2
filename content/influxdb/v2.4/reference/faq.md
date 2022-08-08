@@ -82,6 +82,16 @@ weight: 9
     - [How do I query data across measurements?](#how-do-i-query-data-across-measurements)
     - [Does the order timestamps in a query matter?](#does-the-order-timestamps-in-a-query-matter)
     - [How do I query data by a tag with a null value?](#how-do-i-query-data-by-a-tag-with-a-null-value)
+- {{% cloud-only %}}[Why am I getting the error, "total duration of queries in the last 30s exceeds limit of 25m0s"?](#why-am-i-getting-the-error-total-duration-of-queries-in-the-last-30s-exceeds-limit-of-25m0s){{% /cloud-only %}}
+
+##### Deleting data {href="deleting-data"}
+- [Can I delete a field?](#can-i-delete-a-field)
+- [Can I delete a measurement?](#can-i-delete-a-measurement)
+- [Can I delete multiple measurements at the same time?](#can-i-delete-multiple-measurements-at-the-same-time)
+- [Do I need to verify that data is deleted?](#do-i-need-to-verify-that-data-is-deleted)
+
+##### InfluxDB tasks {href="influxdb-tasks-1"}
+- [How does retrying a task affect relative time ranges?](#how-does-retrying-a-task-affect-relative-time-ranges)
 
 ##### Series and series cardinality {href="series-and-series-cardinality-1"}
 - [What is series cardinality?](#what-is-series-cardinality)
@@ -268,8 +278,11 @@ Use one of the following methods to identify the version of InfluxDB OSS you're 
 {{% /oss-only %}}
 
 #### How can I identify the version of Flux I'm using in InfluxDB?
-To see what version of Flux is used in InfluxDB {{< current-version >}},
-run the following query:
+For information about what versions of Flux are packaged with official InfluxDB
+releases, see [Flux versions in InfluxDB](/flux/v0.x/influxdb-versions/).
+
+If using a custom build, use the following query to return the current version
+of Flux being used:
 
 ```js
 import "array"
@@ -875,6 +888,97 @@ In your `WHERE` clause, specify an empty or null tag value with `''`. For exampl
 ```sql
 SELECT * FROM "vases" WHERE priceless=''
 ```
+
+{{% cloud-only %}}
+
+#### Why am I getting the error, "total duration of queries in the last 30s exceeds limit of 25m0s"?
+
+This error indicates you are exceeding the [Total query time global limit](/influxdb/cloud/account-management/limits/#global-limits)
+for your organization.
+Potential causes include:
+
+- A single long-running query.
+- Running too many queries at once.
+- A combination of both.
+
+If you are encountering this error due to a single long-running query, the query
+and potentially your schema should be analyzed for optimization.
+The following resources may help:
+
+- [Optimize Flux queries](/influxdb/cloud/query-data/optimize-queries/)
+- [Schema design best practices](/influxdb/cloud/write-data/best-practices/schema-design/)
+
+If you are encountering this error due to the number of concurrent queries,
+try delaying or staggering queries so they don't all run at the same time.
+
+{{% /cloud-only %}}
+
+---
+
+## Deleting data
+
+#### Can I delete a field?
+
+{{% oss-only %}}
+
+No. InfluxDB {{< current-version >}} does not support deleting data by field.
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+Yes. InfluxDB Cloud supports deleting data by field.
+Use the `_field` label in your [delete predicate](/influxdb/v2.4/reference/syntax/delete-predicate/)
+to identify the field to delete.
+
+```js
+_field == "example-field"
+```
+
+{{% /cloud-only %}}
+
+#### Can I delete a measurement?
+
+Yes. InfluxDB {{< current-version >}} supports deleting data by measurement.
+Use the `_measurement` label in your [delete predicate](/influxdb/v2.4/reference/syntax/delete-predicate/)
+to identify the measurement to delete.
+
+```js
+_measurement == "example-measurement"
+```
+
+#### Can I delete multiple measurements at the same time?
+
+No. InfluxDB {{< current-version >}} does not support deleting multiple measurements
+in a single delete request.
+To delete multiple measurements, [issue a delete request](/influxdb/v2.4/write-data/delete-data/)
+for each measurement.
+
+#### Do I need to verify that data is deleted?
+
+It is not necessary to verify delete operations once they have been submitted to the queue.
+The `/api/v2/delete` endpoint returns a 204 response when the delete request has been added to the queue.
+{{% cloud-only %}}Because the delete queue executes asynchronously, there isn't a way to accurately
+predict when the delete operation will be performed at the storage layer.{{% /cloud-only %}}
+
+If you wish to verify a delete has occurred, try to query the deleted data.
+If the query returns results, the data has not been fully deleted.
+
+---
+
+## InfluxDB tasks
+
+#### How does retrying a task affect relative time ranges?
+
+When you retry a task that uses relative time ranges, it will query the original
+time range of the task execution (run).
+Whenever a task executes, InfluxDB sets the [`now` option ](/flux/v0.x/stdlib/universe/#options)
+in the task to the scheduled execution time of the task.
+When using [`range()`](/flux/v0.x/stdlib/universe/range/)
+or other functions that support relative duration values, these duration values
+are relative to [`now()`](/flux/v0.x/stdlib/universe/now/), which returns the
+value of the `now` option. Every task run has a unique `now` option based on
+the time the run was scheduled to execute.
 
 ---
 
