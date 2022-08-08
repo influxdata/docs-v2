@@ -168,7 +168,7 @@ Associate **JSON** key/value pairs with **InfluxDB elements** (measurements, tim
 "device_id":2036,
 "model_id":"KN24683",
 "temperature":25.0,
-"time":1653998899010000000
+"time":1653998899010000000,
 "error_state":"in_error"
 }
 ```
