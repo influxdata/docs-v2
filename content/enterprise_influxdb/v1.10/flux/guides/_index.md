@@ -6,7 +6,7 @@ aliases:
     - /flux/latest/
     - /flux/latest/introduction
 menu:
-  enterprise_influxdb_1_9:
+  enterprise_influxdb_1_10:
     name: Query with Flux
     parent: Flux
 canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/
