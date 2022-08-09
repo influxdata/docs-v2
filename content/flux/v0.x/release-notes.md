@@ -10,6 +10,13 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.177.1 [2022-08-08]
+
+### Bug fixes
+- Update `strings.substring()` to check bounds using rune array instead of string length.
+
+---
+
 ## v0.177.0 [2022-08-01]
 
 ### Features
