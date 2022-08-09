@@ -18,6 +18,7 @@ aliases:
 - Remove `vectorizedConst` feature flag.
 
 ### Bug fixes
+- Deprecate `date/boundaries` package in favor of [`experimental/date/boundaries`](/flux/v0.x/stdlib/experimental/date/boundaries/).
 - Update pattern matching to specify successor counts.
 - Restore integer return value for [`pagerduty.sendEvent()`](/flux/v0.x/stdlib/pagerduty/sendevent/).
 
