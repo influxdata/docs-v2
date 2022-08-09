@@ -60,12 +60,14 @@ In some cases, local policies may prevent the local user account from being crea
 Contact your systems administrator for assistance with this requirement.
 
 #### Static hostname
+
 If running InfluxDB Enterprise on a cloud provider like Amazon Web Services (AWS)
 or Google Cloud Platform (GCP), ensure the hostname for your server is static.
 If the server is every restarted, the hostname must remain the same to ensure
 network connectivity between your InfluxDB Enterprise meta and data processes.
 
 #### Persistent disk storage
+
 If running InfluxDB Enterprise on a cloud provider like AWS or GCP, ensure the
 your server is configured to use a persistent disk store that will persist 
 through server restarts.
@@ -138,14 +140,14 @@ InfluxDB Enterprise meta service download with `gpg`.
     In `/etc/influxdb/influxdb-meta.conf`:
 
     - Uncomment `hostname` and set to the full hostname of the meta node.
-    - Uncomment `internal-shared-secret` in the `[meta]` section and set it to a
-      long pass phrase to be used in JWT authentication for intra-node communication.
+    - Set `[enterprise].license-key` to the license key you received on InfluxPortal
+      **OR** `[enterprise].license-path` to the local path to the JSON license
+      file you received from InfluxData.
+    - Uncomment `[meta].internal-shared-secret` set it to a long passphrase to be
+      used in JWT authentication for intra-node communication.
       This value must the same for all of your meta nodes and match the
-      `[meta] meta-internal-shared-secret` settings in the configuration files
+      `[meta].meta-internal-shared-secret` settings in the configuration files
       of your data nodes.
-    - Set `license-key` in the `[enterprise]` section to the license key you
-      received on InfluxPortal **OR** `license-path` in the `[enterprise]` section
-      to the local path to the JSON license file you received from InfluxData.
 
     {{% warn %}}
 The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
@@ -156,7 +158,7 @@ The `license-key` and `license-path` settings are mutually exclusive and one mus
     ```toml
     # Hostname advertised by this host for remote addresses.  This must be resolvable by all
     # other nodes in the cluster
-    hostname="<your-host-name>:8091"
+    hostname="<your-host-name>"
 
     [enterprise]
       # license-key and license-path are mutually exclusive, use only one and leave the other blank
@@ -169,13 +171,13 @@ The `license-key` and `license-path` settings are mutually exclusive and one mus
       # The shared secret used by the internal API for JWT authentication.
       # This setting must have the same value as the data nodes' 
       # meta.meta-internal-shared-secret configuration.
-      meta-internal-shared-secret = "<internal-shared-secret>"
+      internal-shared-secret = "<internal-shared-secret>"
     ```
 
 3. **Start the InfluxDB Enterprise meta service**:
 
     Run the command appropriate to your operating system's service manager.
-    Include the `-single-server` flag when starting the service.
+    <!-- Include the `-single-server` flag when starting the service. -->
 
     {{< tabs-wrapper >}}
 {{% tabs "small" %}}
@@ -184,7 +186,7 @@ The `license-key` and `license-path` settings are mutually exclusive and one mus
 {{% /tabs %}}
 {{% tab-content %}}
 
-<!-- Add instructions for passing the -single-server flag to sysvinit -->
+<!-- Potential TODO: Add instructions for passing the -single-server flag to sysvinit -->
 
 ```sh
 service influxdb-meta start
@@ -192,7 +194,7 @@ service influxdb-meta start
 {{% /tab-content %}}
 {{% tab-content %}}
 
-<!-- Add instructions for passing the -single-server flag to systemd -->
+<!-- Potential TODO: Add instructions for passing the -single-server flag to systemd -->
 
 ```sh
 sudo systemctl start influxdb-meta
@@ -243,8 +245,8 @@ sudo systemctl start influxdb-meta
 
     Meta Nodes
     ==========
-    TCP Address      Version
-    <your-host-name>:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+    ID      TCP Address             Version         Labels
+    1       <your-host-name>:8091   {{< latest-patch >}}-c{{< latest-patch >}}    {}
     ```
 
     If you do not see your meta node in the output, repeat **steps 5–6** to 
@@ -313,15 +315,15 @@ InfluxDB Enterprise data service download with `gpg`.
     In `/etc/influxdb/influxdb.conf`:
 
     - Uncomment `hostname` at the top of the file and set it to the full hostname of the data node.
-    - Uncomment `auth-enabled` in the `[http]` section and set it to `true`.
-    - Uncomment `meta-auth-enabled` in the `[meta]` section and set it to `true`.
-    - Uncomment `meta-internal-shared-secret` in the `[meta]` section and set it to a long pass phrase.
+    - Set `enterprise.license-key` to the license key you received on InfluxPortal
+      **OR** `enterprise.license-path` to the local path to the JSON license
+      file you received from InfluxData.
+    - Uncomment `[meta].meta-auth-enabled` and set it to `true`.
+    - Uncomment `[meta].meta-internal-shared-secret` and set it to a long pass phrase.
       The internal shared secret is used in JWT authentication for intra-node communication.
-      This value must match the `[meta] internal-shared-secret` value in the your
+      This value must match the `[meta].internal-shared-secret` value in the your
       meta node configuration file (`/etc/influxdb/influxdb-meta.conf`).
-    - Set `license-key` in the `[enterprise]` section to the license key you
-      received on InfluxPortal **OR** `license-path` in the `[enterprise]`
-      section to the local path to the JSON license file you received from InfluxData.
+    - Uncomment `[http].auth-enabled` set it to `true`.
 
     {{% warn %}}
 The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
@@ -331,7 +333,7 @@ The `license-key` and `license-path` settings are mutually exclusive and one mus
     # Change this option to true to disable reporting.
     # reporting-disabled = false
     # bind-address = ":8088"
-    hostname="<enterprise-data-0x>"
+    hostname="<your-host-name>"
 
     [enterprise]
       # license-key and license-path are mutually exclusive, use only one and leave the other blank
@@ -429,13 +431,13 @@ sudo systemctl start influxdb
     ```
     Data Nodes
     ==========
-    ID   TCP Address      Version
-    2    <your-host-name>:8088   {{< latest-patch >}}-c{{< latest-patch >}}
+    ID      TCP Address             Version         Labels
+    2       <your-host-name>:8088   {{< latest-patch >}}-c{{< latest-patch >}}    {}
 
     Meta Nodes
     ==========
-    TCP Address      Version
-    <your-host-name>:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+    ID      TCP Address             Version         Labels
+    1       <your-host-name>:8091   {{< latest-patch >}}-c{{< latest-patch >}}    {}
     ```
 
     If you do not see your data node in the output, repeat **steps 5–6** to 
