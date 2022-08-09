@@ -10,6 +10,19 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.178.0 [2022-08-09]
+
+### Features
+- Support `apiKey` parameter in [`zenoss.event()`](/flux/v0.x/stdlib/contrib/bonitoo-io/zenoss/event/)
+  and [`zenoss.endpoint()`](/flux/v0.x/stdlib/contrib/bonitoo-io/zenoss/endpoint/).
+- Remove `vectorizedConst` feature flag.
+
+### Bug fixes
+- Update pattern matching to specify successor counts.
+- Restore integer return value for [`pagerduty.sendEvent()`](/flux/v0.x/stdlib/pagerduty/sendevent/).
+
+---
+
 ## v0.177.1 [2022-08-08]
 
 ### Bug fixes
