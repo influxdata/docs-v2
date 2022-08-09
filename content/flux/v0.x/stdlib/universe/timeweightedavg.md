@@ -1,80 +1,101 @@
 ---
 title: timeWeightedAvg() function
-description: The `timeWeightedAvg()` function outputs the timeWeightedAvg of non-null records as a float.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/timeweightedavg/
+description: >
+  `timeWeightedAvg()` returns the time-weighted average of non-null values in
+  `_value` column as a float for each input table.
 menu:
   flux_0_x_ref:
     name: timeWeightedAvg
     parent: universe
-weight: 102
-flux/v0.x/tags: [aggregates, transformations]
-related:
-  - /flux/v0.x/stdlib/universe/integral/
+    identifier: universe/timeWeightedAvg
+weight: 101
+flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.83.0
 ---
 
-The `timeWeightedAvg()` function outputs the time-weighted average of non-null records
-in a table as a float.
-Time is weighted using the linearly interpolated integral of values in the table.
-_`timeWeightedAvg()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3570-L3576
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`timeWeightedAvg()` returns the time-weighted average of non-null values in
+`_value` column as a float for each input table.
+
+Time is weighted using the linearly interpolated integral of values in the table.
+
+##### Function type signature
 
 ```js
-timeWeightedAvg(unit: 1m)
+(<-tables: stream[A], unit: duration) => stream[{B with _value: float, _value: float, _stop: D, _start: C}] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### unit {data-type="duration"}
+### unit
 ({{< req >}})
-Time duration used when computing the time-weighted average.
+Unit of time to use to compute the time-weighted average.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+### Calculate the time-weighted average of values
+
 ```js
-import "sampledata"
-
-data = sampledata.int(includeNull: true)
-    |> range(start: sampledata.start, stop: sampledata.stop)
-    |> fill(usePrevious: true)
-    |> unique()
-
 data
     |> timeWeightedAvg(unit: 1s)
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-##### Input data
-| _start               | _stop                | _time                | tag | _value |
-| :------------------- | :------------------- | :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t1  |     -2 |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | t1  |      7 |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | t1  |      4 |
+{{% expand "View example input and ouput" %}}
 
-| _start               | _stop                | _time                | tag | _value |
-| :------------------- | :------------------- | :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | t2  |        |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | t2  |      4 |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | t2  |     -3 |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | t2  |     19 |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | t2  |      1 |
+#### Input data
 
-##### Output data
-| _start               | _stop                | tag |            _value |
-| :------------------- | :------------------- | :-- | ----------------: |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t1  | 4.166666666666667 |
+| *_start              | *_stop               | _time                | _value  | *tag |
+| -------------------- | -------------------- | -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 4       | t1   |
 
-| _start               | _stop                | tag |            _value |
-| :------------------- | :------------------- | :-- | ----------------: |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2  | 5.416666666666667 |
+| *_start              | *_stop               | _time                | _value  | *tag |
+| -------------------- | -------------------- | -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z |         | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| *_start              | *_stop               | _value            | *tag |
+| -------------------- | -------------------- | ----------------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 4.166666666666667 | t1   |
+
+| *_start              | *_stop               | _value            | *tag |
+| -------------------- | -------------------- | ----------------- | ---- |
+| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 5.416666666666667 | t2   |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

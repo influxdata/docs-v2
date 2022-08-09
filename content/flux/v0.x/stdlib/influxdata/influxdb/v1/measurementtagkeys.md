@@ -1,44 +1,82 @@
 ---
 title: v1.measurementTagKeys() function
-description: The v1.measurementTagKeys() function returns a list of tag keys for a specific measurement.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurementtagkeys/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagkeys/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurementtagkeys/
+description: >
+  `v1.measurementTagKeys()` returns the list of tag keys for a specific measurement.
 menu:
   flux_0_x_ref:
     name: v1.measurementTagKeys
-    parent: v1
+    parent: influxdata/influxdb/v1
+    identifier: influxdata/influxdb/v1/measurementTagKeys
 weight: 301
 flux/v0.x/tags: [metadata]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-keys, SHOW TAG KEYS in InfluxQL
-introduced: 0.16.0
 deprecated: 0.88.0
 ---
 
-{{% warn %}}
-`v1.measurementTagKeys()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.measurementTagKeys()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagkeys/).
-{{% /warn %}}
+<!------------------------------------------------------------------------------
 
-The `v1.measurementTagKeys()` function returns a list of tag keys for a specific measurement.
-The return value is always a single table with a single column, `_value`.
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/v1/v1.flux#L302-L302
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`v1.measurementTagKeys()` returns the list of tag keys for a specific measurement.
+
+Results include a single table with a single column, `_value`.
+
+##### Function type signature
 
 ```js
-import "influxdata/influxdb/v1"
-
-v1.measurementTagKeys(
-    bucket: "example-bucket",
-    measurement: "cpu",
-)
+(bucket: string, measurement: A, ?start: B, ?stop: C) => stream[D] where A: Equatable, D: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### bucket {data-type="string"}
+### bucket
+({{< req >}})
 Bucket to return tag keys from for a specific measurement.
 
-### measurement {data-type="string"}
+
+
+### measurement
+({{< req >}})
 Measurement to return tag keys from.
+
+
+
+### start
+
+Oldest time to include in results. Default is `-30d`.
+
+
+
+### stop
+
+Newest time include in results.
+The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+Default is `now()`.
+
+
+
+
+## Examples
+
+### Query tag keys from an InfluxDB measurement
+
+```js
+import "influxdata/influxdb/schema"
+
+schema.measurementTagKeys(bucket: "example-bucket", measurement: "example-measurement")
+
+```
+

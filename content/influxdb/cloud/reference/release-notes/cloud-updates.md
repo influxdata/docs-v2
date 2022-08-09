@@ -14,6 +14,59 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## June 2022
+
+### Private InfluxDB Cloud offering
+
+New support for private InfluxDB Cloud offering on AWS, Azure, and Google Cloud Marketplaces for annual customers. Please contact sales@influxdata.com for more information.
+
+### Sample IoT application and code snippets for Node.js
+
+Quickly start writing and querying your data with **JavaScript/Node.js**. Now, when you complete the **JavaScript/Node.js** onboarding wizard, you'll have the option to do either of the following:
+- View an IoT [Sample App](https://github.com/influxdata/iot-api-js) written in Node.js.
+- View [Boilerplate Snippets](https://github.com/influxdata/nodejs-samples/) of code in Node.js.
+
+### Help bar updates
+
+- If you have a [Usage-Based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan), you can now submit **Support requests** and questions directly to our **Salesforce Support queue** (without needing a Salesforce account). Hover over the question mark in InfluxDB Cloud, and select **Contact Support**. You'll receive a confirmation email with your ticket number for reference.
+
+- Add a [Status page](https://status.influxdata.com/) to display InfluxDB uptime, downtime, and incident management information for all Cloud regions. Hover over the question mark in InfluxDB Cloud, and select **Status Page**.
+
+- Add a link to quickly access InfluxDB University. Hover over the question mark in InfluxDB Cloud, and select [InfluxDB University](https://university.influxdata.com/).
+
+### Bug fixes
+
+- Keep the time picker on the screen when the Script Editor is open.
+- Escape commas in strings that were breaking the rendering of table visualizations.
+- Add a Copy to Clipboard button to copy the organization name on the Organization Settings page.
+- Ensure the following:
+  - The Copy button no longer hides graph error messages.
+  - Nested objects no longer break tables.
+  - Query Explorer displays results when data is returned.
+  - Single Usage stats text is selectable.
+  - Users get redirected to the Login page after a session expires.
+  - Renamed “Token last used” to “Token last modified” to be more accurate and descriptive.
+
+## May 2022
+
+### Bulk delete API tokens
+Efficiently delete multiple tokens at once. For details, see [Delete a token using the InfluxDB API](/influxdb/v2.2/security/tokens/delete-token/#delete-a-token-using-the-influxdb-api).
+
+### Help bar
+Find relevant content easily from the Cloud UI using the help tab in left side panel.
+
+## April 2022
+
+### Query improvements in Data Explorer and notebooks
+
+It's now easier to use the visual builder to create queries in the Data Explorer and notebooks:
+- The builder requires you to select a measurement before you can select associated tags.
+- All measurements, fields, tags, and tag values appear in the builder, not just the ones in the currently specified time range. This update ensures that measurements, fields, and tags, are visible even if you set a very short time range.
+
+### Onboarding wizards for common programming languages
+
+During onboarding, choose the Python, JavaScript, or Go wizard to quickly get started writing data and executing simple queries. For details, see [Write and query data using the programming language of your choice](/influxdb/cloud/get-started/#write-and-query-data-using-the-programming-language-of-your-choice).
+
 ## March 2022
 
 ### Deep linking

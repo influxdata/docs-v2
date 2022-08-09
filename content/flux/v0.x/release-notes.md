@@ -10,6 +10,207 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.177.1 [2022-08-08]
+
+### Bug fixes
+- Update `strings.substring()` to check bounds using rune array instead of string length.
+
+---
+
+## v0.177.0 [2022-08-01]
+
+### Features
+- Support conditional expressions in vectorized `map()`.
+- Compute minimum required dispatcher concurrency from the plan graph.
+- Add a query planner rule to remove redundant sort nodes.
+
+### Bug fixes
+- Guard message processing with mutexes.
+- Update Flux REPL to use unique planner node IDs.
+
+---
+
+## v0.176.0 [2022-07-25]
+
+## Features
+- Promote various feature-flagged features and optimizations to be used by default.
+
+### Bug fixes
+- Support the [`location` option](/flux/v0.x/stdlib/internal/location/#options)
+  in the [`boundaries` package](/flux/v0.x/stdlib/date/boundaries/).
+- Pass epsilon value from Go tests to the Flux test framework.
+- Ignore unknown messages rather than erroring.
+
+---
+
+## v0.175.0 [2022-07-19]
+
+### Features
+- Update [`testing.diff()`](/flux/v0.x/stdlib/testing/diff/) to use
+  [`experimental.diff()`](/flux/v0.x/stdlib/experimental/diff/) as its base.
+- Add a new diff implementation to the [experimental package](/flux/v0.x/stdlib/experimental/).
+- Generalize attributes in the query planner.
+- Add support for constants and literals in vectorized `map()`.
+- Optimize the Holt Winters implementation by using the
+  [gonum Nelder-Mead optimization](https://github.com/gonum/gonum/blob/master/optimize/neldermead.go).
+
+### Bug fixes
+- When joining data, provide a default schema for unmatched group keys.
+- Update the join package to be resilient to schema changes.
+
+---
+
+## v0.174.1 [2022-07-12]
+
+### Bug fixes
+
+- Update [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow/) 
+  to correctly handle null values when using `sum` or `mean`.
+- Update [`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/) and
+  [`wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/) to skip empty tag
+  values.
+
+---
+
+## v0.174.0 [2022-07-05]
+
+### Features
+
+- Add coloring highlights to test outputs.
+- Promote [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/) to 
+  [`influxdata.influxdb.wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
+- Allow physical plan
+  [`attributes`](https://github.com/influxdata/flux/blob/master/plan/attributes.go) 
+  to contribute to 
+  [`formatter`](https://github.com/influxdata/flux/blob/master/plan/format.go) 
+  details.
+- Add tagging support to Flux tests.
+- Add new function [`experimental.catch()`](/flux/v0.x/stdlib/experimental/catch/).
+- Add new function [`testing.shouldError()`](flux/v0.x/stdlib/testing/shoulderror/).
+
+### Bug fixes
+
+- Update `httpWriter` struct to skip invalid floats.
+- Update [`join()`](/flux/v0.x/stdlib/join/) to validate group keys.
+- Fix unit tests for [`covariance()`](/flux/v0.x/stdlib/universe/covariance/).
+- Update all Flux packages to additionally live as Go packages. 
+
+---
+
+## v0.173.0 [2022-06-29]
+
+### Breaking changes
+
+- Format scripts with a trailing newline by default when running the formatter.
+
+### Features
+
+- Deprecate [`experimental.http.get`](/flux/v0.x/stdlib/experimental/http/get/).
+- Deprecate [`experimental.csv.from()`](/flux/v0.x/stdlib/experimental/csv/from/).
+- Promote the following functions from `experimental.array` into the 
+  [`array`](/flux/v0.x/stdlib/array) package:
+  - [`array.concat()`](/flux/v0.x/stdlib/array/concat/) 
+  - [`array.filter()`](/flux/v0.x/stdlib/array/filter/)
+  - [`array.map()`](/flux/v0.x/stdlib/array/map/)
+- Promote the following functions from `experimental.http.requests` into the 
+  [`http.requests`](/flux/v0.x/stdlib/http/requests/) package:
+  - [`http.requests.do()`](/flux/v0.x/stdlib/http/requests/do/)
+  - [`http.requests.get()`](/flux/v0.x/stdlib/http/requests/get/)
+  - [`http.requests.peek()`](/flux/v0.x/stdlib/http/requests/peek/)
+  - [`http.requests.post()`](/flux/v0.x/stdlib/http/requests/post/)
+- Promote `experimental.bitwise` into the [`bitwise`](/flux/v0.x/stdlib/bitwise/) 
+  package.
+- Remove all `Test` statements. New statements are written with `TestCase`.
+- Format scripts with a trailing newline by default when running the formatter.
+
+### Bug fixes
+
+- Return an error if the user modifies group key while using 
+  [`join`](/flux/v0.x/stdlib/join/)
+
+---
+
+## v0.172.0 [2022-06-24]
+
+### Features
+- Add multiple new join functions to the [`join`](/flux/v0.x/stdlib/join/) 
+  package such as [`join.full()`](/flux/v0.x/stdlib/join/full/).
+- Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) 
+  parameter to the derivative function. 
+- Allow features to enable builtin statements. 
+- Provide the comments for each `Symbol` from `PackageExports`.
+- Suggestions now start off by default and added a new flag.
+- Add builtin function [`time`](/flux/v0.x/stdlib/date/time/) to the `date` 
+  package to convert any timeable into datetime. 
+- Allow vector types to be specified in Flux source. 
+
+### Bug fixes
+- Replace extra boolean parameter for suggestions with Flux REPL options. 
+- Remove [`testing.load()`](/flux/v0.x/stdlib/testing/load/) 
+  from [`testutil.yield()`](/flux/v0.x/stdlib/internal/testutil/yield/). 
+- Fix a bug in how sort nodes are created for a new join. 
+- Removed extra indentation for test cases. 
+- Retain the package for identifier referencing the prelude. 
+- Only return an error in tests if an assertion fails. 
+- Fix [`findColumn()`](/flux/v0.x/stdlib/universe/findcolumn/)
+  to handle multi-buffer tables. 
+- Point to the function being piped to on argument mismatches. 
+- Visit successors before continuing DFS on node. 
+
+---
+
+## v0.171.0 [2022-06-14]
+
+### Breaking changes
+- Remove `testing.loadStorage()`.
+
+### Features
+- Add `FromStr` to allow the Flux LSP (language server protocol) CLI to run with
+  optional Flux features.
+- Add method to parallelize aggregate transformations.
+- Report unused symbols.
+- Add `From` implementations for `Node/NodeMut`.
+
+### Bug fixes
+- Pass a seed to the tables generator.
+- Ensure buffers are retained when copying a buffered table.
+- Return an error when using a label variable without the Label constraint.
+
+---
+
+## v0.170.1 [2022-06-06]
+
+### Bug fixes
+- Require an earlier minimum version of `lsp-types`.
+
+---
+
+## v0.170.0 [2022-06-02]
+
+### Features
+- Add a `pretty.rs`-based MonoType formatter.
+
+### Bug fixes
+- Update vectorized `map()` to properly handle shadowed columns.
+
+---
+
+## v0.169.0 [2022-05-31]
+
+### Features
+- Add a `_status` tag to PagerDuty records.
+- Refactor the operator profile to be in the query statistics.
+
+### Bug fixes
+- Ensure that constraints are checked and propagated fully.
+- Fix math for integral with a single value.
+- Add `json` tags for the transport profiles in statistics.
+- Initialize `Metadata` in Flux statistics.
+- Return a more helpful error message when an HTTP response body exceeds 100MB.
+- Correct several issues found during the implementation of polymorphic labels.
+
+---
+
 ## v0.168.0 [2022-05-23]
 
 ### Features
@@ -35,7 +236,7 @@ aliases:
 - Add [`experimental.preview()`](/flux/v0.x/stdlib/experimental/preview/).
 
 ### Bug fixes
-- Update `date.add()` and `date.sub()` to ork correctly with timezones enabled.
+- Update `date.add()` and `date.sub()` to work correctly with timezones enabled.
 - Fix failing continuous integration tests.
 - Update `hourSelection()` to support overnight time ranges.
 - Fix logic error in aggregate window planner rule preserve the rule if

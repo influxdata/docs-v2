@@ -1,96 +1,122 @@
 ---
 title: contains() function
-description: The `contains()` function tests whether a value is a member of a set.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/tests/contains/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/tests/contains/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/tests/contains/
+description: >
+  `contains()` tests if an array contains a specified value and returns `true` or `false`.
 menu:
   flux_0_x_ref:
     name: contains
     parent: universe
-weight: 102
-related:
-  - /flux/v0.x/data-types/composite/array/
-flux/v0.x/tags: [tests]
+    identifier: universe/contains
+weight: 101
+
 introduced: 0.19.0
 ---
 
-The `contains()` function tests whether a value is a member of a set.
-If the value is a member of the set, the function returns `true`.
-If the value is not a member of the set, the functions returns `false`.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3471-L3471
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`contains()` tests if an array contains a specified value and returns `true` or `false`.
+
+
+
+##### Function type signature
 
 ```js
-contains(
-    value: 1,
-    set: [1,2,3],
-)
+(set: [A], value: A) => bool where A: Nullable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### value {data-type="string, bool, time, int, uint, float"}
+### value
+({{< req >}})
 Value to search for.
 
-### set {data-type="array"}
-Set of values to search in.
+
+
+### set
+({{< req >}})
+Array to search.
+
+
+
 
 ## Examples
 
-#### Filter on a set of specific fields
+### Filter on a set of specific fields
+
 ```js
-import "influxdata/influxdb/sample"
+fields = ["f1", "f2"]
 
-fields = ["temperature", "humidity"]
-
-sample.data(set: "airSensor")
-    |> range(start: -30m)
+data
     |> filter(fn: (r) => contains(value: r._field, set: fields))
+
 ```
 
-{{% expand "View example input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
-##### Example input data
-| _time                | _field      | _value |
-| :------------------- | :---------- | -----: |
-| 2020-01-01T00:00:00Z | temperature |   74.1 |
-| 2020-01-01T00:01:00Z | temperature |   73.9 |
-| 2020-01-01T00:02:00Z | temperature |   74.0 |
-| 2020-01-01T00:03:00Z | temperature |   74.2 |
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-| _time                | _field   | _value |
-| :------------------- | :------- | -----: |
-| 2020-01-01T00:00:00Z | humidity |   35.5 |
-| 2020-01-01T00:01:00Z | humidity |   35.4 |
-| 2020-01-01T00:02:00Z | humidity |   35.5 |
-| 2020-01-01T00:03:00Z | humidity |   35.6 |
+#### Input data
 
-| _time                | _field | _value |
-| :------------------- | :----- | -----: |
-| 2020-01-01T00:00:00Z | co     |   0.65 |
-| 2020-01-01T00:01:00Z | co     |   0.66 |
-| 2020-01-01T00:02:00Z | co     |   0.66 |
-| 2020-01-01T00:03:00Z | co     |   0.67 |
+| *_field | _measurement  | _time                | _value  | *tag |
+| ------- | ------------- | -------------------- | ------- | ---- |
+| f1      | m             | 2021-01-01T00:00:00Z | -2      | t1   |
+| f1      | m             | 2021-01-01T00:00:50Z | 4       | t1   |
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| *_field | _measurement  | _time                | _value  | *tag |
+| ------- | ------------- | -------------------- | ------- | ---- |
+| f1      | m             | 2021-01-01T00:00:10Z | 4       | t2   |
+| f1      | m             | 2021-01-01T00:00:20Z | -3      | t2   |
+| f1      | m             | 2021-01-01T00:00:50Z | 1       | t2   |
 
-##### Example output data
-| _time                | _field      | _value |
-| :------------------- | :---------- | -----: |
-| 2020-01-01T00:00:00Z | temperature |   74.1 |
-| 2020-01-01T00:01:00Z | temperature |   73.9 |
-| 2020-01-01T00:02:00Z | temperature |   74.0 |
-| 2020-01-01T00:03:00Z | temperature |   74.2 |
+| *_field | _measurement  | _time                | _value  | *tag |
+| ------- | ------------- | -------------------- | ------- | ---- |
+| f2      | m             | 2021-01-01T00:00:10Z | 10      | t1   |
+| f2      | m             | 2021-01-01T00:00:20Z | 7       | t1   |
 
-| _time                | _field   | _value |
-| :------------------- | :------- | -----: |
-| 2020-01-01T00:00:00Z | humidity |   35.5 |
-| 2020-01-01T00:01:00Z | humidity |   35.4 |
-| 2020-01-01T00:02:00Z | humidity |   35.5 |
-| 2020-01-01T00:03:00Z | humidity |   35.6 |
+| *_field | _measurement  | _time                | _value  | *tag |
+| ------- | ------------- | -------------------- | ------- | ---- |
+| f3      | m             | 2021-01-01T00:00:30Z | 17      | t1   |
+| f3      | m             | 2021-01-01T00:00:40Z | 15      | t1   |
 
-{{% /flex-content %}}
-{{< /flex >}}
+| *_field | _measurement  | _time                | _value  | *tag |
+| ------- | ------------- | -------------------- | ------- | ---- |
+| f3      | m             | 2021-01-01T00:00:00Z | 19      | t2   |
+| f3      | m             | 2021-01-01T00:00:30Z | 19      | t2   |
+| f3      | m             | 2021-01-01T00:00:40Z | 13      | t2   |
+
+
+#### Output data
+
+| *_field | _measurement  | _time                | _value  | *tag |
+| ------- | ------------- | -------------------- | ------- | ---- |
+| f1      | m             | 2021-01-01T00:00:00Z | -2      | t1   |
+| f1      | m             | 2021-01-01T00:00:50Z | 4       | t1   |
+
+| *_field | _measurement  | _time                | _value  | *tag |
+| ------- | ------------- | -------------------- | ------- | ---- |
+| f1      | m             | 2021-01-01T00:00:10Z | 4       | t2   |
+| f1      | m             | 2021-01-01T00:00:20Z | -3      | t2   |
+| f1      | m             | 2021-01-01T00:00:50Z | 1       | t2   |
+
+| *_field | _measurement  | _time                | _value  | *tag |
+| ------- | ------------- | -------------------- | ------- | ---- |
+| f2      | m             | 2021-01-01T00:00:10Z | 10      | t1   |
+| f2      | m             | 2021-01-01T00:00:20Z | 7       | t1   |
+
 {{% /expand %}}
+{{< /expand-wrapper >}}

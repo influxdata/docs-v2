@@ -1,125 +1,184 @@
 ---
 title: experimental.fill() function
 description: >
-  The `experimental.fill()` function replaces all null values in the `_value`
-  column with a non-null value.
+  `experimental.fill()` replaces all null values in the `_value` column with a non-null value.
 menu:
   flux_0_x_ref:
     name: experimental.fill
     parent: experimental
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/fill/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/fill/
-related:
-  - /influxdb/v2.0/query-data/flux/fill/
-  - /flux/v0.x/stdlib/universe/fill
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#group-by-time-intervals-and-fill, InfluxQL – FILL
+    identifier: experimental/fill
+weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.112.0
 ---
 
-The `experimental.fill()` function replaces all null values in the `_value`
-column with a non-null value.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L1077-L1077
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.fill()` replaces all null values in the `_value` column with a non-null value.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental"
-
-experimental.fill(value: 0.0)
-
-// OR
-
-experimental.fill(usePrevious: true)
+(<-tables: stream[{B with _value: A}], ?usePrevious: bool, ?value: A) => stream[{B with _value: A}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-{{% note %}}
-`value` and `usePrevious` are mutually exclusive.
-{{% /note %}}
+### value
 
-### value {data-type="string, bool, int, uint, float, time"}
 Value to replace null values with.
 Data type must match the type of the `_value` column.
 
-### usePrevious {data-type="bool"}
-When `true`, replaces null values with the value of the previous non-null row.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+
+### usePrevious
+
+Replace null values with the value of the previous non-null row.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
 - [Fill null values with a specified non-null value](#fill-null-values-with-a-specified-non-null-value)
 - [Fill null values with the previous non-null value](#fill-null-values-with-the-previous-non-null-value)
 
----
+### Fill null values with a specified non-null value
 
-#### Fill null values with a specified non-null value
 ```js
 import "experimental"
+import "sampledata"
 
-data
-    |> experimental.fill(value: 0.0)
+sampledata.int(includeNull: true)
+    |> experimental.fill(value: 0)
+
 ```
 
-{{< flex >}}
-{{% flex-content %}}
-##### Input data
-| _time                | _value |
-|:-----                | ------:|
-| 2021-01-01T00:00:00Z | 1.2    |
-| 2021-01-01T00:01:00Z |        |
-| 2021-01-01T00:02:00Z | 2.3    |
-| 2021-01-01T00:03:00Z |        |
-| 2021-01-01T00:04:00Z | 2.8    |
-| 2021-01-01T00:05:00Z | 1.1    |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### Output data
-| _time                | _value |
-|:-----                | ------:|
-| 2021-01-01T00:00:00Z | 1.2    |
-| 2021-01-01T00:01:00Z | 0.0    |
-| 2021-01-01T00:02:00Z | 2.3    |
-| 2021-01-01T00:03:00Z | 0.0    |
-| 2021-01-01T00:04:00Z | 2.8    |
-| 2021-01-01T00:05:00Z | 1.1    |
-{{% /flex-content %}}
-{{< /flex >}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
----
+#### Input data
 
-#### Fill null values with the previous non-null value
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z |         | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z |         | t1   |
+| 2021-01-01T00:00:40Z |         | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z |         | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z |         | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 0       | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 0       | t1   |
+| 2021-01-01T00:00:40Z | 0       | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 0       | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 0       | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### Fill null values with the previous non-null value
+
 ```js
 import "experimental"
+import "sampledata"
 
-data
+sampledata.int(includeNull: true)
     |> experimental.fill(usePrevious: true)
+
 ```
 
-{{< flex >}}
-{{% flex-content %}}
-##### Input data
-| _time                | _value |
-|:-----                | ------:|
-| 2021-01-01T00:00:00Z | 1.2    |
-| 2021-01-01T00:01:00Z |        |
-| 2021-01-01T00:02:00Z | 2.3    |
-| 2021-01-01T00:03:00Z |        |
-| 2021-01-01T00:04:00Z | 2.8    |
-| 2021-01-01T00:05:00Z | 1.1    |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### Output data
-| _time                | _value |
-|:-----                | ------:|
-| 2021-01-01T00:00:00Z | 1.2    |
-| 2021-01-01T00:01:00Z | 1.2    |
-| 2021-01-01T00:02:00Z | 2.3    |
-| 2021-01-01T00:03:00Z | 2.3    |
-| 2021-01-01T00:04:00Z | 2.8    |
-| 2021-01-01T00:05:00Z | 1.1    |
-{{% /flex-content %}}
-{{< /flex >}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z |         | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z |         | t1   |
+| 2021-01-01T00:00:40Z |         | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z |         | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z |         | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | -2      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 7       | t1   |
+| 2021-01-01T00:00:40Z | 7       | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z |         | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 19      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

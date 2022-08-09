@@ -1,124 +1,131 @@
 ---
 title: limit() function
-description: The `limit()` function limits each output table to the first `n` records.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/limit
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/limit/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/limit/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/limit/
+description: >
+  `limit()` returns the first `n` rows after the specified `offset` from each input table.
 menu:
   flux_0_x_ref:
     name: limit
     parent: universe
-weight: 102
+    identifier: universe/limit
+weight: 101
 flux/v0.x/tags: [transformations, selectors]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/sort-limit/
-  - /flux/v0.x/stdlib/universe/tail/
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-limit-and-slimit-clauses, InfluxQL LIMIT
 introduced: 0.7.0
 ---
 
-The `limit()` function limits each output table to the first [`n`](#n) records.
-The function produces one output table for each input table.
-Each output table contains the first `n` records after the [`offset`](#offset).
-If the input table has less than `offset + n` records, `limit()` outputs all records after the `offset`.
-_`limit()` is a [selector function](/flux/v0.x/function-types/#selectors)._
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1636-L1636
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`limit()` returns the first `n` rows after the specified `offset` from each input table.
+
+If an input table has less than `offset + n` rows, `limit()` returns all rows
+after the offset.
+
+##### Function type signature
 
 ```js
-limit(n:10, offset: 0)
+(<-tables: stream[A], n: int, ?offset: int) => stream[A]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### n {data-type="int"}
+### n
 ({{< req >}})
-Maximum number of records to output.
+Maximum number of rows to return.
 
-### offset {data-type="int"}
-Number of records to skip per table before limiting to `n`.
+
+
+### offset
+
+Number of rows to skip per table before limiting to `n`.
 Default is `0`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro plural=true %}}
 
 - [Limit results to the first three rows in each table](#limit-results-to-the-first-three-rows-in-each-table)
 - [Limit results to the first three rows in each input table after the first two](#limit-results-to-the-first-three-rows-in-each-input-table-after-the-first-two)
 
-#### Limit results to the first three rows in each table
+### Limit results to the first three rows in each table
+
 ```js
 import "sampledata"
 
 sampledata.int()
     |> limit(n: 3)
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |     -2 |
-| 2021-01-01T00:00:10Z | t1  |     10 |
-| 2021-01-01T00:00:20Z | t1  |      7 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t2  |     19 |
-| 2021-01-01T00:00:10Z | t2  |      4 |
-| 2021-01-01T00:00:20Z | t2  |     -3 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Limit results to the first three rows in each input table after the first two
+### Limit results to the first three rows in each input table after the first two
+
 ```js
 import "sampledata"
 
 sampledata.int()
     |> limit(n: 3, offset: 2)
+
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
-
-##### Input data
-{{% flux/sample "int" %}}
-
-{{% /flex-content %}}
-{{% flex-content %}}
-
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:20Z | t1  |      7 |
-| 2021-01-01T00:00:30Z | t1  |     17 |
-| 2021-01-01T00:00:40Z | t1  |     15 |
-
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:20Z | t2  |     -3 |
-| 2021-01-01T00:00:30Z | t2  |     19 |
-| 2021-01-01T00:00:40Z | t2  |     13 |
-
-{{% /flex-content %}}
-{{< /flex >}}
-{{% /expand %}}
-{{< /expand-wrapper >}}

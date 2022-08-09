@@ -169,8 +169,8 @@ Resources: [Installation](/enterprise_influxdb/v1.9/installation/data_node_insta
 
 Optional arguments are in brackets.
 
-##### `[ -p ]`  
-Add a passive node to an Enterprise cluster.
+<!-- ##### `[ -p ]`  
+Add a passive node to an Enterprise cluster. -->
 
 ### Examples
 
@@ -1109,6 +1109,7 @@ ID	TCP Address               Version		    Labels	  Passive
 5	 cluster-node_1_1:8088		  1.9.6-c1.9.6  {}	      true
 6	 cluster-node_2_1:8088		  1.9.6-c1.9.6  {}	      false
 ```
+
 
 ### `show-shards`
 

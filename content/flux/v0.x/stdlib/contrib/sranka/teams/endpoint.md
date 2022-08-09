@@ -1,54 +1,74 @@
 ---
 title: teams.endpoint() function
 description: >
-  The `teams.endpoint()` function sends a message to a Microsoft Teams channel
-  using data from table rows.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/teams/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/teams/endpoint/
+  `teams.endpoint()` sends a message to a Microsoft Teams channel using data from table rows.
 menu:
   flux_0_x_ref:
     name: teams.endpoint
-    parent: teams
-weight: 202
-flux/v0.x/tags: [notification endpoints]
-introduced: 0.70.0
+    parent: contrib/sranka/teams
+    identifier: contrib/sranka/teams/endpoint
+weight: 301
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
-The `teams.endpoint()` function sends a message to a Microsoft Teams channel
-using data from table rows.
+<!------------------------------------------------------------------------------
 
-```js
-import "contrib/sranka/teams"
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-teams.endpoint(url: "https://outlook.office.com/webhook/example-webhook")
-```
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-## Parameters
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/teams/teams.flux#L126-L146
 
-### url {data-type="string"}
-Incoming webhook URL.
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
-## Usage
+------------------------------------------------------------------------------->
+
+`teams.endpoint()` sends a message to a Microsoft Teams channel using data from table rows.
+
+### Usage
 `teams.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn {data-type="function"}
-A function that builds the object used to generate the POST request.
-Requires an `r` parameter.
+#### mapFn
+A function that builds the object used to generate the POST request. Requires an `r` parameter.
 
-`mapFn` accepts a table row (`r`) and returns an object that must include the
-following fields:
+`mapFn` accepts a table row (`r`) and returns an object that must include the following fields:
 
 - `title`
 - `text`
 - `summary`
 
-_For more information, see [`teams.message()` parameters](/v2.0/reference/flux/stdlib/contrib/teams/message/#parameters)._
+For more information, see `teams.message` parameters.
+
+##### Function type signature
+
+```js
+(
+    url: string,
+) => (
+    mapFn: (r: A) => {B with title: C, text: string, summary: string},
+) => (<-tables: stream[A]) => stream[{A with _sent: string}]
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### url
+({{< req >}})
+Incoming webhook URL.
+
+
+
 
 ## Examples
 
-##### Send critical statuses to a Microsoft Teams channel
+### Send critical statuses to a Microsoft Teams channel
+
 ```js
 import "contrib/sranka/teams"
 
@@ -65,4 +85,6 @@ crit_statuses
         mapFn: (r) =>
             ({title: "Disk Usage", text: "Disk usage is: **${r.status}**.", summary: "Disk usage is ${r.status}"}),
     )()
+
 ```
+

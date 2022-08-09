@@ -1,53 +1,43 @@
 ---
 title: servicenow.endpoint() function
 description: >
-  The `servicenow.endpoint()` function sends events to [ServiceNow](https://servicenow.com)
-  using data from input rows.
+  `servicenow.endpoint()` sends events to [ServiceNow](https://servicenow.com/) using data from input rows.
 menu:
   flux_0_x_ref:
     name: servicenow.endpoint
-    parent: servicenow
-weight: 202
+    parent: contrib/bonitoo-io/servicenow
+    identifier: contrib/bonitoo-io/servicenow/endpoint
+weight: 301
 flux/v0.x/tags: [notification endpoints]
 ---
 
-The `servicenow.endpoint()` function sends events to [ServiceNow](https://servicenow.com)
-using data from input rows.
+<!------------------------------------------------------------------------------
 
-```js
-import "contrib/bonitoo-io/servicenow"
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-servicenow.endpoint(
-    url: "https://example-tenant.service-now.com/api/global/em/jsonv2",
-    username: "example-username",
-    password: "example-password"
-)
-```
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-## Parameters
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/servicenow/servicenow.flux#L196-L225
 
-### url {data-type="string"}
-({{< req >}})
-ServiceNow web service URL.
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
-### username {data-type=" string"}
-({{< req >}})
-ServiceNow username to use for HTTP BASIC authentication.
+------------------------------------------------------------------------------->
 
-### password {data-type="string"}
-({{< req >}})
-ServiceNow password to use for HTTP BASIC authentication.
+`servicenow.endpoint()` sends events to [ServiceNow](https://servicenow.com/) using data from input rows.
 
-## Usage
+### Usage
+
 `servicenow.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn {data-type="function"}
-A function that builds the object used to generate the ServiceNow API request.
-Requires an `r` parameter.
+#### mapFn
+A function that builds the object used to generate the ServiceNow API request. Requires an `r` parameter.
 
-`mapFn` accepts a table row (`r`) and returns an object that must include the
-following properties:
+`mapFn` accepts a table row (`r`) and returns an object that must include the following properties:
 
 - `description`
 - `severity`
@@ -59,11 +49,65 @@ following properties:
 - `messageKey`
 - `additionalInfo`
 
-_For more information, see [`servicenow.event()` parameters](/flux/v0.x/stdlib/contrib/bonitoo-io/servicenow/event/#parameters)._
+For more information, see `servicenow.event()` parameters.
+
+##### Function type signature
+
+```js
+(
+    password: string,
+    url: string,
+    username: string,
+    ?source: A,
+) => (
+    mapFn: (
+        r: B,
+    ) => {
+        C with
+        severity: J,
+        resource: I,
+        node: H,
+        metricType: G,
+        metricName: F,
+        messageKey: E,
+        description: D,
+    },
+) => (<-tables: stream[B]) => stream[{B with _sent: string}] where J: Equatable
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### url
+({{< req >}})
+ServiceNow web service URL.
+
+
+
+### username
+({{< req >}})
+ServiceNow username to use for HTTP BASIC authentication.
+
+
+
+### password
+({{< req >}})
+ServiceNow password to use for HTTP BASIC authentication.
+
+
+
+### source
+
+Source name. Default is `"Flux"`.
+
+
+
 
 ## Examples
 
-##### Send critical events to ServiceNow
+### Send critical events to ServiceNow
+
 ```js
 import "contrib/bonitoo-io/servicenow"
 import "influxdata/influxdb/secrets"
@@ -95,4 +139,6 @@ crit_events
                 additionalInfo: {"devId": r.dev_id},
             }),
     )()
+
 ```
+

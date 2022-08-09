@@ -1,31 +1,46 @@
 ---
-title: Flux hex package
-list_title: hex package
+title: hex package
 description: >
-  The Flux `hex` package provides functions that convert hexadecimal strings into Flux data types.
-  Import the `contrib/bonitoo-io/hex` package.
+  The `hex` package provides functions that perform hexadecimal conversion
+  of `int`, `uint` or `bytes` values to and from `string` values.
 menu:
   flux_0_x_ref:
-    name: hex
-    parent: bonitoo-io
-weight: 202
-flux/v0.x/tags: [functions, hex, package]
+    name: hex 
+    parent: contrib/bonitoo-io
+    identifier: contrib/bonitoo-io/hex
+weight: 31
 cascade:
+
   introduced: 0.131.0
-  append:
-    block: note
-    content: |
-      #### Package author and maintainer
-      **Github:** [@bonitoo-io](https://github.com/bonitoo-io), [@sranka](https://github.com/sranka)  
-      **InfluxDB Slack:** [@sranka](https://influxdata.com/slack)
 ---
 
-The Flux `hex` package provides functions that convert hexadecimal strings into Flux data types.
-Import the `contrib/bonitoo-io/hex` package.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/hex/hex.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `hex` package provides functions that perform hexadecimal conversion
+of `int`, `uint` or `bytes` values to and from `string` values.
+Import the `contrib/bonitoo-io/hex` package:
 
 ```js
 import "contrib/bonitoo-io/hex"
 ```
 
+
+
+
 ## Functions
+
 {{< children type="functions" show="pages" >}}

@@ -1,37 +1,61 @@
 ---
 title: bytes() function
-description: The `bytes()` function converts a single value to bytes.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/bytes/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/bytes/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/bytes/
+description: >
+  `bytes()` converts a string value to a bytes type.
 menu:
   flux_0_x_ref:
     name: bytes
     parent: universe
-weight: 102
+    identifier: universe/bytes
+weight: 101
 flux/v0.x/tags: [type-conversions]
-related:
-  - /flux/v0.x/data-types/basic/bytes/
 introduced: 0.40.0
 ---
 
-The `bytes()` function converts a single value to bytes.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Bytes_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3077-L3077
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`bytes()` converts a string value to a bytes type.
+
+
+
+##### Function type signature
 
 ```js
-bytes(v: "1m")
+(v: A) => bytes
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### v {data-type="string"}
-The value to convert.
+### v
+({{< req >}})
+Value to convert.
+
+
+
 
 ## Examples
+
+### Convert a string to bytes
+
 ```js
-from(bucket: "sensor-data")
-    |> range(start: -1m)
-    |> map(fn: (r) => ({r with _value: bytes(v: r._value)}))
+bytes(v: "Example string")// Returns 0x4578616d706c6520737472696e67
+
+
 ```
+

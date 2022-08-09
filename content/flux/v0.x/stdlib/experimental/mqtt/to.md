@@ -1,102 +1,161 @@
 ---
 title: mqtt.to() function
 description: >
-  The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/mqtt/to/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/mqtt/to/
+  `mqtt.to()` outputs data from a stream of tables to an MQTT broker using MQTT protocol.
 menu:
   flux_0_x_ref:
     name: mqtt.to
-    parent: mqtt
-weight: 401
-flux/v0.x/tags: [outputs]
-introduced: 0.40.0
+    parent: experimental/mqtt
+    identifier: experimental/mqtt/to
+weight: 201
+flux/v0.x/tags: [mqtt, outputs]
 ---
 
-The `mqtt.to()` function outputs data to an MQTT broker using MQTT protocol.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/mqtt/mqtt.flux#L56-L73
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`mqtt.to()` outputs data from a stream of tables to an MQTT broker using MQTT protocol.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental/mqtt"
-
-mqtt.to(
-    broker: "tcp://localhost:8883",
-    topic: "example-topic",
-    qos: 0,
-    clientid: "flux-mqtt",
-    username: "username",
-    password: "password",
-    name: "name-example",
-    timeout: 1s,
-    timeColumn: "_time",
-    tagColumns: ["tag1", "tag2"],
-    valueColumns: ["_value"],
-)
+(
+    <-tables: stream[A],
+    broker: string,
+    ?clientid: string,
+    ?name: string,
+    ?password: string,
+    ?qos: int,
+    ?retain: bool,
+    ?tagColumns: [string],
+    ?timeColumn: string,
+    ?timeout: duration,
+    ?topic: string,
+    ?username: string,
+    ?valueColumns: [string],
+) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### broker {data-type="string"}
-The MQTT broker connection string.
+### broker
+({{< req >}})
+MQTT broker connection string.
 
-### topic {data-type="string"}
-The MQTT topic to send data to.
 
-### qos {data-type="int"}
-The [MQTT Quality of Service (QoS)](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901103) level.
-Values range from `[0-2]`.
-Default is `0`.
 
-### retain {data-type="bool"}
-The [MQTT retain](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901042) flag.
-Default is `false`.
+### topic
 
-### clientid {data-type="string"}
-The MQTT client ID.
+MQTT topic to send data to.
 
-### username {data-type="string"}
-The username to send to the MQTT broker.
+
+
+### qos
+
+MQTT Quality of Service (QoS) level. Values range from `[0-2]`. Default is `0`.
+
+
+
+### retain
+
+MQTT retain flag. Default is `false`.
+
+
+
+### clientid
+
+MQTT client ID.
+
+
+
+### username
+
+Username to send to the MQTT broker.
+
 Username is only required if the broker requires authentication.
-If you provide a username, you must provide a [password](#password).
+If you provide a username, you must provide a password.
 
-### password {data-type="string"}
-The password to send to the MQTT broker.
+### password
+
+Password to send to the MQTT broker.
 Password is only required if the broker requires authentication.
-If you provide a password, you must provide a [username](#username).
+If you provide a password, you must provide a username.
 
-### name {data-type="string"}
-_(Optional)_ The name for the MQTT message.
 
-### timeout {data-type="duration"}
-The MQTT connection timeout.
-Default is `1s`.
 
-### timeColumn {data-type="string"}
-The column to use as time values in the output line protocol.
-Default is `"_time"`.  
+### name
 
-### tagColumns {data-type="array of strings"}
-The columns to use as tag sets in the output line protocol.
-Default is `[]`.  
+Name for the MQTT message.
 
-### valueColumns {data-type="array of strings"}
-The columns to use as field values in the output line protocol.
+
+
+### timeout
+
+MQTT connection timeout. Default is `1s`.
+
+
+
+### timeColumn
+
+Column to use as time values in the output line protocol.
+Default is `"_time"`.
+
+
+
+### tagColumns
+
+Columns to use as tag sets in the output line protocol.
+Default is `[]`.
+
+
+
+### valueColumns
+
+Columns to use as field values in the output line protocol.
 Default is `["_value"]`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-### Send data to an MQTT endpoint
+### Send data to an MQTT broker
+
 ```js
 import "experimental/mqtt"
+import "sampledata"
 
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> filter(fn: (r) => r._measurement == "airSensor")
+sampledata.float()
     |> mqtt.to(
         broker: "tcp://localhost:8883",
-        topic: "air-sensors",
-        clientid: "sensor-12a4",
-        tagColumns: ["sensorID"],
+        topic: "example-topic",
+        clientid: r.id,
+        tagColumns: ["id"],
         valueColumns: ["_value"],
     )
+
 ```
+

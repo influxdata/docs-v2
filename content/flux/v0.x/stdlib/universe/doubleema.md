@@ -1,88 +1,117 @@
 ---
 title: doubleEMA() function
 description: >
-  The `doubleEMA()` function calculates the exponential moving average of values
-  grouped into `n` number of points, giving more weight to recent data at double
-  the rate of `exponentialMovingAverage()`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/doubleema/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/doubleema/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/doubleema/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/doubleema/
+  `doubleEMA()` returns the double exponential moving average (DEMA) of values in
+  the `_value` column grouped into `n` number of points, giving more weight to
+  recent data.
 menu:
   flux_0_x_ref:
     name: doubleEMA
     parent: universe
-weight: 102
+    identifier: universe/doubleEMA
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /flux/v0.x/stdlib/universe/movingaverage/
-  - /flux/v0.x/stdlib/universe/tripleema/
-  - /flux/v0.x/stdlib/universe/timedmovingaverage/
-  - /flux/v0.x/stdlib/universe/exponentialmovingaverage/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#double-exponential-moving-average, InfluxQL DOUBLE_EXPONENTIAL_MOVING_AVERAGE()
 introduced: 0.38.0
 ---
 
-The `doubleEMA()` function calculates the exponential moving average of values in
-the `_value` column grouped into `n` number of points, giving more weight to recent
-data at double the rate of [`exponentialMovingAverage()`](/flux/v0.x/stdlib/universe/exponentialmovingaverage/).
+<!------------------------------------------------------------------------------
 
-```js
-doubleEMA(n: 5)
-```
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-##### Double exponential moving average rules
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L4367-L4373
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`doubleEMA()` returns the double exponential moving average (DEMA) of values in
+the `_value` column grouped into `n` number of points, giving more weight to
+recent data.
+
+#### Double exponential moving average rules
 - A double exponential moving average is defined as `doubleEMA = 2 * EMA_N - EMA of EMA_N`.
     - `EMA` is an exponential moving average.
-    - `N = n` is the period used to calculate the EMA.
+    - `N = n` is the period used to calculate the `EMA`.
 - A true double exponential moving average requires at least `2 * n - 1` values.
-  If not enough values exist to calculate the double EMA, it returns a `NaN` value.
-- `doubleEMA()` inherits all [exponential moving average rules](/flux/v0.x/stdlib/universe/exponentialmovingaverage/#exponential-moving-average-rules).
+  If not enough values exist to calculate the double `EMA`, it returns a `NaN` value.
+- `doubleEMA()` inherits all `exponentialMovingAverage()` rules.
+
+##### Function type signature
+
+```js
+(<-tables: stream[{A with _value: B}], n: int) => stream[C] where B: Numeric, C: Record
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### n {data-type="int"}
+### n
+({{< req >}})
 Number of points to average.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
 
-#### Calculate a three point double exponential moving average
+### Calculate a three point double exponential moving average
+
 ```js
 import "sampledata"
 
 sampledata.int()
     |> doubleEMA(n: 3)
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample set="int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag |             _value |
-| :------------------- | :-- | -----------------: |
-| 2021-01-01T00:00:40Z | t1  | 16.627222222222223 |
-| 2021-01-01T00:00:50Z | t1  |  8.301527777777778 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag |             _value |
-| :------------------- | :-- | -----------------: |
-| 2021-01-01T00:00:40Z | t2  | 15.907222222222224 |
-| 2021-01-01T00:00:50Z | t2  |  5.941527777777779 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | _value             | *tag |
+| -------------------- | ------------------ | ---- |
+| 2021-01-01T00:00:40Z | 16.333333333333336 | t1   |
+| 2021-01-01T00:00:50Z | 7.916666666666668  | t1   |
+
+| _time                | _value             | *tag |
+| -------------------- | ------------------ | ---- |
+| 2021-01-01T00:00:40Z | 15.027777777777779 | t2   |
+| 2021-01-01T00:00:50Z | 5.034722222222221  | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

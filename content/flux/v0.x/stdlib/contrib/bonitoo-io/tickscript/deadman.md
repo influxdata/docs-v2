@@ -1,85 +1,138 @@
 ---
 title: tickscript.deadman() function
 description: >
-  The `tickscript.deadman()` function detects low data throughput and writes a point
-  with a critical status to the InfluxDB `_monitoring` system bucket.
+  `tickscript.deadman()` detects low data throughput and writes a point with a critical status to
+  the InfluxDB `_monitoring` system bucket.
 menu:
   flux_0_x_ref:
     name: tickscript.deadman
-    parent: tickscript
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/deadman/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/deadman/
-related:
-  - /{{< latest "kapacitor" >}}/nodes/batch_node/#deadman, Kapacitor BatchNode – Deadman
+    parent: contrib/bonitoo-io/tickscript
+    identifier: contrib/bonitoo-io/tickscript/deadman
+weight: 301
 flux/v0.x/tags: [transformations]
-introduced: 0.111.0
 ---
 
-The `tickscript.deadman()` function detects low data throughput and writes a point
-with a critical status to the InfluxDB [`_monitoring` system bucket](/{{< latest "influxdb" >}}/reference/internals/system-buckets/).
-For each input table containing a number of rows less than or equal to the specified
-[threshold](#threshold), the function assigns a `crit` value to the `_level` column.
+<!------------------------------------------------------------------------------
 
-_This function is comparable to the [Kapacitor AlertNode deadman](/{{< latest "kapacitor" >}}/nodes/alert_node/#deadman)._
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L188-L244
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`tickscript.deadman()` detects low data throughput and writes a point with a critical status to
+the InfluxDB `_monitoring` system bucket.
+
+For each input table containing a number of rows less than or equal to the specified threshold,
+the function assigns a `crit` value to the` _level` column.
+
+This function is comparable to [Kapacitor AlertNode deadman](/kapacitor/latest/nodes/stream_node/#deadman).
+
+##### Function type signature
 
 ```js
-import "contrib/bonitoo-io/tickscript"
-
-tickscript.deadman(
-    check: {},
-    measurement: "example-measurement",
-    threshold: 0,
-    id: (r) => "${r._check_id}",
-    message: (r) => "Deadman Check: ${r._check_name} is: " + (if r.dead then "dead" else "alive"),
-    topic: "",
-)
+(
+    <-tables: stream[M],
+    check: {A with tags: E, _type: D, _check_name: C, _check_id: B},
+    measurement: string,
+    ?id: (r: {F with _check_name: C, _check_id: B}) => G,
+    ?message: (
+        r: {
+            H with
+            dead: bool,
+            _type: D,
+            _time: J,
+            _time: time,
+            _source_timestamp: int,
+            _source_measurement: I,
+            _measurement: I,
+            _measurement: string,
+            _level: string,
+            _check_name: C,
+            _check_id: B,
+        },
+    ) => K,
+    ?threshold: L,
+    ?topic: string,
+) => stream[{
+    H with
+    dead: bool,
+    _type: D,
+    _time: J,
+    _time: time,
+    _source_timestamp: int,
+    _source_measurement: I,
+    _message: K,
+    _measurement: I,
+    _measurement: string,
+    _level: string,
+    _check_name: C,
+    _check_id: B,
+}] where E: Record, F: Record, L: Comparable + Equatable, M: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### check {data-type="record"}
+### check
 ({{< req >}})
-InfluxDB check data.
-_See [`tickscript.defineCheck()`](/flux/v0.x/stdlib/contrib/bonitoo-io/tickscript/definecheck/)._
+InfluxDB check data. See `tickscript.defineCheck()`.
 
-### measurement {data-type="string"}
+
+
+### measurement
 ({{< req >}})
-Measurement name.
-Should match the queried measurement.
+Measurement name. Should match the queried measurement.
 
-### threshold {data-type="int"}
-Count threshold.
-The function assigns a `crit` status to input tables with a number of rows less
-than or equal to the threshold.
-Default is `0`.
 
-### id {data-type="function"}
-Function that returns the InfluxDB check ID provided by the [`check` record](#check).
+
+### threshold
+
+Count threshold. Default is `0`.
+
+The function assigns a `crit` status to input tables with a number of rows less than or equal to the threshold.
+
+### id
+
+Function that returns the InfluxDB check ID provided by the check record.
 Default is `(r) => "${r._check_id}"`.
 
-### message {data-type="function"}
+
+
+### message
+
 Function that returns the InfluxDB check message using data from input rows.
 Default is `(r) => "Deadman Check: ${r._check_name} is: " + (if r.dead then "dead" else "alive")`.
 
-### topic {data-type="string"}
-Check topic.
-Default is `""`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+### topic
+
+Check topic. Default is `""`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Flux](#)
-[TICKscript](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```javascript
+### Detect when a series stops reporting
+
+```js
 import "contrib/bonitoo-io/tickscript"
 
 option task = {name: "Example task", every: 1m}
@@ -92,18 +145,6 @@ from(bucket: "example-bucket")
         measurement: "pulse",
         threshold: 2,
     )
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```javascript
-data = batch
-  |query('SELECT value from pulse')
-    .every(1m)
 
-data
-  |deadman(2.0, 1m)
-    .id('kapacitor/{{ index .Tags "service" }}')
-    .message('{{ .ID }} is {{ .Level }} value:{{ index .Fields "value" }}')
 ```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
+

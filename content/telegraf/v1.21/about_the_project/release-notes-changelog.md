@@ -1,7 +1,7 @@
 ---
 title: Telegraf 1.21 release notes
 description: Important features and changes in the latest version of Telegraf.
-alias:
+aliases:
   - /telegraf/v1.20/reference/release-notes/influxdb/
 menu:
   telegraf_1_21:

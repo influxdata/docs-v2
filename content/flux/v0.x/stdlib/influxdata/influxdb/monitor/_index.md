@@ -1,54 +1,78 @@
 ---
-title: Flux InfluxDB monitor package
-list_title: monitor package
+title: monitor package
 description: >
-  The InfluxDB `monitor` package provides tools for monitoring and alerting with InfluxDB.
-  Import the `influxdata/influxdb/monitor` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/monitor/
-  - /influxdb/v2.0/reference/flux/stdlib/monitor/
-  - /influxdb/cloud/reference/flux/stdlib/monitor/
+  The `monitor` package provides tools for monitoring and alerting with InfluxDB.
 menu:
   flux_0_x_ref:
-    name: monitor
-    parent: influxdb-pkg
-weight: 202
-flux/v0.x/tags: [functions, monitor, alerts, package]
-introduced: 0.39.0
+    name: monitor 
+    parent: influxdata/influxdb
+    identifier: influxdata/influxdb/monitor
+weight: 31
+cascade:
+
+  introduced: 0.39.0
 ---
 
-The Flux `monitor` package provides tools for monitoring and alerting with InfluxDB.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/monitor/monitor.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `monitor` package provides tools for monitoring and alerting with InfluxDB.
 Import the `influxdata/influxdb/monitor` package:
 
 ```js
 import "influxdata/influxdb/monitor"
 ```
 
-## Options
-The `monitor` packages provides the following options:
+## Constants
 
 ```js
-import "influxdata/influxdb/monitor"
+monitor.bucket = "_monitoring"
+monitor.levelCrit = "crit"
+monitor.levelInfo = "info"
+monitor.levelOK = "ok"
+monitor.levelUnknown = "unknown"
+monitor.levelWarn = "warn"
+```
+
+- **monitor.bucket** is the default bucket to store InfluxDB monitoring data in.
+- **monitor.levelCrit** is the string representation of the "crit" level.
+- **monitor.levelInfo** is the string representation of the "info" level.
+- **monitor.levelOK** is the string representation of the "ok" level.
+- **monitor.levelUnknown** is the string representation of the an unknown level.
+- **monitor.levelWarn** is the string representation of the "warn" level.
+
+## Options
+
+```js
+option monitor.log = (tables=<-) => tables |> experimental.to(bucket: bucket)
 
 option monitor.write = (tables=<-) => tables |> experimental.to(bucket: bucket)
-option monitor.log = (tables=<-) => tables |> experimental.to(bucket: bucket)
 ```
+ 
+### log
 
-### write {data-type="function"}
-Function option that defines how check statuses are written to InfluxDB.
-Default is:
+`log` persists notification events to an InfluxDB bucket.
 
-```js
-(tables=<-) => tables |> experimental.to(bucket: bucket)
-```
 
-### log {data-type="function"}
-Function option that defines how notification event logs are written to InfluxDB.
-Default is:
+### write
 
-```js
-(tables=<-) => tables |> experimental.to(bucket: bucket)
-```
+`write` persists check statuses to an InfluxDB bucket.
+
+
 
 ## Functions
+
 {{< children type="functions" show="pages" >}}

@@ -1,56 +1,85 @@
 ---
 title: date.quarter() function
 description: >
-  The `date.quarter()` function returns the quarter of the year for a specified time.
-  Results range from `[1-4]`.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/date/quarter/
-  - /influxdb/v2.0/reference/flux/stdlib/date/quarter/
-  - /influxdb/cloud/reference/flux/stdlib/date/quarter/
+  `date.quarter()` returns the quarter for a specified time. Results range from `[1-4]`.
 menu:
   flux_0_x_ref:
     name: date.quarter
     parent: date
-weight: 301
-introduced: 0.37.0
+    identifier: date/quarter
+weight: 101
 ---
 
-The `date.quarter()` function returns the quarter of the year for a specified time.
-Results range from `[1-4]`.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L438-L438
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`date.quarter()` returns the quarter for a specified time. Results range from `[1-4]`.
+
+
+
+##### Function type signature
 
 ```js
-import "date"
-
-date.quarter(t: 2019-07-17T12:05:21.012Z)
-
-// Returns 3
+(t: A, ?location: {zone: string, offset: duration}) => int where A: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### t {data-type="time, duration"}
-The time to operate on.
+### t
+({{< req >}})
+Time to operate on.
+
 Use an absolute time, relative duration, or integer.
 Durations are relative to `now()`.
 
+### location
+
+Location used to determine timezone.
+Default is the `location` option.
+
+
+
+
 ## Examples
 
-##### Return the quarter for a time value
+- [Return the quarter for a time value](#return-the-quarter-for-a-time-value)
+- [Return the quarter for a relative duration](#return-the-quarter-for-a-relative-duration)
+
+### Return the quarter for a time value
+
 ```js
 import "date"
 
-date.quarter(t: 2020-02-11T12:21:03.293534940Z)
+date.quarter(t: 2020-02-11T12:21:03.29353494Z)// Returns 1
 
-// Returns 1
+
 ```
 
-##### Return the quarter for a relative duration
+
+### Return the quarter for a relative duration
+
 ```js
 import "date"
 
-option now = () => 2020-02-11T12:21:03.293534940Z
+option now = () => 2020-02-11T12:21:03.29353494Z
 
-date.quarter(t: -7mo)
+date.quarter(t: -7mo)// Returns 2
 
-// Returns 3
+
 ```
+

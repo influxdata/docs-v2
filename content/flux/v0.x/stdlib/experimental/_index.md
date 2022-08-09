@@ -1,43 +1,54 @@
 ---
-title: Flux experimental package
-list_title: experimental package
+title: experimental package
 description: >
-  The Flux experimental package includes experimental functions that perform various tasks.
-  Experimental functions are subject to change at any time and are not recommended for production use.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/
+  The `experimental` package includes experimental functions and packages.
 menu:
   flux_0_x_ref:
-    name: experimental
-    parent: Standard library
+    name: experimental 
+    parent: stdlib
+    identifier: experimental
 weight: 11
-flux/v0.x/tags: [functions, experimental, package]
+cascade:
+
+  introduced: 0.39.0
 ---
 
-The Flux Experimental package includes experimental functions that perform various tasks.
+<!------------------------------------------------------------------------------
 
-{{% warn %}}
-### Experimental functions are subject to change
-Please note that experimental packages and functions and may: 
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-- be moved or promoted to a permanent location
-- undergo API changes
-- stop working with no planned fixes
-- be removed without warning or explanation
-{{% /warn %}}
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
 
-## Experimental functions
-The following functions are part of the base experimental package.
-To use them, import the `experimental` package.
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `experimental` package includes experimental functions and packages.
+Import the `experimental` package:
 
 ```js
 import "experimental"
 ```
 
+### Experimental packages are subject to change
+Please note that experimental packages and functions may:
+
+- be moved or promoted to a permanent location
+- undergo API changes
+- stop working with no planned fixes
+- be removed without warning or explanation
+
+
+## Functions
+
 {{< children type="functions" show="pages" >}}
 
-## Experimental packages
-Experimental packages require different import paths than base experimental functions.
+## Packages
 
 {{< children show="sections" >}}

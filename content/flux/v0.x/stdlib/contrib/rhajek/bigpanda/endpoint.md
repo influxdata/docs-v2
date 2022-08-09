@@ -1,68 +1,87 @@
 ---
 title: bigpanda.endpoint() function
 description: >
-  The `bigpanda.endpoint()` function sends alerts to BigPanda using data from input rows.
+  `bigpanda.endpoint()` sends alerts to BigPanda using data from input rows.
 menu:
   flux_0_x_ref:
     name: bigpanda.endpoint
-    parent: bigpanda
-weight: 202
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/bigpanda/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/bigpanda/endpoint/
-flux/v0.x/tags: [notification endpoints]
-introduced: 0.108.0
+    parent: contrib/rhajek/bigpanda
+    identifier: contrib/rhajek/bigpanda/endpoint
+weight: 301
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
-The `bigpanda.endpoint()` function sends alerts to [BigPanda](https://www.bigpanda.io/)
-using data from input rows.
+<!------------------------------------------------------------------------------
 
-```js
-import "contrib/rhajek/bigpanda"
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-bigpanda.endpoint(
-    url: "https://api.bigpanda.io/data/v2/alerts",
-    token: "my5uP3rS3cRe7t0k3n",
-    appKey: "example-app-key",
-)
-```
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-## Parameters
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/rhajek/bigpanda/bigpanda.flux#L211-L232
 
-### url {data-type="string"}
-BigPanda [alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works).
-Default is the value of the [`bigpanda.defaultURL` option](/flux/v0.x/stdlib/contrib/rhajek/bigpanda/#defaulturl).
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
-### token {data-type="string"}
-({{< req >}})
-BigPanda [API Authorization token (API key)](https://docs.bigpanda.io/docs/api-key-management).
+------------------------------------------------------------------------------->
 
-### appKey {data-type="string"}
-({{< req >}})
-BigPanda [App Key](https://docs.bigpanda.io/reference#integrating-monitoring-systems).
+`bigpanda.endpoint()` sends alerts to BigPanda using data from input rows.
 
-## Usage
+### Usage
 `bigpanda.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn {data-type="function"}
-A function that builds the object used to generate the POST request.
-Requires an `r` parameter.
+#### mapFn
+A function that builds the object used to generate the POST request. Requires an `r` parameter.
 
-`mapFn` accepts a table row (`r`) and returns an object that must include the
-following fields:
+`mapFn` accepts a table row (`r`) and returns an object that must include the following fields:
 
 - `status`
-- Additional [alert parameters](https://docs.bigpanda.io/reference#alert-object)
-  to send to the BigPanda alert API.
+- Additional [alert parameters](https://docs.bigpanda.io/reference#alert-object) to send to the BigPanda alert API.
 
-_For more information, see [`bigpanda.sendAlert()` parameters](/flux/v0.x/stdlib/contrib/rhajek/bigpanda/sendalert/#parameters)._
+_For more information, see `bigpanda.sendAlert()` parameters._
+
+##### Function type signature
+
+```js
+(
+    appKey: A,
+    token: string,
+    ?url: string,
+) => (mapFn: (r: B) => {C with status: D}) => (<-tables: stream[B]) => stream[{B with _sent: string}]
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### url
+
+BigPanda [alerts API URL](https://docs.bigpanda.io/reference#alerts-how-it-works).
+Default is the value of the `bigpanda.defaultURL` option.
+
+
+
+### token
+({{< req >}})
+BigPanda [API Authorization token (API key)](https://docs.bigpanda.io/docs/api-key-management).
+
+
+
+### appKey
+({{< req >}})
+BigPanda [App Key](https://docs.bigpanda.io/reference#integrating-monitoring-systems).
+
+
+
 
 ## Examples
 
-##### Send critical alerts to BigPanda
+### Send critical alerts to BigPanda
+
 ```js
-import "contrib/rhajek/bigpanda"
 import "influxdata/influxdb/secrets"
 import "json"
 
@@ -84,4 +103,6 @@ crit_events
             }
         },
     )()
+
 ```
+

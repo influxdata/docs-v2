@@ -60,6 +60,8 @@ An **empty group key** groups all data in a stream of tables into a single table
 
 _For an example of how group keys work, see the [Table grouping example](#table-grouping-example) below._
 
+{{< youtube 5-AwY8ly6NA >}}
+
 ## Data sources determine data structure
 The Flux data model is separate from the queried data source model.
 Queried sources return data structured into columnar tables.

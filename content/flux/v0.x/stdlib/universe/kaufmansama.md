@@ -1,86 +1,118 @@
 ---
 title: kaufmansAMA() function
 description: >
-  The `kaufmansAMA()` function calculates the Kaufman's Adaptive Moving Average (KAMA)
-  using values in an input table.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/kaufmansama/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/kaufmansama/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/kaufmansama/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/kaufmansama/
+  `kaufmansAMA()` calculates the Kaufman’s Adaptive Moving Average (KAMA) using
+  values in input tables.
 menu:
   flux_0_x_ref:
     name: kaufmansAMA
     parent: universe
-weight: 102
+    identifier: universe/kaufmansAMA
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /flux/v0.x/stdlib/universe/kaufmanser/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#kaufmans-adaptive-moving-average, InfluxQL KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
-  - /flux/v0.x/stdlib/experimental/kaufmansama/
 introduced: 0.40.0
 ---
 
-The `kaufmansAMA()` function calculates the Kaufman's Adaptive Moving Average (KAMA)
-using values in an input table.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1179-L1179
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`kaufmansAMA()` calculates the Kaufman’s Adaptive Moving Average (KAMA) using
+values in input tables.
+
+Kaufman’s Adaptive Moving Average is a trend-following indicator designed to
+account for market noise or volatility.
+
+##### Function type signature
 
 ```js
-kaufmansAMA(
-    n: 10,
-    column: "_value",
-)
+(<-tables: stream[A], n: int, ?column: string) => stream[B] where A: Record, B: Record
 ```
 
-Kaufman's Adaptive Moving Average is a trend-following indicator designed to account
-for market noise or volatility.
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### n {data-type="int"}
+### n
 ({{< req >}})
-The period or number of points to use in the calculation.
+Period or number of points to use in the calculation.
 
-### column {data-type="string"}
-The column to operate on.
-Defaults to `"_value"`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+### column
+
+Column to operate on. Default is `_value`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+### Caclulate Kaufman's Adaptive Moving Average for input data
 
 ```js
 import "sampledata"
 
 sampledata.int()
     |> kaufmansAMA(n: 3)
+
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag |             _value |
-| :------------------- | :-- | -----------------: |
-| 2021-01-01T00:00:30Z | t1  |   9.72641183951902 |
-| 2021-01-01T00:00:40Z | t1  | 10.097401019601417 |
-| 2021-01-01T00:00:50Z | t1  |  9.972614968115325 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag |              _value |
-| :------------------- | :-- | ------------------: |
-| 2021-01-01T00:00:30Z | t2  | -2.9084287200832466 |
-| 2021-01-01T00:00:40Z | t2  |  -2.142970089472789 |
-| 2021-01-01T00:00:50Z | t2  | -2.0940721758134693 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | _value             | *tag |
+| -------------------- | ------------------ | ---- |
+| 2021-01-01T00:00:30Z | 9.72641183951902   | t1   |
+| 2021-01-01T00:00:40Z | 10.097401019601417 | t1   |
+| 2021-01-01T00:00:50Z | 9.972614968115325  | t1   |
+
+| _time                | _value              | *tag |
+| -------------------- | ------------------- | ---- |
+| 2021-01-01T00:00:30Z | -2.9084287200832466 | t2   |
+| 2021-01-01T00:00:40Z | -2.142970089472789  | t2   |
+| 2021-01-01T00:00:50Z | -2.0940721758134693 | t2   |
+
 {{% /expand %}}
+{{< /expand-wrapper >}}

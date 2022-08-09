@@ -1,55 +1,81 @@
 ---
 title: findColumn() function
 description: >
-  The `findColumn()` function returns an array of values in a specified column from the
-  first table in a stream of tables where group key values match the specified predicate.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/
+  `findColumn()` returns an array of values in a specified column from the first
+  table in a stream of tables that matches the specified predicate function.
 menu:
   flux_0_x_ref:
     name: findColumn
     parent: universe
-weight: 102
+    identifier: universe/findColumn
+weight: 101
 flux/v0.x/tags: [dynamic queries]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/scalar-values/
 introduced: 0.68.0
 ---
 
-The `findColumn()` function returns an array of values in a specified column from the
-first table in a stream of tables where the group key values match the specified predicate.
-The function returns an empty array if no table is found or if the column label
-is not present in the set of columns.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2980-L2980
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`findColumn()` returns an array of values in a specified column from the first
+table in a stream of tables that matches the specified predicate function.
+
+The function returns an empty array if no table is found or if the column
+label is not present in the set of columns.
+
+##### Function type signature
 
 ```js
-findColumn(
-    fn: (key) => key._field == "fieldName",
-    column: "_value",
-)
+(<-tables: stream[B], column: string, fn: (key: A) => bool) => [C] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### fn {data-type="function"}
-A predicate function for matching keys in a table's group key.
-Expects a `key` argument that represents a group key in the input stream.
+### column
+({{< req >}})
+Column to extract.
 
-### column {data-type="string"}
-Name of the column to extract.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
-## Example
-{{% flux/sample-example-intro %}}
+### fn
+({{< req >}})
+Predicate function to evaluate input table group keys.
+
+`findColumn()` uses the first table that resolves as `true`.
+The predicate function requires a `key` argument that represents each input
+table's group key as a record.
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
+
+## Examples
+
+### Extract a column as an array
 
 ```js
 import "sampledata"
 
 sampledata.int()
-    |> findColumn(fn: (key) => key.tag == "t1", column: "_value")
-    
-// Returns [-2, 10, 7, 17, 15, 4]
+    |> findColumn(fn: (key) => key.tag == "t1", column: "_value")// Returns [-2, 10, 7, 17, 15, 4]
+
+
 ```
+

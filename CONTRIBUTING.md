@@ -1114,6 +1114,52 @@ Use the `{{< caps >}}` shortcode to format text to match those buttons.
 Click {{< caps >}}Add Data{{< /caps >}}
 ```
 
+#### Code callouts
+Use the `{{< code-callout >}}` shortcode to highlight and emphasize a specific
+piece of code in a code block. Provide the string to highlight in the code block.
+Include a syntax for the codeblock to properly style the called out code.
+
+~~~md
+{{< code-callout "03a2bbf46249a000" >}}
+```sh
+http://localhost:8086/orgs/03a2bbf46249a000/...
+```
+{{< /code-callout >}}
+~~~
+
+#### InfluxDB University banners
+Use the `{{< influxdbu >}}` shortcode to add an InfluxDB University banner that
+points to the InfluxDB University site or a specific course.
+Use the default banner template, a predefined course template, or fully customize
+the content of the banner.
+
+```html
+<!-- Default banner -->
+{{< influxdbu >}}
+
+<!-- Predfined course banner -->
+{{< influxdbu "influxdb-101" >}}
+
+<!-- Custom banner -->
+{{< influxdbu title="Course title" summary="Short course summary." action="Take the course" link="https://university.influxdata.com/" >}}
+```
+
+##### Course templates
+Use one of the following course templates:
+
+- influxdb-101
+- telegraf-102
+- flux-103
+
+##### Custom banner content
+Use the following shortcode parameters to customize the content of the InfluxDB
+University banner:
+
+- **title**: Course or banner title
+- **summary**: Short description shown under the title
+- **action**: Text of the button
+- **link**: URL the button links to
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.

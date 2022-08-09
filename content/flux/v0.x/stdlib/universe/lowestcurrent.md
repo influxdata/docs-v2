@@ -1,82 +1,115 @@
 ---
 title: lowestCurrent() function
-description: The `lowestCurrent()` function selects the last record of each table in the input stream and returns the lowest `n` records.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/lowestcurrent
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/lowestcurrent/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/lowestcurrent/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/lowestcurrent/
+description: >
+  `lowestCurrent()` selects the last record from each input table and returns the
+  lowest `n` records.
 menu:
   flux_0_x_ref:
     name: lowestCurrent
     parent: universe
-weight: 102
-flux/v0.x/tags: [selectors, transformations]
+    identifier: universe/lowestCurrent
+weight: 101
+flux/v0.x/tags: [transformations, selectors]
 introduced: 0.7.0
 ---
 
-The `lowestCurrent()` function selects the last record of each table in the input stream and returns the lowest `n` records.
-The function outputs a single aggregated table containing `n` records.
-_`lowestCurrent()` is a [selector function](/flux/v0.x/function-types/#selectors)._
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L4277-L4285
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`lowestCurrent()` selects the last record from each input table and returns the
+lowest `n` records.
+
+**Note:** `lowestCurrent()` drops empty tables.
+
+##### Function type signature
 
 ```js
-lowestCurrent(
-    n:10,
-    column: "_value",
-    groupColumns: [],
-)
+(<-tables: stream[A], n: int, ?column: string, ?groupColumns: [string]) => stream[A] where A: Record
 ```
 
-{{% warn %}}
-#### Empty tables
-`lowestCurrent()` drops empty tables.
-{{% /warn %}}
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### n {data-type="int"}
+### n
+({{< req >}})
 Number of records to return.
 
-### column {data-type="column"}
-Column by which to sort.
-Default is `"_value"`.
 
-### groupColumns {data-type="array of strings"}
-The columns on which to group before performing the aggregation.
-Default is `[]`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### column
+
+Column to evaluate. Default is `_value`.
+
+
+
+### groupColumns
+
+List of columns to group by. Default is `[]`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+### Return the lowest current value from a stream of tables
 
 ```js
 import "sampledata"
 
 sampledata.int()
-    |> lowestCurrent(n: 2, groupColumns: ["tag"])
+    |> lowestCurrent(n: 1, groupColumns: ["tag"])
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:50Z | t2  |      1 |
-| 2021-01-01T00:00:50Z | t1  |      4 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | tag  |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

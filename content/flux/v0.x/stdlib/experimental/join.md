@@ -1,135 +1,155 @@
 ---
 title: experimental.join() function
 description: >
-  The `experimental.join()` function joins two streams of tables on the
-  group key with the addition of the `_time` column.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/join/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/join/
+  `experimental.join()` joins two streams of tables on the **group key and `_time` column**.
 menu:
   flux_0_x_ref:
     name: experimental.join
     parent: experimental
-weight: 302
+    identifier: experimental/join
+weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.65.0
+deprecated: 0.172.0
 ---
 
-The `experimental.join()` function joins two streams of tables on the
-[group key](/flux/v0.x/get-started/data-model/#group-key) and `_time` column.
-Use the [`fn` parameter](#fn) to map new output tables using values from input tables.
+<!------------------------------------------------------------------------------
 
-{{% note %}}
-To join streams of tables with different fields or measurements, use [`group()`](/flux/v0.x/stdlib/universe/group/)
-or [`drop()`](/flux/v0.x/stdlib/universe/drop/) to remove
-`_field` and `_measurement` from the group key before joining.
-_See an example [below](#join-two-streams-of-tables-with-different-fields-and-measurements)._
-{{% /note %}}
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L395-L399
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.join()` joins two streams of tables on the **group key and `_time` column**.
+
+{{% warn %}}
+#### Deprecated
+`experimental.join()` is deprecated in favor of [`join.time()`](/flux/v0.x/stdlib/join/time/).
+The [`join` package](/flux/v0.x/stdlib/join/) provides support
+for multiple join methods.
+{{% /warn %}}
+
+Use the `fn` parameter to map new output tables using values from input tables.
+
+**Note**: To join streams of tables with different fields or measurements,
+use `group()` or `drop()` to remove `_field` and `_measurement` from the
+group key before joining.
+
+##### Function type signature
 
 ```js
-import "experimental"
-
-// ...
-
-experimental.join(
-    left: left,
-    right: right,
-    fn: (left, right) => ({left with lv: left._value, rv: right._value }),
-)
+(fn: (left: A, right: B) => C, left: stream[A], right: stream[B]) => stream[C] where A: Record, B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### left {data-type="stream of tables"}
+### left
+({{< req >}})
 First of two streams of tables to join.
 
-### right {data-type="stream of tables"}
+
+
+### right
+({{< req >}})
 Second of two streams of tables to join.
 
-### fn {data-type="function"}
-A function with `left` and `right` arguments that maps a new output record
+
+
+### fn
+({{< req >}})
+Function with left and right arguments that maps a new output record
 using values from the `left` and `right` input records.
 The return value must be a record.
 
+
+
+
 ## Examples
 
-### Input and output tables
+- [Join two streams of tables](#join-two-streams-of-tables)
+- [Join two streams of tables with different fields and measurements](#join-two-streams-of-tables-with-different-fields-and-measurements)
 
-**Given the following input tables:**
-{{< flex >}}
-{{% flex-content %}}
-##### left
-| _time | _field | _value |
-|:----- |:------:| ------:|
-| 0001  | temp   | 80.1   |
-| 0002  | temp   | 80.2   |
-| 0003  | temp   | 79.9   |
-| 0004  | temp   | 80.0   |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### right
-| _time | _field | _value |
-|:----- |:------:| ------:|
-| 0001  | temp   | 72.1   |
-| 0002  | temp   | 72.2   |
-| 0003  | temp   | 71.9   |
-| 0004  | temp   | 72.0   |
-{{% /flex-content %}}
-{{< /flex >}}
-
-**The following `experimental.join()` function would output:**
+### Join two streams of tables
 
 ```js
+import "array"
 import "experimental"
+
+left =
+    array.from(
+        rows: [
+            {_time: 2021-01-01T00:00:00Z, _field: "temp", _value: 80.1},
+            {_time: 2021-01-01T01:00:00Z, _field: "temp", _value: 80.6},
+            {_time: 2021-01-01T02:00:00Z, _field: "temp", _value: 79.9},
+            {_time: 2021-01-01T03:00:00Z, _field: "temp", _value: 80.1},
+        ],
+    )
+right =
+    array.from(
+        rows: [
+            {_time: 2021-01-01T00:00:00Z, _field: "temp", _value: 75.1},
+            {_time: 2021-01-01T01:00:00Z, _field: "temp", _value: 72.6},
+            {_time: 2021-01-01T02:00:00Z, _field: "temp", _value: 70.9},
+            {_time: 2021-01-01T03:00:00Z, _field: "temp", _value: 71.1},
+        ],
+    )
 
 experimental.join(
     left: left,
     right: right,
-    fn: (left, right) => ({ left with
-        lv: left._value,
-        rv: right._value,
-        diff: left._value - right._value,
-    })
+    fn: (left, right) => ({left with lv: left._value, rv: right._value, diff: left._value - right._value}),
 )
+
 ```
 
-| _time | _field | lv   | rv   | diff |
-|:----- |:------:|:--:  |:--:  | ----:|
-| 0001  | temp   | 80.1 | 72.1 | 8.0  |
-| 0002  | temp   | 80.2 | 72.2 | 8.0  |
-| 0003  | temp   | 79.9 | 71.9 | 8.0  |
-| 0004  | temp   | 80.0 | 72.0 | 8.0  |
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
----
+#### Output data
 
-###### Join two streams of tables
+| _field  | _time                | _value  | diff  | lv   | rv   |
+| ------- | -------------------- | ------- | ----- | ---- | ---- |
+| temp    | 2021-01-01T00:00:00Z | 80.1    | 5     | 80.1 | 75.1 |
+| temp    | 2021-01-01T01:00:00Z | 80.6    | 8     | 80.6 | 72.6 |
+| temp    | 2021-01-01T02:00:00Z | 79.9    | 9     | 79.9 | 70.9 |
+| temp    | 2021-01-01T03:00:00Z | 80.1    | 9     | 80.1 | 71.1 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### Join two streams of tables with different fields and measurements
+
 ```js
 import "experimental"
 
-s1 = from(bucket: "example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "foo")
+s1 =
+    from(bucket: "example-bucket")
+        |> range(start: -1h)
+        |> filter(fn: (r) => r._measurement == "foo" and r._field == "bar")
+        |> group(columns: ["_time", "_measurement", "_field", "_value"], mode: "except")
 
-s2 = from(bucket: "example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "bar")
+s2 =
+    from(bucket: "example-bucket")
+        |> range(start: -1h)
+        |> filter(fn: (r) => r._measurement == "baz" and r._field == "quz")
+        |> group(columns: ["_time", "_measurement", "_field", "_value"], mode: "except")
 
-experimental.join(left: s1, right: s2, fn: (left, right) => ({left with s1_value: left._value, s2_value: right._value}))
+experimental.join(
+    left: s1,
+    right: s2,
+    fn: (left, right) => ({left with bar_value: left._value, quz_value: right._value}),
+)
+
 ```
 
-###### Join two streams of tables with different fields and measurements
-```js
-import "experimental"
-
-s1 = from(bucket: "example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "foo" and r._field == "bar")
-    |> group(columns: ["_time", "_measurement", "_field", "_value"], mode: "except")
-
-s2 = from(bucket: "example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "baz" and r._field == "quz")
-    |> group(columns: ["_time", "_measurement", "_field", "_value"], mode: "except")
-
-experimental.join(left: s1, right: s2, fn: (left, right) => ({left with bar_value: left._value, quz_value: right._value}))
-```

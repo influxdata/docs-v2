@@ -1,87 +1,122 @@
 ---
 title: duplicate() function
-description: The `duplicate()` function duplicates a specified column in a table.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/duplicate
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/duplicate/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/duplicate/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/duplicate/
+description: >
+  `duplicate()` duplicates a specified column in a table.
 menu:
   flux_0_x_ref:
     name: duplicate
     parent: universe
-weight: 102
+    identifier: universe/duplicate
+weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.7.0
 ---
 
-The `duplicate()` function duplicates a specified column in a table.
-If the specified column is part of the group key, it will be duplicated, but will
-not be part of the output table's group key.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L486-L486
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`duplicate()` duplicates a specified column in a table.
+
+If the specified column is part of the group key, it will be duplicated, but
+the duplicate column will not be part of the output’s group key.
+
+##### Function type signature
 
 ```js
-duplicate(column: "column-name", as: "duplicate-name")
+(<-tables: stream[A], as: string, column: string) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### column {data-type="string"}
+### column
 ({{< req >}})
 Column to duplicate.
 
-### as {data-type="string"}
+
+
+### as
 ({{< req >}})
-Name assigned to the duplicate column.
+Name to assign to the duplicate column.
 
-{{% note %}}
-If the `as` column already exists, this function will overwrite the existing values.
-{{% /note %}}
+If the `as` column already exists, it will be overwritten by the duplicated column.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+### Duplicate a column
 
 ```js
 import "sampledata"
 
 sampledata.int()
     |> duplicate(column: "tag", as: "tag_dup")
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value | tag_dup |
-| :------------------- | :-- | -----: | :------ |
-| 2021-01-01T00:00:00Z | t1  |     -2 | t1      |
-| 2021-01-01T00:00:10Z | t1  |     10 | t1      |
-| 2021-01-01T00:00:20Z | t1  |      7 | t1      |
-| 2021-01-01T00:00:30Z | t1  |     17 | t1      |
-| 2021-01-01T00:00:40Z | t1  |     15 | t1      |
-| 2021-01-01T00:00:50Z | t1  |      4 | t1      |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value | tag_dup |
-| :------------------- | :-- | -----: | :------ |
-| 2021-01-01T00:00:00Z | t2  |     19 | t2      |
-| 2021-01-01T00:00:10Z | t2  |      4 | t2      |
-| 2021-01-01T00:00:20Z | t2  |     -3 | t2      |
-| 2021-01-01T00:00:30Z | t2  |     19 | t2      |
-| 2021-01-01T00:00:40Z | t2  |     13 | t2      |
-| 2021-01-01T00:00:50Z | t2  |      1 | t2      |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | _value  | *tag | tag_dup  |
+| -------------------- | ------- | ---- | -------- |
+| 2021-01-01T00:00:00Z | -2      | t1   | t1       |
+| 2021-01-01T00:00:10Z | 10      | t1   | t1       |
+| 2021-01-01T00:00:20Z | 7       | t1   | t1       |
+| 2021-01-01T00:00:30Z | 17      | t1   | t1       |
+| 2021-01-01T00:00:40Z | 15      | t1   | t1       |
+| 2021-01-01T00:00:50Z | 4       | t1   | t1       |
+
+| _time                | _value  | *tag | tag_dup  |
+| -------------------- | ------- | ---- | -------- |
+| 2021-01-01T00:00:00Z | 19      | t2   | t2       |
+| 2021-01-01T00:00:10Z | 4       | t2   | t2       |
+| 2021-01-01T00:00:20Z | -3      | t2   | t2       |
+| 2021-01-01T00:00:30Z | 19      | t2   | t2       |
+| 2021-01-01T00:00:40Z | 13      | t2   | t2       |
+| 2021-01-01T00:00:50Z | 1       | t2   | t2       |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

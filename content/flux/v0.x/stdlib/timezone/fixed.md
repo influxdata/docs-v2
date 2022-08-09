@@ -1,77 +1,77 @@
 ---
 title: timezone.fixed() function
 description: >
-  `timezone.fixed()` constructs a location with a fixed offset.
+  `timezone.fixed()` returns a location record with a fixed offset.
 menu:
   flux_0_x_ref:
     name: timezone.fixed
     parent: timezone
+    identifier: timezone/fixed
 weight: 101
-flux/v0.x/tags: [timezone, location, data/time]
+flux/v0.x/tags: [date/time, location]
 ---
 
-`timezone.fixed()` constructs a timezone record with a fixed offset from UTC.
-Fixed timezones are not affected by location-based time shifts in the clock
-such as daylight savings time or summertime.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/timezone/timezone.flux#L42-L42
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`timezone.fixed()` returns a location record with a fixed offset.
+
+
+
+##### Function type signature
 
 ```js
-import "timezone"
-
-timezone.fixed(offset: -2h)
-
-// Returns {offset: -2h, zone: UTC}
+(offset: A) => {zone: string, offset: A}
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### offset {data-type="duration"}
+### offset
 ({{< req >}})
-The fixed duration for the location offset.
-The duration is the offset from UTC time.
+Fixed duration for the location offset.
+This duration is the offset from UTC.
+
+
+
 
 ## Examples
 
-##### Apply a fixed timezone offset to windows
+- [Return a fixed location record](#return-a-fixed-location-record)
+- [Set the location option using a fixed location](#set-the-location-option-using-a-fixed-location)
+
+### Return a fixed location record
+
 ```js
-import "array"
 import "timezone"
 
-option location = timezone.fixed(offset: -8h)
+timezone.fixed(offset: -8h)// Returns {offset: -8h, zone: "UTC"}
 
-data = array.from(
-    rows: [
-        {_time: 2021-01-01T00:06:00Z, _value: 1},
-        {_time: 2021-01-02T00:06:00Z, _value: 2},
-        {_time: 2021-01-03T00:06:00Z, _value: 3},
-    ],
-)
-    |> range(start: 2021-01-01T00:00:00Z, stop: 2021-01-04T00:00:00Z)
 
-data
-    |> window(every: 1d)
 ```
 
-{{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
-#### Input data
-| _start               | _stop                | _time                | _value |
-| :------------------- | :------------------- | :------------------- | -----: |
-| 2021-01-01T00:00:00Z | 2021-01-04T00:00:00Z | 2021-01-01T00:06:00Z |      1 |
-| 2021-01-01T00:00:00Z | 2021-01-04T00:00:00Z | 2021-01-02T00:06:00Z |      2 |
-| 2021-01-01T00:00:00Z | 2021-01-04T00:00:00Z | 2021-01-03T00:06:00Z |      3 |
 
-#### Output data
-| _start               | _stop                | _time                | _value |
-| :------------------- | :------------------- | :------------------- | -----: |
-| 2021-01-01T00:00:00Z | 2021-01-01T08:00:00Z | 2021-01-01T00:06:00Z |      1 |
+### Set the location option using a fixed location
 
+```js
+import "timezone"
 
-| _start               | _stop                | _time                | _value |
-| :------------------- | :------------------- | :------------------- | -----: |
-| 2021-01-01T08:00:00Z | 2021-01-02T08:00:00Z | 2021-01-02T00:06:00Z |      2 |
+// This results in midnight at 00:00:00-08:00 on any day.
+option location = timezone.fixed(offset: -8h)
 
-| _start               | _stop                | _time                | _value |
-| :------------------- | :------------------- | :------------------- | -----: |
-| 2021-01-02T08:00:00Z | 2021-01-03T08:00:00Z | 2021-01-03T00:06:00Z |      3 |
-{{% /expand %}}
-{{< /expand-wrapper >}}
+```
+

@@ -1,69 +1,42 @@
 ---
 title: alerta.endpoint() function
 description: >
-  The `alerta.endpoint()` function sends alerts to Alerta using data from input rows.
+  `alerta.endpoint()` sends alerts to Alerta using data from input rows.
 menu:
   flux_0_x_ref:
     name: alerta.endpoint
-    parent: alerta
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/alerta/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/alerta/endpoint/
-flux/v0.x/tags: [notification endpoints]
-introduced: 0.115.0
+    parent: contrib/bonitoo-io/alerta
+    identifier: contrib/bonitoo-io/alerta/endpoint
+weight: 301
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
-The `alerta.endpoint()` function sends alerts to [Alerta](https://alerta.io/)
-using data from input rows.
+<!------------------------------------------------------------------------------
 
-_**Function type:** Output_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-```js
-import "contrib/bonitoo-io/alerta"
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-alerta.endpoint(
-    url: "https://alerta.io:8080/alert",
-    apiKey: "0Xx00xxXx00Xxx0x0X",
-    environment: "",
-    origin: "InfluxDB"
-)
-```
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/alerta/alerta.flux#L191-L222
 
-## Parameters
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
-### url {data-type="string"}
-({{< req >}})
-Alerta URL.
+------------------------------------------------------------------------------->
 
-### apiKey {data-type="string"}
-({{< req >}})
-Alerta API key.
+`alerta.endpoint()` sends alerts to Alerta using data from input rows.
 
-### environment {data-type="string"}
-Alert environment.
-Default is `""`.
-
-**Valid values:**
-
-- `""`
-- `"Production"`
-- `"Development"`
-
-### origin {data-type="string"}
-Alert origin.
-Default is `"InfluxDB"`.
-
-## Usage
+### Usage
 `alerta.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn {data-type="function"}
-A function that builds the object used to generate the POST request.
-Requires an `r` parameter.
+#### mapFn
+A function that builds the object used to generate the POST request. Requires an `r` parameter.
 
-`mapFn` accepts a table row (`r`) and returns an object that must include the
-following fields:
+`mapFn` accepts a table row (`r`) and returns an object that must include the following fields:
 
 - `resource`
 - `event`
@@ -77,11 +50,70 @@ following fields:
 - `type`
 - `timestamp`
 
-_For more information, see [`alerta.alert()` parameters](/flux/v0.x/stdlib/contrib/bonitoo-io/alerta/alert/#parameters)._
+For more information, see `alerta.alert()` parameters.
+
+##### Function type signature
+
+```js
+(
+    apiKey: string,
+    url: string,
+    ?environment: A,
+    ?origin: B,
+) => (
+    mapFn: (
+        r: C,
+    ) => {
+        D with
+        value: O,
+        type: N,
+        timestamp: M,
+        text: L,
+        tags: K,
+        severity: J,
+        service: I,
+        resource: H,
+        group: G,
+        event: F,
+        attributes: E,
+    },
+) => (<-tables: stream[C]) => stream[{C with _sent: string}]
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### url
+({{< req >}})
+(Required) Alerta URL.
+
+
+
+### apiKey
+({{< req >}})
+(Required) Alerta API key.
+
+
+
+### environment
+
+Alert environment. Default is `""`.
+Valid values: "Production", "Development", or empty string (default).
+
+
+
+### origin
+
+Alert origin. Default is `"InfluxDB"`.
+
+
+
 
 ## Examples
 
-##### Send critical alerts to Alerta
+### Send critical alerts to Alerta
+
 ```js
 import "contrib/bonitoo-io/alerta"
 import "influxdata/influxdb/secrets"
@@ -113,4 +145,6 @@ crit_events
             }
         },
     )()
+
 ```
+
