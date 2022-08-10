@@ -17,7 +17,8 @@ menu:
 - Add the [InfluxQL Shell (REPL)](/influxdb/v2.4/reference/cli/influx/v1/shell/).
 - **(InfluxDB Cloud only)** Manage [InfluxDB Cloud Invokable Scripts](/influxdb/cloud/api-guide/api-invokable-scripts/)
   with [`influx scripts`](/influxdb/v2.4/reference/cli/influx/scripts/). 
-<!-- - **(InfluxDB OSS only)** Add username and password authentication as alternative to token -->
+- **(InfluxDB OSS only)** Add [username and password support](/influxdb/v2.4/reference/cli/influx/config/create/#create-a-connection-configuration-that-uses-a-username-and-password)
+  to `influx` CLI connection configurations as alternative to API tokens when using the CLI.
 
 ### Maintenance
 - Upgrade to Go 1.18.3
