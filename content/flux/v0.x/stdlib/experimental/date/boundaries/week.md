@@ -6,11 +6,11 @@ description: >
 menu:
   flux_0_x_ref:
     name: boundaries.week
-    parent: date/boundaries
-    identifier: date/boundaries/week
-weight: 201
+    parent: experimental/date/boundaries
+    identifier: experimental/date/boundaries/week
+weight: 301
 flux/v0.x/tags: [date/time]
-deprecated: 0.177.1
+introduced: 0.177.1
 ---
 
 <!------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L479-L487
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/date/boundaries/boundaries.flux#L457-L471
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -68,7 +68,7 @@ Use a positive offset to return boundaries for future weeks.
 ### Return start and stop timestamps of the current week starting on Monday
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 option now = () => 2022-05-10T00:00:00.00001Z
 
@@ -81,7 +81,7 @@ boundaries.week()// Returns {start: 2022-05-09T00:00:00.000000000Z, stop: 2022-0
 ### Return start and stop timestamps of the current week starting on Sunday
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 option now = () => 2022-05-10T10:10:00Z
 
@@ -96,7 +96,7 @@ boundaries.week(
 ### Query data from the current week
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 thisWeek = boundaries.week()
 
@@ -109,7 +109,7 @@ from(bucket: "example-bucket")
 ### Query data from last week
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 lastWeek = boundaries.week(week_offset: -1)
 
