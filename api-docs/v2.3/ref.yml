@@ -753,9 +753,9 @@ components:
           type: string
         latestCompleted:
           description: >-
-            Timestamp (in RFC3339 date/time
-            format](https://datatracker.ietf.org/doc/html/rfc3339)) of the
-            latest scheduled and completed run.
+            A timestamp ([RFC3339 date/time
+            format](https://docs.influxdata.com/influxdb/v2.3/reference/glossary/#rfc3339-timestamp))
+            of the latest scheduled and completed run.
           format: date-time
           readOnly: true
           type: string
@@ -1199,8 +1199,9 @@ components:
       type: object
     DateTimeLiteral:
       description: >-
-        Represents an instant in time with nanosecond precision using the syntax
-        of golang's RFC3339 Nanosecond variant
+        Represents an instant in time with nanosecond precision in [RFC3339Nano
+        date/time
+        format](/influxdb/v2.3/reference/glossary/#rfc3339nano-timestamp).
       properties:
         type:
           $ref: '#/components/schemas/NodeType'
@@ -1274,15 +1275,19 @@ components:
           example: tag1="value1" and (tag2="value2" and tag3!="value3")
           type: string
         start:
-          description: >-
+          description: >
             A timestamp ([RFC3339 date/time
-            format](https://docs.influxdata.com/flux/v0.x/data-types/basic/time/#time-syntax)).
+            format](https://docs.influxdata.com/influxdb/v2.3/reference/glossary/#rfc3339-timestamp)).
+
+            The earliest time to delete from.
           format: date-time
           type: string
         stop:
-          description: >-
+          description: >
             A timestamp ([RFC3339 date/time
-            format](https://docs.influxdata.com/flux/v0.x/data-types/basic/time/#time-syntax)).
+            format](https://docs.influxdata.com/influxdb/v2.3/reference/glossary/#rfc3339-timestamp)).
+
+            The latest time to delete from.
           format: date-time
           type: string
       required:
@@ -1290,12 +1295,39 @@ components:
         - stop
       type: object
     Dialect:
-      description: >-
-        Dialect are options to change the default CSV output format;
-        https://www.w3.org/TR/2015/REC-tabular-metadata-20151217/#dialect-descriptions
+      description: >
+        Options for tabular data output.
+
+        Default output is [annotated
+        CSV](/influxdb/v2.3/reference/syntax/annotated-csv/#csv-response-format)
+        with headers.
+
+
+        For more information about tabular data **dialect**,
+
+        see [W3 metadata vocabulary for tabular
+        data](https://www.w3.org/TR/2015/REC-tabular-metadata-20151217/#dialect-descriptions).
       properties:
         annotations:
-          description: https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/#columns
+          description: >
+            Annotation rows to include in the results.
+
+            An _annotation_ is metadata associated with an object (column) in
+            the data model.
+
+
+            #### Related guides
+
+
+            - See [Annotated CSV
+            annotations](https://docs.influxdata.com/influxdb/v2.3/reference/syntax/annotated-csv/#annotations)
+            for examples and more information.
+
+
+            For more information about **annotations** in tabular data,
+
+            see [W3 metadata vocabulary for tabular
+            data](https://www.w3.org/TR/2015/REC-tabular-data-model-20151217/#columns).
           items:
             enum:
               - group
@@ -1306,26 +1338,46 @@ components:
           uniqueItems: true
         commentPrefix:
           default: '#'
-          description: Character prefixed to comment strings
+          description: >-
+            The character prefixed to comment strings. Default is a number sign
+            (`#`).
           maxLength: 1
           minLength: 0
           type: string
         dateTimeFormat:
           default: RFC3339
-          description: Format of timestamps
+          description: >
+            The format for timestamps in results.
+
+            Default is [`RFC3339` date/time
+            format](https://docs.influxdata.com/influxdb/v2.3/reference/glossary/#rfc3339-timestamp).
+
+            To include nanoseconds in timestamps, use `RFC3339Nano`.
+
+
+            #### Example formatted date/time values
+
+
+            | Format      | Value                       |
+
+            |:------------|:----------------------------|
+
+            | `RFC3339`    | `"2006-01-02T15:04:05Z07:00"` |
+
+            | `RFC3339Nano` | `"2006-01-02T15:04:05.999999999Z07:00"` |
           enum:
             - RFC3339
             - RFC3339Nano
           type: string
         delimiter:
           default: ','
-          description: Separator between cells; the default is ,
+          description: The separator used between cells. Default is a comma (`,`).
           maxLength: 1
           minLength: 1
           type: string
         header:
           default: true
-          description: If true, the results will contain a header row
+          description: If true, the results contain a header row.
           type: boolean
       type: object
     DictExpression:
@@ -2509,11 +2561,15 @@ components:
           readOnly: true
           type: string
         runID:
-          description: the ID of the task that logged
+          description: The ID of the task run that generated the event.
           readOnly: true
           type: string
         time:
-          description: Time event occurred, RFC3339Nano.
+          description: >-
+            The time ([RFC3339Nano date/time
+            format](https://docs.influxdata.com/influxdb/v2.3/reference/glossary/#rfc3339nano-timestamp))
+            that the event occurred.
+          example: 2006-01-02T15:04:05.999999999Z07:00
           format: date-time
           readOnly: true
           type: string
@@ -2854,9 +2910,9 @@ components:
           type: string
         latestCompleted:
           description: >-
-            Timestamp (in RFC3339 date/time
-            format](https://datatracker.ietf.org/doc/html/rfc3339)) of the
-            latest scheduled and completed run.
+            A timestamp ([RFC3339 date/time
+            format](https://docs.influxdata.com/influxdb/v2.3/reference/glossary/#rfc3339-timestamp))
+            of the latest scheduled and completed run.
           format: date-time
           readOnly: true
           type: string
@@ -3923,7 +3979,11 @@ components:
     Run:
       properties:
         finishedAt:
-          description: Time run finished executing, RFC3339Nano.
+          description: >-
+            The time ([RFC3339Nano date/time
+            format](https://go.dev/src/time/format.go)) the run finished
+            executing.
+          example: 2006-01-02T15:04:05.999999999Z07:00
           format: date-time
           readOnly: true
           type: string
@@ -3958,16 +4018,27 @@ components:
           readOnly: true
           type: array
         requestedAt:
-          description: Time run was manually requested, RFC3339Nano.
+          description: >-
+            The time ([RFC3339Nano date/time
+            format](https://docs.influxdata.com/influxdb/v2.3/reference/glossary/#rfc3339nano-timestamp))
+            the run was manually requested.
+          example: 2006-01-02T15:04:05.999999999Z07:00
           format: date-time
           readOnly: true
           type: string
         scheduledFor:
-          description: Time used for run's "now" option, RFC3339.
+          description: >-
+            The time [RFC3339 date/time
+            format](https://docs.influxdata.com/influxdb/v2.3/reference/glossary/#rfc3339-timestamp)
+            used for the run's `now` option.
           format: date-time
           type: string
         startedAt:
-          description: Time run started executing, RFC3339Nano.
+          description: >-
+            The time ([RFC3339Nano date/time
+            format](https://go.dev/src/time/format.go)) the run started
+            executing.
+          example: 2006-01-02T15:04:05.999999999Z07:00
           format: date-time
           readOnly: true
           type: string
@@ -3986,9 +4057,13 @@ components:
     RunManually:
       properties:
         scheduledFor:
-          description: >-
-            Time used for run's "now" option, RFC3339.  Default is the server's
-            now time.
+          description: >
+            The time [RFC3339 date/time
+            format](https://docs.influxdata.com/influxdb/v2.3/reference/glossary/#rfc3339-timestamp)
+
+            used for the run's `now` option.
+
+            Default is the server _now_ time.
           format: date-time
           nullable: true
           type: string
@@ -6516,6 +6591,14 @@ paths:
   /api/v2/backup/kv:
     get:
       deprecated: true
+      description: >
+        Retrieves a snapshot of metadata stored in the server's embedded KV
+        store.
+
+        InfluxDB versions greater than 2.1.x don't include metadata stored in
+        embedded SQL;
+
+        avoid using this endpoint with versions greater than 2.1.x.
       operationId: GetBackupKV
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -6526,14 +6609,13 @@ paths:
               schema:
                 format: binary
                 type: string
-          description: Snapshot of KV metadata
+          description: Success. The response contains a snapshot of KV metadata.
         default:
           $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
       summary: >-
         Download snapshot of metadata stored in the server's embedded KV store.
-        Should not be used in versions greater than 2.1.x, as it doesn't include
-        metadata stored in embedded SQL.
+        Don't use with InfluxDB versions greater than InfluxDB 2.1.x.
       tags:
         - Backup
   /api/v2/backup/metadata:
@@ -6608,7 +6690,14 @@ paths:
           schema:
             format: int64
             type: integer
-        - description: Earliest time to include in the snapshot. RFC3339 format.
+        - description: >-
+            The earliest time [RFC3339 date/time
+            format](/influxdb/v2.3/reference/glossary/#rfc3339-timestamp) to
+            include in the snapshot.
+          examples:
+            RFC3339:
+              summary: RFC3339 date/time format
+              value: 2006-01-02T15:04:05Z07:00
           in: query
           name: since
           schema:
@@ -11208,8 +11297,7 @@ paths:
         errors and returns the list of errors.
 
 
-        In the following example `Query` object, `query` is missing a `from()`
-        property key:
+        In the following sample query, `from()` is missing the property key.
 
             ```json
             { "query": "from(: \"iot_center\")\
@@ -11219,8 +11307,10 @@ paths:
             }
             ```
 
-        Passing this to `/api/v2/analyze` returns an `errors` list that contains
-        an error object for the missing key.
+        If you pass this in a request to the `/api/v2/analyze` endpoint,
+
+        InfluxDB returns an `errors` list that contains an error object for the
+        missing key.
 
 
         #### Limitations
@@ -11228,7 +11318,7 @@ paths:
 
         -  The endpoint doesn't validate values in the query--for example:
 
-          - The following query has correct syntax, but contains an incorrect `from()` property key:
+          - The following sample query has correct syntax, but contains an incorrect `from()` property key:
 
             ```json
             { "query": "from(foo: \"iot_center\")\
@@ -11238,7 +11328,8 @@ paths:
             }
             ```
 
-            Passing this to `/api/v2/analyze` returns an empty `errors` list.
+            If you pass this in a request to the `/api/v2/analyze` endpoint,
+            InfluxDB returns an empty `errors` list.
       operationId: PostQueryAnalyze
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11265,7 +11356,8 @@ paths:
                     property key.
 
 
-                    The following example is missing the `bucket` property key:
+                    The following sample query is missing the _`bucket`_
+                    property key:
 
                       ```json
                       {
@@ -11372,8 +11464,7 @@ paths:
         Analyzes a Flux query and returns a complete package source [Abstract
         Syntax
 
-        Tree
-        (AST)](https:///influxdb/v2.3/reference/glossary/#abstract-syntax-tree)
+        Tree (AST)](/influxdb/v2.3/reference/glossary/#abstract-syntax-tree-ast)
 
         for the query.
 
@@ -11393,19 +11484,20 @@ paths:
         into different components for execution.
 
 
-
         #### Limitations
 
 
         -  The endpoint doesn't validate values in the query--for example:
 
             The following query has correct syntax, but contains an incorrect `from()` property key:
+
             ```json
             { "query": "from(foo: \"iot_center\")\
                         |> range(start: -90d)\
                         |> filter(fn: (r) => r._measurement == \"environment\")"
             }
             ```
+
             Passing this to `/api/v2/query/ast` will return a successful response
             with a generated AST.
       operationId: PostQueryAst
@@ -11819,15 +11911,57 @@ paths:
         - label: cURL
           lang: Shell
           source: |
-            curl --request POST 'INFLUX_URL/api/v2/query/ast' \
+            curl --request POST 'http://localhost:8086/api/v2/query/ast' \
             --header 'Content-Type: application/json' \
-            --header 'Accept: application/json \
+            --header 'Accept: application/json' \
             --header 'Authorization: Token INFLUX_TOKEN' \
             --data 'from(bucket: "example-bucket")
                       |> range(start: -5m)
                       |> filter(fn: (r) => r._measurement == "example-measurement")'
   /api/v2/query/suggestions:
     get:
+      description: >
+        Retrieves a list of Flux query suggestions. Each suggestion contains a
+
+        [Flux
+        function](https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/)
+
+        name and parameters.
+
+
+        Use this endpoint to retrieve a list of Flux query suggestions used in
+        the
+
+        InfluxDB Flux Query Builder. Helper function names have an underscore
+        (`_`)
+
+        prefix and aren't meant to be used directly in queries--for example:
+
+
+        - **Recommended**:  Use `top(n, columns=["_value"], tables=<-)` to sort
+          on a column and keep the top n records instead of `_sortLimit_`.
+          `top` uses the `_sortLimit` helper function.
+
+        #### Limitations
+
+
+        - Using `/api/v2/query/suggestions/` (note the trailing slash) with cURL
+
+        will result in a HTTP `301 Moved Permanently` status code. Please use
+
+        `/api/v2/query/suggestions` without a trailing slash.
+
+
+        - When writing a query, avoid using `_functionName()` helper functions
+
+        exposed by this endpoint.
+
+
+        #### Related Guides
+
+
+        - [List of all Flux
+        functions](/influxdb/v2.3/flux/v0.x/stdlib/all-functions/).
       operationId: GetQuerySuggestions
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11835,24 +11969,679 @@ paths:
         '200':
           content:
             application/json:
+              examples:
+                successResponse:
+                  value:
+                    funcs:
+                      - name: _fillEmpty
+                        params:
+                          createEmpty: bool
+                          tables: stream
+                      - name: _highestOrLowest
+                        params:
+                          _sortLimit: function
+                          column: invalid
+                          groupColumns: array
+                          'n': invalid
+                          reducer: function
+                          tables: stream
+                      - name: _hourSelection
+                        params:
+                          location: object
+                          start: int
+                          stop: int
+                          tables: stream
+                          timeColumn: string
+                      - name: _sortLimit
+                        params:
+                          columns: array
+                          desc: bool
+                          'n': int
+                          tables: stream
+                      - name: _window
+                        params:
+                          createEmpty: bool
+                          every: duration
+                          location: object
+                          offset: duration
+                          period: duration
+                          startColumn: string
+                          stopColumn: string
+                          tables: stream
+                          timeColumn: string
+                      - name: aggregateWindow
+                        params:
+                          column: invalid
+                          createEmpty: bool
+                          every: duration
+                          fn: function
+                          location: object
+                          offset: duration
+                          period: duration
+                          tables: stream
+                          timeDst: string
+                          timeSrc: string
+                      - name: bool
+                        params:
+                          v: invalid
+                      - name: bottom
+                        params:
+                          columns: array
+                          'n': int
+                          tables: stream
+                      - name: buckets
+                        params:
+                          host: string
+                          org: string
+                          orgID: string
+                          token: string
+                      - name: bytes
+                        params:
+                          v: invalid
+                      - name: cardinality
+                        params:
+                          bucket: string
+                          bucketID: string
+                          host: string
+                          org: string
+                          orgID: string
+                          predicate: function
+                          start: invalid
+                          stop: invalid
+                          token: string
+                      - name: chandeMomentumOscillator
+                        params:
+                          columns: array
+                          'n': int
+                          tables: stream
+                      - name: columns
+                        params:
+                          column: string
+                          tables: stream
+                      - name: contains
+                        params:
+                          set: array
+                          value: invalid
+                      - name: count
+                        params:
+                          column: string
+                          tables: stream
+                      - name: cov
+                        params:
+                          'on': array
+                          pearsonr: bool
+                          x: invalid
+                          'y': invalid
+                      - name: covariance
+                        params:
+                          columns: array
+                          pearsonr: bool
+                          tables: stream
+                          valueDst: string
+                      - name: cumulativeSum
+                        params:
+                          columns: array
+                          tables: stream
+                      - name: derivative
+                        params:
+                          columns: array
+                          initialZero: bool
+                          nonNegative: bool
+                          tables: stream
+                          timeColumn: string
+                          unit: duration
+                      - name: die
+                        params:
+                          msg: string
+                      - name: difference
+                        params:
+                          columns: array
+                          initialZero: bool
+                          keepFirst: bool
+                          nonNegative: bool
+                          tables: stream
+                      - name: display
+                        params:
+                          v: invalid
+                      - name: distinct
+                        params:
+                          column: string
+                          tables: stream
+                      - name: doubleEMA
+                        params:
+                          'n': int
+                          tables: stream
+                      - name: drop
+                        params:
+                          columns: array
+                          fn: function
+                          tables: stream
+                      - name: duplicate
+                        params:
+                          as: string
+                          column: string
+                          tables: stream
+                      - name: duration
+                        params:
+                          v: invalid
+                      - name: elapsed
+                        params:
+                          columnName: string
+                          tables: stream
+                          timeColumn: string
+                          unit: duration
+                      - name: exponentialMovingAverage
+                        params:
+                          'n': int
+                          tables: stream
+                      - name: fill
+                        params:
+                          column: string
+                          tables: stream
+                          usePrevious: bool
+                          value: invalid
+                      - name: filter
+                        params:
+                          fn: function
+                          onEmpty: string
+                          tables: stream
+                      - name: findColumn
+                        params:
+                          column: string
+                          fn: function
+                          tables: stream
+                      - name: findRecord
+                        params:
+                          fn: function
+                          idx: int
+                          tables: stream
+                      - name: first
+                        params:
+                          column: string
+                          tables: stream
+                      - name: float
+                        params:
+                          v: invalid
+                      - name: from
+                        params:
+                          bucket: string
+                          bucketID: string
+                          host: string
+                          org: string
+                          orgID: string
+                          token: string
+                      - name: getColumn
+                        params:
+                          column: string
+                      - name: getRecord
+                        params:
+                          idx: int
+                      - name: group
+                        params:
+                          columns: array
+                          mode: string
+                          tables: stream
+                      - name: highestAverage
+                        params:
+                          column: string
+                          groupColumns: array
+                          'n': int
+                          tables: stream
+                      - name: highestCurrent
+                        params:
+                          column: string
+                          groupColumns: array
+                          'n': int
+                          tables: stream
+                      - name: highestMax
+                        params:
+                          column: string
+                          groupColumns: array
+                          'n': int
+                          tables: stream
+                      - name: histogram
+                        params:
+                          bins: array
+                          column: string
+                          countColumn: string
+                          normalize: bool
+                          tables: stream
+                          upperBoundColumn: string
+                      - name: histogramQuantile
+                        params:
+                          countColumn: string
+                          minValue: float
+                          quantile: float
+                          tables: stream
+                          upperBoundColumn: string
+                          valueColumn: string
+                      - name: holtWinters
+                        params:
+                          column: string
+                          interval: duration
+                          'n': int
+                          seasonality: int
+                          tables: stream
+                          timeColumn: string
+                          withFit: bool
+                      - name: hourSelection
+                        params:
+                          location: object
+                          start: int
+                          stop: int
+                          tables: stream
+                          timeColumn: string
+                      - name: increase
+                        params:
+                          columns: array
+                          tables: stream
+                      - name: int
+                        params:
+                          v: invalid
+                      - name: integral
+                        params:
+                          column: string
+                          interpolate: string
+                          tables: stream
+                          timeColumn: string
+                          unit: duration
+                      - name: join
+                        params:
+                          method: string
+                          'on': array
+                          tables: invalid
+                      - name: kaufmansAMA
+                        params:
+                          column: string
+                          'n': int
+                          tables: stream
+                      - name: kaufmansER
+                        params:
+                          'n': int
+                          tables: stream
+                      - name: keep
+                        params:
+                          columns: array
+                          fn: function
+                          tables: stream
+                      - name: keyValues
+                        params:
+                          keyColumns: array
+                          tables: stream
+                      - name: keys
+                        params:
+                          column: string
+                          tables: stream
+                      - name: last
+                        params:
+                          column: string
+                          tables: stream
+                      - name: length
+                        params:
+                          arr: array
+                      - name: limit
+                        params:
+                          'n': int
+                          offset: int
+                          tables: stream
+                      - name: linearBins
+                        params:
+                          count: int
+                          infinity: bool
+                          start: float
+                          width: float
+                      - name: logarithmicBins
+                        params:
+                          count: int
+                          factor: float
+                          infinity: bool
+                          start: float
+                      - name: lowestAverage
+                        params:
+                          column: string
+                          groupColumns: array
+                          'n': int
+                          tables: stream
+                      - name: lowestCurrent
+                        params:
+                          column: string
+                          groupColumns: array
+                          'n': int
+                          tables: stream
+                      - name: lowestMin
+                        params:
+                          column: string
+                          groupColumns: array
+                          'n': int
+                          tables: stream
+                      - name: map
+                        params:
+                          fn: function
+                          mergeKey: bool
+                          tables: stream
+                      - name: max
+                        params:
+                          column: string
+                          tables: stream
+                      - name: mean
+                        params:
+                          column: string
+                          tables: stream
+                      - name: median
+                        params:
+                          column: string
+                          compression: float
+                          method: string
+                          tables: stream
+                      - name: min
+                        params:
+                          column: string
+                          tables: stream
+                      - name: mode
+                        params:
+                          column: string
+                          tables: stream
+                      - name: movingAverage
+                        params:
+                          'n': int
+                          tables: stream
+                      - name: now
+                        params: {}
+                      - name: pearsonr
+                        params:
+                          'on': array
+                          x: invalid
+                          'y': invalid
+                      - name: pivot
+                        params:
+                          columnKey: array
+                          rowKey: array
+                          tables: stream
+                          valueColumn: string
+                      - name: quantile
+                        params:
+                          column: string
+                          compression: float
+                          method: string
+                          q: float
+                          tables: stream
+                      - name: range
+                        params:
+                          start: invalid
+                          stop: invalid
+                          tables: stream
+                      - name: reduce
+                        params:
+                          fn: function
+                          identity: invalid
+                          tables: stream
+                      - name: relativeStrengthIndex
+                        params:
+                          columns: array
+                          'n': int
+                          tables: stream
+                      - name: rename
+                        params:
+                          columns: invalid
+                          fn: function
+                          tables: stream
+                      - name: sample
+                        params:
+                          column: string
+                          'n': int
+                          pos: int
+                          tables: stream
+                      - name: set
+                        params:
+                          key: string
+                          tables: stream
+                          value: string
+                      - name: skew
+                        params:
+                          column: string
+                          tables: stream
+                      - name: sort
+                        params:
+                          columns: array
+                          desc: bool
+                          tables: stream
+                      - name: spread
+                        params:
+                          column: string
+                          tables: stream
+                      - name: stateCount
+                        params:
+                          column: string
+                          fn: function
+                          tables: stream
+                      - name: stateDuration
+                        params:
+                          column: string
+                          fn: function
+                          tables: stream
+                          timeColumn: string
+                          unit: duration
+                      - name: stateTracking
+                        params:
+                          countColumn: string
+                          durationColumn: string
+                          durationUnit: duration
+                          fn: function
+                          tables: stream
+                          timeColumn: string
+                      - name: stddev
+                        params:
+                          column: string
+                          mode: string
+                          tables: stream
+                      - name: string
+                        params:
+                          v: invalid
+                      - name: sum
+                        params:
+                          column: string
+                          tables: stream
+                      - name: tableFind
+                        params:
+                          fn: function
+                          tables: stream
+                      - name: tail
+                        params:
+                          'n': int
+                          offset: int
+                          tables: stream
+                      - name: time
+                        params:
+                          v: invalid
+                      - name: timeShift
+                        params:
+                          columns: array
+                          duration: duration
+                          tables: stream
+                      - name: timeWeightedAvg
+                        params:
+                          tables: stream
+                          unit: duration
+                      - name: timedMovingAverage
+                        params:
+                          column: string
+                          every: duration
+                          period: duration
+                          tables: stream
+                      - name: to
+                        params:
+                          bucket: string
+                          bucketID: string
+                          fieldFn: function
+                          host: string
+                          measurementColumn: string
+                          org: string
+                          orgID: string
+                          tables: stream
+                          tagColumns: array
+                          timeColumn: string
+                          token: string
+                      - name: toBool
+                        params:
+                          tables: stream
+                      - name: toFloat
+                        params:
+                          tables: stream
+                      - name: toInt
+                        params:
+                          tables: stream
+                      - name: toString
+                        params:
+                          tables: stream
+                      - name: toTime
+                        params:
+                          tables: stream
+                      - name: toUInt
+                        params:
+                          tables: stream
+                      - name: today
+                        params: {}
+                      - name: top
+                        params:
+                          columns: array
+                          'n': int
+                          tables: stream
+                      - name: tripleEMA
+                        params:
+                          'n': int
+                          tables: stream
+                      - name: tripleExponentialDerivative
+                        params:
+                          'n': int
+                          tables: stream
+                      - name: truncateTimeColumn
+                        params:
+                          tables: stream
+                          timeColumn: invalid
+                          unit: duration
+                      - name: uint
+                        params:
+                          v: invalid
+                      - name: union
+                        params:
+                          tables: array
+                      - name: unique
+                        params:
+                          column: string
+                          tables: stream
+                      - name: wideTo
+                        params:
+                          bucket: string
+                          bucketID: string
+                          host: string
+                          org: string
+                          orgID: string
+                          tables: stream
+                          token: string
+                      - name: window
+                        params:
+                          createEmpty: bool
+                          every: duration
+                          location: object
+                          offset: duration
+                          period: duration
+                          startColumn: string
+                          stopColumn: string
+                          tables: stream
+                          timeColumn: string
+                      - name: yield
+                        params:
+                          name: string
+                          tables: stream
               schema:
                 $ref: '#/components/schemas/FluxSuggestions'
-          description: Suggestions for next functions in call chain
+          description: >
+            Success.
+
+            The response body contains a list of Flux query
+            suggestions--function
+
+            names used in the Flux Query Builder autocomplete suggestions.
+        '301':
+          content:
+            text/html:
+              examples:
+                movedPermanently:
+                  description: >
+                    The URL has been permanently moved. Use
+                    `/api/v2/query/suggestions`.
+                  summary: Invalid URL
+                  value: >
+                    <a
+                    href="/api/v2/query/suggestions?orgID=INFLUX_ORG_ID">Moved
+                    Permanently</a>
+              schema:
+                properties:
+                  body:
+                    description: Response message with URL of requested resource.
+                    readOnly: true
+                    type: string
+          description: |
+            Moved Permanently.
+            InfluxData has moved the URL of the endpoint.
+            Use `/api/v2/query/suggestions`.
         default:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Any response other than 200 is an internal server error
-      summary: Retrieve query suggestions
+          description: Internal server error.
+      summary: Retrieve Flux query suggestions
       tags:
         - Query
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: >
+            curl --request GET
+            "https://cloud2.influxdata.com/api/v2/query/suggestions" \
+              --header "Accept: application/json" \
+              --header "Authorization: Token INFLUX_TOKEN"
   /api/v2/query/suggestions/{name}:
     get:
+      description: >
+        Retrieves a query suggestion that contains the name and parameters of
+        the
+
+        requested function.
+
+
+        Use this endpoint to pass a branching suggestion (a Flux function name)
+        and
+
+        retrieve the parameters of the requested function.
+
+
+        #### Limitations
+
+
+        - Use `/api/v2/query/suggestions/{name}` (without a trailing slash).
+
+        `/api/v2/query/suggestions/{name}/` (note the trailing slash) results in
+        a
+
+        HTTP `301 Moved Permanently` status.
+
+
+        - The function `name` must exist and must be spelled correctly.
+
+
+        #### Related Guides
+
+
+        - [List of all Flux
+        functions](/influxdb/v2.3/flux/v0.x/stdlib/all-functions/).
       operationId: GetQuerySuggestionsName
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: The name of the branching suggestion.
+        - description: |
+            A Flux Function name.
+            Only returns functions with this name.
           in: path
           name: name
           required: true
@@ -11862,18 +12651,45 @@ paths:
         '200':
           content:
             application/json:
+              examples:
+                successResponse:
+                  value:
+                    name: sum
+                    params:
+                      column: string
+                      tables: stream
               schema:
                 $ref: '#/components/schemas/FluxSuggestion'
-          description: Suggestions for next functions in call chain
-        default:
+          description: |
+            Success.
+            The response body contains the function name and parameters.
+        '500':
           content:
             application/json:
+              examples:
+                internalError:
+                  description: |
+                    The requested function doesn't exist.
+                  summary: Invalid function
+                  value:
+                    code: internal error
+                    message: An internal error has occurred
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Any response other than 200 is an internal server error
-      summary: Retrieve query suggestions for a branching suggestion
+          description: |
+            Internal server error.
+            The value passed for _`name`_ may have been misspelled.
+      summary: Retrieve a query suggestion for a branching suggestion
       tags:
         - Query
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: >
+            curl --request GET
+            "https://cloud2.influxdata.com/api/v2/query/suggestions/sum/" \
+              --header "Accept: application/json" \
+              --header "Authorization: Token INFLUX_TOKEN"
   /ready:
     get:
       operationId: GetReady
@@ -13574,6 +14390,13 @@ paths:
       tags:
         - Data I/O endpoints
         - Tasks
+      x-codeSamples:
+        - label: 'cURL: all tasks, basic output'
+          lang: Shell
+          source: |
+            curl https://localhost:8086/api/v2/tasks/?limit=-1&type=basic \
+              --header 'Content-Type: application/json' \
+              --header 'Authorization: Token INFLUX_API_TOKEN'
     post:
       description: >
         Creates a [task](/influxdb/v2.3/process-data/) and returns the created
@@ -13583,8 +14406,9 @@ paths:
         #### Related guides
 
 
-        - [Create a
-        task](/influxdb/v2.3/process-data/manage-tasks/create-task/).
+        - [Get started with tasks](/influxdb/v2.3/process-data/get-started/)
+
+        - [Create a task](/influxdb/v2.3/process-data/manage-tasks/create-task/)
 
         - [Common tasks](/influxdb/v2.3/process-data/common-tasks/)
 
@@ -13618,9 +14442,26 @@ paths:
                   value:
                     code: invalid
                     message: 'failed to decode request: missing flux'
+                orgProvidedNotFound:
+                  summary: >-
+                    The org or orgID passed doesn't own the token passed in the
+                    header
+                  value:
+                    code: invalid
+                    message: 'failed to decode request body: organization not found'
               schema:
-                $ref: '#/components/responses/BadRequestError'
-          description: Bad request
+                $ref: '#/components/schemas/Error'
+          description: >
+            Bad request.
+
+            The response body contains detail about the error.
+
+
+            #### InfluxDB OSS
+
+
+            - Returns this error if an incorrect value is passed for `org` or
+            `orgID`.
         '401':
           $ref: '#/components/responses/AuthorizationError'
         '500':
@@ -13639,20 +14480,19 @@ paths:
         - label: 'cURL: create a task'
           lang: Shell
           source: |
-            curl -v --request POST \
-            http://localhost:8086/api/v2/tasks \
-            --header "Content-type: application/json" \
-            --header "Authorization: Token INFLUX_TOKEN" \
-            --data-binary @- << EOF
-              {
-              "orgID": "INFLUX_ORG_ID",
-              "description": "IoT Center 30d environment average.",
-              "flux": "option task = {name: \"iot-center-task-1\", every: 30m}\
-                      from(bucket: \"iot_center\")\
-                        |> range(start: -30d)\
-                        |> filter(fn: (r) => r._measurement == \"environment\")\
-                        |> aggregateWindow(every: 1h, fn: mean)"
-              }
+            curl http://localhost:8086/api/v2/tasks \
+              --header "Content-type: application/json" \
+              --header "Authorization: Token INFLUX_TOKEN" \
+              --data-binary @- << EOF
+                {
+                "orgID": "INFLUX_ORG_ID",
+                "description": "IoT Center 30d environment average.",
+                "flux": "option task = {name: \"iot-center-task-1\", every: 30m}\
+                        from(bucket: \"iot_center\")\
+                          |> range(start: -30d)\
+                          |> filter(fn: (r) => r._measurement == \"environment\")\
+                          |> aggregateWindow(every: 1h, fn: mean)"
+                }
             EOF
   /api/v2/tasks/{taskID}:
     delete:
@@ -13697,11 +14537,11 @@ paths:
     get:
       description: |
         Retrieves a [task](/influxdb/v2.3/reference/glossary/#task)
-        by task ID.
+        by ID.
       operationId: GetTasksID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: The task ID.
+        - description: The ID of the task to retrieve.
           in: path
           name: taskID
           required: true
@@ -13736,8 +14576,8 @@ paths:
         Use this endpoint to modify task properties (for example: `cron`,
         `name`, `flux`, `status`).
 
-        Once InfluxDB applies the update, it cancels all scheduled runs of the
-        task.
+        Once InfluxDB applies the update, it cancels all previously scheduled
+        runs of the task.
 
 
         To update a task, pass an object that contains the updated key-value
@@ -13932,7 +14772,7 @@ paths:
             application/json:
               examples:
                 taskFailure:
-                  summary: Events for a failed task.
+                  summary: Events for a failed task run.
                   value:
                     events:
                       - message: >-
@@ -13952,7 +14792,7 @@ paths:
                         runID: 09a946fc3167d000
                         time: '2022-07-13T08:24:37.115323Z'
                 taskSuccess:
-                  summary: Events for successful task.
+                  summary: Events for a successful task run.
                   value:
                     events:
                       - message: >-
@@ -14169,21 +15009,33 @@ paths:
         - Tasks
   /api/v2/tasks/{taskID}/runs:
     get:
+      description: >
+        Retrieves a list of runs for a [task](/influxdb/v2.3/process-data/).
+
+
+        To limit which task runs are returned, pass query parameters in your
+        request.
+
+        If no query parameters are passed, InfluxDB returns all task runs up to
+        the default `limit`.
       operationId: GetTasksIDRuns
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: The ID of the task to get runs for.
+        - description: |
+            The ID of the task to get runs for.
+            Only returns runs for this task.
           in: path
           name: taskID
           required: true
           schema:
             type: string
-        - description: Returns runs after a specific ID.
+        - description: A task run ID. Only returns runs created after this run.
           in: query
           name: after
           schema:
             type: string
-        - description: The number of runs to return
+        - description: |
+            Limits the number of task runs returned. Default is `100`.
           in: query
           name: limit
           schema:
@@ -14191,13 +15043,21 @@ paths:
             maximum: 500
             minimum: 1
             type: integer
-        - description: Filter runs to those scheduled after this time, RFC3339
+        - description: >
+            A timestamp ([RFC3339 date/time
+            format](/influxdb/v2.3/reference/glossary/#rfc3339-timestamp)).
+
+            Only returns runs scheduled after this time.
           in: query
           name: afterTime
           schema:
             format: date-time
             type: string
-        - description: Filter runs to those scheduled before this time, RFC3339
+        - description: >
+            A timestamp ([RFC3339 date/time
+            format](/influxdb/v2.3/reference/glossary/#rfc3339-timestamp)).
+
+            Only returns runs scheduled before this time.
           in: query
           name: beforeTime
           schema:
@@ -14209,17 +15069,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Runs'
-          description: A list of task runs
+          description: Success. The response body contains the list of task runs.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: List runs for a task
       tags:
         - Tasks
     post:
+      description: |
+        Schedules a task run to start immediately, ignoring scheduled runs.
+
+        Use this endpoint to manually start a task run.
       operationId: PostTasksIDRuns
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -14239,14 +15103,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Run'
-          description: Run scheduled to start
+          description: Success. The run is scheduled to start.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Manually start a task run, overriding the current schedule
+          $ref: '#/components/responses/GeneralServerError'
+      summary: Start a task run, overriding the schedule
       tags:
         - Data I/O endpoints
         - Tasks
@@ -14388,13 +15252,13 @@ paths:
       operationId: GetTasksIDRunsIDLogs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
-        - description: ID of task to get logs for.
+        - description: The ID of the task to get logs for.
           in: path
           name: taskID
           required: true
           schema:
             type: string
-        - description: ID of run to get logs for.
+        - description: The ID of the run to get logs for.
           in: path
           name: runID
           required: true
@@ -14404,15 +15268,62 @@ paths:
         '200':
           content:
             application/json:
+              examples:
+                taskFailure:
+                  summary: Events for a failed task.
+                  value:
+                    events:
+                      - message: >-
+                          Started task from script: "option task = {name: \"test
+                          task\", every: 3d, offset: 0s}"
+                        runID: 09a946fc3167d000
+                        time: '2022-07-13T07:06:54.198167Z'
+                      - message: Completed(failed)
+                        runID: 09a946fc3167d000
+                        time: '2022-07-13T07:07:13.104037Z'
+                      - message: >-
+                          error exhausting result iterator: error in query
+                          specification while starting program: this Flux script
+                          returns no streaming data. Consider adding a "yield"
+                          or invoking streaming functions directly, without
+                          performing an assignment
+                        runID: 09a946fc3167d000
+                        time: '2022-07-13T08:24:37.115323Z'
+                taskSuccess:
+                  summary: Events for a successful task run.
+                  value:
+                    events:
+                      - message: >-
+                          Started task from script: "option task = {name:
+                          \"task1\", every: 30m} from(bucket: \"iot_center\") |>
+                          range(start: -90d) |> filter(fn: (r) => r._measurement
+                          == \"environment\") |> aggregateWindow(every: 1h, fn:
+                          mean)"
+                        runID: 09b070dadaa7d000
+                        time: '2022-07-18T14:46:07.101231Z'
+                      - message: Completed(success)
+                        runID: 09b070dadaa7d000
+                        time: '2022-07-18T14:46:07.242859Z'
               schema:
                 $ref: '#/components/schemas/Logs'
-          description: All logs for a run
+          description: >
+            Success. The response body contains an `events` list with logs for
+            the task run.
+
+            Each log event `message` contains detail about the event.
+
+            If a run fails, InfluxDB logs an event with the reason for the
+            failure.
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
         default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
+          $ref: '#/components/responses/GeneralServerError'
       summary: Retrieve all logs for a run
       tags:
         - Tasks
@@ -16043,9 +16954,10 @@ paths:
               Media type that the client can understand.
 
 
-              **Note**: With `application/csv`, query results include [unix
-              timestamps](/influxdb/v2.3/reference/glossary/#unix-timestamp)
-              instead of RFC3339 timestamps.
+              **Note**: With `application/csv`, query results include [**unix
+              timestamps**](/influxdb/v2.3/reference/glossary/#unix-timestamp)
+              instead of [RFC3339
+              timestamps](/influxdb/v2.3/reference/glossary/#rfc3339-timestamp).
             enum:
               - application/json
               - application/csv
@@ -16086,7 +16998,10 @@ paths:
             The database to query data from.
 
             This is mapped to an InfluxDB
-            [bucket](/influxdb/v2.3/api/influxdb-1x/dbrp/).
+            [bucket](/influxdb/v2.3/reference/glossary/#bucket).
+
+            For more information, see [Database and retention policy
+            mapping](/influxdb/v2.3/api/influxdb-1x/dbrp/).
           in: query
           name: db
           required: true
@@ -16096,7 +17011,10 @@ paths:
             The retention policy to query data from.
 
             This is mapped to an InfluxDB
-            [bucket](/influxdb/v2.3/api/influxdb-1x/dbrp/).
+            [bucket](/influxdb/v2.3/reference/glossary/#bucket).
+
+            For more information, see [Database and retention policy
+            mapping](/influxdb/v2.3/api/influxdb-1x/dbrp/).
           in: query
           name: rp
           schema:
@@ -16109,11 +17027,16 @@ paths:
           required: true
           schema:
             type: string
-        - description: >-
-            Return results with [unix (epoch)
-            timestamps](/influxdb/v2.3/reference/glossary/#unix-timestamp) in
-            the specified precision instead of RFC3339 timestamps with
-            nanosecond precision.
+        - description: >
+            A unix timestamp precision.
+
+            Formats timestamps as [unix (epoch)
+            timestamps](/influxdb/v2.3/reference/glossary/#unix-timestamp) the
+            specified precision
+
+            instead of [RFC3339
+            timestamps](/influxdb/v2.3/reference/glossary/#rfc3339-timestamp)
+            with nanosecond precision.
           in: query
           name: epoch
           schema:
@@ -16167,7 +17090,9 @@ paths:
           description: |
             #### InfluxDB Cloud:
               - returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](/influxdb/v2.3/account-management/limits/#global-limits)
+                plan's [adjustable service quotas](/influxdb/v2.3/account-management/limits/#adjustable-service-quotas)
+                or if a **delete** request exceeds the maximum
+                [global limit](/influxdb/v2.3/account-management/limits/#global-limits)
               - returns `Retry-After` header that describes when to try the write again.
 
             #### InfluxDB OSS:
@@ -16500,20 +17425,20 @@ tags:
       Asynchronous operations, such as `write`, might not have completed yet. |
 
       | `400`       | Bad request              | May indicate one of the
-      following: <li>Line protocol is malformed. The response body contains the
-      first malformed line in the data and indicates what was expected. For
+      following: <ul><li>Line protocol is malformed. The response body contains
+      the first malformed line in the data and indicates what was expected. For
       partial writes, the number of points written and the number of points
       rejected are also included. For more information, check the
       `rejected_points` measurement in your `_monitoring`
       bucket.</li><li>`Authorization` header is missing or malformed or the API
-      token does not have permission for the operation.</li> |
+      token does not have permission for the operation.</li></ul> |
 
       | `401`       | Unauthorized             | May indicate one of the
-      following: <li>`Authorization: Token` header is missing or
+      following: <ul><li>`Authorization: Token` header is missing or
       malformed</li><li>API token value is missing from the header</li><li>API
       token does not have permission. For more information about token types and
       permissions, see [Manage API
-      tokens](/influxdb/latest/security/tokens/)</li> |
+      tokens](/influxdb/latest/security/tokens/)</li></ul> |
 
       | `404`       | Not found                | Requested resource was not
       found. `message` in the response body provides details about the requested
@@ -16560,6 +17485,8 @@ tags:
 
       #### Related guides
 
+
+      - [Get started with tasks](/influxdb/v2.3/process-data/get-started/)
 
       - [Common data processing
       tasks](/influxdb/v2.3/process-data/common-tasks/)
