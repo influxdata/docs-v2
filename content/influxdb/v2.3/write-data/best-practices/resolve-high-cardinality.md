@@ -21,7 +21,7 @@ Take steps to understand and resolve high series cardinality.
 
 {{% oss-only %}}
 
-  IndexDB indexes the following data elements to speed up reads:
+  InfluxDB indexes the following data elements to speed up reads:
   - [measurement](/influxdb/v2.3/reference/glossary/#measurement)
   - [tags](/influxdb/v2.3/reference/glossary/#tag)
 

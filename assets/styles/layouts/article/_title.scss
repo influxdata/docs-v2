@@ -18,7 +18,9 @@
       border-radius: 1em;
       display: inline-block;
 
-      &.updated-in, &.date {
+      &.updated-in,
+      &.date,
+      &.flux-influxdb {
         padding: 0 0 0 .4em;
         background: none;
         font-weight: normal;
@@ -31,6 +33,13 @@
       content: "•" !important;
       display: inline;
       margin-right: .5rem;
+    }
+
+    .flux-influxdb a {
+      cursor: pointer;
+      opacity: .9;
+      transition: color .2s, opacity .2s;
+      &:hover {opacity: 1;}
     }
   }  
 }

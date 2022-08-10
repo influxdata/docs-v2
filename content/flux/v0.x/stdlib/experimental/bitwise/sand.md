@@ -28,7 +28,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.sand()` performs the bitwise operation, `a AND b`, with integers.
 
-**Deprecated**: `sand` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/sand/).
+{{% warn %}}
+#### Deprecated
+`sand` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/sand/).
+{{% /warn %}}
 
 ##### Function type signature
 

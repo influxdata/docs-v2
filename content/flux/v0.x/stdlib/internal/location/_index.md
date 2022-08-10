@@ -8,6 +8,9 @@ menu:
     parent: internal
     identifier: internal/location
 weight: 21
+cascade:
+
+  introduced: 0.149.0
 ---
 
 <!------------------------------------------------------------------------------

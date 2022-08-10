@@ -28,7 +28,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.uclear()` performs the bitwise operation `a AND NOT b`, with unsigned integers.
 
-**Deprecated**: `uclear` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/uclear/).
+{{% warn %}}
+#### Deprecated
+`uclear` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/uclear/).
+{{% /warn %}}
 
 ##### Function type signature
 
