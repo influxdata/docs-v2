@@ -87,7 +87,7 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 
 {{% cloud-only %}}
 
-### Set up a native subscription
+### Set up a Native MQTT subscription
 
 To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the following to set up a native subscription:
 
