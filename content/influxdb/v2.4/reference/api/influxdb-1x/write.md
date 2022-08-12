@@ -27,11 +27,15 @@ to the `/write` endpoint.
 <span class="api post">POST</span> http://localhost:8086/write
 </pre>
 
+{{% cloud-only %}}
+
 {{% note %}}
 If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
 you **must** [manually create a database and retention policy mapping](/influxdb/v2.4/query-data/influxql/#map-unmapped-buckets)
 to write data to that bucket with the `/write` compatibility API.
 {{% /note %}}
+
+{{% /cloud-only %}}
 
 ## Authentication
 

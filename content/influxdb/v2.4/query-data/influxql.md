@@ -17,8 +17,10 @@ related:
 
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
-In InfluxDB {{< current-version >}}, data is stored in [buckets](/influxdb/v2.4/reference/glossary/#bucket).
-Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
+InfluxDB {{< current-version >}} combines and replaces database and retention
+policies with [buckets](/influxdb/v2.4/reference/glossary/#bucket).
+Because InfluxQL uses the 1.x data model, a database and retention policy combination
+(DBRP) must be mapped to a bucket before it can be queried using InfluxQL.
 
 {{% note %}}
 #### InfluxQL reference documentation
