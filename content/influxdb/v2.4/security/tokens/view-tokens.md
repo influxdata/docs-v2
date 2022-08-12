@@ -40,7 +40,7 @@ We recommend the following for managing your tokens:
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **API Tokens**.
 
-    {{< nav-icon "load-data" >}}
+{{< nav-icon "load-data" >}}
 
 2. Click a token name in the list to view the token and a summary of access permissions.
 
@@ -50,7 +50,7 @@ We recommend the following for managing your tokens:
 
 1. In the navigation menu on the left, select **Load Data** > **API Tokens**.
 
-    {{< nav-icon "load-data" >}}
+{{< nav-icon "load-data" >}}
 
 2. Click a token description in the list to view the token status and a list of access permissions.
 
