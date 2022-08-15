@@ -9,7 +9,7 @@
    export DOCS="$HOME/github/docs-v2"
    alias gsd="cd $HOME/github/openapi && make generate-all && \
               npx oats ./contracts/ref/cloud.yml && npx oats ./contracts/ref/oss.yml && \
-              cd $DOCS/api-docs && ./getswagger.sh all -b file:///Users/jasonstirnaman/github/openapi && \
+              cd $DOCS/api-docs && ./getswagger.sh all -b file:///$HOME/github/openapi && \
               sh ./generate-api-docs.sh"
    ```
 
