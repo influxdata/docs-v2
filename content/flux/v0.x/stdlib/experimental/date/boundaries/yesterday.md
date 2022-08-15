@@ -5,12 +5,11 @@ description: >
 menu:
   flux_0_x_ref:
     name: boundaries.yesterday
-    parent: date/boundaries
-    identifier: date/boundaries/yesterday
-weight: 201
+    parent: experimental/date/boundaries
+    identifier: experimental/date/boundaries/yesterday
+weight: 301
 flux/v0.x/tags: [date/time]
-introduced: 0.172.0
-deprecated: 0.177.1
+introduced: 0.177.1
 ---
 
 <!------------------------------------------------------------------------------
@@ -22,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L48-L52
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/date/boundaries/boundaries.flux#L44-L46
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -50,7 +49,7 @@ Yesterday is relative to `now()`.
 ### Return start and stop timestamps of yesterday
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 option now = () => 2022-01-02T13:45:28Z
 
@@ -63,7 +62,7 @@ boundaries.yesterday()// Returns {start: 2022-01-01T00:00:00.000000000Z, stop: 2
 ### Query data from yesterday
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 day = boundaries.yesterday()
 

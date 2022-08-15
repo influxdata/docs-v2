@@ -5,11 +5,11 @@ description: >
 menu:
   flux_0_x_ref:
     name: boundaries.wednesday
-    parent: date/boundaries
-    identifier: date/boundaries/wednesday
-weight: 201
+    parent: experimental/date/boundaries
+    identifier: experimental/date/boundaries/wednesday
+weight: 301
 flux/v0.x/tags: [date/time]
-deprecated: 0.177.1
+introduced: 0.177.1
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L196-L200
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/date/boundaries/boundaries.flux#L186-L188
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -46,7 +46,7 @@ Last Wednesday is relative to `now()`. If today is Wednesday, the function retur
 ### Query data collected last Wednesday
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 day = boundaries.wednesday()
 

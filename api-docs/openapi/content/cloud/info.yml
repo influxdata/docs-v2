@@ -5,3 +5,4 @@ description: |
 
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
+version: Cloud 2.x

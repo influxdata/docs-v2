@@ -5,11 +5,11 @@ description: >
 menu:
   flux_0_x_ref:
     name: boundaries.saturday
-    parent: date/boundaries
-    identifier: date/boundaries/saturday
-weight: 201
+    parent: experimental/date/boundaries
+    identifier: experimental/date/boundaries/saturday
+weight: 301
 flux/v0.x/tags: [date/time]
-deprecated: 0.177.1
+introduced: 0.177.1
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L312-L316
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/date/boundaries/boundaries.flux#L296-L298
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -49,7 +49,7 @@ Last Saturday is relative to `now()`. If today is Saturday, the function returns
 ### Return start and stop timestamps of last Saturday
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 option location = timezone.fixed(offset: -8h)
 option now = () => 2021-12-30T00:40:44Z
@@ -63,7 +63,7 @@ boundaries.saturday()// Returns {start: 2022-12-25T08:00:00Z, stop:2022-12-26T08
 ### Query data collected last Saturday
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 day = boundaries.saturday()
 

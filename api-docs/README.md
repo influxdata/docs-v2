@@ -1,5 +1,32 @@
 # API reference documentation
 
+## TL;DR: validate and test your local `influxdata/openapi` changes
+
+1. After you've edited `influxdata/openapi` definitions, you need to generate and validate contracts and test the API reference docs.
+   To create a shell alias that does this, open your `~/.profile` in an editor and add the following commands to the file:
+
+   ```sh
+   export DOCS="$HOME/github/docs-v2"
+   alias gsd="cd $HOME/github/openapi && make generate-all && \
+              npx oats ./contracts/ref/cloud.yml && npx oats ./contracts/ref/oss.yml && \
+              cd $DOCS/api-docs && ./getswagger.sh all -b file:///$HOME/github/openapi && \
+              sh ./generate-api-docs.sh"
+   ```
+
+2. To refresh your environment with the `~/.profile` changes, enter the following command into your terminal:
+
+   ```sh
+   source ~/.profile
+   ```
+
+3. To run the alias, enter the following command into your terminal:
+
+   ```sh
+   gsd
+   ```
+
+`gsd` generates the local contracts in `~/github/openapi`, validates them with OATS, bundles and lints them with `@redocly/cli`, and then generates the HTML with `@redocly/cli`.
+
 ## Update API docs for InfluxDB Cloud
 
 1. In your `docs-v2` directory, create a branch for your changes--for example:
