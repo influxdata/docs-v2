@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L152-L169
+https://github.com/influxdata/flux/blob/master/stdlib/testing/testing.flux#L144-L155
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -48,9 +48,9 @@ The exact diff produced may change.
 (
     <-got: stream[A],
     want: stream[A],
-    ?epsilon: float,
-    ?nansEqual: bool,
-    ?verbose: bool,
+    ?epsilon: B,
+    ?nansEqual: C,
+    ?verbose: D,
 ) => stream[{A with _diff: string}]
 ```
 
@@ -114,17 +114,26 @@ testing.diff(got: got, want: want)
 
 #### Input data
 
-| *tag | _diff  | _time                | _value  |
-| ---- | ------ | -------------------- | ------- |
-| t1   | -      | 2021-01-01T00:00:30Z | 17      |
-| t1   | +      | 2021-01-01T00:00:30Z | 18      |
+| _diff  | *tag | _time                | _value  |
+| ------ | ---- | -------------------- | ------- |
+|        | t1   | 2021-01-01T00:00:00Z | -2      |
+|        | t1   | 2021-01-01T00:00:10Z | 10      |
+|        | t1   | 2021-01-01T00:00:20Z | 7       |
+| -      | t1   | 2021-01-01T00:00:30Z | 17      |
+| +      | t1   | 2021-01-01T00:00:30Z | 18      |
+|        | t1   | 2021-01-01T00:00:40Z | 15      |
+|        | t1   | 2021-01-01T00:00:50Z | 4       |
 
-| *tag | _diff  | _time                | _value  |
-| ---- | ------ | -------------------- | ------- |
-| t2   | -      | 2021-01-01T00:00:00Z | 19      |
-| t2   | +      | 2021-01-01T00:00:00Z | 20      |
-| t2   | -      | 2021-01-01T00:00:30Z | 19      |
-| t2   | +      | 2021-01-01T00:00:30Z | 20      |
+| _diff  | *tag | _time                | _value  |
+| ------ | ---- | -------------------- | ------- |
+| -      | t2   | 2021-01-01T00:00:00Z | 19      |
+| +      | t2   | 2021-01-01T00:00:00Z | 20      |
+|        | t2   | 2021-01-01T00:00:10Z | 4       |
+|        | t2   | 2021-01-01T00:00:20Z | -3      |
+| -      | t2   | 2021-01-01T00:00:30Z | 19      |
+| +      | t2   | 2021-01-01T00:00:30Z | 20      |
+|        | t2   | 2021-01-01T00:00:40Z | 13      |
+|        | t2   | 2021-01-01T00:00:50Z | 1       |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
