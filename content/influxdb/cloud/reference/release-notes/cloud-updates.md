@@ -22,7 +22,7 @@ Request a proof of concept (POC) from the help options in the InfluxDB Cloud UI.
 
 ### Accessible graph color options
 
-To ensure accessibility of our graphing functionality to colorblind users, we added two additional colorblind-friendly color pallet graph customization options.
+To ensure graphing functionality is accessible to colorblind users, we added two additional colorblind-friendly color pallet graph customization options.
 
 ### Sample IoT application and code snippets for Python
 
