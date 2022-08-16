@@ -80,7 +80,7 @@ azure auth=ENV
 **{{< cloud-name "short" >}}** and **InfluxDB OSS** _**do not**_ have access to
 the underlying file system and do not support reading credentials from a file.
 To retrieve SQL Server credentials from a file, execute the query in the
-[Flux REPL](/{{< latest "influxdb" >}}/tools/repl/) on your local machine.
+[Flux REPL](/{{< latest "influxdb" >}}/tools/flux-repl/) on your local machine.
 {{% /warn %}}
 
 ```powershel
