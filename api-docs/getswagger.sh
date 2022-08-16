@@ -103,7 +103,7 @@ function postProcess() {
   # npm_config_yes=true npx overrides the prompt
   # and (vs. npx --yes) is compatible with npm@6 and npm@7.
   specPath=$1
-  version="$2"
+  platform="$2"
   apiVersion="$3"
 
   openapiCLI=" @redocly/cli"
@@ -111,12 +111,18 @@ function postProcess() {
   npx --version
 
   # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
+  # If you want to lint the source contract (before bundling),
+  # pass `--lint` to the `bundle` command.
   INFLUXDB_API_VERSION=$apiVersion \
-  INFLUXDB_VERSION=$version \
+  INFLUXDB_PLATFORM=$platform \
   npm_config_yes=true \
   npx $openapiCLI bundle $specPath \
-    --config=./.redocly.yaml \
-    -o $specPath
+    -o $specPath \
+    --config=./.redocly.yaml
+
+  # Lint the bundle output.
+  npx $openapiCLI lint $specPath \
+    --max-problems 2
 }
 
 function updateCloud {
