@@ -91,7 +91,7 @@ import "internal/debug"
 array.from(
     rows: [
         {a: 1, b: 2, c: 3, d: "four"},
-        {a: debug.null("int"), b: 5, c: 6, d: debug.null("string")}
+        {a: debug.null(type: "int"), b: 5, c: 6, d: debug.null(type: "string")}
     ]
 )
 ```
