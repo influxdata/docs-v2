@@ -9,11 +9,12 @@ menu:
   influxdb_cloud:
     name: Query with InfluxQL
     parent: Query data
-related:
-  - /influxdb/cloud/reference/api/influxdb-1x/
-  - /influxdb/cloud/reference/api/influxdb-1x/query
-  - /influxdb/cloud/reference/api/influxdb-1x/dbrp
-  - /influxdb/cloud/tools/influxql-shell/
+cascade:
+  related:
+    - /influxdb/cloud/reference/api/influxdb-1x/
+    - /influxdb/cloud/reference/api/influxdb-1x/query
+    - /influxdb/cloud/reference/api/influxdb-1x/dbrp
+    - /influxdb/cloud/tools/influxql-shell/
 ---
 
 {{< duplicate-oss >}}

@@ -31,7 +31,7 @@ to the `/write` endpoint.
 
 {{% note %}}
 If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
-you **must** [manually create a database and retention policy mapping](/influxdb/v2.4/query-data/influxql/#map-unmapped-buckets)
+you **must** [manually create a database and retention policy mapping](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings)
 to write data to that bucket with the `/write` compatibility API.
 {{% /note %}}
 

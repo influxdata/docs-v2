@@ -49,7 +49,7 @@ are mapped to buckets using the `database-name/retention-policy` naming conventi
 **DBRP mappings are required to query InfluxDB {{< current-version >}} using InfluxQL.**
 
 For information, see [DBRP mapping](/influxdb/v2.4/reference/api/influxdb-1x/dbrp/){{% oss-only %}}.{{% /oss-only %}}
-{{% cloud-only %}}and [Map unmapped buckets](/influxdb/v2.4/query-data/influxql/#map-unmapped-buckets).{{% /cloud-only %}}
+{{% cloud-only %}}and [Create DBRP mappings](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings).{{% /cloud-only %}}
       {{% /note %}}
 
 3. Click **Add Connection**.

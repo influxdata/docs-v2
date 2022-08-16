@@ -121,7 +121,7 @@ If using the Kapacitor `InfluxDBOut` node to write data to InfluxDB {{< current-
 InfluxDB maps the specified database and retention policy to a corresponding bucket.
 You can also manually map database/retention policy combinations (DBRPs) to buckets.
 For more information, see [DBRP mapping](/influxdb/v2.4/reference/api/influxdb-1x/dbrp/){{% oss-only %}}.{{% /oss-only %}}
-{{% cloud-only %}}and [Map unmapped buckets](/influxdb/v2.4/query-data/influxql/#map-unmapped-buckets).{{% /cloud-only %}}
+{{% cloud-only %}}and [Create DBRP mappings](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings).{{% /cloud-only %}}
 
 The following example TICKscript writes to the `my-db/my-rp` bucket in
 InfluxDB Cloud or InfluxDB OSS {{< current-version >}}.
