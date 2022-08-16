@@ -5,11 +5,11 @@ description: >
 menu:
   flux_0_x_ref:
     name: boundaries.month
-    parent: date/boundaries
-    identifier: date/boundaries/month
-weight: 201
+    parent: experimental/date/boundaries
+    identifier: experimental/date/boundaries/month
+weight: 301
 flux/v0.x/tags: [date/time]
-deprecated: 0.177.1
+introduced: 0.177.1
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L406-L414
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/date/boundaries/boundaries.flux#L386-L392
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -59,7 +59,7 @@ Use a positive offset to return boundaries for future months.
 ### Return start and stop timestamps for the current month
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 option now = () => 2022-05-10T10:10:00Z
 
@@ -72,7 +72,7 @@ boundaries.month()// Returns {start:2022-05-01T00:00:00.000000000Z, stop:2022-06
 ### Query data from this month
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 thisMonth = boundaries.month()
 
@@ -85,7 +85,7 @@ from(bucket: "example-bucket")
 ### Query data from last month
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 lastMonth = boundaries.month(month_offset: -1)
 

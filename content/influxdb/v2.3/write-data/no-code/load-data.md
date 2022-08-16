@@ -17,7 +17,7 @@ Load data from the following sources in the InfluxDB user interface (UI):
 - [Line protocol](#load-data-using-line-protocol)
 - [Client libraries](#load-data-from-a-client-library-in-the-ui)
 - [Telegraf plugins](#load-data-from-a-telegraf-plugin-in-the-ui)
-- {{% cloud-only %}}[Native subscriptions](#set-up-a-native-subscription){{% /cloud-only %}}
+- {{% cloud-only %}}[Native MQTT subscriptions](#set-up-a-native-mqtt-subscription){{% /cloud-only %}}
 
 ### Load CSV or line protocol in UI
 
@@ -87,7 +87,7 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 
 {{% cloud-only %}}
 
-### Set up a native subscription
+### Set up a Native MQTT subscription
 
 To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the following to set up a native subscription:
 
@@ -168,7 +168,7 @@ Associate **JSON** key/value pairs with **InfluxDB elements** (measurements, tim
 "device_id":2036,
 "model_id":"KN24683",
 "temperature":25.0,
-"time":1653998899010000000
+"time":1653998899010000000,
 "error_state":"in_error"
 }
 ```

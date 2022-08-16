@@ -10,6 +10,27 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.178.0 [2022-08-09]
+
+### Features
+- Support `apiKey` parameter in [`zenoss.event()`](/flux/v0.x/stdlib/contrib/bonitoo-io/zenoss/event/)
+  and [`zenoss.endpoint()`](/flux/v0.x/stdlib/contrib/bonitoo-io/zenoss/endpoint/).
+- Remove `vectorizedConst` feature flag.
+
+### Bug fixes
+- Deprecate `date/boundaries` package in favor of [`experimental/date/boundaries`](/flux/v0.x/stdlib/experimental/date/boundaries/).
+- Update pattern matching to specify successor counts.
+- Restore integer return value for [`pagerduty.sendEvent()`](/flux/v0.x/stdlib/pagerduty/sendevent/).
+
+---
+
+## v0.177.1 [2022-08-08]
+
+### Bug fixes
+- Update `strings.substring()` to check bounds using rune array instead of string length.
+
+---
+
 ## v0.177.0 [2022-08-01]
 
 ### Features

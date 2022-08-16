@@ -1,15 +1,15 @@
 ---
-title: boundaries.saturday() function
+title: boundaries.tuesday() function
 description: >
-  `boundaries.saturday()` returns a record with `start` and `stop` boundary timestamps for last Saturday.
+  `boundaries.tuesday()` returns a record with `start` and `stop` boundary timestamps of last Tuesday.
 menu:
   flux_0_x_ref:
-    name: boundaries.saturday
-    parent: date/boundaries
-    identifier: date/boundaries/saturday
-weight: 201
+    name: boundaries.tuesday
+    parent: experimental/date/boundaries
+    identifier: experimental/date/boundaries/tuesday
+weight: 301
 flux/v0.x/tags: [date/time]
-deprecated: 0.177.1
+introduced: 0.177.1
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,16 +21,16 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L312-L316
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/date/boundaries/boundaries.flux#L149-L151
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`boundaries.saturday()` returns a record with `start` and `stop` boundary timestamps for last Saturday.
+`boundaries.tuesday()` returns a record with `start` and `stop` boundary timestamps of last Tuesday.
 
-Last Saturday is relative to `now()`. If today is Saturday, the function returns boundaries for the previous Saturday.
+Last Tuesday is relative to `now()`. If today is Tuesday, the function returns boundaries for the previous Tuesday.
 
 ##### Function type signature
 
@@ -43,29 +43,29 @@ Last Saturday is relative to `now()`. If today is Saturday, the function returns
 
 ## Examples
 
-- [Return start and stop timestamps of last Saturday](#return-start-and-stop-timestamps-of-last-saturday)
-- [Query data collected last Saturday](#query-data-collected-last-saturday)
+- [Return start and stop timestamps of last Tuesday](#return-start-and-stop-timestamps-of-last-tuesday)
+- [Query data collected last Tuesday](#query-data-collected-last-tuesday)
 
-### Return start and stop timestamps of last Saturday
+### Return start and stop timestamps of last Tuesday
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
 option location = timezone.fixed(offset: -8h)
 option now = () => 2021-12-30T00:40:44Z
 
-boundaries.saturday()// Returns {start: 2022-12-25T08:00:00Z, stop:2022-12-26T08:00:00Z }
+boundaries.tuesday()// Returns {start: 2021-12-28T08:00:00Z, stop:2021-12-29T08:00:00Z }
 
 
 ```
 
 
-### Query data collected last Saturday
+### Query data collected last Tuesday
 
 ```js
-import "date/boundaries"
+import "experimental/date/boundaries"
 
-day = boundaries.saturday()
+day = boundaries.tuesday()
 
 from(bucket: "example-bucket")
     |> range(start: day.start, stop: day.stop)

@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/zenoss/zenoss.flux#L204-L243
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/zenoss/zenoss.flux#L217-L258
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -53,28 +53,29 @@ For more information, see `zenoss.event()` parameters.
 
 ```js
 (
-    password: string,
     url: string,
-    username: string,
     ?action: A,
-    ?method: B,
-    ?tid: C,
-    ?type: D,
+    ?apiKey: B,
+    ?method: C,
+    ?password: string,
+    ?tid: D,
+    ?type: E,
+    ?username: string,
 ) => (
     mapFn: (
-        r: E,
+        r: F,
     ) => {
-        F with
-        summary: N,
-        severity: M,
-        message: L,
-        eventClassKey: K,
-        eventClass: J,
-        device: I,
-        component: H,
-        collector: G,
+        G with
+        summary: O,
+        severity: N,
+        message: M,
+        eventClassKey: L,
+        eventClass: K,
+        device: J,
+        component: I,
+        collector: H,
     },
-) => (<-tables: stream[E]) => stream[{E with _sent: string}]
+) => (<-tables: stream[F]) => stream[{F with _sent: string}] where B: Equatable
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
@@ -88,16 +89,23 @@ Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource
 
 
 ### username
-({{< req >}})
+
 Zenoss username to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
 
 
 ### password
-({{< req >}})
+
 Zenoss password to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
+
+
+
+### apiKey
+
+Zenoss cloud API key.
+Default is `""` (no API key).
 
 
 
