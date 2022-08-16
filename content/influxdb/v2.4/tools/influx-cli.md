@@ -222,6 +222,31 @@ For more information about managing CLI configurations, see the
 
 For instructions on how to create API tokens, see [Create a token](/influxdb/v2.4/security/tokens/create-token/).
 
+{{% oss-only %}}
+
+#### Authenticate with a username and password
+
+The **`influx` CLI 2&period;4.0+** lets you create connection configurations
+that authenticate with **InfluxDB OSS 2&period;4+** using the username and
+password combination that you would use to log into the InfluxDB user interface (UI).
+The CLI retrieves a session cookie and stores it, unencrypted, in your
+[configs path](/influxdb/v2.4/reference/internals/file-system-layout/#configs-path).
+
+Use the `--username-password`, `-p` option to provide your username and password
+using the `<username>:<password>` syntax.
+If no password is provided, the CLI will prompt for a password after each
+command that requires authentication.
+
+```sh
+influx config create \
+  -n config-name \
+  -u http://localhost:8086 \
+  -p example-user:example-password \
+  -o example-org
+```
+
+{{% /oss-only %}}
+
 ### Enable shell completion (Optional)
 
 To install `influx` shell completion scripts, see
