@@ -18,7 +18,7 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ### Request a proof of concept from the UI
 
-Request a proof of concept (POC) from the help options in the Cloud UI. Sales will contact the user to work with them on a POC customized to their data and use case.
+Request a proof of concept (POC) from the help options in the InfluxDB Cloud UI. A sales representative will contact you to customize a POC for your data and use case.
 
 ### Accessible graph color options
 
