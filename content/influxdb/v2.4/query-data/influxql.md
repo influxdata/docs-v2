@@ -13,6 +13,7 @@ related:
   - /influxdb/v2.4/reference/api/influxdb-1x/
   - /influxdb/v2.4/reference/api/influxdb-1x/query
   - /influxdb/v2.4/reference/api/influxdb-1x/dbrp
+  - /influxdb/v2.4/tools/influxql-shell/
 ---
 
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
@@ -194,6 +195,44 @@ it will overwrite the existing DBRP mapping.
 
 ## Query a mapped bucket with InfluxQL
 
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[InfluxQL Shell](#)
+[InfluxDB API](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!---------------------------- BEGIN InfluxQL shell --------------------------->
+
+The [`influx` CLI](/influxdb/v2.4/tools/influx-cli/) provides an InfluxQL shell
+where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
+
+{{% note %}}
+If you haven't already, be sure to do the following:
+
+- [Download and install the `influx` CLI](/influxdb/v2.4/tools/influx-cli/#install-the-influx-cli)
+- [Configure your authentication credentials](/influxdb/v2.4/tools/influx-cli/#provide-required-authentication-credentials)
+{{% /note %}}
+
+Use the following command to start an InfluxQL shell:
+
+```sh
+influx v1 shell
+```
+
+Execute an InfluxQL query inside the InfluxQL shell.
+
+```sql
+> SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
+```
+
+For more information about using the InfluxQL shell, see
+[Use the InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/).
+
+<!----------------------------- END InfluxQL shell ---------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN InfluxDB API ---------------------------->
+
 The [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/) supports
 all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-version >}}.
 
@@ -218,6 +257,10 @@ curl --get http://localhost:8086/query?db=example-db \
 
 By default, the `/query` compatibility endpoint returns results in **JSON**.
 To return results as **CSV**, include the `Accept: application/csv` header.
+
+<!------------------------------ END InfluxDB API ----------------------------->
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ## InfluxQL support
 

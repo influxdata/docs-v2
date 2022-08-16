@@ -8,6 +8,12 @@ menu:
     parent: influx v1
 weight: 101
 influxdb/v2.4/tags: [authorization]
+cascade:
+  related:
+    - /influxdb/v2.4/upgrade/v1-to-v2/
+    - /influxdb/v2.4/reference/api/influxdb-1x/
+    - /influxdb/v2.4/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.4/reference/cli/influx/#flag-patterns-and-conventions, `influx` CLI—Flag patterns and conventions
 ---
 
 The `influx v1 auth` subcommands provide authorization management for the

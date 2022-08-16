@@ -139,7 +139,7 @@ curl --request POST \
 
 {{% warn %}}
 #### Flux version in the Flux REPL
-When you run `runtime.version()` in the [Flux REPL](/influxdb/v2.4/tools/repl/),
+When you run `runtime.version()` in the [Flux REPL](/influxdb/v2.4/tools/flux-repl/),
 the function returns the version of Flux the REPL was built with, not the version
 of Flux installed in the instance of InfluxDB you're querying.
 {{% /warn %}}
