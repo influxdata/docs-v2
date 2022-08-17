@@ -44,12 +44,12 @@ Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS {{< curren
 
         {{% note %}}
 #### DBRPs map to InfluxDB buckets
-In InfluxDB Cloud and InfluxDB OSS {{< current-version >}}, database/retention-policy (DBRP) combinations
+In InfluxDB {{< current-version >}}, database/retention-policy (DBRP) combinations
 are mapped to buckets using the `database-name/retention-policy` naming convention.
-**DBRP mappings are required to query InfluxDB OSS 2.x or InfluxDB Cloud using InfluxQL.**
+**DBRP mappings are required to query InfluxDB {{< current-version >}} using InfluxQL.**
 
-For information, see [DBRP mapping](/influxdb/v2.4/reference/api/influxdb-1x/dbrp/)
-and [Map unmapped buckets](/influxdb/v2.4/query-data/influxql/#map-unmapped-buckets).
+For information, see [DBRP mapping](/influxdb/v2.4/reference/api/influxdb-1x/dbrp/){{% oss-only %}}.{{% /oss-only %}}
+{{% cloud-only %}}and [Create DBRP mappings](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings).{{% /cloud-only %}}
       {{% /note %}}
 
 3. Click **Add Connection**.

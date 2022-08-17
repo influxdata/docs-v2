@@ -17,7 +17,7 @@ related:
   - /influxdb/v2.4/query-data/influxql
 ---
 
-The `/query` 1.x compatibility endpoint queries InfluxDB Cloud and InfluxDB OSS {{< current-version >}} using **InfluxQL**.
+The `/query` 1.x compatibility endpoint queries InfluxDB {{< current-version >}} using **InfluxQL**.
 Use the `GET` request method to query data from the `/query` endpoint.
 
 <pre>
@@ -28,11 +28,15 @@ The `/query` compatibility endpoint uses the **database** and **retention policy
 specified in the query request to map the request to an InfluxDB bucket.
 For more information, see [Database and retention policy mapping](/influxdb/v2.4/reference/api/influxdb-1x/dbrp).
 
+{{% cloud-only %}}
+
 {{% note %}}
 If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
-you **must** [manually create a database and retention policy mapping](/influxdb/v2.4/query-data/influxql/#map-unmapped-buckets)
+you **must** [manually create a database and retention policy mapping](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings)
 to query that bucket with the `/query` compatibility API.
 {{% /note %}}
+
+{{% /cloud-only %}}
 
 ## Authentication
 
