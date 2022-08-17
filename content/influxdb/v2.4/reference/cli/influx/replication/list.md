@@ -7,8 +7,6 @@ menu:
     parent: influx replication
 weight: 102
 influxdb/v2.4/tags: [write, replication]
-related:
-  - /influxdb/v2.4/reference/cli/influx/replication
 ---
 
 {{% cloud %}}

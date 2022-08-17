@@ -7,8 +7,10 @@ menu:
     parent: influx
 weight: 101
 influxdb/v2.4/tags: [write, replication]
-related:
-  - /influxdb/v2.4/reference/cli/influx/remote
+cascade:
+  related:
+    - /influxdb/v2.4/reference/cli/influx/remote
+    - /influxdb/v2.4/write-data/replication/replicate-data/
 ---
 
 The `influx replication` command and its subcommands manage InfluxDB Edge Data Replication.
