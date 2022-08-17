@@ -12,24 +12,39 @@ weight: 101
 
 ### Features
 
-- Add back the InfluxQL REPL.
-- Add UDP Support to 2.x.
-- Support InfluxDB 1.x dbrp names as bucket IDs in replications API.
-- Change to operator model so that `admin` user has instance-level permissions without operator token.
-- Automate dbrp mappings.
-- Instance reporting replication stream error when no replications are present.
+- Add the [InfluxQL shell (REPL)](/influxdb/v2.4/reference/cli/influx/v1/shell/).
+- Support [InfluxDB 1.x dbrp](/influxdb/v2.4/query-data/influxql/dbrp) names as bucket IDs in `replications` API.
+- Change to operator model so that `admin` user has instance-level permissions without `operator` token.
 
-#### Flux updates
-- Fix panic from `CreateIterator` in Flux queries. 
+#### Flux update highlights
+- Add multiple new join functions to the [`join package`](/flux/v0.x/stdlib/join/), including [join.full()](/flux/v0.x/stdlib/join/full/).
+- Promote experimental.to() to [influxdb.wideTo()](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
+- Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) parameter to [derivative() function](/flux/v0.x/stdlib/universe/derivative/).
+- Promote the following functions from experimental.array into the [`array package`](/flux/v0.x/stdlib/array/): 
+  - array.concat()
+  - array.filter()
+  - array.map()
+- Promote the following functions from experimental.http.requests into the [`http.requests package`](flux/v0.x/stdlib/http/requests/): 
+  - http.requests.do() 
+  - http.requests.get()
+  - http.requests.peek()
+  - http.requests.post()
+- Promote experimental.bitwise into the [`bitwise package`](/flux/v0.x/stdlib/bitwise/). 
+- Add new [experimental.catch()](/flux/v0.x/stdlib/experimental/catch/) and [testing.shouldError()](/flux/v0.x/stdlib/testing/shoulderror/) functions.
+- Support conditional expressions, constants, and literals in vectorized [map()](flux/v0.x/stdlib/universe/map/).
+- Optimize [holtWinters() function](/flux/v0.x/stdlib/universe/holtwinters/) and redundant sorts.
 
 ### Bug fixes
 
+- Log the log level at startup.
+- Fix panic from `CreateIterator` in Flux queries.
+- Fix error-caching in bufio.Writer.
 - Remove MATCHER_BEHAVIOR environment variable.
-- Fix InfluxQL shell being unresponsive if query results are empty.
 
 ### Maintenance 
 
 - Upgrade to [Go 1.18.4](https://go.dev/doc/go1.18).
+- Upgrade to [Flux 0.177.0](/flux/v0.x/release-notes/#v01770-2022-08-01).
 
 ## v2.3.0 [2022-6-17]
 
