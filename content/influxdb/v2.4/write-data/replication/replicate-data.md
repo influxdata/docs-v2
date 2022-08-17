@@ -74,10 +74,10 @@ a replication stream.
 
     ```sh
     influx replication create \
-      --name example-replication-stream-name \
-      --remote-id 00xoXXXo0X0x \
-      --local-bucket-id Xxxo00Xx000o \
-      --remote-bucket example-remote-bucket
+      --name REPLICATION_STREAM_NAME \
+      --remote-id REPLICATION_REMOTE_ID \
+      --local-bucket-id INFLUX_BUCKET_ID \
+      --remote-bucket REMOTE_INFLUX_BUCKET_NAME
     ```
 
 Once a replication stream is created, InfluxDB {{% oss-only %}}OSS{{% /oss-only %}}
@@ -93,9 +93,7 @@ max queue size, and latest status code.
 
 <!--------------------------------- BEGIN API --------------------------------->
 
-1.  In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use
-    the `/api/v2/remotes` endpoint with the `POST` request method to create a
-    remote connection to replicate data to.
+1.  Send a `POST` request to your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS  `/api/v2/remotes` endpoint to create a remote connection to replicate data to.
 
     {{< keep-url >}}
     <a href="/influxdb/v2.4/api/#operation/PostRemoteConnection">
@@ -160,7 +158,7 @@ max queue size, and latest status code.
       --header 'Authorization: Token INFLUX_OSS_TOKEN' \
     ```
 
-2.  In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use the
+2.  Send a `POST` request to your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS 
     `/api/v2/replications` endpoint to create a replication stream.
 
     {{< keep-url >}}
@@ -210,11 +208,11 @@ curl --request POST http://localhost:8086/api/v2/replications \
 ```
 
 Once a replication stream is created, InfluxDB {{% oss-only %}}OSS{{% /oss-only %}}
-will replicate all writes to the specified bucket to the {{% oss-only %}}remote {{% /oss-only %}}
+will replicate all writes from the specified local bucket to the {{% oss-only %}}remote {{% /oss-only %}}
 InfluxDB {{% cloud-only %}}Cloud {{% /cloud-only %}}bucket.
-Use the `/api/v2/replications` endpoint with the `GET` request method to return
+To get
 information such as the current queue size, max queue size, and latest status
-code for each replication stream.
+code for each replication stream, send a `GET` request to your {{% oss-only %}}local{{% /oss-only %}} InfluxDB  OSS `/api/v2/replications` endpoint.
 
 {{< keep-url >}}
 <a href="/influxdb/v2.4/api/#operation/GetReplications">
