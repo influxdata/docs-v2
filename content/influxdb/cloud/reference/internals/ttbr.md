@@ -2,7 +2,7 @@
 title: Time To Become Readable
 description: >
   **Time To Become Readable (TTBR)** is the delay between when you write data to
-  InfluxDB Cloud and and when that data becomes queryable.
+  InfluxDB Cloud and when that data becomes queryable.
   TTBR is variable and is affected by many factors.
 menu:
   influxdb_cloud_ref:
@@ -16,7 +16,7 @@ related:
 ---
 
 **Time To Become Readable (TTBR)** is the delay between when you write data to
-InfluxDB Cloud and and when that data becomes queryable.
+InfluxDB Cloud and when that data becomes queryable.
 TTBR is variable and is affected by many factors.
 
 - [How write requests work in the InfluxDB Cloud API](#how-write-requests-work-in-the-influxdb-cloud-api)
@@ -25,11 +25,11 @@ TTBR is variable and is affected by many factors.
 
 ## How write requests work in the InfluxDB Cloud API
 
-Whenever you send a write request to the `/api/v2/write` endpoint, the following occurs:
+Whenever you send a write request to the `/api/v2/write` endpoint, the following actions occur:
 
-- Validates the request and queues the write.
-- If the write is queued, responds with an HTTP 204 status code.
-- Handles the write asynchronously and reaches eventual consistency.
+1. API validates the request and queues the write.
+2. If the write is queued, API responds with an HTTP 204 status code.
+3. API handles the write asynchronously and reaches eventual consistency.
 
 _For more information, see [`/api/v2/write` documentation](/influxdb/cloud/api/#operation/PostWrite)._
 
@@ -61,7 +61,7 @@ in approximately one second.
 
 ## InfluxDB Cloud TTBRs
 
-| Write schema   | Flux |      InfluxQL      |
+| Write request to   | Flux |      InfluxQL      |
 | :------------- | :--: | :----------------: |
 | Existing field | ≈1s  |        ≈1s         |
-| New field      | ≈1s  | ≈10m but up to 15m |
+| New field      | ≈1s  | ≈10m to 15m |
