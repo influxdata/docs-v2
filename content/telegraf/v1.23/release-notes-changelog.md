@@ -23,7 +23,7 @@ menu:
 - Cloudwatch (`cloudwatch`): Customizable batch size when querying.
 - Kube Inventory (`kube_inventory`): Send file location to enable token auto-refresh.
 - Kubernetes (`kubernetes`): Refresh token from file at each read.
-- MongoDB (`mongodb`): Update version.
+- MongoDB (`mongodb`): Update to most recent version.
 - OPC UA (`opcua`): Return an error with mismatched types.
 - SQL server (`sqlserver`): Set lower deadlock priority.
 - Stackdriver (`stackdriver`) Handle when no buckets available.
