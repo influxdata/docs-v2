@@ -10,7 +10,7 @@ menu:
     name: Release notes
     weight: 60
 ---
-## v1.23.3 [2022-08-17]
+## v1.23.4 [2022-08-16]
 
 - Bump `github.com/lxc/lxd` to be able to run tests.
 - Sync sql output and input build constraints to handle loong64 in go1.19.
