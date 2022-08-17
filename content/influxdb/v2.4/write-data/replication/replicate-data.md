@@ -104,7 +104,7 @@ max queue size, and latest status code.
 
     - **Request method:** `POST`
     - **Headers:**
-      - **Authorization:** `Token` schema with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.4/security/tokens/)
+      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.4/security/tokens/)
       - **Content-type:** `application/json`
     - **Request body:** JSON object with the following fields:  
       {{< req type="key" >}}
@@ -147,7 +147,7 @@ max queue size, and latest status code.
 
     - **Request method:** `GET`
     - **Headers:**
-      - **Authorization:** `Token` schema with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.4/security/tokens/)
+      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.4/security/tokens/)
     - **Query parameters:**
       - **orgID:** {{% oss-only %}}Local{{% /oss-only %}} InfluxDB OSS organization ID
 
@@ -170,7 +170,7 @@ max queue size, and latest status code.
 
     - **Request method:** `POST`
     - **Headers:**
-      - **Authorization:** `Token` schema with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.4/security/tokens/)
+      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.4/security/tokens/)
       - **Content-type:** `application/json`
     - **Request body:** JSON object with the following fields:
       {{< req type="key" >}}
@@ -223,7 +223,7 @@ Include the following in your request:
 
 - **Request method:** `GET`
 - **Headers:**
-  - **Authorization:** `Token` schema with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.4/security/tokens/)
+  - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.4/security/tokens/)
 - **Query parameters:**
   - **orgID:** {{% oss-only %}}Local{{% /oss-only %}} InfluxDB OSS organization ID
 
