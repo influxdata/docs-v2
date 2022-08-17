@@ -20,7 +20,6 @@ The following task options are available:
 - [every](#every)
 - [cron](#cron)
 - [offset](#offset)
-- [concurrency](#concurrency)
 
 {{% note %}}
 `every` and `cron` are mutually exclusive, but at least one is required.
