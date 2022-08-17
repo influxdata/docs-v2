@@ -11,7 +11,7 @@ menu:
 weight: 201
 
 introduced: 0.155.0
-deprecated: 0.172.0
+deprecated: 0.173.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -33,7 +33,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `array.filter()` iterates over an array, evaluates each element with a predicate function, and then returns
 a new array with only elements that match the predicate.
 
-**Deprecated**: `filter()` is deprecated in favor of [`filter()`](https://docs.influxdata.com/flux/v0.x/stdlib/array/filter).
+{{% warn %}}
+#### Deprecated
+`filter()` is deprecated in favor of [`filter()`](/flux/v0.x/stdlib/array/filter).
+{{% /warn %}}
 
 ##### Function type signature
 

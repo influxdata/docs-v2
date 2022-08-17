@@ -8,6 +8,7 @@ menu:
     parent: contrib/sranka/teams
     identifier: contrib/sranka/teams/endpoint
 weight: 301
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------
@@ -28,7 +29,20 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `teams.endpoint()` sends a message to a Microsoft Teams channel using data from table rows.
 
+### Usage
+`teams.endpoint` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
 
+#### mapFn
+A function that builds the object used to generate the POST request. Requires an `r` parameter.
+
+`mapFn` accepts a table row (`r`) and returns an object that must include the following fields:
+
+- `title`
+- `text`
+- `summary`
+
+For more information, see `teams.message` parameters.
 
 ##### Function type signature
 
@@ -49,4 +63,28 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 Incoming webhook URL.
 
 
+
+
+## Examples
+
+### Send critical statuses to a Microsoft Teams channel
+
+```js
+import "contrib/sranka/teams"
+
+url = "https://outlook.office.com/webhook/example-webhook"
+endpoint = teams.endpoint(url: url)
+
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+
+crit_statuses
+    |> endpoint(
+        mapFn: (r) =>
+            ({title: "Disk Usage", text: "Disk usage is: **${r.status}**.", summary: "Disk usage is ${r.status}"}),
+    )()
+
+```
 

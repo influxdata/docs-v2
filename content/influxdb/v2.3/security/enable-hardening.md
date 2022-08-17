@@ -25,15 +25,16 @@ when starting InfluxDB.
 ### Private IP Validation
 
 Some Flux functions ([`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/),
-[`from()`](/flux/v0.x/stdlib/influxdata/influxdb/from/), [`http.post()`](/flux/v0.x/stdlib/http/post/), etc.)
-and [template fetching](/influxdb/v2.3/influxdb-templates/) can require InfluxDB to make
-HTTP requests over the network.
+[`from()`](/flux/v0.x/stdlib/influxdata/influxdb/from/), [`http.post()`](/flux/v0.x/stdlib/http/post/), etc.),
+[template fetching](/influxdb/v2.3/influxdb-templates/) and
+[notification endpoints](influxdb/v2.3/monitor-alert/notification-endpoints/)
+can require InfluxDB to make HTTP requests over the network.
 With private IP validation enabled, InfluxDB first verifies that the IP address of the URL is not a private IP address.
 
 IP addresses are considered private if they fall into one of the following categories:
 
 - IPv4 loopback (`127.0.0.0/8`)
-- RFC1918 (`10.0.0.0/8`, `172.26.0.0/12`, `192.268.0.0/16`)
+- RFC1918 (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`)
 - RFC3927 (`169.254.0.0/16`)
 - IPv6 loopback (`::1/128`)
 - IPv6 link-local (`fe80::/10`)

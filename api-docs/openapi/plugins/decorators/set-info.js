@@ -11,10 +11,9 @@ function SetInfo() {
       leave(info, ctx) {
         if(data) {
           if(data.hasOwnProperty('title')) {
-             info.title =  data.title;
+             info.title = data.title;
           }
 	        if(data.hasOwnProperty('version')) {
-
              info.version = data.version;
           }
           if(data.hasOwnProperty('description')) {

@@ -28,7 +28,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.unot()` inverts every bit in `a`, an unsigned integer.
 
-**Deprecated**: `unot` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/unot/).
+{{% warn %}}
+#### Deprecated
+`unot` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/unot/).
+{{% /warn %}}
 
 ##### Function type signature
 

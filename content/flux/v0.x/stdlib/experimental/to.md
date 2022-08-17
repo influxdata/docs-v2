@@ -10,6 +10,7 @@ menu:
 weight: 101
 flux/v0.x/tags: [outputs]
 introduced: 0.40.0
+deprecated: 0.174.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L305-L315
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L311-L311
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,6 +31,12 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `experimental.to()` writes _pivoted_ data to an InfluxDB 2.x or InfluxDB Cloud bucket.
 
+{{% warn %}}
+#### Deprecated
+`experimental.to()` is deprecated in favor of [`wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/),
+which is an equivalent function.
+{{% /warn %}}
+
 #### Requirements and behavior
 - Requires both a `_time` and a `_measurement` column.
 - All columns in the group key (other than `_measurement`) are written as tags
@@ -37,7 +44,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 - All columns **not** in the group key (other than `_time`) are written as
   fields with the column name as the field key and the column value as the field value.
 
-If using the `from()` to query data from InfluxDB, use pivot() to transform
+If using `from()` to query data from InfluxDB, use `pivot()` to transform
 data into the structure `experimental.to()` expects.
 
 ##### Function type signature
@@ -76,8 +83,8 @@ _`bucket` and `bucketID` are mutually exclusive_.
 
 URL of the InfluxDB instance to write to.
 
-See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
-or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
+See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
+or [InfluxDB OSS URLs](/influxdb/latest/reference/urls/).
 `host` is required when writing to a remote InfluxDB instance.
 If specified, `token` is also required.
 

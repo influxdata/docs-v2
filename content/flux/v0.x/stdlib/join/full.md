@@ -86,7 +86,7 @@ the uncertainty of a full outer join.
 `v_left` and `v_right` still use values from `l` and `r` directly, because we expect
 them to sometimes be null in the output table.
 
-For more information about the behavior of outer joins, see the [Outer joins](https://docs.influxdata.com/flux/v0.x/stdlib/join/#outer-joins)
+For more information about the behavior of outer joins, see the [Outer joins](/flux/v0.x/stdlib/join/#outer-joins)
 section in the `join` package documentation.
 
 ```js

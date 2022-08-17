@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L445-L445
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L446-L446
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -37,7 +37,12 @@ Running the queries sequentially ensures any dependencies the second query
 has on the results of the first query are met.
 
 ##### Applicable use cases
-- Write to a bucket and query the written data in a single Flux script.
+- Write to an InfluxDB bucket and query the written data in a single Flux script.
+
+  _**Note:** `experimental.chain()` does not gaurantee that data written to
+  InfluxDB is immediately queryable. A delay between when data is written and
+  when it is queryable may cause a query using `experimental.chain()` to fail.
+
 - Execute queries sequentially in testing scenarios.
 
 ##### Function type signature

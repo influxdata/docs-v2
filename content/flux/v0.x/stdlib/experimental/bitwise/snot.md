@@ -28,7 +28,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.snot()` inverts every bit in `a`, an integer.
 
-**Deprecated**: `snot` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/snot/).
+{{% warn %}}
+#### Deprecated
+`snot` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/snot/).
+{{% /warn %}}
 
 ##### Function type signature
 

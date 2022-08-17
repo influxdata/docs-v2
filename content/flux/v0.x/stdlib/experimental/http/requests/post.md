@@ -29,7 +29,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `requests.post()` makes a http POST request. This identical to calling `request.do(method: "POST", ...)`.
 
-**Deprecated**: `post` is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/post/).
+{{% warn %}}
+#### Deprecated
+`post` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/post/).
+{{% /warn %}}
 
 ##### Function type signature
 

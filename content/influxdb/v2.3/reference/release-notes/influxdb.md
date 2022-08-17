@@ -8,9 +8,15 @@ menu:
 weight: 101
 ---
 
-## v2.3 [2022-6-17]
+## v2.3.0 [2022-6-16]
 
 This release includes the following [maintenance](#maintenance), [features](#features), [security updates](#security-updates) and [bug fixes](#bug-fixes).
+
+{{% note %}}
+#### Production ready: replicate data remotely
+
+InfluxDB 2.2 introduced a technical preview of how to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.3/write-data/replication). This feature is now production ready.
+{{% /note %}}
 
 ### Maintenance
 
@@ -61,7 +67,7 @@ Several security issues were fixed in dependencies and the toolchain used to bui
 - Fix rare case where measurement cardinality reported less than zero.
 - Resolve panic on cleaning up failed iterators.
 
-## v2.3 [2022-04-06]
+## v2.2.0 [2022-04-06]
 
 This release includes the following new [features](#features) and several [bug fixes](#bug-fixes).
 
@@ -81,7 +87,7 @@ This release includes the following new [features](#features) and several [bug f
 Add the option to [replicate data from InfluxDB OSS to InfluxDB Cloud](/influxdb/v2.3/write-data/replication).
 
 {{% warn %}}
-On rare occasions, remote write failures may cause data in the replication queue to get stuck. To ensure data is not dropped, restart the InfluxDB instance you're replicating data to as soon as possible.
+On rare occasions, remote write failures may cause data in the replication queue to get stuck. To ensure data is not dropped, restart the InfluxDB instance replicating data.
 
 To assess whether this issue is occurring, we recommend periodically doing one of the following:
 - Verify your data is successfully replicated to your target bucket. 

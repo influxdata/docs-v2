@@ -11,7 +11,7 @@ menu:
 weight: 201
 
 introduced: 0.155.0
-deprecated: 0.172.0
+deprecated: 0.173.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -33,7 +33,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `array.map()` iterates over an array, applies a function to each element to produce a new element,
 and then returns a new array.
 
-**Deprecated**: `map()` is deprecated in favor of [`map()`](https://docs.influxdata.com/flux/v0.x/stdlib/array/map).
+{{% warn %}}
+#### Deprecated
+`map()` is deprecated in favor of [`map()`](/flux/v0.x/stdlib/array/map).
+{{% /warn %}}
 
 ##### Function type signature
 

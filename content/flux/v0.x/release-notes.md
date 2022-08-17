@@ -10,6 +10,126 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.179.0 [2022-08-15]
+
+### Features
+- Add a `Stringify` utility function for `table.Chunk`.
+- Add support for vectorized binary equality operations.
+- Update `testing.diff()` to use `experimental.diff()` permanently.
+- Add vectorized `float()` builtin function.
+- Enhance `fluxtest` to use package name with `test` and `skip` flags.
+- Allow any kind of AST fragment to be formatted.
+- Accept Flux feature flags to the test command.
+
+### Bug fixes
+- Update `testing.shouldError()` to use regular expression matching instead of string matching.
+- Temporarily remove duplicates test to avoid conflicts downstream.
+- Update `buildinfo` documnentation comments to match latest `go fmt`.
+- Fix aggregate window rules that left query plans in a bad state.
+- Include filename when printing the AST location.
+
+---
+
+## v0.178.0 [2022-08-09]
+
+### Features
+- Support `apiKey` parameter in [`zenoss.event()`](/flux/v0.x/stdlib/contrib/bonitoo-io/zenoss/event/)
+  and [`zenoss.endpoint()`](/flux/v0.x/stdlib/contrib/bonitoo-io/zenoss/endpoint/).
+- Remove `vectorizedConst` feature flag.
+
+### Bug fixes
+- Deprecate `date/boundaries` package in favor of [`experimental/date/boundaries`](/flux/v0.x/stdlib/experimental/date/boundaries/).
+- Update pattern matching to specify successor counts.
+- Restore integer return value for [`pagerduty.sendEvent()`](/flux/v0.x/stdlib/pagerduty/sendevent/).
+
+---
+
+## v0.177.1 [2022-08-08]
+
+### Bug fixes
+- Update `strings.substring()` to check bounds using rune array instead of string length.
+
+---
+
+## v0.177.0 [2022-08-01]
+
+### Features
+- Support conditional expressions in vectorized `map()`.
+- Compute minimum required dispatcher concurrency from the plan graph.
+- Add a query planner rule to remove redundant sort nodes.
+
+### Bug fixes
+- Guard message processing with mutexes.
+- Update Flux REPL to use unique planner node IDs.
+
+---
+
+## v0.176.0 [2022-07-25]
+
+## Features
+- Promote various feature-flagged features and optimizations to be used by default.
+
+### Bug fixes
+- Support the [`location` option](/flux/v0.x/stdlib/internal/location/#options)
+  in the [`boundaries` package](/flux/v0.x/stdlib/date/boundaries/).
+- Pass epsilon value from Go tests to the Flux test framework.
+- Ignore unknown messages rather than erroring.
+
+---
+
+## v0.175.0 [2022-07-19]
+
+### Features
+- Update [`testing.diff()`](/flux/v0.x/stdlib/testing/diff/) to use
+  [`experimental.diff()`](/flux/v0.x/stdlib/experimental/diff/) as its base.
+- Add a new diff implementation to the [experimental package](/flux/v0.x/stdlib/experimental/).
+- Generalize attributes in the query planner.
+- Add support for constants and literals in vectorized `map()`.
+- Optimize the Holt Winters implementation by using the
+  [gonum Nelder-Mead optimization](https://github.com/gonum/gonum/blob/master/optimize/neldermead.go).
+
+### Bug fixes
+- When joining data, provide a default schema for unmatched group keys.
+- Update the join package to be resilient to schema changes.
+
+---
+
+## v0.174.1 [2022-07-12]
+
+### Bug fixes
+
+- Update [`aggregateWindow()`](/flux/v0.x/stdlib/universe/aggregatewindow/) 
+  to correctly handle null values when using `sum` or `mean`.
+- Update [`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/) and
+  [`wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/) to skip empty tag
+  values.
+
+---
+
+## v0.174.0 [2022-07-05]
+
+### Features
+
+- Add coloring highlights to test outputs.
+- Promote [`experimental.to()`](/flux/v0.x/stdlib/experimental/to/) to 
+  [`influxdata.influxdb.wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
+- Allow physical plan
+  [`attributes`](https://github.com/influxdata/flux/blob/master/plan/attributes.go) 
+  to contribute to 
+  [`formatter`](https://github.com/influxdata/flux/blob/master/plan/format.go) 
+  details.
+- Add tagging support to Flux tests.
+- Add new function [`experimental.catch()`](/flux/v0.x/stdlib/experimental/catch/).
+- Add new function [`testing.shouldError()`](flux/v0.x/stdlib/testing/shoulderror/).
+
+### Bug fixes
+
+- Update `httpWriter` struct to skip invalid floats.
+- Update [`join()`](/flux/v0.x/stdlib/join/) to validate group keys.
+- Fix unit tests for [`covariance()`](/flux/v0.x/stdlib/universe/covariance/).
+- Update all Flux packages to additionally live as Go packages. 
+
+---
 
 ## v0.173.0 [2022-06-29]
 
