@@ -36,7 +36,7 @@ weight: 101
 - Optimize [`holtWinters()`](/flux/v0.x/stdlib/universe/holtwinters/) and redundant sorts.
 - Deprecate the following experimental functions:
   - `http.get()`
-  - `csv.from()`.
+  - `csv.from()`
 
 ### Bug fixes
 
