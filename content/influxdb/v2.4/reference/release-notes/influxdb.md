@@ -22,7 +22,7 @@ weight: 101
 - Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) parameter to [`derivative()`](/flux/v0.x/stdlib/universe/derivative/).
 - Add `time()` function to the [`date package`](flux/v0.x/stdlib/date/) to convert timeable types (time and duration) to time types.
 - Promote the following functions from `experimental.array` into the [`array` package](/flux/v0.x/stdlib/array/): 
-  - [`array.concat(`)](/flux/v0.x/stdlib/array/concat/)
+  - [`array.concat()`](/flux/v0.x/stdlib/array/concat/)
   - [`array.filter()`](/flux/v0.x/stdlib/array/filter/)
   - [`array.map()`](/flux/v0.x/stdlib/array/map/)
 - Promote the following functions from the experimental `http.requests` package into the [`http/requests` package](/flux/v0.x/stdlib/http/requests/): 
