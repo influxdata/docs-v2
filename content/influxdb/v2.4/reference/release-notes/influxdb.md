@@ -34,7 +34,9 @@ weight: 101
 - Add new [experimental.catch()](/flux/v0.x/stdlib/experimental/catch/) and [testing.shouldError()](/flux/v0.x/stdlib/testing/shoulderror/) functions.
 - Support conditional expressions, constants, and literals in vectorized [map()](flux/v0.x/stdlib/universe/map/).
 - Optimize [holtWinters() function](/flux/v0.x/stdlib/universe/holtwinters/) and redundant sorts.
-- Deprecate experimental.http.get() and experimental.csv.from().
+- Deprecate the following experimental functions:
+  - `http.get()`
+  - `csv.from()`.
 
 ### Bug fixes
 
