@@ -12,10 +12,10 @@ menu:
 
 ### Features
 
-- Update the admin UI to provide database-level role-based access control (RBAC). The UI also shows permissions mappings more intuitively and includes:
-  - improved user creation
-  - improved role creation
-  - improved visualization of effective permissions on `Users` and `Roles` pages
+- Update the admin UI to provide database-level role-based access control (RBAC). Also, made the following improvements to the UI:
+- Show permissions mappings more intuitively
+- Improve the process of creating users and roles
+- Improve visualization of effective permissions on `Users` and `Roles` pages
 - Add [`reader role`](/chronograf/v1.10/administration/managing-chronograf-users/#readers-rolereader) for users that require read-only access to dashboards.
 - Add convenient redirection back to an original URL after OAuth authentication.
 - Allow InfluxDB connection with context path.
