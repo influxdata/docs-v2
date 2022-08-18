@@ -12,7 +12,7 @@ weight: 101
 
 ### Features
 
-- Support [InfluxDB 1.x dbrp](/influxdb/v2.4/query-data/influxql/dbrp) names as bucket IDs in `replications` API.
+- Support bucket names in the `replications` API and allow [InfluxDB 1.x DBRP](/influxdb/v2.4/query-data/influxql/dbrp) names as bucket names.
 - Add the [InfluxQL shell (REPL)](/influxdb/v2.4/reference/cli/influx/v1/shell/).
 - Change to operator model so that `admin` user has instance-level permissions without `operator` token.
 
