@@ -18,7 +18,7 @@ weight: 101
 
 #### Flux advancement highlights
 - Add multiple new join functions to the [`join package`](/flux/v0.x/stdlib/join/), including [join.full()](/flux/v0.x/stdlib/join/full/).
-- Promote experimental.to() to [influxdb.wideTo()](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
+- Promote `experimental.to()` to [`influxdb.wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
 - Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) parameter to [derivative() function](/flux/v0.x/stdlib/universe/derivative/).
 - Add builtin function `time` to the [`date package`](flux/v0.x/stdlib/date/) to convert `timeable` into `datetime`.
 - Promote the following functions from experimental.array into the [`array package`](/flux/v0.x/stdlib/array/): 
