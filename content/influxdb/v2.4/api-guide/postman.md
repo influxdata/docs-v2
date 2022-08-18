@@ -23,7 +23,7 @@ Download Postman from the [official downloads page](https://www.postman.com/down
 Or to install with Homebrew on macOS, run the following command:
 
 ```sh
-brew cask install postman
+brew install --cask postman
 ```
 
 ## Send authenticated API requests with Postman
