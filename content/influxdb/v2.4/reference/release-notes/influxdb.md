@@ -20,7 +20,7 @@ weight: 101
 - Add the [`join package`](/flux/v0.x/stdlib/join/) to support inner joins, right outer joins, left outer joins, and full outer joins.
 - Promote `experimental.to()` to [`influxdb.wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
 - Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) parameter to [`derivative()`](/flux/v0.x/stdlib/universe/derivative/).
-- Add builtin function `time` to the [`date package`](flux/v0.x/stdlib/date/) to convert `timeable` into `datetime`.
+- Add `time()` function to the [`date package`](flux/v0.x/stdlib/date/) to convert timeable types (time and duration) to time types.
 - Promote the following functions from `experimental.array` into the [`array` package](/flux/v0.x/stdlib/array/): 
   - [array.concat()](/flux/v0.x/stdlib/array/concat/)
   - [array.filter()](/flux/v0.x/stdlib/array/filter/)
