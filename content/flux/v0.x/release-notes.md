@@ -10,6 +10,26 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.179.0 [2022-08-15]
+
+### Features
+- Add a `Stringify` utility function for `table.Chunk`.
+- Add support for vectorized binary equality operations.
+- Update `testing.diff()` to use `experimental.diff()` permanently.
+- Add vectorized `float()` builtin function.
+- Enhance `fluxtest` to use package name with `test` and `skip` flags.
+- Allow any kind of AST fragment to be formatted.
+- Accept Flux feature flags to the test command.
+
+### Bug fixes
+- Update `testing.shouldError()` to use regular expression matching instead of string matching.
+- Temporarily remove duplicates test to avoid conflicts downstream.
+- Update `buildinfo` documnentation comments to match latest `go fmt`.
+- Fix aggregate window rules that left query plans in a bad state.
+- Include filename when printing the AST location.
+
+---
+
 ## v0.178.0 [2022-08-09]
 
 ### Features

@@ -13,23 +13,25 @@ influxdb/v2.3/tags: [tasks, flux]
 ---
 
 Task options define specific information about a task.
-They are set in a Flux script or in the InfluxDB user interface (UI).
+They are set in a Flux script {{% cloud-only %}}, in the InfluxDB API, {{% /cloud-only %}} or in the InfluxDB user interface (UI).
 The following task options are available:
 
 - [name](#name)
 - [every](#every)
 - [cron](#cron)
 - [offset](#offset)
-- [concurrency](#concurrency)
 
 {{% note %}}
 `every` and `cron` are mutually exclusive, but at least one is required.
 {{% /note %}}
 
 ## name
+
 The name of the task. _**Required**_.
 
 _**Data type:** String_
+
+In Flux:
 
 ```js
 option task = {
@@ -38,16 +40,40 @@ option task = {
 }
 ```
 
+In a `/api/v2/tasks` request body with `scriptID`:
+
+```json
+{
+  "scriptID": "SCRIPT_ID",
+  "name": "TASK_NAME"
+  ...
+}
+```
+
+Replace `SCRIPT_ID` with the ID of your InfluxDB invokable script.
+
 ## every
 
 The interval at which the task runs. This option also determines when the task first starts to run, depending on the specified time (in [duration literal](/{{< latest "flux" >}}/spec/lexical-elements/#duration-literals)).
 
 _**Data type:** Duration_
 
+In Flux:
+
 ```js
 option task = {
     // ...
     every: 1h,
+}
+```
+
+In a `/api/v2/tasks` request body with `scriptID`:
+
+```json
+{
+  "scriptID": "SCRIPT_ID",
+  "every": "1h"
+  ...
 }
 ```
 
@@ -62,16 +88,29 @@ In the InfluxDB UI, the **Interval** field sets this option.
 {{% /note %}}
 
 ## cron
+
 The [cron expression](https://en.wikipedia.org/wiki/Cron#Overview) that
 defines the schedule on which the task runs.
 Cron scheduling is based on system time.
 
 _**Data type:** String_
 
+In Flux:
+
 ```js
 option task = {
     // ...
     cron: "0 * * * *",
+}
+```
+
+In a `/api/v2/tasks` request body with `scriptID`:
+
+```json
+{
+  "scriptID": "SCRIPT_ID",
+  "cron": "0 * * * *",
+  ...
 }
 ```
 
@@ -85,6 +124,8 @@ A common use case is offsetting execution to account for data that may arrive la
 
 _**Data type:** Duration_
 
+In Flux:
+
 ```js
 option task = {
     // ...
@@ -92,16 +133,12 @@ option task = {
 }
 ```
 
-## concurrency
-The number task of executions that can run concurrently.
-If the concurrency limit is reached, all subsequent executions are queued until
-other running task executions complete.
+In a `/api/v2/tasks` request body with `scriptID`:
 
-_**Data type:** Integer_
-
-```js
-option task = {
-    // ...
-    concurrency: 2,
+```json
+{
+  "scriptID": "SCRIPT_ID",
+  "offset": "10m",
+  ...
 }
 ```
