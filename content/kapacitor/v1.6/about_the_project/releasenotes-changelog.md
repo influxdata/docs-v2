@@ -7,7 +7,7 @@ menu:
     name: Release notes
 ---
 
-## v1.6.5 [TBD]
+## v1.6.5 [2022-8-18]
 
 ### Features
 
