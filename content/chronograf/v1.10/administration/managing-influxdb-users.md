@@ -137,17 +137,21 @@ In all cases, a successful `GRANT` query returns a blank result:
 Remove `READ`, `WRITE`, or `ALL` permissions from non-admin users by replacing `GRANT` with `REVOKE` in the curl commands above.
 {{% /note %}}
 
-## InfluxDB Enterprise user management
+## InfluxDB Enterprise user management using the UI
 
-On the `Admin` page:
+To create, manage and delete users, click **{{< icon "crown" "v2" >}} Admin** in the left navigation bar. You will be taken to the `InfluxDB Admin` page.  
 
-* View, create, and delete users
-* Change user passwords
-* Assign and remove permissions to or from a user
-* Create, edit, and delete roles
-* Assign and remove roles to or from a user
+To create a user do the following:
 
-![InfluxDB Enterprise user management](/img/chronograf/1-6-admin-usermanagement-cluster.png)
+1. Select the **Users** tab.
+2. Click **+ Create User**.
+3. Add a user name.
+4. Add a password.
+5. Click **Create**.
+6. Assign a role to the user in the `Roles` section. To create a role see [Roles](#roles).
+7. Click **Apply Changes**. 
+
+To make changes to a user simply click on the username, make any changes and click **Apply Changes**. To delete a user click **Delete User**.
 
 ### User types
 
@@ -317,11 +321,21 @@ Permission to write data.
 **Pages in Chronograf that require this permission**: NA
 
 ### Roles
-Roles are groups of permissions.
-Assign roles to one or more users.
+Roles are groups of permissions. Assign roles to one or more users.
 
-For example, the image below contains three roles: `CREATOR`, `DESTROYER`, and `POWERLESS`.
-`CREATOR` includes two permissions (`CreateDatbase` and `CreateUserAndRole`) and is assigned to one user (`chrononut`).
-`DESTROYER` also includes two permissions (`DropDatabase` and `DropData`) and is assigned to two users (`chrononut` and `chronelda`).
+To create a role, do the following:
 
-![InfluxDB OSS user management](/img/chronograf/1-6-admin-usermanagement-roles.png)
+1. Click **{{< icon "crown" "v2" >}} Admin** in the left navigation bar. You will be taken to the `InfluxDB Admin` page. 
+2. Select the **Roles** tab.
+3. Click **+ Create Role**. 
+4. Give the role a name.
+5. Click **Create**.
+6. Assign users to the role in the `Users` section
+7. Add permissions to the role in the `Permissions` section.  You will see a list of databases and all permissions for that database. Select
+the permissions you want for the role.
+8. Click **Apply Changes**. 
+
+The role with all permissions will appear in the list.
+
+
+
