@@ -47,7 +47,7 @@ wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_{{< latest-patc
 ##### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### Install the meta node package
@@ -167,13 +167,13 @@ from other data nodes in the cluster.
 ##### Ubuntu and Debian (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}_c{{< latest-patch >}}_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### Install the data node package
