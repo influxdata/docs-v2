@@ -10,6 +10,7 @@ menu:
     identifier: date/boundaries/week
 weight: 201
 flux/v0.x/tags: [date/time]
+deprecated: 0.177.1
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L458-L464
+https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L479-L487
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -61,7 +62,7 @@ Use a positive offset to return boundaries for future weeks.
 
 - [Return start and stop timestamps of the current week starting on Monday](#return-start-and-stop-timestamps-of-the-current-week-starting-on-monday)
 - [Return start and stop timestamps of the current week starting on Sunday](#return-start-and-stop-timestamps-of-the-current-week-starting-on-sunday)
-- [Query data from current week](#query-data-from-current-week)
+- [Query data from the current week](#query-data-from-the-current-week)
 - [Query data from last week](#query-data-from-last-week)
 
 ### Return start and stop timestamps of the current week starting on Monday
@@ -92,7 +93,7 @@ boundaries.week(
 ```
 
 
-### Query data from current week
+### Query data from the current week
 
 ```js
 import "date/boundaries"

@@ -8,6 +8,7 @@ menu:
     parent: pagerduty
     identifier: pagerduty/endpoint
 weight: 101
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------
@@ -19,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/pagerduty/pagerduty.flux#L306-L335
+https://github.com/influxdata/flux/blob/master/stdlib/pagerduty/pagerduty.flux#L341-L373
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -28,7 +29,29 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `pagerduty.endpoint()` returns a function that sends a message to PagerDuty that includes output data.
 
+### Usage
+`pagerduty.endpoint()` is a factory function that outputs another function.
+ The output function requires a `mapFn` parameter.
 
+#### mapFn
+Function that builds the record used to generate the POST request.
+Requires an `r` parameter.
+
+`mapFn` accepts a table row (`r`) and returns a record that must include the
+following properties:
+
+- routingKey
+- client
+- client_url
+- class
+- eventAction
+- group
+- severity
+- source
+- component
+- summary
+- timestamp
+- customDetails
 
 ##### Function type signature
 
@@ -40,8 +63,8 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
         r: {A with _pagerdutyDedupKey: string},
     ) => {
         B with
-        timestamp: L,
-        summary: K,
+        timestamp: K,
+        summary: string,
         source: J,
         severity: I,
         routingKey: H,
@@ -51,7 +74,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
         client: D,
         class: C,
     },
-) => (<-tables: stream[A]) => stream[{A with _status: string, _sent: string, _pagerdutyDedupKey: string}]
+) => (<-tables: stream[A]) => stream[{A with _status: string, _sent: string, _pagerdutyDedupKey: string, _body: string}]
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
@@ -63,4 +86,42 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 PagerDuty v2 Events API URL.
 
 Default is `https://events.pagerduty.com/v2/enqueue`.
+
+
+## Examples
+
+### Send critical statuses to a PagerDuty endpoint
+
+```js
+import "pagerduty"
+import "influxdata/influxdb/secrets"
+
+routingKey = secrets.get(key: "PAGERDUTY_ROUTING_KEY")
+toPagerDuty = pagerduty.endpoint()
+
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and r.status == "crit")
+
+crit_statuses
+    |> toPagerDuty(
+        mapFn: (r) =>
+            ({r with
+                routingKey: routingKey,
+                client: r.client,
+                clientURL: r.clientURL,
+                class: r.class,
+                eventAction: r.eventAction,
+                group: r.group,
+                severity: r.severity,
+                source: r.source,
+                component: r.component,
+                summary: r.summary,
+                timestamp: r._time,
+                customDetails: {"ping time": r.ping, load: r.load},
+            }),
+    )()
+
+```
 

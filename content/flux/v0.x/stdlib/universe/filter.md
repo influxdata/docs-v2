@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L639-L639
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L654-L654
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -115,11 +115,11 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time  | _value  | *tag |
-| ------ | ------- | ---- |
-
 
 #### Output data
+
+| _time  | _value  | *tag |
+| ------ | ------- | ---- |
 
 | _time                | _value  | *tag |
 | -------------------- | ------- | ---- |

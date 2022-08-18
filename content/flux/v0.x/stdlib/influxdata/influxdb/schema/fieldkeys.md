@@ -31,7 +31,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 Results include a single table with a single column, `_value`.
 
-**Note**: FieldKeys is a special application of `tagValues that returns field
+**Note**: FieldKeys is a special application of `tagValues()` that returns field
 keys in a given bucket.
 
 ##### Function type signature

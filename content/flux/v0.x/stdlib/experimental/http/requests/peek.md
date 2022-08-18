@@ -28,7 +28,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `requests.peek()` converts an HTTP response into a table for easy inspection.
 
-**Deprecated**: `peek` is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/peek/).
+{{% warn %}}
+#### Deprecated
+`peek` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/peek/).
+{{% /warn %}}
 
 The output table includes the following columns:
  - **body** with the response body as a string
@@ -75,8 +78,8 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
 
 #### Output data
 
-| body                                      | duration  | headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | statusCode  |
-| ----------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| body                                      | duration  | headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | statusCode  |
+| ----------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | {"name":"natalie","age":34,"count":20959} | 100000000 | [
     Access-Control-Allow-Headers: Content-Type, X-Genderize-Source, 
     Access-Control-Allow-Methods: GET, 
@@ -84,12 +87,12 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
     Connection: keep-alive, 
     Content-Length: 41, 
     Content-Type: application/json; charset=utf-8, 
-    Date: Tue, 12 Jul 2022 14:05:31 GMT, 
+    Date: Mon, 15 Aug 2022 21:34:36 GMT, 
     Etag: W/"29-klDahUESBLxHyQ7NiaetCn2CvCI", 
     Server: nginx/1.16.1, 
     X-Rate-Limit-Limit: 1000, 
     X-Rate-Limit-Remaining: 998, 
-    X-Rate-Reset: 35668
+    X-Rate-Reset: 8723
 ]                           | 200         |
 
 {{% /expand %}}

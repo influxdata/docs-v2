@@ -30,7 +30,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `bitwise.ulshift()` shifts the bits in `a` left by `b` bits.
 Both `a` and `b` are unsigned integers.
 
-**Deprecated**: `ulshift` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/ulshift/).
+{{% warn %}}
+#### Deprecated
+`ulshift` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/ulshift/).
+{{% /warn %}}
 
 ##### Function type signature
 

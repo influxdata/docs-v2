@@ -34,7 +34,7 @@ the InfluxDB `_monitoring` system bucket.
 For each input table containing a number of rows less than or equal to the specified threshold,
 the function assigns a `crit` value to the` _level` column.
 
-This function is comparable to [Kapacitor AlertNode deadman](https://docs.influxdata.com/kapacitor/latest/nodes/stream_node/#deadman).
+This function is comparable to [Kapacitor AlertNode deadman](/kapacitor/latest/nodes/stream_node/#deadman).
 
 ##### Function type signature
 
