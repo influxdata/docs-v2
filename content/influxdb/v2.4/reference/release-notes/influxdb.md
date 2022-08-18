@@ -26,10 +26,10 @@ weight: 101
   - [array.filter()](/flux/v0.x/stdlib/array/filter/)
   - [array.map()](/flux/v0.x/stdlib/array/map/)
 - Promote the following functions from the experimental `http.requests` package into the [`http/requests` package](/flux/v0.x/stdlib/http/requests/): 
-  - [http.requests.do()](/flux/v0.x/stdlib/http/requests/do/) 
-  - [http.requests.get()](/flux/v0.x/stdlib/http/requests/get/)
-  - [http.requests.peek()](/flux/v0.x/stdlib/http/requests/peek/)
-  - [http.requests.post()](/flux/v0.x/stdlib/http/requests/post/)
+  - [requests.do()](/flux/v0.x/stdlib/http/requests/do/) 
+  - [requests.get()](/flux/v0.x/stdlib/http/requests/get/)
+  - [requests.peek()](/flux/v0.x/stdlib/http/requests/peek/)
+  - [requests.post()](/flux/v0.x/stdlib/http/requests/post/)
 - Promote experimental.bitwise into the [`bitwise package`](/flux/v0.x/stdlib/bitwise/). 
 - Add new [experimental.catch()](/flux/v0.x/stdlib/experimental/catch/) and [testing.shouldError()](/flux/v0.x/stdlib/testing/shoulderror/) functions.
 - Support conditional expressions, constants, and literals in vectorized [map()](flux/v0.x/stdlib/universe/map/).
