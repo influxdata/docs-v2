@@ -1,5 +1,5 @@
 ---
-title: InfluxDB v2.3 release notes
+title: InfluxDB OSS release notes
 description: Important changes and what's new in each version of InfluxDB.
 menu:
   influxdb_2_4_ref:
@@ -7,6 +7,48 @@ menu:
     parent: Release notes
 weight: 101
 ---
+
+## v2.4 [2022-08-18]
+
+### Features
+
+- Support bucket names in the `replications` API and allow [InfluxDB 1.x DBRP](/influxdb/v2.4/query-data/influxql/dbrp) names as bucket names.
+- Add the [InfluxQL shell (REPL)](/influxdb/v2.4/reference/cli/influx/v1/shell/).
+- Change to operator model so that `admin` user has instance-level permissions without `operator` token.
+
+#### Flux advancement highlights
+- Add the [`join` package](/flux/v0.x/stdlib/join/) to support inner joins, right outer joins, left outer joins, and full outer joins.
+- Promote `experimental.to()` to [`influxdb.wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
+- Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) parameter to [`derivative()`](/flux/v0.x/stdlib/universe/derivative/).
+- Add `time()` function to the [`date package`](flux/v0.x/stdlib/date/) to convert timeable types (time and duration) to time types.
+- Promote the following functions from `experimental.array` into the [`array` package](/flux/v0.x/stdlib/array/): 
+  - [`array.concat()`](/flux/v0.x/stdlib/array/concat/)
+  - [`array.filter()`](/flux/v0.x/stdlib/array/filter/)
+  - [`array.map()`](/flux/v0.x/stdlib/array/map/)
+- Promote the following functions from the experimental `http.requests` package into the [`http/requests` package](/flux/v0.x/stdlib/http/requests/): 
+  - [`requests.do()`](/flux/v0.x/stdlib/http/requests/do/) 
+  - [`requests.get()`](/flux/v0.x/stdlib/http/requests/get/)
+  - [`requests.peek()`](/flux/v0.x/stdlib/http/requests/peek/)
+  - [`requests.post()`](/flux/v0.x/stdlib/http/requests/post/)
+- Promote `experimental.bitwise()` into the [`bitwise` package](/flux/v0.x/stdlib/bitwise/). 
+- Add new [experimental.catch()](/flux/v0.x/stdlib/experimental/catch/) and [testing.shouldError()](/flux/v0.x/stdlib/testing/shoulderror/) functions.
+- Support conditional expressions, constants, and literals in vectorized [`map()`](flux/v0.x/stdlib/universe/map/).
+- Optimize [`holtWinters()`](/flux/v0.x/stdlib/universe/holtwinters/) and redundant sorts.
+- Deprecate the following experimental functions:
+  - `http.get()`
+  - `csv.from()`
+
+### Bug fixes
+
+- Log the log level at startup.
+- Fix panic from `CreateIterator` in Flux queries.
+- Fix error-caching in `bufio.Writer`.
+- Remove `MATCHER_BEHAVIOR` environment variable.
+
+### Maintenance 
+
+- Upgrade to [Go 1.18.4](https://go.dev/doc/go1.18).
+- Upgrade to [Flux 0.179.0](flux/v0.x/release-notes/#v01790-2022-08-15).
 
 ## v2.3.0 [2022-6-17]
 
