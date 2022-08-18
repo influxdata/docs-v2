@@ -46,7 +46,7 @@ weight: 101
 ### Maintenance 
 
 - Upgrade to [Go 1.18.4](https://go.dev/doc/go1.18).
-- Upgrade to [Flux 0.177.0](/flux/v0.x/release-notes/#v01770-2022-08-01).
+- Upgrade to [Flux 0.179.0](flux/v0.x/release-notes/#v01790-2022-08-15).
 
 ## v2.3.0 [2022-6-17]
 
