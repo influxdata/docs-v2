@@ -25,7 +25,7 @@ weight: 101
   - [array.concat()](/flux/v0.x/stdlib/array/concat/)
   - [array.filter()](/flux/v0.x/stdlib/array/filter/)
   - [array.map()](/flux/v0.x/stdlib/array/map/)
-- Promote the following functions from experimental.http.requests into the [`http.requests package`](/flux/v0.x/stdlib/http/requests/): 
+- Promote the following functions from the experimental `http.requests` package into the [`http/requests` package](/flux/v0.x/stdlib/http/requests/): 
   - [http.requests.do()](/flux/v0.x/stdlib/http/requests/do/) 
   - [http.requests.get()](/flux/v0.x/stdlib/http/requests/get/)
   - [http.requests.peek()](/flux/v0.x/stdlib/http/requests/peek/)
