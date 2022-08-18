@@ -21,7 +21,7 @@ weight: 101
 - Promote `experimental.to()` to [`influxdb.wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
 - Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) parameter to [derivative() function](/flux/v0.x/stdlib/universe/derivative/).
 - Add builtin function `time` to the [`date package`](flux/v0.x/stdlib/date/) to convert `timeable` into `datetime`.
-- Promote the following functions from experimental.array into the [`array package`](/flux/v0.x/stdlib/array/): 
+- Promote the following functions from `experimental.array` into the [`array` package](/flux/v0.x/stdlib/array/): 
   - [array.concat()](/flux/v0.x/stdlib/array/concat/)
   - [array.filter()](/flux/v0.x/stdlib/array/filter/)
   - [array.map()](/flux/v0.x/stdlib/array/map/)
