@@ -13,9 +13,22 @@ influxdb/v2.3/tags: [glossary]
 
 ## A
 
+### abstract syntax tree (AST)
+
+A tree representation of the abstract syntactic structure of source code. An AST 
+shows the structure of the code and the order of execution.
+
+Each node of the tree denotes a construct occurring in the code. The syntax is
+abstracted away and does not represent every detail appearing in the syntax, but
+rather just the structural details. 
+
+For more information about AST design, 
+see [Abstract Syntax Tree in Wikipedia](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
+
 ### agent
 
-A background process started by (or on behalf of) a user and typically requires user input.
+A background process started by (or on behalf of) a user that typically requires 
+user input.
 
 Telegraf is an agent that requires user input (a configuration file) to gather metrics from declared input plugins and sends metrics to declared output plugins, based on the plugins enabled for a configuration.
 
@@ -831,11 +844,19 @@ For more information about retention policies, see the
 Related entries:  [retention period](#retention-period),
 
 ### RFC3339 timestamp
-A timestamp that uses the human readable DateTime format proposed in
+A timestamp that uses the human-readable DateTime format proposed in
 [RFC 3339](https://tools.ietf.org/html/rfc3339) (for example: `2020-01-01T00:00:00.00Z`).
 Flux and InfluxDB clients return query results with RFC3339 timestamps.
 
-Related entries: [timestamp](#timestamp), [unix timestamp](#unix-timestamp)
+Related entries: [RFC3339Nano timestamp](#rfc3339nano-timestamp), [timestamp](#timestamp), [unix timestamp](#unix-timestamp)
+
+### RFC3339Nano timestamp
+A [Golang representation of the RFC 3339 DateTime format](https://go.dev/src/time/format.go) that uses nanosecond resolution--for example:
+`2006-01-02T15:04:05.999999999Z07:00`.
+
+InfluxDB clients can return RFC3339Nano timestamps in log events and CSV-formatted query results.
+
+Related entries: [RFC3339 timestamp](#rfc3339-timestamp), [timestamp](#timestamp), [unix timestamp](#unix-timestamp)
 
 ## S
 

@@ -8,6 +8,7 @@ menu:
     parent: contrib/bonitoo-io/victorops
     identifier: contrib/bonitoo-io/victorops/endpoint
 weight: 301
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------
@@ -28,7 +29,23 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `victorops.endpoint()` sends events to VictorOps using data from input rows.
 
+### Usage
+`victorops.endpoint` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
 
+#### mapFn
+A function that builds the object used to generate the POST request. Requires an `r` parameter.
+
+`mapFn` accepts a table row (`r`) and returns an object that must include the following fields:
+
+- monitoringTool
+- messageType
+- entityID
+- entityDisplayName
+- stateMessage
+- timestamp
+
+For more information, see `victorops.event()` parameters.
 
 ##### Function type signature
 
@@ -67,4 +84,38 @@ Tool to use for monitoring.
 Default is `InfluxDB`.
 
 
+
+
+## Examples
+
+### Send critical events to VictorOps
+
+```js
+import "contrib/bonitoo-io/victorops"
+import "influxdata/influxdb/secrets"
+
+apiKey = secrets.get(key: "VICTOROPS_API_KEY")
+routingKey = secrets.get(key: "VICTOROPS_ROUTING_KEY")
+url = "https://alert.victorops.com/integrations/generic/00000000/alert/${apiKey}/${routingKey}"
+endpoint = victorops.endpoint(url: url)
+
+crit_events =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+
+crit_events
+    |> endpoint(
+        mapFn: (r) =>
+            ({
+                monitoringTool: "InfluxDB",
+                messageType: "CRITICAL",
+                entityID: "${r.host}-${r._field}-critical",
+                entityDisplayName: "Critical alert for ${r.host}",
+                stateMessage: "${r.host} is in a critical state. ${r._field} is ${string(v: r._value)}.",
+                timestamp: now(),
+            }),
+    )()
+
+```
 

@@ -25,7 +25,7 @@ have access to your InfluxDB instance.
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "load-data" >}}
+{{< nav-icon "load-data" >}}
 
 2. Hover over the token you want to delete.
 3. Click the **{{< icon "delete" >}}** icon located far right of the token description.
@@ -37,7 +37,7 @@ have access to your InfluxDB instance.
 
 1. In the navigation menu on the left, select **Load Data** > **API Tokens**.
 
-    {{< nav-icon "data" >}}
+{{< nav-icon "data" >}}
 
 2. Find the token that you would like to delete.
 3. Click the **{{< icon "delete" >}}** icon located far right of the token description.
