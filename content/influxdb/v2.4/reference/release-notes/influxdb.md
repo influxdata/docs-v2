@@ -17,7 +17,7 @@ weight: 101
 - Change to operator model so that `admin` user has instance-level permissions without `operator` token.
 
 #### Flux advancement highlights
-- Add the [`join package`](/flux/v0.x/stdlib/join/) to support inner joins, right outer joins, left outer joins, and full outer joins.
+- Add the [`join` package](/flux/v0.x/stdlib/join/) to support inner joins, right outer joins, left outer joins, and full outer joins.
 - Promote `experimental.to()` to [`influxdb.wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
 - Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) parameter to [`derivative()`](/flux/v0.x/stdlib/universe/derivative/).
 - Add `time()` function to the [`date package`](flux/v0.x/stdlib/date/) to convert timeable types (time and duration) to time types.
