@@ -8,38 +8,40 @@ menu:
 weight: 101
 ---
 
-## v2.4 [TBD]
+## v2.4 [2022-08-18]
 
 ### Features
 
-- Add the [InfluxQL shell (REPL)](/influxdb/v2.4/reference/cli/influx/v1/shell/).
 - Support [InfluxDB 1.x dbrp](/influxdb/v2.4/query-data/influxql/dbrp) names as bucket IDs in `replications` API.
+- Add the [InfluxQL shell (REPL)](/influxdb/v2.4/reference/cli/influx/v1/shell/).
 - Change to operator model so that `admin` user has instance-level permissions without `operator` token.
 
-#### Flux update highlights
+#### Flux advancement highlights
 - Add multiple new join functions to the [`join package`](/flux/v0.x/stdlib/join/), including [join.full()](/flux/v0.x/stdlib/join/full/).
 - Promote experimental.to() to [influxdb.wideTo()](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
 - Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) parameter to [derivative() function](/flux/v0.x/stdlib/universe/derivative/).
+- Add builtin function `time` to the [`date package`](flux/v0.x/stdlib/date/) to convert `timeable` into `datetime`.
 - Promote the following functions from experimental.array into the [`array package`](/flux/v0.x/stdlib/array/): 
-  - array.concat()
-  - array.filter()
-  - array.map()
-- Promote the following functions from experimental.http.requests into the [`http.requests package`](flux/v0.x/stdlib/http/requests/): 
-  - http.requests.do() 
-  - http.requests.get()
-  - http.requests.peek()
-  - http.requests.post()
+  - [array.concat()](/flux/v0.x/stdlib/array/concat/)
+  - [array.filter()](/flux/v0.x/stdlib/array/filter/)
+  - [array.map()](/flux/v0.x/stdlib/array/map/)
+- Promote the following functions from experimental.http.requests into the [`http.requests package`](/flux/v0.x/stdlib/http/requests/): 
+  - [http.requests.do()](/flux/v0.x/stdlib/http/requests/do/) 
+  - [http.requests.get()](/flux/v0.x/stdlib/http/requests/get/)
+  - [http.requests.peek()](/flux/v0.x/stdlib/http/requests/peek/)
+  - [http.requests.post()](/flux/v0.x/stdlib/http/requests/post/)
 - Promote experimental.bitwise into the [`bitwise package`](/flux/v0.x/stdlib/bitwise/). 
 - Add new [experimental.catch()](/flux/v0.x/stdlib/experimental/catch/) and [testing.shouldError()](/flux/v0.x/stdlib/testing/shoulderror/) functions.
 - Support conditional expressions, constants, and literals in vectorized [map()](flux/v0.x/stdlib/universe/map/).
 - Optimize [holtWinters() function](/flux/v0.x/stdlib/universe/holtwinters/) and redundant sorts.
+- Deprecate experimental.http.get() and experimental.csv.from().
 
 ### Bug fixes
 
 - Log the log level at startup.
 - Fix panic from `CreateIterator` in Flux queries.
-- Fix error-caching in bufio.Writer.
-- Remove MATCHER_BEHAVIOR environment variable.
+- Fix error-caching in `bufio.Writer`.
+- Remove `MATCHER_BEHAVIOR` environment variable.
 
 ### Maintenance 
 
