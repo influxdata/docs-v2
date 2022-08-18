@@ -1,5 +1,5 @@
 ---
-title: Chronograf 1.9 release notes
+title: Chronograf release notes
 description: Important changes and what's new in each version of Chronograf.
 menu:
   chronograf_1_10:
@@ -7,6 +7,38 @@ menu:
     weight: 10
     parent: About the project
 ---
+
+## v1.10 [2022-08-19]
+
+### Features
+
+- Update the admin UI to provide database-level role-based access control (RBAC). Also, made the following improvements to the UI:
+- Show permissions mappings more intuitively
+- Improve the process of creating users and roles
+- Improve visualization of effective permissions on `Users` and `Roles` pages
+- Add [`reader role`](/chronograf/v1.10/administration/managing-chronograf-users/#readers-rolereader) for users that require read-only access to dashboards.
+- Add convenient redirection back to an original URL after OAuth authentication.
+- Allow InfluxDB connection with context path.
+- Ability to customize annotation color.
+
+### Bug fixes
+
+- Repair table visualization of string values.
+- Improve InfluxDB Enterprise server type detection.
+- Avoid stale reads in communication with InfluxDB Enterprise meta nodes.
+- Properly detect unsupported values in `Alert Rule` builder.
+- Markdown cell content can be selected and copied.
+
+#### Error messaging
+
+- Improve InfluxDB Enterprise user creation process so "user not found" error no longer occurs, even when user is successfully created. 
+- Enhance error message notifying user to use InfluxDB v2 administration.
+
+### Maintenance updates
+
+- Upgrade to [Go 1.18.3](https://go.dev/blog/go1.18).
+- Upgrade Javascript dependencies.
+- Upgrade Node.js to 16 LTS.
 
 ## v1.9.4 [2022-03-28]
 
