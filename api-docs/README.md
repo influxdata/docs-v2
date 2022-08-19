@@ -73,7 +73,7 @@
 4. Enter the following commands into your terminal to push the new tag to the repo:
 
    ```sh
-   git push tags
+   git push --tags
    ```
 
 5. Enter the following commands into your terminal to update `docs-release/influxdb-oss` branch to the OSS release commit and rebase the branch to the [latest release of InfluxDB OSS](#how-to-find-the-api-spec-used-by-an-influxdb-oss-version), replacing **`OSS_RELEASE_TAG`** with the SHA from step 3.
