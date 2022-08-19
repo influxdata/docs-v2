@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.4 [2022-08-18]
+## v2.4 [2022-08-19]
 
 ### Features
 
@@ -48,7 +48,7 @@ weight: 101
 ### Maintenance 
 
 - Upgrade to [Go 1.18.4](https://go.dev/doc/go1.18).
-- Upgrade to [Flux 0.179.0](flux/v0.x/release-notes/#v01790-2022-08-15).
+- Upgrade to [Flux 0.179.0](/flux/v0.x/release-notes/#v01790-2022-08-15).
 
 ## v2.3.0 [2022-6-17]
 
