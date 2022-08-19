@@ -167,7 +167,7 @@ from other data nodes in the cluster.
 ##### Ubuntu and Debian (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}_c{{< latest-patch >}}_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 ##### RedHat and CentOS (64-bit)
