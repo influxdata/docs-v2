@@ -16,7 +16,7 @@ To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the 
 2. [Define parsing rules](#define-parsing-rules) for JSON or regex data (line protocol requires no configuration).
 
 {{% note %}}
-For troubleshooting help, see [Troubleshoot MQTT ingest errors](/influxdb/cloud/write-data/troubleshoot/#troubleshoot-mqtt-ingest-errors/)
+For troubleshooting help, see [Troubleshoot MQTT ingest errors](/influxdb/cloud/write-data/troubleshoot/#troubleshoot-mqtt-ingest-errors/).
 {{% /note %}}
 
 #### Subscribe to an MQTT topic
@@ -47,7 +47,7 @@ For troubleshooting help, see [Troubleshoot MQTT ingest errors](/influxdb/cloud/
 #### Define parsing rules
 
 {{% note %}}
-JSON parsing is faster and more efficient than string parsing. We recommend using JSON parsing when your MQTT messages are in JSON format.
+JSON parsing is faster and more efficient than string parsing. We recommend using JSON parsing when your MQTT messages are in JSON format. For examples, see [JSON parsing examples](/influxdb/cloud/reference/json-parsing/).
 {{% /note %}}
 
 - Under **Define Data Parsing Rules**, select one of the following MQTT data formats:
