@@ -1,13 +1,15 @@
 ---
 title: Set up native subscriptions
-weight: 101
+weight: 102
+aliases:
+  - /influxdb/cloud/write-data/no-code/load-data/
 description: >
   Use native subscriptions to ingest data.
 menu:
   influxdb_cloud:
     name: Native subscriptions
     parent: Write data
-influxdb/v2.0/tags: [mqtt]
+influxdb/v2.0/tags: [mqtt, native subscription]
 ---
 
 To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the following to set up a native subscription:
