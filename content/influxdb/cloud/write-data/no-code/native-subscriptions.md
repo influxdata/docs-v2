@@ -12,6 +12,10 @@ menu:
 influxdb/v2.0/tags: [mqtt, native subscription]
 ---
 
+{{% note %}}
+This feature is available with usage-based plans only. For more information, see [InfluxDB Cloud Plans](/influxdb/cloud/account-management/pricing-plans/).
+{{% /note %}}
+
 To ingest MQTT (Message Queuing Telemetry Transport) data into InfluxDB, do the following to set up a native subscription:
 
 1. [Subscribe to an MQTT topic](#subscribe-to-an-mqtt-topic) in InfluxDB Cloud by configuring an MQTT broker, and specifying the topic(s) to subscribe to.
@@ -30,7 +34,7 @@ For troubleshooting help, see [Troubleshoot MQTT ingest errors](/influxdb/cloud/
 2. Click **+ Create Subscription**.
 3. On the **Setting Up - MQTT Subscriber** page, under **Connect to Broker**, enter the following:
    - Subscription Name
-   - Description
+   - Description (optional)
    - Protocol
    - Hostname or IP address (hostname or URL of the MQTT broker)
    - Port (TCP/IP port number the MQTT broker uses)
@@ -45,6 +49,7 @@ For troubleshooting help, see [Troubleshoot MQTT ingest errors](/influxdb/cloud/
    - To subscribe to all topics in a directory, use `#`. For example, `iotdevices/#` subscribes to all topics in the  `iotdevices` directory. For more information about MQTT subscriptions and wildcards, see [the MQTT specification for Topic Names and Topic Filters](https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html#_Toc3901241).
 
 5. Under **Write Destination**, select an existing InfluxDB bucket to write data to or click **+ Create bucket**. For more information, see [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/).
+6. Click **Save Subscription** to save and start running the MQTT subscription. 
 
 #### Define parsing rules
 
