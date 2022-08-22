@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3647-L3647
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3708-L3708
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -71,11 +71,21 @@ List of columns to join on.
 import "generate"
 
 stream1 =
-    generate.from(count: 5, fn: (n) => n * n, start: 2021-01-01T00:00:00Z, stop: 2021-01-01T00:01:00Z)
+    generate.from(
+        count: 5,
+        fn: (n) => n * n,
+        start: 2021-01-01T00:00:00Z,
+        stop: 2021-01-01T00:01:00Z,
+    )
         |> toFloat()
 
 stream2 =
-    generate.from(count: 5, fn: (n) => n * n * n / 2, start: 2021-01-01T00:00:00Z, stop: 2021-01-01T00:01:00Z)
+    generate.from(
+        count: 5,
+        fn: (n) => n * n * n / 2,
+        start: 2021-01-01T00:00:00Z,
+        stop: 2021-01-01T00:01:00Z,
+    )
         |> toFloat()
 
 pearsonr(x: stream1, y: stream2, on: ["_time"])

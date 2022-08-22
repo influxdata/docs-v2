@@ -63,7 +63,9 @@ import "date/boundaries"
 
 option now = () => 2022-05-10T10:10:00Z
 
-boundaries.month()// Returns {start:2022-05-01T00:00:00.000000000Z, stop:2022-06-01T00:00:00.000000000Z}
+boundaries.month(
+
+)// Returns {start:2022-05-01T00:00:00.000000000Z, stop:2022-06-01T00:00:00.000000000Z}
 
 
 ```

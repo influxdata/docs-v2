@@ -25,7 +25,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1152-L1152
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1175-L1175
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -98,11 +98,21 @@ Join method. Default is `inner`.
 import "generate"
 
 t1 =
-    generate.from(count: 4, fn: (n) => n + 1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
+    generate.from(
+        count: 4,
+        fn: (n) => n + 1,
+        start: 2021-01-01T00:00:00Z,
+        stop: 2021-01-05T00:00:00Z,
+    )
         |> set(key: "tag", value: "foo")
 
 t2 =
-    generate.from(count: 4, fn: (n) => n * (-1), start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
+    generate.from(
+        count: 4,
+        fn: (n) => n * (-1),
+        start: 2021-01-01T00:00:00Z,
+        stop: 2021-01-05T00:00:00Z,
+    )
         |> set(key: "tag", value: "foo")
 
 join(tables: {t1: t1, t2: t2}, on: ["_time", "tag"])

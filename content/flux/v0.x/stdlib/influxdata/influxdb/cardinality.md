@@ -134,7 +134,11 @@ influxdb.cardinality(bucket: "example-bucket", start: -1y)
 ```js
 import "influxdata/influxdb"
 
-influxdb.cardinality(bucket: "example-bucket", start: -1y, predicate: (r) => r._measurement == "example-measurement")
+influxdb.cardinality(
+    bucket: "example-bucket",
+    start: -1y,
+    predicate: (r) => r._measurement == "example-measurement",
+)
 
 ```
 

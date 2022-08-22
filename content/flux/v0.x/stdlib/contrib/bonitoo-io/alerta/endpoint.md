@@ -120,7 +120,12 @@ import "influxdata/influxdb/secrets"
 
 apiKey = secrets.get(key: "ALERTA_API_KEY")
 endpoint =
-    alerta.endpoint(url: "https://alerta.io:8080/alert", apiKey: apiKey, environment: "Production", origin: "InfluxDB")
+    alerta.endpoint(
+        url: "https://alerta.io:8080/alert",
+        apiKey: apiKey,
+        environment: "Production",
+        origin: "InfluxDB",
+    )
 
 crit_events =
     from(bucket: "example-bucket")

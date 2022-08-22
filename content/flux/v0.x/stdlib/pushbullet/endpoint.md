@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/pushbullet/pushbullet.flux#L111-L125
+https://github.com/influxdata/flux/blob/master/stdlib/pushbullet/pushbullet.flux#L111-L131
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -87,7 +87,10 @@ crit_statuses =
 crit_statuses
     |> pushbullet.endpoint(token: token)(
         mapFn: (r) =>
-            ({title: "${r.component} is critical", text: "${r.component} is critical. {$r._field} is {r._value}."}),
+            ({
+                title: "${r.component} is critical",
+                text: "${r.component} is critical. {$r._field} is {r._value}.",
+            }),
     )()
 
 ```

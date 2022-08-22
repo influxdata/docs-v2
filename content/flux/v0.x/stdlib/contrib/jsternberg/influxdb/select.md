@@ -23,7 +23,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/jsternberg/influxdb/influxdb.flux#L215-L264
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/jsternberg/influxdb/influxdb.flux#L215-L267
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -155,7 +155,12 @@ influxdb.select(from: "example-bucket", start: -1d, m: "example-measurement", fi
 ```js
 import "contrib/jsternberg/influxdb"
 
-influxdb.select(from: "example-bucket", start: -1d, m: "example-measurement", fields: ["field1", "field2", "field3"])
+influxdb.select(
+    from: "example-bucket",
+    start: -1d,
+    m: "example-measurement",
+    fields: ["field1", "field2", "field3"],
+)
 
 ```
 
