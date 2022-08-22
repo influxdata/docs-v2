@@ -89,7 +89,7 @@ Duration to shift the window boundaries by. Defualt is `0s`.
 
 ### fn
 ({{< req >}})
-Aggreate or selector function to apply to each time window.
+Aggregate or selector function to apply to each time window.
 
 
 
@@ -310,28 +310,28 @@ desired day of the week.
 | Sunday     |   3d   |
 
 ```js
-# import "array"
-#
-# data =
-#     array.from(
-#         rows: [
-#             {_time: 2022-01-01T00:00:00Z, tag: "t1", _value: 2.0},
-#             {_time: 2022-01-03T00:00:00Z, tag: "t1", _value: 2.2},
-#             {_time: 2022-01-06T00:00:00Z, tag: "t1", _value: 4.1},
-#             {_time: 2022-01-09T00:00:00Z, tag: "t1", _value: 3.8},
-#             {_time: 2022-01-11T00:00:00Z, tag: "t1", _value: 1.7},
-#             {_time: 2022-01-12T00:00:00Z, tag: "t1", _value: 2.1},
-#             {_time: 2022-01-15T00:00:00Z, tag: "t1", _value: 3.8},
-#             {_time: 2022-01-16T00:00:00Z, tag: "t1", _value: 4.2},
-#             {_time: 2022-01-20T00:00:00Z, tag: "t1", _value: 5.0},
-#             {_time: 2022-01-24T00:00:00Z, tag: "t1", _value: 5.8},
-#             {_time: 2022-01-28T00:00:00Z, tag: "t1", _value: 3.9},
-#         ],
-#     )
-#         |> range(start: 2022-01-01T00:00:00Z, stop: 2022-01-31T23:59:59Z)
-#         |> group(columns: ["tag"])
-#
-< data
->     |> aggregateWindow(every: 1w, offset: -3d, fn: mean)
+import "array"
+
+data =
+     array.from(
+         rows: [
+             {_time: 2022-01-01T00:00:00Z, tag: "t1", _value: 2.0},
+             {_time: 2022-01-03T00:00:00Z, tag: "t1", _value: 2.2},
+             {_time: 2022-01-06T00:00:00Z, tag: "t1", _value: 4.1},
+             {_time: 2022-01-09T00:00:00Z, tag: "t1", _value: 3.8},
+             {_time: 2022-01-11T00:00:00Z, tag: "t1", _value: 1.7},
+             {_time: 2022-01-12T00:00:00Z, tag: "t1", _value: 2.1},
+             {_time: 2022-01-15T00:00:00Z, tag: "t1", _value: 3.8},
+             {_time: 2022-01-16T00:00:00Z, tag: "t1", _value: 4.2},
+             {_time: 2022-01-20T00:00:00Z, tag: "t1", _value: 5.0},
+             {_time: 2022-01-24T00:00:00Z, tag: "t1", _value: 5.8},
+             {_time: 2022-01-28T00:00:00Z, tag: "t1", _value: 3.9},
+         ],
+     )
+         |> range(start: 2022-01-01T00:00:00Z, stop: 2022-01-31T23:59:59Z)
+         |> group(columns: ["tag"])
+
+data
+    |> aggregateWindow(every: 1w, offset: -3d, fn: mean)
 ```
 
