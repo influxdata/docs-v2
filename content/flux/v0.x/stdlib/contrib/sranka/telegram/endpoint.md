@@ -8,7 +8,7 @@ menu:
     parent: contrib/sranka/telegram
     identifier: contrib/sranka/telegram/endpoint
 weight: 301
-
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
 <!------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/telegram/telegram.flux#L176-L199
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/telegram/telegram.flux#L168-L196
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -29,12 +29,12 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `telegram.endpoint()` sends a message to a Telegram channel using data from table rows.
 
-## Usage
+### Usage
 
 `telegram.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### `mapFn`
+#### `mapFn`
 A function that builds the object used to generate the POST request. Requires an `r` parameter.
 
 `mapFn` accepts a table row (`r`) and returns an object that must include the following fields:
@@ -44,13 +44,6 @@ A function that builds the object used to generate the POST request. Requires an
 - `silent`
 
 For more information, see `telegram.message()` parameters.
-
-The returned factory function accepts a `mapFn` parameter.
-The `mapFn` must return an record with the following properties:
-
-- `channel`
-- `text`
-- `silent`
 
 See `telegram.message` parameters for more information.
 
@@ -116,7 +109,9 @@ crit_statuses =
         |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_statuses
-    |> endpoint(mapFn: (r) => ({channel: "-12345", text: "Disk usage is **${r.status}**.", silent: true}))()
+    |> endpoint(
+        mapFn: (r) => ({channel: "-12345", text: "Disk usage is **${r.status}**.", silent: true}),
+    )()
 
 ```
 

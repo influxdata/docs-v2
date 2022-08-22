@@ -11,6 +11,7 @@ weight: 21
 cascade:
 
   introduced: 0.172.0
+  deprecated: 0.177.1
 ---
 
 <!------------------------------------------------------------------------------
@@ -36,7 +37,10 @@ Import the `date/boundaries` package:
 import "date/boundaries"
 ```
 
-
+{{% warn %}}
+#### Deprecated
+The `boundaries` package is deprecated in favor of [`experimental/date/boundaries`](/flux/v0.x/stdlib/experimental/date/boundaries/).
+{{% /warn %}}
 
 
 ## Functions

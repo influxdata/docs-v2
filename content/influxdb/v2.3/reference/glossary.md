@@ -15,13 +15,20 @@ influxdb/v2.3/tags: [glossary]
 
 ### abstract syntax tree (AST)
 
-Tree representation of source code that shows the structure, content, and rules of programming statements and discards additional syntax elements.
-The tree is hierarchical, with elements of program statements broken down into their parts.
+A tree representation of the abstract syntactic structure of source code. An AST 
+shows the structure of the code and the order of execution.
 
-For more information about AST design, see [Abstract Syntax Tree on Wikipedia](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
+Each node of the tree denotes a construct occurring in the code. The syntax is
+abstracted away and does not represent every detail appearing in the syntax, but
+rather just the structural details. 
+
+For more information about AST design, 
+see [Abstract Syntax Tree in Wikipedia](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
+
 ### agent
 
-A background process started by (or on behalf of) a user that typically requires user input.
+A background process started by (or on behalf of) a user that typically requires 
+user input.
 
 Telegraf is an agent that requires user input (a configuration file) to gather metrics from declared input plugins and sends metrics to declared output plugins, based on the plugins enabled for a configuration.
 

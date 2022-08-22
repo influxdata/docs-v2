@@ -2,7 +2,7 @@ const path = require('path');
 const { toJSON } = require('../plugins/helpers/content-helper');
 
 function getVersion(filename) {
-  return path.join(__dirname, process.env.INFLUXDB_VERSION,
+  return path.join(__dirname, process.env.INFLUXDB_PLATFORM,
      (process.env.INFLUXDB_API_VERSION || ''), 
      filename);
 }

@@ -1521,6 +1521,10 @@
       `v1` functions can retrieve schema information when executed within
       the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
 
+/flux/v0.x/stdlib/internal/debug/null.md: |
+  related:
+    - /flux/v0.x/data-types/basic/null/
+
 /flux/v0.x/stdlib/interpolate/_index.md: |
   aliases:
     - /influxdb/v2.0/reference/flux/stdlib/interpolate/

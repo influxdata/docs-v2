@@ -1,5 +1,32 @@
 # API reference documentation
 
+## TL;DR: validate and test your local `influxdata/openapi` changes
+
+1. After you've edited `influxdata/openapi` definitions, you need to generate and validate contracts and test the API reference docs.
+   To create a shell alias that does this, open your `~/.profile` in an editor and add the following commands to the file:
+
+   ```sh
+   export DOCS="$HOME/github/docs-v2"
+   alias gsd="cd $HOME/github/openapi && make generate-all && \
+              npx oats ./contracts/ref/cloud.yml && npx oats ./contracts/ref/oss.yml && \
+              cd $DOCS/api-docs && ./getswagger.sh all -b file:///$HOME/github/openapi && \
+              sh ./generate-api-docs.sh"
+   ```
+
+2. To refresh your environment with the `~/.profile` changes, enter the following command into your terminal:
+
+   ```sh
+   source ~/.profile
+   ```
+
+3. To run the alias, enter the following command into your terminal:
+
+   ```sh
+   gsd
+   ```
+
+`gsd` generates the local contracts in `~/github/openapi`, validates them with OATS, bundles and lints them with `@redocly/cli`, and then generates the HTML with `@redocly/cli`.
+
 ## Update API docs for InfluxDB Cloud
 
 1. In your `docs-v2` directory, create a branch for your changes--for example:
@@ -46,7 +73,7 @@
 4. Enter the following commands into your terminal to push the new tag to the repo:
 
    ```sh
-   git push tags
+   git push --tags
    ```
 
 5. Enter the following commands into your terminal to update `docs-release/influxdb-oss` branch to the OSS release commit and rebase the branch to the [latest release of InfluxDB OSS](#how-to-find-the-api-spec-used-by-an-influxdb-oss-version), replacing **`OSS_RELEASE_TAG`** with the SHA from step 3.

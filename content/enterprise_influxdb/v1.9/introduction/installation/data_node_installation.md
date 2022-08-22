@@ -21,7 +21,7 @@ If you have not set up your meta nodes, please visit
 Bad things can happen if you complete the following steps without meta nodes.
 {{% /warn %}}
 
-# Data node setup description and requirements
+## Data node setup description and requirements
 
 The installation process sets up two [data nodes](/enterprise_influxdb/v1.9/concepts/glossary#data-node)
 and each data node runs on its own server.

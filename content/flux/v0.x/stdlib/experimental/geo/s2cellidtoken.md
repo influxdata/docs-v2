@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/geo/geo.flux#L468-L468
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/geo/geo.flux#L477-L477
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -75,7 +75,10 @@ S2 cell level to use when generating the S2 cell ID token.
 import "experimental/geo"
 
 data
-    |> map(fn: (r) => ({r with s2_cell_id: geo.s2CellIDToken(point: {lat: r.lat, lon: r.lon}, level: 10)}))
+    |> map(
+        fn: (r) =>
+            ({r with s2_cell_id: geo.s2CellIDToken(point: {lat: r.lat, lon: r.lon}, level: 10)}),
+    )
 
 ```
 

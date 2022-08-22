@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/slack/slack.flux#L87-L101
+https://github.com/influxdata/flux/blob/master/stdlib/slack/slack.flux#L87-L103
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -54,7 +54,7 @@ The function works with either with the `chat.postMessage` API or with a Slack w
 Slack API URL.
 Default is `https://slack.com/api/chat.postMessage`.
 
-If using the Slack webhook API, this URL is provided ine Slack webhook setup process.
+If using the Slack webhook API, this URL is provided in the Slack webhook setup process.
 
 ### token
 

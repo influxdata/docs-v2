@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/pagerduty/pagerduty.flux#L195-L237
+https://github.com/influxdata/flux/blob/master/stdlib/pagerduty/pagerduty.flux#L248-L279
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -49,7 +49,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
     ?component: K,
     ?customDetails: L,
     ?pagerdutyURL: string,
-) => {statusCode: int, headers: [string:string], duration: duration, body: bytes} where L: Equatable
+) => int where L: Equatable
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
@@ -166,13 +166,13 @@ pagerduty.sendEvent(
     routingKey: "example-routing-key",
     client: "example-client",
     clientURL: "http://example-url.com",
+    dedupKey: "example-dedup-key",
     class: "example-class",
     eventAction: "trigger",
     group: "example-group",
     severity: "crit",
     component: "example-component",
     source: "example-source",
-    component: "example-component",
     summary: "example-summary",
     timestamp: now(),
     customDetails: {"example-key": "example value"},

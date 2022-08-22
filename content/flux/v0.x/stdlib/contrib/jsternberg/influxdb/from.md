@@ -134,7 +134,12 @@ import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "INFLUXDB_CLOUD_TOKEN")
 
-from(bucket: "example-bucket", host: "https://us-west-2-1.aws.cloud2.influxdata.com", org: "example-org", token: token)
+from(
+    bucket: "example-bucket",
+    host: "https://us-west-2-1.aws.cloud2.influxdata.com",
+    org: "example-org",
+    token: token,
+)
 
 ```
 

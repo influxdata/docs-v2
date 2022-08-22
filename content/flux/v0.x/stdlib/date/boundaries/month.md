@@ -9,6 +9,7 @@ menu:
     identifier: date/boundaries/month
 weight: 201
 flux/v0.x/tags: [date/time]
+deprecated: 0.177.1
 ---
 
 <!------------------------------------------------------------------------------
@@ -20,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L378-L384
+https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L406-L414
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -62,7 +63,9 @@ import "date/boundaries"
 
 option now = () => 2022-05-10T10:10:00Z
 
-boundaries.month()// Returns {start:2022-05-01T00:00:00.000000000Z, stop:2022-06-01T00:00:00.000000000Z}
+boundaries.month(
+
+)// Returns {start:2022-05-01T00:00:00.000000000Z, stop:2022-06-01T00:00:00.000000000Z}
 
 
 ```
