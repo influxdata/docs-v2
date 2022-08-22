@@ -43,11 +43,11 @@ influx stacks init [flags]
 ##### Initialize a stack with a name and description
 
 ```sh
-influx stack init -n "Example Stack" -d "InfluxDB stack for monitoring some awesome stuff"
+influx stacks init -n "Example Stack" -d "InfluxDB stack for monitoring some awesome stuff"
 ```
 
 ##### Initialize a stack with a name and URLs to associate with the stack
 
 ```sh
-influx stack init -n "Example Stack" -u https://example.com/template-1.yml
+influx stacks init -n "Example Stack" -u https://example.com/template-1.yml
 ```
