@@ -35,7 +35,7 @@ JSON paths start with a “$.” In the above example, all of the values are at 
 - Field 2: $.error_state
 
 
-## Example nested MQTT message in JSON format
+## Example nested MQTT message in JSON format 
 
 ```js
 {

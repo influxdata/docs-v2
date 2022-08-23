@@ -29,7 +29,7 @@ For troubleshooting help, see [Troubleshoot MQTT ingest errors](/influxdb/cloud/
 
 1. In the navigation menu on the left, click **Load Data** > **Native Subscriptions**.
 
-{{< nav-icon "data" >}}
+    {{< nav-icon "data" >}}
 
 2. Click **+ Create Subscription**.
 3. On the **Setting Up - MQTT Subscriber** page, under **Connect to Broker**, enter the following:
@@ -74,9 +74,9 @@ JSON parsing is faster and more efficient than string parsing. We recommend usin
 
 <!-------------------------------- BEGIN Line protocol -------------------------------->
 {{% tab-content %}}
-Use line protocol to write data into InfluxDB. Line protocol doesn't require any parsing or configuration. 
+Use line protocol to write data into InfluxDB. Line protocol doesn't require any parsing or configuration.
 
-Select a **Timepstamp precision** from the dropdown menu:
+- Select a **Timepstamp precision** from the dropdown menu:
    - **MS**: Milliseconds
    - **S**: Seconds
    - **US**: Microseconds
@@ -87,7 +87,7 @@ Select a **Timepstamp precision** from the dropdown menu:
 <!-------------------------------- BEGIN JSON -------------------------------->
 {{% tab-content %}}
 
-Associate **JSON** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags) using parsing rules. 
+To associate **JSON** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags) using parsing rules, complete the following steps:
 
 {{% expand "Example JSON" %}}
 ```
@@ -105,15 +105,13 @@ Associate **JSON** key/value pairs with **InfluxDB elements** (measurements, tim
 1. On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
 
   1. (Optional) In the **JSON path to timestamp** field, specify the path in the MQTT message to the JSON key that holds the timestamp: for the example above, `"time":1653998899010000000`. Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
+  
+      ***Important***: *Configure the timestamp format that **matches the format** in your messages.*
 
-   {{% warn %}}
-   **Important**: Configure the timestamp format that matches the format in your messages.
-   {{% /warn %}}
-
-2. Configure the JSON parsing rules: 
+2. Configure the JSON parsing rules:
    1. Under **Measurement**, enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key. For the above example, enter `$.device_type`.
-3. Select the **Data Type** for the measurement.
-4. Specify the JSON paths to tag and field names as needed, and then select the data type for the tag or field. At least one field is required. For the above example, add fields with the JSON paths `$.temperature` and `$.error_state` and a tag with the path `$.error_state`.
+   2. Select the **Data Type** for the measurement.
+   3. Specify the JSON paths to tag and field names as needed, and then select the data type for the tag or field. At least one field is required. For the above example, add fields with the JSON paths `$.temperature` and `$.error_state` and a tag with the path `$.error_state`.
 Note that JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`.
 
 
@@ -122,25 +120,21 @@ Note that JSON paths with arrays are supported, for example, `$.device_informati
 <!-------------------------------- BEGIN String -------------------------------->
 {{% tab-content %}}
 
-Associate **String** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags).
+To associate **String** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags), complete the following steps:
 
 1. On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
 
   1. (Optional) In the **Regex pattern to find timestamp** field, enter the regex (regular expression) to find the timestamp in the MQTT message.  Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
   
-      {{% note %}}
-      **Note**: Parsing rules only support finding one value at a time.
-      {{% /note %}}
-      
+      ***Note***: *Parsing rules only support finding **one value at a time**.*
+    
       For example, if the timestamp string is `time=1653998899010000000`, use a regex to find the string you're looking for and capture the timestamp:
-   - `time=([\s\S]*?)\n` (captures value after `=` until the EOL (end of line) is reached)
-   - `time=([\s\S]*?),` (captures value after `=` until comma is reached)
+       - `time=([\s\S]*?)\n` (captures value after `=` until the EOL (end of line) is reached)
+       - `time=([\s\S]*?),` (captures value after `=` until comma is reached)
 
-   {{% warn %}}
-   **Important**: Configure the timestamp format that matches the format in your messages.
-   {{% /warn %}}
+         ***Important***: *Configure the timestamp format that **matches the format** in your messages.*
 
-  2. Under **Measurement**, if the string is `device_type=temperature_sensor` use regex to find the measurement name. For example:
+  2. Under **Measurement**, if the string is `device_type=temperature_sensor`, use regex to find the measurement name. For example:
       - `device_type=([\s\S]*?)\n` captures the value after the `=` until the EOL (end of line) is reached), in this case the value would be `temperature_sensor`.
   3. Select the **Data Type** for the measurement.
   4. Enter **Tag** and **Field**. At least one field is required. For tag and field names, use the regex to find the tag or field name, and what to capture. For example:
