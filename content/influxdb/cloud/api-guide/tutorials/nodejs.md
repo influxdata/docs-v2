@@ -13,4 +13,4 @@ menu:
 influxdb/cloud/tags: [api, javascript, nodejs]
 ---
 
-{{% duplicate-oss %}}
+{{< duplicate-oss >}}

@@ -9,7 +9,7 @@ menu:
   influxdb_2_3:
     identifier: client-library-starter-js
     name: JavaScript
-    parent: Client library starter
+    parent: Client library tutorials
 influxdb/v2.3/tags: [api, javascript, nodejs]
 ---
 

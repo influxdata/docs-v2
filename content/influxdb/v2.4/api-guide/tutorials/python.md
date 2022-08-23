@@ -10,7 +10,7 @@ menu:
   influxdb_2_4:
     identifier: client-library-starter-py
     name: Python
-    parent: Client library starter
+    parent: Client library tutorials
 influxdb/v2.4/tags: [api, python]
 ---
 
