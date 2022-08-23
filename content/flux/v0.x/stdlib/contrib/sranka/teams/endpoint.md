@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/teams/teams.flux#L126-L146
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/teams/teams.flux#L128-L149
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -83,7 +83,11 @@ crit_statuses =
 crit_statuses
     |> endpoint(
         mapFn: (r) =>
-            ({title: "Disk Usage", text: "Disk usage is: **${r.status}**.", summary: "Disk usage is ${r.status}"}),
+            ({
+                title: "Disk Usage",
+                text: "Disk usage is: **${r.status}**.",
+                summary: "Disk usage is ${r.status}",
+            }),
     )()
 
 ```

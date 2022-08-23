@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/chobbs/discord/discord.flux#L120-L141
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/chobbs/discord/discord.flux#L125-L146
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -96,7 +96,8 @@ import "influxdata/influxdb/secrets"
 import "contrib/chobbs/discord"
 
 discordToken = secrets.get(key: "DISCORD_TOKEN")
-endpoint = telegram.endpoint(webhookToken: discordToken, webhookID: "123456789", username: "critBot")
+endpoint =
+    telegram.endpoint(webhookToken: discordToken, webhookID: "123456789", username: "critBot")
 
 crit_statuses =
     from(bucket: "example-bucket")
