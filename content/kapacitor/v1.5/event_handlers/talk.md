@@ -8,6 +8,11 @@ menu:
     weight: 1800
     parent: Event handlers
 ---
+{{% warn %}}
+#### Deprecated
+
+The Talk event handler is deprecated in Kapacitor 1.5.
+{{% /warn %}}
 
 [Talk](https://jianliao.com/site) is a service that aggregates information into
 a centralized hub.
