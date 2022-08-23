@@ -1,5 +1,5 @@
 ---
-title: Replicate data to a remote InfluxDB instance
+title: Replicate data from a remote instance to InfluxDB Cloud
 weight: 106
 description: >
   Use InfluxDB Edge Data Replication to replicate the incoming data of select buckets to one or more buckets on a remote InfluxDB instance.

@@ -15,3 +15,8 @@ Running [InfluxDB OSS](/influxdb/v2.2/install/) at the edge lets you collect, pr
 {{< youtube qsj_TTpDyf4 >}}
 
 {{< children >}}
+
+{{% note %}}
+To replicate data from InfluxDB OSS to a remote InfluxDB OSS instance, see
+[replicate data](/influxdb/v2.2/write-data/replication/replicate-data).
+{{% /note %}}
