@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/telegram/telegram.flux#L168-L191
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/telegram/telegram.flux#L168-L196
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -109,7 +109,9 @@ crit_statuses =
         |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_statuses
-    |> endpoint(mapFn: (r) => ({channel: "-12345", text: "Disk usage is **${r.status}**.", silent: true}))()
+    |> endpoint(
+        mapFn: (r) => ({channel: "-12345", text: "Disk usage is **${r.status}**.", silent: true}),
+    )()
 
 ```
 

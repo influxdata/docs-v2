@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/rhajek/bigpanda/bigpanda.flux#L142-L154
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/rhajek/bigpanda/bigpanda.flux#L142-L157
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -108,7 +108,9 @@ bigpanda.sendAlert(
     rec: {
         tags: json.encode(v: [{"name": "host", "value": "my-host"}]),
         check: "my-check",
-        description: "${lastReported._field} is ${lastReported.status}: ${string(v: lastReported._value)}",
+        description: "${lastReported._field} is ${lastReported.status}: ${string(
+                v: lastReported._value,
+            )}",
     },
 )
 

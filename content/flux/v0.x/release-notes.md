@@ -10,6 +10,26 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.180.1 [2022-08-22]
+
+- _Internal code cleanup._
+
+---
+
+## v0.180.0 [2022-08-22]
+
+### Features
+- Rewrite calls to `float()` as `_vectorizedFloat()`.
+- Reduce the Flux formatter default line length to 100 characters.
+
+### Bug fixes
+- Fix logic bug in planner helper method.
+- Don't include null columns when unpivoting.
+- Don't error when formatting boolean literals.
+- Sort columns when printing group keys.
+
+---
+
 ## v0.179.0 [2022-08-15]
 
 ### Features

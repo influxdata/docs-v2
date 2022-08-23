@@ -81,7 +81,12 @@ import "join"
 ints = sampledata.int()
 strings = sampledata.string()
 
-join.inner(left: ints, right: strings, on: (l, r) => l._time == r._time, as: (l, r) => ({l with label: r._value}))
+join.inner(
+    left: ints,
+    right: strings,
+    on: (l, r) => l._time == r._time,
+    as: (l, r) => ({l with label: r._value}),
+)
 
 ```
 

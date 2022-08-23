@@ -112,7 +112,9 @@ crit_events
                 messageType: "CRITICAL",
                 entityID: "${r.host}-${r._field}-critical",
                 entityDisplayName: "Critical alert for ${r.host}",
-                stateMessage: "${r.host} is in a critical state. ${r._field} is ${string(v: r._value)}.",
+                stateMessage: "${r.host} is in a critical state. ${r._field} is ${string(
+                        v: r._value,
+                    )}.",
                 timestamp: now(),
             }),
     )()
