@@ -28,7 +28,7 @@ Use the following examples to help you set up parsing rules for [native subscrip
 
 JSON paths start with a “$.” In the above example, all of the values are at the root level of the JSON, so the JSON paths for these elements are very simple:
 
-- Measurement: $.temperature_sensor
+- Measurement: $.device_type
 - Timestamp: $.time
 - Tag: $.device_id
 - Field 1: $.temperature
