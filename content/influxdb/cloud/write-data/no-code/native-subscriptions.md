@@ -1,5 +1,5 @@
 ---
-title: Set up native subscriptions
+title: Set up native MQTT subscriptions
 weight: 102
 aliases:
   - /influxdb/cloud/write-data/no-code/load-data/
@@ -7,7 +7,7 @@ description: >
   Use native subscriptions to ingest data.
 menu:
   influxdb_cloud:
-    name: Native subscriptions
+    name: Native MQTT subscriptions
     parent: Write data
 influxdb/v2.0/tags: [mqtt, native subscription]
 ---
