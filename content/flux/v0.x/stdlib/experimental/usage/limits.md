@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/usage/usage.flux#L305-L319
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/usage/usage.flux#L305-L325
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -104,7 +104,11 @@ import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "INFLUX_TOKEN")
 
-usage.limits(host: "https://us-west-2-1.aws.cloud2.influxdata.com", orgID: "x000X0x0xx0X00x0", token: token)
+usage.limits(
+    host: "https://us-west-2-1.aws.cloud2.influxdata.com",
+    orgID: "x000X0x0xx0X00x0",
+    token: token,
+)
 
 ```
 
@@ -119,36 +123,66 @@ limits = usage.limits()
 
 array.from(
     rows: [
-        {orgID: limits.orgID, limitGroup: "rate", limitName: "Read (kb/s)", limit: limits.rate.readKBs},
+        {
+            orgID: limits.orgID,
+            limitGroup: "rate",
+            limitName: "Read (kb/s)",
+            limit: limits.rate.readKBs,
+        },
         {
             orgID: limits.orgID,
             limitGroup: "rate",
             limitName: "Concurrent Read Requests",
             limit: limits.rate.concurrentReadRequests,
         },
-        {orgID: limits.orgID, limitGroup: "rate", limitName: "Write (kb/s)", limit: limits.rate.writeKBs},
+        {
+            orgID: limits.orgID,
+            limitGroup: "rate",
+            limitName: "Write (kb/s)",
+            limit: limits.rate.writeKBs,
+        },
         {
             orgID: limits.orgID,
             limitGroup: "rate",
             limitName: "Concurrent Write Requests",
             limit: limits.rate.concurrentWriteRequests,
         },
-        {orgID: limits.orgID, limitGroup: "rate", limitName: "Cardinality", limit: limits.rate.cardinality},
-        {orgID: limits.orgID, limitGroup: "bucket", limitName: "Max Buckets", limit: limits.bucket.maxBuckets},
+        {
+            orgID: limits.orgID,
+            limitGroup: "rate",
+            limitName: "Cardinality",
+            limit: limits.rate.cardinality,
+        },
+        {
+            orgID: limits.orgID,
+            limitGroup: "bucket",
+            limitName: "Max Buckets",
+            limit: limits.bucket.maxBuckets,
+        },
         {
             orgID: limits.orgID,
             limitGroup: "bucket",
             limitName: "Max Retention Period (ns)",
             limit: limits.bucket.maxRetentionDuration,
         },
-        {orgID: limits.orgID, limitGroup: "task", limitName: "Max Tasks", limit: limits.task.maxTasks},
+        {
+            orgID: limits.orgID,
+            limitGroup: "task",
+            limitName: "Max Tasks",
+            limit: limits.task.maxTasks,
+        },
         {
             orgID: limits.orgID,
             limitGroup: "dashboard",
             limitName: "Max Dashboards",
             limit: limits.dashboard.maxDashboards,
         },
-        {orgID: limits.orgID, limitGroup: "check", limitName: "Max Checks", limit: limits.check.maxChecks},
+        {
+            orgID: limits.orgID,
+            limitGroup: "check",
+            limitName: "Max Checks",
+            limit: limits.check.maxChecks,
+        },
         {
             orgID: limits.orgID,
             limitGroup: "notificationRule",

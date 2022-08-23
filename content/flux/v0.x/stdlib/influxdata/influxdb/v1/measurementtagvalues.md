@@ -88,7 +88,11 @@ Default is `now()`.
 ```js
 import "influxdata/influxdb/schema"
 
-schema.measurementTagValues(bucket: "example-bucket", measurement: "example-measurement", tag: "example-tag")
+schema.measurementTagValues(
+    bucket: "example-bucket",
+    measurement: "example-measurement",
+    tag: "example-tag",
+)
 
 ```
 

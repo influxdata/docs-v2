@@ -4,6 +4,7 @@ description: >
   Kapacitor event handlers provide ways to integrate Kapacitor alert messages with logging, specific URLs, and many third-party applications.
 aliases:
   - /kapacitor/v1.6/working/event-handler-setup/
+  - /kapacitor/v1.6/event_handlers/talk/
 menu:
   kapacitor_1_6_ref:
     name: Event handlers

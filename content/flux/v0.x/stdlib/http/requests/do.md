@@ -121,7 +121,12 @@ import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "TOKEN")
 
-response = requests.do(method: "GET", url: "http://example.com", headers: ["Authorization": "token ${token}"])
+response =
+    requests.do(
+        method: "GET",
+        url: "http://example.com",
+        headers: ["Authorization": "token ${token}"],
+    )
 
 requests.peek(response: response)
 
