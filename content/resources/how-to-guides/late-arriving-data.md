@@ -9,7 +9,6 @@ weight: 102
 ---
 You may want to ensure that your computed aggregations are correct in the face of data latency. Use Flux to correct downsampling aggregations for late arriving data.
 
-
 ## Setup and Scenario
 
 In order to follow this guide you’ll need to create the following resources:
