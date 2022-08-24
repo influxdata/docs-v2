@@ -117,12 +117,21 @@ import "types"
 
 nonNumericData =
     data
-        |> filter(fn: (r) => types.isType(v: r._value, type: "string") or types.isType(v: r._value, type: "bool"))
+        |> filter(
+            fn: (r) =>
+                types.isType(v: r._value, type: "string") or types.isType(
+                        v: r._value,
+                        type: "bool",
+                    ),
+        )
         |> aggregateWindow(every: 30s, fn: last)
 
 numericData =
     data
-        |> filter(fn: (r) => types.isType(v: r._value, type: "int") or types.isType(v: r._value, type: "float"))
+        |> filter(
+            fn: (r) =>
+                types.isType(v: r._value, type: "int") or types.isType(v: r._value, type: "float"),
+        )
         |> aggregateWindow(every: 30s, fn: mean)
 
 union(tables: [nonNumericData, numericData])
@@ -187,18 +196,18 @@ union(tables: [nonNumericData, numericData])
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:00:30Z | bool  | false   |
 | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | 2021-01-01T00:01:00Z | bool  | false   |
 
-| *_start | *_stop | *type | _value  | _time  |
-| ------- | ------ | ----- | ------- | ------ |
+| _time  | *_start | *_stop | *type | _value  |
+| ------ | ------- | ------ | ----- | ------- |
 
-| *_start              | *_stop               | *type | _value             | _time                |
-| -------------------- | -------------------- | ----- | ------------------ | -------------------- |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | float | 5.363333333333333  | 2021-01-01T00:00:30Z |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | float | 12.396666666666668 | 2021-01-01T00:01:00Z |
+| _time                | *_start              | *_stop               | *type | _value             |
+| -------------------- | -------------------- | -------------------- | ----- | ------------------ |
+| 2021-01-01T00:00:30Z | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | float | 5.363333333333333  |
+| 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | float | 12.396666666666668 |
 
-| *_start              | *_stop               | *type | _value  | _time                |
-| -------------------- | -------------------- | ----- | ------- | -------------------- |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | int   | 5       | 2021-01-01T00:00:30Z |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | int   | 12      | 2021-01-01T00:01:00Z |
+| _time                | *_start              | *_stop               | *type | _value  |
+| -------------------- | -------------------- | -------------------- | ----- | ------- |
+| 2021-01-01T00:00:30Z | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | int   | 5       |
+| 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | int   | 12      |
 
 | *_start | *_stop | _time  | *type | _value  |
 | ------- | ------ | ------ | ----- | ------- |

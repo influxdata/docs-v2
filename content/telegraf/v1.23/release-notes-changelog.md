@@ -10,6 +10,83 @@ menu:
     name: Release notes
     weight: 60
 ---
+## v1.23.4 [2022-08-16]
+
+- Bump `github.com/lxc/lxd` to be able to run tests.
+- Sync sql output and input build constraints to handle loong64 in go1.19.
+- Update credentials file to not use `endpoint_url` parameter
+- Fixes to linter issues
+- Add Coralogix dialect to open telemetry.
+
+## Input plugin updates
+
+- Cloudwatch (`cloudwatch`): Customizable batch size when querying.
+- Kube Inventory (`kube_inventory`): Send file location to enable token auto-refresh.
+- Kubernetes (`kubernetes`): Refresh token from file at each read.
+- MongoDB (`mongodb`): Update to most recent version.
+- OPC UA (`opcua`): Return an error with mismatched types.
+- SQL server (`sqlserver`): Set lower deadlock priority.
+- Stackdriver (`stackdriver`) Handle when no buckets available.
+
+
+## Dependency Updates
+
+- Bump github.com/testcontainers/testcontainers-go from 0.12.0 to 0.13.0.
+- Bump github.com/apache/thrift from 0.15.0 to 0.16.0.
+- Bump github.com/aws/aws-sdk-go-v2/service/ec2 from 1.46.0 to 1.51.0.
+- Update all go.opentelemetry.io dependencies.
+- Bump github.com/go-ldap/ldap/v3 from 3.4.1 to 3.4.4.
+- Bump github.com/karrick/godirwalk from 1.16.1 to 1.17.0.
+- Bump github.com/vmware/govmomi from 0.28.0 to 0.29.0.
+- Bump github.com/eclipse/paho.mqtt.golang from 1.3.5 to 1.4.1.
+- Bump github.com/shirou/gopsutil/v3 from 3.22.4 to 3.22.7.
+- Bump github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs.
+- Bump github.com/Azure/go-autorest/autorest/adal.
+- Bump github.com/pion/dtls/v2 from 2.0.13 to 2.1.5.
+- Bump github.com/Azure/azure-event-hubs-go/v3.
+- Bump github.com/aws/aws-sdk-go-v2/service/cloudwatch.
+- Bump github.com/aws/aws-sdk-go-v2/service/kinesis.
+- Bump github.com/aws/aws-sdk-go-v2/service/dynamodb.
+- Bump github.com/signalfx/golib/v3 from 3.3.43 to 3.3.45.
+- Update github.com/BurntSushi/toml from 0.4.1 to 1.2.0.
+- Update cloud.google.com/go/pubsub from 1.23.0 to 1.24.0.
+- Update k8s.io/apimachinery from 0.24.2 to 0.24.3.
+- Update github.com/Shopify/sarama from 1.34.1 to 1.35.0.
+- Bump github.com/sirupsen/logrus from 1.8.1 to 1.9.0.
+- Bump github.com/emicklei/go-restful from v2.9.5+incompatible to v3.8.0.
+- Bump github.com/hashicorp/consul/api from 1.12.0 to 1.13.1.
+- Bump github.com/prometheus/client_golang from 1.12.2 to 1.13.0.
+- Bump google.golang.org/api from 0.85.0 to 0.91.0.
+- Bump github.com/antchfx/xmlquery from 1.3.9 to 1.3.12.
+- Bump github.com/aws/aws-sdk-go-v2/service/ec2.
+- Bump github.com/aws/aws-sdk-go-v2/feature/ec2/imds.
+- Bump github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs.
+
+## v1.23.3 [2022-07-25]
+
+## Bug fixes
+- Openstack input plugin (`inputs.openstack`): Use v3 volume library.
+- MQTT Consumer input plugin (`inputs.mqtt_consumer`): Topic parsing error when topic having prefix '/'.
+- SNMP Trap input plugin (`inputs.snmp_trap`): Prevent map panic when using with `netsnmp` translator.
+- SQL Server input plugin (`inputs.sqlserver`): Set lower deadlock priority on queries.
+- `common.cookie`: Use reader over readcloser, regenerate `cookie-jar` at reauthorization.
+- Prometheus parser (`parsers.prometheus`): Histogram infinity bucket is now always present.
+
+## Dependency updates
+- Bump `github.com/antchfx/jsonquery` from 1.1.5 to 1.2.0.
+
+## v1.23.2 [2022-7-11]
+
+## Bug fixes
+
+- Remove unexpected deprecation warnings for non-deprecated packages that occurred in 1.23.1.
+- HTTP input plugin (`inputs.http`): Allow both 200 and 201 response codes when generating cookie authentication. Also update the cookie header docs to show a TOML map rather than a string.
+- Microsoft SQL Server input plugin (`inputs.sqlserver`): Use `bigint` for `backupsize` in `sqlserver` queries.
+- gNMI input plugin (`inputs.gnmi`): Refactor `tag_only` subscriptions for complex keys (such as `network-instances`) and to improve concurrrency. The subscription key is no longer hardcoded to the device name and the `name` tag. Adds ability to specify a subscription key on a per-tag basis. 
+- SNMP input plugin (`inputs.snmp`): Now sets gosnmp's `UseUnconnectedUDPSocket` to true when using UDP. Adds support to accept SNMP responses from any address (not just the requested address). Useful when gathering responses from redundant/failover systems.
+
+## Dependency updates
+- Bump `github.com/docker/docker` from 20.10.14 to 20.10.17.
 
 ## v1.23.1 [2022-7-5]
 

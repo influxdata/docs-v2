@@ -23,7 +23,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/jsternberg/influxdb/influxdb.flux#L215-L264
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/jsternberg/influxdb/influxdb.flux#L215-L267
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -117,8 +117,8 @@ Records that evaluate to _null_ or `false` are not included in the output tables
 
 URL of the InfluxDB instance to query.
 
-See [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/)
-or [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/).
+See [InfluxDB OSS URLs](/influxdb/latest/reference/urls/)
+or [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/).
 
 ### org
 
@@ -128,7 +128,7 @@ Organization name.
 
 ### token
 
-InfluxDB [API token](https://docs.influxdata.com/influxdb/latest/security/tokens/).
+InfluxDB [API token](/influxdb/latest/security/tokens/).
 
 
 
@@ -155,7 +155,12 @@ influxdb.select(from: "example-bucket", start: -1d, m: "example-measurement", fi
 ```js
 import "contrib/jsternberg/influxdb"
 
-influxdb.select(from: "example-bucket", start: -1d, m: "example-measurement", fields: ["field1", "field2", "field3"])
+influxdb.select(
+    from: "example-bucket",
+    start: -1d,
+    m: "example-measurement",
+    fields: ["field1", "field2", "field3"],
+)
 
 ```
 

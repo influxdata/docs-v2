@@ -161,13 +161,32 @@ union(
     tables: [
         data
             |> events.duration(unit: 1m, stop: 2020-01-02T00:00:00Z)
-            |> map(fn: (r) => ({_time: r._time, state: r.state, function: "events.Duration()", value: r.duration})),
+            |> map(
+                fn: (r) =>
+                    ({
+                        _time: r._time,
+                        state: r.state,
+                        function: "events.Duration()",
+                        value: r.duration,
+                    }),
+            ),
         data
             |> elapsed(unit: 1m)
-            |> map(fn: (r) => ({_time: r._time, state: r.state, function: "elapsed()", value: r.elapsed})),
+            |> map(
+                fn: (r) =>
+                    ({_time: r._time, state: r.state, function: "elapsed()", value: r.elapsed}),
+            ),
         data
             |> stateDuration(unit: 1m, fn: (r) => true)
-            |> map(fn: (r) => ({_time: r._time, state: r.state, function: "stateDuration()", value: r.stateDuration})),
+            |> map(
+                fn: (r) =>
+                    ({
+                        _time: r._time,
+                        state: r.state,
+                        function: "stateDuration()",
+                        value: r.stateDuration,
+                    }),
+            ),
     ],
 )
     |> pivot(rowKey: ["_time", "state"], columnKey: ["function"], valueColumn: "value")

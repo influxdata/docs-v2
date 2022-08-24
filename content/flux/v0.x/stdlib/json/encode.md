@@ -31,7 +31,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 This function encodes Flux types as follows:
 
-- **time** values in [RFC3339](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#rfc3339-timestamp) format
+- **time** values in [RFC3339](/influxdb/cloud/reference/glossary/#rfc3339-timestamp) format
 - **duration** values in number of milliseconds since the Unix epoch
 - **regexp** values as their string representation
 - **bytes** values as base64-encoded strings

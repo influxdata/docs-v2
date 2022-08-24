@@ -37,7 +37,10 @@ Import the `experimental/bitwise` package:
 import "experimental/bitwise"
 ```
 
-**Deprecated**: This package is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/).
+{{% warn %}}
+#### Deprecated
+This package is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/).
+{{% /warn %}}
 
 All integers are 64 bit integers.
 

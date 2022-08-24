@@ -37,7 +37,10 @@ Import the `experimental/http` package:
 import "experimental/http"
 ```
 
-**Deprecated**: This package is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/).
+{{% warn %}}
+#### Deprecated
+This package is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/).
+{{% /warn %}}
 
 
 ## Functions

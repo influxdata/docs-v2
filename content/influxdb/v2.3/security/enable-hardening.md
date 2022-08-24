@@ -34,7 +34,7 @@ With private IP validation enabled, InfluxDB first verifies that the IP address 
 IP addresses are considered private if they fall into one of the following categories:
 
 - IPv4 loopback (`127.0.0.0/8`)
-- RFC1918 (`10.0.0.0/8`, `172.26.0.0/12`, `192.268.0.0/16`)
+- RFC1918 (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`)
 - RFC3927 (`169.254.0.0/16`)
 - IPv6 loopback (`::1/128`)
 - IPv6 link-local (`fe80::/10`)

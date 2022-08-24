@@ -73,3 +73,43 @@ sampledata.string()
 
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | *tag | _value      |
+| -------------------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | t1   | smpl_g9qczs |
+| 2021-01-01T00:00:10Z | t1   | smpl_0mgv9n |
+| 2021-01-01T00:00:20Z | t1   | smpl_phw664 |
+| 2021-01-01T00:00:30Z | t1   | smpl_guvzy4 |
+| 2021-01-01T00:00:40Z | t1   | smpl_5v3cce |
+| 2021-01-01T00:00:50Z | t1   | smpl_s9fmgy |
+
+| _time                | *tag | _value      |
+| -------------------- | ---- | ----------- |
+| 2021-01-01T00:00:00Z | t2   | smpl_b5eida |
+| 2021-01-01T00:00:10Z | t2   | smpl_eu4oxp |
+| 2021-01-01T00:00:20Z | t2   | smpl_5g7tz4 |
+| 2021-01-01T00:00:30Z | t2   | smpl_sox1ut |
+| 2021-01-01T00:00:40Z | t2   | smpl_wfm757 |
+| 2021-01-01T00:00:50Z | t2   | smpl_dtn2bv |
+
+
+#### Output data
+
+| *tag | labels  |
+| ---- | ------- |
+| t1   | _time   |
+| t1   | tag     |
+| t1   | _value  |
+
+| *tag | labels  |
+| ---- | ------- |
+| t2   | _time   |
+| t2   | tag     |
+| t2   | _value  |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

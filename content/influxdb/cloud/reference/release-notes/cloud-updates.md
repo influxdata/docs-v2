@@ -14,6 +14,23 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## July 2022
+
+### Request a proof of concept from the UI
+
+Request a proof of concept (POC) from the help options in the InfluxDB Cloud UI. A sales representative will contact you to customize a POC for your data and use case.
+
+### Accessible graph color options
+
+To ensure graphing functionality is accessible to colorblind users, we added two additional colorblind-friendly color pallet graph customization options.
+
+### Sample IoT application and code snippets for Python
+
+Quickly start writing and querying your data with **Python**. Now, when you complete the **Python** onboarding wizard, you'll have the option to do either of the following:
+- View an IoT [Sample App](https://github.com/influxdata/iot-api-python) written in Python.
+- View [Boilerplate Snippets](https://github.com/InfluxCommunity/sample-flask/blob/main/app.py/) of code in Python.
+
+
 ## June 2022
 
 ### Private InfluxDB Cloud offering

@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L188-L244
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L191-L248
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -34,7 +34,7 @@ the InfluxDB `_monitoring` system bucket.
 For each input table containing a number of rows less than or equal to the specified threshold,
 the function assigns a `crit` value to the` _level` column.
 
-This function is comparable to [Kapacitor AlertNode deadman](https://docs.influxdata.com/kapacitor/latest/nodes/stream_node/#deadman).
+This function is comparable to [Kapacitor AlertNode deadman](/kapacitor/latest/nodes/stream_node/#deadman).
 
 ##### Function type signature
 

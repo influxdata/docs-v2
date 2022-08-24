@@ -80,8 +80,8 @@ String-encoded organization ID.
 
 URL of the InfluxDB instance to query.
 
-See [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/)
-or [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/).
+See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
+or [InfluxDB OSS URLs](/influxdb/latest/reference/urls/).
 
 ### token
 
@@ -134,7 +134,11 @@ influxdb.cardinality(bucket: "example-bucket", start: -1y)
 ```js
 import "influxdata/influxdb"
 
-influxdb.cardinality(bucket: "example-bucket", start: -1y, predicate: (r) => r._measurement == "example-measurement")
+influxdb.cardinality(
+    bucket: "example-bucket",
+    start: -1y,
+    predicate: (r) => r._measurement == "example-measurement",
+)
 
 ```
 

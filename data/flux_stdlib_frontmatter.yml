@@ -1296,6 +1296,9 @@
     - /influxdb/cloud/reference/flux/stdlib/secrets/
   related:
     - /{{< latest "influxdb" >}}/security/secrets/, Manage secrets in InfluxDB
+  exclude_from:
+    oss: ^1\.
+    enterprise: ^1\.
 
 /flux/v0.x/stdlib/influxdata/influxdb/secrets/get.md: |
   aliases:
@@ -1304,6 +1307,9 @@
     - /influxdb/cloud/reference/flux/stdlib/secrets/get/
   related:
     - /{{< latest "influxdb" >}}/security/secrets/, Manage secrets in InfluxDB
+  exclude_from:
+    oss: ^1\.
+    enterprise: ^1\.
 
 /flux/v0.x/stdlib/influxdata/influxdb/tasks/_index.md: |
   aliases:
@@ -1336,6 +1342,10 @@
     - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/databases/
   related:
     - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-databases, SHOW DATABASES in InfluxQL
+  exclude_from:
+    cloud: true
+    oss: ^2\.
+    enterprise: ^2\.
   append:
     block: warn
     content: |
@@ -1510,6 +1520,10 @@
       #### Not supported in the Flux REPL
       `v1` functions can retrieve schema information when executed within
       the context of InfluxDB, but not from the [Flux REPL](/influxdb/cloud/tools/repl/).
+
+/flux/v0.x/stdlib/internal/debug/null.md: |
+  related:
+    - /flux/v0.x/data-types/basic/null/
 
 /flux/v0.x/stdlib/interpolate/_index.md: |
   aliases:

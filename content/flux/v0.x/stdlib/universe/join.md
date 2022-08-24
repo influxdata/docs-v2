@@ -25,7 +25,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1130-L1130
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1175-L1175
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -37,9 +37,12 @@ Null values are not considered equal when comparing column values.
 The resulting schema is the union of the input schemas.
 The resulting group key is the union of the input group keys.
 
-**Deprecated**: `join()` is deprecated in favor of [`join.inner()`](https://docs.influxdata.com/flux/v0.x/stdlib/join/inner/).
-The [`join` package](https://docs.influxdata.com/flux/v0.x/stdlib/join/) provides support
+{{% warn %}}
+#### Deprecated
+`join()` is deprecated in favor of [`join.inner()`](/flux/v0.x/stdlib/join/inner/).
+The [`join` package](/flux/v0.x/stdlib/join/) provides support
 for multiple join methods.
+{{% /warn %}}
 
 #### Output data
 The schema and group keys of the joined output output data is the union of
@@ -95,11 +98,21 @@ Join method. Default is `inner`.
 import "generate"
 
 t1 =
-    generate.from(count: 4, fn: (n) => n + 1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
+    generate.from(
+        count: 4,
+        fn: (n) => n + 1,
+        start: 2021-01-01T00:00:00Z,
+        stop: 2021-01-05T00:00:00Z,
+    )
         |> set(key: "tag", value: "foo")
 
 t2 =
-    generate.from(count: 4, fn: (n) => n * (-1), start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
+    generate.from(
+        count: 4,
+        fn: (n) => n * (-1),
+        start: 2021-01-01T00:00:00Z,
+        stop: 2021-01-05T00:00:00Z,
+    )
         |> set(key: "tag", value: "foo")
 
 join(tables: {t1: t1, t2: t2}, on: ["_time", "tag"])

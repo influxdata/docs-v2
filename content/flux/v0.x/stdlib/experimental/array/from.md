@@ -30,8 +30,11 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `array.from()` constructs a table from an array of records.
 
-**Deprecated**: `from()` is deprecated in favor of [`from()`](https://docs.influxdata.com/flux/v0.x/stdlib/array/from).
+{{% warn %}}
+#### Deprecated
+`from()` is deprecated in favor of [`from()`](/flux/v0.x/stdlib/array/from).
 This function is available for backwards compatibility, but we recommend using the `array` package instead.
+{{% /warn %}}
 
 
 Each record in the array is converted into an output row or record. All

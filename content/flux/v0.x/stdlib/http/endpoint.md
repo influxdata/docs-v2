@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/http/http.flux#L155-L166
+https://github.com/influxdata/flux/blob/master/stdlib/http/http.flux#L155-L170
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -73,7 +73,10 @@ import "sampledata"
 endpoint =
     http.endpoint(url: "http://example.com/")(
         mapfn: (r) =>
-            ({headers: {header1: "example1", header2: "example2"}, data: bytes(v: "The value is ${r._value}")}),
+            ({
+                headers: {header1: "example1", header2: "example2"},
+                data: bytes(v: "The value is ${r._value}"),
+            }),
     )
 
 sampledata.int()

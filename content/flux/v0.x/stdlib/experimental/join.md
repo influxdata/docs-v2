@@ -31,9 +31,12 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `experimental.join()` joins two streams of tables on the **group key and `_time` column**.
 
-**Deprecated**: `experimental.join()` is deprecated in favor of [`join.time()`](https://docs.influxdata.com/flux/v0.x/stdlib/join/time/).
-The [`join` package](https://docs.influxdata.com/flux/v0.x/stdlib/join/) provides support
+{{% warn %}}
+#### Deprecated
+`experimental.join()` is deprecated in favor of [`join.time()`](/flux/v0.x/stdlib/join/time/).
+The [`join` package](/flux/v0.x/stdlib/join/) provides support
 for multiple join methods.
+{{% /warn %}}
 
 Use the `fn` parameter to map new output tables using values from input tables.
 
@@ -105,7 +108,8 @@ right =
 experimental.join(
     left: left,
     right: right,
-    fn: (left, right) => ({left with lv: left._value, rv: right._value, diff: left._value - right._value}),
+    fn: (left, right) =>
+        ({left with lv: left._value, rv: right._value, diff: left._value - right._value}),
 )
 
 ```
