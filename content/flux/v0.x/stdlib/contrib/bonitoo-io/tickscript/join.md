@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L484-L488
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L488-L492
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -96,7 +96,11 @@ states =
     )
         |> group(columns: ["host"])
 
-tickscript.join(tables: {metric: metrics, state: states}, on: ["_time", "host"], measurement: "example-m")
+tickscript.join(
+    tables: {metric: metrics, state: states},
+    on: ["_time", "host"],
+    measurement: "example-m",
+)
 
 ```
 

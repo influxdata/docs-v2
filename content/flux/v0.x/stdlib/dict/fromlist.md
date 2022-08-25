@@ -56,7 +56,10 @@ List of records with `key` and `value` properties.
 ```js
 import "dict"
 
-d = dict.fromList(pairs: [{key: 1, value: "foo"}, {key: 2, value: "bar"}])// Returns [1: "foo", 2: "bar"]
+d =
+    dict.fromList(
+        pairs: [{key: 1, value: "foo"}, {key: 2, value: "bar"}],
+    )// Returns [1: "foo", 2: "bar"]
 
 
 ```
