@@ -29,7 +29,7 @@ The first column lists all the databases in your Influx instance and the queries
 
 ### Download queries to a .csv file
 
-1. Open Chronograf in your web browser and select **Admin {{< icon "crown" >}}** in the sidebar. 
+1. Open Chronograf in your web browser, and select **Admin {{< icon "crown" >}}**. 
 2. Click on **InfluxDB**. 
 3. Click the **Queries** tab to go to the Queries Page.
 4. Click the **CSV** button in the upper righthand corner.
