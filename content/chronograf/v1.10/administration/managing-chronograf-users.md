@@ -239,7 +239,7 @@ Chronograf is always used in the context of an organization. When a user logs in
 
 #### Log in and log out
 
-A user can log in from the Chronograf homepage using any configured OAuth 2.0 provider.
+Log in from the Chronograf homepage using any configured OAuth 2.0 provider.
 
 Log out by hovering over the **User {{< icon "person" >}}** in the left navigation bar and clicking **Log out**.
 
