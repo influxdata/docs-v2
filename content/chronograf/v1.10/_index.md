@@ -13,8 +13,6 @@ weight: 1
 Chronograf is InfluxData's open source web application.
 Use Chronograf with the other components of the [TICK stack](https://www.influxdata.com/products/) to visualize your monitoring data and easily create alerting and automation rules.
 
-![Chronograf Collage](/img/chronograf/1-6-chronograf-collage.png)
-
 ## Key features
 
 ### Infrastructure monitoring
@@ -44,6 +42,11 @@ Chronograf offers a UI for [Kapacitor](https://github.com/influxdata/kapacitor),
 * View currently-running queries and stop inefficient queries from overloading your system
 * Create, delete, and assign permissions to users (Chronograf supports [InfluxDB OSS](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#authorization) and InfluxDB Enterprise user management)
 
+### Query management
+
+* View a list of databases, queries and their status
+* Kill a query
+* Download a list of queries in your instance to a csv file 
 
 ### Multi-organization and multi-user support
 

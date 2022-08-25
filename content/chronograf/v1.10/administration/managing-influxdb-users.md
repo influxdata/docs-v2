@@ -139,7 +139,7 @@ Remove `READ`, `WRITE`, or `ALL` permissions from non-admin users by replacing `
 
 ## InfluxDB Enterprise user management using the UI
 
-To create, manage and delete users, click **{{< icon "crown" "v2" >}} Admin** in the left navigation bar. You will be taken to the `InfluxDB Admin` page.  
+To create, manage and delete users, click **Admin {{< icon "crown" >}}** in the left navigation bar. You will be taken to the `InfluxDB Admin` page.  
 
 To create a user do the following:
 
