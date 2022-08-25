@@ -46,7 +46,7 @@ Chronograf offers a UI for [Kapacitor](https://github.com/influxdata/kapacitor),
 
 * View a list of databases, queries and their status
 * Kill a query
-* Download a list of queries in your instance to a csv file 
+* Download a list of queries in your instance to a CSV file 
 
 ### Multi-organization and multi-user support
 
