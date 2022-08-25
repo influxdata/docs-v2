@@ -35,6 +35,3 @@ The first column lists all the databases in your Influx instance and the queries
 4. Click the **CSV** button in the upper righthand corner.
 5. The .csv file will be downloaded to your downlaods folder. 
 
-
-
-
