@@ -223,13 +223,8 @@ in its tag key.
 The [`SELECT` clause](#the-basic-select-statement) supports specifying a [field's](/enterprise_influxdb/v1.9/concepts/glossary/#field) type and basic cast
 operations with the `::` syntax.
 
-<table style="width:100%">
-  <tr>
-    <td><a href="#data-types">Data Types</a></td>
-    <td><a href="#cast-operations">Cast Operations</a></td>
-  </tr>
-</table>
-
+- [Data Types](#data-types)
+- [Cast Operations](#cast-operations)
 ## Data types
 
 [Field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) can be floats, integers, strings, or booleans.
