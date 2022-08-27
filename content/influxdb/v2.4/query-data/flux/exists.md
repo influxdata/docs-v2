@@ -3,8 +3,8 @@ title: Check if a value exists
 seotitle: Use Flux to check if a value exists
 list_title: Exists
 description: >
-  Use the Flux `exists` operator to check if a record contains a key or if that
-  key's value is `null`.
+  Use the Flux `exists` operator to check if a row record contains a column or if
+  that column's value is `null`.
 influxdb/v2.4/tags: [exists]
 menu:
   influxdb_2_4:
@@ -24,17 +24,11 @@ list_code_example: |
   ```
 ---
 
-Use the Flux `exists` operator to check if a record contains a key or if that
-key's value is `null`.
+Use the `exists` operator to check if a row record contains a column or if a
+column's value is _null_.
 
 ```js
-p = {firstName: "John", lastName: "Doe", age: 42}
-
-exists p.firstName
-// Returns true
-
-exists p.height
-// Returns false
+(r) => exists r.column
 ```
 
 If you're just getting started with Flux queries, check out the following:
@@ -46,9 +40,10 @@ Use `exists` with row functions (
 [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/),
 [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/),
 [`reduce()`](/{{< latest "flux" >}}/stdlib/universe/reduce/))
-to check if a row includes a column or if the value for that column is `null`.
+to check if a row includes a column or if the value for that column is _null_.
 
 #### Filter null values
+
 ```js
 from(bucket: "example-bucket")
     |> range(start: -5m)
@@ -56,6 +51,7 @@ from(bucket: "example-bucket")
 ```
 
 #### Map values based on existence
+
 ```js
 from(bucket: "default")
     |> range(start: -30s)
@@ -70,6 +66,7 @@ from(bucket: "default")
 ```
 
 #### Ignore null values in a custom aggregate function
+
 ```js
 customSumProduct = (tables=<-) => tables
     |> reduce(
@@ -85,4 +82,34 @@ customSumProduct = (tables=<-) => tables
                 accumulator.product,
         }),
     )
+```
+
+#### Check if a statically defined record contains a key
+
+When you use the [record literal syntax](/flux/v0.x/data-types/composite/record/#record-syntax)
+to statically define a record, Flux knows the record type and what keys to expect.
+
+- If the key exists in the static record, `exists` returns `true`.
+- If the key exists in the static record, but has a _null_ value, `exists` returns `false`.
+- If the key does not exist in the static record, because the record type is
+  statically known, `exists` returns an error.
+
+```js
+import "internal/debug"
+
+p = {
+    firstName: "John",
+    lastName: "Doe",
+    age: 42,
+    height: debug.null(type: "int"),
+}
+
+exists p.firstName
+// Returns true
+
+exists p.height
+// Returns false
+
+exists p.hairColor
+// Returns "error: record is missing label hairColor"
 ```
