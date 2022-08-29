@@ -54,7 +54,6 @@ Many persistence strategies are available and which to use depends on your
 specific architecture and containerization technology.
 {{% /note %}}
 
-
 ## Configure Kapacitor subscriptions
 Kapacitor subscription configuration options are available under the `[[influxdb]]` section in the [`kapacitor.conf`](/kapacitor/v1.6/administration/configuration/).
 Below is an example of subscription-specific configuration options followed by a description of each.
@@ -86,14 +85,9 @@ Defines the subscription mode of Kapacitor.
 Available options:
 
 - `"server"`
-- `"cluster"` _(See warning below)_
+- `"cluster"` 
 
-{{% warn %}}
-The default setting for `subscription-mode` is `cluster`, however this should
-not be used with [Kapacitor Enterprise](https://archive.docs.influxdata.com/enterprise_kapacitor/latest/).
-Multi-node Kapacitor Enterprise clusters should only use the `server` subscription-mode,
-otherwise subscription data will not be received.
-{{% /warn %}}
+The default setting is `cluster`.
 
 ### `subscription-protocol`
 Defines which protocol to use for subscriptions.
@@ -102,6 +96,8 @@ Available options:
 - `"udp"`
 - `"http"`
 - `"https"`
+
+The default setting is `http`.
 
 ### `[influxdb.subscriptions]`
 Defines a set of databases and retention policies to subscribe to.
