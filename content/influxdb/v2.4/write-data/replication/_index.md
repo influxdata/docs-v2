@@ -22,5 +22,5 @@ storing data for long-term management and analysis.
 
 {{% note %}}
 To replicate data from InfluxDB OSS to a remote InfluxDB OSS instance, see
-[Replicate data to a remote InfluxDB instance](/influxdb/v2.2/write-data/replication/replicate-data).
+[Replicate data to a remote InfluxDB instance](/influxdb/v2.4/write-data/replication/replicate-data).
 {{% /note %}}
