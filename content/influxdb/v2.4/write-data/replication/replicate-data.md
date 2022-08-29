@@ -7,7 +7,7 @@ description: >
   InfluxDB Enterprise instance.
 menu:
   influxdb_2_4:
-    name: How to replicate data
+    name: Replicate data to Cloud
     parent: Replicate data
 influxdb/v2.4/tags: [write, replication]
 related:

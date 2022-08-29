@@ -6,7 +6,7 @@ description: >
 
 menu:
   influxdb_2_3:
-    name: How to replicate data
+    name: Replicate data to Cloud
     parent: Replicate data
 influxdb/v2.3/tags: [write, replication]
 related:
