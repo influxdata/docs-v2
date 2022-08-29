@@ -10,8 +10,8 @@ menu:
   influxdb_cloud:
     identifier: client-library-starter-py
     name: Python
-    parent: Client library starter
+    parent: Client library tutorials
 influxdb/cloud/tags: [api, python]
 ---
 
-{{% duplicate-oss %}}
+{{< duplicate-oss >}}
