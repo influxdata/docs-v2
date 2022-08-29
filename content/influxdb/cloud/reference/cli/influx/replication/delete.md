@@ -7,8 +7,6 @@ menu:
     parent: influx replication
 weight: 102
 influxdb/cloud/tags: [write, replication]
-related:
-  - /influxdb/cloud/reference/cli/influx/replication
 ---
 
 {{< duplicate-oss >}}
