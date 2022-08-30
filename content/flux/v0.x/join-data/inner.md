@@ -34,6 +34,24 @@ Use [`join.inner()`](/flux/v0.x/stdlib/join/inner/) to perform an inner join of 
 Inner joins drop any rows from both input streams that do not have a matching
 row in the other stream.
 
+{{< flex >}}
+{{% flex-content %}}
+#### left
+|     |                            |                            |
+| :-- | :------------------------- | :------------------------- |
+| 1   | <span style="color:blue;">●</span> | <span style="color:blue;">●</span> |
+| 2   | <span style="color:blue;">●</span> | <span style="color:blue;">●</span> |
+{{% /flex-content %}}
+{{% flex-content %}}
+#### right
+|     |     |     |
+| :-- | :-- | :-- |
+| 1   | <span style="color:blue;">▲</span>    | <span style="color:blue;">▲</span>    |
+| 3   | <span style="color:blue;">▲</span>    | <span style="color:blue;">▲</span>    |
+| 4   | <span style="color:blue;">▲</span>    | <span style="color:blue;">▲</span>    |
+{{% /flex-content %}}
+{{< /flex >}}
+
 ## Prepare your data
 To join two streams of data with the `join` package, each stream must have:
 
@@ -92,3 +110,66 @@ join.inner(
 )
     |> group(columns: ["stationID"])
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and output" %}}
+
+### Input
+
+#### left
+
+_`_start` and `_stop` columns have been omitted._
+
+| _time                   | _measurement | stationID | _field   | _value |
+| :---------------------- | :----------- | :-------- | :------- | -----: |
+| 2021-08-01T00:00:00Z    | machinery    | g1        | oil_temp |   39.1 |
+| 2021-08-01T00:00:11.51Z | machinery    | g1        | oil_temp |   40.3 |
+| 2021-08-01T00:00:19.53Z | machinery    | g1        | oil_temp |   40.6 |
+| 2021-08-01T00:00:25.1Z  | machinery    | g1        | oil_temp |  40.72 |
+| 2021-08-01T00:00:36.88Z | machinery    | g1        | oil_temp |   40.8 |
+
+| _time                   | _measurement | stationID | _field   | _value |
+| :---------------------- | :----------- | :-------- | :------- | -----: |
+| 2021-08-01T00:00:00Z    | machinery    | g2        | oil_temp |   40.6 |
+| 2021-08-01T00:00:27.93Z | machinery    | g2        | oil_temp |   40.6 |
+| 2021-08-01T00:00:54.96Z | machinery    | g2        | oil_temp |   40.6 |
+| 2021-08-01T00:01:17.27Z | machinery    | g2        | oil_temp |   40.6 |
+| 2021-08-01T00:01:41.84Z | machinery    | g2        | oil_temp |   40.6 |
+
+| _time                   | _measurement | stationID | _field   | _value |
+| :---------------------- | :----------- | :-------- | :------- | -----: |
+| 2021-08-01T00:00:00Z    | machinery    | g3        | oil_temp |   41.4 |
+| 2021-08-01T00:00:14.46Z | machinery    | g3        | oil_temp |  41.36 |
+| 2021-08-01T00:00:25.29Z | machinery    | g3        | oil_temp |   41.4 |
+| 2021-08-01T00:00:38.77Z | machinery    | g3        | oil_temp |   41.4 |
+| 2021-08-01T00:00:51.2Z  | machinery    | g3        | oil_temp |   41.4 |
+
+#### right
+
+| station | opType |      last_maintained |
+| :------ | :----- | -------------------: |
+| g1      | auto   | 2021-07-15T00:00:00Z |
+| g2      | manned | 2021-07-02T00:00:00Z |
+
+### Output
+
+_`_start` and `_stop` columns have been omitted._
+
+| _time                   | _measurement | stationID | _field   | _value | opType | maintained           |
+| :---------------------- | :----------- | :-------- | :------- | -----: | :----- | :------------------- |
+| 2021-08-01T00:00:00Z    | machinery    | g1        | oil_temp |   39.1 | auto   | 2021-07-15T00:00:00Z |
+| 2021-08-01T00:00:11.51Z | machinery    | g1        | oil_temp |   40.3 | auto   | 2021-07-15T00:00:00Z |
+| 2021-08-01T00:00:19.53Z | machinery    | g1        | oil_temp |   40.6 | auto   | 2021-07-15T00:00:00Z |
+| 2021-08-01T00:00:25.1Z  | machinery    | g1        | oil_temp |  40.72 | auto   | 2021-07-15T00:00:00Z |
+| 2021-08-01T00:00:36.88Z | machinery    | g1        | oil_temp |   40.8 | auto   | 2021-07-15T00:00:00Z |
+
+| _time                   | _measurement | stationID | _field   | _value | opType | maintained           |
+| :---------------------- | :----------- | :-------- | :------- | -----: | :----- | :------------------- |
+| 2021-08-01T00:00:00Z    | machinery    | g2        | oil_temp |   40.6 | manned | 2021-07-02T00:00:00Z |
+| 2021-08-01T00:00:27.93Z | machinery    | g2        | oil_temp |   40.6 | manned | 2021-07-02T00:00:00Z |
+| 2021-08-01T00:00:54.96Z | machinery    | g2        | oil_temp |   40.6 | manned | 2021-07-02T00:00:00Z |
+| 2021-08-01T00:01:17.27Z | machinery    | g2        | oil_temp |   40.6 | manned | 2021-07-02T00:00:00Z |
+| 2021-08-01T00:01:41.84Z | machinery    | g2        | oil_temp |   40.6 | manned | 2021-07-02T00:00:00Z |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

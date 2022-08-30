@@ -72,7 +72,7 @@ joined rows–left (`l`) and right (`r`).
 ## Join types
 The `join` package supports the following join types and special use cases:
 
-{{< children >}}
+{{< children readmore=true >}}
 
 - Note on joining vs union + pivot
   - If the schemas of the two datasets are mostly different, use join.
