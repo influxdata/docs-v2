@@ -5,3 +5,6 @@ description: |
 
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://github.com/influxdata/openapi/blob/influxdb-oss-v2.3.0/contracts/ref/oss.yml).
+license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
