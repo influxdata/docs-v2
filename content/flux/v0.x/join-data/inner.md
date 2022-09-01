@@ -1,6 +1,5 @@
 ---
 title: Perform an inner join
-list_title: Inner join
 description: >
   Use [`join.inner()`](/flux/v0.x/stdlib/join/inner/) to perform an inner join of two streams of data.
   Inner joins drop any rows from both input streams that do not have a matching
@@ -30,27 +29,40 @@ list_code_example: |
 ---
 
 Use [`join.inner()`](/flux/v0.x/stdlib/join/inner/) to perform an inner join of two streams of data.
-
 Inner joins drop any rows from both input streams that do not have a matching
 row in the other stream.
 
+{{< svg svg="static/svgs/join-diagram.svg" class="inner" >}}
+
+{{< expand-wrapper >}}
+{{% expand "View table illustration of an inner join" %}}
 {{< flex >}}
-{{% flex-content %}}
+{{% flex-content "third" %}}
 #### left
-|     |                            |                            |
-| :-- | :------------------------- | :------------------------- |
-| 1   | <span style="color:blue;">●</span> | <span style="color:blue;">●</span> |
-| 2   | <span style="color:blue;">●</span> | <span style="color:blue;">●</span> |
+|     |                                      |                                      |
+| :-- | :----------------------------------- | :----------------------------------- |
+| r1  | <span style="color:#9b2aff">●</span> | <span style="color:#9b2aff">●</span> |
+| r2  | <span style="color:#9b2aff">●</span> | <span style="color:#9b2aff">●</span> |
 {{% /flex-content %}}
-{{% flex-content %}}
+{{% flex-content "third" %}}
 #### right
-|     |     |     |
-| :-- | :-- | :-- |
-| 1   | <span style="color:blue;">▲</span>    | <span style="color:blue;">▲</span>    |
-| 3   | <span style="color:blue;">▲</span>    | <span style="color:blue;">▲</span>    |
-| 4   | <span style="color:blue;">▲</span>    | <span style="color:blue;">▲</span>    |
+|     |                                      |                                      |
+| :-- | :----------------------------------- | :----------------------------------- |
+| r1  | <span style="color:#d30971">▲</span> | <span style="color:#d30971">▲</span> |
+| r3  | <span style="color:#d30971">▲</span> | <span style="color:#d30971">▲</span> |
+| r4  | <span style="color:#d30971">▲</span> | <span style="color:#d30971">▲</span> |
+{{% /flex-content %}}
+{{% flex-content "third" %}}
+#### Inner join result
+
+|     |                                      |                                      |                                      |                                      |
+| :-- | :----------------------------------- | :----------------------------------- | :----------------------------------- | :----------------------------------- |
+| r1  | <span style="color:#9b2aff">●</span> | <span style="color:#9b2aff">●</span> | <span style="color:#d30971">▲</span> | <span style="color:#d30971">▲</span> |
 {{% /flex-content %}}
 {{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 
 ## Prepare your data
 To join two streams of data with the `join` package, each stream must have:

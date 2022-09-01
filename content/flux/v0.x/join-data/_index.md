@@ -12,6 +12,24 @@ weight: 8
 
 - Introduction to the [`join` package](/flux/v0.x/stdlib/join/)
 
+{{< flex >}}
+{{< flex-content "quarter" >}}
+<p style="text-align:center"><strong>Inner join</strong></p>
+{{< svg svg="static/svgs/join-diagram.svg" class="inner small center" >}}
+{{< /flex-content >}}
+{{< flex-content "quarter" >}}
+<p style="text-align:center"><strong>Left outer join</strong></p>
+{{< svg svg="static/svgs/join-diagram.svg" class="left small center" >}}
+{{< /flex-content >}}
+{{< flex-content "quarter" >}}
+<p style="text-align:center"><strong>Right outer join</strong></p>
+{{< svg svg="static/svgs/join-diagram.svg" class="right small center" >}}
+{{< /flex-content >}}
+{{< flex-content "quarter" >}}
+<p style="text-align:center"><strong>Full outer join</strong></p>
+{{< svg svg="static/svgs/join-diagram.svg" class="full small center" >}}
+{{< /flex-content >}}
+{{< /flex >}}
 
 ## How join functions work
 
@@ -38,15 +56,15 @@ To join two streams of data with the `join` package, each stream must have:
 - **Identical [group keys](/flux/v0.x/get-started/data-model/#group-key)**.  
   Functions in the `join` package use group keys to quickly determine what tables
   from each input stream should be paired and evaluated for the join operation.
-  Both input streams must have the same group key.
+  _Both input streams must have the same group key._
   This likely requires using [`group()`](/flux/v0.x/stdlib/universe/group/)
   to regroup each input stream before joining them together.
 
 ### Join predicate
 Each function in the `join` package requires the `on` parameter which is the
 **join predicate**—a [predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-functions)
-that compares values from each input stream (represented by `l` and `r`) and 
-returns `true` or `false`.
+that compares values from each input stream (represented by `l` (left) and `r` (right))
+and returns `true` or `false`.
 Rows that return `true` when compared are joined.
 Rows that return `false` when compared are not.
 
