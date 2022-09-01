@@ -3,13 +3,17 @@ title: Back up and restore
 description: >
   Back up and restore InfluxDB enterprise clusters to prevent data loss.
 aliases:
-    - /enterprise/v1.8/guides/backup-and-restore/
+    - /enterprise/v1.10/guides/backup-and-restore/
 menu:
   enterprise_influxdb_1_10:
     name: Back up and restore
     weight: 10
     parent: Administration
 ---
+
+- [Overview](#overview)
+- [Backup and restore utilities](#backup-and-restore-utilities)
+- [Exporting and importing data](#exporting-and-importing-data)
 
 ## Overview
 
@@ -40,7 +44,7 @@ Most InfluxDB Enterprise applications can use the backup and restore utilities.
 
 Use the `backup` and `restore` utilities to back up and restore between `influxd`
 instances with the same versions or with only minor version differences.
-For example, you can backup from {{< latest-patch version="1.8" >}} and restore on {{< latest-patch >}}.
+For example, you can backup from {{< latest-patch version="1.10" >}} and restore on {{< latest-patch >}}.
 
 ### Backup utility
 
@@ -92,6 +96,8 @@ for a complete list of the global `influxd-ctl` options.
 - `-full`: perform a full backup. Deprecated in favour of `-strategy=full`
 - `-rp <string>`: the name of the single retention policy to back up (must specify `-db` with `-rp`)
 - `-shard <unit>`: the ID of the single shard to back up (cannot be used with `-db`)
+- `-start <timestamp>`: Include all points starting with specified timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
+- `-end <timestamp>`: Exclude all points after timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
 
 ### Backup examples
 
@@ -114,6 +120,14 @@ influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 ```
 
+To back up data in a specific time range, use the `-start` and `-stop` options:
+
+```bash
+influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
+
+```
+
+`-start <timestamp>`
 #### Perform an incremental backup
 
 Perform an incremental backup into the current directory with the command below.
