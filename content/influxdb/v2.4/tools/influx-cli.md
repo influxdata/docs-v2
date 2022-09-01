@@ -28,7 +28,7 @@ separately from the InfluxDB server (`influxd`).
 {{% /note %}}
 
 {{% /oss-only %}}
-
+⁸
 - [Install the influx CLI](#install-the-influx-cli)
 - [Set up the influx CLI](#set-up-the-influx-cli)
 - [Use influx CLI commands](#use-influx-cli-commands)
