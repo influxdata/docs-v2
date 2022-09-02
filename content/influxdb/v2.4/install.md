@@ -87,6 +87,20 @@ do the following:
     `./` to run it in place.
 
 {{< expand-wrapper >}}
+{{% expand "<span class='req'>Recommended</span> – Set appropriate directory permissions" %}}
+
+For added security, it is recommended to set the permissions on the influxdb data-dir to not be world readable to prevent unwanted access to data.
+
+Example:
+
+```shell
+> chmod 0750 ~/.influxdbv2
+```
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+{{< expand-wrapper >}}
 {{% expand "<span class='req'>Recommended</span> – Verify the authenticity of downloaded binary" %}}
 
 For added security, use `gpg` to verify the signature of your download.
@@ -315,6 +329,20 @@ See InfluxDB [configuration options](/influxdb/v2.4/reference/config-options/) f
     `./` to run it in place.
 
 {{< expand-wrapper >}}
+{{% expand "<span class='req'>Recommended</span> – Set appropriate directory permissions" %}}
+
+For added security, it is recommended to set the permissions on the influxdb data-dir to not be world readable to prevent unwanted access to data.
+
+Example:
+
+```shell
+> chmod 0750 ~/.influxdbv2
+```
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+{{< expand-wrapper >}}
 {{% expand "<span class='req'>Recommended</span> – Verify the authenticity of downloaded binary" %}}
 
 For added security, use `gpg` to verify the signature of your download.
@@ -419,6 +447,23 @@ Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename the
 > Expand-Archive .\influxdb2-{{< latest-patch >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
 > mv 'C:\Program Files\InfluxData\influxdb2-{{< latest-patch >}}-windows-amd64' 'C:\Program Files\InfluxData\influxdb'
 ```
+
+{{< expand-wrapper >}}
+{{% expand "<span class='req'>Recommended</span> – Set appropriate directory permissions" %}}
+
+For added security, it is recommended to set the permissions on the influxdb data-dir to not be world readable to prevent unwanted access to data.
+
+Example:
+
+````powershell
+> $acl = Get-Acl "C:\Users\<username>\.influxdbv2"
+> $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("everyone","Read","Deny")
+> $acl.SetAccessRule($accessRule)
+> $acl | Set-Acl "C:\Users\<username>\.influxdbv2"
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 
 ## Networking ports
 By default, InfluxDB uses TCP port `8086` for client-server communication over
