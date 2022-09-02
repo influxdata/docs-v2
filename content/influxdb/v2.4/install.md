@@ -89,7 +89,7 @@ do the following:
 {{< expand-wrapper >}}
 {{% expand "<span class='req'>Recommended</span> – Set appropriate directory permissions" %}}
 
-For added security, it is recommended to set the permissions on the influxdb data-dir to not be world readable to prevent unwanted access to data.
+To prevent unwanted access to data, we recommend setting the permissions on the influxdb `data-dir` to not be world readable.
 
 Example:
 
@@ -331,7 +331,7 @@ See InfluxDB [configuration options](/influxdb/v2.4/reference/config-options/) f
 {{< expand-wrapper >}}
 {{% expand "<span class='req'>Recommended</span> – Set appropriate directory permissions" %}}
 
-For added security, it is recommended to set the permissions on the influxdb data-dir to not be world readable to prevent unwanted access to data.
+To prevent unwanted access to data, we recommend setting the permissions on the influxdb `data-dir` to not be world readable.
 
 Example:
 
@@ -451,7 +451,7 @@ Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename the
 {{< expand-wrapper >}}
 {{% expand "<span class='req'>Recommended</span> – Set appropriate directory permissions" %}}
 
-For added security, it is recommended to set the permissions on the influxdb data-dir to not be world readable to prevent unwanted access to data.
+To prevent unwanted access to data, we recommend setting the permissions on the influxdb `data-dir` to not be world readable.
 
 Example:
 
