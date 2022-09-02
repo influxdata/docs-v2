@@ -1,4 +1,4 @@
-\---
+---
 title: Glossary
 description: >
   Terms related to InfluxData products and platforms.
@@ -507,6 +507,7 @@ An entity comprising data on a server (or virtual server in cloud computing).
 <!-- An instance in an InfluxDB Enterprise cluster may scale across multiple servers or nodes in a network. -->
 
 {{% oss-only %}}
+
 ### instance owner
 
 A type of admin role for a user.
