@@ -317,7 +317,7 @@ Metrics gathered at irregular time intervals.
 
 ### explicit block
 
-In Flux, a an explicit block is a possibly empty sequence of statements within matching braces (`{ }`) that is defined in the source code, for example:
+In Flux, an explicit block is a possibly empty sequence of statements within matching braces (`{ }`) that is defined in the source code, for example:
 
 ```
 Block         = "{" StatementList "}
@@ -704,14 +704,15 @@ Learn about the [option assignment](/{{< latest "flux" >}}/spec/assignment-scope
 A workspace for a group of users.
 All dashboards, tasks, buckets, members, and so on, belong to an organization.
 
-{{% oss-only %}}
+
 ### owner
 
 A type of role for a user.
 Owners have read/write permissions.
 Users can have owner roles for bucket and organization resources.
 
-{{% /oss-only %}}
+Role permissions are separate from API token permissions. For additional
+information on API tokens, see [token](#tokens).
 
 ### output plugin
 
