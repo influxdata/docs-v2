@@ -202,7 +202,7 @@ Role required: `admin`
 
 **To create a user:**
 
-1. Open Chronograf in your web browser and select **Admin (crown icon) > Chronograf**.
+1. Open Chronograf in your web browser and select **Admin {{< icon "crown" >}}**.
 2. Click the **Users** tab and then click **Create User**.
 3. Add the following user information:
    * **Username**: Enter the username as provided by the OAuth provider.
@@ -219,6 +219,8 @@ Only a user's role can be updated. A user's username, provider, and scheme canno
 
 **To change a user's role:**
 
+
+
 1. Open Chronograf in your web browser and select **Admin (crown icon) > Chronograf**.
 2. Click the **Users** tab to display the list of users within the current organization.
 3. Select a new role for the user. The update is automatically persisted.
@@ -229,7 +231,7 @@ Role required: `admin`
 
 **To remove a user:**
 
-1. Open Chronograf in your web browser and select **Admin (crown icon) > Chronograf**.
+1. Open Chronograf in your web browser and select **Admin {{< icon "crown" >}}**.
 2. Click the **Users** tab to display the list of users.
 3. Hover your cursor over the user you want to remove and then click **Remove** and **Confirm**.
 
@@ -239,6 +241,14 @@ Chronograf is always used in the context of an organization. When a user logs in
 
 #### Log in and log out
 
+
+Log in from the Chronograf homepage using any configured OAuth 2.0 provider.
+
+Log out by hovering over the **User {{< icon "person" >}}** in the left navigation bar and clicking **Log out**.
+
+#### Switch the current organization
+
+A user's current organization and role is highlighted in the **Switch Organizations** list, which can be found by hovering over the **User {{< icon "person" >}}** in the left navigation bar.
 A user can log in from the Chronograf homepage using any configured OAuth 2.0 provider.
 
 A user can log out by hovering over the **User (person icon)** in the left navigation bar and clicking **Log out**.
