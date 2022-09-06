@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L241-L241
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L286-L286
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -61,6 +61,7 @@ Default is the `location` option.
 
 - [Return the day of the month for a time value](#return-the-day-of-the-month-for-a-time-value)
 - [Return the day of the month for a relative duration](#return-the-day-of-the-month-for-a-relative-duration)
+- [Return the current day of the month](#return-the-current-day-of-the-month)
 
 ### Return the day of the month for a time value
 
@@ -82,6 +83,16 @@ option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.monthDay(t: -8d)// Returns 25
 
+
+```
+
+
+### Return the current day of the month
+
+```js
+import "date"
+
+date.monthDay(t: now())
 
 ```
 

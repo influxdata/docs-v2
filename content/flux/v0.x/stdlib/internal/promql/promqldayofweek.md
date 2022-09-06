@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L33-L33
+https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L51-L51
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `promql.promqlDayOfWeek()` implements functionality equivalent to
 [PromQL's `day_of_week()` function](https://prometheus.io/docs/prometheus/latest/querying/functions/#day_of_week).
 
-
+**Important**: The `internal/promql` package is not meant for external use.
 
 ##### Function type signature
 
