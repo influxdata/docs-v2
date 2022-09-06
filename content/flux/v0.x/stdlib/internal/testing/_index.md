@@ -1,17 +1,16 @@
 ---
-title: universe package
+title: testing package
 description: >
-  The `universe` package provides equivalent functions to the standard universe package
-  but with more precise type signatures.
+  The `testing` package provides functions for testing Flux operations.
 menu:
   flux_0_x_ref:
-    name: universe 
-    parent: experimental
-    identifier: experimental/universe
+    name: testing 
+    parent: internal
+    identifier: internal/testing
 weight: 21
 cascade:
 
-  introduced: v0.166.0
+  introduced: 0.182.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -23,19 +22,18 @@ documentation is generated.
 To make updates to this documentation, update the comments above the package
 declaration in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/universe/universe.flux
+https://github.com/influxdata/flux/blob/master/stdlib/internal/testing/testing.flux
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-The `universe` package provides equivalent functions to the standard universe package
-but with more precise type signatures.
-Import the `experimental/universe` package:
+The `testing` package provides functions for testing Flux operations.
+Import the `internal/testing` package:
 
 ```js
-import "experimental/universe"
+import "internal/testing"
 ```
 
 

@@ -82,12 +82,12 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
     Connection: keep-alive, 
     Content-Length: 41, 
     Content-Type: application/json; charset=utf-8, 
-    Date: Mon, 29 Aug 2022 17:59:42 GMT, 
+    Date: Tue, 06 Sep 2022 16:40:23 GMT, 
     Etag: W/"29-klDahUESBLxHyQ7NiaetCn2CvCI", 
     Server: nginx/1.16.1, 
     X-Rate-Limit-Limit: 1000, 
     X-Rate-Limit-Remaining: 996, 
-    X-Rate-Reset: 21617
+    X-Rate-Reset: 26377
 ]                           | 200         |
 
 {{% /expand %}}
