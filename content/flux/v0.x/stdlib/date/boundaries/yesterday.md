@@ -54,7 +54,9 @@ import "date/boundaries"
 
 option now = () => 2022-01-02T13:45:28Z
 
-boundaries.yesterday()// Returns {start: 2022-01-01T00:00:00.000000000Z, stop: 2022-01-02T00:00:00.000000000Z}
+boundaries.yesterday(
+
+)// Returns {start: 2022-01-01T00:00:00.000000000Z, stop: 2022-01-02T00:00:00.000000000Z}
 
 
 ```

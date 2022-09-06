@@ -9,8 +9,8 @@ menu:
   influxdb_cloud:
     identifier: client-library-starter-js
     name: JavaScript
-    parent: Client library starter
+    parent: Client library tutorials
 influxdb/cloud/tags: [api, javascript, nodejs]
 ---
 
-{{% duplicate-oss %}}
+{{< duplicate-oss >}}
