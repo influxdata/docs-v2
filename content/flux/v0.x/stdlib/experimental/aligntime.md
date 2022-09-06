@@ -8,7 +8,7 @@ menu:
     parent: experimental
     identifier: experimental/alignTime
 weight: 101
-flux/v0.x/tags: [transformations, data/time]
+flux/v0.x/tags: [transformations, date/time]
 introduced: 0.66.0
 ---
 
@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L491-L495
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L495-L499
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md

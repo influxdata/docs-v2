@@ -36,7 +36,7 @@ Import the `internal/promql` package:
 import "internal/promql"
 ```
 
-THIS PACKAGE IS NOT MEANT FOR EXTERNAL USE.
+**Important**: This package is not meant for external use.
 
 
 ## Functions

@@ -10,10 +10,29 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.182.0 [2022-09-06]
+
+### Features
+- Display yields in `fluxtest`.
+- Allow [`experimental.unpivot()`](/flux/v0.x/stdlib/experimental/unpivot/) to
+  work when the `_time` column is missing.
+- Add utility to the `function` package to register a source or transformation.
+- Add Rust binary to sit on top of "headless" REPL backend.
+
+### Bug fixes
+- Correct type for `fillValueTime`.
+- Correct panic in vectorized division by zero.
+- Correct inconsistent runtime typing for `logicalVectorEvaluator`.
+- Don't treat errors in SQL syntax as internal.
+- Improve error handling when missing a property on member expressions.
+- Preserve values of non-string group keys in `experimental.diff()`.
+
+---
+
 ## v0.181.0 [2022-08-29]
 
 ### Features
-- Add "headless" json-rpc based REPL.
+- Add "headless" JSON-RPC based REPL.
 - Support vectorized unary operators.
 - Add [`experimental/polyline` package](/flux/v0.x/stdlib/experimental/polyline)
   for downsampling data.

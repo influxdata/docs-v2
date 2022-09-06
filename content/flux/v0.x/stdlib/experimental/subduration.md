@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L134-L134
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L138-L138
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -31,7 +31,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `experimental.subDuration()` subtracts a duration from a time value and returns the resulting time value.
 
-
+{{% warn %}}
+#### Deprecated
+`experimental.subDuration()` is deprecated in favor of [`date.sub()`](/flux/v0.x/stdlib/date/sub/).
+{{% /warn %}}
 
 ##### Function type signature
 

@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L1338-L1338
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L1342-L1342
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -37,7 +37,7 @@ If the function does not error the returned value is made into a string and retu
 ##### Function type signature
 
 ```js
-(fn: () => A) => string
+(fn: () => A) => {value: A, msg: string, code: uint}
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
