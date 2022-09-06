@@ -98,9 +98,6 @@ Example:
 ```
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
-
-{{< expand-wrapper >}}
 {{% expand "<span class='req'>Recommended</span> – Verify the authenticity of downloaded binary" %}}
 
 For added security, use `gpg` to verify the signature of your download.
@@ -340,9 +337,6 @@ Example:
 ```
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
-
-{{< expand-wrapper >}}
 {{% expand "<span class='req'>Recommended</span> – Verify the authenticity of downloaded binary" %}}
 
 For added security, use `gpg` to verify the signature of your download.
