@@ -83,3 +83,11 @@ Each unique DBRP combination can only be mapped to a single bucket.
 If you map a DBRP combination that is already mapped to another bucket,
 it will overwrite the existing DBRP mapping.
 {{% /note %}}
+
+### View databases and retention polices
+
+You can quickly view a list of databases and retention polices in your InfluxDB instance by using command line interficae (CLI).  See [Install and use the influx CLI](/influxdb/v2.4/tools/influx-cli/).  To invoke the command line, type the following command:
+
+```bash
+influx v1 shell
+```
