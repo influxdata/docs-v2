@@ -8,7 +8,7 @@
       {{ $name := replaceRE " function" "" .Title }}
       <div class="warn block">
         <p>
-          <code>{{ $name | safeHTML }}</code> is {{ if in $name "experimental" }}{{ else }}experimental and{{ end }} <a href="{{ $expRiskURL }}"></a>subject to change at any time</a>.
+          <code>{{ $name | safeHTML }}</code> is {{ if in $name "experimental" }}{{ else }}experimental and{{ end }} <a href="{{ $expRiskURL }}">subject to change at any time</a>.
         </p>
       </div>
     {{ else if eq .Kind "section" }}
@@ -16,7 +16,7 @@
         {{ $packageTitle := cond (isset .Params "list_title") $.Params.list_title .Title }}
         {{ $packageName := replaceRE `^(.*)( package)` "<code>$1</code>$2" $packageTitle }}
         <p>
-          The {{ $packageName | safeHTML }} is experimental and <a href="{{ $expRiskURL }}"></a>subject to change at any time</a>.
+          The {{ $packageName | safeHTML }} is experimental and <a href="{{ $expRiskURL }}">subject to change at any time</a>.
         </p>
       </div>
     {{ end }}
