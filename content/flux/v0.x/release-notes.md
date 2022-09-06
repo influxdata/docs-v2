@@ -10,6 +10,22 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.181.0 [2022-08-29]
+
+### Features
+- Add "headless" json-rpc based REPL.
+- Support vectorized unary operators.
+- Add [`experimental/polyline` package](/flux/v0.x/stdlib/experimental/polyline)
+  for downsampling data.
+- Update function library to have its own arguments struct.
+
+### Bug fixes
+- Update import path for the `Spec` package in the "headless" REPL.
+- Update conditional vectorization to handle bad values for `test`,
+  `consequent`, or `alternate`.
+
+---
+
 ## v0.180.1 [2022-08-22]
 
 - _Internal code cleanup._
