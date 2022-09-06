@@ -2501,31 +2501,16 @@
     - /influxdb/v2.0/reference/flux/stdlib/testing/assertequals/
     - /influxdb/cloud/reference/flux/stdlib/testing/assertequals/
 
-/flux/v0.x/stdlib/testing/benchmark.md: |
-  aliases:
-    - /influxdb/v2.0/reference/flux/stdlib/testing/benchmark/
-    - /influxdb/cloud/reference/flux/stdlib/testing/benchmark/
-
 /flux/v0.x/stdlib/testing/diff.md: |
   aliases:
     - /influxdb/v2.0/reference/flux/functions/testing/diff/
     - /influxdb/v2.0/reference/flux/stdlib/testing/diff/
     - /influxdb/cloud/reference/flux/stdlib/testing/diff/
 
-/flux/v0.x/stdlib/testing/inspect.md: |
-  aliases:
-    - /influxdb/v2.0/reference/flux/stdlib/testing/inspect/
-    - /influxdb/cloud/reference/flux/stdlib/testing/inspect/
-
 /flux/v0.x/stdlib/testing/load.md: |
   aliases:
     - /influxdb/v2.0/reference/flux/stdlib/testing/load/
     - /influxdb/cloud/reference/flux/stdlib/testing/load/
-
-/flux/v0.x/stdlib/testing/run.md: |
-  aliases:
-    - /influxdb/v2.0/reference/flux/stdlib/testing/run/
-    - /influxdb/cloud/reference/flux/stdlib/testing/run/
 
 /flux/v0.x/stdlib/universe/_index.md: |
   aliases:
