@@ -194,7 +194,12 @@ data =
     )
 
 data
-    |> to(bucket: "example-bucket", org: "example-org", token: "mYSuP3rSecR37t0k3N", host: "http://localhost:8086")
+    |> to(
+        bucket: "example-bucket",
+        org: "example-org",
+        token: "mYSuP3rSecR37t0k3N",
+        host: "http://localhost:8086",
+    )
 
 ```
 
@@ -282,7 +287,9 @@ data
     |> to(bucket: "bucket1")
     |> group()
     |> count()
-    |> map(fn: (r) => ({r with _time: now(), _measurement: "writeStats", _field: "numPointsWritten"}))
+    |> map(
+        fn: (r) => ({r with _time: now(), _measurement: "writeStats", _field: "numPointsWritten"}),
+    )
     |> to(bucket: "bucket2")
 
 ```

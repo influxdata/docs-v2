@@ -79,6 +79,8 @@ function addPreserve() {
   $('.keep-url').each(function () {
     // For code blocks with no syntax highlighting
     $(this).next('pre').addClass('preserve')
+    // For code blocks with no syntax highlighting inside of a link (API endpoint blocks)
+    $(this).next('a').find('pre').addClass('preserve')
     // For code blocks with syntax highlighting
     $(this).next('.highlight').find('pre').addClass('preserve')
     // For code blocks inside .keep-url div

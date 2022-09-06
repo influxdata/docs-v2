@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/monitor/monitor.flux#L380-L383
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/monitor/monitor.flux#L386-L389
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -109,17 +109,16 @@ data
 
 ### Detect if a host hasn't reported since a relative time
 
-Use `experimental.addDuration()` to return a time value relative to a specified time.
+Use `date.add()` to return a time value relative to a specified time.
 
 ```js
 import "influxdata/influxdb/monitor"
-import "experimental"
+import "date"
 
-//
 from(bucket: "example-bucket")
     |> range(start: -10m)
     |> filter(fn: (r) => r._measurement == "example-measurement")
-    |> monitor.deadman(t: experimental.addDuration(d: -5m, from: now()))
+    |> monitor.deadman(t: date.add(d: -5m, to: now()))
 
 ```
 

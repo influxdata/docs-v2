@@ -42,6 +42,7 @@ Chronograf offers a UI for [Kapacitor](https://github.com/influxdata/kapacitor),
 * View currently-running queries and stop inefficient queries from overloading your system
 * Create, delete, and assign permissions to users (Chronograf supports [InfluxDB OSS](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#authorization) and InfluxDB Enterprise user management)
 
+
 ### Query management
 
 * View a list of databases, queries and their status

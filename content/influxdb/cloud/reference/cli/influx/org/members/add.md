@@ -6,6 +6,8 @@ menu:
     name: influx org members add
     parent: influx org members
 weight: 301
+updated_in: CLI v2.4.0
+metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 ---
 
 {{% note %}}
