@@ -89,7 +89,7 @@ do the following:
 {{< expand-wrapper >}}
 {{% expand "<span class='req'>Recommended</span> – Set appropriate directory permissions" %}}
 
-To prevent unwanted access to data, we recommend setting the permissions on the influxdb `data-dir` to not be world readable.
+To prevent unwanted access to data, we recommend setting the permissions on the influxdb `data-dir` to not be world readable. For server installs, it is also recommended to set a umask of 0027 to properly permission all newly created files.
 
 Example:
 
@@ -328,7 +328,7 @@ See InfluxDB [configuration options](/influxdb/v2.4/reference/config-options/) f
 {{< expand-wrapper >}}
 {{% expand "<span class='req'>Recommended</span> – Set appropriate directory permissions" %}}
 
-To prevent unwanted access to data, we recommend setting the permissions on the influxdb `data-dir` to not be world readable.
+To prevent unwanted access to data, we recommend setting the permissions on the influxdb `data-dir` to not be world readable. For server installs, it is also recommended to set a umask of 0027 to properly permission all newly created files. This can be done via the UMask directive in a systemd unit file, or by running influxdb under a specific user with the umask properly set.
 
 Example:
 
