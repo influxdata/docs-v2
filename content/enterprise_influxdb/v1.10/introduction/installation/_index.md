@@ -22,4 +22,4 @@ Complete the following steps to install an InfluxDB Enterprise cluster in your o
 {{< influxdbu title="Installing InfluxDB Enterprise" summary="Learn about InfluxDB architecture and how to install InfluxDB Enterprise with step-by-step instructions." action="Take the course" link="https://university.influxdata.com/courses/installing-influxdb-enterprise-tutorial/" >}}
 
 #### Other installation options
-- [Install InfluxDB Enterprise on a single server](/enterprise_influxdb/v1.9/introduction/installation/single-server/)
+- [Install InfluxDB Enterprise on a single server](/enterprise_influxdb/v1.10/introduction/installation/single-server/)
