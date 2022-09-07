@@ -7,3 +7,6 @@ description: |
 
   This documentation is generated from the
   [InfluxDB OpenAPI specification](https://github.com/influxdata/openapi/blob/influxdb-oss-v2.3.0/contracts/swaggerV1Compat.yml).
+license:
+  name: MIT
+  url: 'https://opensource.org/licenses/MIT'

@@ -102,15 +102,24 @@
    mkdir v2.3
    ```
 
-8. Enter the following commands into your terminal to fetch and process the contracts:
+8. Copy custom content from the previous version--for example:
+
+    ```sh
+    # In your terminal, copy the `docs-v2/api-docs/openapi/content/v2.2` directory to a new directory:
+    cp -r ./openapi/content/v2.2 ./openapi/content/v2.3
+
+    # TODO: We can probably automate this step now since we pass the version number.
+    ```
+
+9. Enter the following commands into your terminal to fetch and process the contracts:
 
    ```sh
    # Fetch the contracts, apply customizations, and bundle.
    sh getswagger.sh oss
    ```
 
-9. To generate the HTML files for local testing, follow the instructions to [generate API docs locally](#generate-api-docs-locally).
-10. To commit your updated spec files, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
+10. To generate the HTML files for local testing, follow the instructions to [generate API docs locally](#generate-api-docs-locally).
+11. To commit your updated spec files, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
 
 ## Update API docs for OSS spec changes between releases
 
@@ -134,7 +143,7 @@ Follow these steps to update OSS API docs between version releases--for example,
    ```sh
    git cherry-pick [COMMIT_SHAs]
    git push -f origin docs-release/influxdb-oss
-  
+
 4. Go into your `docs-v2` directory and create a branch for your changes--for example:
 
    ```sh
@@ -177,7 +186,7 @@ to generate version-specific (Cloud, OSS v2.1, OSS v2.0, etc.) API documentation
 Because the API documentation HTML is gitignored, you must manually generate it
 to view the API docs locally.
 
-The `./generate.sh` script uses the Redoc CLI to generate Redocly HTML, Javascript, 
+The `./generate.sh` script uses the Redoc CLI to generate Redocly HTML, Javascript,
 and CSS for each version of the InfluxDB spec.
 The script uses `npx` to download and execute the Redocly CLI.
 

@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L438-L438
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L528-L528
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -59,6 +59,7 @@ Default is the `location` option.
 
 - [Return the quarter for a time value](#return-the-quarter-for-a-time-value)
 - [Return the quarter for a relative duration](#return-the-quarter-for-a-relative-duration)
+- [Return the current quarter](#return-the-current-quarter)
 
 ### Return the quarter for a time value
 
@@ -80,6 +81,16 @@ option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.quarter(t: -7mo)// Returns 2
 
+
+```
+
+
+### Return the current quarter
+
+```js
+import "date"
+
+date.quarter(t: now())
 
 ```
 
