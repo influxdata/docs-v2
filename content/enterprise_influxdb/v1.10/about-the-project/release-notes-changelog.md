@@ -9,7 +9,7 @@ menu:
     parent: About the project
 ---
 
-## 1.10 [TBD]
+## 1.10 [2022-09-07]
 
 ### Features
 - Add  /v2/api/buckets support for create, delete, list, retrieve, and update operations.
