@@ -16,7 +16,7 @@ menu:
 - Add [/api/v2/delete](/enterprise_influxdb/v1.10/tools/api/#apiv2delete-http-endpoint) support.
 - Add  wildcard support for retention policies in `SHOW MEASUREMENTS`.
 - Log slow queries even when query logging is not enabled.
-- Add  `--start` and `--stop` flags to backup procedure to break up the work by time.
+- Add  `--start` and `--end` [backup options](/enterprise_influxdb/v1.10/administration/backup-and-restore/#backup-options) to specify the time to include in backup.
 - Add Raft Status output to `inflxud-ctl show`.
 
 #### Flux updates
