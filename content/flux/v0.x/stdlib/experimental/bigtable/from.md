@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bigtable/bigtable.flux#L42-L42
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bigtable/bigtable.flux#L42-L44
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -76,7 +76,12 @@ Cloud Bigtable table name.
 ```js
 import "experimental/bigtable"
 
-bigtable.from(token: "example-token", project: "example-project", instance: "example-instance", table: "example-table")
+bigtable.from(
+    token: "example-token",
+    project: "example-project",
+    instance: "example-instance",
+    table: "example-table",
+)
 
 ```
 

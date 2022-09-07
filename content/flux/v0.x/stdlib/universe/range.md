@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2059-L2063
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2099-L2103
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -101,7 +101,7 @@ from(bucket: "example-bucket")
 
 ```js
 from(bucket: "example-bucket")
-    |> range(start: 1621726200000000000, stop: 1621728000000000000)
+    |> range(start: 1621726200, stop: 1621728000)
 
 ```
 

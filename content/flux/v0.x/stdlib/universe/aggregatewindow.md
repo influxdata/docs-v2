@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3780-L3803
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3852-L3875
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -89,7 +89,7 @@ Duration to shift the window boundaries by. Defualt is `0s`.
 
 ### fn
 ({{< req >}})
-Aggreate or selector function to apply to each time window.
+Aggregate or selector function to apply to each time window.
 
 
 
@@ -121,7 +121,7 @@ Default is `_time`.
 
 ### createEmpty
 
-Create empty tables for empty window. Default is `false`.
+Create empty tables for empty window. Default is `true`.
 
 **Note:** When using `createEmpty: true`, aggregate functions return empty
 tables, but selector functions do not. By design, selectors drop empty tables.
@@ -310,28 +310,41 @@ desired day of the week.
 | Sunday     |   3d   |
 
 ```js
-# import "array"
-#
-# data =
-#     array.from(
-#         rows: [
-#             {_time: 2022-01-01T00:00:00Z, tag: "t1", _value: 2.0},
-#             {_time: 2022-01-03T00:00:00Z, tag: "t1", _value: 2.2},
-#             {_time: 2022-01-06T00:00:00Z, tag: "t1", _value: 4.1},
-#             {_time: 2022-01-09T00:00:00Z, tag: "t1", _value: 3.8},
-#             {_time: 2022-01-11T00:00:00Z, tag: "t1", _value: 1.7},
-#             {_time: 2022-01-12T00:00:00Z, tag: "t1", _value: 2.1},
-#             {_time: 2022-01-15T00:00:00Z, tag: "t1", _value: 3.8},
-#             {_time: 2022-01-16T00:00:00Z, tag: "t1", _value: 4.2},
-#             {_time: 2022-01-20T00:00:00Z, tag: "t1", _value: 5.0},
-#             {_time: 2022-01-24T00:00:00Z, tag: "t1", _value: 5.8},
-#             {_time: 2022-01-28T00:00:00Z, tag: "t1", _value: 3.9},
-#         ],
-#     )
-#         |> range(start: 2022-01-01T00:00:00Z, stop: 2022-01-31T23:59:59Z)
-#         |> group(columns: ["tag"])
-#
-< data
->     |> aggregateWindow(every: 1w, offset: -3d, fn: mean)
+data
+    |> aggregateWindow(every: 1w, offset: -3d, fn: mean)
+
 ```
 
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _start               | _stop                | _time                | *tag | _value  |
+| -------------------- | -------------------- | -------------------- | ---- | ------- |
+| 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2022-01-01T00:00:00Z | t1   | 2       |
+| 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2022-01-03T00:00:00Z | t1   | 2.2     |
+| 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2022-01-06T00:00:00Z | t1   | 4.1     |
+| 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2022-01-09T00:00:00Z | t1   | 3.8     |
+| 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2022-01-11T00:00:00Z | t1   | 1.7     |
+| 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2022-01-12T00:00:00Z | t1   | 2.1     |
+| 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2022-01-15T00:00:00Z | t1   | 3.8     |
+| 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2022-01-16T00:00:00Z | t1   | 4.2     |
+| 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2022-01-20T00:00:00Z | t1   | 5       |
+| 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2022-01-24T00:00:00Z | t1   | 5.8     |
+| 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2022-01-28T00:00:00Z | t1   | 3.9     |
+
+
+#### Output data
+
+| _time                | *tag | *_start              | *_stop               | _value             |
+| -------------------- | ---- | -------------------- | -------------------- | ------------------ |
+| 2022-01-03T00:00:00Z | t1   | 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2                  |
+| 2022-01-10T00:00:00Z | t1   | 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 3.3666666666666667 |
+| 2022-01-17T00:00:00Z | t1   | 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 2.95               |
+| 2022-01-24T00:00:00Z | t1   | 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 5                  |
+| 2022-01-31T00:00:00Z | t1   | 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z | 4.85               |
+| 2022-01-31T23:59:59Z | t1   | 2022-01-01T00:00:00Z | 2022-01-31T23:59:59Z |                    |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

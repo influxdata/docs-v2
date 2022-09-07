@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/http/requests/requests.flux#L307-L317
+https://github.com/influxdata/flux/blob/master/stdlib/http/requests/requests.flux#L321-L331
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -82,12 +82,12 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
     Connection: keep-alive, 
     Content-Length: 41, 
     Content-Type: application/json; charset=utf-8, 
-    Date: Mon, 01 Aug 2022 17:34:50 GMT, 
+    Date: Tue, 06 Sep 2022 16:40:23 GMT, 
     Etag: W/"29-klDahUESBLxHyQ7NiaetCn2CvCI", 
     Server: nginx/1.16.1, 
     X-Rate-Limit-Limit: 1000, 
     X-Rate-Limit-Remaining: 996, 
-    X-Rate-Reset: 23110
+    X-Rate-Reset: 26377
 ]                           | 200         |
 
 {{% /expand %}}

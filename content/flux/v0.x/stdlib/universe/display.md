@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3444-L3444
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3512-L3512
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -76,7 +76,15 @@ Use `array.from()` and `display()` to quickly observe any value.
 ```js
 import "array"
 
-array.from(rows: [{dict: display(v: ["a": 1, "b": 2]), record: display(v: {x: 1, y: 2}), array: display(v: [5, 6, 7])}])
+array.from(
+    rows: [
+        {
+            dict: display(v: ["a": 1, "b": 2]),
+            record: display(v: {x: 1, y: 2}),
+            array: display(v: [5, 6, 7]),
+        },
+    ],
+)
 
 ```
 

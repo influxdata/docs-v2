@@ -10,6 +10,95 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.182.0 [2022-09-06]
+
+### Features
+- Display yields in `fluxtest`.
+- Allow [`experimental.unpivot()`](/flux/v0.x/stdlib/experimental/unpivot/) to
+  work when the `_time` column is missing.
+- Add utility to the `function` package to register a source or transformation.
+- Add Rust binary to sit on top of "headless" REPL backend.
+
+### Bug fixes
+- Correct type for `fillValueTime`.
+- Correct panic in vectorized division by zero.
+- Correct inconsistent runtime typing for `logicalVectorEvaluator`.
+- Don't treat errors in SQL syntax as internal.
+- Improve error handling when missing a property on member expressions.
+- Preserve values of non-string group keys in `experimental.diff()`.
+
+---
+
+## v0.181.0 [2022-08-29]
+
+### Features
+- Add "headless" JSON-RPC based REPL.
+- Support vectorized unary operators.
+- Add [`experimental/polyline` package](/flux/v0.x/stdlib/experimental/polyline)
+  for downsampling data.
+- Update function library to have its own arguments struct.
+
+### Bug fixes
+- Update import path for the `Spec` package in the "headless" REPL.
+- Update conditional vectorization to handle bad values for `test`,
+  `consequent`, or `alternate`.
+
+---
+
+## v0.180.1 [2022-08-22]
+
+- _Internal code cleanup._
+
+---
+
+## v0.180.0 [2022-08-22]
+
+### Features
+- Rewrite calls to `float()` as `_vectorizedFloat()`.
+- Reduce the Flux formatter default line length to 100 characters.
+
+### Bug fixes
+- Fix logic bug in planner helper method.
+- Don't include null columns when unpivoting.
+- Don't error when formatting boolean literals.
+- Sort columns when printing group keys.
+
+---
+
+## v0.179.0 [2022-08-15]
+
+### Features
+- Add a `Stringify` utility function for `table.Chunk`.
+- Add support for vectorized binary equality operations.
+- Update `testing.diff()` to use `experimental.diff()` permanently.
+- Add vectorized `float()` builtin function.
+- Enhance `fluxtest` to use package name with `test` and `skip` flags.
+- Allow any kind of AST fragment to be formatted.
+- Accept Flux feature flags to the test command.
+
+### Bug fixes
+- Update `testing.shouldError()` to use regular expression matching instead of string matching.
+- Temporarily remove duplicates test to avoid conflicts downstream.
+- Update `buildinfo` documnentation comments to match latest `go fmt`.
+- Fix aggregate window rules that left query plans in a bad state.
+- Include filename when printing the AST location.
+
+---
+
+## v0.178.0 [2022-08-09]
+
+### Features
+- Support `apiKey` parameter in [`zenoss.event()`](/flux/v0.x/stdlib/contrib/bonitoo-io/zenoss/event/)
+  and [`zenoss.endpoint()`](/flux/v0.x/stdlib/contrib/bonitoo-io/zenoss/endpoint/).
+- Remove `vectorizedConst` feature flag.
+
+### Bug fixes
+- Deprecate `date/boundaries` package in favor of [`experimental/date/boundaries`](/flux/v0.x/stdlib/experimental/date/boundaries/).
+- Update pattern matching to specify successor counts.
+- Restore integer return value for [`pagerduty.sendEvent()`](/flux/v0.x/stdlib/pagerduty/sendevent/).
+
+---
+
 ## v0.177.1 [2022-08-08]
 
 ### Bug fixes

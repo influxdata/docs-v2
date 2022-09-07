@@ -28,7 +28,7 @@ Your queries should guide what data you store in [tags](/enterprise_influxdb/v1.
 
 ## Avoid too many series
 
-IndexDB indexes the following data elements to speed up reads:
+InfluxDB indexes the following data elements to speed up reads:
 
 - [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement)
 - [tags](/enterprise_influxdb/v1.9/concepts/glossary/#tag)

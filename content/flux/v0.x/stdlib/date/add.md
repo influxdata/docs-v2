@@ -9,6 +9,7 @@ menu:
     identifier: date/add
 weight: 101
 flux/v0.x/tags: [date/time]
+introduced: 0.162.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -20,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L599-L599
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L719-L719
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md

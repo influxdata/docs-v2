@@ -1,5 +1,32 @@
 # API reference documentation
 
+## TL;DR: validate and test your local `influxdata/openapi` changes
+
+1. After you've edited `influxdata/openapi` definitions, you need to generate and validate contracts and test the API reference docs.
+   To create a shell alias that does this, open your `~/.profile` in an editor and add the following commands to the file:
+
+   ```sh
+   export DOCS="$HOME/github/docs-v2"
+   alias gsd="cd $HOME/github/openapi && make generate-all && \
+              npx oats ./contracts/ref/cloud.yml && npx oats ./contracts/ref/oss.yml && \
+              cd $DOCS/api-docs && ./getswagger.sh all -b file:///$HOME/github/openapi && \
+              sh ./generate-api-docs.sh"
+   ```
+
+2. To refresh your environment with the `~/.profile` changes, enter the following command into your terminal:
+
+   ```sh
+   source ~/.profile
+   ```
+
+3. To run the alias, enter the following command into your terminal:
+
+   ```sh
+   gsd
+   ```
+
+`gsd` generates the local contracts in `~/github/openapi`, validates them with OATS, bundles and lints them with `@redocly/cli`, and then generates the HTML with `@redocly/cli`.
+
 ## Update API docs for InfluxDB Cloud
 
 1. In your `docs-v2` directory, create a branch for your changes--for example:
@@ -46,7 +73,7 @@
 4. Enter the following commands into your terminal to push the new tag to the repo:
 
    ```sh
-   git push tags
+   git push --tags
    ```
 
 5. Enter the following commands into your terminal to update `docs-release/influxdb-oss` branch to the OSS release commit and rebase the branch to the [latest release of InfluxDB OSS](#how-to-find-the-api-spec-used-by-an-influxdb-oss-version), replacing **`OSS_RELEASE_TAG`** with the SHA from step 3.
@@ -75,15 +102,24 @@
    mkdir v2.3
    ```
 
-8. Enter the following commands into your terminal to fetch and process the contracts:
+8. Copy custom content from the previous version--for example:
+
+    ```sh
+    # In your terminal, copy the `docs-v2/api-docs/openapi/content/v2.2` directory to a new directory:
+    cp -r ./openapi/content/v2.2 ./openapi/content/v2.3
+
+    # TODO: We can probably automate this step now since we pass the version number.
+    ```
+
+9. Enter the following commands into your terminal to fetch and process the contracts:
 
    ```sh
    # Fetch the contracts, apply customizations, and bundle.
    sh getswagger.sh oss
    ```
 
-9. To generate the HTML files for local testing, follow the instructions to [generate API docs locally](#generate-api-docs-locally).
-10. To commit your updated spec files, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
+10. To generate the HTML files for local testing, follow the instructions to [generate API docs locally](#generate-api-docs-locally).
+11. To commit your updated spec files, push your branch to `influxdata/docs-v2`, and create a PR against the `master` branch.
 
 ## Update API docs for OSS spec changes between releases
 
@@ -107,7 +143,7 @@ Follow these steps to update OSS API docs between version releases--for example,
    ```sh
    git cherry-pick [COMMIT_SHAs]
    git push -f origin docs-release/influxdb-oss
-  
+
 4. Go into your `docs-v2` directory and create a branch for your changes--for example:
 
    ```sh
@@ -150,7 +186,7 @@ to generate version-specific (Cloud, OSS v2.1, OSS v2.0, etc.) API documentation
 Because the API documentation HTML is gitignored, you must manually generate it
 to view the API docs locally.
 
-The `./generate.sh` script uses the Redoc CLI to generate Redocly HTML, Javascript, 
+The `./generate.sh` script uses the Redoc CLI to generate Redocly HTML, Javascript,
 and CSS for each version of the InfluxDB spec.
 The script uses `npx` to download and execute the Redocly CLI.
 

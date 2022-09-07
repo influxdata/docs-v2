@@ -10,6 +10,7 @@ menu:
 weight: 201
 flux/v0.x/tags: [date/time]
 introduced: 0.172.0
+deprecated: 0.177.1
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L44-L46
+https://github.com/influxdata/flux/blob/master/stdlib/date/boundaries/boundaries.flux#L48-L52
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -53,7 +54,9 @@ import "date/boundaries"
 
 option now = () => 2022-01-02T13:45:28Z
 
-boundaries.yesterday()// Returns {start: 2022-01-01T00:00:00.000000000Z, stop: 2022-01-02T00:00:00.000000000Z}
+boundaries.yesterday(
+
+)// Returns {start: 2022-01-01T00:00:00.000000000Z, stop: 2022-01-02T00:00:00.000000000Z}
 
 
 ```

@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L122-L122
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L140-L140
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -59,6 +59,7 @@ Default is the `location` option.
 
 - [Return the minute of a time value](#return-the-minute-of-a-time-value)
 - [Return the minute of a relative duration](#return-the-minute-of-a-relative-duration)
+- [Return the current minute](#return-the-current-minute)
 
 ### Return the minute of a time value
 
@@ -80,6 +81,16 @@ option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.minute(t: -45m)// Returns 6
 
+
+```
+
+
+### Return the current minute
+
+```js
+import "date"
+
+date.minute(t: now())
 
 ```
 
