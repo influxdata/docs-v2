@@ -127,7 +127,6 @@ influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 
 ```
 
-`-start <timestamp>`
 #### Perform an incremental backup
 
 Perform an incremental backup into the current directory with the command below.
