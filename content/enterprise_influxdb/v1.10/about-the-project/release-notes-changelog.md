@@ -13,7 +13,7 @@ menu:
 
 ### Features
 - Add [/api/v2/buckets](/enterprise_influxdb/v1.10/tools/api/#apiv2buckets-http-endpoint) support for create, delete, list, retrieve, and update operations.
-- Add  /v2/api/delete support.
+- Add [/api/v2/delete](/enterprise_influxdb/v1.10/tools/api/#apiv2delete-http-endpoint) support.
 - Add  wildcard support for retention policies in `SHOW MEASUREMENTS`.
 - Log slow queries even when query logging is not enabled.
 - Add  `--start` and `--stop` flags to backup procedure to break up the work by time.
