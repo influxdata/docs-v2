@@ -122,7 +122,7 @@ influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 
 influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 ```
-### Backup data from a specific time range
+#### Back up data from a specific time range
 
 To back up data in a specific time range, use the `-start` and `-end` options:
 
