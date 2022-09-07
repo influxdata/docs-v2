@@ -1,68 +1,114 @@
 ---
 title: experimental.addDuration() function
 description: >
-  The `experimental.addDuration()` function adds a duration to a time value and
-  returns the resulting time.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/addduration/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/addduration/
+  `experimental.addDuration()` adds a duration to a time value and returns the resulting time value.
 menu:
   flux_0_x_ref:
     name: experimental.addDuration
     parent: experimental
-weight: 302
+    identifier: experimental/addDuration
+weight: 101
 flux/v0.x/tags: [date/time]
-related:
-  - /flux/v0.x/stdlib/experimental/subduration/
 introduced: 0.39.0
 deprecated: 0.162.0
 ---
 
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L77-L77
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.addDuration()` adds a duration to a time value and returns the resulting time value.
+
 {{% warn %}}
-This function was promoted to the [`date` package](/flux/v0.x/stdlib/date/add/)
-in **Flux v0.162.0**. This experimental version has been deprecated.
+#### Deprecated
+`experimental.addDuration()` is deprecated in favor of [`date.add()`](/flux/v0.x/stdlib/date/add/).
 {{% /warn %}}
 
-The `experimental.addDuration()` function adds a duration to a time value and
-returns the resulting time value.
+##### Function type signature
 
 ```js
-import "experimental"
-
-experimental.addDuration(
-    d: 12h,
-    to: now(),
-)
+(d: duration, to: A, ?location: {zone: string, offset: duration}) => time where A: Timeable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### d {data-type="duration"}
-The duration to add.
+### d
+({{< req >}})
+Duration to add.
 
-### to {data-type="time, duration"}
-The time to add the [duration](#d) to.
+
+
+### to
+({{< req >}})
+Time to add the duration to.
+
+
+
+### location
+
+Location to use for the time value.
+
 Use an absolute time or a relative duration.
-Durations are relative to [`now()`](/flux/v0.x/stdlib/universe/now/).
+Durations are relative to `now()`.
+
 
 ## Examples
 
+- [Add six hours to a timestamp](#add-six-hours-to-a-timestamp)
+- [Add one month to yesterday](#add-one-month-to-yesterday)
+- [Add six hours to a relative duration](#add-six-hours-to-a-relative-duration)
+
 ### Add six hours to a timestamp
+
 ```js
 import "experimental"
 
-experimental.addDuration(d: 6h, to: 2019-09-16T12:00:00Z)
+experimental.addDuration(d: 6h, to: 2019-09-16T12:00:00Z)// Returns 2019-09-16T18:00:00.000000000Z
 
-// Returns 2019-09-16T18:00:00.000000000Z
+
 ```
 
+
+### Add one month to yesterday
+
+A time may be represented as either an explicit timestamp
+or as a relative time from the current `now` time. addDuration can
+support either type of value.
+
+```js
+import "experimental"
+
+option now = () => 2021-12-10T16:27:40Z
+
+experimental.addDuration(d: 1mo, to: -1d)// Returns 2022-01-09T16:27:40Z
+
+
+```
+
+
 ### Add six hours to a relative duration
+
 ```js
 import "experimental"
 
 option now = () => 2022-01-01T12:00:00Z
 
-experimental.addDuration(d: 6h, to: 3h)
+experimental.addDuration(d: 6h, to: 3h)// Returns 2022-01-01T21:00:00.000000000Z
 
-// Returns 2022-01-01T21:00:00.000000000Z
+
 ```
+

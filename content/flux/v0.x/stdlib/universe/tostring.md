@@ -1,89 +1,109 @@
 ---
 title: toString() function
-description: The `toString()` function converts all values in the `_value` column to strings.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/type-conversions/tostring
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/tostring/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/tostring/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/tostring/
+description: >
+  `toString()` converts all values in the `_value` column to string types.
 menu:
   flux_0_x_ref:
     name: toString
     parent: universe
-weight: 102
-flux/v0.x/tags: [type-conversions, transformations]
+    identifier: universe/toString
+weight: 101
+flux/v0.x/tags: [transformations, type-conversions]
 introduced: 0.7.0
 ---
 
-The `toString()` function converts all values in the `_value` column to strings.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L4589-L4589
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`toString()` converts all values in the `_value` column to string types.
+
+
+
+##### Function type signature
 
 ```js
-toString()
+(<-tables: stream[{A with _value: B}]) => stream[{A with _value: B, _value: string}]
 ```
 
-{{% note %}}
-To convert values in a column other than `_value`, define a custom function
-patterned after the [function definition](#function-definition),
-but replace `_value` with your desired column.
-{{% /note %}}
-
-##### Supported data types
-
-- bool
-- bytes
-- duration
-- float
-- int
-- time
-- uint
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
 
-#### Convert a float value column to a string column
+### Convert the _value column to strings
+
 ```js
 import "sampledata"
 
 sampledata.float()
     |> toString()
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "float" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
 
-##### Output data
-| tag | _time                | _value _<span style="opacity:.5;font-weight:300">(string)</span>_ |
-| :-- | :------------------- | ----------------------------------------------------------------: |
-| t1  | 2021-01-01T00:00:00Z |                                                             -2.18 |
-| t1  | 2021-01-01T00:00:10Z |                                                             10.92 |
-| t1  | 2021-01-01T00:00:20Z |                                                              7.35 |
-| t1  | 2021-01-01T00:00:30Z |                                                             17.53 |
-| t1  | 2021-01-01T00:00:40Z |                                                             15.23 |
-| t1  | 2021-01-01T00:00:50Z |                                                              4.43 |
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
 
-| tag | _time                | _value _<span style="opacity:.5;font-weight:300">(string)</span>_ |
-| :-- | :------------------- | ----------------------------------------------------------------: |
-| t2  | 2021-01-01T00:00:00Z |                                                             19.85 |
-| t2  | 2021-01-01T00:00:10Z |                                                              4.97 |
-| t2  | 2021-01-01T00:00:20Z |                                                             -3.75 |
-| t2  | 2021-01-01T00:00:30Z |                                                             19.77 |
-| t2  | 2021-01-01T00:00:40Z |                                                             13.86 |
-| t2  | 2021-01-01T00:00:50Z |                                                              1.86 |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2.18   | t1   |
+| 2021-01-01T00:00:10Z | 10.92   | t1   |
+| 2021-01-01T00:00:20Z | 7.35    | t1   |
+| 2021-01-01T00:00:30Z | 17.53   | t1   |
+| 2021-01-01T00:00:40Z | 15.23   | t1   |
+| 2021-01-01T00:00:50Z | 4.43    | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19.85   | t2   |
+| 2021-01-01T00:00:10Z | 4.97    | t2   |
+| 2021-01-01T00:00:20Z | -3.75   | t2   |
+| 2021-01-01T00:00:30Z | 19.77   | t2   |
+| 2021-01-01T00:00:40Z | 13.86   | t2   |
+| 2021-01-01T00:00:50Z | 1.86    | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

@@ -1,55 +1,89 @@
 ---
 title: discord.send() function
 description: >
-  The `discord.send()` function sends a single message to a Discord channel using
-  a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3).
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/discord/send/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/discord/send/
+  `discord.send()` sends a single message to a Discord channel using a Discord webhook.
 menu:
   flux_0_x_ref:
     name: discord.send
-    parent: discord
-weight: 202
-introduced: 0.69.0
+    parent: contrib/chobbs/discord
+    identifier: contrib/chobbs/discord/send
+weight: 301
+flux/v0.x/tags: [single notification]
 ---
 
-The `discord.send()` function sends a single message to a Discord channel using
-a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks&amp?page=3).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/chobbs/discord/discord.flux#L53-L71
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`discord.send()` sends a single message to a Discord channel using a Discord webhook.
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/chobbs/discord"
-
-discord.send(
-    webhookToken: "mySuPerSecRetTokEn",
-    webhookID: "123456789",
-    username: "username",
-    content: "This is an example message",
-    avatar_url: "https://example.com/avatar_pic.jpg",
-)
+(
+    content: A,
+    username: B,
+    webhookID: string,
+    webhookToken: string,
+    ?avatar_url: C,
+) => int
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### webhookToken {data-type="string"}
+### webhookToken
+({{< req >}})
 Discord [webhook token](https://discord.com/developers/docs/resources/webhook).
 
-### webhookID {data-type="string"}
+
+
+### webhookID
+({{< req >}})
 Discord [webhook ID](https://discord.com/developers/docs/resources/webhook).
 
-### username {data-type="string"}
-Override the Discord webhook's default username.
 
-### content {data-type="string"}
+
+### username
+({{< req >}})
+Override the Discord webhook’s default username.
+
+
+
+### content
+({{< req >}})
 Message to send to Discord (2000 character limit).
 
-### avatar_url {data-type="string"}
-Override the Discord webhook's default avatar.
+
+
+### avatar_url
+
+Override the Discord webhook’s default avatar.
+
+
+
 
 ## Examples
 
-##### Send the last reported status to Discord
+### Send the last reported status to Discord
+
 ```js
+import "contrib/chobbs/discord"
 import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "DISCORD_TOKEN")
@@ -68,10 +102,6 @@ discord.send(
     content: "The current status is \"${lastReported.status}\".",
     avatar_url: "https://staff-photos.net/pic.jpg",
 )
+
 ```
 
-{{% note %}}
-#### Package author and maintainer
-**Github:** [@chobbs](https://github.com/chobbs)  
-**InfluxDB Slack:** [@craig](https://influxdata.com/slack)  
-{{% /note %}}

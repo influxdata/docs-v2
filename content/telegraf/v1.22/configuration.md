@@ -1,12 +1,13 @@
 ---
 title: Configuration options
 description: Overview of the Telegraf configuration file, enabling plugins, and setting environment variables.
+aliases:
+  - /telegraf/v1.22/administration/configuration/
 menu:
   telegraf_1_22_ref:
 
     name: Configuration options
     weight: 20
-
 ---
 
 The Telegraf configuration file (`telegraf.conf`) lists all available Telegraf plugins. See the current version here: [telegraf.conf](https://github.com/influxdata/telegraf/blob/master/etc/telegraf.conf).

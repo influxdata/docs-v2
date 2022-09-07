@@ -9,3 +9,5 @@ node_modules
 /content/influxdb/*/api/*.html
 /api-docs/redoc-static.html*
 .vscode/*
+.idea
+package-lock.json

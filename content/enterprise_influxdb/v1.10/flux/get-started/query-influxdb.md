@@ -16,6 +16,10 @@ This guide walks through the basics of using Flux to query data from InfluxDB.
 _**If you haven't already, make sure to install InfluxDB v1.8+, [enable Flux](/enterprise_influxdb/v1.10/flux/installation),
 and choose a [tool for writing Flux queries](/enterprise_influxdb/v1.10/flux/get-started#tools-for-working-with-flux).**_
 
+The following queries can be executed using any of the methods described in
+[Execute Flux queries](/enterprise_influxdb/v1.9/flux/execute-queries/).
+Be sure to provide your InfluxDB Enterprise authorization credentials with each method.
+
 Every Flux query needs the following:
 
 1. [A data source](#1-define-your-data-source)

@@ -107,7 +107,7 @@ and then applies an [aggregate](/flux/v0.x/function-types/#aggregates).
 
 {{% note %}}
 Use the [InfluxDB Data Explorer](/influxdb/cloud/query-data/execute-queries/data-explorer/)
-or the [Flux REPL](/{{< latest "influxdb" >}}/tools/repl/#build-the-repl)
+or the [Flux REPL](/{{< latest "influxdb" >}}/tools/flux-repl/#build-the-repl)
 to build and execute the following basic query.
 {{% /note %}}
 

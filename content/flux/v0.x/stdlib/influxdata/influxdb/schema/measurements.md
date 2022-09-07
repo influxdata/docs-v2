@@ -1,66 +1,75 @@
 ---
 title: schema.measurements() function
-description: The schema.measurements() function returns a list of measurements in a specific bucket.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurements/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurements/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/measurements/
+description: >
+  `schema.measurements()` returns a list of measurements in a specific bucket.
 menu:
   flux_0_x_ref:
     name: schema.measurements
-    parent: schema
+    parent: influxdata/influxdb/schema
+    identifier: influxdata/influxdb/schema/measurements
 weight: 301
 flux/v0.x/tags: [metadata]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-measurements, SHOW MEASUREMENTS in InfluxQL
-introduced: 0.88.0
 ---
 
-The `schema.measurements()` function returns a list of measurements in a specific bucket.
-The return value is always a single table with a single column, `_value`.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/schema/schema.flux#L317-L318
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`schema.measurements()` returns a list of measurements in a specific bucket.
+
+Results include a single table with a single column, `_value`.
+
+##### Function type signature
+
+```js
+(bucket: string, ?start: A, ?stop: B) => stream[C] where C: Record
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### bucket
+({{< req >}})
+Bucket to retrieve measurements from.
+
+
+
+### start
+
+Oldest time to include in results. Default is `-30d`.
+
+
+
+### stop
+
+Newest time include in results.
+The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+Default is `now()`.
+
+
+
+
+## Examples
+
+### Return a list of measurements in an InfluxDB bucket
 
 ```js
 import "influxdata/influxdb/schema"
 
 schema.measurements(bucket: "example-bucket")
+
 ```
 
-## Parameters
-
-### bucket {data-type="string"}
-Bucket to retrieve measurements from.
-
-### start {data-type="duration, time"}
-Earliest time to include in results.
-_Default is `-30d`._
-
-Relative start times are defined using negative durations.
-Negative durations are relative to now.
-Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
-
-### stop {data-type="duration, time"}
-Latest time to include in results.
-_Default is `now()`._
-
-The `stop` time is exclusive, meaning values with a time equal to stop time are
-excluded from results.
-Relative start times are defined using negative durations.
-Negative durations are relative to `now()`.
-Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
-
-## Examples
-
-### Return all measurements in a bucket
-```js
-import "influxdata/influxdb/schema"
-
-measurements(bucket: "example-bucket")
-```
-
-### Return all measurements in a bucket from a non-default time range
-```js
-import "influxdata/influxdb/schema"
-
-measurements(bucket: "example-bucket", start: -90d, stop: -60d)
-```

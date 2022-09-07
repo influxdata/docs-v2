@@ -1,48 +1,64 @@
 ---
 title: regexp.compile() function
 description: >
-  The `regexp.compile()` function parses a regular expression and, if successful,
-  returns a Regexp object that can be used to match against text.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/regexp/compile/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/compile/
-  - /influxdb/cloud/reference/flux/stdlib/regexp/compile/
+  `regexp.compile()` parses a string into a regular expression and returns a regexp type
+  that can be used to match against strings.
 menu:
   flux_0_x_ref:
     name: regexp.compile
     parent: regexp
-weight: 301
-introduced: 0.33.0
+    identifier: regexp/compile
+weight: 101
+flux/v0.x/tags: [type-conversions]
 ---
 
-The `regexp.compile()` function parses a regular expression and, if successful,
-returns a Regexp object that can be used to match against text.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Regexp_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/regexp/regexp.flux#L28-L28
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`regexp.compile()` parses a string into a regular expression and returns a regexp type
+that can be used to match against strings.
+
+
+
+##### Function type signature
 
 ```js
-import "regexp"
-
-regexp.compile(v: "abcd")
-
-// Returns the regexp object `abcd`
+(v: string) => regexp
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### v {data-type="string"}
-The string value to parse into a regular expression.
+### v
+({{< req >}})
+String value to parse into a regular expression.
+
+
+
 
 ## Examples
 
-###### Use a string value as a regular expression
+### Convert a string into a regular expression
+
 ```js
 import "regexp"
 
-data
-    |> map(fn: (r) => ({r with
-        regexStr: r.regexStr,
-        _value: r._value,
-        firstRegexMatch: findString(r: regexp.compile(v: regexStr), v: r._value)
-    }))
+regexp.compile(v: "abcd")// Returns the regexp object /abcd/
+
+
 ```
+

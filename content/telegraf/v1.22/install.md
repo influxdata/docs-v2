@@ -262,7 +262,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.22/administration/configuration/).
+[configuration documentation](/telegraf/v1.22/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN Windows ---------->
 {{% tab-content %}}

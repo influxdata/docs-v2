@@ -21,6 +21,8 @@ hrefTargetBlank = true
 smartDashes = false
 
 [taxonomies]
+  "influxdb/v2.4/tag" = "influxdb/v2.4/tags"
+  "influxdb/v2.3/tag" = "influxdb/v2.3/tags"
   "influxdb/v2.2/tag" = "influxdb/v2.2/tags"
   "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
   "influxdb/v2.0/tag" = "influxdb/v2.0/tags"

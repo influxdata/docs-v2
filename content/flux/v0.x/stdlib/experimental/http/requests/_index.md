@@ -1,91 +1,70 @@
 ---
-title: Flux experimental http requests package
-list_title: requests package
+title: requests package
 description: >
-  The Flux experimental HTTP requests package provides functions for transferring data
-  using HTTP protocol.
-  Import the `experimental/http/requests` package.
+  The `requests` package provides functions for transferring data using the HTTP protocol.
 menu:
   flux_0_x_ref:
-    name: requests
-    parent: http-exp
-weight: 301
-flux/v0.x/tags: [functions, http, package]
-introduced: 0.152.0
+    name: requests 
+    parent: experimental/http
+    identifier: experimental/http/requests
+weight: 31
+cascade:
+  flux/v0.x/tags: [http]
+  introduced: 0.152.0
+  deprecated: 0.173.0
 ---
 
-The Flux experimental HTTP requests package provides functions for transferring data
-using HTTP protocol.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `requests` package provides functions for transferring data using the HTTP protocol.
 Import the `experimental/http/requests` package:
 
 ```js
 import "experimental/http/requests"
 ```
 
+{{% warn %}}
+#### Deprecated
+This package is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/).
+Do not mix usage of this experimental package with the `requests` package as the `defaultConfig` is not shared between the two packages.
+This experimental package is completely superceded by the `requests` package so there should be no need to mix them.
+{{% /warn %}}
+
 ## Options
-The `experimental/http/requests` package includes the following options:
 
 ```js
-import "experimental/http/requests"
-
 option requests.defaultConfig = {
+    // Timeout on the request. If the timeout is zero no timeout is applied
+    timeout: 0s,
+    // insecureSkipVerify If true, TLS verification will not be performed. This is insecure.
     insecureSkipVerify: false,
-    timeout: 0ns,
 }
 ```
-
+ 
 ### defaultConfig
-Global default for all HTTP requests using the `experimental/http/requests` package.
-Changing this option affects all other packages using the `experimental/http/requests` package.
-To change configuration options for a single request, pass a new configuration
-record directly into the corresponding function.
 
-The `requests.defaultConfig` record contains the following properties:
+`defaultConfig` is the global default for all http requests using the requests package.
+Changing this config will affect all other packages using the requests package.
+To change the config for a single request, pass a new config directly into the corresponding function.
 
-- **insecureSkipVerify**: Skip TLS verification _(boolean)_. Default is `false`.
-- **timeout**: HTTP request timeout _(duration)_. Default is `0ns` (no timeout).
+**Deprecated**: `defautlConfig` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/#options).
+Do not mix usage of this experimental package with the `requests` package as the `defaultConfig` is not shared between the two packages.
 
-_See examples [below](#examples)._
 
 ## Functions
 
 {{< children type="functions" show="pages" >}}
-
-## Examples
-
-### Change HTTP configuration options globally
-Modify the `requests.defaultConfig` option to change all consumers of the
-`experimental/http/requests` package.
-
-```js
-import "experimental/http/requests"
-
-option requests.defaultConfig = {
-    // Set a default timeout of 5s for all requests
-    timeout: 0ns,
-    insecureSkipVerify: true,
-}
-```
-
-### Change configuration for a single request
-To change the configuration for a single request, extending the default
-configuration with only the configuration values you need to customize.
-
-```js
-import "experimental/http/requests"
-
-// NOTE: Flux syntax does not yet let you specify anything but an identifier as
-// the record to extend. As a workaround, this example rebinds the default
-// configuration to a new name, "config".
-// See https://github.com/influxdata/flux/issues/3655
-defaultConfig = requests.defaultConfig
-config = {defaultConfig with
-     // Change the timeout to 60s for this request
-     // NOTE: We don't have to specify any other properites of the config because we're
-     // extending the default.
-     timeout: 60s,
-}
-response = requests.get(url:"http://example.com", config: config)
-
-requests.peek(response: response)
-```

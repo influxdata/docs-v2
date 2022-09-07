@@ -10,6 +10,9 @@ menu:
     parent: Scrape data
 weight: 201
 influxdb/v2.2/tags: [scraper, prometheus]
+related:
+  - /influxdb/v2.2/write-data/no-code/scrape-data/
+  
 ---
 
 The following articles walk through managing InfluxDB scrapers:

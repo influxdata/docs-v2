@@ -1,44 +1,66 @@
 ---
 title: dict.fromList() function
 description: >
-  The `dict.fromList()` function creates a dictionary from a list of records with
-  `key` and `value` properties.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/dict/fromlist/
-  - /influxdb/cloud/reference/flux/stdlib/dict/fromlist/
+  `dict.fromList()` creates a dictionary from a list of records with `key` and `value`
+  properties.
 menu:
   flux_0_x_ref:
     name: dict.fromList
     parent: dict
-weight: 301
-introduced: 0.97.0
+    identifier: dict/fromList
+weight: 101
 ---
 
-The `dict.fromList()` function creates a dictionary from a list of records with
-`key` and `value` properties.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/dict/dict.flux#L31-L31
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`dict.fromList()` creates a dictionary from a list of records with `key` and `value`
+properties.
+
+
+
+##### Function type signature
 
 ```js
-import "dict"
-
-dict.fromList(pairs: [{key: 1, value: "foo"},{key: 2, value: "bar"}])
+(pairs: [{value: B, key: A}]) => [A:B] where A: Comparable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### pairs {data-type="array of records"}
-({{< req >}}) List of records, each containing `key` and `value` properties.
+### pairs
+({{< req >}})
+List of records with `key` and `value` properties.
+
+
+
 
 ## Examples
 
-##### Create a dictionary from a list of records
+### Create a dictionary from a list of records
+
 ```js
 import "dict"
 
-// Define a new dictionary using an array of records
-d = dict.fromList(pairs: [{key: 1, value: "foo"}, {key: 2, value: "bar"}])
+d =
+    dict.fromList(
+        pairs: [{key: 1, value: "foo"}, {key: 2, value: "bar"}],
+    )// Returns [1: "foo", 2: "bar"]
 
-// Return a property of the dictionary
-dict.get(dict: d, key: 1, default: "")
 
-// Returns foo
 ```
+

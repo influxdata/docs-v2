@@ -6,6 +6,7 @@ menu:
     name: influx org members remove
     parent: influx org members
 weight: 301
+metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 ---
 
 {{% note %}}

@@ -105,7 +105,7 @@ The following query searches the `doors` bucket over the past 5 minutes and calc
 ```js
 from(bucket: "doors")
     |> range(start: -5m)
-    |> stateDuration(fn: (r) => r._value == "closed", column: "door_closed")
+    |> stateCount(fn: (r) => r._value == "closed", column: "door_closed")
 ```
 
 This example stores the **state count** in the `door_closed` column. If you write data to the `doors` bucket every minute, the state count increases by `1` for each consecutive point where `_value` is `closed`. If `_value` is not `closed`, the state count is reset to `-1`.
