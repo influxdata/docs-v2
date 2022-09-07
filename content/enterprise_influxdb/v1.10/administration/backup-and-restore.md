@@ -112,7 +112,7 @@ influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 
 influxd-ctl backup -db myfirstdb -rp autogen ./myfirstdb-autogen-backup
 ```
-### Backup a database with a specific retention policy
+#### Back up a database with a specific retention policy
 
 Store the following incremental backups in the same directory.
 Both backups specify the same `-db` flag and the same database.
