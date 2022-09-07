@@ -99,7 +99,7 @@ for a complete list of the global `influxd-ctl` options.
 - `-start <timestamp>`: Include all points starting with specified timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
 - `-end <timestamp>`: Exclude all points after timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
 
-#### Examples
+### Examples
 
 ### Backup a database and all retention policies
 
