@@ -242,6 +242,7 @@ To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/{{< latest
 - `GRANT`
 - `KILL`
 - `REVOKE`
+- `SHOW SERIES CARDINALITY`
 {{% /warn %}}
 {{< /flex-content >}}
 {{< /flex >}}
