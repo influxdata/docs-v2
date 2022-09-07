@@ -298,6 +298,14 @@ Identifier of the shard to back up.
 > Restoring a `-full` backup and restoring an incremental backup require different syntax.
 To prevent issues with [`restore`](#restore), keep `-full` backups and incremental backups in separate directories.
 
+###### [ `-start <start_timestamp>` ]
+
+Include all points starting with specified timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
+
+###### [ `-end <end_timestamp>` ]
+
+Exclude all points after timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
+
 ###### [ `-strategy` ]
 
 Specify the type of back up to perform:
