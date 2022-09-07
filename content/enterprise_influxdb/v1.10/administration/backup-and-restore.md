@@ -99,7 +99,9 @@ for a complete list of the global `influxd-ctl` options.
 - `-start <timestamp>`: Include all points starting with specified timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
 - `-end <timestamp>`: Exclude all points after timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
 
-### Backup examples
+### Examples
+
+#### Back up a database and all retention policies
 
 Store the following incremental backups in different directories.
 The first backup specifies `-db myfirstdb` and the second backup specifies
@@ -110,6 +112,7 @@ influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 
 influxd-ctl backup -db myfirstdb -rp autogen ./myfirstdb-autogen-backup
 ```
+#### Back up a database with a specific retention policy
 
 Store the following incremental backups in the same directory.
 Both backups specify the same `-db` flag and the same database.
@@ -119,14 +122,14 @@ influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 
 influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 ```
+#### Back up data from a specific time range
 
-To back up data in a specific time range, use the `-start` and `-stop` options:
+To back up data in a specific time range, use the `-start` and `-end` options:
 
 ```bash
-influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
+influxd-ctl backup -db myfirstdb ./myfirstdb-jandata -start 2022-01-01T012:00:00Z -end 2022-01-31T011:59:00Z
 
 ```
-
 #### Perform an incremental backup
 
 Perform an incremental backup into the current directory with the command below.
