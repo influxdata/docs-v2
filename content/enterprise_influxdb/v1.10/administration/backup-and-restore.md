@@ -124,10 +124,10 @@ influxd-ctl backup -db myfirstdb ./myfirstdb-allrp-backup
 ```
 ### Backup data from a specific time range
 
-To back up data in a specific time range, use the `-start` and `-stop` options:
+To back up data in a specific time range, use the `-start` and `-end` options:
 
 ```bash
-influxd-ctl backup -db myfirstdb ./myfirstdb-jandata -start 2022-01-01T012:00:00Z -stop 2022-01-31T011:59:00Z
+influxd-ctl backup -db myfirstdb ./myfirstdb-jandata -start 2022-01-01T012:00:00Z -end 2022-01-31T011:59:00Z
 
 ```
 #### Perform an incremental backup
