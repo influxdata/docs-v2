@@ -101,7 +101,7 @@ for a complete list of the global `influxd-ctl` options.
 
 ### Examples
 
-### Backup a database and all retention policies
+#### Back up a database and all retention policies
 
 Store the following incremental backups in different directories.
 The first backup specifies `-db myfirstdb` and the second backup specifies
