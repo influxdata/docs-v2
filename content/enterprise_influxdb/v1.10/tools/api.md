@@ -158,7 +158,7 @@ curl -XGET "localhost:8086/health"
 
 ### `/api/v2/buckets/` HTTP endpoint
 
-The `/api/v2/buckets` endpoint accepts `GET`, `POST` and `DELETE` HTTP requests. Use this endpoint to create, delete, list and retrieve buckets in your InfluxDB instance. Note that InfluxDB 2.x uses organizations and buckets instead of databases and retention policies.  
+The [/api/v2/buckets](/influxdb/latest/api/#tag/Buckets) endpoint accepts `GET`, `POST` and `DELETE` HTTP requests. Use this endpoint to [create](/influxdb/latest/api/#operation/PostBuckets), [delete](/influxdb/latest/api/#operation/DeleteBucketsID), [list](/influxdb/latest/api/#operation/GetBuckets), [update](/influxdb/latest/api/#operation/PatchBucketsID) and [retrieve](/influxdb/latest/api/#operation/GetBucketsID) buckets in your InfluxDB instance. Note that InfluxDB 2.x uses organizations and buckets instead of databases and retention policies.  
 
 **Include the following URL parameters:**
 
