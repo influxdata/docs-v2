@@ -192,7 +192,7 @@ curl --request DELETE "http://localhost:8086/api/v2/buckets/test/autogen"
 
 ### `/api/v2/delete/` HTTP endpoint
 
-The `/api/v2/delete` endpoint accepts `POST` HTTP requests. Use this endpoint to delete points from InfluxDB, including points with specific tag values, timestamps and measurements.  
+The [`/api/v2/delete`](/influxdb/latest/api/#tag/Delete) endpoint accepts `POST` HTTP requests. Use this endpoint to delete points from InfluxDB, including points with specific tag values, timestamps and measurements.  
 
 **Include the following URL parameters:**
 
@@ -219,6 +219,20 @@ curl --request POST "http://localhost:8086/api/v2/delete/exampleDB/autogen \
     "start": "2020-03-01T00:00:00Z",
     "stop": "2020-11-14T00:00:00Z"
 ```
+
+Delete points in a specific measurement with a specific tag value:
+
+```bash
+curl --request POST "http://localhost:8086/api/v2/delete/exampleDB/autogen \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "start": "2020-03-01T00:00:00Z",
+    "stop": "2020-11-14T00:00:00Z"
+    "predicate": "_measurement=\"example-measurement\" AND exampleTag=\"exampleTagValue\""
+```
+
+If you use the `predicate` option in your request, review [delete predicate syntax](/influxdb/latest/reference/syntax/delete-predicate/) and note its [limitations](/influxdb/latest/reference/syntax/delete-predicate/#limitations).
 
 ## InfluxDB 1.x HTTP endpoints
 The following InfluxDB 1.x API endpoints are available:
