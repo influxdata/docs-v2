@@ -20,7 +20,7 @@ When a built-in value is not expressible in Flux, its value may be defined by th
 All such values must have a corresponding builtin statement to declare the existence and type of the built-in value.
 
 ```js
-BuiltinStatement = "builtin" identifer ":" TypeExpression .
+BuiltinStatement = "builtin" identifier ":" TypeExpression .
 TypeExpression   = MonoType ["where" Constraints] .
 
 MonoType = Tvar | Basic | Array | Record | Function .
