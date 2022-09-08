@@ -12,135 +12,15 @@ weight: 204
 
 Use of InfluxQL database management commands in 2.x versions is limited.  
 
-<!-- <table style="width:100%">
-  <tr>
-    <td><b>Data Management:</b></td>
-    <td><b>Retention Policy Management:</br></td>
-  </tr>
-  <tr>
-    <td><a href="#create-database">CREATE DATABASE</a></td>
-    <td><a href="#create-retention-policies-with-create-retention-policy">CREATE RETENTION POLICY</a></td>
-  </tr>
-  <tr>
-    <td><a href="#delete-a-database-with-drop-database">DROP DATABASE</a></td>
-    <td><a href="#modify-retention-policies-with-alter-retention-policy">ALTER RETENTION POLICY</a></td>
-  </tr>
-  <tr>
-    <td><a href="#drop-series-from-the-index-with-drop-series">DROP SERIES</a></td>
-    <td><a href="#delete-retention-policies-with-drop-retention-policy">DROP RETENTION POLICY</a></td>
-  </tr>
-  <tr>
-    <td><a href="#delete-series-with-delete">DELETE</a></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td><a href="#delete-measurements-with-drop-measurement">DROP MEASUREMENT</a></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td><a href="#delete-a-shard-with-drop-shard">DROP SHARD</a></td>
-    <td></td>
-  </tr>
-</table> -->
-
-<!-- If you're looking for `SHOW` queries (for example, `SHOW DATABASES` or `SHOW RETENTION POLICIES`), see [Schema Exploration](/enterprise_influxdb/v1.9/query_language/explore-schema). -->
-
-<!-- The examples in the sections below use the InfluxDB [Command Line Interface (CLI)](/enterprise_influxdb/v1.9/introduction/getting-started/). -->
-Execute the commands using the InfluxDB API; simply  send a `GET` request to the `/query` endpoint and include the command in the URL parameter `q`.
+The examples in the sections below use the InfluxDB [Command Line Interface (CLI)](/influxdb/v2.4/reference/cli/influx/). 
+You can also execute the commands using the InfluxDB API; simply  send a `GET` request to the `/query` endpoint and include the command in the URL parameter `q`.
 For more on using the InfluxDB API, see [Querying data](/enterprise_influxdb/v1.9/guides/querying_data/).
 
 > **Note:** When authentication is enabled, only admin users can execute most of the commands listed on this page.
 > See the documentation on [authentication and authorization](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/) for more information.
 
-## Data management
 
-<!-- ### CREATE DATABASE
-
-Creates a new database.
-
-#### Syntax
-
-```sql
-CREATE DATABASE <database_name> [WITH [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [NAME <retention-policy-name>]]
-```
-
-#### Description of syntax
-
-`CREATE DATABASE` requires a database [name](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#what-words-and-characters-should-i-avoid-when-writing-data-to-influxdb).
-
-The `WITH`, `DURATION`, `REPLICATION`, `SHARD DURATION`, and `NAME` clauses are optional and create a single [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) associated with the created database.
-If you do not specify one of the clauses after `WITH`, the relevant behavior defaults to the `autogen` retention policy settings.
-The created retention policy automatically serves as the database's default retention policy.
-For more information about those clauses, see [Retention Policy Management](/enterprise_influxdb/v1.9/query_language/manage-database/#retention-policy-management).
-
-A successful `CREATE DATABASE` query returns an empty result.
-If you attempt to create a database that already exists, InfluxDB does nothing and does not return an error.
-
-#### Examples
-
-##### Create a database
-
-```
-> CREATE DATABASE "NOAA_water_database"
->
-```
-
-The query creates a database called `NOAA_water_database`.
-[By default](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#retention-autocreate--true), InfluxDB also creates the `autogen` retention policy and associates it with the `NOAA_water_database`.
-
-##### Create a database with a specific retention policy
-
-```
-> CREATE DATABASE "NOAA_water_database" WITH DURATION 3d REPLICATION 1 SHARD DURATION 1h NAME "liquid"
->
-```
-
-The query creates a database called `NOAA_water_database`.
-It also creates a default retention policy for `NOAA_water_database` with a `DURATION` of three days, a [replication factor](/enterprise_influxdb/v1.9/concepts/glossary/#replication-factor) of one, a [shard group](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group) duration of one hour, and with the name `liquid`. -->
-
-<!-- ### Delete a database with DROP DATABASE
-
-The `DROP DATABASE` query deletes all of the data, measurements, series, continuous queries, and retention policies from the specified database.
-The query takes the following form:
-```sql
-DROP DATABASE <database_name>
-```
-
-Drop the database NOAA_water_database:
-```bash
-> DROP DATABASE "NOAA_water_database"
->
-```
-
-A successful `DROP DATABASE` query returns an empty result.
-If you attempt to drop a database that does not exist, InfluxDB does not return an error.
-
-### Drop series from the index with DROP SERIES
-
-The `DROP SERIES` query deletes all points from a [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) in a database,
-and it drops the series from the index.
-
-The query takes the following form, where you must specify either the `FROM` clause or the `WHERE` clause:
-```sql
-DROP SERIES FROM <measurement_name[,measurement_name]> WHERE <tag_key>='<tag_value>'
-```
-
-Drop all series from a single measurement:
-```sql
-> DROP SERIES FROM "h2o_feet"
-```
-
-Drop series with a specific tag pair from a single measurement:
-```sql
-> DROP SERIES FROM "h2o_feet" WHERE "location" = 'santa_monica'
-```
-
-Drop all points in the series that have a specific tag pair from all measurements in the database:
-```sql
-> DROP SERIES WHERE "location" = 'santa_monica'
-```
-
-A successful `DROP SERIES` query returns an empty result. -->
+## Data management using DELETE
 
 ### Delete series with DELETE
 
@@ -224,42 +104,6 @@ A successful `DROP SHARD` query returns an empty result.
 InfluxDB does not return an error if you attempt to drop a shard that does not
 exist. -->
 
-<!-- ## Retention policy management
-
-The following sections cover how to create, alter, and delete retention policies.
-Note that when you create a database, InfluxDB automatically creates a retention policy named `autogen` which has infinite retention.
-You may disable its auto-creation in the [configuration file](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#retention-autocreate--true).
-
-### Create retention policies with CREATE RETENTION POLICY
-
-#### Syntax
-```
-CREATE RETENTION POLICY <retention_policy_name> ON <database_name> DURATION <duration> REPLICATION <n> [SHARD DURATION <duration>] [DEFAULT]
-```
-
-#### Description of syntax
-
-##### `DURATION`
-
-- The `DURATION` clause determines how long InfluxDB keeps the data.
-The `<duration>` is a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#durations)
-or `INF` (infinite).
-The minimum duration for a retention policy is one hour and the maximum
-duration is `INF`.
-
-##### `REPLICATION`
-
-- The `REPLICATION` clause determines how many independent copies of each point
-  are stored in the cluster.
-
-- By default, the replication factor `n` usually equals the number of data nodes. However, if you have four or more data nodes, the default replication factor `n` is 3.
-
-- To ensure data is immediately available for queries, set the replication factor `n` to less than or equal to the number of data nodes in the cluster.
-
-> **Important:** If you have four or more data nodes, verify that the database replication factor is correct.
-
-- Replication factors do not serve a purpose with single node instances. -->
-
 <!-- ##### `SHARD DURATION`
 
 - Optional. The `SHARD DURATION` clause determines the time range covered by a [shard group](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group).
@@ -287,76 +131,3 @@ for recommended configurations.
 Sets the new retention policy as the default retention policy for the database.
 This setting is optional.
 
-#### Examples
-
-##### Create a retention policy
-
-```
-> CREATE RETENTION POLICY "one_day_only" ON "NOAA_water_database" DURATION 1d REPLICATION 1
->
-```
-The query creates a retention policy called `one_day_only` for the database
-`NOAA_water_database` with a one day duration and a replication factor of one.
-
-##### Create a DEFAULT retention policy
-
-```sql
-> CREATE RETENTION POLICY "one_day_only" ON "NOAA_water_database" DURATION 23h60m REPLICATION 1 DEFAULT
->
-```
-
-The query creates the same retention policy as the one in the example above, but
-sets it as the default retention policy for the database.
-
-A successful `CREATE RETENTION POLICY` query returns an empty response.
-If you attempt to create a retention policy identical to one that already exists, InfluxDB does not return an error.
-If you attempt to create a retention policy with the same name as an existing retention policy but with differing attributes, InfluxDB returns an error.
-
-> **Note:** You can also specify a new retention policy in the `CREATE DATABASE` query.
-See [Create a database with CREATE DATABASE](/enterprise_influxdb/v1.9/query_language/manage-database/#create-database).
-
-### Modify retention policies with ALTER RETENTION POLICY
-
-The `ALTER RETENTION POLICY` query takes the following form, where you must declare at least one of the retention policy attributes `DURATION`, `REPLICATION`, `SHARD DURATION`, or `DEFAULT`:
-```sql
-ALTER RETENTION POLICY <retention_policy_name> ON <database_name> [DURATION <duration>] [REPLICATION <n>] [SHARD DURATION <duration>] [DEFAULT]
-```
-
-{{% warn %}} Replication factors do not serve a purpose with single node instances.
-{{% /warn %}}
-
-First, create the retention policy `what_is_time` with a `DURATION` of two days:
-```sql
-> CREATE RETENTION POLICY "what_is_time" ON "NOAA_water_database" DURATION 2d REPLICATION 1
->
-```
-
-Modify `what_is_time` to have a three week `DURATION`, a two hour shard group duration, and make it the `DEFAULT` retention policy for `NOAA_water_database`.
-```sql
-> ALTER RETENTION POLICY "what_is_time" ON "NOAA_water_database" DURATION 3w SHARD DURATION 2h DEFAULT
->
-```
-In the last example, `what_is_time` retains its original replication factor of 1.
-
-A successful `ALTER RETENTION POLICY` query returns an empty result. -->
-
-<!-- ### Delete retention policies with DROP RETENTION POLICY
-
-Delete all measurements and data in a specific retention policy:
-
-{{% warn %}}
-Dropping a retention policy will permanently delete all measurements and data stored in the retention policy.
-{{% /warn %}}
-
-```sql
-DROP RETENTION POLICY <retention_policy_name> ON <database_name>
-```
-
-Delete the retention policy `what_is_time` in the `NOAA_water_database` database:
-```bash
-> DROP RETENTION POLICY "what_is_time" ON "NOAA_water_database"
->
-```
-
-A successful `DROP RETENTION POLICY` query returns an empty result.
-If you attempt to drop a retention policy that does not exist, InfluxDB does not return an error. -->
