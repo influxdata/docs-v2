@@ -114,10 +114,11 @@ To associate **JSON** key-value pairs with **InfluxDB elements** (measurements, 
       ***Important***: *Configure the timestamp format that **matches the format** in your messages.*
 
 3. Under **Measurement**, do one of the following:
-   - **Use a JSON path the measurement name**:
+
+   - **Use a JSON path to identify the measurement name**:
       
       1. Select the **JSON Path** {{< icon "toggle-off" >}} toggle.
-      2. Enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key.
+      2. Enter the **JSON path** (starting with `$.`) to assign the InfluxDB measurement key.
          For the [example above](#example-json), enter `$.device_type`.
 
    - **Explicitly set the measurement name**:
@@ -125,8 +126,8 @@ To associate **JSON** key-value pairs with **InfluxDB elements** (measurements, 
       1. Select the {{< icon "toggle" >}} **Name** toggle.
       2. Enter a measurement name.
 
-2. Select the **Data Type** for the measurement.
-3. Specify the JSON paths to **tag** and **field** names as needed, and then
+4. Select the **Data Type** for the measurement.
+5. Specify the JSON paths to **tag** and **field** names as needed, and then
    select the **data type** for the tag or field. At least one field is required.
    For the [example above](#example-json), add fields with the JSON paths
    `$.temperature` and `$.error_state` and tags with the paths `$.device_id` and `$.model_id`.
@@ -146,6 +147,7 @@ Use regular expressions to identify each element in a string.
 
 {{% note %}}
 #### Parse with regular expressions
+
 InfluxDB Native Subscriptions use Java-flavored regular expression patterns 
 to identify InfluxDB elements in a string.
 Parsing rules only support finding **one value at a time**.
@@ -178,6 +180,7 @@ error_state=in_error
    ***Important***: *Configure the timestamp format that **matches the format** in your messages.*
 
 3. Under **Measurement**, do one of the following:
+
    - **Use a regular expression to identify the measurement name**:
       
       1. Select the **Regex** {{< icon "toggle-off" >}} toggle.
