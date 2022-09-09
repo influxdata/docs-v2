@@ -78,7 +78,7 @@ kapacitor:
     "1.4": 1
 
 enterprise_influxdb:
-  name: InfluxDB Enterprise
+  name: "InfluxDB Enterprise"
   namespace: enterprise_influxdb
   list_order: 3
   versions: [v1.5, v1.6, v1.7, v1.8, v1.9, v1.10]
