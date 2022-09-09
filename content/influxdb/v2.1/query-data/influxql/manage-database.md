@@ -19,9 +19,6 @@ For more on using the InfluxDB API, see [Querying data](/enterprise_influxdb/v1.
 > **Note:** When authentication is enabled, only admin users can execute most of the commands listed on this page.
 > See the documentation on [authentication and authorization](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/) for more information.
 
-
-## Data management using DELETE
-
 ### Delete series with DELETE
 
 The `DELETE` query deletes all points from a
@@ -85,7 +82,7 @@ A successful `DROP MEASUREMENT` query returns an empty result.
 See GitHub Issue [#4275](https://github.com/influxdb/influxdb/issues/4275) for more information.
 {{% /warn %}}
 
-<!-- ### Delete a shard with DROP SHARD
+<!-- ### Delete a shard with DROP SHARD - need to know if this command exists in OSS
 
 The `DROP SHARD` query deletes a shard. It also drops the shard from the
 [metastore](/enterprise_influxdb/v1.9/concepts/glossary/#metastore).

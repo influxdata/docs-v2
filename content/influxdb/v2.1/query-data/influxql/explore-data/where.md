@@ -10,7 +10,6 @@ menu:
 weight: 302
 ---
 
-
 ## The `WHERE` clause
 
 The `WHERE` filters data based on
