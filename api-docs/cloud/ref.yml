@@ -11534,10 +11534,7 @@ paths:
         Removes a member from an organization.
 
 
-        Use this endpoint to remove a user's member privileges from a bucket.
-        This
-
-        removes the user's `read` and `write` permissions from the organization.
+        Use this endpoint to remove a user's `read` and `write` permissions for the organization.
 
 
         #### InfluxDB Cloud
