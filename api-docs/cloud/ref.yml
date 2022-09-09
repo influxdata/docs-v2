@@ -11492,7 +11492,7 @@ paths:
                 $ref: '#/components/schemas/ResourceMember'
           description: |
             Success.
-            The response body contains the user information.
+            The response body contains the user.
         '400':
           $ref: '#/components/responses/BadRequestError'
           examples:
