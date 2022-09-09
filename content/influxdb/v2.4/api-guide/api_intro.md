@@ -68,8 +68,8 @@ Before writing data you'll need to create a Bucket in InfluxDB.
 
 ## Write API
 
-[Write data to InfluxDB](/influxdb/v2.4/write-data/developer-tools/api/) using an HTTP request to the InfluxDB API `/write` endpoint.
+[Write data to InfluxDB](/influxdb/v2.4/write-data/developer-tools/api/) using an HTTP request to the InfluxDB API `/api/v2/write` endpoint.
 
 ## Query API
 
-[Query from InfluxDB](/influxdb/v2.4/query-data/execute-queries/influx-api/) using an HTTP request to the `/query` endpoint.
+[Query from InfluxDB](/influxdb/v2.4/query-data/execute-queries/influx-api/) using an HTTP request to the `/api/v2/query` endpoint.

@@ -93,7 +93,7 @@ For specific instructions, see the [InfluxDB client libraries documentation](/in
 
 ### Use gzip compression with the InfluxDB API
 
-When using the InfluxDB API `/write` endpoint to write data, compress the data with `gzip` and set the `Content-Encoding`
+When using the InfluxDB API `/api/v2/write` endpoint to write data, compress the data with `gzip` and set the `Content-Encoding`
 header to `gzip`. 
 
 ```sh
