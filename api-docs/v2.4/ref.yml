@@ -12354,7 +12354,7 @@ paths:
         - Security and access endpoints
     post:
       description: >
-        Add a user to an organization.
+        Adds a user to an organization.
 
 
         InfluxDB [users](/influxdb/v2.3/reference/glossary/#user) have
