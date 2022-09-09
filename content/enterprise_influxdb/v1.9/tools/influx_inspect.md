@@ -36,6 +36,7 @@ The `influx_inspect` commands are summarized here, with links to detailed inform
 * [`dumptsmwal`](#dumptsmwal): Dump all data from a WAL file.  
 * [`export`](#export): Exports raw data from a shard in InfluxDB line protocol format.
 * [`report`](#report): Displays a shard level report.
+* [`report-disk`](#report-disk): Reports disk usage by shards and measurements.
 * [`reporttsi`](#reporttsi): Reports on cardinality for measurements and shards.
 * [`verify`](#verify): Verifies the integrity of TSM files.
 * [`verify-seriesfile`](#verify-seriesfile): Verifies the integrity of series files.
@@ -454,6 +455,26 @@ Default value is `false`.
 The flag to report exact cardinality counts instead of estimates.
 Default value is `false`.
 Note: This can use a lot of memory.
+
+### `report-disk`
+
+Use the `report-disk` command to review disk usage by shards and measurements for TSM files in a specified directory. Useful for determining disk usage for capacity planning and identifying which measurement or shard is using the most space. The default location is `~/.influxdb/data/`.
+
+Calculates the total disk size by database (`db`), retention policy (`rp`), shard (`shard`), tsm file (`tsm_file`), and measurement (`measurement`).
+
+#### Syntax
+
+```
+influx_inspect report-disk [ options ] <data_dir>
+```
+
+#### Options
+
+Optional arguments are in brackets.
+
+##### [ `-detailed` ]
+
+Include this flag to report disk usage by measurement.
 
 ### `reporttsi`
 
