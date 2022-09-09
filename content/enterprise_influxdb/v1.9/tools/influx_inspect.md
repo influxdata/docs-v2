@@ -458,7 +458,7 @@ Note: This can use a lot of memory.
 
 ### `report-disk`
 
-Use the `report-disk` command to review disk usage by shards and measurements for TSM files in a specified directory. Useful for determining disk usage for capacity planning and identifying which measurement or shard is using the most space. The default location is `~/.influxdb/data/`.
+Use the `report-disk` command to review TSM file disk usage per shard and measurement in a specified directory. Useful for capacity planning and identifying which measurement or shard is using the most disk space. The default directory path `~/.influxdb/data/`.
 
 Calculates the total disk size by database (`db`), retention policy (`rp`), shard (`shard`), tsm file (`tsm_file`), and measurement (`measurement`).
 
