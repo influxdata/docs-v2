@@ -8,7 +8,7 @@ const latestVersions = {
   'telegraf': 'v1.23',
   'chronograf': 'v1.10',
   'kapacitor': 'v1.6',
-  'enterprise': 'v1.9',
+  'enterprise': 'v1.10',
   'flux': 'v0.x',
 };
 
