@@ -474,7 +474,7 @@ Optional arguments are in brackets.
 
 ##### [ `-detailed` ]
 
-Include this flag to report disk usage by measurement.
+Report disk usage by measurement.
 
 ### `reporttsi`
 
