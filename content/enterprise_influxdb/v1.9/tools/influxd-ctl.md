@@ -1079,7 +1079,7 @@ influxd-ctl show
 ##### Show all meta and data nodes in a cluster
 
 In this example, the `show` command output displays that the cluster includes three meta nodes and two data nodes.
-Every node is using InfluxDB Enterprise `1.9.x-c1.9.x`.
+Every node is using InfluxDB Enterprise `1.9.8`.
 
 ```bash
 $ influxd-ctl show
@@ -1087,16 +1087,17 @@ $ influxd-ctl show
 Data Nodes
 ==========
 ID  TCP Address             Version         Labels
-2   cluster-node-01:8088    1.9.x-c1.9.x    {}
-4   cluster-node-02:8088    1.9.x-c1.9.x    {}
+2   cluster-node-01:8088    1.9.8           {}
+4   cluster-node-02:8088    1.9.8           {}
 
 Meta Nodes
 ==========
 TCP Address             Version         Labels
-cluster-node-01:8091    1.9.x-c1.9.x    {}
-cluster-node-02:8091    1.9.x-c1.9.x    {}
-cluster-node-03:8091    1.9.x-c1.9.x    {}
+cluster-node-01:8091    1.9.8           {}
+cluster-node-02:8091    1.9.8           {}
+cluster-node-03:8091    1.9.8           {} 
 ```
+
 ##### Show active and passive data nodes in a cluster
 
 In this example, the `show` command output displays that the cluster includes a passive data node.
@@ -1105,9 +1106,9 @@ In this example, the `show` command output displays that the cluster includes a 
 Data Nodes
 ==========
 ID	TCP Address               Version		    Labels	  Passive
-4	 cluster-node_0_1:8088		  1.9.6-c1.9.6  {}	      false
-5	 cluster-node_1_1:8088		  1.9.6-c1.9.6  {}	      true
-6	 cluster-node_2_1:8088		  1.9.6-c1.9.6  {}	      false
+4	 cluster-node_0_1:8088		  1.9.6         {}	      false
+5	 cluster-node_1_1:8088		  1.9.6         {}	      true
+6	 cluster-node_2_1:8088		  1.9.6         {}	      false
 ```
 
 

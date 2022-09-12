@@ -1073,8 +1073,7 @@ Restored from my-full-backup in 58.58301ms, transferred 569344 bytes
 
 ### `show`
 
-Shows all [meta nodes](/enterprise_influxdb/v1.10/concepts/glossary/#meta-node) and [data nodes](/enterprise_influxdb/v1.10/concepts/glossary/#data-node) that are part of the cluster.
-The output includes the InfluxDB Enterprise version number and any [labels](#node-labels).
+Shows all [meta nodes](/enterprise_influxdb/v1.10/concepts/glossary/#meta-node) and [data nodes](/enterprise_influxdb/v1.10/concepts/glossary/#data-node) that are part of the cluster. The output includes the `RAFT status` of all meta nodes, the InfluxDB Enterprise version number and any [labels](#node-labels).
 
 #### Syntax
 
@@ -1086,24 +1085,29 @@ influxd-ctl show
 
 ##### Show all meta and data nodes in a cluster
 
-In this example, the `show` command output displays that the cluster includes three meta nodes and two data nodes.
-Every node is using InfluxDB Enterprise `1.10.x-c1.10.x`.
+In this example, the `show` command output displays that the cluster includes three meta nodes and two data nodes . Every node is InfluxDB Enterprise version `1.10.0`. The RAFT status shows `metatest_meta_0_1:8089` as leader, and the other two meta nodes as peers.
 
 ```bash
 $ influxd-ctl show
 
 Data Nodes
 ==========
-ID  TCP Address             Version         Labels
-2   cluster-node-01:8088    1.10.x-c1.10.x    {}
-4   cluster-node-02:8088    1.10.x-c1.10.x    {}
-
+ID      TCP Address             HTTP Address            Version      Labels
+4       test_data_0_1:8088    test_data_0_1:8086        1.10.0         {}
+5       test_data_0_2:8088    test_data_0_2:8086        1.10.0         {}
+ 
 Meta Nodes
 ==========
-TCP Address             Version         Labels
-cluster-node-01:8091    1.10.x-c1.10.x    {}
-cluster-node-02:8091    1.10.x-c1.10.x    {}
-cluster-node-03:8091    1.10.x-c1.10.x    {}
+ID      Raft Address            HTTP Address            Version      Labels
+1       test_meta_0_1:8089    test_meta_0_1:8091        1.10.0         {}
+2       test_meta_1_1:8089    test_meta_1_1:8091        1.10.0         {}
+3       test_meta_1_2:8089    test_meta_1_2:8091        1.10.0         {}
+ 
+Raft Status
+==========
+Leader  test_meta_0_1:8089
+Peers   ["test_meta_1_1:8089", "test_meta_1_2:8089"]
+
 ```
 ##### Show active and passive data nodes in a cluster
 
@@ -1113,9 +1117,9 @@ In this example, the `show` command output displays that the cluster includes a 
 Data Nodes
 ==========
 ID	TCP Address               Version		    Labels	  Passive
-4	 cluster-node_0_1:8088		  1.10.6-c1.10.6  {}	      false
-5	 cluster-node_1_1:8088		  1.10.6-c1.10.6  {}	      true
-6	 cluster-node_2_1:8088		  1.10.6-c1.10.6  {}	      false
+4	 cluster-node_0_1:8088		  1.10.0          {}	      false
+5	 cluster-node_1_1:8088		  1.10.0          {}	      true
+6	 cluster-node_2_1:8088		  1.10.0          {}	      false
 ```
 
 ### `show-shards`
