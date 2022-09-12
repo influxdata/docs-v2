@@ -1111,7 +1111,6 @@ ID	TCP Address               Version		    Labels	  Passive
 6	 cluster-node_2_1:8088		  1.9.6         {}	      false
 ```
 
-
 ### `show-shards`
 
 Outputs details about existing [shards](/enterprise_influxdb/v1.9/concepts/glossary/#shard) of the cluster, including shard ID, database, [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp), desired replicas, [shard group](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group), starting timestamp, ending timestamp, expiration timestamp, and [data node](/enterprise_influxdb/v1.9/concepts/glossary/#data-node) owners.
