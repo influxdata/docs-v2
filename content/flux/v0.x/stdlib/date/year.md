@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L359-L359
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L431-L431
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -59,6 +59,7 @@ Default is the `location` option.
 
 - [Return the year for a time value](#return-the-year-for-a-time-value)
 - [Return the year for a relative duration](#return-the-year-for-a-relative-duration)
+- [Return the current year](#return-the-current-year)
 
 ### Return the year for a time value
 
@@ -80,6 +81,16 @@ option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.year(t: -14y)// Returns 2007
 
+
+```
+
+
+### Return the current year
+
+```js
+import "date"
+
+date.year(t: now())
 
 ```
 

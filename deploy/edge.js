@@ -6,9 +6,9 @@ const latestVersions = {
   'influxdb': 'v2.4',
   'influxdbv2': 'v2.4',
   'telegraf': 'v1.23',
-  'chronograf': 'v1.9',
+  'chronograf': 'v1.10',
   'kapacitor': 'v1.6',
-  'enterprise': 'v1.9',
+  'enterprise': 'v1.10',
   'flux': 'v0.x',
 };
 
