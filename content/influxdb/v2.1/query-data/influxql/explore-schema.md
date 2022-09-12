@@ -63,7 +63,7 @@ and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language
 
 ```sql
 -- Returns all series in the database
-SHOW SERIES ON NOAA_water_database
+SHOW SERIES ON noaa
 ```
 Output:
 | key                                         |
@@ -188,7 +188,7 @@ and on [Regular expressions in queries](/enterprise_influxdb/v1.9/query_language
 #### Run a `SHOW MEASUREMENTS` query with the `ON` clause
 
 ```sql
-> SHOW MEASUREMENTS ON NOAA_water_database
+> SHOW MEASUREMENTS ON noaa
 ```
 
 Output:
@@ -210,7 +210,7 @@ The database has five measurements: `average_temperature`, `h2o_feet`,
 #### Run a `SHOW MEASUREMENTS` query with several clauses (i)
 
 ```sql
-> SHOW MEASUREMENTS ON NOAA_water_database WITH MEASUREMENT =~ /h2o.*/ LIMIT 2 OFFSET 1
+> SHOW MEASUREMENTS ON noaa WITH MEASUREMENT =~ /h2o.*/ LIMIT 2 OFFSET 1
 ```
 Output:
 
@@ -227,7 +227,7 @@ two and offset the results by one, skipping the `h2o_feet` measurement.
 #### Run a `SHOW MEASUREMENTS` query with several clauses (ii)
 
 ```sql
-> SHOW MEASUREMENTS ON NOAA_water_database WITH MEASUREMENT =~ /h2o.*/ WHERE "randtag"  =~ /\d/
+> SHOW MEASUREMENTS ON noaa WITH MEASUREMENT =~ /h2o.*/ WHERE "randtag"  =~ /\d/
 
 name: measurements
 name
@@ -277,11 +277,11 @@ and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language
 #### Run a `SHOW TAG KEYS` query with the `ON` clause
 
 ```sql
-> SHOW TAG KEYS ON NOAA_water_database
+> SHOW TAG KEYS ON noaa
 ```
 
 Output:
-|measurement	|tagKey |
+|name	|tagKey |
 | :------------------ |:---------------|
 |average_temperature	|location|
 |h2o_feet	|location|
@@ -298,15 +298,14 @@ it shows that every measurement has the `location` tag key and that the
 #### Run a `SHOW TAG KEYS` query with several clauses
 
 ```sql
-> SHOW TAG KEYS ON NOAA_water_database FROM "h2o_quality" LIMIT 1 OFFSET 1
+> SHOW TAG KEYS ON noaa FROM "h2o_quality" LIMIT 1 OFFSET 1
 
 ```
 
 Output:
-| ​​tagKey |
-| :------- |
-| randtag  |
-|          |
+|name	|tagKey |
+| :------------------ |:---------------|
+|h2o_quality	|randtag|
 
 
 The query returns tag keys from the `h2o_quality` measurement in the
@@ -317,7 +316,7 @@ and offsets the results by one.
 #### Run a `SHOW TAG KEYS` query with a `WITH KEY IN` clause
 
 ```sql
-> SHOW TAG KEYS ON NOAA_water_database WITH KEY IN ("location") 
+> SHOW TAG KEYS ON noaa WITH KEY IN ("location") 
 ```
 
 Output:
@@ -327,6 +326,7 @@ Output:
 |h2o_feet	|location|
 |h2o_pH	 |location|
 |h2o_quality	|location|
+|h2o_quality	|randtag|
 |h2o_temperature	|location|
 
 
@@ -372,11 +372,12 @@ and on [Regular Expressions in Queries](/enterprise_influxdb/v1.9/query_language
 #### Run a `SHOW TAG VALUES` query with the `ON` clause
 
 ```sql
-> SHOW TAG VALUES ON "NOAA_water_database" WITH KEY = "randtag"
+> SHOW TAG VALUES ON noaa WITH KEY = "randtag"
 
 ```
 Output:
-|key	|value|
+
+name: h2o_quality
 | :-----------|:-------|
 |randtag	|1|
 |randtag	|2|
@@ -389,15 +390,16 @@ database.
 #### Run a `SHOW TAG VALUES` query with several clauses
 
 ```sql
-> SHOW TAG VALUES ON "NOAA_water_database" WITH KEY IN ("location","randtag") WHERE "randtag" =~ /./ LIMIT 3
+> SHOW TAG VALUES ON noaa WITH KEY IN ("location","randtag") WHERE "randtag" =~ /./ LIMIT 3
+```
+Output:
 
 name: h2o_quality
-key        value
----        -----
-location   coyote_creek
-location   santa_monica
-randtag	   1
-```
+| :-----------|:-------|
+|key        |value
+|location   |coyote_creek
+|location   |santa_monica
+|randtag	|   1
 
 The query returns the tag values of the tag keys `location` and `randtag` for
 all measurements in the `NOAA_water_database` database where `randtag` has tag values.
