@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L75-L75
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L77-L77
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -31,7 +31,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `experimental.addDuration()` adds a duration to a time value and returns the resulting time value.
 
-
+{{% warn %}}
+#### Deprecated
+`experimental.addDuration()` is deprecated in favor of [`date.add()`](/flux/v0.x/stdlib/date/add/).
+{{% /warn %}}
 
 ##### Function type signature
 

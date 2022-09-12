@@ -317,7 +317,7 @@ Metrics gathered at irregular time intervals.
 
 ### explicit block
 
-In Flux, a an explicit block is a possibly empty sequence of statements within matching braces (`{ }`) that is defined in the source code, for example:
+In Flux, an explicit block is a possibly empty sequence of statements within matching braces (`{ }`) that is defined in the source code, for example:
 
 ```
 Block         = "{" StatementList "}
@@ -492,7 +492,7 @@ The graphical web interface provided by InfluxDB for visualizing data and managi
 ### InfluxQL
 
 The SQL-like query language used to query data in InfluxDB 1.x.
-The prefered method for querying data in InfluxDB {{< current-version >}} is the [Flux](#flux) language.
+The preferred method for querying data in InfluxDB {{< current-version >}} is the [Flux](#flux) language.
 
 ### input plugin
 
@@ -505,6 +505,15 @@ Related entries: [aggregator plugin](#aggregator-plugin), [collection interval](
 
 An entity comprising data on a server (or virtual server in cloud computing).
 <!-- An instance in an InfluxDB Enterprise cluster may scale across multiple servers or nodes in a network. -->
+
+{{% oss-only %}}
+
+### instance owner
+
+A type of admin role for a user.
+Instance owners have read/write permissions for all resources within the instance.
+
+{{% /oss-only %}}
 
 ### integer
 
@@ -695,6 +704,16 @@ Learn about the [option assignment](/{{< latest "flux" >}}/spec/assignment-scope
 
 A workspace for a group of users.
 All dashboards, tasks, buckets, members, and so on, belong to an organization.
+
+
+### owner
+
+A type of role for a user.
+Owners have read/write permissions.
+Users can have owner roles for bucket and organization resources.
+
+Role permissions are separate from API token permissions. For additional
+information on API tokens, see [token](#tokens).
 
 ### output plugin
 

@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L506-L506
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L614-L614
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -54,6 +54,7 @@ Durations are relative to `now()`.
 
 - [Return the microsecond of a time value](#return-the-microsecond-of-a-time-value)
 - [Return the microsecond of a relative duration](#return-the-microsecond-of-a-relative-duration)
+- [Return the current microsecond unit](#return-the-current-microsecond-unit)
 
 ### Return the microsecond of a time value
 
@@ -75,6 +76,16 @@ option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.microsecond(t: -1890us)// Returns 322661
 
+
+```
+
+
+### Return the current microsecond unit
+
+```js
+import "date"
+
+date.microsecond(t: now())
 
 ```
 

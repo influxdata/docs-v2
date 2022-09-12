@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L40-L40
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L49-L49
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -52,6 +52,7 @@ Durations are relative to `now()`.
 
 - [Return the second of a time value](#return-the-second-of-a-time-value)
 - [Return the second of a relative duration](#return-the-second-of-a-relative-duration)
+- [Return the current second](#return-the-current-second)
 
 ### Return the second of a time value
 
@@ -73,6 +74,16 @@ option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.second(t: -50s)// Returns 28
 
+
+```
+
+
+### Return the current second
+
+```js
+import "date"
+
+date.second(t: now())
 
 ```
 

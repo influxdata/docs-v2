@@ -2,7 +2,7 @@
 title: promql.join() function
 description: >
   `promql.join()` joins two streams of tables on the **group key and `_time` column**.
-  See `experimental.join`.
+  See [`experimental.join`](/flux/v0.x/stdlib/experimental/join/).
 menu:
   flux_0_x_ref:
     name: promql.join
@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L215-L215
+https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L274-L274
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -28,9 +28,9 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ------------------------------------------------------------------------------->
 
 `promql.join()` joins two streams of tables on the **group key and `_time` column**.
-See `experimental.join`.
+See [`experimental.join`](/flux/v0.x/stdlib/experimental/join/).
 
-
+**Important**: The `internal/promql` package is not meant for external use.
 
 ##### Function type signature
 

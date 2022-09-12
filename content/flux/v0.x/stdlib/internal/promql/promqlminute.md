@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L136-L136
+https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L169-L169
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `promql.promqlMinute()` implements functionality equivalent to
 [PromQL's `minute()` function]( https://prometheus.io/docs/prometheus/latest/querying/functions/#minute).
 
-
+**Important**: The `internal/promql` package is not meant for external use.
 
 ##### Function type signature
 

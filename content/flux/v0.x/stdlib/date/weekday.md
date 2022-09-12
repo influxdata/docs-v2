@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L201-L201
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L237-L237
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -61,6 +61,7 @@ Default is the `location` option.
 
 - [Return the day of the week for a time value](#return-the-day-of-the-week-for-a-time-value)
 - [Return the day of the week for a relative duration](#return-the-day-of-the-week-for-a-relative-duration)
+- [Return the current day of the week](#return-the-current-day-of-the-week)
 
 ### Return the day of the week for a time value
 
@@ -82,6 +83,16 @@ option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.weekDay(t: -84h)// Returns 6
 
+
+```
+
+
+### Return the current day of the week
+
+```js
+import "date"
+
+date.weekDay(t: now())
 
 ```
 
