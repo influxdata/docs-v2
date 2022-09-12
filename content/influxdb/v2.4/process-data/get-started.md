@@ -70,7 +70,7 @@ When you create or update the task, pass task options as properties in the reque
   }
 ```
 
-To learn more about using tasks with invokable scripts, see the [API reference documentation](/influxdb/cloud/api/#operation/PostTasks)
+To learn more about creating tasks that run invokable scripts, see how to [create a task that references a script](/influxdb/cloud/process-data/manage-tasks/create-task/#create-a-task-that-references-a-script).
 
 {{% /cloud-only %}}
 
