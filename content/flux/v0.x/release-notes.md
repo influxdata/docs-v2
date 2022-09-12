@@ -10,6 +10,22 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.183.0 [2022-09-12]
+
+### Features
+- Add support for piped-forward arrays to [`array.from()`](/flux/v0.x/stdlib/array/from/).
+- Add parameter to [`experimental.unpivot()`](/flux/v0.x/stdlib/experimental/unpivot/)
+  for non-field and non-group-key columns.
+- Add a syntax for describing label literals.
+- Don't display nulls as 0 in the output of `experimental.diff()`.
+
+### Bug fixes
+- Fix duplicate definitions and update issue links in the Flux SPEC.
+- Don't include opening parentheses in invalid call expressions.
+- Improve error message when joining with an empty table.
+
+---
+
 ## v0.182.0 [2022-09-06]
 
 ### Features
