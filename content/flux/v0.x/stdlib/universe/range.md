@@ -101,7 +101,7 @@ from(bucket: "example-bucket")
 
 ```js
 from(bucket: "example-bucket")
-    |> range(start: 1621726200000000000, stop: 1621728000000000000)
+    |> range(start: 1621726200, stop: 1621728000)
 
 ```
 
