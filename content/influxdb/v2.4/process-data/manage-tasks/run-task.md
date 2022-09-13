@@ -12,11 +12,14 @@ related:
   - /influxdb/v2.4/reference/cli/influx/task/run
   - /influxdb/v2.4/reference/cli/influx/task/run/retry
   - /influxdb/v2.4/reference/cli/influx/task/retry-failed
+  - /influxdb/v2.4/api/#operation/PostTasksIDRuns
+  - /influxdb/v2.4/api/#operation/PostTasksIDRunsIDRetry
 ---
 
 InfluxDB data processing tasks generally run in defined intervals or at a specific time,
-however, you can manually run a task from the InfluxDB user interface (UI) or the
-`influx` command line interface (CLI).
+however, you can manually run a task from the InfluxDB user interface (UI),
+the `influx` command line interface (CLI),
+or the InfluxDB `/api/v2` API.
 
 ## Run a task from the InfluxDB UI
 1. In the navigation menu on the left, select **Tasks**.
@@ -64,3 +67,15 @@ influx task retry-failed \
   --after 2021-01-01T00:00:00Z \
   --before 2021-01-01T23:59:59Z
 ```
+
+## Run a task with the InfluxDB API
+Use the [`/tasks/TASK_ID/runs`
+InfluxDB API endpoint](/influxdb/v2.4/api/#operation/PostTasksIDRuns) to manually start a task run.
+
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs" >}}
+
+### Retry failed task runs
+Use the [`/tasks/TASK_ID/runs/RUN_ID/retry`
+InfluxDB API endpoint](/influxdb/v2.4/api/#operation/PostTasksIDRunsIDRetry) to retry a task run.
+
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs/RUN_ID/retry" >}}
