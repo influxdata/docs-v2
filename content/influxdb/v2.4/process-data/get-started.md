@@ -185,7 +185,7 @@ The following sample request body defines a task with the script ID and options:
 }
 ```
 
-To create a script and a task that use parameters, see [Create a task to run an invokable script](/influxdb/cloud/process-data/manage-tasks/create-task/).
+To create a script and a task that use parameters, see how to [create a task to run an invokable script](/influxdb/cloud/process-data/manage-tasks/create-task/).
 
 {{% /cloud-only %}}
 
