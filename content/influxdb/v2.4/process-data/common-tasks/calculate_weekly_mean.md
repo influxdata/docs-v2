@@ -16,11 +16,12 @@ This example uses [NOAA water sample data](/influxdb/v2.4/reference/sample-data/
 
 This example calculates a temperature weekly mean and stores it in a separate bucket.
 
-The following query:
-  -  Uses [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to filter the `average_temperature` measurement.
-  - Uses [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/) to define a time range.
-  - Uses [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/) to group average temperature by week and compute the mean.
-  - Sends the weekly mean to a new bucket (`weekly_means`)
+The sample query performs the following operations:
+
+- Uses [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to select records with the `average_temperature` measurement.
+- Uses [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/) to define the start time.
+- Uses [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/) to group records by week and compute the mean.
+- Sends the weekly mean to a new bucket (`weekly_means`).
 
 ```js
 option task = {
@@ -34,6 +35,7 @@ from(bucket: "noaa")
   |> aggregateWindow(every:  1w, fn: mean)
   |> to(bucket: "weekly_means")
 ```
+
 ### Example results
 
 | _start               | _stop                | _field  | _measurement        | location     | _value            | _time                |
