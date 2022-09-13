@@ -393,188 +393,34 @@ occurs first in the following list: float, integer, string, boolean.
 #### Run a `SHOW FIELD KEYS` query with the `ON` clause
 
 ```sql
-> SHOW FIELD KEYS ON "NOAA_water_database"
-
-name: average_temperature
-fieldKey            fieldType
---------            ---------
-degrees             float
-
-name: h2o_feet
-fieldKey            fieldType
---------            ---------
-level description   string
-water_level         float
-
-name: h2o_pH
-fieldKey            fieldType
---------            ---------
-pH                  float
-
-name: h2o_quality
-fieldKey            fieldType
---------            ---------
-index               float
-
-name: h2o_temperature
-fieldKey            fieldType
---------            ---------
-degrees             float
+> SHOW FIELD KEYS ON noaa
 ```
+Output:
+|name	    |fieldKey |fieldType|
+| :--------------|:--------------|:------------|
+| average_temperature| degrees |float|
+| h2o_feet | level description |string|
+| h2o_feet| water_level |float|
+| h2o_pH |pH |float|
+| h2o_quality| index  |float|
+| hh2o_temperature | degrees |float|
 
 The query returns the field keys and field value data types for each
-measurement in the `NOAA_water_database` database.
-
-#### Run a `SHOW FIELD KEYS` query without the `ON` clause
-
-{{< tabs-wrapper >}}
-{{% tabs %}}
-
-{{% /tabs %}}
-{{% tab-content %}}
-
-Specify the database with `USE <database_name>`
-
-```sql
-> USE NOAA_water_database
-Using database NOAA_water_database
-
-> SHOW FIELD KEYS
-
-name: average_temperature
-fieldKey            fieldType
---------            ---------
-degrees             float
-
-name: h2o_feet
-fieldKey            fieldType
---------            ---------
-level description   string
-water_level         float
-
-name: h2o_pH
-fieldKey            fieldType
---------            ---------
-pH                  float
-
-name: h2o_quality
-fieldKey            fieldType
---------            ---------
-index               float
-
-name: h2o_temperature
-fieldKey            fieldType
---------            ---------
-degrees             float
-```
-
-{{% /tab-content %}}
-
-{{% tab-content %}}
-
-Specify the database with the `db` query string parameter:
-
-```bash
-~# curl -G "http://localhost:8086/query?db=NOAA_water_database&pretty=true" --data-urlencode 'q=SHOW FIELD KEYS'
-
-{
-    "results": [
-        {
-            "statement_id": 0,
-            "series": [
-                {
-                    "name": "average_temperature",
-                    "columns": [
-                        "fieldKey",
-                        "fieldType"
-                    ],
-                    "values": [
-                        [
-                            "degrees",
-                            "float"
-                        ]
-                    ]
-                },
-                {
-                    "name": "h2o_feet",
-                    "columns": [
-                        "fieldKey",
-                        "fieldType"
-                    ],
-                    "values": [
-                        [
-                            "level description",
-                            "string"
-                        ],
-                        [
-                            "water_level",
-                            "float"
-                        ]
-                    ]
-                },
-                {
-                    "name": "h2o_pH",
-                    "columns": [
-                        "fieldKey",
-                        "fieldType"
-                    ],
-                    "values": [
-                        [
-                            "pH",
-                            "float"
-                        ]
-                    ]
-                },
-                {
-                    "name": "h2o_quality",
-                    "columns": [
-                        "fieldKey",
-                        "fieldType"
-                    ],
-                    "values": [
-                        [
-                            "index",
-                            "float"
-                        ]
-                    ]
-                },
-                {
-                    "name": "h2o_temperature",
-                    "columns": [
-                        "fieldKey",
-                        "fieldType"
-                    ],
-                    "values": [
-                        [
-                            "degrees",
-                            "float"
-                        ]
-                    ]
-                }
-            ]
-        }
-    ]
-}
-```
-
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
-
+measurement in the `noaa` database.
 
 #### Run a `SHOW FIELD KEYS` query with the `FROM` clause
 
 ```sql
-> SHOW FIELD KEYS ON "NOAA_water_database" FROM "h2o_feet"
-
-name: h2o_feet
-fieldKey            fieldType
---------            ---------
-level description   string
-water_level         float
+> SHOW FIELD KEYS ON noaa FROM h2o_feet
 ```
+Output:
+|name	    |fieldKey |fieldType|
+| :--------------|:--------------|:------------|
+| h2o_feet |level description | string|
+| h2o_feet | water_level| float|
 
 The query returns the fields keys and field value data types for the `h2o_feet`
-measurement in the `NOAA_water_database` database.
+measurement in the `noaa` database. 
 
 ### Common Issues with `SHOW FIELD KEYS`
 
@@ -626,29 +472,6 @@ SHOW FIELD KEY EXACT CARDINALITY ON mydb
 ```
 
 
-<!-- ### `SHOW MEASUREMENT KEY CARDINALITY`
-
-```sql
--- show estimated cardinality of measurement set on current database
-SHOW MEASUREMENT CARDINALITY
--- show exact cardinality of measurement set on specified database
-SHOW MEASUREMENT EXACT CARDINALITY ON mydb
-```
-
-
-### `SHOW SERIES CARDINALITY`
-
-```sql
--- show estimated cardinality of the series on current database
-SHOW SERIES CARDINALITY
--- show estimated cardinality of the series on specified database
-SHOW SERIES CARDINALITY ON mydb
--- show exact series cardinality
-SHOW SERIES EXACT CARDINALITY
--- show series cardinality of the series on specified database
-SHOW SERIES EXACT CARDINALITY ON mydb -->
-```
-
 
 ### `SHOW TAG KEY CARDINALITY`
 
@@ -660,7 +483,7 @@ SHOW TAG KEY EXACT CARDINALITY
 ```
 
 
-### `SHOW TAG VALUES CARDINALITY`
+<!-- ### `SHOW TAG VALUES CARDINALITY`
 
 ```sql
 -- show estimated tag key values cardinality for a specified tag key
@@ -670,7 +493,7 @@ SHOW TAG VALUES CARDINALITY WITH KEY = "myTagKey"
 -- show exact tag key values cardinality for a specified tag key
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
 -- show exact tag key values cardinality for a specified tag key
-SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
+SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey" -->
 ```
 
 
