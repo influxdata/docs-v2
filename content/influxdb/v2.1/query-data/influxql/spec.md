@@ -1,9 +1,9 @@
 ---
-title: Influx Query Language (InfluxQL) reference
-description: Reference for Influx Query Language (InfluxQL).
+title: Influx Query Language (InfluxQL) specification
+description: Reference (spec) for Influx Query Language (InfluxQL).
 menu:
   influxdb_2_1:
-    name: InfluxQL reference
+    name: InfluxQL specification
     parent: Query with InfluxQL
     identifier: refernce-2_1
 weight: 212
