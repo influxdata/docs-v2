@@ -1085,7 +1085,7 @@ influxd-ctl show
 
 ##### Show all meta and data nodes in a cluster
 
-In this example, the `show` command output displays that the cluster includes three meta nodes and two data nodes . Every node is InfluxDB Enterprise version `1.10.0`. The RAFT status shows `metatest_meta_0_1:8089` as leader, and the other two meta nodes as peers.
+In this example, the `show` command output displays the cluster includes three meta nodes and two data nodes. Every node is InfluxDB Enterprise version `1.10.0`. The RAFT status shows `metatest_meta_0_1:8089` as the leader node, and the other two meta nodes as peers.
 
 ```bash
 $ influxd-ctl show
