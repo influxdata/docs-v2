@@ -236,7 +236,7 @@ curl https://cloud2.influxdata.com/api/v2/tasks \
 --data @- << EOF
   {
   "name": "30-day-avg-temp",
-  "description": "IoT Center 30d environment average.",
+  "description": "IoT Center 30d temperature average.",
   "every": "1d",
   "scriptID": "${SCRIPT_ID}",
   "scriptParameters":
