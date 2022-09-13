@@ -269,7 +269,7 @@ Provide the following in your API request:
 
 JSON object with the following fields:
 
-- **flux** : raw Flux task string that contains [`options`](/flux/v0.x/spec/options/) and the query.
+- **flux**: raw Flux task string that contains [`options`](/flux/v0.x/spec/options/) and the query.
 - **status**: task status ("active" or "inactive")
 - **description**: task description
 
