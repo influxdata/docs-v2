@@ -18,9 +18,14 @@ Configure InfluxDB Enterprise to use LDAP (Lightweight Directory Access Protocol
 - Synchronize InfluxDB and LDAP so each LDAP request doesn't need to be queried
 
 {{% note %}}
-To configure InfluxDB Enterprise to support LDAP, all users must be managed in the remote LDAP service.
-If LDAP is configured and enabled, users **must** authenticate through LDAP, including users who may have existed before enabling LDAP.
+LDAP **requires** JWT authentication.  For more information, see [Configure authentication using JWT tokens](/enterprise_influxdb/v1.9/administration/configure/security/authentication/#configure-authentication-using-jwt-tokens). 
+
+To configure InfluxDB Enterprise to support LDAP, all users must be managed in the remote LDAP service. If LDAP is configured and enabled, users **must** authenticate through LDAP, including users who may have existed before enabling LDAP.
 {{% /note %}}
+
+- [Configure LDAP for an InfluxDB Enterprise cluster](#configure-ldap-for-an-influxdb-enterprise-cluster)
+- [Sample LDAP configuration](#sample-ldap-configuration)
+- [Troubleshoot LDAP in InfluxDB Enterprise](#troubleshoot-ldap-in-influxdb-enterprise)
 
 ## Configure LDAP for an InfluxDB Enterprise cluster
 
@@ -214,3 +219,81 @@ enabled = true
 
 ```
 {{% /truncate %}}
+
+## Troubleshoot LDAP in InfluxDB Enterprise
+
+### InfluxDB Enterprise does not recognize a new LDAP server
+
+If you ever replace an LDAP server with a new one, you need to update your
+InfluxDB Enterprise LDAP configuration file to point to the new server.
+However, InfluxDB Enterprise may not recognize or honor the updated configuration.
+
+For InfluxDB Enterprise to recognize an LDAP configuration pointing to a new
+LDAP server, do the following:
+
+{{% warn %}}
+#### Not recommended in production InfluxDB Enterprise clusters
+
+Performing the following process on a production cluster may have unintended consequences.
+Moving to a new LDAP server constitutes and infrastructure change and may better
+be handled through a cluster migration.
+For assistance, reach out to [InfluxData support](https://support.influxdata.com/s/contactsupport).
+{{% /warn %}}
+
+1.  On each meta node, update the `auth-enabled` setting to `false` in your
+    `influxdb-meta.conf` configuration file to temporarily disable authentication.
+
+    ```toml
+    [meta]
+      auth-enabled = false
+    ```
+
+2.  Restart all meta nodes to load the updated configuration.
+    On each meta node, run:
+
+    {{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[sysvinit](#)
+[systemd](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+service influxdb-meta restart
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+sudo systemctl restart influxdb-meta
+```
+{{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}
+
+3.  On each meta node, [create, verify, and upload the _new_ LDAP configuration file](#create-verify-and-upload-the-ldap-configuration-file).
+
+4.  On each meta node, update the `auth-enabled` setting to `true` in your `influxdb-meta.conf`
+    configuration file to reenable authentication.
+
+    ```toml
+    [meta]
+      auth-enabled = true
+    ```
+
+5.  Restart all meta nodes to load the updated configuration.
+    On each meta node, run:
+
+    {{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[sysvinit](#)
+[systemd](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+service influxdb-meta restart
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+sudo systemctl restart influxdb-meta
+```
+{{% /code-tab-content %}}
+    {{< /code-tabs-wrapper >}}

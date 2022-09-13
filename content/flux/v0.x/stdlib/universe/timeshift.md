@@ -1,130 +1,182 @@
 ---
 title: timeShift() function
-description: The `timeShift()` function adds a fixed duration to time columns.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/shift
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/shift
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/timeshift/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/timeshift/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/timeshift/
+description: >
+  `timeShift()` adds a fixed duration to time columns.
 menu:
   flux_0_x_ref:
     name: timeShift
     parent: universe
-weight: 102
+    identifier: universe/timeShift
+weight: 101
 flux/v0.x/tags: [transformations, date/time]
 introduced: 0.7.0
 ---
 
-The `timeShift()` function adds a fixed duration to time columns.
-The output table schema is the same as the input table.
-If the time is `null`, the time will continue to be `null`.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2398-L2398
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`timeShift()` adds a fixed duration to time columns.
+
+The output table schema is the same as the input table schema.
+`null` time values remain `null`.
+
+##### Function type signature
 
 ```js
-timeShift(duration: 10h, columns: ["_start", "_stop", "_time"])
+(<-tables: stream[A], duration: duration, ?columns: [string]) => stream[A]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### duration {data-type="duration"}
+### duration
 ({{< req >}})
-The amount of time to add to each time value.
-May be a negative duration.
+Amount of time to add to each time value. May be a negative duration.
 
-### columns {data-type="array of strings"}
-The list of all columns to be shifted.
-Default is `["_start", "_stop", "_time"]`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+### columns
+
+List of time columns to operate on. Default is `["_start", "_stop", "_time"]`.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro plural=true %}}
 
 - [Shift timestamps forward in time](#shift-timestamps-forward-in-time)
 - [Shift timestamps backward in time](#shift-timestamps-backward-in-time)
 
-#### Shift timestamps forward in time
+### Shift timestamps forward in time
+
 ```js
 import "sampledata"
 
 sampledata.int()
     |> timeShift(duration: 12h)
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T12:00:00Z | t1  |     -2 |
-| 2021-01-01T12:00:10Z | t1  |     10 |
-| 2021-01-01T12:00:20Z | t1  |      7 |
-| 2021-01-01T12:00:30Z | t1  |     17 |
-| 2021-01-01T12:00:40Z | t1  |     15 |
-| 2021-01-01T12:00:50Z | t1  |      4 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T12:00:00Z | t2  |     19 |
-| 2021-01-01T12:00:10Z | t2  |      4 |
-| 2021-01-01T12:00:20Z | t2  |     -3 |
-| 2021-01-01T12:00:30Z | t2  |     19 |
-| 2021-01-01T12:00:40Z | t2  |     13 |
-| 2021-01-01T12:00:50Z | t2  |      1 |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T12:00:00Z | -2      | t1   |
+| 2021-01-01T12:00:10Z | 10      | t1   |
+| 2021-01-01T12:00:20Z | 7       | t1   |
+| 2021-01-01T12:00:30Z | 17      | t1   |
+| 2021-01-01T12:00:40Z | 15      | t1   |
+| 2021-01-01T12:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T12:00:00Z | 19      | t2   |
+| 2021-01-01T12:00:10Z | 4       | t2   |
+| 2021-01-01T12:00:20Z | -3      | t2   |
+| 2021-01-01T12:00:30Z | 19      | t2   |
+| 2021-01-01T12:00:40Z | 13      | t2   |
+| 2021-01-01T12:00:50Z | 1       | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Shift timestamps backward in time
+### Shift timestamps backward in time
+
 ```js
 import "sampledata"
 
 sampledata.int()
     |> timeShift(duration: -12h)
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2020-12-31T12:00:00Z | t1  |     -2 |
-| 2020-12-31T12:00:10Z | t1  |     10 |
-| 2020-12-31T12:00:20Z | t1  |      7 |
-| 2020-12-31T12:00:30Z | t1  |     17 |
-| 2020-12-31T12:00:40Z | t1  |     15 |
-| 2020-12-31T12:00:50Z | t1  |      4 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2020-12-31T12:00:00Z | t2  |     19 |
-| 2020-12-31T12:00:10Z | t2  |      4 |
-| 2020-12-31T12:00:20Z | t2  |     -3 |
-| 2020-12-31T12:00:30Z | t2  |     19 |
-| 2020-12-31T12:00:40Z | t2  |     13 |
-| 2020-12-31T12:00:50Z | t2  |      1 |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2020-12-31T12:00:00Z | -2      | t1   |
+| 2020-12-31T12:00:10Z | 10      | t1   |
+| 2020-12-31T12:00:20Z | 7       | t1   |
+| 2020-12-31T12:00:30Z | 17      | t1   |
+| 2020-12-31T12:00:40Z | 15      | t1   |
+| 2020-12-31T12:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2020-12-31T12:00:00Z | 19      | t2   |
+| 2020-12-31T12:00:10Z | 4       | t2   |
+| 2020-12-31T12:00:20Z | -3      | t2   |
+| 2020-12-31T12:00:30Z | 19      | t2   |
+| 2020-12-31T12:00:40Z | 13      | t2   |
+| 2020-12-31T12:00:50Z | 1       | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

@@ -48,7 +48,7 @@ brew install influxdb
 ```
 
 {{% note %}}
-Homebrew also installs `influx-cli` as a dependency.
+Homebrew also installs `influxdb-cli` as a dependency.
 For information about using the `influx` CLI, see the
 [`influx` CLI reference documentation](/influxdb/v2.2/reference/cli/influx/).
 {{% /note %}}
@@ -212,20 +212,40 @@ For information about installing the `influx` CLI, see
 
 ### Install InfluxDB as a service with systemd
 
-1.  Download and install the appropriate `.deb` or `.rpm` file using a URL from the
-    [InfluxData downloads page](https://portal.influxdata.com/downloads/)
+1.  Download and install the appropriate `.deb` or `.rpm` file using either:
+    * `apt` or `yum` with the following commands:
+        ```sh
+        # influxdb.key GPG Fingerprint: 05CE15085FC09D18E99EFB22684A14CF2582E0C5
+
+        # Ubuntu/Debian
+        wget -q https://repos.influxdata.com/influxdb.key
+        echo '23a1c8836f0afc5ed24e0486339d7cc8f6790b83886c4c96995b88a061c5bb5d influxdb.key' | sha256sum -c && cat influxdb.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdb.gpg > /dev/null
+        echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdb.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
+        sudo apt-get update && sudo apt-get install influxdb2
+
+        # Red Hat/CentOS/Fedora
+        cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
+        [influxdb]
+        name = InfluxDB Repository - RHEL \$releasever
+        baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
+        enabled = 1
+        gpgcheck = 1
+        gpgkey = https://repos.influxdata.com/influxdb.key
+        EOF
+        sudo yum install influxdb2
+        ```
+    * or via a URL from the [InfluxData downloads page](https://portal.influxdata.com/downloads/)
     with the following commands:
+        ```sh
+        # Ubuntu/Debian
+        wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-xxx.deb
+        sudo dpkg -i influxdb2-{{< latest-patch >}}-xxx.deb
 
-    ```sh
-    # Ubuntu/Debian
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-xxx.deb
-    sudo dpkg -i influxdb2-{{< latest-patch >}}-xxx.deb
-
-    # Red Hat/CentOS/Fedora
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-xxx.rpm
-    sudo yum localinstall influxdb2-{{< latest-patch >}}-xxx.rpm
-    ```
-    _Use the exact filename of the download of `.rpm` package (for example, `influxdb2-{{< latest-patch >}}-amd64.rpm`)._
+        # Red Hat/CentOS/Fedora
+        wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-xxx.rpm
+        sudo yum localinstall influxdb2-{{< latest-patch >}}-xxx.rpm
+        ```
+        _Use the exact filename of the download of `.rpm` package (for example, `influxdb2-{{< latest-patch >}}-amd64.rpm`)._
 
 2.  Start the InfluxDB service:
 

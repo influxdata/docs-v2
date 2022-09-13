@@ -1,67 +1,78 @@
 ---
 title: tableFind() function
 description: >
-  The `tableFind()` function extracts the first table in a stream of tables whose
-  group key values match a predicate. If no table is found, the function errors.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/tablefind/
+  `tableFind()` extracts the first table in a stream with group key values that
+  match a specified predicate.
 menu:
   flux_0_x_ref:
     name: tableFind
     parent: universe
-weight: 102
+    identifier: universe/tableFind
+weight: 101
 flux/v0.x/tags: [dynamic queries]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/scalar-values/
 introduced: 0.29.0
 ---
 
-The `tableFind()` function extracts the first table in a stream of tables whose
-group key values match a predicate. If no table is found, the function errors.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2927-L2930
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`tableFind()` extracts the first table in a stream with group key values that
+match a specified predicate.
+
+
+
+##### Function type signature
 
 ```js
-tableFind(fn: (key) => key._field == "fieldName")
+(<-tables: stream[B], fn: (key: A) => bool) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-{{% note %}}
-Make sure `fn` parameter names match each specified parameter.
-To learn why, see [Match parameter names](/flux/v0.x/spec/data-model/#match-parameter-names).
-{{% /note %}}
+### fn
+({{< req >}})
+Predicate function to evaluate input table group keys.
 
-### fn {data-type="function"}
+`tableFind()` returns the first table that resolves as `true`.
+The predicate function requires a `key` argument that represents each input
+table's group key as a record.
 
-A predicate function for matching keys in a table's group key.
-`tableFind` returns the first table that resolves as `true`.
-Expects a `key` argument that represents a group key in the input stream.
+### tables
 
-##### Example fn function
+Input data. Default is piped-forward data (`<-`).
 
-```js
-(key) => key._field == "fieldName"
-```
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
-## Example
-{{% flux/sample-example-intro %}}
+
+## Examples
+
+### Extract a table from a stream of tables
 
 ```js
 import "sampledata"
 
-t = sampledata.int()
-    |> tableFind(fn: (key) => key.tag == "t2")
-
-// t represents the first table in a stream whose group key
+t =
+    sampledata.int()
+        |> tableFind(
+            fn: (key) => key.tag == "t2",
+        )// t represents the first table in a stream whose group key
 // contains "tag" with a value of "t2".
+
+
 ```
 
-{{% note %}}
-You can use `t` from the example above as input for [`getColumn()`](/flux/v0.x/stdlib/universe/getcolumn/)
-and [`getRecord()`](/flux/v0.x/stdlib/universe/getrecord/).
-{{% /note %}}

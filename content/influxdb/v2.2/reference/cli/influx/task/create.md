@@ -45,7 +45,7 @@ export FLUX_TASK='
 
   from(bucket: "example-bucket")
     |> range(start: -task.every)
-    |> filter(fn: (r) => (r._measurement == "m")
+    |> filter(fn: (r) => r._measurement == "m")
     |> aggregateWindow(every: 1h, fn: mean)
     |> to(bucket: "default-ds-1d", org: "my-org")
 '

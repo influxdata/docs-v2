@@ -1,46 +1,63 @@
 ---
 title: prometheus.scrape() function
 description: >
-  The `prometheus.scrape()` function retrieves Prometheus-formatted metrics
-  from a specified URL.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/prometheus/scrape/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/prometheus/scrape/
+  `prometheus.scrape()` scrapes Prometheus metrics from an HTTP-accessible endpoint and returns
+  them as a stream of tables.
 menu:
   flux_0_x_ref:
     name: prometheus.scrape
-    parent: prometheus
-weight: 401
-flux/v0.x/tags: [inputs]
-related:
-  - /{{< latest "influxdb" >}}/write-data/no-code/scrape-data/scrapable-endpoints/
-introduced: 0.50.0
+    parent: experimental/prometheus
+    identifier: experimental/prometheus/scrape
+weight: 201
+flux/v0.x/tags: [inputs, prometheus]
 ---
 
-The `prometheus.scrape()` function retrieves [Prometheus-formatted metrics](https://prometheus.io/docs/instrumenting/exposition_formats/)
-from a specified URL.
-The function groups metrics (including histogram and summary values) into individual tables.
+<!------------------------------------------------------------------------------
 
-{{< keep-url >}}
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/prometheus/prometheus.flux#L33-L33
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`prometheus.scrape()` scrapes Prometheus metrics from an HTTP-accessible endpoint and returns
+them as a stream of tables.
+
+
+
+##### Function type signature
+
 ```js
-import "experimental/prometheus"
-
-prometheus.scrape(
-    url: "http://localhost:8086/metrics"
-)
+(url: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
-The URL to scrape Prometheus-formatted metrics from.
+### url
+({{< req >}})
+URL to scrape Prometheus metrics from.
+
+
+
 
 ## Examples
 
-### Scrape Prometheus metrics and write them to InfluxDB
+### Scrape InfluxDB OSS internal metrics
+
 ```js
 import "experimental/prometheus"
 
-prometheus.scrape(url: "https://example-url.com/metrics")
-    |> to(org: "example-org", bucket: "example-bucket")
+prometheus.scrape(url: "http://localhost:8086/metrics")
+
 ```
+

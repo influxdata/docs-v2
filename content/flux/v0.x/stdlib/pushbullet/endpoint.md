@@ -1,72 +1,97 @@
 ---
 title: pushbullet.endpoint() function
 description: >
-  The `pushbullet.endpoint()` function creates the endpoint for the Pushbullet API
-  and sends a notification of type `note`.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/pushbullet/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/pushbullet/endpoint/
+  `pushbullet.endpoint()` creates the endpoint for the Pushbullet API and sends a notification of type note.
 menu:
   flux_0_x_ref:
     name: pushbullet.endpoint
     parent: pushbullet
-weight: 202
-flux/v0.x/tags: [notification endpoints]
-introduced: 0.66.0
+    identifier: pushbullet/endpoint
+weight: 101
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
-The `pushbullet.endpoint()` function creates the endpoint for the Pushbullet API
-and sends a notification of type `note`.
+<!------------------------------------------------------------------------------
 
-```js
-import "pushbullet"
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-pushbullet.endpoint(
-    url: "https://api.pushbullet.com/v2/pushes",
-    token: "",
-)
-```
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-## Parameters
+https://github.com/influxdata/flux/blob/master/stdlib/pushbullet/pushbullet.flux#L111-L131
 
-### url {data-type="string"}
-Pushbullet API URL.
-Defaults to `https://api.pushbullet.com/v2/pushes`.
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
-### token {data-type="string"}
-[Pushbullet API token](https://get.pushbullet.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
-to use when interacting with Pushbullet.
-Defaults to `""`.
+------------------------------------------------------------------------------->
 
-## Usage
-`pushbullet.endpoint` is a factory function that outputs another function.
-The output function requires a `mapFn` parameter.
+`pushbullet.endpoint()` creates the endpoint for the Pushbullet API and sends a notification of type note.
 
-### mapFn {data-type="function"}
+### Usage
+`pushbullet.endpoint()` is a factory function that outputs another function.
+The output function requires a mapFn parameter.
+
+#### mapFn
 A function that builds the record used to generate the API request.
 Requires an `r` parameter.
 
-`mapFn` accepts a table row (`r`) and returns a record that must include the
-following fields (as defined in [`pushbullet.pushNote()`](/flux/v0.x/stdlib/pushbullet/pushnote/#title)):
+`mapF`n accepts a table row (`r`) and returns a record that must include the
+following properties (as defined in `pushbullet.pushNote()`):
 
-- `title`
-- `text`
+- title
+- text
+
+##### Function type signature
+
+```js
+(
+    ?token: A,
+    ?url: string,
+) => (mapFn: (r: B) => {C with title: E, text: D}) => (<-tables: stream[B]) => stream[{B with _sent: string}]
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### url
+
+PushBullet API endpoint URL. Default is `"https://api.pushbullet.com/v2/pushes"`.
+
+
+
+### token
+
+Pushbullet API token string.  Default is `""`.
+
+
+
 
 ## Examples
 
-##### Send the last reported status to Pushbullet
+### Send push notifications to Pushbullet
+
 ```js
 import "pushbullet"
 import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "PUSHBULLET_TOKEN")
-e = pushbullet.endpoint(token: token)
 
-lastReported = from(bucket: "example-bucket")
-    |> range(start: -10m)
-    |> filter(fn: (r) => r._measurement == "statuses")
-    |> last()
+crit_statuses =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and r.status == "crit")
 
-lastReported
-    |> e(mapFn: (r) => ({r with title: r.title, text: "${string(v: r._time)}: ${r.status}."}))()
+crit_statuses
+    |> pushbullet.endpoint(token: token)(
+        mapFn: (r) =>
+            ({
+                title: "${r.component} is critical",
+                text: "${r.component} is critical. {$r._field} is {r._value}.",
+            }),
+    )()
+
 ```
+

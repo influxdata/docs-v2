@@ -1,41 +1,56 @@
 ---
-title: Flux slack package
-list_title: slack package
+title: slack package
 description: >
-  The Flux `slack` package provides functions for sending data to [Slack](https://slack.com/).
-  Import the `slack` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/slack/
-  - /influxdb/v2.0/reference/flux/stdlib/slack/
-  - /influxdb/cloud/reference/flux/stdlib/slack/
+  The `slack` package provides functions for sending messages to [Slack](https://slack.com/).
 menu:
   flux_0_x_ref:
-    name: slack
-    parent: Standard library
+    name: slack 
+    parent: stdlib
+    identifier: slack
 weight: 11
-flux/v0.x/tags: [functions, slack, package]
-introduced: 0.41.0
+cascade:
+
+  introduced: 0.41.0
 ---
 
-The Flux `slack` package provides functions for sending data to [Slack](https://slack.com/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/slack/slack.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `slack` package provides functions for sending messages to [Slack](https://slack.com/).
 Import the `slack` package:
 
 ```js
 import "slack"
 ```
 
+
+
 ## Options
-The `slack` package provides the following options:
 
 ```js
-import "slack"
-
 option slack.defaultURL = "https://slack.com/api/chat.postMessage"
 ```
+ 
+### defaultURL
 
-### defaultURL {data-type="string"}
-Default Slack API URL.
-Default is `https://slack.com/api/chat.postMessage`.
+`defaultURL` defines the default Slack API URL used by functions in the `slack` package.
+
+
+
 
 ## Functions
+
 {{< children type="functions" show="pages" >}}

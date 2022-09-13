@@ -13,9 +13,22 @@ influxdb/v2.2/tags: [glossary]
 
 ## A
 
+### abstract syntax tree (AST)
+
+A tree representation of the abstract syntactic structure of source code. An AST 
+shows the structure of the code and the order of execution.
+
+Each node of the tree denotes a construct occurring in the code. The syntax is
+abstracted away and does not represent every detail appearing in the syntax, but
+rather just the structural details. 
+
+For more information about AST design, 
+see [Abstract Syntax Tree in Wikipedia](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
+
 ### agent
 
-A background process started by (or on behalf of) a user and typically requires user input.
+A background process started by (or on behalf of) a user that typically requires
+user input.
 
 Telegraf is an agent that requires user input (a configuration file) to gather metrics from declared input plugins and sends metrics to declared output plugins, based on the plugins enabled for a configuration.
 
@@ -863,7 +876,9 @@ Related entries: [aggregate](#aggregate), [function](#function), [transformation
 
 ### series
 
-A collection of data in the InfluxDB data structure that shares a measurement, tag set, and bucket.
+A collection of data in the InfluxDB data structure that share a common
+{{% cloud-only %}}**measurement**, **tag set**, and **field key**.{{% /cloud-only %}}
+{{% oss-only %}}**measurement** and **tag set**.{{% /oss-only %}}
 
 Related entries: [field set](#field-set), [measurement](#measurement),<!-- [retention policy](/#retention-policy-rp), --> [tag set](#tag-set)
 

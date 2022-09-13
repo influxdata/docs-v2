@@ -7,8 +7,10 @@ menu:
     parent: influx
 weight: 101
 influxdb/cloud/tags: [write, replication]
-related:
-  - /influxdb/cloud/reference/cli/influx/remote
+cascade:
+  related:
+    - /influxdb/cloud/reference/cli/influx/remote
+    - /influxdb/cloud/write-data/replication/replicate-data/
 ---
 
 {{< duplicate-oss >}}

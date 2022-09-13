@@ -37,8 +37,23 @@ InfluxDB {{< current-version >}} does not support deleting data by field.
 
 {{% /oss-only %}}
 
+{{% cloud-only %}}
+
+In InfluxDB Cloud, writes and deletes are asynchronous and eventually consistent.
+Once InfluxDB validates your request and queues the delete,
+it sends a _success_ response (HTTP `204` status code) as an acknowledgement.
+To ensure that InfluxDB handles writes and deletes in the order you request them, wait for the acknowledgement before you send the next request.
+Once InfluxDB executes a queued delete, the deleted data is no longer queryable,
+but will remain on disk until the compaction service runs.
+
+{{% /cloud-only %}}
+
+{{% oss-only %}}
+
 Once a delete request completes successfully, the deleted data is no longer queryable,
 but will remain on disk until the compaction service runs.
+
+{{% /oss-only %}}
 
 ## Delete data using the influx CLI
 

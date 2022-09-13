@@ -30,13 +30,28 @@
 {{ $pageGithubIssueLink := print "https://github.com/influxdata/docs-v2/issues/new?body=" $docsIssueLinkBody }}
 
 <hr/>
+<div class="helpful">
+  <p>Was this page helpful?</p>
+  <form onSubmit="return submitFeedbackForm('pagefeedback')" id="pagefeedback">
+    <input type="text" name="fname" class="bowlofsweets" placeholder="First Name">
+    <label class="radio-btns" id="helpful"><input  type="radio" name="helpful" value=true />Yes</label>
+    <label class="radio-btns" id="not-helpful"><input  type="radio" name="helpful" value=false />No</label>
+  </form>
+  <div id="thank-you">
+    <p>Thank you for your feedback!</p>
+  </div>
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+</div>
+<hr/>
 <div class="feedback block">
   <div class="support">
     <h4 id="bug-reports-and-feedback">Support and feedback</h4>
     <p>
       Thank you for being part of our community!
       We welcome and encourage your feedback and bug reports for {{ $productName }} and this documentation.
-      To find support, the following resources are available:
+      To find support, use the following resources:
     </p>
     <ul>
       <li><a class="community" href="https://community.influxdata.com/" target="_blank">InfluxData Community</a></li>

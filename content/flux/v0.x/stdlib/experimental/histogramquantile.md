@@ -1,28 +1,40 @@
 ---
 title: experimental.histogramQuantile() function
 description: >
- The `experimental.histogramQuantile()` function approximates a quantile given a
- histogram with the cumulative distribution of the dataset.
+  `experimental.histogramQuantile()` approximates a quantile given a histogram with the
+  cumulative distribution of the dataset.
 menu:
   flux_0_x_ref:
     name: experimental.histogramQuantile
     parent: experimental
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/histogramquantile/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/histogramquantile/
-related:
-  - /flux/v0.x/stdlib/universe/histogramquantile/
+    identifier: experimental/histogramQuantile
+weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.107.0
 ---
 
-The `experimental.histogramQuantile()` function approximates a quantile given a
-histogram with the cumulative distribution of the dataset.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L750-L754
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.histogramQuantile()` approximates a quantile given a histogram with the
+cumulative distribution of the dataset.
+
 Each input table represents a single histogram.
-Each input table represents a single histogram.
-Input tables must have two columns—a count column (`_value`) and an upper bound
-column (`le`), and neither column can be part of the group key.
+Input tables must have two columns: a count column (`_value`) and an upper bound
+column (`le`). Neither column can be part of the group key.
 
 The count is the number of values that are less than or equal to the upper bound value (`le`).
 Input tables can have an unlimited number of records; each record represents an entry in the histogram.
@@ -37,46 +49,79 @@ The output table has the same group key as the input table.
 The function returns the value of the specified quantile from the histogram in the
 `_value` column and drops all columns not part of the group key.
 
-```js
-import "experimental"
+##### Function type signature
 
-experimental.histogramQuantile(
-    quantile: 0.5,
-    minValue: 0.0,
-)
+```js
+(
+    <-tables: stream[{A with le: float, _value: float}],
+    ?minValue: float,
+    ?quantile: float,
+) => stream[{A with _value: float}]
 ```
 
-_`experimental.histogramQuantile()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### quantile {data-type="float"}
-A value between 0 and 1 indicating the desired quantile to compute.
+### quantile
 
-### minValue {data-type="float"}
-The assumed minimum value of the dataset.
-When the quantile falls below the lowest upper bound, interpolation is performed between `minValue` and the lowest upper bound.
-When `minValue` is equal to negative infinity, the lowest upper bound is used.
-Defaults to `0.0`.
+Quantile to compute (`[0.0 - 1.0]`).
 
-{{% note %}}
-When the quantile falls below the lowest upper bound (`le`),
-interpolation is performed between `minValue` and the lowest upper bound.
-When `minValue` is equal to negative infinity, the lowest upper bound is used.
-{{% /note %}}
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+
+### minValue
+
+Assumed minimum value of the dataset. Default is `0.0`.
+
+When the quantile falls below the lowest upper bound, the function
+interpolates values between `minValue` and the lowest upper bound.
+If `minValue` is equal to negative infinity, the lowest upper bound is used.
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-##### Compute the 90th quantile
+### Compute the 90th percentile of a histogram
+
 ```js
 import "experimental"
 
-from(bucket: "example-bucket")
-    |> range(start: -1d)
-    |> filter(fn: (r) => r._meausrement == "example-measurement" and r._field == "example-field")
+histogramData
     |> experimental.histogramQuantile(quantile: 0.9)
+
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| *_field           | _time                | _value  | le    |
+| ----------------- | -------------------- | ------- | ----- |
+| example_histogram | 2021-01-01T00:00:00Z | 6873    | 0.005 |
+| example_histogram | 2021-01-01T00:00:00Z | 9445    | 0.01  |
+| example_histogram | 2021-01-01T00:00:00Z | 9487    | 0.025 |
+| example_histogram | 2021-01-01T00:00:00Z | 9487    | 0.05  |
+| example_histogram | 2021-01-01T00:00:00Z | 9487    | 0.1   |
+| example_histogram | 2021-01-01T00:00:00Z | 9487    | 0.25  |
+| example_histogram | 2021-01-01T00:00:00Z | 9487    | 0.5   |
+| example_histogram | 2021-01-01T00:00:00Z | 9487    | 1     |
+| example_histogram | 2021-01-01T00:00:00Z | 9487    | 2.5   |
+| example_histogram | 2021-01-01T00:00:00Z | 9487    | 5     |
+| example_histogram | 2021-01-01T00:00:00Z | 9487    | 10    |
+| example_histogram | 2021-01-01T00:00:00Z | 9487    | +Inf  |
+
+
+#### Output data
+
+| *_field           | _value               |
+| ----------------- | -------------------- |
+| example_histogram | 0.008237363919129085 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

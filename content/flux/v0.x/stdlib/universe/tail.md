@@ -1,118 +1,173 @@
 ---
 title: tail() function
-description: The `tail()` function limits each output table to the last `n` records.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/tail/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/tail/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/tail/
+description: >
+  `tail()` limits each output table to the last `n` rows.
 menu:
   flux_0_x_ref:
     name: tail
     parent: universe
-weight: 102
+    identifier: universe/tail
+weight: 101
 flux/v0.x/tags: [transformations]
-related:
-  - /flux/v0.x/stdlib/universe/limit/
 introduced: 0.39.0
 ---
 
-The `tail()` function limits each output table to the last [`n`](#n) records.
-The function produces one output table for each input table.
-Each output table contains the last `n` records before the [`offset`](#offset).
-If the input table has less than `offset + n` records, `tail()` outputs all records before the `offset`.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2364-L2364
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`tail()` limits each output table to the last `n` rows.
+
+`tail()` produces one output table for each input table.
+Each output table contains the last `n` records before the `offset`.
+If the input table has less than `offset + n` records, `tail()` outputs all
+records before the `offset`.
+
+##### Function type signature
 
 ```js
-tail(n: 10, offset: 0)
+(<-tables: stream[A], n: int, ?offset: int) => stream[A]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### n {data-type="int"}
+### n
 ({{< req >}})
-The maximum number of records to output.
+Maximum number of rows to output.
 
-### offset {data-type="int"}
-The number of records to skip at the end of a table table before limiting to `n`.
-Default is `0`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+### offset
+
+Number of records to skip at the end of a table table before
+limiting to `n`. Default is 0.
+
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
 
 - [Output the last three rows in each input table](#output-the-last-three-rows-in-each-input-table)
 - [Output the last three rows before the last row in each input table](#output-the-last-three-rows-before-the-last-row-in-each-input-table)
 
-#### Output the last three rows in each input table
+### Output the last three rows in each input table
+
 ```js
 import "sampledata"
 
 sampledata.int()
     |> tail(n: 3)
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:30Z | t1  |     17 |
-| 2021-01-01T00:00:40Z | t1  |     15 |
-| 2021-01-01T00:00:50Z | t1  |      4 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:30Z | t2  |     19 |
-| 2021-01-01T00:00:40Z | t2  |     13 |
-| 2021-01-01T00:00:50Z | t2  |      1 |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Output the last three rows before the last row in each input table
+### Output the last three rows before the last row in each input table
+
 ```js
 import "sampledata"
 
 sampledata.int()
     |> tail(n: 3, offset: 1)
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:20Z | t1  |      7 |
-| 2021-01-01T00:00:30Z | t1  |     17 |
-| 2021-01-01T00:00:40Z | t1  |     15 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:20Z | t2  |     -3 |
-| 2021-01-01T00:00:30Z | t2  |     19 |
-| 2021-01-01T00:00:40Z | t2  |     13 |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

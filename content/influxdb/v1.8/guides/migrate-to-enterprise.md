@@ -7,5 +7,11 @@ menu:
     weight: 50
     parent: Guides
     name: Migrate to InfluxDB Enterprise
-    url: /enterprise_influxdb/v1.8/guides/migration/
+    params:
+      url: /enterprise_influxdb/v1.9/guides/migration/
 ---
+
+To migrate InfluxDB {{< current-version >}} to InfluxDB Enterprise, follow the
+instructions provided in
+[Migrate InfluxDB OSS instances to InfluxDB Enterprise clusters](/{{< latest "enterprise_influxdb" >}}/guides/migration/)
+In the InfluxDB Enterprise documentation.

@@ -1,58 +1,90 @@
 ---
 title: webexteams.message() function
 description: >
-  The `webexteams.message()` function sends a single message to Webex using the
-  [Webex messages API](https://developer.webex.com/docs/api/v1/messages/create-a-message).
+  `webexteams.message()` sends a single message to Webex
+  using the [Webex messages API](https://developer.webex.com/docs/api/v1/messages/create-a-message).
 menu:
   flux_0_x_ref:
     name: webexteams.message
-    parent: webexteams
-weight: 202
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/webexteams/message/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/webexteams/message/
+    parent: contrib/sranka/webexteams
+    identifier: contrib/sranka/webexteams/message
+weight: 301
+flux/v0.x/tags: [single notification]
 ---
 
-The `webexteams.message()` function sends a single message to Webex using the
-[Webex messages API](https://developer.webex.com/docs/api/v1/messages/create-a-message).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/sranka/webexteams/webexteams.flux#L51-L68
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`webexteams.message()` sends a single message to Webex
+using the [Webex messages API](https://developer.webex.com/docs/api/v1/messages/create-a-message).
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/sranka/webexteams"
-
-webexteams.message(,
-    url: "https://webexapis.com"
-    token: "My5uP3rs3cRe7T0k3n",
-    roomId: "Y2lzY29zcGFyazovL3VzL1JPT00vYmJjZWIxYWQtNDNmMS0zYjU4LTkxNDctZjE0YmIwYzRkMTU0",
-    text: "Example plain text message",
-    markdown: "Example [markdown message](https://developer.webex.com/docs/api/basics).",
-)
+(
+    markdown: A,
+    roomId: B,
+    text: C,
+    token: string,
+    ?url: string,
+) => int
 ```
 
-## Parameters 
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
-### url {data-type="string"}
-Base URL of Webex API endpoint _(without a trailing slash)_.
+## Parameters
+
+### url
+
+Base URL of Webex API endpoint (without a trailing slash).
 Default is `https://webexapis.com`.
 
-### token {data-type="string"}
+
+
+### token
 ({{< req >}})
 [Webex API access token](https://developer.webex.com/docs/api/getting-started).
 
-### roomId {data-type="string"}
+
+
+### roomId
 ({{< req >}})
 Room ID to send the message to.
 
-### text {data-type="string"}
+
+
+### text
 ({{< req >}})
 Plain text message.
 
-### markdown {data-type="string"}
+
+
+### markdown
 ({{< req >}})
 [Markdown formatted message](https://developer.webex.com/docs/api/basics#formatting-messages).
 
+
+
+
 ## Examples
 
-##### Send the last reported status to Webex Teams
+### Send the last reported status to Webex Teams
+
 ```js
 import "contrib/sranka/webexteams"
 import "influxdata/influxdb/secrets"
@@ -72,4 +104,6 @@ webexteams.message(
     text: "Disk usage is ${lastReported.status}.",
     markdown: "Disk usage is **${lastReported.status}**.",
 )
+
 ```
+

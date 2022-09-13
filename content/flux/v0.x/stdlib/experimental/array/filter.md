@@ -1,71 +1,99 @@
 ---
 title: array.filter() function
 description: >
-  `array.filter` iterates over an array, evaluates each element with a predicate
-  function, and then returns a new array with only elements that match the predicate.
+  `array.filter()` iterates over an array, evaluates each element with a predicate function, and then returns
+  a new array with only elements that match the predicate.
 menu:
   flux_0_x_ref:
     name: array.filter
-    parent: exp-array
-weight: 301
-flux/v0.x/tags: [array]
+    parent: experimental/array
+    identifier: experimental/array/filter
+weight: 201
+
 introduced: 0.155.0
+deprecated: 0.173.0
 ---
 
-`array.filter()` iterates over an array, evaluates each element with a predicate
-function, and then returns a new array with only elements that match the predicate.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L146-L146
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`array.filter()` iterates over an array, evaluates each element with a predicate function, and then returns
+a new array with only elements that match the predicate.
+
+{{% warn %}}
+#### Deprecated
+`filter()` is deprecated in favor of [`filter()`](/flux/v0.x/stdlib/array/filter).
+{{% /warn %}}
+
+##### Function type signature
 
 ```js
-import "experimental/array"
-
-array.filter(
-    arr: [1, 2, 3, 4, 5],
-    fn: (x) => x >= 3,
-)
-
-// Returns [3, 4, 5]
+(<-arr: [A], fn: (x: A) => bool) => [A]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### arr {data-type="array"}
+### arr
+
 Array to filter. Default is the piped-forward array (`<-`).
 
-### fn {data-type="function"}
+
+
+### fn
+({{< req >}})
 Predicate function to evaluate on each element.
 The element is represented by `x` in the predicate function.
 
+
+
+
 ## Examples
 
-### Filter an array of integers
+### Filter array of integers
+
 ```js
 import "experimental/array"
 
-a = [1, 2, 3, 4, 5]
+a = [
+    1,
+    2,
+    3,
+    4,
+    5,
+]
 b = a |> array.filter(fn: (x) => x >= 3)
-// b returns [3, 4, 5]
 
+// b returns [3, 4, 5]
 // Output the filtered array as a table
 array.from(rows: b |> array.map(fn: (x) => ({_value: x})))
+
 ```
 
-### Filter an array of records
-```js
-import "experimental/array"
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
-a = 
-    [
-        {a: 1, b: 2, c: 3},
-        {a: 4, b: 5, c: 6},
-        {a: 7, b: 8, c: 9}
-    ]
+#### Output data
 
-b = a |> array.filter(fn: (x) => x.b >= 3)
-// b returns [
-//    {a: 4, b: 5, c: 6},
-//    {a: 7, b: 8, c: 9},
-// ]
+| _value  |
+| ------- |
+| 3       |
+| 4       |
+| 5       |
 
-// Output the filtered array as a table
-array.from(rows: b)
-```
+{{% /expand %}}
+{{< /expand-wrapper >}}

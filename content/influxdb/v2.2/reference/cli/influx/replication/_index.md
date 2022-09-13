@@ -11,7 +11,7 @@ related:
   - /influxdb/v2.2/reference/cli/influx/remote
 ---
 
-The `influx replication` command and its subcommands manage InfluxDB replication streams.
+The `influx replication` command and its subcommands manage InfluxDB Edge Data Replication.
 
 ## Usage
 ```

@@ -79,6 +79,8 @@ function addPreserve() {
   $('.keep-url').each(function () {
     // For code blocks with no syntax highlighting
     $(this).next('pre').addClass('preserve')
+    // For code blocks with no syntax highlighting inside of a link (API endpoint blocks)
+    $(this).next('a').find('pre').addClass('preserve')
     // For code blocks with syntax highlighting
     $(this).next('.highlight').find('pre').addClass('preserve')
     // For code blocks inside .keep-url div
@@ -264,10 +266,13 @@ $(window).focus(function() {
 ////////////////////////// Modal window interactions ///////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// Toggle the URL selector modal window
-function toggleModal() {
-  $(".modal").fadeToggle(200).toggleClass("open")
-}
+// General modal window interactions are controlled in modals.js
+
+// Open the InfluxDB URL selector modal
+$(".url-trigger").click(function(e) {
+  e.preventDefault()
+  toggleModal('#influxdb-url-list')
+})
 
 // Set the selected URL radio buttons to :checked
 function setRadioButtons() {
@@ -275,12 +280,6 @@ function setRadioButtons() {
   $('input[name="influxdb-cloud-url"][value="' + currentUrls.cloud + '"]').prop("checked", true)
   $('input[name="influxdb-oss-url"][value="' + currentUrls.oss + '"]').prop("checked", true)
 }
-
-// Toggle modal window on click
-$("#modal-close, .modal-overlay, .url-trigger").click(function(e) {
-  e.preventDefault()
-  toggleModal()
-})
 
 
 // Add checked to fake-radio if cluster is selected on page load

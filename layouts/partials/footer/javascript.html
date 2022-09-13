@@ -2,6 +2,7 @@
 {{ $contentInteractions := resources.Get "js/content-interactions.js" }}
 {{ $searchInteractions := resources.Get "js/search-interactions.js" }}
 {{ $listFilters := resources.Get "js/list-filters.js" }}
+{{ $modals := resources.Get "js/modals.js" }}
 {{ $influxdbURLs := resources.Get "js/influxdb-url.js" }}
 {{ $featureCallouts := resources.Get "js/feature-callouts.js" }}
 {{ $notifications := resources.Get "js/notifications.js" }}
@@ -9,8 +10,10 @@
 {{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
 {{ $fluxCurrentTime := resources.Get "js/flux-current-time.js" }}
 {{ $fullscreenCode := resources.Get "js/fullscreen-code.js" }}
+{{ $pageFeedback := resources.Get "js/page-feedback.js" }}
 {{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $influxdbURLs $featureCallouts $notifications $keybindings $fullscreenCode $homepageInteractions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $fluxInfluxDBVersions := resources.Get "/js/flux-influxdb-versions.js"}}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $notifications $keybindings $fullscreenCode $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := slice $fluxGroupKeys | resources.Concat "js/flux-group-keys.js" | resources.Fingerprint }}
 {{ $fluxCurrentTimejs := slice $fluxCurrentTime | resources.Concat "js/flux-current-time.js" | resources.Fingerprint }}
 

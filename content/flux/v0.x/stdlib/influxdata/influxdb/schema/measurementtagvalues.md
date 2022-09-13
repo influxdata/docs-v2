@@ -1,97 +1,97 @@
 ---
 title: schema.measurementTagValues() function
-description: The schema.measurementTagValues() function returns a list of tag values for a specific measurement.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/measurementtagvalues/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-schema/measurementtagvalues/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-schema/measurementtagvalues/
+description: >
+  `schema.measurementTagValues()` returns a list of tag values for a specific measurement.
 menu:
   flux_0_x_ref:
     name: schema.measurementTagValues
-    parent: schema
+    parent: influxdata/influxdb/schema
+    identifier: influxdata/influxdb/schema/measurementTagValues
 weight: 301
 flux/v0.x/tags: [metadata]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-values, SHOW TAG VALUES in InfluxQL
-introduced: 0.88.0
 ---
 
-The `schema.measurementTagValues()` function returns a list of tag values for a specific measurement.
-The return value is always a single table with a single column, `_value`.
+<!------------------------------------------------------------------------------
 
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/schema/schema.flux#L164-L177
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`schema.measurementTagValues()` returns a list of tag values for a specific measurement.
+
+Results include a single table with a single column, `_value`.
+
+##### Function type signature
 
 ```js
-import "influxdata/influxdb/schema"
-
-schema.measurementTagValues(
-    bucket: "example-bucket",
-    measurement: "cpu",
-    tag: "host",
-)
+(
+    bucket: string,
+    measurement: A,
+    tag: string,
+    ?start: B,
+    ?stop: C,
+) => stream[D] where A: Equatable, D: Record
 ```
 
-{{% note %}}
-#### Deleted tags
-Tags [explicitly deleted from InfluxDB](/{{< latest "influxdb" >}}/write-data/delete-data/)
-**do not** appear in results.
-
-#### Expired tags
-- **InfluxDB Cloud**: tags associated with points outside of the bucket's
-  retention policy **may** appear in results up to an hour after expiring.
-- **InfluxDB OSS**: tags associated with points outside of the bucket's
-  retention policy **may** appear in results.
-  For more information, see [Data retention in InfluxDB OSS](/{{< latest "influxdb" >}}/reference/internals/data-retention/).
-{{% /note %}}
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### bucket {data-type="string"}
+### bucket
+({{< req >}})
 Bucket to return tag values from for a specific measurement.
 
-### measurement {data-type="string"}
+
+
+### measurement
+({{< req >}})
 Measurement to return tag values from.
 
-### tag {data-type="string"}
+
+
+### tag
+({{< req >}})
 Tag to return all unique values from.
 
-### start {data-type="duration, time"}
-Earliest time to include in results.
-_Default is `-30d`._
 
-Relative start times are defined using negative durations.
-Negative durations are relative to now.
-Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
 
-### stop {data-type="duration, time"}
-Latest time to include in results.
-_Default is `now()`._
+### start
 
-The `stop` time is exclusive, meaning values with a time equal to stop time are
-excluded from results.
-Relative start times are defined using negative durations.
-Negative durations are relative to `now()`.
-Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+Oldest time to include in results. Default is `-30d`.
+
+
+
+### stop
+
+Newest time include in results.
+The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+Default is `now()`.
+
+
+
 
 ## Examples
 
-### Return all values for a tag in a measurement
-```js
-import "influxdata/influxdb/schema"
+### Query unique tag values from an InfluxDB measurement
 
-schema.measurementTagValues(bucket: "example-bucket", measurement: "example-measurement", tag: "host")
-```
-
-### Return all tag values in a measurement during a non-default time range
 ```js
 import "influxdata/influxdb/schema"
 
 schema.measurementTagValues(
     bucket: "example-bucket",
     measurement: "example-measurement",
-    tag: "host",
-    start: -90d,
-    stop: -60d,
+    tag: "example-tag",
 )
+
 ```
+

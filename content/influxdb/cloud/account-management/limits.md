@@ -55,7 +55,7 @@ To write historical data older than 30 days, retain data for more than 30 days, 
 
 ### Usage-Based Plan
 
-- **Data-in**: Rate of 3 GB per 5 minutes
+- **Data-in**: Rate of 300 MB per 5 minutes
   - Uncompressed bytes of normalized [line protocol](/influxdb/cloud/reference/syntax/line-protocol/)
 - **Read**: Rate of 3 GB data per 5 minutes
   - Bytes in HTTP in response payload
@@ -77,16 +77,19 @@ InfluxDB Cloud applies global (non-adjustable) system limits to all accounts, wh
 
 Limits include:
 
-- Write request limits:
+- **Write request limits**:
   - 50 MB maximum HTTP request batch size (compressed or uncompressed--defined in the `Content-Encoding` header)
   - 250 MB maximum HTTP request batch size after decompression
-- Query processing time: 90 seconds
-- Task processing time: 150 seconds
-- Delete request limit: Rate of 300 every 5 minutes
-  {{% note %}}
+- **Query processing time**: 90 seconds
+- **Total query time**: 1500 seconds of _total_ query time every 30 seconds
+- **Task processing time**: 150 seconds
+- **Total task time**: 1500 seconds of _total_ task time every 30 seconds
+- **Delete request limit**: Rate of 300 every 5 minutes
+  
+    {{% note %}}
 **Tip:**
-Combine predicate expressions (if possible) into a single request. InfluxDB limits delete requests by number of requests (not points in request).
-{{% /note %}}
+Combine delete predicate expressions (if possible) into a single request. InfluxDB limits delete requests by number of requests (not points per request).
+    {{% /note %}}
 
 ## UI error messages
 

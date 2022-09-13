@@ -9,7 +9,7 @@ menu:
     parent: write-best-practices
 ---
 
-If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/v2.1/reference/glossary/#series-cardinality) (too many series) may be causing memory issues. {{% cloud-only %}}Cardinality can also cause writes to fail if it exceeds your [plan’s adjustable service quota](/influxdb/cloud/account-management/limits/).{{% /cloud-only %}}
+If reads and writes to InfluxDB have started to slow down, high [series cardinality](/influxdb/v2.2/reference/glossary/#series-cardinality) (too many series) may be causing memory issues. {{% cloud-only %}}Cardinality can also cause writes to fail if it exceeds your [plan’s adjustable service quota](/influxdb/cloud/account-management/limits/).{{% /cloud-only %}}
 
 Take steps to understand and resolve high series cardinality.
 
@@ -21,14 +21,14 @@ Take steps to understand and resolve high series cardinality.
 
 {{% oss-only %}}
 
-  IndexDB indexes the following data elements to speed up reads:
+  InfluxDB indexes the following data elements to speed up reads:
   - [measurement](/influxdb/v2.2/reference/glossary/#measurement)
   - [tags](/influxdb/v2.2/reference/glossary/#tag)
 
 {{% /oss-only %}}
 {{% cloud-only %}}
 
-  IndexDB indexes the following data elements to speed up reads:
+  InfluxDB indexes the following data elements to speed up reads:
   - [measurement](/influxdb/v2.2/reference/glossary/#measurement)
   - [tags](/influxdb/v2.2/reference/glossary/#tag)
   - [field keys](/influxdb/cloud/reference/glossary/#field-key)
@@ -44,7 +44,7 @@ High series cardinality is a primary driver of high memory usage for many databa
 Use the following to measure series cardinality of your buckets:
 - [`influxdb.cardinality()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/cardinality): Flux function that returns the number of unique [series keys](/influxdb/v2.2/reference/glossary/#series) in your data.
 
-- [`SHOW SERIES CARDINALITY`](/influxdb/v2.2/query_language/spec/#show-series-cardinality): InfluxQL command that returns the number of unique [series keys](/influxdb/v2.2/reference/glossary/#series) in your data.
+- [`SHOW SERIES CARDINALITY`](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-series-cardinality): InfluxQL command that returns the number of unique [series keys](/influxdb/v2.2/reference/glossary/#series) in your data.
 
 ## Resolve high cardinality
 

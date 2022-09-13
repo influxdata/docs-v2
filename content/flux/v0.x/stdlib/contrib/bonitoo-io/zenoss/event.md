@@ -1,116 +1,182 @@
 ---
 title: zenoss.event() function
 description: >
-  The `zenoss.event()` function sends an event to Zenoss.
+  `zenoss.event()` sends an event to [Zenoss](https://www.zenoss.com/).
 menu:
   flux_0_x_ref:
     name: zenoss.event
-    parent: zenoss
-weight: 202
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/zenoss/event/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/zenoss/event/
-introduced: 0.108.0
+    parent: contrib/bonitoo-io/zenoss
+    identifier: contrib/bonitoo-io/zenoss/event
+weight: 301
+flux/v0.x/tags: [single notification]
 ---
 
-The `zenoss.event()` function sends an event to [Zenoss](https://www.zenoss.com/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/zenoss/zenoss.flux#L90-L140
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`zenoss.event()` sends an event to [Zenoss](https://www.zenoss.com/).
+
+
+
+##### Function type signature
 
 ```js
-import "contrib/bonitoo-io/zenoss"
-
-zenoss.event(
-    url: "https://example.zenoss.io:8080/zport/dmd/evconsole_router",
-    username: "example-user",
-    password: "example-password",
-    action: "EventsRouter",
-    method: "add_event",
-    type: "rpc",
-    tid: 1,
-    summary: "",
-    device: "",
-    component: "",
-    severity: "Critical",
-    eventClass: "",
-    eventClassKey: "",
-    collector: "",
-    message: "",
-)
+(
+    severity: A,
+    url: string,
+    ?action: B,
+    ?apiKey: C,
+    ?collector: D,
+    ?component: E,
+    ?device: F,
+    ?eventClass: G,
+    ?eventClassKey: H,
+    ?message: I,
+    ?method: J,
+    ?password: string,
+    ?summary: K,
+    ?tid: L,
+    ?type: M,
+    ?username: string,
+) => int where C: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
+### url
 ({{< req >}})
 Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource-manager/enabling-access-to-browser-interfaces/creating-and-changing-public-endpoints).
 
-### username {data-type="string"}
-({{< req >}})
+
+
+### username
+
 Zenoss username to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-### password {data-type="string"}
-({{< req >}})
+
+
+### password
+
 Zenoss password to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
-### action {data-type="string"}
-Zenoss [router name](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/anatomy-of-an-api-request#AnatomyofanAPIrequest-RouterURL).
-Default is `"EventsRouter"`.
 
-### method {data-type="string"}
+
+### apiKey
+
+Zenoss cloud API key.
+Default is `""` (no API key).
+
+
+
+### action
+
+Zenoss router name.
+Default is "EventsRouter".
+
+
+
+### method
+
 [EventsRouter method](https://help.zenoss.com/dev/collection-zone-and-resource-manager-apis/codebase/routers/router-reference/eventsrouter).
-Default is `"add_event"`.
+Default is "add_event".
 
-### type {data-type="string"}
+
+
+### type
+
 Event type.
-Default is `"rpc"`.
+Default is "rpc".
 
-### tid {data-type="int"}
+
+
+### tid
+
 Temporary request transaction ID.
 Default is `1`.
 
-### summary {data-type="string"}
+
+
+### summary
+
 Event summary.
 Default is `""`.
 
-### device {data-type="string"}
+
+
+### device
+
 Related device.
 Default is `""`.
 
-### component {data-type="string"}
+
+
+### component
+
 Related component.
 Default is `""`.
 
-### severity {data-type="string"}
+
+
+### severity
 ({{< req >}})
 [Event severity level](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-severity-levels).
 
-**Supported values:**
-
+**Supported values**:
 - Critical
 - Warning
 - Info
 - Clear
 
-### eventClass {data-type="string"}
+### eventClass
+
 [Event class](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/understanding-event-classes).
 Default is `""`.
 
-### eventClassKey {data-type="string"}
+
+
+### eventClassKey
+
 Event [class key](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-fields).
 Default is `""`.
 
-### collector {data-type="string"}
+
+
+### collector
+
 Zenoss [collector](https://help.zenoss.com/zsd/RM/administering-resource-manager/event-management/event-fields).
 Default is `""`.
 
-### message {data-type="string"}
+
+
+### message
+
 Related message.
 Default is `""`.
 
+
+
+
 ## Examples
 
-##### Send the last reported value and severity to Zenoss
+### Send the last reported value and severity to Zenoss
+
 ```js
 import "contrib/bonitoo-io/zenoss"
 import "influxdata/influxdb/secrets"
@@ -142,4 +208,6 @@ zenoss.event(
         else
             "Clear",
 )
+
 ```
+
