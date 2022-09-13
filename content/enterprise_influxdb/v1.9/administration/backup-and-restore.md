@@ -27,10 +27,12 @@ Depending on the volume of data to be protected and your application requirement
 - [Backup and restore utilities](#backup-and-restore-utilities) — For most applications
 - [Exporting and importing data](#exporting-and-importing-data) — For large datasets
 
-> **Note:** Use the [`backup` and `restore` utilities (InfluxDB OSS 1.5 and later)](/enterprise_influxdb/v1.9/administration/backup-and-restore/) to:
->
-> - Restore InfluxDB Enterprise backup files to InfluxDB OSS instances.
-> - Back up InfluxDB OSS data that can be restored in InfluxDB Enterprise clusters.
+{{% note %}}
+Use the [`backup` and `restore` utilities (InfluxDB OSS 1.5 and later)](/enterprise_influxdb/v1.9/administration/backup-and-restore/) to:
+
+- Restore InfluxDB Enterprise backup files to InfluxDB OSS instances.
+- Back up InfluxDB OSS data that can be restored in InfluxDB Enterprise clusters.
+{{% /note %}}
 
 ## Backup and restore utilities
 
@@ -40,7 +42,7 @@ Most InfluxDB Enterprise applications can use the backup and restore utilities.
 
 Use the `backup` and `restore` utilities to back up and restore between `influxd`
 instances with the same versions or with only minor version differences.
-For example, you can backup from {{< latest-patch version="1.8" >}} and restore on {{< latest-patch >}}.
+For example, you can backup from {{< latest-patch minorVersionOffset=-1 >}} and restore on {{< latest-patch >}}.
 
 ### Backup utility
 
@@ -91,7 +93,7 @@ for a complete list of the global `influxd-ctl` options.
       databases, continuous queries, retention policies. Shards are not exported.
 - `-full`: perform a full backup. Deprecated in favour of `-strategy=full`
 - `-rp <string>`: the name of the single retention policy to back up (must specify `-db` with `-rp`)
-- `-shard <unit>`: the ID of the single shard to back up
+- `-shard <unit>`: the ID of the single shard to back up (cannot be used with `-db`)
 
 ### Backup examples
 
@@ -469,7 +471,11 @@ For details on optional settings and usage, see [`influx_inspect export` command
 In the following example, the database is exported filtered to include only one day and compressed for optimal speed and file size.
 
 ```bash
-influx_inspect export -database myDB -compress -start 2019-05-19T00:00:00.000Z -end 2019-05-19T23:59:59.999Z
+influx_inspect export \
+  -database myDB \
+  -compress \
+  -start 2019-05-19T00:00:00.000Z \
+  -end 2019-05-19T23:59:59.999Z
 ```
 
 ### Importing data
@@ -479,7 +485,7 @@ After exporting the data in line protocol format, you can import the data using 
 In the following example, the compressed data file is imported into the specified database.
 
 ```bash
-influx -import -database myDB -compress
+influx -import -database myDB -compressed
 ```
 
 For details on using the `influx -import` command, see [Import data from a file with -import](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#import-data-from-a-file-with--import).

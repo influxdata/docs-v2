@@ -214,6 +214,8 @@ group to configure HTTP properties such as a bind address and the path to an HTT
   pprof-enabled = false
   https-enabled = false
   https-certificate = "/etc/ssl/influxdb-selfsigned.pem"
+  shared-secret = ""
+  # The shared secret must match on all data and kapacitor nodes.
   ### Use a separate private key location.
   # https-private-key = ""
 # ...
@@ -419,9 +421,12 @@ the InfluxDB user must have [admin privileges](/{{< latest "influxdb" "v1" >}}/a
 # ...
 
 [[influxdb]]
-  # Connect to an InfluxDB cluster
-  # Kapacitor can subscribe, query and write to this cluster.
+  # Connect to InfluxDB
+  # Kapacitor can subscribe, query, and write to this cluster.
   # Using InfluxDB is not required and can be disabled.
+  # To connect to InfluxDB OSS 1.x or InfluxDB Enterprise, 
+  # use the following configuration:
+  
   enabled = true
   default = true
   name = "localhost"
@@ -429,6 +434,16 @@ the InfluxDB user must have [admin privileges](/{{< latest "influxdb" "v1" >}}/a
   username = ""
   password = ""
   timeout = 0
+
+  # To connect to InfluxDB OSS 2.x or InfluxDB Cloud, 
+  # use the following configuration:
+  
+  enabled = true
+  default = true
+  name = "localhost"
+  urls = ["http://localhost:8086"]
+  token = ""
+  timeout = 0 
   
   # By default, all data sent to InfluxDB is compressed in gzip format.
   # To turn off gzip compression, add the following config setting:
@@ -1050,3 +1065,5 @@ curl --request POST 'http://localhost:9092/kapacitor/v1/config/smtp' \
 
 For detailed information about how to override configurations with the Kapacitor API, see
 [Overriding configurations](/kapacitor/v1.6/working/api/#overriding-configurations).
+
+{{< influxdbu title="Configuring Kapacitor" summary="Learn how to dynamically configure Kapacitor via API with this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/configuring-kapacitor-tutorial/" >}}

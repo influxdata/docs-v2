@@ -1,44 +1,102 @@
 ---
 title: experimental.skew() function
 description: >
-  The `experimental.skew()` function outputs the skew of non-null values in the
-  `_value` column for each input table.
+  `experimental.skew()` returns the skew of non-null values in the `_value` column for each
+  input table as a float.
 menu:
   flux_0_x_ref:
     name: experimental.skew
     parent: experimental
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/skew/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/skew/
-related:
-  - /flux/v0.x/stdlib/universe/skew/
+    identifier: experimental/skew
+weight: 101
 flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.107.0
 ---
 
-The `experimental.skew()` function outputs the skew of non-null values in the
-`_value` column for each input table as a float.
-_`experimental.skew()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/experimental.flux#L911-L911
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`experimental.skew()` returns the skew of non-null values in the `_value` column for each
+input table as a float.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental"
-
-experimental.skew()
+(<-tables: stream[{A with _value: float}]) => stream[{A with _value: float}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data (`<-`).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
+
+### Return the skew of input tables
+
 ```js
 import "experimental"
+import "sampledata"
 
-from(bucket: "example-bucket")
-    |> range(start: -5m)
-    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
+sampledata.float()
     |> experimental.skew()
+
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
+
+
+#### Output data
+
+| *tag | _value               |
+| ---- | -------------------- |
+| t1   | -0.30467248990094525 |
+
+| *tag | _value               |
+| ---- | -------------------- |
+| t2   | -0.11050153536874797 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

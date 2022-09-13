@@ -48,7 +48,7 @@ brew install influxdb
 ```
 
 {{% note %}}
-Homebrew also installs `influx-cli` as a dependency.
+Homebrew also installs `influxdb-cli` as a dependency.
 For information about using the `influx` CLI, see the
 [`influx` CLI reference documentation](/influxdb/v2.1/reference/cli/influx/).
 {{% /note %}}

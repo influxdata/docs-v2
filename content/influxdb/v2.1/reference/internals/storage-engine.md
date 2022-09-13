@@ -32,7 +32,7 @@ The storage engine includes the following components:
 ## Writing data from API to disk
 
 The storage engine handles data from the point an API write request is received through writing data to the physical disk.
-Data is written to InfluxDB using [line protocol](/influxdb/v2.1/reference/syntax/line-protocol/) sent via HTTP POST request to the `/write` endpoint.
+Data is written to InfluxDB using [line protocol](/influxdb/v2.1/reference/syntax/line-protocol/) sent via HTTP POST request to the `/api/v2/write` endpoint or the [`/write` 1.x compatibility endpoint](/influxdb/v2.1/reference/api/influxdb-1x/).
 Batches of [points](/influxdb/v2.1/reference/glossary/#point) are sent to InfluxDB, compressed, and written to a WAL for immediate durability.
 Points are also written to an in-memory cache and become immediately queryable.
 The in-memory cache is periodically written to disk in the form of [TSM](#time-structured-merge-tree-tsm) files.
@@ -72,7 +72,10 @@ The cache:
 - Stores uncompressed data.
 - Gets updates from the WAL each time the storage engine restarts.
   The cache is queried at runtime and merged with the data stored in TSM files.
+- Uses a maximum `maxSize` bytes of memory.
 
+Cache snapshots are cache objects currently being written to TSM files.
+They're kept in memory while flushing so they can be queried along with the cache.
 Queries to the storage engine merge data from the cache with data from the TSM files.
 Queries execute on a copy of the data that is made from the cache at query processing time.
 This way writes that come in while a query is running do not affect the result.

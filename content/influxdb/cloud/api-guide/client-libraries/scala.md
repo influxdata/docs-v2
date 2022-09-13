@@ -12,3 +12,5 @@ menu:
       url: https://github.com/influxdata/influxdb-client-java/tree/master/client-scala
 weight: 201
 ---
+
+{{< duplicate-oss >}}

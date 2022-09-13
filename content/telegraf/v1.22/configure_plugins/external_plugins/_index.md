@@ -4,7 +4,6 @@ description: |
   External plugins are external programs that are built outside of Telegraf that can run through an `execd` plugin.
 menu:
   telegraf_1_22:
-
      name: External plugins
      weight: 50
      parent: Configure plugins
@@ -17,11 +16,7 @@ more flexibility compared to internal Telegraf plugins. Benefits to using extern
 - Using licensed software (not available to open source community)
 - Including large dependencies that would otherwise bloat Telegraf
 - Using your external plugin immediately without waiting for the Telegraf team to publish
-<<<<<<< Updated upstream
-- Easily convert plugins between internal and external using the [shim](/{{< latest "telegraf" >}}/external_plugins/shim/)
-=======
 - Easily convert plugins between internal and external using the [shim](https://github.com/influxdata/telegraf/blob/master/plugins/common/shim/README.md)
->>>>>>> Stashed changes
 
 
 

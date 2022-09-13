@@ -13,3 +13,5 @@ menu:
       url: https://github.com/tobiasschuerg/InfluxDB-Client-for-Arduino
 weight: 201
 ---
+
+{{< duplicate-oss >}}

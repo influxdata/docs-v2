@@ -3,6 +3,8 @@
 #
 # - flag: "--flag-name"
 #   added: InfluxDB minor version the flag was added
+#   deprecated: InfluxDB minor version the flag was deprecated
+#   removed: InfluxDB minor version the flag was removed
 #   nolink: Do not create a link to the config options doc for this flag
 # 
 
@@ -23,6 +25,9 @@
 
 - flag: "--flux-log-enabled"
   added: 2.0
+
+- flag: "--hardening-enabled"
+  added: 2.2
 
 - flag: "-h, --help"
   added: 2.0
@@ -52,6 +57,9 @@
 - flag: "--influxql-max-select-series"
   added: 2.0
 
+- flag: "--instance-id"
+  added: 2.3
+
 - flag: "--log-level"
   added: 2.0
 
@@ -60,9 +68,13 @@
 
 - flag: "--nats-max-payload-bytes"
   added: 2.0
+  deprecated: 2.2
+  # removed: 2.2
 
 - flag: "--nats-port"
   added: 2.0
+  deprecated: 2.2
+  # removed: 2.2
 
 - flag: "--no-tasks"
   added: 2.0

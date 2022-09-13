@@ -1,96 +1,113 @@
 ---
 title: requests.get() function
 description: >
-  `requests.get()` makes an HTTP request using the GET request method.
+  `requests.get()` makes a http GET request. This identical to calling `request.do(method: "GET", ...)`.
 menu:
   flux_0_x_ref:
     name: requests.get
-    parent: requests
-weight: 401
-flux/v0.x/tags: [http, inputs, outputs]
-introduced: 0.152.0
+    parent: experimental/http/requests
+    identifier: experimental/http/requests/get
+weight: 301
+flux/v0.x/tags: [http, inputs]
 ---
 
-`requests.get()` makes an HTTP request using the GET request method.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L272-L289
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`requests.get()` makes a http GET request. This identical to calling `request.do(method: "GET", ...)`.
+
+{{% warn %}}
+#### Deprecated
+`get` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/get/).
+{{% /warn %}}
+
+##### Function type signature
 
 ```js
-import "experimental/http/requests"
-
-requests.get(
-    url: "http://example.com",
-    params: ["example-param": ["example-param-value"]],
-    headers: ["Example-Header": "example-header-value"],
-    body: bytes(v: ""),
-    config: requests.defaultConfig,
-)
+(
+    url: string,
+    ?body: bytes,
+    ?config: {A with timeout: duration, insecureSkipVerify: bool},
+    ?headers: [string:string],
+    ?params: [string:[string]],
+) => {statusCode: int, headers: [string:string], duration: duration, body: bytes}
 ```
 
-`requests.get()` returns a record with the following properties:
-
-- **statusCode**: HTTP status code of the request.
-- **body**: Response body. A maximum size of 100MB is read from the response body.
-- **headers**: Response headers.
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
-URL to send the request to.
+### url
+({{< req >}})
+URL to request. This should not include any query parameters.
 
-{{% note %}}
-The URL should not include any query parameters.
-Use [`params`](#params) to specify query parameters.
-{{% /note %}}
 
-### params {data-type="dict"}
-Set of key-value pairs to add to the URL as query parameters.
-Query parameters are URL-encoded.
-All values for a key are appended to the query.
 
-### headers {data-type="dict"}
-Set of key values pairs to include as request headers.
+### params
 
-### body {data-type="bytes"}
+Set of key value pairs to add to the URL as query parameters.
+Query parameters will be URL encoded.
+All values for a key will be appended to the query.
+
+
+
+### headers
+
+Set of key values pairs to include on the request.
+
+
+
+### body
+
 Data to send with the request.
 
-### config {data-type="record"}
-Set of request configuration options.
-_See [HTTP configuration option examples](/flux/v0.x/stdlib/experimental/http/requests/#examples)._
+
+
+### config
+
+Set of options to control how the request should be performed.
+
+
+
 
 ## Examples
 
 - [Make a GET request](#make-a-get-request)
-- [Make a GET request with authorization](#make-a-get-request-with-authorization)
 - [Make a GET request and decode the JSON response](#make-a-get-request-and-decode-the-json-response)
-- [Output HTTP response data in a table](#output-http-response-data-in-a-table)
 
 ### Make a GET request
+
 ```js
 import "experimental/http/requests"
 
-requests.get(url:"http://example.com")
+response = requests.get(url: "http://example.com")
+
+requests.peek(response: response)
+
 ```
 
-### Make a GET request with authorization
-```js
-import "experimental/http/requests"
-import "influxdata/influxdb/secrets"
-
-token = secrets.get(key: "TOKEN")
-
-requests.get(url: "http://example.com", headers: ["Authorization": "Bearer ${token}"])
-```
 
 ### Make a GET request and decode the JSON response
-To decode a JSON response, import the [`experimental/json` package](/flux/v0.x/stdlib/experimental/json/)
-and use [`json.parse()`](/flux/v0.x/stdlib/experimental/json/parse/) to parse
-the response into a [Flux type](/flux/v0.x/data-types/).
 
 ```js
 import "experimental/http/requests"
 import "experimental/json"
 import "array"
 
-response = requests.get(url: "https://api.agify.io", params: ["name": ["john"]])
+response = requests.get(url: "https://api.agify.io", params: ["name": ["nathaniel"]])
 
 // api.agify.io returns JSON with the form
 //
@@ -104,17 +121,19 @@ response = requests.get(url: "https://api.agify.io", params: ["name": ["john"]])
 data = json.parse(data: response.body)
 
 // Use array.from() to construct a table with one row containing our response data.
-array.from(rows: [{name: data.name, age: data.age, count: data.count}])
+// We do not care about the count so only include name and age.
+array.from(rows: [{name: data.name, age: data.age}])
+
 ```
 
-### Output HTTP response data in a table
-To quickly inspect HTTP response data, use [`requests.peek()`](/flux/v0.x/stdlib/experimental/http/requests/peek/)
-to output HTTP response data in a table.
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
 
-```js
-import "experimental/http/requests"
+#### Output data
 
-response = requests.get(url: "http://example.com")
+| name      | age  |
+| --------- | ---- |
+| nathaniel | 30   |
 
-requests.peek(response: response)
-```
+{{% /expand %}}
+{{< /expand-wrapper >}}

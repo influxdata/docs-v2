@@ -120,10 +120,9 @@ Maximum `flush_interval` will be `flush_interval` + `flush_jitter`
 This is primarily to avoid
 large write spikes for users running a large number of Telegraf instances.
 For example, a `flush_jitter` of 5s and `flush_interval` of 10s means flushes will happen every 10-15s.
-* **precision**: By default, precision will be set to the same timestamp order
-as the collection interval, with the maximum being 1s. Precision will NOT
-be used for service inputs, such as `logparser` and `statsd`. Valid values are
-`ns`, `us` (or `µs`), `ms`, and `s`.
+* **precision**: Collected metrics are rounded to the precision specified as an 
+`interval` (integer + unit, ex: `1ns`, `1us`, `1ms`, and `1s` . Precision will NOT
+be used for service inputs, such as `logparser` and `statsd`. 
 * **logfile**: Specify the log file name. The empty string means to log to `stderr`.
 * **debug**: Run Telegraf in debug mode.
 * **quiet**: Run Telegraf in quiet mode (error messages only).
@@ -276,7 +275,7 @@ fields which begin with `time_`.
 [[outputs.influxdb]]
   url = "http://192.168.59.103:8086" # required.
   database = "telegraf" # required.
-  precision = "s"
+  precision = "1s"
 
 # INPUTS
 [[inputs.cpu]]
@@ -412,21 +411,21 @@ Additional inputs (or outputs) of the same type can be specified by defining the
 [[outputs.influxdb]]
   urls = [ "http://localhost:8086" ]
   database = "telegraf"
-  precision = "s"
+  precision = "1s"
   # Drop all measurements that start with "aerospike"
   namedrop = ["aerospike*"]
 
 [[outputs.influxdb]]
   urls = [ "http://localhost:8086" ]
   database = "telegraf-aerospike-data"
-  precision = "s"
+  precision = "1s"
   # Only accept aerospike data:
   namepass = ["aerospike*"]
 
 [[outputs.influxdb]]
   urls = [ "http://localhost:8086" ]
   database = "telegraf-cpu0-data"
-  precision = "s"
+  precision = "1s"
   # Only store measurements where the tag "cpu" matches the value "cpu0"
   [outputs.influxdb.tagpass]
     cpu = ["cpu0"]

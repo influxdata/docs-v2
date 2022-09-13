@@ -1,43 +1,56 @@
 ---
-title: Flux pagerduty package
-list_title: pagerduty package
+title: pagerduty package
 description: >
-  The Flux `pagerduty` package provides functions for sending data to
-  [PagerDuty](https://www.pagerduty.com/).
-  Import the `pagerduty` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/pagerduty/
-  - /influxdb/v2.0/reference/flux/stdlib/pagerduty/
-  - /influxdb/cloud/reference/flux/stdlib/pagerduty/
+  The `pagerduty` package provides functions for sending data to PagerDuty.
 menu:
   flux_0_x_ref:
-    name: pagerduty
-    parent: Standard library
+    name: pagerduty 
+    parent: stdlib
+    identifier: pagerduty
 weight: 11
-flux/v0.x/tags: [functions, pagerduty, package]
-introduced: 0.43.0
+cascade:
+
+  introduced: 0.43.0
 ---
 
-The Flux `pagerduty` package provides functions for sending data to
-[PagerDuty](https://www.pagerduty.com/).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/pagerduty/pagerduty.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `pagerduty` package provides functions for sending data to PagerDuty.
 Import the `pagerduty` package:
 
 ```js
 import "pagerduty"
 ```
 
+
+
 ## Options
-The `pagerduty` package provides the following options:
 
 ```js
-import "pagerduty"
-
 option pagerduty.defaultURL = "https://events.pagerduty.com/v2/enqueue"
 ```
+ 
+### defaultURL
 
-### defaultURL {data-type="string"}
-Default PagerDuty events API URL.
-Default is `https://events.pagerduty.com/v2/enqueue`.
+`defaultURL` is the default PagerDuty URL used by functions in the `pagerduty` package.
+
+
+
 
 ## Functions
+
 {{< children type="functions" show="pages" >}}

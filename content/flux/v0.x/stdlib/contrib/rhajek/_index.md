@@ -1,26 +1,36 @@
 ---
-title: Packages contributed by rhajek
-list_title: rhajek package
+title: rhajek package
 description: >
-  The `rhajek` package contains functions and packages contributed by
-  [@rhajek](https://github.com/rhajek).
+  The `rhajek` package contains packages and functions contributed by [@rhajek](https://github.com/rhajek).
 menu:
   flux_0_x_ref:
-    name: rhajek
+    name: rhajek 
     parent: contrib
-weight: 101
-introduced: 0.108.0
-cascade:
-  append:
-    block: note
-    content: |
-      #### Package author and maintainer
-      **Github:** [@rhajek](https://github.com/rhajek), [@bonitoo-io](https://github.com/bonitoo-io)
+    identifier: contrib/rhajek
+weight: 21
 ---
 
-The `rhajek` package contains functions and packages contributed by
-[@rhajek](https://github.com/rhajek).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/rhajek/rhajek.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `rhajek` package contains packages and functions contributed by [@rhajek](https://github.com/rhajek).
+
+
+
 
 ## Packages
 
-{{< children >}}
+{{< children show="sections" >}}
