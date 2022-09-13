@@ -40,6 +40,7 @@ option task = {
 }
 ```
 
+{{% cloud-only %}}
 In a `/api/v2/tasks` request body with `scriptID`:
 
 ```json
@@ -51,12 +52,19 @@ In a `/api/v2/tasks` request body with `scriptID`:
 ```
 
 Replace `SCRIPT_ID` with the ID of your InfluxDB invokable script.
+{{% /cloud-only %}}
 
 ## every
 
 The interval at which the task runs. This option also determines when the task first starts to run, depending on the specified time (in [duration literal](/{{< latest "flux" >}}/spec/lexical-elements/#duration-literals)).
 
 _**Data type:** Duration_
+
+For example, if you save or schedule a task at 2:30 and run the task every hour (`1h`):
+
+`option task = {name: "aggregation", every: 1h}`
+
+The task first executes at 3:00pm, and subsequently every hour after that.
 
 In Flux:
 
@@ -67,6 +75,7 @@ option task = {
 }
 ```
 
+{{% cloud-only %}}
 In a `/api/v2/tasks` request body with `scriptID`:
 
 ```json
@@ -77,14 +86,10 @@ In a `/api/v2/tasks` request body with `scriptID`:
 }
 ```
 
-For example, if you save or schedule a task at 2:30 and run the task every hour (`1h`):
-
-`option task = {name: "aggregation", every: 1h}`
-
-The task first executes at 3:00pm, and subsequently every hour after that.
+{{% /cloud-only %}}
 
 {{% note %}}
-In the InfluxDB UI, the **Interval** field sets this option.
+In the InfluxDB UI, use the **Interval** field to set this option.
 {{% /note %}}
 
 ## cron
@@ -104,6 +109,7 @@ option task = {
 }
 ```
 
+{{% cloud-only %}}
 In a `/api/v2/tasks` request body with `scriptID`:
 
 ```json
@@ -113,6 +119,8 @@ In a `/api/v2/tasks` request body with `scriptID`:
   ...
 }
 ```
+
+{{% /cloud-only %}}
 
 ## offset
 
@@ -133,6 +141,8 @@ option task = {
 }
 ```
 
+{{% cloud-only %}}
+
 In a `/api/v2/tasks` request body with `scriptID`:
 
 ```json
@@ -142,3 +152,5 @@ In a `/api/v2/tasks` request body with `scriptID`:
   ...
 }
 ```
+
+{{% /cloud-only %}}
