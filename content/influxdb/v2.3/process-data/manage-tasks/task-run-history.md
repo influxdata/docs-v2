@@ -55,6 +55,7 @@ Use the [`/api/v2/tasks/TASK_ID/logs` InfluxDB API endpoint](/influxdb/v2.3/api/
 log events for a task and exclude additional task metadata.
 
 {{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/logs" >}}
+
 ## View a task's run history with the InfluxDB API
 
 Use the [`/tasks/TASK_ID/runs` InfluxDB API endpoint](/influxdb/v2.3/api/#operation/GetTasksIDRuns) to view a task's run history.
