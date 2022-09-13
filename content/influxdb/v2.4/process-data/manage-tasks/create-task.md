@@ -206,7 +206,7 @@ curl --request POST 'https://cloud2.influxdata.com/api/v2/tasks' \
 
 To create a task that passes parameters when invoking the script, pass the _`scriptParameters`_
 property in the request body.
-The following sample code creates a script with parameters and then creates a
+The following sample code creates a script with parameters, and then creates a
 task to run the new script daily:
 
 ```sh
