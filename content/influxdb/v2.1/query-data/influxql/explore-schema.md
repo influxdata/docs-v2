@@ -20,7 +20,7 @@ Note that using the API to query with InfluxQL will return all data in JSON form
 
 **Sample data**
 
-The NOAA sample data used in the follwong examples is available for download on the [Sample Data](/influxdb/v2.1/reference/sample-data/) page. 
+The NOAA sample data used in the follwong examples is available for download on the [Sample Data](/influxdb/v2.1/reference/sample-data/) page. The database used in the following examples is called `noaa`.
 
 ## `SHOW SERIES`
 
@@ -86,23 +86,22 @@ Output:
 The query's output is similar to the [line protocol](/enterprise_influxdb/v1.9/concepts/glossary/#influxdb-line-protocol) format.
 Everything before the first comma is the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) name.
 Everything after the first comma is either a [tag key](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) or a [tag value](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value).
-The `NOAA_water_database` has 5 different measurements and 13 different series.
+The `noaa` has 5 different measurements and 13 different series.
 
 
 #### Run a `SHOW SERIES` query with several clauses
 
 ```sql
-> SHOW SERIES ON NOAA_water_database FROM "h2o_quality" WHERE "location" = 'coyote_creek' LIMIT 2
+> SHOW SERIES ON noaa FROM "h2o_quality" WHERE "location" = 'coyote_creek' LIMIT 2
 ```
 
 Output:
-
 | key                                         |
 | :------------------------------------------ |
 |h2o_quality,location=coyote_creek,randtag=1  |
 |h2o_quality,location=coyote_creek,randtag=2  |
 
-The query returns all series in the `NOAA_water_database` database that are
+The query returns all series in the `noaa` database that are
 associated with the `h2o_quality` measurement and the tag `location = coyote_creek`.
 The `LIMIT` clause limits the number of series returned to two.
 
@@ -156,7 +155,7 @@ Output:
 | h2o_temperature     |
 
 
-The query returns the list of measurements in the `NOAA_water_database`
+The query returns the list of measurements in the `noaa`
 database.
 The database has five measurements: `average_temperature`, `h2o_feet`,
 `h2o_pH`, `h2o_quality`, and `h2o_temperature`.
@@ -174,7 +173,7 @@ Output:
 | h2o_pH      |
 | h2o_quality |
 
-The query returns the measurements in the `NOAA_water_database` database that
+The query returns the measurements in the `noaa` database that
 start with `h2o`.
 The `LIMIT` and `OFFSET` clauses limit the number of measurement names returned to
 two and offset the results by one, skipping the `h2o_feet` measurement.
@@ -190,7 +189,7 @@ name
 h2o_quality
 ```
 
-The query returns all measurements in the `NOAA_water_database` that start
+The query returns all measurements in the `noaa` that start
 with `h2o` and have values for the tag key `randtag` that include an integer.
 
 ## `SHOW TAG KEYS`
@@ -245,7 +244,7 @@ Output:
 |h2o_quality	|randtag|
 |h2o_temperature |location|
 
-The query returns the list of tag keys in the `NOAA_water_database` database.
+The query returns the list of tag keys in the `noaa` database.
 The output groups tag keys by measurement name;
 it shows that every measurement has the `location` tag key and that the
 `h2o_quality` measurement has an additional `randtag` tag key.
@@ -264,7 +263,7 @@ Output:
 
 
 The query returns tag keys from the `h2o_quality` measurement in the
-`NOAA_water_database` database.
+`noaa` database.
 The `LIMIT` and `OFFSET` clauses limit the number of tag keys returned to one
 and offsets the results by one.
 
@@ -338,7 +337,7 @@ name: h2o_quality
 |randtag	|2|
 |randtag	|3|
 
-The query returns all tag values of the `randtag` tag key in the `NOAA_water_database`
+The query returns all tag values of the `randtag` tag key in the `noaa`
 database.
 `SHOW TAG VALUES` groups query results by measurement name.
 
@@ -357,7 +356,7 @@ name: h2o_quality
 |randtag	|   1
 
 The query returns the tag values of the tag keys `location` and `randtag` for
-all measurements in the `NOAA_water_database` database where `randtag` has tag values.
+all measurements in the `noaa` database where `randtag` has tag values.
 The `LIMIT` clause limits the number of tag values returned to three.
 
 ## `SHOW FIELD KEYS`
@@ -422,7 +421,7 @@ Output:
 The query returns the fields keys and field value data types for the `h2o_feet`
 measurement in the `noaa` database. 
 
-### Common Issues with `SHOW FIELD KEYS`
+<!-- ### Common Issues with `SHOW FIELD KEYS`
 
 #### SHOW FIELD KEYS and field type discrepancies
 
@@ -431,9 +430,9 @@ Field value
 cannot differ within a [shard](/enterprise_influxdb/v1.9/concepts/glossary/#shard) but they
 can differ across shards.
 `SHOW FIELD KEYS` returns every data type, across every shard, associated with
-the field key.
+the field key. -->
 
-##### Example
+<!-- ##### Example
 
 The `all_the_types` field stores four different data types:
 
@@ -452,17 +451,19 @@ all_the_types   boolean
 Note that `SHOW FIELD KEYS` handles field type discrepancies differently from
 `SELECT` statements.
 For more information, see the
-[How does InfluxDB handle field type discrepancies across shards?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards).
+[How does InfluxDB handle field type discrepancies across shards?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards). -->
 
-## `SHOW CARDINALITY`
+<!-- ## `SHOW CARDINALITY`
 
 `SHOW CARDINALITY` refers to the group of commands used to estimate or count exactly
 the cardinality of measurements, series, tag keys, tag key values, and field keys.
 
 For more information on the `SHOW CARDINALITY` commands,
-see the [InfluxQL reference entry](/enterprise_influxdb/v1.9/query_language/spec/#show-cardinality).
+see the [InfluxQL reference entry](/enterprise_influxdb/v1.9/query_language/spec/#show-cardinality). -->
 
 ### `SHOW FIELD KEY CARDINALITY`
+
+Cardinality is the product of all unique databases, retention policies, measurements, field keys and tag values in your Influx instance.  Managing cardinality is important, as high cardinality leads to greater resource usage.
 
 ```sql
 -- show estimated cardinality of the field key set of current database
@@ -470,8 +471,6 @@ SHOW FIELD KEY CARDINALITY
 -- show exact cardinality on field key set of specified database
 SHOW FIELD KEY EXACT CARDINALITY ON mydb
 ```
-
-
 
 ### `SHOW TAG KEY CARDINALITY`
 
@@ -481,8 +480,6 @@ SHOW TAG KEY CARDINALITY
 -- show exact tag key cardinality
 SHOW TAG KEY EXACT CARDINALITY
 ```
-
-
 <!-- ### `SHOW TAG VALUES CARDINALITY`
 
 ```sql
@@ -495,7 +492,6 @@ SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
 -- show exact tag key values cardinality for a specified tag key
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey" -->
 ```
-
 
 ## Filter meta queries by time
 
