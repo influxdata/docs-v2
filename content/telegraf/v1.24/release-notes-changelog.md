@@ -25,7 +25,6 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Add metrics for member and replica-set average health of MongoDB.
 - Allow collecting node-level metrics for Couchbase buckets.
 - Make `config` subcommand. 
-- Implement minimum TLS version for clients.
 
 ### Bug fixes
 
@@ -40,6 +39,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 
 #### Inputs
 - [AWS CloudWatch Metric Streams](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/cloudwatch_metric_streams) (`cloudwatch_metric_streams`) - Contributed by [@mccabecillian](https://github.com/mccabecillian).
+- [Linux CPU](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/linux_cpu)(`linux_cpu`) - Contributed by [@fabianishere](http://github.com/fabianishere).
 - [NSDP](https://github.com/hdecarne-github/nsdp-telegraf-plugin) (`nsdp`) - Contributed by [@hdecarne](https://github.com/@hdecarne).
 - [Supervisor](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/supervisor) (`supervisor`) - Contributed by [@niasar](http://github.com/niasar).
 - [UPSD](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/upsd) (`upsd`) - Contributed by [@Malinskiy](http://github.com/Malinskiy).

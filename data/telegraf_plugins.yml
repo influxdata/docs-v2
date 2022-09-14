@@ -1038,6 +1038,13 @@ input:
     introduced: 0.1.5
     tags: [linux, macos, windows, systems, data-stores]
 
+  - name: Linux CPU
+    id: linux_cpu
+    description: |
+      The Linux CPU input plugin athers CPU metrics exposed on Linux-based systems.
+    introduced: 1.24.0
+    tags: [linux, systems]
+
   - name: Linux Sysctl FS
     id: linux_sysctl_fs
     description: |
