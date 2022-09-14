@@ -242,4 +242,5 @@ For users needing stricter security around data access and risk mitigation measu
 ## Compliance and auditing
 
 InfluxDB Cloud is **SOC2 Type II** certified.
-To request a copy of our SOC2 Type II report, please email <sales@influxdata.com>.
+To request a copy of our SOC2 Type II report,
+or for information on the ISO 27001 Information Security Management System, please email <sales@influxdata.com>.
