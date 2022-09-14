@@ -4,7 +4,7 @@ description: |
   View what versions of Flux are packaged with each version of InfluxDB.
 menu:
   flux_0_x_ref:
-    weight: 10
+    weight: 13
 ---
 
 View which versions of InfluxDB are packaged with each version of InfluxDB.
