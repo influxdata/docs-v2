@@ -63,14 +63,14 @@ row in the other stream.
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-
 ## Prepare your data
 To join two streams of data with the `join` package, each stream must have:
 
 - **One or more columns with common values to join on**.  
-  The `on` parameter defines the **join predicate**–a predicate function
-  that compares column values from each input stream to determine what rows
-  from each stream should be joined together.
+  The `on` parameter defines the **join predicate**–a
+  [predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-functions)
+  that compares column values from from rows in each input stream to determine
+  what rows should be joined together.
 - **Identical [group keys](/flux/v0.x/get-started/data-model/#group-key)**.  
   Functions in the `join` package use group keys to quickly determine what tables
   from each input stream should be paired and evaluated for the join operation.
@@ -90,10 +90,17 @@ To join two streams of data with the `join` package, each stream must have:
 3. Use `join.inner()` to join the two streams together.
     Provide the following parameters:
 
-    - `left`: stream of data representing the left side of the join.
-    - `right`: stream of data representing the right side of the join.
-    - `on`: join predicate.
-    - `as`: function that returns record with values from each input stream
+    - `left`: stream of data representing the left side of the join
+    - `right`: stream of data representing the right side of the join
+    - `on`: [join predicate](/flux/v0.x/join-data/#join-predicate-function-on)
+    - `as`: [join output function](/flux/v0.x/join-data/#join-output-function-as)
+      that returns a record with values from each input stream
+
+The following example uses a filtered selection from the
+[**machineProduction** sample data set](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/#set)
+as the **left** data stream and an ad-hoc table created with [`array.from()`](/flux/v0.x/stdlib/array/from/)
+as the **right** data stream.
+
 
 ```js
 import "array"
@@ -126,11 +133,13 @@ join.inner(
 {{< expand-wrapper >}}
 {{% expand "View example input and output" %}}
 
+{{% note %}}
+_`_start` and `_stop` columns have been omitted from example input and output._
+{{% /note %}}
+
 ### Input
 
-#### left
-
-_`_start` and `_stop` columns have been omitted._
+#### left {#left-input}
 
 | _time                   | _measurement | stationID | _field   | _value |
 | :---------------------- | :----------- | :-------- | :------- | -----: |
@@ -156,16 +165,14 @@ _`_start` and `_stop` columns have been omitted._
 | 2021-08-01T00:00:38.77Z | machinery    | g3        | oil_temp |   41.4 |
 | 2021-08-01T00:00:51.2Z  | machinery    | g3        | oil_temp |   41.4 |
 
-#### right
+#### right {#right-input}
 
 | station | opType |      last_maintained |
 | :------ | :----- | -------------------: |
 | g1      | auto   | 2021-07-15T00:00:00Z |
 | g2      | manned | 2021-07-02T00:00:00Z |
 
-### Output
-
-_`_start` and `_stop` columns have been omitted._
+### Output {#example-output}
 
 | _time                   | _measurement | stationID | _field   | _value | opType | maintained           |
 | :---------------------- | :----------- | :-------- | :------- | -----: | :----- | :------------------- |
@@ -183,5 +190,10 @@ _`_start` and `_stop` columns have been omitted._
 | 2021-08-01T00:01:17.27Z | machinery    | g2        | oil_temp |   40.6 | manned | 2021-07-02T00:00:00Z |
 | 2021-08-01T00:01:41.84Z | machinery    | g2        | oil_temp |   40.6 | manned | 2021-07-02T00:00:00Z |
 
+#### Things to note about the join output
+- Because the [right stream](#right-input) does not have a row with the `g3` station tag,
+  the joined output drops all rows with the `g3` stationID tag from the [left stream](#left-input).
+  `join.inner()` drops any rows that do not have a matching row in the other
+  data stream.
 {{% /expand %}}
 {{< /expand-wrapper >}}

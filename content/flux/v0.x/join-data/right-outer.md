@@ -12,6 +12,11 @@ related:
   - /flux/v0.x/stdlib/join/right/
 ---
 
+Use [`join.right()`](/flux/v0.x/stdlib/join/right/) to perform an right outer join of two streams of data.
+Right joins output a row for each row in the **right** data stream with data matching
+from the **left** data stream. If there is no matching data in the **left**
+data stream, columns with values from the **left** data stream are _null_.
+
 {{< svg svg="static/svgs/join-diagram.svg" class="right" >}}
 
 {{< expand-wrapper >}}
@@ -43,5 +48,111 @@ related:
 
 {{% /flex-content %}}
 {{< /flex >}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## Prepare your data
+To join two streams of data with the `join` package, each stream must have:
+
+- **One or more columns with common values to join on**.  
+  The `on` parameter defines the **join predicate**–a
+  [predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-functions)
+  that compares column values from from rows in each input stream to determine
+  what rows should be joined together.
+- **Identical [group keys](/flux/v0.x/get-started/data-model/#group-key)**.  
+  Functions in the `join` package use group keys to quickly determine what tables
+  from each input stream should be paired and evaluated for the join operation.
+  Because of that, both input streams must have the same group key.
+  This likely requires using [`group()`](/flux/v0.x/stdlib/universe/group/)
+  to regroup each input stream before joining them together.
+
+## Use join.right to join your data
+
+1. Import the `join` package.
+2. Define two streams of tables to join.
+
+    One stream of table represents the left side of the join.
+    The other stream of table represents the right side of the join.
+    Ensure both streams of data meet the [criteria required to join](#prepare-your-data).
+
+3. Use `join.right()` to join the two streams together.
+    Provide the following parameters:
+
+    - `left`: stream of data representing the left side of the join
+    - `right`: stream of data representing the right side of the join
+    - `on`: [join predicate](/flux/v0.x/join-data/#join-predicate-function-on)
+    - `as`: [join output function](/flux/v0.x/join-data/#join-output-function-as)
+      that returns a record with values from each input stream
+
+The following example uses a filtered selection from the
+[**machineProduction** sample data set](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/#set)
+as the **left** data stream and an ad-hoc table created with [`array.from()`](/flux/v0.x/stdlib/array/from/)
+as the **right** data stream.
+
+
+```js
+import "array"
+import "influxdata/influxdb/sample"
+import "join"
+
+left =
+    sample.data(set: "machineProduction")
+        |> filter(fn: (r) => r.stationID == "g1" or r.stationID == "g2" or r.stationID == "g3")
+        |> filter(fn: (r) => r._field == "oil_temp")
+        |> last()
+
+right =
+    array.from(
+        rows: [
+            {station: "g1", opType: "auto", last_maintained: 2021-07-15T00:00:00Z},
+            {station: "g2", opType: "manned", last_maintained: 2021-07-02T00:00:00Z},
+        ],
+    )
+
+join.right(
+    left: left |> group(),
+    right: right,
+    on: (l, r) => l.stationID == r.station,
+    as: (l, r) => ({r with last_reported_val: l._value, last_reported_time: l._time}),
+)
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and output" %}}
+
+### Input
+
+#### left {#left-input}
+
+{{% note %}}
+_`_start` and `_stop` columns have been omitted._
+{{% /note %}}
+
+| _time                   | _measurement | stationID | _field   | _value |
+| :---------------------- | :----------- | :-------- | :------- | -----: |
+| 2021-08-01T23:59:46.17Z | machinery    | g1        | oil_temp |   40.6 |
+
+| _time                   | _measurement | stationID | _field   | _value |
+| :---------------------- | :----------- | :-------- | :------- | -----: |
+| 2021-08-01T23:59:34.57Z | machinery    | g2        | oil_temp |  41.34 |
+
+| _time                   | _measurement | stationID | _field   | _value |
+| :---------------------- | :----------- | :-------- | :------- | -----: |
+| 2021-08-01T23:59:41.96Z | machinery    | g3        | oil_temp |  41.26 |
+
+#### right {#right-input}
+
+| station | opType |      last_maintained |
+| :------ | :----- | -------------------: |
+| g1      | auto   | 2021-07-15T00:00:00Z |
+| g2      | manned | 2021-07-02T00:00:00Z |
+
+### Output {#example-output}
+
+| station | opType | last_maintained      | last_reported_time      | last_reported_val |
+| :------ | :----- | :------------------- | :---------------------- | ----------------: |
+| g1      | auto   | 2021-07-15T00:00:00Z | 2021-08-01T23:59:46.17Z |              40.6 |
+| g2      | manned | 2021-07-02T00:00:00Z | 2021-08-01T23:59:34.57Z |             41.34 |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

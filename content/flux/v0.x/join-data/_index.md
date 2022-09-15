@@ -37,8 +37,8 @@ All functions in the `join` package join _two_ streams of tables together based
 on common values in each input stream.
 
 - [Input streams](#input-streams)
-- [Join predicate](#join-predicate)
-- [Join output schema](#join-output-schema)
+- [Join predicate function (on)](#join-predicate-function-on)
+- [Join output function (as)](#join-output-function-as)
 
 ### Input streams
 Each input stream is assigned to the `left` or `right` parameter.
@@ -60,7 +60,7 @@ To join two streams of data with the `join` package, each stream must have:
   This likely requires using [`group()`](/flux/v0.x/stdlib/universe/group/)
   to regroup each input stream before joining them together.
 
-### Join predicate
+### Join predicate function (on)
 Each function in the `join` package requires the `on` parameter which is the
 **join predicate**—a [predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-functions)
 that compares values from each input stream (represented by `l` (left) and `r` (right))
@@ -77,7 +77,7 @@ Only tables that share the same group key instance are evaluated by the join pre
 Because of this, **both input streams must have the same [group key](/flux/v0.x/get-started/data-model/#group-key)**.
 {{% /note %}}
 
-### Join output schema
+### Join output function (as)
 All functions in the `join` package _(except [`join.time()`](/flux/v0.x/stdlib/join/time/))_
 require the `as` parameter which defines the output schema of the join.
 The `as` parameter is a function that returns a a new record using values from
@@ -87,8 +87,22 @@ joined rows–left (`l`) and right (`r`).
 (l, r) => ({l with name: r.name, location: r.location})
 ```
 
-## Join types
+For left, right, and full outer joins, the `as` functions must account for _null_
+values that may occur in each input stream. For more information, see the
+[join types documentation](#perform-join-operations) below.
+
+{{% note %}}
+#### Do not modify group key columns
+
+The return value of the `as` function needs to maintain the group key of the input streams.
+If you define an output record that modifies or excludes the value of a group key column,
+the join operation returns an error.
+{{% /note %}}
+
+## Perform join operations
 The `join` package supports the following join types and special use cases:
+
+{{< children type="anchored-list" >}}
 
 {{< children readmore=true >}}
 

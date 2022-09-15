@@ -5,7 +5,7 @@ description: >
 menu:
   flux_0_x:
     parent: Join data
-weight: 103
+weight: 104
 related:
   - /flux/v0.x/stdlib/join/
   - /flux/v0.x/stdlib/join/time/
