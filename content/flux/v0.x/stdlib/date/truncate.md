@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L725-L725
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L869-L869
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -66,6 +66,8 @@ Default is the `location` option.
 
 - [Truncate time values](#truncate-time-values)
 - [Truncate time values using relative durations](#truncate-time-values-using-relative-durations)
+- [Query data from this year](#query-data-from-this-year)
+- [Query data from this calendar month](#query-data-from-this-calendar-month)
 
 ### Truncate time values
 
@@ -111,6 +113,28 @@ date.truncate(t: -1m, unit: 1m)
 // Returns 2019-12-31T23:59:00.000000000Z
 date.truncate(t: -1h, unit: 1h)// Returns 2019-12-31T23:00:00.000000000Z
 
+
+```
+
+
+### Query data from this year
+
+```js
+import "date"
+
+from(bucket: "example-bucket")
+    |> range(start: date.truncate(t: now(), unit: 1y))
+
+```
+
+
+### Query data from this calendar month
+
+```js
+import "date"
+
+from(bucket: "example-bucket")
+    |> range(start: date.truncate(t: now(), unit: 1mo))
 
 ```
 

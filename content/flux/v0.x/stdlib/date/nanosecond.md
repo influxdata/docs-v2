@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L540-L540
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L657-L657
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -54,6 +54,7 @@ Durations are relative to `now()`.
 
 - [Return the nanosecond for a time value](#return-the-nanosecond-for-a-time-value)
 - [Return the nanosecond for a relative duration](#return-the-nanosecond-for-a-relative-duration)
+- [Return the current nanosecond unit](#return-the-current-nanosecond-unit)
 
 ### Return the nanosecond for a time value
 
@@ -75,6 +76,16 @@ option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.nanosecond(t: -2111984ns)// Returns 128412016
 
+
+```
+
+
+### Return the current nanosecond unit
+
+```js
+import "date"
+
+date.nanosecond(t: now())
 
 ```
 

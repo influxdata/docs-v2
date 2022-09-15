@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L69-L73
+https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L97-L101
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `promql.holtWinters()` implements functionality equivalent to
 [PromQL's `holt_winters()` function](https://prometheus.io/docs/prometheus/latest/querying/functions/#holt_winters).
 
-
+**Important**: The `internal/promql` package is not meant for external use.
 
 ##### Function type signature
 

@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L42-L42
+https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L68-L68
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -32,7 +32,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 PromQL's [`time()`](https://prometheus.io/docs/prometheus/latest/querying/functions/#time) and
 [`vector()`](https://prometheus.io/docs/prometheus/latest/querying/functions/#vector) functions.
 
-
+**Important**: The `internal/promql` package is not meant for external use.
 
 ##### Function type signature
 

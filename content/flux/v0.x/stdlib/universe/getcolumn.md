@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2884-L2884
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2970-L2970
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -57,7 +57,10 @@ Input table. Default is piped-forward data (`<-`).
 
 ## Examples
 
-### Extract a column from a table
+- [Extract an array of column values from a table](#extract-an-array-of-column-values-from-a-table)
+- [Extract an array of column values and display them in a table](#extract-an-array-of-column-values-and-display-them-in-a-table)
+
+### Extract an array of column values from a table
 
 ```js
 import "sampledata"
@@ -66,6 +69,22 @@ sampledata.int()
     |> tableFind(fn: (key) => key.tag == "t1")
     |> getColumn(column: "_value")// Returns [-2, 10, 7, 17, 15, 4]
 
+
+```
+
+
+### Extract an array of column values and display them in a table
+
+```js
+import "array"
+import "sampledata"
+
+columnData =
+    sampledata.int()
+        |> tableFind(fn: (key) => key.tag == "t1")
+        |> getColumn(column: "_value")
+
+array.from(rows: [{_value: display(v: columnData)}])
 
 ```
 

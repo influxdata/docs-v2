@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L37-L37
+https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L60-L60
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `promql.promqlDaysInMonth()` implements functionality equivalent to
 [PromQL's `days_in_month()` function](https://prometheus.io/docs/prometheus/latest/querying/functions/#days_in_month).
 
-
+**Important**: The `internal/promql` package is not meant for external use.
 
 ##### Function type signature
 

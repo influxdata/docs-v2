@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L427-L431
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L431-L435
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -29,7 +29,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `tickscript.groupBy()` groups results by the `_measurement` column and other specified columns.
 
-This function is comparable to [Kapacitor QueryNode .groupBy](https://docs.influxdata.com/kapacitor/latest/nodes/query_node/#groupby).
+This function is comparable to [Kapacitor QueryNode .groupBy](/kapacitor/latest/nodes/query_node/#groupby).
 
 **Note**: To group by time intervals, use `window()` or `tickscript.selectWindow()`.
 

@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L639-L639
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L673-L675
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -76,7 +76,9 @@ Input data. Default is piped-forward data (`<-`).
 ```js
 from(bucket: "example-bucket")
     |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
+    |> filter(
+        fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total",
+    )
 
 ```
 

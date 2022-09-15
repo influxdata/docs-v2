@@ -28,7 +28,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `requests.peek()` converts an HTTP response into a table for easy inspection.
 
-**Deprecated**: `peek` is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/peek/).
+{{% warn %}}
+#### Deprecated
+`peek` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/peek/).
+{{% /warn %}}
 
 The output table includes the following columns:
  - **body** with the response body as a string
@@ -84,12 +87,12 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
     Connection: keep-alive, 
     Content-Length: 41, 
     Content-Type: application/json; charset=utf-8, 
-    Date: Tue, 05 Jul 2022 20:54:45 GMT, 
+    Date: Mon, 12 Sep 2022 19:26:11 GMT, 
     Etag: W/"29-klDahUESBLxHyQ7NiaetCn2CvCI", 
     Server: nginx/1.16.1, 
     X-Rate-Limit-Limit: 1000, 
     X-Rate-Limit-Remaining: 998, 
-    X-Rate-Reset: 11115
+    X-Rate-Reset: 16429
 ]                           | 200         |
 
 {{% /expand %}}

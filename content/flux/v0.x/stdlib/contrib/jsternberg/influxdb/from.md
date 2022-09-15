@@ -84,8 +84,8 @@ Durations are relative to `now()`.
 
 URL of the InfluxDB instance to query.
 
-See [InfluxDB OSS URLs](https://docs.influxdata.com/influxdb/latest/reference/urls/)
-or [InfluxDB Cloud regions](https://docs.influxdata.com/influxdb/cloud/reference/regions/).
+See [InfluxDB OSS URLs](/influxdb/latest/reference/urls/)
+or [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/).
 
 ### org
 
@@ -95,7 +95,7 @@ Organization name.
 
 ### token
 
-InfluxDB [API token](https://docs.influxdata.com/influxdb/latest/security/tokens/).
+InfluxDB [API token](/influxdb/latest/security/tokens/).
 
 
 
@@ -134,7 +134,12 @@ import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "INFLUXDB_CLOUD_TOKEN")
 
-from(bucket: "example-bucket", host: "https://us-west-2-1.aws.cloud2.influxdata.com", org: "example-org", token: token)
+from(
+    bucket: "example-bucket",
+    host: "https://us-west-2-1.aws.cloud2.influxdata.com",
+    org: "example-org",
+    token: token,
+)
 
 ```
 

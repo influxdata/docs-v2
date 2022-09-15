@@ -8,6 +8,9 @@ menu:
     parent: internal
     identifier: internal/promql
 weight: 21
+cascade:
+
+  introduced: 0.47.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -33,7 +36,7 @@ Import the `internal/promql` package:
 import "internal/promql"
 ```
 
-THIS PACKAGE IS NOT MEANT FOR EXTERNAL USE.
+**Important**: This package is not meant for external use.
 
 
 ## Functions

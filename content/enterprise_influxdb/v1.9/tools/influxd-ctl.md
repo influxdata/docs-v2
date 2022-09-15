@@ -196,12 +196,12 @@ $ influxd-ctl -bind cluster-meta-node-01:8091 add-data cluster-data-node:8088
 Added data node 3 at cluster-data-node:8088
 ```
 
-<!-- ###### Add a passive node to a cluster
+###### Add a passive node to a cluster
 **Passive nodes** act as load balancers--they accept write calls, perform shard lookup and RPC calls (on active data nodes), and distribute writes to active data nodes. They do not own shards or accept writes. If you are using passive nodes, they should be the write endpoint for all data ingest. A cluster can have multiple passive nodes.
 
 ```bash
 influxd-ctl add-data -p <passive-data-node-TCP-bind-address>
-``` -->
+```
 
 ### `add-meta`
 
@@ -1079,25 +1079,26 @@ influxd-ctl show
 ##### Show all meta and data nodes in a cluster
 
 In this example, the `show` command output displays that the cluster includes three meta nodes and two data nodes.
-Every node is using InfluxDB Enterprise `1.9.x-c1.9.x`.
+Every node is using InfluxDB Enterprise `1.9.8`.
 
 ```bash
 $ influxd-ctl show
 
 Data Nodes
 ==========
-ID  TCP Address             Version         Labels
-2   cluster-node-01:8088    1.9.x-c1.9.x    {}
-4   cluster-node-02:8088    1.9.x-c1.9.x    {}
+ID  TCP Address             Version        Labels
+4   meta-node-01:8088       1.9.8          {}
+5   meta-node-02:8088       1.9.8          {}
 
 Meta Nodes
 ==========
-TCP Address             Version         Labels
-cluster-node-01:8091    1.9.x-c1.9.x    {}
-cluster-node-02:8091    1.9.x-c1.9.x    {}
-cluster-node-03:8091    1.9.x-c1.9.x    {}
+ID    TCP Address            Version     Labels
+1    data-node-01:8091       1.9.8       {}
+2    data-node-02:8091       1.9.8       {}
+3    data-node-03:8091       1.9.8       {} 
 ```
-<!-- ##### Show active and passive data nodes in a cluster
+
+##### Show active and passive data nodes in a cluster
 
 In this example, the `show` command output displays that the cluster includes a passive data node.
 
@@ -1105,11 +1106,10 @@ In this example, the `show` command output displays that the cluster includes a 
 Data Nodes
 ==========
 ID	TCP Address               Version		    Labels	  Passive
-4	 cluster-node_0_1:8088		  1.9.6-c1.9.6  {}	      false
-5	 cluster-node_1_1:8088		  1.9.6-c1.9.6  {}	      true
-6	 cluster-node_2_1:8088		  1.9.6-c1.9.6  {}	      false
+4	 cluster-node_0_1:8088		  1.9.6         {}	      false
+5	 cluster-node_1_1:8088		  1.9.6         {}	      true
+6	 cluster-node_2_1:8088		  1.9.6         {}	      false
 ```
--->
 
 ### `show-shards`
 

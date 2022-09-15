@@ -2,7 +2,8 @@
 title: promql.linearRegression() function
 description: >
   `promql.linearRegression()` implements linear regression functionality required to implement
-  PromQL's deriv() and predict_linear() functions:
+  PromQL's [`deriv()`](https://prometheus.io/docs/prometheus/latest/querying/functions/#deriv)
+  and [`predict_linear()`](https://prometheus.io/docs/prometheus/latest/querying/functions/#predict_linear) functions.
 menu:
   flux_0_x_ref:
     name: promql.linearRegression
@@ -20,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L122-L126
+https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L156-L160
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -28,10 +29,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ------------------------------------------------------------------------------->
 
 `promql.linearRegression()` implements linear regression functionality required to implement
-PromQL's deriv() and predict_linear() functions:
+PromQL's [`deriv()`](https://prometheus.io/docs/prometheus/latest/querying/functions/#deriv)
+and [`predict_linear()`](https://prometheus.io/docs/prometheus/latest/querying/functions/#predict_linear) functions.
 
-https://prometheus.io/docs/prometheus/latest/querying/functions/#deriv
-https://prometheus.io/docs/prometheus/latest/querying/functions/#predict_linear
+**Important**: The `internal/promql` package is not meant for external use.
 
 ##### Function type signature
 

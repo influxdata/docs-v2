@@ -9,7 +9,7 @@ menu:
     parent: http
     identifier: http/basicAuth
 weight: 101
-flux/v0.x/tags: [single notification]
+
 introduced: 0.44.0
 ---
 

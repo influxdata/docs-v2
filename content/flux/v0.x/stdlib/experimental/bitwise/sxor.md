@@ -28,7 +28,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `bitwise.sxor()` performs the bitwise operation, `a XOR b`, with integers.
 
-**Deprecated**: `sxor` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/sxor/).
+{{% warn %}}
+#### Deprecated
+`sxor` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/sxor/).
+{{% /warn %}}
 
 ##### Function type signature
 

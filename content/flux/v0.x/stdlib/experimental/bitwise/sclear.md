@@ -30,7 +30,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `bitwise.sclear()` performs the bitwise operation `a AND NOT b`.
 Both `a` and `b` are integers.
 
-**Deprecated**: `sclear` is deprecated in favor of [`bitwise`](https://docs.influxdata.com/flux/v0.x/stdlib/bitwise/sclear/).
+{{% warn %}}
+#### Deprecated
+`sclear` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/sclear/).
+{{% /warn %}}
 
 ##### Function type signature
 

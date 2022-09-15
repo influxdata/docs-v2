@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2857-L2857
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2927-L2930
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -68,7 +68,9 @@ import "sampledata"
 
 t =
     sampledata.int()
-        |> tableFind(fn: (key) => key.tag == "t2")// t represents the first table in a stream whose group key
+        |> tableFind(
+            fn: (key) => key.tag == "t2",
+        )// t represents the first table in a stream whose group key
 // contains "tag" with a value of "t2".
 
 

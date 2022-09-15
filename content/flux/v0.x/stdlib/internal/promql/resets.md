@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L167-L167
+https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L209-L209
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `promql.resets()` implements functionality equivalent to
 [PromQL's `resets()` function](https://prometheus.io/docs/prometheus/latest/querying/functions/#resets).
 
-
+**Important**: The `internal/promql` package is not meant for external use.
 
 ##### Function type signature
 

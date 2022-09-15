@@ -2,7 +2,7 @@
 title: tickscript package
 description: >
   The `tickscript` package provides functions to help migrate
-  Kapacitor [TICKscripts](https://docs.influxdata.com/kapacitor/latest/tick/) to Flux tasks.
+  Kapacitor [TICKscripts](/kapacitor/latest/tick/) to Flux tasks.
 menu:
   flux_0_x_ref:
     name: tickscript 
@@ -31,7 +31,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ------------------------------------------------------------------------------->
 
 The `tickscript` package provides functions to help migrate
-Kapacitor [TICKscripts](https://docs.influxdata.com/kapacitor/latest/tick/) to Flux tasks.
+Kapacitor [TICKscripts](/kapacitor/latest/tick/) to Flux tasks.
 Import the `contrib/bonitoo-io/tickscript` package:
 
 ```js

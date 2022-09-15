@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L191-L201
+https://github.com/influxdata/flux/blob/master/stdlib/internal/promql/promql.flux#L251-L261
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -32,7 +32,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 below 0.0, by either returning positive infinity or negative infinity in the `_value`
 column respectively. `q` must be a float.
 
-
+**Important**: The `internal/promql` package is not meant for external use.
 
 ##### Function type signature
 

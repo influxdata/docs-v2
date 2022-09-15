@@ -29,7 +29,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `requests.do()` makes an http request.
 
-**Deprecated**: `do` is deprecated in favor of [`requests`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/do/).
+{{% warn %}}
+#### Deprecated
+`do` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/do/).
+{{% /warn %}}
 
 The returned response contains the following properties:
 
@@ -121,7 +124,12 @@ import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "TOKEN")
 
-response = requests.do(method: "GET", url: "http://example.com", headers: ["Authorization": "token ${token}"])
+response =
+    requests.do(
+        method: "GET",
+        url: "http://example.com",
+        headers: ["Authorization": "token ${token}"],
+    )
 
 requests.peek(response: response)
 

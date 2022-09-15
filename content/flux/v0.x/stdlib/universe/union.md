@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2654-L2654
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2724-L2724
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -68,12 +68,22 @@ List of two or more streams of tables to union together.
 import "generate"
 
 t1 =
-    generate.from(count: 4, fn: (n) => n + 1, start: 2022-01-01T00:00:00Z, stop: 2022-01-05T00:00:00Z)
+    generate.from(
+        count: 4,
+        fn: (n) => n + 1,
+        start: 2022-01-01T00:00:00Z,
+        stop: 2022-01-05T00:00:00Z,
+    )
         |> set(key: "tag", value: "foo")
         |> group(columns: ["tag"])
 
 t2 =
-    generate.from(count: 4, fn: (n) => n * (-1), start: 2022-01-01T00:00:00Z, stop: 2022-01-05T00:00:00Z)
+    generate.from(
+        count: 4,
+        fn: (n) => n * (-1),
+        start: 2022-01-01T00:00:00Z,
+        stop: 2022-01-05T00:00:00Z,
+    )
         |> set(key: "tag", value: "bar")
         |> group(columns: ["tag"])
 
@@ -109,12 +119,22 @@ union(tables: [t1, t2])
 import "generate"
 
 t1 =
-    generate.from(count: 4, fn: (n) => n + 1, start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
+    generate.from(
+        count: 4,
+        fn: (n) => n + 1,
+        start: 2021-01-01T00:00:00Z,
+        stop: 2021-01-05T00:00:00Z,
+    )
         |> set(key: "tag", value: "foo")
         |> group()
 
 t2 =
-    generate.from(count: 4, fn: (n) => n * (-1), start: 2021-01-01T00:00:00Z, stop: 2021-01-05T00:00:00Z)
+    generate.from(
+        count: 4,
+        fn: (n) => n * (-1),
+        start: 2021-01-01T00:00:00Z,
+        stop: 2021-01-05T00:00:00Z,
+    )
         |> set(key: "tag", value: "bar")
         |> group()
 
@@ -129,14 +149,14 @@ union(tables: [t1, t2])
 
 | _time                | _value  | tag  |
 | -------------------- | ------- | ---- |
-| 2021-01-01T00:00:00Z | 1       | foo  |
-| 2021-01-02T00:00:00Z | 2       | foo  |
-| 2021-01-03T00:00:00Z | 3       | foo  |
-| 2021-01-04T00:00:00Z | 4       | foo  |
 | 2021-01-01T00:00:00Z | 0       | bar  |
 | 2021-01-02T00:00:00Z | -1      | bar  |
 | 2021-01-03T00:00:00Z | -2      | bar  |
 | 2021-01-04T00:00:00Z | -3      | bar  |
+| 2021-01-01T00:00:00Z | 1       | foo  |
+| 2021-01-02T00:00:00Z | 2       | foo  |
+| 2021-01-03T00:00:00Z | 3       | foo  |
+| 2021-01-04T00:00:00Z | 4       | foo  |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

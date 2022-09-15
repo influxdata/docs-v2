@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3264-L3264
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3367-L3367
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -46,7 +46,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 ({{< req >}})
 Value to convert.
 
-Strings must be valid [RFC3339 timestamps](https://docs.influxdata.com/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
+Strings must be valid [RFC3339 timestamps](/influxdb/cloud/reference/glossary/#rfc3339-timestamp).
 Integer and unsigned integer values are parsed as nanosecond epoch timestamps.
 
 

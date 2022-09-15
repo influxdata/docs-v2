@@ -35,7 +35,7 @@ using the InfluxDB user interface (UI).
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "load-data" >}}
+{{< nav-icon "load-data" >}}
 
 2. Click the **{{< icon "toggle-green" >}} Status** toggle.
 
@@ -45,7 +45,7 @@ using the InfluxDB user interface (UI).
 
 1. In the navigation menu on the left, select **Load Data** > **API Tokens**.
 
-    {{< nav-icon "data" >}}
+{{< nav-icon "data" >}}
 
 2. Find the token that you would like to enable or disable.
 3. Click the token description.

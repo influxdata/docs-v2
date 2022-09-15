@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/zenoss/zenoss.flux#L88-L127
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/zenoss/zenoss.flux#L90-L140
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -35,22 +35,23 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ```js
 (
-    password: string,
     severity: A,
     url: string,
-    username: string,
     ?action: B,
-    ?collector: C,
-    ?component: D,
-    ?device: E,
-    ?eventClass: F,
-    ?eventClassKey: G,
-    ?message: H,
-    ?method: I,
-    ?summary: J,
-    ?tid: K,
-    ?type: L,
-) => int
+    ?apiKey: C,
+    ?collector: D,
+    ?component: E,
+    ?device: F,
+    ?eventClass: G,
+    ?eventClassKey: H,
+    ?message: I,
+    ?method: J,
+    ?password: string,
+    ?summary: K,
+    ?tid: L,
+    ?type: M,
+    ?username: string,
+) => int where C: Equatable
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
@@ -64,16 +65,23 @@ Zenoss [router endpoint URL](https://help.zenoss.com/zsd/RM/configuring-resource
 
 
 ### username
-({{< req >}})
+
 Zenoss username to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
 
 
 
 ### password
-({{< req >}})
+
 Zenoss password to use for HTTP BASIC authentication.
 Default is `""` (no authentication).
+
+
+
+### apiKey
+
+Zenoss cloud API key.
+Default is `""` (no API key).
 
 
 

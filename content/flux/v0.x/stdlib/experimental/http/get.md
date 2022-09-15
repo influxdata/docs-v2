@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/http.flux#L41-L44
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/http.flux#L41-L48
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -31,7 +31,10 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `http.get()` submits an HTTP GET request to the specified URL and returns the HTTP
 status code, response body, and response headers.
 
-**Deprecated**: `http.get()` is deprecated in favor of [`requests.get()`](https://docs.influxdata.com/flux/v0.x/stdlib/http/requests/get/).
+{{% warn %}}
+#### Deprecated
+`http.get()` is deprecated in favor of [`requests.get()`](/flux/v0.x/stdlib/http/requests/get/).
+{{% /warn %}}
 
 ## Response format
 `http.get()` returns a record with the following properties:

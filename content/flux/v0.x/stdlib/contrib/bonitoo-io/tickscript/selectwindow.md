@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L358-L375
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L362-L379
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -133,13 +133,13 @@ data
 
 #### Output data
 
-| *_start              | *_stop               | *tag | example-name  | _time                |
-| -------------------- | -------------------- | ---- | ------------- | -------------------- |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t1   | 51            | 2021-01-01T00:01:00Z |
+| _time                | *_start              | *_stop               | *tag | example-name  |
+| -------------------- | -------------------- | -------------------- | ---- | ------------- |
+| 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t1   | 51            |
 
-| *_start              | *_stop               | *tag | example-name  | _time                |
-| -------------------- | -------------------- | ---- | ------------- | -------------------- |
-| 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 53            | 2021-01-01T00:01:00Z |
+| _time                | *_start              | *_stop               | *tag | example-name  |
+| -------------------- | -------------------- | -------------------- | ---- | ------------- |
+| 2021-01-01T00:01:00Z | 2021-01-01T00:00:00Z | 2021-01-01T00:01:00Z | t2   | 53            |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
