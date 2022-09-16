@@ -114,6 +114,7 @@ The following example Telegraf configuration writes data to both InfluxDB and Ka
   retention_policy = "example-rp"
   username = "influxdb-username"
   password = "influxdb-token"
+  skip_database_creation = true
 ```
 
 ## Write back to InfluxDB
