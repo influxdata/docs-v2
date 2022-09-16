@@ -180,7 +180,6 @@ The `SELECT` clause supports combining the `*` syntax with the `::` syntax.
 > SELECT ("water_level" * 2) + 4 FROM "h2o_feet"
 ```
 Output: 
-
 | name: h2o_feet |
 | :-------------- | :------------------|
 | time   | water_level |
