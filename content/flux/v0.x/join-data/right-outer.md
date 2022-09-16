@@ -1,7 +1,10 @@
 ---
 title: Perform a right outer join
 description: >
-  ...
+  Use [`join.right()`](/flux/v0.x/stdlib/join/right/) to perform an right outer join of two streams of data.
+  Right joins output a row for each row in the **right** data stream with data matching
+  from the **left** data stream. If there is no matching data in the **left**
+  data stream, columns with values from the **left** data stream are _null_.
 menu:
   flux_0_x:
     name: Right outer join
@@ -10,6 +13,20 @@ weight: 102
 related:
   - /flux/v0.x/stdlib/join/
   - /flux/v0.x/stdlib/join/right/
+list_code_example: |
+  ```js
+  import "join"
+
+  left = from(bucket: "example-bucket-1") |> //...
+  right = from(bucket: "example-bucket-2") |> //...
+
+  join.right(
+      left: left,
+      right: right,
+      on: (l, r) => l.column == r.column,
+      as: (l, r) => ({r with name: l.name, location: l.location}),
+  )
+  ```
 ---
 
 Use [`join.right()`](/flux/v0.x/stdlib/join/right/) to perform an right outer join of two streams of data.
