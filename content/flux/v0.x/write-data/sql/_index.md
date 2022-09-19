@@ -112,7 +112,7 @@ import "sql"
 
 data
     |> sql.to(
-        driver: "mysql",
+        driverName: "mysql",
         dataSourceName: "username:passwOrd@tcp(localhost:3306)/db",
         table: "exampleTable"
     )
