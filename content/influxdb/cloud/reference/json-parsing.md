@@ -61,9 +61,9 @@ for [native subscriptions](/influxdb/cloud/write-data/no-code/native-subscriptio
 
 ## Example MQTT message with JSON arrays
 Currently, there is limited support for working with key/value pairs that are held within 
-a JSON array. For instance, you can specify an entire array set to be loaded into a single 
-field value. But if your messages have a fixed number of values in the array being passed, you can specify 
-a subscript number to work with them in your JSON path.
+a JSON array. Entire arrays cannot be loaded into a single field value, but if your messages 
+have a fixed number of values in the array being passed you can specify a subscript number 
+to work with them in your JSON path.
 
 
 ```json
