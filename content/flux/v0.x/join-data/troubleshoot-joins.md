@@ -1,7 +1,8 @@
 ---
 title: Troubleshoot join operations
 description: >
-  ...
+  Learn how to troubleshoot common behaviors and errors that may occur when using
+  the [`join` package](/flux/v0.x/stdlib/join).
 menu:
   flux_0_x:
     name: Troubleshoot joins
@@ -9,37 +10,126 @@ menu:
 weight: 105
 ---
 
-## Behaviors
+Learn how to troubleshoot common behaviors and errors that may occur when using
+the [`join` package](/flux/v0.x/stdlib/join).
 
-- Columns explicitly mapped in the join are all _null_.
-    - This likely means the group keys of your input streams do not match.
-      The group keys of each input stream needs to be the same when using the `join`
-      package to join data. Each join function only compares table in the two
-      input streams whose [group key instances match](#).
+{{% note %}}
+#### Submit issues for unexplained behaviors or errors
 
-## Error messages
+This is a "living" document that may be updated with common issues
+that users may run into when using the [`join` package](/flux/v0.x/stdlib/join)
+to join data. If you have questions about a behavior or error that is not
+documented here, please submit an issue on either the InfluxData Documentation
+or Flux GitHub repositories:
 
+- [Submit a documentation issue](https://github.com/influxdata/docs-v2/issues/new/choose)
+- [Submit a Flux issue](https://github.com/influxdata/flux/issues/new/choose)
+{{% /note %}}
+
+- [Troubleshoot join behaviors](#troubleshoot-join-behaviors)
+  - [Columns explicitly mapped in the join are null](#columns-explicitly-mapped-in-the-join-are-null)
+- [Troubleshoot join error messages](#troubleshoot-join-error-messages)
+
+## Troubleshoot join behaviors
+
+### Columns explicitly mapped in the join are null
+
+In some cases, the output of your join operation may include _null_ values in
+columns you would expect to return with non-null values. This is likely caused
+by one of the following problems:
+
+- **The group keys of your input streams are different**
+
+  **Problem**:
+  The group keys of each input stream needs to be the same when using the `join`
+  package to join data. Functions in the `join` package use group keys to
+  quickly identify what tables should be compared in the join operation.
+  If the group keys of your input streams are different, no tables will match or
+  be compared in the operation.
+
+  **Solution**:
+  Use [`group()`](/flux/v0.x/stdlib/universe/group/) to regroup
+  your two input streams so their group keys match before attempting to join
+  them together.
+  
+- **There are no matching _group key instances_ in your data streams**
+
+  **Problem**: Functions in the `join` package only compare tables with matching
+  [group key instances](/flux/v0.x/get-started/data-model/#example-group-key-instances).
+  Input streams may have matching group keys, but there are no matching group
+  key instances in your stream.
+
+  A common use case when this might happen is when joining to separate fields
+  queried from InfluxDB. By default, InfluxDB returns data with `_field` as part
+  of the group key. If each stream contains a different field, tables in the two
+  streams won't be compared because they won't have any matching _group key instances_.
+
+  **Solution**: Use [`group()`](/flux/v0.x/stdlib/universe/group/) to remove 
+  any columns from the group keys of each input stream that would prevent
+  group key instances from matching.
+
+## Troubleshoot join error messages
+
+- [table is missing column \'\<column\>\'](#table-is-missing-column-column)
+- [table is missing label \<label\>](#table-is-missing-label-label)
+- [record is missing label \<label\>](#record-is-missing-label-label)
+
+### table is missing column `'<column>'`
+
+##### Error message
+```js
+cannot set join columns in left table stream: table is missing column '<column>'
 ```
-cannot set join columns in left table stream: table is missing column 'station'
-```
+##### Causes
 
-In the `on` predicate function, you're trying to compare a column that doesn't
-exist in the primary join stream specified stream.
+- **Your `on` join predicate uses a column that doesn't exist**
 
-```
+  **Problem**: In the `on` predicate function, you're trying to compare a column
+  that doesn't exist in one of your input streams.
+
+  **Solution**: Ensure the columns that you're comparing in the `on` predicate
+  function actually exist in the input streams.
+  If necessary, update column names in the predicate function.
+
+### table is missing label `<label>`
+
+##### Error message
+```js
 table is missing label <label>
 ```
 
-In an outer join, you're trying to use a value from a column that doesn't exist
-in the "weighted" stream (`left` for `join.left()` and `right` for `join.right()`).
+##### Causes
 
+- **Your `on` join predicate uses a column that doesn't exist**
 
-```
+  **Problem**:
+  In the `on` predicate function for an outer join, you're trying to use a value
+  from a column that doesn't exist in the "primary" input stream
+  (`left` for `join.left()` and `right` for `join.right()`).
+
+  **Solution**: Ensure the columns that you're comparing in the `on` predicate
+  function actually exist in the input streams.
+  If necessary, update column names in the predicate function.
+
+### record is missing label `<label>`
+
+##### Error message
+```js
 record is missing label <label> (argument <left or right>)
 ```
 
-In the `on` predicate function, you're trying to evaluate a column that does exist
-in the specified argument.
+##### Causes
 
-In an outer join, you're trying to use a value from a column that doesn't exist
-in the "un-weighted" stream (`right` for `join.left()` and `left` for `join.right()`).
+- **Your `on` join predicate uses a column that doesn't exist**
+
+  **Problem 1**: In the `on` predicate function, you're trying to compare a column
+  that doesn't exist in one of your input streams.
+
+  **Problem 2**:
+  In the `on` predicate function for an outer join, you're trying to use a value
+  from a column that doesn't exist in the "primary" input stream
+  (`left` for `join.left()` and `right` for `join.right()`).
+
+  **Solution**: Ensure the columns that you're comparing in the `on` predicate
+  function actually exist in the input streams.
+  If necessary, update column names in the predicate function.

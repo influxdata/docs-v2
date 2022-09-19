@@ -10,26 +10,47 @@ menu:
 weight: 8
 ---
 
-- Introduction to the [`join` package](/flux/v0.x/stdlib/join/)
+The Flux [`join` package](/flux/v0.x/stdlib/join/) lets you perform inner,
+left outer, right outer, and full outer joins.
+Each join method combines from both input streams in a different way.
+Learn how to use the `join` package to join two data sets with common values.
+
+The `join` package supports the following join methods:
 
 {{< flex >}}
 {{< flex-content "quarter" >}}
-<p style="text-align:center"><strong>Inner join</strong></p>
-{{< svg svg="static/svgs/join-diagram.svg" class="inner small center" >}}
+<a href="#perform-an-inner-join">
+  <p style="text-align:center"><strong>Inner join</strong></p>
+  {{< svg svg="static/svgs/join-diagram.svg" class="inner small center" >}}
+</a>
 {{< /flex-content >}}
 {{< flex-content "quarter" >}}
-<p style="text-align:center"><strong>Left outer join</strong></p>
-{{< svg svg="static/svgs/join-diagram.svg" class="left small center" >}}
+<a href="#perform-a-left-outer-join">
+  <p style="text-align:center"><strong>Left outer join</strong></p>
+  {{< svg svg="static/svgs/join-diagram.svg" class="left small center" >}}
+</a>
 {{< /flex-content >}}
 {{< flex-content "quarter" >}}
-<p style="text-align:center"><strong>Right outer join</strong></p>
-{{< svg svg="static/svgs/join-diagram.svg" class="right small center" >}}
+<a href="#perform-a-right-outer-join">
+  <p style="text-align:center"><strong>Right outer join</strong></p>
+  {{< svg svg="static/svgs/join-diagram.svg" class="right small center" >}}
+</a>
 {{< /flex-content >}}
 {{< flex-content "quarter" >}}
-<p style="text-align:center"><strong>Full outer join</strong></p>
-{{< svg svg="static/svgs/join-diagram.svg" class="full small center" >}}
+<a href="#perform-a-full-outer-join">
+  <p style="text-align:center"><strong>Full outer join</strong></p>
+  {{< svg svg="static/svgs/join-diagram.svg" class="full small center" >}}
+</a>
 {{< /flex-content >}}
 {{< /flex >}}
+
+- [How join functions work](#how-join-functions-work)
+  - [Input streams](#input-streams)
+  - [Join predicate function (on)](#join-predicate-function-on)
+  - [Join output function (as)](#join-output-function-as)
+- [Perform join operations](#perform-join-operations)
+  {{< children type="anchored-list" filterOut="Troubleshoot join operations" >}}
+- [Troubleshoot join operations](#troubleshoot-join-operations)
 
 ## How join functions work
 
@@ -41,6 +62,7 @@ on common values in each input stream.
 - [Join output function (as)](#join-output-function-as)
 
 ### Input streams
+
 Each input stream is assigned to the `left` or `right` parameter.
 Input streams can be defined from any valid data source.
 For more information, see:
@@ -49,18 +71,25 @@ For more information, see:
 - Define ad hoc tables with [`array.from()`](/flux/v0.x/stdlib/array/from/)
 
 #### Data requirements
+
 To join two streams of data with the `join` package, each stream must have:
 
 - **One or more columns with common values to join on**.  
   Columns do not need identical labels, but they do need to have comparable values.
 - **Identical [group keys](/flux/v0.x/get-started/data-model/#group-key)**.  
   Functions in the `join` package use group keys to quickly determine what tables
-  from each input stream should be paired and evaluated for the join operation.
+  from each input stream should be paired and evaluated for the join operation.  
   _Both input streams must have the same group key._
   This likely requires using [`group()`](/flux/v0.x/stdlib/universe/group/)
   to regroup each input stream before joining them together.
 
+  {{% note %}}
+Only tables with the same [group key instance](/flux/v0.x/get-started/data-model/#example-group-key-instances)
+are joined.
+  {{% /note %}}
+
 ### Join predicate function (on)
+
 Each function in the `join` package requires the `on` parameter which is the
 **join predicate**—a [predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-functions)
 that compares values from each input stream (represented by `l` (left) and `r` (right))
@@ -78,6 +107,7 @@ Because of this, **both input streams must have the same [group key](/flux/v0.x/
 {{% /note %}}
 
 ### Join output function (as)
+
 All functions in the `join` package _(except [`join.time()`](/flux/v0.x/stdlib/join/time/))_
 require the `as` parameter which defines the output schema of the join.
 The `as` parameter is a function that returns a a new record using values from
@@ -100,12 +130,14 @@ the join operation returns an error.
 {{% /note %}}
 
 ## Perform join operations
+
 The `join` package supports the following join types and special use cases:
 
-{{< children type="anchored-list" >}}
+{{< children type="anchored-list" filterOut="Troubleshoot join operations" >}}
 
-{{< children readmore=true >}}
+{{< children readmore=true filterOut="Troubleshoot join operations" >}}
 
-- Note on joining vs union + pivot
-  - If the schemas of the two datasets are mostly different, use join.
-  - If the schemas of the two datasets are identical, use `union() |> pivot()`.
+## Troubleshoot join operations
+
+For information unexpected behaviors and errors when using the `join` package,
+see [Troubleshoot join operations](/flux/v0.x/join-data/troubleshoot-joins/).

@@ -64,19 +64,9 @@ row in the other stream.
 {{< /expand-wrapper >}}
 
 ## Prepare your data
-To join two streams of data with the `join` package, each stream must have:
 
-- **One or more columns with common values to join on**.  
-  The `on` parameter defines the **join predicate**–a
-  [predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-functions)
-  that compares column values from from rows in each input stream to determine
-  what rows should be joined together.
-- **Identical [group keys](/flux/v0.x/get-started/data-model/#group-key)**.  
-  Functions in the `join` package use group keys to quickly determine what tables
-  from each input stream should be paired and evaluated for the join operation.
-  Because of that, both input streams must have the same group key.
-  This likely requires using [`group()`](/flux/v0.x/stdlib/universe/group/)
-  to regroup each input stream before joining them together.
+Ensure the data streams you want to join adhere to the
+[join input data requirements](/flux/v0.x/join-data/#data-requirements).
 
 ## Use join.inner to join your data
 
@@ -85,7 +75,6 @@ To join two streams of data with the `join` package, each stream must have:
 
     One stream of table represents the left side of the join.
     The other stream of table represents the right side of the join.
-    Ensure both streams of data meet the [criteria required to join](#prepare-your-data).
 
 3. Use `join.inner()` to join the two streams together.
     Provide the following parameters:
@@ -101,6 +90,12 @@ The following example uses a filtered selection from the
 as the **left** data stream and an ad-hoc table created with [`array.from()`](/flux/v0.x/stdlib/array/from/)
 as the **right** data stream.
 
+{{% note %}}
+#### Example data grouping
+
+The example below ungroups the **left** stream to match the grouping of the **right** stream.
+After the two streams are joined together, the joined data is grouped by `stationID`.
+{{% /note %}}
 
 ```js
 import "array"
@@ -195,5 +190,6 @@ _`_start` and `_stop` columns have been omitted from example input and output._
   the joined output drops all rows with the `g3` stationID tag from the [left stream](#left-input).
   `join.inner()` drops any rows that do not have a matching row in the other
   data stream.
+  
 {{% /expand %}}
 {{< /expand-wrapper >}}
