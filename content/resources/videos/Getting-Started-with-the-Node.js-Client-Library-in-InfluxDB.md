@@ -1,7 +1,7 @@
 ---
 title: Getting Started with the Node.js Client Library in InfluxDB
 description: >
-  If you use Node.js, then the Node.js client library allows you to interact with the InfluxDB platform quickly, using a familiar language. Here, Zoe Steinkamp discusses some of the features of the Node.js client library to help you get started building awesome applications with InfluxDB even faster.
+  If you use Node.js, the Node.js client library let you interact with the InfluxDB platform quickly, using a familiar language. Here, Zoe Steinkamp discusses some of the features of the Node.js client library to help you get started building awesome applications with InfluxDB even faster.
 menu:
   resources:
     parent: Videos
