@@ -28,13 +28,13 @@ for [native subscriptions](/influxdb/cloud/write-data/no-code/native-subscriptio
 
 With "flat" JSON, all values are at the root level (`$`) and are referenced with dot notation.
 
-|InfluxDB Element|JSON Path|Parsed Result|
-|---|---|---|
-|Measurement|`$.device_type`|"temperature_sensor"|
-|Timestamp|`$.time`|1653998899010000000|
-|Tag|`$.device_id`|2036|
-|Field 1|`$.temperature`|25.0|
-|Field 2|`$.error_state`|“in_error”|
+| InfluxDB Element | JSON Path       | Parsed Result        |
+| :--------------- | :-------------- | :------------------- |
+| Measurement      | `$.device_type` | "temperature_sensor" |
+| Timestamp        | `$.time`        | 1653998899010000000  |
+| Tag              | `$.device_id`   | 2036                 |
+| Field 1          | `$.temperature` | 25.0                 |
+| Field 2          | `$.error_state` | "in_error"           |
 
 ## Example MQTT message with nested JSON objects 
 
