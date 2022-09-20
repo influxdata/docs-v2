@@ -65,10 +65,8 @@ However, those in multi-user organizations must contact
 [InfluxData Support](mailto:support@influxdata.com) to delete your organization. 
 {{% /note %}}
 
-1. Click the **user avatar** in the top right corner of your {{< cloud-name "short" >}}
+1. 1. Click the account name dropdown in the upper left of your {{< cloud-name "short" >}}
    user interface (UI) and select **Billing**.
-
-    {{< nav-icon "account" >}}
 
 2. Do one of the following:
 
