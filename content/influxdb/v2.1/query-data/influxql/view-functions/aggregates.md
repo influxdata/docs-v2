@@ -31,20 +31,20 @@ Returns the number of non-null [field values](/enterprise_influxdb/v1.9/concepts
 SELECT COUNT( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-##### Nested Syntax
+##### Nested syntax
 
 ```
 SELECT COUNT(DISTINCT( [ * | <field_key> | /<regular_expression>/ ] )) [...]
 ```
 
 `COUNT(field_key)`  
-Returns the number of field values associated with the [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
+Returns the number of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `COUNT(/regular_expression/)`  
-Returns the number of field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
+Returns the number of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
 `COUNT(*)`  
-Returns the number of field values associated with each field key in the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
+Returns the number of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
 `COUNT()` supports all field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 InfluxQL supports nesting [`DISTINCT()`](#distinct) with `COUNT()`.
@@ -125,7 +125,7 @@ time                   count
 
 The query returns the number of unique field values for the `level description` field key and the `h2o_feet` measurement.
 
-### Common Issues with COUNT()
+### Common issues with COUNT()
 
 #### COUNT() and fill()
 
@@ -136,9 +136,9 @@ replaces that `null` value with the `fill_option`.
 
 ##### Example
 
-The first query in the codeblock below does not include `fill()`.
-The last time interval has no data so the reported value for that time interval is zero.
-The second query includes `fill(800000)`; it replaces the zero in the last interval with `800000`.
+The first query in the code block below does not include `fill()`.
+The last time interval has no data, so the reported value for the interval is zero.
+The second query includes `fill(800000)`, and replaces the zero in the last interval with `800000`.
 
 ```sql
 > SELECT COUNT("water_level") FROM "h2o_feet" WHERE time >= '2015-09-18T21:24:00Z' AND time <= '2015-09-18T21:54:00Z' GROUP BY time(12m)
@@ -162,7 +162,7 @@ time                   count
 
 ### DISTINCT()
 
-Returns the list of unique [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
+Returns the list of unique [field values](/influxdb/v2.1/reference/glossary/#field-value).
 
 #### Syntax
 
@@ -170,14 +170,14 @@ Returns the list of unique [field values](/enterprise_influxdb/v1.9/concepts/glo
 SELECT DISTINCT( [ <field_key> | /<regular_expression>/ ] ) FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-##### Nested Syntax
+##### Nested syntax
 
 ```
 SELECT COUNT(DISTINCT( [ <field_key> | /<regular_expression>/ ] )) [...]
 ```
 
 `DISTINCT(field_key)`  
-Returns the unique field values associated with the [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
+Returns the unique field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `DISTINCT()` supports all field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 InfluxQL supports nesting `DISTINCT()` with [`COUNT()`](#count).
@@ -251,16 +251,16 @@ time                   count
 
 The query returns the number of unique field values in the `level description` field key and the `h2o_feet` measurement.
 
-### Common Issues with DISTINCT()
+### Common issues with DISTINCT()
 
 #### DISTINCT() and the INTO clause
 
 Using `DISTINCT()` with the [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) can cause InfluxDB to overwrite points in the destination measurement.
-`DISTINCT()` often returns several results with the same timestamp; InfluxDB assumes [points](/enterprise_influxdb/v1.9/concepts/glossary/#point) with the same [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) and timestamp are duplicate points and simply overwrites any duplicate point with the most recent point in the destination measurement.
+`DISTINCT()` often returns several results with the same timestamp; InfluxDB assumes [points](/influxdb/v2.1/reference/glossary/#point) with the same [series](/influxdb/v2.1/reference/glossary/#series) and timestamp are duplicate points and simply overwrites any duplicate point with the most recent point in the destination measurement.
 
 ##### Example
 
-The first query in the codeblock below uses the `DISTINCT()` function and returns four results.
+The first query in the code block below uses the `DISTINCT()` function and returns four results.
 Notice that each result has the same timestamp.
 The second query adds an `INTO` clause to the initial query and writes the query results to the `distincts` measurement.
 The last query in the code block selects all the data in the `distincts` measurement.
@@ -296,7 +296,7 @@ time                   distinct
 
 ### INTEGRAL()
 
-Returns the area under the curve for subsequent [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
+Returns the area under the curve for subsequent [field values](/influxdb/v2.1/reference/glossary/#field-value).
 
 #### Syntax
 
@@ -309,19 +309,19 @@ The `unit` argument is an integer followed by a [duration literal](/enterprise_i
 If the query does not specify the `unit`, the unit defaults to one second (`1s`).
 
 `INTEGRAL(field_key)`  
-Returns the area under the curve for subsequent field values associated with the [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
+Returns the area under the curve for subsequent field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `INTEGRAL(/regular_expression/)`  
 Returns the area under the curve for subsequent field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
 
 `INTEGRAL(*)`  
-Returns the average field value associated with each field key in the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
+Returns the average field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
 `INTEGRAL()` does not support [`fill()`](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals-and-fill). `INTEGRAL()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
 #### Examples
 
-Examples 1-5 use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
+The following examples use a subset of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/) data:
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z'
@@ -406,7 +406,7 @@ It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data
 
 ### MEAN()
 
-Returns the arithmetic mean (average) of [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
+Returns the arithmetic mean (average) of [field values](/influxdb/v2.1/reference/glossary/#field-value).
 
 #### Syntax
 
@@ -415,13 +415,13 @@ SELECT MEAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_c
 ```
 
 `MEAN(field_key)`  
-Returns the average field value associated with the [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
+Returns the average field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `MEAN(/regular_expression/)`  
 Returns the average field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
 
 `MEAN(*)`  
-Returns the average field value associated with each field key in the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
+Returns the average field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
 `MEAN()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
@@ -488,7 +488,7 @@ The query [fills](/enterprise_influxdb/v1.9/query_language/explore-data/#group-b
 
 ### MEDIAN()
 
-Returns the middle value from a sorted list of [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
+Returns the middle value from a sorted list of [field values](/influxdb/v2.1/reference/glossary/#field-value).
 
 #### Syntax
 
@@ -497,7 +497,7 @@ SELECT MEDIAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM
 ```
 
 `MEDIAN(field_key)`  
-Returns the middle field value associated with the [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
+Returns the middle field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `MEDIAN(/regular_expression/)`  
 Returns the middle field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
@@ -548,6 +548,7 @@ time                   median_water_level
 ----                   ------------------
 1970-01-01T00:00:00Z   4.124
 ```
+
 The query returns the middle field value for every field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 #### Calculate the median field value associated with a field key and include several clauses
@@ -573,7 +574,7 @@ The query [fills](/enterprise_influxdb/v1.9/query_language/explore-data/#group-b
 
 ### MODE()
 
-Returns the most frequent value in a list of [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
+Returns the most frequent value in a list of [field values](/influxdb/v2.1/reference/glossary/#field-value).
 
 #### Syntax
 
@@ -582,17 +583,17 @@ SELECT MODE( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_c
 ```
 
 `MODE(field_key)`  
-Returns the most frequent field value associated with the [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
+Returns the most frequent field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `MODE(/regular_expression/)`  
 Returns the most frequent field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
 
 `MODE(*)`  
-Returns the most frequent field value associated with each field key in the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
+Returns the most frequent field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
 `MODE()` supports all field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
-> **Note:** `MODE()` returns the field value with the earliest [timestamp](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp) if  there's a tie between two or more values for the maximum number of occurrences.
+> **Note:** `MODE()` returns the field value with the earliest [timestamp](/influxdb/v2.1/reference/glossary/#timestamp) if  there's a tie between two or more values for the maximum number of occurrences.
 
 #### Examples
 
@@ -656,7 +657,7 @@ The query [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-li
 
 ### SPREAD()
 
-Returns the difference between the minimum and maximum [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
+Returns the difference between the minimum and maximum [field values](/influxdb/v2.1/reference/glossary/#field-value).
 
 #### Syntax
 
@@ -665,13 +666,13 @@ SELECT SPREAD( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM
 ```
 
 `SPREAD(field_key)`  
-Returns the difference between the minimum and maximum field values associated with the [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
+Returns the difference between the minimum and maximum field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `SPREAD(/regular_expression/)`  
 Returns the difference between the minimum and maximum field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
 
 `SPREAD(*)`  
-Returns the difference between the minimum and maximum field values associated with each field key in the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
+Returns the difference between the minimum and maximum field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
 `SPREAD()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
@@ -737,7 +738,7 @@ The query [fills](/enterprise_influxdb/v1.9/query_language/explore-data/#group-b
 
 ### STDDEV()
 
-Returns the standard deviation of [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
+Returns the standard deviation of [field values](/influxdb/v2.1/reference/glossary/#field-value).
 
 #### Syntax
 
@@ -746,13 +747,13 @@ SELECT STDDEV( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM
 ```
 
 `STDDEV(field_key)`  
-Returns the standard deviation of field values associated with the [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
+Returns the standard deviation of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `STDDEV(/regular_expression/)`  
 Returns the standard deviation of field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
 
 `STDDEV(*)`  
-Returns the standard deviation of field values associated with each field key in the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
+Returns the standard deviation of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
 `STDDEV()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
@@ -817,7 +818,7 @@ The query [fills](/enterprise_influxdb/v1.9/query_language/explore-data/#group-b
 
 ### SUM()
 
-Returns the sum of [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
+Returns the sum of [field values](/influxdb/v2.1/reference/glossary/#field-value).
 
 #### Syntax
 
@@ -826,13 +827,13 @@ SELECT SUM( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_cl
 ```
 
 `SUM(field_key)`  
-Returns the sum of field values associated with the [field key](/enterprise_influxdb/v1.9/concepts/glossary/#field-key).
+Returns the sum of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `SUM(/regular_expression/)`  
 Returns the sum of field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
 
 `SUM(*)`  
-Returns the sums of field values associated with each field key in the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
+Returns the sums of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
 `SUM()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
