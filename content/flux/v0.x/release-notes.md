@@ -10,6 +10,10 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.184.0 [Placeholder]
+
+---
+
 ## v0.183.0 [2022-09-12]
 
 ### Features
