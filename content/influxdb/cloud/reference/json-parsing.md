@@ -62,8 +62,8 @@ With "flat" JSON, all values are at the root level (`$`) and are referenced with
 ## Example MQTT message with JSON arrays
 Currently, there is limited support for working with key/value pairs that are held within 
 a JSON array. Entire arrays cannot be loaded into a single field value, but if your messages 
-have a fixed number of values in the array being passed you can specify a subscript number 
-to work with them in your JSON path.
+have a fixed number of values in the array being passed, you can specify an array index number
+in your JSON path.
 
 
 ```json
@@ -89,12 +89,12 @@ to work with them in your JSON path.
 }
 ```
 
-|InfluxDB Element|JSON Path|Parsed Result|
-|---|---|---|
-|Measurement|`$.device_information.device_type`|"temperature_sensor"|
-|Timestamp|`$.time`|1653998899010000000|
-|Tag|`$.device_information.device_id`|2036|
-|Field 1|`$.temperature`|25.0|
-|Field 2|`$.error_state`|“in_error”|
-|Field 3|`$.errors_encountered.[0].error_number`|403|
-|Field 4|`$.errors_encountered.[1].error_number`|404|
+| InfluxDB Element | JSON Path                               | Parsed Result        |
+| :--------------- | :-------------------------------------- | :------------------- |
+| Measurement      | `$.device_information.device_type`      | "temperature_sensor" |
+| Timestamp        | `$.time`                                | 1653998899010000000  |
+| Tag              | `$.device_information.device_id`        | 2036                 |
+| Field 1          | `$.temperature`                         | 25.0                 |
+| Field 2          | `$.error_state`                         | "in_error"           |
+| Field 3          | `$.errors_encountered.[0].error_number` | 403                  |
+| Field 4          | `$.errors_encountered.[1].error_number` | 404                  |
