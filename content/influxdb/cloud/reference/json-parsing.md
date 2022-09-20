@@ -26,7 +26,7 @@ for [native subscriptions](/influxdb/cloud/write-data/no-code/native-subscriptio
 }
 ```
 
- In the above example, all of the values are at the root level of the JSON, so the JSON paths for these elements are very simple:
+With "flat" JSON, all values are at the root level (`$`) and are referenced with dot notation.
 
 |InfluxDB Element|JSON Path|Parsed Result|
 |---|---|---|
