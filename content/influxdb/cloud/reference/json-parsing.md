@@ -51,13 +51,13 @@ With "flat" JSON, all values are at the root level (`$`) and are referenced with
 }
 ```
 
-|InfluxDB Element|JSON Path|Parsed Result|
-|---|---|---|
-|Measurement|`$.device_information.device_type`|"temperature_sensor"|
-|Timestamp|`$.time`|1653998899010000000|
-|Tag|`$.device_information.device_id`|2036|
-|Field 1|$.temperature|25.0|
-|Field 2|$.error_state|“in_error”|
+| InfluxDB Element | JSON Path                          | Parsed Result        |
+| :--------------- | :--------------------------------- | :------------------- |
+| Measurement      | `$.device_information.device_type` | "temperature_sensor" |
+| Timestamp        | `$.time`                           | 1653998899010000000  |
+| Tag              | `$.device_information.device_id`   | 2036                 |
+| Field 1          | `$.temperature`                    | 25.0                 |
+| Field 2          | `$.error_state`                    | "in_error"           |
 
 ## Example MQTT message with JSON arrays
 Currently, there is limited support for working with key/value pairs that are held within 
