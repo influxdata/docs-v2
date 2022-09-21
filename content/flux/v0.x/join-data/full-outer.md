@@ -109,7 +109,7 @@ record and return the value that exists:
 
 ```js
 (l, r) => {
-    id = if exists l.id, then l.id else r.id
+    id = if exists l.id then l.id else r.id
 
     return {_time: l.time, location: r.location, id: id}
 }
