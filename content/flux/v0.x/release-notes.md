@@ -10,7 +10,23 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
-## v0.184.0 [Placeholder]
+## v0.184.0 [2022-09-21]
+
+### Breaking changes
+- Update logical _null_ handling and align all logical operator implementations
+(vectorized, row-based, as well as "in the interpreter") to be consistent and
+representative of the Flux SPEC.
+
+### Features
+- Add array type conversion functions to the
+  [experimental `array` package](/flux/v0.x/stdlib/experimental/array/).
+
+### Bug fixes
+- Update SPEC and fix some inconsistencies.
+- Update `sort limit` to skips chunks with no rows.
+- Don't report an error about testcases in the LSP.
+- Prevent the metadata map from being concurrently mutated.
+- Don't stackoverflow on deeply nested expressions.
 
 ---
 
