@@ -103,30 +103,25 @@ Rows that return `false` when compared are not.
 
 {{% note %}}
 Only tables that share the same group key instance are evaluated by the join predicate.
-Because of this, **both input streams must have the same [group key](/flux/v0.x/get-started/data-model/#group-key)**.
+Because of this, **both input streams should have the same [group key](/flux/v0.x/get-started/data-model/#group-key)**.
 {{% /note %}}
 
 ### Join output function (as)
 
 All functions in the `join` package _(except [`join.time()`](/flux/v0.x/stdlib/join/time/))_
-require the `as` parameter which defines the output schema of the join.
-The `as` parameter is a function that returns a a new record using values from
+require the `as` parameter, which defines the output schema of the join.
+The `as` parameter returns a new record using values from
 joined rows–left (`l`) and right (`r`).
 
 ```js
 (l, r) => ({l with name: r.name, location: r.location})
 ```
 
-For left, right, and full outer joins, the `as` functions must account for _null_
-values that may occur in each input stream. For more information, see the
-[join types documentation](#perform-join-operations) below.
-
 {{% note %}}
 #### Do not modify group key columns
 
-The return value of the `as` function needs to maintain the group key of the input streams.
-If you define an output record that modifies or excludes the value of a group key column,
-the join operation returns an error.
+Do not modify group key columns. The `as` function must return the same group key as both input streams. 
+Otherwise, you'll receive an error.
 {{% /note %}}
 
 ## Perform join operations
