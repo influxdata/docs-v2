@@ -61,7 +61,7 @@ Durations are relative to `now()`.
 
 Latest time to include in results. Default is `now()`.
 
-Results _exclude_ rows with `_time` values that match the specified start time.
+Results _exclude_ rows with `_time` values that match the specified stop time.
 Use a relative duration, absolute time, or integer (Unix timestamp in seconds).
 For example, `-1h`, `2019-08-28T22:00:00Z`, or `1567029600`.
 Durations are relative to `now()`.

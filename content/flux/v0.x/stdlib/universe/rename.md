@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2264-L2268
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2278-L2282
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `rename()` renames columns in a table.
 
-If a column in group key is renamed, the column name in the group key is updated.
+If a column in the group key is renamed, the column name in the group key is updated.
 
 ##### Function type signature
 
@@ -64,10 +64,11 @@ Input data. Default is piped-forward data (`<-`).
 
 ## Examples
 
-- [Map column names to new column names](#map-column-names-to-new-column-names)
+- [Explicitly map column names to new column names](#explicitly-map-column-names-to-new-column-names)
 - [Rename columns using a function](#rename-columns-using-a-function)
+- [Conditionally rename columns using a function](#conditionally-rename-columns-using-a-function)
 
-### Map column names to new column names
+### Explicitly map column names to new column names
 
 ```js
 import "sampledata"
@@ -177,6 +178,69 @@ sampledata.int()
 | 2021-01-01T00:00:30Z | 19          | t2       |
 | 2021-01-01T00:00:40Z | 13          | t2       |
 | 2021-01-01T00:00:50Z | 1           | t2       |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### Conditionally rename columns using a function
+
+```js
+import "sampledata"
+
+sampledata.int()
+    |> rename(
+        fn: (column) => {
+            _newColumnName = if column =~ /^_/ then "${column} (Reserved)" else column
+
+            return _newColumnName
+        },
+    )
+
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| _time (Reserved)     | _value (Reserved)  | *tag |
+| -------------------- | ------------------ | ---- |
+| 2021-01-01T00:00:00Z | -2                 | t1   |
+| 2021-01-01T00:00:10Z | 10                 | t1   |
+| 2021-01-01T00:00:20Z | 7                  | t1   |
+| 2021-01-01T00:00:30Z | 17                 | t1   |
+| 2021-01-01T00:00:40Z | 15                 | t1   |
+| 2021-01-01T00:00:50Z | 4                  | t1   |
+
+| _time (Reserved)     | _value (Reserved)  | *tag |
+| -------------------- | ------------------ | ---- |
+| 2021-01-01T00:00:00Z | 19                 | t2   |
+| 2021-01-01T00:00:10Z | 4                  | t2   |
+| 2021-01-01T00:00:20Z | -3                 | t2   |
+| 2021-01-01T00:00:30Z | 19                 | t2   |
+| 2021-01-01T00:00:40Z | 13                 | t2   |
+| 2021-01-01T00:00:50Z | 1                  | t2   |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
