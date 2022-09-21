@@ -17,10 +17,9 @@ the [`join` package](/flux/v0.x/stdlib/join).
 #### Submit issues for unexplained behaviors or errors
 
 This is a "living" document that may be updated with common issues
-that users may run into when using the [`join` package](/flux/v0.x/stdlib/join)
-to join data. If you have questions about a behavior or error that is not
-documented here, please submit an issue on either the InfluxData Documentation
-or Flux GitHub repositories:
+that users may run into when using the [`join` package](/flux/v0.x/stdlib/join).
+If you have questions about a behavior or error that is not documented here,
+please submit an issue to either the InfluxData Documentation or Flux GitHub repositories:
 
 - [Submit a documentation issue](https://github.com/influxdata/docs-v2/issues/new/choose)
 - [Submit a Flux issue](https://github.com/influxdata/flux/issues/new/choose)

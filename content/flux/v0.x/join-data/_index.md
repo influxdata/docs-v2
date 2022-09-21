@@ -11,8 +11,7 @@ weight: 8
 ---
 
 Use the Flux [`join` package](/flux/v0.x/stdlib/join/) to join two data sets based on common values.
-Learn how to use the `join` package to join two data sets using the following
-join methods:
+Learn how join two data sets using the following join methods:
 
 {{< flex >}}
 {{< flex-content "quarter" >}}
