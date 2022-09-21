@@ -1,15 +1,15 @@
 ---
-title: length() function
+title: array.toBool() function
 description: >
-  `length()` returns the number of elements in an array.
+  `array.toBool()` converts all values in an array to booleans.
 menu:
   flux_0_x_ref:
-    name: length
-    parent: universe
-    identifier: universe/length
-weight: 101
-
-introduced: 0.7.0
+    name: array.toBool
+    parent: experimental/array
+    identifier: experimental/array/toBool
+weight: 201
+flux/v0.x/tags: [type-conversions]
+introduced: 0.184.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,21 +21,26 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3576-L3576
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L176-L176
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`length()` returns the number of elements in an array.
+`array.toBool()` converts all values in an array to booleans.
 
+#### Supported array types
 
+- `[string]` with values `true` or `false`
+- `[int]` with values `1` or `0`
+- `[uint]` with values `1` or `0`
+- `[float]` with values `1.0` or `0.0`
 
 ##### Function type signature
 
 ```js
-(<-arr: [A]) => int
+(<-arr: [A]) => [bool]
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
@@ -44,19 +49,27 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ### arr
 
-Array to evaluate. Default is the piped-forward array (`<-`).
+Array of values to convert. Default is the piped-forward array (`<-`).
 
 
 
 
 ## Examples
 
-### Return the length of an array
+### Convert an array of integers to booleans
 
 ```js
-people = ["John", "Jane", "Abed"]
+import "experimental/array"
 
-people |> length()// Returns 3
+arr = [
+    1,
+    1,
+    0,
+    1,
+    0,
+]
+
+array.toBool(arr: arr)// Returns [true, true, false, true, false]
 
 
 ```
