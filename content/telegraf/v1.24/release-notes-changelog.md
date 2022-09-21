@@ -21,7 +21,6 @@ menu:
 - Modbus (`modbus`): Do not fail if a single server reports errors.
 - NTPQ (`ntpq`): Handle pools with `-`. 
 
-
 ### Parser updates
 - CSV (`csv`): Remove direct check.
 - XPath (`xpath`): Add array index when expanding names.
