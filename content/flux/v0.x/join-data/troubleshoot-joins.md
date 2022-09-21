@@ -33,18 +33,15 @@ or Flux GitHub repositories:
 
 ### Columns explicitly mapped in the join are null
 
-In some cases, the output of your join operation may include _null_ values in
-columns you would expect to return with non-null values. This is likely caused
-by one of the following problems:
+In some cases, your join output may include _null_ values in
+columns where you expect non-null values. This may be caused by one of the following issues:
 
 - **The group keys of your input streams are different**
 
   **Issue**:
-  The group keys of each input stream needs to be the same when using the `join`
-  package to join data. Functions in the `join` package use group keys to
-  quickly identify what tables should be compared in the join operation.
-  If the group keys of your input streams are different, no tables will match or
-  be compared in the operation.
+  The group keys of each input stream aren't the same.
+  Functions in the `join` package use group keys to quickly identify what tables
+  should be compared.
 
   **Solution**:
   Use [`group()`](/flux/v0.x/stdlib/universe/group/) to regroup
@@ -58,7 +55,7 @@ by one of the following problems:
   Input streams may have matching group keys, but there are no matching group
   key instances in your stream.
 
-  A common use case when this might happen is when joining to separate fields
+  This may happen when joining two separate fields
   queried from InfluxDB. By default, InfluxDB returns data with `_field` as part
   of the group key. If each stream contains a different field, tables in the two
   streams won't be compared because they won't have any matching _group key instances_.
@@ -87,7 +84,7 @@ cannot set join columns in left table stream: table is missing column '<column>'
   that doesn't exist in one of your input streams.
 
   **Solution**: Ensure the columns that you're comparing in the `on` predicate
-  function actually exist in the input streams.
+  function exist in the input streams.
   If necessary, update column names in the predicate function.
 
 ### table is missing label `<label>`

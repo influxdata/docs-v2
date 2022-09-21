@@ -45,16 +45,14 @@ All rows in a table contain the same values for each group key column.
 
 ##### Example group key
 A group key can be represented by an array of column labels.
-Each table in the stream of tables contains rows with the same values for each
-group key column.
 
 ```
 [_measurement, facility, _field]
 ```
 
 ##### Example group key instances
-Group key instances (unique to each table) can be represented by key-value pairs where
-each key represents a column name and each value represents the common column value.
+Group key instances (unique to each table) include key-value pairs that identify
+each column name in the table that has the same value.
 The following are examples of group key instances in a stream of tables with three separate tables.
 Each represents a table containing data for a unique location:
 
