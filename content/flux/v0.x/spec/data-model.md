@@ -14,12 +14,6 @@ aliases:
   - /influxdb/cloud/reference/flux/language/data-model/
 ---
 
-{{% note %}}
-This document is a living document and may not represent the current implementation of Flux.
-Any section that is not currently implemented is commented with a **[IMPL#XXX]** where
-**XXX** is an issue number tracking discussion and progress towards implementation.
-{{% /note %}}
-
 Flux employs a basic data model built from basic data types.
 The data model consists of tables, records, columns and streams.
 
@@ -54,20 +48,14 @@ These common values are referred to as the "group key value" and can be represen
 
 A tables schema consists of its group key and its columns' labels and types.
 
-{{% note %}}
-[IMPL#463](https://github.com/influxdata/flux/issues/463) Specify the primitive types that make up stream and table types
-{{% /note %}}
-
 ## Stream of tables
 
 A **stream** represents a potentially unbounded set of tables.
 A stream is grouped into individual tables using their respective group keys.
 Tables within a stream each have a unique group key value.
 
-{{% note %}}
-[IMPL#463](https://github.com/influxdata/flux/issues/463) Specify the primitive
-types that make up stream and table types
-{{% /note %}}
+A stream is represented using the stream type `stream[A] where A: Record`.
+The group key is not explicity modeled in the Flux type system.
 
 ## Missing values (null)
 

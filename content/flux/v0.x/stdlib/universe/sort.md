@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2477-L2477
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2491-L2491
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -50,7 +50,7 @@ When `desc: true`, null values are first in the sort order.
 
 ### columns
 
-List of columns to sort by. Default is ["_value"].
+List of columns to sort by. Default is `["_value"]`.
 
 Sort precedence is determined by list order (left to right).
 
