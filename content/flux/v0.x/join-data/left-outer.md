@@ -4,7 +4,7 @@ description: >
   Use [`join.left()`](/flux/v0.x/stdlib/join/left/) to perform an outer left join of two streams of data.
   Left joins output a row for each row in the **left** data stream with data matching
   from the **right** data stream. If there is no matching data in the **right**
-  data stream, columns with values from the **right** data stream are _null_.
+  data stream, non-group-key columns with values from the **right** data stream are _null_.
 menu:
   flux_0_x:
     name: Left outer join
@@ -32,7 +32,7 @@ list_code_example: |
 Use [`join.left()`](/flux/v0.x/stdlib/join/left/) to perform an left outer join of two streams of data.
 Left joins output a row for each row in the **left** data stream with data matching
 from the **right** data stream. If there is no matching data in the **right**
-data stream, columns with values from the **right** data stream are _null_.
+data stream, non-group-key columns with values from the **right** data stream are _null_.
 
 {{< svg svg="static/svgs/join-diagram.svg" class="left" >}}
 

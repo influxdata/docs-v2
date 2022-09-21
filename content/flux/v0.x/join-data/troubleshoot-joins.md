@@ -27,7 +27,6 @@ or Flux GitHub repositories:
 {{% /note %}}
 
 - [Troubleshoot join behaviors](#troubleshoot-join-behaviors)
-  - [Columns explicitly mapped in the join are null](#columns-explicitly-mapped-in-the-join-are-null)
 - [Troubleshoot join error messages](#troubleshoot-join-error-messages)
 
 ## Troubleshoot join behaviors
@@ -40,7 +39,7 @@ by one of the following problems:
 
 - **The group keys of your input streams are different**
 
-  **Problem**:
+  **Issue**:
   The group keys of each input stream needs to be the same when using the `join`
   package to join data. Functions in the `join` package use group keys to
   quickly identify what tables should be compared in the join operation.
@@ -54,7 +53,7 @@ by one of the following problems:
   
 - **There are no matching _group key instances_ in your data streams**
 
-  **Problem**: Functions in the `join` package only compare tables with matching
+  **Issue**: Functions in the `join` package only compare tables with matching
   [group key instances](/flux/v0.x/get-started/data-model/#example-group-key-instances).
   Input streams may have matching group keys, but there are no matching group
   key instances in your stream.
@@ -84,7 +83,7 @@ cannot set join columns in left table stream: table is missing column '<column>'
 
 - **Your `on` join predicate uses a column that doesn't exist**
 
-  **Problem**: In the `on` predicate function, you're trying to compare a column
+  **Issue**: In the `on` predicate function, you're trying to compare a column
   that doesn't exist in one of your input streams.
 
   **Solution**: Ensure the columns that you're comparing in the `on` predicate
@@ -102,7 +101,7 @@ table is missing label <label>
 
 - **Your `on` join predicate uses a column that doesn't exist**
 
-  **Problem**:
+  **Issue**:
   In the `on` predicate function for an outer join, you're trying to use a value
   from a column that doesn't exist in the "primary" input stream
   (`left` for `join.left()` and `right` for `join.right()`).
@@ -122,10 +121,10 @@ record is missing label <label> (argument <left or right>)
 
 - **Your `on` join predicate uses a column that doesn't exist**
 
-  **Problem 1**: In the `on` predicate function, you're trying to compare a column
+  **Issue 1**: In the `on` predicate function, you're trying to compare a column
   that doesn't exist in one of your input streams.
 
-  **Problem 2**:
+  **Issue 2**:
   In the `on` predicate function for an outer join, you're trying to use a value
   from a column that doesn't exist in the "primary" input stream
   (`left` for `join.left()` and `right` for `join.right()`).

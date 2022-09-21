@@ -96,10 +96,12 @@ Ensure the data streams you want to join adhere to the
 #### Account for missing, non-group-key values
 
 With the output function used in the `on` parameter with `join.full()`
-it’s possible for either `1` or `r` to use the default record (a record with
+it’s possible for either `l` or `r` to use the default record (a record with
 group key columns populated but other columns are _null_).
-`join.full()` guarantees that `l` and `r` will never both use default records at
-the same time and will have the non-null values needed for the output record
+In a full outer join, it's possible for either `l` or `r` to be a default record,
+but they will never both be default records at the same time.
+One of them is guaranteed to have the non-null values needed for the output record,
+but you need to check which one has the non-null values.
 
 For each non-group-key column you want to ensure has a non-null value in the output,
 use a conditional statement to check for the existence of a value in the `l` or `r`

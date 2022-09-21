@@ -10,12 +10,9 @@ menu:
 weight: 8
 ---
 
-The Flux [`join` package](/flux/v0.x/stdlib/join/) lets you perform inner,
-left outer, right outer, and full outer joins.
-Each join method combines from both input streams in a different way.
-Learn how to use the `join` package to join two data sets with common values.
-
-The `join` package supports the following join methods:
+Use the Flux [`join` package](/flux/v0.x/stdlib/join/) to join two data sets based on common values.
+Learn how to use the `join` package to join two data sets using the following
+join methods:
 
 {{< flex >}}
 {{< flex-content "quarter" >}}
@@ -79,9 +76,11 @@ To join two streams of data with the `join` package, each stream must have:
 - **Identical [group keys](/flux/v0.x/get-started/data-model/#group-key)**.  
   Functions in the `join` package use group keys to quickly determine what tables
   from each input stream should be paired and evaluated for the join operation.  
-  _Both input streams must have the same group key._
-  This likely requires using [`group()`](/flux/v0.x/stdlib/universe/group/)
-  to regroup each input stream before joining them together.
+  _Both input streams should have the same group key._
+  If they don't, your join operation may not find any matching tables and will
+  return unexpected output.
+  Use [`group()`](/flux/v0.x/stdlib/universe/group/) to regroup each input
+  stream before joining them together.
 
   {{% note %}}
 Only tables with the same [group key instance](/flux/v0.x/get-started/data-model/#example-group-key-instances)

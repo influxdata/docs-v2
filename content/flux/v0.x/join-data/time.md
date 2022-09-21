@@ -42,12 +42,14 @@ Which method you use depends on your desired behavior:
 - **left**:
   Output a row for each row in the **left** data stream with data matching
   from the **right** data stream. If there is no matching data in the **right**
-  data stream, columns with values from the **right** data stream are _null_.
+  data stream, non-group-key columns with values from the **right** data stream
+  are _null_.
 
 - **right**: 
   Output a row for each row in the **right** data stream with data matching
   from the **left** data stream. If there is no matching data in the **left**
-  data stream, columns with values from the **left** data stream are _null_.
+  data stream, non-group-key columns with values from the **left** data stream
+  are _null_.
 
 - **full**: 
   Output a row for all rows in both the **left** and **right** input streams
