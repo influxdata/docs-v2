@@ -80,9 +80,6 @@ Ensure the data streams you want to join adhere to the
 1. Import the `join` package.
 2. Define two streams of tables to join.
 
-    One stream of table represents the left side of the join.
-    The other stream of table represents the right side of the join.
-
 3. Use `join.full()` to join the two streams together.
     Provide the following parameters:
 

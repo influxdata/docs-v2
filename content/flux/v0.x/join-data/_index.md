@@ -78,7 +78,8 @@ To join data, each input stream must have the following:
   _Both input streams should have the same group key._
   If they don't, your join operation may not find any matching tables and will
   return unexpected output.
-  Use [`group()`](/flux/v0.x/stdlib/universe/group/) to regroup each input
+  If the group keys of your input streams are not identical, use
+  [`group()`](/flux/v0.x/stdlib/universe/group/) to regroup each input
   stream before joining them together.
 
   {{% note %}}
@@ -97,11 +98,6 @@ This parameter is a [predicate function](/flux/v0.x/get-started/syntax-basics/#p
 ```js
 (l, r) => l.column == r.column
 ```
-
-{{% note %}}
-Only tables that share the same group key instance are evaluated by the join predicate.
-Because of this, **both input streams should have the same [group key](/flux/v0.x/get-started/data-model/#group-key)**.
-{{% /note %}}
 
 ### Join output function (as)
 
