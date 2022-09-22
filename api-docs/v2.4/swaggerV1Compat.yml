@@ -2,20 +2,13 @@ openapi: 3.0.0
 info:
   title: InfluxDB OSS v1 compatibility API documentation
   version: 2.4.0 v1 compatibility
-  description: >
-    The InfluxDB 1.x compatibility /write and /query endpoints work with
-    InfluxDB 1.x client libraries and third-party integrations like Grafana and
-    others.
+  description: |
+    The InfluxDB 1.x compatibility /write and /query endpoints work with InfluxDB 1.x client libraries and third-party integrations like Grafana and others.
 
-
-    If you want to use the latest InfluxDB /api/v2 API instead, see the
-    [InfluxDB v2 API documentation](/influxdb/v2.4/api/).
-
+    If you want to use the latest InfluxDB /api/v2 API instead, see the [InfluxDB v2 API documentation](/influxdb/v2.4/api/).
 
     This documentation is generated from the
-
-    [InfluxDB OpenAPI
-    specification](https://github.com/influxdata/openapi/blob/influxdb-oss-v2.4.0/contracts/swaggerV1Compat.yml).
+    [InfluxDB OpenAPI specification](https://github.com/influxdata/openapi/blob/influxdb-oss-v2.4.0/contracts/swaggerV1Compat.yml).
 servers:
   - url: /
 paths:
@@ -41,9 +34,7 @@ paths:
           schema:
             type: string
           required: true
-          description: >-
-            Bucket to write to. If none exists, InfluxDB creates a bucket with a
-            default 3-day retention policy.
+          description: Bucket to write to. If none exists, InfluxDB creates a bucket with a default 3-day retention policy.
         - in: query
           name: rp
           schema:
@@ -56,36 +47,25 @@ paths:
           description: Write precision.
         - in: header
           name: Content-Encoding
-          description: >-
-            When present, its value indicates to the database that compression
-            is applied to the line protocol body.
+          description: When present, its value indicates to the database that compression is applied to the line protocol body.
           schema:
             type: string
-            description: >-
-              Specifies that the line protocol in the body is encoded with gzip
-              or not encoded with identity.
+            description: Specifies that the line protocol in the body is encoded with gzip or not encoded with identity.
             default: identity
             enum:
               - gzip
               - identity
       responses:
         '204':
-          description: >-
-            Write data is correctly formatted and accepted for writing to the
-            bucket.
+          description: Write data is correctly formatted and accepted for writing to the bucket.
         '400':
-          description: >-
-            Line protocol poorly formed and no points were written.  Response
-            can be used to determine the first malformed line in the body
-            line-protocol. All data in body was rejected and not written.
+          description: Line protocol poorly formed and no points were written.  Response can be used to determine the first malformed line in the body line-protocol. All data in body was rejected and not written.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
         '401':
-          description: >-
-            Token does not have sufficient permissions to write to this
-            organization and bucket or the organization and bucket do not exist.
+          description: Token does not have sufficient permissions to write to this organization and bucket or the organization and bucket do not exist.
           content:
             application/json:
               schema:
@@ -97,35 +77,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '413':
-          description: >-
-            Write has been rejected because the payload is too large. Error
-            message returns max size supported. All data in body was rejected
-            and not written.
+          description: Write has been rejected because the payload is too large. Error message returns max size supported. All data in body was rejected and not written.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LineProtocolLengthError'
         '429':
-          description: >-
-            Token is temporarily over quota. The Retry-After header describes
-            when to try the write again.
+          description: Token is temporarily over quota. The Retry-After header describes when to try the write again.
           headers:
             Retry-After:
-              description: >-
-                A non-negative decimal integer indicating the seconds to delay
-                after the response is received.
+              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
               schema:
                 type: integer
                 format: int32
         '503':
-          description: >-
-            Server is temporarily unavailable to accept writes.  The Retry-After
-            header describes when to try the write again.
+          description: Server is temporarily unavailable to accept writes.  The Retry-After header describes when to try the write again.
           headers:
             Retry-After:
-              description: >-
-                A non-negative decimal integer indicating the seconds to delay
-                after the response is received.
+              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
               schema:
                 type: integer
                 format: int32
@@ -155,10 +124,7 @@ paths:
           name: Accept
           schema:
             type: string
-            description: >-
-              Specifies how query results should be encoded in the response.
-              **Note:** With `application/csv`, query results include epoch
-              timestamps instead of RFC3339 timestamps.
+            description: Specifies how query results should be encoded in the response. **Note:** With `application/csv`, query results include epoch timestamps instead of RFC3339 timestamps.
             default: application/json
             enum:
               - application/json
@@ -167,15 +133,10 @@ paths:
               - application/x-msgpack
         - in: header
           name: Accept-Encoding
-          description: >-
-            The Accept-Encoding request HTTP header advertises which content
-            encoding, usually a compression algorithm, the client is able to
-            understand.
+          description: The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand.
           schema:
             type: string
-            description: >-
-              Specifies that the query response in the body should be encoded
-              with gzip or not encoded with identity.
+            description: Specifies that the query response in the body should be encoded with gzip or not encoded with identity.
             default: identity
             enum:
               - gzip
@@ -207,23 +168,16 @@ paths:
           description: Query results
           headers:
             Content-Encoding:
-              description: >-
-                The Content-Encoding entity header is used to compress the
-                media-type.  When present, its value indicates which encodings
-                were applied to the entity-body
+              description: The Content-Encoding entity header is used to compress the media-type.  When present, its value indicates which encodings were applied to the entity-body
               schema:
                 type: string
-                description: >-
-                  Specifies that the response in the body is encoded with gzip
-                  or not encoded with identity.
+                description: Specifies that the response in the body is encoded with gzip or not encoded with identity.
                 default: identity
                 enum:
                   - gzip
                   - identity
             Trace-Id:
-              description: >-
-                The Trace-Id header reports the request's trace ID, if one was
-                generated.
+              description: The Trace-Id header reports the request's trace ID, if one was generated.
               schema:
                 type: string
                 description: Specifies the request's trace ID.
@@ -242,14 +196,10 @@ paths:
                 type: string
                 format: binary
         '429':
-          description: >-
-            Token is temporarily over quota. The Retry-After header describes
-            when to try the read again.
+          description: Token is temporarily over quota. The Retry-After header describes when to try the read again.
           headers:
             Retry-After:
-              description: >-
-                A non-negative decimal integer indicating the seconds to delay
-                after the response is received.
+              description: A non-negative decimal integer indicating the seconds to delay after the response is received.
               schema:
                 type: integer
                 format: int32
@@ -330,11 +280,8 @@ components:
                         items: {}
     InfluxQLCSVResponse:
       type: string
-      example: >
-        name,tags,time,test_field,test_tag
-        test_measurement,,1603740794286107366,1,tag_value
-        test_measurement,,1603740870053205649,2,tag_value
-        test_measurement,,1603741221085428881,3,tag_value
+      example: |
+        name,tags,time,test_field,test_tag test_measurement,,1603740794286107366,1,tag_value test_measurement,,1603740870053205649,2,tag_value test_measurement,,1603741221085428881,3,tag_value
     Error:
       properties:
         code:
@@ -379,15 +326,11 @@ components:
           type: string
         op:
           readOnly: true
-          description: >-
-            Op describes the logical code operation during error. Useful for
-            debugging.
+          description: Op describes the logical code operation during error. Useful for debugging.
           type: string
         err:
           readOnly: true
-          description: >-
-            Err is a stack of errors that occurred during processing of the
-            request. Useful for debugging.
+          description: Err is a stack of errors that occurred during processing of the request. Useful for debugging.
           type: string
         line:
           readOnly: true
@@ -425,28 +368,19 @@ components:
       type: apiKey
       name: Authorization
       in: header
-      description: >
-        Use the [Token
-        authentication](#section/Authentication/TokenAuthentication)
-
+      description: |
+        Use the [Token authentication](#section/Authentication/TokenAuthentication)
         scheme to authenticate to the InfluxDB API.
 
 
-
         In your API requests, send an `Authorization` header.
-
-        For the header value, provide the word `Token` followed by a space and
-        an InfluxDB API token.
-
+        For the header value, provide the word `Token` followed by a space and an InfluxDB API token.
         The word `Token` is case-sensitive.
-
 
 
         ### Syntax
 
-
         `Authorization: Token YOUR_INFLUX_TOKEN`
-
 
 
         For examples and more information, see the following:
@@ -456,54 +390,37 @@ components:
     BasicAuthentication:
       type: http
       scheme: basic
-      description: >
-        Use the HTTP [Basic
-        authentication](#section/Authentication/BasicAuthentication)
-
-        scheme with clients that support the InfluxDB 1.x convention of username
-        and password (that don't support the `Authorization: Token` scheme):
+      description: |
+        Use the HTTP [Basic authentication](#section/Authentication/BasicAuthentication)
+        scheme with clients that support the InfluxDB 1.x convention of username and password (that don't support the `Authorization: Token` scheme):
 
 
-
-        For examples and more information, see how to [authenticate with a
-        username and password](/influxdb/cloud/reference/api/influxdb-1x/).
+        For examples and more information, see how to [authenticate with a username and password](/influxdb/cloud/reference/api/influxdb-1x/).
     QuerystringAuthentication:
       type: apiKey
       in: query
       name: u=&p=
-      description: >
-        Use the [Querystring
-        authentication](#section/Authentication/QuerystringAuthentication)
-
-        scheme with InfluxDB 1.x API parameters to provide credentials through
-        the query string.
+      description: |
+        Use the [Querystring authentication](#section/Authentication/QuerystringAuthentication)
+        scheme with InfluxDB 1.x API parameters to provide credentials through the query string.
 
 
-
-        For examples and more information, see how to [authenticate with a
-        username and password](/influxdb/cloud/reference/api/influxdb-1x/).
+        For examples and more information, see how to [authenticate with a username and password](/influxdb/cloud/reference/api/influxdb-1x/).
 security:
   - TokenAuthentication: []
   - BasicAuthentication: []
   - QuerystringAuthentication: []
 tags:
   - name: Authentication
-    description: >
+    description: |
       The InfluxDB 1.x API requires authentication for all requests.
-
       InfluxDB Cloud uses InfluxDB API tokens to authenticate requests.
 
 
-
       For more information, see the following:
-
       - [Token authentication](#section/Authentication/TokenAuthentication)
-
       - [Basic authentication](#section/Authentication/BasicAuthentication)
-
-      - [Querystring
-      authentication](#section/Authentication/QuerystringAuthentication)
-
+      - [Querystring authentication](#section/Authentication/QuerystringAuthentication)
 
       <!-- ReDoc-Inject: <security-definitions> -->
     x-traitTag: true
