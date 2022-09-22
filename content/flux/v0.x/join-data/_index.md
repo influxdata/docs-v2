@@ -50,7 +50,7 @@ Learn how join two data sets using the following join methods:
 
 ## How join functions work
 
-All functions in the `join` package join _two_ streams of tables together based 
+`join` functions join _two_ streams of tables together based 
 on common values in each input stream.
 
 - [Input streams](#input-streams)
@@ -68,7 +68,7 @@ For more information, see:
 
 #### Data requirements
 
-To join two streams of data with the `join` package, each stream must have:
+To join data, each input stream must have the following:
 
 - **One or more columns with common values to join on**.  
   Columns do not need identical labels, but they do need to have comparable values.
@@ -88,12 +88,11 @@ are joined.
 
 ### Join predicate function (on)
 
-Each function in the `join` package requires the `on` parameter which is the
-**join predicate**—a [predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-functions)
-that compares values from each input stream (represented by `l` (left) and `r` (right))
+`join` package functions require the `on` parameter to compare values from each input stream (represented by `l` (left) and `r` (right))
 and returns `true` or `false`.
-Rows that return `true` when compared are joined.
-Rows that return `false` when compared are not.
+Rows that return `true` are joined.
+This parameter is a [predicate function](/flux/v0.x/get-started/syntax-basics/#predicate-functions).
+
 
 ```js
 (l, r) => l.column == r.column
@@ -106,8 +105,8 @@ Because of this, **both input streams should have the same [group key](/flux/v0.
 
 ### Join output function (as)
 
-All functions in the `join` package _(except [`join.time()`](/flux/v0.x/stdlib/join/time/))_
-require the `as` parameter, which defines the output schema of the join.
+`join` package functions _(except [`join.time()`](/flux/v0.x/stdlib/join/time/))_
+require the `as` parameter to define the output schema of the join.
 The `as` parameter returns a new record using values from
 joined rows–left (`l`) and right (`r`).
 
@@ -118,8 +117,7 @@ joined rows–left (`l`) and right (`r`).
 {{% note %}}
 #### Do not modify group key columns
 
-Do not modify group key columns. The `as` function must return the same group key as both input streams. 
-Otherwise, you'll receive an error.
+Do not modify group key columns. The `as` function must return the same group key as both input streams to successfully perform a join. 
 {{% /note %}}
 
 ## Perform join operations
@@ -132,5 +130,5 @@ The `join` package supports the following join types and special use cases:
 
 ## Troubleshoot join operations
 
-For information unexpected behaviors and errors when using the `join` package,
+For information about unexpected behaviors and errors when using the `join` package,
 see [Troubleshoot join operations](/flux/v0.x/join-data/troubleshoot-joins/).
