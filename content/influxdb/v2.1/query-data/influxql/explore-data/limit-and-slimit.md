@@ -101,7 +101,7 @@ Output:
 | 2019-08-17T00:30:00Z | 7.5000000000|
 | 2019-08-17T00:36:00Z | 7.3720000000|
 
-The results above are only the first few rows, as the data set is quite large. The query returns all `water_level` [points](/enterprise_influxdb/v1.9/concepts/glossary/#point) from one of the [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) associated with the `h2o_feet` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
+The results above include only the first few rows, as the data set is quite large. The query returns all `water_level` [points](/enterprise_influxdb/v1.9/concepts/glossary/#point) from one of the [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) associated with the `h2o_feet` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
 
 #### Limit the number of series returned and include a GROUP BY time() clause
 
