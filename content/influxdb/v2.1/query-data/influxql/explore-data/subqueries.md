@@ -7,7 +7,7 @@ menu:
   influxdb_2_1:
     name: Subqueries
     parent: Explore data
-weight: 307
+weight: 310
 ---
 
 ## Subqueries
