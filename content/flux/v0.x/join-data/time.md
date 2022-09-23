@@ -68,7 +68,7 @@ Which method you use depends on your desired behavior:
 
     _For more information, see [join data requirements](/flux/v0.x/join-data/#data-requirements)._
 
-3. Use `join.time()` to join the two streams together.
+3. Use `join.time()` to join the two streams together based on time values.
     Provide the following parameters:
 
     - `left`: ({{< req >}}) Stream of data representing the left side of the join.
