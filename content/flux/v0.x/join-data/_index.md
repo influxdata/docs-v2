@@ -55,6 +55,9 @@ schemas or that come from two separate data sources.
 If you're joining data from the same data source with the same schema, using
 [`union()`](/flux/v0.x/stdlib/universe/union/) and [`pivot()`](/flux/v0.x/stdlib/universe/pivot/)
 to combine the data will likely be more performant.
+
+For more information, see
+[When to use union and pivot instead of join functions](/{{< latest "influxdb" >}}/query-data/flux/join/#when-to-use-union-and-pivot-instead-of-join-functions).
 {{% /note %}}
 
 - [How join functions work](#how-join-functions-work)
