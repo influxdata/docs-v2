@@ -74,3 +74,10 @@ endpoint](/influxdb/v2.4/api/#operation/GetTasksIDRunsIDLogs).
 {{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs/RUN_ID/logs" >}}
 
 To retry failed task runs, see how to [run tasks](/influxdb/v2.4/process-data/manage-tasks/run-task/).
+
+{{% warn %}}
+InfluxDB doesn’t guarantee that a task will run at the scheduled time. During busy
+periods, tasks are added to the run queue and processed in order of submission.
+The scheduled start time and actual start time can be viewed in the logs under
+`scheduledFor` and `startedAt`.
+{{% /warn %}}
