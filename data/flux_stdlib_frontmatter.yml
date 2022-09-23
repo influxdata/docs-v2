@@ -1560,14 +1560,14 @@
     - /flux/v0.x/join-data/right-outer/
     - /flux/v0.x/join-data/troubleshoot-joins/
 
+/flux/v0.x/stdlib/join/tables.md: |
+  related:
+    - /flux/v0.x/join-data/
+    - /flux/v0.x/join-data/troubleshoot-joins/
+
 /flux/v0.x/stdlib/join/time.md: |
   related:
     - /flux/v0.x/join-data/time/
-    - /flux/v0.x/join-data/troubleshoot-joins/
-
-/flux/v0.x/stdlib/join/right.md: |
-  related:
-    - /flux/v0.x/join-data/right-outer/
     - /flux/v0.x/join-data/troubleshoot-joins/
 
 /flux/v0.x/stdlib/json/_index.md: |
