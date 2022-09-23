@@ -11,12 +11,6 @@ aliases:
   - /influxdb/cloud/reference/flux/language/types/
 ---
 
-{{% note %}}
-This document is a living document and may not represent the current implementation of Flux.
-Any section that is not currently implemented is commented with a **[IMPL#XXX]** where
-**XXX** is an issue number tracking discussion and progress towards implementation.
-{{% /note %}}
-
 A **type** defines the set of values and operations on those values.
 Types are never explicitly declared as part of the syntax except as part of a [builtin statement](/flux/v0.x/spec/system-built-ins/).
 Types are always inferred from the usage of the value.
@@ -88,9 +82,7 @@ Flux supports [RFC3339 timestamps](/influxdb/cloud/reference/glossary/#rfc3339-t
 ### Duration types
 A _duration type_ represents a length of time with nanosecond precision.
 The duration type name is `duration`.
-The duration type is nullable
-
-Durations can be added to times to produce a new time.
+The duration type is nullable.
 
 ##### Examples of duration types
 ```js
@@ -108,10 +100,6 @@ Durations can be added to times to produce a new time.
 3d12h4m25s // 3 days, 12 hours, 4 minutes, and 25 seconds
 ```
 
-{{% note %}}
-[IMPL#2026](https://github.com/influxdata/flux/issues/2026) Operator for time arithmetic
-{{% /note %}}
-
 ### String types
 A _string type_ represents a possibly empty sequence of characters.
 Strings are immutable and cannot be modified once created.
@@ -121,9 +109,6 @@ The string type is nullable.
 {{% note %}}
 An empty string is **not** a _null_ value.
 {{% /note %}}
-
-The length of a string is its size in bytes, not the number of characters,
-since a single character may be multiple bytes.
 
 ### Bytes types
 A _bytes type_ represents a sequence of byte values.
@@ -162,14 +147,12 @@ Values must also be of the same type.
 
 ### Function types
 A _function type_ represents a set of all functions with the same argument and result types.
+Functions arguments are always named (there are no positional arguments).
+Therefore implementing a function type requires that the arguments be named the same.
 
-### Generator types
-A _generator type_ represents a value that produces an unknown number of other values.
-The generated values may be of any other type, but must all be the same type.
-
-{{% note %}}
-[IMPL#412](https://github.com/influxdata/flux/issues/412) Implement Generators types.
-{{% /note %}}
+### Stream types
+A _stream type_ represents an unbounded collection of values.
+The values must be records and those records may only hold int, uint, float, string, time or bool types.
 
 ## Polymorphism
 Flux functions can be polymorphic, meaning a function can be applied to arguments of different types.

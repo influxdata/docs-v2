@@ -73,22 +73,23 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
 
 #### Output data
 
-| body                                      | duration  | headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | statusCode  |
-| ----------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| {"name":"natalie","age":34,"count":20959} | 100000000 | [
-    Access-Control-Allow-Headers: Content-Type, X-Genderize-Source, 
-    Access-Control-Allow-Methods: GET, 
+| body                                      | duration  | headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | statusCode  |
+| ----------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| {"age":48,"count":25082,"name":"natalie"} | 100000000 | [
+    Access-Control-Allow-Credentials: true, 
     Access-Control-Allow-Origin: *, 
+    Access-Control-Expose-Headers: x-rate-limit-limit,x-rate-limit-remaining,x-rate-limit-reset, 
+    Cache-Control: max-age=0, private, must-revalidate, 
     Connection: keep-alive, 
     Content-Length: 41, 
     Content-Type: application/json; charset=utf-8, 
-    Date: Mon, 12 Sep 2022 19:26:13 GMT, 
-    Etag: W/"29-klDahUESBLxHyQ7NiaetCn2CvCI", 
+    Date: Wed, 21 Sep 2022 10:08:39 GMT, 
     Server: nginx/1.16.1, 
     X-Rate-Limit-Limit: 1000, 
     X-Rate-Limit-Remaining: 996, 
-    X-Rate-Reset: 16427
-]                           | 200         |
+    X-Rate-Limit-Reset: 49881, 
+    X-Request-Id: FxbYSObVA-veXYEAkbRi
+]                             | 200         |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

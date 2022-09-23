@@ -175,6 +175,13 @@ input:
     introduced: 1.14.0
     tags: [linux, macos, windows, networking]
 
+  - name: AWS CloudWatch Metric Streams
+    id: cloudwatch_metric_streams
+    description: |
+      The CloudWatch Metric Streams plugin is a service input plugin that listens for metrics sent via HTTP and performs the required processing for metric streams from AWS.
+    introduced: 1.24.0
+    tags: [linux, macos, windows, aws]
+
   - name: Azure Storage Queue
     id: azure_storage_queue
     description: |
@@ -1031,6 +1038,13 @@ input:
     introduced: 0.1.5
     tags: [linux, macos, windows, systems, data-stores]
 
+  - name: Linux CPU
+    id: linux_cpu
+    description: |
+      The Linux CPU input plugin athers CPU metrics exposed on Linux-based systems.
+    introduced: 1.24.0
+    tags: [linux, systems]
+
   - name: Linux Sysctl FS
     id: linux_sysctl_fs
     description: |
@@ -1357,6 +1371,14 @@ input:
       `/proc/net/snmp`, and `/proc/net/snmp6` files.
     introduced: 0.13.1
     tags: [linux, macos, windows, networking, systems]
+
+  - name: NSDP
+    id: nsdp
+    description: |
+      The NSDP input plugin gathers switch network statistics.
+    introduced: 1.24.0
+    tags: [linux, macos, windows, networking, systems]
+    external: true
 
   - name: NTPq
     id: ntpq
@@ -1806,6 +1828,13 @@ input:
     introduced: 0.2.0
     tags: [linux, macos, windows, applications]
 
+  - name: Supervisor
+    id: supervisor
+    description: |
+      The supervisor input gathers information about processes that running under supervisor using XML-RPC API.
+    introduced: 1.24.0
+    tags: [linux, macos, windows]
+
   - name: Suricata
     id: suricata
     description: |
@@ -1968,6 +1997,13 @@ input:
       The Unbound input plugin gathers statistics from [Unbound](https://www.unbound.net/),
       a validating, recursive, and caching DNS resolver.
     introduced: 1.5.0
+    tags: [linux, macos, windows, networking]
+
+  - name: UPSD
+    id: upsd
+    description: |
+      The UPSD input plugin reads data of one or more Uninterruptible Power Supplies from an upsd daemon using its NUT network protocol. 
+    introduced: 1.24.0
     tags: [linux, macos, windows, networking]
 
   - name: uWSGI
@@ -2431,6 +2467,13 @@ output:
     introduced: 0.1.9
     tags: [linux, macos, windows, data-stores]
 
+  - name: Postgre SQL
+    id: postgresql
+    description: |
+      The Postgre SQL output plugin writes metrics to PostgreSQL (or compatible database. 
+    introduced: 1.24.0
+    tags: [linux, macos, windows]
+
   - name: Prometheus Client
     id: prometheus_client
     description: |
@@ -2438,6 +2481,13 @@ output:
       it exposes all metrics on `/metrics` (default) to be polled by a Prometheus server.
     introduced: 0.2.1
     tags: [linux, macos, windows, applications]
+
+  - name: RedisTimeSeries
+    id: redistimeseries
+    description: |
+      The RedisTimeSeries output plugin writes metrics to the RedisTimeSeries server.
+    introduced: 1.24.0
+    tags: [linux, macos, windows, networking]
 
   - name: Riemann
     id: riemann
@@ -2492,6 +2542,13 @@ output:
       `custom.googleapis.com/telegraf/system/load5`.
     introduced: 1.9.0
     tags: [linux, macos, windows, cloud]
+
+  - name: Stomp (ActiveMQ)
+    id: stomp
+    description: |
+      The Stomp (ActiveMQ) output plugin writes to an [ActiveMQ Broker](https://activemq.apache.org/) for [STOMP](http://stomp.github.io).
+    introduced: 1.24.0
+    tags: [linux, macos, windows]
 
   - name: SQL
     id: sql

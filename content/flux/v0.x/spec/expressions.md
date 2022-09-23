@@ -131,6 +131,17 @@ mul = (a,b) => a * b
 Function literals are _closures_ and may refer to variables defined in a surrounding block.
 Those variables are shared between the function literal and the surrounding block.
 
+Function arguments are named. There are no positional arguments.
+Values implementing a function type must use the same argument names.
+
+```js
+apply = (f, x) => f(x: x)
+
+apply(f: (x) => x + 1, x: 2) // 3
+apply(f: (a) => a + 1, x: 2) // error, function must use the same argument name `x`.
+apply(f: (x, a=3) => a + x, x: 2) // 5, extra default arguments are allowed
+```
+
 ## Call expressions
 
 A _call expression_ invokes a function with the provided arguments.
