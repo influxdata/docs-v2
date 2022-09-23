@@ -11,6 +11,7 @@ menu:
     parent: Join data
 weight: 102
 related:
+  - /flux/v0.x/join-data/troubleshoot-joins/
   - /flux/v0.x/stdlib/join/
   - /flux/v0.x/stdlib/join/right/
 list_code_example: |
@@ -68,27 +69,27 @@ data stream, non-group-key columns with values from the **left** data stream are
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## Prepare your data
-
-Ensure the data streams you want to join adhere to the
-[join input data requirements](/flux/v0.x/join-data/#data-requirements).
-
 ## Use join.right to join your data
 
 1. Import the `join` package.
-2. Define two streams of tables to join.
+2. Define the **left** and **right** data streams to join:
 
-    One stream of table represents the left side of the join.
-    The other stream of table represents the right side of the join.
+    - Each stream must have one or more columns with common values.
+      Column labels do not need to match, but column values do.
+    - Each stream should have identical [group keys](/flux/v0.x/get-started/data-model/#group-key).
+
+    _For more information, see [join data requirements](/flux/v0.x/join-data/#data-requirements)._
 
 3. Use `join.right()` to join the two streams together.
-    Provide the following parameters:
+    Provide the following required parameters:
 
-    - `left`: stream of data representing the left side of the join
-    - `right`: stream of data representing the right side of the join
-    - `on`: [join predicate](/flux/v0.x/join-data/#join-predicate-function-on)
-    - `as`: [join output function](/flux/v0.x/join-data/#join-output-function-as)
-      that returns a record with values from each input stream
+    - `left`: Stream of data representing the left side of the join.
+    - `right`: Stream of data representing the right side of the join.
+    - `on`: [Join predicate](/flux/v0.x/join-data/#join-predicate-function-on).
+      For example: `(l, r) => l.column == r.column`.
+    - `as`: [Join output function](/flux/v0.x/join-data/#join-output-function-as)
+      that returns a record with values from each input stream.
+      For example: `(l, r) => ({r with column1: l.column1, column2: l.column2})`.
 
 The following example uses a filtered selection from the
 [**machineProduction** sample data set](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/#set)

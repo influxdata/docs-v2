@@ -10,6 +10,7 @@ menu:
     parent: Join data
 weight: 103
 related:
+  - /flux/v0.x/join-data/troubleshoot-joins/
   - /flux/v0.x/stdlib/join/
   - /flux/v0.x/stdlib/join/full/
 list_code_example: |
@@ -70,48 +71,46 @@ and join rows that match according to the `on` predicate.
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## Prepare your data
-
-Ensure the data streams you want to join adhere to the
-[join input data requirements](/flux/v0.x/join-data/#data-requirements).
-
 ## Use join.full to join your data
 
 1. Import the `join` package.
-2. Define two streams of tables to join.
+2. Define the **left** and **right** data streams to join:
+
+    - Each stream must have one or more columns with common values.
+      Column labels do not need to match, but column values do.
+    - Each stream should have identical [group keys](/flux/v0.x/get-started/data-model/#group-key).
+
+    _For more information, see [join data requirements](/flux/v0.x/join-data/#data-requirements)._
 
 3. Use `join.full()` to join the two streams together.
-    Provide the following parameters:
+    Provide the following required parameters:
 
-    - `left`: stream of data representing the left side of the join
-    - `right`: stream of data representing the right side of the join
-    - `on`: [join predicate](/flux/v0.x/join-data/#join-predicate-function-on)
-    - `as`: [join output function](/flux/v0.x/join-data/#join-output-function-as)
-      that returns a record with values from each input stream
+    - `left`: Stream of data representing the left side of the join.
+    - `right`: Stream of data representing the right side of the join.
+    - `on`: [Join predicate](/flux/v0.x/join-data/#join-predicate-function-on).
+      For example: `(l, r) => l.column == r.column`.
+    - `as`: [Join output function](/flux/v0.x/join-data/#join-output-function-as)
+      that returns a record with values from each input stream.
+      
+      ##### Account for missing, non-group-key values
 
-      {{% note %}}
-#### Account for missing, non-group-key values
+      In a full outer join, it’s possible for either the left (`l`) or right (`r`)
+      to contain _null_ values for the columns used in the join operation
+      and default to a default record (group key columns are populated and
+      other columns are _null_).
+      `l` and `r` will never both use default records at the same time. 
+      
+      To ensure non-null values are included in the output for non-group-key columns, 
+      check for the existence of a value in the `l` or `r` record, and return
+      the value that exists:
 
-With the output function used in the `on` parameter with `join.full()`
-it’s possible for either `l` or `r` to use the default record (a record with
-group key columns populated but other columns are _null_).
-In a full outer join, it's possible for either `l` or `r` to be a default record,
-but they will never both be default records at the same time.
-One of them is guaranteed to have the non-null values needed for the output record,
-but you need to check which one has the non-null values.
+      ```js
+      (l, r) => {
+          id = if exists l.id then l.id else r.id
 
-For each non-group-key column you want to ensure has a non-null value in the output,
-use a conditional statement to check for the existence of a value in the `l` or `r`
-record and return the value that exists:
-
-```js
-(l, r) => {
-    id = if exists l.id then l.id else r.id
-
-    return {_time: l.time, location: r.location, id: id}
-}
-```
-      {{% /note %}}
+          return {_time: l.time, location: r.location, id: id}
+      }
+      ```
 
 The following example uses a filtered selection from the
 [**machineProduction** sample data set](/flux/v0.x/stdlib/influxdata/influxdb/sample/data/#set)

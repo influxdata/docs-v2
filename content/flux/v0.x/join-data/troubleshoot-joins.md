@@ -35,33 +35,53 @@ please submit an issue to either the InfluxData Documentation or Flux GitHub rep
 In some cases, your join output may include _null_ values in
 columns where you expect non-null values. This may be caused by one of the following issues:
 
-- **The group keys of your input streams are different**
+---
 
-  **Issue**:
-  The group keys of each input stream aren't the same.
-  Functions in the `join` package use group keys to quickly identify what tables
-  should be compared.
+{{< flex class="troubleshoot-row" >}}
+{{% flex-content %}}
+#### Cause {#cause-b1}
 
-  **Solution**:
-  Use [`group()`](/flux/v0.x/stdlib/universe/group/) to regroup
-  your two input streams so their group keys match before attempting to join
-  them together.
-  
-- **There are no matching _group key instances_ in your data streams**
+**The group keys of each input stream aren't the same.**
+Functions in the `join` package use group keys to quickly identify what tables
+should be compared.
+{{% /flex-content %}}
+{{% flex-content %}}
+#### Solution {#solution-b1}
 
-  **Issue**: Functions in the `join` package only compare tables with matching
-  [group key instances](/flux/v0.x/get-started/data-model/#example-group-key-instances).
-  Input streams may have matching group keys, but there are no matching group
-  key instances in your stream.
+Use [`group()`](/flux/v0.x/stdlib/universe/group/) to regroup
+your two input streams so their group keys match before attempting to join
+them together.
+{{% /flex-content %}}
+{{< /flex >}}
 
-  This may happen when joining two separate fields
-  queried from InfluxDB. By default, InfluxDB returns data with `_field` as part
-  of the group key. If each stream contains a different field, tables in the two
-  streams won't be compared because they won't have any matching _group key instances_.
+---
 
-  **Solution**: Use [`group()`](/flux/v0.x/stdlib/universe/group/) to remove 
-  any columns from the group keys of each input stream that would prevent
-  group key instances from matching.
+{{< flex >}}
+{{% flex-content %}}
+#### Cause {#cause-b2}
+
+**There are no matching _group key instances_ in your data streams**.
+Functions in the `join` package only compare tables with matching
+[group key instances](/flux/v0.x/get-started/data-model/#example-group-key-instances).
+Input streams may have matching group keys, but there are no matching group
+key instances in your stream.
+
+This may happen when joining two separate fields
+queried from InfluxDB. By default, InfluxDB returns data with `_field` as part
+of the group key. If each stream contains a different field, tables in the two
+streams won't be compared because they won't have any matching _group key instances_.
+{{% /flex-content %}}
+
+{{% flex-content %}}
+#### Solution {#solution-b2}
+
+Use [`group()`](/flux/v0.x/stdlib/universe/group/) to remove 
+any columns from the group keys of each input stream that would prevent
+group key instances from matching.
+{{% /flex-content %}}
+{{< /flex >}}
+
+---
 
 ## Troubleshoot join error messages
 
@@ -75,16 +95,25 @@ columns where you expect non-null values. This may be caused by one of the follo
 ```js
 cannot set join columns in left table stream: table is missing column '<column>'
 ```
-##### Causes
 
-- **Your `on` join predicate uses a column that doesn't exist**
+{{< flex >}}
+{{% flex-content %}}
+#### Cause {#cause-e1}
 
-  **Issue**: In the `on` predicate function, you're trying to compare a column
-  that doesn't exist in one of your input streams.
+**Your `on` join predicate uses a column that doesn't exist**.
+In the `on` predicate function, you're trying to compare a column
+that doesn't exist in one of your input streams.
+{{% /flex-content %}}
+{{% flex-content %}}
+#### Solution {#solution-e1}
 
-  **Solution**: Ensure the columns that you're comparing in the `on` predicate
-  function exist in the input streams.
-  If necessary, update column names in the predicate function.
+Ensure the columns that you're comparing in the `on` predicate
+function exist in the input streams.
+If necessary, update column names in the predicate function.
+{{% /flex-content %}}
+{{< /flex >}}
+
+---
 
 ### table is missing label `<label>`
 
@@ -93,18 +122,25 @@ cannot set join columns in left table stream: table is missing column '<column>'
 table is missing label <label>
 ```
 
-##### Causes
+{{< flex >}}
+{{% flex-content %}}
+#### Cause {#cause-e2}
 
-- **Your `on` join predicate uses a column that doesn't exist**
+**Your `on` join predicate uses a column that doesn't exist**.
+In the `on` predicate function for an outer join, you're trying to use a value
+from a column that doesn't exist in the "primary" input stream
+(`left` for `join.left()` and `right` for `join.right()`).
+{{% /flex-content %}}
+{{% flex-content %}}
+#### Solution {#solution-e2}
 
-  **Issue**:
-  In the `on` predicate function for an outer join, you're trying to use a value
-  from a column that doesn't exist in the "primary" input stream
-  (`left` for `join.left()` and `right` for `join.right()`).
+Ensure the columns that you're comparing in the `on` predicate
+function actually exist in the input streams.
+If necessary, update column names in the predicate function.
+{{% /flex-content %}}
+{{< /flex >}}
 
-  **Solution**: Ensure the columns that you're comparing in the `on` predicate
-  function actually exist in the input streams.
-  If necessary, update column names in the predicate function.
+---
 
 ### record is missing label `<label>`
 
@@ -113,18 +149,38 @@ table is missing label <label>
 record is missing label <label> (argument <left or right>)
 ```
 
-##### Causes
+{{< flex >}}
+{{% flex-content %}}
+#### Cause {#cause-e3}
 
-- **Your `on` join predicate uses a column that doesn't exist**
+**Your `on` join predicate uses a column that doesn't exist**.
+In the `on` predicate function, you're trying to compare a column
+that doesn't exist in one of your input streams.
+{{% /flex-content %}}
+{{% flex-content %}}
+#### Solution {#solution-e3}
 
-  **Issue 1**: In the `on` predicate function, you're trying to compare a column
-  that doesn't exist in one of your input streams.
+Ensure the columns that you're comparing in the `on` predicate
+function actually exist in the input streams.
+If necessary, update column names in the predicate function.
+{{% /flex-content %}}
+{{< /flex >}}
 
-  **Issue 2**:
-  In the `on` predicate function for an outer join, you're trying to use a value
-  from a column that doesn't exist in the "primary" input stream
-  (`left` for `join.left()` and `right` for `join.right()`).
+---
 
-  **Solution**: Ensure the columns that you're comparing in the `on` predicate
-  function actually exist in the input streams.
-  If necessary, update column names in the predicate function.
+{{< flex >}}
+{{% flex-content %}}
+#### Cause {#cause-e4}
+
+**Your `as` output schema function uses a column that doesn't exist**.
+If using an **outer join**, the `as` is trying to use a value
+from a column that doesn't exist in the "primary" input stream
+(`left` for `join.left()` and `right` for `join.right()`).
+{{% /flex-content %}}
+{{% flex-content %}}
+#### Solution {#solution-e4}
+
+Ensure the columns that you're using in the `as` output function to assign
+values to the output actually exist in the input streams.
+{{% /flex-content %}}
+{{< /flex >}}

@@ -8,6 +8,13 @@ menu:
   flux_0_x:
     name: Join data
 weight: 8
+related:
+  - /flux/v0.x/stdlib/join/
+  - /flux/v0.x/stdlib/join/inner/
+  - /flux/v0.x/stdlib/join/left/
+  - /flux/v0.x/stdlib/join/right/
+  - /flux/v0.x/stdlib/join/full/
+  - /flux/v0.x/stdlib/join/time/
 ---
 
 Use the Flux [`join` package](/flux/v0.x/stdlib/join/) to join two data sets based on common values.
@@ -39,6 +46,16 @@ Learn how join two data sets using the following join methods:
 </a>
 {{< /flex-content >}}
 {{< /flex >}}
+
+{{% note %}}
+#### When to use the join package
+
+We recommend using the `join` package to join streams that have mostly different
+schemas or that come from two separate data sources.
+If you're joining data from the same data source with the same schema, using
+[`union()`](/flux/v0.x/stdlib/universe/union/) and [`pivot()`](/flux/v0.x/stdlib/universe/pivot/)
+to combine the data will likely be more performant.
+{{% /note %}}
 
 - [How join functions work](#how-join-functions-work)
   - [Input streams](#input-streams)
