@@ -50,7 +50,7 @@ _See [Task configuration options](/influxdb/v2.4/process-data/task-options) for 
 about each option._
 
 _Note that InfluxDB doesn't guarantee that a task will run at the scheduled time.
-See [View task run logs for a task](/influxdb/v2.4/process-data/manage-tasks/task-run-history/#view-task-run-logs-with-the-influxdb-api)
+See [View task run logs for a task](/influxdb/v2.4/process-data/manage-tasks/task-run-history)
 for detailed information on task service-level agreements (SLAs)._
 
 {{% note %}}
