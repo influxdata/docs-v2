@@ -51,18 +51,26 @@ The query returns the three oldest points, determined by timestamp, from the `h2
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2
 ```
-Output:
-| name: h2o_feet | tags: location=coyote_creek |
-| :------------------ | :---------------------|
-| time   | mean |
-| 2019-08-18T00:00:00Z | 8.4615000000|
-| 2019-08-18T00:12:00Z | 8.2725000000|
+Output:  
+{{% influxql/table-meta %}} 
+name: **h2o_feet**  
+tags: location=coyote_creek
+{{% /influxql/table-meta %}} 
 
-| name: h2o_feet | tags: location=santa_monica |
-| :------------------ | :---------------------|
-| time   | mean |
-| 2019-08-18T00:00:00Z | 2.3655000000|
-| 2019-08-18T00:12:00Z | 2.3360000000|
+| time                 | mean                        |
+| :------------------- | :-------------------------- |
+| 2019-08-18T00:00:00Z | 8.4615000000                |
+| 2019-08-18T00:12:00Z | 8.2725000000                |
+
+{{% influxql/table-meta %}} 
+name: h2o_feet       
+tags: location=santa_monica
+{{% /influxql/table-meta %}} 
+
+| time                 | mean                        |
+| :------------------- | :-------------------------- |
+| 2019-08-18T00:00:00Z | 2.3655000000                |
+| 2019-08-18T00:12:00Z | 2.3360000000                |
 
 The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions) and a `GROUP BY` clause to calculate the average `water_level` for each [tag](/influxdb/v2.4/reference/glossary/#tag) and for each twelve-minute interval in the query's time range. `LIMIT 2` requests the two oldest twelve-minute averages (determined by timestamp).
 
