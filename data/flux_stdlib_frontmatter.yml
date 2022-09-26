@@ -1535,6 +1535,41 @@
     - /influxdb/v2.0/reference/flux/stdlib/interpolate/linear/
     - /influxdb/cloud/reference/flux/stdlib/interpolate/linear/
 
+/flux/v0.x/stdlib/join/_index.md: |
+  related:
+    - /flux/v0.x/join-data/
+    - /flux/v0.x/join-data/troubleshoot-joins/
+
+/flux/v0.x/stdlib/join/full.md: |
+  related:
+    - /flux/v0.x/join-data/full-outer/
+    - /flux/v0.x/join-data/troubleshoot-joins/
+
+/flux/v0.x/stdlib/join/inner.md: |
+  related:
+    - /flux/v0.x/join-data/inner/
+    - /flux/v0.x/join-data/troubleshoot-joins/
+
+/flux/v0.x/stdlib/join/left.md: |
+  related:
+    - /flux/v0.x/join-data/left-outer/
+    - /flux/v0.x/join-data/troubleshoot-joins/
+
+/flux/v0.x/stdlib/join/right.md: |
+  related:
+    - /flux/v0.x/join-data/right-outer/
+    - /flux/v0.x/join-data/troubleshoot-joins/
+
+/flux/v0.x/stdlib/join/tables.md: |
+  related:
+    - /flux/v0.x/join-data/
+    - /flux/v0.x/join-data/troubleshoot-joins/
+
+/flux/v0.x/stdlib/join/time.md: |
+  related:
+    - /flux/v0.x/join-data/time/
+    - /flux/v0.x/join-data/troubleshoot-joins/
+
 /flux/v0.x/stdlib/json/_index.md: |
   aliases:
     - /influxdb/v2.0/reference/flux/functions/json/
