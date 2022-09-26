@@ -49,9 +49,14 @@ option task = {name: "downsample_5m_precision", every: 1h, offset: 0m}
 _See [Task configuration options](/influxdb/v2.4/process-data/task-options) for detailed information
 about each option._
 
+_Note that InfluxDB doesn't guarantee that a task will run at the scheduled time.
+See [View task run logs for a task](/influxdb/v2.4/process-data/manage-tasks/task-run-history)
+for detailed information on task service-level agreements (SLAs)._
+
 {{% note %}}
 The InfluxDB UI provides a form for defining task options.
 {{% /note %}}
+
 
 {{% cloud-only %}}
 
