@@ -124,8 +124,7 @@ InfluxData maintains the following application and service security controls:
 
 - Administrative privileges are restricted to named groups of authorized users.
 - Shared accounts are prohibited.
-- Multi-factor authentication (MFA) is required for all infrastructure (AWS, GCP, and Azure),
-  for all members of the InfluxData GitHub organization,
+- Multi-factor authentication (MFA) is required for all infrastructure (AWS, GCP, and Azure)
   and for other production systems with access to user information
   (see [InfluxData Subprocessors](https://www.influxdata.com/legal/influxdata-subprocessors/)).
 - InfluxDB Cloud access is logged and audited regularly.
