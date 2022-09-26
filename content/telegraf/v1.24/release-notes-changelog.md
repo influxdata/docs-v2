@@ -10,6 +10,31 @@ menu:
     name: Release notes
     weight: 60
 ---
+## v1.24.1 [2022-09-19]
+
+### Bug fixes
+- Clear error message when provided config is not a text file
+- Enable global confirmation for installing mingw
+
+### Input plugin updates
+- Ceph (`ceph`): Modernize metrics.
+- Modbus (`modbus`): Do not fail if a single server reports errors.
+- NTPQ (`ntpq`): Handle pools with `-`. 
+
+### Parser updates
+- CSV (`csv`): Remove direct check.
+- XPath (`xpath`): Add array index when expanding names.
+- Fix memory leak for plugins using `ParserFunc`.
+- Unwrap parsers and remove some special handling.
+- `processors.parser`: Add option to parse tags
+
+### Dependency updates
+- Update `cloud.google.com/go/pubsub` from 1.24.0 to 1.25.1.
+- Update `github.com/urfave/cli/v2` from 2.14.1 to 2.16.3.
+- Update `github.com/aws/aws-sdk-go-v2/service/ec2`.
+- Update `github.com/wavefronthq/wavefront-sdk-go`.
+- Update `cloud.google.com/go/bigquery` from 1.33.0 to 1.40.0.
+
 ## v1.24.0 [2022-09-12]
 
 ### Breaking change

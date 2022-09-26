@@ -28,4 +28,7 @@ menu:
 #### Season 6
 {{< resources/video-cards series="Meet the Developers S6" >}}
 
+#### Season 7
+{{< resources/video-cards series="Meet the Developers S7" >}}
+
 For additional product and tutorial videos, please visit our [YouTube channel](https://www.youtube.com/channel/UCnrgOD6G0y0_rcubQuICpTQ).

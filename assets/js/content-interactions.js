@@ -200,29 +200,16 @@ $('.tooltip').each( function(){
   $(this).prepend($toolTipElement);
 });
 
-/////////////////// Style time columns in tables to not wrap ///////////////////
+//////////////////// Style time cells in tables to not wrap ////////////////////
 
 $('.article--content table').each(function() {
   var table = $(this);
-  var timeColumns = ['_time', '*_time', '_start', '*_start', '_stop', '*_stop'];
-  let header = [];
-  let timeColumnIndexes = [];
 
-  // Return an array of column headers
-  table.find('th').each(function () {
-    header.push($(this)[0].innerHTML);
-  });
-
-  // Return indexes of time columns
-  header.forEach(function(value, i) {
-    if ( timeColumns.includes(value) ) { timeColumnIndexes.push(i) };
-  });
-
-  // Add the nowrap class to cells with time column indexes
   table.find('td').each(function() {
-    if (timeColumnIndexes.includes( $(this)[0].cellIndex )) {
-      $(this).addClass('nowrap');
+    let cellContent = $(this)[0].innerText
+
+    if (/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.*Z/.test(cellContent)) {
+      $(this).addClass('nowrap')
     }
   })
-
 })
