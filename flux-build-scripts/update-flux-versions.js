@@ -15,7 +15,7 @@ if (typeof githubToken === 'undefined') {
 A GitHub token is required for this operation. Please set a GITHUB_TOKEN environment variable.
 Use the GitHub token stored in the Docs Team vault in 1Password.
   `);
-  process.exit(1);
+  process.exit(0);
 }
 
 // Get the latest version of Flux
