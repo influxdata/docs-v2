@@ -37,9 +37,12 @@ SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_
 > SELECT "water_level","location" FROM "h2o_feet" LIMIT 3
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :-------------------| :------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time | water_level | location |
+| :-------------- | :-------------------| ------------------:|
 | 2019-08-17T00:00:00Z | 8.1200000000 | coyote_creek|
 | 2019-08-17T00:00:00Z | 2.0640000000 |santa_monica |
 | 2019-08-17T00:06:00Z | 8.0050000000 |coyote_creek |
@@ -53,7 +56,7 @@ The query returns the three oldest points, determined by timestamp, from the `h2
 ```
 Output:  
 {{% influxql/table-meta %}} 
-name: h2o_feet
+name: h2o_feet  
 tags: location=coyote_creek
 {{% /influxql/table-meta %}} 
 
@@ -97,10 +100,14 @@ There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" GROUP BY * SLIMIT 1
 ```
-Output:
-| name: h2o_feet | tags: location=coyote_creek |
-| :------------------ | :---------------------|
+Output:  
+{{% influxql/table-meta %}} 
+name: h2o_feet  
+tags: location=coyote_creek
+{{% /influxql/table-meta %}} 
+
 | time   |  water_level |
+| :------------------ | ---------------------:|
 | 2019-08-17T00:00:00Z | 8.1200000000|
 | 2019-08-17T00:06:00Z | 8.0050000000|
 | 2019-08-17T00:12:00Z | 7.8870000000|
@@ -116,10 +123,15 @@ The results above include only the first few rows, as the data set is quite larg
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) SLIMIT 1
 ```
-Output:
-| name: h2o_feet | tags: location=coyote_creek |
-| :------------------ | :---------------------|
+
+Output:  
+{{% influxql/table-meta %}} 
+name: h2o_feet  
+tags: location=coyote_creek
+{{% /influxql/table-meta %}} 
+
 | time  | mean |
+| :------------------ | ---------------------:|
 | 2019-08-18T00:00:00Z | 8.4615000000|
 | 2019-08-18T00:12:00Z | 8.2725000000|
 | 2019-08-18T00:24:00Z | 8.0710000000|
@@ -160,9 +172,13 @@ Note that the `LIMIT` and `SLIMIT` clauses must appear in the order outlined in 
 > SELECT "water_level" FROM "h2o_feet" GROUP BY * LIMIT 3 SLIMIT 1
 ```
 Output:
-| name: h2o_feet | tags: location=coyote_creek |
-| :------------------ | :---------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet  
+Tags: location=coyote_creek
+{{% /influxql/table-meta %}}
+
 | time   |  water_level |
+| :------------------ | ---------------------:|
 | 2019-08-17T00:00:00Z  |  8.1200000000|
 | 2019-08-17T00:06:00Z  |  8.0050000000|
 | 2019-08-17T00:12:00Z  |  7.8870000000|
@@ -175,9 +191,14 @@ The query returns the three oldest points, determined by timestamp, from one of 
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2 SLIMIT 1
 ```
 Output:
-| name: h2o_feet | tags: location=coyote_creek |
-| :------------------ | :---------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet  
+Tags: location=coyote_creek
+{{% /influxql/table-meta %}}
+
+
 | time   | mean |
+| :------------------ | ---------------------:|
 | 2019-08-18T00:00:00Z | 8.4615000000|
 | 2019-08-18T00:12:00Z | 8.2725000000|
 
