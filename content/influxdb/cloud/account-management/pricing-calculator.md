@@ -34,7 +34,7 @@ Guidelines used to estimate costs for default configurations:
 
 1. Do one of the following:
 
-  - Free Plan. Click the organization name dropdown in the upper left of your
+  - Free Plan. Click the organization name drop-down list in the upper left of your
     {{< cloud-name "short" >}} user interface (UI) and select **Billing**.
     Then click the **Pricing Calculator** link at the bottom of the page.
   - Usage-based Plan. Open the pricing calculator [here](https://cloud2.influxdata.com/pricing).
