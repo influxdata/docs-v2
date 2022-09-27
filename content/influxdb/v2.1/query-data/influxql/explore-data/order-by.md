@@ -37,9 +37,12 @@ SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER B
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' ORDER BY time DESC
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time   | water_level |
+| :-------------- | ------------------:|
 | 2019-09-17T21:42:00Z | 4.9380000000|
 | 2019-09-17T21:36:00Z | 5.0660000000|
 | 2019-09-17T21:30:00Z | 5.0100000000|
@@ -49,9 +52,14 @@ Output:
 The query returns the points with the most recent timestamps from the
 `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement) first.
 Without `ORDER by time DESC`, the query would return the following output:
-| name: h2o_feet |
-| :-------------- | :------------------|
+
+Output:
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time   | water_level |
+| :-------------- | ------------------:|
 | 2019-08-17T00:00:00Z | 2.0640000000|
 | 2019-08-17T00:06:00Z | 2.1160000000|
 | 2019-08-17T00:12:00Z | 2.0280000000|
@@ -63,9 +71,12 @@ Without `ORDER by time DESC`, the query would return the following output:
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY time(12m) ORDER BY time DESC
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time   | mean |
+| :-------------- | ------------------:|
 | 2019-08-18T00:36:00Z | 4.9712860355|
 | 2019-08-18T00:24:00Z | 5.1682500000|
 | 2019-08-18T00:12:00Z | 5.3042500000|
@@ -80,9 +91,13 @@ first.
 
 Without `ORDER BY time DESC`, the query would return the following output:
 
-| name: h2o_feet |
-| :-------------- | :------------------|
+Output:
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time   | mean |
+| :-------------- | ------------------:|
 | 2019-08-18T00:00:00Z | 5.4135000000|
 | 2019-08-18T00:12:00Z | 5.3042500000|
 | 2019-08-18T00:24:00Z | 5.1682500000|

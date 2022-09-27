@@ -78,9 +78,12 @@ Please review the [rules for single and double-quoting](/enterprise_influxdb/v1.
 > SELECT * FROM "h2o_feet"
 ```
 Output:
-| name: h2o_feet |
-| :-------------- |:----------------------| :-------------------| :------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time   | level description | location | water_level |
+| :-------------- |:----------------------| :-------------------| ------------------:|
 | 2019-08-17T00:00:00Z | below 3 feet |santa_monica | 2.0640000000|
 | 2019-08-17T00:00:00Z | between 6 and 9 feet | coyote_creek | 8.1200000000|
 | 2019-08-17T00:06:00Z | below 3 feet| santa_monica | 2.1160000000|
@@ -118,9 +121,12 @@ precision rfc3339
 > SELECT "level description","location","water_level" FROM "h2o_feet"
 ```
 Output:
-| name: h2o_feet |
-| :-------------- |:----------------------| :-------------------| :------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time   | level description | location | water_level |
+| :-------------- |:----------------------| :-------------------| ------------------:|
 | 2019-08-17T00:00:00Z | below 3 feet |santa_monica | 2.0640000000|
 | 2019-08-17T00:00:00Z | between 6 and 9 feet | coyote_creek | 8.1200000000|
 
@@ -138,9 +144,12 @@ a tag.
 > SELECT "level description"::field,"location"::tag,"water_level"::field FROM "h2o_feet"
 ```
 Output:
-| name: h2o_feet |
-| :-------------- |:----------------------| :-------------------| :------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time   | level description | location | water_level |
+| :-------------- |:----------------------| :-------------------| ------------------:|
 | 2019-08-17T00:24:00Z  | between 6 and 9 feet   | coyote_creek  | 7.6350000000|
 | 2019-08-17T00:30:00Z  | below 3 feet   | santa_monica   | 2.0510000000|
 | 2019-08-17T00:30:00Z | between 6 and 9 feet   | coyote_creek  |  7.5000000000|
@@ -161,9 +170,12 @@ That syntax is not required for most use cases.
 > SELECT *::field FROM "h2o_feet"
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :-------------------| :------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time   | level description| water_level |
+| :-------------- | :-------------------| ------------------:|
 | 2019-08-17T00:00:00Z  | below 3 feet | 2.0640000000 | 
 | 2019-08-17T00:00:00Z | between 6 and 9 feet | 8.1200000000|
 | 2019-08-17T00:06:00Z | below 3 feet  | 2.1160000000|
@@ -179,10 +191,13 @@ The `SELECT` clause supports combining the `*` syntax with the `::` syntax.
 ```sql
 > SELECT ("water_level" * 2) + 4 FROM "h2o_feet"
 ```
-Output: 
-| name: h2o_feet |
-| :-------------- | :------------------|
+Output:
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time   | water_level |
+| :-------------- | ------------------:|
 | 2019-08-17T00:00:00Z  | 20.2400000000 |
 | 2019-08-17T00:00:00Z  | 8.1280000000 |
 | 2019-08-17T00:06:00Z  | 20.0100000000 |
@@ -205,9 +220,12 @@ for more on supported operators.
 > SELECT * FROM "h2o_feet","h2o_pH"
 ```
 Output:
-| name: h2o_feet |
-| :-------------- |:-------------| :----------------| :-------------| :--------------|
-| time | level description | location | pH | water_level
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
+| time | level description | location | pH | water_level |
+| :-------------- |:-------------| :----------------| :-------------| --------------:|
 | 2019-08-17T00:00:00Z | below 3 feet  | santa_monica  | <nil> |  2.0640000000|
 | 2019-08-17T00:00:00Z | between 6 and 9 feet  | coyote_creek  | <nil> | 8.1200000000|
 | 2019-08-17T00:06:00Z | below 3 feet  | santa_monica  | <nil> | 2.1160000000|
@@ -217,9 +235,12 @@ Output:
 | 2019-08-17T00:18:00Z  | below 3 feet  | santa_monica  | <nil> | 2.1260000000|
 | 2019-08-17T00:18:00Z  | between 6 and 9 feet | coyote_creek | <nil> | 7.7620000000|
 
-| name: h2o_pH|
-| :-------------- |:-------------| :----------------| :-------------| :--------------|
-| time | level description | location | pH | water_level
+{{% influxql/table-meta %}}
+Name: h2o_pH
+{{% /influxql/table-meta %}}
+
+| time | level description | location | pH | water_level |
+| :-------------- |:-------------| :----------------| :-------------| --------------:|
 | 2019-08-17T00:00:00Z  | <nil> | coyote_creek  | 7.00| <nil> |
 | 2019-08-17T00:06:00Z  | <nil> |coyote_creek | 8.00 | <nil> |
 | 2019-08-17T00:06:00Z  | <nil> |santa_monica  | 6.00 | <nil> |
@@ -236,10 +257,12 @@ Separate multiple measurements with a comma (`,`).
 > SELECT * FROM noaa.."h2o_feet"
 ```
 Output:
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
 
-| name: h2o_feet |
-| :-------------- |:----------------------| :-------------------| :------------------|
 | time   | level description | location | water_level |
+| :-------------- |:----------------------| :-------------------| ------------------:|
 | 2019-08-17T00:00:00Z | below 3 feet |santa_monica | 2.0640000000|
 | 2019-08-17T00:00:00Z | between 6 and 9 feet | coyote_creek | 8.1200000000|
 | 2019-08-17T00:06:00Z | below 3 feet| santa_monica | 2.1160000000|
@@ -276,9 +299,12 @@ clause must include at least one field key (`water_level`):
 > SELECT "water_level","location" FROM "h2o_feet"
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :-------------------| :------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time | water_level | location |
+| :-------------- | :-------------------| ------------------:|
 | 2019-08-17T00:00:00Z  | 8.1200000000  | coyote_creek |
 | 2019-08-17T00:00:00Z | 2.0640000000 | santa_monica |
 | 2019-08-17T 00:06:00Z  | 8.0050000000 | coyote_creek |
@@ -331,9 +357,12 @@ Regular expressions are surrounded by `/` characters and use
 > SELECT /l/ FROM "h2o_feet" LIMIT 1
 ```
 Output:
-| name: h2o_feet |
-| :-------------- |:----------------------| :-------------------| :------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time   | level description | location | water_level |
+| :-------------- |:----------------------| :-------------------| ------------------:|
 | 2019-08-17T00:00:00Z | below 3 feet | santa_monica | 2.0640000000 |
 
 The query selects all [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key)
@@ -352,15 +381,21 @@ The syntax `/<regular_expression>/::[field | tag]` is not supported.
 > SELECT MEAN("degrees") FROM /temperature/
 ```
 Output:
-| name: average_temperature |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}}
+Name: average_temperature    
+{{% /influxql/table-meta %}}
+
 | time | mean|
+| :-------------- |----------------------:|
 | 1970-01-01T00:00:00Z | 79.9847293223
 
 
-| name: h2o_temperature |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}}
+Name: h2o_temperature      
+{{% /influxql/table-meta %}}
+
 | time | mean|
+| :-------------- |----------------------:|
 | 1970-01-01T00:00:00Z | 64.9980273540 |
 
 The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions/)
@@ -405,9 +440,12 @@ In most cases, InfluxDB returns no data if the `field_key` does not store data o
 > SELECT "water_level"::float FROM "h2o_feet" LIMIT 4
 ```
 Output:
-| name: h20_feet |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 |time | water_level |
+| :------------------ |-------------------:|
 | 2019-08-17T00:00:00Z | 8.1200000000 |
 | 2019-08-17T00:00:00Z | 2.0640000000 |
 | 2019-08-17T00:06:00Z | 8.0050000000 |
@@ -439,9 +477,12 @@ InfluxDB returns no data if the query attempts to cast an integer or float to a 
 > SELECT "water_level"::integer FROM "h2o_feet" LIMIT 4
 ```
 Output:
-| name: h20_feet |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 |time | water_level |
+| :------------------ |-------------------:|
 | 2019-08-17T00:00:00Z | 8.0000000000 |
 | 2019-08-17T00:00:00Z | 2.0000000000 |
 | 2019-08-17T00:06:00Z | 8.0000000000 |
@@ -473,9 +514,12 @@ The following query automatically merges those two series when it calculates the
 > SELECT MEAN("water_level") FROM "h2o_feet"
 ```
 Output:
-| name: h20_feet |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 |time | mean |
+| :------------------ |-------------------:|
 | 1970-01-01T00:00:00Z  | 4.4419314021 |
 
 If you want the average `water_level` for the first series only, specify the relevant tag in the [`WHERE` clause](#the-where-clause):
@@ -484,9 +528,12 @@ If you want the average `water_level` for the first series only, specify the rel
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek'
 ```
 Output:
-| name: h20_feet |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 |time | mean |
+| :------------------ |-------------------:|
 | 1970-01-01T00:00:00Z | 5.3591424203 |
 
 If you want the average `water_level` for each individual series, include a [`GROUP BY` clause](#group-by-tags):
@@ -494,15 +541,23 @@ If you want the average `water_level` for each individual series, include a [`GR
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
 ```
-Output:
-| name: h20_feet | tags: location=coyote_creek|
-|:-------------- |:---------------------- |
+Output: 
+{{% influxql/table-meta %}}
+name: h2o_feet  
+tags: location=coyote_creek
+{{% /influxql/table-meta %}}
+
 | time | mean |
+| :------------------ |-------------------:|
  | 1970-01-01T00:00:00Z | 5.3591424203 |
 
-| name: h20_feet | tags: location=santa_monica|
-|:-------------- |:---------------------- |
+{{% influxql/table-meta %}}
+name: h2o_feet      
+tags: location=santa_monica
+{{% /influxql/table-meta %}}
+
 | time | mean |
+| :------------------ |-------------------:|
 | 1970-01-01T00:00:00Z  | 3.5307120942 |
 
 ## Multiple statements
@@ -515,15 +570,21 @@ Separate multiple `SELECT` statements in a query with a semicolon (`;`).
 > SELECT MEAN("water_level") FROM "h2o_feet"; SELECT "water_level" FROM "h2o_feet" LIMIT 2
 ``` 
 Output:
-| name: h20_feet |
-| :------------------ |:-------------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 |time | mean |
+| :------------------ |-------------------:|
 | 1970-01-01T00:00:00Z | 4.4419314021 |
 
 
-| name: h20_feet |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 |time | water_level |
+| :------------------ |-------------------:|
 | 2019-08-17T00:00:00Z | 8.12 |
 | 2015-08-18T00:00:00Z | 2.064 |
 

@@ -53,7 +53,7 @@ The query returns the three oldest points, determined by timestamp, from the `h2
 ```
 Output:  
 {{% influxql/table-meta %}} 
-name: **h2o_feet**  
+name: h2o_feet
 tags: location=coyote_creek
 {{% /influxql/table-meta %}} 
 

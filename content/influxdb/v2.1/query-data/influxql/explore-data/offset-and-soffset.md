@@ -43,9 +43,12 @@ SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_
 > SELECT "water_level","location" FROM "h2o_feet" LIMIT 3 OFFSET 3
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :-------------------| :------------------|
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time | water_level | location |
+| :-------------- | -------------------:| :------------------|
 | 2019-08-17T00:06:00Z | 2.1160000000 | santa_monica|
 | 2019-08-17T00:12:00Z | 7.8870000000 | coyote_creek|
 | 2019-08-17T00:12:00Z | 2.0280000000 | santa_monica|
@@ -58,10 +61,14 @@ and third points from that measurement.
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) ORDER BY time DESC LIMIT 2 OFFSET 2 SLIMIT 1
 ```
-Output:
-| name: h2o_feet | tags: location=coyote_creek |
-| :------------------ | :---------------------|
+Output: 
+{{% influxql/table-meta %}}
+name: h2o_feet  
+tags: location=coyote_creek
+{{% /influxql/table-meta %}}
+
 | time   | mean |
+| :------------------ | ---------------------:|
 | 2019-08-18T00:12:00Z | 8.2725000000 |
 | 2019-08-18T00:00:00Z | 8.4615000000 |
 
@@ -78,10 +85,14 @@ This example is fairly involved, so here's the clause-by-clause breakdown:
 
 Without `OFFSET 2`, the query would return the first two averages of the query results:
 
-Output:
-| name: h2o_feet | tags: location=coyote_creek |
-| :------------------ | :---------------------|
+Output: 
+{{% influxql/table-meta %}}
+name: h2o_feet  
+tags: location=coyote_creek
+{{% /influxql/table-meta %}}
+
 | time   | mean |
+| :------------------ | ---------------------:|
 | 2019-08-18T00:36:00Z | 7.8330000000 |
 | 2019-08-18T00:24:00Z | 8.0710000000 |
 
@@ -113,9 +124,13 @@ There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) 
 > SELECT "water_level" FROM "h2o_feet" GROUP BY * SLIMIT 1 SOFFSET 1
 ```
 Output:
-| name: h2o_feet | tags: location=santa_monica |
-| :------------------ | :---------------------|
+{{% influxql/table-meta %}}
+name: h2o_feet      
+tags: location=santa_monica
+{{% /influxql/table-meta %}}
+
 | time   |  water_level |
+| :------------------ | ---------------------:|
 | 2019-08-17T00:00:00Z  | 2.0640000000|
 | 2019-08-17T00:06:00Z  | 2.1160000000|
 | 2019-08-17T00:12:00Z  | 2.0280000000|
@@ -133,10 +148,14 @@ measurement and the `location = santa_monica` tag. Without `SOFFSET 1`, the quer
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) ORDER BY time DESC LIMIT 2 OFFSET 2 SLIMIT 1 SOFFSET 1
 ```
-Output:
-| name: h2o_feet | tags: location=santa_monica |
-| :------------------ | :---------------------|
-| time   |  mean  |
+Output: 
+{{% influxql/table-meta %}}
+name: h2o_feet      
+tags: location=santa_monica
+{{% /influxql/table-meta %}}
+
+| time   | mean |
+| :------------------ | ---------------------:|
 | 2019-08-18T00:12:00Z | 2.3360000000|
 | 2019-08-18T00:00:00Z | 2.3655000000|
 
@@ -154,10 +173,13 @@ This example is pretty involved, so here's the clause-by-clause breakdown:
 
 Without `SOFFSET 1`, the query would return the results for a different series:
 
-Output:
-| name: h2o_feet | tags: location=coyote_creek |
-| :------------------ | :---------------------|
+Output: 
+{{% influxql/table-meta %}}
+name: h2o_feet  
+tags: location=coyote_creek
+
 | time   | mean |
+| :------------------ | ---------------------:|
 | 2019-08-18T00:12:00Z | 8.2725000000 |
 | 2019-08-18T00:00:00Z | 8.4615000000 |
 

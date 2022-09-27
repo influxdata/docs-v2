@@ -12,7 +12,7 @@ weight: 303
 
 The `GROUP BY` clause groups query results by:
 
-- one or more specified [tags](/enterprise_influxdb/v1.9/concepts/glossary/#tag)
+- one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag)
 - specified time interval
 
 {{% note %}}
@@ -38,7 +38,7 @@ The `GROUP BY` clause groups query results by:
 
 ## GROUP BY tags
 
-`GROUP BY <tag>` groups query results by one or more specified [tags](/enterprise_influxdb/v1.9/concepts/glossary/#tag).
+`GROUP BY <tag>` groups query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag).
 
 <!-- Watch InfluxQL short about `GROUP BY` with tags:
 <br>
@@ -53,11 +53,11 @@ SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
 
   - `GROUP BY *` - Groups results by all [tags](/influxdb/v2.4/reference/glossary/#tag)
   - `GROUP BY <tag_key>` - Groups results by a specific tag
-  - `GROUP BY <tag_key>,<tag_key>` - Groups results by more than one tag. The order of the [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) is irrelevant.
+  - `GROUP BY <tag_key>,<tag_key>` - Groups results by more than one tag. The order of the [tag keys](/influxdb/v2.4/reference/glossary/#tag-key) is irrelevant.
 
-If the query includes a [`WHERE` clause](#the-where-clause) the `GROUP BY` clause must appear after the `WHERE` clause.
+If the query includes a `WHERE` clause, the `GROUP BY` clause must appear after the `WHERE` clause.
 
-Other supported features include [Regular Expressions](#regular-expressions)
+Other supported features include Regular Expressions.
 
 #### Examples
 
@@ -67,14 +67,22 @@ Other supported features include [Regular Expressions](#regular-expressions)
 > SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
 ```
 Output:
-| name: h2o_feet | tags: location=coyote_creek |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_feet   
+tags: location=coyote_creek
+{{% /influxql/table-meta %}} 
+
 |time | mean |
+| :-------------- |--------------------:|
 | 1970-01-01T00:00:00Z | 5.3591424203|
 
-| name: h2o_feet |  location=santa_monica |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_feet  
+tags: location=santa_monica
+{{% /influxql/table-meta %}} 
+
 |time | mean |
+| :-------------- |----------------------:|
 | 1970-01-01T00:00:00Z |3.5307120942|
 
 The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions/)
@@ -94,34 +102,58 @@ If you request a query that has no timestamp to return, such as an [aggregation 
 > SELECT MEAN("index") FROM "h2o_quality" GROUP BY "location","randtag"
 ```
 Output:
-| name: h2o_quality | tags: randtag=1, location=coyote_creek |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=coyote_creek, randtag=1
+{{% /influxql/table-meta %}} 
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 50.6903376019 |
 
-| name: h2o_quality | tags: location=coyote_creek, randtag=2 |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=coyote_creek, randtag=2
+{{% /influxql/table-meta %}} 
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 49.6618675442 |
 
-| name: h2o_quality | tags: randtag=3, location=coyote_creek |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=coyote_creek, randtag=3
+{{% /influxql/table-meta %}} 
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 49.3609399076 |
 
-| name: h2o_quality | tags: location=santa_monica, randtag=1 |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=santa_monica, randtag=1
+{{% /influxql/table-meta %}}
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 49.1327124563 |
 
-| name: h2o_quality | tags: location=santa_monica, randtag=2 |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=santa_monica, randtag=2
+{{% /influxql/table-meta %}}
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 50.2937984496 |
 
-| name: h2o_quality | tags: location=santa_monica, randtag=3 |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=santa_monica, randtag=3
+{{% /influxql/table-meta %}}
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 49.9991990388 |
 
 The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions/) to calculate the average `index` for
@@ -134,36 +166,59 @@ Separate multiple tags with a comma in the `GROUP BY` clause.
 ```sql
 > SELECT MEAN("index") FROM "h2o_quality" GROUP BY *
 ```
-
 Output:
-| name: h2o_quality | tags: location=coyote_creek, randtag=1  |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=coyote_creek, randtag=1
+{{% /influxql/table-meta %}} 
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 50.6903376019 |
 
-| name: h2o_quality | tags: location=coyote_creek, randtag=2  |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=coyote_creek, randtag=2
+{{% /influxql/table-meta %}} 
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 49.6618675442 |
 
-| name: h2o_quality | tags: location=coyote_creek, randtag=3  |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=coyote_creek, randtag=3
+{{% /influxql/table-meta %}} 
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 49.3609399076 |
 
-| name: h2o_quality | tags: location=santa_monica, randtag=1 |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=santa_monica, randtag=1
+{{% /influxql/table-meta %}}
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 49.1327124563 |
 
-| name: h2o_quality | tags: location=santa_monica, randtag=2 |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=santa_monica, randtag=2
+{{% /influxql/table-meta %}}
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 50.2937984496 |
 
-| name: h2o_quality | tags: location=santa_monica, randtag=3 |
-| :-------------- |:----------------------|
+{{% influxql/table-meta %}} 
+name: h2o_quality  
+tags: location=santa_monica, randtag=3
+{{% /influxql/table-meta %}}
+
 |time | mean |
+| :-------------- | -------------------:|
 | 1970-01-01T00:00:00Z | 49.9991990388 |
 
 The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions/)
@@ -222,9 +277,12 @@ The examples below use the following subsample of the sample data:
 > SELECT "water_level","location" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :-------------------| :------------------|
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time | water_level | location |
+| :-------------- | -------------------:| :------------------|
 | 2019-08-18T00:00:00Z | 8.5040000000  | coyote_creek |
 | 2019-08-18T00:00:00Z  | 2.3520000000 | santa_monica |
 | 2019-08-18T00:06:00Z | 8.4190000000 | coyote_creek |
@@ -244,9 +302,12 @@ Output:
 > SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 ```
 Output:
-| name: h2o_feet |
-| :------------------ | :---------------------|
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time   | count |
+| :------------------ | :---------------------:|
 | 2019-08-18T00:00:00Z | 2.0000000000|
 | 2019-08-18T00:12:00Z | 2.0000000000|
 | 2019-08-18T00:24:00Z | 2.0000000000|
@@ -267,17 +328,26 @@ and up to, but not including, `2019-08-18T00:24:00Z.`
 ```sql
 > SELECT COUNT("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location"
 ```
-Output:
-| name: h2o_feet | tags: location=coyote_creek |
-| :------------------ | :---------------------|
+Output: 
+{{% influxql/table-meta %}}
+name: h2o_feet  
+tags: location=coyote_creek
+{{% /influxql/table-meta %}}
+
 | time   | count |
+| :------------------ | ---------------------:|
 | 2019-08-18T00:00:00Z | 2.0000000000|
 | 2019-08-18T00:12:00Z | 2.0000000000|
 | 2019-08-18T00:24:00Z | 2.0000000000|
 
-| name: h2o_feet | tags: location=santa_monica |
-| :------------------ | :---------------------|
+
+{{% influxql/table-meta %}}
+name: h2o_feet      
+tags: location=santa_monica
+{{% /influxql/table-meta %}}
+
 | time   | count |
+| :------------------ | ---------------------:|
 | 2019-08-18T00:00:00Z | 2.0000000000|
 | 2019-08-18T00:12:00Z | 2.0000000000|
 | 2019-08-18T00:24:00Z | 2.0000000000|
@@ -418,9 +488,13 @@ The examples below use the following subsample of the sample data:
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:54:00Z'
 ```
-| name: h2o_feet |
-| :-------------- | :-------------------| 
+Output:
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time | water_level | 
+| :-------------- | -------------------:| 
 | 2019-08-18T00:00:00Z | 8.5040000000 |
 | 2019-08-18T00:06:00Z | 8.4190000000 |
 | 2019-08-18T00:12:00Z | 8.3200000000|
@@ -438,9 +512,12 @@ The examples below use the following subsample of the sample data:
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m,6m)
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :-------------------| 
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time | mean | 
+| :-------------- | -------------------:| 
 | 2019-08-18T00:06:00Z | 8.3213333333|
 | 2019-08-18T00:24:00Z | 8.0120000000|
 | 2019-08-18T00:42:00Z | 7.6400000000|
@@ -453,10 +530,13 @@ The time boundaries and returned timestamps for the query **without** the `offse
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m)
 ```
-Outptu:
-| name: h2o_feet |
-| :--------------|  :-------------------| 
+Output:
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time | mean | 
+| :-------------- | -------------------:| 
 | 2019-08-18T00:00:00Z | 8.3695000000| 
 | 2019-08-18T00:18:00Z | 8.1223333333|
 | 2019-08-18T00:36:00Z | 7.7680000000|
@@ -510,9 +590,12 @@ the query's time range so the query returns no results for that last interval.
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m,-12m)
 ```
 Output:
-| name: h2o_feet |
-| :--------------|  :-------------------| 
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time | mean | 
+| :-------------- | -------------------:| 
 | 2019-08-18T00:06:00Z | 8.3213333333 |
 | 2019-08-18T00:24:00Z | 8.0120000000 |
 | 2019-08-18T00:42:00Z | 7.6400000000 |
@@ -536,9 +619,12 @@ The time boundaries and returned timestamps for the query **without** the `offse
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m)
 ```
 Output:
-| name: h2o_feet |
-| :--------------|  :-------------------| 
-| time    |    mean | 
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
+| time | mean | 
+| :-------------- | -------------------:| 
 | 2019-08-18T00:00:00Z | 8.3695000000 |
 | 2019-08-18T00:18:00Z | 8.1223333333 |
 | 2019-08-18T00:36:00Z | 7.7680000000 |
@@ -599,9 +685,13 @@ This example is a continuation of the scenario outlined in [Common Issues with B
 > SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m,6m)
 ```
 Output:
-| name: h2o_feet |
-| :--------------|  :-------------------| 
-| time    |   count    | 
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
+
+| time | count | 
+| :-------------- | -------------------:| 
 | 2019-08-18T00:06:00Z  |  2.0000000000    |
 
 
@@ -615,9 +705,12 @@ The time boundaries and returned timestamps for the query **without** the `offse
 > SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m)
 ```
 Output:
-| name: h2o_feet |
-| :--------------|  :-------------------| 
-| time    |   count    | 
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
+| time | count | 
+| :-------------- | -------------------:| 
 | 2019-08-18T00:00:00Z  | 1.0000000000
 | 2019-08-18T00:12:00Z  | 1.0000000000
 
@@ -700,9 +793,12 @@ Without `fill(100)`:
 > SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) 
 ```
 Output:
-| name: h2o_quality |
-| :--------------|  :-------------------| 
+{{% influxql/table-meta %}}
+Name: h2o_quality  
+{{% /influxql/table-meta %}}
+
 | time    |  mean | 
+| :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
 | 019-08-19T08:45:00Z | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
@@ -720,9 +816,12 @@ With `fill(100)`:
 > SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(100)
 ```
 Output:
-| name: h2o_quality |
-| :--------------|  :-------------------| 
+{{% influxql/table-meta %}}
+Name: h2o_quality  
+{{% /influxql/table-meta %}}
+
 | time    |  mean | 
+| :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
 | 019-08-19T08:45:00Z | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
@@ -747,9 +846,12 @@ Without `fill(linear)`:
 > SELECT MEAN("tadpoles") FROM "pond" WHERE time >= '2019-11-11T21:00:00Z' AND time <= '2019-11-11T22:06:00Z' GROUP BY time(12m)
 ```
 Output:
-| name: pond |
-| :--------------|  :-------------------| 
-| time    |  mean   | 
+{{% influxql/table-meta %}}
+Name: pond
+{{% /influxql/table-meta %}}
+
+| time   | mean |
+| :------------------ | ---------------------:|
 | 2019-11-11T21:00:00Z  | 1 |
 | 2019-11-11T21:12:00Z |   |
 | 2019-11-11T21:24:00Z |  3 |
@@ -764,9 +866,12 @@ With `fill(linear)`:
 ```
 
 Output:
-| name:pond |
-| :--------------|  :-------------------| 
-| time    |  mean   | 
+{{% influxql/table-meta %}}
+Name: pond
+{{% /influxql/table-meta %}}
+
+| time   | mean |
+| :------------------ | ---------------------:|
 | 2019-11-11T21:00:00Z | 1 |
 | 2019-11-11T21:12:00Z | 2 |
 | 2019-11-11T21:24:00Z | 3 |
@@ -792,9 +897,12 @@ Without `fill(none)`:
 > SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m)
 ```
 Output:
-| name: h2o_quality |
-| :--------------|  :-------------------| 
+{{% influxql/table-meta %}}
+Name: h2o_quality
+{{% /influxql/table-meta %}}
+
 | time    |  mean | 
+| :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
 | 019-08-19T08:45:00Z | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
@@ -813,9 +921,12 @@ With `fill(none)`:
 > SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(none)
 ```
 Output:
-| name: h2o_quality |
-| :--------------|  :-------------------| 
+{{% influxql/table-meta %}}
+Name: h2o_quality
+{{% /influxql/table-meta %}}
+
 | time    |  mean | 
+| :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
 | 019-08-19T08:45:00Z | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
@@ -839,9 +950,12 @@ Without `fill(null)`:
 > SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m)
 ```
 Output:
-| name: h2o_quality |
-| :--------------|  :-------------------| 
+{{% influxql/table-meta %}}
+Name: h2o_quality
+{{% /influxql/table-meta %}}
+
 | time    |  mean | 
+| :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
 | 019-08-19T08:45:00Z | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
@@ -860,9 +974,12 @@ With `fill(null)`:
 > SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(null)
 ```
 Output:
-| name: h2o_quality |
-| :--------------|  :-------------------| 
+{{% influxql/table-meta %}}
+Name: h2o_quality
+{{% /influxql/table-meta %}}
+
 | time    |  mean | 
+| :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
 | 019-08-19T08:45:00Z | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
@@ -888,9 +1005,12 @@ Without `fill(previous)`:
  > SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) 
  ```
 Output:
-| name: h2o_quality |
-| :--------------|  :-------------------| 
+{{% influxql/table-meta %}}
+Name: h2o_quality
+{{% /influxql/table-meta %}}
+
 | time    |  mean | 
+| :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
 | 019-08-19T08:45:00Z | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
@@ -908,9 +1028,12 @@ With `fill(previous)`:
  SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(previous)
  ```
 Output:
-| name: h2o_quality |
-| :--------------|  :-------------------| 
+{{% influxql/table-meta %}}
+Name: h2o_quality
+{{% /influxql/table-meta %}}
+
 | time    |  mean | 
+| :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
 | 019-08-19T08:45:00Z | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
@@ -965,9 +1088,12 @@ result from `2019-09-18T16:24:00Z`.
 ```
 
 Output:
-| name:h2o_feet |
-| :--------------|  :-------------------| 
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time    |  max | 
+| :--------------| ------------------:| 
 | 2019-09-18T16:24:00Z  |  3.235
 | 2019-09-18T16:36:00Z  | 3.235
 | 2019-09-18T16:48:00Z  | 4
@@ -982,9 +1108,13 @@ shorter time range.
 ```sql
 > SELECT MAX("water_level") FROM "h2o_feet" WHERE location = 'coyote_creek' AND time >= '2019-09-18T16:36:00Z' AND time <= '2019-09-18T16:54:00Z' GROUP BY time(12m) fill(previous)
 ```
-| name:h2o_feet |
-| :--------------|  :-------------------| 
+Output:
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
 | time    |  max | 
+| :--------------| ------------------:| 
 | 2019-09-18T16:36:00Z  |  |
 | 2019-09-18T16:48:00Z  | 4
 
@@ -1005,9 +1135,12 @@ using the values from the `2019-11-11T21:24:00Z` time interval and the
 > SELECT MEAN("tadpoles") FROM "pond" WHERE time > '2019-11-11T21:24:00Z' AND time <= '2019-11-11T22:06:00Z' GROUP BY time(12m) fill(linear)
 ```
 Output:
-| name:pond |
-| :--------------|  :-------------------| 
-| time    |  mean   | 
+{{% influxql/table-meta %}}
+Name: pond
+{{% /influxql/table-meta %}}
+
+| time    |  mean |
+| :--------------| ------------------:|
 | 2019-11-11T21:24:00Z | 3 |
 | 2019-11-11T21:36:00Z | 4 |
 | 2019-11-11T21:48:00Z | 5 |
@@ -1023,11 +1156,13 @@ cannot perform the linear interpolation.
 ```sql
 > SELECT MEAN("tadpoles") FROM "pond" WHERE time >= '2019-11-11T21:36:00Z' AND time <= '2019-11-11T22:06:00Z' GROUP BY time(12m) fill(linear)
 ```
-Ouptut:
+Output:
+{{% influxql/table-meta %}}
+Name: pond
+{{% /influxql/table-meta %}}
 
-| name:pond |
-| :--------------|  :-------------------| 
-| time    |  mean   | 
+| time    |  mean |
+| :--------------| ------------------:|
 | 2019-11-11T21:36:00Z |   |
 | 2019-11-11T21:48:00Z |  |
 | 2019-11-11T22:00:00Z | 6 |

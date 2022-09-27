@@ -40,9 +40,12 @@ precision rfc3339
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:18:00Z' tz('America/Chicago')
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :-------------------|
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time | water_level |
+| :-------------- | -------------------:|
 | 2019-08-17T19:00:00-05:00 | 2.3520000000|
 | 2019-08-17T19:06:00-05:00 | 2.3790000000|
 | 2019-08-17T19:12:00-05:00 | 2.3430000000|
@@ -129,9 +132,12 @@ duration literal.
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00.000000000Z' AND time <= '2019-08-18T00:12:00Z'
 ```
 Output:
-| name: h2o_feet | 
-| :------------------ | :---------------------|
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time   |  water_level |
+| :------------------ | ------------------:|
 | 2019-08-18T00:00:00Z  | 2.3520000000|
 | 2019-08-18T00:06:00Z  | 2.3790000000|
 | 2019-08-18T00:12:00Z  | 2.3430000000|
@@ -147,9 +153,12 @@ Note that the single quotes around the RFC3339 date-time strings are required.
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18' AND time <= '2019-08-18 00:12:00'
 ```
 Output:
-| name: h2o_feet | 
-| :------------------ | :---------------------|
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time   |  water_level |
+| :------------------ | ------------------:|
 | 2019-08-18T00:00:00Z  | 2.3520000000|
 | 2019-08-18T00:06:00Z  | 2.3790000000|
 | 2019-08-18T00:12:00Z  | 2.3430000000|
@@ -168,9 +177,12 @@ required.
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= 1564635600000000000 AND time <= 1566190800000000000
 ```
 Output:
-| name: h2o_feet | 
-| :------------------ | :---------------------|
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time   |  water_level |
+| :------------------ | ------------------:|
 | 2019-08-17T00:00:00Z  | 2.0640000000|
 | 2019-08-17T00:06:00Z  | 2.1160000000|
 | 2019-08-17T00:12:00Z  | 2.0280000000|
@@ -196,9 +208,8 @@ at 00:00:00 and August 19, 2019 at 00:12:00.  By default InfluxDB assumes epoch 
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= 1566190800s AND time <= 1566191520s
 ```
 Output:
-| name: h2o_feet | 
-| :------------------ | :---------------------|
 | time   |  water_level |
+| :------------------ | ------------------:|
 | 2019-08-19T05:00:00Z | 3.2320000000|
 | 2019-08-19T05:06:00Z | 3.2320000000|
 | 2019-08-19T05:12:00Z | 3.2910000000|
@@ -213,9 +224,12 @@ The `s` duration literal at the end of the epoch timestamps indicate that the ep
 > SELECT "water_level" FROM "h2o_feet" WHERE time > '2019-09-17T21:24:00Z' + 6m
 ```
 Output:
-| name: h2o_feet | 
-| :------------------ | :---------------------|
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time   |  water_level |
+| :------------------ | ------------------:|
 | 2019-09-17T21:36:00Z  |  5.0660000000|
 | 2019-09-17T21:42:00Z  |  4.9380000000|
 
@@ -229,9 +243,12 @@ Note that the whitespace between the `+` and `6m` is required.
 > SELECT "water_level" FROM "h2o_feet" WHERE time > 24043524m - 6m
 ```
 Output:
-| name: h2o_feet | 
-| :------------------ | :---------------------|
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time   |  water_level |
+| :------------------ | ------------------:|
 | 2019-08-17T00:00:00Z  |   8.1200000000|
 | 2019-08-17T00:00:00Z  |   2.0640000000|
 | 2019-08-17T00:06:00Z  |   8.0050000000|
@@ -295,9 +312,12 @@ The whitespace between `-` and `1h` is required.
 > SELECT "level description" FROM "h2o_feet" WHERE time > '2019-09-17T21:18:00Z' AND time < now() + 1000d
 ```
 Output:
-| name: h2o_feet | 
-| :------------------ | :---------------------|
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time   |  level description    |
+| :------------------ |--------------------:|
 |2019-09-17T21:24:00Z | between 3 and 6 feet |
 |2019-09-17T21:30:00Z | between 3 and 6 feet |
 |2019-09-17T21:36:00Z | between 3 and 6 feet |

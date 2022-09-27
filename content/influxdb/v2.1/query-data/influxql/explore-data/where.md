@@ -23,7 +23,7 @@ The `WHERE` filters data based on
 SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_expression> [...]]
 ```
 
-The `WHERE` clause supports `conditional_expression`s on fields, tags, and timestamps.
+The `WHERE` clause supports `conditional_expressions` on fields, tags, and timestamps.
 
 {{% note %}}
 **NOTE:** InfluxDB does not support using OR in the WHERE clause to specify multiple time ranges. For example, InfluxDB returns an empty response for the following query:
@@ -100,24 +100,17 @@ The [Time Syntax](#time-syntax) section on this page details how to specify alte
 > SELECT * FROM "h2o_feet" WHERE "water_level" > 9
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :-------------------| :------------------| :------------------ |
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time | level description  | location | water_level |
+| :-------------- | :-------------------| :------------------| -------: |
 | 2019-08-25T04:00:00Z  | at or greater than 9 feet | coyote_creek | 9.0320000000|
 | 2019-08-25T04:06:00Z  | at or greater than 9 feet | coyote_creek | 9.0780000000|
 | 2019-08-25T04:12:00Z  | at or greater than 9 feet | coyote_creek | 9.1110000000|
 | 2019-08-25T04:18:00Z  | at or greater than 9 feet | coyote_creek | 9.1500000000|
 | 2019-08-25T04:24:00Z  | at or greater than 9 feet | coyote_creek | 9.1800000000|
-
-
-<!-- name: h2o_feet
---------------
-time                   level description      location       water_level
-2015-08-18T00:00:00Z   between 6 and 9 feet   coyote_creek   8.12
-2015-08-18T00:06:00Z   between 6 and 9 feet   coyote_creek   8.005
-[...]
-2015-09-18T00:12:00Z   between 6 and 9 feet   coyote_creek   8.189
-2015-09-18T00:18:00Z   between 6 and 9 feet   coyote_creek   8.084 -->
 
 The query returns data from the `h2o_feet` measurement with field values of `water_level` that are greater than nine. 
 This is a partial data set.
@@ -128,24 +121,18 @@ This is a partial data set.
 > SELECT * FROM "h2o_feet" WHERE "level description" = 'below 3 feet'
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :-------------------| :------------------| :------------------ |
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time | level description  | location | water_level |
+| :-------------- | :-------------------| :------------------| :------------------ |
 | 2019-08-17T00:00:00Z | below 3 feet | santa_monica | 2.0640000000|
 | 2019-08-17T00:06:00Z | below 3 feet | santa_monica | 2.1160000000|
 | 2019-08-17T00:12:00Z | below 3 feet | santa_monica | 2.0280000000|
 | 2019-08-17T00:18:00Z | below 3 feet | santa_monica | 2.1260000000|
 | 2019-08-17T00:24:00Z | below 3 feet | santa_monica | 2.0410000000|
 | 2019-08-17T00:30:00Z | below 3 feet | santa_monica | 2.0510000000|
-
-<!-- name: h2o_feet
---------------
-time                   level description   location       water_level
-2015-08-18T00:00:00Z   below 3 feet        santa_monica   2.064
-2015-08-18T00:06:00Z   below 3 feet        santa_monica   2.116
-[...]
-2015-09-18T14:06:00Z   below 3 feet        santa_monica   2.999
-2015-09-18T14:36:00Z   below 3 feet        santa_monica   2.907 -->
 
 The query returns data from the `h2o_feet` measurement with field values of `level description` that equal the `below 3 feet` string. InfluxQL requires single quotes around string field values in the `WHERE` clause.
 
@@ -155,9 +142,12 @@ The query returns data from the `h2o_feet` measurement with field values of `lev
 > SELECT * FROM "h2o_feet" WHERE "water_level" + 2 > 11.9
 ```
 Output:
-| name: h2o_feet |
-| :-------------- | :-------------------| :------------------| :------------------ |
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
 | time | level description  | location | water_level |
+| :-------------- | :-------------------| :------------------|---------------: |
 | 2019-08-28T07:06:00Z | at or greater than 9 feet | coyote_creek | 9.9020000000|
 | 2019-08-28T07:12:00Z | at or greater than 9 feet | coyote_creek | 9.9380000000|
 | 2019-08-28T07:18:00Z | at or greater than 9 feet | coyote_creek | 9.9570000000|
@@ -167,19 +157,6 @@ Output:
 | 2019-08-28T07:42:00Z | at or greater than 9 feet | coyote_creek | 9.9250000000|
 | 2019-08-28T07:48:00Z | at or greater than 9 feet | coyote_creek | 9.9020000000|
 | 2019-09-01T23:30:00Z | at or greater than 9 feet | coyote_creek | 9.9020000000|
-
-<!-- name: h2o_feet
---------------
-time                   level description           location       water_level
-2019-08-29T07:06:00Z   at or greater than 9 feet   coyote_creek   9.902
-2019-08-29T07:12:00Z   at or greater than 9 feet   coyote_creek   9.938
-2019-08-29T07:18:00Z   at or greater than 9 feet   coyote_creek   9.957
-2019-08-29T07:24:00Z   at or greater than 9 feet   coyote_creek   9.964
-2019-08-29T07:30:00Z   at or greater than 9 feet   coyote_creek   9.954
-2019-08-29T07:36:00Z   at or greater than 9 feet   coyote_creek   9.941
-2019-08-29T07:42:00Z   at or greater than 9 feet   coyote_creek   9.925
-2019-08-29T07:48:00Z   at or greater than 9 feet   coyote_creek   9.902
-2019-09-02T23:30:00Z   at or greater than 9 feet   coyote_creek   9.902 -->
 
 The query returns data from the `h2o_feet` measurement with field values of
 `water_level` plus two that are greater than 11.9. Note that InfluxDB follows the standard order of operations.
@@ -225,7 +202,7 @@ InfluxQL requires single quotes around tag values in the `WHERE` clause.
 ```
 Output:
 {{% influxql/table-meta %}} 
-Name: h2o_feet 
+Name: h2o_feet
 {{% /influxql/table-meta %}} 
 
 | time                 |  water_level |
@@ -258,8 +235,7 @@ offers in-depth information on supported time syntax in the `WHERE` clause.
 #### A `WHERE` clause query unexpectedly returns no data
 
 In most cases, this issue is the result of missing single quotes around
-[tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value)
-or string [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
+tag values or string field values.
 Queries with unquoted or double quoted tag values or string field values will
 not return any data and, in most cases, will not return an error.
 
@@ -277,17 +253,8 @@ No results
 No results
 
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica'
-
-Output:
-
-name: h2o_feet
---------------
-time                   water_level
-2015-08-18T00:00:00Z   2.064
-[...]
-2015-09-18T21:42:00Z   4.938
 ```
-
+Output:
 {{% influxql/table-meta %}} 
 Name: h2o_feet
 {{% /influxql/table-meta %}} 
@@ -318,11 +285,17 @@ ERR: 400 Bad Request: failed to parse query: found than, expected ; at line 1, c
 No results
 
 > SELECT "level description" FROM "h2o_feet" WHERE "level description" = 'at or greater than 9 feet'
-
-name: h2o_feet
---------------
-time                   level description
-2015-08-26T04:00:00Z   at or greater than 9 feet
-[...]
-2015-09-15T22:42:00Z   at or greater than 9 feet
 ```
+
+Output:
+{{% influxql/table-meta %}} 
+Name: h2o_feet
+{{% /influxql/table-meta %}} 
+
+| time                        | level_description |
+| :---------------------------| ------: |
+| 2019-08-25T04:00:00Z | at or greater than 9 feet |
+| 2019-08-25T04:06:00Z | at or greater than 9 feet |
+| 019-08-25T04:12:00Z  | at or greater than 9 feet |
+| 2019-08-25T04:18:00Z | at or greater than 9 feet | 
+| 2019-08-25T04:24:00Z | at or greater than 9 feet |
