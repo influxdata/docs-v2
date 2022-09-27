@@ -22,5 +22,5 @@ To switch {{< cloud-name "short" >}} accounts:
 To set an account as the default:
 
 1. Click the user avatar in the upper-right and select **Profile**.
-2. Select a **Default Account** from the dropdown. 
+2. Select a **Default Account** from the drop-down list. 
 3. Click **Save Changes**. 
