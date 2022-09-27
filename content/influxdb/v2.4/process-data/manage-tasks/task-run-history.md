@@ -20,6 +20,16 @@ and the exit status of the run attempt.
 Use the InfluxDB user interface (UI), the `influx` command line interface (CLI),
 or the InfluxDB `/api/v2` API to view task run histories and associated logs.
 
+{{% warn %}}
+InfluxDB doesn’t guarantee that a task will run at the scheduled time. During busy
+periods, tasks are added to the run queue and processed in order of submission.
+The scheduled start time and actual start time can be viewed in the logs under
+`scheduledFor` and `startedAt`.
+
+Task execution time doesn't affect the time range queried. Tasks will query
+over the set time range as if executed on schedule regardless of delay.
+{{% /warn %}}
+
 ## View a task's run history in the InfluxDB UI
 
 1. In the navigation menu on the left, select **Tasks**.
