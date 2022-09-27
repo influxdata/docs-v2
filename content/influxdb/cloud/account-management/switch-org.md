@@ -13,7 +13,7 @@ If you belong to more than one {{< cloud-name >}} organization with the same ema
 
 To switch {{< cloud-name "short" >}} organizations:
 
-1. In the {{< cloud-name "short" >}} UI, click the organization name dropdown in the upper left and select **Settings**.
+1. In the {{< cloud-name "short" >}} UI, click the organization name drop-down list in the upper left and select **Settings**.
 2. Click **Switch Organization**. If this option doesn't appear, your email address is only associated with one organization.
 3. Select the organization you want to switch to.
 
