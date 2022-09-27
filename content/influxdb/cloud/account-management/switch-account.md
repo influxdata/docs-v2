@@ -15,7 +15,7 @@ You can also set a default account. The default account is the account automatic
 
 To switch {{< cloud-name "short" >}} accounts:
 
-1. In the {{< cloud-name "short" >}} UI, click the account name dropdown in the upper left.
+1. In the {{< cloud-name "short" >}} UI, click the account name drop-down list in the upper left.
 2. Select **Switch Account**. If this option doesn't appear, your email address is only associated with one account.
 3. Select the account you want to switch to.
 
