@@ -7,6 +7,8 @@ menu:
     name: Time Series Index (TSI) overview
     weight: 70
     parent: Concepts
+aliases: 
+  - /influxdb/latest/concepts/time-series-index/
 ---
 
 Find overview and background information on Time Series Index (TSI) in this topic. For detail, including how to enable and configure TSI, see [Time Series Index (TSI) details](/influxdb/v1.8/concepts/tsi-details/).
