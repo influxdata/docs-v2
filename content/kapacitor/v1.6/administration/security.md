@@ -15,8 +15,7 @@ weight: 12
 ## Overview
 
 This document covers the basics of securing the open-source distribution of
-Kapacitor.  For information about security with Enterprise Kapacitor see the
-[Enterprise Kapacitor](https://archive.docs.influxdata.com/enterprise_kapacitor/v1.6/) documentation.
+Kapacitor.  
 
 When seeking to secure Kapacitor it is assumed that the Kapacitor server will be
 communicating with an already secured InfluxDB server.  It will also make its
@@ -355,16 +354,13 @@ chronograf-v1-3586109e-8b7d-437a-80eb-a9c50d00ad53 stream    enabled   true     
 
 ### Kapacitor Authentication and Authorization
 
-The following applies to the open-source distribution of Kapacitor.  While it is
-possible to add parameters such as `username`, `password` and `auth-enabled` to
-the section `[http]` of the configuration file, `kapacitor.conf`, and while the
-Kapacitor server will then expect a username and password to be supplied when
-connecting, the authorization and authentication handler in the open-source
-distribution does not enforce checks against a user-store, nor does it verify
-access permissions to resources using an Access Control List (ACL).  
+To ensure Kapacitor requires a username and password to connect, enable basic authentication.
+To do this, set up the `username`, `password`, and `auth-enabled` 
+paramenters in the `[http]` section  of `kapacitor.conf`.
 
-A true authentication and authorization handler is available only in the
-Enterprise Kapacitor distribution.      
+Kapacitor also supports using InfluxDB Enterprise
+to manage authentication and authorization for interactions with the Kapacitor API.
+For instructions, see ["Set up InfluxDB Enterprise authorizations"](/kapacitor/v1.6/administration/auth/influxdb-enterprise-auth).
 
 ### Note on HTTP API Configuration and Restarting Kapacitor
 
@@ -379,6 +375,27 @@ at <span>http</span><span>://</span><span>localhost:9092/kapacitor/v1/config</sp
 This can be especially useful if Kapacitor to InfluxDB communications do not
 seem to be respecting values seen in the file `kapacitor.conf` or in environment
 variables.
+
+### Deny specific CIDR ranges
+
+To deny access to Kapacitor from certain [CIDR ranges](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+(classes of IP addresses),
+use the `-blacklist-cidrs` flag.
+Pass a comma-separated list of CIDRs to deny for most HTTP GET/POST operations:
+
+```sh
+kapacitord -blacklist-cidrs 10.0.0.0/8,0.0.0.0/32
+```
+
+### Disable specific alert handlers
+
+Use the `-disable-handlers` flag to disable a set of alert handlers.
+Pass a comma-separated list of [handlers](/kapacitor/v1.6/event_handlers/):
+
+```sh
+kapacitord -disable-handlers exec,httppost
+```
+
 
 ## Secure Kapacitor and Chronograf
 

@@ -3,6 +3,15 @@
 {{ $pathData := findRE "[^/]+.*?" .Page.RelPermalink }}
 {{ $currentTelegrafVersion := replaceRE `v` "" (index $pathData 1) }}
 
+{{ $scratch.Set "externalPluginLink" "" }}
+{{ if and (gt (float $currentTelegrafVersion) 1.18) (le (float $currentTelegrafVersion) 1.21) }}
+  {{ $scratch.Set "externalPluginLink" (print "/telegraf/" (index $pathData 1) "/external_plugins/" )}}
+{{ else if (ge (float $currentTelegrafVersion) 1.22) }}
+  {{ $scratch.Set "externalPluginLink" (print "/telegraf/" (index $pathData 1) "/configure_plugins/external_plugins/" )}}
+{{ end }}
+
+{{ $externalPluginLink := $scratch.Get "externalPluginLink" }}
+
 {{ range (index .Site.Data.telegraf_plugins $type ) }}
   {{ $pluginTags := delimit .tags " " }}
   {{ $minorVer := replaceRE `\.[^.]*$` "" .introduced }}
@@ -11,10 +20,12 @@
 
   <!-- Only include plugins supported by the currently viewed Telegraf version -->
   {{ if $supported }}
-    <div class="plugin-card visible{{ if eq $minorVer $currentTelegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ if eq $minorVer $currentTelegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
+    <div class="plugin-card filter-item visible{{ if eq $minorVer $currentTelegrafVersion }} new{{ end }}" id="{{ .id }}" data-tags="{{ $type }} {{ lower $pluginTags }} {{ if eq $minorVer $currentTelegrafVersion }}new{{ end }} {{ if .deprecated }}deprecated{{ end }} ">
       <div class="info">
-        <h3 id="{{ .id }}">{{ .name }}</h3>
-        {{ if in .tags "external"}}<p class="external">External</p>{{ end }}
+        <h3 id="{{ $type }}-{{ .id }}">{{ .name }}</h3>
+        {{ if in .tags "external"}}
+          <a class="external" href="{{ $externalPluginLink }}">External</a>
+        {{ end }}
         <p class="meta">
           Plugin ID: <code>{{ $type }}s.{{ .id }}</code><br/>
           Telegraf {{ if not .deprecated }}{{ .introduced }}+{{ else }}{{ .introduced }} - {{ .deprecated }} <span class="deprecated">Deprecated</span>{{ end }}

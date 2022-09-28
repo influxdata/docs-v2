@@ -18,9 +18,9 @@ v2: /influxdb/v2.0/query-data/flux/rate/
 ---
 
 
-Use the [`derivative()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/derivative/)
+Use the [`derivative()` function](/{{< latest "flux" >}}/stdlib/universe/derivative/)
 to calculate the rate of change between subsequent values or the
-[`aggregate.rate()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/aggregate/rate/)
+[`aggregate.rate()` function](/{{< latest "flux" >}}/stdlib/experimental/aggregate/rate/)
 to calculate the average rate of change per window of time.
 If time between points varies, these functions normalize points to a common time interval
 making values easily comparable.
@@ -29,16 +29,16 @@ making values easily comparable.
 - [Average rate of change per window of time](#average-rate-of-change-per-window-of-time)
 
 ## Rate of change between subsequent values
-Use the [`derivative()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/derivative/)
+Use the [`derivative()` function](/{{< latest "flux" >}}/stdlib/universe/derivative/)
 to calculate the rate of change per unit of time between subsequent _non-null_ values.
 
 ```js
 data
-  |> derivative(unit: 1s)
+    |> derivative(unit: 1s)
 ```
 
 By default, `derivative()` returns only positive derivative values and replaces negative values with _null_.
-Cacluated values are returned as [floats](/{{< latest "influxdb" "v2" >}}/reference/flux/language/types/#numeric-types).
+Cacluated values are returned as [floats](/{{< latest "flux" >}}/language/types/#numeric-types).
 
 
 {{< flex >}}
@@ -93,10 +93,7 @@ To return negative derivative values, set the `nonNegative` parameter to `false`
 **The following returns:**
 
 ```js
-|> derivative(
-  unit: 1m,
-  nonNegative: false
-)
+|> derivative(unit: 1m, nonNegative: false)
 ```
 
 | _time                | _value |
@@ -115,21 +112,17 @@ include negative values.
 
 ## Average rate of change per window of time
 
-Use the [`aggregate.rate()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/aggregate/rate/)
+Use the [`aggregate.rate()` function](/{{< latest "flux" >}}/stdlib/experimental/aggregate/rate/)
 to calculate the average rate of change per window of time.
 
 ```js
 import "experimental/aggregate"
 
 data
-  |> aggregate.rate(
-    every: 1m,
-    unit: 1s,
-    groupColumns: ["tag1", "tag2"]
-  )
+    |> aggregate.rate(every: 1m, unit: 1s, groupColumns: ["tag1", "tag2"])
 ```
 
-`aggregate.rate()` returns the average rate of change (as a [float](/{{< latest "influxdb" "v2" >}}/reference/flux/language/types/#numeric-types))
+`aggregate.rate()` returns the average rate of change (as a [float](/{{< latest "flux" >}}/language/types/#numeric-types))
 per `unit` for time intervals defined by `every`.
 Negative values are replaced with _null_.
 
@@ -155,10 +148,7 @@ Negative values are replaced with _null_.
 **The following returns:**
 
 ```js
-|> aggregate.rate(
-  every: 20m,
-  unit: 1m
-)
+|> aggregate.rate(every: 20m, unit: 1m)
 ```
 
 | _time                | _value |

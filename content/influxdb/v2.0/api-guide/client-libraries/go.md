@@ -1,9 +1,9 @@
 ---
 title: Go client library
-seotitle: InfluxDB Go client library
+seotitle: Use the InfluxDB Go client library
 list_title: Go
 description: >
-  Use the Go client library to interact with InfluxDB.
+  Use the InfluxDB Go client library to interact with InfluxDB.
 menu:
   influxdb_2_0:
     name: Go
@@ -12,6 +12,7 @@ influxdb/v2.0/tags: [client libraries, Go]
 weight: 201
 aliases:
   - /influxdb/v2.0/reference/api/client-libraries/go/
+  - /influxdb/v2.0/tools/client-libraries/go/
 ---
 
 Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to integrate InfluxDB into Go scripts and applications.

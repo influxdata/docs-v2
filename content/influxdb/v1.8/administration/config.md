@@ -279,8 +279,8 @@ Environment variable: `INFLUXDB_DATA_STRICT_ERROR_HANDLING`
 
 #### `validate-keys = false`
 
-Validates incoming writes to ensure keys only have valid Unicode characters.
-This setting will incur a small overhead because every key must be checked.
+Validates incoming writes to ensure measurement keys and tag keys only have valid Unicode characters.
+This setting will incur a small overhead because every key must be checked. This will not validate field keys.
 
 
 ### Settings for the TSM engine
@@ -291,6 +291,8 @@ The maximum size that a shard cache can reach before it starts rejecting writes.
 
 Valid memory size suffixes are: `k`, `m`, or `g` (case-insensitive, 1024 = 1k).
 Values without a size suffix are in bytes.
+
+Consider increasing this value if encountering `cache maximum memory size exceeded` errors.
 
 Environment variable: `INFLUXDB_DATA_CACHE_MAX_MEMORY_SIZE`
 

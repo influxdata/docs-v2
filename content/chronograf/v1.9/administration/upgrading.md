@@ -8,7 +8,7 @@ menu:
     parent: Administration
 ---
 
-If you're upgrading from Chronograf 1.3.x, first install 1.7.x, and then install {{< latest-patch >}}.
+If you're upgrading from Chronograf 1.3.x, first install {{< latest-patch version="1.7" >}}, and then install {{< latest-patch >}}.
 
 If you're upgrading from Chronograf 1.4 or later, [download and install](https://portal.influxdata.com/downloads) the most recent version of Chronograf, and then restart Chronograf.
 

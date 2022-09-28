@@ -1,12 +1,14 @@
 ---
-title: InfluxDB client R package
+title: R package client library
 list_title: R
-description: Use the client R package to interact with InfluxDB.
+seotitle: Use the InfluxDB client R package
+description: Use the InfluxDB client R package to interact with InfluxDB.
 external_url: https://github.com/influxdata/influxdb-client-r
 menu:
   influxdb_2_0:
     name: R
     parent: Client libraries
-    url: https://github.com/influxdata/influxdb-client-r
+    params:
+      url: https://github.com/influxdata/influxdb-client-r
 weight: 201
 ---

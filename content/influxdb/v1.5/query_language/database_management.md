@@ -289,19 +289,18 @@ This setting is optional.
 #### Examples
 
 ##### Example 1: Create a retention policy
-<br>
+
+```sql
+CREATE RETENTION POLICY "one_day_only" ON "NOAA_water_database" DURATION 1d REPLICATION 1
 ```
-> CREATE RETENTION POLICY "one_day_only" ON "NOAA_water_database" DURATION 1d REPLICATION 1
->
-```
+
 The query creates a retention policy called `one_day_only` for the database
 `NOAA_water_database` with a one day duration and a replication factor of one.
 
 ##### Example 2: Create a DEFAULT retention policy
-<br>
+
 ```sql
-> CREATE RETENTION POLICY "one_day_only" ON "NOAA_water_database" DURATION 23h60m REPLICATION 1 DEFAULT
->
+CREATE RETENTION POLICY "one_day_only" ON "NOAA_water_database" DURATION 23h60m REPLICATION 1 DEFAULT
 ```
 
 The query creates the same retention policy as the one in the example above, but
@@ -317,7 +316,8 @@ See [Create a database with CREATE DATABASE](/influxdb/v1.5/query_language/datab
 ### Modify retention policies with ALTER RETENTION POLICY
 
 The `ALTER RETENTION POLICY` query takes the following form, where you must declare at least one of the retention policy attributes `DURATION`, `REPLICATION`, `SHARD DURATION`, or `DEFAULT`:
-```sql
+
+```
 ALTER RETENTION POLICY <retention_policy_name> ON <database_name> DURATION <duration> REPLICATION <n> SHARD DURATION <duration> DEFAULT
 ```
 
@@ -333,7 +333,6 @@ First, create the retention policy `what_is_time` with a `DURATION` of two days:
 Modify `what_is_time` to have a three week `DURATION`, a 30 minute shard group duration, and  make it the `DEFAULT` retention policy for `NOAA_water_database`.
 ```sql
 > ALTER RETENTION POLICY "what_is_time" ON "NOAA_water_database" DURATION 3w SHARD DURATION 30m DEFAULT
->
 ```
 In the last example, `what_is_time` retains its original replication factor of 1.
 

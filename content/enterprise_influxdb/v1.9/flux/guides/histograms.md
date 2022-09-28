@@ -17,7 +17,7 @@ Histograms provide valuable insight into the distribution of your data.
 This guide walks through using Flux's `histogram()` function to transform your data into a **cumulative histogram**.
 
 ## histogram() function
-The [`histogram()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/histogram) approximates the
+The [`histogram()` function](/{{< latest "flux" >}}/stdlib/universe/histogram) approximates the
 cumulative distribution of a dataset by counting data frequencies for a list of "bins."
 A **bin** is simply a range in which a data point falls.
 All data points that are less than or equal to the bound are counted in the bin.
@@ -25,13 +25,10 @@ In the histogram output, a column is added (le) that represents the upper bounds
 Bin counts are cumulative.
 
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> histogram(bins: [0.0, 10.0, 20.0, 30.0])
+from(bucket: "telegraf/autogen")
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> histogram(bins: [0.0, 10.0, 20.0, 30.0])
 ```
 
 > Values output by the `histogram` function represent points of data aggregated over time.
@@ -42,7 +39,7 @@ Flux provides two helper functions for generating histogram bins.
 Each generates and outputs an array of floats designed to be used in the `histogram()` function's `bins` parameter.
 
 ### linearBins()
-The [`linearBins()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/misc/linearbins) generates a list of linearly separated floats.
+The [`linearBins()` function](/{{< latest "flux" >}}/stdlib/built-in/misc/linearbins) generates a list of linearly separated floats.
 
 ```js
 linearBins(start: 0.0, width: 10.0, count: 10)
@@ -51,7 +48,7 @@ linearBins(start: 0.0, width: 10.0, count: 10)
 ```
 
 ### logarithmicBins()
-The [`logarithmicBins()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/misc/logarithmicbins) generates a list of exponentially separated floats.
+The [`logarithmicBins()` function](/{{< latest "flux" >}}/stdlib/built-in/misc/logarithmicbins) generates a list of exponentially separated floats.
 
 ```js
 logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinty: true)
@@ -63,20 +60,10 @@ logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinty: true)
 
 ### Generating a histogram with linear bins
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> histogram(
-    bins: linearBins(
-      start:65.5,
-      width: 0.5,
-      count: 20,
-      infinity:false
-    )
-  )
+from(bucket: "telegraf/autogen")
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> histogram(bins: linearBins(start: 65.5, width: 0.5, count: 20, infinity: false))
 ```
 
 ###### Output table
@@ -108,20 +95,10 @@ Table: keys: [_start, _stop, _field, _measurement, host]
 
 ### Generating a histogram with logarithmic bins
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> histogram(
-    bins: logarithmicBins(
-      start:0.5,
-      factor: 2.0,
-      count: 10,
-      infinity:false
-    )
-  )
+from(bucket: "telegraf/autogen")
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> histogram(bins: logarithmicBins(start: 0.5, factor: 2.0, count: 10, infinity: false))
 ```
 
 ###### Output table

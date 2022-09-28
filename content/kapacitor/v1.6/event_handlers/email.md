@@ -75,8 +75,9 @@ The following Email event handler options can be set in a
 `.email()` in a TICKscript.
 
 | Name | Type            | Description              |
-| ---- | ----            | -----------              |
+| ---- | --------------- | ------------------------ |
 | to   | list of strings | List of email addresses. |
+| toTemplate(s)  | string template| Derived email addresses. |
 
 ### Example: handler file
 ```yaml
@@ -134,7 +135,7 @@ stream
   |from()
     .measurement('cpu')
   |alert()
-    .crit(lambda: 'usage_idle' < 10)
+    .crit(lambda: "usage_idle" < 10)
     .message('Hey, check your CPU')
     .email()
       .to('oncall1@mydomain.com')
@@ -186,4 +187,39 @@ Add the handler:
 
 ```bash
 kapacitor define-topic-handler email_cpu_handler.yaml
+```
+
+### Send email alerts using the toTemplate option
+
+You can use `toTemplate` to derive email addresses directly from data instead of hardcoding them individually. 
+In the example below, we are using both the `to` option and `toTemplates` option in order to derive email addresses from a dataset and send email alerts directly to recipients. 
+Like the `to` option, the `toTemplates` option can be used more than once in a TICKscript. 
+You can combine the `to` and `toTemplates` options or use them individually depending on your use case.
+
+```js
+stream
+	|from()
+		.measurement('cpu')
+		.where(lambda: "host" == 'serverA')
+		.groupBy('host')
+	|window()
+		.period(10s)
+		.every(10s)
+	|count('value')
+	|default()
+		.field('extraemail','bob@example.com')
+		.tag('tagemail','bob2@example.com')
+	|alert()
+		.id('kapacitor.{{ .Name }}.{{ index .Tags "host" }}')
+		.details('''
+<b>{{.Message}}</b>
+Value: {{ index .Fields "count" }}
+<a href="http://graphs.example.com/host/{{index .Tags "host"}}">Details</a>
+''')
+		.info(lambda: "count" > 6.0)
+		.warn(lambda: "count" > 7.0)
+		.crit(lambda: "count" > 8.0)
+		.email()
+			.to('user1@example.com', 'user2@example.com')
+			.toTemplates('{{ index .Fields "extraemail" }}')
 ```

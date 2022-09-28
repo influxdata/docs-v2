@@ -14,7 +14,7 @@ canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/fill/
 v2: /influxdb/v2.0/query-data/flux/fill/
 ---
 
-Use the [`fill()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/fill/)
+Use the [`fill()` function](/{{< latest "flux" >}}/stdlib/universe/fill/)
 to replace _null_ values with:
 
 - [the previous non-null value](#fill-with-the-previous-value)
@@ -23,12 +23,12 @@ to replace _null_ values with:
 <!-- -->
 ```js
 data
-  |> fill(usePrevious: true)
+    |> fill(usePrevious: true)
 
 // OR
 
 data
-  |> fill(value: 0.0)
+    |> fill(value: 0.0)
 ```
 
 {{% note %}}
@@ -48,7 +48,7 @@ Values remain _null_ if there is no previous non-null value in the table.
 
 ```js
 data
-  |> fill(usePrevious: true)
+    |> fill(usePrevious: true)
 ```
 
 {{< flex >}}
@@ -78,12 +78,12 @@ data
 
 ## Fill with a specified value
 To fill _null_ values with a specified value, use the `value` parameter to specify the fill value.
-_The fill value must match the [data type](/{{< latest "influxdb" "v2" >}}/reference/flux/language/types/#basic-types)
-of the [column](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/fill/#column)._
+_The fill value must match the [data type](/{{< latest "flux" >}}/language/types/#basic-types)
+of the [column](/{{< latest "flux" >}}/stdlib/universe/fill/#column)._
 
 ```js
 data
-  |> fill(value: 0.0)
+    |> fill(value: 0.0)
 ```
 
 {{< flex >}}

@@ -1,3 +1,5 @@
+////////////////////////// Support and Feedback Block //////////////////////////
+
 .feedback {
   display: flex;
   justify-content: space-between;
@@ -31,9 +33,9 @@
       &.community:before {
         content: "\e900";
         color: $article-heading-alt;
-        margin: 0 .25rem 0 -.25rem;
-        font-size: 1.65rem;
-        font-family: 'icomoon';
+        margin: 0 .5rem 0 -.25rem;
+        font-size: 1.2rem;
+        font-family: 'icomoon-v2';
         vertical-align: middle;
       }
       &.slack:before {
@@ -54,12 +56,16 @@
 
   a {
     display: block;
-    padding-left: .7rem;
-    font-size: .85rem;
+    padding-left: 1rem;
+    font-size: .95rem;
 
     &.btn {
       color: $article-text !important;
       background: $feedback-btn-bg !important;
+
+      &:after{
+        @include gradient($article-btn-gradient);
+      }
 
       &:hover {
         color: $g20-white !important;
@@ -69,20 +75,90 @@
 
     &:before {
       display: inline-block;
-      margin-right: .5rem;
-      font-family: 'icomoon';
+      margin-right: .7rem;
+      font-family: 'icomoon-v2';
     }
 
     &.edit:before {
       content: "\e92f";
-      font-size: .75rem;
-      vertical-align: top;
+      font-size: .85rem;
     }
     &.issue:before {
       content: "\e934";
-      font-size: .95rem;
+      font-size: 1rem;
     }
   }
+}
+
+///////////////////////////// Page Helpful Section /////////////////////////////
+
+.helpful {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  p {margin-bottom: 0;}
+
+  label.radio-btns {
+    position: relative;
+    display: inline-block;
+    min-width: 4rem;
+    padding: .5rem 1rem;
+    font-size: .95rem;
+    font-weight: $medium;
+    text-align: center;
+    color: $article-bold;
+    border-radius: 3px;
+    background: rgba($article-text, .1);
+    cursor: pointer;
+    z-index: 1;
+
+    &:after{
+      content: "";
+      display: block;
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 3px;
+      min-width: 4rem;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity .2s, color .2s;
+    }
+
+    &#helpful:after {@include gradient($grad-green-shade)}
+    &#not-helpful:after {@include gradient($grad-red)}
+
+    &:hover {
+      color: $g20-white;
+      &:after {opacity: 1}
+    }
+
+  }
+  input[type='radio'] {
+    display: none;
+  }  
+
+  .loader-wrapper, #thank-you {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $article-bg;
+  }
+
+  .loader-wrapper {
+    z-index: 5;
+    .loader {margin: 0 auto;}
+  }
+  #thank-you {z-index: 10; p {text-align: center;}}
 }
 
 ///////////////////////////////// Media Queries ////////////////////////////////

@@ -29,15 +29,14 @@ With most API requests, you'll need to provide a minimum of your InfluxDB URL, O
 [Install InfluxDB OSS v2.x](/influxdb/v2.0/install/) or upgrade to
 an [InfluxDB Cloud account](/influxdb/cloud/sign-up).
 
-### Authentication
+### Authorization
 
-Before diving into the API, use the InfluxDB UI to
-[create an initial authentication token](/influxdb/v2.0/security/tokens/create-token/) for your application.
+InfluxDB uses [API tokens](/influxdb/v2.0/security/tokens/) to authorize API requests.
 
-InfluxDB uses [authentication tokens](/influxdb/v2.0/security/tokens/) to authorize API requests.
-Include your authentication token as an `Authorization` header in each request.
+1. Before exploring the API, use the InfluxDB UI to
+[create an initial API token](/influxdb/v2.0/security/tokens/create-token/) for your application.
 
-#### Example
+2. Include your API token in an `Authorization: Token YOUR_API_TOKEN` HTTP header with each request.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -63,16 +62,14 @@ Postman is another popular tool for exploring APIs. See how to [send authenticat
 Before writing data you'll need to create a Bucket in InfluxDB.
 [Create a bucket](/influxdb/v2.0/organizations/buckets/create-bucket/#create-a-bucket-using-the-influxdb-api) using an HTTP request to the InfluxDB API `/buckets` endpoint.
 
-#### Example
-
 ```sh
 {{% get-shared-text "api/v2.0/buckets/oss/create.sh" %}}
 ```
 
 ## Write API
 
-[Write data to InfluxDB](/influxdb/v2.0/write-data/developer-tools/api/) using an HTTP request to the InfluxDB API `/write` endpoint.
+[Write data to InfluxDB](/influxdb/v2.0/write-data/developer-tools/api/) using an HTTP request to the InfluxDB API `/api/v2/write` endpoint.
 
 ## Query API
 
-[Query from InfluxDB](/influxdb/v2.0/query-data/execute-queries/influx-api/) using an HTTP request to the `/query` endpoint.
+[Query from InfluxDB](/influxdb/v2.0/query-data/execute-queries/influx-api/) using an HTTP request to the `/api/v2/query` endpoint.

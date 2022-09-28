@@ -1,9 +1,10 @@
 ---
 title: Clustering in InfluxDB Enterprise
 description: >
-  Learn how meta nodes, data nodes, and the Enterprise web server interact in InfluxDB Enterprise.
+  Learn how meta nodes and data nodes interact in InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.9/concepts/clustering/
+    - /enterprise_influxdb/v1.9/high_availability/clusters/
 menu:
   enterprise_influxdb_1_9:
     name: Clustering
@@ -11,11 +12,14 @@ menu:
     parent: Concepts
 ---
 
-This document describes in detail how clustering works in InfluxDB Enterprise. It starts with a high level description of the different components of a cluster and then delves into the implementation details.
+This document describes in detail how clustering works in InfluxDB Enterprise.
+It starts with a high level description of the different components of a cluster
+and then outlines implementation details.
 
 ## Architectural overview
 
-An InfluxDB Enterprise installation consists of three separate software processes: data nodes, meta nodes, and the Enterprise web server. To run an InfluxDB cluster, only the meta and data nodes are required. Communication within a cluster looks like this:
+An InfluxDB Enterprise installation consists of two groups of software processes: data nodes and meta nodes.
+Communication within a cluster looks like this:
 
 {{< diagram >}}
 flowchart TB
@@ -27,7 +31,6 @@ flowchart TB
     Data1 <-- TCP :8088 --> Data2
   end
 {{< /diagram >}}
-
 
 The meta nodes communicate with each other via a TCP protocol and the Raft consensus protocol that all use port `8089` by default. This port must be reachable between the meta nodes. The meta nodes also expose an HTTP API bound to port `8091` by default that the `influxd-ctl` command uses.
 
@@ -130,6 +133,10 @@ If a data node is restarted it checks for pending writes in the hinted handoff q
 When restarting nodes within an active cluster, during upgrades or maintenance, for example, other nodes in the cluster store hinted handoff writes to the offline node and replicates them when the node is again available. Thus, a healthy cluster should have enough resource headroom on each data node to handle the burst of hinted handoff writes following a node outage. The returning node needs to handle both the steady state traffic and the queued hinted handoff writes from other nodes, meaning its write traffic will have a significant spike following any outage of more than a few seconds, until the hinted handoff queue drains.
 
 If a node with pending hinted handoff writes for another data node receives a write destined for that node, it adds the write to the end of the hinted handoff queue rather than attempt a direct write. This ensures that data nodes receive data in mostly chronological order, as well as preventing unnecessary connection attempts while the other node is offline.
+
+Whn a remote write fails, the database will send data to the hinted handoff (HH) queue for a short period of time before allowing incoming remote writes to be retried again. This time period grows with each failed write. The greater the number of successive write failures, the longer a node will delay writes before retrying them. Consecutive write failures will cause increased delay times before retrying writes in both emptying HH queues and in remote writes.
+
+This could result in temporarily large HH queues and more partial write errors if the [write consistency](https://docs.influxdata.com/enterprise_influxdb/v1.9/concepts/clustering/#write-consistency) level is not set to `any` when hinted handoff is written, but fewer "remote write failed" errors as the HH queues empty, and much lower memory usage when a node is unavailable. This is because remote writes, which keep data in memory while timing out, will be suppressed. Note that only **repeated** write failures will slow down the retry rate.
 
 ## Queries in a cluster
 

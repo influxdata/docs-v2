@@ -36,6 +36,7 @@ The `influx_inspect` commands are summarized here, with links to detailed inform
 * [`dumptsmwal`](#dumptsmwal): Dump all data from a WAL file.  
 * [`export`](#export): Exports raw data from a shard in InfluxDB line protocol format.
 * [`report`](#report): Displays a shard level report.
+* [`report-disk`](#report-disk): Reports disk usage by shards and measurements.
 * [`reporttsi`](#reporttsi): Reports on cardinality for measurements and shards.
 * [`verify`](#verify): Verifies the integrity of TSM files.
 * [`verify-seriesfile`](#verify-seriesfile): Verifies the integrity of series files.
@@ -77,7 +78,7 @@ The size of the batches written to the index. Default value is `10000`.
 ##### `[ -concurrency ]`
 
 The number of workers to dedicate to shard index building.
-Defaults to [`GOMAXPROCS`](/enterprise_influxdb/v1.9/administration/config#gomaxprocs-environment-variable) value.
+Defaults to [`GOMAXPROCS`](/enterprise_influxdb/v1.9/administration/configure/configuration/#gomaxprocs-environment-variable) value.
 
 ##### `[ -database <db_name> ]`
 
@@ -318,7 +319,6 @@ If a user writes points with timestamps set by the client, then multiple points 
 ### `export`
 
 Exports all TSM files in InfluxDB line protocol data format.
-Writes all WAL file data for `_internal/monitor`.
 This output file can be imported using the
 [influx](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#import-data-from-a-file-with-import) command.
 
@@ -429,12 +429,16 @@ The default location is `$HOME/.influxdb`.
 #### Syntax
 
 ```
-influx_inspect report [ options ]
+influx_inspect report [ options ] <path>
 ```
 
 #### Options
 
 Optional arguments are in brackets.
+
+##### `<path>`
+
+The path to the InfluxDB [`data` directory](/enterprise_influxdb/v1.9/concepts/file-system-layout/#file-system-layout).
 
 ##### [ `-pattern "<regular expression/wildcard>"` ]
 
@@ -451,6 +455,26 @@ Default value is `false`.
 The flag to report exact cardinality counts instead of estimates.
 Default value is `false`.
 Note: This can use a lot of memory.
+
+### `report-disk`
+
+Use the `report-disk` command to review TSM file disk usage per shard and measurement in a specified directory. Useful for capacity planning and identifying which measurement or shard is using the most disk space. The default directory path `~/.influxdb/data/`.
+
+Calculates the total disk size by database (`db`), retention policy (`rp`), shard (`shard`), tsm file (`tsm_file`), and measurement (`measurement`).
+
+#### Syntax
+
+```
+influx_inspect report-disk [ options ] <data_dir>
+```
+
+#### Options
+
+Optional arguments are in brackets.
+
+##### [ `-detailed` ]
+
+Report disk usage by measurement.
 
 ### `reporttsi`
 

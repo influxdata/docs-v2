@@ -38,7 +38,7 @@ Delete data from buckets you've created. You cannot delete data from system buck
 
 1. Click the **Data Explorer** icon in the sidebar.
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. Click **Delete Data** in the top navigation bar.
 3. In the **Delete Data** window that appears:
@@ -60,7 +60,7 @@ Use the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/) or the InfluxDB API
 
 {{% note %}}
 Use [InfluxDB CLI connection configurations](/influxdb/v2.0/reference/cli/influx/config/)
-to provide your **InfluxDB host, organization, and authentication token**.
+to provide your **InfluxDB host, organization, and API token**.
 {{% /note %}}
 
 1. Use the [`influx delete` command](/influxdb/v2.0/reference/cli/influx/delete/) to delete points from InfluxDB.
@@ -99,7 +99,7 @@ Include the following:
 
 - **Request method:** `POST`
 - **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB authentication token
+  - **Authorization:** `Token` schema with your InfluxDB API token
   - **Content-type:** `application/json`
 - **Query parameters:**
   - **org** or **orgID:** organization name or [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
@@ -119,8 +119,8 @@ deletes all data in the specified bucket with timestamps between the specified `
 
 ##### Delete points in a specific measurement with a specific tag value
 ```sh
-curl --request POST http://localhost:8086/api/v2/delete/?org=example-org&bucket=example-bucket \
-  --header 'Authorization: Token <YOURAUTHTOKEN>' \
+curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=example-bucket \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{
     "start": "2020-03-01T00:00:00Z",
@@ -131,8 +131,8 @@ curl --request POST http://localhost:8086/api/v2/delete/?org=example-org&bucket=
 
 ##### Delete all points in a specified time range
 ```sh
-curl --request POST http://localhost:8086/api/v2/delete/?org=example-org&bucket=example-bucket \
-  --header 'Authorization: Token <YOURAUTHTOKEN>' \
+curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=example-bucket \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
   --header 'Content-Type: application/json' \
   --data '{
     "start": "2020-03-01T00:00:00Z",

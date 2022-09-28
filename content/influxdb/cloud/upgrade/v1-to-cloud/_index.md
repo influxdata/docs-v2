@@ -15,7 +15,7 @@ related:
 To upgrade from **InfluxDB OSS 1.x** to **InfluxDB Cloud**:
 
 1. [Create an InfluxDB Cloud account](#create-an-influxdb-cloud-account)
-2. [Create an All-Access authentication token](#create-an-all-access-authentication-token)
+2. [Create an All-Access API token](#create-an-all-access-authentication-token)
 3. [Download and install the `influx` CLI](#download-and-install-the-influx-cli)
 4. [Create DBRP mappings](#create-dbrp-mappings)
 5. [Dual write to InfluxDB 1.x and InfluxDB Cloud](#dual-write-to-influxdb-1x-and-influxdb-cloud)
@@ -29,7 +29,7 @@ Do one of the following to create an InfluxDB Cloud account:
 - [Subscribe through InfluxData](/influxdb/cloud/sign-up/#subscribe-through-influxdata) and start for free.
 - [Subscribe through your cloud provider](/influxdb/cloud/sign-up/#subscribe-through-a-cloud-provider).
 
-## Create an All-Access authentication token
+## Create an All-Access API token
 {{% cloud-token-auth %}}
 Create an **All-Access** token in your InfluxDB Cloud user interface (UI) to use
 for the upgrade process.
@@ -74,7 +74,7 @@ _For more information about managing tokens and token types, see [Manage tokens]
 {{% note %}}
 #### Required InfluxDB Cloud credentials
 All `influx` CLI examples below assume the required InfluxDB Cloud **host**,
-**organization**, and **authentication token** credentials are provided by your
+**organization**, and **API token** credentials are provided by your
 [`influx` CLI configuration](/influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials).
 {{% /note %}}
 
@@ -158,7 +158,7 @@ Update external clients to write to your InfluxDB Cloud instance.
 finish [migrating your existing time series data](#migrate-time-series-data)**.
 
 Configure external clients with your InfluxDB Cloud **host**, **organization**,
-and **authentication token**.
+and **API token**.
 
 ### Update Telegraf configurations
 If using Telegraf to collect and write metrics to InfluxDB 1.x, update your
@@ -184,7 +184,7 @@ Telegraf configuration to write to both InfluxDB 1.x and InfluxDB Cloud:
     ```
 
 2.  Add the `INFLUX_TOKEN` environment variable to your Telegraf environment(s)
-    and set the value to your InfluxDB Cloud authentication token.
+    and set the value to your InfluxDB Cloud API token.
 
 3.  Restart Telegraf with the updated configuration and begin writing to both
     InfluxDB 1.x and InfluxDB Cloud.
@@ -238,8 +238,8 @@ See [Required InfluxDB Cloud credentials](#required-influxdb-cloud-credentials)
 
 {{% note %}}
 #### InfluxDB Cloud write rate limits
-Write requests are subject to rate limits associated with your
-[InfluxDB Cloud pricing plan](/influxdb/cloud/account-management/pricing-plans/).
+Read and write requests are subject to [rate limits](/influxdb/cloud/account-management/limits/#rate-limits) associated with your
+InfluxDB Cloud plan.
 If your exported line protocol size potentially exceeds your rate limits,
 include the `--rate-limit` flag with `influx write` to rate limit written data.
 
@@ -264,4 +264,4 @@ see [Migrate continuous queries to tasks](/influxdb/cloud/upgrade/v1-to-cloud/mi
 
 ## Collaborate with other users
 To collaborate with other users in your InfluxDB Cloud organization,
-[invite users to join your organization](/influxdb/cloud/account-management/multi-user/invite-user/).
+[invite users to join your organization](/influxdb/cloud/organizations/users/#invite-a-user-to-your-organization/).

@@ -20,12 +20,12 @@ list_code_example: |
   ```
 ---
 
-Use the [Flux Geo package](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo) to
+Use the [Flux Geo package](/{{< latest "flux" >}}/stdlib/experimental/geo) to
 filter geo-temporal data and group by geographic location or track.
 
 {{% warn %}}
 The Geo package is experimental and subject to change at any time.
-By using it, you agree to the [risks of experimental functions](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
+By using it, you agree to the [risks of experimental functions](/{{< latest "flux" >}}/stdlib/experimental/#experimental-functions-are-subject-to-change).
 {{% /warn %}}
 
 **To work with geo-temporal data:**
@@ -52,10 +52,10 @@ Many of the examples in this section use a `sampleGeoData` variable that represe
 a sample set of geo-temporal data.
 The [Bird Migration Sample Data](https://github.com/influxdata/influxdb2-sample-data/tree/master/bird-migration-data)
 available on GitHub provides sample geo-temporal data that meets the
-[requirements of the Flux Geo package](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/#geo-schema-requirements).
+[requirements of the Flux Geo package](/{{< latest "flux" >}}/stdlib/experimental/geo/#geo-schema-requirements).
 
 ### Load annotated CSV sample data
-Use the [experimental `csv.from()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/csv/from/)
+Use the [experimental `csv.from()` function](/{{< latest "flux" >}}/stdlib/experimental/csv/from/)
 to load the sample bird migration annotated CSV data from GitHub:
 
 ```js
@@ -68,8 +68,8 @@ sampleGeoData = csv.from(
 
 {{% note %}}
 `csv.from(url: ...)` downloads sample data each time you execute the query **(~1.3 MB)**.
-If bandwidth is a concern, use the [`to()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/outputs/to/)
-to write the data to a bucket, and then query the bucket with [`from()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/inputs/from/).
+If bandwidth is a concern, use [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/)
+to write the data to a bucket, and then query the bucket with [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/).
 {{% /note %}}
 
 ### Write sample data to InfluxDB with line protocol

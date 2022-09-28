@@ -110,7 +110,7 @@ For detail about physical security within Microsoft Azure data centers, see [Mic
 ### Data encryption
 
 InfluxDB Cloud enforces TLS encryption for data in transit from all clients, including Telegraf agents, browsers, and custom applications.
-Requests using TLS 1.2 or earlier are rejected.
+Requests using TLS 1.1 or earlier are rejected.
 
 By default, data at rest is encrypted using strong encrypted methods (AES-256) within AWS, GCP, and Microsoft Azure.
 
@@ -124,8 +124,7 @@ InfluxData maintains the following application and service security controls:
 
 - Administrative privileges are restricted to named groups of authorized users.
 - Shared accounts are prohibited.
-- Multi-factor authentication (MFA) is required for all infrastructure (AWS, GCP, and Azure),
-  for all members of the InfluxData GitHub organization,
+- Multi-factor authentication (MFA) is required for all infrastructure (AWS, GCP, and Azure)
   and for other production systems with access to user information
   (see [InfluxData Subprocessors](https://www.influxdata.com/legal/influxdata-subprocessors/)).
 - InfluxDB Cloud access is logged and audited regularly.
@@ -211,9 +210,9 @@ Users can configure the following security controls:
 We use [Auth0](https://auth0.com/) for InfluxDB Cloud authentication.
 User accounts can be created directly on the InfluxDB Cloud system via Auth0.
 Users also have the option to use “social sign-on” with their existing Google or Microsoft accounts for authentication.
-API access within custom applications requires an authentication token.
+API access within custom applications requires an API token.
 Tokens belong to an organization and are mapped to InfluxDB permissions within the organization as defined when the token is created.
-For more information on the types of tokens and ways to create them, see [Manage authentication tokens](/influxdb/cloud/security/tokens/).
+For more information on the types of tokens and ways to create them, see [Manage API tokens](/influxdb/cloud/security/tokens/).
 
 ### Role-based access controls (RBAC)
 
@@ -242,4 +241,4 @@ For users needing stricter security around data access and risk mitigation measu
 ## Compliance and auditing
 
 InfluxDB Cloud is **SOC2 Type II** certified.
-To request a copy of our SOC2 Type II report, please email <security@influxdata.com>.
+To request a copy of our SOC2 Type II report, please email <sales@influxdata.com>.

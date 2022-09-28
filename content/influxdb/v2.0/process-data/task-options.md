@@ -20,7 +20,6 @@ The following task options are available:
 - [every](#every)
 - [cron](#cron)
 - [offset](#offset)
-- [concurrency](#concurrency)
 
 {{% note %}}
 `every` and `cron` are mutually exclusive, but at least one is required.
@@ -40,7 +39,7 @@ option task = {
 
 ## every
 
-The interval at which the task runs. This option also determines when the task first starts to run, depending on the specified time (in [duration literal](/influxdb/cloud/reference/flux/language/lexical-elements/#duration-literals)).
+The interval at which the task runs. This option also determines when the task first starts to run, depending on the specified time (in [duration literal](/{{< latest "flux" >}}/spec/lexical-elements/#duration-literals)).
 
 _**Data type:** Duration_
 
@@ -89,19 +88,5 @@ _**Data type:** Duration_
 option task = {
   // ...
   offset: 10m,
-}
-```
-
-## concurrency
-The number task of executions that can run concurrently.
-If the concurrency limit is reached, all subsequent executions are queued until
-other running task executions complete.
-
-_**Data type:** Integer_
-
-```js
-option task = {
-  // ...
-  concurrency: 2,
 }
 ```

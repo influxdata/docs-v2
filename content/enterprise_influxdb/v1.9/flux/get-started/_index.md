@@ -53,7 +53,7 @@ A **bucket** is a named location where data is stored that has a retention polic
 It's similar to an InfluxDB v1.x "database," but is a combination of both a database and a retention policy.
 When using multiple retention policies, each retention policy is treated as is its own bucket.
 
-Flux's [`from()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/inputs/from), which defines an InfluxDB data source, requires a `bucket` parameter.
+Flux's [`from()` function](/{{< latest "flux" >}}/stdlib/universe/from), which defines an InfluxDB data source, requires a `bucket` parameter.
 When using Flux with InfluxDB v1.x, use the following bucket naming convention which combines
 the database name and retention policy into a single bucket name:
 
@@ -109,6 +109,8 @@ This will provide **Schema**, **Script**, and **Functions** panes.
 The Schema pane allows you to explore your data.
 The Script pane is where you write your Flux script.
 The Functions pane provides a list of functions available in your Flux queries.
+
+{{< influxdbu "flux-103" >}}
 
 <div class="page-nav-btns">
   <a class="btn next" href="/enterprise_influxdb/v1.9/flux/get-started/query-influxdb/">Query InfluxDB with Flux</a>

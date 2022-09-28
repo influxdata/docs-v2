@@ -1,0 +1,58 @@
+{{ $fluxVersions := $.Site.Data.flux_influxdb_versions }}
+{{ $cloudVersion := $fluxVersions.cloud.current }}
+{{ $oss:= $fluxVersions.oss }}
+{{ $enterprise:= $fluxVersions.enterprise }}
+
+<h3 id="influxdb-cloud">InfluxDB Cloud</h3>
+<table class="flux-influxdb-versions">
+  <thead>
+    <tr>
+      <th>InfluxDB version</th>
+      <th style="text-align: right;">Flux version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>InfluxDB Cloud</td>
+      <td style="text-align: right;">{{ $cloudVersion }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="influxdb-open-source-oss">InfluxDB Open Source (OSS)</h3>
+<table class="flux-influxdb-versions">
+  <thead>
+    <tr>
+      <th>InfluxDB OSS version</th>
+      <th style="text-align: right;">Flux version</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{ range $key, $value := $oss }}
+    <tr>
+      <td>InfluxDB {{ $key }}</td>
+      <td style="text-align: right;">{{ $value }}</td>
+      </div>
+    </tr>
+  {{ end }}
+  </tbody>
+</table>
+
+<h3 id="influxdb-enterprise">InfluxDB Enterprise</h3>
+<table class="flux-influxdb-versions">
+  <thead>
+    <tr>
+      <th>InfluxDB Enterprise version</th>
+      <th style="text-align: right;">Flux version</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{ range $key, $value := $enterprise }}
+    <tr>
+      <td>InfluxDB Enterprise {{ $key }}</td>
+      <td style="text-align: right;">{{ $value }}</td>
+      </div>
+    </tr>
+  {{ end }}
+  </tbody>
+</table>

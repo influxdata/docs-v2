@@ -31,15 +31,15 @@ The [template](https://influxdata-lambda.s3.amazonaws.com/GeoLambda.yml) contain
 2. Click **Create Stack**.
 3. In the **Prerequisite - Prepare Template** section, select **Template is ready**.
 4. In the **Specify template** section:
-  - Under **Template source**, select **Amazon S3 URL**.
-  - In the **Amazon S3 URL** field, enter the CloudFormation template URL: `https://influxdata-lambda.s3.amazonaws.com/GeoLambda.yml`
+   - Under **Template source**, select **Amazon S3 URL**.
+   - In the **Amazon S3 URL** field, enter the CloudFormation template URL: `https://influxdata-lambda.s3.amazonaws.com/GeoLambda.yml`
 5. Click **Next**.  
 6. Enter a name in the **Stack name** field.  
 7. Enter the following InfluxDB details:
-  - Organization ID
-  - Bucket ID of the bucket the Lambda writes to
-  - Token with permission to write to the bucket
-  - InfluxDB URL
+   - Organization ID
+   - Bucket ID of the bucket the Lambda writes to
+   - Token with permission to write to the bucket
+   - InfluxDB URL
 8. Do not alter or add to any other fields. Click **Next**.
 9. Select the **I acknowledge that AWS CloudFormation might create IAM resources** check box.
 10. Click **Create Stack**.

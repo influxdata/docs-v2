@@ -14,23 +14,23 @@ canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/first-last/
 v2: /influxdb/v2.0/query-data/flux/first-last/
 ---
 
-Use the [`first()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/selectors/first/) or
-[`last()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/selectors/last/) functions
+Use the [`first()`](/{{< latest "flux" >}}/stdlib/universe/first/) or
+[`last()`](/{{< latest "flux" >}}/stdlib/universe/last/) functions
 to return the first or last record in an input table.
 
 ```js
 data
-  |> first()
+    |> first()
 
 // OR
 
 data
-  |> last()
+    |> last()
 ```
 
 {{% note %}}
 By default, InfluxDB returns results sorted by time, however you can use the
-[`sort()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/sort/)
+[`sort()` function](/{{< latest "flux" >}}/stdlib/universe/sort/)
 to change how results are sorted.
 `first()` and `last()` respect the sort order of input data and return records
 based on the order they are received in.
@@ -90,7 +90,7 @@ based on the order they are received in.
 {{< /flex >}}
 
 ## Use first() or last() with aggregateWindow()
-Use `first()` and `last()` with [`aggregateWindow()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+Use `first()` and `last()` with [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
 to select the first or last records in time-based groups.
 `aggregateWindow()` segments data into windows of time, aggregates data in each window into a single
 point using aggregate or selector functions, and then removes the time-based segmentation.
@@ -120,8 +120,8 @@ point using aggregate or selector functions, and then removes the time-based seg
 {{% code-tab-content %}}
 ```js
 |> aggregateWindow(
-  every: 1h,
-  fn: first
+    every: 1h,
+    fn: first,
 )
 ```
 | _time                | _value |
@@ -133,8 +133,8 @@ point using aggregate or selector functions, and then removes the time-based seg
 {{% code-tab-content %}}
 ```js
 |> aggregateWindow(
-  every: 1h,
-  fn: last
+    every: 1h,
+    fn: last,
 )
 ```
 

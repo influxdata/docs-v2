@@ -94,6 +94,8 @@ prepend: # Prepend markdown content to an article (especially powerful with casc
 append: # Append markdown content to an article (especially powerful with cascade)
   block: # (Optional) Wrap content in a block style (note, warn, cloud)
   content: # Content to append to article
+metadata: [] # List of metadata messages to include under the page h1
+updated_in: # Product and version the referenced feature was updated in (displayed as a unique metadata)
 ```
 
 ### Title usage
@@ -326,11 +328,30 @@ Use the following for project names:
 ```
 
 ### Latest patch version
-Use the `{{< latest-patch >}}` shortcode to add the latest patch version of the
-current product. Easier to maintain being you update the version number in the `data/products.yml` file instead of updating individual links and code examples.
+Use the `{{< latest-patch >}}` shortcode to add the latest patch version of a product.
+By default, this shortcode parses the product and minor version from the URL.
+To specify a specific product and minor version, use the `product` and `version` arguments.
+Easier to maintain being you update the version number in the `data/products.yml` file instead of updating individual links and code examples.
 
 ```md
 {{< latest-patch >}}
+
+{{< latest-patch product="telegraf" >}}
+
+{{< latest-patch product="chronograf" version="1.7" >}}
+```
+
+### Latest influx CLI version
+Use the `{{< latest-cli >}}` shortcode to add the latest version of the `influx`
+CLI supported by the minor version of InfluxDB.
+By default, this shortcode parses the minor version from the URL.
+To specify a specific minor version, use the `version` argument.
+Maintain CLI version numbers in the `data/products.yml` file instead of updating individual links and code examples.
+
+```md
+{{< latest-cli >}}
+
+{{< latest-cli version="2.1" >}}
 ```
 
 ### API endpoint
@@ -364,6 +385,12 @@ The link text is used as the button text.
 This shortcode must be closed with `{{% /tabs %}}`.
 
 **Note**: The `%` characters used in this shortcode indicate that the contents should be processed as Markdown.
+
+The `{{% tabs %}}` shortcode has an optional `style` argument that lets you
+assign CSS classes to the tags HTML container. The following classes are available:
+
+- **small**: Tab buttons are smaller and don't scale to fit the width.
+- **even-wrap**: Prevents uneven tab widths when tabs are forced to wrap.
 
 `{{% tab-content %}}`  
 This shortcode creates a container for a content block.
@@ -436,7 +463,7 @@ WHERE time > now() - 15m
 
 To link to tabbed content, click on the tab and use the URL parameter shown.
 It will have the form `?t=`, plus a string.
-For example: 
+For example:
 
 ```
 [Windows installation](/influxdb/v2.0/install/?t=Windows)
@@ -490,6 +517,27 @@ The following colors are available:
 ```md
 {{< req color="magenta" text="This is required" >}}
 ```
+
+### Page navigation buttons
+Use the `{{< page-nav >}}` shortcode to add page navigation buttons to a page.
+These are useful for guiding users through a set of docs that should be read in sequential order.
+The shortcode has the following parameters:
+
+- **prev:** path of the previous document _(optional)_
+- **next:** path of the next document _(optional)_
+- **prevText:** override the button text linking to the previous document _(optional)_
+- **nextText:** override the button text linking to the next document _(optional)_
+
+The shortcode generates buttons that link to both the previous and next documents.
+By default, the shortcode uses either the `list_title` or the `title` of the linked
+document, but you can use `prevText` and `nextText` to override button text.
+
+```md
+<!-- Simple example -->
+{{ page-nav prev="/path/to/prev/" next="/path/to/next" >}}
+
+<!-- Override button text -->
+{{ page-nav prev="/path/to/prev/" prevText="Previous" next="/path/to/next" nextText="Next" >}}
 
 ### Keybinds
 Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
@@ -664,7 +712,7 @@ To include a horizontal rule after each child summary, set `hr=true`.
 _Only the `articles` list type supports horizontal rules._
 
 ```md
-{{< children readmore=true >}}
+{{< children hr=true >}}
 ```
 
 #### Include a code example with a child summary
@@ -778,9 +826,11 @@ The following table shows which children types use which frontmatter properties:
 ### Inline icons
 The `icon` shortcode allows you to inject icons in paragraph text.
 It's meant to clarify references to specific elements in the InfluxDB user interface.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< icon "icon-name" >}}
+{{< icon "icon-name" "v2" >}}
 ```
 
 Below is a list of available icons (some are aliases):
@@ -850,9 +900,11 @@ Below is a list of available icons (some are aliases):
 ### InfluxDB UI left navigation icons
 In many cases, documentation references an item in the left nav of the InfluxDB UI.
 Provide a visual example of the navigation item using the `nav-icon` shortcode.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< nav-icon "tasks" >}}
+{{< nav-icon "tasks" "v2" >}}
 ```
 
 The following case insensitive values are supported:
@@ -864,7 +916,7 @@ The following case insensitive values are supported:
 - tasks
 - monitor, alerts, bell
 - cloud, usage
-- disks, load data, load-data
+- data, load data, load-data
 - settings
 - feedback
 
@@ -911,6 +963,202 @@ I like {{< tooltip "Butterflies are awesome!" "butterflies" >}}.
 
 The example above renders as "I like butterflies" with "butterflies" highlighted.
 When you hover over "butterflies," a tooltip appears with the text: "Butterflies are awesome!"
+
+### Flux sample data tables
+The Flux `sample` package provides basic sample datasets that can be used to
+illustrate how Flux functions work. To quickly display one of the raw sample
+datasets, use the `{{% flux/sample %}}` shortcode.
+
+The `flux/sample` shortcode has the following arguments that can be specified
+by name or positionally.
+
+#### set
+Sample dataset to output. Use either `set` argument name or provide the set
+as the first argument. The following sets are available:
+
+- float
+- int
+- uint
+- string
+- bool
+- numericBool
+
+#### includeNull
+Specify whether or not to include _null_ values in the dataset.
+Use either `includeNull` argument name or provide the boolean value as the second argument.
+
+#### includeRange
+Specify whether or not to include time range columns (`_start` and `_stop`) in the dataset.
+This is only recommended when showing how functions that require a time range
+(such as `window()`) operate on input data.
+Use either `includeRange` argument name or provide the boolean value as the third argument.
+
+##### Example Flux sample data shortcodes
+```md
+<!-- No arguments, defaults to "float" set without nulls -->
+{{% flux/sample %}}
+
+<!-- Output the "string" set without nulls or time range columns -->
+{{% flux/sample set="string" includeNull=false %}}
+
+<!-- Output the "int" set with nulls but without time range columns -->
+{{% flux/sample "int" true %}}
+
+<!-- Output the "int" set with nulls and time range columns -->
+<!-- The following shortcode examples render the same -->
+{{% flux/sample set="int" includeNull=true includeRange=true %}}
+{{% flux/sample "int" true true %}}
+```
+
+### Duplicate OSS content in Cloud
+Docs for InfluxDB OSS and InfluxDB Cloud share a majority of content.
+To prevent duplication of content between versions, use the following shortcodes:
+
+- `{{< duplicate-oss >}}`
+- `{{% oss-only %}}`
+- `{{% cloud-only %}}`
+
+#### duplicate-oss
+The `{{< duplicate-oss >}}` shortcode copies the page content of the file located
+at the identical file path in the most recent InfluxDB OSS version.
+The Cloud version of this markdown file should contain the frontmatter required
+for all pages, but the body content should just be the `{{< duplicate-oss >}}` shortcode.
+
+#### oss-only
+Wrap content that should only appear in the OSS version of the doc with the `{{% oss-only %}}` shortcode.
+Use the shortcode on both inline and content blocks:
+
+```md
+{{% oss-only %}}This is inline content that only renders in the InfluxDB OSS docs{{% /oss-only %}}
+
+{{% oss-only %}}
+
+This is a multi-paragraph content block that spans multiple paragraphs and  will
+only render in the InfluxDB OSS documentation.
+
+**Note:** Notice the blank newline after the opening short-code tag.
+This is necessary to get the first sentence/paragraph to render correctly.
+
+{{% /oss-only %}}
+
+- {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+- {{% oss-only %}}
+
+  This is a multi-paragraph list item that will only render in the InfluxDB OSS docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /oss-only %}}
+
+1.  Step 1
+2.  {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+3.  {{% oss-only %}}
+
+     This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB OSS docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /oss-only %}}
+```
+
+#### cloud-only
+Wrap content that should only appear in the Cloud version of the doc with the `{{% cloud-only %}}` shortcode.
+Use the shortcode on both inline and content blocks:
+
+```md
+{{% cloud-only %}}This is inline content that only renders in the InfluxDB Cloud docs{{% /cloud-only %}}
+
+{{% cloud-only %}}
+
+This is a multi-paragraph content block that spans multiple paragraphs and will
+only render in the InfluxDB Cloud documentation.
+
+**Note:** Notice the blank newline after the opening short-code tag.
+This is necessary to get the first sentence/paragraph to render correctly.
+
+{{% /cloud-only %}}
+
+- {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+- {{% cloud-only %}}
+
+  This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB Cloud docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /cloud-only %}}
+
+1.  Step 1
+2.  {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+3.  {{% cloud-only %}}
+
+    This is a multi-paragraph list item that will only render in the InfluxDB Cloud docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /cloud-only %}}
+```
+
+#### All-Caps
+Clockface v3 introduces many buttons with text formatted as all-caps.
+Use the `{{< caps >}}` shortcode to format text to match those buttons.
+
+```md
+Click {{< caps >}}Add Data{{< /caps >}}
+```
+
+#### Code callouts
+Use the `{{< code-callout >}}` shortcode to highlight and emphasize a specific
+piece of code in a code block. Provide the string to highlight in the code block.
+Include a syntax for the codeblock to properly style the called out code.
+
+~~~md
+{{< code-callout "03a2bbf46249a000" >}}
+```sh
+http://localhost:8086/orgs/03a2bbf46249a000/...
+```
+{{< /code-callout >}}
+~~~
+
+#### InfluxDB University banners
+Use the `{{< influxdbu >}}` shortcode to add an InfluxDB University banner that
+points to the InfluxDB University site or a specific course.
+Use the default banner template, a predefined course template, or fully customize
+the content of the banner.
+
+```html
+<!-- Default banner -->
+{{< influxdbu >}}
+
+<!-- Predfined course banner -->
+{{< influxdbu "influxdb-101" >}}
+
+<!-- Custom banner -->
+{{< influxdbu title="Course title" summary="Short course summary." action="Take the course" link="https://university.influxdata.com/" >}}
+```
+
+##### Course templates
+Use one of the following course templates:
+
+- influxdb-101
+- telegraf-102
+- flux-103
+
+##### Custom banner content
+Use the following shortcode parameters to customize the content of the InfluxDB
+University banner:
+
+- **title**: Course or banner title
+- **summary**: Short description shown under the title
+- **action**: Text of the button
+- **link**: URL the button links to
 
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
@@ -1025,7 +1273,7 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
      "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
    ```
 
-6. Update the `latest_version` in `data/version.yaml`:
+6. Update the `latest_version` in `data/products.yml`:
    ```yaml
    latest_version: v2.1
    ```

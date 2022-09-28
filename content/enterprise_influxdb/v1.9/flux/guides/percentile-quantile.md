@@ -15,7 +15,7 @@ canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/percentile-quantile/
 v2: /influxdb/v2.0/query-data/flux/percentile-quantile/
 ---
 
-Use the [`quantile()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/quantile/)
+Use the [`quantile()` function](/{{< latest "flux" >}}/stdlib/universe/quantile/)
 to return a value representing the `q` quantile or percentile of input data.
 
 ## Percentile versus quantile
@@ -120,7 +120,7 @@ contain values in the 99th percentile of data in the table.
 
 ```js
 data
-  |> quantile(q: 0.99)
+    |> quantile(q: 0.99)
 ```
 
 ## Find the average of values closest to the quantile
@@ -130,7 +130,7 @@ For example, to calculate the `0.99` quantile:
 
 ```js
 data
-  |> quantile(q: 0.99, method: "exact_mean")
+    |> quantile(q: 0.99, method: "exact_mean")
 ```
 
 ## Find the point with the quantile value
@@ -140,24 +140,23 @@ For example, to calculate the `0.99` quantile:
 
 ```js
 data
-  |> quantile(q: 0.99, method: "exact_selector")
+    |> quantile(q: 0.99, method: "exact_selector")
 ```
 
 ## Use quantile() with aggregateWindow()
-[`aggregateWindow()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+[`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
 point, and then removes the time-based segmentation.
 It is primarily used to downsample data.
 
 To specify the [quantile calculation method](#select-a-method-for-calculating-the-quantile) in
-`aggregateWindow()`, use the [full function syntax](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/#specify-parameters-of-the-aggregate-function):
+`aggregateWindow()`, use the [full function syntax](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/#specify-parameters-of-the-aggregate-function):
 
 ```js
 data
-  |> aggregateWindow(
-    every: 5m,
-    fn: (tables=<-, column) =>
-      tables
-        |> quantile(q: 0.99, method: "exact_selector")
-  )
+    |> aggregateWindow(
+        every: 5m,
+        fn: (tables=<-, column) => tables
+            |> quantile(q: 0.99, method: "exact_selector"),
+    )
 ```

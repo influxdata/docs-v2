@@ -16,6 +16,10 @@ This guide walks through the basics of using Flux to query data from InfluxDB.
 _**If you haven't already, make sure to install InfluxDB v1.8+, [enable Flux](/enterprise_influxdb/v1.9/flux/installation),
 and choose a [tool for writing Flux queries](/enterprise_influxdb/v1.9/flux/get-started#tools-for-working-with-flux).**_
 
+The following queries can be executed using any of the methods described in
+[Execute Flux queries](/enterprise_influxdb/v1.9/flux/execute-queries/).
+Be sure to provide your InfluxDB Enterprise authorization credentials with each method.
+
 Every Flux query needs the following:
 
 1. [A data source](#1-define-your-data-source)
@@ -24,7 +28,7 @@ Every Flux query needs the following:
 
 
 ## 1. Define your data source
-Flux's [`from()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/inputs/from) function defines an InfluxDB data source.
+Flux's [`from()`](/{{< latest "flux" >}}/stdlib/universe/from) function defines an InfluxDB data source.
 It requires a [`bucket`](/enterprise_influxdb/v1.9/flux/get-started/#buckets) parameter.
 For this example, use `telegraf/autogen`, a combination of the default database and retention policy provided by the TICK stack.
 
@@ -37,21 +41,21 @@ Flux requires a time range when querying time series data.
 "Unbounded" queries are very resource-intensive and as a protective measure,
 Flux will not query the database without a specified range.
 
-Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/range)
+Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/{{< latest "flux" >}}/stdlib/universe/range)
 function, which specifies a time range for your query.
 It accepts two properties: `start` and `stop`.
-Ranges can be **relative** using negative [durations](/{{< latest "influxdb" "v2" >}}/reference/flux/language/lexical-elements#duration-literals)
-or **absolute** using [timestamps](/{{< latest "influxdb" "v2" >}}/reference/flux/language/lexical-elements#date-and-time-literals).
+Ranges can be **relative** using negative [durations](/{{< latest "flux" >}}/spec/lexical-elements#duration-literals)
+or **absolute** using [timestamps](/{{< latest "flux" >}}/spec/lexical-elements#date-and-time-literals).
 
 ###### Example relative time ranges
 ```js
 // Relative time range with start only. Stop defaults to now.
 from(bucket:"telegraf/autogen")
-  |> range(start: -1h)
+    |> range(start: -1h)
 
 // Relative time range with start and stop
 from(bucket:"telegraf/autogen")
-  |> range(start: -1h, stop: -10m)
+    |> range(start: -1h, stop: -10m)
 ```
 
 > Relative ranges are relative to "now."
@@ -59,7 +63,7 @@ from(bucket:"telegraf/autogen")
 ###### Example absolute time range
 ```js
 from(bucket:"telegraf/autogen")
-  |> range(start: 2018-11-05T23:30:00Z, stop: 2018-11-06T00:00:00Z)
+    |> range(start: 2018-11-05T23:30:00Z, stop: 2018-11-06T00:00:00Z)
 ```
 
 #### Use the following:
@@ -67,7 +71,7 @@ For this guide, use the relative time range, `-15m`, to limit query results to d
 
 ```js
 from(bucket:"telegraf/autogen")
-  |> range(start: -15m)
+    |> range(start: -15m)
 ```
 
 ## 3. Filter your data
@@ -95,27 +99,19 @@ Use the `AND` relational operator to chain multiple filters.
 For this example, filter by the `cpu` measurement, the `usage_system` field, and the `cpu-total` tag value:
 
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
+from(bucket: "telegraf/autogen")
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
 ```
 
 ## 4. Yield your queried data
 Use Flux's `yield()` function to output the filtered tables as the result of the query.
 
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-  |> yield()
+from(bucket: "telegraf/autogen")
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
+    |> yield()
 ```
 
 > Chronograf and the `influx` CLI automatically assume a `yield()` function at

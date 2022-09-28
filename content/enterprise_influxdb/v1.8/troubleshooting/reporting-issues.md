@@ -16,7 +16,7 @@ support team.
 
 Please include the following in your email:
 
-* the version of InfluxDB Enterprise, e.g. 1.8.x-c1.8.x  (and include your value for x)
+* the version of InfluxDB Enterprise, e.g. {{< latest-patch >}}-c{{< latest-patch >}}
 * the version of Telegraf or Kapacitor, if applicable
 * what you expected to happen
 * what did happen

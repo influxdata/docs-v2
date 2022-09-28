@@ -222,22 +222,22 @@ Each string is packed consecutively and they are compressed as one larger block.
 Compactions are recurring processes that migrate data stored in a write-optimized format into a more read-optimized format.
 There are a number of stages of compaction that take place while a shard is hot for writes:
 
-* Snapshots - Values in the Cache and WAL must be converted to TSM files to free memory and disk space used by the WAL segments.
+- **Snapshots** - Values in the Cache and WAL must be converted to TSM files to free memory and disk space used by the WAL segments.
 These compactions occur based on the cache memory and time thresholds.
-* Level Compactions - Level compactions (levels 1-4) occur as the TSM files grow.
+- **Level Compactions** - Level compactions (levels 1-4) occur as the TSM files grow.
 TSM files are compacted from snapshots to level 1 files.
 Multiple level 1 files are compacted to produce level 2 files.
-The process continues until files reach level 4 and the max size for a TSM file.
+The process continues until files reach level 4 (full compaction) and the max size for a TSM file.
 They will not be compacted further unless deletes, index optimization compactions, or full compactions need to run.
 Lower level compactions use strategies that avoid CPU-intensive activities like decompressing and combining blocks.
 Higher level (and thus less frequent) compactions will re-combine blocks to fully compact them and increase the compression ratio.
-* Index Optimization - When many level 4 TSM files accumulate, the internal indexes become larger and more costly to access.
+- **Index Optimization** - When many level 4 TSM files accumulate, the internal indexes become larger and more costly to access.
 An index optimization compaction splits the series and indices across a new set of TSM files, sorting all points for a given series into one TSM file.
 Before an index optimization, each TSM file contained points for most or all series, and thus each contains the same series index.
 After an index optimization, each TSM file contains points from a minimum of series and there is little series overlap between files.
 Each TSM file thus has a smaller unique series index, instead of a duplicate of the full series list.
 In addition, all points from a particular series are contiguous in a TSM file rather than spread across multiple TSM files.
-* Full Compactions - Full compactions run when a shard has become cold for writes for long time, or when deletes have occurred on the shard.
+- **Full Compactions** - Full compactions (level 4 compactions) run when a shard has become cold for writes for long time, or when deletes have occurred on the shard.
 Full compactions produce an optimal set of TSM files and include all optimizations from Level and Index Optimization compactions.
 Once a shard is fully compacted, no other compactions will run on it unless new writes or deletes are stored.
 

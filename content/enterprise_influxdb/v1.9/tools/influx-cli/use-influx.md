@@ -3,6 +3,7 @@ title: Use influx - InfluxDB command line interface
 description: InfluxDB's command line interface (`influx`) is an interactive shell for the HTTP API.
 aliases:
     - /enterprise_influxdb/v1.9/tools/shell
+    - /enterprise_influxdb/v1.9/tools/use-influx/
 menu:
   enterprise_influxdb_1_9:
     name: Use influx
@@ -26,8 +27,8 @@ Once you've entered the shell and successfully connected to an InfluxDB node, yo
 <br>
 ```bash
 $ influx
-Connected to http://localhost:8086 version 1.8.x
-InfluxDB shell version: 1.8.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell version: {{< latest-patch >}}
 ```
 
 > **Note:** The versions of InfluxDB and the CLI should be identical. If not, parsing issues can occur with queries.
@@ -66,7 +67,6 @@ List of host names that should **not** go through any proxy. If set to an asteri
 NO_PROXY=123.45.67.89,123.45.67.90
 ```
 
-
 ## `influx` Arguments
 There are several arguments you can pass into `influx` when starting.
 List them with `$ influx --help`.
@@ -85,11 +85,11 @@ The database to which `influx` connects.
 
 `-execute 'command'`
 Execute an [InfluxQL](/enterprise_influxdb/v1.9/query_language/explore-data/) command and quit.
-See [-execute](#execute-an-influxql-command-and-quit-with-execute).
+See [-execute](#execute-an-influxql-command-and-quit-with--execute).
 
 `-format 'json|csv|column'`
 Specifies the format of the server responses.
-See [-format](#specify-the-format-of-the-server-responses-with-format).
+See [-format](#specify-the-format-of-the-server-responses-with--format).
 
 `-host 'host name'`
 The host to which `influx` connects.
@@ -97,7 +97,7 @@ By default, InfluxDB runs on localhost.
 
 `-import`
 Import new data from a file or import a previously [exported](https://github.com/influxdb/influxdb/blob/1.8/importer/README.md) database from a file.
-See [-import](#import-data-from-a-file-with-import).
+See [-import](#import-data-from-a-file-with--import).
 
 `-password 'password'`
 The password `influx` uses to connect to the server.
@@ -346,7 +346,7 @@ Quits the `influx` shell.
 
 `format <format>`
 Specifies the format of the server responses: `json`, `csv`, or `column`.
-See the description of [-format](#specify-the-format-of-the-server-responses-with-format) for examples of each format.
+See the description of [-format](#specify-the-format-of-the-server-responses-with--format) for examples of each format.
 
 `history`
 Displays your command history.

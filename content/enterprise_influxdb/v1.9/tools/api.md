@@ -17,33 +17,33 @@ It uses HTTP response codes, HTTP authentication, JWT Tokens, and basic authenti
 
 The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
-Those settings [are configurable](/enterprise_influxdb/v1.9/administration/config/#http-endpoints-settings).
+Those settings [are configurable](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#http-endpoints-settings).
 
-- [InfluxDB 2.0 API compatibility endpoints](#influxdb-2-0-api-compatibility-endpoints)
-- [InfluxDB  1.x HTTP endpoints](#influxdb-1-x-http-endpoints)
+- [InfluxDB 2.x API compatibility endpoints](#influxdb-2x-api-compatibility-endpoints)
+- [InfluxDB  1.x HTTP endpoints](#influxdb-1x-http-endpoints)
 
-## InfluxDB 2.0 API compatibility endpoints
+## InfluxDB 2.x API compatibility endpoints
 
-InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB 2.0.
+InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB 2.x.
 There are multiple reasons for introducing these:
 
 - The latest [InfluxDB client libraries](/enterprise_influxdb/v1.9/tools/api_client_libraries/)
-  are built for the InfluxDB 2.0 API, but now also work with **InfluxDB 1.8.0+**.
+  are built for the InfluxDB 2.x API, but now also work with **InfluxDB 1.8.0+**.
 - InfluxDB Cloud is a generally available service across multiple cloud service providers and regions
   that is fully compatible with the **latest** client libraries.
 
 If you are just getting started with InfluxDB 1.x today, we recommend adopting
 the [latest client libraries](/enterprise_influxdb/v1.9/tools/api_client_libraries/).
-They allow you to easily move from InfluxDB 1.x to InfluxDB 2.0 Cloud or open source,
+They allow you to easily move from InfluxDB 1.x to InfluxDB OSS 2.x or InfluxDB Cloud
 (when you are ready).
 
 The following forward compatible APIs are available:
 
-| Endpoint                                     | Description                                                                                                |
-|:----------                                   |:----------                                                                                                 |
-| [/api/v2/query](#api-v2-query-http-endpoint) | Query data in InfluxDB 1.8.0+ using the InfluxDB 2.0 API and [Flux](/flux/latest/)                         |
-| [/api/v2/write](#api-v2-write-http-endpoint) | Write data to InfluxDB 1.8.0+ using the InfluxDB 2.0 API _(compatible with InfluxDB 2.0 client libraries)_ |
-| [/health](#health-http-endpoint)             | Check the health of your InfluxDB instance                                                                 |
+| Endpoint                                   | Description                                                                                                |
+| :----------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
+| [/api/v2/query](#apiv2query-http-endpoint) | Query data in InfluxDB 1.8.0+ using the InfluxDB 2.0 API and [Flux](/flux/latest/)                         |
+| [/api/v2/write](#apiv2write-http-endpoint) | Write data to InfluxDB 1.8.0+ using the InfluxDB 2.0 API _(compatible with InfluxDB 2.0 client libraries)_ |
+| [/health](#health-http-endpoint)           | Check the health of your InfluxDB instance                                                                 |
 
 ### `/api/v2/query/` HTTP endpoint
 
@@ -157,14 +157,15 @@ curl -XGET "localhost:8086/health"
 ## InfluxDB 1.x HTTP endpoints
 The following InfluxDB 1.x API endpoints are available:
 
-| Endpoint                                         | Description                                                                    |
-|:----------                                       |:----------                                                                     |
-| [/debug/pprof ](#debug-pprof-http-endpoint)      | Generate profiles for troubleshooting                                          |
-| [/debug/requests](#debug-requests-http-endpoint) | Track HTTP client requests to the `/write` and `/query` endpoints              |
-| [/debug/vars](#debug-vars-http-endpoint)         | Collect internal InfluxDB statistics                                           |
-| [/ping](#ping-http-endpoint)                     | Check the status of your InfluxDB instance and your version of InfluxDB        |
-| [/query](#query-http-endpoint)                   | Query data using **InfluxQL**, manage databases, retention policies, and users |
-| [/write](#write-http-endpoint)                   | Write data to a database                                                       |
+| Endpoint                                        | Description                                                                    |
+| :---------------------------------------------- | :----------------------------------------------------------------------------- |
+| [/debug/pprof ](#debugpprof-http-endpoint)      | Generate profiles for troubleshooting                                          |
+| [/debug/requests](#debugrequests-http-endpoint) | Track HTTP client requests to the `/write` and `/query` endpoints              |
+| [/debug/vars](#debugvars-http-endpoint)         | Collect internal InfluxDB statistics                                           |
+| [/ping](#ping-http-endpoint)                    | Check the status of your InfluxDB instance and your version of InfluxDB        |
+| [/query](#query-http-endpoint)                  | Query data using **InfluxQL**, manage databases, retention policies, and users |
+| [/write](#write-http-endpoint)                  | Write data to a database                                                       |
+| [/shard-status](#shard-status-http-endpoint)    | Get information about a data node's shards                                     |
 
 ### `/debug/pprof` HTTP endpoint
 
@@ -327,7 +328,7 @@ HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 X-Influxdb-Build: OSS
-X-Influxdb-Version: v1.8.2
+X-Influxdb-Version: v{{< latest-patch >}}
 X-Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 Date: Tue, 05 Nov 2018 16:08:32 GMT
 ```
@@ -426,7 +427,8 @@ A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1.9/query_language/
 | u=\<username> | Optional if you haven't [enabled authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication). Required if you've enabled authentication.* | Sets the username for authentication if you've enabled authentication. The user must have read access to the database. Use with the query string parameter `p`. |
 
 \* InfluxDB does not truncate the number of rows returned for requests without the `chunked` parameter.
-That behavior is configurable; see the [`max-row-limit`](/enterprise_influxdb/v1.9/administration/config/#max-row-limit-0) configuration option for more information.
+That behavior is configurable; see the [`max-row-limit`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#max-row-limit)
+configuration option for more information.
 
 \** The InfluxDB API also supports basic authentication.
 Use basic authentication if you've [enabled authentication](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/#set-up-authentication)
@@ -678,7 +680,7 @@ HTTP/1.1 200 OK
 Connection: close
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:22:54 GMT
 Transfer-Encoding: chunked
 
@@ -694,7 +696,7 @@ HTTP/1.1 200 OK
 Connection: close
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:23:48 GMT
 Transfer-Encoding: chunked
 
@@ -709,7 +711,7 @@ $ curl -i -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT *'
 HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:24:25 GMT
 Content-Length: 76
 
@@ -725,7 +727,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:11:26 GMT
 Content-Length: 33
 
@@ -772,7 +774,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&precision=s" --data-binary
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:33:23 GMT
 ```
 
@@ -784,7 +786,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&rp=myrp" --data-binary 'my
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:34:31 GMT
 ```
 
@@ -798,7 +800,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&u=myusername&p=mypassword"
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:34:56 GMT
 ```
 
@@ -811,7 +813,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:40:30 GMT
 Content-Length: 33
 
@@ -828,7 +830,7 @@ $ curl -i -XPOST -u myusername:mypassword "http://localhost:8086/write?db=mydb" 
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:36:40 GMT
 ```
 
@@ -841,7 +843,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:46:40 GMT
 Content-Length: 33
 
@@ -885,7 +887,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,myt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:02:57 GMT
 ```
 
@@ -897,7 +899,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,myt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:03:44 GMT
 ```
 
@@ -910,7 +912,7 @@ mymeas,mytag=2 myfield=34 1463689152000000000'
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:04:02 GMT
 ```
 
@@ -922,7 +924,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary @data.txt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:08:11 GMT
 ```
 
@@ -949,7 +951,7 @@ Errors are returned in JSON.
 | 400 Bad Request  | Unacceptable request. Can occur with an InfluxDB line protocol syntax error or if a user attempts to write values to a field that previously accepted a different value type. The returned JSON offers further information. |
 | 401 Unauthorized | Unacceptable request. Can occur with invalid authentication credentials.  |
 | 404 Not Found    | Unacceptable request. Can occur if a user attempts to write to a database that does not exist. The returned JSON offers further information. |
-| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](/enterprise_influxdb/v1.9/administration/config/#max-body-size-25000000) parameter for more details.
+| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#max-body-size) parameter for more details.
 | 500 Internal Server Error  | The system is overloaded or significantly impaired. Can occur if a user attempts to write to a retention policy that does not exist. The returned JSON offers further information. |
 
 #### Examples
@@ -1007,3 +1009,84 @@ HTTP/1.1 500 Internal Server Error
 [...]
 {"error":"retention policy not found: myrp"}
 ```
+
+### `/shard-status` HTTP endpoint
+
+The `/shard-status` endpoint accepts HTTP `GET` requests.
+Use this endpoint to get information about all shards for a given data node.
+
+#### Response
+
+Requests to `/shard-status` return the following information in JSON format:
+
+- `id`: the shard ID
+- `size`: the size on disk of the shard in bytes
+- `is_hot`: whether the time range from the shard includes `now`
+  {{% note %}}
+An *idle* shard is fully compacted and not receiving new (potentially historical) writes.
+A hot shard may or may not be idle.
+  {{% /note %}}
+- `state`: the anti-entropy status of the shard can be one of the following:
+  `healthy`,`restore pending`,`restoring`,`repairing`,`error processing`
+
+#### Example
+
+```
+curl -q 'http://localhost:8086/shard-status' | jq
+{
+  "databases": [
+    {
+      "name": "_internal",
+      "retention_policies": [
+        {
+          "name": "monitor",
+          "replication_factor": 1,
+          "shards": [
+            {
+              "id": 2,
+              "size": 594491,
+              "is_hot": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stress",
+      "retention_policies": [
+        {
+          "name": "autogen",
+          "replication_factor": 1,
+          "shards": [
+            {
+              "id": 3,
+              "is_hot": false
+            },
+            {
+              "id": 6,
+              "size": 1921,
+              "is_hot": false
+            },
+            {
+              "id": 7,
+              "is_hot": false
+            },
+            {
+              "id": 10,
+              "size": 1920,
+              "is_hot": false
+            },
+            {
+              "id": 11,
+              "is_hot": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+{{% caption %}}
+This example uses [`jq`](https://stedolan.github.io/jq/) to print the JSON object.
+{{% /caption %}}

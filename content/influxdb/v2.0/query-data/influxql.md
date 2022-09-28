@@ -54,9 +54,9 @@ to verify the buckets you want to query are mapped to a database and retention p
 Use the [`influx v1 dbrp list` command](/influxdb/v2.0/reference/cli/influx/v1/dbrp/list/) to list DBRP mappings.
 
 {{% note %}}
-The examples below assume that your organization and authentication token are
+The examples below assume that your organization and API token are
 provided by the active [InfluxDB connection configuration](/influxdb/v2.0/reference/cli/influx/config/) in the `influx` CLI.
-If not, include your organization (`--org`) and authentication token (`--token`) with each command.
+If not, include your organization (`--org`) and API token (`--token`) with each command.
 {{% /note %}}
 
 ##### View all DBRP mappings
@@ -80,7 +80,7 @@ Include the following:
 
 - **Request method:** `GET`
 - **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2.0/security/tokens/)
 - **Query parameters:**  
   {{< req type="key" >}}
   - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
@@ -154,7 +154,7 @@ Include the following:
 
 - **Request method:** `POST`
 - **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2.0/security/tokens/)
   - **Content-type:** `application/json`
 - **Request body:** JSON object with the following fields:  
   {{< req type="key" >}}

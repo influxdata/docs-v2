@@ -1,12 +1,89 @@
 ---
-title: Release Notes/Changelog
+title: Kapacitor release notes
 description: Important features and changes in the latest version of Kapacitor.
 menu:
   kapacitor_1_6_ref:
     parent: About the project
+    name: Release notes
 ---
 
+## v1.6.5 [2022-8-18]
+
+### Features
+
+- Ability to generate random numbers for `TICKScript` lambdas.
+- Update `InfluxQL` for v.1.9.x compatibility.
+
+### Bug fixes
+
+- Update the `Kafka` client to fix a bug regarding write latency.
+- Update to [Flux v0.171.0](/flux/v0.x/release-notes/#v01710-2022-06-14) to fix "interface {} is nil, not string" issue.
+
+## v1.6.4 [2022-03-15]
+
+### Features
+
+- Add `SASL` support to `Kafka` alerts.
+
+### Bug fixes
+
+- Fully deprecate DES based ciphers, RC4 based ciphers and TLS 1.1 and 1.0 ciphers. 
+- Adjust `Flux` injected dependencies so that large data sets can be downloaded without issue.
+
+## v1.6.3 [2022-01-25]
+
+### Features
+
+- Add support for custom `attributes` field in [Alerta event handler](/kapacitor/v1.6/event_handlers/alerta/).
+- Add `host` and `attribute` options to [BigPanda event handler](/kapacitor/v1.6/event_handlers/bigpanda/):
+  - `host`: Identifies the main object that caused the alert.
+  - `attribute`: Adds additional attribute(s) to the alert payload.
+- Add new `auto-attributes` configuration option to BigPanda node.
+- Ability to add new headers to HTTP posts directly in `env var` config. 
+- `Topic queue length` is now configurable. This allows you to set a `topic-buffer-length` parameter in the Kapacitor config file in the
+[alert](https://docs.influxdata.com/kapacitor/v1.6/administration/configuration/#alert) section. The default is 5000. Minimum length
+is 1000.
+- Add new `address template` to email alert. Email addresses no longer need to be hardcoded; can be derived directly from data.
+
+### Bug fixes
+
+- Deprecated ciphers identified as "weak" in response to the [sweet32](https://sweet32.info/) attack.
+- Add additional detail to the error message `missing flux data`. This error is generated when issues occur when running a **Flux** query within a batch TICKscript.
+
+## v1.6.2 [2021-09-24]
+
+### Features
+
+- Add the `template-id` property to the `GET /kapacitor/v1/tasks` request response. Adding this property helps to identify tasks that were created from a [template](/kapacitor/v1.6/working/template_tasks/).
+- For alert templates, row templates, and details templates, add support for third-party services that reject standard `json` (terminated by a new line character) by compacting `json` in templates. To do this, replace `{{ json . }}` with `{{ jsonCompact . }}` in your templates. (This change also compacts Big Panda alert details to avoid Panda service error.)
+
+### Bug fixes
+
+- Implement `expvar` string json encoding to correctly handle special characters in measurement strings, thanks @prashanthjbabu!
+- Correctly validate that connected InfluxDB instances are running when`disable-subscriptions` is set to `true` in the [InfluxDB section of the Kapacitor configuration file](/kapacitor/v1.6/administration/configuration/#influxdb). If InfluxDB is not available, Kapacitor does not start.
+- Update `jwt` dependencies and switch to `github.com/golang-jwt/jwt` to remediate the [CVE-2020-26160 vulnerability](https://nvd.nist.gov/vuln/detail/CVE-2020-26160).
+- Switch task service to use Flux formatter that preserves comments.
+
+## v1.6.1 [2021-07-22]
+
+### Features
+
+- Add flag for restricting CIDR ranges for certain event handlers and nodes.
+- Add flag for disabling alert handlers for additional security (such as
+  disabling the `exec` alert handler on a shared machine).
+
+### Bug fixes
+
+- Align `DeleteGroupMessage` with `GroupInfo` interface.
+- Fix payload serialization for BigPanda.
+
 ## v1.6.0 [2021-06-28]
+
+{{% warn %}}
+Kapacitor 1.6.0 includes a defect that could result in a memory leak and expose
+sensitive information.
+If you installed this release, upgrade to **Kapacitor v1.6.1**.
+{{% /warn %}}
 
 **Kapacitor 1.6** introduces Flux task support.
 Use the Flux task to schedule and run Flux tasks against InfluxDB 1.x databases
@@ -17,18 +94,29 @@ User authentication and authorization (previously only supported in Kapacitor En
 is now available in Kapacitor 1.6. Require user authentication for interactions
 with the Kapacitor API.
 
+{{% warn %}}
+### Breaking changes
+
+Kapacitor 1.6+ no longer supports 32-bit operating systems.
+If you are using a 32-bit operating system, continue using Kapacitor 1.5.x.
+{{% /warn %}}
+
 ### Features
 
+- Provide ARM 64-bit builds. 
 - Add Kapacitor [Flux task commands](/kapacitor/v1.6/working/cli_client/#flux-tasks) to the `kapacitor` CLI.
 - Add built-in Flux engine to support [Flux tasks in Kapacitor](/kapacitor/v1.6/working/flux/).
+- Add [QueryFluxNode](/kapacitor/v1.6/nodes/query_flux_node/) for querying with Flux in batch tasks.
 - Add [Zenoss event handler](/kapacitor/v1.6/event_handlers/zenoss/). 
 - Route [Kafka alerts](/kapacitor/v1.6/event_handlers/kafka/) to partitions by
   message ID and support hashing strategy configuration.
 - Add user-based authentication.
 - Add [TrickleNode](/kapacitor/v1.6/nodes/trickle_node/) to convert batches to streams. 
 - Update [Slack event handler](/kapacitor/v1.6/event_handlers/slack/) to support new-style Slack applications.
+- Handle Delete messages in [joinNode](/kapacitor/v1.6/nodes/join_node/).
 
-### Bugfixes
+### Bug fixes
+
 - Fix a panic in the scraper handler when debug mode is enabled. 
 
 ## v1.5.9 [2021-04-01]
@@ -57,7 +145,7 @@ with the Kapacitor API.
 
 #### Miscellaneous event updates
 
-- Send the full event payload to [Pagerduty](/influxdb/v2.0/reference/flux/stdlib/pagerduty/sendevent) when the `eventAction` is `resolve`, thanks @asvinours!
+- Send the full event payload to [Pagerduty](/kapacitor/v1.6/event_handlers/pagerduty/v2/) when the `eventAction` is `resolve`, thanks @asvinours!
 - Add the default color theme to [Microsoft Teams](/kapacitor/v1.6/event_handlers/microsoftteams/) alerts, thanks @NoamShaish!
 - Add barrier handling to [FlattenNode](/kapacitor/v1.6/nodes/flatten_node/) to ensure points are successfully emitted.
 

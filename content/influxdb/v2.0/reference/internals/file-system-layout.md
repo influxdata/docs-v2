@@ -32,7 +32,7 @@ configuration option.
 
 #### Bolt path
 File path to the [Boltdb](https://github.com/boltdb/bolt) database, a file-based
-key-value store for non-time series data, such as InfluxDB users, dashboards, tasks, etc.
+key-value store for non–time series data, such as InfluxDB users, dashboards, tasks, etc.
 To customize this path, use the [bolt-path](/influxdb/v2.0/reference/config-options/#bolt-path)
 configuration option.
 

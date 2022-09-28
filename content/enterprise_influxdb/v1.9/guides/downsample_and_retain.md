@@ -13,7 +13,7 @@ v2: /influxdb/v2.0/process-data/common-tasks/downsample-data/
 InfluxDB can handle hundreds of thousands of data points per second. Working with that much data over a long period of time can create storage concerns.
 A natural solution is to downsample the data; keep the high precision raw data for only a limited time, and store the lower precision, summarized data longer.
 This guide describes how to automate the process of downsampling data and expiring old data using InfluxQL. To downsample and retain data using Flux and InfluxDB 2.0,
-see [Process Data with InfluxDB tasks](/influxdb/v2.0/process-data/).
+see [Process data with InfluxDB tasks](/influxdb/v2.0/process-data/).
 
 ### Definitions
 
@@ -214,7 +214,7 @@ data that reside in an RP other than the `DEFAULT` RP.
 Between checks, `orders` may have data that are older than two hours.
 The rate at which InfluxDB checks to enforce an RP is a configurable setting,
 see
-[Database Configuration](/enterprise_influxdb/v1.9/administration/config#check-interval-30m0s).
+[Database Configuration](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#check-interval).
 
 Using a combination of RPs and CQs, we've successfully set up our database to
 automatically keep the high precision raw data for a limited time, create lower

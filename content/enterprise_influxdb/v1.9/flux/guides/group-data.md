@@ -37,13 +37,13 @@ Understanding how modifying group keys shapes output data is key to successfully
 grouping and transforming data into your desired output.
 
 ## group() Function
-Flux's [`group()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/group) defines the
+Flux's [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group) defines the
 group key for output tables, i.e. grouping records based on values for specific columns.
 
 ###### group() example
 ```js
 dataStream
-  |> group(columns: ["cpu", "host"])
+    |> group(columns: ["cpu", "host"])
 ```
 
 ###### Resulting group key
@@ -72,12 +72,9 @@ It uses a regular expression to filter only numbered cores.
 
 ```js
 dataSet = from(bucket: "db/rp")
-  |> range(start: -2m)
-  |> filter(fn: (r) =>
-    r._field == "usage_system" and
-    r.cpu =~ /cpu[0-9*]/
-  )
-  |> drop(columns: ["host"])
+    |> range(start: -2m)
+    |> filter(fn: (r) => r._field == "usage_system" and r.cpu =~ /cpu[0-9*]/)
+    |> drop(columns: ["host"])
 ```
 
 {{% note %}}
@@ -167,7 +164,7 @@ Group the `dataSet` stream by the `cpu` column.
 
 ```js
 dataSet
-  |> group(columns: ["cpu"])
+    |> group(columns: ["cpu"])
 ```
 
 This won't actually change the structure of the data since it already has `cpu`
@@ -256,7 +253,7 @@ Grouping data by the `_time` column is a good illustration of how grouping chang
 
 ```js
 dataSet
-  |> group(columns: ["_time"])
+    |> group(columns: ["_time"])
 ```
 
 When grouping by `_time`, all records that share a common `_time` value are grouped into individual tables.
@@ -383,9 +380,9 @@ If you're interested in running and visualizing this yourself, here's what the q
 
 ```js
 dataSet
-  |> group(columns: ["_time"])
-  |> mean()
-  |> group(columns: ["_value", "_time"], mode: "except")
+    |> group(columns: ["_time"])
+    |> mean()
+    |> group(columns: ["_value", "_time"], mode: "except")
 ```
 {{% /note %}}
 
@@ -394,7 +391,7 @@ Group by the `cpu` and `_time` columns.
 
 ```js
 dataSet
-  |> group(columns: ["cpu", "_time"])
+    |> group(columns: ["cpu", "_time"])
 ```
 
 This outputs a table for every unique `cpu` and `_time` combination:

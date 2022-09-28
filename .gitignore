@@ -5,4 +5,9 @@ public
 node_modules
 *.log
 /resources
+.hugo_build.lock
 /content/influxdb/*/api/*.html
+/api-docs/redoc-static.html*
+.vscode/*
+.idea
+package-lock.json

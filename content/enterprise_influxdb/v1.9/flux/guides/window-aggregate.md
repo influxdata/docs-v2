@@ -37,12 +37,9 @@ The following example queries the memory usage of the host machine.
 
 ```js
 dataSet = from(bucket: "db/rp")
-  |> range(start: -5m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "used_percent"
-  )
-  |> drop(columns: ["host"])
+    |> range(start: -5m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "used_percent")
+    |> drop(columns: ["host"])
 ```
 
 {{% note %}}
@@ -94,7 +91,7 @@ Table: keys: [_start, _stop, _field, _measurement]
 {{% /truncate %}}
 
 ## Windowing data
-Use the [`window()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/window)
+Use the [`window()` function](/{{< latest "flux" >}}/stdlib/universe/window)
 to group your data based on time bounds.
 The most common parameter passed with the `window()` is `every` which
 defines the duration of time between windows.
@@ -103,11 +100,11 @@ set into one minute windows.
 
 ```js
 dataSet
-  |> window(every: 1m)
+    |> window(every: 1m)
 ```
 
 {{% note %}}
-The `every` parameter supports all [valid duration units](/{{< latest "influxdb" "v2" >}}/reference/flux/language/types/#duration-types),
+The `every` parameter supports all [valid duration units](/{{< latest "flux" >}}/language/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
@@ -183,20 +180,20 @@ When visualized in the InfluxDB UI, each window table is displayed in a differen
 ![Windowed data](/img/flux/simple-windowed-data.png)
 
 ## Aggregate data
-[Aggregate functions](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates) take the values
+[Aggregate functions](/{{< latest "flux" >}}/stdlib/universe) take the values
 of all rows in a table and use them to perform an aggregate operation.
 The result is output as a new value in a single-row table.
 
 Since windowed data is split into separate tables, aggregate operations run against
 each table separately and output new tables containing only the aggregated value.
 
-For this example, use the [`mean()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/mean)
+For this example, use the [`mean()` function](/{{< latest "flux" >}}/stdlib/universe/mean)
 to output the average of each window:
 
 ```js
 dataSet
-  |> window(every: 1m)
-  |> mean()
+    |> window(every: 1m)
+    |> mean()
 ```
 
 {{% truncate %}}
@@ -254,14 +251,14 @@ These represent the lower and upper bounds of the time window.
 
 Many Flux functions rely on the `_time` column.
 To further process your data after an aggregate function, you need to re-add `_time`.
-Use the [`duplicate()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/duplicate) to
+Use the [`duplicate()` function](/{{< latest "flux" >}}/stdlib/universe/duplicate) to
 duplicate either the `_start` or `_stop` column as a new `_time` column.
 
 ```js
 dataSet
-  |> window(every: 1m)
-  |> mean()
-  |> duplicate(column: "_stop", as: "_time")
+    |> window(every: 1m)
+    |> mean()
+    |> duplicate(column: "_stop", as: "_time")
 ```
 
 {{% truncate %}}
@@ -310,10 +307,10 @@ Use the `window()` function to "unwindow" your data into a single infinite (`inf
 
 ```js
 dataSet
-  |> window(every: 1m)
-  |> mean()
-  |> duplicate(column: "_stop", as: "_time")
-  |> window(every: inf)
+    |> window(every: 1m)
+    |> mean()
+    |> duplicate(column: "_stop", as: "_time")
+    |> window(every: inf)
 ```
 
 {{% note %}}
@@ -342,7 +339,7 @@ With the aggregate values in a single table, data points in the visualization ar
 You have now created a Flux query that windows and aggregates data.
 The data transformation process outlined in this guide should be used for all aggregation operations.
 
-Flux also provides the [`aggregateWindow()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow)
+Flux also provides the [`aggregateWindow()` function](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow)
 which performs all these separate functions for you.
 
 The following Flux query will return the same results:
@@ -350,5 +347,5 @@ The following Flux query will return the same results:
 ###### aggregateWindow function
 ```js
 dataSet
-  |> aggregateWindow(every: 1m, fn: mean)
+    |> aggregateWindow(every: 1m, fn: mean)
 ```

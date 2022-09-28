@@ -48,6 +48,8 @@ errors
     .fill(0.0)
     // name the resulting stream
     .streamName('error_rate')
+    // treat a delete from one side of the join as a delete to all sides
+    .deleteAll(TRUE)
   // Both the "value" fields from each parent have been prefixed
   // with the respective names 'errors' and 'requests'.
   |eval(lambda: "errors.value" / "requests.value")
@@ -102,20 +104,20 @@ errors
 
 | Chaining Method | Description |
 |:---------|:---------|
-| **join&nbsp;(&nbsp;`others`&nbsp;`...Node`)** | Join this node with other nodes. The data is joined on timestamp.  |
+| **join(`others` `...Node`)** | Join this node with other nodes. The data is joined on timestamp.  |
 
 ### Property Methods
 
-| Setters | Description |
-|:---|:---|
-| **[as](#as)&nbsp;(&nbsp;`names`&nbsp;`...string`)** | Prefix names for all fields from the respective nodes. Each field from the parent nodes will be prefixed with the provided name and a `.`. See the example below. |
-| **[delimiter](#delimiter)&nbsp;(&nbsp;`value`&nbsp;`string`)** | The delimiter for the field name prefixes. Can be the empty string.  |
-| **[fill](#fill)&nbsp;(&nbsp;`value`&nbsp;`interface{}`)** | Fill the data. The fill option implies the type of join: inner or full outer.  |
-| **[on](#on)&nbsp;(&nbsp;`dims`&nbsp;`...string`)** | Join on a subset of the group by dimensions. This is a special case where you want a single point from one parent to join with multiple points from a different parent.  |
-| **[quiet](#quiet)&nbsp;(&nbsp;)** | Suppress all error logging events from this node.  |
-| **[streamName](#streamname)&nbsp;(&nbsp;`value`&nbsp;`string`)** | The name of this new joined data stream. If empty the name of the left parent is used.  |
-| **[tolerance](#tolerance)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)** | The maximum duration of time that two incoming points can be apart and still be considered to be equal in time. The joined data point's time will be rounded to the nearest multiple of the tolerance duration.  |
-
+| Setters                                              | Description                                                                                                                                                                                                     |
+| :--------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **[as](#as)(`names` `...string`)**                   | Prefix names for all fields from the respective nodes. Each field from the parent nodes will be prefixed with the provided name and a `.`. See the example below.                                               |
+| **[delimiter](#delimiter)(`value` `string`)**        | The delimiter for the field name prefixes. Can be the empty string.                                                                                                                                             |
+| **[deleteAll](#deleteall)(`value` `bool`)**          | Deletes both sides of the join regardless of which side receives the delete message.                                                                                                                            |
+| **[fill](#fill)(`value` `interface{}`)**             | Fill the data. The fill option implies the type of join: inner or full outer.                                                                                                                                   |
+| **[on](#on)(`dims` `...string`)**                    | Join on a subset of the group by dimensions. This is a special case where you want a single point from one parent to join with multiple points from a different parent.                                         |
+| **[quiet](#quiet)()**                                | Suppress all error logging events from this node.                                                                                                                                                               |
+| **[streamName](#streamname)(`value` `string`)**      | The name of this new joined data stream. If empty the name of the left parent is used.                                                                                                                          |
+| **[tolerance](#tolerance)(`value` `time.Duration`)** | The maximum duration of time that two incoming points can be apart and still be considered to be equal in time. The joined data point's time will be rounded to the nearest multiple of the tolerance duration. |
 
 
 ### Chaining Methods
@@ -203,6 +205,13 @@ Can be the empty string.
 
 ```js
 join.delimiter(value string)
+```
+
+### DeleteAll
+Delete both sides of the join regardless of which side receives the delete message.
+
+```js
+join.deleteAll(value bool)
 ```
 
 
@@ -304,10 +313,6 @@ source1
     .field('source1.anon')
     .tag('host')
 ```
-
-
-
-
 
 ### On
 

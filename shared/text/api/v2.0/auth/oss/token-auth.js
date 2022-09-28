@@ -11,7 +11,7 @@ function queryWithToken() {
     host: 'localhost:8086',
     path: "/api/v2",
     headers: {
-      'Authorization': 'Token YourAuthToken',
+      'Authorization': 'Token YOUR_API_TOKEN',
       'Content-type': 'application/json'
     },
   };

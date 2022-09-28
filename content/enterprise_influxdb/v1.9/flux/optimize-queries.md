@@ -29,29 +29,29 @@ The following pushdowns are supported in InfluxDB Enterprise 1.9+.
 
 | Functions                      | Supported            |
 | :----------------------------- | :------------------: |
-| **count()**                    | {{< icon "check" >}} |
-| **drop()**                     | {{< icon "check" >}} |
-| **duplicate()**                | {{< icon "check" >}} |
-| **filter()** {{% req " \*" %}} | {{< icon "check" >}} |
-| **fill()**                     | {{< icon "check" >}} |
-| **first()**                    | {{< icon "check" >}} |
-| **group()**                    | {{< icon "check" >}} |
-| **keep()**                     | {{< icon "check" >}} |
-| **last()**                     | {{< icon "check" >}} |
-| **max()**                      | {{< icon "check" >}} |
-| **mean()**                     | {{< icon "check" >}} |
-| **min()**                      | {{< icon "check" >}} |
-| **range()**                    | {{< icon "check" >}} |
-| **rename()**                   | {{< icon "check" >}} |
-| **sum()**                      | {{< icon "check" >}} |
-| **window()**                   | {{< icon "check" >}} |
+| **count()**                    | {{< icon "check" "v2" >}} |
+| **drop()**                     | {{< icon "check" "v2" >}} |
+| **duplicate()**                | {{< icon "check" "v2" >}} |
+| **filter()** {{% req " \*" %}} | {{< icon "check" "v2" >}} |
+| **fill()**                     | {{< icon "check" "v2" >}} |
+| **first()**                    | {{< icon "check" "v2" >}} |
+| **group()**                    | {{< icon "check" "v2" >}} |
+| **keep()**                     | {{< icon "check" "v2" >}} |
+| **last()**                     | {{< icon "check" "v2" >}} |
+| **max()**                      | {{< icon "check" "v2" >}} |
+| **mean()**                     | {{< icon "check" "v2" >}} |
+| **min()**                      | {{< icon "check" "v2" >}} |
+| **range()**                    | {{< icon "check" "v2" >}} |
+| **rename()**                   | {{< icon "check" "v2" >}} |
+| **sum()**                      | {{< icon "check" "v2" >}} |
+| **window()**                   | {{< icon "check" "v2" >}} |
 | _Function combinations_        |                      |
-| **window()** \|> **count()**   | {{< icon "check" >}} |
-| **window()** \|> **first()**   | {{< icon "check" >}} |
-| **window()** \|> **last()**    | {{< icon "check" >}} |
-| **window()** \|> **max()**     | {{< icon "check" >}} |
-| **window()** \|> **min()**     | {{< icon "check" >}} |
-| **window()** \|> **sum()**     | {{< icon "check" >}} |
+| **window()** \|> **count()**   | {{< icon "check" "v2" >}} |
+| **window()** \|> **first()**   | {{< icon "check" "v2" >}} |
+| **window()** \|> **last()**    | {{< icon "check" "v2" >}} |
+| **window()** \|> **max()**     | {{< icon "check" "v2" >}} |
+| **window()** \|> **min()**     | {{< icon "check" "v2" >}} |
+| **window()** \|> **sum()**     | {{< icon "check" "v2" >}} |
 
 {{% caption %}}
 {{< req "\*" >}} **filter()** only pushes down when all parameter values are static.
@@ -65,13 +65,13 @@ subsequent operations there.
 ##### Pushdown functions in use
 ```js
 from(bucket: "db/rp")
-  |> range(start: -1h)                       //
-  |> filter(fn: (r) => r.sensor == "abc123") //
-  |> group(columns: ["_field", "host"])      // Pushed to the data source
-  |> aggregateWindow(every: 5m, fn: max)     //
-  |> filter(fn: (r) => r._value >= 90.0)     //
+    |> range(start: -1h)                       //
+    |> filter(fn: (r) => r.sensor == "abc123") //
+    |> group(columns: ["_field", "host"])      // Pushed to the data source
+    |> aggregateWindow(every: 5m, fn: max)     //
+    |> filter(fn: (r) => r._value >= 90.0)     //
 
-  |> top(n: 10)                              // Run in memory
+    |> top(n: 10)                              // Run in memory
 ```
 
 ### Avoid processing filters inline
@@ -88,8 +88,8 @@ to the underlying data source and loads all data returned from `range()` into me
 
 ```js
 from(bucket: "db/rp")
-  |> range(start: -1h)                      
-  |> filter(fn: (r) => r.region == v.provider + v.region)
+    |> range(start: -1h)                      
+    |> filter(fn: (r) => r.region == v.provider + v.region)
 ```
 
 To dynamically set filters and maintain the pushdown ability of the `filter()` function,
@@ -99,8 +99,8 @@ use variables to define filter values outside of `filter()`:
 region = v.provider + v.region
 
 from(bucket: "db/rp")
-  |> range(start: -1h)                      
-  |> filter(fn: (r) => r.region == region)
+    |> range(start: -1h)                      
+    |> filter(fn: (r) => r.region == region)
 ```
 
 ## Avoid short window durations
@@ -136,17 +136,17 @@ The following queries are functionally the same, but using `set()` is more perfo
 
 ```js
 data
-  |> map(fn: (r) => ({ r with foo: "bar" }))
+    |> map(fn: (r) => ({ r with foo: "bar" }))
 
 // Recommended
 data
-  |> set(key: "foo", value: "bar")
+    |> set(key: "foo", value: "bar")
 ```
 
 #### Dynamically set a column value using existing row data
 ```js
 data
-  |> map(fn: (r) => ({ r with foo: r.bar }))
+    |> map(fn: (r) => ({ r with foo: r.bar }))
 ```
 
 ## Balance time range and data precision

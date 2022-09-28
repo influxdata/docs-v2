@@ -40,7 +40,7 @@ To create an InfluxDB connection in VS Code:
     - **Name:** unique identifier for your InfluxDB connection.
     - **Hostname and Port:** InfluxDB host and port
       (see [InfluxDB OSS URLs](/influxdb/v2.0/reference/urls/) or [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)).
-    - **Token:** InfluxDB [authentication token](/influxdb/v2.0/security/tokens/).
+    - **Token:** InfluxDB [API token](/influxdb/v2.0/security/tokens/).
     - **Organization:** InfluxDB organization name.
 4. Click **Test** to test the connection.
 5. Once tested successfully, click **Save**.

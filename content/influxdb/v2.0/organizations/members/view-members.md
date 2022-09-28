@@ -16,7 +16,7 @@ to view members of an organization.
 
 In the navigation menu on the left, select **Org (Organization)** > **Members**.
 
-{{< nav-icon "org" >}}
+{{< nav-icon "org" "v2" >}}
 
 
 ## View members of organization using the influx CLI

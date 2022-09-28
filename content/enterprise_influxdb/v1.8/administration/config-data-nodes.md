@@ -14,7 +14,7 @@ menu:
   * [Enterprise license [enterprise]](#enterprise-license-settings)
   * [Meta node `[meta]`](#meta-node-settings)
   * [Data `[data]`](#data-settings)
-  * [Cluster `[cluster]`](#cluster-settings)
+  * [Cluster `[cluster]` (includes InfluxQL query controls)](#cluster-settings)
   * [Retention `[retention]`](#retention-policy-settings)
   * [Hinted Handoff `[hinted-handoff]`](#hinted-handoff-settings)
   * [Anti-Entropy `[anti-entropy]`](#anti-entropy-ae-settings)
@@ -356,8 +356,7 @@ Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
 ### `[cluster]`
 
-Settings related to how the data nodes interact with other data nodes.
-Controls how data is shared across shards and the options for query management.
+Settings related to how data nodes interact with each other, how data is shared across shards, and how InfluxQL queries are managed.
 
 An InfluxDB Enterprise cluster uses remote procedure calls (RPCs) for inter-node communication.
 An RPC connection pool manages the stream connections and efficiently uses system resources.
@@ -853,6 +852,14 @@ Environment variable: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
 The JWT authorization shared secret used to validate requests using JSON web tokens (JWTs).
 
 Environment variable: `INFLUXDB_HTTP_SHARED_SECRET`
+
+#### `max-body-size = 25000000`
+
+The maximum size, in bytes, of a client request body.
+When a HTTP client sends data that exceeds the configured maximum size, a `413 Request Entity Too Large` HTTP response is returned.
+To disable the limit, set the value to `0`.
+
+Environment variable: `INFLUXDB_HTTP_MAX_BODY_SIZE`
 
 #### `max-row-limit = 0`
 

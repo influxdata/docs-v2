@@ -15,7 +15,7 @@ v2: /influxdb/v2.0/query-data/flux/mathematic-operations/
 ---
 
 Flux supports mathematic expressions in data transformations.
-This article describes how to use [Flux arithmetic operators](/{{< latest "influxdb" "v2" >}}/reference/flux/language/operators/#arithmetic-operators)
+This article describes how to use [Flux arithmetic operators](/{{< latest "flux" >}}/language/operators/#arithmetic-operators)
 to "map" over data and transform values using mathematic operations.
 
 If you're just getting started with Flux queries, check out the following:
@@ -48,7 +48,7 @@ Otherwise, you will get an error similar to:
 Error: type error: float != int
 ```
 
-To convert operands to the same type, use [type-conversion functions](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/type-conversions/)
+To convert operands to the same type, use [type-conversion functions](/{{< latest "flux" >}}/stdlib/universe/type-conversions/)
 or manually format operands.
 The operand data type determines the output data type.
 For example:
@@ -91,7 +91,7 @@ To transform multiple values in an input stream, your function needs to:
 
 - [Handle piped-forward data](/{{< latest "influxdb" "v2" >}}/query-data/flux/custom-functions/#functions-that-manipulate-piped-forward-data).
 - Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
-- Use the [`map()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/map) to iterate over each row.
+- Use the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map) to iterate over each row.
 
 The example `multiplyByX()` function below includes:
 
@@ -102,16 +102,11 @@ The example `multiplyByX()` function below includes:
   It also multiples the `_value` column by `x`.
 
 ```js
-multiplyByX = (x, tables=<-) =>
-  tables
-    |> map(fn: (r) => ({
-        r with
-        _value: r._value * x
-      })
-    )
+multiplyByX = (x, tables=<-) => tables
+    |> map(fn: (r) => ({r with _value: r._value * x}))
 
 data
-  |> multiplyByX(x: 10)
+    |> multiplyByX(x: 10)
 ```
 
 ## Examples
@@ -125,47 +120,30 @@ a new `_value` by dividing the original `_value` by 1073741824.
 
 ```js
 from(bucket: "db/rp")
-  |> range(start: -10m)
-  |> filter(fn: (r) =>
-    r._measurement == "mem" and
-    r._field == "active"
-  )
-  |> map(fn: (r) => ({
-      r with
-      _value: r._value / 1073741824
-    })
-  )
+    |> range(start: -10m)
+    |> filter(fn: (r) => r._measurement == "mem" and r._field == "active")
+    |> map(fn: (r) => ({r with _value: r._value / 1073741824}))
 ```
 
 You could turn that same calculation into a function:
 
 ```js
-bytesToGB = (tables=<-) =>
-  tables
-    |> map(fn: (r) => ({
-        r with
-        _value: r._value / 1073741824
-      })
-    )
+bytesToGB = (tables=<-) => tables
+    |> map(fn: (r) => ({r with _value: r._value / 1073741824}))
 
 data
-  |> bytesToGB()
+    |> bytesToGB()
 ```
 
 #### Include partial gigabytes
 Because the original metric (bytes) is an integer, the output of the operation is an integer and does not include partial GBs.
 To calculate partial GBs, convert the `_value` column and its values to floats using the
-[`float()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/type-conversions/float)
+[`float()` function](/{{< latest "flux" >}}/stdlib/universe/type-conversions/float)
 and format the denominator in the division operation as a float.
 
 ```js
-bytesToGB = (tables=<-) =>
-  tables
-    |> map(fn: (r) => ({
-        r with
-        _value: float(v: r._value) / 1073741824.0
-      })
-    )
+bytesToGB = (tables=<-) => tables
+    |> map(fn: (r) => ({r with _value: float(v: r._value) / 1073741824.0}))
 ```
 
 ### Calculate a percentage
@@ -194,10 +172,8 @@ Use `join()` when querying data from different buckets or data sources.
 ##### Pivot fields into columns for mathematic calculations
 ```js
 data
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> map(fn: (r) => ({ r with
-    _value: (r.field1 + r.field2) / r.field3 * 100.0
-  }))
+    |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> map(fn: (r) => ({r with _value: (r.field1 + r.field2) / r.field3 * 100.0}))
 ```
 
 ##### Join multiple data sources for mathematic calculations
@@ -210,18 +186,15 @@ pgPass = secrets.get(key: "POSTGRES_PASSWORD")
 pgHost = secrets.get(key: "POSTGRES_HOST")
 
 t1 = sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://${pgUser}:${pgPass}@${pgHost}",
-  query:"SELECT id, name, available FROM exampleTable"
+    driverName: "postgres",
+    dataSourceName: "postgresql://${pgUser}:${pgPass}@${pgHost}",
+    query: "SELECT id, name, available FROM exampleTable",
 )
 
 t2 = from(bucket: "db/rp")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field"
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
 
 join(tables: {t1: t1, t2: t2}, on: ["id"])
-  |> map(fn: (r) => ({ r with _value: r._value_t2 / r.available_t1 * 100.0 }))
+    |> map(fn: (r) => ({r with _value: r._value_t2 / r.available_t1 * 100.0}))
 ```

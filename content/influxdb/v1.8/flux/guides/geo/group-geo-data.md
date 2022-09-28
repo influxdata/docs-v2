@@ -8,9 +8,9 @@ menu:
     parent: Geo-temporal data
 weight: 302
 related:
-  - /{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/
-  - /{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/groupbyarea/
-  - /{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/astracks/
+  - /{{< latest "flux" >}}/stdlib/experimental/geo/
+  - /{{< latest "flux" >}}/stdlib/experimental/geo/groupbyarea/
+  - /{{< latest "flux" >}}/stdlib/experimental/geo/astracks/
 canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/geo/group-geo-data/
 v2: /influxdb/v2.0/query-data/flux/geo/group-geo-data/
 list_code_example: |
@@ -19,7 +19,7 @@ list_code_example: |
 
   sampleGeoData
     |> geo.groupByArea(newColumn: "geoArea", level: 5)
-    |> geo.asTracks(groupBy: ["id"],sortBy: ["_time"])
+    |> geo.asTracks(groupBy: ["id"],orderBy: ["_time"])
   ```
 ---
 
@@ -30,7 +30,7 @@ to group data into tracks or routes.
 - [Group data into tracks or routes](#group-data-by-track-or-route)
 
 ### Group data by area
-Use the [`geo.groupByArea()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/groupbyarea/)
+Use the [`geo.groupByArea()` function](/{{< latest "flux" >}}/stdlib/experimental/geo/groupbyarea/)
 to group geo-temporal data points by geographic area.
 Areas are determined by [S2 grid cells](https://s2geometry.io/devguide/s2cell_hierarchy.html#s2cellid-numbering)
 
@@ -53,12 +53,12 @@ sampleGeoData
 ```
 
 ### Group data by track or route
-Use [`geo.asTracks()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/experimental/geo/astracks/)
+Use [`geo.asTracks()` function](/{{< latest "flux" >}}/stdlib/experimental/geo/astracks/)
 to group data points into tracks or routes and order them by time or other columns.
 Data must contain a unique identifier for each track. For example: `id` or `tid`.
 
 - Specify columns that uniquely identify each track or route with the `groupBy` parameter.
-- Specify which columns to sort by with the `sortBy` parameter. Default is `["_time"]`.
+- Specify which columns to sort by with the `orderBy` parameter. Default is `["_time"]`.
 
 The following example uses the [sample bird migration data](/influxdb/v1.8/flux/guides/geo/#sample-data)
 to query data points within 200km of Cairo, Egypt and group them into routes unique
@@ -71,6 +71,6 @@ sampleGeoData
   |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0})
   |> geo.asTracks(
     groupBy: ["id"],
-    sortBy: ["_time"]
+    orderBy: ["_time"]
   )
 ```

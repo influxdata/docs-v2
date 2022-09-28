@@ -23,11 +23,8 @@ which represents a basic query that filters data by measurement and field.
 
 ```js
 data = from(bucket: "db/rp")
-  |> range(start: -1h)
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field"
-  )
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
 ```
 {{% /note %}}
 
@@ -38,3 +35,5 @@ data = from(bucket: "db/rp")
 ---
 
 {{< children pages="all" readmore="true" hr="true" >}}
+
+{{< influxdbu title="Intro to Basic Flux Elements" summary="Learn the basics about Flux, InfluxDB’s functional scripting language in this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/intro-to-basic-flux-elements-tutorial/" >}}

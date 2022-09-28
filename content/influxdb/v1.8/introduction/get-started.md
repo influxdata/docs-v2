@@ -7,6 +7,8 @@ aliases:
   - /influxdb/v1.8/introduction/getting-started/
   - /influxdb/v2.0/introduction/getting-started/
   - /influxdb/v2.0/introduction/getting_started/
+  - /influxdb/v2.1/introduction/getting-started/
+  - /influxdb/v2.1/introduction/getting_started/
 menu:
   influxdb_1_8:
     name: Get started with InfluxDB
@@ -33,8 +35,8 @@ The output should look like this:
 
 ```bash
 $ influx -precision rfc3339
-Connected to http://localhost:8086 version 1.8.x
-InfluxDB shell 1.8.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 >
 ```
 

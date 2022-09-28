@@ -14,7 +14,7 @@ canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/median/
 v2: /influxdb/v2.0/query-data/flux/median/
 ---
 
-Use the [`median()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/median/)
+Use the [`median()` function](/{{< latest "flux" >}}/stdlib/universe/median/)
 to return a value representing the `0.5` quantile (50th percentile) or median of input data.
 
 ## Select a method for calculating the median
@@ -107,7 +107,7 @@ contain values in the 50th percentile of data in the table.
 
 ```js
 data
-  |> median()
+    |> median()
 ```
 
 ## Find the average of values closest to the median
@@ -116,7 +116,7 @@ average of the two values closest to the mathematical median of data in the tabl
 
 ```js
 data
-  |> median(method: "exact_mean")
+    |> median(method: "exact_mean")
 ```
 
 ## Find the point with the median value
@@ -125,22 +125,19 @@ value that 50% of values in the table are less than.
 
 ```js
 data
-  |> median(method: "exact_selector")
+    |> median(method: "exact_selector")
 ```
 
 ## Use median() with aggregateWindow()
-[`aggregateWindow()`](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+[`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
 point, and then removes the time-based segmentation.
 It is primarily used to downsample data.
 
 To specify the [median calculation method](#select-a-method-for-calculating-the-median) in `aggregateWindow()`, use the
-[full function syntax](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/#specify-parameters-of-the-aggregate-function):
+[full function syntax](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/#specify-parameters-of-the-aggregate-function):
 
 ```js
 data
-  |> aggregateWindow(
-    every: 5m,
-    fn: (tables=<-, column) => tables |> median(method: "exact_selector")
-  )
+    |> aggregateWindow(every: 5m, fn: (tables=<-, column) => tables |> median(method: "exact_selector"))
 ```

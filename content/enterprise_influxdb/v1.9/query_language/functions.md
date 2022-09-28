@@ -4375,7 +4375,7 @@ InfluxDB then rounds those averages down to the nearest integer.
 
 _InfluxQL does not currently support histogram generation.
 For information about creating histograms with data stored in InfluxDB, see
-[Flux's `histogram()` function](/{{< latest "influxdb" "v2" >}}/reference/flux/stdlib/built-in/transformations/histogram)._
+[Flux's `histogram()` function](/{{< latest "flux" >}}/stdlib/universe/histogram)._
 
 ### LN()
 
@@ -6617,7 +6617,7 @@ KAMA will adjust when the data swings widen and follow data from a greater dista
 This trend-following indicator can be used to identify the overall trend,
 time turning points and filter data movements.
 
-<sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:kaufman_s_adaptive_moving_average" target="\_blank">Source</a>
+<sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://school.stockcharts.com/doku.php?id=technical_indicators:kaufman_s_adaptive_moving_average" target="\_blank">Source</a>
 
 #### Basic syntax
 

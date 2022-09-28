@@ -1,7 +1,7 @@
 ---
 title: Delete a token
-seotitle: Delete an authentication token from InfluxDB
-description: Delete an authentication token from InfluxDB using the InfluxDB UI or the `influx` CLI.
+seotitle: Delete an API token from InfluxDB
+description: Delete an API token from InfluxDB using the InfluxDB UI or the `influx` CLI.
 aliases:
   - /influxdb/v2.0/users/tokens/delete-token
 menu:
@@ -11,15 +11,15 @@ menu:
 weight: 204
 ---
 
-Delete authentication tokens from the InfluxDB user interface (UI) or the `influx` command line interface (CLI).
-Once deleted, all users and external integrations using the token will no longer
+Delete API tokens from the InfluxDB user interface (UI) or the `influx` command line interface (CLI).
+Once deleted, all users and external integrations using the API token will no longer
 have access to your InfluxDB instance.
 
 ## Delete tokens in the InfluxDB UI
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
 
-    {{< nav-icon "disks" >}}
+    {{< nav-icon "load-data" "v2" >}}
 
 2. Hover over the token you want to delete and click **Delete** and **Confirm**.
 

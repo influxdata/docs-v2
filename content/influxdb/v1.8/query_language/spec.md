@@ -8,6 +8,10 @@ menu:
     parent: InfluxQL
 aliases:
   - /influxdb/v2.0/query_language/spec/
+  - /influxdb/v2.1/query_language/spec/
+  - /influxdb/v2.2/query_language/spec/
+  - /influxdb/v2.3/query_language/spec/
+  - /influxdb/latest/query_language/spec/
 ---
 
 ## Introduction
@@ -1033,7 +1037,23 @@ show_shards_stmt = "SHOW SHARDS" .
 
 ```sql
 SHOW SHARDS
+
+name: telegraf
+id  database   retention_policy shard_group start_time           end_time             expiry_time          owners
+--  --------   ---------------- ----------- ----------           --------             -----------          ------
+16  telegraf   autogen          6           2020-10-19T00:00:00Z 2020-10-26T00:00:00Z 2020-10-26T00:00:00Z 6,7,8
+17  telegraf   autogen          6           2020-10-19T00:00:00Z 2020-10-26T00:00:00Z 2020-10-26T00:00:00Z 9,4,5
+21  telegraf   autogen          8           2020-10-26T00:00:00Z 2020-11-02T00:00:00Z 2020-11-02T00:00:00Z 8,9,4
+22  telegraf   autogen          8           2020-10-26T00:00:00Z 2020-11-02T00:00:00Z 2020-11-02T00:00:00Z 5,6,7
+26  telegraf   autogen          10          2020-11-02T00:00:00Z 2020-11-09T00:00:00Z 2020-11-09T00:00:00Z 9,4,5
+27  telegraf   autogen          10          2020-11-02T00:00:00Z 2020-11-09T00:00:00Z 2020-11-09T00:00:00Z 6,7,8
+31  telegraf   autogen          12          2020-11-09T00:00:00Z 2020-11-16T00:00:00Z 2020-11-16T00:00:00Z 6,7,8
 ```
+
+`SHOW SHARDS` outputs the following data:
+- `id` column: Shard IDs that belong to the specified `database` and `retention policy`.
+- `shard_group` column: Group number that a shard belongs to. Shards in the same shard group have the same `start_time` and `end_time`. This interval indicates how long the shard is active, and the `expiry_time` columns shows when the shard group expires. No timestamps will show under `expiry_time` if the retention policy duration is set to infinite.
+- `owners` column: Shows the data nodes that own a shard. The number of nodes that own a shard is equal to the replication factor. In this example, the replication factor is 3, so 3 nodes own each shard.
 
 ### SHOW STATS
 

@@ -24,7 +24,7 @@ The mosaic visualization displays colored tiles based on string values in a spec
 Each unique string value is represented by a different color.
 
 ## Mosaic controls
-To view **Mosaic** controls, click **{{< icon "gear" >}} Customize** next to the visualization dropdown.
+To view **Mosaic** controls, click **{{< icon "gear" "v2" >}} Customize** next to the visualization dropdown.
 
 ###### Data
 - **Fill Column**: Select a column to fill in the mosaic tiles.

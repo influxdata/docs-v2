@@ -16,7 +16,7 @@ to view organizations.
 
 1. In the navigation menu on the left, click the **Account dropdown**.
 
-    {{< nav-icon "account" >}}
+    {{< nav-icon "account" "v2" >}}
 
 2. Select **Switch Organizations**. The list of organizations appears.
 
@@ -41,9 +41,11 @@ Use the InfluxDB UI or `influx` CLI to view your organization ID.
 
 After logging in to the InfluxDB UI, your organization ID appears in the URL.
 
-<pre class="highlight">
-http://localhost:8086/orgs/<span class="bp" style="font-weight:bold;margin:0 .15rem">03a2bbf46249a000</span>/...
-</pre>
+{{< code-callout "03a2bbf46249a000" >}}
+```sh
+http://localhost:8086/orgs/03a2bbf46249a000/...
+```
+{{< /code-callout >}}
 
 ### Organization ID in the CLI
 
