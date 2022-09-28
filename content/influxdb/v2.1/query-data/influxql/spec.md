@@ -1,9 +1,9 @@
 ---
-title: Influx Query Language (InfluxQL) specification
+title: Influx Query Language (InfluxQL) 2.x specification
 description: Reference (spec) for Influx Query Language (InfluxQL).
 menu:
   influxdb_2_1:
-    name: InfluxQL specification
+    name: InfluxQL 2.x specification
     parent: Query with InfluxQL
     identifier: refernce-2_1
 weight: 212
@@ -23,8 +23,8 @@ Find Influx Query Language (InfluxQL) definitions and details, including:
   * [Identifiers](/enterprise_influxdb/v1.9/query_language/spec/#identifiers)
   * [Keywords](/enterprise_influxdb/v1.9/query_language/spec/#keywords)
   * [Literals](/enterprise_influxdb/v1.9/query_language/spec/#literals)
-* [Queries](/enterprise_influxdb/v1.9/query_language/spec/#queries)
-* [Statements](/enterprise_influxdb/v1.9/query_language/spec/#statements)
+* [Queries](/influxdb/v2.4/query-data/influxql/spec/)
+* [Statements](/influxdb/v2.4/query-data/influxql/spec/#statements)
 * [Clauses](/enterprise_influxdb/v1.9/query_language/spec/#clauses)
 * [Expressions](/enterprise_influxdb/v1.9/query_language/spec/#expressions)
 * [Comments](/enterprise_influxdb/v1.9/query_language/spec/#comments)
@@ -117,18 +117,18 @@ _cpu_stats
 ### Keywords
 
 ```
-ALL           ALTER         ANY           AS            ASC           BEGIN
-BY            CREATE        CONTINUOUS    DATABASE      DATABASES     DEFAULT
-DELETE        DESC          DESTINATIONS  DIAGNOSTICS   DISTINCT      DROP
-DURATION      END           EVERY         EXPLAIN       FIELD         FOR
-FROM          GRANT         GRANTS        GROUP         GROUPS        IN
-INF           INSERT        INTO          KEY           KEYS          KILL
+ALL           ANY           AS            ASC           BEGIN
+BY            CREATE        DATABASE      DATABASES     DEFAULT       DELETE        
+DESC          DESTINATIONS  DIAGNOSTICS   DISTINCT      DROP          DURATION      
+END           EVERY         EXPLAIN       FIELD         FOR
+FROM          GROUP         GROUPS        IN
+INF           INSERT        KEY           KEYS          KILL
 LIMIT         SHOW          MEASUREMENT   MEASUREMENTS  NAME          OFFSET
 ON            ORDER         PASSWORD      POLICY        POLICIES      PRIVILEGES
 QUERIES       QUERY         READ          REPLICATION   RESAMPLE      RETENTION
 REVOKE        SELECT        SERIES        SET           SHARD         SHARDS
-SLIMIT        SOFFSET       STATS         SUBSCRIPTION  SUBSCRIPTIONS TAG
-TO            USER          USERS         VALUES        WHERE         WITH
+SLIMIT        SOFFSET       TAG
+TO            VALUES        WHERE         WITH
 WRITE
 ```
 
@@ -138,7 +138,6 @@ double quote that identifier in every query.
 
 The keyword `time` is a special case.
 `time` can be a
-[continuous query](/enterprise_influxdb/v1.9/concepts/glossary/#continuous-query-cq) name,
 database name,
 [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) name,
 [retention policy](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp) name,
@@ -251,217 +250,26 @@ A query is composed of one or more statements separated by a semicolon.
 ```
 query               = statement { ";" statement } .
 
-statement           = alter_retention_policy_stmt |
-                      create_continuous_query_stmt |
-                      create_database_stmt |
-                      create_retention_policy_stmt |
-                      create_subscription_stmt |
-                      create_user_stmt |
-                      delete_stmt |
-                      drop_continuous_query_stmt |
-                      drop_database_stmt |
+statement           = delete_stmt |
                       drop_measurement_stmt |
-                      drop_retention_policy_stmt |
-                      drop_series_stmt |
-                      drop_shard_stmt |
-                      drop_subscription_stmt |
-                      drop_user_stmt |
                       explain_stmt |
                       explain_analyze_stmt |
-                      grant_stmt |
-                      kill_query_statement |
-                      revoke_stmt |
                       select_stmt |
-                      show_continuous_queries_stmt |
                       show_databases_stmt |
-                      show_diagnostics_stmt |
                       show_field_key_cardinality_stmt |
                       show_field_keys_stmt |
-                      show_grants_stmt |
-                      show_measurement_cardinality_stmt |
                       show_measurement_exact_cardinality_stmt |
                       show_measurements_stmt |
-                      show_queries_stmt |
-                      show_retention_policies_stmt |
-                      show_series_cardinality_stmt |
                       show_series_exact_cardinality_stmt |
                       show_series_stmt |
-                      show_shard_groups_stmt |
-                      show_shards_stmt |
-                      show_stats_stmt |
-                      show_subscriptions_stmt |
                       show_tag_key_cardinality_stmt |
                       show_tag_key_exact_cardinality_stmt |
                       show_tag_keys_stmt |
-                      show_tag_values_stmt |
-                      show_tag_values_cardinality_stmt |
-                      show_users_stmt .
+                      show_tag_values_with_key = stmt |
+                      show_tag_values_cardinality_stmt .
 ```
 
 ## Statements
-
-### ALTER RETENTION POLICY
-
-```
-alter_retention_policy_stmt  = "ALTER RETENTION POLICY" policy_name on_clause
-                               retention_policy_option
-                               [ retention_policy_option ]
-                               [ retention_policy_option ]
-                               [ retention_policy_option ] .
-```
-
-#### Examples
-
-```sql
--- Set default retention policy for mydb to 1h.cpu.
-ALTER RETENTION POLICY "1h.cpu" ON "mydb" DEFAULT
-
--- Change duration and replication factor.
--- REPLICATION (replication factor) not valid for OSS instances.
-ALTER RETENTION POLICY "policy1" ON "somedb" DURATION 1h REPLICATION 4
-```
-
-### CREATE CONTINUOUS QUERY
-
-```
-create_continuous_query_stmt = "CREATE CONTINUOUS QUERY" query_name on_clause
-                               [ "RESAMPLE" resample_opts ]
-                               "BEGIN" select_stmt "END" .
-
-query_name                   = identifier .
-
-resample_opts                = (every_stmt for_stmt | every_stmt | for_stmt) .
-every_stmt                   = "EVERY" duration_lit
-for_stmt                     = "FOR" duration_lit
-```
-
-#### Examples
-
-```sql
--- selects from DEFAULT retention policy and writes into 6_months retention policy
-CREATE CONTINUOUS QUERY "10m_event_count"
-ON "db_name"
-BEGIN
-  SELECT count("value")
-  INTO "6_months"."events"
-  FROM "events"
-  GROUP (10m)
-END;
-
--- this selects from the output of one continuous query in one retention policy and outputs to another series in another retention policy
-CREATE CONTINUOUS QUERY "1h_event_count"
-ON "db_name"
-BEGIN
-  SELECT sum("count") as "count"
-  INTO "2_years"."events"
-  FROM "6_months"."events"
-  GROUP BY time(1h)
-END;
-
--- this customizes the resample interval so the interval is queried every 10s and intervals are resampled until 2m after their start time
--- when resample is used, at least one of "EVERY" or "FOR" must be used
-CREATE CONTINUOUS QUERY "cpu_mean"
-ON "db_name"
-RESAMPLE EVERY 10s FOR 2m
-BEGIN
-  SELECT mean("value")
-  INTO "cpu_mean"
-  FROM "cpu"
-  GROUP BY time(1m)
-END;
-```
-
-### CREATE DATABASE
-
-```
-create_database_stmt = "CREATE DATABASE" db_name
-                       [ WITH
-                           [ retention_policy_duration ]
-                           [ retention_policy_replication ]
-                           [ retention_policy_shard_group_duration ]
-                           [ retention_policy_name ]
-                       ] .
-```
-
-{{% warn %}} Replication factors do not serve a purpose with single node instances.
-{{% /warn %}}
-
-#### Examples
-
-```sql
--- Create a database called foo
-CREATE DATABASE "foo"
-
--- Create a database called bar with a new DEFAULT retention policy and specify the duration, replication, shard group duration, and name of that retention policy
-CREATE DATABASE "bar" WITH DURATION 1d REPLICATION 1 SHARD DURATION 30m NAME "myrp"
-
--- Create a database called mydb with a new DEFAULT retention policy and specify the name of that retention policy
-CREATE DATABASE "mydb" WITH NAME "myrp"
-```
-
-### CREATE RETENTION POLICY
-
-```
-create_retention_policy_stmt = "CREATE RETENTION POLICY" policy_name on_clause
-                               retention_policy_duration
-                               retention_policy_replication
-                               [ retention_policy_shard_group_duration ]
-                               [ "DEFAULT" ] .
-```
-
-{{% warn %}} Replication factors do not serve a purpose with single node instances.
-{{% /warn %}}
-
-#### Examples
-
-```sql
--- Create a retention policy.
-CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2
-
--- Create a retention policy and set it as the DEFAULT.
-CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 DEFAULT
-
--- Create a retention policy and specify the shard group duration.
-CREATE RETENTION POLICY "10m.events" ON "somedb" DURATION 60m REPLICATION 2 SHARD DURATION 30m
-```
-
-### CREATE SUBSCRIPTION
-
-Subscriptions tell InfluxDB to send all the data it receives to [Kapacitor](/{{< latest "kapacitor" >}}/introduction/).
-
-```
-create_subscription_stmt = "CREATE SUBSCRIPTION" subscription_name "ON" db_name "." retention_policy "DESTINATIONS" ("ANY"|"ALL") host { "," host} .
-```
-
-#### Examples
-
-```sql
--- Create a SUBSCRIPTION on database 'mydb' and retention policy 'autogen' that send data to 'example.com:9090' via UDP.
-CREATE SUBSCRIPTION "sub0" ON "mydb"."autogen" DESTINATIONS ALL 'udp://example.com:9090'
-
--- Create a SUBSCRIPTION on database 'mydb' and retention policy 'autogen' that round robins the data to 'h1.example.com:9090' and 'h2.example.com:9090'.
-CREATE SUBSCRIPTION "sub0" ON "mydb"."autogen" DESTINATIONS ANY 'udp://h1.example.com:9090', 'udp://h2.example.com:9090'
-```
-
-### CREATE USER
-
-```
-create_user_stmt = "CREATE USER" user_name "WITH PASSWORD" password
-                   [ "WITH ALL PRIVILEGES" ] .
-```
-
-#### Examples
-
-```sql
--- Create a normal database user.
-CREATE USER "jdoe" WITH PASSWORD '1337password'
-
--- Create an admin user.
--- Note: Unlike the GRANT statement, the "PRIVILEGES" keyword is required here.
-CREATE USER "jdoe" WITH PASSWORD '1337password' WITH ALL PRIVILEGES
-```
-
-> **Note:** The password string must be wrapped in single quotes.
 
 ### DELETE
 
@@ -477,30 +285,6 @@ DELETE FROM "cpu" WHERE time < '2000-01-01T00:00:00Z'
 DELETE WHERE time < '2000-01-01T00:00:00Z'
 ```
 
-### DROP CONTINUOUS QUERY
-
-```
-drop_continuous_query_stmt = "DROP CONTINUOUS QUERY" query_name on_clause .
-```
-
-#### Example
-
-```sql
-DROP CONTINUOUS QUERY "myquery" ON "mydb"
-```
-
-### DROP DATABASE
-
-```
-drop_database_stmt = "DROP DATABASE" db_name .
-```
-
-#### Example
-
-```sql
-DROP DATABASE "mydb"
-```
-
 ### DROP MEASUREMENT
 
 ```
@@ -512,70 +296,6 @@ drop_measurement_stmt = "DROP MEASUREMENT" measurement .
 ```sql
 -- drop the cpu measurement
 DROP MEASUREMENT "cpu"
-```
-
-### DROP RETENTION POLICY
-
-```
-drop_retention_policy_stmt = "DROP RETENTION POLICY" policy_name on_clause .
-```
-
-#### Example
-
-```sql
--- drop the retention policy named 1h.cpu from mydb
-DROP RETENTION POLICY "1h.cpu" ON "mydb"
-```
-
-### DROP SERIES
-
-```
-drop_series_stmt = "DROP SERIES" ( from_clause | where_clause | from_clause where_clause ) .
-```
-
-> ***Note:*** Filtering by time is not supported in the `WHERE` clause.
-
-#### Example
-
-```sql
-DROP SERIES FROM "telegraf"."autogen"."cpu" WHERE cpu = 'cpu8'
-
-```
-
-### DROP SHARD
-
-```
-drop_shard_stmt = "DROP SHARD" ( shard_id ) .
-```
-
-#### Example
-
-```sql
-DROP SHARD 1
-```
-
-### DROP SUBSCRIPTION
-
-```
-drop_subscription_stmt = "DROP SUBSCRIPTION" subscription_name "ON" db_name "." retention_policy .
-```
-
-#### Example
-
-```sql
-DROP SUBSCRIPTION "sub0" ON "mydb"."autogen"
-```
-
-### DROP USER
-
-```
-drop_user_stmt = "DROP USER" user_name .
-```
-
-#### Example
-
-```sql
-DROP USER "jdoe"
 ```
 
 ### EXPLAIN
@@ -711,69 +431,6 @@ EXPLAIN ANALYZE separates storage block types, and reports the total number of b
 
 For more information about storage blocks, see [TSM files](/enterprise_influxdb/v1.9/concepts/storage_engine/#tsm-files).
 
-### GRANT
-
-> **NOTE:** Users can be granted privileges on databases that do not yet exist.
-
-```
-grant_stmt = "GRANT" privilege [ on_clause ] to_clause .
-```
-
-#### Examples
-
-```sql
--- grant admin privileges
-GRANT ALL TO "jdoe"
-
--- grant read access to a database
-GRANT READ ON "mydb" TO "jdoe"
-```
-
-### KILL QUERY
-
-Stop currently-running query.
-
-```
-kill_query_statement = "KILL QUERY" query_id .
-```
-
-Where `query_id` is the query ID, displayed in the [`SHOW QUERIES`](/enterprise_influxdb/v1.9/troubleshooting/query_management/#list-currently-running-queries-with-show-queries) output as `qid`.
-
-> ***InfluxDB Enterprise clusters:*** To kill queries on a cluster, you need to specify the query ID (qid) and the TCP host (for example, `myhost:8088`),
-> available in the `SHOW QUERIES` output.
->
-> ```sql
-KILL QUERY <qid> ON "<host>"
-```
-
-#### Examples
-
-```sql
--- kill query with qid of 36 on the local host
-KILL QUERY 36
-```
-
-```sql
--- kill query on InfluxDB Enterprise cluster
-KILL QUERY 53 ON "myhost:8088"
-```
-
-### REVOKE
-
-```sql
-revoke_stmt = "REVOKE" privilege [ on_clause ] "FROM" user_name .
-```
-
-#### Examples
-
-```sql
--- revoke admin privileges from jdoe
-REVOKE ALL PRIVILEGES FROM "jdoe"
-
--- revoke read privileges from jdoe on mydb
-REVOKE READ ON "mydb" FROM "jdoe"
-```
-
 ### SELECT
 
 ```
@@ -807,23 +464,9 @@ Filtering by `time` is only supported when Time Series Index (TSI) is enabled on
 See the specific SHOW CARDINALITY commands for details:
 
 - [SHOW FIELD KEY CARDINALITY](#show-field-key-cardinality)
-- [SHOW MEASUREMENT CARDINALITY](#show-measurement-cardinality)
 - [SHOW SERIES CARDINALITY](#show-series-cardinality)
 - [SHOW TAG KEY CARDINALITY](#show-tag-key-cardinality)
 - [SHOW TAG VALUES CARDINALITY](#show-tag-values-cardinality)
-
-### SHOW CONTINUOUS QUERIES
-
-```
-show_continuous_queries_stmt = "SHOW CONTINUOUS QUERIES" .
-```
-
-#### Example
-
-```sql
--- show all continuous queries
-SHOW CONTINUOUS QUERIES
-```
 
 ### SHOW DATABASES
 
@@ -836,16 +479,6 @@ show_databases_stmt = "SHOW DATABASES" .
 ```sql
 -- show all databases
 SHOW DATABASES
-```
-
-### SHOW DIAGNOSTICS
-
-Displays node information, such as build information, uptime, hostname, server configuration, memory usage, and Go runtime diagnostics.
-
-For more information on using the `SHOW DIAGNOSTICS` command, see [Using the SHOW DIAGNOSTICS command for monitoring InfluxDB](/platform/monitoring/influxdata-platform/tools/show-diagnostics/).
-
-```sql
-show_diagnostics_stmt = "SHOW DIAGNOSTICS"
 ```
 
 ### SHOW FIELD KEY CARDINALITY
@@ -887,42 +520,6 @@ SHOW FIELD KEYS
 SHOW FIELD KEYS FROM "cpu"
 ```
 
-### SHOW GRANTS
-
-```
-show_grants_stmt = "SHOW GRANTS FOR" user_name .
-```
-
-#### Example
-
-```sql
--- show grants for jdoe
-SHOW GRANTS FOR "jdoe"
-```
-
-### SHOW MEASUREMENT CARDINALITY
-
-Estimates or counts exactly the cardinality of the measurement set for the current database unless a database is specified using the `ON <database>` option.
-
-> **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
-> When using these query clauses, the query falls back to an exact count.
-> Filtering by `time` is only supported when TSI (Time Series Index) is enabled and `time` is not supported in the `WHERE` clause.
-
-```sql
-show_measurement_cardinality_stmt = "SHOW MEASUREMENT CARDINALITY" [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ]
-
-show_measurement_exact_cardinality_stmt = "SHOW MEASUREMENT EXACT CARDINALITY" [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ]
-```
-
-#### Example
-
-```sql
--- show estimated cardinality of measurement set on current database
-SHOW MEASUREMENT CARDINALITY
--- show exact cardinality of measurement set on specified database
-SHOW MEASUREMENT EXACT CARDINALITY ON mydb
-```
-
 ### SHOW MEASUREMENTS
 
 ```
@@ -942,33 +539,6 @@ SHOW MEASUREMENTS WHERE "region" = 'uswest' AND "host" = 'serverA'
 SHOW MEASUREMENTS WITH MEASUREMENT =~ /h2o.*/
 ```
 
-### SHOW QUERIES
-
-```
-show_queries_stmt = "SHOW QUERIES" .
-```
-
-#### Example
-
-```sql
--- show all currently-running queries
-SHOW QUERIES
---
-```
-
-### SHOW RETENTION POLICIES
-
-```
-show_retention_policies_stmt = "SHOW RETENTION POLICIES" [on_clause] .
-```
-
-#### Example
-
-```sql
--- show all retention policies on a database
-SHOW RETENTION POLICIES ON "mydb"
-```
-
 ### SHOW SERIES
 
 ```
@@ -981,9 +551,16 @@ show_series_stmt = "SHOW SERIES" [on_clause] [ from_clause ] [ where_clause ] [ 
 SHOW SERIES FROM "telegraf"."autogen"."cpu" WHERE cpu = 'cpu8'
 ```
 
-### SHOW SERIES CARDINALITY
+### SHOW SERIES EXACT CARDINALITY
 
-Estimates or counts exactly the cardinality of the series for the current database unless a database is specified using the `ON <database>` option.
+Show series cardinality of the series on specified database.
+
+```sql
+SHOW SERIES EXACT CARDINALITY
+```
+SHOW SERIES EXACT CARDINALITY
+-- show series cardinality of the series on specified database
+SHOW SERIES EXACT CARDINALITY ON mydb
 
 [Series cardinality](/enterprise_influxdb/v1.9/concepts/glossary/#series-cardinality) is the major factor that affects RAM requirements. For more information, see:
 
@@ -994,105 +571,7 @@ Estimates or counts exactly the cardinality of the series for the current databa
 > **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 > When using these query clauses, the query falls back to an exact count.
 > Filtering by `time` is not supported in the `WHERE` clause.
-
-```
-show_series_cardinality_stmt = "SHOW SERIES CARDINALITY" [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ]
-
 show_series_exact_cardinality_stmt = "SHOW SERIES EXACT CARDINALITY" [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ]
-```
-
-#### Examples
-
-```sql
--- show estimated cardinality of the series on current database
-SHOW SERIES CARDINALITY
--- show estimated cardinality of the series on specified database
-SHOW SERIES CARDINALITY ON mydb
--- show exact series cardinality
-SHOW SERIES EXACT CARDINALITY
--- show series cardinality of the series on specified database
-SHOW SERIES EXACT CARDINALITY ON mydb
-```
-
-### SHOW SHARD GROUPS
-
-```
-show_shard_groups_stmt = "SHOW SHARD GROUPS" .
-```
-
-#### Example
-
-```sql
-SHOW SHARD GROUPS
-```
-
-### SHOW SHARDS
-
-```
-show_shards_stmt = "SHOW SHARDS" .
-```
-
-#### Example
-
-```sql
-SHOW SHARDS
-```
-
-### SHOW STATS
-
-Returns detailed statistics on available components of an InfluxDB node and available (enabled) components.
-
-Statistics returned by `SHOW STATS` are stored in memory and reset to zero when the node is restarted,
-but `SHOW STATS` is triggered every 10 seconds to populate the `_internal` database.
-
-The `SHOW STATS` command does not list index memory usage -- 
-use the [`SHOW STATS FOR 'indexes'`](#show-stats-for-indexes) command.
-
-For more information on using the `SHOW STATS` command, see [Using the SHOW STATS command to monitor InfluxDB](/platform/monitoring/tools/show-stats/).
-
-```
-show_stats_stmt = "SHOW STATS [ FOR '<component>' | 'indexes' ]"
-```
-
-#### Example
-
-```sql
-> show stats
-name: runtime
--------------
-Alloc   Frees   HeapAlloc       HeapIdle        HeapInUse       HeapObjects     HeapReleased    HeapSys         Lookups Mallocs NumGC   NumGoroutine    PauseTotalNs    Sys             TotalAlloc
-4136056 6684537 4136056         34586624        5816320         49412           0               40402944        110     6733949 83      44              36083006        46692600        439945704
-
-name: graphite
-tags: proto=tcp
-batches_tx      bytes_rx        connections_active      connections_handled     points_rx       points_tx
-----------      --------        ------------------      -------------------     ---------       ---------
-159             3999750         0                       1                       158110          158110
-```
-
-### `SHOW STATS FOR <component>`
-
-For the specified component (\<component\>), the command returns available statistics.
-For the `runtime` component, the command returns an overview of memory usage by the InfluxDB system,
-using the [Go runtime](https://golang.org/pkg/runtime/) package.
-
-### `SHOW STATS FOR 'indexes'`
-
-Returns an estimate of memory use of all indexes.
-Index memory use is not reported with `SHOW STATS` because it is a potentially expensive operation.
-
-
-### SHOW SUBSCRIPTIONS
-
-```
-show_subscriptions_stmt = "SHOW SUBSCRIPTIONS" .
-```
-
-#### Example
-
-```sql
-SHOW SUBSCRIPTIONS
-```
 
 ### SHOW TAG KEY CARDINALITY
 
@@ -1167,9 +646,11 @@ SHOW TAG VALUES FROM "cpu" WITH KEY IN ("region", "host") WHERE "service" = 'red
 
 Estimates or counts exactly the cardinality of tag key values for the specified tag key on the current database unless a database is specified using the `ON <database>` option.
 
-> **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
-> When using these query clauses, the query falls back to an exact count.
-> Filtering by `time` is only supported when TSI (Time Series Index) is enabled.
+{{% note %}}
+**Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
+When using these query clauses, the query falls back to an exact count.
+Filtering by `time` is only supported when TSI (Time Series Index) is enabled.
+{{% /note %}}
 
 ```
 show_tag_values_cardinality_stmt = "SHOW TAG VALUES CARDINALITY" [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ] with_key_clause
@@ -1188,19 +669,6 @@ SHOW TAG VALUES CARDINALITY WITH KEY = "myTagKey"
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
 -- show exact tag key values cardinality for a specified tag key
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
-```
-
-### SHOW USERS
-
-```
-show_users_stmt = "SHOW USERS" .
-```
-
-#### Example
-
-```sql
--- show all users
-SHOW USERS
 ```
 
 ## Clauses
@@ -1225,8 +693,6 @@ timezone_clause = tz(string_lit) .
 on_clause       = "ON" db_name .
 
 order_by_clause = "ORDER BY" sort_fields .
-
-to_clause       = "TO" user_name .
 
 where_clause    = "WHERE" expr .
 
@@ -1288,46 +754,21 @@ measurements     = measurement { "," measurement } .
 
 measurement_name = identifier | regex_lit .
 
-password         = string_lit .
-
 policy_name      = identifier .
 
-privilege        = "ALL" [ "PRIVILEGES" ] | "READ" | "WRITE" .
-
-query_id         = int_lit .
-
-query_name       = identifier .
-
 retention_policy = identifier .
-
-retention_policy_option      = retention_policy_duration |
-                               retention_policy_replication |
-                               retention_policy_shard_group_duration |
-                               "DEFAULT" .
-
-retention_policy_duration    = "DURATION" duration_lit .
-
-retention_policy_replication = "REPLICATION" int_lit .
-
-retention_policy_shard_group_duration = "SHARD DURATION" duration_lit .
 
 retention_policy_name = "NAME" identifier .
 
 series_id        = int_lit .
 
-shard_id         = int_lit .
-
 sort_field       = field_key [ ASC | DESC ] .
 
 sort_fields      = sort_field { "," sort_field } .
 
-subscription_name = identifier .
-
 tag_key          = identifier .
 
 tag_keys         = tag_key { "," tag_key } .
-
-user_name        = identifier .
 
 var_ref          = measurement .
 ```
