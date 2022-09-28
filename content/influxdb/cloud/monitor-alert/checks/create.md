@@ -139,31 +139,34 @@ To check when data stops, create a deadman check.
 
 ```js
 // import the monitor package
-package main
+import "date"
+import "experimental"
 import "influxdata/influxdb/monitor"
-import "experimental”
 import "influxdata/influxdb/v1"
-
-// Define your data source
-data = from(bucket: "telegraf")
-|> range(start: -15s)
-|> filter(fn: (r) =>  (r["_measurement"] == "cpu")) 
-|> filter(fn: (r) =>  (r["_field"] == "usage_system")) 
-|> filter(fn: (r) =>  (r["cpu"] == "cpu-total"))
 
 // Define your task options
 option task = {name: "Deadman", every: 1m, offset: 0s}
-check = { _check_id: "074bdadac4429000",
-     _check_name: "Deadman",
-     _type: "deadman",
-     tags: {deadman: "deadman"}}
-crit = (r) => (r["dead"])
-messageFn = (r) => (  "Check: ${r._check_name} is: ${r._level}")
+
+// Define your check details
+check = {_check_id: "074bdadac4429000", _check_name: "Deadman", _type: "deadman", tags: {deadman: "deadman"}}
+
+// Define deadman status and the message that is sent
+crit = (r) => r.dead
+messageFn = (r) => "Check: ${r._check_name} is: ${r._level}"
+
+// Define your data source
+data =
+    from(bucket: "telegraf")
+        |> range(start: -15s)
+        |> filter(fn: (r) => r["_measurement"] == "cpu")
+        |> filter(fn: (r) => r["_field"] == "usage_system")
+        |> filter(fn: (r) => r["cpu"] == "cpu-total")
 
 // Apply deadman check
-data 
-|> v1["fieldsAsCols"]() 
-|> monitor["deadman"](t: experimental["subDuration"](from: now(), d: 5s)) 
+data
+    |> v1.fieldsAsCols()
+    |> monitor.deadman(t: date.sub(from: now(), d: 5s))
+    |> monitor.check(data: check, messageFn: messageFn, crit: crit)
 |> monitor["check"](data: check, messageFn: messageFn, crit:crit)}
 ```
 
