@@ -28,17 +28,22 @@ $vertical-offset: -14px;
   }
 
   & > a {
-    font-family: "icomoon";
+    font-family: "icomoon-v2";
     color: rgba($article-text, .5);
     text-decoration: none;
   }
 }
 
+.sidebar-toggle {
+  padding: 0.4rem 0.6rem;
+  width: 35px;
+  & > a {
+    font-size: 1rem;
+  }
+}
 
 .content-wrapper .sidebar-toggle {
   display: none;
-  padding: .3rem .3rem .3rem .4rem;
-  width: 35px;
   left: 0;
   background-color: $body-bg;
   border-radius: 0 $radius $radius 0;
@@ -51,14 +56,9 @@ $vertical-offset: -14px;
   }
   &:before { transform: rotateY(180deg); }
   &:after { transform: rotate(180deg); }
-  & > a {
-    font-size: 1.25rem;
-  }
 }
 
 .sidebar .sidebar-toggle {
-  padding: .2rem;
-  width: 30px;
   right: 0;
   background-color: $article-bg;
   border-radius: $radius 0 0 $radius;
@@ -68,9 +68,6 @@ $vertical-offset: -14px;
       <path fill='"+rgba($article-bg, .9999)+"' d='M0,10h10V0C10,5.52,5.52,10,0,10z'/>
       </svg>");
     right: 0;
-  }
-  & > a {
-    font-size: 1.5rem;
   }
 }
 

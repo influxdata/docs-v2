@@ -13,12 +13,12 @@ menu:
 weight: 220
 related:
   - /influxdb/cloud/query-data/flux/query-fields/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/filter/
+  - /{{< latest "flux" >}}/stdlib/universe/filter/
 list_code_example: |
   ##### Filter null values
   ```js
   data
-    |> filter(fn: (r) => exists r._value)
+      |> filter(fn: (r) => exists r._value)
   ```
 ---
 

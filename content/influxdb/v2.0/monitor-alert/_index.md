@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_2_0:
     name: Monitor & alert
-weight: 6
+weight: 7
 influxdb/v2.0/tags: [monitor, alert, checks, notification, endpoints]
 ---
 

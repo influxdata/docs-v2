@@ -9,5 +9,6 @@ menu:
     identifier: custom_alert
     weight: 4
     parent: work-w-kapacitor
-    url: https://github.com/influxdata/kapacitor/blob/master/alert/HANDLERS.md
+    params:
+      url: https://github.com/influxdata/kapacitor/blob/master/alert/HANDLERS.md
 ---

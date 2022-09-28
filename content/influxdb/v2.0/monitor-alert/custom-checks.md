@@ -23,13 +23,13 @@ Using a Flux task, you can create a custom check that provides a couple advantag
 
 1. In the InfluxDB UI, select **Tasks** in the navigation menu on the left.
 
-    {{< nav-icon "tasks" >}}
+    {{< nav-icon "tasks" "v2" >}}
 
-2. Click **{{< icon "plus" >}} Create Task**, and then select **New Task**.
+2. Click **{{< icon "plus" "v2" >}} Create Task**, and then select **New Task**.
 3. In the **Name** field, enter a descriptive name,
    and then enter how often to run the task in the **Every** field (for example, `10m`).
    For more detail, such as using cron syntax or including an offset, see [Task configuration options](/influxdb/v2.0/process-data/task-options/).
-4. Enter the Flux script for your custom check, including the [`monitor.check`](/influxdb/v2.0/reference/flux/stdlib/monitor/check/) function.
+4. Enter the Flux script for your custom check, including the [`monitor.check`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/check/) function.
 
 {{% note %}}
 Use the the API endpoint `/checks/{checkID}/query` to see the Flux code for a check built in the UI.
@@ -73,7 +73,7 @@ task_data = from(bucket: "_tasks")
 check = {
 	_check_id: "0000000000000001",      // 16 characters, alphanumeric
 	_check_name: "Failed Tasks Check",  // string
-	_type: "custom",                    // can also use "threashold" or "deadman"
+	_type: "custom",                    // can also use "threshold" or "deadman"
 	tags: {},
 }
 ok = (r) =>

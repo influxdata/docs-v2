@@ -55,7 +55,7 @@ configure your InfluxDB connection:
         ```
 
     - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/v2.0/organizations/view-orgs/).
-    - **Token**: Your InfluxDB [authentication token](/influxdb/v2.0/security/tokens/).
+    - **Token**: Your InfluxDB [API token](/influxdb/v2.0/security/tokens/).
     - **Default Bucket**: The default [bucket](/influxdb/v2.0/organizations/buckets/) to use in Flux queries.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
 
@@ -219,10 +219,10 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
 
     - ##### Token authentication
 
-        Under **Custom HTTP Headers**, select **Add Header**. Provide your InfluxDB authentication token:
+        Under **Custom HTTP Headers**, select **Add Header**. Provide your InfluxDB API token:
 
         - **Header**: Enter `Authorization`
-        - **Value**: Use the `Token` schema and provide your [InfluxDB authentication token](/influxdb/v2.0/security/tokens/).
+        - **Value**: Use the `Token` schema and provide your [InfluxDB API token](/influxdb/v2.0/security/tokens/).
           For example:
 
           ```
@@ -253,4 +253,4 @@ With your InfluxDB connection configured, use Grafana and Flux to query and
 visualize time series data stored in your **InfluxDB** instance.
 
 For more information about using Grafana, see the [Grafana documentation](https://grafana.com/docs/).
-If you're just learning Flux, see [Get started with Flux](/influxdb/v2.0/query-data/get-started/).
+If you're just learning Flux, see [Get started with Flux](/{{< latest "flux" >}}/get-started/).

@@ -1,6 +1,6 @@
 ---
 title: Create custom Flux functions
-description: Create your own custom Flux functions to transform and manipulate data.
+description: Create your own custom Flux functions to transform and operate on data.
 list_title: Custom functions
 influxdb/cloud/tags: [functions, custom, flux]
 menu:
@@ -10,12 +10,11 @@ menu:
 weight: 220
 list_code_example: |
   ```js
-  multByX = (tables=<-, x) =>
-    tables
-      |> map(fn: (r) => ({ r with _value: r._value * x}))
+  multByX = (tables=<-, x) => tables
+      |> map(fn: (r) => ({r with _value: r._value * x}))
 
   data
-    |> multByX(x: 2.0)
+      |> multByX(x: 2.0)
   ```
 ---
 

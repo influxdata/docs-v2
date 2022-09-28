@@ -1,0 +1,2 @@
+{{- $file := (printf "/shared/text/%s" ($.Get 0)) -}}
+{{- readFile $file | safeHTML -}}

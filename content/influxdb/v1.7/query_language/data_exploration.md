@@ -62,8 +62,8 @@ Start by logging into the Influx CLI:
 
 ```bash
 $ influx -precision rfc3339 -database NOAA_water_database
-Connected to http://localhost:8086 version 1.7.x
-InfluxDB shell 1.7.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 >
 ```
 
@@ -1744,11 +1744,16 @@ The following query does not maintain the series context for tags; tags will be 
 SELECT * INTO "copy_NOAA_water_database"."autogen".:MEASUREMENT FROM "NOAA_water_database"."autogen"./.*/
 ```
 
-When moving large amounts of data, we recommend sequentially running `INTO` queries for different measurements and using time boundaries in the [`WHERE` clause](#time-syntax).
-This prevents your system from running out of memory.
-The codeblock below provides sample syntax for those queries:
+When moving large amounts of data, to avoid running out of memory, sequentially
+run `INTO` queries for different measurements and time boundaries.
+Use the [`WHERE` clause](#time-syntax) to define time boundaries for each query.
 
-```
+{{% note %}}
+`INTO` queries without time boundaries fail with the error: `ERR: no data received`.
+{{% /note %}}
+
+##### Move large amounts of data with sequential queries
+```sql
 SELECT *
 INTO <destination_database>.<retention_policy_name>.<measurement_name>
 FROM <source_database>.<retention_policy_name>.<measurement_name>
@@ -3167,6 +3172,31 @@ Sample syntax for multiple subqueries:
 ```sql
 SELECT_clause FROM ( SELECT_clause FROM ( SELECT_statement ) [...] ) [...]
 ```
+
+{{% note %}}
+#### Improve performance of time-bound subqueries
+To improve the performance of InfluxQL queries with time-bound subqueries,
+apply the `WHERE time` clause to the outer query instead of the inner query.
+For example, the following queries return the same results, but **the query with
+time bounds on the outer query is more performant than the query with time
+bounds on the inner query**:
+
+##### Time bounds on the outer query (recommended)
+```sql
+SELECT inner_value AS value FROM (SELECT raw_value as inner_value)
+WHERE time >= '2020-07-19T21:00:00Z'
+AND time <= '2020-07-20T22:00:00Z'
+```
+
+##### Time bounds on the inner query
+```sql
+SELECT inner_value AS value FROM (
+  SELECT raw_value as inner_value
+  WHERE time >= '2020-07-19T21:00:00Z'
+  AND time <= '2020-07-20T22:00:00Z'
+)
+```
+{{% /note %}}
 
 ### Examples
 

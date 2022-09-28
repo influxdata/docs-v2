@@ -1,5 +1,5 @@
 ---
-title: Telegraf (agent)
+title: Use Telegraf to write data
 seotitle: Use the Telegraf agent to collect and write data
 list_title: Use the Telegraf agent
 weight: 101
@@ -22,7 +22,7 @@ Its vast library of input plugins and "plug-and-play" architecture lets you quic
 and easily collect metrics from many different sources.
 This article describes how to use Telegraf to collect and store data in InfluxDB v2.0.
 
-For a list of available plugins, see [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//).
+For a list of available plugins, see [Telegraf plugins](/{{< latest "telegraf" >}}/plugins/).
 
 #### Requirements
 - **Telegraf 1.9.2 or greater**.

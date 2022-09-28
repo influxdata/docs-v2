@@ -1,5 +1,5 @@
 ---
-title: Telegraf (agent)
+title: Use Telegraf to write data
 seotitle: Use the Telegraf agent to collect and write data
 list_title: Use the Telegraf agent
 weight: 101
@@ -36,3 +36,5 @@ Telegraf input and output plugins are enabled and configured in Telegraf's confi
 You have the following options for configuring Telegraf:
 
 {{< children >}}
+
+{{< influxdbu "telegraf-102" >}}

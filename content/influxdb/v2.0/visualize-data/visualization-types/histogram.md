@@ -5,7 +5,7 @@ list_image: /img/influxdb/2-0-visualizations-histogram-example.png
 description: >
   A histogram is a way to view the distribution of data.
   The y-axis is dedicated to count, and the x-axis is divided into bins.
-weight: 204
+weight: 202
 menu:
   influxdb_2_0:
     name: Histogram
@@ -33,7 +33,7 @@ To work properly, query results **should not** be structured as histogram data.
 {{% /note %}}
 
 ## Histogram Controls
-To view **Histogram** controls, click **{{< icon "gear" >}} Customize** next to
+To view **Histogram** controls, click **{{< icon "gear" "v2" >}} Customize** next to
 the visualization dropdown.
 
 ###### Data
@@ -55,6 +55,13 @@ the visualization dropdown.
   - **Custom**: Manually specify the value range of the x-axis.
       - **Min**: Minimum x-axis value.
       - **Max**: Maximum x-axis value.
+
+###### Legend
+- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+  - **Horizontal**: Select to display the legend horizontally.
+  - **Vertical**: Select to display the legend vertically.
+- **Opacity**: Adjust the legend opacity using the slider.
+- **Colorize Rows**: Select to display legend rows in colors.
 
 ## Histogram examples
 

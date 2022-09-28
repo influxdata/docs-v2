@@ -6,6 +6,8 @@ menu:
     name: influx org members add
     parent: influx org members
 weight: 301
+updated_in: CLI v2.4.0
+metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 ---
 
 {{% note %}}
@@ -13,7 +15,7 @@ weight: 301
 The `influx org members add` command adds members to organizations in **InfluxDB OSS 2.x**,
 but cannot add organization members to **InfluxDB Cloud**.
 For information about inviting users into your InfluxDB Cloud organization, see
-[Manage multiple users](/influxdb/cloud/account-management/multi-user/).
+[Manage users](/influxdb/cloud/organizations/users/).
 {{% /note %}}
 
 {{< duplicate-oss >}}

@@ -1,299 +1,149 @@
 ---
 title: Get started with InfluxDB Cloud
 description: >
-  InfluxDB Cloud is a fully managed and hosted version of InfluxDB v2.0, the time series
-  platform purpose-built to collect, store, process and visualize metrics and events.
+  Get started with InfluxDB Cloud by querying and visualizing demo data in InfluxDB Notebooks.
 menu:
   influxdb_cloud:
     name: Get started
-weight: 2
-influxdb/cloud/tags: [get-started, install]
 aliases:
   - /influxdb/v2.0/cloud/get-started
+weight: 2
+influxdb/cloud/tags: [get-started, install]
 ---
 
-InfluxDB Cloud is a fully managed and hosted version of InfluxDB v2.0, the time series
-platform purpose-built to collect, store, process and visualize metrics and events.
+After you've [signed up for InfluxDB Cloud](/influxdb/cloud/sign-up/), you're ready to get started:
 
-_See [Differences between InfluxDB Cloud and InfluxDB OSS](#differences-between-influxdb-cloud-and-influxdb-oss)._
+1. Do one of the following:
+   - [Write and query data using the programming language of your choice](#write-and-query-data-using-the-programming-language-of-your-choice).
+   - Add [sample data](#add-sample-data).
+   - [Use your own data](/influxdb/cloud/write-data/) to explore InfluxDB Cloud.
+2. [Create a notebook](#create-a-notebook):
+    1.  Click **Notebooks** in the navigation menu on the left.
 
-## Start for free
+        {{< nav-icon "books" >}}
 
-Start using {{< cloud-name >}} at no cost with the [Free Plan](/influxdb/cloud/account-management/pricing-plans/#free-plan).
-Use it as much and as long as you like within the plan's rate-limits.
-Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
+    2. [Select metrics](#select-metrics)
+    3. [Visualize data](#visualize-data)
+    4. (Optional) [Process data](#process-data)
+    5. (Optional) [Monitor data](#monitor-data)
+    6. (Optional) [Output to a new bucket and export as a task](#output-to-a-new-bucket-and-export-as-a-task)
 
-## Sign up
+## Write and query data using the programming language of your choice
 
-1. Choose one of the following:
+Follow the steps to write data and execute a simple query in the selected programming language:
 
-    #### Subscribe through InfluxData
+Click one of the following:
+  - [Python](https://cloud2.influxdata.com/orgs/me/new-user-wizard/python)
+  - [JavaScript/Node](https://cloud2.influxdata.com/orgs/me/new-user-wizard/nodejs)
+  - [Go](https://cloud2.influxdata.com/orgs/me/new-user-wizard/go)
 
-    To subscribe to an InfluxDB Cloud **Free Plan** through InfluxData,
-    go to [InfluxDB Cloud](https://cloud2.influxdata.com/).
 
-    - To use social sign-on, click **Google** or **Microsoft**. Note that social sign-on does not support email aliases.
-    - Sign up with email by entering your name, email address, and password, then click **Create Account**.
-
-    If you originally signed up with email but want to enable social sign-on, you can do so by logging in through your cloud provider as long as you use the same email address.  
-
-    #### **Subscribe through a cloud provider**  
-    To subscribe to an InfluxDB Cloud **Usage-Based** plan and pay through your
-    **Amazon Web Services (AWS)**, **Microsoft Azure**, or **Google Cloud Platform (GCP)** account:
-
-    - **AWS**  
-      Sign in to AWS, navigate to the [InfluxDB Cloud product on AWS Marketplace](https://aws.amazon.com/marketplace/pp/B08234JZPS),
-      and follow the prompts to subscribe. After you click **Set Up Your Account**,
-      enter your credentials, and then click **Start Now**.
-      All usage charges will be paid through the subscribed AWS account.
-
-    - **Microsoft**  
-      Sign in to Microsoft Azure, navigate to the [InfluxDB Cloud product on Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-cloud),
-      and follow the prompts to subscribe. After you click **Set Up Your Account**,
-      enter your credentials, and then click **Start Now**.
-      All usage charges will be paid through the subscribed Microsoft account.
-
-    - **GCP**  
-      Sign in to GCP, navigate to the [InfluxDB Cloud product on GCP Marketplace](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod),
-      and follow the prompts to subscribe. After you click **Set Up Your Account**,
-      enter your credentials, and then click **Start Now**.
-      All usage charges will be paid through the subscribed GCP account.
-
-      {{%note%}}
-Currently, we do **not support** using an existing InfluxDB Cloud account to sign up for an InfluxDB Cloud plan through AWS, Microsoft, or GCP Marketplaces.
-      {{%/note%}}
-
-2. If you signed up with your email address, InfluxDB Cloud requires email verification to complete the sign up process.
-   Verify your email address by opening the email sent to the address you provided and clicking **Verify Your Email**.
-3. (If you subscribed through InfluxData) Choose your cloud provider.
-4. Select a provider and region for your {{< cloud-name >}} instance. The following are available:
-
-    {{< cloud_regions type="list" >}}
-
-    _To suggest regions to add, click **Let us know** under Regions._
-5. Enter your company name.
-6. (If you subscribed through InfluxData) Review the terms of the agreement, and then select **I have viewed and agree to InfluxDB Cloud Services Subscription Agreement and InfluxData Global Data Processing Agreement**.
-   For details on the agreements, see the [InfluxDB Cloud: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
-
-7. Click **Continue**, and then choose your plan:
-   - To upgrade to a Usage-Based plan, click **Upgrade Now**, set your limits (you may opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). Next, enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< cloud-name >}} opens with a default organization and bucket (both created from your email address). To review your usage and billing details at any time, see how to [access billing details](/influxdb/cloud/account-management/billing/#access-billing-details).  
-   - To keep the free plan, click **Keep**. {{< cloud-name >}} opens with a default organization and bucket (both created from your email address). _To update organization and bucket names, see [Update an organization](/influxdb/cloud/organizations/update-org/)
-    and [Update a bucket](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-name-in-the-influxdb-ui)._
-   - To upgrade to an Annual plan, click **Contact Sales**, enter your information, and then click **Send**. Our team will contact you as soon as possible.
-
-## (Optional) Download, install, and use the influx CLI
-
-To use the `influx` CLI to manage and interact with your InfluxDB Cloud instance, complete the following steps:
-
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[macOS](#)
-[Linux](#)
-{{% /tabs %}}
-
-<!-------------------------------- BEGIN macOS -------------------------------->
-{{% tab-content %}}
-
-#### Step 1: Download influx CLI for macOS
-
-Click the following button to download and install `influx` CLI for macOS.
-
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.0.4-darwin-amd64.tar.gz" download>influx CLI (macOS)</a>
-
-#### Step 2: Unpackage the influx binary
-
-**Note:** The commands below are examples. Adjust the file names, paths, and utilities to your own needs.
-
-To unpackage the downloaded archive, **double click the archive file in Finder**
-or run the following command in a macOS command prompt application such
-**Terminal** or **[iTerm2](https://www.iterm2.com/)**:
-
-```sh
-# Unpackage contents to the current working directory
-tar zxvf ~/Downloads/influxdb2-client-2.0.4-darwin-amd64.tar.gz
-```
-
-#### Step 3: (Optional) Place the binary in your $PATH
-
-If you choose, you can place `influx` in your `$PATH` or you can
-prefix the executable with `./` to run in place. If the binary is on your $PATH, you can run `influx` from any directory. Otherwise, you must specify the location of the CLI (for example, `./influx`or `path/to/influx`).
-
-**Note:** If you have the 1.x binary on your $PATH, moving the 2.0 binary to your $PATH will overwrite the 1.x binary because they have the same name.
-
-```sh
-# Copy the influx binary to your $PATH
-sudo cp influxdb2-client-2.0.4-darwin-amd64/influx /usr/local/bin/
-```
+## Add sample data
 
 {{% note %}}
-If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
+The examples below use the [NOAA NDBC sample data](/influxdb/v2.0/reference/sample-data/#noaa-ndbc-data), but we provide other [sample data sets](/influxdb/cloud/reference/sample-data/#sample-datasets) as well.
 {{% /note %}}
 
-#### Step 4: (macOS Catalina only) Authorize InfluxDB binaries
+Use [sample data](/influxdb/cloud/reference/sample-data/) to quickly populate InfluxDB with sample time series data. Sample data sets delivered with Cloud are used throughout this documentation site to provide context, best practices, and clear examples for how InfluxDB Cloud features and functions work.
 
-If running `influx` on macOS Catalina, you must manually authorize the
-`influx` binary in the **Security & Privacy** section of **System Preferences**.
+1. Click **Data > Bucket** and click **Create Bucket** to create a bucket and name it **noaa**.
+2. Do one of the following to download sample data:
+   - [Install community templates](#add-sample-data-with-community-templates)
+   - [Write sample data with an InfluxDB task](#write-sample-data-with-an-influxdb-task)
 
-#### Step 5: Set up a configuration profile
+### Add sample data with community templates
 
-To avoid having to pass your InfluxDB [authentication token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
+1. In the navigation menu on the left, click **Settings** > **Templates**.
 
-In a terminal, run the following command:
+    {{< nav-icon "settings" >}}
 
-```sh
-   # Set up a configuration profile
-   influx config create -n default \
-     -u https://cloud2.influxdata.com \
-     -o example-org \
-     -t mySuP3rS3cr3tT0keN \
-     -a
-  ```  
+2. Paste the [Sample Data community template URL](https://github.com/influxdata/community-templates/blob/master/sample-data/sample-data.yml) in the **resource manifest file** field and click the **{{< caps >}}Lookup Template{{< /caps >}}** button.
 
-This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
-For more detail, see [influx config](/influxdb/cloud/reference/cli/influx/config/).
+#### Sample Data community template URL
 
-#### Step 6: Learn `influx` CLI commands
-
-To see all available `influx` commands, type `influx -h` or check out [influx - InfluxDB command line interface](/influxdb/cloud/reference/cli/influx/).
-
-{{% /tab-content %}}
-<!--------------------------------- END macOS --------------------------------->
-
-<!-------------------------------- BEGIN Linux -------------------------------->
-{{% tab-content %}}
-
-#### Step 1: Download influx CLI for Linux
-
-Click one of the following buttons to download and install the `influx` CLI appropriate for your chipset.
-
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.0.4-linux-amd64.tar.gz" download >influx CLI (amd64)</a>
-<a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.0.4-linux-arm64.tar.gz" download >influx CLI (arm)</a>
-
-#### Step 2: Unpackage the influx binary
-
-**Note:** The commands below are examples. Adjust the file names, paths, and utilities to your own needs.
-
-```sh
-# Unpackage contents to the current working directory
-tar xvfz influxdb-client-2.0.4-linux-amd64.tar.gz
+```
+    https://github.com/influxdata/community-templates/blob/master/sample-data/sample-data.yml
 ```
 
-#### Step 3: (Optional) Place the binary in your $PATH
+The sample data template installs a task that collects sample data and dashboards to visualize the sample data.
+After installing the template, sample data is downloaded and stored in the sample data bucket at regular intervals.
 
-If you choose, you can place `influx` in your `$PATH` or you can
-prefix the executable with `./` to run in place. If the binary is on your $PATH, you can run `influx` from any directory. Otherwise, you must specify the location of the CLI (for example, `./influx`or `path/to/influx`).
+### Write sample data with an InfluxDB task
 
-**Note:** If you have the 1.x binary on your $PATH, moving the 2.0 binary to your $PATH will overwrite the 1.x binary because they have the same name.
+Use the [Flux InfluxDB sample package](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/) to download and write sample data to InfluxDB.
 
-```sh
-# Copy the influx and influxd binary to your $PATH
-sudo cp influxdb-client-2.0.4-linux-amd64/influx /usr/local/bin/
-```
+Add the following as an [InfluxDB task](/influxdb/cloud/process-data/manage-tasks/create-task/).
 
-{{% note %}}
-If you rename the binary, all references to `influx` in this documentation refer to the renamed binary.
-{{% /note %}}
+```js
+import "influxdata/influxdb/sample"
 
-#### Step 4: Set up a configuration profile
+option task = {name: "Collect NOAA NDBC data", every: 15m}
 
-To avoid having to pass your InfluxDB [authentication token](/influxdb/cloud/security/tokens/) with each `influx` command, set up a configuration profile that stores your credentials.
+sample.data(set: "noaa")
+    |> to(bucket: "noaa")
+ ```
 
-In a terminal, run the following command:
+For more information about this and other InfluxDB sample datasets, see [InfluxDB sample data](/influxdb/cloud/reference/sample-data/).
 
-```sh
-   # Set up a configuration profile
-   influx config create -n default \
-     -u https://cloud2.influxdata.com \
-     -o example-org \
-     -t mySuP3rS3cr3tT0keN \
-     -a
-  ```  
+## Create a notebook
 
-This configures a new profile named `default` and makes the profile active so your `influx` CLI commands run against this instance.
-For more detail, see [influx config](/influxdb/cloud/reference/cli/influx/config/).
+Now that we've added the sample data bucket, we're ready to create our notebook. Notebooks can build and annotate processes and data flows for your time series data, including writing to, querying from, and visualizing your data. For more information, see [Notebooks](/influxdb/cloud/notebooks/).
 
-#### Step 5: Learn `influx` CLI commands
+### Select metrics
 
+1. In the navigation menu on the left, click **Notebooks**.
 
-{{% /tab-content %}}
-<!--------------------------------- END Linux --------------------------------->
-
-{{< /tabs-wrapper >}}
-
-## Sign in
-
-Sign in to [InfluxDB Cloud](https://cloud2.influxdata.com) using your email address and password.
-
-<a class="btn" href="https://cloud2.influxdata.com">Sign in to InfluxDB Cloud now</a>
-
-## Start working with your time series data
-
-### Collect and write data
-
-Collect and write data to InfluxDB using the Telegraf plugins, the InfluxDB v2 API, the `influx`
-command line interface (CLI), the InfluxDB UI (the user interface for InfluxDB Cloud), or the InfluxDB v2 API client libraries.
-
-#### Use Telegraf
-
-Use Telegraf to quickly write data to {{< cloud-name >}}.
-Create new Telegraf configurations automatically in the InfluxDB UI, or manually update an
-existing Telegraf configuration to send data to your {{< cloud-name "short" >}} instance.
-
-For details, see [Automatically configure Telegraf](/influxdb/cloud/write-data/no-code/use-telegraf/auto-config/)
-and [Manually update Telegraf configurations](/influxdb/cloud/write-data/no-code/use-telegraf/manual-config/).
-
-#### API, CLI, and client libraries
-
-For information about using the InfluxDB v2 API, `influx` CLI, and client libraries to write data,
-see [Write data to InfluxDB](/influxdb/cloud/write-data/).
-
-#### Demo data
-
-**{{< cloud-name "short" >}}** lets you [add a demo data bucket](/influxdb/cloud/reference/sample-data/#influxdb-cloud-demo-data)
-for quick, **free** access to time series data.
-
-### Query data
-
-Query data using Flux, the UI, and the `influx` command line interface.
-See [Query data](/influxdb/cloud/query-data/).
-
-### Process data
-
-Use InfluxDB tasks to process and downsample data. See [Process data](/influxdb/cloud/process-data/).
+    {{< nav-icon "notebooks" >}}
+2. Click **+New Notebook**. By default, a **Metric Selector** and **Visualization** cell appear. For an overview of cell types, see [Overview of notebooks](/influxdb/cloud/notebooks/overview/#notebook-cell-types).
+3. Enter a name for your notebook in the **Name this notebook** field.
+5. In the **Metric Selector** cell, click the **Select a bucket** dropdown and chooose the bucket you want to explore data from. A list of measurements, fields, and tags from the bucket appear.
+6. Select a column value to analyze.
+7. Click **Preview** to preview the raw data in a table.
 
 ### Visualize data
 
-Build custom dashboards to visualize your data.
-See [Visualize data](/influxdb/cloud/visualize-data/).
+Next, we'll make it easier to visualize the raw data by viewing it in a graph. For more information on how to visualize data, see [here](/influxdb/cloud/visualize-data/).
 
-### Monitor and alert
+By default, a visualization cell appears below your initial metric selector cell showing the mean values on a graph.
 
-Monitor your data and sends alerts based on specified logic.
-See [Monitor and alert](/influxdb/cloud/monitor-alert/).
+1. Use the function dropdown menu to view different functions to apply to your data. By default, the visualization is set to the mean function.
+2. Use the visualization type dropdown to view different visualization types available.
+For a complete list of options, see [Visualization types](/influxdb/cloud/visualize-data/visualization-types/).
+3. Click the gear icon ({{< icon "gear" >}}) to edit specific settings for the visualization type, such as colors, orientation, and labels.
 
-## Differences between InfluxDB Cloud and InfluxDB OSS
+### Process data
 
-{{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
-The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
+A common processing task is downsampling data to view it at different levels of granularity and reduce overall data disk usage over time. The following steps use a Flux script to downsample your data to every 3 hours 30 seconds.
 
-- [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
-  targets are not available in {{< cloud-name "short" >}}.
-- {{< cloud-name "short" >}} instances are currently limited to a single organization.
+For more information on how to process data, see [here](/influxdb/cloud/process-data/).
 
-#### New features in InfluxDB Cloud
+1. Click **+** to add a cell, then select **Transform > Downsample**.
+2. In the **Apply aggregate** field, select **mean**.
+3. In the **Every Window Period** field, enter a value. For this example, we'll use `3h30s`, but any duration is supported by InfluxDB Cloud. For more information, see [duration literals](/{{< latest "flux" >}}/spec/lexical-elements/#duration-literals).
+4. Click **Preview** to view the downsampled data.
 
-- **Free Plan (rate-limited)**: Skip downloading and installing InfluxDB OSS 2.0 and
-  jump into exploring InfluxDB Cloud technology.
-  The Free Plan is designed for getting started with InfluxDB and for small hobby projects.
-- **Flux support**: [Flux](/influxdb/cloud/query-data/get-started/) is a standalone data
-  scripting and query language that increases productivity and code reuse.
-  It is the primary language for working with data within InfluxDB Cloud.
-  Flux can be used with other data sources as well, letting you work with data where it resides.
-- **Unified API**: Everything in InfluxDB (ingest, query, storage, and visualization)
-  is now accessible using a unified [InfluxDB v2 API](/influxdb/cloud/reference/api/) that
-  enables seamless movement between open source and cloud.
-- **Integrated visualization and dashboards**: Based on the pioneering Chronograf project,
-  the new user interface (InfluxDB UI) offers quick and effortless onboarding,
-  richer user experiences, and significantly quicker results.
-- **Usage-based pricing**: The [Usage-based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan)
-  offers more flexibility and ensures that you only pay for what you use.
+### Monitor data
+
+Get notifications every time your data crosses a threshold. Specify your alerts by time and decide how the information will be sent to you.
+
+1. In your notebook, click **{{< icon "plus" >}}** to add a cell, then select **Output > Alert**.
+2. Customize the conditions to send an alert.
+3. Enter a time range to automatically check the data and enter your query offset.
+4. Select an endpoint to receive an alert:
+   - Slack and a Slack Channel
+   - HTTP post
+   - Pager Duty
+5. (Optional) Personalize your message. By default, the message is “${strings.title(v: r._type)} for ${r._source_measurement} triggered at ${time(v: r._source_timestamp)}!”
+6. Click **Export as Alert Task** to save your alarm.
+
+### Output to a new bucket and export as a task
+
+After processing, send the downsampled data to a new bucket to store and view it. You can write it to the bucket a single time, or export it as a task, which is a scheduled Flux script, for it write to the bucket continuously.
+
+1. Click **+** to add a cell, then select an **Output to Bucket** cell.
+2. In the **Choose a bucket** dropdown, choose **+Create a Bucket**.
+3. Enter a name for your bucket and click **Create**.
+4. Click **Run** from the **Preview** dropdown list to run the notebook and write to the output bucket a single time.
+5. To write continuously, click **Export as Task** in the upper right corner of the **Output to Bucket** cell. For details about working with tasks, see [Manage tasks](/influxdb/cloud/process-data/manage-tasks/).
+
+{{< influxdbu "influxdb-101" >}}

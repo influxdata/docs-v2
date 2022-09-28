@@ -1,26 +1,26 @@
 ---
-title: Band Plot visualization
+title: Band visualization
 list_title: Band
 list_image: /img/influxdb/2-0-visualizations-Band-example.png
 description:
-weight: 206
+weight: 201
 menu:
   influxdb_2_0:
-    name: Band Plot
+    name: Band
     parent: Visualization types
 ---
 
-The **Band Plot** visualization displays the upper and lower boundaries for groups of data over time. Boundaries are determined by applying aggregate functions to your data for a specified window period, and then setting the aggregate functions for a specified upper, main, or lower boundary.
+The **Band** visualization displays the upper and lower boundaries for groups of data over time. Boundaries are determined by applying aggregate functions to your data for a specified window period, and then setting the aggregate functions for a specified upper, main, or lower boundary.
 
-## Set up the Band Plot visualization
+## Set up the Band visualization
 
 To see bands (boundaries) in the **Band Plot** visualization, you must set up two or three boundaries for comparison.
 
-### Set up the band plot visualization in the Data Explorer
+### Set up the band visualization in the Data Explorer
 
 1. Click the **Data Explorer** icon in the navigation bar.
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. Enter your query (see [Explore data with Flux and the Data Explorer](/influxdb/v2.0/visualize-data/explore-metrics/#explore-data-with-flux-and-the-data-explorer)). You must include the aggregate functions used to determine the Band Plot visualization boundaries in your query.
 3. Select the **Band Plot** option from the visualization dropdown in the upper left, and then click **Customize**.
@@ -41,11 +41,11 @@ To see bands (boundaries) in the **Band Plot** visualization, you must set up tw
 
 1. Click the **Data Explorer** icon in the navigation bar.
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. Click **Script Editor**.
 3. Select the **Band Plot** option from the visualization dropdown in the upper left.
-4. Create three aggregate functions: one for the main boundary, one for the upper boundary, and one for the lower boundary. The following example uses the [`mean()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/mean/), [`max()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/max/), and [`min()`](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/min) functions:
+4. Create three aggregate functions: one for the main boundary, one for the upper boundary, and one for the lower boundary. The following example uses the [`mean()`](/{{< latest "flux" >}}/stdlib/universe/mean/), [`max()`](/{{< latest "flux" >}}/stdlib/universe/max/), and [`min()`](/{{< latest "flux" >}}/stdlib/universe/min) functions:
 
 ```js
 from(bucket: "bucket_1")
@@ -73,7 +73,7 @@ from(bucket: "bucket_1")
   |> yield(name: "min")
 ```
 
-5. (Optional) Customize the name of the yielded results for each function by editing the `name` parameter in the [`yield()`](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/yield/) function.
+5. (Optional) Customize the name of the yielded results for each function by editing the `name` parameter in the [`yield()`](/{{< latest "flux" >}}/stdlib/universe/yield/) function.
 For example, to change the name of the first function from  `mean` to `Average`, modify the last line to the following:
   ```js
     |> yield(name: "Average")
@@ -95,7 +95,7 @@ For example, in the band chart above, the lines represent the mean `usage_system
 
 ## Band controls
 
-To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the visualization dropdown.
+To view **Band** controls, click **{{< icon "gear" "v2" >}} Customize** next to the visualization dropdown.
 
 ###### Data
 
@@ -155,7 +155,7 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 
 ###### Legend
 
-- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+- **Orientation**: Select the orientation of the legend:
   - **Horizontal**: Select to display the legend horizontally.
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.

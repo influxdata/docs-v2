@@ -11,32 +11,32 @@ menu:
     parent: Query with Flux
 weight: 206
 related:
-  - /influxdb/cloud/reference/flux/stdlib/built-in/inputs/buckets/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurements
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/fieldkeys
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurementfieldkeys
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/tagkeys
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurementtagkeys
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/tagvalues
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurementtagvalues
+  - /{{< latest "flux" >}}/stdlib/univese/buckets/
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurements
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/fieldkeys
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementfieldkeys
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/tagkeys
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementtagkeys
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/tagvalues
+  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementtagvalues
 list_code_example: |
   ```js
-  import "influxdata/influxdb/v1"
+  import "influxdata/influxdb/schema"
 
   // List buckets
   buckets()
 
   // List measurements
-  v1.measurements(bucket: "example-bucket")
+  schema.measurements(bucket: "example-bucket")
 
   // List field keys
-  v1.fieldKeys(bucket: "example-bucket")
+  schema.fieldKeys(bucket: "example-bucket")
 
   // List tag keys
-  v1.tagKeys(bucket: "example-bucket")
+  schema.tagKeys(bucket: "example-bucket")
 
   // List tag values
-  v1.tagValues(bucket: "example-bucket", tag: "example-tag")
+  schema.tagValues(bucket: "example-bucket", tag: "example-tag")
   ```
 ---
 

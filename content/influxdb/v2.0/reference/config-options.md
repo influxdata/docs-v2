@@ -87,7 +87,6 @@ tls-key = "/path/to/influxdb.key"
 Only non-default settings need to be defined in the configuration file.
 {{% /note %}}
 
-
 ## Configuration options
 
 To configure InfluxDB, use the following configuration options when starting the
@@ -97,16 +96,22 @@ To configure InfluxDB, use the following configuration options when starting the
 - [bolt-path](#bolt-path)
 - [e2e-testing](#e2e-testing)
 - [engine-path](#engine-path)
+- [feature-flags](#feature-flags)
+- [flux-log-enabled](#flux-log-enabled)
 - [http-bind-address](#http-bind-address)
+- [http-idle-timeout](#http-idle-timeout)
+- [http-read-header-timeout](#http-read-header-timeout)
+- [http-read-timeout](#http-read-timeout)
+- [http-write-timeout](#http-write-timeout)
 - [influxql-max-select-buckets](#influxql-max-select-buckets)
 - [influxql-max-select-point](#influxql-max-select-point)
 - [influxql-max-select-series](#influxql-max-select-series)
 - [log-level](#log-level)
+- [metrics-disabled](#metrics-disabled)
 - [nats-max-payload-bytes](#nats-max-payload-bytes)
 - [nats-port](#nats-port)
-- [new-meta-store](#new-meta-store)
-- [new-meta-store-read-only](#new-meta-store-read-only)
 - [no-tasks](#no-tasks)
+- [pprof-disabled](#pprof-disabled)
 - [query-concurrency](#query-concurrency)
 - [query-initial-memory-bytes](#query-initial-memory-bytes)
 - [query-max-memory-bytes](#query-max-memory-bytes)
@@ -132,18 +137,20 @@ To configure InfluxDB, use the following configuration options when starting the
 - [storage-validate-keys](#storage-validate-keys)
 - [storage-wal-fsync-delay](#storage-wal-fsync-delay)
 - [store](#store)
+- [testing-always-allow-setup](#testing-always-allow-setup)
 - [tls-cert](#tls-cert)
 - [tls-key](#tls-key)
 - [tls-min-version](#tls-min-version)
 - [tls-strict-ciphers](#tls-strict-ciphers)
 - [tracing-type](#tracing-type)
+- [ui-disabled](#ui-disabled)
 - [vault-addr](#vault-addr)
 - [vault-cacert](#vault-cacert)
 - [vault-capath](#vault-capath)
 - [vault-client-cert](#vault-client-cert)
 - [vault-client-key](#vault-client-key)
-- [vault-max-retries](#vault-max-retries)
 - [vault-client-timeout](#vault-client-timeout)
+- [vault-max-retries](#vault-max-retries)
 - [vault-skip-verify](#vault-skip-verify)
 - [vault-tls-server-name](#vault-tls-server-name)
 - [vault-token](#vault-token)
@@ -227,18 +234,18 @@ export INFLUXD_BOLT_PATH=~/.influxdbv2/influxd.bolt
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-bolt-path: /users/user/.influxdbv2/influxd.bolt
+bolt-path: ~/.influxdbv2/influxd.bolt
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-bolt-path = "/users/user/.influxdbv2/influxd.bolt"
+bolt-path = "~/.influxdbv2/influxd.bolt"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "bolt-path": "/users/user/.influxdbv2/influxd.bolt"
+  "bolt-path": "~/.influxdbv2/influxd.bolt"
 }
 ```
 {{% /code-tab-content %}}
@@ -321,18 +328,133 @@ export INFLUXD_ENGINE_PATH=~/.influxdbv2/engine
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```yml
-engine-path: /users/user/.influxdbv2/engine
+engine-path: ~/.influxdbv2/engine
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```toml
-engine-path = "/users/user/.influxdbv2/engine"
+engine-path = "~/.influxdbv2/engine"
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```json
 {
-  "engine-path": "/users/user/.influxdbv2/engine"
+  "engine-path": "~/.influxdbv2/engine"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### feature-flags
+Enable, disable, or override default values for feature flags.
+
+{{% note %}}
+Feature flags are used to develop and test experimental features and are
+intended for internal use only.
+{{% /note %}}
+
+| influxd flag      | Environment variable    | Configuration key |
+| :---------------- | :---------------------- | :---------------- |
+| `--feature-flags` | `INFLUXD_FEATURE_FLAGS` | `feature-flags`   |
+
+###### influxd flag
+```sh
+influxd --feature-flags flag1=value2,flag2=value2
+```
+
+###### Environment variable
+```sh
+export INFLUXD_FEATURE_FLAGS="{\"flag1\":\value1\",\"flag2\":\"value2\"}"
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+feature-flags:
+  flag1: "value1"
+  flag2: "value2"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+[feature-flags]
+  flag1 = "value1"
+  glag2 = "value2"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "feature-flags": {
+    "flag1": "value1",
+    "flag2": "value2"
+  }
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### flux-log-enabled
+
+Include option to show detailed logs for Flux queries, including the following log fields:
+
+- `compiler_type`: Compiler used for processing the query (will always be Flux).
+- `response_size`: Size of the response, in bytes.
+- `query`: The textual representation of the query.
+- `err`: Errors encountered while processing the query.
+- `stat_total_duration`: Total duration to process the query.
+- `stat_compile_duration`: Duration to compile the query.
+- `stat_execute_duration`: Duration to execute the query.
+- `stat_max_allocated`: Maximum amount of memory allocated while processing the query, in - bytes.
+- `stat_total_allocated`: Total amount of memory allocated while processing the query, in bytes. This includes memory that was freed and then used again.
+
+**Default:** `false`  
+
+| influxd flag         | Environment variable       | Configuration key |
+|:------------         |:--------------------       |:----------------- |
+| `--flux-log-enabled` | `INFLUXD_FLUX_LOG_ENABLED` | `flux-log-enabled`|
+
+###### influxd flag
+```sh
+influxd --flux-log-enabled=true
+```
+
+###### Environment variable
+```sh
+export INFLUXD_FLUX_LOG_ENABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+flux-log-enabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+flux-log-enabled = "true"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "flux-log-enabled": "true"
 }
 ```
 {{% /code-tab-content %}}
@@ -381,6 +503,214 @@ http-bind-address = ":8086"
 ```json
 {
   "http-bind-address": ":8086"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### http-idle-timeout
+Maximum duration the server should keep established connections alive while waiting for new requests.
+Set to `0` for no timeout.
+
+**Default:** `3m0s`
+
+| influxd flag          | Environment variable        | Configuration key   |
+|:------------          |:--------------------        |:-----------------   |
+| `--http-idle-timeout` | `INFLUXD_HTTP_IDLE_TIMEOUT` | `http-idle-timeout` |
+
+###### influxd flag
+```sh
+influxd --http-idle-timeout=3m0s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_IDLE_TIMEOUT=3m0s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-idle-timeout: 3m0s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-idle-timeout = "3m0s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-idle-timeout": "3m0s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### http-read-header-timeout
+Maximum duration the server should try to read HTTP headers for new requests.
+Set to `0` for no timeout.
+
+**Default:** `10s`
+
+| influxd flag                 | Environment variable               | Configuration key          |
+|:------------                 |:--------------------               |:-----------------          |
+| `--http-read-header-timeout` | `INFLUXD_HTTP_READ_HEADER_TIMEOUT` | `http-read-header-timeout` |
+
+###### influxd flag
+```sh
+influxd --http-read-header-timeout=10s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_READ_HEADER_TIMEOUT=10s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-read-header-timeout: 10s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-read-header-timeout = "10s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-read-header-timeout": "10s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### http-read-timeout
+Maximum duration the server should try to read the entirety of new requests.
+Set to `0` for no timeout.
+
+**Default:** `0`
+
+{{% note %}}
+#### Set timeouts specific to your workload
+Although no `http-read-timeout` is set by default, we **strongly recommend**
+setting a timeout specific to your workload.
+HTTP timeouts protect against large amounts of open connections that could
+potentially hurt performance.
+{{% /note %}}
+
+| influxd flag          | Environment variable        | Configuration key   |
+|:------------          |:--------------------        |:-----------------   |
+| `--http-read-timeout` | `INFLUXD_HTTP_READ_TIMEOUT` | `http-read-timeout` |
+
+###### influxd flag
+```sh
+influxd --http-read-timeout=10s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_READ_TIMEOUT=10s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-read-timeout: 10s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-read-timeout = "10s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-read-timeout": "10s"
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### http-write-timeout
+Maximum duration the server should spend processing and responding to write requests.
+Set to `0` for no timeout.
+
+**Default:** `0`
+
+{{% note %}}
+#### Set timeouts specific to your workload
+Although no `http-write-timeout` is set by default, we **strongly recommend**
+setting a timeout specific to your workload.
+HTTP timeouts protect against large amounts of open connections that could
+potentially hurt performance.
+{{% /note %}}
+
+| influxd flag           | Environment variable         | Configuration key    |
+|:------------           |:--------------------         |:-----------------    |
+| `--http-write-timeout` | `INFLUXD_HTTP_WRITE_TIMEOUT` | `http-write-timeout` |
+
+###### influxd flag
+```sh
+influxd --http-write-timeout=10s
+```
+
+###### Environment variable
+```sh
+export INFLUXD_HTTP_WRITE_TIMEOUT=10s
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+http-write-timeout: 10s
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+http-write-timeout = "10s"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "http-write-timeout": "10s"
 }
 ```
 {{% /code-tab-content %}}
@@ -439,7 +769,7 @@ influxql-max-select-buckets = 0
 ### influxql-max-select-point
 Maximum number of points a `SELECT` statement can process.
 `0` allows an unlimited number of points.
-This is only checked every second so queries will not be aborted immediately when hitting the limit.
+InfluxDB checks the point count every second (so queries exceeding the maximum aren’t immediately aborted).
 
 **Default:** `0`
 
@@ -582,6 +912,53 @@ log-level = "info"
 
 ---
 
+### metrics-disabled
+Disable the HTTP `/metrics` endpoint which exposes internal InfluxDB metrics.
+
+**Default:** `false`  
+
+| influxd flag         | Environment variable       | Configuration key  |
+|:------------         |:--------------------       |:-----------------  |
+| `--metrics-disabled` | `INFLUXD_METRICS_DISABLED` | `metrics-disabled` |
+
+###### influxd flag
+```sh
+influxd --metrics-disabled
+```
+
+###### Environment variable
+```sh
+export INFLUXD_METRICS_DISABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+metrics-disabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+metrics-disabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "metrics-disabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### nats-max-payload-bytes
 Maximum number of bytes allowed in a NATS message payload.
 
@@ -676,102 +1053,6 @@ nats-port = -1
 
 ---
 
-### new-meta-store
-Enable the new meta store.
-
-**Default:** `false`
-
-| influxd flag       | Environment variable     | Configuration key |
-|:------------       |:--------------------     |:----------------- |
-| `--new-meta-store` | `INFLUXD_NEW_META_STORE` | `new-meta-store`  |
-
-###### influxd flag
-```sh
-influxd --new-meta-store
-```
-
-###### Environment variable
-```sh
-export INFLUXD_NEW_META_STORE=true
-```
-
-###### Configuration file
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[YAML](#)
-[TOML](#)
-[JSON](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```yml
-new-meta-store: true
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```toml
-new-meta-store = true
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```json
-{
-  "new-meta-store": true
-}
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
----
-
-### new-meta-store-read-only
-Toggle read-only mode for the new meta store.
-If `true`, reads are duplicated between old and new meta stores
-(if [new meta store](#new-meta-store) is enabled).
-
-**Default:** `true`
-
-| influxd flag                 | Environment variable               | Configuration key          |
-|:------------                 |:--------------------               |:-----------------          |
-| `--new-meta-store-read-only` | `INFLUXD_NEW_META_STORE_READ_ONLY` | `new-meta-store-read-only` |
-
-###### influxd flag
-```sh
-influxd --new-meta-store-read-only
-```
-
-###### Environment variable
-```sh
-export INFLUXD_NEW_META_STORE_READ_ONLY=true
-```
-
-###### Configuration file
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[YAML](#)
-[TOML](#)
-[JSON](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```yml
-new-meta-store-read-only: true
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```toml
-new-meta-store-read-only = true
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```json
-{
-  "new-meta-store-read-only": true
-}
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
----
-
 ### no-tasks
 Disable the task scheduler.
 If problematic tasks prevent InfluxDB from starting, use this option to start
@@ -814,6 +1095,54 @@ no-tasks = true
 ```json
 {
   "no-tasks": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
+### pprof-disabled
+Disable the `/debug/pprof` HTTP endpoint.
+This endpoint provides runtime profiling data and can be helpful when debugging.
+
+**Default:** `false`
+
+| influxd flag       | Environment variable     | Configuration key |
+|:-------------------|:-------------------------|:------------------|
+| `--pprof-disabled` | `INFLUXD_PPROF_DISABLED` | `pprof-disabled`  |
+
+###### influxd flag
+```sh
+influxd --pprof-disabled
+```
+
+###### Environment variable
+```sh
+export INFLUXD_PPROF_DISABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+pprof-disabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+pprof-disabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "pprof-disabled": true
 }
 ```
 {{% /code-tab-content %}}
@@ -1263,7 +1592,7 @@ Maximum size (in bytes) a shard's cache can reach before it starts rejecting wri
 **Default:** `1073741824`
 
 | influxd flag                      | Environment variable                    | Configuration key               |
-|:------------                      |:--------------------                    |:-----------------               |
+|:----------------------------------|:----------------------------------------|:--------------------------------|
 | `--storage-cache-max-memory-size` | `INFLUXD_STORAGE_CACHE_MAX_MEMORY_SIZE` | `storage-cache-max-memory-size` |
 
 ###### influxd flag
@@ -1610,7 +1939,7 @@ influxd --storage-retention-check-interval=30m0s
 
 ###### Environment variable
 ```sh
-export INFLUXD_STORAGE_MAX_INDEX_LOG_FILE_SIZE=30m0s
+export INFLUXD_STORAGE_RETENTION_CHECK_INTERVAL=30m0s
 ```
 
 ###### Configuration file
@@ -1693,13 +2022,13 @@ storage-series-file-max-concurrent-snapshot-compactions = 0
 Size of the internal cache used in the TSI index to store
 previously calculated series results.
 Cached results are returned quickly rather than needing to be recalculated when
-a subsequent query with the same tag key/value predicate is executed.
+a subsequent query with the same tag key-value predicate is executed.
 Setting this value to `0` will disable the cache and may decrease query performance.
 
 **Default:** `100`
 
 {{% note %}}
-This value should only be increased if the set of regularly used tag key/value
+This value should only be increased if the set of regularly used tag key-value
 predicates across all measurements for a database is larger than 100.
 An increase in cache size may lead to an increase in heap usage.
 {{% /note %}}
@@ -1986,8 +2315,13 @@ storage-wal-fsync-delay = "0s"
 ### store
 Specifies the data store for REST resources.
 
-**Options:** `bolt`, `memory`  
-**Default:** `bolt`  
+**Options:** `disk`, `memory`  
+**Default:** `disk`  
+
+{{% note %}}
+For backwards compatibility, this flag also acceptss `bolt` as a value.
+When using `disk`, REST resources are stored on disk using the [bolt-path](#bolt-path) and [sqlite-path](#sqlite-path).
+{{% /note %}}
 
 {{% note %}}
 `memory` is meant for transient environments, such as testing environments, where
@@ -2037,11 +2371,59 @@ store = "bolt"
 
 ---
 
+### testing-always-allow-setup
+Ensures the `/api/v2/setup` endpoint always returns `true` to allow onboarding.
+This configuration option is primary used in continuous integration tests.
+
+**Default:** `false`
+
+| influxd flag                   | Environment variable                 | Configuration key            |
+|:------------                   |:--------------------                 |:-----------------            |
+| `--testing-always-allow-setup` | `INFLUXD_TESTING_ALWAYS_ALLOW_SETUP` | `testing-always-allow-setup` |
+
+###### influxd flag
+```sh
+influxd --testing-always-allow-setup
+```
+
+###### Environment variable
+```sh
+export INFLUXD_TESTING_ALWAYS_ALLOW_SETUP=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+testing-always-allow-setup: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+testing-always-allow-setup = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "testing-always-allow-setup": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 ### tls-cert
 Path to TLS certificate file.
 Requires the [`tls-key`](#tls-key) to be set.
 
-_For more information, see [Enable TLS encryption](/influxdb/v2.0/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.1/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 |:------------ |:-------------------- |:----------------- |
@@ -2089,7 +2471,7 @@ tls-cert = "/path/to/influxdb.crt"
 Path to TLS key file.
 Requires the [`tls-cert`](#tls-cert) to be set.
 
-_For more information, see [Enable TLS encryption](/influxdb/v2.0/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2.1/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 |:------------ |:-------------------- |:----------------- |
@@ -2279,6 +2661,55 @@ tracing-type = "log"
 {{< /code-tabs-wrapper >}}
 
 ---
+
+### ui-disabled
+Disable the InfluxDB user interface (UI).
+The UI is enabled by default.
+
+**Default:** `false`
+
+| influxd flag    | Environment variable  | Configuration key |
+| :-------------- | :-------------------- | :---------------- |
+| `--ui-disabled` | `INFLUXD_UI_DISABLED` | `ui-disabled`     |
+
+###### influxd flag
+```sh
+influxd --ui-disabled
+```
+
+###### Environment variable
+```sh
+export INFLUXD_UI_DISABLED=true
+```
+
+###### Configuration file
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[YAML](#)
+[TOML](#)
+[JSON](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```yml
+ui-disabled: true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```toml
+ui-disabled = true
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```json
+{
+  "ui-disabled": true
+}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+---
+
 
 ### vault-addr
 Specifies the address of the Vault server expressed as a URL and port.
@@ -2701,7 +3132,7 @@ vault-tls-server-name = "secure.example.com"
 ---
 
 ### vault-token
-Specifies the Vault authentication token use when authenticating with Vault.
+Specifies the Vault token use when authenticating with Vault.
 
 | influxd flag    | Environment variable | Configuration key |
 |:------------    |:-------------------- |:----------------- |

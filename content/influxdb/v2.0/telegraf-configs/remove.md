@@ -32,7 +32,7 @@ To remove a Telegraf configuration, do one of the following:
 
     {{< nav-icon "load data" >}}
 
-2. Hover over the configuration you want to delete, click the **{{< icon "trash" >}}**
+2. Hover over the configuration you want to delete, click the **{{< icon "trash" "v2" >}}**
    icon, and then click **Delete**.
 
 

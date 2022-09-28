@@ -11,18 +11,14 @@ menu:
     parent: Query with Flux
 influxdb/cloud/tags: [query, select, where]
 related:
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/filter/
+  - /{{< latest "flux" >}}/stdlib/universe/filter/
   - /influxdb/cloud/query-data/flux/conditional-logic/
   - /influxdb/cloud/query-data/flux/regular-expressions/
 list_code_example: |
   ```js
   from(bucket: "example-bucket")
-    |> range(start: -1h)
-    |> filter(fn: (r) =>
-        r._measurement == "example-measurement" and
-        r._field == "example-field" and
-        r.tag == "example-tag"
-    )
+      |> range(start: -1h)
+      |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field" and r.tag == "example-tag")
   ```
 ---
 

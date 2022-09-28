@@ -4,7 +4,7 @@ list_title: Gauge
 list_image: /img/influxdb/2-0-visualizations-gauge-example.png
 description: >
   The Gauge view displays the single value most recent value for a time series in a gauge view.
-weight: 206
+weight: 201
 menu:
   influxdb_2_0:
     name: Gauge
@@ -30,7 +30,7 @@ For consistent results, the Gauge query should return a single table.
 {{% /note %}}
 
 ## Gauge Controls
-To view **Gauge** controls, click **{{< icon "gear" >}} Customize** next to
+To view **Gauge** controls, click **{{< icon "gear" "v2" >}} Customize** next to
 the visualization dropdown.
 
 - **Prefix**: Prefix to add to the gauge.

@@ -14,6 +14,199 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
+## July 2022
+
+### Request a proof of concept from the UI
+
+Request a proof of concept (POC) from the help options in the InfluxDB Cloud UI. A sales representative will contact you to customize a POC for your data and use case.
+
+### Accessible graph color options
+
+To ensure graphing functionality is accessible to colorblind users, we added two additional colorblind-friendly color pallet graph customization options.
+
+### Sample IoT application and code snippets for Python
+
+Quickly start writing and querying your data with **Python**. Now, when you complete the **Python** onboarding wizard, you'll have the option to do either of the following:
+- View an IoT [Sample App](https://github.com/influxdata/iot-api-python) written in Python.
+- View [Boilerplate Snippets](https://github.com/InfluxCommunity/sample-flask/blob/main/app.py/) of code in Python.
+
+
+## June 2022
+
+### Private InfluxDB Cloud offering
+
+New support for private InfluxDB Cloud offering on AWS, Azure, and Google Cloud Marketplaces for annual customers. Please contact sales@influxdata.com for more information.
+
+### Sample IoT application and code snippets for Node.js
+
+Quickly start writing and querying your data with **JavaScript/Node.js**. Now, when you complete the **JavaScript/Node.js** onboarding wizard, you'll have the option to do either of the following:
+- View an IoT [Sample App](https://github.com/influxdata/iot-api-js) written in Node.js.
+- View [Boilerplate Snippets](https://github.com/influxdata/nodejs-samples/) of code in Node.js.
+
+### Help bar updates
+
+- If you have a [Usage-Based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan), you can now submit **Support requests** and questions directly to our **Salesforce Support queue** (without needing a Salesforce account). Hover over the question mark in InfluxDB Cloud, and select **Contact Support**. You'll receive a confirmation email with your ticket number for reference.
+
+- Add a [Status page](https://status.influxdata.com/) to display InfluxDB uptime, downtime, and incident management information for all Cloud regions. Hover over the question mark in InfluxDB Cloud, and select **Status Page**.
+
+- Add a link to quickly access InfluxDB University. Hover over the question mark in InfluxDB Cloud, and select [InfluxDB University](https://university.influxdata.com/).
+
+### Bug fixes
+
+- Keep the time picker on the screen when the Script Editor is open.
+- Escape commas in strings that were breaking the rendering of table visualizations.
+- Add a Copy to Clipboard button to copy the organization name on the Organization Settings page.
+- Ensure the following:
+  - The Copy button no longer hides graph error messages.
+  - Nested objects no longer break tables.
+  - Query Explorer displays results when data is returned.
+  - Single Usage stats text is selectable.
+  - Users get redirected to the Login page after a session expires.
+  - Renamed “Token last used” to “Token last modified” to be more accurate and descriptive.
+
+## May 2022
+
+### Bulk delete API tokens
+Efficiently delete multiple tokens at once. For details, see [Delete a token using the InfluxDB API](/influxdb/v2.2/security/tokens/delete-token/#delete-a-token-using-the-influxdb-api).
+
+### Help bar
+Find relevant content easily from the Cloud UI using the help tab in left side panel.
+
+## April 2022
+
+### Query improvements in Data Explorer and notebooks
+
+It's now easier to use the visual builder to create queries in the Data Explorer and notebooks:
+- The builder requires you to select a measurement before you can select associated tags.
+- All measurements, fields, tags, and tag values appear in the builder, not just the ones in the currently specified time range. This update ensures that measurements, fields, and tags, are visible even if you set a very short time range.
+
+### Onboarding wizards for common programming languages
+
+During onboarding, choose the Python, JavaScript, or Go wizard to quickly get started writing data and executing simple queries. For details, see [Write and query data using the programming language of your choice](/influxdb/cloud/get-started/#write-and-query-data-using-the-programming-language-of-your-choice).
+
+## March 2022
+
+### Deep linking
+
+Navigate to UI pages without having to enter your organization ID in the URL using deep links. For example, `cloud2.influxdata.com/me/billing` redirects to your organization's billing page.
+
+## February 2022
+
+### Remove yourself from an organization
+
+You can now remove yourself as a member of an organization in the Cloud UI. For details, see [Remove a user from your organization](/influxdb/cloud/organizations/users/#remove-a-user-from-your-organization/).
+
+### Add auto-refresh functionality to Notebooks
+
+Automatically refresh Notebooks data. For details, see [Create a notebook](/influxdb/cloud/notebooks/create-notebook/).
+
+## Performance improvements to dashboards and queries
+
+Previously, InfluxDB loaded all variables on the client side, even those not included in a dashboard or query. Now, InfluxDB only loads variables used by queries or dashboards.
+
+## January 2022
+
+### Update Tokens UI
+
+To enhance security, the Tokens UI will only display an InfluxDB Cloud token when it's [first created](/influxdb/cloud/security/tokens/create-token/). If you return to the Token page later, you won't be able to view or copy the token. To learn more about token access restrictions, see [Create an API token](/influxdb/cloud/security/tokens/create-token/).
+
+### Multi-account support
+
+You can now invite a user to join an organization using the same email they've used in another InfluxDB Cloud account. Users [can switch between accounts in the UI](/influxdb/cloud/account-management/switch-account/).
+
+## December 2021
+
+- **Paginated dashboards in UI**: Previously, the Dashboards page could take awhile to load with more than a few dashboards. Now, all dashboards are immediately paginated and accessible on the Dashboards page.
+- **$250 usage credit**: Available when you choose a usage-based plan during signup.
+- **Improved task reliability and reporting**
+- **Improved error handling** for InfluxQL queries.
+- When you select a bucket from **Data (Load Data) > Buckets**, the bucket opens in Notebooks.
+
+
+## November 2021
+
+- [Remove Website demo data](#remove-website-demo-data)
+- [Add sample data buckets to Notebooks UI](#add-sample-data-buckets-to-notebooks-ui)
+- [Add ability to share notebooks](#add-ability-to-share-notebooks)
+
+### Remove Website Demo Data
+
+To improve user experience and consolidate system-delivered data, we removed the Website Demo Data bucket in Data Explorer, and now provide new sample data buckets in notebooks (see [Add sample data buckets to Notebooks UI](#add-sample-data-buckets-to-notebooks-ui)). If you've used the Website Demo Data bucket in the past, your existing demo data isn't affected, and you may continue to use the data as needed.
+
+### Add sample data buckets to Notebooks UI
+
+To get started with sample data in InfluxDB Cloud, check out the new sample data buckets in the Notebooks UI, which support a variety of use cases. Sample data buckets provide a way to explore InfluxDB without ingesting your own data.
+
+Now, you can add the following buckets with sample data to your notebooks:
+
+- Air Sensor Data
+- Coinbase bitcoin price
+- NOAA National Buoy Data
+- USGS Earthquakes
+
+### Add ability to share notebooks
+
+Add ability to [share a notebook](/influxdb/cloud/notebooks/manage-notebooks/#share-a-notebook) in the the InfluxDB Cloud notebook UI.
+
+## October 2021
+
+- [API invokable scripts](#api-invokable-scripts)
+- [New UI design](#new-ui-design)
+- [Flux update](#flux-update)
+- [Telegraf configuration UI](#telegraf-configuration-ui)
+
+### API invokable scripts
+
+Use [API invokable scripts](/influxdb/cloud/api-guide/api-invokable-scripts/) to assign and execute a script through an API endpoint.
+
+### New UI design
+
+Refresh the look and feel of InfluxDB Cloud UI. The updated icons, fonts, and layouts improve visibility, accessibility, and user experience.
+
+ The updated icons, fonts, and layouts improve visibility, accessibility, and user experience. For those interested in the code, check out the [Clockface UI kit](https://github.com/influxdata/clockface).
+
+### Flux update
+
+Upgrade to [Flux v0.139](/flux/v0.x/release-notes/).
+
+### Telegraf configuration UI
+
+Update Telegraf configuration in the UI to make it easier to set up and configure Telegraf plugins. See how to [use the InfluxDB UI to generate and store new Telegraf plugins](/influxdb/cloud/telegraf-configs/create/#use-the-influxdb-ui).
+
+## September 2021
+
+- **Paginated tasks in UI**: Previously, the Tasks page only listed the first 100 tasks. Now, all tasks are accessible and paginated on the Tasks page.
+
+- **Enhanced Flux VS Code extension to include tasks**: Add ability to create and edit [InfluxDB tasks](/influxdb/v2.0/process-data/get-started/) in Visual Studio Code using the Flux extension. See how to [use the Flux VS Code extension](/influxdb/v2.0/tools/flux-vscode/).
+
+## August 2021
+
+- Add support for [explicit bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/), which lets you enforce explicit schemas for each InfluxDB measurement, including column names, tags, fields, and data types.
+- Add ability to convert [notebook cells into raw Flux script](/influxdb/cloud/notebooks/create-notebook/#view-and-edit-flux-script-in-a-cell). Now you can view and edit the code.
+- Add [delete request rate limits](/influxdb/cloud/account-management/data-usage/#exceeded-rate-limits) per organization.
+
+## July 2021
+
+- Add new [Asia Pacific (Australia) region](https://ap-southeast-2-1.aws.cloud2.influxdata.com).
+- Redesign the View Raw Data table in Data Explorer. Group keys and data types are now easily identifiable underneath column headings.
+- Dashboard improvements:
+   - Add ability to add an [annotation to a specific time range](/influxdb/cloud/visualize-data/annotations/).
+   - Add ability to [automatically refresh dashboard](/influxdb/cloud/visualize-data/dashboards/control-dashboard/#automatically-refresh-dashboard).
+   - Add new static legend to Graph and Band Plot visualizations.
+
+## May 2021
+
+- Add new [Cloud 2 Usage Dashboard template](https://github.com/influxdata/community-templates/tree/master/usage_dashboard) to monitor your Cloud usage data, including rate limiting events. For more detail on Cloud data usage and rate limiting events, see how to [view InfluxDB Cloud data usage](/influxdb/cloud/account-management/data-usage/). For more detail on how to install and customize this template, see [InfluxDB templates in InfluxDB Cloud](/influxdb/cloud/influxdb-templates/cloud/).
+
+- Add support for [using annotations](/influxdb/cloud/visualize-data/annotations/) in your dashboards.
+- Add new [map visualization](/influxdb/cloud/visualize-data/visualization-types/map/) to display geo-temporal data.
+
+## April 2021
+
+- Add new [GCP Europe West (Belgium) region](/influxdb/cloud/reference/regions/#google-cloud-platform-gcp).
+- Add [mosaic visualization](/influxdb/cloud/visualize-data/visualization-types/mosaic/). Use this visualization to display state changes in your time series data.
+- Add [notebooks](/influxdb/cloud/notebooks/). Use notebooks to build and share ways to explore, visualize, and process your time series data. Learn how notebooks can help you [downsample](/influxdb/cloud/notebooks/downsample/) and [normalize](/influxdb/cloud/notebooks/clean-data/) your time series data.
+
 ## January 2021
 
 - [New AWS and Microsoft regions](#aws-and-microsoft-regions)
@@ -47,7 +240,7 @@ To find information about the latest Flux updates in InfluxDB Cloud, see [Flux r
 
 ### Load Data updates
 
-  - Redesign the Load Data page to increase discovery and ease of use. Now, you can [load data from sources directly in the InfluxDB user interface](/influxdb/cloud/write-data/load-data/).
+  - Redesign the Load Data page to increase discovery and ease of use. Now, you can [load data from sources directly in the InfluxDB user interface](/influxdb/cloud/write-data/no-code/load-data/).
   - Add support for new data sources:
     - InfluxDB v2 Listener
     - NSD

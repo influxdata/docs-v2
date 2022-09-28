@@ -9,6 +9,68 @@ menu:
 v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
+## v1.8.10 [2021-10-11]
+
+### Bug fixes
+
+- Ensure `curl` dependency for InfluxDB packages.
+- Ensure snapshot service reads payload correctly.
+- Handle 40x errors by blocking indefinitely in systemd scripts.
+- Fix the following bugs in `influxd restore`:
+  - Correctly validate parameters.
+  - Improve error message when returning empty snapshots.
+  - Fix temporary file deletion on Windows.
+
+## v1.8.9 [2021-08-05]
+
+### Bug fixes 
+
+- Prevent silently dropped writes when there are overlapping shards.
+- Resolve `influxd restore -portable` backup bug.
+- Ensure systemd-startup script is executable by group and others.
+- Handle https in systemd wrapper, and prevent it from looping forever.
+- Log error instead of panic when restoring a backup to InfluxDB Enterprise cluster using InfluxDB OSS. 
+
+## v1.8.8 [unreleased]
+
+Due to encountering several issues with build dependencies in v.1.8.8, this version will not be released.  
+
+## v1.8.7 [2021-07-21]
+
+### Bug fixes
+
+- Renamed ARM RPMs with yum-compatible names.
+- Convert ARM arch names for RPMs during builds via Docker.
+- Systemd unit now blocks on startup until HTTP endpoint is ready.
+- Updated protobuf libraries to current version.
+
+## v1.8.6 [2021-05-21]
+
+This release is for InfluxDB Enterprise 1.8.6 customers only. No OSS-specific changes were made for InfluxDB 1.8.6--updates were made to the code base to support [InfluxDB Enterprise 1.8.6](/enterprise_influxdb/v1.8/about-the-project/release-notes-changelog/#v186-2021-05-21).
+
+## v1.8.5 [2021-04-20]
+
+### Features
+
+- Add the ability to find which measurements or shards are contributing to disk size with the new [`influx_inspect report-disk`](/influxdb/v1.8/tools/influx_inspect/#report-disk) command. Useful for capacity planning and managing storage requirements.
+- Add support to [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) to write to standard out (`stdout`) by adding a hyphen after the [`-out`](/influxdb/v1.8/tools/influx_inspect/#--out-export_dir-or--out--) flag. Using this option writes to `stdout`, and sends error and status messages to standard error (`stderr`).
+- Update HTTP handler for `/query` to [log query text for POST requests](/influxdb/v1.8/administration/logs/#http-access-log-format).
+- Optimize shard lookups in groups containing only one shard. Thanks @StoneYunZhao!
+
+### Bug fixes
+
+- Update meta queries (for example, SHOW TAG VALUES, SHOW TAG KEYS, SHOW SERIES CARDINALITY, SHOW MEASUREMENT CARDINALITY, and SHOW MEASUREMENTS) to check the query context when possible to respect timeout values set in the [`query-timeout` configuration parameter](/influxdb/v1.8/administration/config/#query-timeout--0s). Note, meta queries will check the context less frequently than regular queries, which use iterators, because meta queries return data in batches.
+-  Previously, successful writes were incorrectly incrementing the `WriteErr` statistics. Now, successful writes correctly increment the `writeOK` statistics.
+- Correct JSON marshalling error format.
+- Previously, a GROUP BY query with an offset that caused an interval to cross a daylight savings change inserted an extra output row off by one hour. Now, the correct GROUP BY interval start time is set before the time zone offset is calculated.
+- Improved error logging for TCP connection closures.
+- Fix `regexp` handling to comply with PromQL.
+- Previously, when a SELECT INTO query generated an unsupported value, for example, `+/- Inf`, the query failed silently. Now, an error occurs to notify that the value cannot be inserted.
+- Resolve the "snapshot in progress" error that occurred during a backup.
+- Fix data race when accessing tombstone statistics (`TombstoneStat`).
+- Minimize lock contention when adding new fields or measurements.
+- Resolve a bug causing excess resource usage when an error occurs while reporting an earlier error.
+
 ## v1.8.4 [2021-02-01]
 ### Features
 

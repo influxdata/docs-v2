@@ -11,8 +11,8 @@ menu:
     parent: Query with Flux
 weight: 202
 related:
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/group
-  - /influxdb/cloud/reference/flux/stdlib/experimental/group
+  - /{{< latest "flux" >}}/stdlib/universe/group
+  - /{{< latest "flux" >}}/stdlib/experimental/group
 list_query_example: group
 ---
 

@@ -1,10 +1,8 @@
 ---
-title: Influx CLI
-seotitle: Write data with the influx CLI
-list_title: Write data with the influx CLI
+title: Write data with the influx CLI
 weight: 205
 description: >
-  Write data to InfluxDB using the `influx` CLI.
+  Use the `influx write` command to write data to InfluxDB from the command line.
 menu:
   influxdb_cloud:
     name: Influx CLI
@@ -21,7 +19,7 @@ Include the following in your command:
 | Organization         | Use the `-o`,`--org`, or `--org-id` flags.                                                         |
 | Bucket               | Use the `-b`, `--bucket`, or `--bucket-id` flags.                                                  |
 | Precision            | Use the `-p`, `--precision` flag.                                                                  |
-| Authentication token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag.                        |
+| API token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag.                        |
 | Data                 | Write data using **line protocol** or **annotated CSV**. Pass a file with the `-f`, `--file` flag. |
 
 _See [Line protocol](/influxdb/cloud/reference/syntax/line-protocol/) and [Annotated CSV](/influxdb/cloud/reference/syntax/annotated-csv)_

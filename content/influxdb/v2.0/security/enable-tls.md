@@ -115,6 +115,11 @@ InfluxDB supports three types of TLS certificates:
 
     With this command, you should see output confirming a succussful TLS handshake.
 
+You can further configure TLS settings using 
+[`tls-min-version`](/influxdb/v2.0/reference/config-options/#tls-min-version)
+and
+[`tls-strict-ciphers`](/influxdb/v2.0/reference/config-options/#tls-strict-ciphers).
+
 ## Connect Telegraf to a secured InfluxDB instance
 
 To connect [Telegraf](/{{< latest "telegraf" >}}/) to an InfluxDB 2.0 instance with TLS enabled,

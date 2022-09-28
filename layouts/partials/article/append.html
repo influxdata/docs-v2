@@ -1,0 +1,11 @@
+{{ $p := .Page }}
+{{ $optBlock := dict "display" "block" }}
+{{ if .Params.append }}
+  {{ if .Params.append.block }}
+    <div class="block {{ .Params.append.block }}">
+      {{ .Params.append.content | $p.RenderString $optBlock }}
+    </div>
+  {{ else }}
+    {{ .Params.append.content | $p.RenderString $optBlock }}
+  {{ end }}
+{{ end }}

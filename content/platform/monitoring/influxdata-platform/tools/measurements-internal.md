@@ -278,6 +278,12 @@ The number of remote node requests for information about the fields and associat
 #### iteratorCostReq
 The number of internal requests for iterator cost.
 
+#### openConnections
+
+Tracks the number of open connections
+being handled by the data node
+(including counting logical connections multiplexed onto a single yamux connection).
+
 #### removeShardReq
 The number of internal requests to delete a shard from this data node.
 Exclusively incremented by use of the `influxd-ctl remove shard` command.

@@ -12,6 +12,9 @@ menu:
     name: Get started with tasks
     parent: Process data
 weight: 101
+related:
+  - /influxdb/v2.0/process-data/manage-tasks/
+  - /influxdb/v2.0/process-data/manage-tasks/create-task/
 ---
 
 An **InfluxDB task** is a scheduled Flux script that takes a stream of input data, modifies or analyzes
@@ -55,8 +58,8 @@ When creating a task in the InfluxDB user interface (UI), task options are defin
 
 ## Define a data source
 
-Define a data source using Flux's [`from()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/)
-or any other [Flux input functions](/influxdb/v2.0/reference/flux/stdlib/built-in/inputs/).
+Define a data source using Flux's [`from()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/)
+or any other [Flux input functions](/{{< latest "flux" >}}/function-types/#inputs).
 
 For convenience, consider creating a variable that includes the sourced data with
 the required time range and any relevant filters.
@@ -91,14 +94,14 @@ specific use case.
 {{% note %}}
 #### Account for latent data with an offset
 
-To account for latent data (like data streaming from your edge devices), use an offset in your task. For example, if you set a task interval on the hour with the options `every: 1h` and `offset: 5m`, a task executes 5 minutes after the task interval but the query [`now()`](/influxdb/v2.0/reference/flux/stdlib/built-in/misc/now/) time is on the exact hour.
+To account for latent data (like data streaming from your edge devices), use an offset in your task. For example, if you set a task interval on the hour with the options `every: 1h` and `offset: 5m`, a task executes 5 minutes after the task interval but the query [`now()`](/{{< latest "flux" >}}/stdlib/universe/now/) time is on the exact hour.
 
 {{% /note %}}
 
 The example below illustrates a task that downsamples data by calculating the average of set intervals.
 It uses the `data` variable defined [above](#define-a-data-source) as the data source.
 It then windows the data into 5 minute intervals and calculates the average of each
-window using the [`aggregateWindow()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/).
+window using the [`aggregateWindow()` function](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/).
 
 ```js
 data
@@ -115,7 +118,7 @@ _See [Common tasks](/influxdb/v2.0/process-data/common-tasks) for examples of ta
 In the vast majority of task use cases, once data is transformed, it needs to be sent and stored somewhere.
 This could be a separate bucket or another measurement.
 
-The example below uses Flux's [`to()` function](/influxdb/v2.0/reference/flux/stdlib/built-in/outputs/to)
+The example below uses Flux's [`to()` function](/{{< latest "flux" >}}/stdlib/universe/to)
 to send the transformed data to another bucket:
 
 ```js

@@ -27,26 +27,26 @@ There are two places you can create a bucket in the UI.
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "data" >}}
+    {{< nav-icon "data" "v2" >}}
 
-2. Click **{{< icon "plus" >}} Create Bucket** in the upper right.
+2. Click **{{< icon "plus" "v2" >}} Create Bucket** in the upper right.
 3. Enter a **Name** for the bucket.
 4. Select when to **Delete Data**:
     - **Never** to retain data forever.  
-    - **Older than** to choose a specific retention policy.
+    - **Older than** to choose a specific retention period.
 5. Click **Create** to create the bucket.
 
 ### Create a bucket in the Data Explorer
 
 1. In the navigation menu on the left, select **Explore* (**Data Explorer**).
 
-    {{< nav-icon "data-explorer" >}}
+    {{< nav-icon "data-explorer" "v2" >}}
 
 2. In the **From** panel in the Flux Builder, select `+ Create Bucket`.
 3. Enter a **Name** for the bucket.
 4. Select when to **Delete Data**:
     - **Never** to retain data forever.  
-    - **Older than** to choose a specific retention policy.
+    - **Older than** to choose a specific retention period.
 5. Click **Create** to create the bucket.
 
 ## Create a bucket using the influx CLI
@@ -73,3 +73,35 @@ influx bucket create -n <bucket-name> -o <org-name> -r <retention-period-duratio
 # Example
 influx bucket create -n my-bucket -o my-org -r 72h
 ```
+
+## Create a bucket using the InfluxDB API
+
+Use the InfluxDB API to create a bucket.
+
+{{% note %}}
+#### Bucket limits
+A single InfluxDB 2.0 OSS instance supports approximately 20 buckets actively being
+written to or queried across all organizations depending on the use case.
+Any more than that can adversely affect performance.
+{{% /note %}}
+
+Create a bucket in InfluxDB using an HTTP request to the InfluxDB API `/buckets` endpoint.
+Use the `POST` request method and include the following in your request:
+
+| Requirement          | Include by                                               |
+|:-----------          |:----------                                               |
+| Organization         | Use `orgID` in the JSON payload.                |
+| Bucket               | Use `name` in the JSON payload.                 |
+| Retention Rules      | Use `retentionRules` in the JSON payload.    |
+| API token | Use the `Authorization: Token` header.                   |
+
+#### Example
+
+The URL depends on the version and location of your InfluxDB 2.0 instance _(see [InfluxDB URLs](/influxdb/v2.0/reference/urls/))_.
+
+```sh
+{{% get-shared-text "api/v2.0/buckets/oss/create.sh" %}}
+```
+
+_For information about **InfluxDB API options and response codes**, see
+[InfluxDB API Buckets documentation](/influxdb/v2.0/api/#operation/PostBuckets)._

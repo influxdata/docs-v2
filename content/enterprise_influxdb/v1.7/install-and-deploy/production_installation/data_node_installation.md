@@ -18,15 +18,15 @@ If you have not set up your meta nodes, please visit
 [Installing meta nodes](/enterprise_influxdb//v1.7/install-and-deploy/production_installation/meta_node_installation/).
 Bad things can happen if you complete the following steps without meta nodes.
 
-<br>
 # Data node setup description and requirements
 
 The Production Installation process sets up two [data nodes](/enterprise_influxdb/v1.7/concepts/glossary#data-node)
 and each data node runs on its own server.
 You **must** have a minimum of two data nodes in a cluster.
 InfluxDB Enterprise clusters require at least two data nodes for high availability and redundancy.
-<br>
-Note: that there is no requirement for each data node to run on its own
+`hh`, `wal`, `data`, and `meta` directories are required on all data nodes and are created as part of the installation process.
+
+**Note:** There is no requirement for each data node to run on its own
 server.  However, best practices are to deploy each data node on a dedicated server.
 
 See the
@@ -72,16 +72,19 @@ Ultimately, use entries similar to the following (hostnames and domain IP addres
 | A           | ```enterprise-data-01.mydomain.com``` | ```<Data_1_IP>``` |
 | A           | ```enterprise-data-02.mydomain.com``` | ```<Data_2_IP>``` |
 
-> **Verification steps:**
->
+   {{% note %}}
+**Verification steps:**
+
 Before proceeding with the installation, verify on each meta and data server that the other
 servers are resolvable. Here is an example set of shell commands using `ping`:
->
+```bash
     ping -qc 1 enterprise-meta-01
     ping -qc 1 enterprise-meta-02
     ping -qc 1 enterprise-meta-03
     ping -qc 1 enterprise-data-01
     ping -qc 1 enterprise-data-02
+```
+   {{% /note %}}
 
 We highly recommend that each server be able to resolve the IP from the hostname alone as shown here.
 Resolve any connectivity issues before proceeding with the installation.
@@ -97,15 +100,15 @@ Perform the following steps on each data node.
 #### Ubuntu and Debian (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.7.10-c1.7.10_amd64.deb
-sudo dpkg -i influxdb-data_1.7.10-c1.7.10_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 #### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.7.10_c1.7.10.x86_64.rpm
-sudo yum localinstall influxdb-data-1.7.10_c1.7.10.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
 
 #### Verify the authenticity of release download (recommended)
@@ -114,26 +117,26 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 
 1. Download and import InfluxData's public key:
 
-    ```
+    ```bash
     curl -s https://repos.influxdata.com/influxdb.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
    For example:
 
-    ```
-    wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.7.10_c1.7.10.x86_64.rpm.asc
+    ```bash
+    wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
-    ```
-    gpg --verify influxdb-data-1.7.10_c1.7.10.x86_64.rpm.asc influxdb-data-1.7.10_c1.7.10.x86_64.rpm
+    ```bash
+    gpg --verify influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
     ```
 
     The output from this command should include the following:
 
-    ```
+    ```bash
     gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
     ```
 
@@ -207,16 +210,18 @@ On systemd systems, enter:
 sudo systemctl start influxdb
 ```
 
-> **Verification steps:**
->
-Check to see that the process is running by entering:
->
-    ps aux | grep -v grep | grep influxdb
->
-You should see output similar to:
->
-    influxdb  2706  0.2  7.0 571008 35376 ?        Sl   15:37   0:16 /usr/bin/influxd -config /etc/influxdb/influxdb.conf
+**Verification steps:**
 
+Check to see that the process is running by entering:
+
+```bash
+ps aux | grep -v grep | grep influxdb
+```
+
+You should see output similar to:
+```bash
+influxdb  2706  0.2  7.0 571008 35376 ?        Sl   15:37   0:16 /usr/bin/influxd -config /etc/influxdb/influxdb.conf
+```
 
 If you do not see the expected output, the process is either not launching or is exiting prematurely. Check the [logs](/enterprise_influxdb/v1.7/administration/logs/) for error messages and verify the previous setup steps are complete.
 
@@ -251,25 +256,27 @@ to the cluster.
 > **Verification steps:**
 >
 Issue the following command on any meta node:
->
-    influxd-ctl show
->
+```bash
+influxd-ctl show
+```
 The expected output is:
->
-    Data Nodes
-    ==========
-    ID   TCP Address               Version
-    4    enterprise-data-01:8088   1.7.10-c1.7.10
-    5    enterprise-data-02:8088   1.7.10-c1.7.10
 
->
-    Meta Nodes
-    ==========
-    TCP Address               Version
-    enterprise-meta-01:8091   1.7.10-c1.7.10
-    enterprise-meta-02:8091   1.7.10-c1.7.10
-    enterprise-meta-03:8091   1.7.10-c1.7.10
+```bash
 
+Data Nodes
+==========
+ID  TCP Address             Version         Labels
+4  cluster-node-01:8088    1.7.x-c1.7.x    {}
+5  cluster-node-02:8088    1.7.x-c1.7.x    {}
+
+Meta Nodes
+==========
+TCP Address             Version         Labels
+cluster-node-01:8091    1.7.x-c1.7.x    {}
+cluster-node-02:8091    1.7.x-c1.7.x    {}
+cluster-node-03:8091    1.7.x-c1.7.x    {}
+
+```
 
 The output should include every data node that was added to the cluster.
 The first data node added should have `ID=N`, where `N` is equal to one plus the number of meta nodes.

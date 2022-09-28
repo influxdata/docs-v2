@@ -29,11 +29,11 @@ To increase query and write performance, InfluxDB tightly restricts **update** a
 
 ## Handle read and write queries first
 
-InfluxDB prioritizes read and write requests over strong consistency. InfluxDB returns results when a query is executed. Any transactions that affect the queried data are processed subsequently to ensure that data is eventually consistency. Therefore, if the ingest rate is high (multiple writes per ms), query results may not include the most recent data.
+InfluxDB prioritizes read and write requests over strong consistency. InfluxDB returns results when a query is executed. Any transactions that affect the queried data are processed subsequently to ensure that data is eventually consistent. Therefore, if the ingest rate is high (multiple writes per ms), query results may not include the most recent data.
 
 ## Schemaless design
 
-InfluxDB uses a schemaless design to better manage discontinuous data. Time series data are often ephemeral, meaning the data appears for a few hours and then go away. For example, a new host that gets started and reports for a while and then gets shut down.
+InfluxDB uses a schemaless design to better manage discontinuous data. Time series data are often ephemeral, meaning the data appears for a few hours and then goes away. For example, a new host that gets started and reports for a while and then gets shut down.
 
 ## Datasets over individual points
 

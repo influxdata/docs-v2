@@ -86,35 +86,47 @@ You can use [logrotate](http://manpages.ubuntu.com/manpages/cosmic/en/man8/logro
 If using the package install on a `sysvinit` system, the config file for logrotate is installed in `/etc/logrotate.d`.
 You can view the file [here](https://github.com/influxdb/influxdb/blob/1.8/scripts/logrotate).
 
-
 ## HTTP access logging
 
 Use the HTTP access log to log HTTP request traffic separately from the other InfluxDB log output.
 
 ### HTTP access log format
 
-The following is an example of the HTTP access log format. The table below describes each component of the HTTP access log.
+Find details about your GET and POST requests in the HTTP access log. Useful to help identify bad queries and improve performance. Refer to the table below for details included in the log.
+
+The following examples show the HTTP access log format:
+#### GET request format
 
 ```
-172.13.8.13,172.39.5.169 - - [21/Jul/2019:03:01:27 +0000] "GET /query?db=metrics&q=SELECT+MEAN%28value%29+as+average_cpu%2C+MAX%28value%29+as+peak_cpu+FROM+%22foo.load%22+WHERE+time+%3E%3D+now%28%29+-+1m+AND+org_id+%21%3D+%27%27+AND+group_id+%21%3D+%27%27+GROUP+BY+org_id%2Cgroup_id HTTP/1.0" 200 11450 "-" "Baz Service" d6ca5a13-at63-11o9-8942-000000000000 9337349
+[httpd] 172.13.8.13,172.39.5.169 - - [21/Jul/2019:03:01:27 +0000] "GET /query?db=metrics&q=SELECT+MEAN%28value%29+as+average_cpu%2C+MAX%28value%29+as+peak_cpu+FROM+%22foo.load%22+WHERE+time+%3E%3D+now%28%29+-+1m+AND+org_id+%21%3D+%27%27+AND+group_id+%21%3D+%27%27+GROUP+BY+org_id%2Cgroup_id HTTP/1.0" 200 11450 "-" "Baz Service" d6ca5a13-at63-11o9-8942-000000000000 9337349
 ```
 
+#### POST request format
 
+```
+[httpd] 127.0.0.1 - - [19/Mar/2021:14:09:51 -0700] "POST /query?pretty=true HTTP/1.1 {'db': 'TestData', 'BadDataBase'}, {'q': 'SELECT * FROM a'}, {'p': '[REDACTED]'}" 200 1217 "-" "curl/7.68.0" 71dcf8eb-88f7-11eb-8003-002b67685b12 1300
+```
 
-| Component                    | Example                                                                                                                      |
+{{% note %}}
+Note: One or more password `p` values are replaced by a single `[REDACTED]`.
+{{% /note %}}
+
+#### HTTP access log
+
+| HTTP access log              | Example                                                                                                                      |
 |---                           |---                                                                                                                           |
 |Host                          |`172.13.8.13,172.39.5.169`                                                                                                    |
 |Time of log event             |`[21/Jul/2019:03:01:27 +0000]`                                                                                                |
-|Request method                |`GET`                                                                                                                         |
+|Request method                |`GET` or `POST`                                                                                                               |
 |Username                      |`user`                                                                                                                        |
-|HTTP API call being made&ast;                           |`/query?db=metrics%26q=SELECT%20used_percent%20FROM%20%22telegraf.autogen.mem%22%20WHERE%20time%20%3E=%20now()%20-%201m%20	` |
+|HTTP API call being made&ast; |`/query?db=metrics%26q=SELECT%20used_percent%20FROM%20%22telegraf.autogen.mem%22%20WHERE%20time%20%3E=%20now()%20-%201m%20`   |
 |Request protocol              |`HTTP/1.0` 	                                                                                                                  |
 |HTTP response code            |`200`                                                                                                                         |
 |Size of response in bytes     |`11450`                                                                                                                       |
 |Referrer                      |`-`                                                                                                                           |
 |User agent                    |`Baz Service`                                                                                                                 |
 |Request ID                    |`d4ca9a10-ab63-11e9-8942-000000000000`                                                                                        |
-|Response time in microseconds |`9357049`                                                                                                                       |
+|Response time in microseconds |`9357049`                                                                                                                     |
 &ast; This field shows the database being acessed and the query being run. For more details, see [InfluxDB API reference](/influxdb/v1.8/tools/api/). Note that this field is URL-encoded.  
 
 ### Redirecting HTTP access logging

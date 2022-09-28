@@ -4,10 +4,12 @@ seotitle: Query data stored in InfluxDB
 description: >
   Learn to query data stored in InfluxDB using Flux and tools such as the InfluxDB
   user interface and the 'influx' command line interface.
+aliases:
+  - /influxdb/v2.0/query_language/data_exploration/
 menu:
   influxdb_2_0:
     name: Query data
-weight: 3
+weight: 5
 influxdb/v2.0/tags: [query, flux]
 ---
 

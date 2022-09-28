@@ -25,7 +25,7 @@ When multiple series are present, it automatically assigns colors based on the s
 When using a line graph, all points within a single table are connected. When multiple series are present, it automatically assigns colors based on the selected [Line Colors option](#options).
 
 ## Graph controls
-To view **Graph** controls, click **{{< icon "gear" >}} Customize** next to
+To view **Graph** controls, click **{{< icon "gear" "v2" >}} Customize** next to
 the visualization dropdown.
 
 ###### Data
@@ -48,10 +48,24 @@ the visualization dropdown.
   - **Y Axis**: Show all points with the same y value along the x-axis.
   - **X & Y Axis**: Show only the point currently being hovered over.
 
+###### X Axis
+- **Generate X-Axis Tick Marks**: Select the method to generate x-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of x-axis tick marks, select this option, and then enter the following:
+    - **Total Tick Marks**: Enter the total number of ticks to display.
+    - **Start Tick Marks At**: Enter the value to start ticks at.
+    - **Tick Mark Interval**: Enter the interval in between each tick.
+
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
 - **Y Axis Prefix**: Prefix to be added to y-value.
 - **Y Axis Suffix**: Suffix to be added to y-value.
+- **Generate Y-Axis Tick Marks**: Select the method to generate y-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of y-axis tick marks, select this option, and then enter  the following:
+    - **Total Tick Marks**: Enter the total number of ticks to display.
+    - **Start Tick Marks At**: Enter the value to start ticks at.
+    - **Tick Mark Interval**: Enter the interval in between each tick.
 - **Y Axis Domain**: The y-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
   - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
@@ -61,6 +75,12 @@ the visualization dropdown.
   - **Overlaid**: Display graph lines overlaid on each other.
   - **Stacked**: Display graph lines stacked on top of each other.
 
+###### Legend
+- **Orientation**: Select the orientation of the legend that appears:
+  - **Horizontal**: Select to display the legend horizontally.
+  - **Vertical**: Select to display the legend vertically.
+- **Opacity**: Adjust the legend opacity using the slider.
+- **Colorize Rows**: Select to display legend rows in colors.
 
 ## Graph Examples
 

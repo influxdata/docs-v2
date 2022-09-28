@@ -23,14 +23,15 @@ influx task [command]
 ```
 
 ### Subcommands
-| Subcommand                                                | Description          |
-|:----------                                                |:-----------          |
-| [create](/influxdb/v2.0/reference/cli/influx/task/create) | Create task          |
-| [delete](/influxdb/v2.0/reference/cli/influx/task/delete) | Delete task          |
-| [list](/influxdb/v2.0/reference/cli/influx/task/list)     | List tasks           |
-| [log](/influxdb/v2.0/reference/cli/influx/task/log)       | Log related commands |
-| [run](/influxdb/v2.0/reference/cli/influx/task/run)       | Run related commands |
-| [update](/influxdb/v2.0/reference/cli/influx/task/update) | Update task          |
+| Subcommand                                                            | Description            |
+|:----------                                                            |:-----------            |
+| [create](/influxdb/v2.0/reference/cli/influx/task/create)             | Create task            |
+| [delete](/influxdb/v2.0/reference/cli/influx/task/delete)             | Delete task            |
+| [list](/influxdb/v2.0/reference/cli/influx/task/list)                 | List tasks             |
+| [log](/influxdb/v2.0/reference/cli/influx/task/log)                   | Log related commands   |
+| [retry-failed](/influxdb/v2.0/reference/cli/influx/task/retry-failed) | Retry failed task runs |
+| [run](/influxdb/v2.0/reference/cli/influx/task/run)                   | Run related commands   |
+| [update](/influxdb/v2.0/reference/cli/influx/task/update)             | Update task            |
 
 ### Flags
 | Flag |          | Description                 |

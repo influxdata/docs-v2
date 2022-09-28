@@ -30,7 +30,7 @@ To manually upgrade from InfluxDB 1.x to InfluxDB 2.0:
 {{% note %}}
 #### Required 2.x credentials
 All InfluxDB 2.0 `influx` CLI examples below assume the required **host**,
-**organization**, and **authentication token** credentials are provided by your
+**organization**, and **API token** credentials are provided by your
 [`influx` CLI configuration](/influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials).
 {{% /note %}}
 
@@ -84,7 +84,7 @@ If you're using custom configuration settings in your InfluxDB 1.x instance, do 
 | access-log-path                    |                                                                                                                                   |
 | access-log-status-filters          |                                                                                                                                   |
 | write-tracing                      |                                                                                                                                   |
-| pprof-enabled                      |                                                                                                                                   |
+| pprof-enabled                      | [pprof-disabled](/influxdb/v2.0/reference/config-options/#pprof-disabled)                                                         |
 | pprof-auth-enabled                 |                                                                                                                                   |
 | debug-pprof-enabled                |                                                                                                                                   |
 | ping-auth-enabled                  |                                                                                                                                   |
@@ -99,7 +99,7 @@ If you're using custom configuration settings in your InfluxDB 1.x instance, do 
 | max-body-size                      |                                                                                                                                   |
 | max-concurrent-write-limit         |                                                                                                                                   |
 | max-enqueued-write-limit           |                                                                                                                                   |
-| enqueued-write-timeout             |                                                                                                                                   |
+| enqueued-write-timeout             | [http-write-timeout](/influxdb/v2.0/reference/config-options/#http-write-timeout)                                                 |
 |                                    |                                                                                                                                   |
 | **[logging]**                      |                                                                                                                                   |
 | format                             |                                                                                                                                   |
@@ -160,7 +160,7 @@ _For more information about DBRP mapping, see
 
 2.  **Create a DBRP mapping**  
     Use the [`influx v1 dbrp create` command](/influxdb/v2.0/reference/cli/influx/v1/dbrp/create/)
-    command to create a DBRP mapping.
+    to create a DBRP mapping.
     Provide the following:
 
     - database name
@@ -332,7 +332,7 @@ To migrate time series data from your InfluxDB 1.x instance to InfluxDB 2.0:
       --file /path/to/example-db_example-rp.lp
     ```
 
-Repeat this process for each bucket.
+3. Repeat steps 1-2 for each bucket.
 
 ## Migrate continuous queries
 For information about migrating InfluxDB 1.x continuous queries to InfluxDB 2.0 tasks,

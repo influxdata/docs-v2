@@ -13,38 +13,51 @@ menu:
   influxdb_cloud:
     parent: Account management
     name: Manage billing
-products: [cloud]
 ---
+
+Learn how to upgrade your plan, access billing details, and review and resolve plan limit overages:
+
+- [Upgrade to Usage-Based Plan](#upgrade-to-usage-based-plan)
+- [Access billing details](#access-billing-details):
+  - [Add or update your payment method](#add-or-update-your-payment-method)
+  - [Add or update your contact information](#add-or-update-your-contact-information)
+  - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount#send-notifications-when-usage-exceeds-an-amount)
+  - [View Usage-based Plan information](#view-usage-based-plan-information)
+  - [View Free Plan information](#view-free-plan-information)
+- [Review and resolve plan limit overages](#review-and-resolve-plan-limit-overages)
+- [Billing cycle](#billing-cycle)
+  - [Declined or late payments](#declined-or-late-payments)
 
 ## Upgrade to Usage-Based Plan
 
-1. Click **Upgrade Now** in the lower left corner of the {{< cloud-name "short" >}} user interface (UI).
+1. Click **Upgrade Now** in the upper right corner of the {{< cloud-name "short" >}} user interface (UI).
 2. Set your limits (opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). All service updates, security notifications, and other important information are sent to the email address you provide.
 3. Enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
 
 ## Access billing details
 
 1. In the {{< cloud-name "short" >}} UI, select the **user avatar** in the left
-   navigation menu, and select **Billing**.
+   navigation menu, and select **Account** >
+   **Billing**.
 
     {{< nav-icon "account" >}}
 
 2. Do one of the following:
     - If you subscribed to an InfluxDB Cloud plan through [**AWS Marketplace**](https://aws.amazon.com/marketplace/pp/B08234JZPS), [**Azure Marketplace**](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-cloud), or [**GCP Marketplace**](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod?pli=1), click the **AWS**, **Microsoft**, or **GCP** link to access your billing and subscription information.
 
-  - If you subscribed to an InfluxDB Cloud plan through **InfluxData**, complete the following procedures as needed:
+   - If you subscribed to an InfluxDB Cloud plan through **InfluxData**, complete the following procedures as needed:
 
-        - [Add or update your payment method](#add-or-update-your-payment-method)
-        - [Add or update your contact information](#add-or-update-your-contact-information)
-        - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount)
+       - [Add or update your payment method](#add-or-update-your-payment-method)
+       - [Add or update your contact information](#add-or-update-your-contact-information)
+       - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount)
 
-        View information about:
+3. View information about:
 
-        - [Usage-Based Plan](#view-usage-based-plan-information)
-        - [Free Plan](#view-free-plan-information)
-        - [Exceeded rate limits](#exceeded-rate-limits)
-        - [Billing cycle](#billing-cycle)
-        - [Declined or late payments](#declined-or-late-payments)
+    - [Usage-Based Plan](#view-usage-based-plan-information)
+    - [Free Plan](#view-free-plan-information)
+    - [Exceeded rate limits](#review-and-resolve-plan-limit-overages)
+    - [Billing cycle](#billing-cycle)
+    - [Declined or late payments](#declined-or-late-payments)
 
 ### Add or update your payment method
 
@@ -83,18 +96,19 @@ On the **Billing page**, view your billing information, including:
 
 On the **Billing page**, view the total limits available for the Free Plan.
 
-## Exceeded rate limits
+## Review and resolve plan limit overages
 
-If you exceed your plan's [rate limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}} provides a notification in the {{< cloud-name "short" >}} user interface (UI) and adds a rate limit event to your **Usage** page for review.
+If you exceed your plan's [adjustable quotas or limits](/influxdb/cloud/account-management/limits/), you'll receive a notification in the {{< cloud-name "short" >}} user interface (UI) **Usage** page.
 
-All rate-limited requests are rejected; including both read and write requests.
-_Rate-limited requests are **not** queued._
+If you exceed the series cardinality limit, InfluxDB adds a rate limit event warning on the **Usage** page, and begins to reject write requests with new series. To start processing write requests again, do the following as needed:
 
-_To remove rate limits, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan)._
+- **Usage-Based plan**: To request higher rate limits, contact [InfluxData Support](mailto:support@influxdata.com).
+- **Series cardinality limits**: If you exceed the series cardinality limit, see how to [resolve high series cardinality](https://docs.influxdata.com/influxdb/v2.0/write-data/best-practices/resolve-high-cardinality/).
+- **Free plan**: To raise rate limits, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan).
 
-#### Rate-limited HTTP response code
+#### Write and query limits (HTTP response code)
 
-When a request exceeds your plan's rate limit, the InfluxDB API returns the following response:
+When a request exceeds your plan's write requests (Data In) or query requests (Reads) within a five minute window, the InfluxDB API returns the following response:
 
 ```
 HTTP 429 “Too Many Requests”
@@ -109,7 +123,7 @@ Billing occurs on the first day of the month for the previous month. For example
 
 | Timeline                    | Action |
 |:----------------------------|:------------------------------------------------------------------------------------------------------------------------|
-| **Initial declined payment**| We'll retry charge every 72 hours. During this period, update your payment method to successfully process your payment. |  
-| **One week later**          | Account disabled except data writes. Update your payment method to successfully process your payment and enable your account. |  
-| **10-14 days later**        | Account completely disabled. During this period, you must contact us at support@influxdata.com to process your payment and enable your account. |  
-| **21 days later**           | Account suspended. Contact support@influxdata.com to settle your final bill and retrieve a copy of your data or access to InfluxDB Cloud dashboards, tasks, Telegraf configurations, and so on.|  
+| **Initial declined payment**| We'll retry charge every 72 hours. During this period, update your payment method to successfully process your payment. |
+| **One week later**          | Account disabled except data writes. Update your payment method to successfully process your payment and enable your account. |
+| **10-14 days later**        | Account completely disabled. During this period, you must contact us at support@influxdata.com to process your payment and enable your account. |
+| **21 days later**           | Account suspended. Contact support@influxdata.com to settle your final bill and retrieve a copy of your data or access to InfluxDB Cloud dashboards, tasks, Telegraf configurations, and so on.|

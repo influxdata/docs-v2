@@ -13,15 +13,15 @@ menu:
     list_title: SQL data
 weight: 220
 related:
-  - /influxdb/cloud/reference/flux/stdlib/sql/
+  - /{{< latest "flux" >}}/stdlib/sql/
 list_code_example: |
   ```js
   import "sql"
 
   sql.from(
-    driverName: "postgres",
-    dataSourceName: "postgresql://user:password@localhost",
-    query: "SELECT * FROM example_table"
+      driverName: "postgres",
+      dataSourceName: "postgresql://user:password@localhost",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---

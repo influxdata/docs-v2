@@ -7,17 +7,13 @@
 #   message: |
 #     Markdown message content.
 
-- id: v2-ga
+- id: v2-cloud-upgrade
   level: note
   scope:
-    - /
+    - /influxdb/v1
   message: |
-    ### InfluxDB OSS 2.0 now generally available!
+    ### Upgrade to InfluxDB Cloud or InfluxDB 2.0!
+    **InfluxDB Cloud** and **InfluxDB OSS 2.0** ready for production.
 
-    **InfluxDB OSS 2.0** is now generally available and ready for production use.
-    See the [InfluxDB OSS 2.0 release notes](/influxdb/v2.0/reference/release-notes/influxdb/).
-
-    For information about upgrading to InfluxDB OSS 2.0, see:
-
-    - [Upgrade from InfluxDB OSS 1.x to 2.0](/influxdb/v2.0/upgrade/v1-to-v2/)
-    - [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2.0/upgrade/v2-beta-to-v2/)
+    - [Upgrade to InfluxDB Cloud](/influxdb/cloud/upgrade/v1-to-cloud/)
+    - [Upgrade to InfluxDB OSS 2.0](/influxdb/v2.0/upgrade/v1-to-v2/)

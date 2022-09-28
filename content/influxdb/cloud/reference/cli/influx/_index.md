@@ -10,7 +10,8 @@ menu:
     parent: Command line tools
 weight: 101
 influxdb/cloud/tags: [cli]
+related:
+  - /influxdb/cloud/tools/clis/
 ---
 
 {{< duplicate-oss >}}
-

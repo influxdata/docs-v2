@@ -5,8 +5,8 @@
     margin-top: -.5rem;
 
     a a:after {
-      content: "\e919";
-      font-family: "icomoon";
+      content: "\e91a";
+      font-family: "icomoon-v2";
       color: rgba($article-heading, .35);
       vertical-align: bottom;
       transition: color .2s;
@@ -16,4 +16,5 @@
       &:after { color: $article-link; }
     }
   }
+  & > hr:last-child {display: none}
 }

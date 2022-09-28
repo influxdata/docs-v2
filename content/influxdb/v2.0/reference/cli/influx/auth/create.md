@@ -1,6 +1,6 @@
 ---
 title: influx auth create
-description: The `influx auth create` creates an authentication token in InfluxDB.
+description: The `influx auth create` creates an API token in InfluxDB.
 menu:
   influxdb_2_0_ref:
     name: influx auth create
@@ -8,7 +8,7 @@ menu:
 weight: 201
 ---
 
-The `influx auth create` creates an authentication token in InfluxDB.
+The `influx auth create` creates an API token in InfluxDB.
 
 ## Usage
 ```
@@ -17,14 +17,17 @@ influx auth create [flags]
 
 ## Flags
 | Flag |                                 | Description                                                           | Input type  | {{< cli/mapped >}}    |
-|:-----|:---------------------           |:----------------------------------------------------------------------|:-----------:|:----------------------|
+|:-----|:--------------------------------|:----------------------------------------------------------------------|:-----------:|:----------------------|
 | `-c` | `--active-config`               | CLI configuration to use for command                                  | string      |                       |
+|      | `--all-access`                  | Grants all permissions in a single organization                       |             |                       |
 |      | `--configs-path`                | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`) | string      | `INFLUX_CONFIGS_PATH` |
-| `-d` | `--description`                 | Authentication token description                                      | string      |                       |
+| `-d` | `--description`                 | API token description                                                 | string      |                       |
 | `-h` | `--help`                        | Help for the `create` command                                         |             |                       |
 |      | `--hide-headers`                | Hide table headers (default `false`)                                  |             | `INFLUX_HIDE_HEADERS` |
 |      | `--host`                        | HTTP address of InfluxDB (default `http://localhost:8086`)            | string      | `INFLUX_HOST`         |
+|      | `--http-debug`                  | Inspect communication with InfluxDB servers                           | string      |                       |
 |      | `--json`                        | Output data as JSON (default `false`)                                 |             | `INFLUX_OUTPUT_JSON`  |
+|      | `--operator`                    | _(InfluxDB OSS only)_ Grants all permissions in all organizations     | string      |                       |
 | `-o` | `--org`                         | Organization name (mutually exclusive with `--org-id`)                | string      | `INFLUX_ORG`          |
 |      | `--org-id`                      | Organization ID (mutually exclusive with `--org`)                     | string      | `INFLUX_ORG_ID`       |
 |      | `--read-bucket`                 | Grant permission to read a specified bucket ID                        | stringArray |                       |
@@ -38,8 +41,8 @@ influx auth create [flags]
 |      | `--read-tasks`                  | Grant permission to read tasks                                        |             |                       |
 |      | `--read-telegrafs`              | Grant permission to read Telegraf configurations                      |             |                       |
 |      | `--read-user`                   | Grant permission to read organization users                           |             |                       |
-|      | `--skip-verify`                 | Skip TLS certificate verification                                     |             |                       |
-| `-t` | `--token`                       | Authentication token                                                  | string      | `INFLUX_TOKEN`        |
+|      | `--skip-verify`                 | Skip TLS certificate verification                                     |             | `INFLUX_SKIP_VERIFY`  |
+| `-t` | `--token`                       | API token                                                             | string      | `INFLUX_TOKEN`        |
 | `-u` | `--user`                        | Username                                                              | string      |                       |
 |      | `--write-bucket`                | Grant permission to write to specified a bucket ID                    | stringArray |                       |
 |      | `--write-buckets`               | Grant permission to create and update **all** organization buckets    |             |                       |
@@ -57,11 +60,34 @@ influx auth create [flags]
 
 {{< cli/influx-creds-note >}}
 
-- [Create an authentication token with read and write permissions](#create-an-authentication-token-with-read-and-write-permissions)
-- [Create a token with read and write access to specific buckets](#create-a-token-with-read-and-write-access-to-specific-buckets)
-- [Create a read-only authentication token](#create-a-read-only-authentication-token)
+- [Create an All-Access API token](#create-an-all-access-api-token) {{% oss-only %}} or [Create an Operator API token](#create-an-operator-api-token){{% /oss-only %}}
+- [Create an API token with specified read and write permissions](#create-an-api-token-with-specified-read-and-write-permissions)
+- [Create a token with read and write access to specific buckets](#create-an-api-token-with-read-and-write-access-to-specific-buckets)
+- [Create a read-only API token](#create-a-read-only-api-token)
 
-##### Create an authentication token with read and write permissions
+### Create an All-Access API token
+
+Create an [All-Access token](/influxdb/cloud/security/tokens/#all-access-token) to grant permissions to all resources in an organization.
+
+```sh
+influx auth create \
+  --all-access 
+```
+
+{{% oss-only %}}
+
+### Create an Operator API token
+
+Create an [Operator token](/influxdb/v2.0/security/tokens/#operator-token) to grant permissions to all resources in all organizations.
+
+```sh
+influx auth create \
+  --operator
+```
+{{% /oss-only %}}
+
+### Create an API token with specified read and write permissions
+
 ```sh
 influx auth create \
   --read-buckets \
@@ -86,7 +112,8 @@ influx auth create \
   --write-user
 ```
 
-##### Create a token with read and write access to specific buckets
+### Create an API token with read and write access to specific buckets
+
 ```sh
 influx auth create \
   --read-bucket 0000000000000001 \
@@ -95,7 +122,8 @@ influx auth create \
   --write-bucket 0000000000000002
 ```
 
-##### Create a read-only authentication token
+### Create a read-only API token
+
 ```sh
 influx auth create \
   --read-buckets \

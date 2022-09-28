@@ -23,7 +23,7 @@ influx [command]
 ```
 
 ### Provide required authentication credentials
-To avoid having to pass your InfluxDB **host**, **authentication token**, and **organization**
+To avoid having to pass your InfluxDB **host**, **API token**, and **organization**
 with each command, store them in an `influx` CLI configuration (config).
 `influx` commands that require these credentials automatically retrieve these
 credentials from the active config.
@@ -35,7 +35,7 @@ to create an `influx` CLI config and set it as active:
 influx config create --config-name <config-name> \
   --host-url http://localhost:8086 \
   --org <your-org> \
-  --token <your-auth-token \
+  --token <your-api-token> \
   --active
 ```
 
@@ -47,7 +47,7 @@ For more information about managing CLI configurations, see the
 | Command                                                      | Description                                          |
 |:-------                                                      |:-----------                                          |
 | [apply](/influxdb/v2.0/reference/cli/influx/apply)           | Apply an InfluxDB template                           |
-| [auth](/influxdb/v2.0/reference/cli/influx/auth)             | Authentication token management commands             |
+| [auth](/influxdb/v2.0/reference/cli/influx/auth)             | API token management commands             |
 | [backup](/influxdb/v2.0/reference/cli/influx/backup)         | Back up data                                         |
 | [bucket](/influxdb/v2.0/reference/cli/influx/bucket)         | Bucket management commands                           |
 | [completion](/influxdb/v2.0/reference/cli/influx/completion) | Generate completion scripts                          |
@@ -65,7 +65,6 @@ For more information about managing CLI configurations, see the
 | [task](/influxdb/v2.0/reference/cli/influx/task)             | Task management commands                             |
 | [telegrafs](/influxdb/v2.0/reference/cli/influx/telegrafs)   | Telegraf configuration management commands           |
 | [template](/influxdb/v2.0/reference/cli/influx/template)     | Summarize and validate an InfluxDB template          |
-| [transpile](/influxdb/v2.0/reference/cli/influx/transpile)   | Manually transpile an InfluxQL query to Flux         |
 | [user](/influxdb/v2.0/reference/cli/influx/user)             | User management commands                             |
 | [v1](/influxdb/v2.0/reference/cli/influx/v1)                 | Work with the v1 compatibility API                   |
 | [version](/influxdb/v2.0/reference/cli/influx/version)       | Print the influx CLI version                         |

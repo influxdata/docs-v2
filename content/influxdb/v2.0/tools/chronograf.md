@@ -21,8 +21,8 @@ Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS 2.0** and 
 [1.x compatibility API](/influxdb/v2.0/reference/api/influxdb-1x/).
 
 ## Create an InfluxDB connection
-1. In Choronograf, click **Configuration** in the left navigation bar,
-   and then click **{{< icon "plus" >}} Add Connection**.
+1. In Chronograf, click **Configuration** in the left navigation bar,
+   and then click **{{< icon "plus" "v2" >}} Add Connection**.
 2. Toggle the **InfluxDB v2 Auth** option at the bottom of the form.
 
     {{< img-hd src="/img/influxdb/2-0-tools-chronograf-v2-auth.png" alt="InfluxDB v2 Auth toggle" />}}
@@ -37,7 +37,7 @@ Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS 2.0** and 
 
     - **Connection Name:** Name to uniquely identify this connection configuration
     - **Organization:** InfluxDB [organization](/influxdb/v2.0/organizations/)
-    - **Token:** InfluxDB [authentication token](/influxdb/v2.0/security/tokens/)
+    - **Token:** InfluxDB [API token](/influxdb/v2.0/security/tokens/)
     - **Telegraf Database Name:** InfluxDB [bucket](/influxdb/v2.0/organizations/buckets/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
     - **Default Retention Policy:** default [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp)
@@ -83,7 +83,7 @@ For example, you **cannot** do the following:
 - Kill queries
 
 When connected to an InfluxDB Cloud or InfluxDB 2.0 database, functionality in the
-**{{< icon "crown" >}} InfluxDB Admin** section of Chronograf is disabled.
+**{{< icon "crown" "v2" >}} InfluxDB Admin** section of Chronograf is disabled.
 
 To complete administrative tasks, use the following:
 
@@ -94,4 +94,3 @@ To complete administrative tasks, use the following:
 ### Limited InfluxQL support
 InfluxDB Cloud and InfluxDB OSS 2.0 support InfluxQL **read-only** queries.
 For more information, see [InfluxQL support](/influxdb/v2.0/query-data/influxql/#influxql-support).
-

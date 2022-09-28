@@ -23,13 +23,13 @@ spec:
                 app: influxdb
         spec:
             containers:
-              - image: influxdb:2.0.4
+              - image: influxdb:2.0.6
                 name: influxdb
                 ports:
                   - containerPort: 8086
                     name: influxdb
                 volumeMounts:
-                  - mountPath: /root/.influxdbv2
+                  - mountPath: /var/lib/influxdb2
                     name: data
     volumeClaimTemplates:
       - metadata:

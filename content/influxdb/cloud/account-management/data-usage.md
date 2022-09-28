@@ -11,39 +11,22 @@ menu:
   influxdb_cloud:
     parent: Account management
     name: View data usage
-products: [cloud]
+related:
+  - /flux/v0.x/stdlib/experimental/usage/from/
+  - /flux/v0.x/stdlib/experimental/usage/limits/
 ---
 
-To view your {{< cloud-name >}} data usage, click the **user avatar** in the top
-right corner of your {{< cloud-name "short" >}} user interface (UI) and select **Usage**.
+View the statistics of your data usage and rate limits (reads, writes, and delete limits) on the Usage page. Some usage data affects monthly costs ([pricing vectors](/influxdb/cloud/account-management/pricing-plans/#pricing-vectors)) and other usage data (for example, delete limits), does not affect pricing. For more information, see the [InfluxDB Cloud limits and adjustable quotas](/influxdb/cloud/account-management/limits/).
 
-Find data usage information for the time frame specified in the drop-down at the top of the Usage page.
+To view your {{< cloud-name >}} data usage, do the following:
 
-- **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance.
-- **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
-- **Query Count:** Total number of individual query operations, which include queries, tasks (alerts, notifications) and Data Explorer activity.
-- **Storage Usage:** Total disk usage in gigabytes.
-- **API Request Count:** The total number of query and write API requests received during the specified time frame.
-- **Usage over the specified time period:** A line graph that visualizes usage over the specified time period.
-- **Rate Limits over the specified time period:** A list of rate limit events over the specified time period.
+1. Click the **user avatar** on the left-side navigation.
+2. Select **Usage**.
+3. Select a time range to review data usage (by default, `Past 24h`), and then select one of the following:
 
-{{< img-hd src="/img/influxdb/2-0-cloud-usage.png" />}}
+   - **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance.
+   - **Query Count:** Total number of individual query operations, which include queries, tasks (alerts, notifications) and Data Explorer activity.
+   - **Storage:** Total disk usage in gigabytes.
+   - **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
 
-## Exceeded rate limits
-
-If you exceed your plan's [rate limits](/influxdb/cloud/account-management/pricing-plans/), {{< cloud-name >}}
-will provide a notification in the {{< cloud-name "short" >}} user interface (UI)
-and add a rate limit event to your **Usage** page for review.
-
-All rate-limited requests are rejected; including both read and write requests.
-_Rate-limited requests are **not** queued._
-
-_To remove rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
-
-### Rate-limited HTTP response code
-When a request exceeds your plan's rate limit, the InfluxDB API returns the following response:
-
-```
-HTTP 429 “Too Many Requests”
-Retry-After: xxx (seconds to wait before retrying the request)
-```
+A line graph displays usage for the selected vector for the specified time period.

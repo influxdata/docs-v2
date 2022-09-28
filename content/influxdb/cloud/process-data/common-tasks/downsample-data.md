@@ -48,21 +48,19 @@ The example task script below is a very basic form of data downsampling that doe
 
 ```js
 // Task Options
-option task = {
-  name: "cq-mem-data-1w",
-  every: 1w,
-}
+// Task Options
+option task = {name: "cq-mem-data-1w", every: 1w}
 
 // Defines a data source
 data = from(bucket: "system-data")
-  |> range(start: -duration(v: int(v: task.every) * 2))
-  |> filter(fn: (r) => r._measurement == "mem")
+    |> range(start: -duration(v: int(v: task.every) * 2))
+    |> filter(fn: (r) => r._measurement == "mem")
 
 data
-  // Windows and aggregates the data in to 1h averages
-  |> aggregateWindow(fn: mean, every: 1h)
-  // Stores the aggregated data in a new bucket
-  |> to(bucket: "system-data-downsampled", org: "my-org")
+    // Windows and aggregates the data in to 1h averages
+    |> aggregateWindow(fn: mean, every: 1h)
+    // Stores the aggregated data in a new bucket
+    |> to(bucket: "system-data-downsampled", org: "my-org")
 ```
 
 Again, this is a very basic example, but it should provide you with a foundation
@@ -74,7 +72,7 @@ Once your task is ready, see [Create a task](/influxdb/cloud/process-data/manage
 ## Things to consider
 - If there is a chance that data may arrive late, specify an `offset` in your
   task options long enough to account for late-data.
-- If running a task against a bucket with a finite retention policy, do not schedule
-  tasks to run too closely to the end of the retention policy.
+- If running a task against a bucket with a finite retention period, do not schedule
+  tasks to run too closely to the end of the retention period.
   Always provide a "cushion" for downsampling tasks to complete before the data
-  is dropped by the retention policy.
+  is dropped by the retention period.

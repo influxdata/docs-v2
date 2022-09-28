@@ -10,24 +10,79 @@ menu:
     parent: Guides
 ---
 
-Chronograf's dashboard template variables allow you to alter specific components of cells' queries
-without having to edit the queries, making it easy to interact with your dashboard cells and explore your data.
+Chronograf's dashboard template variables let you update cell queries without editing queries, making it easy to interact with your dashboard cells and explore your data.
+
+- [Using template variables](#using-template-variables)
+- [Quoting template variables](#quoting-template-variables)
+- [Predefined template variables](#predefined-template-variables)
+- [Create custom template variables](#create-custom-template-variables)
+- [Template variable types](#template-variable-types)
+- [Reserved variable names](#reserved-variable-names)
+- [Advanced template variable usage](#advanced-template-variable-usage)
 
 ## Using template variables
-Template variables are used in cell queries and titles when creating Chronograf dashboards.
-Within the query, template variables are referenced by surrounding the variable name with colons (`:`).
 
-```sql
-SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
-```
-
-You can use either [predefined template variables](#predefined-template-variables)
+Use either [predefined template variables](#predefined-template-variables)
 or [custom template variables](#create-custom-template-variables).
 Variable values are then selected in your dashboard user-interface (UI).
 
 ![Using template variables](/img/chronograf/1-6-template-vars-use.gif)
 
+## Quoting template variables
+
+For **predefined meta queries** such as "Field Keys" and "Tag Values", **do not add quotes** (single or double) to your queries. Chronograf adds quoting as follows:
+
+```sql
+SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
+```
+
+For **custom queries**, **CSV**, or **map queries**, quote the values in the query in accordance with standard [InfluxQL](/influxdb/v1.8/query_language/) syntax as follows:
+
+- For numerical values, **do not quote**.
+- For string values, choose to quote the values in the variable definition (or not). See [String examples](#string-examples) below.
+
+{{% note %}}
+**Tips for quoting strings:**
+- When using custom meta queries that return strings, typically, you quote the variable values when using them in a dashboard query, given InfluxQL results are returned without quotes.
+
+- If you are using template variable strings in regular expression syntax (when using quotes may cause query syntax errors), the flexibility in query quoting methods is particularly useful.
+{{% /note %}}
+
+#### String examples
+
+Add single quotes when you define template variables, or in your queries, but not both.
+##### Example 1: Add single quotes in variable definition
+
+  If you define a custom CSV variable named `host` using single quotes:
+
+  ```sh
+  'host1','host2','host3'
+  ```
+
+  Do not include quotes in the query:
+
+  ```sql
+  SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
+  WHERE "host" = :host: and time > :dashboardTime
+  ```
+
+##### Example 2: Add single quotes in query
+
+  If you define a custom CSV variable named `host` without quotes:
+
+  ```sh
+  host1,host2,host3
+  ```
+
+  Add single quotes in your query:
+
+  ```sql
+  SELECT mean("usage_user") AS "mean_usage_user" FROM "telegraf"."autogen"."cpu" 
+  WHERE "host" = ':host:' and time > :dashboardTime
+  ```
+
 ## Predefined template variables
+
 Chronograf includes predefined template variables controlled by elements in the Chrongraf UI.
 These template variables can be used in any of your cells' queries.
 
@@ -36,6 +91,7 @@ These template variables can be used in any of your cells' queries.
 [`:interval:`](#interval)
 
 ### dashboardTime
+
 The `:dashboardTime:` template variable is controlled by the "time" dropdown in your Chronograf dashboard.
 
 <img src="/img/chronograf/1-6-template-vars-time-dropdown.png" style="width:100%;max-width:549px;" alt="Dashboard time selector"/>

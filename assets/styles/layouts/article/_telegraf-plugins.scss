@@ -21,6 +21,7 @@
     font-style: italic;
     color: $nav-active;
     font-size: 1.2rem;
+    opacity: 1;
   }
 
   p {
@@ -35,14 +36,40 @@
         color: $article-code-accent7;
       }
     }
-    &.external {
-      margin: 0 0 0 -.25rem;
-      display: inline-block;
-      padding: .1rem .75rem;
-      background-color: rgba($article-text, .1);
-      border-radius: 1rem;
-      font-size: .9rem;
-      font-weight: $medium;
+  }
+
+  a.external {
+    position: relative;
+    margin: 0 0 0 -.25rem;
+    display: inline-block;
+    padding: .4rem .85rem;
+    background-color: rgba($article-text, .1);
+    border-radius: 1rem;
+    font-size: .9rem;
+    font-weight: $medium;
+    color: $article-text;
+
+    &:after {
+      content: "?";
+      position: absolute;
+      display: block;
+      top: -3px;
+      right: -3px;
+      padding: 0.1rem 0.3rem .04rem;
+      color: $g20-white;
+      @include gradient($article-btn-gradient);
+      border-radius: 50%;
+      font-weight: bold;
+      line-height: .8rem;
+      font-size: .7rem;
+      box-shadow: 1px 1px 4px $sidebar-search-shadow;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    &:hover {
+      color: $article-text;
+      &:after {opacity: 1;}
     }
   }
 
@@ -104,120 +131,11 @@
   }
 }
 
-//////////////////////////////// Plugin Filters ////////////////////////////////
-
-#plugin-filters {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: flex-start;
-
-  .filter-category {
-    flex: 1 1 200px;
-    margin: 0 1.25rem 1.25rem 0;
-    max-width: 33%;
-
-    &.two-columns {
-      flex: 1 2 400px;
-      max-width: 66%;
-      .filter-list {
-        columns: 2;
-      }
-    }
-  }
-
-  h5 {
-    border-bottom: 1px solid rgba($article-text, .25);
-    padding-bottom: .65rem;
-  }
-
-  .filter-list {
-    padding: 0;
-    margin: .5rem 0 0;
-    list-style: none;
-    li {
-      margin: 0;
-      line-height: 1.35rem;
-    }
-  }
-
-  label {
-    display: block;
-    padding: .25rem 0;
-    color: $article-text;
-    position: relative;
-
-    &:after {
-      content: attr(data-count);
-      margin-left: 0;
-      font-size: .85rem;
-      opacity: .5;
-    }
-  }
-
-  .checkbox {
-    display: inline-block;
-    position: relative;
-    height: 1.15em;
-    width: 1.15em;
-    background: rgba($article-text, .05);
-    margin-right: .3rem;
-    vertical-align: text-top;
-    border-radius: $radius;
-    cursor: pointer;
-    border: 1.5px solid rgba($article-text, .2);
-    user-select: none;
-  }
-
-  input[type='checkbox'] {
-    margin-right: -1.1rem ;
-    padding: 0;
-    vertical-align: top;
-    opacity: 0;
-    cursor: pointer;
-
-    & + .checkbox:after {
-      content: "";
-      display: block;
-      position: absolute;
-      height: .5rem;
-      width: .5rem;
-      border-radius: 50%;
-      background: $article-link;
-      top: 50%;
-      left: 50%;
-      opacity: 0;
-      transform: scale(2) translate(-20%, -20%);
-      transition: all .2s;
-    }
-
-    &:checked + .checkbox:after {
-      opacity: 1;
-      transform: scale(1) translate(-50%, -50%);
-    }
-  }
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-@media(max-width: 1100px) {
-  #plugin-filters {
-    .filter-category {
-      max-width: 50%;
-      &.two-columns, &.three-columns {
-        max-width: 100%;
-      }
-    }
-  }
-}
-
 @include media(small) {
-  #plugin-filters{
-    .filter-category {
-      max-width: 100%;
-    }
-  }
 
   .plugin-card {
     .github-link {
