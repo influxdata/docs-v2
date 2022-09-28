@@ -76,7 +76,7 @@ To learn more about using tasks with invokable scripts, see the [API reference d
 
 ## Retrieve and filter data
 
-A basic Flux script uses the following functions to retrieve a specified amount
+A minimal Flux script uses the following functions to retrieve a specified amount
 of data from a data source
 and then filter the data based on time or column values:
 
@@ -138,6 +138,14 @@ from(bucket: "example-bucket")
     |> filter(fn: (r) => r._measurement == "mem" and r.host == "myHost")
     |> aggregateWindow(every: 5m, fn: mean)
 ```
+
+{{% note %}}
+#### Use offset to account for latent data
+
+Use the `offset` task option to account for potentially latent data (like data from edge devices).
+A task that runs at one hour intervals (`every: 1h`) with an offset of five minutes (`offset: 5m`)
+executes 5 minutes after the hour, but queries data from the original one-hour interval.
+{{% /note %}}
 
 _See [Common tasks](/influxdb/v2.3/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
 
