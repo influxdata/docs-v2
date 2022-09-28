@@ -32,4 +32,4 @@ InfluxData products contain third party software, which means the copyrighted, p
 
 Third party suppliers make no representation nor warranty with respect to such third party software or any portion thereof. Third party suppliers assume no liability for any claim that might arise with respect to such third party software, nor for a customer’s use of or inability to use the third party software
 
-The [list of third party software components, including references to associated license and other materials](h/enterprise_influxdb/v2.0/contributing/third-party/), is maintained on a version by version basis.
+The [list of third party software components, including references to associated license and other materials](/enterprise_influxdb/v2.0/contributing/third-party/), is maintained on a version by version basis.
