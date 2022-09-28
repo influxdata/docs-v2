@@ -1,9 +1,10 @@
 ---
 title: Deploy an InfluxDB Enterprise cluster on Amazon Web Services
+list_title: Deploy on AWS
 description: Use the Terraform InfluxDB AWS Module to deploy single or multi- cluster architectures on Amazon Web Services.
 menu:
   platform:
-    name: Deploy InfluxDB Enterprise clusters on Amazon Web Services
+    name: AWS
     parent: deploy-platform
     weight: 3
 ---

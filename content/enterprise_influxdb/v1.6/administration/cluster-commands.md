@@ -435,7 +435,6 @@ Shard 21179 removed from repair queue
 
 Joins a meta node and/or data node to a cluster.
 By default, `influxd-ctl` joins the local meta node and/or data node into a new cluster.
-Use `join` instead of the [`add-meta`](#add-meta) or [`add-data`](#add-data) arguments when performing a [QuickStart Installation](/enterprise_influxdb/v1.6/install-and-deploy/quickstart_installation/cluster_installation/) of an InfluxDB Enterprise cluster.
 
 #### Syntax
 
@@ -455,8 +454,6 @@ Print verbose information about the join.
 
 Address of a meta node in an existing cluster.
 Use this argument to add the un-joined meta node and/or data node to an existing cluster.
-
-Resources: [QuickStart installation](/enterprise_influxdb/v1.6/install-and-deploy/quickstart_installation/cluster_installation/)
 
 #### Examples
 
@@ -574,7 +571,6 @@ Killed shard copy 39 from cluster-data-node-02:8088 to cluster-data-node-03:8088
 #### `leave`
 
 Removes a meta node and/or data node from the cluster.
-Use `leave` instead of the [`remove-meta`](#remove-meta) and [`remove-data`](#remove-data) arguments if you set up your InfluxDB Enterprise cluster with the [QuickStart Installation](/enterprise_influxdb/v1.6/install-and-deploy/quickstart_installation/cluster_installation/) process.
 
 {{% warn %}}The `leave` argument is destructive; it erases all metastore information from meta nodes and all data from data nodes.
 Use `leave` only if you want to *permanently* remove a node from a cluster.
@@ -884,7 +880,7 @@ influxd-ctl show
 ###### Showing all meta and data nodes in a cluster
 
 In this example, the `show` command output displays that the cluster includes three meta nodes and two data nodes.
-Every node is using InfluxDB Enterprise `1.3.x-c1.3.x`.
+Every node is using InfluxDB Enterprise `{{< latest-patch >}}-c{{< latest-patch >}}`.
 
 ```
 $ influxd-ctl show
@@ -892,15 +888,15 @@ $ influxd-ctl show
 Data Nodes
 ==========
 ID	 TCP Address		        Version
-2   cluster-node-01:8088	1.3.x-c1.3.x
-4   cluster-node-02:8088	1.3.x-c1.3.x
+2   cluster-node-01:8088	{{< latest-patch >}}-c{{< latest-patch >}}
+4   cluster-node-02:8088	{{< latest-patch >}}-c{{< latest-patch >}}
 
 Meta Nodes
 ==========
 TCP Address		        Version
-cluster-node-01:8091	1.3.x-c1.3.x
-cluster-node-02:8091	1.3.x-c1.3.x
-cluster-node-03:8091	1.3.x-c1.3.x
+cluster-node-01:8091	{{< latest-patch >}}-c{{< latest-patch >}}
+cluster-node-02:8091	{{< latest-patch >}}-c{{< latest-patch >}}
+cluster-node-03:8091	{{< latest-patch >}}-c{{< latest-patch >}}
 ```
 
 #### `show-shards`

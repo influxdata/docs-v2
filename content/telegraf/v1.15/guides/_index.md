@@ -1,6 +1,6 @@
 ---
 title: Telegraf Guides
-
+description: Step-by-step tutorials for Telegraf.
 menu:
   telegraf_1_15:
     name: Guides
@@ -9,4 +9,4 @@ menu:
 
 The following articles guide you through step-by-step Telegraf configuration examples.
 
-[Using the HTTP plugin with Citi Bike data](/telegraf/v1.15/guides/using_http)
+{{< children >}}

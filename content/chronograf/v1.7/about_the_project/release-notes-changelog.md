@@ -1,6 +1,6 @@
 ---
 title: Chronograf 1.7 release notes
-description: Features, breaking features, user interface improvements, and bug fixes for the latest and earlier Chronograf releases for the InfluxData time series platform.
+description: Important changes and what's new in each version of Chronograf.
 menu:
   chronograf_1_7:
     name: Release notes
@@ -836,9 +836,9 @@ menu:
 ### UI improvements
 
   * When dashboard time range is changed, reset graphs that are zoomed in
-  * [Bar graph](/chronograf/latest/guides/visualization-types/#bar-graph) option added to dashboard
+  * [Bar graph](/chronograf/v1.7/guides/visualization-types/#bar-graph) option added to dashboard
   * Redesign source management table to be more intuitive
-  * Redesign [Line + Single Stat](/chronograf/latest/guides/visualization-types/#line-graph-single-stat) cells to appear more like a sparkline, and improve legibility
+  * Redesign [Line + Single Stat](/chronograf/v1.7/guides/visualization-types/#line-graph-single-stat) cells to appear more like a sparkline, and improve legibility
 
 
 ## v1.3.2.0 [2017-06-05]
@@ -854,7 +854,7 @@ menu:
 
 ### Features
 
-  * Add UI to the Data Explorer for [writing data to InfluxDB](/chronograf/latest/guides/querying-data/)
+  * Add UI to the Data Explorer for [writing data to InfluxDB](/chronograf/v1.7/guides/querying-data/)
 
 ### UI improvements
 
@@ -874,26 +874,26 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
 
 ### Bug fixes
 
-  * Fix infinite spinner when `/chronograf` is a [basepath](/chronograf/latest/administration/config-options/#p-basepath)
+  * Fix infinite spinner when `/chronograf` is a [basepath](/chronograf/v1.7/administration/config-options/#basepath-p)
   * Remove the query templates dropdown from dashboard cell editor mode
   * Fix the backwards sort arrows in table column headers
   * Make the logout button consistent with design
   * Fix the loading spinner on graphs
   * Filter out any template variable values that are empty, whitespace, or duplicates
-  * Allow users to click the add query button after selecting singleStat as the [visualization type](/chronograf/latest/guides/visualization-types)
+  * Allow users to click the add query button after selecting singleStat as the [visualization type](/chronograf/v1.7/guides/visualization-types)
   * Add a query for windows uptime - thank you, @brianbaker!
 
 ### Features
 
   * Add log event handler- thank you, @mpchadwick!
   * Update Go (golang) vendoring to dep and committed vendor directory
-  * Add autocomplete functionality to [template variable](/chronograf/latest/guides/dashboard-template-variables) dropdowns
+  * Add autocomplete functionality to [template variable](/chronograf/v1.7/guides/dashboard-template-variables) dropdowns
 
 ### UI improvements
 
   * Refactor scrollbars to support non-webkit browsers
   * Increase the query builder's default height in cell editor mode and in the data explorer
-  * Make the [template variables](/chronograf/latest/guides/dashboard-template-variables) manager more space efficient
+  * Make the [template variables](/chronograf/v1.7/guides/dashboard-template-variables) manager more space efficient
   * Add page spinners to pages that did not have them
   * Denote which source is connected in the sources table
   * Use milliseconds in the InfluxDB dashboard instead of nanoseconds
@@ -903,25 +903,25 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
 
 ### Bug fixes
 
-  * Fix the link to home when using the [`--basepath` option](/chronograf/latest/administration/config-options/#p-basepath)
+  * Fix the link to home when using the [`--basepath` option](/chronograf/v1.7/administration/config-options/#basepath-p)
   * Remove the notification to login on the login page
   * Support queries that perform math on functions
   * Prevent the creation of blank template variables
   * Ensure thresholds for Kapacitor Rule Alerts appear on page load
   * Update the Kapacitor configuration page when the configuration changes
-  * Fix Authentication when using Chronograf with a set [basepath](/chronograf/latest/administration/config-options/#p-basepath)
+  * Fix Authentication when using Chronograf with a set [basepath](/chronograf/v1.7/administration/config-options/#basepath-p)
   * Show red indicator on Hosts Page for an offline host
   * Support escaping from presentation mode in Safari
   * Re-implement level colors on the alerts page
   * Fix router bug introduced by upgrading to react-router v3.0
-  * Show legend on [Line+Stat](/chronograf/latest/guides/visualization-types/#line-graph-single-stat) visualization type
+  * Show legend on [Line+Stat](/chronograf/v1.7/guides/visualization-types/#line-graph-single-stat) visualization type
   * Prevent queries with `:dashboardTime:` from breaking the query builder
 
 ### Features
 
-  * Add line-protocol proxy for InfluxDB/InfluxEnterprise Cluster data sources
+  * Add line-protocol proxy for InfluxDB/InfluxDB Enterprise Cluster data sources
   * Add `:dashboardTime:` to support cell-specific time ranges on dashboards
-  * Add support for enabling and disabling [TICKscripts that were created outside Chronograf](/chronograf/latest/guides/advanced-kapacitor/#tickscript-management)
+  * Add support for enabling and disabling [TICKscripts that were created outside Chronograf](/chronograf/v1.7/guides/advanced-kapacitor/#tickscript-management)
   * Allow users to delete Kapacitor configurations
 
 ### UI improvements

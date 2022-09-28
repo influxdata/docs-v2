@@ -6,7 +6,7 @@ menu:
     parent: Guides
 ---
 
-This guide offers general hardware recommendations for InfluxDB and addresses some frequently asked questions about hardware sizing. The recommendations are only for the [Time Structured Merge](/influxdb/v1.4/concepts/storage_engine/#the-new-influxdb-storage-engine-from-lsm-tree-to-b-tree-and-back-again-to-create-the-time-structured-merge-tree) tree (`TSM`) storage engine, the only storage engine available with InfluxDB 1.4. Users running older versions of InfluxDB with [unconverted](/influxdb/v0.10/administration/upgrading/#convert-b1-and-bz1-shards-to-tsm1) `b1` or `bz1` shards may have different performance characteristics. See the [InfluxDB 0.9 sizing guide](/influxdb/v0.9/guides/hardware_sizing/) for more detail.
+This guide offers general hardware recommendations for InfluxDB and addresses some frequently asked questions about hardware sizing. The recommendations are only for the [Time Structured Merge](/influxdb/v1.4/concepts/storage_engine/#the-new-influxdb-storage-engine-from-lsm-tree-to-b-tree-and-back-again-to-create-the-time-structured-merge-tree) tree (`TSM`) storage engine, the only storage engine available with InfluxDB 1.4. Users running older versions of InfluxDB with [unconverted](https://archive.docs.influxdata.com/influxdb/v0.10/administration/upgrading/#convert-b1-and-bz1-shards-to-tsm1) `b1` or `bz1` shards may have different performance characteristics. See the [InfluxDB 0.9 sizing guide](https://archive.docs.influxdata.com/influxdb/v0.9/guides/hardware_sizing/) for more detail.
 
 * [Single node or Cluster?](/influxdb/v1.4/guides/hardware_sizing/#single-node-or-cluster)
 * [General hardware guidelines for a single node](/influxdb/v1.4/guides/hardware_sizing/#general-hardware-guidelines-for-a-single-node)
@@ -93,7 +93,7 @@ Meta nodes do not need very much computing power. Regardless of the cluster load
 * IOPS: 50
 
 ## Data Nodes
-A cluster with only one data node is valid but has no data redundancy. The redundancy is set by the [replication factor](/influxdb/v0.13/concepts/glossary/#replication-factor) on the retention policy to which the data is written. A cluster can lose `n - 1` data nodes and still return complete query results, where `n` is the replication factor. For optimal data distribution within the cluster, InfluxData recommends using an even number of data nodes.
+A cluster with only one data node is valid but has no data redundancy. The redundancy is set by the [replication factor](/influxdb/v1.3/concepts/glossary/#replication-factor) on the retention policy to which the data is written. A cluster can lose `n - 1` data nodes and still return complete query results, where `n` is the replication factor. For optimal data distribution within the cluster, InfluxData recommends using an even number of data nodes.
 
 The hardware recommendations for cluster data nodes are similar to the standalone instance recommendations. Data nodes should always have at least 2 CPU cores, as they must handle regular read and write traffic, as well as intra-cluster read and write traffic. Due to the cluster communication overhead, data nodes in a cluster handle less throughput than a standalone instance on the same hardware.
 

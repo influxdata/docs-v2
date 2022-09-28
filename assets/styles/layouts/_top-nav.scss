@@ -4,10 +4,11 @@
   justify-content: space-between;
   position: relative;
   box-sizing: border-box;
+  z-index: 1;
 
   .influx-home {
-    font-family: 'icomoon';
-    font-size: 1.9rem;
+    font-family: 'icomoon-v2';
+    font-size: 1.4rem;
     color: $topnav-link;
     text-decoration: none;
     vertical-align: middle;
@@ -15,7 +16,7 @@
       color: $topnav-link-hover;
     }
     .icon-influx-logotype {
-      margin-left: .15rem;
+      margin-left: .6rem;
     }
   }
 
@@ -27,7 +28,6 @@
   .docs-home {
     display: inline-block;
     vertical-align: text-top;
-    font-style: italic;
     font-weight: $medium;
     font-size: 1.1rem;
     color: $topnav-link;
@@ -38,6 +38,8 @@
   }
 
   .topnav-left {
+    margin-right: .15rem;
+    padding: .25rem .15rem;
     z-index: 1;
   }
 
@@ -51,7 +53,7 @@
   .selector-dropdowns {
     display: flex;
     z-index: 100;
-    right: 5.5rem;
+    padding-right: .25rem;
   }
 
   .dropdown {
@@ -64,6 +66,7 @@
   @include gradient($default-dropdown-gradient);
   background-attachment: local !important;
   font-weight: $medium;
+  font-size: 1.05rem;
   border-radius: $radius;
   overflow: hidden;
   cursor: pointer;
@@ -74,8 +77,8 @@
     }
 
     &:after {
-      content: '\e917';
-      font-family: 'icomoon';
+      content: "\e918";
+      font-family: 'icomoon-v2';
       position: absolute;
       top: .45rem;
       right: .4rem;
@@ -84,6 +87,8 @@
 
     &.open {
       height: auto;
+      max-height: calc(100vh - 2rem);
+      overflow-y: scroll;
       &:after {
         transform: rotate(180deg);
       }
@@ -95,12 +100,35 @@
       list-style: none;
       display: flex;
       flex-direction: column-reverse;
+
+      &.products{
+        li {
+          &:before {
+            display: inline-block;
+            font-size: .85rem;
+            color: $g2-kevlar;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: .04rem;
+            opacity: .65;
+            mix-blend-mode: multiply;
+          }
+          &:last-child:before {
+            content: "Products";
+            margin: .3rem .75rem .15rem;
+          }
+          &.flux:before {
+            content: "Languages";
+            margin: .75rem .75rem .15rem;
+          }
+        }
+      }
     }
     a {
       display: block;
       text-decoration: none;
       color: $g20-white;
-      padding: .5rem 1.5rem .5rem .75rem;
+      padding: .4rem 1.5rem .4rem .75rem;
       background: rgba($g20-white, 0);
       &:hover { background: rgba($g20-white, .2) }
       &.active { background: rgba($g20-white, .2) }
@@ -112,7 +140,7 @@
         position: relative;
         &:after {
           content: "\e911";
-          font-family: "icomoon";
+          font-family: "icomoon-v2";
           position: absolute;
           opacity: .4;
           margin-left: .25rem;
@@ -129,7 +157,6 @@
   .theme-switcher, #search-btn, .url-trigger {
     display: inline-block;
     padding: 0;
-    font-size: 1.8rem;
     line-height: 0;
     color: rgba($topnav-link, .5);
     background: none;
@@ -146,8 +173,8 @@
       color: rgba($topnav-link, 1);
       cursor: pointer;
     }
-    &#theme-switch-dark { display: $theme-switch-dark; }
-    &#theme-switch-light { display: $theme-switch-light; }
+    &#theme-switch-dark { display: $theme-switch-dark; font-size: 1.15rem; }
+    &#theme-switch-light { display: $theme-switch-light; font-size: 1.3rem; }
   }
 
   .url-trigger {

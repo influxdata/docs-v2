@@ -14,7 +14,7 @@ Manage your InfluxQL queries using the following:
 - [KILL QUERIES](#stop-currently-running-queries-with-kill-query) to stop queries overloading your system
 - [Configuration settings](#configuration-settings-for-query-management) to prevent and halt the execution of inefficient queries
 
-> The commands and configurations provided on this page are for **Influx Query Language (InfluxQL) only** -- **no equivalent set of Flux commands and configurations currently exists**. For the most current Flux documentation, see [Get started with Flux](/flux/v0.50/introduction/getting-started/).
+> The commands and configurations provided on this page are for **Influx Query Language (InfluxQL) only** -- **no equivalent set of Flux commands and configurations currently exists**. For the most current Flux documentation, see [Get started with Flux](/influxdb/v1.8/flux/get-started/).
 
 ## List currently-running queries with `SHOW QUERIES`
 
@@ -151,6 +151,9 @@ the following error:
 ```
 ERR: max number of points reached
 ```
+
+InfluxDB checks the point count every second (so queries exceeding the maximum aren’t immediately aborted).
+
 
 ### `max-select-series`
 

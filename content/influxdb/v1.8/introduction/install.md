@@ -1,5 +1,6 @@
 ---
 title: Install InfluxDB OSS
+description: Install, start, and configure InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Install InfluxDB
@@ -7,6 +8,7 @@ menu:
     parent: Introduction
 aliases:
   - /influxdb/v1.8/introduction/installation/
+v2: /influxdb/v2.0/get-started/
 ---
 
 This page provides directions for installing, starting, and configuring InfluxDB open source (OSS).
@@ -57,7 +59,7 @@ please see the
 Debian and Ubuntu users can install the latest stable version of InfluxDB using the
 `apt-get` package manager.
 
-For Ubuntu users, add the InfluxData repository with the following commands:
+For Ubuntu/Debian users, add the InfluxData repository with the following commands:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -65,46 +67,23 @@ For Ubuntu users, add the InfluxData repository with the following commands:
 [curl](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
-```bash
-wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
-source /etc/lsb-release
-echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+```sh
+# influxdb.key GPG Fingerprint: 05CE15085FC09D18E99EFB22684A14CF2582E0C5
+wget -q https://repos.influxdata.com/influxdb.key
+echo '23a1c8836f0afc5ed24e0486339d7cc8f6790b83886c4c96995b88a061c5bb5d influxdb.key' | sha256sum -c && cat influxdb.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdb.gpg > /dev/null
+echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdb.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
 ```
 {{% /code-tab-content %}}
 
 {{% code-tab-content %}}
-```bash
-curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
-source /etc/lsb-release
-echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+```sh
+# influxdb.key GPG Fingerprint: 05CE15085FC09D18E99EFB22684A14CF2582E0C5
+curl -s https://repos.influxdata.com/influxdb.key > influxdb.key
+echo '23a1c8836f0afc5ed24e0486339d7cc8f6790b83886c4c96995b88a061c5bb5d influxdb.key' | sha256sum -c && cat influxdb.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdb.gpg > /dev/null
+echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdb.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-For Debian users, add the InfluxData repository:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[wget](#)
-[curl](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```bash
-wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
-source /etc/os-release
-echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-```
-{{% /code-tab-content %}}
-
-{{% code-tab-content %}}
-```bash
-curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
-source /etc/os-release
-echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 
 Then, install and start the InfluxDB service:
 
@@ -192,31 +171,27 @@ To have InfluxDB start at system boot, add `influxd_enable="YES"` to `/etc/rc.co
 
 {{% tab-content %}}
 
-Users of macOS 10.8 and higher can install InfluxDB using the [Homebrew](http://brew.sh/) package manager.
-Once `brew` is installed, you can install InfluxDB by running:
+Use [Homebrew](http://brew.sh/) to install InfluxDB on macOS:
 
 ```bash
 brew update
-brew install influxdb
+brew install influxdb@1
 ```
 
-To have `launchd` start InfluxDB at login, run:
+{{% note %}}
+##### Multiple versions of InfluxDB with Homebrew
+Installing both InfluxDB 1.8 and InfluxDB 2.0 with Homebrew
+can result in unexpected path and naming conflicts.
+You can always run the desired version by specifying the full path:
 
-```bash
-ln -sfv /usr/local/opt/influxdb/*.plist ~/Library/LaunchAgents
+```sh
+$ /usr/local/opt/influxdb/bin/influxd version
+InfluxDB {{< latest-patch >}} (git: none) build_date: 2021-04-01T17:55:08Z
+$ /usr/local/opt/influxdb@1/bin/influxd version
+InfluxDB v{{< latest-patch version="1.8" >}} (git: unknown unknown)
 ```
 
-And then to start InfluxDB now, run:
-
-```bash
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.influxdb.plist
-```
-
-Or, if you don't want/need launchctl, in a separate terminal window you can just run:
-
-```bash
-influxd -config /usr/local/etc/influxdb.conf
-```
+{{% /note %}}
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
@@ -231,20 +206,20 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 1. Download and import InfluxData's public key:
 
     ```
-    curl -sL https://repos.influxdata.com/influxdb.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdb.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
    For example:
 
     ```
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.0_linux_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/influxdb/releases/influxdb-{{< latest-patch >}}_linux_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-1.8.0_linux_amd64.tar.gz.asc influxdb-1.8.0_linux_amd64.tar.gz
+    gpg --verify influxdb-{{< latest-patch >}}_linux_amd64.tar.gz.asc influxdb-{{< latest-patch >}}_linux_amd64.tar.gz
     ```
 
     The output from this command should include the following:
@@ -259,12 +234,14 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 The system has internal defaults for every configuration file setting.
 View the default configuration settings with the `influxd config` command.
 
-> **Note:** If InfluxDB is being deployed on a publicly accessible endpoint, we strongly recommend authentication be enabled.
+{{% note %}}
+**Note:** If InfluxDB is being deployed on a publicly accessible endpoint, we strongly recommend authentication be enabled.
 Otherwise the data will be publicly available to any unauthenticated user. The default settings do **NOT** enable
 authentication and authorization. Further, authentication and authorization should not be solely relied upon to prevent access
 and protect data from malicious actors. If additional security or compliance features are desired, InfluxDB should be run
 behind a third-party service. Review the [authentication and authorization](/influxdb/v1.8/administration/authentication_and_authorization/)
 settings.
+{{% /note %}}
 
 Most of the settings in the local configuration file
 (`/etc/influxdb/influxdb.conf`) are commented out; all
@@ -302,7 +279,9 @@ See the [Configuration](/influxdb/v1.8/administration/config/) documentation for
 
 Make sure the directories in which data and the [write ahead log](/influxdb/v1.8/concepts/glossary#wal-write-ahead-log) (WAL) are stored are writable for the user running the `influxd` service.
 
-> **Note:** If the data and WAL directories are not writable, the `influxd` service will not start.
+{{% note %}}
+**Note:** If the data and WAL directories are not writable, the `influxd` service will not start.
+{{% /note %}}
 
 Information about `data` and `wal` directory paths is available in the [Data settings](/influxdb/v1.8/administration/config/#data-settings) section of the [Configuring InfluxDB](/influxdb/v1.8/administration/config/) documentation.
 
@@ -327,7 +306,7 @@ For more information on how to do that see the Amazon documentation on how to [A
 ### Configuration file
 You'll have to update the configuration file appropriately for each InfluxDB instance you have.
 
-```
+```toml
 ...
 
 [meta]

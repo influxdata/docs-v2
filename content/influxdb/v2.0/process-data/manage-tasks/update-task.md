@@ -8,8 +8,6 @@ menu:
     name: Update a task
     parent: Manage tasks
 weight: 204
-aliases:
-  - /v2.0/process-data/manage-tasks/update-task/
 related:
   - /influxdb/v2.0/reference/cli/influx/task/update
 ---
@@ -17,7 +15,7 @@ related:
 ## Update a task in the InfluxDB UI
 Click the **Tasks** icon in the left navigation to view the lists of tasks.
 
-{{< nav-icon "tasks" >}}
+{{< nav-icon "tasks" "v2" >}}
 
 Click the name of a task to update it.
 
@@ -29,12 +27,12 @@ Click the name of a task to update it.
 
 
 #### Update the status of a task
-In the list of tasks, click the {{< icon "toggle" >}} toggle to the left of the
+In the list of tasks, click the {{< icon "toggle" "v2" >}} toggle to the left of the
 task you want to activate or inactivate.
 
 #### Update a task description
 1. In the list of tasks, hover over the name of the task you want to update.
-2. Click the pencil icon {{< icon "pencil" >}}.
+2. Click the pencil icon {{< icon "pencil" "v2" >}}.
 3. Click outside of the field or press `RETURN` to update.
 
 ## Update a task with the influx CLI
@@ -45,7 +43,7 @@ _This command requires a task ID, which is available in the output of `influx ta
 #### Update a task Flux script
 Pass the file path of your updated Flux script to the `influx task update` command
 with the ID of the task you want to update.
-Modified [task options](/v2.0/process-data/task-options) defined in the Flux
+Modified [task options](/influxdb/v2.0/process-data/task-options) defined in the Flux
 script are also updated.
 
 ```sh

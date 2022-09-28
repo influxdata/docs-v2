@@ -455,7 +455,7 @@ and more examples, see the [API Reference](/influxdb/v1.5/tools/api/#write).
 
 #### CLI
 Write data to InfluxDB using InfluxDB's Command Line Interface (CLI).
-[Launch](/influxdb/v1.5/tools/shell/#launch-influx) the CLI, use the relevant
+[Launch](/influxdb/v1.5/tools/shell/#using-influx) the CLI, use the relevant
 database, and put `INSERT` in
 front of your Line Protocol:
 
@@ -474,7 +474,7 @@ on the [HTTP API](/influxdb/v1.5/tools/api/#write), the
 [UDP](/influxdb/v1.5/tools/udp/),
 [Graphite](/influxdb/v1.5/tools/graphite/),
 [CollectD](/influxdb/v1.5/tools/collectd/), and
-[OpenTSDB](/influxdb/v1.5/tools/opentsdb/)).
+[OpenTSDB](/influxdb/v1.5/supported_protocols/opentsdb/)).
 
 ### Duplicate points
 

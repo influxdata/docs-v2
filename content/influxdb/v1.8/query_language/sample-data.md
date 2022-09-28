@@ -1,5 +1,6 @@
 ---
 title: Sample data
+description: Create a database, download, and write sample data.
 menu:
   influxdb_1_8:
     weight: 10
@@ -7,6 +8,7 @@ menu:
 aliases:
   - /influxdb/v1.8/sample_data/data_download/
   - /influxdb/v1.8/query_language/data_download/
+v2: /influxdb/v2.0/reference/sample-data/
 ---
 
 In order to explore the query language further, these instructions help you create a database,
@@ -23,8 +25,8 @@ The output should look like this:
 
 ```bash
 $ influx -precision rfc3339
-Connected to http://localhost:8086 version 1.4.x
-InfluxDB shell 1.4.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 >
 ```
 
@@ -33,7 +35,7 @@ InfluxDB shell 1.4.x
 * The InfluxDB API runs on port `8086` by default.
 Therefore, `influx` will connect to port `8086` and `localhost` by default.
 If you need to alter these defaults, run `influx --help`.
-* The [`-precision` argument](/influxdb/latest/tools/shell/#influx-options) specifies the format/precision of any returned timestamps.
+* The [`-precision` argument](/influxdb/v1.8/tools/shell/#influx-arguments) specifies the format/precision of any returned timestamps.
 In the example above, `rfc3339` tells InfluxDB to return timestamps in [RFC3339 format](https://www.ietf.org/rfc/rfc3339.txt) (`YYYY-MM-DDTHH:MM:SS.nnnnnnnnnZ`).
 
 The command line is now ready to take input in the form of the Influx Query Language (a.k.a InfluxQL) statements.
@@ -69,8 +71,8 @@ influx -import -path=NOAA_data.txt -precision=s -database=NOAA_water_database
 ### Test queries
 ```bash
 $ influx -precision rfc3339 -database NOAA_water_database
-Connected to http://localhost:8086 version 1.4.x
-InfluxDB shell 1.4.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 >
 ```
 

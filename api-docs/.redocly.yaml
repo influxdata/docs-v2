@@ -1,0 +1,7 @@
+apis:
+styleguide:
+  plugins:
+    - './openapi/plugins/docs-plugin.js'
+  extends:
+    - recommended
+    - docs/all

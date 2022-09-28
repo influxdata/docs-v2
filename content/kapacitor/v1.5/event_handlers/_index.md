@@ -1,8 +1,10 @@
 ---
 title: Kapacitor event handlers
-description: Kapacitor event handlers provide ways to integrate Kapacitor alert messages with logging, specific URLs, and many third-party applications.
+description: >
+  Kapacitor event handlers provide ways to integrate Kapacitor alert messages with logging, specific URLs, and many third-party applications.
 aliases:
   - /kapacitor/v1.5/working/event-handler-setup/
+  - /kapacitor/v1.5/event_handlers/talk/
 menu:
   kapacitor_1_5_ref:
     name: Event handlers
@@ -15,7 +17,7 @@ handlers. Currently, Kapacitor can send alert messages to specific log files and
 specific URLs, as well as to many third party applications.
 
 These documents outline configuration options, setup instructions,
-[handler file](#handler-file) and [TICKscript](/kapacitor/v1.5/tick/introduction/)
+[handler file](#create-a-topic-handler-with-a-handler-file) and [TICKscript](/kapacitor/v1.5/tick/introduction/)
 syntax for officially supported Kapacitor event handlers.
 
 [Aggregate](/kapacitor/v1.5/event_handlers/aggregate/)  
@@ -25,18 +27,19 @@ syntax for officially supported Kapacitor event handlers.
 [Exec](/kapacitor/v1.5/event_handlers/exec/)  
 [Hipchat](/kapacitor/v1.5/event_handlers/hipchat/)  
 [Kafka](/kapacitor/v1.5/event_handlers/kafka/)  
-[Log](/kapacitor/v1.5/event_handlers/log/)
-[Microsoft Teams](/kapacitor/v1.5/event_handlers/microsoftteams/)
+[Log](/kapacitor/v1.5/event_handlers/log/)  
+[Microsoft Teams](/kapacitor/v1.5/event_handlers/microsoftteams/)  
 [MQTT](/kapacitor/v1.5/event_handlers/mqtt/)  
-[Opsgenie](/kapacitor/v1.5/event_handlers/opsgenie/)  
-[Pagerduty](/kapacitor/v1.5/event_handlers/pagerduty/)  
+[Opsgenie](/kapacitor/v1.5/event_handlers/opsgenie/v2/)  
+[Pagerduty](/kapacitor/v1.5/event_handlers/pagerduty/v2/)  
 [Post](/kapacitor/v1.5/event_handlers/post/)  
-[Publish](/kapacitor/v1.5/event_handlers/publish/)
-[Pushover](/kapacitor/v1.5/event_handlers/pushover/)
+[Publish](/kapacitor/v1.5/event_handlers/publish/)  
+[Pushover](/kapacitor/v1.5/event_handlers/pushover/)  
 [Sensu](/kapacitor/v1.5/event_handlers/sensu/)  
+[ServiceNow](/kapacitor/v1.5/event_handlers/servicenow/)  
 [Slack](/kapacitor/v1.5/event_handlers/slack/)  
 [Snmptrap](/kapacitor/v1.5/event_handlers/snmptrap/)  
-[Talk](/kapacitor/v1.5/event_handlers/talk/)  
+[Talk](/kapacitor/v1.5/event_handlers/talk/) (deprecated)  
 [TCP](/kapacitor/v1.5/event_handlers/tcp/)  
 [Telegram](/kapacitor/v1.5/event_handlers/telegram/)  
 [Victorops](/kapacitor/v1.5/event_handlers/victorops/)  
@@ -63,7 +66,7 @@ Enable the event handler in your `kapacitor.conf` if applicable. Once
 enabled, do one of the following:
 
 - [Create a topic handler with a handler file](#create-a-topic-handler-with-a-handler-file), and then [add the handler](#add-the-handler).
-- [Use a handler in a TICKscripts](#use-a-handler-in-a-tickscripts).
+- [Use a handler in a TICKscripts](#use-a-handler-in-a-tickscript).
 
     > **Note:** Not all event handlers can be used in TICKscripts.
 
@@ -104,7 +107,7 @@ options:
 Use the Kapacitor CLI to define a new handler with a handler file:
 
 ```bash
-# Pattern
+# Syntax
 kapacitor define-topic-handler <handler-file-name>
 
 # Example

@@ -2,7 +2,7 @@
 title: Update an InfluxDB stack
 list_title: Update a stack
 description: >
-  Use the [`influx apply` command](/v2.0/reference/cli/influx/apply/)
+  Use the [`influx apply` command](/influxdb/v2.0/reference/cli/influx/apply/)
   to update a stack with a modified template.
   When applying a template to an existing stack, InfluxDB checks to see if the
   resources in the template match existing resources.
@@ -12,9 +12,7 @@ menu:
   influxdb_2_0:
     parent: InfluxDB stacks
     name: Update a stack
-weight: 202
-aliases:
-  - /v2.0/influxdb-templates/stacks/update/
+weight: 203
 related:
   - /influxdb/v2.0/reference/cli/influx/apply
   - /influxdb/v2.0/reference/cli/influx/stacks/update/
@@ -28,7 +26,7 @@ list_code_example: |
   ```
 ---
 
-Use the [`influx apply` command](/v2.0/reference/cli/influx/apply/)
+Use the [`influx apply` command](/influxdb/v2.0/reference/cli/influx/apply/)
 to update a stack with a modified template.
 When applying a template to an existing stack, InfluxDB checks to see if the
 resources in the template match existing resources.
@@ -36,7 +34,7 @@ InfluxDB updates, adds, and removes resources to resolve differences between
 the current state of the stack and the newly applied template.
 
 Each stack is uniquely identified by a **stack ID**.
-For information about retrieving your stack ID, see [View stacks](/v2.0/influxdb-templates/stacks/view/).
+For information about retrieving your stack ID, see [View stacks](/influxdb/v2.0/influxdb-templates/stacks/view/).
 
 **Provide the following:**
 

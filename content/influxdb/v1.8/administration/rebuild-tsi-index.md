@@ -1,7 +1,7 @@
 ---
 title: Rebuild the TSI index
 description: >
-  Rebuild your InfluxDB TSI index using the `influxd_inspect buildtsi` command.
+  Use the `influxd_inspect buildtsi` command to rebuild your InfluxDB TSI index.
 menu:
   influxdb_1_8:
     weight: 60
@@ -47,6 +47,6 @@ Restart InfluxDB by starting the `influxd` process.
 To rebuild the TSI index in an InfluxDB Enterprise cluster, perform the steps
 above on each data node in the cluster one after the other.
 After restarting the `influxd` process on a data node, allow the
-[hinted handoff queue (HHQ)](/enterprise_influxdb/latest/concepts/clustering/#hinted-handoff)
+[hinted handoff queue (HHQ)](/{{< latest "enterprise_influxdb" >}}/concepts/clustering/#hinted-handoff)
 to write all missed data to the updated node before moving on to the next node.
 {{% /note %}}

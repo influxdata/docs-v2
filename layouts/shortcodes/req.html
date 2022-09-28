@@ -1,0 +1,6 @@
+{{- $text := .Get 0 | default "Required" -}}
+{{- $overrideText := .Get "text" | default $text -}}
+{{- $type := .Get "type" | default "text" -}}
+{{- $class := cond (le (len $overrideText) 2) "asterisk" "" -}}
+{{- $color := .Get "color" | default "" }}
+{{- if ne $type "key" -}}<span class="req {{ $class }} {{ $color }}">{{ $overrideText | markdownify }}</span>{{ else }}<span class="req key {{ $color }}">* {{ $overrideText }}</span>{{ end }}

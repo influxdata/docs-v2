@@ -1,6 +1,6 @@
 ---
 title: Kapacitor alerts overview
-
+description: Handle alert messages with Kapacitor.
 menu:
   kapacitor_1_5:
     name: Alerts overview
@@ -28,7 +28,7 @@ passwords, it can also be configured using the [Kapacitor HTTP API](/kapacitor/v
 ## Push to handler
 
 Pushing messages to a handler is the basic approach presented in the
-[Getting started with Kapacitor](/kapacitor/v1.5/introduction/getting-started/#triggering-alerts-from-stream-data)
+[Getting started with Kapacitor](/kapacitor/v1.5/introduction/getting-started/#trigger-alerts-from-stream-data)
 guide. This involves simply calling the relevant chaining method made available
 through the `alert` node.  Messages can be pushed to `log()` files, the `email()`
 service, the `httpOut()` cache and many [third party services](#list-of-handlers).

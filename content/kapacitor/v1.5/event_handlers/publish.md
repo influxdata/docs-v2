@@ -1,6 +1,7 @@
 ---
 title: Publish event handler
-description: The "publish" event handler allows you to publish Kapacitor alerts messages to mulitple Kapacitor topics. This page includes options and usage examples.
+description: >
+  The "publish" event handler allows you to publish Kapacitor alerts messages to mulitple Kapacitor topics. This page includes options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Publish
@@ -12,7 +13,7 @@ The publish event handler publishes events to another topic.
 
 ## Options
 The following publish event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file).
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file).
 
 | Name   | Type           | Description                            |
 | ----   | ----           | -----------                            |

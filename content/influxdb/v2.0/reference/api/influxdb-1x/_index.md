@@ -1,63 +1,163 @@
 ---
 title: InfluxDB 1.x compatibility API
 description: >
-  placeholder
+  The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
+  InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
 menu:
   influxdb_2_0_ref:
     name: 1.x compatibility
     parent: InfluxDB v2 API
 weight: 104
-aliases:
-  - /v2.0/reference/api/influxdb-1x/
 influxdb/v2.0/tags: [influxql, query, write]
-products: [cloud]
 related:
   - /influxdb/v2.0/query-data/influxql
+  - /influxdb/v2.0/upgrade/v1-to-v2/
 ---
 
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
 InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
 
+<a class="btn" href="/influxdb/v2.0/api/v1-compatibility/">View full v1 compatibility API documentation</a>
+
 ## Authentication
-InfluxDB 2.0 requires all query and write requests to be authenticated.
-Use **basic authentication** or **token authentication** to authenticate requests to
-InfluxDB 1.x compatibility endpoints.
+InfluxDB 2.0 requires all query and write requests to be authenticated with an
+[API token](/influxdb/v2.0/security/tokens/) or 1.x compatible
+credentials.
 
-### Basic Authentication
-Basic authentications requires the following credentials:
+* [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
+* [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
 
-- **username**: InfluxDB username
-- **password**: InfluxDB [authentication token](/v2.0/security/tokens/)
-
-There are multiple ways to provide basic authentication credentials.
-The example below uses the `Authorization` header with the `Basic` scheme to
-provide the required credentials:
-
-##### Basic authentication with authorization header
-```sh
-# Header syntax
-Authorization: Basic <username>:<password>
-
-# Header example
-Authorization: Basic admin:mYSuP3rs3cREtT0k3N
-```
-
-### Token Authentication
+### Authenticate with the Token scheme
 Token authentication requires the following credential:
 
-- **token**: InfluxDB [authentication token](/v2.0/security/tokens/)
+- **token**: InfluxDB [API token](/influxdb/v2.0/security/tokens/)
 
-Use the `Authorization` header with the `Token` scheme to provide your
-authentication token to InfluxDB.
+Use the `Authorization` header with the `Token` scheme to provide your token to InfluxDB.
 
-##### Token authentication with authorization header
+#### Syntax
+
 ```sh
-# Header syntax
 Authorization: Token <token>
-
-# Header example
-Authorization: Token mYSuP3rs3cREtT0k3N
 ```
+
+#### Example
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+{{% get-shared-text "api/v1-compat/auth/oss/token-auth.sh" %}}
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+{{% get-shared-text "api/v1-compat/auth/oss/token-auth.js" %}}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+### Authenticate with a username and password scheme
+
+Use the following authentication schemes with clients that support the InfluxDB 1.x convention of `username` and `password` (that don't support the `Authorization: Token` scheme):
+
+- [Basic authentication](#basic-authentication)
+- [Query string authentication](#query-string-authentication)
+
+##### Manage credentials
+
+Username and password schemes require the following credentials:
+- **username**: 1.x username (this is separate from the UI login username)
+- **password**: 1.x password or InfluxDB API token.
+
+{{% note %}}
+#### Password or Token
+If you have [set a password](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
+If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/v2.0/security/tokens/) as the password.
+{{% /note %}}
+
+For information about creating and managing 1.x-compatible authorizations, see:
+
+- [`influx v1 auth` command](/influxdb/v2.0/reference/cli/influx/v1/auth/)
+- [Manually upgrade – 1.x-compatible authorizations](/influxdb/v2.0/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
+
+#### Basic authentication
+
+Use the `Authorization` header with the `Basic` scheme to provide username and
+password credentials to InfluxDB.
+
+{{% api/v1-compat/basic-auth-syntax %}}
+
+##### Syntax
+```sh
+Authorization: Basic <username>:<password>
+```
+
+##### Example
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+{{% get-shared-text "api/v1-compat/auth/oss/basic-auth.sh" %}}
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+{{% get-shared-text "api/v1-compat/auth/oss/basic-auth.js" %}}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+#### Query string authentication
+Use InfluxDB 1.x API parameters to provide credentials through the query string.
+
+{{% note %}}
+##### Consider when using query string parameters
+
+- URL-encode query parameters that may contain whitespace or other special characters.
+- Be aware of the [risks](https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url) when exposing sensitive data through URLs.
+{{% /note %}}
+
+##### Syntax
+
+```sh
+ /query/?u=<username>&p=<password>
+ /write/?u=<username>&p=<password>
+ ```
+
+##### Example
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+{{< get-shared-text "api/v1-compat/auth/oss/querystring-auth.sh" >}}
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+{{< get-shared-text "api/v1-compat/auth/oss/querystring-auth.js" >}}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+##### InfluxQL support
+
+The compatibility API supports InfluxQL, with the following caveats:
+
+- The `INTO` clause (e.g. `SELECT ... INTO ...`) is not supported.
+- With the exception of [`DELETE`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-series-with-delete) and
+  [`DROP MEASUREMENT`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-measurements-with-drop-measurement) queries, which are still allowed,
+  InfluxQL database management commands are not supported.
 
 ## Compatibility endpoints
 

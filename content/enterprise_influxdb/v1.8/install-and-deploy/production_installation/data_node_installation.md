@@ -18,15 +18,15 @@ If you have not set up your meta nodes, please visit
 [Installing meta nodes](/enterprise_influxdb/v1.8/install-and-deploy/production_installation/meta_node_installation/).
 Bad things can happen if you complete the following steps without meta nodes.
 
-<br>
 # Data node setup description and requirements
 
 The Production Installation process sets up two [data nodes](/enterprise_influxdb/v1.8/concepts/glossary#data-node)
 and each data node runs on its own server.
 You **must** have a minimum of two data nodes in a cluster.
 InfluxDB Enterprise clusters require at least two data nodes for high availability and redundancy.
-<br>
-Note: that there is no requirement for each data node to run on its own
+`hh`, `wal`, `data`, and `meta` directories are required on all data nodes and are created as part of the installation process.
+
+**Note:** There is no requirement for each data node to run on its own
 server.  However, best practices are to deploy each data node on a dedicated server.
 
 See the
@@ -59,33 +59,39 @@ InfluxDB Enterprise does not function as a load balancer.
 You will need to configure your own load balancer to send client traffic to the
 data nodes on port `8086` (the default port for the [HTTP API](/influxdb/v1.8/tools/api/)).
 
+#### User account
+
+The installation package creates user `influxdb` that is used to run the influxdb data service.  `influxdb` user also owns  certain files that are needed for the service to start successfully.  In some cases, local policies may prevent the local user account from being created and the service fails to start.  Contact your systems administrator for assistance with this requirement.
+
 # Data node setup
+## Step 1: Add appropriate DNS entries for each of your servers
 
-## Step 1: Modify the `/etc/hosts` file
+Ensure that your servers' hostnames and IP addresses are added to your network's DNS environment.
+The addition of DNS entries and IP assignment is usually site and policy specific; contact your DNS administrator for assistance as necessary.
+Ultimately, use entries similar to the following (hostnames and domain IP addresses are representative).
 
-Add your servers' hostnames and IP addresses to **each** cluster server's `/etc/hosts`
-file (the hostnames below are representative).
+| Record Type |               Hostname                |                IP |
+|:------------|:-------------------------------------:|------------------:|
+| A           | ```enterprise-data-01.mydomain.com``` | ```<Data_1_IP>``` |
+| A           | ```enterprise-data-02.mydomain.com``` | ```<Data_2_IP>``` |
 
-```
-<Data_1_IP> enterprise-data-01
-<Data_2_IP> enterprise-data-02
-```
+   {{% note %}}
+**Verification steps:**
 
-> **Verification steps:**
->
 Before proceeding with the installation, verify on each meta and data server that the other
 servers are resolvable. Here is an example set of shell commands using `ping`:
->
+
     ping -qc 1 enterprise-meta-01
     ping -qc 1 enterprise-meta-02
     ping -qc 1 enterprise-meta-03
     ping -qc 1 enterprise-data-01
     ping -qc 1 enterprise-data-02
 
-If there are any connectivity issues resolve them before proceeding with the
-installation.
-A healthy cluster requires that every meta and data node can communicate
-with every other meta and data node.
+   {{% /note %}}
+
+We highly recommend that each server be able to resolve the IP from the hostname alone as shown here.
+Resolve any connectivity issues before proceeding with the installation.
+A healthy cluster requires that every meta node and data node in a cluster be able to communicate.
 
 ## Step 2: Set up, configure, and start the data node services
 
@@ -96,15 +102,15 @@ Perform the following steps on each data node.
 #### Ubuntu and Debian (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.8.0-c1.8.0_amd64.deb
-sudo dpkg -i influxdb-data_1.8.0-c1.8.0_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 #### RedHat and CentOS (64-bit)
 
 ```bash
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.0_c1.8.0.x86_64.rpm
-sudo yum localinstall influxdb-data-1.8.0_c1.8.0.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
 
 #### Verify the authenticity of release download (recommended)
@@ -114,20 +120,20 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 1. Download and import InfluxData's public key:
 
     ```
-    curl -sL https://repos.influxdata.com/influxdb.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdb.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
    For example:
 
     ```
-    wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.8.0_c1.8.0.x86_64.rpm.asc
+    wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify influxdb-data-1.8.0_c1.8.0.x86_64.rpm.asc influxdb-data-1.8.0_c1.8.0.x86_64.rpm
+    gpg --verify influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm.asc influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
     ```
 
     The output from this command should include the following:
@@ -206,17 +212,17 @@ On systemd systems, enter:
 sudo systemctl start influxdb
 ```
 
-> **Verification steps:**
->
+**Verification steps:**
+
 Check to see that the process is running by entering:
->
-    ps aux | grep -v grep | grep influxdb
->
+```bash
+ps aux | grep -v grep | grep influxdb
+```
 You should see output similar to:
->
-    influxdb  2706  0.2  7.0 571008 35376 ?        Sl   15:37   0:16 /usr/bin/influxd -config /etc/influxdb/influxdb.conf
-
-
+```bash
+influxdb  2706  0.2  7.0 571008 35376 ?        Sl   15:37   0:16 /usr/bin/influxd -config /etc/influxdb/influxdb.conf
+```
+ 
 If you do not see the expected output, the process is either not launching or is exiting prematurely. Check the [logs](/enterprise_influxdb/v1.8/administration/logs/) for error messages and verify the previous setup steps are complete.
 
 If you see the expected output, repeat for the remaining data nodes.
@@ -230,7 +236,8 @@ If you are replacing an existing data node with `influxd-ctl update-data`, skip 
 {{% /warn %}}
 
 On one and only one of the meta nodes that you set up in the
-[previous document](/enterprise_influxdb/v1.8/introduction/meta_node_installation/), run:
+[previous document](/enterprise_influxdb/v1.8/introduction/meta_node_installation/), run the `add-data` command once and only once for each data node you are joining
+to the cluster:
 
 ```bash
 influxd-ctl add-data enterprise-data-01:8088
@@ -244,31 +251,28 @@ The expected output is:
 Added data node y at enterprise-data-0x:8088
 ```
 
-Run the `add-data` command once and only once for each data node you are joining
-to the cluster.
+**Verification steps:**
 
-> **Verification steps:**
->
 Issue the following command on any meta node:
->
-    influxd-ctl show
->
+```bash
+influxd-ctl show
+```
 The expected output is:
->
-    Data Nodes
-    ==========
-    ID   TCP Address               Version
-    4    enterprise-data-01:8088   1.8.0-c1.8.0
-    5    enterprise-data-02:8088   1.8.0-c1.8.0
+```bash
 
->
-    Meta Nodes
-    ==========
-    TCP Address               Version
-    enterprise-meta-01:8091   1.8.0-c1.8.0
-    enterprise-meta-02:8091   1.8.0-c1.8.0
-    enterprise-meta-03:8091   1.8.0-c1.8.0
+Data Nodes
+==========
+ID  TCP Address             Version         Labels
+4  cluster-node-01:8088    1.8.x-c1.8.x    {}
+5  cluster-node-02:8088    1.8.x-c1.8.x    {}
 
+Meta Nodes
+==========
+TCP Address             Version         Labels
+cluster-node-01:8091    1.8.x-c1.8.x    {}
+cluster-node-02:8091    1.8.x-c1.8.x    {}
+cluster-node-03:8091    1.8.x-c1.8.x    {}
+  ```
 
 The output should include every data node that was added to the cluster.
 The first data node added should have `ID=N`, where `N` is equal to one plus the number of meta nodes.

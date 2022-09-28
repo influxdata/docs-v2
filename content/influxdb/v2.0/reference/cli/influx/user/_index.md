@@ -6,9 +6,13 @@ menu:
     name: influx user
     parent: influx
 weight: 101
-aliases:
-  - /v2.0/reference/cli/influx/user/
 influxdb/v2.0/tags: [users]
+cascade:
+  related:
+    - /influxdb/v2.0/users/
+    - /influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.0/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/
 ---
 
 The `influx user` command and its subcommands manage user information in InfluxDB.
@@ -20,13 +24,13 @@ influx user [command]
 ```
 
 ## Subcommands
-| Subcommand                                           | Description              |
-|:----------                                           |:-----------              |
-| [create](/v2.0/reference/cli/influx/user/create)     | Create a user            |
-| [delete](/v2.0/reference/cli/influx/user/delete)     | Delete a user            |
-| [list](/v2.0/reference/cli/influx/user/list)         | List users               |
-| [password](/v2.0/reference/cli/influx/user/password) | Update a user's password |
-| [update](/v2.0/reference/cli/influx/user/update)     | Update a user            |
+| Subcommand                                                    | Description              |
+|:----------                                                    |:-----------              |
+| [create](/influxdb/v2.0/reference/cli/influx/user/create)     | Create a user            |
+| [delete](/influxdb/v2.0/reference/cli/influx/user/delete)     | Delete a user            |
+| [list](/influxdb/v2.0/reference/cli/influx/user/list)         | List users               |
+| [password](/influxdb/v2.0/reference/cli/influx/user/password) | Update a user's password |
+| [update](/influxdb/v2.0/reference/cli/influx/user/update)     | Update a user            |
 
 ## Flags
 | Flag |          | Description                 |

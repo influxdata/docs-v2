@@ -196,7 +196,7 @@ The log identifier key (`log_id`) lets you easily identify _every_ log entry for
 
 Here are a couple of popular tools available for processing and filtering log files output in `logfmt` or `json` formats.
 
-#### [hutils](https://blog.heroku.com/hutils-explore-your-structured-data-logs)
+#### hutils
 
 The [hutils](https://blog.heroku.com/hutils-explore-your-structured-data-logs), provided by Heroku, is a collection of command line utilities for working with logs with `logfmt` encoding, including:
 
@@ -205,7 +205,7 @@ The [hutils](https://blog.heroku.com/hutils-explore-your-structured-data-logs), 
 * `ltap`: Accesses messages from log providers in a consistent way to allow easy parsing by other utilities that operate on `logfmt` traces.
 * `lviz`: Visualizes `logfmt` output by building a tree out of a dataset combining common sets of key-value pairs into shared parent nodes.
 
-#### [lnav (Log File Navigator)](http://lnav.org)
+#### lnav (Log File Navigator)
 
 The [lnav (Log File Navigator)](http://lnav.org) is an advanced log file viewer useful for watching and analyzing your log files from a terminal. The lnav viewer provides a single log view, automatic log format detection, filtering, timeline view, pretty-print view, and querying logs using SQL.
 

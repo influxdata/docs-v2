@@ -4,8 +4,6 @@ description: >
   InfluxDB uses a handful of languages and syntaxes to perform tasks such as
   writing, querying, processing, and deleting data.
 weight: 5
-aliases:
-  - /v2.0/reference/release-notes/syntax/
 menu:
   influxdb_2_0_ref:
     name: Syntax

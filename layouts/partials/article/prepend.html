@@ -1,0 +1,11 @@
+{{ $p := .Page }}
+{{ $optBlock := dict "display" "block" }}
+{{ if .Params.prepend }}
+  {{ if .Params.prepend.block }}
+    <div class="block {{ .Params.prepend.block }}">
+      {{ .Params.prepend.content | $p.RenderString $optBlock }}
+    </div>
+  {{ else }}
+    {{ .Params.prepend.content | $p.RenderString $optBlock }}
+  {{ end }}
+{{ end }}

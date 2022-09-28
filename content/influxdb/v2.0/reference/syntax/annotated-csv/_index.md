@@ -2,23 +2,20 @@
 title: Annotated CSV
 description: >
   InfluxDB and Flux return query results in annotated CSV format.
-  You can also read annotated CSV directly from Flux with the `csv.from()` function
-  or write data to InfluxDB using annotated CSV and the `influx write` command.
+  You can also read annotated CSV directly from Flux with the `csv.from()` function,
+  write data to InfluxDB using annotated CSV and the `influx write` command, or upload a CSV file in the UI.
 weight: 103
 menu:
   influxdb_2_0_ref:
     parent: Syntax
 influxdb/v2.0/tags: [csv, syntax]
-aliases:
-  - /v2.0/reference/annotated-csv/
 related:
-  - /v2.0/reference/flux/stdlib/csv/from/
+  - /{{< latest "flux" >}}/stdlib/csv/from/
   - /influxdb/v2.0/reference/syntax/annotated-csv/extended/
 ---
 
 InfluxDB and Flux return query results in annotated CSV format.
-You can also read annotated CSV directly from Flux with the [`csv.from()` function](/v2.0/reference/flux/stdlib/csv/from/)
-or write data to InfluxDB using annotated CSV and the `influx write` command.
+You can also read annotated CSV directly from Flux with the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/), write data to InfluxDB using annotated CSV and the `influx write` command, or [upload a CSV file](/influxdb/cloud/write-data/no-code/load-data/#load-data-by-uploading-a-csv-or-line-protocol-file) in the UI.
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/).
 InfluxDB removes carriage returns before newline characters.
@@ -166,7 +163,7 @@ Subsequent columns contain annotation values as shown in the table below.
 
 
 {{% note %}}
-To encode a table with its [group key](/v2.0/reference/glossary/#group-key),
+To encode a table with its [group key](/influxdb/v2.0/reference/glossary/#group-key),
 the `datatype`, `group`, and `default` annotations must be included.
 If a table has no rows, the `default` annotation provides the group key values.
 {{% /note %}}
@@ -186,9 +183,9 @@ If a table has no rows, the `default` annotation provides the group key values.
 
 
 ## Line protocol elements
-The `datatype` annotation accepts accepts [data types](#data-types) and **line protocol elements**.
+The `datatype` annotation accepts [data types](#data-types) and **line protocol elements**.
 Line protocol elements identify how columns are converted into line protocol when using the
-[`influx write` command](/v2.0/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
+[`influx write` command](/influxdb/v2.0/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
 
 | Line protocol element | Description                                                     |
 |:--------------------- |:-----------                                                     |
@@ -204,7 +201,7 @@ Columns with [data types](#data-types) (other than `dateTime`) in the
 Columns without a specified data type default to `field` when converted to line protocol
 and **column values are left unmodified** in line protocol.
 _See an example [below](#example-of-mixing-data-types-line-protocol-elements) and
-[line protocol data types and format](/v2.0/reference/syntax/line-protocol/#data-types-and-format)._
+[line protocol data types and format](/influxdb/v2.0/reference/syntax/line-protocol/#data-types-and-format)._
 
 ### Time columns
 A column with `time` or `dateTime` `#datatype` annotations are used as the timestamp
@@ -213,7 +210,7 @@ If there are multiple `time` or `dateTime` columns, the last column (on the righ
 is used as the timestamp in line protocol.
 Other time columns are ignored and the `influx write` command outputs a warning.
 
-Time column values should be **Unix timestamps** (in an [accepted timestamp precision](/v2.0/write-data/#timestamp-precision)),
+Time column values should be **Unix timestamps** (in an [accepted timestamp precision](/influxdb/v2.0/write-data/#timestamp-precision)),
 **RFC3339**, or **RFC3339Nano**.
 
 ##### Example line protocol elements in datatype annotation
@@ -249,22 +246,22 @@ test,name=annotatedDatatypes s="str2",d=2,b=false,l=2i,ul=2u,dur=2000i 157873741
 
 ## Annotated CSV in Flux
 Flux requires all annotation and header rows in annotated CSV.
-The example below illustrates how to use the [`csv.from()` function](/v2.0/reference/flux/stdlib/csv/from/)
+The example below illustrates how to use the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/)
 to read annotated CSV in Flux:
 
 ```js
 import "csv"
 
-csvData = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double
-#group,false,false,false,false,false,false,false,false
-#default,,,,,,,,
-,result,table,_start,_stop,_time,region,host,_value
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
+csvData = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double,string,string
+#group,false,false,true,true,false,true,false,false,true,true
+#default,,,,,,,,,,
+,result,table,_start,_stop,_time,region,host,_value,_measurement,_field
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43,cpu,usage_system
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25,cpu,usage_system
+,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62,cpu,usage_system
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73,cpu,usage_system
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83,cpu,usage_system
+,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62,cpu,usage_system
 "
 
 csv.from(csv: csvData)

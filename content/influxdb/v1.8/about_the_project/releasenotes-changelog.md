@@ -1,13 +1,117 @@
 ---
 title: InfluxDB 1.8 release notes
+description: Important changes and and what's new in each version of InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Release notes
     weight: 10
     parent: About the project
+v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
 
+## v1.8.10 [2021-10-11]
+
+### Bug fixes
+
+- Ensure `curl` dependency for InfluxDB packages.
+- Ensure snapshot service reads payload correctly.
+- Handle 40x errors by blocking indefinitely in systemd scripts.
+- Fix the following bugs in `influxd restore`:
+  - Correctly validate parameters.
+  - Improve error message when returning empty snapshots.
+  - Fix temporary file deletion on Windows.
+
+## v1.8.9 [2021-08-05]
+
+### Bug fixes 
+
+- Prevent silently dropped writes when there are overlapping shards.
+- Resolve `influxd restore -portable` backup bug.
+- Ensure systemd-startup script is executable by group and others.
+- Handle https in systemd wrapper, and prevent it from looping forever.
+- Log error instead of panic when restoring a backup to InfluxDB Enterprise cluster using InfluxDB OSS. 
+
+## v1.8.8 [unreleased]
+
+Due to encountering several issues with build dependencies in v.1.8.8, this version will not be released.  
+
+## v1.8.7 [2021-07-21]
+
+### Bug fixes
+
+- Renamed ARM RPMs with yum-compatible names.
+- Convert ARM arch names for RPMs during builds via Docker.
+- Systemd unit now blocks on startup until HTTP endpoint is ready.
+- Updated protobuf libraries to current version.
+
+## v1.8.6 [2021-05-21]
+
+This release is for InfluxDB Enterprise 1.8.6 customers only. No OSS-specific changes were made for InfluxDB 1.8.6--updates were made to the code base to support [InfluxDB Enterprise 1.8.6](/enterprise_influxdb/v1.8/about-the-project/release-notes-changelog/#v186-2021-05-21).
+
+## v1.8.5 [2021-04-20]
+
+### Features
+
+- Add the ability to find which measurements or shards are contributing to disk size with the new [`influx_inspect report-disk`](/influxdb/v1.8/tools/influx_inspect/#report-disk) command. Useful for capacity planning and managing storage requirements.
+- Add support to [`influx_inspect export`](/influxdb/v1.8/tools/influx_inspect/#export) to write to standard out (`stdout`) by adding a hyphen after the [`-out`](/influxdb/v1.8/tools/influx_inspect/#--out-export_dir-or--out--) flag. Using this option writes to `stdout`, and sends error and status messages to standard error (`stderr`).
+- Update HTTP handler for `/query` to [log query text for POST requests](/influxdb/v1.8/administration/logs/#http-access-log-format).
+- Optimize shard lookups in groups containing only one shard. Thanks @StoneYunZhao!
+
+### Bug fixes
+
+- Update meta queries (for example, SHOW TAG VALUES, SHOW TAG KEYS, SHOW SERIES CARDINALITY, SHOW MEASUREMENT CARDINALITY, and SHOW MEASUREMENTS) to check the query context when possible to respect timeout values set in the [`query-timeout` configuration parameter](/influxdb/v1.8/administration/config/#query-timeout--0s). Note, meta queries will check the context less frequently than regular queries, which use iterators, because meta queries return data in batches.
+-  Previously, successful writes were incorrectly incrementing the `WriteErr` statistics. Now, successful writes correctly increment the `writeOK` statistics.
+- Correct JSON marshalling error format.
+- Previously, a GROUP BY query with an offset that caused an interval to cross a daylight savings change inserted an extra output row off by one hour. Now, the correct GROUP BY interval start time is set before the time zone offset is calculated.
+- Improved error logging for TCP connection closures.
+- Fix `regexp` handling to comply with PromQL.
+- Previously, when a SELECT INTO query generated an unsupported value, for example, `+/- Inf`, the query failed silently. Now, an error occurs to notify that the value cannot be inserted.
+- Resolve the "snapshot in progress" error that occurred during a backup.
+- Fix data race when accessing tombstone statistics (`TombstoneStat`).
+- Minimize lock contention when adding new fields or measurements.
+- Resolve a bug causing excess resource usage when an error occurs while reporting an earlier error.
+
+## v1.8.4 [2021-02-01]
+### Features
+
+- Add `stat_total_allocated` to Flux logging.
+ To ensure Flux logging is enabled, set both `flux-enabled` and `flux-log-enabled` to `true` in the [InfluxDB configuration file](/influxdb/v1.8/administration/config). For more information about InfluxDB logging, see [Log and trace with InfluxDB](/influxdb/v1.8/administration/logs).
+
+### Bug fixes
+
+- Add durations to Flux logging, including the log compilation, execution, and total request duration. Previously, the following stats were incorrectly logging `0.000ms`:
+
+  - `stat_total_duration`
+  - `stat_compile_duration`
+  - `stat_execute_duration`
+
+    Now, these durations are logged correctly.
+
+## v1.8.3 [2020-09-30]
+
+### Features
+
+- Use latest version of InfluxQL package.
+- Add `-lponly` flag to [`influx export`](/influxdb/v2.0/reference/cli/influx/export/) sub-command.
+- Add the ability to [track number of values](/platform/monitoring/influxdata-platform/tools/measurements-internal/#valueswrittenok) written via the [/debug/vars HTTP endpoint](/influxdb/v1.8/tools/api/#debug-vars-http-endpoint).
+- Update UUID library from [github.com/satori/go.uuid](https://github.com/satori/go.uuid) to [github.com/gofrs/uuid](https://github.com/gofrs/uuid).
+
+### Bug fixes
+
+- ArrayFilterCursor truncation for multi-block data.
+- Multi-measurement queries now return all applicable series.
+- Lock map before writes.
+
+## v1.8.2 [2020-08-13]
+
+### Bug fixes
+
+- Revert configuration change to `DefaultSeriesIDSetCacheSize` that caused some environments to experience increased memory usage.
+
 ## v1.8.1 [2020-07-14]
+
+{{% warn %}} Bug that potentially increased memory usage was introduced in 1.8.1. **If you installed this release**, install [v1.8.2](#v1-8-2-2020-08-13), which includes the features, performance improvements, and bug fixes below.
+{{% /warn %}}
 
 ### Features
 
@@ -33,9 +137,9 @@ menu:
 
 #### Flux v0.65 ready for production use
 
-This release updates support for the Flux language and queries. To learn about Flux design principles and see how to get started with Flux, see [Introduction to Flux](/flux/v0.65/introduction/).
+This release updates support for the Flux language and queries. To learn about Flux design principles and see how to get started with Flux, see [Introduction to Flux](/influxdb/v1.8/flux/).
 
-* Use the new [`influx -type=flux`](/influxdb/v1.8/tools/shell/#type) option to enable the Flux REPL shell for creating Flux queries.
+* Use the new [`influx -type=flux`](/influxdb/v1.8/tools/influx-cli/#flags) option to enable the Flux REPL shell for creating Flux queries.
 
 * Flux v0.65 includes the following capabilities:
     - Join data residing in multiple measurements, buckets, or data sources
@@ -54,7 +158,7 @@ This release updates support for the Flux language and queries. To learn about F
 
 #### Forward compatibility
 
-- [InfluxDB 2.0 API compatibility endpoints](/v1.8/tools/api/#influxdb-2-0-api-compatibility-endpoints) are now part of the InfluxDB 1.x line.  
+- [InfluxDB 2.0 API compatibility endpoints](/influxdb/v1.8/tools/api/#influxdb-20-api-compatibility-endpoints) are now part of the InfluxDB 1.x line.  
 This allows you to leverage the new InfluxDB 2.0 [client libraries](/influxdb/v1.8/tools/api_client_libraries/)
 for both writing and querying data with Flux. Take advantage of the latest client libraries
 while readying your implementation for a move to InfluxDB 2.0 Cloud when you're ready to scale.
@@ -63,7 +167,7 @@ while readying your implementation for a move to InfluxDB 2.0 Cloud when you're 
 - Add [`influx inspect verify-tombstone` command](/influxdb/v1.8/tools/influx_inspect/#verify-tombstone)
 - Add [offline series compaction to `influx_inspect buildtsi`](/influxdb/v1.8/administration/compact-series-file/).
   If you're currently using the Time Series Index [(tsi1)](/influxdb/v1.8/concepts/time-series-index/), the index files grow over time and aren't automatically compacted.  This tool enables an administrator to perform a compaction while the database is offline.
-- Add support for connecting to a custom HTTP endpoint using `-url-prefix` in the [`influx` CLI](/influxdb/v1.8/tools/influx-cli/_index). This allows the Influx CLI to connect to an InfluxDB instance running behind a reverse proxy with a custom subpath `/` endpoint.
+- Add support for connecting to a custom HTTP endpoint using `-url-prefix` in the [`influx` CLI](/influxdb/v1.8/tools/influx-cli/). This allows the Influx CLI to connect to an InfluxDB instance running behind a reverse proxy with a custom subpath `/` endpoint.
 
 #### Security enhancements
 - Add support for [TLS 1.3 configuration](/influxdb/v1.8/administration/config/#transport-layer-security-tls-settings) and update current list of [Go ciphers](https://golang.org/pkg/crypto/tls/#pkg-constants).
@@ -276,7 +380,7 @@ Support for the Flux language and queries has been added in this release. To beg
 
 * Enable Flux using the new configuration setting [`[http] flux-enabled = true`](/influxdb/v1.7/administration/config/#flux-enabled-false).
 * Use the new [`influx -type=flux`](/influxdb/v1.7/tools/shell/#type) option to enable the Flux REPL shell for creating Flux queries.
-* Read about Flux and the Flux language, enabling Flux, or jump into the getting started and other guides in the [Flux v0.7 (technical preview) documentation](/flux/v0.7/).
+* Read about Flux and the Flux language, enabling Flux, or jump into the getting started and other guides.
 
 #### Time Series Index (TSI) query performance and throughputs improvements
 

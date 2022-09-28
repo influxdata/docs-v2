@@ -34,7 +34,7 @@ This page outlines process for upgrading from:
 ## Upgrade from 0.10 or 0.11 to 1.4
 
 > **Note:** 0.10 users will need to
-[convert](/influxdb/v0.10/administration/upgrading/#convert-b1-and-bz1-shards-to-tsm1)
+[convert](https://archive.docs.influxdata.com/influxdb/v0.10/administration/upgrading/#convert-b1-and-bz1-shards-to-tsm1)
 any remaining `b1` and `bz1` shards to `TSM` format before following the
 instructions below.
 InfluxDB 1.4 cannot read non-`TSM` shards.
@@ -56,7 +56,7 @@ new configuration file.
 
 To start out, you must be working with version 0.10 or 0.11 (don't upgrade the
 `influxd` binary yet!).
-If you've already upgraded the binary to 1.4, [reinstall 0.11.1](/influxdb/v0.12/administration/upgrading/#urls-for-influxdb-0-11);
+If you've already upgraded the binary to 1.4, [reinstall 0.11.1](https://archive.docs.influxdata.com/influxdb/v0.12/administration/upgrading/#urls-for-influxdb-0-11);
 InfluxDB 1.4 will yield an error
 (`run: create server: detected /var/lib/influxdb/meta/raft.db. [...]`) if you
 attempt to start the process without completing the steps below.

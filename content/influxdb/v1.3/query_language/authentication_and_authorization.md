@@ -120,8 +120,8 @@ echo $INFLUX_USERNAME $INFLUX_PASSWORD
 todd influxdb4ever
 
 influx
-Connected to http://localhost:8086 version 1.3.x
-InfluxDB shell 1.3.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 ```
 
 ##### Authenticate by setting the `username` and `password` flags when you start the CLI
@@ -130,8 +130,8 @@ Example:
 
 ```bash
 influx -username todd -password influxdb4ever
-Connected to http://localhost:8086 version 1.3.x
-InfluxDB shell 1.3.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 ```
 
 ##### Authenticate with `auth <username> <password>` after starting the CLI
@@ -140,8 +140,8 @@ Example:
 
 ```bash
 influx
-Connected to http://localhost:8086 version 1.3.x
-InfluxDB shell 1.3.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 > auth
 username: todd
 password:
@@ -152,7 +152,7 @@ password:
 >
 ## Authenticate Telegraf requests to InfluxDB
 >
-Authenticating [Telegraf](/telegraf/v1.3/) requests to an InfluxDB instance with
+Authenticating [Telegraf](/{{< latest "telegraf" >}}/) requests to an InfluxDB instance with
 authentication enabled requires some additional steps.
 In Telegraf's configuration file (`/etc/telegraf/telegraf.conf`), uncomment
 and edit the `username` and `password` settings:

@@ -8,8 +8,6 @@ menu:
     name: Geo-temporal data
     parent: Query with Flux
 weight: 220
-aliases:
-  - /v2.0/query-data/flux/geo/
 list_code_example: |
   ```js
   import "experimental/geo"
@@ -20,12 +18,12 @@ list_code_example: |
   ```
 ---
 
-Use the [Flux Geo package](/v2.0/reference/flux/stdlib/experimental/geo) to
+Use the [Flux Geo package](/{{< latest "flux" >}}/stdlib/experimental/geo) to
 filter geo-temporal data and group by geographic location or track.
 
 {{% warn %}}
 The Geo package is experimental and subject to change at any time.
-By using it, you agree to the [risks of experimental functions](/v2.0/reference/flux/stdlib/experimental/#use-experimental-functions-at-your-own-risk).
+By using it, you agree to the [risks of experimental functions](/{{< latest "flux" >}}/stdlib/experimental/to/#experimental-functions-are-subject-to-change).
 {{% /warn %}}
 
 **To work with geo-temporal data:**
@@ -50,42 +48,22 @@ By using it, you agree to the [risks of experimental functions](/v2.0/reference/
 ## Sample data
 Many of the examples in this section use a `sampleGeoData` variable that represents
 a sample set of geo-temporal data.
-The [Bird Migration Sample Data](https://github.com/influxdata/influxdb2-sample-data/tree/master/bird-migration-data)
-available on GitHub provides sample geo-temporal data that meets the
-[requirements of the Flux Geo package](/v2.0/reference/flux/stdlib/experimental/geo/#geo-schema-requirements).
+The [Bird Migration Sample Data](/influxdb/v2.0/reference/sample-data/#bird-migration-sample-data)
+provides sample geo-temporal data that meets the
+[requirements of the Flux Geo package](/{{< latest "flux" >}}/stdlib/experimental/geo/#geo-schema-requirements).
 
-### Load annotated CSV sample data
-Use the [experimental `csv.from()` function](/v2.0/reference/flux/stdlib/experimental/csv/from/)
-to load the sample bird migration annotated CSV data from GitHub:
+### Load bird migration sample data
+Use the [`sample.data()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/data/)
+to load the sample bird migration data:
 
 ```js
-import `experimental/csv`
+import "influxdata/influxdb/sample"
 
-sampleGeoData = csv.from(
-  url: "https://github.com/influxdata/influxdb2-sample-data/blob/master/bird-migration-data/bird-migration.csv"
-)
+sampleGeoData = sample.data(set: "birdMigration")
 ```
 
 {{% note %}}
-`csv.from(url: ...)` downloads sample data each time you execute the query **(~1.3 MB)**.
-If bandwidth is a concern, use the [`to()` function](/v2.0/reference/flux/stdlib/built-in/outputs/to/)
-to write the data to a bucket, and then query the bucket with [`from()`](/v2.0/reference/flux/stdlib/built-in/inputs/from/).
+`sample.data()` downloads sample data each time you execute the query **(~1.3 MB)**.
+If bandwidth is a concern, use the [`to()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/)
+to write the data to a bucket, and then query the bucket with [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/).
 {{% /note %}}
-
-### Write sample data to InfluxDB with line protocol
-Use `curl` and the `influx write` command to write bird migration line protocol to InfluxDB.
-Replace `example-bucket` with your destination bucket:
-
-```sh
-curl https://raw.githubusercontent.com/influxdata/influxdb2-sample-data/master/bird-migration-data/bird-migration.line --output ./tmp-data
-influx write -b example-bucket @./tmp-data
-rm -f ./tmp-data
-```
-
-Use Flux to query the bird migration data and assign it to the `sampleGeoData` variable:
-
-```js
-sampleGeoData = from(bucket: "example-bucket")
-  |> range(start: 2019-01-01T00:00:00Z, stop: 2019-12-31T23:59:59Z)
-  |> filter(fn: (r) => r._measurement == "migration")
-```

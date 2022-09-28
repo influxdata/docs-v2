@@ -18,7 +18,7 @@ This guide requires the following:
 - Microsoft Azure account with access to the [Azure Marketplace](https://azuremarketplace.microsoft.com/).
 - SSH access to cluster instances.
 
-To deploy InfluxDB Enterprise clusters on platforms other than Azure, see [Deploy InfluxDB Enterprise](/enterprise_influxdb/v1.8/install-and-deploy/_index).
+To deploy InfluxDB Enterprise clusters on platforms other than Azure, see [Deploy InfluxDB Enterprise](/enterprise_influxdb/v1.8/install-and-deploy/).
 
 ## Deploy a cluster
 
@@ -54,7 +54,7 @@ To deploy InfluxDB Enterprise clusters on platforms other than Azure, see [Deplo
 
 Once the cluster is created, access the InfluxDB API at the IP address associated with the load balancer resource (`lb-influxdb`). If external access was configured during setup, the load balancer is publicly accessible. Otherwise, the load balancer is only accessible to the cluster's virtual network.
 
-Use the load balancer IP address and the InfluxDB admin credentials entered during the cluster creation to interact with InfluxDB Enterprise via the [`influx` CLI](https://docs.influxdata.com/influxdb/v1.8/tools/shell/) or use the InfluxDB's [query](https://docs.influxdata.com/influxdb/v1.8/guides/query_data/) and [write](https://docs.influxdata.com/influxdb/v1.8/guides/write_data/) HTTP APIs.
+Use the load balancer IP address and the InfluxDB admin credentials entered during the cluster creation to interact with InfluxDB Enterprise via the [`influx` CLI](/influxdb/v1.8/tools/shell/) or use the InfluxDB's [query](/influxdb/v1.8/guides/query_data/) and [write](/influxdb/v1.8/guides/write_data/) HTTP APIs.
 
 ## Access the cluster
 

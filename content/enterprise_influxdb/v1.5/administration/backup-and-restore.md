@@ -18,8 +18,8 @@ The primary use cases for backup and restore are:
 * Debugging
 * Restoring clusters to a consistent state
 
-InfluxDB Enterprise supports backing up and restoring data in a cluster, a single database, a single database and retention policy, and
-single [shard](/influxdb/v1.5/concepts/glossary/#shard).
+InfluxDB Enterprise supports backing up and restoring data in a cluster,
+a single database and retention policy, and single [shard](/influxdb/v1.5/concepts/glossary/#shard).
 
 > **Note:** You can use the [new `backup` and `restore` utilities in InfluxDB OSS 1.5](/influxdb/v1.5/administration/backup_and_restore/) to:
 > * Restore InfluxDB Enterprise 1.5 backup files to InfluxDB OSS 1.5.
@@ -317,7 +317,7 @@ Restored from my-incremental-backup/ in 66.715524ms, transferred 588800 bytes
 
 In this example, our `telegraf` database was mistakenly dropped, but you have a recent backup so you've only lost a small amount of data.
 
-If [Telegraf](/telegraf/v1.5/) is still running, it will recreate the `telegraf` database shortly after the database is dropped.
+If [Telegraf](/{{< latest "telegraf" >}}/) is still running, it will recreate the `telegraf` database shortly after the database is dropped.
 You might try to directly restore your `telegraf` backup just to find that you can't restore.
 
 ```

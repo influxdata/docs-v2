@@ -5,6 +5,7 @@ menu:
     name: Schema exploration
     weight: 30
     parent: InfluxQL
+v2: /influxdb/v2.0/query-data/flux/explore-schema/
 ---
 
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
@@ -36,8 +37,8 @@ Before proceeding, login to the Influx CLI.
 
 ```bash
 $ influx -precision rfc3339
-Connected to http://localhost:8086 version 1.4.x
-InfluxDB shell 1.4.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 >
 ```
 

@@ -1,6 +1,7 @@
 ---
 title: Alerta event handler
-description: The Alerta event handler allows you to send Kapacitor alerts to Alerta. This page includes configuration options and usage examples.
+description: >
+  The Alerta event handler allows you to send Kapacitor alerts to Alerta. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Alerta
@@ -45,9 +46,13 @@ Default Alerta environment.
 #### `origin`
 Default origin of alert.
 
+#### `correlate`
+
+When an alert with the same `resource` is received with an `event` in the `correlate` list of related events, the alert is correlated. For more information, see [Alerta documentation](https://docs.alerta.io/en/latest/server.html#simple-correlation).
+
 ## Options
 The following Alerta event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.alerta()` in a TICKscript.
 
 <span style="color: #ff9e46; font-style: italic; font-size: .8rem;">* Required</span>
@@ -62,6 +67,7 @@ The following Alerta event handler options can be set in a
 | group        | string          | Alerta group. Can be a template and has access to the same data as the AlertNode.Details property. Default: {{ .Group }}.                       |
 | value        | string          | Alerta value. Can be a template and has access to the same data as the AlertNode.Details property. Default is an empty string.                  |
 | origin       | string          | Alerta origin. If empty uses the origin from the configuration.                                                                                 |
+| correlate    | list of strings | List of related events, for example, `event1`, `event2`.                                                                                        |
 | service      | list of strings | List of effected Services.                                                                                                                      |
 | timeout      | duration string | Alerta timeout. Default is 24 hours.                                                                                                            |
 
@@ -82,7 +88,9 @@ options:
   group: '{{ .Group }}'
   value: 'some-value'
   origin: 'kapacitor'
+  correlate: 'event1', 'event2'
   service: ['service1', 'service2']
+  correlate: ['service1', 'service2']
   timeout: 24h
 ```
 
@@ -100,7 +108,9 @@ options:
     .group('{{ .Group }}')
     .value('some-value')
     .origin('kapacitor')
+    .correlate('event1', 'event2')
     .service('service1', 'service2')
+    .correlated('service1', 'service2')
     .timeout(24h)
 ```
 
@@ -144,6 +154,7 @@ stream
     .alerta()
       .resource('{{ .Name }}')
       .event('{{ .ID }}')
+      .correlated('{{ .Name }}')
 ```
 
 ### Send alerts to an Alerta room from a defined handler
@@ -188,6 +199,7 @@ options:
   resource: '{{ .Name }}'
   event: '{{ .ID }}'
   origin: 'kapacitor'
+  correlate: ['service1', 'service2']
 ```
 
 Add the handler:

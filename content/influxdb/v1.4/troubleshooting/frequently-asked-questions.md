@@ -87,7 +87,7 @@ There a number of ways to identify the version of InfluxDB that you're using:
 ```
 $ influxd version
 
-InfluxDB ✨ v1.4.0 ✨ (git: master b7bb7e8359642b6e071735b50ae41f5eb343fd42)
+InfluxDB v{{< latest-patch >}} (git: master b7bb7e8359642b6e071735b50ae41f5eb343fd42)
 ```
 
 #### `curl` the `/ping` endpoint:
@@ -98,7 +98,7 @@ $ curl -i 'http://localhost:8086/ping'
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: 1e08aeb6-fec0-11e6-8486-000000000000
-✨ X-Influxdb-Version: 1.4.x ✨
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 01 Mar 2017 20:46:17 GMT
 ```
 
@@ -107,8 +107,8 @@ Date: Wed, 01 Mar 2017 20:46:17 GMT
 ```
 $ influx
 
-Connected to http://localhost:8086✨ version 1.4.x ✨
-InfluxDB shell version: 1.4.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell version: {{< latest-patch >}}
 ```
 
 #### Check the HTTP response in your logs:
@@ -116,7 +116,7 @@ InfluxDB shell version: 1.4.x
 ```
 $ journald-ctl -u influxdb.service
 
-Mar 01 20:49:45 rk-api influxd[29560]: [httpd] 127.0.0.1 - - [01/Mar/2017:20:49:45 +0000] "POST /query?db=&epoch=ns&q=SHOW+DATABASES HTTP/1.1" 200 151 "-" ✨ "InfluxDBShell/1.4.x" ✨ 9a4371a1-fec0-11e6-84b6-000000000000 1709
+Mar 01 20:49:45 rk-api influxd[29560]: [httpd] 127.0.0.1 - - [01/Mar/2017:20:49:45 +0000] "POST /query?db=&epoch=ns&q=SHOW+DATABASES HTTP/1.1" 200 151 "-" "InfluxDBShell/{{< latest-patch >}}" 9a4371a1-fec0-11e6-84b6-000000000000 1709
 ```
 
 ## Where can I find InfluxDB logs?
@@ -251,7 +251,7 @@ Note that you will need to fully qualify the measurement to query data in the no
 ```
 
 ## How do I cancel a long-running query?
-You can cancel a long-running interactive query from the CLI using `Ctrl+C`. To stop other long-running query that you see when using the [`SHOW QUERIES`](https://docs.influxdata.com/influxdb/v1.3/query_language/spec/#show-queries) command,
+You can cancel a long-running interactive query from the CLI using `Ctrl+C`. To stop other long-running query that you see when using the [`SHOW QUERIES`](/influxdb/v1.3/query_language/spec/#show-queries) command,
 you can use the [`KILL QUERY`](/influxdb/v1.4/troubleshooting/query_management/#stop-currently-running-queries-with-kill-query) command to stop it.
 
 ## Why can't I query Boolean field values?

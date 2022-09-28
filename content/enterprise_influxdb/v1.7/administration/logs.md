@@ -10,7 +10,7 @@ menu:
 
 
 * [Logging locations](#logging-locations)
-* [Redirecting HTTP request logging](#redirecting-http-request-logging)
+* [Redirecting HTTP request logging](#redirecting-http-access-logging)
 * [Structured logging](#structured-logging)
 * [Tracing](#tracing)
 

@@ -1,6 +1,7 @@
 ---
 title: Explore data using InfluxQL
-description: Explore time series data using InfluxData's SQL-like query language. Understand how to use the SELECT statement to query data from measurements, tags, and fields.
+description: >
+  Explore time series data using InfluxData's SQL-like query language. Understand how to use the SELECT statement to query data from measurements, tags, and fields.
 menu:
   influxdb_1_8:
     name: Explore data
@@ -8,6 +9,7 @@ menu:
     parent: InfluxQL
 aliases:
   - /influxdb/v1.8/query_language/data_exploration/
+v2: /influxdb/v2.0/query-data/flux/query-fields/
 ---
 
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
@@ -63,8 +65,8 @@ Start by logging into the Influx CLI:
 
 ```bash
 $ influx -precision rfc3339 -database NOAA_water_database
-Connected to http://localhost:8086 version 1.8.x
-InfluxDB shell 1.8.x
+Connected to http://localhost:8086 version {{< latest-patch >}}
+InfluxDB shell {{< latest-patch >}}
 >
 ```
 
@@ -1734,7 +1736,7 @@ The query above writes all data in the `NOAA_water_database` and `autogen` reten
 
 The [backreference](#examples-5) syntax (`:MEASUREMENT`) maintains the source measurement names in the destination database.
 Note that both the `copy_NOAA_water_database` database and its `autogen` retention policy must exist prior to running the `INTO` query.
-See [Database Management](/influxdb/v1.8/query_language/database_management/)
+See [Database Management](/influxdb/v1.8/query_language/manage-database/)
 for how to manage databases and retention policies.
 
 The `GROUP BY *` clause [preserves tags](#missing-data) in the source database as tags in the destination database.
@@ -1744,11 +1746,16 @@ The following query does not maintain the series context for tags; tags will be 
 SELECT * INTO "copy_NOAA_water_database"."autogen".:MEASUREMENT FROM "NOAA_water_database"."autogen"./.*/
 ```
 
-When moving large amounts of data, we recommend sequentially running `INTO` queries for different measurements and using time boundaries in the [`WHERE` clause](#time-syntax).
-This prevents your system from running out of memory.
-The codeblock below provides sample syntax for those queries:
+When moving large amounts of data, to avoid running out of memory, sequentially
+run `INTO` queries for different measurements and time boundaries.
+Use the [`WHERE` clause](#time-syntax) to define time boundaries for each query.
 
-```
+{{% note %}}
+`INTO` queries without time boundaries fail with the error: `ERR: no data received`.
+{{% /note %}}
+
+##### Move large amounts of data with sequential queries
+```sql
 SELECT *
 INTO <destination_database>.<retention_policy_name>.<measurement_name>
 FROM <source_database>.<retention_policy_name>.<measurement_name>
@@ -1823,7 +1830,7 @@ InfluxDB writes the data to the `where_else` database and to the `autogen`
 retention policy.
 Note that both `where_else` and `autogen` must exist prior to running the `INTO`
 query.
-See [Database Management](/influxdb/v1.8/query_language/database_management/)
+See [Database Management](/influxdb/v1.8/query_language/manage-database/)
 for how to manage databases and retention policies.
 
 The response shows the number of points (`7605`) that InfluxDB writes to `h2o_feet_copy_2`.
@@ -1910,7 +1917,7 @@ in the `FROM` clause and writes the results to measurements with the same name i
 `where_else` database and the `autogen` retention policy.
 Note that both `where_else` and `autogen` must exist prior to running the `INTO`
 query.
-See [Database management](/influxdb/v1.8/query_language/database_management/)
+See [Database management](/influxdb/v1.8/query_language/manage-database/)
 for how to manage databases and retention policies.
 
 The response shows the number of points (`5`) that InfluxDB writes to the `where_else`
@@ -2384,7 +2391,7 @@ SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_
 
 By default, InfluxDB stores and returns timestamps in UTC.
 The `tz()` clause includes the UTC offset or, if applicable, the UTC Daylight Savings Time (DST) offset to the query's returned timestamps.
-The returned timestamps must be in [RFC3339 format](/influxdb/v1.8/query_language/data_exploration/#configuring-the-returned-timestamps) for the UTC offset or UTC DST to appear.
+The returned timestamps must be in [RFC3339 format](/influxdb/v1.8/query_language/explore-data/#configuring-the-returned-timestamps) for the UTC offset or UTC DST to appear.
 The `time_zone` parameter follows the TZ syntax in the [Internet Assigned Numbers Authority time zone database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) and it requires single quotes.
 
 ### Examples
@@ -3170,6 +3177,31 @@ Sample syntax for multiple subqueries:
 ```sql
 SELECT_clause FROM ( SELECT_clause FROM ( SELECT_statement ) [...] ) [...]
 ```
+
+{{% note %}}
+#### Improve performance of time-bound subqueries
+To improve the performance of InfluxQL queries with time-bound subqueries,
+apply the `WHERE time` clause to the outer query instead of the inner query.
+For example, the following queries return the same results, but **the query with
+time bounds on the outer query is more performant than the query with time
+bounds on the inner query**:
+
+##### Time bounds on the outer query (recommended)
+```sql
+SELECT inner_value AS value FROM (SELECT raw_value as inner_value)
+WHERE time >= '2020-07-19T21:00:00Z'
+AND time <= '2020-07-20T22:00:00Z'
+```
+
+##### Time bounds on the inner query
+```sql
+SELECT inner_value AS value FROM (
+  SELECT raw_value as inner_value
+  WHERE time >= '2020-07-19T21:00:00Z'
+  AND time <= '2020-07-20T22:00:00Z'
+)
+```
+{{% /note %}}
 
 ### Examples
 

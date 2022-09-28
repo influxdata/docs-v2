@@ -25,7 +25,7 @@ Parameters:
   DomainName:
     Type: String
     Description: The docs website domain name.
-    Default: dev.docs.influxdata.com
+    Default: docs.influxdata.com
 
 ###############################################################################
 Outputs:
@@ -33,7 +33,7 @@ Outputs:
 
   DocsProdBucketArn:
     Description: The ARN of the S3 bucket hosting the static content.
-    Value: !GetAtt DocsV2Bucket.Arn
+    Value: !GetAtt DocsBucket.Arn
 
   DocsCircleCIDeployAccessKeyId:
     Description: The access key ID for CircleCI deployment to S3.
@@ -49,21 +49,21 @@ Resources:
 
   DocsCloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
-    Description: The CDN for both V1 and V2 docs.
     Properties:
       DistributionConfig:
         Aliases:
           - !Ref DomainName
         DefaultCacheBehavior:
+          TargetOriginId: !Ref DocsBucket
+          ViewerProtocolPolicy: redirect-to-https
+          DefaultTTL: 2592000
           Compress: true
           ForwardedValues:
             QueryString: false
-          TargetOriginId: !Ref DocsV2Bucket
-          ViewerProtocolPolicy: redirect-to-https
           LambdaFunctionAssociations:
             - EventType: origin-request
               LambdaFunctionARN: !Ref DocsOriginRequestRewriteLambdaVersion
-        DefaultRootObject: index.html
+        DefaultRootObject: '/'
         CustomErrorResponses:
           - ErrorCachingMinTTL: 300
             ErrorCode: 403
@@ -72,15 +72,8 @@ Resources:
         Enabled: true
         HttpVersion: http2
         Origins:
-          - DomainName:
-              !Sub "${DocsV2Bucket}.s3.amazonaws.com"
-            Id: !Ref DocsV2Bucket
-            S3OriginConfig:
-              OriginAccessIdentity:
-                !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
-          - DomainName:
-              !Sub "${DocsV1Bucket}.s3.amazonaws.com"
-            Id: !Ref DocsV1Bucket
+          - Id: !Ref DocsBucket
+            DomainName: !Join [ "", [ !Ref DocsBucket, ".s3.amazonaws.com" ] ]
             S3OriginConfig:
               OriginAccessIdentity:
                 !Sub "origin-access-identity/cloudfront/${DocsCloudFrontOriginAccessIdentity}"
@@ -99,7 +92,7 @@ Resources:
       CloudFrontOriginAccessIdentityConfig:
         Comment: !Sub 'CloudFront Origin Access Identity for ${DomainName}'
 
-  DocsV2Bucket:
+  DocsBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketEncryption:
@@ -111,42 +104,17 @@ Resources:
         - Key: Domain
           Value: !Ref DomainName
 
-  DocsV2BucketPolicy:
+  DocsBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref DocsV2Bucket
+      Bucket: !Ref DocsBucket
       PolicyDocument:
         Statement:
           -
             Effect: Allow
             Action:
               - s3:GetObject
-            Resource: !Sub "arn:aws:s3:::${DocsV2Bucket}/*"
-            Principal:
-              CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
-
-  DocsV1Bucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketEncryption:
-        ServerSideEncryptionConfiguration:
-          -
-            ServerSideEncryptionByDefault:
-              SSEAlgorithm: AES256
-      Tags:
-        - Key: Domain
-          Value: !Ref DomainName
-
-  DocsV1BucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref DocsV1Bucket
-      PolicyDocument:
-        Statement:
-          - Effect: Allow
-            Action:
-              - s3:GetObject
-            Resource: !Sub "arn:aws:s3:::${DocsV1Bucket}/*"
+            Resource: !Sub "arn:aws:s3:::${DocsBucket}/*"
             Principal:
               CanonicalUser: !GetAtt DocsCloudFrontOriginAccessIdentity.S3CanonicalUserId
 
@@ -158,71 +126,20 @@ Resources:
         ZipFile: |
           'use strict';
 
+          // This is a a placeholder lambda function. Use the AWS Lambda console
+          // to add/update the contents of deploy/edge.js to the actual Lambda
+          // function and deploy it to Lambda@Edge
+
+          const { request } = event.Records[0].cf;
+
           exports.handler = (event, context, callback) => {
-            const { request } = event.Records[0].cf;
-            const { uri, headers, origin } = request;
-            const extension = uri.substr(uri.lastIndexOf('.') + 1);
-
-            const validExtensions = ['.html', '.css', '.js', '.xml', '.png', '.jpg', '.svg', '.json', '.csv', '.rb', '.otf', '.eot', '.ttf', '.woff'];
-            const indexPath = 'index.html';
-            const defaultPath = '/v2.0/'
-
-            // If path ends with '/', then append 'index.html', otherwise redirect to a
-            // path with '/' or ignore if the path ends with a valid file extension.
-            if ((uri == '/') || (uri.length < defaultPath.length)) {
-              callback(null, {
-                  status: '302',
-                  statusDescription: 'Found',
-                  headers: {
-                    location: [{
-                      key: 'Location',
-                      value: defaultPath,
-                    }],
-                  }
-                });
-            } else if (uri.endsWith('/')) {
-              request.uri = uri + indexPath;
-            } else if (uri.endsWith('/index.html')) {
-              callback(null, {
-                  status: '302',
-                  statusDescription: 'Found',
-                  headers: {
-                    location: [{
-                      key: 'Location',
-                      value: uri.substr(0, uri.length - indexPath.length),
-                    }],
-                  }
-                });
-            } else if (validExtensions.filter((ext) => uri.endsWith(ext)) == 0) {
-              callback(null, {
-                  status: '302',
-                  statusDescription: 'Found',
-                  headers: {
-                    location: [{
-                      key: 'Location',
-                      value: uri + '/',
-                    }],
-                  }
-                });
-            }
-
-            const pathsV1 = ['/influxdb', '/telegraf', '/chronograf', '/kapacitor', '/enterprise_influxdb', '/enterprise_kapacitor'];
-            const originV1 = process.env.ORIGIN_V1;
-
-            // Send to v1 origin if start of path matches
-            if (pathsV1.filter((path) => uri.startsWith(path)) > 0) {
-              headers['host'] = [{key: 'host', value: originV1}];
-              origin.s3.domainName = originV1;
-            }
-
-            // If nothing matches, return request unchanged
             callback(null, request);
           };
 
       Handler: index.handler
       MemorySize: 128
       Role: !Sub ${DocsOriginRequestRewriteLambdaRole.Arn}
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       Tags:
         - Key: Domain
           Value: !Ref DomainName
@@ -261,16 +178,14 @@ Resources:
                   - s3:ListBucket
                   - s3:GetBucketLocation
                 Resource:
-                  - !Sub "arn:aws:s3:::${DocsV2Bucket}"
-                  - !Sub "arn:aws:s3:::${DocsV1Bucket}"
+                  - !Sub "arn:aws:s3:::${DocsBucket}"
               - Effect: Allow
                 Action:
                   - s3:PutObject
                   - s3:PutObjectAcl
                   - s3:DeleteObject
                 Resource:
-                  - !Sub "arn:aws:s3:::${DocsV2Bucket}/*"
-                  - !Sub "arn:aws:s3:::${DocsV1Bucket}/*"
+                  - !Sub "arn:aws:s3:::${DocsBucket}/*"
               - Effect: Allow
                 Action:
                   - cloudfront:GetDistribution

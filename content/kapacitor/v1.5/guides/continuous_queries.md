@@ -1,5 +1,6 @@
 ---
 title: Kapacitor as a Continuous Query engine
+description: Use Kapacitor to downsample and process data at scheduled intervals.
 aliases:
     - kapacitor/v1.5/examples/continuous_queries/
 menu:
@@ -155,7 +156,7 @@ batch
 
 Kapacitor is a powerful tool.
 If you need more flexibility than CQs offer, use it.
-For more information and help writing TICKscripts from InfluxQL queries take a look at these [docs](https://docs.influxdata.com/kapacitor/latest/nodes/influx_q_l_node/) on the InfluxQL node in Kapacitor.
+For more information and help writing TICKscripts from InfluxQL queries take a look at these [docs](/kapacitor/v1.5/nodes/influx_q_l_node/) on the InfluxQL node in Kapacitor.
 Every function available in the InfluxDB query language is available in Kapacitor, so you can convert any query into a Kapacitor TICKscript.
 
 ## Important to Know

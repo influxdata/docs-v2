@@ -7,8 +7,6 @@ menu:
   influxdb_2_0:
     parent: Manage checks
 weight: 201
-aliases:
-  - /v2.0/monitor-alert/checks/create/
 related:
   - /influxdb/v2.0/monitor-alert/notification-rules/
   - /influxdb/v2.0/monitor-alert/notification-endpoints/
@@ -47,9 +45,9 @@ in a specified amount of time.
 ## Create a check in the InfluxDB UI
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
-2.  Click **{{< icon "plus" >}} Create** and select the [type of check](#check-types) to create.
+2.  Click **{{< icon "plus" "v2" >}} Create** and select the [type of check](#check-types) to create.
 3.  Click **Name this check** in the top left corner and provide a unique name for the check.
 
 #### Configure the check query
@@ -62,7 +60,7 @@ in a specified amount of time.
     (for example, "Every 5 minutes") and an aggregate function from the list of functions.
 
 3. Click **Submit** to run the query and preview the results.
-   To see the raw query results, click the **{{< icon "toggle" >}} View Raw Data** toggle.
+   To see the raw query results, click the **{{< icon "toggle" "v2" >}} View Raw Data** toggle.
 
 #### Configure the check
 1.  Click **2. Configure Check** near the top of the window.
@@ -87,16 +85,16 @@ in a specified amount of time.
 
     Use custom tags to associate additional metadata with the check.
     Common metadata tags across different checks lets you easily group and organize checks.
-    You can also use custom tags in [notification rules](/v2.0/monitor-alert/notification-rules/create/).
+    You can also use custom tags in [notification rules](/influxdb/v2.0/monitor-alert/notification-rules/create/).
 
 3.  In the **Status Message Template** column, enter the status message template for the check.
-    Use [Flux string interpolation](/v2.0/reference/flux/language/string-interpolation/)
+    Use [Flux string interpolation](/{{< latest "flux" >}}/data-types/basic/string/#interpolate-strings)
     to populate the message with data from the query.
 
     {{% note %}}
 #### Flux only interpolates string values
 Flux currently interpolates only string values.
-Use the [string() function](/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/string/)
+Use the [string() function](/{{< latest "flux" >}}/stdlib/universe/string/)
 to convert non-string values to strings.
 
 ```js
@@ -105,7 +103,7 @@ count = 12
 ```
     {{% /note %}}
 
-    Check data is represented as an object, `r`.
+    Check data is represented as a record, `r`.
     Access specific column values using dot notation: `r.columnName`.
 
     Use data from the following columns:
@@ -145,10 +143,10 @@ count = 12
     3.  In the **And stop checking after** field, enter the time to stop monitoring the series.
         For example, `30m`, `2h`, `3h15m`, etc.
 
-5. Click the green **{{< icon "check" >}}** in the top right corner to save the check.
+5. Click the green **{{< icon "check" "v2" >}}** in the top right corner to save the check.
 
 ## Clone a check
 Create a new check by cloning an existing check.
 
 1. In the **Checks** column, hover over the check you want to clone.
-2. Click the **{{< icon "clone" >}}** icon, then **Clone**.
+2. Click the **{{< icon "clone" "v2" >}}** icon, then **Clone**.

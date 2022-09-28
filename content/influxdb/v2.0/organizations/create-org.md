@@ -2,8 +2,6 @@
 title: Create an organization
 seotitle: Create an organization in InfluxDB
 description: Create an organization in InfluxDB using the InfluxDB UI or the influx CLI.
-aliases:
-  - /v2.0/organizations/create-org/
 menu:
   influxdb_2_0:
     name: Create an organization
@@ -15,23 +13,27 @@ products: [oss]
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to create an organization.
 
-{{% cloud %}}
-You cannot currently create additional organizations in {{< cloud-name >}}.
-Only the default organization is available.
-{{% /cloud %}}
+{{% note %}}
+#### Organization and bucket limits
+A single InfluxDB 2.0 OSS instance supports approximately 20 buckets actively being
+written to or queried across all organizations depending on the use case.
+Any more than that can adversely affect performance.
+Because each organization is created with a bucket, we do not recommend more than
+20 organizations in a single InfluxDB OSS instance.
+{{% /note %}}
 
 ## Create an organization in the InfluxDB UI
 
 1. In the navigation menu on the left, click the **Account dropdown**.
 
-    {{< nav-icon "account" >}}
+    {{< nav-icon "account" "v2" >}}
 
 2. Select **Create Organization**.
 3. In the window that appears, enter an **Organization Name** and **Bucket Name** and click **Create**.
 
 ## Create an organization using the influx CLI
 
-Use the [`influx org create` command](/v2.0/reference/cli/influx/org/create)
+Use the [`influx org create` command](/influxdb/v2.0/reference/cli/influx/org/create)
 to create a new organization. A new organization requires the following:
 
 - A name for the organization

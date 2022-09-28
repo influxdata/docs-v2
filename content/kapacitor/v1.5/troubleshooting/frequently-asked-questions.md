@@ -1,11 +1,11 @@
 ---
 title: Kapacitor frequently asked questions
-
+description: frequent sources of confusion or important things to know related to Kapacitor.
 menu:
   kapacitor_1_5:
-    name: Frequently asked questions (FAQ)
+    name: Frequently asked questions (FAQs)
     weight: 10
-    parent: Troubleshooting
+    parent: Troubleshoot
 ---
 
 This page addresses frequent sources of confusion or important things to know related to Kapacitor.
@@ -25,7 +25,7 @@ Where applicable, it links to outstanding issues on Github.
 **Performance**  
 
 - [Do you get better performance with running one complex script or having multiple scripts running in parallel?](#do-you-get-better-performance-with-running-one-complex-script-or-having-multiple-scripts-running-in-parallel)  
-- [Do template-based scripts use less resources or are they just an ease-of-use tool?](#do-template-based-scripts-use-less-resources-r-are-they-just-an-ease-of-use-tool)  
+- [Do template-based scripts use less resources or are they just an ease-of-use tool?](#do-template-based-scripts-use-less-resources-or-are-they-just-an-ease-of-use-tool)  
 - [How does Kapacitor handle high load?](#how-does-kapacitor-handle-high-load)
 - [How can I optimize Kapacitor tasks?](#how-can-i-optimize-kapacitor-tasks)
 

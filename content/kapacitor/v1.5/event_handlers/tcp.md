@@ -1,17 +1,18 @@
 ---
 title: TCP event handler
-description: The "tcp" event handler allows you to send Kapacitor alert data to a TCP endpoint. This page includes options and usage examples.
+description: >
+  The "tcp" event handler allows you to send Kapacitor alert data to a TCP endpoint. This page includes options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: TCP
-    weight: 1800
+    weight: 1900
     parent: Event handlers
 ---
 
 The TCP event handler sends JSON encoded alert data to a TCP endpoint.
 
 ## Options
-The following TCP event handler options can be set in a [handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using `.tcp()` in a TICKscript.
+The following TCP event handler options can be set in a [handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using `.tcp()` in a TICKscript.
 
 | Name    | Type   | Description              |
 | ----    | ----   | -----------              |

@@ -6,6 +6,7 @@ menu:
     name: Key concepts
     weight: 10
     parent: Concepts
+v2: /influxdb/v2.0/reference/key-concepts/
 ---
 
 Before diving into InfluxDB it's good to get acquainted with some of the key concepts of the database.
@@ -123,6 +124,7 @@ You don't need to have tags in your data structure, but it's generally a good id
 This means that queries on tags are faster and that tags are ideal for storing commonly-queried metadata.
 
 Avoid using the following reserved keys:
+
 * `_field`
 * `_measurement`
 * `time`

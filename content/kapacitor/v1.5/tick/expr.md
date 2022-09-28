@@ -1,14 +1,14 @@
 ---
 title: Lambda expressions
-
+description: >
+  TICKscript uses lambda expressions  to define transformations on data points as
+  well as define Boolean conditions that act as filters.
 menu:
   kapacitor_1_5_ref:
     identifier: expr
     weight: 5
     parent: tick
 ---
-
-# Overview
 
 TICKscript uses lambda expressions  to define transformations on data points as
 well as define Boolean conditions that act as filters.  Lambda expressions wrap
@@ -100,7 +100,7 @@ of the same and the desired type.
 In short, to ensure that the type of a field value is correct, use the built-in
 type conversion functions (see [below](#above-header-type-conversion)).
 
-# Built-in functions
+## Built-in functions
 
 ### Stateful functions
 
@@ -248,7 +248,8 @@ lambda: "expiration" < unixNano(now())
 #### Math functions
 
 The following mathematical functions are available.
-Each function is implemented via the equivalent Go function.
+Each function is implemented via the equivalent Go function
+(linked in the table below for reference only).
 
 | Function                                                          | Description                                                                                                                      |
 | ----------                                                        | -------------                                                                                                                    |
@@ -298,7 +299,8 @@ Each function is implemented via the equivalent Go function.
 #### String functions
 
 The following string manipulation functions are available.
-Each function is implemented via the equivalent Go function.
+Each function is implemented via the equivalent Go function
+(linked in the table below for reference only).
 
 | Function                                                                                                  | Description                                                                                                                                                                                                                            |
 | ----------                                                                                                | -------------                                                                                                                                                                                                                          |
@@ -324,7 +326,11 @@ Each function is implemented via the equivalent Go function.
 | [strTrimSuffix(s,&nbsp;suffix&nbsp;string)&nbsp;string)](https://golang.org/pkg/strings/#TrimSuffix)                     | StrTrimSuffix returns s without the provided trailing suffix string. If s doesn't end with suffix, s is returned unchanged.                                                                                                            |
 | [regexReplace(r&nbsp;regex,&nbsp;s,&nbsp;pattern&nbsp;string)&nbsp;string](https://golang.org/pkg/regexp/#Regexp.ReplaceAllString) | RegexReplace replaces matches of the regular expression in the input string with the output string. For example regexReplace(/a(b*)c/, 'abbbc', 'group is $1') -> 'group is bbb'. The original string is returned if no matches are found. |
 
+**Example:**
 
+```js
+.where(lambda: !strContains("fstype", 'nfs') OR !strContains("fstype", 'cifs'))
+```
 
 #### Human string functions
 
@@ -347,14 +353,14 @@ The second and third arguments must return the same type.
 Example:
 
 ```js
-|eval(lambda: if("field" > threshold AND "field" != 0, 'true', 'false'))
+|eval(lambda: if("field" > threshold AND "field" != 0, 'high', 'normal'))
     .as('value')
 ```
 
-The value of the field `value` in the above example will be the string `true` or `false`, depending on the condition passed as the first argument.
+The value of the field `value` in the above example will be the string `high` or `normal`,
+depending on the condition passed as the first argument.
 
 The `if` function's return type is the same type as its second and third arguments.
-
 
 ```js
 if(condition, true expression, false expression)

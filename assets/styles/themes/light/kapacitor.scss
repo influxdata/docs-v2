@@ -9,9 +9,9 @@ $kapacitor-sidebar-search-highlight: $gr-viridian !default;
 
 // Left Navigation
 $kapacitor-nav-category: $gr-viridian !default;
-$kapacitor-nav-category-hover: $b-dodger !default;
+$kapacitor-nav-category-hover: $p-star !default;
 $kapacitor-nav-item-hover: $b-dodger !default;
-$kapacitor-nav-toggle-bg-hover: $gr-viridian !default;
+$kapacitor-nav-toggle-bg-hover: $p-star !default;
 $kapacitor-nav-active: $p-star !default;
 
 // Article Content
@@ -29,3 +29,6 @@ $kapacitor-btn-gradient-hover: $grad-green !default;
 
 // Article Tabs for tabbed content
 $kapacitor-article-tab-active-text: $g20-white !default;
+
+// Homepage cards
+$kapacitor-home-card-gradient: $grad-GarageBand !default;

@@ -1,5 +1,6 @@
 ---
 title: Rename hosts in InfluxDB Enterprise
+description: Rename a host within your InfluxDB Enterprise instance.
 aliases:
     - /enterprise/v1.8/administration/renaming/
 menu:
@@ -27,7 +28,7 @@ First, suspend write and query activity to the cluster.
 - Once the two non-leaders are updated, stop the leader and wait for another meta node to become the leader - check with `curl localhost:8091/status`.
 - Repeat the process for the last meta node (former leader).
 
-Intermediate verification
+### Intermediate verification
 
 - Verify the state of the cluster with `influxd-ctl show`. The version must be reported on all nodes for them to be healthy.
 - Verify there is a meta leader with `curl localhost:8091/status` and that all meta nodes list the rest in the output.
@@ -45,7 +46,7 @@ Intermediate verification
 - Verify with `influxd-ctl show` on the meta node leader. Verify there are no errors in the logs of the updated data node and other data nodes. Restart the service on the updated data node. Verify writes, replication and queries work as expected.
 - Repeat on the remaining data nodes. Remember to only execute the `update-data` command from the meta leader.
 
-Final verification
+### Final verification
 
 - Verify the state of the cluster with `influxd-ctl show`. The version must be reported on all nodes for them to be healthy.
 - Verify the `show shards` output lists all shards and node ownership as expected.

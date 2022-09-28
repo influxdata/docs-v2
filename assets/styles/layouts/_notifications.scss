@@ -1,0 +1,93 @@
+#docs-notifications {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+  width: calc(100vw - 20px);
+  max-width: 500px;
+  transition: all .4s ease;
+
+  .notification {
+    display: none; // initial hidden state
+    right: -50px; // initial hidden state
+    opacity: 0; // initial hidden state
+
+    position: relative;
+    border-radius: $radius;
+    box-shadow: 2px 2px 6px rgba($g2-kevlar, .35);
+
+    .notification-content {
+      padding: 1.25rem 2.35rem .5rem 1.25rem;
+      margin-bottom: 10px;
+      font-size: .95rem;
+      color: $g20-white;
+    }
+
+    .close-notification {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: color .2s;
+      font-weight: bold;
+      color: rgba($g20-white, .5);
+      &:hover{ color: $g20-white }
+    }
+
+    &.note {
+      @include gradient($grad-GarageBand);
+      a:hover { color: $gr-gypsy; }
+      code { color: $gr-gypsy; background: rgba($gr-gypsy, .25); }
+      pre { background: rgba($gr-gypsy, .25); }
+    }
+
+    &.warn {
+      @include gradient($grad-FuyuPersimmon, 225deg);
+      a:hover { color: $r-basalt; }
+      code { color: #ffbbdd; background: rgba($r-basalt, .35); }
+      pre { background: rgba($r-basalt, .35); }
+    }
+
+    //////////// Basic HTML element styles for notification content ////////////
+
+    h1,h2,h3,h4,h5,h6 {
+      font-weight: 500;
+      margin: 1rem 0 .75rem;
+      &:first-child { margin-top: 0; }
+    }
+
+    h1,h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+    h4 { font-size: 1.1rem; }
+    h5 { font-size: 1rem; }
+    h6 { font-size: .95rem; font-style: italic; }
+
+    p,li  { line-height: 1.4rem; }
+
+    p { margin: 0 0 .75rem; }
+
+    a {
+      font-weight: bold;
+      text-decoration: none;
+      color: $g20-white;
+      transition: color .2s;
+    }
+
+    ul,ol { padding-left: 1.5rem; }
+
+    code {
+      padding: .15rem .4rem;
+      border-radius: $radius;
+      font-weight: bold;
+    }
+
+    pre {
+      padding: 1rem;
+      border-radius: $radius;
+      overflow: scroll;
+      code { background: transparent !important; }
+    }
+
+  }
+}

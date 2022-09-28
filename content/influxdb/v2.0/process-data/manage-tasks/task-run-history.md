@@ -7,10 +7,10 @@ menu:
     name: View run history
     parent: Manage tasks
 weight: 203
-aliases:
-  - /v2.0/process-data/manage-tasks/task-run-history/
 related:
-  - /influxdb/v2.0/reference/cli/influx/task/run/find
+  - /influxdb/v2.0/reference/cli/influx/task/list
+  - /influxdb/v2.0/reference/cli/influx/task/run/list
+  - /influxdb/v2.0/reference/cli/influx/task/retry-failed
 ---
 
 When an InfluxDB task runs, a "run" record is created in the task's history.
@@ -24,9 +24,9 @@ to view task run histories and associated logs.
 
 1. In the navigation menu on the left, select **Tasks**.
 
-    {{< nav-icon "tasks" >}}
+    {{< nav-icon "tasks" "v2" >}}
 
-2. Hover over the task you want to run and click the **{{< icon "gear" >}}** icon.
+2. Hover over the task you want to run and click the **{{< icon "gear" "v2" >}}** icon.
 3. Select **View Task Runs**.
 
 ### View task run logs
@@ -46,3 +46,22 @@ influx task run list --task-id=0000000000000000
 {{% note %}}
 Detailed run logs are not currently available in the `influx` CLI.
 {{% /note %}}
+
+## Retry failed task runs
+Use the [`influx task retry-failed` command](/influxdb/v2.0/reference/cli/influx/task/retry-failed/)
+to retry failed task runs.
+
+```sh
+# Retry failed tasks for a specific task
+influx task retry-failed \
+  --id 0000000000000000
+
+# Print information about runs that will be retried
+influx task retry-failed \
+  --dry-run
+
+# Retry failed task runs that occurred in a specific time range
+influx task retry-failed \
+  --after 2021-01-01T00:00:00Z \
+  --before 2021-01-01T23:59:59Z
+```

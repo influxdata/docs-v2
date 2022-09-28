@@ -329,7 +329,7 @@ capturing and storing these metrics locally within the `_internal` database for 
 Plugin ID: `influxdb_listener`
 
 The [InfluxDB Listener input plugin](https://github.com/influxdata/telegraf/blob/release-1.9/plugins/inputs/influxdb_listener/README.md) listens for requests sent
-according to the [InfluxDB HTTP API](/influxdb/latest/guides/writing_data/).  The intent of the
+according to the [InfluxDB HTTP API](/{{< latest "influxdb" "v1" >}}/guides/writing_data/).  The intent of the
 plugin is to allow Telegraf to serve as a proxy, or router, for the HTTP `/write`
 endpoint of the InfluxDB HTTP API.
 
@@ -1000,7 +1000,7 @@ The [HTTP Listener input plugin](https://github.com/influxdata/telegraf/blob/rel
 Line Protocol input data format](/telegraf/v1.9/data_formats/input/influx) ONLY (other [Telegraf input data formats](/telegraf/v1.9/data_formats/input/) are not supported).
 This plugin allows Telegraf to serve as a proxy or router for the `/write` endpoint of the InfluxDB HTTP API.
 
-> DEPRECATED as of version 1.9. Use either [HTTP Listener v2](#http-listener-v2) or the [InfluxDB Listener](#influxdb-v1-x)
+> DEPRECATED as of version 1.9. Use either [HTTP Listener v2](#http-listener-v2) or the [InfluxDB Listener](#influxdb-v1x)
 
 
 ### Jolokia

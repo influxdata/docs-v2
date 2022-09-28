@@ -1,6 +1,6 @@
 ---
 title: InfluxDB Line Protocol output data format
-description: The "influx" data format outputs metrics into the InfluxDB Line Protocol format.
+description: The `influx` data format outputs metrics into the InfluxDB Line Protocol format.
 menu:
   telegraf_1_15:
     name: InfluxDB Line Protocol
@@ -38,4 +38,4 @@ The `influx` output data format outputs metrics into [InfluxDB Line Protocol][li
   influx_uint_support = false
 ```
 
-[line protocol]: /influxdb/latest/write_protocols/line_protocol_tutorial/
+[line protocol]: /{{< latest "influxdb" "v1" >}}/write_protocols/line_protocol_tutorial/

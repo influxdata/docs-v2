@@ -80,7 +80,7 @@ Telegraf now uses the [Go TLS library](https://golang.org/pkg/crypto/tls/).
 
 #### Inputs
 
-- [Arista LANZ Consumer](`lanz`) - Contributed by [@timhughes](https://github.com/timhughes)
+- [Arista LANZ Consumer](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/lanz) (`lanz`) - Contributed by [@timhughes](https://github.com/timhughes)
 - [ClickHouse](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/clickhouse/README.md)(`clickhouse`) - Contributed by [@kshvakov](https://github.com/kshvakov)
 - [Execd](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/execd/README.md)(`execd`) - Contributed by [@jgraichen](https://github.com/jgraichen)
 - [Event Hub Consumer](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/eventhub_consumer/README.md)(`eventhub_consumer`) - Contributed by [@R290](https://github.com/R290)
@@ -92,13 +92,13 @@ Telegraf now uses the [Go TLS library](https://golang.org/pkg/crypto/tls/).
 
 #### Processors
 
-- [Dedup](`dedup`) - Contributed by [@igomura](https://github.com/igomura)
-- [S2 Geo](`s2geo`) - Contributed by [@alespour](https://github.com/alespour)
-- [Template](`template`) - Contributed by [@RobMalvern](https://github.com/RobMalvern)
+- [Dedup](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/processors/dedup) (`dedup`) - Contributed by [@igomura](https://github.com/igomura)
+- [S2 Geo](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/processors/s2geo) (`s2geo`) - Contributed by [@alespour](https://github.com/alespour)
+- [Template](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/processors/template) (`template`) - Contributed by [@RobMalvern](https://github.com/RobMalvern)
 
 #### Outputs
 
-- [Warp10](`warp10`) - Contributed by [@aurrelhebert](https://github.com/aurrelhebert)
+- [Warp10](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/outputs/warp10) (`warp10`) - Contributed by [@aurrelhebert](https://github.com/aurrelhebert)
 
 ### Features
 
@@ -1169,14 +1169,14 @@ for details about the mapping.
 
 ### New input data formats (parsers)
 
-- [csv](/telegraf/v1.8/data_formats/input/csv) - Contributed by @maxunt
-- [grok](/telegraf/v1.8/data_formats/input/grok/) - Contributed by @maxunt
-- [logfmt](/telegraf/v1.8/data_formats/input/logfmt/) - Contributed by @Ayrdrie & @maxunt
-- [wavefront](/telegraf/v1.8/data_formats/input/wavefront/) - Contributed by @puckpuck
+- [csv](https://archive.docs.influxdata.com/telegraf/v1.8/data_formats/input/csv) - Contributed by @maxunt
+- [grok](https://archive.docs.influxdata.com/telegraf/v1.8/data_formats/input/grok/) - Contributed by @maxunt
+- [logfmt](https://archive.docs.influxdata.com/telegraf/v1.8/data_formats/input/logfmt/) - Contributed by @Ayrdrie & @maxunt
+- [wavefront](https://archive.docs.influxdata.com/telegraf/v1.8/data_formats/input/wavefront/) - Contributed by @puckpuck
 
 ### New output data formats (serializers)
 
-- [splunkmetric](/telegraf/v1.8/data_formats/output/splunkmetric/) - Contributed by @ronnocol
+- [splunkmetric](https://archive.docs.influxdata.com/telegraf/v1.8/data_formats/output/splunkmetric/) - Contributed by @ronnocol
 
 ### Features
 
@@ -1957,7 +1957,7 @@ These plugins will replace [udp_listener](https://github.com/influxdata/telegraf
 - Add [DMCache input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/dmcache).
 - Add support for precision in [HTTP Listener input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/http_listener).
 - Add `message_len_max` option to the [Kafka consumer input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/kafka_consumer).
-- Add [collectd parser](/telegraf/v1.3/concepts/data_formats_input/#collectd).
+- Add [collectd parser](https://archive.docs.influxdata.com/telegraf/v1.3/concepts/data_formats_input/#collectd).
 - Simplify plugin testing without outputs.
 - Check signature in the [GitHub webhook input plugin](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/webhooks/github).
 - Add [papertrail](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/webhooks/papertrail) support to webhooks.

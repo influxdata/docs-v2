@@ -1,5 +1,6 @@
 ---
 title: TICKscript specification
+description: Specification for TICKscript language.
 menu:
   kapacitor_1_5_ref:
     name: TICKscript specification

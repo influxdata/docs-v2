@@ -1,6 +1,7 @@
 ---
 title: HipChat event handler
-description: The HipChat event handler allows you to send Kapacitor alerts to HipChat. This page includes configuration options and usage examples.
+description: >
+  The HipChat event handler allows you to send Kapacitor alerts to HipChat. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: HipChat
@@ -56,7 +57,7 @@ This only applies if the `global` is also set to `true`.
 
 ## Options
 The following HipChat event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.hipchat()` in a TICKscript.
 
 | Name  | Type   | Description                                                                               |
@@ -105,7 +106,7 @@ To configure Kapacitor with HipChat, the following is needed:
 
 Your token appears in the table just above the `Create new token` section:
 
-![HipChat token](/img/kapacitor/hipchat-token.png)
+![HipChat token](/img/kapacitor/1-4-hipchat-token.png)
 
 
 ##  Using the HipChat Event Handler

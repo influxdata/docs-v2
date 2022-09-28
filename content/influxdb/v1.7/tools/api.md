@@ -8,6 +8,7 @@ menu:
     name: InfluxDB API reference
     weight: 20
     parent: Tools
+v2: /influxdb/v2.0/reference/api/
 ---
 
 The InfluxDB API provides a simple way to interact with the database.
@@ -188,7 +189,7 @@ HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 X-Influxdb-Build: OSS
-X-Influxdb-Version: v1.7.0
+X-Influxdb-Version: v{{< latest-patch >}}
 X-Request-Id: 9c353b0e-aadc-11e8-8023-000000000000
 Date: Tue, 05 Nov 2018 16:08:32 GMT
 ```
@@ -539,7 +540,7 @@ HTTP/1.1 200 OK
 Connection: close
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:22:54 GMT
 Transfer-Encoding: chunked
 
@@ -555,7 +556,7 @@ HTTP/1.1 200 OK
 Connection: close
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:23:48 GMT
 Transfer-Encoding: chunked
 
@@ -570,7 +571,7 @@ $ curl -i -G 'http://localhost:8086/query?db=mydb' --data-urlencode 'q=SELECT *'
 HTTP/1.1 400 Bad Request
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:24:25 GMT
 Content-Length: 76
 
@@ -586,7 +587,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 19:11:26 GMT
 Content-Length: 33
 
@@ -633,7 +634,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&precision=s" --data-binary
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:33:23 GMT
 ```
 
@@ -645,7 +646,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&rp=myrp" --data-binary 'my
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:34:31 GMT
 ```
 
@@ -659,7 +660,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb&u=myusername&p=mypassword"
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:34:56 GMT
 ```
 
@@ -672,7 +673,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:40:30 GMT
 Content-Length: 33
 
@@ -689,7 +690,7 @@ $ curl -i -XPOST -u myusername:mypassword "http://localhost:8086/write?db=mydb" 
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:36:40 GMT
 ```
 
@@ -702,7 +703,7 @@ HTTP/1.1 401 Unauthorized
 Content-Type: application/json
 Request-Id: [...]
 Www-Authenticate: Basic realm="InfluxDB"
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 17:46:40 GMT
 Content-Length: 33
 
@@ -746,7 +747,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,myt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:02:57 GMT
 ```
 
@@ -758,7 +759,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary 'mymeas,myt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:03:44 GMT
 ```
 
@@ -771,7 +772,7 @@ mymeas,mytag=2 myfield=34 1463689152000000000'
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:04:02 GMT
 ```
 
@@ -783,7 +784,7 @@ $ curl -i -XPOST "http://localhost:8086/write?db=mydb" --data-binary @data.txt
 HTTP/1.1 204 No Content
 Content-Type: application/json
 Request-Id: [...]
-X-Influxdb-Version: 1.4.x
+X-Influxdb-Version: {{< latest-patch >}}
 Date: Wed, 08 Nov 2017 18:08:11 GMT
 ```
 
@@ -810,7 +811,7 @@ Errors are returned in JSON.
 | 400 Bad Request  | Unacceptable request. Can occur with an InfluxDB line protocol syntax error or if a user attempts to write values to a field that previously accepted a different value type. The returned JSON offers further information. |
 | 401 Unauthorized | Unacceptable request. Can occur with invalid authentication credentials.  |
 | 404 Not Found    | Unacceptable request. Can occur if a user attempts to write to a database that does not exist. The returned JSON offers further information. |
-| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](https://docs.influxdata.com/influxdb/latest/administration/config/#max-body-size-25000000) parameter for more details.
+| 413 Request Entity Too Large | Unaccetable request. It will occur if the payload of the POST request is bigger than the maximum size allowed. See [`max-body-size`](/influxdb/v1.7/administration/config/#max-body-size-25000000) parameter for more details.
 | 500 Internal Server Error  | The system is overloaded or significantly impaired. Can occur if a user attempts to write to a retention policy that does not exist. The returned JSON offers further information. |
 
 #### Examples

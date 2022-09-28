@@ -8,8 +8,6 @@ menu:
     name: Control a dashboard
     parent: Manage dashboards
 weight: 203
-aliases:
-  - /v2.0/visualize-data/dashboards/control-dashboard/
 ---
 
 ## Control at the dashboard level
@@ -18,13 +16,13 @@ Use dashboard controls in the upper left to update your dashboard.
 
 ### Add a cell
 
-Click **{{< icon "add-cell" >}} Add Cell** to open the Data Explorer and configure a new cell for your dashboard.
+Click **{{< icon "add-cell" "v2" >}} Add Cell** to open the Data Explorer and configure a new cell for your dashboard.
 
-For details on using the Data Explorer, see [Explore metrics](/v2.0/visualize-data/explore-metrics/).
+For details on using the Data Explorer, see [Explore metrics](/influxdb/v2.0/visualize-data/explore-metrics/).
 
 ### Add a note
 
-1. Click **{{< icon "note" >}} Add Note** to add a note cell to your dashboard.
+1. Click **{{< icon "note" "v2" >}} Add Note** to add a note cell to your dashboard.
 2. Enter your note in Markdown in the left pane. A preview appears in the right pane.
 3. Enable the **Show note when query returns no data** option to show the note only when the query displays no data.
 4. Click **Save**.
@@ -35,15 +33,14 @@ Click the timezone dropdown to select a timezone to use for the dashboard. Selec
 
 {{< img-hd src="/img/influxdb/2-0-controls-timezone.png" alt="Select timezone" />}}
 
-### Select auto-refresh interval
-
-Select how frequently to refresh the dashboard's data. By default, refreshing is paused.
-
-{{< img-hd src="/img/influxdb/2-0-controls-refresh-interval.png" alt="Select refresh interval" />}}
-
 ### Manually refresh dashboard
 
-Click the refresh button (**{{< icon "refresh" >}}**) to manually refresh the dashboard's data.
+Click the refresh button (**{{< icon "refresh" "v2" >}}**) to manually refresh the dashboard's data.
+
+#### Manually refresh a single dashboard cell
+
+1. Click the **{{< icon "gear" "v2" >}}** on the dashboard cell you want to refresh.
+2. Click **{{< icon "refresh" "v2" >}} Refresh**.
 
 ### Select time range
 
@@ -58,11 +55,11 @@ The default time range is 5 minutes.
 
 ### Add variables
 
-Click **Variables** to display variables available for your dashboard. For details, see [Use and manage variables](/v2.0/visualize-data/variables/)
+Click **Variables** to display variables available for your dashboard. For details, see [Use and manage variables](/influxdb/v2.0/visualize-data/variables/)
 
 ### Presentation mode
 
-Click the fullscreen icon (**{{< icon "fullscreen" >}}**) to enter presentation mode. Presentation mode allows you to view [a dashboard] in full screen, hiding the left and top navigation menus so only the cells appear. This mode might be helpful, for example, for stationary screens dedicated to monitoring visualizations.
+Click the fullscreen icon (**{{< icon "fullscreen" "v2" >}}**) to enter presentation mode. Presentation mode allows you to view [a dashboard] in full screen, hiding the left and top navigation menus so only the cells appear. This mode might be helpful, for example, for stationary screens dedicated to monitoring visualizations.
 
 ### Toggle dark mode and light mode
 Click the moon or sun icons to toggle your dashboard between **dark mode** and **light mode.**

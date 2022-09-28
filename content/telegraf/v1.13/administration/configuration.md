@@ -41,7 +41,7 @@ configuration files.
 ## Set environment variables
 
 Add environment variables anywhere in the configuration file by prepending them with `$`.
-For strings, variables must be in quotes (for example, `"$STR_VAR"`). 
+For strings, variables must be in quotes (for example, `"$STR_VAR"`).
 For numbers and Booleans, variables must be unquoted (for example, `$INT_VAR`, `$BOOL_VAR`).
 
 You can also set environment variables using the Linux `export` command: `export password=mypassword`
@@ -52,6 +52,7 @@ You can also set environment variables using the Linux `export` command: `export
 
 In the Telegraf environment variables file (`/etc/default/telegraf`):
 
+{{< keep-url >}}
 ```sh
 USER="alice"
 INFLUX_URL="http://localhost:8086"
@@ -75,6 +76,7 @@ In the Telegraf configuration file (`/etc/telegraf.conf`):
 
 The environment variables above add the following configuration settings to Telegraf:
 
+{{< keep-url >}}
 ```sh
 [global_tags]
   user = "alice"
@@ -361,6 +363,7 @@ Additional inputs (or outputs) of the same type can be specified by defining the
 
 #### Output configuration examples:
 
+{{< keep-url >}}
 ```toml
 [[outputs.influxdb]]
   urls = [ "http://localhost:8086" ]

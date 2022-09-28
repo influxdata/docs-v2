@@ -9,8 +9,6 @@ menu:
     name: Downsample data
     parent: Common tasks
 weight: 201
-aliases:
-  - /v2.0/process-data/common-tasks/downsample-data/
 influxdb/v2.0/tags: [tasks]
 ---
 
@@ -34,7 +32,7 @@ A separate bucket where aggregated, downsampled data is stored.
 To downsample data, it must be aggregated in some way.
 What specific method of aggregation you use depends on your specific use case,
 but examples include mean, median, top, bottom, etc.
-View [Flux's aggregate functions](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/)
+View [Flux's aggregate functions](/{{< latest "flux" >}}/function-types/#aggregates)
 for more information and ideas.
 
 ## Example downsampling task script
@@ -43,7 +41,7 @@ The example task script below is a very basic form of data downsampling that doe
 1. Defines a task named "cq-mem-data-1w" that runs once a week.
 2. Defines a `data` variable that represents all data from the last 2 weeks in the
    `mem` measurement of the `system-data` bucket.
-3. Uses the [`aggregateWindow()` function](/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+3. Uses the [`aggregateWindow()` function](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
    to window the data into 1 hour intervals and calculate the average of each interval.
 4. Stores the aggregated data in the `system-data-downsampled` bucket under the
    `my-org` organization.
@@ -71,12 +69,11 @@ Again, this is a very basic example, but it should provide you with a foundation
 to build more complex downsampling tasks.
 
 ## Add your task
-Once your task is ready, see [Create a task](/v2.0/process-data/manage-tasks/create-task) for information about adding it to InfluxDB.
+Once your task is ready, see [Create a task](/influxdb/v2.0/process-data/manage-tasks/create-task) for information about adding it to InfluxDB.
 
 ## Things to consider
 - If there is a chance that data may arrive late, specify an `offset` in your
   task options long enough to account for late-data.
-- If running a task against a bucket with a finite retention policy, do not schedule
-  tasks to run too closely to the end of the retention policy.
-  Always provide a "cushion" for downsampling tasks to complete before the data
-  is dropped by the retention policy.
+- If running a task against a bucket with a finite retention period,
+  schedule tasks to run prior to the end of the retention period to let
+  downsampling tasks complete before data outside of the retention period is dropped.

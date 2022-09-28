@@ -1,6 +1,6 @@
 ---
-title: Configuring Kapacitor
-
+title: Configure Kapacitor
+description: Configuration options and environment variables in Kapacitor.
 menu:
   kapacitor_1_5:
     weight: 10
@@ -8,7 +8,7 @@ menu:
 ---
 
  * [Startup](#startup)
- * [Kapacitor configuration file](#the-kapacitor-configuration-file)
+ * [Kapacitor configuration file](#kapacitor-configuration-file)
  * [Kapacitor environment variables](#kapacitor-environment-variables)
  * [Configuring with the HTTP API](#configuring-with-the-http-api)
 
@@ -17,24 +17,34 @@ Basic installation and startup of the Kapacitor service is covered in
 The basic principles of working with Kapacitor described there should be understood before continuing here.
 This document presents Kapacitor configuration in greater detail.
 
-Kapacitor service properties are configured using key-value pairs organized
-into groups.
+Kapacitor service properties are configured using key-value pairs organized into groups.
 Any property key can be located by following its path in the configuration file (for example, `[http].https-enabled` or `[slack].channel`).
 Values for configuration keys are declared in the configuration file.
-On POSIX systems this file is located by default at the following location: `/etc/kapacitor/kapacitor.conf`.  On Windows systems a sample configuration file can be found in the same directory as the `kapacitord.exe`.
-The location of this file can be defined at startup with the `-config` argument.
+
+#### Kapacitor configuration file location
+Kapacitor looks for configuration files at specific locations depends on your operating system:
+
+**Linux**: `/etc/kapacitor/kapacitor.conf`
+**macOS**: `/usr/local/etc/kapacitor.conf`
+**Windows**: _same directory as the `kapacitord.exe`._
+
+Define a custom location for your `kapacitor.conf` at startup with the `-config` flag.
 The path to the configuration file can also be declared using the environment variable `KAPACITOR_CONFIG_PATH`.
-Values declared in this file can be overridden by environment variables beginning with the token `KAPACITOR_`.
-Some values can also be dynamically altered using the HTTP API when the key  `[config-override].enabled` is set to `true`.
+Values declared in the configuration file are overridden by environment variables beginning with `KAPACITOR_`.
+Some values can also be dynamically altered using the HTTP API when the key `[config-override].enabled` is set to `true`.
 
-Four primary mechanisms for configuring different aspects of the Kapacitor service are available and listed here in the descending order by which they may be overridden:
+#### Configuration precedence
+Configure Kapacitor using one or more of the available configuration mechanisms.
+Configuration mechanisms are honored in the following order of precedence.
 
-* The configuration file.
-* Environment variables.
-* The HTTP API (for optional services and the InfluxDB connection).
-* Command line arguments (for changing hostname and logging).
+1. Command line arguments
+2. HTTP API _(for the InfluxDB connection and other optional services)_
+3. Environment variables
+4. Configuration file values
 
-> ***Note:*** Setting the property `skip-config-overrides` in the configuration file to `true` will disable configuration overrides at startup.
+{{% note %}}
+***Note:*** Setting the property `skip-config-overrides` in the configuration file to `true` will disable configuration overrides at startup.
+{{% /note %}}
 
 ## Startup
 
@@ -334,12 +344,14 @@ Multiple InfluxDB table array configurations can be specified,
 but one InfluxDB table array configuration must be flagged as the `default`.
 
 **Example: An InfluxDB connection grouping**
-=======
+
 {{% note %}}
+#### InfluxDB user must have admin privileges
 To use Kapacitor with an InfluxDB instance that requires authentication,
-it must authenticate using an InfluxDB user with **read and write** permissions.
+the InfluxDB user must have [admin privileges](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#admin-users).
 {{% /note %}}
 
+{{< keep-url >}}
 ```toml
 ...
 [[influxdb]]
@@ -353,6 +365,11 @@ it must authenticate using an InfluxDB user with **read and write** permissions.
   username = ""
   password = ""
   timeout = 0
+  
+  # By default, all data sent to InfluxDB is compressed in gzip format.
+  # To turn off gzip compression, add the following config setting:
+  compression = "none"
+
   # Absolute path to pem encoded CA file.
   # A CA can be provided without a key/cert pair
   #   ssl-ca = "/etc/kapacitor/ca.pem"

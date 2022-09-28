@@ -1,6 +1,6 @@
 ---
 title: Graphite output data format
-description: Use the "Graphite" output data format to serialize data from Telegraf metrics.
+description: Use the Graphite output data format to serialize data from Telegraf metrics.
 menu:
   telegraf_1_15:
     name: Graphite output
@@ -10,7 +10,7 @@ menu:
 
 The Graphite data format is serialized from Telegraf metrics using either the
 template pattern or tag support method.  You can select between the two
-methods using the [`graphite_tag_support`](#graphite-tag-support) option.  When set, the tag support method is used,
+methods using the [`graphite_tag_support`](#graphite_tag_support) option.  When set, the tag support method is used,
 otherwise the [template pattern][templates]) option is used.
 
 ## Configuration

@@ -30,7 +30,7 @@ see [InfluxDB's Changelog](/influxdb/v1.3/about_the_project/releasenotes-changel
 Version 1.3.0 marked the first official release of InfluxDB's new time series index (TSI) engine.
 
 The TSI engine is a significant technical advancement in InfluxDB.
-It offers a solution to the [time-structured merge tree](https://docs.influxdata.com/influxdb/v1.3/concepts/storage_engine/) engine's [high series cardinality issue](https://docs.influxdata.com/influxdb/v1.3/troubleshooting/frequently-asked-questions/#why-does-series-cardinality-matter).
+It offers a solution to the [time-structured merge tree](/influxdb/v1.3/concepts/storage_engine/) engine's [high series cardinality issue](/influxdb/v1.3/troubleshooting/frequently-asked-questions/#why-does-series-cardinality-matter).
 With TSI, the number of series should be unbounded by the memory on the server hardware and the number of existing series will have a negligible impact on database startup time.
 See Paul Dix's blogpost [Path to 1 Billion Time Series: InfluxDB High Cardinality Indexing Ready for Testing](https://www.influxdata.com/path-1-billion-time-series-influxdb-high-cardinality-indexing-ready-testing/) for additional information.
 
@@ -49,8 +49,8 @@ Next, restart your InfluxDB instance.
 
 In version 1.3, the web admin interface is no longer available in InfluxDB.
 The interface does not run on port `8083` and InfluxDB ignores the `[admin]` section in the configuration file if that section is present.
-[Chronograf](/chronograf/v1.3/) replaces the web admin interface with improved tooling for querying data, writing data, and database management.
-See [Chronograf's transition guide](/chronograf/v1.3/guides/transition-web-admin-interface/) for more information.
+[Chronograf](/{{< latest "chronograf" >}}/) replaces the web admin interface with improved tooling for querying data, writing data, and database management.
+See [Chronograf's transition guide](/chronograf/v1.7/guides/transition-web-admin-interface/) for more information.
 
 ## Duration Unit Updates
 

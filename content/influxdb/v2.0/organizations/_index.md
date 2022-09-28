@@ -2,8 +2,6 @@
 title: Manage organizations
 seotitle: Manage organizations in InfluxDB
 description: Manage organizations in InfluxDB using the InfluxDB UI or the influx CLI.
-aliases:
-  - /v2.0/organizations/
 menu:
   influxdb_2_0:
     name: Manage organizations

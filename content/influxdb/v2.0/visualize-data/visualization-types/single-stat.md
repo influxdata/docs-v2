@@ -4,9 +4,7 @@ list_title: Single stat
 list_image: /img/influxdb/2-0-visualizations-single-stat-example.png
 description: >
   The Single Stat view displays the most recent value of the specified time series as a numerical value.
-weight: 205
-aliases:
-  - /v2.0/visualize-data/visualization-types/single-stat/
+weight: 202
 menu:
   influxdb_2_0:
     name: Single Stat
@@ -17,7 +15,7 @@ The **Single Stat** view displays the most recent value of the specified time se
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-single-stat-example-8.png" alt="Single stat example" />}}
 
-Select the **Single Stat** option from the visualization dropdown in the upper right.
+Select the **Single Stat** option from the visualization dropdown in the upper left.
 
 ## Single Stat behavior
 The Single Stat visualization displays a single numeric data point.
@@ -32,7 +30,7 @@ For consistent results, the Single Stat query should return a single table.
 {{% /note %}}
 
 ## Single Stat Controls
-To view **Single Stat** controls, click **{{< icon "gear" >}} Customize** next to
+To view **Single Stat** controls, click **{{< icon "gear" "v2" >}} Customize** next to
 the visualization dropdown.
 
 - **Prefix**: Prefix to be added to the single stat.

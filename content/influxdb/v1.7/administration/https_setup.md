@@ -6,6 +6,7 @@ menu:
     name: Enabling HTTPS
     weight: 30
     parent: Administration
+v2: /influxdb/v2.0/security/enable-tls/
 ---
 
 Enable TLS to encrypt communication between clients and the InfluxDB server.
@@ -129,7 +130,7 @@ InfluxDB supports three types of TLS certificates:
 
 ## Connect Telegraf to a secured InfluxDB instance
 
-Connecting [Telegraf](/telegraf/latest/) to an InfluxDB instance that's using
+Connecting [Telegraf](/{{< latest "telegraf" >}}/) to an InfluxDB instance that's using
 HTTPS requires some additional steps.
 
 In the Telegraf configuration file (`/etc/telegraf/telegraf.conf`), edit the `urls`

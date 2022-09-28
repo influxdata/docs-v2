@@ -1,6 +1,7 @@
 ---
 title: Configure LDAP authentication in InfluxDB Enterprise
-description: Configure LDAP authentication in InfluxDB Enterprise and test LDAP connectivity.
+description: >
+  Configure LDAP authentication in InfluxDB Enterprise and test LDAP connectivity.
 menu:
   enterprise_influxdb_1_8:
     name: Configure LDAP authentication
@@ -38,7 +39,9 @@ Update the following settings in each data node configuration file (`/etc/influx
 3. If you're enabling authentication on meta nodes, you must also include the following configurations:
    - `INFLUXDB_META_META_AUTH_ENABLED` environment variable, or `[http]` configuration setting `meta-auth-enabled`, is set to `true`.
      This value must be the same value as the meta node's `meta.auth-enabled` configuration.
-   - `INFLUXDB_META_META_INTERNAL_SHARED_SECRET`, or the corresponding `[meta]` configuration setting `meta-internal-shared-secret`, is set to `true`.
+   - `INFLUXDB_META_META_INTERNAL_SHARED_SECRET`,
+     or the corresponding `[meta]` configuration setting `meta-internal-shared-secret`,
+     is set to a secret value.
      This value must be the same value as the meta node's `meta.internal-shared-secret`.
 
 ### Configure meta nodes
@@ -55,6 +58,7 @@ Update the following settings in each meta node configuration file (`/etc/influx
 
 To authenticate your InfluxDB connection, run the following command, replacing `username:password` with your credentials:
 
+{{< keep-url >}}
 ```bash
 curl -u username:password -XPOST "http://localhost:8086/..."
 ```
@@ -76,60 +80,59 @@ For more detail on authentication, see [Authentication and authorization in Infl
     For more information, see [Fine-grained authorization in InfluxDB Enterprise](/enterprise_influxdb/v1.8/guides/fine-grained-authorization/).
     The InfluxDB admin user doesn't include permissions for InfluxDB Enterprise roles.
 
-3. To verify your LDAP configuration, run:
+3. Restart all meta and data nodes in your InfluxDB Enterprise cluster to load your updated configuration.
+
+   On each **meta** node, run:
+
+   {{< code-tabs-wrapper >}}
+   {{% code-tabs %}}
+   [sysvinit](#)
+   [systemd](#)
+   {{% /code-tabs %}}
+   {{% code-tab-content %}}
+   ```sh
+   service influxdb-meta restart
+   ```
+   {{% /code-tab-content %}}
+   {{% code-tab-content %}}
+   ```sh
+   sudo systemctl restart influxdb-meta
+   ```
+   {{% /code-tab-content %}}
+   {{< /code-tabs-wrapper >}}
+
+   On each **data** node, run:
+
+   {{< code-tabs-wrapper >}}
+   {{% code-tabs %}}
+   [sysvinit](#)
+   [systemd](#)
+   {{% /code-tabs %}}
+   {{% code-tab-content %}}
+   ```sh
+   service influxdb restart
+   ```
+   {{% /code-tab-content %}}
+   {{% code-tab-content %}}
+   ```sh
+   sudo systemctl restart influxdb
+   ```
+   {{% /code-tab-content %}}
+   {{< /code-tabs-wrapper >}}
+
+
+4. To verify your LDAP configuration, run:
 
     ```bash
     influxd-ctl ldap verify -ldap-config /path/to/ldap.toml
     ```
 
-4. To load your LDAP configuration file, run the following command:
+5. To load your LDAP configuration file, run the following command:
 
     ```bash
     influxd-ctl ldap set-config /path/to/ldap.toml
     ```
 
-###  Restart meta and data nodes
-
-Restart all meta and data nodes in your InfluxDB Enterprise cluster to load your
-updated configuration.
-
-On each **meta** node, run:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[sysvinit](#)
-[systemd](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sh
-service influxdb-meta restart
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```sh
-sudo systemctl restart influxdb-meta
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
-On each **data** node, run:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[sysvinit](#)
-[systemd](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sh
-service influxdb restart
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```sh
-sudo systemctl restart influxdb
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 ## Sample LDAP configuration
 

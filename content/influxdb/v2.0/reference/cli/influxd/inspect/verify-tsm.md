@@ -8,9 +8,7 @@ menu:
   influxdb_2_0_ref:
     parent: influxd inspect
 weight: 301
-aliases:
-  - /v2.0/reference/cli/influxd/inspect/verify-tsm/
-products: [oss]
+draft: true
 ---
 
 The `influxd inspect verify-tsm` command analyzes a set of TSM files for inconsistencies

@@ -15,30 +15,16 @@ This document describes in detail how clustering works in InfluxDB Enterprise. I
 
 An InfluxDB Enterprise installation consists of three separate software processes: Data nodes, Meta nodes, and the Enterprise Web server. To run an InfluxDB cluster, only the meta and data nodes are required. Communication within a cluster looks like this:
 
-```text
-    ┌───────┐     ┌───────┐
-    │       │     │       │
-    │ Meta1 │◀───▶│ Meta2 │
-    │       │     │       │
-    └───────┘     └───────┘
-        ▲             ▲
-        │             │
-        │  ┌───────┐  │
-        │  │       │  │
-        └─▶│ Meta3 │◀─┘
-           │       │
-           └───────┘
-
-─────────────────────────────────
-          ╲│╱    ╲│╱
-      ┌────┘      └──────┐
-      │                  │
-  ┌───────┐          ┌───────┐
-  │       │          │       │
-  │ Data1 │◀────────▶│ Data2 │
-  │       │          │       │
-  └───────┘          └───────┘
-```
+{{< diagram >}}
+flowchart TB
+  subgraph meta[Meta Nodes]
+      Meta1 <-- TCP :8089 --> Meta2 <-- TCP :8089 --> Meta3
+  end
+  meta <-- HTTP :8091 --> data
+  subgraph data[Data Nodes]
+    Data1 <-- TCP :8088 --> Data2
+  end
+{{< /diagram >}}
 
 The meta nodes communicate with each other via a TCP protocol and the Raft consensus protocol that all use port `8089` by default. This port must be reachable between the meta nodes. The meta nodes also expose an HTTP API bound to port `8091` by default that the `influxd-ctl` command uses.
 
@@ -90,7 +76,7 @@ Data nodes hold the actual time series data. The minimum number of data nodes to
 
 ## Chronograf
 
-[Chronograf](/chronograf/latest/introduction/getting-started/) is the user interface component of InfluxData’s TICK stack.
+[Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/) is the user interface component of InfluxData’s TICK stack.
 It makes owning the monitoring and alerting for your infrastructure easy to setup and maintain.
 It talks directly to the data and meta nodes over their HTTP protocols, which are bound by default to ports `8086` for data nodes and port `8091` for meta nodes.
 

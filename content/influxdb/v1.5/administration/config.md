@@ -1,5 +1,7 @@
 ---
 title: Configuring InfluxDB OSS
+aliases:
+  - /influxdb/v1.5/administration/subscription-management/
 menu:
   influxdb_1_5:
     name: Configuring InfluxDB
@@ -717,7 +719,7 @@ Environment variable: `INFLUXDB_GRAPHITE_PROTOCOL`
 
 The number of nodes that must confirm the write.
 If the requirement is not met the return value will be either `partial write` if some points in the batch fail or `write failure` if all points in the batch fail.
-For more information, see the Query String Parameters for Writes section in the [Line Protocol Syntax Reference ](/influxdb/v1.5/write_protocols/write_syntax/).
+For more information, see the Query String Parameters for Writes section in the [Line Protocol Syntax Reference ](/influxdb/v1.5/write_protocols/line_protocol_reference/).
 
 Environment variable: `INFLUXDB_GRAPHITE_CONSISTENCY_LEVEL`
 

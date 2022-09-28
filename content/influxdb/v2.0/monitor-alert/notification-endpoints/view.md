@@ -8,8 +8,6 @@ menu:
     name: View endpoint history
     parent: Manage notification endpoints
 weight: 202
-aliases:
-  - /v2.0/monitor-alert/notification-endpoints/view/
 related:
   - /influxdb/v2.0/monitor-alert/checks/
   - /influxdb/v2.0/monitor-alert/notification-rules/
@@ -25,7 +23,7 @@ View notification endpoint details and history in the InfluxDB user interface (U
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Endpoints** near to top of the page.
 
@@ -33,7 +31,7 @@ View notification endpoint details and history in the InfluxDB user interface (U
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Endpoints** near to top of the page.
 3. Click the name of the notification endpoint you want to view.
@@ -43,10 +41,10 @@ View notification endpoint details and history in the InfluxDB user interface (U
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Endpoints** near to top of the page.
-3. Hover over the notification endpoint, click the **{{< icon "view" >}}** icon, then **View History**.
+3. Hover over the notification endpoint, click the **{{< icon "view" "v2" >}}** icon, then **View History**.
    The Check Statuses History page displays:
 
     - Statuses generated for the selected notification endpoint

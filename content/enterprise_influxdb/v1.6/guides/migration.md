@@ -41,7 +41,7 @@ following steps will **not** transfer users from the OSS instance to the
 InfluxDB Enterprise Cluster.
 {{% /warn %}}
 
-In addition, please refrain from creating a Global Admin user in the InfluxDB Enterprise Web Console before implementing these steps. If you’ve already created a Global Admin user, contact support.
+In addition, please refrain from creating a Global Admin user in the InfluxDB Enterprise Web Console before implementing these steps. If you’ve already created a Global Admin user, contact InfluxData Support.
 
 ## Modify the `/etc/hosts` file
 
@@ -120,14 +120,14 @@ If you have settings that you’d like to keep, please make a copy of your confi
 
 #### Ubuntu & Debian (64-bit)
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.6.6-c1.6.6_amd64.deb
-sudo dpkg -i influxdb-data_1.6.6-c1.6.6_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 
 #### RedHat & CentOS (64-bit)
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.6.6_c1.6.6.x86_64.rpm
-sudo yum localinstall influxdb-data-1.6.6_c1.6.6.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### 5. Update the configuration file
@@ -208,7 +208,7 @@ You can do this with [ALTER RETENTION POLICY](/influxdb/v1.6/query_language/data
 Next, [rebalance](/enterprise_influxdb/v1.6/guides/rebalance/) your cluster manually to meet the desired
 replication factor for existing shards.
 
-Finally, if you were using [Chronograf](/chronograf/latest/), you can
+Finally, if you were using [Chronograf](/{{< latest "chronograf" >}}/), you can
 add your Enterprise instance as a new data source.  If you were not using
-[Chronograf](/chronograf/latest/introduction/installation/), we recommend going through
+[Chronograf](/{{< latest "chronograf" >}}/introduction/installation/), we recommend going through
 the installation instructions and using it as your primary management UI for the instance. -->

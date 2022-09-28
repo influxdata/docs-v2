@@ -5,6 +5,7 @@ menu:
   influxdb_1_7:
     weight: 50
     parent: Guides
+v2: /influxdb/v2.0/query-data/flux/calculate-percentages/
 ---
 
 [InfluxQL](/influxdb/v1.7/query_language/) lets you perform simple math equations

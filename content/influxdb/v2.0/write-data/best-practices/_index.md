@@ -4,8 +4,6 @@ seotitle: Best practices for writing data to InfluxDB
 description: >
   Learn about the recommendations and best practices for writing data to InfluxDB.
 weight: 105
-aliases:
-  - /v2.0/write-data/best-practices/
 menu:
   influxdb_2_0:
     name: Best practices

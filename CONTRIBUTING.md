@@ -10,6 +10,8 @@ What constitutes a "substantial" change is at the discretion of InfluxData docum
 
 _**Note:** Typo and broken link fixes are greatly appreciated and do not require signing the CLA._
 
+*If it's your first time contributing and you're looking for an easy update, check out our [good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue)!*
+
 ## Make suggested updates
 
 ### Fork and clone InfluxData Documentation Repository
@@ -49,7 +51,17 @@ You need a database that specializes in time series.
 +You need InfluxDB.
 ```
 
-### Page frontmatter
+### Article headings
+Use only h2-h6 headings in markdown content.
+h1 headings act as the page title and are populated automatically from the `title` frontmatter.
+h2-h6 headings act as section headings.
+
+### Image naming conventions
+Save images using the following naming format: `project/version-context-description.png`.
+For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
+Specify a version other than 2.0 only if the image is specific to that version.
+
+## Page frontmatter
 Every documentation page includes frontmatter which specifies information about the page.
 Frontmatter populates variables in page templates and the site's navigation menu.
 
@@ -64,7 +76,7 @@ menu:
     parent: # Specifies a parent group and nests navigation items
 weight: # Determines sort order in both the nav tree and in article lists
 draft: # If true, will not render page on build
-v2.x/tags: # Tags specific to each version (replace .x" with the appropriate minor version )
+product/v2.x/tags: # Tags specific to each version (replace product and .x" with the appropriate product and minor version )
 related: # Creates links to specific internal and external content at the bottom of the page
   - /path/to/related/article
   - https://external-link.com, This is an external link
@@ -74,10 +86,19 @@ list_note: # Used in children shortcode type="list" to add a small note next to 
 list_code_example: # Code example included with article descriptions in children type="articles" shortcode
 list_query_example: # Code examples included with article descriptions in children type="articles" shortcode,
   # References to examples in data/query_examples
-products: # List of products that the page specifically applies to: [oss, cloud, enterprise]
+canonical: # Path to canonical page, overrides auto-gen'd canonical URL
+v2: # Path to v2 equivalent page
+prepend: # Prepend markdown content to an article (especially powerful with cascade)
+  block: # (Optional) Wrap content in a block style (note, warn, cloud)
+  content: # Content to prepend to article
+append: # Append markdown content to an article (especially powerful with cascade)
+  block: # (Optional) Wrap content in a block style (note, warn, cloud)
+  content: # Content to append to article
+metadata: [] # List of metadata messages to include under the page h1
+updated_in: # Product and version the referenced feature was updated in (displayed as a unique metadata)
 ```
 
-#### Title usage
+### Title usage
 
 ##### `title`
 The `title` frontmatter populates each page's h1 header.
@@ -104,10 +125,95 @@ Then 201-299 and so on.
 
 _**Note:** `_index.md` files should be weighted one level up from the other `.md` files in the same directory._
 
-### Article headings
-Use only h2-h6 headings in markdown content.
-h1 headings act as the page title and are populated automatically from the `title` frontmatter.
-h2-h6 headings act as section headings.
+### Related content
+Use the `related` frontmatter to include links to specific articles at the bottom of an article.
+
+- If the page exists inside of this documentation, just include the path to the page.
+  It will automatically detect the title of the page.
+- If the page exists inside of this documentation, but you want to customize the link text,
+  include the path to the page followed by a comma, and then the custom link text.
+  The path and custom text must be in that order and separated by a comma and a space.
+- If the page exists outside of this documentation, include the full URL and a title for the link.
+  The link and title must be in that order and separated by a comma and a space.
+
+```yaml
+related:
+  - /v2.0/write-data/quick-start
+  - /v2.0/write-data/quick-start, This is custom text for an internal link
+  - https://influxdata.com, This is an external link
+```
+
+### Canonical URLs
+Search engines use canonical URLs to accurately rank pages with similar or identical content.
+The `canonical` HTML meta tag identifies which page should be used as the source of truth.
+
+By default, canonical URLs are automatically generated for each page in the InfluxData
+documentation using the latest version of the current product and the current path.
+
+Use the `canonical` frontmatter to override the auto-generated canonical URL.
+
+_**Note:** The `canonical` frontmatter supports the [`{{< latest >}}` shortcode](#latest-links)._
+
+```yaml
+canonical: /path/to/canonical/doc/
+
+# OR
+
+canonical: /{{< latest "influxdb" "v2" >}}/path/to/canonical/doc/
+```
+
+### v2 equivalent documentation
+To display a notice on a 1.x page that links to an equivalent 2.0 page,
+add the following frontmatter to the 1.x page:
+
+```yaml
+v2: /influxdb/v2.0/get-started/
+```
+
+### Prepend and append content to a page
+Use the `prepend` and `append` frontmatter to add content to the top or bottom of a page.
+Each has the following fields:
+
+- **block:** _(Optional)_ block style to wrap content in (note, warn, cloud, or enterprise)
+- **content:** _**(Required)**_ markdown content to add.
+
+```yaml
+append:
+  block: note
+  content: |
+    #### This is example markdown content
+    This is just an example note block that gets appended to the article.
+```
+
+Use this frontmatter with [cascade](#cascade) to add the same content to
+all children pages as well.
+
+```yaml
+cascade:
+  append:
+    block: note
+    content: |
+      #### This is example markdown content
+      This is just an example note block that gets appended to the article.
+```
+
+### Cascade
+To automatically apply frontmatter to a page and all of its children, use the
+[`cascade` frontmatter](https://gohugo.io/content-management/front-matter/#front-matter-cascade)
+built in into Hugo.
+
+```yaml
+title: Example page
+description: Example description
+cascade:
+  layout: custom-layout
+```
+
+`cascade` applies the frontmatter to all children unless the child already includes
+those frontmatter keys. Frontmatter defined on the page overrides frontmatter
+"cascaded" from a parent.
+
+## Shortcodes
 
 ### Notes and warnings
 Shortcodes are available for formatting notes and warnings in each article:
@@ -129,13 +235,6 @@ For sections content that relate specifically to InfluxDB Enterprise, use the `{
 {{% enterprise %}}
 Insert enterprise-specific markdown content here.
 {{% /enterprise %}}
-```
-
-#### All content is Enterprise-specific
-If all content in an article is Enterprise-specific, include `enterprise`in the `products` frontmatter.
-
-```yaml
-products: [enterprise]
 ```
 
 #### Enterprise name
@@ -163,19 +262,12 @@ Find more info [here][{{< enterprise-link >}}]
 ```
 
 ### InfluxDB Cloud Content
-For sections content that relate specifically to InfluxDB Cloud, use the `{{% cloud %}}` shortcode.
+For sections of content that relate specifically to InfluxDB Cloud, use the `{{% cloud %}}` shortcode.
 
 ```md
 {{% cloud %}}
 Insert cloud-specific markdown content here.
 {{% /cloud %}}
-```
-
-#### All content is cloud-specific
-If all content in an article is cloud-specific, include `cloud` in the `products` frontmatter.
-
-```yaml
-products: [cloud]
 ```
 
 #### InfluxDB Cloud name
@@ -202,11 +294,76 @@ InfluxDB Cloud.
 Find more info [here][{{< cloud-link >}}]
 ```
 
-### InfluxDB OSS Content
-If all content in an article is OSS-specific, include `oss` in the `products` frontmatter.
+### Latest links
+Each of the InfluxData projects have different "latest" versions.
+Use the `{{< latest >}}` shortcode to populate link paths with the latest version
+for the specified project.
 
-```yaml
-products: [oss]
+```md
+[Link to latest Telegraf](/{{< latest "telegraf" >}}/path/to/doc/)
+```
+
+To constrain the latest link to a major version, include a second argument with
+the major version:
+
+```md
+[Link to latest InfluxDB 1.x](/{{< latest "influxdb" "v1" >}}/path/to/doc/)]
+```
+
+`{{< latest "telegraf" >}}` is replaced with `telegraf/v1.15` (or whatever the latest version is).
+`{{< latest "influxdb" "v1" >}}` is replaced with `influxdb/v1.8` (or whatever the latest v1.x version is).
+
+Use the following for project names:
+
+- influxdb
+- telegraf
+- chronograf
+- kapacitor
+- enterprise_influxdb
+
+**Note**: Include a leading slash before the latest shortcode and a trailing slash after in all link paths:
+
+```md
+/{{< latest "telegraf" >}}/
+```
+
+### Latest patch version
+Use the `{{< latest-patch >}}` shortcode to add the latest patch version of a product.
+By default, this shortcode parses the product and minor version from the URL.
+To specify a specific product and minor version, use the `product` and `version` arguments.
+Easier to maintain being you update the version number in the `data/products.yml` file instead of updating individual links and code examples.
+
+```md
+{{< latest-patch >}}
+
+{{< latest-patch product="telegraf" >}}
+
+{{< latest-patch product="chronograf" version="1.7" >}}
+```
+
+### Latest influx CLI version
+Use the `{{< latest-cli >}}` shortcode to add the latest version of the `influx`
+CLI supported by the minor version of InfluxDB.
+By default, this shortcode parses the minor version from the URL.
+To specify a specific minor version, use the `version` argument.
+Maintain CLI version numbers in the `data/products.yml` file instead of updating individual links and code examples.
+
+```md
+{{< latest-cli >}}
+
+{{< latest-cli version="2.1" >}}
+```
+
+### API endpoint
+Use the `{{< api-endpoint >}}` shortcode to generate a code block that contains
+a colored request method and a specified API endpoint.
+Provide the following arguments:
+
+- **method**: HTTP request method (get, post, patch, put, or delete)
+- **endpoint**: API endpoint
+
+```md
+{{< api-endpoint method="get" endpoint="/api/v2/tasks">}}
 ```
 
 ### Tabbed Content
@@ -228,6 +385,12 @@ The link text is used as the button text.
 This shortcode must be closed with `{{% /tabs %}}`.
 
 **Note**: The `%` characters used in this shortcode indicate that the contents should be processed as Markdown.
+
+The `{{% tabs %}}` shortcode has an optional `style` argument that lets you
+assign CSS classes to the tags HTML container. The following classes are available:
+
+- **small**: Tab buttons are smaller and don't scale to fit the width.
+- **even-wrap**: Prevents uneven tab widths when tabs are forced to wrap.
 
 `{{% tab-content %}}`  
 This shortcode creates a container for a content block.
@@ -296,18 +459,135 @@ WHERE time > now() - 15m
 {{< /code-tabs-wrapper >}}
 ~~~
 
-### Related content
-Use the `related` frontmatter to include links to specific articles at the bottom of an article.
+#### Link to tabbed content
 
-- If the page exists inside of this documentation, just include the path to the page.
-  It will automatically detect the title of the page.
-- If the page exists outside of this documentation, include the full URL and a title for the link.
-  The link and title must be in that order and must be separated by a comma and a space.
+To link to tabbed content, click on the tab and use the URL parameter shown.
+It will have the form `?t=`, plus a string.
+For example:
 
-```yaml
-related:
-  - /v2.0/write-data/quick-start
-  - https://influxdata.com, This is an external link
+```
+[Windows installation](/influxdb/v2.0/install/?t=Windows)
+```
+
+### Required elements
+Use the `{{< req >}}` shortcode to identify required elements in documentation with
+orange text and/or asterisks. By default, the shortcode outputs the text, "Required," but
+you can customize the text by passing a string argument with the shortcode.
+
+```md
+{{< req >}}
+```
+
+**Output:** Required
+
+```md
+{{< req "This is Required" >}}
+```
+
+**Output:** This is required
+
+If using other named arguments like `key` or `color`, use the `text` argument to
+customize the text of the required message.
+
+```md
+{{< req text="Required if ..." color="blue" type="key" >}}
+```
+
+#### Required elements in a list
+When identifying required elements in a list, use `{{< req type="key" >}}` to generate
+a "* Required" key before the list. For required elements in the list, include
+{{< req "\*" >}} before the text of the list item. For example:
+
+```md
+{{< req type="key" >}}
+
+- {{< req "\*" >}} **This element is required**
+- {{< req "\*" >}} **This element is also required**
+- **This element is NOT required**
+```
+
+#### Change color of required text
+Use the `color` argument to change the color of required text.
+The following colors are available:
+
+- blue
+- green
+- magenta
+
+```md
+{{< req color="magenta" text="This is required" >}}
+```
+
+### Page navigation buttons
+Use the `{{< page-nav >}}` shortcode to add page navigation buttons to a page.
+These are useful for guiding users through a set of docs that should be read in sequential order.
+The shortcode has the following parameters:
+
+- **prev:** path of the previous document _(optional)_
+- **next:** path of the next document _(optional)_
+- **prevText:** override the button text linking to the previous document _(optional)_
+- **nextText:** override the button text linking to the next document _(optional)_
+
+The shortcode generates buttons that link to both the previous and next documents.
+By default, the shortcode uses either the `list_title` or the `title` of the linked
+document, but you can use `prevText` and `nextText` to override button text.
+
+```md
+<!-- Simple example -->
+{{ page-nav prev="/path/to/prev/" next="/path/to/next" >}}
+
+<!-- Override button text -->
+{{ page-nav prev="/path/to/prev/" prevText="Previous" next="/path/to/next" nextText="Next" >}}
+
+### Keybinds
+Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
+The following parameters are available:
+
+- mac
+- linux
+- win
+- all
+- other
+
+```md
+<!-- Provide keybinding for one OS and another for all others -->
+{{< keybind mac="⇧⌘P" other="Ctrl+Shift+P" >}}
+
+<!-- Provide a keybind for all OSs -->
+{{< keybind all="Ctrl+Shift+P" >}}
+
+<!-- Provide unique keybindings for each OS -->
+{{< keybind mac="⇧⌘P" linux="Ctrl+Shift+P" win="Ctrl+Shift+Alt+P" >}}
+```
+
+### Diagrams
+Use the `{{< diagram >}}` shortcode to dynamically build diagrams.
+The shortcode uses [mermaid.js](https://github.com/mermaid-js/mermaid) to convert
+simple text into SVG diagrams.
+For information about the syntax, see the [mermaid.js documentation](https://mermaid-js.github.io/mermaid/#/).
+
+```md
+{{< diagram >}}
+flowchart TB
+  This --> That
+  That --> There
+{{< /diagram >}}
+```
+
+### File system diagrams
+Use the `{{< filesystem-diagram >}}` shortcode to create a styled file system
+diagram using a Markdown unordered list.
+
+##### Example filesystem diagram shortcode
+```md
+{{< filesystem-diagram >}}
+- Dir1/
+- Dir2/
+  - ChildDir/
+    - Child
+  - Child
+- Dir3/
+{{< /filesystem-diagram >}}
 ```
 
 ### High-resolution images
@@ -345,17 +625,43 @@ Each expandable block needs a label that users can click to expand or collpase t
 Pass the label as a string to the shortcode.
 
 ```md
-{{% expand "Lable 1"}}
+{{% expand "Label 1" %}}
 Markdown content associated with label 1.
 {{% /expand %}}
 
-{{% expand "Lable 2"}}
+{{% expand "Label 2" %}}
 Markdown content associated with label 2.
 {{% /expand %}}
 
-{{% expand "Lable 3"}}
+{{% expand "Label 3" %}}
 Markdown content associated with label 3.
 {{% /expand %}}
+```
+
+Use the optional `{{< expand-wrapper >}}` shortcode around a group of `{{% expand %}}`
+shortcodes to ensure proper spacing around the expandable elements:
+
+```md
+{{< expand-wrapper >}}
+{{% expand "Label 1" %}}
+Markdown content associated with label 1.
+{{% /expand %}}
+
+{{% expand "Label 2" %}}
+Markdown content associated with label 2.
+{{% /expand %}}
+{{< /expand-wrapper >}}
+```
+
+### Captions
+Use the `{{% caption %}}` shortcode to add captions to images and code blocks.
+Captions are styled with a smaller font size, italic text, slight transparency,
+and appear directly under the previous image or code block.
+
+```md
+{{% caption %}}
+Markdown content for the caption.
+{{% /caption %}}
 ```
 
 ### Generate a list of children articles
@@ -406,7 +712,7 @@ To include a horizontal rule after each child summary, set `hr=true`.
 _Only the `articles` list type supports horizontal rules._
 
 ```md
-{{< children readmore=true >}}
+{{< children hr=true >}}
 ```
 
 #### Include a code example with a child summary
@@ -419,6 +725,80 @@ list_code_example: |
   This is a code example
   ```
 ~~~
+
+#### Organize and include native code examples
+To include text from a file in `/shared/text/`, use the
+`{{< get-shared-text >}}` shortcode and provide the relative path and filename.
+
+This is useful for maintaining and referencing sample code variants in their
+ native file formats.
+
+1. Store code examples in their native formats at `/shared/text/`.
+  ```md
+    /shared/text/example1/example.js
+    /shared/text/example1/example.py
+  ```
+
+2. Include the files, e.g. in code tabs
+````md
+  {{% code-tabs-wrapper %}}
+  {{% code-tabs %}}
+  [Javascript](#js)
+  [Python](#py)
+  {{% /code-tabs %}}
+  {{% code-tab-content %}}
+  ```js
+  {{< get-shared-text "example1/example.js" >}}
+  ```
+  {{% /code-tab-content %}}
+  {{% code-tab-content %}}
+  ```py
+  {{< get-shared-text "example1/example.py" >}}
+  ```
+  {{% /code-tab-content %}}
+  {{% /code-tabs-wrapper %}}
+````
+
+#### Include specific files from the same directory
+To include the text from one file in another file in the same
+directory, use the `{{< get-leaf-text >}}` shortcode.
+The directory that contains both files must be a
+Hugo [*Leaf Bundle*](https://gohugo.io/content-management/page-bundles/#leaf-bundles),
+a directory that doesn't have any child directories.
+
+In the following example, `api` is a leaf bundle. `content` isn't.
+
+```md
+content
+|
+|--- api
+     |  query.pdmc
+     |  query.sh
+     |  _index.md
+```
+
+##### query.pdmc
+```md
+# Query examples
+```
+
+##### query.sh
+```md
+curl https://localhost:8086/query
+```
+
+To include `query.sh` and `query.pdmc` in `api/_index.md`, use the following code:
+````md
+{{< get-leaf-text "query.pdmc" >}}
+
+# Curl example
+```sh
+{{< get-leaf-text "query.sh" >}}
+```
+````
+
+Avoid using the following file extensions when naming included text files since Hugo interprets these as markup languages:
+`.ad`, `.adoc`, `.asciidoc`, `.htm`, `.html`, `.markdown`, `.md`, `.mdown`, `.mmark`, `.pandoc`, `.pdc`, `.org`, or `.rst`.
 
 #### Reference a query example in children
 To include a query example with the children in your list, update `data/query_examples.yml`
@@ -446,9 +826,11 @@ The following table shows which children types use which frontmatter properties:
 ### Inline icons
 The `icon` shortcode allows you to inject icons in paragraph text.
 It's meant to clarify references to specific elements in the InfluxDB user interface.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< icon "icon-name" >}}
+{{< icon "icon-name" "v2" >}}
 ```
 
 Below is a list of available icons (some are aliases):
@@ -492,6 +874,8 @@ Below is a list of available icons (some are aliases):
 - nav-orgs
 - nav-tasks
 - note
+- notebook
+- notebooks
 - org
 - orgs
 - pause
@@ -516,20 +900,23 @@ Below is a list of available icons (some are aliases):
 ### InfluxDB UI left navigation icons
 In many cases, documentation references an item in the left nav of the InfluxDB UI.
 Provide a visual example of the navigation item using the `nav-icon` shortcode.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< nav-icon "Tasks" >}}
+{{< nav-icon "tasks" "v2" >}}
 ```
 
 The following case insensitive values are supported:
 
 - admin, influx
 - data-explorer, data explorer
+- notebooks, books
 - dashboards
 - tasks
 - monitor, alerts, bell
 - cloud, usage
-- disks, load data, load-data
+- data, load data, load-data
 - settings
 - feedback
 
@@ -577,6 +964,202 @@ I like {{< tooltip "Butterflies are awesome!" "butterflies" >}}.
 The example above renders as "I like butterflies" with "butterflies" highlighted.
 When you hover over "butterflies," a tooltip appears with the text: "Butterflies are awesome!"
 
+### Flux sample data tables
+The Flux `sample` package provides basic sample datasets that can be used to
+illustrate how Flux functions work. To quickly display one of the raw sample
+datasets, use the `{{% flux/sample %}}` shortcode.
+
+The `flux/sample` shortcode has the following arguments that can be specified
+by name or positionally.
+
+#### set
+Sample dataset to output. Use either `set` argument name or provide the set
+as the first argument. The following sets are available:
+
+- float
+- int
+- uint
+- string
+- bool
+- numericBool
+
+#### includeNull
+Specify whether or not to include _null_ values in the dataset.
+Use either `includeNull` argument name or provide the boolean value as the second argument.
+
+#### includeRange
+Specify whether or not to include time range columns (`_start` and `_stop`) in the dataset.
+This is only recommended when showing how functions that require a time range
+(such as `window()`) operate on input data.
+Use either `includeRange` argument name or provide the boolean value as the third argument.
+
+##### Example Flux sample data shortcodes
+```md
+<!-- No arguments, defaults to "float" set without nulls -->
+{{% flux/sample %}}
+
+<!-- Output the "string" set without nulls or time range columns -->
+{{% flux/sample set="string" includeNull=false %}}
+
+<!-- Output the "int" set with nulls but without time range columns -->
+{{% flux/sample "int" true %}}
+
+<!-- Output the "int" set with nulls and time range columns -->
+<!-- The following shortcode examples render the same -->
+{{% flux/sample set="int" includeNull=true includeRange=true %}}
+{{% flux/sample "int" true true %}}
+```
+
+### Duplicate OSS content in Cloud
+Docs for InfluxDB OSS and InfluxDB Cloud share a majority of content.
+To prevent duplication of content between versions, use the following shortcodes:
+
+- `{{< duplicate-oss >}}`
+- `{{% oss-only %}}`
+- `{{% cloud-only %}}`
+
+#### duplicate-oss
+The `{{< duplicate-oss >}}` shortcode copies the page content of the file located
+at the identical file path in the most recent InfluxDB OSS version.
+The Cloud version of this markdown file should contain the frontmatter required
+for all pages, but the body content should just be the `{{< duplicate-oss >}}` shortcode.
+
+#### oss-only
+Wrap content that should only appear in the OSS version of the doc with the `{{% oss-only %}}` shortcode.
+Use the shortcode on both inline and content blocks:
+
+```md
+{{% oss-only %}}This is inline content that only renders in the InfluxDB OSS docs{{% /oss-only %}}
+
+{{% oss-only %}}
+
+This is a multi-paragraph content block that spans multiple paragraphs and  will
+only render in the InfluxDB OSS documentation.
+
+**Note:** Notice the blank newline after the opening short-code tag.
+This is necessary to get the first sentence/paragraph to render correctly.
+
+{{% /oss-only %}}
+
+- {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+- {{% oss-only %}}
+
+  This is a multi-paragraph list item that will only render in the InfluxDB OSS docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /oss-only %}}
+
+1.  Step 1
+2.  {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+3.  {{% oss-only %}}
+
+     This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB OSS docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /oss-only %}}
+```
+
+#### cloud-only
+Wrap content that should only appear in the Cloud version of the doc with the `{{% cloud-only %}}` shortcode.
+Use the shortcode on both inline and content blocks:
+
+```md
+{{% cloud-only %}}This is inline content that only renders in the InfluxDB Cloud docs{{% /cloud-only %}}
+
+{{% cloud-only %}}
+
+This is a multi-paragraph content block that spans multiple paragraphs and will
+only render in the InfluxDB Cloud documentation.
+
+**Note:** Notice the blank newline after the opening short-code tag.
+This is necessary to get the first sentence/paragraph to render correctly.
+
+{{% /cloud-only %}}
+
+- {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+- {{% cloud-only %}}
+
+  This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB Cloud docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /cloud-only %}}
+
+1.  Step 1
+2.  {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+3.  {{% cloud-only %}}
+
+    This is a multi-paragraph list item that will only render in the InfluxDB Cloud docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /cloud-only %}}
+```
+
+#### All-Caps
+Clockface v3 introduces many buttons with text formatted as all-caps.
+Use the `{{< caps >}}` shortcode to format text to match those buttons.
+
+```md
+Click {{< caps >}}Add Data{{< /caps >}}
+```
+
+#### Code callouts
+Use the `{{< code-callout >}}` shortcode to highlight and emphasize a specific
+piece of code in a code block. Provide the string to highlight in the code block.
+Include a syntax for the codeblock to properly style the called out code.
+
+~~~md
+{{< code-callout "03a2bbf46249a000" >}}
+```sh
+http://localhost:8086/orgs/03a2bbf46249a000/...
+```
+{{< /code-callout >}}
+~~~
+
+#### InfluxDB University banners
+Use the `{{< influxdbu >}}` shortcode to add an InfluxDB University banner that
+points to the InfluxDB University site or a specific course.
+Use the default banner template, a predefined course template, or fully customize
+the content of the banner.
+
+```html
+<!-- Default banner -->
+{{< influxdbu >}}
+
+<!-- Predfined course banner -->
+{{< influxdbu "influxdb-101" >}}
+
+<!-- Custom banner -->
+{{< influxdbu title="Course title" summary="Short course summary." action="Take the course" link="https://university.influxdata.com/" >}}
+```
+
+##### Course templates
+Use one of the following course templates:
+
+- influxdb-101
+- telegraf-102
+- flux-103
+
+##### Custom banner content
+Use the following shortcode parameters to customize the content of the InfluxDB
+University banner:
+
+- **title**: Course or banner title
+- **summary**: Short description shown under the title
+- **action**: Text of the button
+- **link**: URL the button links to
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
@@ -599,24 +1182,13 @@ menu:
   influxdb_2_0_ref:
     # ...
 ```
-### Image naming conventions
-Save images using the following naming format: `project/version-context-description.png`.
-For example, `influxdb/2-0-visualizations-line-graph.png` or `influxdb/2-0-tasks-add-new.png`.
-Specify a version other than 2.0 only if the image is specific to that version.
-
-## InfluxDB API documentation
-InfluxData uses [Redoc](https://github.com/Redocly/redoc) to generate the full
-InfluxDB API documentation when documentation is deployed.
-Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
-For more information about generating InfluxDB API documentation, see the
-[API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).
 
 ## InfluxDB URLs
 When a user selects an InfluxDB product and region, example URLs in code blocks
 throughout the documentation are updated to match their product and region.
 InfluxDB URLs are configured in `/data/influxdb_urls.yml`.
 
-By default, the InfluxDB URL replaced inside of code blocks is `http://localhost:9999`.
+By default, the InfluxDB URL replaced inside of code blocks is `http://localhost:8086`.
 Use this URL in all code examples that should be updated with a selected provider and region.
 
 For example:
@@ -624,14 +1196,14 @@ For example:
 ~~~
 ```sh
 # This URL will get updated
-http://localhost:9999
+http://localhost:8086
 
 # This URL will NOT get updated
 http://example.com
 ```
 ~~~
 
-If the user selects the **US West (Oregon)** region, all occurrences of `http://localhost:9999`
+If the user selects the **US West (Oregon)** region, all occurrences of `http://localhost:8086`
 in code blocks will get updated to `https://us-west-2-1.aws.cloud2.influxdata.com`.
 
 ### Exempt URLs from getting updated
@@ -642,7 +1214,7 @@ just before the code block.
 {{< keep-url >}}
 ```
 // This URL won't get updated
-http://localhost:9999
+http://localhost:8086
 ```
 ~~~
 
@@ -701,7 +1273,7 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
      "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
    ```
 
-6. Update the `latest_version` in `data/version.yaml`:
+6. Update the `latest_version` in `data/products.yml`:
    ```yaml
    latest_version: v2.1
    ```
@@ -711,8 +1283,14 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
 
 8. Commit the changes and push the new branch to Github.
 
-
 These changes lay the foundation for the new version.
 All other changes specific to the new version should be merged into this branch.
 Once the necessary changes are in place and the new version is released,
 merge the new branch into `master`.
+
+## InfluxDB API documentation
+InfluxData uses [Redoc](https://github.com/Redocly/redoc) to generate the full
+InfluxDB API documentation when documentation is deployed.
+Redoc generates HTML documentation using the InfluxDB `swagger.yml`.
+For more information about generating InfluxDB API documentation, see the
+[API Documentation README](https://github.com/influxdata/docs-v2/tree/master/api-docs#readme).

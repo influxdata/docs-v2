@@ -2,10 +2,13 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:erbium
+      - image: cimg/node:14.16
         environment:
-          HUGO_VERSION: "0.59.1"
-          S3DEPLOY_VERSION: "2.3.2"
+          HUGO_VERSION: "0.81.0"
+          S3DEPLOY_VERSION: "2.3.5"
+          # From https://github.com/bep/s3deploy/releases
+          S3DEPLOY_VERSION_HASH: "95de91ed207ba32abd0df71f9681c1ede952f8358f3510b980b02550254c941a"
+
     steps:
       - checkout
       - restore_cache:
@@ -16,24 +19,30 @@ jobs:
           name: Make bin folder
           command: mkdir -p $HOME/bin
       - run:
-          name: Install Hugo
-          command: ./deploy/ci-install-hugo.sh
-      - run:
           name: Install s3deploy
           command: ./deploy/ci-install-s3deploy.sh
       - run:
           name: Install NodeJS dependencies
-          command: sudo yarn global add postcss-cli autoprefixer redoc-cli
+          command: yarn install
+      - run:
+          name: Install API documentation dependencies
+          command: cd api-docs && yarn install
       - run:
           name: Generate API documentation
-          command: cd api-docs && bash generate-api-docs.sh
+          command: cd api-docs && bash generate-api-docs.sh      
+      - run:
+          name: Inject Flux stdlib frontmatter
+          command: node ./flux-build-scripts/inject-flux-stdlib-frontmatter.js
+      - run:
+          name: Update Flux/InfluxDB versions
+          command: node ./flux-build-scripts/update-flux-versions.js
       - save_cache:
           key: install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - /home/circleci/bin
       - run:
           name: Hugo Build
-          command: $HOME/bin/hugo -v --minify --destination workspace/public
+          command: npx hugo -v --minify --destination workspace/public
       - persist_to_workspace:
           root: workspace
           paths:
@@ -56,7 +65,7 @@ jobs:
       - run:
           name: Post in Slack
           command: >
-            export COMMIT_INFO="$(git log -1 --format='%n>>>%s%n%b%n_<https://github.com/influxdata/docs-v2/commit/%H|Commit %h> - by %an_')"; curl -X POST --data-urlencode "payload={\"username\": \"Doc the Docs Bot\", \"text\": \"The InfluxDB v2 docs successfully deployed! :greeny_peeny:\n\n $COMMIT_INFO\", \"icon_emoji\": \":doc_green:\"}" $SLACK_DOCS_WEBHOOK_URL
+            export COMMIT_INFO="$(git log -1 --format='%n>>>%s%n%b%n_<https://github.com/influxdata/docs-v2/commit/%H|Commit %h> - by %an_')"; curl -X POST --data-urlencode "payload={\"username\": \"Doc the Docs Bot\", \"text\": \"The docs successfully deployed! :greeny_peeny:\n\n $COMMIT_INFO\", \"icon_emoji\": \":doc_green:\"}" $SLACK_DOCS_WEBHOOK_URL
           when: on_success
 
 workflows:

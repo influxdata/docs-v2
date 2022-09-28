@@ -3,8 +3,6 @@ title: Create notification rules
 description: >
   Create notification rules to send alerts on your time series data.
 weight: 201
-aliases:
-  - /v2.0/monitor-alert/notification-rules/create/
 menu:
   influxdb_2_0:
     parent: Manage notification rules
@@ -14,17 +12,17 @@ related:
 ---
 
 Once you've set up checks and notification endpoints, create notification rules to alert you.
-_For details, see [Manage checks](/v2.0/monitor-alert/checks/) and
-[Manage notification endpoints](/v2.0/monitor-alert/notification-endpoints/)._
+_For details, see [Manage checks](/influxdb/v2.0/monitor-alert/checks/) and
+[Manage notification endpoints](/influxdb/v2.0/monitor-alert/notification-endpoints/)._
 
 ## Create a new notification rule in the UI
 
 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Rules** near to top of the page.
-3. Click **{{< icon "plus" >}} Create**.
+3. Click **{{< icon "plus" "v2" >}} Create**.
 4. Complete the **About** section:
   1. In the **Name** field, enter a name for the notification rule.
   2. In the **Schedule Every** field, enter how frequently the rule should run.
@@ -39,8 +37,8 @@ _For details, see [Manage checks](/v2.0/monitor-alert/checks/) and
 
 1. 1. In the navigation menu on the left, select **Alerts**.
 
-    {{< nav-icon "alerts" >}}
+    {{< nav-icon "alerts" "v2" >}}
 
 2. Select **Notification Rules** near to top of the page.
-3. Hover over the rule you want to clone and click the **{{< icon "clone" >}}** icon and select **Clone**.
+3. Hover over the rule you want to clone and click the **{{< icon "clone" "v2" >}}** icon and select **Clone**.
    The cloned rule appears.

@@ -8,8 +8,6 @@ menu:
     name: Delete a task
     parent: Manage tasks
 weight: 206
-aliases:
-  - /v2.0/process-data/manage-tasks/delete-task/
 related:
   - /influxdb/v2.0/reference/cli/influx/task/delete
 ---
@@ -17,7 +15,7 @@ related:
 ## Delete a task in the InfluxDB UI
 1. In the navigation menu on the left, select **Tasks**.
 
-    {{< nav-icon "tasks" >}}
+    {{< nav-icon "tasks" "v2" >}}
 
 2. In the list of tasks, hover over the task you would like to delete.
 3. Click **Delete** on the far right.

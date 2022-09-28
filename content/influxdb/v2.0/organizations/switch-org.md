@@ -2,8 +2,6 @@
 title: Switch organizations
 seotitle: Switch organizations in InfluxDB
 description: Switch from one organization to another in the InfluxDB UI
-aliases:
-  - /v2.0/organizations/switch-org/
 menu:
   influxdb_2_0:
     name: Switch organizations
@@ -18,7 +16,7 @@ Use the InfluxDB user interface (UI) to switch from one organization to another.
 
 1. In the navigation menu on the left, click the **Account dropdown**.
 
-    {{< nav-icon "account" >}}
+    {{< nav-icon "account" "v2" >}}
 
 2. Select **Switch Organizations**.
 3. Click the organization you want to switch to.

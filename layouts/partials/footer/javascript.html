@@ -1,9 +1,21 @@
 {{ $versionSelector := resources.Get "js/version-selector.js" }}
 {{ $contentInteractions := resources.Get "js/content-interactions.js" }}
 {{ $searchInteractions := resources.Get "js/search-interactions.js" }}
-{{ $telegrafFilters := resources.Get "js/telegraf-filters.js" }}
+{{ $listFilters := resources.Get "js/list-filters.js" }}
+{{ $modals := resources.Get "js/modals.js" }}
 {{ $influxdbURLs := resources.Get "js/influxdb-url.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $telegrafFilters $influxdbURLs | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $featureCallouts := resources.Get "js/feature-callouts.js" }}
+{{ $notifications := resources.Get "js/notifications.js" }}
+{{ $keybindings := resources.Get "js/keybindings.js" }}
+{{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
+{{ $fluxCurrentTime := resources.Get "js/flux-current-time.js" }}
+{{ $fullscreenCode := resources.Get "js/fullscreen-code.js" }}
+{{ $pageFeedback := resources.Get "js/page-feedback.js" }}
+{{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
+{{ $fluxInfluxDBVersions := resources.Get "/js/flux-influxdb-versions.js"}}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $notifications $keybindings $fullscreenCode $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $fluxGroupKeyjs := slice $fluxGroupKeys | resources.Concat "js/flux-group-keys.js" | resources.Fingerprint }}
+{{ $fluxCurrentTimejs := slice $fluxCurrentTime | resources.Concat "js/flux-current-time.js" | resources.Fingerprint }}
 
 <!-- Load cloudUrls array -->
 <script type="text/javascript">
@@ -16,3 +28,32 @@
 
 <!-- Load footer.js -->
 <script type="text/javascript" src="{{ $footerjs.RelPermalink }}" ></script>
+
+{{ if .Page.HasShortcode "diagram" }}
+<!-- Load mermaid.js for diagrams -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad:true,
+    mermaid: {
+      callback:function(id) {
+        $('.mermaid').css('opacity', 1);
+      }
+    },
+    themeVariables: {
+      fontFamily: "Rubik",
+      fontSize: '18px',
+    }
+  })
+</script>
+{{ end }}
+
+<!-- Load group key demo JS if when the group key demo shortcode is present -->
+{{ if .Page.HasShortcode "flux/group-key-demo" }}
+<script type="text/javascript" src="{{ $fluxGroupKeyjs.RelPermalink }}"></script>
+{{ end }}
+
+<!-- Load Flux current time js if when the flux/current-time shortcode is present -->
+{{ if .Page.HasShortcode "flux/current-time" }}
+<script type="text/javascript" src="{{ $fluxCurrentTime.RelPermalink }}"></script>
+{{ end }}

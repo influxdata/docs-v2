@@ -134,7 +134,7 @@ Please see the [InfluxDB OSS release notes](/influxdb/v1.6/about_the_project/rel
 ## v1.5.0 [2018-03-06]
 
 > ***Note:*** This release builds off of the 1.5 release of InfluxDB OSS. Please see the [InfluxDB OSS release
-> notes](https://docs.influxdata.com/influxdb/v1.6/about_the_project/releasenotes-changelog/) for more information about the InfluxDB OSS release.
+> notes](/influxdb/v1.6/about_the_project/releasenotes-changelog/) for more information about the InfluxDB OSS release.
 
 For highlights of the InfluxDB 1.5 release, see [What's new in InfluxDB 1.5](/influxdb/v1.5/about_the_project/whats_new/).
 
@@ -253,7 +253,7 @@ Please see the OSS [release notes](/influxdb/v1.3/about_the_project/releasenotes
 
 ## v1.3.4 [2017-08-23]
 
-This release builds off of the 1.3.4 release of OSS InfluxDB. Please see the [OSS release notes](https://docs.influxdata.com/influxdb/v1.3/about_the_project/releasenotes-changelog/) for more information about the OSS releases.
+This release builds off of the 1.3.4 release of OSS InfluxDB. Please see the [OSS release notes](/influxdb/v1.3/about_the_project/releasenotes-changelog/) for more information about the OSS releases.
 
 ### Bugfixes
 
@@ -261,7 +261,7 @@ This release builds off of the 1.3.4 release of OSS InfluxDB. Please see the [OS
 
 ## v1.3.3 [2017-08-10]
 
-This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OSS release notes](https://docs.influxdata.com/influxdb/v1.3/about_the_project/releasenotes-changelog/) for more information about the OSS releases.
+This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OSS release notes](/influxdb/v1.3/about_the_project/releasenotes-changelog/) for more information about the OSS releases.
 
 ### Bugfixes
 
@@ -626,4 +626,4 @@ Backup and restore has been updated to fix issues and refine existing capabiliti
 The Enterprise Web Console has officially been deprecated and will be eliminated entirely by the end of 2017.
 No additional features will be added and no additional bug fix releases are planned.
 
-For browser-based access to InfluxDB Enterprise, [Chronograf](/chronograf/latest/introduction) is now the recommended tool to use.
+For browser-based access to InfluxDB Enterprise, [Chronograf](/{{< latest "chronograf" >}}/introduction) is now the recommended tool to use.

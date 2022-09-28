@@ -38,12 +38,12 @@ Chronograf offers a UI for [Kapacitor](https://github.com/influxdata/kapacitor),
 
 * Create and delete databases and retention policies
 * View currently-running queries and stop inefficient queries from overloading your system
-* Create, delete, and assign permissions to users (Chronograf supports [InfluxDB OSS](/influxdb/latest/administration/authentication_and_authorization/#authorization) and InfluxEnterprise user management)
+* Create, delete, and assign permissions to users (Chronograf supports [InfluxDB OSS](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#authorization) and InfluxDB Enterprise user management)
 
 
 ### Multi-organization and multi-user support
 
->**Note:** To use this feature, OAuth 2.0 authentication must be configured. Once configured, the Chronograf Admin tab on the Admin menu is visible. For details, see [Managing Chronograf security](https://docs.influxdata.com/chronograf/v1.7/administration/managing-security/).
+>**Note:** To use this feature, OAuth 2.0 authentication must be configured. Once configured, the Chronograf Admin tab on the Admin menu is visible. For details, see [Managing Chronograf security](/chronograf/v1.7/administration/managing-security/).
 
 * Create organizations and assign users to those organizations
 * Restrict access to administrative functions

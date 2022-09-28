@@ -1,4 +1,6 @@
 {{ $_hugo_config := `{ "version": 1 }` }}
-<div class="tabs">
+{{ $styleParsed := .Get 0 | default "" }}
+{{ $style := .Get "style" | default $styleParsed }}
+<div class="tabs {{ $style }}">
   {{ .Inner }}
 </div>

@@ -1,5 +1,7 @@
 ---
 title: Fine-grained authorization in InfluxDB Enterprise
+description: >
+  Fine-grained authorization (FGA) in InfluxDB Enterprise controls user access at the database, measurement, and series levels.
 alias:
   -/docs/v1.5/administration/fga
 menu:
@@ -14,6 +16,12 @@ Use fine-grained authorization (FGA) in InfluxDB Enterprise to control user acce
 > **Note:** InfluxDB OSS controls access at the database level only.
 
 You must have [admin permissions](/influxdb/v1.8/administration/authentication_and_authorization/#admin-user-management) to set up FGA.
+
+{{% warn %}}
+#### FGA does not apply to Flux
+FGA does not restrict actions performed by Flux queries (both read and write).
+If using FGA, we recommend [disabling Flux](/enterprise_influxdb/v{{< current-version >}}/flux/installation/).
+{{% /warn %}}
 
 ## Set up fine-grained authorization
 
@@ -159,7 +167,7 @@ curl -s -L -XPOST "http://localhost:8091/role" \
 ### Remove role permissions
 To remove permissions from a role, use the InfluxDB Meta API `/role` endpoint with the `action` field
 set to `remove-permissions`.
-Specify the [permissions](https://docs.influxdata.com/chronograf/latest/administration/managing-influxdb-users/#permissions) to remove from each database.
+Specify the [permissions](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/#permissions) to remove from each database.
 
 The following example removes read and write permissions from `db1` for the `east` role.
 
@@ -583,7 +591,7 @@ curl -s -L -XPOST "http://localhost:8091/influxdb/v2/acl/grants" \
   }'
 ```
 
-Grants for specific series also apply to [meta queries](https://docs.influxdata.com/influxdb/v1.8/query_language/schema_exploration).
+Grants for specific series also apply to [meta queries](/influxdb/v1.8/query_language/schema_exploration).
 Results from meta queries are restricted based on series-level permissions.
 For example, `SHOW TAG VALUES` only returns tag values that the user is authorized to see.
 

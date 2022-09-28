@@ -1,0 +1,8 @@
+{{- $scratch := newScratch -}}
+{{- with .Get "other" -}}{{- $scratch.Set "default" . -}}{{- end -}}
+{{- with .Get "all" -}}{{- $scratch.Set "default" . -}}{{- end -}}
+{{- $default := $scratch.Get "default" | default "" -}}
+{{- $mac := .Get "mac" | default $default -}}
+{{- $win := .Get "win" | default $default -}}
+{{- $linux := .Get "linux" | default $default -}}
+<span class="keybinding" data-osx="{{ $mac }}" data-win="{{ $win }}" data-linux="{{ $linux }}"><code>{{ $default }}</code></span>

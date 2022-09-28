@@ -3,8 +3,6 @@ title: InfluxDB design principles
 description: >
   Principles and tradeoffs related to InfluxDB design.
 weight: 104
-aliases:
-  - /v2.0/reference/key-concepts/design-principles/
 menu:
   influxdb_2_0_ref:
     parent: Key concepts
@@ -31,11 +29,11 @@ To increase query and write performance, InfluxDB tightly restricts **update** a
 
 ## Handle read and write queries first
 
-InfluxDB prioritizes read and write requests over strong consistency. InfluxDB returns results when a query is executed. Any transactions that affect the queried data are processed subsequently to ensure that data is eventually consistency. Therefore, if the ingest rate is high (multiple writes per ms), query results may not include the most recent data.
+InfluxDB prioritizes read and write requests over strong consistency. InfluxDB returns results when a query is executed. Any transactions that affect the queried data are processed subsequently to ensure that data is eventually consistent. Therefore, if the ingest rate is high (multiple writes per ms), query results may not include the most recent data.
 
 ## Schemaless design
 
-InfluxDB uses a schemaless design to better manage discontinuous data. Time series data are often ephemeral, meaning the data appears for a few hours and then go away. For example, a new host that gets started and reports for a while and then gets shut down.
+InfluxDB uses a schemaless design to better manage discontinuous data. Time series data are often ephemeral, meaning the data appears for a few hours and then goes away. For example, a new host that gets started and reports for a while and then gets shut down.
 
 ## Datasets over individual points
 
@@ -43,4 +41,4 @@ Because the data set is more important than an individual point, InfluxDB implem
 
 ## Duplicate data
 
-To simplify conflict resolution and increase write performance, InfluxDB assumes data sent multiple times is duplicate data. Identical points aren't stored twice. If a new field value is submitted for a point, InfluxDB updates the point with the most recent field value. In rare circumstances, data may be overwritten. Learn more about [duplicate points](/v2.0/write-data/best-practices/duplicate-points/).
+To simplify conflict resolution and increase write performance, InfluxDB assumes data sent multiple times is duplicate data. Identical points aren't stored twice. If a new field value is submitted for a point, InfluxDB updates the point with the most recent field value. In rare circumstances, data may be overwritten. Learn more about [duplicate points](/influxdb/v2.0/write-data/best-practices/duplicate-points/).

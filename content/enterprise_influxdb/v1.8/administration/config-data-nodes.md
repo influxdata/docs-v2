@@ -1,6 +1,7 @@
 ---
 title: Configure InfluxDB Enterprise data nodes
-description: Covers the InfluxDB Enterprise data node configuration settings and environmental variables
+description: >
+  Configure InfluxDB Enterprise data node settings and environmental variables.
 menu:
   enterprise_influxdb_1_8:
     name: Configure data nodes
@@ -13,7 +14,7 @@ menu:
   * [Enterprise license [enterprise]](#enterprise-license-settings)
   * [Meta node `[meta]`](#meta-node-settings)
   * [Data `[data]`](#data-settings)
-  * [Cluster `[cluster]`](#cluster-settings)
+  * [Cluster `[cluster]` (includes InfluxQL query controls)](#cluster-settings)
   * [Retention `[retention]`](#retention-policy-settings)
   * [Hinted Handoff `[hinted-handoff]`](#hinted-handoff-settings)
   * [Anti-Entropy `[anti-entropy]`](#anti-entropy-ae-settings)
@@ -93,9 +94,7 @@ The `license-key` and `license-path` settings are
 mutually exclusive and one must remain set to the empty string.
 {{% /warn %}}
 
-InfluxData recommends performing rolling restarts on the nodes after the license key update.
-Restart one meta, data, or Enterprise service at a time and wait for it to come back up successfully.
-The cluster should remain unaffected as long as only one node is restarting at a time as long as there are two or more data nodes.
+> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_KEY`
 
@@ -107,9 +106,8 @@ Contact [sales@influxdb.com](mailto:sales@influxdb.com) if a license file is req
 
 The license file should be saved on every server in the cluster, including Meta, Data, and Enterprise nodes.
 The file contains the JSON-formatted license, and must be readable by the `influxdb` user. Each server in the cluster independently verifies its license.
-InfluxData recommends performing rolling restarts on the nodes after the license file update.
-Restart one meta, data, or Enterprise service at a time and wait for it to come back up successfully.
-The cluster should remain unaffected as long as only one node is restarting at a time as long as there are two or more data nodes.
+
+> **Note:** You must trigger data nodes to reload your configuration. For more information, see how to [renew or update your license key](/enterprise_influxdb/v1.8/administration/renew-license/).
 
 {{% warn %}}
 Use the same license file for all nodes in the same cluster.
@@ -252,11 +250,25 @@ Environment variable: `INFLUXDB_DATA_CACHE_SNAPSHOT_WRITE_COLD_DURATION`
 #### `max-concurrent-compactions = 0`
 
 The maximum number of concurrent full and level compactions that can run at one time.  
-A value of `0` results in 50% of `runtime.GOMAXPROCS(0)` used at runtime.  
+A value of `0` (unlimited compactions) results in 50% of `runtime.GOMAXPROCS(0)` used at runtime,
+so when 50% of the CPUs aren't available, compactions are limited.
 Any number greater than `0` limits compactions to that value.  
 This setting does not apply to cache snapshotting.
 
 Environmental variable: `INFLUXDB_DATA_CACHE_MAX_CONCURRENT_COMPACTIONS`
+
+#### `compact-throughput = "48m"`
+
+The maximum number of bytes per seconds TSM compactions write to disk. Default is `"48m"` (48 million).
+Note that short bursts are allowed to happen at a possibly larger value, set by `compact-throughput-burst`.
+
+Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT`  
+
+#### `compact-throughput-burst = "48m"`
+
+The maximum number of bytes per seconds TSM compactions write to disk during brief bursts. Default is `"48m"` (48 million).
+
+Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT_BURST`  
 
 #### `compact-full-write-cold-duration = "4h"`
 
@@ -344,8 +356,7 @@ Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
 ### `[cluster]`
 
-Settings related to how the data nodes interact with other data nodes.
-Controls how data is shared across shards and the options for query management.
+Settings related to how data nodes interact with each other, how data is shared across shards, and how InfluxQL queries are managed.
 
 An InfluxDB Enterprise cluster uses remote procedure calls (RPCs) for inter-node communication.
 An RPC connection pool manages the stream connections and efficiently uses system resources.
@@ -385,6 +396,20 @@ Creating streams are relatively inexpensive operations to perform,
 so it is unlikely that changing this value will measurably improve performance between two nodes.
 
 Environment variable: `INFLUXDB_CLUSTER_POOL_MAX_IDLE_STREAMS`
+
+#### `allow-out-of-order-writes = false`
+
+By default, this option is set to false and writes are processed in the order that they are received. This means if any points are in the hinted handoff (HH) queue for a shard, all incoming points must go into the HH queue.
+
+If true, writes may process in a different order than they were received. This can reduce the time required to drain the HH queue and increase throughput during recovery.
+
+**Do not enable if your use case involves updating points, which may cause points to be overwritten.** To overwrite an existing point, the measurement name, tag keys and values (if the point includes tags), field keys, and timestamp all have to be the same as a previous write.
+
+For example, if you have two points with the same measurement (`cpu`), field key (`v`), and timestamp (`1234`), the following could happen:
+
+Point 1 (`cpu v=1.0 1234`) arrives at `node1`, attempts to replicate on `node2`, and finds `node2` is down, so point 1 goes to the local HH queue. Now, `node2` comes back online and point 2 `cpu v=20. 1234` arrives at `node1`, overwrites point 1, and is written to `node2` (bypassing the HH queue). Because the point 2 arrives at `node2` before point 1, point 2 is stored before point 1.
+
+Environment variable: `INFLUXDB_CLUSTER_ALLOW_OUT_OF_ORDER`
 
 #### `shard-reader-timeout = "0"`
 
@@ -484,6 +509,12 @@ The maximum number of bytes to write to a shard in a single request.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_BATCH_SIZE`
 
+#### `max-pending-writes = 1024`
+
+The maximum number of incoming pending writes allowed in the hinted handoff queue.
+
+Environment variable: `INFLUXDB_HINTED_HANDOFF_MAX_PENDING_WRITES`
+
 #### `dir = "/var/lib/influxdb/hh"`
 
 The hinted handoff directory where the durable queue will be stored on disk.
@@ -581,6 +612,14 @@ Environment variable: `INFLUXDB_ANTI_ENTROPY_CHECK_INTERVAL`
 
 The maximum number of shards that a single data node will copy or repair in parallel.
 
+{{% note %}}
+Having `max-fetch=10` with higher numbers of shards (100+) can add significant overhead to running nodes.
+The more shards you have, the lower this should be set.
+If AE is enabled while lowering your `max-fetch`, initially, you'll see
+higher CPU load as new shard digest files are created.
+The added load drops off after shard digests are completed for existing shards.
+{{% /note %}}
+
 Environment variable: `INFLUXDB_ANTI_ENTROPY_MAX_FETCH`
 
 #### `max-sync = 1`
@@ -653,7 +692,7 @@ Environment variable: `INFLUXDB_SHARD_PRECREATION_ADVANCE_PERIOD`
 By default, InfluxDB writes system monitoring data to the `_internal` database.
 If that database does not exist, InfluxDB creates it automatically.
 The `DEFAULT` retention policy on the `internal` database is seven days.
-To change the default seven-day retention policy, you must [create](/influxdb/v1.8/query_language/database_management/#retention-policy-management) it.
+To change the default seven-day retention policy, you must [create](/influxdb/v1.8/query_language/manage-database/#retention-policy-management) it.
 
 For InfluxDB Enterprise production systems, InfluxData recommends including a dedicated InfluxDB (OSS) monitoring instance for monitoring InfluxDB Enterprise cluster nodes.
 
@@ -730,7 +769,7 @@ Enables HTTP request logging.
 
 Environment variable: `INFLUXDB_HTTP_LOG_ENABLED`
 
-### `suppress-write-log = false`
+#### `suppress-write-log = false`
 
 Determines whether the HTTP write request logs should be suppressed when the log is enabled.
 
@@ -814,6 +853,14 @@ The JWT authorization shared secret used to validate requests using JSON web tok
 
 Environment variable: `INFLUXDB_HTTP_SHARED_SECRET`
 
+#### `max-body-size = 25000000`
+
+The maximum size, in bytes, of a client request body.
+When a HTTP client sends data that exceeds the configured maximum size, a `413 Request Entity Too Large` HTTP response is returned.
+To disable the limit, set the value to `0`.
+
+Environment variable: `INFLUXDB_HTTP_MAX_BODY_SIZE`
+
 #### `max-row-limit = 0`
 
 The default chunk size for result sets that should be chunked.
@@ -875,13 +922,19 @@ Valid options are `auto`, `logfmt`, and `json`.
 A setting of `auto` will use a more a more user-friendly output format if the output terminal is a TTY, but the format is not as easily machine-readable.
 When the output is a non-TTY, `auto` will use `logfmt`.
 
+Environment variable: `INFLUXDB_LOGGING_FORMAT`
+
 #### `level = "info"`
 
 Determines which level of logs will be emitted.
 
+Environment variable: `INFLUXDB_LOGGING_LEVEL`
+
 #### `suppress-logo = false`
 
 Suppresses the logo output that is printed when the program is started.
+
+Environment variable: `INFLUXDB_LOGGING_SUPPRESS_LOGO`
 
 -----
 
@@ -1142,6 +1195,12 @@ Controls whether queries are logged when executed by the CQ service.
 
 Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_LOG_ENABLED`
 
+#### `query-stats-enabled = false`
+
+Write continuous query execution statistics to the default monitor store.
+
+Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_QUERY_STATS_ENABLED`
+
 #### `run-interval = "1s"`
 
 The interval for how often continuous queries will be checked whether they need to run.
@@ -1151,7 +1210,6 @@ Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_RUN_INTERVAL`
 -----
 
 ## TLS settings
-
 
 ### `[tls]`
 
@@ -1178,32 +1236,20 @@ ciphers = [ "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
             "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
 ]
 
-min-version = "tls1.2"
+min-version = "tls1.3"
 
-max-version = "tls1.2"
+max-version = "tls1.3"
 
 ```
 
-#### `min-version = "tls1.2"`
+#### `min-version = "tls1.3"`
 
-Minimum version of the TLS protocol that will be negotiated. Valid values include: `tls1.0`, `tls1.1`, and `tls1.2`. If not specified, `min-version` is the minimum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants). In this example, `tls1.0` specifies the minimum version as TLS 1.0, which is consistent with the behavior of previous InfluxDB releases.
+Minimum version of the TLS protocol that will be negotiated. Valid values include: `tls1.0`, `tls1.1`, `tls1.2` and `tls1.3`. If not specified, `min-version` is the minimum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants). In this example, `tls1.3` specifies the minimum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MIN_VERSION`
 
-#### `max-version = "tls1.2"`
+#### `max-version = "tls1.3"`
 
-The maximum version of the TLS protocol that will be negotiated. Valid values include: `tls1.0`, `tls1.1`, and `tls1.2`. If not specified, `max-version` is the maximum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants). In this example, `tls1.2` specifies the maximum version as TLS 1.2, which is consistent with the behavior of previous InfluxDB releases.
+The maximum version of the TLS protocol that will be negotiated. Valid values include: `tls1.0`, `tls1.1`, `tls1.2` and `tls1.3`. If not specified, `max-version` is the maximum TLS version specified in the [Go `crypto/tls` package](https://golang.org/pkg/crypto/tls/#pkg-constants). In this example, `tls1.3` specifies the maximum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MAX_VERSION`
-
-    <!-- #### max-fetch = 10
-
-    The maximum number of shards that a single data node will copy or repair in parallel.
-
-    Environment variable: `INFLUXDB_ANTI_ENTROPY_MAX_FETCH`
-
-    > Having `max-fetch=10` with higher numbers of shards (100+) can add significant overhead to running nodes.
-    > The more shards you have, the lower this should be set.
-    > If AE is left enabled while lowering your `max-fetch`, you will initially see
-    > higher CPU load as new shard digest files are created.
-    > The added load will drop off after shard digests are completed for existing shards. -->

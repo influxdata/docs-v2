@@ -78,7 +78,7 @@ Environment variable: `$BOLT_PATH`
 
 #### `--canned-path=` | `-c`
 
-The path to the directory of [canned dashboards](/chronograf/latest/guides/using-precreated-dashboards/) files.
+The path to the directory of [canned dashboards](/chronograf/v1.6/guides/using-precreated-dashboards/) files.
 
 Default value: `/usr/share/chronograf/canned`
 
@@ -113,7 +113,7 @@ Displays the version of the Chronograf service.
 Example:
 ```sh
 $ chronograf -v
-2018/01/03 14:11:19 Chronograf 1.4.0.0-rc1-26-gb74ae387 (git: b74ae387)
+2018/01/03 14:11:19 Chronograf {{< latest-patch >}} (git: b74ae387)
 ```
 
 ## InfluxDB connection options

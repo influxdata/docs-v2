@@ -6,36 +6,24 @@ menu:
     name: Key concepts
     weight: 10
     parent: Concepts
+v2: /influxdb/v2.0/reference/key-concepts/
 ---
 
-Before diving into InfluxDB it's good to get acquainted with some of the key concepts of the database.
-This document provides a gentle introduction to those concepts and common InfluxDB terminology.
-We've provided a list below of all the terms we'll cover, but we recommend reading this document from start to finish to gain a more general understanding of our favorite time series database.
+Before diving into InfluxDB, it's good to get acquainted with some key concepts of the database. This document introduces key InfluxDB concepts and elements. To introduce the key concepts, we’ll cover how the following elements work together in InfluxDB:
 
-<table style="width:100%">
-  <tr>
-    <td><a href="#database">database</a></td>
-    <td><a href="#field-key">field key</a></td>
-    <td><a href="#field-set">field set</a></td>
-  </tr>
-  <tr>
-    <td><a href="#field-value">field value</a></td>
-    <td><a href="#measurement">measurement</a></td>
-    <td><a href="#point">point</a></td>
-  </tr>
-    <tr>
-    <td><a href="#retention-policy">retention policy</a></td>
-    <td><a href="#series">series</a></td>
-    <td><a href="#tag-key">tag key</a></td>
-  </tr>
-    <tr>
-    <td><a href="#tag-set">tag set</a></td>
-    <td><a href="#tag-value">tag value</a></td>
-    <td><a href="#timestamp">timestamp</a></td>
-  </tr>
-</table>
+- [database](/influxdb/v1.8/concepts/glossary/#database)
+- [field key](/influxdb/v1.8/concepts/glossary/#field-key)
+- [field set](/influxdb/v1.8/concepts/glossary/#field-set)
+- [field value](/influxdb/v1.8/concepts/glossary/#field-value)
+- [measurement](/influxdb/v1.8/concepts/glossary/#measurement)
+- [point](/influxdb/v1.8/concepts/glossary/#point)
+- [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
+- [series](/influxdb/v1.8/concepts/glossary/#series)
+- [tag key](/influxdb/v1.8/concepts/glossary/#tag-key)
+- [tag set](/influxdb/v1.8/concepts/glossary/#tag-set)
+- [tag value](/influxdb/v1.8/concepts/glossary/#tag-value)
+- [timestamp](/influxdb/v1.8/concepts/glossary/#timestamp)
 
-Check out the [glossary](/influxdb/v1.8/concepts/glossary/) if you prefer the cold, hard facts.
 
 ### Sample data
 
@@ -123,25 +111,29 @@ You don't need to have tags in your data structure, but it's generally a good id
 This means that queries on tags are faster and that tags are ideal for storing commonly-queried metadata.
 
 Avoid using the following reserved keys:
+
 * `_field`
 * `_measurement`
 * `time`
 
 If reserved keys are included as a tag or field key, the associated point is discarded.
 
-> **Why indexing matters: The schema case study**
+{{% note %}}
+#### Why indexing matters: The schema case study
 
-> Say you notice that most of your queries focus on the values of the field keys `honeybees` and `butterflies`:
+Say you notice that most of your queries focus on the values of the field keys `honeybees` and `butterflies`:
 
-> `SELECT * FROM "census" WHERE "butterflies" = 1`
-> `SELECT * FROM "census" WHERE "honeybees" = 23`
+```sql
+SELECT * FROM "census" WHERE "butterflies" = 1
+SELECT * FROM "census" WHERE "honeybees" = 23
+```
 
-> Because fields aren't indexed, InfluxDB scans every value of `butterflies`  in the first query and every value of `honeybees` in the second query before it provides a response.
+Because fields aren't indexed, InfluxDB scans every value of `butterflies`  in the first query and every value of `honeybees` in the second query before it provides a response.
 That behavior can hurt query response times - especially on a much larger scale.
 To optimize your queries, it may be beneficial to rearrange your [schema](/influxdb/v1.8/concepts/glossary/#schema) such that the fields (`butterflies` and `honeybees`) become the tags and the tags (`location` and `scientist`) become the fields:
 
-> **name:** <span class="tooltip" data-tooltip-text="Measurement">census</span>  
->
+**name:** <span class="tooltip" data-tooltip-text="Measurement">census</span>  
+
 | time                                                                            | <span class ="tooltip" data-tooltip-text ="Field key">location</span> | <span class ="tooltip" data-tooltip-text ="Field key">scientist</span>  | <span class ="tooltip" data-tooltip-text ="Tag key">butterflies</span> | <span class ="tooltip" data-tooltip-text ="Tag key">honeybees</span> |
 | ----                                                                            | --------------------------------------------------------------------- | ----------------------------------------------------------------------  | ---------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | 2015-08-18T00:00:00Z                                                            | 1                                                                     | langstroth                                                              | 12                                                                     | 23                                                                   |
@@ -153,7 +145,8 @@ To optimize your queries, it may be beneficial to rearrange your [schema](/influ
 | 2015-08-18T06:06:00Z                                                            | 2                                                                     | perpetua                                                                | 8                                                                      | 23                                                                   |
 | 2015-08-18T06:12:00Z                                                            | 2                                                                     | perpetua                                                                | 7                                                                      | 22                                                                   |
 
-> Now that `butterflies` and `honeybees` are tags, InfluxDB won't have to scan every one of their values when it performs the queries above - this means that your queries are even faster.
+Now that `butterflies` and `honeybees` are tags, InfluxDB won't have to scan every one of their values when it performs the queries above - this means that your queries are even faster.
+{{% /note %}}
 
 The <a name=measurement></a>_**measurement**_ acts as a container for tags, fields, and the `time` column, and the measurement name is the description of the data that are stored in the associated fields.
 Measurement names are strings, and, for any SQL users out there, a measurement is conceptually similar to a table.
@@ -162,7 +155,7 @@ The name `census` tells us that the field values record the number of `butterfli
 
 A single measurement can belong to different retention policies.
 A <a name="retention-policy"></a>_**retention policy**_ describes how long InfluxDB keeps data (`DURATION`) and how many copies of this data is stored in the cluster (`REPLICATION`).
-If you're interested in reading more about retention policies, check out [Database Management](/influxdb/v1.8/query_language/database_management/#retention-policy-management).
+If you're interested in reading more about retention policies, check out [Database Management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
 
 {{% warn %}} Replication factors do not serve a purpose with single node instances.
 {{% /warn %}}
@@ -197,7 +190,7 @@ time                    butterflies honeybees   location    scientist
 2015-08-18T00:00:00Z    1           30          1           perpetua
 ```
 
-The point in this example is part of series 3 and defined by the measurement (`census`), the tag set (`location = 1`, `scientist = perpetua`), the field set (`butterflies = 1`, `honeybees = 30`), and the timestamp `2015-08-18T00:00:00Z`.
+The point in this example is part of series 3 and 7 and defined by the measurement (`census`), the tag set (`location = 1`, `scientist = perpetua`), the field set (`butterflies = 1`, `honeybees = 30`), and the timestamp `2015-08-18T00:00:00Z`.
 
 All of the stuff we've just covered is stored in a database - the sample data are in the database `my_database`.
 An InfluxDB <a name=database></a>_**database**_ is similar to traditional relational databases and serves as a logical container for users, retention policies, continuous queries, and, of course, your time series data.

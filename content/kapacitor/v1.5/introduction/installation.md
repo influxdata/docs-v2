@@ -1,5 +1,6 @@
 ---
-title: Installing Kapacitor
+title: Install Kapacitor
+Description: Install, start, and configure Kapacitor on your operating system of choice.
 weight: 10
 menu:
   kapacitor_1_5:

@@ -1,14 +1,53 @@
+{{ $scratch := newScratch }}
 {{ if .Params.related }}
   <div class="related">
-    <h4 id="related-articles">Related articles</h4>
+    <h4 id="related">Related</h4>
     <ul>
     {{ range .Params.related }}
-      {{ if or (in . "http") (in . "/v2.0/api") }}
-        {{ $link := replaceRE `\,\s(.*)$` "" . }}
-        {{ $title := replaceRE `^(\S*\,\s)` "" . }}
-        <li><a href="{{ $link }}" target="_blank">{{ $title }}</a></li>
+
+      {{ $scratch.Set "relatedItem" . }}
+
+      <!-- If path is using the latest shortcode -->
+      {{ if (in ($scratch.Get "relatedItem") "{{< latest") }}
+        {{ $product := replaceRE `[ \"]` "" (index (findRE ` \"\w*\"` .) 0) }}
+        {{ $majorVersion := replaceRE `[ \"]` "" (index (findRE ` \"\w*\"` .) 1) }}
+        {{ $minorVersions := (index $.Site.Data.products $product).versions }}
+
+        {{ $scratch.Set "latestVersion" (index $.Site.Data.products $product).latest }}
+        {{ if gt (len $majorVersion) 0 }}
+          {{ if eq $majorVersion "v1" }}
+            {{ $scratch.Set "latestVersion" (index (last 1 (findRE `v1\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
+          {{ else if eq $majorVersion "v2" }}
+            {{ $scratch.Set "latestVersion" (index (last 1 (findRE `v2\.[0-9]{1,2}` (delimit $minorVersions " "))) 0) }}
+          {{ end }}
+        {{ end }}
+
+        {{ $productLatestVersion := $scratch.Get "latestVersion" }}
+        {{ $replaceLatest := replaceRE `\{\{\< latest \".*\" \>\}\}` (print $product "/" $productLatestVersion) . }}
+
+        {{ $scratch.Set "relatedItem" $replaceLatest }}
+      {{ end }}
+
+      {{ $relatedItem := $scratch.Get "relatedItem" }}
+
+      {{ $scratch.Set "title" ""}}
+      {{ if in $relatedItem "," }}
+        {{ $scratch.Set "title" (replaceRE `^.+?, ` "" $relatedItem) }}
+      {{ end }}
+
+      {{ $link := replaceRE `\,\s(.*)$` "" $relatedItem }}
+      {{ $title := $scratch.Get "title" }}
+
+      <!-- If an external link or API link -->
+      {{ if or (in $relatedItem "http") (in $relatedItem "/v2.0/api") (in $relatedItem ",")}}
+        {{ $link := replaceRE `\,\s(.*)$` "" $relatedItem }}
+        {{ $title := replaceRE `^(\S*\,\s)` "" $relatedItem }}
+        {{ $target := cond (in . "http") "_blank" "" }}
+        <li><a href="{{ $link }}" target="{{ $target }}">{{ $title }}</a></li>
+
+      <!-- Automatically get page title and link from path -->
       {{ else }}
-        {{ $sanitizedPath := replaceRE `\/$` "" (print .) }}
+        {{ $sanitizedPath := replaceRE `\/$` "" (print $relatedItem) }}
         {{ with $.Page.GetPage $sanitizedPath }}
           <li><a href="{{ .RelPermalink }}" >{{ .Title }}</a></li>
         {{ end }}

@@ -10,35 +10,33 @@ menu:
     name: Explore your schema
     parent: Query with Flux
 weight: 206
-aliases:
-  - /v2.0/query-data/flux/explore-schema/
 related:
-  - /v2.0/reference/flux/stdlib/built-in/inputs/buckets/
-  - /v2.0/reference/flux/stdlib/influxdb-v1/measurements
-  - /v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys
-  - /v2.0/reference/flux/stdlib/influxdb-v1/measurementfieldkeys
-  - /v2.0/reference/flux/stdlib/influxdb-v1/tagkeys
-  - /v2.0/reference/flux/stdlib/influxdb-v1/measurementtagkeys
-  - /v2.0/reference/flux/stdlib/influxdb-v1/tagvalues
-  - /v2.0/reference/flux/stdlib/influxdb-v1/measurementtagvalues
+  - /{{< latest "flux" >}}/stdlib/universe/buckets/
+  - /{{< latest "flux" >}}/stdlib/schema/measurements
+  - /{{< latest "flux" >}}/stdlib/schema/fieldkeys
+  - /{{< latest "flux" >}}/stdlib/schema/measurementfieldkeys
+  - /{{< latest "flux" >}}/stdlib/schema/tagkeys
+  - /{{< latest "flux" >}}/stdlib/schema/measurementtagkeys
+  - /{{< latest "flux" >}}/stdlib/schema/tagvalues
+  - /{{< latest "flux" >}}/stdlib/schema/measurementtagvalues
 list_code_example: |
   ```js
-  import "influxdata/influxdb/v1"
+  import "influxdata/influxdb/schema"
 
   // List buckets
   buckets()
 
   // List measurements
-  v1.measurements(bucket: "example-bucket")
+  schema.measurements(bucket: "example-bucket")
 
   // List field keys
-  v1.fieldKeys(bucket: "example-bucket")
+  schema.fieldKeys(bucket: "example-bucket")
 
   // List tag keys
-  v1.tagKeys(bucket: "example-bucket")
+  schema.tagKeys(bucket: "example-bucket")
 
   // List tag values
-  v1.tagValues(bucket: "example-bucket", tag: "example-tag")
+  schema.tagValues(bucket: "example-bucket", tag: "example-tag")
   ```
 ---
 
@@ -52,7 +50,7 @@ data stored in InfluxDB.
 - [List tag values](#list-tag-values)
 
 ## List buckets
-Use the [`buckets()` function](/v2.0/reference/flux/stdlib/built-in/inputs/buckets/)
+Use the [`buckets()` function](/{{< latest "flux" >}}/stdlib/universe/buckets/)
 to list **buckets in your organization**.
 
 ```js
@@ -60,81 +58,81 @@ buckets()
 ```
 
 ## List measurements
-Use the [`v1.measurements()` function](/v2.0/reference/flux/stdlib/influxdb-v1/measurements)
+Use the [`schema.measurements()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurements)
 to list **measurements in a bucket**.
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.measurements(bucket: "example-bucket")
+schema.measurements(bucket: "example-bucket")
 ```
 
 ## List field keys
-Use the [`v1.fieldKeys` function](/v2.0/reference/flux/stdlib/influxdb-v1/fieldkeys)
+Use the [`schema.fieldKeys` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/fieldkeys)
 to list **field keys in a bucket**.
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.fieldKeys(bucket: "example-bucket")
+schema.fieldKeys(bucket: "example-bucket")
 ```
 
 ### List fields in a measurement
-Use the [`v1.measurementFieldKeys` function](/v2.0/reference/flux/stdlib/influxdb-v1/measurementfieldkeys)
+Use the [`schema.measurementFieldKeys` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementfieldkeys)
 to list **field keys in a measurement**.
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.measurementFieldKeys(
+schema.measurementFieldKeys(
   bucket: "example-bucket",
   measurement: "example-measurement"
 )
 ```
 
 ## List tag keys
-Use the [`v1.tagKeys()` function](/v2.0/reference/flux/stdlib/influxdb-v1/tagkeys)
+Use the [`schema.tagKeys()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/tagkeys)
 to list **tag keys in a bucket**.
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.tagKeys(bucket: "example-bucket")
+schema.tagKeys(bucket: "example-bucket")
 ```
 
 ### List tag keys in a measurement
-Use the [`v1.measurementTagKeys` function](/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagkeys)
+Use the [`schema.measurementTagKeys` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementtagkeys)
 to list **tag keys in a measurement**.
 _This function returns results from the last 30 days._
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.measurementTagKeys(
+schema.measurementTagKeys(
   bucket: "example-bucket",
   measurement: "example-measurement"
 )
 ```
 
 ## List tag values
-Use the [`v1.tagValues()` function](/v2.0/reference/flux/stdlib/influxdb-v1/tagvalues)
+Use the [`schema.tagValues()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/tagvalues)
 to list **tag values for a given tag in a bucket**.
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.tagValues(bucket: "example-bucket", tag: "example-tag")
+schema.tagValues(bucket: "example-bucket", tag: "example-tag")
 ```
 
 ### List tag values in a measurement
-Use the [`v1.measurementTagValues` function](/v2.0/reference/flux/stdlib/influxdb-v1/measurementtagvalues)
+Use the [`schema.measurementTagValues` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementtagvalues)
 to list **tag values for a given tag in a measurement**.
 _This function returns results from the last 30 days._
 
 ```js
-import "influxdata/influxdb/v1"
+import "influxdata/influxdb/schema"
 
-v1.measurementTagValues(
+schema.measurementTagValues(
   bucket: "example-bucket",
   tag: "example-tag",
   measurement: "example-measurement"

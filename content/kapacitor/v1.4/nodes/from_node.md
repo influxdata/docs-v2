@@ -27,7 +27,7 @@ menu:
 | **[retentionPolicy](#retentionpolicy)&nbsp;(&nbsp;`value`&nbsp;`string`)** | The retention policy name If empty any retention policy will be used.  |
 | **[round](#round)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)** | Optional duration for rounding timestamps. Helpful to ensure data points land on specific boundaries Example: stream |from() .measurement('mydata') .round(1s)  |
 | **[truncate](#truncate)&nbsp;(&nbsp;`value`&nbsp;`time.Duration`)** | Optional duration for truncating timestamps. Helpful to ensure data points land on specific boundaries Example: stream |from() .measurement('mydata') .truncate(1s)  |
-| **[where](#where)&nbsp;(&nbsp;`lambda`&nbsp;`ast.LambdaNode`)** | Filter the current stream using the given expression. This expression is a Kapacitor expression. Kapacitor expressions are a superset of InfluxQL WHERE expressions. See the [expression](https://docs.influxdata.com/kapacitor/latest/tick/expr/) docs for more information.  |
+| **[where](#where)&nbsp;(&nbsp;`lambda`&nbsp;`ast.LambdaNode`)** | Filter the current stream using the given expression. This expression is a Kapacitor expression. Kapacitor expressions are a superset of InfluxQL WHERE expressions. See the [expression](/kapacitor/v1.4/tick/expr/) docs for more information.  |
 
 
 
@@ -211,7 +211,7 @@ from.truncate(value time.Duration)
 Filter the current stream using the given expression.
 This expression is a Kapacitor expression. Kapacitor
 expressions are a superset of InfluxQL WHERE expressions.
-See the [expression](https://docs.influxdata.com/kapacitor/latest/tick/expr/) docs for more information.
+See the [expression](/kapacitor/v1.4/tick/expr/) docs for more information.
 
 Multiple calls to the Where method will `AND` together each expression.
 
@@ -645,7 +645,7 @@ Returns: [FromNode](/kapacitor/v1.4/nodes/from_node/)
 
 ### HoltWinters
 
-Compute the holt-winters (https://docs.influxdata.com/influxdb/latest/query_language/functions/#holt-winters) forecast of a data set.
+Compute the holt-winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
 
 
 ```javascript
@@ -658,7 +658,7 @@ Returns: [InfluxQLNode](/kapacitor/v1.4/nodes/influx_q_l_node/)
 
 ### HoltWintersWithFit
 
-Compute the holt-winters (https://docs.influxdata.com/influxdb/latest/query_language/functions/#holt-winters) forecast of a data set.
+Compute the holt-winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
 This method also outputs all the points used to fit the data in addition to the forecasted data.
 
 

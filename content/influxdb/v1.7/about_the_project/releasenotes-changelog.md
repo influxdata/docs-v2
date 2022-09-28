@@ -5,7 +5,22 @@ menu:
     name: Release notes
     weight: 10
     parent: About the project
+v2: /influxdb/v2.0/reference/release-notes/influxdb/
 ---
+
+## v1.7.11 [2020-03-12]
+
+### Features
+
+- Update to Go 1.13.8.
+
+### Bug fixes
+
+- (Affects build from source only): Switch the influxdb build from `dep` and `Gopkg.toml` to `go mod` to resolve issue that required an incorrect Go module version (`github.com/google/go-github@v0.0.0-20181009003523-dd29b543e14c`).
+- Update sorting method (`sortKey`) to use null byte as a delimiter, not comma.
+- Replace panic with error while encoding and decoding corrupt data.
+- Resolve incorrect error type in type switch.
+- Ensure the tsi log file (`activeLogFile`) has a READ lock.
 
 ## v1.7.10 [2020-02-07]
 
@@ -197,8 +212,8 @@ Chunked query was added into the Go client v2 interface. If you compiled against
 Support for the Flux language and queries has been added in this release. To begin exploring Flux 0.7 (technical preview):
 
 * Enable Flux using the new configuration setting [`[http] flux-enabled = true`](/influxdb/v1.7/administration/config/#flux-enabled-false).
-* Use the new [`influx -type=flux`](/influxdb/v1.7/tools/shell/#type) option to enable the Flux REPL shell for creating Flux queries.
-* Read about Flux and the Flux language, enabling Flux, or jump into the getting started and other guides in the [Flux v0.7 (technical preview) documentation](/flux/v0.7/).
+* Use the new [`influx -type=flux`](/influxdb/v1.7/tools/shell/) option to enable the Flux REPL shell for creating Flux queries.
+* Read about Flux and the Flux language, enabling Flux, or jump into the getting started and other guides.
 
 #### Time Series Index (TSI) query performance and throughputs improvements
 

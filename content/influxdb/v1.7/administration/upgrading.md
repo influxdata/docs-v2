@@ -51,7 +51,7 @@ Switch index types at any time by doing one of the following:
 ## Downgrade InfluxDB
 
 To downgrade to an earlier version, complete the procedures above in [Upgrade to InfluxDB 1.7.x](#upgrade-to-influxdb-1-7-x), replacing the version numbers with the version that you want to downgrade to.
-After downloading the release, migrating your configuration settings, and enabling TSI or TSM, make sure to [rebuild your index](/influxdb/v1.7/administration/rebuild-tsi-index/#sidebar).
+After downloading the release, migrating your configuration settings, and enabling TSI or TSM, make sure to [rebuild your index](/influxdb/v1.7/administration/rebuild-tsi-index/).
 
 >**Note:** Some versions of InfluxDB may have breaking changes that impact your ability to upgrade and downgrade. For example, you cannot downgrade from InfluxDB 1.3 or later to an earlier version. Please review the applicable version of release notes to check for compatibility issues between releases.
 

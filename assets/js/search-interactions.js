@@ -1,6 +1,6 @@
 // Fade content wrapper when focusing on search input
 $('#algolia-search-input').focus(function() {
-  $('.content-wrapper').fadeTo(400, .35);
+  $('.content-wrapper').fadeTo(300, .35);
 })
 
 // Hide search dropdown when leaving search input

@@ -7,6 +7,8 @@ menu:
     name: InfluxDB line protocol reference
     weight: 10
     parent: Write protocols
+canonical: /{{< latest "influxdb" "v2" >}}/reference/syntax/line-protocol/
+v2: /influxdb/v2.0/reference/syntax/line-protocol/
 ---
 
 InfluxDB line protocol is a text based format for writing points to InfluxDB.
@@ -201,12 +203,12 @@ In field values, you must use a backslash character (`\`) to escape:
 - the backslash character itself (`\`).
 
 For example, `\"` escapes a double quote.
-   
+
 >#### Note on backslashes:
 >
 * If you use multiple backslashes, they must be escaped. Influx interprets backslashes as follows:
-  *	`\` or `\\` interpreted as `\` 
-  *	`\\\` or `\\\\` interpreted as `\\` 
+  *	`\` or `\\` interpreted as `\`
+  *	`\\\` or `\\\\` interpreted as `\\`
   * `\\\\\` or `\\\\\\` interpreted as `\\\`, and so on
 
 In tag keys, tag values, and field keys, you must escape:

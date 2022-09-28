@@ -1,12 +1,19 @@
 <div class="article">
   <article class="article--content">
-    <h1>{{ .Title }}</h1>
-    {{ partial "article/product-tags.html" . }}
+    <div class="title">
+      <h1>{{ .Title }}</h1>
+      {{ partial "article/supported-versions.html" . }}
+      {{ partial "article/page-meta.html" . }}
+    </div>
     {{ partial "article/stable-version.html" . }}
     {{ partial "article/flux-experimental.html" . }}
-    {{ .Content }}
+    {{ partial "article/flux-contrib.html" . }}
+    {{ partial "article/prepend.html" . }}
+    {{ partial "article/content.html" . }}
+    {{ partial "article/contributors.html" . }}
+    {{ partial "article/append.html" . }}
     {{ partial "article/related.html" . }}
     {{ partial "article/tags.html" . }}
-    {{ partial "article/_feedback.html" . }}
+    {{ partial "article/feedback.html" . }}
   </article>
 </div>

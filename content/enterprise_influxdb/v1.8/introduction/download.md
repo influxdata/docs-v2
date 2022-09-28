@@ -1,6 +1,6 @@
 ---
 title: InfluxDB Enterprise downloads
-
+description: Download InfluxDB Enterprise.
 aliases:
     - /enterprise/v1.8/introduction/download/
 

@@ -1,0 +1,19 @@
+# Notification data structure
+#
+# - id: unqiue ID for notification, cannot start with digit, no spaces, a-z and 0-9
+#   level: note or warn
+#   scope:
+#     - list of URL paths to show notification on, no scope shows everywhere
+#   message: |
+#     Markdown message content.
+
+- id: v2-cloud-upgrade
+  level: note
+  scope:
+    - /influxdb/v1
+  message: |
+    ### Upgrade to InfluxDB Cloud or InfluxDB 2.0!
+    **InfluxDB Cloud** and **InfluxDB OSS 2.0** ready for production.
+
+    - [Upgrade to InfluxDB Cloud](/influxdb/cloud/upgrade/v1-to-cloud/)
+    - [Upgrade to InfluxDB OSS 2.0](/influxdb/v2.0/upgrade/v1-to-v2/)

@@ -7,13 +7,12 @@ description: >
   This article provides links to information about the Prometheus data format
   and tools that generate Prometheus-formatted metrics.
 aliases:
-  - /v2.0/collect-data/scrape-data/scrapable-endpoints
-  - /v2.0/write-data/no-code/scrape-data/scrapable-endpoints/
+  - /influxdb/v2.0/collect-data/scrape-data/scrapable-endpoints
 menu:
   influxdb_2_0:
     parent: Scrape data
 weight: 202
-influxdb/v2.0/tags: [scraper]
+influxdb/v2.0/tags: [scraper, prometheus]
 ---
 
 InfluxDB scrapers can collect data from any HTTP(S)-accessible endpoint that returns data

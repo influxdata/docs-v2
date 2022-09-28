@@ -1,5 +1,6 @@
 ---
 title: Compare InfluxDB to SQL databases
+description: Differences between InfluxDB and SQL databases.
 menu:
   influxdb_1_8:
     name: Compare InfluxDB to SQL databases
@@ -119,15 +120,15 @@ InfluxDB supports multiple query languages:
 
 ### Flux
 
-[Flux](/flux/latest/introduction) is a data scripting language designed for querying, analyzing, and acting on time series data.
+[Flux](/influxdb/v1.8/flux/) is a data scripting language designed for querying, analyzing, and acting on time series data.
 Beginning with **InfluxDB 1.8.0**, Flux is available for production use along side InfluxQL.
 
-For those familiar with [InfluxQL](#influxql-and-sql), Flux is intended to address
+For those familiar with [InfluxQL](#influxql), Flux is intended to address
 many of the outstanding feature requests that we've received since introducing InfluxDB 1.0.
-For a comparison between Flux and InfluxQL, see [Flux vs InfluxQL](/flux/latest/introduction/flux-vs-influxql).
+For a comparison between Flux and InfluxQL, see [Flux vs InfluxQL](/influxdb/v1.8/flux/flux-vs-influxql/).
 
-Flux is the primary language for working with data in [InfluxDB 2.0 OSS](https://v2.docs.influxdata.com/v2.0/get-started)
-(currently in _beta_) and [InfluxDB Cloud 2.0](https://v2.docs.influxdata.com/v2.0/cloud/get-started/),
+Flux is the primary language for working with data in [InfluxDB OSS 2.0](/influxdb/v2.0/get-started)
+and [InfluxDB Cloud](/influxdb/cloud/get-started/),
 a generally available Platform as a Service (PaaS) available across multiple Cloud Service Providers.
 Using Flux with InfluxDB 1.8+ lets you get familiar with Flux concepts and syntax
 and ease the transition to InfluxDB 2.0.
@@ -193,7 +194,7 @@ The options for specifying time durations with `now()` are:
 | w        | weeks   		|
 
 InfluxQL also supports regular expressions, arithmetic in expressions, `SHOW` statements, and `GROUP BY` statements.
-See our [data exploration](/influxdb/v1.8/query_language/data_exploration/) page for an in-depth discussion of those topics.
+See our [data exploration](/influxdb/v1.8/query_language/explore-data/) page for an in-depth discussion of those topics.
 InfluxQL functions include `COUNT`, `MIN`, `MAX`, `MEDIAN`, `DERIVATIVE` and more.
 For a full list check out the [functions](/influxdb/v1.8/query_language/functions/) page.
 
@@ -213,6 +214,6 @@ In addition, time series data is generally written once and rarely updated.
 The result is that InfluxDB is not a full CRUD database but more like a CR-ud, prioritizing the performance of creating and reading data over update and destroy, and [preventing some update and destroy behaviors](/influxdb/v1.8/concepts/insights_tradeoffs/) to make create and read more performant:
 
 * To update a point, insert one with [the same measurement, tag set, and timestamp](/influxdb/v1.8/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-duplicate-points).
-* You can [drop or delete a series](/influxdb/v1.8/query_language/database_management/#drop-series-from-the-index-with-drop-series), but not individual points based on field values. As a workaround, you can search for the field value, retrieve the time, then [DELETE based on the `time` field](/influxdb/v1.8/query_language/database_management/#delete-series-with-delete).
+* You can [drop or delete a series](/influxdb/v1.8/query_language/manage-database/#drop-series-from-the-index-with-drop-series), but not individual points based on field values. As a workaround, you can search for the field value, retrieve the time, then [DELETE based on the `time` field](/influxdb/v1.8/query_language/manage-database/#delete-series-with-delete).
 * You can't update or rename tags yet - see GitHub issue [#4157](https://github.com/influxdata/influxdb/issues/4157) for more information. To modify the tag of a series of points, find the points with the offending tag value, change the value to the desired one, write the points back, then drop the series with the old tag value.
 * You can't delete tags by tag key (as opposed to value) - see GitHub issue [#8604](https://github.com/influxdata/influxdb/issues/8604).

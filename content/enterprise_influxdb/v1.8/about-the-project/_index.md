@@ -1,15 +1,15 @@
 ---
 title: About the project
+description: >
+  Release notes, licenses, and third-party software details for InfluxDB Enterprise.
 menu:
-  enterprise_influxdb_1_8:
+  enterprise_influxdb_1_8_ref:
     weight: 10
 ---
 
-## [Release notes/changelog](/enterprise_influxdb/v1.8/about-the-project/release-notes-changelog/)
+{{< children hlevel="h2" >}}
 
-
-
-## [Commercial license](https://www.influxdata.com/legal/slsa/)
+## Commercial license
 
 InfluxDB Enterprise is available with a commercial license.  [Contact sales for more information](https://www.influxdata.com/contact-sales/).
 

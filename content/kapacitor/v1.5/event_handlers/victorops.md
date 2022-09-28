@@ -1,10 +1,11 @@
 ---
 title: VictorOps event handler
-description: The VictorOps event handler allows you to send Kapacitor alerts to VictorOps. This page includes configuration options and usage examples.
+description: >
+  The VictorOps event handler allows you to send Kapacitor alerts to VictorOps. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: VictorOps
-    weight: 2000
+    weight: 2100
     parent: Event handlers
 ---
 
@@ -54,7 +55,7 @@ _The routing key can still be overridden._
 
 ## Options
 The following VictorOpas event handler options can be set in a
-[handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+[handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.victorOps()` in a TICKscript.
 
 | Name        | Type   | Description                         |

@@ -26,9 +26,9 @@ To create an InfluxDB connection in the Chronograf UI:
     * **Connection String**: Enter the hostname or IP address of the InfluxDB instance and the port. The field is prefilled with  `http://localhost:8086`.
     * **Name**: Enter the name for this connection.
     * **Username**: Enter the username that will be shared for this connection.
-      *Only required if [authorization is enabled](/influxdb/latest/administration/authentication_and_authorization/) on the InfluxDB instance to which you're connecting.*
+      *Only required if [authorization is enabled](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/) on the InfluxDB instance to which you're connecting.*
     * **Password**: Enter the password.
-      *Only required if [authorization is enabled](/influxdb/latest/administration/authentication_and_authorization/) on the InfluxDB instance to which you're connecting.*
+      *Only required if [authorization is enabled](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/) on the InfluxDB instance to which you're connecting.*
     * **Telegraf Database**: Enter the name of the Telegraf database. The field is prefilled with `telegraf`.
     * **Default Retention Policy**: Enter the name of the default [retention policy](/influxdb/v1.6/concepts/glossary/#retention-policy-rp). If none is provided, it assumes `autogen`.
     * **Make this the default source**: By default, this option is selected and this InfluxDB connection will be used when Chronograf is launched.
@@ -51,6 +51,7 @@ An `.src` files contains the details for a single InfluxDB connection.
 Create a new file named `example.src` (the filename is arbitrary) and place it at Chronograf's `resource-path`.
 All `.src` files should contain the following:
 
+{{< keep-url >}}
 ```json
 {
   "id": "10000",
@@ -75,11 +76,11 @@ Any string you want to use as the display name of the source.
 
 #### `username`  
 Username used to access the InfluxDB server or cluster.
-*Only required if [authorization is enabled](/influxdb/latest/administration/authentication_and_authorization/) on the InfluxDB instance to which you're connecting.*
+*Only required if [authorization is enabled](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/) on the InfluxDB instance to which you're connecting.*
 
 #### `password`  
 Password used to access the InfluxDB server or cluster.
-*Only required if [authorization is enabled](/influxdb/latest/administration/authentication_and_authorization/) on the InfluxDB instance to which you're connecting.*
+*Only required if [authorization is enabled](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/) on the InfluxDB instance to which you're connecting.*
 
 #### `url`  
 URL of the InfluxDB server or cluster.
@@ -143,9 +144,9 @@ To create a Kapacitor connection using the Chronograf UI:
     * **Kapacitor URL**: Enter the hostname or IP address of the Kapacitor instance and the port. The field is prefilled with  `http://localhost:9092`.
     * **Name**: Enter the name for this connection.
     * **Username**: Enter the username that will be shared for this connection.
-      *Only required if [authorization is enabled](/kapacitor/latest/administration/security/#kapacitor-authentication-and-authorization) on the Kapacitor instance or cluster to which you're connecting.*
+      *Only required if [authorization is enabled](/{{< latest "kapacitor" >}}/administration/security/#kapacitor-authentication-and-authorization) on the Kapacitor instance or cluster to which you're connecting.*
     * **Password**: Enter the password.
-      *Only required if [authorization is enabled](/kapacitor/latest/administration/security/#kapacitor-authentication-and-authorization) on the Kapacitor instance or cluster to which you're connecting.*
+      *Only required if [authorization is enabled](/{{< latest "kapacitor" >}}/administration/security/#kapacitor-authentication-and-authorization) on the Kapacitor instance or cluster to which you're connecting.*
 
 4. Click **Connect**. If the connection is valid, the message "Kapacitor Created! Configuring endpoints is optional." appears. To configure alert endpoints, see [Configuring alert endpoints](/chronograf/v1.6/guides/configuring-alert-endpoints/).
 

@@ -1,5 +1,9 @@
 ---
 title: Deploy an InfluxDB Enterprise cluster on Azure Cloud Platform
+description: >
+  Deploy an InfluxDB Enterprise cluster on Microsoft Azure cloud computing service.
+aliases:
+  - /enterprise_influxdb/v1.8/install-and-deploy/azure/
 menu:
   enterprise_influxdb_1_8:
     name: Azure
@@ -9,7 +13,7 @@ menu:
 
 For deploying InfluxDB Enterprise clusters on Microsoft Azure cloud computing service, InfluxData provides an [InfluxDB Enterprise application](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-enterprise-cluster) on the [Azure Marketplace](https://azuremarketplace.microsoft.com/) that makes the installation and setup process easy and straightforward. Clusters are deployed through an Azure Marketplace subscription and are ready for production. Billing occurs through your Azure subscription.
 
-> **Note:** The Azure Resource Manager (ARM) templates used in the InfluxDB Enterprise offering on Azure Marketplace are [open source](https://github.com/influxdata/azure-resource-manager-influxdb-enterprise). Issues and feature requests for the Azure Marketplace deployment should be [submitted through the related GitHub repository](https://github.com/influxdata/azure-resource-manager-influxdb-enterprise/issues/new) (requires a GitHub account) or by contacting [InfluxData Support](mailto:support@influxdata.com).
+> Please submit issues and feature requests for the Azure Marketplace deployment [through the related GitHub repository](https://github.com/influxdata/azure-resource-manager-influxdb-enterprise/issues/new) (requires a GitHub account) or by contacting [InfluxData Support](mailto:support@influxdata.com).
 
 ## Prerequisites
 
@@ -18,7 +22,7 @@ This guide requires the following:
 - Microsoft Azure account with access to the [Azure Marketplace](https://azuremarketplace.microsoft.com/).
 - SSH access to cluster instances.
 
-To deploy InfluxDB Enterprise clusters on platforms other than Azure, see [Deploy InfluxDB Enterprise](/enterprise_influxdb/v1.8/install-and-deploy/_index).
+To deploy InfluxDB Enterprise clusters on platforms other than Azure, see [Deploy InfluxDB Enterprise](/enterprise_influxdb/v1.8/install-and-deploy/).
 
 ## Deploy a cluster
 
@@ -54,13 +58,17 @@ To deploy InfluxDB Enterprise clusters on platforms other than Azure, see [Deplo
 
 Once the cluster is created, access the InfluxDB API at the IP address associated with the load balancer resource (`lb-influxdb`). If external access was configured during setup, the load balancer is publicly accessible. Otherwise, the load balancer is only accessible to the cluster's virtual network.
 
-Use the load balancer IP address and the InfluxDB admin credentials entered during the cluster creation to interact with InfluxDB Enterprise via the [`influx` CLI](https://docs.influxdata.com/influxdb/v1.8/tools/shell/) or use the InfluxDB's [query](https://docs.influxdata.com/influxdb/v1.8/guides/query_data/) and [write](https://docs.influxdata.com/influxdb/v1.8/guides/write_data/) HTTP APIs.
+Use the load balancer IP address and the InfluxDB admin credentials entered during the cluster creation to interact with InfluxDB Enterprise via the [`influx` CLI](/influxdb/v1.8/tools/shell/) or use the InfluxDB's [query](/influxdb/v1.8/guides/query_data/) and [write](/influxdb/v1.8/guides/write_data/) HTTP APIs.
 
 ## Access the cluster
 
 The InfluxDB Enterprise cluster's VMs are only reachable within the virtual network using the SSH credentails provided during setup.
 
 If a Chronograf instance has been added to the cluster, the Chronograf instance is publically accessible via SSH. The other VMs can then be reached from the Chronograf VM.
+
+## Testing
+
+Azure Resource Manager (ARM) templates used in the InfluxDB Enterprise offering on Azure Marketplace are [available for testing purposes](https://github.com/influxdata/azure-resource-manager-influxdb-enterprise). **Please note, these templates are under active development and not recommended for production.**
 
 ### Next steps
 

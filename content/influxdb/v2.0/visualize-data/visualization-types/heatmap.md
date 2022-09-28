@@ -5,9 +5,7 @@ list_image: /img/influxdb/2-0-visualizations-heatmap-example.png
 description: >
   A Heatmap displays the distribution of data on an x and y axes where color
   represents different concentrations of data points.
-weight: 203
-aliases:
-  - /v2.0/visualize-data/visualization-types/heatmap/
+weight: 202
 menu:
   influxdb_2_0:
     name: Heatmap
@@ -21,7 +19,7 @@ represents different concentrations of data points.
 
 {{< img-hd src="/img/influxdb/2-0-visualizations-heatmap-example.png" alt="Heatmap example" />}}
 
-Select the **Heatmap** option from the visualization dropdown in the upper right.
+Select the **Heatmap** option from the visualization dropdown in the upper left.
 
 ## Heatmap behavior
 Heatmaps divide data points into "bins" – segments of the visualization with upper
@@ -31,12 +29,14 @@ The total number of points that fall within a bin determine the its value and co
 Warmer or brighter colors represent higher bin values or density of points within the bin.
 
 ## Heatmap Controls
-To view **Heatmap** controls, click **{{< icon "gear" >}} Customize** next to
+To view **Heatmap** controls, click **{{< icon "gear" "v2" >}} Customize** next to
 the visualization dropdown.
 
 ###### Data
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
+- **Time Format**: Select the time format. Options include:
+    {{< ui/timestamp-formats >}}
 
 ###### Options
 - **Color Scheme**: Select a color scheme to use for your heatmap.
@@ -44,8 +44,12 @@ the visualization dropdown.
 
 ###### X Axis
 - **X Axis Label**: Label for the x-axis.
-- **X Tick Prefix**: Prefix to be added to x-value.
-- **X Tick Suffix**: Suffix to be added to x-value.
+- **Generate X-Axis Tick Marks**: Select the method to generate x-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of x-axis tick marks, select this option, and then enter the following:
+    - **Total Tick Marks**: Enter the total number of ticks to display.
+    - **Start Tick Marks At**: Enter the value to start ticks at.
+    - **Tick Mark Interval**: Enter the interval in between each tick.
 - **X Axis Domain**: The x-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
   - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
@@ -56,18 +60,31 @@ the visualization dropdown.
 - **Y Axis Label**: Label for the y-axis.
 - **Y Tick Prefix**: Prefix to be added to y-value.
 - **Y Tick Suffix**: Suffix to be added to y-value.
+- **Generate Y-Axis Tick Marks**: Select the method to generate y-axis tick marks:
+  - **Auto**: Select to automatically generate tick marks.
+  - **Custom**: To customize the number of y-axis tick marks, select this option, and then enter  the following:
+    - **Total Tick Marks**: Enter the total number of ticks to display.
+    - **Start Tick Marks At**: Enter the value to start ticks at.
+    - **Tick Mark Interval**: Enter the interval in between each tick.
 - **Y Axis Domain**: The y-axis value range.
   - **Auto**: Automatically determine the value range based on values in the data set.
   - **Custom**: Manually specify the minimum y-axis value, maximum y-axis value, or range by including both.
       - **Min**: Minimum y-axis value.
       - **Max**: Maximum y-axis value.
 
+###### Legend
+- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+  - **Horizontal**: Select to display the legend horizontally.
+  - **Vertical**: Select to display the legend vertically.
+- **Opacity**: Adjust the legend opacity using the slider.
+- **Colorize Rows**: Select to display legend rows in colors.
+
 ## Heatmap examples
 
 ### Cross-measurement correlation
 The following example explores possible correlation between CPU and Memory usage.
-It uses data collected with the Telegraf [Mem](/v2.0/reference/telegraf-plugins/#mem)
-and [CPU](/v2.0/reference/telegraf-plugins/#cpu) input plugins.
+It uses data collected with the Telegraf [Mem](/{{< latest "telegraf" >}}/plugins//#mem)
+and [CPU](/{{< latest "telegraf" >}}/plugins//#cpu) input plugins.
 
 ###### Join CPU and memory usage
 The following query joins CPU and memory usage on `_time`.
@@ -104,7 +121,7 @@ between column values.
 ## Important notes
 
 ### Differences between a heatmap and a scatter plot
-Heatmaps and [Scatter plots](/v2.0/visualize-data/visualization-types/scatter/)
+Heatmaps and [Scatter plots](/influxdb/v2.0/visualize-data/visualization-types/scatter/)
 both visualize the distribution of data points on X and Y axes.
 However, in certain cases, heatmaps provide better visibility into point density.
 

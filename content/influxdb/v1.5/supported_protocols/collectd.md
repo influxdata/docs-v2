@@ -15,7 +15,7 @@ The [collectd](https://collectd.org) input allows InfluxDB to accept data transm
 
 ## A note on UDP/IP buffer sizes
 
-If you're running Linux or FreeBSD, please adjust your operating system UDP buffer size limit, [see here for more details.](/influxdb/latest/supported_protocols/udp/#a-note-on-udpip-os-buffer-sizes)
+If you're running Linux or FreeBSD, please adjust your operating system UDP buffer size limit, [see here for more details.](/influxdb/v1.5/supported_protocols/udp/#a-note-on-udp-ip-os-buffer-sizes)
 
 ## Configuration
 
@@ -23,7 +23,7 @@ Each collectd input allows the binding address, target database, and target rete
 
 Each collectd input also performs internal batching of the points it receives, as batched writes to the database are more efficient. The default batch size is 1000, pending batch factor is 5, with a batch timeout of 1 second. This means the input will write batches of maximum size 1000, but if a batch has not reached 1000 points within 1 second of the first point being added to a batch, it will emit that batch regardless of size. The pending batch factor controls how many batches can be in memory at once, allowing the input to transmit a batch, while still building other batches.
 
-Multi-value plugins can be handled two ways.  Setting parse-multivalue-plugin to "split" will parse and store the multi-value plugin data (e.g., df free:5000,used:1000) into separate measurements (e.g., (df_free, value=5000) (df_used, value=1000)), while "join" will parse and store the multi-value plugin as a single multi-value measurement (e.g., (df, free=5000,used=1000)).  "split" is the default behavior for backward compatability with previous versions of influxdb.
+Multi-value plugins can be handled two ways.  Setting parse-multivalue-plugin to "split" will parse and store the multi-value plugin data (e.g., df free:5000,used:1000) into separate measurements (e.g., (df_free, value=5000) (df_used, value=1000)), while "join" will parse and store the multi-value plugin as a single multi-value measurement (e.g., (df, free=5000,used=1000)).  "split" is the default behavior for backward compatibility with previous versions of influxdb.
 
 The path to the collectd types database file may also be set.
 

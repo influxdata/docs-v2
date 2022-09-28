@@ -1,0 +1,27 @@
+{{ $currentVersion := index (findRE "[^/]+.*?" .RelPermalink) 1 }}
+{{ $contribPath := print "/flux/" $currentVersion "/stdlib/contrib/" }}
+
+{{ if in .RelPermalink $contribPath }}
+  {{ if not (eq .RelPermalink $contribPath) }}
+    {{ if eq .Kind "page" }}
+      {{ $name := replaceRE " function" "" .Title }}
+      <div class="note block">
+        <p>
+          <code>{{ $name | safeHTML }}</code> is a user-contributed function maintained by
+          the <a href="#package-author-and-maintainer">package author</a> and can
+          be updated or removed at any time.
+        </p>
+      </div>
+    {{ else if eq .Kind "section" }}
+      <div class="note block">
+        {{ $packageTitle := cond (isset .Params "list_title") $.Params.list_title .Title }}
+        {{ $packageName := replaceRE `^(.*)( package)` "<code>$1</code>$2" $packageTitle }}
+        <p>
+          The {{ $packageName | safeHTML }} is a user-contributed package
+          maintained by the <a href="#package-author-and-maintainer">package author</a>
+          and can be updated or removed at any time.
+        </p>
+      </div>
+    {{ end }}
+  {{ end }}
+{{ end }}

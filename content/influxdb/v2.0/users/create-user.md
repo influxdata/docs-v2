@@ -7,15 +7,10 @@ menu:
     name: Create a user
     parent: Manage users
 weight: 101
-aliases:
-  - /v2.0/users/create-user/
 products: [oss]
 ---
 
-Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
-to create a user.
-
-## Create a user in the InfluxDB UI
+Use the `influx` command line interface (CLI) to create a user.
 
 {{% note %}}
 Additional users cannot be created in the InfluxDB UI.
@@ -23,12 +18,12 @@ Additional users cannot be created in the InfluxDB UI.
 
 ## Create a user using the influx CLI
 
-To create a new user, use the [`influx user create` command](/v2.0/reference/cli/influx/user/create)
+To create a new user, use the [`influx user create` command](/influxdb/v2.0/reference/cli/influx/user/create)
 and include the following:
 
 - Username
 - Organization name or organization ID to add the user to _(provided in the output of
-  [`influx org list`](/v2.0/reference/cli/influx/org/list/))_
+  [`influx org list`](/influxdb/v2.0/reference/cli/influx/org/list/))_
 
 ```sh
 # Syntax
@@ -44,7 +39,7 @@ include a password and organization ID with the `influx user create` command.
 
 - Username
 - Organization name or organization ID to add the user to _(provided in the output of
-  [`influx org list`](/v2.0/reference/cli/influx/org/list/))_
+  [`influx org list`](/influxdb/v2.0/reference/cli/influx/org/list/))_
 - Password
 
 ```sh

@@ -1,6 +1,6 @@
 ---
-title: Configure a watcher of watchers system to monitor InfluxDB servers
-description: How to set up an external InfluxData TICK stack that monitors another Enterprise or OSS TICK stack.
+title: Configure a watcher of watchers system to monitor InfluxDB 1.x servers
+description: How to set up an external InfluxData 1.x TICK stack that monitors another Enterprise or OSS TICK stack.
 aliases:
   - /platform/monitoring/external-monitor-setup/
 menu:
@@ -33,11 +33,11 @@ must be able to connect to your monitor's API endpoint via HTTP or UDP.
 {{% /note %}}
 
 ## Install Telegraf on each node
-[Install the `telegraf` agent](/telegraf/latest/introduction/installation/#installation)
+[Install the `telegraf` agent](/{{< latest "telegraf" >}}/introduction/installation/#installation)
 on each node in your primary InfluxDB cluster you would like to monitor.
 
 ### Send data collected by Telegraf to your monitor
-[Generate a Telegraf configuration file](/telegraf/latest/introduction/installation/#configuration)
+[Generate a Telegraf configuration file](/{{< latest "telegraf" >}}/introduction/installation/#configuration)
 and modify the InfluxDB output `url` setting to include the URL of your monitor's
 InfluxDB API endpoint.
 
@@ -64,7 +64,7 @@ the host machine:
 - Swap
 - System (load, number of CPUs, number of users, uptime, etc.)
 
-Use other [Telegraf input plugins](/telegraf/latest/plugins/inputs/) to collect
+Use other [Telegraf input plugins](/{{< latest "telegraf" >}}/plugins/#input-plugins) to collect
 a variety of metrics.
 
 #### Monitor InfluxDB performance metrics
@@ -98,7 +98,7 @@ from the local Kapacitor `/debug/vars` endpoint.
 ```toml
 # ...
 
-[[inputs.influxdb]]
+[[inputs.kapacitor]]
   # ...
   ## Multiple URLs from which to read Kapacitor-formatted JSON
   ## Default is "http://localhost:9092/kapacitor/v1/debug/vars".
@@ -156,5 +156,5 @@ telegraf -config path/to/telegraf.conf
 ## Create Kapacitor monitoring alerts
 Monitoring data should now be flowing from your primary cluster to your monitor
 where it can be processed by your monitor's Kapacitor component.
-[Create Kapacitor alerts](/kapacitor/latest/working/alerts/) that alert you of issues
+[Create Kapacitor alerts](/{{< latest "kapacitor" >}}/working/alerts/) that alert you of issues
 detected in any of the monitored metrics.

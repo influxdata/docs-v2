@@ -30,7 +30,7 @@ Before proceeding with the Kapacitor upgrade, ensure that InfluxDB and Telegraf 
    * Telegraf 1.6
    * Kapacitor 1.4.1
 
-For instructions on upgrading InfluxDB, please see the [InfluxDB upgrade](/influxdb/latest/administration/upgrading/#main-nav) documentation. For instructions on upgrading Telegraf, please see the [Telegraf upgrade](/telegraf/latest/administration/upgrading/#main-nav) documentation.
+For instructions on upgrading InfluxDB, please see the [InfluxDB upgrade](/{{< latest "influxdb" "v1" >}}/administration/upgrading/#main-nav) documentation.
 
 For information about what is new in the latest Kapacitor release, please see the [Changelog](https://github.com/influxdata/kapacitor/blob/master/CHANGELOG.md) available on GitHub.
 
@@ -161,14 +161,14 @@ Kapacitor can now be upgraded using `yum localupdate` from the directory into wh
 
 *Example - yum localupdate*
 ```
-# yum -y localupdate kapacitor-1.4.1.x86_64.rpm
+# yum -y localupdate kapacitor-{{< latest-patch >}}.x86_64.rpm
 Loaded plugins: fastestmirror
-Examining kapacitor-1.4.1.x86_64.rpm: kapacitor-1.4.1-1.x86_64
-Marking kapacitor-1.4.1.x86_64.rpm as an update to kapacitor-1.3.1-1.x86_64
+Examining kapacitor-{{< latest-patch >}}.x86_64.rpm: kapacitor-{{< latest-patch >}}-1.x86_64
+Marking kapacitor-{{< latest-patch >}}.x86_64.rpm as an update to kapacitor-1.3.1-1.x86_64
 Resolving Dependencies
 --> Running transaction check
 ---> Package kapacitor.x86_64 0:1.3.1-1 will be updated
----> Package kapacitor.x86_64 0:1.4.1-1 will be an update
+---> Package kapacitor.x86_64 0:{{< latest-patch >}}-1 will be an update
 --> Finished Dependency Resolution
 
 Dependencies Resolved
@@ -177,7 +177,7 @@ Dependencies Resolved
  Package                            Arch                            Version                           Repository                                        Size
 =============================================================================================================================================================
 Updating:
- kapacitor                          x86_64                          1.4.1-1                           /kapacitor-1.4.1.x86_64                           90 M
+ kapacitor                          x86_64                          {{< latest-patch >}}-1                           /kapacitor-{{< latest-patch >}}.x86_64                           90 M
 
 Transaction Summary
 =============================================================================================================================================================
@@ -189,21 +189,21 @@ Running transaction check
 Running transaction test
 Transaction test succeeded
 Running transaction
-  Updating   : kapacitor-1.4.1-1.x86_64                                                                                                                  1/2
+  Updating   : kapacitor-{{< latest-patch >}}-1.x86_64                                                                                                                  1/2
 warning: /etc/kapacitor/kapacitor.conf created as /etc/kapacitor/kapacitor.conf.rpmnew
 Failed to execute operation: Too many levels of symbolic links
-warning: %post(kapacitor-1.4.1-1.x86_64) scriptlet failed, exit status 1
-Non-fatal POSTIN scriptlet failure in rpm package kapacitor-1.4.1-1.x86_64
+warning: %post(kapacitor-{{< latest-patch >}}-1.x86_64) scriptlet failed, exit status 1
+Non-fatal POSTIN scriptlet failure in rpm package kapacitor-{{< latest-patch >}}-1.x86_64
   Cleanup    : kapacitor-1.3.1-1.x86_64                                                                                                                  2/2
 Removed symlink /etc/systemd/system/multi-user.target.wants/kapacitor.service.
 Removed symlink /etc/systemd/system/kapacitor.service.
 Created symlink from /etc/systemd/system/kapacitor.service to /usr/lib/systemd/system/kapacitor.service.
 Created symlink from /etc/systemd/system/multi-user.target.wants/kapacitor.service to /usr/lib/systemd/system/kapacitor.service.
-  Verifying  : kapacitor-1.4.1-1.x86_64                                                                                                                  1/2
+  Verifying  : kapacitor-{{< latest-patch >}}-1.x86_64                                                                                                                  1/2
   Verifying  : kapacitor-1.3.1-1.x86_64                                                                                                                  2/2
 
 Updated:
-  kapacitor.x86_64 0:1.4.1-1
+  kapacitor.x86_64 0:{{< latest-patch >}}-1
 
 Complete!
 

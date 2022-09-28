@@ -5,7 +5,7 @@ list_title: Query SQL data
 description: >
   The Flux `sql` package provides functions for working with SQL data sources.
   Use `sql.from()` to query SQL databases like PostgreSQL, MySQL, Snowflake,
-  SQLite, Microsoft SQL Server, and Amazon Athena.
+  SQLite, Microsoft SQL Server, Amazon Athena, and Google BigQuery.
 influxdb/v2.0/tags: [query, flux, sql]
 menu:
   influxdb_2_0:
@@ -13,10 +13,9 @@ menu:
     list_title: SQL data
 weight: 220
 aliases:
-  - /v2.0/query-data/guides/sql/
-  - /v2.0/query-data/flux/sql/
+  - /influxdb/v2.0/query-data/guides/sql/
 related:
-  - /v2.0/reference/flux/stdlib/sql/
+  - /{{< latest "flux" >}}/stdlib/sql/
 list_code_example: |
   ```js
   import "sql"
@@ -29,13 +28,13 @@ list_code_example: |
   ```
 ---
 
-The [Flux](/v2.0/reference/flux) `sql` package provides functions for working with SQL data sources.
-[`sql.from()`](/v2.0/reference/flux/stdlib/sql/from/) lets you query SQL data sources
+The [Flux](/influxdb/v2.0/reference/flux) `sql` package provides functions for working with SQL data sources.
+[`sql.from()`](/{{< latest "flux" >}}/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/), [MySQL](https://www.mysql.com/),
 [Snowflake](https://www.snowflake.com/), [SQLite](https://www.sqlite.org/index.html),
 [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/default.aspx),
-and [Amazon Athena](https://aws.amazon.com/athena/) and use the results with
-InfluxDB dashboards, tasks, and other operations.
+[Amazon Athena](https://aws.amazon.com/athena/) and [Google BigQuery](https://cloud.google.com/bigquery)
+and use the results with InfluxDB dashboards, tasks, and other operations.
 
 - [Query a SQL data source](#query-a-sql-data-source)
 - [Join SQL data with data in InfluxDB](#join-sql-data-with-data-in-influxdb)
@@ -45,8 +44,8 @@ InfluxDB dashboards, tasks, and other operations.
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/v2.0/query-data/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Execute queries](/influxdb/v2.0/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Query a SQL data source
 To query a SQL data source:
@@ -62,6 +61,8 @@ To query a SQL data source:
 [Snowflake](#)
 [SQLite](#)
 [SQL Server](#)
+[Athena](#)
+[BigQuery](#)
 {{% /code-tabs %}}
 
 {{% code-tab-content %}}
@@ -128,11 +129,38 @@ sql.from(
 ```
 
 _For information about authenticating with SQL Server using ADO-style parameters,
-see [SQL Server ADO authentication](/v2.0/reference/flux/stdlib/sql/from/#sql-server-ado-authentication)._
+see [SQL Server ADO authentication](/{{< latest "flux" >}}/stdlib/sql/from/#sql-server-ado-authentication)._
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```js
+import "sql"
+sql.from(
+  driverName: "awsathena",
+  dataSourceName: "s3://myorgqueryresults/?accessID=12ab34cd56ef&region=region-name&secretAccessKey=y0urSup3rs3crEtT0k3n",
+  query: "GO SELECT * FROM Example.Table"
+)
+```
+
+_For information about parameters to include in the Athena DSN,
+see [Athena connection string](/{{< latest "flux" >}}/stdlib/sql/from/#athena-connection-string)._
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+import "sql"
+sql.from(
+  driverName: "bigquery",
+  dataSourceName: "bigquery://projectid/?apiKey=mySuP3r5ecR3tAP1K3y",
+  query: "SELECT * FROM exampleTable"
+)
+```
+
+_For information about authenticating with BigQuery, see
+[BigQuery authentication parameters](/{{< latest "flux" >}}/stdlib/sql/from/#bigquery-authentication-parameters)._
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-_See the [`sql.from()` documentation](/v2.0/reference/flux/stdlib/sql/from/) for
+_See the [`sql.from()` documentation](/{{< latest "flux" >}}/stdlib/sql/from/) for
 information about required function parameters._
 
 ## Join SQL data with data in InfluxDB
@@ -165,7 +193,7 @@ join(tables: {metric: sensorMetrics, info: sensorInfo}, on: ["sensor_id"])
 ```
 
 ## Use SQL results to populate dashboard variables
-Use `sql.from()` to [create dashboard variables](/v2.0/visualize-data/variables/create-variable/)
+Use `sql.from()` to [create dashboard variables](/influxdb/v2.0/visualize-data/variables/create-variable/)
 from SQL query results.
 The following example uses the [air sensor sample data](#sample-sensor-data) below to
 create a variable that lets you select the location of a sensor.
@@ -189,13 +217,13 @@ Use the variable to manipulate queries in your dashboards.
 ---
 
 ## Use secrets to store SQL database credentials
-If your SQL database requires authentication, use [InfluxDB secrets](/v2.0/security/secrets/)
+If your SQL database requires authentication, use [InfluxDB secrets](/influxdb/v2.0/security/secrets/)
 to store and populate connection credentials.
 By default, InfluxDB base64-encodes and stores secrets in its internal key-value store, BoltDB.
-For added security, [store secrets in Vault](/v2.0/security/secrets/use-vault/).
+For added security, [store secrets in Vault](/influxdb/v2.0/security/secrets/use-vault/).
 
 ### Store your database credentials as secrets
-Use the [InfluxDB API](/v2.0/reference/api/) or the [`influx` CLI](/v2.0/reference/cli/influx/secret/)
+Use the [InfluxDB API](/influxdb/v2.0/reference/api/) or the [`influx` CLI](/influxdb/v2.0/reference/cli/influx/secret/)
 to store your database credentials as secrets.
 
 {{< tabs-wrapper >}}
@@ -205,10 +233,10 @@ to store your database credentials as secrets.
 {{% /tabs %}}
 {{% tab-content %}}
 ```sh
-curl -X PATCH http://localhost:9999/api/v2/orgs/<org-id>/secrets \
-  -H 'Authorization: Token YOURAUTHTOKEN' \
-  -H 'Content-type: application/json' \
-  -d '{
+curl --request PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
+  --header 'Authorization: Token YOUR_API_TOKEN' \
+  --header 'Content-type: application/json' \
+  --data '{
   "POSTGRES_HOST": "http://example.com",
   "POSTGRES_USER": "example-username",
   "POSTGRES_PASS": "example-password"
@@ -217,8 +245,8 @@ curl -X PATCH http://localhost:9999/api/v2/orgs/<org-id>/secrets \
 
 **To store secrets, you need:**
 
-- [your organization ID](/v2.0/organizations/view-orgs/#view-your-organization-id)  
-- [your authentication token](/v2.0/security/tokens/view-tokens/)
+- [your organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)  
+- [your API token](/influxdb/v2.0/security/tokens/view-tokens/)
 {{% /tab-content %}}
 {{% tab-content %}}
 ```sh
@@ -243,7 +271,7 @@ influx secret update -k <secret-key> -v <secret-value>
 {{< /tabs-wrapper >}}
 
 ### Use secrets in your query
-Import the `influxdata/influxdb/secrets` package and use [string interpolation](/v2.0/reference/flux/language/string-interpolation/)
+Import the `influxdata/influxdb/secrets` package and use [string interpolation](/{{< latest "flux" >}}/spec/string-interpolation/)
 to populate connection credentials with stored secrets in your Flux query.
 
 ```js
@@ -264,7 +292,7 @@ sql.from(
 ---
 
 ## Sample sensor data
-The [sample data generator](#download-and-run-the-sample-data-generator) and
+The [air sensor sample data](#download-sample-air-sensor-data) and
 [sample sensor information](#import-the-sample-sensor-information) simulate a
 group of sensors that measure temperature, humidity, and carbon monoxide
 in rooms throughout a building.
@@ -275,53 +303,43 @@ Sample sensor information is stored in PostgreSQL.
 **Sample data includes:**
 
 - Simulated data collected from each sensor and stored in the `airSensors` measurement in **InfluxDB**:
-    - temperature
-    - humidity
-    - co
+  - temperature
+  - humidity
+  - co
 
 - Information about each sensor stored in the `sensors` table in **PostgreSQL**:
-    - sensor_id
-    - location
-    - model_number
-    - last_inspected
+  - sensor_id
+  - location
+  - model_number
+  - last_inspected
 
-### Import and generate sample sensor data
+#### Download sample air sensor data
 
-#### Download and run the sample data generator
-`air-sensor-data.rb` is a script that generates air sensor data and stores the data in InfluxDB.
-To use `air-sensor-data.rb`:
+1.  [Create a bucket](/influxdb/v2.0/organizations/buckets/create-bucket/) to store the data.
+2.  [Create an InfluxDB task](/influxdb/v2.0/process-data/manage-tasks/create-task/)
+    and use the [`sample.data()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/data/)
+    to download sample air sensor data every 15 minutes.
+    Write the downloaded sample data to your new bucket:
 
-1. [Create a bucket](/v2.0/organizations/buckets/create-bucket/) to store the data.
-2. Download the sample data generator. _This tool requires [Ruby](https://www.ruby-lang.org/en/)._
+    ```js
+    import "influxdata/influxdb/sample"
 
-    <a class="btn download" href="/downloads/air-sensor-data.rb" download>Download Air Sensor Generator</a>
+    option task = {
+      name: "Collect sample air sensor data",
+      every: 15m
+    }
 
-3. Give `air-sensor-data.rb` executable permissions:
-
+    sample.data(set: "airSensor")
+      |> to(
+        org: "example-org",
+        bucket: "example-bucket"
+      )
     ```
-    chmod +x air-sensor-data.rb
-    ```
 
-4. Start the generator. Specify your organization, bucket, and authorization token.
-  _For information about retrieving your token, see [View tokens](/v2.0/security/tokens/view-tokens/)._
+3.  [Query your target bucket](/influxdb/v2.0/query-data/execute-queries/) after
+    the first task run to ensure the sample data is writing successfully.
 
-    ```
-    ./air-sensor-data.rb -o your-org -b your-bucket -t YOURAUTHTOKEN
-    ```
-
-    The generator begins to write data to InfluxDB and will continue until stopped.
-    Use `ctrl-c` to stop the generator.
-
-    {{% note %}}
-    Use the `--help` flag to view other configuration options.
-    {{% /note %}}
-
-5. [Query your target bucket](/v2.0/query-data/execute-queries/) to ensure the
-   generated data is writing successfully.
-   The generator doesn't catch errors from write requests, so it will continue running
-   even if data is not writing to InfluxDB successfully.
-
-    ```
+    ```js
     from(bucket: "example-bucket")
        |> range(start: -1m)
        |> filter(fn: (r) => r._measurement == "airSensors")
@@ -331,7 +349,7 @@ To use `air-sensor-data.rb`:
 1. [Download and install PostgreSQL](https://www.postgresql.org/download/).
 2. Download the sample sensor information CSV.
 
-    <a class="btn download" href="/downloads/sample-sensor-info.csv" download>Download Sample Data</a>
+    <a class="btn download" href="https://influx-testdata.s3.amazonaws.com/sample-sensor-info.csv" download>Download sample sensor information</a>
 
 3. Use a PostgreSQL client (`psql` or a GUI) to create the `sensors` table:
 
@@ -361,6 +379,6 @@ To use `air-sensor-data.rb`:
 #### Import the sample data dashboard
 Download and import the Air Sensors dashboard to visualize the generated data:
 
-<a class="btn download" href="/downloads/air-sensors-dashboard.json" download>Download Air Sensors dashboard</a>
+<a class="btn github" href="https://raw.githubusercontent.com/influxdata/influxdb2-sample-data/master/air-sensor-data/air-sensors-dashboard.json" target="_blank">View Air Sensors dashboard JSON</a>
 
-_For information about importing a dashboard, see [Create a dashboard](/v2.0/visualize-data/dashboards/create-dashboard/#create-a-new-dashboard)._
+_For information about importing a dashboard, see [Create a dashboard](/influxdb/v2.0/visualize-data/dashboards/create-dashboard)._

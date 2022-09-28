@@ -1,10 +1,12 @@
 ---
 title: InfluxDB glossary
+description: Terms related to InfluxDB OSS.
 menu:
   influxdb_1_8:
     name: Glossary
     weight: 20
     parent: Concepts
+v2: /influxdb/v2.0/reference/glossary/
 ---
 
 ## aggregation
@@ -46,7 +48,7 @@ Related entries: [continuous query](/influxdb/v1.8/concepts/glossary/#continuous
 
 The attribute of the retention policy that determines how long InfluxDB stores data.
 Data older than the duration are automatically dropped from the database.
-See [Database Management](/influxdb/v1.8/query_language/database_management/#create-retention-policies-with-create-retention-policy) for how to set duration.
+See [Database Management](/influxdb/v1.8/query_language/manage-database/#create-retention-policies-with-create-retention-policy) for how to set duration.
 
 Related entries: [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
 
@@ -159,7 +161,7 @@ Related entries: [point](/influxdb/v1.8/concepts/glossary/#point), [schema](/inf
 ## query
 
 An operation that retrieves data from InfluxDB.
-See [Data Exploration](/influxdb/v1.8/query_language/data_exploration/), [Schema Exploration](/influxdb/v1.8/query_language/schema_exploration/), [Database Management](/influxdb/v1.8/query_language/database_management/).
+See [Data Exploration](/influxdb/v1.8/query_language/explore-data/), [Schema Exploration](/influxdb/v1.8/query_language/explore-schema/), [Database Management](/influxdb/v1.8/query_language/manage-database/).
 
 ## replication factor  
 
@@ -168,7 +170,7 @@ The attribute of the retention policy that determines how many copies of data to
 For three nodes or less, the default replication factor equals the number of data nodes.
 For more than three nodes, the default replication factor is 3. To change the default replication factor, specify the replication factor `n` in the retention policy.
 
-Related entries: [cluster](/influxdb/v0.10/concepts/glossary/#cluster), [duration](/influxdb/v1.8/concepts/glossary/#duration), [node](/influxdb/v1.8/concepts/glossary/#node),
+Related entries: [duration](/influxdb/v1.8/concepts/glossary/#duration), [node](/influxdb/v1.8/concepts/glossary/#node),
 [retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
 
 ## retention policy (RP)
@@ -176,7 +178,7 @@ Related entries: [cluster](/influxdb/v0.10/concepts/glossary/#cluster), [duratio
 Describes how long InfluxDB keeps data (duration), how many copies of the data to store in the cluster (replication factor), and the time range covered by shard groups (shard group duration). RPs are unique per database and along with the measurement and tag set define a series.
 
 When you create a database, InfluxDB creates a retention policy called `autogen` with an infinite duration, a replication factor set to one, and a shard group duration set to seven days.
-For more information, see [Retention policy management](/influxdb/v1.8/query_language/database_management/#retention-policy-management).
+For more information, see [Retention policy management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management).
 
 Related entries: [duration](/influxdb/v1.8/concepts/glossary/#duration), [measurement](/influxdb/v1.8/concepts/glossary/#measurement), [replication factor](/influxdb/v1.8/concepts/glossary/#replication-factor), [series](/influxdb/v1.8/concepts/glossary/#series), [shard duration](/influxdb/v1.8/concepts/glossary/#shard-duration), [tag set](/influxdb/v1.8/concepts/glossary/#tag-set)
 
@@ -274,7 +276,7 @@ Related entries: [series](/influxdb/v1.8/concepts/glossary/#series), [shard dura
 
 The shard duration determines how much time each shard group spans.
 The specific interval is determined by the `SHARD DURATION` of the retention policy.
-See [Retention Policy management](/influxdb/v1.8/query_language/database_management/#retention-policy-management) for more information.
+See [Retention Policy management](/influxdb/v1.8/query_language/manage-database/#retention-policy-management) for more information.
 
 For example, given a retention policy with `SHARD DURATION` set to `1w`, each shard group will span a single week and contain all points with timestamps in that week.
 
@@ -292,7 +294,7 @@ Related entries: [database](/influxdb/v1.8/concepts/glossary/#database), [retent
 
 ## subscription
 
-Subscriptions allow [Kapacitor](/kapacitor/latest/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
+Subscriptions allow [Kapacitor](/{{< latest "kapacitor" >}}/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
 When Kapacitor is configured to work with InfluxDB, the subscription will automatically push every write for the subscribed database from InfluxDB to Kapacitor.
 Subscriptions can use TCP or UDP for transmitting the writes.
 
@@ -335,7 +337,7 @@ The date and time associated with a point.
 All time in InfluxDB is UTC.
 
 For how to specify time when writing data, see [Write Syntax](/influxdb/v1.8/write_protocols/write_syntax/).
-For how to specify time when querying data, see [Data Exploration](/influxdb/v1.8/query_language/data_exploration/#time-syntax).
+For how to specify time when querying data, see [Data Exploration](/influxdb/v1.8/query_language/explore-data/#time-syntax).
 
 Related entries: [point](/influxdb/v1.8/concepts/glossary/#point)
 
@@ -348,7 +350,7 @@ Related entries: [aggregation](/influxdb/v1.8/concepts/glossary/#aggregation), [
 
 ## TSM (Time Structured Merge tree)
 
-The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](http://docs.influxdata.com/influxdb/v1.8/concepts/storage_engine/) for more.
+The purpose-built data storage format for InfluxDB. TSM allows for greater compaction and higher write and read throughput than existing B+ or LSM tree implementations. See [Storage Engine](/influxdb/v1.8/concepts/storage_engine/) for more.
 
 ## user
 

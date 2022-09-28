@@ -8,7 +8,7 @@ require "uri"
 options = {
   protocol: "http",
   host: "localhost",
-  port: "9999",
+  port: "8086",
   interval: 5
 }
 
@@ -31,7 +31,7 @@ OptionParser.new do |opt|
     options[:host] = host
   end
 
-  opt.on("-p","--port port","Your InfluxDB port. Defaults to '9999'") do |port|
+  opt.on("-p","--port port","Your InfluxDB port. Defaults to '8086'") do |port|
     options[:port] = port
   end
 

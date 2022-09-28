@@ -1,0 +1,6 @@
+{{ $_hugo_config := `{ "version": 1 }` }}
+<div class="note block">
+  <p>
+  URL-encode query parameters that may contain whitespace or other special characters.
+  </p>
+</div>

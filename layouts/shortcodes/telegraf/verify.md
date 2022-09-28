@@ -1,3 +1,7 @@
+{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
+{{- $version := replaceRE "v" "" (index $productPathData 1) -}}
+{{- $patchVersions := .Site.Data.products.telegraf.latest_patches -}}
+{{- $latestPatch := print $version "." (index $patchVersions $version) -}}
 ### Verify the authenticity of downloaded binary (optional)
 
 InfluxData cryptographically signs each Telegraf binary release.
@@ -16,13 +20,13 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
    For example:
 
     ```
-    wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.1_linux_amd64.tar.gz.asc
+    wget https://dl.influxdata.com/telegraf/releases/telegraf-{{ $latestPatch }}_linux_amd64.tar.gz.asc
     ```
 
 3. Verify the signature with `gpg --verify`:
 
     ```
-    gpg --verify telegraf-1.14.1_linux_amd64.tar.gz.asc telegraf-1.14.1_linux_amd64.tar.gz
+    gpg --verify telegraf-{{ $latestPatch }}_linux_amd64.tar.gz.asc telegraf-{{ $latestPatch }}_linux_amd64.tar.gz
     ```
 
     The output from this command should include the following:

@@ -15,7 +15,7 @@ The [collectd](https://collectd.org) input allows InfluxDB to accept data transm
 
 ## A note on UDP/IP buffer sizes
 
-If you're running Linux or FreeBSD, please adjust your operating system UDP buffer size limit, [see here for more details.](/influxdb/latest/supported_protocols/udp/#a-note-on-udpip-os-buffer-sizes)
+If you're running Linux or FreeBSD, please adjust your operating system UDP buffer size limit, [see here for more details.](/influxdb/v1.7/supported_protocols/udp/#a-note-on-udp-ip-os-buffer-sizes)
 
 ## Configuration
 

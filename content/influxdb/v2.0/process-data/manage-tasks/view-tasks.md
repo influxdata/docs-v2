@@ -8,8 +8,6 @@ menu:
     name: View tasks
     parent: Manage tasks
 weight: 202
-aliases:
-  - /v2.0/process-data/manage-tasks/view-tasks/
 related:
   - /influxdb/v2.0/reference/cli/influx/task/list
 ---
@@ -17,11 +15,11 @@ related:
 ## View tasks in the InfluxDB UI
 Click the **Tasks** icon in the left navigation to view the lists of tasks.
 
-{{< nav-icon "tasks" >}}
+{{< nav-icon "tasks" "v2" >}}
 
 ### Filter the list of tasks
 
-1. Click the **Show Inactive** {{< icon "toggle" >}} toggle to include or exclude
+1. Click the **Show Inactive** {{< icon "toggle" "v2" >}} toggle to include or exclude
    inactive tasks in the list.
 2. Enter text in the **Filter tasks** field to search for tasks by name or label.
 3. Click the heading of any column to sort by that field.
@@ -36,5 +34,5 @@ influx task list
 #### Filter tasks using the CLI
 Other filtering options such as filtering by organization or user,
 or limiting the number of tasks returned, are available.
-See the [`influx task list` documentation](/v2.0/reference/cli/influx/task/list)
+See the [`influx task list` documentation](/influxdb/v2.0/reference/cli/influx/task/list)
 for information about other available flags.

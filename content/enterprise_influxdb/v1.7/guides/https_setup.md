@@ -156,6 +156,9 @@ Consult your CA if you are unsure about how to use these files.
 
          # Use a separate private key location.
          https-private-key = "influxdb-data.key"
+
+         # If using a self-signed certificate:
+         https-insecure-tls = true
        ```
 
     3. Configure the data nodes to use HTTPS when communicating with the meta nodes.
@@ -245,7 +248,7 @@ With a self-signed certificate, you must also use the `-k` option to skip certif
 
 ## Connect Telegraf to a secured InfluxDB Enterprise instance
 
-Connecting [Telegraf](/telegraf/latest/)
+Connecting [Telegraf](/{{< latest "telegraf" >}}/)
 to an HTTPS-enabled InfluxDB Enterprise instance requires some additional steps.
 
 In Telegraf's configuration file (`/etc/telegraf/telegraf.conf`), under the OUTPUT PLUGINS section,

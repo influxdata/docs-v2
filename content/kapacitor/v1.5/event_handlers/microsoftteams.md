@@ -1,6 +1,7 @@
 ---
 title: Microsoft Teams event handler
-description: The Microsoft Teams event handler lets you send Kapacitor alerts to a Microsoft Teams channel. This page includes configuration options and usage examples.
+description: >
+  The Microsoft Teams event handler lets you send Kapacitor alerts to a Microsoft Teams channel. This page includes configuration options and usage examples.
 menu:
   kapacitor_1_5_ref:
     name: Microsoft Teams
@@ -13,14 +14,14 @@ menu:
 - [Set up a Teams](#set-up-teams)
   - [Configuration](#configuration)
   - [Handler file options](#handler-file-options)
-  - [Example Teams handler file](#example-teams-handler-file)
+  - [Example Teams handler file](#example-handler-file)
 - [Example alerts](#example-alerts)
-- [Send an alert to Teams](#send-an-alert-to-teams)
+- [Send an alert to Teams](#example-alerts)
 
 ## Set up Teams
 
 1. Log in to Teams, and then [create a new incoming webhook](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors#setting-up-a-custom-incoming-webhook) for a Teams channel.
-2. In your `kapacitor.conf` file, add a `[teams]` section with [configuration options](#Teams-configuration-options) for the Microsoft Teams event
+2. In your `kapacitor.conf` file, add a `[teams]` section with [configuration options](#configuration) for the Microsoft Teams event
 handler, including the incoming webhook URL as the `channelurl`. For example:
 
   ```toml
@@ -60,7 +61,7 @@ _Only applies if `global` is `true`._
 
 ### Handler file options
 
-The following options can be set in a Microsoft Teams event [handler file](/kapacitor/v1.5/event_handlers/#handler-file) or when using
+The following options can be set in a Microsoft Teams event [handler file](/kapacitor/v1.5/event_handlers/#create-a-topic-handler-with-a-handler-file) or when using
 `.teams()` in a TICKscript.
 
 | Name       | Type   | Description                                                                               |

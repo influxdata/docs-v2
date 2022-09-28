@@ -1,2 +1,14 @@
-{{ $svg := .Get 0 }}
-{{ $svg  | readFile | safeHTML }}
+{{ $implicitSvg := .Get 0 }}
+{{ $svg := .Get "svg" | default $implicitSvg }}
+{{ $implicitClass := .Get 1 | default "" }}
+{{ $class := .Get "class" | default $implicitClass }}
+{{ $svgCode := $svg | readFile }}
+
+{{ $scratch := newScratch }}
+{{ $scratch.Set "svgOutput" $svgCode }}
+
+{{ if ne $class "" }}
+  {{ $scratch.Set "svgOutput" ($scratch.Get "svgOutput" | replaceRE `<svg ` (print "<svg class='" $class "'")) }}
+{{ end }}
+
+{{ $scratch.Get "svgOutput" | safeHTML }}

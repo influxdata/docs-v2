@@ -1,3 +1,19 @@
+{{ $scratch := newScratch }}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $product := index $productPathData 0 }}
+{{ $currentVersion := index $productPathData 1 }}
+{{ $isCloud := eq "influxdb/cloud" (print $product "/" $currentVersion )}}
+{{ $isOSS := in (print $product "/" $currentVersion ) "influxdb/v"}}
+{{ $isHome := eq .RelPermalink "/" }}
+
+{{ $scratch.Set "urlCalloutText" "Set your InfluxDB URL" }}
+{{ if $isCloud }}
+  {{ $scratch.Set "urlCalloutText" "Select your region"}}
+{{ end }}
+{{ $urlCalloutText := $scratch.Get "urlCalloutText" }}
+
+{{ if or $isOSS $isCloud $isHome }}
 <div class="feature-callout start-position" id="callout-url-selector">
-  <p><span class="new">New!</span> Cloud or OSS? <a href="#" class="close"><span class="icon-ui-remove"></span></a></p>
+  <p>{{ $urlCalloutText }} <a href="#" class="close"><span class="icon-remove"></span></a></p>
 </div>
+{{ end }}

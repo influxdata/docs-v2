@@ -55,7 +55,7 @@ setting in the meta node and data node configuration files.
 
 #### Load balancer
 
-InfluxEnterprise does not function as a load balancer.
+InfluxDB Enterprise does not function as a load balancer.
 You will need to configure your own load balancer to send client traffic to the
 data nodes on port `8086` (the default port for the [HTTP API](/influxdb/v1.5/tools/api/)).
 
@@ -107,14 +107,14 @@ Perform the following steps on all three servers.
 #### Ubuntu & Debian (64-bit)
 
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_1.5.4-c1.5.4_amd64.deb
-sudo dpkg -i influxdb-meta_1.5.4-c1.5.4_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+sudo dpkg -i influxdb-meta_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 #### RedHat & CentOS (64-bit)]
 
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-1.5.4_c1.5.4.x86_64.rpm
-sudo yum localinstall influxdb-meta-1.5.4_c1.5.4.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-meta-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### II. Edit the meta service configuration file
@@ -174,14 +174,14 @@ Perform the following steps on all three servers.
 #### Ubuntu & Debian (64-bit)
 
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data_1.5.4-c1.5.4_amd64.deb
-sudo dpkg -i influxdb-data_1.5.4-c1.5.4_amd64.deb
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
 #### RedHat & CentOS (64-bit)
 
 ```
-wget https://dl.influxdata.com/enterprise/releases/influxdb-data-1.5.4_c1.5.4.x86_64.rpm
-sudo yum localinstall influxdb-data-1.5.4_c1.5.4.x86_64.rpm
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
 
 ### II. Edit the data service configuration file
@@ -193,7 +193,7 @@ First, in `/etc/influxdb/influxdb.conf`, uncomment:
 * `shared-secret` in the `[http]` section and set it to a long pass phrase that will be used to sign tokens for intra-cluster communication. This value needs to be consistent across all data nodes.
 
 > **Note:** When you enable authentication, InfluxDB only executes HTTP requests that are sent with valid credentials.
-See the [authentication section](/influxdb/latest/administration/authentication_and_authorization/#authentication) for more information.
+See the [authentication section](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#authentication) for more information.
 
 Second, in `/etc/influxdb/influxdb.conf`, set:
 
@@ -344,16 +344,16 @@ The expected output is:
 Data Nodes
 ==========
 ID   TCP Address                  Version
-2    quickstart-cluster-01:8088   1.5.4-c1.5.4
-4    quickstart-cluster-02:8088   1.5.4-c1.5.4
-6    quickstart-cluster-03:8088   1.5.4-c1.5.4
+2    quickstart-cluster-01:8088   {{< latest-patch >}}-c{{< latest-patch >}}
+4    quickstart-cluster-02:8088   {{< latest-patch >}}-c{{< latest-patch >}}
+6    quickstart-cluster-03:8088   {{< latest-patch >}}-c{{< latest-patch >}}
 
 Meta Nodes
 ==========
 TCP Address                  Version
-quickstart-cluster-01:8091   1.5.4-c1.5.4
-quickstart-cluster-02:8091   1.5.4-c1.5.4
-quickstart-cluster-03:8091   1.5.4-c1.5.4
+quickstart-cluster-01:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+quickstart-cluster-02:8091   {{< latest-patch >}}-c{{< latest-patch >}}
+quickstart-cluster-03:8091   {{< latest-patch >}}-c{{< latest-patch >}}
 ```
 
 Your InfluxDB Enterprise cluster should have three data nodes and three meta nodes.

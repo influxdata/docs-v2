@@ -1,6 +1,7 @@
 ---
-title: Restoring a Chronograf database
-description: 'An outline of the process required to roll the Chronoraf internal database back to a previous version and/or rerun update migrations.'
+title: Restore a Chronograf database
+description: >
+  If you're rolling back to a previous version of Chronograf, restore your internal database.  
 menu:
   chronograf_1_8:
     weight: 110
@@ -36,7 +37,7 @@ chronograf-working-dir/
 └── ...
 ```
 
-## Rolling back to a previous version
+## Roll back to a previous version
 If there is an issue during the upgrade process or you simply want/need to roll
 back to an earlier version of Chronograf, you must restore the data file
 associated with that specific version, then downgrade and restart Chronograf.
@@ -73,7 +74,7 @@ page on Github.
 Restart the Chronograf server.
 Chronograf will use the `chronograf-v1.db` in the current working directory.
 
-## Rerunning update migrations
+## Rerun update migrations
 This process can also be used to rerun Chronograf update migrations.
 Go through steps 1-5, but on [step 3](#3-replace-your-current-database-with-the-backup)
 select the backup you want to use as a base for the migrations.

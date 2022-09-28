@@ -1,6 +1,6 @@
 ---
 title: Monitor the InfluxData Platform
-description: How to use the InfluxData TICK stack to monitor itself and other TICK stacks in order to identify and alert on anomalies.
+description: How to use the InfluxData to monitor itself and other instances to identify and alert on anomalies.
 menu:
   platform:
     name: Monitor the InfluxData Platform
@@ -10,23 +10,26 @@ menu:
 ---
 
 One of the primary use cases for the InfluxData Platform is as server and infrastructure
-monitoring solution. No matter what type of data you're using the TICK stack to collect and
+monitoring solution. No matter what type of data you're using the platform to collect and
 store, it's important to monitor the health of your stack and identify any potential issues.
 
-The following pages provide information about setting up a TICK stack that monitors
+To **monitor the InfluxDB 2.0 platform**, see [Monitor InfluxDB 2.0](/influxdb/v2.0/monitor-alert/).
+
+To **monitor the InfluxData 1.x platform**, see the following pages for information about setting up a 1.x TICK stack that monitors
 another OSS or Enterprise TICK stack. They cover different potential monitoring strategies
 and visualizing the monitoring data in a way that makes it easy to recognize, alert on,
 and address anomalies as they happen.
 
-## [Internal versus external monitoring](/platform/monitoring/influxdata-platform/internal-vs-external)
-An explanation of internal and external monitoring strategies for your Enterprise
-or OSS TICK stack with the pros and cons of each.
+Leverage [InfluxDB Cloud](/influxdb/cloud/) and pre-built [InfluxDB templates](/influxdb/cloud/influxdb-templates/)
+to monitoring your InfluxDB setup.
+Start using InfluxDB Cloud at no cost with the Free Plan.
+Use it as much and as long as you like within the plan’s rate-limits.
+Limits are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
+Monitoring a single InfluxDB OSS instance or even a modest InfluxDB Enterprise
+cluster should easily fit within the free plan limits.
+If you exceed the plan [limits](/influxdb/cloud/account-management/limits/) because of high resolution data or longer data retention,
+upgrade to the [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
 
-## [Set up an external monitor](/platform/monitoring/influxdata-platform/external-monitor-setup)
-How to set up an external InfluxData TICK stack that monitors another Enterprise or OSS TICK stack.
+Start monitoring your InfluxDB instance by signing up for an [InfluxDB Cloud account](https://cloud2.influxdata.com/signup).
 
-## [Dashboards for monitoring InfluxDB](/platform/monitoring/influxdata-platform/monitoring-dashboards)
-Set up dashboards to help visualize and monitor the health and performance of your InfluxData TICK stack.
-
-## [Tools for monitoring InfluxDB](/platform/monitoring/influxdata-platform/tools)
-The InfluxData platform provides tools to help you monitor and troubleshoot issues if they arise.
+{{< children >}}
