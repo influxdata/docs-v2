@@ -1,163 +1,187 @@
 ---
 title: median() function
 description: >
-  The `median()` function returns the median `_value` of an input table or all non-null records
-  in the input table with values that fall within the `0.5` quantile or 50th percentile.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/median
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/median/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/median/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/median/
+  `median()` returns the median `_value` of an input table or all non-null records
+  in the input table with values that fall within the 0.5 quantile (50th percentile).
 menu:
   flux_0_x_ref:
     name: median
     parent: universe
-weight: 102
-flux/v0.x/tags: [aggregates, selectors, transformations]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/median/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#median, InfluxQL – MEDIAN()
+    identifier: universe/median
+weight: 101
+flux/v0.x/tags: [transformations, aggregates, selectors]
 introduced: 0.7.0
 ---
 
-The `median()` function is a special application of the [`quantile()` function](/flux/v0.x/stdlib/universe/quantile)
-that returns the median `_value` of an input table or all non-null records in the input table
-with values that fall within the `0.5` quantile (50th percentile) depending on the [method](#method) used.
+<!------------------------------------------------------------------------------
 
-_`median()` behaves like an [aggregate function](/flux/v0.x/function-types/#aggregates)
-or a [selector function](/flux/v0.x/function-types/#selectors) depending on
-the [`method`](#method) used._
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3979-L3981
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`median()` returns the median `_value` of an input table or all non-null records
+in the input table with values that fall within the 0.5 quantile (50th percentile).
+
+### Function behavior
+`median()` acts as an aggregate or selector transformation depending on the
+specified `method`.
+
+- **Aggregate**: When using the `estimate_tdigest` or `exact_mean` methods,
+  `median()` acts as an aggregate transformation and outputs the average of
+  non-null records with values that fall within the 0.5 quantile (50th percentile).
+- **Selector**: When using the `exact_selector` method, `meidan()` acts as
+  a selector selector transformation and outputs the non-null record with the
+  value that represents the 0.5 quantile (50th percentile).
+
+##### Function type signature
 
 ```js
-median(
-  column: "_value",
-  method: "estimate_tdigest",
-  compression: 0.0
-)
+(<-tables: stream[A], ?column: string, ?compression: float, ?method: string) => stream[A] where A: Record
 ```
 
-When using the `estimate_tdigest` or `exact_mean` methods, it outputs non-null
-records with values that fall within the `0.5` quantile.
-
-When using the `exact_selector` method, it outputs the non-null record with the
-value that represents the `0.5` quantile.
-
-{{% note %}}
-The `median()` function can only be used with float value types.
-It is a special application of the [`quantile()` function](/flux/v0.x/stdlib/universe/quantile)
-which uses an approximation implementation that requires floats.
-You can convert your value column to a float column using the [`toFloat()` function](/flux/v0.x/stdlib/universe/tofloat).
-{{% /note %}}
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### column {data-type="string"}
-Column to use to compute the median.
-Default is `"_value"`.
+### column
 
-### method {data-type="string"}
-Computation method.
-Default is `"estimate_tdigest"`.
+Column to use to compute the median. Default is `_value`.
 
-The available options are:
 
-##### estimate_tdigest
-An aggregate method that uses a [t-digest data structure](https://github.com/tdunning/t-digest)
-to compute an accurate quantile estimate on large data sources.
 
-##### exact_mean
-An aggregate method that takes the average of the two points closest to the quantile value.
+### method
 
-##### exact_selector
-A selector method that returns the data point for which at least `q` points are less than.
+Computation method. Default is `estimate_tdigest`.
 
-### compression {data-type="float"}
+**Avaialable methods**:
+- **estimate_tdigest**: Aggregate method that uses a
+[t-digest data structure](https://github.com/tdunning/t-digest) to
+compute an accurate median estimate on large data sources.
+- **exact_mean**: Aggregate method that takes the average of the two
+points closest to the median value.
+- **exact_selector**: Selector method that returns the row with the value
+for which at least 50% of points are less than.
+
+### compression
+
 Number of centroids to use when compressing the dataset.
-A larger number produces a more accurate result at the cost of increased memory requirements.
-Default is `1000.0`.
+Default is `0.0`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+A larger number produces a more accurate result at the cost of increased
+memory requirements.
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro plural=true %}}
 
-- [Median as an aggregate](#median-as-an-aggregate)
-- [Median as a selector](#median-as-a-selector)
+- [Use median as an aggregate transformation](#use-median-as-an-aggregate-transformation)
+- [Use median as a selector transformation](#use-median-as-a-selector-transformation)
 
-#### Median as an aggregate
+### Use median as an aggregate transformation
+
 ```js
 import "sampledata"
 
 sampledata.float()
-  |> median()
+    |> median()
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
 
-##### Output data
-| tag | _value |
-| :-- | -----: |
-| t1  |  9.135 |
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
 
-| tag | _value |
-| :-- | -----: |
-| t2  |  9.415 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| *tag | _value  |
+| ---- | ------- |
+| t1   | 9.135   |
+
+| *tag | _value  |
+| ---- | ------- |
+| t2   | 9.415   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Median as a selector
+### Use median as a selector transformation
+
 ```js
 import "sampledata"
 
 sampledata.float()
-  |> median(method: "exact_selector")
+    |> median(method: "exact_selector")
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
 
-##### Output data
-| tag | _time                | _value |
-| :-- | :------------------- | -----: |
-| t1  | 2021-01-01T00:00:20Z |   7.35 |
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
 
-| tag | _time                | _value |
-| :-- | :------------------- | -----: |
-| t2  | 2021-01-01T00:00:10Z |   4.97 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-median = (method="estimate_tdigest", compression=0.0, tables=<-) =>
-  quantile(
-    q:0.5,
-    method:method,
-    compression:compression
-  )
-```

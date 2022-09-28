@@ -1,86 +1,96 @@
 ---
 title: slack.endpoint() function
 description: >
-  The `slack.endpoint()` function sends a message to Slack that includes output data.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/slack/endpoint/
-  - /influxdb/v2.0/reference/flux/stdlib/slack/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/slack/endpoint/
+  `slack.endpoint()` returns a function that can be used to send a message to Slack per input row.
 menu:
   flux_0_x_ref:
     name: slack.endpoint
     parent: slack
-weight: 202
-flux/v0.x/tags: [notification endpoints]
-introduced: 0.41.0
+    identifier: slack/endpoint
+weight: 101
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
-The `slack.endpoint()` function sends a message to Slack that includes output data.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/slack/slack.flux#L152-L173
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`slack.endpoint()` returns a function that can be used to send a message to Slack per input row.
+
+Each output row includes a `_sent` column that indicates if the message for
+that row was sent successfully.
+
+### Usage
+`slack.endpoint()` is a factory function that outputs another function.
+The output function requires a `mapFn` parameter.
+
+#### mapFn
+A function that builds the record used to generate the POST request.
+
+`mapFn` accepts a table row (`r`) and returns a record that must include the
+following properties:
+
+- channel
+- color
+- text
+
+##### Function type signature
 
 ```js
-import "slack"
-
-slack.endpoint(
-  url: "https://slack.com/api/chat.postMessage",
-  token: "mySuPerSecRetTokEn"
-)
+(
+    ?token: string,
+    ?url: string,
+) => (
+    mapFn: (r: A) => {B with text: D, color: string, channel: C},
+) => (<-tables: stream[A]) => stream[{A with _sent: string}]
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### url {data-type="string"}
-The Slack API URL.
-Default is `https://slack.com/api/chat.postMessage`.
+### url
 
-{{% note %}}
-If using a Slack webhook, you'll receive a Slack webhook URL when you
-[create an incoming webhook](https://api.slack.com/incoming-webhooks#create_a_webhook).
-{{% /note %}}
+Slack API URL. Default is  `https://slack.com/api/chat.postMessage`.
 
-### token {data-type="string"}
-The [Slack API token](https://get.slack.help/hc/en-us/articles/215770388-Create-and-regenerate-API-tokens)
-used to interact with Slack.
-Default is `""`.
+If using the Slack webhook API, this URL is provided ine Slack webhook setup process.
 
-{{% note %}}
-A token is only required if using the Slack chat.postMessage API.
-{{% /note %}}
+### token
 
-## Usage
-`slack.endpoint` is a factory function that outputs another function.
-The output function requires a `mapFn` parameter.
+Slack API token. Default is `""`.
 
-### mapFn {data-type="function"}
-({{< req >}}) A function that builds the record used to generate the POST request.
-Requires an `r` parameter.
+If using the Slack Webhook API, a token is not required.
 
-`mapFn` accepts a table row (`r`) and returns a record that must include the following fields:
-
-- `channel`
-- `text`
-- `color`
-
-_For more information, see [`slack.message()`](/flux/v0.x/stdlib/slack/message/)_
 
 ## Examples
 
-##### Send critical statuses to a Slack endpoint
+### Send status alerts to a Slack endpoint
+
 ```js
+import "sampledata"
 import "slack"
-import "influxdata/influxdb/secrets"
 
-token = secrets.get(key: "SLACK_TOKEN")
-toSlack = slack.endpoint(token: token)
+data =
+    sampledata.int()
+        |> map(fn: (r) => ({r with status: if r._value > 15 then "alert" else "ok"}))
+        |> filter(fn: (r) => r.status == "alert")
 
-crit_statuses = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and r.status == "crit")
+data
+    |> slack.endpoint(token: "mY5uP3rSeCr37T0kEN")(
+        mapFn: (r) => ({channel: "Alerts", text: r._message, color: "danger"}),
+    )()
 
-crit_statuses
-  |> toSlack(mapFn: (r) => ({
-      channel: "Alerts",
-      text: r._message,
-      color: "danger",
-    })
-  )()
 ```
+

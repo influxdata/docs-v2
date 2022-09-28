@@ -1,121 +1,144 @@
 ---
 title: from() function
-description: The `from()` function retrieves data from an InfluxDB data source.
-aliases:
-  - /flux/v0.x/stdlib/universe/from
-  - /influxdb/v2.0/reference/flux/functions/inputs/from
-  - /influxdb/v2.0/reference/flux/functions/built-in/inputs/from/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/inputs/from/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/inputs/from/
+description: >
+  `from()` queries data from an InfluxDB data source.
 menu:
   flux_0_x_ref:
     name: from
-    parent: influxdb-pkg
-weight: 301
+    parent: influxdata/influxdb
+    identifier: influxdata/influxdb/from
+weight: 201
 flux/v0.x/tags: [inputs]
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-data/#from-clause, InfluxQL - FROM
-introduced: 0.7.0
 ---
 
-The `from()` function retrieves data from an InfluxDB data source.
-It returns a stream of tables from the specified [bucket](#parameters).
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/influxdb.flux#L167-L174
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`from()` queries data from an InfluxDB data source.
+
+It returns a stream of tables from the specified bucket.
 Each unique series is contained within its own table.
 Each record in the table represents a single point in the series.
 
+#### Query remote InfluxDB data sources
+Use `from()` to query data from remote **InfluxDB OSS 1.7+**,
+**InfluxDB Enterprise 1.9+**, and **InfluxDB Cloud**.
+To query remote InfluxDB sources, include the `host`, `token`, and `org`
+(or `orgID`) parameters.
+
+#### from() does not require a package import
+`from()` is part of the `influxdata/influxdb` package, but is part of the
+Flux prelude and does not require an import statement or package namespace.
+
+##### Function type signature
+
 ```js
-from(
-  bucket: "example-bucket",
-  host: "https://example.com",
-  org: "example-org",
-  token: "MySuP3rSecr3Tt0k3n"
-)
-
-// OR
-
-from(
-  bucketID: "0261d8287f4d6000",
-  host: "https://example.com",
-  orgID: "867f3fcf1846f11f",
-  token: "MySuP3rSecr3Tt0k3n"
-)
+(
+    ?bucket: string,
+    ?bucketID: string,
+    ?host: string,
+    ?org: string,
+    ?orgID: string,
+    ?token: string,
+) => stream[{A with _value: B, _time: time, _measurement: string, _field: string}]
 ```
 
-{{% note %}}
-#### from() does not require a package import
-`from()` is part of the `influxdata/influxdb` package, but is included with the
-[`universe` package](/flux/v0.x/stdlib/universe/) by default and does not require
-an import statement or package namespace.
-{{% /note %}}
-
-{{% note %}}
-#### Query remote InfluxDB data sources
-Use `from()` to retrieve data from remote InfluxDB OSS 1.7+, InfluxDB Enterprise 1.9+, and InfluxDB Cloud.
-To query remote InfluxDB sources, include the [host](#host), [token](#token), and
-[org](#org) (or [orgID](#orgid)) parameters.
-{{% /note %}}
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### bucket {data-type="string"}
+### bucket
+
 Name of the bucket to query.
+_`bucket` and `bucketID` are mutually exclusive_.
 
 **InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
 
-### bucketID {data-type="string"}
+### bucketID
+
 String-encoded bucket ID to query.
+_`bucket` and `bucketID` are mutually exclusive_.
 
 **InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
 
-### host {data-type="string"}
+### host
+
 URL of the InfluxDB instance to query.
-_See [InfluxDB URLs](/{{< latest "influxdb" >}}/reference/urls/) or
-[InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)._
 
-### org {data-type="string"}
+See [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
+or [InfluxDB OSS URLs](/influxdb/latest/reference/urls/).
+
+### org
+
 Organization name.
+_`org` and `orgID` are mutually exclusive_.
 
 **InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
 
-### orgID {data-type="string"}
-String-encoded [organization ID](/{{< latest "influxdb" >}}/organizations/view-orgs/#view-your-organization-id) to query.
+### orgID
+
+String-encoded organization ID to query.
+_`org` and `orgID` are mutually exclusive_.
 
 **InfluxDB 1.x or Enterprise**: Provide an empty string (`""`).
 
-### token {data-type="string"}
-InfluxDB [API token](/{{< latest "influxdb" >}}/security/tokens/).
+### token
 
-**InfluxDB 1.x or Enterprise**:
-If authentication is _disabled_, provide an empty string (`""`).
-If authentication is _enabled_, provide your InfluxDB username and password
-using the `<username>:<password>` syntax.
+InfluxDB API token.
+
+**InfluxDB 1.x or Enterprise**: If authentication is disabled, provide an
+empty string (`""`). If authentication is enabled, provide your InfluxDB
+username and password using the `<username>:<password>` syntax.
+
 
 ## Examples
 
-- [Query InfluxDB using the bucket name](#query-using-the-bucket-name)
-- [Query InfluxDB using the bucket ID](#query-using-the-bucket-id)
+- [Query InfluxDB using the bucket name](#query-influxdb-using-the-bucket-name)
+- [Query InfluxDB using the bucket ID](#query-influxdb-using-the-bucket-id)
 - [Query a remote InfluxDB Cloud instance](#query-a-remote-influxdb-cloud-instance)
 
-#### Query using the bucket name
+### Query InfluxDB using the bucket name
+
 ```js
 from(bucket: "example-bucket")
+
 ```
 
-#### Query using the bucket ID
+
+### Query InfluxDB using the bucket ID
+
 ```js
 from(bucketID: "0261d8287f4d6000")
+
 ```
 
-#### Query a remote InfluxDB Cloud instance
+
+### Query a remote InfluxDB Cloud instance
+
 ```js
 import "influxdata/influxdb/secrets"
 
 token = secrets.get(key: "INFLUXDB_CLOUD_TOKEN")
 
 from(
-  bucket: "example-bucket",
-  host: "https://cloud2.influxdata.com",
-  org: "example-org",
-  token: token
+    bucket: "example-bucket",
+    host: "https://us-west-2-1.aws.cloud2.influxdata.com",
+    org: "example-org",
+    token: token,
 )
+
 ```
+

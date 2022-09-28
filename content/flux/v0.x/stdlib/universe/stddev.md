@@ -1,87 +1,116 @@
 ---
 title: stddev() function
-description: The `stddev()` function computes the standard deviation of non-null records in a specified column.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/stddev
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/stddev/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/stddev/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/stddev/
+description: >
+  `stddev()` returns the standard deviation of non-null values in a specified column.
 menu:
   flux_0_x_ref:
     name: stddev
     parent: universe
-weight: 102
-flux/v0.x/tags: [aggregates, transformations]
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#stddev, InfluxQL – STDDEV()
-  - /flux/v0.x/stdlib/experimental/stddev/
+    identifier: universe/stddev
+weight: 101
+flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.7.0
 ---
 
-The `stddev()` function computes the standard deviation of non-null records in a specified column.
-_`stddev()` is an [aggregate function](/flux/v0.x/function-types/#aggregates)._
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Float_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2602-L2605
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`stddev()` returns the standard deviation of non-null values in a specified column.
+
+
+
+##### Function type signature
 
 ```js
-stddev(
-  column: "_value",
-  mode: "sample"
-)
+(<-tables: stream[A], ?column: string, ?mode: string) => stream[B] where A: Record, B: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### column {data-type="string"}
-Column to operate on.
-Default is `"_value"`.
+### column
 
-### mode {data-type="string"}
+Column to operate on. Default is `_value`.
+
+
+
+### mode
+
 Standard deviation mode or type of standard deviation to calculate.
-Defaults to `"sample"`.
+Default is `sample`.
 
-The available options are:
+**Availble modes:**
+- **sample**: Calculate the sample standard deviation where the data is
+considered part of a larger population.
+- **population**: Calculate the population standard deviation where the
+data is considered a population of its own.
 
-##### sample
-Calculates the sample standard deviation where the data is considered to be part of a larger population.
+### tables
 
-##### population
-Calculates the population standard deviation where the data is considered a population of its own.
+Input data. Default is piped-forward data (`<-`).
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+### Return the standard deviation of values in each table
 
 ```js
 import "sampledata"
 
 sampledata.int()
-  |> stddev()
+    |> stddev()
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| tag |            _value |
-| :-- | ----------------: |
-| t1  | 7.063993204979744 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| tag |            _value |
-| :-- | ----------------: |
-| t2  | 9.474527252938094 |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| *tag | _value            |
+| ---- | ----------------- |
+| t1   | 7.063993204979744 |
+
+| *tag | _value            |
+| ---- | ----------------- |
+| t2   | 9.474527252938094 |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

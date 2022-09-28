@@ -1,111 +1,109 @@
 ---
 title: cov() function
-description: The `cov()` function computes the covariance between two streams by first joining the streams, then performing the covariance operation.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/cov
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/cov/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/cov/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/cov/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/cov/
+description: >
+  `cov()` computes the covariance between two streams of tables.
 menu:
   flux_0_x_ref:
     name: cov
     parent: universe
-weight: 102
-flux/v0.x/tags: [transformations]
+    identifier: universe/cov
+weight: 101
+flux/v0.x/tags: [transformations, aggregates]
 introduced: 0.7.0
 ---
 
-The `cov()` function computes the covariance between two streams by first joining the streams,
-then performing the covariance operation.
+<!------------------------------------------------------------------------------
 
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3691-L3693
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`cov()` computes the covariance between two streams of tables.
+
+
+
+##### Function type signature
 
 ```js
-cov(x: stream1, y: stream2, on: ["_time", "_field"], pearsonr: false)
+(on: [string], x: A, y: B, ?pearsonr: bool) => stream[C] where C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### x {data-type="stream of tables"}
+### x
 ({{< req >}})
-First input stream used to calculate the covariance.
-Values in the `_value` columns must be [float values](/flux/v0.x/data-types/basic/float/).
+First input stream.
 
-### y {data-type="stream of tables"}
+
+
+### y
 ({{< req >}})
-Second input stream used to calculate the covariance.
-Values in the `_value` columns must be [float values](/flux/v0.x/data-types/basic/float/).
+Second input stream.
 
-### on {data-type="array of strings"}
+
+
+### on
 ({{< req >}})
 List of columns to join on.
 
-### pearsonr {data-type="bool"}
-Normalize results to the Pearson R coefficient.
-Default is `false`.
+
+
+### pearsonr
+
+Normalize results to the Pearson R coefficient. Default is `false`.
+
+
+
 
 ## Examples
-The following example uses [`generate.from()`](/flux/v0.x/stdlib/generate/from/)
-to generate sample data and show how `cov()` transforms data.
+
+### Return the covariance between two streams of tables
 
 ```js
 import "generate"
 
-stream1 = generate.from(
-  count: 5,
-  fn: (n) => n * n,
-  start: 2021-01-01T00:00:00Z,
-  stop: 2021-01-01T00:01:00Z
-) |> toFloat()
+stream1 =
+    generate.from(
+        count: 5,
+        fn: (n) => n * n,
+        start: 2021-01-01T00:00:00Z,
+        stop: 2021-01-01T00:01:00Z,
+    )
+        |> toFloat()
 
-stream2 = generate.from(
-  count: 5,
-  fn: (n) => n * n * n / 2,
-  start: 2021-01-01T00:00:00Z,
-  stop: 2021-01-01T00:01:00Z
-) |> toFloat()
+stream2 =
+    generate.from(
+        count: 5,
+        fn: (n) => n * n * n / 2,
+        start: 2021-01-01T00:00:00Z,
+        stop: 2021-01-01T00:01:00Z,
+    )
+        |> toFloat()
 
 cov(x: stream1, y: stream2, on: ["_time"])
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-
-#### Input data
-{{< flex >}}
-{{% flex-content %}}
-##### stream1
-| _time                | _value |
-| :------------------- | -----: |
-| 2021-01-01T00:00:00Z |    0.0 |
-| 2021-01-01T00:00:12Z |    1.0 |
-| 2021-01-01T00:00:24Z |    4.0 |
-| 2021-01-01T00:00:36Z |    9.0 |
-| 2021-01-01T00:00:48Z |   16.0 |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### stream2
-| _time                | _value |
-| :------------------- | -----: |
-| 2021-01-01T00:00:00Z |    0.0 |
-| 2021-01-01T00:00:12Z |    0.0 |
-| 2021-01-01T00:00:24Z |    4.0 |
-| 2021-01-01T00:00:36Z |   13.0 |
-| 2021-01-01T00:00:48Z |   32.0 |
-{{% /flex-content %}}
-{{< /flex >}}
+{{% expand "View example output" %}}
 
 #### Output data
-| _value |
-| -----: |
-|  87.75 |
+
+| _value  |
+| ------- |
+| 87.75   |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-cov = (x,y,on,pearsonr=false) =>
-  join( tables:{x:x, y:y}, on:on )
-    |> covariance(pearsonr:pearsonr, columns:["_value_x","_value_y"])
-```

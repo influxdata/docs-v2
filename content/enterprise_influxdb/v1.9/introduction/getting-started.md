@@ -11,7 +11,7 @@ menu:
     parent: Introduction
 ---
 
-After you successfully [install and set up](/enterprise_influxdb/v1.9/install-and-deploy/installation/) InfluxDB Enterprise, learn how to [monitor your InfluxDB Enterprise clusters](/{{< latest "chronograf" >}}/guides/monitoring-influxenterprise-clusters) with Chronograf, InfluxDB, and Telegraf.
+After you successfully [install and set up](/enterprise_influxdb/v1.9/introduction/installation/installation/) InfluxDB Enterprise, learn how to [monitor your InfluxDB Enterprise clusters](/{{< latest "chronograf" >}}/guides/monitoring-influxenterprise-clusters) with Chronograf, InfluxDB, and Telegraf.
 
 ### Where to from here?
 
@@ -20,3 +20,5 @@ After you successfully [install and set up](/enterprise_influxdb/v1.9/install-an
 - Find [Enterprise guides](/enterprise_influxdb/v1.9/guides/) on a variety of topics, such as how to downsample and retain data, rebalance InfluxDB Enterprise clusters, use fine-grained authorization, and more!
 - Explore the [InfluxQL](/enterprise_influxdb/v1.9/query_language/) and [Flux](/enterprise_influxdb/v1.9/flux/) languages.
 - Learn about [InfluxDB line protocol](/enterprise_influxdb/v1.9/write_protocols/) and other [supported protocols](/enterprise_influxdb/v1.9/supported_protocols/).
+
+{{< influxdbu "influxdb-101" >}}

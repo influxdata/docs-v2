@@ -1,29 +1,45 @@
 ---
-title: Flux experimental csv package
-list_title: csv package
-seotitle: Flux Experimental CSV package
+title: csv package
 description: >
-  The Flux Experimental CSV package provides functions for retrieving annotated CSV.
-  Import the `experimental/csv` package.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/csv/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/csv/
+  The `csv` package provides functions for retrieving annotated CSV.
 menu:
   flux_0_x_ref:
-    name: csv
-    identifier: csv-exp
+    name: csv 
     parent: experimental
-weight: 301
-flux/v0.x/tags: [functions, csv, package]
-introduced: 0.64.0
+    identifier: experimental/csv
+weight: 21
+cascade:
+  flux/v0.x/tags: [csv]
+  introduced: 0.64.0
+  deprecated: 0.173.0
 ---
 
-The Flux experimental `csv` package provides functions for retrieving annotated CSV.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the comments above the package
+declaration in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/csv/csv.flux
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+The `csv` package provides functions for retrieving annotated CSV.
 Import the `experimental/csv` package:
 
 ```js
 import "experimental/csv"
 ```
 
+
+
+
 ## Functions
+
 {{< children type="functions" show="pages" >}}

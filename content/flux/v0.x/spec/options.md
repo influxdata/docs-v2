@@ -23,6 +23,10 @@ Below is a list of built-in options currently implemented in the Flux language:
 - [task](#task)
 - [location](#location)
 
+Options are not closed, meaning new options may be defined and consumed within packages and scripts.
+Changing the value of an option for a package changes the value for all references
+to that option from any other package.
+
 #### now
 The `now` option is a function that returns a time value used as a proxy for the current system time.
 
@@ -38,9 +42,8 @@ The `task` option schedules the execution of a Flux query.
 option task = {
     name: "foo",        // Name is required.
     every: 1h,          // Task should be run at this interval.
-    delay: 10m,         // Delay scheduling this task by this duration.
+    offset: 10m,        // Delay scheduling this task by this duration.
     cron: "0 2 * * *",  // Cron is a more sophisticated way to schedule. 'every' and 'cron' are mutually exclusive.
-    retry: 5,           // Number of times to retry a failed query.
 }
 ```
 
@@ -52,10 +55,10 @@ The default value is [`timezone.utc`](/flux/v0.x/stdlib/timezone/#constants).
 ```js
 import "timezone"
 
-// Set timezone to be 5 hours west of UTC.
+// Set timezone to be 5 hours west of UTC
 option location = timezone.fixed(offset: -5h)
 
-// Set location to be America/Denver.
+// Set location to be America/Denver
 option location = timezone.location(name: "America/Denver")
 ```
 

@@ -26,13 +26,12 @@ filtering that data by the `cpu` measurement and the `cpu=cpu-total` tag, window
 and calculating the average of each window:
 
 ```js
-from(bucket:"telegraf/autogen")
-  |> range(start:-1h)
-  |> filter(fn:(r) =>
-    r._measurement == "cpu" and
-    r.cpu == "cpu-total"
-  )
-  |> aggregateWindow(every: 1m, fn: mean)
+from(bucket: "telegraf/autogen")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "cpu" and r.cpu == "cpu-total")
+    |> aggregateWindow(every: 1m, fn: mean)
 ```
 
 {{< children >}}
+
+{{< influxdbu title="Intro to Basic Flux Elements" summary="Learn the basics about Flux, InfluxDB’s functional scripting language in this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/intro-to-basic-flux-elements-tutorial/" >}}

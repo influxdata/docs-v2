@@ -28,6 +28,7 @@ This guide walks through how Flux handles a few simple expressions.
     - [Dictionaries](#dictionaries)
     - [Functions](#functions)
   - [Regular expression types](#regular-expression-types)
+  - [View the string representation of any Flux type](#view-the-string-representation-of-any-flux-type)
 - [Packages](#packages)
 - [Examples of basic syntax](#examples-of-basic-syntax)
   - [Define data stream variables](#define-data-stream-variables)
@@ -149,6 +150,7 @@ The following basic types do not have a literal syntax, but can be created in ot
 ### Composite Types
 Flux [composite types](/flux/v0.x/data-types/composite/) are constructed from
 Flux [basic types](#basic-types).
+All composite types have a Flux literal representation.
 
 - [Records](#records)
 - [Arrays](#arrays)
@@ -281,6 +283,17 @@ regex = /^foo/
 // Returns false
 ```
 
+### View the string representation of any Flux type
+Use [`display()`](/flux/v0.x/stdlib/universe/display) to output the Flux literal
+representation of any value as a string.
+
+```js
+x = bytes(v: "foo")
+
+display(v: x)
+// Returns "0x666f6f"
+```
+
 ## Packages
 The [Flux standard library](/flux/v0.x/stdlib/) is organized into [packages](/flux/v0.x/spec/packages/)
 that contain functions and package-specific options.
@@ -310,17 +323,18 @@ to query sample air sensor data and assigns different streams of data to unique 
 ```js
 import "influxdata/influxdb/sample"
 
-data = sample.data(set: "airSensor")
-    |> range(start: -15m)
-    |> filter(fn: (r) => r._measurement == "airSensors")
+data =
+    sample.data(set: "airSensor")
+        |> range(start: -15m)
+        |> filter(fn: (r) => r._measurement == "airSensors")
 
 temperature =
-  data
-    |> filter(fn: (r) => r._field == "temperature")
+    data
+        |> filter(fn: (r) => r._field == "temperature")
 
 humidity =
-  data
-    |> filter(fn: (r) => r._field == "humidity")
+    data
+        |> filter(fn: (r) => r._field == "humidity")
 ```
 
 These variables can be used in other functions, such as  `join()`, while keeping
@@ -334,9 +348,9 @@ to find the top `n` results in the data set.
 
 ```js
 topN = (tables=<-, n) =>
-  tables
-    |> sort(desc: true)
-    |> limit(n: n)
+    tables
+        |> sort(desc: true)
+        |> limit(n: n)
 ```
 
 Use the custom function `topN` and the `humidity` data stream variable defined
@@ -344,7 +358,7 @@ above to return the top three data points in each input table.
 
 ```js
 humidity
-  |> topN(n:3)
+    |> topN(n:3)
 ```
 
 _For more information about creating custom functions, see [Define custom functions](/flux/v0.x/define-functions)._

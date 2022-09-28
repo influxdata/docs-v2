@@ -1,81 +1,107 @@
 ---
 title: v1.tagValues() function
-description: The `v1.tagValues()` function returns a list unique values for a given tag.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/influxdb-v1/tagvalues/
-  - /influxdb/v2.0/reference/flux/stdlib/influxdb-v1/tagvalues/
-  - /influxdb/cloud/reference/flux/stdlib/influxdb-v1/tagvalues/
+description: >
+  `v1.tagValues()` returns a list of unique values for a given tag.
 menu:
   flux_0_x_ref:
     name: v1.tagValues
-    parent: v1
+    parent: influxdata/influxdb/v1
+    identifier: influxdata/influxdb/v1/tagValues
 weight: 301
 flux/v0.x/tags: [metadata]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/explore-schema/
-  - /{{< latest "influxdb" "v1" >}}/query_language/explore-schema#show-tag-values, SHOW TAG VALUES in InfluxQL
-introduced: 0.16.0
 deprecated: 0.88.0
 ---
 
-{{% warn %}}
-`v1.tagValues()` was deprecated in **Flux v0.88.0** in favor of
-[`schema.tagValues()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/tagvalues/).
-{{% /warn %}}
+<!------------------------------------------------------------------------------
 
-The `v1.tagValues()` function returns a list of unique values for a given tag.
-The return value is always a single table with a single column, `_value`.
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/v1/v1.flux#L208-L208
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`v1.tagValues()` returns a list of unique values for a given tag.
+
+Results include a single table with a single column, `_value`.
+
+##### Function type signature
 
 ```js
-import "influxdata/influxdb/v1"
-
-v1.tagValues(
-  bucket: "example-bucket",
-  tag: "host",
-  predicate: (r) => true,
-  start: -30d
-)
+(
+    bucket: string,
+    tag: string,
+    ?predicate: (
+        r: {
+            A with
+            _value: B,
+            _time: time,
+            _stop: time,
+            _start: time,
+            _measurement: string,
+            _field: string,
+        },
+    ) => bool,
+    ?start: C,
+    ?stop: D,
+) => stream[E] where E: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### bucket {data-type="string"}
+### bucket
+({{< req >}})
 Bucket to return unique tag values from.
 
-### tag {data-type="string"}
+
+
+### tag
+({{< req >}})
 Tag to return unique values from.
 
-### predicate {data-type="function"}
-Predicate function that filters tag values.
-_Default is `(r) => true`._
 
-### start {data-type="duration, time"}
-Oldest time to include in results.
-_Default is `-30d`._
+
+### predicate
+
+Predicate function that filters tag values.
+Default is `(r) => true`.
+
+
+
+### start
+
+Oldest time to include in results. Default is `-30d`.
+
+
+
+### stop
+
+Newest time include in results.
+The stop time is exclusive, meaning values with a time equal to stop time are excluded from the results.
+Default is `now()`.
 
 Relative start times are defined using negative durations.
-Negative durations are relative to now.
-Absolute start times are defined using [time values](/flux/v0.x/spec/types/#time-types).
+Negative durations are relative to `now()`.
+Absolute start times are defined using time values.
+
 
 ## Examples
+
+### Query unique tag values from an InfluxDB bucket
+
 ```js
 import "influxdata/influxdb/v1"
 
-v1.tagValues(
-  bucket: "my-bucket",
-  tag: "host",
-)
+v1.tagValues(bucket: "example-bucket", tag: "host")
+
 ```
 
-## Function definition
-```js
-package v1
-
-tagValues = (bucket, tag, predicate=(r) => true, start=-30d) =>
-  from(bucket: bucket)
-    |> range(start: start)
-    |> filter(fn: predicate)
-    |> group(columns: [tag])
-    |> distinct(column: tag)
-    |> keep(columns: ["_value"])
-```

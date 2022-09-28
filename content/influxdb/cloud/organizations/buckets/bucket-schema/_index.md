@@ -85,7 +85,7 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
       ```json
       [
        {"name":"time","type":"timestamp"},
-       {"name":"fsWrite","type":"field","dataType":"float"}
+       {"name":"fsWrite","type":"field"}
       ]
       ```
 
@@ -96,6 +96,18 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
        {"name":"host","type":"tag"}
       ]
       ```
+
+   The default [field data type](/influxdb/cloud/reference/key-concepts/data-elements/#field-value) is `string`.
+   To set the data type of a field column, provide the `dataType` property and a valid
+   [field data type](/influxdb/cloud/reference/key-concepts/data-elements/#field-value) (`string`, `float`, `integer`, or `boolean`),
+   as in the following example:
+
+   ```json
+   [
+    {"name":"time","type":"timestamp"},
+    {"name":"fsWrite","type":"field","dataType":"float"}
+   ]
+   ```
 
 3. Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to add the schema for each measurement to your bucket.
 

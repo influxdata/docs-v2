@@ -1,47 +1,61 @@
 ---
 title: regexp.quoteMeta() function
 description: >
-  The `regexp.quoteMeta()` function escapes all regular expression metacharacters inside of a string.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/regexp/quotemeta/
-  - /influxdb/v2.0/reference/flux/stdlib/regexp/quotemeta/
-  - /influxdb/cloud/reference/flux/stdlib/regexp/quotemeta/
+  `regexp.quoteMeta()` escapes all regular expression metacharacters in a string.
 menu:
   flux_0_x_ref:
     name: regexp.quoteMeta
     parent: regexp
-weight: 301
-introduced: 0.33.5
+    identifier: regexp/quoteMeta
+weight: 101
 ---
 
-The `regexp.quoteMeta()` function escapes all regular expression metacharacters inside of a string.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** String_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/regexp/regexp.flux#L45-L45
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`regexp.quoteMeta()` escapes all regular expression metacharacters in a string.
+
+
+
+##### Function type signature
 
 ```js
-import "regexp"
-
-regexp.quoteMeta(v: ".+*?()|[]{}^$")
-
-// Returns "\.\+\*\?\(\)\|\[\]\{\}\^\$"
+(v: string) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### v {data-type="string"}
-The string that contains regular expression metacharacters to escape.
+### v
+({{< req >}})
+String that contains regular expression metacharacters to escape.
+
+
+
 
 ## Examples
 
-###### Escape regular expression meta characters in column values
+### Escape regular expression metacharacters in a string
+
 ```js
 import "regexp"
 
-data
-  |> map(fn: (r) => ({
-      r with
-      notes: r.notes,
-      notes_escaped: regexp.quoteMeta(v: r.notes)
-    })
-  )
+regexp.quoteMeta(v: ".+*?()|[]{}^$")// Returns "\.\+\*\?\(\)\|\[\]\{\}\^\$"
+
+
 ```
+

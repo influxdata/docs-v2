@@ -6,6 +6,7 @@ function StripVersionPrefix() {
     PathMap: {
       leave(paths, ctx) {
         const nonversioned = [
+          '/debug',
           '/health',
           '/legacy/authorizations',
           '/legacy/authorizations/{authID}',

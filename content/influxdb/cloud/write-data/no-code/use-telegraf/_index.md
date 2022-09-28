@@ -36,3 +36,5 @@ Telegraf input and output plugins are enabled and configured in Telegraf's confi
 You have the following options for configuring Telegraf:
 
 {{< children >}}
+
+{{< influxdbu "telegraf-102" >}}

@@ -1,107 +1,119 @@
 ---
 title: duration() function
-description: The `duration()` function converts a single value to a duration.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/type-conversions/duration/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/type-conversions/duration/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/type-conversions/duration/
+description: >
+  `duration()` converts a value to a duration type.
 menu:
   flux_0_x_ref:
     name: duration
     parent: universe
-weight: 102
+    identifier: universe/duration
+weight: 101
 flux/v0.x/tags: [type-conversions]
-related:
-  - /flux/v0.x/data-types/basic/duration/
 introduced: 0.7.0
 ---
 
-The `duration()` function converts a single value to a duration.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** Duration_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3198-L3198
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`duration()` converts a value to a duration type.
+
+`duration()` treats integers and unsigned integers as nanoseconds.
+For a string to be converted to a duration type, the string must use
+duration literal representation.
+
+##### Function type signature
 
 ```js
-duration(v: "1m")
+(v: A) => duration
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### v {data-type="string, int, uint"}
+### v
 ({{< req >}})
 Value to convert.
 
-{{% note %}}
-`duration()` assumes **numeric** input values are **nanoseconds**.
-**String** input values must use [duration literal representation](/flux/v0.x/spec/lexical-elements/#duration-literals).
-{{% /note %}}
+
+
 
 ## Examples
 
-- [Convert an integer to a duration](#convert-an-integer-to-a-duration)
 - [Convert a string to a duration](#convert-a-string-to-a-duration)
+- [Convert numeric types to durations](#convert-numeric-types-to-durations)
 - [Convert values in a column to durations](#convert-values-in-a-column-to-durations)
 
-#### Convert an integer to a duration
+### Convert a string to a duration
+
 ```js
-duration(v: 120000000)
-// Returns 120ms
+duration(v: "1h20m")// Returns 1h20m
+
+
 ```
 
-#### Convert a string to a duration
+
+### Convert numeric types to durations
+
 ```js
-duration(v: "12h30m")
-// Returns 12h30m
+duration(v: 4800000000000)
+
+// Returns 1h20m
+duration(v: uint(v: 9600000000000))// Returns 2h40m
+
+
 ```
 
-#### Convert values in a column to durations
-The following example uses [`generate.from()`](/flux/v0.x/stdlib/generate/from/)
-to generate sample data and show how to iterate over values in a stream of tables
-and convert them to duration values.
 
-{{% note %}}
+### Convert values in a column to durations
+
 Flux does not support duration column types.
-This example converts an integer to a duration and stores the value as a string.
-{{% /note %}}
+To store durations in a column, convert duration types to strings.
 
 ```js
-import "generate"
-
-data = generate.from(
-  count: 5,
-  fn: (n) => (n + 1) * 3600000000000,
-  start: 2021-01-01T00:00:00Z,
-  stop: 2021-01-01T05:00:00Z,
-)
-
 data
-  |> map(fn:(r) => ({ r with _value: string(v: duration(v: r._value)) }))
+    |> map(fn: (r) => ({r with _value: string(v: duration(v: r._value))}))
+
 ```
 
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-| _time                |         _value |
-| :------------------- | -------------: |
-| 2021-01-01T00:00:00Z |  3600000000000 |
-| 2021-01-01T01:00:00Z |  7200000000000 |
-| 2021-01-01T02:00:00Z | 10800000000000 |
-| 2021-01-01T03:00:00Z | 14400000000000 |
-| 2021-01-01T04:00:00Z | 18000000000000 |
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | tag  | _value    |
+| -------------------- | ---- | --------- |
+| 2022-01-01T05:00:00Z | t1   | -27000000 |
+| 2022-01-01T09:00:10Z | t1   | 12000000  |
+| 2022-01-01T11:00:20Z | t1   | 78000000  |
+| 2022-01-01T16:00:30Z | t1   | 17000000  |
+| 2022-01-01T19:00:40Z | t1   | 15000000  |
+| 2022-01-01T20:00:50Z | t1   | -42000000 |
 
-##### Output data
-| _time                | _value |
-| :------------------- | -----: |
-| 2021-01-01T00:00:00Z |     1h |
-| 2021-01-01T01:00:00Z |     2h |
-| 2021-01-01T02:00:00Z |     3h |
-| 2021-01-01T03:00:00Z |     4h |
-| 2021-01-01T04:00:00Z |     5h |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | _value  | tag  |
+| -------------------- | ------- | ---- |
+| 2022-01-01T05:00:00Z | -27ms   | t1   |
+| 2022-01-01T09:00:10Z | 12ms    | t1   |
+| 2022-01-01T11:00:20Z | 78ms    | t1   |
+| 2022-01-01T16:00:30Z | 17ms    | t1   |
+| 2022-01-01T19:00:40Z | 15ms    | t1   |
+| 2022-01-01T20:00:50Z | -42ms   | t1   |
+
 {{% /expand %}}
+{{< /expand-wrapper >}}

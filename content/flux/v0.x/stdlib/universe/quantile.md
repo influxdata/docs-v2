@@ -1,159 +1,203 @@
 ---
 title: quantile() function
-description: The `quantile()` function outputs non-null records with values that fall within the specified quantile or the non-null record with the value that represents the specified quantile.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/aggregates/percentile
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/percentile
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/aggregates/quantile/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/quantile/
+description: >
+  `quantile()` returns rows from each input table with values that fall within a
+  specified quantile or returns the row with the value that represents the
+  specified quantile.
 menu:
   flux_0_x_ref:
     name: quantile
     parent: universe
-weight: 102
-flux/v0.x/tags: [aggregates, selectors, transformations]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/percentile-quantile/
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#percentile, InfluxQL – PERCENTILE()
-  - /flux/v0.x/stdlib/experimental/quantile/
+    identifier: universe/quantile
+weight: 101
+flux/v0.x/tags: [transformations, aggregates, selectors]
 introduced: 0.24.0
 ---
 
-The `quantile()` function returns records from an input table with `_value`s that fall within
-a specified quantile or it returns the record with the `_value` that represents the specified quantile.
-Which it returns depends on the [method](#method) used.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1951-L1959
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`quantile()` returns rows from each input table with values that fall within a
+specified quantile or returns the row with the value that represents the
+specified quantile.
+
 `quantile()` supports columns with float values.
 
-_`quantile()` behaves like an [aggregate function](/flux/v0.x/function-types/#aggregates)
-or a [selector function](/flux/v0.x/function-types/#selectors) depending on
-the [`method`](#method) used._
+### Function behavior
+`quantile()` acts as an aggregate or selector transformation depending on the
+specified `method`.
+
+- **Aggregate**: When using the `estimate_tdigest` or `exact_mean` methods,
+  `quantile()` acts as an aggregate transformation and outputs the average of
+  non-null records with values that fall within the specified quantile.
+- **Selector**: When using the `exact_selector` method, `quantile()` acts as
+  a selector selector transformation and outputs the non-null record with the
+  value that represents the specified quantile.
+
+##### Function type signature
 
 ```js
-quantile(
-  column: "_value",
-  q: 0.99,
-  method: "estimate_tdigest",
-  compression: 1000.0
-)
+(
+    <-tables: stream[A],
+    q: float,
+    ?column: string,
+    ?compression: float,
+    ?method: string,
+) => stream[A] where A: Record
 ```
 
-When using the `estimate_tdigest` or `exact_mean` methods, it outputs non-null
-records with values that fall within the specified quantile.
-
-When using the `exact_selector` method, it outputs the non-null record with the
-value that represents the specified quantile.
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### column {data-type="string"}
-Column to use to compute the quantile.
-Default is `"_value"`.
+### column
 
-### q {data-type="float"}
+Column to use to compute the quantile. Default is `_value`.
+
+
+
+### q
 ({{< req >}})
-Value between 0 and 1 indicating the desired quantile.
+Quantile to compute. Must be between `0.0` and `1.0`.
 
-### method {data-type="string"}
-Computation method.
-Default is `estimate_tdigest`.
 
-The available options are:
 
-##### estimate_tdigest
-An aggregate method that uses a [t-digest data structure](https://github.com/tdunning/t-digest)
-to compute an accurate quantile estimate on large data sources.
+### method
 
-##### exact_mean
-An aggregate method that takes the average of the two points closest to the quantile value.
+Computation method. Default is `estimate_tdigest`.
 
-##### exact_selector
-A selector method that returns the data point for which at least `q` points are less than.
+**Avaialable methods**:
+- **estimate_tdigest**: Aggregate method that uses a
+[t-digest data structure](https://github.com/tdunning/t-digest) to
+compute an accurate quantile estimate on large data sources.
+- **exact_mean**: Aggregate method that takes the average of the two
+points closest to the quantile value.
+- **exact_selector**: Selector method that returns the row with the value
+for which at least `q` points are less than.
 
-### compression {data-type="float"}
+### compression
+
 Number of centroids to use when compressing the dataset.
-A larger number produces a more accurate result at the cost of increased memory requirements.
 Default is `1000.0`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+A larger number produces a more accurate result at the cost of increased
+memory requirements.
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro plural=true %}}
 
 - [Quantile as an aggregate](#quantile-as-an-aggregate)
 - [Quantile as a selector](#quantile-as-a-selector)
 
-#### Quantile as an aggregate
+### Quantile as an aggregate
+
 ```js
 import "sampledata"
 
 sampledata.float()
-  |> quantile(
-    q: 0.99,
-    method: "estimate_tdigest",
-    compression: 1000.0
-  )
+    |> quantile(q: 0.99, method: "estimate_tdigest")
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
 
-##### Output data
-| tag | _value |
-| :-- | -----: |
-| t1  |  17.53 |
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
 
-| tag | _value |
-| :-- | -----: |
-| t2  |  19.85 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| *tag | _value  |
+| ---- | ------- |
+| t1   | 17.53   |
+
+| *tag | _value  |
+| ---- | ------- |
+| t2   | 19.85   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-#### Quantile as a selector
+### Quantile as a selector
+
 ```js
 import "sampledata"
 
 sampledata.float()
-  |> quantile(
-    q: 0.5,
-    method: "exact_selector"
-  )
+    |> quantile(q: 0.5, method: "exact_selector")
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | -2.18   |
+| 2021-01-01T00:00:10Z | t1   | 10.92   |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+| 2021-01-01T00:00:30Z | t1   | 17.53   |
+| 2021-01-01T00:00:40Z | t1   | 15.23   |
+| 2021-01-01T00:00:50Z | t1   | 4.43    |
 
-##### Output data
-| tag | _time                | _value |
-| :-- | :------------------- | -----: |
-| t1  | 2021-01-01T00:00:20Z |   7.35 |
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 19.85   |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+| 2021-01-01T00:00:20Z | t2   | -3.75   |
+| 2021-01-01T00:00:30Z | t2   | 19.77   |
+| 2021-01-01T00:00:40Z | t2   | 13.86   |
+| 2021-01-01T00:00:50Z | t2   | 1.86    |
 
-| tag | _time                | _value |
-| :-- | :------------------- | -----: |
-| t2  | 2021-01-01T00:00:10Z |   4.97 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:20Z | t1   | 7.35    |
+
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:10Z | t2   | 4.97    |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

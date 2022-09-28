@@ -1,0 +1,10 @@
+Follow this step-by-step tutorial to build an Internet-of-Things (IoT) application with InfluxData client libraries and your favorite framework or language.
+
+In this tutorial, you'll use the InfluxDB API and
+client libraries to build a modern application as you learn the following:
+
+- InfluxDB core concepts.
+- How the application interacts with devices and InfluxDB.
+- How to authenticate apps and devices to the API.
+- How to install a client library.
+- How to write and query data in InfluxDB.

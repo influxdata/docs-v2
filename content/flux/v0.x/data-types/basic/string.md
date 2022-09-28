@@ -71,7 +71,7 @@ string(v: 42)
 ```
 
 ### Convert regular expressions to strings
-To convert a [regular expression](/flux/v0.x/data-types/regexp/) to a string:
+To convert a [regular expression](/flux/v0.x/data-types/basic/regexp/) to a string:
 
 1. Import the [`regexp` package](/flux/v0.x/stdlib/regexp/).
 2. Use [`regexp.getString()`](/flux/v0.x/stdlib/regexp/getstring/) and provide
@@ -111,7 +111,7 @@ use the [`toString()` function](/flux/v0.x/stdlib/universe/tostring/).
 
 ```js
 data
-  |> toString()
+    |> toString()
 ```
 
 {{< flex >}}
@@ -143,7 +143,7 @@ data
 
 ```js
 data
-  |> map(fn: (r) => ({ r with level: string(v: r.level) }))
+    |> map(fn: (r) => ({ r with level: string(v: r.level) }))
 ```
 {{< flex >}}
 {{% flex-content %}}

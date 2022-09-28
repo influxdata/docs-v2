@@ -439,3 +439,5 @@ stream
 ```
 
 The setup sends `Might want to check your CPU` to the Telegram bot associated with the chat ID `123456789` and API access token `abcdefghi:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`.
+
+{{< influxdbu title="Event Handlers & Node Alerts in Kapacitor" summary="Get started with Kapacitor Topics and Event Handlers with this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/event-handlers-node-alerts-kapacitor-tutorial/" >}}

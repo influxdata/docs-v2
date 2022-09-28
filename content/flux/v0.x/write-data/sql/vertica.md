@@ -16,13 +16,13 @@ related:
 list_code_example: |
   ```js
   import "sql"
-  
+
   data
-    |> sql.to(
-      driverName: "vertica",
-      dataSourceName: "vertica://username:password@localhost:5433/dbname",
-      table: "public.example_table"
-    )
+      |> sql.to(
+          driverName: "vertica",
+          dataSourceName: "vertica://username:password@localhost:5433/dbname",
+          table: "public.example_table",
+      )
   ```
 ---
 
@@ -40,13 +40,13 @@ To write data to [Vertica](https://www.vertica.com/) with Flux:
 
 ```js
 import "sql"
-  
+
 data
-  |> sql.to(
-    driverName: "vertica",
-    dataSourceName: "vertica://username:password@localhost:5433/dbname",
-    table: "public.example_table"
-  )
+    |> sql.to(
+        driverName: "vertica",
+        dataSourceName: "vertica://username:password@localhost:5433/dbname",
+        table: "public.example_table",
+    )
 ```
 
 ---

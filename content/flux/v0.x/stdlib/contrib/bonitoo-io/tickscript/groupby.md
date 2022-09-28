@@ -1,57 +1,111 @@
 ---
 title: tickscript.groupBy() function
 description: >
-  The `tickscript.groupBy()` function groups results by the `_measurement` column
-  and other specified columns.
+  `tickscript.groupBy()` groups results by the `_measurement` column and other specified columns.
 menu:
   flux_0_x_ref:
     name: tickscript.groupBy
-    parent: tickscript
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/groupby/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/groupby/
-related:
-  - /{{< latest "kapacitor" >}}/nodes/query_node/#groupby, Kapacitor QueryNode - groupBy
+    parent: contrib/bonitoo-io/tickscript
+    identifier: contrib/bonitoo-io/tickscript/groupBy
+weight: 301
 flux/v0.x/tags: [transformations]
 ---
 
-The `tickscript.groupBy()` function groups results by the `_measurement` column and
-other specified columns.
+<!------------------------------------------------------------------------------
 
-_This function is comparable to [Kapacitor QueryNode .groupBy](/{{< latest "kapacitor" >}}/nodes/query_node/#groupby)._
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-{{% note %}}
-To group by intervals of time, use [`window()`](/flux/v0.x/stdlib/universe/window/)
-or [`tickscript.selectWindow()`](/flux/v0.x/stdlib/contrib/bonitoo-io/tickscript/selectwindow/).
-{{% /note %}}
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L431-L435
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`tickscript.groupBy()` groups results by the `_measurement` column and other specified columns.
+
+This function is comparable to [Kapacitor QueryNode .groupBy](/kapacitor/latest/nodes/query_node/#groupby).
+
+**Note**: To group by time intervals, use `window()` or `tickscript.selectWindow()`.
+
+##### Function type signature
 
 ```js
-import "contrib/bonitoo-io/tickscript"
-
-tickscript.groupBy(
-  columns: ["exampleColumn"]
-)
+(<-tables: stream[A], columns: [string]) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### columns {data-type="array of strings"}
+### columns
 ({{< req >}})
 List of columns to group by.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-##### Group by host and region
+### Group by host and region
+
 ```js
 import "contrib/bonitoo-io/tickscript"
 
 data
-  |> tickscript.groupBy(
-    columns: ["host", "region"]
-  )
+    |> tickscript.groupBy(columns: ["host", "region"])
+
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
+
+#### Input data
+
+| _time                | _measurement  | host  | region  | _field  | _value  |
+| -------------------- | ------------- | ----- | ------- | ------- | ------- |
+| 2021-01-01T00:00:00Z | m             | h1    | east    | foo     | 1.2     |
+| 2021-01-01T00:01:00Z | m             | h1    | east    | foo     | 3.4     |
+| 2021-01-01T00:00:00Z | m             | h2    | east    | foo     | 2.3     |
+| 2021-01-01T00:01:00Z | m             | h2    | east    | foo     | 5.6     |
+| 2021-01-01T00:00:00Z | m             | h3    | west    | foo     | 1.2     |
+| 2021-01-01T00:01:00Z | m             | h3    | west    | foo     | 3.4     |
+| 2021-01-01T00:00:00Z | m             | h4    | west    | foo     | 2.3     |
+| 2021-01-01T00:01:00Z | m             | h4    | west    | foo     | 5.6     |
+
+
+#### Output data
+
+| _time                | *_measurement | *host | *region | _field  | _value  |
+| -------------------- | ------------- | ----- | ------- | ------- | ------- |
+| 2021-01-01T00:00:00Z | m             | h1    | east    | foo     | 1.2     |
+| 2021-01-01T00:01:00Z | m             | h1    | east    | foo     | 3.4     |
+
+| _time                | *_measurement | *host | *region | _field  | _value  |
+| -------------------- | ------------- | ----- | ------- | ------- | ------- |
+| 2021-01-01T00:00:00Z | m             | h2    | east    | foo     | 2.3     |
+| 2021-01-01T00:01:00Z | m             | h2    | east    | foo     | 5.6     |
+
+| _time                | *_measurement | *host | *region | _field  | _value  |
+| -------------------- | ------------- | ----- | ------- | ------- | ------- |
+| 2021-01-01T00:00:00Z | m             | h3    | west    | foo     | 1.2     |
+| 2021-01-01T00:01:00Z | m             | h3    | west    | foo     | 3.4     |
+
+| _time                | *_measurement | *host | *region | _field  | _value  |
+| -------------------- | ------------- | ----- | ------- | ------- | ------- |
+| 2021-01-01T00:00:00Z | m             | h4    | west    | foo     | 2.3     |
+| 2021-01-01T00:01:00Z | m             | h4    | west    | foo     | 5.6     |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

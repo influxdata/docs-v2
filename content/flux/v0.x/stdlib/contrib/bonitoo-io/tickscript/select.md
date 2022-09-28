@@ -1,41 +1,41 @@
 ---
 title: tickscript.select() function
 description: >
-  The `tickscript.select()` function changes a column's name and optionally applies
-  an aggregate or selector function to values in the column.
+  `tickscript.select()` changes a column’s name and optionally applies an aggregate or selector
+  function to values in the column.
 menu:
   flux_0_x_ref:
     name: tickscript.select
-    parent: tickscript
-weight: 302
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/tickscript/select/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/tickscript/select/
-related:
-  - /flux/v0.x/stdlib/contrib/bonitoo-io/tickscript/selectwindow/
-  - /{{< latest "kapacitor" >}}/nodes/query_node/
+    parent: contrib/bonitoo-io/tickscript
+    identifier: contrib/bonitoo-io/tickscript/select
+weight: 301
 flux/v0.x/tags: [transformations]
-introduced: 0.111.0
 ---
 
-The `tickscript.select()` function changes a column's name and optionally applies
-an aggregate or selector function to values in the column.
+<!------------------------------------------------------------------------------
 
-```js
-import "contrib/bonitoo-io/tickscript"
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-tickscript.select(
-  column: "_value",
-  fn: sum,
-  as: "example-name"
-)
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/tickscript/tickscript.flux#L310-L318
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`tickscript.select()` changes a column’s name and optionally applies an aggregate or selector
+function to values in the column.
+
+## TICKscript helper function
+
+`tickscript.select()` is a helper function meant to replicate TICKscript operations like the following:
+
 ```
-
-#### TICKscript helper function
-`tickscript.select()` is a helper function meant to replicate TICKscript operations
-like the following:
-
-```js
 // Rename
 query("SELECT x AS y")
 
@@ -43,23 +43,40 @@ query("SELECT x AS y")
 query("SELECT f(x) AS y")
 ```
 
+##### Function type signature
+
+```js
+(<-tables: B, as: string, ?column: A, ?fn: (<-: B, column: A) => stream[C]) => stream[D] where A: Equatable, C: Record, D: Record
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
 ## Parameters
 
-### column {data-type="string"}
-Column to operate on.
-Default is `_value`.
+### column
 
-### fn {data-type="function"}
-[Aggregate](/flux/v0.x/function-types/#aggregates) or [selector](/flux/v0.x/function-types/#selectors)
-function to apply.
+Column to operate on. Default is `_value`.
 
-### as {data-type="string"}
+
+
+### fn
+
+Aggregate or selector function to apply.
+
+
+
+### as
 ({{< req >}})
 New column name.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
@@ -67,93 +84,156 @@ Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressi
 - [Change the name of the value column and apply an aggregate function](#change-the-name-of-the-value-column-and-apply-an-aggregate-function)
 - [Change the name of the value column and apply a selector function](#change-the-name-of-the-value-column-and-apply-a-selector-function)
 
----
+### Change the name of the value column
 
-#### Change the name of the value column
 ```js
 import "contrib/bonitoo-io/tickscript"
+import "sampledata"
 
-data
-  |> tickscript.select(as: "example-name")
+sampledata.int()
+    |> tickscript.select(as: "example-name")
+
 ```
 
-{{< flex >}}
-{{% flex-content %}}
-##### Input data
-| _time                | _value |
-|:-----                | ------:|
-| 2021-01-01T00:00:00Z | 1.2    |
-| 2021-01-01T01:00:00Z | 3.2    |
-| 2021-01-01T02:00:00Z | 4.0    |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### Output data
-| _time                | example-name |
-|:-----                | ------------:|
-| 2021-01-01T00:00:00Z | 1.2          |
-| 2021-01-01T01:00:00Z | 3.2          |
-| 2021-01-01T02:00:00Z | 4.0          |
-{{% /flex-content %}}
-{{< /flex >}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
----
+#### Input data
 
-#### Change the name of the value column and apply an aggregate function
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| _time                | example-name  | *tag |
+| -------------------- | ------------- | ---- |
+| 2021-01-01T00:00:00Z | -2            | t1   |
+| 2021-01-01T00:00:10Z | 10            | t1   |
+| 2021-01-01T00:00:20Z | 7             | t1   |
+| 2021-01-01T00:00:30Z | 17            | t1   |
+| 2021-01-01T00:00:40Z | 15            | t1   |
+| 2021-01-01T00:00:50Z | 4             | t1   |
+
+| _time                | example-name  | *tag |
+| -------------------- | ------------- | ---- |
+| 2021-01-01T00:00:00Z | 19            | t2   |
+| 2021-01-01T00:00:10Z | 4             | t2   |
+| 2021-01-01T00:00:20Z | -3            | t2   |
+| 2021-01-01T00:00:30Z | 19            | t2   |
+| 2021-01-01T00:00:40Z | 13            | t2   |
+| 2021-01-01T00:00:50Z | 1             | t2   |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### Change the name of the value column and apply an aggregate function
+
 ```js
 import "contrib/bonitoo-io/tickscript"
+import "sampledata"
 
-data
-  |> tickscript.select(
-    as: "sum",
-    fn: sum
-  )
+sampledata.int()
+    |> tickscript.select(as: "sum", fn: sum)
+
 ```
 
-{{< flex >}}
-{{% flex-content %}}
-##### Input data
-| _time                | _value |
-|:-----                | ------:|
-| 2021-01-01T00:00:00Z | 1.2    |
-| 2021-01-01T01:00:00Z | 3.2    |
-| 2021-01-01T02:00:00Z | 4.0    |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### Output data
-| sum |
-|:---:|
-| 8.4 |
-{{% /flex-content %}}
-{{< /flex >}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
----
+#### Input data
 
-#### Change the name of the value column and apply a selector function
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| *tag | sum  |
+| ---- | ---- |
+| t1   | 51   |
+
+| *tag | sum  |
+| ---- | ---- |
+| t2   | 53   |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### Change the name of the value column and apply a selector function
+
 ```js
 import "contrib/bonitoo-io/tickscript"
+import "sampledata"
 
-data
-  |> tickscript.select(
-    as: "max",
-    fn: max
-  )
+sampledata.int()
+    |> tickscript.select(as: "max", fn: max)
+
 ```
 
-{{< flex >}}
-{{% flex-content %}}
-##### Input data
-| _time                | _value |
-|:-----                | ------:|
-| 2021-01-01T00:00:00Z | 1.2    |
-| 2021-01-01T01:00:00Z | 3.2    |
-| 2021-01-01T02:00:00Z | 4.0    |
-{{% /flex-content %}}
-{{% flex-content %}}
-##### Output data
-| _time                | max |
-|:-----                | ---:|
-| 2021-01-01T02:00:00Z | 4.0 |
-{{% /flex-content %}}
-{{< /flex >}}
+{{< expand-wrapper >}}
+{{% expand "View example input and ouput" %}}
 
----
+#### Input data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
+
+#### Output data
+
+| _time                | max  | *tag |
+| -------------------- | ---- | ---- |
+| 2021-01-01T00:00:30Z | 17   | t1   |
+
+| _time                | max  | *tag |
+| -------------------- | ---- | ---- |
+| 2021-01-01T00:00:00Z | 19   | t2   |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}

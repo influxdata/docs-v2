@@ -133,7 +133,7 @@ we recommend that you [create a new bucket](/influxdb/v2.1/organizations/buckets
 import "experimental/csv"
 
 csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
-  |> to(bucket: "noaa", org: "example-org")
+    |> to(bucket: "noaa", org: "example-org")
 ```
 {{% /note %}}
 

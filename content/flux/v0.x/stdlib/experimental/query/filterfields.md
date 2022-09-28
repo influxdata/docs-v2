@@ -1,63 +1,68 @@
 ---
 title: query.filterFields() function
 description: >
-  The `query.filterFields()` function filters input data by field.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/query/filterfields/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/query/filterfields/
+  `query.filterFields()` filters input data by field.
 menu:
   flux_0_x_ref:
     name: query.filterFields
-    parent: query
-weight: 401
+    parent: experimental/query
+    identifier: experimental/query/filterFields
+weight: 201
 flux/v0.x/tags: [transformations, filters]
-introduced: 0.60.0
 ---
 
-The `query.filterFields()` function filters input data by field.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/query/from.flux#L83-L87
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`query.filterFields()` filters input data by field.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental/query"
-
-query.filterFields(
-  fields: ["exampleField1", "exampleField2"]
-)
+(<-table: stream[{B with _field: A}], ?fields: [A]) => stream[{B with _field: A}] where A: Nullable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### fields {data-type="array of strings"}
-Fields to filter by.
-Must be exact string matches.
+### fields
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+Fields to filter by. Default is `[]`.
+
+
+
+### table
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
+
+### Query specific fields from InfluxDB
 
 ```js
 import "experimental/query"
 
 query.fromRange(bucket: "telegraf", start: -1h)
-  |> query.filterFields(
-    fields: ["used_percent", "available_percent"]
-  )
+    |> query.filterFields(fields: ["used_percent", "available_percent"])
+
 ```
 
-## Function definition
-```js
-package query
-
-filterFields = (tables=<-, fields=[]) =>
-  if length(arr: fields) == 0 then
-    tables
-  else
-    tables
-      |> filter(fn: (r) => contains(value: r._field, set: fields))
-```
-
-_**Used functions:**_  
-[contains()](/flux/v0.x/stdlib/universe/contains/)  
-[filter()](/flux/v0.x/stdlib/universe/filter/)  
-[length()](/flux/v0.x/stdlib/universe/length/)  

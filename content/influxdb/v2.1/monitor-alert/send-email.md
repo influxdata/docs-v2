@@ -65,7 +65,6 @@ The example below uses the SendGrid API to send an alert email when more than 3 
 ```js
 import "http"
 import "json"
-
 // Import the Secrets package if you store your API key as a secret.
 // For detail on how to do this, see Step 4 above.
 import "influxdata/influxdb/secrets"
@@ -75,39 +74,43 @@ import "influxdata/influxdb/secrets"
 SENDGRID_APIKEY = secrets.get(key: "SENDGRID_APIKEY")
 
 numberOfCrits = from(bucket: "_monitoring")
-	|> range(start: -task.every)
-	|> filter(fn: (r) => r._measurement == "statuses" and r._level == "crit")
-	|> count()
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r._measurement == "statuses" and r._level == "crit")
+    |> count()
 
 numberOfCrits
-  |> map(fn: (r) => (if r._value > 3 then {
-    r with _value: http.post(
-      url: "https://api.sendgrid.com/v3/mail/send",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer ${SENDGRID_APIKEY}"
-      },
-      data: json.encode(v: {
-        "personalizations": [
-          {
-            "to": [
-              {
-                "email": "jane.doe@example.com"
-              }
-            ]
-          }
-        ],
-        "from": {
-          "email": "john.doe@example.com"
-        },
-        "subject": "InfluxDB critical alert",
-        "content": [
-          {
-            "type": "text/plain",
-            "value": "There have been ${r._value} critical statuses."
-          }
-        ]
-      }))} else {r with _value: 0}))
+    |> map(
+        fn: (r) => if r._value > 3 then
+            {r with _value: http.post(
+                url: "https://api.sendgrid.com/v3/mail/send",
+                headers: {"Content-Type": "application/json", "Authorization": "Bearer ${SENDGRID_APIKEY}"},
+                data: json.encode(
+                    v: {
+                        "personalizations": [
+                            {
+                                "to": [
+                                    {
+                                        "email": "jane.doe@example.com"
+                                    }
+                                ]
+                            }
+                        ],
+                        "from": {
+                            "email": "john.doe@example.com"
+                        },
+                        "subject": "InfluxDB critical alert",
+                        "content": [
+                            {
+                                "type": "text/plain",
+                                "value": "There have been ${r._value} critical statuses."
+                            }
+                        ]
+                    }
+                )
+            )}
+        else
+            {r with _value: 0},
+    )
 ```
 
 {{% /tab-content %}}
@@ -124,7 +127,6 @@ Your AWS SES request, including the `url` (endpoint), authentication, and the st
 ```js
 import "http"
 import "json"
-
 // Import the Secrets package if you store your API credentials as secrets.
 // For detail on how to do this, see Step 4 above.
 import "influxdata/influxdb/secrets"
@@ -137,39 +139,44 @@ AWS_SIGNED_HEADERS = secrets.get(key: "AWS_SIGNED_HEADERS")
 AWS_CALCULATED_SIGNATURE = secrets.get(key: "AWS_CALCULATED_SIGNATURE")
 
 numberOfCrits = from(bucket: "_monitoring")
-	|> range(start: -task.every)
-	|> filter(fn: (r) => r.measurement == "statuses" and r._level == "crit")
-	|> count()
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r.measurement == "statuses" and r._level == "crit")
+    |> count()
 
 numberOfCrits
-  |> map(fn: (r) => (if r._value > 3 then {
-      r with _value: http.post(
-        url: "https://email.your-aws-region.amazonaws.com/sendemail/v2/email/outbound-emails",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer ${AWS_AUTH_ALGORITHM}${AWS_CREDENTIAL}${AWS_SIGNED_HEADERS}${AWS_CALCULATED_SIGNATURE}"
-        },
-        data: json.encode(v: {
-          "Content": {
-            "Simple": {
-              "Body": {
-                "Text": {
-                  "Charset": "UTF-8",
-                  "Data": "There have been ${r._value} critical statuses."
-                }
-              },
-              "Subject": {
-                "Charset": "UTF-8",
-                "Data": "InfluxDB critical alert"
-              }
-            }
-          },
-          "Destination": {
-            "ToAddresses": [
-              "john.doe@example.com"
-            ]
-          }
-        }))} else {r with _value: 0}))
+    |> map(
+        fn: (r) => if r._value > 3 then
+            {r with _value: http.post(
+                url: "https://email.your-aws-region.amazonaws.com/sendemail/v2/email/outbound-emails",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer ${AWS_AUTH_ALGORITHM}${AWS_CREDENTIAL}${AWS_SIGNED_HEADERS}${AWS_CALCULATED_SIGNATURE}"},
+                data: json.encode(v: {
+                        "Content": {
+                            "Simple": {
+                                "Body": {
+                                    "Text": {
+                                        "Charset": "UTF-8",
+                                        "Data": "There have been ${r._value} critical statuses."
+                                    }
+                                },
+                                "Subject": {
+                                    "Charset": "UTF-8",
+                                    "Data": "InfluxDB critical alert"
+                                }
+                            }
+                        },
+                        "Destination": {
+                            "ToAddresses": [
+                                "john.doe@example.com"
+                            ]
+                        }
+                    }
+                )
+            )}
+        else
+            {r with _value: 0},
+    )
 ```
 
 For details on the request syntax, see [SendEmail API v2 reference](https://docs.aws.amazon.com/ses/latest/APIReference-V2/API_SendEmail.html).
@@ -188,7 +195,6 @@ To view your Mailjet API credentials, sign in to Mailjet and open the [API Key M
 ```js
 import "http"
 import "json"
-
 // Import the Secrets package if you store your API keys as secrets.
 // For detail on how to do this, see Step 4 above.
 import "influxdata/influxdb/secrets"
@@ -199,31 +205,38 @@ MAILJET_APIKEY = secrets.get(key: "MAILJET_APIKEY")
 MAILJET_SECRET_APIKEY = secrets.get(key: "MAILJET_SECRET_APIKEY")
 
 numberOfCrits = from(bucket: "_monitoring")
-	|> range(start: -task.every)
-	|> filter(fn: (r) => r.measurement == "statuses" and "r.level" == "crit")
-	|> count()
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r.measurement == "statuses" and "r.level" == "crit")
+    |> count()
 
 numberOfCrits
-	|> map(fn: (r) => (if r._value > 3 then {
-    r with _value: http.post(
-      url: "https://api.mailjet.com/v3.1/send",
-      headers: {
-        "Content-type": "application/json",
-        "Authorization": "Basic ${MAILJET_APIKEY}:${MAILJET_SECRET_APIKEY}"
-      },
-      data: json.encode(v: {
-      	"Messages": [{
-      		"From": {
-      			"Email": "jane.doe@example.com"
-      		},
-      		"To": [{
-      			"Email": "john.doe@example.com"
-      		}],
-      		"Subject": "InfluxDB critical alert",
-      		"TextPart": "There have been ${r._value} critical statuses.",
-      		"HTMLPart": "<h3>${r._value} critical statuses</h3><p>There have been ${r._value} critical statuses."
-      	}]
-      }))} else {r with _value: 0}))
+    |> map(
+        fn: (r) => if r._value > 3 then
+            {r with
+                _value: http.post(
+                    url: "https://api.mailjet.com/v3.1/send",
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": "Basic ${MAILJET_APIKEY}:${MAILJET_SECRET_APIKEY}"
+                    },
+                    data: json.encode(
+                        v: {
+                            "Messages": [
+                                {
+                                    "From": {"Email": "jane.doe@example.com"},
+                                    "To": [{"Email": "john.doe@example.com"}],
+                                    "Subject": "InfluxDB critical alert",
+                                    "TextPart": "There have been ${r._value} critical statuses.",
+                                    "HTMLPart": "<h3>${r._value} critical statuses</h3><p>There have been ${r._value} critical statuses.",
+                                },
+                            ],
+                        },
+                    ),
+                ),
+            }
+        else
+            {r with _value: 0},
+    )
 ```
 
 {{% /tab-content %}}
@@ -241,7 +254,6 @@ To view your Mailgun API keys, sign in to Mailjet and open [Account Security - A
 ```js
 import "http"
 import "json"
-
 // Import the Secrets package if you store your API key as a secret.
 // For detail on how to do this, see Step 4 above.
 import "influxdata/influxdb/secrets"
@@ -251,25 +263,31 @@ import "influxdata/influxdb/secrets"
 MAILGUN_APIKEY = secrets.get(key: "MAILGUN_APIKEY")
 
 numberOfCrits = from(bucket: "_monitoring")
-	|> range(start: -task.every)
-	|> filter(fn: (r) => (r["_measurement"] == "statuses"))
-	|> filter(fn: (r) => (r["_level"] == "crit"))
-	|> count()
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r["_measurement"] == "statuses")
+    |> filter(fn: (r) => r["_level"] == "crit")
+    |> count()
 
 numberOfCrits
-	|> map(fn: (r) =>
-		(if r._value > 1 then {r with _value: http.post(
-      url: "https://api.mailgun.net/v3/YOUR_DOMAIN/messages",
-      headers: {
-        "Content-type": "application/json",
-        "Authorization": "Basic api:${MAILGUN_APIKEY}"
-      },
-      data: json.encode(v: {
-        "from": "Username <mailgun@YOUR_DOMAIN_NAME>",
-        "to": "email@example.com",
-        "subject": "InfluxDB critical alert",
-        "text": "There have been ${r._value} critical statuses."
-      }))} else {r with _value: 0}))
+    |> map(
+        fn: (r) => if r._value > 1 then
+            {r with _value: http.post(
+                url: "https://api.mailgun.net/v3/YOUR_DOMAIN/messages",
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": "Basic api:${MAILGUN_APIKEY}"
+                },
+                data: json.encode(v: {
+                        "from": "Username <mailgun@YOUR_DOMAIN_NAME>",
+                        "to": "email@example.com",
+                        "subject": "InfluxDB critical alert",
+                        "text": "There have been ${r._value} critical statuses."
+                    }                
+                )
+            )}
+        else
+            {r with _value: 0},
+    )
 ```
 
 {{% /tab-content %}}

@@ -1,82 +1,123 @@
 ---
 title: set() function
-description: The `set()` function assigns a static value to each record in the input table.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/set
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/set/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/set/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/set/
+description: >
+  `set()` assigns a static column value to each row in the input tables.
 menu:
   flux_0_x_ref:
     name: set
     parent: universe
-weight: 102
+    identifier: universe/set
+weight: 101
 flux/v0.x/tags: [transformations]
 introduced: 0.7.0
 ---
 
-The `set()` function assigns a static value to each record in the input table.
-The key may modify an existing column or add a new column to the tables.
-If the modified column is part of the group key, the output tables are regrouped as needed.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2341-L2341
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`set()` assigns a static column value to each row in the input tables.
+
+`set()` may modify an existing column or add a new column.
+If the modified column is part of the group key, output tables are regrouped as needed.
+`set()` can only set string values.
+
+##### Function type signature
 
 ```js
-set(key: "myKey",value: "myValue")
+(<-tables: stream[A], key: string, value: string) => stream[A] where A: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### key {data-type="string"}
+### key
 ({{< req >}})
-The label of the column to modify or set.
+Label of the column to modify or set.
 
-### value {data-type="string"}
+
+
+### value
 ({{< req >}})
-The string value to set.
+String value to set.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
+
+### Set a column to a specific string value
 
 ```js
 import "sampledata"
 
 sampledata.int()
-  |> set(key: "host", value: "prod1")
+    |> set(key: "host", value: "prod1")
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample "int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value | host  |
-| :------------------- | :-- | -----: | :---- |
-| 2021-01-01T00:00:00Z | t1  |     -2 | prod1 |
-| 2021-01-01T00:00:10Z | t1  |     10 | prod1 |
-| 2021-01-01T00:00:20Z | t1  |      7 | prod1 |
-| 2021-01-01T00:00:30Z | t1  |     17 | prod1 |
-| 2021-01-01T00:00:40Z | t1  |     15 | prod1 |
-| 2021-01-01T00:00:50Z | t1  |      4 | prod1 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value | host  |
-| :------------------- | :-- | -----: | :---- |
-| 2021-01-01T00:00:00Z | t2  |     19 | prod1 |
-| 2021-01-01T00:00:10Z | t2  |      4 | prod1 |
-| 2021-01-01T00:00:20Z | t2  |     -3 | prod1 |
-| 2021-01-01T00:00:30Z | t2  |     19 | prod1 |
-| 2021-01-01T00:00:40Z | t2  |     13 | prod1 |
-| 2021-01-01T00:00:50Z | t2  |      1 | prod1 |
-{{% /flex-content %}}
-{{< /flex >}}
+
+#### Output data
+
+| _time                | _value  | *tag | host  |
+| -------------------- | ------- | ---- | ----- |
+| 2021-01-01T00:00:00Z | -2      | t1   | prod1 |
+| 2021-01-01T00:00:10Z | 10      | t1   | prod1 |
+| 2021-01-01T00:00:20Z | 7       | t1   | prod1 |
+| 2021-01-01T00:00:30Z | 17      | t1   | prod1 |
+| 2021-01-01T00:00:40Z | 15      | t1   | prod1 |
+| 2021-01-01T00:00:50Z | 4       | t1   | prod1 |
+
+| _time                | _value  | *tag | host  |
+| -------------------- | ------- | ---- | ----- |
+| 2021-01-01T00:00:00Z | 19      | t2   | prod1 |
+| 2021-01-01T00:00:10Z | 4       | t2   | prod1 |
+| 2021-01-01T00:00:20Z | -3      | t2   | prod1 |
+| 2021-01-01T00:00:30Z | 19      | t2   | prod1 |
+| 2021-01-01T00:00:40Z | 13      | t2   | prod1 |
+| 2021-01-01T00:00:50Z | 1       | t2   | prod1 |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}

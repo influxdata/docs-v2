@@ -72,7 +72,7 @@ and convert columns to time.
 
 ```js
 data
-  |> toTime()
+    |> toTime()
 ```
 
 {{< flex >}}
@@ -104,7 +104,7 @@ data
 
 ```js
 data
-  |> map(fn: (r) => ({ r with epoch_ns: time(v: r.epoch_ns) }))
+    |> map(fn: (r) => ({ r with epoch_ns: time(v: r.epoch_ns) }))
 ```
 
 {{< flex >}}
@@ -171,7 +171,7 @@ date.truncate(t: t0, unit: 1mo)
 
 ```js
 data
-  |> truncateTimeColumn(unit: 1m)
+    |> truncateTimeColumn(unit: 1m)
 ```
 
 {{< flex >}}
@@ -220,27 +220,27 @@ date.quarter(t: t0)
 ### Add a duration to a time value
 To add a [duration](/flux/v0.x/data-types/basic/duration/) to a time value:
 
-1. Import the [`experimental` package](/flux/v0.x/stdlib/experimental/).
-2. Use [`experimental.addDuration()`](/flux/v0.x/stdlib/experimental/addduration/)
+1. Import the [`date` package](/flux/v0.x/stdlib/date/).
+2. Use [`date.add()`](/flux/v0.x/stdlib/date/add/)
    to add a duration to a time value.
 
 ```js
-import "experimental"
+import "date"
 
-experimental.addDuration(d: 1w, to: 2021-01-01T00:00:00Z)
+date.add(d: 1w, to: 2021-01-01T00:00:00Z)
 // Returns 2021-01-08T00:00:00.000000000Z
 ```
 
 ### Subtract a duration from a time value
 To subtract a [duration](/flux/v0.x/data-types/basic/duration/) from a time value:
 
-1. Import the [`experimental` package](/flux/v0.x/stdlib/experimental/).
-2. Use [`experimental.subDuration()`](/flux/v0.x/stdlib/experimental/subduration/)
-to subtract a duration from a time value.
+1. Import the [`date` package](/flux/v0.x/stdlib/date/).
+2. Use [`date.sub()`](/flux/v0.x/stdlib/date/sub/)
+   to subtract a duration from a time value.
 
 ```js
-import "experimental"
+import "date"
 
-experimental.subDuration(d: 1w, from: 2021-01-01T00:00:00Z)
+date.sub(d: 1w, from: 2021-01-01T00:00:00Z)
 // Returns 2020-12-25T00:00:00.000000000Z
 ```

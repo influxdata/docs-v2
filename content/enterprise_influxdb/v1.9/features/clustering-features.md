@@ -14,8 +14,7 @@ menu:
 _For an overview of InfluxDB Enterprise security features,
 see ["InfluxDB Enterprise features - Security"](/enterprise_influxdb/v1.9/features/#security).
 To secure your InfluxDB Enterprise cluster, see
-["Configure security"](/enterprise_influxdb/v1.9/administration/configure/security/)
-and ["Manage security"](/enterprise_influxdb/v1.9/administration/manage/security/)_.
+["Configure security"](/enterprise_influxdb/v1.9/administration/configure/security/).
 {{% /note %}}
 
 ## Entitlements
@@ -59,11 +58,11 @@ Subscriptions used by Kapacitor work in a cluster. Writes to any node will be fo
 It is important to understand how to configure InfluxDB Enterprise and how this impacts the continuous queries (CQ) engine’s behavior:
 
 - **Data node configuration** `[continuous queries]`
-[run-interval](/enterprise_influxdb/v1.9/administration/config-data-nodes#run-interval-1s)
+[run-interval](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#run-interval)
 -- The interval at which InfluxDB checks to see if a CQ needs to run. Set this option to the lowest interval
 at which your CQs run. For example, if your most frequent CQ runs every minute, set run-interval to 1m.
 - **Meta node configuration** `[meta]`
-[lease-duration](/enterprise_influxdb/v1.9/administration/config-meta-nodes#lease-duration-1m0s)
+[lease-duration](/enterprise_influxdb/v1.9/administration/configure/config-meta-nodes/#lease-duration)
 -- The default duration of the leases that data nodes acquire from the meta nodes. Leases automatically expire after the
 lease-duration is met.  Leases ensure that only one data node is running something at a given time. For example, Continuous
 Queries use a lease so that all data nodes aren’t running the same CQs at once.
@@ -134,3 +133,20 @@ InfluxDB Enterprise clusters support backup and restore functionality starting w
 version 0.7.1.
 See [Backup and restore](/enterprise_influxdb/v1.9/administration/backup-and-restore/) for
 more information.
+
+## Passive node setup (experimental)
+
+Passive nodes act as load balancers--they accept write calls, perform shard lookup and RPC calls (on active data nodes), and distribute writes to active data nodes. They do not own shards or accept writes.
+
+Use this feature when you have a replication factor (RF) of 2 or more and your CPU usage is consistently above 80 percent. Using the passive feature lets you scale a cluster when you can no longer vertically scale. Especially useful if you experience a large amount of hinted handoff growth. The passive node writes the hinted handoff queue to its own disk, and then communicates periodically with the appropriate node until it can send the queue contents there.  
+
+Best practices when using an active-passive node setup: 
+  - Use when you have a large cluster setup, generally 8 or more nodes.
+  - Keep the ratio of active to passive nodes between 1:1 and 2:1.
+  - Passive nodes should receive all writes.  
+
+For more inforrmation, see how to [add a passive node to a cluster](/enterprise_influxdb/v1.9/tools/influxd-ctl/#add-a-passive-node-to-the-cluster).
+
+{{% note %}}
+**Note:**  This feature is experimental and available only in InfluxDB Enterprise.
+{{% /note %}}

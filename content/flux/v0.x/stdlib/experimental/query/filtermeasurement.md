@@ -1,58 +1,68 @@
 ---
 title: query.filterMeasurement() function
 description: >
-  The `query.filterMeasurement()` function filters input data by measurement.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/query/filtermeasurement/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/query/filtermeasurement/
+  `query.filterMeasurement()` filters input data by measurement.
 menu:
   flux_0_x_ref:
     name: query.filterMeasurement
-    parent: query
-weight: 401
+    parent: experimental/query
+    identifier: experimental/query/filterMeasurement
+weight: 201
 flux/v0.x/tags: [transformations, filters]
-introduced: 0.60.0
 ---
 
-The `query.filterMeasurement()` function filters input data by measurement.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/query/from.flux#L62-L63
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`query.filterMeasurement()` filters input data by measurement.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental/query"
-
-query.filterMeasurement(
-  measurement: "example-measurement"
-)
+(<-table: stream[{B with _measurement: C}], measurement: A) => stream[{B with _measurement: C}] where A: Equatable, C: Equatable
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### measurement {data-type="string"}
-The name of the measurement to filter by.
-Must be an exact string match.
+### measurement
+({{< req >}})
+InfluxDB measurement name to filter by.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+
+
+### table
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
+
+### Query data from InfluxDB in a specific measurement
 
 ```js
 import "experimental/query"
 
 query.fromRange(bucket: "example-bucket", start: -1h)
-  |> query.filterMeasurement(
-    measurement: "example-measurement"
-  )
+    |> query.filterMeasurement(measurement: "example-measurement")
+
 ```
 
-## Function definition
-```js
-package query
-
-filterMeasurement = (tables=<-, measurement) =>
-  tables
-    |> filter(fn: (r) => r._measurement == measurement)
-```
-
-_**Used functions:**_  
-[filter()](/flux/v0.x/stdlib/universe/filter/)

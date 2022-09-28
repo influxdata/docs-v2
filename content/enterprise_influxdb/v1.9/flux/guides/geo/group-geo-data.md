@@ -19,7 +19,7 @@ list_code_example: |
 
   sampleGeoData
     |> geo.groupByArea(newColumn: "geoArea", level: 5)
-    |> geo.asTracks(groupBy: ["id"],sortBy: ["_time"])
+    |> geo.asTracks(groupBy: ["id"],orderBy: ["_time"])
   ```
 ---
 
@@ -45,11 +45,8 @@ to query data points within 200km of Cairo, Egypt and group them by geographic a
 import "experimental/geo"
 
 sampleGeoData
-  |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0})
-  |> geo.groupByArea(
-    newColumn: "geoArea",
-    level: 5
-  )
+    |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0})
+    |> geo.groupByArea(newColumn: "geoArea", level: 5)
 ```
 
 ### Group data by track or route
@@ -58,7 +55,7 @@ to group data points into tracks or routes and order them by time or other colum
 Data must contain a unique identifier for each track. For example: `id` or `tid`.
 
 - Specify columns that uniquely identify each track or route with the `groupBy` parameter.
-- Specify which columns to sort by with the `sortBy` parameter. Default is `["_time"]`.
+- Specify which columns to sort by with the `orderBy` parameter. Default is `["_time"]`.
 
 The following example uses the [sample bird migration data](/enterprise_influxdb/v1.9/flux/guides/geo/#sample-data)
 to query data points within 200km of Cairo, Egypt and group them into routes unique
@@ -68,9 +65,6 @@ to each bird:
 import "experimental/geo"
 
 sampleGeoData
-  |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0})
-  |> geo.asTracks(
-    groupBy: ["id"],
-    sortBy: ["_time"]
-  )
+    |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0})
+    |> geo.asTracks(groupBy: ["id"], orderBy: ["_time"])
 ```

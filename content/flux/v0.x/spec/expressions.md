@@ -131,6 +131,17 @@ mul = (a,b) => a * b
 Function literals are _closures_ and may refer to variables defined in a surrounding block.
 Those variables are shared between the function literal and the surrounding block.
 
+Function arguments are named. There are no positional arguments.
+Values implementing a function type must use the same argument names.
+
+```js
+apply = (f, x) => f(x: x)
+
+apply(f: (x) => x + 1, x: 2) // 3
+apply(f: (a) => a + 1, x: 2) // error, function must use the same argument name `x`.
+apply(f: (x, a=3) => a + x, x: 2) // 5, extra default arguments are allowed
+```
+
 ## Call expressions
 
 A _call expression_ invokes a function with the provided arguments.
@@ -269,37 +280,43 @@ The operator precedence is encoded directly into the grammar as the following.
 ```js
 Expression               = ConditionalExpression .
 ConditionalExpression    = LogicalExpression
-                         | "if" Expression "then" Expression "else" Expression .
+                          | "if" Expression "then" Expression "else" Expression .
 LogicalExpression        = UnaryLogicalExpression
-                         | LogicalExpression LogicalOperator UnaryLogicalExpression .
+                          | LogicalExpression LogicalOperator UnaryLogicalExpression .
 LogicalOperator          = "and" | "or" .
 UnaryLogicalExpression   = ComparisonExpression
-                         | UnaryLogicalOperator UnaryLogicalExpression .
+                          | UnaryLogicalOperator UnaryLogicalExpression .
 UnaryLogicalOperator     = "not" | "exists" .
-ComparisonExpression     = AdditiveExpression
-                         | ComparisonExpression ComparisonOperator AdditiveExpression .
+ComparisonExpression     = MultiplicativeExpression
+                          | ComparisonExpression ComparisonOperator MultiplicativeExpression .
 ComparisonOperator       = "==" | "!=" | "<" | "<=" | ">" | ">=" | "=~" | "!~" .
 AdditiveExpression       = MultiplicativeExpression
-                         | AdditiveExpression AdditiveOperator MultiplicativeExpression .
+                          | AdditiveExpression AdditiveOperator MultiplicativeExpression .
 AdditiveOperator         = "+" | "-" .
-MultiplicativeExpression = PipeExpression
-                         | MultiplicativeExpression MultiplicativeOperator PipeExpression .
-MultiplicativeOperator   = "*" | "/" | "%" | "^" .
+MultiplicativeExpression = ExponentExpression
+                          | ExponentExpression ExponentOperator MultiplicativeExpression .
+                          | ExponentExpression MultiplicativeOperator MultiplicativeExpression .
+MultiplicativeOperator   = "*" | "/" | "%" .
+ExponentExpression       = PipeExpression
+                          | ExponentExpression ExponentOperator PipeExpression .
+ExponentOperator         = "^" .
 PipeExpression           = PostfixExpression
-                         | PipeExpression PipeOperator UnaryExpression .
+                          | PipeExpression PipeOperator UnaryExpression .
 PipeOperator             = "|>" .
 UnaryExpression          = PostfixExpression
-                         | PrefixOperator UnaryExpression .
+                          | PrefixOperator UnaryExpression .
 PrefixOperator           = "+" | "-" .
 PostfixExpression        = PrimaryExpression
-                         | PostfixExpression PostfixOperator .
+                          | PostfixExpression PostfixOperator .
 PostfixOperator          = MemberExpression
-                         | CallExpression
-                         | IndexExpression .
+                          | CallExpression
+                          | IndexExpression .
 ```
 
 {{% warn %}}
 Dividing by 0 or using the mod operator with a divisor of 0 will result in an error.
+Floating point divide by zero produces positive or negative infinity according
+to the [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754) floating point specification.
 {{% /warn %}}
 
 _Also see [Flux Operators](/flux/v0.x/spec/operators)._

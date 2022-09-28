@@ -15,8 +15,7 @@ weight: 12
 ## Overview
 
 This document covers the basics of securing the open-source distribution of
-Kapacitor.  For information about security with Enterprise Kapacitor see the
-[Enterprise Kapacitor](https://archive.docs.influxdata.com/enterprise_kapacitor/v1.6/) documentation.
+Kapacitor.  
 
 When seeking to secure Kapacitor it is assumed that the Kapacitor server will be
 communicating with an already secured InfluxDB server.  It will also make its
@@ -385,7 +384,7 @@ use the `-blacklist-cidrs` flag.
 Pass a comma-separated list of CIDRs to deny for most HTTP GET/POST operations:
 
 ```sh
-kapacitor -blacklist 10.0.0.0/8,0.0.0.0/32
+kapacitord -blacklist-cidrs 10.0.0.0/8,0.0.0.0/32
 ```
 
 ### Disable specific alert handlers
@@ -394,7 +393,7 @@ Use the `-disable-handlers` flag to disable a set of alert handlers.
 Pass a comma-separated list of [handlers](/kapacitor/v1.6/event_handlers/):
 
 ```sh
-kapacitor -disable-handlers exec,httppost
+kapacitord -disable-handlers exec,httppost
 ```
 
 

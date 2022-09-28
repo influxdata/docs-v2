@@ -43,9 +43,6 @@
       vertical-align: text-top;
       margin-top: 2px;
 
-      &.blue { background: $b-pool; }
-      &.green { background: $gr-viridian; }
-
       .circle {
         display: inline-block;
         position: absolute;
@@ -57,6 +54,13 @@
         right: 4px;
       }
 
+      &.blue { background: $b-pool; }
+      &.green { background: $gr-viridian; }
+      &.off {
+        background: #333346;
+        .circle {left: 4px;}
+      }
+
       &.v3 {
         width: 26px;
         .circle {
@@ -65,6 +69,7 @@
           top: 2px;
           right: 2px;
         }
+        &.off .circle {left: 2px;}
       }
     }
 
@@ -311,6 +316,7 @@
     display: inline-block;
     margin: 0;
     padding: 0;
+    font-family: $rubik;
     font-weight: 500;
     font-size: 1.15rem;
     min-width: 225px;

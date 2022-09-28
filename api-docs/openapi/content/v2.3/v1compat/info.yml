@@ -1,0 +1,12 @@
+title: InfluxDB OSS v1 compatibility API documentation
+version: 2.3.0 v1 compatibility
+description: |
+  The InfluxDB 1.x compatibility /write and /query endpoints work with InfluxDB 1.x client libraries and third-party integrations like Grafana and others.
+
+  If you want to use the latest InfluxDB /api/v2 API instead, see the [InfluxDB v2 API documentation](/influxdb/v2.2/api/).
+
+  This documentation is generated from the
+  [InfluxDB OpenAPI specification](https://github.com/influxdata/openapi/blob/influxdb-oss-v2.3.0/contracts/swaggerV1Compat.yml).
+license:
+  name: MIT
+  url: 'https://opensource.org/licenses/MIT'

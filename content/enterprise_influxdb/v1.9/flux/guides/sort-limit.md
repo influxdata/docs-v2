@@ -30,13 +30,10 @@ If you're just getting started with Flux queries, check out the following:
 The following example orders system uptime first by region, then host, then value.
 
 ```js
-from(bucket:"db/rp")
-  |> range(start:-12h)
-  |> filter(fn: (r) =>
-    r._measurement == "system" and
-    r._field == "uptime"
-  )
-  |> sort(columns:["region", "host", "_value"])
+from(bucket: "db/rp")
+    |> range(start: -12h)
+    |> filter(fn: (r) => r._measurement == "system" and r._field == "uptime")
+    |> sort(columns: ["region", "host", "_value"])
 ```
 
 The [`limit()` function](/{{< latest "flux" >}}/stdlib/universe/limit)
@@ -45,8 +42,8 @@ The following example shows up to 10 records from the past hour.
 
 ```js
 from(bucket:"db/rp")
-  |> range(start:-1h)
-  |> limit(n:10)
+    |> range(start:-1h)
+    |> limit(n:10)
 ```
 
 You can use `sort()` and `limit()` together to show the top N records.
@@ -54,14 +51,11 @@ The example below returns the 10 top system uptime values sorted first by
 region, then host, then value.
 
 ```js
-from(bucket:"db/rp")
-  |> range(start:-12h)
-  |> filter(fn: (r) =>
-    r._measurement == "system" and
-    r._field == "uptime"
-  )
-  |> sort(columns:["region", "host", "_value"])
-  |> limit(n:10)
+from(bucket: "db/rp")
+    |> range(start: -12h)
+    |> filter(fn: (r) => r._measurement == "system" and r._field == "uptime")
+    |> sort(columns: ["region", "host", "_value"])
+    |> limit(n: 10)
 ```
 
 You now have created a Flux query that sorts and limits data.

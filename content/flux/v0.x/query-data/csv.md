@@ -19,7 +19,8 @@ list_code_example: |
   ```js
   import "csv"
 
-  csvData = "
+  csvData =
+      "
   #group,false,false,true,true,true,false,false
   #datatype,string,long,string,string,string,long,double
   #default,_result,,,,,,
@@ -29,7 +30,7 @@ list_code_example: |
   ,,1,air-sensors,humidity,TLM0200,1627049400000000000,35.64
   ,,1,air-sensors,humidity,TLM0200,1627049700000000000,35.67
   "
-  
+
   csv.from(csv: csvData)
   ```
 ---
@@ -71,9 +72,9 @@ The structure of results returned by `csv.from()` depends on the
 
 ## Examples
 
-_If just getting started, use the [Flux REPL](/influxdb/cloud/tools/repl/) or the
+If just getting started, use the [Flux REPL](/influxdb/cloud/tools/flux-repl/) or the
 [InfluxDB Data Explorer](/influxdb/cloud/query-data/execute-queries/data-explorer/)
-to execute Flux queries._
+to execute Flux queries.
 
 - [Query an annotated CSV string](#query-an-annotated-csv-string)
 - [Query a raw CSV string](#query-a-raw-csv-string)
@@ -91,7 +92,8 @@ to execute Flux queries._
 ```js
 import "csv"
 
-csvData = "
+csvData =
+    "
 #group,false,false,true,true,true,false,false
 #datatype,string,long,string,string,string,long,double
 #default,_result,,,,,,
@@ -143,7 +145,8 @@ csv.from(csv: csvData)
 ```js
 import "csv"
 
-csvData = "
+csvData =
+    "
 dataset,metric,sensorID,timestamp,value
 air-sensors,humidity,TLM0100,1627049400000000000,34.79
 air-sensors,humidity,TLM0100,1627049700000000000,34.65

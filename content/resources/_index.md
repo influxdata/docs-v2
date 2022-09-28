@@ -8,3 +8,5 @@ menu:
 ---
 
 {{< children >}}
+
+{{< influxdbu >}}

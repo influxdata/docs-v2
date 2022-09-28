@@ -17,11 +17,11 @@ list_code_example: |
   import "sql"
 
   data
-    |> sql.to(
-      driverName: "sqlserver",
-      dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
-      table: "Example.Table"
-    )
+      |> sql.to(
+          driverName: "sqlserver",
+          dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
+          table: "Example.Table",
+      )
   ```
 ---
 
@@ -41,11 +41,11 @@ To write data to [Microsoft SQL Server](https://www.microsoft.com/sql-server/) w
 import "sql"
 
 data
-  |> sql.to(
-    driverName: "sqlserver",
-    dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
-    table: "Example.Table"
-  )
+    |> sql.to(
+        driverName: "sqlserver",
+        dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
+        table: "Example.Table",
+    )
 ```
 
 ---
@@ -80,7 +80,7 @@ azure auth=ENV
 **{{< cloud-name "short" >}}** and **InfluxDB OSS** _**do not**_ have access to
 the underlying file system and do not support reading credentials from a file.
 To retrieve SQL Server credentials from a file, execute the query in the
-[Flux REPL](/{{< latest "influxdb" >}}/tools/repl/) on your local machine.
+[Flux REPL](/{{< latest "influxdb" >}}/tools/flux-repl/) on your local machine.
 {{% /warn %}}
 
 ```powershel

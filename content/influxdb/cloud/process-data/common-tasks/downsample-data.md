@@ -48,21 +48,19 @@ The example task script below is a very basic form of data downsampling that doe
 
 ```js
 // Task Options
-option task = {
-  name: "cq-mem-data-1w",
-  every: 1w,
-}
+// Task Options
+option task = {name: "cq-mem-data-1w", every: 1w}
 
 // Defines a data source
 data = from(bucket: "system-data")
-  |> range(start: -duration(v: int(v: task.every) * 2))
-  |> filter(fn: (r) => r._measurement == "mem")
+    |> range(start: -duration(v: int(v: task.every) * 2))
+    |> filter(fn: (r) => r._measurement == "mem")
 
 data
-  // Windows and aggregates the data in to 1h averages
-  |> aggregateWindow(fn: mean, every: 1h)
-  // Stores the aggregated data in a new bucket
-  |> to(bucket: "system-data-downsampled", org: "my-org")
+    // Windows and aggregates the data in to 1h averages
+    |> aggregateWindow(fn: mean, every: 1h)
+    // Stores the aggregated data in a new bucket
+    |> to(bucket: "system-data-downsampled", org: "my-org")
 ```
 
 Again, this is a very basic example, but it should provide you with a foundation
