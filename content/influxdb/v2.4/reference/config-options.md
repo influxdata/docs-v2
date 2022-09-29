@@ -460,7 +460,7 @@ Include option to show detailed logs for Flux queries, including the following l
 
 ###### influxd flag
 ```sh
-influxd --flux-log-enabled=true
+influxd --flux-log-enabled
 ```
 
 ###### Environment variable
