@@ -1739,13 +1739,6 @@ input:
     link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/slab/README.md
     tags: [linux, system]
 
-  - name: SMCIPMITool
-    id: smc_ipmi
-    description: |
-      The SMCIPMITool input plugin parses the output of [SMCIPMITool](https://www.supermicro.com/en/solutions/management-software/ipmi-utilities).
-    introduced: 1.18.0
-    tags: [linux, macos, windows, servers, networking]
-
   - name: S.M.A.R.T.
     id: smart
     description: |
