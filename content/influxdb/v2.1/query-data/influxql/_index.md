@@ -10,14 +10,14 @@ menu:
     name: Query with InfluxQL
     parent: Query data
 related:
-  - /influxdb/v2.1/reference/api/influxdb-1x/
-  - /influxdb/v2.1/reference/api/influxdb-1x/query
-  - /influxdb/v2.1/reference/api/influxdb-1x/dbrp
+  - /influxdb/v2.4/reference/api/influxdb-1x/
+  - /influxdb/v2.4/reference/api/influxdb-1x/query
+  - /influxdb/v2.4/reference/api/influxdb-1x/dbrp
 ---
 
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
-In InfluxDB OSS {{< current-version >}}, data is stored in [buckets](/influxdb/v2.1/reference/glossary/#bucket).
+In InfluxDB OSS {{< current-version >}}, data is stored in [buckets](/influxdb/v2.4/reference/glossary/#bucket).
 Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
 
 {{% note %}}
@@ -35,13 +35,13 @@ For complete InfluxQL reference documentation, see
 ## Verify buckets have a mapping
 
 {{% note %}}
-When [upgrading from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.1/upgrade/v1-to-v2/),
+When [upgrading from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.4/upgrade/v1-to-v2/),
 database and retention policy combinations are mapped to InfluxDB {{< current-version >}} buckets.
-For more information, see [Database and retention policy mapping](/influxdb/v2.1/reference/api/influxdb-1x/dbrp/).
+For more information, see [Database and retention policy mapping](/influxdb/v2.4/query-data/influxql/dbrp/).
 If you're not sure how data was written into a bucket, verify the bucket has a mapping.
 {{% /note %}}
 
-Use the [InfluxDB API](/influxdb/v2.1/reference/api/)
+Use the [InfluxDB API](/influxdb/v2.4/reference/api/)
 to verify the buckets you want to query are mapped to a database and retention policy.
 
 {{< tabs-wrapper >}}
@@ -74,7 +74,7 @@ influx v1 dbrp list --bucket-id 00oxo0oXx000x0Xo
 ```
 {{% /tab-content %}}
 {{% tab-content %}}
-Use the [`/api/v2/dbrps` API endpoint](/influxdb/v2.1/api/#operation/GetDBRPs) to list DBRP mappings.
+Use the [`/api/v2/dbrps` API endpoint](/influxdb/v2.4/api/#tag/DBRPs) to list DBRP mappings.
 Include the following:
 
 - **Request method:** `GET`
@@ -180,9 +180,9 @@ curl --request POST http://localhost:8086/api/v2/dbrps \
 
 After you've verified the bucket is mapped, query the bucket using the `query` 1.x compatibility endpoint.
 
-## Query a mapped bucket with InfluxQL
+## Query a mapped bucket with InfluxQL using the InfluxDB 1.x compatibility API
 
-The [InfluxDB 1.x compatibility API](/influxdb/v2.1/reference/api/influxdb-1x/) supports
+The [InfluxDB 1.x compatibility API](/influxdb/v2.14/reference/api/influxdb-1x/) supports
 all InfluxDB 1.x client libraries and integrations in InfluxDB OSS {{< current-version >}}.
 
 To query a mapped bucket with InfluxQL, use the [`/query` 1.x compatibility endpoint](/influxdb/v2.1/reference/api/influxdb-1x/query/).
@@ -190,7 +190,7 @@ Include the following in your request:
 
 - **Request method:** `GET`
 - **Headers:**
-  - **Authorization:** _See [compatibility API authentication](/influxdb/v2.1/reference/api/influxdb-1x/#authentication)_
+  - **Authorization:** _See [compatibility API authentication](/influxdb/v2.4/reference/api/influxdb-1x/#authentication)_
 - **Query parameters:**
   - **db**: 1.x database to query
   - **rp**: 1.x retention policy to query _(if no retention policy is specified, InfluxDB uses the default retention policy for the specified database)_
@@ -207,10 +207,19 @@ curl --get http://localhost:8086/query?db=example-db \
 By default, the `/query` compatibility endpoint returns results in **JSON**.
 To return results as **CSV**, include the `Accept: application/csv` header.
 
+## Query a mapped bucket with InfluxQL using the InfluxDB 1.x CLI
+
+ [Install and use the influx CLI](/influxdb/v2.4/tools/influx-cli/) to query buckets with InfluxQL. Once you have installed and configured the CLI, execute the following command to invoke the InfluxQL shell (REPL):
+
+ ```bash
+ influx v1 shell
+ ```
+
+ See [Supported InfluxQL queries](#supported-influxql-queries) below for a list of statements supported queries. 
+
 ## InfluxQL support
 
-InfluxDB OSS {{< current-version >}} supports InfluxQL **read-only** queries. See supported and unsupported queries below.
-To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/{{< latest "influxdb" "v1" >}}/query_language/).
+InfluxDB OSS 2.x supports InfluxQL **read-only** queries. See supported and unsupported queries below.
 
 {{< flex >}}
 {{< flex-content >}}
