@@ -136,7 +136,7 @@ influx auth create \
 
 #### Create an Operator token
 
-Create an Operator token to grant permissions to all resources in all organizations.
+Create an operator token to grant permissions to all resources in all organizations.
 
 ```sh
 influx auth create \
@@ -144,6 +144,11 @@ influx auth create \
   --operator
 ```
 
+{{% note %}}
+To [view or create an operator token](/influxdb/v2.4/security/tokens/create-token/) with the InfluxDB UI, `api/v2` API, or `influx` CLI after the setup process is completed, you must use an existing operator token.
+
+To create a new operator token without using an existing one, see how to use the [`influxd recovery auth`](/influxdb/v2.4/reference/cli/influxd/recovery/auth/) CLI.
+{{% /note %}}
 {{% /oss-only %}}
 
 #### Create a token with specified read permissions
@@ -191,3 +196,5 @@ body.
 See the
 [`POST /api/v2/authorizations` documentation](/influxdb/v2.4/api/#operation/PostAuthorizations)
 for more information about options.
+
+##
