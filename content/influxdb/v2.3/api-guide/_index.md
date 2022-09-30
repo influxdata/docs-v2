@@ -14,7 +14,7 @@ Access the InfluxDB API using the `/api/v2/` endpoint.
 
 ## Developer guides
 
-- [API starter guide](/influxdb/v2.3/api-guide/starter/)
+- [API Quick Start](/influxdb/v2.3/api-guide/api_intro/)
 
 ## InfluxDB client libraries
 
