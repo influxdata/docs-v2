@@ -93,13 +93,16 @@ see [Write back to InfluxDB](#write-back-to-influxdb) below.
 
 ## Use Kapacitor stream tasks
 InfluxDB Cloud and OSS {{< current-version >}} do not have subscription APIs and do not support Kapacitor stream tasks directly.
-To use Kapacitor stream tasks, write data directly to Kapacitor using the [Kapcitior `write` API](/{{< latest "kapacitor" >}}/working/api/#writing-data).
+To use Kapacitor stream tasks, write data directly to Kapacitor using the [Kapacitor `write` API](/{{< latest "kapacitor" >}}/working/api/#writing-data). We recommend using the [Telegraf InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb) to write data to both InfluxDB Cloud or OSS and Kapacitor.
 
-We recommend using [Telegraf InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb)
-to write data to both InfluxDB Cloud or OSS and Kapacitor.
-The following example Telegraf configuration writes data to both InfluxDB and Kapacitor:
+##### Write data using the Telegraf InfluxDB output plugin
 
-##### Example Telegraf configuration
+To write data to both InfluxDB and Kapacitor using the InfluxDB output plugin, complete the following steps:
+
+1. [Install Telegraf](/{{< latest "telegraf" >}}/install/).
+2. [Create a DBRP mapping](/influxdb/v2.3/query-data/influxql/dbrp/#create-dbrp-mappings). 
+3. In the [Telegraf InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb) configuration file, specify the following options, replacing `database`, `retention_policy`, `username` and `password` to match your DBRP mapping, and set `skip_database_creation` to `true`:
+
 ```toml
 # Write to Kapacitor
 [[outputs.influxdb]]
@@ -114,6 +117,7 @@ The following example Telegraf configuration writes data to both InfluxDB and Ka
   retention_policy = "example-rp"
   username = "influxdb-username"
   password = "influxdb-token"
+  skip_database_creation = true
 ```
 
 ## Write back to InfluxDB

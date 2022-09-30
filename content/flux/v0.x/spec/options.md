@@ -23,6 +23,10 @@ Below is a list of built-in options currently implemented in the Flux language:
 - [task](#task)
 - [location](#location)
 
+Options are not closed, meaning new options may be defined and consumed within packages and scripts.
+Changing the value of an option for a package changes the value for all references
+to that option from any other package.
+
 #### now
 The `now` option is a function that returns a time value used as a proxy for the current system time.
 
@@ -51,10 +55,10 @@ The default value is [`timezone.utc`](/flux/v0.x/stdlib/timezone/#constants).
 ```js
 import "timezone"
 
-// Set timezone to be 5 hours west of UTC.
+// Set timezone to be 5 hours west of UTC
 option location = timezone.fixed(offset: -5h)
 
-// Set location to be America/Denver.
+// Set location to be America/Denver
 option location = timezone.location(name: "America/Denver")
 ```
 
