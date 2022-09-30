@@ -37,7 +37,7 @@ Rows that evaluate to `false` are **excluded** from the output data.
 
 ```js
 // ...
-    |> filter(fn: (r) => r._measurement == "example-measurement" )
+    |> filter(fn: (r) => r._measurement == "example-measurement-name" )
 ```
 
 The `fn` predicate function requires an `r` argument, which represents each row
@@ -71,6 +71,6 @@ and `filter()` represent the most basic Flux query:
 ```js
 from(bucket: "example-bucket")
     |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "example-measurement" and r.tag == "example-tag")
-    |> filter(fn: (r) => r._field == "example-field")
+    |> filter(fn: (r) => r._measurement == "example-measurement-name" and r.mytagname == "example-tag-value")
+    |> filter(fn: (r) => r._field == "example-field-name")
 ```
