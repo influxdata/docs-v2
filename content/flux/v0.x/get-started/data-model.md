@@ -39,16 +39,22 @@ that contains one value for each [row](#row).
 A **row** is a collection of associated [column](#column) values.
 
 #### Group key
-A **group key** defines which columns and specific column values to include in a table.
-All rows in a table contain the same values in group key columns.
-All tables in a stream of tables have a unique group key, but group key
-modifications are applied to a stream of tables.
+A **group key** defines which columns to use to group tables in a stream of tables.
+Each table in a stream of tables represents a unique **group key instance**.
+All rows in a table contain the same values for each group key column.
 
-##### Example group keys
-Group keys contain key-value pairs, where each key represents a column name and
-each value represents the column value included in the table.
-The following are examples of group keys in a stream of tables with three separate tables.
-Each group key represents a table containing data for a unique location:
+##### Example group key
+A group key can be represented by an array of column labels.
+
+```
+[_measurement, facility, _field]
+```
+
+##### Example group key instances
+Group key instances (unique to each table) include key-value pairs that identify
+each column name in the table that has the same value.
+The following are examples of group key instances in a stream of tables with three separate tables.
+Each represents a table containing data for a unique location:
 
 ```
 [_measurement: "production", facility: "us-midwest", _field: "apq"]

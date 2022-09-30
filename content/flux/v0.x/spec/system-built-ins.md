@@ -23,10 +23,12 @@ All such values must have a corresponding builtin statement to declare the exist
 BuiltinStatement = "builtin" identifier ":" TypeExpression .
 TypeExpression   = MonoType ["where" Constraints] .
 
-MonoType     = Tvar | BasicType | ArrayType | RecordType | FunctionType .
+MonoType     = Tvar | BasicType | ArrayType | StreamType | VectorType | RecordType | FunctionType .
 Tvar         = "A" … "Z" .
 BasicType    = "int" | "uint" | "float" | "string" | "bool" | "time" | "duration" | "bytes" | "regexp" .
 ArrayType    = "[" MonoType "]" .
+StreamType   = "stream" "[" MonoType "]" .
+VectorType   = "vector" "[" MonoType "]" .
 RecordType   = ( "{" [RecordTypeProperties] "}" ) | ( "{" Tvar "with" RecordTypeProperties "}" ) .
 FunctionType = "(" [FunctionTypeParameters] ")" "=>" MonoType .
 
@@ -45,7 +47,7 @@ Kinds       = identifier { "+" identifier } .
 ##### Example
 
 ```js
-builtin filter : (<-tables: [T], fn: (r: T) => bool) => [T]
+builtin filter : (<-tables: stream[T], fn: (r: T) => bool) => stream[T]
 ```
 
 {{< page-nav prev="/flux/v0.x/spec/side-effects/" next="/flux/v0.x/spec/data-model/" >}}

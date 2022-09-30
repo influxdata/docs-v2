@@ -2,7 +2,7 @@
 title: Install Telegraf
 description: Install Telegraf on your operating system.
 menu:
-  telegraf_1.23:
+  telegraf_1_23:
 
     name: Install
     weight: 20

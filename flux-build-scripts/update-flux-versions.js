@@ -10,6 +10,14 @@ const path = require('path')
 // GitHub token to access files in the private InfluxDB Enterprise repo
 const githubToken = process.env.GITHUB_TOKEN
 
+if (typeof githubToken === 'undefined') {
+  console.error(`
+A GitHub token is required for this operation. Please set a GITHUB_TOKEN environment variable.
+Use the GitHub token stored in the Docs Team vault in 1Password.
+  `);
+  process.exit(0);
+}
+
 // Get the latest version of Flux
 async function getLatestFlux() {
   const { request } = await axios

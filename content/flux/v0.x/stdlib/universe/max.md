@@ -59,7 +59,7 @@ Input data. Default is piped-forward data (`<-`).
 
 ## Examples
 
-### Return the row with the maximum value
+### Return the row with the maximum value from each input table
 
 ```js
 import "sampledata"

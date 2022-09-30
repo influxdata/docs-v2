@@ -76,7 +76,7 @@ JSON parsing is faster and more efficient than string parsing. We recommend usin
 {{% tab-content %}}
 Use line protocol to write data into InfluxDB. Line protocol doesn't require any parsing or configuration.
 
-- Select a **Timepstamp precision** from the dropdown menu:
+- Select a **Timestamp precision** from the dropdown menu:
    - **MS**: Milliseconds
    - **S**: Seconds
    - **US**: Microseconds
