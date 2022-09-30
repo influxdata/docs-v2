@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L281-L281
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L335-L335
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -61,6 +61,7 @@ Default is the `location` option.
 
 - [Return the day of the year for a time value](#return-the-day-of-the-year-for-a-time-value)
 - [Return the day of the year for a relative duration](#return-the-day-of-the-year-for-a-relative-duration)
+- [Return the current day of the year](#return-the-current-day-of-the-year)
 
 ### Return the day of the year for a time value
 
@@ -82,6 +83,16 @@ option now = () => 2020-02-11T12:21:03.29353494Z
 
 date.yearDay(t: -1mo)// Returns 276
 
+
+```
+
+
+### Return the current day of the year
+
+```js
+import "date"
+
+date.yearDay(t: now())
 
 ```
 

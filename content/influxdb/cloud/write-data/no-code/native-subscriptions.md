@@ -76,7 +76,7 @@ JSON parsing is faster and more efficient than string parsing. We recommend usin
 {{% tab-content %}}
 Use line protocol to write data into InfluxDB. Line protocol doesn't require any parsing or configuration.
 
-- Select a **Timepstamp precision** from the dropdown menu:
+- Select a **Timestamp precision** from the dropdown menu:
    - **MS**: Milliseconds
    - **S**: Seconds
    - **US**: Microseconds
@@ -87,59 +87,126 @@ Use line protocol to write data into InfluxDB. Line protocol doesn't require any
 <!-------------------------------- BEGIN JSON -------------------------------->
 {{% tab-content %}}
 
-To associate **JSON** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags) using parsing rules, complete the following steps:
+To associate **JSON** key-value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags) using parsing rules, complete the following steps:
 
+{{< expand-wrapper >}}
 {{% expand "Example JSON" %}}
-```
+```json
 {
-"device_type":"temperature_sensor",
-"device_id":2036,
-"model_id":"KN24683",
-"temperature":25.0,
-"time":1653998899010000000,
-"error_state":"in_error"
+   "device_type":"temperature_sensor",
+   "device_id":2036,
+   "model_id":"KN24683",
+   "temperature":25.0,
+   "time":1653998899010000000,
+   "error_state":"in_error"
 }
 ```
 {{% /expand %}}
+{{< /expand-wrapper >}}
 
-1. On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
+1. On the **Setting Up - MQTT Connector** page, under **Data Format**, select the **JSON** format:
 
-  1. (Optional) In the **JSON path to timestamp** field, specify the path in the MQTT message to the JSON key that holds the timestamp: for the example above, `"time":1653998899010000000`. Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
+2. (Optional) In the **JSON path to timestamp** field, specify the path in the
+   MQTT message to the JSON key that holds the timestamp.
+   For the [example above](#example-json), use `$.time`.
+   Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
   
       ***Important***: *Configure the timestamp format that **matches the format** in your messages.*
 
-2. Configure the JSON parsing rules:
-   1. Under **Measurement**, enter the **JSON path** (start with `$.`) to assign the InfluxDB measurement key. For the above example, enter `$.device_type`.
-   2. Select the **Data Type** for the measurement.
-   3. Specify the JSON paths to tag and field names as needed, and then select the data type for the tag or field. At least one field is required. For the above example, add fields with the JSON paths `$.temperature` and `$.error_state` and a tag with the path `$.error_state`.
-Note that JSON paths with arrays are supported, for example, `$.device_information.errors_encountered[0].error_number`.
+3. Under **Measurement**, do one of the following:
 
+   - **Use a JSON path to identify the measurement name**:
+      
+      1. Select the **JSON Path** {{< icon "toggle-off" >}} toggle.
+      2. Enter the **JSON path** (starting with `$.`) to assign the InfluxDB measurement key.
+         For the [example above](#example-json), enter `$.device_type`.
+
+   - **Explicitly set the measurement name**:
+
+      1. Select the {{< icon "toggle" >}} **Name** toggle.
+      2. Enter a measurement name.
+
+4. Select the **Data Type** for the measurement.
+5. Specify the JSON paths to **tag** and **field** names as needed, and then
+   select the **data type** for the tag or field. At least one field is required.
+   For the [example above](#example-json), add fields with the JSON paths
+   `$.temperature` and `$.error_state` and tags with the paths `$.device_id` and `$.model_id`.
+
+{{% note %}}
+The JSON parser supports JSON paths with arrays.
+For example, `$.device_information.errors_encountered[0].error_number`.
+{{% /note %}}
 
 {{% /tab-content %}}
 
 <!-------------------------------- BEGIN String -------------------------------->
 {{% tab-content %}}
 
-To associate **String** key/value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags), complete the following steps:
+To associate **String** key-value pairs with **InfluxDB elements** (measurements, timestamps, fields, or tags),
+Use regular expressions to identify each element in a string.
 
-1. On the **Setting Up - MQTT Connector** page, under **Data Format**, do the following:
+{{% note %}}
+#### Parse with regular expressions
 
-  1. (Optional) In the **Regex pattern to find timestamp** field, enter the regex (regular expression) to find the timestamp in the MQTT message.  Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
+InfluxDB Native Subscriptions use Java-flavored regular expression patterns 
+to identify InfluxDB elements in a string.
+Parsing rules only support finding **one value at a time**.
+{{% /note %}}
+
+Complete the following steps:
+
+{{< expand-wrapper >}}
+{{% expand "Example string" %}}
+```string
+device_type=temperature_sensor
+device_id=2036
+model_id=KN24683
+temperature=25.0
+time=1653998899010000000
+error_state=in_error
+```
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+1. On the **Setting Up - MQTT Connector** page, under **Data Format**, select the **String** format.
+
+2. (Optional) In the **Regex pattern to find timestamp** field, enter the regex
+   (regular expression) to find the timestamp in the MQTT message.
+   Otherwise, InfluxDB automatically assigns a timestamp when messages are ingested into InfluxDB.
+
+   For the [example above](#example-string), use `time=([\s\S]*?)\n` to capture
+   everything between `time=` and the next newline (`\n`).
+
+   ***Important***: *Configure the timestamp format that **matches the format** in your messages.*
+
+3. Under **Measurement**, do one of the following:
+
+   - **Use a regular expression to identify the measurement name**:
+      
+      1. Select the **Regex** {{< icon "toggle-off" >}} toggle.
+      2. Enter a regular expression to identify the measurement name.
+         For the [example above](#example-string), use `device_type=([\s\S]*?)\n`
+         to capture everything between `device_type=` and the next newline (`\n`)
+         In this case the measurement would be `temperature_sensor`.
+
+   - **Explicitly set the measurement name**:
+
+      1. Select the {{< icon "toggle" >}} **Name** toggle.
+      2. Enter a measurement name.
+
+4. Enter **Tag** and **Field**. At least one field is required. For tag and field names,
+   use the regex to find the tag or field name, and what to capture.
+   For the [example above](#example-string) use `device_id=(\d{4})` to
+   capture the 4 digits after `device_id=`.
   
-      ***Note***: *Parsing rules only support finding **one value at a time**.*
-    
-      For example, if the timestamp string is `time=1653998899010000000`, use a regex to find the string you're looking for and capture the timestamp:
-       - `time=([\s\S]*?)\n` (captures value after `=` until the EOL (end of line) is reached)
-       - `time=([\s\S]*?),` (captures value after `=` until comma is reached)
-
-         ***Important***: *Configure the timestamp format that **matches the format** in your messages.*
-
-  2. Under **Measurement**, if the string is `device_type=temperature_sensor`, use regex to find the measurement name. For example:
-      - `device_type=([\s\S]*?)\n` captures the value after the `=` until the EOL (end of line) is reached), in this case the value would be `temperature_sensor`.
-  3. Select the **Data Type** for the measurement.
-  4. Enter **Tag** and **Field**. At least one field is required. For tag and field names, use the regex to find the tag or field name, and what to capture. For example:
-     - `device_id=\d\d\d\d-([0-9][0-9][0-9][0-9])` (matches on the `device_id=` and also matches on the first four digits of the device id, and then captures the four digits.
-  5. Select the **Data Type** for the tag or field.
+{{% note %}}
+#### All fields are written as strings
+When parsing **field values** from a string, the regular expression returns
+a string and the field is written to InfluxDB as a string.
+To cast field values to other data types, use
+[type conversion functions](/{{< latest "flux" >}}/function-types/#type-conversions)
+when querying the data.
+{{% /note %}}
 
 {{% /tab-content %}}
 

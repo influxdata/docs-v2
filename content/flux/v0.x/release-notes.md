@@ -10,6 +10,91 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.184.2 [2022-09-26]
+
+### Bug fixes
+- Remove the `stacker` dependency.
+- Skip strict _null_ logical evaluator.
+
+---
+
+## v0.184.1 [2022-09-21]
+
+- _Internal code cleanup._
+
+---
+
+## v0.184.0 [2022-09-21]
+
+### Breaking changes
+- Update logical _null_ handling and align all logical operator implementations
+(vectorized, row-based, as well as "in the interpreter") to be consistent and
+representative of the Flux SPEC.
+
+### Features
+- Add array type conversion functions to the
+  [experimental `array` package](/flux/v0.x/stdlib/experimental/array/).
+
+### Bug fixes
+- Update SPEC and fix some inconsistencies.
+- Update `sort limit` to skips chunks with no rows.
+- Don't report an error about testcases in the LSP.
+- Prevent the metadata map from being concurrently mutated.
+- Don't stackoverflow on deeply nested expressions.
+
+---
+
+## v0.183.0 [2022-09-12]
+
+### Features
+- Add support for piped-forward arrays to [`array.from()`](/flux/v0.x/stdlib/array/from/).
+- Add parameter to [`experimental.unpivot()`](/flux/v0.x/stdlib/experimental/unpivot/)
+  for non-field and non-group-key columns.
+- Add a syntax for describing label literals.
+- Don't display nulls as 0 in the output of `experimental.diff()`.
+
+### Bug fixes
+- Fix duplicate definitions and update issue links in the Flux SPEC.
+- Don't include opening parentheses in invalid call expressions.
+- Improve error message when joining with an empty table.
+
+---
+
+## v0.182.0 [2022-09-06]
+
+### Features
+- Display yields in `fluxtest`.
+- Allow [`experimental.unpivot()`](/flux/v0.x/stdlib/experimental/unpivot/) to
+  work when the `_time` column is missing.
+- Add utility to the `function` package to register a source or transformation.
+- Add Rust binary to sit on top of "headless" REPL backend.
+
+### Bug fixes
+- Correct type for `fillValueTime`.
+- Correct panic in vectorized division by zero.
+- Correct inconsistent runtime typing for `logicalVectorEvaluator`.
+- Don't treat errors in SQL syntax as internal.
+- Improve error handling when missing a property on member expressions.
+- Preserve values of non-string group keys in `experimental.diff()`.
+
+---
+
+## v0.181.0 [2022-08-29]
+
+### Features
+- Add "headless" JSON-RPC based REPL.
+- Support vectorized unary operators.
+- Add [`experimental/polyline` package](/flux/v0.x/stdlib/experimental/polyline)
+  for downsampling data.
+- Update function library to have its own arguments struct.
+
+### Bug fixes
+- Update import path for the `Spec` package in the "headless" REPL.
+- Update conditional vectorization to handle bad values for `test`,
+  `consequent`, or `alternate`.
+
+---
+
 ## v0.180.1 [2022-08-22]
 
 - _Internal code cleanup._

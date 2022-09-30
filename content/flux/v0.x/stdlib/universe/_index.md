@@ -41,7 +41,7 @@ import statement.
 inf
 ```
 
-- **inf** represents an infinte float value.
+- **inf** represents a floating point value of infinity.
 
 ## Options
 

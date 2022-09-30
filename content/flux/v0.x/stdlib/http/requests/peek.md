@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/http/requests/requests.flux#L307-L317
+https://github.com/influxdata/flux/blob/master/stdlib/http/requests/requests.flux#L321-L331
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -73,22 +73,23 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
 
 #### Output data
 
-| body                                      | duration  | headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | statusCode  |
-| ----------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| {"name":"natalie","age":34,"count":20959} | 100000000 | [
-    Access-Control-Allow-Headers: Content-Type, X-Genderize-Source, 
-    Access-Control-Allow-Methods: GET, 
+| body                                      | duration  | headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | statusCode  |
+| ----------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| {"age":48,"count":25082,"name":"natalie"} | 100000000 | [
+    Access-Control-Allow-Credentials: true, 
     Access-Control-Allow-Origin: *, 
+    Access-Control-Expose-Headers: x-rate-limit-limit,x-rate-limit-remaining,x-rate-limit-reset, 
+    Cache-Control: max-age=0, private, must-revalidate, 
     Connection: keep-alive, 
     Content-Length: 41, 
     Content-Type: application/json; charset=utf-8, 
-    Date: Mon, 22 Aug 2022 19:17:08 GMT, 
-    Etag: W/"29-klDahUESBLxHyQ7NiaetCn2CvCI", 
+    Date: Mon, 26 Sep 2022 22:44:14 GMT, 
     Server: nginx/1.16.1, 
     X-Rate-Limit-Limit: 1000, 
     X-Rate-Limit-Remaining: 996, 
-    X-Rate-Reset: 16971
-]                           | 200         |
+    X-Rate-Limit-Reset: 4546, 
+    X-Request-Id: FxiKavR0CXbSF0wEmwMS
+]                             | 200         |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

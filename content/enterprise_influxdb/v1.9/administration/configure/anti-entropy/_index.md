@@ -178,7 +178,7 @@ until it either shows as being in the queue, being repaired, or no longer in the
 
 ## Configuration
 
-The configuration settings for the Anti-Entropy service are described in [Anti-Entropy settings](/enterprise_influxdb/v1.9/administration/config-data-nodes/#anti-entropy-ae-settings) section of the data node configuration.
+The configuration settings for the Anti-Entropy service are described in [Anti-Entropy settings](/enterprise_influxdb/v1.9/administration/configure/config-data-nodes/#anti-entropy-ae-settings) section of the data node configuration.
 
 To enable the Anti-Entropy service, change the default value of the `[anti-entropy].enabled = false` setting to `true` in the `influxdb.conf` file of each of your data nodes.
 

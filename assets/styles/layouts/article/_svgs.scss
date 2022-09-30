@@ -14,6 +14,35 @@ svg {
     .st1 {fill: $article-text;}
     .st2 {font-family: $rubik; font-weight: $medium}
   }
+
+  //////////////////////////////// Join Diagram ////////////////////////////////
+  &#join-diagram {
+    $fill-color: rgba($article-text, .35);
+    display: block;
+    max-width: 250px;
+    margin: 1rem 0 2rem;
+
+    &.center {margin: 0 auto 2rem auto;}
+    &.small {max-width: 125px; path{stroke-width: 3;} }
+
+    path {
+      stroke: $article-text;
+      stroke-width:2;
+      stroke-miterlimit:10;
+      fill: none;
+    }
+    &.inner {path { &#center {fill:$fill-color; }}}
+    &.left {path { &#left, &#center {fill:$fill-color; }}}
+    &.right {path { &#center, &#right {fill:$fill-color; }}}
+    &.full {path { &#left, &#center, &#right {fill:$fill-color; }}}
+  }
+
+}
+
+@include media(small) {
+  svg {
+    &#join-diagram {margin: 1rem auto 2rem; }
+  }
 }
 
 //////////////////////////// Styles for SVG legends ////////////////////////////

@@ -214,6 +214,8 @@ group to configure HTTP properties such as a bind address and the path to an HTT
   pprof-enabled = false
   https-enabled = false
   https-certificate = "/etc/ssl/influxdb-selfsigned.pem"
+  shared-secret = ""
+  # The shared secret must match on all data and kapacitor nodes.
   ### Use a separate private key location.
   # https-private-key = ""
 # ...

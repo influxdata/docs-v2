@@ -105,7 +105,7 @@ Given the following **example_table** in a MySQL database:
 import "sql"
 
 sql.from(
-    driver: "mysql",
+    driverName: "mysql",
     dataSourceName: "username:passwOrd@tcp(localhost:3306)/db",
     query: "SELECT ID, Name FROM example_table",
 )
