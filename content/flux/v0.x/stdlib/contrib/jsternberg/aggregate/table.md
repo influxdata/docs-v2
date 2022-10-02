@@ -93,17 +93,6 @@ sampledata.float()
 
 #### Input data
 
-| *tag | min_bottom_degrees  |
-| ---- | ------------------- |
-| t1   | -2.18               |
-
-| *tag | min_bottom_degrees  |
-| ---- | ------------------- |
-| t2   | -3.75               |
-
-
-#### Output data
-
 | _time                | *tag | _value  |
 | -------------------- | ---- | ------- |
 | 2021-01-01T00:00:00Z | t1   | -2.18   |
@@ -121,6 +110,17 @@ sampledata.float()
 | 2021-01-01T00:00:30Z | t2   | 19.77   |
 | 2021-01-01T00:00:40Z | t2   | 13.86   |
 | 2021-01-01T00:00:50Z | t2   | 1.86    |
+
+
+#### Output data
+
+| *tag | min_bottom_degrees  |
+| ---- | ------------------- |
+| t1   | -2.18               |
+
+| *tag | min_bottom_degrees  |
+| ---- | ------------------- |
+| t2   | -3.75               |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
