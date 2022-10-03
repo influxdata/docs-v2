@@ -10,6 +10,20 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.184.2 [2022-09-26]
+
+### Bug fixes
+- Remove the `stacker` dependency.
+- Skip strict _null_ logical evaluator.
+
+---
+
+## v0.184.1 [2022-09-21]
+
+- _Internal code cleanup._
+
+---
+
 ## v0.184.0 [2022-09-21]
 
 ### Breaking changes

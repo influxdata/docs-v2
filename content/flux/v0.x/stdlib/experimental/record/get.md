@@ -67,7 +67,7 @@ Default value to return if the specified key does not exist in the record.
 
 ## Examples
 
-### Dynamically return a value from a recordd
+### Dynamically return a value from a record
 
 ```js
 import "experimental/record"
@@ -75,7 +75,7 @@ import "experimental/record"
 key = "foo"
 exampleRecord = {foo: 1.0, bar: "hello"}
 
-record.get(r: exampleRecord, key: key, default: "")// Returns 1.0
+record.get(r: exampleRecord, key: key, default: "") // Returns 1.0
 
 
 ```
