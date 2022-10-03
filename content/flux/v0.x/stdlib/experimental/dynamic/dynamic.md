@@ -1,13 +1,14 @@
 ---
-title: aggregate.max() function
+title: dynamic.dynamic() function
 description: >
-  `aggregate.max()` constructs a max aggregate or selector for the column.
+  `dynamic.dynamic()` wraps a value so it can be used as a `dynamic` value.
 menu:
   flux_0_x_ref:
-    name: aggregate.max
-    parent: contrib/jsternberg/aggregate
-    identifier: contrib/jsternberg/aggregate/max
-weight: 301
+    name: dynamic.dynamic
+    parent: experimental/dynamic
+    identifier: experimental/dynamic/dynamic
+weight: 201
+flux/v0.x/tags: [type-conversions]
 ---
 
 <!------------------------------------------------------------------------------
@@ -19,45 +20,30 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/jsternberg/aggregate/aggregate.flux#L141-L141
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/dynamic/dynamic.flux#L16-L16
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`aggregate.max()` constructs a max aggregate or selector for the column.
+`dynamic.dynamic()` wraps a value so it can be used as a `dynamic` value.
 
 
 
 ##### Function type signature
 
 ```js
-(
-    ?column: A,
-    ?fill: B,
-) => {
-    reduce: (state: D, values: [D]) => D,
-    init: (values: [D]) => D,
-    fill: B,
-    compute: (state: C) => C,
-    column: A,
-} where D: Numeric
+(v: A) => dynamic
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### column
-
-Name of the column to aggregate.
-
-
-
-### fill
-
-When set, value to replace missing values.
+### v
+({{< req >}})
+Value to wrap as dynamic.
 
 
 
