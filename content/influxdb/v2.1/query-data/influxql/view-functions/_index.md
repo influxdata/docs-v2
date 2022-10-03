@@ -9,7 +9,9 @@ menu:
 weight: 205
 ---
 
-Aggregate, select, transform, analyze, and predict data with InfluxQL functions. Looking for Flux functions
+Use InfluxQL functions to aggregate, select, transform, analyze, and predict data.
+
+The following InfluxQL functions are available (grouped by type of function):
 
 - [Aggregates](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/)
   - [COUNT()](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/#count)

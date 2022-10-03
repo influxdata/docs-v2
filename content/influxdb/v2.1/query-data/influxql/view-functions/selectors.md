@@ -9,14 +9,10 @@ menu:
 weight: 205
 ---
 
-Selector functions are transformations that return one or more record per input table.
+Selector functions return one or more record per input table. Each output table from a selector function includes the following:
 
-Each output table from a selector function will:
-
-Contain one or more unmodified records.
-Have the same group key as the input table.
-
-
+- One or more unmodified records.
+- Same group key as the input table.
 
 ## Selectors
 
