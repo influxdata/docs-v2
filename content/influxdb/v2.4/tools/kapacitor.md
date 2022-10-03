@@ -100,7 +100,7 @@ To use Kapacitor stream tasks, write data directly to Kapacitor using the [Kapac
 To write data to both InfluxDB and Kapacitor using the InfluxDB output plugin, complete the following steps:
 
 1. [Install Telegraf](/{{< latest "telegraf" >}}/install/).
-2. [Create a DBRP mapping](/influxdb/v2.3/query-data/influxql/dbrp/#create-dbrp-mappings). 
+2. [Create a DBRP mapping](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings). 
 3. In the [Telegraf InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb) configuration file, specify the following options, replacing `database`, `retention_policy`, `username` and `password` to match your DBRP mapping, and set `skip_database_creation` to `true`:
 
 ```toml
