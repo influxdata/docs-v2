@@ -69,7 +69,7 @@ The [WAL](#write-ahead-log-wal) and cache are separate entities and do not inter
 
 The cache:
 
-- Organizes points by key (measurement, tag set, and unique field)
+- Organizes points by key (measurement, tag set, and unique field).
   Each field is stored in its own time-ordered range.
 - Stores uncompressed data.
 - Gets updates from the WAL each time the storage engine restarts.
