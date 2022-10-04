@@ -19,7 +19,7 @@ Learn how to configure, manage, and process your InfluxDB logs:
 
 ## Configure your InfluxDB log location
 
-By default, InfluxDB output all logs to **stdout**. To view InfluxDB logs,
+By default, InfluxDB outputs all logs to **stdout**. To view InfluxDB logs,
 view the output of the [`influxd`](/influxdb/v2.4/reference/cli/influxd/) process.
 
 - [Write logs to a file](#write-logs-to-a-file)
@@ -40,7 +40,7 @@ When logging to a file, InfluxDB uses the [logfmt](#logfmt) format.
 
 ### Logs when running InfluxDB as a service
 
-If using a service manager to run InfluxDB, the service manager determines the location of logs.
+If you use a service manager to run InfluxDB, the service manager determines the location of logs.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -90,7 +90,7 @@ To write logs to a file:
 
 Use the [`log-level` InfluxDB configuration option](/influxdb/v2.4/reference/config-options/#log-level)
 to specify the log levels the InfluxDB service outputs.
-The following log levels are supported:
+InfluxDB supports the following log levels:
 
 - **debug**: Output logs with debug, info, and error log levels.
 - **info**: _(Default)_ Output logs with info and error log levels.
@@ -213,7 +213,7 @@ Use the following popular tools to manage and process InfluxDB logs:
 
 ### logrotate
 
-[logrotate](https://github.com/logrotate/logrotate) is designed to simplify the
+[logrotate](https://github.com/logrotate/logrotate) simplifies the
 administration of log files and provides automatic rotation compression, removal
 and mailing of log files. Logrotate can be set to handle a log file hourly,
 daily, weekly, monthly or when the log file gets to a certain size.
@@ -261,7 +261,7 @@ logs are output.
 
 ### logfmt
 
-**When logging to a file**, logs are written in **logfmt**, a machine-readable
+**When logging to a file**, InfluxDB uses **logfmt**, a machine-readable
 structured log format that provides simpler integrations with external tools like
 [Splunk](https://www.splunk.com/), [Papertrail](https://www.papertrail.com/),
 [Elasticsearch](https://www.elastic.co/), and other third party tools.
