@@ -6,6 +6,8 @@ menu:
   influxdb_1_8:
     weight: 70
     identifier: InfluxQL
+aliases:
+  - /influxdb/latest/query_language/_index
 ---
 
 This section introduces InfluxQL, the InfluxDB SQL-like query language for
