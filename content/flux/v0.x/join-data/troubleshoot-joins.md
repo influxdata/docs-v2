@@ -88,6 +88,7 @@ group key instances from matching.
 - [table is missing column \'\<column\>\'](#table-is-missing-column-column)
 - [table is missing label \<label\>](#table-is-missing-label-label)
 - [record is missing label \<label\>](#record-is-missing-label-label)
+- [cannot join on an empty table](#cannot-join-on-an-empty-table)
 
 ### table is missing column `'<column>'`
 
@@ -182,5 +183,33 @@ from a column that doesn't exist in the "primary" input stream
 
 Ensure the columns that you're using in the `as` output function to assign
 values to the output actually exist in the input streams.
+{{% /flex-content %}}
+{{< /flex >}}
+
+---
+
+### cannot join on an empty table
+
+##### Error message
+```js
+error preparing <left or right> side of join: cannot join on an empty table
+```
+
+{{< flex >}}
+{{% flex-content %}}
+#### Cause {#cause-e3}
+
+**One of your input streams is an empty stream of tables**.
+Functions in the join package error when one or both of the input
+streams are empty.
+{{% /flex-content %}}
+{{% flex-content %}}
+#### Solution {#solution-e3}
+
+Use [`array.from()`](/flux/v0.x/stdlib/array/from/) and
+[`union()`](/flux/v0.x/stdlib/universe/union/) to insert a dummy table into each
+stream that you filter out after the join operation.
+The dummy table needs to all the group key columns of the stream it is unioned with.
+
 {{% /flex-content %}}
 {{< /flex >}}
