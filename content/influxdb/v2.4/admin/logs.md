@@ -40,7 +40,7 @@ When logging to a file, InfluxDB uses the [logfmt](#logfmt) format.
 
 ### Logs when running InfluxDB as a service
 
-If using a service manager to run InfluxDB, the service manager determines to location of logs.
+If using a service manager to run InfluxDB, the service manager determines the location of logs.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -65,7 +65,7 @@ For more information, see the [journald.conf documentation](https://www.freedesk
 {{% tab-content %}}
 
 When InfluxDB is run as a service, **stdout** is discarded by default (sent to `/dev/null`).
-To store write logs to a file:
+To write logs to a file:
 
 1.  Open the InfluxDB startup script (`/etc/default/influxdb`) in a text editor.
 2.  Set the `STDOUT` environment variable to the path where you want to store
