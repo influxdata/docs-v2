@@ -6,6 +6,8 @@ menu:
     name: InfluxQL 2.x specification
     parent: Query with InfluxQL
     identifier: refernce-2_1
+aliases:
+ - /influxdb/v2.4/query_languages/spec/
 weight: 212
 ---
 
@@ -117,18 +119,18 @@ _cpu_stats
 ### Keywords
 
 ```
-ALL           ANY           AS            ASC           BEGIN
-BY            CREATE        DATABASE      DATABASES     DEFAULT       DELETE        
-DESC          DESTINATIONS  DIAGNOSTICS   DISTINCT      DROP          DURATION      
-END           EVERY         EXPLAIN       FIELD         FOR
-FROM          GROUP         GROUPS        IN
-INF           INSERT        KEY           KEYS          KILL
+ALL           ALTER         ANY           AS            ASC           BEGIN
+BY            CREATE        CONTINUOUS    DATABASE      DATABASES     DEFAULT
+DELETE        DESC          DESTINATIONS  DIAGNOSTICS   DISTINCT      DROP
+DURATION      END           EVERY         EXPLAIN       FIELD         FOR
+FROM          GRANT         GRANTS        GROUP         GROUPS        IN
+INF           INSERT        INTO          KEY           KEYS          KILL
 LIMIT         SHOW          MEASUREMENT   MEASUREMENTS  NAME          OFFSET
 ON            ORDER         PASSWORD      POLICY        POLICIES      PRIVILEGES
 QUERIES       QUERY         READ          REPLICATION   RESAMPLE      RETENTION
 REVOKE        SELECT        SERIES        SET           SHARD         SHARDS
-SLIMIT        SOFFSET       TAG
-TO            VALUES        WHERE         WITH
+SLIMIT        SOFFSET       STATS         SUBSCRIPTION  SUBSCRIPTIONS TAG
+TO            USER          USERS         VALUES        WHERE         WITH
 WRITE
 ```
 

@@ -13,7 +13,7 @@ InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
 The following sections detail InfluxQL's `SELECT` statement, as well as other key clauses, and useful query syntax
 for exploring your data.
 
-{{< children >}}
+{{< children readmore=true hr=true >}}
 
 ### Sample data
 

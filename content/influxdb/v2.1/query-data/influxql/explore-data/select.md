@@ -2,15 +2,19 @@
 title: The SELECT statement
 list_title: SELECT statement
 description: >
-  ...
+  Use the SELECT statement to query data from a particular [measurement](/influxdb/v2.4/reference/glossary/#measurement) or measurements.
 menu:
   influxdb_2_1:
     name: SELECT statement
     parent: Explore data
 weight: 301
+list_code_example: |
+  ```sql
+  SELECT <field_key>[,<field_key>,<tag_key>] FROM <measurement_name>[,<measurement_name>]
+  ```
 ---
 
-The `SELECT` statement queries data from a particular [measurement](/influxdb/v2.4/reference/glossary/#measurement) or measurements. In the following examples we will use the `noaa` database to create SELECT queries. 
+Use the SELECT statement to query data from a particular [measurement](/influxdb/v2.4/reference/glossary/#measurement) or measurements. In the following examples we will use the `noaa` database to create SELECT queries. 
 
 InfluxDB 1.x data is stored in databases and retention policies. In InfluxDB 2.x versions, data is stored in **buckets**. Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
 
