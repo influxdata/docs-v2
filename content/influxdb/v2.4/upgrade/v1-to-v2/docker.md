@@ -260,7 +260,7 @@ Once upgraded, use InfluxDB {{< current-version >}} tools to work with your time
 
 ### Migrate continuous queries to tasks
 
-InfluxDB {{< current-version >}} replaces continuous queries **tasks**.
+InfluxDB {{< current-version >}} replaces continuous queries with **tasks**.
 By default, the upgrade process writes all continuous queries to `~/continuous_queries.txt`.
 To convert continuous queries to InfluxDB tasks, see
 [Migrate continuous queries to tasks](/influxdb/v2.4/upgrade/v1-to-v2/migrate-cqs/).
@@ -272,7 +272,7 @@ The InfluxDB {{< current-version >}} Docker image includes the `influx` CLI.
 
 To start an InfluxQL shell:
 
-1. Console into your InfluxDB container:
+1. Start a bash session in your InfluxDB container:
 
     ```sh
     docker exec -it influxdb /bin/bash
@@ -281,7 +281,7 @@ To start an InfluxQL shell:
 2. Set up your [`influx` CLI authentication credentials](/influxdb/v2.4/tools/influx-cli/#set-up-the-influx-cli).
 3. Run the `influx v1 shell` command.
 
-For more information see:
+For more information, see:
 
 - [Use the InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/)
 - [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/)
