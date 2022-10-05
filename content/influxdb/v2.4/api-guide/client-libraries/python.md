@@ -114,11 +114,11 @@ write_api.write(bucket=bucket, org=org, record=p)
 2. Create a Flux query, and then format it as a Python string.
 
    ```python
-   query = ' from(bucket:"my-bucket")\
+   query = 'from(bucket:"my-bucket")\
    |> range(start: -10m)\
    |> filter(fn:(r) => r._measurement == "my_measurement")\
-   |> filter(fn: (r) => r.location == "Prague")\
-   |> filter(fn:(r) => r._field == "temperature" ) '
+   |> filter(fn:(r) => r.location == "Prague")\
+   |> filter(fn:(r) => r._field == "temperature")'
    ```
 
     The query client sends the Flux query to InfluxDB and returns a Flux object with a table structure.
@@ -178,8 +178,8 @@ query_api = client.query_api()
 query = 'from(bucket:"my-bucket")\
 |> range(start: -10m)\
 |> filter(fn:(r) => r._measurement == "my_measurement")\
-|> filter(fn: (r) => r.location == "Prague")\
-|> filter(fn:(r) => r._field == "temperature" )'
+|> filter(fn:(r) => r.location == "Prague")\
+|> filter(fn:(r) => r._field == "temperature")'
 result = query_api.query(org=org, query=query)
 results = []
 for table in result:
