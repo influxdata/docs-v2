@@ -209,7 +209,7 @@ streams are empty.
 Use [`array.from()`](/flux/v0.x/stdlib/array/from/) and
 [`union()`](/flux/v0.x/stdlib/universe/union/) to insert a dummy table into each
 stream that you filter out after the join operation.
-The dummy table needs to all the group key columns of the stream it is unioned with.
+The dummy table needs to have all the group key columns of the stream it is unioned with.
 
 {{% /flex-content %}}
 {{< /flex >}}
