@@ -31,9 +31,22 @@ Use [logical operators](#logical-operators) to combine two or more predicate exp
 ```sql
 key1="value1" AND key2="value"
 ```
+
 {{% warn %}}
-With **InfluxDB {{< current-version >}}**, delete predicates can use any column
-or tag **except** `_time`{{% oss-only %}}, `_field`, {{% /oss-only %}}or `_value`.
+#### Column limitations when deleting data
+**InfluxDB {{< current-version >}}** supports deleting data by any column or tag
+_**except**_ the following:
+
+- `_time`
+- {{% oss-only %}}`_field`{{% /oss-only %}}
+- `_value`
+
+{{% oss-only %}}
+
+_InfluxDB {{< current-version >}} does not support deleting data **by field**._
+
+{{% /oss-only %}}
+
 {{% /warn %}}
 
 ## Logical operators

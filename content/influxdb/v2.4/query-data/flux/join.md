@@ -18,7 +18,8 @@ related:
   - /{{< latest "flux" >}}/join-data/right-outer/
   - /{{< latest "flux" >}}/join-data/full-outer/
   - /{{< latest "flux" >}}/join-data/time/
-list_query_example: join
+  - /{{< latest "flux" >}}/stdlib/join/
+list_query_example: join-new
 ---
 
 Use the Flux [`join` package](/{{< latest "flux" >}}/stdlib/join/) to join two data sets
