@@ -11,6 +11,7 @@ aliases:
   - /influxdb/v2.1/query_language/spec/
   - /influxdb/v2.2/query_language/spec/
   - /influxdb/v2.3/query_language/spec/
+  - /influxdb/v2.4/query_language/spec/
   - /influxdb/latest/query_language/spec/
 ---
 
