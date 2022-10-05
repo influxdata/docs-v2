@@ -11,7 +11,11 @@ weight: 205
 
 Use InfluxQL functions to aggregate, select, transform, analyze, and predict data.
 
-The following InfluxQL functions are available (grouped by type of function):
+{{% note %}}
+To query with InfluxQL, the bucket you query must be mapped to a database and retention policy (DBRP). For more information, see how to [Query data with InfluxQL](/influxdb/v2.1/query-data/influxql/).
+{{%/ note %}}
+
+### InfluxQL functions (by type)
 
 - [Aggregates](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/)
   - [COUNT()](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/#count)

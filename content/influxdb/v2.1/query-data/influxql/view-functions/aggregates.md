@@ -10,6 +10,7 @@ weight: 205
 ---
 
 Use aggregate functions to assess, aggregate, and return values in your data.
+Each function below covers **syntax**, **parameters**, and **examples** of when to use the function.
 
 - [COUNT()](#count)
 - [DISTINCT()](#distinct)
@@ -23,7 +24,13 @@ Use aggregate functions to assess, aggregate, and return values in your data.
 
 ### COUNT()
 
-Returns the number of non-null [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
+Returns the number of non-null [field values](/influxdb/v2.1/reference/glossary/#field-value). Supports all field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
+
+Use COUNT() to find the following:
+- Number of values for a specified field (plus add’l InfluxQL functions)
+- Number of field values in a specified measurement
+- Number of field values that match a regex
+- Number of field values that match a regex
 
 #### Syntax
 
@@ -31,27 +38,28 @@ Returns the number of non-null [field values](/enterprise_influxdb/v1.9/concepts
 SELECT COUNT( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-##### Nested syntax
+To nest `DISTINCT()` in `COUNT()`, use the following syntax:
 
 ```
-SELECT COUNT(DISTINCT( [ * | <field_key> | /<regular_expression>/ ] )) [...]
+SELECT COUNT(DISTINCT( [ * | <field_key> | [...]
 ```
 
-`COUNT(field_key)`  
+#### Parameters
+
+##### field_key  
+
 Returns the number of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
-`COUNT(/regular_expression/)`  
+##### /regular_expression/  
+
 Returns the number of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
-`COUNT(*)`  
+##### *  
 Returns the number of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
-
-`COUNT()` supports all field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
-InfluxQL supports nesting [`DISTINCT()`](#distinct) with `COUNT()`.
 
 #### Examples
 
-##### Count the field values associated with a field key
+##### Count values for a field
 
 ```sql
 > SELECT COUNT("water_level") FROM "h2o_feet"
@@ -62,36 +70,9 @@ time                   count
 1970-01-01T00:00:00Z   15258
 ```
 
-The query returns the number of non-null field values in the `water_level` field key in the `h2o_feet` measurement.
+Returns the number of non-null field values in the `water_level` field key in the `h2o_feet` measurement.
 
-##### Count the field values associated with each field key in a measurement
-
-```sql
-> SELECT COUNT(*) FROM "h2o_feet"
-
-name: h2o_feet
-time                   count_level description   count_water_level
-----                   -----------------------   -----------------
-1970-01-01T00:00:00Z   15258                     15258
-```
-
-The query returns the number of non-null field values for each field key associated with the `h2o_feet` measurement.
-The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
-
-##### Count the field values associated with each field key that matches a regular expression
-
-```sql
-> SELECT COUNT(/water/) FROM "h2o_feet"
-
-name: h2o_feet
-time                   count_water_level
-----                   -----------------
-1970-01-01T00:00:00Z   15258
-```
-
-The query returns the number of non-null field values for every field key that contains the word `water` in the `h2o_feet` measurement.
-
-##### Count the field values associated with a field key and include several clauses
+**(Optional) Add additional clauses**
 
 ```sql
 > SELECT COUNT("water_level") FROM "h2o_feet" WHERE time >= '2015-08-17T23:48:00Z' AND time <= '2015-08-18T00:54:00Z' GROUP BY time(12m),* fill(200) LIMIT 7 SLIMIT 1
@@ -108,11 +89,37 @@ time                   count
 2015-08-18T00:48:00Z   2
 ```
 
-The query returns the number of non-null field values in the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query_language/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query [fills](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `200` and [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one.
+Returns the number of non-null field values in the `water_level` field key over the [time range](/influxdb/v2.1/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.1/query-data/influxql/explore-data/group-by/) results into 12-minute time intervals and per tag.
+The query [fills](/influxdb/v2.1/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `200` and [limits](/influxdb/v2.1/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one.
 
-##### Count the distinct field values associated with a field key
+##### Count values for each field in a measurement
+
+```sql
+> SELECT COUNT(*) FROM "h2o_feet"
+
+name: h2o_feet
+time                   count_level description   count_water_level
+----                   -----------------------   -----------------
+1970-01-01T00:00:00Z   15258                     15258
+```
+
+Returns the number of non-null field values for each field key associated with the `h2o_feet` measurement.
+The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
+
+##### Count the values that match a regular expression
+
+```sql
+> SELECT COUNT(/water/) FROM "h2o_feet"
+
+name: h2o_feet
+time                   count_water_level
+----                   -----------------
+1970-01-01T00:00:00Z   15258
+```
+
+Returns the number of non-null field values for every field key that contains the word `water` in the `h2o_feet` measurement.
+
+##### Count distinct values for a field
 
 ```sql
 > SELECT COUNT(DISTINCT("level description")) FROM "h2o_feet"
@@ -123,16 +130,7 @@ time                   count
 1970-01-01T00:00:00Z   4
 ```
 
-The query returns the number of unique field values for the `level description` field key and the `h2o_feet` measurement.
-
-### Common issues with COUNT()
-
-#### COUNT() and fill()
-
-Most InfluxQL functions report `null` values for time intervals with no data, and
-[`fill(<fill_option>)`](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals-and-fill)
-replaces that `null` value with the `fill_option`.
-`COUNT()` reports `0` for time intervals with no data, and `fill(<fill_option>)` replaces any `0` values with the `fill_option`.
+Returns the number of unique field values for the `level description` field key and the `h2o_feet` measurement.
 
 ##### Example
 
@@ -179,7 +177,7 @@ SELECT COUNT(DISTINCT( [ <field_key> | /<regular_expression>/ ] )) [...]
 `DISTINCT(field_key)`  
 Returns the unique field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
-`DISTINCT()` supports all field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
+`DISTINCT()` supports all field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 InfluxQL supports nesting `DISTINCT()` with [`COUNT()`](#count).
 
 #### Examples
@@ -198,7 +196,7 @@ time                   distinct
 1970-01-01T00:00:00Z   at or greater than 9 feet
 ```
 
-The query returns a tabular list of the unique field values in the `level description` field key in the `h2o_feet` measurement.
+Returns a tabular list of the unique field values in the `level description` field key in the `h2o_feet` measurement.
 
 ##### List the distinct field values associated with each field key in a measurement
 
@@ -215,28 +213,8 @@ time                   distinct_level description   distinct_water_level
 [...]
 ```
 
-The query returns a tabular list of the unique field values for each field key in the `h2o_feet` measurement.
+Returns a tabular list of the unique field values for each field key in the `h2o_feet` measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
-
-#### List the distinct field values associated with a field key and include several clauses
-
-```sql
->  SELECT DISTINCT("level description") FROM "h2o_feet" WHERE time >= '2015-08-17T23:48:00Z' AND time <= '2015-08-18T00:54:00Z' GROUP BY time(12m),* SLIMIT 1
-
-name: h2o_feet
-tags: location=coyote_creek
-time                   distinct
-----                   --------
-2015-08-18T00:00:00Z   between 6 and 9 feet
-2015-08-18T00:12:00Z   between 6 and 9 feet
-2015-08-18T00:24:00Z   between 6 and 9 feet
-2015-08-18T00:36:00Z   between 6 and 9 feet
-2015-08-18T00:48:00Z   between 6 and 9 feet
-```
-
-The query returns a tabular list of the unique field values in the `level description` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query_language/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of series returned to one.
 
 ##### Count the distinct field values associated with a field key
 
@@ -249,13 +227,13 @@ time                   count
 1970-01-01T00:00:00Z   4
 ```
 
-The query returns the number of unique field values in the `level description` field key and the `h2o_feet` measurement.
+Returns the number of unique field values in the `level description` field key and the `h2o_feet` measurement.
 
 ### Common issues with DISTINCT()
 
 #### DISTINCT() and the INTO clause
 
-Using `DISTINCT()` with the [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) can cause InfluxDB to overwrite points in the destination measurement.
+Using `DISTINCT()` with the [`INTO` clause](/influxdb/v2.1/query-data/explore-data/#the-into-clause) can cause InfluxDB to overwrite points in the destination measurement.
 `DISTINCT()` often returns several results with the same timestamp; InfluxDB assumes [points](/influxdb/v2.1/reference/glossary/#point) with the same [series](/influxdb/v2.1/reference/glossary/#series) and timestamp are duplicate points and simply overwrites any duplicate point with the most recent point in the destination measurement.
 
 ##### Example
@@ -305,26 +283,26 @@ SELECT INTEGRAL( [ * | <field_key> | /<regular_expression>/ ] [ , <unit> ]  ) [I
 ```
 
 InfluxDB calculates the area under the curve for subsequent field values and converts those results into the summed area per `unit`.
-The `unit` argument is an integer followed by a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#literals) and it is optional.
+The `unit` argument is an integer followed by a [duration literal](/influxdb/v2.1/reference/syntax/spec/#literals) and it is optional.
 If the query does not specify the `unit`, the unit defaults to one second (`1s`).
 
 `INTEGRAL(field_key)`  
 Returns the area under the curve for subsequent field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `INTEGRAL(/regular_expression/)`  
-Returns the area under the curve for subsequent field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
+Returns the area under the curve for subsequent field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/explore-data/#regular-expressions).
 
 `INTEGRAL(*)`  
 Returns the average field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
-`INTEGRAL()` does not support [`fill()`](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals-and-fill). `INTEGRAL()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
+`INTEGRAL()` does not support [`fill()`](/influxdb/v2.1/query-data/explore-data/#group-by-time-intervals-and-fill). `INTEGRAL()` supports int64 and float64 field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 
 #### Examples
 
-The following examples use a subset of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/) data:
+The following examples use a subset of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) data:
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z'
+> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                   water_level
@@ -348,7 +326,7 @@ time                 integral
 1970-01-01T00:00:00Z 3732.66
 ```
 
-The query returns the area under the curve (in seconds) for the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
+Returns the area under the curve (in seconds) for the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
 
 ##### Calculate the integral for the field values associated with a field key and specify the unit option
 
@@ -361,7 +339,7 @@ time                 integral
 1970-01-01T00:00:00Z 62.211
 ```
 
-The query returns the area under the curve (in minutes) for the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
+Returns the area under the curve (in minutes) for the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
 
 ##### Calculate the integral for the field values associated with each field key in a measurement and specify the unit option
 
@@ -374,7 +352,7 @@ time                 integral_water_level
 1970-01-01T00:00:00Z 62.211
 ```
 
-The query returns the area under the curve (in minutes) for the field values associated with each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the area under the curve (in minutes) for the field values associated with each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has on numerical field: `water_level`.
 
 #### Calculate the integral for the field values associated with each field key that matches a regular expression and specify the unit option
@@ -388,7 +366,7 @@ time                 integral_water_level
 1970-01-01T00:00:00Z 62.211
 ```
 
-The query returns the area under the curve (in minutes) for the field values associated with each field key that stores numerical values includes the word `water` in the `h2o_feet` measurement.
+Returns the area under the curve (in minutes) for the field values associated with each field key that stores numerical values includes the word `water` in the `h2o_feet` measurement.
 
 #### Calculate the integral for the field values associated with a field key and include several clauses
 
@@ -401,8 +379,8 @@ time                 integral
 2015-08-18T00:00:00Z 24.972
 ```
 
-The query returns the area under the curve (in minutes) for the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
-It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z`, [groups](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals) results into 12-minute intervals, and [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of results returned to one.
+Returns the area under the curve (in minutes) for the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
+It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z`, [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals) results into 12-minute intervals, and [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of results returned to one.
 
 ### MEAN()
 
@@ -418,7 +396,7 @@ SELECT MEAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_c
 Returns the average field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `MEAN(/regular_expression/)`  
-Returns the average field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
+Returns the average field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
 
 `MEAN(*)`  
 Returns the average field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
@@ -437,7 +415,7 @@ time                   mean
 ----                   ----
 1970-01-01T00:00:00Z   4.442107025822522
 ```
-The query returns the average field value in the `water_level` field key in the `h2o_feet` measurement.
+Returns the average field value in the `water_level` field key in the `h2o_feet` measurement.
 
 ##### Calculate the mean field value associated with each field key in a measurement
 
@@ -449,7 +427,7 @@ time                   mean_water_level
 ----                   ----------------
 1970-01-01T00:00:00Z   4.442107025822522
 ```
-The query returns the average field value for every field key that stores numerical values in the `h2o_feet` measurement.
+Returns the average field value for every field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 ##### Calculate the mean field value associated with each field key that matches a regular expression
@@ -463,7 +441,7 @@ time                   mean_water_level
 1970-01-01T00:00:00Z   4.442107025822523
 ```
 
-The query returns the average field value for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the average field value for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 #### Calculate the mean field value associated with a field key and include several clauses
 
@@ -482,9 +460,9 @@ time                   mean
 2015-08-18T00:48:00Z   7.046
 ```
 
-The query returns the average of the values in the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query_language/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query [fills](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `9.01` and [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one.
+Returns the average of the values in the `water_level` field key.
+It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
+The query [fills](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `9.01` and [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one.
 
 ### MEDIAN()
 
@@ -500,7 +478,7 @@ SELECT MEDIAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM
 Returns the middle field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `MEDIAN(/regular_expression/)`  
-Returns the middle field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
+Returns the middle field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
 
 `MEDIAN(*)`  
 Returns the middle field value associated with each field key in the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
@@ -522,7 +500,7 @@ time                   median
 1970-01-01T00:00:00Z   4.124
 ```
 
-The query returns the middle field value in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the middle field value in the `water_level` field key and in the `h2o_feet` measurement.
 
 ##### Calculate the median field value associated with each field key in a measurement
 
@@ -535,7 +513,7 @@ time                   median_water_level
 1970-01-01T00:00:00Z   4.124
 ```
 
-The query returns the middle field value for every field key that stores numerical values in the `h2o_feet` measurement.
+Returns the middle field value for every field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 ##### Calculate the median field value associated with each field key that matches a regular expression
@@ -549,7 +527,7 @@ time                   median_water_level
 1970-01-01T00:00:00Z   4.124
 ```
 
-The query returns the middle field value for every field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the middle field value for every field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 #### Calculate the median field value associated with a field key and include several clauses
 
@@ -568,9 +546,9 @@ time                   median
 2015-08-18T00:48:00Z   700
 ```
 
-The query returns the middle field value in the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query_language/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query [fills](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `700 `, [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one, and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
+Returns the middle field value in the `water_level` field key.
+It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
+The query [fills](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `700 `, [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one, and [offsets](/enterprise_influxdb/v1.9/query-data/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
 
 ### MODE()
 
@@ -586,7 +564,7 @@ SELECT MODE( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_c
 Returns the most frequent field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `MODE(/regular_expression/)`  
-Returns the most frequent field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
+Returns the most frequent field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
 
 `MODE(*)`  
 Returns the most frequent field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
@@ -608,7 +586,7 @@ time                   mode
 1970-01-01T00:00:00Z   between 3 and 6 feet
 ```
 
-The query returns the most frequent field value in the `level description` field key and in the `h2o_feet` measurement.
+Returns the most frequent field value in the `level description` field key and in the `h2o_feet` measurement.
 
 ##### Calculate the mode field value associated with each field key in a measurement
 
@@ -621,7 +599,7 @@ time                   mode_level description   mode_water_level
 1970-01-01T00:00:00Z   between 3 and 6 feet     2.69
 ```
 
-The query returns the most frequent field value for every field key in the `h2o_feet` measurement.
+Returns the most frequent field value for every field key in the `h2o_feet` measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
 ##### Calculate the mode field value associated with each field key that matches a regular expression
@@ -635,7 +613,7 @@ time                   mode_water_level
 1970-01-01T00:00:00Z   2.69
 ```
 
-The query returns the most frequent field value for every field key that includes the word `/water/` in the `h2o_feet` measurement.
+Returns the most frequent field value for every field key that includes the word `/water/` in the `h2o_feet` measurement.
 
 #### Calculate the mode field value associated with a field key and include several clauses
 
@@ -651,9 +629,9 @@ time                   mode
 2015-08-18T00:12:00Z   below 3 feet
 ```
 
-The query returns the mode of the values associated with the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query_language/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to three and one, and it [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
+Returns the mode of the values associated with the `water_level` field key.
+It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
+The query [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to three and one, and it [offsets](/enterprise_influxdb/v1.9/query-data/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
 
 ### SPREAD()
 
@@ -669,7 +647,7 @@ SELECT SPREAD( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM
 Returns the difference between the minimum and maximum field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `SPREAD(/regular_expression/)`  
-Returns the difference between the minimum and maximum field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
+Returns the difference between the minimum and maximum field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
 
 `SPREAD(*)`  
 Returns the difference between the minimum and maximum field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
@@ -689,7 +667,7 @@ time                   spread
 1970-01-01T00:00:00Z   10.574
 ```
 
-The query returns the difference between the minimum and maximum field values in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the difference between the minimum and maximum field values in the `water_level` field key and in the `h2o_feet` measurement.
 
 ##### Calculate the spread for the field values associated with each field key in a measurement
 
@@ -702,7 +680,7 @@ time                   spread_water_level
 1970-01-01T00:00:00Z   10.574
 ```
 
-The query returns the difference between the minimum and maximum field values for every field key that stores numerical values in the `h2o_feet` measurement.
+Returns the difference between the minimum and maximum field values for every field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 ##### Calculate the spread for the field values associated with each field key that matches a regular expression
@@ -716,7 +694,7 @@ time                   spread_water_level
 1970-01-01T00:00:00Z   10.574
 ```
 
-The query returns the difference between the minimum and maximum field values for every field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the difference between the minimum and maximum field values for every field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 #### Calculate the spread for the field values associated with a field key and include several clauses
 
@@ -732,9 +710,9 @@ time                   spread
 2015-08-18T00:12:00Z   0.09799999999999986
 ```
 
-The query returns the difference between the minimum and maximum field values in the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z `and [groups](/enterprise_influxdb/v1.9/query_language/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query [fills](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `18`, [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to three and one, and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
+Returns the difference between the minimum and maximum field values in the `water_level` field key.
+It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z `and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
+The query [fills](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `18`, [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to three and one, and [offsets](/enterprise_influxdb/v1.9/query-data/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
 
 ### STDDEV()
 
@@ -750,7 +728,7 @@ SELECT STDDEV( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM
 Returns the standard deviation of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `STDDEV(/regular_expression/)`  
-Returns the standard deviation of field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
+Returns the standard deviation of field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
 
 `STDDEV(*)`  
 Returns the standard deviation of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
@@ -770,7 +748,7 @@ time                   stddev
 1970-01-01T00:00:00Z   2.279144584196141
 ```
 
-The query returns the standard deviation of the field values in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the standard deviation of the field values in the `water_level` field key and in the `h2o_feet` measurement.
 
 ##### Calculate the standard deviation for the field values associated with each field key in a measurement
 
@@ -783,7 +761,7 @@ time                   stddev_water_level
 1970-01-01T00:00:00Z   2.279144584196141
 ```
 
-The query returns the standard deviation of the field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the standard deviation of the field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 ##### Calculate the standard deviation for the field values associated with each field key that matches a regular expression
@@ -797,7 +775,7 @@ time                   stddev_water_level
 1970-01-01T00:00:00Z   2.279144584196141
 ```
 
-The query returns the standard deviation of the field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the standard deviation of the field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 #### Calculate the standard deviation for the field values associated with a field key and include several clauses
 
@@ -812,9 +790,9 @@ time                   stddev
 2015-08-18T00:00:00Z   0.03676955262170051
 ```
 
-The query returns the standard deviation of the field values in the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query_language/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query [fills](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `18000`, [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to two and one, and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
+Returns the standard deviation of the field values in the `water_level` field key.
+It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
+The query [fills](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `18000`, [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to two and one, and [offsets](/enterprise_influxdb/v1.9/query-data/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
 
 ### SUM()
 
@@ -830,7 +808,7 @@ SELECT SUM( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_cl
 Returns the sum of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `SUM(/regular_expression/)`  
-Returns the sum of field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions).
+Returns the sum of field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
 
 `SUM(*)`  
 Returns the sums of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
@@ -850,7 +828,7 @@ time                   sum
 1970-01-01T00:00:00Z   67777.66900000004
 ```
 
-The query returns the summed total of the field values in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the summed total of the field values in the `water_level` field key and in the `h2o_feet` measurement.
 
 #### Calculate the sum of the field values associated with each field key in a measurement
 
@@ -863,7 +841,7 @@ time                   sum_water_level
 1970-01-01T00:00:00Z   67777.66900000004
 ```
 
-The query returns the summed total of the field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the summed total of the field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 #### Calculate the sum of the field values associated with each field key that matches a regular expression
@@ -877,7 +855,7 @@ time                   sum_water_level
 1970-01-01T00:00:00Z   67777.66900000004
 ```
 
-The query returns the summed total of the field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the summed total of the field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 #### Calculate the sum of the field values associated with a field key and include several clauses
 
@@ -894,5 +872,5 @@ time                   sum
 2015-08-18T00:24:00Z   15.135
 ```
 
-The query returns the summed total of the field values in the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query_language/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag. The query [fills](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals-and-fill) empty time intervals with 18000, and it [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to four and one.
+Returns the summed total of the field values in the `water_level` field key.
+It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag. The query [fills](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with 18000, and it [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to four and one.
