@@ -2,11 +2,10 @@
 title: InfluxQL internals reference
 description: Read about the implementation of InfluxQL.
 menu:
-  influxdb_2_1:
+  influxdb_2_1_ref:
     name: InfluxQL internals
-    parent: Query with InfluxQL
-    identifier: internals-2_1
-weight: 210
+    parent: influxql-syntax
+weight: 103
 ---
 
 Learn about the implementation of InfluxQL to understand how

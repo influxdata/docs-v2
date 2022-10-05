@@ -2,13 +2,12 @@
 title: Influx Query Language (InfluxQL) 2.x specification
 description: Reference (spec) for Influx Query Language (InfluxQL).
 menu:
-  influxdb_2_1:
+  influxdb_2_1_ref:
     name: InfluxQL 2.x specification
-    parent: Query with InfluxQL
-    identifier: refernce-2_1
+    parent: influxql-syntax
 aliases:
  - /influxdb/v2.4/query_languages/spec/
-weight: 212
+weight: 105
 ---
 
 ## Introduction
