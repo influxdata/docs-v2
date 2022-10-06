@@ -10,6 +10,36 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.185.0 [2022-10-03]
+
+### Features
+- Add dynamic type.
+- Add dynamic wrapper function.
+- Enable codespan formatting for errors via feature flags.
+
+### Bug fixes
+- Pass context in the `Run` source helper.
+- Handle null vector inputs for `_vecFloat`.
+- Remove broken `contrib` packages:
+  - contrib/jsternberg/aggregate
+  - contrib/jsternberg/math
+
+---
+
+## v0.184.2 [2022-09-26]
+
+### Bug fixes
+- Remove the `stacker` dependency.
+- Skip strict _null_ logical evaluator.
+
+---
+
+## v0.184.1 [2022-09-21]
+
+- _Internal code cleanup._
+
+---
+
 ## v0.184.0 [2022-09-21]
 
 ### Breaking changes

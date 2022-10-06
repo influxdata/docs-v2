@@ -67,7 +67,7 @@ Default value to return if the specified key does not exist in the record.
 
 ## Examples
 
-### Dynamically return a value from a recordd
+### Dynamically return a value from a record
 
 ```js
 import "experimental/record"
