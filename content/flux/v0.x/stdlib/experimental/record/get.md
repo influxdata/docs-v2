@@ -75,7 +75,7 @@ import "experimental/record"
 key = "foo"
 exampleRecord = {foo: 1.0, bar: "hello"}
 
-record.get(r: exampleRecord, key: key, default: "") // Returns 1.0
+record.get(r: exampleRecord, key: key, default: "")// Returns 1.0
 
 
 ```
