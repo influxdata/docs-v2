@@ -9,12 +9,17 @@ menu:
 weight: 205
 ---
 
-Selector functions return one or more record per input table. Each output table from a selector function includes the following:
+Selector functions return one or more record per input table. Each output table includes one or more unmodified records and the same group key as the input table.
+Each selector function below covers **syntax**, **parameters**, and **examples** of when to use the function.
 
-- One or more unmodified records.
-- Same group key as the input table.
-
-## Selectors
+- [BOTTOM()](#bottom)
+- [FIRST()](#first)
+- [LAST()](#last)
+- [MAX()](#max)
+- [MIN()](#min)
+- [PERCENTILE()](#percentile)
+- [SAMPLE()](#sample)
+- [TOP()](#top)
 
 ### BOTTOM()
 

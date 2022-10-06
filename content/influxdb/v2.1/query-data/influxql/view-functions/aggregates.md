@@ -10,7 +10,7 @@ weight: 205
 ---
 
 Use aggregate functions to assess, aggregate, and return values in your data.
-Each function below covers **syntax**, **parameters**, and **examples** of when to use the function.
+Each aggregate function below covers **syntax**, **parameters**, and **examples** of when to use the function.
 
 - [COUNT()](#count)
 - [DISTINCT()](#distinct)
@@ -22,44 +22,140 @@ Each function below covers **syntax**, **parameters**, and **examples** of when 
 - [STDDEV()](#stddev)
 - [SUM()](#sum)
 
-### COUNT()
+## COUNT()
+
+Returns the number of non-null [field values](/influxdb/v2.1/reference/glossary/#field-value). Supports all field value [data types](/influxdb/v2.1/reference/glossary/#data-type). Use **COUNT()** to find the number of a specified item in the data set.
+
+{{< tabs-wrapper >}}
+
+{{% tabs %}}
+[Syntax](#)
+[Parameters](#)
+[Examples](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+```
+SELECT COUNT( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+```
+{{% /tab-content %}}
+
+{{% tab-content %}}
+
+###### field_key
+
+Returns the number of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
+
+###### /regular_expression/  
+
+Returns the number of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
+
+###### *  
+Returns the number of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
+
+{{% /tab-content %}}
+
+{{% tab-content %}}
+See examples to do the following:
+
+{{% expand "Count values for a field" %}}
+
+```sql
+> SELECT COUNT("water_level") FROM "h2o_feet"
+
+name: h2o_feet
+time                   count
+----                   -----
+1970-01-01T00:00:00Z   15258
+```
+
+Returns the number of non-null field values in the `water_level` field key in the `h2o_feet` measurement.
+
+{{% /expand %}}
+
+{{% expand "Count values for each field in a measurement" %}}
+
+```sql
+> SELECT COUNT(*) FROM "h2o_feet"
+
+name: h2o_feet
+time                   count_level description   count_water_level
+----                   -----------------------   -----------------
+1970-01-01T00:00:00Z   15258                     15258
+```
+
+Returns the number of non-null field values for each field key associated with the `h2o_feet` measurement.
+The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
+
+{{% /expand %}}
+
+{{% expand "Count values that match a regular expression" %}}
+
+
+```sql
+> SELECT COUNT(/water/) FROM "h2o_feet"
+
+name: h2o_feet
+time                   count_water_level
+----                   -----------------
+1970-01-01T00:00:00Z   15258
+```
+
+Returns the number of non-null field values for every field key that contains the word `water` in the `h2o_feet` measurement.
+
+{{% /expand %}}
+
+{{% expand "Count distinct values for a field" %}}
+
+```sql
+> SELECT COUNT(DISTINCT("level description")) FROM "h2o_feet"
+
+name: h2o_feet
+time                   count
+----                   -----
+1970-01-01T00:00:00Z   4
+```
+
+Returns the number of unique field values for the `level description` field key and the `h2o_feet` measurement.
+
+{{% /expand %}}
+
+{{% /tab-content %}}
+
+{{< /tabs-wrapper >}}
+
+## COUNT()
 
 Returns the number of non-null [field values](/influxdb/v2.1/reference/glossary/#field-value). Supports all field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 
-Use COUNT() to find the following:
-- Number of values for a specified field (plus add’l InfluxQL functions)
-- Number of field values in a specified measurement
-- Number of field values that match a regex
-- Number of field values that match a regex
+See examples to do the following:
+- Count values for a field
+- Count values for each field in a specified measurement
+- Count values that match a regular expression
+- Count distinct values for a field
 
-#### Syntax
+### Syntax
 
 ```
 SELECT COUNT( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-To nest `DISTINCT()` in `COUNT()`, use the following syntax:
+### Parameters
 
-```
-SELECT COUNT(DISTINCT( [ * | <field_key> | [...]
-```
-
-#### Parameters
-
-##### field_key  
+#### field_key  
 
 Returns the number of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
-##### /regular_expression/  
+#### /regular_expression/  
 
 Returns the number of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
-##### *  
+#### *  
 Returns the number of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
-#### Examples
+## Examples
 
-##### Count values for a field
+### Count values for a field
 
 ```sql
 > SELECT COUNT("water_level") FROM "h2o_feet"
@@ -89,10 +185,10 @@ time                   count
 2015-08-18T00:48:00Z   2
 ```
 
-Returns the number of non-null field values in the `water_level` field key over the [time range](/influxdb/v2.1/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.1/query-data/influxql/explore-data/group-by/) results into 12-minute time intervals and per tag.
-The query [fills](/influxdb/v2.1/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `200` and [limits](/influxdb/v2.1/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one.
+Returns the number of non-null field values in the `water_level` field key over the [time range](/influxdb/v2.1/query-data/influxql/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.1/query-data/influxql/explore-data/group-by/) results into 12-minute time intervals and per tag.
+The query [fills](/influxdb/v2.1/query-data/influxql/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `200` and [limits](/influxdb/v2.1/query-data/influxql/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one.
 
-##### Count values for each field in a measurement
+#### Count values for each field in a measurement
 
 ```sql
 > SELECT COUNT(*) FROM "h2o_feet"
@@ -106,7 +202,7 @@ time                   count_level description   count_water_level
 Returns the number of non-null field values for each field key associated with the `h2o_feet` measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
-##### Count the values that match a regular expression
+#### Count the values that match a regular expression
 
 ```sql
 > SELECT COUNT(/water/) FROM "h2o_feet"
@@ -119,7 +215,7 @@ time                   count_water_level
 
 Returns the number of non-null field values for every field key that contains the word `water` in the `h2o_feet` measurement.
 
-##### Count distinct values for a field
+#### Count distinct values for a field
 
 ```sql
 > SELECT COUNT(DISTINCT("level description")) FROM "h2o_feet"
@@ -131,32 +227,6 @@ time                   count
 ```
 
 Returns the number of unique field values for the `level description` field key and the `h2o_feet` measurement.
-
-##### Example
-
-The first query in the code block below does not include `fill()`.
-The last time interval has no data, so the reported value for the interval is zero.
-The second query includes `fill(800000)`, and replaces the zero in the last interval with `800000`.
-
-```sql
-> SELECT COUNT("water_level") FROM "h2o_feet" WHERE time >= '2015-09-18T21:24:00Z' AND time <= '2015-09-18T21:54:00Z' GROUP BY time(12m)
-
-name: h2o_feet
-time                   count
-----                   -----
-2015-09-18T21:24:00Z   2
-2015-09-18T21:36:00Z   2
-2015-09-18T21:48:00Z   0
-
-> SELECT COUNT("water_level") FROM "h2o_feet" WHERE time >= '2015-09-18T21:24:00Z' AND time <= '2015-09-18T21:54:00Z' GROUP BY time(12m) fill(800000)
-
-name: h2o_feet
-time                   count
-----                   -----
-2015-09-18T21:24:00Z   2
-2015-09-18T21:36:00Z   2
-2015-09-18T21:48:00Z   800000
-```
 
 ### DISTINCT()
 
@@ -233,7 +303,7 @@ Returns the number of unique field values in the `level description` field key a
 
 #### DISTINCT() and the INTO clause
 
-Using `DISTINCT()` with the [`INTO` clause](/influxdb/v2.1/query-data/explore-data/#the-into-clause) can cause InfluxDB to overwrite points in the destination measurement.
+Using `DISTINCT()` with the [`INTO` clause](/influxdb/v2.1/query-data/influxql/explore-data/#the-into-clause) can cause InfluxDB to overwrite points in the destination measurement.
 `DISTINCT()` often returns several results with the same timestamp; InfluxDB assumes [points](/influxdb/v2.1/reference/glossary/#point) with the same [series](/influxdb/v2.1/reference/glossary/#series) and timestamp are duplicate points and simply overwrites any duplicate point with the most recent point in the destination measurement.
 
 ##### Example
@@ -290,12 +360,12 @@ If the query does not specify the `unit`, the unit defaults to one second (`1s`)
 Returns the area under the curve for subsequent field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `INTEGRAL(/regular_expression/)`  
-Returns the area under the curve for subsequent field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/explore-data/#regular-expressions).
+Returns the area under the curve for subsequent field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
 `INTEGRAL(*)`  
 Returns the average field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
-`INTEGRAL()` does not support [`fill()`](/influxdb/v2.1/query-data/explore-data/#group-by-time-intervals-and-fill). `INTEGRAL()` supports int64 and float64 field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
+`INTEGRAL()` does not support [`fill()`](/influxdb/v2.1/query-data/influxql/explore-data/#group-by-time-intervals-and-fill). `INTEGRAL()` supports int64 and float64 field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 
 #### Examples
 
@@ -380,7 +450,7 @@ time                 integral
 ```
 
 Returns the area under the curve (in minutes) for the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
-It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z`, [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals) results into 12-minute intervals, and [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of results returned to one.
+It covers the [time range](/influxdb/v2.1/query-data/influxql/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z`, [groups](/influxdb/v2.1/query-data/influxql/explore-data/#group-by-time-intervals) results into 12-minute intervals, and [limits](/influxdb/v2.1/query-data/influxql/explore-data/#the-limit-and-slimit-clauses) the number of results returned to one.
 
 ### MEAN()
 
@@ -396,12 +466,12 @@ SELECT MEAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_c
 Returns the average field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `MEAN(/regular_expression/)`  
-Returns the average field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
+Returns the average field value associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
 `MEAN(*)`  
 Returns the average field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
-`MEAN()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
+`MEAN()` supports int64 and float64 field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 
 #### Examples
 
@@ -461,8 +531,8 @@ time                   mean
 ```
 
 Returns the average of the values in the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query [fills](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `9.01` and [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one.
+It covers the [time range](/influxdb/v2.1/query-data/influxql/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.1/query-data/influxql/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
+The query [fills](/influxdb/v2.1/query-data/influxql/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `9.01` and [limits](/influxdb/v2.1/query-data/influxql/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one.
 
 ### MEDIAN()
 
@@ -478,12 +548,12 @@ SELECT MEDIAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM
 Returns the middle field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `MEDIAN(/regular_expression/)`  
-Returns the middle field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
+Returns the middle field value associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
 `MEDIAN(*)`  
-Returns the middle field value associated with each field key in the [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
+Returns the middle field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
-`MEDIAN()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
+`MEDIAN()` supports int64 and float64 field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 
 > **Note:** `MEDIAN()` is nearly equivalent to [`PERCENTILE(field_key, 50)`](#percentile), except `MEDIAN()` returns the average of the two middle field values if the field contains an even number of values.
 
@@ -547,8 +617,8 @@ time                   median
 ```
 
 Returns the middle field value in the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query [fills](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `700 `, [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one, and [offsets](/enterprise_influxdb/v1.9/query-data/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
+It covers the [time range](/influxdb/v2.1/query-data/influxql/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.1/query-data/influxql/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
+The query [fills](/influxdb/v2.1/query-data/influxql/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `700 `, [limits](/influxdb/v2.1/query-data/influxql/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one, and [offsets](/influxdb/v2.1/query-data/influxql/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
 
 ### MODE()
 
@@ -564,12 +634,12 @@ SELECT MODE( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_c
 Returns the most frequent field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `MODE(/regular_expression/)`  
-Returns the most frequent field value associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
+Returns the most frequent field value associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
 `MODE(*)`  
 Returns the most frequent field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
-`MODE()` supports all field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
+`MODE()` supports all field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 
 > **Note:** `MODE()` returns the field value with the earliest [timestamp](/influxdb/v2.1/reference/glossary/#timestamp) if  there's a tie between two or more values for the maximum number of occurrences.
 
@@ -630,8 +700,8 @@ time                   mode
 ```
 
 Returns the mode of the values associated with the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to three and one, and it [offsets](/enterprise_influxdb/v1.9/query-data/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
+It covers the [time range](/influxdb/v2.1/query-data/influxql/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.1/query-data/influxql/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
+The query [limits](/influxdb/v2.1/query-data/influxql/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to three and one, and it [offsets](/influxdb/v2.1/query-data/influxql/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
 
 ### SPREAD()
 
@@ -647,12 +717,12 @@ SELECT SPREAD( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM
 Returns the difference between the minimum and maximum field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `SPREAD(/regular_expression/)`  
-Returns the difference between the minimum and maximum field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
+Returns the difference between the minimum and maximum field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
 `SPREAD(*)`  
 Returns the difference between the minimum and maximum field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
-`SPREAD()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
+`SPREAD()` supports int64 and float64 field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 
 #### Examples
 
@@ -711,8 +781,8 @@ time                   spread
 ```
 
 Returns the difference between the minimum and maximum field values in the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z `and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query [fills](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `18`, [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to three and one, and [offsets](/enterprise_influxdb/v1.9/query-data/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
+It covers the [time range](/influxdb/v2.1/query-data/influxql/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z `and [groups](/influxdb/v2.1/query-data/influxql/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
+The query [fills](/influxdb/v2.1/query-data/influxql/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `18`, [limits](/influxdb/v2.1/query-data/influxql/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to three and one, and [offsets](/influxdb/v2.1/query-data/influxql/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
 
 ### STDDEV()
 
@@ -728,12 +798,12 @@ SELECT STDDEV( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM
 Returns the standard deviation of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `STDDEV(/regular_expression/)`  
-Returns the standard deviation of field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
+Returns the standard deviation of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
 `STDDEV(*)`  
 Returns the standard deviation of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
-`STDDEV()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
+`STDDEV()` supports int64 and float64 field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 
 #### Examples
 
@@ -791,8 +861,8 @@ time                   stddev
 ```
 
 Returns the standard deviation of the field values in the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
-The query [fills](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `18000`, [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to two and one, and [offsets](/enterprise_influxdb/v1.9/query-data/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
+It covers the [time range](/influxdb/v2.1/query-data/influxql/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.1/query-data/influxql/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag.
+The query [fills](/influxdb/v2.1/query-data/influxql/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `18000`, [limits](/influxdb/v2.1/query-data/influxql/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to two and one, and [offsets](/influxdb/v2.1/query-data/influxql/explore-data/#the-offset-and-soffset-clauses) the series returned by one.
 
 ### SUM()
 
@@ -808,12 +878,12 @@ SELECT SUM( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_cl
 Returns the sum of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 `SUM(/regular_expression/)`  
-Returns the sum of field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query-data/explore-data/#regular-expressions).
+Returns the sum of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
 `SUM(*)`  
 Returns the sums of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
-`SUM()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
+`SUM()` supports int64 and float64 field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 
 #### Examples
 
@@ -873,4 +943,4 @@ time                   sum
 ```
 
 Returns the summed total of the field values in the `water_level` field key.
-It covers the [time range](/enterprise_influxdb/v1.9/query-data/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/enterprise_influxdb/v1.9/query-data/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag. The query [fills](/enterprise_influxdb/v1.9/query-data/explore-data/#group-by-time-intervals-and-fill) empty time intervals with 18000, and it [limits](/enterprise_influxdb/v1.9/query-data/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to four and one.
+It covers the [time range](/influxdb/v2.1/query-data/influxql/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.1/query-data/influxql/explore-data/#the-group-by-clause) results into 12-minute time intervals and per tag. The query [fills](/influxdb/v2.1/query-data/influxql/explore-data/#group-by-time-intervals-and-fill) empty time intervals with 18000, and it [limits](/influxdb/v2.1/query-data/influxql/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to four and one.

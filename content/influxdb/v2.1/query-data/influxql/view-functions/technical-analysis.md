@@ -8,7 +8,17 @@ menu:
     parent: View InfluxQL functions
 weight: 205
 ---
-## Predictors
+
+Each analysis function below covers **syntax**, **parameters**, and **examples** of when to use the function.
+
+- (Predictive analysis)[HOLT_WINTERS()](#holt_winters)
+- [CHANDE_MOMENTUM_OSCILLATOR()](#chande_momentum_oscillator)
+- [DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](#double_exponential_moving_average)
+- [KAUFMANS_EFFICIENCY_RATIO()](#kaufmans_efficiency_radio)
+- [KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](#kaufmans_adaptive_moving_average)
+- [TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](#triple_exponential_moving_average)
+- [TRIPLE_EXPONENTIAL_DERIVATIVE()](#triple_exponential_derivative)
+- [RELATIVE_STRENGTH_INDEX()](#relative_strength_index)
 
 ### HOLT_WINTERS()
 
