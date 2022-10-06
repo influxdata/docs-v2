@@ -10,8 +10,14 @@ menu:
     parent: Query with Flux
 weight: 210
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/join
-list_query_example: join
+  - /{{< latest "flux" >}}/join-data/
+  - /{{< latest "flux" >}}/join-data/inner/
+  - /{{< latest "flux" >}}/join-data/left-outer/
+  - /{{< latest "flux" >}}/join-data/right-outer/
+  - /{{< latest "flux" >}}/join-data/full-outer/
+  - /{{< latest "flux" >}}/join-data/time/
+  - /{{< latest "flux" >}}/stdlib/join/
+list_query_example: join-new
 ---
 
 {{< duplicate-oss >}}

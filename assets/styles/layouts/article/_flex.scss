@@ -7,19 +7,20 @@
 }
 
 .flex-container {
-  margin-right: 1rem;
+  margin-right: 1.5rem;
 
-  &.half { width: calc(50% - 1rem); }
-  &.third { width: calc(33.33% - 1rem); }
-  &.quarter { width: calc(25% - 1rem); }
+  &.half { width: calc(50% - 1.5rem); }
+  &.third { width: calc(33.33% - 1.5rem); }
+  &.quarter { width: calc(25% - 1.5rem); }
   &.two-thirds { width: calc(66% - 2rem);}
 
   &.half, &.third, &.quarter {
-    table:not(:last-child) {margin-right: 1rem;}
+    table:not(:last-child) {margin-right: 1.5rem;}
   }
 
   img { margin-bottom: 0;}
   table { display: table; }
+  p:last-child {margin-bottom: 0.5rem;}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,5 +33,6 @@
     &.third,
     &.two-thirds { width: calc(100% - 1rem); }
     &.quarter { width: calc(50% - 1rem); }
+    p:last-child {margin-bottom: 1.5rem;}
   }
 }

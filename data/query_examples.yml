@@ -237,6 +237,71 @@ interpolate_linear:
       | 2021-01-08T00:00:00Z | 80.0   |
       | 2021-01-09T00:00:00Z | 90.0   |
 
+join-new:
+  -
+    code: |
+      ```js
+      import "join"
+      import "sql"
+
+      left =
+          from(bucket: "example-bucket-1")
+              |> range(start: "-1h")
+              |> filter(fn: (r) => r._measurement == "example-m")
+              |> filter(fn: (r) => r._field == "example-f")
+              |> drop(columns: ["_measurement", "_field"])
+
+      right =
+          sql.from(
+              driverName: "postgres",
+              dataSourceName: "postgresql://username:password@localhost:5432",
+              query: "SELECT * FROM example_table",
+          )
+
+      join.inner(
+          left: left |> group(),
+          right: right,
+          on: (l, r) => l.sensorID == r.ID,
+          as: (l, r) => ({l with expired: r.expired}),
+      )
+          |> group(columns: ["_time", "_value"], mode: "except")
+      ```
+    input: |
+      ###### left
+      | _time                | sensorID | _value |
+      |:-----                | :------- | ------:|
+      | 2020-01-01T00:01:00Z | 1234     | 1      |
+      | 2020-01-01T00:02:00Z | 1234     | 2      |
+      | 2020-01-01T00:03:00Z | 1234     | 1      |
+      | 2020-01-01T00:04:00Z | 1234     | 3      |
+
+      | _time                | sensorID | _value |
+      |:-----                | :------- | ------:|
+      | 2020-01-01T00:01:00Z | 5678     | 2      |
+      | 2020-01-01T00:02:00Z | 5678     | 5      |
+      | 2020-01-01T00:03:00Z | 5678     | 1      |
+      | 2020-01-01T00:04:00Z | 5678     | 8      |
+
+      ###### right
+      | ID   | expired |   serviced |
+      |:---- | :------ | ---------: |
+      | 1234 | false   | 2022-01-01 |
+      | 5678 | true    | 2022-01-01 |
+    output: |
+      | _time                | sensorID | _value | expired |
+      | :------------------- | :------- | -----: | :------ |
+      | 2020-01-01T00:01:00Z | 1234     |      1 | false   |
+      | 2020-01-01T00:02:00Z | 1234     |      2 | false   |
+      | 2020-01-01T00:03:00Z | 1234     |      1 | false   |
+      | 2020-01-01T00:04:00Z | 1234     |      3 | false   |
+
+      | _time                | sensorID | _value | expired |
+      | :------------------- | :------- | -----: | :------ |
+      | 2020-01-01T00:01:00Z | 5678     |      2 | true    |
+      | 2020-01-01T00:02:00Z | 5678     |      5 | true    |
+      | 2020-01-01T00:03:00Z | 5678     |      1 | true    |
+      | 2020-01-01T00:04:00Z | 5678     |      8 | true    |
+
 join:
   -
     code: |
@@ -248,7 +313,7 @@ join:
       t2 = from(bucket: "example-bucket")
           |> range(start: 2020-01-01T00:00:00Z)
           |> filter(fn: (r) => r.m == "bar")
-
+          
       join(tables: {t1: t1, t2: t2}, on: ["_time"])
       ```
     input: |
@@ -259,7 +324,6 @@ join:
       | 2020-01-01T00:02:00Z | 2      |
       | 2020-01-01T00:03:00Z | 1      |
       | 2020-01-01T00:04:00Z | 3      |
-
       ###### t2
       | _time                | _value |
       |:-----                | ------:|
