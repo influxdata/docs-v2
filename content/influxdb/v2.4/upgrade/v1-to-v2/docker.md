@@ -18,6 +18,7 @@ to update InfluxDB 1.x Docker deployments to InfluxDB 2.x.
 - [Minimal upgrade](#minimal-upgrade)
 - [Upgrade with a custom InfluxDB 1.x configuration file](#upgrade-with-a-custom-influxdb-1-x-configuration-file)
 - [Upgrade with custom paths](#upgrade-with-custom-paths)
+- [Use new InfluxDB tools](#use-new-influxdb-tools)
 
 {{% note %}}
 #### Export continuous queries before upgrading
@@ -249,3 +250,41 @@ docker run -p 8086:8086 \
 {{% /tab-content %}}
 <!--------------------------- END USE 2.x DEFAULTS ---------------------------->
 {{< /tabs-wrapper >}}
+
+## Use new InfluxDB tools
+
+Once upgraded, use InfluxDB {{< current-version >}} tools to work with your time series data.
+
+- [Migrate continuous queries to tasks](#migrate-continuous-queries-to-tasks)
+- [Use the interactive InfluxQL shell](#use-the-interactive-influxql-shell)
+
+### Migrate continuous queries to tasks
+
+InfluxDB {{< current-version >}} replaces continuous queries with **tasks**.
+By default, the upgrade process writes all continuous queries to `~/continuous_queries.txt`.
+To convert continuous queries to InfluxDB tasks, see
+[Migrate continuous queries to tasks](/influxdb/v2.4/upgrade/v1-to-v2/migrate-cqs/).
+
+### Use the interactive InfluxQL shell
+
+The InfluxDB {{< current-version >}} `influx` CLI includes an interactive **InfluxQL shell** for executing InfluxQL queries.
+The InfluxDB {{< current-version >}} Docker image includes the `influx` CLI.
+
+To start an InfluxQL shell:
+
+1. Start a bash session in your InfluxDB container:
+
+    ```sh
+    docker exec -it influxdb /bin/bash
+    ```
+
+2. Set up your [`influx` CLI authentication credentials](/influxdb/v2.4/tools/influx-cli/#set-up-the-influx-cli).
+3. Run the `influx v1 shell` command.
+
+For more information, see:
+
+- [Use the InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/)
+- [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/)
+
+To build an interactive shell to execute **Flux** queries,
+[compile and build a command line Flux REPL from source](https://github.com/influxdata/flux/blob/master/README.md#getting-started).
