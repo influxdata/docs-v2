@@ -2,7 +2,7 @@
 title: The SELECT statement
 list_title: SELECT statement
 description: >
-  Use the SELECT statement to query data from a particular [measurement](/influxdb/v2.4/reference/glossary/#measurement) or measurements.
+  Use the `SELECT` statement to query data from a particular [measurement](/influxdb/v2.4/reference/glossary/#measurement) or measurements.
 menu:
   influxdb_2_1:
     name: SELECT statement
@@ -46,7 +46,7 @@ Other supported features include:
  - [Arithmetic operations](influxdb//query_language/math_operators/)
  - [Functions](/enterprise_influxdb/v2.4/query_language/influxql/functions/)
  - [Basic cast operations](#data-types-and-cast-operations)
- - [Regular expressions](#regular-expressions)
+ - [Regular expressions](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/)
 
 {{% note %}}
 **Note:** The SELECT statement cannot include an aggregate function **and** a non-aggregate function, field key, or tag key. For more information, see [error about mixing aggregate and non-aggregate queries](/enterprise_influxdb/v1.9/troubleshooting/errors/#error-parsing-query-mixing-aggregate-and-non-aggregate-queries-is-not-supported).
@@ -61,7 +61,7 @@ The `FROM` clause supports several formats for specifying a [measurement(s)](/en
   - `FROM <database_name>.<retention_policy_name>.<measurement_name>` - Returns data from a fully qualified measurement.
   - `FROM <database_name>..<measurement_name>` - Returns data from a measurement.
 
-Other supported features include [Regular Expressions](#regular-expressions).
+Other supported features include [Regular Expressions](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 #### Quoting
 
@@ -322,7 +322,7 @@ Name: h2o_feet
 
 InfluxQL supports using regular expressions when specifying:
 
-* [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key) and [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) in the [`SELECT` clause](#the-basic-select-statement)
+* [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key) and [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/)
 * [measurements](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) in the [`FROM` clause](#the-basic-select-statement)
 * [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value) and string [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) in the [`WHERE` clause](#the-where-clause).
 * [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) in the [`GROUP BY` clause](#group-by-tags)

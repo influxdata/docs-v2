@@ -2,13 +2,28 @@
 title: Time and timezone queries
 list_title: Time and timezone queries
 description: >
-  ...
+  Use the `tz` (timezone) clause to return the UTC offset for the specified timezone and explore a variety of time-related queries.
 menu:
   influxdb_2_1:
     name: Time and timezone
     parent: Explore data
 weight: 308
+list_code_example: |
+  ```sql
+  SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause] tz('<time_zone>')
+  ```
 ---
+
+### Configuring returned timestamps
+
+The [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) returns timestamps in
+nanosecond epoch format by default.
+Specify alternative formats with the
+[`precision <format>` command](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#influx-commands).
+The [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/) returns timestamps
+in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.
+Specify alternative formats with the
+[`epoch` query string parameter](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters).
 
 ## The Time Zone clause
 

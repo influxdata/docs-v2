@@ -2,12 +2,16 @@
 title: The OFFSET and SOFFSET clauses
 list_title: OFFSET and SOFFSET clause
 description: >
-  ...
+  Use the `OFFSET` and `SOFFSET` clauses to paginate [points](/influxdb/v2.4/reference/glossary/#point) and [series](/influxdb/v2.4/reference/glossary/#series).
 menu:
   influxdb_2_1:
     name: OFFSET and SOFFSET clause
     parent: Explore data
 weight: 306
+list_code_example: |
+  ```sql
+  SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT_clause OFFSET <N> [SLIMIT_clause]
+  ```
 ---
 
 `OFFSET` and `SOFFSET` paginates [points](/influxdb/v2.4/reference/glossary/#point) and [series](/influxdb/v2.4/reference/glossary/#series) returned.

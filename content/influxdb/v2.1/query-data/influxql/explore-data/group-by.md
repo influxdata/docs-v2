@@ -2,48 +2,31 @@
 title: The GROUP BY clause
 list_title: GROUP BY clause
 description: >
-  ...
+  Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag) and/or a specified time interval.
 menu:
   influxdb_2_1:
     name: GROUP BY clause
     parent: Explore data
 weight: 303
+list_code_example: |
+  ```sql
+  SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
+  ```
+
+  ```sql
+  SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(<time_interval>),[tag_key] [fill(<fill_option>)]
+  ```
 ---
 
-The `GROUP BY` clause groups query results by:
-
-- one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag)
-- specified time interval
+The `GROUP BY` clause groups query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag) and/or a specified time interval.
 
 {{% note %}}
 **NOTE:** You cannot use `GROUP BY` to group **fields**.
 {{% /note %}}
 
-<!-- <table style="width:100%">
-  <tr>
-    <td><a href="#group-by-tags">GROUP BY tags</a>
-    <td></td>
-    <td></td>
-    <td></td>
-    </td>
-  </tr>
-  <tr>
-    <td><b>GROUP BY time intervals:
-    <td><a href="#basic-group-by-time-syntax">Basic Syntax</a></td>
-    <td><a href="#advanced-group-by-time-syntax">Advanced Syntax</a></td>
-    <td><a href="#group-by-time-intervals-and-fill">GROUP BY time intervals and fill()</a></td>
-    </b></td>
-  </tr>
-</table> -->
-
 ## GROUP BY tags
 
 `GROUP BY <tag>` groups query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag).
-
-<!-- Watch InfluxQL short about `GROUP BY` with tags:
-<br>
-<br>
-<iframe src="https://player.vimeo.com/video/200898048?title=0&byline=0&portrait=0" width="60%" height="250px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
 
 #### Syntax
 
@@ -57,7 +40,7 @@ SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
 
 If the query includes a `WHERE` clause, the `GROUP BY` clause must appear after the `WHERE` clause.
 
-Other supported features include Regular Expressions.
+Other supported features include [Regular Expressions](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 #### Examples
 
@@ -778,12 +761,12 @@ Note that `fill()` must go at the end of the `GROUP BY` clause if you're
 #### Examples
 
 {{< tabs-wrapper >}}
-{{% tabs %}}
-[Example 1: fill(100)](#)
-[Example 2: fill(linear)](#)
-[Example 3: fill(none)](#)
-[Example 4: fill(null)](#)
-[Example 5: fill(previous)](#)
+{{% tabs "even-wrap" %}}
+[fill(100)](#)
+[fill(linear)](#)
+[fill(none)](#)
+[fill(null)](#)
+[fill(previous)](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
