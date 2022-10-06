@@ -24,40 +24,35 @@ Each aggregate function below covers **syntax**, **parameters**, and **examples*
 
 ## COUNT()
 
-Returns the number of non-null [field values](/influxdb/v2.1/reference/glossary/#field-value). Supports all field value [data types](/influxdb/v2.1/reference/glossary/#data-type). Use **COUNT()** to find the number of a specified item in the data set.
+Returns the number of non-null [field values](/influxdb/v2.1/reference/glossary/#field-value). Supports all field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 
-{{< tabs-wrapper >}}
+{{% note %}}
+InfluxQL supports nesting `COUNT()` with [DISTINCT()](#distinct).
+{{% /note %}}
 
-{{% tabs %}}
-[Syntax](#)
-[Parameters](#)
-[Examples](#)
-{{% /tabs %}}
+### Syntax
 
-{{% tab-content %}}
 ```
 SELECT COUNT( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
-{{% /tab-content %}}
 
-{{% tab-content %}}
+### Parameters
 
-###### field_key
+#### field_key  
 
 Returns the number of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
-###### /regular_expression/  
+#### /regular_expression/  
 
 Returns the number of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
-###### *  
+#### *
+
 Returns the number of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
-{{% /tab-content %}}
+### Examples
 
-{{% tab-content %}}
-See examples to do the following:
-
+{{< expand-wrapper >}}
 {{% expand "Count values for a field" %}}
 
 ```sql
@@ -89,8 +84,7 @@ The `h2o_feet` measurement has two field keys: `level description` and `water_le
 
 {{% /expand %}}
 
-{{% expand "Count values that match a regular expression" %}}
-
+{{% expand "Count the values that match a regular expression" %}}
 
 ```sql
 > SELECT COUNT(/water/) FROM "h2o_feet"
@@ -120,117 +114,13 @@ Returns the number of unique field values for the `level description` field key 
 
 {{% /expand %}}
 
-{{% /tab-content %}}
-
-{{< /tabs-wrapper >}}
-
-## COUNT()
-
-Returns the number of non-null [field values](/influxdb/v2.1/reference/glossary/#field-value). Supports all field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
-
-See examples to do the following:
-- Count values for a field
-- Count values for each field in a specified measurement
-- Count values that match a regular expression
-- Count distinct values for a field
-
-### Syntax
-
-```
-SELECT COUNT( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
-```
-
-### Parameters
-
-#### field_key  
-
-Returns the number of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
-
-#### /regular_expression/  
-
-Returns the number of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
-
-#### *  
-Returns the number of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
-
-## Examples
-
-### Count values for a field
-
-```sql
-> SELECT COUNT("water_level") FROM "h2o_feet"
-
-name: h2o_feet
-time                   count
-----                   -----
-1970-01-01T00:00:00Z   15258
-```
-
-Returns the number of non-null field values in the `water_level` field key in the `h2o_feet` measurement.
-
-**(Optional) Add additional clauses**
-
-```sql
-> SELECT COUNT("water_level") FROM "h2o_feet" WHERE time >= '2015-08-17T23:48:00Z' AND time <= '2015-08-18T00:54:00Z' GROUP BY time(12m),* fill(200) LIMIT 7 SLIMIT 1
-
-name: h2o_feet
-tags: location=coyote_creek
-time                   count
-----                   -----
-2015-08-17T23:48:00Z   200
-2015-08-18T00:00:00Z   2
-2015-08-18T00:12:00Z   2
-2015-08-18T00:24:00Z   2
-2015-08-18T00:36:00Z   2
-2015-08-18T00:48:00Z   2
-```
-
-Returns the number of non-null field values in the `water_level` field key over the [time range](/influxdb/v2.1/query-data/influxql/explore-data/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.1/query-data/influxql/explore-data/group-by/) results into 12-minute time intervals and per tag.
-The query [fills](/influxdb/v2.1/query-data/influxql/explore-data/#group-by-time-intervals-and-fill) empty time intervals with `200` and [limits](/influxdb/v2.1/query-data/influxql/explore-data/#the-limit-and-slimit-clauses) the number of points and series returned to seven and one.
-
-#### Count values for each field in a measurement
-
-```sql
-> SELECT COUNT(*) FROM "h2o_feet"
-
-name: h2o_feet
-time                   count_level description   count_water_level
-----                   -----------------------   -----------------
-1970-01-01T00:00:00Z   15258                     15258
-```
-
-Returns the number of non-null field values for each field key associated with the `h2o_feet` measurement.
-The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
-
-#### Count the values that match a regular expression
-
-```sql
-> SELECT COUNT(/water/) FROM "h2o_feet"
-
-name: h2o_feet
-time                   count_water_level
-----                   -----------------
-1970-01-01T00:00:00Z   15258
-```
-
-Returns the number of non-null field values for every field key that contains the word `water` in the `h2o_feet` measurement.
-
-#### Count distinct values for a field
-
-```sql
-> SELECT COUNT(DISTINCT("level description")) FROM "h2o_feet"
-
-name: h2o_feet
-time                   count
-----                   -----
-1970-01-01T00:00:00Z   4
-```
-
-Returns the number of unique field values for the `level description` field key and the `h2o_feet` measurement.
+{{< /expand-wrapper >}}
 
 ### DISTINCT()
 
-Returns the list of unique [field values](/influxdb/v2.1/reference/glossary/#field-value).
+Returns the list of unique [field values](/influxdb/v2.1/reference/glossary/#field-value). Supports all field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
+
+InfluxQL supports nesting `DISTINCT()` with [`COUNT()`](#count).
 
 #### Syntax
 
@@ -238,17 +128,11 @@ Returns the list of unique [field values](/influxdb/v2.1/reference/glossary/#fie
 SELECT DISTINCT( [ <field_key> | /<regular_expression>/ ] ) FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-##### Nested syntax
+### Parameters
 
-```
-SELECT COUNT(DISTINCT( [ <field_key> | /<regular_expression>/ ] )) [...]
-```
+#### field_key)`
 
-`DISTINCT(field_key)`  
 Returns the unique field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
-
-`DISTINCT()` supports all field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
-InfluxQL supports nesting `DISTINCT()` with [`COUNT()`](#count).
 
 #### Examples
 
@@ -286,18 +170,6 @@ time                   distinct_level description   distinct_water_level
 Returns a tabular list of the unique field values for each field key in the `h2o_feet` measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
-##### Count the distinct field values associated with a field key
-
-```sql
-> SELECT COUNT(DISTINCT("level description")) FROM "h2o_feet"
-
-name: h2o_feet
-time                   count
-----                   -----
-1970-01-01T00:00:00Z   4
-```
-
-Returns the number of unique field values in the `level description` field key and the `h2o_feet` measurement.
 
 ### Common issues with DISTINCT()
 
