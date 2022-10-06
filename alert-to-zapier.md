@@ -6,6 +6,7 @@ menu:
   resources:
     parent: How-to guides
 weight: 102
+draft: true
 ---
 
 InfluxDB tasks let you execute Flux scripts on a schedule and automate operations such as
