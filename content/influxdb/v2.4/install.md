@@ -850,7 +850,7 @@ or get started [collecting and writing data](/influxdb/v2.4/write-data).
 
 ### Create All-Access tokens
 
-Because [operator tokens](/influxdb/v2.4/security/tokens/#operator-token)
+Because [Operator tokens](/influxdb/v2.4/security/tokens/#operator-token)
 have full read and write access to all organizations in the database,
 we recommend
 [creating an All-Access token](/influxdb/v2.4/security/tokens/create-token/)
