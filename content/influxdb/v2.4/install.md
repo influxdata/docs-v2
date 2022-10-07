@@ -803,7 +803,7 @@ auto-generated API token:
 influx setup -u USERNAME -p PASSWORD -o ORGANIZATION_NAME -b BUCKET_NAME -f
 ```
 
-Once setup completes, InfluxDB is initialized with the [authorization](/influxdb/v2.4/security/tokens/),[user](/influxdb/v2.4/reference/glossary/#user), [organization](/influxdb/v2.4/reference/glossary/#organization), and [bucket](/influxdb/v2.4/reference/glossary/#bucket).
+Once setup completes, InfluxDB is initialized with the [authorization](/influxdb/v2.4/security/tokens/), [user](/influxdb/v2.4/reference/glossary/#user), [organization](/influxdb/v2.4/reference/glossary/#organization), and [bucket](/influxdb/v2.4/reference/glossary/#bucket).
 
 InfluxDB creates a `default` configuration profile for you that provides your
 InfluxDB URL, organization, and API token to `influx` CLI commands.
