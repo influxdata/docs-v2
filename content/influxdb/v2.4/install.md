@@ -770,6 +770,7 @@ Use the `influx setup` CLI command in interactive or non-interactive (_headless_
 your InfluxDB instance.
 
 Do one of the following:
+
 - [Run `influx setup` without user interaction](#run-influx-setup-without-user-interaction)
 - [Run `influx setup` with user prompts]()
 
