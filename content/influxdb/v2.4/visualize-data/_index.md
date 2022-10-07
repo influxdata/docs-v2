@@ -13,4 +13,8 @@ weight: 5
 The InfluxDB user interface (UI) provides tools for building custom dashboards to visualize your data.
 The following articles outline ways to customize and manage dashboards.
 
+{{% note %}}
+**NOTE:** The user interface (UI) is automatically installed with InfluxDB. To access the UI, start the influx daemon ([InfluxDB service](/influxdb/v2.4/reference/cli/influxd/)) by typing `influxd` in the command line. Use `localhost:8086` in your web browser to log in to your InfluxDB instance. For additional information see [Get started with InfluxDB](/influxdb/v2.4/get-started/).
+{{% /note %}}
+
 {{< children >}}
