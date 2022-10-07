@@ -24,7 +24,7 @@ To view your {{< cloud-name >}} data usage, do the following:
 2. Select **Usage**.
 3. Select a time range to review data usage (by default, `Past 24h`), and then select one of the following:
 
-   - **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance. Note, data in and write requests do not count towards your query count.
+   - **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance. Data in and write requests do not count towards your query count.
    - **Query Count:** Total number of individual query operations, which include queries, tasks (alerts, notifications) and Data Explorer activity. Note, a script that includes multiple requests (for example, has multiple `from()...` lines) counts as one query.
    - **Storage:** Total disk usage in gigabytes.
    - **Data Out:** Total data in MB sent as responses to queries from your {{< cloud-name "short" >}} instance.
