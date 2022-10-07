@@ -766,9 +766,10 @@ or get started [collecting and writing data](/influxdb/v2.4/write-data).
 {{% tab-content %}}
 ### Set up InfluxDB through the influx CLI
 
-The following steps describe how to use the `influx setup` CLI command in interactive or non-interactive (_headless_) mode to initialize
+Use the `influx setup` CLI command in interactive or non-interactive (_headless_) mode to initialize
 your InfluxDB instance.
 
+Do one of the following:
 - [Run `influx setup` without user interaction](#run-influx-setup-without-user-interaction)
 - [Run `influx setup` with user prompts]()
 
