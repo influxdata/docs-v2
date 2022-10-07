@@ -136,7 +136,7 @@ influx auth create \
 
 #### Create an Operator token
 
-Create an operator token to grant permissions to all resources in all organizations.
+Create an Operator token to grant permissions to all resources in all organizations.
 
 ```sh
 influx auth create \
