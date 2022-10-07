@@ -698,7 +698,7 @@ from your command line.
 The initial setup process for an InfluxDB instance creates the following:
 - An organization with the name you provide.
 - A primary bucket with the name you provide.
-- An admin [authorization]() with the following properties:
+- An admin [authorization](/influxdb/v2.4/security/tokens/) with the following properties:
   - The username and password that you provide.
   - An API token (_[operator token](/influxdb/v2.4/security/tokens/#operator-token)_).
   - Read-write permissions for all resources in the InfluxDB instance.
