@@ -707,7 +707,7 @@ To run an interactive setup that prompts you for the required information,
 use the InfluxDB user interface (UI) or the `influx` command line interface (CLI).
 
 To automate the setup--for example, with a script that you write--
-then use the `influx` command line interface (CLI) or the InfluxDB `/api/v2` API.
+use the `influx` command line interface (CLI) or the InfluxDB `/api/v2` API.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
