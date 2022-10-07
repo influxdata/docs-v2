@@ -772,7 +772,7 @@ your InfluxDB instance.
 Do one of the following:
 
 - [Run `influx setup` without user interaction](#run-influx-setup-without-user-interaction)
-- [Run `influx setup` with user prompts]()
+- [Run `influx setup` with user prompts](#run-influx-setup-with-user-prompts)
 
 #### Run `influx setup` without user interaction
 
