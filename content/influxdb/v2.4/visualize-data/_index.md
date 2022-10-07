@@ -15,7 +15,7 @@ The following articles outline ways to customize and manage dashboards.
 
 {{% note %}}
 The InfluxDB UI is packaged with InfluxDB and runs as part of the InfluxDB server.
-To access the UI, start the [`influxd` service](/influxdb/v2.4/reference/cli/influxd/))
+To access the UI, start the [`influxd` service](/influxdb/v2.4/reference/cli/influxd/)
 and visit <http://localhost:8086> in your web browser.
 {{% /note %}}
 
