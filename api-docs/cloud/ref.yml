@@ -8137,7 +8137,7 @@ paths:
         #### Related guides
 
         - [Manage bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/).
-        - [Create a bucket with an explicit schema]({% INFLUXDB_DOCS_URL %}}/organizations/buckets/create-bucket/#create-a-bucket-with-an-explicit-schema)
+        - [Create a bucket with an explicit schema](/influxdb/cloud/organizations/buckets/create-bucket/#create-a-bucket-with-an-explicit-schema)
       operationId: createMeasurementSchema
       parameters:
         - description: |
