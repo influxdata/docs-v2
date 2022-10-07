@@ -145,7 +145,7 @@ influx auth create \
 ```
 
 {{% note %}}
-To [view or create an operator token](/influxdb/v2.4/security/tokens/create-token/) with the InfluxDB UI, `api/v2` API, or `influx` CLI after the setup process is completed, you must use an existing operator token.
+To [view or create an Operator token](/influxdb/v2.4/security/tokens/create-token/) with the InfluxDB UI, `api/v2` API, or `influx` CLI after the setup process is completed, you must use an existing Operator token.
 
 To create a new operator token without using an existing one, see how to use the [`influxd recovery auth`](/influxdb/v2.4/reference/cli/influxd/recovery/auth/) CLI.
 {{% /note %}}
