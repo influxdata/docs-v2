@@ -23,11 +23,11 @@ InfluxQL supports using regular expressions when specifying:
 * [tag values](/influxdb/v2.4/reference/glossary/#tag-value) and string [field values](/influxdb/v2.4/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/v2.4/query-data/influxql/explore-data/where/).
 * [tag keys](/influxdb/v2.4/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v2./query-data/influxql/explore-data/group-by/)
 
-Currently, InfluxQL does not support using regular expressions to match
+InfluxQL does not support using regular expressions to match
 non-string field values in the
 `WHERE` clause,
-[databases](/enterprise_influxdb/v1.9/concepts/glossary/#database), and
-[retention polices](/enterprise_influxdb/v1.9/concepts/glossary/#retention-policy-rp).
+[databases](/influxdb/v2.4/reference/glossary/#database), and
+[retention polices](/influxdb/v2.4/reference/glossary/#retention-policy-rp).
 
 {{% note %}}
 **NOTE:** Regular expression comparisons are more computationally intensive than exact
@@ -66,8 +66,7 @@ Name: h2o_feet
 | :------------ | :----------------| :--------------| --------------:|
 | 2019-08-17T00:00:00Z | below 3 feet | santa_monica |  2.0640000000|
 
-The query selects all [field keys](/enterprise_influxdb/v1.9/concepts/glossary/#field-key)
-and [tag keys](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) that include an `l`.
+The query selects all field keys and tag keys that include an `l`.
 Note that the regular expression in the `SELECT` clause must match at least one
 field key in order to return results for a tag key that matches the regular
 expression.
