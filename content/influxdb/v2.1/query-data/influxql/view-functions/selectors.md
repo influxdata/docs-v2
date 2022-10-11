@@ -21,11 +21,11 @@ Each selector function below covers **syntax**, **parameters**, and **examples**
 - [SAMPLE()](#sample)
 - [TOP()](#top)
 
-### BOTTOM()
+## BOTTOM()
 
 Returns the smallest `N` [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 
-#### Syntax
+### Syntax
 
 ```
 SELECT BOTTOM(<field_key>[,<tag_key(s)>],<N> )[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -42,14 +42,14 @@ Returns the smallest N field values associated with the field key in the parenth
 
 `BOTTOM()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
-> **Notes:**
->
-* `BOTTOM()` returns the field value with the earliest timestamp if there's a tie between two or more values for the smallest value.
-* `BOTTOM()` differs from other InfluxQL functions when combined with an [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause). See the [Common Issues](#common-issues-with-bottom) section for more information.
+{{% note %}}
+**Note:** `BOTTOM()` returns the field value with the earliest timestamp if there's a tie between two or more values for the smallest value.
+{{% /note %}}
 
-#### Examples
+### Examples
 
-##### Select the bottom three field values associated with a field key
+{{< expand-wrapper >}}
+{{% expand "Select the bottom three field values associated with a field key" %}}
 
 ```sql
 > SELECT BOTTOM("water_level",3) FROM "h2o_feet"
@@ -64,7 +64,9 @@ time                   bottom
 
 The query returns the smallest three field values in the `water_level` field key and in the `h2o_feet` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
 
-##### Select the bottom field value associated with a field key for two tags
+{{% /expand %}}
+
+{{% expand "Select the bottom field value associated with a field key for two tags" %}}
 
 ```sql
 > SELECT BOTTOM("water_level","location",2) FROM "h2o_feet"
@@ -78,7 +80,9 @@ time                   bottom   location
 
 The query returns the smallest field values in the `water_level` field key for two tag values associated with the `location` tag key.
 
-##### Select the bottom four field values associated with a field key and the relevant tags and fields
+{{% /expand %}}
+
+{{% expand "Select the bottom four field values associated with a field key and the relevant tags and fields" %}}
 
 ```sql
 > SELECT BOTTOM("water_level",4),"location","level description" FROM "h2o_feet"
@@ -94,7 +98,9 @@ time                  bottom  location      level description
 
 The query returns the smallest four field values in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
 
-##### Select the bottom three field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Select the bottom three field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT BOTTOM("water_level",3),"location" FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:54:00Z' GROUP BY time(24m) ORDER BY time DESC
@@ -118,7 +124,11 @@ It also returns results in [descending timestamp](/enterprise_influxdb/v1.9/quer
 
 Notice that the [GROUP BY time() clause](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals) does not override the points’ original timestamps. See [Issue 1](#bottom-with-a-group-by-time-clause) in the section below for a more detailed explanation of that behavior.
 
-#### Common Issues with `BOTTOM()`
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Common Issues with `BOTTOM()`
 
 ##### `BOTTOM()` with a `GROUP BY time()` clause
 
@@ -201,11 +211,11 @@ tagKey
 location
 ```
 
-### FIRST()
+## FIRST()
 
 Returns the [field value ](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) with the oldest timestamp.
 
-#### Syntax
+### Syntax
 
 ```
 SELECT FIRST(<field_key>)[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -225,9 +235,11 @@ Returns the oldest field value (determined by timestamp) associated with the fie
 
 `FIRST()` supports all field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
-#### Examples
+### Examples
 
-##### Select the first field value associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Select the first field value associated with a field key" %}}
 
 ```sql
 > SELECT FIRST("level description") FROM "h2o_feet"
@@ -240,7 +252,9 @@ time                   first
 
 The query returns the oldest field value (determined by timestamp) associated with the `level description` field key and in the `h2o_feet` measurement.
 
-##### Select the first field value associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Select the first field value associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT FIRST(*) FROM "h2o_feet"
@@ -254,7 +268,9 @@ time                   first_level description   first_water_level
 The query returns the oldest field value (determined by timestamp) for each field key in the `h2o_feet` measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
-##### Select the first field value associated with each field key that matches a regular expression
+{{% /expand %}}
+
+{{% expand "Select the first field value associated with each field key that matches a regular expression" %}}
 
 ```sql
 > SELECT FIRST(/level/) FROM "h2o_feet"
@@ -267,7 +283,9 @@ time                   first_level description   first_water_level
 
 The query returns the oldest field value for each field key that includes the word `level` in the `h2o_feet` measurement.
 
-##### Select the first value associated with a field key and the relevant tags and fields
+{{% /expand %}}
+
+{{% expand "Select the first value associated with a field key and the relevant tags and fields" %}}
 
 ```sql
 > SELECT FIRST("level description"),"location","water_level" FROM "h2o_feet"
@@ -280,7 +298,9 @@ time                  first                 location      water_level
 
 The query returns the oldest field value (determined by timestamp) in the `level description` field key and the relevant values of the `location` tag key and the `water_level` field key.
 
-##### Select the first field value associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Select the first field value associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT FIRST("water_level") FROM "h2o_feet" WHERE time >= '2015-08-17T23:48:00Z' AND time <= '2015-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
@@ -303,11 +323,15 @@ Notice that the [`GROUP BY time()` clause](/enterprise_influxdb/v1.9/query_langu
 The timestamps in the results indicate the the start of each 12-minute time interval;
 the first point in the results covers the time interval between `2015-08-17T23:48:00Z` and just before `2015-08-18T00:00:00Z` and the last point in the results covers the time interval between `2015-08-18T00:24:00Z` and just before `2015-08-18T00:36:00Z`.
 
-### LAST()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## LAST()
 
 Returns the [field value](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) with the most recent timestamp.
 
-#### Syntax
+### Syntax
 
 ```sql
 SELECT LAST(<field_key>)[,<tag_key(s)>|<field_keys(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -327,9 +351,11 @@ Returns the newest field value (determined by timestamp) associated with the fie
 
 `LAST()` supports all field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
-#### Examples
+### Examples
 
-##### Select the last field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Select the last field values associated with a field key" %}}
 
 ```sql
 > SELECT LAST("level description") FROM "h2o_feet"
@@ -342,7 +368,9 @@ time                   last
 
 The query returns the newest field value (determined by timestamp) associated with the `level description` field key and in the `h2o_feet` measurement.
 
-##### Select the last field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Select the last field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT LAST(*) FROM "h2o_feet"
@@ -356,7 +384,9 @@ time                   last_level description   last_water_level
 The query returns the newest field value (determined by timestamp) for each field key in the `h2o_feet` measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
-##### Select the last field value associated with each field key that matches a regular expression
+{{% /expand %}}
+
+{{% expand "Select the last field value associated with each field key that matches a regular expression" %}}
 
 ```sql
 > SELECT LAST(/level/) FROM "h2o_feet"
@@ -369,7 +399,9 @@ time                   last_level description   last_water_level
 
 The query returns the newest field value for each field key that includes the word `level` in the `h2o_feet` measurement.
 
-##### Select the last field value associated with a field key and the relevant tags and fields
+{{% /expand %}}
+
+{{% expand "Select the last field value associated with a field key and the relevant tags and fields" %}}
 
 ```sql
 > SELECT LAST("level description"),"location","water_level" FROM "h2o_feet"
@@ -382,7 +414,9 @@ time                  last                  location      water_level
 
 The query returns the newest field value (determined by timestamp) in the `level description` field key and the relevant values of the `location` tag key and the `water_level` field key.
 
-##### Select the last field value associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Select the last field value associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT LAST("water_level") FROM "h2o_feet" WHERE time >= '2015-08-17T23:48:00Z' AND time <= '2015-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
@@ -405,11 +439,15 @@ Notice that the [`GROUP BY time()` clause](/enterprise_influxdb/v1.9/query_langu
 The timestamps in the results indicate the the start of each 12-minute time interval;
 the first point in the results covers the time interval between `2015-08-17T23:48:00Z` and just before `2015-08-18T00:00:00Z` and the last point in the results covers the time interval between `2015-08-18T00:24:00Z` and just before `2015-08-18T00:36:00Z`.
 
-### MAX()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## MAX()
 
 Returns the greatest [field value](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 
-#### Syntax
+### Syntax
 
 ```
 SELECT MAX(<field_key>)[,<tag_key(s)>|<field__key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -429,9 +467,11 @@ Returns the greatest field value associated with the field key in the parenthese
 
 `MAX()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
-#### Examples
+### Examples
 
-##### Select the maximum field value associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Select the maximum field value associated with a field key" %}}
 
 ```sql
 > SELECT MAX("water_level") FROM "h2o_feet"
@@ -444,7 +484,9 @@ time                   max
 
 The query returns the greatest field value in the `water_level` field key and in the `h2o_feet` measurement.
 
-##### Select the maximum field value associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Select the maximum field value associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT MAX(*) FROM "h2o_feet"
@@ -458,7 +500,9 @@ time                   max_water_level
 The query returns the greatest field value for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
-##### Select the maximum field value associated with each field key that matches a regular expression
+{{% /expand %}}
+
+{{% expand "Select the maximum field value associated with each field key that matches a regular expression" %}}
 
 ```sql
 > SELECT MAX(/level/) FROM "h2o_feet"
@@ -471,7 +515,9 @@ time                   max_water_level
 
 The query returns the greatest field value for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
-##### Select the maximum field value associated with a field key and the relevant tags and fields
+{{% /expand %}}
+
+{{% expand "Select the maximum field value associated with a field key and the relevant tags and fields" %}}
 
 ```sql
 > SELECT MAX("water_level"),"location","level description" FROM "h2o_feet"
@@ -484,7 +530,9 @@ time                  max    location      level description
 
 The query returns the greatest field value in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
 
-##### Select the maximum field value associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Select the maximum field value associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT MAX("water_level") FROM "h2o_feet" WHERE time >= '2015-08-17T23:48:00Z' AND time <= '2015-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
@@ -507,11 +555,15 @@ Notice that the [`GROUP BY time()` clause](/enterprise_influxdb/v1.9/query_langu
 The timestamps in the results indicate the the start of each 12-minute time interval;
 the first point in the results covers the time interval between `2015-08-17T23:48:00Z` and just before `2015-08-18T00:00:00Z` and the last point in the results covers the time interval between `2015-08-18T00:24:00Z` and just before `2015-08-18T00:36:00Z`.
 
-### MIN()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## MIN()
 
 Returns the lowest [field value](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 
-#### Syntax
+### Syntax
 
 ```
 SELECT MIN(<field_key>)[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -531,9 +583,11 @@ Returns the lowest field value associated with the field key in the parentheses 
 
 `MIN()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
-#### Examples
+### Examples
 
-##### Select the minimum field value associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Select the minimum field value associated with a field key" %}}
 
 ```sql
 > SELECT MIN("water_level") FROM "h2o_feet"
@@ -546,7 +600,9 @@ time                   min
 
 The query returns the lowest field value in the `water_level` field key and in the `h2o_feet` measurement.
 
-##### Select the minimum field value associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Select the minimum field value associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT MIN(*) FROM "h2o_feet"
@@ -560,7 +616,9 @@ time                   min_water_level
 The query returns the lowest field value for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
-##### Select the minimum field value associated with each field key that matches a regular expression
+{{% /expand %}}
+
+{{% expand "Select the minimum field value associated with each field key that matches a regular expression" %}}
 
 ```sql
 > SELECT MIN(/level/) FROM "h2o_feet"
@@ -573,7 +631,9 @@ time                   min_water_level
 
 The query returns the lowest field value for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
-##### Select the minimum field value associated with a field key and the relevant tags and fields
+{{% /expand %}}
+
+{{% expand "Select the minimum field value associated with a field key and the relevant tags and fields" %}}
 
 ```sql
 > SELECT MIN("water_level"),"location","level description" FROM "h2o_feet"
@@ -586,7 +646,9 @@ time                  min    location      level description
 
 The query returns the lowest field value in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
 
-##### Select the minimum field value associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Select the minimum field value associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT MIN("water_level") FROM "h2o_feet" WHERE time >= '2015-08-17T23:48:00Z' AND time <= '2015-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
@@ -609,11 +671,15 @@ Notice that the [`GROUP BY time()` clause](/enterprise_influxdb/v1.9/query_langu
 The timestamps in the results indicate the the start of each 12-minute time interval;
 the first point in the results covers the time interval between `2015-08-17T23:48:00Z` and just before `2015-08-18T00:00:00Z` and the last point in the results covers the time interval between `2015-08-18T00:24:00Z` and just before `2015-08-18T00:36:00Z`.
 
-### PERCENTILE()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## PERCENTILE()
 
 Returns the `N`th percentile [field value](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 
-#### Syntax
+### Syntax
 
 ```
 SELECT PERCENTILE(<field_key>, <N>)[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -634,9 +700,11 @@ Returns the Nth percentile field value associated with the field key in the pare
 `N` must be an integer or floating point number between `0` and `100`, inclusive.
 `PERCENTILE()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
-#### Examples
+### Examples
 
-##### Select the fifth percentile field value associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Select the fifth percentile field value associated with a field key" %}}
 
 ```sql
 > SELECT PERCENTILE("water_level",5) FROM "h2o_feet"
@@ -649,7 +717,9 @@ time                   percentile
 
 The query returns the field value that is larger than five percent of the field values in the `water_level` field key and in the `h2o_feet` measurement.
 
-##### Select the fifth percentile field value associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Select the fifth percentile field value associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT PERCENTILE(*,5) FROM "h2o_feet"
@@ -663,7 +733,9 @@ time                   percentile_water_level
 The query returns the field value that is larger than five percent of the field values in each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
-##### Select fifth percentile field value associated with each field key that matches a regular expression
+{{% /expand %}}
+
+{{% expand "Select fifth percentile field value associated with each field key that matches a regular expression" %}}
 
 ```sql
 > SELECT PERCENTILE(/level/,5) FROM "h2o_feet"
@@ -676,7 +748,9 @@ time                   percentile_water_level
 
 The query returns the field value that is larger than five percent of the field values in each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
-##### Select the fifth percentile field values associated with a field key and the relevant tags and fields
+{{% /expand %}}
+
+{{% expand "Select the fifth percentile field values associated with a field key and the relevant tags and fields" %}}
 
 ```sql
 > SELECT PERCENTILE("water_level",5),"location","level description" FROM "h2o_feet"
@@ -689,7 +763,9 @@ time                  percentile  location      level description
 
 The query returns the field value that is larger than five percent of the field values in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
 
-##### Select the twentieth percentile field value associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Select the twentieth percentile field value associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT PERCENTILE("water_level",20) FROM "h2o_feet" WHERE time >= '2015-08-17T23:48:00Z' AND time <= '2015-08-18T00:54:00Z' GROUP BY time(24m) fill(15) LIMIT 2
@@ -708,7 +784,11 @@ It [fills](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-
 Notice that the [`GROUP BY time()` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals) overrides the points’ original timestamps.
 The timestamps in the results indicate the the start of each 24-minute time interval; the first point in the results covers the time interval between `2015-08-17T23:36:00Z` and just before `2015-08-18T00:00:00Z` and the last point in the results covers the time interval between `2015-08-18T00:00:00Z` and just before `2015-08-18T00:24:00Z`.
 
-#### Common Issues with PERCENTILE()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Common Issues with PERCENTILE()
 
 ##### PERCENTILE() compared to other InfluxQL functions
 
@@ -716,12 +796,12 @@ The timestamps in the results indicate the the start of each 24-minute time inte
 * `PERCENTILE(<field_key>, 50)` is nearly equivalent to [`MEDIAN(<field_key>)`](#median), except the `MEDIAN()` function returns the average of the two middle values if the field key contains an even number of field values.
 * `PERCENTILE(<field_key>,0)` is not equivalent to [`MIN(<field_key>)`](#min). This is a known [issue](https://github.com/influxdata/influxdb/issues/4418).
 
-### SAMPLE()
+## SAMPLE()
 
 Returns a random sample of `N` [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 `SAMPLE()` uses [reservoir sampling](https://en.wikipedia.org/wiki/Reservoir_sampling) to generate the random points.
 
-#### Syntax
+### Syntax
 
 ```
 SELECT SAMPLE(<field_key>, <N>)[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -742,9 +822,11 @@ Returns N randomly selected field values associated with the field key in the pa
 `N` must be an integer.
 `SAMPLE()` supports all field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
-#### Examples
+### Examples
 
-##### Select a sample of the field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Select a sample of the field values associated with a field key" %}}
 
 ```sql
 > SELECT SAMPLE("water_level",2) FROM "h2o_feet"
@@ -758,7 +840,9 @@ time                   sample
 
 The query returns two randomly selected points from the `water_level` field key and in the `h2o_feet` measurement.
 
-#### Select a sample of the field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Select a sample of the field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT SAMPLE(*,2) FROM "h2o_feet"
@@ -775,7 +859,9 @@ time                   sample_level description   sample_water_level
 The query returns two randomly selected points for each field key in the `h2o_feet` measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
-##### Select a sample of the field values associated with each field key that matches a regular expression
+{{% /expand %}}
+
+{{% expand "Select a sample of the field values associated with each field key that matches a regular expression" %}}
 
 ```sql
 > SELECT SAMPLE(/level/,2) FROM "h2o_feet"
@@ -791,7 +877,9 @@ time                   sample_level description   sample_water_level
 
 The query returns two randomly selected points for each field key that includes the word `level` in the `h2o_feet` measurement.
 
-##### Select a sample of the field values associated with a field key and the relevant tags and fields
+{{% /expand %}}
+
+{{% expand "Select a sample of the field values associated with a field key and the relevant tags and fields" %}}
 
 ```sql
 > SELECT SAMPLE("water_level",2),"location","level description" FROM "h2o_feet"
@@ -805,7 +893,9 @@ time                  sample  location      level description
 
 The query returns two randomly selected points from the `water_level` field key and the relevant values of the `location` tag and the `level description` field.
 
-##### Select a sample of the field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Select a sample of the field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT SAMPLE("water_level",1) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
@@ -823,7 +913,11 @@ It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data
 Notice that the [`GROUP BY time()` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals) does not override the points' original timestamps.
 See [Issue 1](#sample-with-a-group-by-time-clause) in the section below for a more detailed explanation of that behavior.
 
-#### Common Issues with `SAMPLE()`
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Common Issues with `SAMPLE()`
 
 ##### `SAMPLE()` with a `GROUP BY time()` clause
 
@@ -858,11 +952,11 @@ time                   sample
                            --
 ```
 
-### TOP()
+## TOP()
 
 Returns the greatest `N` [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 
-#### Syntax
+### Syntax
 
 ```
 SELECT TOP( <field_key>[,<tag_key(s)>],<N> )[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -879,15 +973,15 @@ Returns the greatest N field values associated with the field key in the parenth
 
 `TOP()` supports int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
-> **Notes:**
->
-* `TOP()` returns the field value with the earliest timestamp if there's a tie between two or more values for the greatest value.
-* `TOP()` differs from other InfluxQL functions when combined with an [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause).
-See the [Common Issues](#common-issues-with-top) section for more information.
+{{% note %}}
+**Note:** `TOP()` returns the field value with the earliest timestamp if there's a tie between two or more values for the greatest value.
+{{% /note %}}
 
-#### Examples
+### Examples
 
-##### Select the top three field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Select the top three field values associated with a field key" %}}
 
 ```sql
 > SELECT TOP("water_level",3) FROM "h2o_feet"
@@ -902,7 +996,9 @@ time                   top
 
 The query returns the greatest three field values in the `water_level` field key and in the `h2o_feet` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
 
-##### Select the top field value associated with a field key for two tags
+{{% /expand %}}
+
+{{% expand "Select the top field value associated with a field key for two tags" %}}
 
 ```sql
 > SELECT TOP("water_level","location",2) FROM "h2o_feet"
@@ -916,7 +1012,9 @@ time                   top     location
 
 The query returns the greatest field values in the `water_level` field key for two tag values associated with the `location` tag key.
 
-##### Select the top four field values associated with a field key and the relevant tags and fields
+{{% /expand %}}
+
+{{% expand "Select the top four field values associated with a field key and the relevant tags and fields" %}}
 
 ```sql
 > SELECT TOP("water_level",4),"location","level description" FROM "h2o_feet"
@@ -932,7 +1030,9 @@ time                  top    location      level description
 
 The query returns the greatest four field values in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
 
-##### Select the top three field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Select the top three field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT TOP("water_level",3),"location" FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:54:00Z' GROUP BY time(24m) ORDER BY time DESC
@@ -957,7 +1057,11 @@ It also returns results in [descending timestamp](/enterprise_influxdb/v1.9/quer
 Notice that the [GROUP BY time() clause](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals) does not override the points’ original timestamps.
 See [Issue 1](#top-with-a-group-by-time-clause) in the section below for a more detailed explanation of that behavior.
 
-#### Common Issues with `TOP()`
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Common Issues with `TOP()`
 
 ##### `TOP()` with a `GROUP BY time()` clause
 

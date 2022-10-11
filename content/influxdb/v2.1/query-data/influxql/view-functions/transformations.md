@@ -13,11 +13,11 @@ Transformations take a stream of tables as input, transform the data in some way
 
 ## Transformations
 
-### ABS()
+## ABS()
 
 Returns the absolute value of the field value.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT ABS( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -37,7 +37,7 @@ Returns the absolute values of field values associated with each field key in th
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `ABS()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of this [sample data](https://gist.github.com/sanderson/8f8aec94a60b2c31a61f44a37737bfea):
 
@@ -55,7 +55,9 @@ time                 a                   b
 1529841900000000000  -0.891164752631417  0.741147445214238
 ```
 
-###### Calculate the absolute values of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the absolute values of field values associated with a field key" %}}
 
 ```sql
 > SELECT ABS("a") FROM "data" WHERE time >= '2018-06-24T12:00:00Z' AND time <= '2018-06-24T12:05:00Z'
@@ -73,7 +75,9 @@ time                 abs
 
 The query returns the absolute values of field values in the `a` field key in the `data` measurement.
 
-###### Calculate the absolute Values of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the absolute Values of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT ABS(*) FROM "data" WHERE time >= '2018-06-24T12:00:00Z' AND time <= '2018-06-24T12:05:00Z'
@@ -110,7 +114,9 @@ time                 abs
 
 The query returns the absolute values of field values for each field key that stores numerical values and includes `a` in the `data` measurement. -->
 
-###### Calculate the absolute values of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the absolute values of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT ABS("a") FROM "data" WHERE time >= '2018-06-24T12:00:00Z' AND time <= '2018-06-24T12:05:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -128,7 +134,11 @@ The query returns the absolute values of field values associated with the `a` fi
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2018-06-24T12:00:00Z` and `2018-06-24T12:05:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT ABS(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -149,9 +159,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the absolute values of mean values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the absolute values of mean values" %}}
 
 ```sql
 > SELECT ABS(MEAN("a")) FROM "data" WHERE time >= '2018-06-24T12:00:00Z' AND time <= '2018-06-24T13:00:00Z' GROUP BY time(12m)
@@ -188,11 +200,15 @@ time                 mean
 
 InfluxDB then calculates absolute values of those averages.
 
-### ACOS()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## ACOS()
 
 Returns the arccosine (in radians) of the field value. Field values must be between -1 and 1.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT ACOS( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -212,7 +228,7 @@ Returns the arccosine of field values associated with each field key in the [mea
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `ACOS()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following data sample of simulated park occupancy relative to total capacity. The important thing to note is that all field values fall within the calculable range (-1 to 1) of the `ACOS()` function:
 
@@ -233,7 +249,9 @@ time                  capacity
 2017-05-09T00:00:00Z  0.16
 ```
 
-###### Calculate the arccosine of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the arccosine of field values associated with a field key" %}}
 
 ```sql
 > SELECT ACOS("of_capacity") FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z'
@@ -254,7 +272,9 @@ time                  acos
 
 The query returns arccosine of field values in the `of_capacity` field key in the `park_occupancy` measurement.
 
-###### Calculate the arccosine of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the arccosine of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT ACOS(*) FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z'
@@ -296,7 +316,9 @@ time                  acos_of_capacity
 
 The query returns arccosine of field values for each field key that stores numerical values and includes the word `capacity` in the `park_occupancy` measurement. -->
 
-###### Calculate the arccosine of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the arccosine of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT ACOS("of_capacity") FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -314,7 +336,11 @@ The query returns arccosine of field values associated with the `of_capacity` fi
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2017-05-01T00:00:00Z` and `2017-05-09T00:00:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT ACOS(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -335,9 +361,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the arccosine of mean values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the arccosine of mean values" %}}
 
 ```sql
 > SELECT ACOS(MEAN("of_capacity")) FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z' GROUP BY time(3d)
@@ -370,11 +398,15 @@ time                  mean
 
 InfluxDB then calculates arccosine of those averages.
 
-### ASIN()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## ASIN()
 
 Returns the arcsine (in radians) of the field value. Field values must be between -1 and 1.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT ASIN( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -394,7 +426,7 @@ Returns the arcsine of field values associated with each field key in the [measu
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `ASIN()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following data sample of simulated park occupancy relative to total capacity. The important thing to note is that all field values fall within the calculable range (-1 to 1) of the `ASIN()` function:
 
@@ -415,7 +447,9 @@ time                  capacity
 2017-05-09T00:00:00Z  0.16
 ```
 
-###### Calculate the arcsine of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the arcsine of field values associated with a field key" %}}
 
 ```sql
 > SELECT ASIN("of_capacity") FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z'
@@ -436,7 +470,9 @@ time                  asin
 
 The query returns arcsine of field values in the `of_capacity` field key in the `park_capacity` measurement.
 
-###### Calculate the arcsine of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the arcsine of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT ASIN(*) FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z'
@@ -478,7 +514,9 @@ time                  asin
 
 The query returns arcsine of field values for each field key that stores numerical values and includes the word `of_capacity` in the `park_occupancy` measurement. -->
 
-###### Calculate the arcsine of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the arcsine of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT ASIN("of_capacity") FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -496,7 +534,11 @@ The query returns arcsine of field values associated with the `of_capacity` fiel
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2017-05-01T00:00:00Z` and `2017-05-09T00:00:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT ASIN(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -517,9 +559,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the arcsine of mean values.
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the arcsine of mean values" %}}
 
 ```sql
 > SELECT ASIN(MEAN("of_capacity")) FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z' GROUP BY time(3d)
@@ -552,11 +596,16 @@ time                  mean
 
 InfluxDB then calculates arcsine of those averages.
 
-### ATAN()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+
+## ATAN()
 
 Returns the arctangent (in radians) of the field value. Field values must be between -1 and 1.
 
-#### Basic syntax
+### Basic syntax
 
 ```sql
 SELECT ATAN( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -576,7 +625,7 @@ Returns the arctangent of field values associated with each field key in the [me
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `ATAN()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following data sample of simulated park occupancy relative to total capacity. The important thing to note is that all field values fall within the calculable range (-1 to 1) of the `ATAN()` function:
 
@@ -597,7 +646,9 @@ time                  capacity
 2017-05-09T00:00:00Z  0.16
 ```
 
-###### Calculate the arctangent of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the arctangent of field values associated with a field key" %}}
 
 ```sql
 > SELECT ATAN("of_capacity") FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z'
@@ -618,7 +669,9 @@ time                  atan
 
 The query returns arctangent of field values in the `of_capacity` field key in the `park_occupancy` measurement.
 
-###### Calculate the arctangent of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the arctangent of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT ATAN(*) FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z'
@@ -660,7 +713,9 @@ time                  atan_of_capacity
 
 The query returns arctangent of field values for each field key that stores numerical values and includes the word `capacity` in the `park_occupancy` measurement. -->
 
-###### Calculate the arctangent of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the arctangent of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT ATAN("of_capacity") FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -678,7 +733,11 @@ The query returns arctangent of field values associated with the `of_capacity` f
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2017-05-01T00:00:00Z` and `2017-05-09T00:00:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT ATAN(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -699,9 +758,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples of advanced syntax
+### Examples of advanced syntax
 
-###### Calculate the arctangent of mean values.
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the arctangent of mean values" %}}
 
 ```sql
 > SELECT ATAN(MEAN("of_capacity")) FROM "park_occupancy" WHERE time >= '2017-05-01T00:00:00Z' AND time <= '2017-05-09T00:00:00Z' GROUP BY time(3d)
@@ -734,11 +795,15 @@ time                  mean
 
 InfluxDB then calculates arctangent of those averages.
 
-### ATAN2()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## ATAN2()
 
 Returns the the arctangent of `y/x` in radians.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT ATAN2( [ * | <field_key> | num ], [ <field_key> | num ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -760,7 +825,7 @@ divided by field values associated with `field_key_x`.
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `ATAN2()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following sample of simulated flight data:
 
@@ -782,7 +847,9 @@ time                  altitude_ft  distance_ft
 2018-05-16T12:10:00Z  14885        75881
 ```
 
-###### Calculate the arctangent of field_key_y over field_key_x
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the arctangent of field_key_y over field_key_x" %}}
 
 ```sql
 > SELECT ATAN2("altitude_ft", "distance_ft") FROM "flight_data" WHERE time >= '2018-05-16T12:01:00Z' AND time <= '2018-05-16T12:10:00Z'
@@ -804,7 +871,9 @@ time                  atan2
 
 The query returns the arctangents of field values in the `altitude_ft` field key divided by values in the `distance_ft` field key. Both are part of the `flight_data` measurement.
 
-###### Calculate the arctangent of values associated with each field key in a measurement divided by field_key_x
+{{% /expand %}}
+
+{{% expand "Calculate the arctangent of values associated with each field key in a measurement divided by field_key_x" %}}
 
 ```sql
 > SELECT ATAN2(*, "distance_ft") FROM "flight_data" WHERE time >= '2018-05-16T12:01:00Z' AND time <= '2018-05-16T12:10:00Z'
@@ -850,7 +919,9 @@ The query returns the arctangents of all numeric field values in the `flight_dat
 The `flight_data` measurement has two matching numeric fields: `altitude_ft` and `distance_ft`.
 -->
 
-###### Calculate the arctangents of field values and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the arctangents of field values and include several clauses" %}}
 
 ```sql
 > SELECT ATAN2("altitude_ft", "distance_ft") FROM "flight_data" WHERE time >= '2018-05-16T12:01:00Z' AND time <= '2018-05-16T12:10:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -868,7 +939,11 @@ The query returns the arctangent of field values associated with the `altitude_f
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2018-05-16T12:10:00Z` and `2018-05-16T12:10:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT ATAN2(<function()>, <function()>) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -889,9 +964,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate arctangents of mean values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate arctangents of mean values" %}}
 
 ```sql
 > SELECT ATAN2(MEAN("altitude_ft"), MEAN("distance_ft")) FROM "flight_data" WHERE time >= '2018-05-16T12:01:00Z' AND time <= '2018-05-16T13:01:00Z' GROUP BY time(12m)
@@ -928,11 +1005,16 @@ time                  mean                mean_1
 
 InfluxDB then calculates the arctangents of those averages.
 
-### CEIL()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+
+## CEIL()
 
 Returns the subsequent value rounded up to the nearest integer.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT CEIL( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -952,7 +1034,7 @@ Returns the field values associated with each field key in the [measurement](/en
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `CEIL()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -970,7 +1052,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate the ceiling of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the ceiling of field values associated with a field key" %}}
 
 ```sql
 > SELECT CEIL("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -988,7 +1072,9 @@ time                  ceil
 
 The query returns field values in the `water_level` field key in the `h2o_feet` measurement rounded up to the nearest integer.
 
-###### Calculate the ceiling of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the ceiling of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT CEIL(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -1024,7 +1110,9 @@ time                   ceil_water_level
 
 The query returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement rounded up to the nearest integer. -->
 
-###### Calculate the ceiling of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the ceiling of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT CEIL("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -1042,7 +1130,13 @@ The query returns field values associated with the `water_level` field key round
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+
+
+### Advanced syntax
 
 ```
 SELECT CEIL(<function>( [ * | <field_key> | /<regular_expression>/ ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -1063,9 +1157,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate mean values rounded up to the nearest integer
+{{< expand-wrapper >}}
+
+{{% expand "Calculate mean values rounded up to the nearest integer" %}}
 
 ```sql
 > SELECT CEIL(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -1096,11 +1192,15 @@ time                   mean
 
 InfluxDB then rounds those averages up to the nearest integer.
 
-### COS()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## COS()
 
 Returns the cosine of the field value.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT COS( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -1120,7 +1220,7 @@ Returns the cosine of field values associated with each field key in the [measur
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `COS()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 ^
@@ -1138,7 +1238,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate the cosine of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the cosine of field values associated with a field key" %}}
 
 ```sql
 > SELECT COS("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -1156,7 +1258,9 @@ time                  cos
 
 The query returns cosine of field values in the `water_level` field key in the `h2o_feet` measurement.
 
-###### Calculate the cosine of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the cosine of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT COS(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -1192,7 +1296,9 @@ time                  cos
 
 The query returns cosine of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
-###### Calculate the cosine of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the cosine of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT COS("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -1210,7 +1316,11 @@ The query returns cosine of field values associated with the `water_level` field
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT COS(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -1231,9 +1341,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-#### Examples
+### Examples
 
-###### Calculate the cosine of mean values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the cosine of mean values" %}}
 
 ```sql
 > SELECT COS(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -1264,11 +1376,15 @@ time                   mean
 
 InfluxDB then calculates cosine of those averages.
 
-### CUMULATIVE_SUM()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## CUMULATIVE_SUM()
 
 Returns the running total of subsequent [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT CUMULATIVE_SUM( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -1288,7 +1404,7 @@ Returns the running total of subsequent field values associated with each field 
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `CUMULATIVE_SUM()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -1306,7 +1422,9 @@ time                   water_level
 2015-08-18T00:30:00Z   2.051
 ```
 
-###### Calculate the cumulative sum of the field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the cumulative sum of the field values associated with a field key" %}}
 
 ```sql
 > SELECT CUMULATIVE_SUM("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -1324,7 +1442,9 @@ time                   cumulative_sum
 
 The query returns the running total of the field values in the `water_level` field key and in the `h2o_feet` measurement.
 
-###### Calculate the cumulative sum of the field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the cumulative sum of the field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT CUMULATIVE_SUM(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -1343,7 +1463,9 @@ time                   cumulative_sum_water_level
 The query returns the running total of the field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
-###### Calculate the cumulative sum of the field values associated with each field key that matches a regular expression
+{{% /expand %}}
+
+{{% expand "Calculate the cumulative sum of the field values associated with each field key that matches a regular expression" %}}
 
 ```sql
 > SELECT CUMULATIVE_SUM(/water/) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -1361,7 +1483,9 @@ time                   cumulative_sum_water_level
 
 The query returns the running total of the field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
-###### Calculate the cumulative sum of the field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the cumulative sum of the field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT CUMULATIVE_SUM("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -1379,7 +1503,11 @@ The query returns the running total of the field values associated with the `wat
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT CUMULATIVE_SUM(<function>( [ * | <field_key> | /<regular_expression>/ ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -1400,9 +1528,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the cumulative sum of mean values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the cumulative sum of mean values" %}}
 
 ```sql
 > SELECT CUMULATIVE_SUM(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -1435,11 +1565,15 @@ Next, InfluxDB calculates the running total of those averages.
 The second point in the final results (`4.167`) is the sum of `2.09` and `2.077`
 and the third point (`6.213`) is the sum of `2.09`, `2.077`, and `2.0460000000000003`.
 
-### DERIVATIVE()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## DERIVATIVE()
 
 Returns the rate of change between subsequent [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT DERIVATIVE( [ * | <field_key> | /<regular_expression>/ ] [ , <unit> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -1463,7 +1597,7 @@ Returns the rate of change between subsequent field values associated with each 
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax-1) section for how to use `DERIVATIVE()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 Examples 1-5 use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -1481,7 +1615,9 @@ time                   water_level
 2015-08-18T00:30:00Z   2.051
 ```
 
-###### Calculate the derivative between the field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the derivative between the field values associated with a field key" %}}
 
 ```sql
 > SELECT DERIVATIVE("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z'
@@ -1509,7 +1645,9 @@ InfluxDB calculates the difference between the field values and normalizes that 
 second field value - first field value
 ```
 
-###### Calculate the derivative between the field values associated with a field key and specify the unit option
+{{% /expand %}}
+
+{{% expand "Calculate the derivative between the field values associated with a field key and specify the unit option" %}}
 
 ```sql
 > SELECT DERIVATIVE("water_level",6m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z'
@@ -1537,7 +1675,9 @@ InfluxDB calculates the difference between the field values and normalizes that 
 second field value - first field value
 ```
 
-###### Calculate the derivative between the field values associated with each field key in a measurement and specify the unit option
+{{% /expand %}}
+
+{{% expand "Calculate the derivative between the field values associated with each field key in a measurement and specify the unit option" %}}
 
 ```sql
 > SELECT DERIVATIVE(*,3m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z'
@@ -1567,7 +1707,9 @@ InfluxDB calculates the difference between the field values and normalizes that 
 second field value - first field value
 ```
 
-###### Calculate the derivative between the field values associated with each field key that matches a regular expression and specify the unit option
+{{% /expand %}}
+
+{{% expand "Calculate the derivative between the field values associated with each field key that matches a regular expression and specify the unit option" %}}
 
 ```sql
 > SELECT DERIVATIVE(/water/,2m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z'
@@ -1595,7 +1737,9 @@ InfluxDB calculates the difference between the field values and normalizes that 
 second field value - first field value
 ```
 
-###### Calculate the derivative between the field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the derivative between the field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT DERIVATIVE("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' ORDER BY time DESC LIMIT 1 OFFSET 2
@@ -1621,7 +1765,11 @@ InfluxDB calculates the difference between the field values and normalizes that 
 second field value - first field value
 ```
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT DERIVATIVE(<function> ([ * | <field_key> | /<regular_expression>/ ]) [ , <unit> ] ) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -1646,9 +1794,10 @@ Note that this behavior is different from the [basic syntax's](#basic-syntax-1) 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
+{{< expand-wrapper >}}
 
-###### Calculate the derivative of mean values
+{{% expand "Calculate the derivative of mean values" %}}
 
 ```sql
 > SELECT DERIVATIVE(MEAN("water_level")) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' GROUP BY time(12m)
@@ -1688,7 +1837,9 @@ InfluxDB calculates the difference between the field values and normalizes that 
 second field value - first field value
 ```
 
-###### Calculate the derivative of mean values and specify the unit option
+{{% /expand %}}
+
+{{% expand "Calculate the derivative of mean values and specify the unit option" %}}
 
 ```sql
 > SELECT DERIVATIVE(MEAN("water_level"),6m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' GROUP BY time(12m)
@@ -1728,11 +1879,15 @@ InfluxDB calculates the difference between the field values and normalizes that 
 second field value - first field value
 ```
 
-### DIFFERENCE()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## DIFFERENCE()
 
 Returns the result of subtraction between subsequent [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 
-#### Basic syntax
+### Syntax
 
 ```
 SELECT DIFFERENCE( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -1752,7 +1907,7 @@ Returns the difference between subsequent field values associated with each fiel
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax-2) section for how to use `DIFFERENCE()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -1770,7 +1925,9 @@ time                   water_level
 2015-08-18T00:30:00Z   2.051
 ```
 
-###### Calculate the difference between the field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the difference between the field values associated with a field key" %}}
 
 ```sql
 > SELECT DIFFERENCE("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -1787,7 +1944,9 @@ time                   difference
 
 The query returns the difference between the subsequent field values in the `water_level` field key and in the `h2o_feet` measurement.
 
-###### Calculate the difference between the field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the difference between the field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT DIFFERENCE(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -1805,7 +1964,9 @@ time                   difference_water_level
 The query returns the difference between the subsequent field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
-###### Calculate the difference between the field values associated with each field key that matches a regular expression
+{{% /expand %}}
+
+{{% expand "Calculate the difference between the field values associated with each field key that matches a regular expression" %}}
 
 ```sql
 > SELECT DIFFERENCE(/water/) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -1822,7 +1983,9 @@ time                   difference_water_level
 
 The query returns the difference between the subsequent field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
-###### Calculate the difference between the field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the difference between the field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT DIFFERENCE("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 2 OFFSET 2
@@ -1838,7 +2001,11 @@ The query returns the difference between the subsequent field values in the `wat
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 They query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to two and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT DIFFERENCE(<function>( [ * | <field_key> | /<regular_expression>/ ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -1859,9 +2026,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the difference between maximum values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the difference between maximum values" %}}
 
 ```sql
 > SELECT DIFFERENCE(MAX("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -1892,11 +2061,15 @@ time                   max
 Next, InfluxDB calculates the difference between those maximum values.
 The first point in the final results (`0.009999999999999787`) is the difference between `2.126` and `2.116`, and the second point in the final results (`-0.07499999999999973`) is the difference between `2.051` and `2.126`.
 
-### ELAPSED()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## ELAPSED()
 
 Returns the difference between subsequent [field value's](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) timestamps.
 
-#### Syntax
+### Syntax
 
 ```
 SELECT ELAPSED( [ * | <field_key> | /<regular_expression>/ ] [ , <unit> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -1917,7 +2090,7 @@ Returns the difference between subsequent timestamps associated with each field 
 
 `ELAPSED()` supports all field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
-#### Examples
+### Examples
 
 The examples use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -1932,7 +2105,9 @@ time                   water_level
 2015-08-18T00:12:00Z   2.028
 ```
 
-##### Calculate the elapsed time between field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the elapsed time between field values associated with a field key" %}}
 
 ```sql
 > SELECT ELAPSED("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:12:00Z'
@@ -1946,7 +2121,9 @@ time                   elapsed
 
 The query returns the difference (in nanoseconds) between subsequent timestamps in the `water_level` field key and in the `h2o_feet` measurement.
 
-##### Calculate the elapsed time between field values associated with a field key and specify the unit option
+{{% /expand %}}
+
+{{% expand "Calculate the elapsed time between field values associated with a field key and specify the unit option" %}}
 
 ```sql
 > SELECT ELAPSED("water_level",1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:12:00Z'
@@ -1960,7 +2137,9 @@ time                   elapsed
 
 The query returns the difference (in minutes) between subsequent timestamps in the `water_level` field key and in the `h2o_feet` measurement.
 
-##### Calculate the elapsed time between field values associated with each field key in a measurement and specify the unit option
+{{% /expand %}}
+
+{{% expand "Calculate the elapsed time between field values associated with each field key in a measurement and specify the unit option" %}}
 
 ```sql
 > SELECT ELAPSED(*,1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:12:00Z'
@@ -1976,7 +2155,9 @@ The query returns the difference (in minutes) between subsequent timestamps asso
 measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
-##### Calculate the elapsed time between field values associated with each field key that matches a regular expression and specify the unit option
+{{% /expand %}}
+
+{{% expand "Calculate the elapsed time between field values associated with each field key that matches a regular expression and specify the unit option" %}}
 
 ```sql
 > SELECT ELAPSED(/level/,1s) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:12:00Z'
@@ -1990,7 +2171,9 @@ time                   elapsed_level description   elapsed_water_level
 
 The query returns the difference (in seconds) between subsequent timestamps associated with each field key that includes the word `level` in the `h2o_feet` measurement.
 
-##### Calculate the elapsed time between field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the elapsed time between field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT ELAPSED("water_level",1ms) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:12:00Z' ORDER BY time DESC LIMIT 1 OFFSET 1
@@ -2007,13 +2190,17 @@ The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#t
 
 Notice that the result is negative; the [`ORDER BY time DESC` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc) sorts timestamps in descending order so `ELAPSED()` calculates the difference between timestamps in reverse order.
 
-### Common Issues with ELAPSED()
+{{% /expand %}}
 
-#### ELAPSED() and units greater than the elapsed time
+{{< /expand-wrapper >}}
+
+## Common Issues with ELAPSED()
+
+### ELAPSED() and units greater than the elapsed time
 
 InfluxDB returns `0` if the `unit` option is greater than the difference between the timestamps.
 
-##### Example
+### Example
 
 The timestamps in the `h2o_feet` measurement occur at six-minute intervals.
 If the query sets the `unit` option to one hour, InfluxDB returns `0`:
@@ -2028,7 +2215,7 @@ time                   elapsed
 2015-08-18T00:12:00Z   0
 ```
 
-#### ELAPSED() with GROUP BY time() clauses
+### ELAPSED() with GROUP BY time() clauses
 
 The `ELAPSED()` function supports the [`GROUP BY time()` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals) but the query results aren't particularly useful.
 Currently, an `ELAPSED()` query with a nested function and a `GROUP BY time()` clause simply returns the interval specified in the `GROUP BY time()` clause.
@@ -2037,7 +2224,7 @@ The `GROUP BY time()` clause determines the timestamps in the results; each time
 That behavior also applies to nested selector functions (like [`FIRST()`](#first) or [`MAX()`](#max)) which would, in all other cases, return a specific timestamp from the raw data.
 Because the `GROUP BY time()` clause overrides the original timestamps, the `ELAPSED()` calculation always returns the same value as the `GROUP BY time()` interval.
 
-##### Example
+### Example
 
 In the codeblock below, the first query attempts to use the `ELAPSED()` function with a `GROUP BY time()` clause to find the time elapsed (in minutes) between [minimum](#min) `water_level`s.
 The query returns 12 minutes for both time intervals.
@@ -2067,11 +2254,11 @@ time                   min
 2015-08-18T00:48:00Z   1.991
 ```
 
-### EXP()
+## EXP()
 
 Returns the exponential of the field value.
 
-#### Basic syntax
+### Syntax
 
 ```
 SELECT EXP( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -2091,7 +2278,7 @@ Returns the exponential of field values associated with each field key in the [m
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `EXP()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -2109,7 +2296,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate the exponential of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the exponential of field values associated with a field key" %}}
 
 ```sql
 > SELECT EXP("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -2127,7 +2316,9 @@ time                  exp
 
 The query returns the exponential of field values in the `water_level` field key in the `h2o_feet` measurement.
 
-###### Calculate the exponential of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the exponential of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT EXP(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -2165,7 +2356,9 @@ time                  exp_water_level
 The query returns the exponential of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 -->
 
-###### Calculate the exponential of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the exponential of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT EXP("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -2183,7 +2376,11 @@ The query returns the exponentials of field values associated with the `water_le
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT EXP(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -2204,9 +2401,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the exponential of mean values.
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the exponential of mean values" %}}
 
 ```sql
 > SELECT EXP(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -2237,11 +2436,15 @@ time                   mean
 
 InfluxDB then calculates the exponentials of those averages.
 
-### FLOOR()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## FLOOR()
 
 Returns the subsequent value rounded down to the nearest integer.
 
-#### Basic syntax
+### Syntax
 
 ```
 SELECT FLOOR( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -2261,7 +2464,7 @@ Returns the field values associated with each field key in the [measurement](/en
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `FLOOR()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -2279,7 +2482,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate the floor of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the floor of field values associated with a field key" %}}
 
 ```sql
 > SELECT FLOOR("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -2297,7 +2502,9 @@ time                  floor
 
 The query returns field values in the `water_level` field key in the `h2o_feet` measurement rounded down to the nearest integer.
 
-###### Calculate the floor of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the floor of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT FLOOR(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -2333,7 +2540,9 @@ time                   floor_water_level
 
 The query returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement rounded down to the nearest integer. -->
 
-###### Calculate the floor of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the floor of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT FLOOR("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -2351,7 +2560,11 @@ The query returns field values associated with the `water_level` field key round
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced Syntax
 
 ```
 SELECT FLOOR(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -2372,9 +2585,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate mean values rounded down to the nearest integer.
+{{< expand-wrapper >}}
+
+{{% expand "Calculate mean values rounded down to the nearest integer" %}}
 
 ```sql
 > SELECT FLOOR(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -2405,17 +2620,21 @@ time                   mean
 
 InfluxDB then rounds those averages down to the nearest integer.
 
-### HISTOGRAM()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## HISTOGRAM()
 
 _InfluxQL does not currently support histogram generation.
 For information about creating histograms with data stored in InfluxDB, see
 [Flux's `histogram()` function](/{{< latest "flux" >}}/stdlib/universe/histogram)._
 
-### LN()
+## LN()
 
 Returns the natural logarithm of the field value.
 
-#### Basic syntax
+### Syntax
 
 ```
 SELECT LN( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -2435,7 +2654,7 @@ Returns the natural logarithm of field values associated with each field key in 
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `LN()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -2453,7 +2672,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate the natural logarithm of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the natural logarithm of field values associated with a field key" %}}
 
 ```sql
 > SELECT LN("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -2471,7 +2692,9 @@ time                  ln
 
 The query returns the natural logarithm of field values in the `water_level` field key in the `h2o_feet` measurement.
 
-###### Calculate the natural logarithm of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the natural logarithm of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT LN(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -2508,7 +2731,9 @@ time                  ln_water_level
 
 The query returns the natural logarithm of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
-###### Calculate the natural logarithm of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the natural logarithm of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT LN("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -2526,7 +2751,11 @@ The query returns the natural logarithms of field values associated with the `wa
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT LN(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -2547,9 +2776,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the natural logarithm of mean values.
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the natural logarithm of mean values" %}}
 
 ```sql
 > SELECT LN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -2580,11 +2811,15 @@ time                   mean
 
 InfluxDB then calculates the natural logarithms of those averages.
 
-### LOG()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## LOG()
 
 Returns the logarithm of the field value with base `b`.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT LOG( [ * | <field_key> ], <b> ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -2604,7 +2839,7 @@ Returns the logarithm of field values associated with each field key in the [mea
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `LOG()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -2622,7 +2857,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate the logarithm base 4 of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the logarithm base 4 of field values associated with a field key" %}}
 
 ```sql
 > SELECT LOG("water_level", 4) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -2640,7 +2877,9 @@ time                  log
 
 The query returns the logarithm base 4 of field values in the `water_level` field key in the `h2o_feet` measurement.
 
-###### Calculate the logarithm base 4 of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the logarithm base 4 of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT LOG(*, 4) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -2677,7 +2916,9 @@ time                  log
 
 The query returns the logarithm base 4 of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
-###### Calculate the logarithm base 4 of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the logarithm base 4 of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT LOG("water_level", 4) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -2695,7 +2936,11 @@ The query returns the logarithm base 4 of field values associated with the `wate
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT LOG(<function>( [ * | <field_key> ] ), <b>) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -2716,9 +2961,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the logarithm base 4 of mean values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the logarithm base 4 of mean values" %}}
 
 ```sql
 > SELECT LOG(MEAN("water_level"), 4) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -2749,11 +2996,15 @@ time                   mean
 
 InfluxDB then calculates the logarithm base 4 of those averages.
 
-### LOG2()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## LOG2()
 
 Returns the logarithm of the field value to the base 2.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT LOG2( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -2773,7 +3024,7 @@ Returns the logarithm of field values associated with each field key in the [mea
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced syntax](#advanced-syntax) section for how to use `LOG2()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -2791,7 +3042,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate the logarithm base 2 of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the logarithm base 2 of field values associated with a field key" %}}
 
 ```sql
 > SELECT LOG2("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -2809,7 +3062,9 @@ time                  log2
 
 The query returns the logarithm base 2 of field values in the `water_level` field key in the `h2o_feet` measurement.
 
-###### Calculate the logarithm base 2 of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the logarithm base 2 of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT LOG2(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -2846,7 +3101,9 @@ time                  log2
 
 The query returns the logarithm base 2 of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
-###### Calculate the logarithm base 2 of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the logarithm base 2 of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT LOG2("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -2864,7 +3121,11 @@ The query returns the logarithm base 2 of field values associated with the `wate
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```sql
 SELECT LOG2(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -2885,9 +3146,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the logarithm base 2 of mean values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the logarithm base 2 of mean values" %}}
 
 ```sql
 > SELECT LOG2(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -2918,11 +3181,15 @@ time                   mean
 
 InfluxDB then calculates the logarithm base 2 of those averages.
 
-### LOG10()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## LOG10()
 
 Returns the logarithm of the field value to the base 10.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT LOG10( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -2942,7 +3209,7 @@ Returns the logarithm of field values associated with each field key in the [mea
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `LOG10()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -2960,7 +3227,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate the logarithm base 10 of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the logarithm base 10 of field values associated with a field key" %}}
 
 ```sql
 > SELECT LOG10("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -2978,7 +3247,9 @@ time                  log10
 
 The query returns the logarithm base 10 of field values in the `water_level` field key in the `h2o_feet` measurement.
 
-###### Calculate the logarithm base 10 of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the logarithm base 10 of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT LOG10(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -3015,7 +3286,9 @@ time                  log10
 
 The query returns the logarithm base 10 of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
-###### Calculate the logarithm base 10 of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the logarithm base 10 of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT LOG10("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -3033,7 +3306,11 @@ The query returns the logarithm base 10 of field values associated with the `wat
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT LOG10(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3054,9 +3331,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the logarithm base 10 of mean values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the logarithm base 10 of mean values" %}}
 
 ```sql
 > SELECT LOG10(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -3087,11 +3366,15 @@ time                   mean
 
 InfluxDB then calculates the logarithm base 10 of those averages.
 
-### MOVING_AVERAGE()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## MOVING_AVERAGE()
 
 Returns the rolling average across a window of subsequent [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT MOVING_AVERAGE( [ * | <field_key> | /<regular_expression>/ ] , <N> ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3114,7 +3397,7 @@ Returns the rolling average across `N` field values associated with each field k
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax-3) section for how to use `MOVING_AVERAGE()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -3132,7 +3415,9 @@ time                   water_level
 2015-08-18T00:30:00Z   2.051
 ```
 
-###### Calculate the moving average of the field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the moving average of the field values associated with a field key" %}}
 
 ```sql
 > SELECT MOVING_AVERAGE("water_level",2) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z'
@@ -3151,7 +3436,9 @@ The query returns the rolling average across a two-field-value window for the `w
 The first result (`2.09`) is the average of the first two points in the raw data: (`2.064 + 2.116) / 2`).
 The second result (`2.072`) is the average of the second two points in the raw data: (`2.116 + 2.028) / 2`).
 
-###### Calculate the moving average of the field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the moving average of the field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT MOVING_AVERAGE(*,3) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z'
@@ -3168,7 +3455,9 @@ time                   moving_average_water_level
 The query returns the rolling average across a three-field-value window for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
-###### Calculate the moving average of the field values associated with each field key that matches a regular expression
+{{% /expand %}}
+
+{{% expand "Calculate the moving average of the field values associated with each field key that matches a regular expression" %}}
 
 ```sql
 > SELECT MOVING_AVERAGE(/level/,4) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z'
@@ -3183,7 +3472,9 @@ time                    moving_average_water_level
 
 The query returns the rolling average across a four-field-value window for each field key that stores numerical values and includes the word `level` in the `h2o_feet` measurement.
 
-###### Calculate the moving average of the field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the moving average of the field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT MOVING_AVERAGE("water_level",2) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' ORDER BY time DESC LIMIT 2 OFFSET 3
@@ -3199,7 +3490,11 @@ The query returns the rolling average across a two-field-value window for the `w
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to two and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by three points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT MOVING_AVERAGE(<function> ([ * | <field_key> | /<regular_expression>/ ]) , N ) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3220,9 +3515,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the moving average of maximum values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the moving average of maximum values" %}}
 
 ```sql
 > SELECT MOVING_AVERAGE(MAX("water_level"),2) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' GROUP BY time(12m)
@@ -3253,12 +3550,16 @@ time                   max
 Next, InfluxDB calculates the rolling average across a two-value window using those maximum values.
 The first final result (`2.121`) is the average of the first two maximum values (`(2.116 + 2.126) / 2`).
 
-### NON_NEGATIVE_DERIVATIVE()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## NON_NEGATIVE_DERIVATIVE()
 
 Returns the non-negative rate of change between subsequent [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 Non-negative rates of change include positive rates of change and rates of change that equal zero.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT NON_NEGATIVE_DERIVATIVE( [ * | <field_key> | /<regular_expression>/ ] [ , <unit> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3283,12 +3584,12 @@ Returns the non-negative rate of change between subsequent field values associat
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax-4) section for how to use `NON_NEGATIVE_DERIVATIVE()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 See the examples in the [`DERIVATIVE()` documentation](#basic-syntax-8).
 `NON_NEGATIVE_DERIVATIVE()` behaves the same as the `DERIVATIVE()` function but `NON_NEGATIVE_DERIVATIVE()` returns only positive rates of change or rates of change that equal zero.
 
-#### Advanced syntax
+### Advanced syntax
 
 ```
 SELECT NON_NEGATIVE_DERIVATIVE(<function> ([ * | <field_key> | /<regular_expression>/ ]) [ , <unit> ] ) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3314,17 +3615,17 @@ Note that this behavior is different from the [basic syntax's](#basic-syntax-4) 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
 See the examples in the [`DERIVATIVE()` documentation](#advanced-syntax-8).
 `NON_NEGATIVE_DERIVATIVE()` behaves the same as the `DERIVATIVE()` function but `NON_NEGATIVE_DERIVATIVE()` returns only positive rates of change or rates of change that equal zero.
 
-### NON_NEGATIVE_DIFFERENCE()
+## NON_NEGATIVE_DIFFERENCE()
 
 Returns the non-negative result of subtraction between subsequent [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
 Non-negative results of subtraction include positive differences and differences that equal zero.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT NON_NEGATIVE_DIFFERENCE( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3344,12 +3645,12 @@ Returns the non-negative difference between subsequent field values associated w
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax-5) section for how to use `NON_NEGATIVE_DIFFERENCE()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 See the examples in the [`DIFFERENCE()` documentation](#basic-syntax-9).
 `NON_NEGATIVE_DIFFERENCE()` behaves the same as the `DIFFERENCE()` function but `NON_NEGATIVE_DIFFERENCE()` returns only positive differences or differences that equal zero.
 
-#### Advanced syntax
+### Advanced syntax
 
 ```
 SELECT NON_NEGATIVE_DIFFERENCE(<function>( [ * | <field_key> | /<regular_expression>/ ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3370,16 +3671,16 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
 See the examples in the [`DIFFERENCE()` documentation](#advanced-syntax-9).
 `NON_NEGATIVE_DIFFERENCE()` behaves the same as the `DIFFERENCE()` function but `NON_NEGATIVE_DIFFERENCE()` returns only positive differences or differences that equal zero.
 
-### POW()
+## POW()
 
 Returns the field value to the power of `x`.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT POW( [ * | <field_key> ], <x> ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3399,7 +3700,7 @@ Returns the field values associated with each field key in the [measurement](/en
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `POW()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -3417,7 +3718,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate field values associated with a field key to the power of 4
+{{< expand-wrapper >}}
+
+{{% expand "Calculate field values associated with a field key to the power of 4" %}}
 
 ```sql
 > SELECT POW("water_level", 4) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -3435,7 +3738,9 @@ time                  pow
 
 The query returns field values in the `water_level` field key in the `h2o_feet` measurement multiplied to a power of 4.
 
-###### Calculate field values associated with each field key in a measurement to the power of 4
+{{% /expand %}}
+
+{{% expand "Calculate field values associated with each field key in a measurement to the power of 4" %}}
 
 ```sql
 > SELECT POW(*, 4) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -3472,7 +3777,9 @@ time                  pow
 
 The query returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement multiplied to the power of 4. -->
 
-###### Calculate field values associated with a field key to the power of 4 and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate field values associated with a field key to the power of 4 and include several clauses" %}}
 
 ```sql
 > SELECT POW("water_level", 4) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -3490,7 +3797,11 @@ The query returns field values associated with the `water_level` field key multi
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT POW(<function>( [ * | <field_key> ] ), <x>) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3511,9 +3822,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate mean values to the power of 4
+{{< expand-wrapper >}}
+
+{{% expand "Calculate mean values to the power of 4" %}}
 
 ```sql
 > SELECT POW(MEAN("water_level"), 4) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -3544,11 +3857,15 @@ time                   mean
 
 InfluxDB then calculates those averages multiplied to the power of 4.
 
-### ROUND()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## ROUND()
 
 Returns the subsequent value rounded to the nearest integer.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT ROUND( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3568,7 +3885,7 @@ Returns the field values associated with each field key in the [measurement](/en
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `ROUND()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -3586,7 +3903,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Round field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Round field values associated with a field key" %}}
 
 ```sql
 > SELECT ROUND("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -3604,7 +3923,9 @@ time                  round
 
 The query returns field values in the `water_level` field key in the `h2o_feet` measurement rounded to the nearest integer.
 
-###### Round field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Round field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT ROUND(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -3640,7 +3961,9 @@ time                   round_water_level
 
 The query returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement rounded to the nearest integer. -->
 
-###### Round field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Round field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT ROUND("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -3658,7 +3981,11 @@ The query returns field values associated with the `water_level` field key round
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT ROUND(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3679,9 +4006,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate mean values rounded to the nearest integer
+{{< expand-wrapper >}}
+
+{{% expand "Calculate mean values rounded to the nearest integer" %}}
 
 ```sql
 > SELECT ROUND(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -3712,11 +4041,15 @@ time                   mean
 
 InfluxDB then rounds those averages to the nearest integer.
 
-### SIN()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## SIN()
 
 Returns the sine of the field value.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT SIN( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3736,7 +4069,7 @@ Returns the sine of field values associated with each field key in the [measurem
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `SIN()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -3754,7 +4087,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate the sine of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the sine of field values associated with a field key" %}}
 
 ```sql
 > SELECT SIN("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -3772,7 +4107,9 @@ time                  sin
 
 The query returns sine of field values in the `water_level` field key in the `h2o_feet` measurement.
 
-###### Calculate the sine of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the sine of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT SIN(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -3808,7 +4145,9 @@ time                  sin
 
 The query returns sine of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
-###### Calculate the sine of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the sine of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT SIN("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -3826,7 +4165,11 @@ The query returns sine of field values associated with the `water_level` field k
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT SIN(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3847,9 +4190,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the sine of mean values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the sine of mean values" %}}
 
 ```sql
 > SELECT SIN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -3880,11 +4225,15 @@ time                   mean
 
 InfluxDB then calculates sine of those averages.
 
-### SQRT()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## SQRT()
 
 Returns the square root of field value.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT SQRT( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -3904,7 +4253,7 @@ Returns the square root field values associated with each field key in the [meas
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `SQRT()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -3922,7 +4271,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate the square root of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the square root of field values associated with a field key" %}}
 
 ```sql
 > SELECT SQRT("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -3940,7 +4291,9 @@ time                  sqrt
 
 The query returns the square roots of field values in the `water_level` field key in the `h2o_feet` measurement.
 
-###### Calculate the square root of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the square root of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT SQRT(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -3977,7 +4330,9 @@ time                  sqrt_water_level
 
 The query returns the square roots of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
-###### Calculate the square root of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the square root of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT SQRT("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -3995,7 +4350,11 @@ The query returns the square roots of field values associated with the `water_le
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT SQRT(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -4016,9 +4375,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the square root of mean values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the square root of mean values" %}}
 
 ```sql
 > SELECT SQRT(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -4049,11 +4410,15 @@ time                   mean
 
 InfluxDB then calculates the square roots of those averages.
 
-### TAN()
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## TAN()
 
 Returns the tangent of the field value.
 
-#### Basic syntax
+### Basic syntax
 
 ```
 SELECT TAN( [ * | <field_key> ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -4073,7 +4438,7 @@ Returns the tangent of field values associated with each field key in the [measu
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `TAN()` with a `GROUP BY time()` clause.
 
-##### Examples
+### Examples
 
 The examples below use the following subsample of the [`NOAA_water_database` data](/enterprise_influxdb/v1.9/query_language/data_download/):
 
@@ -4091,7 +4456,9 @@ time                  water_level
 2015-08-18T00:30:00Z  2.051
 ```
 
-###### Calculate the tangent of field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the tangent of field values associated with a field key" %}}
 
 ```sql
 > SELECT TAN("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -4109,7 +4476,9 @@ time                  tan
 
 The query returns tangent of field values in the `water_level` field key in the `h2o_feet` measurement.
 
-###### Calculate the tangent of field values associated with each field key in a measurement
+{{% /expand %}}
+
+{{% expand "Calculate the tangent of field values associated with each field key in a measurement" %}}
 
 ```sql
 > SELECT TAN(*) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica'
@@ -4145,7 +4514,9 @@ time                  tan
 
 The query returns tangent of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
-###### Calculate the tangent of field values associated with a field key and include several clauses
+{{% /expand %}}
+
+{{% expand "Calculate the tangent of field values associated with a field key and include several clauses" %}}
 
 ```sql
 > SELECT TAN("water_level") FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
@@ -4163,7 +4534,11 @@ The query returns tangent of field values associated with the `water_level` fiel
 It covers the [time range](/enterprise_influxdb/v1.9/query_language/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/enterprise_influxdb/v1.9/query_language/explore-data/#order-by-time-desc).
 The query also [limits](/enterprise_influxdb/v1.9/query_language/explore-data/#the-limit-and-slimit-clauses) the number of points returned to four and [offsets](/enterprise_influxdb/v1.9/query_language/explore-data/#the-offset-and-soffset-clauses) results by two points.
 
-#### Advanced syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Advanced syntax
 
 ```
 SELECT TAN(<function>( [ * | <field_key> ] )) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -4184,9 +4559,11 @@ The query first calculates the results for the nested function at the specified 
 [`MAX()`](#max), and
 [`PERCENTILE()`](#percentile).
 
-##### Examples
+### Examples
 
-###### Calculate the tangent of mean values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the tangent of mean values" %}}
 
 ```sql
 > SELECT TAN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2015-08-18T00:00:00Z' AND time <= '2015-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -4216,3 +4593,8 @@ time                   mean
 ```
 
 InfluxDB then calculates tangent of those averages.
+
+
+{{% /expand %}}
+
+{{< /expand-wrapper >}}

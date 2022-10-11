@@ -20,7 +20,7 @@ Each analysis function below covers **syntax**, **parameters**, and **examples**
 - [TRIPLE_EXPONENTIAL_DERIVATIVE()](#triple_exponential_derivative)
 - [RELATIVE_STRENGTH_INDEX()](#relative_strength_index)
 
-### HOLT_WINTERS()
+## HOLT_WINTERS()
 
 Returns N number of predicted [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) using the
 [Holt-Winters](https://www.otexts.org/fpp/7/5) seasonal method.
@@ -30,7 +30,7 @@ Use `HOLT_WINTERS()` to:
 * Predict when data values will cross a given threshold
 * Compare predicted values with actual values to detect anomalies in your data
 
-#### Syntax
+### Syntax
 
 ```
 SELECT HOLT_WINTERS[_WITH-FIT](<function>(<field_key>),<N>,<S>) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -59,9 +59,11 @@ consistent time intervals; the nested InfluxQL function and the
 
 `HOLT_WINTERS()` and `HOLT_WINTERS_WITH_FIT()` support int64 and float64 field value [data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types).
 
-#### Examples
+### Examples
 
-##### Predict field values associated with a field key
+{{< expand-wrapper >}}
+
+{{% expand "Predict field values associated with a field key" %}}
 
 ###### Raw Data
 
@@ -121,6 +123,10 @@ The blue line shows the results of the query:
 
 ![Third step](/img/influxdb/1-3-hw-third-step-1-2.png)
 
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
 #### Common Issues with `HOLT_WINTERS()`
 
 ##### `HOLT_WINTERS()` and receiving fewer than `N` points
@@ -163,7 +169,9 @@ E.G. `2` means the current point and the point before it.
 The algorithm uses an exponential decay rate to determine the weight of a historical point,
 generally known as the alpha (α). The `PERIOD` controls the decay rate.
 
-> NOTE: Older points can still have an impact.
+{{% note %}}
+**Note:** Older points can still have an impact.
+{{% /note %}}
 
 #### `HOLD_PERIOD`
 
@@ -219,10 +227,11 @@ This is the method used by [ta-lib](https://www.ta-lib.org/).
 When this method is used and `HOLD_PERIOD` is unspecified, `HOLD_PERIOD`
 defaults to `PERIOD - 1`.
 
-> The `none` warmup type is only available with the
-> [`CHANDE_MOMENTUM_OSCILLATOR()`](#chande-momentum-oscillator) function.
+{{% note %}}
+**Note:** The `none` warmup type is only available with the [`CHANDE_MOMENTUM_OSCILLATOR()`](#chande-momentum-oscillator) function.
+{{% /note %}}
 
-### CHANDE_MOMENTUM_OSCILLATOR()
+## CHANDE_MOMENTUM_OSCILLATOR()
 
 The Chande Momentum Oscillator (CMO) is a technical momentum indicator developed by Tushar Chande.
 The CMO indicator is created by calculating the difference between the sum of all
@@ -231,7 +240,7 @@ then dividing the result by the sum of all data movement over a given time perio
 The result is multiplied by 100 to give the -100 to +100 range.
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/cmo" target="\_blank">Source</a>
 
-#### Basic syntax
+### Basic syntax
 
 ```
 CHANDE_MOMENTUM_OSCILLATOR([ * | <field_key> | /regular_expression/ ], <period>[, <hold_period>, [warmup_type]])
@@ -258,8 +267,9 @@ Returns the mean of field values associated with the [field key](/enterprise_inf
 processed using the Chande Momentum Oscillator algorithm with a 2-value period
 and the default hold period and warmup type.
 
-> **Note:** When aggregating data with a `GROUP BY` clause, you must include an
-> [aggregate function](#aggregations) in your call to the `CHANDE_MOMENTUM_OSCILLATOR()` function.
+{{% note %}}
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an  [aggregate function](#aggregations) in your call to the `CHANDE_MOMENTUM_OSCILLATOR()` function.
+{{% /note %}}
 
 `CHANDE_MOMENTUM_OSCILLATOR(/regular_expression/, 2)`  
 Returns the field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions)
@@ -276,7 +286,7 @@ and the default hold period and warmup type.
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `CHANDE_MOMENTUM_OSCILLATOR()` with a `GROUP BY time()` clause.
 
-### EXPONENTIAL_MOVING_AVERAGE()
+## EXPONENTIAL_MOVING_AVERAGE()
 
 An exponential moving average (EMA) is a type of moving average that is similar
 to a [simple moving average](#moving-average), except that more weight is given to the latest data.
@@ -285,7 +295,7 @@ This type of moving average reacts faster to recent data changes than a simple m
 
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.investopedia.com/terms/e/ema.asp" target="\_blank">Source</a>
 
-#### Basic syntax
+### Basic syntax
 
 ```
 EXPONENTIAL_MOVING_AVERAGE([ * | <field_key> | /regular_expression/ ], <period>[, <hold_period)[, <warmup_type]])
@@ -312,8 +322,9 @@ Returns the mean of field values associated with the [field key](/enterprise_inf
 processed using the Exponential Moving Average algorithm with a 2-value period
 and the default hold period and warmup type.
 
-> **Note:** When aggregating data with a `GROUP BY` clause, you must include an
-> [aggregate function](#aggregations) in your call to the `EXPONENTIAL_MOVING_AVERAGE()` function.
+{{% note %}}
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `EXPONENTIAL_MOVING_AVERAGE()` function.
+{{% /note %}}
 
 `EXPONENTIAL_MOVING_AVERAGE(/regular_expression/, 2)`  
 Returns the field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions)
@@ -330,7 +341,7 @@ and the default hold period and warmup type.
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause.
 
-### DOUBLE_EXPONENTIAL_MOVING_AVERAGE()
+## DOUBLE_EXPONENTIAL_MOVING_AVERAGE()
 
 The Double Exponential Moving Average (DEMA) attempts to remove the inherent lag
 associated to Moving Averages by placing more weight on recent values.
@@ -341,7 +352,7 @@ is subtracted from the previously doubled EMA.
 
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://en.wikipedia.org/wiki/Double_exponential_moving_average" target="\_blank">Source</a>
 
-#### Basic syntax
+### Basic syntax
 
 ```
 DOUBLE_EXPONENTIAL_MOVING_AVERAGE([ * | <field_key> | /regular_expression/ ], <period>[, <hold_period)[, <warmup_type]])
@@ -368,8 +379,9 @@ Returns the mean of field values associated with the [field key](/enterprise_inf
 processed using the Double Exponential Moving Average algorithm with a 2-value period
 and the default hold period and warmup type.
 
-> **Note:** When aggregating data with a `GROUP BY` clause, you must include an
-> [aggregate function](#aggregations) in your call to the `DOUBLE_EXPONENTIAL_MOVING_AVERAGE()` function.
+{{% note %}}
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `DOUBLE_EXPONENTIAL_MOVING_AVERAGE()` function.
+{{% /note %}}
 
 `DOUBLE_EXPONENTIAL_MOVING_AVERAGE(/regular_expression/, 2)`  
 Returns the field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions)
@@ -386,7 +398,7 @@ and the default hold period and warmup type.
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `DOUBLE_EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause.
 
-### KAUFMANS_EFFICIENCY_RATIO()
+## KAUFMANS_EFFICIENCY_RATIO()
 
 Kaufman's Efficiency Ration, or simply "Efficiency Ratio" (ER), is calculated by
 dividing the data change over a period by the absolute sum of the data movements
@@ -399,7 +411,7 @@ The difference is that the CMO takes market direction into account, but if you t
 
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="http://etfhq.com/blog/2011/02/07/kaufmans-efficiency-ratio/" target="\_blank">Source</a>
 
-#### Basic syntax
+### Basic syntax
 
 ```
 KAUFMANS_EFFICIENCY_RATIO([ * | <field_key> | /regular_expression/ ], <period>[, <hold_period>])
@@ -425,8 +437,9 @@ Returns the mean of field values associated with the [field key](/enterprise_inf
 processed using the Efficiency Index algorithm with a 2-value period
 and the default hold period.
 
-> **Note:** When aggregating data with a `GROUP BY` clause, you must include an
-> [aggregate function](#aggregations) in your call to the `KAUFMANS_EFFICIENCY_RATIO()` function.
+{{% note %}}
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `KAUFMANS_EFFICIENCY_RATIO()` function.
+{{% /note %}}
 
 `KAUFMANS_EFFICIENCY_RATIO(/regular_expression/, 2)`  
 Returns the field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions)
@@ -443,7 +456,7 @@ and the default hold period and warmup type.
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `KAUFMANS_EFFICIENCY_RATIO()` with a `GROUP BY time()` clause.
 
-### KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
+## KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
 
 Kaufman's Adaptive Moving Average (KAMA) is a moving average designed to
 account for sample noise or volatility.
@@ -454,7 +467,7 @@ time turning points and filter data movements.
 
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:kaufman_s_adaptive_moving_average" target="\_blank">Source</a>
 
-#### Basic syntax
+### Basic syntax
 
 ```
 KAUFMANS_ADAPTIVE_MOVING_AVERAGE([ * | <field_key> | /regular_expression/ ], <period>[, <hold_period>])
@@ -479,8 +492,9 @@ Returns the mean of field values associated with the [field key](/enterprise_inf
 processed using the Kaufman Adaptive Moving Average algorithm with a 2-value period
 and the default hold period.
 
-> **Note:** When aggregating data with a `GROUP BY` clause, you must include an
-> [aggregate function](#aggregations) in your call to the `KAUFMANS_ADAPTIVE_MOVING_AVERAGE()` function.
+{{% note %}}
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `KAUFMANS_ADAPTIVE_MOVING_AVERAGE()` function.
+{{% /note %}}
 
 `KAUFMANS_ADAPTIVE_MOVING_AVERAGE(/regular_expression/, 2)`  
 Returns the field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions)
@@ -497,7 +511,7 @@ and the default hold period and warmup type.
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `KAUFMANS_ADAPTIVE_MOVING_AVERAGE()` with a `GROUP BY time()` clause.
 
-### TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
+## TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
 
 The triple exponential moving average (TEMA) was developed to filter out
 volatility from conventional moving averages.
@@ -508,7 +522,7 @@ and a triple exponential moving average.
 
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp " target="\_blank">Source</a>
 
-#### Basic syntax
+### Basic syntax
 
 ```
 TRIPLE_EXPONENTIAL_MOVING_AVERAGE([ * | <field_key> | /regular_expression/ ], <period>[, <hold_period)[, <warmup_type]])
@@ -535,8 +549,9 @@ Returns the mean of field values associated with the [field key](/enterprise_inf
 processed using the Triple Exponential Moving Average algorithm with a 2-value period
 and the default hold period and warmup type.
 
-> **Note:** When aggregating data with a `GROUP BY` clause, you must include an
-> [aggregate function](#aggregations) in your call to the `TRIPLE_EXPONENTIAL_MOVING_AVERAGE()` function.
+{{% note %}}
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `TRIPLE_EXPONENTIAL_MOVING_AVERAGE()` function.
+{{% /note %}}
 
 `TRIPLE_EXPONENTIAL_MOVING_AVERAGE(/regular_expression/, 2)`  
 Returns the field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions)
@@ -553,7 +568,7 @@ and the default hold period and warmup type.
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `TRIPLE_EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause.
 
-### TRIPLE_EXPONENTIAL_DERIVATIVE()
+## TRIPLE_EXPONENTIAL_DERIVATIVE()
 
 The triple exponential derivative indicator, commonly referred to as "TRIX," is
 an oscillator used to identify oversold and overbought markets, and can also be
@@ -572,7 +587,7 @@ buy signal, and when it closes below the zero line, it gives a sell signal.
 
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.investopedia.com/articles/technical/02/092402.asp " target="\_blank">Source</a>
 
-#### Basic syntax
+### Basic syntax
 
 ```
 TRIPLE_EXPONENTIAL_DERIVATIVE([ * | <field_key> | /regular_expression/ ], <period>[, <hold_period)[, <warmup_type]])
@@ -599,8 +614,9 @@ Returns the mean of field values associated with the [field key](/enterprise_inf
 processed using the Triple Exponential Derivative algorithm with a 2-value period
 and the default hold period and warmup type.
 
-> **Note:** When aggregating data with a `GROUP BY` clause, you must include an
-> [aggregate function](#aggregations) in your call to the `TRIPLE_EXPONENTIAL_DERIVATIVE()` function.
+{{% note %}}
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `TRIPLE_EXPONENTIAL_DERIVATIVE()` function.
+{{% /note %}}
 
 `TRIPLE_EXPONENTIAL_DERIVATIVE(/regular_expression/, 2)`  
 Returns the field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions)
@@ -617,13 +633,13 @@ and the default hold period and warmup type.
 The basic syntax supports `GROUP BY` clauses that [group by tags](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-tags) but not `GROUP BY` clauses that [group by time](/enterprise_influxdb/v1.9/query_language/explore-data/#group-by-time-intervals).
 See the [Advanced Syntax](#advanced-syntax) section for how to use `TRIPLE_EXPONENTIAL_DERIVATIVE()` with a `GROUP BY time()` clause.
 
-### RELATIVE_STRENGTH_INDEX()
+## RELATIVE_STRENGTH_INDEX()
 
 The relative strength index (RSI) is a momentum indicator that compares the magnitude of recent increases and decreases over a specified time period to measure speed and change of data movements.
 
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.investopedia.com/terms/r/rsi.asp" target="\_blank">Source</a>
 
-#### Basic syntax
+### Basic syntax
 
 ```
 RELATIVE_STRENGTH_INDEX([ * | <field_key> | /regular_expression/ ], <period>[, <hold_period)[, <warmup_type]])
@@ -650,8 +666,9 @@ Returns the mean of field values associated with the [field key](/enterprise_inf
 processed using the Relative Strength Index algorithm with a 2-value period
 and the default hold period and warmup type.
 
-> **Note:** When aggregating data with a `GROUP BY` clause, you must include an
-> [aggregate function](#aggregations) in your call to the `RELATIVE_STRENGTH_INDEX()` function.
+{{% note %}}
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an  [aggregate function](#aggregations) in your call to the `RELATIVE_STRENGTH_INDEX()` function.
+{{% /note %}}
 
 `RELATIVE_STRENGTH_INDEX(/regular_expression/, 2)`  
 Returns the field values associated with each field key that matches the [regular expression](/enterprise_influxdb/v1.9/query_language/explore-data/#regular-expressions)
