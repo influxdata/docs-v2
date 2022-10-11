@@ -26,10 +26,6 @@ Each aggregate function below covers **syntax** including parameters to pass to 
 
 Returns the number of non-null [field values](/influxdb/v2.1/reference/glossary/#field-value). Supports all field value [data types](/influxdb/v2.1/reference/glossary/#data-type).
 
-{{% note %}}
-InfluxQL supports nesting `COUNT()` with [DISTINCT()](#distinct).
-{{% /note %}}
-
 ### Syntax
 
 ```
@@ -98,6 +94,8 @@ Returns the number of non-null field values for every field key that contains th
 {{% /expand %}}
 
 {{% expand "Count distinct values for a field" %}}
+
+InfluxQL supports nesting [DISTINCT()](#distinct) in `COUNT()`.
 
 ```sql
 > SELECT COUNT(DISTINCT("level description")) FROM "h2o_feet"
@@ -309,13 +307,13 @@ Returns the arithmetic mean (average) of [field values](/influxdb/v2.1/reference
 SELECT MEAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-### MEAN(field_key) 
+#### MEAN(field_key) 
 Returns the average field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
-### MEAN(/regular_expression/)  
+#### MEAN(/regular_expression/)  
 Returns the average field value associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
-### MEAN(*) 
+#### MEAN(*) 
 Returns the average field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
 ### Examples
@@ -346,6 +344,7 @@ time                   mean_water_level
 ----                   ----------------
 1970-01-01T00:00:00Z   4.442107025822522
 ```
+
 Returns the average field value for every field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
@@ -499,15 +498,15 @@ Returns the most frequent value in a list of [field values](/influxdb/v2.1/refer
 SELECT MODE( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-### MODE(field_key)
+#### MODE(field_key)
 
 Returns the most frequent field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
-### MODE(/regular_expression/)
+#### MODE(/regular_expression/)
 
 Returns the most frequent field value associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
-### MODE(*)
+#### MODE(*)
 
 Returns the most frequent field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
@@ -686,15 +685,15 @@ Returns the standard deviation of [field values](/influxdb/v2.1/reference/glossa
 SELECT STDDEV( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-### STDDEV(field_key)
+#### STDDEV(field_key)
 
 Returns the standard deviation of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
-### STDDEV(/regular_expression/)
+#### STDDEV(/regular_expression/)
 
 Returns the standard deviation of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
-### STDDEV(*)
+#### STDDEV(*)
 
 Returns the standard deviation of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
@@ -777,15 +776,15 @@ Returns the sum of [field values](/influxdb/v2.1/reference/glossary/#field-value
 SELECT SUM( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-### SUM(field_key)
+#### SUM(field_key)
 
 Returns the sum of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
-### SUM(/regular_expression/)
+#### SUM(/regular_expression/)
 
 Returns the sum of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
-### SUM(*)
+#### SUM(*)
 
 Returns the sums of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
@@ -839,7 +838,6 @@ Returns the summed total of the field values for each field key that stores nume
 {{% /expand %}}
 
 {{% expand "Calculate the sum of the field values associated with a field key and include several clauses" %}}
-
 
 ```sql
 > SELECT SUM("water_level") FROM "h2o_feet" WHERE time >= '2015-08-17T23:48:00Z' AND time <= '2015-08-18T00:54:00Z' GROUP BY time(12m),* fill(18000) LIMIT 4 SLIMIT 1
