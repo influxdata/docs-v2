@@ -27,7 +27,7 @@ with the most recent timestamps first.
 ### Syntax
 
 ```sql
-SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER BY time DESC
+SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER BY time DESC
 ```
 
 `ORDER by time DESC` must appear after the `GROUP BY` clause if the query includes a `GROUP BY` clause.

@@ -22,7 +22,7 @@ list_code_example: |
 ### Syntax
 
 ```sql
-SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT <N>
+SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT <N>
 ```
 
 `N` specifies the number of points to return from the specified measurement . If `N` is greater than the number of points in a measurement, InfluxDB returns all points from that series.
@@ -88,7 +88,7 @@ Note that without `LIMIT 2`, the query would return four points per series; one 
 ### Syntax
 
 ```sql
-SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] GROUP BY *[,time(<time_interval>)] [ORDER_BY_clause] SLIMIT <N>
+SELECT_clause FROM_clause [WHERE_clause] GROUP BY *[,time(<time_interval>)] [ORDER_BY_clause] SLIMIT <N>
 ```
 
 `N` specifies the number of series to return from the specified measurement. If `N` is greater than the number of series in a measurement, InfluxDB returns all series from that measurement.
@@ -156,7 +156,7 @@ associated with the `h2o_feet` measurement: `location=coyote_creek` and
 ### Syntax
 
 ```sql
-SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] GROUP BY *[,time(<time_interval>)] [ORDER_BY_clause] LIMIT <N1> SLIMIT <N2>
+SELECT_clause FROM_clause [WHERE_clause] GROUP BY *[,time(<time_interval>)] [ORDER_BY_clause] LIMIT <N1> SLIMIT <N2>
 ```
 
 `N1` specifies the number of points to return per measurement. If `N1` is greater than the number of points in a measurement, InfluxDB returns all points from that measurement.

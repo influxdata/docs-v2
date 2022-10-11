@@ -364,14 +364,20 @@ Raw data:
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:18:00Z'
-name: h2o_feet
---------------
-time                   water_level
-2019-08-18T00:00:00Z   8.12
-2019-08-18T00:06:00Z   8.005
-2019-08-18T00:12:00Z   7.887
-2019-08-18T00:18:00Z   7.762
 ```
+
+Output: 
+{{% influxql/table-meta %}}
+name: h2o_feet  
+{{% /influxql/table-meta %}}
+
+| time   | water_level |
+| :------------------ | ---------------------:|
+|2019-08-18T00:00:00Z |  8.5040000000 |
+|2019-08-18T00:06:00Z |  8.4190000000 |
+|2019-08-18T00:12:00Z |  8.3200000000 |
+|2019-08-18T00:18:00Z |  8.2250000000 |
+
 
 Query and results:
 
@@ -379,13 +385,21 @@ The following query covers a 12-minute time range and groups results into 12-min
 
 ```sql
 > SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m)
-
-name: h2o_feet
-time                   count
-----                   -----
-2019-08-18T00:00:00Z   1        <----- Note that this timestamp occurs before the start of the query's time range
-2019-08-18T00:12:00Z   1
 ```
+
+Output: 
+{{% influxql/table-meta %}}
+name: h2o_feet  
+{{% /influxql/table-meta %}}
+
+| time   | count |
+| :------------------ | ---------------------:|
+|2019-08-18T00:00:00Z  |  1.0000000000|
+|2019-08-18T00:12:00Z  |  1.0000000000|
+
+{{% note %}}
+NOTE: The timestamp in the first row of data occurs before the start of the query's time range.
+{{% /note %}}
 
 Explanation:
 
@@ -423,12 +437,14 @@ in the Advanced Syntax section continues with the query shown here;
 it shifts forward the preset time boundaries by six minutes such that
 InfluxDB returns:
 
-```sql
-name: h2o_feet
-time                   count
-----                   -----
-2019-08-18T00:06:00Z   2
-```
+Output: 
+{{% influxql/table-meta %}}
+name: h2o_feet  
+{{% /influxql/table-meta %}}
+
+| time   | count |
+| :------------------ | ---------------------:|
+| 2019-08-18T00:06:00Z  | 2 |
 
 ### Advanced GROUP BY time() syntax
 

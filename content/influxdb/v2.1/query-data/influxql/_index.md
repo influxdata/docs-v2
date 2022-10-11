@@ -34,12 +34,6 @@ For complete InfluxQL reference documentation, see
 
 ## Verify buckets have a mapping
 
-<!-- {{% note %}}
-When [upgrading from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.4/upgrade/v1-to-v2/),
-database and retention policy combinations are mapped to InfluxDB {{< current-version >}} buckets.
-For more information, see [Database and retention policy mapping](/influxdb/v2.4/query-data/influxql/dbrp/).
-If you're not sure how data was written into a bucket, verify the bucket has a mapping.
-{{% /note %}} -->
 
 MOVE CLI INFO HERE
 

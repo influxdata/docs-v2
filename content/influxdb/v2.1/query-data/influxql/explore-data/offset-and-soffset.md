@@ -10,7 +10,7 @@ menu:
 weight: 306
 list_code_example: |
   ```sql
-  SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT_clause OFFSET <N> [SLIMIT_clause]
+  SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT_clause OFFSET <N> [SLIMIT_clause]
   ```
 ---
 
@@ -30,7 +30,7 @@ list_code_example: |
 ### Syntax
 
 ```sql
-SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT_clause OFFSET <N> [SLIMIT_clause]
+SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT_clause OFFSET <N> [SLIMIT_clause]
 ```
 
 `N` specifies the number of points to paginate. The `OFFSET clause` requires a `LIMIT clause`.
@@ -107,7 +107,7 @@ tags: location=coyote_creek
 ### Syntax
 
 ```sql
-SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] GROUP BY *[,time(time_interval)] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] SLIMIT_clause SOFFSET <N>
+SELECT_clause FROM_clause [WHERE_clause] GROUP BY *[,time(time_interval)] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] SLIMIT_clause SOFFSET <N>
 ```
 
 `N` specifies the number of [series](/influxdb/v2.4/reference/glossary/#series) to paginate.
