@@ -1,15 +1,15 @@
 ---
-title: array.toString() function
+title: dynamic.isType() function
 description: >
-  `array.toString()` converts all values in an array to strings.
+  `dynamic.isType()` tests if a dynamic type holds a value of a specified type.
 menu:
   flux_0_x_ref:
-    name: array.toString
-    parent: experimental/array
-    identifier: experimental/array/toString
+    name: dynamic.isType
+    parent: experimental/dynamic
+    identifier: experimental/dynamic/isType
 weight: 201
-flux/v0.x/tags: [type-conversions]
-introduced: 0.184.0
+flux/v0.x/tags: [types, tests]
+introduced: 0.186.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,52 +21,50 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L311-L311
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/dynamic/dynamic.flux#L81-L81
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`array.toString()` converts all values in an array to strings.
+`dynamic.isType()` tests if a dynamic type holds a value of a specified type.
 
-#### Supported array types
 
-- `[bool]`
-- `[duration]`
-- `[float]`
-- `[int]`
-- `[time]`
-- `[uint]`
 
 ##### Function type signature
 
 ```js
-(<-arr: [A]) => [string]
+(type: string, v: dynamic) => bool
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### arr
-
-Array of values to convert. Default is the piped-forward array (`<-`).
-
-
+### v
+({{< req >}})
+Value to test.
 
 
-## Examples
 
-### Convert an array of floats to strings
+### type
+({{< req >}})
+String describing the type to check against.
 
-```js
-import "experimental/array"
-
-arr = [12.0, 1.2300, NaN, 24.2]
-
-array.toString(arr: arr)// Returns ["12.0", "1.2300", "NaN", "24.2"]
-
-
-```
+**Supported types**:
+- string
+- bytes
+- int
+- uint
+- float
+- bool
+- time
+- duration
+- regexp
+- array
+- object
+- function
+- dictionary
+- vector
 
