@@ -10,7 +10,7 @@ weight: 205
 ---
 
 Use aggregate functions to assess, aggregate, and return values in your data.
-Each aggregate function below covers **syntax**, **parameters**, and **examples** of when to use the function.
+Each aggregate function below covers **syntax** including which parameters can be passed to the function, and and **examples** of when to use the function.
 
 - [COUNT()](#count)
 - [DISTINCT()](#distinct)
@@ -36,19 +36,18 @@ InfluxQL supports nesting `COUNT()` with [DISTINCT()](#distinct).
 SELECT COUNT( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-### Parameters
+#### COUNT(*)
 
-#### field_key  
+Returns the number of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
+
+#### COUNT(field_key)  
 
 Returns the number of field values associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
-#### /regular_expression/  
+#### COUNT(/regular_expression/)  
 
 Returns the number of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
 
-#### *
-
-Returns the number of field values associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
 ### Examples
 
