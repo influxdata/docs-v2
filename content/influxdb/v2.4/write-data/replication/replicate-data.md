@@ -1,10 +1,10 @@
 ---
-title: Replicate data from a remote instance to InfluxDB Cloud
+title: Replicate data from InfluxDB OSS
 weight: 106
 description: >
   Use InfluxDB Edge Data Replication to replicate the incoming data of select
-  buckets to one or more buckets on a remote InfluxDB OSS, InfluxDB Cloud, or
-  InfluxDB Enterprise instance.
+  buckets from InfluxDB OSS to one or more buckets in either InfluxDB Cloud, 
+  InfluxDB OSS, or InfluxDB Enterprise instances.
 menu:
   influxdb_2_4:
     name: Replicate data to Cloud
@@ -16,15 +16,25 @@ related:
 ---
 
 Use InfluxDB replication streams (InfluxDB Edge Data Replication) to replicate
-the incoming data of select buckets to one or more buckets on a remote
-{{% oss-only %}}InfluxDB OSS, InfluxDB Cloud, or InfluxDB Enterprise instance.{{% /oss-only %}}
-{{% cloud-only %}}InfluxDB Cloud instance.{{% /cloud-only %}}
+the incoming data of select buckets to one or more buckets on a remote 
+InfluxDB OSS, InfluxDB Cloud, or InfluxDB Enterprise instance.
+
+The following guide demonstrates how to replicate data from InfluxDB OSS to 
+InfluxDB Cloud and can also be used to replicate data to the following instances:
+- InfluxDB OSS to InfluxDB OSS
+- InfluxDB OSS to InfluxDB Cloud
+- InfluxDB OSS to InfluxDB Enterprise
 
 ## Configure a replication stream
 
 Use the [`influx` CLI](/influxdb/v2.4/tools/influx-cli/) or the
 [InfluxDB {{< current-version >}} API](/influxdb/v2.4/reference/api/) to configure
 a replication stream.
+
+{{% note %}}
+To replicate data to InfluxDB OSS or InfluxDB Enterprise, adjust the desired
+remote connection values accordingly.
+{{% /note %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -35,7 +45,7 @@ a replication stream.
 
 <!--------------------------------- BEGIN CLI --------------------------------->
 
-1.  In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use
+1. In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use
     the `influx remote create` command to create a remote connection to replicate data to.
 
     **Provide the following:**   
@@ -58,7 +68,7 @@ a replication stream.
 
     If you already have remote InfluxDB connections configured, you can use an existing connection. To view existing connections, run `influx remote list`.
 
-2.  In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use the
+2. In your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS instance, use the
     `influx replication create` command to create a replication stream.
     
     **Provide the following:**    
