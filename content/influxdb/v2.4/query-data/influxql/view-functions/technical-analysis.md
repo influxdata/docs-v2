@@ -3,7 +3,7 @@ title: InfluxQL analysis functions
 description: >
   Analyze and predict data with InfluxQL technical analysis functions.
 menu:
-  influxdb_2_1:
+  influxdb_2_4:
     name: Technical analysis
     parent: View InfluxQL functions
 weight: 205

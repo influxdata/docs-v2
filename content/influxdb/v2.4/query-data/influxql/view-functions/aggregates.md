@@ -3,7 +3,7 @@ title: InfluxQL aggregate functions
 description: >
   Aggregate data with InfluxQL aggregate functions.
 menu:
-  influxdb_2_1:
+  influxdb_2_4:
     name: Aggregates
     parent: View InfluxQL functions
 weight: 205

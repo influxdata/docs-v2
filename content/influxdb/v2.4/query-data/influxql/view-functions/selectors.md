@@ -3,7 +3,7 @@ title: InfluxQL selector functions
 description: >
   Select data with InfluxQL selector functions.
 menu:
-  influxdb_2_1:
+  influxdb_2_4:
     name: Selectors
     parent: View InfluxQL functions
 weight: 205

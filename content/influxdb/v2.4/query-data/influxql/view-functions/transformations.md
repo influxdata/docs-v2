@@ -3,7 +3,7 @@ title: InfluxQL transformation functions
 description: >
   Transform data with InfluxQL transformation functions.
 menu:
-  influxdb_2_1:
+  influxdb_2_4:
     name: Transformations
     parent: View InfluxQL functions
 weight: 205
