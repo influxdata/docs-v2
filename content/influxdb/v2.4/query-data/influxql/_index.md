@@ -34,157 +34,60 @@ For complete InfluxQL reference documentation, see
 
 ## Verify buckets have a mapping
 
+Use the [`influx` CLI](/influxdb/v2.4/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.4/reference/api/)
+to verify the buckets you want to query are mapped to a database and retention policy.
+_For examples, see [List DBRP mappings](/influxdb/v2.4/query-data/influxql/dbrp/#list-dbrp-mappings)._
 
-MOVE CLI INFO HERE
+If you **do not find a DBRP mapping for a bucket**, [create a new DBRP mapping]() to
+map the unmapped bucket.
 
-Use the [influx CLI](/influxdb/v2.4/tools/influx-cli) or [InfluxDB API](/influxdb/v2.4/reference/api/) to verify the buckets you want to query are mapped to a database and retention policy.
+## Create DBRP mappings for unmapped buckets
+Use the [`influx` CLI](/influxdb/v2.4/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.4/reference/api/)
+to manually create DBRP mappings for unmapped buckets.
+_For examples, see [Create DBRP mappings](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings)._
 
-
+## Query a mapped bucket with InfluxQL
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[influx CLI](#)
+[InfluxQL Shell](#)
 [InfluxDB API](#)
 {{% /tabs %}}
 {{% tab-content %}}
+<!---------------------------- BEGIN InfluxQL shell --------------------------->
 
-Use the [`influx v1 dbrp list` command](/influxdb/v2.4/reference/cli/influx/v1/dbrp/list/) to list DBRP mappings.
+The [`influx` CLI](/influxdb/v2.4/tools/influx-cli/) provides an InfluxQL shell
+where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
 
 {{% note %}}
-The examples below assume that your organization and API token are
-provided by the active [InfluxDB connection configuration](/influxdb/v2.4/reference/cli/influx/config/) in the `influx` CLI.
-If not, include your organization (`--org`) and API token (`--token`) with each command.
+If you haven't already, be sure to do the following:
+
+- [Download and install the `influx` CLI](/influxdb/v2.4/tools/influx-cli/#install-the-influx-cli)
+- [Configure your authentication credentials](/influxdb/v2.4/tools/influx-cli/#provide-required-authentication-credentials)
 {{% /note %}}
 
-##### View all DBRP mappings
+Use the following command to start an InfluxQL shell:
+
 ```sh
-influx v1 dbrp list
+influx v1 shell
 ```
 
-##### Filter DBRP mappings by database
-```sh
-influx v1 dbrp list --db example-db
+Execute an InfluxQL query inside the InfluxQL shell.
+
+```sql
+> SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
 ```
 
-##### Filter DBRP mappings by bucket ID
-```sh
-influx v1 dbrp list --bucket-id 00oxo0oXx000x0Xo
-```
+For more information about using the InfluxQL shell, see
+[Use the InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/).
+
+<!----------------------------- END InfluxQL shell ---------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
-Use the [`/api/v2/dbrps` API endpoint](/influxdb/v2.4/api/#tag/DBRPs) to list DBRP mappings.
-Include the following:
+<!----------------------------- BEGIN InfluxDB API ---------------------------->
 
-- **Request method:** `GET`
-- **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2.4/security/tokens/)
-- **Query parameters:**  
-  {{< req type="key" >}}
-  - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/v2.4/organizations/view-orgs/#view-your-organization-id)
-  - **bucketID:** [bucket ID](/influxdb/v2.4/organizations/buckets/view-buckets/) _(to list DBRP mappings for a specific bucket)_
-  - **database:** database name _(to list DBRP mappings with a specific database name)_
-  - **rp:** retention policy name _(to list DBRP mappings with a specific retention policy name)_
-  - **id:** DBRP mapping ID _(to list a specific DBRP mapping)_
-
-##### View all DBRP mappings
-```sh
-curl --request GET \
-  http://localhost:8086/api/v2/dbrps?orgID=00oxo0oXx000x0Xo \
-  --header "Authorization: Token YourAuthToken"
-```
-
-##### Filter DBRP mappings by database
-```sh
-curl --request GET \
-  http://localhost:8086/api/v2/dbrps?orgID=00oxo0oXx000x0Xo&db=example-db \
-  --header "Authorization: Token YourAuthToken"
-```
-
-##### Filter DBRP mappings by bucket ID
-```sh
-curl --request GET \
-  https://cloud2.influxdata.com/api/v2/dbrps?organization_id=00oxo0oXx000x0Xo&bucketID=00oxo0oXx000x0Xo \
-  --header "Authorization: Token YourAuthToken"
-```
-
-_For more information on the DBRP mapping API, see the [`/api/v2/dbrps` endpoint documentation](/influxdb/v2.4/api/#tag/DBRPs)._
-
-{{% /tab-content %}}
-{{% /tabs-wrapper %}}
-
-If you **do not find a DBRP mapping for a bucket**, complete the next procedure to map the unmapped bucket.
-
-
-## Map unmapped buckets
-Use the [InfluxDB API](/influxdb/v2.4/reference/api/) to manually create DBRP mappings for unmapped buckets.
-
-{{< tabs-wrapper >}}
-{{% tabs %}}
-
-{{% /tabs %}}
-{{% tab-content %}}
-
-Use the [`influx v1 dbrp create` command](/influxdb/v2.4/reference/cli/influx/v1/dbrp/create/)
-to map an unmapped bucket to a database and retention policy.
-Include the following:
-
-{{< req type="key" >}}
-
-- {{< req "\*" >}} **org** and **token** to authenticate. We recommend setting your organization and token to your active InfluxDB connection configuration in the influx CLI, so you don't have to add these parameters to each command. To set up your active InfluxDB configuration, see [`influx config set`](/influxdb/v2.4/reference/cli/influx/config/set/).
-- {{< req "\*" >}} **database name** to map
-- {{< req "\*" >}} **retention policy** name to map
-- {{< req "\*" >}} [Bucket ID](/influxdb/v2.4/organizations/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to
-- **Default flag** to set the provided retention policy as the default retention policy for the database
-
-```sh
-influx v1 dbrp create \
-  --db example-db \
-  --rp example-rp \
-  --bucket-id 00oxo0oXx000x0Xo \
-  --default
-```
-
-{{% /tab-content %}}
-{{% tab-content %}}
-
-Use the [`/api/v2/dbrps` API endpoint](/influxdb/v2.4/api/#operation/PostDBRP) to create a new DBRP mapping.
-Include the following:
-
-- **Request method:** `POST`
-- **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2.4/security/tokens/)
-  - **Content-type:** `application/json`
-- **Request body:** JSON object with the following fields:  
-  {{< req type="key" >}}
-  - {{< req "\*" >}} **bucketID:** [bucket ID](/influxdb/v2.4/organizations/buckets/view-buckets/)
-  - {{< req "\*" >}} **database:** database name
-  - **default:** set the provided retention policy as the default retention policy for the database
-  - {{< req "\*" >}} **org** or **orgID:** organization name or [organization ID](/influxdb/v2.4/organizations/view-orgs/#view-your-organization-id)
-  - {{< req "\*" >}} **retention_policy:** retention policy name
-
-<!--  -->
-```sh
-curl --request POST http://localhost:8086/api/v2/dbrps \
-  --header "Authorization: Token YourAuthToken" \
-  --header 'Content-type: application/json' \
-  --data '{
-        "bucketID": "00oxo0oXx000x0Xo",
-        "database": "example-db",
-        "default": true,
-        "orgID": "00oxo0oXx000x0Xo",
-        "retention_policy": "example-rp"
-      }'
-```
-
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
-
-After you've verified the bucket is mapped, query the bucket using the `query` 1.x compatibility endpoint.
-
-## Query a mapped bucket with InfluxQL using the InfluxDB 1.x compatibility API
-
-The [InfluxDB 1.x compatibility API](/influxdb/v2.44/reference/api/influxdb-1x/) supports
-all InfluxDB 1.x client libraries and integrations in InfluxDB OSS {{< current-version >}}.
+The [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/) supports
+all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-version >}}.
 
 To query a mapped bucket with InfluxQL, use the [`/query` 1.x compatibility endpoint](/influxdb/v2.4/reference/api/influxdb-1x/query/).
 Include the following in your request:
@@ -208,15 +111,9 @@ curl --get http://localhost:8086/query?db=example-db \
 By default, the `/query` compatibility endpoint returns results in **JSON**.
 To return results as **CSV**, include the `Accept: application/csv` header.
 
-## Query a mapped bucket with InfluxQL using the influx CLI
-
- [Install and use the influx CLI](/influxdb/v2.4/tools/influx-cli/) to query buckets with InfluxQL. Once you have installed and configured the CLI, execute the following command to invoke the InfluxQL shell (REPL):
-
- ```bash
- influx v1 shell
- ```
-
- See [Supported InfluxQL queries](#supported-influxql-queries) below for a list of statements supported queries. 
+<!------------------------------ END InfluxDB API ----------------------------->
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ## InfluxQL support
 
