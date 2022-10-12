@@ -31,12 +31,20 @@ the visualization dropdown.
 ###### Data
 - **X Column**: Select a column to display on the x-axis.
 - **Y Column**: Select a column to display on the y-axis.
-- **Time Format**: Select the time format. Options include:
-    {{< ui/timestamp-formats >}}
+{{% cloud-only %}}
+
+- **Adaptive Zoom**: Enable this option to zoom in on graphs for a more granular view. Zooming in dynamically updates the window period to re-query the data.
+  {{% warn %}}
+  If you've hard-coded the window period, we don't recommend enabling this option.
+  {{% /warn %}}
+
+{{% /cloud-only %}}
 
 ###### Options
+- **Time Format**: Select the time format. Options include:
+    {{< ui/timestamp-formats >}}
 - **Interpolation**: Select from the following options:
-  - **Line**: Display a time series in a line graph
+  - **Linear**: Display a time series in a line graph
   - **Smooth**: Display a time series in a line graph with smooth point interpolation.
   - **Step**: Display a time series in a staircase graph.
   <!-- - **Bar**: Display the specified time series using a bar chart. -->
@@ -58,6 +66,10 @@ the visualization dropdown.
 
 ###### Y Axis
 - **Y Axis Label**: Label for the y-axis.
+- **Y-Value Unit Prefix**: 
+  - **None**: 
+  - **SI**: 
+  - **Binary**: 
 - **Y Axis Prefix**: Prefix to be added to y-value.
 - **Y Axis Suffix**: Suffix to be added to y-value.
 - **Generate Y-Axis Tick Marks**: Select the method to generate y-axis tick marks:
@@ -75,8 +87,8 @@ the visualization dropdown.
   - **Overlaid**: Display graph lines overlaid on each other.
   - **Stacked**: Display graph lines stacked on top of each other.
 
-###### Legend
-- **Hover Legend**:
+###### Hover Legend 
+- **Display Hover Legend**:
   - **Hide**: Hide the legend that appears upon hover.
   - **Show**: Show the legend upon hover.
     - **Orientation**: Select the orientation of the legend:
@@ -84,7 +96,9 @@ the visualization dropdown.
       - **Vertical**: Select to display the legend vertically.
     - **Opacity**: Adjust the hover legend opacity using the slider.
     - **Colorize Rows**: Select to display hover legend rows in colors.
-- **Static Legend**:
+
+###### Static Legend
+  - **Display Static Legend**:
   - **Hide**: Hide the static legend.
   - **Show**: Always show the static legend.
     - **Orientation**: Select the orientation of the legend:
