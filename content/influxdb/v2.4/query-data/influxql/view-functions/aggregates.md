@@ -311,6 +311,7 @@ SELECT MEAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_c
 Returns the average field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 #### MEAN(/regular_expression/)  
+
 Returns the average field value associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/#regular-expressions).
 
 #### MEAN(*) 
@@ -403,13 +404,16 @@ Returns the middle value from a sorted list of [field values](/influxdb/v2.1/ref
 SELECT MEDIAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-#### MEDIAN(field_key)  
+#### MEDIAN(field_key)
+
 Returns the middle field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
-#### MEDIAN(/regular_expression/)  
+#### MEDIAN(/regular_expression/)
+
 Returns the middle field value associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/#regular-expressions).
 
-#### MEDIAN(*)  
+#### MEDIAN(*)
+
 Returns the middle field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
 
 ### Examples
@@ -624,7 +628,6 @@ Returns the difference between the minimum and maximum field values in the `wate
 
 {{% expand "Calculate the spread for the field values associated with each field key in a measurement" %}}
 
-
 ```sql
 > SELECT SPREAD(*) FROM "h2o_feet"
 
@@ -732,7 +735,6 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 
 {{% expand "Calculate the standard deviation for the field values associated with each field key that matches a regular expression" %}}
 
-
 ```sql
 > SELECT STDDEV(/water/) FROM "h2o_feet"
 
@@ -807,7 +809,6 @@ Returns the summed total of the field values in the `water_level` field key and 
 {{% /expand %}}
 
 {{% expand "Calculate the sum of the field values associated with each field key in a measurement" %}}
-
 
 ```sql
 > SELECT SUM(*) FROM "h2o_feet"
