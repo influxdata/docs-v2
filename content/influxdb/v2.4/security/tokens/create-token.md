@@ -16,7 +16,7 @@ command line interface (CLI), or the InfluxDB API.
 
 {{% note %}}
 
-{{% oss-only %}}Tokens are visible to the user who created the token. Users who own a token with Operator permissions also have access to all tokens.
+{{% oss-only %}}Tokens are visible to the user who created the token. Users who own a token with operator permissions also have access to all tokens.
 Tokens stop working when the user who created the token is deleted.
 
 **We recommend creating a generic user to create and manage tokens for writing data.**
@@ -79,20 +79,20 @@ click **{{< icon "plus" >}} Generate** and select a token type
 
 {{% cloud-only %}}
 
-### Create an All-Access token
+### Create an all-access token
 
 1. From the [API Tokens management page](#manage-tokens-in-the-influxdb-ui),
 click the **{{< icon "plus" >}} {{< caps >}}Generate API Token{{< /caps >}}** button.
 2. Select **All Access API Token**.
 
-### Create a Custom token
+### Create a custom token
 
 1. From the [API Tokens management page](#manage-tokens-in-the-influxdb-ui),
 click the **{{< icon "plus" >}} {{< caps >}}Generate API Token{{< /caps >}}** button.
 2. Select **Custom API Token**.
 3. When the **Generate a Personal API Token** window appears, enter a description. If you don't provide a description for the token, InfluxDB will generate a description from the permissions you assign.
    For example, if you select **Read** for a bucket named "\_monitoring" and **Write** for a bucket named "\_tasks", InfluxDB will generate the description "Read buckets \_monitoring Write buckets \_tasks".
-4. Select checkboxes in the **Read** and **Write** columns to assign access permissions for the token. You can enable access to all buckets, individual buckets, Telegraf configurations, and other InfluxDB resources. By default, the new token has no access permissions.
+4. Select the check boxes in the **Read** and **Write** columns to assign access permissions for the token. You can enable access to all buckets, individual buckets, Telegraf configurations, and other InfluxDB resources. By default, the new token has no access permissions.
 5. When you're finished, click **{{< caps >}}Generate{{< /caps >}}**.
 6. When InfluxDB displays the token value, click **{{< caps >}}Copy to Clipboard{{< /caps >}}**. This is your only chance to access and copy the token value from InfluxDB.
 7. (Optional) Store the API token value in a secure password vault.
@@ -111,6 +111,64 @@ find the token you want to clone and click the **{{< icon "settings" >}}** icon 
 
 ## Create a token using the influx CLI
 
+{{% warn %}}
+InfluxDB 2.4 introduced a bug that prevents you from creating an **all-access** or **operator** token using the `influx auth create` command, and causes the following error: `Error: could not write auth with provided arguments: 403 Forbidden: permission.`
+
+Until this bug is resolved in the next influx CLI release, please use the [workaround below to create an all-access or operator token](/influxdb/v2.4/security/tokens/create-token/#workaround-to-create-an-all-access-or-operator-token).
+{{% /warn %}}
+
+### **Workaround:** To create an all-access or operator token
+
+- Use the following command to create an [all-access](/influxdb/v2.4/security/tokens/#all-access-token) or [operator](/influxdb/v2.4/security/tokens/#operator-token) token. For an operator token, you must also include the `--read-orgs` and `--write-orgs` flags.
+
+```sh
+influx auth create    
+                      --org-id or --org              \
+                      --read-authorizations          \
+                      --write-authorizations         \
+                      --read-buckets                 \
+                      --write-buckets                \
+                      --read-dashboards              \
+                      --write-dashboards             \
+                      --read-tasks                   \
+                      --write-tasks                  \
+                      --read-telegrafs               \
+                      --write-telegrafs              \
+                      --read-users                   \
+                      --write-users                  \
+                      --read-variables               \
+                      --write-variables              \
+                      --read-secrets                 \
+                      --write-secrets                \
+                      --read-labels                  \
+                      --write-labels                 \
+                      --read-views                   \
+                      --write-views                  \
+                      --read-documents               \
+                      --write-documents              \
+                      --read-notificationRules       \
+                      --write-notificationRules      \
+                      --read-notificationEndpoints   \
+                      --write-notificationEndpoints  \
+                      --read-checks                  \
+                      --write-checks                 \
+                      --read-dbrp                    \
+                      --write-dbrp                   \
+                      --read-annotations             \
+                      --write-annotations            \
+                      --read-sources                 \
+                      --write-sources                \
+                      --read-scrapers                \
+                      --write-scrapers               \
+                      --read-notebooks               \
+                      --write-notebooks              \
+                      --read-remotes                 \
+                      --write-remotes                \
+                      --read-replications            \
+                      --write-replications
+```
+
+<!--
 Use the [`influx auth create` command](/influxdb/v2.4/reference/cli/influx/auth/create) to create a token.
 Include flags with the command to grant specific permissions to the token.
 See the [available flags](/influxdb/v2.4/reference/cli/influx/auth/create#flags).
@@ -122,7 +180,7 @@ influx auth create -o <org-name> [permission-flags]
 ```
 
 ### Examples
-#### Create an All-Access token
+#### Create an all-access token
 
 Create an All-Access token to grant permissions to all resources in an organization.
 
@@ -134,9 +192,9 @@ influx auth create \
 
 {{% oss-only %}}
 
-#### Create an Operator token
+#### Create an operator token
 
-Create an Operator token to grant permissions to all resources in all organizations.
+Create an operator token to grant permissions to all resources in all organizations.
 
 ```sh
 influx auth create \
@@ -145,11 +203,12 @@ influx auth create \
 ```
 
 {{% note %}}
-To [view or create an Operator token](/influxdb/v2.4/security/tokens/create-token/) with the InfluxDB UI, `api/v2` API, or `influx` CLI after the setup process is completed, you must use an existing Operator token.
+To [view or create an operator token](/influxdb/v2.4/security/tokens/create-token/) with the InfluxDB UI, `api/v2` API, or `influx` CLI after the setup process is completed, you must use an existing operator token.
 
-To create a new Operator token without using an existing one, see how to use the [`influxd recovery auth`](/influxdb/v2.4/reference/cli/influxd/recovery/auth/) CLI.
+To create a new operator token without using an existing one, see how to use the [`influxd recovery auth`](/influxdb/v2.4/reference/cli/influxd/recovery/auth/) CLI.
 {{% /note %}}
 {{% /oss-only %}}
+
 
 #### Create a token with specified read permissions
 
