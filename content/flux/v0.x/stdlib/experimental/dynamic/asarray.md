@@ -1,15 +1,14 @@
 ---
-title: array.toString() function
+title: dynamic.asArray() function
 description: >
-  `array.toString()` converts all values in an array to strings.
+  `dynamic.asArray()` converts a dynamic value into an array of dynamic elements.
 menu:
   flux_0_x_ref:
-    name: array.toString
-    parent: experimental/array
-    identifier: experimental/array/toString
+    name: dynamic.asArray
+    parent: experimental/dynamic
+    identifier: experimental/dynamic/asArray
 weight: 201
 flux/v0.x/tags: [type-conversions]
-introduced: 0.184.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,52 +20,30 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L311-L311
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/dynamic/dynamic.flux#L27-L27
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`array.toString()` converts all values in an array to strings.
+`dynamic.asArray()` converts a dynamic value into an array of dynamic elements.
 
-#### Supported array types
-
-- `[bool]`
-- `[duration]`
-- `[float]`
-- `[int]`
-- `[time]`
-- `[uint]`
+The dynamic input value must be an array. If it is not an array, `dynamic.asArray()` returns an error.
 
 ##### Function type signature
 
 ```js
-(<-arr: [A]) => [string]
+(<-v: dynamic) => [dynamic]
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### arr
+### v
 
-Array of values to convert. Default is the piped-forward array (`<-`).
-
-
+Dynamic value to convert. Default is the piped-forward value (`<-`).
 
 
-## Examples
-
-### Convert an array of floats to strings
-
-```js
-import "experimental/array"
-
-arr = [12.0, 1.2300, NaN, 24.2]
-
-array.toString(arr: arr)// Returns ["12.0", "1.2300", "NaN", "24.2"]
-
-
-```
 
