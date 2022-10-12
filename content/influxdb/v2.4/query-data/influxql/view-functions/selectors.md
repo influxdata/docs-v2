@@ -119,8 +119,8 @@ time                  bottom  location
 2015-08-18T00:12:00Z  2.028   santa_monica
 ```
 
-The query returns the smallest three values in the `water_level` field key for each 24-minute [interval](/influxdb/v2.1/query-data/influxql/explore-data/group-by/#basic-group-by-time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:54:00Z`.
-It also returns results in [descending timestamp](/influxdb/v2.1/query-data/influxql/explore-data/order-by/) order.
+The query returns the smallest three values in the `water_level` field key for each 24-minute [interval](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#basic-group-by-time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:54:00Z`.
+It also returns results in [descending timestamp](/influxdb/v2.4/query-data/influxql/explore-data/order-by/) order.
 
 Notice that the [GROUP BY time() clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals) does not override the points’ original timestamps. See [Issue 1](#bottom-with-a-group-by-time-clause) in the section below for a more detailed explanation of that behavior.
 
@@ -184,7 +184,7 @@ time                   bottom   location
 
 ##### BOTTOM(), tags, and the INTO clause
 
-When combined with an [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) and no [`GROUP BY tag` clause](/influxdb/v2.1/query-data/influxql/explore-data/group-by/#group-by-tags), most InfluxQL functions [convert](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-are-my-into-queries-missing-data) any tags in the initial data to fields in the newly written data.
+When combined with an [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) and no [`GROUP BY tag` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-tags), most InfluxQL functions [convert](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-are-my-into-queries-missing-data) any tags in the initial data to fields in the newly written data.
 This behavior also applies to the `BOTTOM()` function unless `BOTTOM()` includes a tag key as an argument: `BOTTOM(field_key,tag_key(s),N)`.
 In those cases, the system preserves the specified tag as a tag in the newly written data.
 
@@ -193,7 +193,7 @@ In those cases, the system preserves the specified tag as a tag in the newly wri
 The first query in the codeblock below returns the smallest field values in the `water_level` field key for two tag values associated with the `location` tag key.
 It also writes those results to the `bottom_water_levels` measurement.
 
-The second query [shows](/influxdb/v2.1/query-data/influxql/explore-schema/#show-tag-keys) that InfluxDB preserved the `location` tag as a tag in the `bottom_water_levels` measurement.
+The second query [shows](/influxdb/v2.4/query-data/influxql/explore-schema/#show-tag-keys) that InfluxDB preserved the `location` tag as a tag in the `bottom_water_levels` measurement.
 
 ```sql
 > SELECT BOTTOM("water_level","location",2) INTO "bottom_water_levels" FROM "h2o_feet"
@@ -1051,8 +1051,8 @@ time                  top    location
 2015-08-18T00:12:00Z  7.887  coyote_creek
 ```
 
-The query returns the greatest three values in the `water_level` field key for each 24-minute [interval](/influxdb/v2.1/query-data/influxql/explore-data/group-by/#basic-group-by-time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:54:00Z`.
-It also returns results in [descending timestamp](/influxdb/v2.1/query-data/influxql/explore-data/order-by/) order.
+The query returns the greatest three values in the `water_level` field key for each 24-minute [interval](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#basic-group-by-time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:54:00Z`.
+It also returns results in [descending timestamp](/influxdb/v2.4/query-data/influxql/explore-data/order-by/) order.
 
 Notice that the [GROUP BY time() clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals) does not override the points’ original timestamps.
 See [Issue 1](#top-with-a-group-by-time-clause) in the section below for a more detailed explanation of that behavior.
@@ -1118,7 +1118,7 @@ time                  top    location
 
 ##### TOP(), tags, and the INTO clause
 
-When combined with an [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) and no [`GROUP BY tag` clause](/influxdb/v2.1/query-data/influxql/explore-data/group-by/#group-by-tags), most InfluxQL functions [convert](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-are-my-into-queries-missing-data) any tags in the initial data to fields in the newly written data.
+When combined with an [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) and no [`GROUP BY tag` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-tags), most InfluxQL functions [convert](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-are-my-into-queries-missing-data) any tags in the initial data to fields in the newly written data.
 This behavior also applies to the `TOP()` function unless `TOP()` includes a tag key as an argument: `TOP(field_key,tag_key(s),N)`.
 In those cases, the system preserves the specified tag as a tag in the newly written data.
 
@@ -1127,7 +1127,7 @@ In those cases, the system preserves the specified tag as a tag in the newly wri
 The first query in the codeblock below returns the greatest field values in the `water_level` field key for two tag values associated with the `location` tag key.
 It also writes those results to the `top_water_levels` measurement.
 
-The second query [shows](/influxdb/v2.1/query-data/influxql/explore-schema/#show-tag-keys) that InfluxDB preserved the `location` tag as a tag in the `top_water_levels` measurement.
+The second query [shows](/influxdb/v2.4/query-data/influxql/explore-schema/#show-tag-keys) that InfluxDB preserved the `location` tag as a tag in the `top_water_levels` measurement.
 
 ```sql
 > SELECT TOP("water_level","location",2) INTO "top_water_levels" FROM "h2o_feet"
