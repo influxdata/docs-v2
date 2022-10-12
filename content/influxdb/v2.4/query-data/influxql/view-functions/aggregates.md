@@ -42,7 +42,7 @@ Returns the number of field values associated with the [field key](/influxdb/v2.
 
 #### COUNT(/regular_expression/)  
 
-Returns the number of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
+Returns the number of field values associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 ### Examples
 
@@ -194,7 +194,7 @@ Returns the area under the curve for subsequent field values associated with the
 
 #### INTEGRAL(/regular_expression/)
 
-Returns the area under the curve for subsequent field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
+Returns the area under the curve for subsequent field values associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 #### INTEGRAL(*)
 
@@ -311,7 +311,7 @@ SELECT MEAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_c
 Returns the average field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 #### MEAN(/regular_expression/)  
-Returns the average field value associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
+Returns the average field value associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 #### MEAN(*) 
 Returns the average field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
@@ -407,7 +407,7 @@ SELECT MEDIAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM
 Returns the middle field value associated with the [field key](/influxdb/v2.1/reference/glossary/#field-key).
 
 #### MEDIAN(/regular_expression/)  
-Returns the middle field value associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
+Returns the middle field value associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 #### MEDIAN(*)  
 Returns the middle field value associated with each field key in the [measurement](/influxdb/v2.1/reference/glossary/#measurement).
@@ -504,7 +504,7 @@ Returns the most frequent field value associated with the [field key](/influxdb/
 
 #### MODE(/regular_expression/)
 
-Returns the most frequent field value associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
+Returns the most frequent field value associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 #### MODE(*)
 
@@ -597,7 +597,7 @@ Returns the difference between the minimum and maximum field values associated w
 
 #### SPREAD(/regular_expression/)
 
-Returns the difference between the minimum and maximum field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
+Returns the difference between the minimum and maximum field values associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 #### SPREAD(*)
 
@@ -691,7 +691,7 @@ Returns the standard deviation of field values associated with the [field key](/
 
 #### STDDEV(/regular_expression/)
 
-Returns the standard deviation of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
+Returns the standard deviation of field values associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 #### STDDEV(*)
 
@@ -782,7 +782,7 @@ Returns the sum of field values associated with the [field key](/influxdb/v2.1/r
 
 #### SUM(/regular_expression/)
 
-Returns the sum of field values associated with each field key that matches the [regular expression](/influxdb/v2.1/query-data/influxql/explore-data/#regular-expressions).
+Returns the sum of field values associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 #### SUM(*)
 
