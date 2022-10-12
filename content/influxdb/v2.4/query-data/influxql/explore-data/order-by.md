@@ -10,7 +10,7 @@ menu:
 weight: 304
 list_code_example: |
   ```sql
-  SELECT_clause [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER BY time DESC
+  SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER BY time DESC
   ```
 ---
 
