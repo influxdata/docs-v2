@@ -19,9 +19,9 @@ list_code_example: |
   import "sql"
 
   sql.from(
-    driverName: "postgres",
-    dataSourceName: "postgresql://user:password@localhost",
-    query: "SELECT * FROM example_table"
+      driverName: "postgres",
+      dataSourceName: "postgresql://user:password@localhost",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---

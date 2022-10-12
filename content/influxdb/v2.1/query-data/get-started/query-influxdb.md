@@ -48,11 +48,11 @@ or **absolute** using [timestamps](/{{< latest "flux" >}}/data-types/basic/time/
 ```js
 // Relative time range with start only. Stop defaults to now.
 from(bucket:"example-bucket")
-  |> range(start: -1h)
+    |> range(start: -1h)
 
 // Relative time range with start and stop
 from(bucket:"example-bucket")
-  |> range(start: -1h, stop: -10m)
+    |> range(start: -1h, stop: -10m)
 ```
 
 {{% note %}}
@@ -62,7 +62,7 @@ Relative ranges are relative to "now."
 ###### Example absolute time range
 ```js
 from(bucket:"example-bucket")
-  |> range(start: 2021-01-01T00:00:00Z, stop: 2021-01-01T12:00:00Z)
+    |> range(start: 2021-01-01T00:00:00Z, stop: 2021-01-01T12:00:00Z)
 ```
 
 #### Use the following:
@@ -70,7 +70,7 @@ For this guide, use the relative time range, `-15m`, to limit query results to d
 
 ```js
 from(bucket:"example-bucket")
-  |> range(start: -15m)
+    |> range(start: -15m)
 ```
 
 ## 3. Filter your data
@@ -103,27 +103,19 @@ For this example, filter by the `cpu` measurement, `usage_system` field, and
 `cpu-total` tag value:
 
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
+from(bucket: "example-bucket")
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
 ```
 
 ## 4. Yield your queried data
 [`yield()`](/{{< latest "flux" >}}/stdlib/universe/yield/) outputs the result of the query.
 
 ```js
-from(bucket:"example-bucket")
-  |> range(start: -15m)
-  |> filter(fn: (r) =>
-    r._measurement == "cpu" and
-    r._field == "usage_system" and
-    r.cpu == "cpu-total"
-  )
-  |> yield()
+from(bucket: "example-bucket")
+    |> range(start: -15m)
+    |> filter(fn: (r) => r._measurement == "cpu" and r._field == "usage_system" and r.cpu == "cpu-total")
+    |> yield()
 ```
 
 Flux automatically assumes a `yield()` function at

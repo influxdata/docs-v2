@@ -13,11 +13,12 @@ related:
 list_code_example: |
   ```js
   import "sql"
-  
+
   sql.from(
-    driverName: "postgres",
-    dataSourceName: "postgresql://username:password@localhost:26257/cluster_name.defaultdb?sslmode=verify-full&sslrootcert=certs_dir/cc-ca.crt",
-    query: "SELECT * FROM example_table"
+      driverName: "postgres",
+      dataSourceName:
+          "postgresql://username:password@localhost:26257/cluster_name.defaultdb?sslmode=verify-full&sslrootcert=certs_dir/cc-ca.crt",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---
@@ -35,9 +36,10 @@ To query [CockroachDB](https://www.cockroachlabs.com/) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://username:password@localhost:26257/cluster_name.defaultdb?sslmode=verify-full&sslrootcert=certs_dir/cc-ca.crt",
-  query: "SELECT * FROM example_table"
+    driverName: "postgres",
+    dataSourceName:
+        "postgresql://username:password@localhost:26257/cluster_name.defaultdb?sslmode=verify-full&sslrootcert=certs_dir/cc-ca.crt",
+    query: "SELECT * FROM example_table",
 )
 ```
 

@@ -1,0 +1,112 @@
+////////////////////// Styles for the page feedback modal //////////////////////
+
+$button-padding: .65rem 1.1rem;
+
+.form-buttons {
+  display: flex;
+  justify-content: end;
+  margin-top: 1rem;
+}
+
+textarea {
+  resize: vertical;
+  font-family: $proxima;
+  font-weight: $medium;
+  background: $sidebar-search-bg;
+  border-radius: $radius;
+  border: 1px solid $sidebar-search-bg;
+  margin-top: 1rem;
+  padding: .5em;
+  width: 100%;
+  height: 8rem;
+  color: $sidebar-search-text;
+  transition-property: border, box-shadow;
+  transition-duration: .2s;
+  box-shadow: 2px 2px 6px $sidebar-search-shadow;
+  &:focus {
+    outline: none;
+    border-color: $sidebar-search-highlight;
+    box-shadow: 1px 1px 10px rgba($sidebar-search-highlight, .5);
+    border-radius: $radius;
+  }
+  &::placeholder {
+    color: rgba($sidebar-search-text, .45);
+    font-weight: normal;
+    font-style: italic;
+  }
+}
+
+input[type='submit'] {
+  padding: $button-padding;
+  @include gradient($article-btn-gradient);
+  border: none;
+  border-radius: $radius;
+  color: $g20-white;
+  font-weight: $medium;
+  opacity: 1;
+  transition: opacity .2s;
+  z-index: 1;
+
+  &:hover {opacity: 0;}
+}
+
+.submit-wrapper {
+  position: relative;
+  @include gradient($article-btn-gradient-hover);
+  border-radius: $radius;
+  color: $g20-white;
+  font-weight: $medium;
+  &:before{
+    content: "Submit";
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    padding: $button-padding;
+    z-index: 0;
+  }
+}
+
+#no-thanks {
+  margin-right: .5rem;
+  padding: $button-padding;
+  background: rgba($article-text, .1);
+  color: rgba($article-bold, .65);
+  border-radius: $radius;
+  cursor: pointer;
+  transition: color .2s;
+
+  &:hover {color: $article-bold;}
+}
+
+.lifecycle-wrapper {
+  position: relative;
+}
+
+.loader-wrapper, #thank-you {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $article-bg;
+}
+
+.loader-wrapper {
+  z-index: 5;
+  .loader {margin: 0 auto;}
+}
+
+#thank-you {
+  z-index: 10;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: $medium;
+  color: rgba($article-text, .65);
+  p {
+    text-align: center;
+  }
+}

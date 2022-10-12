@@ -1,0 +1,10 @@
+title: InfluxDB OSS API Service
+version: 2.2.0
+description: |
+    The InfluxDB v2 API provides a programmatic interface for all interactions with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
+
+    This documentation is generated from the
+    [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/docs-release/influxdb-oss/contracts/ref/oss.yml).
+license:
+  name: MIT
+  url: 'https://opensource.org/licenses/MIT'

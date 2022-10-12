@@ -2,8 +2,8 @@ components:
   parameters:
     After:
       description: >
-        The last resource ID from which to seek from (but not including). This
-        is to be used instead of `offset`.
+        Resource ID to seek from. Results are not inclusive of this ID. Use
+        `after` instead of `offset`.
       in: query
       name: after
       required: false
@@ -125,24 +125,22 @@ components:
               readOnly: true
               type: object
             org:
-              description: Name of the org token is scoped to.
+              description: Name of the organization that the token is scoped to.
               readOnly: true
               type: string
             orgID:
-              description: ID of org that authorization is scoped to.
+              description: ID of the organization that the authorization is scoped to.
               type: string
             permissions:
               description: >-
-                List of permissions for an auth.  An auth must have at least one
-                Permission.
+                List of permissions for an authorization.  An authorization must
+                have at least one permission.
               items:
                 $ref: '#/components/schemas/Permission'
               minItems: 1
               type: array
             token:
-              description: >-
-                Passed via the Authorization Header and Token Authentication
-                type.
+              description: Token used to authenticate API requests.
               readOnly: true
               type: string
             updatedAt:
@@ -150,11 +148,11 @@ components:
               readOnly: true
               type: string
             user:
-              description: Name of user that created and owns the token.
+              description: Name of the user that created and owns the token.
               readOnly: true
               type: string
             userID:
-              description: ID of user that created and owns the token.
+              description: ID of the user that created and owns the token.
               readOnly: true
               type: string
           type: object
@@ -191,8 +189,8 @@ components:
         status:
           default: active
           description: >-
-            If inactive the token is inactive and requests using the token will
-            be rejected.
+            Status of the token. If `inactive`, requests using the token will be
+            rejected.
           enum:
             - active
             - inactive
@@ -219,10 +217,10 @@ components:
         - 'y'
       type: object
     Axis:
-      description: The description of a particular axis for a visualization.
+      description: Axis used in a visualization.
       properties:
         base:
-          description: Base represents the radix for formatting axis values.
+          description: Radix for formatting axis values.
           enum:
             - ''
             - '2'
@@ -230,23 +228,23 @@ components:
           type: string
         bounds:
           description: >-
-            The extents of an axis in the form [lower, upper]. Clients determine
-            whether bounds are to be inclusive or exclusive of their limits
+            The extents of the axis in the form [lower, upper]. Clients
+            determine whether bounds are inclusive or exclusive of their limits.
           items:
             type: string
           maxItems: 2
           minItems: 0
           type: array
         label:
-          description: Label is a description of this Axis
+          description: Description of the axis.
           type: string
         prefix:
-          description: Prefix represents a label prefix for formatting axis values.
+          description: Label prefix for formatting axis values.
           type: string
         scale:
           $ref: '#/components/schemas/AxisScale'
         suffix:
-          description: Suffix represents a label suffix for formatting axis values.
+          description: Label suffix for formatting axis values.
           type: string
       type: object
     AxisScale:
@@ -413,22 +411,22 @@ components:
           properties:
             labels:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve labels for this bucket
+              description: URL to retrieve labels for this bucket.
             members:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve members that can read this bucket
+              description: URL to retrieve members that can read this bucket.
             org:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve parent organization for this bucket
+              description: URL to retrieve parent organization for this bucket.
             owners:
               $ref: '#/components/schemas/Link'
               description: URL to retrieve owners that can read and write to this bucket.
             self:
               $ref: '#/components/schemas/Link'
-              description: URL for this bucket
+              description: URL for this bucket.
             write:
               $ref: '#/components/schemas/Link'
-              description: URL to write line protocol for this bucket
+              description: URL to write line protocol to this bucket.
           readOnly: true
           type: object
         name:
@@ -662,10 +660,12 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            Timestamp (in RFC3339 date/time
+            format](https://datatracker.ietf.org/doc/html/rfc3339)) of the
+            latest scheduled and completed run.
           format: date-time
           readOnly: true
-          type: string
         links:
           example:
             labels: /api/v2/checks/1/labels
@@ -794,6 +794,19 @@ components:
           type: array
         links:
           $ref: '#/components/schemas/Links'
+    ColorMapping:
+      additionalProperties:
+        type: string
+      description: >-
+        A color mapping is an object that maps time series data to a UI color
+        scheme to allow the UI to render graphs consistent colors across
+        reloads.
+      example:
+        configcat_deployments-autopromotionblocker: '#663cd0'
+        measurement_birdmigration_europe: '#663cd0'
+        series_id_1: '#edf529'
+        series_id_2: '#edf529'
+      type: object
     ConditionalExpression:
       description: >-
         Selects one of two expressions, `Alternate` or `Consequent`, depending
@@ -807,6 +820,11 @@ components:
           $ref: '#/components/schemas/Expression'
         type:
           $ref: '#/components/schemas/NodeType'
+      type: object
+    Config:
+      properties:
+        config:
+          type: object
       type: object
     ConstantVariableProperties:
       properties:
@@ -866,24 +884,24 @@ components:
     DBRP:
       properties:
         bucketID:
-          description: the bucket ID used as target for the translation.
+          description: ID of the bucket used as the target for the translation.
           type: string
         database:
           description: InfluxDB v1 database
           type: string
         default:
           description: >-
-            Specify if this mapping represents the default retention policy for
-            the database specificed.
+            Mapping represents the default retention policy for the database
+            specified.
           type: boolean
         id:
-          description: the mapping identifier
+          description: ID of the DBRP mapping.
           readOnly: true
           type: string
         links:
           $ref: '#/components/schemas/Links'
         orgID:
-          description: the organization ID that owns this mapping.
+          description: ID of the organization that owns this mapping.
           type: string
         retention_policy:
           description: InfluxDB v1 retention policy
@@ -899,21 +917,21 @@ components:
     DBRPCreate:
       properties:
         bucketID:
-          description: the bucket ID used as target for the translation.
+          description: ID of the bucket used as the target for the translation.
           type: string
         database:
           description: InfluxDB v1 database
           type: string
         default:
           description: >-
-            Specify if this mapping represents the default retention policy for
-            the database specificed.
+            Mapping represents the default retention policy for the database
+            specified.
           type: boolean
         org:
-          description: the organization that owns this mapping.
+          description: Name of the organization that owns this mapping.
           type: string
         orgID:
-          description: the organization ID that owns this mapping.
+          description: ID of the organization that owns this mapping.
           type: string
         retention_policy:
           description: InfluxDB v1 retention policy
@@ -1279,23 +1297,22 @@ components:
           type: string
         err:
           description: >-
-            err is a stack of errors that occurred during processing of the
-            request. Useful for debugging.
+            Stack of errors that occurred during processing of the request.
+            Useful for debugging.
           readOnly: true
           type: string
         message:
-          description: message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
         op:
           description: >-
-            op describes the logical code operation during error. Useful for
-            debugging.
+            Describes the logical code operation when the error occurred. Useful
+            for debugging.
           readOnly: true
           type: string
       required:
         - code
-        - message
     Expression:
       oneOf:
         - $ref: '#/components/schemas/ArrayExpression'
@@ -2262,30 +2279,27 @@ components:
           type: string
         err:
           description: >-
-            Err is a stack of errors that occurred during processing of the
-            request. Useful for debugging.
+            Stack of errors that occurred during processing of the request.
+            Useful for debugging.
           readOnly: true
           type: string
         line:
-          description: First line within sent body containing malformed data
+          description: First line in the request body that contains malformed data.
           format: int32
           readOnly: true
           type: integer
         message:
-          description: Message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
         op:
           description: >-
-            Op describes the logical code operation during error. Useful for
-            debugging.
+            Describes the logical code operation when the error occurred. Useful
+            for debugging.
           readOnly: true
           type: string
       required:
         - code
-        - message
-        - op
-        - err
     LineProtocolLengthError:
       properties:
         code:
@@ -2294,19 +2308,13 @@ components:
             - invalid
           readOnly: true
           type: string
-        maxLength:
-          description: Max length in bytes for a body of line-protocol.
-          format: int32
-          readOnly: true
-          type: integer
         message:
-          description: Message is a human-readable message.
+          description: Human-readable message.
           readOnly: true
           type: string
       required:
         - code
         - message
-        - maxLength
     Link:
       description: URI of resource.
       format: uri
@@ -2675,7 +2683,10 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            Timestamp (in RFC3339 date/time
+            format](https://datatracker.ietf.org/doc/html/rfc3339)) of the
+            latest scheduled and completed run.
           format: date-time
           readOnly: true
           type: string
@@ -3188,7 +3199,7 @@ components:
     Ready:
       properties:
         started:
-          example: 2019-03-13T10:09:33.891196-04:00
+          example: '2019-03-13T10:09:33.891196-04:00'
           format: date-time
           type: string
         status:
@@ -3209,6 +3220,82 @@ components:
         value:
           type: string
       type: object
+    RemoteConnection:
+      properties:
+        allowInsecureTLS:
+          default: false
+          type: boolean
+        description:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        orgID:
+          type: string
+        remoteOrgID:
+          type: string
+        remoteURL:
+          format: uri
+          type: string
+      required:
+        - id
+        - name
+        - orgID
+        - remoteURL
+        - remoteOrgID
+        - allowInsecureTLS
+      type: object
+    RemoteConnectionCreationRequest:
+      properties:
+        allowInsecureTLS:
+          default: false
+          type: boolean
+        description:
+          type: string
+        name:
+          type: string
+        orgID:
+          type: string
+        remoteAPIToken:
+          type: string
+        remoteOrgID:
+          type: string
+        remoteURL:
+          format: uri
+          type: string
+      required:
+        - name
+        - orgID
+        - remoteURL
+        - remoteAPIToken
+        - remoteOrgID
+        - allowInsecureTLS
+      type: object
+    RemoteConnectionUpdateRequest:
+      properties:
+        allowInsecureTLS:
+          default: false
+          type: boolean
+        description:
+          type: string
+        name:
+          type: string
+        remoteAPIToken:
+          type: string
+        remoteOrgID:
+          type: string
+        remoteURL:
+          format: uri
+          type: string
+      type: object
+    RemoteConnections:
+      properties:
+        remotes:
+          items:
+            $ref: '#/components/schemas/RemoteConnection'
+          type: array
+      type: object
     RenamableField:
       description: Describes a field that can be renamed and made visible or invisible.
       properties:
@@ -3222,6 +3309,98 @@ components:
         visible:
           description: Indicates whether this field should be visible on the table.
           type: boolean
+      type: object
+    Replication:
+      properties:
+        currentQueueSizeBytes:
+          format: int64
+          type: integer
+        description:
+          type: string
+        dropNonRetryableData:
+          type: boolean
+        id:
+          type: string
+        latestErrorMessage:
+          type: string
+        latestResponseCode:
+          type: integer
+        localBucketID:
+          type: string
+        maxQueueSizeBytes:
+          format: int64
+          type: integer
+        name:
+          type: string
+        orgID:
+          type: string
+        remoteBucketID:
+          type: string
+        remoteID:
+          type: string
+      required:
+        - id
+        - name
+        - remoteID
+        - orgID
+        - localBucketID
+        - remoteBucketID
+        - maxQueueSizeBytes
+        - currentQueueSizeBytes
+      type: object
+    ReplicationCreationRequest:
+      properties:
+        description:
+          type: string
+        dropNonRetryableData:
+          default: false
+          type: boolean
+        localBucketID:
+          type: string
+        maxQueueSizeBytes:
+          default: 67108860
+          format: int64
+          minimum: 33554430
+          type: integer
+        name:
+          type: string
+        orgID:
+          type: string
+        remoteBucketID:
+          type: string
+        remoteID:
+          type: string
+      required:
+        - name
+        - orgID
+        - remoteID
+        - localBucketID
+        - remoteBucketID
+        - maxQueueSizeBytes
+      type: object
+    ReplicationUpdateRequest:
+      properties:
+        description:
+          type: string
+        dropNonRetryableData:
+          type: boolean
+        maxQueueSizeBytes:
+          format: int64
+          minimum: 33554430
+          type: integer
+        name:
+          type: string
+        remoteBucketID:
+          type: string
+        remoteID:
+          type: string
+      type: object
+    Replications:
+      properties:
+        replications:
+          items:
+            $ref: '#/components/schemas/Replication'
+          type: array
       type: object
     Resource:
       properties:
@@ -4250,8 +4429,8 @@ components:
       properties:
         authorizationID:
           description: >-
-            The ID of the authorization used when this task communicates with
-            the query engine.
+            ID of the authorization used when the task communicates with the
+            query engine.
           type: string
         createdAt:
           format: date-time
@@ -4259,17 +4438,27 @@ components:
           type: string
         cron:
           description: >-
-            A task repetition schedule in the form '* * * * * *'; parsed from
-            Flux.
+            [Cron expression](https://en.wikipedia.org/wiki/Cron#Overview) that
+            defines the schedule on which the task runs. Cron scheduling is
+            based on system time.
+
+            Value is a [Cron
+            expression](https://en.wikipedia.org/wiki/Cron#Overview).
           type: string
         description:
-          description: An optional description of the task.
+          description: Description of the task.
           type: string
         every:
-          description: A simple task repetition schedule; parsed from Flux.
+          description: >-
+            Interval at which the task runs. `every` also determines when the
+            task first runs, depending on the specified time.
+
+            Value is a [duration
+            literal](https://docs.influxdata.com/flux/v0.x/spec/lexical-elements/#duration-literals)).
+          format: duration
           type: string
         flux:
-          description: The Flux script to run for this task.
+          description: Flux script to run for this task.
           type: string
         id:
           readOnly: true
@@ -4287,7 +4476,11 @@ components:
           readOnly: true
           type: string
         latestCompleted:
-          description: Timestamp of latest scheduled, completed run, RFC3339.
+          description: >-
+            Timestamp of the latest scheduled and completed run.
+
+            Value is a timestamp in [RFC3339 date/time
+            format](https://docs.influxdata.com/flux/v0.x/data-types/basic/time/#time-syntax).
           format: date-time
           readOnly: true
           type: string
@@ -4315,29 +4508,31 @@ components:
           readOnly: true
           type: object
         name:
-          description: The name of the task.
+          description: Name of the task.
           type: string
         offset:
           description: >-
-            Duration to delay after the schedule, before executing the task;
-            parsed from flux, if set to zero it will remove this option and use
-            0 as the default.
+            [Duration](https://docs.influxdata.com/flux/v0.x/spec/lexical-elements/#duration-literals)
+            to delay execution of the task after the scheduled time has elapsed.
+            `0` removes the offset.
+
+            The value is a [duration
+            literal](https://docs.influxdata.com/flux/v0.x/spec/lexical-elements/#duration-literals).
+          format: duration
           type: string
         org:
-          description: The name of the organization that owns this Task.
+          description: Name of the organization that owns the task.
           type: string
         orgID:
-          description: The ID of the organization that owns this Task.
+          description: ID of the organization that owns the task.
           type: string
         ownerID:
-          description: The ID of the user who owns this Task.
+          description: ID of the user who owns this Task.
           type: string
         status:
           $ref: '#/components/schemas/TaskStatusType'
         type:
-          description: >-
-            The type of task, this can be used for filtering tasks on list
-            actions.
+          description: Type of the task, useful for filtering a task list.
           type: string
         updatedAt:
           format: date-time
@@ -4445,6 +4640,39 @@ components:
           type: string
         type:
           type: string
+      type: object
+    TelegrafPluginRequest:
+      properties:
+        config:
+          type: string
+        description:
+          type: string
+        metadata:
+          properties:
+            buckets:
+              items:
+                type: string
+              type: array
+          type: object
+        name:
+          type: string
+        orgID:
+          type: string
+        plugins:
+          items:
+            properties:
+              alias:
+                type: string
+              config:
+                type: string
+              description:
+                type: string
+              name:
+                type: string
+              type:
+                type: string
+            type: object
+          type: array
       type: object
     TelegrafPlugins:
       properties:
@@ -5723,6 +5951,9 @@ components:
       properties:
         axes:
           $ref: '#/components/schemas/Axes'
+        colorMapping:
+          $ref: '#/components/schemas/ColorMapping'
+          description: An object that contains information about the color mapping
         colors:
           description: Colors define color encoding of data into a visualization
           items:
@@ -5816,129 +6047,55 @@ components:
   securitySchemes:
     BasicAuthentication:
       description: >
-        ### Basic authentication scheme
-
-
-        Use HTTP Basic Auth with clients that support the InfluxDB 1.x
-        convention of username and password (that don't support the
-        `Authorization: Token` scheme).
+        Use the HTTP Basic authentication scheme for InfluxDB `/api/v2` API
+        operations that support it.
 
 
         Username and password schemes require the following credentials:
-          - **username**: 1.x username (this is separate from the UI login username)
-          - **password**: 1.x password or InfluxDB API token
-
-        #### API token example
-
-
-        `curl --get "http://localhost:8086/query"
-              --user "1.x_USERNAME":"INFLUX_API_TOKEN"`
-
-        #### 1.x password example
-
-
-        `curl --get "http://localhost:8086/query"
-              --user "1.x_USERNAME":"1.x_PASSWORD"`
-
-        Replace the following:
-
-        - *`1.x_USERNAME`*: your InfluxDB v1.x username
-
-        - *`1.x_PASSWORD`*: your InfluxDB v1.x password
-
-        - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token)
-
-
-        For more information and examples, see how to [authenticate with a
-        username and password
-        scheme](https://docs.influxdata.com/influxdb/v2.1/reference/api/influxdb-1x/)
+          - **username**
+          - **password**
       scheme: basic
       type: http
-    QuerystringAuthentication:
-      description: >
-        ### Querystring authentication scheme
-
-
-        Use InfluxDB 1.x API parameters to provide credentials through the query
-        string.
-
-
-        Username and password schemes require the following credentials:
-          - **username**: 1.x username (this is separate from the UI login username)
-          - **password**: 1.x password or InfluxDB API token
-
-        #### API token example
-
-
-        `curl --get "http://localhost:8086/query"
-              --data-urlencode "u=1.x_USERNAME"
-              --data-urlencode "p=INFLUX_API_TOKEN"`
-
-        #### 1.x password example
-
-
-        `curl --get "http://localhost:8086/query"
-              --data-urlencode "u=1.x_USERNAME"
-              --data-urlencode "p=1.x_PASSWORD"`
-
-        Replace the following:
-
-        - *`1.x_USERNAME`*: your InfluxDB v1.x username
-
-        - *`1.x_PASSWORD`*: your InfluxDB v1.x password
-
-        - *`INFLUX_API_TOKEN`*: your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token)
-
-
-        For more information and examples, see how to [authenticate with a
-        username and password
-        scheme](https://docs.influxdata.com/influxdb/v2.1/reference/api/influxdb-1x/)
-      in: query
-      name: u=&p=
-      type: apiKey
     TokenAuthentication:
-      bearerFormat: InfluxDB Token String
       description: >
-        ### Token authentication scheme
+        Use the [Token
+        authentication](#section/Authentication/TokenAuthentication)
+
+        scheme to authenticate to the InfluxDB API.
 
 
-        InfluxDB API tokens enable authentication and authorization of API
-        clients.
 
-        A token belongs to an organization and identifies InfluxDB permissions
-        within the organization.
+        In your API requests, send an `Authorization` header.
 
+        For the header value, provide the word `Token` followed by a space and
+        an InfluxDB API token.
 
-        Include your API token in an `Authorization: Token` HTTP header with
-        each request.
+        The word `Token` is case-sensitive.
 
 
-        #### Example
 
-          `curl http://localhost:8086/ping
-             --header "Authorization: Token INFLUX_API_TOKEN"`
+        ### Syntax
 
-        Replace *`INFLUX_API_TOKEN`* with your [InfluxDB API
-        token](https://docs.influxdata.com/influxdb/v2.1/reference/glossary/#token).
+
+        `Authorization: Token YOUR_INFLUX_TOKEN`
+
 
 
         For more information and examples, see the following:
           - [`/authorizations`](#tag/Authorizations) endpoint.
-          - [Authorize API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
-          - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens).
-          - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.1/security/tokens/create-token).
-      scheme: token
-      type: http
+          - [Authorize API requests](/influxdb/v2.1/api-guide/api_intro/#authentication).
+          - [Manage API tokens](/influxdb/v2.1/security/tokens/).
+      in: header
+      name: Authorization
+      type: apiKey
 info:
-  title: Influx OSS API Service
+  title: InfluxDB OSS API Service
   description: >
     The InfluxDB v2 API provides a programmatic interface for all interactions
     with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
 openapi: 3.0.0
 paths:
-  /api/v2/:
+  /api/v2:
     get:
       operationId: GetRoutes
       parameters:
@@ -8053,13 +8210,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HealthCheck'
-          description: The instance is healthy
+          description: The instance is healthy.
         '503':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/HealthCheck'
-          description: The instance is unhealthy
+          description: The instance is unhealthy.
         default:
           $ref: '#/components/responses/ServerError'
           description: Unexpected error
@@ -8403,13 +8560,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Token'
-          description: A temp token for Mapbox
+          description: Temporary token for Mapbox.
         '401':
           $ref: '#/components/responses/ServerError'
         '500':
           $ref: '#/components/responses/ServerError'
         default:
           $ref: '#/components/responses/ServerError'
+      summary: Get a mapbox token
   /api/v2/me:
     get:
       operationId: GetMe
@@ -8457,6 +8615,72 @@ paths:
       summary: Update a password
       tags:
         - Users
+  /metrics:
+    get:
+      operationId: GetMetrics
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+      responses:
+        '200':
+          content:
+            text/plain:
+              examples:
+                expositionResponse:
+                  summary: Metrics in plain text
+                  value: >
+                    # HELP go_threads Number of OS threads created.
+
+                    # TYPE go_threads gauge
+
+                    go_threads 19
+
+                    # HELP http_api_request_duration_seconds Time taken to
+                    respond to HTTP request
+
+                    # TYPE http_api_request_duration_seconds histogram
+
+                    http_api_request_duration_seconds_bucket{handler="platform",method="GET",path="/:fallback_path",response_code="200",status="2XX",user_agent="curl",le="0.005"}
+                    4
+
+                    http_api_request_duration_seconds_bucket{handler="platform",method="GET",path="/:fallback_path",response_code="200",status="2XX",user_agent="curl",le="0.01"}
+                    4
+
+                    http_api_request_duration_seconds_bucket{handler="platform",method="GET",path="/:fallback_path",response_code="200",status="2XX",user_agent="curl",le="0.025"}
+                    5
+              schema:
+                externalDocs:
+                  description: Prometheus exposition formats
+                  url: https://prometheus.io/docs/instrumenting/exposition_formats
+                format: Prometheus text-based exposition
+                type: string
+          description: >
+            Payload body contains metrics about the InfluxDB instance.
+
+
+            Metrics are formatted in the
+
+            Prometheus [plain-text exposition
+            format](https://prometheus.io/docs/instrumenting/exposition_formats).
+
+            Each metric is identified by its name and a set of optional
+            key-value pairs.
+
+
+            The following descriptors precede each metric:
+
+
+            - *`HELP`*: description of the metric
+
+            - *`TYPE`*: type of the metric (e.g. `counter`, `gauge`,
+            `histogram`, or `summary`)
+        default:
+          $ref: '#/components/responses/ServerError'
+          description: Unexpected error
+      servers:
+        - url: ''
+      summary: Get metrics of an instance
+      tags:
+        - Metrics
   /api/v2/notificationEndpoints:
     get:
       operationId: GetNotificationEndpoints
@@ -9851,6 +10075,308 @@ paths:
       summary: Get the readiness of an instance at startup
       tags:
         - Ready
+  /api/v2/remotes:
+    get:
+      operationId: GetRemoteConnections
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The organization ID.
+          in: query
+          name: orgID
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: remoteURL
+          schema:
+            format: uri
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnections'
+          description: List of remote connections
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: List all remote connections
+      tags:
+        - RemoteConnections
+    post:
+      operationId: PostRemoteConnection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoteConnectionCreationRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnection'
+          description: Remote connection saved
+        '400':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Register a new remote connection
+      tags:
+        - RemoteConnections
+  /api/v2/remotes/{remoteID}:
+    delete:
+      operationId: DeleteRemoteConnectionByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: remoteID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Remote connection info deleted.
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Delete a remote connection
+      tags:
+        - RemoteConnections
+    get:
+      operationId: GetRemoteConnectionByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: remoteID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnection'
+          description: Remote connection
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Retrieve a remote connection
+      tags:
+        - RemoteConnections
+    patch:
+      operationId: PatchRemoteConnectionByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: remoteID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoteConnectionUpdateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteConnection'
+          description: Updated information saved
+        '400':
+          $ref: '#/components/responses/ServerError'
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Update a remote connection
+      tags:
+        - RemoteConnections
+  /api/v2/replications:
+    get:
+      operationId: GetReplications
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The organization ID.
+          in: query
+          name: orgID
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: remoteID
+          schema:
+            type: string
+        - in: query
+          name: localBucketID
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replications'
+          description: List of replications
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: List all replications
+      tags:
+        - Replications
+    post:
+      operationId: PostReplication
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: If true, validate the replication, but don't save it.
+          in: query
+          name: validate
+          schema:
+            default: false
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplicationCreationRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replication'
+          description: Replication saved
+        '204':
+          description: Replication validated, but not saved
+        '400':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Register a new replication
+      tags:
+        - Replications
+  /api/v2/replications/{replicationID}:
+    delete:
+      operationId: DeleteReplicationByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Replication deleted.
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Delete a replication
+      tags:
+        - Replications
+    get:
+      operationId: GetReplicationByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replication'
+          description: Replication
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Retrieve a replication
+      tags:
+        - Replications
+    patch:
+      operationId: PatchReplicationByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          required: true
+          schema:
+            type: string
+        - description: If true, validate the updated information, but don't save it.
+          in: query
+          name: validate
+          schema:
+            default: false
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplicationUpdateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Replication'
+          description: Updated information saved
+        '204':
+          description: Updated replication validated, but not saved
+        '400':
+          $ref: '#/components/responses/ServerError'
+        '404':
+          $ref: '#/components/responses/ServerError'
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Update a replication
+      tags:
+        - Replications
+  /api/v2/replications/{replicationID}/validate:
+    post:
+      operationId: PostValidateReplicationByID
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - in: path
+          name: replicationID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Replication is valid
+        '400':
+          $ref: '#/components/responses/ServerError'
+          description: Replication failed validation
+        default:
+          $ref: '#/components/responses/ServerError'
+      summary: Validate a replication
+      tags:
+        - Replications
   /api/v2/resources:
     get:
       operationId: GetResources
@@ -11818,7 +12344,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TelegrafRequest'
+              $ref: '#/components/schemas/TelegrafPluginRequest'
         description: Telegraf configuration to create
         required: true
       responses:
@@ -11922,7 +12448,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TelegrafRequest'
+              $ref: '#/components/schemas/TelegrafPluginRequest'
         description: Telegraf configuration update to apply
         required: true
       responses:
@@ -12253,6 +12779,22 @@ paths:
             summary of the run. The summary contains newly created resources.
             The diff compares the initial state to the state after the package
             applied. This corresponds to `"dryRun": true`.
+        '422':
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/TemplateSummary'
+                  - properties:
+                      code:
+                        type: string
+                      message:
+                        type: string
+                    required:
+                      - message
+                      - code
+                    type: object
+          description: Template failed validation
         default:
           content:
             application/json:
@@ -12717,7 +13259,8 @@ paths:
 
         To write data into InfluxDB, you need the following:
 
-        - **organization** – _See [View
+
+        - **organization name or ID** – _See [View
         organizations](https://docs.influxdata.com/influxdb/v2.1/organizations/view-orgs/#view-your-organization-id)
         for instructions on viewing your organization ID._
 
@@ -12734,6 +13277,10 @@ paths:
         - data in [line
         protocol](https://docs.influxdata.com/influxdb/v2.1/reference/syntax/line-protocol)
         format.
+
+
+        InfluxDB Cloud enforces rate and size limits different from InfluxDB
+        OSS. For details, see Responses.
 
 
         For more information and examples, see the following:
@@ -12757,8 +13304,8 @@ paths:
           schema:
             default: identity
             description: >-
-              The header value specifies that the line protocol in the request
-              body is encoded with gzip or not encoded with identity.
+              The content coding. Use `gzip` for compressed data or `identity`
+              for unmodified, uncompressed data.
             enum:
               - gzip
               - identity
@@ -12842,15 +13389,13 @@ paths:
             InfluxDB validated the request data format and accepted the data for
             writing to the bucket. `204` doesn't indicate a successful write
             operation since writes are asynchronous. See [how to check for write
-            errors](https://docs.influxdata.com/influxdb/v2.1/write-data/troubleshoot).
+            errors](https://docs.influxdata.com/influxdb/v2.1/write-data/troubleshoot/).
         '400':
           content:
             application/json:
               examples:
                 measurementSchemaFieldTypeConflict:
-                  summary: >-
-                    Example of a field type conflict thrown by an explicit
-                    bucket schema
+                  summary: Field type conflict thrown by an explicit bucket schema
                   value:
                     code: invalid
                     message: >-
@@ -12901,13 +13446,52 @@ paths:
         '413':
           content:
             application/json:
+              examples:
+                dataExceedsSizeLimitOSS:
+                  summary: InfluxDB OSS response
+                  value: >
+                    {"code":"request too large","message":"unable to read data:
+                    points batch is too large"}
               schema:
                 $ref: '#/components/schemas/LineProtocolLengthError'
+            text/html:
+              examples:
+                dataExceedsSizeLimit:
+                  summary: InfluxDB Cloud response
+                  value: |
+                    <html>
+                      <head><title>413 Request Entity Too Large</title></head>
+                      <body>
+                        <center><h1>413 Request Entity Too Large</h1></center>
+                        <hr>
+                        <center>nginx</center>
+                      </body>
+                    </html>
+              schema:
+                type: string
           description: >
-            All request data was rejected and not written. InfluxDB OSS only
-            returns this error if the [Go (golang)
-            `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function
-            raises an error.
+            The request payload is too large. InfluxDB rejected the batch and
+            did not write any data.
+
+            #### InfluxDB Cloud:
+             - returns this error if the payload exceeds the 50MB size limit.
+             - returns `Content-Type: text/html` for this error.
+
+            #### InfluxDB OSS:
+             - returns this error only if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
+             - returns `Content-Type: application/json` for this error.
+        '429':
+          description: >-
+            InfluxDB Cloud only. The token is temporarily over quota. The
+            Retry-After header describes when to try the write again.
+          headers:
+            Retry-After:
+              description: >-
+                A non-negative decimal integer indicating the seconds to delay
+                after the response is received.
+              schema:
+                format: int32
+                type: integer
         '500':
           content:
             application/json:
@@ -12921,7 +13505,7 @@ paths:
           description: Internal server error.
         '503':
           description: >-
-            The server is temporarily unavailable to accept writes.  The
+            The server is temporarily unavailable to accept writes. The
             `Retry-After` header describes when to try the write again.
           headers:
             Retry-After:
@@ -12938,20 +13522,16 @@ paths:
         - Write
 security:
   - TokenAuthentication: []
-  - BasicAuthentication: []
-  - QuerystringAuthentication: []
 servers:
   - url: /
 tags:
-  - description: >
-      Use one of the following schemes to authenticate to the InfluxDB API:
+  - description: |
+      The InfluxDB `/api/v2` API requires authentication for all requests.
+      Use InfluxDB API tokens to authenticate requests to the `/api/v2` API.
 
-      - [Token authentication](#section/Authentication/TokenAuthentication)
 
-      - [Basic authentication](#section/Authentication/BasicAuthentication)
-
-      - [Querystring
-      authentication](#section/Authentication/QuerystringAuthentication)
+      For examples and more information, see
+      [Token authentication](#section/Authentication/TokenAuthentication)
 
       <!-- ReDoc-Inject: <security-definitions> -->
     name: Authentication
@@ -12964,20 +13544,22 @@ tags:
 
 
       For more information and examples, see the following:
-        - [Authorize API requests](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/#authentication).
-        - [Manage API tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens).
-        - [Assign a token to a specific user](https://docs.influxdata.com/influxdb/v2.1/security/tokens/create-token).
+        - [Authorize API requests](/influxdb/v2.1/api-guide/api_intro/#authentication).
+        - [Manage API tokens](/influxdb/v2.1/security/tokens/).
+        - [Assign a token to a specific user](/influxdb/v2.1/security/tokens/create-token/).
     name: Authorizations
   - Backup
   - Buckets
   - Cells
   - Checks
+  - Config
   - Dashboards
   - DBRPs
   - Delete
   - Health
   - Labels
   - Legacy Authorizations
+  - Metrics
   - NotificationEndpoints
   - NotificationRules
   - Organizations
@@ -12986,19 +13568,19 @@ tags:
       Retrieve data, analyze queries, and get query suggestions.
     name: Query
   - description: >
-      See the [**API Quick
-      Start**](https://docs.influxdata.com/influxdb/v2.1/api-guide/api_intro/)
-      to get up and running authenticating with tokens, writing to buckets, and
+      See the [**API Quick Start**](/influxdb/v2.1/api-guide/api_intro/) to get
+      up and running authenticating with tokens, writing to buckets, and
       querying data.
 
 
       [**InfluxDB API client
-      libraries**](https://docs.influxdata.com/influxdb/v2.1/api-guide/client-libraries/)
-      are available for popular languages and ready to import into your
-      application.
+      libraries**](/influxdb/v2.1/api-guide/client-libraries/) are available for
+      popular languages and ready to import into your application.
     name: Quick start
     x-traitTag: true
   - Ready
+  - RemoteConnections
+  - Replications
   - Resources
   - description: >
       The InfluxDB API uses standard HTTP status codes for success and failure
@@ -13030,8 +13612,8 @@ tags:
       following: <li>`Authorization: Token` header is missing or
       malformed</li><li>API token value is missing from the header</li><li>API
       token does not have permission. For more information about token types and
-      permissions, see [Manage API
-      tokens](https://docs.influxdata.com/influxdb/v2.1/security/tokens/)</li> |
+      permissions, see [Manage API tokens](/influxdb/v2.1/security/tokens/)</li>
+      |
 
       | `404`       | Not found                | Requested resource was not
       found. `message` in the response body provides details about the requested
@@ -13097,6 +13679,7 @@ x-tagGroups:
   - name: System information endpoints
     tags:
       - Health
+      - Metrics
       - Ping
       - Ready
       - Routes
@@ -13113,12 +13696,15 @@ x-tagGroups:
       - Health
       - Labels
       - Legacy Authorizations
+      - Metrics
       - NotificationEndpoints
       - NotificationRules
       - Organizations
       - Ping
       - Query
       - Ready
+      - RemoteConnections
+      - Replications
       - Resources
       - Restore
       - Routes

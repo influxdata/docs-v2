@@ -1,71 +1,95 @@
 ---
 title: victorops.endpoint() function
 description: >
-  The `victorops.endpoint()` function sends events to VictorOps using data from input rows.
+  `victorops.endpoint()` sends events to VictorOps using data from input rows.
 menu:
   flux_0_x_ref:
     name: victorops.endpoint
-    parent: victorops
-weight: 202
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/contrib/victorops/endpoint/
-  - /influxdb/cloud/reference/flux/stdlib/contrib/victorops/endpoint/
-flux/v0.x/tags: [notification endpoints]
-introduced: 0.108.0
+    parent: contrib/bonitoo-io/victorops
+    identifier: contrib/bonitoo-io/victorops/endpoint
+weight: 301
+flux/v0.x/tags: [notification endpoints, transformations]
 ---
 
-The `victorops.endpoint()` function sends events to VictorOps using data from input rows.
+<!------------------------------------------------------------------------------
 
-{{% note %}}
-#### VictorOps is now Splunk On-Call
-Splunk acquired VictorOps and VictorOps is now
-[Splunk On-Call](https://www.splunk.com/en_us/investor-relations/acquisitions/splunk-on-call.html).
-{{% /note %}}
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-```js
-import "contrib/bonitoo-io/victorops"
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-victorops.endpoint(
-  url: "https://alert.victorops.com/integrations/generic/00000000/alert${apiKey}/${routingKey}",
-)
-```
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/bonitoo-io/victorops/victorops.flux#L163-L186
 
-## Parameters
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
-### url {data-type="string"}
-({{< req >}})
-[VictorOps REST endpoint integration URL](https://help.victorops.com/knowledge-base/rest-endpoint-integration-guide/).
+------------------------------------------------------------------------------->
 
-##### VictorOps URL example
-```
-https://alert.victorops.com/integrations/generic/00000000/alert/<api_key>/<routing_key>
-```
+`victorops.endpoint()` sends events to VictorOps using data from input rows.
 
-_Replace `<api_key>` and `<routing_key>` with valid VictorOps API and routing keys._
-
-## Usage
+### Usage
 `victorops.endpoint` is a factory function that outputs another function.
 The output function requires a `mapFn` parameter.
 
-### mapFn {data-type="function"}
-A function that builds the object used to generate the POST request.
-Requires an `r` parameter.
+#### mapFn
+A function that builds the object used to generate the POST request. Requires an `r` parameter.
 
-`mapFn` accepts a table row (`r`) and returns an object that must include the
-following fields:
+`mapFn` accepts a table row (`r`) and returns an object that must include the following fields:
 
-- `monitoringTool`
-- `messageType`
-- `entityID`
-- `entityDisplayName`
-- `stateMessage`
-- `timestamp`
+- monitoringTool
+- messageType
+- entityID
+- entityDisplayName
+- stateMessage
+- timestamp
 
-_For more information, see [`victorops.event()` parameters](/flux/v0.x/stdlib/contrib/bonitoo-io/victorops/event/#parameters)._
+For more information, see `victorops.event()` parameters.
+
+##### Function type signature
+
+```js
+(
+    url: string,
+    ?monitoringTool: A,
+) => (
+    mapFn: (
+        r: B,
+    ) => {
+        C with
+        timestamp: H,
+        stateMessage: G,
+        messageType: F,
+        entityID: E,
+        entityDisplayName: D,
+    },
+) => (<-tables: stream[B]) => stream[{B with _sent: string}]
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### url
+({{< req >}})
+VictorOps REST endpoint integration URL.
+
+Example: `https://alert.victorops.com/integrations/generic/00000000/alert/<api_key>/<routing_key>`
+Replace `<api_key>` and `<routing_key>` with valid VictorOps API and routing keys.
+
+### monitoringTool
+
+Tool to use for monitoring.
+Default is `InfluxDB`.
+
+
+
 
 ## Examples
 
-##### Send critical events to VictorOps
+### Send critical events to VictorOps
+
 ```js
 import "contrib/bonitoo-io/victorops"
 import "influxdata/influxdb/secrets"
@@ -75,18 +99,25 @@ routingKey = secrets.get(key: "VICTOROPS_ROUTING_KEY")
 url = "https://alert.victorops.com/integrations/generic/00000000/alert/${apiKey}/${routingKey}"
 endpoint = victorops.endpoint(url: url)
 
-crit_events = from(bucket: "example-bucket")
-  |> range(start: -1m)
-  |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
+crit_events =
+    from(bucket: "example-bucket")
+        |> range(start: -1m)
+        |> filter(fn: (r) => r._measurement == "statuses" and status == "crit")
 
 crit_events
-  |> endpoint(mapFn: (r) => ({
-      monitoringTool: "InfluxDB"
-      messageType: "CRITICAL",
-      entityID: "${r.host}-${r._field)-critical",
-      entityDisplayName: "Critical alert for ${r.host}",
-      stateMessage: "${r.host} is in a critical state. ${r._field} is ${string(v: r._value)}.",
-      timestamp: now()
-    })
-  )()
+    |> endpoint(
+        mapFn: (r) =>
+            ({
+                monitoringTool: "InfluxDB",
+                messageType: "CRITICAL",
+                entityID: "${r.host}-${r._field}-critical",
+                entityDisplayName: "Critical alert for ${r.host}",
+                stateMessage: "${r.host} is in a critical state. ${r._field} is ${string(
+                        v: r._value,
+                    )}.",
+                timestamp: now(),
+            }),
+    )()
+
 ```
+

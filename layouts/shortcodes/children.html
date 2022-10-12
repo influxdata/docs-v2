@@ -3,6 +3,7 @@
 {{ $hlevel := .Get "hlevel" | default "h3"}}
 {{ $readMore := .Get "readmore" | default false }}
 {{ $hr := .Get "hr" | default false }}
+{{ $doNotList := .Get "filterOut" | default "" }}
 
 {{ if eq $show "all" }}
 	{{ .Scratch.Set "pages" (union .Page.Pages .Page.Sections) }}
@@ -12,7 +13,7 @@
 	{{ .Scratch.Set "pages" .Page.RegularPages }}
 {{ end }}
 
-{{ $pages := .Scratch.Get "pages" }}
+{{ $pages := where (.Scratch.Get "pages") "Title" "not in" (split $doNotList ", ") }}
 
 {{ if eq $type "articles" }}
 	<div class="children-links">

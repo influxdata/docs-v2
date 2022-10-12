@@ -6,6 +6,8 @@ menu:
   flux_0_x:
     name: Get started
 weight: 1
+related:
+  - /resources/videos/purpose-of-flux/
 ---
 
 Flux is a **functional data scripting** language designed to unify querying,
@@ -37,10 +39,10 @@ To see how to retrieve data from a source, select the data source: InfluxDB, CSV
 {{% code-tab-content %}}
 ```js
 from(bucket: "example-bucket")
-  |> range(start: -1d)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> mean()
-  |> yield(name: "_results")
+    |> range(start: -1d)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> mean()
+    |> yield(name: "_results")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
@@ -48,10 +50,10 @@ from(bucket: "example-bucket")
 import "csv"
 
 csv.from(file: "path/to/example/data.csv")
-  |> range(start: -1d)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> mean()
-  |> yield(name: "_results")
+    |> range(start: -1d)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> mean()
+    |> yield(name: "_results")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
@@ -61,11 +63,11 @@ import "sql"
 sql.from(
     driverName: "postgres",
     dataSourceName: "postgresql://user:password@localhost",
-    query:"SELECT * FROM TestTable"
-  )
-  |> filter(fn: (r) => r.UserID == "123ABC456DEF")
-  |> mean(column: "purchase_total")
-  |> yield(name: "_results")
+    query: "SELECT * FROM TestTable",
+)
+    |> filter(fn: (r) => r.UserID == "123ABC456DEF")
+    |> mean(column: "purchase_total")
+    |> yield(name: "_results")
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -83,5 +85,9 @@ Each example includes the following functions (in the order listed):
 
 _For detailed information about basic Flux queries,
 see [Flux query basics](/flux/v0.x/get-started/query-basics/)._
+
+For an introduction to Flux and how it works with time series data, watch the following video:
+
+{{< youtube QwOJttyg858 >}}
 
 {{< page-nav next="/flux/v0.x/get-started/data-model/" >}}

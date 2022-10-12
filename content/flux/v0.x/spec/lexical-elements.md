@@ -11,12 +11,6 @@ aliases:
   - /influxdb/cloud/reference/flux/language/lexical-elements/
 ---
 
-{{% note %}}
-This document is a living document and may not represent the current implementation of Flux.
-Any section that is not currently implemented is commented with a **[IMPL#XXX]** where
-**XXX** is an issue number tracking discussion and progress towards implementation.
-{{% /note %}}
-
 ## Comments
 
 Comment serve as documentation.
@@ -63,14 +57,10 @@ longIdentifierName
 The following keywords are reserved and may not be used as identifiers:
 
 ```
-and    import  not  return   option   test
-empty  in      or   package  builtin
+and import  option   if
+or  package builtin  then
+not return  testcase else exists
 ```
-
-{{% note %}}
-[IMPL#764](https://github.com/influxdata/flux/issues/764) Add `in` and `empty` operator support.
-{{% /note %}}
-
 
 ## Operators
 
@@ -79,25 +69,10 @@ The following character sequences represent operators:
 ```
 +   ==   !=   (   )   =>
 -   <    !~   [   ]   ^
-*   >    =~   {   }
-/   <=   =    ,   :
+*   >    =~   {   }   ?
+/   <=   =    ,   :   "
 %   >=   <-   .   |>
 ```
-
-## Numeric literals
-
-Numeric literals may be integers or floating point values.
-Literals have arbitrary precision and are coerced to a specific type when used.
-
-The following coercion rules apply to numeric literals:
-
-* An integer literal can be coerced to an "int", "uint", or "float" type,
-* A float literal can be coerced to a "float" type.
-* An error will occur if the coerced type cannot represent the literal value.
-
-{{% note %}}
-[IMPL#476](https://github.com/influxdata/flux/issues/476) Allow numeric literal coercion.
-{{% /note %}}
 
 ### Integer literals
 
@@ -144,6 +119,7 @@ decimals  = decimal_digit { decimal_digit } .
 
 A _duration literal_ is a representation of a length of time.
 It has an integer part and a duration unit part.
+The integer part must be a valid Flux integer and should not contain leading zeros.
 Multiple durations may be specified together and the resulting duration is the sum of each smaller part.
 When several durations are specified together, larger units must appear before smaller ones, and there can be no repeated units.
 
@@ -195,63 +171,55 @@ These operations are performed on each time unit independently.
 5w
 1mo5d  // 1 month and 5 days
 -1mo5d // negative 1 month and 5 days
-5w * 2 // 10 weeks
 ```
-Durations can be added to date times to produce a new date time.
 
-Addition and subtraction of durations to date times do not commute and are left associative.
-Addition and subtraction of durations to date times applies months, days and seconds in that order.
+Durations can be added to date times to produce a new date time.
+Addition and subtraction of durations to date times applies months and nanoseconds in that order.
 When months are added to a date times and the resulting date is past the end of the month, the day is rolled back to the last day of the month.
+Of note is that addition and subtraction of durations to date times does not commute.
 
 ##### Examples of duration literals
 
 ```js
-2018-01-01T00:00:00Z + 1d       // 2018-01-02T00:00:00Z
-2018-01-01T00:00:00Z + 1mo      // 2018-02-01T00:00:00Z
-2018-01-01T00:00:00Z + 2mo      // 2018-03-01T00:00:00Z
-2018-01-31T00:00:00Z + 2mo      // 2018-03-31T00:00:00Z
-2018-02-28T00:00:00Z + 2mo      // 2018-04-28T00:00:00Z
-2018-01-31T00:00:00Z + 1mo      // 2018-02-28T00:00:00Z, February 31th is rolled back to the last day of the month, February 28th in 2018.
+import "date"
 
-// Addition and subtraction of durations to date times does not commute
-2018-02-28T00:00:00Z + 1mo + 1d  // 2018-03-29T00:00:00Z
-2018-02-28T00:00:00Z + 1mo + 1d  // 2018-03-29T00:00:00Z
-2018-02-28T00:00:00Z + 1d + 1mo  // 2018-04-01T00:00:00Z
-2018-01-01T00:00:00Z + 2mo - 1d  // 2018-02-28T00:00:00Z
-2018-01-01T00:00:00Z - 1d + 3mo  // 2018-03-31T00:00:00Z
-2018-01-31T00:00:00Z + 1mo + 1mo // 2018-03-28T00:00:00Z
-2018-01-31T00:00:00Z + 2mo       // 2018-03-31T00:00:00Z
+date.add(d: 1d,  to: 2018-01-01T00:00:00Z) // 2018-01-02T00:00:00Z
+date.add(d: 1mo, to: 2018-01-01T00:00:00Z) // 2018-02-01T00:00:00Z
+date.add(d: 2mo, to: 2018-01-01T00:00:00Z) // 2018-03-01T00:00:00Z
+date.add(d: 2mo, to: 2018-01-31T00:00:00Z) // 2018-03-31T00:00:00Z
+date.add(d: 2mo, to: 2018-02-28T00:00:00Z) // 2018-04-28T00:00:00Z
+date.add(d: 1mo, to: 2018-01-31T00:00:00Z) // 2018-02-28T00:00:00Z, February 31th is rolled back to the last day of the month, February 28th in 2018.
 
-// Addition and subtraction of durations to date times applies months, days and seconds in that order.
-2018-01-28T00:00:00Z + 1mo + 2d // 2018-03-02T00:00:00Z
-2018-01-28T00:00:00Z + 1mo2d    // 2018-03-02T00:00:00Z
-2018-01-28T00:00:00Z + 2d + 1mo // 2018-02-28T00:00:00Z, explicit left associative add of 2d first changes the result
-2018-02-01T00:00:00Z + 2mo2d    // 2018-04-03T00:00:00Z
-2018-01-01T00:00:00Z + 1mo30d   // 2018-03-02T00:00:00Z, Months are applied first to get February 1st, then days are added resulting in March 2 in 2018.
-2018-01-31T00:00:00Z + 1mo1d    // 2018-03-01T00:00:00Z, Months are applied first to get February 28th, then days are added resulting in March 1 in 2018.
+date.add(d: 1d, to: date.add(d: 1mo, to: 2018-02-28T00:00:00Z))   // 2018-03-29T00:00:00Z
+date.add(d: 1mo, to: date.add(d: 1d, to: 2018-02-28T00:00:00Z))   // 2018-04-01T00:00:00Z
+date.sub(d: 1d, from: date.add(d: 2mo, to: 2018-01-01T00:00:00Z)) // 2018-02-28T00:00:00Z
+date.add(d: 3mo, to: date.sub(d: 1d, from: 2018-01-01T00:00:00Z)) // 2018-03-31T00:00:00Z
+date.add(d: 1mo, to: date.add(d: 1mo, to: 2018-01-31T00:00:00Z))  // 2018-03-28T00:00:00Z
+date.add(d: 2mo, to: 2018-01-31T00:00:00Z)                        // 2018-03-31T00:00:00Z
 
-// Multiplication works
-2018-01-01T00:00:00Z + 1mo * 1  // 2018-02-01T00:00:00Z
-2018-01-01T00:00:00Z + 1mo * 2  // 2018-03-01T00:00:00Z
-2018-01-01T00:00:00Z + 1mo * 3  // 2018-04-01T00:00:00Z
-2018-01-31T00:00:00Z + 1mo * 1  // 2018-02-28T00:00:00Z
-2018-01-31T00:00:00Z + 1mo * 2  // 2018-03-31T00:00:00Z
-2018-01-31T00:00:00Z + 1mo * 3  // 2018-04-30T00:00:00Z
+// Addition and subtraction of durations to date times applies months and nanoseconds in that order.
+date.add(d: 2d, to: date.add(d: 1mo, to: 2018-01-28T00:00:00Z))  // 2018-03-02T00:00:00Z
+date.add(d: 1mo2d, to: 2018-01-28T00:00:00Z)                     // 2018-03-02T00:00:00Z
+date.add(d: 1mo, to: date.add(d: 2d, to: 2018-01-28T00:00:00Z))  // 2018-02-28T00:00:00Z, explicit add of 2d first changes the result
+date.add(d: 2mo2d, to: 2018-02-01T00:00:00Z)                     // 2018-04-03T00:00:00Z
+date.add(d: 1mo30d, to: 2018-01-01T00:00:00Z)                    // 2018-03-03T00:00:00Z, Months are applied first to get February 1st, then days are added resulting in March 3 in 2018.
+date.add(d: 1mo1d, to: 2018-01-31T00:00:00Z)                     // 2018-03-01T00:00:00Z, Months are applied first to get February 28th, then days are added resulting in March 1 in 2018.
+
+// Multiplication and addition of durations to date times
+date.add(d: date.scale(d:1mo, n:1), to: 2018-01-01T00:00:00Z)  // 2018-02-01T00:00:00Z
+date.add(d: date.scale(d:1mo, n:2), to: 2018-01-01T00:00:00Z)  // 2018-03-01T00:00:00Z
+date.add(d: date.scale(d:1mo, n:3), to: 2018-01-01T00:00:00Z)  // 2018-04-01T00:00:00Z
+date.add(d: date.scale(d:1mo, n:1), to: 2018-01-31T00:00:00Z)  // 2018-02-28T00:00:00Z
+date.add(d: date.scale(d:1mo, n:2), to: 2018-01-31T00:00:00Z)  // 2018-03-31T00:00:00Z
+date.add(d: date.scale(d:1mo, n:3), to: 2018-01-31T00:00:00Z)  // 2018-04-30T00:00:00Z
 ```
-
-{{% note %}}
-[IMPL#413](https://github.com/influxdata/flux/issues/413) Implement Duration vectors.
-{{% /note %}}
 
 ## Date and time literals
 
 A _date and time literal_ represents a specific moment in time.
 It has a date part, a time part and a time offset part.
 The format follows the [RFC 3339](https://tools.ietf.org/html/rfc3339) specification.
-The time is optional.
-When it is omitted, the time is assumed to be midnight for the default location.
-The `time_offset` is optional.
-When it is omitted, the location option is used to determine the offset.
+The time is optional. When it is omitted the time is assumed to be midnight UTC.
 
 ```js
 date_time_lit     = date [ "T" time ] .
@@ -259,7 +227,7 @@ date              = year "-" month "-" day .
 year              = decimal_digit decimal_digit decimal_digit decimal_digit .
 month             = decimal_digit decimal_digit .
 day               = decimal_digit decimal_digit .
-time              = hour ":" minute ":" second [ fractional_second ] [ time_offset ] .
+time              = hour ":" minute ":" second [ fractional_second ] time_offset .
 hour              = decimal_digit decimal_digit .
 minute            = decimal_digit decimal_digit .
 second            = decimal_digit decimal_digit .
@@ -272,13 +240,8 @@ time_offset       = "Z" | ("+" | "-" ) hour ":" minute .
 ```js
 1952-01-25T12:35:51Z
 2018-08-15T13:36:23-07:00
-2009-10-15T09:00:00       // October 15th 2009 at 9 AM in the default location
-2018-01-01                // midnight on January 1st 2018 in the default location
+2018-01-01                // midnight on January 1st 2018 UTC
 ```
-
-{{% note %}}
-[IMPL#152](https://github.com/influxdata/flux/issues/152) Implement shorthand time literals.
-{{% /note %}}
 
 ### String literals
 
@@ -296,6 +259,7 @@ String literals support several escape sequences.
 ```
 
 Additionally, any byte value may be specified via a hex encoding using `\x` as the prefix.
+The hex encoding of values must result in a valid UTF-8 sequence.
 
 ```
 string_lit       = `"` { unicode_value | byte_value | StringExpression | newline } `"` .
@@ -321,12 +285,7 @@ Embedded expressions are enclosed in a dollar sign and curly braces (`${}`).
 The expressions are evaluated in the scope containing the string literal.
 The result of an expression is formatted as a string and replaces the string content between the braces.
 All types are formatted as strings according to their literal representation.
-A function `printf` exists to allow more precise control over formatting of various types.
 To include the literal `${` within a string, it must be escaped.
-
-{{% note %}}
-[IMPL#731](https://github.com/influxdata/flux/issues/731) Add printf function.
-{{% /note %}}
 
 ##### Example: Interpolation
 
@@ -343,16 +302,17 @@ A _regular expression literal_ represents a regular expression pattern, enclosed
 Within the forward slashes, any unicode character may appear except for an unescaped forward slash.
 The `\x` hex byte value representation from string literals may also be present.
 
-Regular expression literals support only the following escape sequences:
+In addition to standard escape sequences, regular expression literals also
+support the following escape sequences:
 
 ```
 \/   U+002f forward slash
-\\   U+005c backslash
 ```
 
 ```
-regexp_lit         = "/" { unicode_char | byte_value | regexp_escape_char } "/" .
-regexp_escape_char = `\` (`/` | `\`)
+regexp_lit         = "/" regexp_char { regexp_char } "/" .
+regexp_char        = unicode_char | byte_value | regexp_escape_char .
+regexp_escape_char = `\/`
 ```
 
 ##### Examples of regular expression literals
@@ -362,7 +322,8 @@ regexp_escape_char = `\` (`/` | `\`)
 /http:\/\/localhost:8086/
 /^\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e(ZZ)?$/
 /^日本語(ZZ)?$/ // the above two lines are equivalent
-/\\xZZ/ // this becomes the literal pattern "\xZZ"
+/a\/b\s\w/ // escape sequences and character class shortcuts are supported
+/(?:)/ // the empty regular expression
 ```
 
 The regular expression syntax is defined by [RE2](https://github.com/google/re2/wiki/Syntax).

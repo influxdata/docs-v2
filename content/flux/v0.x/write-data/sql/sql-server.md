@@ -2,8 +2,8 @@
 title: Write to SQL Server
 list_title: SQL Server
 description: >
-  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) with the `sqlserver` or `mssql`
-  driver to write data to SQL Server.
+  Use [`sql.to()`](/flux/v0.x/stdlib/sql/to/) with the `sqlserver` driver to
+  write data to SQL Server.
 menu:
   flux_0_x:
     name: SQL Server
@@ -17,11 +17,11 @@ list_code_example: |
   import "sql"
 
   data
-    |> sql.to(
-      driverName: "sqlserver",
-      dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
-      table: "Example.Table"
-    )
+      |> sql.to(
+          driverName: "sqlserver",
+          dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
+          table: "Example.Table",
+      )
   ```
 ---
 
@@ -31,7 +31,7 @@ To write data to [Microsoft SQL Server](https://www.microsoft.com/sql-server/) w
 2. Pipe-forward data into [`sql.to()`](/flux/v0.x/stdlib/sql/to/) and provide
    the following parameters:
 
-    - **driverName**: sqlserver _or_ mssql
+    - **driverName**: sqlserver
     - **dataSourceName**: _See [data source name](#sql-server-data-source-name)_
     - **table**: Table to write to
     - **batchSize**: Number of parameters or columns that can be queued within
@@ -41,17 +41,17 @@ To write data to [Microsoft SQL Server](https://www.microsoft.com/sql-server/) w
 import "sql"
 
 data
-  |> sql.to(
-    driverName: "sqlserver",
-    dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
-    table: "Example.Table"
-  )
+    |> sql.to(
+        driverName: "sqlserver",
+        dataSourceName: "sqlserver://user:password@localhost:1433?database=examplebdb",
+        table: "Example.Table",
+    )
 ```
 
 ---
 
 ## SQL Server data source name
-The `sqlserver` and `mssql` drivers use the following DSN syntaxes (also known as a **connection string**):
+The `sqlserver` driver uses the following DSN syntaxes (also known as a **connection string**):
 
 ```
 sqlserver://username:password@localhost:1433?database=examplebdb
@@ -80,7 +80,7 @@ azure auth=ENV
 **{{< cloud-name "short" >}}** and **InfluxDB OSS** _**do not**_ have access to
 the underlying file system and do not support reading credentials from a file.
 To retrieve SQL Server credentials from a file, execute the query in the
-[Flux REPL](/{{< latest "influxdb" >}}/tools/repl/) on your local machine.
+[Flux REPL](/{{< latest "influxdb" >}}/tools/flux-repl/) on your local machine.
 {{% /warn %}}
 
 ```powershel

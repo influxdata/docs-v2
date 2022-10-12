@@ -8,6 +8,9 @@ menu:
   influxdb_cloud:
     name: Java
     parent: Client libraries
-    url: https://github.com/influxdata/influxdb-client-java
+    params:
+      url: https://github.com/influxdata/influxdb-client-java
 weight: 201
 ---
+
+{{< duplicate-oss >}}

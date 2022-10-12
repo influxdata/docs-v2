@@ -42,7 +42,7 @@ input:
     description: |
       The Amazon CloudWatch Alarms input plugin pulls alarm statistics from Amazon CloudWatch.
     introduced: 1.16.0
-    link: https://github.com/vipinvkmenon/awsalarms
+    link: https://github.com/vipinvkmenon/awsalarms/blob/master/README.MD
     tags: [linux, macos, windows, cloud, external]
     external: true
 
@@ -157,6 +157,15 @@ input:
     introduced: 1.12.0
     tags: [linux, macos, windows, systems]
 
+  - name: APT
+    id: telegraf-apt
+    description: |
+      The APT input plugin checks Debian for package updates.
+    link: https://github.com/x70b1/telegraf-apt/blob/master/README.md
+    introduced: 1.21.4
+    tags: [debian, ubuntu]
+    external: true
+
   - name: Arista LANZ Consumer
     id: lanz
     description: |
@@ -165,6 +174,13 @@ input:
       For more information, see [Arista LANZ](https://www.arista.com/en/um-eos/eos-latency-analyzer-lanz).
     introduced: 1.14.0
     tags: [linux, macos, windows, networking]
+
+  - name: AWS CloudWatch Metric Streams
+    id: cloudwatch_metric_streams
+    description: |
+      The CloudWatch Metric Streams plugin is a service input plugin that listens for metrics sent via HTTP and performs the required processing for metric streams from AWS.
+    introduced: 1.24.0
+    tags: [linux, macos, windows, aws]
 
   - name: Azure Storage Queue
     id: azure_storage_queue
@@ -200,6 +216,7 @@ input:
     description: |
       The BigBlueButton Input Plugin gathers metrics from a BigBlueButton server.
     introduced: 1.19.0
+    link: https://github.com/SLedunois/bigbluebutton-telegraf-plugin/blob/main/README.md
     tags: [external]
     external: true
 
@@ -267,7 +284,7 @@ input:
     description: |
       > The `inputs.cisco_telementry_gnmi` plugin was renamed to `inputs.gmni`
       in **Telegraf 1.15.0** to better reflect its general support for gNMI devices.
-      See the [gNMI plugin](#gnmi).
+      See the [gNMI plugin](#input-cisco_telemetry_gnmi).
 
       Cisco GNMI Telemetry input plugin consumes telemetry data similar to the GNMI specification.
       This GRPC-based protocol can utilize TLS for authentication and encryption.
@@ -394,6 +411,7 @@ input:
     description: |
       This plugin gathers dnsmasq statistics on the DNS side.
     introduced: 1.19.0
+    link: https://github.com/machinly/dnsmasq-telegraf-plugin/blob/main/README.md
     tags: [external]
     external: true
 
@@ -430,6 +448,7 @@ input:
     description: |
       This plugin gathers metrics from 389 Directory Servers' cn=Monitor backend.
     introduced: 1.19.0
+    link: https://github.com/falon/CSI-telegraf-plugins/blob/master/plugins/inputs/ds389/README.md
     tags: [external]
     external: true
 
@@ -544,6 +563,15 @@ input:
     introduced: 1.4.0
     tags: [linux, macos, windows, servers]
 
+  - name: Fritzbox
+    id: fritzbox
+    description: |
+      This plugin gathers statistics from a [FRITZ!Box](https://avm.de/produkte/fritzbox/) router and repeater.
+    introduced: 1.23.0
+    link: https://github.com/hdecarne-github/fritzbox-telegraf-plugin/blob/main/README.md
+    external: true
+    tags: [external, networking]
+
   - name: GitHub
     id: github
     description: |
@@ -605,6 +633,27 @@ input:
     introduced: 0.1.5
     tags: [linux, macos, windows, networking, web]
 
+  - name: Hashicorp Consul Agent
+    id: consul_agent
+    description: |
+      The Hashicorp Consul agent plugin grab metrics from every Nomad agent of the cluster.
+    introduced: 1.22.0
+    tags: [applications]
+
+  - name: Hashicorp Nomad
+    id: nomad
+    description: |
+      The Nomad plugin grabs metrics from every Nomad agent of the cluster.
+    introduced: 1.22.0
+    tags: [applications]
+
+  - name: Hashicorp Vault
+    id: nomad
+    description: |
+      The Vault plugin grabs metrics from every Nomad agent of the cluster.
+    introduced: 1.22.0
+    tags: [security]
+
   - name: Hddtemp
     id: hddtemp
     description: |
@@ -662,11 +711,28 @@ input:
     introduced: 0.12.1
     tags: [linux, macos, windows, servers, web]
 
+  - name: Hue Bridge
+    id: huebridge
+    description: |
+      This plugin gathers smart home statistics from [Hue Bridge](https://www.philips-hue.com/en-us/p/hue-bridge/046677458478#overview) devices.
+    introduced: 1.23.0
+    link: https://github.com/hdecarne-github/huebridge-telegraf-plugin/blob/main/README.md
+    external: true
+    tags: [iot, external]
+
+  - name: Huge Pages
+    id: hugepages
+    description: |
+      The Huge Pages input plugin gathers Huge pages measurements. Transparent Huge Pages (THP) is a Linux memory management system that reduces the overhead of Translation Lookaside Buffer (TLB) lookups on machines with large amounts of memory by using larger memory pages.
+    introduced: 1.22.0
+    tags: [linux]
+
   - name: IBM DB2
     id: db2
     description: |
       The IBM DB2 plugin collects metrics from DB2 RDBMS using performance monitor tables.
     introduced: 1.20.3
+    link: https://github.com/bonitoo-io/telegraf-input-db2/blob/main/README.md
     external: true
     tags: [linux, macos, windows, IBM, datastores]
 
@@ -753,6 +819,13 @@ input:
       defer to the output plugins configuration.
     introduced: 1.16.0
     tags: [linux, macos, windows, data-stores]
+
+  - name: Intel PMU
+    id: intel_pmu
+    description: |
+      The Intel PMU input plugin exposes Intel PMU (Performance Monitoring Unit) metrics available through Linux Perf subsystem.
+    introduced: 1.21.0
+    tags: [linux, systems]
 
   - name: Intel Powerstat
     id: intel_powerstat
@@ -900,6 +973,15 @@ input:
     introduced: 1.8.0
     tags: [linux, macos, windows, applications]
 
+  - name: Knot
+    id: knot
+    description: |
+      The Knot input plugin collect stats from [Knot DNS](https://knot.readthedocs.io/en/master/operation.html#statistics).
+    link: https://github.com/x70b1/telegraf-knot/blob/master/README.md
+    introduced: 1.21.4
+    tags: [server]
+    external: true
+
   - name: KNX
     id: knx_listener
     description: |
@@ -943,6 +1025,7 @@ input:
     description: |
       This plugin monitors the number of entries inside LDAP trees.
     introduced: 1.19.0
+    link: https://github.com/falon/CSI-telegraf-plugins/blob/master/plugins/inputs/ldap_org/README.md
     tags: [external]
     external: true
 
@@ -955,6 +1038,13 @@ input:
     introduced: 0.1.5
     tags: [linux, macos, windows, systems, data-stores]
 
+  - name: Linux CPU
+    id: linux_cpu
+    description: |
+      The Linux CPU input plugin athers CPU metrics exposed on Linux-based systems.
+    introduced: 1.24.0
+    tags: [linux, systems]
+
   - name: Linux Sysctl FS
     id: linux_sysctl_fs
     description: |
@@ -962,6 +1052,13 @@ input:
       The documentation on these fields can be found [here](https://www.kernel.org/doc/Documentation/sysctl/fs.txt).
     introduced: 1.3.0
     tags: [linux, macos, windows, systems]
+
+  - name: Logical Volume Manager
+    id: lvm
+    description: |
+      The Logical Volume Manager collects information about physical volumes, volume groups, and logical volumes in Linux.
+    introduced: 1.21.0
+    tags: [linux, systems]
 
   - name: Logparser
     id: logparser
@@ -1062,6 +1159,13 @@ input:
     introduced: 1.4.0
     tags: [linux, macos, windows, gaming]
 
+  - name: Mock
+    id: mock
+    description: |
+      The mock input plugin generates random data based on a selection of different algorithms.
+    introduced: 1.22.0
+    tags: [build-deploy]
+
   - name: Modbus
     id: modbus
     description: |
@@ -1129,7 +1233,7 @@ input:
     id: nats
     description: |
       The NATS Server Monitoring input plugin gathers metrics when using the
-      [NATS Server monitoring server](https://www.nats.io/documentation/server/gnatsd-monitoring/).
+      [NATS Server monitoring server](https://docs.nats.io/running-a-nats-service/introduction).
     introduced: 1.6.0
     tags: [linux, macos, windows, messaging]
 
@@ -1148,7 +1252,7 @@ input:
     id: net
     description: |
       The Net input plugin gathers metrics about network interface usage (Linux only).
-    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/net/NET_README.md
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/net/README.md
     introduced: 0.1.1
     tags: [linux, macos, networking]
 
@@ -1157,7 +1261,7 @@ input:
     description: |
       The Netstat input plugin gathers TCP metrics such as established, time-wait
       and sockets counts by using `lsof`.
-    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/net/NETSTAT_README.md
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/netstat/README.md
     introduced: 0.2.0
     tags: [linux, macos, windows, networking, systems]
 
@@ -1268,6 +1372,14 @@ input:
     introduced: 0.13.1
     tags: [linux, macos, windows, networking, systems]
 
+  - name: NSDP
+    id: nsdp
+    description: |
+      The NSDP input plugin gathers switch network statistics.
+    introduced: 1.24.0
+    tags: [linux, macos, windows, networking, systems]
+    external: true
+
   - name: NTPq
     id: ntpq
     description: |
@@ -1289,7 +1401,7 @@ input:
     description: |
       The Octoprint input plugin gathers metrics from the [Octoprint API](https://docs.octoprint.org/en/master/api/index.html).
     introduced: 1.16.0
-    link: https://github.com/BattleBas/octoprint-telegraf-plugin
+    link: https://github.com/sspaink/octoprint-telegraf-plugin/blob/master/README.md
     tags: [linux, macos, windows, external]
     external: true
 
@@ -1323,6 +1435,13 @@ input:
     introduced: 1.5.0
     tags: [linux, macos, windows, applications]
 
+  - name: OpenStack
+    id: openstack
+    description: |
+      The OpenStack input plugin collects metrics on [OpenStack services](https://www.openstack.org/).
+    introduced: 1.21.0
+    tags: [linux, macos, windows, applications]
+
   - name: OpenTelemetry
     id: opentelemetry
     description: |
@@ -1342,6 +1461,7 @@ input:
     description: |
       The Oracle plugin collects metrics from Oracle RDBMS using Dynamic Performance Views.
     introduced: 1.20.3
+    link: https://github.com/bonitoo-io/telegraf-input-oracle/blob/main/README.md
     external: true
     tags: [linux, macos, windows, oracle, datastores]
 
@@ -1363,10 +1483,10 @@ input:
     introduced: 1.8.0
     tags: [linux, macos, windows, data-stores]
 
-  - name: Phfusion Passenger
+  - name: Phusion Passenger
     id: passenger
     description: |
-      The Phfusion 0Passenger input plugin gets Phusion Passenger statistics using
+      The Phusion Passenger input plugin gets Phusion Passenger statistics using
       their command line utility `passenger-status`.
     introduced: 0.10.1
     tags: [linux, macos, windows, web]
@@ -1391,6 +1511,7 @@ input:
     description: |
       The Plex Webhook input plugin listens for events from [Plex Media Server Webhooks](https://support.plex.tv/articles/115002267687-webhooks/).
     introduced: 1.18.0
+    link: https://github.com/russorat/telegraf-webhooks-plex/blob/master/README.md
     tags: [linux, macos, windows, applications, external]
     external: true
 
@@ -1480,6 +1601,14 @@ input:
       The Proxmox plugin gathers metrics about containers and VMs using the [Proxmox API](https://pve.proxmox.com/wiki/Proxmox_VE_API).
     introduced: 1.16.0
     tags: [linux, macos, windows]
+
+  - name: PSI
+    id: psi
+    description: |
+      The PSI input plugins push pressure stall information (PSI) from the Linux Kernel to InfluxDB.
+    introduced: 1.22.1
+    tags: [linux]
+    external: true
 
   - name: Puppet Agent
     id: puppetagent
@@ -1599,14 +1728,16 @@ input:
     description: |
       This plugin gathers information from Siemens PLC (Programmatic Logic Controller).
     introduced: 1.19.0
+    link: https://github.com/nicolasme/s7comm/blob/main/README.md
     tags: [external, iot]
 
-  - name: SMCIPMITool
-    id: smc_ipmi
+  - name: Slab
+    id: slab
     description: |
-      The SMCIPMITool input plugin parses the output of [SMCIPMITool](https://www.supermicro.com/en/solutions/management-software/ipmi-utilities).
-    introduced: 1.18.0
-    tags: [linux, macos, windows, servers, networking]
+      This plugin collects details on how much memory each entry in Slab cache is consuming.
+    introduced: 1.23.0
+    link: https://github.com/influxdata/telegraf/blob/master/plugins/inputs/slab/README.md
+    tags: [linux, system]
 
   - name: S.M.A.R.T.
     id: smart
@@ -1655,6 +1786,13 @@ input:
     introduced: 1.3.0
     tags: [linux, macos, windows, networking]
 
+  - name: Socketstat
+    id: socketstat
+    description: |
+      The Socketstat input plugin gathers indicators from established socket connections.
+    introduced: 1.22.0
+    tags: [linux]
+
   - name: SQL
     id: sql
     description: |
@@ -1682,6 +1820,13 @@ input:
       [etsy statsd](https://github.com/etsy/statsd/blob/master/docs/metric_types.md) implementation.
     introduced: 0.2.0
     tags: [linux, macos, windows, applications]
+
+  - name: Supervisor
+    id: supervisor
+    description: |
+      The supervisor input gathers information about processes that running under supervisor using XML-RPC API.
+    introduced: 1.24.0
+    tags: [linux, macos, windows]
 
   - name: Suricata
     id: suricata
@@ -1745,7 +1890,7 @@ input:
       The SystemD Timings plugin collects systemd boot timing metrics.
     introduced: 1.16.0
     tags: [linux, macos, windows, systems, external]
-    link: https://github.com/pdmorrow/telegraf-execd-systemd-timings
+    link: https://github.com/pdmorrow/telegraf-execd-systemd-timings/blob/main/README.md
     external: true
 
   - name: Systemd Units
@@ -1847,6 +1992,13 @@ input:
     introduced: 1.5.0
     tags: [linux, macos, windows, networking]
 
+  - name: UPSD
+    id: upsd
+    description: |
+      The UPSD input plugin reads data of one or more Uninterruptible Power Supplies from an upsd daemon using its NUT network protocol. 
+    introduced: 1.24.0
+    tags: [linux, macos, windows, networking]
+
   - name: uWSGI
     id: uwsgi
     description: |
@@ -1942,15 +2094,23 @@ input:
     description: |
       This plugin provides information about X509 CRL (Certificate Revocation Lists) accessible via a file.
     introduced: 1.19.0
+    link: https://github.com/jcgonnard/telegraf-input-x590crl/blob/master/README.md
     tags: [external]
     external: true
+
+  - name: XtremIO
+    id: xtremio
+    description: |
+      The Xtremio plugin gathers metrics from Dell EMC XtremIO Storage Array.
+    introduced: 1.22.0
+    tags: [networking]
 
   - name: YouTube
     id: youtube
     description: |
       The YouTube input plugin gathers information from YouTube channels, including views, subscribers, and videos.
     introduced: 1.16.0
-    link: https://github.com/inabagumi/youtube-telegraf-plugin
+    link: https://github.com/inabagumi/youtube-telegraf-plugin/blob/main/README.md
     tags: [linux, macos, windows, external]
     external: true
 
@@ -2042,6 +2202,13 @@ output:
     introduced: 1.20.0
     tags: [linux, macos, windows, cloud, datastores]
 
+  - name: Azure Event Hubs
+    id: event_hubs
+    description: |
+      The Azure Data Explorer output plugin writes metrics to a single Azure Event Hub within an [Event Hubs](https://azure.microsoft.com/en-gb/services/event-hubs/) namespace.
+    introduced: 1.21.0
+    tags: [linux, macos, windows, cloud, datastores]
+
   - name: BigQuery
     id: bigquery
     description: |
@@ -2098,7 +2265,7 @@ output:
     tags: [linux, macos, windows, systems]
 
   - name: Execd
-    id: exec
+    id: execd
     description: |
         The Execd output plugin runs an external program as a daemon.
     introduced: 1.15.0
@@ -2126,7 +2293,7 @@ output:
     introduced: 0.10.1
     tags: [linux, macos, windows, data-stores]
 
-  - name: Grafani Loki
+  - name: Grafana Loki
     id: loki
     description: |
       The Grafana Loki output sends logs to [Loki](https://grafana.com/oss/loki/).
@@ -2139,6 +2306,13 @@ output:
       The  Graylog output plugin writes to a Graylog instance using the `gelf` format.
     introduced: 1.0.0
     tags: [linux, macos, windows, logging]
+
+  - name: GroundWork
+    id: groundwork
+    description: |
+      The  GroundWork output plugin writes to a [GroundWork Monitor](https://www.gwos.com/product/groundwork-monitor/) instance.
+    introduced: 1.21.0
+    tags: [linux, macos, windows, applications, messaging]
 
   - name: HTTP
     id: http
@@ -2230,6 +2404,13 @@ output:
     introduced: 1.8.0
     tags: [linux, macos, windows, cloud]
 
+  - name: MongoDB
+    id: mongodb
+    description: |
+      The MongoDB output plugin writes to MongoDB and automatically creates the collections as time series collections when they don't already exist.
+    introduced: 1.21.0
+    tags: [linux, macos, windows, data-stores]
+
   - name: MQTT Producer
     id: mqtt
     description: |
@@ -2279,6 +2460,13 @@ output:
     introduced: 0.1.9
     tags: [linux, macos, windows, data-stores]
 
+  - name: Postgre SQL
+    id: postgresql
+    description: |
+      The Postgre SQL output plugin writes metrics to PostgreSQL (or compatible database. 
+    introduced: 1.24.0
+    tags: [linux, macos, windows]
+
   - name: Prometheus Client
     id: prometheus_client
     description: |
@@ -2286,6 +2474,13 @@ output:
       it exposes all metrics on `/metrics` (default) to be polled by a Prometheus server.
     introduced: 0.2.1
     tags: [linux, macos, windows, applications]
+
+  - name: RedisTimeSeries
+    id: redistimeseries
+    description: |
+      The RedisTimeSeries output plugin writes metrics to the RedisTimeSeries server.
+    introduced: 1.24.0
+    tags: [linux, macos, windows, networking]
 
   - name: Riemann
     id: riemann
@@ -2340,6 +2535,13 @@ output:
       `custom.googleapis.com/telegraf/system/load5`.
     introduced: 1.9.0
     tags: [linux, macos, windows, cloud]
+
+  - name: Stomp (ActiveMQ)
+    id: stomp
+    description: |
+      The Stomp (ActiveMQ) output plugin writes to an [ActiveMQ Broker](https://activemq.apache.org/) for [STOMP](http://stomp.github.io).
+    introduced: 1.24.0
+    tags: [linux, macos, windows]
 
   - name: SQL
     id: sql
@@ -2474,6 +2676,13 @@ aggregator:
     introduced: 1.18.0
     tags: []
 
+  - name: Starlark
+    id: starlark
+    description: |
+      The Starlark aggregator plugin allows a user to implement a custom aggregator plugin with a [Starlark](https://github.com/google/starlark-go/blob/master/doc/spec.md) script.
+    introduced: 1.21.0
+    tags: []
+
   - name: ValueCounter
     id: valuecounter
     description: |
@@ -2562,7 +2771,7 @@ processor:
   - name: Execd
     id: execd
     description: |
-      The `execd` processor plugin aruns an external program as a separate process. It pipes metrics into the process's STDIN and reads processed metrics from its STDOUT.
+      The `execd` processor plugin executes an external program as a separate process. It pipes metrics into the process's STDIN and reads processed metrics from its STDOUT.
     introduced: 1.15.0
     tags: [linux, macos, windows]
 
@@ -2578,6 +2787,7 @@ processor:
     description: |
       The GeoIP processor plugin looks up IP addresses in the [MaxMind GeoLite2 database](https://dev.maxmind.com/geoip/geoip2/geolite2/) and adds the respective ISO country code, city name, latitude and longitude.
     introduced: 1.18.0
+    link: https://github.com/a-bali/telegraf-geoip/blob/master/README.md
     tags: [linux, macos, windows]
     external: true
 
@@ -2587,6 +2797,13 @@ processor:
       The Network Interface Name processor plugin looks up network interface names using SNMP.
     introduced: 1.15.0
     tags: [linux, macos, windows]
+
+  - name: Noise
+    id: noise
+    description: |
+      The noise processor plugin  is used to add noise to numerical field values. This helps users to add some noise to sensitive data by anonymizing it and further prevent linkage attacks.
+    introduced: 1.22.0
+    tags: [security]
 
   - name: Override
     id: override

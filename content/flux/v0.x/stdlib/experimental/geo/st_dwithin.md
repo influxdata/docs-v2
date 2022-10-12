@@ -1,71 +1,72 @@
 ---
 title: geo.ST_DWithin() function
 description: >
-  The `geo.ST_DWithin()` function tests if the specified region is within a defined
-  distance from the specified geographic information system (GIS) geometry and
-  returns `true` or `false`.
-aliases:
-  - /influxdb/v2.0/reference/flux/stdlib/experimental/geo/st_dwithin/
-  - /influxdb/cloud/reference/flux/stdlib/experimental/geo/st_dwithin/
+  `geo.ST_DWithin()` tests if the specified region is within a defined distance from
+  the specified GIS geometry and returns `true` or `false`.
 menu:
   flux_0_x_ref:
     name: geo.ST_DWithin
-    parent: geo
-weight: 401
-flux/v0.x/tags: [geotemporal, geo, GIS, tests]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/geo/
-introduced: 0.63.0
+    parent: experimental/geo
+    identifier: experimental/geo/ST_DWithin
+weight: 201
+flux/v0.x/tags: [geotemporal]
+introduced: 0.78.0
 ---
 
-The `geo.ST_DWithin()` function tests if the specified region is within a defined
-distance from the specified geographic information system (GIS) geometry and
-returns `true` or `false`.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/geo/geo.flux#L287-L288
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`geo.ST_DWithin()` tests if the specified region is within a defined distance from
+the specified GIS geometry and returns `true` or `false`.
+
+
+
+##### Function type signature
 
 ```js
-import "experimental/geo"
-
-geo.ST_DWithin(
-  region: {lat: 40.7, lon: -73.3, radius: 20.0},
-  geometry: {lon: 39.7515, lat: 15.08433},
-  distance: 1000.0
-)
-
-// Returns false
+(distance: A, geometry: B, region: C, ?units: {distance: string}) => bool where A: Comparable + Equatable, B: Record, C: Record
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### region {data-type="record"}
-The region to test.
-Specify record properties for the shape.
-_See [Region definitions](/flux/v0.x/stdlib/experimental/geo/#region-definitions)._
+### region
+({{< req >}})
+Region to test. Specify record properties for the shape.
 
-### geometry {data-type="record"}
-The GIS geometry to test.
-Can be either point or linestring geometry.
-_See [GIS geometry definitions](/flux/v0.x/stdlib/experimental/geo/#gis-geometry-definitions)._
 
-### distance {data-type="float"}
+
+### geometry
+({{< req >}})
+GIS geometry to test. Can be either point or linestring geometry.
+
+
+
+### distance
+({{< req >}})
 Maximum distance allowed between the region and geometry.
-_Define distance units with the [`geo.units` option](/flux/v0.x/stdlib/experimental/geo/#define-distance-units)._
+Define distance units with the `geo.units` option.
 
-## Examples
 
-##### Test if geographic points are within a distance from a region
-```js
-import "experimental/geo"
 
-region = {
-  minLat: 40.51757813,
-  maxLat: 40.86914063,
-  minLon: -73.65234375,
-  maxLon: -72.94921875
-}
+### units
 
-data
-  |> geo.toRows()
-  |> map(fn: (r) => ({
-    r with st_within: geo.ST_DWithin(region: box, geometry: {lat: r.lat, lon: r.lon}, distance: 15.0)
-  }))
-```
+Record that defines the unit of measurement for distance.
+Default is the `geo.units` option.
+
+
+

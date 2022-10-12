@@ -904,7 +904,7 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 | cliff@influxdata.com | finish | clifford  |
 
 ##### Query for cardinality:
-- **Flux:** [influxdb.cardinality()](/{{< latest "flux" >}}/stdlib/influxdb/cardinality/)
+- **Flux:** [influxdb.cardinality()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/cardinality/)
 - **InfluxQL:** [SHOW CARDINALITY](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality)
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)

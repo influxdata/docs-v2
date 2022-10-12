@@ -15,9 +15,9 @@ list_code_example: |
   import "sql"
   
   sql.from(
-    driverName: "snowflake",
-    dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
-    query: "SELECT * FROM example_table"
+      driverName: "snowflake",
+      dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---
@@ -35,9 +35,9 @@ To query [Snowflake](https://www.snowflake.com/) with Flux:
 import "sql"
 
 sql.from(
-  driverName: "snowflake",
-  dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
-  query: "SELECT * FROM example_table"
+    driverName: "snowflake",
+    dataSourceName: "user:password@account/db/exampleschema?warehouse=wh",
+    query: "SELECT * FROM example_table",
 )
 ```
 

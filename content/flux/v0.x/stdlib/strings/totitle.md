@@ -1,58 +1,71 @@
 ---
 title: strings.toTitle() function
-description: The strings.toTitle() function converts all characters in a string to title case.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/totitle/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/totitle/
-  - /influxdb/cloud/reference/flux/stdlib/strings/totitle/
+description: >
+  `strings.toTitle()` converts all characters in a string to title case.
 menu:
   flux_0_x_ref:
     name: strings.toTitle
     parent: strings
-weight: 301
-related:
-  - /flux/v0.x/stdlib/strings/toupper
-  - /flux/v0.x/stdlib/strings/tolower
-  - /flux/v0.x/stdlib/strings/title
-introduced: 0.18.0
+    identifier: strings/toTitle
+weight: 101
 ---
 
-The `strings.toTitle()` function converts all characters in a string to title case.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** String_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
 
-```js
-import "strings"
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
 
-strings.toTitle(v: "a flux of foxes")
+https://github.com/influxdata/flux/blob/master/stdlib/strings/strings.flux#L240-L240
 
-// returns "A FLUX OF FOXES"
-```
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
-## Parameters
+------------------------------------------------------------------------------->
 
-### v {data-type="string"}
-The string value to convert.
+`strings.toTitle()` converts all characters in a string to title case.
 
-## Examples
+#### toTitle vs toUpper
+The results of `toTitle()` and `toUpper()` are often the same, however the
+difference is visible when using special characters:
 
-###### Covert characters in a string to title case
-```js
-import "strings"
-
-data
-  |> map(fn: (r) => ({ r with pageTitle: strings.toTitle(v: r.pageTitle) }))
-```
-
-{{% note %}}
-#### The difference between toTitle and toUpper
-The results of `toTitle()` and `toUpper` are often the same, however the difference
-is visible with special characters:
-
-```js
+```no_run
 str = "ǳ"
 
 strings.toTitle(v: str) // Returns ǲ
 strings.toUpper(v: str) // Returns Ǳ
 ```
-{{% /note %}}
+
+##### Function type signature
+
+```js
+(v: string) => string
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### v
+({{< req >}})
+String value to convert.
+
+
+
+
+## Examples
+
+### Convert characters in a string to title case
+
+```js
+import "sampledata"
+import "strings"
+
+sampledata.string()
+    |> map(fn: (r) => ({r with _value: strings.toTitle(v: r._value)}))
+
+```
+

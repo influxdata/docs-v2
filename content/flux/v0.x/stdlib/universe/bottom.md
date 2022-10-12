@@ -1,94 +1,115 @@
 ---
 title: bottom() function
-description: The `bottom()` function sorts a table by columns and keeps only the bottom n records.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/transformations/selectors/bottom
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/selectors/bottom/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/selectors/bottom/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/selectors/bottom/
+description: >
+  `bottom()` sorts each input table by specified columns and keeps the bottom `n`
+  records in each table.
 menu:
   flux_0_x_ref:
     name: bottom
     parent: universe
-weight: 102
-flux/v0.x/tags: [selectors, transformations]
-related:
-  - /{{< latest "influxdb" "v1" >}}/query_language/functions/#bottom, InfluxQL – BOTTOM()
+    identifier: universe/bottom
+weight: 101
+flux/v0.x/tags: [transformations, selectors]
 introduced: 0.7.0
 ---
 
-The `bottom()` function sorts a table by columns and keeps only the bottom `n` records.
-_`bottom()` is a [selector function](/flux/v0.x/function-types/#selectors)._
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L4136-L4138
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`bottom()` sorts each input table by specified columns and keeps the bottom `n`
+records in each table.
+
+**Note:** `bottom()` drops empty tables.
+
+##### Function type signature
 
 ```js
-bottom(n:10, columns: ["_value"])
+(<-tables: stream[A], n: int, ?columns: [string]) => stream[A] where A: Record
 ```
 
-{{% warn %}}
-#### Empty tables
-`bottom()` drops empty tables.
-{{% /warn %}}
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### n {data-type="int"}
-Number of records to return.
+### n
+({{< req >}})
+Number of rows to return from each input table.
 
-### columns {data-type="array of strings"}
-List of columns by which to sort.
+
+
+### columns
+
+List of columns to sort by. Default is `["_value"]`.
+
 Sort precedence is determined by list order (left to right).
-Default is `["_value"]`.
 
-### tables {data-type="stream of tables"}
-Input data.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
+### tables
+
+Input data. Default is piped-forward data (`<-`).
+
+
+
 
 ## Examples
-{{% flux/sample-example-intro %}}
 
-#### Return rows with the two lowest values
+### Return rows with the two lowest values in each input table
+
 ```js
 import "sampledata"
 
 sampledata.int()
-  |> bottom(n:2)
+    |> bottom(n: 2)
+
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View input and output" %}}
-{{< flex >}}
-{{% flex-content %}}
+{{% expand "View example input and ouput" %}}
 
-##### Input data
-{{% flux/sample set="int" %}}
+#### Input data
 
-{{% /flex-content %}}
-{{% flex-content %}}
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:10Z | 10      | t1   |
+| 2021-01-01T00:00:20Z | 7       | t1   |
+| 2021-01-01T00:00:30Z | 17      | t1   |
+| 2021-01-01T00:00:40Z | 15      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
 
-##### Output data
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:00Z | t1  |     -2 |
-| 2021-01-01T00:00:50Z | t1  |      4 |
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | 19      | t2   |
+| 2021-01-01T00:00:10Z | 4       | t2   |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:30Z | 19      | t2   |
+| 2021-01-01T00:00:40Z | 13      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
 
-| _time                | tag | _value |
-| :------------------- | :-- | -----: |
-| 2021-01-01T00:00:20Z | t2  |     -3 |
-| 2021-01-01T00:00:50Z | t2  |      1 |
 
-{{% /flex-content %}}
-{{< /flex >}}
+#### Output data
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:00Z | -2      | t1   |
+| 2021-01-01T00:00:50Z | 4       | t1   |
+
+| _time                | _value  | *tag |
+| -------------------- | ------- | ---- |
+| 2021-01-01T00:00:20Z | -3      | t2   |
+| 2021-01-01T00:00:50Z | 1       | t2   |
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-## Function definition
-```js
-// _sortLimit is a helper function, which sorts and limits a table.
-_sortLimit = (n, desc, columns=["_value"], tables=<-) =>
-  tables
-    |> sort(columns:columns, desc:desc)
-    |> limit(n:n)
-
-bottom = (n, columns=["_value"], tables=<-) =>
-  _sortLimit(n:n, columns:columns, desc:false)
-```

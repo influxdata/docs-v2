@@ -9,6 +9,8 @@ menu:
     name: "Null"
     parent: Basic types
 weight: 204
+related: 
+  - /flux/v0.x/stdlib/internal/debug/null/
 flux/v0.x/tags: ["basic types", "data types"]
 ---
 
@@ -18,11 +20,27 @@ The **null type** represents a missing or unknown value.
 
 - [Null syntax](#null-syntax)
 - [Check if a column value is null](#check-if-a-column-value-is-null)
+- [Include null values in an ad hoc stream of tables](#include-null-values-in-an-ad-hoc-stream-of-tables)
 
 ## Null syntax
 Null types exist in [columns](/flux/v0.x/get-started/data-model/#column) of
-other [basic types](/flux/v0.x/data-types/basic/), but there is no literal syntax
-to represent a _null_ value.
+other [basic types](/flux/v0.x/data-types/basic/).
+Flux does not provide a literal syntax for a _null_ value, however, you can use
+[`debug.null()`](/flux/v0.x/stdlib/internal/debug/null/) to return a null value
+of a specified type.
+
+```js
+import "internal/debug"
+
+// Return a null string
+debug.null(type: "string")
+
+// Return a null integer
+debug.null(type: "int")
+
+// Return a null boolean
+debug.null(type: "bool")
+```
 
 {{% note %}}
 An empty string (`""`) **is not** a _null_ value.
@@ -37,7 +55,7 @@ if a column value is _null_.
 ##### Filter out rows with null values
 ```js
 data
-  |> filter(fn: (r) => exists r._value)
+    |> filter(fn: (r) => exists r._value)
 ```
 
 {{< flex >}}
@@ -59,3 +77,27 @@ data
 | 2021-01-01T03:00:00Z |     2.5 |
 {{% /flex-content %}}
 {{< /flex >}}
+
+## Include null values in an ad hoc stream of tables
+
+1. Use [`array.from()`](/flux/v0.x/stdlib/array/from/) to create an ad hoc stream of tables.
+2. Use [`debug.null()`](/flux/v0.x/stdlib/internal/debug/null/) to include null
+   column values.
+
+```js
+import "array"
+import "internal/debug"
+
+array.from(
+    rows: [
+        {a: 1, b: 2, c: 3, d: "four"},
+        {a: debug.null(type: "int"), b: 5, c: 6, d: debug.null(type: "string")}
+    ]
+)
+```
+
+##### The example above returns:
+|  a  |  b  |  c  |  d   |
+| :-: | :-: | :-: | :--: |
+|  1  |  2  |  3  | four |
+|     |  5  |  6  |      |

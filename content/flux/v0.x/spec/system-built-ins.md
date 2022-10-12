@@ -20,21 +20,24 @@ When a built-in value is not expressible in Flux, its value may be defined by th
 All such values must have a corresponding builtin statement to declare the existence and type of the built-in value.
 
 ```js
-BuiltinStatement = "builtin" identifer ":" TypeExpression .
+BuiltinStatement = "builtin" identifier ":" TypeExpression .
 TypeExpression   = MonoType ["where" Constraints] .
 
-MonoType = Tvar | Basic | Array | Record | Function .
-Tvar     = "A" … "Z" .
-Basic    = "int" | "uint" | "float" | "string" | "bool" | "time" | "duration" | "bytes" | "regexp" .
-Array    = "[" MonoType "]" .
-Record   = ( "{" [Properties] "}" ) | ( "{" Tvar "with" Properties "}" ) .
-Function = "(" [Parameters] ")" "=>" MonoType .
+MonoType     = Tvar | BasicType | ArrayType | StreamType | VectorType | RecordType | FunctionType .
+Tvar         = "A" … "Z" .
+BasicType    = "int" | "uint" | "float" | "string" | "bool" | "time" | "duration" | "bytes" | "regexp" .
+ArrayType    = "[" MonoType "]" .
+StreamType   = "stream" "[" MonoType "]" .
+VectorType   = "vector" "[" MonoType "]" .
+RecordType   = ( "{" [RecordTypeProperties] "}" ) | ( "{" Tvar "with" RecordTypeProperties "}" ) .
+FunctionType = "(" [FunctionTypeParameters] ")" "=>" MonoType .
 
-Properties = Property { "," Property } .
-Property   = identifier ":" MonoType .
+RecordTypeProperties = RecordTypeProperty { "," RecordTypeProperty } .
+RecordTypeProperty   = Label ":" MonoType .
+Label = identifier | string_lit
 
-Parameters = Parameter { "," Parameter } .
-Parameter  = [ "<-" | "?" ] identifier ":" MonoType .
+FunctionTypeParameters = FunctionTypeParameter { "," FunctionTypeParameter } .
+FunctionTypeParameter = [ "<-" | "?" ] identifier ":" MonoType .
 
 Constraints = Constraint { "," Constraint } .
 Constraint  = Tvar ":" Kinds .
@@ -44,7 +47,7 @@ Kinds       = identifier { "+" identifier } .
 ##### Example
 
 ```js
-builtin filter : (<-tables: [T], fn: (r: T) => bool) => [T]
+builtin filter : (<-tables: stream[T], fn: (r: T) => bool) => stream[T]
 ```
 
 {{< page-nav prev="/flux/v0.x/spec/side-effects/" next="/flux/v0.x/spec/data-model/" >}}

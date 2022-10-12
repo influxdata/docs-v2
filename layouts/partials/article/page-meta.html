@@ -1,8 +1,13 @@
-{{ if .Page.Params.metadata }}
+{{ if or (.Page.Params.metadata) (.Page.Params.updated_in) (.Page.Params.date) }}
+<ul class="metadata">
 {{ range .Page.Params.metadata }}
-<p class="meta">{{ . | markdownify }}</p>
-{{ end }}
-{{ end }}
-{{ if .Page.Params.updated_in }}
-<p class="meta updated-in">Updated in {{ .Page.Params.updated_in }}</p>
+  <li>{{ . | markdownify }}</li>
+  {{ end }}
+  {{ if .Page.Params.updated_in }}
+  <li class="updated-in">Updated in {{ .Page.Params.updated_in }}</li>
+  {{ end }}
+  {{ if .Page.Params.date }}
+  <li class="date">{{ time.Format "Jan 2, 2006" .Page.Params.date }}</li>
+  {{ end }}
+</ul>
 {{ end }}

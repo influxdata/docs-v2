@@ -2,7 +2,8 @@
 title: Delete data
 list_title: Delete data
 description: >
-  Delete data in the InfluxDB CLI and API.
+  Use the `influx` CLI or the InfluxDB API `/api/v2/delete` endpoint to delete
+  data from an InfluxDB Bucket.
 menu:
   influxdb_cloud:
     name: Delete data

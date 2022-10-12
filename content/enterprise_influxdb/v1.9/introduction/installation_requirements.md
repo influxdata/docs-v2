@@ -12,7 +12,7 @@ menu:
     parent: Introduction
 ---
 
-Review the installation requirements below, and then check out available options to [install and deploy InfluxDB Enterprise](/enterprise_influxdb/v1.9/install-and-deploy/). For an overview of the architecture and concepts in an InfluxDB Enterprise cluster, review [Clustering in InfluxDB Enterprise](/enterprise_influxdb/v1.9/concepts/clustering/).
+Review the installation requirements below, and then check out available options to [install and deploy InfluxDB Enterprise](/enterprise_influxdb/v1.9/introduction/installation/). For an overview of the architecture and concepts in an InfluxDB Enterprise cluster, review [Clustering in InfluxDB Enterprise](/enterprise_influxdb/v1.9/concepts/clustering/).
 
 ## Requirements for InfluxDB Enterprise clusters
 
@@ -30,7 +30,7 @@ The following are the most frequently overlooked requirements when installing a 
 - [Ensure connectivity between machines](#ensure-connectivity-between-machines)
 - [Synchronize time between hosts](#synchronize-time-between-hosts)
 - [Use SSDs](#use-ssds)
-- [Do not use NFS](#do-not-use-nfs-mounts)
+- [Do not use NFS or NFS-based services](#do-not-use-nfs-or-nfs-based-services)
 - [Disable swap](#disable-swap)
 - [Use three and only three meta nodes](#use-three-and-only-three-meta-nodes)
 - [Meta and data nodes are fully independent](#meta-and-data-nodes-are-fully-independent)
@@ -56,10 +56,13 @@ SANs must guarantee at least 1000 IOPS is always available to InfluxDB Enterpris
 nodes or they may not be sufficient.
 SSDs are strongly recommended, and we have had no reports of IOPS contention from any customers running on SSDs.
 
-#### Do not use NFS
+#### Do not use NFS or NFS-based services
 
 For disk storage, use block devices only.
-InfluxDB Enterprise does not support NFS (Network File System)-mounted devices.
+InfluxDB Enterprise does **not** support NFS (Network File System)-mounted devices
+or services such as [AWS EFS](https://aws.amazon.com/efs/),
+[Google Filestore](https://cloud.google.com/filestore), or 
+[Azure files](https://azure.microsoft.com/en-us/services/storage/files/).
 
 #### Disable swap
 

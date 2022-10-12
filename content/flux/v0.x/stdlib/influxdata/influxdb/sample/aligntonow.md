@@ -5,54 +5,62 @@ description: >
 menu:
   flux_0_x_ref:
     name: sample.alignToNow
-    parent: sample-pkg
+    parent: influxdata/influxdb/sample
+    identifier: influxdata/influxdb/sample/alignToNow
 weight: 301
-related:
-  - /influxdb/v2.0/reference/sample-data/
-introduced: 0.132.0
+flux/v0.x/tags: [transformations]
 ---
 
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/influxdata/influxdb/sample/sample.flux#L169-L179
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
 `sample.alignToNow()` shifts time values in input data to align the chronological last point to _now_.
+
+When writing static historical sample datasets to **InfluxDB Cloud**, use `alignToNow()`
+to avoid losing sample data with timestamps outside of the retention period
+associated with your InfluxDB Cloud account.
+
 Input data must have a `_time` column.
 
-{{% note %}}
-When writing static historical sample datasets to **InfluxDB Cloud**,
-use `sample.alignToNow()` to avoid losing sample data with timestamps outside
-of the retention period associated with your InfluxDB Cloud account.
-{{% /note %}}
+##### Function type signature
+
+```js
+(<-tables: stream[A]) => stream[A] where A: Record
+```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
+
+## Parameters
+
+### tables
+
+Input data. Defaults to piped-forward data (`<-`).
+
+
+
 
 ## Examples
 
-#### Align sample data timestamps to the current time
+### Align sample data to now
+
 ```js
 import "influxdata/influxdb/sample"
 
-option now = () => 2021-01-01T00:00:00Z
+sample.data(set: "birdMigration")
+    |> sample.alignToNow()
 
-data = sample.data(set: "birdMigration")
-  |> filter(fn: (r) =>
-    r._field == "lon" and
-    r.s2_cell_id == "471ed2c" and
-    r.id == "91916A"
-  )
-  |> tail(n: 3)
-
-data
-  |> sample.alignToNow()
 ```
 
-{{% expand "View input and output" %}}
-#### Input data
-| _time                | _measurement | id     | s2_cell_id | _field |   _value |
-| :------------------- | :----------- | :----- | :--------- | :----- | -------: |
-| 2019-09-19T15:00:00Z | migration    | 91916A | 471ed2c    | lon    | 21.10333 |
-| 2019-09-22T09:00:00Z | migration    | 91916A | 471ed2c    | lon    |   21.084 |
-| 2019-09-22T15:00:00Z | migration    | 91916A | 471ed2c    | lon    | 21.10317 |
-
-#### Output data
-| _time                | _measurement | id     | s2_cell_id | _field |   _value |
-| :------------------- | :----------- | :----- | :--------- | :----- | -------: |
-| 2020-12-29T00:00:00Z | migration    | 91916A | 471ed2c    | lon    | 21.10333 |
-| 2020-12-31T18:00:00Z | migration    | 91916A | 471ed2c    | lon    |   21.084 |
-| 2021-01-01T00:00:00Z | migration    | 91916A | 471ed2c    | lon    | 21.10317 |
-{{% /expand %}}

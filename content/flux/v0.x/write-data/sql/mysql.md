@@ -17,11 +17,11 @@ list_code_example: |
   import "sql"
   
   data
-    |> sql.to(
-      driverName: "mysql",
-      dataSourceName: "user:password@tcp(localhost:3306)/db",
-      table: "example_table"
-    )
+      |> sql.to(
+          driverName: "mysql",
+          dataSourceName: "user:password@tcp(localhost:3306)/db",
+          table: "example_table",
+      )
   ```
 ---
 
@@ -41,11 +41,11 @@ To write data to [MySQL](https://www.mysql.com/) with Flux:
 import "sql"
 
 data
-  |> sql.to(
-    driverName: "mysql",
-    dataSourceName: "user:password@tcp(localhost:3306)/db",
-    table: "example_table"
-  )
+    |> sql.to(
+        driverName: "mysql",
+        dataSourceName: "user:password@tcp(localhost:3306)/db",
+        table: "example_table",
+    )
 ```
 
 ---

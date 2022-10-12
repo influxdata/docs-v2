@@ -1,55 +1,90 @@
 ---
 title: getColumn() function
 description: >
-  The `getColumn()` function extracts a column from a table given its label.
-  If the label is not present in the set of columns, the function errors.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/built-in/transformations/stream-table/getcolumn/
-  - /influxdb/v2.0/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/
-  - /influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/getcolumn/
+  `getColumn()` extracts a specified column from a table as an array.
 menu:
   flux_0_x_ref:
     name: getColumn
     parent: universe
-weight: 102
+    identifier: universe/getColumn
+weight: 101
 flux/v0.x/tags: [dynamic queries]
-related:
-  - /{{< latest "influxdb" >}}/query-data/flux/scalar-values/
 introduced: 0.29.0
 ---
 
-The `getColumn()` function extracts a column from a table given its label.
-If the label is not present in the set of columns, the function errors.
+<!------------------------------------------------------------------------------
+
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2984-L2984
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`getColumn()` extracts a specified column from a table as an array.
+
+If the specified column is not present in the table, the function returns an error.
+
+##### Function type signature
 
 ```js
-getColumn(column: "_value")
+(<-table: stream[A], column: string) => [B] where A: Record
 ```
 
-{{% note %}}
-#### Use tableFind() to extract a single table
-`getColumn()` requires a single table as input.
-Use [`tableFind()`](/flux/v0.x/stdlib/universe/tablefind/)
-to extract a single table from a stream of tables.
-{{% /note %}}
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### column {data-type="string"}
-Name of the column to extract.
+### column
+({{< req >}})
+Column to extract.
 
-### table {data-type="table"}
-Input table.
-Default is piped-forward data ([`<-`](/flux/v0.x/spec/expressions/#pipe-expressions)).
 
-## Example
-{{% flux/sample-example-intro %}}
+
+### table
+
+Input table. Default is piped-forward data (`<-`).
+
+
+
+
+## Examples
+
+- [Extract an array of column values from a table](#extract-an-array-of-column-values-from-a-table)
+- [Extract an array of column values and display them in a table](#extract-an-array-of-column-values-and-display-them-in-a-table)
+
+### Extract an array of column values from a table
 
 ```js
 import "sampledata"
 
 sampledata.int()
-  |> tableFind(fn: (key) => key.tag == "t1")
-  |> getColumn(column: "_value")
+    |> tableFind(fn: (key) => key.tag == "t1")
+    |> getColumn(column: "_value")// Returns [-2, 10, 7, 17, 15, 4]
 
-// Returns [-2, 10, 7, 17, 15, 4]
+
 ```
+
+
+### Extract an array of column values and display them in a table
+
+```js
+import "array"
+import "sampledata"
+
+columnData =
+    sampledata.int()
+        |> tableFind(fn: (key) => key.tag == "t1")
+        |> getColumn(column: "_value")
+
+array.from(rows: [{_value: display(v: columnData)}])
+
+```
+

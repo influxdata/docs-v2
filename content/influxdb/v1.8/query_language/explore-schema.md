@@ -189,6 +189,8 @@ SHOW SERIES [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> [ '<t
 If the query does not include `ON <database_name>`, you must specify the
 database with `USE <database_name>` in the [CLI](/influxdb/v1.8/tools/shell/) or with the `db` query
 string parameter in the [InfluxDB API](/influxdb/v1.8/tools/api/#query-string-parameters) request.
+`SHOW SERIES` only returns series in the database's default retention policy,
+and fails if there is no default retention policy.
 
 The `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
 The `WHERE` clause supports tag comparisons; field comparisons are not
@@ -212,7 +214,7 @@ and on [Regular Expressions in Queries](/influxdb/v1.8/query_language/explore-da
 #### Run a `SHOW SERIES` query with the `ON` clause
 
 ```sql
-// Returns series for all shards in the database
+// Returns series for all shards in the database and default retention policy
 > SHOW SERIES ON NOAA_water_database
 
 key
@@ -437,11 +439,6 @@ See the Data Exploration page for documentation on the
 [`LIMIT` clause](/influxdb/v1.8/query_language/explore-data/#the-limit-clause),
 [`OFFSET` clause](/influxdb/v1.8/query_language/explore-data/#the-offset-clause),
 and on [Regular expressions in queries](/influxdb/v1.8/query_language/explore-data/#regular-expressions).
-
-The following queries with wildcards characters (`*`) are also allowed:
-
-- `SHOW MEASUREMENTS ON *.*` to show all databases and all RPs
-- `SHOW MEASUREMENTS ON <db>.*` to show a specific database and all its RPs
 
 ### Examples
 

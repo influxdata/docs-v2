@@ -15,9 +15,9 @@ list_code_example: |
   import "sql"
   
   sql.from(
-    driverName: "postgres",
-    dataSourceName: "postgresql://user:password@localhost",
-    query:"SELECT * FROM TestTable"
+      driverName: "postgres",
+      dataSourceName: "postgresql://user:password@localhost",
+      query:"SELECT * FROM TestTable",
   )
   ```
 ---
@@ -48,7 +48,7 @@ The following drivers are available:
 - `postgres`
 - `snowflake`
 - `sqlite3`
-- `sqlserver`, `mssql`
+- `sqlserver`
 - `vertica`, `vertigo`
 
 ## Data source names
@@ -70,9 +70,9 @@ username = secrets.get(key: "POSTGRES_USER")
 password = secrets.get(key: "POSTGRES_PASS")
 
 sql.from(
-  driverName: "postgres",
-  dataSourceName: "postgresql://${username}:${password}@localhost:5432",
-  query: "SELECT * FROM example_table"
+    driverName: "postgres",
+    dataSourceName: "postgresql://${username}:${password}@localhost:5432",
+    query: "SELECT * FROM example_table",
 )
 ```
 
@@ -105,9 +105,9 @@ Given the following **example_table** in a MySQL database:
 import "sql"
 
 sql.from(
-  driver: "mysql",
-  dataSourceName: "username:passwOrd@tcp(localhost:3306)/db",
-  query: "SELECT ID, Name FROM example_table"
+    driverName: "mysql",
+    dataSourceName: "username:passwOrd@tcp(localhost:3306)/db",
+    query: "SELECT ID, Name FROM example_table",
 )
 ```
 

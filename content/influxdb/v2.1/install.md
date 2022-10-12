@@ -48,7 +48,7 @@ brew install influxdb
 ```
 
 {{% note %}}
-Homebrew also installs `influx-cli` as a dependency.
+Homebrew also installs `influxdb-cli` as a dependency.
 For information about using the `influx` CLI, see the
 [`influx` CLI reference documentation](/influxdb/v2.1/reference/cli/influx/).
 {{% /note %}}
@@ -59,7 +59,7 @@ To download the InfluxDB v{{< current-version >}} binaries for macOS directly,
 do the following:
 
 1. **Download the InfluxDB package.**
-    
+
     <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-darwin-amd64.tar.gz" download>InfluxDB v{{< current-version >}} (macOS)</a>
 
 
@@ -196,6 +196,11 @@ influxd --reporting-disabled
 {{% tab-content %}}
 ## Download and install InfluxDB v{{< current-version >}}
 
+Do one of the following:
+
+- [Install InfluxDB as a service with systemd](#install-influxdb-as-a-service-with-systemd)
+- [Manually download and install the influxd binary](#manually-download-and-install-the-influxd-binary)
+
 {{% note %}}
 #### InfluxDB and the influx CLI are separate packages
 The InfluxDB server ([`influxd`](/influxdb/v2.1/reference/cli/influxd/)) and the
@@ -205,9 +210,68 @@ For information about installing the `influx` CLI, see
 [Install and use the influx CLI](/influxdb/v2.1/tools/influx-cli/).
 {{% /note %}}
 
-1. **Download the InfluxDB package.**
+### Install InfluxDB as a service with systemd
 
-    Download the InfluxDB package [from your browser](#download-from-your-browser)
+1.  Download and install the appropriate `.deb` or `.rpm` file using a URL from the
+    [InfluxData downloads page](https://portal.influxdata.com/downloads/)
+    with the following commands:
+
+    ```sh
+    # Ubuntu/Debian
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-xxx.deb
+    sudo dpkg -i influxdb2-{{< latest-patch >}}-xxx.deb
+
+    # Red Hat/CentOS/Fedora
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-xxx.rpm
+    sudo yum localinstall influxdb2-{{< latest-patch >}}-xxx.rpm
+    ```
+    _Use the exact filename of the download of `.rpm` package (for example, `influxdb2-{{< latest-patch >}}-amd64.rpm`)._
+
+2.  Start the InfluxDB service:
+
+    ```sh
+    sudo service influxdb start
+    ```
+
+    Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
+    to start InfluxDB as a background service on startup.
+
+3. Restart your system and verify that the service is running correctly:
+
+    ```
+    $  sudo service influxdb status
+    ● influxdb.service - InfluxDB is an open-source, distributed, time series database
+      Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
+      Active: active (running)
+    ```
+
+For information about where InfluxDB stores data on disk when running as a service,
+see [File system layout](/influxdb/v2.1/reference/internals/file-system-layout/?t=Linux#installed-as-a-package).
+
+To customize your InfluxDB configuration, use either
+[command line flags (arguments)](#pass-arguments-to-systemd), environment variables, or an InfluxDB configuration file.
+See InfluxDB [configuration options](/influxdb/v2.1/reference/config-options/) for more information.
+
+#### Pass arguments to systemd
+
+1. Add one or more lines like the following containing arguments for `influxd` to `/etc/default/influxdb2`:
+
+   ```sh
+   ARG1="--http-bind-address :8087"
+   ARG2="<another argument here>"
+   ```
+
+2. Edit the `/lib/systemd/system/influxdb.service` file as follows:
+
+   ```sh
+   ExecStart=/usr/bin/influxd $ARG1 $ARG2
+   ```
+
+### Manually download and install the influxd binary
+
+1. **Download the InfluxDB binary.**
+
+    Download the InfluxDB binary [from your browser](#download-from-your-browser)
     or [from the command line](#download-from-the-command-line).
 
     #### Download from your browser
@@ -225,7 +289,7 @@ For information about installing the `influx` CLI, see
     wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-linux-arm64.tar.gz
     ```
 
-4. **Unpackage the downloaded package.**
+4. **Extract the downloaded binary.**
 
     _**Note:** The following commands are examples. Adjust the filenames, paths, and utilities if necessary._
 
@@ -237,7 +301,7 @@ For information about installing the `influx` CLI, see
     tar xvzf path/to/influxdb2-{{< latest-patch >}}-linux-arm64.tar.gz
     ```
 
-3. **(Optional) Place the unpackaged `influxd` executable in your system `$PATH`.**
+3. **(Optional) Place the extracted `influxd` executable binary in your system `$PATH`.**
 
     ```sh
     # amd64
@@ -286,7 +350,8 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 
 ## Start InfluxDB
 
-Start InfluxDB by running the `influxd` daemon:
+If InfluxDB was installed as a systemd service, systemd manages the `influxd` daemon and no further action is required.
+If the binary was manually downloaded and added to the system `$PATH`, start the `influxd` daemon with the following command:
 
 ```bash
 influxd
@@ -294,66 +359,6 @@ influxd
 
 _See the [`influxd` documentation](/influxdb/v2.1/reference/cli/influxd) for information about
 available flags and options._
-
-## Install InfluxDB as a service with systemd
-
-1.  Download and install the appropriate `.deb` or `.rpm` file using a URL from the
-    [InfluxData downloads page](https://portal.influxdata.com/downloads/)
-    with the following commands:
-
-    ```sh
-    # Ubuntu/Debian
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-xxx.deb
-    sudo dpkg -i influxdb2-{{< latest-patch >}}-xxx.deb
-
-    # Red Hat/CentOS/Fedora
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-xxx.rpm
-    sudo yum localinstall influxdb2-{{< latest-patch >}}-xxx.rpm
-    ```
-    _Use the exact filename of the download of `.rpm` package (for example, `influxdb2-{{< latest-patch >}}-amd64.rpm`)._
-
-2.  Start the InfluxDB service:
-
-    ```sh
-    sudo service influxdb start
-    ```
-
-    Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
-    to start InfluxDB as a background service on startup.
-
-3. Restart your system and verify that the service is running correctly:
-
-    ```
-    $  sudo service influxdb status
-    ● influxdb.service - InfluxDB is an open-source, distributed, time series database
-      Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: enable>
-      Active: active (running)
-    ```
-
-When installed as a service, InfluxDB stores data in the following locations:
-
-- **Time series data:** `/var/lib/influxdb/engine/`
-- **Key-value data:** `/var/lib/influxdb/influxd.bolt`.
-- **influx CLI configurations:** `~/.influxdbv2/configs` _(see [`influx config`](/influxdb/v2.1/reference/cli/influx/config/) for more information)_ .
-
-To customize your InfluxDB configuration, use either
-[command line flags (arguments)](#pass-arguments-to-systemd), environment variables, or an InfluxDB configuration file.
-See InfluxDB [configuration options](/influxdb/v2.1/reference/config-options/) for more information.
-
-### Pass arguments to systemd
-
-1. Add one or more lines like the following containing arguments for `influxd` to `/etc/default/influxdb2`:
-
-   ```sh
-   ARG1="--http-bind-address :8087"
-   ARG2="<another argument here>"
-   ```
-
-2. Edit the `/lib/systemd/system/influxdb.service` file as follows:
-
-   ```sh
-   ExecStart=/usr/bin/influxd $ARG1 $ARG2
-   ```
 
 ### Networking ports
 
@@ -727,7 +732,32 @@ influx setup
    nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`),
    seconds (`s`), minutes (`m`), hours (`h`), days (`d`), and weeks (`w`).
    Enter nothing for an infinite retention period.
+
 7. Confirm the details for your primary user, organization, and bucket.
+
+    ```sh
+    $ influx setup --name kube1
+    > Welcome to InfluxDB 2.0!
+    ? Please type your primary username kube1-owner
+    ? Please type your password ********
+    ? Please type your password again ********
+    ? Please type your primary organization name kube1-org1
+    ? Please type your primary bucket name airSensor
+    ? Please type your retention period in hours, or 0 for infinite 0
+    ? Setup with these parameters?
+      Username:          kube1-owner
+      Organization:      kube1-org1
+      Bucket:            airSensor
+      Retention Period:  infinite
+     (y/N)
+    ```
+
+8. Once you confirm the setup, InfluxDB outputs a table of the configuration.
+
+    ```sh
+    User            Organization    Bucket
+    kube1-owner     kube1-org1      airSensor
+    ```
 
 InfluxDB is now initialized with a primary user, organization, bucket, and API token.
 InfluxDB also creates a configuration profile for you so that you don't have to

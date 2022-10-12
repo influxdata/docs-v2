@@ -1,14 +1,25 @@
 module.exports = SetInfo;
 
+const { info } = require('../../content/content')
+
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
-function SetInfo(options) {
+function SetInfo() {
+  const data = info();
+
   return {
     Info: {
       leave(info, ctx) {
-        if(options.data) {
-	  info.title = options.data.title;
-	  info.description = options.data.description;
-	}
+        if(data) {
+          if(data.hasOwnProperty('title')) {
+             info.title = data.title;
+          }
+	        if(data.hasOwnProperty('version')) {
+             info.version = data.version;
+          }
+          if(data.hasOwnProperty('description')) {
+             info.description = data.description;
+          }
+	      }
       }
     }
   }

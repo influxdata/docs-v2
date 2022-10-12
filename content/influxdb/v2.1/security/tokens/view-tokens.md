@@ -15,17 +15,46 @@ View API tokens and permissions using the InfluxDB user interface (UI),
 the `influx` command line interface (CLI), or the InfluxDB API.
 
 {{% note %}}
-Tokens are visible only to the user who created them and stop working when the user is deactivated.
-We recommend creating a generic IT user to create and manage tokens for writing data.
+
+{{% oss-only %}}Tokens are visible to the user who created the token. Users who own a token with Operator permissions also have access to all tokens.
+Tokens stop working when the user who created the token is deleted.
+
+**We recommend creating a generic user to create and manage tokens for writing data.**
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+To follow best practices for secure API token generation and retrieval, InfluxDB Cloud enforces access restrictions on API tokens.
+  - InfluxDB Cloud UI only allows access to the API token value immediately after the token is created.
+  - You can't change access (**read/write**) permissions for an API token after it's created.
+  - Tokens stop working when the user who created the token is deleted.
+
+We recommend the following for managing your tokens:
+- Create a generic user to create and manage tokens for writing data.
+- Store your tokens in a secure password vault for future access.
+{{% /cloud-only %}}
 {{% /note %}}
 
 ## View tokens in the InfluxDB UI
 
-1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
+{{% oss-only %}}
+
+1. In the navigation menu on the left, select **Data (Load Data)** > **API Tokens**.
 
     {{< nav-icon "load-data" >}}
 
-2. Click a token name from the list to view the token and a summary of access permissions.
+2. Click a token name in the list to view the token and a summary of access permissions.
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+1. In the navigation menu on the left, select **Load Data** > **API Tokens**.
+
+    {{< nav-icon "load-data" >}}
+
+2. Click a token description in the list to view the token status and a list of access permissions.
+
+{{% /cloud-only %}}
 
 ## View tokens using the influx CLI
 
@@ -44,7 +73,7 @@ for information about other available flags.
 
 Use the `/authorizations` endpoint of the InfluxDB API to view tokens and permissions.
 
-{{% api-endpoint method="GET" endpoint="/api/v2/authorizations" %}}
+[{{< api-endpoint method="GET" endpoint="/api/v2/authorizations" >}}](/influxdb/cloud/api/#operation/GetAuthorizations)
 
 Include the following in your request:
 

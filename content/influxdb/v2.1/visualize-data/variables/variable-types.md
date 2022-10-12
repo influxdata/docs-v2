@@ -39,8 +39,8 @@ Query variable values are populated using the `_value` column of a Flux query.
 ```js
 // List all buckets
 buckets()
-  |> rename(columns: {"name": "_value"})
-  |> keep(columns: ["_value"])
+    |> rename(columns: {"name": "_value"})
+    |> keep(columns: ["_value"])
 ```
 
 _For examples of dashboard variable queries, see [Common variable queries](/influxdb/v2.1/visualize-data/variables/common-variables)._
@@ -83,10 +83,10 @@ reference the variable with `v.exampleVar`:
 
 ```js
 from(bucket: "telegraf")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "cpu" )
-  |> filter(fn: (r) => r._field == "usage_user" )
-  |> filter(fn: (r) => r.cpu == v.exampleVar)  
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "cpu" )
+    |> filter(fn: (r) => r._field == "usage_user" )
+    |> filter(fn: (r) => r.cpu == v.exampleVar)  
 ```
 
 **To select variable values:**

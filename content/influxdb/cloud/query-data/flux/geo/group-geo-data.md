@@ -16,8 +16,8 @@ list_code_example: |
   import "experimental/geo"
 
   sampleGeoData
-    |> geo.groupByArea(newColumn: "geoArea", level: 5)
-    |> geo.asTracks(groupBy: ["id"],sortBy: ["_time"])
+      |> geo.groupByArea(newColumn: "geoArea", level: 5)
+      |> geo.asTracks(groupBy: ["id"],orderBy: ["_time"])
   ```
 ---
 

@@ -6,7 +6,8 @@ menu:
   influxdb_1_3:
     weight: 80
     parent: Tools
-    url: https://github.com/influxdata/influxdb/blob/master/services/collectd/README.md
+    params:
+      url: https://github.com/influxdata/influxdb/blob/master/services/collectd/README.md
 ---
 
 See the [README](https://github.com/influxdata/influxdb/blob/master/services/collectd/README.md) on GitHub.

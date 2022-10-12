@@ -13,18 +13,19 @@ related:
 ---
 
 ## Update a task in the InfluxDB UI
-Click the **Tasks** icon in the left navigation to view the lists of tasks.
+1. In the navigation menu on the left, select **Tasks**.
 
-{{< nav-icon "tasks" >}}
+    {{% nav-icon "tasks" %}}
 
-Click the name of a task to update it.
+2. Find the task you would like to edit and click the **{{< icon "settings" >}}** icon located far right of the task name.
+3. Click **Edit**.
+4. Click **{{< caps >}}Save{{< /caps >}}** in the upper right.
 
 #### Update a task Flux script
 1. In the list of tasks, click the **Name** of the task you want to update.
 2. In the left panel, modify the task options.
 3. In the right panel, modify the task script.
-4. Click **Save** in the upper right.
-
+4. Click **{{< caps >}}Save{{< /caps >}}** in the upper right.
 
 #### Update the status of a task
 In the list of tasks, click the {{< icon "toggle" >}} toggle to the left of the
@@ -49,7 +50,9 @@ script are also updated.
 ```sh
 # Syntax
 influx task update -i <task-id> -f </path/to/updated-task-script>
+```
 
+```sh
 # Example
 influx task update -i 0343698431c35000 -f /tasks/cq-mean-1h.flux
 ```
@@ -63,7 +66,9 @@ _Possible arguments of the `--status` flag are `active` or `inactive`._
 ```sh
 # Syntax
 influx task update -i <task-id> --status < active | inactive >
+```
 
+```sh
 # Example
 influx task update -i 0343698431c35000 --status inactive
 ```

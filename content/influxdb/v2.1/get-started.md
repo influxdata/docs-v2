@@ -19,6 +19,16 @@ After you've [installed InfluxDB OSS](/influxdb/v2.1/install/), you're ready to 
 - [Visualize data](#visualize-data)
 - [Monitor and alert](#monitor-and-alert)
 
+*Note:** To run InfluxDB, start the `influxd` daemon ([InfluxDB service](/influxdb/v2.1/reference/cli/influxd/)) using the [InfluxDB command line interface](/influxdb/v2.1/reference/cli/influx/). Once you've started the `influxd` daemon, use `localhost:8086` to log in to your InfluxDB instance.
+
+To start InfluxDB, do the following:
+  1. Open a terminal.
+  2. Type `influxd` in the command line.
+
+```sh
+influxd
+```
+
 ### Collect and write data
 
 Collect and write data to InfluxDB using the Telegraf plugins, the InfluxDB v2 API, the `influx` command line interface (CLI), the InfluxDB UI (the user interface for InfluxDB 2.1), or the InfluxDB v2 API client libraries.

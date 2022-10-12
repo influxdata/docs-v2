@@ -1,48 +1,67 @@
 ---
 title: strings.joinStr() function
 description: >
-  The strings.joinStr() function concatenates the elements of a string array into
-  a single string using a specified separator.
-aliases:
-  - /influxdb/v2.0/reference/flux/functions/strings/joinstr/
-  - /influxdb/v2.0/reference/flux/stdlib/strings/joinstr/
-  - /influxdb/cloud/reference/flux/stdlib/strings/joinstr/
+  `strings.joinStr()` concatenates elements of a string array into a single string using a specified separator.
 menu:
   flux_0_x_ref:
     name: strings.joinStr
     parent: strings
-weight: 301
-introduced: 0.18.0
+    identifier: strings/joinStr
+weight: 101
 ---
 
-The `strings.joinStr()` function concatenates elements of a string array into
-a single string using a specified separator.
+<!------------------------------------------------------------------------------
 
-_**Output data type:** String_
+IMPORTANT: This page was generated from comments in the Flux source code. Any
+edits made directly to this page will be overwritten the next time the
+documentation is generated. 
+
+To make updates to this documentation, update the function comments above the
+function definition in the Flux source code:
+
+https://github.com/influxdata/flux/blob/master/stdlib/strings/strings.flux#L777-L777
+
+Contributing to Flux: https://github.com/influxdata/flux#contributing
+Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
+
+------------------------------------------------------------------------------->
+
+`strings.joinStr()` concatenates elements of a string array into a single string using a specified separator.
+
+
+
+##### Function type signature
 
 ```js
-import "strings"
-
-strings.joinStr(arr: ["a", "b", "c"], v: ",")
-
-// returns "a,b,c"
+(arr: [string], v: string) => string
 ```
+
+{{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### arr {data-type="array of strings"}
-The array of strings to concatenate.
+### arr
+({{< req >}})
+Array of strings to concatenate.
 
-### v {data-type="string"}
-The separator to use in the concatenated value.
+
+
+### v
+({{< req >}})
+Separator to use in the concatenated value.
+
+
+
 
 ## Examples
 
-###### Join a list of strings into a single string
+### Join a list of strings into a single string
+
 ```js
 import "strings"
 
-searchTags = ["tag1", "tag2", "tag3"]
+strings.joinStr(arr: ["foo", "bar", "baz", "quz"], v: ", ")// Returns "foo, bar, baz, quz"
 
-strings.joinStr(arr: searchTags, v: ","))
+
 ```
+

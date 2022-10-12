@@ -77,8 +77,8 @@ You can continue to use Kapacitor with InfluxDB OSS {{< current-version >}} unde
   Existing Kapacitor user credentials should continue to work using the [1.x compatibility API](/influxdb/v2.1/reference/api/influxdb-1x/).
 - InfluxDB {{< current-version >}} has no subscriptions API and does not support Kapacitor stream tasks.
   To continue using stream tasks, write data directly to both InfluxDB and Kapacitor.
-  Use **Telegraf** and its [InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb)
-  to write to Kapacitor and the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#influxdb_v2) to write to InfluxDB v2.
+  Use **Telegraf** and its [InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb)
+  to write to Kapacitor and the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2) to write to InfluxDB v2.
 
 ##### Example Telegraf configuration
 ```toml
@@ -178,7 +178,7 @@ The InfluxDB 2.x `influx` CLI does not include an interactive shell for executin
 
 ## Perform the upgrade
 
-If you've considered the [guidance above](#before-you-begin-important-considerations)
+If you've considered the [guidance above](#important-considerations-before-you-begin)
 and are ready to proceed, follow these steps to upgrade your InfluxDB 1.x to InfluxDB {{< current-version >}}.
 
 1. [Download InfluxDB OSS {{< current-version >}}](https://portal.influxdata.com/downloads/).
