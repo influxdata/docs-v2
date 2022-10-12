@@ -12,22 +12,22 @@ weight: 205
 Use InfluxQL functions to aggregate, select, transform, analyze, and predict data.
 
 {{% note %}}
-To query with InfluxQL, the bucket you query must be mapped to a database and retention policy (DBRP). For more information, see how to [Query data with InfluxQL](/influxdb/v2.1/query-data/influxql/).
+To query with InfluxQL, the bucket you query must be mapped to a database and retention policy (DBRP). For more information, see how to [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/).
 {{%/ note %}}
 
 ### InfluxQL functions (by type)
 
-- [Aggregates](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/)
-  - [COUNT()](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/#count)
-  - [DISTINCT()](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/#distinct)
-  - [INTEGRAL()](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/#integral)
-  - [MEAN()](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/#mean)
-  - [MEDIAN()](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/#median)
-  - [MODE()](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/#mode)
-  - [SPREAD()](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/#spread)
-  - [STDDEV()](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/#stddev)
-  - [SUM()](/influxdb/v2.1/query-data/influxql/view-functions/aggregates/#sum)
-- [Selectors](/influxdb/v2.1/query-data/influxql/view-functions/selectors/)
+- [Aggregates](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/)
+  - [COUNT()](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#count)
+  - [DISTINCT()](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#distinct)
+  - [INTEGRAL()](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#integral)
+  - [MEAN()](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean)
+  - [MEDIAN()](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#median)
+  - [MODE()](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mode)
+  - [SPREAD()](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#spread)
+  - [STDDEV()](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#stddev)
+  - [SUM()](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#sum)
+- [Selectors](/influxdb/v2.4/query-data/influxql/view-functions/selectors/)
   - [BOTTOM()](#bottom)
   - [FIRST()](#first)
   - [LAST()](#last)
@@ -36,7 +36,7 @@ To query with InfluxQL, the bucket you query must be mapped to a database and re
   - [PERCENTILE()](#percentile)
   - [SAMPLE()](#sample)
   - [TOP()](#top)
-- [Transformations](/influxdb/v2.1/query-data/influxql/view-functions/transformations/)
+- [Transformations](/influxdb/v2.4/query-data/influxql/view-functions/transformations/)
   - [ABS()](#abs)
   - [ACOS()](#acos)
   - [ASIN()](#asin)
@@ -63,7 +63,7 @@ To query with InfluxQL, the bucket you query must be mapped to a database and re
   - [SIN()](#sin)
   - [SQRT()](#sqrt)
   - [TAN()](#tan)
-- [Technical analysis](/influxdb/v2.1/query-data/influxql/view-functions/technical-analysis/)
+- [Technical analysis](/influxdb/v2.4/query-data/influxql/view-functions/technical-analysis/)
   - [CHANDE_MOMENTUM_OSCILLATOR()](#chande-momentum-oscillator)
   - [EXPONENTIAL_MOVING_AVERAGE()](#exponential-moving-average)
   - [DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](#double-exponential-moving-average)
