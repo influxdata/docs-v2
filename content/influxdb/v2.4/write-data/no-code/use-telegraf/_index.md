@@ -27,7 +27,7 @@ For a list of available plugins, see [Telegraf plugins](/{{< latest "telegraf" >
 #### Requirements
 - **Telegraf 1.9.2 or greater**.
   _For information about installing Telegraf, see the
-  [Telegraf Installation instructions](/{{< latest "telegraf" >}}/introduction/installation/)._
+  [Telegraf Installation instructions](/{{< latest "telegraf" >}}//install/)._
 
 ## Configure Telegraf
 Telegraf input and output plugins are enabled and configured in Telegraf's configuration file (`telegraf.conf`).

@@ -1,13 +1,15 @@
 ---
-title: math.max() function
+title: dynamic.isType() function
 description: >
-  `math.max()` returns the maximum value within the array.
+  `dynamic.isType()` tests if a dynamic type holds a value of a specified type.
 menu:
   flux_0_x_ref:
-    name: math.max
-    parent: contrib/jsternberg/math
-    identifier: contrib/jsternberg/math/max
-weight: 301
+    name: dynamic.isType
+    parent: experimental/dynamic
+    identifier: experimental/dynamic/isType
+weight: 201
+flux/v0.x/tags: [types, tests]
+introduced: 0.186.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -19,30 +21,50 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/jsternberg/math/math.flux#L36-L40
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/dynamic/dynamic.flux#L81-L81
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`math.max()` returns the maximum value within the array.
+`dynamic.isType()` tests if a dynamic type holds a value of a specified type.
 
 
 
 ##### Function type signature
 
 ```js
-(values: [A]) => A where A: Numeric
+(type: string, v: dynamic) => bool
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### values
+### v
 ({{< req >}})
-Array of values.
+Value to test.
 
 
+
+### type
+({{< req >}})
+String describing the type to check against.
+
+**Supported types**:
+- string
+- bytes
+- int
+- uint
+- float
+- bool
+- time
+- duration
+- regexp
+- array
+- object
+- function
+- dictionary
+- vector
 

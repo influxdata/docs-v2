@@ -63,7 +63,7 @@ Array of values to convert. Default is the piped-forward array (`<-`).
 ```js
 import "experimental/array"
 
-arr = [12.0, 1.23, NaN, 24.2]
+arr = [12.0, 1.2300, NaN, 24.2]
 
 array.toString(arr: arr)// Returns ["12.0", "1.2300", "NaN", "24.2"]
 
