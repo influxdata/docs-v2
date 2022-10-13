@@ -10,6 +10,7 @@ weight: 205
 ---
 
 Use aggregate functions to assess, aggregate, and return values in your data.
+
 Each aggregate function below covers **syntax** including parameters to pass to the function, and **examples** of how to use the function. Examples use [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data).
 
 - [COUNT()](#count)

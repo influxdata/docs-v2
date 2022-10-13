@@ -9,8 +9,9 @@ menu:
 weight: 205
 ---
 
-Selector functions return one or more record per input table. Each output table includes one or more unmodified records and the same group key as the input table.
-Each selector function below covers **syntax**, **parameters**, and **examples** of when to use the function.
+Use selector functions to assess, select, and return values in your data. Selector functions return one or more record per input table. Each output table includes one or more unmodified records and the same group key as the input table.
+
+Each selector function below covers **syntax**, including parameters to pass to the function, and **examples** of how to use the function. Examples use [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data).
 
 - [BOTTOM()](#bottom)
 - [FIRST()](#first)
@@ -23,7 +24,11 @@ Each selector function below covers **syntax**, **parameters**, and **examples**
 
 ## BOTTOM()
 
-Returns the smallest `N` [field values](/influxdb/v2.4/reference/glossary/#field-value).
+Returns the smallest `N` [field values](/influxdb/v2.4/reference/glossary/#field-value). `BOTTOM()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/#data-types).
+
+{{% note %}}
+**Note:** `BOTTOM()` returns the field value with the earliest timestamp if there's a tie between two or more values for the smallest value.
+{{% /note %}}
 
 ### Syntax
 
@@ -34,17 +39,11 @@ SELECT BOTTOM(<field_key>[,<tag_key(s)>],<N> )[,<tag_key(s)>|<field_key(s)>] [IN
 `BOTTOM(field_key,N)`  
 Returns the smallest N field values associated with the [field key](/influxdb/v2.4/reference/glossary/#field-key).
 
-`BOTTOM(field_key,tag_key(s),N)`  
-Returns the smallest field value for N tag values of the [tag key](/influxdb/v2.4/reference/glossary/#tag-key).
+`BOTTOM(field_key,tag_key,N)`  
+Returns the smallest field value for N tag values of the [tag key](/influxdb/v2.4/reference/glossary/#tag-key). Add a comma between multiple tag keys: `tag_key,tag_key`.
 
-`BOTTOM(field_key,N),tag_key(s),field_key(s)`  
-Returns the smallest N field values associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.4/reference/glossary/#tag) and/or [field](/influxdb/v2.4/reference/glossary/#field).
-
-`BOTTOM()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/#data-types).
-
-{{% note %}}
-**Note:** `BOTTOM()` returns the field value with the earliest timestamp if there's a tie between two or more values for the smallest value.
-{{% /note %}}
+`BOTTOM((field_key,N),tag_key(s),field_key(s))`  
+Returns the smallest N field values associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.4/reference/glossary/#tag) and/or [field](/influxdb/v2.4/reference/glossary/#field). Add a comma between multiple tag or field keys: `tag_key,tag_key,field_key,field_key`.
 
 ### Examples
 
@@ -62,7 +61,7 @@ time                   bottom
 2015-08-30T15:18:00Z   -0.594
 ```
 
-The query returns the smallest three field values in the `water_level` field key and in the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement).
+Returns the smallest three field values in the `water_level` field key and in the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
 {{% /expand %}}
 
@@ -78,7 +77,7 @@ time                   bottom   location
 2015-08-29T14:30:00Z   -0.61    coyote_creek
 ```
 
-The query returns the smallest field values in the `water_level` field key for two tag values associated with the `location` tag key.
+Returns the smallest field values in the `water_level` field key for two tag values associated with the `location` tag key.
 
 {{% /expand %}}
 
@@ -96,7 +95,7 @@ time                  bottom  location      level description
 2015-08-30T15:18:00Z  -0.594  coyote_creek  below 3 feet
 ```
 
-The query returns the smallest four field values in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
+Returns the smallest four field values in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
 
 {{% /expand %}}
 
@@ -119,7 +118,7 @@ time                  bottom  location
 2015-08-18T00:12:00Z  2.028   santa_monica
 ```
 
-The query returns the smallest three values in the `water_level` field key for each 24-minute [interval](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#basic-group-by-time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:54:00Z`.
+Returns the smallest three values in the `water_level` field key for each 24-minute [interval](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#basic-group-by-time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:54:00Z`.
 It also returns results in [descending timestamp](/influxdb/v2.4/query-data/influxql/explore-data/order-by/) order.
 
 Notice that the [GROUP BY time() clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals) does not override the points’ original timestamps. See [Issue 1](#bottom-with-a-group-by-time-clause) in the section below for a more detailed explanation of that behavior.
@@ -250,7 +249,7 @@ time                   first
 2015-08-18T00:00:00Z   between 6 and 9 feet
 ```
 
-The query returns the oldest field value (determined by timestamp) associated with the `level description` field key and in the `h2o_feet` measurement.
+Returns the oldest field value (determined by timestamp) associated with the `level description` field key and in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -265,7 +264,7 @@ time                   first_level description   first_water_level
 1970-01-01T00:00:00Z   between 6 and 9 feet      8.12
 ```
 
-The query returns the oldest field value (determined by timestamp) for each field key in the `h2o_feet` measurement.
+Returns the oldest field value (determined by timestamp) for each field key in the `h2o_feet` measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
 {{% /expand %}}
@@ -281,7 +280,7 @@ time                   first_level description   first_water_level
 1970-01-01T00:00:00Z   between 6 and 9 feet      8.12
 ```
 
-The query returns the oldest field value for each field key that includes the word `level` in the `h2o_feet` measurement.
+Returns the oldest field value for each field key that includes the word `level` in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -296,7 +295,7 @@ time                  first                 location      water_level
 2015-08-18T00:00:00Z  between 6 and 9 feet  coyote_creek  8.12
 ```
 
-The query returns the oldest field value (determined by timestamp) in the `level description` field key and the relevant values of the `location` tag key and the `water_level` field key.
+Returns the oldest field value (determined by timestamp) in the `level description` field key and the relevant values of the `location` tag key and the `water_level` field key.
 
 {{% /expand %}}
 
@@ -315,7 +314,7 @@ time                   first
 2015-08-18T00:24:00Z   7.635
 ```
 
-The query returns the oldest field value (determined by timestamp) in the `water_level` field key.
+Returns the oldest field value (determined by timestamp) in the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.4/query-data/influxql/explore-data/group-by/) results into 12-minute time intervals and per tag.
 The query [fills](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill) empty time intervals with `9.01`, and it [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points and series returned to four and one.
 
@@ -366,7 +365,7 @@ time                   last
 2015-09-18T21:42:00Z   between 3 and 6 feet
 ```
 
-The query returns the newest field value (determined by timestamp) associated with the `level description` field key and in the `h2o_feet` measurement.
+Returns the newest field value (determined by timestamp) associated with the `level description` field key and in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -381,7 +380,7 @@ time                   last_level description   last_water_level
 1970-01-01T00:00:00Z   between 3 and 6 feet      4.938
 ```
 
-The query returns the newest field value (determined by timestamp) for each field key in the `h2o_feet` measurement.
+Returns the newest field value (determined by timestamp) for each field key in the `h2o_feet` measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
 {{% /expand %}}
@@ -397,7 +396,7 @@ time                   last_level description   last_water_level
 1970-01-01T00:00:00Z   between 3 and 6 feet      4.938
 ```
 
-The query returns the newest field value for each field key that includes the word `level` in the `h2o_feet` measurement.
+Returns the newest field value for each field key that includes the word `level` in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -412,7 +411,7 @@ time                  last                  location      water_level
 2015-09-18T21:42:00Z  between 3 and 6 feet  santa_monica  4.938
 ```
 
-The query returns the newest field value (determined by timestamp) in the `level description` field key and the relevant values of the `location` tag key and the `water_level` field key.
+Returns the newest field value (determined by timestamp) in the `level description` field key and the relevant values of the `location` tag key and the `water_level` field key.
 
 {{% /expand %}}
 
@@ -431,7 +430,7 @@ time                   last
 2015-08-18T00:24:00Z   7.5
 ```
 
-The query returns the newest field value (determined by timestamp) in the `water_level` field key.
+Returns the newest field value (determined by timestamp) in the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.4/query-data/influxql/explore-data/group-by/) results into 12-minute time intervals and per tag.
 The query [fills](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill) empty time intervals with `9.01`, and it [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points and series returned to four and one.
 
@@ -482,7 +481,7 @@ time                   max
 2015-08-29T07:24:00Z   9.964
 ```
 
-The query returns the greatest field value in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the greatest field value in the `water_level` field key and in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -497,7 +496,7 @@ time                   max_water_level
 2015-08-29T07:24:00Z   9.964
 ```
 
-The query returns the greatest field value for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the greatest field value for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 {{% /expand %}}
@@ -513,7 +512,7 @@ time                   max_water_level
 2015-08-29T07:24:00Z   9.964
 ```
 
-The query returns the greatest field value for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the greatest field value for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -528,7 +527,7 @@ time                  max    location      level description
 2015-08-29T07:24:00Z  9.964  coyote_creek  at or greater than 9 feet
 ```
 
-The query returns the greatest field value in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
+Returns the greatest field value in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
 
 {{% /expand %}}
 
@@ -547,7 +546,7 @@ time                   max
 2015-08-18T00:24:00Z   7.635
 ```
 
-The query returns the greatest field value in the `water_level` field key.
+Returns the greatest field value in the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.4/query-data/influxql/explore-data/group-by/) results in to 12-minute time intervals and per tag.
 The query [fills](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill) empty time intervals with `9.01`, and it [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points and series returned to four and one.
 
@@ -598,7 +597,7 @@ time                   min
 2015-08-29T14:30:00Z   -0.61
 ```
 
-The query returns the lowest field value in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the lowest field value in the `water_level` field key and in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -613,7 +612,7 @@ time                   min_water_level
 2015-08-29T14:30:00Z   -0.61
 ```
 
-The query returns the lowest field value for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the lowest field value for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 {{% /expand %}}
@@ -629,7 +628,7 @@ time                   min_water_level
 2015-08-29T14:30:00Z   -0.61
 ```
 
-The query returns the lowest field value for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the lowest field value for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -644,7 +643,7 @@ time                  min    location      level description
 2015-08-29T14:30:00Z  -0.61  coyote_creek  below 3 feet
 ```
 
-The query returns the lowest field value in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
+Returns the lowest field value in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
 
 {{% /expand %}}
 
@@ -663,7 +662,7 @@ time                   min
 2015-08-18T00:24:00Z   7.5
 ```
 
-The query returns the lowest field value in the `water_level` field key.
+Returns the lowest field value in the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.4/query-data/influxql/explore-data/group-by/) results in to 12-minute time intervals and per tag.
 The query [fills](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill) empty time intervals with `9.01`, and it [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points and series returned to four and one.
 
@@ -715,7 +714,7 @@ time                   percentile
 2015-08-31T03:42:00Z   1.122
 ```
 
-The query returns the field value that is larger than five percent of the field values in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the field value that is larger than five percent of the field values in the `water_level` field key and in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -730,7 +729,7 @@ time                   percentile_water_level
 2015-08-31T03:42:00Z   1.122
 ```
 
-The query returns the field value that is larger than five percent of the field values in each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the field value that is larger than five percent of the field values in each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 {{% /expand %}}
@@ -746,7 +745,7 @@ time                   percentile_water_level
 2015-08-31T03:42:00Z   1.122
 ```
 
-The query returns the field value that is larger than five percent of the field values in each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the field value that is larger than five percent of the field values in each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -761,7 +760,7 @@ time                  percentile  location      level description
 2015-08-31T03:42:00Z  1.122       coyote_creek  below 3 feet
 ```
 
-The query returns the field value that is larger than five percent of the field values in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
+Returns the field value that is larger than five percent of the field values in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
 
 {{% /expand %}}
 
@@ -777,7 +776,7 @@ time                   percentile
 2015-08-18T00:00:00Z   2.064
 ```
 
-The query returns the field value that is larger than 20 percent of the values in the `water_level` field key.
+Returns the field value that is larger than 20 percent of the values in the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-17T23:48:00Z` and `2015-08-18T00:54:00Z` and [groups](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals) results into 24-minute intervals.
 It [fills](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill) empty time intervals with `15` and it [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to two.
 
@@ -838,7 +837,7 @@ time                   sample
 2015-09-18T10:00:00Z   6.939
 ```
 
-The query returns two randomly selected points from the `water_level` field key and in the `h2o_feet` measurement.
+Returns two randomly selected points from the `water_level` field key and in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -856,7 +855,7 @@ time                   sample_level description   sample_water_level
 2015-09-08T21:54:00Z                              3.412
 ```
 
-The query returns two randomly selected points for each field key in the `h2o_feet` measurement.
+Returns two randomly selected points for each field key in the `h2o_feet` measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
 {{% /expand %}}
@@ -875,7 +874,7 @@ time                   sample_level description   sample_water_level
 2015-09-13T19:18:00Z   between 3 and 6 feet
 ```
 
-The query returns two randomly selected points for each field key that includes the word `level` in the `h2o_feet` measurement.
+Returns two randomly selected points for each field key that includes the word `level` in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -891,7 +890,7 @@ time                  sample  location      level description
 2015-09-08T15:48:00Z  6.391   coyote_creek  between 6 and 9 feet
 ```
 
-The query returns two randomly selected points from the `water_level` field key and the relevant values of the `location` tag and the `level description` field.
+Returns two randomly selected points from the `water_level` field key and the relevant values of the `location` tag and the `level description` field.
 
 {{% /expand %}}
 
@@ -907,7 +906,7 @@ time                   sample
 2015-08-18T00:30:00Z   2.051
 ```
 
-The query returns one randomly selected point from the `water_level` field key.
+Returns one randomly selected point from the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and [groups](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals) results into 18-minute intervals.
 
 Notice that the [`GROUP BY time()` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals) does not override the points' original timestamps.
@@ -994,7 +993,7 @@ time                   top
 2015-08-29T07:30:00Z   9.954
 ```
 
-The query returns the greatest three field values in the `water_level` field key and in the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement).
+Returns the greatest three field values in the `water_level` field key and in the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
 {{% /expand %}}
 
@@ -1010,7 +1009,7 @@ time                   top     location
 2015-08-29T07:24:00Z   9.964   coyote_creek
 ```
 
-The query returns the greatest field values in the `water_level` field key for two tag values associated with the `location` tag key.
+Returns the greatest field values in the `water_level` field key for two tag values associated with the `location` tag key.
 
 {{% /expand %}}
 
@@ -1028,7 +1027,7 @@ time                  top    location      level description
 2015-08-29T07:36:00Z  9.941  coyote_creek  at or greater than 9 feet
 ```
 
-The query returns the greatest four field values in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
+Returns the greatest four field values in the `water_level` field key and the relevant values of the `location` tag key and the `level description` field key.
 
 {{% /expand %}}
 
@@ -1051,7 +1050,7 @@ time                  top    location
 2015-08-18T00:12:00Z  7.887  coyote_creek
 ```
 
-The query returns the greatest three values in the `water_level` field key for each 24-minute [interval](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#basic-group-by-time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:54:00Z`.
+Returns the greatest three values in the `water_level` field key for each 24-minute [interval](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#basic-group-by-time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:54:00Z`.
 It also returns results in [descending timestamp](/influxdb/v2.4/query-data/influxql/explore-data/order-by/) order.
 
 Notice that the [GROUP BY time() clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals) does not override the points’ original timestamps.
