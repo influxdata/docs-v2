@@ -50,7 +50,7 @@ All commented-out settings will be determined by the internal defaults.
 
 ## Global settings
 
-#### `reporting-disabled`
+#### reporting-disabled
 
 Default is `false`.
 
@@ -58,7 +58,7 @@ Once every 24 hours InfluxDB Enterprise will report usage data to usage.influxda
 The data includes a random ID, os, arch, version, the number of series and other usage data. No data from user databases is ever transmitted.
 Change this option to true to disable reporting.
 
-#### `bind-address`
+#### bind-address
 
 Default is `":8088"`.
 
@@ -66,7 +66,7 @@ The TCP bind address used by the RPC service for inter-node communication and [b
 
 Environment variable: `INFLUXDB_BIND_ADDRESS`
 
-#### `hostname`
+#### hostname
 
 Default is `"localhost"`.
 
@@ -74,7 +74,7 @@ The hostname of the [data node](/enterprise_influxdb/v1.10/concepts/glossary/#da
 
 Environment variable: `INFLUXDB_HOSTNAME`
 
-#### `gossip-frequency`
+#### gossip-frequency
 
 Default is `"3s"`.
 
@@ -86,11 +86,11 @@ Environment variable: `INFLUXDB_GOSSIP_FREQUENCY`
 
 ## Enterprise license settings
 
-### `[enterprise]`
+### [enterprise]
 
 The `[enterprise]` section contains the parameters for the meta node's registration with the [InfluxDB Enterprise License Portal](https://portal.influxdata.com/).
 
-#### `license-key`
+#### license-key
 
 Default is `""`.
 
@@ -109,7 +109,7 @@ mutually exclusive and one must remain set to the empty string.
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_KEY`
 
-#### `license-path`
+#### license-path
 
 Default is `""`.
 
@@ -133,11 +133,11 @@ Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_PATH`
 
 ## Meta node settings
 
-### `[meta]`
+### [meta]
 
 Settings related to how the data nodes interact with the meta nodes.
 
-#### `dir`
+#### dir
 
 Default is `"/var/lib/influxdb/meta"`.
 
@@ -147,7 +147,7 @@ The directory where the cluster metadata is stored.
 
 Environment variable: `INFLUXDB_META_DIR`
 
-#### `meta-tls-enabled`
+#### meta-tls-enabled
 
 Default is `false`.
 
@@ -156,7 +156,7 @@ Set to `true` to if [`https-enabled`](#https-enabled) is set to `true`.
 
 Environment variable: `INFLUXDB_META_META_TLS_ENABLED`
 
-#### `meta-insecure-tls`
+#### meta-insecure-tls
 
 Default is `false`.
 
@@ -167,7 +167,7 @@ Set to `true` to allow the data node to accept self-signed certificates if [`htt
 
 Environment variable: `INFLUXDB_META_META_INSECURE_TLS`
 
-#### `meta-auth-enabled`
+#### meta-auth-enabled
 
 Default is `false`.
 
@@ -178,7 +178,7 @@ For JWT authentication, also see the [`meta-internal-shared-secret`](#meta-inter
 
 Environment variable: `INFLUXDB_META_META_AUTH_ENABLED`
 
-#### `meta-internal-shared-secret`
+#### meta-internal-shared-secret
 
 Default is `""`.
 
@@ -188,7 +188,7 @@ specified in the meta node configuration file.
 
 Environment variable: `INFLUXDB_META_META_INTERNAL_SHARED_SECRET`
 
-#### `retention-autocreate`
+#### retention-autocreate
 
 Default is `true`.
 
@@ -199,7 +199,7 @@ Set this option to `false` to prevent the system from creating the `autogen` RP 
 
 Environment variable: `INFLUXDB_META_RETENTION_AUTOCREATE`
 
-#### `logging-enabled`
+#### logging-enabled
 
 Default is `true`.
 
@@ -207,7 +207,7 @@ Whether log messages are printed for the meta service.
 
 Environment variable: `INFLUXDB_META_LOGGING_ENABLED`
 
-#### `password-hash`
+#### password-hash
 
 Default is `bcrypt`.
 
@@ -219,7 +219,7 @@ For detailed configuration information, see [`meta.password-hash`](/enterprise_i
 
 Environment variable: `INFLUXDB_META_PASSWORD_HASH`
 
-#### `ensure-fips`
+#### ensure-fips
 
 Default is `false`.
 
@@ -234,13 +234,13 @@ Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 
 ## Data settings
 
-### `[data]`
+### [data]
 
 Controls where the actual shard data for InfluxDB lives and how it is compacted from the WAL.
 "dir" may need to be changed to a suitable place for your system.
 The defaults should work for most systems.
 
-#### `dir`
+#### dir
 
 Default is `"/var/lib/influxdb/data"`.
 
@@ -248,7 +248,7 @@ The directory where the TSM storage engine stores TSM (read-optimized) files.
 
 Environment variable: `INFLUXDB_DATA_DIR`
 
-#### `wal-dir`
+#### wal-dir
 
 Default is `"/var/lib/influxdb/wal"`.
 
@@ -256,7 +256,7 @@ The directory where the TSM storage engine stores WAL (write-optimized) files.
 
 Environment variable: `INFLUXDB_DATA_WAL_DIR`
 
-#### `trace-logging-enabled`
+#### trace-logging-enabled
 
 Default is `false`.
 
@@ -265,7 +265,7 @@ Turning this on can provide more useful output for debugging TSM engine issues.
 
 Environmental variable: `INFLUXDB_DATA_TRACE_LOGGING_ENABLED`
 
-#### `query-log-enabled`
+#### query-log-enabled
 
 Default is `true`.
 
@@ -274,7 +274,7 @@ Very useful for troubleshooting, but will log any sensitive data contained withi
 
 Environment variable: `INFLUXDB_DATA_QUERY_LOG_ENABLED`
 
-#### `wal-fsync-delay`
+#### wal-fsync-delay
 
 Default is `"0s"`.
 
@@ -286,7 +286,7 @@ InfluxData recommends values ranging from `0ms` to `100ms` for non-SSD disks.
 
 Environment variable: `INFLUXDB_DATA_WAL_FSYNC_DELAY`
 
-#### `ingress-metric-by-measurement-enabled`
+#### ingress-metric-by-measurement-enabled
 
 Default is `false`.
 
@@ -295,7 +295,7 @@ These can be accessed via the `/debug/vars` endpoint and in the `_internal` data
 
 Environment variable: `INFLUXDB_DATA_INGRESS_METRIC_BY_MEASUREMENT_ENABLED`
 
-#### `ingress-metric-by-login-enabled`
+#### ingress-metric-by-login-enabled
 
 Default is `false`.
 
@@ -306,7 +306,7 @@ Environment variable: `INFLUXDB_DATA_INGRESS_METRIC_BY_LOGIN_ENABLED`
 
 ### Data settings for the TSM engine
 
-#### `cache-max-memory-size`
+#### cache-max-memory-size
 
 Default is `1000000000`.
 
@@ -316,7 +316,7 @@ Consider increasing this value if encountering `cache maximum memory size exceed
 
 Environment variable: `INFLUXDB_DATA_CACHE_MAX_MEMORY_SIZE`
 
-#### `cache-snapshot-memory-size`
+#### cache-snapshot-memory-size
 
 Default is `26214400`.
 
@@ -324,7 +324,7 @@ The size in bytes at which the TSM engine will snapshot the cache and write it t
 
 Environment variable: `INFLUXDB_DATA_CACHE_SNAPSHOT_MEMORY_SIZE`
 
-#### `cache-snapshot-write-cold-duration`
+#### cache-snapshot-write-cold-duration
 
 Default is `"10m"`.
 
@@ -332,7 +332,7 @@ The length of time at which the TSM engine will snapshot the cache and write it 
 
 Environment variable: `INFLUXDB_DATA_CACHE_SNAPSHOT_WRITE_COLD_DURATION`
 
-#### `max-concurrent-compactions`
+#### max-concurrent-compactions
 
 Default is `0`.
 
@@ -344,7 +344,7 @@ This setting does not apply to cache snapshotting.
 
 Environmental variable: `INFLUXDB_DATA_CACHE_MAX_CONCURRENT_COMPACTIONS`
 
-#### `compact-throughput`
+#### compact-throughput
 
 Default is `50331648`.
 
@@ -354,7 +354,7 @@ Note that short bursts are allowed to happen at a possibly larger value, set by 
 Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT`  
 
 
-#### `compact-throughput-burst`
+#### compact-throughput-burst
 
 Default is `50331648`.
 
@@ -362,7 +362,7 @@ The maximum number of bytes per seconds TSM compactions write to disk during bri
 
 Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT_BURST`  
 
-#### `compact-full-write-cold-duration`
+#### compact-full-write-cold-duration
 
 Default is `"4h"`.
 
@@ -370,7 +370,7 @@ The duration at which to compact all TSM and TSI files in a shard if it has not 
 
 Environment variable: `INFLUXDB_DATA_COMPACT_FULL_WRITE_COLD_DURATION`
 
-#### `index-version`
+#### index-version
 
 Default is `"inmem"`.
 
@@ -383,7 +383,7 @@ Environment variable: `INFLUXDB_DATA_INDEX_VERSION`
 
 ### In-memory (`inmem`) index settings
 
-#### `max-series-per-database`
+#### max-series-per-database
 
 Default is `1000000`.
 
@@ -405,7 +405,7 @@ If a point causes the number of series in a database to exceed
 
 Environment variable: `INFLUXDB_DATA_MAX_SERIES_PER_DATABASE`
 
-#### `max-values-per-tag`
+#### max-values-per-tag
 
 Default is `100000`.
 
@@ -425,7 +425,7 @@ Environment variable: `INFLUXDB_DATA_MAX_VALUES_PER_TAG`
 
 ### TSI (`tsi1`) index settings
 
-#### `max-index-log-file-size`
+#### max-index-log-file-size
 
 Default is `1048576`.
 
@@ -439,7 +439,7 @@ Values without a size suffix are in bytes.
 
 Environment variable: `INFLUXDB_DATA_MAX_INDEX_LOG_FILE_SIZE`
 
-#### `series-id-set-cache-size`
+#### series-id-set-cache-size
 
 Default is `100`.
 
@@ -458,7 +458,7 @@ Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
 ## Cluster settings
 
-### `[cluster]`
+### [cluster]
 
 Settings related to how data nodes interact with each other, how data is shared across shards, and how InfluxQL queries are managed.
 
@@ -473,7 +473,7 @@ a single-use TCP connection may be used.
 For information on InfluxDB `_internal` measurement statistics related to clusters, RPCs, and shards,
 see [Measurements for monitoring InfluxDB Enterprise (`_internal`)](/platform/monitoring/influxdata-platform/tools/measurements-internal/#cluster-enterprise-only).
 
-#### `dial-timeout`
+#### dial-timeout
 
 Default is `"1s"`.
 
@@ -482,7 +482,7 @@ This setting applies to queries only.
 
 Environment variable: `INFLUXDB_CLUSTER_DIAL_TIMEOUT`
 
-#### `pool-max-idle-time`
+#### pool-max-idle-time
 
 Default is `"60s"`.
 
@@ -493,7 +493,7 @@ idle connections minimizes inactive connections, decreases system load, and prev
 
 Environment variable: `INFLUXDB_CLUSTER_POOL_MAX_IDLE_TIME`
 
-#### `pool-max-idle-streams`
+#### pool-max-idle-streams
 
 Default is `100`.
 
@@ -507,7 +507,7 @@ so it is unlikely that changing this value will measurably improve performance b
 
 Environment variable: `INFLUXDB_CLUSTER_POOL_MAX_IDLE_STREAMS`
 
-#### `allow-out-of-order-writes`
+#### allow-out-of-order-writes
 
 Default is `false`.
 
@@ -523,7 +523,7 @@ Point 1 (`cpu v=1.0 1234`) arrives at `node1`, attempts to replicate on `node2`,
 
 Environment variable: `INFLUXDB_CLUSTER_ALLOW_OUT_OF_ORDER`
 
-#### `shard-reader-timeout`
+#### shard-reader-timeout
 
 Default is `"0"`.
 
@@ -532,13 +532,15 @@ The time in which a query connection must return its response after which the sy
 
 Environment variable: `INFLUXDB_CLUSTER_SHARD_READER_TIMEOUT`
 
-#### `https-enabled`
+#### https-enabled
 
 Default is `false`.
 
 Determines whether data nodes use HTTPS to communicate with each other.
 
-#### `https-certificate`
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_ENABLED`
+
+#### https-certificate
 
 Default is `""`.
 
@@ -546,20 +548,26 @@ The SSL certificate to use when HTTPS is enabled.
 The certificate should be a PEM-encoded bundle of the certificate and key.  
 If it is just the certificate, a key must be specified in `https-private-key`.
 
-#### `https-private-key`
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_CERTIFICATE`
+
+#### https-private-key
 
 Default is `""`.
 
 Use a separate private key location.
 
-#### `https-insecure-tls`
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_PRIVATE_KEY`
+
+#### https-insecure-tls
 
 Default is `false`.
 
 Whether data nodes will skip certificate validation communicating with each other over HTTPS.
 This is useful when testing with self-signed certificates.
 
-#### `cluster-tracing`
+Environment variable: `INFLUXDB_CLUSTER_HTTPS_INSECURE_TLS`
+
+#### cluster-tracing
 
 Default is `false`.
 
@@ -569,7 +577,7 @@ Enable this setting to verify connectivity issues between data nodes.
 
 Environment variable: `INFLUXDB_CLUSTER_CLUSTER_TRACING`
 
-#### `write-timeout`
+#### write-timeout
 
 Default is `"10s"`.
 
@@ -577,7 +585,7 @@ The duration a write request waits until a "timeout" error is returned to the ca
 
 Environment variable: `INFLUXDB_CLUSTER_WRITE_TIMEOUT`
 
-#### `max-concurrent-queries`
+#### max-concurrent-queries
 
 Default is `0`.
 
@@ -587,7 +595,7 @@ This limit can be disabled by setting it to `0`.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_CONCURRENT_QUERIES`
 
-#### `max-concurrent-deletes`
+#### max-concurrent-deletes
 
 The default is `1`.
 
@@ -595,7 +603,7 @@ The maximum number of allowed simultaneous `DELETE` calls on a shard.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_CONCURRENT_DELETES`
 
-#### `query-timeout`
+#### query-timeout
 
 Default is `"0s"`.
 
@@ -604,7 +612,7 @@ This limit can help prevent run away queries.  Setting the value to `0` disables
 
 Environment variable: `INFLUXDB_CLUSTER_QUERY_TIMEOUT`
 
-#### `log-queries-after`
+#### log-queries-after
 
 Default is `"0s"`.
 
@@ -614,7 +622,7 @@ Setting the value to `0` disables the slow query logging.
 
 Environment variable: `INFLUXDB_CLUSTER_LOG_QUERIES_AFTER`
 
-#### `max-select-point`
+#### max-select-point
 
 Default is `0`.
 
@@ -623,7 +631,7 @@ A value of `0` will make the maximum point count unlimited.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_SELECT_POINT`
 
-#### `max-select-series`
+#### max-select-series
 
 Default is `0`.
 
@@ -632,7 +640,7 @@ A value of `0` will make the maximum series count unlimited.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_SELECT_SERIES`
 
-#### `max-select-buckets`
+#### max-select-buckets
 
 Default is `0`.
 
@@ -641,7 +649,7 @@ A value of `0` will make the maximum number of buckets unlimited.
 
 Environment variable: `INFLUXDB_CLUSTER_MAX_SELECT_BUCKETS`
 
-#### `termination-query-log = false`
+#### termination-query-log = false
 
 Set to `true` to print all running queries to the log when a data node process receives a `SIGTERM` (for example, a k8s process exceeds the container memory limit or the process is terminated).
 
@@ -651,11 +659,11 @@ Environment variable: `INFLUXDB_CLUSTER_TERMINATION_QUERY_LOG`
 
 ## Hinted Handoff settings
 
-### `[hinted-handoff]`
+### [hinted-handoff]
 
 Controls the hinted handoff (HH) queue, which allows data nodes to temporarily cache writes destined for another data node when that data node is unreachable.
 
-#### `batch-size`
+#### batch-size
 
 Default is `512000`.
 
@@ -663,7 +671,7 @@ The maximum number of bytes to write to a shard in a single request.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_BATCH_SIZE`
 
-#### `max-writes-pending`
+#### max-writes-pending
 
 Default is `1024`.
 
@@ -671,7 +679,7 @@ The maximum number of incoming pending writes allowed in the hinted handoff queu
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_MAX_WRITES_PENDING`
 
-#### `dir`
+#### dir
 
 Default is `"/var/lib/influxdb/hh"`.
 
@@ -679,7 +687,7 @@ The hinted handoff directory where the durable queue will be stored on disk.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_DIR`
 
-#### `enabled`
+#### enabled
 
 Default is `true`.
 
@@ -688,7 +696,7 @@ Disabling hinted handoff is not recommended and can lead to data loss if another
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_ENABLED`
 
-#### `max-size`
+#### max-size
 
 Default is `10737418240`.
 
@@ -698,7 +706,7 @@ If there are N data nodes in the cluster, each data node may have up to N-1 hint
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_MAX_SIZE`
 
-#### `max-age`
+#### max-age
 
 Default is `"168h0m0s"`.
 
@@ -708,7 +716,7 @@ If another data node is unreachable for more than the `max-age` it can lead to d
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_MAX_AGE`
 
-#### `retry-concurrency`
+#### retry-concurrency
 
 Default is `20`.
 
@@ -725,7 +733,7 @@ Note that increasing `retry-concurrency` also increases network traffic.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_CONCURRENCY`
 
-#### `retry-rate-limit`
+#### retry-rate-limit
 
 Default is `0`.
 
@@ -733,7 +741,7 @@ The rate limit (in bytes per second) that hinted handoff retries hints. A value 
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_RATE_LIMIT`
 
-#### `retry-interval`
+#### retry-interval
 
 Default is `"1s"`.
 
@@ -741,7 +749,7 @@ The time period after which the hinted handoff retries a write after the write f
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_INTERVAL`
 
-#### `retry-max-interval`
+#### retry-max-interval
 
 Default is `"200s"`.
 
@@ -749,7 +757,7 @@ The maximum interval after which the hinted handoff retries a write after the wr
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_RETRY_MAX_INTERVAL`
 
-#### `purge-interval`
+#### purge-interval
 
 Default is `"1m0s"`.
 
@@ -763,11 +771,11 @@ Environment variable: `INFLUXDB_HINTED_HANDOFF_PURGE_INTERVAL`
 
 For information about the Anti-Entropy service, see [Anti-entropy service in InfluxDB Enterprise](/enterprise_influxdb/v1.10/administration/anti-entropy).
 
-### `[anti-entropy]`
+### [anti-entropy]
 
 Controls the copying and repairing of shards to ensure that data nodes contain the shard data they are supposed to.
 
-#### `enabled`
+#### enabled
 
 Default is `false`.
 
@@ -776,7 +784,7 @@ Default value is `false`.
 
 Environment variable: `INFLUXDB_ANTI_ENTROPY_ENABLED`
 
-#### `check-interval`
+#### check-interval
 
 Default is `"5m"`.
 
@@ -784,7 +792,7 @@ The interval of time when anti-entropy checks run on each data node.
 
 Environment variable: `INFLUXDB_ANTI_ENTROPY_CHECK_INTERVAL`
 
-#### `max-fetch`
+#### max-fetch
 
 Default is `10`.
 
@@ -800,7 +808,7 @@ higher CPU load as new shard digest files are created.
 The added load drops off after shard digests are completed for existing shards.
 {{% /note %}}
 
-#### `max-sync`
+#### max-sync
 
 Default is `1`.
 
@@ -809,7 +817,7 @@ Modify this setting only when requested by InfluxData support.
 
 Environment variable: `INFLUXDB_ANTI_ENTROPY_MAX_SYNC`
 
-#### `auto-repair-missing`
+#### auto-repair-missing
 
 Default is `true`.
 
@@ -821,11 +829,11 @@ Environment variable: `INFLUXDB_ANTI_ENTROPY_AUTO_REPAIR_MISSING`
 
 ## Retention policy settings
 
-### `[retention]`
+### [retention]
 
 Controls the enforcement of retention policies for evicting old data.
 
-#### `enabled`
+#### enabled
 
 Default is `true`.
 
@@ -834,7 +842,7 @@ Default value is `true`.
 
 Environment variable: `INFLUXDB_RETENTION_ENABLED`
 
-#### `check-interval`
+#### check-interval
 
 Default is `"30m0s"`.
 
@@ -846,12 +854,12 @@ Environment variable: `INFLUXDB_RETENTION_CHECK_INTERVAL`
 
 ## Shard precreation settings
 
-### `[shard-precreation]`
+### [shard-precreation]
 
 Controls the precreation of shards, so they are available before data arrives.
 Only shards that, after creation, will have both a start- and end-time in the future, will ever be created. Shards are never precreated that would be wholly or partially in the past.
 
-#### `enabled`
+#### enabled
 
 Default is `true`.
 
@@ -859,7 +867,7 @@ Enables the shard precreation service.
 
 Environment variable: `INFLUXDB_SHARD_PRECREATION_ENABLED`
 
-#### `check-interval`
+#### check-interval
 
 Default is `"10m"`.
 
@@ -867,7 +875,7 @@ The interval of time when the check to precreate new shards runs.
 
 Environment variable: `INFLUXDB_SHARD_PRECREATION_CHECK_INTERVAL`
 
-#### `advance-period`
+#### advance-period
 
 Default is `"30m"`.
 
@@ -879,7 +887,7 @@ Environment variable: `INFLUXDB_SHARD_PRECREATION_ADVANCE_PERIOD`
 
 ## Monitor settings
 
-### `[monitor]`
+### [monitor]
 
 By default, InfluxDB writes system monitoring data to the `_internal` database.
 If that database does not exist, InfluxDB creates it automatically.
@@ -891,7 +899,7 @@ For InfluxDB Enterprise production systems, InfluxData recommends including a de
 * On the dedicated InfluxDB monitoring instance, set `store-enabled = false` to avoid potential performance and storage issues.
 * On each InfluxDB cluster node, install a Telegraf input plugin and Telegraf output plugin configured to report data to the dedicated InfluxDB monitoring instance.
 
-#### `store-enabled`
+#### store-enabled
 
 Default is `true`.
 
@@ -899,7 +907,7 @@ Enables the internal storage of statistics.
 
 Environment variable: `INFLUXDB_MONITOR_STORE_ENABLED`
 
-#### `store-database`
+#### store-database
 
 Default is `"_internal"`.
 
@@ -907,7 +915,7 @@ The destination database for recorded statistics.
 
 Environment variable: `INFLUXDB_MONITOR_STORE_DATABASE`
 
-#### `store-interval`
+#### store-interval
 
 Default is `"10s"`.
 
@@ -915,7 +923,7 @@ The interval at which to record statistics.
 
 Environment variable: `INFLUXDB_MONITOR_STORE_INTERVAL`
 
-#### `remote-collect-interval`
+#### remote-collect-interval
 
 Default is `"10s"`.
 
@@ -927,11 +935,11 @@ Environment variable: `INFLUXDB_MONITOR_REMOTE_COLLECT_INTERVAL`
 
 ## HTTP endpoint settings
 
-### `[http]`
+### [http]
 
 Controls how the HTTP endpoints are configured. These are the primary mechanism for getting data into and out of InfluxDB.
 
-#### `enabled`
+#### enabled
 
 Default is `true`.
 
@@ -939,7 +947,7 @@ Enables HTTP endpoints.
 
 Environment variable: `INFLUXDB_HTTP_ENABLED`
 
-#### `flux-enabled`
+#### flux-enabled
 
 Default is `false`.
 
@@ -947,7 +955,7 @@ Determines whether the Flux query endpoint is enabled. To enable the use of Flux
 
 Environment variable: `INFLUXDB_HTTP_FLUX_ENABLED`
 
-#### `bind-address`
+#### bind-address
 
 Default is `":8086"`.
 
@@ -955,7 +963,7 @@ The bind address used by the HTTP service.
 
 Environment variable: `INFLUXDB_HTTP_BIND_ADDRESS`
 
-#### `auth-enabled`
+#### auth-enabled
 
 Default is `false`.
 
@@ -963,7 +971,7 @@ Enables HTTP authentication.
 
 Environment variable: `INFLUXDB_HTTP_AUTH_ENABLED`
 
-#### `realm`
+#### realm
 
 Default is `"InfluxDB"`.
 
@@ -971,7 +979,7 @@ The default realm sent back when issuing a basic authorization challenge.
 
 Environment variable: `INFLUXDB_HTTP_REALM`
 
-#### `log-enabled`
+#### log-enabled
 
 Default is `true`.
 
@@ -979,13 +987,13 @@ Enables HTTP request logging.
 
 Environment variable: `INFLUXDB_HTTP_LOG_ENABLED`
 
-#### `suppress-write-log`
+#### suppress-write-log
 
 Default is `false`.
 
 Determines whether the HTTP write request logs should be suppressed when the log is enabled.
 
-#### `access-log-path`
+#### access-log-path
 
 Default is `""`.
 
@@ -998,7 +1006,7 @@ If `influxd` is unable to access the specified path, it will log an error and fa
 
 Environment variable: `INFLUXDB_HTTP_ACCESS_LOG_PATH`
 
-#### `access-log-status-filters`
+#### access-log-status-filters
 
 Default is `[]`.
 
@@ -1030,7 +1038,7 @@ When using environment variables, the values can be supplied as follows.
 
 The `_n` at the end of the environment variable represents the array position of the entry.
 
-#### `write-tracing`
+#### write-tracing
 
 Default is `false`.
 
@@ -1038,7 +1046,7 @@ Enables detailed write logging.
 
 Environment variable: `INFLUXDB_HTTP_WRITE_TRACING`
 
-#### `pprof-enabled`
+#### pprof-enabled
 
 Default is `true`.
 
@@ -1047,7 +1055,7 @@ This endpoint is used for troubleshooting and monitoring.
 
 Environment variable: `INFLUXDB_HTTP_PPROF_ENABLED`
 
-#### `https-enabled`
+#### https-enabled
 
 Default is `false`.
 
@@ -1055,7 +1063,7 @@ Enables HTTPS.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_ENABLED`
 
-#### `https-certificate`
+#### https-certificate
 
 Default is `"/etc/ssl/influxdb.pem"`.
 
@@ -1065,7 +1073,7 @@ If it is just the certificate, a key must be specified in `https-private-key`.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_CERTIFICATE`
 
-#### `https-private-key`
+#### https-private-key
 
 Default is `""`.
 
@@ -1073,7 +1081,7 @@ The location of the separate private key.
 
 Environment variable: `INFLUXDB_HTTP_HTTPS_PRIVATE_KEY`
 
-#### `shared-secret`
+#### shared-secret
 
 Default is `""`.
 
@@ -1081,7 +1089,7 @@ The JWT authorization shared secret used to validate requests using JSON web tok
 
 Environment variable: `INFLUXDB_HTTP_SHARED_SECRET`
 
-#### `max-body-size`
+#### max-body-size
 
 Default is `25000000`.
 
@@ -1091,7 +1099,7 @@ To disable the limit, set the value to `0`.
 
 Environment variable: `INFLUXDB_HTTP_MAX_BODY_SIZE`
 
-#### `max-row-limit`
+#### max-row-limit
 
 Default is `0`.
 
@@ -1102,7 +1110,7 @@ InfluxDB includes a `"partial":true` tag in the response body if query results e
 
 Environment variable: `INFLUXDB_HTTP_MAX_ROW_LIMIT`
 
-#### `max-connection-limit`
+#### max-connection-limit
 
 Default is `0`.
 
@@ -1112,7 +1120,7 @@ The default value of `0` disables the limit.
 
 Environment variable: `INFLUXDB_HTTP_MAX_CONNECTION_LIMIT`
 
-#### `unix-socket-enabled`
+#### unix-socket-enabled
 
 Default is `false`.
 
@@ -1120,7 +1128,7 @@ Enables the HTTP service over the UNIX domain socket.
 
 Environment variable: `INFLUXDB_HTTP_UNIX_SOCKET_ENABLED`
 
-#### `bind-socket`
+#### bind-socket
 
 Default is `"/var/run/influxdb.sock"`.
 
@@ -1128,7 +1136,7 @@ The path of the UNIX domain socket.
 
 Environment variable: `INFLUXDB_HTTP_BIND_SOCKET`
 
-#### `max-concurrent-write-limit`
+#### max-concurrent-write-limit
 
 Default is `0`.
 
@@ -1137,7 +1145,7 @@ The default value of `0` disables the limit.
 
 Environment variable: `INFLUXDB_HTTP_MAX_CONCURRENT_WRITE_LIMIT`
 
-#### `max-enqueued-write-limit`
+#### max-enqueued-write-limit
 
 Default is `0`.
 
@@ -1146,7 +1154,7 @@ The default value of `0` disables the limit.
 
 Environment variable: `INFLUXDB_HTTP_MAX_ENQUEUED_WRITE_LIMIT`
 
-#### `enqueued-write-timeout`
+#### enqueued-write-timeout
 
 Default is `0`.
 
@@ -1157,9 +1165,9 @@ Setting this to `0` or setting `max-concurrent-write-limit` to `0` disables the 
 
 ## Logging settings
 
-### `[logging]`
+### [logging]
 
-#### `format`
+#### format
 
 Default is `"logfmt"`.
 
@@ -1170,7 +1178,7 @@ When the output is a non-TTY, `auto` will use `logfmt`.
 
 Environment variable: `INFLUXDB_LOGGING_FORMAT`
 
-#### `level`
+#### level
 
 Default is `"info"`.
 
@@ -1178,7 +1186,7 @@ Determines which level of logs will be emitted.
 
 Environment variable: `INFLUXDB_LOGGING_LEVEL`
 
-#### `suppress-logo`
+#### suppress-logo
 
 Default is `false`.
 
@@ -1190,11 +1198,11 @@ Environment variable: `INFLUXDB_LOGGING_SUPPRESS_LOGO`
 
 ## Subscriber settings
 
-### `[subscriber]`
+### [subscriber]
 
 Controls the subscriptions, which can be used to fork a copy of all data received by the InfluxDB host.
 
-#### `enabled`
+#### enabled
 
 Default is `true`.
 
@@ -1202,7 +1210,7 @@ Determines whether the subscriber service is enabled.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_ENABLED`
 
-#### `http-timeout`
+#### http-timeout
 
 Default is `"30s"`.
 
@@ -1210,7 +1218,7 @@ The default timeout for HTTP writes to subscribers.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_HTTP_TIMEOUT`
 
-#### `insecure-skip-verify`
+#### insecure-skip-verify
 
 Default is `false`.
 
@@ -1219,7 +1227,7 @@ This option is useful when testing with self-signed certificates.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_INSECURE_SKIP_VERIFY`
 
-#### `ca-certs`
+#### ca-certs
 
 Default is `""`.
 
@@ -1228,7 +1236,7 @@ If the set to the empty string (`""`), the default system certs will used.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_CA_CERTS`
 
-#### `write-concurrency`
+#### write-concurrency
 
 Default is `40`.
 
@@ -1236,7 +1244,7 @@ The number of writer Goroutines processing the write channel.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_WRITE_CONCURRENCY`
 
-#### `write-buffer-size`
+#### write-buffer-size
 
 Default is `1000`.
 
@@ -1244,7 +1252,7 @@ The number of in-flight writes buffered in the write channel.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_WRITE_BUFFER_SIZE`
 
-#### `total-buffer-bytes`
+#### total-buffer-bytes
 
 Default is `0`.
 
@@ -1259,12 +1267,12 @@ Environment variable: `INFLUXDB_SUBSCRIBER_TOTAL_BUFFER_BYTES`
 
 ## Graphite settings
 
-### `[[graphite]]`
+### [[graphite]]
 
 This section controls one or many listeners for Graphite data.
 For more information, see [Graphite protocol support in InfluxDB](/enterprise_influxdb/v1.10/supported_protocols/graphite/).
 
-#### `enabled`
+#### enabled
 
 Default is `false`.
 
@@ -1282,37 +1290,37 @@ Batching will buffer points in memory if you have many coming in.
 # consistency-level = "one"
 ```
 
-#### `batch-size`
+#### batch-size
 
 Default is `5000`.
 
 Flush if this many points get buffered.
 
-#### `batch-pending`
+#### batch-pending
 
 Default is `10`.
 
 The number of batches that may be pending in memory.
 
-#### `batch-timeout`
+#### batch-timeout
 
 Default is `"1s"`.
 
 Flush at least this often even if we haven't hit buffer limit.
 
-#### `udp-read-buffer`
+#### udp-read-buffer
 
 Default is `0`.
 
 UDP Read buffer size, `0` means OS default. UDP listener will fail if set above OS max.
 
-#### `separator`
+#### separator
 
 Default is `"."`.
 
 This string joins multiple matching 'measurement' values providing more control over the final measurement name.
 
-#### `tags`
+#### tags
 
 Default is `["region=us-east", "zone=1c"]`.
 
@@ -1342,7 +1350,7 @@ There can be only one default template.
 The `[[collectd]]` settings control the listener for `collectd` data.
 For more information, see [CollectD protocol support in InfluxDB](/enterprise_influxdb/v1.10/supported_protocols/collectd/).
 
-### `[[collectd]]`
+### [[collectd]]
 
 ```toml
 # enabled`
@@ -1354,13 +1362,13 @@ Default is `false.
 # typesdb = "/usr/share/collectd/types.db"
 ```
 
-#### `security-level`
+#### security-level
 
 Default is `""`.
 
 The collectd security level can be "" (or "none"), "sign", or "encrypt".
 
-#### `auth-file`
+#### auth-file
 
 Default is `""`.
 
@@ -1372,25 +1380,25 @@ These next lines control how batching works.
 You should have this enabled otherwise you could get dropped metrics or poor performance.
 Batching will buffer points in memory if you have many coming in.
 
-#### `batch-size`
+#### batch-size
 
 Default is `5000`.
 
 Flush if this many points get buffered.
 
-#### `batch-pending`
+#### batch-pending
 
 Default is `10`.
 
 The number of batches that may be pending in memory.
 
-#### `batch-timeout`
+#### batch-timeout
 
 Default is `"10s"`.
 
 Flush at least this often even if we haven't hit buffer limit.
 
-#### `read-buffer`
+#### read-buffer
 
 Default is `0`.
 
@@ -1403,7 +1411,7 @@ UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS
 Controls the listener for OpenTSDB data.
 For more information, see [OpenTSDB protocol support in InfluxDB](/enterprise_influxdb/v1.10/supported_protocols/opentsdb/).
 
-### `[[opentsdb]]`
+### [[opentsdb]]
 
 ```toml
 # enabled = false
@@ -1415,7 +1423,7 @@ For more information, see [OpenTSDB protocol support in InfluxDB](/enterprise_in
 # certificate= "/etc/ssl/influxdb.pem"
 ```
 
-#### `log-point-errors`
+#### log-point-errors
 
 Default is `true`.
 
@@ -1427,19 +1435,19 @@ These next lines control how batching works.
 You should have this enabled otherwise you could get dropped metrics or poor performance.
 Only points metrics received over the telnet protocol undergo batching.
 
-#### `batch-size`
+#### batch-size
 
 Default is `1000`.
 
 Flush if this many points get buffered.
 
-#### `batch-pending`
+#### batch-pending
 
 Default is `5`.
 
 The number of batches that may be pending in memory.
 
-#### `batch-timeout`
+#### batch-timeout
 
 Default is `"1s"`.
 
@@ -1452,7 +1460,7 @@ Flush at least this often even if we haven't hit buffer limit.
 The `[[udp]]` settings control the listeners for InfluxDB line protocol data using UDP.
 For more information, see [UDP protocol support in InfluxDB](/enterprise_influxdb/v1.10/supported_protocols/udp/).
 
-### `[[udp]]`
+### [[udp]]
 
 ```toml
 # enabled = false
@@ -1461,7 +1469,7 @@ For more information, see [UDP protocol support in InfluxDB](/enterprise_influxd
 # retention-policy = ""
 ```
 
-#### `precision`
+#### precision
 
 Default is `""`.
 
@@ -1470,25 +1478,25 @@ InfluxDB precision for timestamps on received points ("" or "n", "u", "ms", "s",
 These next lines control how batching works. You should have this enabled otherwise you could get dropped metrics or poor performance.
 Batching will buffer points in memory if you have many coming in.
 
-#### `batch-size`
+#### batch-size
 
 Default is `5000`.
 
 Flush if this many points get buffered.
 
-#### `batch-pending`
+#### batch-pending
 
 Default is `10`.
 
 The number of batches that may be pending in memory.
 
-#### `batch-timeout`
+#### batch-timeout
 
 Default is `"1s"`.
 
 Will flush at least this often even if we haven't hit buffer limit.
 
-#### `read-buffer`
+#### read-buffer
 
 Default is `0`.
 
@@ -1498,11 +1506,11 @@ UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS
 
 ## Continuous queries settings
 
-### `[continuous_queries]`
+### [continuous_queries]
 
 Controls how continuous queries are run within InfluxDB.
 
-#### `enabled`
+#### enabled
 
 Default is `true`.
 
@@ -1510,7 +1518,7 @@ Determines whether the continuous query service is enabled.
 
 Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_ENABLED`
 
-#### `log-enabled`
+#### log-enabled
 
 Default is `true`.
 
@@ -1518,7 +1526,7 @@ Controls whether queries are logged when executed by the CQ service.
 
 Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_LOG_ENABLED`
 
-#### `query-stats-enabled`
+#### query-stats-enabled
 
 Default is `false`.
 
@@ -1526,7 +1534,7 @@ Write continuous query execution statistics to the default monitor store.
 
 Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_QUERY_STATS_ENABLED`
 
-#### `run-interval`
+#### run-interval
 
 Default is `"1s"`.
 
@@ -1539,7 +1547,7 @@ Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_RUN_INTERVAL`
 ## TLS settings
 
 
-### `[tls]`
+### [tls]
 
 Global configuration settings for Transport Layer Security (TLS) in InfluxDB.  
 
@@ -1570,7 +1578,7 @@ max-version = "tls1.3"
 
 ```
 
-#### `min-version`
+#### min-version
 
 Default is `"tls1.3"`.
 
@@ -1581,7 +1589,7 @@ In this example, `tls1.3` specifies the minimum version as TLS 1.3.
 
 Environment variable: `INFLUXDB_TLS_MIN_VERSION`
 
-#### `max-version`
+#### max-version
 
 Default is `"tls1.3"`.
 
@@ -1594,33 +1602,33 @@ Environment variable: `INFLUXDB_TLS_MAX_VERSION`
 
 ## Flux query management settings
 
-### `[flux-controller]`
+### [flux-controller]
 
 This section contains configuration settings for Flux query management.
 For more on managing queries, see [Query Management](/enterprise_influxdb/v1.10/troubleshooting/query_management/).
 
-#### `query-concurrency`
+#### query-concurrency
 
 Number of queries allowed to execute concurrently.
 `0` means unlimited.
 Default is `0`.
 
-#### `query-initial-memory-bytes`
+#### query-initial-memory-bytes
 Initial bytes of memory allocated for a query.
 `0` means unlimited.
 Default is `0`.
 
-#### `query-max-memory-bytes`
+#### query-max-memory-bytes
 Maximum total bytes of memory allowed for an individual query.
 `0` means unlimited.
 Default is `0`.
 
-#### `total-max-memory-bytes`
+#### total-max-memory-bytes
 Maximum total bytes of memory allowed for all running Flux queries.
 `0` means unlimited.
 Default is `0`.
 
-#### `query-queue-size`
+#### query-queue-size
 Maximum number of queries allowed in execution queue.
 When queue limit is reached, new queries are rejected.
 `0` means unlimited.
