@@ -32,15 +32,15 @@ Returns the number of non-null [field values](/influxdb/v2.4/reference/glossary/
 SELECT COUNT( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-#### COUNT(*)
+`COUNT(*)`
 
 Returns the number of field values associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
-#### COUNT(field_key)  
+`COUNT(field_key)`  
 
 Returns the number of field values associated with the [field key](/influxdb/v2.4/reference/glossary/#field-key).
 
-#### COUNT(/regular_expression/)  
+`COUNT(/regular_expression/)`  
 
 Returns the number of field values associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/#regular-expressions).
 
@@ -124,7 +124,7 @@ InfluxQL supports nesting `DISTINCT()` with [`COUNT()`](#count).
 SELECT DISTINCT( [ <field_key> | /<regular_expression>/ ] ) FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-#### DISTINCT(field_key)
+`DISTINCT(field_key)`
 
 Returns the unique field values associated with the [field key](/influxdb/v2.4/reference/glossary/#field-key).
 
@@ -188,15 +188,15 @@ InfluxDB calculates the area under the curve for subsequent field values and con
 The `unit` argument is an integer followed by an optional [duration literal](/influxdb/v2.4/reference/syntax/spec/#literals).
 If the query does not specify the `unit`, the unit defaults to one second (`1s`).
 
-#### INTEGRAL(field_key)
+`INTEGRAL(field_key)`
 
 Returns the area under the curve for subsequent field values associated with the [field key](/influxdb/v2.4/reference/glossary/#field-key).
 
-#### INTEGRAL(/regular_expression/)
+`INTEGRAL(/regular_expression/)`
 
 Returns the area under the curve for subsequent field values associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/#regular-expressions).
 
-#### INTEGRAL(*)
+`INTEGRAL(*)`
 
 Returns the average field value associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
@@ -307,14 +307,14 @@ Returns the arithmetic mean (average) of [field values](/influxdb/v2.4/reference
 SELECT MEAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-#### MEAN(field_key) 
+`MEAN(field_key)`
 Returns the average field value associated with the [field key](/influxdb/v2.4/reference/glossary/#field-key).
 
-#### MEAN(/regular_expression/)  
+`MEAN(/regular_expression/)  
 
 Returns the average field value associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/#regular-expressions).
 
-#### MEAN(*) 
+`MEAN(*)`
 Returns the average field value associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
 ### Examples
@@ -404,15 +404,15 @@ Returns the middle value from a sorted list of [field values](/influxdb/v2.4/ref
 SELECT MEDIAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-#### MEDIAN(field_key)
+`MEDIAN(field_key)`
 
 Returns the middle field value associated with the [field key](/influxdb/v2.4/reference/glossary/#field-key).
 
-#### MEDIAN(/regular_expression/)
+`MEDIAN(/regular_expression/)`
 
 Returns the middle field value associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/#regular-expressions).
 
-#### MEDIAN(*)
+`MEDIAN(*)`
 
 Returns the middle field value associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
@@ -502,15 +502,15 @@ Returns the most frequent value in a list of [field values](/influxdb/v2.4/refer
 SELECT MODE( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-#### MODE(field_key)
+`MODE(field_key)`
 
 Returns the most frequent field value associated with the [field key](/influxdb/v2.4/reference/glossary/#field-key).
 
-#### MODE(/regular_expression/)
+`MODE(/regular_expression/)`
 
 Returns the most frequent field value associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/#regular-expressions).
 
-#### MODE(*)
+`MODE(*)`
 
 Returns the most frequent field value associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
@@ -595,15 +595,15 @@ Returns the difference between the minimum and maximum [field values](/influxdb/
 SELECT SPREAD( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-#### SPREAD(field_key)
+`SPREAD(field_key)`
 
 Returns the difference between the minimum and maximum field values associated with the [field key](/influxdb/v2.4/reference/glossary/#field-key).
 
-#### SPREAD(/regular_expression/)
+`SPREAD(/regular_expression/)`
 
 Returns the difference between the minimum and maximum field values associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/#regular-expressions).
 
-#### SPREAD(*)
+`SPREAD(*)`
 
 Returns the difference between the minimum and maximum field values associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
@@ -688,15 +688,15 @@ Returns the standard deviation of [field values](/influxdb/v2.4/reference/glossa
 SELECT STDDEV( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-#### STDDEV(field_key)
+`STDDEV(field_key)`
 
 Returns the standard deviation of field values associated with the [field key](/influxdb/v2.4/reference/glossary/#field-key).
 
-#### STDDEV(/regular_expression/)
+`STDDEV(/regular_expression/)`
 
 Returns the standard deviation of field values associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/#regular-expressions).
 
-#### STDDEV(*)
+`STDDEV(*)`
 
 Returns the standard deviation of field values associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
@@ -778,15 +778,15 @@ Returns the sum of [field values](/influxdb/v2.4/reference/glossary/#field-value
 SELECT SUM( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-#### SUM(field_key)
+`SUM(field_key)`
 
 Returns the sum of field values associated with the [field key](/influxdb/v2.4/reference/glossary/#field-key).
 
-#### SUM(/regular_expression/)
+`SUM(/regular_expression/)`
 
 Returns the sum of field values associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/#regular-expressions).
 
-#### SUM(*)
+`SUM(*)`
 
 Returns the sums of field values associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
