@@ -8,7 +8,7 @@ menu:
     Parent: Configure plugins
     weight: 79
 aliases:
-  - /telegraf/v1.23/administration/troubleshooting/
+  - /telegraf/v1.24/administration/troubleshooting/
   - /telegraf/v1.24/administration/troubleshooting/
 ---
 
