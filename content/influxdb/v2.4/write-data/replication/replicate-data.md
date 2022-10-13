@@ -7,8 +7,8 @@ description: >
   InfluxDB Enterprise instances.
 menu:
   influxdb_2_4:
-    name: Replicate data to Cloud
-    parent: Replicate data
+    name: Replicate data
+    parent: Edge data replication
 influxdb/v2.4/tags: [write, replication]
 related:
   - /influxdb/v2.4/reference/cli/influx/remote
