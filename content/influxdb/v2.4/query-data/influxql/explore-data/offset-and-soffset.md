@@ -14,14 +14,17 @@ list_code_example: |
   ```
 ---
 
-`OFFSET` and `SOFFSET` paginates [points](/influxdb/v2.4/reference/glossary/#point) and [series](/influxdb/v2.4/reference/glossary/#series) returned.
+Use `OFFSET` and `SOFFSET` to paginate [points](/influxdb/v2.4/reference/glossary/#point) and [series](/influxdb/v2.4/reference/glossary/#series) returned.
 
-<table style="width:100%">
+  - [The `OFFSET` clause](#the-offset-clause)  
+  - [The `SOFFSET` clause](#the-soffset-clause)  
+
+<!-- <table style="width:100%">
   <tr>
     <td><a href="#the-offset-clause">The OFFSET clause</a></td>
     <td><a href="#the-soffset-clause">The SOFFSET clause</a></td>
   </tr>
-</table>
+</table> -->
 
 ## The `OFFSET` clause
 

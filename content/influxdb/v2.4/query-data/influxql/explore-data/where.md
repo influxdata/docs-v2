@@ -1,5 +1,5 @@
 ---
-title: Use the WHERE clause
+title: The WHERE clause
 list_title: WHERE clause
 description: >
   Use the `WHERE` clause to filter data based on [fields](/influxdb/v2.4/reference/glossary/#field), [tags](/influxdb/v2.4/reference/glossary/#tag), and/or [timestamps](/influxdb/v2.4/reference/glossary/#timestamp).
@@ -14,9 +14,7 @@ list_code_example: |
   ```
 ---
 
-## The `WHERE` clause
-
-The `WHERE` filters data based on
+Use the `WHERE` clause to filter data based on
 [fields](/influxdb/v2.4/reference/glossary/#field),
 [tags](/influxdb/v2.4/reference/glossary/#tag), and/or
 [timestamps](/influxdb/v2.4/reference/glossary/#timestamp).
@@ -90,7 +88,7 @@ Other supported features:
 
 #### Timestamps
 
-For most `SELECT` statements, the default time range is between [`1677-09-21 00:12:43.145224194` and `2262-04-11T23:47:16.854775806Z` UTC](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store).
+For most `SELECT` statements, the default time range is between [`1677-09-21 00:12:43.145224194` and `2262-04-11T23:47:16.854775806Z` UTC](/influxdb/v2.4/reference/faq/#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store).
 For `SELECT` statements with a [`GROUP BY time()` clause](#group-by-time-intervals), the default time
 range is between `1677-09-21 00:12:43.145224194` UTC and [`now()`](/influxdb/v2.4/reference/glossary/#now).
 

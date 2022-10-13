@@ -14,7 +14,7 @@ list_code_example: |
   ```
 ---
 
-The `ORDER BY` clause sorts data. 
+Use the `ORDER BY` clause to sort data. 
 
 ## ORDER BY time DESC
 

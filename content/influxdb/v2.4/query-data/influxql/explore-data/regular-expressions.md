@@ -14,8 +14,6 @@ list_code_example: |
     ```
 ---
 
-## Regular expressions
-
 InfluxQL supports using regular expressions when specifying:
 
 * [field keys](/influxdb/v2.4/reference/glossary/#field-key) and [tag keys](/influxdb/v2.4/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/). 

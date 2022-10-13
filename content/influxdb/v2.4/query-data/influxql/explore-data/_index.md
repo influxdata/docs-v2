@@ -35,15 +35,15 @@ name: <span class="tooltip" data-tooltip-text="Measurement">h2o_feet</span>
 | 2015-08-18T00:12:00Z                                                            | between 6 and 9 feet                                                                | coyote_creek                                                              | 7.887                                                                    |
 | 2015-08-18T00:12:00Z                                                            | below 3 feet                                                                        | santa_monica                                                              | 2.028                                                                    |
 
-The data in the `h2o_feet` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement)
+The data in the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement)
 occur at six-minute time intervals.
-The measurement has one [tag key](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key)
-(`location`) which has two [tag values](/enterprise_influxdb/v1.9/concepts/glossary/#tag-value):
+The measurement has one [tag key](influxdb/v2.4/reference/glossary/#tag-key)
+(`location`) which has two [tag values](/influxdb/v2.4/reference/glossary/#tag-value):
 `coyote_creek` and `santa_monica`.
-The measurement also has two [fields](/enterprise_influxdb/v1.9/concepts/glossary/#field):
-`level description` stores string [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value)
+The measurement also has two [fields](/influxdb/v2.4/reference/glossary/#field):
+`level description` stores string [field values](/influxdb/v2.4/reference/glossary/#field-value)
 and `water_level` stores float field values.
-All of these data is in the `NOAA_water_database` [database](/enterprise_influxdb/v1.9/concepts/glossary/#database).
+All of these data is in the `NOAA_water_database` [database](/influxdb/v2.4/reference/glossary/#database).
 
 {{% note %}}
 **Disclaimer:** The `level description` field isn't part of the original NOAA data - we snuck it in there for the sake of having a field key with a special character and string field values.
@@ -51,33 +51,36 @@ All of these data is in the `NOAA_water_database` [database](/enterprise_influxd
 
 ### Configuring the returned timestamps
 
-The [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) returns timestamps in
-nanosecond epoch format by default.
+The [CLI](/influxdb/v2.4/reference/cli/influx/) returns timestamps in
+nanosecond UNIX epoch format by default.
 Specify alternative formats with the
-[`precision <format>` command](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#influx-commands).
-The [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/) returns timestamps
+[`precision <format>` command](/influxdb/v2.4/tools/influxql-shell/#precision).
+The [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.
 Specify alternative formats with the
 [`epoch` query string parameter](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters).
 
-## Data types and cast operations
+<!-- ## Data types and cast operations
 
-The [`SELECT` clause](#the-basic-select-statement) supports specifying a [field's](/enterprise_influxdb/v1.9/concepts/glossary/#field) type and basic cast
+The [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/) supports specifying a [field's](/enterprise_influxdb/v1.9/concepts/glossary/#field) type and basic cast
 operations with the `::` syntax.
 
 - [Data Types](#data-types)
 - [Cast Operations](#cast-operations)
+
 ## Data types
 
 [Field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) can be floats, integers, strings, or booleans.
 The `::` syntax allows users to specify the field's type in a query.
 
-> **Note:**  Generally, it is not necessary to specify the field value
-type in the [`SELECT` clause](#the-basic-select-statement).
-In most cases, InfluxDB rejects any writes that attempt to write a [field value](/enterprise_influxdb/v1.9/concepts/glossary/#field-value)
+{{% note %}}
+ **Note:**  Generally, it is not necessary to specify the field value
+type in the [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/).
+In most cases, InfluxDB rejects any writes that attempt to write a [field value](/influxdb/v2.4/reference/glossary/#field-value)
 to a field that previously accepted field values of a different type.
->
-It is possible for field value types to differ across [shard groups](/enterprise_influxdb/v1.9/concepts/glossary/#shard-group).
+{{% /note %}}
+
+It is possible for field value types to differ across [shard groups](/influxdb/v2.4/reference/glossary/#shard-group)./
 In these cases, it may be necessary to specify the field value type in the
 `SELECT` clause.
 Please see the
@@ -98,23 +101,25 @@ In most cases, InfluxDB returns no data if the `field_key` does not store data o
 
 ```sql
 > SELECT "water_level"::float FROM "h2o_feet" LIMIT 4
-
-name: h2o_feet
---------------
-time                   water_level
-2015-08-18T00:00:00Z   8.12
-2015-08-18T00:00:00Z   2.064
-2015-08-18T00:06:00Z   8.005
-2015-08-18T00:06:00Z   2.116
 ```
+Output:
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
+| time   | water_level |
+| :--------------: | :------------------:|
+|2019-08-17T00:00:00Z  | 8.1200000000|
+|2019-08-17T00:00:00Z  | 2.0640000000|
+|2019-08-17T00:00:00Z  | 8.0050000000|
+|2019-08-17T00:00:00Z  | 2.1160000000|
 
 The query returns values of the `water_level` field key that are floats.
 
 ## Cast operations
 
 The `::` syntax allows users to perform basic cast operations in queries.
-Currently, InfluxDB supports casting [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) from integers to
-floats or from floats to integers.
+Currently, InfluxDB supports casting [field values](/influxdb/v2.4/reference/glossary/#field-value) from integers to floats or from floats to integers.
 
 ### Syntax
 
@@ -133,17 +138,21 @@ string or boolean.
 
 ```sql
 > SELECT "water_level"::integer FROM "h2o_feet" LIMIT 4
-
-name: h2o_feet
---------------
-time                   water_level
-2015-08-18T00:00:00Z   8
-2015-08-18T00:00:00Z   2
-2015-08-18T00:06:00Z   8
-2015-08-18T00:06:00Z   2
 ```
 
-The query returns the integer form of `water_level`'s float [field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value).
+Output:
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
+| time   | water_level |
+| :--------------: | :------------------:|
+|2019-08-17T00:00:00Z  | 8.0000000000|
+|2019-08-17T00:00:00Z  | 2.0000000000|
+|2019-08-17T00:00:00Z  | 8.0000000000|
+|2019-08-17T00:00:00Z  | 2.0000000000|
+
+The query returns the integer form of `water_level`'s float [field values](/influxdb/v2.4/reference/glossary/#field-value).
 
 #### Cast float field values to strings (this functionality is not supported)
 
@@ -152,96 +161,119 @@ The query returns the integer form of `water_level`'s float [field values](/ente
 >
 ```
 
-The query returns no data as casting a float field value to a string is not
-yet supported.
+The query returns no data as casting a float field value to a string is not supported.
 
 ## Merge behavior
 
-In InfluxDB, queries merge [series](/enterprise_influxdb/v1.9/concepts/glossary/#series)
+In InfluxDB, queries merge [series](/influxdb/v2.4/reference/glossary/#series)
 automatically.
 
 ### Example
 
-The `h2o_feet` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement) in the `NOAA_water_database` is part of two [series](/enterprise_influxdb/v1.9/concepts/glossary/#series).
-The first series is made up of the `h2o_feet` measurement and the `location = coyote_creek` [tag](/enterprise_influxdb/v1.9/concepts/glossary/#tag).
+The `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `NOAA_water_database` is part of two [series](/influxdb/v2.4/reference/glossary/#series).
+The first series is made up of the `h2o_feet` measurement and the `location = coyote_creek` [tag](/influxdb/v2.4/reference/glossary/#tag).
 The second series is made of up the `h2o_feet` measurement and the `location = santa_monica` tag.
 
-The following query automatically merges those two series when it calculates the [average](/enterprise_influxdb/v1.9/query_language/functions/#mean) `water_level`:
+The following query automatically merges those two series when it calculates the [average](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) `water_level`:
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet"
-
-name: h2o_feet
---------------
-time                   mean
-1970-01-01T00:00:00Z   4.442107025822521
 ```
 
-If you want the average `water_level` for the first series only, specify the relevant tag in the [`WHERE` clause](#the-where-clause):
+Output:
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
+| time   | mean |
+| :--------------: | :------------------:|
+|1970-01-01T00:00:00Z  |  4.4418434585 |
+
+If you want the average `water_level` for the first series only, specify the relevant tag in the [`WHERE` clause](/influxdb/v2.4/query-data/influxql/explore-data/where/):
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek'
-
-name: h2o_feet
---------------
-time                   mean
-1970-01-01T00:00:00Z   5.359342451341401
 ```
 
-If you want the average `water_level` for each individual series, include a [`GROUP BY` clause](#group-by-tags):
+Output:
+{{% influxql/table-meta %}}
+Name: h2o_feet
+{{% /influxql/table-meta %}}
+
+| time   | mean |
+| :--------------: | :------------------:|
+|1970-01-01T00:00:00Z |  5.3591424203|
+
+
+If you want the average `water_level` for each individual series, include a [`GROUP BY` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/):
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
-
-name: h2o_feet
-tags: location=coyote_creek
-time                   mean
-----                   ----
-1970-01-01T00:00:00Z   5.359342451341401
-
-name: h2o_feet
-tags: location=santa_monica
-time                   mean
-----                   ----
-1970-01-01T00:00:00Z   3.530863470081006
 ```
+
+Output: 
+{{% influxql/table-meta %}}
+name: h2o_feet  
+tags: location=coyote_creek
+{{% /influxql/table-meta %}}
+
+| time                         | mean |
+| :---------------------------: | :------------------: |
+|1970-01-01T00:00:00Z  | 5.3591424203|
+
+{{% influxql/table-meta %}}
+name: h2o_feet  
+tags: llocation=santa_monica
+{{% /influxql/table-meta %}}
+
+| time                         | mean |
+| :---------------------------: | :------------------: |
+|1970-01-01T00:00:00Z |  3.5306558288|
 
 ## Multiple statements
 
-Separate multiple [`SELECT` statements](#the-basic-select-statement) in a query with a semicolon (`;`).
+Separate multiple [`SELECT` statements](/influxdb/v2.4/query-data/influxql/explore-data/select/) in a query with a semicolon (`;`).
 
 ### Examples
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[Example 1: CLI](#)
-[Example 2: InfluxDB API](#)
+[CLI](#)
+[InfluxDB API](#)
 {{% /tabs %}}
 
 {{% tab-content %}}
 
-In the InfluxDB [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/):
+In the InfluxDB [CLI](/influxdb/v2.4/reference/cli/influx/):
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet"; SELECT "water_level" FROM "h2o_feet" LIMIT 2
-
-name: h2o_feet
-time                   mean
-----                   ----
-1970-01-01T00:00:00Z   4.442107025822522
-
-name: h2o_feet
-time                   water_level
-----                   -----------
-2015-08-18T00:00:00Z   8.12
-2015-08-18T00:00:00Z   2.064
 ```
+
+Output: 
+{{% influxql/table-meta %}}
+name: h2o_feet  
+{{% /influxql/table-meta %}}
+
+| time                         | mean |
+| :---------------------------: | :------------------: |
+|1970-01-01T00:00:00Z |  4.4418434585|
+
+{{% influxql/table-meta %}}
+name: h2o_feet  
+{{% /influxql/table-meta %}}
+
+| time                         | water_level |
+| :---------------------------: | :------------------: |
+2015-08-18T00:00:00Z  | 8.1200000000|
+2015-08-18T00:00:00Z  | 2.0640000000|
+
 
 {{% /tab-content %}}
 
 {{% tab-content %}}
 
-With the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/):
+With the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/):
 
 ```json
 {
@@ -291,5 +323,5 @@ With the [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/):
 ```
 
 {{% /tab-content %}}
-{{< /tabs-wrapper >}}
+{{< /tabs-wrapper >}} -->
 

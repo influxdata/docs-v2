@@ -14,20 +14,23 @@ list_code_example: |
   ```
 ---
 
-### Configuring returned timestamps
+## Configuring returned timestamps
 
-The [CLI](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/) returns timestamps in
-nanosecond epoch format by default.
+The [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) returns timestamps in
+nanosecond UNIX epoch format by default.
 Specify alternative formats with the
-[`precision <format>` command](/enterprise_influxdb/v1.9/tools/influx-cli/use-influx/#influx-commands).
-The [InfluxDB API](/enterprise_influxdb/v1.9/tools/api/) returns timestamps
+[`precision <format>` command](/influxdb/v2.4/tools/influxql-shell/#precision).  
+
+If you are using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/), use the precision helper command `precision rfc3339` to view results in human readable format.
+
+The [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.
 Specify alternative formats with the
-[`epoch` query string parameter](/enterprise_influxdb/v1.9/tools/api/#query-string-parameters).
+[`epoch` query string parameter](/influxdb/v2.4/reference/api/influxdb-1x/).
 
 ## The Time Zone clause
 
-The `tz()` clause returns the UTC offset for the specified timezone.
+Use the `tz()` clause to return the UTC offset for the specified timezone.
 
 ### Syntax
 
@@ -36,16 +39,8 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LI
 ```
 
 By default, InfluxDB stores and returns timestamps in UTC.
-The `tz()` clause includes the UTC offset or, if applicable, the UTC Daylight Savings Time (DST) offset to the query's returned timestamps. The returned timestamps must be in [RFC3339 format](/enterprise_influxdb/v1.9/query_language/explore-data/#configuring-the-returned-timestamps) for the UTC offset or UTC DST to appear.
+The `tz()` clause includes the UTC offset or, if applicable, the UTC Daylight Savings Time (DST) offset to the query's returned timestamps. The returned timestamps must be in `RFC3339` format for the UTC offset or UTC DST to appear.
 The `time_zone` parameter follows the TZ syntax in the [Internet Assigned Numbers Authority time zone database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) and it requires single quotes.
-
-{{% note %}}
-**NOTE:**  To specify the format of timestamps returned in results in human readable format, use the precision helper command in the CLI.
-
-```
-precision rfc3339
-```
-{{% /note %}}
 
 ### Examples
 
@@ -70,8 +65,8 @@ The query results include the UTC offset (`-05:00`) for the `America/Chicago` ti
 
 ## Time syntax
 
-For most `SELECT` statements, the default time range is between [`1677-09-21 00:12:43.145224194` and `2262-04-11T23:47:16.854775806Z` UTC](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store).
-For `SELECT` statements with a [`GROUP BY time()` clause](#group-by-time-intervals),
+For most `SELECT` statements, the default time range is between [`1677-09-21 00:12:43.145224194` and `2262-04-11T23:47:16.854775806Z` UTC](/influxdb/v2.4/reference/faq/#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store).
+For `SELECT` statements with a [`GROUP BY time()` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/),
 the default time range is between `1677-09-21 00:12:43.145224194` UTC and [`now()`](/influxdb/v2.4/reference/glossary/#now).
 The following sections detail how to specify alternative time ranges in the `SELECT`
 statement's [`WHERE` clause](#the-where-clause).
@@ -103,7 +98,7 @@ SELECT_clause FROM_clause WHERE time <operator> ['<rfc3339_date_time_string>' | 
 | `<=`     | less than or equal to    |
 
 Currently, InfluxDB does not support using `OR` with absolute time in the `WHERE`
-clause. See the [Frequently Asked Questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-is-my-query-with-a-where-or-time-clause-returning-empty-results)
+clause. See the [Frequently Asked Questions](/influxdb/v2.4/reference/faq/#why-is-my-query-with-a-where-or-time-clause-returning-empty-results)
 document and the [GitHub Issue](https://github.com/influxdata/influxdb/issues/7530)
 for more information.
 
@@ -130,12 +125,12 @@ The RFC3339-like date-time string requires single quotes.
 Epoch time is the amount of time that has elapsed since 00:00:00
 Coordinated Universal Time (UTC), Thursday, 1 January 1970.
 
-By default, InfluxDB assumes that all epoch timestamps are in **nanoseconds**. Include a [duration literal](//influxdb/v2.4/reference/glossary/#duration) at the end of the epoch timestamp to indicate a precision other than nanoseconds.
+By default, InfluxDB assumes that all epoch timestamps are in **nanoseconds**. Include a [duration literal](/influxdb/v2.4/reference/glossary/#duration) at the end of the epoch timestamp to indicate a precision other than nanoseconds.
 
 #### Basic arithmetic
 
 All timestamp formats support basic arithmetic.
-Add (`+`) or subtract (`-`) a time from a timestamp with a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#durations).
+Add (`+`) or subtract (`-`) a time from a timestamp with a [duration literal](/influxdb/v2.4/reference/glossary/#duration).
 Note that InfluxQL requires a whitespace between the `+` or `-` and the
 duration literal.
 
@@ -278,7 +273,7 @@ September 18, 2019 at 21:24:00. Note that the whitespace between the `-` and `6m
 
 ## Relative time
 
-Use [`now()`](/enterprise_influxdb/v1.9/concepts/glossary/#now) to query data with [timestamps](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp) relative to the server's current timestamp.
+Use [`now()`](/influxdb/v2.4/reference/glossary/#now) to query data with [timestamps](/influxdb/v2.4/reference/glossary/#timestamp) relative to the server's current timestamp.
 
 ### Syntax
 
@@ -287,7 +282,7 @@ SELECT_clause FROM_clause WHERE time <operator> now() [[ - | + ] <duration_liter
 ```
 
 `now()` is the Unix time of the server at the time the query is executed on that server.
-The whitespace between `-` or `+` and the [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#durations) is required.
+The whitespace between `-` or `+` and the [duration literal](/influxdb/v2.4/reference/glossary/#duration) is required.
 
 #### Supported operators
 | Operator | Meaning                  |
@@ -346,13 +341,13 @@ The query returns data with timestamps that occur between September 17, 2019 at 
 
 InfluxDB does not support using the `OR` operator in the `WHERE` clause to specify multiple time intervals.
 
-For more information, see [Frequently asked questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-is-my-query-with-a-where-or-time-clause-returning-empty-results).
+For more information, see [Frequently asked questions](/influxdb/v2.4/reference/faq/#why-is-my-query-with-a-where-or-time-clause-returning-empty-results).
 
 ### Querying data that occur after `now()` with a `GROUP BY time()` clause
 
-Most `SELECT` statements have a default time range between [`1677-09-21 00:12:43.145224194` and `2262-04-11T23:47:16.854775806Z` UTC](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store).
-For `SELECT` statements with a [`GROUP BY time()` clause](#group-by-time-intervals),
-the default time range is between `1677-09-21 00:12:43.145224194` UTC and [`now()`](/enterprise_influxdb/v1.9/concepts/glossary/#now).
+Most `SELECT` statements have a default time range between [`1677-09-21 00:12:43.145224194` and `2262-04-11T23:47:16.854775806Z` UTC](/influxdb/v2.4/reference/faq/#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store).
+For `SELECT` statements with a [`GROUP BY time()` clause](influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals),
+the default time range is between `1677-09-21 00:12:43.145224194` UTC and [`now()`](/influxdb/v2.4/reference/glossary/#now).
 
 To query data with timestamps that occur after `now()`, `SELECT` statements with
 a `GROUP BY time()` clause must provide an alternative upper bound in the
