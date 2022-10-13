@@ -2,9 +2,8 @@
 title: Replicate data from InfluxDB OSS
 weight: 106
 description: >
-  Use InfluxDB Edge Data Replication to replicate the incoming data of select
-  buckets from InfluxDB OSS to buckets in remote InfluxDB Cloud, InfluxDB OSS, or 
-  InfluxDB Enterprise instances.
+  Replicate data from select InfluxDB OSS buckets to remote buckets in InfluxDB 
+  Cloud, InfluxDB OSS, or InfluxDB Enterprise instances.
 menu:
   influxdb_2_4:
     name: Replicate data
@@ -19,10 +18,7 @@ Use InfluxDB replication streams (InfluxDB Edge Data Replication) to replicate
 the incoming data of select buckets to one or more buckets on a remote 
 InfluxDB OSS, InfluxDB Cloud, or InfluxDB Enterprise instance.
 
-The following guide demonstrates how to replicate data from InfluxDB OSS to 
-InfluxDB Cloud and can also be used to replicate data to the following instances:
-- InfluxDB OSS to InfluxDB OSS
-- InfluxDB OSS to InfluxDB Enterprise
+Replicate data from InfluxDB OSS to InfluxDB Cloud, InfluxDB OSS, or InfluxDB Enterprise.
 
 ## Configure a replication stream
 
@@ -31,7 +27,7 @@ Use the [`influx` CLI](/influxdb/v2.4/tools/influx-cli/) or the
 a replication stream.
 
 {{% note %}}
-To replicate data to InfluxDB OSS or InfluxDB Enterprise, adjust the desired
+To replicate data to InfluxDB OSS or InfluxDB Enterprise, adjust the
 remote connection values accordingly.
 {{% /note %}}
 
