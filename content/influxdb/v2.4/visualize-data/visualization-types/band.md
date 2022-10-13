@@ -28,9 +28,9 @@ To see bands (boundaries) in the **Band Plot** visualization, you must set up tw
    - For **X Column** and **Y Column**, select the columns to display for the x- and y- axes.
    - For **Time Format**, select the timestamp format to display in the visualization.
 5. Under **Aggregate Functions**, select a function to determine each boundary (column) for comparison (select two or three):
-   - In the **Upper Column Name** field, select a function for the upper boundary.
-   - In the **Main Column Name** field, select a function for the main boundary.
-   - In the **Lower Column Name** field, select a function for the lower boundary.
+   - In the **Upper Column** field, select a function for the upper boundary.
+   - In the **Main Column** field, select a function for the main boundary.
+   - In the **Lower Column** field, select a function for the lower boundary.
 6. (Optional) Continue to customize your visualization, including options such as interpolation, color, hover dimension, and y-axis settings. For more information, see [Options](#options) and [Y Axis](#y-axis) below.
 
     **Tip:** If you do not see shaded boundaries in the **Band Plot** visualization, verify the query window period includes a sufficient number of data points for the selected aggregate function. By default, the window period is automatically set to ten seconds (`10s`). To adjust your window period, select **Custom**, and then enter a supported time unit (for example nanoseconds (`ns`), microseconds (`us`), milliseconds (`ms`), seconds (`s`), or hours (`h`).
@@ -106,9 +106,9 @@ To view **Band** controls, click **{{< icon "gear" >}} Customize** next to the v
 
 ###### Aggregate functions
 
-- **Upper Column Name**: Aggregate function to display for upper bounds of data.
-- **Main Column Name**: Aggregate function to display for main graph line.
-- **Lower Column Name**: Aggregate function to display for lower bounds of data.
+- **Upper Column**: Aggregate function to display for upper bounds of data.
+- **Main Column**: Aggregate function to display for main graph line.
+- **Lower Column**: Aggregate function to display for lower bounds of data.
 
 ###### Options
 
