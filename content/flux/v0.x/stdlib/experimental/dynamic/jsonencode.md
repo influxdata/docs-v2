@@ -1,15 +1,15 @@
 ---
-title: array.toString() function
+title: dynamic.jsonEncode() function
 description: >
-  `array.toString()` converts all values in an array to strings.
+  `dynamic.jsonEncode()` converts a dynamic value into JSON bytes.
 menu:
   flux_0_x_ref:
-    name: array.toString
-    parent: experimental/array
-    identifier: experimental/array/toString
+    name: dynamic.jsonEncode
+    parent: experimental/dynamic
+    identifier: experimental/dynamic/jsonEncode
 weight: 201
 flux/v0.x/tags: [type-conversions]
-introduced: 0.184.0
+introduced: 0.186.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,52 +21,30 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L311-L311
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/dynamic/dynamic.flux#L54-L54
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`array.toString()` converts all values in an array to strings.
+`dynamic.jsonEncode()` converts a dynamic value into JSON bytes.
 
-#### Supported array types
 
-- `[bool]`
-- `[duration]`
-- `[float]`
-- `[int]`
-- `[time]`
-- `[uint]`
 
 ##### Function type signature
 
 ```js
-(<-arr: [A]) => [string]
+(v: dynamic) => bytes
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### arr
-
-Array of values to convert. Default is the piped-forward array (`<-`).
-
-
+### v
+({{< req >}})
+Value to encode into JSON.
 
 
-## Examples
-
-### Convert an array of floats to strings
-
-```js
-import "experimental/array"
-
-arr = [12.0, 1.2300, NaN, 24.2]
-
-array.toString(arr: arr)// Returns ["12.0", "1.2300", "NaN", "24.2"]
-
-
-```
 

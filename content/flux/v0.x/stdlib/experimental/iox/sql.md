@@ -1,15 +1,15 @@
 ---
-title: array.toString() function
+title: iox.sql() function
 description: >
-  `array.toString()` converts all values in an array to strings.
+  `iox.sql()` executes an SQL query against a bucket in an IOx storage node.
 menu:
   flux_0_x_ref:
-    name: array.toString
-    parent: experimental/array
-    identifier: experimental/array/toString
+    name: iox.sql
+    parent: experimental/iox
+    identifier: experimental/iox/sql
 weight: 201
-flux/v0.x/tags: [type-conversions]
-introduced: 0.184.0
+flux/v0.x/tags: [inputs]
+introduced: 0.186.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,52 +21,36 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L311-L311
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/iox/iox.flux#L33-L33
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`array.toString()` converts all values in an array to strings.
+`iox.sql()` executes an SQL query against a bucket in an IOx storage node.
 
-#### Supported array types
-
-- `[bool]`
-- `[duration]`
-- `[float]`
-- `[int]`
-- `[time]`
-- `[uint]`
+This function creates a source that reads data from IOx.
 
 ##### Function type signature
 
 ```js
-(<-arr: [A]) => [string]
+(bucket: string, query: string) => stream[A] where A: Record
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### arr
-
-Array of values to convert. Default is the piped-forward array (`<-`).
-
-
+### bucket
+({{< req >}})
+IOx bucket to read data from.
 
 
-## Examples
 
-### Convert an array of floats to strings
-
-```js
-import "experimental/array"
-
-arr = [12.0, 1.2300, NaN, 24.2]
-
-array.toString(arr: arr)// Returns ["12.0", "1.2300", "NaN", "24.2"]
+### query
+({{< req >}})
+Query to execute.
 
 
-```
 

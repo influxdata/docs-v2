@@ -23,6 +23,7 @@ To manually upgrade from InfluxDB 1.x to InfluxDB {{< current-version >}}:
 4. [Create authorizations](#create-authorizations)
 5. [Migrate time series data](#migrate-time-series-data)
 6. [Migrate continuous queries](#migrate-continuous-queries)
+7. [Query data with InfluxQL](#query-data-with-influxql) 
 
 ## Install InfluxDB {{< current-version >}}
 [Download, install, and set up InfluxDB {{< current-version >}}](/influxdb/v2.4/get-started/).
@@ -75,7 +76,7 @@ If you're using custom configuration settings in your InfluxDB 1.x instance, do 
 |                                    |                                                                                                                                   |
 | **[http]**                         |                                                                                                                                   |
 | flux-enabled                       |                                                                                                                                   |
-| flux-log-enabled                   |                                                                                                                                   |
+| flux-log-enabled                   | [flux-log-enabled](/influxdb/v2.4/reference/config-options/#flux-log-enabled)                                                     |
 | bind-address                       | [http-bind-address](/influxdb/v2.4/reference/config-options/#http-bind-address)                                                   |
 | auth-enabled                       |                                                                                                                                   |
 | realm                              |                                                                                                                                   |
@@ -337,3 +338,9 @@ To migrate time series data from your InfluxDB 1.x instance to InfluxDB {{< curr
 ## Migrate continuous queries
 For information about migrating InfluxDB 1.x continuous queries to InfluxDB {{< current-version >}} tasks,
 see [Migrate continuous queries to tasks](/influxdb/v2.4/upgrade/v1-to-v2/migrate-cqs/).
+
+## Query data with InfluxQL
+
+InfluxDB {{< current-version >}} supports querying data with both Flux and InfluxQL. 
+For more information about querying InfluxDB {{< current-version >}} with InfluxQL,
+see [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/).
