@@ -9,7 +9,30 @@ menu:
 weight: 205
 ---
 
-Transformations take a stream of tables as input, transform the data in some way, and output a stream of tables. Transformations cover a broad range of functions, but the following categorizations highlight important behaviors associated with specific transformation functions.
+Transformation functions take a stream of tables as input, transform the data, and output a stream of tables. 
+
+Each transformation function below covers **syntax**, including parameters to pass to the function, and **examples** of how to use the function. Examples use [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data).
+
+- [ABS()](#abs)
+- [ACOS()](#acos)
+- [ASIN()](#asin)
+- [ATAN()](#atan)
+- [ATAN2()](#atan2)
+- [CEIL()](#ceil)
+- [COS()](#cos)
+- [CUMULATIVE_SUM()](#cumulative-sum)
+- [DERIVATIVE()](#derivative)
+- [DIFFERENCE()](#difference)
+- [ELAPSED()](#elapsed)
+- [EXP()](#exp)
+- [FLOOR()](#floor)
+- [HISTOGRAM()](#histogram)
+- [LN()](#ln)
+- [LOG()](#log)
+- [LOG2()](#log2)
+- [LOG10()](#log10)
+- [MOVING_AVERAGE()](#moving-average)
+- [NON_NEGATIVE_DERIVATIVE()](#non-negative-derivative)
 
 ## Transformations
 
@@ -73,7 +96,7 @@ time                 abs
 1529841900000000000  0.891164752631417
 ```
 
-The query returns the absolute values of field values in the `a` field key in the `data` measurement.
+Returns the absolute values of field values in the `a` field key in the `data` measurement.
 
 {{% /expand %}}
 
@@ -93,7 +116,7 @@ time                 abs_a              abs_b
 1529841900000000000  0.891164752631417  0.741147445214238
 ```
 
-The query returns the absolute values of field values for each field key that stores
+Returns the absolute values of field values for each field key that stores
 numerical values in the `data` measurement.
 The `data` measurement has two numerical fields: `a` and `b`.
 
@@ -112,7 +135,7 @@ time                 abs
 1529841900000000000  0.891164752631417
 ```
 
-The query returns the absolute values of field values for each field key that stores numerical values and includes `a` in the `data` measurement. -->
+Returns the absolute values of field values for each field key that stores numerical values and includes `a` in the `data` measurement. -->
 
 {{% /expand %}}
 
@@ -130,7 +153,7 @@ time                 abs
 1529841600000000000  1.33909108671076
 ```
 
-The query returns the absolute values of field values associated with the `a` field key.
+Returns the absolute values of field values associated with the `a` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2018-06-24T12:00:00Z` and `2018-06-24T12:05:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -179,7 +202,7 @@ time                 abs
 1529845200000000000  0.790836070736962
 ```
 
-The query returns the absolute values of [average](#mean) `a`s that are calculated at 12-minute intervals.
+Returns the absolute values of [average](#mean) `a`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `a`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ABS()`:
@@ -270,7 +293,7 @@ time                  acos
 2017-05-09T00:00:00Z  1.410105673842986
 ```
 
-The query returns arccosine of field values in the `of_capacity` field key in the `park_occupancy` measurement.
+Returns arccosine of field values in the `of_capacity` field key in the `park_occupancy` measurement.
 
 {{% /expand %}}
 
@@ -293,7 +316,7 @@ time                  acos_of_capacity
 2017-05-09T00:00:00Z  1.410105673842986
 ```
 
-The query returns arccosine of field values for each field key that stores numerical values in the `park_occupancy` measurement.
+Returns arccosine of field values for each field key that stores numerical values in the `park_occupancy` measurement.
 The `park_occupancy` measurement has one numerical field: `of_capacity`.
 
 <!-- ##### Calculate the arccosine of field values associated with each field key that matches a regular expression
@@ -314,7 +337,7 @@ time                  acos_of_capacity
 2017-05-09T00:00:00Z  1.410105673842986
 ```
 
-The query returns arccosine of field values for each field key that stores numerical values and includes the word `capacity` in the `park_occupancy` measurement. -->
+Returns arccosine of field values for each field key that stores numerical values and includes the word `capacity` in the `park_occupancy` measurement. -->
 
 {{% /expand %}}
 
@@ -332,7 +355,7 @@ time                  acos
 2017-05-04T00:00:00Z  1.3489818562981022
 ```
 
-The query returns arccosine of field values associated with the `of_capacity` field key.
+Returns arccosine of field values associated with the `of_capacity` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2017-05-01T00:00:00Z` and `2017-05-09T00:00:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -379,7 +402,7 @@ time                  acos
 2017-05-09T00:00:00Z  1.410105673842986
 ```
 
-The query returns arccosine of [average](#mean) `of_capacity`s that are calculated at 3-day intervals.
+Returns arccosine of [average](#mean) `of_capacity`s that are calculated at 3-day intervals.
 
 To get those results, InfluxDB first calculates the average `of_capacity`s at 3-day intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ACOS()`:
@@ -468,7 +491,7 @@ time                  asin
 2017-05-09T00:00:00Z  0.1606906529519106
 ```
 
-The query returns arcsine of field values in the `of_capacity` field key in the `park_capacity` measurement.
+Returns arcsine of field values in the `of_capacity` field key in the `park_capacity` measurement.
 
 {{% /expand %}}
 
@@ -491,7 +514,7 @@ time                  asin_of_capacity
 2017-05-09T00:00:00Z  0.1606906529519106
 ```
 
-The query returns arcsine of field values for each field key that stores numerical values in the `park_capacity` measurement.
+Returns arcsine of field values for each field key that stores numerical values in the `park_capacity` measurement.
 The `h2o_feet` measurement has one numerical field: `of_capacity`.
 
 <!-- ##### Calculate the arcsine of field values associated with each field key that matches a regular expression
@@ -512,7 +535,7 @@ time                  asin
 2017-05-09T00:00:00Z  0.1606906529519106
 ```
 
-The query returns arcsine of field values for each field key that stores numerical values and includes the word `of_capacity` in the `park_occupancy` measurement. -->
+Returns arcsine of field values for each field key that stores numerical values and includes the word `of_capacity` in the `park_occupancy` measurement. -->
 
 {{% /expand %}}
 
@@ -530,7 +553,7 @@ time                  asin
 2017-05-04T00:00:00Z  0.22181447049679442
 ```
 
-The query returns arcsine of field values associated with the `of_capacity` field key.
+Returns arcsine of field values associated with the `of_capacity` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2017-05-01T00:00:00Z` and `2017-05-09T00:00:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -577,7 +600,7 @@ time                  asin
 2017-05-09T00:00:00Z  0.1606906529519106
 ```
 
-The query returns arcsine of [average](#mean) `of_capacity`s that are calculated at 3-day intervals.
+Returns arcsine of [average](#mean) `of_capacity`s that are calculated at 3-day intervals.
 
 To get those results, InfluxDB first calculates the average `of_capacity`s at 3-day intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ASIN()`:
@@ -667,7 +690,7 @@ time                  atan
 2017-05-09T00:00:00Z  0.1586552621864014
 ```
 
-The query returns arctangent of field values in the `of_capacity` field key in the `park_occupancy` measurement.
+Returns arctangent of field values in the `of_capacity` field key in the `park_occupancy` measurement.
 
 {{% /expand %}}
 
@@ -690,7 +713,7 @@ time                  atan_of_capacity
 2017-05-09T00:00:00Z  0.1586552621864014
 ```
 
-The query returns arctangent of field values for each field key that stores numerical values in the `park_occupancy` measurement.
+Returns arctangent of field values for each field key that stores numerical values in the `park_occupancy` measurement.
 The `park_occupancy` measurement has one numerical field: `of_capacity`.
 
 <!-- ##### Calculate the arctangent of field values associated with each field key that matches a regular expression
@@ -711,7 +734,7 @@ time                  atan_of_capacity
 2017-05-09T00:00:00Z  0.1586552621864014
 ```
 
-The query returns arctangent of field values for each field key that stores numerical values and includes the word `capacity` in the `park_occupancy` measurement. -->
+Returns arctangent of field values for each field key that stores numerical values and includes the word `capacity` in the `park_occupancy` measurement. -->
 
 {{% /expand %}}
 
@@ -729,7 +752,7 @@ time                  atan
 2017-05-04T00:00:00Z  0.2165503049760893
 ```
 
-The query returns arctangent of field values associated with the `of_capacity` field key.
+Returns arctangent of field values associated with the `of_capacity` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2017-05-01T00:00:00Z` and `2017-05-09T00:00:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -776,7 +799,7 @@ time                 atan
 2017-05-09T00:00:00Z 0.1586552621864014
 ```
 
-The query returns arctangent of [average](#mean) `of_capacity`s that are calculated at 3-day intervals.
+Returns arctangent of [average](#mean) `of_capacity`s that are calculated at 3-day intervals.
 
 To get those results, InfluxDB first calculates the average `of_capacity`s at 3-day intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ATAN()`:
@@ -869,7 +892,7 @@ time                  atan2
 2018-05-16T12:10:00Z  0.1937028631495223
 ```
 
-The query returns the arctangents of field values in the `altitude_ft` field key divided by values in the `distance_ft` field key. Both are part of the `flight_data` measurement.
+Returns the arctangents of field values in the `altitude_ft` field key divided by values in the `distance_ft` field key. Both are part of the `flight_data` measurement.
 
 {{% /expand %}}
 
@@ -893,7 +916,7 @@ time                  atan2_altitude_ft     atan2_distance_ft
 2018-05-16T12:10:00Z  0.19370286314952234   0.7853981633974483
 ```
 
-The query returns the arctangents of all numeric field values in the `flight_data` measurement divided by values in the `distance_ft` field key.
+Returns the arctangents of all numeric field values in the `flight_data` measurement divided by values in the `distance_ft` field key.
 The `flight_data` measurement has two numeric fields: `altitude_ft` and `distance_ft`.
 
 <!-- ##### Calculate the arctangent of values associated with each field key matching a regular expression divided by field_key_x
@@ -915,7 +938,7 @@ time                  atan2_altitude_ft     atan2_distance_ft
 2018-05-16T12:10:00Z  0.19370286314952234   0.7853981633974483
 ```
 
-The query returns the arctangents of all numeric field values in the `flight_data` measurement that match the `/ft/` regular expression divided by values in the `distance_ft` field key.
+Returns the arctangents of all numeric field values in the `flight_data` measurement that match the `/ft/` regular expression divided by values in the `distance_ft` field key.
 The `flight_data` measurement has two matching numeric fields: `altitude_ft` and `distance_ft`.
 -->
 
@@ -935,7 +958,7 @@ time                  atan2
 2018-05-16T12:05:00Z  0.11490822875441563
 ```
 
-The query returns the arctangent of field values associated with the `altitude_ft` field key divided by the `distance_ft` field key.
+Returns the arctangent of field values associated with the `altitude_ft` field key divided by the `distance_ft` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2018-05-16T12:10:00Z` and `2018-05-16T12:10:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -984,7 +1007,7 @@ time                  atan2
 2018-05-16T13:00:00Z  0.17291511946158172
 ```
 
-The query returns the argtangents of [average](#mean) `altitude_ft`s divided by average `distance_ft`s. Averages are calculated at 12-minute intervals.
+Returns the argtangents of [average](#mean) `altitude_ft`s divided by average `distance_ft`s. Averages are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `altitude_ft`s and `distance_ft` at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ATAN2()`:
@@ -1070,7 +1093,7 @@ time                  ceil
 2015-08-18T00:30:00Z  3
 ```
 
-The query returns field values in the `water_level` field key in the `h2o_feet` measurement rounded up to the nearest integer.
+Returns field values in the `water_level` field key in the `h2o_feet` measurement rounded up to the nearest integer.
 
 {{% /expand %}}
 
@@ -1090,7 +1113,7 @@ time                  ceil_water_level
 2015-08-18T00:30:00Z  3
 ```
 
-The query returns field values for each field key that stores numerical values in the `h2o_feet` measurement rounded up to the nearest integer.
+Returns field values for each field key that stores numerical values in the `h2o_feet` measurement rounded up to the nearest integer.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate the ceiling of the field values associated with each field key that matches a regular expression
@@ -1108,7 +1131,7 @@ time                   ceil_water_level
 2015-08-18T00:30:00Z   3
 ```
 
-The query returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement rounded up to the nearest integer. -->
+Returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement rounded up to the nearest integer. -->
 
 {{% /expand %}}
 
@@ -1126,7 +1149,7 @@ time                  ceil
 2015-08-18T00:00:00Z  3
 ```
 
-The query returns field values associated with the `water_level` field key rounded up to the nearest integer.
+Returns field values associated with the `water_level` field key rounded up to the nearest integer.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -1174,7 +1197,7 @@ time                  ceil
 2015-08-18T00:24:00Z  3
 ```
 
-The query returns the [average](#mean) `water_level`s that are calculated at 12-minute intervals and rounds them up to the nearest integer.
+Returns the [average](#mean) `water_level`s that are calculated at 12-minute intervals and rounds them up to the nearest integer.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `CEIL()`:
@@ -1256,7 +1279,7 @@ time                  cos
 2015-08-18T00:30:00Z  -0.4619598230611262
 ```
 
-The query returns cosine of field values in the `water_level` field key in the `h2o_feet` measurement.
+Returns cosine of field values in the `water_level` field key in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -1276,7 +1299,7 @@ time                  cos_water_level
 2015-08-18T00:30:00Z  -0.4619598230611262
 ```
 
-The query returns cosine of field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns cosine of field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate the cosine of field values associated with each field key that matches a regular expression
@@ -1294,7 +1317,7 @@ time                  cos
 2015-08-18T00:30:00Z  -0.4619598230611262
 ```
 
-The query returns cosine of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
+Returns cosine of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
 {{% /expand %}}
 
@@ -1312,7 +1335,7 @@ time                  cos
 2015-08-18T00:00:00Z  -0.47345017433543124
 ```
 
-The query returns cosine of field values associated with the `water_level` field key.
+Returns cosine of field values associated with the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -1358,7 +1381,7 @@ time                  cos
 2015-08-18T00:24:00Z  -0.4575195627907578
 ```
 
-The query returns cosine of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
+Returns cosine of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `COS()`:
@@ -1440,7 +1463,7 @@ time                   cumulative_sum
 2015-08-18T00:30:00Z   12.426
 ```
 
-The query returns the running total of the field values in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the running total of the field values in the `water_level` field key and in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -1460,7 +1483,7 @@ time                   cumulative_sum_water_level
 2015-08-18T00:30:00Z   12.426
 ```
 
-The query returns the running total of the field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the running total of the field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 {{% /expand %}}
@@ -1481,7 +1504,7 @@ time                   cumulative_sum_water_level
 2015-08-18T00:30:00Z   12.426
 ```
 
-The query returns the running total of the field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the running total of the field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -1499,7 +1522,7 @@ time                  cumulative_sum
 2015-08-18T00:00:00Z  12.426
 ```
 
-The query returns the running total of the field values associated with the `water_level` field key.
+Returns the running total of the field values associated with the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -1545,7 +1568,7 @@ time                   cumulative_sum
 2015-08-18T00:24:00Z   6.213
 ```
 
-The query returns the running total of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
+Returns the running total of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `CUMULATIVE_SUM()`:
@@ -1632,7 +1655,7 @@ time                   derivative
 2015-08-18T00:30:00Z   2.777777777777842e-05
 ```
 
-The query returns the one-second rate of change between the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
+Returns the one-second rate of change between the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
 
 The first result (`0.00014444444444444457`) is the one-second rate of change between the first two subsequent field values in the raw data.
 InfluxDB calculates the difference between the field values and normalizes that value to the one-second rate of change:
@@ -1662,7 +1685,7 @@ time			derivative
 2015-08-18T00:30:00Z	0.010000000000000231
 ```
 
-The query returns the six-minute rate of change between the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
+Returns the six-minute rate of change between the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
 
 The first result (`0.052000000000000046`) is the six-minute rate of change between the first two subsequent field values in the raw data.
 InfluxDB calculates the difference between the field values and normalizes that value to the six-minute rate of change:
@@ -1693,7 +1716,7 @@ time                   derivative_water_level
 2015-08-18T00:30:00Z   0.0050000000000001155
 ```
 
-The query returns the three-minute rate of change between the field values associated with each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the three-minute rate of change between the field values associated with each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 The first result (`0.026000000000000023`) is the three-minute rate of change between the first two subsequent field values in the raw data.
@@ -1724,7 +1747,7 @@ time                   derivative_water_level
 2015-08-18T00:30:00Z   0.0033333333333334103
 ```
 
-The query returns the two-minute rate of change between the field values associated with each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the two-minute rate of change between the field values associated with each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 The first result (`0.01733333333333335`) is the two-minute rate of change between the first two subsequent field values in the raw data.
 InfluxDB calculates the difference between the field values and normalizes that value to the two-minute rate of change:
@@ -1750,7 +1773,7 @@ time                   derivative
 2015-08-18T00:12:00Z   -0.0002722222222222218
 ```
 
-The query returns the one-second rate of change between the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
+Returns the one-second rate of change between the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to one and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -1809,7 +1832,7 @@ time                   derivative
 2015-08-18T00:24:00Z   -0.030999999999999694
 ```
 
-The query returns the 12-minute rate of change between [average](#mean) `water_level`s that are calculated at 12-minute intervals.
+Returns the 12-minute rate of change between [average](#mean) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `DERIVATIVE()`:
@@ -1851,7 +1874,7 @@ time                   derivative
 2015-08-18T00:24:00Z   -0.015499999999999847
 ```
 
-The query returns the six-minute rate of change between average `water_level`s that are calculated at 12-minute intervals.
+Returns the six-minute rate of change between average `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `DERIVATIVE()`:
@@ -1942,7 +1965,7 @@ time                   difference
 2015-08-18T00:30:00Z   0.010000000000000231
 ```
 
-The query returns the difference between the subsequent field values in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the difference between the subsequent field values in the `water_level` field key and in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -1961,7 +1984,7 @@ time                   difference_water_level
 2015-08-18T00:30:00Z   0.010000000000000231
 ```
 
-The query returns the difference between the subsequent field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the difference between the subsequent field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 {{% /expand %}}
@@ -1981,7 +2004,7 @@ time                   difference_water_level
 2015-08-18T00:30:00Z   0.010000000000000231
 ```
 
-The query returns the difference between the subsequent field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the difference between the subsequent field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -1997,7 +2020,7 @@ time                   difference
 2015-08-18T00:06:00Z   0.08800000000000008
 ```
 
-The query returns the difference between the subsequent field values in the `water_level` field key.
+Returns the difference between the subsequent field values in the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 They query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to two and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -2042,7 +2065,7 @@ time                   difference
 2015-08-18T00:24:00Z   -0.07499999999999973
 ```
 
-The query returns the difference between [maximum](#max) `water_level`s that are calculated at 12-minute intervals.
+Returns the difference between [maximum](#max) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the maximum `water_level`s at 12-minute intervals.
 This step is the same as using the `MAX()` function with the `GROUP BY time()` clause and without `DIFFERENCE()`:
@@ -2119,7 +2142,7 @@ time                   elapsed
 2015-08-18T00:12:00Z   360000000000
 ```
 
-The query returns the difference (in nanoseconds) between subsequent timestamps in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the difference (in nanoseconds) between subsequent timestamps in the `water_level` field key and in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -2135,7 +2158,7 @@ time                   elapsed
 2015-08-18T00:12:00Z   6
 ```
 
-The query returns the difference (in minutes) between subsequent timestamps in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the difference (in minutes) between subsequent timestamps in the `water_level` field key and in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -2151,7 +2174,7 @@ time                   elapsed_level description   elapsed_water_level
 2015-08-18T00:12:00Z   6                           6
 ```
 
-The query returns the difference (in minutes) between subsequent timestamps associated with each field key in the `h2o_feet`
+Returns the difference (in minutes) between subsequent timestamps associated with each field key in the `h2o_feet`
 measurement.
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
@@ -2169,7 +2192,7 @@ time                   elapsed_level description   elapsed_water_level
 2015-08-18T00:12:00Z   360                         360
 ```
 
-The query returns the difference (in seconds) between subsequent timestamps associated with each field key that includes the word `level` in the `h2o_feet` measurement.
+Returns the difference (in seconds) between subsequent timestamps associated with each field key that includes the word `level` in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -2184,7 +2207,7 @@ time                   elapsed
 2015-08-18T00:00:00Z   -360000
 ```
 
-The query returns the difference (in milliseconds) between subsequent timestamps in the `water_level` field key and in the `h2o_feet` measurement.
+Returns the difference (in milliseconds) between subsequent timestamps in the `water_level` field key and in the `h2o_feet` measurement.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:12:00Z` and sorts timestamps in [descending order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to one and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by one point.
 
@@ -2227,7 +2250,7 @@ Because the `GROUP BY time()` clause overrides the original timestamps, the `ELA
 ### Example
 
 In the codeblock below, the first query attempts to use the `ELAPSED()` function with a `GROUP BY time()` clause to find the time elapsed (in minutes) between [minimum](#min) `water_level`s.
-The query returns 12 minutes for both time intervals.
+Returns 12 minutes for both time intervals.
 
 To get those results, InfluxDB first calculates the minimum `water_level`s at 12-minute intervals.
 The second query in the codeblock shows the results of that step.
@@ -2314,7 +2337,7 @@ time                  exp
 2015-08-18T00:30:00Z  7.775672892658607
 ```
 
-The query returns the exponential of field values in the `water_level` field key in the `h2o_feet` measurement.
+Returns the exponential of field values in the `water_level` field key in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -2334,7 +2357,7 @@ time                  exp_water_level
 2015-08-18T00:30:00Z  7.775672892658607
 ```
 
-The query returns the exponential of field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the exponential of field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate the exponential of field values associated with each field key that matches a regular expression
@@ -2353,7 +2376,7 @@ time                  exp_water_level
 ```
 ```
 
-The query returns the exponential of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
+Returns the exponential of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
 -->
 
 {{% /expand %}}
@@ -2372,7 +2395,7 @@ time                  exp
 2015-08-18T00:00:00Z  7.877416541092307
 ```
 
-The query returns the exponentials of field values associated with the `water_level` field key.
+Returns the exponentials of field values associated with the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -2418,7 +2441,7 @@ time                  exp
 2015-08-18T00:24:00Z  7.736891562315577
 ```
 
-The query returns the exponential of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
+Returns the exponential of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `EXP()`:
@@ -2500,7 +2523,7 @@ time                  floor
 2015-08-18T00:30:00Z  2
 ```
 
-The query returns field values in the `water_level` field key in the `h2o_feet` measurement rounded down to the nearest integer.
+Returns field values in the `water_level` field key in the `h2o_feet` measurement rounded down to the nearest integer.
 
 {{% /expand %}}
 
@@ -2520,7 +2543,7 @@ time                  floor_water_level
 2015-08-18T00:30:00Z  2
 ```
 
-The query returns field values for each field key that stores numerical values in the `h2o_feet` measurement rounded down to the nearest integer.
+Returns field values for each field key that stores numerical values in the `h2o_feet` measurement rounded down to the nearest integer.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate the floor of the field values associated with each field key that matches a regular expression
@@ -2538,7 +2561,7 @@ time                   floor_water_level
 2015-08-18T00:30:00Z   2
 ```
 
-The query returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement rounded down to the nearest integer. -->
+Returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement rounded down to the nearest integer. -->
 
 {{% /expand %}}
 
@@ -2556,7 +2579,7 @@ time                  floor
 2015-08-18T00:00:00Z  2
 ```
 
-The query returns field values associated with the `water_level` field key rounded down to the nearest integer.
+Returns field values associated with the `water_level` field key rounded down to the nearest integer.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -2602,7 +2625,7 @@ time                  floor
 2015-08-18T00:24:00Z  2
 ```
 
-The query returns the [average](#mean) `water_level`s that are calculated at 12-minute intervals and rounds them up to the nearest integer.
+Returns the [average](#mean) `water_level`s that are calculated at 12-minute intervals and rounds them up to the nearest integer.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `FLOOR()`:
@@ -2690,7 +2713,7 @@ time                  ln
 2015-08-18T00:30:00Z  0.7183274790902436
 ```
 
-The query returns the natural logarithm of field values in the `water_level` field key in the `h2o_feet` measurement.
+Returns the natural logarithm of field values in the `water_level` field key in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -2710,7 +2733,7 @@ time                  ln_water_level
 2015-08-18T00:30:00Z  0.7183274790902436
 ```
 
-The query returns the natural logarithm of field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the natural logarithm of field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate the natural logarithm of field values associated with each field key that matches a regular expression
@@ -2729,7 +2752,7 @@ time                  ln_water_level
 ```
 ```
 
-The query returns the natural logarithm of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
+Returns the natural logarithm of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
 {{% /expand %}}
 
@@ -2747,7 +2770,7 @@ time                  ln
 2015-08-18T00:00:00Z  0.7246458476193163
 ```
 
-The query returns the natural logarithms of field values associated with the `water_level` field key.
+Returns the natural logarithms of field values associated with the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -2793,7 +2816,7 @@ time                  ln
 2015-08-18T00:24:00Z  0.7158866675294349
 ```
 
-The query returns the natural logarithm of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
+Returns the natural logarithm of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `LN()`:
@@ -2875,7 +2898,7 @@ time                  log
 2015-08-18T00:30:00Z  0.5181637459088826
 ```
 
-The query returns the logarithm base 4 of field values in the `water_level` field key in the `h2o_feet` measurement.
+Returns the logarithm base 4 of field values in the `water_level` field key in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -2895,7 +2918,7 @@ time                  log_water_level
 2015-08-18T00:30:00Z  0.5181637459088826
 ```
 
-The query returns the logarithm base 4 of field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the logarithm base 4 of field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate the logarithm base 4 of field values associated with each field key that matches a regular expression
@@ -2914,7 +2937,7 @@ time                  log
 ```
 ```
 
-The query returns the logarithm base 4 of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
+Returns the logarithm base 4 of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
 {{% /expand %}}
 
@@ -2932,7 +2955,7 @@ time                  log
 2015-08-18T00:00:00Z  0.5227214853805835
 ```
 
-The query returns the logarithm base 4 of field values associated with the `water_level` field key.
+Returns the logarithm base 4 of field values associated with the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -2978,7 +3001,7 @@ time                  log
 2015-08-18T00:24:00Z  0.5164030725416209
 ```
 
-The query returns the logarithm base 4 of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
+Returns the logarithm base 4 of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `LOG()`:
@@ -3060,7 +3083,7 @@ time                  log2
 2015-08-18T00:30:00Z  1.0363274918177652
 ```
 
-The query returns the logarithm base 2 of field values in the `water_level` field key in the `h2o_feet` measurement.
+Returns the logarithm base 2 of field values in the `water_level` field key in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -3080,7 +3103,7 @@ time                  log2_water_level
 2015-08-18T00:30:00Z  1.0363274918177652
 ```
 
-The query returns the logarithm base 2 of field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the logarithm base 2 of field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate the logarithm base 2 of field values associated with each field key that matches a regular expression
@@ -3099,7 +3122,7 @@ time                  log2
 ```
 ```
 
-The query returns the logarithm base 2 of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
+Returns the logarithm base 2 of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
 {{% /expand %}}
 
@@ -3117,7 +3140,7 @@ time                  log2
 2015-08-18T00:00:00Z  1.045442970761167
 ```
 
-The query returns the logarithm base 2 of field values associated with the `water_level` field key.
+Returns the logarithm base 2 of field values associated with the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -3163,7 +3186,7 @@ time                  log2
 2015-08-18T00:24:00Z  1.0328061450832418
 ```
 
-The query returns the logarithm base 2 of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
+Returns the logarithm base 2 of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `LOG2()`:
@@ -3245,7 +3268,7 @@ time                  log10
 2015-08-18T00:30:00Z  0.3119656603683663
 ```
 
-The query returns the logarithm base 10 of field values in the `water_level` field key in the `h2o_feet` measurement.
+Returns the logarithm base 10 of field values in the `water_level` field key in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -3265,7 +3288,7 @@ time                  log10_water_level
 2015-08-18T00:30:00Z  0.3119656603683663
 ```
 
-The query returns the logarithm base 10 of field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the logarithm base 10 of field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate the logarithm base 10 of field values associated with each field key that matches a regular expression
@@ -3284,7 +3307,7 @@ time                  log10
 ```
 ```
 
-The query returns the logarithm base 10 of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
+Returns the logarithm base 10 of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
 {{% /expand %}}
 
@@ -3302,7 +3325,7 @@ time                  log10
 2015-08-18T00:00:00Z  0.3147096929551737
 ```
 
-The query returns the logarithm base 10 of field values associated with the `water_level` field key.
+Returns the logarithm base 10 of field values associated with the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -3348,7 +3371,7 @@ time                  log10
 2015-08-18T00:24:00Z  0.3109056293761414
 ```
 
-The query returns the logarithm base 10 of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
+Returns the logarithm base 10 of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `LOG10()`:
@@ -3432,7 +3455,7 @@ time                   moving_average
 2015-08-18T00:30:00Z   2.0460000000000003
 ```
 
-The query returns the rolling average across a two-field-value window for the `water_level` field key and the `h2o_feet` measurement.
+Returns the rolling average across a two-field-value window for the `water_level` field key and the `h2o_feet` measurement.
 The first result (`2.09`) is the average of the first two points in the raw data: (`2.064 + 2.116) / 2`).
 The second result (`2.072`) is the average of the second two points in the raw data: (`2.116 + 2.028) / 2`).
 
@@ -3452,7 +3475,7 @@ time                   moving_average_water_level
 2015-08-18T00:30:00Z   2.0726666666666667
 ```
 
-The query returns the rolling average across a three-field-value window for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the rolling average across a three-field-value window for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 {{% /expand %}}
@@ -3470,7 +3493,7 @@ time                    moving_average_water_level
 2015-08-18T00:30:00Z    2.0615
 ```
 
-The query returns the rolling average across a four-field-value window for each field key that stores numerical values and includes the word `level` in the `h2o_feet` measurement.
+Returns the rolling average across a four-field-value window for each field key that stores numerical values and includes the word `level` in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -3486,7 +3509,7 @@ time                   moving_average
 2015-08-18T00:00:00Z   2.09
 ```
 
-The query returns the rolling average across a two-field-value window for the `water_level` field key in the `h2o_feet` measurement.
+Returns the rolling average across a two-field-value window for the `water_level` field key in the `h2o_feet` measurement.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to two and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by three points.
 
@@ -3531,7 +3554,7 @@ time                   moving_average
 2015-08-18T00:24:00Z   2.0885
 ```
 
-The query returns the rolling average across a two-value window of [maximum](#max) `water_level`s that are calculated at 12-minute intervals.
+Returns the rolling average across a two-value window of [maximum](#max) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the maximum `water_level`s at 12-minute intervals.
 This step is the same as using the `MAX()` function with the `GROUP BY time()` clause and without `MOVING_AVERAGE()`:
@@ -3736,7 +3759,7 @@ time                  pow
 2015-08-18T00:30:00Z  17.69549197320101
 ```
 
-The query returns field values in the `water_level` field key in the `h2o_feet` measurement multiplied to a power of 4.
+Returns field values in the `water_level` field key in the `h2o_feet` measurement multiplied to a power of 4.
 
 {{% /expand %}}
 
@@ -3756,7 +3779,7 @@ time                  pow_water_level
 2015-08-18T00:30:00Z  17.69549197320101
 ```
 
-The query returns field values for each field key that stores numerical values in the `h2o_feet` measurement multiplied to the power of 4.
+Returns field values for each field key that stores numerical values in the `h2o_feet` measurement multiplied to the power of 4.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate field values associated with each field key that matches a regular expression to the power of 4
@@ -3775,7 +3798,7 @@ time                  pow
 ```
 ```
 
-The query returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement multiplied to the power of 4. -->
+Returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement multiplied to the power of 4. -->
 
 {{% /expand %}}
 
@@ -3793,7 +3816,7 @@ time                  pow
 2015-08-18T00:00:00Z  18.148417929216
 ```
 
-The query returns field values associated with the `water_level` field key multiplied to the power of 4.
+Returns field values associated with the `water_level` field key multiplied to the power of 4.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -3839,7 +3862,7 @@ time                  pow
 2015-08-18T00:24:00Z  17.523567165456008
 ```
 
-The query returns [average](#mean) `water_level`s that are calculated at 12-minute intervals multiplied to the power of 4.
+Returns [average](#mean) `water_level`s that are calculated at 12-minute intervals multiplied to the power of 4.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `POW()`:
@@ -3921,7 +3944,7 @@ time                  round
 2015-08-18T00:30:00Z  2
 ```
 
-The query returns field values in the `water_level` field key in the `h2o_feet` measurement rounded to the nearest integer.
+Returns field values in the `water_level` field key in the `h2o_feet` measurement rounded to the nearest integer.
 
 {{% /expand %}}
 
@@ -3941,7 +3964,7 @@ time                  round_water_level
 2015-08-18T00:30:00Z  2
 ```
 
-The query returns field values for each field key that stores numerical values in the `h2o_feet` measurement rounded to the nearest integer.
+Returns field values for each field key that stores numerical values in the `h2o_feet` measurement rounded to the nearest integer.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Rounds field values associated with each field key that matches a regular expression
@@ -3959,7 +3982,7 @@ time                   round_water_level
 2015-08-18T00:30:00Z   4
 ```
 
-The query returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement rounded to the nearest integer. -->
+Returns field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement rounded to the nearest integer. -->
 
 {{% /expand %}}
 
@@ -3977,7 +4000,7 @@ time                  round
 2015-08-18T00:00:00Z  2
 ```
 
-The query returns field values associated with the `water_level` field key rounded to the nearest integer.
+Returns field values associated with the `water_level` field key rounded to the nearest integer.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -4023,7 +4046,7 @@ time                  round
 2015-08-18T00:24:00Z  2
 ```
 
-The query returns the [average](#mean) `water_level`s that are calculated at 12-minute intervals and rounds to the nearest integer.
+Returns the [average](#mean) `water_level`s that are calculated at 12-minute intervals and rounds to the nearest integer.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ROUND()`:
@@ -4105,7 +4128,7 @@ time                  sin
 2015-08-18T00:30:00Z  0.8869008523376968
 ```
 
-The query returns sine of field values in the `water_level` field key in the `h2o_feet` measurement.
+Returns sine of field values in the `water_level` field key in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -4125,7 +4148,7 @@ time                  sin_water_level
 2015-08-18T00:30:00Z  0.8869008523376968
 ```
 
-The query returns sine of field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns sine of field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate the sine of field values associated with each field key that matches a regular expression
@@ -4143,7 +4166,7 @@ time                  sin
 2015-08-18T00:30:00Z  0.8869008523376968
 ```
 
-The query returns sine of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
+Returns sine of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
 {{% /expand %}}
 
@@ -4161,7 +4184,7 @@ time                  sin
 2015-08-18T00:00:00Z  0.8808206017241819
 ```
 
-The query returns sine of field values associated with the `water_level` field key.
+Returns sine of field values associated with the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -4207,7 +4230,7 @@ time                  sin
 2015-08-18T00:24:00Z  0.8891995555912935
 ```
 
-The query returns the sine of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
+Returns the sine of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `SIN()`:
@@ -4289,7 +4312,7 @@ time                  sqrt
 2015-08-18T00:30:00Z  1.4321312788986909
 ```
 
-The query returns the square roots of field values in the `water_level` field key in the `h2o_feet` measurement.
+Returns the square roots of field values in the `water_level` field key in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -4309,7 +4332,7 @@ time                  sqrt_water_level
 2015-08-18T00:30:00Z  1.4321312788986909
 ```
 
-The query returns the square roots of field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns the square roots of field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate the square root of field values associated with each field key that matches a regular expression
@@ -4328,7 +4351,7 @@ time                  sqrt_water_level
 ```
 ```
 
-The query returns the square roots of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
+Returns the square roots of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
 {{% /expand %}}
 
@@ -4346,7 +4369,7 @@ time                  sqrt
 2015-08-18T00:00:00Z  1.4366627996854378
 ```
 
-The query returns the square roots of field values associated with the `water_level` field key.
+Returns the square roots of field values associated with the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -4392,7 +4415,7 @@ time                  sqrt
 2015-08-18T00:24:00Z  1.430384563675098
 ```
 
-The query returns the square roots of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
+Returns the square roots of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `SQRT()`:
@@ -4474,7 +4497,7 @@ time                  tan
 2015-08-18T00:30:00Z  -1.9198657720074992
 ```
 
-The query returns tangent of field values in the `water_level` field key in the `h2o_feet` measurement.
+Returns tangent of field values in the `water_level` field key in the `h2o_feet` measurement.
 
 {{% /expand %}}
 
@@ -4494,7 +4517,7 @@ time                  tan_water_level
 2015-08-18T00:30:00Z  -1.9198657720074992
 ```
 
-The query returns tangent of field values for each field key that stores numerical values in the `h2o_feet` measurement.
+Returns tangent of field values for each field key that stores numerical values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has one numerical field: `water_level`.
 
 <!-- ##### Calculate the tangent of field values associated with each field key that matches a regular expression
@@ -4512,7 +4535,7 @@ time                  tan
 2015-08-18T00:30:00Z  -1.9198657720074992
 ```
 
-The query returns tangent of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
+Returns tangent of field values for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement. -->
 
 {{% /expand %}}
 
@@ -4530,7 +4553,7 @@ time                  tan
 2015-08-18T00:00:00Z  -1.8604293534384375
 ```
 
-The query returns tangent of field values associated with the `water_level` field key.
+Returns tangent of field values associated with the `water_level` field key.
 It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z` and returns results in [descending timestamp order](/influxdb/v2.4/query-data/influxql/explore-data/order-by/).
 The query also [limits](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) the number of points returned to four and [offsets](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/) results by two points.
 
@@ -4576,7 +4599,7 @@ time                  tan
 2015-08-18T00:24:00Z  -1.9435224805850773
 ```
 
-The query returns tangent of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
+Returns tangent of [average](#mean) `water_level`s that are calculated at 12-minute intervals.
 
 To get those results, InfluxDB first calculates the average `water_level`s at 12-minute intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `TAN()`:

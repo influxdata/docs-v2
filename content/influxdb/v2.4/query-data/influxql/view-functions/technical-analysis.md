@@ -9,7 +9,9 @@ menu:
 weight: 205
 ---
 
-Each analysis function below covers **syntax**, **parameters**, and **examples** of when to use the function.
+Use analysis functions to apply algorithms to your data--often used to analyze financial and investment data.
+
+Each analysis function below covers **syntax**, including parameters to pass to the function, and **examples** of how to use the function. Examples use [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data).
 
 - (Predictive analysis)[HOLT_WINTERS()](#holt_winters)
 - [CHANDE_MOMENTUM_OSCILLATOR()](#chande_momentum_oscillator)
