@@ -11,31 +11,31 @@ aliases:
   - /enterprise_influxdb/v1.10/administration/config-data-nodes/
 ---
 
-* [Data node configuration settings](#data-node-configuration-settings)
-  * [Global](#global-settings)
-  * [Enterprise license [enterprise]](#enterprise-license-settings)
-  * [Meta node `[meta]`](#meta-node-settings)
-  * [Data `[data]`](#data-settings)
-  * [Cluster `[cluster]` (includes InfluxQL query controls)](#cluster-settings)
-  * [Retention `[retention]`](#retention-policy-settings)
-  * [Hinted Handoff `[hinted-handoff]`](#hinted-handoff-settings)
-  * [Anti-Entropy `[anti-entropy]`](#anti-entropy-ae-settings)
-  * [Shard precreation `[shard-precreation]`](#shard-precreation-settings)
-  * [Monitor `[monitor]`](#monitor-settings)
-  * [HTTP endpoints `[http]`](#http-endpoint-settings)
-  * [Logging `[logging]`](#logging-settings)
-  * [Subscriber `[subscriber]`](#subscriber-settings)
-  * [Graphite `[graphite]`](#graphite-settings)
-  * [Collectd `[collectd]`](#collectd-settings)
-  * [OpenTSDB `[opentsdb]`](#opentsdb-settings)
-  * [UDP `[udp]`](#udp-settings)
-  * [Continuous queries `[continuous-queries]`](#continuous-queries-settings)
-  * [TLS `[tls]`](#tls-settings)
-  * [Flux Query controls `[flux-controller]`](#flux-controller)
+- [Data node configuration settings](#data-node-configuration-settings)
+  - [Global](#global-settings)
+  - [Enterprise license [enterprise]](#enterprise-license-settings)
+  - [Meta node `[meta]`](#meta-node-settings)
+  - [Data `[data]`](#data-settings)
+  - [Cluster `[cluster]` (includes InfluxQL query controls)](#cluster-settings)
+  - [Retention `[retention]`](#retention-policy-settings)
+  - [Hinted Handoff `[hinted-handoff]`](#hinted-handoff-settings)
+  - [Anti-Entropy `[anti-entropy]`](#anti-entropy-ae-settings)
+  - [Shard precreation `[shard-precreation]`](#shard-precreation-settings)
+  - [Monitor `[monitor]`](#monitor-settings)
+  - [HTTP endpoints `[http]`](#http-endpoint-settings)
+  - [Logging `[logging]`](#logging-settings)
+  - [Subscriber `[subscriber]`](#subscriber-settings)
+  - [Graphite `[graphite]`](#graphite-settings)
+  - [Collectd `[collectd]`](#collectd-settings)
+  - [OpenTSDB `[opentsdb]`](#opentsdb-settings)
+  - [UDP `[udp]`](#udp-settings)
+  - [Continuous queries `[continuous-queries]`](#continuous-queries-settings)
+  - [TLS `[tls]`](#tls-settings)
+  - [Flux Query controls `[flux-controller]`](#flux-controller)
 
 ## Data node configuration settings
 
-> **Note:**
+{{% note %}}
 The system has internal defaults for every configuration file setting.
 View the default settings with the `influxd config` command.
 The local configuration file (`/etc/influxdb/influxdb.conf`) overrides any
@@ -44,6 +44,7 @@ every configuration setting.
 Starting with version 1.0.1, most of the settings in the local configuration
 file are commented out.
 All commented-out settings will be determined by the internal defaults.
+{{% /note %}}
 
 -----
 
@@ -662,13 +663,13 @@ The maximum number of bytes to write to a shard in a single request.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_BATCH_SIZE`
 
-#### `max-pending-writes`
+#### `max-writes-pending`
 
 Default is `1024`.
 
 The maximum number of incoming pending writes allowed in the hinted handoff queue.
 
-Environment variable: `INFLUXDB_HINTED_HANDOFF_MAX_PENDING_WRITES`
+Environment variable: `INFLUXDB_HINTED_HANDOFF_MAX_WRITES_PENDING`
 
 #### `dir`
 
