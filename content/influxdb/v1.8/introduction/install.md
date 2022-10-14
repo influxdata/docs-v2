@@ -283,6 +283,16 @@ Make sure the directories in which data and the [write ahead log](/influxdb/v1.8
 **Note:** If the data and WAL directories are not writable, the `influxd` service will not start.
 {{% /note %}}
 
+The user running the `influxd` process should have the following permissions for
+directories in the [InfluxDB file system](/influxdb/v1.8//concepts/file-system-layout/):
+
+| Directory path   | Permission |
+| :--------------- | ---------: |
+| `influxdb/`      |        755 |
+| `influxdb/data/` |        755 |
+| `influxdb/meta/` |        755 |
+| `influxdb/wal/`  |        700 |
+
 Information about `data` and `wal` directory paths is available in the [Data settings](/influxdb/v1.8/administration/config/#data-settings) section of the [Configuring InfluxDB](/influxdb/v1.8/administration/config/) documentation.
 
 ## Hosting InfluxDB OSS on AWS
