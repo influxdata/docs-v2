@@ -414,10 +414,8 @@ If you use the New Microsoft graph API, see how to [configure Azure Active Direc
 
 ![image](https://user-images.githubusercontent.com/55806176/154274246-54ad08dd-2f8d-4f2c-95bc-a8c61dd798c5.png)
 
-4. After completing the application provisioning within Azure AD, you can now complete the configuration with Chronograf.
-   Using the metadata from your Azure AD instance, proceed to export the following environment variables:
-
-    Set the following environment variables in `/etc/default/chronograf`:
+4. To update the Chronograf configuration, use your Azure AD instance metadata
+to set the following environment variables in `/etc/default/chronograf`:
 
     ```
     GENERIC_TOKEN_URL=https://login.microsoftonline.com/<<TENANT-ID>>/oauth2/token
