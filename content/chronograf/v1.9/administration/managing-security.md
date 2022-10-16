@@ -412,7 +412,6 @@ If you use the New Microsoft graph API, see how to [configure Azure Active Direc
 
 3. Verify that your Azure AD application has API permissions configured to sign in and read the user profile (`User.Read`) for Microsoft Graph.
 
-![image](https://user-images.githubusercontent.com/55806176/154274246-54ad08dd-2f8d-4f2c-95bc-a8c61dd798c5.png)
 
 4. To update the Chronograf configuration, use your Azure AD instance metadata
 to set the following environment variables in `/etc/default/chronograf`:
