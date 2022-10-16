@@ -367,7 +367,7 @@ export HEROKU_ORGS=hill-valley-preservation-sociey,the-pinheads
 {{% warn %}}
 Please note that this section is for the old Azure active directory Graph API, deprecated in June, 2022. 
 {{% /warn %}}
-If you use the New Microsoft graph API, head to this [section](#configure-azure-active-directory-authentication-with-new-microsoft-graph-api)
+If you use the New Microsoft graph API, see how to [configure Azure Active Directory authentication with new Microsoft Graph API](#configure-azure-active-directory-authentication-with-new-microsoft-graph-api)
 
 1. [Create an Azure Active Directory application](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#create-an-azure-active-directory-application).
    Note the following information: `<APPLICATION-ID>`, `<TENANT-ID>`, and `<APPLICATION-KEY>`.
