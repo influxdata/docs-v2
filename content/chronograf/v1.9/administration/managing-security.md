@@ -431,7 +431,9 @@ to set the following environment variables in `/etc/default/chronograf`:
     PUBLIC_URL=http://localhost:8888
     ```
 
-    Note: If you’ve configured TLS/SSL, modify the `PUBLIC_URL` to ensure you're using HTTPS.
+{{% note %}}
+    **Note:** If you’ve configured TLS/SSL, modify the `PUBLIC_URL` to ensure you're using HTTPS.
+{{% /note %}}
 
 #### Configure Bitbucket authentication
 
