@@ -410,7 +410,7 @@ If you use the New Microsoft graph API, see how to [configure Azure Active Direc
    Otherwise, you will get an error stating no reply address is registered for the application.
    For example, if Chronograf is configured with a `GENERIC_NAME` value of AzureAD, the reply URL would be `http://localhost:8888/oauth/AzureAD/callback`.
 
-3. Your Azure AD application should have below permissions to read user profile.
+3. Verify that your Azure AD application has API permissions configured to sign in and read the user profile (`User.Read`) for Microsoft Graph.
 
 ![image](https://user-images.githubusercontent.com/55806176/154274246-54ad08dd-2f8d-4f2c-95bc-a8c61dd798c5.png)
 
