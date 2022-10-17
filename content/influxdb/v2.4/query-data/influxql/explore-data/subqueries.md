@@ -73,6 +73,7 @@ SELECT inner_value AS value FROM (
 ```sql
 > SELECT SUM("max") FROM (SELECT MAX("water_level") FROM "h2o_feet" GROUP BY "location")
 ```
+
 Output:
 {{% influxql/table-meta %}}
 Name: h2o_feet
@@ -200,6 +201,7 @@ Notice that the main query specifies `all_the_means` as the field key in the `SE
 ```sql
 > SELECT SUM("water_level_derivative") AS "sum_derivative" FROM (SELECT DERIVATIVE(MEAN("water_level")) AS "water_level_derivative" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location") GROUP BY "location"
 ```
+
 Output: 
 {{% influxql/table-meta %}}
 name: h2o_feet  
@@ -218,7 +220,6 @@ tags: location=santa_monica
 | time                        | sum_derivative |
 | :--------------------------- | ------------------: |
 | 1970-01-01T00:00:00Z  |  -0.2375000000 |
-
 
 The query returns the sum of the derivative of average `water_level` values for each tag value of `location`.
 
@@ -269,7 +270,7 @@ SELECT_clause FROM ( SELECT_clause FROM ( SELECT_statement ) [...] ) [...]
                          Subquery 1          Subquery 2
 ```
 
-InfluxQL does not support multiple [`SELECT` statements](#the-basic-select-statement) per subquery:
+InfluxQL does not support multiple [`SELECT` statements](/influxdb/v2.4/query-data/influxql/explore-data/select/) per subquery:
 
 ```sql
 SELECT_clause FROM (SELECT_statement; SELECT_statement) [...]

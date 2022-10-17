@@ -10,7 +10,7 @@ weight: 203
 ---
 
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
-The following sections cover useful query syntax for exploring your [schema](//influxdb/v2.4/reference/glossary/#schema).
+The following sections cover useful query syntax for exploring your [schema](/influxdb/v2.4/reference/glossary/#schema).
 
 InfluxDB 1.x data is stored in databases and retention policies. In InfluxDB 2.x versions, data is stored in **buckets**. Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
 
@@ -375,8 +375,7 @@ SHOW FIELD KEYS [ON <database_name>] [FROM <measurement_name>]
 
 `ON <database_name>` is optional.
 If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` in the [CLI](/influxdb/v2.4/reference/cli/influx/) or with the `db` query
-string parameter in the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
+database with `USE <database_name>` when using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) or with the `db` query string parameter in the [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
 
 The `FROM` clause is also optional.
 See the Data Exploration page for documentation on the
@@ -495,7 +494,7 @@ SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey" -->
 ```
 
-## Filter meta queries by time
+<!-- ## Filter meta queries by time
 
 When you filter meta queries by time, you may see results outside of your specified time. Meta query results are filtered at the shard level, so results can be approximately as granular as your shard group duration. If your time filter spans multiple shards, you'll get results from all shards with points in the specified time range. To review your shards and timestamps on points in the shard, run `SHOW SHARDS`. To learn more about shards and their duration, see [recommended shard groups durations](/enterprise_influxdb/v1.9/concepts/schema_and_data_layout/#shard-group-duration-recommendations).
 
@@ -574,7 +573,7 @@ The example below shows how to filter `SHOW TAG KEYS` by approximately one hour 
     > SHOW TAG KEYS ON mydb where > time > now() -3h and time < now()-2h
     name: test
     tagKey
-    ------
+    ------select statement
     test_key_3
     test_key_4
     test_key_5
@@ -594,4 +593,4 @@ The example below shows how to filter `SHOW TAG KEYS` by approximately one hour 
     ------
     test_key_4
     test_key_5
-    ```
+    ``` -->

@@ -97,9 +97,9 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z | 64.9980273540 |
 
-The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions/)
-to calculate the average `degrees` for every [measurement](/enterprise_influxdb/v1.9/concepts/glossary#measurement) in the `NOAA_water_database`
-[database](/enterprise_influxdb/v1.9/concepts/glossary#database) that contains the word `temperature`.
+The query uses an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/)
+to calculate the average `degrees` for every [measurement](/influxdb/v2.4/reference/glossary#measurement) in the `noaa`
+[database](/influxdb/v2.4/reference/glossary#database) that contains the word `temperature`.
 
 #### Use a regular expression to specify tag values in the WHERE clause
 
@@ -116,8 +116,8 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z | 4.4710766395|
 
-The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions/)
-to calculate the average `water_level` where the [tag value](/enterprise_influxdb/v1.9/concepts/glossary#tag-value) of `location`
+The query uses an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/)
+to calculate the average `water_level` where the [tag value](/influxdb/v2.4/reference/glossary#tag-value) of `location`
 includes an `m` and `water_level` is greater than three.
 
 #### Use a regular expression to specify a tag with no value in the WHERE clause
@@ -128,12 +128,12 @@ includes an `m` and `water_level` is greater than three.
 ```
 
 The query selects all data from the `h2o_feet` measurement where the `location`
-[tag](/enterprise_influxdb/v1.9/concepts/glossary#tag) has no value.
-Every data [point](/enterprise_influxdb/v1.9/concepts/glossary#point) in the `NOAA_water_database` has a tag value for `location`.
+[tag](/influxdb/v2.4/reference/glossary#tag) has no value.
+Every data [point](/influxdb/v2.4/reference/glossary#point) in the `noaa` has a tag value for `location`.
 
 It's possible to perform this same query without a regular expression.
 See the
-[Frequently Asked Questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-do-i-select-data-with-a-tag-that-has-no-value)
+[Frequently Asked Questions](/influxdb/v2.4/reference/faq/#how-do-i-query-data-by-a-tag-with-a-null-value)
 document for more information.
 
 #### Use a regular expression to specify a tag with a value in the WHERE clause
@@ -151,7 +151,7 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z |  4.4418434585|
 
-The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions/)
+The query uses an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/)
 to calculate the average `water_level` across all data that have a tag value for
 `location`.
 
@@ -170,7 +170,7 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z | 4.4713666916
 
-The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions/)
+The query uses an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/)
 to calculate the average `water_level` for all data where the field value of
 `level description` includes the word `between`.
 
@@ -200,6 +200,6 @@ tags: location=santa_monica
 | :------------------ |-------------------:|
 | 2019-08-17T00:00:00Z | 99.0000000000 |
 
-The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions/)
+The query uses an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/)
 to select the first value of `index` for every tag that includes the letter `l`
 in its tag key.

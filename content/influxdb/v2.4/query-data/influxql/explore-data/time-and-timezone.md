@@ -69,7 +69,7 @@ For most `SELECT` statements, the default time range is between [`1677-09-21 00:
 For `SELECT` statements with a [`GROUP BY time()` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/),
 the default time range is between `1677-09-21 00:12:43.145224194` UTC and [`now()`](/influxdb/v2.4/reference/glossary/#now).
 The following sections detail how to specify alternative time ranges in the `SELECT`
-statement's [`WHERE` clause](#the-where-clause).
+statement's [`WHERE` clause](/influxdb/v2.4/query-data/influxql/explore-data/where/).
 
 Other supported features include:  
 [Absolute time](#absolute-time)  

@@ -9,7 +9,9 @@ menu:
     parent: Explore data
 weight: 305
 list_code_example: |
-
+  ```sql
+  SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT <N>
+  ```
 ---
 
 Use `LIMIT` and `SLIMIT` to limit the number of [points](/influxdb/v2.4/reference/glossary/#point) and the number of [series](/influxdb/v2.4/reference/glossary/#series) returned per query.
@@ -79,7 +81,7 @@ tags: location=santa_monica
 | 2019-08-18T00:00:00Z | 2.3655000000                |
 | 2019-08-18T00:12:00Z | 2.3360000000                |
 
-The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions) and a `GROUP BY` clause to calculate the average `water_level` for each [tag](/influxdb/v2.4/reference/glossary/#tag) and for each twelve-minute interval in the query's time range. `LIMIT 2` requests the two oldest twelve-minute averages (determined by timestamp).
+The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) and a `GROUP BY` clause to calculate the average `water_level` for each [tag](/influxdb/v2.4/reference/glossary/#tag) and for each twelve-minute interval in the query's time range. `LIMIT 2` requests the two oldest twelve-minute averages (determined by timestamp).
 
 Note that without `LIMIT 2`, the query would return four points per series; one for each twelve-minute interval in the query's time range.
 
@@ -120,7 +122,7 @@ tags: location=coyote_creek
 | 2019-08-17T00:30:00Z | 7.5000000000|
 | 2019-08-17T00:36:00Z | 7.3720000000|
 
-The results above include only the first few rows, as the data set is quite large. The query returns all `water_level` [points](/enterprise_influxdb/v1.9/concepts/glossary/#point) from one of the [series](/enterprise_influxdb/v1.9/concepts/glossary/#series) associated with the `h2o_feet` [measurement](/enterprise_influxdb/v1.9/concepts/glossary/#measurement).
+The results above include only the first few rows, as the data set is large. The query returns all `water_level` [points](/influxdb/v2.4/reference/glossary/#point) from one of the [series](/influxdb/v2.4/reference/glossary/#series) associated with the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
 #### Limit the number of series returned and include a GROUP BY time() clause
 
@@ -141,8 +143,8 @@ tags: location=coyote_creek
 | 2019-08-18T00:24:00Z | 8.0710000000|
 | 2019-08-18T00:36:00Z | 7.8330000000|
 
-The query uses an InfluxQL [function](/enterprise_influxdb/v1.9/query_language/functions)
-and a time interval in the [GROUP BY clause](#group-by-time-intervals)
+The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean)
+and a time interval in the [GROUP BY clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
 to calculate the average `water_level` for each twelve-minute
 interval in the query's time range.
 `SLIMIT 1` requests a single series associated with the `h2o_feet` measurement.

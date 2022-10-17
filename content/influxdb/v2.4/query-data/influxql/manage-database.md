@@ -12,7 +12,7 @@ weight: 204
 
 Use of InfluxQL database management commands in InfuxDB 2.x is limited.  
 
-The examples in the sections below use the InfluxDB [Command Line Interface (CLI)](/influxdb/v2.4/reference/cli/influx/). 
+The examples in the sections below use the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). 
 You can also execute the commands using the 1.x compatibility API; simply  send a `GET` request to the `/query` endpoint and include the command in the URL parameter `q`.
 For more information, see [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/).
 

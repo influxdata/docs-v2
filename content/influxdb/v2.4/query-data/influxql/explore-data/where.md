@@ -60,8 +60,7 @@ Queries with unquoted string field values or double quoted string field values w
 | `<=`     | less than or equal to    |
 
 Other supported features:  
-  - [Arithmetic Operations](/enterprise_influxdb/v1.9/query_language/math_operators/)
-  - [Regular Expressions](#regular-expressions)
+  - [Regular Expressions](/v2.4/query-data/influxql/explore-data/regular-expressions/)
 
 #### Tags
 
@@ -82,9 +81,6 @@ any data and, in most cases,
 | `=`      | equal to     |
 | `<>`     | not equal to |
 | `!=`     | not equal to |
-
-Other supported features:  
-  - [Regular Expressions](#regular-expressions)
 
 #### Timestamps
 
@@ -163,7 +159,7 @@ Name: h2o_feet
 The query returns data from the `h2o_feet` measurement with field values of
 `water_level` plus two that are greater than 11.9. Note that InfluxDB follows the standard order of operations.
 
-See [Mathematical Operators](/enterprise_influxdb/v1.9/query_language/math_operators/)
+See [Mathematical Operators](/influxdb/v2.4/query-data/influxql/math_operators/)
 for more on supported operators.
 
 #### Select data that have a specific tag key-value
@@ -194,7 +190,7 @@ time                   water_level
 2019-09-18T21:42:00Z   4.938 -->
 
 The query returns data from the `h2o_feet` measurement where the
-[tag key](/enterprise_influxdb/v1.9/concepts/glossary/#tag-key) `location` is set to `santa_monica`.
+[tag key](/influxdb/v2.4/reference/glossary/#tag-key) `location` is set to `santa_monica`.
 InfluxQL requires single quotes around tag values in the `WHERE` clause.
 
 #### Select data that have specific field key-values and tag key-values
@@ -228,7 +224,7 @@ separating logic with parentheses.
 > SELECT * FROM "h2o_feet" WHERE time > now() - 7d
 ```
 
-The query returns data from the `h2o_feet` measurement that have [timestamps](/enterprise_influxdb/v1.9/concepts/glossary/#timestamp)
+The query returns data from the `h2o_feet` measurement that have [timestamps](/influxdb/v2.4/reference/glossary/#timestamp)
 within the past seven days. The [Time Syntax](#time-syntax) section on this page
 offers in-depth information on supported time syntax in the `WHERE` clause.
 
