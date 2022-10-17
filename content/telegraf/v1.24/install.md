@@ -7,7 +7,7 @@ menu:
     name: Install
     weight: 20
 aliases:
-- /telegraf/v1.23/introduction/installation/
+- /telegraf/v1.24/introduction/installation/
 ---
 
 This page provides directions for installing, starting, and configuring Telegraf. To install Telegraf, do the following:
@@ -26,7 +26,7 @@ Installation of the Telegraf package may require `root` or administrator privile
 
 ### Networking
 
-Telegraf offers multiple service [input plugins](/telegraf/v1.23/plugins/inputs/) that may
+Telegraf offers multiple service [input plugins](/telegraf/v1.24/plugins/inputs/) that may
 require custom ports.
 Modify port mappings through the configuration file (`telegraf.conf`).
 
@@ -117,7 +117,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.23/administration/configuration/).
+[configuration documentation](/telegraf/v1.24/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN RedHat & CentOS ---------->
 {{% tab-content %}}
@@ -160,7 +160,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.23/administration/configuration/).
+[configuration documentation](/telegraf/v1.24/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN SLES & openSUSE ---------->
 {{% tab-content %}}
@@ -191,7 +191,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.23/administration/configuration/).
+[configuration documentation](/telegraf/v1.24/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN FreeBSD/PC-BSD ---------->
 {{% tab-content %}}
@@ -222,7 +222,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.23/administration/configuration/).
+[configuration documentation](/telegraf/v1.24/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN macOS ---------->
 {{% tab-content %}}
@@ -266,7 +266,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.23/configuration/).
+[configuration documentation](/telegraf/v1.24/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN Windows ---------->
 {{% tab-content %}}
