@@ -27,7 +27,7 @@ For a list of available plugins, see [Telegraf plugins](/{{< latest "telegraf" >
 #### Requirements
 - **Telegraf 1.9.2 or greater**.
   _For information about installing Telegraf, see the
-  [Telegraf Installation instructions](/{{< latest "telegraf" >}}/introduction/installation/)._
+  [Telegraf Installation instructions](/{{< latest "telegraf" >}}/install/)._
 
 {{< youtube qFS2zANwIrc >}}
 

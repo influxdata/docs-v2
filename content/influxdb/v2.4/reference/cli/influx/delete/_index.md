@@ -21,9 +21,20 @@ from an InfluxDB bucket in a specified time range.
 Select points to delete within the specified time range using [delete predicate syntax](/influxdb/v2.4/reference/syntax/delete-predicate).
 
 {{% warn %}}
+#### Deleting data without a delete predicate
+
 Running `influx delete` without the `-p` or `--predicate` flag deletes all data with timestamps between the specified
 `--start` and `--stop` times in the specified bucket.
+
+{{% oss-only %}}
+
+#### Cannot delete data by field
+
+InfluxDB {{< current-version >}} does not support deleting data **by field**.
+
+{{% /oss-only %}}
 {{% /warn %}}
+
 
 ## Flags
 | Flag |                   | Description                                                                                               | Input type | {{< cli/mapped >}}    |

@@ -46,6 +46,7 @@ Consider whether you need to address any of the following before upgrading.
 - [Other data](#other-data)
 - [Secure by default](#secure-by-default)
 - [`inmem` indexing option](#in-memory-indexing-option)
+- [Interactive shell](#interactive-shell)
 
 ### Available operating system, container, and platform support
 
@@ -174,7 +175,20 @@ InfluxDB {{< current-version >}} doesn't support [in-memory (`inmem`) indexing](
 
 ### Interactive shell
 
-The InfluxDB 2.x `influx` CLI does not include an interactive shell for executing InfluxQL queries or Flux queries. For information about executing InfluxQL queries, see [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/). To build an interactive shell to execute Flux queries, [compile and build a command line Flux REPL from source](https://github.com/influxdata/flux/blob/master/README.md#getting-started). 
+The InfluxDB {{< current-version >}} `influx` CLI includes an interactive **InfluxQL shell** for executing InfluxQL queries.
+To start an InfluxQL shell:
+
+1. Download and install in the [`influx` CLI](/influxdb/v2.4/tools/influx-cli/).
+2. Set up your [`influx` CLI authentication credentials](/influxdb/v2.4/tools/influx-cli/#set-up-the-influx-cli).
+3. Run the `influx v1 shell` command.
+
+For more information see:
+
+- [Use the InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/)
+- [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/)
+
+To build an interactive shell to execute **Flux** queries,
+[compile and build a command line Flux REPL from source](https://github.com/influxdata/flux/blob/master/README.md#getting-started). 
 
 ## Perform the upgrade
 

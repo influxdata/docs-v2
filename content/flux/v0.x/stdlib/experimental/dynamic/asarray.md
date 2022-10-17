@@ -1,13 +1,14 @@
 ---
-title: math.sum() function
+title: dynamic.asArray() function
 description: >
-  `math.sum()` returns the sum of all values within the array.
+  `dynamic.asArray()` converts a dynamic value into an array of dynamic elements.
 menu:
   flux_0_x_ref:
-    name: math.sum
-    parent: contrib/jsternberg/math
-    identifier: contrib/jsternberg/math/sum
-weight: 301
+    name: dynamic.asArray
+    parent: experimental/dynamic
+    identifier: experimental/dynamic/asArray
+weight: 201
+flux/v0.x/tags: [type-conversions]
 ---
 
 <!------------------------------------------------------------------------------
@@ -19,30 +20,30 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/jsternberg/math/math.flux#L46-L46
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/dynamic/dynamic.flux#L27-L27
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`math.sum()` returns the sum of all values within the array.
+`dynamic.asArray()` converts a dynamic value into an array of dynamic elements.
 
-
+The dynamic input value must be an array. If it is not an array, `dynamic.asArray()` returns an error.
 
 ##### Function type signature
 
 ```js
-(values: [A]) => A where A: Numeric
+(<-v: dynamic) => [dynamic]
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### values
-({{< req >}})
-Array of values.
+### v
+
+Dynamic value to convert. Default is the piped-forward value (`<-`).
 
 
 
