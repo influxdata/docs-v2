@@ -9,7 +9,7 @@ menu:
 weight: 205
 ---
 
-Transformation functions take a stream of tables as input, transform the data, and output a stream of tables. 
+Transformation functions take a stream of tables as input, transform the data, and output a stream of tables.
 
 Each transformation function below covers **syntax**, including parameters to pass to the function, and **examples** of how to use the function. Examples use [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data).
 
