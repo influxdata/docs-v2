@@ -10,6 +10,39 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.186.0 [2022-10-11]
+
+### Features
+- Add [`dynamic.isType()` function](/flux/v0.x/stdlib/experimental/dynamic/istype/).
+- Add [`dynamic.asArray()` function](/flux/v0.x/stdlib/experimental/dynamic/asarray/).
+- Add JSON functions that work with dynamic values:
+  - [`dynamic.jsonParse()`](/flux/v0.x/stdlib/experimental/dynamic/jsonparse/)
+  - [`dynamic.jsonEncode()`](/flux/v0.x/stdlib/experimental/dynamic/jsonencode/)
+- Add runtime support for member expressions and remove index support for dynamic values.
+- Add [`iox.sql()` function](/flux/v0.x/stdlib/experimental/iox/sql/).
+
+### Bug fixes
+- Update the `toUInt()` test to use the correct conversion behavior.
+- Prevent the Flux formatter from losing precision on float values.
+
+---
+
+## v0.185.0 [2022-10-03]
+
+### Features
+- Add dynamic type.
+- Add dynamic wrapper function.
+- Enable codespan formatting for errors via feature flags.
+
+### Bug fixes
+- Pass context in the `Run` source helper.
+- Handle null vector inputs for `_vecFloat`.
+- Remove broken `contrib` packages:
+  - contrib/jsternberg/aggregate
+  - contrib/jsternberg/math
+
+---
+
 ## v0.184.2 [2022-09-26]
 
 ### Bug fixes

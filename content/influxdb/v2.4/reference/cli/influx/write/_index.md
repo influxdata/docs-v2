@@ -123,10 +123,8 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 ##### Write line protocol via stdin
 ```sh
 influx write --bucket example-bucket "
-m,host=host1 field1=1.2
-m,host=host2 field1=2.4
-m,host=host1 field2=5i
-m,host=host2 field2=3i
+m,host=host1 field1=1.2,field2=5i 1640995200000000000
+m,host=host2 field1=2.4,field2=3i 1640995200000000000
 "
 ```
 

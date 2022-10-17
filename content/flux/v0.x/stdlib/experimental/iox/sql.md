@@ -1,13 +1,15 @@
 ---
-title: aggregate.max() function
+title: iox.sql() function
 description: >
-  `aggregate.max()` constructs a max aggregate or selector for the column.
+  `iox.sql()` executes an SQL query against a bucket in an IOx storage node.
 menu:
   flux_0_x_ref:
-    name: aggregate.max
-    parent: contrib/jsternberg/aggregate
-    identifier: contrib/jsternberg/aggregate/max
-weight: 301
+    name: iox.sql
+    parent: experimental/iox
+    identifier: experimental/iox/sql
+weight: 201
+flux/v0.x/tags: [inputs]
+introduced: 0.186.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -19,45 +21,36 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/jsternberg/aggregate/aggregate.flux#L141-L141
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/iox/iox.flux#L33-L33
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`aggregate.max()` constructs a max aggregate or selector for the column.
+`iox.sql()` executes an SQL query against a bucket in an IOx storage node.
 
-
+This function creates a source that reads data from IOx.
 
 ##### Function type signature
 
 ```js
-(
-    ?column: A,
-    ?fill: B,
-) => {
-    reduce: (state: D, values: [D]) => D,
-    init: (values: [D]) => D,
-    fill: B,
-    compute: (state: C) => C,
-    column: A,
-} where D: Numeric
+(bucket: string, query: string) => stream[A] where A: Record
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### column
+### bucket
+({{< req >}})
+IOx bucket to read data from.
 
-Name of the column to aggregate.
 
 
-
-### fill
-
-When set, value to replace missing values.
+### query
+({{< req >}})
+Query to execute.
 
 
 
