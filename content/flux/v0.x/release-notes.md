@@ -10,6 +10,22 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.187.0 [2022-10-17]
+
+### Features
+
+- Add [`types.isNumeric()`](/flux/v0.x/stdlib/types/isnumeric/) to test for numeric values.
+- Recommend valid arguments in extra argument errors.
+- Add dynamic type support to standard type conversion functions.
+
+### Bug fixes
+
+- When using `experimental.unpivot()`, don't add the `_field` column to the
+  group key by default.
+- Fix compilation error when using Rust 1.64.
+
+---
+
 ## v0.186.0 [2022-10-11]
 
 ### Features
