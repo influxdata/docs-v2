@@ -45,6 +45,7 @@ Use the `influx` CLI to set the schema-type and measurement schemas for your buc
 
    Format the file as CSV, JSON, or [Newline delimited JSON (NDJSON)](http://ndjson.org/),
    as in the following examples:
+   
    {{% code-tabs-wrapper %}}
    {{% code-tabs %}}
    [usage-resources.csv](#)

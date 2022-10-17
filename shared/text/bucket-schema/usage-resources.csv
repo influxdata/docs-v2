@@ -1,4 +1,4 @@
-name,type,data_type
+name,type,dataType
 time,timestamp,
 host,tag,
 service,tag,
