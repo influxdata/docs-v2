@@ -20,7 +20,7 @@ View the statistics of your data usage and rate limits (reads, writes, and delet
 
 To view your {{< cloud-name >}} data usage, do the following:
 
-1. Click the **user avatar** on the left-side navigation.
+1. Click the organization name drop-down list in the upper left.
 2. Select **Usage**.
 3. Select a time range to review data usage (by default, `Past 24h`), and then select one of the following:
 

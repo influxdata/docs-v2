@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L237-L237
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L247-L247
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,15 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `date.weekDay()` returns the day of the week for a specified time.
 Results range from `[0 - 6]`.
 
-
+| Returned value | Day of the week |
+| :------------: | :-------------- |
+|       0        | Sunday          |
+|       1        | Monday          |
+|       2        | Tuesday         |
+|       3        | Wednesday       |
+|       4        | Thursday        |
+|       5        | Friday          |
+|       6        | Saturday        |
 
 ##### Function type signature
 
