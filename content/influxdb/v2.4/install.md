@@ -251,7 +251,7 @@ For information about installing the `influx` CLI, see
     sudo service influxdb start
     ```
 
-    Installing the InfluxDB package creates a service file at `/lib/systemd/services/influxdb.service`
+    Installing the InfluxDB package creates a service file at `/lib/systemd/system/influxdb.service`
     to start InfluxDB as a background service on startup.
 
 3. Restart your system and verify that the service is running correctly:
