@@ -42,7 +42,7 @@ Returns the smallest N field values associated with the [field key](/influxdb/v2
 `BOTTOM(field_key,tag_key,N)`  
 Returns the smallest field value for N tag values of the [tag key](/influxdb/v2.4/reference/glossary/#tag-key). Add a comma between multiple tag keys: `tag_key,tag_key`.
 
-`BOTTOM((field_key,N),tag_key(s),field_key(s))`  
+`BOTTOM((field_key,N),tag_key,field_key)`  
 Returns the smallest N field values associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.4/reference/glossary/#tag) and/or [field](/influxdb/v2.4/reference/glossary/#field). Add a comma between multiple tag or field keys: `tag_key,tag_key,field_key,field_key`.
 
 ### Examples
