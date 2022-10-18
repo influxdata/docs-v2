@@ -9,7 +9,9 @@ menu:
     parent: Explore data
 weight: 305
 list_code_example: |
-
+  ```sql
+  SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT <N>
+  ```
 ---
 
 Use `LIMIT` and `SLIMIT` to limit the number of [points](/influxdb/v2.4/reference/glossary/#point) and the number of [series](/influxdb/v2.4/reference/glossary/#series) returned per query.
@@ -141,7 +143,11 @@ tags: location=coyote_creek
 | 2019-08-18T00:24:00Z | 8.0710000000|
 | 2019-08-18T00:36:00Z | 7.8330000000|
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) and a time interval in the [GROUP BY clause](#group-by-time-intervals) to calculate the average `water_level` for each twelve-minute interval in the query's time range.
+The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean)
+and a time interval in the [GROUP BY clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
+to calculate the average `water_level` for each twelve-minute
+interval in the query's time range.
+
 `SLIMIT 1` requests a single series associated with the `h2o_feet` measurement.
 
 Note that without `SLIMIT 1`, the query would return results for the two series

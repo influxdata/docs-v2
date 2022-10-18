@@ -685,11 +685,9 @@ Output:
 Name: h2o_feet 
 {{% /influxql/table-meta %}} 
 
-
 | time | count | 
 | :-------------- | -------------------:| 
 | 2019-08-18T00:06:00Z  |  2.0000000000    |
-
 
 The query uses the InfluxQL [COUNT() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points, grouping results into 12 minute
 time intervals, and offsetting the preset time boundaries by six minutes.
@@ -699,6 +697,7 @@ The time boundaries and returned timestamps for the query **without** the `offse
 ```sql
 > SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m)
 ```
+
 Output:
 {{% influxql/table-meta %}} 
 Name: h2o_feet 
@@ -708,7 +707,6 @@ Name: h2o_feet
 | :-------------- | -------------------:| 
 | 2019-08-18T00:00:00Z  | 1.0000000000
 | 2019-08-18T00:12:00Z  | 1.0000000000
-
 
 The time boundaries and returned timestamps for the query **without** the `offset_interval` adhere to InfluxDB database's preset time boundaries:
 

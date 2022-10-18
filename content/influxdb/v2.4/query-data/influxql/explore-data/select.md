@@ -215,7 +215,6 @@ Name: h2o_feet
 The query multiplies `water_level`'s field values by two and adds four to those
 values.
 
-{{% note %}}
 **Note:** InfluxDB follows the standard order of operations.
 See [InfluxQL mathematical operators](/influxdb/v2.4/query-data/influxql/math_operators/)
 for more on supported operators.
@@ -282,7 +281,7 @@ The `..` indicates the `DEFAULT` retention policy for the specified database.
 
 ### Common issues with the SELECT statement
 
-#### Selecting tag keys in the SELECT clause
+#### Selecting tag keys in the SELECT statement
 
 A query requires at least one [field key](/influxdb/v2.4/reference/glossary/#field-key)
 in the `SELECT` clause to return data.
@@ -326,15 +325,15 @@ Name: h2o_feet
 InfluxQL supports using regular expressions when specifying:
 
 * [field keys](/influxdb/v2.4/reference/glossary/#field-key) and [tag keys](/influxdb/v2.4/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/)
-* [measurements](/influxdb/v2.4/reference/glossary/#measurement) in the [`FROM` clause](#the-basic-select-statement)
-* [tag values](/influxdb/v2.4/reference/glossary/#tag-value) and string [field values](/influxdb/v2.4/reference/glossary/#field-value) in the [`WHERE` clause](#the-where-clause).
-* [tag keys](/influxdb/v2.4/reference/glossary/#tag-key) in the [`GROUP BY` clause](#group-by-tags)
+* [measurements](/influxdb/v2.4/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause)
+* [tag values](/influxdb/v2.4/reference/glossary/#tag-value) and string [field values](/influxdb/v2.4/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/v2.4/query-data/influxql/explore-data/where/).
+* [tag keys](/influxdb/v2.4/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
 
 Currently, InfluxQL does not support using regular expressions to match
 non-string field values in the
 `WHERE` clause,
 [databases](/influxdb/v2.4/reference/glossary/#database), and
-[retention polices](/influxdb/v2.4/reference/glossary/#retention-policy-rp).
+[retention policies](/influxdb/v2.4/reference/glossary/#retention-policy-rp).
 
 {{% note %}}
 **Note:** Regular expression comparisons are more computationally intensive than exact
@@ -358,7 +357,7 @@ Regular expressions are surrounded by `/` characters and use
 
 ### Examples
 
-#### Use a regular expression to specify field keys and tag keys in the SELECT clause
+#### Use a regular expression to specify field keys and tag keys in the SELECT statement
 
 ```sql
 > SELECT /l/ FROM "h2o_feet" LIMIT 1
@@ -405,6 +404,7 @@ Name: h2o_temperature
 | :-------------- |----------------------:|
 | 1970-01-01T00:00:00Z | 64.9980273540 |
 
+
 This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `degrees` for every [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `noaa` database that contains the word `temperature`.
 
 ## Data types and cast operations
@@ -420,7 +420,7 @@ The [`SELECT` clause](#the-basic-select-statement) supports specifying a [field'
 The `::` syntax allows users to specify the field's type in a query.
 
 {{% note %}}
-**Note:** Generally, it is not necessary to specify the field value type in the [`SELECT` clause](#the-basic-select-statement). In most cases, InfluxDB rejects any writes that attempt to write a [field value](/influxdb/v2.4/reference/glossary/#field-value) to a field that previously accepted field values of a different type.
+**Note:** Generally, it is not necessary to specify the field value type in the [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/). In most cases, InfluxDB rejects any writes that attempt to write a [field value](/influxdb/v2.4/reference/glossary/#field-value) to a field that previously accepted field values of a different type.
 {{% /note %}}
 
 It is possible for field value types to differ across [shard groups](/influxdb/v2.4/reference/glossary/#shard-group).
@@ -511,7 +511,7 @@ In InfluxDB, queries merge [series](/influxdb/v2.4/reference/glossary/#series) a
 
 ### Example
 
-The `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `NOAA_water_database` is part of two [series](/influxdb/v2.4/reference/glossary/#series).
+The `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `noaa` is part of two [series](/influxdb/v2.4/reference/glossary/#series).
 The first series is made up of the `h2o_feet` measurement and the `location = coyote_creek` [tag](/influxdb/v2.4/reference/glossary/#tag). The second series is made of up the `h2o_feet` measurement and the `location = santa_monica` tag.
 
 The following query automatically merges those two series when it calculates the average `water_level` using the [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean):
@@ -528,7 +528,7 @@ Name: h2o_feet
 | :------------------ |-------------------:|
 | 1970-01-01T00:00:00Z  | 4.4419314021 |
 
-If you want the average `water_level` for the first series only, specify the relevant tag in the [`WHERE` clause](#the-where-clause):
+If you want the average `water_level` for the first series only, specify the relevant tag in the [`WHERE` clause](#/influxdb/v2.4/query-data/influxql/explore-data/where/):
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek'
@@ -542,7 +542,7 @@ Name: h2o_feet
 | :------------------ |-------------------:|
 | 1970-01-01T00:00:00Z | 5.3591424203 |
 
-If you want the average `water_level` for each individual series, include a [`GROUP BY` clause](#group-by-tags):
+If you want the average `water_level` for each individual series, include a [`GROUP BY` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/):
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
@@ -570,7 +570,17 @@ tags: location=santa_monica
 
 Separate multiple `SELECT` statements in a query with a semicolon (`;`).
 
-### Example
+### Examples
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[InfluxQL shell](#)
+[InfluxDB API](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+
+In the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/):
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet"; SELECT "water_level" FROM "h2o_feet" LIMIT 2
@@ -594,3 +604,58 @@ Name: h2o_feet
 | 2019-08-17T00:00:00Z | 8.12 |
 | 2015-08-18T00:00:00Z | 2.064 |
 
+{{% /tab-content %}}
+
+{{% tab-content %}}
+
+With the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/):
+
+```json
+{
+    "results": [
+        {
+            "statement_id": 0,
+            "series": [
+                {
+                    "name": "h2o_feet",
+                    "columns": [
+                        "time",
+                        "mean"
+                    ],
+                    "values": [
+                        [
+                            "1970-01-01T00:00:00Z",
+                            4.442107025822522
+                        ]
+                    ]
+                }
+            ]
+        },
+        {
+            "statement_id": 1,
+            "series": [
+                {
+                    "name": "h2o_feet",
+                    "columns": [
+                        "time",
+                        "water_level"
+                    ],
+                    "values": [
+                        [
+                            "2015-08-18T00:00:00Z",
+                            8.12
+                        ],
+                        [
+                            "2015-08-18T00:00:00Z",
+                            2.064
+                        ]
+                    ]
+                }
+            ]
+        }
+    ]
+}
+```
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
