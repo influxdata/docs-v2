@@ -9,6 +9,8 @@ menu:
     name: File system layout
     parent: InfluxDB internals
 influxdb/v2.4/tags: [storage, internals]
+related:
+  - /influxdb/v2.4/admin/internals/
 ---
 
 The InfluxDB file system layout depends on the operating system, installation method,
@@ -280,10 +282,10 @@ The diagram below is **relative to the [engine path](#file-system-layout)**.
         - 0000 _<span style="opacity:.4">(internal shard index file)</span>_
     - autogen 
       - 0123/ _<span style="opacity:.4">(shard ID)</span>_
-      - index _<span style="opacity:.4">(index directory)</span>_
-        - L0-00000001.tsl _<span style="opacity:.4">(write-ahead log for the TSI index)</span>_
-        - L0-00000001.tsi _<span style="opacity:.4">(series index)</span>_
-        - MANIFEST _<span style="opacity:.4">(index manifest)</span>_
+        - index _<span style="opacity:.4">(index directory)</span>_
+          - L0-00000001.tsl _<span style="opacity:.4">(write-ahead log for the TSI index)</span>_
+          - L0-00000001.tsi _<span style="opacity:.4">(series index)</span>_
+          - MANIFEST _<span style="opacity:.4">(index manifest)</span>_
 {{% /filesystem-diagram %}}
 
 #### WAL directories and files layout

@@ -7,7 +7,14 @@ menu:
     name: Manage TSM files
     parent: Manage internal systems
 weight: 101
+draft: true
 ---
+
+<!-- 
+
+Marked as draft. Placeholder for future content.
+
+-->
 
 - influxd inspect delete-tsm        Deletes a measurement from a raw tsm file.
 - influxd inspect dump-tsm          Dumps low-level details about tsm1 files

@@ -1,32 +1,27 @@
 ---
-title: Manage the InfluxDB time series index (TSI)
+title: Rebuild the TSI index
 description: >
-  ...
+  Flush and rebuild the TSI index to purge corrupt index files or remove indexed
+  data that is out of date. 
 menu:
   influxdb_2_4:
-    name: Manage TSI indexes
-    parent: Manage internal systems
-weight: 101
+    parent: Manage TSI indexes
+weight: 201
+related:
+  - /influxdb/v2.4/reference/internals/storage-engine/
+  - /influxdb/v2.4/reference/internals/file-system-layout/
+  - /influxdb/v2.4/reference/cli/influxd/inspect/build-tsi/
 ---
 
-The InfluxDB [Time Series Index (TSI)](/influxdb/v2.4/reference/internals/storage-engine/#time-series-index-tsi)
-indexes or caches measurement and tag data to ensure queries are performant.
+In some cases, it may be necessary to flush and rebuild the TSI index.
+For example, purging corrupt index files or removing indexed data that may be
+out of date.
 
-{{% note %}}
-#### Windows influxd location
+To rebuild your InfluxDB TSI index:
 
-All Windows (PowerShell) examples below assume the `influxd` executable is located
-at `C:\Program Files\InfluxData\influxdb`. If using Windows, navigate to this 
-directory to execute `influxd` commands.
-{{% /note %}}
-
-## Rebuild the TSI index
-
-1.  **Stop InfluxDB** by stopping the `influxd` process.
+1.  **Stop the InfluxDB (`influxd`) process**.
 
     {{% warn %}}
-#### Important
-
 Rebuilding the TSI index while the `influxd` is running could prevent some data
 from being queryable.
     {{% /warn %}}
@@ -101,36 +96,6 @@ get-childitem -Include index -Recurse -force | Remove-Item -Force -Recurse
 5.  Use the [`influxd inspect build-tsi` command](/influxdb/v2.4/reference/cli/influxd/inspect/build-tsi/)
     to rebuild the TSI index.
 
-    {{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[macOS & Linux](#)
-[Windows (PowerShell)](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sh
-influxd inspect build-tsi
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```powershell
-> cd -Path 'C:\Program Files\InfluxData\influxdb'
-> ./influxd inspect build-tsi
-```
-{{% /code-tab-content %}}
-    {{< /code-tabs-wrapper >}}   
-
-
-
-
-## Output information about TSI index files
-
-dump-tsi          Dumps low-level details about tsi1 files.
-
-## Export TSI index data
-
-export-index      Exports TSI index data
-
-## Report the cardinality of TSI files
-
-report-tsi        Reports the cardinality of TSI files
-
+    ```sh
+    influxd inspect build-tsi
+    ```
