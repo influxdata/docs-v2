@@ -43,7 +43,7 @@ The measurement has one [tag key](influxdb/v2.4/reference/glossary/#tag-key)
 The measurement also has two [fields](/influxdb/v2.4/reference/glossary/#field):
 `level description` stores string [field values](/influxdb/v2.4/reference/glossary/#field-value)
 and `water_level` stores float field values.
-All of these data is in the `NOAA_water_database` [database](/influxdb/v2.4/reference/glossary/#database).
+This data is in the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) set.
 
 {{% note %}}
 **Disclaimer:** The `level description` field isn't part of the original NOAA data - we snuck it in there for the sake of having a field key with a special character and string field values.
@@ -51,8 +51,7 @@ All of these data is in the `NOAA_water_database` [database](/influxdb/v2.4/refe
 
 ### Configuring the returned timestamps
 
-The [CLI](/influxdb/v2.4/reference/cli/influx/) returns timestamps in
-nanosecond UNIX epoch format by default.
+The [influx CLI](/influxdb/v2.4/reference/cli/influx/) returns timestamps in [Unix epoch time](/influxdb/v2.4/reference/glossary/#unix-timestamp) in nanoseconds by default.
 Specify alternative formats with the
 [`precision <format>` command](/influxdb/v2.4/tools/influxql-shell/#precision).
 The [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) returns timestamps
@@ -62,7 +61,7 @@ Specify alternative formats with the
 
 <!-- ## Data types and cast operations
 
-The [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/) supports specifying a [field's](/enterprise_influxdb/v1.9/concepts/glossary/#field) type and basic cast
+The [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/) supports specifying a [field's](/influxdb/v2.4/reference/glossary#field) type and basic cast
 operations with the `::` syntax.
 
 - [Data Types](#data-types)
@@ -70,7 +69,7 @@ operations with the `::` syntax.
 
 ## Data types
 
-[Field values](/enterprise_influxdb/v1.9/concepts/glossary/#field-value) can be floats, integers, strings, or booleans.
+[Field values](/influxdb/v2.4/reference/glossary/#field-value) can be floats, integers, strings, or booleans.
 The `::` syntax allows users to specify the field's type in a query.
 
 {{% note %}}

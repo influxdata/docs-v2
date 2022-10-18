@@ -1603,7 +1603,7 @@ SELECT DERIVATIVE( [ * | <field_key> | /<regular_expression>/ ] [ , <unit> ] ) [
 ```
 
 InfluxDB calculates the difference between subsequent field values and converts those results into the rate of change per `unit`.
-The `unit` argument is an integer followed by a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#literals) and it is optional.
+The `unit` argument is an integer followed by a [duration](/influxdb/v2.4/reference/glossary/#duration) and it is optional.
 If the query does not specify the `unit` the unit defaults to one second (`1s`).
 
 `DERIVATIVE(field_key)`  
@@ -1798,10 +1798,10 @@ second field value - first field value
 SELECT DERIVATIVE(<function> ([ * | <field_key> | /<regular_expression>/ ]) [ , <unit> ] ) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
-The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals) and a nested InfluxQL function.
+The advanced syntax requires a [`GROUP BY time()` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals) and a nested InfluxQL function.
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `DERIVATIVE()` function to those results.
 
-The `unit` argument is an integer followed by a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#literals) and it is optional.
+The `unit` argument is an integer followed by a [duration](//influxdb/v2.4/reference/glossary/#duration) and it is optional.
 If the query does not specify the `unit` the `unit` defaults to the `GROUP BY time()` interval.
 Note that this behavior is different from the [basic syntax's](#basic-syntax-1) default behavior.
 
@@ -2099,7 +2099,7 @@ SELECT ELAPSED( [ * | <field_key> | /<regular_expression>/ ] [ , <unit> ] ) [INT
 ```
 
 InfluxDB calculates the difference between subsequent timestamps.
-The `unit` option is an integer followed by a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#literals) and it determines the unit of the returned difference.
+The `unit` option is an integer followed by a [duration](/influxdb/v2.4/reference/glossary/#duration) and it determines the unit of the returned difference.
 If the query does not specify the `unit` option the query returns the difference between timestamps in nanoseconds.
 
 `ELAPSED(field_key)`  
@@ -3589,7 +3589,7 @@ SELECT NON_NEGATIVE_DERIVATIVE( [ * | <field_key> | /<regular_expression>/ ] [ ,
 ```
 
 InfluxDB calculates the difference between subsequent field values and converts those results into the rate of change per `unit`.
-The `unit` argument is an integer followed by a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#literals) and it is optional.
+The `unit` argument is an integer followed by a [duration](/influxdb/v2.4/reference/glossary/#duration) and it is optional.
 If the query does not specify the `unit`, the unit defaults to one second (`1s`).
 `NON_NEGATIVE_DERIVATIVE()` returns only positive rates of change or rates of change that equal zero.
 
@@ -3621,7 +3621,7 @@ SELECT NON_NEGATIVE_DERIVATIVE(<function> ([ * | <field_key> | /<regular_express
 The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals) and a nested InfluxQL function.
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `NON_NEGATIVE_DERIVATIVE()` function to those results.
 
-The `unit` argument is an integer followed by a [duration literal](/enterprise_influxdb/v1.9/query_language/spec/#literals) and it is optional.
+The `unit` argument is an integer followed by a [duration](/influxdb/v2.4/reference/glossary/#duration) and it is optional.
 If the query does not specify the `unit`, the `unit` defaults to the `GROUP BY time()` interval.
 Note that this behavior is different from the [basic syntax's](#basic-syntax-4) default behavior.
 `NON_NEGATIVE_DERIVATIVE()` returns only positive rates of change or rates of change that equal zero.
