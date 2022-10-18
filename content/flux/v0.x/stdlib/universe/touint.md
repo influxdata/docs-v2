@@ -76,7 +76,7 @@ sampledata.float()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output data" %}}
 
 #### Input data
 
@@ -133,7 +133,7 @@ sampledata.bool()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output data" %}}
 
 #### Input data
 
@@ -190,7 +190,7 @@ sampledata.uint()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output data" %}}
 
 #### Input data
 

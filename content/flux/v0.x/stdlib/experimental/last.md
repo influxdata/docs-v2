@@ -65,7 +65,7 @@ sampledata.int(includeNull: true)
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output data" %}}
 
 #### Input data
 
