@@ -181,7 +181,7 @@ time                   bottom   location
 2015-08-29T14:30:00Z   -0.61    coyote_creek
 ```
 
-##### BOTTOM(), tags, and the INTO clause
+<!--##### BOTTOM(), tags, and the INTO clause
 
 When combined with an [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) and no [`GROUP BY tag` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-tags), most InfluxQL functions [convert](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-are-my-into-queries-missing-data) any tags in the initial data to fields in the newly written data.
 This behavior also applies to the `BOTTOM()` function unless `BOTTOM()` includes a tag key as an argument: `BOTTOM(field_key,tag_key(s),N)`.
@@ -189,7 +189,7 @@ In those cases, the system preserves the specified tag as a tag in the newly wri
 
 ###### Example
 
-The first query in the codeblock below returns the smallest field values in the `water_level` field key for two tag values associated with the `location` tag key.
+The first query in the code block below returns the smallest field values in the `water_level` field key for two tag values associated with the `location` tag key.
 It also writes those results to the `bottom_water_levels` measurement.
 
 The second query [shows](/influxdb/v2.4/query-data/influxql/explore-schema/#show-tag-keys) that InfluxDB preserved the `location` tag as a tag in the `bottom_water_levels` measurement.
@@ -209,6 +209,7 @@ tagKey
 ------
 location
 ```
+-->
 
 ## FIRST()
 
@@ -1115,6 +1116,7 @@ time                  top    location
 2015-08-29T07:24:00Z  9.964  coyote_creek
 ```
 
+<!--
 ##### TOP(), tags, and the INTO clause
 
 When combined with an [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) and no [`GROUP BY tag` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-tags), most InfluxQL functions [convert](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-are-my-into-queries-missing-data) any tags in the initial data to fields in the newly written data.
@@ -1143,3 +1145,4 @@ tagKey
 ------
 location
 ```
+-->

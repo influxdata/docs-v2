@@ -26,7 +26,7 @@ Note that using the API to query with InfluxQL will return all data in JSON form
 The examples in this document use the `noaa` database to create SELECT queries. 
 
 {{% note %}}
-**NOTE:** If you are using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) be sure to enter
+**Note:** If you are using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) be sure to enter
 `USE noaa` before you running the queries below.
 {{% /note %}}
 
@@ -36,7 +36,7 @@ The examples in this document use the `noaa` database to create SELECT queries.
 SELECT <field_key>[,<field_key>,<tag_key>] FROM <measurement_name>[,<measurement_name>]
 ```
 {{% note %}}
-**NOTE:** The `SELECT` statement **requires** a `SELECT` clause and a `FROM` clause.
+**Note:** The `SELECT` statement **requires** a `SELECT` clause and a `FROM` clause.
 {{% /note %}}
 
 #### `SELECT` clause
@@ -57,7 +57,7 @@ Other supported features include:
  - [Regular expressions](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/)
 
 {{% note %}}
-**NOTE:** The SELECT statement cannot include an aggregate function **and** a non-aggregate function, field key, or tag key. For more information, see [error about mixing aggregate and non-aggregate queries](/enterprise_influxdb/v1.9/troubleshooting/errors/#error-parsing-query-mixing-aggregate-and-non-aggregate-queries-is-not-supported).
+**Note:** The SELECT statement cannot include an aggregate function **and** a non-aggregate function, field key, or tag key. For more information, see [error about mixing aggregate and non-aggregate queries](/enterprise_influxdb/v1.9/troubleshooting/errors/#error-parsing-query-mixing-aggregate-and-non-aggregate-queries-is-not-supported).
 {{% /note %}}
 
 #### `FROM` clause
@@ -76,7 +76,7 @@ begin with a digit, or if they are an [InfluxQL keyword](https://github.com/infl
 While not always necessary, we recommend that you double quote identifiers.
 
 {{% note %}}
-**NOTE:** The quoting syntax for queries differs from the [line protocol](/influxdb/v2.4/reference/syntax/line-protocol/).
+**Note:** The quoting syntax for queries differs from the [line protocol](/influxdb/v2.4/reference/syntax/line-protocol/).
 Please review the [rules for single and double-quoting](/influxdb/v2.4/reference/syntax/line-protocol/#quotes) in queries.
 {{% /note %}}
 
@@ -141,7 +141,7 @@ The query selects the `level description` field, the `location` tag, and the
 `water_level` field.
 
 {{% note %}}
-**NOTE:** The `SELECT` clause must specify at least one field when it includes
+**Note:** The `SELECT` clause must specify at least one field when it includes
 a tag.
 {{% /note %}}
 
@@ -216,8 +216,8 @@ The query multiplies `water_level`'s field values by two and adds four to those
 values.
 
 {{% note %}}
-**NOTE:** InfluxDB follows the standard order of operations.
-See [Mathematical Operators](/influxdb/v2.4/query-data/influxql/math_operators/)
+**Note:** InfluxDB follows the standard order of operations.
+See [InfluxQL mathematical operators](/influxdb/v2.4/query-data/influxql/math_operators/)
 for more on supported operators.
 {{% /note %}}
 
@@ -337,7 +337,7 @@ non-string field values in the
 [retention policies](/influxdb/v2.4/reference/glossary/#retention-policy-rp).
 
 {{% note %}}
-**NOTE:** Regular expression comparisons are more computationally intensive than exact
+**Note:** Regular expression comparisons are more computationally intensive than exact
 string comparisons; queries with regular expressions are not as performant
 as those without.
 {{% /note %}}
@@ -405,12 +405,12 @@ Name: h2o_temperature
 | :-------------- |----------------------:|
 | 1970-01-01T00:00:00Z | 64.9980273540 |
 
-The query uses an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/)
-to calculate the average `degrees` for every [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `noaa` database that contains the word `temperature`.
+
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `degrees` for every [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `noaa` database that contains the word `temperature`.
 
 ## Data types and cast operations
 
-The [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/) supports specifying a [field's](/influxdb/v2.4/reference/glossary/#field) type and basic cast operations with the `::` syntax.
+The [`SELECT` clause](#the-basic-select-statement) supports specifying a [field's](/influxdb/v2.4/reference/glossary/#field) type and basic cast operations with the `::` syntax.
 
   - [Data types](#data-types)
   - [Cast operations](#cast-operations)
@@ -421,7 +421,7 @@ The [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/) s
 The `::` syntax allows users to specify the field's type in a query.
 
 {{% note %}}
-**NOTE:** Generally, it is not necessary to specify the field value type in the [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/). In most cases, InfluxDB rejects any writes that attempt to write a [field value](/influxdb/v2.4/reference/glossary/#field-value) to a field that previously accepted field values of a different type.
+**Note:** Generally, it is not necessary to specify the field value type in the [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/). In most cases, InfluxDB rejects any writes that attempt to write a [field value](/influxdb/v2.4/reference/glossary/#field-value) to a field that previously accepted field values of a different type.
 {{% /note %}}
 
 It is possible for field value types to differ across [shard groups](/influxdb/v2.4/reference/glossary/#shard-group).
@@ -515,7 +515,7 @@ In InfluxDB, queries merge [series](/influxdb/v2.4/reference/glossary/#series) a
 The `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `noaa` is part of two [series](/influxdb/v2.4/reference/glossary/#series).
 The first series is made up of the `h2o_feet` measurement and the `location = coyote_creek` [tag](/influxdb/v2.4/reference/glossary/#tag). The second series is made of up the `h2o_feet` measurement and the `location = santa_monica` tag.
 
-The following query automatically merges those two series when it calculates the [average](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) `water_level`:
+The following query automatically merges those two series when it calculates the average `water_level` using the [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean):
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet"

@@ -28,7 +28,7 @@ SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_
 The `WHERE` clause supports `conditional_expressions` on fields, tags, and timestamps.
 
 {{% note %}}
-**NOTE:** InfluxDB does not support using OR in the WHERE clause to specify multiple time ranges. For example, InfluxDB returns an empty response for the following query:
+**Note:** InfluxDB does not support using OR in the WHERE clause to specify multiple time ranges. For example, InfluxDB returns an empty response for the following query:
 
 ```sql
 > SELECT * FROM "mydb" WHERE time = '2020-07-31T20:07:00Z' OR time = '2020-07-31T23:07:17Z'`
@@ -59,8 +59,7 @@ Queries with unquoted string field values or double quoted string field values w
 | `<`      | less than                |
 | `<=`     | less than or equal to    |
 
-Other supported features:  
-  - [Regular Expressions](/v2.4/query-data/influxql/explore-data/regular-expressions/)
+InfluxQL also supports [regular expressions](/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 #### Tags
 
@@ -159,7 +158,7 @@ Name: h2o_feet
 The query returns data from the `h2o_feet` measurement with field values of
 `water_level` plus two that are greater than 11.9. Note that InfluxDB follows the standard order of operations.
 
-See [Mathematical Operators](/influxdb/v2.4/query-data/influxql/math_operators/)
+See [Mathematical operators](/influxdb/v2.4/query-data/influxql/math_operators/)
 for more on supported operators.
 
 #### Select data that have a specific tag key-value

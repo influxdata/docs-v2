@@ -21,7 +21,7 @@ list_code_example: |
 Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag) and/or a specified time interval.
 
 {{% note %}}
-**NOTE:** You cannot use `GROUP BY` to group **fields**.
+**Note:** You cannot use `GROUP BY` to group **fields**.
 {{% /note %}}
 
 ## GROUP BY tags
@@ -75,7 +75,7 @@ the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 InfluxDB returns results in two [series](/influxdb/v2.4/reference/glossary/#series): one for each tag value of `location`.
 
 {{% note %}}
-**NOTE:** In InfluxDB, [epoch 0](https://en.wikipedia.org/wiki/Unix_time) (`1970-01-01T00:00:00Z`) is often used as a null timestamp equivalent.
+**Note:** In InfluxDB, [epoch 0](https://en.wikipedia.org/wiki/Unix_time) (`1970-01-01T00:00:00Z`) is often used as a null timestamp equivalent.
 If you request a query that has no timestamp to return, such as an [aggregation function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/) with an unbounded time range, InfluxDB returns epoch 0 as the timestamp.
 {{% /note %}}
 
@@ -396,7 +396,7 @@ name: h2o_feet
 |2019-08-18T00:12:00Z  |  1.0000000000|
 
 {{% note %}}
-NOTE: The timestamp in the first row of data occurs before the start of the query's time range.
+Note: The timestamp in the first row of data occurs before the start of the query's time range.
 {{% /note %}}
 
 Explanation:
@@ -602,7 +602,7 @@ The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql
 time intervals, and offsetting the preset time boundaries by -12 minutes.
 
 {{% note %}} 
-**NOTE:** The query in Example 2 returns the same results as the query in Example 1, but
+**Note:** The query in Example 2 returns the same results as the query in Example 1, but
 the query in Example 2 uses a negative `offset_interval` instead of a positive
 `offset_interval`.
 There are no performance differences between the two queries; feel free to choose the most
@@ -876,7 +876,7 @@ Name: pond
 to the results of [linear interpolation](https://en.wikipedia.org/wiki/Linear_interpolation).
 
 {{% note %}}
-**NOTE:** The data in Example 2 are not in the `noaa` database.
+**Note:** The data in Example 2 are not in the `noaa` database.
 We had to create a dataset with less regular data to work with `fill(linear)`.
 {{% /note %}}
 
@@ -1161,5 +1161,5 @@ Name: pond
 | 2019-11-11T22:00:00Z | 6 |
 
 {{% note %}}
-**NOTE:** The data in Issue 3 are not in `noaa`. We had to create a dataset with less regular data to work with `fill(linear)`.
+**Note:** The data in Issue 3 are not in `NOAA_water_database`. We had to create a dataset with less regular data to work with `fill(linear)`.
 {{% /note %}}

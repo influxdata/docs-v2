@@ -382,7 +382,7 @@ See the Data Exploration page for documentation on the
 [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause).
 
 {{% note %}}
-**NOTE:** A field's data type [can differ](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards) across
+**Note:** A field's data type [can differ](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards) across
 [shards](/influxdb/v2.4/reference/glossary/#shard).
 If your field has more than one type, `SHOW FIELD KEYS` returns the type that
 occurs first in the following list: float, integer, string, boolean.
@@ -427,8 +427,8 @@ measurement in the `noaa` database.
 #### SHOW FIELD KEYS and field type discrepancies
 
 Field value
-[data types](/enterprise_influxdb/v1.9/write_protocols/line_protocol_reference/#data-types)
-cannot differ within a [shard](/enterprise_influxdb/v1.9/concepts/glossary/#shard) but they
+[data types](/influxdb/v2.4/reference/glossary/#data-type)
+cannot differ within a [shard](/influxdb/v2.4/reference/glossary/#shard) but they
 can differ across shards.
 `SHOW FIELD KEYS` returns every data type, across every shard, associated with
 the field key. -->
@@ -460,7 +460,7 @@ For more information, see the
 the cardinality of measurements, series, tag keys, tag key values, and field keys.
 
 For more information on the `SHOW CARDINALITY` commands,
-see the [InfluxQL reference entry](/enterprise_influxdb/v1.9/query_language/spec/#show-cardinality). -->
+see the [InfluxQL reference entry](/influxdb/v2.4/reference/syntax/influxql/spec/#show-cardinality). -->
 
 ### `SHOW FIELD KEY CARDINALITY`
 
@@ -496,7 +496,7 @@ SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey" -->
 
 <!-- ## Filter meta queries by time
 
-When you filter meta queries by time, you may see results outside of your specified time. Meta query results are filtered at the shard level, so results can be approximately as granular as your shard group duration. If your time filter spans multiple shards, you'll get results from all shards with points in the specified time range. To review your shards and timestamps on points in the shard, run `SHOW SHARDS`. To learn more about shards and their duration, see [recommended shard groups durations](/enterprise_influxdb/v1.9/concepts/schema_and_data_layout/#shard-group-duration-recommendations).
+When you filter meta queries by time, you may see results outside of your specified time. Meta query results are filtered at the shard level, so results can be approximately as granular as your shard group duration. If your time filter spans multiple shards, you'll get results from all shards with points in the specified time range. To review your shards and timestamps on points in the shard, run `SHOW SHARDS`. To learn more about shards and their duration, see [recommended shard groups durations](/influxdb/v2.4/reference/internals/shards/#shard-group-duration).
 
 The example below shows how to filter `SHOW TAG KEYS` by approximately one hour using a 1h shard group duration. To filter other meta data, replace `SHOW TAG KEYS` with `SHOW TAG VALUES`, `SHOW SERIES`, `SHOW FIELD KEYS`, and so on.
 

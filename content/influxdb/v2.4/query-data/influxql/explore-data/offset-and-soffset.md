@@ -32,7 +32,7 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIM
 `N` specifies the number of points to paginate. The `OFFSET clause` requires a `LIMIT clause`.
 
 {{% note %}}
-**NOTE:** InfluxDB returns no results if the `WHERE clause` includes a time range and the `OFFSET clause` would cause InfluxDB to return points with timestamps outside of that time range.
+**Note:** InfluxDB returns no results if the `WHERE clause` includes a time range and the `OFFSET clause` would cause InfluxDB to return points with timestamps outside of that time range.
 {{% /note %}}
 
 ### Examples
@@ -74,12 +74,13 @@ tags: location=coyote_creek
 
 This example is fairly involved, so here's the clause-by-clause breakdown:
 
-  - The `SELECT clause` specifies an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/).
-  - The `FROM clause` (/influxdb/v2.4/query-data/influxql/explore-data/select/) specifies a single measurement.
-  - The [`WHERE` clause](/influxdb/v2.4/query-data/influxql/explore-data/where/) specifies the time range for the query.
-  - The [`GROUP BY` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/) groups results by all tags  (`*`) and into 12-minute intervals.
-  - The [`ORDER BY time DESC` clause](/influxdb/v2.4/query-data/influxql/explore-data/order-by/#order-by-time-desc) returns results in descending timestamp order.
-  - The [`LIMIT 2` clause](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) limits the number of points returned to two.
+
+  - The `SELECT clause` specifies the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean).
+  - The `FROM clause` (#the-basic-select-statement) specifies a single measurement.
+  - The [`WHERE` clause](#the-where-clause) specifies the time range for the query.
+  - The [`GROUP BY` clause](#the-group-by-clause) groups results by all tags  (`*`) and into 12-minute intervals.
+  - The [`ORDER BY time DESC` clause](#order-by-time-desc) returns results in descending timestamp order.
+  - The [`LIMIT 2` clause](#the-limit-clause) limits the number of points returned to two.
   - The `OFFSET 2` clause excludes the first two averages from the query results.
   - The [`SLIMIT 1` clause](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) limits the number of series returned to one.
 
@@ -113,7 +114,7 @@ query results](https://github.com/influxdata/influxdb/issues/7578).
 There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) that requires queries with `SLIMIT` to include `GROUP BY *`.
 
 {{% note %}}
-**NOTE:** InfluxDB returns no results if the `SOFFSET` clause paginates through more than the total number of series.
+**Note:** InfluxDB returns no results if the `SOFFSET` clause paginates through more than the total number of series.
 {{% /note %}}
 
 ### Examples

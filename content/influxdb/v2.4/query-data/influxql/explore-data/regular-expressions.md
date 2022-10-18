@@ -28,7 +28,7 @@ non-string field values in the
 [retention polices](/influxdb/v2.4/reference/glossary/#retention-policy-rp).
 
 {{% note %}}
-**NOTE:** Regular expression comparisons are more computationally intensive than exact
+**Note:** Regular expression comparisons are more computationally intensive than exact
 string comparisons; queries with regular expressions are not as performant
 as those without.
 {{% /note %}}
@@ -97,9 +97,7 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z | 64.9980273540 |
 
-The query uses an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/)
-to calculate the average `degrees` for every [measurement](/influxdb/v2.4/reference/glossary#measurement) in the `noaa`
-[database](/influxdb/v2.4/reference/glossary#database) that contains the word `temperature`.
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `degrees` for every [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the [NOAA sample data] that contains the word `temperature`.
 
 #### Use a regular expression to specify tag values in the WHERE clause
 
@@ -116,8 +114,8 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z | 4.4710766395|
 
-The query uses an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/)
-to calculate the average `water_level` where the [tag value](/influxdb/v2.4/reference/glossary#tag-value) of `location`
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` where the [tag value](/influxdb/v2.4/reference/glossary/#measurement) of `location`
+
 includes an `m` and `water_level` is greater than three.
 
 #### Use a regular expression to specify a tag with no value in the WHERE clause
@@ -128,12 +126,10 @@ includes an `m` and `water_level` is greater than three.
 ```
 
 The query selects all data from the `h2o_feet` measurement where the `location`
-[tag](/influxdb/v2.4/reference/glossary#tag) has no value.
-Every data [point](/influxdb/v2.4/reference/glossary#point) in the `noaa` has a tag value for `location`.
-
+[tag](/influxdb/v2.4/reference/glossary/#tag) has no value.
+Every data [point](/influxdb/v2.4/reference/glossary/#point) in the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) has a tag value for `location`.
 It's possible to perform this same query without a regular expression.
-See the
-[Frequently Asked Questions](/influxdb/v2.4/reference/faq/#how-do-i-query-data-by-a-tag-with-a-null-value)
+See the [Frequently Asked Questions](/influxdb/v2.4/reference/faq/#how-do-i-query-data-by-a-tag-with-a-null-value)
 document for more information.
 
 #### Use a regular expression to specify a tag with a value in the WHERE clause
@@ -151,9 +147,7 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z |  4.4418434585|
 
-The query uses an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/)
-to calculate the average `water_level` across all data that have a tag value for
-`location`.
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` across all data that have a tag value for `location`.
 
 #### Use a regular expression to specify a field value in the WHERE clause
 
@@ -170,9 +164,9 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z | 4.4713666916
 
-The query uses an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/)
-to calculate the average `water_level` for all data where the field value of
-`level description` includes the word `between`.
+
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean)
+to calculate the average `water_level` for all data where the field value of `level description` includes the word `between`.
 
 #### Use a regular expression to specify tag keys in the GROUP BY clause
 
@@ -200,6 +194,7 @@ tags: location=santa_monica
 | :------------------ |-------------------:|
 | 2019-08-17T00:00:00Z | 99.0000000000 |
 
-The query uses an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/)
+This query uses the InfluxQL [FIRST() function](/influxdb/v2.4/query-data/influxql/view-functions/selectors/#first)
+
 to select the first value of `index` for every tag that includes the letter `l`
 in its tag key.

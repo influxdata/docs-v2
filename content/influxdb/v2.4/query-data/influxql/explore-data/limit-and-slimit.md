@@ -61,27 +61,27 @@ The query returns the three oldest points, determined by timestamp, from the `h2
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2
 ```
 Output:  
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: h2o_feet  
 tags: location=coyote_creek
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 | mean                        |
 | :------------------- | :-------------------------- |
 | 2019-08-18T00:00:00Z | 8.4615000000                |
 | 2019-08-18T00:12:00Z | 8.2725000000                |
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: h2o_feet       
 tags: location=santa_monica
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 | mean                        |
 | :------------------- | :-------------------------- |
 | 2019-08-18T00:00:00Z | 2.3655000000                |
 | 2019-08-18T00:12:00Z | 2.3360000000                |
 
-The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) and a `GROUP BY` clause to calculate the average `water_level` for each [tag](/influxdb/v2.4/reference/glossary/#tag) and for each twelve-minute interval in the query's time range. `LIMIT 2` requests the two oldest twelve-minute averages (determined by timestamp).
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) and a `GROUP BY` clause to calculate the average `water_level` for each [tag](/influxdb/v2.4/reference/glossary/#tag) and for each twelve-minute interval in the query's time range. `LIMIT 2` requests the two oldest twelve-minute averages (determined by timestamp).
 
 Note that without `LIMIT 2`, the query would return four points per series; one for each twelve-minute interval in the query's time range.
 
@@ -122,7 +122,7 @@ tags: location=coyote_creek
 | 2019-08-17T00:30:00Z | 7.5000000000|
 | 2019-08-17T00:36:00Z | 7.3720000000|
 
-The results above include only the first few rows, as the data set is large. The query returns all `water_level` [points](/influxdb/v2.4/reference/glossary/#point) from one of the [series](/influxdb/v2.4/reference/glossary/#series) associated with the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement).
+The results above include only the first few rows, as the data set is quite large. The query returns all `water_level` [points](/influxdb/v2.4/reference/glossary/#point) from one of the [series](/influxdb/v2.4/reference/glossary/#series) associated with the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
 #### Limit the number of series returned and include a GROUP BY time() clause
 
@@ -147,6 +147,7 @@ The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql
 and a time interval in the [GROUP BY clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
 to calculate the average `water_level` for each twelve-minute
 interval in the query's time range.
+
 `SLIMIT 1` requests a single series associated with the `h2o_feet` measurement.
 
 Note that without `SLIMIT 1`, the query would return results for the two series

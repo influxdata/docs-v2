@@ -46,7 +46,8 @@ The measurement has one [tag key](influxdb/v2.4/reference/glossary/#tag-key)
 The measurement also has two [fields](/influxdb/v2.4/reference/glossary/#field):
 `level description` stores string [field values](/influxdb/v2.4/reference/glossary/#field-value)
 and `water_level` stores float field values.
-All of these data is in the `noaa` [database](/influxdb/v2.4/reference/glossary/#database).
+
+This data is in the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) set.
 
 {{% note %}}
 **Disclaimer:** The `level description` field isn't part of the original NOAA data - we snuck it in there for the sake of having a field key with a special character and string field values.
@@ -56,6 +57,7 @@ All of these data is in the `noaa` [database](/influxdb/v2.4/reference/glossary/
 
 The [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) returns timestamps in
 nanosecond UNIX epoch format by default.
+
 Specify alternative formats with the
 [`precision <format>` command](/influxdb/v2.4/tools/influxql-shell/#precision).  
 
@@ -63,6 +65,4 @@ If you are using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/), use
 
 The [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.
-Specify alternative formats with the
-[`epoch` query string parameter](/influxdb/v2.4/reference/api/influxdb-1x/).
-
+Specify alternative formats with the [`epoch` query string parameter](/influxdb/v2.4/reference/api/influxdb-1x/).

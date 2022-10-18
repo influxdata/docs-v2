@@ -90,7 +90,7 @@ SELECT FIRST("water_level") FROM "NOAA_water_database"."autogen"."h2o_feet" WHER
 In the `GROUP BY time()` clause, the first argument (`379m`) matches
 the length of time that occurs between each peak and trough in the `water_level` data.
 The second argument (`348m`) is the
-[offset interval](/enterprise_influxdb/v1.9/query_language/explore-data/#advanced-group-by-time-syntax).
+[offset interval](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#advanced-group-by-time-syntax).
 The offset interval alters the default `GROUP BY time()` boundaries to
 match the time range of the raw data.
 
