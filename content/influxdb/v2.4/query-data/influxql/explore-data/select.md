@@ -215,6 +215,7 @@ Name: h2o_feet
 The query multiplies `water_level`'s field values by two and adds four to those
 values.
 
+{{% note %}}
 **Note:** InfluxDB follows the standard order of operations.
 See [InfluxQL mathematical operators](/influxdb/v2.4/query-data/influxql/math_operators/)
 for more on supported operators.
