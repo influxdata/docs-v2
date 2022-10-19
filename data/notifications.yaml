@@ -16,7 +16,7 @@
     **InfluxDB Cloud** and **InfluxDB OSS 2.0** ready for production.
 
     - [Upgrade to InfluxDB Cloud](/influxdb/cloud/upgrade/v1-to-cloud/)
-    - [Upgrade to InfluxDB OSS 2.0](/influxdb/v2.0/upgrade/v1-to-v2/)
+    - [Upgrade to InfluxDB OSS 2.x](/influxdb/latest/upgrade/v1-to-v2/)
 
 - id: docs-ux-research
   level: note
@@ -24,8 +24,8 @@
     - /
   message: |
     ### Help improve the InfluxData documentation
-    We are looking for volunteers to help us in our research to improve the
-    structure, layout, and user experience of the InfluxData documentation.
-    If you are interested in helping, let us know.
+    We're looking for volunteers to help in our research to improve the
+    structure, layout, and user experience in InfluxData documentation.
+    If you're interested, please let us know.
 
     <p class="right"><a class="btn" href="https://forms.gle/mkUPGmtBi6izNAfWA" target="_blank">I want to help!</a></p>
