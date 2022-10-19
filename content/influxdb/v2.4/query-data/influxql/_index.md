@@ -56,8 +56,7 @@ _For examples, see [Create DBRP mappings](/influxdb/v2.4/query-data/influxql/dbr
 {{% tab-content %}}
 <!---------------------------- BEGIN InfluxQL shell --------------------------->
 
-The [`influx` CLI](/influxdb/v2.4/tools/influx-cli/) provides an InfluxQL shell
-where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
+The [`influx` CLI](/influxdb/v2.4/tools/influx-cli/) provides an [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
 
 {{% note %}}
 If you haven't already, be sure to do the following:

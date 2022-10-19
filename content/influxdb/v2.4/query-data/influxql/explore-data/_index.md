@@ -58,9 +58,6 @@ This data is in the [NOAA water sample data](/influxdb/v2.4/reference/sample-dat
 The [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) returns timestamps in
 nanosecond UNIX epoch format by default.
 
-Specify alternative formats with the
-[`precision <format>` command](/influxdb/v2.4/tools/influxql-shell/#precision).  
-
 If you are using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/), use the precision helper command `precision rfc3339` to view results in human readable format.
 
 The [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) returns timestamps

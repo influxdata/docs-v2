@@ -84,10 +84,10 @@ any data and, in most cases,
 #### Timestamps
 
 For most `SELECT` statements, the default time range is between [`1677-09-21 00:12:43.145224194` and `2262-04-11T23:47:16.854775806Z` UTC](/influxdb/v2.4/reference/faq/#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store).
-For `SELECT` statements with a [`GROUP BY time()` clause](#group-by-time-intervals), the default time
+For `SELECT` statements with a [`GROUP BY time()` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/), the default time
 range is between `1677-09-21 00:12:43.145224194` UTC and [`now()`](/influxdb/v2.4/reference/glossary/#now).
 
-The [Time Syntax](#time-syntax) section on this page details how to specify alternative time ranges in the `WHERE` clause.
+See [Time Syntax](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) for information on how to specify alternative time ranges in the `WHERE` clause.
 
 ### Examples
 
@@ -224,8 +224,7 @@ separating logic with parentheses.
 ```
 
 The query returns data from the `h2o_feet` measurement that have [timestamps](/influxdb/v2.4/reference/glossary/#timestamp)
-within the past seven days. The [Time Syntax](#time-syntax) section on this page
-offers in-depth information on supported time syntax in the `WHERE` clause.
+within the past seven days. See [Time Syntax](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) for more in-depth information on supported time syntax in the `WHERE` clause.
 
 ### Common issues with the `WHERE` clause
 
