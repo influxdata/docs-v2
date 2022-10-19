@@ -56,7 +56,7 @@ Returns the number of field values associated with each field key that matches t
 name: h2o_feet
 time                   count
 ----                   -----
-1970-01-01T00:00:00Z   15258
+1970-01-01T00:00:00Z   61026.0000000000
 ```
 
 Returns the number of non-null field values in the `water_level` field key in the `h2o_feet` measurement.
@@ -71,7 +71,7 @@ Returns the number of non-null field values in the `water_level` field key in th
 name: h2o_feet
 time                   count_level description   count_water_level
 ----                   -----------------------   -----------------
-1970-01-01T00:00:00Z   15258                     15258
+1970-01-01T00:00:00Z   61026.0000000000          61026.0000000000
 ```
 
 Returns the number of non-null field values for each field key associated with the `h2o_feet` measurement.
@@ -87,7 +87,7 @@ The `h2o_feet` measurement has two field keys: `level description` and `water_le
 name: h2o_feet
 time                   count_water_level
 ----                   -----------------
-1970-01-01T00:00:00Z   15258
+1970-01-01T00:00:00Z   61026.0000000000
 ```
 
 Returns the number of non-null field values for every field key that contains the word `water` in the `h2o_feet` measurement.
@@ -104,7 +104,7 @@ InfluxQL supports nesting [DISTINCT()](#distinct) in `COUNT()`.
 name: h2o_feet
 time                   count
 ----                   -----
-1970-01-01T00:00:00Z   4
+1970-01-01T00:00:00Z   4.0000000000
 ```
 
 Returns the number of unique field values for the `level description` field key and the `h2o_feet` measurement.
@@ -150,6 +150,7 @@ Returns a tabular list of the unique field values in the `level description` fie
 
 {{% /expand %}}
 
+<!-->
 {{% expand "List the distinct field values associated with each field key in a measurement" %}}
 
 ```sql
@@ -169,6 +170,8 @@ Returns a tabular list of the unique field values for each field key in the `h2o
 The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
 
 {{% /expand %}}
+
+-->
 {{< /expand-wrapper >}}
 
 ## INTEGRAL()
@@ -211,12 +214,12 @@ The following examples use a subset of the [NOAA water sample data](/influxdb/v2
 name: h2o_feet
 time                   water_level
 ----                   -----------
-2015-08-18T00:00:00Z   2.064
-2015-08-18T00:06:00Z   2.116
-2015-08-18T00:12:00Z   2.028
-2015-08-18T00:18:00Z   2.126
-2015-08-18T00:24:00Z   2.041
-2015-08-18T00:30:00Z   2.051
+2015-08-18T00:00:00Z   2.3520000000
+2015-08-18T00:06:00Z   2.3790000000
+2015-08-18T00:12:00Z   2.3430000000
+2015-08-18T00:18:00Z   2.3290000000
+2015-08-18T00:24:00Z   2.2640000000
+2015-08-18T00:30:00Z   2.2670000000
 ```
 
 {{< expand-wrapper >}}
@@ -329,7 +332,7 @@ Returns the average field value associated with each field key in the [measureme
 name: h2o_feet
 time                   mean
 ----                   ----
-1970-01-01T00:00:00Z   4.442107025822522
+1970-01-01T00:00:00Z   4.4418674882
 ```
 
 Returns the average field value in the `water_level` field key in the `h2o_feet` measurement.
@@ -344,7 +347,7 @@ Returns the average field value in the `water_level` field key in the `h2o_feet`
 name: h2o_feet
 time                   mean_water_level
 ----                   ----------------
-1970-01-01T00:00:00Z   4.442107025822522
+1970-01-01T00:00:00Z   4.4418674882
 ```
 
 Returns the average field value for every field key that stores numerical values in the `h2o_feet` measurement.
@@ -360,7 +363,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 name: h2o_feet
 time                   mean_water_level
 ----                   ----------------
-1970-01-01T00:00:00Z   4.442107025822523
+1970-01-01T00:00:00Z   4.4418674882
 ```
 
 Returns the average field value for each field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
@@ -428,7 +431,7 @@ Returns the middle field value associated with each field key in the [measuremen
 name: h2o_feet
 time                   median
 ----                   ------
-1970-01-01T00:00:00Z   4.124
+1970-01-01T00:00:00Z   4.1240000000
 ```
 
 Returns the middle field value in the `water_level` field key and in the `h2o_feet` measurement.
@@ -442,7 +445,7 @@ Returns the middle field value in the `water_level` field key and in the `h2o_fe
 name: h2o_feet
 time                   median_water_level
 ----                   ------------------
-1970-01-01T00:00:00Z   4.124
+1970-01-01T00:00:00Z   4.1240000000
 ```
 
 Returns the middle field value for every field key that stores numerical values in the `h2o_feet` measurement.
@@ -458,7 +461,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 name: h2o_feet
 time                   median_water_level
 ----                   ------------------
-1970-01-01T00:00:00Z   4.124
+1970-01-01T00:00:00Z   4.1240000000
 ```
 
 Returns the middle field value for every field key that stores numerical values and includes the word `water` in the `h2o_feet` measurement.
@@ -542,7 +545,7 @@ Returns the most frequent field value in the `level description` field key and i
 name: h2o_feet
 time                   mode_level description   mode_water_level
 ----                   ----------------------   ----------------
-1970-01-01T00:00:00Z   between 3 and 6 feet     2.69
+1970-01-01T00:00:00Z   between 3 and 6 feet     2.6900000000
 ```
 
 Returns the most frequent field value for every field key in the `h2o_feet` measurement.
@@ -558,7 +561,7 @@ The `h2o_feet` measurement has two field keys: `level description` and `water_le
 name: h2o_feet
 time                   mode_water_level
 ----                   ----------------
-1970-01-01T00:00:00Z   2.69
+1970-01-01T00:00:00Z   2.6900000000
 ```
 
 Returns the most frequent field value for every field key that includes the word `/water/` in the `h2o_feet` measurement.
@@ -620,7 +623,7 @@ Returns the difference between the minimum and maximum field values associated w
 name: h2o_feet
 time                   spread
 ----                   ------
-1970-01-01T00:00:00Z   10.574
+1970-01-01T00:00:00Z   10.5740000000
 ```
 
 Returns the difference between the minimum and maximum field values in the `water_level` field key and in the `h2o_feet` measurement.
