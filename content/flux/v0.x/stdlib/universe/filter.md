@@ -95,7 +95,7 @@ sampledata.int()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output data" %}}
 
 #### Input data
 
@@ -117,11 +117,11 @@ sampledata.int()
 | 2021-01-01T00:00:40Z | 13      | t2   |
 | 2021-01-01T00:00:50Z | 1       | t2   |
 
-
-#### Output data
-
 | _time  | _value  | *tag |
 | ------ | ------- | ---- |
+
+
+#### Output data
 
 | _time                | _value  | *tag |
 | -------------------- | ------- | ---- |
@@ -142,7 +142,7 @@ sampledata.int()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output data" %}}
 
 #### Input data
 
