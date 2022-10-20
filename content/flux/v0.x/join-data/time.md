@@ -115,7 +115,7 @@ join.time(method: "left", left: left, right: right, as: (l, r) => ({l with targe
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output" %}}
+{{% expand "View example input and output data" %}}
 
 ### Input
 

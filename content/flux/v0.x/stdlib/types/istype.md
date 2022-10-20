@@ -79,7 +79,7 @@ data
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output data" %}}
 
 #### Input data
 
@@ -139,7 +139,7 @@ union(tables: [nonNumericData, numericData])
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output data" %}}
 
 #### Input data
 
