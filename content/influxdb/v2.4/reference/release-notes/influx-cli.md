@@ -12,18 +12,18 @@ menu:
 
 ### Features
 
-- Support username and password in config update.
+- Support username and password in [influx auth create](/influxdb/v2.4/reference/cli/influx/auth/create/).
+
+### Maintenance
+
+- Upgrade to Go 1.19.
+- Fix Go version in `go.mod`.
 
 ### Bug fixes
 
 - Don't allow creating an auth with instance resources.
 - Fix stack error typo.
 - Fix an error where `stdin` could not be used to create tasks.
-
-### Other
-
-- Update to Go 1.19.
-- Fix Go version in `go.mod`.
 
 ## v2.4.0 [2022-08-18]
 

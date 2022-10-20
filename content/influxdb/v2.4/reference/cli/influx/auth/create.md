@@ -11,63 +11,9 @@ updated_in: CLI v2.3.0
 
 The `influx auth create` command creates an API token in InfluxDB.
 
-
 {{% warn %}}
-InfluxDB 2.4 introduced a bug that prevents you from creating an **all-access** or **operator** token using the `influx auth create` command, and causes the following error: `Error: could not write auth with provided arguments: 403 Forbidden: permission.`
-
-Until this bug is resolved in the next influx CLI release, please use the [workaround below to create an all-access or operator token](/influxdb/v2.4/security/tokens/create-token/#workaround-to-create-an-all-access-or-operator-token).
+Using InfluxDB 2.4 and influx CLI 2.4 together prevents you from creating an **all-access** or **operator** token using the `influx auth create` command. This issue has been resolved in the influx 2.5 CLI release, please [install the latest version](/influxdb/latest/tools/influx-cli/) of the influx cli.
 {{% /warn %}}
-
-### **Workaround:** To create an all-access or operator token
-
-- Use the following command to create an [all-access](/influxdb/v2.4/security/tokens/#all-access-token) or [operator](/influxdb/v2.4/security/tokens/#operator-token) token. For an **operator** token, you must also include the `--read-orgs` and `--write-orgs` flags.
-
-```sh
-influx auth create    
-                      --org-id or --org              \
-                      --read-authorizations          \
-                      --write-authorizations         \
-                      --read-buckets                 \
-                      --write-buckets                \
-                      --read-dashboards              \
-                      --write-dashboards             \
-                      --read-tasks                   \
-                      --write-tasks                  \
-                      --read-telegrafs               \
-                      --write-telegrafs              \
-                      --read-users                   \
-                      --write-users                  \
-                      --read-variables               \
-                      --write-variables              \
-                      --read-secrets                 \
-                      --write-secrets                \
-                      --read-labels                  \
-                      --write-labels                 \
-                      --read-views                   \
-                      --write-views                  \
-                      --read-documents               \
-                      --write-documents              \
-                      --read-notificationRules       \
-                      --write-notificationRules      \
-                      --read-notificationEndpoints   \
-                      --write-notificationEndpoints  \
-                      --read-checks                  \
-                      --write-checks                 \
-                      --read-dbrp                    \
-                      --write-dbrp                   \
-                      --read-annotations             \
-                      --write-annotations            \
-                      --read-sources                 \
-                      --write-sources                \
-                      --read-scrapers                \
-                      --write-scrapers               \
-                      --read-notebooks               \
-                      --write-notebooks              \
-                      --read-remotes                 \
-                      --write-remotes                \
-                      --read-replications            \
-                      --write-replications
-```
 
 ## Usage
 ```
