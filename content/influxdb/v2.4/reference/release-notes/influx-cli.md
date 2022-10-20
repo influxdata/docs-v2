@@ -8,6 +8,23 @@ menu:
     name: influx CLI 
 ---
 
+## v2.5.0 [2022-10-20]
+
+### Features
+
+- Support username and password in config update.
+
+### Bug fixes
+
+- Don't allow creating an auth with instance resources.
+- Fix stack error typo.
+- Fix an error where `stdin` could not be used to create tasks.
+
+### Other
+
+- Update to Go 1.19.
+- Fix Go version in `go.mod`.
+
 ## v2.4.0 [2022-08-18]
 
 ### Features
