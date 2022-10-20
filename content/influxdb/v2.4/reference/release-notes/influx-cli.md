@@ -12,7 +12,7 @@ menu:
 
 ### Features
 
-- Add `--username` and `--password` flags to both [influx config create](/influxdb/v2.4/reference/cli/influx/config/create/) and [influx config set](/influxdb/v2.4/reference/cli/influx/config/set/). Use both flags `username:password` to ensure a session is automatically authenticated for the config. Include the `--username` (without password) to prompt for a password before creating the session.
+- Add the `--username-password` flag to [influx config set](/influxdb/v2.4/reference/cli/influx/config/set/). Include `username:password` after this flag to ensure a session is automatically authenticated for the config. Include `username` (without password) to prompt for a password before creating the session.
 
 ### Maintenance
 
