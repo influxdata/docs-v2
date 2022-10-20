@@ -30,7 +30,7 @@ Returns the number of non-null [field values](/influxdb/v2.4/reference/glossary/
 ### Syntax
 
 ```
-SELECT COUNT( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT COUNT( [ * | <field_key> | /<regular_expression>/ ] ) FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `COUNT(*)`
@@ -185,7 +185,7 @@ Returns the area under the curve for subsequent [field values](/influxdb/v2.4/re
 ### Syntax
 
 ```
-SELECT INTEGRAL( [ * | <field_key> | /<regular_expression>/ ] [ , <unit> ]  ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT INTEGRAL( [ * | <field_key> | /<regular_expression>/ ] [ , <unit> ]  ) FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 InfluxDB calculates the area under the curve for subsequent field values and converts those results into the summed area per `unit`.
@@ -214,12 +214,12 @@ The following examples use a subset of the [NOAA water sample data](/influxdb/v2
 name: h2o_feet
 time                   water_level
 ----                   -----------
-2015-08-18T00:00:00Z   2.3520000000
-2015-08-18T00:06:00Z   2.3790000000
-2015-08-18T00:12:00Z   2.3430000000
-2015-08-18T00:18:00Z   2.3290000000
-2015-08-18T00:24:00Z   2.2640000000
-2015-08-18T00:30:00Z   2.2670000000
+2019-08-18T00:00:00Z   2.3520000000
+2019-08-18T00:06:00Z   2.3790000000
+2019-08-18T00:12:00Z   2.3430000000
+2019-08-18T00:18:00Z   2.3290000000
+2019-08-18T00:24:00Z   2.2640000000
+2019-08-18T00:30:00Z   2.2670000000
 ```
 
 {{< expand-wrapper >}}
@@ -308,7 +308,7 @@ Returns the arithmetic mean (average) of [field values](/influxdb/v2.4/reference
 ### Syntax
 
 ```
-SELECT MEAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT MEAN( [ * | <field_key> | /<regular_expression>/ ] ) FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `MEAN(field_key)`
@@ -405,7 +405,7 @@ Returns the middle value from a sorted list of [field values](/influxdb/v2.4/ref
 ### Syntax
 
 ```
-SELECT MEDIAN( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT MEDIAN( [ * | <field_key> | /<regular_expression>/ ] ) FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `MEDIAN(field_key)`
@@ -503,7 +503,7 @@ Returns the most frequent value in a list of [field values](/influxdb/v2.4/refer
 ### Syntax
 
 ```
-SELECT MODE( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT MODE( [ * | <field_key> | /<regular_expression>/ ] ) FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `MODE(field_key)`
@@ -596,7 +596,7 @@ Returns the difference between the minimum and maximum [field values](/influxdb/
 ### Syntax
 
 ```
-SELECT SPREAD( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT SPREAD( [ * | <field_key> | /<regular_expression>/ ] ) FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `SPREAD(field_key)`
@@ -638,7 +638,7 @@ Returns the difference between the minimum and maximum field values in the `wate
 name: h2o_feet
 time                   spread_water_level
 ----                   ------------------
-1970-01-01T00:00:00Z   10.574
+1970-01-01T00:00:00Z   10.5740000000
 ```
 
 Returns the difference between the minimum and maximum field values for every field key that stores numerical values in the `h2o_feet` measurement.
@@ -689,7 +689,7 @@ Returns the standard deviation of [field values](/influxdb/v2.4/reference/glossa
 ### Syntax
 
 ```
-SELECT STDDEV( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT STDDEV( [ * | <field_key> | /<regular_expression>/ ] ) FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `STDDEV(field_key)`
@@ -779,7 +779,7 @@ Returns the sum of [field values](/influxdb/v2.4/reference/glossary/#field-value
 ### Syntax
 
 ```
-SELECT SUM( [ * | <field_key> | /<regular_expression>/ ] ) [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT SUM( [ * | <field_key> | /<regular_expression>/ ] ) FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `SUM(field_key)`
