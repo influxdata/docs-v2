@@ -111,7 +111,7 @@ find the token you want to clone and click the **{{< icon "settings" >}}** icon 
 ## Create a token using the influx CLI
 
 {{% warn %}}
-Using InfluxDB 2.4 and influx CLI 2.4 together prevents you from creating an **all-access** or **operator** token using the `influx auth create` command. This issue has been resolved in the influx 2.5 CLI release, please [install the latest version](/influxdb/latest/tools/influx-cli/) of the influx cli.
+**Issue resolved**: Using InfluxDB 2.4 and influx CLI 2.4 prevented you from creating an **all-access** or **operator** token using the `influx auth create` command. This issue is resolved in the influx 2.5 CLI release. Please [upgrade to the latest version](/influxdb/latest/tools/influx-cli/) of the influx cli.
 {{% /warn %}}
 
 Use the [`influx auth create` command](/influxdb/v2.4/reference/cli/influx/auth/create) to create a token.

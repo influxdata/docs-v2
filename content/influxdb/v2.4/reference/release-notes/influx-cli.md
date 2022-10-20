@@ -12,7 +12,7 @@ menu:
 
 ### Features
 
-- Support username and password in [influx auth create](/influxdb/v2.4/reference/cli/influx/auth/create/).
+- Add `--username` and `--password` flags to both [influx config create](/influxdb/v2.4/reference/cli/influx/config/create/) and [influx config set](/influxdb/v2.4/reference/cli/influx/config/set/). Use both flags `username:password` to ensure a session is automatically authenticated for the config. Include the `--username` (without password) to prompt for a password before creating the session.
 
 ### Maintenance
 
@@ -21,7 +21,7 @@ menu:
 
 ### Bug fixes
 
-- Don't allow creating an auth with instance resources.
+- Fix to allow [influx auth create](/influxdb/v2.4/reference/cli/influx/auth/create/) to successfully create an API token without error.
 - Fix stack error typo.
 - Fix an error where `stdin` could not be used to create tasks.
 
