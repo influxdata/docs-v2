@@ -5,7 +5,7 @@ description: >
   Switch from one InfluxDB Cloud account to another and set a default account.  
 menu:
   influxdb_cloud:
-    name: Switch InfluxDB accounts
+    name: Switch InfluxDB organizations
     parent: Account management
 weight: 105
 ---

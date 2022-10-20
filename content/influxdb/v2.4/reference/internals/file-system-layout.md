@@ -9,6 +9,8 @@ menu:
     name: File system layout
     parent: InfluxDB internals
 influxdb/v2.4/tags: [storage, internals]
+related:
+  - /influxdb/v2.4/admin/internals/
 ---
 
 The InfluxDB file system layout depends on the operating system, installation method,
@@ -24,8 +26,13 @@ The InfluxDB file structure includes of the following:
 Directory path to the [storage engine](/{{< latest "influxdb" >}}/reference/internals/storage-engine/),
 where InfluxDB stores time series data, includes the following directories:
 
-- **data**: stores Time-Structured Merge Tree (TSM) files
-- **wal**: stores Write Ahead Log (WAL) files.
+- **data**: Stores time-structured merge tree (TSM) files.
+  For more information about the structure of the `data` directory, see
+  [TSM directories and files layout](#tsm-directories-and-files-layout).
+- **replicationq**: Store the replication queue for the [InfluxDB replication service](/influxdb/v2.4/write-data/replication/).
+- **wal**: Stores write-ahead log (WAL) files.
+  For more information about the structure of the `wal` directory, see
+  [WAL directories and files layout](#wal-directories-and-files-layout).
 
 To customize this path, use the [engine-path](/influxdb/v2.4/reference/config-options/#engine-path)
 configuration option.
@@ -248,6 +255,7 @@ so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during th
   - engine/
     - data/
       - _<span style="opacity:.4">TSM directories and files</span>_
+        <a class="btn small-plus" href="#tsm-directories-and-files-layout">+</a>
     - wal/
       - _<span style="opacity:.4">WAL directories and files</span>_
   - influxd.bolt
@@ -258,3 +266,37 @@ so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during th
 {{% /tab-content %}}
 <!--------------------------- END KUBERNETES CONTENT -------------------------->
 {{< /tabs-wrapper >}}
+
+---
+
+#### TSM directories and files layout
+
+TSM directories and files are stored in the `data` directory inside the [engine path](#engine-path).
+The diagram below is **relative to the [engine path](#file-system-layout)**.
+
+{{% filesystem-diagram %}}
+- <span style="opacity:.4">...</span>/data/
+  - 000xX00xxXx000x0/ _<span style="opacity:.4">(bucket ID)</span>_
+    - _series/ _<span style="opacity:.4">(series directory)</span>_
+      - 00/ _<span style="opacity:.4">(internal shard index)</span>_
+        - 0000 _<span style="opacity:.4">(internal shard index file)</span>_
+    - autogen 
+      - 0123/ _<span style="opacity:.4">(shard ID)</span>_
+        - index _<span style="opacity:.4">(index directory)</span>_
+          - L0-00000001.tsl _<span style="opacity:.4">(write-ahead log for the TSI index)</span>_
+          - L0-00000001.tsi _<span style="opacity:.4">(series index)</span>_
+          - MANIFEST _<span style="opacity:.4">(index manifest)</span>_
+{{% /filesystem-diagram %}}
+
+#### WAL directories and files layout
+
+WAL directories and files are stored in the `data` directory inside the [engine path](#engine-path).
+The diagram below is **relative to the [engine path](#file-system-layout)**.
+
+{{% filesystem-diagram %}}
+- <span style="opacity:.4">...</span>/wal/
+  - 000xX00xxXx000x0/ _<span style="opacity:.4">(bucket ID)</span>_
+    - autogen/ 
+      - 0123/ _<span style="opacity:.4">(shard ID)</span>_
+        - _01234.wal _<span style="opacity:.4">(WAL file)</span>_
+{{% /filesystem-diagram %}}

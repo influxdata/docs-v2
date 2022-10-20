@@ -6,6 +6,7 @@ menu:
   influxdb_1_7:
     weight: 60
     parent: Administration
+v2: /influxdb/v2.4/admin/internals/tsi/rebuild-index/
 ---
 
 The InfluxDB [Time Series Index (TSI)](/influxdb/v1.7/concepts/tsi-details/)

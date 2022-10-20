@@ -19,8 +19,8 @@ influxd inspect export-index [flags]
 ```
 
 ## Flags
-| Flag |                | Description                                                             | Input type |
-|:---- |:---            |:-----------                                                             |:----------:|
-| `-h` | `--help`       | Help for the `export-index` command.                                    |            |
-|      |`--index-path`  | Path to the index directory. Defaults to `~/.influxdbv2/engine/index`). | string     |
-|      |`--series-path` | Path to series file. Defaults to `~/.influxdbv2/engine/_series`).       | string     |
+| Flag |                 | Description                                                                                                                   | Input type |
+| :--- | :-------------- | :---------------------------------------------------------------------------------------------------------------------------- | :--------: |
+| `-h` | `--help`        | Help for the `export-index` command.                                                                                          |            |
+|      | `--index-path`  | Path to the [`index` directory](/influxdb/v2.4/reference/internals/file-system-layout/#tsm-directories-and-files-layout).     |   string   |
+|      | `--series-path` | Path to the [`_series` directory]((/influxdb/v2.4/reference/internals/file-system-layout/#tsm-directories-and-files-layout)). |   string   |

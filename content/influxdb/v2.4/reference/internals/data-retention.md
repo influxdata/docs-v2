@@ -12,6 +12,7 @@ influxdb/v2.4/tags: [storage, internals]
 related: 
   - /influxdb/v2.4/reference/internals/shards/
   - /influxdb/v2.4/reference/internals/storage-engine/
+  - /influxdb/v2.4/admin/internals/
 ---
 
 The **InfluxDB retention enforcement service** checks for and removes data with
