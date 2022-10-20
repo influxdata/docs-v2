@@ -9,9 +9,69 @@ weight: 3
 influxdb/v2.4/tags: [get-started]
 aliases:
   - /influxdb/v2.4/introduction/get-started/
+metadata: [1 / 4]
 ---
 
-After you've [installed InfluxDB OSS](/influxdb/v2.4/install/), you're ready to get started. Explore the following ways to work with your data:
+InfluxDB 2.4 is the platform purpose-built to collect, store, process and visualize time series data.
+**Time series data** is a sequence of data points indexed in time order.
+Data points typically consist of successive measurements made from the same
+source and are used to track changes over time.
+Examples of time series data include:
+
+- Industrial sensor data
+- Server performance metrics
+- Heartbeats per minute
+- Electrical activity in the brain
+- Rainfall measurements
+- Stock prices
+
+This multi-part tutorial walks through writing time series data to InfluxDB,
+querying that data, processing and alerting on the data, and then visualizing the data.
+
+## Key concepts before you get started
+
+- Key concepts
+  - Data model / InfluxDB elements
+    - Measurement
+      - Data stored in a measurement should all have the same schema (tag set)
+    - Tags
+    - Fields
+    - Series
+
+
+---
+
+- Set up
+  - Download and install InfluxDB
+  - Download, install, and configure the `influx` CLI
+
+- Write data
+  - Intro to line protocol
+  - Other methods for writing data (Telegraf, Client libraries, scrapers, etc.)
+  - Write some example line protocol
+  - Use the InfluxDB CLI, UI, or API to write the example line protocol
+
+- Query data
+  - Intro to Flux and InfluxQL
+  - Annotated CSV
+  - Walk through creating a Flux query
+    - `from()`
+    - `range()` (InfluxDB doesn't support unbounded queries)
+    - `filter()`
+    - Other operations you can perform
+  - Use the InfluxDB CLI, UI, or API to query data
+
+- Process data
+  - Intro to the InfluxDB tasks engine
+  - Downsample data
+  - Monitor and alert on data
+
+- Visualize data
+  - Dashboards
+  - Data explorer
+  - 
+
+<!-- After you've [installed InfluxDB OSS](/influxdb/v2.4/install/), you're ready to get started. Explore the following ways to work with your data:
 
 - [Collect and write data](#collect-and-write-data)
 - [Query data](#query-data)
@@ -66,6 +126,6 @@ See [Visualize data](/influxdb/v2.4/visualize-data/).
 ### Monitor and alert
 
 Monitor your data and sends alerts based on specified logic.
-See [Monitor and alert](/influxdb/v2.4/monitor-alert/).
+See [Monitor and alert](/influxdb/v2.4/monitor-alert/). -->
 
 {{< influxdbu "influxdb-101" >}}
