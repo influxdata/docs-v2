@@ -89,6 +89,6 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 
 ### Set up an MQTT native subscription
 
-For more details about setting up native subscriptions, see [Set up native subscriptions](/influxdb/cloud/write-data/no-code/native-subscriptions)]
+For more details about setting up native subscriptions, see [Set up native subscriptions](/influxdb/cloud/write-data/no-code/native-subscriptions).
 
 {{% /cloud-only %}}
