@@ -12,7 +12,6 @@ cascade:
   influxdb/v2.4/tags: [storage, internals]
 ---
 
-Manage the internal systems of InfluxDB such as the Time Series Index (TSI),
-the time-structured merge tree (TSM) storage engine, and the write-ahead log (WAL).
+Manage InfluxDB internal systems, including the time series index (TSI), time-structured merge tree (TSM) storage engine, and write-ahead log (WAL).
 
 {{< children >}}

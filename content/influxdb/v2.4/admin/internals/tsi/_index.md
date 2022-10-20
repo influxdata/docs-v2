@@ -1,9 +1,9 @@
 ---
 title: Manage the InfluxDB time series index (TSI)
 description: >
-  The InfluxDB [Time Series Index (TSI)](/influxdb/v2.4/reference/internals/storage-engine/#time-series-index-tsi)
+  The InfluxDB [time series index (TSI)](/influxdb/v2.4/reference/internals/storage-engine/#time-series-index-tsi)
   indexes or caches measurement and tag data to ensure queries are performant.
-  Use tools provided by the `influxd inspect` command to manage the TSI index.
+  Use the `influxd inspect` command to manage the TSI index.
 menu:
   influxdb_2_4:
     name: Manage TSI indexes
@@ -11,7 +11,7 @@ menu:
 weight: 101
 ---
 
-The InfluxDB [Time Series Index (TSI)](/influxdb/v2.4/reference/internals/storage-engine/#time-series-index-tsi)
+The InfluxDB [time series index (TSI)](/influxdb/v2.4/reference/internals/storage-engine/#time-series-index-tsi)
 indexes or caches measurement and tag data to ensure queries are performant.
 
 {{< children >}}

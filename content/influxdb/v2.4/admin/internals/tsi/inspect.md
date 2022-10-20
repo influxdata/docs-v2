@@ -1,7 +1,7 @@
 ---
 title: Inspect TSI indexes
 description: >
-  Use tools provided by the `influxd inspect` command to inspect the InfluxDB TSI index.
+  Use the `influxd inspect` command to inspect the InfluxDB TSI index.
 menu:
   influxdb_2_4:
     parent: Manage TSI indexes
@@ -13,7 +13,7 @@ related:
   - /influxdb/v2.4/reference/cli/influxd/inspect/report-tsi/
 ---
 
-Use tools provided by the `influxd inspect` command to inspect the InfluxDB TSI index.
+Use the `influxd inspect` command to inspect the InfluxDB [time series index (TSI)](/influxdb/v2.4/reference/internals/storage-engine/#time-series-index-tsi).
 
 - [Output information about TSI index files](#output-information-about-tsi-index-files)
   - [Output raw series data stored in the index](#output-raw-series-data-stored-in-the-index)
@@ -24,7 +24,7 @@ Use tools provided by the `influxd inspect` command to inspect the InfluxDB TSI 
 ## Output information about TSI index files
 
 Use the [`influxd inspect dump-tsi` command](/influxdb/v2.4/reference/cli/influxd/inspect/dump-tsi/)
-to output low-level details about tsi1 files.
+to output low-level details about TSI index (`tsi1`) files.
 
 Provide the following:
 

@@ -26,11 +26,11 @@ The InfluxDB file structure includes of the following:
 Directory path to the [storage engine](/{{< latest "influxdb" >}}/reference/internals/storage-engine/),
 where InfluxDB stores time series data, includes the following directories:
 
-- **data**: Stores Time-Structured Merge Tree (TSM) files.
+- **data**: Stores time-structured merge tree (TSM) files.
   For more information about the structure of the `data` directory, see
   [TSM directories and files layout](#tsm-directories-and-files-layout).
 - **replicationq**: Store the replication queue for the [InfluxDB replication service](/influxdb/v2.4/write-data/replication/).
-- **wal**: Stores Write-Ahead Log (WAL) files.
+- **wal**: Stores write-ahead log (WAL) files.
   For more information about the structure of the `wal` directory, see
   [WAL directories and files layout](#wal-directories-and-files-layout).
 

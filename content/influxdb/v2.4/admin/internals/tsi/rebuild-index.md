@@ -14,8 +14,7 @@ related:
 ---
 
 In some cases, it may be necessary to flush and rebuild the TSI index.
-For example, purging corrupt index files or removing indexed data that may be
-out of date.
+For example, purging corrupt index files or removing outdated indexed data.
 
 To rebuild your InfluxDB TSI index:
 
@@ -50,7 +49,7 @@ cd -Path 'C:\%USERPROFILE%\.influxdbv2\engine\data\'
 
 3.  **Delete all `_series` directories in your InfluxDB `data` directory.**
     By default, `_series` directories are are stored at `/data/<bucket-id>/_series`,
-    but you should check for and remove `_series` directories throughout the
+    but check for and remove `_series` directories throughout the
     `data` directory.
 
     {{< code-tabs-wrapper >}}
@@ -72,7 +71,7 @@ get-childitem -Include _series -Recurse -force | Remove-Item -Force -Recurse
 
 
 4.  **Delete all `index` directories.** By default, `index` directories are stored at
-    `/data/<bucket-id>/autogen/<shard-id>/index`, but you should check for and remove
+    `/data/<bucket-id>/autogen/<shard-id>/index`, but check for and remove
     `index` directories throughout the `data` directory.
 
     {{< code-tabs-wrapper >}}
