@@ -9,6 +9,7 @@ menu:
     name: Create a token
     parent: Manage tokens
 weight: 201
+updated_in: CLI 2.5.0
 ---
 
 Create API tokens using the InfluxDB user interface (UI), the `influx`
