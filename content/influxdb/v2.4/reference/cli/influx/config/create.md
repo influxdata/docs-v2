@@ -6,7 +6,7 @@ menu:
     name: influx config create
     parent: influx config
 weight: 201
-updated_in: CLI 2.4.0
+updated_in: CLI 2.5.0
 ---
 
 The `influx config create` command creates a InfluxDB connection configuration
@@ -18,17 +18,17 @@ influx config create [flags]
 ```
 
 ## Flags
-| Flag |                       | Description                                                                | Input type | {{< cli/mapped >}}    |
-| :--- | :-------------------- | :------------------------------------------------------------------------- | :--------: | :-------------------- |
-| `-a` | `--active`            | Set the specified connection to be the active configuration.               |            |                       |
-| `-n` | `--config-name`       | ({{< req >}}) Name of the new configuration.                               |   string   |                       |
-| `-h` | `--help`              | Help for the `create` command                                              |            |                       |
-|      | `--hide-headers`      | Hide table headers (default `false`)                                       |            | `INFLUX_HIDE_HEADERS` |
-| `-u` | `--host-url`          | ({{< req >}}) Connection URL for the new configuration.                    |   string   |                       |
-|      | `--json`              | Output data as JSON (default `false`)                                      |            | `INFLUX_OUTPUT_JSON`  |
-| `-o` | `--org`               | Organization name                                                          |   string   |                       |
-| `-t` | `--token`             | API token                                                                  |   string   | `INFLUX_TOKEN`        |
-| `-p` | `--username-password` | **(OSS only)** Username (and optionally password) to use for authentication. |   string   |                       |
+| Flag |                       | Description                                                                                 | Input type | {{< cli/mapped >}}    |
+| :--- | :-------------------- | :------------------------------------------------------------------------------------------ | :--------: | :-------------------- |
+| `-a` | `--active`            | Set the specified connection to be the active configuration.                                |            |                       |
+| `-n` | `--config-name`       | ({{< req >}}) Name of the new configuration.                                                |   string   |                       |
+| `-h` | `--help`              | Help for the `create` command                                                               |            |                       |
+|      | `--hide-headers`      | Hide table headers (default `false`)                                                        |            | `INFLUX_HIDE_HEADERS` |
+| `-u` | `--host-url`          | ({{< req >}}) Connection URL for the new configuration.                                     |   string   |                       |
+|      | `--json`              | Output data as JSON (default `false`)                                                       |            | `INFLUX_OUTPUT_JSON`  |
+| `-o` | `--org`               | Organization name                                                                           |   string   |                       |
+| `-t` | `--token`             | API token                                                                                   |   string   | `INFLUX_TOKEN`        |
+| `-p` | `--username-password` | **(OSS only)** Username (and optionally password) to use for authentication. Include `username:password` to ensure a session is automatically authenticated. Include `username` (without password) to prompt for a password before creating the session.                   |   string   |                       |
 
 ## Examples
 
@@ -37,6 +37,7 @@ influx config create [flags]
 - {{% oss-only %}}[Create a connection configuration that uses a username and password](#create-a-connection-configuration-that-uses-a-username-and-password){{% /oss-only %}}
 
 #### Create a connection configuration and set it active
+
 ```sh
 influx config create --active \
   -n config-name \
@@ -46,6 +47,7 @@ influx config create --active \
 ```
 
 #### Create a connection configuration without setting it active
+
 ```sh
 influx config create \
   -n config-name \

@@ -6,7 +6,7 @@ menu:
     name: influx config create
     parent: influx config
 weight: 201
-updated_in: CLI 2.4.0
+updated_in: CLI 2.5.0
 ---
 
 The `influx config create` command creates a InfluxDB connection configuration
@@ -28,7 +28,8 @@ influx config create [flags]
 |      | `--json`              | Output data as JSON (default `false`)                                      |            | `INFLUX_OUTPUT_JSON`  |
 | `-o` | `--org`               | Organization name                                                          |   string   |                       |
 | `-t` | `--token`             | API token                                                                  |   string   | `INFLUX_TOKEN`        |
-| `-p` | `--username-password` | **(OSS only)** Username (and optionally password) to use for authentication. |   string   |                       |
+| `-p` | `--username-password` | **(OSS only)** Username (and optionally password) to use for authentication.
+Include `username:password` to ensure a session is automatically authenticated. Include `username` (without password) to prompt for a password before creating the session.                                                                       |   string   |
 
 ## Examples
 
