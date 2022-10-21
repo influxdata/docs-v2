@@ -6,7 +6,7 @@ description: >
   InfluxDB 2.x tasks.
 menu:
   influxdb_2_5:
-    parent: InfluxDB 1.x to 2.4
+    parent: InfluxDB 1.x to 2.5
     name: Migrate CQs
 weight: 102
 related:

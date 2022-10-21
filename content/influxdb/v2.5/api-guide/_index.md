@@ -1,7 +1,7 @@
 ---
 title: Develop with the InfluxDB API
 seotitle: Use the InfluxDB API
-description: Interact with InfluxDB 2.4 using a rich API for writing and querying data and more.
+description: Interact with InfluxDB 2.5 using a rich API for writing and querying data and more.
 weight: 4
 menu:
   influxdb_2_5:

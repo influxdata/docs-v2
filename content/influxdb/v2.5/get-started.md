@@ -31,7 +31,7 @@ influxd
 
 ### Collect and write data
 
-Collect and write data to InfluxDB using the Telegraf plugins, the InfluxDB v2 API, the `influx` command line interface (CLI), the InfluxDB UI (the user interface for InfluxDB 2.4), or the InfluxDB v2 API client libraries.
+Collect and write data to InfluxDB using the Telegraf plugins, the InfluxDB v2 API, the `influx` command line interface (CLI), the InfluxDB UI (the user interface for InfluxDB 2.5), or the InfluxDB v2 API client libraries.
 
 #### Use Telegraf
 

@@ -1,6 +1,6 @@
 ---
 title: Query in the Flux REPL
-description: Query InfluxDB using the Flux REPL. Discover how to query data in InfluxDB 2.4 using the Flux REPL.
+description: Query InfluxDB using the Flux REPL. Discover how to query data in InfluxDB 2.5 using the Flux REPL.
 weight: 203
 menu:
   influxdb_2_5:
