@@ -8,6 +8,25 @@ menu:
 weight: 101
 ---
 
+## v2.5 [2022-10-21]
+
+### Features
+
+- Updated user interface (UI).
+- Allow for incremental changes to fields.idx.
+
+### Bug fixes
+
+- Manually scheduled tasks run when expected.
+- Fix error where mappings were being ignored when querying virtual DBRPs.
+- Ability to backup all buckets in your Influx instance.
+
+### Maintenance 
+
+- Upgrade to [Flux 0.187.0](/flux/v0.x/release-notes/#v01870-2022-10-17)
+- Upgrade to [Go](https://go.dev/doc/go1.18)
+- Upgrade to [Rust 1.63.0](https://www.rust-lang.org/)
+
 ## v2.4 [2022-08-19]
 
 ### Features
