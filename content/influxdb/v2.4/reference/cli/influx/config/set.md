@@ -6,6 +6,7 @@ menu:
     name: influx config set
     parent: influx config
 weight: 201
+updated_in: CLI 2.5.0
 ---
 
 The `influx config set` command updates information in an InfluxDB connection
