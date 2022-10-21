@@ -1,7 +1,7 @@
 ---
 title: Explore data using InfluxQL
 description: >
-  Explore time series data using InfluxData's SQL-like query language. Understand how to use the SELECT statement to query data from measurements, tags, and fields.
+  Explore time series data using InfluxData's SQL-like query language. Use the SELECT statement to query data from measurements, tags, and fields.
 menu:
   influxdb_2_4:
     name: Explore data
@@ -10,17 +10,16 @@ weight: 202
 ---
 
 InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
-The following sections detail InfluxQL's `SELECT` statement, as well as other key clauses, and useful query syntax
-for exploring your data.
+The following sections detail InfluxQL's `SELECT` statement, other key clauses, and useful query syntax for exploring your data.
 
 {{< children readmore=true hr=true >}}
 
-### Sample data
+### Download sample data
 
-This document uses publicly available data from the
+InfluxQL example queries use publicly available data from the
 [National Oceanic and Atmospheric Administration's (NOAA) Center for Operational Oceanographic Products and Services](http://tidesandcurrents.noaa.gov/stations.html?type=Water+Levels).
-See the [Sample Data](influxdb/v2.4/reference/sample-data/#noaa-sample-data) page to download
-the data and follow along with the example queries in the sections below.
+
+To download a subset of NOAA data used in examples, run the script under [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) (for example, copy and paste the script into your Data Explorer - Script Editor), and replace "example-org" in the script with the name of your InfluxDB organization.
 
 Let's get acquainted with this subsample of the data in the `h2o_feet` measurement:
 
@@ -39,21 +38,19 @@ Name: h2o_feet
 | 2019-08-18T00:12:00Z | below 3 feet | santa_monica          | 2.0280000000 |                                     
                                                 
 The data in the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement)
-occur at six-minute time intervals.
-The measurement has one [tag key](influxdb/v2.4/reference/glossary/#tag-key)
+occurs at six-minute time intervals.
+This measurement has one [tag key](influxdb/v2.4/reference/glossary/#tag-key)
 (`location`) which has two [tag values](/influxdb/v2.4/reference/glossary/#tag-value):
 `coyote_creek` and `santa_monica`.
 The measurement also has two [fields](/influxdb/v2.4/reference/glossary/#field):
 `level description` stores string [field values](/influxdb/v2.4/reference/glossary/#field-value)
 and `water_level` stores float field values.
 
-This data is in the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) set.
-
 {{% note %}}
 **Disclaimer:** The `level description` field isn't part of the original NOAA data - we snuck it in there for the sake of having a field key with a special character and string field values.
 {{% /note %}}
 
-### Configuring the returned timestamps
+### Configure timestamps in the InfluxQL shell
 
 The [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) returns timestamps in
 nanosecond UNIX epoch format by default.
