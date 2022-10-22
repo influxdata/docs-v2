@@ -33,7 +33,7 @@ Returns the smallest `N` [field values](/influxdb/v2.4/reference/glossary/#field
 ### Syntax
 
 ```
-SELECT BOTTOM(<field_key>[,<tag_key(s)>],<N> )[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT BOTTOM(<field_key>[,<tag_key(s)>],<N> )[,<tag_key(s)>|<field_key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `BOTTOM(field_key,N)`  
@@ -219,7 +219,7 @@ Returns the [field value ](/influxdb/v2.4/reference/glossary/#field-value) with 
 ### Syntax
 
 ```
-SELECT FIRST(<field_key>)[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT FIRST(<field_key>)[,<tag_key(s)>|<field_key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `FIRST(field_key)`  
@@ -335,7 +335,7 @@ Returns the [field value](/influxdb/v2.4/reference/glossary/#field-value) with t
 ### Syntax
 
 ```sql
-SELECT LAST(<field_key>)[,<tag_key(s)>|<field_keys(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT LAST(<field_key>)[,<tag_key(s)>|<field_keys(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `LAST(field_key)`  
@@ -451,7 +451,7 @@ Returns the greatest [field value](/influxdb/v2.4/reference/glossary/#field-valu
 ### Syntax
 
 ```
-SELECT MAX(<field_key>)[,<tag_key(s)>|<field__key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT MAX(<field_key>)[,<tag_key(s)>|<field__key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `MAX(field_key)`  
@@ -567,7 +567,7 @@ Returns the lowest [field value](/influxdb/v2.4/reference/glossary/#field-value)
 ### Syntax
 
 ```
-SELECT MIN(<field_key>)[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT MIN(<field_key>)[,<tag_key(s)>|<field_key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `MIN(field_key)`  
@@ -683,7 +683,7 @@ Returns the `N`th percentile [field value](/influxdb/v2.4/reference/glossary/#fi
 ### Syntax
 
 ```
-SELECT PERCENTILE(<field_key>, <N>)[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT PERCENTILE(<field_key>, <N>)[,<tag_key(s)>|<field_key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `PERCENTILE(field_key,N)`  
@@ -805,7 +805,7 @@ Returns a random sample of `N` [field values](/influxdb/v2.4/reference/glossary/
 ### Syntax
 
 ```
-SELECT SAMPLE(<field_key>, <N>)[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT SAMPLE(<field_key>, <N>)[,<tag_key(s)>|<field_key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `SAMPLE(field_key,N)`  
@@ -960,7 +960,7 @@ Returns the greatest `N` [field values](/influxdb/v2.4/reference/glossary/#field
 ### Syntax
 
 ```
-SELECT TOP( <field_key>[,<tag_key(s)>],<N> )[,<tag_key(s)>|<field_key(s)>] [INTO_clause] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT TOP( <field_key>[,<tag_key(s)>],<N> )[,<tag_key(s)>|<field_key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `TOP(field_key,N)`  

@@ -1,7 +1,7 @@
 ---
-title: Manage your database using InfluxQL
+title: Manage your data using InfluxQL
 description: >
-  Use InfluxQL to administer your InfluxDB server and work with InfluxDB databases, retention policies, series, measurements, and shards.
+  Use InfluxQL to delete 
 menu:
   influxdb_2_4:
     name: Manage your database
@@ -10,7 +10,7 @@ menu:
 weight: 204
 ---
 
-Use of InfluxQL database management commands in InfuxDB 2.x is limited.  
+Use of InfluxQL data management commands in InfuxDB 2.x is limited.  
 
 The examples in the sections below use the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). 
 

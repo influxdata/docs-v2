@@ -35,7 +35,7 @@ Use `HOLT_WINTERS()` to:
 ### Syntax
 
 ```
-SELECT HOLT_WINTERS[_WITH-FIT](<function>(<field_key>),<N>,<S>) [INTO_clause] FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+SELECT HOLT_WINTERS[_WITH-FIT](<function>(<field_key>),<N>,<S>) FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
 ```
 
 `HOLT_WINTERS(function(field_key),N,S)` returns `N` seasonally adjusted
@@ -73,7 +73,7 @@ The example uses [Chronograf](https://github.com/influxdata/chronograf) to visua
 The example focuses on the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-SELECT "water_level" FROM "NOAA_water_database"."autogen"."h2o_feet" WHERE "location"='santa_monica' AND time >= '2015-08-22 22:12:00' AND time <= '2015-08-28 03:00:00'
+SELECT "water_level" FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 ```
 
 ![Raw Data](/img/influxdb/1-3-hw-raw-data-1-2.png)
@@ -84,7 +84,7 @@ Write a `GROUP BY time()` query that matches the general trends of the raw `wate
 Here, we use the [`FIRST()`](#first) function:
 
 ```sql
-SELECT FIRST("water_level") FROM "NOAA_water_database"."autogen"."h2o_feet" WHERE "location"='santa_monica' and time >= '2015-08-22 22:12:00' and time <= '2015-08-28 03:00:00' GROUP BY time(379m,348m)
+SELECT FIRST("water_level") FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_monica' and time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(379m,348m)
 ```
 
 In the `GROUP BY time()` clause, the first argument (`379m`) matches

@@ -816,7 +816,7 @@ Name: h2o_quality
 | time    |  mean | 
 | :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
-| 019-08-19T08:45:00Z | 29.0000000000|
+| 019-08-19T08:45:00Z  | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
 | 2019-08-19T08:55:00Z |100.0000000000|
 | 2019-08-19T09:00:00Z | 84.0000000000|
@@ -825,7 +825,7 @@ Name: h2o_quality
 | 2019-08-19T09:15:00Z | 13.0000000000|
 | 2019-08-19T09:20:00Z | 9.0000000000|
 | 2019-08-19T09:25:00Z | 100.0000000000|
-| 2019-08-19T09:30:00Z  |  6.0000000000|
+| 2019-08-19T09:30:00Z | 6.0000000000|
 
 `fill(100)` changes the value reported for the time interval with no data to `100`.
 
@@ -1161,5 +1161,5 @@ Name: pond
 | 2019-11-11T22:00:00Z | 6 |
 
 {{% note %}}
-**Note:** The data in Issue 3 are not in `NOAA_water_database`. We had to create a dataset with less regular data to work with `fill(linear)`.
+**Note:** The data in Issue 3 are not in `NOAA` database. We had to create a dataset with less regular data to work with `fill(linear)`.
 {{% /note %}}

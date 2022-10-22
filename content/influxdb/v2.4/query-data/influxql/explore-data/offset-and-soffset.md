@@ -74,13 +74,12 @@ tags: location=coyote_creek
 
 This example is fairly involved, so here's the clause-by-clause breakdown:
 
-
-  - The `SELECT clause` specifies the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean).
-  - The `FROM clause` (#the-basic-select-statement) specifies a single measurement.
-  - The [`WHERE` clause](#the-where-clause) specifies the time range for the query.
-  - The [`GROUP BY` clause](#the-group-by-clause) groups results by all tags  (`*`) and into 12-minute intervals.
-  - The [`ORDER BY time DESC` clause](#order-by-time-desc) returns results in descending timestamp order.
-  - The [`LIMIT 2` clause](#the-limit-clause) limits the number of points returned to two.
+  - The [`SELECT clause`](/influxdb/v2.4/query-data/influxql/explore-data/select/) specifies the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean).
+  - The [`FROM clause`] (/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause) specifies a single measurement.
+  - The [`WHERE` clause](/influxdb/v2.4/query-data/influxql/explore-data/where/) specifies the time range for the query.
+  - The [`GROUP BY` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/) groups results by all tags  (`*`) and into 12-minute intervals.
+  - The [`ORDER BY time DESC` clause](/influxdb/v2.4/query-data/influxql/explore-data/order-by/#order-by-time-desc) returns results in descending timestamp order.
+  - The [`LIMIT 2` clause](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) limits the number of points returned to two.
   - The `OFFSET 2` clause excludes the first two averages from the query results.
   - The [`SLIMIT 1` clause](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/) limits the number of series returned to one.
 
