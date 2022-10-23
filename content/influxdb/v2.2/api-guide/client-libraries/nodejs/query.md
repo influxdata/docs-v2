@@ -61,7 +61,7 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
    The client returns [table](/{{% latest "influxdb" %}}/reference/syntax/annotated-csv/#tables) metadata and rows as an as an AsyncIterable.
 
   ```js
-  const myQuery = () => {
+  const myQuery = async () => {
     for await (const {values, tableMeta} of queryApi.iterateRows(fluxQuery)) {
       const o = tableMeta.toObject(values)
       console.log(

@@ -21,7 +21,7 @@ const queryApi = new InfluxDB({url, token}).getQueryApi(org)
 /** To avoid SQL injection, use a string literal for the query. */
 const fluxQuery = 'from(bucket:"air_sensor") |> range(start: 0) |> filter(fn: (r) => r._measurement == "temperature")'
 
-const myQuery = () => {
+const myQuery = async () => {
   for await (const {values, tableMeta} of queryApi.iterateRows(fluxQuery)) {
     const o = tableMeta.toObject(values)
     console.log(
