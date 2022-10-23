@@ -48,29 +48,29 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
    To prevent SQL injection attacks, avoid concatenating unsafe user input with queries.
    {{% /warn %}}
 
-    ```js
-    const fluxQuery =
-      'from(bucket: "YOUR_BUCKET")
-        |> range(start: 0)
-        |> filter(fn: (r) => r._measurement == "temperature")'
-    ```
+   ```js
+   const fluxQuery =
+     'from(bucket: "YOUR_BUCKET")
+     |> range(start: 0)
+     |> filter(fn: (r) => r._measurement == "temperature")'
+   ```
    Replace *`YOUR_BUCKET`* with the name of your InfluxDB bucket.
 
 4. Use the `iterateRows()` method of the query client to query InfluxDB.
    `iterateRows()` takes a Flux query and returns table as an asynchronous collection.
    The client returns [table](/{{% latest "influxdb" %}}/reference/syntax/annotated-csv/#tables) metadata and rows as an as an AsyncIterable.
 
-  ```js
-  const myQuery = async () => {
-    for await (const {values, tableMeta} of queryApi.iterateRows(fluxQuery)) {
-      const o = tableMeta.toObject(values)
-      console.log(
-        `${o._time} ${o._measurement} in '${o.location}' (${o.sensor_id}): ${o._field}=${o._value}`
-      )
-    }
-  }
-  myQuery()
-  ```
+   ```js
+   const myQuery = async () => {
+     for await (const {values, tableMeta} of queryApi.iterateRows(fluxQuery)) {
+       const o = tableMeta.toObject(values)
+       console.log(
+         `${o._time} ${o._measurement} in '${o.location}' (${o.sensor_id}): ${o._field}=${o._value}`
+       )
+     }
+   }
+   myQuery()
+   ```
 
 ### Complete example
 

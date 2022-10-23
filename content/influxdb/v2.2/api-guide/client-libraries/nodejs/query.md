@@ -60,17 +60,17 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
    `iterateRows()` takes a Flux query and returns table as an asynchronous collection.
    The client returns [table](/{{% latest "influxdb" %}}/reference/syntax/annotated-csv/#tables) metadata and rows as an as an AsyncIterable.
 
-  ```js
-  const myQuery = async () => {
-    for await (const {values, tableMeta} of queryApi.iterateRows(fluxQuery)) {
-      const o = tableMeta.toObject(values)
-      console.log(
-        `${o._time} ${o._measurement} in '${o.location}' (${o.sensor_id}): ${o._field}=${o._value}`
-      )
-    }
-  }
-  myQuery()
-  ```
+   ```js
+   const myQuery = async () => {
+     for await (const {values, tableMeta} of queryApi.iterateRows(fluxQuery)) {
+       const o = tableMeta.toObject(values)
+       console.log(
+         `${o._time} ${o._measurement} in '${o.location}' (${o.sensor_id}): ${o._field}=${o._value}`
+       )
+     }
+   }
+   myQuery()
+   ```
 
 ### Complete example
 
