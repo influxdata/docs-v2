@@ -81,13 +81,13 @@ click **{{< icon "plus" >}} Generate** and select a token type
 
 ### Create an all-access token
 
-1. From the [API Tokens management page](#manage-tokens-in-the-influxdb-ui),
+1. From the [API Tokens management page](https://cloud2.influxdata.com/me/tokens),
 click the **{{< icon "plus" >}} {{< caps >}}Generate API Token{{< /caps >}}** button.
 2. Select **All Access API Token**.
 
 ### Create a custom token
 
-1. From the [API Tokens management page](#manage-tokens-in-the-influxdb-ui),
+1. From the [API Tokens management page](https://cloud2.influxdata.com/me/tokens),
 click the **{{< icon "plus" >}} {{< caps >}}Generate API Token{{< /caps >}}** button.
 2. Select **Custom API Token**.
 3. When the **Generate a Personal API Token** window appears, enter a description. If you don't provide a description for the token, InfluxDB will generate a description from the permissions you assign.
@@ -101,7 +101,7 @@ click the **{{< icon "plus" >}} {{< caps >}}Generate API Token{{< /caps >}}** bu
 
 To create a token with the same authorizations as an existing token, clone the existing token.
 
-1. From the [API Tokens management page](#manage-tokens-in-the-influxdb-ui),
+1. From the [API Tokens management page](https://cloud2.influxdata.com/me/tokens),
 find the token you want to clone and click the **{{< icon "settings" >}}** icon located far right of the token description.
 3. Select **Clone**.
 3. When InfluxDB UI displays the created token, click **{{< caps >}}Copy to Clipboard{{< /caps >}}**. This is your only chance to access and copy the token value from InfluxDB.
@@ -122,7 +122,7 @@ Until this bug is resolved in the next influx CLI release, please use the [worka
 - Use the following command to create an [all-access](/influxdb/v2.4/security/tokens/#all-access-token) or [operator](/influxdb/v2.4/security/tokens/#operator-token) token. For an operator token, you must also include the `--read-orgs` and `--write-orgs` flags.
 
 ```sh
-influx auth create    
+influx auth create
                       --org-id or --org              \
                       --read-authorizations          \
                       --write-authorizations         \
