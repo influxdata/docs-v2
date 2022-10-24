@@ -160,7 +160,6 @@ database.
 The database has five measurements: `average_temperature`, `h2o_feet`,
 `h2o_pH`, `h2o_quality`, and `h2o_temperature`.
 
-
 #### Run a `SHOW MEASUREMENTS` query with several clauses (i)
 
 ```sql
