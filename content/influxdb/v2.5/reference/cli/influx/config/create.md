@@ -22,7 +22,7 @@ and stores it in a local file:
 | Docker (Quay.io)             | `/root/.influxdbv2/configs`         |
 | Kubernetes                   | `/etc/influxdb2/configs`            |
 
-To view config files after creating them, use [influx config list](/influxdb/v2.5/reference/cli/influx/config/list/).
+To view CLI connection configurations after creating them, use [influx config list](/influxdb/v2.5/reference/cli/influx/config/list/).
 
 {{% note %}}
 **Note:** If you create multiple config profiles (for example, separate admin and user configs), use [influx config set](/influxdb/v2.5/reference/cli/influx/config/set/) to switch to the config profile you want to use.
