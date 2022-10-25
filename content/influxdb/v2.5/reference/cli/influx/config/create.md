@@ -10,7 +10,12 @@ updated_in: CLI 2.5.0
 ---
 
 The `influx config create` command creates a InfluxDB connection configuration
-and stores it in the `configs` file (by default, stored at `~/.influxdbv2/configs`).
+and stores it as a hidden file in your home directory (`~/.influxdbv2/configs`).
+To view config files after creating them, use [influx config list](/influxdb/v2.5/reference/cli/influx/config/list/).
+
+{{% note %}}
+**Note:** If you create multiple config profiles (for example, separate admin and user configs), use [influx config set](/influxdb/v2.5/reference/cli/influx/config/set/) to switch to the config profile you want to use.
+{{% /note %}}
 
 ## Usage
 ```
