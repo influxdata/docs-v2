@@ -10,7 +10,18 @@ updated_in: CLI 2.4.0
 ---
 
 The `influx config create` command creates a InfluxDB connection configuration
-and stores it as a hidden file in your home directory (`~/.influxdbv2/configs`).
+and stores it in a local file:
+
+| OS/Platform                  | CLI config file path                |
+| :--------------------------- | :---------------------------------- |
+| macOS                        | `~/.influxdbv2/configs`             |
+| Linux (installed as binary)  | `~/.influxdbv2/configs`             |
+| Linux (installed as service) | `~/var/lib/influxdb/configs`        |
+| Windows                      | `%USERPROFILE%\.influxdbv2\configs` |
+| Docker (DockerHub)           | `/etc/influxdb2/configs`            |
+| Docker (Quay.io)             | `/root/.influxdbv2/configs`         |
+| Kubernetes                   | `/etc/influxdb2/configs`            |
+
 To view config files after creating them, use [influx config list](/influxdb/v2.4/reference/cli/influx/config/list/).
 
 {{% note %}}
