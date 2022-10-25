@@ -25,7 +25,7 @@ and stores it in a local file:
 To view CLI connection configurations after creating them, use [influx config list](/influxdb/v2.5/reference/cli/influx/config/list/).
 
 {{% note %}}
-**Note:** If you create multiple config profiles (for example, separate admin and user configs), use [influx config set](/influxdb/v2.5/reference/cli/influx/config/set/) to switch to the config profile you want to use.
+**Note:** If you create multiple connection configurations (for example, separate admin and user configurations), use [`influx config <config-name>`](/influxdb/v2.5/reference/cli/influx/config/) to switch to the configuration you want to use.
 {{% /note %}}
 
 ## Usage
