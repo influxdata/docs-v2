@@ -10,7 +10,7 @@ menu:
 weight: 204
 ---
 
-Use of InfluxQL data management commands in InfuxDB 2.x is limited.  
+Use of InfluxQL data management statements in InfuxDB 2.x is limited.  
 
 The examples in the sections below use the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). 
 
@@ -24,7 +24,7 @@ See the documentation on [authentication and authorization](/enterprise_influxdb
 
 ### Delete series with DELETE
 
-The `DELETE` query deletes all points from a [series](/influxdb/v2.4/reference/glossary/#series) in a database. You must include either the `FROM` clause, the `WHERE` clause, or both:
+The `DELETE` statement deletes all points from a [series](/influxdb/v2.4/reference/glossary/#series) in a database. You must include either the [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause), the [`WHERE` clause](/influxdb/v2.4/query-data/influxql/explore-data/where/), or both:
 
 ```sql
 DELETE FROM <measurement_name> WHERE [<tag_key>='<tag_value>'] | [<time interval>]
@@ -58,6 +58,12 @@ Delete future points:
 > DELETE FROM device_data WHERE "device" = 'sensor1" and time > now() and < '2024-01-14T01:00:00Z'
 ```
 
+Delete points in the future within a specified time range:
+
+```sql
+> DELETE FROM device_data WHERE "device" = 'sensor15" and time >= '2024-01-01T12:00:00Z' and <= '2025-06-30T11:59:00Z'
+```
+
 Things to note about `DELETE`:
 
 * `DELETE` supports
@@ -68,7 +74,7 @@ when specifying tag values.
 
 ### Delete measurements with DROP MEASUREMENT
 
-The `DROP MEASUREMENT` query deletes all data and series from the specified [measurement](/influxdb/v2.4/reference/glossary/#measurement) and deletes the
+The `DROP MEASUREMENT` statement deletes all data and series from the specified [measurement](/influxdb/v2.4/reference/glossary/#measurement) and deletes the
 measurement from the index.
 
 The query takes the following form:
