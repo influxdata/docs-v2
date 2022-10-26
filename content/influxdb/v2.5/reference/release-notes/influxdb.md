@@ -15,10 +15,14 @@ weight: 101
 - Updated user interface (UI).
 - Allow for incremental changes to fields.idx.
 
+### Security updates
+
+- Ability to vieww tokens only once, immediately after creation.
+
 ### Bug fixes
 
 - Manually scheduled tasks run when expected.
-- Fix error where mappings were being ignored when querying virtual DBRPs.
+- Fix error where virtual DBRP mappings were being ignored.
 - Ability to backup all buckets in your Influx instance.
 
 ### Maintenance 
