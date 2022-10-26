@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.5 [2022-10-21]
+## v2.5 [2022-10-26]
 
 ### Features
 
@@ -17,13 +17,13 @@ weight: 101
 
 ### Security updates
 
-- Ability to vieww tokens only once, immediately after creation.
+- Restriction to view tokens only once, immediately after creation.
 
 ### Bug fixes
 
 - Manually scheduled tasks run when expected.
 - Fix error where virtual DBRP mappings were being ignored.
-- Ability to backup all buckets in your Influx instance.
+- Ability to backup all buckets in your InfluxDB instance.
 
 ### Maintenance 
 
