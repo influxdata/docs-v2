@@ -45,7 +45,7 @@ Returns the number of field values associated with the [field key](/influxdb/v2.
 
 Returns the number of field values associated with each field key that matches the [regular expression](/influxdb/v2.4/query-data/influxql/explore-data/#regular-expressions).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 {{% expand "Count values for a field" %}}
@@ -129,7 +129,7 @@ SELECT DISTINCT( [ <field_key> | /<regular_expression>/ ] ) FROM_clause [WHERE_c
 
 Returns the unique field values associated with the [field key](/influxdb/v2.4/reference/glossary/#field-key).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 {{% expand "List the distinct field values associated with a field key" %}}
@@ -204,7 +204,7 @@ Returns the area under the curve for subsequent field values associated with eac
 
 Returns the average field value associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
-### Examples
+#### Examples
 
 The following examples use a subset of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) data:
 
@@ -296,7 +296,7 @@ time                 integral
 ```
 
 Returns the area under the curve (in minutes) for the field values associated with the `water_level` field key and in the `h2o_feet` measurement.
-It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/#time-syntax) between `2015-08-18T00:00:00Z` and `2015-08-18T00:30:00Z`, [groups](/influxdb/v2.4/query-data/influxql/explore-data/#group-by-time-intervals) results into 12-minute intervals, and [limits](/influxdb/v2.4/query-data/influxql/explore-data/#the-limit-and-slimit-clauses) the number of results returned to one.
+It covers the [time range](/influxdb/v2.4/query-data/influxql/explore-data/#time-syntax) between `2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z`, [groups](/influxdb/v2.4/query-data/influxql/explore-data/#group-by-time-intervals) results into 12-minute intervals, and [limits](/influxdb/v2.4/query-data/influxql/explore-data/#the-limit-and-slimit-clauses) the number of results returned to one.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -321,7 +321,7 @@ Returns the average field value associated with each field key that matches the 
 `MEAN(*)`
 Returns the average field value associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 {{% expand "Calculate the mean field value associated with a field key" %}}
@@ -417,7 +417,7 @@ Returns the middle field value associated with each field key that matches the [
 
 Returns the middle field value associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 {{% expand "Calculate the median field value associated with a field key" %}}
@@ -512,7 +512,7 @@ Returns the most frequent field value associated with each field key that matche
 
 Returns the most frequent field value associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 
@@ -605,7 +605,7 @@ Returns the difference between the minimum and maximum field values associated w
 
 Returns the difference between the minimum and maximum field values associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 
@@ -698,7 +698,7 @@ Returns the standard deviation of field values associated with each field key th
 
 Returns the standard deviation of field values associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 {{% expand "Calculate the standard deviation for the field values associated with a field key" %}}
@@ -788,7 +788,7 @@ Returns the sum of field values associated with each field key that matches the 
 
 Returns the sums of field values associated with each field key in the [measurement](/influxdb/v2.4/reference/glossary/#measurement).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 {{% expand "Calculate the sum of the field values associated with a field key" %}}

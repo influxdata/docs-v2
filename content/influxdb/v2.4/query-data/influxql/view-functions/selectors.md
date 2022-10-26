@@ -24,7 +24,7 @@ Each selector function below covers **syntax**, including parameters to pass to 
 
 ## BOTTOM()
 
-Returns the smallest `N` [field values](/influxdb/v2.4/reference/glossary/#field-value). `BOTTOM()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/#data-types).
+Returns the smallest `N` [field values](/influxdb/v2.4/reference/glossary/#field-value). `BOTTOM()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/select/#data-types).
 
 {{% note %}}
 **Note:** `BOTTOM()` returns the field value with the earliest timestamp if there's a tie between two or more values for the smallest value.
@@ -45,7 +45,7 @@ Returns the smallest field value for N tag values of the [tag key](/influxdb/v2.
 `BOTTOM((field_key,N),tag_key,field_key)`  
 Returns the smallest N field values associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.4/reference/glossary/#tag) and/or [field](/influxdb/v2.4/reference/glossary/#field). Add a comma between multiple tag or field keys: `tag_key,tag_key,field_key,field_key`.
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 {{% expand "Select the bottom three field values associated with a field key" %}}
@@ -128,9 +128,9 @@ Notice that the [GROUP BY time() clause](/influxdb/v2.4/query-data/influxql/expl
 
 {{< /expand-wrapper >}}
 
-### Common Issues with `BOTTOM()`
+### Common issues with `BOTTOM()`
 
-##### `BOTTOM()` with a `GROUP BY time()` clause
+#### `BOTTOM()` with a `GROUP BY time()` clause
 
 Queries with `BOTTOM()` and a `GROUP BY time()` clause return the specified
 number of points per `GROUP BY time()` interval.
@@ -140,7 +140,7 @@ the returned timestamps mark the start of the `GROUP BY time()` interval.
 `GROUP BY time()` queries with the `BOTTOM()` function behave differently;
 they maintain the timestamp of the original data point.
 
-###### Example
+##### Example
 
 The query below returns two points per 18-minute
 `GROUP BY time()` interval.
@@ -162,12 +162,12 @@ time                   bottom
 2019-08-18T00:30:00Z  2.051 | <------- Smallest points for the second time interval                      --
 ```
 
-##### BOTTOM() and a tag key with fewer than N tag values
+#### BOTTOM() and a tag key with fewer than N tag values
 
 Queries with the syntax `SELECT BOTTOM(<field_key>,<tag_key>,<N>)` can return fewer points than expected.
 If the tag key has `X` tag values, the query specifies `N` values, and `X` is smaller than `N`, then the query returns `X` points.
 
-###### Example
+##### Example
 
 The query below asks for the smallest field values of `water_level` for three tag values of the `location` tag key.
 Because the `location` tag key has two tag values (`santa_monica` and `coyote_creek`), the query returns two points instead of three.
@@ -234,9 +234,9 @@ Returns the oldest field value (determined by timestamp) associated with each fi
 `FIRST(field_key),tag_key(s),field_key(s)`  
 Returns the oldest field value (determined by timestamp) associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.4/reference/glossary/#tag) and/or [field](/influxdb/v2.4/reference/glossary/#field).
 
-`FIRST()` supports all field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/#data-types).
+`FIRST()` supports all field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/select/#data-types).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 
@@ -350,9 +350,9 @@ Returns the newest field value (determined by timestamp) associated with each fi
 `LAST(field_key),tag_key(s),field_key(s)`  
 Returns the newest field value (determined by timestamp) associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.4/reference/glossary/#tag) and/or [field](/influxdb/v2.4/reference/glossary/#field).
 
-`LAST()` supports all field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/#data-types).
+`LAST()` supports all field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/select/#data-types).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 
@@ -466,9 +466,9 @@ Returns the greatest field value associated with each field key in the [measurem
 `MAX(field_key),tag_key(s),field_key(s)`  
 Returns the greatest field value associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.4/reference/glossary/#tag) and/or [field](/influxdb/v2.4/reference/glossary/#field).
 
-`MAX()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/#data-types).
+`MAX()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/select/#data-types).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 
@@ -582,9 +582,9 @@ Returns the lowest field value associated with each field key in the [measuremen
 `MIN(field_key),tag_key(s),field_key(s)`  
 Returns the lowest field value associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.4/reference/glossary/#tag) and/or [field](/influxdb/v2.4/reference/glossary/#field).
 
-`MIN()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/#data-types).
+`MIN()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/select/#data-types).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 
@@ -699,9 +699,9 @@ Returns the Nth percentile field value associated with each field key in the [me
 Returns the Nth percentile field value associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.4/reference/glossary/#tag) and/or [field](/influxdb/v2.4/reference/glossary/#field).
 
 `N` must be an integer or floating point number between `0` and `100`, inclusive.
-`PERCENTILE()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/#data-types).
+`PERCENTILE()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/select/#data-types).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 
@@ -789,9 +789,9 @@ The timestamps in the results indicate the the start of each 24-minute time inte
 
 {{< /expand-wrapper >}}
 
-### Common Issues with PERCENTILE()
+### Common issues with PERCENTILE()
 
-##### PERCENTILE() compared to other InfluxQL functions
+#### PERCENTILE() compared to other InfluxQL functions
 
 * `PERCENTILE(<field_key>,100)` is equivalent to [`MAX(<field_key>)`](#max).
 * `PERCENTILE(<field_key>, 50)` is nearly equivalent to [`MEDIAN(<field_key>)`](#median), except the `MEDIAN()` function returns the average of the two middle values if the field key contains an even number of field values.
@@ -821,9 +821,9 @@ Returns N randomly selected field values associated with each field key in the [
 Returns N randomly selected field values associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.4/reference/glossary/#tag) and/or [field](/influxdb/v2.4/reference/glossary/#field).
 
 `N` must be an integer.
-`SAMPLE()` supports all field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/#data-types).
+`SAMPLE()` supports all field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/select/#data-types).
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 
@@ -918,9 +918,9 @@ See [Issue 1](#sample-with-a-group-by-time-clause) in the section below for a mo
 
 {{< /expand-wrapper >}}
 
-### Common Issues with `SAMPLE()`
+### Common issues with `SAMPLE()`
 
-##### `SAMPLE()` with a `GROUP BY time()` clause
+#### `SAMPLE()` with a `GROUP BY time()` clause
 
 Queries with `SAMPLE()` and a `GROUP BY time()` clause return the specified
 number of points (`N`) per `GROUP BY time()` interval.
@@ -930,7 +930,7 @@ the returned timestamps mark the start of the `GROUP BY time()` interval.
 `GROUP BY time()` queries with the `SAMPLE()` function behave differently;
 they maintain the timestamp of the original data point.
 
-###### Example
+##### Example
 
 The query below returns two randomly selected points per 18-minute
 `GROUP BY time()` interval.
@@ -972,13 +972,13 @@ Returns the greatest field value for N tag values of the [tag key](/influxdb/v2.
 `TOP(field_key,N),tag_key(s),field_key(s)`  
 Returns the greatest N field values associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.4/reference/glossary/#tag) and/or [field](/influxdb/v2.4/reference/glossary/#field).
 
-`TOP()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/#data-types).
+`TOP()` supports int64 and float64 field value [data types](/influxdb/v2.4/query-data/influxql/explore-data/select/#data-types).
 
 {{% note %}}
 **Note:** `TOP()` returns the field value with the earliest timestamp if there's a tie between two or more values for the greatest value.
 {{% /note %}}
 
-### Examples
+#### Examples
 
 {{< expand-wrapper >}}
 
@@ -1064,9 +1064,9 @@ See [Issue 1](#top-with-a-group-by-time-clause) in the section below for a more 
 
 {{< /expand-wrapper >}}
 
-### Common Issues with `TOP()`
+### Common issues with `TOP()`
 
-##### `TOP()` with a `GROUP BY time()` clause
+#### `TOP()` with a `GROUP BY time()` clause
 
 Queries with `TOP()` and a `GROUP BY time()` clause return the specified
 number of points per `GROUP BY time()` interval.
@@ -1076,7 +1076,7 @@ the returned timestamps mark the start of the `GROUP BY time()` interval.
 `GROUP BY time()` queries with the `TOP()` function behave differently;
 they maintain the timestamp of the original data point.
 
-###### Example
+##### Example
 
 The query below returns two points per 18-minute
 `GROUP BY time()` interval.
@@ -1099,12 +1099,12 @@ time                   top
                            --
 ```
 
-##### TOP() and a tag key with fewer than N tag values
+#### TOP() and a tag key with fewer than N tag values
 
 Queries with the syntax `SELECT TOP(<field_key>,<tag_key>,<N>)` can return fewer points than expected.
 If the tag key has `X` tag values, the query specifies `N` values, and `X` is smaller than `N`, then the query returns `X` points.
 
-###### Example
+##### Example
 
 The query below asks for the greatest field values of `water_level` for three tag values of the `location` tag key.
 Because the `location` tag key has two tag values (`santa_monica` and `coyote_creek`), the query returns two points instead of three.
