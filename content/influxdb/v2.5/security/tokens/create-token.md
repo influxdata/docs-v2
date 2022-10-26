@@ -16,26 +16,18 @@ command line interface (CLI), or the InfluxDB API.
 
 {{% note %}}
 
-{{% oss-only %}}Tokens are visible to the user who created the token. Users who own a token with operator permissions also have access to all tokens.
-Tokens stop working when the user who created the token is deleted.
-
-**We recommend creating a generic user to create and manage tokens for writing data.**
-{{% /oss-only %}}
-
-{{% cloud-only %}}
-
-To follow best practices for secure API token generation and retrieval, InfluxDB Cloud enforces access restrictions on API tokens.
+To follow best practices for secure API token generation and retrieval, InfluxDB enforces access restrictions on API tokens.
 
 - Tokens are visible to the user who created the token.
-- InfluxDB Cloud UI only allows access to the API token value immediately after the token is created.
+- InfluxDB only allows access to the API token value immediately after the token is created.
 - You can't change access (**read/write**) permissions for an API token after it's created.
 - Tokens stop working when the user who created the token is deleted.
 
 **We recommend the following for managing your tokens:**
+
 - Create a generic user to create and manage tokens for writing data.
 - Store your tokens in a secure password vault for future access.
 
-{{% /cloud-only %}}
 {{% /note %}}
 
 - [Manage tokens in the InfluxDB UI](#manage-tokens-in-the-influxdb-ui)
