@@ -133,6 +133,52 @@
   }
 }
 
+///////////////// Data model table in InfluxDB 2.4+ get started ////////////////
+
+#series-diagram {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin: 1rem 3.25rem 1.75rem 0;
+  padding-right: 1.5rem;
+  border-right: 2px solid $tooltip-bg;
+  
+  table {margin: 0;}
+
+  &:after {
+    content: "series";
+    top: 4rem;
+    right: -3.4rem;
+  }
+
+  & + #series-diagram {margin-bottom: 3rem;}
+
+}
+
+table tr.point{
+  border: 2px solid $tooltip-bg;
+
+  &:after {
+    content: "point";
+    bottom: -.8rem;
+    left: 1rem;
+  }
+}
+
+#series-diagram, table tr.point {
+  position: relative;
+  &:after {
+    color: $tooltip-text;
+    background: $tooltip-bg;
+    border-radius: $radius;
+    position: absolute;
+    font-size: .9rem;
+    font-weight: $medium;
+    padding: .2rem .5rem;
+    line-height: .9rem;
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -157,5 +203,9 @@
       flex-direction: column;
       .shard-group { margin: .25rem 0;}
     }
+  }
+
+  #series-diagram {
+    width: auto;
   }
 };
