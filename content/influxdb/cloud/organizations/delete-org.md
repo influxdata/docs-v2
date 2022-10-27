@@ -24,7 +24,7 @@ Once deleted, all data associated with the organization is removed.
 
 To delete an organization using the **Free plan**, do the following:
 
-1. Log in to your InfluxDB cloud account and click on your email address in the upper left hand corner.  
+1. Log in to your InfluxDB Cloud account and click on your email address in the upper left hand corner.  
 2. Select **Settings** from the dropdown menu.
 3. Navigate to **Delete Organization** at the bottom of the page.
 4. Under **Delete Organization**, click **{{< icon "delete" >}} {{< caps >}}Delete{{< /caps >}}**.
