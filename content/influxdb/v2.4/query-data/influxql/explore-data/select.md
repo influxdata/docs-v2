@@ -428,7 +428,7 @@ It is possible for field value types to differ across [shard groups](/influxdb/v
 In these cases, it may be necessary to specify the field value type in the
 `SELECT` clause.
 Please see the
-[Frequently Asked Questions](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards)
+[Frequently Asked Questions](/influxdb/v2.4/reference/faq/#how-does-influxdb-handle-field-type-discrepancies-across-shards)
 document for more information on how InfluxDB handles field value type discrepancies.
 
 ### Syntax

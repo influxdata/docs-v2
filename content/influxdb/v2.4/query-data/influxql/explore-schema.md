@@ -381,7 +381,7 @@ See the Data Exploration page for documentation on the
 [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause).
 
 {{% note %}}
-**Note:** A field's data type [can differ](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards) across
+**Note:** A field's data type [can differ](/influxdb/v2.4/reference/faq/#how-does-influxdb-handle-field-type-discrepancies-across-shards) across
 [shards](/influxdb/v2.4/reference/glossary/#shard).
 If your field has more than one type, `SHOW FIELD KEYS` returns the type that
 occurs first in the following list: float, integer, string, boolean.
