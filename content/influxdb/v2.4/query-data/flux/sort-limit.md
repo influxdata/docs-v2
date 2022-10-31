@@ -16,9 +16,13 @@ aliases:
 related:
   - /{{< latest "flux" >}}/stdlib/universe/sort
   - /{{< latest "flux" >}}/stdlib/universe/limit
+  - /{{< latest "flux" >}}/stdlib/universe/tail
 list_query_example: sort_limit
 ---
+- [Sort and Limit](#sort-and-limit)
+- [Tail](#tail)
 
+## Sort and Limit
 Use [`sort()`](/{{< latest "flux" >}}/stdlib/universe/sort)
 to order records within each table by specific columns and
 [`limit()`](/{{< latest "flux" >}}/stdlib/universe/limit)
@@ -66,3 +70,17 @@ You now have created a Flux query that sorts and limits data.
 Flux also provides the [`top()`](/{{< latest "flux" >}}/stdlib/universe/top)
 and [`bottom()`](/{{< latest "flux" >}}/stdlib/universe/bottom)
 functions to perform both of these functions at the same time.
+
+## Tail
+Use [`tail()`](/{{< latest "flux" >}}/stdlib/universe/tail/)
+to limit the number of records in each output table to the last `n` rows.
+
+##### Example retrieving last 100 records
+The following example retrieves the last 100 records within a given timerange.
+
+```js
+from(bucket: "example-bucket")
+    |> range(start: -12h)
+    |> tail(n: 100)
+```
+For additional examples, please see [tail() examples](/{{< latest "flux" >}}/stdlib/universe/tail/#examples).
