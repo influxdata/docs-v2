@@ -13,6 +13,7 @@ influxdb/v2.5/tags: [delete]
 related:
   - /influxdb/v2.5/reference/syntax/delete-predicate/
   - /influxdb/v2.5/reference/cli/influx/delete/
+  - /influxdb/v2.5/organizations/buckets/delete-bucket/
 ---
 
 Use the [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) or the InfluxDB API
@@ -180,3 +181,5 @@ curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=e
 {{% /cloud-only %}}
 
 _For more information, see the [`/api/v2/delete` endpoint documentation](/influxdb/v2.5/api/#operation/PostDelete)._
+
+To delete a bucket see [Delete a bucket](/influxdb/v2.5/organizations/buckets/delete-bucket/).
