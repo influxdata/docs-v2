@@ -96,5 +96,5 @@ and [manage Chronograf users](/chronograf/v1.10/administration/managing-chronogr
 5. Click **Connect**.
 
 {{% note %}}
-**Note:** Using [Kapacitor](https://docs.influxdata.com/kapacitor/v1.6/) is optional.  You do not need to install Kapacitor in order to use Chronograf. 
+**Note:** Using [Kapacitor](/kapacitor/v1.6/) is optional and not required to use Chronograf. 
 {{% /note %}}
