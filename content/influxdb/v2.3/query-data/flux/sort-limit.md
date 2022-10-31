@@ -16,6 +16,7 @@ aliases:
 related:
   - /{{< latest "flux" >}}/stdlib/universe/sort
   - /{{< latest "flux" >}}/stdlib/universe/limit
+  - /{{< latest "flux" >}}/stdlib/universe/tail
 list_query_example: sort_limit
 ---
 - [Sort and Limit](#sort-and-limit)
