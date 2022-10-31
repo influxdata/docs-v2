@@ -14,7 +14,10 @@ Use dashboard controls in the upper left to update your dashboard.
 
 ### Add a cell
 
-Click **{{< icon "add-cell" >}} Add Cell** to open the Data Explorer and configure a new cell for your dashboard.
+1. Click **{{< icon "add-cell" >}} Add Cell** in the upper left hand corner to open the Data Explorer and configure a new cell for your dashboard.
+2. Click **Name this cell** to give the cell a name.
+3. Create and submit your query.
+4. Click the **{{< icon "checkmark" >}} check mark** in the upper right hand corner to add the cell to the dashboard. 
 
 For details on using the Data Explorer, see [Explore metrics](/influxdb/cloud/visualize-data/explore-metrics/).
 
