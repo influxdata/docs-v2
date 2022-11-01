@@ -3,10 +3,9 @@ title: Custom-compile Telegraf
 description: Use the Telegraf custom builder tool to compile Telegraf with only the plugins you need and reduce the Telegraf binary size. 
 menu:
   telegraf_1_24:
-
-    name: Reduce binary size
-    Parent: Configure plugins
-    weight: 20
+    name: Custom-compile Telegraf
+    Parent: Install
+weight: 20
 ---
 Reduce Telegraf's overall memory and disk footprint with the custom builder. This tool allows you to select which plugins to use in the Telegraf binary based on your configuration file. 
 
