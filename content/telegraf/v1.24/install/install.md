@@ -5,9 +5,11 @@ menu:
   telegraf_1_24:
 
     name: Install
-    weight: 20
+    Parent: Install
+    weight: 50
 aliases:
 - /telegraf/v1.24/introduction/installation/
+- /telegraf/v1.24/install/
 ---
 
 This page provides directions for installing, starting, and configuring Telegraf. To install Telegraf, do the following:
