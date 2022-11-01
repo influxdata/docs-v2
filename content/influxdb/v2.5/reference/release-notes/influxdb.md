@@ -8,7 +8,7 @@ menu:
 weight: 101
 ---
 
-## v2.5 [2022-10-27]
+## v2.5 [2022-11-01]
 
 ### Features
 
@@ -18,17 +18,20 @@ weight: 101
 ### Security updates
 
 - Restriction to view tokens only once, immediately after creation.
+- Set SameSite=strict on session cookie.
 
 ### Bug fixes
 
 - Manually scheduled tasks run when expected.
 - Fix error where virtual DBRP mappings were being ignored.
-- Ability to backup all buckets in your InfluxDB instance.
+- Ability to back up all buckets in your InfluxDB instance.
+- Improved speed of deletes when measurement is part of the predicate.
+- Improved error messaging when attempting to create user with an ID that already exists.
 
 ### Maintenance 
 
-- Upgrade to [Flux 0.187.0](/flux/v0.x/release-notes/#v01870-2022-10-17)
-- Upgrade to [Go](https://go.dev/doc/go1.18)
+- Upgrade to [Flux 0.188.1](/flux/v0.x/release-notes/#v01870-2022-10-17)
+- Upgrade to [Go 1.18.7](https://go.dev/doc/go1.18)
 - Upgrade to [Rust 1.63.0](https://www.rust-lang.org/)
 
 ## v2.4 [2022-08-19]
