@@ -28,7 +28,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
     ```sh
     make build_tools
     ```
-4. Point the custom builder at your Telegraf configuration file or files that include the plugins you want to build, like in the following examples, to generate your customized binary:
+4. Run the `custom_builder` utility with at least one `--config` or `--config-directory` flag to specify Telegraf configuration files to build from. `--config` accepts local file paths and URLs. `--config-dir` accepts local directory paths. You can include multiple `--config` and `--config-dir` flags. The custom builder builds a `telegraf` binary with only the plugins included in the specified configuration files or directories:
     - **Single Telegraf configuration**: 
         ```
         ./tools/custom_builder/custom_builder --config /etc/telegraf.conf
