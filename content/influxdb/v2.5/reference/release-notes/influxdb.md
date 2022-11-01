@@ -13,12 +13,12 @@ weight: 101
 ### Features
 
 - Updated user interface (UI).
-- Allow for incremental changes to fields.idx.
+- Allow for incremental changes to `fields.idx`.
 
 ### Security updates
 
 - Restriction to view tokens only once, immediately after creation.
-- Set SameSite=strict on session cookie.
+- Set `SameSite=strict` on session cookie.
 
 ### Bug fixes
 
@@ -28,7 +28,7 @@ weight: 101
 - Improved speed of deletes when measurement is part of the predicate.
 - Improved error messaging when attempting to create user with an ID that already exists.
 
-### Maintenance 
+### Maintenance
 
 - Upgrade to [Flux 0.188.1](/flux/v0.x/release-notes/#v01870-2022-10-17)
 - Upgrade to [Go 1.18.7](https://go.dev/doc/go1.18)
