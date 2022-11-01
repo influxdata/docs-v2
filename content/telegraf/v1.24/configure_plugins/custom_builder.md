@@ -40,7 +40,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
           --config-dir /etc/telegraf/telegraf.d
         ```
     - **Remote Telegraf configuration**:
-        ```
+        ```sh
         ./tools/custom_builder/custom_builder --config http://url-to-remote-telegraf/telegraf.conf
         ```
 
