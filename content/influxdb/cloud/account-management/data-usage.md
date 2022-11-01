@@ -20,8 +20,8 @@ View the statistics of your data usage and rate limits (reads, writes, and delet
 
 To view your {{< cloud-name >}} data usage, do the following:
 
-1. Click the organization name drop-down list in the upper left.
-2. Select **Usage**.
+1. Click on your email address in the upper left hand corner.
+2. Select **Usage** from the dropdown menu.
 3. Select a time range to review data usage (by default, `Past 24h`), and then select one of the following:
 
    - **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance. Data in and write requests do not count towards your query count.
