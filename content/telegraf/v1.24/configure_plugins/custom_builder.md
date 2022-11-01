@@ -34,9 +34,10 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
         ./tools/custom_builder/custom_builder --config /etc/telegraf.conf
         ```
     - **Single Telegraf confiuaration and Telegraf configuration directory**: 
-        ```
-        /tools/custom_builder/custom_builder --config
-        /etc/telegraf.conf --config-dir /etc/telegraf/telegraf.d
+        ```sh
+        ./tools/custom_builder/custom_builder \
+          --config /etc/telegraf.conf \
+          --config-dir /etc/telegraf/telegraf.d
         ```
     - **Remote Telegraf configuration**:
         ```
