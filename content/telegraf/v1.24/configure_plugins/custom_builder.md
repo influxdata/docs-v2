@@ -17,7 +17,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
 ## Build and run the custom builder
 
 1. Clone the Telegraf repository:
-    ```
+    ```sh
     git clone https://github.com/influxdata/telegraf.git
     ```
 2. Change directories into the top-level of the Telegraf repository:
