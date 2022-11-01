@@ -25,7 +25,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
     cd telegraf
     ```
 3. Build the Telegraf custom builder tool by entering the folllowing command:
-    ```
+    ```sh
     make build_tools
     ```
 4. Point the custom builder at your Telegraf configuration file or files that include the plugins you want to build, like in the following examples, to generate your customized binary:
