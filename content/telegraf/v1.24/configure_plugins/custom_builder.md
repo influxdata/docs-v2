@@ -12,7 +12,7 @@ Reduce Telegraf's overall memory and disk footprint with the custom builder. Thi
 
 ## Requirements
 
-- Ensure you've installed the current version of [Go](https://go.dev/). 
+- Ensure you've installed [Go](https://go.dev/) version is 1.18.0 or later.
 - Create your Telegraf configuration file with the plugins you want to use. For details, see [Configuration options](/telegraf/v1.24/configuration/).
 
 ## Build and run the custom builder
