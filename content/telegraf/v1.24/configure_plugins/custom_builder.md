@@ -7,7 +7,7 @@ menu:
     Parent: Install
 weight: 20
 ---
-Reduce Telegraf's overall memory and disk footprint with the custom builder. This tool allows you to select which plugins to use in the Telegraf binary based on your configuration file. 
+Use the Telegraf custom builder tool to compile Telegraf with only the plugins you need and reduce the Telegraf binary size.
 
 ## Requirements
 
