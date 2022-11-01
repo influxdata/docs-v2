@@ -1,6 +1,6 @@
 ---
-title: Reduce Telegraf binary size with customized agent
-description: Use the custom builder tool to reduce Telegraf binary disk space. 
+title: Custom-compile Telegraf
+description: Use the Telegraf custom builder tool to compile Telegraf with only the plugins you need and reduce the Telegraf binary size. 
 menu:
   telegraf_1_24:
 
