@@ -14,7 +14,41 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
-## July 2022
+## October 2022
+
+### Custom data retention periods 
+
+Set a custom data retention period for a bucket. Note that free users can only retain data up to 30 days.
+
+### MQTT connector
+
+Connect to your MQTT subscription from the InfluxDB Cloud UI.
+
+## September 2022
+
+### Time zone selector
+
+Choose the time zone for individual dashboard cells. 
+
+### Adaptive zoom
+
+Get a more granular view of graph visualizations by zooming in and requerying the data. For details, see [Graph visualizations](/influxdb/cloud/visualize-data/visualization-types/graph/).
+
+### Arduino onboarding 
+
+Quickly get started with Arduino within minutes of logging in with the Arduino wizard.
+
+## August 2022
+
+### CLI onboarding
+
+The command line interface (CLI) onboarding wizard minimizes the learning curve for using the CLI, making it easy to use within a few minutes of logging in.
+
+### Switch organizations and accounts in the header
+
+Quickly access settings and navigate between multiple accounts or, if applicable, multiple organizations, in the header menu. 
+
+## July
 
 ### Request a proof of concept from the UI
 
