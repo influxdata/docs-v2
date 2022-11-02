@@ -13,7 +13,14 @@ weight: 101
 metadata: [1 / 5]
 ---
 
-## Set up InfluxDB
+<!-- Intro -->
+
+{{% note %}}
+Many of the set up instructions provided below are also covered in the InfluxDB
+installation documentation. If you've already installed and setup both InfluxDB
+and the `influx` CLI and setup an API, you can move forward to
+[Write data](/influxdb/v2.4/get-started/write/)
+{{% /note %}}
 
 1.  **Download and install InfluxDB**.
 
@@ -21,13 +28,7 @@ metadata: [1 / 5]
     operating system. For detailed installation and setup instructions, see
     [Install InfluxDB](/influxdb/v2.4/install/).
 
-    {{% note %}}
-Many of the set up instructions provided below are also covered in the InfluxDB
-installation documentation. If you've already installed and setup both InfluxDB
-
-    {{% /note %}}
-
-2.  **Start the InfluxDB service**.
+2.  **Start InfluxDB**.
 
     ```sh
     influxd
@@ -46,6 +47,12 @@ see [InfluxDB configuration options](/influxdb/v2.4/reference/config-options/).
     The `influx` CLI provides a simple way to interact with InfluxDB from a 
     command line. For detailed installation and setup instructions,
     see [Use the influx CLI](/influxdb/v2.4/tools/influx-cli/).
+
+4. **Create a bucket**
+
+4.  **Create an API token.**
+
+    
 
 {{< page-nav prev="/influxdb/v2.4/get-started/" next="/influxdb/v2.4/get-started/write/" >}}
 

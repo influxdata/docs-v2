@@ -1,6 +1,6 @@
 ---
 title: Get started processing data
-seotitle: Get started processing data to InfluxDB
+seotitle: Process data | Get started with InfluxDB
 list_title: Process data
 description: >
   ...

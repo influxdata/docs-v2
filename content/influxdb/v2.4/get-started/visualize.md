@@ -1,6 +1,6 @@
 ---
 title: Get started visualizing data
-seotitle: Get started visualizing data to InfluxDB
+seotitle: Visualize data | Get started with InfluxDB
 list_title: Visualize data
 description: >
   ...

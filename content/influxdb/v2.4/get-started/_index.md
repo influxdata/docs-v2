@@ -12,7 +12,8 @@ aliases:
   - /influxdb/v2.4/introduction/get-started/
 ---
 
-InfluxDB 2.4 is the platform purpose-built to collect, store, process and visualize time series data.
+InfluxDB {{< current-version >}} is the platform purpose-built to collect, store,
+process and visualize time series data.
 **Time series data** is a sequence of data points indexed in time order.
 Data points typically consist of successive measurements made from the same
 source and are used to track changes over time.
@@ -25,12 +26,12 @@ Examples of time series data include:
 - Rainfall measurements
 - Stock prices
 
-This multi-part tutorial walks through writing time series data to InfluxDB,
+This multi-part tutorial walks through writing time series data to InfluxDB {{< current-version >}},
 querying that data, processing and alerting on the data, and then visualizing the data.
 
 ## Key concepts before you get started
 
-Before you get started using InfluxDB it's important to understand how time series
+Before you get started using InfluxDB, it's important to understand how time series
 data is organized and stored in InfluxDB and some key definitions that are used
 throughout this documentation.
 
@@ -50,6 +51,8 @@ tags and fields.
         something to identify the source of the data like host, location, station, etc.
       - **Fields**: Key value pairs with values that change over time.
         For example: temperature, pressure, stock price, etc.
+      - **Timestamp**: Timestamp associated with the data.
+        When stored on disk and queried, all data is ordered by time.
 
 _For detailed information and examples of the InfluxDB data model, see
 [Data elements](/influxdb/v2.4/reference/key-concepts/data-elements/)._
@@ -67,16 +70,10 @@ The following are important definitions to understand when using InfluxDB:
 
 {{< influxdb/points-series >}}
 
-## Authentication
-
-**InfluxDB {{< current-version >}} requires authentication**.
-Use [InfluxDB API tokens](/influxdb/v2.4/security/tokens/) to authenticate access
-to your InfluxDB instance..
-
 ## Tools to use
 
 Throughout this tutorial, there are multiple tools you can use to interact with
-InfluxDB. Examples are provided for each of the following:
+InfluxDB {{< current-version >}}. Examples are provided for each of the following:
 
 - [InfluxDB user interface (UI)](#influxdb-user-interface-ui)
 - [`influx` CLI](#influx-cli)
@@ -84,24 +81,22 @@ InfluxDB. Examples are provided for each of the following:
 
 ### InfluxDB user interface (UI)
 
-The InfluxDB user interface (UI) provides a web-based visual interface for
-interacting with and managing InfluxDB.
-The UI is packaged with InfluxDB and runs as part of the InfluxDB service.
-To access the UI, with InfluxDB running, visit [localhost:8086](http://localhost:8086)
-in your browser.
+The InfluxDB UI provides a web-based visual interface for interacting with and managing InfluxDB.
+{{% oss-only %}}The UI is packaged with InfluxDB and runs as part of the InfluxDB service. To access the UI, with InfluxDB running, visit [localhost:8086](http://localhost:8086) in your browser.{{% /oss-only %}}
+{{% cloud-only %}}To access the InfluxDB Cloud UI, [log into your InfluxDB Cloud account](https://cloud2.influxdata.com).{{% /cloud-only %}}
 
 ### `influx` CLI
 
-The `influx` CLI lets you interact with and manage InfluxDB from a command line.
-The CLI is packaged separately from InfluxDB and must be downloaded and
-installed separately. For detailed installation instructions, see
+The `influx` CLI lets you interact with and manage InfluxDB {{< current-version >}} from a command line.
+{{% oss-only %}}The CLI is packaged separately from InfluxDB and must be downloaded and installed separately.{{% /oss-only %}}
+For detailed CLI installation instructions, see
 [Use the influx CLI](/influxdb/v2.4/tools/influx-cli/).
 
 ### InfluxDB HTTP API
 
 The [InfluxDB API](/influxdb/v2.4/reference/api/) provides a simple way to
-interact with the InfluxDB using HTTP clients.
-Examples in this tutorial use `curl`, but any HTTP client will work.
+interact with the InfluxDB {{< current-version >}} using HTTP(S) clients.
+Examples in this tutorial use `curl`, but any HTTP(S) client will work.
 
 {{% note %}}
 #### InfluxDB client libraries
@@ -111,6 +106,12 @@ language-specific clients that interact with the InfluxDB HTTP API.
 Examples for client libraries are not provided in this tutorial, but these can
 be used to perform all the actions outlined in this tutorial.
 {{% /note %}}
+
+## Authorization
+
+**InfluxDB {{< current-version >}} requires authentication** using a API tokens.
+Each API token is associated with a specific set of permissions within the
+scope of an InfluxDB organization.
 
 {{< page-nav next="/influxdb/v2.4/get-started/setup/" >}}
 
