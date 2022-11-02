@@ -20,9 +20,14 @@ A package consists of one or more source files.
 Each source file is parsed individually and composed into a single package.
 
 ```js
-File = [ PackageClause ] [ ImportList ] StatementList .
+File = [ Attributes ] [ PackageClause ] [ ImportList ] StatementList .
 ImportList = { ImportDeclaration } .
 ```
+
+The first attributes defined before the package clause or import lists, whether
+they exists or not, apply to the entire package.
+A package clause or import list is required to associate attributes with the
+first statement in a file.
 
 ## Package clause
 
@@ -45,6 +50,38 @@ The `main` package is special for a few reasons:
 2. It cannot be imported.
 3. All statements are marked as producing side effects.
 
+## Import declaration
+
+```js
+ImportDeclaration = "import" [identifier] string_lit .
+```
+
+A package name and an import path is associated with every package.
+The import statement takes a package's import path and brings all of the identifiers
+defined in that package into the current scope under a namespace.
+The import statement defines the namespace through which to access the imported identifiers.
+By default the identifier of this namespace is the package name unless otherwise specified.
+For example, given a variable `x` declared in package `foo`, importing `foo` and referencing `x` would look like this:
+
+```js
+import "import/path/to/package/foo"
+
+foo.x
+```
+
+Or this:
+
+```js
+import bar "import/path/to/package/foo"
+
+bar.x
+```
+
+A package's import path is always absolute.
+A package may reassign a new value to an option identifier declared in one of its imported packages.
+A package cannot access nor modify the identifiers belonging to the imported packages of its imported packages.
+Every statement contained in an imported package is evaluated.
+
 ## Package initialization
 
 Packages are initialized in the following order:
@@ -63,4 +100,4 @@ Packages imported in the same file block are initialized in declaration order.
 Packages imported across different file blocks have no known order.
 When a set of imports modify the same option, they must be ordered by placing them in the same file block.
 
-{{< page-nav prev="/flux/v0.x/spec/operators/" next="/flux/v0.x/spec/statements/" >}}
+{{< page-nav prev="/flux/v0.x/spec/operators/" next="/flux/v0.x/spec/attributes/" >}}

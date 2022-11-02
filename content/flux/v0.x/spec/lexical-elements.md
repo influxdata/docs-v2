@@ -71,7 +71,7 @@ The following character sequences represent operators:
 -   <    !~   [   ]   ^
 *   >    =~   {   }   ?
 /   <=   =    ,   :   "
-%   >=   <-   .   |>
+%   >=   <-   .   |>  @
 ```
 
 ### Integer literals
