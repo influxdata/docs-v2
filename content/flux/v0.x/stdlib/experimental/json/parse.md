@@ -84,7 +84,7 @@ data
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
@@ -196,10 +196,10 @@ array.from(
 
 #### Output data
 
-| pendingDuration  | id       | color  |
-| ---------------- | -------- | ------ |
-| 3                | 15612462 | red    |
-| 16               | 15612462 | blue   |
+| id       | color  | pendingDuration  |
+| -------- | ------ | ---------------- |
+| 15612462 | red    | 3                |
+| 15612462 | blue   | 16               |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
