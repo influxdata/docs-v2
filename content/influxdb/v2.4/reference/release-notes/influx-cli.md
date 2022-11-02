@@ -8,7 +8,7 @@ menu:
     name: influx CLI 
 ---
 
-# v2.5.0 [2022-10-21]
+## v2.5.0 [2022-10-21]
 
 ### Features
 
@@ -24,6 +24,8 @@ menu:
 - Fix to allow [influx auth create](/influxdb/v2.4/reference/cli/influx/auth/create/) to successfully create an API token without error.
 - Fix stack error typo.
 - Fix an error where `stdin` could not be used to create tasks.
+- Update `data_type` to `dataType` to ensure CSV files are successfully uploaded.
+- Fix to let you create a remote connection for InfluxDB 1.x without requiring a remote org ID (`remoteOrgID`). Add warning that `remoteOrgID` is required for InfluxDB Cloud and InfluxDB OSS, but not required for InfluxDB 1.x (OSS or Enterprise).
 
 ## v2.4.0 [2022-08-18]
 
