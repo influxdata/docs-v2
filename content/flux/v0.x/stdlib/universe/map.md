@@ -109,7 +109,7 @@ sampledata.int()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
@@ -168,7 +168,7 @@ sampledata.int()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
@@ -193,20 +193,20 @@ sampledata.int()
 
 #### Output data
 
-| alert  | source  | time                 |
-| ------ | ------- | -------------------- |
-| false  | t1      | 2021-01-01T00:00:00Z |
-| false  | t1      | 2021-01-01T00:00:10Z |
-| false  | t1      | 2021-01-01T00:00:20Z |
-| true   | t1      | 2021-01-01T00:00:30Z |
-| true   | t1      | 2021-01-01T00:00:40Z |
-| false  | t1      | 2021-01-01T00:00:50Z |
-| true   | t2      | 2021-01-01T00:00:00Z |
-| false  | t2      | 2021-01-01T00:00:10Z |
-| false  | t2      | 2021-01-01T00:00:20Z |
-| true   | t2      | 2021-01-01T00:00:30Z |
-| true   | t2      | 2021-01-01T00:00:40Z |
-| false  | t2      | 2021-01-01T00:00:50Z |
+| time                 | source  | alert  |
+| -------------------- | ------- | ------ |
+| 2021-01-01T00:00:00Z | t1      | false  |
+| 2021-01-01T00:00:10Z | t1      | false  |
+| 2021-01-01T00:00:20Z | t1      | false  |
+| 2021-01-01T00:00:30Z | t1      | true   |
+| 2021-01-01T00:00:40Z | t1      | true   |
+| 2021-01-01T00:00:50Z | t1      | false  |
+| 2021-01-01T00:00:00Z | t2      | true   |
+| 2021-01-01T00:00:10Z | t2      | false  |
+| 2021-01-01T00:00:20Z | t2      | false  |
+| 2021-01-01T00:00:30Z | t2      | true   |
+| 2021-01-01T00:00:40Z | t2      | true   |
+| 2021-01-01T00:00:50Z | t2      | false  |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -225,7 +225,7 @@ sampledata.int()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 

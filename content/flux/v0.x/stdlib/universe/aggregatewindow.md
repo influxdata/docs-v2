@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3866-L3889
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3872-L3895
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -38,6 +38,9 @@ from output tables. This includes `_time`. `aggregateWindow()` uses the
 
 `aggregateWindow()` requires `_start` and `_stop` columns in input data.
 Use `range()` to assign `_start` and `_stop` values.
+
+This function is intended to be used when `timeColumn` (`_time` by default) is not in the group key.
+If `timeColumn` _is_ in the group key, resulting output is confusing and generally not useful.
 
 #### Downsample by calendar months and years
 `every`, `period`, and `offset` parameters support all valid duration units,
@@ -149,7 +152,7 @@ data
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
@@ -207,7 +210,7 @@ data
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
@@ -256,7 +259,7 @@ data
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
@@ -316,7 +319,7 @@ data
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
