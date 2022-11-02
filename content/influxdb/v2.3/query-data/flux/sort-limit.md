@@ -74,8 +74,7 @@ functions to perform both of these functions at the same time.
 Use [`tail()`](/{{< latest "flux" >}}/stdlib/universe/tail/)
 to limit the number of records in each output table to the last `n` rows.
 
-##### Example retrieving last 100 records
-The following example retrieves the last 100 records within a given timerange.
+##### Return the last 100 rows from each input table
 
 ```js
 from(bucket: "example-bucket")
