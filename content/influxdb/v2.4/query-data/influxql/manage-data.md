@@ -10,17 +10,19 @@ menu:
 weight: 204
 ---
 
-Use of InfluxQL data management statements in InfuxDB 2.x is limited.  
+In InfluxDB 2.x, InfluxQL data management commands are **limited to deleting data**:
 
-The examples in the sections below use the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). 
+- [Delete series with DELETE](#delete-series-with-delete)
+- [Delete measurements with DROP MEASUREMENT](#delete-measurements-with-drop-measurement)
 
-You can also execute the statements using the 1.x compatibility API; simply  send a `GET` request to the `/query` endpoint and include the command in the URL parameter `q`.
-For more information, see [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/).
+{{% note %}}
 
-<!-- {{% note %}}
-**Note:** When authentication is enabled, only admin users can execute most of the commands listed on this page.
-See the documentation on [authentication and authorization](/enterprise_influxdb/v1.9/administration/authentication_and_authorization/) for more information.
-{{% /note %}} -->
+#### Examples use the InfluxQL shell
+
+Examples show how to run commands using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). You can also query with InfluxQL using the [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/) by sending a `GET` request to the `/query` endpoint and including the command in the URL parameter `q`.
+
+For information about how to get started querying using either the InfluxQL shell or the InfluxDB API, see how to [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql).
+{{% /note %}}
 
 ### Delete series with DELETE
 
@@ -50,7 +52,7 @@ Delete all data in the database that occur before January 01, 2020:
 
 A successful `DELETE` query returns an empty result.
 
-If you need to delete points in the future, you must specify the future time period because `DELETE SERIES` runs for `time < now()` by default. 
+If you need to delete points in the future, you must specify the future time period because `DELETE SERIES` runs for `time < now()` by default.
 
 Delete future points:
 
@@ -88,5 +90,3 @@ Delete the measurement `h2o_feet`:
 ```
 
 A successful `DROP MEASUREMENT` query returns an empty result.
-
-
