@@ -1,6 +1,6 @@
 ---
 title: Attributes
-description: Attributes define a set of properties on the subsequent source code element.
+description: Attributes define a set of properties on source code elements.
 menu:
   flux_0_x_ref:
     parent: Flux specification
@@ -8,7 +8,7 @@ menu:
 weight: 112
 ---
 
-Attributes define a set of properties on the subsequent source code element.
+Attributes define a set of properties on source code elements.
 
 ```js
 Attributes             = { Attribute } .

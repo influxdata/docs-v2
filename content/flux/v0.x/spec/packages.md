@@ -20,19 +20,14 @@ A package consists of one or more source files.
 Each source file is parsed individually and composed into a single package.
 
 ```js
-File = [ Attributes ] [ PackageClause ] [ ImportList ] StatementList .
+File = [ PackageClause ] [ ImportList ] StatementList .
 ImportList = { ImportDeclaration } .
 ```
-
-The first attributes defined before the package clause or import lists, whether
-they exists or not, apply to the entire package.
-A package clause or import list is required to associate attributes with the
-first statement in a file.
 
 ## Package clause
 
 ```js
-PackageClause = "package" identifier .
+PackageClause = [ Attributes ] "package" identifier .
 ```
 
 A _package clause_ defines the name for the current package.
@@ -53,7 +48,7 @@ The `main` package is special for a few reasons:
 ## Import declaration
 
 ```js
-ImportDeclaration = "import" [identifier] string_lit .
+ImportDeclaration = [ Attributes ] "import" [identifier] string_lit
 ```
 
 A package name and an import path is associated with every package.
