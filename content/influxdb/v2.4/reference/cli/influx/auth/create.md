@@ -6,70 +6,17 @@ menu:
     name: influx auth create
     parent: influx auth
 weight: 201
-updated_in: CLI v2.3.0
+updated_in: CLI 2.5.0
 ---
 
 The `influx auth create` command creates an API token in InfluxDB.
 
-
 {{% warn %}}
-InfluxDB 2.4 introduced a bug that prevents you from creating an **all-access** or **operator** token using the `influx auth create` command, and causes the following error: `Error: could not write auth with provided arguments: 403 Forbidden: permission.`
-
-Until this bug is resolved in the next influx CLI release, please use the [workaround below to create an all-access or operator token](/influxdb/v2.4/security/tokens/create-token/#workaround-to-create-an-all-access-or-operator-token).
+*Issue resolved**: Using InfluxDB 2.4 and influx CLI 2.4 prevented you from creating an **all-access** or **operator** token using the `influx auth create` command. This issue is resolved in the influx 2.5 CLI release. Please [upgrade to the latest version](/influxdb/latest/tools/influx-cli/) of the influx cli.
 {{% /warn %}}
 
-### **Workaround:** To create an all-access or operator token
-
-- Use the following command to create an [all-access](/influxdb/v2.4/security/tokens/#all-access-token) or [operator](/influxdb/v2.4/security/tokens/#operator-token) token. For an **operator** token, you must also include the `--read-orgs` and `--write-orgs` flags.
-
-```sh
-influx auth create    
-                      --org-id or --org              \
-                      --read-authorizations          \
-                      --write-authorizations         \
-                      --read-buckets                 \
-                      --write-buckets                \
-                      --read-dashboards              \
-                      --write-dashboards             \
-                      --read-tasks                   \
-                      --write-tasks                  \
-                      --read-telegrafs               \
-                      --write-telegrafs              \
-                      --read-users                   \
-                      --write-users                  \
-                      --read-variables               \
-                      --write-variables              \
-                      --read-secrets                 \
-                      --write-secrets                \
-                      --read-labels                  \
-                      --write-labels                 \
-                      --read-views                   \
-                      --write-views                  \
-                      --read-documents               \
-                      --write-documents              \
-                      --read-notificationRules       \
-                      --write-notificationRules      \
-                      --read-notificationEndpoints   \
-                      --write-notificationEndpoints  \
-                      --read-checks                  \
-                      --write-checks                 \
-                      --read-dbrp                    \
-                      --write-dbrp                   \
-                      --read-annotations             \
-                      --write-annotations            \
-                      --read-sources                 \
-                      --write-sources                \
-                      --read-scrapers                \
-                      --write-scrapers               \
-                      --read-notebooks               \
-                      --write-notebooks              \
-                      --read-remotes                 \
-                      --write-remotes                \
-                      --read-replications            \
-                      --write-replications
-```
-
 ## Usage
+
 ```
 influx auth create [flags]
 ```
@@ -125,14 +72,14 @@ influx auth create [flags]
 
 {{< cli/influx-creds-note >}}
 
-- [Create an All-Access API token](#create-an-all-access-api-token) {{% oss-only %}} or [Create an Operator API token](#create-an-operator-api-token){{% /oss-only %}}
+- [Create an all-access API token](#create-an-all-access-api-token) {{% oss-only %}} or [Create an operator API token](#create-an-operator-api-token){{% /oss-only %}}
 - [Create an API token with specified read and write permissions](#create-an-api-token-with-specified-read-and-write-permissions)
 - [Create a token with read and write access to specific buckets](#create-an-api-token-with-read-and-write-access-to-specific-buckets)
 - [Create a read-only API token](#create-a-read-only-api-token)
 
-### Create an All-Access API token
+### Create an all-access API token
 
-Create an [All-Access token](/influxdb/cloud/security/tokens/#all-access-token) to grant permissions to all resources in an organization.
+Create an [all-access token](/influxdb/cloud/security/tokens/#all-access-token) to grant permissions to all resources in an organization.
 
 ```sh
 influx auth create \
@@ -141,9 +88,9 @@ influx auth create \
 
 {{% oss-only %}}
 
-### Create an Operator API token
+### Create an operator API token
 
-Create an [Operator token](/influxdb/v2.0/security/tokens/#operator-token) to grant permissions to all resources in all organizations.
+Create an [operator token](/influxdb/v2.0/security/tokens/#operator-token) to grant permissions to all resources in all organizations.
 
 ```sh
 influx auth create \
