@@ -18,7 +18,7 @@ metadata: [4 / 5]
   - Downsample data
   - Monitor and alert on data
 
-{{< page-nav prev="/influxdb/v2.4/get-started/query/" next="/influxdb/v2.4/get-started/visualize/" >}}
+{{< page-nav prev="/influxdb/v2.4/get-started/query/" next="/influxdb/v2.4/get-started/visualize/" keepTab=true >}}
 
 <!--
 ### Process data

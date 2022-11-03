@@ -273,7 +273,7 @@ retention policy (DBRP) combinations to an InfluxDB bucket.
   - Other operations you can perform
 - Use the InfluxDB CLI, UI, or API to query data
 
-{{< page-nav prev="/influxdb/v2.4/get-started/write/" next="/influxdb/v2.4/get-started/process/" >}}
+{{< page-nav prev="/influxdb/v2.4/get-started/write/" next="/influxdb/v2.4/get-started/process/" keepTab=true >}}
 
 <!-- 
 ### Query data

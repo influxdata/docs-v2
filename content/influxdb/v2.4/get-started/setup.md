@@ -54,7 +54,7 @@ see [InfluxDB configuration options](/influxdb/v2.4/reference/config-options/).
 
     
 
-{{< page-nav prev="/influxdb/v2.4/get-started/" next="/influxdb/v2.4/get-started/write/" >}}
+{{< page-nav prev="/influxdb/v2.4/get-started/" next="/influxdb/v2.4/get-started/write/" keepTab=true >}}
 
 <!-- 
 *Note:** To run InfluxDB, start the `influxd` daemon ([InfluxDB service](/influxdb/v2.4/reference/cli/influxd/)) using the [InfluxDB command line interface](/influxdb/v2.4/reference/cli/influx/). Once you've started the `influxd` daemon, use `localhost:8086` to log in to your InfluxDB instance.

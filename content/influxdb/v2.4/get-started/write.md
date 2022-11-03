@@ -393,7 +393,7 @@ above is the manual way of writing data, but there are other options available:
 
 With data now stored in InfluxDB, let's query it.
 
-{{< page-nav prev="/influxdb/v2.4/get-started/setup/" next="/influxdb/v2.4/get-started/query/" >}}
+{{< page-nav prev="/influxdb/v2.4/get-started/setup/" next="/influxdb/v2.4/get-started/query/" keepTab=true >}}
 
 <!-- ### Collect and write data
 
