@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3242-L3242
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3245-L3245
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -96,7 +96,7 @@ data
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
