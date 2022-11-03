@@ -1,7 +1,7 @@
 ---
 title: sample package
 description: >
-  The `sample` package provides functions for downloading and ouputting InfluxDB sample datasets.
+  The `sample` package provides functions for downloading and outputting InfluxDB sample datasets.
 menu:
   flux_0_x_ref:
     name: sample 
@@ -29,7 +29,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-The `sample` package provides functions for downloading and ouputting InfluxDB sample datasets.
+The `sample` package provides functions for downloading and outputting InfluxDB sample datasets.
 Import the `influxdata/influxdb/sample` package:
 
 ```js

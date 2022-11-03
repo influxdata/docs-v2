@@ -23,7 +23,7 @@ HTTP endpoints to InfluxDB:
 * `/api/v1/prom/read`
 * `/api/v1/prom/write`
 
-Additionally, there is a [`/metrics` endpoint](/enterprise_influxdb/v1.10/administration/monitor/server_monitoring/#influxdb-metrics-http-endpoint) configured to produce default Go metrics in Prometheus metrics format.
+Additionally, there is a [`/metrics` endpoint](/influxdb/v1.8/administration/server_monitoring/#influxdb-metrics-http-endpoint) configured to produce default Go metrics in Prometheus metrics format.
 
 ### Create a target database
 

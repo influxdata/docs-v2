@@ -14,6 +14,7 @@ related:
   - /influxdb/v2.4/reference/internals/storage-engine/
   - /influxdb/v2.4/organizations/buckets/
   - /influxdb/v2.4/reference/cli/influx/bucket/
+  - /influxdb/v2.4/admin/internals/
 ---
 
 InfluxDB organizes time series data into **shards** when storing data to disk.

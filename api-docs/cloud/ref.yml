@@ -2,7 +2,12 @@ components:
   parameters:
     After:
       description: |
-        Resource ID to seek from. Results are not inclusive of this ID. Use `after` instead of `offset`.
+        A resource ID to seek from.
+        Returns records created after the specified record;
+        results don't include the specified record.
+
+        Use `after` instead of the `offset` parameter.
+        For more information about pagination parameters, see [Pagination](/influxdb/cloud/api/#tag/Pagination).
       in: query
       name: after
       required: false
@@ -30,6 +35,8 @@ components:
       description: |
         The offset for pagination.
         The number of records to skip.
+
+        For more information about pagination parameters, see [Pagination](/influxdb/cloud/api/#tag/Pagination).
       in: query
       name: offset
       required: false
@@ -271,6 +278,30 @@ components:
       required:
         - orgID
         - permissions
+    AuthorizationPostRequest:
+      allOf:
+        - $ref: '#/components/schemas/AuthorizationUpdateRequest'
+        - properties:
+            orgID:
+              description: |
+                The ID of the organization that owns the authorization.
+              type: string
+            permissions:
+              description: |
+                A list of permissions for an authorization.
+                An authorization must have at least one permission.
+              items:
+                $ref: '#/components/schemas/Permission'
+              minItems: 1
+              type: array
+            userID:
+              description: |
+                The ID of the user that the authorization is scoped to.
+              type: string
+          type: object
+      required:
+        - orgID
+        - permissions
     AuthorizationUpdateRequest:
       properties:
         description:
@@ -497,22 +528,22 @@ components:
           properties:
             labels:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve labels for this bucket.
+              description: The URL to retrieve labels for this bucket.
             members:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve members that can read this bucket.
+              description: The URL to retrieve members that can read this bucket.
             org:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve parent organization for this bucket.
+              description: The URL to retrieve parent organization for this bucket.
             owners:
               $ref: '#/components/schemas/Link'
-              description: URL to retrieve owners that can read and write to this bucket.
+              description: The URL to retrieve owners that can read and write to this bucket.
             self:
               $ref: '#/components/schemas/Link'
-              description: URL for this bucket.
+              description: The URL for this bucket.
             write:
               $ref: '#/components/schemas/Link'
-              description: URL to write line protocol to this bucket.
+              description: The URL to write line protocol to this bucket.
           readOnly: true
           type: object
         name:
@@ -2715,6 +2746,9 @@ components:
             $ref: '#/components/schemas/MeasurementSchemaColumn'
           type: array
         name:
+          description: |
+            The [measurement](/influxdb/cloud/reference/glossary/#measurement)
+            name.
           type: string
       required:
         - name
@@ -3505,39 +3539,45 @@ components:
           type: string
         name:
           description: |
-            The name of the bucket.
+            The bucket name.
           type: string
         orgID:
           description: |
-            Organization ID.
-            The ID of the organization.
+            The organization ID.
+            Specifies the organization that owns the bucket.
           type: string
         retentionRules:
           $ref: '#/components/schemas/RetentionRules'
         rp:
           default: '0'
           description: |
-            Retention policy is an InfluxDB 1.x concept that represents the duration
-            of time that each data point in the retention policy persists. Use `rp`
-            for compatibility with InfluxDB 1.x.
+            The retention policy for the bucket.
+            For InfluxDB 1.x, specifies the duration of time that each data point
+            in the retention policy persists.
+
+            If you need compatibility with InfluxDB 1.x, specify a value for the `rp` property;
+            otherwise, see the `retentionRules` property.
+
+            [Retention policy](/influxdb/v1.8/concepts/glossary/#retention-policy-rp)
+            is an InfluxDB 1.x concept.
             The InfluxDB 2.x and Cloud equivalent is
             [retention period](/influxdb/cloud/reference/glossary/#retention-period).
+            The InfluxDB `/api/v2` API uses `RetentionRules` to configure the retention period.
           type: string
         schemaType:
           $ref: '#/components/schemas/SchemaType'
           default: implicit
           description: |
-            Schema Type.
-            Use `explicit` to enforce column names, tags, fields, and data types for
-            your data.
+            The schema Type. Default is `implicit`.
 
             #### InfluxDB Cloud
 
-            - Default is `implicit`.
+            - Use `explicit` to enforce column names, tags, fields, and data types for
+            your data.
 
             #### InfluxDB OSS
 
-            - Doesn't support `schemaType`.
+            - Doesn't support `explicit` bucket schemas.
       required:
         - orgID
         - name
@@ -3707,31 +3747,39 @@ components:
     Resource:
       properties:
         id:
-          description: If ID is set that is a permission for a specific resource. if it is not set it is a permission for all resources of that resource type.
-          nullable: true
+          description: |
+            The ID of a specific resource.
+            In a `permission`, applies the permission to only the resource with this ID.
           type: string
         name:
-          description: Optional name of the resource if the resource has a name field.
-          nullable: true
+          description: |
+            Optional: A name for the resource.
+            Not all resource types have a name field.
           type: string
         org:
-          description: Optional name of the organization of the organization with orgID.
-          nullable: true
+          description: |
+            Optional: The name of the organization with `orgID`.
           type: string
         orgID:
-          description: If orgID is set that is a permission for all resources owned my that org. if it is not set it is a permission for all resources of that resource type.
-          nullable: true
+          description: |
+            The ID of the organization that owns the resource.
+            In a `permission`, applies the permission to all resources of `type` owned by this organization.
           type: string
         type:
+          description: |
+            The type of resource.
+            In a `permission`, applies the permission to all resources of this type.
           enum:
             - authorizations
             - buckets
             - dashboards
             - orgs
+            - sources
             - tasks
             - telegrafs
             - users
             - variables
+            - scrapers
             - secrets
             - labels
             - views
@@ -3740,9 +3788,11 @@ components:
             - notificationEndpoints
             - checks
             - dbrp
-            - flows
+            - notebooks
             - annotations
-            - functions
+            - remotes
+            - replications
+            - instance
           type: string
       required:
         - type
@@ -3831,6 +3881,8 @@ components:
     RetentionRules:
       description: |
         Retention rules to expire or retain data.
+        The InfluxDB `/api/v2` API uses `RetentionRules` to configure the [retention period](/influxdb/cloud/reference/glossary/#retention-period).
+
         #### InfluxDB Cloud
 
         - `retentionRules` is required.
@@ -6470,16 +6522,27 @@ openapi: 3.0.0
 paths:
   /api/v2:
     get:
+      description: |
+        Retrieves all the top level routes for the InfluxDB API.
+
+        #### Limitations
+
+        - Only returns top level routes--for example, the response contains
+        `"tasks":"/api/v2/tasks"`, and doesn't contain resource-specific routes
+        for tasks (`/api/v2/tasks/TASK_ID/...`).
       operationId: GetRoutes
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
-        default:
+        '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Routes'
-          description: All routes
+          description: |
+            Success.
+            The response body contains key-value pairs with the resource name and
+            top-level route.
       summary: List all top level routes
       tags:
         - Routes
@@ -6605,7 +6668,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Authorization'
+              $ref: '#/components/schemas/AuthorizationPostRequest'
         description: The authorization to create.
         required: true
       responses:
@@ -6742,29 +6805,32 @@ paths:
       description: |
         Retrieves a list of [buckets](/influxdb/cloud/reference/glossary/#bucket).
 
+        InfluxDB retrieves buckets owned by the
+        [organization](/influxdb/cloud/reference/glossary/#organization)
+        associated with the authorization
+        ([API token](/influxdb/cloud/reference/glossary/#token)).
         To limit which buckets are returned, pass query parameters in your request.
         If no query parameters are passed, InfluxDB returns all buckets up to the
         default `limit`.
 
-        #### Limitations
+        #### InfluxDB Cloud
 
-        - Paging with an `offset` greater than the number of records will result in
-        an empty list of buckets--for example:
+        - Doesn't use `org` or `orgID` parameters.
 
-          The following request is paging to the 50th record, but the user only has
-          10 buckets.
+        #### InfluxDB OSS
 
-          ```sh
-          $ curl --request GET "INFLUX_URL/api/v2/buckets?limit=1&offset=50"
+        - If you use an _[operator token](/influxdb/cloud/security/tokens/#operator-token)_
+          to authenticate your request, InfluxDB retrieves resources for _all
+          organizations_ in the instance.
+          To retrieve resources for only a specific organization, use the
+          `org` parameter or the `orgID` parameter to specify the organization.
 
-          $ {
-              "links": {
-                  "prev": "/api/v2/buckets?descending=false\u0026limit=1\u0026offset=49\u0026orgID=ORG_ID",
-                  "self": "/api/v2/buckets?descending=false\u0026limit=1\u0026offset=50\u0026orgID=ORG_ID"
-              },
-              "buckets": []
-            }
-          ```
+        #### Required permissions
+
+        | Action                    | Permission required |
+        |:--------------------------|:--------------------|
+        | Retrieve _user buckets_   | `read-buckets`      |
+        | Retrieve [_system buckets_](/influxdb/cloud/reference/internals/system-buckets/) | `read-orgs`         |
 
         #### Related Guides
 
@@ -6776,49 +6842,37 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/After'
         - description: |
-            Organization name.
-            The name of the organization.
+            An organization name.
+            Only returns resources owned by the specified organization.
 
             #### InfluxDB Cloud
 
-             - Doesn't use `org` or `orgID`.
-             - Creates a bucket in the organization associated with the authorization (API token).
-
-             #### InfluxDB OSS
-
-             - Accepts either `org` or `orgID`.
-             - InfluxDB creates the bucket within this organization.
+            - Doesn't use `org` or `orgID` parameters.
           in: query
           name: org
           schema:
             type: string
         - description: |
-            Organization ID.
-            The organization ID.
+            An organization ID.
+            Only returns resources owned by the specified organization.
 
             #### InfluxDB Cloud
 
-             - Doesn't use `org` or `orgID`.
-             - Creates a bucket in the organization associated with the authorization (API token).
-
-             #### InfluxDB OSS
-
-             - Accepts either `org` or `orgID`.
-             - InfluxDB creates the bucket within this organization.
+            - Doesn't use `org` or `orgID` parameters.
           in: query
           name: orgID
           schema:
             type: string
         - description: |
-            Bucket name.
-            Only returns buckets with this specific name.
+            A bucket name.
+            Only returns buckets with the specified name.
           in: query
           name: name
           schema:
             type: string
         - description: |
-            Bucket ID.
-            Only returns the bucket with this ID.
+            A bucket ID.
+            Only returns the bucket with the specified ID.
           in: query
           name: id
           schema:
@@ -6856,7 +6910,7 @@ paths:
                 $ref: '#/components/schemas/Buckets'
           description: |
             Success.
-            The response body contains a list of buckets.
+            The response body contains a list of `buckets`.
         '401':
           $ref: '#/components/responses/AuthorizationError'
         '500':
@@ -6871,7 +6925,7 @@ paths:
       tags:
         - Buckets
       x-codeSamples:
-        - label: cURL
+        - label: 'cURL: filter buckets by name'
           lang: Shell
           source: |
             curl --request GET "http://localhost:8086/api/v2/buckets?name=_monitoring" \
@@ -6881,15 +6935,16 @@ paths:
     post:
       description: |
         Creates a [bucket](/influxdb/cloud/reference/glossary/#bucket)
-        and returns the created bucket along with metadata. The default data
+        and returns the bucket resource.
+        The default data
         [retention period](/influxdb/cloud/reference/glossary/#retention-period)
         is 30 days.
 
         #### InfluxDB OSS
 
         - A single InfluxDB OSS instance supports active writes or queries for
-        approximately 20 buckets across all organizations at a given time. Reading
-        or writing to more than 20 buckets at a time can adversely affect
+        approximately 20 buckets across all organizations at a given time.
+        Reading or writing to more than 20 buckets at a time can adversely affect
         performance.
 
         #### Limitations
@@ -6901,7 +6956,7 @@ paths:
 
         #### Related Guides
 
-        - [Create bucket](/influxdb/cloud/organizations/buckets/create-bucket/)
+        - [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/)
         - [Create bucket CLI reference](/influxdb/cloud/reference/cli/influx/bucket/create)
       operationId: PostBuckets
       parameters:
@@ -6911,7 +6966,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PostBucketRequest'
-        description: Bucket to create
+        description: The bucket to create.
         required: true
       responses:
         '201':
@@ -6921,7 +6976,7 @@ paths:
                 successResponse:
                   value:
                     createdAt: '2022-08-03T23:04:41.073704121Z'
-                    description: bucket holding air sensor data
+                    description: A bucket holding air sensor data
                     id: 37407e232b3911d8
                     labels: []
                     links:
@@ -6943,7 +6998,7 @@ paths:
                 $ref: '#/components/schemas/Bucket'
           description: |
             Success.
-            The bucket was created.
+            The bucket is created.
         '400':
           content:
             application/json:
@@ -6994,7 +7049,7 @@ paths:
       tags:
         - Buckets
       x-codeSamples:
-        - label: cURL
+        - label: 'cURL: create a bucket with retention period'
           lang: Shell
           source: |
             curl --request POST "http://localhost:8086/api/v2/buckets \
@@ -7003,7 +7058,7 @@ paths:
               --header "Content-Type: application/json" \
               --data '{
                   "name": "air_sensor",
-                  "description": "bucket holding air sensor data",
+                  "description": "A bucket holding air sensor data",
                   "orgID": "INFLUX_ORG_ID",
                   "retentionRules": [
                       {
@@ -7012,6 +7067,9 @@ paths:
                       }
                   ]
                 }'
+        - label: cURL
+          lang: Shell
+          source: ''
   /api/v2/buckets/{bucketID}:
     delete:
       description: |
@@ -7979,24 +8037,46 @@ paths:
         - Buckets
   /api/v2/buckets/{bucketID}/schema/measurements:
     get:
+      description: |
+        Retrieves a list of _explicit_
+        [schemas](/influxdb/cloud/reference/glossary/#schema)
+        (`"schemaType": "explicit"`) for a bucket.
+
+        _Explicit_ schemas are used to enforce column names, tags, fields, and data
+        types for your data.
+
+        By default, buckets have an _implicit_ schema-type (`"schemaType": "implicit"`)
+        that conforms to your data.
+
+        #### Related guides
+
+        - [Using bucket schemas](https://www.influxdata.com/blog/new-bucket-schema-option-protect-from-unwanted-schema-changes/)
       operationId: getMeasurementSchemas
       parameters:
-        - description: The name of the organization.
+        - description: |
+            An organization name.
+            Specifies the organization that owns the schema.
           in: query
           name: org
           schema:
             type: string
-        - description: The identifier of the organization.
+        - description: |
+            An organization ID.
+            Specifies the organization that owns the schema.
           in: query
           name: orgID
           schema:
             type: string
-        - description: The name of the measurement to return schemas for.
+        - description: |
+            A measurement name.
+            Only returns measurement schemas with the specified name.
           in: query
           name: name
           schema:
             type: string
-        - description: The identifier of the bucket.
+        - description: |
+            A bucket ID.
+            Lists measurement schemas for the specified bucket.
           in: path
           name: bucketID
           required: true
@@ -8014,26 +8094,69 @@ paths:
               description: The current version of the bucket schema
               schema:
                 type: string
+        '400':
+          content:
+            application/json:
+              examples:
+                invalidSchemaType:
+                  summary: Invalid schema type.
+                  value:
+                    code: invalid
+                    message: bucket schemaType must be explicit
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: |
+            Bad request.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
         '404':
-          $ref: '#/components/responses/GeneralServerError'
-          description: Bucket not found
-      summary: List all measurement schemas of a bucket
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      summary: List measurement schemas of a bucket
       tags:
         - Bucket Schemas
     post:
+      description: |
+        Creates an _explict_ measurement [schema](/influxdb/cloud/reference/glossary/#schema)
+        for a bucket.
+
+        _Explicit_ schemas are used to enforce column names, tags, fields, and data
+        types for your data.
+
+        By default, buckets have an _implicit_ schema-type (`"schemaType": "implicit"`)
+        that conforms to your data.
+
+        Use this endpoint to create schemas that prevent non-conforming write requests.
+
+        #### Limitations
+
+        - Buckets must be created with the "explict" `schemaType` in order to use
+        schemas.
+
+        #### Related guides
+
+        - [Manage bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/).
+        - [Create a bucket with an explicit schema](/influxdb/cloud/organizations/buckets/create-bucket/#create-a-bucket-with-an-explicit-schema)
       operationId: createMeasurementSchema
       parameters:
-        - description: The name of the organization.
+        - description: |
+            An organization name.
+            Specifies the organization that owns the schema.
           in: query
           name: org
           schema:
             type: string
-        - description: The identifier of the organization.
+        - description: |
+            An organization ID.
+            Specifies the organization that owns the schema.
           in: query
           name: orgID
           schema:
             type: string
-        - description: The identifier of the bucket.
+        - description: |
+            A bucket ID.
+            Adds a schema for the specified bucket.
           in: path
           name: bucketID
           required: true
@@ -8050,7 +8173,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MeasurementSchema'
-          description: The created measurement schema.
+          description: The current version of the measurement schema.
           headers:
             ETag:
               description: The current version of the measurement schema
@@ -8092,32 +8215,75 @@ paths:
                     message: Timestamp column is required
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Client error with create request
+          description: |
+            Bad request.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       summary: Create a measurement schema for a bucket
       tags:
         - Bucket Schemas
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: |
+            curl --request POST "https://cloud2.influxdata.com/api/v2/buckets/BUCKET_ID/schema/measurements \
+              --header "Authorization: Token INFLUX_API_TOKEN" \
+              --header "Accept: application/json" \
+              --header "Content-Type: application/json" \
+              --data '{
+                  "name": "temperature",
+                  "column": [
+                    {
+                      "type": "tag",
+                      "name": "location"
+                    },
+                    {
+                      "type": "field",
+                      "name": "value",
+                      "dataType": "float"
+                    },
+                    {
+                      "type": "timestamp",
+                      "name": "time"
+                    }
+                  ]
+                }'
     summary: Bucket schemas
   /api/v2/buckets/{bucketID}/schema/measurements/{measurementID}:
     get:
+      description: |
+        Retrieves an explicit measurement [schema](/influxdb/cloud/reference/glossary/#schema).
       operationId: getMeasurementSchema
       parameters:
-        - description: The name of the organization.
+        - description: |
+            Organization name.
+            Specifies the organization that owns the schema.
           in: query
           name: org
           schema:
             type: string
-        - description: The identifier of the organization.
+        - description: |
+            Organization ID.
+            Specifies the organization that owns the schema.
           in: query
           name: orgID
           schema:
             type: string
-        - description: The identifier of the bucket.
+        - description: |
+            A bucket ID.
+            Retrieves schemas for the specified bucket.
           in: path
           name: bucketID
           required: true
           schema:
             type: string
-        - description: The identifier of the measurement.
+        - description: |
+            The measurement schema ID.
+            Specifies the measurement schema to retrieve.
           in: path
           name: measurementID
           required: true
@@ -8135,29 +8301,57 @@ paths:
               description: The current version of the measurement schema
               schema:
                 type: string
-      summary: Retrieve measurement schema information
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      summary: Retrieve a measurement schema
       tags:
         - Bucket Schemas
     patch:
+      description: |
+        Updates a measurement [schema](/influxdb/cloud/reference/glossary/#schema).
+
+        Use this endpoint to update the fields (`name`, `type`, and `dataType`) of a
+        measurement schema.
+
+        #### Limitations
+
+        - You can't update the `name` of a measurement.
+
+        #### Related guides
+
+        - [Manage bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/).
+        - [Using bucket schemas](https://www.influxdata.com/blog/new-bucket-schema-option-protect-from-unwanted-schema-changes/).
       operationId: updateMeasurementSchema
       parameters:
-        - description: The name of the organization.
+        - description: |
+            An organization name.
+            Specifies the organization that owns the schema.
           in: query
           name: org
           schema:
             type: string
-        - description: The identifier of the organization.
+        - description: |
+            An organization ID.
+            Specifies the organization that owns the schema.
           in: query
           name: orgID
           schema:
             type: string
-        - description: The identifier of the bucket.
+        - description: |
+            A bucket ID.
+            Specifies the bucket to retrieve schemas for.
           in: path
           name: bucketID
           required: true
           schema:
             type: string
-        - description: The identifier of the measurement.
+        - description: |
+            A measurement schema ID.
+            Retrieves the specified measurement schema.
           in: path
           name: measurementID
           required: true
@@ -8174,7 +8368,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MeasurementSchema'
-          description: The updated measurement schema
+          description: |
+            Success.
+            The response body contains the measurement schema.
         '400':
           content:
             application/json:
@@ -8187,10 +8383,42 @@ paths:
                     message: Unable to delete columns from schema
               schema:
                 $ref: '#/components/schemas/Error'
-          description: Client error updating measurement schema
+          description: |
+            Bad request.
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
       summary: Update a measurement schema
       tags:
         - Bucket Schemas
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: |
+            curl --request PATCH "https://cloud2.influxdata.com/api/v2/buckets/BUCKET_ID/schema/measurements \
+              --header "Authorization: Token INFLUX_API_TOKEN" \
+              --header "Accept: application/json" \
+              --header "Content-Type: application/json" \
+              --data '{
+                  "column": [
+                    {
+                      "type": "tag",
+                      "name": "location"
+                    },
+                    {
+                      "type": "field",
+                      "name": "value",
+                      "dataType": "float"
+                    },
+                    {
+                      "type": "timestamp",
+                      "name": "time"
+                    }
+                  ]
+                }'
     summary: Bucket Schema
   /api/v2/checks:
     get:
@@ -11576,34 +11804,68 @@ paths:
         - Usage
   /ping:
     get:
-      description: Returns the status and InfluxDB version of the instance.
+      description: |
+        Retrieves the status and InfluxDB version of the instance.
+
+        Use this endpoint to monitor uptime for the InfluxDB instance. The response
+        returns a HTTP `204` status code to inform you the instance is available.
+
+        #### InfluxDB Cloud
+
+        - Isn't versioned and doesn't return `X-Influxdb-Version` in the headers.
+
+        #### Related guides
+
+        - [Influx ping](/influxdb/cloud/reference/cli/influx/ping/)
       operationId: GetPing
       responses:
         '204':
           description: |
-            OK.
+            Success.
             Headers contain InfluxDB version information.
           headers:
             X-Influxdb-Build:
-              description: The type of InfluxDB build.
+              description: |
+                The type of InfluxDB build.
               schema:
                 type: string
             X-Influxdb-Version:
-              description: The version of InfluxDB.
+              description: |
+                The version of InfluxDB.
+
+                #### InfluxDB Cloud
+                  - Doesn't return version.
               schema:
                 type: integer
       servers: []
-      summary: Get the status and version of the instance
+      summary: Get the status of the instance
       tags:
         - Ping
         - System information endpoints
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: |
+            curl --request GET "http://localhost:8086/ping"
     head:
-      description: Returns the status and InfluxDB version of the instance.
+      description: |
+        Returns the status and InfluxDB version of the instance.
+
+        Use this endpoint to monitor uptime for the InfluxDB instance. The response
+        returns a HTTP `204` status code to inform you the instance is available.
+
+        #### InfluxDB Cloud
+
+        - Isn't versioned and doesn't return `X-Influxdb-Version` in the headers.
+
+        #### Related guides
+
+        - [Influx ping](/influxdb/cloud/reference/cli/influx/ping/)
       operationId: HeadPing
       responses:
         '204':
           description: |
-            OK.
+            Success.
             Headers contain InfluxDB version information.
           headers:
             X-Influxdb-Build:
@@ -11611,13 +11873,22 @@ paths:
               schema:
                 type: string
             X-Influxdb-Version:
-              description: The version of InfluxDB.
+              description: |
+                The version of InfluxDB.
+
+                #### InfluxDB Cloud
+                - Doesn't return version.
               schema:
                 type: integer
       servers: []
-      summary: Get the status and version of the instance
+      summary: Get the status of the instance
       tags:
         - Ping
+      x-codeSamples:
+        - label: cURL
+          lang: Shell
+          source: |
+            curl --request HEAD "http://localhost:8086/ping"
   /api/v2/query:
     post:
       description: |
@@ -13139,25 +13410,22 @@ paths:
       description: |
         Retrieves a list of [scripts](/influxdb/cloud/api-guide/api-invokable-scripts/).
 
-        #### Limitations
-
-        - Paging with an `offset` greater than the number of records will result in
-        an empty response--for example:
-
-          The following sample request pages to the 50th record, but the user has only
-          created two scripts.
-
-          ```sh
-          $ curl --request GET "INFLUX_URL/api/v2/scripts?limit=1&offset=50"
-
-          $ {"scripts":[]}
-          ```
-
         #### Related guides
 
         - [Invoke custom scripts](/influxdb/cloud/api-guide/api-invokable-scripts/)
       operationId: GetScripts
       parameters:
+        - description: |
+            The offset for pagination.
+            The number of records to skip.
+
+            For more information about pagination parameters, see [Pagination](/influxdb/cloud/api/#tag/Pagination).
+          in: query
+          name: offset
+          required: false
+          schema:
+            minimum: 0
+            type: integer
         - description: |
             The maximum number of scripts to return. Default is `100`.
           in: query
@@ -13166,16 +13434,6 @@ paths:
           schema:
             default: 100
             maximum: 500
-            minimum: 0
-            type: integer
-        - description: |
-            The offset for pagination.
-            Skips the specified number of records in the result.
-          in: query
-          name: offset
-          required: false
-          schema:
-            default: 0
             minimum: 0
             type: integer
         - description: The script name. Lists scripts with the specified name.
@@ -13264,7 +13522,7 @@ paths:
         - Data I/O endpoints
         - Invokable Scripts
       x-codeSamples:
-        - label: cURL
+        - label: 'cURL: retrieves the first 100 scripts.'
           lang: Shell
           source: |
             curl --request GET "https://cloud2.influxdata.com/api/v2/scripts?limit=100&offset=0" \
@@ -16606,10 +16864,6 @@ paths:
       description: |
         Updates a user password.
 
-        Use this endpoint to let a user authenticate with
-        [Basic authentication credentials](#section/Authentication/BasicAuthentication)
-        and set a new password.
-
         #### InfluxDB Cloud
 
         - Doesn't allow you to manage user passwords through the API.
@@ -16662,6 +16916,81 @@ paths:
         default:
           $ref: '#/components/responses/GeneralServerError'
           description: Unexpected error
+      summary: Update a password
+      tags:
+        - Security and access endpoints
+        - Users
+      x-codeSamples:
+        - label: 'cURL: use HTTP POST to update the user password'
+          lang: Shell
+          source: |
+            curl --request POST \
+               "http://localhost:8086/api/v2/users/USER_ID/password" \
+              --header 'Content-type: application/json' \
+              --header "Authorization: Token INFLUX_TOKEN" \
+              --data-binary @- << EOF
+                {"password": "NEW_USER_PASSWORD"}
+            EOF
+    put:
+      description: |
+        Updates a user password.
+
+        Use this endpoint to let a user authenticate with
+        [Basic authentication credentials](#section/Authentication/BasicAuthentication)
+        and set a new password.
+
+        #### InfluxDB Cloud
+
+        - Doesn't allow you to manage user passwords through the API.
+          Use the InfluxDB Cloud user interface (UI) to update a password.
+
+        #### Related guides
+
+        - [InfluxDB Cloud - Change your password](/influxdb/cloud/account-management/change-password/)
+        - [InfluxDB OSS - Change your password](/influxdb/latest/users/change-password/)
+      operationId: PutUsersIDPassword
+      parameters:
+        - $ref: '#/components/parameters/TraceSpan'
+        - description: The ID of the user to set the password for.
+          in: path
+          name: userID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetBody'
+        description: The new password to set for the user.
+        required: true
+      responses:
+        '204':
+          description: Success. The password is updated.
+        '400':
+          content:
+            application/json:
+              examples:
+                updatePasswordNotAllowed:
+                  summary: Cloud API can't update passwords
+                  value:
+                    code: invalid
+                    message: passwords cannot be changed through the InfluxDB Cloud API
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: |
+            Bad request.
+
+            #### InfluxDB Cloud
+
+            - Doesn't allow you to manage passwords through the API; always responds with this status.
+
+            #### InfluxDB OSS
+
+            - Doesn't understand a value passed in the request.
+        default:
+          $ref: '#/components/responses/GeneralServerError'
+          description: Unexpected error
       security:
         - BasicAuthentication: []
       summary: Update a password
@@ -16672,12 +17001,15 @@ paths:
         - label: 'cURL: use Basic auth to update the user password'
           lang: Shell
           source: |
-            curl --request POST \
+            curl -c ./cookie-file.tmp --request POST \
+               "http://localhost:8086/api/v2/signin" \
+              --user "${INFLUX_USER_NAME}:${INFLUX_USER_PASSWORD}"
+
+            curl -b ./cookie-file.tmp --request PUT \
                "http://localhost:8086/api/v2/users/USER_ID/password" \
               --header 'Content-type: application/json' \
-              --user "USERNAME:PASSWORD" \
               --data-binary @- << EOF
-                {"password": ""}
+                {"password": "NEW_USER_PASSWORD"}
             EOF
   /api/v2/variables:
     get:
@@ -17813,10 +18145,11 @@ tags:
   - name: Cells
   - name: Checks
   - description: |
-      Many InfluxDB API endpoints require parameters to specify resources--for example,
-      writing to a **bucket** in an **organization**.
+      To specify resources, some InfluxDB API endpoints require parameters or
+      properties in the request--for example,
+      writing to a `bucket` resource in an `org` (_organization_ resource).
 
-      ### Common query parameters
+      ### Common parameters
 
       | Query parameter          | Value type            | Description                                |
       |:------------------------ |:--------------------- |:-------------------------------------------|
@@ -17833,17 +18166,15 @@ tags:
       Delete data from an InfluxDB bucket.
     name: Delete
   - description: |
-      InfluxDB API endpoints use standard HTTP request and response headers.
-
-      **Note**: Not all operations support all headers.
-
-      ### Request headers
+      InfluxDB `/api/v2` API endpoints use standard HTTP request and response headers.
+      The following table shows common headers used by many InfluxDB API endpoints.
+      Some endpoints may use other headers that perform functions more specific to those endpoints--for example,
+      the `POST /api/v2/write` endpoint accepts the `Content-Encoding` header to indicate the compression applied to line protocol in the request body.
 
       | Header                   | Value type            | Description                                |
       |:------------------------ |:--------------------- |:-------------------------------------------|
       | `Accept`                 | string                | The content type that the client can understand. |
       | `Authorization`          | string                | The authorization scheme and credential. |
-      | `Content-Encoding`       | string                | The compression applied to the line protocol in the request payload. |
       | `Content-Length`         | integer               | The size of the entity-body, in bytes, sent to the database. |
       | `Content-Type`           | string                | The format of the data in the request body. |
     name: Headers
@@ -17885,20 +18216,61 @@ tags:
 
       Use the `/api/v2/orgs` endpoints to view and manage organizations.
     name: Organizations
+  - description: |
+      Some InfluxDB API [list operations](#tag/SupportedOperations) may support the following query parameters for paginating results:
+
+        | Query parameter          | Value type            | Description                                |
+        |:------------------------ |:--------------------- |:-------------------------------------------|
+        | `limit`                  | integer               | The maximum number of records to return (after other parameters are applied). |
+        | `offset`                 | integer               | The number of records to skip (before `limit`, after other parameters are applied). |
+        | `after`                  | string (resource ID)  | Only returns resources created after the specified resource. |
+
+        #### Limitations
+
+        - For specific endpoint parameters and examples, see the endpoint definition.
+        - If you specify an `offset` parameter value greater than the total number of records,
+          then InfluxDB returns an empty list in the response
+          (given `offset` skips the specified number of records).
+
+          The following example passes `offset=50` to skip the first 50 results,
+          but the user only has 10 buckets:
+
+          ```sh
+          curl --request GET "INFLUX_URL/api/v2/buckets?limit=1&offset=50" \
+              --header "Authorization: Token INFLUX_API_TOKEN"
+          ```
+
+          The response contains the following:
+
+          ```json
+          {
+            "links": {
+                "prev": "/api/v2/buckets?descending=false\u0026limit=1\u0026offset=49\u0026orgID=ORG_ID",
+                "self": "/api/v2/buckets?descending=false\u0026limit=1\u0026offset=50\u0026orgID=ORG_ID"
+            },
+            "buckets": []
+          }
+          ```
+    name: Pagination
+    x-traitTag: true
   - name: Ping
   - description: |
       Retrieve data, analyze queries, and get query suggestions.
     name: Query
   - description: |
-      See the [**API Quick Start**](/influxdb/cloud/api-guide/api_intro/) to get up and running authenticating with tokens, writing to buckets, and querying data.
+      See the [**API Quick Start**](/influxdb/cloud/api-guide/api_intro/)
+      to get up and running authenticating with tokens, writing to buckets, and querying data.
 
-      [**InfluxDB API client libraries**](/influxdb/cloud/api-guide/client-libraries/) are available for popular languages and ready to import into your application.
+      [**InfluxDB API client libraries**](/influxdb/cloud/api-guide/client-libraries/)
+      are available for popular languages and ready to import into your application.
     name: Quick start
     x-traitTag: true
   - name: Resources
   - description: |
-      The InfluxDB API uses standard HTTP status codes for success and failure responses.
-      The response body may include additional details. For details about a specific operation's response, see **Responses** and **Response Samples** for that operation.
+      InfluxDB `/api/v2` API endpoints use standard HTTP status codes for success and failure responses.
+      The response body may include additional details.
+      For details about a specific operation's response,
+      see **Responses** and **Response Samples** for that operation.
 
       API operations may return the following HTTP status codes:
 
@@ -17924,6 +18296,9 @@ tags:
   - name: Setup
   - name: Signin
   - name: Signout
+  - description: "The following table shows the most common operations that the InfluxDB `/api/v2` API supports.\nSome resources may support other operations that perform functions more specific to those resources.\nFor example, you can use the `PATCH /api/v2/scripts` endpoint to update properties of a script\nresource.\n\n| Operation |                                                                        |\n|:----------|:-----------------------------------------------------------------------|\n| Write     | Writes (`POST`) data to a bucket.                                      |\n| Run       | Executes (`POST`) a query or script and returns the result.            |\n| List      |\tRetrieves (`GET`) a list of zero or more resources.                    |\n| Create    |\tCreates (`POST`) a new resource and returns the resource.              |\n| Update    |\tModifies (`PUT`) an existing resource to reflect data in your request. |\n| Delete    |\tRemoves (`DELETE`) a specific resource.                                |\n"
+    name: Supported operations
+    x-traitTag: true
   - name: System information endpoints
   - description: |
       Process and analyze your data with [tasks](/influxdb/cloud/reference/glossary/#task) in the InfluxDB task engine.
@@ -17990,14 +18365,16 @@ tags:
   - name: Variables
   - name: Views
   - description: |
-      Write time series data to buckets.
+      Write time series data to [buckets](/influxdb/cloud/reference/glossary/#bucket).
     name: Write
 x-tagGroups:
   - name: Overview
     tags:
       - Quick start
       - Authentication
+      - Supported operations
       - Headers
+      - Pagination
       - Response codes
   - name: ''
     tags:

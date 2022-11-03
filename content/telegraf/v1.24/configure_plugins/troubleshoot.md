@@ -7,6 +7,9 @@ menu:
     name: Troubleshoot
     Parent: Configure plugins
     weight: 79
+aliases:
+  - /telegraf/v1.24/administration/troubleshooting/
+  - /telegraf/v1.24/administration/troubleshooting/
 ---
 
 ## Validate your Telegraf configuration with `--test`

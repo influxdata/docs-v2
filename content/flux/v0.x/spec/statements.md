@@ -14,44 +14,14 @@ aliases:
 A _statement_ controls execution.
 
 ```js
-Statement = OptionAssignment
-          | BuiltinStatement
-          | VariableAssignment
-          | ReturnStatement
-          | ExpressionStatement .
+Statement      = [ Attributes ] StatementInner .
+StatementInner = OptionAssignment
+                | BuiltinStatement
+                | VariableAssignment
+                | ReturnStatement
+                | ExpressionStatement
+                | TestcaseStatement .
 ```
-
-## Import declaration
-
-```js
-ImportDeclaration = "import" [identifier] string_lit .
-```
-
-A package name and an import path is associated with every package.
-The import statement takes a package's import path and brings all of the identifiers
-defined in that package into the current scope under a namespace.
-The import statement defines the namespace through which to access the imported identifiers.
-By default the identifier of this namespace is the package name unless otherwise specified.
-For example, given a variable `x` declared in package `foo`, importing `foo` and referencing `x` would look like this:
-
-```js
-import "import/path/to/package/foo"
-
-foo.x
-```
-
-Or this:
-
-```js
-import bar "import/path/to/package/foo"
-
-bar.x
-```
-
-A package's import path is always absolute.
-A package may reassign a new value to an option identifier declared in one of its imported packages.
-A package cannot access nor modify the identifiers belonging to the imported packages of its imported packages.
-Every statement contained in an imported package is evaluated.
 
 ## Return statements
 
@@ -75,6 +45,49 @@ ExpressionStatement = Expression .
 1 + 1
 f()
 a
+```
+
+#### Testcase statements
+
+A _testcase_ statement defines a test case.
+
+{{% note %}}
+Testcase statements only work within the context of a Flux developement environment.
+{{% /note %}}
+
+```js
+TestcaseStatement = "testcase" identifier [ TestcaseExtention ] Block .
+TestcaseExtention = "extends" string_lit
+```
+
+Test cases are defined as a set of statements with special scoping rules.
+Each test case statement in a file is considered to be its own main package.
+In effect, all statements in package scope and all statements contained within
+the test case statement are flattened into a single main package and executed.
+Use the `testing` package from the standard library to control the pass failure
+of the test case.
+
+Test extension augments an existing test case with more statements or attributes.
+A special function call, `super()`, must be made inside the body of a test case
+extension. All statements from the parent test case will be executed in its place.
+
+
+##### Basic testcase for addition
+```js
+import "testing"
+
+testcase addition {
+    testing.assertEqualValues(got: 1 + 1, want: 2)
+}
+```
+
+##### Example testcase extension to prevent feature regession
+
+```js
+@feature({vectorization: true})
+testcase vector_addition extends "basics_test.addition" {
+    super()
+}
 ```
 
 {{< page-nav prev="/flux/v0.x/spec/packages/" next="/flux/v0.x/spec/side-effects/" >}}
