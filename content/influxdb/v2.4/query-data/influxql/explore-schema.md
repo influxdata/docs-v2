@@ -9,20 +9,28 @@ menu:
 weight: 203
 ---
 
-InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
-The following sections cover useful query syntax for exploring your [schema](/influxdb/v2.4/reference/glossary/#schema).
+To explore your schema using InfluxQL, do the following:
 
-InfluxDB 1.x data is stored in databases and retention policies. In InfluxDB 2.x versions, data is stored in **buckets**. Because InfluxQL uses the 1.x data model, a [bucket](/influxdb/v2.4/reference/glossary/#bucket) must be mapped to a database and [retention policy](/influxdb/v2.4/reference/glossary/#retention-policy-rp) (DBRP) before it can be queried using InfluxQL.
+1. If you haven't already, verify or set up DBRP mappings. To do this, see [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/).
 
-{{% note %}}
-To learn how to verify if buckets have a mapping and how to create DBRP mappings for unmapped bucket, see [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/).
-{{% /note %}}
+2. Next, check out **NOAA** [water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) in the `noaa` database, which is used in examples.
 
-Note that using the API to query with InfluxQL will return all data in JSON format.
+3. Use the following InfluxQL commands to explore your schema:
+   - [SHOW SERIES](#show-series)
+   - [SHOW MEASUREMENTS](#show-measurements)
+   - [SHOW TAG KEYS](#show-tag-keys)
+   - [SHOW TAG VALUES](#show-tag-values)
+   - [SHOW FIELD KEYS](#show-field-keys) (includes examples to find field/tag key cardinality)
 
-## Sample data
+   Commands include **syntax** and **examples**.
+   {{% note %}}
 
-The **NOAA sample data** used in the following examples is available for download on the [Sample Data](/influxdb/v2.4/reference/sample-data/) page. The database used in the following examples is called `noaa`.
+#### Examples use the InfluxQL shell
+
+Examples show how to run commands using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). You can also query with InfluxQL using the [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/) by sending a `GET` request to the `/query` endpoint and including the command in the URL parameter `q`. Note, using the API returns results in JSON format.
+
+For information about how to use either the InfluxQL shell or the InfluxDB API, see how to [Query a mapped bucket with InfluxQL](/influxdb/v2.4/query-data/influxql/#query-a-mapped-bucket-with-influxql).
+   {{% /note %}}
 
 ## `SHOW SERIES`
 

@@ -19,7 +19,7 @@ In InfluxDB 2.x, InfluxQL data management commands are **limited to deleting dat
 
 #### Examples use the InfluxQL shell
 
-Examples show how to run commands using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). You can also query with InfluxQL using the [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/) by sending a `GET` request to the `/query` endpoint and including the command in the URL parameter `q`.
+Examples show how to run commands using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). You can also query with InfluxQL using the [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/) by sending a `GET` request to the `/query` endpoint and including the command in the URL parameter `q`. Note, using the API returns results in JSON format.
 
 For information about how to get started querying using either the InfluxQL shell or the InfluxDB API, see how to [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql).
 {{% /note %}}
