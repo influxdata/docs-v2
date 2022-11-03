@@ -10,3 +10,11 @@ menu:
     identifier: influxql-syntax
 weight: 101
 ---
+
+Learn details about the implementation of Influx Query Language (InfluxQL) or review a detailed specification of the InfluxQL language.
+
+{{% note %}}
+If you're ready to start using the InfluxQL language, we recommend how to [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/).
+{{% /note %}}
+
+{{< children readmore=true hr=true >}}
