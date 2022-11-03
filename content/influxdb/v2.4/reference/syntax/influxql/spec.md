@@ -10,33 +10,31 @@ aliases:
 weight: 105
 ---
 
-## Introduction
-
 InfluxQL is a SQL-like query language for interacting with InfluxDB
 and providing features specific to storing and analyzing time series data.
 
 Find Influx Query Language (InfluxQL) definitions and details, including:
 
-* [Notation](#notation)
-* [Query representation](#query-representation)
-  * [Characters](#characters)
-  * [Letters and digits](#letters-and-digits)
-  * [Identifiers](#identifiers)
-  * [Keywords](#keywords)
-  * [Literals](#literals)
-* [Queries](#queries)
-* [Statements](#statements)
-* [Clauses](#clauses)
-* [Expressions](#expressions)
-* [Comments](#comments)
-* [Other](#other)
+- [Notation](#notation)
+- [Query representation](#query-representation)
+  - [Characters](#characters)
+  - [Letters and digits](#letters-and-digits)
+  - [Identifiers](#identifiers)
+  - [Keywords](#keywords)
+  - [Literals](#literals)
+- [Queries](#queries)
+- [Statements](#statements)
+- [Clauses](#clauses)
+- [Expressions](#expressions)
+- [Comments](#comments)
+- [Other](#other)
 
 To learn more about InfluxQL, browse the following topics:
 
-* [Explore your data with InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/)
-* [Explore your schema with InfluxQL](/influxdb/v2.4/query-data/influxql/explore-schema/)
-* [Database management](/influxdb/v2.4/query-data/influxql/manage-database/)
-* [Query engine internals](/influxdb/v2.4/reference/syntax/influxql/internals/)
+- [Explore your data with InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/)
+- [Explore your schema with InfluxQL](/influxdb/v2.4/query-data/influxql/explore-schema/)
+- [Database management](/influxdb/v2.4/query-data/influxql/manage-database/)
+- [Query engine internals](/influxdb/v2.4/reference/syntax/influxql/internals/)
 
 ## Notation
 
