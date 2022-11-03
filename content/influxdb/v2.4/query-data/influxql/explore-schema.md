@@ -421,7 +421,7 @@ Output:
 The query returns the fields keys and field value data types for the `h2o_feet`
 measurement in the `noaa` database. 
 
-<!-- ### Common Issues with `SHOW FIELD KEYS`
+ ### Common Issues with `SHOW FIELD KEYS`
 
 #### SHOW FIELD KEYS and field type discrepancies
 
@@ -430,9 +430,9 @@ Field value
 cannot differ within a [shard](/influxdb/v2.4/reference/glossary/#shard) but they
 can differ across shards.
 `SHOW FIELD KEYS` returns every data type, across every shard, associated with
-the field key. -->
+the field key. 
 
-<!-- ##### Example
+##### Example
 
 The `all_the_types` field stores four different data types:
 
@@ -451,15 +451,7 @@ all_the_types   boolean
 Note that `SHOW FIELD KEYS` handles field type discrepancies differently from
 `SELECT` statements.
 For more information, see the
-[How does InfluxDB handle field type discrepancies across shards?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards). -->
-
-<!-- ## `SHOW CARDINALITY`
-
-`SHOW CARDINALITY` refers to the group of commands used to estimate or count exactly
-the cardinality of measurements, series, tag keys, tag key values, and field keys.
-
-For more information on the `SHOW CARDINALITY` commands,
-see the [InfluxQL reference entry](/influxdb/v2.4/reference/syntax/influxql/spec/#show-cardinality). -->
+[How does InfluxDB handle field type discrepancies across shards?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards). 
 
 ### `SHOW FIELD KEY CARDINALITY`
 
@@ -480,26 +472,23 @@ SHOW TAG KEY CARDINALITY
 -- show exact tag key cardinality
 SHOW TAG KEY EXACT CARDINALITY
 ```
-<!-- ### `SHOW TAG VALUES CARDINALITY`
+<!-- 
+### `SHOW TAG VALUES CARDINALITY`
 
 ```sql
--- show estimated tag key values cardinality for a specified tag key
-SHOW TAG VALUES CARDINALITY WITH KEY = "myTagKey"
--- show estimated tag key values cardinality for a specified tag key
-SHOW TAG VALUES CARDINALITY WITH KEY = "myTagKey"
--- show exact tag key values cardinality for a specified tag key
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
 -- show exact tag key values cardinality for a specified tag key
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey" -->
-```
 
-<!-- ## Filter meta queries by time
+<!-- ### Filter meta queries by time
 
 When you filter meta queries by time, you may see results outside of your specified time. Meta query results are filtered at the shard level, so results can be approximately as granular as your shard group duration. If your time filter spans multiple shards, you'll get results from all shards with points in the specified time range. To review your shards and timestamps on points in the shard, run `SHOW SHARDS`. To learn more about shards and their duration, see [recommended shard groups durations](/influxdb/v2.4/reference/internals/shards/#shard-group-duration).
 
 The example below shows how to filter `SHOW TAG KEYS` by approximately one hour using a 1h shard group duration. To filter other meta data, replace `SHOW TAG KEYS` with `SHOW TAG VALUES`, `SHOW SERIES`, `SHOW FIELD KEYS`, and so on.
 
-> **Note:** `SHOW MEASUREMENTS` cannot be filtered by time.
+{{% note %}}
+**Note:** `SHOW MEASUREMENTS` cannot be filtered by time.
+{{% /note %}}
 
 #### Example filtering `SHOW TAG KEYS` by time
 
@@ -592,4 +581,4 @@ The example below shows how to filter `SHOW TAG KEYS` by approximately one hour 
     ------
     test_key_4
     test_key_5
-    ``` -->
+    ```  -->

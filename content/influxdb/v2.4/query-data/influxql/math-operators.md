@@ -262,8 +262,7 @@ InfluxQL supports [subqueries](/influxdb/v2.4/query-data/influxql/explore-data/s
 
 ### Inequalities
 
-Using any of `=`,`!=`,`<`,`>`,`<=`,`>=`,`<>` in the `SELECT` clause yields empty results for all types.
-See GitHub issue [3525](https://github.com/influxdb/influxdb/issues/3525).
+Using any of `=`,`!=`,`<`,`>`,`<=`,`>=`,`<>` in the `SELECT` statement yields empty results for all types. Comparison operators can only be used in the `WHERE` clause.
 
 ### Logical Operators
 
