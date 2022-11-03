@@ -15,6 +15,8 @@ related:
   - /influxdb/v2.4/reference/api/influxdb-1x/dbrp
 ---
 
+InfluxQL is a SQL-like query language for interacting with InfluxDB and providing features specific to storing and analyzing time series data.
+
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
 In InfluxDB OSS {{< current-version >}}, data is stored in [buckets](/influxdb/v2.4/reference/glossary/#bucket).
@@ -22,8 +24,8 @@ Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database 
 
 {{% note %}}
 #### InfluxQL reference documentation
-For complete InfluxQL reference documentation, see
-[Influx Query Language in the latest InfluxDB 1.x documentation](/{{< latest "influxdb" "v1" >}}/query_language/).
+For complete InfluxQL reference documentation, see the
+[Influx Query Language (InfluxQL) 2.x specification](/influxdb/v2.4/reference/syntax/influxql/spec/).
 {{% /note %}}
 
 **To use InfluxQL to query bucket data, complete the following steps:**
@@ -114,6 +116,8 @@ To return results as **CSV**, include the `Accept: application/csv` header.
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
+For additional information on DBRP mappings see [Manage DBRP mappings](/influxdb/v2.4/query-data/influxql/dbrp/).
+
 ## InfluxQL support
 
 InfluxDB OSS 2.x supports the following InfluxQL statements and clauses. See supported and unsupported queries below.
@@ -128,10 +132,13 @@ InfluxDB OSS 2.x supports the following InfluxQL statements and clauses. See sup
 - `EXPLAIN ANALYZE`
 - `SELECT` _(read-only)_
 - `SHOW DATABASES`
+- `SHOW SERIES`
 - `SHOW MEASUREMENTS`
 - `SHOW TAG KEYS`
-- `SHOW TAG VALUES`
 - `SHOW FIELD KEYS`
+- `SHOW SERIES EXACT CARDINALITY` 
+- `SHOW TAG KEY CARDINALITY`
+- `SHOW FIELD KEY CARDINALITY`
 
 \* These commands delete data.
 {{% /note %}}

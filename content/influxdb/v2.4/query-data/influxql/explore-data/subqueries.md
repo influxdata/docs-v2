@@ -14,7 +14,7 @@ list_code_example: |
   ```
 ---
 
-A subquery is a query that is nested in the `FROM` clause of another query. Use a subquery to apply a query as a condition in the enclosing query. Subqueries offer functionality similar to nested functions and SQL [`HAVING` clauses](https://en.wikipedia.org/wiki/Having_%28SQL%29). 
+A subquery is a query that is nested in the `FROM` clause of another query. Use a subquery to apply a query as a condition in the enclosing query. Subqueries offer functionality similar to nested functions and the SQL [`HAVING` clause](https://en.wikipedia.org/wiki/Having_%28SQL%29). 
 
 {{% note %}}
 **Note:** InfluxQL does not support a `HAVING` clause.

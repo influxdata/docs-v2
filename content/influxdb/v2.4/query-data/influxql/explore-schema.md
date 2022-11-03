@@ -6,7 +6,7 @@ menu:
     name: Explore your schema
     parent: Query with InfluxQL
     identifier: explore-schema-influxql
-weight: 203
+weight: 202
 ---
 
 To explore your schema using InfluxQL, do the following:

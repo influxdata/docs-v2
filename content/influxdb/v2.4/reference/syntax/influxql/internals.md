@@ -94,7 +94,7 @@ Because InfluxQL allows users to use selector functions such as `FIRST()`,
 `LAST()`, `MIN()`, and `MAX()`, the engine must provide a way to return related
 data at the same time with the selected point.
 
-For example, in this query:
+Let's look at the following query:
 
 ```sql
 SELECT FIRST(value), host FROM cpu GROUP BY time(1h)
@@ -158,6 +158,6 @@ wrapped with another `CountIterator` to compute the count of all shards. These
 iterators can be created using `NewCallIterator()`.
 
 Some iterators are more complex or need to be implemented at a higher level.
-For example, the `DERIVATIVE()` needs to retrieve all points for a window first
+For example, the `DERIVATIVE()` function needs to retrieve all points for a window first
 before performing the calculation. This iterator is created by the engine itself
 and is never requested to be created by the lower levels.
