@@ -59,7 +59,7 @@ Queries with unquoted string field values or double quoted string field values w
 | `<`      | less than                |
 | `<=`     | less than or equal to    |
 
-InfluxQL also supports [regular expressions](/v2.4/query-data/influxql/explore-data/regular-expressions/).
+InfluxQL also supports [Regular Expressions](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 #### Tags
 

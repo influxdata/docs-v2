@@ -6,23 +6,31 @@ menu:
     name: Explore your schema
     parent: Query with InfluxQL
     identifier: explore-schema-influxql
-weight: 203
+weight: 202
 ---
 
-InfluxQL is an SQL-like query language for interacting with data in InfluxDB.
-The following sections cover useful query syntax for exploring your [schema](/influxdb/v2.4/reference/glossary/#schema).
+To explore your schema using InfluxQL, do the following:
 
-InfluxDB 1.x data is stored in databases and retention policies. In InfluxDB 2.x versions, data is stored in **buckets**. Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
+1. If you haven't already, verify or set up DBRP mappings. To do this, see [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/).
 
-{{% note %}}
-See [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/) to learn how to verify if buckets have a mapping and how to create DBRP mappings for unmapped buckets.
-{{% /note %}}
+2. Next, check out **NOAA** [water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) in the `noaa` database, which is used in examples.
 
-Note that using the API to query with InfluxQL will return all data in JSON format.
+3. Use the following InfluxQL commands to explore your schema:
+   - [SHOW SERIES](#show-series)
+   - [SHOW MEASUREMENTS](#show-measurements)
+   - [SHOW TAG KEYS](#show-tag-keys)
+   - [SHOW TAG VALUES](#show-tag-values)
+   - [SHOW FIELD KEYS](#show-field-keys) (includes examples to find field/tag key cardinality)
 
-## Sample data
+   Commands include **syntax** and **examples**.
+   {{% note %}}
 
-The **NOAA sample data** used in the following examples is available for download on the [Sample Data](/influxdb/v2.4/reference/sample-data/) page. The database used in the following examples is called `noaa`.
+#### Examples use the InfluxQL shell
+
+Examples show how to run commands using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). You can also query with InfluxQL using the [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/) by sending a `GET` request to the `/query` endpoint and including the command in the URL parameter `q`. Note, using the API returns results in JSON format.
+
+For information about how to use either the InfluxQL shell or the InfluxDB API, see how to [Query a mapped bucket with InfluxQL](/influxdb/v2.4/query-data/influxql/#query-a-mapped-bucket-with-influxql).
+   {{% /note %}}
 
 ## `SHOW SERIES`
 
@@ -421,7 +429,7 @@ Output:
 The query returns the fields keys and field value data types for the `h2o_feet`
 measurement in the `noaa` database. 
 
-<!-- ### Common Issues with `SHOW FIELD KEYS`
+ ### Common Issues with `SHOW FIELD KEYS`
 
 #### SHOW FIELD KEYS and field type discrepancies
 
@@ -430,9 +438,9 @@ Field value
 cannot differ within a [shard](/influxdb/v2.4/reference/glossary/#shard) but they
 can differ across shards.
 `SHOW FIELD KEYS` returns every data type, across every shard, associated with
-the field key. -->
+the field key. 
 
-<!-- ##### Example
+##### Example
 
 The `all_the_types` field stores four different data types:
 
@@ -451,15 +459,7 @@ all_the_types   boolean
 Note that `SHOW FIELD KEYS` handles field type discrepancies differently from
 `SELECT` statements.
 For more information, see the
-[How does InfluxDB handle field type discrepancies across shards?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards). -->
-
-<!-- ## `SHOW CARDINALITY`
-
-`SHOW CARDINALITY` refers to the group of commands used to estimate or count exactly
-the cardinality of measurements, series, tag keys, tag key values, and field keys.
-
-For more information on the `SHOW CARDINALITY` commands,
-see the [InfluxQL reference entry](/influxdb/v2.4/reference/syntax/influxql/spec/#show-cardinality). -->
+[How does InfluxDB handle field type discrepancies across shards?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards). 
 
 ### `SHOW FIELD KEY CARDINALITY`
 
@@ -480,26 +480,23 @@ SHOW TAG KEY CARDINALITY
 -- show exact tag key cardinality
 SHOW TAG KEY EXACT CARDINALITY
 ```
-<!-- ### `SHOW TAG VALUES CARDINALITY`
+<!-- 
+### `SHOW TAG VALUES CARDINALITY`
 
 ```sql
--- show estimated tag key values cardinality for a specified tag key
-SHOW TAG VALUES CARDINALITY WITH KEY = "myTagKey"
--- show estimated tag key values cardinality for a specified tag key
-SHOW TAG VALUES CARDINALITY WITH KEY = "myTagKey"
--- show exact tag key values cardinality for a specified tag key
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
 -- show exact tag key values cardinality for a specified tag key
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey" -->
-```
 
-<!-- ## Filter meta queries by time
+<!-- ### Filter meta queries by time
 
 When you filter meta queries by time, you may see results outside of your specified time. Meta query results are filtered at the shard level, so results can be approximately as granular as your shard group duration. If your time filter spans multiple shards, you'll get results from all shards with points in the specified time range. To review your shards and timestamps on points in the shard, run `SHOW SHARDS`. To learn more about shards and their duration, see [recommended shard groups durations](/influxdb/v2.4/reference/internals/shards/#shard-group-duration).
 
 The example below shows how to filter `SHOW TAG KEYS` by approximately one hour using a 1h shard group duration. To filter other meta data, replace `SHOW TAG KEYS` with `SHOW TAG VALUES`, `SHOW SERIES`, `SHOW FIELD KEYS`, and so on.
 
-> **Note:** `SHOW MEASUREMENTS` cannot be filtered by time.
+{{% note %}}
+**Note:** `SHOW MEASUREMENTS` cannot be filtered by time.
+{{% /note %}}
 
 #### Example filtering `SHOW TAG KEYS` by time
 
@@ -592,4 +589,4 @@ The example below shows how to filter `SHOW TAG KEYS` by approximately one hour 
     ------
     test_key_4
     test_key_5
-    ``` -->
+    ```  -->

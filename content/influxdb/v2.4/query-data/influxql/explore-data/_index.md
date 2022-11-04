@@ -6,7 +6,7 @@ menu:
   influxdb_2_4:
     name: Explore data
     parent: Query with InfluxQL
-weight: 202
+weight: 201
 ---
 
 To get started exploring data with InfluxQL begin with the following:
