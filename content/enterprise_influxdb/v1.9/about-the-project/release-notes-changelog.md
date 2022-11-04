@@ -43,7 +43,7 @@ menu:
 ## 1.9.7 [2022-06-06]
 
 {{% warn %}}
-An edge case regression was introduced into this version that may cause a constant build-up of hinted handoff if writes are rejected due to malformed requests. If you experience write errors and hinted hand-off growth, we recommend upgrading to 1.9.8.
+An edge case regression was introduced into this version that may cause a constant build-up of hinted handoff if writes are rejected due to malformed requests. If you experience write errors and hinted hand-off growth, we recommend upgrading to 1.9.8 or the latest release.
 {{% /warn %}}
 
 ## 1.9.6 [2022-02-16]
