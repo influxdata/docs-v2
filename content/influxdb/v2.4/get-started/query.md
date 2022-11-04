@@ -437,17 +437,18 @@ InfluxQL is a SQL-like query language very similar to most SQL languages.
 When querying InfluxDB with InfluxQL, the most basic query includes the following
 statements and clauses:
 
-- `SELECT`: Specifies which fields and tags to query.
-- `FROM`: Specifies the measurement to query.
+- `SELECT`: Specify which fields and tags to query.
+- `FROM`: Specify the measurement to query.
   Use the measurement name or a fully-qualified measurement name which includes
   the database and retention policy. For example: `db.rp.measurement`.
-- `WHERE`: _(Optional)_ Filter data based on fields, tags, and timestamps.
+- `WHERE`: _(Optional)_ Filter data based on fields, tags, and time.
 
-The following InfluxQL query returns the **co**, **hum**, and **temp** fields stored in
-the **home** measurement with timestamps **between 2022-01-01T08:00:00Z and 2022-01-01T20:00:00Z**.
+The following InfluxQL query returns the **co**, **hum**, and **temp** fields and
+the **room** tag stored in the **home** measurement with timestamps
+**between 2022-01-01T08:00:00Z and 2022-01-01T20:00:00Z**.
 
 ```sql
-SELECT "co","hum","temp" FROM "get-started"."autogen"."home" WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+SELECT co,hum,temp,room FROM "get-started".autogen.home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
 ```
 
 {{% note %}}
@@ -496,7 +497,7 @@ consider using [Chronograf](/influxdb/v2.4/tools/chronograf/) or
 3.  Enter an InfluxQL query and press {{< keybind mac="return" other="Enter ↵" >}}.
 
     ```sql
-    SELECT "co","hum","temp" FROM "get-started"."autogen"."home" WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+    SELECT co,hum,temp,room FROM "get-started".autogen.home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
     ```
 
 <!------------------------- END INFLUXQL CLI CONTENT -------------------------->
@@ -542,7 +543,7 @@ curl --get "$INFLUX_HOST/query?org=$INFLUX_ORG&bucket=get-started" \
   --header "Authorization: Token $INFLUX_TOKEN" \
   --data-urlencode "db=get-started" \
   --data-urlencode "rp=autogen" \
-  --data-urlencode "q=SELECT co,hum,temp FROM home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'"
+  --data-urlencode "q=SELECT co,hum,temp,room FROM home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'"
 ```
 
 {{% note %}}
@@ -558,34 +559,34 @@ The InfluxDB `/write` 1.x compatibility endpoint returns query results in JSON f
 {{< expand-wrapper >}}
 {{% expand "View InfluxQL query results" %}}
 
-| time                 | temp |  hum |  co |
-| :------------------- | ---: | ---: | --: |
-| 2022-01-01T08:00:00Z |   21 | 35.9 |   0 |
-| 2022-01-01T08:00:00Z | 21.1 | 35.9 |   0 |
-| 2022-01-01T09:00:00Z |   23 | 36.2 |   0 |
-| 2022-01-01T09:00:00Z | 21.4 | 35.9 |   0 |
-| 2022-01-01T10:00:00Z | 22.7 | 36.1 |   0 |
-| 2022-01-01T10:00:00Z | 21.8 |   36 |   0 |
-| 2022-01-01T11:00:00Z | 22.4 |   36 |   0 |
-| 2022-01-01T11:00:00Z | 22.2 |   36 |   0 |
-| 2022-01-01T12:00:00Z | 22.5 |   36 |   0 |
-| 2022-01-01T12:00:00Z | 22.2 | 35.9 |   0 |
-| 2022-01-01T13:00:00Z | 22.8 | 36.5 |   1 |
-| 2022-01-01T13:00:00Z | 22.4 |   36 |   0 |
-| 2022-01-01T14:00:00Z | 22.8 | 36.3 |   1 |
-| 2022-01-01T14:00:00Z | 22.3 | 36.1 |   0 |
-| 2022-01-01T15:00:00Z | 22.7 | 36.2 |   3 |
-| 2022-01-01T15:00:00Z | 22.3 | 36.1 |   1 |
-| 2022-01-01T16:00:00Z | 22.4 |   36 |   7 |
-| 2022-01-01T16:00:00Z | 22.4 |   36 |   4 |
-| 2022-01-01T17:00:00Z | 22.7 |   36 |   9 |
-| 2022-01-01T17:00:00Z | 22.6 | 35.9 |   5 |
-| 2022-01-01T18:00:00Z | 23.3 | 36.9 |  18 |
-| 2022-01-01T18:00:00Z | 22.8 | 36.2 |   9 |
-| 2022-01-01T19:00:00Z | 23.1 | 36.6 |  22 |
-| 2022-01-01T19:00:00Z | 22.5 | 36.3 |  14 |
-| 2022-01-01T20:00:00Z | 22.7 | 36.5 |  26 |
-| 2022-01-01T20:00:00Z | 22.2 | 36.4 |  17 |
+| time                 | room        |  co |  hum | temp |
+| :------------------- | :---------- | --: | ---: | ---: |
+| 2022-01-01T08:00:00Z | Kitchen     |   0 | 35.9 |   21 |
+| 2022-01-01T08:00:00Z | Living Room |   0 | 35.9 | 21.1 |
+| 2022-01-01T09:00:00Z | Kitchen     |   0 | 36.2 |   23 |
+| 2022-01-01T09:00:00Z | Living Room |   0 | 35.9 | 21.4 |
+| 2022-01-01T10:00:00Z | Kitchen     |   0 | 36.1 | 22.7 |
+| 2022-01-01T10:00:00Z | Living Room |   0 |   36 | 21.8 |
+| 2022-01-01T11:00:00Z | Kitchen     |   0 |   36 | 22.4 |
+| 2022-01-01T11:00:00Z | Living Room |   0 |   36 | 22.2 |
+| 2022-01-01T12:00:00Z | Kitchen     |   0 |   36 | 22.5 |
+| 2022-01-01T12:00:00Z | Living Room |   0 | 35.9 | 22.2 |
+| 2022-01-01T13:00:00Z | Kitchen     |   1 | 36.5 | 22.8 |
+| 2022-01-01T13:00:00Z | Living Room |   0 |   36 | 22.4 |
+| 2022-01-01T14:00:00Z | Kitchen     |   1 | 36.3 | 22.8 |
+| 2022-01-01T14:00:00Z | Living Room |   0 | 36.1 | 22.3 |
+| 2022-01-01T15:00:00Z | Kitchen     |   3 | 36.2 | 22.7 |
+| 2022-01-01T15:00:00Z | Living Room |   1 | 36.1 | 22.3 |
+| 2022-01-01T16:00:00Z | Kitchen     |   7 |   36 | 22.4 |
+| 2022-01-01T16:00:00Z | Living Room |   4 |   36 | 22.4 |
+| 2022-01-01T17:00:00Z | Kitchen     |   9 |   36 | 22.7 |
+| 2022-01-01T17:00:00Z | Living Room |   5 | 35.9 | 22.6 |
+| 2022-01-01T18:00:00Z | Kitchen     |  18 | 36.9 | 23.3 |
+| 2022-01-01T18:00:00Z | Living Room |   9 | 36.2 | 22.8 |
+| 2022-01-01T19:00:00Z | Kitchen     |  22 | 36.6 | 23.1 |
+| 2022-01-01T19:00:00Z | Living Room |  14 | 36.3 | 22.5 |
+| 2022-01-01T20:00:00Z | Kitchen     |  26 | 36.5 | 22.7 |
+| 2022-01-01T20:00:00Z | Living Room |  17 | 36.4 | 22.2 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
