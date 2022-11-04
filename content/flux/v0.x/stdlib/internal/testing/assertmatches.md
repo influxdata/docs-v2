@@ -1,15 +1,15 @@
 ---
-title: getRecord() function
+title: testing.assertMatches() function
 description: >
-  `getRecord()` extracts a row at a specified index from a table as a record.
+  `testing.assertMatches()` tests whether a string matches a given regex.
 menu:
   flux_0_x_ref:
-    name: getRecord
-    parent: universe
-    identifier: universe/getRecord
-weight: 101
-flux/v0.x/tags: [dynamic queries]
-introduced: 0.29.0
+    name: testing.assertMatches
+    parent: internal/testing
+    identifier: internal/testing/assertMatches
+weight: 201
+flux/v0.x/tags: [tests]
+introduced: LATEST
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,51 +21,48 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3014-L3014
+https://github.com/influxdata/flux/blob/master/stdlib/internal/testing/testing.flux#L67-L73
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`getRecord()` extracts a row at a specified index from a table as a record.
+`testing.assertMatches()` tests whether a string matches a given regex.
 
-If the specified index is out of bounds, the function returns an error.
+
 
 ##### Function type signature
 
 ```js
-(<-table: stream[A], idx: int) => A where A: Record
+(got: string, want: regexp) => stream[{v: string, _diff: string}]
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### idx
+### got
 ({{< req >}})
-Index of the record to extract.
+Value to test.
 
 
 
-### table
-
-Input table. Default is piped-forward data (`<-`).
+### want
+({{< req >}})
+Regex to test against.
 
 
 
 
 ## Examples
 
-### Extract the first row from a table as a record
+### Test if two values are equal
 
 ```js
-import "sampledata"
+import "internal/testing"
 
-sampledata.int()
-    |> tableFind(fn: (key) => key.tag == "t1")
-    |> getRecord(idx: 0)// Returns {_time: 2021-01-01T00:00:00.000000000Z, _value: -2, tag: t1}
-
+testing.assertMatches(got: "123", want: /12/)
 
 ```
 

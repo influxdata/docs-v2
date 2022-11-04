@@ -10,6 +10,39 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.189.0 [2022-11-02]
+
+### Features
+- Add `PartialOrd` and `Ord` to `ast::Position`.
+- Detect undesirable patterns so we can remove them later.
+
+### Bug fixes
+- Update attribute syntax to require following element.
+- Add `salsaDatabase` to list of feature passed to Rust.
+- `testing.ShouldError` should error when no error occurs.
+- Restore termination defaults for `holtWinters` to improve performance.
+- Use salsa db when generating documentation.
+
+---
+
+## v0.188.1 [2022-10-31]
+
+### Bug fixes
+- Correctly handle join operations with large input that exceed the buffer size.
+
+---
+
+## v0.188.0 [2022-10-25]
+
+### Features
+- Compile the standard library incrementally.
+- Add attribute parsing to the parser.
+
+### Bug fixes
+- Allow functions receiving dynamic arguments to do member expressions.
+
+---
+
 ## v0.187.0 [2022-10-17]
 
 ### Features

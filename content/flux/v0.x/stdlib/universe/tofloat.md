@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L4736-L4736
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L4742-L4742
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -69,7 +69,7 @@ sampledata.int()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
@@ -126,7 +126,7 @@ sampledata.bool()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output data" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
@@ -151,23 +151,23 @@ sampledata.bool()
 
 #### Output data
 
-| _time                | _value  | *tag |
-| -------------------- | ------- | ---- |
-| 2021-01-01T00:00:00Z | 1       | t1   |
-| 2021-01-01T00:00:10Z | 1       | t1   |
-| 2021-01-01T00:00:20Z | 0       | t1   |
-| 2021-01-01T00:00:30Z | 1       | t1   |
-| 2021-01-01T00:00:40Z | 0       | t1   |
-| 2021-01-01T00:00:50Z | 0       | t1   |
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t1   | 1       |
+| 2021-01-01T00:00:10Z | t1   | 1       |
+| 2021-01-01T00:00:20Z | t1   | 0       |
+| 2021-01-01T00:00:30Z | t1   | 1       |
+| 2021-01-01T00:00:40Z | t1   | 0       |
+| 2021-01-01T00:00:50Z | t1   | 0       |
 
-| _time                | _value  | *tag |
-| -------------------- | ------- | ---- |
-| 2021-01-01T00:00:00Z | 0       | t2   |
-| 2021-01-01T00:00:10Z | 1       | t2   |
-| 2021-01-01T00:00:20Z | 0       | t2   |
-| 2021-01-01T00:00:30Z | 1       | t2   |
-| 2021-01-01T00:00:40Z | 1       | t2   |
-| 2021-01-01T00:00:50Z | 0       | t2   |
+| _time                | *tag | _value  |
+| -------------------- | ---- | ------- |
+| 2021-01-01T00:00:00Z | t2   | 0       |
+| 2021-01-01T00:00:10Z | t2   | 1       |
+| 2021-01-01T00:00:20Z | t2   | 0       |
+| 2021-01-01T00:00:30Z | t2   | 1       |
+| 2021-01-01T00:00:40Z | t2   | 1       |
+| 2021-01-01T00:00:50Z | t2   | 0       |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
