@@ -9,40 +9,32 @@ menu:
 weight: 201
 ---
 
-To get started exploring data with InfluxQL begin with the following:
+To get begin exploring data with InfluxQL, do the following:
 
-1. First verify or set up your database and retention policy (DBRP) mappings. See [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/)
+1. First verify or set up your database and retention policy (DBRP) mappings. See [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/).
 
-2. Configure timestamps in the [InfluxQL shell](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/)
+2. [Configure timestamps in the InfluxQL shell](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/).
 
-3. Use the following InfluxQL commands to explore your schema:
+3. (Optional) If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
 
-   - Show series
-   - Show measurements
-   - Show tag keys
-   - Show tag values
-   - Show field keys (Includes examples to find field/tag key cardinality)
+4. Use the InfluxQL `SELECT` statement in conjunction with other key clauses and useful query syntax for exploring your data.
 
-4. SELECT statement and other clauses
-
-The following sections detail InfluxQL's `SELECT` statement along with other key clauses and useful query syntax for exploring your data.
-
-- [The SELECT statement](/influxdb/v2.4/query-data/influxql/explore-data/select/)
-- [The WHERE clause](/influxdb/v2.4/query-data/influxql/explore-data/where/)
-- [The GROUP BY clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
-- [The ORDER BY clause](/influxdb/v2.4/query-data/influxql/explore-data/order-by/)
-- [The LIMIT and SLIMIT clause](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/)
-- [The OFFSET and SOFFSET clause](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/)
-- [Time and timezone queries](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/)
-- [Subqueries](/influxdb/v2.4/query-data/influxql/explore-data/subqueries/)
-- [Regular expressions in InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/)
+   - [SELECT statement](/influxdb/v2.4/query-data/influxql/explore-data/select/)
+   - [WHERE clause](/influxdb/v2.4/query-data/influxql/explore-data/where/)
+   - [GROUP BY clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
+   - [ORDER BY clause](/influxdb/v2.4/query-data/influxql/explore-data/order-by/)
+   - [LIMIT and SLIMIT clause](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/)
+   - [OFFSET and SOFFSET clause](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/)
+   - [Time and timezone queries](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/)
+   - [Subqueries](/influxdb/v2.4/query-data/influxql/explore-data/subqueries/)
+   - [Regular expressions in InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/)
 
 {{< children readmore=true hr=true >}}
 
 ### Download sample data
 
 InfluxQL example queries use publicly available data from the
-[National Oceanic and Atmospheric Administration's (NOAA) Center for Operational Oceanographic Products and Services](https://www.noaa.gov/).
+[NOAA](https://tidesandcurrents.noaa.gov/).
 
 To download a subset of NOAA data used in examples, run the script under [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) (for example, copy and paste the script into your Data Explorer - Script Editor), and replace "example-org" in the script with the name of your InfluxDB organization.
 
