@@ -527,6 +527,7 @@ The shortcode has the following parameters:
 - **next:** path of the next document _(optional)_
 - **prevText:** override the button text linking to the previous document _(optional)_
 - **nextText:** override the button text linking to the next document _(optional)_
+- **keepTab:** include the currently selected tab in the button link _(optional)_
 
 The shortcode generates buttons that link to both the previous and next documents.
 By default, the shortcode uses either the `list_title` or the `title` of the linked
@@ -538,6 +539,10 @@ document, but you can use `prevText` and `nextText` to override button text.
 
 <!-- Override button text -->
 {{ page-nav prev="/path/to/prev/" prevText="Previous" next="/path/to/next" nextText="Next" >}}
+
+<!-- Add currently selected tab to button link -->
+{{ page-nav prev="/path/to/prev/" next="/path/to/next" keepTab=true>}}
+```
 
 ### Keybinds
 Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.

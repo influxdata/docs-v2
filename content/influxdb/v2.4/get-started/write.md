@@ -3,7 +3,8 @@ title: Get started writing data
 seotitle: Write data | Get started with InfluxDB
 list_title: Write data
 description: >
-  ...
+  Get started writing data to InfluxDB by learning about line protocol and using
+  tools like the InfluxDB UI, `influx` CLI, and InfluxDB API.
 menu:
   influxdb_2_4:
     name: Write data
@@ -17,14 +18,6 @@ related:
   - /influxdb/v2.4/reference/syntax/line-protocol/
   - /{{< latest "telegraf" >}}/
 ---
-
-<!-- - Write data
-  - Intro to line protocol
-  - Other methods for writing data (Telegraf, Client libraries, scrapers, etc.)
-  - Write some example line protocol
-  - Create a bucket
-  - Use the InfluxDB CLI, UI, or API to write the example line protocol -->
-
 
 InfluxDB provides many different options for ingesting or writing data, including
 the following:

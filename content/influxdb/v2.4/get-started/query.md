@@ -3,7 +3,8 @@ title: Get started querying data
 seotitle: Query data | Get started with InfluxDB
 list_title: Query data
 description: >
-  ...
+  Get started querying data in InfluxDB by learning about Flux and InfluxQL and
+  using tools like the InfluxDB UI, `influx` CLI, and InfluxDB API.
 menu:
   influxdb_2_4:
     name: Query data
@@ -13,7 +14,17 @@ weight: 102
 metadata: [3 / 5]
 ---
 
-InfluxDB {{< current-version >}} supports two languages for querying your time series data:
+InfluxDB supports many different tools for querying data, including:
+
+- Influx user interface (UI)
+- InfluxDB HTTP API
+- `influx` CLI
+- [Chronograf](/{{< latest "Chronograf" >}}/)
+- [Grafana](/influxdb/v2.4/tools/grafana/)
+- [InfluxDB client libraries](/influxdb/v2.4/api-guide/client-libraries/)
+
+This tutorial walks through the fundamentals of querying data in InfluxDB and
+focuses primarily on the two languages you can use to query your time series data:
 
 - **Flux**: A functional scripting language designed to query and process data
   from InfluxDB and other data sources.
@@ -25,14 +36,29 @@ The examples in this section of the tutorial query the data from written in the
 [Get started writing data](/influxdb/v2.4/get-started/write/#write-line-protocol-to-influxdb) section.
 {{% /note %}}
 
+###### On this page:
+- [Query data with Flux](#query-data-with-flux)
+  - [Flux query basics](#flux-query-basics)
+  - [Execute a Flux query](#execute-a-flux-query)
+- [Query data with InfluxQL](#query-data-with-influxql)
+  - [InfluxQL query basics](#influxql-query-basics)
+  - [Execute an InfluxQL query](#execute-an-influxql-query)
+
+---
+
 ## Query data with Flux
 
-### Flux query basic syntax
+Flux is a functional scripting language that lets your query and process data
+from InfluxDB and [other data sources](/flux/v0.x/query-data/).
 
-- Pipe-forward operator that takes the output of the previous function and pipes
-  it forward as input to the next function.
+{{% note %}}
+This is a brief introduction to writing Flux queries.
+For a more in-depth introduction, see [Get started with Flux](/{{< latest "flux" >}}/get-started/).
+{{% /note %}}
 
-Basic query functions:
+### Flux query basics
+
+When querying InfluxDB with Flux, there are three primary functions you use:
 
 - [from()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/):
   Queries data from an InfluxDB bucket.
@@ -43,18 +69,57 @@ Basic query functions:
   Filters data based on column values. Each row is represented by `r`
   and each column is represented by a property of `r`.
   You can apply multiple subsequent filters.
-    - If the predicate function defined in the `fn` parameter returns `true`,
-      the row is included in the output. If it returns false, the row is excluded
-      from the output.
+
+  {{< expand-wrapper >}}
+{{% expand "Learn more about how `filter()` works" %}}
+
+[`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) reads each row as a
+[record](/flux/v0.x/data-types/composite/record/) named `r`.
+In the `r` record, each key-value pair represents a column and its value.
+For example:
+
+```js
+r = {
+    _time: 2020-01-01T00:00:00Z,
+    _measurement: "home",
+    room: "Kitchen",
+    _field: "temp",
+    _value: 21.0,
+}
+```
+
+To filter rows, use [predicate expressions](/flux/v0.x/get-started/syntax-basics/#predicate-expressions)
+to evaluate the value of columns. Given the row above:
+
+```javascript
+(r) => r._measurement == "home" // Returns true
+(r) => r.room == "Kitchen" // Returns true
+(r) => r._field == "co" // Returns false
+(r) => r._field == "co" or r._field == "temp" // Returns true
+(r) => r._value <= 20.0 // Returns false
+```
+
+Rows that evaluate to `true` are included in the `filter()` output.
+Rows that evaluate to `false` are dropped from the `filter()` output.
+  {{% /expand %}}
+  {{< /expand-wrapper >}}
+
+#### Pipe-forward operator
+
+Flux uses the pipe-forward operator (`|>`) to pipe the output of one function as
+input the next function as input.
+
+#### Query the example data
+
+The following Flux query returns the **co**, **hum**, and **temp** fields stored in
+the **home** measurement with timestamps **between 2022-01-01T08:00:00Z and 2022-01-01T20:00:01Z**.
 
 ```js
 from(bucket: "get-started")
     |> range(start: 2022-01-01T08:00:00Z, stop: 2022-01-01T20:00:01Z)
     |> filter(fn: (r) => r._measurement == "home")
+    |> filter(fn: (r) => r._field== "co" or r._field == "hum" or r._field == "temp")
 ```
-
-- Stop times are _exclusive_, so to get the last example data point, add 1 second
-on to the stop time.
 
 ### Execute a Flux query
 
@@ -68,7 +133,7 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
 {{% /tabs %}}
 
 {{% tab-content %}}
-<!------------------------------ BEGIN UI CONTENT ----------------------------->
+<!--------------------------- BEGIN FLUX UI CONTENT --------------------------->
 
 1.  Visit
     {{% oss-only %}}[localhost:8086](http://localhost:8086){{% /oss-only %}}
@@ -161,24 +226,19 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
             potential values: **Living Room** or **Kitchen**.
 
         ```js
-        from(bucket: "get-started")
+        from(bucket: "gfrom(bucket: "get-started")
             |> range(start: 2022-01-01T08:00:00Z, stop: 2022-01-01T20:00:01Z)
             |> filter(fn: (r) => r._measurement == "home")
-            // Optional filters below
-            // |> filter(fn: (r) => r._field == "temp" or r._field == "hum")
-            // |> filter(fn: (r) => r.room == "Kitchen")
+            |> filter(fn: (r) => r._field== "co" or r._field == "hum" or r._field == "temp")
         ```
     
     3.  Click **{{% caps %}}Submit{{% /caps %}}** to execute the query with the
         selected filters and operations and display the result.
-      
 
-
-
-<!------------------------------- END UI CONTENT ------------------------------>
+<!---------------------------- END FLUX UI CONTENT ---------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
-<!---------------------------- BEGIN CLI CONTENT ----------------------------->
+<!-------------------------- BEGIN FLUX CLI CONTENT --------------------------->
 
 1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.4/tools/influx-cli/).
 2.  Use the [`influx query` command](/influxdb/v2.4/reference/cli/influx/query/)
@@ -195,16 +255,17 @@ influx query '
 from(bucket: "get-started")
     |> range(start: 2022-01-01T08:00:00Z, stop: 2022-01-01T20:00:01Z)
     |> filter(fn: (r) => r._measurement == "home")
+    |> filter(fn: (r) => r._field== "co" or r._field == "hum" or r._field == "temp")
 '
 ```
 
-<!------------------------------ END CLI CONTENT ------------------------------>
+<!--------------------------- END FLUX CLI CONTENT ---------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
-<!----------------------------- BEGIN API CONTENT ----------------------------->
+<!-------------------------- BEGIN FLUX API CONTENT --------------------------->
 
-To write data to InfluxDB using the InfluxDB HTTP API, send a request to
-the InfluxDB API [`/api/v2/query` endpoint](/influxdb/v2.4/api/#operation/PostQuery)
+To query data from InfluxDB using Flux and the InfluxDB HTTP API, send a request
+to the InfluxDB API [`/api/v2/query` endpoint](/influxdb/v2.4/api/#operation/PostQuery)
 using the `POST` request method.
 
 {{< api-endpoint endpoint="http://localhost:8086/api/v2/query" method="post" >}}
@@ -233,18 +294,127 @@ curl --request POST \
   --data 'from(bucket: "get-started")
     |> range(start: 2022-01-01T08:00:00Z, stop: 2022-01-01T20:00:01Z)
     |> filter(fn: (r) => r._measurement == "home")
+    |> filter(fn: (r) => r._field== "co" or r._field == "hum" or r._field == "temp")
   '
 ```
 
 {{% note %}}
-The InfluxDB API returns results in [annotated CSV](/influxdb/v2.4/referency/syntax/annotated-csv/).
+The InfluxDB `/api/v2/query` endpoint returns query results in
+[annotated CSV](/influxdb/v2.4/reference/syntax/annotated-csv/).
 {{% /note %}}
 
-<!------------------------------ END API CONTENT ------------------------------>
+<!--------------------------- END FLUX API CONTENT ---------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
+### Flux query results
 
+{{< expand-wrapper >}}
+{{% expand "View Flux query results" %}}
+
+{{% note %}}
+`_start` and `_stop` columns have been omitted.
+These columns, by default, represent the query time bounds and are added by `range()`.
+{{% /note %}}
+
+| _time                | _measurement | room    | _field | _value |
+| :------------------- | :----------- | :------ | :----- | -----: |
+| 2022-01-01T08:00:00Z | home         | Kitchen | co     |      0 |
+| 2022-01-01T09:00:00Z | home         | Kitchen | co     |      0 |
+| 2022-01-01T10:00:00Z | home         | Kitchen | co     |      0 |
+| 2022-01-01T11:00:00Z | home         | Kitchen | co     |      0 |
+| 2022-01-01T12:00:00Z | home         | Kitchen | co     |      0 |
+| 2022-01-01T13:00:00Z | home         | Kitchen | co     |      1 |
+| 2022-01-01T14:00:00Z | home         | Kitchen | co     |      1 |
+| 2022-01-01T15:00:00Z | home         | Kitchen | co     |      3 |
+| 2022-01-01T16:00:00Z | home         | Kitchen | co     |      7 |
+| 2022-01-01T17:00:00Z | home         | Kitchen | co     |      9 |
+| 2022-01-01T18:00:00Z | home         | Kitchen | co     |     18 |
+| 2022-01-01T19:00:00Z | home         | Kitchen | co     |     22 |
+| 2022-01-01T20:00:00Z | home         | Kitchen | co     |     26 |
+
+| _time                | _measurement | room    | _field | _value |
+| :------------------- | :----------- | :------ | :----- | -----: |
+| 2022-01-01T08:00:00Z | home         | Kitchen | hum    |   35.9 |
+| 2022-01-01T09:00:00Z | home         | Kitchen | hum    |   36.2 |
+| 2022-01-01T10:00:00Z | home         | Kitchen | hum    |   36.1 |
+| 2022-01-01T11:00:00Z | home         | Kitchen | hum    |     36 |
+| 2022-01-01T12:00:00Z | home         | Kitchen | hum    |     36 |
+| 2022-01-01T13:00:00Z | home         | Kitchen | hum    |   36.5 |
+| 2022-01-01T14:00:00Z | home         | Kitchen | hum    |   36.3 |
+| 2022-01-01T15:00:00Z | home         | Kitchen | hum    |   36.2 |
+| 2022-01-01T16:00:00Z | home         | Kitchen | hum    |     36 |
+| 2022-01-01T17:00:00Z | home         | Kitchen | hum    |     36 |
+| 2022-01-01T18:00:00Z | home         | Kitchen | hum    |   36.9 |
+| 2022-01-01T19:00:00Z | home         | Kitchen | hum    |   36.6 |
+| 2022-01-01T20:00:00Z | home         | Kitchen | hum    |   36.5 |
+
+| _time                | _measurement | room    | _field | _value |
+| :------------------- | :----------- | :------ | :----- | -----: |
+| 2022-01-01T08:00:00Z | home         | Kitchen | temp   |     21 |
+| 2022-01-01T09:00:00Z | home         | Kitchen | temp   |     23 |
+| 2022-01-01T10:00:00Z | home         | Kitchen | temp   |   22.7 |
+| 2022-01-01T11:00:00Z | home         | Kitchen | temp   |   22.4 |
+| 2022-01-01T12:00:00Z | home         | Kitchen | temp   |   22.5 |
+| 2022-01-01T13:00:00Z | home         | Kitchen | temp   |   22.8 |
+| 2022-01-01T14:00:00Z | home         | Kitchen | temp   |   22.8 |
+| 2022-01-01T15:00:00Z | home         | Kitchen | temp   |   22.7 |
+| 2022-01-01T16:00:00Z | home         | Kitchen | temp   |   22.4 |
+| 2022-01-01T17:00:00Z | home         | Kitchen | temp   |   22.7 |
+| 2022-01-01T18:00:00Z | home         | Kitchen | temp   |   23.3 |
+| 2022-01-01T19:00:00Z | home         | Kitchen | temp   |   23.1 |
+| 2022-01-01T20:00:00Z | home         | Kitchen | temp   |   22.7 |
+
+| _time                | _measurement | room        | _field | _value |
+| :------------------- | :----------- | :---------- | :----- | -----: |
+| 2022-01-01T08:00:00Z | home         | Living Room | co     |      0 |
+| 2022-01-01T09:00:00Z | home         | Living Room | co     |      0 |
+| 2022-01-01T10:00:00Z | home         | Living Room | co     |      0 |
+| 2022-01-01T11:00:00Z | home         | Living Room | co     |      0 |
+| 2022-01-01T12:00:00Z | home         | Living Room | co     |      0 |
+| 2022-01-01T13:00:00Z | home         | Living Room | co     |      0 |
+| 2022-01-01T14:00:00Z | home         | Living Room | co     |      0 |
+| 2022-01-01T15:00:00Z | home         | Living Room | co     |      1 |
+| 2022-01-01T16:00:00Z | home         | Living Room | co     |      4 |
+| 2022-01-01T17:00:00Z | home         | Living Room | co     |      5 |
+| 2022-01-01T18:00:00Z | home         | Living Room | co     |      9 |
+| 2022-01-01T19:00:00Z | home         | Living Room | co     |     14 |
+| 2022-01-01T20:00:00Z | home         | Living Room | co     |     17 |
+
+| _time                | _measurement | room        | _field | _value |
+| :------------------- | :----------- | :---------- | :----- | -----: |
+| 2022-01-01T08:00:00Z | home         | Living Room | hum    |   35.9 |
+| 2022-01-01T09:00:00Z | home         | Living Room | hum    |   35.9 |
+| 2022-01-01T10:00:00Z | home         | Living Room | hum    |     36 |
+| 2022-01-01T11:00:00Z | home         | Living Room | hum    |     36 |
+| 2022-01-01T12:00:00Z | home         | Living Room | hum    |   35.9 |
+| 2022-01-01T13:00:00Z | home         | Living Room | hum    |     36 |
+| 2022-01-01T14:00:00Z | home         | Living Room | hum    |   36.1 |
+| 2022-01-01T15:00:00Z | home         | Living Room | hum    |   36.1 |
+| 2022-01-01T16:00:00Z | home         | Living Room | hum    |     36 |
+| 2022-01-01T17:00:00Z | home         | Living Room | hum    |   35.9 |
+| 2022-01-01T18:00:00Z | home         | Living Room | hum    |   36.2 |
+| 2022-01-01T19:00:00Z | home         | Living Room | hum    |   36.3 |
+| 2022-01-01T20:00:00Z | home         | Living Room | hum    |   36.4 |
+
+| _time                | _measurement | room        | _field | _value |
+| :------------------- | :----------- | :---------- | :----- | -----: |
+| 2022-01-01T08:00:00Z | home         | Living Room | temp   |   21.1 |
+| 2022-01-01T09:00:00Z | home         | Living Room | temp   |   21.4 |
+| 2022-01-01T10:00:00Z | home         | Living Room | temp   |   21.8 |
+| 2022-01-01T11:00:00Z | home         | Living Room | temp   |   22.2 |
+| 2022-01-01T12:00:00Z | home         | Living Room | temp   |   22.2 |
+| 2022-01-01T13:00:00Z | home         | Living Room | temp   |   22.4 |
+| 2022-01-01T14:00:00Z | home         | Living Room | temp   |   22.3 |
+| 2022-01-01T15:00:00Z | home         | Living Room | temp   |   22.3 |
+| 2022-01-01T16:00:00Z | home         | Living Room | temp   |   22.4 |
+| 2022-01-01T17:00:00Z | home         | Living Room | temp   |   22.6 |
+| 2022-01-01T18:00:00Z | home         | Living Room | temp   |   22.8 |
+| 2022-01-01T19:00:00Z | home         | Living Room | temp   |   22.5 |
+| 2022-01-01T20:00:00Z | home         | Living Room | temp   |   22.2 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Query data with InfluxQL
 
@@ -252,32 +422,175 @@ InfluxQL is a SQL-like querying language developed to query time series data
 from InfluxDB 0.x and 1.x.
 
 {{% note %}}
+#### Map databases and retention policies to buckets
+
 Because InfluxQL was developed for earlier versions of InfluxDB, it depends on
-**databases and retention policies** which have been replaced by
+**databases and retention policies** (DBRP) which have been replaced by
 [buckets](/influxdb/v2.4/get-started/#data-organization) in InfluxDB {{< current-version >}}.
-To use InfluxQL with InfluxDB {{< current-version >}}, first map database and
-retention policy (DBRP) combinations to an InfluxDB bucket.
+To use InfluxQL with InfluxDB {{< current-version >}}, first
+[map database and retention policy (DBRP) combinations to an InfluxDB bucket](/influxdb/v2.4/query-data/influxql/dbrp/).
 {{% /note %}}
 
+### InfluxQL query basics
 
----
+InfluxQL is a SQL-like query language very similar to most SQL languages.
+When querying InfluxDB with InfluxQL, the most basic query includes the following
+statements and clauses:
 
+- `SELECT`: Specifies which fields and tags to query.
+- `FROM`: Specifies the measurement to query.
+  Use the measurement name or a fully-qualified measurement name which includes
+  the database and retention policy. For example: `db.rp.measurement`.
+- `WHERE`: _(Optional)_ Filter data based on fields, tags, and timestamps.
 
+The following InfluxQL query returns the **co**, **hum**, and **temp** fields stored in
+the **home** measurement with timestamps **between 2022-01-01T08:00:00Z and 2022-01-01T20:00:00Z**.
 
-- Intro to Flux and InfluxQL
-- Annotated CSV
-- Walk through creating a Flux query
-  - `from()`
-  - `range()` (InfluxDB doesn't support unbounded queries)
-  - `filter()`
-  - Other operations you can perform
-- Use the InfluxDB CLI, UI, or API to query data
+```sql
+SELECT "co","hum","temp" FROM "get-started"."autogen"."home" WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+```
+
+{{% note %}}
+These are just the fundamentals of the InfluxQL syntax.
+For more in-depth information, see the [InfluxQL documentation](/influxdb/v2.4/query-data/influxql/).
+{{% /note %}}
+
+### Execute an InfluxQL query
+
+Use the **`influx` CLI**, or **InfluxDB API** to execute InfluxQL queries.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[InfluxDB UI](#)
+[influx CLI](#)
+[InfluxDB API](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+<!------------------------- BEGIN INFLUXQL UI CONTENT ------------------------->
+
+{{% note %}}
+#### The InflxuDB UI does not support InfluxQL
+
+The InfluxDB {{< current-version >}} UI does not provide a way to query with InfluxQL.
+If you would like a user interface for building and executing InfluxQL queries,
+consider using [Chronograf](/influxdb/v2.4/tools/chronograf/) or
+[Grafana](/influxdb/v2.4/tools/grafana/) with InfluxDB {{< current-version >}}.
+{{% /note %}}
+
+<!-------------------------- END INFLUXQL UI CONTENT -------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------ BEGIN INFLUXQL CLI CONTENT ------------------------->
+
+{{< cli/influx-creds-note >}}
+
+1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.4/tools/influx-cli/).
+2.  Use the [`influx v1 shell` command](/influxdb/v2.4/reference/cli/influx/v1/shell/)
+    to start an InfluxQL shell and query InfluxDB using InfluxQL.
+
+    ```sh
+    influx v1 shell
+    ```
+
+3.  Enter an InfluxQL query and press {{< keybind mac="return" other="Enter ↵" >}}.
+
+    ```sql
+    SELECT "co","hum","temp" FROM "get-started"."autogen"."home" WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+    ```
+
+<!------------------------- END INFLUXQL CLI CONTENT -------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------ BEGIN INFLUXQL API CONTENT ------------------------->
+
+To query data from InfluxDB using InfluxQL and the InfluxDB HTTP API, send a request
+to the InfluxDB API [`/query` 1.X compatibility endpoint](/influxdb/v2.4/reference/api/influxdb-1x/query/)
+using the `POST` request method.
+
+{{< api-endpoint endpoint="http://localhost:8086/query" method="post" >}}
+
+Include the following with your request:
+
+- **Headers**:
+  - **Authorization**: Token <INFLUX_TOKEN>
+  - **Accept**: application/json
+  - _(Optional)_ **Accept-Encoding**: gzip
+- **Query parameters**:
+  - **db**: Database to query.
+  - **rp**: Retention policy to query data from.
+  - **q**: InfluxQL query to execute.
+  - **epoch**: _(Optional)_  Return results with
+    [Unix timestamps](/influxdb/v2.4/reference/glossary/#unix-timestamp) of a
+    specified precision instead of [RFC3339 timestamps](/influxdb/v2.4/reference/glossary/#rfc3339-timestamp). The following precisions are available:
+
+    - `ns` - nanoseconds
+    - `u` or `µ` - microseconds
+    - `ms` - milliseconds
+    - `s` - seconds
+    - `m` - minutes
+    - `h` - hours
+
+- **Request body**: Flux query as plain text
+
+```sh
+export INFLUX_HOST=http://localhost:8086
+export INFLUX_ORG=<YOUR_INFLUXDB_ORG>
+export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
+
+curl --get "$INFLUX_HOST/query?org=$INFLUX_ORG&bucket=get-started" \
+  --header "Authorization: Token $INFLUX_TOKEN" \
+  --data-urlencode "db=get-started" \
+  --data-urlencode "rp=autogen" \
+  --data-urlencode "q=SELECT co,hum,temp FROM home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'"
+```
+
+{{% note %}}
+The InfluxDB `/write` 1.x compatibility endpoint returns query results in JSON format.
+{{% /note %}}
+
+<!------------------------- END INFLUXQL API CONTENT -------------------------->
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+### InfluxQL query results
+
+{{< expand-wrapper >}}
+{{% expand "View InfluxQL query results" %}}
+
+| time                 | temp |  hum |  co |
+| :------------------- | ---: | ---: | --: |
+| 2022-01-01T08:00:00Z |   21 | 35.9 |   0 |
+| 2022-01-01T08:00:00Z | 21.1 | 35.9 |   0 |
+| 2022-01-01T09:00:00Z |   23 | 36.2 |   0 |
+| 2022-01-01T09:00:00Z | 21.4 | 35.9 |   0 |
+| 2022-01-01T10:00:00Z | 22.7 | 36.1 |   0 |
+| 2022-01-01T10:00:00Z | 21.8 |   36 |   0 |
+| 2022-01-01T11:00:00Z | 22.4 |   36 |   0 |
+| 2022-01-01T11:00:00Z | 22.2 |   36 |   0 |
+| 2022-01-01T12:00:00Z | 22.5 |   36 |   0 |
+| 2022-01-01T12:00:00Z | 22.2 | 35.9 |   0 |
+| 2022-01-01T13:00:00Z | 22.8 | 36.5 |   1 |
+| 2022-01-01T13:00:00Z | 22.4 |   36 |   0 |
+| 2022-01-01T14:00:00Z | 22.8 | 36.3 |   1 |
+| 2022-01-01T14:00:00Z | 22.3 | 36.1 |   0 |
+| 2022-01-01T15:00:00Z | 22.7 | 36.2 |   3 |
+| 2022-01-01T15:00:00Z | 22.3 | 36.1 |   1 |
+| 2022-01-01T16:00:00Z | 22.4 |   36 |   7 |
+| 2022-01-01T16:00:00Z | 22.4 |   36 |   4 |
+| 2022-01-01T17:00:00Z | 22.7 |   36 |   9 |
+| 2022-01-01T17:00:00Z | 22.6 | 35.9 |   5 |
+| 2022-01-01T18:00:00Z | 23.3 | 36.9 |  18 |
+| 2022-01-01T18:00:00Z | 22.8 | 36.2 |   9 |
+| 2022-01-01T19:00:00Z | 23.1 | 36.6 |  22 |
+| 2022-01-01T19:00:00Z | 22.5 | 36.3 |  14 |
+| 2022-01-01T20:00:00Z | 22.7 | 36.5 |  26 |
+| 2022-01-01T20:00:00Z | 22.2 | 36.4 |  17 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+Congratulations! You've learned the basics of querying data in InfluxDB.
+Let's move on to automatically processing data over time with InfluxDB tasks.
 
 {{< page-nav prev="/influxdb/v2.4/get-started/write/" next="/influxdb/v2.4/get-started/process/" keepTab=true >}}
-
-<!-- 
-### Query data
-
-Query data using Flux, the UI, and the `influx` command line interface.
-See [Query data](/influxdb/v2.4/query-data/).
--->
