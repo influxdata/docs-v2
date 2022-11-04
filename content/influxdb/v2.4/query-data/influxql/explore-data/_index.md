@@ -16,13 +16,14 @@ To get started exploring data with InfluxQL begin with the following:
 2. Configure timestamps in the [InfluxQL shell](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/)
 
 3. Use the following InfluxQL commands to explore your schema:
-- Show series
-- Show measurements
-- Show tag keys
-- Show tag values
-- Show field keys (Includes examples to find field/tag key cardinality)
 
-SELECT statement and other clauses
+   - Show series
+   - Show measurements
+   - Show tag keys
+   - Show tag values
+   - Show field keys (Includes examples to find field/tag key cardinality)
+
+4. SELECT statement and other clauses
 
 The following sections detail InfluxQL's `SELECT` statement along with other key clauses and useful query syntax for exploring your data.
 
