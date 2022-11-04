@@ -54,9 +54,42 @@ and moved both of these functions from the experimental package to the date pack
 - Upgrade to Go 1.18.3.  
 - Fixes issue with OSXCross and Darwin builds. This results in the new minimum OSX version being MacOSX10.14/darwin18.
 
-<!-- Inlcude 1.9.8 - missed here due to rollback -->
+## 1.9.8 [2022-07-11]
+
+### Features
+- Expose passive node feature to influxd-ctl and the API.
+- Throttle inter-node data replication, both incoming writes and hinted hand-off, when errors are encountered.
+- Add new `hh_node` measurement to the `/debug/vars` monitoring telemetry. This tracks more accurately with the `max-size` configuration setting for hinted handoff in data nodes.
+
+#### Flux updates
+- Add [http requests package](/{{< latest "flux" >}}/stdlib/experimental/http/requests/).
+- Add [isType()](/{{< latest "flux" >}}/stdlib/types/istype/) function.
+- Add [display()](/{{< latest "flux" >}}/stdlib/universe/display/) function.
+- Enhancements to the following functions: [increase()](/{{< latest "flux" >}}/stdlib/universe/increase/), [sort()](/{{< latest "flux" >}}/stdlib/universe/sort/), [derivative()](/{{< latest "flux" >}}/stdlib/universe/derivative/), [union()](/{{< latest "flux" >}}/stdlib/universe/union/), [timeShift()](/{{< latest "flux" >}}/stdlib/universe/timeshift/), vectorization to applicable functions such as [map()](/{{< latest "flux" >}}/stdlib/universe/map/).
+- Add TCP connection pooling to [mqtt.publish()](/{{< latest "flux" >}}/stdlib/experimental/mqtt/publish/) function when called in a map() function.
+
+### Bug fixes
+- Fix race condition causing `influxd-ctl restore` command to fail.
+- Fix issue where measurement cardinality dips below zero.
+- Fix issue regarding RPC retries for non-RPC errors, which caused hinted handoff to build constantly.
+- Correctly calculate hinted handoff queue size on disk to prevent unnecessary `queue is full` errors.
+
+#### Error Messaging
+- Resolve unprintable and invalid characters in error messaging, making errors pertaining to invalid line protocol easier to read.
+- Improve error messaging for `max series per database exceeded`error.
+- Improve influxd-ctl error messages when invalid JSON is received.
+- Add detail to `error creating subscription` message.
+- `DROP SHARD` now successfully ignores "shard not found" errors.
+
+### Maintenance updates
+- Upgrade to Go 1.17.11
+- Update to [Flux v0.161.0](/flux/v0.x/release-notes/#v01610-2022-03-24).
 
 ## 1.9.7 [2022-05-26]
+
+{{% warn %}}
+An edge case regression was introduced into this version that may cause a constant build-up of hinted handoff if writes are rejected due to malformed requests. If you experience write errors and hinted hand-off growth, we recommend upgrading to 1.9.8.
+{{% /warn %}}
 
 ### Features
 - Expose passive node feature to influxd-ctl and the API.
