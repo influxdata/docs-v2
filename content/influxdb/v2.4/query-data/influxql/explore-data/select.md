@@ -14,7 +14,19 @@ list_code_example: |
   ```
 ---
 
-Use the `SELECT` statement to query data from a particular [measurement](/influxdb/v2.4/reference/glossary/#measurement) or measurements. 
+Use the `SELECT` statement to query data from a particular [measurement](/influxdb/v2.4/reference/glossary/#measurement) or measurements.
+
+- [Before you get started](#before-you-get-started)
+- [Syntax](#syntax)
+- [Examples](#examples)
+- [Common issues](#common-issues-with-the-select-statement)
+- [Regular expressions](#regular-expressions)
+- [Data types and cast operations](#data-types-and-cast-operations)
+- [Merge behavior](#merge-behavior)
+- [Multiple statements](#multiple-statements)
+
+## Before you get started
+
 InfluxDB 1.x data is stored in databases and retention policies. In InfluxDB 2.x versions, data is stored in **buckets**. Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
 
 {{% note %}}
@@ -90,7 +102,8 @@ precision rfc3339
 
 ### Examples
 
-#### Select all fields and tags from a single measurement
+{{< expand-wrapper >}}
+{{% expand "Select all fields and tags from a single measurement" %}}
 
 ```sql
 > SELECT * FROM "h2o_feet"
@@ -122,7 +135,9 @@ If you're using the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x//) b
 to `noaa`. If you do not set the `rp` query string parameter, the InfluxDB API automatically
 queries the database's `DEFAULT` retention policy.
 
-#### Select specific tags and fields from a single measurement
+{{% /expand %}}
+
+{{% expand "Select specific tags and fields from a single measurement" %}}
 
 ```sql
 > SELECT "level description","location","water_level" FROM "h2o_feet"
@@ -145,7 +160,9 @@ The query selects the `level description` field, the `location` tag, and the
 a tag.
 {{% /note %}}
 
-#### Select specific tags and fields from a single measurement, and provide their identifier type
+{{% /expand %}}
+
+{{% expand "Select specific tags and fields from a single measurement, and provide their identifier type" %}}
 
 ```sql
 > SELECT "level description"::field,"location"::tag,"water_level"::field FROM "h2o_feet"
@@ -171,7 +188,9 @@ The `::[field | tag]` syntax specifies if the
 Use `::[field | tag]` to differentiate between [an identical field key and tag key ](/v2.4/reference/faq/#how-do-i-query-data-with-an-identical-tag-key-and-field-key).
 That syntax is not required for most use cases.
 
-#### Select all fields from a single measurement
+{{% /expand %}}
+
+{{% expand "Select all fields from a single measurement" %}}
 
 ```sql
 > SELECT *::field FROM "h2o_feet"
@@ -193,7 +212,9 @@ Name: h2o_feet
 The query selects all fields from the `h2o_feet` measurement.
 The `SELECT` clause supports combining the `*` syntax with the `::` syntax.
 
-#### Select a specific field from a measurement and perform basic arithmetic
+{{% /expand %}}
+
+{{% expand "Select a specific field from a measurement and perform basic arithmetic" %}}
 
 ```sql
 > SELECT ("water_level" * 2) + 4 FROM "h2o_feet"
@@ -221,7 +242,9 @@ See [InfluxQL mathematical operators](/influxdb/v2.4/query-data/influxql/math_op
 for more on supported operators.
 {{% /note %}}
 
-#### Select all data from more than one measurement
+{{% /expand %}}
+
+{{% expand "Select all data from more than one measurement" %}}
 
 ```sql
 > SELECT * FROM "h2o_feet","h2o_pH"
@@ -258,7 +281,9 @@ The query selects all fields and tags from two measurements: `h2o_feet` and
 `h2o_pH`.
 Separate multiple measurements with a comma (`,`).
 
-#### Select all data from a measurement in a particular database
+{{% /expand %}}
+
+{{% expand "Select all data from a measurement in a particular database" %}}
 
 ```sql
 > SELECT * FROM noaa.."h2o_feet"
@@ -279,6 +304,10 @@ Name: h2o_feet
 
 The query selects data in the `noaa`and the `h2o_feet` measurement.
 The `..` indicates the `DEFAULT` retention policy for the specified database.
+
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
 
 ### Common issues with the SELECT statement
 
@@ -358,6 +387,8 @@ Regular expressions are surrounded by `/` characters and use
 
 ### Examples
 
+{{< expand-wrapper >}}
+{{% expand "Use a regular expression to specify field keys and tag keys in the SELECT statement" %}}
 #### Use a regular expression to specify field keys and tag keys in the SELECT statement
 
 ```sql
@@ -382,7 +413,9 @@ Currently, there is no syntax to distinguish between regular expressions for
 field keys and regular expressions for tag keys in the `SELECT` clause.
 The syntax `/<regular_expression>/::[field | tag]` is not supported.
 
-#### Use a regular expression to specify measurements in the FROM clause
+{{% /expand %}}
+
+{{% expand "Use a regular expression to specify measurements in the FROM clause" %}}
 
 ```sql
 > SELECT MEAN("degrees") FROM /temperature/
@@ -407,6 +440,10 @@ Name: h2o_temperature
 
 
 This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `degrees` for every [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `noaa` database that contains the word `temperature`.
+
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
 
 ## Data types and cast operations
 
@@ -478,7 +515,9 @@ InfluxDB returns no data if the query attempts to cast an integer or float to a 
 
 ### Examples
 
-#### Cast float field values to integers
+{{< expand-wrapper >}}
+
+{{% expand "Cast float field values to integers" %}}
 
 ```sql
 > SELECT "water_level"::integer FROM "h2o_feet" LIMIT 4
@@ -497,7 +536,9 @@ Name: h2o_feet
 
 The query returns the integer form of `water_level`'s float [field values](/influxdb/v2.4/reference/glossary/#field-value).
 
-#### Cast float field values to strings (this functionality is not supported)
+{{% /expand %}}
+
+{{% expand "Cast float field values to strings (this functionality is not supported)" %}}
 
 ```sql
 > SELECT "water_level"::string FROM "h2o_feet" LIMIT 4
@@ -506,11 +547,19 @@ The query returns the integer form of `water_level`'s float [field values](/infl
 
 The query returns no data as casting a float field value to a string is not yet supported.
 
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
 ## Merge behavior
 
 In InfluxDB, queries merge [series](/influxdb/v2.4/reference/glossary/#series) automatically.
 
 ### Example
+
+{{< expand-wrapper >}}
+
+{{% expand "Merge behavior" %}}
 
 The `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `noaa` is part of two [series](/influxdb/v2.4/reference/glossary/#series).
 The first series is made up of the `h2o_feet` measurement and the `location = coyote_creek` [tag](/influxdb/v2.4/reference/glossary/#tag). The second series is made of up the `h2o_feet` measurement and the `location = santa_monica` tag.
@@ -566,6 +615,10 @@ tags: location=santa_monica
 | time | mean |
 | :------------------ |-------------------:|
 | 1970-01-01T00:00:00Z  | 3.5307120942 |
+
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
 
 ## Multiple statements
 
