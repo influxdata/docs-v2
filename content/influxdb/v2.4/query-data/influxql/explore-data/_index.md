@@ -9,7 +9,7 @@ menu:
 weight: 201
 ---
 
-To get begin exploring data with InfluxQL, do the following:
+To start exploring data with InfluxQL, do the following:
 
 1. First verify or set up your database and retention policy (DBRP) mappings. See [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/).
 
