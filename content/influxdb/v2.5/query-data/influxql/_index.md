@@ -2,38 +2,36 @@
 title: Query data with InfluxQL
 description: >
   Use the [InfluxDB 1.x `/query` compatibility endpoint](/influxdb/v2.5/reference/api/influxdb-1x/query)
-  to query data in InfluxDB Cloud and InfluxDB OSS 2.5 with **InfluxQL**.
+  to query data in InfluxDB Cloud and InfluxDB OSS 2.1 with **InfluxQL**.
 weight: 102
 influxdb/v2.5/tags: [influxql, query]
 menu:
   influxdb_2_5:
     name: Query with InfluxQL
     parent: Query data
-cascade:
-  related:
-    - /influxdb/v2.5/reference/api/influxdb-1x/
-    - /influxdb/v2.5/reference/api/influxdb-1x/query
-    - /influxdb/v2.5/reference/api/influxdb-1x/dbrp
-    - /influxdb/v2.5/tools/influxql-shell/
+related:
+  - /influxdb/v2.5/reference/api/influxdb-1x/
+  - /influxdb/v2.5/reference/api/influxdb-1x/query
+  - /influxdb/v2.5/reference/api/influxdb-1x/dbrp
 ---
+
+InfluxQL is a SQL-like query language for interacting with InfluxDB and providing features specific to storing and analyzing time series data.
 
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
-InfluxDB {{< current-version >}} combines and replaces database and retention
-policies with [buckets](/influxdb/v2.5/reference/glossary/#bucket).
-Because InfluxQL uses the 1.x data model, a database and retention policy combination
-(DBRP) must be mapped to a bucket before it can be queried using InfluxQL.
+In InfluxDB OSS {{< current-version >}}, data is stored in [buckets](/influxdb/v2.5/reference/glossary/#bucket).
+Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL. For more information, see [Database and retention policy mapping](/influxdb/v2.5/query-data/influxql/dbrp/). If you're not sure how data was written into a bucket, verify the bucket has a mapping.
 
 {{% note %}}
 #### InfluxQL reference documentation
-For complete InfluxQL reference documentation, see
-[Influx Query Language in the latest InfluxDB 1.x documentation](/{{< latest "influxdb" "v1" >}}/query_language/).
+For complete InfluxQL reference documentation, see the
+[Influx Query Language (InfluxQL) 2.x specification](/influxdb/v2.5/reference/syntax/influxql/spec/).
 {{% /note %}}
 
 **To use InfluxQL to query bucket data, complete the following steps:**
 
 1. [Verify buckets have a mapping](#verify-buckets-have-a-mapping).
-2. [Create DBRP mappings for unmapped buckets](#create-dbrp-mappings-for-unmapped-buckets).
+2. [Map unmapped buckets](#map-unmapped-buckets).
 3. [Query a mapped bucket with InfluxQL](#query-a-mapped-bucket-with-influxql).
 
 ## Verify buckets have a mapping
@@ -60,8 +58,7 @@ _For examples, see [Create DBRP mappings](/influxdb/v2.5/query-data/influxql/dbr
 {{% tab-content %}}
 <!---------------------------- BEGIN InfluxQL shell --------------------------->
 
-The [`influx` CLI](/influxdb/v2.5/tools/influx-cli/) provides an InfluxQL shell
-where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
+The [`influx` CLI](/influxdb/v2.5/tools/influx-cli/) provides an [InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/) where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
 
 {{% note %}}
 If you haven't already, be sure to do the following:
@@ -119,11 +116,11 @@ To return results as **CSV**, include the `Accept: application/csv` header.
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
+For additional information on DBRP mappings see [Manage DBRP mappings](/influxdb/v2.5/query-data/influxql/dbrp/).
+
 ## InfluxQL support
 
-InfluxDB {{< current-version >}} supports InfluxQL queries.
-See supported and unsupported queries below.
-To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/{{< latest "influxdb" "v1" >}}/query_language/).
+InfluxDB OSS 2.x supports the following InfluxQL statements and clauses. See supported and unsupported queries below.
 
 {{< flex >}}
 {{< flex-content >}}
@@ -135,10 +132,13 @@ To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/{{< latest
 - `EXPLAIN ANALYZE`
 - `SELECT` _(read-only)_
 - `SHOW DATABASES`
+- `SHOW SERIES`
 - `SHOW MEASUREMENTS`
 - `SHOW TAG KEYS`
-- `SHOW TAG VALUES`
 - `SHOW FIELD KEYS`
+- `SHOW SERIES EXACT CARDINALITY` 
+- `SHOW TAG KEY CARDINALITY`
+- `SHOW FIELD KEY CARDINALITY`
 
 \* These commands delete data.
 {{% /note %}}
@@ -155,6 +155,7 @@ To learn more about InfluxQL, see [Influx Query Language (InfluxQL)](/{{< latest
 - `GRANT`
 - `KILL`
 - `REVOKE`
+- `SHOW SERIES CARDINALITY`
 {{% /warn %}}
 {{< /flex-content >}}
 {{< /flex >}}
