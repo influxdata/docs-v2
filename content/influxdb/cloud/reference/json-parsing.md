@@ -28,13 +28,13 @@ for [native subscriptions](/influxdb/cloud/write-data/no-code/native-subscriptio
 
 With "flat" JSON, all values are at the root level (`$`) and are referenced with dot notation.
 
-| InfluxDB Element | JSON Path       | Data Type | Parsed Result        |
-| :--------------- | :-------------- | :-------- | :------------------- |
-| Measurement      | `$.device_type` | String    | "temperature_sensor" |
-| Timestamp        | `$.time`        | Timestamp | 1653998899010000000  |
-| Tag              | `$.device_id`   | Integer   | 2036                 |
-| Field 1          | `$.temperature` | Float     | 25.0                 |
-| Field 2          | `$.error_state` | String    | "in_error"           |
+| InfluxDB Element | JSON Path       | Data Type   | Parsed Result        |
+| :--------------- | :-------------- | :---------- | :------------------- |
+| Measurement      | `$.device_type` | String      | "temperature_sensor" |
+| Timestamp        | `$.time`        | Nanoseconds | 1653998899010000000  |
+| Tag              | `$.device_id`   | Integer     | 2036                 |
+| Field 1          | `$.temperature` | Float       | 25.0                 |
+| Field 2          | `$.error_state` | String      | "in_error"           |
 
 ## Example MQTT message with nested JSON objects 
 
@@ -46,7 +46,7 @@ With "flat" JSON, all values are at the root level (`$`) and are referenced with
     "model_id":"KN24683"
   },
   "temperature":25.0,
-  "time":165411795400000000,
+  "time":1667247643,
   "error_state":"in_error"
 }
 ```
@@ -54,7 +54,7 @@ With "flat" JSON, all values are at the root level (`$`) and are referenced with
 | InfluxDB Element | JSON Path                          | Data Type | Parsed Result        |
 | :--------------- | :--------------------------------- | :-------- | :------------------- |
 | Measurement      | `$.device_information.device_type` | String    | "temperature_sensor" |
-| Timestamp        | `$.time`                           | Timestamp | 1653998899010000000  |
+| Timestamp        | `$.time`                           | Seconds   | 1653998899010000000  |
 | Tag              | `$.device_information.device_id`   | Integer   | 2036                 |
 | Field 1          | `$.temperature`                    | Float     | 25.0                 |
 | Field 2          | `$.error_state`                    | String    | "in_error"           |
@@ -89,12 +89,12 @@ in your JSON path.
 }
 ```
 
-| InfluxDB Element | JSON Path                               | Data Type | Parsed Result        |
-| :--------------- | :-------------------------------------- | :-------- | :------------------- |
-| Measurement      | `$.device_information.device_type`      | String    | "temperature_sensor" |
-| Timestamp        | `$.time`                                | Timestamp | 1653998899010000000  |
-| Tag              | `$.device_information.device_id`        | Integer   | 2036                 |
-| Field 1          | `$.temperature`                         | Float     | 25.0                 |
-| Field 2          | `$.error_state`                         | String    | "in_error"           |
-| Field 3          | `$.errors_encountered.[0].error_number` | Integer   | 403                  |
-| Field 4          | `$.errors_encountered.[1].error_number` | Integer   | 404                  |
+| InfluxDB Element | JSON Path                               | Data Type   | Parsed Result        |
+| :--------------- | :-------------------------------------- | :---------- | :------------------- |
+| Measurement      | `$.device_information.device_type`      | String      | "temperature_sensor" |
+| Timestamp        | `$.time`                                | Nanoseconds | 1653998899010000000  |
+| Tag              | `$.device_information.device_id`        | Integer     | 2036                 |
+| Field 1          | `$.temperature`                         | Float       | 25.0                 |
+| Field 2          | `$.error_state`                         | String      | "in_error"           |
+| Field 3          | `$.errors_encountered.[0].error_number` | Integer     | 403                  |
+| Field 4          | `$.errors_encountered.[1].error_number` | Integer     | 404                  |

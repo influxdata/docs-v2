@@ -196,3 +196,15 @@ The file system layout is the same with each.
 {{% /tab-content %}}
 <!--------------------------- END KUBERNETES CONTENT -------------------------->
 {{< /tabs-wrapper >}}
+
+## Directory permissions
+
+The user running the `influxd` process should have the following permissions for
+directories in the [InfluxDB file system](#file-system-layout):
+
+| Directory path       | Permission |
+| :------------------- | ---------: |
+| `.../influxdb/`      |        755 |
+| `.../influxdb/data/` |        755 |
+| `.../influxdb/meta/` |        755 |
+| `.../influxdb/wal/`  |        700 |

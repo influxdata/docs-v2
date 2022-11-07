@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2860-L2881
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L2863-L2884
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -36,6 +36,9 @@ rows based on the row's `_time` value.
 
 A single input row may be placed into zero or more output tables depending on
 the parameters passed into `window()`.
+
+This function is intended to be used when `timeColumn` (`_time` by default) is not in the group key.
+If `timeColumn` _is_ in the group key, resulting output is confusing and generally not useful.
 
 #### Window by calendar months and years
 `every`, `period`, and `offset` parameters support all valid duration units,
@@ -136,7 +139,7 @@ data
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
@@ -197,7 +200,7 @@ data
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 
@@ -282,7 +285,7 @@ data
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 

@@ -108,3 +108,16 @@ The file system layout is the same with each.
     - snapshots/
       - _<span style="opacity:.4">Snapshot directories and files</span>_  
 {{% /filesystem-diagram %}}
+
+## Directory permissions
+
+The user running the `influxd` process should have the following permissions for
+directories in the [InfluxDB file system](#file-system-layout):
+
+| Directory path       | Permission |
+| :------------------- | ---------: |
+| `.../influxdb/`      |        755 |
+| `.../influxdb/data/` |        755 |
+| `.../influxdb/hh/`   |        700 |
+| `.../influxdb/meta/` |        755 |
+| `.../influxdb/wal/`  |        700 |

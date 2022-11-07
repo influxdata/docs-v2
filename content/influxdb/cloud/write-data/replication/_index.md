@@ -6,7 +6,7 @@ description: >
 weight: 106
 menu:
   influxdb_cloud:
-    name: Replicate data
+    name: Edge data replication
     parent: Write data
 ---
 

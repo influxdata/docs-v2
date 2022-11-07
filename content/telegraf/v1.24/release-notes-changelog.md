@@ -10,16 +10,45 @@ menu:
     name: Release notes
     weight: 60
 ---
+# v1.24.2  [2022-10-03]
+
+### Bug fixes
+- Support old style of filtering sample configurations in CLI.
+- Enable TLS in Kafka plugins without custom configuration.
+- Avoid Ethtool internal name conflict with AWS.
+
+### Input plugin updates
+- InfluxDB Listener (`influxdb_listener`): Error on invalid precision.
+- Internet speed (`internet_speed`): Rename `enable_file_download` to match upstream intent.
+- MongoDB (`mongodb`): Start plugin correctly.
+- MQTT Consumer (`mqtt_consumer`): Rework connection and message tracking.
+
+### Parser updates
+- XPath (`xpath`): Handle floating-point times correctly.
+- Allow specifying the Influx parser type.
+
+### Dependency updates
+- Update dependencies for OpenBSD support.
+- Update `k8s.io/apimachinery` from 0.25.0 to 0.25.1.
+- Update `github.com/aerospike/aerospike-client-go/v5` from 5.9.0 to 5.10.0.
+- Update github.com/nats-io/nats.go from 1.16.0 to 1.17.0.
+- Replace `go-ping` with `pro-bing`.
+- Update `go.mongodb.org/mongo-driver` from 1.10.1 to 1.10.2.
+- Update `github.com/aws/smithy-go` from 1.13.2 to 1.13.3.
+- Update `github.com/rabbitmq/amqp091-go` from 1.4.0 to 1.5.0.
+- Update `github.com/docker/distribution` from v2.7.1 to v2.8.1.
+
 ## v1.24.1 [2022-09-19]
 
 ### Bug fixes
-- Clear error message when provided config is not a text file
-- Enable global confirmation for installing mingw
+- Clear error message when provided configuration is not a text file.
+- Enable global confirmation for installing `mingw`.
 
 ### Input plugin updates
 - Ceph (`ceph`): Modernize metrics.
 - Modbus (`modbus`): Do not fail if a single server reports errors.
 - NTPQ (`ntpq`): Handle pools with `-`. 
+
 
 ### Parser updates
 - CSV (`csv`): Remove direct check.
@@ -170,7 +199,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 
 
 
-## v1.23.4 [2022-08-16]
+## v1.24.4 [2022-08-16]
 
 ### Bugfixes
 
@@ -212,7 +241,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - [#11584](https://github.com/influxdata/telegraf/pull/11584) `deps` Bump github.com/aws/aws-sdk-go-v2/service/dynamodb
 - [#11598](https://github.com/influxdata/telegraf/pull/11598) `deps` Bump github.com/signalfx/golib/v3 from 3.3.43 to 3.3.45
 - [#11605](https://github.com/influxdata/telegraf/pull/11605) `deps` Update github.com/BurntSushi/toml from 0.4.1 to 1.2.0
-- [#11604](https://github.com/influxdata/telegraf/pull/11604) `deps` Update cloud.google.com/go/pubsub from 1.23.0 to 1.24.0
+- [#11604](https://github.com/influxdata/telegraf/pull/11604) `deps` Update cloud.google.com/go/pubsub from 1.24.0 to 1.24.0
 - [#11602](https://github.com/influxdata/telegraf/pull/11602) `deps` Update k8s.io/apimachinery from 0.24.2 to 0.24.3
 - [#11603](https://github.com/influxdata/telegraf/pull/11603) `deps` Update github.com/Shopify/sarama from 1.34.1 to 1.35.0
 - [#11616](https://github.com/influxdata/telegraf/pull/11616) `deps` Bump github.com/sirupsen/logrus from 1.8.1 to 1.9.0
@@ -225,7 +254,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - [#11652](https://github.com/influxdata/telegraf/pull/11652) `deps` Bump github.com/aws/aws-sdk-go-v2/feature/ec2/imds
 - [#11653](https://github.com/influxdata/telegraf/pull/11653) `deps` Bump github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs
 
-## v1.23.4 [2022-08-16]
+## v1.24.4 [2022-08-16]
 
 - Bump `github.com/lxc/lxd` to be able to run tests.
 - Sync sql output and input build constraints to handle loong64 in go1.19.
@@ -264,7 +293,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Bump github.com/aws/aws-sdk-go-v2/service/dynamodb.
 - Bump github.com/signalfx/golib/v3 from 3.3.43 to 3.3.45.
 - Update github.com/BurntSushi/toml from 0.4.1 to 1.2.0.
-- Update cloud.google.com/go/pubsub from 1.23.0 to 1.24.0.
+- Update cloud.google.com/go/pubsub from 1.24.0 to 1.24.0.
 - Update k8s.io/apimachinery from 0.24.2 to 0.24.3.
 - Update github.com/Shopify/sarama from 1.34.1 to 1.35.0.
 - Bump github.com/sirupsen/logrus from 1.8.1 to 1.9.0.
@@ -277,7 +306,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Bump github.com/aws/aws-sdk-go-v2/feature/ec2/imds.
 - Bump github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs.
 
-## v1.23.3 [2022-07-25]
+## v1.24.3 [2022-07-25]
 
 ## Bug fixes
 - Openstack input plugin (`inputs.openstack`): Use v3 volume library.
@@ -290,11 +319,11 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 ## Dependency updates
 - Bump `github.com/antchfx/jsonquery` from 1.1.5 to 1.2.0.
 
-## v1.23.2 [2022-7-11]
+## v1.24.2 [2022-7-11]
 
 ## Bug fixes
 
-- Remove unexpected deprecation warnings for non-deprecated packages that occurred in 1.23.1.
+- Remove unexpected deprecation warnings for non-deprecated packages that occurred in 1.24.1.
 - HTTP input plugin (`inputs.http`): Allow both 200 and 201 response codes when generating cookie authentication. Also update the cookie header docs to show a TOML map rather than a string.
 - Microsoft SQL Server input plugin (`inputs.sqlserver`): Use `bigint` for `backupsize` in `sqlserver` queries.
 - gNMI input plugin (`inputs.gnmi`): Refactor `tag_only` subscriptions for complex keys (such as `network-instances`) and to improve concurrrency. The subscription key is no longer hardcoded to the device name and the `name` tag. Adds ability to specify a subscription key on a per-tag basis. 
@@ -303,7 +332,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 ## Dependency updates
 - Bump `github.com/docker/docker` from 20.10.14 to 20.10.17.
 
-## v1.23.1 [2022-7-5]
+## v1.24.1 [2022-7-5]
 
 ## Bug fixes
 - Jolokia2 input plugin (`jolikia2`): Resolve panic on null response.
@@ -334,7 +363,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Bump `github.com/jackc/pgx/v4` from 4.15.0 to 4.16.1.
 - Bump `cloud.google.com/go/bigquery` from 1.8.0 to 1.33.0.
 - Bump `github.com/Azure/azure-kusto-go` from 0.6.0 to 0.7.0.
-- Bump `cloud.google.com/go/pubsub` from 1.22.2 to 1.23.0.
+- Bump `cloud.google.com/go/pubsub` from 1.22.2 to 1.24.0.
 - Bump `github.com/aws/aws-sdk-go-v2/service/kinesis` from 1.13.0 to 1.15.7.
 - Bump `github.com/aws/aws-sdk-go-v2/service/ec2` from 1.1.0 to 1.46.0.
 - Bump `github.com/golang-jwt/jwt/v4` from 4.4.1 to 4.4.2.
@@ -344,7 +373,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Bump `k8s.io/api` from 0.24.1 to 0.24.2.
 - Bump `github.com/prometheus/client_golang` from 1.12.1 to 1.12.2.
 
-## v1.23.0 [2022-6-13]
+## v1.24.0 [2022-6-13]
 
 - Sample configuration (`sample.conf`) files for the different plugins are now embedded into the Golang code by the Go compiler. You can now download the sample configuration from
 Telegraf without having to paste in sample configurations from each plugin's README.md.

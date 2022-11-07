@@ -127,7 +127,7 @@ join.inner(
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output" %}}
+{{% expand "View example input and output data" %}}
 
 {{% note %}}
 _`_start` and `_stop` columns have been omitted from example input and output._

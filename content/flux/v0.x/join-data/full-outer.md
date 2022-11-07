@@ -167,7 +167,7 @@ join.full(
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and output" %}}
+{{% expand "View example input and output data" %}}
 
 ### Input
 

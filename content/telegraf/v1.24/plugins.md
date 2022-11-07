@@ -15,11 +15,11 @@ aliases:
   - /telegraf/v1.24/plugins/aggregators/
   - /telegraf/v1.24/plugins/outputs/
   - /telegraf/v1.24/plugins/inputs/
-  - /telegraf/v1.23/plugins/plugins-list/
-  - /telegraf/v1.23/plugins/aggregators/
-  - /telegraf/v1.23/plugins/inputs/
-  - /telegraf/v1.23/plugins/outputs/
-  - /telegraf/v1.23/plugins/processors/
+  - /telegraf/v1.24/plugins/plugins-list/
+  - /telegraf/v1.24/plugins/aggregators/
+  - /telegraf/v1.24/plugins/inputs/
+  - /telegraf/v1.24/plugins/outputs/
+  - /telegraf/v1.24/plugins/processors/
   - /telegraf/v1.22/plugins/plugins-list/
   - /telegraf/v1.22/plugins/aggregators/
   - /telegraf/v1.22/plugins/inputs/
