@@ -24,11 +24,21 @@ Use the `GROUP BY` clause to group query results by one or more specified [tags]
 **Note:** You cannot use `GROUP BY` to group **fields**.
 {{% /note %}}
 
+- [GROUP BY tags](#group-by-tags)
+   - [Syntax and examples](#syntax)
+- [GROUP BY time intervals](#group-by-time-intervals)
+   - [Basic syntax and examples](#basic-group-by-time-syntax)
+   - [Common issues with basic syntax](#common-issues-with-basic-syntax)
+   - [Advanced syntax and examples](#advanced-group-by-time-syntax)
+- [GROUP BY time intervals and fill()](#group-by-time-intervals-and-fill)
+   - [Syntax and examples](#syntax-2)
+   - [Common issues with fill()](#common-issues-with-fill)
+
 ## GROUP BY tags
 
 `GROUP BY <tag>` groups query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag).
 
-#### Syntax
+### Syntax
 
 ```sql
 SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
@@ -42,9 +52,11 @@ If the query includes a `WHERE` clause, the `GROUP BY` clause must appear after 
 
 Other supported features include [Regular Expressions](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
-#### Examples
+### Examples
 
-##### Group query results by a single tag
+{{< expand-wrapper >}}
+
+{{% expand "Group query results by a single tag" %}}
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
@@ -79,7 +91,9 @@ InfluxDB returns results in two [series](/influxdb/v2.4/reference/glossary/#seri
 If you request a query that has no timestamp to return, such as an [aggregation function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/) with an unbounded time range, InfluxDB returns epoch 0 as the timestamp.
 {{% /note %}}
 
-##### Group query results by more than one tag
+{{% /expand %}}
+
+{{% expand "Group query results by more than one tag" %}}
 
 ```sql
 > SELECT MEAN("index") FROM "h2o_quality" GROUP BY "location","randtag"
@@ -144,7 +158,9 @@ each combination of the `location` tag and the `randtag` tag in the
 `h2o_quality` measurement.
 Separate multiple tags with a comma in the `GROUP BY` clause.
 
-##### Group query results by all tags
+{{% /expand %}}
+
+{{% expand "Group query results by all tags" %}}
 
 ```sql
 > SELECT MEAN("index") FROM "h2o_quality" GROUP BY *
@@ -214,6 +230,10 @@ where we explicitly specified the `location` and `randtag` tag keys.
 This is because the `h2o_quality` measurement only has two tag keys.
 {{% /note %}}
 
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
 ## GROUP BY time intervals
 
 `GROUP BY time()` queries group query results by a user-specified time interval.
@@ -251,7 +271,7 @@ Basic `GROUP BY time()` queries rely on the `time_interval` and on the InfluxDB 
 preset time boundaries to determine the raw data included in each time interval
 and the timestamps returned by the query.
 
-#### Examples of basic syntax
+### Examples of basic syntax
 
 The examples below use the following subsample of the sample data:
 
@@ -278,7 +298,9 @@ Name: h2o_feet
 | 2019-08-18T00:30:00Z | 8.0120000000 | coyote_creek |
 | 2019-08-18T00:30:00Z | 2.2670000000 | santa_monica |
 
-##### Group query results into 12 minute intervals
+{{< expand-wrapper >}}
+
+{{% expand "Group query results into 12 minute intervals" %}}
 
 ```sql
 > SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
@@ -304,7 +326,9 @@ and up to, but not including, `2019-08-18T00:12:00Z`.
 The count for the second timestamp covers the raw data between `2019-08-18T00:12:00Z`
 and up to, but not including, `2019-08-18T00:24:00Z.`
 
-##### Group query results into 12 minutes intervals and by a tag key
+{{% /expand %}}
+
+{{% expand "Group query results into 12 minute intervals and by a tag key" %}}
 
 ```sql
 > SELECT COUNT("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location"
@@ -347,7 +371,11 @@ and up to, but not including, `2019-08-18T00:12:00Z`.
 The count for the second timestamp covers the raw data between `2019-08-18T00:12:00Z`
 and up to, but not including, `2019-08-18T00:24:00Z.`
 
-#### Common issues with basic syntax
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Common issues with basic syntax
 
 ##### Unexpected timestamps and values in query results
 
@@ -478,7 +506,7 @@ Advanced `GROUP BY time()` queries rely on the `time_interval`, the `offset_inte
 , and on the InfluxDB database's preset time boundaries to determine the raw data included in each time interval
 and the timestamps returned by the query.
 
-#### Examples of advanced syntax
+### Examples of advanced syntax
 
 The examples below use the following subsample of the sample data:
 
@@ -503,7 +531,9 @@ Name: h2o_feet
 | 2019-08-18T00:48:00Z | 7.6380000000|
 | 2019-08-18T00:54:00Z | 7.5100000000 |
 
-##### Group query results into 18 minute intervals and shift the preset time boundaries forward
+{{< expand-wrapper >}}
+
+{{% expand "Group query results into 18 minute intervals and shift the preset time boundaries forward" %}}
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m,6m)
@@ -581,7 +611,9 @@ start of the `GROUP BY time()` interval time range.
 Note that `offset_interval` forces the fourth time boundary to be outside
 the query's time range so the query returns no results for that last interval.
 
-##### Group query results into 12 minute intervals and shift the preset time boundaries back
+{{% /expand %}}
+
+{{% expand "Group query results into 12 minute intervals and shift the preset time boundaries back" %}}
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m,-12m)
@@ -673,7 +705,9 @@ start of the `GROUP BY time()` interval time range.
 Note that `offset_interval` forces the first time boundary to be outside
 the query's time range so the query returns no results for that first interval.
 
-##### Group query results into 12 minute intervals and shift the preset time boundaries forward
+{{% /expand %}}
+
+{{% expand "Group query results into 12 minute intervals and shift the preset time boundaries forward" %}}
 
 This example is a continuation of the scenario outlined in [Common Issues with Basic Syntax](#common-issues-with-basic-syntax).
 
@@ -744,6 +778,10 @@ time range.
 Note that `offset_interval` forces the second time boundary to be outside
 the query's time range so the query returns no results for that second interval.
 
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
 ## `GROUP BY` time intervals and `fill()`
 
 `fill()` changes the value reported for time intervals that have no data.
@@ -768,7 +806,7 @@ Note that `fill()` must go at the end of the `GROUP BY` clause if you're
   - `null` - Reports null for time intervals with no data but returns a timestamp. This is the same as the default behavior.
   - `previous` - Reports the value from the previous time interval for time intervals with no data.
 
-#### Examples
+### Examples
 
 {{< tabs-wrapper >}}
 {{% tabs "even-wrap" %}}
@@ -1044,7 +1082,7 @@ the value from the previous time interval.
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-#### Common issues with `fill()`
+### Common issues with `fill()`
 
 ##### Queries with `fill()` when no data fall within the query's time range
 

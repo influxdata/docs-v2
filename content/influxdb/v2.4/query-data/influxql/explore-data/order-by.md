@@ -16,6 +16,9 @@ list_code_example: |
 
 Use the `ORDER BY` clause to sort data. 
 
+- [Syntax](#syntax)
+- [Examples](#examples)
+
 ## ORDER BY time DESC
 
 By default, InfluxDB returns results in ascending time order; the first [point](/influxdb/v2.4/reference/glossary/#point)
@@ -35,7 +38,9 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER BY time DESC
 
 ### Examples
 
-#### Return the newest points first
+{{< expand-wrapper >}}
+
+{{% expand "Return the newest points first" %}}
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' ORDER BY time DESC
@@ -69,7 +74,9 @@ Name: h2o_feet
 | 2019-08-17T00:12:00Z | 2.0280000000|
 | 2019-08-17T00:18:00Z | 2.1260000000|
 
-#### Return the newest points first and include a GROUP BY time() clause
+{{% /expand %}}
+
+{{% expand "Return the newest points first and include a GROUP BY time() clause" %}}
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY time(12m) ORDER BY time DESC
@@ -106,3 +113,7 @@ Name: h2o_feet
 | 2019-08-18T00:12:00Z | 5.3042500000|
 | 2019-08-18T00:24:00Z | 5.1682500000|
 | 2019-08-18T00:36:00Z | 4.9712860355|
+
+{{% /expand %}}
+
+{{< /expand-wrapper >}}

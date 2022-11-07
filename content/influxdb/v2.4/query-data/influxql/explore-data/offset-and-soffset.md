@@ -16,8 +16,12 @@ list_code_example: |
 
 Use `OFFSET` and `SOFFSET` to paginate [points](/influxdb/v2.4/reference/glossary/#point) and [series](/influxdb/v2.4/reference/glossary/#series) returned.
 
-  - [The `OFFSET` clause](#the-offset-clause)  
-  - [The `SOFFSET` clause](#the-soffset-clause)  
+  - [The OFFSET clause](#the-offset-clause)
+     - [Syntax](#syntax)
+     - [Examples](#examples)
+  - [The SOFFSET clause](#the-soffset-clause)
+     - [Syntax](#syntax-1)
+     - [Examples](#examples-1)
 
 ## The `OFFSET` clause
 
@@ -37,7 +41,9 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIM
 
 ### Examples
 
-#### Paginate points
+{{< expand-wrapper >}}
+
+{{% expand "Paginate points" %}}
 
 ```sql
 > SELECT "water_level","location" FROM "h2o_feet" LIMIT 3 OFFSET 3
@@ -56,7 +62,9 @@ Name: h2o_feet
 The query returns the fourth, fifth, and sixth points from the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement). If the query did not include `OFFSET 3`, it would return the first, second,
 and third points from that measurement.
 
-#### Paginate points and include several clauses
+{{% /expand %}}
+
+{{% expand "Paginate points and include several clauses" %}}
 
 ```sql
 > SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) ORDER BY time DESC LIMIT 2 OFFSET 2 SLIMIT 1
@@ -96,6 +104,10 @@ tags: location=coyote_creek
 | 2019-08-18T00:36:00Z | 7.8330000000 |
 | 2019-08-18T00:24:00Z | 8.0710000000 |
 
+{{< /expand >}}
+
+{{< /expand-wrapper >}}
+
 ## The `SOFFSET` clause
 
 `SOFFSET <N>` paginates `N` [series](/influxdb/v2.4/reference/glossary/#series) in the query results.
@@ -117,6 +129,10 @@ There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) 
 {{% /note %}}
 
 ### Examples
+
+{{% expand-wrapper %}}
+
+{{% expand "Paginate series" %}}
 
 #### Paginate series
 
@@ -142,6 +158,10 @@ tags: location=santa_monica
 
 The results above are partial, as the data set is quite large. The query returns data for the series associated with the `h2o_feet`
 measurement and the `location = santa_monica` tag. Without `SOFFSET 1`, the query returns data for the series associated with the `h2o_feet` measurement and the `location = coyote_creek` tag.
+
+{{% /expand %}}
+
+{{% expand "Paginate points and include several clauses" %}}
 
 #### Paginate series and include all clauses
 
@@ -183,3 +203,6 @@ tags: location=coyote_creek
 | 2019-08-18T00:12:00Z | 8.2725000000 |
 | 2019-08-18T00:00:00Z | 8.4615000000 |
 
+{{% /expand %}}
+
+{{< /expand-wrapper >}}

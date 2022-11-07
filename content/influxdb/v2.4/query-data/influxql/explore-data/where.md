@@ -19,6 +19,10 @@ Use the `WHERE` clause to filter data based on
 [tags](/influxdb/v2.4/reference/glossary/#tag), and/or
 [timestamps](/influxdb/v2.4/reference/glossary/#timestamp).
 
+- [Syntax](#syntax)
+- [Examples](#examples)
+- [Common issues](#common-issues-with-the-where-clause)
+
 ### Syntax
 
 ```sql
@@ -47,7 +51,7 @@ Single quote string field values in the `WHERE` clause.
 Queries with unquoted string field values or double quoted string field values will not return any data and, in most cases,
 [will not return an error](#common-issues-with-the-where-clause).
 
-##### Supported operators
+#### Supported operators
 
 | Operator | Meaning                  |
 |:--------:|:--------                 |
@@ -73,7 +77,7 @@ Queries with unquoted tag values or double quoted tag values will not return
 any data and, in most cases,
 [will not return an error](#common-issues-with-the-where-clause).
 
-##### Supported operators
+#### Supported operators
 
 | Operator | Meaning      |
 |:--------:|:-------      |
@@ -91,7 +95,9 @@ See [Time Syntax](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timez
 
 ### Examples
 
-#### Select data that have specific field key-values
+{{< expand-wrapper >}}
+{{% expand "Select data that have specific field key-values" %}}
+
 
 ```sql
 > SELECT * FROM "h2o_feet" WHERE "water_level" > 9
@@ -112,7 +118,9 @@ Name: h2o_feet
 The query returns data from the `h2o_feet` measurement with field values of `water_level` that are greater than nine. 
 This is a partial data set.
 
-#### Select data that have a specific string field key-value
+{{% /expand %}}
+
+{{% expand "Select data that have a specific string field key-value" %}}
 
 ```sql
 > SELECT * FROM "h2o_feet" WHERE "level description" = 'below 3 feet'
@@ -133,7 +141,9 @@ Name: h2o_feet
 
 The query returns data from the `h2o_feet` measurement with field values of `level description` that equal the `below 3 feet` string. InfluxQL requires single quotes around string field values in the `WHERE` clause.
 
-#### Select data that have a specific field key-value and perform basic arithmetic
+{{% /expand %}}
+
+{{% expand "Select data that have a specific field key-value and perform basic arithmetic" %}}
 
 ```sql
 > SELECT * FROM "h2o_feet" WHERE "water_level" + 2 > 11.9
@@ -161,7 +171,9 @@ The query returns data from the `h2o_feet` measurement with field values of
 See [Mathematical operators](/influxdb/v2.4/query-data/influxql/math_operators/)
 for more on supported operators.
 
-#### Select data that have a specific tag key-value
+{{% /expand %}}
+
+{{% expand "Select data that have a specific tag key-value" %}}
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica'
@@ -192,7 +204,9 @@ The query returns data from the `h2o_feet` measurement where the
 [tag key](/influxdb/v2.4/reference/glossary/#tag-key) `location` is set to `santa_monica`.
 InfluxQL requires single quotes around tag values in the `WHERE` clause.
 
-#### Select data that have specific field key-values and tag key-values
+{{% /expand %}}
+
+{{% expand "Select data that have specific field key-values and tag key-valuest" %}}
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" <> 'santa_monica' AND (water_level < -0.59 OR water_level > 9.95)
@@ -217,7 +231,10 @@ The query returns data from the `h2o_feet` measurement where the tag key
 The `WHERE` clause supports the operators `AND` and `OR`, and supports
 separating logic with parentheses.
 
-#### Select data that have specific timestamps
+{{% /expand %}}
+
+
+{{< /expand-wrapper >}}
 
 ```sql
 > SELECT * FROM "h2o_feet" WHERE time > now() - 7d
