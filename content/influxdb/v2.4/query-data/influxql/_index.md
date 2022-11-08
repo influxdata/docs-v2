@@ -34,7 +34,7 @@ Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database 
 #### InfluxQL reference documentation
 
 For complete InfluxQL reference documentation, see the
-[Influx Query Language (InfluxQL) 2.x specification](/influxdb/v2.4/reference/syntax/influxql/spec/).
+[InfluxQL specification for InfluxDB 2.x](/influxdb/v2.4/reference/syntax/influxql/spec/).
 {{% /note %}}
 
 ## Verify buckets have a mapping
