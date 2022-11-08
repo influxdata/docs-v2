@@ -19,6 +19,9 @@ function SetInfo() {
           if(data.hasOwnProperty('description')) {
              info.description = data.description;
           }
+          if(data.hasOwnProperty('license')) {
+             info.license = data.license;
+          }
 	      }
       }
     }

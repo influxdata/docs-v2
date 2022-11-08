@@ -365,7 +365,7 @@ union(tables: [f1, f2])
     |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
 ```
 {{< expand-wrapper >}}
-{{% expand "View example input and output" %}}
+{{% expand "View example input and output data" %}}
 
 #### Input
 {{< flex >}}

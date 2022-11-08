@@ -25,8 +25,6 @@ Use the `tz` (timezone) clause to return the UTC offset for the specified timezo
    - [Syntax and examples](#syntax-2)
 - [Common issues with time syntax](#common-issues-with-time-syntax)
 
-
-
 ## Configuring returned timestamps
 
 The [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) returns timestamps in

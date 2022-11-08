@@ -33,16 +33,19 @@ For consistent results, the Gauge query should return a single table.
 To view **Gauge** controls, click **{{< icon "gear" >}} Customize** next to
 the visualization dropdown.
 
-- **Prefix**: Prefix to add to the gauge.
-- **Suffix**: Suffix to add to the gauge.
+- **Value Prefix**: Prefix to add to the gauge value.
+- **Value Suffix**: Suffix to add to the gauge value.
+- **Axis Prefix**: Prefix to add to the gauge axis.
+- **Axis Suffix**: Suffix to add to the gauge axis.
 - **Decimal Places**: The number of decimal places to display for the gauge.
   - **Auto** or **Custom**: Enable or disable auto-setting.
 
 ###### Colorized Thresholds
-- **Base Color**: Select a base or background color from the selection list.
 - **Add a Threshold**: Change the color of the gauge based on the current value.
-  - **Value is**: Enter the value at which the gauge should appear in the selected color.
+  - **Minimum**: Enter the minimum value at which the gauge should appear in the selected color.
     Choose a color from the dropdown menu next to the value.
+  - **Maximum**: Enter the maximum value at which the gauge should appear in the selected color.
+    Choose a color from the dropdown menu next to the value.  
 
 ## Gauge examples
 Gauge visualizations are useful for showing the current value of a metric and displaying
