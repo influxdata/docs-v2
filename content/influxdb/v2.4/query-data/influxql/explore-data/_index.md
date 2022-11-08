@@ -1,7 +1,8 @@
 ---
 title: Explore data using InfluxQL
 description: >
-  Explore time series data using InfluxData's SQL-like query language. Use the SELECT statement to query data from measurements, tags, and fields.
+  Explore time series data using InfluxQL, InfluxData's SQL-like query language.
+  Use the `SELECT` statement to query data from measurements, tags, and fields.
 menu:
   influxdb_2_4:
     name: Explore data
