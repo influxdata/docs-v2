@@ -45,21 +45,20 @@ SHOW SERIES [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> [ '<t
 
 ### Description of syntax
 
-`ON <database_name>` is optional.
-If the query does not include `ON <database_name>`, you must specify the
-database with the `db` query
-string parameter in the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
+- `ON <database_name>` is optional.
+  If the query does not include `ON <database_name>`, you must specify the
+  database with the `db` query string parameter in the
+  [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
+- `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
+   The `WHERE` clause supports tag comparisons but not field comparisons.
 
-The `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
-The `WHERE` clause supports tag comparisons; field comparisons are not
-valid for the `SHOW SERIES` query.
-
-Supported operators in the `WHERE` clause:
-`=`&emsp;&nbsp;&thinsp;equal to
-`<>`&emsp;not equal to
-`!=`&emsp;not equal to
-`=~`&emsp;matches against
-`!~`&emsp;doesn't match against
+  **Supported operators in the `WHERE` clause**:
+  
+  - `=`: equal to
+  - `<>`: not equal to
+  - `!=`: not equal to
+  - `=~`: matches against
+  - `!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause),
