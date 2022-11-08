@@ -32,7 +32,7 @@ Examples show how to run commands using the [InfluxQL shell](/influxdb/v2.4/tool
 For information about how to use either the InfluxQL shell or the InfluxDB API, see how to [Query a mapped bucket with InfluxQL](/influxdb/v2.4/query-data/influxql/#query-a-mapped-bucket-with-influxql).
    {{% /note %}}
 
-## `SHOW SERIES`
+## SHOW SERIES
 
 Returns a list of [series](/influxdb/v2.4/reference/glossary/#series) for
 the specified [database](/influxdb/v2.4/reference/glossary/#database).
