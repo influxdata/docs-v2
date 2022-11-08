@@ -13,6 +13,19 @@ list_code_example: |
   SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause] tz('<time_zone>')
   ```
 ---
+Use the `tz` (timezone) clause to return the UTC offset for the specified timezone and explore a variety of time-related queries.
+
+- [Configuring returned timestamps](#configuring-returned-timestamps)
+- [The Time Zone clause](#the-time-zone-clause)
+   - [Examples](#examples)
+- [Time syntax](#time-syntax)
+- [Absolute time](#absolute-time)
+   - [Syntax and examples](#syntax-1)
+- [Relative time](#relative-time)
+   - [Syntax and examples](#syntax-2)
+- [Common issues with time syntax](#common-issues-with-time-syntax)
+
+
 
 ## Configuring returned timestamps
 
@@ -44,7 +57,9 @@ The `time_zone` parameter follows the TZ syntax in the [Internet Assigned Number
 
 ### Examples
 
-#### Return the UTC offset for Chicago's time zone
+{{< expand-wrapper >}}
+
+{{% expand "Return the UTC offset for Chicago's time zone" %}}
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:18:00Z' tz('America/Chicago')
@@ -62,6 +77,10 @@ Name: h2o_feet
 | 2019-08-17T19:18:00-05:00 | 2.3290000000|
 
 The query results include the UTC offset (`-05:00`) for the `America/Chicago` time zone in the timestamps.
+
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
 
 ## Time syntax
 
@@ -136,7 +155,9 @@ duration literal.
 
 ### Examples
 
-#### Specify a time range with RFC3339 date-time strings
+{{< expand-wrapper >}}
+
+{{% expand "Specify a time range with RFC3339 date-time strings" %}}
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00.000000000Z' AND time <= '2019-08-18T00:12:00Z'
@@ -157,7 +178,9 @@ August 18, 2019 at 00:12:00.
 
 Note that the single quotes around the RFC3339 date-time strings are required.
 
-#### Specify a time range with RFC3339-like date-time strings
+{{% /expand %}}
+
+{{% expand "Specify a time range with RFC3339-like date-time strings" %}}
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18' AND time <= '2019-08-18 00:12:00'
@@ -181,7 +204,9 @@ is 00:00:00.
 Note that the single quotes around the RFC3339-like date-time strings are
 required.
 
-#### Specify a time range with epoch timestamps
+{{% /expand %}}
+
+{{% expand "Specify a time range with epock timestamps" %}}
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= 1564635600000000000 AND time <= 1566190800000000000
@@ -212,7 +237,9 @@ Name: h2o_feet
 The query returns data with timestamps that occur between August 1, 2019
 at 00:00:00 and August 19, 2019 at 00:12:00.  By default InfluxDB assumes epoch timestamps are in nanoseconds.
 
-#### Specify a time range with second-precision epoch timestamps
+{{% /expand %}}
+
+{{% expand "Specify a time range with second-precision epoch timestamps" %}}
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= 1566190800s AND time <= 1566191520s
@@ -228,7 +255,9 @@ The query returns data with timestamps that occur between August 19, 2019
 at 00:00:00 and August 19, 2019 at 00:12:00.
 The `s` duration literal at the end of the epoch timestamps indicate that the epoch timestamps are in seconds.
 
-#### Perform basic arithmetic on an RFC3339-like date-time string
+{{% /expand %}}
+
+{{% expand "Perform basic arithmetic on an RFC3339-like date-time string" %}}
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE time > '2019-09-17T21:24:00Z' + 6m
@@ -247,7 +276,9 @@ The query returns data with timestamps that occur at least six minutes after
 September 17, 2019 at 21:24:00.
 Note that the whitespace between the `+` and `6m` is required.
 
-#### Perform basic arithmetic on an epoch timestamp
+{{% /expand %}}
+
+{{% expand "Perform basic arithmetic on an epock timestamp" %}}
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE time > 24043524m - 6m
@@ -270,6 +301,10 @@ Name: h2o_feet
 
 The query returns data with timestamps that occur at least six minutes before
 September 18, 2019 at 21:24:00. Note that the whitespace between the `-` and `6m` is required.  Note that the results above are partial as the dataset is large. 
+
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
 
 ## Relative time
 
@@ -307,7 +342,9 @@ The whitespace between `-` or `+` and the [duration literal](/influxdb/v2.4/refe
 
 ### Examples
 
-#### Specify a time range with relative time
+{{< expand-wrapper >}}
+
+{{% expand "Specify a time range with relative time" %}}
 
 ```sql
 > SELECT "water_level" FROM "h2o_feet" WHERE time > now() - 1h
@@ -315,6 +352,10 @@ The whitespace between `-` or `+` and the [duration literal](/influxdb/v2.4/refe
 
 The query returns data with timestamps that occur within the past hour.
 The whitespace between `-` and `1h` is required.
+
+{{% /expand %}}
+
+{{% expand "Specify a time range with absolute time and relative time" %}}
 
 #### Specify a time range with absolute time and relative time
 
@@ -334,6 +375,10 @@ Name: h2o_feet
 |2019-09-17T21:42:00Z | between 3 and 6 feet |
 
 The query returns data with timestamps that occur between September 17, 2019 at 21:18:00 and 1000 days from `now()`. The whitespace between `+` and `1000d` is required.
+
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
 
 ## Common issues with time syntax
 

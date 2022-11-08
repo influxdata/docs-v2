@@ -424,7 +424,7 @@ name: h2o_feet
 |2019-08-18T00:12:00Z  |  1.0000000000|
 
 {{% note %}}
-Note: The timestamp in the first row of data occurs before the start of the query's time range.
+**Note:**  The timestamp in the first row of data occurs before the start of the query's time range.
 {{% /note %}}
 
 Explanation:
