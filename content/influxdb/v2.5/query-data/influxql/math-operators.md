@@ -5,7 +5,7 @@ menu:
   influxdb_2_5:
     name: Mathematical operators
     parent: Query with InfluxQL
-    identifier: maathematical-operators-2_4
+    identifier: mathematical-operators-2_4
 weight: 209
 ---
 
