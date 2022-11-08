@@ -11,7 +11,7 @@ weight: 201
 
 To start exploring data with InfluxQL, do the following:
 
-1. First verify or set up your database and retention policy (DBRP) mappings. See [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/).
+1. Verify your bucket has a database and retention policy (DBRP) mapping by [listing DBRP mappings for your bucket](/influxdb/v2.4/query-data/influxql/dbrp/#list-dbrp-mappings). If not, [create a new DBRP mapping](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings).
 
 2. [Configure timestamps in the InfluxQL shell](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/).
 

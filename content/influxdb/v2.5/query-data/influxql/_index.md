@@ -62,10 +62,10 @@ _For examples, see [Create DBRP mappings](/influxdb/v2.5/query-data/influxql/dbr
 The [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) provides an [InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/) where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
 
 1.  If you haven't already, do the following:
-
-   - [Download and install the `influx` CLI](/influxdb/v2.5/tools/influx-cli/#install-the-influx-cli)
-   - [Configure your authentication credentials](/influxdb/v2.5/tools/influx-cli/#provide-required-authentication-credentials)
-
+  
+     - [Download and install the `influx` CLI](/influxdb/v2.5/tools/influx-cli/#install-the-influx-cli)
+     - [Configure your authentication credentials](/influxdb/v2.5/tools/influx-cli/#provide-required-authentication-credentials)
+  
 2. Use the following command to start an InfluxQL shell:
 
    ```sh
@@ -78,7 +78,7 @@ The [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) provides an [InfluxQL s
 > SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
 ```
 
-For more information, see how to [use the InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/).
+   For more information, see how to [use the InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/).
 
 <!----------------------------- END InfluxQL shell ---------------------------->
 {{% /tab-content %}}
@@ -107,7 +107,7 @@ all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-versi
    ```
 
    By default, the `/query` compatibility endpoint returns results in **JSON**.
-   
+
 2. (Optional) To return results as **CSV**, include the `Accept: application/csv` header.
 
 <!------------------------------ END InfluxDB API ----------------------------->
