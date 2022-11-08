@@ -34,7 +34,7 @@ For information about how to use either the InfluxQL shell or the InfluxDB API, 
 
 ## SHOW SERIES
 
-Returns a list of [series](/influxdb/v2.4/reference/glossary/#series) for
+Return a list of [series](/influxdb/v2.4/reference/glossary/#series) for
 the specified [database](/influxdb/v2.4/reference/glossary/#database).
 
 ### Syntax
