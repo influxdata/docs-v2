@@ -98,7 +98,7 @@ The `noaa` has 5 different measurements and 13 different series.
 #### Run a `SHOW SERIES` query with several clauses
 
 ```sql
-> SHOW SERIES ON noaa FROM "h2o_quality" WHERE "location" = 'coyote_creek' LIMIT 2
+SHOW SERIES ON noaa FROM "h2o_quality" WHERE "location" = 'coyote_creek' LIMIT 2
 ```
 
 Output:
