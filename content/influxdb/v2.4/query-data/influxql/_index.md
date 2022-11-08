@@ -13,6 +13,7 @@ related:
   - /influxdb/v2.4/reference/api/influxdb-1x/
   - /influxdb/v2.4/reference/api/influxdb-1x/query
   - /influxdb/v2.4/reference/api/influxdb-1x/dbrp
+  - /influxdb/v2.4/tools/influxql-shell/
 ---
 
 Use InfluxQL (SQL-like query language) to interact with InfluxDB and work with your times series data.
