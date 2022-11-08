@@ -15,7 +15,7 @@ related:
   - /influxdb/v2.4/reference/api/influxdb-1x/dbrp
 ---
 
-InfluxQL is a SQL-like query language used to interact with InfluxDB and work with your times series data.
+Use InfluxQL (SQL-like query language) to interact with InfluxDB and work with your times series data.
 
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
@@ -108,7 +108,7 @@ all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-versi
    ```
 
    By default, the `/query` compatibility endpoint returns results in **JSON**.
-   
+
 2. (Optional) To return results as **CSV**, include the `Accept: application/csv` header.
 <!------------------------------ END InfluxDB API ----------------------------->
 {{% /tab-content %}}

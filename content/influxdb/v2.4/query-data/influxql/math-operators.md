@@ -5,13 +5,15 @@ menu:
   influxdb_2_4:
     name: Mathematical operators
     parent: Query with InfluxQL
-    identifier: maathematical-operators-2_4
+    identifier: mathematical-operators-2_4
 weight: 209
 ---
 
 Mathematical operators follow the [standard order of operations](https://golang.org/ref/spec#Operator_precedence).
 That is, parentheses take precedence to division and multiplication, which takes precedence to addition and subtraction.
 For example `5 / 2 + 3 * 2 =  (5 / 2) + (3 * 2)` and `5 + 2 * 3 - 2 = 5 + (2 * 3) - 2`.
+
+
 
 ### Content
 
