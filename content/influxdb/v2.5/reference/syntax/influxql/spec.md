@@ -10,8 +10,7 @@ aliases:
 weight: 103
 ---
 
-InfluxQL is a SQL-like query language for interacting with InfluxDB
-and providing features specific to storing and analyzing time series data.
+InfluxQL is a SQL-like query language used to interact with InfluxDB and work with your times series data.
 
 Find Influx Query Language (InfluxQL) definitions and details, including:
 
