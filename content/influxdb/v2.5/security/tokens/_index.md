@@ -18,7 +18,7 @@ An API token belongs to a specific user and identifies InfluxDB permissions with
 Learn how to create, view, update, or delete an API token.
 
 {{% note %}}
-**Note:** InfluxDB only allows access to the API token value immediately after the token is created.
+**Note:** InfluxDB only allows access to the API token value immediately after the token is created.  Be sure to copy and store the full token in a secure location.
 {{% /note %}}
 
 ## API token types
