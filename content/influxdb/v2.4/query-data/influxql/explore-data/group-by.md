@@ -157,7 +157,7 @@ Separate multiple tags with a comma in the `GROUP BY` clause.
 {{% expand "Group query results by all tags" %}}
 
 ```sql
-> SELECT MEAN("index") FROM "h2o_quality" GROUP BY *
+SELECT MEAN("index") FROM "h2o_quality" GROUP BY *
 ```
 Output:
 {{% influxql/table-meta %}} 
