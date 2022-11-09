@@ -28,7 +28,7 @@ To start exploring data with InfluxQL, do the following:
 
 {{< children readmore=true hr=true >}}
 
-### Download sample data
+## Download sample data
 
 InfluxQL example queries use publicly available data from the
 [NOAA](https://tidesandcurrents.noaa.gov/).
