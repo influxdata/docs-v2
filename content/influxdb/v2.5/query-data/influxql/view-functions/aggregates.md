@@ -51,7 +51,7 @@ Returns the number of field values associated with each field key that matches t
 {{% expand "Count values for a field" %}}
 
 ```sql
-> SELECT COUNT("water_level") FROM "h2o_feet"
+SELECT COUNT("water_level") FROM "h2o_feet"
 
 name: h2o_feet
 time                   count
@@ -66,7 +66,7 @@ Returns the number of non-null field values in the `water_level` field key in th
 {{% expand "Count values for each field in a measurement" %}}
 
 ```sql
-> SELECT COUNT(*) FROM "h2o_feet"
+SELECT COUNT(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   count_level description   count_water_level
@@ -82,7 +82,7 @@ The `h2o_feet` measurement has two field keys: `level description` and `water_le
 {{% expand "Count the values that match a regular expression" %}}
 
 ```sql
-> SELECT COUNT(/water/) FROM "h2o_feet"
+SELECT COUNT(/water/) FROM "h2o_feet"
 
 name: h2o_feet
 time                   count_water_level
@@ -99,7 +99,7 @@ Returns the number of non-null field values for every field key that contains th
 InfluxQL supports nesting [DISTINCT()](#distinct) in `COUNT()`.
 
 ```sql
-> SELECT COUNT(DISTINCT("level description")) FROM "h2o_feet"
+SELECT COUNT(DISTINCT("level description")) FROM "h2o_feet"
 
 name: h2o_feet
 time                   count
@@ -135,7 +135,7 @@ Returns the unique field values associated with the [field key](/influxdb/v2.5/r
 {{% expand "List the distinct field values associated with a field key" %}}
 
 ```sql
-> SELECT DISTINCT("level description") FROM "h2o_feet"
+SELECT DISTINCT("level description") FROM "h2o_feet"
 
 name: h2o_feet
 time                   distinct
@@ -154,7 +154,7 @@ Returns a tabular list of the unique field values in the `level description` fie
 {{% expand "List the distinct field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT DISTINCT(*) FROM "h2o_feet"
+SELECT DISTINCT(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   distinct_level description   distinct_water_level
@@ -209,7 +209,7 @@ Returns the average field value associated with each field key in the [measureme
 The following examples use a subset of the [NOAA water sample data](/influxdb/v2.5/reference/sample-data/#noaa-water-sample-data) data:
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                   water_level
@@ -226,7 +226,7 @@ time                   water_level
 {{% expand "Calculate the integral for the field values associated with a field key" %}}
 
 ```sql
-> SELECT INTEGRAL("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT INTEGRAL("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                 integral
@@ -241,7 +241,7 @@ Returns the area under the curve (in seconds) for the field values associated wi
 {{% expand "Calculate the integral for the field values associated with a field key and specify the unit option" %}}
 
 ```sql
-> SELECT INTEGRAL("water_level",1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT INTEGRAL("water_level",1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                 integral
@@ -256,7 +256,7 @@ Returns the area under the curve (in minutes) for the field values associated wi
 {{% expand "Calculate the integral for the field values associated with each field key in a measurement and specify the unit option" %}}
 
 ```sql
-> SELECT INTEGRAL(*,1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT INTEGRAL(*,1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                   integral_water_level
@@ -272,7 +272,7 @@ The `h2o_feet` measurement has on numerical field: `water_level`.
 {{% expand "Calculate the integral for the field values associated with each field key that matches a regular expression and specify the unit option" %}}
 
 ```sql
-> SELECT INTEGRAL(/water/,1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT INTEGRAL(/water/,1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                   integral_water_level
@@ -287,7 +287,7 @@ Returns the area under the curve (in minutes) for the field values associated wi
 {{% expand "Calculate the integral for the field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT INTEGRAL("water_level",1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m) LIMIT 1
+SELECT INTEGRAL("water_level",1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m) LIMIT 1
 
 name: h2o_feet
 time                 integral
@@ -327,7 +327,7 @@ Returns the average field value associated with each field key in the [measureme
 {{% expand "Calculate the mean field value associated with a field key" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet"
+SELECT MEAN("water_level") FROM "h2o_feet"
 
 name: h2o_feet
 time                   mean
@@ -342,7 +342,7 @@ Returns the average field value in the `water_level` field key in the `h2o_feet`
 {{% expand "Calculate the mean field value associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT MEAN(*) FROM "h2o_feet"
+SELECT MEAN(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   mean_water_level
@@ -358,7 +358,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the mean field value associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT MEAN(/water/) FROM "h2o_feet"
+SELECT MEAN(/water/) FROM "h2o_feet"
 
 name: h2o_feet
 time                   mean_water_level
@@ -373,7 +373,7 @@ Returns the average field value for each field key that stores numerical values 
 {{% expand "Calculate the mean field value associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 7 SLIMIT 1
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 7 SLIMIT 1
 
 name: h2o_feet
 tags: location=coyote_creek
@@ -423,7 +423,7 @@ Returns the middle field value associated with each field key in the [measuremen
 {{% expand "Calculate the median field value associated with a field key" %}}
 
 ```sql
-> SELECT MEDIAN("water_level") FROM "h2o_feet"
+SELECT MEDIAN("water_level") FROM "h2o_feet"
 
 name: h2o_feet
 time                   median
@@ -437,7 +437,7 @@ Returns the middle field value in the `water_level` field key and in the `h2o_fe
 {{% expand "Calculate the median field value associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT MEDIAN(*) FROM "h2o_feet"
+SELECT MEDIAN(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   median_water_level
@@ -453,7 +453,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the median field value associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT MEDIAN(/water/) FROM "h2o_feet"
+SELECT MEDIAN(/water/) FROM "h2o_feet"
 
 name: h2o_feet
 time                   median_water_level
@@ -468,7 +468,7 @@ Returns the middle field value for every field key that stores numerical values 
 {{% expand "Calculate the median field value associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT MEDIAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* fill(700) LIMIT 7 SLIMIT 1 SOFFSET 1
+SELECT MEDIAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* fill(700) LIMIT 7 SLIMIT 1 SOFFSET 1
 
 name: h2o_feet
 tags: location=santa_monica
@@ -519,7 +519,7 @@ Returns the most frequent field value associated with each field key in the [mea
 {{% expand "Calculate the mode field value associated with a field key" %}}
 
 ```sql
-> SELECT MODE("level description") FROM "h2o_feet"
+SELECT MODE("level description") FROM "h2o_feet"
 
 name: h2o_feet
 time                   mode
@@ -534,7 +534,7 @@ Returns the most frequent field value in the `level description` field key and i
 {{% expand "Calculate the mode field value associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT MODE(*) FROM "h2o_feet"
+SELECT MODE(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   mode_level description   mode_water_level
@@ -550,7 +550,7 @@ The `h2o_feet` measurement has two field keys: `level description` and `water_le
 {{% expand "Calculate the mode field value associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT MODE(/water/) FROM "h2o_feet"
+SELECT MODE(/water/) FROM "h2o_feet"
 
 name: h2o_feet
 time                   mode_water_level
@@ -565,7 +565,7 @@ Returns the most frequent field value for every field key that includes the word
 {{% expand "Calculate the mode field value associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT MODE("level description") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* LIMIT 3 SLIMIT 1 SOFFSET 1
+SELECT MODE("level description") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* LIMIT 3 SLIMIT 1 SOFFSET 1
 
 name: h2o_feet
 tags: location=santa_monica
@@ -612,7 +612,7 @@ Returns the difference between the minimum and maximum field values associated w
 {{% expand "Calculate the spread for the field values associated with a field key" %}}
 
 ```sql
-> SELECT SPREAD("water_level") FROM "h2o_feet"
+SELECT SPREAD("water_level") FROM "h2o_feet"
 
 name: h2o_feet
 time                   spread
@@ -627,7 +627,7 @@ Returns the difference between the minimum and maximum field values in the `wate
 {{% expand "Calculate the spread for the field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT SPREAD(*) FROM "h2o_feet"
+SELECT SPREAD(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   spread_water_level
@@ -643,7 +643,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the spread for the field values associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT SPREAD(/water/) FROM "h2o_feet"
+SELECT SPREAD(/water/) FROM "h2o_feet"
 
 name: h2o_feet
 time                   spread_water_level
@@ -658,7 +658,7 @@ Returns the difference between the minimum and maximum field values for every fi
 {{% expand "Calculate the spread for the field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT SPREAD("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* fill(18) LIMIT 3 SLIMIT 1 SOFFSET 1
+SELECT SPREAD("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* fill(18) LIMIT 3 SLIMIT 1 SOFFSET 1
 
 name: h2o_feet
 tags: location=santa_monica
@@ -704,7 +704,7 @@ Returns the standard deviation of field values associated with each field key in
 {{% expand "Calculate the standard deviation for the field values associated with a field key" %}}
 
 ```sql
-> SELECT STDDEV("water_level") FROM "h2o_feet"
+SELECT STDDEV("water_level") FROM "h2o_feet"
 
 name: h2o_feet
 time                   stddev
@@ -718,7 +718,7 @@ Returns the standard deviation of the field values in the `water_level` field ke
 {{% expand "Calculate the standard deviation for the field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT STDDEV(*) FROM "h2o_feet"
+SELECT STDDEV(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   stddev_water_level
@@ -734,7 +734,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the standard deviation for the field values associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT STDDEV(/water/) FROM "h2o_feet"
+SELECT STDDEV(/water/) FROM "h2o_feet"
 
 name: h2o_feet
 time                   stddev_water_level
@@ -749,7 +749,7 @@ Returns the standard deviation of the field values for each field key that store
 {{% expand "Calculate the standard deviation for the field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT STDDEV("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* fill(18000) LIMIT 2 SLIMIT 1 SOFFSET 1
+SELECT STDDEV("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* fill(18000) LIMIT 2 SLIMIT 1 SOFFSET 1
 
 name: h2o_feet
 tags: location=santa_monica
@@ -794,7 +794,7 @@ Returns the sums of field values associated with each field key in the [measurem
 {{% expand "Calculate the sum of the field values associated with a field key" %}}
 
 ```sql
-> SELECT SUM("water_level") FROM "h2o_feet"
+SELECT SUM("water_level") FROM "h2o_feet"
 
 name: h2o_feet
 time                   sum
@@ -809,7 +809,7 @@ Returns the summed total of the field values in the `water_level` field key and 
 {{% expand "Calculate the sum of the field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT SUM(*) FROM "h2o_feet"
+SELECT SUM(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   sum_water_level
@@ -825,7 +825,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the sum of the field values associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT SUM(/water/) FROM "h2o_feet"
+SELECT SUM(/water/) FROM "h2o_feet"
 
 name: h2o_feet
 time                   sum_water_level
@@ -839,7 +839,7 @@ Returns the summed total of the field values for each field key that stores nume
 {{% expand "Calculate the sum of the field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT SUM("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* fill(18000) LIMIT 4 SLIMIT 1
+SELECT SUM("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),* fill(18000) LIMIT 4 SLIMIT 1
 
 name: h2o_feet
 tags: location=coyote_creek

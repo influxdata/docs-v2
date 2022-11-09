@@ -45,7 +45,7 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIM
 {{% expand "Limit the number of points returned" %}}
 
 ```sql
-> SELECT "water_level","location" FROM "h2o_feet" LIMIT 3
+SELECT "water_level","location" FROM "h2o_feet" LIMIT 3
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -65,7 +65,7 @@ The query returns the three oldest points, determined by timestamp, from the `h2
 {{% expand "Limit the number of points returned and include a GROUP BY clause" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2
 ```
 Output:  
 {{% influxql/table-meta %}}
@@ -117,7 +117,7 @@ There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) 
 {{% expand "Limit the number of series returned" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" GROUP BY * SLIMIT 1
+SELECT "water_level" FROM "h2o_feet" GROUP BY * SLIMIT 1
 ```
 Output:  
 {{% influxql/table-meta %}} 
@@ -142,7 +142,7 @@ The results above include only the first few rows, as the data set is quite larg
 {{% expand "Limit the number of series returned and include a GROUP BY time() clause" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) SLIMIT 1
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) SLIMIT 1
 ```
 
 Output:  
@@ -197,7 +197,7 @@ Note that the `LIMIT` and `SLIMIT` clauses must appear in the order outlined in 
 {{% expand "Limit the number of points and series returned" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" GROUP BY * LIMIT 3 SLIMIT 1
+SELECT "water_level" FROM "h2o_feet" GROUP BY * LIMIT 3 SLIMIT 1
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -218,7 +218,7 @@ The query returns the three oldest points, determined by timestamp, from one of 
 {{% expand "Limit the number of points and series returned and include a GROUP BY time() clause" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2 SLIMIT 1
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2 SLIMIT 1
 ```
 Output:
 {{% influxql/table-meta %}}

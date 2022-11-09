@@ -10,11 +10,7 @@ menu:
 weight: 201
 ---
 
-<<<<<<< HEAD
-To begin exploring data with InfluxQL, do the following:
-=======
 To start exploring data with InfluxQL, do the following:
->>>>>>> 15d96dbfff23b1b0ced06ad5fe57ef65a8bf7083
 
 1. Verify your bucket has a database and retention policy (DBRP) mapping by [listing DBRP mappings for your bucket](/influxdb/v2.4/query-data/influxql/dbrp/#list-dbrp-mappings). If not, [create a new DBRP mapping](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings).
 

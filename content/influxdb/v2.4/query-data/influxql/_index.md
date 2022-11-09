@@ -77,10 +77,10 @@ The [`influx` CLI](/influxdb/v2.4/reference/cli/influx/) provides an [InfluxQL s
 3. Execute an InfluxQL query inside the InfluxQL shell.
 
    ```sql
-   > SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
+   SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
    ```
 
-   For more information, see how to [use the InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/).
+   For more information, see how to [use the InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/v2.4/query-data/influxql/dbrp/).
 
 <!----------------------------- END InfluxQL shell ---------------------------->
 {{% /tab-content %}}
@@ -111,6 +111,8 @@ all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-versi
    By default, the `/query` compatibility endpoint returns results in **JSON**.
 
 2. (Optional) To return results as **CSV**, include the `Accept: application/csv` header.
+
+For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/v2.4/query-data/influxql/dbrp/).
 <!------------------------------ END InfluxDB API ----------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

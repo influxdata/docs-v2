@@ -57,7 +57,7 @@ Regular expressions are surrounded by `/` characters and use
 {{% expand "Use a regular expression to specify field keys and tag keys in the SELECT clause" %}}
 
 ```sql
-> SELECT /l/ FROM "h2o_feet" LIMIT 1
+SELECT /l/ FROM "h2o_feet" LIMIT 1
 ```
 
 Output:
@@ -83,7 +83,7 @@ The syntax `/<regular_expression>/::[field | tag]` is not supported.
 {{% expand "Use a regular expression to specify measurements in the FROM clause" %}}
 
 ```sql
-> SELECT MEAN("degrees") FROM /temperature/
+SELECT MEAN("degrees") FROM /temperature/
 ```
 
 Output:
@@ -111,7 +111,7 @@ This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxq
 {{% expand "Use a regular expression to specify tag values in the WHERE clause" %}}
 
 ```sql
-> SELECT MEAN(water_level) FROM "h2o_feet" WHERE "location" =~ /[m]/ AND "water_level" > 3
+SELECT MEAN(water_level) FROM "h2o_feet" WHERE "location" =~ /[m]/ AND "water_level" > 3
 ```
 
 Output:
@@ -132,7 +132,7 @@ includes an `m` and `water_level` is greater than three.
 {{% expand "Use a regular expression to specify a tag with no value in the WHERE clause" %}}
 
 ```sql
-> SELECT * FROM "h2o_feet" WHERE "location" !~ /./
+SELECT * FROM "h2o_feet" WHERE "location" !~ /./
 >
 ```
 
@@ -148,7 +148,7 @@ document for more information.
 {{% expand "Use a regular expression to specify a tag with a value in the WHERE clause" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" =~ /./
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" =~ /./
 ```
 
 Output:
@@ -167,7 +167,7 @@ This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxq
 {{% expand "Use a regular expression to specify a field value in the WHERE clause" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND "level description" =~ /between/
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND "level description" =~ /between/
 ```
 
 Output:
@@ -188,7 +188,7 @@ to calculate the average `water_level` for all data where the field value of `le
 {{% expand "Use a regular expression to specify tag keys in the GROUP BY clause" %}}
 
 ```sql
-> SELECT FIRST("index") FROM "h2o_quality" GROUP BY /l/
+SELECT FIRST("index") FROM "h2o_quality" GROUP BY /l/
 ```
 
 Output: 

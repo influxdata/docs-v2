@@ -46,7 +46,7 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIM
 {{% expand "Paginate points" %}}
 
 ```sql
-> SELECT "water_level","location" FROM "h2o_feet" LIMIT 3 OFFSET 3
+SELECT "water_level","location" FROM "h2o_feet" LIMIT 3 OFFSET 3
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -67,7 +67,7 @@ and third points from that measurement.
 {{% expand "Paginate points and include several clauses" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) ORDER BY time DESC LIMIT 2 OFFSET 2 SLIMIT 1
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) ORDER BY time DESC LIMIT 2 OFFSET 2 SLIMIT 1
 ```
 Output: 
 {{% influxql/table-meta %}}
@@ -137,7 +137,7 @@ There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) 
 #### Paginate series
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" GROUP BY * SLIMIT 1 SOFFSET 1
+SELECT "water_level" FROM "h2o_feet" GROUP BY * SLIMIT 1 SOFFSET 1
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -166,7 +166,7 @@ measurement and the `location = santa_monica` tag. Without `SOFFSET 1`, the quer
 #### Paginate series and include all clauses
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) ORDER BY time DESC LIMIT 2 OFFSET 2 SLIMIT 1 SOFFSET 1
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) ORDER BY time DESC LIMIT 2 OFFSET 2 SLIMIT 1 SOFFSET 1
 ```
 Output: 
 {{% influxql/table-meta %}}

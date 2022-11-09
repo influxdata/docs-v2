@@ -51,7 +51,7 @@ Returns the smallest N field values associated with the field key in the parenth
 {{% expand "Select the bottom three field values associated with a field key" %}}
 
 ```sql
-> SELECT BOTTOM("water_level",3) FROM "h2o_feet"
+SELECT BOTTOM("water_level",3) FROM "h2o_feet"
 
 name: h2o_feet
 time                   bottom
@@ -68,7 +68,7 @@ Returns the smallest three field values in the `water_level` field key and in th
 {{% expand "Select the bottom field value associated with a field key for two tags" %}}
 
 ```sql
-> SELECT BOTTOM("water_level","location",2) FROM "h2o_feet"
+SELECT BOTTOM("water_level","location",2) FROM "h2o_feet"
 
 name: h2o_feet
 time                   bottom    location
@@ -84,7 +84,7 @@ Returns the smallest field values in the `water_level` field key for two tag val
 {{% expand "Select the bottom four field values associated with a field key and the relevant tags and fields" %}}
 
 ```sql
-> SELECT BOTTOM("water_level",4),"location","level description" FROM "h2o_feet"
+SELECT BOTTOM("water_level",4),"location","level description" FROM "h2o_feet"
 
 name: h2o_feet
 time                  bottom  location      level description
@@ -102,7 +102,7 @@ Returns the smallest four field values in the `water_level` field key and the re
 {{% expand "Select the bottom three field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT BOTTOM("water_level",3),"location" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(24m) ORDER BY time DESC
+SELECT BOTTOM("water_level",3),"location" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(24m) ORDER BY time DESC
 
 name: h2o_feet
 time                  bottom         location
@@ -148,7 +148,7 @@ Notice that the returned timestamps are the points' original timestamps; they
 are not forced to match the start of the `GROUP BY time()` intervals.
 
 ```sql
-> SELECT BOTTOM("water_level",2) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
+SELECT BOTTOM("water_level",2) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
 
 name: h2o_feet
 time                   bottom
@@ -173,7 +173,7 @@ The query below asks for the smallest field values of `water_level` for three ta
 Because the `location` tag key has two tag values (`santa_monica` and `coyote_creek`), the query returns two points instead of three.
 
 ```sql
-> SELECT BOTTOM("water_level","location",3) FROM "h2o_feet"
+SELECT BOTTOM("water_level","location",3) FROM "h2o_feet"
 
 name: h2o_feet
 time                   bottom   location
@@ -196,7 +196,7 @@ It also writes those results to the `bottom_water_levels` measurement.
 The second query [shows](/influxdb/v2.5/query-data/influxql/explore-schema/#show-tag-keys) that InfluxDB preserved the `location` tag as a tag in the `bottom_water_levels` measurement.
 
 ```sql
-> SELECT BOTTOM("water_level","location",2) INTO "bottom_water_levels" FROM "h2o_feet"
+SELECT BOTTOM("water_level","location",2) INTO "bottom_water_levels" FROM "h2o_feet"
 
 name: result
 time                 written
@@ -243,7 +243,7 @@ Returns the oldest field value (determined by timestamp) associated with the fie
 {{% expand "Select the first field value associated with a field key" %}}
 
 ```sql
-> SELECT FIRST("level description") FROM "h2o_feet"
+SELECT FIRST("level description") FROM "h2o_feet"
 
 name: h2o_feet
 time                   first
@@ -258,7 +258,7 @@ Returns the oldest field value (determined by timestamp) associated with the `le
 {{% expand "Select the first field value associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT FIRST(*) FROM "h2o_feet"
+SELECT FIRST(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   first_level description   first_water_level
@@ -274,7 +274,7 @@ The `h2o_feet` measurement has two field keys: `level description` and `water_le
 {{% expand "Select the first field value associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT FIRST(/level/) FROM "h2o_feet"
+SELECT FIRST(/level/) FROM "h2o_feet"
 
 name: h2o_feet
 time                   first_level description   first_water_level
@@ -289,7 +289,7 @@ Returns the oldest field value for each field key that includes the word `level`
 {{% expand "Select the first value associated with a field key and the relevant tags and fields" %}}
 
 ```sql
-> SELECT FIRST("level description"),"location","water_level" FROM "h2o_feet"
+SELECT FIRST("level description"),"location","water_level" FROM "h2o_feet"
 
 name: h2o_feet
 time                  first                 location      water_level
@@ -304,7 +304,7 @@ Returns the oldest field value (determined by timestamp) in the `level descripti
 {{% expand "Select the first field value associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT FIRST("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
+SELECT FIRST("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
 
 name: h2o_feet
 tags: location=coyote_creek
@@ -359,7 +359,7 @@ Returns the newest field value (determined by timestamp) associated with the fie
 {{% expand "Select the last field values associated with a field key" %}}
 
 ```sql
-> SELECT LAST("level description") FROM "h2o_feet"
+SELECT LAST("level description") FROM "h2o_feet"
 
 name: h2o_feet
 time                   last
@@ -374,7 +374,7 @@ Returns the newest field value (determined by timestamp) associated with the `le
 {{% expand "Select the last field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT LAST(*) FROM "h2o_feet"
+SELECT LAST(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   last_level description   last_water_level
@@ -390,7 +390,7 @@ The `h2o_feet` measurement has two field keys: `level description` and `water_le
 {{% expand "Select the last field value associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT LAST(/level/) FROM "h2o_feet"
+SELECT LAST(/level/) FROM "h2o_feet"
 
 name: h2o_feet
 time                   last_level description   last_water_level
@@ -405,7 +405,7 @@ Returns the newest field value for each field key that includes the word `level`
 {{% expand "Select the last field value associated with a field key and the relevant tags and fields" %}}
 
 ```sql
-> SELECT LAST("level description"),"location","water_level" FROM "h2o_feet"
+SELECT LAST("level description"),"location","water_level" FROM "h2o_feet"
 
 name: h2o_feet
 time                  last                  location      water_level
@@ -420,7 +420,7 @@ Returns the newest field value (determined by timestamp) in the `level descripti
 {{% expand "Select the last field value associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT LAST("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
+SELECT LAST("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
 
 name: h2o_feet
 tags: location=coyote_creek
@@ -475,7 +475,7 @@ Returns the greatest field value associated with the field key in the parenthese
 {{% expand "Select the maximum field value associated with a field key" %}}
 
 ```sql
-> SELECT MAX("water_level") FROM "h2o_feet"
+SELECT MAX("water_level") FROM "h2o_feet"
 
 name: h2o_feet
 time                   max
@@ -490,7 +490,7 @@ Returns the greatest field value in the `water_level` field key and in the `h2o_
 {{% expand "Select the maximum field value associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT MAX(*) FROM "h2o_feet"
+SELECT MAX(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   max_water_level
@@ -506,7 +506,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Select the maximum field value associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT MAX(/level/) FROM "h2o_feet"
+SELECT MAX(/level/) FROM "h2o_feet"
 
 name: h2o_feet
 time                   max_water_level
@@ -521,7 +521,7 @@ Returns the greatest field value for each field key that stores numerical values
 {{% expand "Select the maximum field value associated with a field key and the relevant tags and fields" %}}
 
 ```sql
-> SELECT MAX("water_level"),"location","level description" FROM "h2o_feet"
+SELECT MAX("water_level"),"location","level description" FROM "h2o_feet"
 
 name: h2o_feet
 time                  max    location      level description
@@ -536,7 +536,7 @@ Returns the greatest field value in the `water_level` field key and the relevant
 {{% expand "Select the maximum field value associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT MAX("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
+SELECT MAX("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
 
 name: h2o_feet
 tags: location=coyote_creek
@@ -591,7 +591,7 @@ Returns the lowest field value associated with the field key in the parentheses 
 {{% expand "Select the minimum field value associated with a field key" %}}
 
 ```sql
-> SELECT MIN("water_level") FROM "h2o_feet"
+SELECT MIN("water_level") FROM "h2o_feet"
 
 name: h2o_feet
 time                   min
@@ -606,7 +606,7 @@ Returns the lowest field value in the `water_level` field key and in the `h2o_fe
 {{% expand "Select the minimum field value associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT MIN(*) FROM "h2o_feet"
+SELECT MIN(*) FROM "h2o_feet"
 
 name: h2o_feet
 time                   min_water_level
@@ -622,7 +622,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Select the minimum field value associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT MIN(/level/) FROM "h2o_feet"
+SELECT MIN(/level/) FROM "h2o_feet"
 
 name: h2o_feet
 time                   min_water_level
@@ -637,7 +637,7 @@ Returns the lowest field value for each field key that stores numerical values a
 {{% expand "Select the minimum field value associated with a field key and the relevant tags and fields" %}}
 
 ```sql
-> SELECT MIN("water_level"),"location","level description" FROM "h2o_feet"
+SELECT MIN("water_level"),"location","level description" FROM "h2o_feet"
 
 name: h2o_feet
 time                  min    location      level description
@@ -652,7 +652,7 @@ Returns the lowest field value in the `water_level` field key and the relevant v
 {{% expand "Select the minimum field value associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT MIN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
+SELECT MIN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
 
 name: h2o_feet
 tags: location=coyote_creek
@@ -708,7 +708,7 @@ Returns the Nth percentile field value associated with the field key in the pare
 {{% expand "Select the fifth percentile field value associated with a field key" %}}
 
 ```sql
-> SELECT PERCENTILE("water_level",5) FROM "h2o_feet"
+SELECT PERCENTILE("water_level",5) FROM "h2o_feet"
 
 name: h2o_feet
 time                   percentile
@@ -723,7 +723,7 @@ Returns the field value that is larger than five percent of the field values in 
 {{% expand "Select the fifth percentile field value associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT PERCENTILE(*,5) FROM "h2o_feet"
+SELECT PERCENTILE(*,5) FROM "h2o_feet"
 
 name: h2o_feet
 time                   percentile_water_level
@@ -739,7 +739,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Select fifth percentile field value associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT PERCENTILE(/level/,5) FROM "h2o_feet"
+SELECT PERCENTILE(/level/,5) FROM "h2o_feet"
 
 name: h2o_feet
 time                   percentile_water_level
@@ -754,7 +754,7 @@ Returns the field value that is larger than five percent of the field values in 
 {{% expand "Select the fifth percentile field values associated with a field key and the relevant tags and fields" %}}
 
 ```sql
-> SELECT PERCENTILE("water_level",5),"location","level description" FROM "h2o_feet"
+SELECT PERCENTILE("water_level",5),"location","level description" FROM "h2o_feet"
 
 name: h2o_feet
 time                  percentile  location      level description
@@ -769,7 +769,7 @@ Returns the field value that is larger than five percent of the field values in 
 {{% expand "Select the twentieth percentile field value associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT PERCENTILE("water_level",20) FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(24m) fill(15) LIMIT 2
+SELECT PERCENTILE("water_level",20) FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(24m) fill(15) LIMIT 2
 
 name: h2o_feet
 time                   percentile
@@ -830,7 +830,7 @@ Returns N randomly selected field values associated with the field key in the pa
 {{% expand "Select a sample of the field values associated with a field key" %}}
 
 ```sql
-> SELECT SAMPLE("water_level",2) FROM "h2o_feet"
+SELECT SAMPLE("water_level",2) FROM "h2o_feet"
 
 name: h2o_feet
 time                   sample
@@ -846,7 +846,7 @@ Returns two randomly selected points from the `water_level` field key and in the
 {{% expand "Select a sample of the field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT SAMPLE(*,2) FROM "h2o_feet"
+SELECT SAMPLE(*,2) FROM "h2o_feet"
 
 name: h2o_feet
 time                   sample_level description   sample_water_level
@@ -865,7 +865,7 @@ The `h2o_feet` measurement has two field keys: `level description` and `water_le
 {{% expand "Select a sample of the field values associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT SAMPLE(/level/,2) FROM "h2o_feet"
+SELECT SAMPLE(/level/,2) FROM "h2o_feet"
 
 name: h2o_feet
 time                   sample_level description   sample_water_level
@@ -883,7 +883,7 @@ Returns two randomly selected points for each field key that includes the word `
 {{% expand "Select a sample of the field values associated with a field key and the relevant tags and fields" %}}
 
 ```sql
-> SELECT SAMPLE("water_level",2),"location","level description" FROM "h2o_feet"
+SELECT SAMPLE("water_level",2),"location","level description" FROM "h2o_feet"
 
 name: h2o_feet
 time                  sample  location      level description
@@ -899,7 +899,7 @@ Returns two randomly selected points from the `water_level` field key and the re
 {{% expand "Select a sample of the field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT SAMPLE("water_level",1) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
+SELECT SAMPLE("water_level",1) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
 
 name: h2o_feet
 time                   sample
@@ -938,7 +938,7 @@ Notice that the returned timestamps are the points' original timestamps; they
 are not forced to match the start of the `GROUP BY time()` intervals.
 
 ```sql
-> SELECT SAMPLE("water_level",2) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
+SELECT SAMPLE("water_level",2) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
 
 name: h2o_feet
 time                   sample
@@ -985,7 +985,7 @@ Returns the greatest N field values associated with the field key in the parenth
 {{% expand "Select the top three field values associated with a field key" %}}
 
 ```sql
-> SELECT TOP("water_level",3) FROM "h2o_feet"
+SELECT TOP("water_level",3) FROM "h2o_feet"
 
 name: h2o_feet
 time                   top
@@ -1002,7 +1002,7 @@ Returns the greatest three field values in the `water_level` field key and in th
 {{% expand "Select the top field value associated with a field key for two tags" %}}
 
 ```sql
-> SELECT TOP("water_level","location",2) FROM "h2o_feet"
+SELECT TOP("water_level","location",2) FROM "h2o_feet"
 
 name: h2o_feet
 time                   top     location
@@ -1018,7 +1018,7 @@ Returns the greatest field values in the `water_level` field key for two tag val
 {{% expand "Select the top four field values associated with a field key and the relevant tags and fields" %}}
 
 ```sql
-> SELECT TOP("water_level",4),"location","level description" FROM "h2o_feet"
+SELECT TOP("water_level",4),"location","level description" FROM "h2o_feet"
 
 name: h2o_feet
 time                  top    location      level description
@@ -1036,7 +1036,7 @@ Returns the greatest four field values in the `water_level` field key and the re
 {{% expand "Select the top three field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT TOP("water_level",3),"location" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(24m) ORDER BY time DESC
+SELECT TOP("water_level",3),"location" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(24m) ORDER BY time DESC
 
 name: h2o_feet
 time                    top     location
@@ -1084,7 +1084,7 @@ Notice that the returned timestamps are the points' original timestamps; they
 are not forced to match the start of the `GROUP BY time()` intervals.
 
 ```sql
-> SELECT TOP("water_level",2) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
+SELECT TOP("water_level",2) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
 
 name: h2o_feet
 time                   top
@@ -1110,7 +1110,7 @@ The query below asks for the greatest field values of `water_level` for three ta
 Because the `location` tag key has two tag values (`santa_monica` and `coyote_creek`), the query returns two points instead of three.
 
 ```sql
-> SELECT TOP("water_level","location",3) FROM "h2o_feet"
+SELECT TOP("water_level","location",3) FROM "h2o_feet"
 
 name: h2o_feet
 time                  top    location
@@ -1134,7 +1134,7 @@ It also writes those results to the `top_water_levels` measurement.
 The second query [shows](/influxdb/v2.5/query-data/influxql/explore-schema/#show-tag-keys) that InfluxDB preserved the `location` tag as a tag in the `top_water_levels` measurement.
 
 ```sql
-> SELECT TOP("water_level","location",2) INTO "top_water_levels" FROM "h2o_feet"
+SELECT TOP("water_level","location",2) INTO "top_water_levels" FROM "h2o_feet"
 
 name: result
 time                 written

@@ -43,7 +43,7 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER BY time DESC
 {{% expand "Return the newest points first" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' ORDER BY time DESC
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' ORDER BY time DESC
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -79,7 +79,7 @@ Name: h2o_feet
 {{% expand "Return the newest points first and include a GROUP BY time() clause" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY time(12m) ORDER BY time DESC
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY time(12m) ORDER BY time DESC
 ```
 Output:
 {{% influxql/table-meta %}}

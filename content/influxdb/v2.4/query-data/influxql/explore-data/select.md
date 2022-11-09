@@ -106,7 +106,7 @@ precision rfc3339
 {{% expand "Select all fields and tags from a single measurement" %}}
 
 ```sql
-> SELECT * FROM "h2o_feet"
+SELECT * FROM "h2o_feet"
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -140,7 +140,7 @@ queries the database's `DEFAULT` retention policy.
 {{% expand "Select specific tags and fields from a single measurement" %}}
 
 ```sql
-> SELECT "level description","location","water_level" FROM "h2o_feet"
+SELECT "level description","location","water_level" FROM "h2o_feet"
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -165,7 +165,7 @@ a tag.
 {{% expand "Select specific tags and fields from a single measurement, and provide their identifier type" %}}
 
 ```sql
-> SELECT "level description"::field,"location"::tag,"water_level"::field FROM "h2o_feet"
+SELECT "level description"::field,"location"::tag,"water_level"::field FROM "h2o_feet"
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -193,7 +193,7 @@ That syntax is not required for most use cases.
 {{% expand "Select all fields from a single measurement" %}}
 
 ```sql
-> SELECT *::field FROM "h2o_feet"
+SELECT *::field FROM "h2o_feet"
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -217,7 +217,7 @@ The `SELECT` clause supports combining the `*` syntax with the `::` syntax.
 {{% expand "Select a specific field from a measurement and perform basic arithmetic" %}}
 
 ```sql
-> SELECT ("water_level" * 2) + 4 FROM "h2o_feet"
+SELECT ("water_level" * 2) + 4 FROM "h2o_feet"
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -247,7 +247,7 @@ for more on supported operators.
 {{% expand "Select all data from more than one measurement" %}}
 
 ```sql
-> SELECT * FROM "h2o_feet","h2o_pH"
+SELECT * FROM "h2o_feet","h2o_pH"
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -286,7 +286,7 @@ Separate multiple measurements with a comma (`,`).
 {{% expand "Select all data from a measurement in a particular database" %}}
 
 ```sql
-> SELECT * FROM noaa.."h2o_feet"
+SELECT * FROM noaa.."h2o_feet"
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -325,14 +325,14 @@ The following query returns no data because it specifies a single tag key (`loca
 the `SELECT` clause:
 
 ```sql
-> SELECT "location" FROM "h2o_feet"
+SELECT "location" FROM "h2o_feet"
 > No results
 ```
 To return any data associated with the `location` tag key, the query's `SELECT`
 clause must include at least one field key (`water_level`):
 
 ```sql
-> SELECT "water_level","location" FROM "h2o_feet"
+SELECT "water_level","location" FROM "h2o_feet"
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -392,7 +392,7 @@ Regular expressions are surrounded by `/` characters and use
 #### Use a regular expression to specify field keys and tag keys in the SELECT statement
 
 ```sql
-> SELECT /l/ FROM "h2o_feet" LIMIT 1
+SELECT /l/ FROM "h2o_feet" LIMIT 1
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -418,7 +418,7 @@ The syntax `/<regular_expression>/::[field | tag]` is not supported.
 {{% expand "Use a regular expression to specify measurements in the FROM clause" %}}
 
 ```sql
-> SELECT MEAN("degrees") FROM /temperature/
+SELECT MEAN("degrees") FROM /temperature/
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -471,7 +471,7 @@ document for more information on how InfluxDB handles field value type discrepan
 ### Syntax
 
 ```sql
-> SELECT_clause <field_key>::<type> FROM_clause
+SELECT_clause <field_key>::<type> FROM_clause
 ```
 
 `type` can be `float`, `integer`, `string`, or `boolean`.
@@ -481,7 +481,7 @@ In most cases, InfluxDB returns no data if the `field_key` does not store data o
 ### Example
 
 ```sql
-> SELECT "water_level"::float FROM "h2o_feet" LIMIT 4
+SELECT "water_level"::float FROM "h2o_feet" LIMIT 4
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -520,7 +520,7 @@ InfluxDB returns no data if the query attempts to cast an integer or float to a 
 {{% expand "Cast float field values to integers" %}}
 
 ```sql
-> SELECT "water_level"::integer FROM "h2o_feet" LIMIT 4
+SELECT "water_level"::integer FROM "h2o_feet" LIMIT 4
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -541,7 +541,7 @@ The query returns the integer form of `water_level`'s float [field values](/infl
 {{% expand "Cast float field values to strings (this functionality is not supported)" %}}
 
 ```sql
-> SELECT "water_level"::string FROM "h2o_feet" LIMIT 4
+SELECT "water_level"::string FROM "h2o_feet" LIMIT 4
 > No results
 ```
 
@@ -567,7 +567,7 @@ The first series is made up of the `h2o_feet` measurement and the `location = co
 The following query automatically merges those two series when it calculates the average `water_level` using the [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean):
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet"
+SELECT MEAN("water_level") FROM "h2o_feet"
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -581,7 +581,7 @@ Name: h2o_feet
 If you want the average `water_level` for the first series only, specify the relevant tag in the [`WHERE` clause](#/influxdb/v2.4/query-data/influxql/explore-data/where/):
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek'
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek'
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -595,7 +595,7 @@ Name: h2o_feet
 If you want the average `water_level` for each individual series, include a [`GROUP BY` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/):
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
+SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
 ```
 Output: 
 {{% influxql/table-meta %}}
@@ -637,7 +637,7 @@ Separate multiple `SELECT` statements in a query with a semicolon (`;`).
 In the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/):
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet"; SELECT "water_level" FROM "h2o_feet" LIMIT 2
+SELECT MEAN("water_level") FROM "h2o_feet"; SELECT "water_level" FROM "h2o_feet" LIMIT 2
 ``` 
 Output:
 {{% influxql/table-meta %}}

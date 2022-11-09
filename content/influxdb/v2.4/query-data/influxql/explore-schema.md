@@ -574,7 +574,7 @@ The example below shows how to filter `SHOW TAG KEYS` by approximately one hour 
     test_key_5
 
     // For a specified measurement, find tag keys in a given shard by specifying the time boundaries of the shard
-    > SELECT * FROM test WHERE time >= '2019-08-09T00:00:00Z' and time < '2019-08-09T10:00:00Z'
+    SELECT * FROM test WHERE time >= '2019-08-09T00:00:00Z' and time < '2019-08-09T10:00:00Z'
     name: test
     time test_key_4 test_key_5 value
     ---- ------------ ------------ -----

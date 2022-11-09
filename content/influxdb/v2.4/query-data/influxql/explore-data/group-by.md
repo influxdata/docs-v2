@@ -271,7 +271,7 @@ and the timestamps returned by the query.
 The examples below use the following subsample of the sample data:
 
 ```sql
-> SELECT "water_level","location" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT "water_level","location" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -298,7 +298,7 @@ Name: h2o_feet
 {{% expand "Group query results into 12 minute intervals" %}}
 
 ```sql
-> SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
+SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -326,7 +326,7 @@ and up to, but not including, `2019-08-18T00:24:00Z.`
 {{% expand "Group query results into 12 minute intervals and by a tag key" %}}
 
 ```sql
-> SELECT COUNT("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location"
+SELECT COUNT("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location"
 ```
 Output: 
 {{% influxql/table-meta %}}
@@ -384,7 +384,7 @@ In some cases, this can lead to unexpected results.
 Raw data:
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:18:00Z'
+SELECT "water_level" FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:18:00Z'
 ```
 
 Output: 
@@ -405,7 +405,7 @@ Query and results:
 The following query covers a 12-minute time range and groups results into 12-minute time intervals, but it returns **two** results:
 
 ```sql
-> SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m)
+SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m)
 ```
 
 Output: 
@@ -506,7 +506,7 @@ and the timestamps returned by the query.
 The examples below use the following subsample of the sample data:
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:54:00Z'
+SELECT "water_level" FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:54:00Z'
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -531,7 +531,7 @@ Name: h2o_feet
 {{% expand "Group query results into 18 minute intervals and shift the preset time boundaries forward" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m,6m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m,6m)
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -550,7 +550,7 @@ to calculate the average `water_level`, grouping results into 18 minute time int
 The time boundaries and returned timestamps for the query **without** the `offset_interval` adhere to the InfluxDB database's preset time boundaries. Let's first examine the results without the offset:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m)
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -611,7 +611,7 @@ the query's time range so the query returns no results for that last interval.
 {{% expand "Group query results into 12 minute intervals and shift the preset time boundaries back" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m,-12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m,-12m)
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -639,7 +639,7 @@ intuitive option when deciding between a positive and negative `offset_interval`
 The time boundaries and returned timestamps for the query **without** the `offset_interval` adhere to InfluxDB database's preset time boundaries. Let's first examine the results without the offset:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(18m)
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -707,7 +707,7 @@ the query's time range so the query returns no results for that first interval.
 This example is a continuation of the scenario outlined in [Common Issues with Basic Syntax](#common-issues-with-basic-syntax).
 
 ```sql
-> SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m,6m)
+SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m,6m)
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -724,7 +724,7 @@ time intervals, and offsetting the preset time boundaries by six minutes.
 The time boundaries and returned timestamps for the query **without** the `offset_interval` adhere to InfluxDB database's preset time boundaries. Let's first examine the results without the offset:
 
 ```sql
-> SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m)
+SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m)
 ```
 
 Output:
@@ -816,7 +816,7 @@ Note that `fill()` must go at the end of the `GROUP BY` clause if you're
 Without `fill(100)`:
 
 ```sql
-> SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) 
+SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) 
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -839,7 +839,7 @@ Name: h2o_quality
 
 With `fill(100)`:
 ```sql
-> SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(100)
+SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(100)
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -869,7 +869,7 @@ Name: h2o_quality
 Without `fill(linear)`:
 
 ```sql
-> SELECT MEAN("tadpoles") FROM "pond" WHERE time >= '2019-11-11T21:00:00Z' AND time <= '2019-11-11T22:06:00Z' GROUP BY time(12m)
+SELECT MEAN("tadpoles") FROM "pond" WHERE time >= '2019-11-11T21:00:00Z' AND time <= '2019-11-11T22:06:00Z' GROUP BY time(12m)
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -888,7 +888,7 @@ Name: pond
 With `fill(linear)`:
 
 ```sql
-> SELECT MEAN("tadpoles") FROM "pond" WHERE time >= '2019-11-11T21:00:00Z' AND time <= '2019-11-11T22:06:00Z' GROUP BY time(12m) fill(linear)
+SELECT MEAN("tadpoles") FROM "pond" WHERE time >= '2019-11-11T21:00:00Z' AND time <= '2019-11-11T22:06:00Z' GROUP BY time(12m) fill(linear)
 ```
 
 Output:
@@ -920,7 +920,7 @@ We had to create a dataset with less regular data to work with `fill(linear)`.
 Without `fill(none)`:
 
 ```sql
-> SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m)
+SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m)
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -944,7 +944,7 @@ Name: h2o_quality
 With `fill(none)`:
 
 ```sql
-> SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(none)
+SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(none)
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -973,7 +973,7 @@ Name: h2o_quality
 Without `fill(null)`:
 
 ```sql
-> SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m)
+SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m)
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -997,7 +997,7 @@ Name: h2o_quality
 With `fill(null)`:
 
 ```sql
-> SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(null)
+SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(null)
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -1028,7 +1028,7 @@ That result matches the result of the query without `fill(null)`.
 Without `fill(previous)`:
 
 ```sql
- > SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) 
+ SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) 
  ```
 Output:
 {{% influxql/table-meta %}}
@@ -1094,7 +1094,7 @@ the query's time range.
 Note that `fill(800)` has no effect on the query results.
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek' AND time >= '2019-09-18T22:00:00Z' AND time <= '2019-09-18T22:18:00Z' GROUP BY time(12m) fill(800)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek' AND time >= '2019-09-18T22:00:00Z' AND time <= '2019-09-18T22:18:00Z' GROUP BY time(12m) fill(800)
 > no results
 ```
 
@@ -1110,7 +1110,7 @@ Note that `fill(previous)` fills the result for `2019-09-18T16:36:00Z` with the
 result from `2019-09-18T16:24:00Z`.
 
 ```sql
-> SELECT MAX("water_level") FROM "h2o_feet" WHERE location = 'coyote_creek' AND time >= '2019-09-18T16:24:00Z' AND time <= '2019-09-18T16:54:00Z' GROUP BY time(12m) fill(previous)
+SELECT MAX("water_level") FROM "h2o_feet" WHERE location = 'coyote_creek' AND time >= '2019-09-18T16:24:00Z' AND time <= '2019-09-18T16:54:00Z' GROUP BY time(12m) fill(previous)
 ```
 
 Output:
@@ -1132,7 +1132,7 @@ result from `2019-09-18T16:24:00Z`; the result for `2019-09-18T16:24:00Z` is out
 shorter time range.
 
 ```sql
-> SELECT MAX("water_level") FROM "h2o_feet" WHERE location = 'coyote_creek' AND time >= '2019-09-18T16:36:00Z' AND time <= '2019-09-18T16:54:00Z' GROUP BY time(12m) fill(previous)
+SELECT MAX("water_level") FROM "h2o_feet" WHERE location = 'coyote_creek' AND time >= '2019-09-18T16:36:00Z' AND time <= '2019-09-18T16:54:00Z' GROUP BY time(12m) fill(previous)
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -1158,7 +1158,7 @@ using the values from the `2019-11-11T21:24:00Z` time interval and the
 `2019-11-11T22:00:00Z` time interval.
 
 ```sql
-> SELECT MEAN("tadpoles") FROM "pond" WHERE time > '2019-11-11T21:24:00Z' AND time <= '2019-11-11T22:06:00Z' GROUP BY time(12m) fill(linear)
+SELECT MEAN("tadpoles") FROM "pond" WHERE time > '2019-11-11T21:24:00Z' AND time <= '2019-11-11T22:06:00Z' GROUP BY time(12m) fill(linear)
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -1180,7 +1180,7 @@ time interval and the `2019-11-11T21:48:00Z` time interval; the result for
 cannot perform the linear interpolation.
 
 ```sql
-> SELECT MEAN("tadpoles") FROM "pond" WHERE time >= '2019-11-11T21:36:00Z' AND time <= '2019-11-11T22:06:00Z' GROUP BY time(12m) fill(linear)
+SELECT MEAN("tadpoles") FROM "pond" WHERE time >= '2019-11-11T21:36:00Z' AND time <= '2019-11-11T22:06:00Z' GROUP BY time(12m) fill(linear)
 ```
 Output:
 {{% influxql/table-meta %}}
