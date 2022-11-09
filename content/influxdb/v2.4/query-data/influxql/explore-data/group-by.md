@@ -359,7 +359,7 @@ Note that the time interval and the tag key are separated by a comma in the
 The query returns two [series](/influxdb/v2.4/reference/glossary/#series) of results: one for each
 [tag value](/influxdb/v2.4/reference/glossary/#tag-value) of the `location` tag.
 The result for each timestamp represents a single 12 minute interval.
-The count for the first timestamp covers the raw data between `2019-08-18T00:00:00Z`
+Each output row represents a single 12 minute interval.
 and up to, but not including, `2019-08-18T00:12:00Z`.
 The count for the second timestamp covers the raw data between `2019-08-18T00:12:00Z`
 and up to, but not including, `2019-08-18T00:24:00Z.`
