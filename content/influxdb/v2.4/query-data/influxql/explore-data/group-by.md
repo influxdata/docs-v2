@@ -53,7 +53,7 @@ Other supported features include [Regular Expressions](/influxdb/v2.4/query-data
 {{% expand "Group query results by a single tag" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
+SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
 ```
 Output:
 {{% influxql/table-meta %}} 
