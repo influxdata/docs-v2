@@ -38,7 +38,7 @@ throughout this documentation.
 ### Data organization
 
 The InfluxDB data model organizes time series data into buckets and measurements.
-A bucket can contain multiple measurements and measurements contain multiple
+A bucket can contain multiple measurements. Measurements contain multiple
 tags and fields.
 
 - **Bucket**: Named location where time series data is stored.
@@ -46,11 +46,10 @@ tags and fields.
   - **Measurement**: Logical grouping for time series data.
     All _points_ in a given measurement should have the same _tags_.
     A measurement contains multiple _tags_ and _fields_.
-      - **Tags**: Key value pairs with values that differ, but do not change often.
-        Tags are meant for storing metadata for each point. For example:
+      - **Tags**: Key-value pairs with values that differ, but do not change often.
+        Tags are meant for storing metadata for each point--for example,
         something to identify the source of the data like host, location, station, etc.
-      - **Fields**: Key value pairs with values that change over time.
-        For example: temperature, pressure, stock price, etc.
+      - **Fields**: Key-value pairs with values that change over time--for example: temperature, pressure, stock price, etc.
       - **Timestamp**: Timestamp associated with the data.
         When stored on disk and queried, all data is ordered by time.
 
@@ -109,9 +108,8 @@ be used to perform all the actions outlined in this tutorial.
 
 ## Authorization
 
-**InfluxDB {{< current-version >}} requires authentication** using a API tokens.
-Each API token is associated with a specific set of permissions within the
-scope of an InfluxDB organization.
+**InfluxDB {{< current-version >}} requires authentication** using API tokens.
+Each API token is associated with a user and a specific set of permissions for InfluxDB resources.
 
 {{< page-nav next="/influxdb/v2.4/get-started/setup/" >}}
 

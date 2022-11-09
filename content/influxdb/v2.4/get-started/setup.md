@@ -13,7 +13,7 @@ weight: 101
 metadata: [1 / 5]
 ---
 
-As your get started with this tutorial, do the following to make sure everything
+As you get started with this tutorial, do the following to make sure everything
 you need is in place.
 
 1.  If you haven't already, [download and install InfluxDB](/influxdb/v2.4/install/).
@@ -119,7 +119,7 @@ Include the following with your request:
   - **description**: API token description
   - **orgID**: [InfluxDB organization ID](/influxdb/v2.4/organizations/view-orgs/#view-your-organization-id)
   - **permissions**: Array of objects where each object represents permissions
-    for an InfluxDB resource. Each permission contains the following properties:
+    for an InfluxDB resource type or a specific resource. Each permission contains the following properties:
       - **action**: "read" or "write"
       - **resource**: JSON object that represents the InfluxDB resource to grant
         permission to. Each resource contains at least the following properties:
@@ -193,7 +193,7 @@ curl --request POST \
 ```
 {{% /truncate %}}
 
-The request returns a JSON object with the following properties:
+The response body contains a JSON object with the following properties:
 
 - **id**: API Token ID
 - **token**: API Token ({{< req "Important" >}})
@@ -202,8 +202,8 @@ The request returns a JSON object with the following properties:
 - **orgID**: InfluxDB organization ID the token is associated with
 - **org**: InfluxDB organization name the token is associated with
 - **userID**: User ID the token is associated with
-- **user**: User ID the token is associated with
-- **permissions**: List of permissions and resources
+- **user**: Username the token is associated with
+- **permissions**: List of permissions for organization resources
 
 **Copy the generated `token` and store it for safe keeping.**
 
@@ -212,7 +212,7 @@ The request returns a JSON object with the following properties:
     {{< /tabs-wrapper >}}
 
     {{% note %}}
-We recommending using a password manager or a secret store to securely store
+We recommend using a password manager or a secret store to securely store
 sensitive tokens.
     {{% /note %}}
 
@@ -221,7 +221,7 @@ sensitive tokens.
     In the InfluxDB initialization process, you created a bucket.
     You can use that bucket or create a new one specifically for this getting
     started tutorial. All examples in this tutorial assume a bucket named
-    **get-started**.
+    _get-started_.
 
     Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to create a
     new bucket.
@@ -271,7 +271,7 @@ sensitive tokens.
 {{% tab-content %}}
 <!----------------------------- BEGIN API CONTENT ----------------------------->
 
-To create a new bucket using the InfluxDB HTTP API, send a request to
+To create a bucket using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/buckets` endpoint using the `POST` request method.
 
 {{< api-endpoint endpoint="http://localhost:8086/api/v2/buckets" method="post" >}}
@@ -279,14 +279,14 @@ the InfluxDB API `/api/v2/buckets` endpoint using the `POST` request method.
 Include the following with your request:
 
 - **Headers**:
-  - **Authorization**: Token <INFLUX_TOKEN>
-  - **Content-Type**: application/json
+  - **Authorization**: Token `INFLUX_TOKEN`
+  - **Content-Type**: `application/json`
 - **Request body**: JSON object with the following properties:
   - **org**: InfluxDB organization name
   - **name**: Bucket name
   - **retentionRules**: List of retention rule objects that define the bucket's retention period.
     Each retention rule object has the following properties:
-    - **type**: "expire"
+    - **type**: `"expire"`
     - **everySeconds**: Retention period duration in seconds.
       `0` indicates the retention period is infinite. 
 
