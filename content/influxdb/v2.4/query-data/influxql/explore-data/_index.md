@@ -55,9 +55,6 @@ The measurement also has two [fields](/influxdb/v2.4/reference/glossary/#field):
 `level description` stores string [field values](/influxdb/v2.4/reference/glossary/#field-value)
 and `water_level` stores float field values.
 
-{{% note %}}
-**Disclaimer:** The `level description` field isn't part of the original NOAA data - we snuck it in there for the sake of having a field key with a special character and string field values.
-{{% /note %}}
 
 ### Configure timestamps in the InfluxQL shell
 
