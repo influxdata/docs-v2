@@ -230,7 +230,8 @@ This is because the `h2o_quality` measurement only has two tag keys.
 
 ## GROUP BY time intervals
 
-`GROUP BY time()` queries group query results by a user-specified time interval.
+`GROUP BY time()` group query results by a user-specified time interval.
+When using aggregate or selector functions in the `SELECT` clause, the operation is applied to each interval.
 
 ### Basic GROUP BY time() syntax
 
