@@ -782,7 +782,7 @@ the query's time range so the query returns no results for that second interval.
 #### Syntax
 
 ```sql
-SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(time_interval,[<offset_interval])[,tag_key] [fill(<fill_option>)]
+SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(time_interval,[<offset_interval>])[,tag_key] [fill(<fill_option>)]
 ```
 
 By default, a `GROUP BY time()` interval with no data reports `null` as its
