@@ -20,7 +20,7 @@ To start exploring data with InfluxQL, do the following:
 
 2. [Configure timestamps in the InfluxQL shell](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/).
 
-3. (Optional) If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
+3. _(Optional)_ If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
 
 4. Use the InfluxQL `SELECT` statement in conjunction with other key clauses and useful query syntax for exploring your data.
 
