@@ -262,7 +262,7 @@ for more information.
 
 **Coverage:**
 
-Basic `GROUP BY time()` queries rely on the `time_interval` and on the InfluxDB database's
+Basic `GROUP BY time()` queries rely on the `time_interval` and InfluxDB's
 preset time boundaries to determine the raw data included in each time interval
 and the timestamps returned by the query.
 
