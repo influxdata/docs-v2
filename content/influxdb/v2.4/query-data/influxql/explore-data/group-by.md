@@ -1079,7 +1079,7 @@ the value from the previous time interval.
 
 ##### Queries with no data in the queried time range
 
-Currently, queries ignore `fill()` if no data fall within the query's time range.
+Currently, queries ignore `fill()` if no data exists in the queried time range.
 This is the expected behavior. An open
 [feature request](https://github.com/influxdata/influxdb/issues/6967) on GitHub
 proposes that `fill()` should force a return of values even if the query's time
