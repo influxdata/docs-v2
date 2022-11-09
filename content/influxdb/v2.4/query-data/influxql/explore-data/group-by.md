@@ -352,8 +352,7 @@ tags: location=santa_monica
 | 2019-08-18T00:24:00Z | 2.0000000000|
 
 The query uses the InfluxQL [COUNT() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#count)
-to count the number of `water_level` points.
-It groups results by the `location` tag and into 12 minute intervals.
+to count the number of `water_level` points per location, per 12 minute interval.
 Note that the time interval and the tag key are separated by a comma in the
 `GROUP BY` clause.
 
