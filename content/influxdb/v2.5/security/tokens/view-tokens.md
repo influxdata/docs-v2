@@ -18,7 +18,7 @@ the `influx` command line interface (CLI), or the InfluxDB API.
 
 {{% oss-only %}}Tokens are visible to the user who created the token. Users who own a token with Operator permissions also have access to all tokens. Tokens stop working when the user who created the token is deleted.
 
-In the InfluxDB UI, tokens are only visible immediately after the token is created.
+In the InfluxDB UI, full tokens are only visible immediately after the token is created.
 
 **We recommend creating a generic user to create and manage tokens for writing data.**
 {{% /oss-only %}}
@@ -34,6 +34,28 @@ We recommend the following for managing your tokens:
 - Store your tokens in a secure password vault for future access.
 {{% /cloud-only %}}
 {{% /note %}}
+
+## View tokens in the InfluxDB UI
+
+{{% oss-only %}}
+
+1. In the navigation menu on the left, select **Data (Load Data)** > **API Tokens**.
+
+{{< nav-icon "load-data" >}}
+
+2. Click a token name in the list to view the token status and a summary of access permissions.
+
+{{% /oss-only %}}
+
+{{% cloud-only %}}
+
+1. In the navigation menu on the left, select **Load Data** > **API Tokens**.
+
+{{< nav-icon "load-data" >}}
+
+2. Click a token description in the list to view the token status and a list of access permissions.
+
+{{% /cloud-only %}}
 
 ## View tokens using the influx CLI
 
