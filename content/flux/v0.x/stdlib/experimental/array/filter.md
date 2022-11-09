@@ -23,7 +23,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L146-L146
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L149-L149
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -35,7 +35,8 @@ a new array with only elements that match the predicate.
 
 {{% warn %}}
 #### Deprecated
-`filter()` is deprecated in favor of [`filter()`](/flux/v0.x/stdlib/array/filter).
+Experimental `array.filter()` is deprecated in favor of
+[`array.filter()`](/flux/v0.x/stdlib/array/filter).
 {{% /warn %}}
 
 ##### Function type signature

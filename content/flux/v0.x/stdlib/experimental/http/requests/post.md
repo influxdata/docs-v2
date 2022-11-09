@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L195-L212
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L196-L213
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -31,7 +31,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 {{% warn %}}
 #### Deprecated
-`post` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/post/).
+Experimental `requests.post` is deprecated in favor of [`requests.post`](/flux/v0.x/stdlib/http/requests/post/).
 {{% /warn %}}
 
 ##### Function type signature
