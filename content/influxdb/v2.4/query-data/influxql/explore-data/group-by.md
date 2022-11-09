@@ -298,7 +298,7 @@ Name: h2o_feet
 {{% expand "Group query results into 12 minute intervals" %}}
 
 ```sql
-> SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
+SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 ```
 Output:
 {{% influxql/table-meta %}} 
