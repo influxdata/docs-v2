@@ -362,7 +362,12 @@ export HEROKU_ORGS=hill-valley-preservation-sociey,the-pinheads
     --public-url=http://<chronograf-host>:8888/
     ```
 
-#### Configure Azure Active Directory authentication
+#### Configure Azure Active Directory authentication with old Azure active directory Graph API
+
+{{% warn %}}
+Please note that this section is for the old Azure active directory Graph API, deprecated in June, 2022. 
+{{% /warn %}}
+If you use the New Microsoft graph API, see how to [configure Azure Active Directory authentication with new Microsoft Graph API](#configure-azure-active-directory-authentication-with-new-microsoft-graph-api)
 
 1. [Create an Azure Active Directory application](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#create-an-azure-active-directory-application).
    Note the following information: `<APPLICATION-ID>`, `<TENANT-ID>`, and `<APPLICATION-KEY>`.
@@ -393,6 +398,41 @@ export HEROKU_ORGS=hill-valley-preservation-sociey,the-pinheads
     ```
 
     Note: If you’ve configured TLS/SSL, modify the `PUBLIC_URL` to ensure you're using HTTPS.
+
+#### Configure Azure Active Directory authentication with new Microsoft Graph API
+
+1. [Create an Azure Active Directory application](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#create-an-azure-active-directory-application).
+   Note the following information: `<APPLICATION-ID>`, `<TENANT-ID>`, and `<APPLICATION-KEY>`.
+   You'll need these to define your Chronograf environment.
+
+2. Be sure to register a reply URL in your Azure application settings.
+   This should match the calling URL from Chronograf.
+   Otherwise, you will get an error stating no reply address is registered for the application.
+   For example, if Chronograf is configured with a `GENERIC_NAME` value of AzureAD, the reply URL would be `http://localhost:8888/oauth/AzureAD/callback`.
+
+3. Verify that your Azure AD application has API permissions configured to sign in and read the user profile (`User.Read`) for Microsoft Graph.
+
+
+4. To update the Chronograf configuration, use your Azure AD instance metadata
+to set the following environment variables in `/etc/default/chronograf`:
+
+    ```
+    GENERIC_TOKEN_URL=https://login.microsoftonline.com/<<TENANT-ID>>/oauth2/token
+    TENANT=<<TENANT-ID>>
+    GENERIC_NAME=AzureAD
+    GENERIC_API_KEY=userPrincipalName
+    GENERIC_SCOPES=openid
+    GENERIC_CLIENT_ID=<<APPLICATION-ID>>
+    GENERIC_AUTH_URL=https://login.microsoftonline.com/<<TENANT-ID>>/oauth2/authorize?resource=https://graph.microsoft.com
+    GENERIC_CLIENT_SECRET=<<APPLICATION-KEY>>
+    TOKEN_SECRET=secret
+    GENERIC_API_URL=https://graph.microsoft.com/v1.0/me
+    PUBLIC_URL=http://localhost:8888
+    ```
+
+{{% note %}}
+    **Note:** If you’ve configured TLS/SSL, modify the `PUBLIC_URL` to ensure you're using HTTPS.
+{{% /note %}}
 
 #### Configure Bitbucket authentication
 
