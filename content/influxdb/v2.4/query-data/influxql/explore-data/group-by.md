@@ -35,7 +35,7 @@ Use the `GROUP BY` clause to group query results by one or more specified [tags]
 ### Syntax
 
 ```sql
-SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
+SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key>]]
 ```
 
   - `GROUP BY *` - Groups results by all [tags](/influxdb/v2.4/reference/glossary/#tag)
