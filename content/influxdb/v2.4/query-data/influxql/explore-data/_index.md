@@ -24,15 +24,7 @@ To start exploring data with InfluxQL, do the following:
 
 4. Use the InfluxQL `SELECT` statement with other key clauses to explore your data.
 
-   - [SELECT statement](/influxdb/v2.4/query-data/influxql/explore-data/select/)
-   - [WHERE clause](/influxdb/v2.4/query-data/influxql/explore-data/where/)
-   - [GROUP BY clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
-   - [ORDER BY clause](/influxdb/v2.4/query-data/influxql/explore-data/order-by/)
-   - [LIMIT and SLIMIT clause](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/)
-   - [OFFSET and SOFFSET clause](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/)
-   - [Time and timezone queries](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/)
-   - [Subqueries](/influxdb/v2.4/query-data/influxql/explore-data/subqueries/)
-   - [Regular expressions in InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/)
+    {{< children type="anchored-list" >}}
 
 {{< children readmore=true hr=true >}}
 
