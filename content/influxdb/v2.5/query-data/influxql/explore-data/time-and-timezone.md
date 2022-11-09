@@ -390,7 +390,7 @@ time                   mean
 
 Note that the `WHERE` clause must provide an alternative **upper** bound to
 override the default `now()` upper bound. The following query merely resets
-the lower bound to `now()` such that the query's time range is between
+the lower bound to `now()` such that the queried time range is between
 `now()` and `now()`:
 
 ```sql

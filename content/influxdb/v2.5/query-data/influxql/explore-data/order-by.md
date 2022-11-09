@@ -96,7 +96,7 @@ Name: h2o_feet
 The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean)
 and a time interval in the [GROUP BY clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/)
 to calculate the average `water_level` for each 12-minute
-interval in the query's time range.
+interval in the queried time range.
 [`ORDER BY time DESC`](/influxdb/v2.5/query-data/influxql/explore-data/order-by/#order-by-time-desc) returns the most recent 12-minute time intervals
 first.
 

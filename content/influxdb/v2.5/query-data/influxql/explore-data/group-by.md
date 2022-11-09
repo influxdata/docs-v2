@@ -423,7 +423,7 @@ name: h2o_feet
 |2019-08-18T00:12:00Z  |  1.0000000000|
 
 {{% note %}}
-Note: The timestamp in the first row of data occurs before the start of the query's time range.
+Note: The timestamp in the first row of data occurs before the start of the queried time range.
 {{% /note %}}
 
 Explanation:
@@ -447,8 +447,8 @@ The first preset 12-minute time boundary begins at `00:00` and ends just before
 `00:12`.
 Only one raw point (`8.005`) falls both within the query's first `GROUP BY time()` interval and in that
 first time boundary.
-Note that while the returned timestamp occurs before the start of the query's time range,
-the query result excludes data that occur before the query's time range.
+Note that while the returned timestamp occurs before the start of the queried time range,
+the query result excludes data that occur before the queried time range.
 
 The second preset 12-minute time boundary begins at `00:12` and ends just before
 `00:24`.
@@ -580,8 +580,8 @@ The time boundaries and returned timestamps for the query **without** the
 
 The first preset 18-minute time boundary begins at `00:00` and ends just before
 `00:18`. Two raw points (`8.005` and `7.887`) fall both within the first `GROUP BY time()` interval and in that
-first time boundary. While the returned timestamp occurs before the start of the query's time range,
-the query result excludes data that occur before the query's time range.
+first time boundary. While the returned timestamp occurs before the start of the queried time range,
+the query result excludes data that occur before the queried time range.
 
 The second preset 18-minute time boundary begins at `00:18` and ends just before
 `00:36`. Three raw points (`7.762` and `7.635` and `7.5`) fall both within the second `GROUP BY time()` interval and in that
@@ -608,7 +608,7 @@ the timestamp returned matches both the start of the boundary time range and the
 start of the `GROUP BY time()` interval time range.
 
 Note that `offset_interval` forces the fourth time boundary to be outside
-the query's time range so the query returns no results for that last interval.
+the queried time range so the query returns no results for that last interval.
 
 {{% /expand %}}
 
@@ -671,8 +671,8 @@ The first preset 18-minute time boundary begins at `00:00` and ends just before
 `00:18`.
 Two raw points (`8.005` and `7.887`) fall both within the first `GROUP BY time()` interval and in that
 first time boundary.
-Note that while the returned timestamp occurs before the start of the query's time range,
-the query result excludes data that occur before the query's time range.
+Note that while the returned timestamp occurs before the start of the queried time range,
+the query result excludes data that occur before the queried time range.
 
 The second preset 18-minute time boundary begins at `00:18` and ends just before
 `00:36`.
@@ -702,7 +702,7 @@ the timestamp returned matches both the start of the boundary time range and the
 start of the `GROUP BY time()` interval time range.
 
 Note that `offset_interval` forces the first time boundary to be outside
-the query's time range so the query returns no results for that first interval.
+the queried time range so the query returns no results for that first interval.
 
 {{% /expand %}}
 
@@ -751,8 +751,8 @@ The first preset 12-minute time boundary begins at `00:00` and ends just before
 `00:12`.
 Only one raw point (`8.005`) falls both within the query's first `GROUP BY time()` interval and in that
 first time boundary.
-Note that while the returned timestamp occurs before the start of the query's time range,
-the query result excludes data that occur before the query's time range.
+Note that while the returned timestamp occurs before the start of the queried time range,
+the query result excludes data that occur before the queried time range.
 
 The second preset 12-minute time boundary begins at `00:12` and ends just before
 `00:24`.
@@ -774,7 +774,7 @@ matches both the start of the boundary time range and the start of the `GROUP BY
 time range.
 
 Note that `offset_interval` forces the second time boundary to be outside
-the query's time range so the query returns no results for that second interval.
+the queried time range so the query returns no results for that second interval.
 
 {{% /expand %}}
 
@@ -1082,18 +1082,18 @@ the value from the previous time interval.
 
 ### Common issues with `fill()`
 
-##### Queries with `fill()` when no data fall within the query's time range
+##### Queries with no data in the queried time range
 
-Currently, queries ignore `fill()` if no data fall within the query's time range.
+Currently, queries ignore `fill()` if no data exists in the queried time range.
 This is the expected behavior. An open
 [feature request](https://github.com/influxdata/influxdb/issues/6967) on GitHub
-proposes that `fill()` should force a return of values even if the query's time
+proposes that `fill()` should force a return of values even if the queried time
 range covers no data.
 
 **Example**
 
 The following query returns no data because `water_level` has no points within
-the query's time range.
+the queried time range.
 Note that `fill(800)` has no effect on the query results.
 
 ```sql
@@ -1101,7 +1101,7 @@ SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek' AND
 > no results
 ```
 
-##### Queries with `fill(previous)` when the previous result falls outside the query's time range
+##### Queries with `fill(previous)` when the previous result is outside the queried time range
 
 `fill(previous)` doesn’t fill the result for a time interval if the previous
 value is outside the query’s time range.
@@ -1147,10 +1147,10 @@ Name: h2o_feet
 | 2019-09-18T16:36:00Z  |  |
 | 2019-09-18T16:48:00Z  | 4
 
-##### `fill(linear)` when the previous or following result falls outside the query's time range
+##### `fill(linear)` when the previous or following result is outside the queried time range
 
 `fill(linear)` doesn't fill the result for a time interval with no data if the
-previous result or the following result is outside the query's time range.
+previous result or the following result is outside the queried time range.
 
 **Example**
 
