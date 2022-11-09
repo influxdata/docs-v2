@@ -14,7 +14,7 @@ aliases:
 
 Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) in a Node.js environment to query InfluxDB.  
 
-The following example sends a Flux query to an InfluxDB bucket and outputs rows as asynchronous iterable.
+The following example sends a Flux query to an InfluxDB bucket and outputs rows as a JavaScript _asynchronous iterable_ object.
 
 ## Before you begin
 
@@ -57,8 +57,9 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
    Replace *`YOUR_BUCKET`* with the name of your InfluxDB bucket.
 
 4. Use the `iterateRows()` method of the query client to query InfluxDB.
-   `iterateRows()` takes a Flux query and returns table as an asynchronous collection.
-   The client returns [table](/{{% latest "influxdb" %}}/reference/syntax/annotated-csv/#tables) metadata and rows as an as an AsyncIterable.
+   `iterateRows()` takes a Flux query and returns the [table](/{{% latest "influxdb" %}}/reference/syntax/annotated-csv/#tables) of metadata and rows as an asynchronous iterable (`AsyncIterable<Row>`).
+   The following example shows how to write an asynchronous function that uses the `iterateRows()` method to query a bucket and uses the JavaScript `for await...of` statement to iterate over the query results:
+
 
    ```js
    const myQuery = async () => {
@@ -70,7 +71,6 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
      }
    }
    myQuery()
-   ```
 
 ### Complete example
 

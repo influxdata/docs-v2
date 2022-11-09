@@ -14,7 +14,7 @@ aliases:
 
 Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) in a Node.js environment to query InfluxDB.  
 
-The following example sends a Flux query to an InfluxDB bucket and outputs rows as asynchronous iterable.
+The following example sends a Flux query to an InfluxDB bucket and outputs rows as a JavaScript _asynchronous iterable_ object.
 
 ## Before you begin
 
