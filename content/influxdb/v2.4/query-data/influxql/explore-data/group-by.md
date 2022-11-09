@@ -351,15 +351,14 @@ tags: location=santa_monica
 | 2019-08-18T00:24:00Z | 2.0000000000|
 
 The query uses the InfluxQL [COUNT() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#count)
-to count the number of `water_level` points.
-It groups results by the `location` tag and into 12 minute intervals.
+to count the number of `water_level` points per location, per 12 minute interval.
 Note that the time interval and the tag key are separated by a comma in the
 `GROUP BY` clause.
 
 The query returns two [series](/influxdb/v2.4/reference/glossary/#series) of results: one for each
 [tag value](/influxdb/v2.4/reference/glossary/#tag-value) of the `location` tag.
 The result for each timestamp represents a single 12 minute interval.
-The count for the first timestamp covers the raw data between `2019-08-18T00:00:00Z`
+Each output row represents a single 12 minute interval.
 and up to, but not including, `2019-08-18T00:12:00Z`.
 The count for the second timestamp covers the raw data between `2019-08-18T00:12:00Z`
 and up to, but not including, `2019-08-18T00:24:00Z.`
@@ -781,7 +780,7 @@ the query's time range so the query returns no results for that second interval.
 #### Syntax
 
 ```sql
-SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(time_interval,[<offset_interval])[,tag_key] [fill(<fill_option>)]
+SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(time_interval,[<offset_interval>])[,tag_key] [fill(<fill_option>)]
 ```
 
 By default, a `GROUP BY time()` interval with no data reports `null` as its
@@ -823,15 +822,15 @@ Name: h2o_quality
 | time    |  mean | 
 | :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
-| 019-08-19T08:45:00Z | 29.0000000000|
+| 2019-08-19T08:45:00Z | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
-| 2019-08-19T08:55:00Z | <nil>|
+| 2019-08-19T08:55:00Z |  |
 | 2019-08-19T09:00:00Z | 84.0000000000|
 | 2019-08-19T09:05:00Z | 0.0000000000|
 | 2019-08-19T09:10:00Z | 41.0000000000|
 | 2019-08-19T09:15:00Z | 13.0000000000|
 | 2019-08-19T09:20:00Z | 9.0000000000|
-| 2019-08-19T09:25:00Z | <nil>|
+| 2019-08-19T09:25:00Z |  |
 | 2019-08-19T09:30:00Z  |  6.0000000000|
 
 With `fill(100)`:
@@ -846,7 +845,7 @@ Name: h2o_quality
 | time    |  mean | 
 | :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
-| 019-08-19T08:45:00Z  | 29.0000000000|
+| 2019-08-19T08:45:00Z  | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
 | 2019-08-19T08:55:00Z |100.0000000000|
 | 2019-08-19T09:00:00Z | 84.0000000000|
@@ -951,7 +950,7 @@ Name: h2o_quality
 | time    |  mean | 
 | :--------------| ------------------:| 
 | 2019-08-19T08:40:00Z | 68.0000000000|
-| 019-08-19T08:45:00Z | 29.0000000000|
+| 2019-08-19T08:45:00Z | 29.0000000000|
 | 2019-08-19T08:50:00Z | 47.0000000000|
 | 2019-08-19T09:00:00Z | 84.0000000000|
 | 2019-08-19T09:05:00Z | 0.0000000000|
@@ -1048,7 +1047,7 @@ Name: h2o_quality
 With `fill(previous)`:
 
 ```sql
- SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(previous)
+SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(previous)
  ```
 Output:
 {{% influxql/table-meta %}}
@@ -1076,9 +1075,9 @@ the value from the previous time interval.
 
 ### Common issues with `fill()`
 
-##### Queries with `fill()` when no data fall within the query's time range
+##### Queries with no data in the queried time range
 
-Currently, queries ignore `fill()` if no data fall within the query's time range.
+Currently, queries ignore `fill()` if no data exists in the queried time range.
 This is the expected behavior. An open
 [feature request](https://github.com/influxdata/influxdb/issues/6967) on GitHub
 proposes that `fill()` should force a return of values even if the query's time
