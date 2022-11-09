@@ -1049,7 +1049,7 @@ Name: h2o_quality
 With `fill(previous)`:
 
 ```sql
- SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(previous)
+SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(previous)
  ```
 Output:
 {{% influxql/table-meta %}}
