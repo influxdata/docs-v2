@@ -12,7 +12,7 @@ list_code_example: |
   SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
 ---
 
-Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag) and/or a specified time interval.
+Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag) and/or a specified time interval. `GROUP BY` requires an [aggregate](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/) or [selector](/influxdb/v2.4/query-data/influxql/view-functions/selectors/) function in the `SELECT` statement.
 
 {{% note %}}
 **Note:** You cannot use `GROUP BY` to group **fields**.

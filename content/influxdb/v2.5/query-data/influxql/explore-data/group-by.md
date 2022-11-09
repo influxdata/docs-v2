@@ -18,7 +18,7 @@ list_code_example: |
   ```
 ---
 
-Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.5/reference/glossary/#tag) and/or a specified time interval.
+Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.5/reference/glossary/#tag) and/or a specified time interval. `GROUP BY` requires an [aggregate](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/) or [selector](/influxdb/v2.5/query-data/influxql/view-functions/selectors/) function in the `SELECT` statement.
 
 {{% note %}}
 **Note:** You cannot use `GROUP BY` to group **fields**.
