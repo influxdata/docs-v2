@@ -906,7 +906,6 @@ to the results of [linear interpolation](https://en.wikipedia.org/wiki/Linear_in
 
 {{% note %}}
 **Note:** The data in Example 2 are not in the `noaa` database.
-We had to create a dataset with less regular data to work with `fill(linear)`.
 {{% /note %}}
 
 {{% /tab-content %}}
