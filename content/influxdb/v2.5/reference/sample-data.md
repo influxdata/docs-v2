@@ -130,10 +130,10 @@ we recommend that you [create a new bucket](/influxdb/v2.5/organizations/buckets
 (`noaa`) and write the NOAA sample water data to it.
 
 ```js
-import "experimental/csv"
+import "influxdata/influxdb/sample"
 
-csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
-    |> to(bucket: "noaa", org: "example-org")
+sample.data(set: "noaaWater")
+    |> to(bucket: "example-bucket")
 ```
 {{% /note %}}
 
