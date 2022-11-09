@@ -271,7 +271,7 @@ and the timestamps returned by the query.
 The examples below use the following subsample of the sample data:
 
 ```sql
-> SELECT "water_level","location" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT "water_level","location" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 ```
 Output:
 {{% influxql/table-meta %}} 
