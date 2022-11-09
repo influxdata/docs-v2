@@ -15,7 +15,7 @@ To start exploring data with InfluxQL, do the following:
 
 2. [Configure timestamps in the InfluxQL shell](/influxdb/v2.5/query-data/influxql/explore-data/time-and-timezone/).
 
-3. (Optional) If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
+3. _(Optional)_ If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
 
 4. Use the InfluxQL `SELECT` statement in conjunction with other key clauses and useful query syntax for exploring your data.
 
@@ -31,10 +31,9 @@ To start exploring data with InfluxQL, do the following:
 
 {{< children readmore=true hr=true >}}
 
-### Download sample data
+## Download sample data
 
-InfluxQL example queries use publicly available data from the
-[NOAA](https://tidesandcurrents.noaa.gov/).
+The example InfluxQL queries in this documentation use publicly available [National Oceanic and Atmospheric Administration (NOAA)](https://www.noaa.gov/) data.
 
 To download a subset of NOAA data used in examples, run the script under [NOAA water sample data](/influxdb/v2.5/reference/sample-data/#noaa-water-sample-data) (for example, copy and paste the script into your Data Explorer - Script Editor), and replace "example-org" in the script with the name of your InfluxDB organization.
 

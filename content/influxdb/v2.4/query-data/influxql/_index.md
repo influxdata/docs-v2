@@ -16,7 +16,7 @@ related:
   - /influxdb/v2.4/tools/influxql-shell/
 ---
 
-Use InfluxQL (SQL-like query language) to interact with InfluxDB and work with your times series data.
+Use InfluxQL (an SQL-like query language) to interact with InfluxDB, and query and analyze your times series data.
 
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).

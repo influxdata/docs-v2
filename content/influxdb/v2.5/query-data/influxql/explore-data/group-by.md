@@ -318,8 +318,7 @@ Name: h2o_feet
 
 The query uses the InfluxQL [COUNT() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points per location, per 12-minute interval.
 
-The result for each [timestamp](/influxdb/v2.5/reference/glossary/#timestamp)
-represents a single 12 minute interval.
+Each output row represents a single 12-minute interval.
 The count for the first timestamp covers the raw data between `2019-08-18T00:00:00Z`
 and up to, but not including, `2019-08-18T00:12:00Z`.
 The count for the second timestamp covers the raw data between `2019-08-18T00:12:00Z`
@@ -332,7 +331,7 @@ and up to, but not including, `2019-08-18T00:24:00Z.`
 ```sql
 SELECT COUNT("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location"
 ```
-Output: 
+Output:
 {{% influxql/table-meta %}}
 name: h2o_feet  
 tags: location=coyote_creek
@@ -344,9 +343,8 @@ tags: location=coyote_creek
 | 2019-08-18T00:12:00Z | 2.0000000000|
 | 2019-08-18T00:24:00Z | 2.0000000000|
 
-
 {{% influxql/table-meta %}}
-name: h2o_feet      
+name: h2o_feet
 tags: location=santa_monica
 {{% /influxql/table-meta %}}
 
@@ -364,7 +362,8 @@ Note that the time interval and the tag key are separated by a comma in the
 
 The query returns two [series](/influxdb/v2.5/reference/glossary/#series) of results: one for each
 [tag value](/influxdb/v2.5/reference/glossary/#tag-value) of the `location` tag.
-The result for each timestamp represents a single 12 minute interval.
+The result for each timestamp represents a single 12-minute interval.
+
 The count for the first timestamp covers the raw data between `2019-08-18T00:00:00Z`
 and up to, but not including, `2019-08-18T00:12:00Z`.
 The count for the second timestamp covers the raw data between `2019-08-18T00:12:00Z`

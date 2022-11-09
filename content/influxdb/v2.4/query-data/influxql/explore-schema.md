@@ -11,11 +11,13 @@ weight: 202
 
 To explore your schema using InfluxQL, do the following:
 
-1. If you haven't already, verify or set up DBRP mappings. To do this, see [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/).
+1. If you haven't already, verify your bucket has a database and retention policy (DBRP) mapping by [listing DBRP mappings for your bucket](/influxdb/v2.4/query-data/influxql/dbrp/#list-dbrp-mappings). If not, [create a new DBRP mapping](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings).
 
-2. Next, check out **NOAA** [water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) in the `noaa` database, which is used in examples.
+2. [Configure timestamps in the InfluxQL shell](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/).
 
-3. Use the following InfluxQL commands to explore your schema:
+3. _(Optional)_ If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
+
+4. Use the following InfluxQL commands to explore your schema:
    - [SHOW SERIES](#show-series)
    - [SHOW MEASUREMENTS](#show-measurements)
    - [SHOW TAG KEYS](#show-tag-keys)
