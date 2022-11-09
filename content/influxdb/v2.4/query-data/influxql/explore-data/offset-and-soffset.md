@@ -80,7 +80,7 @@ tags: location=coyote_creek
 | 2019-08-18T00:12:00Z | 8.2725000000 |
 | 2019-08-18T00:00:00Z | 8.4615000000 |
 
-This example is fairly involved, so here's the clause-by-clause breakdown:
+In this example:
 
   - The [`SELECT clause`](/influxdb/v2.4/query-data/influxql/explore-data/select/) specifies the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean).
   - The [`FROM clause`] (/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause) specifies a single measurement.
