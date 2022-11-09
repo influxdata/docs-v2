@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L251-L251
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L259-L259
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,8 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 {{% warn %}}
 #### Deprecated
-`sand` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/sand/).
+Experimental `bitwise.sand` is deprecated in favor of
+[`bitwise.sand`](/flux/v0.x/stdlib/bitwise/sand/).
 {{% /warn %}}
 
 ##### Function type signature

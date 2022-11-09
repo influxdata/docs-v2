@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 {{% warn %}}
 #### Deprecated
-`csv.from()` is deprecated in favor of a combination of [`requests.get()`](/flux/v0.x/stdlib/http/requests/get/) and [`csv.from()`](/flux/v0.x/stdlib/csv/from/).
+Experimental `csv.from()` is deprecated in favor of a combination of [`requests.get()`](/flux/v0.x/stdlib/http/requests/get/) and [`csv.from()`](/flux/v0.x/stdlib/csv/from/).
 {{% /warn %}}
 
 **Note:** Experimental `csv.from()` is an alternative to the standard

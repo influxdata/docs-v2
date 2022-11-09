@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L162-L162
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L167-L167
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,8 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 {{% warn %}}
 #### Deprecated
-`uclear` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/uclear/).
+Experimental `bitwise.uclear` is deprecated in favor of
+[`bitwise.uclear`](/flux/v0.x/stdlib/bitwise/uclear/).
 {{% /warn %}}
 
 ##### Function type signature
