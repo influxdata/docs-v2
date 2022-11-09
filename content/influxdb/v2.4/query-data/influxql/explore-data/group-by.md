@@ -314,8 +314,7 @@ Name: h2o_feet
 The query uses the InfluxQL [COUNT() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points with the [tag](/influxdb/v2.4/reference/glossary/#tag)
 `location = coyote_creek` per 12 minute interval.
 
-The result for each [timestamp](/influxdb/v2.4/reference/glossary/#timestamp)
-represents a single 12 minute interval.
+Each output row represents a single 12 minute interval.
 The count for the first timestamp covers the raw data between `2019-08-18T00:00:00Z`
 and up to, but not including, `2019-08-18T00:12:00Z`.
 The count for the second timestamp covers the raw data between `2019-08-18T00:12:00Z`
