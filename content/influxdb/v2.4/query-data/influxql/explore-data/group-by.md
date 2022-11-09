@@ -10,11 +10,6 @@ weight: 303
 list_code_example: |
   ```sql
   SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
-  ```
-
-  ```sql
-  SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(<time_interval>),[tag_key] [fill(<fill_option>)]
-  ```
 ---
 
 Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag) and/or a specified time interval.
