@@ -1077,7 +1077,7 @@ the value from the previous time interval.
 
 ### Common issues with `fill()`
 
-##### Queries with `fill()` when no data fall within the query's time range
+##### Queries with no data in the queried time range
 
 Currently, queries ignore `fill()` if no data fall within the query's time range.
 This is the expected behavior. An open
