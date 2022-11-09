@@ -1,6 +1,5 @@
 ---
-title: The GROUP BY clause
-list_title: GROUP BY clause
+title: GROUP BY clause
 description: >
   Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag) and/or a specified time interval.
 menu:
