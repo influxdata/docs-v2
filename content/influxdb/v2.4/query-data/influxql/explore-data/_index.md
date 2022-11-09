@@ -65,10 +65,15 @@ and `water_level` stores float field values.
 
 ### Configure timestamps in the InfluxQL shell
 
-The [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) returns timestamps in
+By default, the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) returns timestamps in
 nanosecond UNIX epoch format by default.
+To return human-readable RFC3339 timestamps instead of Unix nanosecond timestamps,
+use the [precision helper command](/influxdb/v2.4/tools/influxql-shell/#precision) ` to configure
+the timestamp format:
 
-If you are using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/), use the precision helper command `precision rfc3339` to view results in human readable format.
+```sql
+precision rfc3339
+```
 
 The [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.
