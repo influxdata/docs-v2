@@ -262,7 +262,7 @@ for more information.
 
 **Coverage:**
 
-Basic `GROUP BY time()` queries rely on the `time_interval` and on the InfluxDB database's
+Basic `GROUP BY time()` queries rely on the `time_interval` and InfluxDB's
 preset time boundaries to determine the raw data included in each time interval
 and the timestamps returned by the query.
 
@@ -312,10 +312,9 @@ Name: h2o_feet
 | 2019-08-18T00:24:00Z | 2.0000000000|
 
 The query uses the InfluxQL [COUNT() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points with the [tag](/influxdb/v2.4/reference/glossary/#tag)
-`location = coyote_creek` and it group results into 12 minute intervals.
+`location = coyote_creek` per 12 minute interval.
 
-The result for each [timestamp](/influxdb/v2.4/reference/glossary/#timestamp)
-represents a single 12 minute interval.
+Each output row represents a single 12 minute interval.
 The count for the first timestamp covers the raw data between `2019-08-18T00:00:00Z`
 and up to, but not including, `2019-08-18T00:12:00Z`.
 The count for the second timestamp covers the raw data between `2019-08-18T00:12:00Z`
