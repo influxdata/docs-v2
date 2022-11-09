@@ -144,7 +144,7 @@ For technical analysis functions, consider whether to include the `PERIOD`, `HOL
 
 **Required, integer, min=1**  
 
-The sample size for the algorithm, which is the number of historical samples that have significant
+The sample size for the algorithm, which is the number of historical samples with significant
 effect on the output of the algorithm.
 For example, `2` means the current point and the point before it.
 The algorithm uses an exponential decay rate to determine the weight of a historical point,

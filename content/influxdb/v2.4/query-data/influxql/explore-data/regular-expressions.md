@@ -160,7 +160,7 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z |  4.4418434585|
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` across all data that have a tag value for `location`.
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` across all data with a tag value for `location`.
 
 {{% /expand %}}
 

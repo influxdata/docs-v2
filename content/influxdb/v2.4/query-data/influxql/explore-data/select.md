@@ -61,7 +61,7 @@ The `SELECT` clause supports several formats for specifying data:
   - `SELECT "<field_key>","<tag_key>"` - Returns a specific field and tag. The `SELECT` clause must specify at least one field when it includes a tag.
   - `SELECT "<field_key>"::field,"<tag_key>"::tag` - Returns a specific field and tag.
 The `::[field | tag]` syntax specifies the [identifier's](/influxdb/v2.4/reference/syntax/influxql/spec/#identifiers) type.
-Use this syntax to differentiate between field keys and tag keys that have the same name.
+Use this syntax to differentiate between field keys and tag keys with the same name.
 
 Other supported features include:
  - [Functions](/influxdb/v2.4/query-data/influxql/view-functions/)

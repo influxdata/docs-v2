@@ -96,7 +96,7 @@ See [Time Syntax](/influxdb/v2.5/query-data/influxql/explore-data/time-and-timez
 ### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Select data that have specific field key-values" %}}
+{{% expand "Select data with specific field key-values" %}}
 
 
 ```sql
@@ -120,7 +120,7 @@ This is a partial data set.
 
 {{% /expand %}}
 
-{{% expand "Select data that have a specific string field key-value" %}}
+{{% expand "Select data with a specific string field key-value" %}}
 
 ```sql
 SELECT * FROM "h2o_feet" WHERE "level description" = 'below 3 feet'
@@ -143,7 +143,7 @@ The query returns data from the `h2o_feet` measurement with field values of `lev
 
 {{% /expand %}}
 
-{{% expand "Select data that have a specific field key-value and perform basic arithmetic" %}}
+{{% expand "Select data with a specific field key-value and perform basic arithmetic" %}}
 
 ```sql
 SELECT * FROM "h2o_feet" WHERE "water_level" + 2 > 11.9
@@ -173,7 +173,7 @@ for more on supported operators.
 
 {{% /expand %}}
 
-{{% expand "Select data that have a specific tag key-value" %}}
+{{% expand "Select data with a specific tag key-value" %}}
 
 ```sql
 SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica'
@@ -206,7 +206,7 @@ InfluxQL requires single quotes around tag values in the `WHERE` clause.
 
 {{% /expand %}}
 
-{{% expand "Select data that have specific field key-values and tag key-valuest" %}}
+{{% expand "Select data with specific field key-values and tag key-valuest" %}}
 
 ```sql
 SELECT "water_level" FROM "h2o_feet" WHERE "location" <> 'santa_monica' AND (water_level < -0.59 OR water_level > 9.95)
@@ -240,7 +240,7 @@ separating logic with parentheses.
 SELECT * FROM "h2o_feet" WHERE time > now() - 7d
 ```
 
-The query returns data from the `h2o_feet` measurement that have [timestamps](/influxdb/v2.5/reference/glossary/#timestamp)
+The query returns data from the `h2o_feet` measurement with [timestamps](/influxdb/v2.5/reference/glossary/#timestamp)
 within the past seven days. See [Time Syntax](/influxdb/v2.5/query-data/influxql/explore-data/time-and-timezone/#time-syntax) for more in-depth information on supported time syntax in the `WHERE` clause.
 
 ### Common issues with the `WHERE` clause

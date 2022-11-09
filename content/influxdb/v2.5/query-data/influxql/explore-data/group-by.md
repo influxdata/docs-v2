@@ -261,7 +261,7 @@ time groups across the time range specified in the `WHERE` clause.
 ##### `fill(<fill_option>)`
 
 `fill(<fill_option>)` is optional.
-It changes the value reported for time intervals that have no data.
+It changes the value reported for time intervals with no data.
 See [GROUP BY time intervals and `fill()`](#group-by-time-intervals-and-fill)
 for more information.
 
@@ -316,8 +316,7 @@ Name: h2o_feet
 | 2019-08-18T00:12:00Z | 2.0000000000|
 | 2019-08-18T00:24:00Z | 2.0000000000|
 
-The query uses the InfluxQL [COUNT() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points with the [tag](/influxdb/v2.5/reference/glossary/#tag)
-`location = coyote_creek` and it group results into 12 minute intervals.
+The query uses the InfluxQL [COUNT() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points per location, per 12-minute interval.
 
 The result for each [timestamp](/influxdb/v2.5/reference/glossary/#timestamp)
 represents a single 12 minute interval.
@@ -496,7 +495,7 @@ The `offset_interval` can be positive or negative.
 ##### `fill(<fill_option>)`
 
 `fill(<fill_option>)` is optional.
-It changes the value reported for time intervals that have no data.
+It changes the value reported for time intervals with no data.
 See [GROUP BY time intervals and `fill()`](#group-by-time-intervals-and-fill)
 for more information.
 
@@ -723,8 +722,7 @@ Name: h2o_feet
 | :-------------- | -------------------:| 
 | 2019-08-18T00:06:00Z  |  2.0000000000    |
 
-The query uses the InfluxQL [COUNT() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points, grouping results into 12 minute
-time intervals, and offsetting the preset time boundaries by six minutes.
+The query uses the InfluxQL [COUNT() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points per location, per 12-minute interval, and offset the preset time boundaries by six minutes.
 
 The time boundaries and returned timestamps for the query **without** the `offset_interval` adhere to InfluxDB database's preset time boundaries. Let's first examine the results without the offset:
 
@@ -784,7 +782,7 @@ the query's time range so the query returns no results for that second interval.
 
 ## `GROUP BY` time intervals and `fill()`
 
-`fill()` changes the value reported for time intervals that have no data.
+`fill()` changes the value reported for time intervals with no data.
 
 #### Syntax
 
@@ -794,7 +792,7 @@ SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(time
 
 By default, a `GROUP BY time()` interval with no data reports `null` as its
 value in the output column.
-`fill()` changes the value reported for time intervals that have no data.
+`fill()` changes the value reported for time intervals with no data.
 Note that `fill()` must go at the end of the `GROUP BY` clause if you're
 `GROUP(ing) BY` several things (for example, both [tags](/influxdb/v2.5/reference/glossary/#tag) and a time interval).
 
