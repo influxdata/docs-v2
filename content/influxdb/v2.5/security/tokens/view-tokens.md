@@ -16,7 +16,7 @@ the `influx` command line interface (CLI), or the InfluxDB API.
 
 {{% note %}}
 
-{{% oss-only %}}Tokens are visible to the user who created the token. Users who own a token with Operator permissions also have access to all tokens. Tokens stop working when the user who created the token is deleted.
+{{% oss-only %}}Tokens are visible to the user who created the token. Users who own a token with operator permissions also have access to all tokens. Tokens stop working when the user who created the token is deleted.
 
 In the InfluxDB UI, full tokens are only visible immediately after the token is created.
 
