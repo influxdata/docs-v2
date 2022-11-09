@@ -90,7 +90,7 @@ If you request a query that has no timestamp to return, such as an [aggregation 
 {{% expand "Group query results by more than one tag" %}}
 
 ```sql
-> SELECT MEAN("index") FROM "h2o_quality" GROUP BY "location","randtag"
+SELECT MEAN("index") FROM "h2o_quality" GROUP BY "location","randtag"
 ```
 Output:
 {{% influxql/table-meta %}} 
