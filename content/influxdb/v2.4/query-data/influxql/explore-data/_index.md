@@ -30,8 +30,7 @@ To start exploring data with InfluxQL, do the following:
 
 ## Download sample data
 
-InfluxQL example queries use publicly available data from the
-[NOAA](https://tidesandcurrents.noaa.gov/).
+The example InfluxQL queries in this documentation use publicly available [National Oceanic and Atmospheric Administration (NOAA)](https://www.noaa.gov/) data.
 
 To download a subset of NOAA data used in examples, run the script under [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) (for example, copy and paste the script into your Data Explorer - Script Editor), and replace "example-org" in the script with the name of your InfluxDB organization.
 
