@@ -1,6 +1,5 @@
 ---
 title: Subqueries
-list_title: Subqueries
 description: >
   Use a `subquery` to apply a query as a condition in the enclosing query.
 menu:
@@ -77,7 +76,7 @@ SELECT inner_value AS value FROM (
 {{% expand "Calculate the SUM() of several MAX() values" %}}
 
 ```sql
-> SELECT SUM("max") FROM (SELECT MAX("water_level") FROM "h2o_feet" GROUP BY "location")
+SELECT SUM("max") FROM (SELECT MAX("water_level") FROM "h2o_feet" GROUP BY "location")
 ```
 
 Output:
@@ -95,7 +94,7 @@ The query returns the sum of the maximum `water_level` values across every tag v
 InfluxDB first performs the subquery; it calculates the maximum value of `water_level` for each tag value of `location`:
 
 ```sql
-> SELECT MAX("water_level") FROM "h2o_feet" GROUP BY "location"
+SELECT MAX("water_level") FROM "h2o_feet" GROUP BY "location"
 ```
 
 Output: 
@@ -125,7 +124,7 @@ Notice that the main query specifies `max`, not `water_level`, as the field key 
 {{% expand "Calculate the MEAN() difference between two fields" %}}
 
 ```sql
-> SELECT MEAN("difference") FROM (SELECT "cats" - "dogs" AS "difference" FROM "pet_daycare")
+SELECT MEAN("difference") FROM (SELECT "cats" - "dogs" AS "difference" FROM "pet_daycare")
 ```
 
 Output:
@@ -145,7 +144,7 @@ The subquery calculates the difference between the values in the `cats` field an
 and it names the output column `difference`:
 
 ```sql
-> SELECT "cats" - "dogs" AS "difference" FROM "pet_daycare"
+SELECT "cats" - "dogs" AS "difference" FROM "pet_daycare"
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -168,7 +167,7 @@ Notice that the main query specifies `difference` as the field key in the [`MEAN
 {{% expand "Calculate several MEAN() values and place a condition on those mean values" %}}
 
 ```sql
-> SELECT "all_the_means" FROM (SELECT MEAN("water_level") AS "all_the_means" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m) ) WHERE "all_the_means" > 5
+SELECT "all_the_means" FROM (SELECT MEAN("water_level") AS "all_the_means" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m) ) WHERE "all_the_means" > 5
 ```
 
 Output:
@@ -189,7 +188,7 @@ InfluxDB first performs the subquery.
 The subquery calculates `MEAN()` values of `water_level` from `2019-08-18T00:00:00Z` through `2019-08-18T00:30:00Z` and groups the results into 12-minute intervals. It also names the output column `all_the_means`:
 
 ```sql
-> SELECT MEAN("water_level") AS "all_the_means" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
+SELECT MEAN("water_level") AS "all_the_means" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 ```
 
 Output:
@@ -211,7 +210,7 @@ Notice that the main query specifies `all_the_means` as the field key in the `SE
 {{% expand "Calculate the SUM() of several DERIVATIVE() values" %}}
 
 ```sql
-> SELECT SUM("water_level_derivative") AS "sum_derivative" FROM (SELECT DERIVATIVE(MEAN("water_level")) AS "water_level_derivative" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location") GROUP BY "location"
+SELECT SUM("water_level_derivative") AS "sum_derivative" FROM (SELECT DERIVATIVE(MEAN("water_level")) AS "water_level_derivative" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location") GROUP BY "location"
 ```
 
 Output: 
@@ -240,7 +239,7 @@ The subquery calculates the derivative of average `water_level` values taken at 
 It performs that calculation for each tag value of `location` and names the output column `water_level_derivative`:
 
 ```sql
-> SELECT DERIVATIVE(MEAN("water_level")) AS "water_level_derivative" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location"
+SELECT DERIVATIVE(MEAN("water_level")) AS "water_level_derivative" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location"
 ```
 Output: 
 {{% influxql/table-meta %}}
@@ -276,7 +275,7 @@ Notice that the main query specifies `water_level_derivative`, not `water_level`
 
 ### Common issues with subqueries
 
-#### Multiple SELECT statements in a subquery
+#### Multiple statements in a subquery
 
 InfluxQL supports multiple nested subqueries per main query:
 

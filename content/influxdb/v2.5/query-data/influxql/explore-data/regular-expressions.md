@@ -1,11 +1,11 @@
 ---
-title: Regular expressions in InfluxQL
-list_title: Regular expressions in InfluxQL
+title: Regular expressions
+list_title: Regular expressions
 description: >
   Use `regular expressions` to match patterns in your data.
 menu:
   influxdb_2_5:
-    name: Regular expressions in InfluxQL
+    name: Regular expressions
     parent: Explore data
 weight: 313
 list_code_example: |
@@ -16,10 +16,10 @@ list_code_example: |
 
 InfluxQL supports using regular expressions when specifying:
 
-* [field keys](/influxdb/v2.5/reference/glossary/#field-key) and [tag keys](/influxdb/v2.5/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/). 
-* [measurements](/influxdb/v2.5/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause).
-* [tag values](/influxdb/v2.5/reference/glossary/#tag-value) and string [field values](/influxdb/v2.5/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/v2.5/query-data/influxql/explore-data/where/).
-* [tag keys](/influxdb/v2.5/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/)
+- [field keys](/influxdb/v2.5/reference/glossary/#field-key) and [tag keys](/influxdb/v2.5/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/). 
+- [measurements](/influxdb/v2.5/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause).
+- [tag values](/influxdb/v2.5/reference/glossary/#tag-value) and string [field values](/influxdb/v2.5/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/v2.5/query-data/influxql/explore-data/where/).
+- [tag keys](/influxdb/v2.5/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/)
 
 InfluxQL does not support using regular expressions to match
 non-string field values in the
@@ -29,11 +29,11 @@ non-string field values in the
 
 {{% note %}}
 **Note:** Regular expression comparisons are more computationally intensive than exact
-string comparisons; queries with regular expressions are not as performant
+string comparisons. Queries with regular expressions are not as performant
 as those without.
 {{% /note %}}
 
-### Syntax
+## Syntax
 
 ```sql
 SELECT /<regular_expression_field_key>/ FROM /<regular_expression_measurement>/ WHERE [<tag_key> <operator> /<regular_expression_tag_value>/ | <field_key> <operator> /<regular_expression_field_value>/] GROUP BY /<regular_expression_tag_key>/
@@ -42,17 +42,17 @@ SELECT /<regular_expression_field_key>/ FROM /<regular_expression_measurement>/ 
 Regular expressions are surrounded by `/` characters and use
 [Golang's regular expression syntax](http://golang.org/pkg/regexp/syntax/).
 
-#### Supported operators
+## Supported operators
 
-`=~`&emsp;matches against  
-`!~`&emsp;doesn't match against
+`=~`: matches against
+`!~`: doesn't match against
 
 ### Examples
 
 #### Use a regular expression to specify field keys and tag keys in the SELECT clause
 
 ```sql
-> SELECT /l/ FROM "h2o_feet" LIMIT 1
+SELECT /l/ FROM "h2o_feet" LIMIT 1
 ```
 
 Output:
@@ -76,7 +76,7 @@ The syntax `/<regular_expression>/::[field | tag]` is not supported.
 #### Use a regular expression to specify measurements in the FROM clause
 
 ```sql
-> SELECT MEAN("degrees") FROM /temperature/
+SELECT MEAN("degrees") FROM /temperature/
 ```
 
 Output:
@@ -102,7 +102,7 @@ This query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxq
 #### Use a regular expression to specify tag values in the WHERE clause
 
 ```sql
-> SELECT MEAN(water_level) FROM "h2o_feet" WHERE "location" =~ /[m]/ AND "water_level" > 3
+SELECT MEAN(water_level) FROM "h2o_feet" WHERE "location" =~ /[m]/ AND "water_level" > 3
 ```
 
 Output:
@@ -114,14 +114,12 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z | 4.4710766395|
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` where the [tag value](/influxdb/v2.5/reference/glossary/#measurement) of `location`
-
-includes an `m` and `water_level` is greater than three.
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` where the [tag value](/influxdb/v2.5/reference/glossary/#measurement) of `location` includes an `m` and `water_level` is greater than three.
 
 #### Use a regular expression to specify a tag with no value in the WHERE clause
 
 ```sql
-> SELECT * FROM "h2o_feet" WHERE "location" !~ /./
+SELECT * FROM "h2o_feet" WHERE "location" !~ /./
 >
 ```
 
@@ -135,7 +133,7 @@ document for more information.
 #### Use a regular expression to specify a tag with a value in the WHERE clause
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" =~ /./
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" =~ /./
 ```
 
 Output:
@@ -147,12 +145,12 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z |  4.4418434585|
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` across all data that have a tag value for `location`.
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` across all data with a tag value for `location`.
 
 #### Use a regular expression to specify a field value in the WHERE clause
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND "level description" =~ /between/
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND "level description" =~ /between/
 ```
 
 Output:
@@ -171,7 +169,7 @@ to calculate the average `water_level` for all data where the field value of `le
 #### Use a regular expression to specify tag keys in the GROUP BY clause
 
 ```sql
-> SELECT FIRST("index") FROM "h2o_quality" GROUP BY /l/
+SELECT FIRST("index") FROM "h2o_quality" GROUP BY /l/
 ```
 
 Output: 

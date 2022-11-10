@@ -216,25 +216,25 @@ The following queries are invalid and the system returns an error:
 
 Perform a mathematical operation on a wildcard.
 ```
-> SELECT * + 2 FROM "nope"
+SELECT * + 2 FROM "nope"
 ERR: unsupported expression with wildcard: * + 2
 ```
 
 Perform a mathematical operation on a wildcard within a function.
 ```
-> SELECT COUNT(*) / 2 FROM "nope"
+SELECT COUNT(*) / 2 FROM "nope"
 ERR: unsupported expression with wildcard: count(*) / 2
 ```
 
 Perform a mathematical operation on a regular expression.
 ```
-> SELECT /A/ + 2 FROM "nope"
+SELECT /A/ + 2 FROM "nope"
 ERR: error parsing query: found +, expected FROM at line 1, char 12
 ```
 
 Perform a mathematical operation on a regular expression within a function.
 ```
-> SELECT COUNT(/A/) + 2 FROM "nope"
+SELECT COUNT(/A/) + 2 FROM "nope"
 ERR: unsupported expression with regex field: count(/A/) + 2
 ```
 

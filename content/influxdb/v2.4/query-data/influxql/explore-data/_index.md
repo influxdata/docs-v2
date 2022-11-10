@@ -1,7 +1,8 @@
 ---
 title: Explore data using InfluxQL
 description: >
-  Explore time series data using InfluxData's SQL-like query language. Use the SELECT statement to query data from measurements, tags, and fields.
+  Explore time series data using InfluxQL, InfluxData's SQL-like query language.
+  Use the `SELECT` statement to query data from measurements, tags, and fields.
 menu:
   influxdb_2_4:
     name: Explore data
@@ -9,36 +10,23 @@ menu:
 weight: 201
 ---
 
-<<<<<<< HEAD
-To begin exploring data with InfluxQL, do the following:
-=======
 To start exploring data with InfluxQL, do the following:
->>>>>>> 15d96dbfff23b1b0ced06ad5fe57ef65a8bf7083
 
 1. Verify your bucket has a database and retention policy (DBRP) mapping by [listing DBRP mappings for your bucket](/influxdb/v2.4/query-data/influxql/dbrp/#list-dbrp-mappings). If not, [create a new DBRP mapping](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings).
 
 2. [Configure timestamps in the InfluxQL shell](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/).
 
-3. (Optional) If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
+3. _(Optional)_ If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
 
-4. Use the InfluxQL `SELECT` statement in conjunction with other key clauses and useful query syntax for exploring your data.
+4. Use the InfluxQL `SELECT` statement with other key clauses to explore your data.
 
-   - [SELECT statement](/influxdb/v2.4/query-data/influxql/explore-data/select/)
-   - [WHERE clause](/influxdb/v2.4/query-data/influxql/explore-data/where/)
-   - [GROUP BY clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
-   - [ORDER BY clause](/influxdb/v2.4/query-data/influxql/explore-data/order-by/)
-   - [LIMIT and SLIMIT clause](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/)
-   - [OFFSET and SOFFSET clause](/influxdb/v2.4/query-data/influxql/explore-data/offset-and-soffset/)
-   - [Time and timezone queries](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/)
-   - [Subqueries](/influxdb/v2.4/query-data/influxql/explore-data/subqueries/)
-   - [Regular expressions in InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/)
+   {{< children type="anchored-list" >}}
 
-{{< children readmore=true hr=true >}}
+   {{< children readmore=true hr=true >}}
 
-### Download sample data
+## Download sample data
 
-InfluxQL example queries use publicly available data from the
-[NOAA](https://tidesandcurrents.noaa.gov/).
+The example InfluxQL queries in this documentation use publicly available [National Oceanic and Atmospheric Administration (NOAA)](https://www.noaa.gov/) data.
 
 To download a subset of NOAA data used in examples, run the script under [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) (for example, copy and paste the script into your Data Explorer - Script Editor), and replace "example-org" in the script with the name of your InfluxDB organization.
 
@@ -67,16 +55,18 @@ The measurement also has two [fields](/influxdb/v2.4/reference/glossary/#field):
 `level description` stores string [field values](/influxdb/v2.4/reference/glossary/#field-value)
 and `water_level` stores float field values.
 
-{{% note %}}
-**Disclaimer:** The `level description` field isn't part of the original NOAA data - we snuck it in there for the sake of having a field key with a special character and string field values.
-{{% /note %}}
 
 ### Configure timestamps in the InfluxQL shell
 
-The [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) returns timestamps in
+By default, the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) returns timestamps in
 nanosecond UNIX epoch format by default.
+To return human-readable RFC3339 timestamps instead of Unix nanosecond timestamps,
+use the [precision helper command](/influxdb/v2.4/tools/influxql-shell/#precision) ` to configure
+the timestamp format:
 
-If you are using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/), use the precision helper command `precision rfc3339` to view results in human readable format.
+```sql
+precision rfc3339
+```
 
 The [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.

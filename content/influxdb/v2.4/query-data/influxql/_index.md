@@ -2,7 +2,7 @@
 title: Query data with InfluxQL
 description: >
   Use the [InfluxDB 1.x `/query` compatibility endpoint](/influxdb/v2.4/reference/api/influxdb-1x/query)
-  to query data in InfluxDB Cloud and InfluxDB OSS 2.1 with **InfluxQL**.
+  to query data in InfluxDB Cloud and InfluxDB OSS 2.4 with **InfluxQL**.
 weight: 102
 influxdb/v2.4/tags: [influxql, query]
 menu:
@@ -13,9 +13,10 @@ related:
   - /influxdb/v2.4/reference/api/influxdb-1x/
   - /influxdb/v2.4/reference/api/influxdb-1x/query
   - /influxdb/v2.4/reference/api/influxdb-1x/dbrp
+  - /influxdb/v2.4/tools/influxql-shell/
 ---
 
-Use InfluxQL (SQL-like query language) to interact with InfluxDB and work with your times series data.
+Use InfluxQL (an SQL-like query language) to interact with InfluxDB, and query and analyze your times series data.
 
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
@@ -33,7 +34,7 @@ Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database 
 #### InfluxQL reference documentation
 
 For complete InfluxQL reference documentation, see the
-[Influx Query Language (InfluxQL) 2.x specification](/influxdb/v2.4/reference/syntax/influxql/spec/).
+[InfluxQL specification for InfluxDB 2.x](/influxdb/v2.4/reference/syntax/influxql/spec/).
 {{% /note %}}
 
 ## Verify buckets have a mapping
@@ -76,10 +77,10 @@ The [`influx` CLI](/influxdb/v2.4/reference/cli/influx/) provides an [InfluxQL s
 3. Execute an InfluxQL query inside the InfluxQL shell.
 
    ```sql
-   > SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
+   SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
    ```
 
-   For more information, see how to [use the InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/).
+   For more information, see how to [use the InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/v2.4/query-data/influxql/dbrp/).
 
 <!----------------------------- END InfluxQL shell ---------------------------->
 {{% /tab-content %}}
@@ -110,6 +111,8 @@ all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-versi
    By default, the `/query` compatibility endpoint returns results in **JSON**.
 
 2. (Optional) To return results as **CSV**, include the `Accept: application/csv` header.
+
+For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/v2.4/query-data/influxql/dbrp/).
 <!------------------------------ END InfluxDB API ----------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

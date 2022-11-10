@@ -35,7 +35,7 @@ The `WHERE` clause supports `conditional_expressions` on fields, tags, and times
 **Note:** InfluxDB does not support using OR in the WHERE clause to specify multiple time ranges. For example, InfluxDB returns an empty response for the following query:
 
 ```sql
-> SELECT * FROM "mydb" WHERE time = '2020-07-31T20:07:00Z' OR time = '2020-07-31T23:07:17Z'`
+SELECT * FROM "mydb" WHERE time = '2020-07-31T20:07:00Z' OR time = '2020-07-31T23:07:17Z'`
 ```
 {{% /note %}}
 
@@ -96,11 +96,11 @@ See [Time Syntax](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timez
 ### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Select data that have specific field key-values" %}}
+{{% expand "Select data with specific field key-values" %}}
 
 
 ```sql
-> SELECT * FROM "h2o_feet" WHERE "water_level" > 9
+SELECT * FROM "h2o_feet" WHERE "water_level" > 9
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -120,10 +120,10 @@ This is a partial data set.
 
 {{% /expand %}}
 
-{{% expand "Select data that have a specific string field key-value" %}}
+{{% expand "Select data with a specific string field key-value" %}}
 
 ```sql
-> SELECT * FROM "h2o_feet" WHERE "level description" = 'below 3 feet'
+SELECT * FROM "h2o_feet" WHERE "level description" = 'below 3 feet'
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -143,10 +143,10 @@ The query returns data from the `h2o_feet` measurement with field values of `lev
 
 {{% /expand %}}
 
-{{% expand "Select data that have a specific field key-value and perform basic arithmetic" %}}
+{{% expand "Select data with a specific field key-value and perform basic arithmetic" %}}
 
 ```sql
-> SELECT * FROM "h2o_feet" WHERE "water_level" + 2 > 11.9
+SELECT * FROM "h2o_feet" WHERE "water_level" + 2 > 11.9
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -173,10 +173,10 @@ for more on supported operators.
 
 {{% /expand %}}
 
-{{% expand "Select data that have a specific tag key-value" %}}
+{{% expand "Select data with a specific tag key-value" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica'
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -206,10 +206,10 @@ InfluxQL requires single quotes around tag values in the `WHERE` clause.
 
 {{% /expand %}}
 
-{{% expand "Select data that have specific field key-values and tag key-valuest" %}}
+{{% expand "Select data with specific field key-values and tag key-valuest" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" <> 'santa_monica' AND (water_level < -0.59 OR water_level > 9.95)
+SELECT "water_level" FROM "h2o_feet" WHERE "location" <> 'santa_monica' AND (water_level < -0.59 OR water_level > 9.95)
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -237,10 +237,10 @@ separating logic with parentheses.
 {{< /expand-wrapper >}}
 
 ```sql
-> SELECT * FROM "h2o_feet" WHERE time > now() - 7d
+SELECT * FROM "h2o_feet" WHERE time > now() - 7d
 ```
 
-The query returns data from the `h2o_feet` measurement that have [timestamps](/influxdb/v2.4/reference/glossary/#timestamp)
+The query returns data from the `h2o_feet` measurement with [timestamps](/influxdb/v2.4/reference/glossary/#timestamp)
 within the past seven days. See [Time Syntax](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/#time-syntax) for more in-depth information on supported time syntax in the `WHERE` clause.
 
 ### Common issues with the `WHERE` clause
@@ -259,13 +259,13 @@ The third query single quotes `santa_monica` (this is the supported syntax)
 and returns the expected results.
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = santa_monica
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = santa_monica
 No results
 
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = "santa_monica"
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = "santa_monica"
 No results
 
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica'
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -291,13 +291,13 @@ The third query single quotes `at or greater than 9 feet` (this is the
 supported syntax) and returns the expected results.
 
 ```sql
-> SELECT "level description" FROM "h2o_feet" WHERE "level description" = at or greater than 9 feet
+SELECT "level description" FROM "h2o_feet" WHERE "level description" = at or greater than 9 feet
 ERR: 400 Bad Request: failed to parse query: found than, expected ; at line 1, char 86
 
-> SELECT "level description" FROM "h2o_feet" WHERE "level description" = "at or greater than 9 feet"
+SELECT "level description" FROM "h2o_feet" WHERE "level description" = "at or greater than 9 feet"
 No results
 
-> SELECT "level description" FROM "h2o_feet" WHERE "level description" = 'at or greater than 9 feet'
+SELECT "level description" FROM "h2o_feet" WHERE "level description" = 'at or greater than 9 feet'
 ```
 
 Output:

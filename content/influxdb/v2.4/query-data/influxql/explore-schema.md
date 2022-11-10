@@ -11,11 +11,13 @@ weight: 202
 
 To explore your schema using InfluxQL, do the following:
 
-1. If you haven't already, verify or set up DBRP mappings. To do this, see [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/).
+1. If you haven't already, verify your bucket has a database and retention policy (DBRP) mapping by [listing DBRP mappings for your bucket](/influxdb/v2.4/query-data/influxql/dbrp/#list-dbrp-mappings). If not, [create a new DBRP mapping](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings).
 
-2. Next, check out **NOAA** [water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data) in the `noaa` database, which is used in examples.
+2. [Configure timestamps in the InfluxQL shell](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/).
 
-3. Use the following InfluxQL commands to explore your schema:
+3. _(Optional)_ If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
+
+4. Use the following InfluxQL commands to explore your schema:
    - [SHOW SERIES](#show-series)
    - [SHOW MEASUREMENTS](#show-measurements)
    - [SHOW TAG KEYS](#show-tag-keys)
@@ -32,9 +34,9 @@ Examples show how to run commands using the [InfluxQL shell](/influxdb/v2.4/tool
 For information about how to use either the InfluxQL shell or the InfluxDB API, see how to [Query a mapped bucket with InfluxQL](/influxdb/v2.4/query-data/influxql/#query-a-mapped-bucket-with-influxql).
    {{% /note %}}
 
-## `SHOW SERIES`
+## SHOW SERIES
 
-Returns a list of [series](/influxdb/v2.4/reference/glossary/#series) for
+Return a list of [series](/influxdb/v2.4/reference/glossary/#series) for
 the specified [database](/influxdb/v2.4/reference/glossary/#database).
 
 ### Syntax
@@ -45,21 +47,20 @@ SHOW SERIES [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> [ '<t
 
 ### Description of syntax
 
-`ON <database_name>` is optional.
-If the query does not include `ON <database_name>`, you must specify the
-database with the `db` query
-string parameter in the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
+- `ON <database_name>` is optional.
+  If the query does not include `ON <database_name>`, you must specify the
+  database with the `db` query string parameter in the
+  [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
+- `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
+   The `WHERE` clause supports tag comparisons but not field comparisons.
 
-The `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
-The `WHERE` clause supports tag comparisons; field comparisons are not
-valid for the `SHOW SERIES` query.
-
-Supported operators in the `WHERE` clause:
-`=`&emsp;&nbsp;&thinsp;equal to
-`<>`&emsp;not equal to
-`!=`&emsp;not equal to
-`=~`&emsp;matches against
-`!~`&emsp;doesn't match against
+  **Supported operators in the `WHERE` clause**:
+  
+  - `=`: equal to
+  - `<>`: not equal to
+  - `!=`: not equal to
+  - `=~`: matches against
+  - `!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause),
@@ -99,7 +100,7 @@ The `noaa` has 5 different measurements and 13 different series.
 #### Run a `SHOW SERIES` query with several clauses
 
 ```sql
-> SHOW SERIES ON noaa FROM "h2o_quality" WHERE "location" = 'coyote_creek' LIMIT 2
+SHOW SERIES ON noaa FROM "h2o_quality" WHERE "location" = 'coyote_creek' LIMIT 2
 ```
 
 Output:
@@ -133,11 +134,11 @@ The `WITH`, `WHERE`, `LIMIT` and `OFFSET` clauses are optional.
 The `WHERE` clause supports tag comparisons; field comparisons are not valid for the `SHOW MEASUREMENTS` query.
 
 Supported operators in the `WHERE` clause:
-`=`&emsp;&nbsp;&thinsp;equal to
-`<>`&emsp;not equal to
-`!=`&emsp;not equal to
-`=~`&emsp;matches against
-`!~`&emsp;doesn't match against
+`=` : equal to
+`<>`: not equal to
+`!=`: not equal to
+`=~`: matches against
+`!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause),
@@ -221,11 +222,11 @@ The `WHERE` clause supports tag comparisons; field comparisons are not
 valid for the `SHOW TAG KEYS` query.
 
 Supported operators in the `WHERE` clause:
-`=`&emsp;&nbsp;&thinsp;equal to
-`<>`&emsp;not equal to
-`!=`&emsp;not equal to
-`=~`&emsp;matches against
-`!~`&emsp;doesn't match against
+`=` : equal to
+`<>`: not equal to
+`!=`: not equal to
+`=~`: matches against
+`!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause),
@@ -316,11 +317,11 @@ The `WHERE` clause supports tag comparisons; field comparisons are not
 valid for the `SHOW TAG KEYS` query.
 
 Supported operators in the `WITH` and `WHERE` clauses:
-`=`&emsp;&nbsp;&thinsp;equal to
-`<>`&emsp;not equal to
-`!=`&emsp;not equal to
-`=~`&emsp;matches against
-`!~`&emsp;doesn't match against
+`=` : equal to
+`<>`: not equal to
+`!=`: not equal to
+`=~`: matches against
+`!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause),
@@ -575,7 +576,7 @@ The example below shows how to filter `SHOW TAG KEYS` by approximately one hour 
     test_key_5
 
     // For a specified measurement, find tag keys in a given shard by specifying the time boundaries of the shard
-    > SELECT * FROM test WHERE time >= '2019-08-09T00:00:00Z' and time < '2019-08-09T10:00:00Z'
+    SELECT * FROM test WHERE time >= '2019-08-09T00:00:00Z' and time < '2019-08-09T10:00:00Z'
     name: test
     time test_key_4 test_key_5 value
     ---- ------------ ------------ -----

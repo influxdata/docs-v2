@@ -65,7 +65,7 @@ Returns the absolute values of field values associated with each field key in th
 {{% expand "Calculate the absolute values of field values associated with a field key" %}}
 
 ```sql
-> SELECT ABS("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:15:00Z'
+SELECT ABS("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:15:00Z'
 
 name: data
 time                    abs
@@ -85,7 +85,7 @@ Returns the absolute values of field values in the `water_level` field key in th
 {{% expand "Calculate the absolute values of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT ABS(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:15:00Z'
+SELECT ABS(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:15:00Z'
 
 name: data
 time                    abs_water_level
@@ -106,7 +106,7 @@ The `h2o_feet` measurement has one numerical field `water_level`.
 {{% expand "Calculate the absolute values of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT ABS("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT ABS("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: data
 time                    abs
@@ -152,7 +152,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the absolute values of mean values" %}}
 
 ```sql
-> SELECT ABS(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
+SELECT ABS(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 
 name: data
 time                 abs
@@ -168,7 +168,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ABS()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 
 name: data
 time                 mean
@@ -224,7 +224,7 @@ time                     a
 {{% expand "Calculate the arccosine of field values associated with a field key" %}}
 
 ```sql
-> SELECT ACOS("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
+SELECT ACOS("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
 
 name: data
 time                    acos
@@ -250,7 +250,7 @@ Returns arccosine of field values in the `a` field key in the `data` measurement
 {{% expand "Calculate the arccosine of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT ACOS(*) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
+SELECT ACOS(*) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
 
 name: data
 time                    acos_a           acos_b
@@ -277,7 +277,7 @@ Returns arccosine of field values for each field key that stores numerical value
 {{% expand "Calculate the arccosine of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT ACOS("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT ACOS("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: data
 time                  acos
@@ -323,7 +323,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the arccosine of mean values" %}}
 
 ```sql
-> SELECT ACOS(MEAN("a")) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
+SELECT ACOS(MEAN("a")) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
 
 name: data
 time                     acos
@@ -345,7 +345,7 @@ InfluxDB first calculates the average value of `a` in 3 hour intervals.
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ACOS()`:
 
 ```sql
-> SELECT MEAN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
+SELECT MEAN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
 
 name: data
 time                      mean
@@ -412,7 +412,7 @@ time                     a
 {{% expand "Calculate the arcsine of field values associated with a field key" %}}
 
 ```sql
-> SELECT ASIN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
+SELECT ASIN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
 
 name: data
 time                      asin
@@ -439,7 +439,7 @@ Returns arcsine of field values in the `a` field key in the `data` measurement.
 {{% expand "Calculate the arcsine of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT ASIN(*) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
+SELECT ASIN(*) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
 
 name: data
 time                      asin_a              asin_b
@@ -466,7 +466,7 @@ Returns arcsine of field values for each field key that stores numerical values 
 {{% expand "Calculate the arcsine of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT ASIN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT ASIN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: data
 time                     asin
@@ -512,7 +512,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the arcsine of mean values" %}}
 
 ```sql
-> SELECT ASIN(MEAN("a")) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
+SELECT ASIN(MEAN("a")) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
 
 name: data
 time                        asin
@@ -534,7 +534,7 @@ To get those results, InfluxDB first calculates the average `a`s at 3-hour inter
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ASIN()`:
 
 ```sql
-> SELECT MEAN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
+SELECT MEAN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
 
 name: data
 time                         mean
@@ -589,7 +589,7 @@ The examples below use a subset of data from [sample_test.txt](https://gist.gith
 {{% expand "Calculate the arctangent of field values associated with a field key" %}}
 
 ```sql
-> SELECT ATAN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
+SELECT ATAN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
 ```
 
 ```
@@ -618,7 +618,7 @@ Returns arctangent of field values in the `a` field key in the `data` measuremen
 {{% expand "Calculate the arctangent of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT ATAN(*) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
+SELECT ATAN(*) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
 ```
 
 ```
@@ -647,7 +647,7 @@ Returns arctangent of field values for each field key that stores numerical valu
 {{% expand "Calculate the arctangent of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT ATAN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT ATAN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
 ```
 
 ```
@@ -696,7 +696,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the arctangent of mean values" %}}
 
 ```sql
-> SELECT ATAN(MEAN("a")) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
+SELECT ATAN(MEAN("a")) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
 
 name: data
 time                      atan
@@ -718,7 +718,7 @@ To get those results, InfluxDB first calculates the average `a`s at 3-hour inter
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ATAN()`:
 
 ```sql
-> SELECT MEAN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
+SELECT MEAN("a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
 
 name: data
 time                      mean
@@ -771,7 +771,7 @@ The examples below use [sample_test.txt](https://gist.github.com/sanderson/244e3
 {{% expand "Calculate the arctangent of field_key_b over field_key_a" %}}
 
 ```sql
-> SELECT ATAN2("a", "b") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
+SELECT ATAN2("a", "b") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
 
 name: data
 time                      atan2
@@ -798,7 +798,7 @@ Returns the arctangents of field values in the `a` field key divided by values i
 {{% expand "Calculate the arctangent of values associated with each field key in a measurement divided by field_key_a" %}}
 
 ```sql
-> SELECT ATAN2(*, "a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
+SELECT ATAN2(*, "a") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z'
 
 name: data
 time                      atan2_a              atan2_b
@@ -826,7 +826,7 @@ The `data` measurement has two numeric fields: `a` and `b`.
 {{% expand "Calculate the arctangents of field values and include several clauses" %}}
 
 ```sql
-> SELECT ATAN2("a", "b") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT ATAN2("a", "b") FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: data
 time                     atan2
@@ -872,7 +872,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate arctangents of mean values" %}}
 
 ```sql
-> SELECT ATAN2(MEAN("b"), MEAN("a")) FROM "data" WHERE time >= '2018-06-24T12:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(2h)
+SELECT ATAN2(MEAN("b"), MEAN("a")) FROM "data" WHERE time >= '2018-06-24T12:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(2h)
 
 name: data
 time                     atan2
@@ -892,7 +892,7 @@ To get those results, InfluxDB first calculates the average `a`s and `b` at 12-m
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ATAN2()`:
 
 ```sql
-> SELECT MEAN("altitude_ft"), MEAN("distance_ft") FROM "flight_data" WHERE time >= '2018-05-16T12:01:00Z' AND time <= '2018-05-16T13:01:00Z' GROUP BY time(12m)
+SELECT MEAN("altitude_ft"), MEAN("distance_ft") FROM "flight_data" WHERE time >= '2018-05-16T12:01:00Z' AND time <= '2018-05-16T13:01:00Z' GROUP BY time(12m)
 
 name: flight_data
 time                  mean                mean_1
@@ -937,7 +937,7 @@ To use `CEIL()` with a `GROUP BY time()` clause, see [Advanced syntax](#advanced
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' 
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' 
 
 name: h2o_feet
 time                     water_level
@@ -955,7 +955,7 @@ time                     water_level
 {{% expand "Calculate the ceiling of field values associated with a field key" %}}
 
 ```sql
-> SELECT CEIL("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica'
+SELECT CEIL("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica'
 AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
@@ -976,7 +976,7 @@ Returns field values in the `water_level` field key in the `h2o_feet` measuremen
 {{% expand "Calculate the ceiling of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT CEIL(*) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' 
+SELECT CEIL(*) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' 
 
 name: h2o_feet
 time                  ceil_water_level
@@ -997,7 +997,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the ceiling of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT CEIL("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT CEIL("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                  ceil
@@ -1044,7 +1044,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate mean values rounded up to the nearest integer" %}}
 
 ```sql
-> SELECT CEIL(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT CEIL(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                  ceil
@@ -1060,7 +1060,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `CEIL()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                    mean
@@ -1102,7 +1102,7 @@ To use `COS()` with a `GROUP BY time()` clause, see [Advanced syntax](#advanced-
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 ^
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                    water_level
@@ -1120,7 +1120,7 @@ time                    water_level
 {{% expand "Calculate the cosine of field values associated with a field key" %}}
 
 ```sql
-> SELECT COS("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT COS("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                     cos
@@ -1140,7 +1140,7 @@ Returns cosine of field values in the `water_level` field key in the `h2o_feet` 
 {{% expand "Calculate the cosine of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT COS(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT COS(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                     cos_water_level
@@ -1161,7 +1161,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the cosine of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT COS("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT COS("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                     cos
@@ -1208,7 +1208,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the cosine of mean values" %}}
 
 ```sql
-> SELECT COS(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT COS(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                     cos
@@ -1224,7 +1224,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `COS()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                     mean
@@ -1269,7 +1269,7 @@ To use `CUMULATIVE_SUM()` with a `GROUP BY time()` clause, see [Advanced syntax]
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                     water_level
@@ -1287,7 +1287,7 @@ time                     water_level
 {{% expand "Calculate the cumulative sum of the field values associated with a field key" %}}
 
 ```sql
-> SELECT CUMULATIVE_SUM("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT CUMULATIVE_SUM("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                     cumulative_sum
@@ -1307,7 +1307,7 @@ Returns the running total of the field values in the `water_level` field key and
 {{% expand "Calculate the cumulative sum of the field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT CUMULATIVE_SUM(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT CUMULATIVE_SUM(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                   cumulative_sum_water_level
@@ -1328,7 +1328,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the cumulative sum of the field values associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT CUMULATIVE_SUM(/water/) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT CUMULATIVE_SUM(/water/) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                   cumulative_sum_water_level
@@ -1348,7 +1348,7 @@ Returns the running total of the field values for each field key that stores num
 {{% expand "Calculate the cumulative sum of the field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT CUMULATIVE_SUM("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT CUMULATIVE_SUM("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                    cumulative_sum
@@ -1395,7 +1395,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the cumulative sum of mean values" %}}
 
 ```sql
-> SELECT CUMULATIVE_SUM(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT CUMULATIVE_SUM(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                    cumulative_sum
@@ -1411,7 +1411,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `CUMULATIVE_SUM()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                    mean
@@ -1462,7 +1462,7 @@ To use `DERIVATIVE()` with a `GROUP BY time()` clause, see [Advanced syntax](#ad
 The examples in this section use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                    water_level
@@ -1480,7 +1480,7 @@ time                    water_level
 {{% expand "Calculate the derivative between the field values associated with a field key" %}}
 
 ```sql
-> SELECT DERIVATIVE("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT DERIVATIVE("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                   derivative
@@ -1506,7 +1506,7 @@ The first result (`0.0000750000`) is the one-second rate of change between the f
 {{% expand "Calculate the derivative between the field values associated with a field key and specify the unit option" %}}
 
 ```sql
-> SELECT DERIVATIVE("water_level",6m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT DERIVATIVE("water_level",6m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                      derivative
@@ -1533,7 +1533,7 @@ The first result (`0.0270000000`) is the six-minute rate of change between the f
 {{% expand "Calculate the derivative between the field values associated with each field key in a measurement and specify the unit option" %}}
 
 ```sql
-> SELECT DERIVATIVE(*,3m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT DERIVATIVE(*,3m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 
 name: h2o_feet
@@ -1563,7 +1563,7 @@ InfluxDB calculates the difference between the field values (subtracts the first
 {{% expand "Calculate the derivative between the field values associated with each field key that matches a regular expression and specify the unit option" %}}
 
 ```sql
-> SELECT DERIVATIVE(/water/,2m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT DERIVATIVE(/water/,2m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                   derivative_water_level
@@ -1597,7 +1597,7 @@ InfluxDB calculates the difference between the field values (subtracts the first
 {{% expand "Calculate the derivative between the field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT DERIVATIVE("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' ORDER BY time DESC LIMIT 1 OFFSET 2
+SELECT DERIVATIVE("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' ORDER BY time DESC LIMIT 1 OFFSET 2
 
 name: h2o_feet
 time                   derivative
@@ -1651,7 +1651,7 @@ Note that this behavior is different from the [basic syntax's](#basic-syntax-1) 
 {{% expand "Calculate the derivative of mean values" %}}
 
 ```sql
-> SELECT DERIVATIVE(MEAN("water_level")) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
+SELECT DERIVATIVE(MEAN("water_level")) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 
 name: h2o_feet
 time                   derivative
@@ -1667,7 +1667,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `DERIVATIVE()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 
 name: h2o_feet
 time                   mean
@@ -1692,7 +1692,7 @@ InfluxDB calculates the difference between the first average from the second ave
 {{% expand "Calculate the derivative of mean values and specify the unit option" %}}
 
 ```sql
-> SELECT DERIVATIVE(MEAN("water_level"),6m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
+SELECT DERIVATIVE(MEAN("water_level"),6m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 
 name: h2o_feet
 time                   derivative
@@ -1708,7 +1708,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `DERIVATIVE()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 
 name: h2o_feet
 time                   mean
@@ -1760,7 +1760,7 @@ To use `DIFFERENCE()` with a `GROUP BY time()` clause, see [Advanced syntax](#ad
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                     water_level
@@ -1778,7 +1778,7 @@ time                     water_level
 {{% expand "Calculate the difference between the field values associated with a field key" %}}
 
 ```sql
-> SELECT DIFFERENCE("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT DIFFERENCE("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                   difference
@@ -1797,7 +1797,7 @@ Returns the difference between the subsequent field values in the `water_level` 
 {{% expand "Calculate the difference between the field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT DIFFERENCE(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT DIFFERENCE(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                    difference_water_level
@@ -1817,7 +1817,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the difference between the field values associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT DIFFERENCE(/water/) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT DIFFERENCE(/water/) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                     difference_water_level
@@ -1836,7 +1836,7 @@ Returns the difference between the subsequent field values for each field key th
 {{% expand "Calculate the difference between the field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT DIFFERENCE("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 2 OFFSET 2
+SELECT DIFFERENCE("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 2 OFFSET 2
 
 name: h2o_feet
 time                     difference
@@ -1881,7 +1881,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the difference between maximum values" %}}
 
 ```sql
-> SELECT DIFFERENCE(MAX("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT DIFFERENCE(MAX("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                   difference
@@ -1897,7 +1897,7 @@ To get those results, InfluxDB first calculates the maximum `water_level`s at 12
 This step is the same as using the `MAX()` function with the `GROUP BY time()` clause and without `DIFFERENCE()`:
 
 ```sql
-> SELECT MAX("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MAX("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                     max
@@ -1944,7 +1944,7 @@ Returns the difference between subsequent timestamps associated with each field 
 The examples use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
 
 name: h2o_feet
 time                     water_level
@@ -1959,7 +1959,7 @@ time                     water_level
 {{% expand "Calculate the elapsed time between field values associated with a field key" %}}
 
 ```sql
-> SELECT ELAPSED("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
+SELECT ELAPSED("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
 
 name: h2o_feet
 time                     elapsed
@@ -1975,7 +1975,7 @@ Returns the difference (in nanoseconds) between subsequent timestamps in the `wa
 {{% expand "Calculate the elapsed time between field values associated with a field key and specify the unit option" %}}
 
 ```sql
-> SELECT ELAPSED("water_level",1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
+SELECT ELAPSED("water_level",1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
 
 name: h2o_feet
 time                     elapsed
@@ -1991,7 +1991,7 @@ Returns the difference (in minutes) between subsequent timestamps in the `water_
 {{% expand "Calculate the elapsed time between field values associated with each field key in a measurement and specify the unit option" %}}
 
 ```sql
-> SELECT ELAPSED(*,1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
+SELECT ELAPSED(*,1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
 
 name: h2o_feet
 time                   elapsed_level description   elapsed_water_level
@@ -2012,7 +2012,7 @@ The `h2o_feet` measurement has two field keys: `level description` and `water_le
 {{% expand "Calculate the elapsed time between field values associated with each field key that matches a regular expression and specify the unit option" %}}
 
 ```sql
-> SELECT ELAPSED(/level/,1s) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
+SELECT ELAPSED(/level/,1s) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
 
 name: h2o_feet
 time                   elapsed_level description   elapsed_water_level
@@ -2031,7 +2031,7 @@ Returns the difference (in seconds) between subsequent timestamps associated wit
 {{% expand "Calculate the elapsed time between field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT ELAPSED("water_level",1ms) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z' ORDER BY time DESC LIMIT 1 OFFSET 1
+SELECT ELAPSED("water_level",1ms) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z' ORDER BY time DESC LIMIT 1 OFFSET 1
 
 name: h2o_feet
 time                   elapsed
@@ -2061,7 +2061,7 @@ The timestamps in the `h2o_feet` measurement occur at six-minute intervals.
 If the query sets the `unit` option to one hour, InfluxDB returns `0`:
 
 ```sql
-> SELECT ELAPSED("water_level",1h) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
+SELECT ELAPSED("water_level",1h) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:12:00Z'
 
 name: h2o_feet
 time                   elapsed
@@ -2092,7 +2092,7 @@ In the raw data, the first result (`2.0930000000`) occurs at `2019-08-18T00:42:0
 Because the timestamps are determined by the `GROUP BY time()` interval and not by the original data, the `ELAPSED()` calculation always returns the same value as the `GROUP BY time()` interval.
 
 ```sql
-> SELECT ELAPSED(MIN("water_level"),1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:36:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m)
+SELECT ELAPSED(MIN("water_level"),1m) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:36:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m)
 
 name: h2o_feet
 time                    elapsed
@@ -2100,7 +2100,7 @@ time                    elapsed
 2019-08-18T00:36:00Z    12.0000000000
 2019-08-18T00:48:00Z    12.0000000000
 
-> SELECT MIN("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:36:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m)
+SELECT MIN("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:36:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m)
 
 name: h2o_feet
 time                   min
@@ -2138,7 +2138,7 @@ To use `EXP()` with a `GROUP BY time()` clause, see [Advanced syntax](#advanced-
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                     water_level
@@ -2156,7 +2156,7 @@ time                     water_level
 {{% expand "Calculate the exponential of field values associated with a field key" %}}
 
 ```sql
-> SELECT EXP("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT EXP("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                     exp
@@ -2176,7 +2176,7 @@ Returns the exponential of field values in the `water_level` field key in the `h
 {{% expand "Calculate the exponential of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT EXP(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT EXP(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                      exp_water_level
@@ -2197,7 +2197,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the exponential of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT EXP("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT EXP("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                       exp
@@ -2244,7 +2244,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the exponential of mean values" %}}
 
 ```sql
-> SELECT EXP(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT EXP(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                      exp
@@ -2260,7 +2260,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `EXP()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       mean
@@ -2302,7 +2302,7 @@ To use `FLOOR()` with a `GROUP BY time()` clause, see [Advanced syntax](#advance
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       water_level
@@ -2320,7 +2320,7 @@ time                       water_level
 {{% expand "Calculate the floor of field values associated with a field key" %}}
 
 ```sql
-> SELECT FLOOR("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT FLOOR("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                      floor
@@ -2340,7 +2340,7 @@ Returns field values in the `water_level` field key in the `h2o_feet` measuremen
 {{% expand "Calculate the floor of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT FLOOR(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT FLOOR(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                     floor_water_level
@@ -2361,7 +2361,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the floor of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT FLOOR("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT FLOOR("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                     floor
@@ -2408,7 +2408,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate mean values rounded down to the nearest integer" %}}
 
 ```sql
-> SELECT FLOOR(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT FLOOR(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                     floor
@@ -2424,7 +2424,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `FLOOR()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                     mean
@@ -2472,7 +2472,7 @@ To use `LN()` with a `GROUP BY time()` clause, see [Advanced syntax](#advanced-s
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                      water_level
@@ -2490,7 +2490,7 @@ time                      water_level
 {{% expand "Calculate the natural logarithm of field values associated with a field key" %}}
 
 ```sql
-> SELECT LN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT LN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                      ln
@@ -2510,7 +2510,7 @@ Returns the natural logarithm of field values in the `water_level` field key in 
 {{% expand "Calculate the natural logarithm of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT LN(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT LN(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       ln_water_level
@@ -2531,7 +2531,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the natural logarithm of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT LN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT LN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                        ln
@@ -2578,7 +2578,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the natural logarithm of mean values" %}}
 
 ```sql
-> SELECT LN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT LN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       ln
@@ -2594,7 +2594,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `LN()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       mean
@@ -2636,7 +2636,7 @@ To use `LOG()` with a `GROUP BY time()` clause, see [Advanced syntax](#advanced-
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                      water_level
@@ -2654,7 +2654,7 @@ time                      water_level
 {{% expand "Calculate the logarithm base 4 of field values associated with a field key" %}}
 
 ```sql
-> SELECT LOG("water_level", 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT LOG("water_level", 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                      log
@@ -2674,7 +2674,7 @@ Returns the logarithm base 4 of field values in the `water_level` field key in t
 {{% expand "Calculate the logarithm base 4 of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT LOG(*, 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT LOG(*, 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       log_water_level
@@ -2695,7 +2695,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the logarithm base 4 of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT LOG("water_level", 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT LOG("water_level", 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                       log
@@ -2742,7 +2742,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the logarithm base 4 of mean values" %}}
 
 ```sql
-> SELECT LOG(MEAN("water_level"), 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT LOG(MEAN("water_level"), 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       log
@@ -2758,7 +2758,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `LOG()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       mean
@@ -2800,7 +2800,7 @@ To use `LOG2()` with a `GROUP BY time()` clause, see [Advanced syntax](#advanced
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       water_level
@@ -2818,7 +2818,7 @@ time                       water_level
 {{% expand "Calculate the logarithm base 2 of field values associated with a field key" %}}
 
 ```sql
-> SELECT LOG2("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT LOG2("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       log2
@@ -2838,7 +2838,7 @@ Returns the logarithm base 2 of field values in the `water_level` field key in t
 {{% expand "Calculate the logarithm base 2 of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT LOG2(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT LOG2(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                      log2_water_level
@@ -2859,7 +2859,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the logarithm base 2 of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT LOG2("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT LOG2("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                       log2
@@ -2906,7 +2906,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the logarithm base 2 of mean values" %}}
 
 ```sql
-> SELECT LOG2(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT LOG2(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       log2
@@ -2922,7 +2922,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `LOG2()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       mean
@@ -2964,7 +2964,7 @@ To use `LOG10()` with a `GROUP BY time()` clause, see [Advanced syntax](#advance
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       water_level
@@ -2982,7 +2982,7 @@ time                       water_level
 {{% expand "Calculate the logarithm base 10 of field values associated with a field key" %}}
 
 ```sql
-> SELECT LOG10("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT LOG10("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                      log10
@@ -3002,7 +3002,7 @@ Returns the logarithm base 10 of field values in the `water_level` field key in 
 {{% expand "Calculate the logarithm base 10 of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT LOG10(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT LOG10(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       log10_water_level
@@ -3023,7 +3023,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the logarithm base 10 of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT LOG10("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT LOG10("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                       log10
@@ -3070,7 +3070,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the logarithm base 10 of mean values" %}}
 
 ```sql
-> SELECT LOG10(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT LOG10(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       log10
@@ -3086,7 +3086,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `LOG10()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                      mean
@@ -3134,7 +3134,7 @@ To use `MOVING_AVERAGE()` with a `GROUP BY time()` clause, see [Advanced syntax]
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                        water_level
@@ -3152,7 +3152,7 @@ time                        water_level
 {{% expand "Calculate the moving average of the field values associated with a field key" %}}
 
 ```sql
-> SELECT MOVING_AVERAGE("water_level",2) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT MOVING_AVERAGE("water_level",2) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                       moving_average
@@ -3173,7 +3173,7 @@ The second result (`2.3610000000`) is the average of the second two points in th
 {{% expand "Calculate the moving average of the field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT MOVING_AVERAGE(*,3) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT MOVING_AVERAGE(*,3) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                       moving_average_water_level
@@ -3194,7 +3194,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the moving average of the field values associated with each field key that matches a regular expression" %}}
 
 ```sql
-> SELECT MOVING_AVERAGE(/level/,4) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT MOVING_AVERAGE(/level/,4) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
 
 name: h2o_feet
 time                      moving_average_water_level
@@ -3212,7 +3212,7 @@ Returns the rolling average across a four-field-value window for each field key 
 {{% expand "Calculate the moving average of the field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT MOVING_AVERAGE("water_level",2) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' ORDER BY time DESC LIMIT 2 OFFSET 3
+SELECT MOVING_AVERAGE("water_level",2) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' ORDER BY time DESC LIMIT 2 OFFSET 3
 
 name: h2o_feet
 time                      moving_average
@@ -3257,7 +3257,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the moving average of maximum values" %}}
 
 ```sql
-> SELECT MOVING_AVERAGE(MAX("water_level"),2) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
+SELECT MOVING_AVERAGE(MAX("water_level"),2) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 
 name: h2o_feet
 time                       moving_average
@@ -3273,7 +3273,7 @@ To get those results, InfluxDB first calculates the maximum `water_level`s at 12
 This step is the same as using the `MAX()` function with the `GROUP BY time()` clause and without `MOVING_AVERAGE()`:
 
 ```sql
-> SELECT MAX("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
+SELECT MAX("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
 
 name: h2o_feet
 time                       max
@@ -3439,7 +3439,7 @@ To use `POW()` with a `GROUP BY time()` clause, see [Advanced syntax](#advanced-
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       water_level
@@ -3457,7 +3457,7 @@ time                       water_level
 {{% expand "Calculate field values associated with a field key to the power of 4" %}}
 
 ```sql
-> SELECT POW("water_level", 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT POW("water_level", 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       pow
@@ -3477,7 +3477,7 @@ Returns field values in the `water_level` field key in the `h2o_feet` measuremen
 {{% expand "Calculate field values associated with each field key in a measurement to the power of 4" %}}
 
 ```sql
-> SELECT POW(*, 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT POW(*, 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       pow_water_level
@@ -3498,7 +3498,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate field values associated with a field key to the power of 4 and include several clauses" %}}
 
 ```sql
-> SELECT POW("water_level", 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT POW("water_level", 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                      pow
@@ -3545,7 +3545,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate mean values to the power of 4" %}}
 
 ```sql
-> SELECT POW(MEAN("water_level"), 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT POW(MEAN("water_level"), 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                        pow
@@ -3561,7 +3561,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `POW()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                         mean
@@ -3602,7 +3602,7 @@ Supports `GROUP BY` clauses that [group by tags](/influxdb/v2.4/query-data/influ
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                        water_level
@@ -3620,7 +3620,7 @@ time                        water_level
 {{% expand "Round field values associated with a field key" %}}
 
 ```sql
-> SELECT ROUND("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT ROUND("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                        round
@@ -3640,7 +3640,7 @@ Returns field values in the `water_level` field key in the `h2o_feet` measuremen
 {{% expand "Round field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT ROUND(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT ROUND(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                        round_water_level
@@ -3661,7 +3661,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Round field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT ROUND("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT ROUND("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                        round
@@ -3708,7 +3708,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate mean values rounded to the nearest integer" %}}
 
 ```sql
-> SELECT ROUND(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT ROUND(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                      round
@@ -3724,7 +3724,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `ROUND()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                      mean
@@ -3766,7 +3766,7 @@ To use `SIN()` with a `GROUP BY time()` clause, see [Advanced syntax](#advanced-
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       water_level
@@ -3784,7 +3784,7 @@ time                       water_level
 {{% expand "Calculate the sine of field values associated with a field key" %}}
 
 ```sql
-> SELECT SIN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT SIN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                        sin
@@ -3804,7 +3804,7 @@ Returns sine of field values in the `water_level` field key in the `h2o_feet` me
 {{% expand "Calculate the sine of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT SIN(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT SIN(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       sin_water_level
@@ -3825,7 +3825,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the sine of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT SIN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT SIN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                        sin
@@ -3872,7 +3872,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the sine of mean values" %}}
 
 ```sql
-> SELECT SIN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT SIN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       sin
@@ -3888,7 +3888,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `SIN()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       mean
@@ -3930,7 +3930,7 @@ To use `SQRT()` with a `GROUP BY time()` clause, see [Advanced syntax](#advanced
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       water_level
@@ -3948,7 +3948,7 @@ time                       water_level
 {{% expand "Calculate the square root of field values associated with a field key" %}}
 
 ```sql
-> SELECT SQRT("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT SQRT("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       sqrt
@@ -3967,7 +3967,7 @@ Returns the square roots of field values in the `water_level` field key in the `
 {{% expand "Calculate the square root of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT SQRT(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT SQRT(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                      sqrt_water_level
@@ -3987,7 +3987,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the square root of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT SQRT("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT SQRT("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                       sqrt
@@ -4034,7 +4034,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the square root of mean values" %}}
 
 ```sql
-> SELECT SQRT(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT SQRT(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       sqrt
@@ -4050,7 +4050,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `SQRT()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       mean
@@ -4092,7 +4092,7 @@ To use `TAN()` with a `GROUP BY time()` clause, see [Advanced syntax](#advanced-
 The examples below use the following subsample of the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT "water_level" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                       water_level
@@ -4110,7 +4110,7 @@ time                       water_level
 {{% expand "Calculate the tangent of field values associated with a field key" %}}
 
 ```sql
-> SELECT TAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT TAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                      tan
@@ -4130,7 +4130,7 @@ Returns tangent of field values in the `water_level` field key in the `h2o_feet`
 {{% expand "Calculate the tangent of field values associated with each field key in a measurement" %}}
 
 ```sql
-> SELECT TAN(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
+SELECT TAN(*) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica'
 
 name: h2o_feet
 time                      tan_water_level
@@ -4151,7 +4151,7 @@ The `h2o_feet` measurement has one numerical field: `water_level`.
 {{% expand "Calculate the tangent of field values associated with a field key and include several clauses" %}}
 
 ```sql
-> SELECT TAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
+SELECT TAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' ORDER BY time DESC LIMIT 4 OFFSET 2
 
 name: h2o_feet
 time                      tan
@@ -4198,7 +4198,7 @@ The query first calculates the results for the nested function at the specified 
 {{% expand "Calculate the tangent of mean values" %}}
 
 ```sql
-> SELECT TAN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT TAN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                       tan
@@ -4214,7 +4214,7 @@ To get those results, InfluxDB first calculates the average `water_level`s at 12
 This step is the same as using the `MEAN()` function with the `GROUP BY time()` clause and without `TAN()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
 
 name: h2o_feet
 time                        mean

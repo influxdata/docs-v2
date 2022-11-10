@@ -1,11 +1,11 @@
 ---
-title: The LIMIT and SLIMIT clause
-list_title: LIMIT and SLIMIT clause
+title: LIMIT and SLIMIT clauses
+list_title: LIMIT and SLIMIT clauses
 description: >
   Use the `LIMIT` and `SLIMIT` clauses to limit the number of [points](/influxdb/v2.5/reference/glossary/#point) and the number of [series](/influxdb/v2.5/reference/glossary/#series) returned in queries.
 menu:
   influxdb_2_5:
-    name: LIMIT and SLIMIT clause
+    name: LIMIT and SLIMIT clauses
     parent: Explore data
 weight: 305
 list_code_example: |
@@ -14,16 +14,17 @@ list_code_example: |
   ```
 ---
 
-Use `LIMIT` and `SLIMIT` to limit the number of [points](/influxdb/v2.5/reference/glossary/#point) and the number of [series](/influxdb/v2.5/reference/glossary/#series) returned per query.
+Use `LIMIT` and `SLIMIT` to limit the number of [points](/influxdb/v2.5/reference/glossary/#point) and [series](/influxdb/v2.5/reference/glossary/#series) returned per query.
 
-  - [The LIMIT clause](#the-limit-clause)  
-     - [Syntax](#syntax)
-     - [Examples](#examples)
-  - [The SLIMIT clause](#the-slimit-clause)  
-     - [Syntax](#syntax-1)
-     - [Examples](#examples-2)
+- [LIMIT clause](#limit-clause)  
+  - [Syntax](#syntax)
+  - [Examples](#examples)
+- [SLIMIT clause](#slimit-clause)  
+  - [Syntax](#syntax-1)
+  - [Examples](#examples-2)
+- [Use LIMIT and SLIMIT together](#use-limit-and-slimit-together)
 
-## The LIMIT clause
+## LIMIT clause
 
 `LIMIT <N>` returns the first `N` points from the specified [measurement](/influxdb/v2.5/reference/glossary/#measurement).
 
@@ -33,7 +34,7 @@ Use `LIMIT` and `SLIMIT` to limit the number of [points](/influxdb/v2.5/referenc
 SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT <N>
 ```
 
-`N` specifies the number of points to return from the specified measurement . If `N` is greater than the number of points in a measurement, InfluxDB returns all points from that series.
+`N` specifies the number of points to return from the specified measurement . If `N` is greater than the number of points in a measurement, InfluxDB returns all points from the measurement.
 
 {{% note %}}
 **IMPORTANT:** The `LIMIT` clause must appear in the order outlined in the syntax above.
@@ -46,7 +47,7 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIM
 {{% expand "Limit the number of points returned" %}}
 
 ```sql
-> SELECT "water_level","location" FROM "h2o_feet" LIMIT 3
+SELECT "water_level","location" FROM "h2o_feet" LIMIT 3
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -63,10 +64,10 @@ The query returns the three oldest points, determined by timestamp, from the `h2
 
 {{% /expand %}}
 
-{{% expand "Limit the number of points returned and include a GROUP BY clause" %}}
+{{% expand "Limit the number of points returned and include a `GROUP BY clause" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2
 ```
 Output:  
 {{% influxql/table-meta %}}
@@ -89,17 +90,17 @@ tags: location=santa_monica
 | 2019-08-18T00:00:00Z | 2.3655000000                |
 | 2019-08-18T00:12:00Z | 2.3360000000                |
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) and a `GROUP BY` clause to calculate the average `water_level` for each [tag](/influxdb/v2.5/reference/glossary/#tag) and for each twelve-minute interval in the query's time range. `LIMIT 2` requests the two oldest twelve-minute averages (determined by timestamp).
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) and a `GROUP BY` clause to calculate the average `water_level` for each [tag](/influxdb/v2.5/reference/glossary/#tag) and for each 12-minute interval in the queried time range. `LIMIT 2` requests the two oldest 12-minute averages (determined by timestamp).
 
-Note that without `LIMIT 2`, the query would return four points per series; one for each twelve-minute interval in the query's time range.
+Note that without `LIMIT 2`, the query would return four points per series; one for each 12-minute interval in the queried time range.
 
 {{% /expand %}}
 
 {{< /expand-wrapper >}}
 
-## The `SLIMIT` clause
+## SLIMIT clause
 
-`SLIMIT <N>` returns every [point](/influxdb/v2.5/reference/glossary/#point) from \<N> [series](//influxdb/v2.5/reference/glossary/#series) in the specified [measurement](/influxdb/v2.5/reference/glossary/#measurement).
+`SLIMIT <N>` returns every [point](/influxdb/v2.5/reference/glossary/#point) from `N` [series](//influxdb/v2.5/reference/glossary/#series) in the specified [measurement](/influxdb/v2.5/reference/glossary/#measurement).
 
 ### Syntax
 
@@ -109,7 +110,7 @@ SELECT_clause FROM_clause [WHERE_clause] GROUP BY *[,time(<time_interval>)] [ORD
 
 `N` specifies the number of series to return from the specified measurement. If `N` is greater than the number of series in a measurement, InfluxDB returns all series from that measurement.
 
-There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) that requires queries with `SLIMIT` to include `GROUP BY *`. Note that the `SLIMIT` clause must appear in the order outlined in the syntax above.
+`SLIMIT` queries must include `GROUP BY *`. Note that the `SLIMIT` clause must appear in the order outlined in the syntax above.
 
 ### Examples
 
@@ -118,7 +119,7 @@ There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) 
 {{% expand "Limit the number of series returned" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" GROUP BY * SLIMIT 1
+SELECT "water_level" FROM "h2o_feet" GROUP BY * SLIMIT 1
 ```
 Output:  
 {{% influxql/table-meta %}} 
@@ -140,10 +141,10 @@ The results above include only the first few rows, as the data set is quite larg
 
 {{% /expand %}}
 
-{{% expand "Limit the number of series returned and include a GROUP BY time() clause" %}}
+{{% expand "Limit the number of series returned and include a `GROUP BY time()` clause" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) SLIMIT 1
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) SLIMIT 1
 ```
 
 Output:  
@@ -161,8 +162,8 @@ tags: location=coyote_creek
 
 The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean)
 and a time interval in the [GROUP BY clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/)
-to calculate the average `water_level` for each twelve-minute
-interval in the query's time range.
+to calculate the average `water_level` for each 12-minute
+interval in the queried time range.
 
 `SLIMIT 1` requests a single series associated with the `h2o_feet` measurement.
 
@@ -174,9 +175,9 @@ associated with the `h2o_feet` measurement: `location=coyote_creek` and
 
 {{< /expand-wrapper >}}
 
-## LIMIT and SLIMIT
+## Use LIMIT and SLIMIT together
 
-`LIMIT <N>` followed by `SLIMIT <N>` returns the first \<N> [points](/influxdb/v2.5/reference/glossary/#point) from \<N> series in the specified measurement.
+`LIMIT <N1>` followed by `SLIMIT <N>` returns the first `N1` [points](/influxdb/v2.5/reference/glossary/#point) from `N2` series in the specified measurement.
 
 ### Syntax
 
@@ -188,8 +189,7 @@ SELECT_clause FROM_clause [WHERE_clause] GROUP BY *[,time(<time_interval>)] [ORD
 
 `N2` specifies the number of series to return from the specified measurement. If `N2` is greater than the number of series in a measurement, InfluxDB returns all series from that measurement.
 
-There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) that requires queries with `LIMIT` and `SLIMIT` to include `GROUP BY *`.
-Note that the `LIMIT` and `SLIMIT` clauses must appear in the order outlined in the syntax above.
+`SLIMIT` queries must include `GROUP BY *`. Note that the `SLIMIT` clause must appear in the order outlined in the syntax above.
 
 ### Examples
 
@@ -198,7 +198,7 @@ Note that the `LIMIT` and `SLIMIT` clauses must appear in the order outlined in 
 {{% expand "Limit the number of points and series returned" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" GROUP BY * LIMIT 3 SLIMIT 1
+SELECT "water_level" FROM "h2o_feet" GROUP BY * LIMIT 3 SLIMIT 1
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -216,10 +216,10 @@ The query returns the three oldest points, determined by timestamp, from one of 
 
 {{% /expand %}}
 
-{{% expand "Limit the number of points and series returned and include a GROUP BY time() clause" %}}
+{{% expand "Limit the number of points and series returned and include a `GROUP BY time()` clause" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2 SLIMIT 1
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2 SLIMIT 1
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -232,7 +232,7 @@ Tags: location=coyote_creek
 | 2019-08-18T00:00:00Z | 8.4615000000|
 | 2019-08-18T00:12:00Z | 8.2725000000|
 
-The query uses the InfluxQL function MEAN() and a time interval in the GROUP BY clause to calculate the average `water_level` for each twelve-minute interval in the query's time range. `LIMIT 2` requests the two oldest twelve-minute averages (determined by
+The query uses the InfluxQL function MEAN() and a time interval in the GROUP BY clause to calculate the average `water_level` for each 12-minute interval in the queried time range. `LIMIT 2` requests the two oldest 12-minute averages (determined by
 timestamp) and `SLIMIT 1` requests a single series associated with the `h2o_feet` measurement.
 
 Note that without `LIMIT 2 SLIMIT 1`, the query would return four points for each of the two series associated with the `h2o_feet` measurement.

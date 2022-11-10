@@ -121,7 +121,7 @@ The **NOAA water sample dataset** is static dataset extracted from
 [NOAA Center for Operational Oceanographic Products and Services](http://tidesandcurrents.noaa.gov/stations.html) data.
 The sample dataset includes 15,258 observations of water levels (ft) collected every six minutes at two stations
 (Santa Monica, CA (ID 9410840) and Coyote Creek, CA (ID 9414575)) over the period
-from **August 18, 2015** through **September 18, 2015**.
+from **August 18, 2019** through **September 18, 2019**.
 
 {{% note %}}
 #### Store NOAA water sample data to avoid bandwidth usage
@@ -130,16 +130,18 @@ we recommend that you [create a new bucket](/influxdb/v2.5/organizations/buckets
 (`noaa`) and write the NOAA sample water data to it.
 
 ```js
-import "experimental/csv"
+import "influxdata/influxdb/sample"
 
-csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
-    |> to(bucket: "noaa", org: "example-org")
+sample.data(set: "noaaWater")
+    |> to(bucket: "example-bucket")
 ```
 {{% /note %}}
 
-The NOAA water sample dataset is used to demonstrate Flux queries in the
-[Common queries](/influxdb/v2.5/query-data/common-queries/) and
-[Common tasks](/influxdb/v2.5/process-data/common-tasks/) guides.
+The NOAA water sample dataset is used:
+
+- To demonstrate Flux queries in [Common queries](/influxdb/v2.5/query-data/common-queries/) and
+[Common tasks](/influxdb/v2.5/process-data/common-tasks/)
+- To demonstrate InfluxQL queries in [Query data with InfluxQL](/influxdb/v2.5/query-data/influxql/)
 
 ## USGS Earthquake data
 

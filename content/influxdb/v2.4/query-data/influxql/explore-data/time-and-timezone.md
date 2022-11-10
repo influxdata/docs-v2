@@ -57,7 +57,7 @@ The `time_zone` parameter follows the TZ syntax in the [Internet Assigned Number
 {{% expand "Return the UTC offset for Chicago's time zone" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:18:00Z' tz('America/Chicago')
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:18:00Z' tz('America/Chicago')
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -155,7 +155,7 @@ duration literal.
 {{% expand "Specify a time range with RFC3339 date-time strings" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00.000000000Z' AND time <= '2019-08-18T00:12:00Z'
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00.000000000Z' AND time <= '2019-08-18T00:12:00Z'
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -178,7 +178,7 @@ Note that the single quotes around the RFC3339 date-time strings are required.
 {{% expand "Specify a time range with RFC3339-like date-time strings" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18' AND time <= '2019-08-18 00:12:00'
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18' AND time <= '2019-08-18 00:12:00'
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -204,7 +204,7 @@ required.
 {{% expand "Specify a time range with epock timestamps" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= 1564635600000000000 AND time <= 1566190800000000000
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= 1564635600000000000 AND time <= 1566190800000000000
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -237,7 +237,7 @@ at 00:00:00 and August 19, 2019 at 00:12:00.  By default InfluxDB assumes epoch 
 {{% expand "Specify a time range with second-precision epoch timestamps" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= 1566190800s AND time <= 1566191520s
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= 1566190800s AND time <= 1566191520s
 ```
 Output:
 | time   |  water_level |
@@ -255,7 +255,7 @@ The `s` duration literal at the end of the epoch timestamps indicate that the ep
 {{% expand "Perform basic arithmetic on an RFC3339-like date-time string" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time > '2019-09-17T21:24:00Z' + 6m
+SELECT "water_level" FROM "h2o_feet" WHERE time > '2019-09-17T21:24:00Z' + 6m
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -276,7 +276,7 @@ Note that the whitespace between the `+` and `6m` is required.
 {{% expand "Perform basic arithmetic on an epock timestamp" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time > 24043524m - 6m
+SELECT "water_level" FROM "h2o_feet" WHERE time > 24043524m - 6m
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -342,7 +342,7 @@ The whitespace between `-` or `+` and the [duration literal](/influxdb/v2.4/refe
 {{% expand "Specify a time range with relative time" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE time > now() - 1h
+SELECT "water_level" FROM "h2o_feet" WHERE time > now() - 1h
 ```
 
 The query returns data with timestamps that occur within the past hour.
@@ -355,7 +355,7 @@ The whitespace between `-` and `1h` is required.
 #### Specify a time range with absolute time and relative time
 
 ```sql
-> SELECT "level description" FROM "h2o_feet" WHERE time > '2019-09-17T21:18:00Z' AND time < now() + 1000d
+SELECT "level description" FROM "h2o_feet" WHERE time > '2019-09-17T21:18:00Z' AND time < now() + 1000d
 ```
 Output:
 {{% influxql/table-meta %}} 
@@ -405,7 +405,7 @@ Run a `GROUP BY time()` query that covers data with timestamps between
 `2019-09-18T21:30:00Z` and `now()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='santa_monica' AND time >= '2019-09-18T21:30:00Z' GROUP BY time(12m) fill(none)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='santa_monica' AND time >= '2019-09-18T21:30:00Z' GROUP BY time(12m) fill(none)
 
 name: h2o_feet
 time                   mean
@@ -418,7 +418,7 @@ Run a `GROUP BY time()` query that covers data with timestamps between
 `2019-09-18T21:30:00Z` and 180 weeks from `now()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='santa_monica' AND time >= '2019-09-18T21:30:00Z' AND time <= now() + 180w GROUP BY time(12m) fill(none)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='santa_monica' AND time >= '2019-09-18T21:30:00Z' AND time <= now() + 180w GROUP BY time(12m) fill(none)
 
 name: h2o_feet
 time                   mean
@@ -430,10 +430,10 @@ time                   mean
 
 Note that the `WHERE` clause must provide an alternative **upper** bound to
 override the default `now()` upper bound. The following query merely resets
-the lower bound to `now()` such that the query's time range is between
+the lower bound to `now()` such that the queried time range is between
 `now()` and `now()`:
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='santa_monica' AND time >= now() GROUP BY time(12m) fill(none)
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location"='santa_monica' AND time >= now() GROUP BY time(12m) fill(none)
 >
 ``` -->

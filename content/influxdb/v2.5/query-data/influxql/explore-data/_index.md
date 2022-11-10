@@ -15,7 +15,7 @@ To start exploring data with InfluxQL, do the following:
 
 2. [Configure timestamps in the InfluxQL shell](/influxdb/v2.5/query-data/influxql/explore-data/time-and-timezone/).
 
-3. (Optional) If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
+3. _(Optional)_ If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
 
 4. Use the InfluxQL `SELECT` statement in conjunction with other key clauses and useful query syntax for exploring your data.
 
@@ -23,18 +23,17 @@ To start exploring data with InfluxQL, do the following:
    - [WHERE clause](/influxdb/v2.5/query-data/influxql/explore-data/where/)
    - [GROUP BY clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/)
    - [ORDER BY clause](/influxdb/v2.5/query-data/influxql/explore-data/order-by/)
-   - [LIMIT and SLIMIT clause](/influxdb/v2.5/query-data/influxql/explore-data/limit-and-slimit/)
-   - [OFFSET and SOFFSET clause](/influxdb/v2.5/query-data/influxql/explore-data/offset-and-soffset/)
+   - [LIMIT and SLIMIT clauses](/influxdb/v2.5/query-data/influxql/explore-data/limit-and-slimit/)
+   - [OFFSET and SOFFSET clauses](/influxdb/v2.5/query-data/influxql/explore-data/offset-and-soffset/)
    - [Time and timezone queries](/influxdb/v2.5/query-data/influxql/explore-data/time-and-timezone/)
    - [Subqueries](/influxdb/v2.5/query-data/influxql/explore-data/subqueries/)
-   - [Regular expressions in InfluxQL](/influxdb/v2.5/query-data/influxql/explore-data/regular-expressions/)
+   - [Regular expressions](/influxdb/v2.5/query-data/influxql/explore-data/regular-expressions/)
 
 {{< children readmore=true hr=true >}}
 
-### Download sample data
+## Download sample data
 
-InfluxQL example queries use publicly available data from the
-[NOAA](https://tidesandcurrents.noaa.gov/).
+The example InfluxQL queries in this documentation use publicly available [National Oceanic and Atmospheric Administration (NOAA)](https://www.noaa.gov/) data.
 
 To download a subset of NOAA data used in examples, run the script under [NOAA water sample data](/influxdb/v2.5/reference/sample-data/#noaa-water-sample-data) (for example, copy and paste the script into your Data Explorer - Script Editor), and replace "example-org" in the script with the name of your InfluxDB organization.
 
@@ -62,10 +61,6 @@ This measurement has one [tag key](influxdb/v2.5/reference/glossary/#tag-key)
 The measurement also has two [fields](/influxdb/v2.5/reference/glossary/#field):
 `level description` stores string [field values](/influxdb/v2.5/reference/glossary/#field-value)
 and `water_level` stores float field values.
-
-{{% note %}}
-**Disclaimer:** The `level description` field isn't part of the original NOAA data - we snuck it in there for the sake of having a field key with a special character and string field values.
-{{% /note %}}
 
 ### Configure timestamps in the InfluxQL shell
 

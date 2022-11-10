@@ -1,6 +1,6 @@
 ---
-title: The OFFSET and SOFFSET clauses
-list_title: OFFSET and SOFFSET clause
+title: OFFSET and SOFFSET clauses
+list_title: OFFSET and SOFFSET clauses
 description: >
   Use the `OFFSET` and `SOFFSET` clauses to paginate [points](/influxdb/v2.5/reference/glossary/#point) and [series](/influxdb/v2.5/reference/glossary/#series).
 menu:
@@ -33,7 +33,7 @@ Use `OFFSET` and `SOFFSET` to paginate [points](/influxdb/v2.5/reference/glossar
 SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT_clause OFFSET <N> [SLIMIT_clause]
 ```
 
-`N` specifies the number of points to paginate. The `OFFSET clause` requires a `LIMIT clause`.
+`N` specifies the number of points to paginate. The `OFFSET` clause requires a [`LIMIT` clause](/influxdb/v2.5/query-data/influxql/limit-and-slimit/#limit-clause).
 
 {{% note %}}
 **Note:** InfluxDB returns no results if the `WHERE clause` includes a time range and the `OFFSET clause` would cause InfluxDB to return points with timestamps outside of that time range.
@@ -46,7 +46,7 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIM
 {{% expand "Paginate points" %}}
 
 ```sql
-> SELECT "water_level","location" FROM "h2o_feet" LIMIT 3 OFFSET 3
+SELECT "water_level","location" FROM "h2o_feet" LIMIT 3 OFFSET 3
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -67,7 +67,7 @@ and third points from that measurement.
 {{% expand "Paginate points and include several clauses" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) ORDER BY time DESC LIMIT 2 OFFSET 2 SLIMIT 1
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) ORDER BY time DESC LIMIT 2 OFFSET 2 SLIMIT 1
 ```
 Output: 
 {{% influxql/table-meta %}}
@@ -108,7 +108,7 @@ tags: location=coyote_creek
 
 {{< /expand-wrapper >}}
 
-## The `SOFFSET` clause
+## `SOFFSET` clause
 
 `SOFFSET <N>` paginates `N` [series](/influxdb/v2.5/reference/glossary/#series) in the query results.
 
@@ -122,7 +122,7 @@ SELECT_clause FROM_clause [WHERE_clause] GROUP BY *[,time(time_interval)] [ORDER
 The `SOFFSET` clause requires an [`SLIMIT` clause](/influxdb/v2.5/query-data/influxql/explore-data/limit-and-slimit/.
 Using the `SOFFSET` clause without an `SLIMIT` clause can cause [inconsistent
 query results](https://github.com/influxdata/influxdb/issues/7578).
-There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) that requires queries with `SLIMIT` to include `GROUP BY *`.
+`SLIMIT` queries must include `GROUP BY *`.
 
 {{% note %}}
 **Note:** InfluxDB returns no results if the `SOFFSET` clause paginates through more than the total number of series.
@@ -137,7 +137,7 @@ There is an [ongoing issue](https://github.com/influxdata/influxdb/issues/7571) 
 #### Paginate series
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" GROUP BY * SLIMIT 1 SOFFSET 1
+SELECT "water_level" FROM "h2o_feet" GROUP BY * SLIMIT 1 SOFFSET 1
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -166,7 +166,7 @@ measurement and the `location = santa_monica` tag. Without `SOFFSET 1`, the quer
 #### Paginate series and include all clauses
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) ORDER BY time DESC LIMIT 2 OFFSET 2 SLIMIT 1 SOFFSET 1
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) ORDER BY time DESC LIMIT 2 OFFSET 2 SLIMIT 1 SOFFSET 1
 ```
 Output: 
 {{% influxql/table-meta %}}
@@ -179,7 +179,7 @@ tags: location=santa_monica
 | 2019-08-18T00:12:00Z | 2.3360000000|
 | 2019-08-18T00:00:00Z | 2.3655000000|
 
-This example is pretty involved, so here's the clause-by-clause breakdown:
+In this example:
 
   - The [`SELECT` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/) specifies an InfluxQL [function](/influxdb/v2.5/query-data/influxql/view-functions/).
   - The [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause) specifies a single measurement.

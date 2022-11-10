@@ -1,5 +1,5 @@
 ---
-title: Use the ORDER BY clause
+title: ORDER BY clause
 list_title: ORDER BY clause
 description: >
   Use the `ORDER BY` clause to sort data in ascending or descending order.
@@ -14,7 +14,7 @@ list_code_example: |
   ```
 ---
 
-Use the `ORDER BY` clause to sort data. 
+Use the `ORDER BY` clause to sort data.
 
 - [Syntax](#syntax)
 - [Examples](#examples)
@@ -33,8 +33,8 @@ with the most recent timestamps first.
 SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER BY time DESC
 ```
 
-`ORDER by time DESC` must appear after the `GROUP BY` clause if the query includes a `GROUP BY` clause.
-`ORDER by time DESC` must appear after the `WHERE` clause if the query includes a `WHERE` clause and no `GROUP BY` clause.
+If the query includes a `GROUP BY` clause, `ORDER by time DESC` must appear **after** the `GROUP BY` clause.
+If the query includes a `WHERE` clause and no `GROUP BY` clause, `ORDER by time DESC` must appear **after** the `WHERE` clause.
 
 ### Examples
 
@@ -43,7 +43,7 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER BY time DESC
 {{% expand "Return the newest points first" %}}
 
 ```sql
-> SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' ORDER BY time DESC
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' ORDER BY time DESC
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -76,10 +76,10 @@ Name: h2o_feet
 
 {{% /expand %}}
 
-{{% expand "Return the newest points first and include a GROUP BY time() clause" %}}
+{{% expand "Return the newest points first and include a `GROUP BY time()` clause" %}}
 
 ```sql
-> SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY time(12m) ORDER BY time DESC
+SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY time(12m) ORDER BY time DESC
 ```
 Output:
 {{% influxql/table-meta %}}
@@ -95,8 +95,8 @@ Name: h2o_feet
 
 The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean)
 and a time interval in the [GROUP BY clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
-to calculate the average `water_level` for each twelve-minute
-interval in the query's time range.
+to calculate the average `water_level` for each 12-minute
+interval in the queried time range.
 [`ORDER BY time DESC`](/influxdb/v2.4/query-data/influxql/explore-data/order-by/#order-by-time-desc) returns the most recent 12-minute time intervals
 first.
 
