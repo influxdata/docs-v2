@@ -1,5 +1,5 @@
 ---
-title: Use the ORDER BY clause
+title: ORDER BY clause
 list_title: ORDER BY clause
 description: >
   Use the `ORDER BY` clause to sort data in ascending or descending order.
@@ -14,7 +14,7 @@ list_code_example: |
   ```
 ---
 
-Use the `ORDER BY` clause to sort data. 
+Use the `ORDER BY` clause to sort data.
 
 - [Syntax](#syntax)
 - [Examples](#examples)
@@ -33,8 +33,8 @@ with the most recent timestamps first.
 SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] ORDER BY time DESC
 ```
 
-`ORDER by time DESC` must appear after the `GROUP BY` clause if the query includes a `GROUP BY` clause.
-`ORDER by time DESC` must appear after the `WHERE` clause if the query includes a `WHERE` clause and no `GROUP BY` clause.
+If the query includes a `GROUP BY` clause, `ORDER by time DESC` must appear **after** the `GROUP BY` clause.
+If the query includes a `WHERE` clause and no `GROUP BY` clause, `ORDER by time DESC` must appear **after** the `WHERE` clause.
 
 ### Examples
 
@@ -76,7 +76,7 @@ Name: h2o_feet
 
 {{% /expand %}}
 
-{{% expand "Return the newest points first and include a GROUP BY time() clause" %}}
+{{% expand "Return the newest points first and include a `GROUP BY time()` clause" %}}
 
 ```sql
 SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY time(12m) ORDER BY time DESC

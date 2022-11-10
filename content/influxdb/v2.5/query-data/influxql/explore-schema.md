@@ -57,11 +57,11 @@ The `WHERE` clause supports tag comparisons; field comparisons are not
 valid for the `SHOW SERIES` query.
 
 Supported operators in the `WHERE` clause:
-`=`&emsp;&nbsp;&thinsp;equal to
-`<>`&emsp;not equal to
-`!=`&emsp;not equal to
-`=~`&emsp;matches against
-`!~`&emsp;doesn't match against
+`=` : equal to
+`<>`: not equal to
+`!=`: not equal to
+`=~`: matches against
+`!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.5/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause),
@@ -135,11 +135,11 @@ The `WITH`, `WHERE`, `LIMIT` and `OFFSET` clauses are optional.
 The `WHERE` clause supports tag comparisons; field comparisons are not valid for the `SHOW MEASUREMENTS` query.
 
 Supported operators in the `WHERE` clause:
-`=`&emsp;&nbsp;&thinsp;equal to
-`<>`&emsp;not equal to
-`!=`&emsp;not equal to
-`=~`&emsp;matches against
-`!~`&emsp;doesn't match against
+`=` : equal to
+`<>`: not equal to
+`!=`: not equal to
+`=~`: matches against
+`!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.5/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause),
@@ -223,11 +223,11 @@ The `WHERE` clause supports tag comparisons; field comparisons are not
 valid for the `SHOW TAG KEYS` query.
 
 Supported operators in the `WHERE` clause:
-`=`&emsp;&nbsp;&thinsp;equal to
-`<>`&emsp;not equal to
-`!=`&emsp;not equal to
-`=~`&emsp;matches against
-`!~`&emsp;doesn't match against
+`=` : equal to
+`<>`: not equal to
+`!=`: not equal to
+`=~`: matches against
+`!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.5/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause),
@@ -318,11 +318,11 @@ The `WHERE` clause supports tag comparisons; field comparisons are not
 valid for the `SHOW TAG KEYS` query.
 
 Supported operators in the `WITH` and `WHERE` clauses:
-`=`&emsp;&nbsp;&thinsp;equal to
-`<>`&emsp;not equal to
-`!=`&emsp;not equal to
-`=~`&emsp;matches against
-`!~`&emsp;doesn't match against
+`=` : equal to
+`<>`: not equal to
+`!=`: not equal to
+`=~`: matches against
+`!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.5/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause),

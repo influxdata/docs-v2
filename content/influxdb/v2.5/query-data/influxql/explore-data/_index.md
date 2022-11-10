@@ -24,10 +24,10 @@ To start exploring data with InfluxQL, do the following:
    - [GROUP BY clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/)
    - [ORDER BY clause](/influxdb/v2.5/query-data/influxql/explore-data/order-by/)
    - [LIMIT and SLIMIT clauses](/influxdb/v2.5/query-data/influxql/explore-data/limit-and-slimit/)
-   - [OFFSET and SOFFSET clause](/influxdb/v2.5/query-data/influxql/explore-data/offset-and-soffset/)
+   - [OFFSET and SOFFSET clauses](/influxdb/v2.5/query-data/influxql/explore-data/offset-and-soffset/)
    - [Time and timezone queries](/influxdb/v2.5/query-data/influxql/explore-data/time-and-timezone/)
    - [Subqueries](/influxdb/v2.5/query-data/influxql/explore-data/subqueries/)
-   - [Regular expressions in InfluxQL](/influxdb/v2.5/query-data/influxql/explore-data/regular-expressions/)
+   - [Regular expressions](/influxdb/v2.5/query-data/influxql/explore-data/regular-expressions/)
 
 {{< children readmore=true hr=true >}}
 
