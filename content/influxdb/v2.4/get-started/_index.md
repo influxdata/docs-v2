@@ -95,7 +95,7 @@ For detailed CLI installation instructions, see
 
 The [InfluxDB API](/influxdb/v2.4/reference/api/) provides a simple way to
 interact with the InfluxDB {{< current-version >}} using HTTP(S) clients.
-Examples in this tutorial use `curl`, but any HTTP(S) client will work.
+Examples in this tutorial use cURL, but any HTTP(S) client will work.
 
 {{% note %}}
 #### InfluxDB client libraries

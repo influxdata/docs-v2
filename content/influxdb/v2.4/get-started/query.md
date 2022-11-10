@@ -16,7 +16,7 @@ metadata: [3 / 5]
 
 InfluxDB supports many different tools for querying data, including:
 
-- Influx user interface (UI)
+- InfluxDB user interface (UI)
 - InfluxDB HTTP API
 - `influx` CLI
 - [Chronograf](/{{< latest "Chronograf" >}}/)
@@ -48,7 +48,7 @@ The examples in this section of the tutorial query the data from written in the
 
 ## Query data with Flux
 
-Flux is a functional scripting language that lets your query and process data
+Flux is a functional scripting language that lets you query and process data
 from InfluxDB and [other data sources](/flux/v0.x/query-data/).
 
 {{% note %}}
@@ -70,6 +70,9 @@ When querying InfluxDB with Flux, there are three primary functions you use:
   and each column is represented by a property of `r`.
   You can apply multiple subsequent filters.
 
+  To see how `from()` structures data into rows and tables when returned from InfluxDB,
+  [view the data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data).
+
   {{< expand-wrapper >}}
 {{% expand "Learn more about how `filter()` works" %}}
 
@@ -89,7 +92,7 @@ r = {
 ```
 
 To filter rows, use [predicate expressions](/flux/v0.x/get-started/syntax-basics/#predicate-expressions)
-to evaluate the value of columns. Given the row above:
+to evaluate the values of columns. Given the row record above:
 
 ```javascript
 (r) => r._measurement == "home" // Returns true
@@ -226,7 +229,7 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
             potential values: **Living Room** or **Kitchen**.
 
         ```js
-        from(bucket: "gfrom(bucket: "get-started")
+        from(bucket: from(bucket: "get-started")
             |> range(start: 2022-01-01T08:00:00Z, stop: 2022-01-01T20:00:01Z)
             |> filter(fn: (r) => r._measurement == "home")
             |> filter(fn: (r) => r._field== "co" or r._field == "hum" or r._field == "temp")
@@ -418,8 +421,8 @@ These columns, by default, represent the query time bounds and are added by `ran
 
 ## Query data with InfluxQL
 
-InfluxQL is a SQL-like querying language developed to query time series data
-from InfluxDB 0.x and 1.x.
+InfluxQL is a SQL-like query language similar to most SQL languages, but
+specifically designed to query time series data from InfluxDB 0.x and 1.x.
 
 {{% note %}}
 #### Map databases and retention policies to buckets
@@ -433,7 +436,6 @@ To use InfluxQL with InfluxDB {{< current-version >}}, first
 
 ### InfluxQL query basics
 
-InfluxQL is a SQL-like query language very similar to most SQL languages.
 When querying InfluxDB with InfluxQL, the most basic query includes the following
 statements and clauses:
 
@@ -473,9 +475,9 @@ Use the **`influx` CLI**, or **InfluxDB API** to execute InfluxQL queries.
 {{% note %}}
 #### The InflxuDB UI does not support InfluxQL
 
-The InfluxDB {{< current-version >}} UI does not provide a way to query with InfluxQL.
-If you would like a user interface for building and executing InfluxQL queries,
-consider using [Chronograf](/influxdb/v2.4/tools/chronograf/) or
+The InfluxDB {{< current-version >}} UI does not provide a way to query data with InfluxQL.
+For a user interface that builds and executes InfluxQL queries, consider using
+[Chronograf](/influxdb/v2.4/tools/chronograf/) or
 [Grafana](/influxdb/v2.4/tools/grafana/) with InfluxDB {{< current-version >}}.
 {{% /note %}}
 
@@ -591,7 +593,7 @@ The InfluxDB `/write` 1.x compatibility endpoint returns query results in JSON f
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-Congratulations! You've learned the basics of querying data in InfluxDB.
+**Congratulations!** You've learned the basics of querying data in InfluxDB.
 Let's move on to automatically processing data over time with InfluxDB tasks.
 
 {{< page-nav prev="/influxdb/v2.4/get-started/write/" next="/influxdb/v2.4/get-started/process/" keepTab=true >}}
