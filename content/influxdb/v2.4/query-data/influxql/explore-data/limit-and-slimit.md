@@ -13,7 +13,7 @@ list_code_example: |
   ```
 ---
 
-Use `LIMIT` and `SLIMIT` to limit the number of [points](/influxdb/v2.4/reference/glossary/#point) and the number of [series](/influxdb/v2.4/reference/glossary/#series) returned per query.
+Use `LIMIT` and `SLIMIT` to limit the number of [points](/influxdb/v2.4/reference/glossary/#point) and [series](/influxdb/v2.4/reference/glossary/#series) returned per query.
 
   - [The LIMIT clause](#the-limit-clause)  
      - [Syntax](#syntax)
