@@ -14,6 +14,14 @@ list_code_example: |
   ```
 ---
 
+Use the [Time Zone clause (`tz()`)](#the-time-zone-clause) to return the UTC offset for the specified timezone and explore a variety of time-related queries. You can also review the following ways to work with timestamps in your InfluxQL queries:
+
+- [Configuring returned timestamps](#configuring-returned-timestamps)
+- [Time syntax](#time-syntax)
+- [Absolute time](#absolute-time)
+- [Relative time](#relative-time)
+- [Common issues with time syntax](#common-issues-with-time-syntax)
+
 ## Configuring returned timestamps
 
 The [InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/) returns timestamps in

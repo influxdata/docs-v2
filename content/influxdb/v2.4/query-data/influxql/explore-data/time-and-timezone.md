@@ -13,16 +13,13 @@ list_code_example: |
   SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause] tz('<time_zone>')
   ```
 ---
-Use the `tz` (timezone) clause to return the UTC offset for the specified timezone and explore a variety of time-related queries.
+
+Use the [Time Zone clause (`tz()`)](#the-time-zone-clause) to return the UTC offset for the specified timezone and explore a variety of time-related queries. You can also review the following ways to work with timestamps in your InfluxQL queries:
 
 - [Configuring returned timestamps](#configuring-returned-timestamps)
-- [The Time Zone clause](#the-time-zone-clause)
-   - [Examples](#examples)
 - [Time syntax](#time-syntax)
 - [Absolute time](#absolute-time)
-   - [Syntax and examples](#syntax-1)
 - [Relative time](#relative-time)
-   - [Syntax and examples](#syntax-2)
 - [Common issues with time syntax](#common-issues-with-time-syntax)
 
 ## Configuring returned timestamps

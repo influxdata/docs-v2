@@ -20,6 +20,10 @@ A subquery is a query that is nested in the `FROM` clause of another query. Use 
 **Note:** InfluxQL does not support a `HAVING` clause.
 {{% /note %}}
 
+- [Syntax](#syntax)
+- [Examples](#examples)
+- [Common Issues](#common-issues-with-subqueries)
+
 ### Syntax
 
 ```sql
@@ -28,7 +32,7 @@ SELECT_clause FROM ( SELECT_statement ) [...]
 
 InfluxDB **performs the subquery first** and the main query second.
 
-The main query surrounds the subquery and requires at least the [`SELECT` clause](/influxdb//v2.4/query-data/influxql/explore-data/select/) and the [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause).
+The main query surrounds the subquery and requires at least the [`SELECT` clause](/influxdb//v2.4/query-data/influxql/explore-data/select/) and the [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause).
 The main query supports all clauses listed in InfluxQL 2.x documentation.
 
 The subquery appears in the main query's `FROM` clause, and it requires surrounding parentheses.
@@ -42,7 +46,7 @@ SELECT_clause FROM ( SELECT_clause FROM ( SELECT_statement ) [...] ) [...]
 ```
 
 {{% note %}}
-#### Improve performance of time-bound subqueries
+**Note:** #### Improve performance of time-bound subqueries
 To improve the performance of InfluxQL queries with time-bound subqueries,
 apply the `WHERE time` clause to the outer query instead of the inner query.
 For example, the following queries return the same results, but **the query with
@@ -68,7 +72,9 @@ SELECT inner_value AS value FROM (
 
 ### Examples
 
-#### Calculate the [`SUM()`](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#sum) of several [`MAX()`](/influxdb/v2.5/query-data/influxql/view-functions/selectors/#max) values
+{{< expand-wrapper >}}
+
+{{% expand "Calculate the SUM() of several MAX() values" %}}
 
 ```sql
 > SELECT SUM("max") FROM (SELECT MAX("water_level") FROM "h2o_feet" GROUP BY "location")
@@ -114,7 +120,9 @@ tags: location=santa_monica
 Next, InfluxDB performs the main query and calculates the sum of those maximum values: `9.9640000000` + `7.2050000000` = `17.169`.
 Notice that the main query specifies `max`, not `water_level`, as the field key in the `SUM()` function.
 
-#### Calculate the [`MEAN()`](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) difference between two fields
+{{% /expand %}}
+
+{{% expand "Calculate the MEAN() difference between two fields" %}}
 
 ```sql
 > SELECT MEAN("difference") FROM (SELECT "cats" - "dogs" AS "difference" FROM "pet_daycare")
@@ -153,9 +161,11 @@ Name: pet_daycare
 
 
 Next, InfluxDB performs the main query and calculates the average of those differences.
-Notice that the main query specifies `difference` as the field key in the [`MEAN()`](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) function.
+Notice that the main query specifies `difference` as the field key in the [`MEAN()`](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) function.
 
-#### Calculate several [`MEAN()`](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) values and place a condition on those mean values
+{{% /expand %}}
+
+{{% expand "Calculate several MEAN() values and place a condition on those mean values" %}}
 
 ```sql
 > SELECT "all_the_means" FROM (SELECT MEAN("water_level") AS "all_the_means" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m) ) WHERE "all_the_means" > 5
@@ -196,7 +206,9 @@ Name: h2o_feet
 Next, InfluxDB performs the main query and returns only those mean values that are greater than five.
 Notice that the main query specifies `all_the_means` as the field key in the `SELECT` clause.
 
-#### Calculate the [`SUM()`](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#sum) of several [`DERIVATIVE()`](/influxdb/v2.5/query-data/influxql/view-functions/transformations/#derivative) values
+{{% /expand %}}
+
+{{% expand "Calculate the SUM() of several DERIVATIVE() values" %}}
 
 ```sql
 > SELECT SUM("water_level_derivative") AS "sum_derivative" FROM (SELECT DERIVATIVE(MEAN("water_level")) AS "water_level_derivative" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location") GROUP BY "location"
@@ -256,7 +268,11 @@ tags: location=santa_monica
 
 
 Next, InfluxDB performs the main query and calculates the sum of the `water_level_derivative` values for each tag value of `location`.
-Notice that the main query specifies `water_level_derivative`, not `water_level` or `derivative`, as the field key in the [`SUM()`](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#sum) function.
+Notice that the main query specifies `water_level_derivative`, not `water_level` or `derivative`, as the field key in the [`SUM()`](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#sum) function.
+
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
 
 ### Common issues with subqueries
 
@@ -270,7 +286,7 @@ SELECT_clause FROM ( SELECT_clause FROM ( SELECT_statement ) [...] ) [...]
                          Subquery 1          Subquery 2
 ```
 
-InfluxQL does not support multiple [`SELECT` statements](/influxdb/v2.5/query-data/influxql/explore-data/select/) per subquery:
+InfluxQL does not support multiple [`SELECT` statements](/influxdb/v2.4/query-data/influxql/explore-data/select/) per subquery:
 
 ```sql
 SELECT_clause FROM (SELECT_statement; SELECT_statement) [...]
