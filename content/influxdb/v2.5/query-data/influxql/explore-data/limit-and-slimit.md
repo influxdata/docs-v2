@@ -1,5 +1,5 @@
 ---
-title: The LIMIT and SLIMIT clauses
+title: LIMIT and SLIMIT clauses
 list_title: LIMIT and SLIMIT clauses
 description: >
   Use the `LIMIT` and `SLIMIT` clauses to limit the number of [points](/influxdb/v2.5/reference/glossary/#point) and the number of [series](/influxdb/v2.5/reference/glossary/#series) returned in queries.
@@ -22,6 +22,7 @@ Use `LIMIT` and `SLIMIT` to limit the number of [points](/influxdb/v2.5/referenc
 - [SLIMIT clause](#slimit-clause)  
   - [Syntax](#syntax-1)
   - [Examples](#examples-2)
+- [Use LIMIT and SLIMIT together](#use-limit-and-slimit-together)
 
 ## LIMIT clause
 
@@ -63,7 +64,7 @@ The query returns the three oldest points, determined by timestamp, from the `h2
 
 {{% /expand %}}
 
-{{% expand "Limit the number of points returned and include a `GROUP BY` clause" %}}
+{{% expand "Limit the number of points returned and include a `GROUP BY clause" %}}
 
 ```sql
 SELECT MEAN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:42:00Z' GROUP BY *,time(12m) LIMIT 2
@@ -174,7 +175,7 @@ associated with the `h2o_feet` measurement: `location=coyote_creek` and
 
 {{< /expand-wrapper >}}
 
-## LIMIT and SLIMIT
+## Use LIMIT and SLIMIT together
 
 `LIMIT <N1>` followed by `SLIMIT <N>` returns the first `N1` [points](/influxdb/v2.5/reference/glossary/#point) from `N2` series in the specified measurement.
 

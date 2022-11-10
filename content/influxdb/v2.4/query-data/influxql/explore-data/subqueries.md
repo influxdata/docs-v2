@@ -1,6 +1,5 @@
 ---
 title: Subqueries
-list_title: Subqueries
 description: >
   Use a `subquery` to apply a query as a condition in the enclosing query.
 menu:
@@ -276,7 +275,7 @@ Notice that the main query specifies `water_level_derivative`, not `water_level`
 
 ### Common issues with subqueries
 
-#### Multiple SELECT statements in a subquery
+#### Multiple statements in a subquery
 
 InfluxQL supports multiple nested subqueries per main query:
 

@@ -22,21 +22,20 @@ InfluxQL supports using regular expressions when specifying:
 - [tag keys](/influxdb/v2.4/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
 
 InfluxQL does not support using regular expressions to match
-non-string field values in the
-`WHERE` clause,
+non-string field values in the `WHERE` clause,
 [databases](/influxdb/v2.4/reference/glossary/#database), and
 [retention polices](/influxdb/v2.4/reference/glossary/#retention-policy-rp).
 
 {{% note %}}
 **Note:** Regular expression comparisons are more computationally intensive than exact
-string comparisons; queries with regular expressions are not as performant
+string comparisons. Queries with regular expressions are not as performant
 as those without.
 {{% /note %}}
 
 - [Syntax](#syntax)
 - [Examples](#examples)
 
-### Syntax
+## Syntax
 
 ```sql
 SELECT /<regular_expression_field_key>/ FROM /<regular_expression_measurement>/ WHERE [<tag_key> <operator> /<regular_expression_tag_value>/ | <field_key> <operator> /<regular_expression_field_value>/] GROUP BY /<regular_expression_tag_key>/
@@ -45,10 +44,10 @@ SELECT /<regular_expression_field_key>/ FROM /<regular_expression_measurement>/ 
 Regular expressions are surrounded by `/` characters and use
 [Golang's regular expression syntax](http://golang.org/pkg/regexp/syntax/).
 
-#### Supported operators
+## Supported operators
 
-`=~`&emsp;matches against  
-`!~`&emsp;doesn't match against
+`=~`: matches against
+`!~`: doesn't match against
 
 ### Examples
 
@@ -123,9 +122,7 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z | 4.4710766395|
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` where the [tag value](/influxdb/v2.4/reference/glossary/#measurement) of `location`
-
-includes an `m` and `water_level` is greater than three.
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` where the [tag value](/influxdb/v2.4/reference/glossary/#measurement) of `location` includes an `m` and `water_level` is greater than three.
 
 {{% /expand %}}
 

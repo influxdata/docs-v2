@@ -1,5 +1,5 @@
 ---
-title: The SELECT statement
+title: SELECT statement
 list_title: SELECT statement
 description: >
   Use the `SELECT` statement to query data from a particular [measurement](/influxdb/v2.5/reference/glossary/#measurement) or measurements.
@@ -39,56 +39,59 @@ The examples in this document use the `noaa` database to create SELECT queries.
 
 {{% note %}}
 **Note:** If you are using the [InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/) be sure to enter
-`USE noaa` before you running the queries below.
+`USE noaa` or `USE your-bucket-name` before running the queries below.
 {{% /note %}}
 
-### Syntax
+## Syntax
 
 ```sql
 SELECT <field_key>[,<field_key>,<tag_key>] FROM <measurement_name>[,<measurement_name>]
 ```
+
 {{% note %}}
 **Note:** The `SELECT` statement **requires** a `SELECT` clause and a `FROM` clause.
 {{% /note %}}
 
-#### `SELECT` clause
+### `SELECT` clause
 
-The `SELECT` clause supports several formats for specifying data:
+The `SELECT` clause specifies the measurement to query.
+This clause supports several formats for specifying a [measurement(s)](/influxdb/v2.5/reference/glossary/#measurement):
 
-  - `SELECT *` - Returns all [fields](/influxdb/v2.5/reference/glossary/#field) and [tags](/influxdb/v2.5/reference/glossary/#tag).
-  - `SELECT "<field_key>"` - Returns a specific field.
-  - `SELECT "<field_key>","<field_key>"` - Returns more than one field.
-  - `SELECT "<field_key>","<tag_key>"` - Returns a specific field and tag. The `SELECT` clause must specify at least one field when it includes a tag.
-  - `SELECT "<field_key>"::field,"<tag_key>"::tag` - Returns a specific field and tag.
+- `SELECT *` - Returns all [fields](/influxdb/v2.5/reference/glossary/#field) and [tags](/influxdb/v2.5/reference/glossary/#tag).
+- `SELECT "<field_key>"` - Returns a specific field.
+- `SELECT "<field_key>","<field_key>"` - Returns more than one field.
+- `SELECT "<field_key>","<tag_key>"` - Returns a specific field and tag. The `SELECT` clause must specify at least one field when it includes a tag.
+- `SELECT "<field_key>"::field,"<tag_key>"::tag` - Returns a specific field and tag.
 The `::[field | tag]` syntax specifies the [identifier's](/influxdb/v2.5/reference/syntax/influxql/spec/#identifiers) type.
 Use this syntax to differentiate between field keys and tag keys with the same name.
 
 Other supported features include:
- - [Functions](/influxdb/v2.5/query-data/influxql/view-functions/)
- - [Basic cast operations](#data-types-and-cast-operations)
- - [Regular expressions](/influxdb/v2.5/query-data/influxql/explore-data/regular-expressions/)
+
+- [Functions](/influxdb/v2.5/query-data/influxql/view-functions/)
+- [Basic cast operations](#data-types-and-cast-operations)
+- [Regular expressions](/influxdb/v2.5/query-data/influxql/explore-data/regular-expressions/)
 
 {{% note %}}
 **Note:** The SELECT statement cannot include an aggregate function **and** a non-aggregate function, field key, or tag key. For more information, see [error about mixing aggregate and non-aggregate queries](/enterprise_influxdb/v1.9/troubleshooting/errors/#error-parsing-query-mixing-aggregate-and-non-aggregate-queries-is-not-supported).
 {{% /note %}}
 
-#### `FROM` clause
+### `FROM` clause
 
 The `FROM` clause supports several formats for specifying a [measurement(s)](/influxdb/v2.5/reference/glossary/#measurement):
 
-  - `FROM <measurement_name>` - Returns data from a single measurement. 
-  - `FROM <measurement_name>,<measurement_name>` - Returns data from more than one measurement.
-  - `FROM <database_name>.<retention_policy_name>.<measurement_name>` - Returns data from a fully qualified measurement.
-  - `FROM <database_name>..<measurement_name>` - Returns data from a measurement.
+- `FROM <measurement_name>` - Returns data from a measurement.
+- `FROM <measurement_name>,<measurement_name>` - Returns data from more than one measurement.
+- `FROM <database_name>.<retention_policy_name>.<measurement_name>` - Returns data from a fully qualified measurement.
+- `FROM <database_name>..<measurement_name>` - Returns data from a measurement.
 
 #### Quoting
 
-[Identifiers](/influxdb/v2.5/reference/syntax/influxql/spec/#identifiers) **must** be double quoted if they contain characters other than `[A-z,0-9,_]`, if they
-begin with a digit, or if they are an [InfluxQL keyword](https://github.com/influxdata/influxql/blob/master/README.md#keywords).
+[Identifiers](/influxdb/v2.5/reference/syntax/influxql/spec/#identifiers) **must** be double quoted if they contain characters other than `[A-z,0-9,_]`,
+begin with a digit, or are an [InfluxQL keyword](https://github.com/influxdata/influxql/blob/master/README.md#keywords).
 While not always necessary, we recommend that you double quote identifiers.
 
 {{% note %}}
-**Note:** The quoting syntax for queries differs from the [line protocol](/influxdb/v2.5/reference/syntax/line-protocol/).
+**Note:** InfluxQL quoting guidelines differ from [line protocol quoting guidelines](/influxdb/v2.5/reference/syntax/line-protocol/#quotes).
 Please review the [rules for single and double-quoting](/influxdb/v2.5/reference/syntax/line-protocol/#quotes) in queries.
 {{% /note %}}
 
@@ -103,7 +106,7 @@ precision rfc3339
 ### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Select all fields and tags from a single measurement" %}}
+{{% expand "Select all fields and tags from a measurement" %}}
 
 ```sql
 SELECT * FROM "h2o_feet"
@@ -123,7 +126,6 @@ Name: h2o_feet
 | 2019-08-17T00:12:00Z | between 6 and 9 feet | coyote_creek | 7.8870000000|
 | 2019-08-17T00:18:00Z | below 3 feet |santa_monica | 2.1260000000|
 
-
 The data above is a partial listing of the query output, as the result set is quite large. The query selects all [fields](/influxdb/v2.5/reference/glossary/#field) and
 [tags](/influxdb/v2.5/reference/glossary/#tag) from the `h2o_feet`
 [measurement](/influxdb/v2.5/reference/glossary/#measurement).
@@ -137,7 +139,7 @@ queries the database's `DEFAULT` retention policy.
 
 {{% /expand %}}
 
-{{% expand "Select specific tags and fields from a single measurement" %}}
+{{% expand "Select specific tags and fields from a measurement" %}}
 
 ```sql
 SELECT "level description","location","water_level" FROM "h2o_feet"
@@ -162,7 +164,7 @@ a tag.
 
 {{% /expand %}}
 
-{{% expand "Select specific tags and fields from a single measurement, and provide their identifier type" %}}
+{{% expand "Select specific tags and fields from a measurement and provide their identifier type" %}}
 
 ```sql
 SELECT "level description"::field,"location"::tag,"water_level"::field FROM "h2o_feet"
@@ -190,7 +192,7 @@ That syntax is not required for most use cases.
 
 {{% /expand %}}
 
-{{% expand "Select all fields from a single measurement" %}}
+{{% expand "Select all fields from a measurement" %}}
 
 ```sql
 SELECT *::field FROM "h2o_feet"
@@ -276,7 +278,6 @@ Name: h2o_pH
 | 2019-08-17T00:06:00Z  | <nil> |santa_monica  | 6.00 | <nil> |
 | 2019-08-17T00:12:00Z  | <nil> |coyote_creek  |8.00 | <nil> |
 
-
 The query selects all fields and tags from two measurements: `h2o_feet` and
 `h2o_pH`.
 Separate multiple measurements with a comma (`,`).
@@ -302,22 +303,21 @@ Name: h2o_feet
 | 2019-08-17T00:12:00Z | below 3 feet | santa_monica | 2.0280000000|
 | 2019-08-17T00:12:00Z | between 6 and 9 feet | coyote_creek | 7.8870000000|
 
-The query selects data in the `noaa`and the `h2o_feet` measurement.
+The query selects data from the `h2o_feet` measurement in the `noaa` database.
 The `..` indicates the `DEFAULT` retention policy for the specified database.
 
 {{% /expand %}}
 
 {{< /expand-wrapper >}}
 
-### Common issues with the SELECT statement
+## Common issues with the SELECT statement
 
-#### Selecting tag keys in the SELECT statement
+### Selecting tag keys in the SELECT statement
 
 A query requires at least one [field key](/influxdb/v2.5/reference/glossary/#field-key)
 in the `SELECT` clause to return data.
 If the `SELECT` clause only includes a single [tag key](/influxdb/v2.5/reference/glossary/#tag-key) or several tag keys, the
 query returns an empty response.
-This behavior is a result of how the system stores data.
 
 ##### Example
 
@@ -354,20 +354,19 @@ Name: h2o_feet
 
 InfluxQL supports using regular expressions when specifying:
 
-* [field keys](/influxdb/v2.5/reference/glossary/#field-key) and [tag keys](/influxdb/v2.5/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/)
-* [measurements](/influxdb/v2.5/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause)
-* [tag values](/influxdb/v2.5/reference/glossary/#tag-value) and string [field values](/influxdb/v2.5/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/v2.5/query-data/influxql/explore-data/where/).
-* [tag keys](/influxdb/v2.5/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/)
+- [field keys](/influxdb/v2.5/reference/glossary/#field-key) and [tag keys](/influxdb/v2.5/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/)
+- [measurements](/influxdb/v2.5/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause)
+- [tag values](/influxdb/v2.5/reference/glossary/#tag-value) and string [field values](/influxdb/v2.5/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/v2.5/query-data/influxql/explore-data/where/).
+- [tag keys](/influxdb/v2.5/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/)
 
 Currently, InfluxQL does not support using regular expressions to match
-non-string field values in the
-`WHERE` clause,
+non-string field values in the `WHERE` clause,
 [databases](/influxdb/v2.5/reference/glossary/#database), and
 [retention policies](/influxdb/v2.5/reference/glossary/#retention-policy-rp).
 
 {{% note %}}
 **Note:** Regular expression comparisons are more computationally intensive than exact
-string comparisons; queries with regular expressions are not as performant
+string comparisons. Queries with regular expressions are not as performant
 as those without.
 {{% /note %}}
 
@@ -382,8 +381,8 @@ Regular expressions are surrounded by `/` characters and use
 
 #### Supported operators
 
-`=~`&emsp;matches against
-`!~`&emsp;doesn't match against
+`=~`: matches against
+`!~`: doesn't match against
 
 ### Examples
 
@@ -452,7 +451,7 @@ The [`SELECT` clause](#the-basic-select-statement) supports specifying a [field'
   - [Data types](#data-types)
   - [Cast operations](#cast-operations)
 
-## Data types
+### Data types
 
 [Field values](/influxdb/v2.5/reference/glossary/#field-value) can be floats, integers, strings, or booleans.
 The `::` syntax allows users to specify the field's type in a query.

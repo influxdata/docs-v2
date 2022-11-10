@@ -21,6 +21,7 @@ Use `LIMIT` and `SLIMIT` to limit the number of [points](/influxdb/v2.4/referenc
 - [SLIMIT clause](#slimit-clause)  
   - [Syntax](#syntax-1)
   - [Examples](#examples-2)
+- [Use LIMIT and SLIMIT together](#use-limit-and-slimit-together)
 
 ## LIMIT clause
 
@@ -173,7 +174,7 @@ associated with the `h2o_feet` measurement: `location=coyote_creek` and
 
 {{< /expand-wrapper >}}
 
-## LIMIT and SLIMIT
+## Use LIMIT and SLIMIT together
 
 `LIMIT <N>` followed by `SLIMIT <2>` returns the first `N1` [points](/influxdb/v2.4/reference/glossary/#point) from `N2` series in the specified measurement.
 
