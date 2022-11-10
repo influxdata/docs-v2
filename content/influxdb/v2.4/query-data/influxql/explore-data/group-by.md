@@ -1129,8 +1129,7 @@ Name: h2o_feet
 | 2019-09-18T16:48:00Z |     4 |
 
 
-The next query shortens the time range in the previous query.
-It now covers the time between `2019-09-18T16:36:00Z` and `2019-09-18T16:54:00Z`.
+The next example queries the time range between `2019-09-18T16:36:00Z` and `2019-09-18T16:54:00Z`.
 Note that `fill(previous)` doesn't fill the result for `2019-09-18T16:36:00Z` with the
 result from `2019-09-18T16:24:00Z`; the result for `2019-09-18T16:24:00Z` is outside the query's
 shorter time range.
