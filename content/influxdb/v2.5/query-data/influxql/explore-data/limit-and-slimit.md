@@ -1,11 +1,11 @@
 ---
-title: The LIMIT and SLIMIT clause
-list_title: LIMIT and SLIMIT clause
+title: The LIMIT and SLIMIT clauses
+list_title: LIMIT and SLIMIT clauses
 description: >
   Use the `LIMIT` and `SLIMIT` clauses to limit the number of [points](/influxdb/v2.5/reference/glossary/#point) and the number of [series](/influxdb/v2.5/reference/glossary/#series) returned in queries.
 menu:
   influxdb_2_5:
-    name: LIMIT and SLIMIT clause
+    name: LIMIT and SLIMIT clauses
     parent: Explore data
 weight: 305
 list_code_example: |
@@ -14,7 +14,7 @@ list_code_example: |
   ```
 ---
 
-Use `LIMIT` and `SLIMIT` to limit the number of [points](/influxdb/v2.5/reference/glossary/#point) and the number of [series](/influxdb/v2.5/reference/glossary/#series) returned per query.
+Use `LIMIT` and `SLIMIT` to limit the number of [points](/influxdb/v2.5/reference/glossary/#point) and [series](/influxdb/v2.5/reference/glossary/#series) returned per query.
 
   - [The LIMIT clause](#the-limit-clause)  
      - [Syntax](#syntax)

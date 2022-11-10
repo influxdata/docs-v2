@@ -12,7 +12,7 @@ list_code_example: |
   SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
 ---
 
-Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag) and/or a specified time interval. `GROUP BY` requires an [aggregate](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/) or [selector](/influxdb/v2.4/query-data/influxql/view-functions/selectors/) function in the `SELECT` statement.
+Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.4/reference/glossary/#tag) and/or a specified time interval. `GROUP BY` requires an [aggregate](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/) or [selector](/influxdb/v2.4/query-data/influxql/view-functions/selectors/) function in the `SELECT` statement. `GROUP BY` supports [regular expressions](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 {{% note %}}
 **Note:** You cannot use `GROUP BY` to group **fields**.
@@ -41,10 +41,9 @@ SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key>]]
   - `GROUP BY *` - Groups results by all [tags](/influxdb/v2.4/reference/glossary/#tag)
   - `GROUP BY <tag_key>` - Groups results by a specific tag
   - `GROUP BY <tag_key>,<tag_key>` - Groups results by more than one tag. The order of the [tag keys](/influxdb/v2.4/reference/glossary/#tag-key) is irrelevant.
+  - `GROUP BY \regex\` - Groups results by tags that match the regular expression.
 
 If the query includes a `WHERE` clause, the `GROUP BY` clause must appear after the `WHERE` clause.
-
-Other supported features include [Regular Expressions](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/).
 
 ### Examples
 
@@ -55,24 +54,25 @@ Other supported features include [Regular Expressions](/influxdb/v2.4/query-data
 ```sql
 SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
 ```
+
 Output:
-{{% influxql/table-meta %}} 
-name: h2o_feet   
+{{% influxql/table-meta %}}
+name: h2o_feet
 tags: location=coyote_creek
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
-|time | mean |
-| :-------------- |--------------------:|
-| 1970-01-01T00:00:00Z | 5.3591424203|
+| time                 |         mean |
+| :------------------- | -----------: |
+| 1970-01-01T00:00:00Z | 5.3591424203 |
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: h2o_feet  
 tags: location=santa_monica
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
-|time | mean |
-| :-------------- |----------------------:|
-| 1970-01-01T00:00:00Z |3.5307120942|
+| time                 |         mean |
+| :------------------- | -----------: |
+| 1970-01-01T00:00:00Z | 3.5307120942 |
 
 The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/)
 to calculate the average `water_level` for each
@@ -98,8 +98,8 @@ name: h2o_quality
 tags: location=coyote_creek, randtag=1
 {{% /influxql/table-meta %}} 
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 50.6903376019 |
 
 {{% influxql/table-meta %}} 
@@ -107,8 +107,8 @@ name: h2o_quality
 tags: location=coyote_creek, randtag=2
 {{% /influxql/table-meta %}} 
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 49.6618675442 |
 
 {{% influxql/table-meta %}} 
@@ -116,8 +116,8 @@ name: h2o_quality
 tags: location=coyote_creek, randtag=3
 {{% /influxql/table-meta %}} 
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 49.3609399076 |
 
 {{% influxql/table-meta %}} 
@@ -125,8 +125,8 @@ name: h2o_quality
 tags: location=santa_monica, randtag=1
 {{% /influxql/table-meta %}}
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 49.1327124563 |
 
 {{% influxql/table-meta %}} 
@@ -134,8 +134,8 @@ name: h2o_quality
 tags: location=santa_monica, randtag=2
 {{% /influxql/table-meta %}}
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 50.2937984496 |
 
 {{% influxql/table-meta %}} 
@@ -143,8 +143,8 @@ name: h2o_quality
 tags: location=santa_monica, randtag=3
 {{% /influxql/table-meta %}}
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 49.9991990388 |
 
 The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `index` for
@@ -165,8 +165,8 @@ name: h2o_quality
 tags: location=coyote_creek, randtag=1
 {{% /influxql/table-meta %}} 
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 50.6903376019 |
 
 {{% influxql/table-meta %}} 
@@ -174,8 +174,8 @@ name: h2o_quality
 tags: location=coyote_creek, randtag=2
 {{% /influxql/table-meta %}} 
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 49.6618675442 |
 
 {{% influxql/table-meta %}} 
@@ -183,8 +183,8 @@ name: h2o_quality
 tags: location=coyote_creek, randtag=3
 {{% /influxql/table-meta %}} 
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 49.3609399076 |
 
 {{% influxql/table-meta %}} 
@@ -192,26 +192,26 @@ name: h2o_quality
 tags: location=santa_monica, randtag=1
 {{% /influxql/table-meta %}}
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 49.1327124563 |
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: h2o_quality  
 tags: location=santa_monica, randtag=2
 {{% /influxql/table-meta %}}
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 50.2937984496 |
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: h2o_quality  
 tags: location=santa_monica, randtag=3
 {{% /influxql/table-meta %}}
 
-|time | mean |
-| :-------------- | -------------------:|
+| time                 |          mean |
+| :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 49.9991990388 |
 
 The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `index` for every possible
@@ -223,6 +223,16 @@ Note that the query results are identical to the results of the query in [Exampl
 where we explicitly specified the `location` and `randtag` tag keys.
 This is because the `h2o_quality` measurement only has two tag keys.
 {{% /note %}}
+
+{{% /expand %}}
+
+{{% expand "Group query results by tags that start with `l`" %}}
+
+```sql
+SELECT "water_level",location FROM "h2o_feet" GROUP BY /l/
+```
+
+This query uses a regular expression to group by tags that start with `l`. With the sample NOAA water dataset, results are grouped by the `location` tag.
 
 {{% /expand %}}
 
@@ -278,12 +288,12 @@ Output:
 Name: h2o_feet 
 {{% /influxql/table-meta %}} 
 
-| time | water_level | location |
-| :-------------- | -------------------:| :------------------|
-| 2019-08-18T00:00:00Z | 8.5040000000  | coyote_creek |
-| 2019-08-18T00:00:00Z  | 2.3520000000 | santa_monica |
+| time                 |  water_level | location     |
+| :------------------- | -----------: | :----------- |
+| 2019-08-18T00:00:00Z | 8.5040000000 | coyote_creek |
+| 2019-08-18T00:00:00Z | 2.3520000000 | santa_monica |
 | 2019-08-18T00:06:00Z | 8.4190000000 | coyote_creek |
-| 2019-08-18T00:06:00Z |  2.3790000000 | santa_monica|
+| 2019-08-18T00:06:00Z | 2.3790000000 | santa_monica |
 | 2019-08-18T00:12:00Z | 8.3200000000 | coyote_creek |
 | 2019-08-18T00:12:00Z | 2.3430000000 | santa_monica |
 | 2019-08-18T00:18:00Z | 8.2250000000 | coyote_creek |
@@ -305,11 +315,11 @@ Output:
 Name: h2o_feet 
 {{% /influxql/table-meta %}} 
 
-| time   | count |
-| :------------------ | :---------------------:|
-| 2019-08-18T00:00:00Z | 2.0000000000|
-| 2019-08-18T00:12:00Z | 2.0000000000|
-| 2019-08-18T00:24:00Z | 2.0000000000|
+| time                 |    count     |
+| :------------------- | :----------: |
+| 2019-08-18T00:00:00Z | 2.0000000000 |
+| 2019-08-18T00:12:00Z | 2.0000000000 |
+| 2019-08-18T00:24:00Z | 2.0000000000 |
 
 The query uses the InfluxQL [COUNT() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points per location, per 12-minute interval.
 
@@ -332,11 +342,11 @@ name: h2o_feet
 tags: location=coyote_creek
 {{% /influxql/table-meta %}}
 
-| time   | count |
-| :------------------ | ---------------------:|
-| 2019-08-18T00:00:00Z | 2.0000000000|
-| 2019-08-18T00:12:00Z | 2.0000000000|
-| 2019-08-18T00:24:00Z | 2.0000000000|
+| time                 |        count |
+| :------------------- | -----------: |
+| 2019-08-18T00:00:00Z | 2.0000000000 |
+| 2019-08-18T00:12:00Z | 2.0000000000 |
+| 2019-08-18T00:24:00Z | 2.0000000000 |
 
 
 {{% influxql/table-meta %}}
@@ -344,11 +354,11 @@ name: h2o_feet
 tags: location=santa_monica
 {{% /influxql/table-meta %}}
 
-| time   | count |
-| :------------------ | ---------------------:|
-| 2019-08-18T00:00:00Z | 2.0000000000|
-| 2019-08-18T00:12:00Z | 2.0000000000|
-| 2019-08-18T00:24:00Z | 2.0000000000|
+| time                 |        count |
+| :------------------- | -----------: |
+| 2019-08-18T00:00:00Z | 2.0000000000 |
+| 2019-08-18T00:12:00Z | 2.0000000000 |
+| 2019-08-18T00:24:00Z | 2.0000000000 |
 
 The query uses the InfluxQL [COUNT() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#count)
 to count the number of `water_level` points per location, per 12 minute interval.
@@ -389,16 +399,16 @@ Output:
 name: h2o_feet  
 {{% /influxql/table-meta %}}
 
-| time   | water_level |
-| :------------------ | ---------------------:|
-|2019-08-18T00:00:00Z |  8.5040000000 |
-|2019-08-18T00:06:00Z |  8.4190000000 |
-|2019-08-18T00:12:00Z |  8.3200000000 |
-|2019-08-18T00:18:00Z |  8.2250000000 |
+| time                 |  water_level |
+| :------------------- | -----------: |
+| 2019-08-18T00:00:00Z | 8.5040000000 |
+| 2019-08-18T00:06:00Z | 8.4190000000 |
+| 2019-08-18T00:12:00Z | 8.3200000000 |
+| 2019-08-18T00:18:00Z | 8.2250000000 |
 
 Query and results:
 
-The following query covers a 12-minute time range and groups results into 12-minute time intervals, but it returns **two** results:
+The following example queries a 12-minute time range and groups results into 12-minute time intervals, but it returns **two** results:
 
 ```sql
 SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m)
@@ -409,10 +419,10 @@ Output:
 name: h2o_feet  
 {{% /influxql/table-meta %}}
 
-| time   | count |
-| :------------------ | ---------------------:|
-|2019-08-18T00:00:00Z  |  1.0000000000|
-|2019-08-18T00:12:00Z  |  1.0000000000|
+| time                 |        count |
+| :------------------- | -----------: |
+| 2019-08-18T00:00:00Z | 1.0000000000 |
+| 2019-08-18T00:12:00Z | 1.0000000000 |
 
 {{% note %}}
 **Note:**  The timestamp in the first row of data occurs before the start of the queried time range.
@@ -430,10 +440,10 @@ The table below shows the preset time boundary, the relevant `GROUP BY time()` i
 points included, and the returned timestamp for each `GROUP BY time()`
 interval in the results.
 
-| Time Interval Number | Preset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| 1  | `time >= 2019-08-18T00:00:00Z AND time < 2019-08-18T00:12:00Z` | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:12:00Z` | `8.005` | `2019-08-18T00:00:00Z` |
-| 2  | `time >= 2019-08-12T00:12:00Z AND time < 2019-08-18T00:24:00Z` | `time >= 2019-08-12T00:12:00Z AND time < 2019-08-18T00:18:00Z`  | `7.887` | `2019-08-18T00:12:00Z` |
+| Time Interval Number | Preset Time Boundary                                           | `GROUP BY time()` Interval                                     | Points Included | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------------------------------------------- | :-------------- | :--------------------- |
+| 1                    | `time >= 2019-08-18T00:00:00Z AND time < 2019-08-18T00:12:00Z` | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:12:00Z` | `8.005`         | `2019-08-18T00:00:00Z` |
+| 2                    | `time >= 2019-08-12T00:12:00Z AND time < 2019-08-18T00:24:00Z` | `time >= 2019-08-12T00:12:00Z AND time < 2019-08-18T00:18:00Z` | `7.887`         | `2019-08-18T00:12:00Z` |
 
 The first preset 12-minute time boundary begins at `00:00` and ends just before
 `00:12`.
@@ -459,9 +469,9 @@ Output:
 name: h2o_feet  
 {{% /influxql/table-meta %}}
 
-| time   | count |
-| :------------------ | ---------------------:|
-| 2019-08-18T00:06:00Z  | 2 |
+| time                 | count |
+| :------------------- | ----: |
+| 2019-08-18T00:06:00Z |     2 |
 
 ### Advanced GROUP BY time() syntax
 
@@ -509,17 +519,17 @@ Output:
 Name: h2o_feet 
 {{% /influxql/table-meta %}} 
 
-| time | water_level | 
-| :-------------- | -------------------:| 
+| time                 |  water_level |
+| :------------------- | -----------: |
 | 2019-08-18T00:00:00Z | 8.5040000000 |
 | 2019-08-18T00:06:00Z | 8.4190000000 |
-| 2019-08-18T00:12:00Z | 8.3200000000|
-| 2019-08-18T00:18:00Z | 8.2250000000|
-| 2019-08-18T00:24:00Z | 8.1300000000|
-| 2019-08-18T00:30:00Z | 8.0120000000|
-| 2019-08-18T00:36:00Z | 7.8940000000|
-| 2019-08-18T00:42:00Z | 7.7720000000|
-| 2019-08-18T00:48:00Z | 7.6380000000|
+| 2019-08-18T00:12:00Z | 8.3200000000 |
+| 2019-08-18T00:18:00Z | 8.2250000000 |
+| 2019-08-18T00:24:00Z | 8.1300000000 |
+| 2019-08-18T00:30:00Z | 8.0120000000 |
+| 2019-08-18T00:36:00Z | 7.8940000000 |
+| 2019-08-18T00:42:00Z | 7.7720000000 |
+| 2019-08-18T00:48:00Z | 7.6380000000 |
 | 2019-08-18T00:54:00Z | 7.5100000000 |
 
 {{< expand-wrapper >}}
@@ -534,11 +544,11 @@ Output:
 Name: h2o_feet 
 {{% /influxql/table-meta %}} 
 
-| time | mean | 
-| :-------------- | -------------------:| 
-| 2019-08-18T00:06:00Z | 8.3213333333|
-| 2019-08-18T00:24:00Z | 8.0120000000|
-| 2019-08-18T00:42:00Z | 7.6400000000|
+| time                 |         mean |
+| :------------------- | -----------: |
+| 2019-08-18T00:06:00Z | 8.3213333333 |
+| 2019-08-18T00:24:00Z | 8.0120000000 |
+| 2019-08-18T00:42:00Z | 7.6400000000 |
 
 The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean)
 to calculate the average `water_level`, grouping results into 18 minute time intervals, and offsetting the preset time boundaries by 6 minutes.
@@ -553,22 +563,22 @@ Output:
 Name: h2o_feet 
 {{% /influxql/table-meta %}} 
 
-| time | mean | 
-| :-------------- | -------------------:| 
-| 2019-08-18T00:00:00Z | 8.3695000000| 
-| 2019-08-18T00:18:00Z | 8.1223333333|
-| 2019-08-18T00:36:00Z | 7.7680000000|
-| 2019-08-18T00:54:00Z | 7.5100000000|
+| time                 |         mean |
+| :------------------- | -----------: |
+| 2019-08-18T00:00:00Z | 8.3695000000 |
+| 2019-08-18T00:18:00Z | 8.1223333333 |
+| 2019-08-18T00:36:00Z | 7.7680000000 |
+| 2019-08-18T00:54:00Z | 7.5100000000 |
 
 The time boundaries and returned timestamps for the query **without** the
 `offset_interval` adhere to the InfluxDB database's preset time boundaries:
 
-| Time Interval Number | Preset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| 1  | `time >= 2019-08-18T00:00:00Z AND time < 2019-08-18T00:18:00Z` | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:18:00Z` | `8.005`,`7.887` | `2019-08-18T00:00:00Z` |
-| 2  | `time >= 2019-08-18T00:18:00Z AND time < 2019-08-18T00:36:00Z` | <--- same | `7.762`,`7.635`,`7.5` | `2019-08-18T00:18:00Z` |
-| 3  | `time >= 2019-08-18T00:36:00Z AND time < 2019-08-18T00:54:00Z` | <--- same | `7.372`,`7.234`,`7.11` | `2019-08-18T00:36:00Z` |
-| 4  | `time >= 2019-08-18T00:54:00Z AND time < 2019-08-18T01:12:00Z` | `time = 2019-08-18T00:54:00Z` | `6.982` | `2019-08-18T00:54:00Z` |
+| Time Interval Number | Preset Time Boundary                                           | `GROUP BY time()` Interval                                     | Points Included        | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------------------------------------------- | :--------------------- | :--------------------- |
+| 1                    | `time >= 2019-08-18T00:00:00Z AND time < 2019-08-18T00:18:00Z` | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:18:00Z` | `8.005`,`7.887`        | `2019-08-18T00:00:00Z` |
+| 2                    | `time >= 2019-08-18T00:18:00Z AND time < 2019-08-18T00:36:00Z` | <--- same                                                      | `7.762`,`7.635`,`7.5`  | `2019-08-18T00:18:00Z` |
+| 3                    | `time >= 2019-08-18T00:36:00Z AND time < 2019-08-18T00:54:00Z` | <--- same                                                      | `7.372`,`7.234`,`7.11` | `2019-08-18T00:36:00Z` |
+| 4                    | `time >= 2019-08-18T00:54:00Z AND time < 2019-08-18T01:12:00Z` | `time = 2019-08-18T00:54:00Z`                                  | `6.982`                | `2019-08-18T00:54:00Z` |
 
 The first preset 18-minute time boundary begins at `00:00` and ends just before
 `00:18`. Two raw points (`8.005` and `7.887`) fall both within the first `GROUP BY time()` interval and in that
@@ -585,12 +595,12 @@ fourth time boundary.
 
 The time boundaries and returned timestamps for the query **with** the `offset_interval` adhere to the offset time boundaries:
 
-| Time Interval Number | Offset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | ------------- |
-| 1  | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:24:00Z` | <--- same | `8.005`,`7.887`,`7.762` | `2019-08-18T00:06:00Z` |
-| 2  | `time >= 2019-08-18T00:24:00Z AND time < 2019-08-18T00:42:00Z` | <--- same | `7.635`,`7.5`,`7.372` | `2019-08-18T00:24:00Z` |
-| 3  | `time >= 2019-08-18T00:42:00Z AND time < 2019-08-18T01:00:00Z` | <--- same | `7.234`,`7.11`,`6.982` | `2019-08-18T00:42:00Z` |
-| 4  | `time >= 2019-08-18T01:00:00Z AND time < 2019-08-18T01:18:00Z` | NA | NA | NA |
+| Time Interval Number | Offset Time Boundary                                           | `GROUP BY time()` Interval | Points Included         | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------- | :---------------------- | ---------------------- |
+| 1                    | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:24:00Z` | <--- same                  | `8.005`,`7.887`,`7.762` | `2019-08-18T00:06:00Z` |
+| 2                    | `time >= 2019-08-18T00:24:00Z AND time < 2019-08-18T00:42:00Z` | <--- same                  | `7.635`,`7.5`,`7.372`   | `2019-08-18T00:24:00Z` |
+| 3                    | `time >= 2019-08-18T00:42:00Z AND time < 2019-08-18T01:00:00Z` | <--- same                  | `7.234`,`7.11`,`6.982`  | `2019-08-18T00:42:00Z` |
+| 4                    | `time >= 2019-08-18T01:00:00Z AND time < 2019-08-18T01:18:00Z` | NA                         | NA                      | NA                     |
 
 The six-minute offset interval shifts forward the preset boundary's time range
 such that the boundary time ranges and the relevant `GROUP BY time()` interval time ranges are
@@ -614,8 +624,8 @@ Output:
 Name: h2o_feet 
 {{% /influxql/table-meta %}} 
 
-| time | mean | 
-| :-------------- | -------------------:| 
+| time                 |         mean |
+| :------------------- | -----------: |
 | 2019-08-18T00:06:00Z | 8.3213333333 |
 | 2019-08-18T00:24:00Z | 8.0120000000 |
 | 2019-08-18T00:42:00Z | 7.6400000000 |
@@ -642,8 +652,8 @@ Output:
 Name: h2o_feet 
 {{% /influxql/table-meta %}} 
 
-| time | mean | 
-| :-------------- | -------------------:| 
+| time                 |         mean |
+| :------------------- | -----------: |
 | 2019-08-18T00:00:00Z | 8.3695000000 |
 | 2019-08-18T00:18:00Z | 8.1223333333 |
 | 2019-08-18T00:36:00Z | 7.7680000000 |
@@ -652,12 +662,12 @@ Name: h2o_feet
 The time boundaries and returned timestamps for the query **without** the
 `offset_interval` adhere to the InfluxDB database's preset time boundaries:
 
-| Time Interval Number | Preset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| 1  | `time >= 2019-08-18T00:00:00Z AND time < 2019-08-18T00:18:00Z` | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:18:00Z` | `8.005`,`7.887` | `2019-08-18T00:00:00Z` |
-| 2  | `time >= 2019-08-18T00:18:00Z AND time < 2019-08-18T00:36:00Z` | <--- same | `7.762`,`7.635`,`7.5` | `2019-08-18T00:18:00Z` |
-| 3  | `time >= 2019-08-18T00:36:00Z AND time < 2019-08-18T00:54:00Z` | <--- same | `7.372`,`7.234`,`7.11` | `2019-08-18T00:36:00Z` |
-| 4  | `time >= 2019-08-18T00:54:00Z AND time < 2019-08-18T01:12:00Z` | `time = 2019-08-18T00:54:00Z` | `6.982` | `2019-08-18T00:54:00Z` |
+| Time Interval Number | Preset Time Boundary                                           | `GROUP BY time()` Interval                                     | Points Included        | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------------------------------------------- | :--------------------- | :--------------------- |
+| 1                    | `time >= 2019-08-18T00:00:00Z AND time < 2019-08-18T00:18:00Z` | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:18:00Z` | `8.005`,`7.887`        | `2019-08-18T00:00:00Z` |
+| 2                    | `time >= 2019-08-18T00:18:00Z AND time < 2019-08-18T00:36:00Z` | <--- same                                                      | `7.762`,`7.635`,`7.5`  | `2019-08-18T00:18:00Z` |
+| 3                    | `time >= 2019-08-18T00:36:00Z AND time < 2019-08-18T00:54:00Z` | <--- same                                                      | `7.372`,`7.234`,`7.11` | `2019-08-18T00:36:00Z` |
+| 4                    | `time >= 2019-08-18T00:54:00Z AND time < 2019-08-18T01:12:00Z` | `time = 2019-08-18T00:54:00Z`                                  | `6.982`                | `2019-08-18T00:54:00Z` |
 
 The first preset 18-minute time boundary begins at `00:00` and ends just before
 `00:18`.
@@ -679,12 +689,12 @@ fourth time boundary.
 The time boundaries and returned timestamps for the query **with** the
 `offset_interval` adhere to the offset time boundaries:
 
-| Time Interval Number | Offset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | ------------- |
-| 1  | `time >= 2019-08-17T23:48:00Z AND time < 2019-08-18T00:06:00Z` | NA | NA | NA |
-| 2  | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:24:00Z` | <--- same | `8.005`,`7.887`,`7.762` | `2019-08-18T00:06:00Z` |
-| 3  | `time >= 2019-08-18T00:24:00Z AND time < 2019-08-18T00:42:00Z` | <--- same | `7.635`,`7.5`,`7.372` | `2019-08-18T00:24:00Z` |
-| 4  | `time >= 2019-08-18T00:42:00Z AND time < 2019-08-18T01:00:00Z` | <--- same | `7.234`,`7.11`,`6.982` | `2019-08-18T00:42:00Z` |
+| Time Interval Number | Offset Time Boundary                                           | `GROUP BY time()` Interval | Points Included         | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------- | :---------------------- | ---------------------- |
+| 1                    | `time >= 2019-08-17T23:48:00Z AND time < 2019-08-18T00:06:00Z` | NA                         | NA                      | NA                     |
+| 2                    | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:24:00Z` | <--- same                  | `8.005`,`7.887`,`7.762` | `2019-08-18T00:06:00Z` |
+| 3                    | `time >= 2019-08-18T00:24:00Z AND time < 2019-08-18T00:42:00Z` | <--- same                  | `7.635`,`7.5`,`7.372`   | `2019-08-18T00:24:00Z` |
+| 4                    | `time >= 2019-08-18T00:42:00Z AND time < 2019-08-18T01:00:00Z` | <--- same                  | `7.234`,`7.11`,`6.982`  | `2019-08-18T00:42:00Z` |
 
 The negative 12-minute offset interval shifts back the preset boundary's time range
 such that the boundary time ranges and the relevant `GROUP BY time()` interval time ranges are always the
@@ -710,9 +720,9 @@ Output:
 Name: h2o_feet 
 {{% /influxql/table-meta %}} 
 
-| time | count | 
-| :-------------- | -------------------:| 
-| 2019-08-18T00:06:00Z  |  2.0000000000    |
+| time                 |        count |
+| :------------------- | -----------: |
+| 2019-08-18T00:06:00Z | 2.0000000000 |
 
 The query uses the InfluxQL [COUNT() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points per location, per 12-minute interval, and offset the preset time boundaries by six minutes.
 
@@ -727,17 +737,17 @@ Output:
 Name: h2o_feet 
 {{% /influxql/table-meta %}} 
 
-| time | count | 
-| :-------------- | -------------------:| 
-| 2019-08-18T00:00:00Z  | 1.0000000000
-| 2019-08-18T00:12:00Z  | 1.0000000000
+| time                 |        count |
+| :------------------- | -----------: |
+| 2019-08-18T00:00:00Z | 1.0000000000 |
+| 2019-08-18T00:12:00Z | 1.0000000000 |
 
 The time boundaries and returned timestamps for the query **without** the `offset_interval` adhere to InfluxDB database's preset time boundaries:
 
-| Time Interval Number | Preset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| 1  | `time >= 2019-08-18T00:00:00Z AND time < 2019-08-18T00:12:00Z` | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:12:00Z` | `8.005` | `2019-08-18T00:00:00Z` |
-| 2  | `time >= 2019-08-12T00:12:00Z AND time < 2019-08-18T00:24:00Z` | `time >= 2019-08-12T00:12:00Z AND time < 2019-08-18T00:18:00Z`  | `7.887` | `2019-08-18T00:12:00Z` |
+| Time Interval Number | Preset Time Boundary                                           | `GROUP BY time()` Interval                                     | Points Included | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------------------------------------------- | :-------------- | :--------------------- |
+| 1                    | `time >= 2019-08-18T00:00:00Z AND time < 2019-08-18T00:12:00Z` | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:12:00Z` | `8.005`         | `2019-08-18T00:00:00Z` |
+| 2                    | `time >= 2019-08-12T00:12:00Z AND time < 2019-08-18T00:24:00Z` | `time >= 2019-08-12T00:12:00Z AND time < 2019-08-18T00:18:00Z` | `7.887`         | `2019-08-18T00:12:00Z` |
 
 The first preset 12-minute time boundary begins at `00:00` and ends just before
 `00:12`.
@@ -754,10 +764,10 @@ second time boundary.
 The time boundaries and returned timestamps for the query **with** the
 `offset_interval` adhere to the offset time boundaries:
 
-| Time Interval Number | Offset Time Boundary |`GROUP BY time()` Interval | Points Included | Returned Timestamp |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| 1  | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:18:00Z` | <--- same | `8.005`,`7.887` | `2019-08-18T00:06:00Z` |
-| 2  | `time >= 2019-08-18T00:18:00Z AND time < 2019-08-18T00:30:00Z` | NA | NA | NA |
+| Time Interval Number | Offset Time Boundary                                           | `GROUP BY time()` Interval | Points Included | Returned Timestamp     |
+| :------------------- | :------------------------------------------------------------- | :------------------------- | :-------------- | :--------------------- |
+| 1                    | `time >= 2019-08-18T00:06:00Z AND time < 2019-08-18T00:18:00Z` | <--- same                  | `8.005`,`7.887` | `2019-08-18T00:06:00Z` |
+| 2                    | `time >= 2019-08-18T00:18:00Z AND time < 2019-08-18T00:30:00Z` | NA                         | NA              | NA                     |
 
 The six-minute offset interval shifts forward the preset boundary's time range
 such that the preset boundary time range and the relevant `GROUP BY time()` interval time range are the
@@ -818,19 +828,19 @@ Output:
 Name: h2o_quality  
 {{% /influxql/table-meta %}}
 
-| time    |  mean | 
-| :--------------| ------------------:| 
-| 2019-08-19T08:40:00Z | 68.0000000000|
-| 2019-08-19T08:45:00Z | 29.0000000000|
-| 2019-08-19T08:50:00Z | 47.0000000000|
-| 2019-08-19T08:55:00Z |  |
-| 2019-08-19T09:00:00Z | 84.0000000000|
-| 2019-08-19T09:05:00Z | 0.0000000000|
-| 2019-08-19T09:10:00Z | 41.0000000000|
-| 2019-08-19T09:15:00Z | 13.0000000000|
-| 2019-08-19T09:20:00Z | 9.0000000000|
-| 2019-08-19T09:25:00Z |  |
-| 2019-08-19T09:30:00Z  |  6.0000000000|
+| time                 |          mean |
+| :------------------- | ------------: |
+| 2019-08-19T08:40:00Z | 68.0000000000 |
+| 2019-08-19T08:45:00Z | 29.0000000000 |
+| 2019-08-19T08:50:00Z | 47.0000000000 |
+| 2019-08-19T08:55:00Z |               |
+| 2019-08-19T09:00:00Z | 84.0000000000 |
+| 2019-08-19T09:05:00Z |  0.0000000000 |
+| 2019-08-19T09:10:00Z | 41.0000000000 |
+| 2019-08-19T09:15:00Z | 13.0000000000 |
+| 2019-08-19T09:20:00Z |  9.0000000000 |
+| 2019-08-19T09:25:00Z |               |
+| 2019-08-19T09:30:00Z |  6.0000000000 |
 
 With `fill(100)`:
 ```sql
@@ -841,19 +851,19 @@ Output:
 Name: h2o_quality  
 {{% /influxql/table-meta %}}
 
-| time    |  mean | 
-| :--------------| ------------------:| 
-| 2019-08-19T08:40:00Z | 68.0000000000|
-| 2019-08-19T08:45:00Z  | 29.0000000000|
-| 2019-08-19T08:50:00Z | 47.0000000000|
-| 2019-08-19T08:55:00Z |100.0000000000|
-| 2019-08-19T09:00:00Z | 84.0000000000|
-| 2019-08-19T09:05:00Z | 0.0000000000|
-| 2019-08-19T09:10:00Z | 41.0000000000|
-| 2019-08-19T09:15:00Z | 13.0000000000|
-| 2019-08-19T09:20:00Z | 9.0000000000|
-| 2019-08-19T09:25:00Z | 100.0000000000|
-| 2019-08-19T09:30:00Z | 6.0000000000|
+| time                 |           mean |
+| :------------------- | -------------: |
+| 2019-08-19T08:40:00Z |  68.0000000000 |
+| 2019-08-19T08:45:00Z |  29.0000000000 |
+| 2019-08-19T08:50:00Z |  47.0000000000 |
+| 2019-08-19T08:55:00Z | 100.0000000000 |
+| 2019-08-19T09:00:00Z |  84.0000000000 |
+| 2019-08-19T09:05:00Z |   0.0000000000 |
+| 2019-08-19T09:10:00Z |  41.0000000000 |
+| 2019-08-19T09:15:00Z |  13.0000000000 |
+| 2019-08-19T09:20:00Z |   9.0000000000 |
+| 2019-08-19T09:25:00Z | 100.0000000000 |
+| 2019-08-19T09:30:00Z |   6.0000000000 |
 
 `fill(100)` changes the value reported for the time interval with no data to `100`.
 
@@ -871,14 +881,14 @@ Output:
 Name: pond
 {{% /influxql/table-meta %}}
 
-| time   | mean |
-| :------------------ | ---------------------:|
-| 2019-11-11T21:00:00Z  | 1 |
-| 2019-11-11T21:12:00Z |   |
-| 2019-11-11T21:24:00Z |  3 |
-| 2019-11-11T21:36:00Z |   |
-| 2019-11-11T21:48:00Z |    |
-| 2019-11-11T22:00:00Z  | 6  |
+| time                 | mean |
+| :------------------- | ---: |
+| 2019-11-11T21:00:00Z |    1 |
+| 2019-11-11T21:12:00Z |      |
+| 2019-11-11T21:24:00Z |    3 |
+| 2019-11-11T21:36:00Z |      |
+| 2019-11-11T21:48:00Z |      |
+| 2019-11-11T22:00:00Z |    6 |
 
 With `fill(linear)`:
 
@@ -891,14 +901,14 @@ Output:
 Name: pond
 {{% /influxql/table-meta %}}
 
-| time   | mean |
-| :------------------ | ---------------------:|
-| 2019-11-11T21:00:00Z | 1 |
-| 2019-11-11T21:12:00Z | 2 |
-| 2019-11-11T21:24:00Z | 3 |
-| 2019-11-11T21:36:00Z | 4 |
-| 2019-11-11T21:48:00Z | 5 |
-| 2019-11-11T22:00:00Z | 6 |
+| time                 | mean |
+| :------------------- | ---: |
+| 2019-11-11T21:00:00Z |    1 |
+| 2019-11-11T21:12:00Z |    2 |
+| 2019-11-11T21:24:00Z |    3 |
+| 2019-11-11T21:36:00Z |    4 |
+| 2019-11-11T21:48:00Z |    5 |
+| 2019-11-11T22:00:00Z |    6 |
 
 `fill(linear)` changes the value reported for the time interval with no data
 to the results of [linear interpolation](https://en.wikipedia.org/wiki/Linear_interpolation).
@@ -921,19 +931,19 @@ Output:
 Name: h2o_quality
 {{% /influxql/table-meta %}}
 
-| time    |  mean | 
-| :--------------| ------------------:| 
-| 2019-08-19T08:40:00Z | 68.0000000000|
-| 019-08-19T08:45:00Z | 29.0000000000|
-| 2019-08-19T08:50:00Z | 47.0000000000|
-| 2019-08-19T08:55:00Z | <nil>|
-| 2019-08-19T09:00:00Z | 84.0000000000|
-| 2019-08-19T09:05:00Z | 0.0000000000|
-| 2019-08-19T09:10:00Z | 41.0000000000|
-| 2019-08-19T09:15:00Z | 13.0000000000|
-| 2019-08-19T09:20:00Z | 9.0000000000|
-| 2019-08-19T09:25:00Z | <nil>|
-| 2019-08-19T09:30:00Z  |  6.0000000000|
+| time                 |          mean |
+| :------------------- | ------------: |
+| 2019-08-19T08:40:00Z | 68.0000000000 |
+| 019-08-19T08:45:00Z  | 29.0000000000 |
+| 2019-08-19T08:50:00Z | 47.0000000000 |
+| 2019-08-19T08:55:00Z |         <nil> |
+| 2019-08-19T09:00:00Z | 84.0000000000 |
+| 2019-08-19T09:05:00Z |  0.0000000000 |
+| 2019-08-19T09:10:00Z | 41.0000000000 |
+| 2019-08-19T09:15:00Z | 13.0000000000 |
+| 2019-08-19T09:20:00Z |  9.0000000000 |
+| 2019-08-19T09:25:00Z |         <nil> |
+| 2019-08-19T09:30:00Z |  6.0000000000 |
 
 With `fill(none)`:
 
@@ -945,17 +955,17 @@ Output:
 Name: h2o_quality
 {{% /influxql/table-meta %}}
 
-| time    |  mean | 
-| :--------------| ------------------:| 
-| 2019-08-19T08:40:00Z | 68.0000000000|
-| 2019-08-19T08:45:00Z | 29.0000000000|
-| 2019-08-19T08:50:00Z | 47.0000000000|
-| 2019-08-19T09:00:00Z | 84.0000000000|
-| 2019-08-19T09:05:00Z | 0.0000000000|
-| 2019-08-19T09:10:00Z | 41.0000000000|
-| 2019-08-19T09:15:00Z | 13.0000000000|
-| 2019-08-19T09:20:00Z | 9.0000000000|
-| 2019-08-19T09:30:00Z  |  6.0000000000|
+| time                 |          mean |
+| :------------------- | ------------: |
+| 2019-08-19T08:40:00Z | 68.0000000000 |
+| 2019-08-19T08:45:00Z | 29.0000000000 |
+| 2019-08-19T08:50:00Z | 47.0000000000 |
+| 2019-08-19T09:00:00Z | 84.0000000000 |
+| 2019-08-19T09:05:00Z |  0.0000000000 |
+| 2019-08-19T09:10:00Z | 41.0000000000 |
+| 2019-08-19T09:15:00Z | 13.0000000000 |
+| 2019-08-19T09:20:00Z |  9.0000000000 |
+| 2019-08-19T09:30:00Z |  6.0000000000 |
 ```
 
 `fill(none)` reports no value and no timestamp for the time interval with no data.
@@ -974,19 +984,19 @@ Output:
 Name: h2o_quality
 {{% /influxql/table-meta %}}
 
-| time    |  mean | 
-| :--------------| ------------------:| 
-| 2019-08-19T08:40:00Z | 68.0000000000|
-| 019-08-19T08:45:00Z | 29.0000000000|
-| 2019-08-19T08:50:00Z | 47.0000000000|
-| 2019-08-19T08:55:00Z | <nil>|
-| 2019-08-19T09:00:00Z | 84.0000000000|
-| 2019-08-19T09:05:00Z | 0.0000000000|
-| 2019-08-19T09:10:00Z | 41.0000000000|
-| 2019-08-19T09:15:00Z | 13.0000000000|
-| 2019-08-19T09:20:00Z | 9.0000000000|
-| 2019-08-19T09:25:00Z | <nil>|
-| 2019-08-19T09:30:00Z  |  6.0000000000|
+| time                 |          mean |
+| :------------------- | ------------: |
+| 2019-08-19T08:40:00Z | 68.0000000000 |
+| 019-08-19T08:45:00Z  | 29.0000000000 |
+| 2019-08-19T08:50:00Z | 47.0000000000 |
+| 2019-08-19T08:55:00Z |         <nil> |
+| 2019-08-19T09:00:00Z | 84.0000000000 |
+| 2019-08-19T09:05:00Z |  0.0000000000 |
+| 2019-08-19T09:10:00Z | 41.0000000000 |
+| 2019-08-19T09:15:00Z | 13.0000000000 |
+| 2019-08-19T09:20:00Z |  9.0000000000 |
+| 2019-08-19T09:25:00Z |         <nil> |
+| 2019-08-19T09:30:00Z |  6.0000000000 |
 
 With `fill(null)`:
 
@@ -998,19 +1008,19 @@ Output:
 Name: h2o_quality
 {{% /influxql/table-meta %}}
 
-| time    |  mean | 
-| :--------------| ------------------:| 
-| 2019-08-19T08:40:00Z | 68.0000000000|
-| 019-08-19T08:45:00Z | 29.0000000000|
-| 2019-08-19T08:50:00Z | 47.0000000000|
-| 2019-08-19T08:55:00Z |   null  |
-| 2019-08-19T09:00:00Z | 84.0000000000|
-| 2019-08-19T09:05:00Z | 0.0000000000|
-| 2019-08-19T09:10:00Z | 41.0000000000|
-| 2019-08-19T09:15:00Z | 13.0000000000|
-| 2019-08-19T09:20:00Z | 9.0000000000|
-| 2019-08-19T09:25:00Z |  null   |
-| 2019-08-19T09:30:00Z  |  6.0000000000|
+| time                 |          mean |
+| :------------------- | ------------: |
+| 2019-08-19T08:40:00Z | 68.0000000000 |
+| 019-08-19T08:45:00Z  | 29.0000000000 |
+| 2019-08-19T08:50:00Z | 47.0000000000 |
+| 2019-08-19T08:55:00Z |          null |
+| 2019-08-19T09:00:00Z | 84.0000000000 |
+| 2019-08-19T09:05:00Z |  0.0000000000 |
+| 2019-08-19T09:10:00Z | 41.0000000000 |
+| 2019-08-19T09:15:00Z | 13.0000000000 |
+| 2019-08-19T09:20:00Z |  9.0000000000 |
+| 2019-08-19T09:25:00Z |          null |
+| 2019-08-19T09:30:00Z |  6.0000000000 |
 
 `fill(null)` reports `null` as the value for the time interval with no data.
 That result matches the result of the query without `fill(null)`.
@@ -1029,18 +1039,18 @@ Output:
 Name: h2o_quality
 {{% /influxql/table-meta %}}
 
-| time    |  mean | 
-| :--------------| ------------------:| 
-| 2019-08-19T08:40:00Z | 68.0000000000|
-| 019-08-19T08:45:00Z | 29.0000000000|
-| 2019-08-19T08:50:00Z | 47.0000000000|
-| 2019-08-19T08:55:00Z | <nil>|
-| 2019-08-19T09:00:00Z | 84.0000000000|
-| 2019-08-19T09:05:00Z | 0.0000000000|
-| 2019-08-19T09:10:00Z | 41.0000000000|
-| 2019-08-19T09:15:00Z | 13.0000000000|
-| 2019-08-19T09:20:00Z | 9.0000000000|
-| 2019-08-19T09:25:00Z | <nil>|
+| time                 |          mean |
+| :------------------- | ------------: |
+| 2019-08-19T08:40:00Z | 68.0000000000 |
+| 019-08-19T08:45:00Z  | 29.0000000000 |
+| 2019-08-19T08:50:00Z | 47.0000000000 |
+| 2019-08-19T08:55:00Z |         <nil> |
+| 2019-08-19T09:00:00Z | 84.0000000000 |
+| 2019-08-19T09:05:00Z |  0.0000000000 |
+| 2019-08-19T09:10:00Z | 41.0000000000 |
+| 2019-08-19T09:15:00Z | 13.0000000000 |
+| 2019-08-19T09:20:00Z |  9.0000000000 |
+| 2019-08-19T09:25:00Z |         <nil> |
 
 With `fill(previous)`:
 
@@ -1052,18 +1062,18 @@ Output:
 Name: h2o_quality
 {{% /influxql/table-meta %}}
 
-| time    |  mean | 
-| :--------------| ------------------:| 
-| 2019-08-19T08:40:00Z | 68.0000000000|
-| 019-08-19T08:45:00Z | 29.0000000000|
-| 2019-08-19T08:50:00Z | 47.0000000000|
-| 2019-08-19T08:55:00Z | 47.0000000000|
-| 2019-08-19T09:00:00Z | 84.0000000000|
-| 2019-08-19T09:05:00Z | 0.0000000000|
-| 2019-08-19T09:10:00Z | 41.0000000000|
-| 2019-08-19T09:15:00Z | 13.0000000000|
-| 2019-08-19T09:20:00Z | 9.0000000000|
-| 2019-08-19T09:25:00Z | 9.0000000000|
+| time                 |          mean |
+| :------------------- | ------------: |
+| 2019-08-19T08:40:00Z | 68.0000000000 |
+| 019-08-19T08:45:00Z  | 29.0000000000 |
+| 2019-08-19T08:50:00Z | 47.0000000000 |
+| 2019-08-19T08:55:00Z | 47.0000000000 |
+| 2019-08-19T09:00:00Z | 84.0000000000 |
+| 2019-08-19T09:05:00Z |  0.0000000000 |
+| 2019-08-19T09:10:00Z | 41.0000000000 |
+| 2019-08-19T09:15:00Z | 13.0000000000 |
+| 2019-08-19T09:20:00Z |  9.0000000000 |
+| 2019-08-19T09:25:00Z |  9.0000000000 |
 
 `fill(previous)` changes the value reported for the time interval with no data to `3.235`,
 the value from the previous time interval.
@@ -1099,7 +1109,7 @@ value is outside the query’s time range.
 
 **Example**
 
-The following query covers the time range between `2019-09-18T16:24:00Z` and `2019-09-18T16:54:00Z`.
+The following example queries the time range between `2019-09-18T16:24:00Z` and `2019-09-18T16:54:00Z`.
 Note that `fill(previous)` fills the result for `2019-09-18T16:36:00Z` with the
 result from `2019-09-18T16:24:00Z`.
 
@@ -1112,11 +1122,11 @@ Output:
 Name: h2o_feet
 {{% /influxql/table-meta %}}
 
-| time    |  max | 
-| :--------------| ------------------:| 
-| 2019-09-18T16:24:00Z  |  3.235
-| 2019-09-18T16:36:00Z  | 3.235
-| 2019-09-18T16:48:00Z  | 4
+| time                 |   max |
+| :------------------- | ----: |
+| 2019-09-18T16:24:00Z | 3.235 |
+| 2019-09-18T16:36:00Z | 3.235 |
+| 2019-09-18T16:48:00Z |     4 |
 
 
 The next query shortens the time range in the previous query.
@@ -1133,10 +1143,10 @@ Output:
 Name: h2o_feet
 {{% /influxql/table-meta %}}
 
-| time    |  max | 
-| :--------------| ------------------:| 
-| 2019-09-18T16:36:00Z  |  |
-| 2019-09-18T16:48:00Z  | 4
+| time                 | max |
+| :------------------- | --: |
+| 2019-09-18T16:36:00Z |     |
+| 2019-09-18T16:48:00Z |   4 |
 
 ##### `fill(linear)` when the previous or following result is outside the queried time range
 
@@ -1145,7 +1155,7 @@ previous result or the following result is outside the queried time range.
 
 **Example**
 
-The following query covers the time range between `2019-11-11T21:24:00Z` and
+The following example queries the time range between `2019-11-11T21:24:00Z` and
 `2019-11-11T22:06:00Z`. Note that `fill(linear)` fills the results for the
 `2019-11-11T21:36:00Z` time interval and the `2019-11-11T21:48:00Z` time interval
 using the values from the `2019-11-11T21:24:00Z` time interval and the
@@ -1159,12 +1169,12 @@ Output:
 Name: pond
 {{% /influxql/table-meta %}}
 
-| time    |  mean |
-| :--------------| ------------------:|
-| 2019-11-11T21:24:00Z | 3 |
-| 2019-11-11T21:36:00Z | 4 |
-| 2019-11-11T21:48:00Z | 5 |
-| 2019-11-11T22:00:00Z | 6 |
+| time                 | mean |
+| :------------------- | ---: |
+| 2019-11-11T21:24:00Z |    3 |
+| 2019-11-11T21:36:00Z |    4 |
+| 2019-11-11T21:48:00Z |    5 |
+| 2019-11-11T22:00:00Z |    6 |
 
 The next query shortens the time range in the previous query.
 It now covers the time between `2019-11-11T21:36:00Z` and `2019-11-11T22:06:00Z`.
@@ -1181,11 +1191,11 @@ Output:
 Name: pond
 {{% /influxql/table-meta %}}
 
-| time    |  mean |
-| :--------------| ------------------:|
-| 2019-11-11T21:36:00Z |   |
-| 2019-11-11T21:48:00Z |  |
-| 2019-11-11T22:00:00Z | 6 |
+| time                 | mean |
+| :------------------- | ---: |
+| 2019-11-11T21:36:00Z |      |
+| 2019-11-11T21:48:00Z |      |
+| 2019-11-11T22:00:00Z |    6 |
 
 {{% note %}}
 **Note:** The data in Issue 3 are not in `NOAA` database. We had to create a dataset with less regular data to work with `fill(linear)`.

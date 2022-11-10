@@ -23,7 +23,7 @@ To start exploring data with InfluxQL, do the following:
    - [WHERE clause](/influxdb/v2.5/query-data/influxql/explore-data/where/)
    - [GROUP BY clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/)
    - [ORDER BY clause](/influxdb/v2.5/query-data/influxql/explore-data/order-by/)
-   - [LIMIT and SLIMIT clause](/influxdb/v2.5/query-data/influxql/explore-data/limit-and-slimit/)
+   - [LIMIT and SLIMIT clauses](/influxdb/v2.5/query-data/influxql/explore-data/limit-and-slimit/)
    - [OFFSET and SOFFSET clause](/influxdb/v2.5/query-data/influxql/explore-data/offset-and-soffset/)
    - [Time and timezone queries](/influxdb/v2.5/query-data/influxql/explore-data/time-and-timezone/)
    - [Subqueries](/influxdb/v2.5/query-data/influxql/explore-data/subqueries/)
@@ -61,10 +61,6 @@ This measurement has one [tag key](influxdb/v2.5/reference/glossary/#tag-key)
 The measurement also has two [fields](/influxdb/v2.5/reference/glossary/#field):
 `level description` stores string [field values](/influxdb/v2.5/reference/glossary/#field-value)
 and `water_level` stores float field values.
-
-{{% note %}}
-**Disclaimer:** The `level description` field isn't part of the original NOAA data - we snuck it in there for the sake of having a field key with a special character and string field values.
-{{% /note %}}
 
 ### Configure timestamps in the InfluxQL shell
 

@@ -4,7 +4,7 @@ description: >
   Use the `LIMIT` and `SLIMIT` clauses to limit the number of [points](/influxdb/v2.4/reference/glossary/#point) and the number of [series](/influxdb/v2.4/reference/glossary/#series) returned in queries.
 menu:
   influxdb_2_4:
-    name: LIMIT and SLIMIT clause
+    name: LIMIT and SLIMIT clauses
     parent: Explore data
 weight: 305
 list_code_example: |
