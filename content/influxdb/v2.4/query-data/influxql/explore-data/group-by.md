@@ -1136,7 +1136,7 @@ Name: h2o_feet
 | time    |  max | 
 | :--------------| ------------------:| 
 | 2019-09-18T16:36:00Z  |  |
-| 2019-09-18T16:48:00Z  | 4
+| 2019-09-18T16:48:00Z  | 4 |
 
 ##### `fill(linear)` when the previous or following result is outside the queried time range
 
