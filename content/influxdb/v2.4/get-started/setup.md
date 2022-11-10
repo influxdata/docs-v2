@@ -115,7 +115,7 @@ Include the following with your request:
   - **Authorization**: Token <INFLUX_OPERATOR_TOKEN>
   - **Content-Type**: application/json
 - **Request body**: JSON body with the following properties:
-  - **status**: "active" or "inactive"
+  - **status**: `"active"`
   - **description**: API token description
   - **orgID**: [InfluxDB organization ID](/influxdb/v2.4/organizations/view-orgs/#view-your-organization-id)
   - **permissions**: Array of objects where each object represents permissions
@@ -127,6 +127,7 @@ Include the following with your request:
           - **type**: Resource type.
             _For information about what InfluxDB resource types exist, use the
             [`/api/v2/resources` endpoint](/influxdb/v2.4/api/#operation/GetResources)._
+The following example shows how to use cURL with the InfluxDB API to generate an all access token:
 
 {{% truncate %}}
 ```sh
@@ -301,7 +302,7 @@ curl --request POST \
   --header "Content-Type: application/json" \
   --data '{
     "orgID": "'"$INFLUX_ORG_ID"'",
-    "name": "get-started-test",
+    "name": "get-started",
     "retentionRules": [
       {
         "type": "expire",
