@@ -1,6 +1,7 @@
 ---
 title: Regular expressions
 list_title: Regular expressions
+indentifier: influxql-regular-expressions
 description: >
   Use `regular expressions` to match patterns in your data.
 menu:
