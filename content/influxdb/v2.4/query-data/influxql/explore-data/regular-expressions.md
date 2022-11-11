@@ -1,12 +1,12 @@
 ---
 title: Regular expressions
 list_title: Regular expressions
-indentifier: influxql-regular-expressions
 description: >
   Use `regular expressions` to match patterns in your data.
 menu:
   influxdb_2_4:
     name: Regular expressions
+    indentifier: influxql-regular-expressions
     parent: Explore data
 weight: 313
 list_code_example: |
