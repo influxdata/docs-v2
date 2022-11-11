@@ -25,14 +25,6 @@ To explore your schema using InfluxQL, do the following:
    - [SHOW FIELD KEYS](#show-field-keys) (includes examples to find field/tag key cardinality)
 
    Commands include **syntax** and **examples**.
-   {{% note %}}
-
-#### Examples use the InfluxQL shell
-
-Examples show how to run commands using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/). You can also query with InfluxQL using the [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/) by sending a `GET` request to the `/query` endpoint and including the command in the URL parameter `q`. Note, using the API returns results in JSON format.
-
-For information about how to use either the InfluxQL shell or the InfluxDB API, see how to [Query a mapped bucket with InfluxQL](/influxdb/v2.4/query-data/influxql/#query-a-mapped-bucket-with-influxql).
-   {{% /note %}}
 
 ## SHOW SERIES
 
