@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_2_4:
     name: Regular expressions
-    indentifier: influxql-regular-expressions
+    identifier: influxql-regular-expressions
     parent: Explore data
 weight: 313
 list_code_example: |
