@@ -127,7 +127,8 @@ Include the following with your request:
           - **type**: Resource type.
             _For information about what InfluxDB resource types exist, use the
             [`/api/v2/resources` endpoint](/influxdb/v2.4/api/#operation/GetResources)._
-The following example shows how to use cURL with the InfluxDB API to generate an all access token:
+
+The following example uses cURL and the InfluxDB API to generate an all access token:
 
 {{% truncate %}}
 ```sh
@@ -313,10 +314,7 @@ curl --request POST \
 ```
 <!------------------------------ END API CONTENT ------------------------------>
 {{% /tab-content %}}
-    {{< /tabs-wrapper >}}
-
-
-    
+    {{< /tabs-wrapper >}}    
 
 {{< page-nav prev="/influxdb/v2.4/get-started/" next="/influxdb/v2.4/get-started/write/" keepTab=true >}}
 

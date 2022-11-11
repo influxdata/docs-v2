@@ -233,6 +233,9 @@ Include the following with your request:
   - **precision**: timestamp precision (default is `ns`)
 - **Request body**: Line protocol as plain text
 
+The following example uses cURL and the InfluxDB API to write line protocol
+to InfluxDB:
+
 ```sh
 export INFLUX_HOST=http://localhost:8086
 export INFLUX_ORG=<YOUR_INFLUXDB_ORG>

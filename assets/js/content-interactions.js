@@ -27,7 +27,6 @@ headingElements.each(function() {
 var elementWhiteList = [
   ".tabs p a",
   ".code-tabs p a",
-  ".truncate-toggle",
   ".children-links a",
   ".list-links a",
   "a.url-trigger",
@@ -79,7 +78,17 @@ $('#contents-toggle-btn').click(function(e) {
 
 $(".truncate-toggle").click(function(e) {
   e.preventDefault()
-  $(this).closest('.truncate').toggleClass('closed');
+  var truncateParent = $(this).closest('.truncate')
+  var truncateParentID = $(this).closest('.truncate')[0].id
+
+  if (truncateParent.hasClass('closed')) {
+    $(this)[0].href = `#${truncateParentID}`
+  } else {
+    $(this)[0].href = "#"
+  }
+  
+  truncateParent.toggleClass('closed')
+  truncateParent.find('.truncate-content').toggleClass('closed')
 })
 
 ////////////////////////////// Expand Accordions ///////////////////////////////

@@ -284,6 +284,8 @@ Include the following with your request:
   - **org**: InfluxDB organization name
 - **Request body**: Flux query as plain text
 
+The following example uses cURL and the InfluxDB API to query data with Flux:
+
 ```sh
 export INFLUX_HOST=http://localhost:8086
 export INFLUX_ORG=<YOUR_INFLUXDB_ORG>
@@ -535,6 +537,8 @@ Include the following with your request:
     - `h` - hours
 
 - **Request body**: Flux query as plain text
+
+The following example uses cURL and the InfluxDB API to query data with InfluxQL:
 
 ```sh
 export INFLUX_HOST=http://localhost:8086
