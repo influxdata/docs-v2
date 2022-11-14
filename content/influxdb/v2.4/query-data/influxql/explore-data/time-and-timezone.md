@@ -2,7 +2,7 @@
 title: Time and timezone queries
 list_title: Time and timezone queries
 description: >
-  Explore InfluxQL features used specifically working with time. Use the `tz` (timezone) clause to return the UTC offset for the specified timezone.
+  Explore InfluxQL features used specifically for working with time. Use the `tz` (timezone) clause to return the UTC offset for the specified timezone.
 menu:
   influxdb_2_4:
     name: Time and timezone
