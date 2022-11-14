@@ -543,7 +543,7 @@ The query returns no data as casting a float field value to a string is not yet 
 
 ## Merge behavior
 
-In InfluxDB, queries merge [series](/influxdb/v2.4/reference/glossary/#series) automatically.
+InfluxQL merges [series](/influxdb/v2.4/reference/glossary/#series) automatically.
 
 ### Example
 
