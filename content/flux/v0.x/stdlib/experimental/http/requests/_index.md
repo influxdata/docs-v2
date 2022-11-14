@@ -61,7 +61,8 @@ option requests.defaultConfig = {
 Changing this config will affect all other packages using the requests package.
 To change the config for a single request, pass a new config directly into the corresponding function.
 
-**Deprecated**: `defautlConfig` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/#options).
+**Deprecated**: Experimental `requests.defaultConfig` is deprecated in favor of
+[`requests.defaultConfig`](/flux/v0.x/stdlib/http/requests/#options).
 Do not mix usage of this experimental package with the `requests` package as the `defaultConfig` is not shared between the two packages.
 
 
