@@ -11,7 +11,6 @@ menu:
     identifier: get-started-process-data
 weight: 103
 metadata: [4 / 5]
-draft: true
 ---
 
 - Process data

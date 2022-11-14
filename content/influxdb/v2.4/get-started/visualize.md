@@ -11,7 +11,6 @@ menu:
     identifier: get-started-visualize-data
 weight: 104
 metadata: [5 / 5]
-draft: true
 ---
 
 - Visualize data
