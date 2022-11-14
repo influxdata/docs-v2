@@ -47,6 +47,7 @@ see [InfluxDB configuration options](/influxdb/v2.4/reference/config-options/).
     see [Use the influx CLI](/influxdb/v2.4/tools/influx-cli/).
 
 4.  {{< req text="(Optional)" color="magenta" >}} **Create an All Access API token.**
+    <span id="create-an-all-access-api-token"></span>
 
     During the InfluxDB initialization process, you created a user and API token
     that has permissions to manage everything in your InfluxDB instance.
@@ -90,12 +91,17 @@ see [InfluxDB configuration options](/influxdb/v2.4/reference/config-options/).
     **Provide the following**:
 
     - `--all-access` flag
-    - Operator token to authorize the request
-
-    {{< cli/influx-creds-note >}}
+    - `--host` flag with your [InfluxDB host URL](/influxdb/v2.4/reference/urls/)
+    - `-o, --org` or `--org-id` flags with your InfluxDB organization name or
+      [ID](/influxdb/v2.4/organizations/view-orgs/#view-your-organization-id)
+    - `-t, --token` flag with your Operator token
 
     ```sh
-    influx auth create --all-access
+    influx auth create \
+      --all-access \
+      --host http://localhost:8086 \
+      --org <YOUR_INFLUXDB_ORG_NAME> \
+      --token <YOUR_INFLUXDB_OPERATOR_TOKEN>
     ```
 
 3.  Copy the generated token and store it for safe keeping.
@@ -218,7 +224,133 @@ We recommend using a password manager or a secret store to securely store
 sensitive tokens.
     {{% /note %}}
 
-5.  {{< req text="(Optional)" color="magenta" >}} **Create a bucket**
+5. **Configure authentication credentials**. <span id="configure-authentication-credentials"></span>
+
+    As you go through this tutorial, interactions with InfluxDB {{< current-version >}}
+    require your InfluxDB **host**, **organization name or ID**, and your **API token**.
+    There are different methods for providing these credentials depending on
+    which client you use to interact with InfluxDB.
+
+    {{% note %}}
+When configuring your token, if you [created an all access token](#create-an-all-access-api-token),
+use that token to interact with InfluxDB. Otherwise, use your operator token.
+    {{% /note %}}
+
+    {{< tabs-wrapper >}}
+{{% tabs %}}
+[InfluxDB UI](#)
+[influx CLI](#)
+[InfluxDB API](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+<!------------------------------ BEGIN UI CONTENT ----------------------------->
+
+When managing InfluxDB through the InfluxDB UI, authentication credentials are
+provided automatically using credentials associated with the user you log in with.
+
+<!------------------------------- END UI CONTENT ------------------------------>
+{{% /tab-content %}}
+{{% tab-content %}}
+<!---------------------------- BEGIN CLI CONTENT ----------------------------->
+
+There are three ways to provided authentication credentials to the `influx` CLI:
+
+{{< expand-wrapper >}}
+{{% expand  "CLI connection configurations <em>(<span class=\"req\">Recommended</span>)</em>" %}}
+
+The `influx` CLI lets you specify connection configuration presets that let
+you store and quickly switch between multiple sets of InfluxDB connection
+credentials. Use the [`influx config create` command](/influxdb/v2.4/reference/cli/influx/config/create/)
+to create a new CLI connection configuration. Include the following flags:
+
+  - `-n, --config-name`: Connection configuration name. This examples uses `get-started`.
+  - `-u, --host-url`: [InfluxDB host URL](/influxdb/v2.4/reference/urls/).
+  - `-o, --org`: InfluxDB organization name.
+  - `-t, --token`: InfluxDB API token.
+
+```sh
+influx config create \
+  --name get-started
+  --host-url http://localhost:8086
+  --org <YOUR_INFLUXDB_ORG_NAME>
+  --token <YOUR_INFLUXDB_API_TOKEN>
+```
+
+_For more information about CLI connection configurations, see
+[Install and use the `influx` CLI](/influxdb/v2.4/tools/influx-cli/#set-up-the-influx-cli)._
+
+{{% /expand %}}
+
+{{% expand "Environment variables" %}}
+
+The `influx` CLI checks for specific environment variables and, if present,
+uses those environment variables to populate authentication credentials.
+Set the following environment variables in your command line session:
+
+- `INFLUX_HOST`: [InfluxDB host URL](/influxdb/v2.4/reference/urls/).
+- `INFLUX_ORG`: InfluxDB organization name.
+- `INFLUX_ORG_ID`: InfluxDB [organization ID](/influxdb/v2.4/organizations/view-orgs/#view-your-organization-id).
+- `INFLUX_TOKEN`: InfluxDB API token.
+
+```sh
+export INFLUX_HOST=http://localhost:8086
+export INFLUX_ORG=<YOUR_INFLUXDB_ORG_NAME>
+export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
+export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
+```
+
+{{% /expand %}}
+
+{{% expand "Command flags" %}}
+
+Use the following `influx` CLI flags to provide required credentials to commands:
+
+- `--host`: [InfluxDB host URL](/influxdb/v2.4/reference/urls/).
+- `-o`, `--org` or `--org-id`: InfluxDB organization name or
+  [ID](/influxdb/v2.4/organizations/view-orgs/#view-your-organization-id).
+- `-t`, `--token`: InfluxDB API token.
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+{{% note %}}
+All `influx` CLI examples in this getting started tutorial assume your InfluxDB
+**host**, **organization**, and **token** are provided by either the
+[active `influx` CLI configuration](/influxdb/v2.4/reference/cli/influx/#provide-required-authentication-credentials)
+or by environment variables.
+{{% /note %}}
+
+<!------------------------------ END CLI CONTENT ------------------------------>
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN API CONTENT ----------------------------->
+
+When using the InfluxDB API, provide the required connection credentials in the
+following ways:
+
+- **InfluxDB host**: The domain and port to send HTTP(S) requests to.
+- **InfluxDB API Token**: Include an `Authorization` header that uses either 
+  `Bearer` or `Token` scheme and your InfluxDB API token. For example:  
+  `Authorization: Bearer 0xxx0o0XxXxx00Xxxx000xXXxoo0==`.
+- **InfluxDB organization name or ID**: Depending on the API endpoint used, pass
+  this as part of the URL path, query string, or in the request body.
+
+All API examples in this tutorial use **cURL** from a command line.
+To provide all the necessary credentials to the example cURL commands, set
+the following environment variables in your command line session.
+
+```sh
+export INFLUX_HOST=http://localhost:8086
+export INFLUX_ORG=<YOUR_INFLUXDB_ORG_NAME>
+export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
+export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
+```
+<!------------------------------ END API CONTENT ------------------------------>
+{{% /tab-content %}}
+    {{< /tabs-wrapper >}} 
+
+6.  {{< req text="(Optional)" color="magenta" >}} **Create a bucket**.
 
     In the InfluxDB initialization process, you created a bucket.
     You can use that bucket or create a new one specifically for this getting
@@ -261,8 +393,7 @@ sensitive tokens.
     **Provide the following**:
 
     - `-n, --name` flag with the bucket name.
-
-    {{< cli/influx-creds-note >}}
+    - [Connection and authentication credentials](#configure-authentication-credentials)
 
     ```sh
     influx bucket create --name get-started
@@ -314,18 +445,6 @@ curl --request POST \
 ```
 <!------------------------------ END API CONTENT ------------------------------>
 {{% /tab-content %}}
-    {{< /tabs-wrapper >}}    
+    {{< /tabs-wrapper >}} 
 
 {{< page-nav prev="/influxdb/v2.4/get-started/" next="/influxdb/v2.4/get-started/write/" keepTab=true >}}
-
-<!-- 
-*Note:** To run InfluxDB, start the `influxd` daemon ([InfluxDB service](/influxdb/v2.4/reference/cli/influxd/)) using the [InfluxDB command line interface](/influxdb/v2.4/reference/cli/influx/). Once you've started the `influxd` daemon, use `localhost:8086` to log in to your InfluxDB instance.
-
-To start InfluxDB, do the following:
-  1. Open a terminal.
-  2. Type `influxd` in the command line.
-
-```sh
-influxd
-```
--->

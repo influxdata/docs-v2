@@ -250,8 +250,7 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
     **Provide the following**:
 
     - String-encoded Flux query.
-
-    {{< cli/influx-creds-note >}}
+    - [Connection and authentication credentials](/influxdb/v2.4/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
 
 ```sh
 influx query '
@@ -287,10 +286,6 @@ Include the following with your request:
 The following example uses cURL and the InfluxDB API to query data with Flux:
 
 ```sh
-export INFLUX_HOST=http://localhost:8086
-export INFLUX_ORG=<YOUR_INFLUXDB_ORG>
-export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
-
 curl --request POST \
 "$INFLUX_HOST/api/v2/query?org=$INFLUX_ORG&bucket=get-started" \
   --header "Authorization: Token $INFLUX_TOKEN" \
@@ -493,6 +488,9 @@ For a user interface that builds and executes InfluxQL queries, consider using
 1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.4/tools/influx-cli/).
 2.  Use the [`influx v1 shell` command](/influxdb/v2.4/reference/cli/influx/v1/shell/)
     to start an InfluxQL shell and query InfluxDB using InfluxQL.
+    Provide the following:
+
+    - [Connection and authentication credentials](/influxdb/v2.4/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
 
     ```sh
     influx v1 shell
@@ -541,10 +539,6 @@ Include the following with your request:
 The following example uses cURL and the InfluxDB API to query data with InfluxQL:
 
 ```sh
-export INFLUX_HOST=http://localhost:8086
-export INFLUX_ORG=<YOUR_INFLUXDB_ORG>
-export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
-
 curl --get "$INFLUX_HOST/query?org=$INFLUX_ORG&bucket=get-started" \
   --header "Authorization: Token $INFLUX_TOKEN" \
   --data-urlencode "db=get-started" \
