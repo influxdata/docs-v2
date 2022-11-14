@@ -42,6 +42,12 @@ The examples in this document use the `noaa` database to create SELECT queries.
 `USE noaa` or `USE your-bucket-name` before running the queries below.
 {{% /note %}}
 
+To specify the format of timestamps returned in results in human readable format, use the precision helper command in the InfluxQL shell.
+
+```bash
+precision rfc3339
+```
+
 ## Syntax
 
 ```sql
@@ -94,14 +100,6 @@ While not always necessary, we recommend that you double quote identifiers.
 Please review the [rules for single and double-quoting](/influxdb/v2.4/reference/syntax/line-protocol/#quotes) in queries.
 {{% /note %}}
 
-#### Timestamps
-
-To specify the format of timestamps returned in results in human readable format, use the precision helper command in the InfluxQL shell.
-
-```bash
-precision rfc3339
-```
-
 ### Examples
 
 {{< expand-wrapper >}}
@@ -128,13 +126,6 @@ Name: h2o_feet
 The data above is a partial listing of the query output, as the result set is quite large. The query selects all [fields](/influxdb/v2.4/reference/glossary/#field) and
 [tags](/influxdb/v2.4/reference/glossary/#tag) from the `h2o_feet`
 [measurement](/influxdb/v2.4/reference/glossary/#measurement).
-
-The InfluxQL shell queries the data in the `USE`d database and the
-`DEFAULT` [retention policy](/influxdb/v2.4/reference/glossary/#retention-policy-rp).
-If you're using the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x//) be sure to set the
-`db` [query string parameter](/influxdb/v2.4/reference/api/influxdb-1x/)
-to `noaa`. If you do not set the `rp` query string parameter, the InfluxDB API automatically
-queries the database's `DEFAULT` retention policy.
 
 {{% /expand %}}
 

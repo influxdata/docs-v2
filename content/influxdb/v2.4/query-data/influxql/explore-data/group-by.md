@@ -218,12 +218,6 @@ The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql
 [tag](influxdb/v2.4/reference/glossary/#tag) combination in the `h2o_quality`
 measurement.
 
-{{% note %}}
-Note that the query results are identical to the results of the query in [Example 2](#group-query-results-by-all-tags)
-where we explicitly specified the `location` and `randtag` tag keys.
-This is because the `h2o_quality` measurement only has two tag keys.
-{{% /note %}}
-
 {{% /expand %}}
 
 {{% expand "Group query results by tags that start with `l`" %}}
@@ -458,10 +452,7 @@ Only one raw point (`7.887`) falls both within the query's second `GROUP BY time
 second time boundary.
 
 The [advanced `GROUP BY time()` syntax](#advanced-group-by-time-syntax) allows users to shift
-the start time of the InfluxDB database's preset time boundaries.
-[Example 3](#examples-3)
-in the Advanced Syntax section continues with the query shown here;
-it shifts forward the preset time boundaries by six minutes such that
+the start time of the InfluxDB database's preset time boundaries. It shifts forward the preset time boundaries by six minutes such that
 InfluxDB returns:
 
 Output: 
@@ -914,7 +905,7 @@ Name: pond
 to the results of [linear interpolation](https://en.wikipedia.org/wiki/Linear_interpolation).
 
 {{% note %}}
-**Note:** The data in Example 2 are not in the `noaa` database.
+**Note:** The data in this example is not in the `noaa` database.
 {{% /note %}}
 
 {{% /tab-content %}}

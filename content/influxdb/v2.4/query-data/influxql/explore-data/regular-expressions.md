@@ -22,10 +22,7 @@ InfluxQL supports using regular expressions when specifying:
 - [tag values](/influxdb/v2.4/reference/glossary/#tag-value) and string [field values](/influxdb/v2.4/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/v2.4/query-data/influxql/explore-data/where/).
 - [tag keys](/influxdb/v2.4/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
 
-InfluxQL does not support using regular expressions to match
-non-string field values in the `WHERE` clause,
-[databases](/influxdb/v2.4/reference/glossary/#database), and
-[retention polices](/influxdb/v2.4/reference/glossary/#retention-policy-rp).
+Regular expressions in InfluxQL only support string comparisons and can only evaluate [fields](/influxdb/v2.4/reference/glossary/#field) with string values.
 
 {{% note %}}
 **Note:** Regular expression comparisons are more computationally intensive than exact

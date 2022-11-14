@@ -2,7 +2,7 @@
 title: Time and timezone queries
 list_title: Time and timezone queries
 description: >
-  Use the `tz` (timezone) clause to return the UTC offset for the specified timezone and explore a variety of time-related queries.
+  Explore InfluxQL features used specifically working with time. Use the `tz` (timezone) clause to return the UTC offset for the specified timezone.
 menu:
   influxdb_2_4:
     name: Time and timezone
@@ -14,12 +14,14 @@ list_code_example: |
   ```
 ---
 
-Use the [Time Zone clause (`tz()`)](#the-time-zone-clause) to return the UTC offset for the specified timezone and explore a variety of time-related queries. You can also review the following ways to work with timestamps in your InfluxQL queries:
+InfluxQL is designed for working with time series data and includes features specifically for working with time.
+You can review the following ways to work with time and timestamps in your InfluxQL queries:
 
 - [Configuring returned timestamps](#configuring-returned-timestamps)
 - [Time syntax](#time-syntax)
 - [Absolute time](#absolute-time)
 - [Relative time](#relative-time)
+- [The Time Zone clause](#the-time-zone-clause)
 - [Common issues with time syntax](#common-issues-with-time-syntax)
 
 ## Configuring returned timestamps
@@ -35,47 +37,6 @@ The [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.
 Specify alternative formats with the
 [`epoch` query string parameter](/influxdb/v2.4/reference/api/influxdb-1x/).
-
-## The Time Zone clause
-
-Use the `tz()` clause to return the UTC offset for the specified timezone.
-
-### Syntax
-
-```sql
-SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause] tz('<time_zone>')
-```
-
-By default, InfluxDB stores and returns timestamps in UTC.
-The `tz()` clause includes the UTC offset or, if applicable, the UTC Daylight Savings Time (DST) offset to the query's returned timestamps. The returned timestamps must be in `RFC3339` format for the UTC offset or UTC DST to appear.
-The `time_zone` parameter follows the TZ syntax in the [Internet Assigned Numbers Authority time zone database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) and it requires single quotes.
-
-### Examples
-
-{{< expand-wrapper >}}
-
-{{% expand "Return the UTC offset for Chicago's time zone" %}}
-
-```sql
-SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:18:00Z' tz('America/Chicago')
-```
-Output:
-{{% influxql/table-meta %}} 
-Name: h2o_feet 
-{{% /influxql/table-meta %}} 
-
-| time | water_level |
-| :-------------- | -------------------:|
-| 2019-08-17T19:00:00-05:00 | 2.3520000000|
-| 2019-08-17T19:06:00-05:00 | 2.3790000000|
-| 2019-08-17T19:12:00-05:00 | 2.3430000000|
-| 2019-08-17T19:18:00-05:00 | 2.3290000000|
-
-The query results include the UTC offset (`-05:00`) for the `America/Chicago` time zone in the timestamps.
-
-{{% /expand %}}
-
-{{< /expand-wrapper >}}
 
 ## Time syntax
 
@@ -370,6 +331,47 @@ Name: h2o_feet
 |2019-09-17T21:42:00Z | between 3 and 6 feet |
 
 The query returns data with timestamps that occur between September 17, 2019 at 21:18:00 and 1000 days from `now()`. The whitespace between `+` and `1000d` is required.
+
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+## The Time Zone clause
+
+Use the `tz()` clause to return the UTC offset for the specified timezone.
+
+### Syntax
+
+```sql
+SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause] tz('<time_zone>')
+```
+
+By default, InfluxDB stores and returns timestamps in UTC.
+The `tz()` clause includes the UTC offset or, if applicable, the UTC Daylight Savings Time (DST) offset to the query's returned timestamps. The returned timestamps must be in `RFC3339` format for the UTC offset or UTC DST to appear.
+The `time_zone` parameter follows the TZ syntax in the [Internet Assigned Numbers Authority time zone database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) and it requires single quotes.
+
+### Examples
+
+{{< expand-wrapper >}}
+
+{{% expand "Return the UTC offset for Chicago's time zone" %}}
+
+```sql
+SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:18:00Z' tz('America/Chicago')
+```
+Output:
+{{% influxql/table-meta %}} 
+Name: h2o_feet 
+{{% /influxql/table-meta %}} 
+
+| time | water_level |
+| :-------------- | -------------------:|
+| 2019-08-17T19:00:00-05:00 | 2.3520000000|
+| 2019-08-17T19:06:00-05:00 | 2.3790000000|
+| 2019-08-17T19:12:00-05:00 | 2.3430000000|
+| 2019-08-17T19:18:00-05:00 | 2.3290000000|
+
+The query results include the UTC offset (`-05:00`) for the `America/Chicago` time zone in the timestamps.
 
 {{% /expand %}}
 
