@@ -23,8 +23,8 @@ For example `5 / 2 + 3 * 2 =  (5 / 2) + (3 * 2)` and `5 + 2 * 3 - 2 = 5 + (2 * 3
 - [Bitwise AND](#bitwise-and)
 - [Bitwise OR](#bitwise-or)
 - [Bitwise Exclusive-OR](#bitwise-exclusive-or)
-- [Common Issues with Mathematical Operators](#common-issues-with-mathematical-operators)
 - [Unsupported Operators](#unsupported-operators)
+- [Common Issues with Mathematical Operators](#common-issues-with-mathematical-operators)
 
 ## Addition
 
