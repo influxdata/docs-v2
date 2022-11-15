@@ -1,6 +1,7 @@
 ---
 title: Explore your schema using InfluxQL
-description: Useful query syntax for exploring schema in InfluxQL.
+description: >
+  Learn to use InfluxQL to explore the schema of your time series data.
 menu:
   influxdb_2_4:
     name: Explore your schema
@@ -9,22 +10,20 @@ menu:
 weight: 202
 ---
 
-To explore your schema using InfluxQL, do the following:
+Use InfluxQL to explore the schema of your time series data.
+Use the following InfluxQL commands to explore your schema:
 
-1. If you haven't already, verify your bucket has a database and retention policy (DBRP) mapping by [listing DBRP mappings for your bucket](/influxdb/v2.4/query-data/influxql/dbrp/#list-dbrp-mappings). If not, [create a new DBRP mapping](/influxdb/v2.4/query-data/influxql/dbrp/#create-dbrp-mappings).
+- [SHOW SERIES](#show-series)
+- [SHOW MEASUREMENTS](#show-measurements)
+- [SHOW TAG KEYS](#show-tag-keys)
+- [SHOW TAG VALUES](#show-tag-values)
+- [SHOW FIELD KEYS](#show-field-keys)
+- [SHOW FIELD KEY CARDINALITY](#show-field-key-cardinality)
+- [SHOW TAG KEY CARDINALITY](#show-tag-key-cardinality)
 
-2. [Configure timestamps in the InfluxQL shell](/influxdb/v2.4/query-data/influxql/explore-data/time-and-timezone/).
-
-3. _(Optional)_ If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
-
-4. Use the following InfluxQL commands to explore your schema:
-   - [SHOW SERIES](#show-series)
-   - [SHOW MEASUREMENTS](#show-measurements)
-   - [SHOW TAG KEYS](#show-tag-keys)
-   - [SHOW TAG VALUES](#show-tag-values)
-   - [SHOW FIELD KEYS](#show-field-keys) (includes examples to find field/tag key cardinality)
-
-   Commands include **syntax** and **examples**.
+{{% note %}}
+Command examples use the [NOAA water sample data](/influxdb/v2.4/reference/sample-data/#noaa-water-sample-data).
+{{% /note %}}
 
 ## SHOW SERIES
 
@@ -37,14 +36,12 @@ the specified [database](/influxdb/v2.4/reference/glossary/#database).
 SHOW SERIES [ON <database_name>] [FROM_clause] [WHERE <tag_key> <operator> [ '<tag_value>' | <regular_expression>]] [LIMIT_clause] [OFFSET_clause]
 ```
 
-### Description of syntax
-
 - `ON <database_name>` is optional.
   If the query does not include `ON <database_name>`, you must specify the
   database with the `db` query string parameter in the
   [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
 - `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
-   The `WHERE` clause supports tag comparisons but not field comparisons.
+- The `WHERE` clause in `SHOW SERIES` supports tag comparisons but not field comparisons.
 
   **Supported operators in the `WHERE` clause**:
   
@@ -62,12 +59,20 @@ and [Regular Expressions](/influxdb/v2.4/query-data/influxql/explore-data/regula
 
 ### Examples
 
-#### Run a `SHOW SERIES` query with the `ON` clause
+#### Run SHOW SERIES with the ON clause
 
 ```sql
 SHOW SERIES ON noaa
 ```
-Output:
+
+**Output:**
+
+The query returns all series in the `noaa` database.
+The query's output is similar to the [line protocol](/influxdb/v2.4/reference/syntax/line-protocol/) format.
+Everything before the first comma is the [measurement](/influxdb/v2.4/reference/glossary/#measurement) name.
+Everything after the first comma is either a [tag key](/influxdb/v2.4/reference/glossary/#tag-key) or a [tag value](/influxdb/v2.4/reference/glossary/#tag-value).
+The `noaa` database has 5 different measurements and 13 different series.
+
 | key                                         |
 | :------------------------------------------ |
 | average_temperature,location=coyote_creek   |
@@ -84,28 +89,24 @@ Output:
 | h2o_quality,location=santa_monica,randtag=3 |
 | h2o_temperature,location=coyote_creek       |
 
-The query returns all series in the `noaa` database. The query's output is similar to the [line protocol](/influxdb/v2.4/reference/syntax/line-protocol/) format.
-Everything before the first comma is the [measurement](/influxdb/v2.4/reference/glossary/#measurement) name.
-Everything after the first comma is either a [tag key](/influxdb/v2.4/reference/glossary/#tag-key) or a [tag value](/influxdb/v2.4/reference/glossary/#tag-value).
-The `noaa` has 5 different measurements and 13 different series.
-
-#### Run a `SHOW SERIES` query with several clauses
+#### Run SHOW SERIES with several clauses
 
 ```sql
 SHOW SERIES ON noaa FROM "h2o_quality" WHERE "location" = 'coyote_creek' LIMIT 2
 ```
 
-Output:
-| key                                         |
-| :------------------------------------------ |
-|h2o_quality,location=coyote_creek,randtag=1  |
-|h2o_quality,location=coyote_creek,randtag=2  |
+**Output:**
 
 The query returns all series in the `noaa` database that are
 associated with the `h2o_quality` measurement and the tag `location = coyote_creek`.
 The `LIMIT` clause limits the number of series returned to two.
 
-## `SHOW MEASUREMENTS`
+| key                                         |
+| :------------------------------------------ |
+|h2o_quality,location=coyote_creek,randtag=1  |
+|h2o_quality,location=coyote_creek,randtag=2  |
+
+## SHOW MEASUREMENTS
 
 Returns a list of [measurements](/influxdb/v2.4/reference/glossary/#measurement)
 for the specified [database](/influxdb/v2.4/reference/glossary/#database).
@@ -116,21 +117,21 @@ for the specified [database](/influxdb/v2.4/reference/glossary/#database).
 SHOW MEASUREMENTS [ON <database_name>] [WITH MEASUREMENT <operator> ['<measurement_name>' | <regular_expression>]] [WHERE <tag_key> <operator> ['<tag_value>' | <regular_expression>]] [LIMIT_clause] [OFFSET_clause]
 ```
 
-### Description of Syntax
+- `ON <database_name>` is optional.
+  If the query does not include `ON <database_name>`, you must specify the
+  database  with the `db` query string parameter in the
+  [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
 
-`ON <database_name>` is optional.
-If the query does not include `ON <database_name>`, you must specify the
-database  with the `db` query string parameter in the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
+- The `WITH`, `WHERE`, `LIMIT` and `OFFSET` clauses are optional.
+- The `WHERE` in `SHOW MEASURMENTS` supports tag comparisons, but not field comparisons.
 
-The `WITH`, `WHERE`, `LIMIT` and `OFFSET` clauses are optional.
-The `WHERE` clause supports tag comparisons; field comparisons are not valid for the `SHOW MEASUREMENTS` query.
+  **Supported operators in the `WHERE` clause:**
 
-Supported operators in the `WHERE` clause:
-`=` : equal to
-`<>`: not equal to
-`!=`: not equal to
-`=~`: matches against
-`!~`: doesn't match against
+  - `=` : equal to
+  - `<>`: not equal to
+  - `!=`: not equal to
+  - `=~`: matches against
+  - `!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause),
@@ -140,13 +141,18 @@ and [Regular Expressions](/influxdb/v2.4/query-data/influxql/explore-data/regula
 
 ### Examples
 
-#### Run a `SHOW MEASUREMENTS` query with the `ON` clause
+#### Run SHOW MEASUREMENTS with the ON clause
 
 ```sql
-> SHOW MEASUREMENTS ON noaa
+SHOW MEASUREMENTS ON noaa
 ```
 
-Output:
+**Output:**
+
+The query returns the list of measurements in the `noaa` database.
+The database has five measurements: `average_temperature`, `h2o_feet`, `h2o_pH`,
+`h2o_quality`, and `h2o_temperature`.
+
 | name                |
 | :------------------ |
 | average_temperature |
@@ -156,43 +162,37 @@ Output:
 | h2o_temperature     |
 
 
-The query returns the list of measurements in the `noaa`
-database.
-The database has five measurements: `average_temperature`, `h2o_feet`,
-`h2o_pH`, `h2o_quality`, and `h2o_temperature`.
-
-#### Run a `SHOW MEASUREMENTS` query with several clauses (i)
+#### Run SHOW MEASUREMENTS with several clauses (i)
 
 ```sql
-> SHOW MEASUREMENTS ON noaa WITH MEASUREMENT =~ /h2o.*/ LIMIT 2 OFFSET 1
+SHOW MEASUREMENTS ON noaa WITH MEASUREMENT =~ /h2o.*/ LIMIT 2 OFFSET 1
 ```
-Output:
+
+**Output:**
+
+The query returns the measurements in the `noaa` database that start with `h2o`.
+The `LIMIT` and `OFFSET` clauses limit the number of measurement names returned to
+two and offset the results by one, skipping the `h2o_feet` measurement.
 
 | name        |
 | :---------- |
 | h2o_pH      |
 | h2o_quality |
 
-The query returns the measurements in the `noaa` database that
-start with `h2o`.
-The `LIMIT` and `OFFSET` clauses limit the number of measurement names returned to
-two and offset the results by one, skipping the `h2o_feet` measurement.
-
-#### Run a `SHOW MEASUREMENTS` query with several clauses (ii)
+#### Run SHOW MEASUREMENTS with several clauses (ii)
 
 ```sql
-> SHOW MEASUREMENTS ON noaa WITH MEASUREMENT =~ /h2o.*/ WHERE "randtag"  =~ /\d/
-
-name: measurements
-name
-----
-h2o_quality
+SHOW MEASUREMENTS ON noaa WITH MEASUREMENT =~ /h2o.*/ WHERE "randtag"  =~ /\d/
 ```
 
-The query returns all measurements in the `noaa` that start
-with `h2o` and have values for the tag key `randtag` that include an integer.
+The query returns all measurements in the `noaa` that start with `h2o` and have
+values for the tag key `randtag` that include an integer.
 
-## `SHOW TAG KEYS`
+| name        |
+| :---------- |
+| h2o_quality |
+
+## SHOW TAG KEYS
 
 Returns a list of [tag keys](/influxdb/v2.4/reference/glossary/#tag-key)
 associated with the specified [database](/influxdb/v2.4/reference/glossary/#database).
@@ -200,25 +200,22 @@ associated with the specified [database](/influxdb/v2.4/reference/glossary/#data
 ### Syntax
 
 ```sql
-SHOW TAG KEYS [ON <database_name>] [FROM_clause] WITH KEY [ [<operator> "<tag_key>" | <regular_expression>] | [IN ("<tag_key1>","<tag_key2")]] [WHERE <tag_key> <operator> ['<tag_value>' | <regular_expression>]] [LIMIT_clause] [OFFSET_clause]
+SHOW TAG KEYS [ON <database_name>] [FROM_clause] WITH KEY [ [<operator> "<tag_key>" | <regular_expression>] | [IN ("<tag_key1>","<tag_key2>")]] [WHERE <tag_key> <operator> ['<tag_value>' | <regular_expression>]] [LIMIT_clause] [OFFSET_clause]
 ```
 
-### Description of syntax
+- `ON <database_name>` is optional.
+  If the query does not include `ON <database_name>`, you must specify the
+  database with `db` query string parameter in the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
+- The `FROM` clause and the `WHERE` clause are optional.
+- The `WHERE` clause in `SHOW TAG KEYS` supports tag comparisons, but not field comparisons.
 
-`ON <database_name>` is optional.
-If the query does not include `ON <database_name>`, you must specify the
-database with `db` query string parameter in the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
+    **Supported operators in the `WHERE` clause:**
 
-The `FROM` clause and the `WHERE` clause are optional.
-The `WHERE` clause supports tag comparisons; field comparisons are not
-valid for the `SHOW TAG KEYS` query.
-
-Supported operators in the `WHERE` clause:
-`=` : equal to
-`<>`: not equal to
-`!=`: not equal to
-`=~`: matches against
-`!~`: doesn't match against
+    - `=` : equal to
+    - `<>`: not equal to
+    - `!=`: not equal to
+    - `=~`: matches against
+    - `!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause),
@@ -228,63 +225,64 @@ and [Regular Expressions](/influxdb/v2.4/query-data/influxql/explore-data/regula
 
 ### Examples
 
-#### Run a `SHOW TAG KEYS` query with the `ON` clause
+#### Run SHOW TAG KEYS with the ON clause
 
 ```sql
-> SHOW TAG KEYS ON noaa
+SHOW TAG KEYS ON noaa
 ```
 
-Output:
-|name	|tagKey |
-| :------------------ |:---------------|
-|average_temperature	|location|
-|h2o_feet	|location|
-|h2o_pH	|location|
-|h2o_quality	|location|
-|h2o_quality	|randtag|
-|h2o_temperature |location|
+**Output:**
 
 The query returns the list of tag keys in the `noaa` database.
 The output groups tag keys by measurement name;
 it shows that every measurement has the `location` tag key and that the
 `h2o_quality` measurement has an additional `randtag` tag key.
 
-#### Run a `SHOW TAG KEYS` query with several clauses
+| name                | tagKey   |
+| :------------------ | :------- |
+| average_temperature | location |
+| h2o_feet            | location |
+| h2o_pH              | location |
+| h2o_quality         | location |
+| h2o_quality         | randtag  |
+| h2o_temperature     | location |
+
+
+#### Run SHOW TAG KEYS with several clauses
 
 ```sql
-> SHOW TAG KEYS ON noaa FROM "h2o_quality" LIMIT 1 OFFSET 1
-
+SHOW TAG KEYS ON noaa FROM "h2o_quality" LIMIT 1 OFFSET 1
 ```
 
-Output:
-|name	|tagKey |
-| :------------------ |:---------------|
-|h2o_quality	|randtag|
+**Output:**
 
-
-The query returns tag keys from the `h2o_quality` measurement in the
-`noaa` database.
+The query returns tag keys from the `h2o_quality` measurement in the `noaa` database.
 The `LIMIT` and `OFFSET` clauses limit the number of tag keys returned to one
 and offsets the results by one.
 
-#### Run a `SHOW TAG KEYS` query with a `WITH KEY IN` clause
+| name        | tagKey  |
+| :---------- | :------ |
+| h2o_quality | randtag |
+
+#### Run SHOW TAG KEYS with a WITH KEY IN clause
 
 ```sql
-> SHOW TAG KEYS ON noaa WITH KEY IN ("location") 
+SHOW TAG KEYS ON noaa WITH KEY IN ("location") 
 ```
 
-Output:
-|measurement	    |tagKey|
-| :------------------ |:---------------|
-|average_temperature	    |location|
-|h2o_feet	|location|
-|h2o_pH	 |location|
-|h2o_quality	|location|
-|h2o_quality	|randtag|
-|h2o_temperature	|location|
+**Output:**
+
+| measurement         | tagKey   |
+| :------------------ | :------- |
+| average_temperature | location |
+| h2o_feet            | location |
+| h2o_pH              | location |
+| h2o_quality         | location |
+| h2o_quality         | randtag  |
+| h2o_temperature     | location |
 
 
-## `SHOW TAG VALUES`
+## SHOW TAG VALUES
 
 Returns the list of [tag values](/influxdb/v2.4/reference/glossary/#tag-value)
 for the specified [tag key(s)](/influxdb/v2.4/reference/glossary/#tag-key) in the database.
@@ -292,28 +290,24 @@ for the specified [tag key(s)](/influxdb/v2.4/reference/glossary/#tag-key) in th
 ### Syntax
 
 ```sql
-SHOW TAG VALUES [ON <database_name>][FROM_clause] WITH KEY [ [<operator> "<tag_key>" | <regular_expression>] | [IN ("<tag_key1>","<tag_key2")]] [WHERE <tag_key> <operator> ['<tag_value>' | <regular_expression>]] [LIMIT_clause] [OFFSET_clause]
+SHOW TAG VALUES [ON <database_name>][FROM_clause] WITH KEY [ [<operator> "<tag_key>" | <regular_expression>] | [IN ("<tag_key1>","<tag_key2>")]] [WHERE <tag_key> <operator> ['<tag_value>' | <regular_expression>]] [LIMIT_clause] [OFFSET_clause]
 ```
 
-### Description of syntax
+- `ON <database_name>` is optional.
+  If the query does not include `ON <database_name>`, you must specify the
+  database with the `db` query string parameter in the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
+- The `WITH` clause is required.
+  It supports specifying a single tag key, a regular expression, and multiple tag keys.
+- The `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
+- The `WHERE` clause in `SHOW TAG KEYS` supports tag comparisons, but not field comparisons.
 
-`ON <database_name>` is optional.
-If the query does not include `ON <database_name>`, you must specify the
-database with the `db` query string parameter in the [InfluxDB API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
+  **Supported operators in the `WITH` and `WHERE` clauses:**
 
-The `WITH` clause is required.
-It supports specifying a single tag key, a regular expression, and multiple tag keys.
-
-The `FROM`, `WHERE`, `LIMIT`, and `OFFSET` clauses are optional.
-The `WHERE` clause supports tag comparisons; field comparisons are not
-valid for the `SHOW TAG KEYS` query.
-
-Supported operators in the `WITH` and `WHERE` clauses:
-`=` : equal to
-`<>`: not equal to
-`!=`: not equal to
-`=~`: matches against
-`!~`: doesn't match against
+  - `=` : equal to
+  - `<>`: not equal to
+  - `!=`: not equal to
+  - `=~`: matches against
+  - `!~`: doesn't match against
 
 See [Explore data using InfluxQL](/influxdb/v2.4/query-data/influxql/explore-data/) for documentation on the
 [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause),
@@ -323,43 +317,50 @@ and [Regular Expressions](/influxdb/v2.4/query-data/influxql/explore-data/regula
 
 ### Examples
 
-#### Run a `SHOW TAG VALUES` query with the `ON` clause
+#### Run SHOW TAG VALUES with the ON clause
 
 ```sql
-> SHOW TAG VALUES ON noaa WITH KEY = "randtag"
-
+SHOW TAG VALUES ON noaa WITH KEY = "randtag"
 ```
-Output:
 
-name: h2o_quality
-| :-----------|:-------|
-|randtag	|1|
-|randtag	|2|
-|randtag	|3|
+**Output:**
 
-The query returns all tag values of the `randtag` tag key in the `noaa`
-database.
+The query returns all tag values of the `randtag` tag key in the `noaa` database.
 `SHOW TAG VALUES` groups query results by measurement name.
+
+{{% influxql/table-meta %}}
+name: h2o_quality
+{{% /influxql/table-meta %}}
+
+| key     | value |
+| :------ | ----: |
+| randtag | 1     |
+| randtag | 2     |
+| randtag | 3     |
 
 #### Run a `SHOW TAG VALUES` query with several clauses
 
 ```sql
-> SHOW TAG VALUES ON noaa WITH KEY IN ("location","randtag") WHERE "randtag" =~ /./ LIMIT 3
+SHOW TAG VALUES ON noaa WITH KEY IN ("location","randtag") WHERE "randtag" =~ /./ LIMIT 3
 ```
-Output:
 
-name: h2o_quality
-| :-----------|:-------|
-|key        |value
-|location   |coyote_creek
-|location   |santa_monica
-|randtag	|   1
+**Output:**
 
 The query returns the tag values of the tag keys `location` and `randtag` for
 all measurements in the `noaa` database where `randtag` has tag values.
 The `LIMIT` clause limits the number of tag values returned to three.
 
-## `SHOW FIELD KEYS`
+{{% influxql/table-meta %}}
+name: h2o_quality
+{{% /influxql/table-meta %}}
+
+| key      |        value |
+| :------- | -----------: |
+| location | coyote_creek |
+| location | santa_monica |
+| randtag  |            1 |
+
+## SHOW FIELD KEYS
 
 Returns the [field keys](/influxdb/v2.4/reference/glossary/#field-key) and the
 [data type](/influxdb/v2.4/reference/glossary/#data-type) of their
@@ -371,15 +372,14 @@ Returns the [field keys](/influxdb/v2.4/reference/glossary/#field-key) and the
 SHOW FIELD KEYS [ON <database_name>] [FROM <measurement_name>]
 ```
 
-### Description of syntax
-
-`ON <database_name>` is optional.
-If the query does not include `ON <database_name>`, you must specify the
-database with `USE <database_name>` when using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) or with the `db` query string parameter in the [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
-
-The `FROM` clause is also optional.
-See the Data Exploration page for documentation on the
-[`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause).
+- `ON <database_name>` is optional.
+  If the query does not include `ON <database_name>`, you must specify the
+  database with `USE <database_name>` when using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/)
+  or with the `db` query string parameter in the
+  [InfluxDB 1.x compatibility API](/influxdb/v2.4/reference/api/influxdb-1x/) request.
+- The `FROM` clause is optional.
+  See the Data Exploration page for documentation on the
+[`  FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause).
 
 {{% note %}}
 **Note:** A field's data type [can differ](/influxdb/v2.4/reference/faq/#how-does-influxdb-handle-field-type-discrepancies-across-shards) across
@@ -390,44 +390,47 @@ occurs first in the following list: float, integer, string, boolean.
 
 ### Examples
 
-#### Run a `SHOW FIELD KEYS` query with the `ON` clause
+#### Run SHOW FIELD KEYS with the ON clause
 
 ```sql
-> SHOW FIELD KEYS ON noaa
+SHOW FIELD KEYS ON noaa
 ```
-Output:
-|name	    |fieldKey |fieldType|
-| :--------------|:--------------|:------------|
-| average_temperature| degrees |float|
-| h2o_feet | level description |string|
-| h2o_feet| water_level |float|
-| h2o_pH |pH |float|
-| h2o_quality| index  |float|
-| hh2o_temperature | degrees |float|
+
+**Output:**
 
 The query returns the field keys and field value data types for each
 measurement in the `noaa` database.
 
-#### Run a `SHOW FIELD KEYS` query with the `FROM` clause
+| name                | fieldKey          | fieldType |
+| :------------------ | :---------------- | :-------- |
+| average_temperature | degrees           | float     |
+| h2o_feet            | level description | string    |
+| h2o_feet            | water_level       | float     |
+| h2o_pH              | pH                | float     |
+| h2o_quality         | index             | float     |
+| hh2o_temperature    | degrees           | float     |
+
+#### Run SHOW FIELD KEYS with the FROM clause
 
 ```sql
-> SHOW FIELD KEYS ON noaa FROM h2o_feet
+SHOW FIELD KEYS ON noaa FROM h2o_feet
 ```
-Output:
-|name	    |fieldKey |fieldType|
-| :--------------|:--------------|:------------|
-| h2o_feet |level description | string|
-| h2o_feet | water_level| float|
+
+**Output:**
 
 The query returns the fields keys and field value data types for the `h2o_feet`
 measurement in the `noaa` database. 
 
- ### Common Issues with `SHOW FIELD KEYS`
+| name     | fieldKey          | fieldType |
+| :------- | :---------------- | :-------- |
+| h2o_feet | level description | string    |
+| h2o_feet | water_level       | float     |
+
+### Common Issues with SHOW FIELD KEYS
 
 #### SHOW FIELD KEYS and field type discrepancies
 
-Field value
-[data types](/influxdb/v2.4/reference/glossary/#data-type)
+Field value [data types](/influxdb/v2.4/reference/glossary/#data-type)
 cannot differ within a [shard](/influxdb/v2.4/reference/glossary/#shard) but they
 can differ across shards.
 `SHOW FIELD KEYS` returns every data type, across every shard, associated with
@@ -438,34 +441,37 @@ the field key.
 The `all_the_types` field stores four different data types:
 
 ```sql
-> SHOW FIELD KEYS
-
-name: mymeas
-fieldKey        fieldType
---------        ---------
-all_the_types   integer
-all_the_types   float
-all_the_types   string
-all_the_types   boolean
+SHOW FIELD KEYS
 ```
+
+{{% influxql/table-meta %}}
+name: mymeas
+{{% /influxql/table-meta %}}
+
+| fieldKey      | fieldType |
+| :------------ | :-------- |
+| all_the_types | integer   |
+| all_the_types | float     |
+| all_the_types | string    |
+| all_the_types | boolean   |
 
 Note that `SHOW FIELD KEYS` handles field type discrepancies differently from
 `SELECT` statements.
 For more information, see the
 [How does InfluxDB handle field type discrepancies across shards?](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#how-does-influxdb-handle-field-type-discrepancies-across-shards). 
 
-### `SHOW FIELD KEY CARDINALITY`
+## SHOW FIELD KEY CARDINALITY
 
-Cardinality is the product of all unique databases, retention policies, measurements, field keys and tag values in your Influx instance.  Managing cardinality is important, as high cardinality leads to greater resource usage.
+Cardinality is the product of all unique databases, retention policies, measurements, field keys and tag values in your Influx instance. Managing cardinality is important, as high cardinality leads to greater resource usage.
 
 ```sql
 -- show estimated cardinality of the field key set of current database
 SHOW FIELD KEY CARDINALITY
 -- show exact cardinality on field key set of specified database
-SHOW FIELD KEY EXACT CARDINALITY ON mydb
+SHOW FIELD KEY EXACT CARDINALITY ON noaa
 ```
 
-### `SHOW TAG KEY CARDINALITY`
+## SHOW TAG KEY CARDINALITY
 
 ```sql
 -- show estimated tag key cardinality
@@ -473,8 +479,9 @@ SHOW TAG KEY CARDINALITY
 -- show exact tag key cardinality
 SHOW TAG KEY EXACT CARDINALITY
 ```
+
 <!-- 
-### `SHOW TAG VALUES CARDINALITY`
+### SHOW TAG VALUES CARDINALITY
 
 ```sql
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
