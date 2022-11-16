@@ -16,9 +16,9 @@ Use the `influx` command line interface (CLI) to create a user.
 Additional users cannot be created in the InfluxDB UI.
 {{% /note %}}
 
-To create a new user, you must have an [operator token](/influxdb/v2.4/reference/glossary/#token).
-For more information, see how to [create an operator token](/influxdb/v2.4/security/tokens/create-token/#create-an-operator-token).
-Use the [`influx user create` command](/influxdb/v2.4/reference/cli/influx/user/create) and include the following:
+To create a new user, you must have an [operator token](/influxdb/v2.5/reference/glossary/#token).
+For more information, see how to [create an operator token](/influxdb/v2.5/security/tokens/create-token/#create-an-operator-token).
+Use the [`influx user create` command](/influxdb/v2.5/reference/cli/influx/user/create) and include the following:
 
 - Username
 - Organization name or organization ID to add the user to _(provided in the output of
