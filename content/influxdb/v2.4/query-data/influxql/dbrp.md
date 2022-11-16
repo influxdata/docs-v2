@@ -7,14 +7,14 @@ description: >
 menu:
   influxdb_2_4:
     parent: Query with InfluxQL
-weight: 202
+weight: 201
 influxdb/v2.4/tags: [influxql, dbrp]
 ---
 
-InfluxQL requires a database and retention policy (DBRP) combination to query data from.
+InfluxQL requires a database and retention policy (DBRP) combination in order to query data.
 In InfluxDB {{< current-version >}}, databases and retention policies have been
 combined and replaced by InfluxDB [buckets](/influxdb/v2.4/reference/glossary/#bucket).
-To query an InfluxDB {{< current-version >}} with InfluxQL, the specified DBRP
+To query InfluxDB {{< current-version >}} with InfluxQL, the specified DBRP
 combination must be mapped to a bucket.
 
 - [Automatic DBRP mapping](#automatic-dbrp-mapping)

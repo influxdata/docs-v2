@@ -51,6 +51,7 @@ weight: 9
 - [What are the minimum and maximum integers that InfluxDB can store?](#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store)
 - [What are the minimum and maximum timestamps that InfluxDB can store?](#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store)
 - [Can I change a field's data type?](#can-i-change-a-fields-data-type)
+- {{% oss-only %}}[How does InfluxDB handle field type discrepancies across shards?](#how-does-influxdb-handle-field-type-discrepancies-across-shards){{% /oss-only %}}
 
 ##### Writing data {href="writing-data"}
 - [How do I write integer and unsigned integer field values?](#how-do-i-write-integer-and-unsigned-integer-field-values)
@@ -413,6 +414,81 @@ Below are some possible workarounds:
         |> to(bucket: "example-bucket-2")
     ```
 
+#### How does InfluxDB handle field type discrepancies across shards?
+
+Field values can be floats, integers, strings, or Booleans.
+Field value types cannot differ within a
+[shard](/enterprise_influxdb/v1.10/concepts/glossary/#shard), but they can [differ](/enterprise_influxdb/v1.10/write_protocols/line_protocol_reference) across shards.
+
+The
+[`SELECT` statement](/enterprise_influxdb/v1.10/query_language/explore-data/#the-basic-select-statement)
+returns all field values **if** all values have the same type.
+If field value types differ across shards, InfluxDB first performs any
+applicable [cast](/enterprise_influxdb/v1.10/query_language/explore-data/#cast-operations)
+operations and then returns all values with the type that occurs first in the
+following list: float, integer, string, Boolean.
+
+If your data have field value type discrepancies, use the syntax
+`<field_key>::<type>` to query the different data types.
+
+#### Example
+
+The measurement `just_my_type` has a single field called `my_field`.
+`my_field` has four field values across four different shards, and each value has
+a different data type (float, integer, string, and Boolean).
+
+`SELECT *` returns only the float and integer field values.
+Note that InfluxDB casts the integer value to a float in the response.
+```sql
+SELECT * FROM just_my_type
+
+name: just_my_type
+------------------
+time		                	my_field
+2016-06-03T15:45:00Z	  9.87034
+2016-06-03T16:45:00Z	  7
+```
+
+`SELECT <field_key>::<type> [...]` returns all value types.
+InfluxDB outputs each value type in its own column with incremented column names.
+Where possible, InfluxDB casts field values to another type;
+it casts the integer `7` to a float in the first column, and it
+casts the float `9.879034` to an integer in the second column.
+InfluxDB cannot cast floats or integers to strings or Booleans.
+```sql
+SELECT "my_field"::float,"my_field"::integer,"my_field"::string,"my_field"::boolean FROM just_my_type
+
+name: just_my_type
+------------------
+time			               my_field	 my_field_1	 my_field_2		 my_field_3
+2016-06-03T15:45:00Z	 9.87034	  9
+2016-06-03T16:45:00Z	 7	        7
+2016-06-03T17:45:00Z			                     a string
+2016-06-03T18:45:00Z					                                true
+```
+
+`SHOW FIELD KEYS` returns every data type, across every shard, associated with
+the field key.
+
+#### Example
+
+The measurement `just_my_type` has a single field called `my_field`.
+`my_field` has four field values across four different shards, and each value has
+a different data type (float, integer, string, and Boolean).
+`SHOW FIELD KEYS` returns all four data types:
+
+```sql
+> SHOW FIELD KEYS
+
+name: just_my_type
+fieldKey   fieldType
+--------   ---------
+my_field   float
+my_field   string
+my_field   integer
+my_field   boolean
+```
+
 ---
 
 ## Writing data
@@ -762,7 +838,7 @@ the default time range is `1677-09-21 00:12:43.145224194` UTC to [`now()`](/infl
 
 To query data with timestamps that occur after `now()`, `SELECT` statements with
 a `GROUP BY time()` clause must provide an alternative **upper** bound in the
-[`WHERE` clause](/influxdb/v1.8/query_language/explore-data/#the-where-clause).
+[`WHERE` clause](/influxdb/v2.5/query_language/explore-data/#the-where-clause).
 For example:
 
 ```sql

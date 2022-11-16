@@ -18,12 +18,14 @@ Additional users cannot be created in the InfluxDB UI.
 
 ## Create a user using the influx CLI
 
-To create a new user, use the [`influx user create` command](/influxdb/v2.4/reference/cli/influx/user/create)
-and include the following:
+To create a new user, you must have an [operator token](/influxdb/v2.4/reference/glossary/#token). For more information, see how to [create an operator token](/influxdb/v2.4/security/tokens/create-token/#create-an-operator-token).
+Use the [`influx user create` command](/influxdb/v2.4/reference/cli/influx/user/create) and include the following:
 
 - Username
 - Organization name or organization ID to add the user to _(provided in the output of
   [`influx org list`](/influxdb/v2.4/reference/cli/influx/org/list/))_
+
+{{< cli/influx-creds-note >}}
 
 ```sh
 # Syntax
