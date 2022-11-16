@@ -17,13 +17,13 @@ metadata: [3 / 5]
 InfluxDB supports many different tools for querying data, including:
 
 - InfluxDB user interface (UI)
-- InfluxDB HTTP API
-- `influx` CLI
+- [InfluxDB HTTP API](/influxdb/v2.4/reference/api/)
+- [`influx` CLI](/influxdb/v2.4/tools/influx-cli/)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 - [Grafana](/influxdb/v2.4/tools/grafana/)
 - [InfluxDB client libraries](/influxdb/v2.4/api-guide/client-libraries/)
 
-This tutorial walks through the fundamentals of querying data in InfluxDB and
+This tutorial walks you through the fundamentals of querying data in InfluxDB and
 focuses primarily on the two languages you can use to query your time series data:
 
 - **Flux**: A functional scripting language designed to query and process data
@@ -173,10 +173,10 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
         column, select then tag column from the column dropdown menu, and then
         select the tag values to filter by. In this tutorial, the tag only
         tag column is **room**.
-    4.  _(Optional)_ In the **{{% caps %}}Aggregate Function{{% /caps %}}** pane,
+    5.  _(Optional)_ In the **{{% caps %}}Aggregate Function{{% /caps %}}** pane,
         select an aggregate or selector function to use to downsample the data.
         The default aggregate function is `mean`.
-    5.  In the time range dropdown menu, select **Custom Time Range**, and
+    6.  In the time range dropdown menu, select **Custom Time Range**, and
         select the following dates from the date selectors:
           
           - **Start**: 2022-01-01 08:00:00
@@ -187,7 +187,7 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
             By adding one second, the query will include all points to
             2022-01-01 20:00:00_.
     
-    6.  Click **{{% caps %}}Submit{{% /caps %}}** to execute the query with the
+    7.  Click **{{% caps %}}Submit{{% /caps %}}** to execute the query with the
         selected filters and operations and display the result.
       
     ---

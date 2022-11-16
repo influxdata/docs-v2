@@ -26,7 +26,7 @@ Examples of time series data include:
 - Rainfall measurements
 - Stock prices
 
-This multi-part tutorial walks through writing time series data to InfluxDB {{< current-version >}},
+This multi-part tutorial walks you through writing time series data to InfluxDB {{< current-version >}},
 querying that data, processing and alerting on the data, and then visualizing the data.
 
 ## Key concepts before you get started
