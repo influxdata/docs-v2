@@ -16,7 +16,6 @@ list_code_example: |
 
 Use the `SELECT` statement to query data from a particular [measurement](/influxdb/v2.4/reference/glossary/#measurement) or measurements.
 
-- [Before you get started](#before-you-get-started)
 - [Syntax](#syntax)
 - [Examples](#examples)
 - [Common issues](#common-issues-with-the-select-statement)
@@ -24,29 +23,6 @@ Use the `SELECT` statement to query data from a particular [measurement](/influx
 - [Data types and cast operations](#data-types-and-cast-operations)
 - [Merge behavior](#merge-behavior)
 - [Multiple statements](#multiple-statements)
-
-## Before you get started
-
-InfluxDB 1.x data is stored in databases and retention policies. In InfluxDB 2.x versions, data is stored in **buckets**. Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
-
-{{% note %}}
-**Note:** See [Query data with InfluxQL](/influxdb/v2.4/query-data/influxql/) to learn how to verify if buckets have a mapping and how to create DBRP mappings for unmapped buckets.
-{{% /note %}}
-
-Note that using the API to query with InfluxQL will return all data in JSON format.
-
-The examples in this document use the `noaa` database to create SELECT queries. 
-
-{{% note %}}
-**Note:** If you are using the [InfluxQL shell](/influxdb/v2.4/tools/influxql-shell/) be sure to enter
-`USE noaa` or `USE your-bucket-name` before running the queries below.
-{{% /note %}}
-
-To specify the format of timestamps returned in results in human readable format, use the precision helper command in the InfluxQL shell.
-
-```bash
-precision rfc3339
-```
 
 ## Syntax
 
@@ -230,7 +206,7 @@ values.
 
 {{% note %}}
 **Note:** InfluxDB follows the standard order of operations.
-See [InfluxQL mathematical operators](/influxdb/v2.4/query-data/influxql/math_operators/)
+See [InfluxQL mathematical operators](/influxdb/v2.4/query-data/influxql/math-operators/)
 for more on supported operators.
 {{% /note %}}
 
@@ -437,7 +413,7 @@ This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxq
 
 ## Data types and cast operations
 
-The [`SELECT` clause](#the-basic-select-statement) supports specifying a [field's](/influxdb/v2.4/reference/glossary/#field) type and basic cast operations with the `::` syntax.
+The [`SELECT` clause](#select-clause) supports specifying a [field's](/influxdb/v2.4/reference/glossary/#field) type and basic cast operations with the `::` syntax.
 
   - [Data types](#data-types)
   - [Cast operations](#cast-operations)
@@ -568,7 +544,7 @@ Name: h2o_feet
 | :------------------ |-------------------:|
 | 1970-01-01T00:00:00Z  | 4.4419314021 |
 
-If you want the average `water_level` for the first series only, specify the relevant tag in the [`WHERE` clause](#/influxdb/v2.4/query-data/influxql/explore-data/where/):
+If you want the average `water_level` for the first series only, specify the relevant tag in the [`WHERE` clause](/influxdb/v2.4/query-data/influxql/explore-data/where/):
 
 ```sql
 SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek'

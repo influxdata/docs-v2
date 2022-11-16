@@ -215,7 +215,7 @@ tags: location=santa_monica, randtag=3
 | 1970-01-01T00:00:00Z | 49.9991990388 |
 
 The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) to calculate the average `index` for every possible
-[tag](influxdb/v2.4/reference/glossary/#tag) combination in the `h2o_quality`
+[tag](/influxdb/v2.4/reference/glossary/#tag) combination in the `h2o_quality`
 measurement.
 
 {{% /expand %}}

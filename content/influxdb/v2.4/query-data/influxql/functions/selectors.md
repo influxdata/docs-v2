@@ -903,7 +903,7 @@ The timestamps in the results indicate the the start of each 24-minute time inte
 #### PERCENTILE() compared to other InfluxQL functions
 
 - `PERCENTILE(<field_key>,100)` is equivalent to [`MAX(<field_key>)`](#max).
-- `PERCENTILE(<field_key>, 50)` is nearly equivalent to [`MEDIAN(<field_key>)`](#median), except the `MEDIAN()` function returns the average of the two middle values if the field key contains an even number of field values.
+- `PERCENTILE(<field_key>, 50)` is nearly equivalent to [`MEDIAN(<field_key>)`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median), except the `MEDIAN()` function returns the average of the two middle values if the field key contains an even number of field values.
 - `PERCENTILE(<field_key>,0)` is not equivalent to [`MIN(<field_key>)`](#min). This is a known [issue](https://github.com/influxdata/influxdb/issues/4418).
 
 ## SAMPLE()

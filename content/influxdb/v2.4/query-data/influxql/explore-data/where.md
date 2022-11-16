@@ -168,7 +168,7 @@ Name: h2o_feet
 The query returns data from the `h2o_feet` measurement with field values of
 `water_level` plus two that are greater than 11.9. Note that InfluxDB follows the standard order of operations.
 
-See [Mathematical operators](/influxdb/v2.4/query-data/influxql/math_operators/)
+See [Mathematical operators](/influxdb/v2.4/query-data/influxql/math-operators/)
 for more on supported operators.
 
 {{% /expand %}}

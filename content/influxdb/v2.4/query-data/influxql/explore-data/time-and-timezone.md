@@ -388,7 +388,7 @@ For more information, see [Frequently asked questions](/influxdb/v2.4/reference/
 ### Querying data that occur after `now()` with a `GROUP BY time()` clause
 
 Most `SELECT` statements have a default time range between [`1677-09-21 00:12:43.145224194` and `2262-04-11T23:47:16.854775806Z` UTC](/influxdb/v2.4/reference/faq/#what-are-the-minimum-and-maximum-timestamps-that-influxdb-can-store).
-For `SELECT` statements with a [`GROUP BY time()` clause](influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals),
+For `SELECT` statements with a [`GROUP BY time()` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/#group-by-time-intervals),
 the default time range is between `1677-09-21 00:12:43.145224194` UTC and [`now()`](/influxdb/v2.4/reference/glossary/#now).
 
 To query data with timestamps that occur after `now()`, `SELECT` statements with

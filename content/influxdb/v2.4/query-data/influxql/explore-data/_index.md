@@ -48,7 +48,7 @@ Name: h2o_feet
                                                 
 The data in the `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement)
 occurs at six-minute time intervals.
-This measurement has one [tag key](influxdb/v2.4/reference/glossary/#tag-key)
+This measurement has one [tag key](/influxdb/v2.4/reference/glossary/#tag-key)
 (`location`) which has two [tag values](/influxdb/v2.4/reference/glossary/#tag-value):
 `coyote_creek` and `santa_monica`.
 The measurement also has two [fields](/influxdb/v2.4/reference/glossary/#field):

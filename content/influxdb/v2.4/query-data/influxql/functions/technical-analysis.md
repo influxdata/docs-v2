@@ -18,6 +18,7 @@ Each analysis function below covers **syntax**, including parameters to pass to 
   - [HOLT_WINTERS()](#holt_winters)
 - [Technical analysis](#technical-analysis-functions):
   - [CHANDE_MOMENTUM_OSCILLATOR()](#chande_momentum_oscillator)
+  - [EXPONENTIAL_MOVING_AVERAGE()](#exponential_moving_average)
   - [DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](#double_exponential_moving_average)
   - [KAUFMANS_EFFICIENCY_RATIO()](#kaufmans_efficiency_ratio)
   - [KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](#kaufmans_adaptive_moving_average)
@@ -83,7 +84,7 @@ SELECT "water_level" FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_mo
 ##### Step 1: Match the trends of the raw data
 
 Write a `GROUP BY time()` query that matches the general trends of the raw `water_level` data.
-Here, we use the [`FIRST()`](#first) function:
+Here, we use the [`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first) function:
 
 ```sql
 SELECT FIRST("water_level") FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_monica' and time >= '2019-08-17T00:00:00Z' AND time <= '2019-08-22T00:00:00Z' GROUP BY time(6h,6h)
@@ -214,7 +215,7 @@ When this method is used and `HOLD_PERIOD` is unspecified, `HOLD_PERIOD`
 defaults to `PERIOD - 1`.
 
 {{% note %}}
-**Note:** The `none` warmup type is only available with the [`CHANDE_MOMENTUM_OSCILLATOR()`](#chande-momentum-oscillator) function.
+**Note:** The `none` warmup type is only available with the [`CHANDE_MOMENTUM_OSCILLATOR()`](#chande_momentum_oscillator) function.
 {{% /note %}}
 
 ## CHANDE_MOMENTUM_OSCILLATOR()
@@ -256,7 +257,7 @@ processed using the Chande Momentum Oscillator algorithm with a 2-value period
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `CHANDE_MOMENTUM_OSCILLATOR()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.4/query-data/influxql/functions/aggregates/) in your call to the `CHANDE_MOMENTUM_OSCILLATOR()` function.
 {{% /note %}}
 
 `CHANDE_MOMENTUM_OSCILLATOR(/regular_expression/, 2)`  
@@ -273,7 +274,8 @@ and the default hold period and warmup type.
 
 ## EXPONENTIAL_MOVING_AVERAGE()
 
-An exponential moving average (EMA) (or exponentially weighted moving average) is a type of moving average similar to a [simple moving average](#moving-average), except more weight is given to the latest data.
+An exponential moving average (EMA) (or exponentially weighted moving average) is a type of moving average similar to a [simple moving average](/influxdb/v2.4/query-data/influxql/functions/transformations/#moving_average),
+except more weight is given to the latest data.
 
 This type of moving average reacts faster to recent data changes than a simple moving average.
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.investopedia.com/terms/e/ema.asp" target="\_blank">Source</a>
@@ -283,7 +285,7 @@ To use `EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause, see [Adva
 
 ### Basic syntax
 
-```
+```sql
 EXPONENTIAL_MOVING_AVERAGE([ * | <field_key> | /regular_expression/ ], <period>[, <hold_period)[, <warmup_type]])
 ```
 
@@ -303,7 +305,7 @@ processed using the Exponential Moving Average algorithm with a 2-value period
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `EXPONENTIAL_MOVING_AVERAGE()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.4/query-data/influxql/functions/aggregates/) in your call to the `EXPONENTIAL_MOVING_AVERAGE()` function.
 {{% /note %}}
 
 `EXPONENTIAL_MOVING_AVERAGE(/regular_expression/, 2)`  
@@ -329,7 +331,7 @@ and the default hold period and warmup type.
 The Double Exponential Moving Average (DEMA) attempts to remove the inherent lag
 associated with moving averages by placing more weight on recent values.
 The name suggests this is achieved by applying a double exponential smoothing which is not the case.
-The value of an [EMA](#exponential-moving-average) is doubled.
+The value of an [EMA](#exponential_moving_average) is doubled.
 To keep the value in line with the actual data and to remove the lag, the value "EMA of EMA"
 is subtracted from the previously doubled EMA.
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://en.wikipedia.org/wiki/Double_exponential_moving_average" target="\_blank">Source</a>
@@ -359,7 +361,7 @@ processed using the Double Exponential Moving Average algorithm with a 2-value p
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `DOUBLE_EXPONENTIAL_MOVING_AVERAGE()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.4/query-data/influxql/functions/aggregates/) in your call to the `DOUBLE_EXPONENTIAL_MOVING_AVERAGE()` function.
 {{% /note %}}
 
 `DOUBLE_EXPONENTIAL_MOVING_AVERAGE(/regular_expression/, 2)`  
@@ -388,7 +390,7 @@ that occurred to achieve that change.
 The resulting ratio ranges between 0 and 1 with higher values representing a
 more efficient or trending market.
 
-The ER is very similar to the [Chande Momentum Oscillator](#chande-momentum-oscillator) (CMO).
+The ER is very similar to the [Chande Momentum Oscillator](#chande_momentum_oscillator) (CMO).
 The difference is that the CMO takes market direction into account, but if you take the absolute CMO and divide by 100, you you get the Efficiency Ratio.
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="http://etfhq.com/blog/2011/02/07/kaufmans-efficiency-ratio/" target="\_blank">Source</a>
 
@@ -472,7 +474,7 @@ processed using the Kaufman Adaptive Moving Average algorithm with a 2-value per
 and the default hold period.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `KAUFMANS_ADAPTIVE_MOVING_AVERAGE()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.4/query-data/influxql/functions/aggregates/) in your call to the `KAUFMANS_ADAPTIVE_MOVING_AVERAGE()` function.
 {{% /note %}}
 
 `KAUFMANS_ADAPTIVE_MOVING_AVERAGE(/regular_expression/, 2)`  
@@ -496,8 +498,8 @@ and the default hold period and warmup type.
 The triple exponential moving average (TEMA) filters out
 volatility from conventional moving averages.
 While the name implies that it's a triple exponential smoothing, it's actually a
-composite of a [single exponential moving average](#exponential-moving-average),
-a [double exponential moving average](#double-exponential-moving-average),
+composite of a [single exponential moving average](#exponential_moving_average),
+a [double exponential moving average](#double_exponential_moving_average),
 and a triple exponential moving average.
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp " target="\_blank">Source</a>
 
@@ -526,7 +528,7 @@ processed using the Triple Exponential Moving Average algorithm with a 2-value p
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `TRIPLE_EXPONENTIAL_MOVING_AVERAGE()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.4/query-data/influxql/functions/aggregates/) in your call to the `TRIPLE_EXPONENTIAL_MOVING_AVERAGE()` function.
 {{% /note %}}
 
 `TRIPLE_EXPONENTIAL_MOVING_AVERAGE(/regular_expression/, 2)`  
@@ -551,8 +553,9 @@ and the default hold period and warmup type.
 The triple exponential derivative indicator, commonly referred to as "TRIX," is
 an oscillator used to identify oversold and overbought markets, and can also be
 used as a momentum indicator.
-TRIX calculates a [triple exponential moving average](#triple-exponential-moving-average)
-of the [log](#log) of the data input over the period of time.
+TRIX calculates a [triple exponential moving average](#triple_exponential_moving_average)
+of the [log](/influxdb/v2.4/query-data/influxql/functions/transformations/#log)
+of the data input over the period of time.
 The previous value is subtracted from the previous value.
 This prevents cycles that are shorter than the defined period from being considered by the indicator.
 
@@ -589,7 +592,7 @@ processed using the Triple Exponential Derivative algorithm with a 2-value perio
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `TRIPLE_EXPONENTIAL_DERIVATIVE()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.4/query-data/influxql/functions/aggregates/) in your call to the `TRIPLE_EXPONENTIAL_DERIVATIVE()` function.
 {{% /note %}}
 
 `TRIPLE_EXPONENTIAL_DERIVATIVE(/regular_expression/, 2)`  
@@ -635,7 +638,7 @@ processed using the Relative Strength Index algorithm with a 2-value period
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an  [aggregate function](#aggregations) in your call to the `RELATIVE_STRENGTH_INDEX()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an  [aggregate function](/influxdb/v2.4/query-data/influxql/functions/aggregates/) in your call to the `RELATIVE_STRENGTH_INDEX()` function.
 {{% /note %}}
 
 `RELATIVE_STRENGTH_INDEX(/regular_expression/, 2)`  

@@ -15,14 +15,14 @@ list_code_example: |
 
 Use `OFFSET` and `SOFFSET` to paginate [points](/influxdb/v2.4/reference/glossary/#point) and [series](/influxdb/v2.4/reference/glossary/#series) returned.
 
-  - [The OFFSET clause](#the-offset-clause)
+  - [OFFSET clause](#offset-clause)
      - [Syntax](#syntax)
      - [Examples](#examples)
-  - [The SOFFSET clause](#the-soffset-clause)
+  - [The SOFFSET clause](#soffset-clause)
      - [Syntax](#syntax-1)
      - [Examples](#examples-1)
 
-## The `OFFSET` clause
+## `OFFSET` clause
 
 `OFFSET <N>` paginates `N` [points](/influxdb/v2.4/reference/glossary/#point) in the query results.
 
@@ -32,7 +32,7 @@ Use `OFFSET` and `SOFFSET` to paginate [points](/influxdb/v2.4/reference/glossar
 SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT_clause OFFSET <N> [SLIMIT_clause]
 ```
 
-`N` specifies the number of points to paginate. The `OFFSET` clause requires a [`LIMIT` clause](/influxdb/v2.4/query-data/influxql/limit-and-slimit/#limit-clause).
+`N` specifies the number of points to paginate. The `OFFSET` clause requires a [`LIMIT` clause](/influxdb/v2.4/query-data/influxql/explore-data/limit-and-slimit/#limit-clause).
 
 {{% note %}}
 **Note:** InfluxDB returns no results if the `WHERE clause` includes a time range and the `OFFSET clause` would cause InfluxDB to return points with timestamps outside of that time range.

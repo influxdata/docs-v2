@@ -22,7 +22,7 @@ Use the `ORDER BY` clause to sort data.
 ## ORDER BY time DESC
 
 By default, InfluxDB returns results in ascending time order; the first [point](/influxdb/v2.4/reference/glossary/#point)
-returned has the oldest [timestamp](influxdb/v2.4/reference/glossary/#timestamp) and
+returned has the oldest [timestamp](/influxdb/v2.4/reference/glossary/#timestamp) and
 the last point returned has the most recent timestamp.
 `ORDER BY time DESC` reverses that order such that InfluxDB returns the points
 with the most recent timestamps first.

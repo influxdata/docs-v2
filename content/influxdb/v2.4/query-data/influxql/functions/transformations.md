@@ -151,16 +151,16 @@ The query first calculates the results for the nested function at the specified 
 
 `ABS()` supports the following nested functions:
 
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -168,7 +168,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the absolute values of mean values" %}}
 
-Return the absolute values of [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the absolute values of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT ABS(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
@@ -316,16 +316,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `ACOS()` function to those results.
 
 `ACOS()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -333,7 +333,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the arccosine of mean values" %}}
 
-Return the arccosine of [mean](#mean) `a` that are calculated at 3 hour intervals.
+Return the arccosine of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `a` that are calculated at 3 hour intervals.
 
 ```sql
 SELECT ACOS(MEAN("a")) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
@@ -498,16 +498,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `ASIN()` function to those results.
 
 `ASIN()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -515,7 +515,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the arcsine of mean values" %}}
 
-Return the arcsine of [mean](#mean) `a`s that are calculated at 3-hour intervals.
+Return the arcsine of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `a`s that are calculated at 3-hour intervals.
 
 ```sql
 SELECT ASIN(MEAN("a")) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
@@ -670,16 +670,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `ATAN()` function to those results.
 
 `ATAN()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples of advanced syntax
 
@@ -687,7 +687,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the arctangent of mean values" %}}
 
-Return the arctangent of [mean](#mean) `a`s that are calculated at 3-hour intervals.
+Return the arctangent of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `a`s that are calculated at 3-hour intervals.
 
 ```sql
 SELECT ATAN(MEAN("a")) FROM "data" WHERE time >= '2018-06-24T00:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(3h)
@@ -841,16 +841,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `ATAN2()` function to those results.
 
 `ATAN2()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -858,7 +858,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate arctangents of mean values" %}}
 
-Return the arctangents of [mean](#mean) `a`s divided by average `b`s. Averages are calculated at 2-hour intervals.
+Return the arctangents of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `a`s divided by average `b`s. Averages are calculated at 2-hour intervals.
 
 ```sql
 SELECT ATAN2(MEAN("b"), MEAN("a")) FROM "data" WHERE time >= '2018-06-24T12:00:00Z' AND time <= '2018-06-25T00:00:00Z' GROUP BY time(2h)
@@ -1013,16 +1013,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `CEIL()` function to those results.
 
 `CEIL()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -1030,7 +1030,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate mean values rounded up to the nearest integer" %}}
 
-Return the [mean](#mean) `water_level`s that are calculated at 12-minute intervals and rounds them up to the nearest integer.
+Return the [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals and rounds them up to the nearest integer.
 
 ```sql
 SELECT CEIL(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -1180,16 +1180,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `COS()` function to those results.
 
 `COS()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -1197,7 +1197,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the cosine of mean values" %}}
 
-Return the cosine of [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the cosine of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT COS(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -1374,16 +1374,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `CUMULATIVE_SUM()` function to those results.
 
 `CUMULATIVE_SUM()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -1391,7 +1391,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the cumulative sum of mean values" %}}
 
-Return the running total of [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the running total of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT CUMULATIVE_SUM(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -1625,23 +1625,23 @@ If the query does not specify the `unit` the `unit` defaults to the `GROUP BY ti
 Note that this behavior is different from the [basic syntax's](#basic-syntax-1) default behavior.
 
 `DERIVATIVE()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 {{< expand-wrapper >}}
 
 {{% expand "Calculate the derivative of mean values" %}}
 
-Return the 12-minute rate of change between [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the 12-minute rate of change between [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT DERIVATIVE(MEAN("water_level")) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
@@ -1834,16 +1834,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `DIFFERENCE()` function to those results.
 
 `DIFFERENCE()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -1851,7 +1851,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the difference between maximum values" %}}
 
-Return the difference between [maximum](#max) `water_level`s that are calculated at 12-minute intervals.
+Return the difference between [maximum](/influxdb/v2.4/query-data/influxql/functions/selectors/#max) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT DIFFERENCE(MAX("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -2054,12 +2054,12 @@ The `ELAPSED()` function supports the [`GROUP BY time()` clause](/influxdb/v2.4/
 Currently, an `ELAPSED()` query with a nested function and a `GROUP BY time()` clause simply returns the interval specified in the `GROUP BY time()` clause.
 
 The `GROUP BY time()` clause determines the timestamps in the results; each timestamp marks the start of a time interval.
-That behavior also applies to nested selector functions (like [`FIRST()`](#first) or [`MAX()`](#max)) which would, in all other cases, return a specific timestamp from the raw data.
+That behavior also applies to nested selector functions (like [`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first) or [`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max)) which would, in all other cases, return a specific timestamp from the raw data.
 Because the `GROUP BY time()` clause overrides the original timestamps, the `ELAPSED()` calculation always returns the same value as the `GROUP BY time()` interval.
 
 ##### Example
 
-In the codeblock below, the first query attempts to use the `ELAPSED()` function with a `GROUP BY time()` clause to find the time elapsed (in minutes) between [minimum](#min) `water_level`s.
+In the codeblock below, the first query attempts to use the `ELAPSED()` function with a `GROUP BY time()` clause to find the time elapsed (in minutes) between [minimum](/influxdb/v2.4/query-data/influxql/functions/selectors/#min) `water_level`s.
 Returns 12 minutes for both time intervals.
 
 To get those results, InfluxDB first calculates the minimum `water_level`s at 12-minute intervals.
@@ -2233,16 +2233,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `EXP()` function to those results.
 
 `EXP()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -2250,7 +2250,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the exponential of mean values" %}}
 
-Return the exponential of [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the exponential of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT EXP(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -2401,16 +2401,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `FLOOR()` function to those results.
 
 `FLOOR()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -2418,7 +2418,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate mean values rounded down to the nearest integer" %}}
 
-Return the [mean](#mean) `water_level`s that are calculated at 12-minute intervals and rounds them up to the nearest integer.
+Return the [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals and rounds them up to the nearest integer.
 
 ```sql
 SELECT FLOOR(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -2575,16 +2575,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `LN()` function to those results.
 
 `LN()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -2592,7 +2592,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the natural logarithm of mean values" %}}
 
-Return the natural logarithm of [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the natural logarithm of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT LN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -2742,16 +2742,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `LOG()` function to those results.
 
 `LOG()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -2759,7 +2759,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the logarithm base 4 of mean values" %}}
 
-Return the logarithm base 4 of [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the logarithm base 4 of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT LOG(MEAN("water_level"), 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -2909,16 +2909,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `LOG2()` function to those results.
 
 `LOG2()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -2926,7 +2926,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the logarithm base 2 of mean values" %}}
 
-Return the logarithm base 2 of [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the logarithm base 2 of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT LOG2(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -3076,16 +3076,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `LOG10()` function to those results.
 
 `LOG10()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -3093,7 +3093,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the logarithm base 10 of mean values" %}}
 
-Return the logarithm base 10 of [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the logarithm base 10 of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT LOG10(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -3269,16 +3269,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `MOVING_AVERAGE()` function to those results.
 
 `MOVING_AVERAGE()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -3286,7 +3286,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the moving average of maximum values" %}}
 
-Return the rolling average across a two-value window of [maximum](#max) `water_level`s that are calculated at 12-minute intervals.
+Return the rolling average across a two-value window of [maximum](/influxdb/v2.4/query-data/influxql/functions/selectors/#max) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT MOVING_AVERAGE(MAX("water_level"),2) FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m)
@@ -3356,16 +3356,16 @@ Note that this behavior is different from the [basic syntax's](#basic-syntax-4) 
 `NON_NEGATIVE_DERIVATIVE()` returns only positive rates of change or rates of change that equal zero.
 
 `NON_NEGATIVE_DERIVATIVE()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -3412,16 +3412,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `NON_NEGATIVE_DIFFERENCE()` function to those results.
 
 `NON_NEGATIVE_DIFFERENCE()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -3559,16 +3559,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `POW()` function to those results.
 
 `POW()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -3576,7 +3576,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate mean values to the power of 4" %}}
 
-Return [mean](#mean) `water_level`s that are calculated at 12-minute intervals multiplied to the power of 4.
+Return [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals multiplied to the power of 4.
 
 ```sql
 SELECT POW(MEAN("water_level"), 4) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -3726,16 +3726,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `ROUND()` function to those results.
 
 `ROUND()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -3743,7 +3743,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate mean values rounded to the nearest integer" %}}
 
-Return the [mean](#mean) `water_level`s that are calculated at 12-minute intervals and rounds to the nearest integer.
+Return the [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals and rounds to the nearest integer.
 
 ```sql
 SELECT ROUND(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -3893,16 +3893,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `SIN()` function to those results.
 
 `SIN()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -3910,7 +3910,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the sine of mean values" %}}
 
-Return the sine of [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the sine of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT SIN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -4060,16 +4060,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `SQRT()` function to those results.
 
 `SQRT()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -4077,7 +4077,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the square root of mean values" %}}
 
-Return the square roots of [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the square roots of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT SQRT(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
@@ -4227,16 +4227,16 @@ The advanced syntax requires a [`GROUP BY time() ` clause](/influxdb/v2.4/query-
 The query first calculates the results for the nested function at the specified `GROUP BY time()` interval and then applies the `TAN()` function to those results.
 
 `TAN()` supports the following nested functions:
-[`COUNT()`](#count),
-[`MEAN()`](#mean),
-[`MEDIAN()`](#median),
-[`MODE()`](#mode),
-[`SUM()`](#sum),
-[`FIRST()`](#first),
-[`LAST()`](#last),
-[`MIN()`](#min),
-[`MAX()`](#max), and
-[`PERCENTILE()`](#percentile).
+[`COUNT()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#count),
+[`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean),
+[`MEDIAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#median),
+[`MODE()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mode),
+[`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum),
+[`FIRST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#first),
+[`LAST()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#last),
+[`MIN()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#min),
+[`MAX()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#max), and
+[`PERCENTILE()`](/influxdb/v2.4/query-data/influxql/functions/selectors/#percentile).
 
 #### Examples
 
@@ -4244,7 +4244,7 @@ The query first calculates the results for the nested function at the specified 
 
 {{% expand "Calculate the tangent of mean values" %}}
 
-Return the tangent of [mean](#mean) `water_level`s that are calculated at 12-minute intervals.
+Return the tangent of [mean](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) `water_level`s that are calculated at 12-minute intervals.
 
 ```sql
 SELECT TAN(MEAN("water_level")) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(12m)
