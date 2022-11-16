@@ -6,7 +6,7 @@ menu:
   influxdb_2_4:
     name: InfluxQL functions
     parent: Query with InfluxQL
-weight: 205
+weight: 203
 ---
 
 Use InfluxQL functions to aggregate, select, transform, analyze, and predict data.

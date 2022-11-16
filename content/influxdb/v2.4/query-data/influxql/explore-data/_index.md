@@ -7,7 +7,7 @@ menu:
   influxdb_2_4:
     name: Explore data
     parent: Query with InfluxQL
-weight: 201
+weight: 202
 ---
 
 To start exploring data with InfluxQL, do the following:
@@ -20,9 +20,9 @@ To start exploring data with InfluxQL, do the following:
 
 4. Use the InfluxQL `SELECT` statement with other key clauses to explore your data.
 
-   {{< children type="anchored-list" >}}
+{{< children type="anchored-list" >}}
 
-   {{< children readmore=true hr=true >}}
+{{< children readmore=true hr=true >}}
 
 ## Download sample data
 

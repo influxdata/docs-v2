@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_2_4:
     parent: Query with InfluxQL
-weight: 210
+weight: 201
 influxdb/v2.4/tags: [influxql, dbrp]
 ---
 
