@@ -1,21 +1,24 @@
 ---
 title: InfluxQL analysis functions
+list_title: Technical analysis functions
 description: >
-  Analyze and predict data with InfluxQL technical analysis functions.
+  Use technical analysis functions to apply algorithms to your data.
 menu:
   influxdb_2_5:
     name: Technical analysis
-    parent: View InfluxQL functions
+    parent: InfluxQL functions
 weight: 205
 ---
 
-Use analysis functions to apply algorithms to your data--often used to analyze financial and investment data.
+Use technical analysis functions to apply algorithms to your data--often used to analyze financial and investment data.
 
 Each analysis function below covers **syntax**, including parameters to pass to the function, and **examples** of how to use the function. Examples use [NOAA water sample data](/influxdb/v2.5/reference/sample-data/#noaa-water-sample-data).
 
-- [Predictive analysis function: HOLT_WINTERS()](#predictive-analysis-holt_winters)
-- [Technical analysis functions](#technical-analysis-functions):
+- [Predictive analysis](#predictive-analysis):
+  - [HOLT_WINTERS()](#holt_winters)
+- [Technical analysis](#technical-analysis-functions):
   - [CHANDE_MOMENTUM_OSCILLATOR()](#chande_momentum_oscillator)
+  - [EXPONENTIAL_MOVING_AVERAGE()](#exponential_moving_average)
   - [DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](#double_exponential_moving_average)
   - [KAUFMANS_EFFICIENCY_RATIO()](#kaufmans_efficiency_ratio)
   - [KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](#kaufmans_adaptive_moving_average)
@@ -23,18 +26,26 @@ Each analysis function below covers **syntax**, including parameters to pass to 
   - [TRIPLE_EXPONENTIAL_DERIVATIVE()](#triple_exponential_derivative)
   - [RELATIVE_STRENGTH_INDEX()](#relative_strength_index)
 
-## Predictive analysis: HOLT_WINTERS()
+## Predictive analysis
 
-Returns N number of predicted [field values](/influxdb/v2.5/reference/glossary/#field-value) using the
-[Holt-Winters](https://www.otexts.org/fpp/7/5) seasonal method. Supports int64 and float64 field value [data types](/influxdb/v2.5/query-data/influxql/explore-data/select/#data-types). Works with data that occurs at consistent time intervals. Requires an InfluxQL function and the
-`GROUP BY time()` clause to ensure that the Holt-Winters function operates on regular data.
+Predictive analysis functions are a type of technical analysis algorithms that
+predict and forecast future values.
+
+### HOLT_WINTERS()
+
+Returns N number of predicted [field values](/influxdb/v2.5/reference/glossary/#field-value)
+using the [Holt-Winters](https://www.otexts.org/fpp/7/5) seasonal method.
+Supports int64 and float64 field value [data types](/influxdb/v2.5/query-data/influxql/explore-data/select/#data-types).
+Works with data that occurs at consistent time intervals.
+Requires an InfluxQL function and the `GROUP BY time()` clause to ensure that
+the Holt-Winters function operates on regular data.
 
 Use `HOLT_WINTERS()` to:
 
 - Predict when data values will cross a given threshold
 - Compare predicted values with actual values to detect anomalies in your data
 
-### Syntax
+#### Syntax
 
 ```
 SELECT HOLT_WINTERS[_WITH-FIT](<function>(<field_key>),<N>,<S>) FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
@@ -60,7 +71,6 @@ addition to `N` seasonally adjusted predicted field values for the specified fie
 #### Examples
 
 {{< expand-wrapper >}}
-
 {{% expand "Predict field values associated with a field key" %}}
 
 ##### Sample data
@@ -68,40 +78,36 @@ addition to `N` seasonally adjusted predicted field values for the specified fie
 The examples use the following subset of the [NOAA water sample data](/influxdb/v2.5/reference/sample-data/#noaa-water-sample-data):
 
 ```sql
-SELECT "water_level" FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_monica' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z'
+SELECT "water_level" FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_monica' AND time >= '2019-08-17T00:00:00Z' AND time <= '2019-08-22T00:00:00Z'
 ```
-
-![Raw Data](/img/influxdb/1-3-hw-raw-data-1-2.png)
 
 ##### Step 1: Match the trends of the raw data
 
 Write a `GROUP BY time()` query that matches the general trends of the raw `water_level` data.
-Here, we use the [`FIRST()`](#first) function:
+Here, we use the [`FIRST()`](/influxdb/v2.5/query-data/influxql/functions/selectors/#first) function:
 
 ```sql
-SELECT FIRST("water_level") FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_monica' and time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(379m,348m)
+SELECT FIRST("water_level") FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_monica' and time >= '2019-08-17T00:00:00Z' AND time <= '2019-08-22T00:00:00Z' GROUP BY time(6h,6h)
 ```
 
-In the `GROUP BY time()` clause, the first argument (`379m`) matches
+In the `GROUP BY time()` clause, the first argument (`6h`) matches
 the length of time that occurs between each peak and trough in the `water_level` data.
-The second argument (`348m`) is the
+The second argument (`6h`) is the
 [offset interval](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#advanced-group-by-time-syntax).
 The offset interval alters the default `GROUP BY time()` boundaries to
 match the time range of the raw data.
 
-The blue line shows the results of the query:
-
-![First step](/img/influxdb/1-3-hw-first-step-1-2.png)
+{{< img-hd src="/img/influxdb/2-4-influxql-holtwinters-1.png" alt="Holt Winters base data" />}}
 
 ###### Step 2: Determine the seasonal pattern
 
 Identify the seasonal pattern in the data using the information from the
 query in step 1.
 
-Focusing on the blue line in the graph below, the pattern in the `water_level` data repeats about every 25 hours and 15 minutes.
-There are four data points per season, so `4` is the seasonal pattern argument.
+The pattern in the `water_level` data repeats about every 12 hours.
+There are two data points per season, so `2` is the seasonal pattern argument.
 
-![Second step](/img/influxdb/1-3-hw-second-step-1-2.png)
+{{< img-hd src="/img/influxdb/2-4-influxql-holtwinters-2.png" alt="Holt Winters seasonal data" />}}
 
 ###### Step 3: Apply the HOLT_WINTERS() function
 
@@ -109,19 +115,16 @@ Add the Holt-Winters function to the query.
 Here, we use `HOLT_WINTERS_WITH_FIT()` to view both the fitted values and the predicted values:
 
 ```sql
-SELECT HOLT_WINTERS_WITH_FIT(FIRST("water_level"),10,4) FROM "NOAA_water_database"."autogen"."h2o_feet" WHERE "location"='santa_monica' AND time >= '2015-08-22 22:12:00' AND time <= '2015-08-28 03:00:00' GROUP BY time(379m,348m)
+SELECT HOLT_WINTERS_WITH_FIT(FIRST("water_level"),10,2) FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_monica' AND time >= '2019-08-17 00:00:00' AND time <= '2019-08-22 00:00:00' GROUP BY time(6h,6h)
 ```
 
 In the `HOLT_WINTERS_WITH_FIT()` function, the first argument (`10`) requests 10 predicted field values.
-Each predicted point is `379m` apart, the same interval as the first argument in the `GROUP BY time()` clause.
-The second argument in the `HOLT_WINTERS_WITH_FIT()` function (`4`) is the seasonal pattern that we determined in the previous step.
+Each predicted point is `6h` apart, the same interval as the first argument in the `GROUP BY time()` clause.
+The second argument in the `HOLT_WINTERS_WITH_FIT()` function (`2`) is the seasonal pattern that we determined in the previous step.
 
-The blue line shows the results of the query:
-
-![Third step](/img/influxdb/1-3-hw-third-step-1-2.png)
+{{< img-hd src="/img/influxdb/2-4-influxql-holtwinters-3.png" alt="Holt Winters predicted data" />}}
 
 {{% /expand %}}
-
 {{< /expand-wrapper >}}
 
 #### Common issues with `HOLT_WINTERS()`
@@ -190,11 +193,13 @@ _**Kaufman algorithm default hold periods:**_
 Controls how the algorithm initializes for the first `PERIOD` samples.
 It is essentially the duration for which it has an incomplete sample set.
 
-`simple`  
+##### simple
+
 Simple moving average (SMA) of the first `PERIOD` samples.
 This is the method used by [ta-lib](https://www.ta-lib.org/).
 
-`exponential`  
+##### exponential
+
 Exponential moving average (EMA) with scaling alpha (α).
 Uses an EMA with `PERIOD=1` for the first point, `PERIOD=2`
 for the second point, and so on, until the algorithm has consumed `PERIOD` number of points.
@@ -202,14 +207,15 @@ As the algorithm immediately starts using an EMA, when this method is used and
 `HOLD_PERIOD` is unspecified or `-1`, the algorithm may start emitting points
 after a much smaller sample size than with `simple`.
 
-`none`  
+##### none
+
 The algorithm does not perform any smoothing at all.
 Method used by [ta-lib](https://www.ta-lib.org/).
 When this method is used and `HOLD_PERIOD` is unspecified, `HOLD_PERIOD`
 defaults to `PERIOD - 1`.
 
 {{% note %}}
-**Note:** The `none` warmup type is only available with the [`CHANDE_MOMENTUM_OSCILLATOR()`](#chande-momentum-oscillator) function.
+**Note:** The `none` warmup type is only available with the [`CHANDE_MOMENTUM_OSCILLATOR()`](#chande_momentum_oscillator) function.
 {{% /note %}}
 
 ## CHANDE_MOMENTUM_OSCILLATOR()
@@ -219,10 +225,9 @@ The CMO indicator is created by calculating the difference between the sum of al
 recent higher data points and the sum of all recent lower data points,
 then dividing the result by the sum of all data movement over a given time period.
 The result is multiplied by 100 to give the -100 to +100 range.
-
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/cmo" target="\_blank">Source</a>
 
-Supports `GROUP BY` clauses that [group by tags](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-tags) but not `GROUP BY` clauses that [group by time](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-time-intervals). To use `CHANDE_MOMENTUM_OSCILLATOR()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/view-functions/transformations/#advanced-syntax).
+Supports `GROUP BY` clauses that [group by tags](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-tags) but not `GROUP BY` clauses that [group by time](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-time-intervals). To use `CHANDE_MOMENTUM_OSCILLATOR()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/functions/transformations/#advanced-syntax).
 
 ### Basic syntax
 
@@ -252,7 +257,7 @@ processed using the Chande Momentum Oscillator algorithm with a 2-value period
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `CHANDE_MOMENTUM_OSCILLATOR()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.5/query-data/influxql/functions/aggregates/) in your call to the `CHANDE_MOMENTUM_OSCILLATOR()` function.
 {{% /note %}}
 
 `CHANDE_MOMENTUM_OSCILLATOR(/regular_expression/, 2)`  
@@ -269,18 +274,18 @@ and the default hold period and warmup type.
 
 ## EXPONENTIAL_MOVING_AVERAGE()
 
-An exponential moving average (EMA) (or exponentially weighted moving average) is a type of moving average similar to a [simple moving average](#moving-average), except more weight is given to the latest data.
+An exponential moving average (EMA) (or exponentially weighted moving average) is a type of moving average similar to a [simple moving average](/influxdb/v2.5/query-data/influxql/functions/transformations/#moving_average),
+except more weight is given to the latest data.
 
 This type of moving average reacts faster to recent data changes than a simple moving average.
-
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.investopedia.com/terms/e/ema.asp" target="\_blank">Source</a>
 
 Supports `GROUP BY` clauses that [group by tags](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-tags) but not `GROUP BY` clauses that [group by time](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-time-intervals).
-To use `EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/view-functions/transformations/#advanced-syntax).
+To use `EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/functions/transformations/#advanced-syntax).
 
 ### Basic syntax
 
-```
+```sql
 EXPONENTIAL_MOVING_AVERAGE([ * | <field_key> | /regular_expression/ ], <period>[, <hold_period)[, <warmup_type]])
 ```
 
@@ -300,7 +305,7 @@ processed using the Exponential Moving Average algorithm with a 2-value period
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `EXPONENTIAL_MOVING_AVERAGE()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.5/query-data/influxql/functions/aggregates/) in your call to the `EXPONENTIAL_MOVING_AVERAGE()` function.
 {{% /note %}}
 
 `EXPONENTIAL_MOVING_AVERAGE(/regular_expression/, 2)`  
@@ -326,14 +331,13 @@ and the default hold period and warmup type.
 The Double Exponential Moving Average (DEMA) attempts to remove the inherent lag
 associated with moving averages by placing more weight on recent values.
 The name suggests this is achieved by applying a double exponential smoothing which is not the case.
-The value of an [EMA](#exponential-moving-average) is doubled.
+The value of an [EMA](#exponential_moving_average) is doubled.
 To keep the value in line with the actual data and to remove the lag, the value "EMA of EMA"
 is subtracted from the previously doubled EMA.
-
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://en.wikipedia.org/wiki/Double_exponential_moving_average" target="\_blank">Source</a>
 
 Supports `GROUP BY` clauses that [group by tags](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-tags) but not `GROUP BY` clauses that [group by time](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-time-intervals).
-To use `DOUBLE_EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/view-functions/transformations/#advanced-syntax).
+To use `DOUBLE_EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/functions/transformations/#advanced-syntax).
 
 ### Basic syntax
 
@@ -357,7 +361,7 @@ processed using the Double Exponential Moving Average algorithm with a 2-value p
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `DOUBLE_EXPONENTIAL_MOVING_AVERAGE()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.5/query-data/influxql/functions/aggregates/) in your call to the `DOUBLE_EXPONENTIAL_MOVING_AVERAGE()` function.
 {{% /note %}}
 
 `DOUBLE_EXPONENTIAL_MOVING_AVERAGE(/regular_expression/, 2)`  
@@ -386,13 +390,12 @@ that occurred to achieve that change.
 The resulting ratio ranges between 0 and 1 with higher values representing a
 more efficient or trending market.
 
-The ER is very similar to the [Chande Momentum Oscillator](#chande-momentum-oscillator) (CMO).
+The ER is very similar to the [Chande Momentum Oscillator](#chande_momentum_oscillator) (CMO).
 The difference is that the CMO takes market direction into account, but if you take the absolute CMO and divide by 100, you you get the Efficiency Ratio.
-
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="http://etfhq.com/blog/2011/02/07/kaufmans-efficiency-ratio/" target="\_blank">Source</a>
 
 Supports `GROUP BY` clauses that [group by tags](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-tags) but not `GROUP BY` clauses that [group by time](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-time-intervals).
-To use `KAUFMANS_EFFICIENCY_RATIO()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/view-functions/transformations/#advanced-syntax).
+To use `KAUFMANS_EFFICIENCY_RATIO()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/functions/transformations/#advanced-syntax).
 
 ### Basic syntax
 
@@ -416,7 +419,7 @@ processed using the Efficiency Index algorithm with a 2-value period
 and the default hold period.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/) in your call to the `KAUFMANS_EFFICIENCY_RATIO()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.5/query-data/influxql/functions/aggregates/) in your call to the `KAUFMANS_EFFICIENCY_RATIO()` function.
 {{% /note %}}
 
 `KAUFMANS_EFFICIENCY_RATIO(/regular_expression/, 2)`  
@@ -444,11 +447,10 @@ KAMA will closely follow data points when the data swings are relatively small a
 KAMA will adjust when the data swings widen and follow data from a greater distance.
 This trend-following indicator can be used to identify the overall trend,
 time turning points and filter data movements.
-
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:kaufman_s_adaptive_moving_average" target="\_blank">Source</a>
 
 Supports `GROUP BY` clauses that [group by tags](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-tags) but not `GROUP BY` clauses that [group by time](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-time-intervals).
-To use `KAUFMANS_ADAPTIVE_MOVING_AVERAGE()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/view-functions/transformations/#advanced-syntax).
+To use `KAUFMANS_ADAPTIVE_MOVING_AVERAGE()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/functions/transformations/#advanced-syntax).
 
 ### Basic syntax
 
@@ -472,7 +474,7 @@ processed using the Kaufman Adaptive Moving Average algorithm with a 2-value per
 and the default hold period.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `KAUFMANS_ADAPTIVE_MOVING_AVERAGE()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.5/query-data/influxql/functions/aggregates/) in your call to the `KAUFMANS_ADAPTIVE_MOVING_AVERAGE()` function.
 {{% /note %}}
 
 `KAUFMANS_ADAPTIVE_MOVING_AVERAGE(/regular_expression/, 2)`  
@@ -496,14 +498,13 @@ and the default hold period and warmup type.
 The triple exponential moving average (TEMA) filters out
 volatility from conventional moving averages.
 While the name implies that it's a triple exponential smoothing, it's actually a
-composite of a [single exponential moving average](#exponential-moving-average),
-a [double exponential moving average](#double-exponential-moving-average),
+composite of a [single exponential moving average](#exponential_moving_average),
+a [double exponential moving average](#double_exponential_moving_average),
 and a triple exponential moving average.
-
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp " target="\_blank">Source</a>
 
 Supports `GROUP BY` clauses that [group by tags](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-tags) but not `GROUP BY` clauses that [group by time](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-time-intervals).
-To use `TRIPLE_EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/view-functions/transformations/#advanced-syntax).
+To use `TRIPLE_EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/functions/transformations/#advanced-syntax).
 
 ### Basic syntax
 
@@ -527,7 +528,7 @@ processed using the Triple Exponential Moving Average algorithm with a 2-value p
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `TRIPLE_EXPONENTIAL_MOVING_AVERAGE()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.5/query-data/influxql/functions/aggregates/) in your call to the `TRIPLE_EXPONENTIAL_MOVING_AVERAGE()` function.
 {{% /note %}}
 
 `TRIPLE_EXPONENTIAL_MOVING_AVERAGE(/regular_expression/, 2)`  
@@ -552,8 +553,9 @@ and the default hold period and warmup type.
 The triple exponential derivative indicator, commonly referred to as "TRIX," is
 an oscillator used to identify oversold and overbought markets, and can also be
 used as a momentum indicator.
-TRIX calculates a [triple exponential moving average](#triple-exponential-moving-average)
-of the [log](#log) of the data input over the period of time.
+TRIX calculates a [triple exponential moving average](#triple_exponential_moving_average)
+of the [log](/influxdb/v2.5/query-data/influxql/functions/transformations/#log)
+of the data input over the period of time.
 The previous value is subtracted from the previous value.
 This prevents cycles that are shorter than the defined period from being considered by the indicator.
 
@@ -563,11 +565,10 @@ When used as a momentum indicator, a positive value suggests momentum is increas
 while a negative value suggests momentum is decreasing.
 Many analysts believe that when the TRIX crosses above the zero line it gives a
 buy signal, and when it closes below the zero line, it gives a sell signal.
-
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.investopedia.com/articles/technical/02/092402.asp " target="\_blank">Source</a>
 
 Supports `GROUP BY` clauses that [group by tags](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-tags) but not `GROUP BY` clauses that [group by time](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-time-intervals).
-To use `TRIPLE_EXPONENTIAL_DERIVATIVE()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/view-functions/transformations/#advanced-syntax).
+To use `TRIPLE_EXPONENTIAL_DERIVATIVE()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/functions/transformations/#advanced-syntax).
 
 ### Basic syntax
 
@@ -591,7 +592,7 @@ processed using the Triple Exponential Derivative algorithm with a 2-value perio
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](#aggregations) in your call to the `TRIPLE_EXPONENTIAL_DERIVATIVE()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an [aggregate function](/influxdb/v2.5/query-data/influxql/functions/aggregates/) in your call to the `TRIPLE_EXPONENTIAL_DERIVATIVE()` function.
 {{% /note %}}
 
 `TRIPLE_EXPONENTIAL_DERIVATIVE(/regular_expression/, 2)`  
@@ -609,12 +610,11 @@ and the default hold period and warmup type.
 ## RELATIVE_STRENGTH_INDEX()
 
 The relative strength index (RSI) is a momentum indicator that compares the magnitude of recent increases and decreases over a specified time period to measure speed and change of data movements.
-
 <sup style="line-height:0; font-size:.7rem; font-style:italic; font-weight:normal;"><a href="https://www.investopedia.com/terms/r/rsi.asp" target="\_blank">Source</a>
 
 Supports `GROUP BY` clauses that [group by tags](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-tags) but not `GROUP BY` clauses that [group by time](/influxdb/v2.5/query-data/influxql/explore-data/group-by/#group-by-time-intervals).
 
-To use `RELATIVE_STRENGTH_INDEX()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/view-functions/transformations/#advanced-syntax).
+To use `RELATIVE_STRENGTH_INDEX()` with a `GROUP BY time()` clause, see [Advanced syntax](/influxdb/v2.5/query-data/influxql/functions/transformations/#advanced-syntax).
 
 ### Basic syntax
 
@@ -638,7 +638,7 @@ processed using the Relative Strength Index algorithm with a 2-value period
 and the default hold period and warmup type.
 
 {{% note %}}
-**Note:** When aggregating data with a `GROUP BY` clause, you must include an  [aggregate function](#aggregations) in your call to the `RELATIVE_STRENGTH_INDEX()` function.
+**Note:** When aggregating data with a `GROUP BY` clause, you must include an  [aggregate function](/influxdb/v2.5/query-data/influxql/functions/aggregates/) in your call to the `RELATIVE_STRENGTH_INDEX()` function.
 {{% /note %}}
 
 `RELATIVE_STRENGTH_INDEX(/regular_expression/, 2)`  

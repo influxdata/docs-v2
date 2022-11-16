@@ -1,6 +1,5 @@
 ---
-title: The GROUP BY clause
-list_title: GROUP BY clause
+title: GROUP BY clause
 description: >
   Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.5/reference/glossary/#tag) and/or a specified time interval.
 menu:
@@ -12,13 +11,9 @@ list_code_example: |
   ```sql
   SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
   ```
-
-  ```sql
-  SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(<time_interval>),[tag_key] [fill(<fill_option>)]
-  ```
 ---
 
-Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.5/reference/glossary/#tag) and/or a specified time interval. `GROUP BY` requires an [aggregate](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/) or [selector](/influxdb/v2.5/query-data/influxql/view-functions/selectors/) function in the `SELECT` statement. `GROUP BY` supports [regular expressions](/influxdb/v2.5/query-data/influxql/explore-data/regular-expressions/).
+Use the `GROUP BY` clause to group query results by one or more specified [tags](/influxdb/v2.5/reference/glossary/#tag) and/or a specified time interval. `GROUP BY` requires an [aggregate](/influxdb/v2.5/query-data/influxql/functions/aggregates/) or [selector](/influxdb/v2.5/query-data/influxql/functions/selectors/) function in the `SELECT` statement. `GROUP BY` supports [regular expressions](/influxdb/v2.5/query-data/influxql/explore-data/regular-expressions/).
 
 {{% note %}}
 **Note:** You cannot use `GROUP BY` to group **fields**.
@@ -41,7 +36,7 @@ Use the `GROUP BY` clause to group query results by one or more specified [tags]
 ### Syntax
 
 ```sql
-SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key]]
+SELECT_clause FROM_clause [WHERE_clause] GROUP BY [* | <tag_key>[,<tag_key>]]
 ```
 
   - `GROUP BY *` - Groups results by all [tags](/influxdb/v2.5/reference/glossary/#tag)
@@ -60,26 +55,27 @@ If the query includes a `WHERE` clause, the `GROUP BY` clause must appear after 
 ```sql
 SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
 ```
+
 Output:
-{{% influxql/table-meta %}} 
-name: h2o_feet   
+{{% influxql/table-meta %}}
+name: h2o_feet
 tags: location=coyote_creek
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 |         mean |
 | :------------------- | -----------: |
 | 1970-01-01T00:00:00Z | 5.3591424203 |
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: h2o_feet  
 tags: location=santa_monica
-{{% /influxql/table-meta %}} 
+{{% /influxql/table-meta %}}
 
 | time                 |         mean |
 | :------------------- | -----------: |
 | 1970-01-01T00:00:00Z | 3.5307120942 |
 
-The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/)
+The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/functions/)
 to calculate the average `water_level` for each
 [tag value](/influxdb/v2.5/reference/glossary/#tag-value) of `location` in
 the `h2o_feet` [measurement](/influxdb/v2.5/reference/glossary/#measurement).
@@ -87,7 +83,7 @@ InfluxDB returns results in two [series](/influxdb/v2.5/reference/glossary/#seri
 
 {{% note %}}
 **Note:** In InfluxDB, [epoch 0](https://en.wikipedia.org/wiki/Unix_time) (`1970-01-01T00:00:00Z`) is often used as a null timestamp equivalent.
-If you request a query that has no timestamp to return, such as an [aggregation function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/) with an unbounded time range, InfluxDB returns epoch 0 as the timestamp.
+If you request a query that has no timestamp to return, such as an [aggregation function](/influxdb/v2.5/query-data/influxql/functions/aggregates/) with an unbounded time range, InfluxDB returns epoch 0 as the timestamp.
 {{% /note %}}
 
 {{% /expand %}}
@@ -152,7 +148,7 @@ tags: location=santa_monica, randtag=3
 | :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 49.9991990388 |
 
-The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `index` for
+The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/functions/aggregates/#mean) to calculate the average `index` for
 each combination of the `location` tag and the `randtag` tag in the
 `h2o_quality` measurement.
 Separate multiple tags with a comma in the `GROUP BY` clause.
@@ -201,7 +197,7 @@ tags: location=santa_monica, randtag=1
 | :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 49.1327124563 |
 
-{{% influxql/table-meta %}} 
+{{% influxql/table-meta %}}
 name: h2o_quality  
 tags: location=santa_monica, randtag=2
 {{% /influxql/table-meta %}}
@@ -219,15 +215,9 @@ tags: location=santa_monica, randtag=3
 | :------------------- | ------------: |
 | 1970-01-01T00:00:00Z | 49.9991990388 |
 
-The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `index` for every possible
-[tag](influxdb/v2.5/reference/glossary/#tag) combination in the `h2o_quality`
+The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/functions/aggregates/#mean) to calculate the average `index` for every possible
+[tag](/influxdb/v2.5/reference/glossary/#tag) combination in the `h2o_quality`
 measurement.
-
-{{% note %}}
-Note that the query results are identical to the results of the query in [Example 2](#group-query-results-by-all-tags)
-where we explicitly specified the `location` and `randtag` tag keys.
-This is because the `h2o_quality` measurement only has two tag keys.
-{{% /note %}}
 
 {{% /expand %}}
 
@@ -245,7 +235,8 @@ This query uses a regular expression to group by tags that start with `l`. With 
 
 ## GROUP BY time intervals
 
-`GROUP BY time()` queries group query results by a user-specified time interval.
+`GROUP BY time()` group query results by a user-specified time interval.
+When using aggregate or selector functions in the `SELECT` clause, the operation is applied to each interval.
 
 ### Basic GROUP BY time() syntax
 
@@ -255,7 +246,7 @@ This query uses a regular expression to group by tags that start with `l`. With 
 SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(<time_interval>),[tag_key] [fill(<fill_option>)]
 ```
 
-Basic `GROUP BY time()` queries require an InfluxQL [function](/influxdb/v2.5/query-data/influxql/view-functions)
+Basic `GROUP BY time()` queries require an InfluxQL [function](/influxdb/v2.5/query-data/influxql/functions)
 in the `SELECT` clause and a time range in the `WHERE` clause. 
 Note that the `GROUP BY` clause must come **after** the `WHERE` clause.
 
@@ -276,7 +267,7 @@ for more information.
 
 **Coverage:**
 
-Basic `GROUP BY time()` queries rely on the `time_interval` and on the InfluxDB database's
+Basic `GROUP BY time()` queries rely on the `time_interval` and InfluxDB's
 preset time boundaries to determine the raw data included in each time interval
 and the timestamps returned by the query.
 
@@ -325,9 +316,9 @@ Name: h2o_feet
 | 2019-08-18T00:12:00Z | 2.0000000000 |
 | 2019-08-18T00:24:00Z | 2.0000000000 |
 
-The query uses the InfluxQL [COUNT() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points per location, per 12-minute interval.
+The query uses the InfluxQL [COUNT() function](/influxdb/v2.5/query-data/influxql/functions/aggregates/#count) to count the number of `water_level` points per location, per 12-minute interval.
 
-Each output row represents a single 12-minute interval.
+Each output row represents a single 12 minute interval.
 The count for the first timestamp covers the raw data between `2019-08-18T00:00:00Z`
 and up to, but not including, `2019-08-18T00:12:00Z`.
 The count for the second timestamp covers the raw data between `2019-08-18T00:12:00Z`
@@ -340,7 +331,7 @@ and up to, but not including, `2019-08-18T00:24:00Z.`
 ```sql
 SELECT COUNT("water_level") FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' GROUP BY time(12m),"location"
 ```
-Output:
+Output: 
 {{% influxql/table-meta %}}
 name: h2o_feet  
 tags: location=coyote_creek
@@ -352,8 +343,9 @@ tags: location=coyote_creek
 | 2019-08-18T00:12:00Z | 2.0000000000 |
 | 2019-08-18T00:24:00Z | 2.0000000000 |
 
+
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: h2o_feet      
 tags: location=santa_monica
 {{% /influxql/table-meta %}}
 
@@ -363,17 +355,15 @@ tags: location=santa_monica
 | 2019-08-18T00:12:00Z | 2.0000000000 |
 | 2019-08-18T00:24:00Z | 2.0000000000 |
 
-The query uses the InfluxQL [COUNT() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#count)
-to count the number of `water_level` points.
-It groups results by the `location` tag and into 12 minute intervals.
+The query uses the InfluxQL [COUNT() function](/influxdb/v2.5/query-data/influxql/functions/aggregates/#count)
+to count the number of `water_level` points per location, per 12 minute interval.
 Note that the time interval and the tag key are separated by a comma in the
 `GROUP BY` clause.
 
 The query returns two [series](/influxdb/v2.5/reference/glossary/#series) of results: one for each
 [tag value](/influxdb/v2.5/reference/glossary/#tag-value) of the `location` tag.
-The result for each timestamp represents a single 12-minute interval.
-
-The count for the first timestamp covers the raw data between `2019-08-18T00:00:00Z`
+The result for each timestamp represents a single 12 minute interval.
+Each output row represents a single 12 minute interval.
 and up to, but not including, `2019-08-18T00:12:00Z`.
 The count for the second timestamp covers the raw data between `2019-08-18T00:12:00Z`
 and up to, but not including, `2019-08-18T00:24:00Z.`
@@ -399,7 +389,7 @@ Raw data:
 SELECT "water_level" FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:18:00Z'
 ```
 
-Output: 
+Output:
 {{% influxql/table-meta %}}
 name: h2o_feet  
 {{% /influxql/table-meta %}}
@@ -411,7 +401,6 @@ name: h2o_feet
 | 2019-08-18T00:12:00Z | 8.3200000000 |
 | 2019-08-18T00:18:00Z | 8.2250000000 |
 
-
 Query and results:
 
 The following example queries a 12-minute time range and groups results into 12-minute time intervals, but it returns **two** results:
@@ -420,7 +409,7 @@ The following example queries a 12-minute time range and groups results into 12-
 SELECT COUNT("water_level") FROM "h2o_feet" WHERE "location"='coyote_creek' AND time >= '2019-08-18T00:06:00Z' AND time < '2019-08-18T00:18:00Z' GROUP BY time(12m)
 ```
 
-Output: 
+Output:
 {{% influxql/table-meta %}}
 name: h2o_feet  
 {{% /influxql/table-meta %}}
@@ -431,7 +420,7 @@ name: h2o_feet
 | 2019-08-18T00:12:00Z | 1.0000000000 |
 
 {{% note %}}
-Note: The timestamp in the first row of data occurs before the start of the queried time range.
+**Note:**  The timestamp in the first row of data occurs before the start of the queried time range.
 {{% /note %}}
 
 Explanation:
@@ -464,10 +453,7 @@ Only one raw point (`7.887`) falls both within the query's second `GROUP BY time
 second time boundary.
 
 The [advanced `GROUP BY time()` syntax](#advanced-group-by-time-syntax) allows users to shift
-the start time of the InfluxDB database's preset time boundaries.
-[Example 3](#examples-3)
-in the Advanced Syntax section continues with the query shown here;
-it shifts forward the preset time boundaries by six minutes such that
+the start time of the InfluxDB database's preset time boundaries. It shifts forward the preset time boundaries by six minutes such that
 InfluxDB returns:
 
 Output: 
@@ -487,7 +473,7 @@ name: h2o_feet
 SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(<time_interval>,<offset_interval>),[tag_key] [fill(<fill_option>)]
 ```
 
-Advanced `GROUP BY time()` queries require an InfluxQL [function](/influxdb/v2.5/query-data/influxql/view-functions/)
+Advanced `GROUP BY time()` queries require an InfluxQL [function](/influxdb/v2.5/query-data/influxql/functions/)
 in the `SELECT` clause and a time range in the
 `WHERE` clause). Note that the `GROUP BY` clause must come after the `WHERE` clause.
 
@@ -556,7 +542,7 @@ Name: h2o_feet
 | 2019-08-18T00:24:00Z | 8.0120000000 |
 | 2019-08-18T00:42:00Z | 7.6400000000 |
 
-The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean)
+The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/functions/aggregates/#mean)
 to calculate the average `water_level`, grouping results into 18 minute time intervals, and offsetting the preset time boundaries by 6 minutes.
 
 The time boundaries and returned timestamps for the query **without** the `offset_interval` adhere to the InfluxDB database's preset time boundaries. Let's first examine the results without the offset:
@@ -637,7 +623,7 @@ Name: h2o_feet
 | 2019-08-18T00:42:00Z | 7.6400000000 |
 
 
-The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level`, grouping results into 18 minute
+The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/functions/aggregates/#mean) to calculate the average `water_level`, grouping results into 18 minute
 time intervals, and offsetting the preset time boundaries by -12 minutes.
 
 {{% note %}} 
@@ -730,7 +716,7 @@ Name: h2o_feet
 | :------------------- | -----------: |
 | 2019-08-18T00:06:00Z | 2.0000000000 |
 
-The query uses the InfluxQL [COUNT() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#count) to count the number of `water_level` points per location, per 12-minute interval, and offset the preset time boundaries by six minutes.
+The query uses the InfluxQL [COUNT() function](/influxdb/v2.5/query-data/influxql/functions/aggregates/#count) to count the number of `water_level` points per location, per 12-minute interval, and offset the preset time boundaries by six minutes.
 
 The time boundaries and returned timestamps for the query **without** the `offset_interval` adhere to InfluxDB database's preset time boundaries. Let's first examine the results without the offset:
 
@@ -795,7 +781,7 @@ the queried time range so the query returns no results for that second interval.
 #### Syntax
 
 ```sql
-SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(time_interval,[<offset_interval])[,tag_key] [fill(<fill_option>)]
+SELECT <function>(<field_key>) FROM_clause WHERE <time_range> GROUP BY time(time_interval,[<offset_interval>])[,tag_key] [fill(<fill_option>)]
 ```
 
 By default, a `GROUP BY time()` interval with no data reports `null` as its
@@ -837,15 +823,15 @@ Name: h2o_quality
 | time                 |          mean |
 | :------------------- | ------------: |
 | 2019-08-19T08:40:00Z | 68.0000000000 |
-| 019-08-19T08:45:00Z  | 29.0000000000 |
+| 2019-08-19T08:45:00Z | 29.0000000000 |
 | 2019-08-19T08:50:00Z | 47.0000000000 |
-| 2019-08-19T08:55:00Z |         <nil> |
+| 2019-08-19T08:55:00Z |               |
 | 2019-08-19T09:00:00Z | 84.0000000000 |
 | 2019-08-19T09:05:00Z |  0.0000000000 |
 | 2019-08-19T09:10:00Z | 41.0000000000 |
 | 2019-08-19T09:15:00Z | 13.0000000000 |
 | 2019-08-19T09:20:00Z |  9.0000000000 |
-| 2019-08-19T09:25:00Z |         <nil> |
+| 2019-08-19T09:25:00Z |               |
 | 2019-08-19T09:30:00Z |  6.0000000000 |
 
 With `fill(100)`:
@@ -860,7 +846,7 @@ Name: h2o_quality
 | time                 |           mean |
 | :------------------- | -------------: |
 | 2019-08-19T08:40:00Z |  68.0000000000 |
-| 019-08-19T08:45:00Z  |  29.0000000000 |
+| 2019-08-19T08:45:00Z |  29.0000000000 |
 | 2019-08-19T08:50:00Z |  47.0000000000 |
 | 2019-08-19T08:55:00Z | 100.0000000000 |
 | 2019-08-19T09:00:00Z |  84.0000000000 |
@@ -920,8 +906,7 @@ Name: pond
 to the results of [linear interpolation](https://en.wikipedia.org/wiki/Linear_interpolation).
 
 {{% note %}}
-**Note:** The data in Example 2 are not in the `noaa` database.
-We had to create a dataset with less regular data to work with `fill(linear)`.
+**Note:** The data in this example is not in the `noaa` database.
 {{% /note %}}
 
 {{% /tab-content %}}
@@ -965,7 +950,7 @@ Name: h2o_quality
 | time                 |          mean |
 | :------------------- | ------------: |
 | 2019-08-19T08:40:00Z | 68.0000000000 |
-| 019-08-19T08:45:00Z  | 29.0000000000 |
+| 2019-08-19T08:45:00Z | 29.0000000000 |
 | 2019-08-19T08:50:00Z | 47.0000000000 |
 | 2019-08-19T09:00:00Z | 84.0000000000 |
 | 2019-08-19T09:05:00Z |  0.0000000000 |
@@ -1062,7 +1047,7 @@ Name: h2o_quality
 With `fill(previous)`:
 
 ```sql
- SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(previous)
+SELECT MEAN("index") FROM "h2o_quality" WHERE "location"='santa_monica' AND time >= '2019-08-19T08:42:00Z' AND time <= '2019-08-19T09:30:00Z' GROUP BY time(5m) fill(previous)
  ```
 Output:
 {{% influxql/table-meta %}}
@@ -1136,8 +1121,7 @@ Name: h2o_feet
 | 2019-09-18T16:48:00Z |     4 |
 
 
-The next query shortens the time range in the previous query.
-It now covers the time between `2019-09-18T16:36:00Z` and `2019-09-18T16:54:00Z`.
+The next example queries the time range between `2019-09-18T16:36:00Z` and `2019-09-18T16:54:00Z`.
 Note that `fill(previous)` doesn't fill the result for `2019-09-18T16:36:00Z` with the
 result from `2019-09-18T16:24:00Z`; the result for `2019-09-18T16:24:00Z` is outside the query's
 shorter time range.

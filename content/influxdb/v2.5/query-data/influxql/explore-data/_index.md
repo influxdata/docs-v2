@@ -1,12 +1,13 @@
 ---
 title: Explore data using InfluxQL
 description: >
-  Explore time series data using InfluxData's SQL-like query language. Use the SELECT statement to query data from measurements, tags, and fields.
+  Explore time series data using InfluxQL, InfluxData's SQL-like query language.
+  Use the `SELECT` statement to query data from measurements, tags, and fields.
 menu:
   influxdb_2_5:
     name: Explore data
     parent: Query with InfluxQL
-weight: 201
+weight: 202
 ---
 
 To start exploring data with InfluxQL, do the following:
@@ -17,17 +18,9 @@ To start exploring data with InfluxQL, do the following:
 
 3. _(Optional)_ If you would like to use the data used in the examples below, [download the NOAA sample data](#download-sample-data).
 
-4. Use the InfluxQL `SELECT` statement in conjunction with other key clauses and useful query syntax for exploring your data.
+4. Use the InfluxQL `SELECT` statement with other key clauses to explore your data.
 
-   - [SELECT statement](/influxdb/v2.5/query-data/influxql/explore-data/select/)
-   - [WHERE clause](/influxdb/v2.5/query-data/influxql/explore-data/where/)
-   - [GROUP BY clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/)
-   - [ORDER BY clause](/influxdb/v2.5/query-data/influxql/explore-data/order-by/)
-   - [LIMIT and SLIMIT clauses](/influxdb/v2.5/query-data/influxql/explore-data/limit-and-slimit/)
-   - [OFFSET and SOFFSET clauses](/influxdb/v2.5/query-data/influxql/explore-data/offset-and-soffset/)
-   - [Time and timezone queries](/influxdb/v2.5/query-data/influxql/explore-data/time-and-timezone/)
-   - [Subqueries](/influxdb/v2.5/query-data/influxql/explore-data/subqueries/)
-   - [Regular expressions](/influxdb/v2.5/query-data/influxql/explore-data/regular-expressions/)
+{{< children type="anchored-list" >}}
 
 {{< children readmore=true hr=true >}}
 
@@ -55,19 +48,25 @@ Name: h2o_feet
                                                 
 The data in the `h2o_feet` [measurement](/influxdb/v2.5/reference/glossary/#measurement)
 occurs at six-minute time intervals.
-This measurement has one [tag key](influxdb/v2.5/reference/glossary/#tag-key)
+This measurement has one [tag key](/influxdb/v2.5/reference/glossary/#tag-key)
 (`location`) which has two [tag values](/influxdb/v2.5/reference/glossary/#tag-value):
 `coyote_creek` and `santa_monica`.
 The measurement also has two [fields](/influxdb/v2.5/reference/glossary/#field):
 `level description` stores string [field values](/influxdb/v2.5/reference/glossary/#field-value)
 and `water_level` stores float field values.
 
+
 ### Configure timestamps in the InfluxQL shell
 
-The [InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/) returns timestamps in
+By default, the [InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/) returns timestamps in
 nanosecond UNIX epoch format by default.
+To return human-readable RFC3339 timestamps instead of Unix nanosecond timestamps,
+use the [precision helper command](/influxdb/v2.5/tools/influxql-shell/#precision) ` to configure
+the timestamp format:
 
-If you are using the [InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/), use the precision helper command `precision rfc3339` to view results in human readable format.
+```sql
+precision rfc3339
+```
 
 The [InfluxDB API](/influxdb/v2.5/reference/api/influxdb-1x/) returns timestamps
 in [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) format by default.

@@ -2,7 +2,7 @@
 title: Query data with InfluxQL
 description: >
   Use the [InfluxDB 1.x `/query` compatibility endpoint](/influxdb/v2.5/reference/api/influxdb-1x/query)
-  to query data in InfluxDB Cloud and InfluxDB OSS 2.1 with **InfluxQL**.
+  to query data in InfluxDB Cloud and InfluxDB OSS 2.4 with **InfluxQL**.
 weight: 102
 influxdb/v2.5/tags: [influxql, query]
 menu:
@@ -13,9 +13,11 @@ related:
   - /influxdb/v2.5/reference/api/influxdb-1x/
   - /influxdb/v2.5/reference/api/influxdb-1x/query
   - /influxdb/v2.5/reference/api/influxdb-1x/dbrp
+  - /influxdb/v2.5/tools/influxql-shell/
 ---
 
 Use InfluxQL (an SQL-like query language) to interact with InfluxDB, and query and analyze your times series data.
+
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
 In InfluxDB OSS {{< current-version >}}, data is stored in [buckets](/influxdb/v2.5/reference/glossary/#bucket).
@@ -32,7 +34,7 @@ Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database 
 #### InfluxQL reference documentation
 
 For complete InfluxQL reference documentation, see the
-[Influx Query Language (InfluxQL) 2.x specification](/influxdb/v2.5/reference/syntax/influxql/spec/).
+[InfluxQL specification for InfluxDB 2.x](/influxdb/v2.5/reference/syntax/influxql/spec/).
 {{% /note %}}
 
 ## Verify buckets have a mapping
@@ -62,10 +64,10 @@ _For examples, see [Create DBRP mappings](/influxdb/v2.5/query-data/influxql/dbr
 The [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) provides an [InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/) where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
 
 1. If you haven't already, do the following:
-  
-     - [Download and install the `influx` CLI](/influxdb/v2.5/tools/influx-cli/#install-the-influx-cli)
-     - [Configure your authentication credentials](/influxdb/v2.5/tools/influx-cli/#provide-required-authentication-credentials)
-  
+
+   - [Download and install the `influx` CLI](/influxdb/v2.5/tools/influx-cli/#install-the-influx-cli)
+   - [Configure your authentication credentials](/influxdb/v2.5/tools/influx-cli/#provide-required-authentication-credentials)
+
 2. Use the following command to start an InfluxQL shell:
 
    ```sh
@@ -74,9 +76,9 @@ The [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) provides an [InfluxQL s
 
 3. Execute an InfluxQL query inside the InfluxQL shell.
 
-```sql
-SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
-```
+   ```sql
+   SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
+   ```
 
    For more information, see how to [use the InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/). For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/v2.5/query-data/influxql/dbrp/).
 
@@ -111,7 +113,6 @@ all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-versi
 2. (Optional) To return results as **CSV**, include the `Accept: application/csv` header.
 
 For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/v2.5/query-data/influxql/dbrp/).
-
 <!------------------------------ END InfluxDB API ----------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

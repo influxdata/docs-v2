@@ -1,11 +1,10 @@
 ---
 title: OFFSET and SOFFSET clauses
-list_title: OFFSET and SOFFSET clauses
 description: >
   Use the `OFFSET` and `SOFFSET` clauses to paginate [points](/influxdb/v2.5/reference/glossary/#point) and [series](/influxdb/v2.5/reference/glossary/#series).
 menu:
   influxdb_2_5:
-    name: OFFSET and SOFFSET clause
+    name: OFFSET and SOFFSET clauses
     parent: Explore data
 weight: 306
 list_code_example: |
@@ -16,14 +15,14 @@ list_code_example: |
 
 Use `OFFSET` and `SOFFSET` to paginate [points](/influxdb/v2.5/reference/glossary/#point) and [series](/influxdb/v2.5/reference/glossary/#series) returned.
 
-  - [The OFFSET clause](#the-offset-clause)
+  - [OFFSET clause](#offset-clause)
      - [Syntax](#syntax)
      - [Examples](#examples)
-  - [The SOFFSET clause](#the-soffset-clause)
+  - [The SOFFSET clause](#soffset-clause)
      - [Syntax](#syntax-1)
      - [Examples](#examples-1)
 
-## The `OFFSET` clause
+## `OFFSET` clause
 
 `OFFSET <N>` paginates `N` [points](/influxdb/v2.5/reference/glossary/#point) in the query results.
 
@@ -33,7 +32,7 @@ Use `OFFSET` and `SOFFSET` to paginate [points](/influxdb/v2.5/reference/glossar
 SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT_clause OFFSET <N> [SLIMIT_clause]
 ```
 
-`N` specifies the number of points to paginate. The `OFFSET` clause requires a [`LIMIT` clause](/influxdb/v2.5/query-data/influxql/limit-and-slimit/#limit-clause).
+`N` specifies the number of points to paginate. The `OFFSET` clause requires a [`LIMIT` clause](/influxdb/v2.5/query-data/influxql/explore-data/limit-and-slimit/#limit-clause).
 
 {{% note %}}
 **Note:** InfluxDB returns no results if the `WHERE clause` includes a time range and the `OFFSET clause` would cause InfluxDB to return points with timestamps outside of that time range.
@@ -80,9 +79,9 @@ tags: location=coyote_creek
 | 2019-08-18T00:12:00Z | 8.2725000000 |
 | 2019-08-18T00:00:00Z | 8.4615000000 |
 
-This example is fairly involved, so here's the clause-by-clause breakdown:
+In this example:
 
-  - The [`SELECT clause`](/influxdb/v2.5/query-data/influxql/explore-data/select/) specifies the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/view-functions/aggregates/#mean).
+  - The [`SELECT clause`](/influxdb/v2.5/query-data/influxql/explore-data/select/) specifies the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/functions/aggregates/#mean).
   - The [`FROM clause`] (/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause) specifies a single measurement.
   - The [`WHERE` clause](/influxdb/v2.5/query-data/influxql/explore-data/where/) specifies the time range for the query.
   - The [`GROUP BY` clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/) groups results by all tags  (`*`) and into 12-minute intervals.
@@ -123,7 +122,6 @@ The `SOFFSET` clause requires an [`SLIMIT` clause](/influxdb/v2.5/query-data/inf
 Using the `SOFFSET` clause without an `SLIMIT` clause can cause [inconsistent
 query results](https://github.com/influxdata/influxdb/issues/7578).
 `SLIMIT` queries must include `GROUP BY *`.
-
 {{% note %}}
 **Note:** InfluxDB returns no results if the `SOFFSET` clause paginates through more than the total number of series.
 {{% /note %}}
@@ -181,7 +179,7 @@ tags: location=santa_monica
 
 In this example:
 
-  - The [`SELECT` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/) specifies an InfluxQL [function](/influxdb/v2.5/query-data/influxql/view-functions/).
+  - The [`SELECT` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/) specifies an InfluxQL [function](/influxdb/v2.5/query-data/influxql/functions/).
   - The [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause) specifies a single measurement.
   - The [`WHERE` clause](/influxdb/v2.5/query-data/influxql/explore-data/where/) specifies the time range for the query.
   - The [`GROUP BY` clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/) groups results by all tags  (`*`) and into 12-minute intervals.
