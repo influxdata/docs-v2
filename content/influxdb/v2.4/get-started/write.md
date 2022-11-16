@@ -23,13 +23,13 @@ InfluxDB provides many different options for ingesting or writing data, includin
 the following:
 
 - Influx user interface (UI)
-- InfluxDB HTTP API
-- `influx` CLI
+- [InfluxDB HTTP API](/influxdb/v2.4/reference/api/)
+- [`influx` CLI](/influxdb/v2.4/tools/influx-cli/)
 - [Telegraf](/{{< latest "telegraf" >}}/)
 - {{% cloud-only %}}[MQTT](/influxdb/cloud/write-data/no-code/native-subscriptions/){{% /cloud-only %}}
 - [InfluxDB client libraries](/influxdb/v2.4/api-guide/client-libraries/)
 
-This tutorial walks through the fundamental of using **line protocol** to write
+This tutorial walks you through the fundamental of using **line protocol** to write
 data to InfluxDB. If using tools like Telegraf or InfluxDB client libraries, they will
 build the line protocol for you, but it's good to understand how line protocol works.
 
