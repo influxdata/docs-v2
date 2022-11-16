@@ -22,7 +22,7 @@ using the InfluxDB user interface (UI).
 
 ## Update a token in the InfluxDB UI
 
-1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
+1. In the navigation menu on the left, select **Data (Load Data)** > **API Tokens**.
 
 {{< nav-icon "load-data" >}}
 
@@ -33,7 +33,7 @@ using the InfluxDB user interface (UI).
 
 {{% oss-only %}}
 
-1. In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
+1. In the navigation menu on the left, select **Data (Load Data)** > **API Tokens**.
 
 {{< nav-icon "load-data" >}}
 

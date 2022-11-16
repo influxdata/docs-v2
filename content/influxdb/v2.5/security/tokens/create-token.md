@@ -41,7 +41,7 @@ To manage InfluxDB API Tokens in the InfluxDB UI, navigate to the **API Tokens**
 
 {{% oss-only %}}
 
-In the navigation menu on the left, select **Data (Load Data)** > **Tokens**.
+In the navigation menu on the left, select **Data (Load Data)** > **API Tokens**.
 
 {{% /oss-only %}}
 

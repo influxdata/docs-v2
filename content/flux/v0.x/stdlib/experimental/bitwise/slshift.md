@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L397-L397
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L410-L410
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -32,7 +32,8 @@ Both `a` and `b` are integers.
 
 {{% warn %}}
 #### Deprecated
-`slshift` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/slshift/).
+Experimental `bitwise.slshift` is deprecated in favor of
+[`bitwise.slshift`](/flux/v0.x/stdlib/bitwise/slshift/).
 {{% /warn %}}
 
 ##### Function type signature
