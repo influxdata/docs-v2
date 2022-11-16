@@ -25,7 +25,7 @@ The example below shows the default configuration:
   # Configure ServiceNow.
   enabled = false
   # The ServiceNow URL for the target table (Alert or Event). Replace this instance with your hostname.
-  url = "https://instance.service-now.com/api/now/v1/table/em_alert"
+  url = "https://instance.service-now.com/api/global/em/jsonv2"
   # Default source identification.
   source = "Kapacitor"
   # Username for HTTP BASIC authentication
