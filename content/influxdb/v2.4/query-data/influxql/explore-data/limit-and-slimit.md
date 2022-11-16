@@ -89,7 +89,7 @@ tags: location=santa_monica
 | 2019-08-18T00:00:00Z | 2.3655000000                |
 | 2019-08-18T00:12:00Z | 2.3360000000                |
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) and a `GROUP BY` clause to calculate the average `water_level` for each [tag](/influxdb/v2.4/reference/glossary/#tag) and for each 12-minute interval in the queried time range. `LIMIT 2` requests the two oldest 12-minute averages (determined by timestamp).
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) and a `GROUP BY` clause to calculate the average `water_level` for each [tag](/influxdb/v2.4/reference/glossary/#tag) and for each 12-minute interval in the queried time range. `LIMIT 2` requests the two oldest 12-minute averages (determined by timestamp).
 
 Note that without `LIMIT 2`, the query would return four points per series; one for each 12-minute interval in the queried time range.
 
@@ -159,7 +159,7 @@ tags: location=coyote_creek
 | 2019-08-18T00:24:00Z | 8.0710000000|
 | 2019-08-18T00:36:00Z | 7.8330000000|
 
-The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean)
+The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean)
 and a time interval in the [GROUP BY clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
 to calculate the average `water_level` for each 12-minute
 interval in the queried time range.

@@ -93,7 +93,7 @@ Name: h2o_feet
 | 2019-08-18T00:12:00Z | 5.3042500000|
 | 2019-08-18T00:00:00Z | 5.4135000000|
 
-The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean)
+The query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean)
 and a time interval in the [GROUP BY clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/)
 to calculate the average `water_level` for each 12-minute
 interval in the queried time range.

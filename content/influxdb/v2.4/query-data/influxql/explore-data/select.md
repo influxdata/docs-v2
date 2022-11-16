@@ -71,7 +71,7 @@ Use this syntax to differentiate between field keys and tag keys with the same n
 
 Other supported features include:
 
-- [Functions](/influxdb/v2.4/query-data/influxql/view-functions/)
+- [Functions](/influxdb/v2.4/query-data/influxql/functions/)
 - [Basic cast operations](#data-types-and-cast-operations)
 - [Regular expressions](/influxdb/v2.4/query-data/influxql/explore-data/regular-expressions/)
 
@@ -429,7 +429,7 @@ Name: h2o_temperature
 | 1970-01-01T00:00:00Z | 64.9980273540 |
 
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `degrees` for every [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `noaa` database that contains the word `temperature`.
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) to calculate the average `degrees` for every [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `noaa` database that contains the word `temperature`.
 
 {{% /expand %}}
 
@@ -554,7 +554,7 @@ InfluxQL merges [series](/influxdb/v2.4/reference/glossary/#series) automaticall
 The `h2o_feet` [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the `noaa` is part of two [series](/influxdb/v2.4/reference/glossary/#series).
 The first series is made up of the `h2o_feet` measurement and the `location = coyote_creek` [tag](/influxdb/v2.4/reference/glossary/#tag). The second series is made of up the `h2o_feet` measurement and the `location = santa_monica` tag.
 
-The following query automatically merges those two series when it calculates the average `water_level` using the [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean):
+The following query automatically merges those two series when it calculates the average `water_level` using the [MEAN() function](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean):
 
 ```sql
 SELECT MEAN("water_level") FROM "h2o_feet"

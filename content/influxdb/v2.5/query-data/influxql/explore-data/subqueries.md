@@ -160,7 +160,7 @@ Name: pet_daycare
 
 
 Next, InfluxDB performs the main query and calculates the average of those differences.
-Notice that the main query specifies `difference` as the field key in the [`MEAN()`](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) function.
+Notice that the main query specifies `difference` as the field key in the [`MEAN()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) function.
 
 {{% /expand %}}
 
@@ -267,7 +267,7 @@ tags: location=santa_monica
 
 
 Next, InfluxDB performs the main query and calculates the sum of the `water_level_derivative` values for each tag value of `location`.
-Notice that the main query specifies `water_level_derivative`, not `water_level` or `derivative`, as the field key in the [`SUM()`](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#sum) function.
+Notice that the main query specifies `water_level_derivative`, not `water_level` or `derivative`, as the field key in the [`SUM()`](/influxdb/v2.4/query-data/influxql/functions/aggregates/#sum) function.
 
 {{% /expand %}}
 

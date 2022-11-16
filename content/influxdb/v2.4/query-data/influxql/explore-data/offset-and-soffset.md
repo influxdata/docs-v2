@@ -81,7 +81,7 @@ tags: location=coyote_creek
 
 In this example:
 
-  - The [`SELECT clause`](/influxdb/v2.4/query-data/influxql/explore-data/select/) specifies the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean).
+  - The [`SELECT clause`](/influxdb/v2.4/query-data/influxql/explore-data/select/) specifies the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean).
   - The [`FROM clause`] (/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause) specifies a single measurement.
   - The [`WHERE` clause](/influxdb/v2.4/query-data/influxql/explore-data/where/) specifies the time range for the query.
   - The [`GROUP BY` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/) groups results by all tags  (`*`) and into 12-minute intervals.
@@ -179,7 +179,7 @@ tags: location=santa_monica
 
 In this example:
 
-  - The [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/) specifies an InfluxQL [function](/influxdb/v2.4/query-data/influxql/view-functions/).
+  - The [`SELECT` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/) specifies an InfluxQL [function](/influxdb/v2.4/query-data/influxql/functions/).
   - The [`FROM` clause](/influxdb/v2.4/query-data/influxql/explore-data/select/#from-clause) specifies a single measurement.
   - The [`WHERE` clause](/influxdb/v2.4/query-data/influxql/explore-data/where/) specifies the time range for the query.
   - The [`GROUP BY` clause](/influxdb/v2.4/query-data/influxql/explore-data/group-by/) groups results by all tags  (`*`) and into 12-minute intervals.

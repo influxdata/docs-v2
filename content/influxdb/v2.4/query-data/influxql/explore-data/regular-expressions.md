@@ -101,7 +101,7 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z | 64.9980273540 |
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `degrees` for every [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the [NOAA sample data] that contains the word `temperature`.
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) to calculate the average `degrees` for every [measurement](/influxdb/v2.4/reference/glossary/#measurement) in the [NOAA sample data] that contains the word `temperature`.
 
 {{% /expand %}}
 
@@ -120,7 +120,7 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z | 4.4710766395|
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` where the [tag value](/influxdb/v2.4/reference/glossary/#measurement) of `location` includes an `m` and `water_level` is greater than three.
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) to calculate the average `water_level` where the [tag value](/influxdb/v2.4/reference/glossary/#measurement) of `location` includes an `m` and `water_level` is greater than three.
 
 {{% /expand %}}
 
@@ -155,7 +155,7 @@ Name: h2o_feet
 | :------------------ | ---------------------:|
 | 1970-01-01T00:00:00Z |  4.4418434585|
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean) to calculate the average `water_level` across all data with a tag value for `location`.
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean) to calculate the average `water_level` across all data with a tag value for `location`.
 
 {{% /expand %}}
 
@@ -175,7 +175,7 @@ Name: h2o_feet
 | 1970-01-01T00:00:00Z | 4.4713666916
 
 
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/view-functions/aggregates/#mean)
+This query uses the InfluxQL [MEAN() function](/influxdb/v2.4/query-data/influxql/functions/aggregates/#mean)
 to calculate the average `water_level` for all data where the field value of `level description` includes the word `between`.
 
 {{% /expand %}}
@@ -206,7 +206,7 @@ tags: location=santa_monica
 | :------------------ |-------------------:|
 | 2019-08-17T00:00:00Z | 99.0000000000 |
 
-This query uses the InfluxQL [FIRST() function](/influxdb/v2.4/query-data/influxql/view-functions/selectors/#first)
+This query uses the InfluxQL [FIRST() function](/influxdb/v2.4/query-data/influxql/functions/selectors/#first)
 
 to select the first value of `index` for every tag that includes the letter `l`
 in its tag key.
