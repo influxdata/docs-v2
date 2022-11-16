@@ -285,11 +285,13 @@ For more information about different data types, see:
 - [Flux](/influxdb/v2.5/reference/flux/language/types/)
 - [InfluxDB](/influxdb/v2.5/reference/syntax/line-protocol/#data-types-and-format)
 
-### database
+#### database
 
-In InfluxDB {{< current-version >}}, a database represents the InfluxDB instance as a whole.
+In InfluxDB 1.x, a database represented a logical container for users, retention
+policies, continuous queries, and time series data.
+The InfluxDB 2.x equivalent of this concept is an InfluxDB [bucket](/influxdb/v2.4/reference/glossary/#bucket).
 
-Related entries: [continuous query](#continuous-query-cq), <!-- [retention policy](#retention-policy-rp),--> [user](#user)
+Related entries: [continuous query](#continuous-query-cq), [retention policy](#retention-policy-rp), [user](#user)
 
 ### date-time
 
