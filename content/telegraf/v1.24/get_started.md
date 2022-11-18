@@ -4,7 +4,7 @@ description: Configure and start Telegraf
 menu:
   telegraf_1_24:
     name: Get started
-    weight: 25
+    weight: 30
 ---
 
 After you've [downloaded and installed Telegraf](/telegraf/v1.24/install/), you're ready to begin collecting and sending data. To collect and send data, do the following:
