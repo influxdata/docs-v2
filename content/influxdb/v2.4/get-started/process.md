@@ -34,8 +34,8 @@ instead of using the **Query Builder.**
 
 ## Remap or assign values in your data
 
-Use [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to iterate over each row in your 
-data and update the values in that row.
+Use the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map/) to
+iterate over each row in your data and update the values in that row.
 `map()` is one of the most useful functions in Flux and will help you accomplish
 many of they data processing operations you need to perform.
 
@@ -117,7 +117,7 @@ from(bucket: "get-started")
 {{% expand "Perform mathematical operations" %}}
 
 `map()` lets your perform mathematical operations on your data.
-For example, using the [data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data):
+For example, using the [data written in "Get started writing to InfluxDB"](/influxdb/v2.4/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field to return room temperatures in °C.
 2.  Use `map()` to iterate over each row and convert the °C temperatures in the
@@ -198,7 +198,7 @@ from(bucket: "get-started")
 {{% expand "Conditionally assign a state" %}}
 
 Within a `map()` function, you can use [conditional expressions](/{{< latest "flux" >}}/spec/expressions/#conditional-expressions) (if/then/else) to conditionally assign values.
-For example, using the [data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data):
+For example, using the [data written in "Get started writing to InfluxDB"](/influxdb/v2.4/get-started/write/#view-the-written-data):
 
 1.  Query the `co` field to return carbon monoxide parts per million (ppm) readings in each room.
 2.  Use `map()` to iterate over each row, evaluate the value in the `_value`
@@ -208,7 +208,6 @@ For example, using the [data written in Get started writing to InfluxDB](/influx
     - Otherwise, assign the state: **warning**.
 
     Store the state in a **state** column.
-
 
 ```js
 from(bucket: "get-started")
@@ -294,7 +293,7 @@ For this example to actually send messages to Slack, you need to
 [set up a Slack app that can send and receive messages](https://api.slack.com/messaging/sending).
 {{% /note %}}
 
-For example, using the [data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data):
+For example, using the [data written in "Get started writing to InfluxDB"](/influxdb/v2.4/get-started/write/#view-the-written-data):
 
 1.  Import the [`slack` package](/{{< latest "flux" >}}/stdlib/slack/).
 2.  Query the `co` field to return carbon monoxide parts per million (ppm) readings in each room.
@@ -409,8 +408,8 @@ as a user interface for configuring checks and alerting on data.
 
 ## Group data
 
-Use [`group()`](/{{< latest "flux" >}}/stdlib/universe/group/) to regroup your
-data by specific column values in preparation for further processing.
+Use the [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group/) to
+regroup your data by specific column values in preparation for further processing.
 
 ```js
 from(bucket: "get-started")
@@ -421,7 +420,7 @@ from(bucket: "get-started")
 
 {{% note %}}
 Understanding data grouping and why it matters is important, but may be too much
-for this getting started tutorial.
+for this "getting started" tutorial.
 For more information about how data is grouped and why it matters, see the
 [Flux data model](/{{< latest "flux" >}}/get-started/data-model/) documentation.
 {{% /note %}}
@@ -437,7 +436,7 @@ This grouping is important as you [aggregate data](#aggregate-data).
 {{< expand-wrapper >}}
 {{% expand "Group data by specific columns" %}}
 
-Using the [data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2.4/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` and `hum` fields.
 2.  Use `group()` to group by only the `_field` column.
@@ -536,7 +535,7 @@ and all the rows with the `hum` field will be in another.
 
 {{% expand "Ungroup data" %}}
 
-Using the [data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2.4/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` and `hum` fields.
 2.  Use `group()` without any parameters to "ungroup" data or group by no columns.
@@ -661,7 +660,7 @@ and return a single row for each input table with the aggregate value of that ta
 
 {{% expand "Calculate the average temperature for each room" %}}
 
-Using the [data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2.4/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field. By default, `from()` returns the data grouped by
     `_measurement`, `room` and `_field`, so each table represents a room.
@@ -729,7 +728,7 @@ from(bucket: "get-started")
 
 {{% expand "Calculate the overall average temperature of all rooms" %}}
 
-Using the [data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2.4/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field.
 2.  Use `group()` to **ungroup** the data into a single table. By default,
@@ -796,7 +795,7 @@ into `mean()`.
 
 {{% expand "Count the number of points reported per room across all fields" %}}
 
-Using the [data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2.4/get-started/write/#view-the-written-data):
 
 1.  Query all fields by simply filtering by the `home` measurement.
 2.  The fields in the `home` measurement are different types.
@@ -860,7 +859,7 @@ one or more columns from each input table and retain all columns and their value
 
 {{% expand "Return the first temperature from each room" %}}
 
-Using the [data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2.4/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field.
 2.  Use [`first()`](/{{< latest "flux" >}}/stdlib/universe/first/) to return the
@@ -928,7 +927,7 @@ from(bucket: "get-started")
 
 {{% expand "Return the last temperature from each room" %}}
 
-Using the [data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2.4/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field.
 2.  Use [`last()`](/{{< latest "flux" >}}/stdlib/universe/last/) to return the
@@ -996,7 +995,7 @@ from(bucket: "get-started")
 
 {{% expand "Return the maximum temperature from each room" %}}
 
-Using the [data written in Get started writing to InfluxDB](/influxdb/v2.4/get-started/write/#view-the-written-data):
+Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2.4/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field.
 2.  Use [`max()`](/{{< latest "flux" >}}/stdlib/universe/max/) to return the row
@@ -1071,8 +1070,8 @@ the data model that Flux uses is different than what you're used to.
 Flux returns multiple tables where each table contains a different field.
 A "relational" schema structures each field as a column in each row.
 
-Use [`pivot()`](/{{< latest "flux" >}}/stdlib/universe/pivot/) to pivot data
-into a "relational" schema based on timestamps.
+Use the [`pivot()` function](/{{< latest "flux" >}}/stdlib/universe/pivot/) to
+pivot data into a "relational" schema based on timestamps.
 
 ```js
 from(bucket: "get-started")
@@ -1153,9 +1152,9 @@ from(bucket: "get-started")
 
 ## Downsample data
 
-Downsampling data is a strategy to improve performance at query time and also
-optimize long-term data storage. Simply put, downsampling reduces the number of
-points returned by a query without losing the general trends of the data.
+Downsampling data is a strategy that improve performance at query time and also
+optimizes long-term data storage. Simply put, downsampling reduces the number of
+points returned by a query without losing the general trends in the data.
 
 _For more information about downsampling data, see
 [Downsample data](/influxdb/v2.4/process-data/common-tasks/downsample-data/)._
@@ -1249,8 +1248,8 @@ from(bucket: "get-started")
 
 [InfluxDB tasks](/influxdb/v2.4/process-data/get-started/) are scheduled queries
 that can perform any of the data processing operations described above.
-Generally tasks then use [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/)
-write the processed result back to InfluxDB.
+Generally tasks then use the [`to()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/)
+to write the processed result back to InfluxDB.
 
 _For more information about creating and configuring tasks, see
 [Get started with InfluxDB tasks](/influxdb/v2.4/process-data/get-started/)._
