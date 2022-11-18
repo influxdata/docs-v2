@@ -12,6 +12,11 @@ menu:
     identifier: get-started-process-data
 weight: 103
 metadata: [4 / 5]
+related:
+  - /influxdb/v2.4/process-data/
+  - /influxdb/v2.4/process-data/get-started/
+  - /{{< latest "flux" >}}/get-started/
+  - /{{< latest "flux" >}}/stdlib/
 ---
 
 Now that you know the [basics of querying data from InfluxDB](/influxdb/v2.4/get-started/query/),
