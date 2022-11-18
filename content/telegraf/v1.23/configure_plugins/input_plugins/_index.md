@@ -9,7 +9,7 @@ menu:
      weight: 10
      parent: Configure plugins
 ---
-Telegraf input plugins are used with the InfluxData time series platform to collect metrics from the system, services, or third-party APIs. All metrics are gathered from the inputs you enable and configure in the [Telegraf configuration file](/telegraf/v1.23/configuration/#generate-a-configuration-file).
+Telegraf input plugins are used with the InfluxData time series platform to collect metrics from the system, services, or third-party APIs. All metrics are gathered from the inputs you enable and configure in the [Telegraf configuration file](/telegraf/v1.23/configuration/).
 
 For a complete list of input plugins and links to their detailed configuration options, see [input plugins](/{{< latest "telegraf" >}}/plugins/inputs/).
 
