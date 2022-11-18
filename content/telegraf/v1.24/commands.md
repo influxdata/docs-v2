@@ -5,7 +5,7 @@ menu:
   telegraf_1_24_ref:
 
     name: Commands
-    weight: 20
+    weight: 25
 ---
 
 The `telegraf` command starts and runs all the processes necessary for Telegraf to function.
