@@ -3,10 +3,10 @@ title: Query sample data
 description: >
   Explore InfluxDB OSS with our sample data buckets. 
 menu:
-  influxdb_2_4::
+  influxdb_2_4:
     name: Query with sample data
     parent: Execute queries
-weight: 10
+weight: 210
 ---
 
 Use **InfluxDB OSS** sample datasets to quickly access data that lets you explore and familiarize yourself with InfluxDB Cloud without requiring you to have or write your own data.
