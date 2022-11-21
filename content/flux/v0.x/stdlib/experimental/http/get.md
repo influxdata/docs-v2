@@ -33,7 +33,7 @@ status code, response body, and response headers.
 
 {{% warn %}}
 #### Deprecated
-`http.get()` is deprecated in favor of [`requests.get()`](/flux/v0.x/stdlib/http/requests/get/).
+Experimental `http.get()` is deprecated in favor of [`requests.get()`](/flux/v0.x/stdlib/http/requests/get/).
 {{% /warn %}}
 
 ## Response format

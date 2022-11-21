@@ -23,7 +23,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L116-L116
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L118-L118
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -35,7 +35,8 @@ and then returns a new array.
 
 {{% warn %}}
 #### Deprecated
-`map()` is deprecated in favor of [`map()`](/flux/v0.x/stdlib/array/map).
+Experimental `array.map()` is deprecated in favor of
+[`array.map()`](/flux/v0.x/stdlib/array/map).
 {{% /warn %}}
 
 ##### Function type signature

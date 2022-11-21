@@ -60,7 +60,7 @@ chronograf:
   name: Chronograf
   namespace: chronograf
   list_order: 5
-  versions: [v1.6, v1.7, v1.8, v1.9, v.10]
+  versions: [v1.6, v1.7, v1.8, v1.9, v1.10]
   latest: v1.10
   latest_patches:
     "1.10": 0

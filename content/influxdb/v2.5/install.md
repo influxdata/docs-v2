@@ -554,7 +554,7 @@ To mount an InfluxDB configuration file and use it from within Docker:
     ```sh
     docker run \
       --rm influxdb:{{< latest-patch >}} \
-      influxd print-config > config.yml
+      influx server-config > config.yml
     ```
 
 3. Modify the default configuration, which will now be available under `$PWD`.

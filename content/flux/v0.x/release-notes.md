@@ -10,6 +10,20 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.191.0 [2022-11-14]
+
+### Features
+- Associate registry attributes to import statements.
+
+---
+
+## v0.190.0 [2022-11-09]
+
+### Features
+- Add download headers within the CSV dialect.
+
+---
+
 ## v0.189.0 [2022-11-02]
 
 ### Features

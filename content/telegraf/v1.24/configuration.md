@@ -7,7 +7,7 @@ menu:
   telegraf_1_24_ref:
 
     name: Configuration options
-    weight: 20
+    weight: 40
 ---
 
 The Telegraf configuration file (`telegraf.conf`) lists all available Telegraf plugins. See the current version here: [telegraf.conf](https://github.com/influxdata/telegraf/blob/master/etc/telegraf.conf).

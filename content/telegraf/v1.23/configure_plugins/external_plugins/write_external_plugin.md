@@ -11,7 +11,7 @@ menu:
 Set up your plugin to use it with `execd`.
 
 {{% note %}}
-For listed [external plugins](/EXTERNAL_PLUGINS.md), the author of the external plugin is also responsible for the maintenance
+For listed [external plugins](https://github.com/influxdata/telegraf/blob/master/EXTERNAL_PLUGINS.md), the author of the external plugin is also responsible for the maintenance
 and feature development of external plugins.
 {{% /note %}}
 

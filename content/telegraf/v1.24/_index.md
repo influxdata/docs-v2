@@ -9,6 +9,9 @@ menu:
 weight: 1
 related:
   - /resources/videos/intro-to-telegraf/
+  - /telegraf/v1.24/install/
+  - /telegraf/v1.24/get_started/ 
+
 ---
 
 Telegraf, a server-based agent, collects and sends metrics and events from databases, systems, and IoT sensors.
