@@ -149,6 +149,9 @@ line protocol above to InfluxDB.
     in a browser to log in and access the InfluxDB UI.
 
 2.  Navigate to **Load Data** > **Buckets** using the left navigation bar.
+
+{{< nav-icon "load data" >}}
+
 3.  Click **{{< icon "plus" >}} {{< caps >}}Add Data{{< /caps >}}** on the bucket
     you want to write the data to and select **Line Protocol**.
 4.  Select **{{< caps >}}Enter Manually{{< /caps >}}**.

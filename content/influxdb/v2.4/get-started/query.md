@@ -12,6 +12,8 @@ menu:
     identifier: get-started-query-data
 weight: 102
 metadata: [3 / 5]
+related:
+  - /influxdb/v2.4/query-data/
 ---
 
 InfluxDB supports many different tools for querying data, including:
@@ -145,7 +147,7 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
 
 2.  In the left navigation bar, click **Data Explorer**.
 
-  {{< nav-icon "data-explorer" "v4" >}}
+{{< nav-icon "data-explorer" "v4" >}}
 
 3. The InfluxDB Data Explorer provides two options for querying data with Flux:
 
@@ -592,6 +594,10 @@ The InfluxDB `/write` 1.x compatibility endpoint returns query results in JSON f
 {{< /expand-wrapper >}}
 
 **Congratulations!** You've learned the basics of querying data in InfluxDB.
-Let's move on to automatically processing data over time with InfluxDB tasks.
+For a deep dive into all the ways you can query InfluxDB, see the
+[Query data in InfluxDB](/influxdb/v2.4/query-data/) section of documentation.
+
+Let's move on to more advanced data processing queries and automating queries
+with InfluxDB tasks.
 
 {{< page-nav prev="/influxdb/v2.4/get-started/write/" next="/influxdb/v2.4/get-started/process/" keepTab=true >}}

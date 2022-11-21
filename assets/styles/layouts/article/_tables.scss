@@ -77,6 +77,10 @@ p.table-group-key {
   font-size: .95rem;
 }
 
+table + .table-group-key {
+  margin-top: -2rem;
+}
+
 // Reverse the order of InfluxDB version rows in Flux versions table
 // Hugo doesn't support sorting maps (objects) by keys
 table.flux-influxdb-versions tbody {

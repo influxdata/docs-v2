@@ -11,6 +11,13 @@ menu:
     identifier: get-started-set-up
 weight: 101
 metadata: [1 / 5]
+related:
+  - /influxdb/v2.4/install/
+  - /influxdb/v2.4/reference/config-options/
+  - /influxdb/v2.4/security/tokens/
+  - /influxdb/v2.4/organizations/buckets/
+  - /influxdb/v2.4/tools/influx-cli/
+  - /influxdb/v2.4/reference/api/
 ---
 
 As you get started with this tutorial, do the following to make sure everything
