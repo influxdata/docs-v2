@@ -147,7 +147,7 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
 
 2.  In the left navigation bar, click **Data Explorer**.
 
-  {{< nav-icon "data-explorer" "v4" >}}
+{{< nav-icon "data-explorer" "v4" >}}
 
 3. The InfluxDB Data Explorer provides two options for querying data with Flux:
 

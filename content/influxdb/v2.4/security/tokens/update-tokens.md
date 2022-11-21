@@ -37,7 +37,7 @@ using the InfluxDB user interface (UI).
 
 {{< nav-icon "load-data" >}}
 
-2. Click the **{{< icon "toggle-green" >}} Status** toggle.
+2. Click the **{{< icon "toggle" >}} Status** toggle.
 
 {{% /oss-only %}}
 

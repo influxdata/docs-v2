@@ -128,6 +128,7 @@ option task = {
 ## Create a task using the InfluxDB API
 
 {{% oss-only %}}
+
 Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/v2.4/api/#operation/PostTasks) to create a task.
 
 {{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" >}}
