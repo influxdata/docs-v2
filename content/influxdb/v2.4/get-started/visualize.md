@@ -72,7 +72,7 @@ With your new dashboard created and named, add a new dashboard cell:
         {{% /expand %}}
         {{< /expand-wrapper >}}
 
-    2.  Use the data picker to select the stop and stop date and time or manually
+    2.  Use the date picker to select the stop and stop date and time or manually
         enter the following start and stop times:
 
         - **Start**: 2022-01-01 08:00:00
@@ -117,13 +117,13 @@ displayed by your dashboard cell.
     {{< nav-icon "settings" >}}
 
 2.  Click **+ {{% caps %}}Create Variable{{% /caps %}}** and select **New Variable**.
-3.  Name your variable. For this tutorial, name the variable, **room**.
+3.  Name your variable. For this tutorial, name the variable, **"room"**.
 4.  Select the default **Query** dashboard variable type.
     This variable type uses the results of a query to populate the list of potential
     variable values. _For information about the other dashboard variable types,
     see [Variable types](/influxdb/v2.4/visualize-data/variables/variable-types/)._
 5.  Enter the following Flux query to return all the different `room` tag values
-    in your `get-started` bucket from the Unix epoch.
+    in your `get-started` bucket from the [Unix epoch](/influxdb/v2.4/reference/glossary/#unix-timestamp).
 
     ```js
     import "influxdata/influxdb/schema"
@@ -135,7 +135,8 @@ displayed by your dashboard cell.
 
 ### Use a custom dashboard variable
 
-1.  Navigate to your **Getting Started Dashboard**.
+1.  Navigate to your **Getting Started Dashboard** by clicking **Dashboards** in
+    the left navigation bar and the clicking on the name of your dashboard.
 
     {{< nav-icon "dashboards" >}}
 
@@ -157,7 +158,8 @@ displayed by your dashboard cell.
     ```
 5.  Click **{{< icon "check" >}}** to save the cell and return to the dashboard.
 6.  Refresh the browser to reload the dashboard.
-7.  Use the room variable drop-down menu to select the room to display.
+7.  Use the **room variable** drop-down menu to select the room to display
+    recorded temperatures from.
 
     {{< img-hd src="/img/influxdb/2-4-get-started-visualize-variable-select.png" alt="InfluxDB dashboard variable selection" />}}
 
