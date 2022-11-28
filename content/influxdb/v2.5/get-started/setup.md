@@ -278,9 +278,9 @@ to create a new CLI connection configuration. Include the following flags:
 
 ```sh
 influx config create \
-  --name get-started
-  --host-url http://localhost:8086
-  --org <YOUR_INFLUXDB_ORG_NAME>
+  --config-name get-started \
+  --host-url http://localhost:8086 \
+  --org <YOUR_INFLUXDB_ORG_NAME> \
   --token <YOUR_INFLUXDB_API_TOKEN>
 ```
 
