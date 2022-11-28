@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L88-L88
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L89-L89
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -33,7 +33,8 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 {{% warn %}}
 #### Deprecated
-`concat()` is deprecated in favor of [`concat()`](/flux/v0.x/stdlib/array/concat).
+Experimetnal `array.concat()` is deprecated in favor of
+[`array.concat()`](/flux/v0.x/stdlib/array/concat).
 {{% /warn %}}
 
 Neither input array is mutated and a new array is returned.

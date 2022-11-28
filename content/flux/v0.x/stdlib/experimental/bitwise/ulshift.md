@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L192-L192
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L198-L198
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -32,7 +32,8 @@ Both `a` and `b` are unsigned integers.
 
 {{% warn %}}
 #### Deprecated
-`ulshift` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/ulshift/).
+Experimental `bitwise.ulshift` is deprecated in favor of
+[`bitwise.ulshift`](/flux/v0.x/stdlib/bitwise/ulshift/).
 {{% /warn %}}
 
 ##### Function type signature
@@ -86,7 +87,7 @@ sampledata.uint()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 

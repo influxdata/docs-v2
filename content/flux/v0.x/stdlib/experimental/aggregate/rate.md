@@ -1,7 +1,8 @@
 ---
 title: aggregate.rate() function
 description: >
-  `aggregate.rate()` calculates the rate of change per windows of time for each input table.
+  `aggregate.rate()` calculates the average rate of increase per window of time for each
+  input table.
 menu:
   flux_0_x_ref:
     name: aggregate.rate
@@ -20,18 +21,23 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/aggregate/aggregate.flux#L41-L52
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/aggregate/aggregate.flux#L46-L57
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`aggregate.rate()` calculates the rate of change per windows of time for each input table.
+`aggregate.rate()` calculates the average rate of increase per window of time for each
+input table.
 
 `aggregate.rate()` requires that input data have `_start` and `_stop` columns
 to calculate windows of time to operate on.
 Use `range()` to assign `_start` and `_stop` values.
+
+This function is designed to replicate the
+[Prometheus `rate()` function](https://prometheus.io/docs/prometheus/latest/querying/functions/#rate)
+and should only be used with [counters](/flux/v0.x/prometheus/metric-types/counter/).
 
 ##### Function type signature
 
@@ -86,7 +92,7 @@ data
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 

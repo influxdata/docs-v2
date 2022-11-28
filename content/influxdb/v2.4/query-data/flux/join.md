@@ -18,7 +18,8 @@ related:
   - /{{< latest "flux" >}}/join-data/right-outer/
   - /{{< latest "flux" >}}/join-data/full-outer/
   - /{{< latest "flux" >}}/join-data/time/
-list_query_example: join
+  - /{{< latest "flux" >}}/stdlib/join/
+list_query_example: join-new
 ---
 
 Use the Flux [`join` package](/{{< latest "flux" >}}/stdlib/join/) to join two data sets
@@ -364,7 +365,7 @@ union(tables: [f1, f2])
     |> pivot(rowKey: ["_time"], columnKey: ["_field"], valueColumn: "_value")
 ```
 {{< expand-wrapper >}}
-{{% expand "View example input and output" %}}
+{{% expand "View example input and output data" %}}
 
 #### Input
 {{< flex >}}

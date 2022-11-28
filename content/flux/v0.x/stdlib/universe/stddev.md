@@ -79,7 +79,7 @@ sampledata.int()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 

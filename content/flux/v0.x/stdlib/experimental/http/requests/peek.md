@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L324-L324
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L325-L325
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 {{% warn %}}
 #### Deprecated
-`peek` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/peek/).
+Experimental `requests.peek` is deprecated in favor of [`requests.peek`](/flux/v0.x/stdlib/http/requests/peek/).
 {{% /warn %}}
 
 The output table includes the following columns:
@@ -88,12 +88,12 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
     Connection: keep-alive, 
     Content-Length: 41, 
     Content-Type: application/json; charset=utf-8, 
-    Date: Mon, 03 Oct 2022 21:20:22 GMT, 
+    Date: Mon, 14 Nov 2022 23:13:24 GMT, 
     Server: nginx/1.16.1, 
     X-Rate-Limit-Limit: 1000, 
     X-Rate-Limit-Remaining: 998, 
-    X-Rate-Limit-Reset: 9578, 
-    X-Request-Id: Fxqr53E2jz6yFf4AFNpR
+    X-Rate-Limit-Reset: 2796, 
+    X-Request-Id: FyeWcih8QXW2sw8chtFh
 ]                             | 200         |
 
 {{% /expand %}}

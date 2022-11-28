@@ -56,8 +56,8 @@ the visualization dropdown.
       - **Min**: Minimum x-axis value.
       - **Max**: Maximum x-axis value.
 
-###### Legend
-- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+###### Hover Legend
+- **Orientation**: Select the orientation of the legend that appears upon hover:
   - **Horizontal**: Select to display the legend horizontally.
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.

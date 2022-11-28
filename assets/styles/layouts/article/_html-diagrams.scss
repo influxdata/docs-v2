@@ -133,6 +133,133 @@
   }
 }
 
+///////////////// Data model table in InfluxDB 2.4+ get started ////////////////
+
+#series-diagram {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin: 1rem 3.25rem 1.75rem 0;
+  padding-right: 1.5rem;
+  border-right: 2px solid $tooltip-bg;
+  
+  table {margin: 0;}
+
+  &:after {
+    content: "series";
+    top: 4rem;
+    right: -3.4rem;
+  }
+
+  & + #series-diagram {margin-bottom: 3rem;}
+
+}
+
+table tr.point{
+  border: 2px solid $tooltip-bg;
+
+  &:after {
+    content: "point";
+    bottom: -.8rem;
+    left: 1rem;
+  }
+}
+
+#series-diagram, table tr.point {
+  position: relative;
+  &:after {
+    color: $tooltip-text;
+    background: $tooltip-bg;
+    border-radius: $radius;
+    position: absolute;
+    font-size: .9rem;
+    font-weight: $medium;
+    padding: .2rem .5rem;
+    line-height: .9rem;
+  }
+}
+
+////////////// Line protocol anatomy in InfluxDB 2.4+ get started //////////////
+
+#line-protocol-anatomy {
+  overflow: scroll;
+  margin: 3rem 0 2.5rem;
+
+  p {
+    padding: 3rem 0 2rem;
+    white-space: nowrap;
+    font-family: $code;
+    overflow: visible;
+    text-align: center;
+    
+    span{
+      padding: .75rem 0 .75rem;
+      &.el {
+        position: relative;
+        border-top: 2px solid $tooltip-bg;
+
+        &:before{
+          display: block;
+          position: absolute;
+          font-family: $proxima;
+          font-size: .95rem;
+          color: $tooltip-bg;
+          font-weight: $medium;
+          top: -2.75rem;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        &:after{
+          content: "";
+          display: block;
+          position: absolute;
+          height: 1rem;
+          width: 2px;
+          top: -1rem;
+          left: 50%;
+          transform: translateX(-50%);
+          background: $tooltip-bg;
+        }
+        &.measurement:before{content: "measurement"}
+        &.tagset:before{content: "tag set"}
+        &.fieldset:before{content: "field set"}
+        &.timestamp:before{content: "timestamp"}
+      }
+
+      &.whitespace, &.comma{
+        position: relative;
+        border-bottom: 2px solid $tooltip-bg;
+
+        &:before{
+          white-space: nowrap;
+          display: block;
+          position: absolute;
+          font-family: $proxima;
+          font-size: .95rem;
+          color: $tooltip-bg;
+          font-weight: $medium;
+          bottom: -2.75rem;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        &:after{
+          content: "";
+          display: block;
+          position: absolute;
+          height: 1rem;
+          width: 2px;
+          bottom: -1rem;
+          left: 50%;
+          transform: translateX(-50%);
+          background: $tooltip-bg;
+        }
+        &.whitespace:before{content: attr(data-whitespace) " whitespace";}
+        &.comma:before{content: attr(data-whitespace) "1st comma";}
+      }
+    }
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -157,5 +284,9 @@
       flex-direction: column;
       .shard-group { margin: .25rem 0;}
     }
+  }
+
+  #series-diagram {
+    width: auto;
   }
 };

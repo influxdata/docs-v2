@@ -55,8 +55,8 @@ To view **Mosaic** controls, click **{{< icon "gear" >}} Customize** next to the
     - **Start Tick Marks At**: Enter the value to start ticks at.
     - **Tick Mark Interval**: Enter the interval in between each tick.
 
-###### Legend
-- **Legend Orientation**: Select the orientation of the legend that appears upon hover:
+###### Hover Legend
+- **Orientation**: Select the orientation of the legend that appears upon hover:
   - **Horizontal**: Select to display the legend horizontally.
   - **Vertical**: Select to display the legend vertically.
 - **Opacity**: Adjust the legend opacity using the slider.

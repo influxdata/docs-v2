@@ -2,7 +2,7 @@
 @import "tools/fonts";
 
 // Fonts
-$rubik: 'Rubik', sans-serif;
+$proxima: 'Proxima Nova', sans-serif;
 $code: 'IBM Plex Mono', monospace;;
 
 // Font weights
@@ -44,7 +44,7 @@ $bold: 700;
 //////////////////////////////// InfluxDB Header ///////////////////////////////
 
 #influx-header {
-  font-family: $rubik;
+  font-family: $proxima;
   padding: 10px ;
   display: flex;
   align-items: center;
@@ -98,7 +98,7 @@ $bold: 700;
 .cjtbAK {
   h1,h2,h3,h4,h5,h6,
   p,li,th,td {
-    font-family: $rubik !important;
+    font-family: $proxima !important;
   }
 }
 
@@ -125,7 +125,7 @@ $bold: 700;
   color: $g20-white;
   border: none;
   border-radius: 3px;
-  font-family: $rubik;
+  font-family: $proxima;
   font-size: .85rem;
   font-weight: $medium;
   transition: background-color .2s;
@@ -203,7 +203,7 @@ $bold: 700;
 
 // List item text
 .SmuWE, .gcUzvG, .bbViyS, .sc-hrWEMg label {
-  font-family: $rubik !important;
+  font-family: $proxima !important;
 }
 
 .fyUykq {
@@ -230,7 +230,7 @@ $bold: 700;
 .dtUibw, .fLUKgj {
   background-color: $g2-kevlar;
   h3,h4,h5,h6 {
-    font-family: $rubik !important;
+    font-family: $proxima !important;
     font-weight: $medium !important;
   }
 }
@@ -259,7 +259,7 @@ $bold: 700;
 .hOczRB,
 .fRsrDc,
 .hPskZd {
-  font-family: $rubik;
+  font-family: $proxima;
   font-weight: $medium;
   letter-spacing: .04em;
   border-radius: 3px;
@@ -273,14 +273,14 @@ $bold: 700;
 // Content type block
 .gzAoUb {
   background-color: $g2-kevlar;
-  font-family: $rubik;
+  font-family: $proxima;
 }
 .iENVAs { font-family: $code; }
-.dpMbau { font-family: $rubik; }
+.dpMbau { font-family: $proxima; }
 
 // Code controls
 .fCJmC {
-  font-family: $rubik;
+  font-family: $proxima;
   span { border-radius: 3px; }
 }
 

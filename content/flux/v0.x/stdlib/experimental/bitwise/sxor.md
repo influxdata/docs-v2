@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L337-L337
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L348-L348
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,8 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 {{% warn %}}
 #### Deprecated
-`sxor` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/sxor/).
+Experimental `bitwise.sxor` is deprecated in favor of
+[`bitwise.sxor`](/flux/v0.x/stdlib/bitwise/sxor/).
 {{% /warn %}}
 
 ##### Function type signature
@@ -84,7 +85,7 @@ sampledata.int()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example input and ouput" %}}
+{{% expand "View example input and output" %}}
 
 #### Input data
 

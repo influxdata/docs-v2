@@ -11,6 +11,7 @@ influxdb/v2.4/tags: [storage, internals]
 products: [oss]
 related:
   - /resources/videos/tsm-engine/
+  - /influxdb/v2.4/admin/internals/
 ---
 
 The InfluxDB storage engine ensures that:

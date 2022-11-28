@@ -1,2 +1,3 @@
 {{- $groupKey := .Get 0 -}}
-<p class="table-group-key">Group key = {{ $groupKey }}</p>
+{{- $instance := .Get 1 | default false -}}
+<p class="table-group-key">Group key{{ if $instance }} instance{{ end }} = {{ $groupKey }}</p>

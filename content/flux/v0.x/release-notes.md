@@ -10,6 +10,86 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.191.0 [2022-11-14]
+
+### Features
+- Associate registry attributes to import statements.
+
+---
+
+## v0.190.0 [2022-11-09]
+
+### Features
+- Add download headers within the CSV dialect.
+
+---
+
+## v0.189.0 [2022-11-02]
+
+### Features
+- Add `PartialOrd` and `Ord` to `ast::Position`.
+- Detect undesirable patterns so we can remove them later.
+
+### Bug fixes
+- Update attribute syntax to require following element.
+- Add `salsaDatabase` to list of feature passed to Rust.
+- `testing.ShouldError` should error when no error occurs.
+- Restore termination defaults for `holtWinters` to improve performance.
+- Use salsa db when generating documentation.
+
+---
+
+## v0.188.1 [2022-10-31]
+
+### Bug fixes
+- Correctly handle join operations with large input that exceed the buffer size.
+
+---
+
+## v0.188.0 [2022-10-25]
+
+### Features
+- Compile the standard library incrementally.
+- Add attribute parsing to the parser.
+
+### Bug fixes
+- Allow functions receiving dynamic arguments to do member expressions.
+
+---
+
+## v0.187.0 [2022-10-17]
+
+### Features
+
+- Add [`types.isNumeric()`](/flux/v0.x/stdlib/types/isnumeric/) to test for numeric values.
+- Recommend valid arguments in extra argument errors.
+- Add dynamic type support to standard type conversion functions.
+
+### Bug fixes
+
+- When using `experimental.unpivot()`, don't add the `_field` column to the
+  group key by default.
+- Fix compilation error when using Rust 1.64.
+
+---
+
+## v0.186.0 [2022-10-11]
+
+### Features
+- Add [`dynamic.isType()` function](/flux/v0.x/stdlib/experimental/dynamic/istype/).
+- Add [`dynamic.asArray()` function](/flux/v0.x/stdlib/experimental/dynamic/asarray/).
+- Add JSON functions that work with dynamic values:
+  - [`dynamic.jsonParse()`](/flux/v0.x/stdlib/experimental/dynamic/jsonparse/)
+  - [`dynamic.jsonEncode()`](/flux/v0.x/stdlib/experimental/dynamic/jsonencode/)
+- Add runtime support for member expressions and remove index support for dynamic values.
+- Add [`iox.sql()` function](/flux/v0.x/stdlib/experimental/iox/sql/).
+
+### Bug fixes
+- Update the `toUInt()` test to use the correct conversion behavior.
+- Prevent the Flux formatter from losing precision on float values.
+
+---
+
 ## v0.185.0 [2022-10-03]
 
 ### Features

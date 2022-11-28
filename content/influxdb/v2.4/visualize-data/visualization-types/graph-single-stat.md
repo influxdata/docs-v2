@@ -49,11 +49,11 @@ the visualization dropdown.
 
 ###### Options
 - **Line Colors**: Select a color scheme to use for your graph.
-- **Shade Area Below Lines**: Shade in the area below the graph lines.
 - **Hover Dimension**: Select the data to display in the tooltip when you hover over the graph:
   - **auto** or **X Axis**: Show all points with the same x value along the y-axis.
   - **Y Axis**: Show all points with the same y value along the x-axis.
   - **X & Y Axis**: Show only the point currently being hovered over.
+- **Shade area below graph**: Shade in the area below the graph lines.
 
 ###### X Axis
 - **Generate X-Axis Tick Marks**: Select the method to generate x-axis tick marks:
@@ -100,8 +100,8 @@ the visualization dropdown.
 - **Colorization**: Choose **Text** for the single stat to change color based on the configured thresholds.
   Choose **Background** for the background of the graph to change color based on the configured thresholds.
 
-###### Legend
-- **Hover Legend**:
+###### Hover Legend 
+- **Display Hover Legend**:
   - **Hide**: Hide the legend that appears upon hover.
   - **Show**: Show the legend upon hover.
     - **Orientation**: Select the orientation of the legend:
@@ -109,7 +109,9 @@ the visualization dropdown.
       - **Vertical**: Select to display the legend vertically.
     - **Opacity**: Adjust the hover legend opacity using the slider.
     - **Colorize Rows**: Select to display hover legend rows in colors.
-- **Static Legend**:
+
+###### Static Legend
+  - **Display Static Legend**:
   - **Hide**: Hide the static legend.
   - **Show**: Always show the static legend.
     - **Orientation**: Select the orientation of the legend:
@@ -119,6 +121,7 @@ the visualization dropdown.
     - **Colorize Rows**: Select to display static legend rows in colors.
     - **Displayed Value**: Select **Latest Y Axis** or **Latest X Axis** to determine whether the y or x axis appears on the legend.
     - **Height**: Adjust the height of the static legend using the slider.
+
 
 ## Graph + Single Stat examples
 The primary use case for the Graph + Single Stat visualization is to show the current or latest

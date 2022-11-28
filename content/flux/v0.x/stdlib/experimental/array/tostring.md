@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L311-L311
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/array/array.flux#L314-L314
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -63,7 +63,7 @@ Array of values to convert. Default is the piped-forward array (`<-`).
 ```js
 import "experimental/array"
 
-arr = [12.0, 1.23, NaN, 24.2]
+arr = [12.0, 1.2300, NaN, 24.2]
 
 array.toString(arr: arr)// Returns ["12.0", "1.2300", "NaN", "24.2"]
 

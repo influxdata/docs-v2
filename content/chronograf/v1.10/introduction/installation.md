@@ -94,3 +94,7 @@ and [manage Chronograf users](/chronograf/v1.10/administration/managing-chronogr
 3. Enter a name for your connection.
 4. Leave the **Username** and **Password** fields blank unless you've specifically enabled authorization in Kapacitor.
 5. Click **Connect**.
+
+{{% note %}}
+**Note:** Using [Kapacitor](/kapacitor/v1.6/) is optional and not required to use Chronograf. 
+{{% /note %}}
