@@ -58,15 +58,16 @@ Value to convert.
 
 ```js
 string(v: true)
-
 // Returns "true"
+
 string(v: 1m)
-
 // Returns "1m"
-string(v: 2021-01-01T00:00:00Z)
 
+string(v: 2021-01-01T00:00:00Z)
 // Returns "2021-01-01T00:00:00Z"
-string(v: 10.12)// Returns "10.12"
+
+string(v: 10.12)
+// Returns "10.12"
 
 
 ```
