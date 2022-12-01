@@ -122,7 +122,8 @@ option task = {
 
 # ... Task script ...
 
-# <ctrl-d> to close the pipe and submit the command
+# Linux & macOS: <ctrl-d> to close the pipe and submit the command
+# Windows: <enter>, then <ctrl-d>, then <enter> to close the pipe and submit the command
 ```
 
 ## Create a task using the InfluxDB API
