@@ -23,6 +23,16 @@ that support types that do not have an equivalent Flux type.
 - [Reference values in a dynamic type](#reference-values-in-a-dynamic-type)
 - [Operate on dynamic types](#operate-on-dynamic-types)
 
+{{% note %}}
+#### Dynamic types are not supported in tables
+
+**Dynamic types are not supported in Flux tables.**
+To include a dynamic value in a Flux table, you must
+[cast the dynamic type to a Flux basic type](#basic-types).
+For a full example of casting dynamic types to basic types and including them
+in a table, see [Include dynamic types in a table](#include-dynamic-types-in-a-table).
+{{% /note %}}
+
 ## Parse JSON into Flux types
 
 The primary (but not exclusive) use case for dynamic types is converting JSON
@@ -31,8 +41,8 @@ and [records](/flux/v0.x/data-types/composite/record/).
 
 Because of strict typing rules in Flux, JSON data doesn't always gracefully parse
 into native Flux types.
-The most common reason this fails is because Flux arrays require all children
-to be the same type. JSON arrays allow elements to be different types.
+The most common reason is that Flux arrays require all children to be the same type.
+JSON arrays allow elements to be different types.
 
 With Flux records (the corollary of a JSON object), the properties in the record
 are part of the record's type.
@@ -90,10 +100,14 @@ dynamic.dynamic(v: "Example string")
 
 ## Reference values in a dynamic type
 
-When working dynamic records and arrays, use bracket and dot notation to reference
-values in each.
+Use bracket and dot notation to reference values in dynamic records and arrays.
+Use the `exists` operator to check if a dynamic type contains a non-null value.
 
-##### Reference values in a dynamic record
+- [Reference values in a dynamic record](#reference-values-in-a-dynamic-record)
+- [Reference values in a dynamic array](#reference-values-in-a-dynamic-array)
+- [Ensure a dynamic type contains a non-null value](#ensure-a-dynamic-type-contains-a-non-null-value)
+
+### Reference values in a dynamic record
 
 ```js
 import "experimental/dynamic"
@@ -108,7 +122,7 @@ dynamicRecord["two"]
 // Returns dynamic(2)
 ```
 
-##### Reference values in a dynamic array
+### Reference values in a dynamic array
 
 ```js
 import "experimental/dynamic"
@@ -120,11 +134,51 @@ dynamicArr[0]
 // Returns dynamic(a)
 ```
 
+### Ensure a dynamic type contains a non-null value
+
+Use the `exists` operator to check if a dynamic type contains a non-null value.
+If you attempt to access members of a null dynamic value, Flux returns an error.
+`exists` lets you guard against errors caused by attempting to access members in
+null dynamic values.
+
+{{< expand-wrapper >}}
+{{% expand "View examples of using `exists` to check for non-null dynamic types" %}}
+
+```js
+import "experimental/dynamic"
+import "internal/debug"
+
+dynamicRecord = dynamic.dynamic(v: {one: 1, two: 2, three: 3})
+dynamicNull = dynamic.dynamic(v: debug.null())
+
+exists dynamicRecord
+// Returns true
+
+exists dynamicNull
+// Returns false
+```
+
+##### Accessing members of dynamic types
+```js
+dynamicRecord.one
+// Returns dynamic(1)
+
+dynamicRecord.four
+// Returns dynamic(<null>)
+
+dynamicNull.one
+// Error: cannot access property "one" on value of type invalid
+```
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## Operate on dynamic types
 
 - [Convert dynamic types to Flux types](#convert-dynamic-types-to-flux-types)
   - [Basic types](#basic-types)
   - [Composite types](#composite-types)
+
 - [Include dynamic types in a table](#include-dynamic-types-in-a-table)
 - [Convert a JSON array to a Flux table](#convert-a-json-array-to-a-flux-table)
 - [Encode a dynamic type as JSON](#encode-a-dynamic-type-as-json)
@@ -310,8 +364,8 @@ JSON string. All the examples below assume this.
 
 1. Import the following packages:
     
-    - [`array`](/flux/v0.x/stdlib/array/)
-    - [`experimental/dynamic`](/flux/v0.x/stdlib/experimental/dynamic/)
+    - [array](/flux/v0.x/stdlib/array/)
+    - [experimental/dynamic](/flux/v0.x/stdlib/experimental/dynamic/)
 
 2.  Use [`dynamic.jsonParse()`](/flux/v0.x/stdlib/experimental/dynamic/jsonparse/)
     to parse a byte-encoded JSON string into a dynamic type.
@@ -421,16 +475,63 @@ newRecord = {
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
+### Check the type of a value inside of a dynamic type
+
+Use [`dynamic.isType()`](/flux/v0.x/stdlib/experimental/dynamic/istype/) to check
+the type of a value inside of a dynamic type.
+
+The following example uses the [`http/requests` package](/flux/v0.x/stdlib/http/requests/)
+and the [Fruityvice API](https://www.fruityvice.com/) to return information about
+apples as a JSON object.
+
+{{< expand-wrapper >}}
+{{% expand "View the returned JSON object" %}}
+
+```json
+{
+    "genus": "Malus",
+    "name": "Apple",
+    "id": 6,
+    "family": "Rosaceae",
+    "order": "Rosales",
+    "nutritions": {
+        "carbohydrates": 11.4,
+        "protein": 0.3,
+        "fat": 0.4,
+        "calories": 52,
+        "sugar": 10.3
+    }
+}
+```
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+```js
+import "experimental/dynamic"
+
+response = requests.get(url: "https://www.fruityvice.com/api/fruit/apple")
+parsed = dynamic.jsonParse(data: response.body)
+
+dynamic.isType(v: parsed.genus, type: "string")
+// Returns true
+
+dynamic.isType(v: parsed.nutritions, type: "array")
+// Returns false
+
+dynamic.isType(v: parsed.nutritions, type: "object")
+// Returns true
+```
 
 ### Include dynamic types in a table
 
-**Dynamic types are not supported as column values in Flux tables.**
+**Dynamic types are not supported in Flux tables.**
 To include a dynamic value in a Flux table,
 [cast the dynamic type to a Flux basic type](#basic-types).
 
 The following example uses [`array.from()`](/flux/v0.x/stdlib/array/from/) to 
 build and ad hoc table using dynamic types.
-Each dynamic type is cast to a Flux basic type when defining the row record.
+Each dynamic type must be cast to a Flux basic type when defining the row record.
 
 ```js
 import "array"
