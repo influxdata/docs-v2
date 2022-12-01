@@ -48,7 +48,7 @@ Each line of line protocol contains the following elements:
 
 - {{< req "\*" >}} **measurement**:  String that identifies the [measurement]() to store the data in.
 - **tag set**: Comma-delimited list of key value pairs, each representing a tag.
-  Tag keys and values are unquoted strings. _Spaces and commas must be escaped._
+  Tag keys and values are unquoted strings. _Spaces, commas, and equal characters must be escaped._
 - {{< req "\*" >}} **field set**: Comma-delimited list key value pairs, each representing a field.
   Field keys are unquoted strings. _Spaces and commas must be escaped._
   Field values can be [strings](/influxdb/v2.5/reference/syntax/line-protocol/#string) (quoted),
@@ -76,7 +76,7 @@ Each line of line protocol contains the following elements:
 
 ---
 
-_For schema design recommendataions, see [InfluxDB schema design](/influxdb/v2.5/write-data/best-practices/schema-design/)._
+_For schema design recommendations, see [InfluxDB schema design](/influxdb/v2.5/write-data/best-practices/schema-design/)._
 
 ## Construct line protocol
 
