@@ -3,14 +3,15 @@ title: Work with dynamic types
 seotitle: Work with Flux dynamic types
 list_title: Dynamic types
 description: >
-  ...
+  A **dynamic** type is a wrapper for data whose type is not known until runtime.
+  Dynamic types help when working with data from external sources (like JSON) 
+  that support types that do not have an equivalent Flux type.
 menu:
   flux_0_x:
     name: Dynamic types
     parent: Work with Flux types
 weight: 101
 flux/v0.x/tags: [dynamic types, data types]
-# draft: true
 ---
 
 A **dynamic** type is a wrapper for data whose type is not known until runtime.
