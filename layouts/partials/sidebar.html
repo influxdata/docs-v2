@@ -24,7 +24,11 @@
 {{ else if (eq $currentVersion nil) }}
   {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
 {{ else if eq $product "influxdb" }}
-  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "v") $currentVersion (title $currentVersion)) " & Flux") }}
+  {{ if in $currentVersion "cloud" }}
+    {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "iox") "Cloud (IOx)" "Cloud & Flux")) }}
+  {{ else }}
+    {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "v") $currentVersion (title $currentVersion)) " & Flux") }}
+  {{ end }}
 {{ else }}
   {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " $currentVersion) }}
 {{ end }}

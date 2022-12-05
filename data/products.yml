@@ -35,6 +35,15 @@ influxdb_cloud:
   latest: cloud
   link: "https://cloud2.influxdata.com/signup"
 
+influxdb_cloud_iox:
+  name: InfluxDB Cloud (IOx)
+  altname: InfluxDB Cloud (IOx)
+  namespace: influxdb
+  versions: [cloud-iox]
+  list_order: 1
+  latest: cloud-iox
+  link: "https://cloud2.influxdata.com/signup"
+
 telegraf:
   name: Telegraf
   namespace: telegraf
