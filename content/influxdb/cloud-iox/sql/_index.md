@@ -5,7 +5,6 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: Query data with SQL
-    parent: SQL
 weight: 101
 ---
 
