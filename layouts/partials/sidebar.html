@@ -10,6 +10,8 @@
   {{ .Scratch.Set "menuKey" "platform" }}
 {{ else if eq $product "resources" }}
   {{ .Scratch.Set "menuKey" "resources" }}
+{{ else if in $currentVersion "iox" }}
+  {{ .Scratch.Set "menuKey" "influxdb_cloud_iox" }}
 {{ else }}
   {{ .Scratch.Set "menuKey" (print $product "_" (replaceRE `\.` "_" (replaceRE "v" "" $currentVersion))) }}
 {{ end }}
