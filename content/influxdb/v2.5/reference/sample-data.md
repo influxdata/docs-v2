@@ -271,7 +271,7 @@ _Replace `example-bucket` with your target bucket_.
 import "influxdata/influxdb/sample"
 
 sample.data(set: "noaaWater")
-    |> to(bucket: "example-bucket"
+    |> to(bucket: "example-bucket")
 ```
 
 The NOAA water sample dataset is used to demonstrate Flux queries in the
