@@ -1,8 +1,8 @@
 ---
-title: Get started with InfluxDB
+title: Get started with InfluxDB Cloud
 list_title: Get started
 description: >
-  Start collecting, querying, processing, and visualizing data in InfluxDB OSS.
+  Start collecting, querying, processing, and visualizing data in InfluxDB Cloud backed by IOx.
 menu:
   influxdb_cloud_iox:
     name: Get started
@@ -25,7 +25,7 @@ Examples of time series data include:
 - Stock prices
 
 This multi-part tutorial walks you through writing time series data to InfluxDB {{< current-version >}},
-querying that data, and then visualizing the data.
+querying, and then visualizing that data.
 
 ## Key concepts before you get started
 
@@ -54,6 +54,7 @@ tags and fields.
 [Data elements](/influxdb/v2.5/reference/key-concepts/data-elements/)._ -->
 
 ### Schema on write
+
 - don't add new tables/measurements with a command, you do it when you write data
 
 ### Important definitions
@@ -61,30 +62,28 @@ tags and fields.
 The following are important definitions to understand when using InfluxDB:
 
 - **Point**: Single data record identified by its _measurement, tag keys, tag values, field key, and timestamp_.
-- **Series**: A group of points with the same
-  {{% oss-only %}}_measurement, tag keys, and tag values_.{{% /oss-only %}}
-  {{% cloud-only %}}_measurement, tag keys and values, and field key_.{{% /cloud-only %}}
+- **Series**: A group of points with the same _measurement, tag keys and values, and field key_.
+- **Primary key**: Columns used to uniquely identify each row in a table.
+  Rows are uniquely identified by their _timestamp and tag set_.
 
-<!--
 ##### Example InfluxDB query results
 
-{{< influxdb/points-series >}}
--->
+{{< influxdb/iox-points-series >}}
 
 ## Tools to use
 
 Throughout this tutorial, there are multiple tools you can use to interact with
 InfluxDB {{< current-version >}}. Examples are provided for each of the following:
 
-- [InfluxDB Admin Console](#influxdb-admin-console)
+- [InfluxDB Developer Console](#influxdb-developer-console)
 - [`influx` CLI](#influx-cli)
 - [InfluxDB HTTP API](#influxdb-http-api)
 
-### InfluxDB Admin Console
+### InfluxDB Developer Console
 
-The InfluxDB Admin Console provides a web-based visual interface for interacting with and managing InfluxDB.
-{{% oss-only %}}The Admin Console is packaged with InfluxDB and runs as part of the InfluxDB service. To access the UI, with InfluxDB running, visit [localhost:8086](http://localhost:8086) in your browser.{{% /oss-only %}}
-{{% cloud-only %}}To access the InfluxDB Cloud Admin Console, [log into your InfluxDB Cloud account](https://cloud2.influxdata.com).{{% /cloud-only %}}
+The InfluxDB Developer Console provides a web-based visual interface for interacting with and managing InfluxDB.
+{{% oss-only %}}The Developer Console is packaged with InfluxDB and runs as part of the InfluxDB service. To access the UI, with InfluxDB running, visit [localhost:8086](http://localhost:8086) in your browser.{{% /oss-only %}}
+{{% cloud-only %}}To access the InfluxDB Cloud Developer Console, [log into your InfluxDB Cloud account](https://cloud2.influxdata.com).{{% /cloud-only %}}
 
 ### `influx` CLI
 
