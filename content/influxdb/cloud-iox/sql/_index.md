@@ -11,3 +11,8 @@ weight: 101
 InfluxDB Cloud powered by IOx supports SQL (or is it PostrgresSQL?).
 
 Postgres compatible SQL implementation. SQL queries on a columnar database are more performant.
+
+It is assumed that you have some experience using the SQL query language.
+
+Query data using the UI
+
