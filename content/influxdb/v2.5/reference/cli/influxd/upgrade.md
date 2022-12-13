@@ -11,7 +11,7 @@ products: [oss]
 Use the `influxd upgrade` command to upgrade an instance of InfluxDB 1.x to InfluxDB {{< current-version >}}.
 This command copies all data in [databases](/influxdb/v1.8/concepts/glossary/#database) and
 [retention policies](/influxdb/v1.8/concepts/glossary/#retention-policy-rp) (used in 1.x)
-over to [buckets](/influxdb/v2.5/reference/glossary/#bucket) (used in {{< current-version >}}).
+over to [buckets](/influxdb/v2.6/reference/glossary/#bucket) (used in {{< current-version >}}).
 
 {{% warn %}}
 Be sure to back up all data before upgrading with `influx upgrade`.

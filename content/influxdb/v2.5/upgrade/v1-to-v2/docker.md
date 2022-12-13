@@ -25,7 +25,7 @@ to update InfluxDB 1.x Docker deployments to InfluxDB 2.x.
 The automated upgrade process **does not** migrate InfluxDB 1.x continuous queries (CQs)
 to InfluxDB 2.x tasks (the 2.x equivalent). Export all of your CQs before upgrading to InfluxDB 2.x.
 For information about exporting and migrating CQs to tasks, see
-[Migrate continuous queries to tasks](/influxdb/v2.5/upgrade/v1-to-v2/migrate-cqs/).
+[Migrate continuous queries to tasks](/influxdb/v2.6/upgrade/v1-to-v2/migrate-cqs/).
 {{% /note %}}
 
 ## Upgrade requirements
@@ -44,12 +44,12 @@ the upgrade won't run if an existing boltdb file is found at the
 {{% /note %}}
 
 Find more information about the automated InfluxDB upgrade process,
-see [Automatically upgrade from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.5/upgrade/v1-to-v2/automatic-upgrade/).
+see [Automatically upgrade from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.6/upgrade/v1-to-v2/automatic-upgrade/).
 
 ### InfluxDB 2.x initialization credentials
 The automated InfluxDB upgrade process bootstraps an initial admin user,
-[organization](/influxdb/v2.5/reference/glossary/#organization), and
-[bucket](/influxdb/v2.5/reference/glossary/#bucket) required by InfluxDB 2.x.
+[organization](/influxdb/v2.6/reference/glossary/#organization), and
+[bucket](/influxdb/v2.6/reference/glossary/#bucket) required by InfluxDB 2.x.
 Set the following [environment variables in your Docker container](https://docs.docker.com/search/?q=environment%20variables)
 to provide setup credentials:
 
@@ -263,7 +263,7 @@ Once upgraded, use InfluxDB {{< current-version >}} tools to work with your time
 InfluxDB {{< current-version >}} replaces continuous queries with **tasks**.
 By default, the upgrade process writes all continuous queries to `~/continuous_queries.txt`.
 To convert continuous queries to InfluxDB tasks, see
-[Migrate continuous queries to tasks](/influxdb/v2.5/upgrade/v1-to-v2/migrate-cqs/).
+[Migrate continuous queries to tasks](/influxdb/v2.6/upgrade/v1-to-v2/migrate-cqs/).
 
 ### Use the interactive InfluxQL shell
 
@@ -278,13 +278,13 @@ To start an InfluxQL shell:
     docker exec -it influxdb /bin/bash
     ```
 
-2. Set up your [`influx` CLI authentication credentials](/influxdb/v2.5/tools/influx-cli/#set-up-the-influx-cli).
+2. Set up your [`influx` CLI authentication credentials](/influxdb/v2.6/tools/influx-cli/#set-up-the-influx-cli).
 3. Run the `influx v1 shell` command.
 
 For more information, see:
 
-- [Use the InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/)
-- [Query data with InfluxQL](/influxdb/v2.5/query-data/influxql/)
+- [Use the InfluxQL shell](/influxdb/v2.6/tools/influxql-shell/)
+- [Query data with InfluxQL](/influxdb/v2.6/query-data/influxql/)
 
 To build an interactive shell to execute **Flux** queries,
 [compile and build a command line Flux REPL from source](https://github.com/influxdata/flux/blob/master/README.md#getting-started).

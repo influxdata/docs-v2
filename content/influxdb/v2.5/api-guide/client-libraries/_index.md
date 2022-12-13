@@ -5,15 +5,15 @@ description: >
   View the list of available client libraries.
 weight: 101
 aliases:
-  - /influxdb/v2.5/reference/client-libraries/
-  - /influxdb/v2.5/reference/api/client-libraries/
-  - /influxdb/v2.5/tools/client-libraries/
+  - /influxdb/v2.6/reference/client-libraries/
+  - /influxdb/v2.6/reference/api/client-libraries/
+  - /influxdb/v2.6/tools/client-libraries/
   - /influxdb/v2.x/api-guide/client-libraries/
 menu:
   influxdb_2_5:
     name: Client libraries
     parent: Develop with the API
-influxdb/v2.5/tags: [client libraries]
+influxdb/v2.6/tags: [client libraries]
 ---
 
 InfluxDB client libraries are language-specific packages that integrate with the InfluxDB v2 API.

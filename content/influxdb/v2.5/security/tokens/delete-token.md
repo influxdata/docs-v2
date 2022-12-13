@@ -3,7 +3,7 @@ title: Delete a token
 seotitle: Delete an API token from InfluxDB
 description: Delete an API token from InfluxDB using the InfluxDB UI or the `influx` CLI.
 aliases:
-  - /influxdb/v2.5/users/tokens/delete-token
+  - /influxdb/v2.6/users/tokens/delete-token
 menu:
   influxdb_2_5:
     name: Delete a token
@@ -47,7 +47,7 @@ have access to your InfluxDB instance.
 
 ## Delete a token using the influx CLI
 
-Use the [`influx auth delete` command](/influxdb/v2.5/reference/cli/influx/auth/delete)
+Use the [`influx auth delete` command](/influxdb/v2.6/reference/cli/influx/auth/delete)
 to delete a token.
 
 _This command requires an auth ID, which is available in the output of `influx auth find`._
@@ -64,13 +64,13 @@ influx auth delete -i 03a2bee5a9c9a000
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to delete a token.
 
-[{{< api-endpoint method="DELETE" endpoint="http://localhost:8086/api/v2/authorizations/AUTH_ID" >}}](/influxdb/v2.5/api/#operation/DeleteAuthorizationsID)
+[{{< api-endpoint method="DELETE" endpoint="http://localhost:8086/api/v2/authorizations/AUTH_ID" >}}](/influxdb/v2.6/api/#operation/DeleteAuthorizationsID)
 
 Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`write: authorizations`](/influxdb/v2.5/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header. |
+| API token with the [`write: authorizations`](/influxdb/v2.6/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header. |
 | Authorization ID     | URL path parameter. |
 
 ```sh

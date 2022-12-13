@@ -13,17 +13,17 @@ menu:
 weight: 102
 metadata: [3 / 5]
 related:
-  - /influxdb/v2.5/query-data/
+  - /influxdb/v2.6/query-data/
 ---
 
 InfluxDB supports many different tools for querying data, including:
 
 - InfluxDB user interface (UI)
-- [InfluxDB HTTP API](/influxdb/v2.5/reference/api/)
-- [`influx` CLI](/influxdb/v2.5/tools/influx-cli/)
+- [InfluxDB HTTP API](/influxdb/v2.6/reference/api/)
+- [`influx` CLI](/influxdb/v2.6/tools/influx-cli/)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
-- [Grafana](/influxdb/v2.5/tools/grafana/)
-- [InfluxDB client libraries](/influxdb/v2.5/api-guide/client-libraries/)
+- [Grafana](/influxdb/v2.6/tools/grafana/)
+- [InfluxDB client libraries](/influxdb/v2.6/api-guide/client-libraries/)
 
 This tutorial walks you through the fundamentals of querying data in InfluxDB and
 focuses primarily on the two languages you can use to query your time series data:
@@ -35,7 +35,7 @@ focuses primarily on the two languages you can use to query your time series dat
 
 {{% note %}}
 The examples in this section of the tutorial query the data from written in the
-[Get started writing data](/influxdb/v2.5/get-started/write/#write-line-protocol-to-influxdb) section.
+[Get started writing data](/influxdb/v2.6/get-started/write/#write-line-protocol-to-influxdb) section.
 {{% /note %}}
 
 ###### On this page:
@@ -73,7 +73,7 @@ When querying InfluxDB with Flux, there are three primary functions you use:
   You can apply multiple subsequent filters.
 
   To see how `from()` structures data into rows and tables when returned from InfluxDB,
-  [view the data written in Get started writing to InfluxDB](/influxdb/v2.5/get-started/write/#view-the-written-data).
+  [view the data written in Get started writing to InfluxDB](/influxdb/v2.6/get-started/write/#view-the-written-data).
 
   {{< expand-wrapper >}}
 {{% expand "Learn more about how `filter()` works" %}}
@@ -245,14 +245,14 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
 {{% tab-content %}}
 <!-------------------------- BEGIN FLUX CLI CONTENT --------------------------->
 
-1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.5/tools/influx-cli/).
-2.  Use the [`influx query` command](/influxdb/v2.5/reference/cli/influx/query/)
+1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.6/tools/influx-cli/).
+2.  Use the [`influx query` command](/influxdb/v2.6/reference/cli/influx/query/)
     to query InfluxDB using Flux.
     
     **Provide the following**:
 
     - String-encoded Flux query.
-    - [Connection and authentication credentials](/influxdb/v2.5/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
+    - [Connection and authentication credentials](/influxdb/v2.6/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
 
 ```sh
 influx query '
@@ -269,7 +269,7 @@ from(bucket: "get-started")
 <!-------------------------- BEGIN FLUX API CONTENT --------------------------->
 
 To query data from InfluxDB using Flux and the InfluxDB HTTP API, send a request
-to the InfluxDB API [`/api/v2/query` endpoint](/influxdb/v2.5/api/#operation/PostQuery)
+to the InfluxDB API [`/api/v2/query` endpoint](/influxdb/v2.6/api/#operation/PostQuery)
 using the `POST` request method.
 
 {{< api-endpoint endpoint="http://localhost:8086/api/v2/query" method="post" >}}
@@ -302,7 +302,7 @@ curl --request POST \
 
 {{% note %}}
 The InfluxDB `/api/v2/query` endpoint returns query results in
-[annotated CSV](/influxdb/v2.5/reference/syntax/annotated-csv/).
+[annotated CSV](/influxdb/v2.6/reference/syntax/annotated-csv/).
 {{% /note %}}
 
 <!--------------------------- END FLUX API CONTENT ---------------------------->
@@ -428,9 +428,9 @@ specifically designed to query time series data from InfluxDB 0.x and 1.x.
 
 Because InfluxQL was developed for earlier versions of InfluxDB, it depends on
 **databases and retention policies** (DBRP) which have been replaced by
-[buckets](/influxdb/v2.5/get-started/#data-organization) in InfluxDB {{< current-version >}}.
+[buckets](/influxdb/v2.6/get-started/#data-organization) in InfluxDB {{< current-version >}}.
 To use InfluxQL with InfluxDB {{< current-version >}}, first
-[map database and retention policy (DBRP) combinations to an InfluxDB bucket](/influxdb/v2.5/query-data/influxql/dbrp/).
+[map database and retention policy (DBRP) combinations to an InfluxDB bucket](/influxdb/v2.6/query-data/influxql/dbrp/).
 {{% /note %}}
 
 ### InfluxQL query basics
@@ -454,7 +454,7 @@ SELECT co,hum,temp,room FROM "get-started".autogen.home WHERE time >= '2022-01-0
 
 {{% note %}}
 These are just the fundamentals of the InfluxQL syntax.
-For more in-depth information, see the [InfluxQL documentation](/influxdb/v2.5/query-data/influxql/).
+For more in-depth information, see the [InfluxQL documentation](/influxdb/v2.6/query-data/influxql/).
 {{% /note %}}
 
 ### Execute an InfluxQL query
@@ -476,8 +476,8 @@ Use the **`influx` CLI**, or **InfluxDB API** to execute InfluxQL queries.
 
 The InfluxDB {{< current-version >}} UI does not provide a way to query data with InfluxQL.
 For a user interface that builds and executes InfluxQL queries, consider using
-[Chronograf](/influxdb/v2.5/tools/chronograf/) or
-[Grafana](/influxdb/v2.5/tools/grafana/) with InfluxDB {{< current-version >}}.
+[Chronograf](/influxdb/v2.6/tools/chronograf/) or
+[Grafana](/influxdb/v2.6/tools/grafana/) with InfluxDB {{< current-version >}}.
 {{% /note %}}
 
 <!-------------------------- END INFLUXQL UI CONTENT -------------------------->
@@ -487,12 +487,12 @@ For a user interface that builds and executes InfluxQL queries, consider using
 
 {{< cli/influx-creds-note >}}
 
-1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.5/tools/influx-cli/).
-2.  Use the [`influx v1 shell` command](/influxdb/v2.5/reference/cli/influx/v1/shell/)
+1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.6/tools/influx-cli/).
+2.  Use the [`influx v1 shell` command](/influxdb/v2.6/reference/cli/influx/v1/shell/)
     to start an InfluxQL shell and query InfluxDB using InfluxQL.
     Provide the following:
 
-    - [Connection and authentication credentials](/influxdb/v2.5/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
+    - [Connection and authentication credentials](/influxdb/v2.6/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
 
     ```sh
     influx v1 shell
@@ -510,7 +510,7 @@ For a user interface that builds and executes InfluxQL queries, consider using
 <!------------------------ BEGIN INFLUXQL API CONTENT ------------------------->
 
 To query data from InfluxDB using InfluxQL and the InfluxDB HTTP API, send a request
-to the InfluxDB API [`/query` 1.X compatibility endpoint](/influxdb/v2.5/reference/api/influxdb-1x/query/)
+to the InfluxDB API [`/query` 1.X compatibility endpoint](/influxdb/v2.6/reference/api/influxdb-1x/query/)
 using the `POST` request method.
 
 {{< api-endpoint endpoint="http://localhost:8086/query" method="post" >}}
@@ -526,8 +526,8 @@ Include the following with your request:
   - **rp**: Retention policy to query data from.
   - **q**: InfluxQL query to execute.
   - **epoch**: _(Optional)_  Return results with
-    [Unix timestamps](/influxdb/v2.5/reference/glossary/#unix-timestamp) of a
-    specified precision instead of [RFC3339 timestamps](/influxdb/v2.5/reference/glossary/#rfc3339-timestamp). The following precisions are available:
+    [Unix timestamps](/influxdb/v2.6/reference/glossary/#unix-timestamp) of a
+    specified precision instead of [RFC3339 timestamps](/influxdb/v2.6/reference/glossary/#rfc3339-timestamp). The following precisions are available:
 
     - `ns` - nanoseconds
     - `u` or `µ` - microseconds
@@ -595,9 +595,9 @@ The InfluxDB `/write` 1.x compatibility endpoint returns query results in JSON f
 
 **Congratulations!** You've learned the basics of querying data in InfluxDB.
 For a deep dive into all the ways you can query InfluxDB, see the
-[Query data in InfluxDB](/influxdb/v2.5/query-data/) section of documentation.
+[Query data in InfluxDB](/influxdb/v2.6/query-data/) section of documentation.
 
 Let's move on to more advanced data processing queries and automating queries
 with InfluxDB tasks.
 
-{{< page-nav prev="/influxdb/v2.5/get-started/write/" next="/influxdb/v2.5/get-started/process/" keepTab=true >}}
+{{< page-nav prev="/influxdb/v2.6/get-started/write/" next="/influxdb/v2.6/get-started/process/" keepTab=true >}}

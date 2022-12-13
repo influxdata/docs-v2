@@ -11,7 +11,7 @@ weight: 1
 ---
 
 #### Welcome
-Welcome to the InfluxDB v2.5 documentation!
+Welcome to the InfluxDB v2.6 documentation!
 InfluxDB is an open source time series database designed to handle high write and query workloads.
 
 This documentation is meant to help you learn how to use and leverage InfluxDB to meet your needs.

@@ -8,12 +8,12 @@ menu:
     name: influx query
     parent: influx
 weight: 101
-influxdb/v2.5/tags: [query]
+influxdb/v2.6/tags: [query]
 related:
-  - /influxdb/v2.5/query-data/
-  - /influxdb/v2.5/query-data/execute-queries/influx-query/
-  - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/v2.6/query-data/
+  - /influxdb/v2.6/query-data/execute-queries/influx-query/
+  - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 updated_in: CLI v2.0.5
 ---

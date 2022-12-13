@@ -8,10 +8,10 @@ weight: 103
 menu:
   influxdb_2_5_ref:
     parent: Syntax
-influxdb/v2.5/tags: [csv, syntax]
+influxdb/v2.6/tags: [csv, syntax]
 related:
   - /{{< latest "flux" >}}/stdlib/csv/from/
-  - /influxdb/v2.5/reference/syntax/annotated-csv/extended/
+  - /influxdb/v2.6/reference/syntax/annotated-csv/extended/
 ---
 
 InfluxDB and Flux return query results in annotated CSV format.
@@ -163,7 +163,7 @@ Subsequent columns contain annotation values as shown in the table below.
 
 
 {{% note %}}
-To encode a table with its [group key](/influxdb/v2.5/reference/glossary/#group-key),
+To encode a table with its [group key](/influxdb/v2.6/reference/glossary/#group-key),
 the `datatype`, `group`, and `default` annotations must be included.
 If a table has no rows, the `default` annotation provides the group key values.
 {{% /note %}}
@@ -185,7 +185,7 @@ If a table has no rows, the `default` annotation provides the group key values.
 ## Line protocol elements
 The `datatype` annotation accepts [data types](#data-types) and **line protocol elements**.
 Line protocol elements identify how columns are converted into line protocol when using the
-[`influx write` command](/influxdb/v2.5/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
+[`influx write` command](/influxdb/v2.6/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
 
 | Line protocol element | Description                                                     |
 |:--------------------- |:-----------                                                     |
@@ -201,7 +201,7 @@ Columns with [data types](#data-types) (other than `dateTime`) in the
 Columns without a specified data type default to `field` when converted to line protocol
 and **column values are left unmodified** in line protocol.
 _See an example [below](#example-of-mixing-data-types-line-protocol-elements) and
-[line protocol data types and format](/influxdb/v2.5/reference/syntax/line-protocol/#data-types-and-format)._
+[line protocol data types and format](/influxdb/v2.6/reference/syntax/line-protocol/#data-types-and-format)._
 
 ### Time columns
 A column with `time` or `dateTime` `#datatype` annotations are used as the timestamp
@@ -210,7 +210,7 @@ If there are multiple `time` or `dateTime` columns, the last column (on the righ
 is used as the timestamp in line protocol.
 Other time columns are ignored and the `influx write` command outputs a warning.
 
-Time column values should be **Unix timestamps** (in an [accepted timestamp precision](/influxdb/v2.5/write-data/#timestamp-precision)),
+Time column values should be **Unix timestamps** (in an [accepted timestamp precision](/influxdb/v2.6/write-data/#timestamp-precision)),
 **RFC3339**, or **RFC3339Nano**.
 
 ##### Example line protocol elements in datatype annotation

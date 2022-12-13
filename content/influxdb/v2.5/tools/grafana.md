@@ -7,12 +7,12 @@ menu:
     name: Use Grafana
     parent: Tools & integrations
 weight: 104
-influxdb/v2.5/tags: [grafana]
+influxdb/v2.6/tags: [grafana]
 aliases:
-  - /influxdb/v2.5/visualize-data/other-tools/grafana/
+  - /influxdb/v2.6/visualize-data/other-tools/grafana/
 related:
   - https://grafana.com/docs/, Grafana documentation
-  - /influxdb/v2.5/query-data/get-started/
+  - /influxdb/v2.6/query-data/get-started/
 ---
 
 Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/products/cloud/)
@@ -22,7 +22,7 @@ to visualize data from your **InfluxDB {{< current-version >}}** instance.
 The instructions in this guide require **Grafana Cloud** or **Grafana v8.0+**.
 {{% /note %}}
 
-1. [Start InfluxDB OSS {{< current-version >}}](/influxdb/v2.5/install/#start-influxdb).
+1. [Start InfluxDB OSS {{< current-version >}}](/influxdb/v2.6/install/#start-influxdb).
 2. [Sign up for Grafana Cloud](https://grafana.com/products/cloud/) or
    [download and install Grafana](https://grafana.com/grafana/download).
 3. Visit your **Grafana Cloud user interface** (UI) or, if running Grafana locally,
@@ -49,8 +49,8 @@ configure your InfluxDB connection:
 1.  Under **HTTP**, enter the following:
 
     - **URL**: Your
-      {{% oss-only %}}[InfluxDB URL](/influxdb/v2.5/reference/urls/).{{% /oss-only %}}
-      {{% cloud-only %}}[InfluxDB Cloud region URL](/influxdb/v2.5/reference/regions/).{{% /cloud-only %}}
+      {{% oss-only %}}[InfluxDB URL](/influxdb/v2.6/reference/urls/).{{% /oss-only %}}
+      {{% cloud-only %}}[InfluxDB Cloud region URL](/influxdb/v2.6/reference/regions/).{{% /cloud-only %}}
 
         ```sh
         http://localhost:8086/
@@ -60,9 +60,9 @@ configure your InfluxDB connection:
 
 2.  Under **InfluxDB Details**, enter the following:
 
-    - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/v2.5/organizations/view-orgs/).
-    - **Token**: Your InfluxDB [API token](/influxdb/v2.5/security/tokens/).
-    - **Default Bucket**: The default [bucket](/influxdb/v2.5/organizations/buckets/) to use in Flux queries.
+    - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/v2.6/organizations/view-orgs/).
+    - **Token**: Your InfluxDB [API token](/influxdb/v2.6/security/tokens/).
+    - **Default Bucket**: The default [bucket](/influxdb/v2.6/organizations/buckets/) to use in Flux queries.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
       Default is `10s`
     - **Max series**: The maximum number of series or tables Grafana will process.
@@ -101,12 +101,12 @@ and then complete the instructions to configure Grafana:
 ### Installed a new InfluxDB instance
 To configure Grafana to use InfluxQL with a new install of InfluxDB {{< current-version >}}, do the following:
 
-1. [Authenticate with InfluxDB {{< current-version >}} tokens](/influxdb/v2.5/security/tokens/).
+1. [Authenticate with InfluxDB {{< current-version >}} tokens](/influxdb/v2.6/security/tokens/).
 2. [Manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
 
 ### Upgraded from InfluxDB 1.x to 2.x
 To configure Grafana to use InfluxQL when you've upgraded from InfluxDB 1.x to
-InfluxDB {{< current-version >}} (following an [official upgrade guide](/influxdb/v2.5/upgrade/v1-to-v2/)):
+InfluxDB {{< current-version >}} (following an [official upgrade guide](/influxdb/v2.6/upgrade/v1-to-v2/)):
 
 1. Authenticate using the _non-admin_ [v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
    created during the upgrade process.
@@ -119,7 +119,7 @@ To configure Grafana to use InfluxQL when you've manually migrated from InfluxDB
 1. If your InfluxDB 1.x instance required authentication,
    [create v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
    to match your previous 1.x username and password.
-   Otherwise, use [InfluxDB v2 token authentication](/influxdb/v2.5/security/tokens/).
+   Otherwise, use [InfluxDB v2 token authentication](/influxdb/v2.6/security/tokens/).
 2. [Manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
 
 {{< expand-wrapper >}}
@@ -130,7 +130,7 @@ authenticate with a username and password like InfluxDB 1.x
 _(separate from the credentials used to log into the InfluxDB user interface)_.
 
 #### View existing v1 authorizations
-Use the [`influx v1 auth list`](/influxdb/v2.5/reference/cli/influx/v1/auth/list/)
+Use the [`influx v1 auth list`](/influxdb/v2.6/reference/cli/influx/v1/auth/list/)
 to list existing InfluxDB v1 compatible authorizations.
 
 ```sh
@@ -138,10 +138,10 @@ influx v1 auth list
 ```
 
 #### Create a v1 authorization
-Use the [`influx v1 auth create` command](/influxdb/v2.5/reference/cli/influx/v1/auth/create/)
+Use the [`influx v1 auth create` command](/influxdb/v2.6/reference/cli/influx/v1/auth/create/)
 to grant read/write permissions to specific buckets. Provide the following:
 
-- [bucket IDs](/influxdb/v2.5/organizations/buckets/view-buckets/) to grant read
+- [bucket IDs](/influxdb/v2.6/organizations/buckets/view-buckets/) to grant read
   or write permissions to
 - new username
 - new password _(when prompted)_
@@ -158,14 +158,14 @@ influx v1 auth create \
 
 When using InfluxQL to query InfluxDB, the query must specify a database and a retention policy.
 InfluxDB DBRP mappings associate database and retention policy combinations with
-InfluxDB {{< current-version >}} [buckets](/influxdb/v2.5/reference/glossary/#bucket).
+InfluxDB {{< current-version >}} [buckets](/influxdb/v2.6/reference/glossary/#bucket).
 
 DBRP mappings do not affect the retention period of the target bucket.
 These mappings allow queries following InfluxDB 1.x conventions to successfully
 query InfluxDB {{< current-version >}} buckets.
 
 #### View existing DBRP mappings
-Use the [`influx v1 dbrp list`](/influxdb/v2.5/reference/cli/influx/v1/dbrp/list/)
+Use the [`influx v1 dbrp list`](/influxdb/v2.6/reference/cli/influx/v1/dbrp/list/)
 to list existing DBRP mappings.
 
 ```sh
@@ -173,13 +173,13 @@ influx v1 dbrp list
 ```
 
 #### Create a DBRP mapping
-Use the [`influx v1 dbrp create` command](/influxdb/v2.5/reference/cli/influx/v1/dbrp/create/)
+Use the [`influx v1 dbrp create` command](/influxdb/v2.6/reference/cli/influx/v1/dbrp/create/)
 command to create a DBRP mapping.
 Provide the following:
 
 - database name
 - retention policy name _(not retention period)_
-- [bucket ID](/influxdb/v2.5/organizations/buckets/view-buckets/)
+- [bucket ID](/influxdb/v2.6/organizations/buckets/view-buckets/)
 - _(optional)_ `--default` flag if you want the retention policy to be the default retention
   policy for the specified database
 
@@ -199,7 +199,7 @@ If you have multiple retention policies for a single bucket, set one of the the
 retention polices as the default using the `--default` flag.
 {{% /note %}}
 
-_For more information about DBRP mapping, see [Database and retention policy mapping](/influxdb/v2.5/reference/api/influxdb-1x/dbrp/)._
+_For more information about DBRP mapping, see [Database and retention policy mapping](/influxdb/v2.6/reference/api/influxdb-1x/dbrp/)._
 
 {{< /expand >}}
 {{< /expand-wrapper >}}
@@ -298,7 +298,7 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
 
 1. Under **HTTP**, enter the following:
 
-    - **URL**: Your [InfluxDB URL](/influxdb/v2.5/reference/urls/).
+    - **URL**: Your [InfluxDB URL](/influxdb/v2.6/reference/urls/).
 
         ```sh
         http://localhost:8086/
@@ -312,7 +312,7 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
         - Under **Custom HTTP Headers**, select **{{< icon "plus" >}}Add Header**. Provide your InfluxDB API token:
 
           - **Header**: Enter `Authorization`
-          - **Value**: Use the `Token` schema and provide your [InfluxDB API token](/influxdb/v2.5/security/tokens/).
+          - **Value**: Use the `Token` schema and provide your [InfluxDB API token](/influxdb/v2.6/security/tokens/).
             For example:
 
             ```

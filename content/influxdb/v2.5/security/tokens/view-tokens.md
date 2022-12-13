@@ -3,7 +3,7 @@ title: View tokens
 seotitle: View API tokens in InfluxDB
 description: View API tokens in InfluxDB using the InfluxDB UI, the `influx` CLI, or the InfluxDB API.
 aliases:
-  - /influxdb/v2.5/users/tokens/view-tokens
+  - /influxdb/v2.6/users/tokens/view-tokens
 menu:
   influxdb_2_5:
     name: View tokens
@@ -59,7 +59,7 @@ We recommend the following for managing your tokens:
 
 ## View tokens using the influx CLI
 
-Use the [`influx auth list` command](/influxdb/v2.5/reference/cli/influx/auth/list)
+Use the [`influx auth list` command](/influxdb/v2.6/reference/cli/influx/auth/list)
 to view tokens.
 
 ```sh
@@ -67,7 +67,7 @@ influx auth list
 ```
 
 Filtering options such as filtering by authorization ID, username, or user ID are available.
-See the [`influx auth list` documentation](/influxdb/v2.5/reference/cli/influx/auth/list)
+See the [`influx auth list` documentation](/influxdb/v2.6/reference/cli/influx/auth/list)
 for information about other available flags.
 
 ## View tokens using the InfluxDB API
@@ -80,7 +80,7 @@ Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`read: authorizations`](/influxdb/v2.5/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
+| API token with the [`read: authorizations`](/influxdb/v2.6/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
 
 ```sh
 {{% get-shared-text "api/v2.0/auth/oss/tokens-view.sh" %}}
@@ -108,4 +108,4 @@ To filter authorizations by organization when using an operator token, include a
 
 {{% /oss-only %}}
 
-See the [`/authorizations` endpoint documentation](/influxdb/v2.5/api/#tag/Authorizations-(API-tokens)) for more information about available parameters.
+See the [`/authorizations` endpoint documentation](/influxdb/v2.6/api/#tag/Authorizations-(API-tokens)) for more information about available parameters.

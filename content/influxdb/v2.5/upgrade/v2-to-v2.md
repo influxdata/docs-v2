@@ -9,8 +9,8 @@ menu:
     name: InfluxDB 2.x to 2.5
 weight: 10
 related:
-  - /influxdb/v2.5/reference/cli/influxd/downgrade/
-  - /influxdb/v2.5/install/
+  - /influxdb/v2.6/reference/cli/influxd/downgrade/
+  - /influxdb/v2.6/install/
 ---
 
 Upgrade to InfluxDB {{< current-version >}} from an earlier version of InfluxDB 2.x.
@@ -43,7 +43,7 @@ brew upgrade influxdb
 ```
 
 ### Manually upgrade
-To manually upgrade, [download and install the latest version of InfluxDB {{< current-version >}} for macOS](/influxdb/v2.5/install/#manually-download-and-install)
+To manually upgrade, [download and install the latest version of InfluxDB {{< current-version >}} for macOS](/influxdb/v2.6/install/#manually-download-and-install)
 in place of your current 2.x version.
 {{% /tab-content %}}
 <!----------------------------- END MACOS CONTENT ----------------------------->
@@ -51,7 +51,7 @@ in place of your current 2.x version.
 <!---------------------------- BEGIN LINUX CONTENT ---------------------------->
 {{% tab-content %}}
 
-[Download and install the latest version of InfluxDB {{< current-version >}} for Linux](/influxdb/v2.5/install/?t=Linux#download-and-install-influxdb-v21)
+[Download and install the latest version of InfluxDB {{< current-version >}} for Linux](/influxdb/v2.6/install/?t=Linux#download-and-install-influxdb-v21)
 in place of current 2.x version.
 
 {{% /tab-content %}}
@@ -60,7 +60,7 @@ in place of current 2.x version.
 <!--------------------------- BEGIN WINDOWS CONTENT --------------------------->
 {{% tab-content %}}
 
-[Download and install the latest version of InfluxDB {{< current-version >}} for Windows](/influxdb/v2.5/install/?t=Windows)
+[Download and install the latest version of InfluxDB {{< current-version >}} for Windows](/influxdb/v2.6/install/?t=Windows)
 in place of current 2.x version.
 
 {{% /tab-content %}}

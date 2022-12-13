@@ -6,18 +6,18 @@ menu:
     parent: influx
 weight: 101
 aliases:
-  - /influxdb/v2.5/reference/cli/influx/pkg/export/
+  - /influxdb/v2.6/reference/cli/influx/pkg/export/
 related:
-  - /influxdb/v2.5/influxdb-templates/create/
-  - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/v2.6/influxdb-templates/create/
+  - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 cascade:
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 ---
 
 The `influx export` command exports existing resources as an InfluxDB template.
 _For detailed examples of exporting InfluxDB templates, see
-[Create an InfluxDB template](/influxdb/v2.5/influxdb-templates/create/)._
+[Create an InfluxDB template](/influxdb/v2.6/influxdb-templates/create/)._
 
 ## Usage
 
@@ -30,8 +30,8 @@ influx export [command]
 
 | Subcommand                                                 | Description                                                |
 |:----------                                                 |:-----------                                                |
-| [all](/influxdb/v2.5/reference/cli/influx/export/all/)     | Export all resources in an organization as a template      |
-| [stack](/influxdb/v2.5/reference/cli/influx/export/stack/) | Export all resources associated with a stack as a template |
+| [all](/influxdb/v2.6/reference/cli/influx/export/all/)     | Export all resources in an organization as a template      |
+| [stack](/influxdb/v2.6/reference/cli/influx/export/stack/) | Export all resources associated with a stack as a template |
 
 ## Flags
 

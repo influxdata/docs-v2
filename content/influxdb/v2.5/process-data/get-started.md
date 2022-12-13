@@ -5,16 +5,16 @@ description: >
   Learn the basics of writing an InfluxDB task that processes data, and then performs an action,
   such as storing the modified data in a new bucket or sending an alert.
 aliases:
-  - /influxdb/v2.5/process-data/write-a-task/
-influxdb/v2.5/tags: [tasks]
+  - /influxdb/v2.6/process-data/write-a-task/
+influxdb/v2.6/tags: [tasks]
 menu:
   influxdb_2_5:
     name: Get started with tasks
     parent: Process data
 weight: 101
 related:
-  - /influxdb/v2.5/process-data/manage-tasks/
-  - /influxdb/v2.5/process-data/manage-tasks/create-task/
+  - /influxdb/v2.6/process-data/manage-tasks/
+  - /influxdb/v2.6/process-data/manage-tasks/create-task/
   - /resources/videos/influxdb-tasks/
 ---
 
@@ -46,11 +46,11 @@ The following example shows how to set task options in a Flux script:
 option task = {name: "downsample_5m_precision", every: 1h, offset: 0m}
 ```
 
-_See [Task configuration options](/influxdb/v2.5/process-data/task-options) for detailed information
+_See [Task configuration options](/influxdb/v2.6/process-data/task-options) for detailed information
 about each option._
 
 _Note that InfluxDB doesn't guarantee that a task will run at the scheduled time.
-See [View task run logs for a task](/influxdb/v2.5/process-data/manage-tasks/task-run-history)
+See [View task run logs for a task](/influxdb/v2.6/process-data/manage-tasks/task-run-history)
 for detailed information on task service-level agreements (SLAs)._
 
 {{% note %}}
@@ -152,7 +152,7 @@ A task that runs at one hour intervals (`every: 1h`) with an offset of five minu
 executes 5 minutes after the hour, but queries data from the original one-hour interval.
 {{% /note %}}
 
-_See [Common tasks](/influxdb/v2.5/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
+_See [Common tasks](/influxdb/v2.6/process-data/common-tasks) for examples of tasks commonly used with InfluxDB._
 
 {{% cloud-only %}}
 

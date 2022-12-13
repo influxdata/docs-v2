@@ -6,14 +6,14 @@ menu:
   influxdb_2_5:
     name: Query in the Flux REPL
     parent: Execute queries
-influxdb/v2.5/tags: [query]
+influxdb/v2.6/tags: [query]
 ---
 
-The [Flux REPL](/influxdb/v2.5/tools/flux-repl/) starts an interactive
+The [Flux REPL](/influxdb/v2.6/tools/flux-repl/) starts an interactive
 Read-Eval-Print Loop (REPL) where you can write and execute Flux queries.
 
 ```sh
 ./flux repl
 ```
 
-For more information, see [Use the Flux REPL](/influxdb/v2.5/tools/flux-repl/).
+For more information, see [Use the Flux REPL](/influxdb/v2.6/tools/flux-repl/).

@@ -12,4 +12,4 @@ menu:
 
 Use language-specific client libraries to integrate with the InfluxDB v2 API.
 
-See [Client libraries reference](/influxdb/v2.5/api-guide/client-libraries/) for more information.
+See [Client libraries reference](/influxdb/v2.6/api-guide/client-libraries/) for more information.

@@ -10,10 +10,10 @@ menu:
     name: Window & aggregate
     parent: Query with Flux
 weight: 204
-influxdb/v2.5/tags: [flux, aggregates]
+influxdb/v2.6/tags: [flux, aggregates]
 aliases:
-  - /influxdb/v2.5/query-data/guides/window-aggregate/
-  - /influxdb/v2.5/query-data/flux/windowing-aggregating/
+  - /influxdb/v2.6/query-data/guides/window-aggregate/
+  - /influxdb/v2.6/query-data/flux/windowing-aggregating/
 related:
   - /{{< latest "flux" >}}/stdlib/universe/aggregatewindow
   - /{{< latest "flux" >}}/stdlib/universe/window
@@ -30,7 +30,7 @@ how data is shaped in the process.
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2.5/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/v2.6/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 {{% note %}}
 The following example is an in-depth walk-through of the steps required to window and aggregate data.

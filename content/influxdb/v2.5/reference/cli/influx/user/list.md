@@ -7,7 +7,7 @@ menu:
     parent: influx user
 weight: 201
 aliases:
-  - /influxdb/v2.5/reference/cli/influx/user/find
+  - /influxdb/v2.6/reference/cli/influx/user/find
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/list/
 ---
 

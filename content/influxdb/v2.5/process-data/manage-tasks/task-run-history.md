@@ -8,9 +8,9 @@ menu:
     parent: Manage tasks
 weight: 203
 related:
-  - /influxdb/v2.5/reference/cli/influx/task/list
-  - /influxdb/v2.5/reference/cli/influx/task/run/list
-  - /influxdb/v2.5/reference/cli/influx/task/retry-failed
+  - /influxdb/v2.6/reference/cli/influx/task/list
+  - /influxdb/v2.6/reference/cli/influx/task/run/list
+  - /influxdb/v2.6/reference/cli/influx/task/retry-failed
 ---
 
 When an InfluxDB task runs, a _run_ record is created in the task's history.
@@ -59,19 +59,19 @@ influx task run list --task-id=0000000000000000
 Detailed run logs are not currently available in the `influx` CLI.
 {{% /note %}}
 
-To retry failed task runs, see how to [run tasks](/influxdb/v2.5/process-data/manage-tasks/run-task/).
+To retry failed task runs, see how to [run tasks](/influxdb/v2.6/process-data/manage-tasks/run-task/).
 
 ## View logs for a task with the InfluxDB API
 
 Use the [`/api/v2/tasks/TASK_ID/logs`
-InfluxDB API endpoint](/influxdb/v2.5/api/#operation/GetTasksIDLogs) to view the log events for a task and exclude additional task metadata.
+InfluxDB API endpoint](/influxdb/v2.6/api/#operation/GetTasksIDLogs) to view the log events for a task and exclude additional task metadata.
 
 {{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/logs" >}}
 
 ## View a task's run history with the InfluxDB API
 
 Use the [`/tasks/TASK_ID/runs`
-InfluxDB API endpoint](/influxdb/v2.5/api/#operation/GetTasksIDRuns) to view a task's run history.
+InfluxDB API endpoint](/influxdb/v2.6/api/#operation/GetTasksIDRuns) to view a task's run history.
 
 {{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/{taskID}/runs" >}}
 
@@ -79,8 +79,8 @@ InfluxDB API endpoint](/influxdb/v2.5/api/#operation/GetTasksIDRuns) to view a t
 
 To view logs associated with a run, use the
 [`/api/v2/tasks/TASK_ID/runs/RUN_ID/logs` InfluxDB API
-endpoint](/influxdb/v2.5/api/#operation/GetTasksIDRunsIDLogs).
+endpoint](/influxdb/v2.6/api/#operation/GetTasksIDRunsIDLogs).
 
 {{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs/RUN_ID/logs" >}}
 
-To retry failed task runs, see how to [run tasks](/influxdb/v2.5/process-data/manage-tasks/run-task/).
+To retry failed task runs, see how to [run tasks](/influxdb/v2.6/process-data/manage-tasks/run-task/).

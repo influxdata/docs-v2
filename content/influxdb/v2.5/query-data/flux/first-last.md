@@ -9,7 +9,7 @@ menu:
   influxdb_2_5:
     parent: Query with Flux
     name: First & last
-influxdb/v2.5/tags: [query]
+influxdb/v2.6/tags: [query]
 related:
   - /{{< latest "flux" >}}/stdlib/universe/first/
   - /{{< latest "flux" >}}/stdlib/universe/last/

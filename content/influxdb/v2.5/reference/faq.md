@@ -115,11 +115,11 @@ password. For more information, see
 
 {{% oss-only %}}
 
-Use the [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) and the
-[`influx user password` command](/influxdb/v2.5/reference/cli/influx/user/password/)
+Use the [`influx` CLI](/influxdb/v2.6/reference/cli/influx/) and the
+[`influx user password` command](/influxdb/v2.6/reference/cli/influx/user/password/)
 command to update a user's password.
 For more information, see
-[Change your password](/influxdb/v2.5/users/change-password/).
+[Change your password](/influxdb/v2.6/users/change-password/).
 
 {{% /oss-only %}}
 
@@ -182,7 +182,7 @@ To receive outage alerts and updates, subscribe to our status page.
 #### Where can I see the current status of my InfluxDB instance?
 InfluxDB {{< current-version >}} provides different ways to monitor its status:
 
-- The [`/health` API endpoint](/influxdb/v2.5/api/#tag/Health) returns a JSON
+- The [`/health` API endpoint](/influxdb/v2.6/api/#tag/Health) returns a JSON
   body with a summary of the current status of your InfluxDB instance.
 
 {{% expand-wrapper %}}
@@ -200,9 +200,9 @@ InfluxDB {{< current-version >}} provides different ways to monitor its status:
 {{% /expand %}}
 {{% /expand-wrapper %}}
 
-- The [`/metrics` API endpoint](/influxdb/v2.5/api/#tag/Metrics) provides internal
+- The [`/metrics` API endpoint](/influxdb/v2.6/api/#tag/Metrics) provides internal
   InfluxDB metrics in Prometheus exposition format. Use [Telegraf](/{{< latest "telegraf" >}}/),
-  [InfluxDB scrapers](/influxdb/v2.5/write-data/no-code/scrape-data/), or the Flux
+  [InfluxDB scrapers](/influxdb/v2.6/write-data/no-code/scrape-data/), or the Flux
   [`prometheus.scrape()` function](/flux/v0.x/stdlib/experimental/prometheus/scrape/)
   to scrape these metrics and store them in InfluxDB where you can monitor and
   alert on any anomalies.
@@ -210,7 +210,7 @@ InfluxDB {{< current-version >}} provides different ways to monitor its status:
   You can also use the [InfluxDB Open Source (OSS) Metrics template](https://github.com/influxdata/community-templates/tree/master/influxdb2_oss_metrics)
   quickly setup InfluxDB OSS monitoring.
 
-  For more information, see [Monitor InfluxDB OSS using a template](/influxdb/v2.5/monitor-alert/templates/monitor/)
+  For more information, see [Monitor InfluxDB OSS using a template](/influxdb/v2.6/monitor-alert/templates/monitor/)
 
 {{% /oss-only %}}
 
@@ -226,7 +226,7 @@ InfluxDB {{< current-version >}} supports the following token types:
 - {{% cloud-only %}}Custom tokens{{% /cloud-only %}}
 - {{% oss-only %}}Read/Write tokens{{% /oss-only %}}
 
-For more information about each token type, see [Manage API tokens](/influxdb/v2.5/security/tokens/).
+For more information about each token type, see [Manage API tokens](/influxdb/v2.6/security/tokens/).
 
 #### Can I use InfluxDB with authentication disabled?
 InfluxDB {{< current-version >}} enforces security best practices by requiring
@@ -317,7 +317,7 @@ period and the time interval of a shard group:
 | between 2 days and 6 months |                           1d |
 | greater than 6 months       |                           7d |
 
-For more information, see [InfluxDB Shards and shard groups](/influxdb/v2.5/reference/internals/shards/).
+For more information, see [InfluxDB Shards and shard groups](/influxdb/v2.6/reference/internals/shards/).
 
 {{% /oss-only %}}
 
@@ -342,7 +342,7 @@ the retention period of a bucket:
 
   {{% /oss-only %}}
 
-For more information, see [Data retention](/influxdb/v2.5/reference/internals/data-retention/).
+For more information, see [Data retention](/influxdb/v2.6/reference/internals/data-retention/).
 
 <!-- {{% cloud-only %}}
 
@@ -516,7 +516,7 @@ If you submit a new point with the same measurement, tag set, and timestamp as
 an existing point, InfluxDB unions the old field with the new field set, and
 any ties go to the new field set.
 
-For more information, see [Handle duplicate data points](/influxdb/v2.5/write-data/best-practices/duplicate-points/).
+For more information, see [Handle duplicate data points](/influxdb/v2.6/write-data/best-practices/duplicate-points/).
 
 #### What newline character does the InfluxDB write API require?
 
@@ -545,7 +545,7 @@ The more precise the timestamp, the longer it takes to write the point.
 To maximize performance, use the coarsest possible timestamp precision when
 writing data to InfluxDB. However, if too coarse, you risk writing points from
 the same series with the same timestamp, which would be treated as
-[duplicate points](/influxdb/v2.5/write-data/best-practices/duplicate-points/).
+[duplicate points](/influxdb/v2.6/write-data/best-practices/duplicate-points/).
 
 {{% oss-only %}}
 
@@ -553,14 +553,14 @@ the same series with the same timestamp, which would be treated as
 
 For sparse historical data, we recommend:
 
-- **Use a longer [shard group duration](/influxdb/v2.5/reference/internals/shards/#shard-group-duration)
+- **Use a longer [shard group duration](/influxdb/v2.6/reference/internals/shards/#shard-group-duration)
   on the bucket you're writing historical data to.**
   Historical shard group durations can and should cover several years.
   If your historical data spans many years, but your bucket's shard group duration
   is 1 week, InfluxDB will create many shards, negatively affecting overall performance.
 
 - **Temporarily lower the
-  [`storage-cache-snapshot-write-cold-duration` configuration setting](/influxdb/v2.5/reference/config-options/#storage-cache-snapshot-write-cold-duration)
+  [`storage-cache-snapshot-write-cold-duration` configuration setting](/influxdb/v2.6/reference/config-options/#storage-cache-snapshot-write-cold-duration)
   while ingesting historical data**.
   The default setting (`10m`) can cause the system cache all of your data for every shard.
   Temporarily lowering the `storage-cache-snapshot-write-cold-duration` setting
@@ -672,17 +672,17 @@ from(bucket: "example-bucket")
 {{% /oss-only %}}
 
 Using InfluxQL with InfluxDB {{< current-version >}} is made possible by the
-[1.x compatiblity API](/influxdb/v2.5/reference/api/influxdb-1x/) which replicates
+[1.x compatiblity API](/influxdb/v2.6/reference/api/influxdb-1x/) which replicates
 the `/query` endpoint from InfluxDB 1.x. This allows all InfluxDB 1.x-compatible
 clients to work with InfluxDB {{< current-version >}}. However, InfluxQL relies
 on a database and retention policy data model doesn't exist in InfluxDB
-{{< current-version >}}, but has been replaced by [buckets](influxdb/v2.5/reference/glossary/#bucket).
+{{< current-version >}}, but has been replaced by [buckets](influxdb/v2.6/reference/glossary/#bucket).
 
 InfluxDB {{< current-version >}} lets you map unique database and retention 
 policy combinations used in InfluxQL to specific buckets using DBRP mappings.
 
 For detailed instructions on using InfluxQL with InfluxDB {{< current-version >}}
-and configuring DBRP mapping, see [Query with InfluxQL](influxdb/v2.5/query-data/influxql/).
+and configuring DBRP mapping, see [Query with InfluxQL](influxdb/v2.6/query-data/influxql/).
 
 #### How do I perform mathematical operations in an InfluxQL function?
 InfluxQL does not support mathematical operations within functions.
@@ -788,7 +788,7 @@ The most common reasons why your query returns no data or partial data:
 ##### Querying the wrong retention policy
 
 InfluxDB automatically queries data in a database’s default retention policy
-(configured as part of a [DBRP mapping](/influxdb/v2.5/query-data/influxql/)).
+(configured as part of a [DBRP mapping](/influxdb/v2.6/query-data/influxql/)).
 If your data is associated another retention policy, you must specify the correct
 retention policy to get results.
 
@@ -834,11 +834,11 @@ time                leaves     leaves_1
 default time range of `1677-09-21 00:12:43.145224194` to `2262-04-11T23:47:16.854775806Z` UTC.
 For `SELECT` statements that don't specify a time range but have a
 [`GROUP BY time()` clause](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#group-by-time-intervals),
-the default time range is `1677-09-21 00:12:43.145224194` UTC to [`now()`](/influxdb/v2.5/reference/glossary/#now).
+the default time range is `1677-09-21 00:12:43.145224194` UTC to [`now()`](/influxdb/v2.6/reference/glossary/#now).
 
 To query data with timestamps that occur after `now()`, `SELECT` statements with
 a `GROUP BY time()` clause must provide an alternative **upper** bound in the
-[`WHERE` clause](/influxdb/v2.5/query_language/explore-data/#the-where-clause).
+[`WHERE` clause](/influxdb/v2.6/query_language/explore-data/#the-where-clause).
 For example:
 
 ```sql
@@ -946,7 +946,7 @@ SELECT * FROM "candied" WHERE "almonds"::tag='true'
 InfluxQL does not support querying multiple measurements
 All data must be under a single measurement to query it together.
 To perform cross-measurement queries,
-[use Flux](/influxdb/v2.5/reference/syntax/flux/flux-vs-influxql/#math-across-measurements).
+[use Flux](/influxdb/v2.6/reference/syntax/flux/flux-vs-influxql/#math-across-measurements).
 
 #### Does the order timestamps in a query matter?
 
@@ -1004,7 +1004,7 @@ No. InfluxDB {{< current-version >}} does not support deleting data by field.
 {{% cloud-only %}}
 
 Yes. InfluxDB Cloud supports deleting data by field.
-Use the `_field` label in your [delete predicate](/influxdb/v2.5/reference/syntax/delete-predicate/)
+Use the `_field` label in your [delete predicate](/influxdb/v2.6/reference/syntax/delete-predicate/)
 to identify the field to delete.
 
 ```js
@@ -1016,7 +1016,7 @@ _field == "example-field"
 #### Can I delete a measurement?
 
 Yes. InfluxDB {{< current-version >}} supports deleting data by measurement.
-Use the `_measurement` label in your [delete predicate](/influxdb/v2.5/reference/syntax/delete-predicate/)
+Use the `_measurement` label in your [delete predicate](/influxdb/v2.6/reference/syntax/delete-predicate/)
 to identify the measurement to delete.
 
 ```js
@@ -1027,7 +1027,7 @@ _measurement == "example-measurement"
 
 No. InfluxDB {{< current-version >}} does not support deleting multiple measurements
 in a single delete request.
-To delete multiple measurements, [issue a delete request](/influxdb/v2.5/write-data/delete-data/)
+To delete multiple measurements, [issue a delete request](/influxdb/v2.6/write-data/delete-data/)
 for each measurement.
 
 #### Do I need to verify that data is deleted?
@@ -1062,7 +1062,7 @@ the time the run was scheduled to execute.
 
 #### What is series cardinality?
 
-[Series cardinality](/influxdb/v2.5/reference/glossary/#series-cardinality) is
+[Series cardinality](/influxdb/v2.6/reference/glossary/#series-cardinality) is
 the total number of unique
 {{% cloud-only %}}**measurement**, **tag set**, and **field key** combinations{{% /cloud-only %}}
 {{% oss-only %}}**measurement** and **tag set** combinations{{% /oss-only %}}
@@ -1072,7 +1072,7 @@ the total number of unique
 
 {{% oss-only %}}
 
-InfluxDB maintains an in-memory index of every [series](/influxdb/v2.5/reference/glossary/#series)\.
+InfluxDB maintains an in-memory index of every [series](/influxdb/v2.6/reference/glossary/#series)\.
 As the number of unique series grows, so does the memory usage.
 High series cardinality can force the host operating system to kill the InfluxDB
 process with an out of memory (OOM) exception.
@@ -1081,7 +1081,7 @@ process with an out of memory (OOM) exception.
 
 {{% cloud-only %}}
 
-InfluxDB maintains an in-memory index of every [series](/influxdb/v2.5/reference/glcloudary/#series).
+InfluxDB maintains an in-memory index of every [series](/influxdb/v2.6/reference/glcloudary/#series).
 As the number of unique series grows, it can negatively affect query performance.
 Each InfluxDB Cloud organization has a series cardinality limit to prevent
 runaway cardinality. For information about adjusting cardinality limits, see
@@ -1092,7 +1092,7 @@ runaway cardinality. For information about adjusting cardinality limits, see
 Use [`influxdb.cardinality()`](/flux/v0.x/stdlib/influxdata/influxdb/cardinality/) in Flux
 or [`SHOW SERIES CARDINALITY`](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-series-cardinality)
 in InfluxQL to measure the series cardinality in a bucket.
-See [Resolve high series cardinality](/influxdb/v2.5/write-data/best-practices/resolve-high-cardinality/)
+See [Resolve high series cardinality](/influxdb/v2.6/write-data/best-practices/resolve-high-cardinality/)
 for information about reducing series cardinality.
 
 {{% oss-only %}}
@@ -1102,9 +1102,9 @@ for information about reducing series cardinality.
 To remove a series from an index:
 
 1.  Use the **`influx` CLI** or **InfluxDB {{< current-version >}} API** to delete points
-    associated with the series. See [Delete data](/influxdb/v2.5/write-data/delete-data/)
+    associated with the series. See [Delete data](/influxdb/v2.6/write-data/delete-data/)
     for more information.
-2.  Use the [`influxd inspect build-tsi` tool](/influxdb/v2.5/reference/cli/influxd/inspect/build-tsi/)
+2.  Use the [`influxd inspect build-tsi` tool](/influxdb/v2.6/reference/cli/influxd/inspect/build-tsi/)
     to rebuild your index.
 
 {{% /oss-only %}}

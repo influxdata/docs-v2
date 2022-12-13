@@ -8,7 +8,7 @@ menu:
     parent: Release notes
 weight: 204
 related:
-  - /influxdb/v2.5/reference/release-notes
+  - /influxdb/v2.6/reference/release-notes
 ---
 
 InfluxData provides support for the following minor, major, and maintenance releases: 

@@ -7,12 +7,12 @@ menu:
     parent: influx bucket
 weight: 201
 aliases:
-  - /influxdb/v2.5/reference/cli/influx/bucket/update/
+  - /influxdb/v2.6/reference/cli/influx/bucket/update/
 related:
-  - /influxdb/v2.5/organizations/buckets/update-bucket/
-  - /influxdb/v2.5/reference/internals/shards/  
-  - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/v2.6/organizations/buckets/update-bucket/
+  - /influxdb/v2.6/reference/internals/shards/  
+  - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 The `influx bucket update` command updates information associated with buckets in InfluxDB.
@@ -35,7 +35,7 @@ influx bucket update [flags]
 | `-i` | `--id`                   | ({{< req >}}) Bucket ID                                               | string     |                       |
 |      | `--json`                 | Output data as JSON (default `false`)                                 |            | `INFLUX_OUTPUT_JSON`  |
 | `-n` | `--name`                 | New bucket name                                                       | string     | `INFLUX_BUCKET_NAME`  |
-| `-r` | `--retention`            | New duration bucket will retain data. For detail, see [Retention periods](/influxdb/v2.5/reference/cli/influx/bucket/update/#retention-periods).                                  | duration   |                       |
+| `-r` | `--retention`            | New duration bucket will retain data. For detail, see [Retention periods](/influxdb/v2.6/reference/cli/influx/bucket/update/#retention-periods).                                  | duration   |                       |
 |      | `--shard-group-duration` | Custom shard group duration for the bucket (OSS only)                 | string     |                       |
 |      | `--skip-verify`          | Skip TLS certificate verification                                     |            | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`                | API token                                                             | string     | `INFLUX_TOKEN`        |

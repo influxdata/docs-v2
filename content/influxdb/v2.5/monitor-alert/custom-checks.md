@@ -7,12 +7,12 @@ menu:
   influxdb_2_5:
     parent: Monitor & alert
 weight: 201
-influxdb/v2.5/tags: [alerts, checks, tasks, Flux]
+influxdb/v2.6/tags: [alerts, checks, tasks, Flux]
 ---
 
-In the UI, you can create two kinds of [checks](/influxdb/v2.5/reference/glossary/#check):
-[`threshold`](/influxdb/v2.5/monitor-alert/checks/create/#threshold-check) and
-[`deadman`](/influxdb/v2.5/monitor-alert/checks/create/#deadman-check).
+In the UI, you can create two kinds of [checks](/influxdb/v2.6/reference/glossary/#check):
+[`threshold`](/influxdb/v2.6/monitor-alert/checks/create/#threshold-check) and
+[`deadman`](/influxdb/v2.6/monitor-alert/checks/create/#deadman-check).
 
 Using a Flux task, you can create a custom check that provides a couple advantages:
 
@@ -28,11 +28,11 @@ Using a Flux task, you can create a custom check that provides a couple advantag
 2. Click **{{< caps >}}{{< icon "plus" >}} Create Task{{< /caps >}}**.
 3. In the **Name** field, enter a descriptive name,
    and then enter how often to run the task in the **Every** field (for example, `10m`).
-   For more detail, such as using cron syntax or including an offset, see [Task configuration options](/influxdb/v2.5/process-data/task-options/).
+   For more detail, such as using cron syntax or including an offset, see [Task configuration options](/influxdb/v2.6/process-data/task-options/).
 4. Enter the Flux script for your custom check, including the [`monitor.check`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/monitor/check/) function.
 
 {{% note %}}
-Use the [`/api/v2/checks/{checkID}/query` API endpoint](/influxdb/v2.5/api/#operation/DeleteDashboardsIDOwnersID)
+Use the [`/api/v2/checks/{checkID}/query` API endpoint](/influxdb/v2.6/api/#operation/DeleteDashboardsIDOwnersID)
 to see the Flux code for a check built in the UI.
 This can be useful for constructing custom checks.
 {{% /note %}}
@@ -90,7 +90,7 @@ task_data
 {{% note %}}
 Creating a custom check does not send a notification email.
 For information on how to create notification emails, see
-[Create notification endpoints](/influxdb/v2.5/monitor-alert/notification-endpoints/create),
-[Create notification rules](/influxdb/v2.5/monitor-alert/notification-rules/create),
-and [Send alert email](/influxdb/v2.5/monitor-alert/send-email/)
+[Create notification endpoints](/influxdb/v2.6/monitor-alert/notification-endpoints/create),
+[Create notification rules](/influxdb/v2.6/monitor-alert/notification-rules/create),
+and [Send alert email](/influxdb/v2.6/monitor-alert/send-email/)
 {{% /note %}}

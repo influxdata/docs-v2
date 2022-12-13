@@ -5,7 +5,7 @@ description: >
   InfluxData provides many sample time series datasets to use with InfluxDB
   and InfluxDB Cloud.
 aliases:
-  - /influxdb/v2.5/write-data/sample-data/
+  - /influxdb/v2.6/write-data/sample-data/
 menu: influxdb_2_5_ref
 weight: 7
 ---
@@ -29,7 +29,7 @@ to view, download, and output sample datasets.
 
 Live sample datasets are continually updated with new data.
 These sets can be loaded once and treated as a "static" dataset, or you can create
-an [InfluxDB task](/influxdb/v2.5/process-data/get-started/) to periodically
+an [InfluxDB task](/influxdb/v2.6/process-data/get-started/) to periodically
 collect and write new data.
 
 - [Air sensor sample data](#air-sensor-sample-data)
@@ -49,7 +49,7 @@ Air sensor sample data represents an "Internet of Things" (IoT) use case by simu
 temperature, humidity, and carbon monoxide levels for multiple rooms in a building.
 
 To continually download and write updated air sensor sample data to a bucket,
-[create an InfluxDB task](/influxdb/v2.5/process-data/manage-tasks/create-task/)
+[create an InfluxDB task](/influxdb/v2.6/process-data/manage-tasks/create-task/)
 with the following Flux query.
 _Replace `example-bucket` with your target bucket_.
 
@@ -71,8 +71,8 @@ sample.data(set: "airSensor")
 The air sensor sample dataset is paired with a relational SQL dataset with meta
 information about sensors in each room.
 These two sample datasets are used to demonstrate
-[how to join time series data and relational data with Flux](/influxdb/v2.5/query-data/flux/sql/#join-sql-data-with-data-in-influxdb)
-in the [Query SQL data sources](/influxdb/v2.5/query-data/flux/sql/) guide.
+[how to join time series data and relational data with Flux](/influxdb/v2.6/query-data/flux/sql/#join-sql-data-with-data-in-influxdb)
+in the [Query SQL data sources](/influxdb/v2.6/query-data/flux/sql/) guide.
 
 <a class="btn download" href="https://influx-testdata.s3.amazonaws.com/sample-sensor-info.csv" download>Download SQL air sensor data</a>
 
@@ -89,7 +89,7 @@ The Bitcoin sample dataset provides Bitcoin prices from the last 30
 days—[Powered by CoinDesk](https://www.coindesk.com/price/bitcoin).
 
 To continually download and write updated Bitcoin sample data to a bucket,
-[create an InfluxDB task](/influxdb/v2.5/process-data/manage-tasks/create-task/)
+[create an InfluxDB task](/influxdb/v2.6/process-data/manage-tasks/create-task/)
 with the following Flux query.
 _Replace `example-bucket` with your target bucket_.
 
@@ -117,7 +117,7 @@ The **National Oceanic and Atmospheric Administration (NOAA) National Data Buoy 
 dataset provides the latest observations from the NOAA NDBC network of buoys throughout the world.
 
 To continually download and write updated NOAA NDBC sample data to a bucket,
-[create an InfluxDB task](/influxdb/v2.5/process-data/manage-tasks/create-task/)
+[create an InfluxDB task](/influxdb/v2.6/process-data/manage-tasks/create-task/)
 with the following Flux query.
 _Replace `example-bucket` with your target bucket_.
 
@@ -145,7 +145,7 @@ The United States Geological Survey (USGS) earthquake dataset contains observati
 collected from USGS seismic sensors around the world over the last week.
 
 To continually download and write updated USGS earthquake sample data to a bucket,
-[create an InfluxDB task](/influxdb/v2.5/process-data/manage-tasks/create-task/)
+[create an InfluxDB task](/influxdb/v2.6/process-data/manage-tasks/create-task/)
 with the following Flux query.
 _Replace `example-bucket` with your target bucket_.
 
@@ -218,7 +218,7 @@ sample.data(set: "birdMigration")
     |> to("example-bucket")
 ```
 
-The bird migration sample dataset is used in the [Work with geo-temporal data](/influxdb/v2.5/query-data/flux/geo/)
+The bird migration sample dataset is used in the [Work with geo-temporal data](/influxdb/v2.6/query-data/flux/geo/)
 guide to demonstrate how to query and analyze geo-temporal data.
 
 ---
@@ -245,7 +245,7 @@ sample.data(set: "machineProduction")
 ```
 
 The machine production data is used in the
-[IoT sensor common query](/influxdb/v2.5/query-data/common-queries/iot-common-queries/) guide.
+[IoT sensor common query](/influxdb/v2.6/query-data/common-queries/iot-common-queries/) guide.
 
 ---
 
@@ -275,5 +275,5 @@ sample.data(set: "noaaWater")
 ```
 
 The NOAA water sample dataset is used to demonstrate Flux queries in the
-[Common queries](/influxdb/v2.5/query-data/common-queries/) and
-[Common tasks](/influxdb/v2.5/process-data/common-tasks/) guides.
+[Common queries](/influxdb/v2.6/query-data/common-queries/) and
+[Common tasks](/influxdb/v2.6/process-data/common-tasks/) guides.

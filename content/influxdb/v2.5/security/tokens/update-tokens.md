@@ -3,7 +3,7 @@ title: Update a token
 seotitle: Update API tokens in InfluxDB
 description: Update API tokens' descriptions in InfluxDB using the InfluxDB UI.
 aliases:
-  - /influxdb/v2.5/users/tokens/update-tokens
+  - /influxdb/v2.6/users/tokens/update-tokens
 menu:
   influxdb_2_5:
     name: Update a token
@@ -55,7 +55,7 @@ using the InfluxDB user interface (UI).
 
 ## Enable a token using the influx CLI
 
-Use the [`influx auth active` command](/influxdb/v2.5/reference/cli/influx/auth/active)
+Use the [`influx auth active` command](/influxdb/v2.6/reference/cli/influx/auth/active)
 to activate a token.
 
 _This command requires an authorization ID, which is available in the output of `influx auth find`._
@@ -67,7 +67,7 @@ influx auth active -i <auth-id>
 # Example
 influx auth active -i 0804f74142bbf000
 ```
-To get the current status of a token, use the JSON output of the [`influx auth list` command](/influxdb/v2.5/reference/cli/influx/auth/list).
+To get the current status of a token, use the JSON output of the [`influx auth list` command](/influxdb/v2.6/reference/cli/influx/auth/list).
 
 ```sh
 influx auth find --json
@@ -75,7 +75,7 @@ influx auth find --json
 
 ### Disable a token using the influx CLI
 
-Use the [`influx auth inactive` command](/influxdb/v2.5/reference/cli/influx/auth/active)
+Use the [`influx auth inactive` command](/influxdb/v2.6/reference/cli/influx/auth/active)
 to deactivate a token.
 
 _This command requires an authorization ID, which is available in the output of `influx auth find`._
@@ -88,7 +88,7 @@ influx auth inactive -i <auth-id>
 influx auth inactive -i 0804f74142bbf000
 ```
 
-To get the current status of a token, use the JSON output of the [`influx auth list` command](/influxdb/v2.5/reference/cli/influx/auth/list).
+To get the current status of a token, use the JSON output of the [`influx auth list` command](/influxdb/v2.6/reference/cli/influx/auth/list).
 
 ```sh
 influx auth find --json
@@ -98,13 +98,13 @@ influx auth find --json
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to update the description and status of a token.
 
-[{{< api-endpoint method="PATCH" endpoint="http://localhost:8086/api/v2/authorizations/AUTH_ID" >}}](/influxdb/v2.5/api/#operation/PatchAuthorizationsID)
+[{{< api-endpoint method="PATCH" endpoint="http://localhost:8086/api/v2/authorizations/AUTH_ID" >}}](/influxdb/v2.6/api/#operation/PatchAuthorizationsID)
 
 Include the following in your request:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| API token with the [`write: authorizations`](/influxdb/v2.5/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header. |
+| API token with the [`write: authorizations`](/influxdb/v2.6/api/#operation/PostAuthorizations) permission  | Use the `Authorization: Token YOUR_API_TOKEN` header. |
 | Authorization ID     | URL path parameter.                                      |
 | Description and/or Status | Pass as `description`, `status` in the request body.    |
 

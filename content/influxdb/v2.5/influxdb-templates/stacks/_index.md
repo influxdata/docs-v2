@@ -7,10 +7,10 @@ menu:
     parent: InfluxDB templates
 weight: 105
 related:
-  - /influxdb/v2.5/reference/cli/influx/pkg/stack/
+  - /influxdb/v2.6/reference/cli/influx/pkg/stack/
 ---
 
-Use InfluxDB stacks to manage [InfluxDB templates](/influxdb/v2.5/influxdb-templates).
+Use InfluxDB stacks to manage [InfluxDB templates](/influxdb/v2.6/influxdb-templates).
 When you apply a template, InfluxDB associates resources in the template with a stack. Use the stack to add, update, or remove InfluxDB templates over time.
 
   {{< children type="anchored-list" >}}

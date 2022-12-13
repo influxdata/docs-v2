@@ -7,7 +7,7 @@ menu:
     parent: influx org
 weight: 201
 aliases:
-  - /influxdb/v2.5/reference/influx/org/find
+  - /influxdb/v2.6/reference/influx/org/find
 ---
 
 The `influx org list` lists and searches for organizations in InfluxDB.

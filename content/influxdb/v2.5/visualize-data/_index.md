@@ -3,7 +3,7 @@ title: Visualize data with the InfluxDB UI
 description: >
   InfluxDB offers a complete dashboard solution for visualizing your time series data.
   Create custom dashboards with flexible queries and visualization types.
-influxdb/v2.5/tags: [visualize]
+influxdb/v2.6/tags: [visualize]
 menu:
   influxdb_2_5:
     name: Visualize data
@@ -15,7 +15,7 @@ The following articles outline ways to customize and manage dashboards.
 
 {{% note %}}
 The InfluxDB UI is packaged with InfluxDB and runs as part of the InfluxDB server.
-To access the UI, start the [`influxd` service](/influxdb/v2.5/reference/cli/influxd/)
+To access the UI, start the [`influxd` service](/influxdb/v2.6/reference/cli/influxd/)
 and visit <http://localhost:8086> in your web browser.
 {{% /note %}}
 

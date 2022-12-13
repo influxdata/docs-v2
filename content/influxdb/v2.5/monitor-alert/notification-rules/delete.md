@@ -7,8 +7,8 @@ menu:
   influxdb_2_5:
     parent: Manage notification rules
 related:
-  - /influxdb/v2.5/monitor-alert/checks/
-  - /influxdb/v2.5/monitor-alert/notification-endpoints/
+  - /influxdb/v2.6/monitor-alert/checks/
+  - /influxdb/v2.6/monitor-alert/notification-endpoints/
 ---
 
 If you no longer need to receive an alert, delete the associated notification rule.

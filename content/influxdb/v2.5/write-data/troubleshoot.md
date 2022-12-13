@@ -8,11 +8,11 @@ menu:
   influxdb_2_5:
     name: Troubleshoot issues
     parent: Write data
-influxdb/v2.5/tags: [write, line protocol, errors]
+influxdb/v2.6/tags: [write, line protocol, errors]
 related:
-  - /influxdb/v2.5/api/#tag/Write, InfluxDB API /write endpoint
-  - /influxdb/v2.5/reference/internals
-  - /influxdb/v2.5/reference/cli/influx/write
+  - /influxdb/v2.6/api/#tag/Write, InfluxDB API /write endpoint
+  - /influxdb/v2.6/reference/internals
+  - /influxdb/v2.6/reference/cli/influx/write
 ---
 Learn how to avoid unexpected results and recover from errors when writing to InfluxDB.
 
@@ -75,12 +75,12 @@ Write requests return the following status codes:
 {{% oss-only %}}
 
 - `204` **Success**: All request data was written to the bucket.
-- `400` **Bad request**: The [line protocol](/influxdb/v2.5/reference/syntax/line-protocol/) data in the request was malformed.
+- `400` **Bad request**: The [line protocol](/influxdb/v2.6/reference/syntax/line-protocol/) data in the request was malformed.
         The response body contains the first malformed line in the data. All request data was rejected and not written.
 - `401` **Unauthorized**: May indicate one of the following:
-  - [`Authorization: Token` header](/influxdb/v2.5/api-guide/api_intro/#authentication) is missing or malformed.
-  - [API token](/influxdb/v2.5/api-guide/api_intro/#authentication) value is missing from the header.
-  - API token does not have sufficient permissions to write to the organization and the bucket. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2.5/security/tokens/).
+  - [`Authorization: Token` header](/influxdb/v2.6/api-guide/api_intro/#authentication) is missing or malformed.
+  - [API token](/influxdb/v2.6/api-guide/api_intro/#authentication) value is missing from the header.
+  - API token does not have sufficient permissions to write to the organization and the bucket. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2.6/security/tokens/).
 - `404` **Not found**: A requested resource (e.g. an organization or bucket) was not found. The response body contains the requested resource type, e.g. "organization", and resource name.
 - `413` **Request entity too large**: All request data was rejected and not written. InfluxDB OSS only returns this error if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
 - `500` **Internal server error**: Default HTTP status for an error.
@@ -110,9 +110,9 @@ If you notice data is missing in your bucket, do the following:
 
 - Check the `message` property in the response body for details about the error.
 - If the `message` describes a field error, [troubleshoot rejected points](#troubleshoot-rejected-points).
-- Verify all lines contain valid syntax ([line protocol](/influxdb/v2.5/reference/syntax/line-protocol/) or [CSV](/influxdb/v2.5/reference/syntax/annotated-csv/)).
-- Verify the timestamps match the [precision parameter](/influxdb/v2.5/write-data/#timestamp-precision).
-- Minimize payload size and network errors by [optimizing writes](/influxdb/v2.5/write-data/best-practices/optimize-writes/).
+- Verify all lines contain valid syntax ([line protocol](/influxdb/v2.6/reference/syntax/line-protocol/) or [CSV](/influxdb/v2.6/reference/syntax/annotated-csv/)).
+- Verify the timestamps match the [precision parameter](/influxdb/v2.6/write-data/#timestamp-precision).
+- Minimize payload size and network errors by [optimizing writes](/influxdb/v2.6/write-data/best-practices/optimize-writes/).
 
 {{% /oss-only %}}
 
@@ -136,7 +136,7 @@ InfluxDB rejects points for the following reasons:
 - The **batch** contains another point with the same series, but one of the fields has a different value type.
 - The **bucket** contains another point with the same series, but one of the fields has a different value type.
 
-Check for [field type](/influxdb/v2.5/reference/key-concepts/data-elements/#field-value) differences between the missing data point and other points that have the same [series](/influxdb/v2.5/reference/key-concepts/data-elements/#series)--for example, did you attempt to write `string` data to an `int` field?
+Check for [field type](/influxdb/v2.6/reference/key-concepts/data-elements/#field-value) differences between the missing data point and other points that have the same [series](/influxdb/v2.6/reference/key-concepts/data-elements/#series)--for example, did you attempt to write `string` data to an `int` field?
 
 {{% /oss-only %}}
 

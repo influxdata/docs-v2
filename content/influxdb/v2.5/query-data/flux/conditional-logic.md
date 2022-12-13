@@ -5,16 +5,16 @@ list_title: Conditional logic
 description: >
   This guide describes how to use Flux conditional expressions, such as `if`,
   `else`, and `then`, to query and transform data. **Flux evaluates statements from left to right and stops evaluating once a condition matches.**
-influxdb/v2.5/tags: [conditionals, flux]
+influxdb/v2.6/tags: [conditionals, flux]
 menu:
   influxdb_2_5:
     name: Conditional logic
     parent: Query with Flux
 weight: 220
 aliases:
-  - /influxdb/v2.5/query-data/guides/conditional-logic/
+  - /influxdb/v2.6/query-data/guides/conditional-logic/
 related:
-  - /influxdb/v2.5/query-data/flux/query-fields/
+  - /influxdb/v2.6/query-data/flux/query-fields/
   - /{{< latest "flux" >}}/stdlib/universe/filter/
   - /{{< latest "flux" >}}/stdlib/universe/map/
   - /{{< latest "flux" >}}/stdlib/universe/reduce/
@@ -29,7 +29,7 @@ Flux provides `if`, `then`, and `else` conditional expressions that allow for po
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2.5/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/v2.6/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ##### Conditional expression syntax
 ```js
@@ -84,7 +84,7 @@ overdue = if dueDate < now() then true else false
 ```
 
 ### Create conditional filters
-The following example uses an example `metric` [dashboard variable](/influxdb/v2.5/visualize-data/variables/)
+The following example uses an example `metric` [dashboard variable](/influxdb/v2.6/visualize-data/variables/)
 to change how the query filters data.
 `metric` has three possible values:
 

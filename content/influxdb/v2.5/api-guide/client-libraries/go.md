@@ -8,17 +8,17 @@ menu:
   influxdb_2_5:
     name: Go
     parent: Client libraries
-influxdb/v2.5/tags: [client libraries, Go]
+influxdb/v2.6/tags: [client libraries, Go]
 weight: 201
 aliases:
-  - /influxdb/v2.5/reference/api/client-libraries/go/
-  - /influxdb/v2.5/tools/client-libraries/go/
+  - /influxdb/v2.6/reference/api/client-libraries/go/
+  - /influxdb/v2.6/tools/client-libraries/go/
 ---
 
 Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to integrate InfluxDB into Go scripts and applications.
 
 This guide presumes some familiarity with Go and InfluxDB.
-If just getting started, see [Get started with InfluxDB](/influxdb/v2.5/get-started/).
+If just getting started, see [Get started with InfluxDB](/influxdb/v2.6/get-started/).
 
 ## Before you begin
 
@@ -30,7 +30,7 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.5/get-star
     go get github.com/influxdata/influxdb-client-go/v2
     ```
 3. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2.5/reference/urls/).
+   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/v2.6/reference/urls/).
 
 ## Boilerplate for the InfluxDB Go Client Library  
 
@@ -50,7 +50,7 @@ Use the Go library to write and query data from InfluxDB.
    )
    ```
 
-2. Define variables for your InfluxDB [bucket](/influxdb/v2.5/organizations/buckets/), [organization](/influxdb/v2.5/organizations/), and [token](/influxdb/v2.5/security/tokens/).
+2. Define variables for your InfluxDB [bucket](/influxdb/v2.6/organizations/buckets/), [organization](/influxdb/v2.6/organizations/), and [token](/influxdb/v2.6/security/tokens/).
 
    ```go
    bucket := "example-bucket"
@@ -82,7 +82,7 @@ Use the Go library to write and query data from InfluxDB.
 
 Use the Go library to write data to InfluxDB.
 
-1. Create a [point](/influxdb/v2.5/reference/glossary/#point) and write it to InfluxDB using the `WritePoint` method of the API writer struct.
+1. Create a [point](/influxdb/v2.6/reference/glossary/#point) and write it to InfluxDB using the `WritePoint` method of the API writer struct.
 
 2. Close the client to flush all pending writes and finish.
 

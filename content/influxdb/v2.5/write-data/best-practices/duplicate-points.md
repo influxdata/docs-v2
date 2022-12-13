@@ -10,11 +10,11 @@ menu:
   influxdb_2_5:
     name: Handle duplicate points
     parent: write-best-practices
-influxdb/v2.5/tags: [best practices, write]
+influxdb/v2.6/tags: [best practices, write]
 ---
 
 InfluxDB identifies unique data points by their measurement, tag set, and timestamp
-(each a part of [Line protocol](/influxdb/v2.5/reference/syntax/line-protocol) used to write data to InfluxDB).
+(each a part of [Line protocol](/influxdb/v2.6/reference/syntax/line-protocol) used to write data to InfluxDB).
 
 ```txt
 web,host=host2,region=us_west firstByte=15.0 1559260800000000000

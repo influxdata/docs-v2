@@ -10,7 +10,7 @@ menu:
     name: Scatter
     parent: Visualization types
 related:
-  - /influxdb/v2.5/visualize-data/visualization-types/heatmap
+  - /influxdb/v2.6/visualize-data/visualization-types/heatmap
 ---
 
 The **Scatter** view uses a scatter plot to display time series data.
@@ -111,7 +111,7 @@ In the Scatter visualization controls, points are differentiated based on their 
 ## Important notes
 
 ### Differences between a scatter plot and a heatmap
-Scatter plots and [Heatmaps](/influxdb/v2.5/visualize-data/visualization-types/heatmap/)
+Scatter plots and [Heatmaps](/influxdb/v2.6/visualize-data/visualization-types/heatmap/)
 both visualize the distribution of data points on X and Y axes.
 However, in certain cases, scatterplots can "hide" points if they share the same X and Y coordinates.
 

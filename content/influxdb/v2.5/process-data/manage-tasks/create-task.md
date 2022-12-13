@@ -9,12 +9,12 @@ menu:
     parent: Manage tasks
 weight: 201
 related:
-  - /influxdb/v2.5/reference/cli/influx/task/create
+  - /influxdb/v2.6/reference/cli/influx/task/create
 ---
 
 Create tasks with the InfluxDB user interface (UI), `influx` command line interface (CLI), or `/api/v2` API.
 
-_Before creating a task, review the [basics for writing a task](/influxdb/v2.5/process-data/get-started)._
+_Before creating a task, review the [basics for writing a task](/influxdb/v2.6/process-data/get-started)._
 
 - [InfluxDB UI](#create-a-task-in-the-influxdb-ui)
 - [`influx` CLI](#create-a-task-using-the-influx-cli)
@@ -38,7 +38,7 @@ The InfluxDB UI provides multiple ways to create a task:
 
 2. Build a query and click **Save As** in the upper right.
 3. Select the **{{< caps >}}Task{{< /caps >}}** heading.
-4. Specify the task options. See [Task options](/influxdb/v2.5/process-data/task-options)
+4. Specify the task options. See [Task options](/influxdb/v2.6/process-data/task-options)
    for detailed information about each option.
 5. Click **{{< caps >}}Save as Task{{< /caps >}}**.
 
@@ -50,7 +50,7 @@ The InfluxDB UI provides multiple ways to create a task:
 
 2. Click **{{< caps >}}{{< icon "plus" >}} Create Task{{< /caps >}}** in the upper right.
 3. In the left panel, specify the task options.
-   See [Task options](/influxdb/v2.5/process-data/task-options) for detailed information about each option.
+   See [Task options](/influxdb/v2.6/process-data/task-options) for detailed information about each option.
 4. In the right panel, enter your task script.
 
     {{% note %}}
@@ -58,7 +58,7 @@ The InfluxDB UI provides multiple ways to create a task:
 ##### Leave out the option tasks assignment
 
 When creating a _new_ task in the InfluxDB Task UI, leave the code editor empty.
-When you save the task, the Task UI uses the [task options](/influxdb/v2.5/process-data/task-options/) you specify in the **Task options** form to populate `option task = {task_options}` for you.
+When you save the task, the Task UI uses the [task options](/influxdb/v2.6/process-data/task-options/) you specify in the **Task options** form to populate `option task = {task_options}` for you.
 
 When you edit the saved task, you'll see the injected `option task = {task_options}`.
     {{% /note %}}
@@ -73,7 +73,7 @@ When you edit the saved task, you'll see the injected `option task = {task_optio
 
 2. Click **{{< caps >}}{{< icon "plus" >}} Create Task{{< /caps >}}** in the upper right.
 3. In the left panel, specify the task options.
-   See [Task options](/influxdb/v2.5/process-data/task-options) for detailed information about each option.
+   See [Task options](/influxdb/v2.6/process-data/task-options) for detailed information about each option.
 4. Paste a raw Flux task in the code editor to the right of the task options fields.
 5. Click **{{< caps >}}Save{{< /caps >}}** in the upper right.
 
@@ -130,7 +130,7 @@ option task = {
 
 {{% oss-only %}}
 
-Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/v2.5/api/#operation/PostTasks) to create a task.
+Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/v2.6/api/#operation/PostTasks) to create a task.
 
 {{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" >}}
 
@@ -145,7 +145,7 @@ Provide the following in your API request:
 JSON object with the following fields:
 
 - **flux**: raw Flux task string that contains a [`task` option](/flux/v0.x/spec/options/) and a query.
-- **orgID**: your [InfluxDB organization ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id)
+- **orgID**: your [InfluxDB organization ID](/influxdb/v2.6/organizations/view-orgs/#view-your-organization-id)
 - **status**: task status ("active" or "inactive")
 - **description**: task description
 

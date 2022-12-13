@@ -7,12 +7,12 @@ menu:
     name: influx v1 shell
     parent: influx v1
 weight: 101
-influxdb/v2.5/tags: [InfluxQL]
+influxdb/v2.6/tags: [InfluxQL]
 related:
-  - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
-  - /influxdb/v2.5/query-data/influxql/
-  - /influxdb/v2.5/tools/influxql-shell/
+  - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/v2.6/query-data/influxql/
+  - /influxdb/v2.6/tools/influxql-shell/
 metadata: [influx CLI 2.4.0+, InfluxDB 2.0.1+]
 ---
 
@@ -23,10 +23,10 @@ The `influx v1 shell` subcommand starts an InfluxQL shell (REPL).
 
 InfluxQL queries require a database and retention policy to query data.
 In InfluxDB {{% current-version %}}, databases and retention policies have been
-combined and replaced with [buckets](/influxdb/v2.5/reference/glossary/#bucket).
+combined and replaced with [buckets](/influxdb/v2.6/reference/glossary/#bucket).
 To use the InfluxQL to query an InfluxDB {{% current-version %}} bucket, first
 map your DBRP combinations to an appropriate bucket. For more information, see
-[Query data with InfluxQL](/influxdb/v2.5/query-data/influxql/).
+[Query data with InfluxQL](/influxdb/v2.6/query-data/influxql/).
 
 {{% /note %}}
 

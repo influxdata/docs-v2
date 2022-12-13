@@ -9,7 +9,7 @@ menu:
   influxdb_2_5:
     parent: Query with Flux
     name: Fill
-influxdb/v2.5/tags: [query, fill]
+influxdb/v2.6/tags: [query, fill]
 related:
   - /{{< latest "flux" >}}/stdlib/universe/fill/
 list_query_example: fill_null

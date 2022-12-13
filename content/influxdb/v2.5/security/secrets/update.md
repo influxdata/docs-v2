@@ -1,13 +1,13 @@
 ---
 title: Update secrets
 description: Update secrets using the `influx` CLI or the InfluxDB API.
-influxdb/v2.5/tags: [secrets, security]
+influxdb/v2.6/tags: [secrets, security]
 menu:
   influxdb_2_5:
     parent: Manage secrets
 weight: 303
 aliases:
-  - /influxdb/v2.5/security/secrets/manage-secrets/update/
+  - /influxdb/v2.6/security/secrets/manage-secrets/update/
 ---
 
 Update secrets using the `influx` command line interface (CLI) or the InfluxDB API.
@@ -16,7 +16,7 @@ Update secrets using the `influx` command line interface (CLI) or the InfluxDB A
 - [Update a secret using the InfluxDB API](#update-a-secret-using-the-influxdb-api)
 
 ## Update a secret using the influx CLI
-Use the [`influx secret update` command](/influxdb/v2.5/reference/cli/influx/secret/update/)
+Use the [`influx secret update` command](/influxdb/v2.6/reference/cli/influx/secret/update/)
 to update a secret in your organization.
 Provide the secret key to update with the `-k` or `--key` flag.
 You may also provide the secret value with the `-v` or `--value` flag.
@@ -42,8 +42,8 @@ to update a secret in your organization.
 
 **Include the following:**
 
-- Your [organization ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id) in the request URL
-- Your [API token](/influxdb/v2.5/security/tokens/view-tokens/) in the `Authorization` header
+- Your [organization ID](/influxdb/v2.6/organizations/view-orgs/#view-your-organization-id) in the request URL
+- Your [API token](/influxdb/v2.6/security/tokens/view-tokens/) in the `Authorization` header
 - The updated secret key-value pair in the request body
 
 <!-- -->

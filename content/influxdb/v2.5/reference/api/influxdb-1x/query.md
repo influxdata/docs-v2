@@ -8,13 +8,13 @@ menu:
     name: /query
     parent: 1.x compatibility
 weight: 301
-influxdb/v2.5/tags: [influxql, query]
+influxdb/v2.6/tags: [influxql, query]
 list_code_example: |
   <pre>
   <span class="api get">GET</span> http://localhost:8086/query
   </pre>
 related:
-  - /influxdb/v2.5/query-data/influxql
+  - /influxdb/v2.6/query-data/influxql
 ---
 
 The `/query` 1.x compatibility endpoint queries InfluxDB {{< current-version >}} using **InfluxQL**.
@@ -26,13 +26,13 @@ Use the `GET` request method to query data from the `/query` endpoint.
 
 The `/query` compatibility endpoint uses the **database** and **retention policy**
 specified in the query request to map the request to an InfluxDB bucket.
-For more information, see [Database and retention policy mapping](/influxdb/v2.5/reference/api/influxdb-1x/dbrp).
+For more information, see [Database and retention policy mapping](/influxdb/v2.6/reference/api/influxdb-1x/dbrp).
 
 {{% cloud-only %}}
 
 {{% note %}}
 If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
-you **must** [manually create a database and retention policy mapping](/influxdb/v2.5/query-data/influxql/dbrp/#create-dbrp-mappings)
+you **must** [manually create a database and retention policy mapping](/influxdb/v2.6/query-data/influxql/dbrp/#create-dbrp-mappings)
 to query that bucket with the `/query` compatibility API.
 {{% /note %}}
 
@@ -45,36 +45,36 @@ Use one of the following authentication methods:
 * **basic authentication with username and password**
 * **query string authentication with username and password**
 
-_For more information, see [Authentication](/influxdb/v2.5/reference/api/influxdb-1x/#authentication)._
+_For more information, see [Authentication](/influxdb/v2.6/reference/api/influxdb-1x/#authentication)._
 
 ## Query string parameters
 
 ### u
 (Optional) The 1.x **username** to authenticate the request.
-_See [query string authentication](/influxdb/v2.5/reference/api/influxdb-1x/#query-string-authentication)._
+_See [query string authentication](/influxdb/v2.6/reference/api/influxdb-1x/#query-string-authentication)._
 
 ### p
 (Optional) The 1.x **password** to authenticate the request.
-_See [query string authentication](/influxdb/v2.5/reference/api/influxdb-1x/#query-string-authentication)._
+_See [query string authentication](/influxdb/v2.6/reference/api/influxdb-1x/#query-string-authentication)._
 
 ### db
 ({{< req >}}) The **database** to query data from.
-This is mapped to an InfluxDB [bucket](/influxdb/v2.5/reference/glossary/#bucket).
-_See [Database and retention policy mapping](/influxdb/v2.5/reference/api/influxdb-1x/dbrp/)._
+This is mapped to an InfluxDB [bucket](/influxdb/v2.6/reference/glossary/#bucket).
+_See [Database and retention policy mapping](/influxdb/v2.6/reference/api/influxdb-1x/dbrp/)._
 
 ### rp
 The **retention policy** to query data from.
-This is mapped to an InfluxDB [bucket](/influxdb/v2.5/reference/glossary/#bucket).
-_See [Database and retention policy mapping](/influxdb/v2.5/reference/api/influxdb-1x/dbrp/)._
+This is mapped to an InfluxDB [bucket](/influxdb/v2.6/reference/glossary/#bucket).
+_See [Database and retention policy mapping](/influxdb/v2.6/reference/api/influxdb-1x/dbrp/)._
 
 ### q
 ({{< req >}}) The **InfluxQL** query to execute.
 To execute multiple queries, delimit queries with a semicolon (`;`).
 
 ### epoch
-Return results with [Unix timestamps](/influxdb/v2.5/reference/glossary/#unix-timestamp)
+Return results with [Unix timestamps](/influxdb/v2.6/reference/glossary/#unix-timestamp)
 (also known as epoch timestamps) in the specified precision instead of
-[RFC3339 timestamps](/influxdb/v2.5/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
+[RFC3339 timestamps](/influxdb/v2.6/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
 The following precisions are available:
 
 - `ns` - nanoseconds

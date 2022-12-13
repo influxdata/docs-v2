@@ -8,13 +8,13 @@ menu:
 weight: 101
 ---
 
-## v2.5.1 [2022-11-9]
+## v2.6.1 [2022-11-9]
 
 ### Bug fixes
 
 - Fix permissions issue in Debian and Red Hat package managers.
 
-## v2.5 [2022-11-01]
+## v2.6 [2022-11-01]
 
 ### Features
 
@@ -44,8 +44,8 @@ weight: 101
 
 ### Features
 
-- Support bucket names in the `replications` API and allow [InfluxDB 1.x DBRP](/influxdb/v2.5/query-data/influxql/dbrp) names as bucket names.
-- Add the [InfluxQL shell (REPL)](/influxdb/v2.5/reference/cli/influx/v1/shell/).
+- Support bucket names in the `replications` API and allow [InfluxDB 1.x DBRP](/influxdb/v2.6/query-data/influxql/dbrp) names as bucket names.
+- Add the [InfluxQL shell (REPL)](/influxdb/v2.6/reference/cli/influx/v1/shell/).
 - Change to operator model so that `admin` user has instance-level permissions without `operator` token.
 
 #### Flux advancement highlights

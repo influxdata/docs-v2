@@ -6,7 +6,7 @@ menu:
     name: influx stacks update
     parent: influx stacks
 weight: 201
-influxdb/v2.5/tags: [templates]
+influxdb/v2.6/tags: [templates]
 updated_in: CLI v2.0.4
 ---
 

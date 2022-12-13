@@ -18,7 +18,7 @@ Use the following data management commands to write and delete data with InfluxQ
 
 ## Write data with INSERT
 
-The `INSERT` statement writes [line protocol](/influxdb/v2.5/reference/syntax/line-protocol/)
+The `INSERT` statement writes [line protocol](/influxdb/v2.6/reference/syntax/line-protocol/)
 to a database and retention policy.
 
 ### Syntax
@@ -28,9 +28,9 @@ INSERT [INTO <database>[.<retention-policy>]] <line-protocol>
 
 - The `INTO` clause is optional.
   If the command does not include `INTO`, you must specify the
-  database with `USE <database_name>` when using the [InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/)
+  database with `USE <database_name>` when using the [InfluxQL shell](/influxdb/v2.6/tools/influxql-shell/)
   or with the `db` query string parameter in the
-  [InfluxDB 1.x compatibility API](/influxdb/v2.5/reference/api/influxdb-1x/) request.
+  [InfluxDB 1.x compatibility API](/influxdb/v2.6/reference/api/influxdb-1x/) request.
 
 ### Examples
 
@@ -52,7 +52,7 @@ INSERT INTO mydb example-m,tag1=value1 field1=1i 1640995200000000000
 
 #### Insert data into the currently used database
 
-The following example uses the [InfluxQL shell](/influxdb/v2.5/tools/influxql-shell).
+The following example uses the [InfluxQL shell](/influxdb/v2.6/tools/influxql-shell).
 
 ```sql
 > USE mydb
@@ -61,7 +61,7 @@ The following example uses the [InfluxQL shell](/influxdb/v2.5/tools/influxql-sh
 
 ## Delete series with DELETE
 
-The `DELETE` statement deletes all points from a [series](/influxdb/v2.5/reference/glossary/#series) in a database.
+The `DELETE` statement deletes all points from a [series](/influxdb/v2.6/reference/glossary/#series) in a database.
 
 ### Syntax
 
@@ -69,13 +69,13 @@ The `DELETE` statement deletes all points from a [series](/influxdb/v2.5/referen
 DELETE FROM <measurement_name> WHERE [<tag_key>='<tag_value>'] | [<time interval>]
 ```
 
-You must include either the [`FROM` clause](/influxdb/v2.5/query-data/influxql/explore-data/select/#from-clause), the [`WHERE` clause](/influxdb/v2.5/query-data/influxql/explore-data/where/), or both.
+You must include either the [`FROM` clause](/influxdb/v2.6/query-data/influxql/explore-data/select/#from-clause), the [`WHERE` clause](/influxdb/v2.6/query-data/influxql/explore-data/where/), or both.
 
 {{% note %}}
-- `DELETE` supports [regular expressions](/influxdb/v2.5/query-data/influxql/explore-data/regular-expressions/)
+- `DELETE` supports [regular expressions](/influxdb/v2.6/query-data/influxql/explore-data/regular-expressions/)
   in the `FROM` clause when specifying measurement names and in the `WHERE` clause
   when specifying tag values.
-- `DELETE` does not support [fields](/influxdb/v2.5/reference/glossary/#field) in the `WHERE` clause.
+- `DELETE` does not support [fields](/influxdb/v2.6/reference/glossary/#field) in the `WHERE` clause.
 {{% /note %}}
 
 ### Examples
@@ -126,7 +126,7 @@ DELETE FROM device_data WHERE "device" = 'sensor15" and time >= '2024-01-01T12:0
 
 ## Delete measurements with DROP MEASUREMENT
 
-The `DROP MEASUREMENT` statement deletes all data and series from the specified [measurement](/influxdb/v2.5/reference/glossary/#measurement) and deletes the measurement from the index.
+The `DROP MEASUREMENT` statement deletes all data and series from the specified [measurement](/influxdb/v2.6/reference/glossary/#measurement) and deletes the measurement from the index.
 
 #### Syntax
 

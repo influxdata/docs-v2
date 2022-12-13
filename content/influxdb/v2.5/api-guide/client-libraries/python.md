@@ -8,18 +8,18 @@ menu:
   influxdb_2_5:
     name: Python
     parent: Client libraries
-influxdb/v2.5/tags: [client libraries, python]
+influxdb/v2.6/tags: [client libraries, python]
 aliases:
-  - /influxdb/v2.5/reference/api/client-libraries/python/
-  - /influxdb/v2.5/reference/api/client-libraries/python-cl-guide/
-  - /influxdb/v2.5/tools/client-libraries/python/
+  - /influxdb/v2.6/reference/api/client-libraries/python/
+  - /influxdb/v2.6/reference/api/client-libraries/python-cl-guide/
+  - /influxdb/v2.6/tools/client-libraries/python/
 weight: 201
 ---
 
 Use the [InfluxDB Python client library](https://github.com/influxdata/influxdb-client-python) to integrate InfluxDB into Python scripts and applications.
 
 This guide presumes some familiarity with Python and InfluxDB.
-If just getting started, see [Get started with InfluxDB](/influxdb/v2.5/get-started/).
+If just getting started, see [Get started with InfluxDB](/influxdb/v2.6/get-started/).
 
 ## Before you begin
 
@@ -36,7 +36,7 @@ If just getting started, see [Get started with InfluxDB](/influxdb/v2.5/get-star
 
 ## Write data to InfluxDB with Python
 
-We are going to write some data in [line protocol](/influxdb/v2.5/reference/syntax/line-protocol/) using the Python library.
+We are going to write some data in [line protocol](/influxdb/v2.6/reference/syntax/line-protocol/) using the Python library.
 
 1. In your Python program, import the InfluxDB client library and use it to write data to InfluxDB.
 
@@ -45,7 +45,7 @@ We are going to write some data in [line protocol](/influxdb/v2.5/reference/synt
    from influxdb_client.client.write_api import SYNCHRONOUS
    ```
 
-2. Define a few variables with the name of your [bucket](/influxdb/v2.5/organizations/buckets/), [organization](/influxdb/v2.5/organizations/), and [token](/influxdb/v2.5/security/tokens/).
+2. Define a few variables with the name of your [bucket](/influxdb/v2.6/organizations/buckets/), [organization](/influxdb/v2.6/organizations/), and [token](/influxdb/v2.6/security/tokens/).
 
    ```python
    bucket = "<my-bucket>"
@@ -72,7 +72,7 @@ We are going to write some data in [line protocol](/influxdb/v2.5/reference/synt
    write_api = client.write_api(write_options=SYNCHRONOUS)
    ```
 
-5. Create a [point](/influxdb/v2.5/reference/glossary/#point) object and write it to InfluxDB using the `write` method of the API writer object. The write method requires three parameters: `bucket`, `org`, and `record`.
+5. Create a [point](/influxdb/v2.6/reference/glossary/#point) object and write it to InfluxDB using the `write` method of the API writer object. The write method requires three parameters: `bucket`, `org`, and `record`.
 
    ```python
    p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)

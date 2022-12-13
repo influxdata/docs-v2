@@ -2,16 +2,16 @@
 title: Initialize an InfluxDB stack
 list_title: Initialize a stack
 description: >
-  InfluxDB automatically creates a new stack each time you [apply an InfluxDB template](/influxdb/v2.5/influxdb-templates/use/)
+  InfluxDB automatically creates a new stack each time you [apply an InfluxDB template](/influxdb/v2.6/influxdb-templates/use/)
   **without providing a stack ID**.
-  To manually create or initialize a new stack, use the [`influx stacks init` command](/influxdb/v2.5/reference/cli/influx/stacks/init/).
+  To manually create or initialize a new stack, use the [`influx stacks init` command](/influxdb/v2.6/reference/cli/influx/stacks/init/).
 menu:
   influxdb_2_5:
     parent: InfluxDB stacks
     name: Initialize a stack
 weight: 202
 related:
-  - /influxdb/v2.5/reference/cli/influx/stacks/init/
+  - /influxdb/v2.6/reference/cli/influx/stacks/init/
 list_code_example: |
   ```sh
   influx apply \
@@ -28,12 +28,12 @@ list_code_example: |
   ```
 ---
 
-InfluxDB automatically creates a new stack each time you [apply an InfluxDB template](/influxdb/v2.5/influxdb-templates/use/)
+InfluxDB automatically creates a new stack each time you [apply an InfluxDB template](/influxdb/v2.6/influxdb-templates/use/)
 **without providing a stack ID**.
-To manually create or initialize a new stack, use the [`influx stacks init` command](/influxdb/v2.5/reference/cli/influx/stacks/init/).
+To manually create or initialize a new stack, use the [`influx stacks init` command](/influxdb/v2.6/reference/cli/influx/stacks/init/).
 
 ## Initialize a stack when applying a template
-To automatically create a new stack when [applying an InfluxDB template](/influxdb/v2.5/influxdb-templates/use/)
+To automatically create a new stack when [applying an InfluxDB template](/influxdb/v2.6/influxdb-templates/use/)
 **don't provide a stack ID**.
 InfluxDB applies the resources in the template to a new stack and provides the **stack ID** the output.
 
@@ -44,7 +44,7 @@ influx apply \
 ```
 
 ## Manually initialize a new stack
-Use the [`influx stacks init` command](/influxdb/v2.5/reference/cli/influx/stacks/init/)
+Use the [`influx stacks init` command](/influxdb/v2.6/reference/cli/influx/stacks/init/)
 to create or initialize a new InfluxDB stack.
 
 **Provide the following:**

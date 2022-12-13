@@ -33,7 +33,7 @@ Because each organization is created with a bucket, we do not recommend more tha
 
 ## Create an organization using the influx CLI
 
-Use the [`influx org create` command](/influxdb/v2.5/reference/cli/influx/org/create)
+Use the [`influx org create` command](/influxdb/v2.6/reference/cli/influx/org/create)
 to create a new organization. A new organization requires the following:
 
 - A name for the organization

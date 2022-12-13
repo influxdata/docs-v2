@@ -9,8 +9,8 @@ menu:
     parent: Manage notification endpoints
 weight: 202
 related:
-  - /influxdb/v2.5/monitor-alert/checks/
-  - /influxdb/v2.5/monitor-alert/notification-rules/
+  - /influxdb/v2.6/monitor-alert/checks/
+  - /influxdb/v2.6/monitor-alert/notification-rules/
 ---
 
 View notification endpoint details and history in the InfluxDB user interface (UI).

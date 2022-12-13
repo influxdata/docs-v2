@@ -51,7 +51,7 @@ There are two places you can create a bucket in the UI.
 
 ## Create a bucket using the influx CLI
 
-Use the [`influx bucket create` command](/influxdb/v2.5/reference/cli/influx/bucket/create)
+Use the [`influx bucket create` command](/influxdb/v2.6/reference/cli/influx/bucket/create)
 to create a new bucket. A bucket requires the following:
 
 - bucket name
@@ -102,11 +102,11 @@ Use the `POST` request method and include the following in your request:
 #### Example
 
 The URL depends on the version and location of your InfluxDB {{< current-version >}}
-instance _(see [InfluxDB URLs](/influxdb/v2.5/reference/urls/))_.
+instance _(see [InfluxDB URLs](/influxdb/v2.6/reference/urls/))_.
 
 ```sh
 {{% get-shared-text "api/v2.0/buckets/oss/create.sh" %}}
 ```
 
 _For information about **InfluxDB API options and response codes**, see
-[InfluxDB API Buckets documentation](/influxdb/v2.5/api/#operation/PostBuckets)._
+[InfluxDB API Buckets documentation](/influxdb/v2.6/api/#operation/PostBuckets)._

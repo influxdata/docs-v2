@@ -1,13 +1,13 @@
 ---
 title: Delete secrets
 description: Delete secrets using the `influx` CLI or the InfluxDB API.
-influxdb/v2.5/tags: [secrets, security]
+influxdb/v2.6/tags: [secrets, security]
 menu:
   influxdb_2_5:
     parent: Manage secrets
 weight: 304
 aliases:
-  - /influxdb/v2.5/security/secrets/manage-secrets/delete/
+  - /influxdb/v2.6/security/secrets/manage-secrets/delete/
 ---
 
 Delete secrets using the `influx` command line interface (CLI) or the InfluxDB API.
@@ -16,7 +16,7 @@ Delete secrets using the `influx` command line interface (CLI) or the InfluxDB A
 - [Delete secrets using the InfluxDB API](#delete-secrets-using-the-influxdb-api)
 
 ## Delete a secret using the influx CLI
-Use the [`influx secret delete` command](/influxdb/v2.5/reference/cli/influx/secret/delete/)
+Use the [`influx secret delete` command](/influxdb/v2.6/reference/cli/influx/secret/delete/)
 to delete a secret key-value pair from your organization.
 Provide the secret key to delete with the `-k` or `--key` flag.
 
@@ -34,8 +34,8 @@ to delete one or more secrets.
 
 **Include the following:**
 
-- Your [organization ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id) in the request URL
-- Your [API token](/influxdb/v2.5/security/tokens/view-tokens/) in the `Authorization` header
+- Your [organization ID](/influxdb/v2.6/organizations/view-orgs/#view-your-organization-id) in the request URL
+- Your [API token](/influxdb/v2.6/security/tokens/view-tokens/) in the `Authorization` header
 - An array of secret keys to delete in the request body
 
 <!-- -->

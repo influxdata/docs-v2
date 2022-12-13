@@ -5,7 +5,7 @@ description: >
   from dashboards and Telegraf configurations to notifications and alerts.
 menu: influxdb_2_5
 weight: 10
-influxdb/v2.5/tags: [templates]
+influxdb/v2.6/tags: [templates]
 ---
 
 InfluxDB templates are prepackaged InfluxDB configurations that contain everything
@@ -68,22 +68,22 @@ spec:
 ---
 ```
 
-_See [Create an InfluxDB template](/influxdb/v2.5/influxdb-templates/create/) for information about
+_See [Create an InfluxDB template](/influxdb/v2.6/influxdb-templates/create/) for information about
 generating template manifests._
 
 ### Template resources
 
 Templates may contain the following InfluxDB resources:
 
-- [buckets](/influxdb/v2.5/organizations/buckets/create-bucket/)
-- [checks](/influxdb/v2.5/monitor-alert/checks/create/)
-- [dashboards](/influxdb/v2.5/visualize-data/dashboards/create-dashboard/)
-- [dashboard variables](/influxdb/v2.5/visualize-data/variables/create-variable/)
-- [labels](/influxdb/v2.5/visualize-data/labels/)
-- [notification endpoints](/influxdb/v2.5/monitor-alert/notification-endpoints/create/)
-- [notification rules](/influxdb/v2.5/monitor-alert/notification-rules/create/)
-- [tasks](/influxdb/v2.5/process-data/manage-tasks/create-task/)
-- [Telegraf configurations](/influxdb/v2.5/write-data/no-code/use-telegraf/)
+- [buckets](/influxdb/v2.6/organizations/buckets/create-bucket/)
+- [checks](/influxdb/v2.6/monitor-alert/checks/create/)
+- [dashboards](/influxdb/v2.6/visualize-data/dashboards/create-dashboard/)
+- [dashboard variables](/influxdb/v2.6/visualize-data/variables/create-variable/)
+- [labels](/influxdb/v2.6/visualize-data/labels/)
+- [notification endpoints](/influxdb/v2.6/monitor-alert/notification-endpoints/create/)
+- [notification rules](/influxdb/v2.6/monitor-alert/notification-rules/create/)
+- [tasks](/influxdb/v2.6/process-data/manage-tasks/create-task/)
+- [Telegraf configurations](/influxdb/v2.6/write-data/no-code/use-telegraf/)
 
 ## Stacks
 

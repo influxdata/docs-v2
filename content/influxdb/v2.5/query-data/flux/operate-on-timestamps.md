@@ -9,8 +9,8 @@ menu:
     parent: Query with Flux
 weight: 220
 aliases:
-  - /influxdb/v2.5/query-data/guides/manipulate-timestamps/
-  - /influxdb/v2.5/query-data/flux/manipulate-timestamps/
+  - /influxdb/v2.6/query-data/guides/manipulate-timestamps/
+  - /influxdb/v2.6/query-data/flux/manipulate-timestamps/
 related:
   - /{{< latest "flux" >}}/stdlib/universe/now/
   - /{{< latest "flux" >}}/stdlib/system/time/
@@ -36,7 +36,7 @@ Use Flux to process and operate on timestamps to suit your needs.
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2.5/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/v2.6/query-data/execute-queries/) to discover a variety of ways to run your queries.
 {{% /note %}}
 
 
@@ -47,8 +47,8 @@ If you're just getting started with Flux queries, check out the following:
 
 ### Unix nanosecond to RFC3339
 Use the [`time()` function](/{{< latest "flux" >}}/stdlib/universe/time/)
-to convert a [Unix **nanosecond** timestamp](/influxdb/v2.5/reference/glossary/#unix-timestamp)
-to an [RFC3339 timestamp](/influxdb/v2.5/reference/glossary/#rfc3339-timestamp).
+to convert a [Unix **nanosecond** timestamp](/influxdb/v2.6/reference/glossary/#unix-timestamp)
+to an [RFC3339 timestamp](/influxdb/v2.6/reference/glossary/#rfc3339-timestamp).
 
 ```js
 time(v: 1568808000000000000)

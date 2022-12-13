@@ -34,7 +34,7 @@ influx task run retry [flags]
 
 {{% note %}}
 #### Required permissions
-Use an [{{% oss-only %}}**Operator** or{{% /oss-only %}} <span>**All-Access**</span> token](/influxdb/v2.5/security/tokens/) to retry tasks.
+Use an [{{% oss-only %}}**Operator** or{{% /oss-only %}} <span>**All-Access**</span> token](/influxdb/v2.6/security/tokens/) to retry tasks.
 {{% /note %}}
 
 ##### Retry a task run

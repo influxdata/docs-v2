@@ -2,14 +2,14 @@
 title: Create custom Flux functions
 description: Create your own custom Flux functions to transform and operate on data.
 list_title: Custom functions
-influxdb/v2.5/tags: [functions, custom, flux]
+influxdb/v2.6/tags: [functions, custom, flux]
 menu:
   influxdb_2_5:
     name: Custom functions
     parent: Query with Flux
 weight: 220
 aliases:
-  - /influxdb/v2.5/query-data/guides/custom-functions/
+  - /influxdb/v2.6/query-data/guides/custom-functions/
 list_code_example: |
   ```js
   multByX = (tables=<-, x) => tables
@@ -143,7 +143,7 @@ from(bucket: "example-bucket")
 
 ## Define functions with scoped variables
 To create custom functions with variables scoped to the function, place your
-function operations and variables inside of a [block (`{}`)](/influxdb/v2.5/reference/flux/language/blocks/)
+function operations and variables inside of a [block (`{}`)](/influxdb/v2.6/reference/flux/language/blocks/)
 and use a `return` statement to return a specific variable.
 
 ```js

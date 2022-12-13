@@ -1,13 +1,13 @@
 ---
 title: Manage secrets
 description: Manage, use, and store secrets in InfluxDB.
-influxdb/v2.5/tags: [secrets, security]
+influxdb/v2.6/tags: [secrets, security]
 menu:
   influxdb_2_5:
     parent: Security & authorization
 weight: 103
 aliases:
-  - /influxdb/v2.5/security/secrets/manage-secrets/
+  - /influxdb/v2.6/security/secrets/manage-secrets/
 ---
 
 Secrets are key-value pairs that contain sensitive information you want to control
@@ -17,7 +17,7 @@ There are two options for storing secrets with InfluxDB:
 - By default, secrets are Base64-encoded and stored in the InfluxDB embedded key value store,
   [BoltDB](https://github.com/boltdb/bolt).
 - You can also set up a Vault server to store secrets.
-  For details, see [Store secrets in Vault](/influxdb/v2.5/security/secrets/use-vault).
+  For details, see [Store secrets in Vault](/influxdb/v2.6/security/secrets/use-vault).
 
 ---
 

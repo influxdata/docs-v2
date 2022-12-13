@@ -20,7 +20,7 @@ Learn how to configure, manage, and process your InfluxDB logs:
 ## Configure your InfluxDB log location
 
 By default, InfluxDB outputs all logs to **stdout**. To view InfluxDB logs,
-view the output of the [`influxd`](/influxdb/v2.5/reference/cli/influxd/) process.
+view the output of the [`influxd`](/influxdb/v2.6/reference/cli/influxd/) process.
 
 - [Write logs to a file](#write-logs-to-a-file)
 - [Logs when running InfluxDB as a service](#logs-when-running-influxdb-as-a-service)
@@ -28,7 +28,7 @@ view the output of the [`influxd`](/influxdb/v2.5/reference/cli/influxd/) proces
 ### Write logs to a file
 
 To write InfluxDB logs to a file, redirect **stdout** to a file when starting
-the InfluxDB service ([`influxd`](/influxdb/v2.5/reference/cli/influxd/)).
+the InfluxDB service ([`influxd`](/influxdb/v2.6/reference/cli/influxd/)).
 
 ```sh
 influxd 1> /path/to/influxdb.log
@@ -88,7 +88,7 @@ To write logs to a file:
 
 ## Configure your log level
 
-Use the [`log-level` InfluxDB configuration option](/influxdb/v2.5/reference/config-options/#log-level)
+Use the [`log-level` InfluxDB configuration option](/influxdb/v2.6/reference/config-options/#log-level)
 to specify the log levels the InfluxDB service outputs.
 InfluxDB supports the following log levels:
 
@@ -146,11 +146,11 @@ log-level = "info"
 
 {{< /tabs-wrapper >}}
 
-_For information about configuring InfluxDB, see [InfluxDB configuration options](/influxdb/v2.5/reference/config-options/)._
+_For information about configuring InfluxDB, see [InfluxDB configuration options](/influxdb/v2.6/reference/config-options/)._
 
 ## Enable the Flux query log
 
-Use the [`flux-log-enabled` configuration option](/influxdb/v2.5/reference/config-options/#flux-log-enabled)
+Use the [`flux-log-enabled` configuration option](/influxdb/v2.6/reference/config-options/#flux-log-enabled)
 to enable Flux query logging. InfluxDB outputs Flux query logs to **stdout**
 with all other InfluxDB logs.
 
@@ -204,7 +204,7 @@ flux-log-enabled = true
 
 {{< /tabs-wrapper >}}
 
-_For information about configuring InfluxDB, see [InfluxDB configuration options](/influxdb/v2.5/reference/config-options/)._
+_For information about configuring InfluxDB, see [InfluxDB configuration options](/influxdb/v2.6/reference/config-options/)._
 
 
 ## Use external tools to manage and process logs

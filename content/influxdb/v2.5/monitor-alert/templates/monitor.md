@@ -8,12 +8,12 @@ menu:
     parent: Monitor with templates
     name: Monitor InfluxDB OSS
 weight: 102
-influxdb/v2.5/tags: [templates, monitor]
+influxdb/v2.6/tags: [templates, monitor]
 aliases:
-  - /influxdb/v2.5/influxdb-templates/monitor/
+  - /influxdb/v2.6/influxdb-templates/monitor/
 related:
-  - /influxdb/v2.5/reference/cli/influx/apply/
-  - /influxdb/v2.5/reference/cli/influx/template/
+  - /influxdb/v2.6/reference/cli/influx/apply/
+  - /influxdb/v2.6/reference/cli/influx/template/
 ---
 
 Use [InfluxDB Cloud](/influxdb/cloud/), the [InfluxDB Open Source (OSS) Metrics template](https://github.com/influxdata/community-templates/tree/master/influxdb2_oss_metrics),
@@ -34,7 +34,7 @@ Do the following:
 Before you begin, make sure you have access to the following:
 
 - InfluxDB Cloud account ([sign up for free here](https://cloud2.influxdata.com/signup))
-- Command line access to a machine [running InfluxDB OSS 2.x](/influxdb/v2.5/install/) and permissions to install Telegraf on this machine
+- Command line access to a machine [running InfluxDB OSS 2.x](/influxdb/v2.6/install/) and permissions to install Telegraf on this machine
 - Internet connectivity from the machine running InfluxDB OSS 2.x and Telegraf to InfluxDB Cloud
 - Sufficient resource availability to install the template (InfluxDB Cloud Free
   Plan accounts include [resource limits](/influxdb/cloud/account-management/pricing-plans/#resource-limits/influxdb/cloud/account-management/pricing-plans/#resource-limits))

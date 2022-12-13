@@ -9,7 +9,7 @@ menu:
     name: Flux
     identifier: flux-syntax
 weight: 101
-influxdb/v2.5/tags: [syntax, flux]
+influxdb/v2.6/tags: [syntax, flux]
 ---
 
 Flux is a functional data scripting language designed for querying, analyzing, and acting on data.

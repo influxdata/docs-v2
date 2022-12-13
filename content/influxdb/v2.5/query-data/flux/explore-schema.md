@@ -4,7 +4,7 @@ list_title: Explore your schema
 description: >
   Flux provides functions that let you explore the structure and schema of your
   data stored in InfluxDB.
-influxdb/v2.5/tags: [schema]
+influxdb/v2.6/tags: [schema]
 menu:
   influxdb_2_5:
     name: Explore your schema
@@ -50,7 +50,7 @@ data stored in InfluxDB.
 - [List tag values](#list-tag-values)
 
 {{% warn %}}
-Functions in the `schema` package are not supported in the [Flux REPL](/influxdb/v2.5/tools/repl/).
+Functions in the `schema` package are not supported in the [Flux REPL](/influxdb/v2.6/tools/repl/).
 {{% /warn %}}
 
 ## List buckets

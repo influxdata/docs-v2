@@ -5,14 +5,14 @@ list_title: Sort and limit
 description: >
   Use `sort()` to order records within each table by specific columns and
   `limit()` to limit the number of records in output tables to a fixed number, `n`.
-influxdb/v2.5/tags: [sort, limit]
+influxdb/v2.6/tags: [sort, limit]
 menu:
   influxdb_2_5:
     name: Sort and limit
     parent: Query with Flux
 weight: 203
 aliases:
-  - /influxdb/v2.5/query-data/guides/sort-limit/
+  - /influxdb/v2.6/query-data/guides/sort-limit/
 related:
   - /{{< latest "flux" >}}/stdlib/universe/sort
   - /{{< latest "flux" >}}/stdlib/universe/limit
@@ -27,7 +27,7 @@ to limit the number of records in output tables to a fixed number, `n`.
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2.5/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/v2.6/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ##### Example sorting system uptime
 

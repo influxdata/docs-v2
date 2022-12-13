@@ -7,7 +7,7 @@ menu:
     name: Manage members
     parent: Manage organizations
 weight: 106
-influxdb/v2.5/tags: [members]
+influxdb/v2.6/tags: [members]
 ---
 
 A **member** is a user that belongs to an organization.

@@ -6,12 +6,12 @@ menu:
   influxdb_2_5:
     name: Use the influx CLI
     parent: Execute queries
-influxdb/v2.5/tags: [query]
+influxdb/v2.6/tags: [query]
 related:
-  - /influxdb/v2.5/reference/cli/influx/query/
+  - /influxdb/v2.6/reference/cli/influx/query/
 ---
 
-Use the [`influx query` command](/influxdb/v2.5/reference/cli/influx/query) to query data in InfluxDB using Flux.
+Use the [`influx query` command](/influxdb/v2.6/reference/cli/influx/query) to query data in InfluxDB using Flux.
 Pass Flux queries to the command as either a file or via stdin.
 
 ###### Run a query from a file

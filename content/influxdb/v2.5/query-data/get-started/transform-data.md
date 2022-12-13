@@ -1,7 +1,7 @@
 ---
 title: Transform data with Flux
 description: Learn the basics of using Flux to transform data queried from InfluxDB.
-influxdb/v2.5/tags: [flux, transform, query]
+influxdb/v2.6/tags: [flux, transform, query]
 menu:
   influxdb_2_5:
     name: Transform data
@@ -12,7 +12,7 @@ related:
   - /{{< latest "flux" >}}/stdlib/universe/window
 ---
 
-When [querying data from InfluxDB](/influxdb/v2.5/query-data/get-started/query-influxdb),
+When [querying data from InfluxDB](/influxdb/v2.6/query-data/get-started/query-influxdb),
 you often need to transform that data in some way.
 Common examples are aggregating data, downsampling data, etc.
 
@@ -26,7 +26,7 @@ If you're not familiar with how Flux structures and operates on data, see
 {{% /note %}}
 
 ## Query data
-Use the query built in the previous [Query data from InfluxDB](/influxdb/v2.5/query-data/get-started/query-influxdb)
+Use the query built in the previous [Query data from InfluxDB](/influxdb/v2.6/query-data/get-started/query-influxdb)
 guide, but update the range to pull data from the last hour:
 
 ```js
@@ -37,7 +37,7 @@ from(bucket: "example-bucket")
 
 ## Flux functions
 Flux provides a number of functions that perform specific operations, transformations, and tasks.
-You can also [create custom functions](/influxdb/v2.5/query-data/flux/custom-functions) in your Flux queries.
+You can also [create custom functions](/influxdb/v2.6/query-data/flux/custom-functions) in your Flux queries.
 _Functions are covered in detail in the [Flux standard library](/{{< latest "flux" >}}/stdlib/) documentation._
 
 A common type of function used when transforming data queried from InfluxDB is an aggregate function.
@@ -155,8 +155,8 @@ and your own custom functions, but this is a good introduction into the basic sy
 ---
 
 _For a deeper dive into windowing and aggregating data with example data output for each transformation,
-view the [Window and aggregate data](/influxdb/v2.5/query-data/flux/window-aggregate) guide._
+view the [Window and aggregate data](/influxdb/v2.6/query-data/flux/window-aggregate) guide._
 
 ---
 
-{{< page-nav prev="/influxdb/v2.5/query-data/get-started/query-influxdb/" >}}
+{{< page-nav prev="/influxdb/v2.6/query-data/get-started/query-influxdb/" >}}

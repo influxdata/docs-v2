@@ -8,8 +8,8 @@ menu:
     parent: Manage checks
 weight: 203
 related:
-  - /influxdb/v2.5/monitor-alert/notification-rules/
-  - /influxdb/v2.5/monitor-alert/notification-endpoints/
+  - /influxdb/v2.6/monitor-alert/notification-rules/
+  - /influxdb/v2.6/monitor-alert/notification-endpoints/
 ---
 
 Update checks in the InfluxDB user interface (UI).
@@ -31,7 +31,7 @@ To update checks, select **Alerts > Alerts** in the navigation menu on the left.
 2. To edit the check query, click **{{< caps >}}1. Define Query{{< /caps >}}** at the top of the check builder window.
 3. To edit the check logic, click **{{< caps >}}2. Configure Check{{< /caps >}}** at the top of the check builder window.
 
-_For details about using the check builder, see [Create checks](/influxdb/v2.5/monitor-alert/checks/create/)._
+_For details about using the check builder, see [Create checks](/influxdb/v2.6/monitor-alert/checks/create/)._
 
 ## Enable or disable a check
 Click the {{< icon "toggle" >}} toggle next to a check to enable or disable it.

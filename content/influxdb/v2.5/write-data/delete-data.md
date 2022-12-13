@@ -9,15 +9,15 @@ menu:
     name: Delete data
     parent: Write data
 weight: 107
-influxdb/v2.5/tags: [delete]
+influxdb/v2.6/tags: [delete]
 related:
-  - /influxdb/v2.5/reference/syntax/delete-predicate/
-  - /influxdb/v2.5/reference/cli/influx/delete/
-  - /influxdb/v2.5/organizations/buckets/delete-bucket/
+  - /influxdb/v2.6/reference/syntax/delete-predicate/
+  - /influxdb/v2.6/reference/cli/influx/delete/
+  - /influxdb/v2.6/organizations/buckets/delete-bucket/
 ---
 
-Use the [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) or the InfluxDB API
-[`/api/v2/delete`](/influxdb/v2.5/api/#operation/PostDelete) endpoint to delete
+Use the [`influx` CLI](/influxdb/v2.6/reference/cli/influx/) or the InfluxDB API
+[`/api/v2/delete`](/influxdb/v2.6/api/#operation/PostDelete) endpoint to delete
 data from an InfluxDB bucket.
 
 - [Delete data using the influx CLI](#delete-data-using-the-influx-cli)
@@ -60,19 +60,19 @@ but will remain on disk until the compaction service runs.
 ## Delete data using the influx CLI
 
 {{% note %}}
-Use [InfluxDB CLI connection configurations](/influxdb/v2.5/reference/cli/influx/config/)
+Use [InfluxDB CLI connection configurations](/influxdb/v2.6/reference/cli/influx/config/)
 to provide your **InfluxDB host, organization, and API token**.
 {{% /note %}}
 
-1. Use the [`influx delete` command](/influxdb/v2.5/reference/cli/influx/delete/) to delete points from InfluxDB.
+1. Use the [`influx delete` command](/influxdb/v2.6/reference/cli/influx/delete/) to delete points from InfluxDB.
 2. Use the `--bucket` flag to specify which bucket to delete data from.
 3. Use the `--start` and `--stop` flags to define the time range to delete data from.
-   Use [RFC3339 timestamps](/influxdb/v2.5/reference/glossary/#rfc3339-timestamp).
-4. _(Optional)_ Use the `-p`, `--predicate` flag to include a [delete predicate](/influxdb/v2.5/reference/syntax/delete-predicate)
+   Use [RFC3339 timestamps](/influxdb/v2.6/reference/glossary/#rfc3339-timestamp).
+4. _(Optional)_ Use the `-p`, `--predicate` flag to include a [delete predicate](/influxdb/v2.6/reference/syntax/delete-predicate)
    that identifies which points to delete.
 
     {{% warn %}}
-Deleting data without a [delete predicate](/influxdb/v2.5/reference/syntax/delete-predicate)
+Deleting data without a [delete predicate](/influxdb/v2.6/reference/syntax/delete-predicate)
 deletes all data in the specified bucket with timestamps between the specified `start` and `stop` times.
     {{% /warn %}}
 
@@ -110,7 +110,7 @@ influx delete --bucket example-bucket \
 {{% /cloud-only %}}
 
 ## Delete data using the API
-Use the InfluxDB API [`/api/v2/delete` endpoint](/influxdb/v2.5/api/#operation/PostDelete)
+Use the InfluxDB API [`/api/v2/delete` endpoint](/influxdb/v2.6/api/#operation/PostDelete)
 to delete points from InfluxDB.
 
 {{< api-endpoint method="post" endpoint="http://localhost:8086/api/v2/delete" >}}
@@ -122,16 +122,16 @@ Include the following:
   - **Authorization:** `Token` schema with your InfluxDB API token
   - **Content-type:** `application/json`
 - **Query parameters:**
-  - **org** or **orgID:** organization name or [organization ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id)
-  - **bucket** or **bucketID:** bucket name or [bucket ID](/influxdb/v2.5/organizations/buckets/view-buckets/)
+  - **org** or **orgID:** organization name or [organization ID](/influxdb/v2.6/organizations/view-orgs/#view-your-organization-id)
+  - **bucket** or **bucketID:** bucket name or [bucket ID](/influxdb/v2.6/organizations/buckets/view-buckets/)
 - **Request body:** JSON object with the following fields:  
   {{< req type="key" >}}
-  - {{< req "\*" >}} **start:** earliest time to delete data from ([RFC3339](/influxdb/v2.5/reference/glossary/#rfc3339-timestamp))
-  - {{< req "\*" >}} **stop:** latest time to delete data from ([RFC3339](/influxdb/v2.5/reference/glossary/#rfc3339-timestamp))
-  - **predicate:** [delete predicate](/influxdb/v2.5/reference/syntax/delete-predicate) statement
+  - {{< req "\*" >}} **start:** earliest time to delete data from ([RFC3339](/influxdb/v2.6/reference/glossary/#rfc3339-timestamp))
+  - {{< req "\*" >}} **stop:** latest time to delete data from ([RFC3339](/influxdb/v2.6/reference/glossary/#rfc3339-timestamp))
+  - **predicate:** [delete predicate](/influxdb/v2.6/reference/syntax/delete-predicate) statement
 
        {{% warn %}}
-Deleting data without a [delete predicate](/influxdb/v2.5/reference/syntax/delete-predicate)
+Deleting data without a [delete predicate](/influxdb/v2.6/reference/syntax/delete-predicate)
 deletes all data in the specified bucket with timestamps between the specified `start` and `stop` times.
        {{% /warn %}}
 
@@ -180,6 +180,6 @@ curl --request POST http://localhost:8086/api/v2/delete?org=example-org&bucket=e
 
 {{% /cloud-only %}}
 
-_For more information, see the [`/api/v2/delete` endpoint documentation](/influxdb/v2.5/api/#operation/PostDelete)._
+_For more information, see the [`/api/v2/delete` endpoint documentation](/influxdb/v2.6/api/#operation/PostDelete)._
 
-To delete a bucket see [Delete a bucket](/influxdb/v2.5/organizations/buckets/delete-bucket/).
+To delete a bucket see [Delete a bucket](/influxdb/v2.6/organizations/buckets/delete-bucket/).

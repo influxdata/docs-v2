@@ -8,21 +8,21 @@ menu:
     name: 1.x compatibility
     parent: InfluxDB v2 API
 weight: 104
-influxdb/v2.5/tags: [influxql, query, write]
+influxdb/v2.6/tags: [influxql, query, write]
 related:
-  - /influxdb/v2.5/query-data/influxql
-  - /influxdb/v2.5/upgrade/v1-to-v2/
+  - /influxdb/v2.6/query-data/influxql
+  - /influxdb/v2.6/upgrade/v1-to-v2/
 ---
 
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
 InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
 
-<a class="btn" href="/influxdb/v2.5/api/v1-compatibility/">View full v1 compatibility API documentation</a>
+<a class="btn" href="/influxdb/v2.6/api/v1-compatibility/">View full v1 compatibility API documentation</a>
 
 ## Authentication
 
 InfluxDB 1.x compatibility endpoints require all query and write requests to be authenticated with an
-[API token](/influxdb/v2.5/security/tokens/) or 1.x-compatible
+[API token](/influxdb/v2.6/security/tokens/) or 1.x-compatible
 credentials.
 
 * [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
@@ -31,7 +31,7 @@ credentials.
 ### Authenticate with the Token scheme
 Token authentication requires the following credential:
 
-- **token**: InfluxDB [API token](/influxdb/v2.5/security/tokens/)
+- **token**: InfluxDB [API token](/influxdb/v2.6/security/tokens/)
 
 Use the `Authorization` header with the `Token` scheme to provide your token to InfluxDB.
 
@@ -77,14 +77,14 @@ Username and password schemes require the following credentials:
 
 {{% note %}}
 #### Password or Token
-If you have [set a password](/influxdb/v2.5/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
-If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/v2.5/security/tokens/) as the password.
+If you have [set a password](/influxdb/v2.6/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
+If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/v2.6/security/tokens/) as the password.
 {{% /note %}}
 
 For information about creating and managing 1.x-compatible authorizations, see:
 
-- [`influx v1 auth` command](/influxdb/v2.5/reference/cli/influx/v1/auth/)
-- [Manually upgrade – 1.x-compatible authorizations](/influxdb/v2.5/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
+- [`influx v1 auth` command](/influxdb/v2.6/reference/cli/influx/v1/auth/)
+- [Manually upgrade – 1.x-compatible authorizations](/influxdb/v2.6/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations)
 
 {{% /oss-only %}}
 

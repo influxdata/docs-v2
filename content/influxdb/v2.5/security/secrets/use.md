@@ -1,13 +1,13 @@
 ---
 title: Use secrets
 description: Use secrets in a query with Flux.
-influxdb/v2.5/tags: [secrets, security]
+influxdb/v2.6/tags: [secrets, security]
 menu:
   influxdb_2_5:
     parent: Manage secrets
 weight: 305
 aliases:
-  - /influxdb/v2.5/security/secrets/manage-secrets/use/
+  - /influxdb/v2.6/security/secrets/manage-secrets/use/
 ---
 
 ## Use secrets in a query

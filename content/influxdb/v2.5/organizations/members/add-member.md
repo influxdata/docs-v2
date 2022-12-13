@@ -28,7 +28,7 @@ and optionally make that member an owner across all organizations.
    - Organization name
    - User ID
    - _(Optional)_ `--owner` flag to add the user as an owner 
-    _(requires an [operator token](/influxdb/v2.5/security/tokens/#operator-token))_
+    _(requires an [operator token](/influxdb/v2.6/security/tokens/#operator-token))_
 
     {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -52,4 +52,4 @@ influx org members add \
 {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
 
-For more information, see the [`influx org members add` command](/influxdb/v2.5/reference/cli/influx/org/members/add).
+For more information, see the [`influx org members add` command](/influxdb/v2.6/reference/cli/influx/org/members/add).

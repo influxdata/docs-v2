@@ -10,11 +10,11 @@ menu:
     name: Migrate CQs
 weight: 102
 related:
-  - /influxdb/v2.5/query-data/get-started/
-  - /influxdb/v2.5/query-data/flux/
-  - /influxdb/v2.5/process-data/
-  - /influxdb/v2.5/process-data/common-tasks/
-  - /influxdb/v2.5/reference/flux/flux-vs-influxql/
+  - /influxdb/v2.6/query-data/get-started/
+  - /influxdb/v2.6/query-data/flux/
+  - /influxdb/v2.6/process-data/
+  - /influxdb/v2.6/process-data/common-tasks/
+  - /influxdb/v2.6/reference/flux/flux-vs-influxql/
 ---
 
 InfluxDB OSS {{< current-version >}} replaces 1.x continuous queries (CQs) with **InfluxDB tasks**.
@@ -95,7 +95,7 @@ Review the following statements and clauses to see how to convert your CQs to Fl
 #### ON clause
 The `ON` clause defines the database to query.
 In InfluxDB OSS {{< current-version >}}, database and retention policy combinations are mapped to specific buckets
-(for more information, see [Database and retention policy mapping](/influxdb/v2.5/reference/api/influxdb-1x/dbrp/)).
+(for more information, see [Database and retention policy mapping](/influxdb/v2.6/reference/api/influxdb-1x/dbrp/)).
 
 Use the [`from()` function](/{{< latest "flux" >}}/stdlib/universe/from)
 to specify the bucket to query:
@@ -116,14 +116,14 @@ from(bucket: "my-db/")
 The `SELECT` statement queries data by field, tag, and time from a specific measurement.
 `SELECT` statements can take many different forms and converting them to Flux depends
 on your use case. For information about Flux and InfluxQL function parity, see
-[Flux vs InfluxQL](/influxdb/v2.5/reference/syntax/flux/flux-vs-influxql/#influxql-and-flux-parity).
+[Flux vs InfluxQL](/influxdb/v2.6/reference/syntax/flux/flux-vs-influxql/#influxql-and-flux-parity).
 See [other resources available to help](#other-helpful-resources).
 
 #### INTO clause
 The `INTO` clause defines the measurement to write results to.
 `INTO` also supports fully-qualified measurements that include the database and retention policy.
 In InfluxDB OSS {{< current-version >}}, database and retention policy combinations are mapped to specific buckets
-(for more information, see [Database and retention policy mapping](/influxdb/v2.5/reference/api/influxdb-1x/dbrp/)).
+(for more information, see [Database and retention policy mapping](/influxdb/v2.6/reference/api/influxdb-1x/dbrp/)).
 
 To write to a measurement different than the measurement queried, use
 [`set()`](/{{< latest "flux" >}}/stdlib/universe/set/) or
@@ -346,7 +346,7 @@ from(bucket: "my-db/")
 
 ## Create new InfluxDB tasks
 After converting your continuous query to Flux, use the Flux query to
-[create a new task](/influxdb/v2.5/process-data/manage-tasks/create-task/).
+[create a new task](/influxdb/v2.6/process-data/manage-tasks/create-task/).
 
 ## Other helpful resources
 The following resources are available and may be helpful when converting
@@ -354,8 +354,8 @@ continuous queries to Flux tasks.
 
 ##### Documentation
 - [Get started with Flux](/{{< latest "flux" >}}/get-started/)
-- [Query data with Flux](/influxdb/v2.5/query-data/flux/)
-- [Common tasks](/influxdb/v2.5/process-data/common-tasks/#downsample-data-with-influxdb)
+- [Query data with Flux](/influxdb/v2.6/query-data/flux/)
+- [Common tasks](/influxdb/v2.6/process-data/common-tasks/#downsample-data-with-influxdb)
 
 ##### Community
 - Post in the [InfluxData Community](https://community.influxdata.com/)

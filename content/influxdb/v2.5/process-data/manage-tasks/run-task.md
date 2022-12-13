@@ -9,11 +9,11 @@ menu:
     parent: Manage tasks
 weight: 203
 related:
-  - /influxdb/v2.5/reference/cli/influx/task/run
-  - /influxdb/v2.5/reference/cli/influx/task/run/retry
-  - /influxdb/v2.5/reference/cli/influx/task/retry-failed
-  - /influxdb/v2.5/api/#operation/PostTasksIDRuns
-  - /influxdb/v2.5/api/#operation/PostTasksIDRunsIDRetry
+  - /influxdb/v2.6/reference/cli/influx/task/run
+  - /influxdb/v2.6/reference/cli/influx/task/run/retry
+  - /influxdb/v2.6/reference/cli/influx/task/retry-failed
+  - /influxdb/v2.6/api/#operation/PostTasksIDRuns
+  - /influxdb/v2.6/api/#operation/PostTasksIDRunsIDRetry
 ---
 
 InfluxDB data processing tasks generally run in defined intervals or at a specific time,
@@ -50,7 +50,7 @@ influx task run retry --task-id=0000000000000000 --run-id=0000000000000000
 ```
 
 ### Retry failed task runs
-Use the [`influx task retry-failed` command](/influxdb/v2.5/reference/cli/influx/task/retry-failed/)
+Use the [`influx task retry-failed` command](/influxdb/v2.6/reference/cli/influx/task/retry-failed/)
 to retry failed task runs.
 
 ```sh
@@ -70,12 +70,12 @@ influx task retry-failed \
 
 ## Run a task with the InfluxDB API
 Use the [`/tasks/TASK_ID/runs`
-InfluxDB API endpoint](/influxdb/v2.5/api/#operation/PostTasksIDRuns) to manually start a task run.
+InfluxDB API endpoint](/influxdb/v2.6/api/#operation/PostTasksIDRuns) to manually start a task run.
 
 {{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs" >}}
 
 ### Retry failed task runs
 Use the [`/tasks/TASK_ID/runs/RUN_ID/retry`
-InfluxDB API endpoint](/influxdb/v2.5/api/#operation/PostTasksIDRunsIDRetry) to retry a task run.
+InfluxDB API endpoint](/influxdb/v2.6/api/#operation/PostTasksIDRunsIDRetry) to retry a task run.
 
 {{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs/RUN_ID/retry" >}}

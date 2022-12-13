@@ -22,7 +22,7 @@ to view organizations.
 
 ## View organizations using the influx CLI
 
-Use the [`influx org list` command](/influxdb/v2.5/reference/cli/influx/org/list)
+Use the [`influx org list` command](/influxdb/v2.6/reference/cli/influx/org/list)
 to view organizations.
 
 ```sh
@@ -30,7 +30,7 @@ influx org list
 ```
 
 Filtering options such as filtering by name or ID are available.
-See the [`influx org list` documentation](/influxdb/v2.5/reference/cli/influx/org/list)
+See the [`influx org list` documentation](/influxdb/v2.6/reference/cli/influx/org/list)
 for information about other available flags.
 
 ## View your organization ID
