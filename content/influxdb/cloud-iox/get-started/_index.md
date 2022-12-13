@@ -68,7 +68,22 @@ The following are important definitions to understand when using InfluxDB:
 
 ##### Example InfluxDB query results
 
-{{< influxdb/iox-points-series >}}
+{{< tabs-wrapper >}}
+{{% tabs "medium" %}}
+[SQL or InfluxQL](#)
+[Flux](#)
+{{% /tabs %}}
+{{% tab-content %}}
+
+{{< influxdb/points-series-sql >}}
+
+{{% /tab-content %}}
+{{% tab-content %}}
+
+{{< influxdb/points-series-flux>}}
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ## Tools to use
 

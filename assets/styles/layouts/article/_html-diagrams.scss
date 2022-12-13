@@ -135,7 +135,7 @@
 
 ///////////////// Data model table in InfluxDB 2.4+ get started ////////////////
 
-#series-diagram {
+.series-diagram {
   display: flex;
   width: fit-content;
   max-width: 100%;
@@ -151,7 +151,7 @@
     right: -3.4rem;
   }
 
-  & + #series-diagram {margin-bottom: 3rem;}
+  &:last-child {margin-bottom: 3rem;}
 
 }
 
@@ -165,7 +165,7 @@ table tr.point{
   }
 }
 
-#series-diagram, table tr.point {
+.series-diagram, table tr.point {
   position: relative;
   &:after {
     color: $tooltip-text;
@@ -176,6 +176,48 @@ table tr.point{
     font-weight: $medium;
     padding: .2rem .5rem;
     line-height: .9rem;
+  }
+}
+
+.sql table {
+
+  tr.points {
+    position: relative;
+    // &:before {
+    //   content: "Point 1";
+    //   display: block;
+    //   color: $tooltip-text;
+    //   background: $br-new-magenta;
+    //   border-radius: $radius;
+    //   position: absolute;
+    //   font-size: .9rem;
+    //   font-weight: $medium;
+    //   padding: .2rem .5rem;
+    //   line-height: .9rem;
+    // }
+  }
+  span.point{
+    position: relative;
+    display: inline-block;
+
+    &.one:before{
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-top: 2px solid $br-new-magenta;
+      bottom: -2px;
+    }
+    &.two:after{
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-top: 2px solid $tooltip-bg;
+      bottom: -8px;
+    }
   }
 }
 
@@ -286,7 +328,7 @@ table tr.point{
     }
   }
 
-  #series-diagram {
+  .series-diagram {
     width: auto;
   }
 };

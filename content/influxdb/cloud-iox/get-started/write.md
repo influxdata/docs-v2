@@ -27,7 +27,6 @@ the following:
 - [InfluxDB HTTP API](/influxdb/v2.5/reference/api/)
 - [`influx` CLI](/influxdb/v2.5/tools/influx-cli/)
 - [Telegraf](/{{< latest "telegraf" >}}/)
-- {{% cloud-only %}}[MQTT](/influxdb/cloud/write-data/no-code/native-subscriptions/){{% /cloud-only %}}
 - [InfluxDB client libraries](/influxdb/v2.5/api-guide/client-libraries/)
 
 This tutorial walks you through the fundamental of using **line protocol** to write
