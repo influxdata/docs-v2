@@ -7,31 +7,20 @@ menu:
   influxdb_cloud_iox:
     name: The SELECT statement
     parent: Explore data
-weight: 220
+weight: 210
 ---
 
-You can download test data from the 
+The following examples use data from the NOAA database.  To download NOAA test data see <insert doc name>.
 
+Use the SELECT statement to query data from a specific measurement or measurments.  
+
+The select clause is required.
 
 - [Syntax](#syntax)
+
 - [Examples](#examples)
 
 ### Syntax
-
-DataFusion supports the following syntax for queries:
-
-[ WITH with_query [, …] ]  
-SELECT [ ALL | DISTINCT ] select_expr [, …]  
-[ FROM from_item [, …] ]  
-[ JOIN join_item [, …] ]  
-[ WHERE condition ]  
-[ GROUP BY grouping_element [, …] ]  
-[ HAVING condition]  
-[ UNION [ ALL | select ]  
-[ ORDER BY expression [ ASC | DESC ][, …] ]  
-[ LIMIT count ]  
-
-Use the SELECT statement to query data from a specific measurement or measurments.  
 
 ```sql
 SELECT <field_key>[,<field_key>,<tag_key>] FROM <measurement_name>[,<measurement_name>]
@@ -43,7 +32,7 @@ SELECT <field_key>[,<field_key>,<tag_key>] FROM <measurement_name>[,<measurement
 
 ### Examples
 
-Select all fields and tags from a measurement:
+Select all fields and tags from a measurement, or select all columns from the specified measurement:
 
 ```sql
 SELECT * from h2o_feet
@@ -58,18 +47,39 @@ Output:
 | between 6 and 9 feet      | coyote_creek | 2019-09-01T00:18:00.000Z |       8.714 |
 
 
+This is a partial data set.
+
+Select all columns from multiple measurements: - this errored out so I don't know if this will work
+
+SELECT * FROM "h2o_feet","h2o_pH"
+
 Select specific tags and fields from a measurement:
 
 ```sql
-SELECT "location","pH" FROM "h2o_pH"
+SELECT "location","water_level" FROM "h2o_feet"
 ```
 Output:
-| location     | pH  |
-| :----------- | :-- |
-| coyote_creek | 8   |
-| coyote_creek | 6   |
-| coyote_creek | 6   |
-| coyote_creek | 7   |
-| coyote_creek | 7   |     
+| location     | water_level |
+| :----------- | :---------- |
+| coyote_creek | 9.126144144 |
+| coyote_creek | 9.009       |
+| coyote_creek | 8.862       |
+| coyote_creek | 8.714       |
+| coyote_creek | 8.547       |
+
+Select a filed and perform basic arithmetic:
+
+```sql
+SELECT ("water_level" * 3) + 5 FROM "h2o_feet"
+```
+| water_level        |
+| :----------------- |
+| 32.378432432       |
+| 32.027             |
+| 31.586             |
+| 31.142000000000003 |
+| 30.641000000000002 |
+| 30.128             |
+
 
 

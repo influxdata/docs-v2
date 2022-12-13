@@ -5,7 +5,8 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: Timestamps and SQL
-weight: 140
+    parent: Explore data
+weight: 290
 
 ---
 
