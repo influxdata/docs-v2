@@ -11,10 +11,21 @@ weight: 101
 
 ### Features
 
+- Add new `influxd inspect report-db` command.
+- Add new `nfluxd inspect check-schema` command.
+- Add new `influxd inspect merge-schema` command.
+
 ### Bug fixes
+
+ - Optimize `SHOW FILED KEY CARDINALITY` command.
+ - Restrict file permissions by default.
+ - Fix max-age transformation.
+ - Fix migrating when already defined remotes exist.
 
 ### Maintenance
 
+- Upgrade to [Go 1.18.9](https://go.dev/doc/go1.18)
+- Upgrade to [Flux 0.191.0](/flux/v0.x/release-notes/#v01870-2022-10-17)
 
 ## v2.5.1 [2022-11-9]
 
