@@ -11,13 +11,13 @@ weight: 101
 
 ### Features
 
-- Add new `influxd inspect report-db` command.
-- Add new `nfluxd inspect check-schema` command.
-- Add new `influxd inspect merge-schema` command.
+- Add [`influxd inspect report-db`](/influxdb/v2.6/reference/cli/influxd/inspect/report-db/) command.
+- Add [`influxd inspect check-schema`](/influxdb/v2.6/reference/cli/influxd/inspect/check-schema/) command.
+- Add [`influxd inspect merge-schema`](/influxdb/v2.6/reference/cli/influxd/inspect/merge-schema/) command.
 
 ### Bug fixes
 
- - Optimize `SHOW FILED KEY CARDINALITY` command.
+ - Optimize [`SHOW FIELD KEY CARDINALITY`](/influxdb/v2.6/query-data/influxql/explore-schema/#show-field-key-cardinality) command.
  - Restrict file permissions by default.
  - Fix max-age transformation.
  - Fix migrating when already defined remotes exist.
