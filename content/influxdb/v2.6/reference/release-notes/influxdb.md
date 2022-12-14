@@ -7,6 +7,14 @@ menu:
     parent: Release notes
 weight: 101
 ---
+## v2.6 [TBD]
+
+### Features
+
+### Bug fixes
+
+### Maintenance
+
 
 ## v2.5.1 [2022-11-9]
 

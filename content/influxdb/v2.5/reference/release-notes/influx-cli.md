@@ -8,7 +8,7 @@ menu:
     name: influx CLI 
 ---
 
-## v2.6.0 [2022-11-01]
+## v2.5.0 [2022-11-01]
 
 ### Features
 

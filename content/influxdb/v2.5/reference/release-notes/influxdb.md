@@ -8,13 +8,13 @@ menu:
 weight: 101
 ---
 
-## v2.6.1 [2022-11-9]
+## v2.5.1 [2022-11-9]
 
 ### Bug fixes
 
 - Fix permissions issue in Debian and Red Hat package managers.
 
-## v2.6 [2022-11-01]
+## v2.5 [2022-11-01]
 
 ### Features
 
