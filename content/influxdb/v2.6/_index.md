@@ -1,12 +1,12 @@
 ---
-title: InfluxDB OSS 2.5 documentation
+title: InfluxDB OSS 2.6 documentation
 description: >
   InfluxDB OSS is an open source time series database designed to handle high write and query loads.
   Learn how to use and leverage InfluxDB in use cases such as monitoring metrics, IoT data, and events.
 layout: landing-influxdb
 menu:
   influxdb_2_6:
-    name: InfluxDB OSS 2.5
+    name: InfluxDB OSS 2.6
 weight: 1
 ---
 
