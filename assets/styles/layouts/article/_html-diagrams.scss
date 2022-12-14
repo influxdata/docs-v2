@@ -146,9 +146,9 @@
   table {margin: 0;}
 
   &:after {
-    content: "series";
+    content: "Series";
     top: 4rem;
-    right: -3.4rem;
+    right: -3.5rem;
   }
 
   &:last-child {margin-bottom: 3rem;}
@@ -159,7 +159,7 @@ table tr.point{
   border: 2px solid $tooltip-bg;
 
   &:after {
-    content: "point";
+    content: "Point";
     bottom: -.8rem;
     left: 1rem;
   }
@@ -183,18 +183,39 @@ table tr.point{
 
   tr.points {
     position: relative;
-    // &:before {
-    //   content: "Point 1";
-    //   display: block;
-    //   color: $tooltip-text;
-    //   background: $br-new-magenta;
-    //   border-radius: $radius;
-    //   position: absolute;
-    //   font-size: .9rem;
-    //   font-weight: $medium;
-    //   padding: .2rem .5rem;
-    //   line-height: .9rem;
-    // }
+    td:first-child{
+      &:before, &:after {
+        display: block;
+        border-radius: $radius;
+        position: absolute;
+        font-size: .9rem;
+        font-weight: $medium;
+        padding: .2rem .5rem;
+        line-height: .9rem;
+        z-index: 1;
+        top: -.25rem;
+        opacity: 0;
+        transition: opacity .2s, top .2s;
+      }
+      &:before {
+        content: "Point 1";
+        color: $g20-white;
+        background: $br-new-magenta;
+      }
+      &:after {
+        content: "Point 2";
+        color: $tooltip-text;
+        background: $tooltip-bg;
+        left: 5rem;
+      }
+    }
+
+    &:hover { td:first-child {
+      &:before, &:after {
+        opacity: 1;
+        top: -.65rem;
+      }
+    }}
   }
   span.point{
     position: relative;

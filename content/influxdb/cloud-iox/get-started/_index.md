@@ -68,6 +68,11 @@ The following are important definitions to understand when using InfluxDB:
 
 ##### Example InfluxDB query results
 
+The method you use to query data from InfluxDB
+(Flux `iox.sql()` (SQL), `from()` (Flux), or InfluxQL), determines how results
+are structured. The following diagrams illustrate how the InfluxDB data model 
+is represented in query results:
+
 {{< tabs-wrapper >}}
 {{% tabs "medium" %}}
 [SQL or InfluxQL](#)

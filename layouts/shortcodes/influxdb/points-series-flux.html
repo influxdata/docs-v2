@@ -2,26 +2,26 @@
 {{- $currentVersion := index $productPathData 1 -}}
 {{- $isOSS := cond (in $currentVersion "cloud") false true -}}
 <div id="series-diagram-wrapper flux">
-  <div class="series-diagram" data-series="1">
+  <div class="series-diagram">
     <table>
       <thead>
         <tr>
           <th align="left">_time</th>
           <th align="left">_measurement</th>
-          <th align="left"><span class="tooltip" data-tooltip-text="tag key">city</span></th>
-          <th align="left"><span class="tooltip" data-tooltip-text="tag key">country</span></th>
+          <th align="left"><span class="tooltip" data-tooltip-text="Tag Key">city</span></th>
+          <th align="left"><span class="tooltip" data-tooltip-text="Tag Key">country</span></th>
           <th align="left">_field</th>
           <th align="right">_value</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td align="left"><span class="tooltip" data-tooltip-text="timestamp">2022-01-01T12:00:00Z</span></td>
-          <td align="left"><span class="tooltip" data-tooltip-text="measurement">weather</span></td>
-          <td align="left"><span class="tooltip" data-tooltip-text="tag value">London</span></td>
-          <td align="left"><span class="tooltip" data-tooltip-text="tag value">UK</span></td>
-          <td align="left"><span class="tooltip" data-tooltip-text="field key">temperature</span></td>
-          <td align="right"><span class="tooltip shift-left" data-tooltip-text="field value">12.0</span></td>
+          <td align="left"><span class="tooltip" data-tooltip-text="Timestamp">2022-01-01T12:00:00Z</span></td>
+          <td align="left"><span class="tooltip" data-tooltip-text="Measurement">weather</span></td>
+          <td align="left"><span class="tooltip" data-tooltip-text="Tag Value">London</span></td>
+          <td align="left"><span class="tooltip" data-tooltip-text="Tag Value">UK</span></td>
+          <td align="left"><span class="tooltip" data-tooltip-text="Field Key">temperature</span></td>
+          <td align="right"><span class="tooltip shift-left" data-tooltip-text="Field Value">12.0</span></td>
         </tr>
         <tr class="point">
           <td align="left">2022-02-01T12:00:00Z</td>
@@ -51,7 +51,7 @@
     </table>
   </div>
 
-  <div class="series-diagram" data-series="2">
+  <div class="series-diagram">
     <table>
       <thead>
         <tr>
@@ -101,7 +101,7 @@
   </div>
 
   {{ if not $isOSS }}
-  <div class="series-diagram" data-series="3">
+  <div class="series-diagram">
     <table>
       <thead>
         <tr>
@@ -150,7 +150,7 @@
     </table>
   </div>
 
-  <div class="series-diagram" data-series="4">
+  <div class="series-diagram">
     <table>
       <thead>
         <tr>
