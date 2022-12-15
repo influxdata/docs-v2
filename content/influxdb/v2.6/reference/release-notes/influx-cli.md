@@ -15,7 +15,7 @@ menu:
 - When using [`influx task create`](/influxdb/v2.6/reference/cli/influx/task/create/)
   to create a new task, only override the `every` task option defined in the Flux
   script when the `-e`,`--every` flag is provided.
-- Properly clear the terminal when exiting and InfluxQL shell.
+- Properly clear the terminal when exiting an InfluxQL shell.
 
 ### Maintenance
 
