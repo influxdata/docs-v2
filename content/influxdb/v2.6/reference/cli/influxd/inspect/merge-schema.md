@@ -19,6 +19,6 @@ influxd inspect merge-schema [flags]
 ## Flags
 | Flag  |                  | Description                                                                                  | Input Type |
 | :---- | :--------------- | :------------------------------------------------------------------------------------------- | :--------: |
-|      | `--conflicts-file`    |  Filename conflict data should be written to (default is"conflicts.json").                                           |  string |
-| `-h`  | `--help`         | View Help for the `merge-schema` command.                                                      |            |
-|      | `--schema-file`    |  Filename for the output file  (default is "schema.json").                                           |  string |
+|      | `--conflicts-file`    | File to write shard conflicts to (default is `conflicts.json`                                           |  string |
+| `-h`  | `--help`         | View help for the `merge-schema` command.                                                      |            |
+|      | `--schema-file`    |  File to write schema data to (default is `schema.json`).                                          |  string |

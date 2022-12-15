@@ -19,9 +19,9 @@ influxd inspect report-db [flags]
 ## Flags
 | Flag  |                  | Description                                                                                  | Input Type |
 | :---- | :--------------- | :------------------------------------------------------------------------------------------- | :--------: |
-|      | `--c`    |  set worker concurrency, defaults to one (the default is 1).                                           |  integer   |
-|       | `--db-path`     | path to database |  string   |
-|       | `--detailed`    | include counts for fields, tags |      |
-|       | `--exact`    | report exact counts |     |
-| `-h`  | `--help`         | View Help for the `report-db` command.                                                      |            |
-|     | `--rollup`    | rollup level - t: total, b: bucket, r: retention policy, m: measurement (the default is "m")               |    string      |
+|      | `--c`    |  Worker concurrency (default is `1`).                                           |  integer   |
+|       | `--db-path`     | ({{< req >}}) Path to database. |  string   |
+|       | `--detailed`    | Include field and tag counts in output. |      |
+|       | `--exact`    | Report exact counts. |     |
+| `-h`  | `--help`         | View help for the `report-db` command.                                                      |            |
+|     | `--rollup`    | Rollup level: `t` (total), `b` (bucket), `r` (retention policy), or `m` (measurement) _(default)_.               |    string      |

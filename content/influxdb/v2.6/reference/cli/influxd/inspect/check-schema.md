@@ -19,8 +19,8 @@ influxd inspect check-schema [flags]
 ## Flags
 | Flag  |                  | Description                                                                                  | Input Type |
 | :---- | :--------------- | :------------------------------------------------------------------------------------------- | :--------: |
-|      | `--conflicts-file`    |  Filename conflict data should be written to (default is"conflicts.json").                                           |  string |
-| `-h`  | `--help`         | View Help for the `check-schema` command.                                                      |            |
-|     | `--log-level`    | The level of logging used througout the command (default info)   |   log level   | 
-|     | `--path`    | Path under which fields.idx files are located (default ".")   |   string   |                                     |  string |
-|      | `--schema-file`    |  Filename schema data should be written to (default is "schema.json").                                           |  string |
+|      | `--conflicts-file`    |  File to write shard conflicts to (default is `conflicts.json`).                                           |  string |
+| `-h`  | `--help`         | View help for the `check-schema` command.                                                      |            |
+|     | `--log-level`    | Log level used for the command (`debug`, `info` (default), or `error`)   |   string  | 
+|     | `--path`    | Directory path to `fields.idx` files (default is `./`)   |   string   |
+|      | `--schema-file`    |  File to write schema data to (default is `schema.json`).                                           |  string |
