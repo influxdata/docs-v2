@@ -7,7 +7,8 @@ menu:
     parent: Release notes
 weight: 101
 ---
-## v2.6.0 [TBD]
+
+## v2.6.0 [2022-12-15]
 
 ### Features
 
@@ -39,7 +40,7 @@ weight: 101
 
 - Fix permissions issue in Debian and Red Hat package managers.
 
-## v2.5 [2022-11-01]
+## v2.5.0 [2022-11-01]
 
 ### Features
 
@@ -65,7 +66,7 @@ weight: 101
 - Upgrade to [Go 1.18.7](https://go.dev/doc/go1.18)
 - Upgrade to [Rust 1.63.0](https://www.rust-lang.org/)
 
-## v2.4 [2022-08-19]
+## v2.4.0 [2022-08-19]
 
 ### Features
 
