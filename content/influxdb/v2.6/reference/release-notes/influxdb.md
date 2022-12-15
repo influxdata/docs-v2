@@ -26,6 +26,7 @@ weight: 101
 - Update `/me` and `/users` routes to match documentation.
 - By default, restrict file permissions to 0750 (`drwxr-x---`).
 - Correctly handle `NaN` values returned from InfluxDB scrapers.
+- Pin user interface (UI) to version that addresses dashboard issues.
 
 ### Maintenance
 
