@@ -19,12 +19,15 @@ influxd inspect [subcommand]
 | Subcommand                                                                           | Description                             |
 | :----------------------------------------------------------------------------------- | :-------------------------------------- |
 | [build-tsi](/influxdb/v2.6/reference/cli/influxd/inspect/build-tsi/)                 | Rebuild the TSI index and series file   |
-| [delete-tsm](/influxdb/v2.6/reference/cli/influxd/inspect/delete-tsm/)               | Delete a measurement from a TSM file   |
+| [check-schema](/influxdb/v2.6/reference/cli/influxd/inspect/check-schema/)           | Check for conflicts between shard types |
+| [delete-tsm](/influxdb/v2.6/reference/cli/influxd/inspect/delete-tsm/)               | Delete a measurement from a TSM file    |
 | [dump-tsi](/influxdb/v2.6/reference/cli/influxd/inspect/dump-tsi/)                   | Output low level TSI information        |
 | [dump-tsm](/influxdb/v2.6/reference/cli/influxd/inspect/dump-tsm/)                   | Output low level TSM information        |
 | [dump-wal](/influxdb/v2.6/reference/cli/influxd/inspect/dump-wal/)                   | Output TSM data from WAL files          |
 | [export-index](/influxdb/v2.6/reference/cli/influxd/inspect/export-index/)           | Export TSI index data                   |
 | [export-lp](/influxdb/v2.6/reference/cli/influxd/inspect/export-lp/)                 | Export TSM data to line protocol        |
+| [merge-schema](/influxdb/v2.6/reference/cli/influxd/inspect/merge-schema/)           | Merge a set of schema files             |
+| [report-db](/influxdb/v2.6/reference/cli/influxd/inspect/report-db/)                 | Report the cardinality of a bucket      |
 | [report-tsi](/influxdb/v2.6/reference/cli/influxd/inspect/report-tsi/)               | Report the cardinality of TSI files     |
 | [report-tsm](/influxdb/v2.6/reference/cli/influxd/inspect/report-tsm/)               | Report information about TSM files      |
 | [verify-seriesfile](/influxdb/v2.6/reference/cli/influxd/inspect/verify-seriesfile/) | Verify the integrity of series files    |
