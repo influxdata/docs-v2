@@ -16,7 +16,7 @@ weight: 101
   - [`influxd inspect check-schema`](/influxdb/v2.6/reference/cli/influxd/inspect/check-schema/)
   - [`influxd inspect merge-schema`](/influxdb/v2.6/reference/cli/influxd/inspect/merge-schema/)
   - [`influxd inspect report-db`](/influxdb/v2.6/reference/cli/influxd/inspect/report-db/)
-- Perform package validation during the build process.
+- Validate packages during the build process.
 
 ### Bug Fixes
 
@@ -27,7 +27,7 @@ weight: 101
 - Update `/me` and `/users` routes to match documentation.
 - By default, restrict file permissions to 0750 (`drwxr-x---`).
 - Correctly handle `NaN` values returned from InfluxDB scrapers.
-- Pin user interface (UI) to version that addresses dashboard issues.
+- Pin the user interface (UI) to version that addresses dashboard issues.
 
 ### Maintenance
 
