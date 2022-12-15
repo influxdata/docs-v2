@@ -9,3 +9,45 @@ menu:
     parent: Explore data
 weight: 240
 ---
+
+The ORDER BY clause orders results by the referenced expression.  The order is ASC **by default**.
+
+Syntax
+
+```sql
+[SELECT CLAUSE] [FROM CLAUSE] [ ORDER BY expression [ ASC | DESC ][, …] ]
+```
+
+- [Syntax](#syntax)
+- [Examples](#examples)
+
+Return points grouping by tag key in descending order
+
+```sql
+SELECT "water_level" 
+    FROM "h2o_feet" 
+    WHERE "location" = 'coyote_creek'  
+    ORDER BY time DESC
+```
+
+Output:
+
+| water_level |
+| :---------- |
+| 3.235       |
+| 3.314       |
+| 3.402       |
+| 3.497       |
+| 3.599       |
+| 3.704       |
+
+
+The query returns 
+
+
+```sql
+SELECT "water_level" 
+    FROM "h2o_feet" 
+    WHERE "location" = 'coyote_creek'  
+    ORDER BY time DESC
+```

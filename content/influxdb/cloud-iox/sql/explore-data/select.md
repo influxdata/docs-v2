@@ -35,7 +35,8 @@ SELECT <field_key>[,<field_key>,<tag_key>] FROM <measurement_name>[,<measurement
 Select all fields and tags from a measurement, or select all columns from the specified measurement:
 
 ```sql
-SELECT * from h2o_feet
+SELECT * 
+  FROM h2o_feet
 ```
 
 Output:
@@ -56,7 +57,8 @@ SELECT * FROM "h2o_feet","h2o_pH"
 Select specific tags and fields from a measurement:
 
 ```sql
-SELECT "location","water_level" FROM "h2o_feet"
+SELECT "location","water_level" 
+  FROM "h2o_feet"
 ```
 Output:
 | location     | water_level |
@@ -70,7 +72,8 @@ Output:
 Select a filed and perform basic arithmetic:
 
 ```sql
-SELECT ("water_level" * 3) + 5 FROM "h2o_feet"
+SELECT ("water_level" * 3) + 5 
+  FROM "h2o_feet"
 ```
 | water_level        |
 | :----------------- |

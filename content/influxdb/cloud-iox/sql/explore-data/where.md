@@ -19,22 +19,14 @@ Use the `WHERE` clause to filter data based on
 
 SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_expression> [...]]
 
-Supported operators
 
-| Operator | Meaning                  |
-|:--------:|:--------                 |
-| `=`      | equal to                 |
-| `<>`     | not equal to             |
-| `!=`     | not equal to             |
-| `>`      | greater than             |
-| `>=`     | greater than or equal to |
-| `<`      | less than                |
-| `<=`     | less than or equal to    |
 
 ### Examples
 
 ```sql
-SELECT * FROM "h2o_feet" WHERE "water_level"  >= 9.78
+SELECT * 
+  FROM "h2o_feet" 
+  WHERE "water_level"  >= 9.78
 ```
 Outut:
 
@@ -50,7 +42,9 @@ Outut:
 The query returns data from the measurement h2o_feet with field values of water_level that are greater than or equal to 9.78. This is a partial data set.
 
 ```sql
-SELECT * FROM "h2o_feet" WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet' 
+SELECT * 
+  FROM "h2o_feet" 
+  WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet' 
 ```
 Output:
 
