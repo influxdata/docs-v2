@@ -12,18 +12,18 @@ menu:
 weight: 101
 metadata: [1 / 5]
 related:
-  - /influxdb/v2.6/install/
-  - /influxdb/v2.6/reference/config-options/
-  - /influxdb/v2.6/security/tokens/
-  - /influxdb/v2.6/organizations/buckets/
-  - /influxdb/v2.6/tools/influx-cli/
-  - /influxdb/v2.6/reference/api/
+  - /influxdb/v2.5/install/
+  - /influxdb/v2.5/reference/config-options/
+  - /influxdb/v2.5/security/tokens/
+  - /influxdb/v2.5/organizations/buckets/
+  - /influxdb/v2.5/tools/influx-cli/
+  - /influxdb/v2.5/reference/api/
 ---
 
 As you get started with this tutorial, do the following to make sure everything
 you need is in place.
 
-1.  If you haven't already, [download and install InfluxDB](/influxdb/v2.6/install/).
+1.  If you haven't already, [download and install InfluxDB](/influxdb/v2.5/install/).
 
     Installation instructions depend on your operating system.
     Be sure to go through the installation and initialization process fully.
@@ -42,7 +42,7 @@ you need is in place.
 
 There are multiple ways to custom-configure InfluxDB.
 For information about what configuration options are available and how to set them,
-see [InfluxDB configuration options](/influxdb/v2.6/reference/config-options/).
+see [InfluxDB configuration options](/influxdb/v2.5/reference/config-options/).
     {{% /note %}}
 
     Once running, the InfluxDB UI is accessible at [localhost:8086](http://localhost:8086).
@@ -51,7 +51,7 @@ see [InfluxDB configuration options](/influxdb/v2.6/reference/config-options/).
     
     The `influx` CLI provides a simple way to interact with InfluxDB from a 
     command line. For detailed installation and setup instructions,
-    see [Use the influx CLI](/influxdb/v2.6/tools/influx-cli/).
+    see [Use the influx CLI](/influxdb/v2.5/tools/influx-cli/).
 
 4.  {{< req text="(Optional)" color="magenta" >}} **Create an All Access API token.**
     <span id="create-an-all-access-api-token"></span>
@@ -91,16 +91,16 @@ see [InfluxDB configuration options](/influxdb/v2.6/reference/config-options/).
 {{% tab-content %}}
 <!---------------------------- BEGIN CLI CONTENT ----------------------------->
 
-1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.6/tools/influx-cli/).
-2.  Use the [`influx auth create` command](/influxdb/v2.6/reference/cli/influx/auth/create/)
+1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.5/tools/influx-cli/).
+2.  Use the [`influx auth create` command](/influxdb/v2.5/reference/cli/influx/auth/create/)
     to create an all access token.
     
     **Provide the following**:
 
     - `--all-access` flag
-    - `--host` flag with your [InfluxDB host URL](/influxdb/v2.6/reference/urls/)
+    - `--host` flag with your [InfluxDB host URL](/influxdb/v2.5/reference/urls/)
     - `-o, --org` or `--org-id` flags with your InfluxDB organization name or
-      [ID](/influxdb/v2.6/organizations/view-orgs/#view-your-organization-id)
+      [ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id)
     - `-t, --token` flag with your Operator token
 
     ```sh
@@ -130,16 +130,16 @@ Include the following with your request:
 - **Request body**: JSON body with the following properties:
   - **status**: `"active"`
   - **description**: API token description
-  - **orgID**: [InfluxDB organization ID](/influxdb/v2.6/organizations/view-orgs/#view-your-organization-id)
+  - **orgID**: [InfluxDB organization ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id)
   - **permissions**: Array of objects where each object represents permissions
     for an InfluxDB resource type or a specific resource. Each permission contains the following properties:
       - **action**: "read" or "write"
       - **resource**: JSON object that represents the InfluxDB resource to grant
         permission to. Each resource contains at least the following properties:
-          - **orgID**: [InfluxDB organization ID](/influxdb/v2.6/organizations/view-orgs/#view-your-organization-id)
+          - **orgID**: [InfluxDB organization ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id)
           - **type**: Resource type.
             _For information about what InfluxDB resource types exist, use the
-            [`/api/v2/resources` endpoint](/influxdb/v2.6/api/#operation/GetResources)._
+            [`/api/v2/resources` endpoint](/influxdb/v2.5/api/#operation/GetResources)._
 
 The following example uses cURL and the InfluxDB API to generate an all access token:
 
@@ -268,11 +268,11 @@ There are three ways to provided authentication credentials to the `influx` CLI:
 
 The `influx` CLI lets you specify connection configuration presets that let
 you store and quickly switch between multiple sets of InfluxDB connection
-credentials. Use the [`influx config create` command](/influxdb/v2.6/reference/cli/influx/config/create/)
+credentials. Use the [`influx config create` command](/influxdb/v2.5/reference/cli/influx/config/create/)
 to create a new CLI connection configuration. Include the following flags:
 
   - `-n, --config-name`: Connection configuration name. This examples uses `get-started`.
-  - `-u, --host-url`: [InfluxDB host URL](/influxdb/v2.6/reference/urls/).
+  - `-u, --host-url`: [InfluxDB host URL](/influxdb/v2.5/reference/urls/).
   - `-o, --org`: InfluxDB organization name.
   - `-t, --token`: InfluxDB API token.
 
@@ -285,7 +285,7 @@ influx config create \
 ```
 
 _For more information about CLI connection configurations, see
-[Install and use the `influx` CLI](/influxdb/v2.6/tools/influx-cli/#set-up-the-influx-cli)._
+[Install and use the `influx` CLI](/influxdb/v2.5/tools/influx-cli/#set-up-the-influx-cli)._
 
 {{% /expand %}}
 
@@ -295,9 +295,9 @@ The `influx` CLI checks for specific environment variables and, if present,
 uses those environment variables to populate authentication credentials.
 Set the following environment variables in your command line session:
 
-- `INFLUX_HOST`: [InfluxDB host URL](/influxdb/v2.6/reference/urls/).
+- `INFLUX_HOST`: [InfluxDB host URL](/influxdb/v2.5/reference/urls/).
 - `INFLUX_ORG`: InfluxDB organization name.
-- `INFLUX_ORG_ID`: InfluxDB [organization ID](/influxdb/v2.6/organizations/view-orgs/#view-your-organization-id).
+- `INFLUX_ORG_ID`: InfluxDB [organization ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id).
 - `INFLUX_TOKEN`: InfluxDB API token.
 
 ```sh
@@ -313,9 +313,9 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 
 Use the following `influx` CLI flags to provide required credentials to commands:
 
-- `--host`: [InfluxDB host URL](/influxdb/v2.6/reference/urls/).
+- `--host`: [InfluxDB host URL](/influxdb/v2.5/reference/urls/).
 - `-o`, `--org` or `--org-id`: InfluxDB organization name or
-  [ID](/influxdb/v2.6/organizations/view-orgs/#view-your-organization-id).
+  [ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id).
 - `-t`, `--token`: InfluxDB API token.
 
 {{% /expand %}}
@@ -324,7 +324,7 @@ Use the following `influx` CLI flags to provide required credentials to commands
 {{% note %}}
 All `influx` CLI examples in this getting started tutorial assume your InfluxDB
 **host**, **organization**, and **token** are provided by either the
-[active `influx` CLI configuration](/influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials)
+[active `influx` CLI configuration](/influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials)
 or by environment variables.
 {{% /note %}}
 
@@ -385,7 +385,7 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 2.  Navigate to **Load Data** > **Buckets** using the left navigation bar.
 3.  Click **+ {{< caps >}}Create bucket{{< /caps >}}**.
 4.  Provide a bucket name (get-started) and select {{% caps %}}Never{{% /caps %}}
-    to create a bucket with an infinite [retention period](/influxdb/v2.6/reference/glossary/#retention-period).
+    to create a bucket with an infinite [retention period](/influxdb/v2.5/reference/glossary/#retention-period).
 5.  Click **{{< caps >}}Create{{< /caps >}}**.
 
 <!------------------------------- END UI CONTENT ------------------------------>
@@ -393,8 +393,8 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 {{% tab-content %}}
 <!---------------------------- BEGIN CLI CONTENT ----------------------------->
 
-1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.6/tools/influx-cli/).
-2.  Use the [`influx bucket create` command](/influxdb/v2.6/reference/cli/influx/bucket/create/)
+1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.5/tools/influx-cli/).
+2.  Use the [`influx bucket create` command](/influxdb/v2.5/reference/cli/influx/bucket/create/)
     to create a new bucket.
     
     **Provide the following**:
@@ -454,4 +454,4 @@ curl --request POST \
 {{% /tab-content %}}
     {{< /tabs-wrapper >}} 
 
-{{< page-nav prev="/influxdb/v2.6/get-started/" next="/influxdb/v2.6/get-started/write/" keepTab=true >}}
+{{< page-nav prev="/influxdb/v2.5/get-started/" next="/influxdb/v2.5/get-started/write/" keepTab=true >}}

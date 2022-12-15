@@ -15,14 +15,14 @@ determine which best suits your use case.
 Consider the following:
 
 #### Do you want to migrate all your time series data?
-[Automatically upgrade to InfluxDB {{< current-version >}}](/influxdb/v2.6/upgrade/v1-to-v2/automatic-upgrade/).
+[Automatically upgrade to InfluxDB {{< current-version >}}](/influxdb/v2.5/upgrade/v1-to-v2/automatic-upgrade/).
 
 #### Do you want to selectively migrate your time series data?
-[Manually upgrade to InfluxDB {{< current-version >}}](/influxdb/v2.6/upgrade/v1-to-v2/manual-upgrade/).
+[Manually upgrade to InfluxDB {{< current-version >}}](/influxdb/v2.5/upgrade/v1-to-v2/manual-upgrade/).
 
 #### Are you using Docker?
-[Upgrade to the 2.x Docker image](/influxdb/v2.6/upgrade/v1-to-v2/docker/).
+[Upgrade to the 2.x Docker image](/influxdb/v2.5/upgrade/v1-to-v2/docker/).
 
 #### Are you using continuous queries (CQs)?
 After you upgrade (automatically, manually, or using Docker),
-[migrate your 1.x CQs to InfluxDB {{< current-version >}} tasks](/influxdb/v2.6/upgrade/v1-to-v2/migrate-cqs/).
+[migrate your 1.x CQs to InfluxDB {{< current-version >}} tasks](/influxdb/v2.5/upgrade/v1-to-v2/migrate-cqs/).

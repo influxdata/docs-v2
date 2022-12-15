@@ -8,9 +8,9 @@ menu:
     parent: Manage TSI indexes
 weight: 201
 related:
-  - /influxdb/v2.6/reference/internals/storage-engine/
-  - /influxdb/v2.6/reference/internals/file-system-layout/
-  - /influxdb/v2.6/reference/cli/influxd/inspect/build-tsi/
+  - /influxdb/v2.5/reference/internals/storage-engine/
+  - /influxdb/v2.5/reference/internals/file-system-layout/
+  - /influxdb/v2.5/reference/cli/influxd/inspect/build-tsi/
 ---
 
 In some cases, it may be necessary to flush and rebuild the TSI index.
@@ -26,9 +26,9 @@ from being queryable.
     {{% /warn %}}
 
 2.  Navigate to the `data` directory in your
-    [InfluxDB engine path](/influxdb/v2.6/reference/internals/file-system-layout/).
+    [InfluxDB engine path](/influxdb/v2.5/reference/internals/file-system-layout/).
     _The engine path depends on your operating system or
-    [custom engine path setting](/influxdb/v2.6/reference/config-options/#engine-path)._
+    [custom engine path setting](/influxdb/v2.5/reference/config-options/#engine-path)._
 
     {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -92,7 +92,7 @@ get-childitem -Include index -Recurse -force | Remove-Item -Force -Recurse
     {{< /code-tabs-wrapper >}}
 
 
-5.  Use the [`influxd inspect build-tsi` command](/influxdb/v2.6/reference/cli/influxd/inspect/build-tsi/)
+5.  Use the [`influxd inspect build-tsi` command](/influxdb/v2.5/reference/cli/influxd/inspect/build-tsi/)
     to rebuild the TSI index.
 
     ```sh

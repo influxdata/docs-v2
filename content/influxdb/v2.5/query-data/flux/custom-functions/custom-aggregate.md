@@ -1,14 +1,14 @@
 ---
 title: Create custom aggregate functions
 description: Create your own custom aggregate functions in Flux using the `reduce()` function.
-influxdb/v2.6/tags: [functions, custom, flux, aggregates]
+influxdb/v2.5/tags: [functions, custom, flux, aggregates]
 menu:
   influxdb_2_5:
     name: Custom aggregate functions
     parent: Custom functions
 weight: 301
 aliases:
-  - /influxdb/v2.6/query-data/guides/custom-functions/custom-aggregate/
+  - /influxdb/v2.5/query-data/guides/custom-functions/custom-aggregate/
 related:
   - /i{{< latest "flux" >}}/stdlib/universe/reduce/
 ---
@@ -142,7 +142,7 @@ it isn't included in the output table.
 
 ## Custom aggregate function examples
 To create custom aggregate functions, use principles outlined in
-[Creating custom functions](/influxdb/v2.6/query-data/flux/custom-functions)
+[Creating custom functions](/influxdb/v2.5/query-data/flux/custom-functions)
 and the `reduce()` function to aggregate rows in each input table.
 
 ### Create a custom average function

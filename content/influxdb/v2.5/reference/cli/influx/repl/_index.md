@@ -3,10 +3,10 @@ title: influx repl
 description: >
   The `influx repl` command opens an interactive Read-Eval-Print Loop (REPL)
   from which you can run Flux commands.
-influxdb/v2.6/tags: [query]
+influxdb/v2.5/tags: [query]
 related:
-  - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 {{% warn %}}
@@ -28,7 +28,7 @@ influx repl [flags]
 Use **ctrl + d** to exit the REPL.
 {{% /note %}}
 
-To use the Flux REPL, you must first authenticate with a [token](/influxdb/v2.6/security/tokens/view-tokens/).
+To use the Flux REPL, you must first authenticate with a [token](/influxdb/v2.5/security/tokens/view-tokens/).
 
 ## Flags
 | Flag |                   | Description                                                           | Input type | {{< cli/mapped >}}    |

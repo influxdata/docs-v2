@@ -9,11 +9,11 @@ weight: 201
 menu:
   influxdb_2_5:
     parent: Query with Flux
-influxdb/v2.6/tags: [query, select, where]
+influxdb/v2.5/tags: [query, select, where]
 related:
   - /{{< latest "flux" >}}/stdlib/universe/filter/
-  - /influxdb/v2.6/query-data/flux/conditional-logic/
-  - /influxdb/v2.6/query-data/flux/regular-expressions/
+  - /influxdb/v2.5/query-data/flux/conditional-logic/
+  - /influxdb/v2.5/query-data/flux/regular-expressions/
 list_code_example: |
   ```js
   from(bucket: "example-bucket")
@@ -29,8 +29,8 @@ to query data based on fields, tags, or any other column value.
 clause in InfluxQL and other SQL-like query languages.
 
 ## The filter() function
-`filter()` has an `fn` parameter that expects a [predicate function](/influxdb/v2.6/reference/glossary/#predicate-function),
-an anonymous function comprised of one or more [predicate expressions](/influxdb/v2.6/reference/glossary/#predicate-expression).
+`filter()` has an `fn` parameter that expects a [predicate function](/influxdb/v2.5/reference/glossary/#predicate-function),
+an anonymous function comprised of one or more [predicate expressions](/influxdb/v2.5/reference/glossary/#predicate-expression).
 The predicate function evaluates each input row.
 Rows that evaluate to `true` are **included** in the output data.
 Rows that evaluate to `false` are **excluded** from the output data.
@@ -64,7 +64,7 @@ The combination of [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/
 [`range()`](/{{< latest "flux" >}}/stdlib/universe/range),
 and `filter()` represent the most basic Flux query:
 
-1. Use `from()` to define your [bucket](/influxdb/v2.6/reference/glossary/#bucket).
+1. Use `from()` to define your [bucket](/influxdb/v2.5/reference/glossary/#bucket).
 2. Use `range()` to limit query results by time.
 3. Use `filter()` to identify what rows of data to output.
 

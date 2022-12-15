@@ -3,7 +3,7 @@ title: influxd inspect export-index
 description: >
   The `influxd inspect export-index` command exports all series in a TSI index to
   SQL format for inspection and debugging.
-influxdb/v2.6/tags: [inspect]
+influxdb/v2.5/tags: [inspect]
 menu:
   influxdb_2_5_ref:
     parent: influxd inspect
@@ -22,5 +22,5 @@ influxd inspect export-index [flags]
 | Flag |                 | Description                                                                                                                   | Input type |
 | :--- | :-------------- | :---------------------------------------------------------------------------------------------------------------------------- | :--------: |
 | `-h` | `--help`        | Help for the `export-index` command.                                                                                          |            |
-|      | `--index-path`  | Path to the [`index` directory](/influxdb/v2.6/reference/internals/file-system-layout/#tsm-directories-and-files-layout).     |   string   |
-|      | `--series-path` | Path to the [`_series` directory]((/influxdb/v2.6/reference/internals/file-system-layout/#tsm-directories-and-files-layout)). |   string   |
+|      | `--index-path`  | Path to the [`index` directory](/influxdb/v2.5/reference/internals/file-system-layout/#tsm-directories-and-files-layout).     |   string   |
+|      | `--series-path` | Path to the [`_series` directory]((/influxdb/v2.5/reference/internals/file-system-layout/#tsm-directories-and-files-layout)). |   string   |

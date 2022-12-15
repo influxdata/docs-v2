@@ -3,7 +3,7 @@ title: Export a dashboard
 seotitle: Export an InfluxDB dashboard
 description: >
   Export a dashboard using the InfluxDB user interface (UI).
-influxdb/v2.6/tags: [dashboards]
+influxdb/v2.5/tags: [dashboards]
 menu:
   influxdb_2_5:
     name: Export a dashboard

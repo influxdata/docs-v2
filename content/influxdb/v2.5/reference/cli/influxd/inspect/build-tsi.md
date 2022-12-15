@@ -3,7 +3,7 @@ title: influxd inspect build-tsi
 description: >
   The `influxd inspect build-tsi` command rebuilds the TSI index and, if necessary,
   the series file.
-influxdb/v2.6/tags: [tsi]
+influxdb/v2.5/tags: [tsi]
 menu:
   influxdb_2_5_ref:
     parent: influxd inspect

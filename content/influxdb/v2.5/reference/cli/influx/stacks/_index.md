@@ -9,13 +9,13 @@ menu:
     parent: influx
 weight: 101
 aliases:
-  - /influxdb/v2.6/reference/cli/influx/pkg/stack/list/
-influxdb/v2.6/tags: [templates]
+  - /influxdb/v2.5/reference/cli/influx/pkg/stack/list/
+influxdb/v2.5/tags: [templates]
 cascade:
   related:
-    - /influxdb/v2.6/influxdb-templates/stacks/
-    - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+    - /influxdb/v2.5/influxdb-templates/stacks/
+    - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.0.1+, InfluxDB 2.0.1+]
 ---
 
@@ -31,8 +31,8 @@ influx stacks [command]
 ## Subcommands
 | Subcommand                                                   | Description        |
 |:-------                                                      |:-----------        |
-| [init](/influxdb/v2.6/reference/cli/influx/stacks/init/)     | Initialize a stack |
-| [remove](/influxdb/v2.6/reference/cli/influx/stacks/remove/) | Remove a stack     |
+| [init](/influxdb/v2.5/reference/cli/influx/stacks/init/)     | Initialize a stack |
+| [remove](/influxdb/v2.5/reference/cli/influx/stacks/remove/) | Remove a stack     |
 
 ## Flags
 | Flag |                   | Description                                                           | Input type  | {{< cli/mapped >}}    |

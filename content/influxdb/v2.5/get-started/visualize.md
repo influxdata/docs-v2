@@ -12,21 +12,21 @@ menu:
 weight: 104
 metadata: [5 / 5]
 related:
-  - /influxdb/v2.6/visualize-data/
-  - /influxdb/v2.6/visualize-data/visualization-types/
-  - /influxdb/v2.6/tools/chronograf/
-  - /influxdb/v2.6/tools/grafana/
+  - /influxdb/v2.5/visualize-data/
+  - /influxdb/v2.5/visualize-data/visualization-types/
+  - /influxdb/v2.5/tools/chronograf/
+  - /influxdb/v2.5/tools/grafana/
 ---
 
 There are many tools you can use to visualize your time series data including the
 InfluxDB user interface (UI), [Chronograf](), and
-[Grafana](/influxdb/v2.6/tools/grafana/).
+[Grafana](/influxdb/v2.5/tools/grafana/).
 This tutorial walks you through using the **InfluxDB UI** to create a simple dashboard.
 
 Dashboards are a powerful way of displaying time series data and can help to
 identify trends and anomalies. A dashboard is comprised of one or more 
 dashboard cells. A **dashboard cell** visualizes the results of a query using
-one of the available [visualization types](/influxdb/v2.6/visualize-data/visualization-types/).
+one of the available [visualization types](/influxdb/v2.5/visualize-data/visualization-types/).
 
 - [Create a dashboard](#create-a-dashboard)
 - [Create dashboard cells](#create-dashboard-cells)
@@ -54,12 +54,12 @@ With your new dashboard created and named, add a new dashboard cell:
 2.  Click _**Name this Cell**_ and provide a name for the cell.
     For this tutorial, we'll use **"Room temperature"**.
 3.  _(Optional)_ Select the visualization type from the visualization drop-down menu.
-    There are many different [visualization types](/influxdb/v2.6/visualize-data/visualization-types/)
+    There are many different [visualization types](/influxdb/v2.5/visualize-data/visualization-types/)
     available.
     For this tutorial, use the default **Graph** visualization.
 4.  Use the query time range selector to select an absolute time range that
     covers includes the time range of the 
-    [data written in "Get started writing to InfluxDB"](/influxdb/v2.6/get-started/write/#view-the-written-data):
+    [data written in "Get started writing to InfluxDB"](/influxdb/v2.5/get-started/write/#view-the-written-data):
     **2022-01-01T08:00:00Z** to **2022-01-01T20:00:01Z**.
 
     1.  The query time range selector defaults to querying data from the last hour
@@ -99,7 +99,7 @@ With your new dashboard created and named, add a new dashboard cell:
 InfluxDB dashboard cells use **dashboard variables** to dynamically change
 specific parts of cell queries.
 The query builder automatically builds queries using the following
-[predefined dashboard variables](/influxdb/v2.6/visualize-data/variables/#predefined-dashboard-variables),
+[predefined dashboard variables](/influxdb/v2.5/visualize-data/variables/#predefined-dashboard-variables),
 each controlled by selections in your dashboard:
 
 - `v.timeRangeStart`: Start time of the queried time range specified by the time range selector.
@@ -121,9 +121,9 @@ displayed by your dashboard cell.
 4.  Select the default **Query** dashboard variable type.
     This variable type uses the results of a query to populate the list of potential
     variable values. _For information about the other dashboard variable types,
-    see [Variable types](/influxdb/v2.6/visualize-data/variables/variable-types/)._
+    see [Variable types](/influxdb/v2.5/visualize-data/variables/variable-types/)._
 5.  Enter the following Flux query to return all the different `room` tag values
-    in your `get-started` bucket from the [Unix epoch](/influxdb/v2.6/reference/glossary/#unix-timestamp).
+    in your `get-started` bucket from the [Unix epoch](/influxdb/v2.5/reference/glossary/#unix-timestamp).
 
     ```js
     import "influxdata/influxdb/schema"
@@ -164,23 +164,23 @@ displayed by your dashboard cell.
     {{< img-hd src="/img/influxdb/2-4-get-started-visualize-variable-select.png" alt="InfluxDB dashboard variable selection" />}}
 
 _For more information about creating custom dashboard variables, see
-[Use and manage dashboard variables](/influxdb/v2.6/visualize-data/variables/)._
+[Use and manage dashboard variables](/influxdb/v2.5/visualize-data/variables/)._
 
-{{< page-nav prev="/influxdb/v2.6/get-started/process/" >}}
+{{< page-nav prev="/influxdb/v2.5/get-started/process/" >}}
 
 ---
 
 ## Congratulations!
 
 You have walked through the
-[basics of setting up, writing, querying, processing, and visualizing](/influxdb/v2.6/get-started/)
+[basics of setting up, writing, querying, processing, and visualizing](/influxdb/v2.5/get-started/)
 data with InfluxDB {{< current-version >}}.
 Feel free to dive in deeper to each of these topics:
 
-- [Write data to InfluxDB](/influxdb/v2.6/write-data/)
-- [Query data in InfluxDB](/influxdb/v2.6/query-data/)
-- [Process data with InfluxDB](/influxdb/v2.6/process-data/)
-- [Visualize data with the InfluxDB UI](/influxdb/v2.6/visualize-data/)
+- [Write data to InfluxDB](/influxdb/v2.5/write-data/)
+- [Query data in InfluxDB](/influxdb/v2.5/query-data/)
+- [Process data with InfluxDB](/influxdb/v2.5/process-data/)
+- [Visualize data with the InfluxDB UI](/influxdb/v2.5/visualize-data/)
 
 If you have questions as you're getting started, reach out to us using the 
 available [Support and feedback](#bug-reports-and-feedback) channels.

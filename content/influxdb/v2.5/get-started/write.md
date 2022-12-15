@@ -13,9 +13,9 @@ menu:
 weight: 101
 metadata: [2 / 5]
 related:
-  - /influxdb/v2.6/write-data/
-  - /influxdb/v2.6/write-data/best-practices/
-  - /influxdb/v2.6/reference/syntax/line-protocol/
+  - /influxdb/v2.5/write-data/
+  - /influxdb/v2.5/write-data/best-practices/
+  - /influxdb/v2.5/reference/syntax/line-protocol/
   - /{{< latest "telegraf" >}}/
 ---
 
@@ -23,11 +23,11 @@ InfluxDB provides many different options for ingesting or writing data, includin
 the following:
 
 - Influx user interface (UI)
-- [InfluxDB HTTP API](/influxdb/v2.6/reference/api/)
-- [`influx` CLI](/influxdb/v2.6/tools/influx-cli/)
+- [InfluxDB HTTP API](/influxdb/v2.5/reference/api/)
+- [`influx` CLI](/influxdb/v2.5/tools/influx-cli/)
 - [Telegraf](/{{< latest "telegraf" >}}/)
 - {{% cloud-only %}}[MQTT](/influxdb/cloud/write-data/no-code/native-subscriptions/){{% /cloud-only %}}
-- [InfluxDB client libraries](/influxdb/v2.6/api-guide/client-libraries/)
+- [InfluxDB client libraries](/influxdb/v2.5/api-guide/client-libraries/)
 
 This tutorial walks you through the fundamental of using **line protocol** to write
 data to InfluxDB. If using tools like Telegraf or InfluxDB client libraries, they will
@@ -38,7 +38,7 @@ build the line protocol for you, but it's good to understand how line protocol w
 All data written to InfluxDB is written using **line protocol**, a text-based
 format that lets you provide the necessary information to write a data point to InfluxDB.
 _This tutorial covers the basics of line protocol, but for detailed information,
-see the [Line protocol reference](/influxdb/v2.6/reference/syntax/line-protocol/)._
+see the [Line protocol reference](/influxdb/v2.5/reference/syntax/line-protocol/)._
 
 ### Line protocol elements
 
@@ -51,12 +51,12 @@ Each line of line protocol contains the following elements:
   Tag keys and values are unquoted strings. _Spaces, commas, and equal characters must be escaped._
 - {{< req "\*" >}} **field set**: Comma-delimited list key value pairs, each representing a field.
   Field keys are unquoted strings. _Spaces and commas must be escaped._
-  Field values can be [strings](/influxdb/v2.6/reference/syntax/line-protocol/#string) (quoted),
-  [floats](/influxdb/v2.6/reference/syntax/line-protocol/#float),
-  [integers](/influxdb/v2.6/reference/syntax/line-protocol/#integer),
-  [unsigned integers](/influxdb/v2.6/reference/syntax/line-protocol/#uinteger),
-  or [booleans](/influxdb/v2.6/reference/syntax/line-protocol/#boolean).
-- **timestamp**: [Unix timestamp](/influxdb/v2.6/reference/syntax/line-protocol/#unix-timestamp)
+  Field values can be [strings](/influxdb/v2.5/reference/syntax/line-protocol/#string) (quoted),
+  [floats](/influxdb/v2.5/reference/syntax/line-protocol/#float),
+  [integers](/influxdb/v2.5/reference/syntax/line-protocol/#integer),
+  [unsigned integers](/influxdb/v2.5/reference/syntax/line-protocol/#uinteger),
+  or [booleans](/influxdb/v2.5/reference/syntax/line-protocol/#boolean).
+- **timestamp**: [Unix timestamp](/influxdb/v2.5/reference/syntax/line-protocol/#unix-timestamp)
   associated with the data. InfluxDB supports up to nanosecond precision.
   _If the precision if the timestamp is not in nanoseconds, you must specify the
   precision when writing the data to InfluxDB._
@@ -76,7 +76,7 @@ Each line of line protocol contains the following elements:
 
 ---
 
-_For schema design recommendations, see [InfluxDB schema design](/influxdb/v2.6/write-data/best-practices/schema-design/)._
+_For schema design recommendations, see [InfluxDB schema design](/influxdb/v2.5/write-data/best-practices/schema-design/)._
 
 ## Construct line protocol
 
@@ -169,8 +169,8 @@ The UI will confirm that the data has been written successfully.
 {{% tab-content %}}
 <!---------------------------- BEGIN CLI CONTENT ----------------------------->
 
-1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.6/tools/influx-cli/).
-2.  Use the [`influx write` command](/influxdb/v2.6/reference/cli/influx/write/)
+1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.5/tools/influx-cli/).
+2.  Use the [`influx write` command](/influxdb/v2.5/reference/cli/influx/write/)
     to write the [line protocol above](#home-sensor-data-line-protocol) to InfluxDB.
     
     **Provide the following**:
@@ -178,7 +178,7 @@ The UI will confirm that the data has been written successfully.
     - `-b, --bucket` or `--bucket-id` flag with the bucket name or ID to write do.
     - `-p, --precision` flag with the timestamp precision (`s`).
     - String-encoded line protocol.
-    - [Connection and authentication credentials](/influxdb/v2.6/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
+    - [Connection and authentication credentials](/influxdb/v2.5/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
 
     ```sh
     influx write \
@@ -386,9 +386,9 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 **Congratulations!** You have written data to InfluxDB. The method described
 above is the manual way of writing data, but there are other options available:
 
-- [Write data to InfluxDB using no-code solutions](/influxdb/v2.6/write-data/no-code/)
-- [Write data to InfluxDB using developer tools](/influxdb/v2.6/write-data/developer-tools/)
+- [Write data to InfluxDB using no-code solutions](/influxdb/v2.5/write-data/no-code/)
+- [Write data to InfluxDB using developer tools](/influxdb/v2.5/write-data/developer-tools/)
 
 With data now stored in InfluxDB, let's query it.
 
-{{< page-nav prev="/influxdb/v2.6/get-started/setup/" next="/influxdb/v2.6/get-started/query/" keepTab=true >}}
+{{< page-nav prev="/influxdb/v2.5/get-started/setup/" next="/influxdb/v2.5/get-started/query/" keepTab=true >}}

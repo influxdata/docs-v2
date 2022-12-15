@@ -7,17 +7,17 @@ menu:
     parent: influx
 weight: 101
 aliases:
-  - /influxdb/v2.6/reference/cli/influx/pkg/
-influxdb/v2.6/tags: [templates]
+  - /influxdb/v2.5/reference/cli/influx/pkg/
+influxdb/v2.5/tags: [templates]
 related:
-  - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 ---
 
 The `influx apply` command applies InfluxDB templates.
 _For information about finding and using InfluxDB templates, see
-[Use InfluxDB templates](/influxdb/v2.6/influxdb-templates/use/)._
+[Use InfluxDB templates](/influxdb/v2.5/influxdb-templates/use/)._
 
 ## Usage
 ```

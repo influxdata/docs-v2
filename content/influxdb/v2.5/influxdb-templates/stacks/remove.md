@@ -2,7 +2,7 @@
 title: Remove an InfluxDB stack
 list_title: Remove a stack
 description: >
-  Use the [`influx stacks remove` command](/influxdb/v2.6/reference/cli/influx/stacks/remove/)
+  Use the [`influx stacks remove` command](/influxdb/v2.5/reference/cli/influx/stacks/remove/)
   to remove an InfluxDB stack and all its associated resources.
 menu:
   influxdb_2_5:
@@ -10,7 +10,7 @@ menu:
     name: Remove a stack
 weight: 205
 related:
-  - /influxdb/v2.6/reference/cli/influx/stacks/remove/
+  - /influxdb/v2.5/reference/cli/influx/stacks/remove/
 list_code_example: |
   ```sh
   influx stacks remove \
@@ -19,7 +19,7 @@ list_code_example: |
   ```
 ---
 
-Use the [`influx stacks remove` command](/influxdb/v2.6/reference/cli/influx/stacks/remove/)
+Use the [`influx stacks remove` command](/influxdb/v2.5/reference/cli/influx/stacks/remove/)
 to remove an InfluxDB stack and all its associated resources.
 
 **Provide the following:**

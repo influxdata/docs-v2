@@ -7,11 +7,11 @@ menu:
   influxdb_2_5_ref:
     name: Storage engine
     parent: InfluxDB internals
-influxdb/v2.6/tags: [storage, internals]
+influxdb/v2.5/tags: [storage, internals]
 products: [oss]
 related:
   - /resources/videos/tsm-engine/
-  - /influxdb/v2.6/admin/internals/
+  - /influxdb/v2.5/admin/internals/
 ---
 
 The InfluxDB storage engine ensures that:
@@ -33,8 +33,8 @@ The storage engine includes the following components:
 ## Writing data from API to disk
 
 The storage engine handles data from the point an API write request is received through writing data to the physical disk.
-Data is written to InfluxDB using [line protocol](/influxdb/v2.6/reference/syntax/line-protocol/) sent via HTTP POST request to the `/api/v2/write` endpoint or the [`/write` 1.x compatibility endpoint](/influxdb/v2.6/reference/api/influxdb-1x/).
-Batches of [points](/influxdb/v2.6/reference/glossary/#point) are sent to InfluxDB, compressed, and written to a WAL for immediate durability.
+Data is written to InfluxDB using [line protocol](/influxdb/v2.5/reference/syntax/line-protocol/) sent via HTTP POST request to the `/api/v2/write` endpoint or the [`/write` 1.x compatibility endpoint](/influxdb/v2.5/reference/api/influxdb-1x/).
+Batches of [points](/influxdb/v2.5/reference/glossary/#point) are sent to InfluxDB, compressed, and written to a WAL for immediate durability.
 Points are also written to an in-memory cache and become immediately queryable.
 The in-memory cache is periodically written to disk in the form of [TSM](#time-structured-merge-tree-tsm) files.
 As TSM files accumulate, the storage engine combines and compacts accumulated them into higher level TSM files.
@@ -88,7 +88,7 @@ Deletes sent to the cache clear the specified key or time range for a specified 
 
 To efficiently compact and store data,
 the storage engine groups field values by series key, and then orders those field values by time.
-(A [series key](/influxdb/v2.6/reference/glossary/#series-key) is defined by measurement, tag key and value, and field key.)
+(A [series key](/influxdb/v2.5/reference/glossary/#series-key) is defined by measurement, tag key and value, and field key.)
 
 The storage engine uses a **Time-Structured Merge Tree** (TSM) data format.
 TSM files store compressed series data in a columnar format.

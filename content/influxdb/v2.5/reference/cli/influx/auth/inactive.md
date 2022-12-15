@@ -15,7 +15,7 @@ To temporarily disable client access to InfluxDB, inactivate the authentication
 token the client is using rather than delete the token.
 If you delete the token, you have to generate a new token and update the client
 with the new token.
-By setting a token to inactive, you can [activate the token](/influxdb/v2.6/reference/cli/influx/auth/active/)
+By setting a token to inactive, you can [activate the token](/influxdb/v2.5/reference/cli/influx/auth/active/)
 to grant the client access without having to modify the client.
 
 ## Usage

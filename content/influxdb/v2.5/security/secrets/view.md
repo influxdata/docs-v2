@@ -1,13 +1,13 @@
 ---
 title: View secret keys
 description: View secret keys using the `influx` CLI or the InfluxDB API.
-influxdb/v2.6/tags: [secrets, security]
+influxdb/v2.5/tags: [secrets, security]
 menu:
   influxdb_2_5:
     parent: Manage secrets
 weight: 302
 aliases:
-  - /influxdb/v2.6/security/secrets/manage-secrets/view/
+  - /influxdb/v2.5/security/secrets/manage-secrets/view/
 ---
 
 View secret keys using the `influx` command line interface (CLI) or the InfluxDB API.
@@ -16,7 +16,7 @@ View secret keys using the `influx` command line interface (CLI) or the InfluxDB
 - [View secret keys using the InfluxDB API](#view-secret-keys-using-the-influxdb-api)
 
 ## View secret keys using the influx CLI
-Use the [`influx secret list` command](/influxdb/v2.6/reference/cli/influx/secret/list/)
+Use the [`influx secret list` command](/influxdb/v2.5/reference/cli/influx/secret/list/)
 to list your organization's secret keys.
 
 ```sh
@@ -29,8 +29,8 @@ to view your organization's secrets keys.
 
 **Include the following:**
 
-- Your [organization ID](/influxdb/v2.6/organizations/view-orgs/#view-your-organization-id) in the request URL
-- Your [API token](/influxdb/v2.6/security/tokens/view-tokens/) in the `Authorization` header
+- Your [organization ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id) in the request URL
+- Your [API token](/influxdb/v2.5/security/tokens/view-tokens/) in the `Authorization` header
 
 <!-- -->
 ```sh

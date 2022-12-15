@@ -4,7 +4,7 @@ description: >
   Flux is an alternative to InfluxQL and other SQL-like query languages for querying and analyzing data.
   Learn about what's possible with Flux and how Flux compares to InfluxQL.
 aliases:
-  - /influxdb/v2.6/reference/flux/flux-vs-influxql/
+  - /influxdb/v2.5/reference/flux/flux-vs-influxql/
 menu:
   influxdb_2_5_ref:
     name: Flux vs InfluxQL
@@ -12,7 +12,7 @@ menu:
     weight: 105
 ---
 
-Flux is an alternative to [InfluxQL](/influxdb/v2.6/query-data/influxql/)
+Flux is an alternative to [InfluxQL](/influxdb/v2.5/query-data/influxql/)
 and other SQL-like query languages for querying and analyzing data.
 Flux uses functional language patterns that overcome many InfluxQL limitations.
 Check out the following distinctions between Flux and InfluxQL:
@@ -55,7 +55,7 @@ dataStream2 = from(bucket: "example-bucket2")
 join(tables: {d1: dataStream1, d2: dataStream2}, on: ["_time", "_stop", "_start", "host"])
 ```
 
-_For an in-depth walkthrough of using the `join()` function, see [how to join data with Flux](/influxdb/v2.6/query-data/flux/join/)._
+_For an in-depth walkthrough of using the `join()` function, see [how to join data with Flux](/influxdb/v2.5/query-data/flux/join/)._
 
 ### Math across measurements
 Being able to perform joins across measurements lets you calculate
@@ -152,7 +152,7 @@ enrichedData
     |> yield(name: "enriched_data")
 ```
 
-_For an in-depth walkthrough of querying SQL data, see [Query SQL data sources](/influxdb/v2.6/query-data/flux/sql/)._
+_For an in-depth walkthrough of querying SQL data, see [Query SQL data sources](/influxdb/v2.5/query-data/flux/sql/)._
 
 ### DatePart-like queries
 InfluxQL doesn't support DatePart-like queries that only return results during specified hours of the day.
@@ -190,7 +190,7 @@ from(bucket: "example-bucket")
     |> histogram(buckets: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
 ```
 
-_For more examples, see [how to create histograms with Flux](/influxdb/v2.6/query-data/flux/histograms/)._
+_For more examples, see [how to create histograms with Flux](/influxdb/v2.5/query-data/flux/histograms/)._
 
 ### Covariance
 Flux provides functions for simple covariance calculations.

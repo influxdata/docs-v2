@@ -7,9 +7,9 @@ menu:
   influxdb_2_5:
     name: Get started
 weight: 3
-influxdb/v2.6/tags: [get-started]
+influxdb/v2.5/tags: [get-started]
 aliases:
-  - /influxdb/v2.6/introduction/get-started/
+  - /influxdb/v2.5/introduction/get-started/
 ---
 
 InfluxDB {{< current-version >}} is the platform purpose-built to collect, store,
@@ -54,7 +54,7 @@ tags and fields.
         When stored on disk and queried, all data is ordered by time.
 
 _For detailed information and examples of the InfluxDB data model, see
-[Data elements](/influxdb/v2.6/reference/key-concepts/data-elements/)._
+[Data elements](/influxdb/v2.5/reference/key-concepts/data-elements/)._
 
 ### Important definitions
 
@@ -89,18 +89,18 @@ The InfluxDB UI provides a web-based visual interface for interacting with and m
 The `influx` CLI lets you interact with and manage InfluxDB {{< current-version >}} from a command line.
 {{% oss-only %}}The CLI is packaged separately from InfluxDB and must be downloaded and installed separately.{{% /oss-only %}}
 For detailed CLI installation instructions, see
-[Use the influx CLI](/influxdb/v2.6/tools/influx-cli/).
+[Use the influx CLI](/influxdb/v2.5/tools/influx-cli/).
 
 ### InfluxDB HTTP API
 
-The [InfluxDB API](/influxdb/v2.6/reference/api/) provides a simple way to
+The [InfluxDB API](/influxdb/v2.5/reference/api/) provides a simple way to
 interact with the InfluxDB {{< current-version >}} using HTTP(S) clients.
 Examples in this tutorial use cURL, but any HTTP(S) client will work.
 
 {{% note %}}
 #### InfluxDB client libraries
 
-[InfluxDB client libraries](/influxdb/v2.6/api-guide/client-libraries/) are
+[InfluxDB client libraries](/influxdb/v2.5/api-guide/client-libraries/) are
 language-specific clients that interact with the InfluxDB HTTP API.
 Examples for client libraries are not provided in this tutorial, but these can
 be used to perform all the actions outlined in this tutorial.
@@ -108,10 +108,10 @@ be used to perform all the actions outlined in this tutorial.
 
 ## Authorization
 
-**InfluxDB {{< current-version >}} requires authentication** using [API tokens](/influxdb/v2.6/security/tokens/).
+**InfluxDB {{< current-version >}} requires authentication** using [API tokens](/influxdb/v2.5/security/tokens/).
 Each API token is associated with a user and a specific set of permissions for InfluxDB resources.
 
-{{< page-nav next="/influxdb/v2.6/get-started/setup/" >}}
+{{< page-nav next="/influxdb/v2.5/get-started/setup/" >}}
 
 ---
 

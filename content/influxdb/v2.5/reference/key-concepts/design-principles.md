@@ -7,7 +7,7 @@ menu:
   influxdb_2_5_ref:
     parent: Key concepts
     name: Design principles
-influxdb/v2.6/tags: [key concepts, design principles]
+influxdb/v2.5/tags: [key concepts, design principles]
 ---
 
 InfluxDB implements optimal design principles for time series data. Some of these design principles may have associated tradeoffs in performance.
@@ -41,4 +41,4 @@ Because the data set is more important than an individual point, InfluxDB implem
 
 ## Duplicate data
 
-To simplify conflict resolution and increase write performance, InfluxDB assumes data sent multiple times is duplicate data. Identical points aren't stored twice. If a new field value is submitted for a point, InfluxDB updates the point with the most recent field value. In rare circumstances, data may be overwritten. Learn more about [duplicate points](/influxdb/v2.6/write-data/best-practices/duplicate-points/).
+To simplify conflict resolution and increase write performance, InfluxDB assumes data sent multiple times is duplicate data. Identical points aren't stored twice. If a new field value is submitted for a point, InfluxDB updates the point with the most recent field value. In rare circumstances, data may be overwritten. Learn more about [duplicate points](/influxdb/v2.5/write-data/best-practices/duplicate-points/).

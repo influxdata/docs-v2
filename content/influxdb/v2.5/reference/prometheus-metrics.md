@@ -7,13 +7,13 @@ menu:
   influxdb_2_5_ref:
     name: Prometheus metrics
 weight: 8
-influxdb/v2.6/tags: [prometheus]
+influxdb/v2.5/tags: [prometheus]
 related:
   - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
-  - /influxdb/v2.6/write-data/developer-tools/scrape-prometheus-metrics/
+  - /influxdb/v2.5/write-data/developer-tools/scrape-prometheus-metrics/
   - /{{< latest "flux" >}}/prometheus/, Work with Prometheus in Flux
   - /{{< latest "telegraf" >}}/plugins/#input-prometheus, Telegraf Prometheus input plugin
-  - /influxdb/v2.6/write-data/no-code/scrape-data/
+  - /influxdb/v2.5/write-data/no-code/scrape-data/
   - /{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/
 ---
 
@@ -29,7 +29,7 @@ are parsed and written to InfluxDB in one of two formats, depending on the scrap
 | Scraping tool                                                                              |                               InfluxDB Metric version |
 | :----------------------------------------------------------------------------------------- | ----------------------------------------------------: |
 | [Telegraf Prometheus plugin](/{{< latest "telegraf" >}}/plugins/#input-prometheus)         | _Determined by `metric_version` configuration option_ |
-| [InfluxDB scraper](/influxdb/v2.6/write-data/no-code/scrape-data/)                         |                                                     1 |
+| [InfluxDB scraper](/influxdb/v2.5/write-data/no-code/scrape-data/)                         |                                                     1 |
 | Flux [`prometheus.scrape()`]({{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/) |                                                     2 |
 
 {{% /oss-only %}}

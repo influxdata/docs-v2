@@ -6,12 +6,12 @@ menu:
     name: influx backup
     parent: influx
 weight: 101
-influxdb/v2.6/tags: [backup]
+influxdb/v2.5/tags: [backup]
 related:
-  - /influxdb/v2.6/backup-restore/backup/
-  - /influxdb/v2.6/reference/cli/influx/restore/
-  - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/v2.5/backup-restore/backup/
+  - /influxdb/v2.5/reference/cli/influx/restore/
+  - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 updated_in: CLI v2.0.2
 ---

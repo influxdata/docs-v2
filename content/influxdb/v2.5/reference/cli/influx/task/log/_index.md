@@ -8,7 +8,7 @@ menu:
     name: influx task log
     parent: influx task
 weight: 201
-influxdb/v2.6/tags: [logs]
+influxdb/v2.5/tags: [logs]
 ---
 
 The `influx task log` command and its subcommand `list` output log information related to a task.
@@ -22,7 +22,7 @@ influx task log [command]
 ## Subcommands
 | Subcommand                                                | Description        |
 |:----------                                                |:-----------        |
-| [list](/influxdb/v2.6/reference/cli/influx/task/log/list) | List logs for task |
+| [list](/influxdb/v2.5/reference/cli/influx/task/log/list) | List logs for task |
 
 ## Flags
 | Flag |          | Description                |

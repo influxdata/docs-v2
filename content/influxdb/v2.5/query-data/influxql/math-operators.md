@@ -264,7 +264,7 @@ In each case the constant you need can be calculated as `(2 ** width) - 1`.
 
 ### Mathematical operators with wildcards and regular expressions
 
-InfluxDB does not support combining mathematical operations with a wildcard (`*`) or [regular expression](/influxdb/v2.6/query-data/influxql/explore-data/regular-expressions/) in the `SELECT` clause.
+InfluxDB does not support combining mathematical operations with a wildcard (`*`) or [regular expression](/influxdb/v2.5/query-data/influxql/explore-data/regular-expressions/) in the `SELECT` clause.
 The following queries are invalid and the system returns an error:
 
 Perform a mathematical operation on a wildcard.
@@ -314,5 +314,5 @@ SELECT mean(10 * "value") FROM "cpu"
 ```
 
 {{% note %}}
-InfluxQL supports [subqueries](/influxdb/v2.6/query-data/influxql/explore-data/subqueries/) which offer similar functionality to using mathematical operators inside a function call.
+InfluxQL supports [subqueries](/influxdb/v2.5/query-data/influxql/explore-data/subqueries/) which offer similar functionality to using mathematical operators inside a function call.
 {{% /note %}}

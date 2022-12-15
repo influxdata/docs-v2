@@ -11,7 +11,7 @@ menu:
     name: Heatmap
     parent: Visualization types
 related:
-  - /influxdb/v2.6/visualize-data/visualization-types/scatter
+  - /influxdb/v2.5/visualize-data/visualization-types/scatter
 ---
 
 A **Heatmap** displays the distribution of data on an x and y axes where color
@@ -114,7 +114,7 @@ between column values.
 ## Important notes
 
 ### Differences between a heatmap and a scatter plot
-Heatmaps and [Scatter plots](/influxdb/v2.6/visualize-data/visualization-types/scatter/)
+Heatmaps and [Scatter plots](/influxdb/v2.5/visualize-data/visualization-types/scatter/)
 both visualize the distribution of data points on X and Y axes.
 However, in certain cases, heatmaps provide better visibility into point density.
 

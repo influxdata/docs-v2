@@ -2,7 +2,7 @@
 title: influxd inspect dump-tsi
 description: >
   The `influxd inspect dump-tsi` command outputs low-level information about `tsi1` files.
-influxdb/v2.6/tags: [tsi, inspect]
+influxdb/v2.5/tags: [tsi, inspect]
 menu:
   influxdb_2_5_ref:
     parent: influxd inspect

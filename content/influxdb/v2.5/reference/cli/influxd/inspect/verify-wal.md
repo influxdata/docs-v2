@@ -3,7 +3,7 @@ title: influxd inspect verify-wal
 description: >
   The `influxd inspect verify-wal` command analyzes the Write-Ahead Log (WAL)
   to check if there are any corrupt files.
-influxdb/v2.6/tags: [wal, inspect]
+influxdb/v2.5/tags: [wal, inspect]
 menu:
   influxdb_2_5_ref:
     parent: influxd inspect

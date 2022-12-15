@@ -48,7 +48,7 @@ By using it, you agree to the [risks of experimental functions](/{{< latest "flu
 ## Sample data
 Many of the examples in this section use a `sampleGeoData` variable that represents
 a sample set of geo-temporal data.
-The [Bird Migration Sample Data](/influxdb/v2.6/reference/sample-data/#bird-migration-sample-data)
+The [Bird Migration Sample Data](/influxdb/v2.5/reference/sample-data/#bird-migration-sample-data)
 provides sample geo-temporal data that meets the
 [requirements of the Flux Geo package](/{{< latest "flux" >}}/stdlib/experimental/geo/#geo-schema-requirements).
 

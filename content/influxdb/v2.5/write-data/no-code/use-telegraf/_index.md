@@ -4,12 +4,12 @@ seotitle: Use the Telegraf agent to collect and write data
 list_title: Use the Telegraf agent
 weight: 101
 description: >
-  Use Telegraf to collect and write data to InfluxDB v2.6.
+  Use Telegraf to collect and write data to InfluxDB v2.5.
   Create Telegraf configurations in the InfluxDB UI or manually configure Telegraf.
 aliases:
-  - /influxdb/v2.6/collect-data/advanced-telegraf
-  - /influxdb/v2.6/collect-data/use-telegraf
-  - /influxdb/v2.6/write-data/use-telegraf/
+  - /influxdb/v2.5/collect-data/advanced-telegraf
+  - /influxdb/v2.5/collect-data/use-telegraf
+  - /influxdb/v2.5/write-data/use-telegraf/
 menu:
   influxdb_2_5:
     name: Telegraf (agent)
@@ -20,7 +20,7 @@ menu:
 data collection agent for collecting and reporting metrics.
 Its vast library of input plugins and "plug-and-play" architecture lets you quickly
 and easily collect metrics from many different sources.
-This article describes how to use Telegraf to collect and store data in InfluxDB v2.6.
+This article describes how to use Telegraf to collect and store data in InfluxDB v2.5.
 
 For a list of available plugins, see [Telegraf plugins](/{{< latest "telegraf" >}}/plugins/).
 

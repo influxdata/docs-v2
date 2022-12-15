@@ -8,20 +8,20 @@ menu:
     parent: Syntax
     name: Delete predicate
 weight: 104
-influxdb/v2.6/tags: [syntax, delete]
+influxdb/v2.5/tags: [syntax, delete]
 related:
-  - /influxdb/v2.6/write-data/delete-data/
-  - /influxdb/v2.6/reference/cli/influx/delete/
+  - /influxdb/v2.5/write-data/delete-data/
+  - /influxdb/v2.5/reference/cli/influx/delete/
 ---
 
 InfluxDB uses an InfluxQL-like predicate syntax to determine what data
-[points](/influxdb/v2.6/reference/glossary/#point) to delete.
-InfluxDB uses the delete predicate to evaluate the [series keys](/influxdb/v2.6/reference/glossary/#series-key)
+[points](/influxdb/v2.5/reference/glossary/#point) to delete.
+InfluxDB uses the delete predicate to evaluate the [series keys](/influxdb/v2.5/reference/glossary/#series-key)
 of points in the time range specified in the delete request.
 Points with series keys that evaluate to `true` for the given predicate are deleted.
 Points with series keys that evaluate to `false` are preserved.
 
-A delete predicate is comprised of one or more [predicate expressions](/influxdb/v2.6/reference/glossary/#predicate-expression).
+A delete predicate is comprised of one or more [predicate expressions](/influxdb/v2.5/reference/glossary/#predicate-expression).
 The left operand of the predicate expression is the column name.
 The right operand is the column value.
 Operands are compared using [comparison operators](#comparison-operators).

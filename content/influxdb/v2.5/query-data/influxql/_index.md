@@ -1,26 +1,26 @@
 ---
 title: Query data with InfluxQL
 description: >
-  Use the [InfluxDB 1.x `/query` compatibility endpoint](/influxdb/v2.6/reference/api/influxdb-1x/query)
+  Use the [InfluxDB 1.x `/query` compatibility endpoint](/influxdb/v2.5/reference/api/influxdb-1x/query)
   to query data in InfluxDB Cloud and InfluxDB OSS 2.4 with **InfluxQL**.
 weight: 102
-influxdb/v2.6/tags: [influxql, query]
+influxdb/v2.5/tags: [influxql, query]
 menu:
   influxdb_2_5:
     name: Query with InfluxQL
     parent: Query data
 related:
-  - /influxdb/v2.6/reference/api/influxdb-1x/
-  - /influxdb/v2.6/reference/api/influxdb-1x/query
-  - /influxdb/v2.6/reference/api/influxdb-1x/dbrp
-  - /influxdb/v2.6/tools/influxql-shell/
+  - /influxdb/v2.5/reference/api/influxdb-1x/
+  - /influxdb/v2.5/reference/api/influxdb-1x/query
+  - /influxdb/v2.5/reference/api/influxdb-1x/dbrp
+  - /influxdb/v2.5/tools/influxql-shell/
 ---
 
 Use InfluxQL (an SQL-like query language) to interact with InfluxDB, and query and analyze your times series data.
 
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
-In InfluxDB OSS {{< current-version >}}, data is stored in [buckets](/influxdb/v2.6/reference/glossary/#bucket).
+In InfluxDB OSS {{< current-version >}}, data is stored in [buckets](/influxdb/v2.5/reference/glossary/#bucket).
 Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
 
 **To query data with InfluxQL, complete the following steps:**
@@ -34,22 +34,22 @@ Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database 
 #### InfluxQL reference documentation
 
 For complete InfluxQL reference documentation, see the
-[InfluxQL specification for InfluxDB 2.x](/influxdb/v2.6/reference/syntax/influxql/spec/).
+[InfluxQL specification for InfluxDB 2.x](/influxdb/v2.5/reference/syntax/influxql/spec/).
 {{% /note %}}
 
 ## Verify buckets have a mapping
 
-1. To verify the buckets you want to query are mapped to a database and retention policy, use the [`influx` CLI](/influxdb/v2.6/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.6/reference/api/).
-_For examples, see [List DBRP mappings](/influxdb/v2.6/query-data/influxql/dbrp/#list-dbrp-mappings)._
+1. To verify the buckets you want to query are mapped to a database and retention policy, use the [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.5/reference/api/).
+_For examples, see [List DBRP mappings](/influxdb/v2.5/query-data/influxql/dbrp/#list-dbrp-mappings)._
 
-2. If you **do not find a DBRP mapping for a bucket**, [create a new DBRP mapping](/influxdb/v2.6/query-data/influxql/dbrp/#create-dbrp-mappings) to
+2. If you **do not find a DBRP mapping for a bucket**, [create a new DBRP mapping](/influxdb/v2.5/query-data/influxql/dbrp/#create-dbrp-mappings) to
 map the unmapped bucket.
 
 ## Create DBRP mappings for unmapped buckets
 
-- Use the [`influx` CLI](/influxdb/v2.6/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.6/reference/api/)
+- Use the [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) or the [InfluxDB API](/influxdb/v2.5/reference/api/)
 to manually create DBRP mappings for unmapped buckets.
-_For examples, see [Create DBRP mappings](/influxdb/v2.6/query-data/influxql/dbrp/#create-dbrp-mappings)._
+_For examples, see [Create DBRP mappings](/influxdb/v2.5/query-data/influxql/dbrp/#create-dbrp-mappings)._
 
 ## Query a mapped bucket with InfluxQL
 
@@ -61,12 +61,12 @@ _For examples, see [Create DBRP mappings](/influxdb/v2.6/query-data/influxql/dbr
 {{% tab-content %}}
 <!---------------------------- BEGIN InfluxQL shell --------------------------->
 
-The [`influx` CLI](/influxdb/v2.6/reference/cli/influx/) provides an [InfluxQL shell](/influxdb/v2.6/tools/influxql-shell/) where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
+The [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) provides an [InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/) where you can execute InfluxQL queries in an interactive Read-Eval-Print-Loop (REPL).
 
 1. If you haven't already, do the following:
 
-   - [Download and install the `influx` CLI](/influxdb/v2.6/tools/influx-cli/#install-the-influx-cli)
-   - [Configure your authentication credentials](/influxdb/v2.6/tools/influx-cli/#provide-required-authentication-credentials)
+   - [Download and install the `influx` CLI](/influxdb/v2.5/tools/influx-cli/#install-the-influx-cli)
+   - [Configure your authentication credentials](/influxdb/v2.5/tools/influx-cli/#provide-required-authentication-credentials)
 
 2. Use the following command to start an InfluxQL shell:
 
@@ -80,21 +80,21 @@ The [`influx` CLI](/influxdb/v2.6/reference/cli/influx/) provides an [InfluxQL s
    SELECT used_percent FROM example-db.example-rp.example-measurement WHERE host=host1
    ```
 
-   For more information, see how to [use the InfluxQL shell](/influxdb/v2.6/tools/influxql-shell/). For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/v2.6/query-data/influxql/dbrp/).
+   For more information, see how to [use the InfluxQL shell](/influxdb/v2.5/tools/influxql-shell/). For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/v2.5/query-data/influxql/dbrp/).
 
 <!----------------------------- END InfluxQL shell ---------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!----------------------------- BEGIN InfluxDB API ---------------------------->
 
-The [InfluxDB 1.x compatibility API](/influxdb/v2.6/reference/api/influxdb-1x/) supports
+The [InfluxDB 1.x compatibility API](/influxdb/v2.5/reference/api/influxdb-1x/) supports
 all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-version >}}.
 
-1. To query a mapped bucket with InfluxQL, use the [`/query` 1.x compatibility endpoint](/influxdb/v2.6/reference/api/influxdb-1x/query/), and include the following in your request:
+1. To query a mapped bucket with InfluxQL, use the [`/query` 1.x compatibility endpoint](/influxdb/v2.5/reference/api/influxdb-1x/query/), and include the following in your request:
 
    - **Request method:** `GET`
    - **Headers:**
-     - **Authorization:** _See [compatibility API authentication](/influxdb/v2.6/reference/api/influxdb-1x/#authentication)_
+     - **Authorization:** _See [compatibility API authentication](/influxdb/v2.5/reference/api/influxdb-1x/#authentication)_
    - **Query parameters:**
      - **db**: 1.x database to query
      - **rp**: 1.x retention policy to query _(if no retention policy is specified, InfluxDB uses the default retention policy for the specified database)_
@@ -112,7 +112,7 @@ all InfluxDB 1.x client libraries and integrations in InfluxDB {{< current-versi
 
 2. (Optional) To return results as **CSV**, include the `Accept: application/csv` header.
 
-For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/v2.6/query-data/influxql/dbrp/).
+For more information about DBRP mappings, see [Manage DBRP mappings](/influxdb/v2.5/query-data/influxql/dbrp/).
 <!------------------------------ END InfluxDB API ----------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}

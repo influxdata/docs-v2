@@ -2,13 +2,13 @@
 title: Query data with Flux
 description: Guides that walk through both common and complex queries and use cases for Flux.
 weight: 102
-influxdb/v2.6/tags: [flux, query]
+influxdb/v2.5/tags: [flux, query]
 menu:
   influxdb_2_5:
     name: Query with Flux
     parent: Query data
 alias:
-  - /influxdb/v2.6/query-data/guides/
+  - /influxdb/v2.5/query-data/guides/
 ---
 
 The following guides walk through both common and complex queries and use cases for Flux.

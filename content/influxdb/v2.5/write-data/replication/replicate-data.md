@@ -8,10 +8,10 @@ menu:
   influxdb_2_5:
     name: Replicate data
     parent: Edge data replication
-influxdb/v2.6/tags: [write, replication]
+influxdb/v2.5/tags: [write, replication]
 related:
-  - /influxdb/v2.6/reference/cli/influx/remote
-  - /influxdb/v2.6/reference/cli/influx/replication
+  - /influxdb/v2.5/reference/cli/influx/remote
+  - /influxdb/v2.5/reference/cli/influx/replication
 ---
 
 Use InfluxDB replication streams (InfluxDB Edge Data Replication) to replicate
@@ -22,8 +22,8 @@ Replicate data from InfluxDB OSS to InfluxDB Cloud, InfluxDB OSS, or InfluxDB En
 
 ## Configure a replication stream
 
-Use the [`influx` CLI](/influxdb/v2.6/tools/influx-cli/) or the
-[InfluxDB {{< current-version >}} API](/influxdb/v2.6/reference/api/) to configure
+Use the [`influx` CLI](/influxdb/v2.5/tools/influx-cli/) or the
+[InfluxDB {{< current-version >}} API](/influxdb/v2.5/reference/api/) to configure
 a replication stream.
 
 {{% note %}}
@@ -101,7 +101,7 @@ max queue size, and latest status code.
 1.  Send a `POST` request to your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS  `/api/v2/remotes` endpoint to create a remote connection to replicate data to.
 
     {{< keep-url >}}
-    <a href="/influxdb/v2.6/api/#operation/PostRemoteConnection">
+    <a href="/influxdb/v2.5/api/#operation/PostRemoteConnection">
     {{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="POST" >}}
     </a>
 
@@ -109,7 +109,7 @@ max queue size, and latest status code.
 
     - **Request method:** `POST`
     - **Headers:**
-      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.6/security/tokens/)
+      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.5/security/tokens/)
       - **Content-type:** `application/json`
     - **Request body:** JSON object with the following fields:  
       {{< req type="key" >}}
@@ -144,7 +144,7 @@ max queue size, and latest status code.
     endpoint with the `GET` request method.
 
     {{< keep-url >}}
-    <a href="/influxdb/v2.6/api/#operation/GetRemoteConnections">
+    <a href="/influxdb/v2.5/api/#operation/GetRemoteConnections">
     {{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="GET" >}}
     </a>
 
@@ -152,7 +152,7 @@ max queue size, and latest status code.
 
     - **Request method:** `GET`
     - **Headers:**
-      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.6/security/tokens/)
+      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.5/security/tokens/)
     - **Query parameters:**
       - **orgID:** {{% oss-only %}}Local{{% /oss-only %}} InfluxDB OSS organization ID
 
@@ -167,7 +167,7 @@ max queue size, and latest status code.
     `/api/v2/replications` endpoint to create a replication stream.
 
     {{< keep-url >}}
-    <a href="/influxdb/v2.6/api/#operation/PostRemoteConnection">
+    <a href="/influxdb/v2.5/api/#operation/PostRemoteConnection">
     {{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="POST" >}}
     </a>
     
@@ -175,7 +175,7 @@ max queue size, and latest status code.
 
     - **Request method:** `POST`
     - **Headers:**
-      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.6/security/tokens/)
+      - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.5/security/tokens/)
       - **Content-type:** `application/json`
     - **Request body:** JSON object with the following fields:
       {{< req type="key" >}}
@@ -220,7 +220,7 @@ information such as the current queue size, max queue size, and latest status
 code for each replication stream, send a `GET` request to your {{% oss-only %}}local{{% /oss-only %}} InfluxDB  OSS `/api/v2/replications` endpoint.
 
 {{< keep-url >}}
-<a href="/influxdb/v2.6/api/#operation/GetReplications">
+<a href="/influxdb/v2.5/api/#operation/GetReplications">
 {{< api-endpoint endpoint="localhost:8086/api/v2/replications" method="GET" >}}
 </a>
 
@@ -228,7 +228,7 @@ Include the following in your request:
 
 - **Request method:** `GET`
 - **Headers:**
-  - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.6/security/tokens/)
+  - **Authorization:** `Token` scheme with your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS [API token](/influxdb/v2.5/security/tokens/)
 - **Query parameters:**
   - **orgID:** {{% oss-only %}}Local{{% /oss-only %}} InfluxDB OSS organization ID
 

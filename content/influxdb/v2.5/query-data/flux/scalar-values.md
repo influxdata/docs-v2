@@ -9,11 +9,11 @@ menu:
     name: Extract scalar values
     parent:  Query with Flux
 weight: 220
-influxdb/v2.6/tags: [scalar]
+influxdb/v2.5/tags: [scalar]
 related:
   - /{{< latest "flux" >}}/function-types/#dynamic-queries, Flux dynamic query functions
 aliases:
-  - /influxdb/v2.6/query-data/guides/scalar-values/
+  - /influxdb/v2.5/query-data/guides/scalar-values/
 list_code_example: |
   ```js
   scalarValue = (tables=<-) => {
@@ -201,7 +201,7 @@ The temperature was ${string(v: lastReported._value)}°F."
 
 The following sample data set represents fictional temperature metrics collected
 from three locations.
-It's formatted in [annotated CSV](/influxdb/v2.6/reference/syntax/annotated-csv/) and imported
+It's formatted in [annotated CSV](/influxdb/v2.5/reference/syntax/annotated-csv/) and imported
 into the Flux query using the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/).
 
 Place the following at the beginning of your query to use the sample data:

@@ -6,7 +6,7 @@ menu:
     parent: Use and manage variables
     name: Common variable queries
 weight: 208
-influxdb/v2.6/tags: [variables]
+influxdb/v2.5/tags: [variables]
 ---
 
 ## List buckets

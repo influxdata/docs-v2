@@ -3,14 +3,14 @@ title: Join data with Flux
 seotitle: Join data in InfluxDB with Flux
 list_title: Join
 description: This guide walks through joining data with Flux and outlines how it shapes your data in the process.
-influxdb/v2.6/tags: [join, flux]
+influxdb/v2.5/tags: [join, flux]
 menu:
   influxdb_2_5:
     name: Join
     parent: Query with Flux
 weight: 210
 aliases:
-  - /influxdb/v2.6/query-data/guides/join/
+  - /influxdb/v2.5/query-data/guides/join/
 related:
   - /{{< latest "flux" >}}/join-data/
   - /{{< latest "flux" >}}/join-data/inner/

@@ -4,7 +4,7 @@ description: >
   Learn how to create a notebook that normalizes or cleans data to make it
   easier to work with.
 weight: 105
-influxdb/v2.6/tags: [notebooks]
+influxdb/v2.5/tags: [notebooks]
 menu:
   influxdb_2_5:
     name: Normalize data
@@ -26,7 +26,7 @@ the normalized data to a bucket.
 {{% /cloud %}}  
 {{< /cloud-only >}}
 
-1.  [Create a new notebook](/influxdb/v2.6/notebooks/create-notebook/).
+1.  [Create a new notebook](/influxdb/v2.5/notebooks/create-notebook/).
 2.  In the **Build a Query** cell:
 
     1.  In the **FROM** column under **{{% caps %}}Sample{{% /caps %}}**,
@@ -54,7 +54,7 @@ the normalized data to a bucket.
         Use [`to()`](/{{< latest "flux">}}/stdlib/influxdata/influxdb/to/)
         to write the normalized data back to InfluxDB.
         Specify an existing bucket to write to or
-        [create a new bucket](/influxdb/v2.6/organizations/buckets/create-bucket/).
+        [create a new bucket](/influxdb/v2.5/organizations/buckets/create-bucket/).
 
         {{% /cloud-only %}}
     

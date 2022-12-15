@@ -9,7 +9,7 @@ menu:
     parent: Manage tasks
 weight: 204
 related:
-  - /influxdb/v2.6/reference/cli/influx/task/update
+  - /influxdb/v2.5/reference/cli/influx/task/update
 ---
 
 ## Update a task in the InfluxDB UI
@@ -44,7 +44,7 @@ _This command requires a task ID, which is available in the output of `influx ta
 #### Update a task Flux script
 Pass the file path of your updated Flux script to the `influx task update` command
 with the ID of the task you want to update.
-Modified [task options](/influxdb/v2.6/process-data/task-options) defined in the Flux
+Modified [task options](/influxdb/v2.5/process-data/task-options) defined in the Flux
 script are also updated.
 
 ```sh
@@ -75,13 +75,13 @@ influx task update -i 0343698431c35000 --status inactive
 
 ## Update a task with the InfluxDB API
 Use the [`/tasks/TASK_ID`
-InfluxDB API endpoint](/influxdb/v2.6/api/#operation/PatchTasksID) to update properties of a task.
+InfluxDB API endpoint](/influxdb/v2.5/api/#operation/PatchTasksID) to update properties of a task.
 
 {{< api-endpoint method="PATCH" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID" >}}
 
 In your request, pass the task ID and an object that contains the updated key-value pairs.
 To activate or inactivate a task, set the `status` property.
 `"status": "inactive"` cancels scheduled runs and prevents manual runs of the task.
-_To find the task ID, see [how to view tasks](/influxdb/v2.6/process-data/manage-tasks/view-tasks/)._
+_To find the task ID, see [how to view tasks](/influxdb/v2.5/process-data/manage-tasks/view-tasks/)._
 
 Once InfluxDB applies the update, it cancels all previously scheduled runs of the task.

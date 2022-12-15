@@ -3,12 +3,12 @@ title: Install InfluxDB
 description: Download, install, and set up InfluxDB OSS.
 menu: influxdb_2_5
 weight: 2
-influxdb/v2.6/tags: [install]
+influxdb/v2.5/tags: [install]
 related:
-- /influxdb/v2.6/reference/cli/influx/auth/
-- /influxdb/v2.6/reference/cli/influx/config/
-- /influxdb/v2.6/reference/cli/influx/
-- /influxdb/v2.6/security/tokens/
+- /influxdb/v2.5/reference/cli/influx/auth/
+- /influxdb/v2.5/reference/cli/influx/config/
+- /influxdb/v2.5/reference/cli/influx/
+- /influxdb/v2.5/security/tokens/
 ---
 
 The InfluxDB {{< current-version >}} time series platform is purpose-built to collect, store,
@@ -37,11 +37,11 @@ Do one of the following:
 {{% note %}}
 #### InfluxDB and the influx CLI are separate packages
 
-The InfluxDB server ([`influxd`](/influxdb/v2.6/reference/cli/influxd/)) and the
-[`influx` CLI](/influxdb/v2.6/reference/cli/influx/) are packaged and
+The InfluxDB server ([`influxd`](/influxdb/v2.5/reference/cli/influxd/)) and the
+[`influx` CLI](/influxdb/v2.5/reference/cli/influx/) are packaged and
 versioned separately.
 For information about installing the `influx` CLI, see
-[Install and use the influx CLI](/influxdb/v2.6/tools/influx-cli/).
+[Install and use the influx CLI](/influxdb/v2.5/tools/influx-cli/).
 {{% /note %}}
 
 ### Use Homebrew
@@ -56,7 +56,7 @@ brew install influxdb
 {{% note %}}
 Homebrew also installs `influxdb-cli` as a dependency.
 For information about using the `influx` CLI, see the
-[`influx` CLI reference documentation](/influxdb/v2.6/reference/cli/influx/).
+[`influx` CLI reference documentation](/influxdb/v2.5/reference/cli/influx/).
 {{% /note %}}
 
 ### Manually download and install
@@ -147,7 +147,7 @@ If you rename the binaries, all references to `influxd` and `influx` in this doc
 #### Networking ports
 
 By default, InfluxDB uses TCP port `8086` for client-server communication over
-the [InfluxDB HTTP API](/influxdb/v2.6/reference/api/).
+the [InfluxDB HTTP API](/influxdb/v2.5/reference/api/).
 
 ### Start and configure InfluxDB
 
@@ -188,7 +188,7 @@ file and process limits for your operating system version then restart `influxd`
 
 {{% /warn %}}
 
-To configure InfluxDB, see [InfluxDB configuration options](/influxdb/v2.6/reference/config-options/), and the [`influxd` documentation](/influxdb/v2.6/reference/cli/influxd) for information about
+To configure InfluxDB, see [InfluxDB configuration options](/influxdb/v2.5/reference/config-options/), and the [`influxd` documentation](/influxdb/v2.5/reference/cli/influxd) for information about
 available flags and options._
 
 {{% note %}}
@@ -221,11 +221,11 @@ Do one of the following:
 {{% note %}}
 #### InfluxDB and the influx CLI are separate packages
 
-The InfluxDB server ([`influxd`](/influxdb/v2.6/reference/cli/influxd/)) and the
-[`influx` CLI](/influxdb/v2.6/reference/cli/influx/) are packaged and
+The InfluxDB server ([`influxd`](/influxdb/v2.5/reference/cli/influxd/)) and the
+[`influx` CLI](/influxdb/v2.5/reference/cli/influx/) are packaged and
 versioned separately.
 For information about installing the `influx` CLI, see
-[Install and use the influx CLI](/influxdb/v2.6/tools/influx-cli/).
+[Install and use the influx CLI](/influxdb/v2.5/tools/influx-cli/).
 {{% /note %}}
 
 ### Install InfluxDB as a service with systemd
@@ -264,11 +264,11 @@ For information about installing the `influx` CLI, see
     ```
 
 For information about where InfluxDB stores data on disk when running as a service,
-see [File system layout](/influxdb/v2.6/reference/internals/file-system-layout/?t=Linux#installed-as-a-package).
+see [File system layout](/influxdb/v2.5/reference/internals/file-system-layout/?t=Linux#installed-as-a-package).
 
 To customize your InfluxDB configuration, use either
 [command line flags (arguments)](#pass-arguments-to-systemd), environment variables, or an InfluxDB configuration file.
-See InfluxDB [configuration options](/influxdb/v2.6/reference/config-options/) for more information.
+See InfluxDB [configuration options](/influxdb/v2.5/reference/config-options/) for more information.
 
 #### Pass arguments to systemd
 
@@ -386,13 +386,13 @@ If the binary was manually downloaded and added to the system `$PATH`, start the
 influxd
 ```
 
-_See the [`influxd` documentation](/influxdb/v2.6/reference/cli/influxd) for information about
+_See the [`influxd` documentation](/influxdb/v2.5/reference/cli/influxd) for information about
 available flags and options._
 
 ### Networking ports
 
 By default, InfluxDB uses TCP port `8086` for client-server communication over
-the [InfluxDB HTTP API](/influxdb/v2.6/reference/api/).
+the [InfluxDB HTTP API](/influxdb/v2.5/reference/api/).
 
 {{% note %}}
 #### InfluxDB "phone home"
@@ -433,11 +433,11 @@ in the provided examples with `./influx` and `./influxd` respectively.
 
 {{% note %}}
 #### InfluxDB and the influx CLI are separate packages
-The InfluxDB server ([`influxd`](/influxdb/v2.6/reference/cli/influxd/)) and the
-[`influx` CLI](/influxdb/v2.6/reference/cli/influx/) are packaged and
+The InfluxDB server ([`influxd`](/influxdb/v2.5/reference/cli/influxd/)) and the
+[`influx` CLI](/influxdb/v2.5/reference/cli/influx/) are packaged and
 versioned separately.
 For information about installing the `influx` CLI, see
-[Install and use the influx CLI](/influxdb/v2.6/tools/influx-cli/).
+[Install and use the influx CLI](/influxdb/v2.5/tools/influx-cli/).
 {{% /note %}}
 
 <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-windows-amd64.zip" download >InfluxDB v{{< current-version >}} (Windows)</a>
@@ -468,7 +468,7 @@ Example:
 
 ## Networking ports
 By default, InfluxDB uses TCP port `8086` for client-server communication over
-the [InfluxDB HTTP API](/influxdb/v2.6/reference/api/).
+the [InfluxDB HTTP API](/influxdb/v2.5/reference/api/).
 
 ## Start InfluxDB
 In **Powershell**, navigate into `C:\Program Files\InfluxData\influxdb` and start
@@ -479,7 +479,7 @@ InfluxDB by running the `influxd` daemon:
 > ./influxd
 ```
 
-_See the [`influxd` documentation](/influxdb/v2.6/reference/cli/influxd) for information about
+_See the [`influxd` documentation](/influxdb/v2.5/reference/cli/influxd) for information about
 available flags and options._
 
 {{% note %}}
@@ -517,7 +517,7 @@ To opt-out of sending telemetry data back to InfluxData, include the
 
 Use `docker run` to download and run the InfluxDB v{{< current-version >}} Docker image.
 Expose port `8086`, which InfluxDB uses for client-server communication over
-the [InfluxDB HTTP API](/influxdb/v2.6/reference/api/).
+the [InfluxDB HTTP API](/influxdb/v2.5/reference/api/).
 
 ```sh
 docker run --name influxdb -p 8086:8086 influxdb:{{< latest-patch >}}
@@ -567,7 +567,7 @@ To mount an InfluxDB configuration file and use it from within Docker:
       influxdb:{{< latest-patch >}}
     ```
 
-(Find more about configuring InfluxDB [here](https://docs.influxdata.com/influxdb/v2.6/reference/config-options/).)
+(Find more about configuring InfluxDB [here](https://docs.influxdata.com/influxdb/v2.5/reference/config-options/).)
 
 ## Open a shell in the InfluxDB container
 
@@ -667,7 +667,7 @@ To run InfluxDB on Raspberry Pi, you need:
 
 ### Install Linux binaries
 
-Follow the [Linux installation instructions](/influxdb/v2.6/install/?t=Linux)
+Follow the [Linux installation instructions](/influxdb/v2.5/install/?t=Linux)
 to install InfluxDB on a Raspberry Pi.
 
 ### Monitor your Raspberry Pi
@@ -678,7 +678,7 @@ to easily configure collecting and visualizing system metrics for the Raspberry 
 If you have a 32-bit Raspberry Pi, [use Telegraf](/{{< latest "telegraf" >}}/)
 to collect and send data to:
 
-- [InfluxDB OSS](/influxdb/v2.6/), running on a 64-bit system
+- [InfluxDB OSS](/influxdb/v2.5/), running on a 64-bit system
 - InfluxDB Cloud with a [**Free Tier**](/influxdb/cloud/account-management/pricing-plans/#free-plan) account
 - InfluxDB Cloud with a paid [**Usage-Based**](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan) account with relaxed resource restrictions.
 
@@ -688,19 +688,19 @@ to collect and send data to:
 {{< /tabs-wrapper >}}
 
 ## Download and install the influx CLI
-The [`influx` CLI](/influxdb/v2.6/reference/cli/influx/) lets you manage InfluxDB
+The [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) lets you manage InfluxDB
 from your command line.
 
-<a class="btn" href="/influxdb/v2.6/tools/influx-cli/" target="_blank">Download and install the influx CLI</a>
+<a class="btn" href="/influxdb/v2.5/tools/influx-cli/" target="_blank">Download and install the influx CLI</a>
 
 ## Set up InfluxDB
 
 The initial setup process for an InfluxDB instance creates the following:
 - An organization with the name you provide.
 - A primary bucket with the name you provide.
-- An admin [authorization](/influxdb/v2.6/security/tokens/) with the following properties:
+- An admin [authorization](/influxdb/v2.5/security/tokens/) with the following properties:
   - The username and password that you provide.
-  - An API token (_[operator token](/influxdb/v2.6/security/tokens/#operator-token)_).
+  - An API token (_[operator token](/influxdb/v2.5/security/tokens/#operator-token)_).
   - Read-write permissions for all resources in the InfluxDB instance.
 
 To run an interactive setup that prompts you for the required information,
@@ -749,15 +749,15 @@ enter the following code in your terminal:
 
 Replace the following:
 
-- **`INFLUX_ORG`**: [your organization name](/influxdb/v2.6/organizations/view-orgs/).
-- **`INFLUX_API_TOKEN`**: [your API token](/influxdb/v2.6/security/tokens/view-tokens/).
+- **`INFLUX_ORG`**: [your organization name](/influxdb/v2.5/organizations/view-orgs/).
+- **`INFLUX_API_TOKEN`**: [your API token](/influxdb/v2.5/security/tokens/view-tokens/).
 
 This configures a new profile named `default` and makes the profile active
 so your `influx` CLI commands run against the specified InfluxDB instance.
-For more detail about configuration profiles, see [`influx config`](/influxdb/v2.6/reference/cli/influx/config/).
+For more detail about configuration profiles, see [`influx config`](/influxdb/v2.5/reference/cli/influx/config/).
 
 Once you have the `default` configuration profile, you're ready to [create All-Access tokens](#create-all-access-tokens)
-or get started [collecting and writing data](/influxdb/v2.6/write-data).
+or get started [collecting and writing data](/influxdb/v2.5/write-data).
 
 {{% /tab-content %}}
 <!-------------------------------- END UI Setup ------------------------------->
@@ -776,13 +776,13 @@ Do one of the following:
 
 #### Run `influx setup` without user interaction
 
-To run the InfluxDB setup process with your automation scripts, pass [flags](/influxdb/v2.6/reference/cli/influx/setup/#flags)
+To run the InfluxDB setup process with your automation scripts, pass [flags](/influxdb/v2.5/reference/cli/influx/setup/#flags)
 with the required information to the `influx setup` command.
 Pass the `-f, --force` flag to bypass screen prompts.
 
 The following example command shows how to set up InfluxDB in non-interactive
 mode with an initial admin user,
-_[operator token](/influxdb/v2.6/security/tokens/#operator-token)_,
+_[operator token](/influxdb/v2.5/security/tokens/#operator-token)_,
 and bucket:
 
 ```sh
@@ -805,14 +805,14 @@ auto-generated API token:
 influx setup -u USERNAME -p PASSWORD -o ORGANIZATION_NAME -b BUCKET_NAME -f
 ```
 
-Once setup completes, InfluxDB is initialized with the [authorization](/influxdb/v2.6/security/tokens/), [user](/influxdb/v2.6/reference/glossary/#user), [organization](/influxdb/v2.6/reference/glossary/#organization), and [bucket](/influxdb/v2.6/reference/glossary/#bucket).
+Once setup completes, InfluxDB is initialized with the [authorization](/influxdb/v2.5/security/tokens/), [user](/influxdb/v2.5/reference/glossary/#user), [organization](/influxdb/v2.5/reference/glossary/#organization), and [bucket](/influxdb/v2.5/reference/glossary/#bucket).
 
 InfluxDB creates a `default` configuration profile for you that provides your
 InfluxDB URL, organization, and API token to `influx` CLI commands.
-For more detail about configuration profiles, see [`influx config`](/influxdb/v2.6/reference/cli/influx/config/).
+For more detail about configuration profiles, see [`influx config`](/influxdb/v2.5/reference/cli/influx/config/).
 
 Once you have the `default` configuration profile, you're ready to [create All-Access tokens](#create-all-access-tokens)
-or get started [collecting and writing data](/influxdb/v2.6/write-data).
+or get started [collecting and writing data](/influxdb/v2.5/write-data).
 
 #### Run `influx setup` with user prompts
 
@@ -837,14 +837,14 @@ Complete the following steps as prompted by the CLI:
 7. Confirm the details for your primary user, organization, and bucket.
 
 Once setup completes, InfluxDB is initialized with the user, organization, bucket,
-and _[operator token](/influxdb/v2.6/security/tokens/#operator-token)_.
+and _[operator token](/influxdb/v2.5/security/tokens/#operator-token)_.
 
 InfluxDB creates a `default` configuration profile for you that provides your
 InfluxDB URL, organization, and API token to `influx` CLI commands.
-For more detail about configuration profiles, see [`influx config`](/influxdb/v2.6/reference/cli/influx/config/).
+For more detail about configuration profiles, see [`influx config`](/influxdb/v2.5/reference/cli/influx/config/).
 
 Once you have the `default` configuration profile, you're ready to [create All-Access tokens](#create-all-access-tokens)
-or get started [collecting and writing data](/influxdb/v2.6/write-data).
+or get started [collecting and writing data](/influxdb/v2.5/write-data).
 
 {{% /tab-content %}}
 <!------------------------------- END CLI Setup -------------------------------->
@@ -852,8 +852,8 @@ or get started [collecting and writing data](/influxdb/v2.6/write-data).
 
 ### Create All-Access tokens
 
-Because [Operator tokens](/influxdb/v2.6/security/tokens/#operator-token)
+Because [Operator tokens](/influxdb/v2.5/security/tokens/#operator-token)
 have full read and write access to all organizations in the database,
 we recommend
-[creating an All-Access token](/influxdb/v2.6/security/tokens/create-token/)
+[creating an All-Access token](/influxdb/v2.5/security/tokens/create-token/)
 for each organization and using those tokens to manage InfluxDB.

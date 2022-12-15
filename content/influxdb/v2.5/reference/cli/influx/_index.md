@@ -9,9 +9,9 @@ menu:
     name: influx
     parent: Command line tools
 weight: 101
-influxdb/v2.6/tags: [cli]
+influxdb/v2.5/tags: [cli]
 related:
-  - /influxdb/v2.6/tools/influx-cli/
+  - /influxdb/v2.5/tools/influx-cli/
 ---
 
 The `influx` command line interface (CLI) includes commands to manage many aspects of InfluxDB,
@@ -29,7 +29,7 @@ InfluxDB and `influx` CLI versions may differ, but compatibility is noted for ea
 {{% /oss-only %}}
 
 ## Download and install the influx CLI
-<a class="btn" href="/influxdb/v2.6/tools/influx-cli/">Download and install the influx CLI</a>
+<a class="btn" href="/influxdb/v2.5/tools/influx-cli/">Download and install the influx CLI</a>
 
 ### Provide required authentication credentials
 To avoid having to pass your InfluxDB **host**, **API token**, and **organization**
@@ -37,7 +37,7 @@ with each command, store them in an `influx` CLI configuration (config).
 `influx` commands that require these credentials automatically retrieve these
 credentials from the active config.
 
-Use the [`influx config create` command](/influxdb/v2.6/reference/cli/influx/config/create/)
+Use the [`influx config create` command](/influxdb/v2.5/reference/cli/influx/config/create/)
 to create an `influx` CLI config and set it as active:
 
 ```sh
@@ -49,7 +49,7 @@ influx config create --config-name <config-name> \
 ```
 
 For more information about managing CLI configurations, see the
-[`influx config` documentation](/influxdb/v2.6/reference/cli/influx/config/).
+[`influx config` documentation](/influxdb/v2.5/reference/cli/influx/config/).
 
 ## Usage
 
@@ -62,32 +62,32 @@ influx [command]
 
 | Command                                                             | Description                                                                |
 | :------------------------------------------------------------------ | :------------------------------------------------------------------------- |
-| [apply](/influxdb/v2.6/reference/cli/influx/apply/)                 | Apply an InfluxDB template                                                 |
-| [auth](/influxdb/v2.6/reference/cli/influx/auth/)                   | API token management commands                                              |
-| [backup](/influxdb/v2.6/reference/cli/influx/backup/)               | Back up data _(InfluxDB OSS only)_                                         |
-| [bucket](/influxdb/v2.6/reference/cli/influx/bucket/)               | Bucket management commands                                                 |
-| [bucket-schema](/influxdb/v2.6/reference/cli/influx/bucket-schema/) | Manage InfluxDB bucket schemas _(InfluxDB Cloud only)_                     |
-| [completion](/influxdb/v2.6/reference/cli/influx/completion/)       | Generate completion scripts                                                |
-| [config](/influxdb/v2.6/reference/cli/influx/config/)               | Configuration management commands                                          |
-| [dashboards](/influxdb/v2.6/reference/cli/influx/dashboards/)       | List dashboards                                                            |
-| [delete](/influxdb/v2.6/reference/cli/influx/delete/)               | Delete points from InfluxDB                                                |
-| [export](/influxdb/v2.6/reference/cli/influx/export/)               | Export resources as a template                                             |
-| [help](/influxdb/v2.6/reference/cli/influx/help/)                   | Help about any command                                                     |
-| [org](/influxdb/v2.6/reference/cli/influx/org/)                     | Organization management commands                                           |
-| [ping](/influxdb/v2.6/reference/cli/influx/ping/)                   | Check the InfluxDB `/health` endpoint                                      |
-| [query](/influxdb/v2.6/reference/cli/influx/query/)                 | Execute a Flux query                                                       |
-| [restore](/influxdb/v2.6/reference/cli/influx/restore/)             | Restore backup data _(InfluxDB OSS only)_                                  |
-| [scripts](/influxdb/v2.6/reference/cli/influx/scripts)              | Scripts management commands  _(InfluxDB Cloud only)_                       |
-| [secret](/influxdb/v2.6/reference/cli/influx/secret/)               | Manage secrets                                                             |
-| [setup](/influxdb/v2.6/reference/cli/influx/setup/)                 | Create default username, password, org, bucket, etc. _(InfluxDB OSS only)_ |
-| [stacks](/influxdb/v2.6/reference/cli/influx/stacks/)               | Manage InfluxDB stacks                                                     |
-| [task](/influxdb/v2.6/reference/cli/influx/task/)                   | Task management commands                                                   |
-| [telegrafs](/influxdb/v2.6/reference/cli/influx/telegrafs/)         | Telegraf configuration management commands                                 |
-| [template](/influxdb/v2.6/reference/cli/influx/template/)           | Summarize and validate an InfluxDB template                                |
-| [user](/influxdb/v2.6/reference/cli/influx/user/)                   | User management commands                                                   |
-| [v1](/influxdb/v2.6/reference/cli/influx/v1/)                       | Work with the v1 compatibility API                                         |
-| [version](/influxdb/v2.6/reference/cli/influx/version/)             | Print the influx CLI version                                               |
-| [write](/influxdb/v2.6/reference/cli/influx/write/)                 | Write points to InfluxDB                                                   |
+| [apply](/influxdb/v2.5/reference/cli/influx/apply/)                 | Apply an InfluxDB template                                                 |
+| [auth](/influxdb/v2.5/reference/cli/influx/auth/)                   | API token management commands                                              |
+| [backup](/influxdb/v2.5/reference/cli/influx/backup/)               | Back up data _(InfluxDB OSS only)_                                         |
+| [bucket](/influxdb/v2.5/reference/cli/influx/bucket/)               | Bucket management commands                                                 |
+| [bucket-schema](/influxdb/v2.5/reference/cli/influx/bucket-schema/) | Manage InfluxDB bucket schemas _(InfluxDB Cloud only)_                     |
+| [completion](/influxdb/v2.5/reference/cli/influx/completion/)       | Generate completion scripts                                                |
+| [config](/influxdb/v2.5/reference/cli/influx/config/)               | Configuration management commands                                          |
+| [dashboards](/influxdb/v2.5/reference/cli/influx/dashboards/)       | List dashboards                                                            |
+| [delete](/influxdb/v2.5/reference/cli/influx/delete/)               | Delete points from InfluxDB                                                |
+| [export](/influxdb/v2.5/reference/cli/influx/export/)               | Export resources as a template                                             |
+| [help](/influxdb/v2.5/reference/cli/influx/help/)                   | Help about any command                                                     |
+| [org](/influxdb/v2.5/reference/cli/influx/org/)                     | Organization management commands                                           |
+| [ping](/influxdb/v2.5/reference/cli/influx/ping/)                   | Check the InfluxDB `/health` endpoint                                      |
+| [query](/influxdb/v2.5/reference/cli/influx/query/)                 | Execute a Flux query                                                       |
+| [restore](/influxdb/v2.5/reference/cli/influx/restore/)             | Restore backup data _(InfluxDB OSS only)_                                  |
+| [scripts](/influxdb/v2.5/reference/cli/influx/scripts)              | Scripts management commands  _(InfluxDB Cloud only)_                       |
+| [secret](/influxdb/v2.5/reference/cli/influx/secret/)               | Manage secrets                                                             |
+| [setup](/influxdb/v2.5/reference/cli/influx/setup/)                 | Create default username, password, org, bucket, etc. _(InfluxDB OSS only)_ |
+| [stacks](/influxdb/v2.5/reference/cli/influx/stacks/)               | Manage InfluxDB stacks                                                     |
+| [task](/influxdb/v2.5/reference/cli/influx/task/)                   | Task management commands                                                   |
+| [telegrafs](/influxdb/v2.5/reference/cli/influx/telegrafs/)         | Telegraf configuration management commands                                 |
+| [template](/influxdb/v2.5/reference/cli/influx/template/)           | Summarize and validate an InfluxDB template                                |
+| [user](/influxdb/v2.5/reference/cli/influx/user/)                   | User management commands                                                   |
+| [v1](/influxdb/v2.5/reference/cli/influx/v1/)                       | Work with the v1 compatibility API                                         |
+| [version](/influxdb/v2.5/reference/cli/influx/version/)             | Print the influx CLI version                                               |
+| [write](/influxdb/v2.5/reference/cli/influx/write/)                 | Write points to InfluxDB                                                   |
 
 ## Flags
 

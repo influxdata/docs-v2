@@ -4,8 +4,8 @@ weight: 101
 description: >
   Use existing tools to write data to InfluxDB without writing code.
 aliases:
-  - /influxdb/v2.6/collect-data/advanced-telegraf
-  - /influxdb/v2.6/collect-data/use-telegraf
+  - /influxdb/v2.5/collect-data/advanced-telegraf
+  - /influxdb/v2.5/collect-data/use-telegraf
 menu:
   influxdb_2_5:
     name: No-code solutions

@@ -9,18 +9,18 @@ menu:
     name: /write
     parent: 1.x compatibility
 weight: 301
-influxdb/v2.6/tags: [write]
+influxdb/v2.5/tags: [write]
 list_code_example: |
   <pre>
   <span class="api post">POST</span> http://localhost:8086/write
   </pre>
 related:
-  - /influxdb/v2.6/reference/syntax/line-protocol
+  - /influxdb/v2.5/reference/syntax/line-protocol
 ---
 
 The `/write` 1.x compatibility endpoint writes data to InfluxDB Cloud and InfluxDB OSS {{< current-version >}}
 using patterns from the InfluxDB 1.x `/write` API endpoint.
-Use the `POST` request method to write [line protocol](/influxdb/v2.6/reference/syntax/line-protocol/)
+Use the `POST` request method to write [line protocol](/influxdb/v2.5/reference/syntax/line-protocol/)
 to the `/write` endpoint.
 
 <pre>
@@ -31,7 +31,7 @@ to the `/write` endpoint.
 
 {{% note %}}
 If you have an existing bucket that doesn't follow the **database/retention-policy** naming convention,
-you **must** [manually create a database and retention policy mapping](/influxdb/v2.6/query-data/influxql/dbrp/#create-dbrp-mappings)
+you **must** [manually create a database and retention policy mapping](/influxdb/v2.5/query-data/influxql/dbrp/#create-dbrp-mappings)
 to write data to that bucket with the `/write` compatibility API.
 {{% /note %}}
 
@@ -46,7 +46,7 @@ Use one of the following authentication methods:
 * **basic authentication with username and password**
 * **query string authentication with username and password**
 
-_For more information, see [Authentication](/influxdb/v2.6/reference/api/influxdb-1x/#authentication)._
+_For more information, see [Authentication](/influxdb/v2.5/reference/api/influxdb-1x/#authentication)._
 
 {{% /oss-only %}}
 
@@ -68,11 +68,11 @@ encode the line protocol.
 
 ### u
 (Optional) The 1.x **username** to authenticate the request.
-_See [query string authentication](/influxdb/v2.6/reference/api/influxdb-1x/#query-string-authentication)._
+_See [query string authentication](/influxdb/v2.5/reference/api/influxdb-1x/#query-string-authentication)._
 
 ### p
 (Optional) The 1.x **password** to authenticate the request.
-_See [query string authentication](/influxdb/v2.6/reference/api/influxdb-1x/#query-string-authentication)._
+_See [query string authentication](/influxdb/v2.5/reference/api/influxdb-1x/#query-string-authentication)._
 
 {{% /oss-only %}}
 
@@ -90,16 +90,16 @@ _See [query string authentication](/influxdb/cloud/reference/api/influxdb-1x/#qu
 
 ### db
 ({{< req >}}) The **database** to write data to.
-This is mapped to an InfluxDB [bucket](/influxdb/v2.6/reference/glossary/#bucket).
-_See [Database and retention policy mapping](/influxdb/v2.6/reference/api/influxdb-1x/dbrp/)._
+This is mapped to an InfluxDB [bucket](/influxdb/v2.5/reference/glossary/#bucket).
+_See [Database and retention policy mapping](/influxdb/v2.5/reference/api/influxdb-1x/dbrp/)._
 
 ### rp
 The **retention policy** to write data to.
-This is mapped to an InfluxDB [bucket](/influxdb/v2.6/reference/glossary/#bucket).
-_See [Database and retention policy mapping](/influxdb/v2.6/reference/api/influxdb-1x/dbrp/)._
+This is mapped to an InfluxDB [bucket](/influxdb/v2.5/reference/glossary/#bucket).
+_See [Database and retention policy mapping](/influxdb/v2.5/reference/api/influxdb-1x/dbrp/)._
 
 ### precision
-The precision of [Unix timestamps](/influxdb/v2.6/reference/glossary/#unix-timestamp) in the line protocol.
+The precision of [Unix timestamps](/influxdb/v2.5/reference/glossary/#unix-timestamp) in the line protocol.
 Default is nanosconds (`ns`).
 The following precisions are available:
 
@@ -183,9 +183,9 @@ curl --request POST http://localhost:8086/write?db=mydb \
 {{% oss-only %}}
 
 Replace the following:
-- *`INFLUX_USERNAME`*: [InfluxDB 1.x username](/influxdb/v2.6/reference/api/influxdb-1x/#manage-credentials)
-- *`INFLUX_PASSWORD_OR_TOKEN`*: [InfluxDB 1.x password or InfluxDB API token](/influxdb/v2.6/reference/api/influxdb-1x/#manage-credentials)
-- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/v2.6/reference/glossary/#token)
+- *`INFLUX_USERNAME`*: [InfluxDB 1.x username](/influxdb/v2.5/reference/api/influxdb-1x/#manage-credentials)
+- *`INFLUX_PASSWORD_OR_TOKEN`*: [InfluxDB 1.x password or InfluxDB API token](/influxdb/v2.5/reference/api/influxdb-1x/#manage-credentials)
+- *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/v2.5/reference/glossary/#token)
 
 {{% /oss-only %}}
 

@@ -9,7 +9,7 @@ menu:
     parent: Manage tasks
 weight: 202
 related:
-  - /influxdb/v2.6/reference/cli/influx/task/list
+  - /influxdb/v2.5/reference/cli/influx/task/list
 ---
 
 ## View tasks in the InfluxDB UI
@@ -34,11 +34,11 @@ influx task list
 #### Filter tasks using the CLI
 Other filtering options such as filtering by organization or user,
 or limiting the number of tasks returned, are available.
-See the [`influx task list` documentation](/influxdb/v2.6/reference/cli/influx/task/list)
+See the [`influx task list` documentation](/influxdb/v2.5/reference/cli/influx/task/list)
 for information about other available flags.
 
 ## View tasks with the InfluxDB API
-Use the [`/tasks` InfluxDB API endpoint](/influxdb/v2.6/api/#operation/GetTasks)
+Use the [`/tasks` InfluxDB API endpoint](/influxdb/v2.5/api/#operation/GetTasks)
 to return a list of tasks.
 
 {{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks" >}}

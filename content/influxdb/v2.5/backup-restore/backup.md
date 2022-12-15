@@ -8,12 +8,12 @@ menu:
     parent: Back up & restore data
 weight: 101
 related:
-  - /influxdb/v2.6/backup-restore/restore/
-  - /influxdb/v2.6/reference/cli/influx/backup/
+  - /influxdb/v2.5/backup-restore/restore/
+  - /influxdb/v2.5/reference/cli/influx/backup/
 products: [oss]
 ---
 
-Use the [`influx backup` command](/influxdb/v2.6/reference/cli/influx/backup/) to back up
+Use the [`influx backup` command](/influxdb/v2.5/reference/cli/influx/backup/) to back up
 data and metadata stored in InfluxDB.
 InfluxDB copies all data and metadata to a set of files stored in a specified directory
 on your local filesystem.
@@ -23,8 +23,8 @@ on your local filesystem.
 The InfluxDB {{< current-version >}} `influx backup` command is not compatible with versions of InfluxDB prior to 2.0.0.
 **For information about migrating data between InfluxDB 1.x and {{< current-version >}}, see:**
 
-- [Automatically upgrade from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.6/upgrade/v1-to-v2/automatic-upgrade/)
-- [Manually upgrade from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.6/upgrade/v1-to-v2/manual-upgrade/)
+- [Automatically upgrade from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.5/upgrade/v1-to-v2/automatic-upgrade/)
+- [Manually upgrade from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.5/upgrade/v1-to-v2/manual-upgrade/)
 {{% /note %}}
 
 {{% cloud %}}
@@ -35,7 +35,7 @@ The `influx backup` command requires:
 
 - The directory path for where to store the backup file set
 - The **root authorization token** (the token created for the first user in the
-  [InfluxDB setup process](/influxdb/v2.6/get-started/)).
+  [InfluxDB setup process](/influxdb/v2.5/get-started/)).
 
 ##### Back up data with the influx CLI
 ```sh

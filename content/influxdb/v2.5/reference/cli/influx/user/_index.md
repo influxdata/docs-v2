@@ -6,12 +6,12 @@ menu:
     name: influx user
     parent: influx
 weight: 101
-influxdb/v2.6/tags: [users]
+influxdb/v2.5/tags: [users]
 cascade:
   related:
-    - /influxdb/v2.6/users/
-    - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+    - /influxdb/v2.5/users/
+    - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/
 ---
@@ -27,11 +27,11 @@ influx user [command]
 ## Subcommands
 | Subcommand                                                    | Description              |
 |:----------                                                    |:-----------              |
-| [create](/influxdb/v2.6/reference/cli/influx/user/create)     | Create a user            |
-| [delete](/influxdb/v2.6/reference/cli/influx/user/delete)     | Delete a user            |
-| [list](/influxdb/v2.6/reference/cli/influx/user/list)         | List users               |
-| [password](/influxdb/v2.6/reference/cli/influx/user/password) | Update a user's password |
-| [update](/influxdb/v2.6/reference/cli/influx/user/update)     | Update a user            |
+| [create](/influxdb/v2.5/reference/cli/influx/user/create)     | Create a user            |
+| [delete](/influxdb/v2.5/reference/cli/influx/user/delete)     | Delete a user            |
+| [list](/influxdb/v2.5/reference/cli/influx/user/list)         | List users               |
+| [password](/influxdb/v2.5/reference/cli/influx/user/password) | Update a user's password |
+| [update](/influxdb/v2.5/reference/cli/influx/user/update)     | Update a user            |
 
 ## Flags
 | Flag |          | Description                 |

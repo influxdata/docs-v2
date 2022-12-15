@@ -7,7 +7,7 @@ menu:
     parent: influx config
 weight: 201
 aliases:
-  - /influxdb/v2.6/reference/cli/influx/config/delete/
+  - /influxdb/v2.5/reference/cli/influx/config/delete/
 ---
 
 The `influx config rm` command removes an InfluxDB connection configuration

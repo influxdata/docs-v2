@@ -21,8 +21,8 @@ Use the `ORDER BY` clause to sort data.
 
 ## ORDER BY time DESC
 
-By default, InfluxDB returns results in ascending time order; the first [point](/influxdb/v2.6/reference/glossary/#point)
-returned has the oldest [timestamp](/influxdb/v2.6/reference/glossary/#timestamp) and
+By default, InfluxDB returns results in ascending time order; the first [point](/influxdb/v2.5/reference/glossary/#point)
+returned has the oldest [timestamp](/influxdb/v2.5/reference/glossary/#timestamp) and
 the last point returned has the most recent timestamp.
 `ORDER BY time DESC` reverses that order such that InfluxDB returns the points
 with the most recent timestamps first.
@@ -59,7 +59,7 @@ Name: h2o_feet
 | 2019-09-17T21:18:00Z | 5.0720000000|
 
 The query returns the points with the most recent timestamps from the
-`h2o_feet` [measurement](/influxdb/v2.6/reference/glossary/#measurement) first.
+`h2o_feet` [measurement](/influxdb/v2.5/reference/glossary/#measurement) first.
 Without `ORDER by time DESC`, the query would return the following output:
 
 Output:
@@ -93,11 +93,11 @@ Name: h2o_feet
 | 2019-08-18T00:12:00Z | 5.3042500000|
 | 2019-08-18T00:00:00Z | 5.4135000000|
 
-The query uses the InfluxQL [MEAN() function](/influxdb/v2.6/query-data/influxql/functions/aggregates/#mean)
-and a time interval in the [GROUP BY clause](/influxdb/v2.6/query-data/influxql/explore-data/group-by/)
+The query uses the InfluxQL [MEAN() function](/influxdb/v2.5/query-data/influxql/functions/aggregates/#mean)
+and a time interval in the [GROUP BY clause](/influxdb/v2.5/query-data/influxql/explore-data/group-by/)
 to calculate the average `water_level` for each 12-minute
 interval in the queried time range.
-[`ORDER BY time DESC`](/influxdb/v2.6/query-data/influxql/explore-data/order-by/#order-by-time-desc) returns the most recent 12-minute time intervals
+[`ORDER BY time DESC`](/influxdb/v2.5/query-data/influxql/explore-data/order-by/#order-by-time-desc) returns the most recent 12-minute time intervals
 first.
 
 Without `ORDER BY time DESC`, the query would return the following output:

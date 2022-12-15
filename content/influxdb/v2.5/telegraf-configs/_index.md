@@ -5,10 +5,10 @@ description: >
   Telegraf configurations that collect metrics and write them to InfluxDB OSS.
 weight: 12
 menu: influxdb_2_5
-influxdb/v2.6/tags: [telegraf]
+influxdb/v2.5/tags: [telegraf]
 related:
-  - /influxdb/v2.6/write-data/no-code/use-telegraf/manual-config/
-  - /influxdb/v2.6/write-data/no-code/use-telegraf/auto-config/
+  - /influxdb/v2.5/write-data/no-code/use-telegraf/manual-config/
+  - /influxdb/v2.5/write-data/no-code/use-telegraf/auto-config/
 ---
 
 InfluxDB lets you automatically generate Telegraf configurations or upload custom
@@ -28,7 +28,7 @@ the configuration from an InfluxDB HTTP(S) endpoint.
     ```
 
 {{% note %}}
-_[Setup instructions](/influxdb/v2.6/telegraf-configs/view/#view-setup-instructions) for
+_[Setup instructions](/influxdb/v2.5/telegraf-configs/view/#view-setup-instructions) for
 each Telegraf configuration are provided in the InfluxDB UI._
 {{% /note %}}
 

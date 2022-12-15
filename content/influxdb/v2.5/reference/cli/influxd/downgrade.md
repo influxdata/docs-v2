@@ -8,7 +8,7 @@ menu:
     parent: influxd
 weight: 201
 related:
-  - /influxdb/v2.6/upgrade/downgrade/
+  - /influxdb/v2.5/upgrade/downgrade/
 ---
 
 Use the `influxd downgrade` command to downgrade the metadata schema used by

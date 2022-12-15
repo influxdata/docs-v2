@@ -9,15 +9,15 @@ menu:
     name: JavaScript for browsers
     identifier: client_js_browsers
     parent: Client libraries
-influxdb/v2.6/tags: [client libraries, JavaScript]
+influxdb/v2.5/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
-  - /influxdb/v2.6/reference/api/client-libraries/browserjs/
-  - /influxdb/v2.6/api-guide/client-libraries/browserjs/write
-  - /influxdb/v2.6/api-guide/client-libraries/browserjs/query
+  - /influxdb/v2.5/reference/api/client-libraries/browserjs/
+  - /influxdb/v2.5/api-guide/client-libraries/browserjs/write
+  - /influxdb/v2.5/api-guide/client-libraries/browserjs/query
 related:
-  - /influxdb/v2.6/api-guide/client-libraries/nodejs/write/
-  - /influxdb/v2.6/api-guide/client-libraries/nodejs/query/
+  - /influxdb/v2.5/api-guide/client-libraries/nodejs/write/
+  - /influxdb/v2.5/api-guide/client-libraries/nodejs/query/
 ---
 
 Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to interact with the InfluxDB API in browsers and front-end clients. This library supports both front-end and server-side environments and provides the following distributions:

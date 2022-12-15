@@ -14,7 +14,7 @@ to monitor your Raspberry Pi 4 or 400 Linux system.
 
 The Raspberry Pi template includes the following:
 
-- one [bucket](/influxdb/v2.6/reference/glossary/#bucket): `rasp-pi` (7d retention)
+- one [bucket](/influxdb/v2.5/reference/glossary/#bucket): `rasp-pi` (7d retention)
 - labels: `raspberry-pi` + Telegraf plugin labels
   - [Diskio input plugin](/{{< latest "telegraf" >}}/plugins//#diskio) 
   - [Mem input plugin](/{{< latest "telegraf" >}}/plugins//#mem) 
@@ -22,26 +22,26 @@ The Raspberry Pi template includes the following:
   - [Processes input plugin](/{{< latest "telegraf" >}}/plugins//#processes) 
   - [Swap input plugin](/{{< latest "telegraf" >}}/plugins//#swap) 
   - [System input plugin](/{{< latest "telegraf" >}}/plugins//#system) 
-- one [Telegraf configuration](/influxdb/v2.6/telegraf-configs/)
-- one [dashboard](/influxdb/v2.6/reference/glossary/#dashboard): Raspberry Pi System
+- one [Telegraf configuration](/influxdb/v2.5/telegraf-configs/)
+- one [dashboard](/influxdb/v2.5/reference/glossary/#dashboard): Raspberry Pi System
 - two variables: `bucket` and `linux_host`
 
 ## Apply the template
 
-1. Use the [`influx` CLI](/influxdb/v2.6/reference/cli/influx/) to run the following command:
+1. Use the [`influx` CLI](/influxdb/v2.5/reference/cli/influx/) to run the following command:
 
     ```sh
     influx apply -f https://raw.githubusercontent.com/influxdata/community-templates/master/raspberry-pi/raspberry-pi-system.yml
     ```
-    For more information, see [influx apply](/influxdb/v2.6/reference/cli/influx/apply/).
+    For more information, see [influx apply](/influxdb/v2.5/reference/cli/influx/apply/).
 2.  [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on
     your Raspberry Pi and ensure your Raspberry Pi has network access to the
-    [InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} API](/influxdb/v2.6/reference/api/).
+    [InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} API](/influxdb/v2.5/reference/api/).
 3. Add the following environment variables to your Telegraf environment:
 
-    - `INFLUX_HOST`: {{% oss-only %}}Your [InfluxDB URL](/influxdb/v2.6/reference/urls/){{% /oss-only %}}
+    - `INFLUX_HOST`: {{% oss-only %}}Your [InfluxDB URL](/influxdb/v2.5/reference/urls/){{% /oss-only %}}
       {{% cloud-only %}}Your [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /cloud-only %}}
-    - `INFLUX_TOKEN`: Your [InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} API token](/influxdb/v2.6/security/tokens/)
+    - `INFLUX_TOKEN`: Your [InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} API token](/influxdb/v2.5/security/tokens/)
     - `INFLUX_ORG`: Your InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} organization name.
     
     ```sh
@@ -50,7 +50,7 @@ The Raspberry Pi template includes the following:
     export INFLUX_ORG=example-org
     ```
 
-4. [Start Telegraf](/influxdb/v2.6/write-data/no-code/use-telegraf/auto-config/#start-telegraf).
+4. [Start Telegraf](/influxdb/v2.5/write-data/no-code/use-telegraf/auto-config/#start-telegraf).
 
 ## View the incoming data
 

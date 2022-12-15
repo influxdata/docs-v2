@@ -7,10 +7,10 @@ menu:
     parent: influx export
 weight: 201
 aliases:
-  - /influxdb/v2.6/reference/cli/influx/pkg/export/stack
+  - /influxdb/v2.5/reference/cli/influx/pkg/export/stack
 related:
-  - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---
 
 The `influx export stack` command exports all resources associated with a stack as a template.
@@ -19,7 +19,7 @@ All `metadata.name` fields remain the same.
 {{% note %}}
 To export resources as a template, you must use the **Operator token** created for
 the initial InfluxDB user or an **All-Access token**.
-For information about creating an All-Access API token, see [Create an API token](/influxdb/v2.6/security/tokens/create-token/).
+For information about creating an All-Access API token, see [Create an API token](/influxdb/v2.5/security/tokens/create-token/).
 {{% /note %}}
 
 ## Usage

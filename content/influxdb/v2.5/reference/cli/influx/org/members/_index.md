@@ -6,7 +6,7 @@ menu:
     name: influx org members
     parent: influx org
 weight: 201
-influxdb/v2.6/tags: [members, organizations]
+influxdb/v2.5/tags: [members, organizations]
 ---
 
 The `influx org members` command and its subcommands manage organization members in InfluxDB.
@@ -20,9 +20,9 @@ influx org members [command]
 ## Subcommands
 | Subcommand                                                       | Description                |
 |:----------                                                       |:-----------                |
-| [add](/influxdb/v2.6/reference/cli/influx/org/members/add)       | Add organization member    |
-| [list](/influxdb/v2.6/reference/cli/influx/org/members/list)     | List organization members  |
-| [remove](/influxdb/v2.6/reference/cli/influx/org/members/remove) | Remove organization member |
+| [add](/influxdb/v2.5/reference/cli/influx/org/members/add)       | Add organization member    |
+| [list](/influxdb/v2.5/reference/cli/influx/org/members/list)     | List organization members  |
+| [remove](/influxdb/v2.5/reference/cli/influx/org/members/remove) | Remove organization member |
 
 ## Flags
 | Flag |          | Description                    |

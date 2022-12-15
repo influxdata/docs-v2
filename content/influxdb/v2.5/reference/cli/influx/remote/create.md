@@ -6,9 +6,9 @@ menu:
     name: influx remote create
     parent: influx remote
 weight: 101
-influxdb/v2.6/tags: [write, replication]
+influxdb/v2.5/tags: [write, replication]
 related:
-  - /influxdb/v2.6/reference/cli/influx/replication
+  - /influxdb/v2.5/reference/cli/influx/replication
 ---
 
 {{% cloud %}}

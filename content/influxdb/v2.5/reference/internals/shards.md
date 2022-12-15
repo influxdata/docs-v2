@@ -9,12 +9,12 @@ menu:
     name: Shards & shard groups
     parent: InfluxDB internals
 weight: 103
-influxdb/v2.6/tags: [storage, internals]
+influxdb/v2.5/tags: [storage, internals]
 related:
-  - /influxdb/v2.6/reference/internals/storage-engine/
-  - /influxdb/v2.6/organizations/buckets/
-  - /influxdb/v2.6/reference/cli/influx/bucket/
-  - /influxdb/v2.6/admin/internals/
+  - /influxdb/v2.5/reference/internals/storage-engine/
+  - /influxdb/v2.5/organizations/buckets/
+  - /influxdb/v2.5/reference/cli/influx/bucket/
+  - /influxdb/v2.5/admin/internals/
 ---
 
 InfluxDB organizes time series data into **shards** when storing data to disk.
@@ -39,7 +39,7 @@ A single shard contains multiple series, one or more [TSM files](#tsm-time-struc
 and belongs to a [shard group](#shard-groups).
 
 ## Shard groups
-A shard group belongs to an InfluxDB [bucket](/influxdb/v2.6/reference/glossary/#bucket) and contains time series data for a specific time range defined by
+A shard group belongs to an InfluxDB [bucket](/influxdb/v2.5/reference/glossary/#bucket) and contains time series data for a specific time range defined by
 the [shard group duration](#shard-group-duration).
 
 {{% note %}}
@@ -51,7 +51,7 @@ distributed across multiple data nodes.
 ### Shard group duration
 The **shard group duration** specifies the time range for each shard group and determines how often to create a new shard group.
 By default, InfluxDB sets the shard group duration according to
-the [retention period](/influxdb/v2.6/reference/glossary/#retention-period)
+the [retention period](/influxdb/v2.5/reference/glossary/#retention-period)
 of the bucket:
 
 | Bucket retention period     | Default shard group duration |
@@ -62,15 +62,15 @@ of the bucket:
 
 ##### Shard group duration configuration options
 To configure a custom bucket shard group duration, use the `--shard-group-duration`
-flag with the [`influx bucket create`](/influxdb/v2.6/reference/cli/influx/bucket/create/#create-a-custom-shard-group-duration)
-and [`influx bucket update`](/influxdb/v2.6/reference/cli/influx/bucket/update//#update-the-shard-group-duration-of-a-bucket) commands.
+flag with the [`influx bucket create`](/influxdb/v2.5/reference/cli/influx/bucket/create/#create-a-custom-shard-group-duration)
+and [`influx bucket update`](/influxdb/v2.5/reference/cli/influx/bucket/update//#update-the-shard-group-duration-of-a-bucket) commands.
 
 {{% note %}}
 Shard group durations must be shorter than the bucket's retention period.
 {{% /note %}}
 
 To view your bucket's shard group duration, use the
-[`influx bucket list` command](/influxdb/v2.6/reference/cli/influx/bucket/list/).
+[`influx bucket list` command](/influxdb/v2.5/reference/cli/influx/bucket/list/).
 
 ### Shard group diagram
 The following diagram represents a **bucket** with a **4d retention period**
@@ -93,8 +93,8 @@ When backfilling historical data, InfluxDB creates shards for past time ranges a
 resulting in temporarily lower write throughput.
 
 ##### Shard precreation-related configuration settings
-- [`storage-shard-precreator-advance-period`](/influxdb/v2.6/reference/config-options/#storage-shard-precreator-advance-period)
-- [`storage-shard-precreator-check-interval`](/influxdb/v2.6/reference/config-options/#storage-shard-precreator-check-interval)
+- [`storage-shard-precreator-advance-period`](/influxdb/v2.5/reference/config-options/#storage-shard-precreator-advance-period)
+- [`storage-shard-precreator-check-interval`](/influxdb/v2.5/reference/config-options/#storage-shard-precreator-check-interval)
 
 ### Shard writes
 InfluxDB writes time series data to un-compacted or "hot" shards.
@@ -129,12 +129,12 @@ InfluxDB schedules compactions preferentially, using the following guidelines:
 
 The following configuration settings are especially beneficial for systems with irregular loads, because they limit compactions during periods of high usage, and let compactions catch up during periods of lower load:
 
-- [`storage-compact-full-write-cold-duration`](/influxdb/v2.6/reference/config-options/#storage-compact-full-write-cold-duration)
-- [`storage-compact-throughput-burst`](/influxdb/v2.6/reference/config-options/#storage-compact-throughput-burst)
-- [`storage-max-concurrent-compactions`](/influxdb/v2.6/reference/config-options/#storage-max-concurrent-compactions)
-- [`storage-max-index-log-file-size`](/influxdb/v2.6/reference/config-options/#storage-max-index-log-file-size)
-- [`storage-series-file-max-concurrent-snapshot-compactions`](/influxdb/v2.6/reference/config-options/#storage-series-file-max-concurrent-snapshot-compactions)
-- [`storage-series-file-max-concurrent-snapshot-compactions`](/influxdb/v2.6/reference/config-options/#storage-series-file-max-concurrent-snapshot-compactions)
+- [`storage-compact-full-write-cold-duration`](/influxdb/v2.5/reference/config-options/#storage-compact-full-write-cold-duration)
+- [`storage-compact-throughput-burst`](/influxdb/v2.5/reference/config-options/#storage-compact-throughput-burst)
+- [`storage-max-concurrent-compactions`](/influxdb/v2.5/reference/config-options/#storage-max-concurrent-compactions)
+- [`storage-max-index-log-file-size`](/influxdb/v2.5/reference/config-options/#storage-max-index-log-file-size)
+- [`storage-series-file-max-concurrent-snapshot-compactions`](/influxdb/v2.5/reference/config-options/#storage-series-file-max-concurrent-snapshot-compactions)
+- [`storage-series-file-max-concurrent-snapshot-compactions`](/influxdb/v2.5/reference/config-options/#storage-series-file-max-concurrent-snapshot-compactions)
 
 In systems with stable loads, if compactions interfere with other operations, typically, the system is undersized for its load, and configuration changes won't help much.
 
@@ -157,4 +157,4 @@ remain on disk until the following occurs:
 {{% /note %}}
 
 ##### Retention enforcement-related configuration settings
-- [`storage-retention-check-interval`](/influxdb/v2.6/reference/config-options/#storage-retention-check-interval)
+- [`storage-retention-check-interval`](/influxdb/v2.5/reference/config-options/#storage-retention-check-interval)

@@ -3,14 +3,14 @@ title: Use the Interactive Flux REPL
 description: >
   Use the Flux REPL (Read–Eval–Print Loop) to execute Flux scripts and interact
   with InfluxDB and other data sources.
-influxdb/v2.6/tags: [flux]
+influxdb/v2.5/tags: [flux]
 menu:
   influxdb_2_5:
     name: Use the Flux REPL
     parent: Tools & integrations
 weight: 103
 aliases:
-  - /influxdb/v2.6/tools/repl/
+  - /influxdb/v2.5/tools/repl/
 ---
 
 Use the Flux REPL (Read–Eval–Print Loop) to execute Flux scripts and interact with InfluxDB and other data sources.

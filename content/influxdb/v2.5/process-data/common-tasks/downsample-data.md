@@ -9,7 +9,7 @@ menu:
     name: Downsample data
     parent: Common tasks
 weight: 201
-influxdb/v2.6/tags: [tasks]
+influxdb/v2.5/tags: [tasks]
 ---
 
 One of the most common use cases for InfluxDB tasks is downsampling data to reduce
@@ -66,7 +66,7 @@ Again, this is a very basic example, but it should provide you with a foundation
 to build more complex downsampling tasks.
 
 ## Add your task
-Once your task is ready, see [Create a task](/influxdb/v2.6/process-data/manage-tasks/create-task) for information about adding it to InfluxDB.
+Once your task is ready, see [Create a task](/influxdb/v2.5/process-data/manage-tasks/create-task) for information about adding it to InfluxDB.
 
 ## Things to consider
 - If there is a chance that data may arrive late, specify an `offset` in your

@@ -15,12 +15,12 @@ related:
   - /{{< latest "flux" >}}/prometheus/scrape-prometheus/, Scrape Prometheus metrics with Flux
   - /{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/
   - /{{< latest "flux" >}}/prometheus/metric-types/
-  - /influxdb/v2.6/reference/prometheus-metrics/
-  - /influxdb/v2.6/write-data/no-code/scrape-data/
-influxdb/v2.6/tags: [prometheus, scraper]
+  - /influxdb/v2.5/reference/prometheus-metrics/
+  - /influxdb/v2.5/write-data/no-code/scrape-data/
+influxdb/v2.5/tags: [prometheus, scraper]
 ---
 
-Use [Telegraf](/{{< latest "telegraf" >}}/){{% oss-only %}}, [InfluxDB scrapers](/influxdb/v2.6/write-data/no-code/scrape-data/),{{% /oss-only %}}
+Use [Telegraf](/{{< latest "telegraf" >}}/){{% oss-only %}}, [InfluxDB scrapers](/influxdb/v2.5/write-data/no-code/scrape-data/),{{% /oss-only %}}
 or the [`prometheus.scrape` Flux function](/{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)
 to scrape Prometheus-formatted metrics from an HTTP-accessible endpoint and store them in InfluxDB.
 
@@ -45,7 +45,7 @@ endpoint and write them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, 
 1. Add the [Prometheus input plugin](/{{< latest "telegraf" >}}/plugins/#input-prometheus) to your Telegraf configuration file.
     1. Set the `urls` to scrape metrics from.
     2. Set the `metric_version` configuration option to specify which
-      [metric parsing version](/influxdb/v2.6/reference/prometheus-metrics/) to use
+      [metric parsing version](/influxdb/v2.5/reference/prometheus-metrics/) to use
       _(version `2` is recommended)_.
 2. Add the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2)
    to your Telegraf configuration file and configure it to to write to
@@ -76,7 +76,7 @@ endpoint and write them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, 
 InfluxDB scrapers automatically scrape Prometheus-formatted metrics from an 
 HTTP-accessible endpoint at a regular interval.
 For information about setting up an InfluxDB scraper, see
-[Scrape data using InfluxDB scrapers](/influxdb/v2.6/write-data/no-code/scrape-data/).
+[Scrape data using InfluxDB scrapers](/influxdb/v2.5/write-data/no-code/scrape-data/).
 
 {{% /oss-only %}}
 

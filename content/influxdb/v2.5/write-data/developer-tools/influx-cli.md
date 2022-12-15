@@ -8,10 +8,10 @@ menu:
     name: Influx CLI
     parent: Developer tools
 related:
-  - /influxdb/v2.6/write-data/developer-tools/csv/
+  - /influxdb/v2.5/write-data/developer-tools/csv/
 ---
 
-To write data from the command line, use the [`influx write` command](/influxdb/v2.6/reference/cli/influx/write/).
+To write data from the command line, use the [`influx write` command](/influxdb/v2.5/reference/cli/influx/write/).
 Include the following in your command:
 
 | Requirement          | Include by                                                                                         |
@@ -22,7 +22,7 @@ Include the following in your command:
 | API token | Set the `INFLUX_TOKEN` environment variable or use the `t`, `--token` flag.                        |
 | Data                 | Write data using **line protocol** or **annotated CSV**. Pass a file with the `-f`, `--file` flag. |
 
-_See [Line protocol](/influxdb/v2.6/reference/syntax/line-protocol/) and [Annotated CSV](/influxdb/v2.6/reference/syntax/annotated-csv)_
+_See [Line protocol](/influxdb/v2.5/reference/syntax/line-protocol/) and [Annotated CSV](/influxdb/v2.5/reference/syntax/annotated-csv)_
 
 #### Example influx write commands
 

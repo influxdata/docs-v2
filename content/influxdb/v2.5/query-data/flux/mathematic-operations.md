@@ -4,20 +4,20 @@ seotitle: Transform data with mathematic operations in Flux
 list_title: Transform data with math
 description: >
   Use `map()` to remap column values and apply mathematic operations.
-influxdb/v2.6/tags: [math, flux]
+influxdb/v2.5/tags: [math, flux]
 menu:
   influxdb_2_5:
     name: Transform data with math
     parent: Query with Flux
 weight: 208
 aliases:
-  - /influxdb/v2.6/query-data/guides/mathematic-operations/
+  - /influxdb/v2.5/query-data/guides/mathematic-operations/
 related:
   - /{{< latest "flux" >}}/stdlib/universe/map
   - /{{< latest "flux" >}}/stdlib/universe/aggregates/reduce/
   - /{{< latest "flux" >}}/language/operators/
   - /{{< latest "flux" >}}/function-types/#type-conversions, Flux type-conversion functions
-  - /influxdb/v2.6/query-data/flux/calculate-percentages/
+  - /influxdb/v2.5/query-data/flux/calculate-percentages/
 list_query_example: map_math
 ---
 
@@ -29,7 +29,7 @@ to "map" over data and transform values using mathematic operations.
 If you're just getting started with Flux queries, check out the following:
 
 - [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
-- [Execute queries](/influxdb/v2.6/query-data/execute-queries/) to discover a variety of ways to run your queries.
+- [Execute queries](/influxdb/v2.5/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ##### Basic mathematic operations
 ```js
@@ -44,7 +44,7 @@ If you're just getting started with Flux queries, check out the following:
 3
 ```
 
-<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See <a href="/influxdb/v2.6/tools/flux-repl/">Flux Read-Eval-Print Loop (REPL)</a>.</p>
+<p style="font-size:.85rem;font-style:italic;margin-top:-2rem;">See <a href="/influxdb/v2.5/tools/flux-repl/">Flux Read-Eval-Print Loop (REPL)</a>.</p>
 
 {{% note %}}
 #### Operands must be the same type
@@ -75,7 +75,7 @@ For example:
 {{% /note %}}
 
 ## Custom mathematic functions
-Flux lets you [create custom functions](/influxdb/v2.6/query-data/flux/custom-functions) that use mathematic operations.
+Flux lets you [create custom functions](/influxdb/v2.5/query-data/flux/custom-functions) that use mathematic operations.
 View the examples below.
 
 ###### Custom multiplication function
@@ -97,7 +97,7 @@ percent(sample: 20.0, total: 80.0)
 ### Transform values in a data stream
 To transform multiple values in an input stream, your function needs to:
 
-- [Handle piped-forward data](/influxdb/v2.6/query-data/flux/custom-functions/#use-piped-forward-data-in-a-custom-function).
+- [Handle piped-forward data](/influxdb/v2.5/query-data/flux/custom-functions/#use-piped-forward-data-in-a-custom-function).
 - Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
 - Use the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map) to iterate over each row.
 
@@ -162,7 +162,7 @@ To calculate a percentage, use simple division, then multiply the result by 100.
 25.0
 ```
 
-_For an in-depth look at calculating percentages, see [Calculate percentages](/influxdb/v2.6/query-data/flux/calculate-percentages)._
+_For an in-depth look at calculating percentages, see [Calculate percentages](/influxdb/v2.5/query-data/flux/calculate-percentages)._
 
 ## Pivot vs join
 To query and use values in mathematical operations in Flux, operand values must

@@ -23,9 +23,9 @@ influxd recovery [command]
 ## Subcommands
 | Subcommand                                                  | Description                                    |
 | :---------------------------------------------------------- | :--------------------------------------------- |
-| [auth](/influxdb/v2.6/reference/cli/influxd/recovery/auth/) | Manage on-disk authorization data for recovery |
-| [org](/influxdb/v2.6/reference/cli/influxd/recovery/org/)   | Manage on-disk organization data for recovery  |
-| [user](/influxdb/v2.6/reference/cli/influxd/recovery/user/) | Manage on-disk user data for recovery          |
+| [auth](/influxdb/v2.5/reference/cli/influxd/recovery/auth/) | Manage on-disk authorization data for recovery |
+| [org](/influxdb/v2.5/reference/cli/influxd/recovery/org/)   | Manage on-disk organization data for recovery  |
+| [user](/influxdb/v2.5/reference/cli/influxd/recovery/user/) | Manage on-disk user data for recovery          |
 
 ## Flags
 | Flag |          | Description         |

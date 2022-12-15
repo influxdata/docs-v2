@@ -6,14 +6,14 @@ menu:
     name: influx template
     parent: influx
 weight: 101
-influxdb/v2.6/tags: [templates]
+influxdb/v2.5/tags: [templates]
 aliases:
-  - /influxdb/v2.6/reference/cli/influx/pkg/summary/
+  - /influxdb/v2.5/reference/cli/influx/pkg/summary/
 cascade:
   related:
-    - /influxdb/v2.6/influxdb-templates/
-    - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+    - /influxdb/v2.5/influxdb-templates/
+    - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.0.1+, InfluxDB 2.0.1+]
 ---
 
@@ -29,7 +29,7 @@ influx template [command]
 ## Subcommands
 | Subcommand                                                        | Description         |
 |:----------                                                        |:-----------         |
-| [validate](/influxdb/v2.6/reference/cli/influx/template/validate) | Validate a template |
+| [validate](/influxdb/v2.5/reference/cli/influx/template/validate) | Validate a template |
 
 ## Flags
 | Flag |                           | Description                                                        | Input Type  | {{< cli/mapped >}}   |

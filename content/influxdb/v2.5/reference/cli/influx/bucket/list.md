@@ -7,8 +7,8 @@ menu:
     parent: influx bucket
 weight: 201
 aliases:
-  - /influxdb/v2.6/reference/cli/influx/bucket/find
-  - /influxdb/v2.6/reference/cli/influx/bucket/list/
+  - /influxdb/v2.5/reference/cli/influx/bucket/find
+  - /influxdb/v2.5/reference/cli/influx/bucket/list/
 updated_in: CLI v2.3.0
 ---
 

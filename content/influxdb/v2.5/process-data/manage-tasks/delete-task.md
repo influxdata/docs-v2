@@ -9,7 +9,7 @@ menu:
     parent: Manage tasks
 weight: 206
 related:
-  - /influxdb/v2.6/reference/cli/influx/task/delete
+  - /influxdb/v2.5/reference/cli/influx/task/delete
 ---
 
 ## Delete a task in the InfluxDB UI
@@ -32,17 +32,17 @@ influx task delete -i <task-id>
 influx task delete -i 0343698431c35000
 ```
 
-_To find the task ID, see [how to view tasks](/influxdb/v2.6/process-data/manage-tasks/view-tasks/)_
+_To find the task ID, see [how to view tasks](/influxdb/v2.5/process-data/manage-tasks/view-tasks/)_
 
 ## Delete a task using the InfluxDB API
 
-Use the [`/tasks/TASK_ID` InfluxDB API endpoint](/influxdb/v2.6/api/#operation/DeleteTasksID) to delete a task and all associated records (task runs, logs, and labels).
+Use the [`/tasks/TASK_ID` InfluxDB API endpoint](/influxdb/v2.5/api/#operation/DeleteTasksID) to delete a task and all associated records (task runs, logs, and labels).
 
 {{< api-endpoint method="DELETE" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID" >}}
 
-_To find the task ID, see [how to view tasks](/influxdb/v2.6/process-data/manage-tasks/view-tasks/)_
+_To find the task ID, see [how to view tasks](/influxdb/v2.5/process-data/manage-tasks/view-tasks/)_
 
 Once the task is deleted, InfluxDB cancels all scheduled runs of the task.
 
 If you want to disable a task instead of delete it, see how to
-[update the task status](/influxdb/v2.6/process-data/manage-tasks/update-task/) to `inactive`.
+[update the task status](/influxdb/v2.5/process-data/manage-tasks/update-task/) to `inactive`.

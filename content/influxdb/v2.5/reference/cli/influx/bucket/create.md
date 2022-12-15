@@ -7,12 +7,12 @@ menu:
     parent: influx bucket
 weight: 201
 aliases:
-  - /influxdb/v2.6/reference/cli/influx/bucket/create/
+  - /influxdb/v2.5/reference/cli/influx/bucket/create/
 related:
-  - /influxdb/v2.6/organizations/buckets/create-bucket/
-  - /influxdb/v2.6/reference/internals/shards/
-  - /influxdb/v2.6/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/v2.6/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/v2.5/organizations/buckets/create-bucket/
+  - /influxdb/v2.5/reference/internals/shards/
+  - /influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/v2.5/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 updated_in: CLI v2.3.0
 ---
 
@@ -94,7 +94,7 @@ influx bucket create \
 ##### Create a bucket with a custom shard group duration
 
 Custom shard group durations are only supported in **InfluxDB OSS**.
-The shard group duration must be shorter than the bucket's retention period. For more information, see [InfluxDB shards and shard groups](/influxdb/v2.6/reference/internals/shards/).
+The shard group duration must be shorter than the bucket's retention period. For more information, see [InfluxDB shards and shard groups](/influxdb/v2.5/reference/internals/shards/).
 
 ```sh
 influx bucket create \

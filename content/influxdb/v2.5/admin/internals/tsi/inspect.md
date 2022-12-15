@@ -6,14 +6,14 @@ menu:
   influxdb_2_5:
     parent: Manage TSI indexes
 related:
-  - /influxdb/v2.6/reference/internals/storage-engine/
-  - /influxdb/v2.6/reference/internals/file-system-layout/
-  - /influxdb/v2.6/reference/cli/influxd/inspect/dump-tsi/
-  - /influxdb/v2.6/reference/cli/influxd/inspect/export-index/
-  - /influxdb/v2.6/reference/cli/influxd/inspect/report-tsi/
+  - /influxdb/v2.5/reference/internals/storage-engine/
+  - /influxdb/v2.5/reference/internals/file-system-layout/
+  - /influxdb/v2.5/reference/cli/influxd/inspect/dump-tsi/
+  - /influxdb/v2.5/reference/cli/influxd/inspect/export-index/
+  - /influxdb/v2.5/reference/cli/influxd/inspect/report-tsi/
 ---
 
-Use the `influxd inspect` command to inspect the InfluxDB [time series index (TSI)](/influxdb/v2.6/reference/internals/storage-engine/#time-series-index-tsi).
+Use the `influxd inspect` command to inspect the InfluxDB [time series index (TSI)](/influxdb/v2.5/reference/internals/storage-engine/#time-series-index-tsi).
 
 - [Output information about TSI index files](#output-information-about-tsi-index-files)
   - [Output raw series data stored in the index](#output-raw-series-data-stored-in-the-index)
@@ -23,15 +23,15 @@ Use the `influxd inspect` command to inspect the InfluxDB [time series index (TS
 
 ## Output information about TSI index files
 
-Use the [`influxd inspect dump-tsi` command](/influxdb/v2.6/reference/cli/influxd/inspect/dump-tsi/)
+Use the [`influxd inspect dump-tsi` command](/influxdb/v2.5/reference/cli/influxd/inspect/dump-tsi/)
 to output low-level details about TSI index (`tsi1`) files.
 
 Provide the following:
 
 - ({{< req >}}) `--series-file` flag with the path to bucket's
-  [`_series` directory](/influxdb/v2.6/reference/internals/file-system-layout/#tsm-directories-and-files-layout).
+  [`_series` directory](/influxdb/v2.5/reference/internals/file-system-layout/#tsm-directories-and-files-layout).
 - ({{< req >}}) Path to the shard's
-  [`index` directory](/influxdb/v2.6/reference/internals/file-system-layout/#tsm-directories-and-files-layout)
+  [`index` directory](/influxdb/v2.5/reference/internals/file-system-layout/#tsm-directories-and-files-layout)
 
 ```sh
 influxd inspect dump-tsi \
@@ -144,14 +144,14 @@ explosion
 
 ## Export TSI index data as SQL
 
-Use the [`influxd inspect export-index` command](/influxdb/v2.6/reference/cli/influxd/inspect/export-index/)
+Use the [`influxd inspect export-index` command](/influxdb/v2.5/reference/cli/influxd/inspect/export-index/)
 to export an index in SQL format for easier inspection and debugging.
 Provide the following:
 
 - `--series-path` flag with the path to the bucket's
-  [`_series` directory](/influxdb/v2.6/reference/internals/file-system-layout/#tsm-directories-and-files-layout).
+  [`_series` directory](/influxdb/v2.5/reference/internals/file-system-layout/#tsm-directories-and-files-layout).
 - `--index-path` flag with the path to the shard's
-  [`index` directory](/influxdb/v2.6/reference/internals/file-system-layout/#tsm-directories-and-files-layout).
+  [`index` directory](/influxdb/v2.5/reference/internals/file-system-layout/#tsm-directories-and-files-layout).
 
 ```sh
 influxd inspect export-index \
@@ -192,7 +192,7 @@ COMMIT;
 
 ## Report the cardinality of TSI files
 
-Use the [`influxd inspect report-tsi` command](/influxdb/v2.6/reference/cli/influxd/inspect/report-tsi/)
+Use the [`influxd inspect report-tsi` command](/influxdb/v2.5/reference/cli/influxd/inspect/report-tsi/)
 to output information about the cardinality of data in a bucket's index.
 Provide the following:
 

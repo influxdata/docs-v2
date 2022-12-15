@@ -6,14 +6,14 @@ menu:
   influxdb_2_5:
     parent: Use and manage variables
 weight: 201
-influxdb/v2.6/tags: [variables]
+influxdb/v2.5/tags: [variables]
 ---
 
 Create dashboard variables in the Data Explorer, from the Settings section, or import a variable.
 **Variable names must be unique.**
 
 There are multiple variable types that provide different means of populating your list of variable values.
-_For information about variable types, see [Variable types](/influxdb/v2.6/visualize-data/variables/variable-types/)._
+_For information about variable types, see [Variable types](/influxdb/v2.5/visualize-data/variables/variable-types/)._
 
 {{% note %}}
 ##### Variable name restrictions
@@ -27,8 +27,8 @@ The following names cannot be used as dashboard variables because they are reser
 
 {{% note %}}
 InfluxData recommends using the Data Explorer to create
-[Query dashboard variables](/influxdb/v2.6/visualize-data/variables/variable-types/#query).
-The [Table visualization type](/influxdb/v2.6/visualize-data/visualization-types/table/) and
+[Query dashboard variables](/influxdb/v2.5/visualize-data/variables/variable-types/#query).
+The [Table visualization type](/influxdb/v2.5/visualize-data/visualization-types/table/) and
 **View Raw Data** option to provide human-readable query results.
 {{% /note %}}
 
@@ -37,14 +37,14 @@ The [Table visualization type](/influxdb/v2.6/visualize-data/visualization-types
     {{< nav-icon "data-explorer" >}}
 
 2. Use the **Query Builder** or **Script Editor** to build a query.
-3. Use the [Table visualization type](/influxdb/v2.6/visualize-data/visualization-types/table/)
+3. Use the [Table visualization type](/influxdb/v2.5/visualize-data/visualization-types/table/)
    or enable the **View Raw Data** option to view human-readable query results.
 4. Click **Save As** in the upper right.
 5. In the window that appears, select **Variable**.
 6. Enter a name for your variable in the **Name** field.
 7. Click **Create**.
 
-_For information about common Query variables, see [Common variable queries](/influxdb/v2.6/visualize-data/variables/common-variables/)._
+_For information about common Query variables, see [Common variable queries](/influxdb/v2.5/visualize-data/variables/common-variables/)._
 
 ## Create a variable in the Settings section
 
@@ -54,7 +54,7 @@ _For information about common Query variables, see [Common variable queries](/in
 
 2. Select the **Variables** tab.
 3. Enter a name for your variable.
-4. Select your variable type. For details on each type, see [Variable types](/influxdb/v2.6/visualize-data/variables/variable-types/).
+4. Select your variable type. For details on each type, see [Variable types](/influxdb/v2.5/visualize-data/variables/variable-types/).
 5. Enter the appropriate variable information.
 6. Click **Create**.
 

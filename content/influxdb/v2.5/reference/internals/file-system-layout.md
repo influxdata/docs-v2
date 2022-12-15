@@ -8,9 +8,9 @@ menu:
   influxdb_2_5_ref:
     name: File system layout
     parent: InfluxDB internals
-influxdb/v2.6/tags: [storage, internals]
+influxdb/v2.5/tags: [storage, internals]
 related:
-  - /influxdb/v2.6/admin/internals/
+  - /influxdb/v2.5/admin/internals/
 ---
 
 The InfluxDB file system layout depends on the operating system, installation method,
@@ -29,28 +29,28 @@ where InfluxDB stores time series data, includes the following directories:
 - **data**: Stores time-structured merge tree (TSM) files.
   For more information about the structure of the `data` directory, see
   [TSM directories and files layout](#tsm-directories-and-files-layout).
-- **replicationq**: Store the replication queue for the [InfluxDB replication service](/influxdb/v2.6/write-data/replication/).
+- **replicationq**: Store the replication queue for the [InfluxDB replication service](/influxdb/v2.5/write-data/replication/).
 - **wal**: Stores write-ahead log (WAL) files.
   For more information about the structure of the `wal` directory, see
   [WAL directories and files layout](#wal-directories-and-files-layout).
 
-To customize this path, use the [engine-path](/influxdb/v2.6/reference/config-options/#engine-path)
+To customize this path, use the [engine-path](/influxdb/v2.5/reference/config-options/#engine-path)
 configuration option.
 
 #### Bolt path
 File path to the [Boltdb](https://github.com/boltdb/bolt) database, a file-based
 key-value store for non-time series data, such as InfluxDB users, dashboards, tasks, etc.
-To customize this path, use the [bolt-path](/influxdb/v2.6/reference/config-options/#bolt-path)
+To customize this path, use the [bolt-path](/influxdb/v2.5/reference/config-options/#bolt-path)
 configuration option.
 
 #### Configs path
-File path to [`influx` CLI connection configurations](/influxdb/v2.6/reference/cli/influx/config/) (configs).
+File path to [`influx` CLI connection configurations](/influxdb/v2.5/reference/cli/influx/config/) (configs).
 To customize this path, use the `--configs-path` flag with `influx` CLI commands.
 
 #### InfluxDB configuration files
 Some operating systems and package managers store a default InfluxDB (`influxd`) configuration file on disk.
 For more information about using InfluxDB configuration files, see
-[Configuration options](/influxdb/v2.6/reference/config-options/).
+[Configuration options](/influxdb/v2.5/reference/config-options/).
 
 ## File system layout
 {{< tabs-wrapper >}}
@@ -189,7 +189,7 @@ Each have a unique InfluxDB file system layout.
 {{% note %}}
 The InfluxDB Dockerhub image uses `/var/lib/influxdb2` instead of `/var/lib/influxdb`
 so you can easily mount separate volumes for InfluxDB 1.x and 2.x data during the
-[upgrade process](/influxdb/v2.6/upgrade/v1-to-v2/docker/).
+[upgrade process](/influxdb/v2.5/upgrade/v1-to-v2/docker/).
 {{% /note %}}
 
 #### Dockerhub default paths

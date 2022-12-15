@@ -1,7 +1,7 @@
 ---
 title: Manage InfluxDB dashboards
 description: Create, edit, and manage custom dashboards in the InfluxDB user interface (UI).
-influxdb/v2.6/tags: [dashboards]
+influxdb/v2.5/tags: [dashboards]
 menu:
   influxdb_2_5:
     name: Manage dashboards
@@ -29,7 +29,7 @@ http://localhost:8086/orgs/03a2bbf46249a000/dashboards/04b6b15034cc000/...
 {{< /code-callout >}}
 
 ### Dashboard ID in the CLI
-Use [`influx dashboards`](/influxdb/v2.6/reference/cli/influx/dashboards/) to view a list of dashboards and IDs.
+Use [`influx dashboards`](/influxdb/v2.5/reference/cli/influx/dashboards/) to view a list of dashboards and IDs.
 
 ```sh
 > influx dashboards

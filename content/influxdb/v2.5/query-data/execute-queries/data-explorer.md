@@ -3,13 +3,13 @@ title: Query in Data Explorer
 description: >
   Query InfluxDB using the InfluxDB user interface (UI) Data Explorer. Discover how to query data in InfluxDB 2.1 using the InfluxDB UI.
 aliases: 
-  - /influxdb/v2.6/visualize-data/explore-metrics/
+  - /influxdb/v2.5/visualize-data/explore-metrics/
 weight: 201
 menu:
   influxdb_2_5:
     name: Query with Data Explorer
     parent: Execute queries
-influxdb/v2.6/tags: [query]
+influxdb/v2.5/tags: [query]
 ---
 
 Build, execute, and visualize your queries in InfluxDB UI's **Data Explorer**.
@@ -17,13 +17,13 @@ Build, execute, and visualize your queries in InfluxDB UI's **Data Explorer**.
 ![Data Explorer with Flux](/img/influxdb/2-0-data-explorer.png)
 
 Move seamlessly between using the Flux builder or templates and manually editing the query.
-Choose between [visualization types](/influxdb/v2.6/visualize-data/visualization-types/) for your query.
+Choose between [visualization types](/influxdb/v2.5/visualize-data/visualization-types/) for your query.
 
 ## Query data with Flux and the Data Explorer
 
 Flux is a functional data scripting language designed for querying,
 analyzing, and acting on time series data.
-See [Get started with Flux](/influxdb/v2.6/query-data/get-started) to learn more about Flux.
+See [Get started with Flux](/influxdb/v2.5/query-data/get-started) to learn more about Flux.
 
 1. In the navigation menu on the left, click **Data Explorer**.
 
@@ -33,7 +33,7 @@ See [Get started with Flux](/influxdb/v2.6/query-data/get-started) to learn more
    - Select a bucket to define your data source or select `+ Create Bucket` to add a new bucket.
    - Edit your time range with the [time range option](#select-time-range) in the dropdown menu.
    - Add filters to narrow your data by selecting attributes or columns in the dropdown menu.
-   - Select **Group** from the **Filter** dropdown menu to group data into tables. For more about how grouping data in Flux works, see [Group data](/influxdb/v2.6/query-data/flux/group-data/).    
+   - Select **Group** from the **Filter** dropdown menu to group data into tables. For more about how grouping data in Flux works, see [Group data](/influxdb/v2.5/query-data/flux/group-data/).    
 3. Alternatively, click **Script Editor** to manually edit the query.
    To switch back to the query builder, click **Query Builder**. Note that your updates from the Script Editor will not be saved.
 4. Use the **Functions** list to review the available Flux functions.
@@ -46,7 +46,7 @@ See [Get started with Flux](/influxdb/v2.6/query-data/get-started) to learn more
 
 ## Visualize your query
 
-- Select an available [visualization types](/influxdb/v2.6/visualize-data/visualization-types/) from the dropdown menu in the upper-left:
+- Select an available [visualization types](/influxdb/v2.5/visualize-data/visualization-types/) from the dropdown menu in the upper-left:
 
     {{< img-hd src="/img/influxdb/2-0-visualizations-dropdown.png" title="Visualization dropdown" />}}
 
