@@ -8,6 +8,22 @@ menu:
     name: influx CLI 
 ---
 
+## v2.6.0 [2022-12-15]
+
+### Bug Fixes
+
+- When using [`influx task create`](/influxdb/v2.6/reference/cli/influx/task/create/)
+  to create a new task, only override the `every` task option defined in the Flux
+  script when the `-e`,`--every` flag is provided.
+- Properly clear the terminal when exiting and InfluxQL shell.
+
+### Maintenance
+
+- Upgrade Go to 1.19.4.
+- Update to `openapi` 5.1.1 to enable arm builds.
+
+---
+
 ## v2.5.0 [2022-11-01]
 
 ### Features
@@ -26,6 +42,8 @@ menu:
 - Fix an error where `stdin` could not be used to create tasks.
 - Update `data_type` to `dataType` to ensure CSV files are successfully uploaded.
 - Fix to let you create a remote connection for InfluxDB 1.x without requiring a remote org ID (`remoteOrgID`). Add warning that `remoteOrgID` is required for InfluxDB Cloud and InfluxDB OSS, but not required for InfluxDB 1.x (OSS or Enterprise).
+
+---
 
 ## v2.4.0 [2022-08-18]
 
