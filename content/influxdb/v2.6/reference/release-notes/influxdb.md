@@ -19,8 +19,9 @@ weight: 101
 
  - Optimize [`SHOW FIELD KEY CARDINALITY`](/influxdb/v2.6/query-data/influxql/explore-schema/#show-field-key-cardinality) command.
  - Restrict file permissions by default.
- - Fix max-age transformation.
- - Fix migrating when already defined remotes exist.
+ - Fix migration handling when already defined remotes exist.
+ - Fix default max-age transformation from seconds to one week.
+ - Fix error handling in user routes.
 
 ### Maintenance
 
