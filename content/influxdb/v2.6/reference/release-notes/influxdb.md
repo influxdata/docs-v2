@@ -7,26 +7,30 @@ menu:
     parent: Release notes
 weight: 101
 ---
-## v2.6 [TBD]
+## v2.6.0 [TBD]
 
 ### Features
 
-- Add [`influxd inspect report-db`](/influxdb/v2.6/reference/cli/influxd/inspect/report-db/) command.
-- Add [`influxd inspect check-schema`](/influxdb/v2.6/reference/cli/influxd/inspect/check-schema/) command.
-- Add [`influxd inspect merge-schema`](/influxdb/v2.6/reference/cli/influxd/inspect/merge-schema/) command.
+- Add the following `influxd` utilities:
+  - [`influxd inspect check-schema`](/influxdb/v2.6/reference/cli/influxd/inspect/check-schema/)
+  - [`influxd inspect merge-schema`](/influxdb/v2.6/reference/cli/influxd/inspect/merge-schema/)
+  - [`influxd inspect report-db`](/influxdb/v2.6/reference/cli/influxd/inspect/report-db/)
+- Perform package validation during the build process.
 
-### Bug fixes
+### Bug Fixes
 
- - Optimize [`SHOW FIELD KEY CARDINALITY`](/influxdb/v2.6/query-data/influxql/explore-schema/#show-field-key-cardinality) command.
- - Restrict file permissions by default.
- - Fix migration handling when already defined remotes exist.
- - Fix default max-age transformation from seconds to one week.
- - Fix error handling in user routes.
+- Optimize [`SHOW FIELD KEY CARDINALITY`](/influxdb/v2.6/query-data/influxql/explore-schema/#show-field-key-cardinality)
+  InfluxQL command.
+- Correctly convert replication maximum age setting to seconds.
+- Fix internal metadata migrations when a replication remote already exists.
+- Update `/me` and `/users` routes to match documentation.
+- By default, restrict file permissions to 0750 (`drwxr-x---`).
+- Correctly handle `NaN` values returned from InfluxDB scrapers.
 
 ### Maintenance
 
-- Upgrade to [Go 1.18.9](https://go.dev/doc/go1.18)
-- Upgrade to [Flux 0.191.0](/flux/v0.x/release-notes/#v01870-2022-10-17)
+- Upgrade to Go 1.18.9.
+- Upgrade Flux to v0.191.0.
 
 ## v2.5.1 [2022-11-9]
 
