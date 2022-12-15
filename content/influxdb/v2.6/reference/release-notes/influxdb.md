@@ -8,13 +8,39 @@ menu:
 weight: 101
 ---
 
+## v2.6.0 [2022-12-15]
+
+### Features
+
+- Add the following `influxd` utilities:
+  - [`influxd inspect check-schema`](/influxdb/v2.6/reference/cli/influxd/inspect/check-schema/)
+  - [`influxd inspect merge-schema`](/influxdb/v2.6/reference/cli/influxd/inspect/merge-schema/)
+  - [`influxd inspect report-db`](/influxdb/v2.6/reference/cli/influxd/inspect/report-db/)
+- Validate packages during the build process.
+
+### Bug Fixes
+
+- Optimize [`SHOW FIELD KEY CARDINALITY`](/influxdb/v2.6/query-data/influxql/explore-schema/#show-field-key-cardinality)
+  InfluxQL command.
+- Correctly convert replication maximum age setting to seconds.
+- Fix internal metadata migrations when a replication remote already exists.
+- Update `/me` and `/users` routes to match documentation.
+- By default, restrict file permissions to 0750 (`drwxr-x---`).
+- Correctly handle `NaN` values returned from InfluxDB scrapers.
+- Pin the user interface (UI) to version that addresses dashboard issues.
+
+### Maintenance
+
+- Upgrade to Go 1.18.9.
+- Upgrade Flux to v0.191.0.
+
 ## v2.5.1 [2022-11-9]
 
 ### Bug fixes
 
 - Fix permissions issue in Debian and Red Hat package managers.
 
-## v2.5 [2022-11-01]
+## v2.5.0 [2022-11-01]
 
 ### Features
 
@@ -40,7 +66,7 @@ weight: 101
 - Upgrade to [Go 1.18.7](https://go.dev/doc/go1.18)
 - Upgrade to [Rust 1.63.0](https://www.rust-lang.org/)
 
-## v2.4 [2022-08-19]
+## v2.4.0 [2022-08-19]
 
 ### Features
 
