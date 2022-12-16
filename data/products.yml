@@ -33,7 +33,7 @@ influxdb_cloud:
   altname: InfluxDB Cloud
   namespace: influxdb
   versions: [cloud]
-  list_order: 1
+  list_order: 2
   latest: cloud
   link: "https://cloud2.influxdata.com/signup"
 
