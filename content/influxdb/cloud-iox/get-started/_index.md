@@ -33,6 +33,10 @@ Before you get started using InfluxDB, it's important to understand how time ser
 data is organized and stored in InfluxDB and some key definitions that are used
 throughout this documentation.
 
+- [Data organization](#data-organization)
+- [Schema on write](#schema-on-write)
+- [Important definitions](#important-definitions)
+
 ### Data organization
 
 The InfluxDB data model organizes time series data into buckets and measurements.
@@ -55,7 +59,10 @@ tags and fields.
 
 ### Schema on write
 
-- don't add new tables/measurements with a command, you do it when you write data
+When using InfluxDB, you define your schema as you write your data.
+You don't need to create measurements (equivalent to a relational table) or
+explicitly define the schema of the measurement.
+Measurement schemas are defined by the schema of data as it is written to the measurement.
 
 ### Important definitions
 
@@ -68,27 +75,7 @@ The following are important definitions to understand when using InfluxDB:
 
 ##### Example InfluxDB query results
 
-The method you use to query data from InfluxDB
-(Flux `iox.sql()` (SQL), `from()` (Flux), or InfluxQL), determines how results
-are structured. The following diagrams illustrate how the InfluxDB data model 
-is represented in query results:
-
-{{< tabs-wrapper >}}
-{{% tabs "medium" %}}
-[SQL or InfluxQL](#)
-[Flux](#)
-{{% /tabs %}}
-{{% tab-content %}}
-
 {{< influxdb/points-series-sql >}}
-
-{{% /tab-content %}}
-{{% tab-content %}}
-
-{{< influxdb/points-series-flux>}}
-
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
 
 ## Tools to use
 

@@ -67,7 +67,7 @@ The following are important definitions to understand when using InfluxDB:
 
 ##### Example InfluxDB query results
 
-{{< influxdb/points-series >}}
+{{< influxdb/points-series-flux >}}
 
 ## Tools to use
 
