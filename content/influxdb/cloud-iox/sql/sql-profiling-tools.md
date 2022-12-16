@@ -6,7 +6,7 @@ menu:
   influxdb_cloud_iox:
     name: SQL query profiling tools
     parent: Query data with SQL
-weight: 190
+weight: 185
 ---
 
 ### EXPLAIN

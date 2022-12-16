@@ -4,12 +4,26 @@ description: >
   InfluxDB SQL reference
 menu:
   influxdb_cloud_iox:
-    name: Query data with SQL
-weight: 103
+    name: InfluxDB SQL reference
+    parent: Query data with SQL
+weight: 190
 ---
 
+### Arithmetic operators
 
-### Supported operators
+Arithmetic operators take two numerical values (either literals or variables) and
+perform a calculation that returns a single numerical value.
+
+| Operator | Description    | Example  | Result |
+|:--------:|:-----------    | -------  | ------ |
+| `+`      | Addition       | `2 + 2`  | `4`    |
+| `-`      | Subtraction    | `4 - 2`  | `2`    |
+| `*`      | Multiplication | `2 * 3`  | `6`    |
+| `/`      | Division       | `6 / 3`  | `2`    |
+
+### Comparison operators
+
+Comparison operators compare compare numbers or strings and perform evaluations.
 
 | Operator | Meaning                  |
 |:--------:|:--------                 |
@@ -38,10 +52,49 @@ SELECT "location","water_level"
 
 
 
-SELECT * FROM "h2o_feet" WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet' 
 
-SELECT * FROM "h2o_feet" WHERE location = 'santa_monica' and level description = 'below 3 feet' 
+### Duration Units
 
 
-Duration Units
 
+
+### Statements and clauses
+
+Use a table structure with links?
+
+
+| Statement | Description                                         |
+| :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|  SELECT  | Use the SQL SELECT statement to query data from a specific measurement or measurments. See [The SELECT statementint](fluxdb/cloud-iox/sql/explore-data/select/ ) |
+|  FROM |  |
+|  JOIN |  |
+| WHERE |  |
+| GROUP BY |  |
+| HAVING |  |
+| UNION |  |
+| ORDER BY |  |
+| LIMIT |  |
+| WITH |  |
+
+### Functions
+
+#### Aggregate
+| Function | Description                                         |
+| :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| MIN |  |
+| MAX |  |
+| COUNT |  |
+| AVG |  |
+| SUM |  |
+
+#### Selectors
+
+Selector functions are unique to time series databases. They behave like aggregate functions but there are some key differences.
+
+| Function | Description                                         |
+| :------: |
+| FIRST|  |
+| LAST |  |
+| MIN |  |
+| MAX |  |
+| PERCENTILE|   |

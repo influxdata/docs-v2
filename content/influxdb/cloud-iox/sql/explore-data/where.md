@@ -10,7 +10,7 @@ menu:
 weight: 230
 ---
 
-Use the `WHERE` clause to filter data based on 
+Use the `WHERE` clause to filter data based on selected columns containing
 - fields
 - tags
 - timestamps

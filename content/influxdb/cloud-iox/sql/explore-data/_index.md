@@ -9,7 +9,7 @@ menu:
 weight: 201
 ---
 
-DataFusion supports the following syntax for queries:
+InfluxDB SQL supports the following basic syntax for queries:
 
 [ WITH with_query [, …] ]  
 SELECT [ ALL | DISTINCT ] select_expr [, …]  
