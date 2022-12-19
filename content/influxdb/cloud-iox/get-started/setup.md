@@ -12,197 +12,43 @@ menu:
 weight: 101
 metadata: [1 / 5]
 related:
-  - /influxdb/v2.5/install/
-  - /influxdb/v2.5/reference/config-options/
-  - /influxdb/v2.5/security/tokens/
-  - /influxdb/v2.5/organizations/buckets/
-  - /influxdb/v2.5/tools/influx-cli/
-  - /influxdb/v2.5/reference/api/
+  - /influxdb/cloud-iox/security/tokens/
+  - /influxdb/cloud-iox/organizations/buckets/
+  - /influxdb/cloud-iox/tools/influx-cli/
+  - /influxdb/cloud-iox/reference/api/
 ---
 
 As you get started with this tutorial, do the following to make sure everything
 you need is in place.
 
-1.  **Create an All Access API token.**
+1.  {{< req text="(Optional)" color="magenta" >}} **Download, install, and configure the `influx` CLI**.
+    
+    The `influx` CLI provides a simple way to interact with InfluxDB from a 
+    command line. For detailed installation and setup instructions,
+    see [Use the influx CLI](/influxdb/cloud-iox/tools/influx-cli/).
+
+2.  **Create an All Access API token.**
     <span id="create-an-all-access-api-token"></span>
 
-    Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to create an
-    all access token.
 
-    {{< tabs-wrapper >}}
-{{% tabs %}}
-[InfluxDB UI](#)
-[influx CLI](#)
-[InfluxDB API](#)
-{{% /tabs %}}
+    1.  Visit
+        {{% oss-only %}}[localhost:8086](https://cloud2.influxdata.com){{% /oss-only %}}
+        {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
+        in a browser to log in and access the InfluxDB UI.
 
-{{% tab-content %}}
-<!------------------------------ BEGIN UI CONTENT ----------------------------->
+    2.  Navigate to **Load Data** > **API Tokens** using the left navigation bar.
 
-1.  Visit
-    {{% oss-only %}}[localhost:8086](http://localhost:8086){{% /oss-only %}}
-    {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
-    in a browser to log in and access the InfluxDB UI.
+        {{< nav-icon "load data" >}}
 
-2.  Navigate to **Load Data** > **API Tokens** using the left navigation bar.
-
-{{< nav-icon "load data" >}}
-
-3.  Click **+ {{% caps %}}Generate API token{{% /caps %}}** and select
-    **All Access API Token**.
-4.  Enter a description for the API token and click **{{< icon "check" >}} {{% caps %}}Save{{% /caps %}}**.
-5.  Copy the generated token and store it for safe keeping.
-
-<!------------------------------- END UI CONTENT ------------------------------>
-{{% /tab-content %}}
-{{% tab-content %}}
-<!---------------------------- BEGIN CLI CONTENT ----------------------------->
-
-1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.5/tools/influx-cli/).
-2.  Use the [`influx auth create` command](/influxdb/v2.5/reference/cli/influx/auth/create/)
-    to create an all access token.
-    
-    **Provide the following**:
-
-    - `--all-access` flag
-    - `--host` flag with your [InfluxDB host URL](/influxdb/v2.5/reference/urls/)
-    - `-o, --org` or `--org-id` flags with your InfluxDB organization name or
-      [ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id)
-    - `-t, --token` flag with your Operator token
-
-    ```sh
-    influx auth create \
-      --all-access \
-      --host http://localhost:8086 \
-      --org <YOUR_INFLUXDB_ORG_NAME> \
-      --token <YOUR_INFLUXDB_OPERATOR_TOKEN>
-    ```
-
-3.  Copy the generated token and store it for safe keeping.
-
-<!------------------------------ END CLI CONTENT ------------------------------>
-{{% /tab-content %}}
-{{% tab-content %}}
-<!----------------------------- BEGIN API CONTENT ----------------------------->
-
-Send a request to the InfluxDB API `/api/v2/authorizations` endpoint using the `POST` request method.
-
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/authorizations" method="post" >}}
-
-Include the following with your request:
-
-- **Headers**:
-  - **Authorization**: Token <INFLUX_OPERATOR_TOKEN>
-  - **Content-Type**: application/json
-- **Request body**: JSON body with the following properties:
-  - **status**: `"active"`
-  - **description**: API token description
-  - **orgID**: [InfluxDB organization ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id)
-  - **permissions**: Array of objects where each object represents permissions
-    for an InfluxDB resource type or a specific resource. Each permission contains the following properties:
-      - **action**: "read" or "write"
-      - **resource**: JSON object that represents the InfluxDB resource to grant
-        permission to. Each resource contains at least the following properties:
-          - **orgID**: [InfluxDB organization ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id)
-          - **type**: Resource type.
-            _For information about what InfluxDB resource types exist, use the
-            [`/api/v2/resources` endpoint](/influxdb/v2.5/api/#operation/GetResources)._
-
-The following example uses cURL and the InfluxDB API to generate an all access token:
-
-{{% truncate %}}
-```sh
-export INFLUX_HOST=http://localhost:8086
-export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
-export INFLUX_TOKEN=<YOUR_INFLUXDB_OPERATOR_TOKEN>
-
-curl --request POST \
-"$INFLUX_HOST/api/v2/authorizations" \
-  --header "Authorization: Token $INFLUX_TOKEN" \
-  --header "Content-Type: text/plain; charset=utf-8" \
-  --data '{
-    "status": "active",
-    "description": "All access token for get started tutorial",
-    "orgID": "'"$INFLUX_ORG_ID"'",
-    "permissions": [
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "authorizations"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "authorizations"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "buckets"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "buckets"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "dashboards"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "dashboards"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "orgs"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "orgs"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "sources"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "sources"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "tasks"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "tasks"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "telegrafs"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "telegrafs"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "users"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "users"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "variables"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "variables"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "scrapers"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "scrapers"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "secrets"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "secrets"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "labels"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "labels"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "views"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "views"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "documents"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "documents"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "notificationRules"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "notificationRules"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "notificationEndpoints"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "notificationEndpoints"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "checks"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "checks"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "dbrp"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "dbrp"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "notebooks"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "notebooks"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "annotations"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "annotations"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "remotes"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "remotes"}},
-      {"action": "read", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "replications"}},
-      {"action": "write", "resource": {"orgID": "'"$INFLUX_ORG_ID"'", "type": "replications"}}
-    ]
-  }
-'
-```
-{{% /truncate %}}
-
-The response body contains a JSON object with the following properties:
-
-- **id**: API Token ID
-- **token**: API Token ({{< req "Important" >}})
-- **status**: Token status
-- **description**: Token description
-- **orgID**: InfluxDB organization ID the token is associated with
-- **org**: InfluxDB organization name the token is associated with
-- **userID**: User ID the token is associated with
-- **user**: Username the token is associated with
-- **permissions**: List of permissions for organization resources
-
-**Copy the generated `token` and store it for safe keeping.**
-
-<!------------------------------ END API CONTENT ------------------------------>
-{{% /tab-content %}}
-    {{< /tabs-wrapper >}}
+    3.  Click **+ {{% caps %}}Generate API token{{% /caps %}}** and select
+        **All Access API Token**.
+    4.  Enter a description for the API token and click **{{< icon "check" >}} {{% caps %}}Save{{% /caps %}}**.
+    5.  Copy the generated token and store it for safe keeping.
 
     {{% note %}}
 We recommend using a password manager or a secret store to securely store
 sensitive tokens.
     {{% /note %}}
-
-2.  {{< req text="(Optional)" color="magenta" >}} **Download, install, and configure the `influx` CLI**.
-    
-    The `influx` CLI provides a simple way to interact with InfluxDB from a 
-    command line. For detailed installation and setup instructions,
-    see [Use the influx CLI](/influxdb/v2.5/tools/influx-cli/).
 
 3. **Configure authentication credentials**. <span id="configure-authentication-credentials"></span>
 
@@ -226,8 +72,9 @@ use that token to interact with InfluxDB. Otherwise, use your operator token.
 {{% tab-content %}}
 <!------------------------------ BEGIN UI CONTENT ----------------------------->
 
-When managing InfluxDB through the InfluxDB UI, authentication credentials are
-provided automatically using credentials associated with the user you log in with.
+When managing InfluxDB {{< current-version >}} through the InfluxDB UI,
+authentication credentials are provided automatically using credentials
+associated with the user you log in with.
 
 <!------------------------------- END UI CONTENT ------------------------------>
 {{% /tab-content %}}
@@ -241,24 +88,24 @@ There are three ways to provided authentication credentials to the `influx` CLI:
 
 The `influx` CLI lets you specify connection configuration presets that let
 you store and quickly switch between multiple sets of InfluxDB connection
-credentials. Use the [`influx config create` command](/influxdb/v2.5/reference/cli/influx/config/create/)
+credentials. Use the [`influx config create` command](/influxdb/cloud-iox/reference/cli/influx/config/create/)
 to create a new CLI connection configuration. Include the following flags:
 
-  - `-n, --config-name`: Connection configuration name. This examples uses `get-started`.
-  - `-u, --host-url`: [InfluxDB host URL](/influxdb/v2.5/reference/urls/).
-  - `-o, --org`: InfluxDB organization name.
-  - `-t, --token`: InfluxDB API token.
+- `-n, --config-name`: Connection configuration name. This examples uses `get-started`.
+- `-u, --host-url`: [InfluxDB Cloud region URL](/influxdb/cloud-iox/reference/regions/).
+- `-o, --org`: InfluxDB organization name.
+- `-t, --token`: InfluxDB API token.
 
 ```sh
 influx config create \
   --config-name get-started \
-  --host-url http://localhost:8086 \
+  --host-url https://cloud2.influxdata.com \
   --org <YOUR_INFLUXDB_ORG_NAME> \
   --token <YOUR_INFLUXDB_API_TOKEN>
 ```
 
 _For more information about CLI connection configurations, see
-[Install and use the `influx` CLI](/influxdb/v2.5/tools/influx-cli/#set-up-the-influx-cli)._
+[Install and use the `influx` CLI](/influxdb/cloud-iox/tools/influx-cli/#set-up-the-influx-cli)._
 
 {{% /expand %}}
 
@@ -268,13 +115,13 @@ The `influx` CLI checks for specific environment variables and, if present,
 uses those environment variables to populate authentication credentials.
 Set the following environment variables in your command line session:
 
-- `INFLUX_HOST`: [InfluxDB host URL](/influxdb/v2.5/reference/urls/).
+- `INFLUX_HOST`: [InfluxDB Cloud region URL](/influxdb/cloud-iox/reference/regions/).
 - `INFLUX_ORG`: InfluxDB organization name.
-- `INFLUX_ORG_ID`: InfluxDB [organization ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id).
+- `INFLUX_ORG_ID`: InfluxDB [organization ID](/influxdb/cloud-iox/organizations/view-orgs/#view-your-organization-id).
 - `INFLUX_TOKEN`: InfluxDB API token.
 
 ```sh
-export INFLUX_HOST=http://localhost:8086
+export INFLUX_HOST=https://cloud2.influxdata.com
 export INFLUX_ORG=<YOUR_INFLUXDB_ORG_NAME>
 export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
 export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
@@ -286,9 +133,9 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 
 Use the following `influx` CLI flags to provide required credentials to commands:
 
-- `--host`: [InfluxDB host URL](/influxdb/v2.5/reference/urls/).
+- `--host`: [InfluxDB Cloud region URL](/influxdb/cloud-iox/reference/regions/).
 - `-o`, `--org` or `--org-id`: InfluxDB organization name or
-  [ID](/influxdb/v2.5/organizations/view-orgs/#view-your-organization-id).
+  [ID](/influxdb/cloud-iox/organizations/view-orgs/#view-your-organization-id).
 - `-t`, `--token`: InfluxDB API token.
 
 {{% /expand %}}
@@ -297,7 +144,7 @@ Use the following `influx` CLI flags to provide required credentials to commands
 {{% note %}}
 All `influx` CLI examples in this getting started tutorial assume your InfluxDB
 **host**, **organization**, and **token** are provided by either the
-[active `influx` CLI configuration](/influxdb/v2.5/reference/cli/influx/#provide-required-authentication-credentials)
+[active `influx` CLI configuration](/influxdb/cloud-iox/reference/cli/influx/#provide-required-authentication-credentials)
 or by environment variables.
 {{% /note %}}
 
@@ -309,7 +156,7 @@ or by environment variables.
 When using the InfluxDB API, provide the required connection credentials in the
 following ways:
 
-- **InfluxDB host**: The domain and port to send HTTP(S) requests to.
+- **InfluxDB host**: [InfluxDB Cloud region URL](/influxdb/cloud-iox/reference/regions/)
 - **InfluxDB API Token**: Include an `Authorization` header that uses either 
   `Bearer` or `Token` scheme and your InfluxDB API token. For example:  
   `Authorization: Bearer 0xxx0o0XxXxx00Xxxx000xXXxoo0==`.
@@ -321,7 +168,7 @@ To provide all the necessary credentials to the example cURL commands, set
 the following environment variables in your command line session.
 
 ```sh
-export INFLUX_HOST=http://localhost:8086
+export INFLUX_HOST=https://cloud2.influxdata.com
 export INFLUX_ORG=<YOUR_INFLUXDB_ORG_NAME>
 export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
 export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
@@ -332,10 +179,9 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 
 6.  {{< req text="(Optional)" color="magenta" >}} **Create a bucket**.
 
-    In the InfluxDB initialization process, you created a bucket.
-    You can use that bucket or create a new one specifically for this getting
-    started tutorial. All examples in this tutorial assume a bucket named
-    _get-started_.
+    You can use an existing bucket or create a new one specifically for this
+    getting started tutorial. All examples in this tutorial assume a bucket named
+    **"get-started"**.
 
     Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to create a
     new bucket.
@@ -351,14 +197,19 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 <!------------------------------ BEGIN UI CONTENT ----------------------------->
 
 1.  Visit
-    {{% oss-only %}}[localhost:8086](http://localhost:8086){{% /oss-only %}}
+    {{% oss-only %}}[localhost:8086](https://cloud2.influxdata.com){{% /oss-only %}}
     {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
     in a browser to log in and access the InfluxDB UI.
 
 2.  Navigate to **Load Data** > **Buckets** using the left navigation bar.
+
+{{< nav-icon "load data" >}}
+
 3.  Click **+ {{< caps >}}Create bucket{{< /caps >}}**.
-4.  Provide a bucket name (get-started) and select {{% caps %}}Never{{% /caps %}}
-    to create a bucket with an infinite [retention period](/influxdb/v2.5/reference/glossary/#retention-period).
+4.  Provide a bucket name (get-started) and select a
+    [retention period](/influxdb/cloud-iox/reference/glossary/#retention-period).
+    Supported retention periods depend on your InfluxDB Cloud plan.
+
 5.  Click **{{< caps >}}Create{{< /caps >}}**.
 
 <!------------------------------- END UI CONTENT ------------------------------>
@@ -366,17 +217,21 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 {{% tab-content %}}
 <!---------------------------- BEGIN CLI CONTENT ----------------------------->
 
-1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/v2.5/tools/influx-cli/).
-2.  Use the [`influx bucket create` command](/influxdb/v2.5/reference/cli/influx/bucket/create/)
+1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/cloud-iox/tools/influx-cli/).
+2.  Use the [`influx bucket create` command](/influxdb/cloud-iox/reference/cli/influx/bucket/create/)
     to create a new bucket.
     
     **Provide the following**:
 
     - `-n, --name` flag with the bucket name.
+    - `-r, --retention` flag with the bucket's retention period duration.
+      Supported retention periods depend on your InfluxDB Cloud plan.
     - [Connection and authentication credentials](#configure-authentication-credentials)
 
     ```sh
-    influx bucket create --name get-started
+    influx bucket create \
+      --name get-started \
+      --retention 7d
     ```
 
 <!------------------------------ END CLI CONTENT ------------------------------>
@@ -387,7 +242,7 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 To create a bucket using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/buckets` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/buckets" method="post" >}}
+{{< api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/buckets" method="post" >}}
 
 Include the following with your request:
 
@@ -401,10 +256,11 @@ Include the following with your request:
     Each retention rule object has the following properties:
     - **type**: `"expire"`
     - **everySeconds**: Retention period duration in seconds.
-      `0` indicates the retention period is infinite. 
+      {{% cloud-only %}}Supported retention periods depend on your InfluxDB Cloud plan.{{% /cloud-only %}}
+      {{% oss-only %}}`0` indicates the retention period is infinite.{{% /oss-only %}}
 
 ```sh
-export INFLUX_HOST=http://localhost:8086
+export INFLUX_HOST=https://cloud2.influxdata.com
 export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
 export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 
@@ -418,7 +274,7 @@ curl --request POST \
     "retentionRules": [
       {
         "type": "expire",
-        "everySeconds": 0
+        "everySeconds": 604800
       }
     ]
   }'
@@ -427,4 +283,4 @@ curl --request POST \
 {{% /tab-content %}}
     {{< /tabs-wrapper >}} 
 
-{{< page-nav prev="/influxdb/v2.5/get-started/" next="/influxdb/v2.5/get-started/write/" keepTab=true >}}
+{{< page-nav prev="/influxdb/cloud-iox/get-started/" next="/influxdb/cloud-iox/get-started/write/" keepTab=true >}}
