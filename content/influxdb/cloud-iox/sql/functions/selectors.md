@@ -30,3 +30,16 @@ min
 
 percentile
 
+
+### Last() function
+
+When using this function you must specify it as `selector_last`.
+
+
+Examples:
+
+
+SELECT
+    selector_last(request, time)['value']
+FROM 
+    measurement_name

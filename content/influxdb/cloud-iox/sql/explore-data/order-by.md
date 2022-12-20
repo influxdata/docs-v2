@@ -6,8 +6,8 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: The ORDER BY clause
-    parent: Explore data
-weight: 240
+    parent: Explore data using SQL
+weight: 230
 ---
 
 The ORDER BY clause orders results by the referenced expression.  The order is ASC **by default**.

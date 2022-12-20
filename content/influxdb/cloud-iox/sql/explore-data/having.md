@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: The HAVING clause
-    parent: Explore data
+    parent: Explore data using SQL
 weight: 250
 ---
 
@@ -22,4 +22,6 @@ HAVING
 ORDER BY
 ```
 
+Example:
 
+SELECT a, b, MAX(c) FROM table GROUP BY a, b HAVING MAX(c) > 10

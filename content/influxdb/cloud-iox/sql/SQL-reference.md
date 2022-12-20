@@ -9,6 +9,28 @@ menu:
 weight: 190
 ---
 
+### Identifiers
+
+An identifier is the name of an object, such as a [`bucket`](/cloud/reference/glossary/#bucket) name (database name), measurement name, tag key, and field key.
+
+### Quoting
+
+Rules for quoting:
+
+- Single quote string literals.  
+- Double quote database identifiers (column names).
+
+The following queries will both return results:
+
+```sql
+SELECT location, water_level 
+  FROM h2o_feet
+
+SELECT "location","water_level" 
+  FROM "h2o_feet"
+```
+However, a good rule of thumb is to double quote database identifiers.
+
 ### Arithmetic operators
 
 Arithmetic operators take two numerical values (either literals or variables) and
@@ -23,7 +45,7 @@ perform a calculation that returns a single numerical value.
 
 ### Comparison operators
 
-Comparison operators compare compare numbers or strings and perform evaluations.
+Comparison operators compare numbers or strings and perform evaluations.
 
 | Operator | Meaning                  |
 |:--------:|:--------                 |
@@ -34,22 +56,6 @@ Comparison operators compare compare numbers or strings and perform evaluations.
 | `>=`     | greater than or equal to |
 | `<`      | less than                |
 | `<=`     | less than or equal to    |
-
-
-### Quoting
-
-Fields can be double quoted, while tag keys are single quoted. You may double quote measurements, but it's not a requirement. 
-
-The following queries will both return results:
-
-```sql
-SELECT location, water_level 
-  FROM h2o_feet
-
-SELECT "location","water_level" 
-  FROM "h2o_feet"
-```
-
 
 
 
@@ -64,14 +70,14 @@ Use a table structure with links?
 
 
 | Statement | Description                                         |
-| :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |  SELECT  | Use the SQL SELECT statement to query data from a specific measurement or measurments. See [The SELECT statementint](fluxdb/cloud-iox/sql/explore-data/select/ ) |
-|  FROM |  |
-|  JOIN |  |
+|  FROM |   The FROM clause always accompanies the SELECT statement.  |
+|  JOIN |  | 
 | WHERE |  |
 | GROUP BY |  |
 | HAVING |  |
-| UNION |  |
+| UNION | Use the UNION clause to combine the results of two or more SELECT statements without returning any duplicate rows. |
 | ORDER BY |  |
 | LIMIT |  |
 | WITH |  |
@@ -80,7 +86,7 @@ Use a table structure with links?
 
 #### Aggregate
 | Function | Description                                         |
-| :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :---------  | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | MIN |  |
 | MAX |  |
 | COUNT |  |
@@ -92,7 +98,7 @@ Use a table structure with links?
 Selector functions are unique to time series databases. They behave like aggregate functions but there are some key differences.
 
 | Function | Description                                         |
-| :------: |
+| :---------  |
 | FIRST|  |
 | LAST |  |
 | MIN |  |

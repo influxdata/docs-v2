@@ -6,8 +6,8 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: The WHERE clause
-    parent: Explore data
-weight: 230
+    parent: Explore data using SQL
+weight: 220
 ---
 
 Use the `WHERE` clause to filter data based on selected columns containing
@@ -15,11 +15,12 @@ Use the `WHERE` clause to filter data based on selected columns containing
 - tags
 - timestamps
 
+- [Syntax](#syntax)
+- [Examples](#examples)
+
 ### Syntax
 
 SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_expression> [...]]
-
-
 
 ### Examples
 

@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: The SELECT statement
-    parent: Explore data
+    parent: Explore data using SQL
 weight: 210
 ---
 
@@ -17,7 +17,6 @@ Use the SELECT statement to query data from a specific measurement or measurment
 The select clause is required.
 
 - [Syntax](#syntax)
-
 - [Examples](#examples)
 
 ### Syntax
