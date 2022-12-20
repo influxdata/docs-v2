@@ -2,7 +2,7 @@
 title: Automatically upgrade from InfluxDB 1.x to 2.1
 list_title: Automatically upgrade from 1.x to 2.1
 description: >
-  Use the `influx upgrade` tool to automatically upgrade from InfluxDB 1.x to InfluxDB 2.1.
+  Use the `influx upgrade` tool to automatically upgrade from InfluxDB 1.x to InfluxDB 2.6.
 menu:
   influxdb_2_6:
     parent: InfluxDB 1.x to 2.6

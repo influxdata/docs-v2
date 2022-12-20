@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_2_6:
     parent: Upgrade InfluxDB
-    name: InfluxDB 2.x to 2.5
+    name: InfluxDB 2.x to 2.6
 weight: 10
 related:
   - /influxdb/v2.6/reference/cli/influxd/downgrade/
