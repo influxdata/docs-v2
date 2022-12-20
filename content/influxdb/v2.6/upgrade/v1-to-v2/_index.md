@@ -1,12 +1,12 @@
 ---
-title: Upgrade from InfluxDB 1.x to 2.5
+title: Upgrade from InfluxDB 1.x to 2.6
 description: >
-  Explore different methods for upgrading from InfluxDB 1.x to InfluxDB 2.5 and
+  Explore different methods for upgrading from InfluxDB 1.x to InfluxDB 2.6 and
   choose the best one for your use case.
 menu:
   influxdb_2_6:
     parent: Upgrade InfluxDB
-    name: InfluxDB 1.x to 2.5
+    name: InfluxDB 1.x to 2.6
 weight: 11
 ---
 
