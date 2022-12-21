@@ -1,0 +1,8 @@
+{{- $el := .Get 0 | default "div" -}}
+{{- if eq $el "span" -}}
+<span class="get-started-timestamps">{{ .Inner }}</span>
+{{- else }}
+<div class="get-started-timestamps">
+  {{ .Inner }}
+</div>
+{{ end }}
