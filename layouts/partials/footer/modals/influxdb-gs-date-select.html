@@ -1,8 +1,6 @@
-{{ $years := slice (string (add (now.Year) 1)) (now.Year) (string (sub (int now.Year) 1)) (string (sub (int now.Year) 2)) }}
-{{ $months := slice "01" "02" "03" "04" "05" "06" "07" "08" "09" "10" "11" "12" }}
-
 <div class="modal-content" id="influxdb-gs-date-select">
-  <h3>Select a new date for your sample data and queries</h3>
+  <h3>Select a new date</h3>
+  <p><em>Select a date in your bucket's retention period.</em></p>
   <div id="custom-date-selector"></div>
   <a class="btn" id="submit-custom-date" onclick="">Update</a>
 </div>

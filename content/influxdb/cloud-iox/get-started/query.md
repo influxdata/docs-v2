@@ -13,8 +13,7 @@ menu:
 weight: 102
 metadata: [3 / 5]
 related:
-  - /influxdb/v2.5/query-data/
-draft: true
+  - /influxdb/cloud-iox/query-data/
 ---
 
 InfluxDB supports many different tools for querying data, including:
@@ -84,15 +83,19 @@ When querying InfluxDB with Flux, there are three primary functions you use:
 In the `r` record, each key-value pair represents a column and its value.
 For example:
 
+{{% influxdb/custom-timestamps %}}
+
 ```js
 r = {
-    _time: 2020-01-01T00:00:00Z,
+    _time: 2022-01-01T00:00:00Z,
     _measurement: "home",
     room: "Kitchen",
     _field: "temp",
     _value: 21.0,
 }
 ```
+
+{{% /influxdb/custom-timestamps %}}
 
 To filter rows, use [predicate expressions](/flux/v0.x/get-started/syntax-basics/#predicate-expressions)
 to evaluate the values of columns. Given the row record above:
@@ -118,7 +121,10 @@ input the next function as input.
 #### Query the example data
 
 The following Flux query returns the **co**, **hum**, and **temp** fields stored in
-the **home** measurement with timestamps **between 2022-01-01T08:00:00Z and 2022-01-01T20:00:01Z**.
+the **home** measurement with timestamps
+{{% influxdb/custom-timestamps-span %}}**between 2022-01-01T08:00:00Z and 2022-01-01T20:00:01Z**{{% /influxdb/custom-timestamps-span %}}.
+
+{{% influxdb/custom-timestamps %}}
 
 ```js
 from(bucket: "get-started")
@@ -126,6 +132,8 @@ from(bucket: "get-started")
     |> filter(fn: (r) => r._measurement == "home")
     |> filter(fn: (r) => r._field== "co" or r._field == "hum" or r._field == "temp")
 ```
+
+{{% /influxdb/custom-timestamps %}}
 
 ### Execute a Flux query
 
@@ -182,13 +190,13 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
     6.  In the time range dropdown menu, select **Custom Time Range**, and
         select the following dates from the date selectors:
           
-          - **Start**: 2022-01-01 08:00:00
-          - **Stop**: 2022-01-01 20:00:01
+          - **Start**: {{% influxdb/custom-timestamps-span %}}2022-01-01 08:00:00{{% /influxdb/custom-timestamps-span %}}
+          - **Stop**: {{% influxdb/custom-timestamps-span %}}2022-01-01 20:00:01{{% /influxdb/custom-timestamps-span %}}
 
             _Note the addition of one second to the stop time. In Flux, stop
             times are exclusive and will exclude points with that timestamp.
-            By adding one second, the query will include all points to
-            2022-01-01 20:00:00_.
+            By adding one second, the query will include all points to_
+            {{% influxdb/custom-timestamps-span %}}_2022-01-01 20:00:00_{{% /influxdb/custom-timestamps-span %}}.
     
     7.  Click **{{% caps %}}Submit{{% /caps %}}** to execute the query with the
         selected filters and operations and display the result.
@@ -212,13 +220,14 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
             The `stop` parameter specifies the latest time (exclusively) to
             include in results.
 
-            - **start**: 2022-01-01T08:00:00Z
-            - **stop**: 2022-01-01T20:00:01Z
+            - **Start**: {{% influxdb/custom-timestamps-span %}}2022-01-01T08:00:00Z{{% /influxdb/custom-timestamps-span %}}
+            - **Stop**: {{% influxdb/custom-timestamps-span %}}2022-01-01T20:00:01Z{{% /influxdb/custom-timestamps-span %}}
 
-                _Note the addition of one second to the stop time. In Flux, stop
-                times are exclusive and will exclude points with that timestamp.
-                By adding one second, the query will include all points to
-                2022-01-01 20:00:00_.
+            _Note the addition of one second to the stop time. In Flux, stop
+            times are exclusive and will exclude points with that timestamp.
+            By adding one second, the query will include all points to_
+            {{% influxdb/custom-timestamps-span %}}_2022-01-01T20:00:00Z_{{% /influxdb/custom-timestamps-span %}}.
+            
             
             If you want to use the start and stop times selected in the time
             selection dropdown menu, use `v.timeRangeStart` and `v.timeRangeStop`
@@ -230,16 +239,18 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
         5.  _(Optional)_ Use `filter()` to filter results by specific 
             tag values. In this tutorial, there is one tag, **room**, with two
             potential values: **Living Room** or **Kitchen**.
-
-        ```js
-        from(bucket: from(bucket: "get-started")
-            |> range(start: 2022-01-01T08:00:00Z, stop: 2022-01-01T20:00:01Z)
-            |> filter(fn: (r) => r._measurement == "home")
-            |> filter(fn: (r) => r._field== "co" or r._field == "hum" or r._field == "temp")
-        ```
     
     3.  Click **{{% caps %}}Submit{{% /caps %}}** to execute the query with the
         selected filters and operations and display the result.
+
+{{% influxdb/custom-timestamps %}}
+```js
+from(bucket: from(bucket: "get-started")
+    |> range(start: 2022-01-01T08:00:00Z, stop: 2022-01-01T20:00:01Z)
+    |> filter(fn: (r) => r._measurement == "home")
+    |> filter(fn: (r) => r._field== "co" or r._field == "hum" or r._field == "temp")
+```
+{{% /influxdb/custom-timestamps %}}
 
 <!---------------------------- END FLUX UI CONTENT ---------------------------->
 {{% /tab-content %}}
@@ -255,6 +266,7 @@ Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute Flux q
     - String-encoded Flux query.
     - [Connection and authentication credentials](/influxdb/v2.5/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
 
+{{% influxdb/custom-timestamps %}}
 ```sh
 influx query '
 from(bucket: "get-started")
@@ -263,6 +275,7 @@ from(bucket: "get-started")
     |> filter(fn: (r) => r._field== "co" or r._field == "hum" or r._field == "temp")
 '
 ```
+{{% /influxdb/custom-timestamps %}}
 
 <!--------------------------- END FLUX CLI CONTENT ---------------------------->
 {{% /tab-content %}}
@@ -288,6 +301,7 @@ Include the following with your request:
 
 The following example uses cURL and the InfluxDB API to query data with Flux:
 
+{{% influxdb/custom-timestamps %}}
 ```sh
 curl --request POST \
 "$INFLUX_HOST/api/v2/query?org=$INFLUX_ORG&bucket=get-started" \
@@ -300,6 +314,7 @@ curl --request POST \
     |> filter(fn: (r) => r._field== "co" or r._field == "hum" or r._field == "temp")
   '
 ```
+{{% /influxdb/custom-timestamps %}}
 
 {{% note %}}
 The InfluxDB `/api/v2/query` endpoint returns query results in
@@ -320,6 +335,7 @@ The InfluxDB `/api/v2/query` endpoint returns query results in
 These columns, by default, represent the query time bounds and are added by `range()`.
 {{% /note %}}
 
+{{% influxdb/custom-timestamps %}}
 | _time                | _measurement | room    | _field | _value |
 | :------------------- | :----------- | :------ | :----- | -----: |
 | 2022-01-01T08:00:00Z | home         | Kitchen | co     |      0 |
@@ -415,6 +431,7 @@ These columns, by default, represent the query time bounds and are added by `ran
 | 2022-01-01T18:00:00Z | home         | Living Room | temp   |   22.8 |
 | 2022-01-01T19:00:00Z | home         | Living Room | temp   |   22.5 |
 | 2022-01-01T20:00:00Z | home         | Living Room | temp   |   22.2 |
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -429,7 +446,7 @@ specifically designed to query time series data from InfluxDB 0.x and 1.x.
 
 Because InfluxQL was developed for earlier versions of InfluxDB, it depends on
 **databases and retention policies** (DBRP) which have been replaced by
-[buckets](/influxdb/v2.5/get-started/#data-organization) in InfluxDB {{< current-version >}}.
+[buckets](/influxdb/cloud-iox/get-started/#data-organization) in InfluxDB {{< current-version >}}.
 To use InfluxQL with InfluxDB {{< current-version >}}, first
 [map database and retention policy (DBRP) combinations to an InfluxDB bucket](/influxdb/v2.5/query-data/influxql/dbrp/).
 {{% /note %}}
@@ -447,11 +464,15 @@ statements and clauses:
 
 The following InfluxQL query returns the **co**, **hum**, and **temp** fields and
 the **room** tag stored in the **home** measurement with timestamps
+{{% influxdb/custom-timestamps-span %}}
 **between 2022-01-01T08:00:00Z and 2022-01-01T20:00:00Z**.
+{{% /influxdb/custom-timestamps-span %}}
 
+{{% influxdb/custom-timestamps %}}
 ```sql
 SELECT co,hum,temp,room FROM "get-started".autogen.home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
 ```
+{{% /influxdb/custom-timestamps %}}
 
 {{% note %}}
 These are just the fundamentals of the InfluxQL syntax.
@@ -501,9 +522,11 @@ For a user interface that builds and executes InfluxQL queries, consider using
 
 3.  Enter an InfluxQL query and press {{< keybind mac="return" other="Enter ↵" >}}.
 
-    ```sql
-    SELECT co,hum,temp,room FROM "get-started".autogen.home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
-    ```
+{{% influxdb/custom-timestamps %}}
+```sql
+SELECT co,hum,temp,room FROM "get-started".autogen.home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+```
+{{% /influxdb/custom-timestamps %}}
 
 <!------------------------- END INFLUXQL CLI CONTENT -------------------------->
 {{% /tab-content %}}
@@ -541,6 +564,7 @@ Include the following with your request:
 
 The following example uses cURL and the InfluxDB API to query data with InfluxQL:
 
+{{% influxdb/custom-timestamps %}}
 ```sh
 curl --get "$INFLUX_HOST/query?org=$INFLUX_ORG&bucket=get-started" \
   --header "Authorization: Token $INFLUX_TOKEN" \
@@ -548,6 +572,7 @@ curl --get "$INFLUX_HOST/query?org=$INFLUX_ORG&bucket=get-started" \
   --data-urlencode "rp=autogen" \
   --data-urlencode "q=SELECT co,hum,temp,room FROM home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'"
 ```
+{{% /influxdb/custom-timestamps %}}
 
 {{% note %}}
 The InfluxDB `/write` 1.x compatibility endpoint returns query results in JSON format.
@@ -562,6 +587,7 @@ The InfluxDB `/write` 1.x compatibility endpoint returns query results in JSON f
 {{< expand-wrapper >}}
 {{% expand "View InfluxQL query results" %}}
 
+{{% influxdb/custom-timestamps %}}
 | time                 | room        |  co |  hum | temp |
 | :------------------- | :---------- | --: | ---: | ---: |
 | 2022-01-01T08:00:00Z | Kitchen     |   0 | 35.9 |   21 |
@@ -590,6 +616,7 @@ The InfluxDB `/write` 1.x compatibility endpoint returns query results in JSON f
 | 2022-01-01T19:00:00Z | Living Room |  14 | 36.3 | 22.5 |
 | 2022-01-01T20:00:00Z | Kitchen     |  26 | 36.5 | 22.7 |
 | 2022-01-01T20:00:00Z | Living Room |  17 | 36.4 | 22.2 |
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -601,4 +628,4 @@ For a deep dive into all the ways you can query InfluxDB, see the
 Let's move on to more advanced data processing queries and automating queries
 with InfluxDB tasks.
 
-{{< page-nav prev="/influxdb/v2.5/get-started/write/" next="/influxdb/v2.5/get-started/process/" keepTab=true >}}
+{{< page-nav prev="/influxdb/cloud-iox/get-started/write/" next="/influxdb/cloud-iox/get-started/process/" keepTab=true >}}

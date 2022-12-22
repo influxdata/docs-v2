@@ -95,12 +95,11 @@ To collect this data, use the following schema:
   - **timestamp**: Unix timestamp in _second_ precision
 
 Data is collected hourly beginning at 
-{{% influxdb/custom-gs-timestamps "span" %}}
-2022-01-01T08:00:00Z (UTC) until 2022-01-01T20:00:00Z (UTC).
-{{% /influxdb/custom-gs-timestamps %}}
+{{% influxdb/custom-timestamps-span %}}**2022-01-01T08:00:00Z (UTC)** until **2022-01-01T20:00:00Z (UTC)**{{% /influxdb/custom-timestamps-span %}}.
 The resulting line protocol would look something like the following:
 
-{{% influxdb/custom-gs-timestamps %}}
+{{% influxdb/custom-timestamps %}}
+
 ##### Home sensor data line protocol
 
 ```sh
@@ -131,7 +130,8 @@ home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
 home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ```
-{{% /influxdb/custom-gs-timestamps %}}
+
+{{% /influxdb/custom-timestamps %}}
 
 ## Write line protocol to InfluxDB
 
@@ -185,7 +185,8 @@ The UI will confirm that the data has been written successfully.
     - String-encoded line protocol.
     - [Connection and authentication credentials](/influxdb/cloud-iox/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
 
-    {{% influxdb/custom-gs-timestamps %}}
+{{% influxdb/custom-timestamps %}}
+
 ```sh
 influx write \
   --bucket get-started \
@@ -218,7 +219,7 @@ home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
-    {{% /influxdb/custom-gs-timestamps %}}
+{{% /influxdb/custom-timestamps %}}
 
 <!------------------------------ END CLI CONTENT ------------------------------>
 {{% /tab-content %}}
@@ -245,7 +246,7 @@ Include the following with your request:
 The following example uses cURL and the InfluxDB API to write line protocol
 to InfluxDB:
 
-{{% influxdb/custom-gs-timestamps %}}
+{{% influxdb/custom-timestamps %}}
 ```sh
 export INFLUX_HOST=http://localhost:8086
 export INFLUX_ORG=<YOUR_INFLUXDB_ORG>
@@ -285,7 +286,7 @@ home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
-{{% /influxdb/custom-gs-timestamps %}}
+{{% /influxdb/custom-timestamps %}}
 <!------------------------------ END API CONTENT ------------------------------>
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
@@ -293,7 +294,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{< expand-wrapper >}}
 {{% expand "View the written data" %}}
 
-{{% influxdb/custom-gs-timestamps %}}
+{{% influxdb/custom-timestamps %}}
 | time                 | room        |  co |  hum | temp |
 | :------------------- | :---------- | --: | ---: | ---: |
 | 2022-01-01T08:00:00Z | Kitchen     |   0 | 35.9 |   21 |
@@ -322,7 +323,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 | 2022-01-01T18:00:00Z | Living Room |   9 | 36.2 | 22.8 |
 | 2022-01-01T19:00:00Z | Living Room |  14 | 36.3 | 22.5 |
 | 2022-01-01T20:00:00Z | Living Room |  17 | 36.4 | 22.2 |
-{{% /influxdb/custom-gs-timestamps %}}
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

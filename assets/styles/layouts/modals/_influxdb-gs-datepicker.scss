@@ -5,6 +5,8 @@
   width: auto;
   max-width: 260px;
 
+  p {margin-bottom: 1.5rem;}
+
   a.btn {
     position: relative;
     display: inline-block;
@@ -41,5 +43,5 @@
         opacity: 1;
       }
     }
-  }  
+  }
 }

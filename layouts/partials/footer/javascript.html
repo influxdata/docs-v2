@@ -58,8 +58,7 @@
 {{ end }}
 
 <!-- Load getting started timestamps js if when the influxdb/custom-gs-timestamps shortcode is present -->
-{{ if .Page.HasShortcode "influxdb/custom-gs-timestamps" }}
+{{ if or (.Page.HasShortcode "influxdb/custom-timestamps") (.Page.HasShortcode "influxdb/custom-timestamps-span") }}
 <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker.min.js"></script>
-
 <script type="text/javascript" src="{{ $influxdbGSTimestampsjs.RelPermalink }}"></script>
 {{ end }}

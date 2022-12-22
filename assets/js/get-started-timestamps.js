@@ -14,6 +14,16 @@ function yesterday() {
   return formatDate(yesterday)
 }
 
+// Split a date string into year, month, and day
+function datePart(date) {
+  datePartRegex = /(\d{4})-(\d{2})-(\d{2})/
+  year = date.replace(datePartRegex, "$1")
+  month = date.replace(datePartRegex, "$2")
+  day = date.replace(datePartRegex, "$3")
+
+  return {year: year, month: month, day: day}
+}
+
 ////////////////////////// SESSION / COOKIE MANAGMENT //////////////////////////
 
 cookieID = 'influxdb_get_started_date'
@@ -73,10 +83,21 @@ function updateTimestamps(newStartDate) {
     })
 
     $('.get-started-timestamps').each(function() {
-        wrapper = $(this)[0]
+        var wrapper = $(this)[0]
 
         times.forEach(function(x) {
-            wrapper.innerHTML = wrapper.innerHTML.replaceAll(x.unix, x.unix_new).replaceAll(x.rfc3339, x.rfc3339_new)
+            oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ""))
+            newDatePart = datePart(x.rfc3339_new.replace(/T.*$/, ""))
+            rfc3339Regex = new RegExp(`${oldDatePart.year}(.*)${oldDatePart.month}(.*)${oldDatePart.day}(.*)T`, 'g')
+            rfc3339Repl = `${newDatePart.year}$1${newDatePart.month}$2${newDatePart.day}$3T`
+            TSWhiteSpaceRegex = new RegExp(`${oldDatePart.year}(.*)${oldDatePart.month}(.*)${oldDatePart.day} `, 'g')
+            TSWhiteSpaceRepl = `${newDatePart.year}$1${newDatePart.month}$2${newDatePart.day} `
+
+            wrapper.innerHTML =
+                wrapper.innerHTML
+                    .replaceAll(x.unix, x.unix_new)
+                    .replaceAll(rfc3339Regex, rfc3339Repl)
+                    .replaceAll(TSWhiteSpaceRegex, TSWhiteSpaceRepl)
         })
     })
 
