@@ -16,26 +16,37 @@ related:
   - /influxdb/cloud-iox/query-data/
 ---
 
-InfluxDB supports many different tools for querying data, including:
+InfluxDB Cloud backed by InfluxDB IOx supports multiple query languages:
 
-- InfluxDB user interface (UI)
-- [InfluxDB HTTP API](/influxdb/v2.5/reference/api/)
-- [`influx` CLI](/influxdb/v2.5/tools/influx-cli/)
-- [Chronograf](/{{< latest "Chronograf" >}}/)
-- [Grafana](/influxdb/v2.5/tools/grafana/)
-- [InfluxDB client libraries](/influxdb/v2.5/api-guide/client-libraries/)
-
-This tutorial walks you through the fundamentals of querying data in InfluxDB and
-focuses primarily on the two languages you can use to query your time series data:
-
-- **Flux**: A functional scripting language designed to query and process data
-  from InfluxDB and other data sources.
+- **SQL**: Traditional SQL powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
+  query engine.
 - **InfluxQL**: A SQL-like query language designed to query time series data from
   InfluxDB.
+- **Flux**: A functional scripting language designed to query and process data
+  from InfluxDB and other data sources.
+
+This tutorial walks you through the fundamentals of querying data in InfluxDB and
+focuses primarily on using **SQL** to query your time series data.
+
+## Tools
+InfluxDB supports many different tools for querying data, including:
+
+{{< req type="key" text="Covered in this tutorial" >}}
+
+- InfluxDB user interface (UI){{< req "\*  " >}}
+- [InfluxDB HTTP API](/influxdb/v2.5/reference/api/){{< req "\*  " >}}
+- [`influx` CLI](/influxdb/v2.5/tools/influx-cli/){{< req "\*  " >}}
+- [Superset](https://superset.apache.org/)
+- [Grafana](/influxdb/v2.5/tools/grafana/)
+- [Chronograf](/{{< latest "Chronograf" >}}/)
+- [InfluxDB client libraries](/influxdb/v2.5/api-guide/client-libraries/)
+
+
+
 
 {{% note %}}
 The examples in this section of the tutorial query the data from written in the
-[Get started writing data](/influxdb/v2.5/get-started/write/#write-line-protocol-to-influxdb) section.
+[Get started writing data](/influxdb/cloud-iox/get-started/write/#write-line-protocol-to-influxdb) section.
 {{% /note %}}
 
 ###### On this page:
