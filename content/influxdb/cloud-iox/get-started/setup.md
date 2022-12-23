@@ -10,7 +10,7 @@ menu:
     parent: Get started
     identifier: get-started-set-up
 weight: 101
-metadata: [1 / 5]
+metadata: [1 / 3]
 related:
   - /influxdb/cloud-iox/security/tokens/
   - /influxdb/cloud-iox/organizations/buckets/

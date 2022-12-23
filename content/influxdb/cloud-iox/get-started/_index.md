@@ -12,6 +12,10 @@ influxdb/cloud-iox/tags: [get-started]
 
 InfluxDB {{< current-version >}} is the platform purpose-built to collect, store,
 process and visualize time series data.
+The InfluxDB IOx storage engine provides a number of benefits including nearly
+unlimited series cardinality, improved query performance, and interoperability
+with widely used data processing tools and platforms.
+ 
 **Time series data** is a sequence of data points indexed in time order.
 Data points typically consist of successive measurements made from the same
 source and are used to track changes over time.
@@ -82,15 +86,15 @@ The following are important definitions to understand when using InfluxDB:
 Throughout this tutorial, there are multiple tools you can use to interact with
 InfluxDB {{< current-version >}}. Examples are provided for each of the following:
 
-- [InfluxDB Developer Console](#influxdb-developer-console)
+- [InfluxDB user interface](#influxdb-user-interface)
 - [`influx` CLI](#influx-cli)
 - [InfluxDB HTTP API](#influxdb-http-api)
 
-### InfluxDB Developer Console
+### InfluxDB user interface
 
-The InfluxDB Developer Console provides a web-based visual interface for interacting with and managing InfluxDB.
-{{% oss-only %}}The Developer Console is packaged with InfluxDB and runs as part of the InfluxDB service. To access the UI, with InfluxDB running, visit [localhost:8086](http://localhost:8086) in your browser.{{% /oss-only %}}
-{{% cloud-only %}}To access the InfluxDB Cloud Developer Console, [log into your InfluxDB Cloud account](https://cloud2.influxdata.com).{{% /cloud-only %}}
+The InfluxDB user interface (UI) provides a web-based visual interface for interacting with and managing InfluxDB.
+{{% oss-only %}}The InfluxDB UI is packaged with InfluxDB and runs as part of the InfluxDB service. To access the UI, with InfluxDB running, visit [localhost:8086](http://localhost:8086) in your browser.{{% /oss-only %}}
+{{% cloud-only %}}To access the InfluxDB Cloud UI, [log into your InfluxDB Cloud account](https://cloud2.influxdata.com).{{% /cloud-only %}}
 
 ### `influx` CLI
 

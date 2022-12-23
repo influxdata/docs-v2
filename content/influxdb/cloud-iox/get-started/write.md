@@ -11,7 +11,7 @@ menu:
     parent: Get started
     identifier: get-started-write-data
 weight: 101
-metadata: [2 / 5]
+metadata: [2 / 3]
 related:
   - /influxdb/cloud-iox/write-data/
   - /influxdb/cloud-iox/write-data/best-practices/
