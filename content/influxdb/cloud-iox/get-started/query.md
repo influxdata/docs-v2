@@ -146,7 +146,7 @@ For this example, use the following query to select all the data written to the
 **get-started** bucket between
 {{% influxdb/custom-timestamps-span %}}
 **2022-01-01T08:00:00Z** and **2022-01-01T20:00:00Z**.
-{{% influxdb/custom-timestamps-span %}}
+{{% /influxdb/custom-timestamps-span %}}
 
 {{% influxdb/custom-timestamps %}}
 ```sql
