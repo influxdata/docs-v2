@@ -1,11 +1,11 @@
 ---
-title: SQL math functions
-list_title: Math functions
-description: >
-  Perform math functions using SQL math functions.
+title: SQL scalar functions
+list_title: Scalar functions
+description: > 
+  Scalar functions return one value per row.
 menu:
   influxdb_cloud_iox:
-    name: Math
+    name: Scalar
     parent: SQL functions
 weight: 250
 ---
@@ -13,7 +13,7 @@ weight: 250
 
 
 
-
+#### Math functions
 
 abs(x)
 absolute value

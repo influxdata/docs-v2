@@ -29,7 +29,7 @@ SELECT *
   FROM "h2o_feet" 
   WHERE "water_level"  >= 9.78
 ```
-Outut:
+Results:
 
 | level description  | location | time | water_level |
 | :----------------- | :-------------------| :------------------| :------- |
@@ -47,7 +47,7 @@ SELECT *
   FROM "h2o_feet" 
   WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet' 
 ```
-Output:
+Results:
 
 | level description  | location | time | water_level |
 | :----------------- | :-------------------| :---------------------| :--------------- |

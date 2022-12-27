@@ -10,7 +10,7 @@ menu:
 weight: 230
 ---
 
-The ORDER BY clause orders results by the referenced expression.  The order is ASC **by default**.
+The ORDER BY clause orders results by the referenced expression.  The result order is ASC **by default**.
 
 Syntax
 
@@ -30,7 +30,7 @@ SELECT "water_level"
     ORDER BY time DESC
 ```
 
-Output:
+Results:
 
 | water_level |
 | :---------- |
