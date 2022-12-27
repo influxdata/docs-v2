@@ -10,15 +10,15 @@ menu:
 weight: 240
 ---
 
- Use the `GROUP BY` clause to group query results based on specified tag keys and/or a specified time interval. GROUP BY requires an aggregate or selector function in the SELECT statement.
+Use the `GROUP BY` clause to group query results based on specified tag keys and/or a specified time interval. `GROUP BY` requires an aggregate or selector function in the `SELECT` statement.
 
 
 Group data by a single tag key:
 
 ```sql
 SELECT MEAN("water_level"), "location"
-  FROM "h2o_feet" 
-  GROUP BY "location"
+FROM "h2o_feet" 
+GROUP BY "location"
 ```
 | AVG(h2o_feet.water_level) | location     |
 | :------------------------ | ------------ |
@@ -27,7 +27,7 @@ SELECT MEAN("water_level"), "location"
       |
 
 
-Group by time
+
 
 ```sql
 SELECT

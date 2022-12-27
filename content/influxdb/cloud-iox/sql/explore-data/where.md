@@ -2,7 +2,7 @@
 title: The WHERE clause
 list_title: The WHERE clause
 description: > 
-    Use the `WHERE` clause to filter data based on fields, tags, and/or timestamps.
+    Use the `WHERE` clause to filter results based on fields, tags, and/or timestamps.
 menu:
   influxdb_cloud_iox:
     name: The WHERE clause
@@ -26,8 +26,8 @@ SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_
 
 ```sql
 SELECT * 
-  FROM "h2o_feet" 
-  WHERE "water_level"  >= 9.78
+FROM "h2o_feet" 
+WHERE "water_level"  >= 9.78
 ```
 Results:
 
@@ -44,8 +44,8 @@ The query returns data from the measurement h2o_feet with field values of water_
 
 ```sql
 SELECT * 
-  FROM "h2o_feet" 
-  WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet' 
+FROM "h2o_feet" 
+WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet' 
 ```
 Results:
 

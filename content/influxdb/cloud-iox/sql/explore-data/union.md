@@ -41,7 +41,6 @@ UNION ALL
 SELECT "location"
 FROM "h2o_quality"
 ```
- query works but results look weird
  
 Results:
 

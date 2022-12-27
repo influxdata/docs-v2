@@ -25,9 +25,9 @@ Return points grouping by tag key in descending order
 
 ```sql
 SELECT "water_level" 
-    FROM "h2o_feet" 
-    WHERE "location" = 'coyote_creek'  
-    ORDER BY time DESC
+FROM "h2o_feet" 
+WHERE "location" = 'coyote_creek'  
+ORDER BY time DESC
 ```
 
 Results:

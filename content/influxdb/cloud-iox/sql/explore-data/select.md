@@ -22,7 +22,21 @@ The select clause is required.
 ### Syntax
 
 ```sql
-SELECT <field_key>[,<field_key>,<tag_key>] FROM <measurement_name>[,<measurement_name>]
+SELECT
+  column_name, 
+  data_type, 
+  case data_type 
+    when 'Dictionary(Int32, Utf8)' then 'tag' 
+    when 'Utf8' then 'field(string)'
+    when 'Float64' then 'field(float)'
+    when 'Int64' then 'field(int)'
+    when 'UInt64' then 'field(uint)'
+    when 'Boolean' then 'field(bool)'
+    when 'Timestamp(Nanosecond, None)' then 'time'
+    else 'UNKNOWN'
+   end as 'influx_type' 
+FROM
+  information_schema.columns 
 ```
 
 {{% note %}}

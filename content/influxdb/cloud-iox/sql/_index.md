@@ -8,11 +8,9 @@ menu:
 weight: 101
 ---
 
-InfluxDB Cloud powered by IOx supports SQL (or is it PostrgresSQL?).
+InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implementation of SQL. It is assumed that you have some experience using the SQL query language.
 
-Postgres compatible SQL implementation. SQL queries on a columnar database are more performant.
+SQL queries on a columnar database are very performant.
 
-It is assumed that you have some experience using the SQL query language.
 
-Query data using the UI
 

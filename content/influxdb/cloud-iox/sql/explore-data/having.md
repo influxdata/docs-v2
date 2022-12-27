@@ -11,7 +11,7 @@ weight: 250
 ---
 
 
-The HAVING clause places conditions on results created by the GROUP BY clause.  The HAVING clause must follow the GROUP BY clause but precede the ORDER BY clause.
+The `HAVING` clause places conditions on results created by the GROUP BY clause.  The `HAVING` clause must follow the `GROUP BY` clause but precede the `ORDER BY` clause.
 
 ```sql
 SELECT
