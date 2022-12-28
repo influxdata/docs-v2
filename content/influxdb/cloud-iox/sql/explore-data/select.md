@@ -12,9 +12,7 @@ weight: 210
 
 The following examples use data from the NOAA database.  To download NOAA test data see <insert doc name>.
 
-Use the SELECT statement to query data from a specific measurement or measurments.  
-
-The select clause is required.
+Use the SELECT statement to query data from a specific measurement or measurments.  The select clause is required when querying data in SQL.
 
 - [Syntax](#syntax)
 - [Examples](#examples)

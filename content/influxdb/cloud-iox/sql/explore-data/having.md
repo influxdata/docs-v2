@@ -13,15 +13,16 @@ weight: 250
 
 The `HAVING` clause places conditions on results created by the GROUP BY clause.  The `HAVING` clause must follow the `GROUP BY` clause but precede the `ORDER BY` clause.
 
+- [Syntax](#syntax)
+- [Examples](#examples)
+
+### Syntax
+
 ```sql
-SELECT
-FROM
-WHERE
-GROUP BY
-HAVING
-ORDER BY
+SELECT a, b, MAX(c) FROM table GROUP BY a, b HAVING MAX(c) > 10
 ```
 
-Example:
+### Examples
 
-SELECT a, b, MAX(c) FROM table GROUP BY a, b HAVING MAX(c) > 10
+
+

@@ -13,6 +13,9 @@ weight: 270
 
 The `LIMIT clause` limits the number of rows to be a maximum of count rows. The count should be a non-negative integer.
 
+- [Syntax](#syntax)
+- [Examples](#examples)
+
 ### Syntax
 
 

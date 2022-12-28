@@ -12,14 +12,16 @@ weight: 230
 
 The ORDER BY clause orders results by the referenced expression.  The result order is ASC **by default**.
 
-Syntax
+- [Syntax](#syntax)
+- [Examples](#examples)
+
+### Syntax
 
 ```sql
 [SELECT CLAUSE] [FROM CLAUSE] [ ORDER BY expression [ ASC | DESC ][, …] ]
 ```
 
-- [Syntax](#syntax)
-- [Examples](#examples)
+### Examples
 
 Return points grouping by tag key in descending order
 

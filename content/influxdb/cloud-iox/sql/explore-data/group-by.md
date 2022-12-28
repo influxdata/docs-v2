@@ -12,6 +12,13 @@ weight: 240
 
 Use the `GROUP BY` clause to group query results based on specified tag keys and/or a specified time interval. `GROUP BY` requires an aggregate or selector function in the `SELECT` statement.
 
+- [Syntax](#syntax)
+- [Examples](#examples)
+
+### Syntax
+
+
+### Examples
 
 Group data by a single tag key:
 
@@ -26,7 +33,13 @@ GROUP BY "location"
 | 3.530712094245885         | santa_monica |
       |
 
+Group by time
 
+```sql
+SELECT MEAN("temperature"),"time"
+FROM "airSensors" 
+GROUP BY "sensor_id","time"
+```
 
 
 ```sql

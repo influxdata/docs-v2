@@ -30,7 +30,7 @@ String literals must be surrounded by single quotes.
 
 ### Number literals
 
-Number literals are positive or negative numbers that are either floats or exact numbers.
+Number literals are positive or negative numbers that are either exact numbers or floats.
 
 ```sql
 10
@@ -51,7 +51,7 @@ The following date and time literals are supported:
  - '2022-01-31 06:30:30' ((RFC3339-like, no fractional seconds) 
  - 1567296000000000000 (Unix epoch)
 
-All dates and times in RFC3339 and RFC3339 like-format must be in single quotes.  Unix epoch timestamps do not need quotes.  
+All dates and times in RFC3339 and RFC3339-like format must be in single quotes.  Unix epoch timestamps do not need quotes.  
 
  ### Boolean literals
 
@@ -145,7 +145,7 @@ Comparison operators compare numbers or strings and perform evaluations.
 | Keyword         | Description                                                                                                                                                                                                                      |
 | :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | AND             | Include columns where all conditions are true                                                                                                                                                                                    |
-| AS              | Renames a column with an alias                                                                                                                                                                                                   |
+| AS              | Renames a column with an alias.  Use in `CAST` operations.                                                                                                                                                                                                   |
 | ASC             | Sorts query results in ascending order                                                                                                                                                                                           |
 | DESC            | Sorts query results in descending order                                                                                                                                                                                          |
 | DISTINCT        | Selects only distinct values                                                                                                                                                                                                     |
@@ -287,8 +287,7 @@ LIMIT 10
 
 ### The OVER clause 
 
-Used with SQL window functions. 
-
+The `OVER` clause is used with SQL window functions. A `window function` perfoms a calculation across a set of table rows that are related in some way to the current row. While similar to aggregate functions, window functions output reults into rows retaining their separate identities.   
 
 ```sql
 SELECT time, water_level 
@@ -304,10 +303,10 @@ WHERE rn <= 3;
 ### Aggregates
 | Function | Description                           |
 | :------- | :------------------------------------ |
-| COUNT    | Returns the count of of a column      |
-| AVG      | Returns the average value of a column |
-| SUM      | Returns the summed value of a column  |
-| MEAN     | Returns the mean value of a column    |
+| COUNT()  | Returns the count of of a column      |
+| AVG()    | Returns the average value of a column |
+| SUM()    | Returns the summed value of a column  |
+| MEAN()   | Returns the mean value of a column    |
 
 #### Examples
 
@@ -325,21 +324,48 @@ GROUP BY "location"
 
 Selector functions are unique to time series databases. They behave like aggregate functions but there are some key differences.
 
-| Function   | Description                                     |
-| :--------- | :---------------------------------------------- |
-| FIRST      |                                                 |
-| LAST       |                                                 |
-| MIN        | Returns the smallest value of a selected column |
-| MAX        | Returns the smallest value of a largest column  |
-| PERCENTILE |                                                 |
+| Function               | Description                                     |
+| :--------------------- | :---------------------------------------------- |
+| selector_first         |                                                 |
+| selector_last          |                                                 |
+| selector_min           | Returns the smallest value of a selected column |
+| selector_max           | Returns the largest value of a selected column  |
+| approx_percentile_cont |                                                 |
 
 ### Time series functions
 
 | Function            | Description              |
 | :------------------ | :----------------------- |
-| time_bucket_gapfill |                          |
+| time_bucket_gapfill | Returns                          |
 | date_bin            |                          |
 | date_trunc          |                          |
 | date_part           |                          |
 | now()               | Returns the current time |
 | from_unixtime       |                          |
+
+
+### Math functions
+
+| Function | Description                                                                      |
+| :------- | :------------------------------------------------------------------------------- |
+| ABS()    | absolute value                                                                   |
+| ACOS()   | inverse cosine                                                                   |
+| ASIN()   | inverse sine                                                                     |
+| ATAN()   | inverse tangent                                                                  |
+| ATAN2()  | inverse tangent of y / x                                                         |
+| CEIL()   | returns the smallest integer value greater than or equal to the specified number |
+| COS()    | cosine                                                                           |
+| EXP()    | exponential                                                                      |
+| FLOOR()  | nearest integer less than or equal to the specified number                       |
+| LN()     | natural logarithm                                                                |
+| LOG10()  | base 10 logarithm                                                                |
+| LOG2()   | base 2 logarithm                                                                 |
+| POWER()  | returns the value of a number raised to the power of the number                  |
+| ROUND()  | roound to the nearest integer                                                    |
+| SIGNUM() | sign of the argument (-1, 0, +1)                                                 |
+| SINE()   | sine                                                                             |
+| SQRT()   | returns the square root of a number                                              |
+| TAN()    | tangent                                                                          |
+| TRUNC()  | truncates a number to the specified number of decimal places                     |
+
+

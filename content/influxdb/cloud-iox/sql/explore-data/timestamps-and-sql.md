@@ -10,6 +10,12 @@ weight: 290
 
 ---
 
+- [Syntax](#syntax)
+- [Examples](#examples)
+
+### Syntax
+
+
 ### Casting timestamps
 
 this query works

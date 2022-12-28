@@ -20,9 +20,12 @@ Use the `WHERE` clause to filter data based on selected columns containing
 
 ### Syntax
 
+```sql
 SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_expression> [...]]
+```
 
 ### Examples
+
 
 ```sql
 SELECT * 

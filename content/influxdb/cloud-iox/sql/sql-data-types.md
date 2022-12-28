@@ -11,7 +11,7 @@ weight: 105
 
 ## Data types
 
-DataFusion uses the Arrow type system for query execution. The SQL types from sqlparser-rs are mapped to Arrow data types according to the following tables. This mapping occurs when defining the schema in a CREATE EXTERNAL TABLE command or when performing a SQL CAST operation.
+InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implementation of SQL. Data types define the type of data a column can contain. DataFusion uses the Arrow type system for query execution. The SQL types from sqlparsers are mapped to Arrow data types according to the following tables. 
 
 ### Character types
 
@@ -51,7 +51,7 @@ DataFusion uses the Arrow type system for query execution. The SQL types from sq
 
 | Name    | Data type | Description   |
 | ------- | :-------- | :------------ |
-| BOOLEAN | Bollean   | TRUE or FALSE |
+| BOOLEAN | Boolean   | TRUE or FALSE |
 
 
 ### Unsupported types
