@@ -7,7 +7,7 @@ influxdb:
   latest: v2.6
   latest_override: v2.6
   latest_patches:
-    "2.6": 0
+    "2.6": 1
     "2.5": 1
     "2.4": 0
     "2.3": 0
