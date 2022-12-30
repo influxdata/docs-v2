@@ -8,6 +8,10 @@ menu:
     name: influx CLI 
 ---
 
+## v2.6.1 [2022-12-29]
+
+- Upgrade Go to 1.19.4. 
+
 ## v2.6.0 [2022-12-15]
 
 ### Bug Fixes
