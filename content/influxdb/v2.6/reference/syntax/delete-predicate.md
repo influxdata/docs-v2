@@ -33,6 +33,22 @@ key1="value1" AND key2="value"
 ```
 
 {{% warn %}}
+#### Predicates with special characters or keywords
+Sometimes your predicate may contain special characters or keywords. To make sure they are properly parsed, they will need to be escape quoted. See below for several examples:
+
+```
+// Escaped due to the "-"
+"_measurement=\"example-dash\""
+```
+
+```
+// Escaped because "name" is a keyword
+"_measurement=example and \"name\"=predicate"
+```
+
+{{% /warn %}}
+
+{{% warn %}}
 #### Column limitations when deleting data
 **InfluxDB {{< current-version >}}** supports deleting data by any column or tag
 _**except**_ the following:
