@@ -334,14 +334,14 @@ Selector functions are unique to time series databases. They behave like aggrega
 
 ### Time series functions
 
-| Function            | Description              |
-| :------------------ | :----------------------- |
-| time_bucket_gapfill | Returns                          |
-| date_bin            |                          |
-| date_trunc          |                          |
-| date_part           |                          |
-| now()               | Returns the current time |
-| from_unixtime       |                          |
+| Function              | Description                                    |
+| :-------------------- | :--------------------------------------------- |
+| time_bucket_gapfill() | Returns a contiguous set of time bucketed data |
+| date_bin()            |                                                |
+| date_trunc ()         |                                                |
+| date_part()           |                                                |
+| now()                 | Returns the current time                       |
+| from_unixtime()       |                                                |
 
 
 ### Math functions

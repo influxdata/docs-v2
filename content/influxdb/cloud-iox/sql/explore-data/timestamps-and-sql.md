@@ -53,9 +53,9 @@ select * from measurement where time 'insert-RFCC3339timestamp'::timestamp
 
 ```sql
 SELECT time, myfield, l.mytag AS l, r.mytag as r
-  FROM mytable_l AS l
-  FULL OUTER JOIN mytable_r AS r ON r.mytag = l.mytag AND (time > now() - interval '30 minutes')
-  WHERE (time > now() - interval '30 minutes')
+FROM mytable_l AS l
+FULL OUTER JOIN mytable_r AS r ON r.mytag = l.mytag AND (time > now() - interval '30 minutes')
+WHERE (time > now() - interval '30 minutes')
 ```
 
 ### Examples
@@ -67,8 +67,14 @@ SELECT degrees, location, time
   FROM h2o_temperature
   WHERE "location" = 'coyote_creek'
 ```
-| time | degrees      | location                 |
-| :--- | :----------- | :----------------------- |
+| degrees | location     | time                     |
+| :------ | :----------- | :----------------------- |
+| 60      | coyote_creek | 2019-09-01T00:00:00.000Z |
+| 70      | coyote_creek | 2019-09-01T00:06:00.000Z |
+| 63      | coyote_creek | 2019-09-01T00:12:00.000Z |
+| 68      | coyote_creek | 2019-09-01T00:18:00.000Z |
+| 62      | coyote_creek | 2019-09-01T00:24:00.000Z |
+
 
 
 SELECT time, myfield, l.mytag AS l, r.mytag as r
