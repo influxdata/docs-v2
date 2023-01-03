@@ -14,7 +14,7 @@ min
 
 max
 
-count
+
 
 avg
 
@@ -58,3 +58,19 @@ approx_percentile_cont_with_weight(x, w, p) -> x returns the approximate percent
 It supports raw data as input or pre-aggregated TDigest sketches, then builds or merges Tdigest sketches during query time. TDigest sketches are a list of centroid (x, w), where x stands for mean and w stands for weight.
 
 It is suitable for low latency OLAP system where a streaming compute engine (e.g. Spark Streaming/Flink) pre-aggregates data to a data store, then queries using Datafusion.
+
+
+### The COUNT() function
+
+The COUNT() function returns the number of rows from a field or tag key.
+
+```sql
+SELECT COUNT("water_level") 
+FROM "h2o_feet"
+```
+
+Results:
+
+| COUNT(h2o_feet.water_level) |
+| :-------------------------- |
+| 15258                       |

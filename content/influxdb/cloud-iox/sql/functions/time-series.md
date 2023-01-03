@@ -22,8 +22,7 @@ FROM "h2o_temperature"
 
 
 
-### datebin
-
+### The DATEBIN() function
 
 ```sql
 SELECT DATE_BIN(INTERVAL '1' day, time, TIMESTAMP '2022-01-01 00:00:00Z') AS time, COUNT("water_level")  as count
@@ -32,6 +31,16 @@ WHERE time >= timestamp '2019-09-17T00:00:00Z' AND time <= timestamp '2019-09-19
 GROUP BY 1
 ORDER BY 1 DESC
 ```
+
+Results:
+
+| count | time                     |
+| :---- | ------------------------ |
+| 480   | 2019-09-09T00:00:00.000Z |
+| 480   | 2019-09-08T00:00:00.000Z |
+| 480   | 2019-09-07T00:00:00.000Z |
+
+
 
 ### date_trunc
 

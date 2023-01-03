@@ -301,12 +301,15 @@ WHERE rn <= 3;
 ## Functions
 
 ### Aggregates
-| Function | Description                           |
-| :------- | :------------------------------------ |
-| COUNT()  | Returns the count of of a column      |
-| AVG()    | Returns the average value of a column |
-| SUM()    | Returns the summed value of a column  |
-| MEAN()   | Returns the mean value of a column    |
+
+An aggregate function performs a calculation on a set of data values in a column and returns a single value.  
+
+| Function | Description                                                |
+| :------- | :--------------------------------------------------------- |
+| COUNT()  | Returns returns the number of rows from a field or tag key |
+| AVG()    | Returns the average value of a column                      |
+| SUM()    | Returns the summed value of a column                       |
+| MEAN()   | Returns the mean value of a column                         |
 
 #### Examples
 
@@ -337,8 +340,8 @@ Selector functions are unique to time series databases. They behave like aggrega
 | Function              | Description                                    |
 | :-------------------- | :--------------------------------------------- |
 | time_bucket_gapfill() | Returns a contiguous set of time bucketed data |
-| date_bin()            |                                                |
-| date_trunc ()         |                                                |
+| DATEBIN()            |                                                |
+| date_trunc()         |                                                |
 | date_part()           |                                                |
 | now()                 | Returns the current time                       |
 | from_unixtime()       |                                                |

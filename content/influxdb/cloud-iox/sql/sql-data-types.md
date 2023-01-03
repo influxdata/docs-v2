@@ -15,11 +15,11 @@ InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implement
 
 ### Character types
 
-| Name    | Data type | Description                       |
-| ------- | :-------- | --------------------------------- |
-| CHAR    | UTF8      | fixed-length, blank padded        |
-| VARCHAR | UTF8      | variable-length with length limit |
-| TEXT    | UTF8      | variable unlimited length         |
+| Name    | Data type | Description                      |
+| ------- | :-------- | -------------------------------- |
+| CHAR    | UTF8      | fixed-length, blank padded       |
+| VARCHAR | UTF8      | variable-length character string |
+| TEXT    | UTF8      | variable unlimited length        |
 
 ### Numeric types
 
