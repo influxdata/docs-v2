@@ -10,7 +10,9 @@ menu:
 
 ## v2.6.1 [2022-12-29]
 
-- Upgrade Go to 1.19.4. 
+- Iinternal code cleanup.
+
+---
 
 ## v2.6.0 [2022-12-15]
 
