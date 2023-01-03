@@ -10,7 +10,7 @@ menu:
 
 ## v2.6.1 [2022-12-29]
 
-- Iinternal code cleanup.
+- Internal code cleanup.
 
 ---
 
