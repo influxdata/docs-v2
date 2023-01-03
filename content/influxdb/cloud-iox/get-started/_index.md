@@ -15,7 +15,7 @@ process and visualize time series data.
 The InfluxDB IOx storage engine provides a number of benefits including nearly
 unlimited series cardinality, improved query performance, and interoperability
 with widely used data processing tools and platforms.
- 
+
 **Time series data** is a sequence of data points indexed in time order.
 Data points typically consist of successive measurements made from the same
 source and are used to track changes over time.
@@ -124,7 +124,3 @@ be used to perform all the actions outlined in this tutorial.
 Each API token is associated with a user and a specific set of permissions for InfluxDB resources.
 
 {{< page-nav next="/influxdb/cloud-iox/get-started/setup/" >}}
-
----
-
-{{< influxdbu "influxdb-101" >}}
