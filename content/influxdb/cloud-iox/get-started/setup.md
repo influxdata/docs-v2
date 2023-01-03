@@ -30,8 +30,7 @@ you need is in place.
 2.  **Create an All Access API token.**
     <span id="create-an-all-access-api-token"></span>
 
-
-    1.  Visit
+    1.  Go to
         {{% oss-only %}}[localhost:8086](https://cloud2.influxdata.com){{% /oss-only %}}
         {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
         in a browser to log in and access the InfluxDB UI.
@@ -196,7 +195,7 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 {{% tab-content %}}
 <!------------------------------ BEGIN UI CONTENT ----------------------------->
 
-1.  Visit
+1.  Go to
     {{% oss-only %}}[localhost:8086](https://cloud2.influxdata.com){{% /oss-only %}}
     {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
     in a browser to log in and access the InfluxDB UI.

@@ -88,17 +88,15 @@ function updateTimestamps(newStartDate) {
         times.forEach(function(x) {
             oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ""))
             newDatePart = datePart(x.rfc3339_new.replace(/T.*$/, ""))
-            rfc3339Regex = new RegExp(`${oldDatePart.year}(.*)${oldDatePart.month}(.*)${oldDatePart.day}(.*)T`, 'g')
-            rfc3339Repl = `${newDatePart.year}$1${newDatePart.month}$2${newDatePart.day}$3T`
-            TSWhiteSpaceRegex = new RegExp(`${oldDatePart.year}(.*)${oldDatePart.month}(.*)${oldDatePart.day} `, 'g')
-            TSWhiteSpaceRepl = `${newDatePart.year}$1${newDatePart.month}$2${newDatePart.day} `
+            rfc3339Regex = new RegExp(`${oldDatePart.year}-${oldDatePart.month}-${oldDatePart.day}`, 'g')
+            rfc3339Repl = `${newDatePart.year}-${newDatePart.month}-${newDatePart.day}`
 
             wrapper.innerHTML =
                 wrapper.innerHTML
                     .replaceAll(x.unix, x.unix_new)
                     .replaceAll(rfc3339Regex, rfc3339Repl)
-                    .replaceAll(TSWhiteSpaceRegex, TSWhiteSpaceRepl)
         })
+        console.log(times)
     })
 
     // Create a new seed times array with new start time for next change

@@ -165,7 +165,7 @@ WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
 {{% tab-content %}}
 <!--------------------------- BEGIN FLUX UI CONTENT --------------------------->
 
-1.  Visit
+1.  Go to
     {{% oss-only %}}[localhost:8086](http://localhost:8086){{% /oss-only %}}
     {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
     in a browser to log in and access the InfluxDB UI.
@@ -223,7 +223,7 @@ iox.sql(
       storage engine with SQL.
     - [Connection and authentication credentials](/influxdb/cloud-iox/get-started/setup/?t=influx+CLI#configure-authentication-credentials)
 
-
+{{% influxdb/custom-timestamps %}}
 ```sh
 influx query "
 import \"experimental/iox\"
@@ -236,7 +236,7 @@ iox.sql(
     \",
 )"
 ```
-
+{{% /influxdb/custom-timestamps %}}
 
 <!--------------------------- END FLUX CLI CONTENT ---------------------------->
 {{% /tab-content %}}
@@ -283,6 +283,7 @@ Include the following with your request:
 The following example uses cURL and the InfluxDB API to query data with Flux:
 
 
+{{% influxdb/custom-timestamps %}}
 ```sh
 curl --request POST \
 "$INFLUX_HOST/api/v2/query" \
@@ -300,6 +301,7 @@ curl --request POST \
         \",
     )"
 ```
+{{% /influxdb/custom-timestamps %}}
 
 
 {{% note %}}
@@ -315,6 +317,7 @@ The InfluxDB `/api/v2/query` endpoint returns query results in
 {{< expand-wrapper >}}
 {{% expand "View query results" %}}
 
+{{% influxdb/custom-timestamps %}}
 | time                 | room        |  co |  hum | temp |
 | :------------------- | :---------- | --: | ---: | ---: |
 | 2022-01-01T08:00:00Z | Kitchen     |   0 | 35.9 |   21 |
@@ -343,6 +346,7 @@ The InfluxDB `/api/v2/query` endpoint returns query results in
 | 2022-01-01T18:00:00Z | Living Room |   9 | 36.2 | 22.8 |
 | 2022-01-01T19:00:00Z | Living Room |  14 | 36.3 | 22.5 |
 | 2022-01-01T20:00:00Z | Living Room |  17 | 36.4 | 22.2 |
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
