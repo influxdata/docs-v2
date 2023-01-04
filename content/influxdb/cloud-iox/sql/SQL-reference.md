@@ -49,7 +49,7 @@ The following date and time literals are supported:
  - '2022-01-31T06:30:30.123' (RFC3339-like)
  - '2022-01-31 06:30:30.123' (RFC3339-like)
  - '2022-01-31 06:30:30' ((RFC3339-like, no fractional seconds) 
- - 1567296000000000000 (Unix epoch)
+ - 1567296000000000000 (Unix epoch) - must cast to a timestamp
 
 All dates and times in RFC3339 and RFC3339-like format must be in single quotes.  Unix epoch timestamps do not need quotes.  
 
@@ -65,6 +65,10 @@ Rules for quoting:
 - Single quote time durations (excluding Unix epoch) 
 - Double quote database identifiers (column names)
 
+{{% note %}}
+**Note:** Not all identifiers require double quotes.  
+{{% /note %}}
+
 The following queries will still both return results:
 
 ```sql
@@ -74,7 +78,11 @@ SELECT location, water_level
 SELECT "location","water_level" 
   FROM "h2o_feet"
 ```
-However, a good rule of thumb is to double quote all database identifiers.
+Unquoted identifiers are not case sensitive. 
+
+## Case sensitivity
+
+Need info on FlightSQL case sensitivity
 
 ## Duration Units
 
@@ -221,6 +229,20 @@ WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet'
 
 ### The JOIN clause 
 
+Use the JOIN clause to join data from multiple measurments (tables).
+
+The INNER JOIN clause gathers data where there is a match between the two measurements being joined.
+
+#### Examples
+
+```sql
+### INNER JOIN
+
+SELECT *
+FROM h2o_feet
+INNER JOIN h2o_temperature
+ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperature.time
+```
 
 ### The GROUP BY clause 
 
@@ -236,12 +258,21 @@ GROUP BY "location","time"
 
 ### The HAVING clause
 
- Use the `HAVING` clause to filter query results based on a spcified condition. The `HAVING` clause must follow the `GROUP BY` clause but precede the `ORDER BY` clause.
+ Use the `HAVING` clause to filter query results based on a spcified condition. The `HAVING` clause must follow the `GROUP BY` clause but precedes the `ORDER BY` clause.
 
 #### Examples
 
 ```sql
+SELECT MEAN("water_level"), "location", "time"
+FROM "h2o_feet" 
+GROUP BY "location","time"
+HAVING MEAN("water_level") > 4
 
+SELECT MEAN("water_level"), "location", "time"
+FROM "h2o_feet" 
+GROUP BY "location","time"
+HAVING MEAN("water_level") > 9.8
+ORDER BY "time"
 ```
 
 ### The UNION clause
@@ -339,13 +370,21 @@ Selector functions are unique to time series databases. They behave like aggrega
 
 | Function              | Description                                    |
 | :-------------------- | :--------------------------------------------- |
-| time_bucket_gapfill() | Returns a contiguous set of time bucketed data |
-| DATEBIN()            |                                                |
-| date_trunc()         |                                                |
-| date_part()           |                                                |
-| now()                 | Returns the current time                       |
-| from_unixtime()       |                                                |
+| TIME_BUCKET_GAPFILL() | Returns a contiguous set of time bucketed data |
+| DATEBIN()             |                                                |
+| DATE_TRUNC()          |                                                |
+| DATE_PART()           |                                                |
+| NOW()                 | Returns the current time                       |
+| FROMUNIXTIME()        |                                                |
 
+#### Examples
+
+```sql
+SELECT DATE_BIN(INTERVAL '1 hour', time, '2019-09-18T00:00:00Z'::timestamp),
+SUM(water_level)
+FROM "h2o_feet"
+GROUP BY time
+```
 
 ### Math functions
 

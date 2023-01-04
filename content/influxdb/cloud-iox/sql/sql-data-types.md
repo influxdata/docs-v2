@@ -16,7 +16,7 @@ InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implement
 ### Character types
 
 | Name    | Data type | Description                      |
-| ------- | :-------- | -------------------------------- |
+| :------ | :-------- | -------------------------------- |
 | CHAR    | UTF8      | fixed-length, blank padded       |
 | VARCHAR | UTF8      | variable-length character string |
 | TEXT    | UTF8      | variable unlimited length        |
@@ -24,7 +24,7 @@ InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implement
 ### Numeric types
 
 | Name              | Data type  | Description                                |
-| ----------------- | :--------- | :----------------------------------------- |
+| :---------------- | :--------- | :----------------------------------------- |
 | tinyint           | INT8       |                                            |
 | smallint          | INT16      |                                            |
 | integer           | INT32      |                                            |
@@ -41,18 +41,15 @@ InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implement
 ### Date and time types
 
 | Name      | Data type | Description                |
-| --------- | :-------- | :-------------------------- |
-| Date      | DATE32    |                            |
-| Time      | TIME64    | TimeUnit::Nanosecond       |
-| Timestamp | timestamp | TimeUnit::Nanosecond, None |
+| :-------- | :-------- | :------------------------- |
+| timestamp | TIMESTAMP | TimeUnit::Nanosecond, None |
 
 
 ### Boolean types
 
 | Name    | Data type | Description   |
-| ------- | :-------- | :------------ |
-| BOOLEAN | Boolean   | TRUE or FALSE |
-
+| :------ | :-------- | :------------ |
+| boolean | BOOLEAN   | TRUE or FALSE |
 
 ### Unsupported types
 
