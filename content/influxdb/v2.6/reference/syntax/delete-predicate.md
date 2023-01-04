@@ -46,6 +46,7 @@ quotes to ensure the predicate string is parsed correctly.
 ```
 {{% /note %}}
 
+{{% warn %}}
 #### Column limitations when deleting data
 **InfluxDB {{< current-version >}}** supports deleting data by any column or tag
 _**except**_ the following:
