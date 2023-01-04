@@ -34,7 +34,8 @@ key1="value1" AND key2="value"
 
 {{% warn %}}
 #### Predicates with special characters or keywords
-Sometimes your predicate may contain special characters or keywords. To make sure they are properly parsed, they will need to be escape quoted. See below for several examples:
+If your predicate contains keywords or strings with special characters, wrap each in escaped
+quotes to ensure the predicate string is parsed correctly.
 
 ```
 // Escaped due to the "-"
