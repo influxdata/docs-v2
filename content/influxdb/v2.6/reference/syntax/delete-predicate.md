@@ -32,7 +32,7 @@ Use [logical operators](#logical-operators) to combine two or more predicate exp
 key1="value1" AND key2="value"
 ```
 
-{{% warn %}}
+{{% note %}}
 #### Predicates with special characters or keywords
 If your predicate contains keywords or strings with special characters, wrap each in escaped
 quotes to ensure the predicate string is parsed correctly.
