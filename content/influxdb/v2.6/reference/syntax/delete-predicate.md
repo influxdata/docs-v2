@@ -37,12 +37,10 @@ key1="value1" AND key2="value"
 If your predicate contains keywords or strings with special characters, wrap each in escaped
 quotes to ensure the predicate string is parsed correctly.
 
-```
+```js
 // Escaped due to the "-"
 "_measurement=\"example-dash\""
-```
 
-```
 // Escaped because "name" is a keyword
 "_measurement=example and \"name\"=predicate"
 ```
