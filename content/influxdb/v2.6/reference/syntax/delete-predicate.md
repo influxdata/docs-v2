@@ -44,8 +44,7 @@ quotes to ensure the predicate string is parsed correctly.
 // Escaped because "name" is a keyword
 "_measurement=example and \"name\"=predicate"
 ```
-
-{{% /warn %}}
+{{% /note %}}
 
 {{% warn %}}
 #### Column limitations when deleting data
