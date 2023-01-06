@@ -43,15 +43,26 @@ Number literals are positive or negative numbers that are either exact numbers o
 ### Date and time literals
 
 The following date and time literals are supported:
- - '2022-01-31T06:30:30.123Z' (RFC3339)
- - '2022-01-31T06:30:30.123-8:00' (RFC3339)
- - '2022-01-31 06:30:30.123-8:00' (RFC3339-like)
+
+ - '2022-01-31T06:30:30.123Z' (RFC3339) 
  - '2022-01-31T06:30:30.123' (RFC3339-like)
  - '2022-01-31 06:30:30.123' (RFC3339-like)
  - '2022-01-31 06:30:30' ((RFC3339-like, no fractional seconds) 
- - 1567296000000000000 (Unix epoch) - must cast to a timestamp
+ - 1567296000000000000 (Unix epoch nanosecond) - must cast to a timestamp in queries
 
-All dates and times in RFC3339 and RFC3339-like format must be in single quotes.  Unix epoch timestamps do not need quotes.  
+All dates and times in RFC3339 and RFC3339-like format must be in single quotes.  Unix epoch timestamps do not need quotes and must be cast to `::timestamp`.
+
+```sql
+--RFCC3339 examples
+'2019-09-01T00:00:00Z'::timestamp
+'2019-08-19T00:00:00.123Z'::TIMESTAMP
+'2019-09-03 00:12:00'
+'2019-08-18 06:30:30'
+
+--Unix epoch examples
+1566176400::timestamp
+1567296000000000000:TIMESTAMP
+```
 
  ### Boolean literals
 
@@ -89,25 +100,12 @@ Need info on FlightSQL case sensitivity
 Duration units specify a length of time.  You must spell out the unit of time.  
 
 ```sql
-Correct:
+--Correct:
 interval'400 minutes'
 
-Incorrect:
+--Incorrect:
 interval'400m'
 ```
-
-InfluxDB SQL supports the following duration units:
-
- - nanoseconds (1 billionth of a second)
- - microseconds (1 millionth of a second)
- - miliseconds (1 thousandth of a second)
- - second
- - minute
- - hour
- - day
- - week 
- - month (verify)
- - year (verify)
 
 | Unit         | Meaning                  |
 | :----------- | :----------------------- |
@@ -229,20 +227,69 @@ WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet'
 
 ### The JOIN clause 
 
-Use the JOIN clause to join data from multiple measurments (tables).
+Use the JOIN clause to join data from multiple measurments (tables).  The following joins are supported:
+
+{{< flex >}}
+{{< flex-content "quarter" >}}
+  <p style="text-align:center"><strong>Inner join</strong></p>
+  {{< svg svg="static/svgs/join-diagram.svg" class="inner small center" >}}
+{{< /flex-content >}}
+{{< flex-content "quarter" >}}
+  <p style="text-align:center"><strong>Left outer join</strong></p>
+  {{< svg svg="static/svgs/join-diagram.svg" class="left small center" >}}
+{{< /flex-content >}}
+{{< flex-content "quarter" >}}
+  <p style="text-align:center"><strong>Right outer join</strong></p>
+  {{< svg svg="static/svgs/join-diagram.svg" class="right small center" >}}
+{{< /flex-content >}}
+{{< flex-content "quarter" >}}
+  <p style="text-align:center"><strong>Full outer join</strong></p>
+  {{< svg svg="static/svgs/join-diagram.svg" class="full small center" >}}
+{{< /flex-content >}}
+{{< /flex >}}
+
 
 The INNER JOIN clause gathers data where there is a match between the two measurements being joined.
 
-#### Examples
 
 ```sql
-### INNER JOIN
-
 SELECT *
 FROM h2o_feet
 INNER JOIN h2o_temperature
 ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperature.time
 ```
+The LEFT JOIN or LEFT OUTER JOIN clause gathers data from all rows in the left table regardless of whether there is a match in the right table. 
+
+```sql
+SELECT *
+FROM h2o_feet
+LEFT OUTER JOIN h2o_temperature
+ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperature.time
+```
+
+The RIGHT JOIN or RIGHT OUTER JOIN clause gathers data from all rows in the right table regardless of whether there is a match in the left table
+
+```sql
+SELECT *
+FROM h2o_feet
+RIGHT OUTER JOIN h2o_temperature
+ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperature.time
+```
+
+The FULL JOIN or FULL OUTER JOIN will return all rows from the left and the right side fo the JOIN and will produce NULL values where there is no match.
+
+```sql
+SELECT *
+FROM h2o_feet
+FULL JOIN h2o_temperature
+ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperature.time
+```
+
+The results returned will differ depending on the type of JOIN you use.  
+
+The LEFT INNER JOIN query produces 15258 rows. 
+The RIGHT OUTER JOIN query produces 7604 rows.
+The FULL OUTER JOIN query also produces 15258 rows.
 
 ### The GROUP BY clause 
 
@@ -352,19 +399,23 @@ FROM "h2o_feet"
 SELECT AVG("water_level"), "location"
 FROM "h2o_feet" 
 GROUP BY "location"
+
+SELECT SUM("water_level"), "location"
+FROM "h2o_feet" 
+GROUP BY "location"
 ```
 
 ### Selectors
 
 Selector functions are unique to time series databases. They behave like aggregate functions but there are some key differences.
 
-| Function               | Description                                     |
-| :--------------------- | :---------------------------------------------- |
-| selector_first         |                                                 |
-| selector_last          |                                                 |
-| selector_min           | Returns the smallest value of a selected column |
-| selector_max           | Returns the largest value of a selected column  |
-| approx_percentile_cont |                                                 |
+| Function         | Description                                     |
+| :--------------- | :---------------------------------------------- |
+| SELECTOR_FIRST() |                                                 |
+| SELECTOR_LAST()  |                                                 |
+| SELECTOR_MIN()   | Returns the smallest value of a selected column |
+| SELECTOR_MAX()   | Returns the largest value of a selected column  |
+
 
 ### Time series functions
 
@@ -375,7 +426,6 @@ Selector functions are unique to time series databases. They behave like aggrega
 | DATE_TRUNC()          |                                                |
 | DATE_PART()           |                                                |
 | NOW()                 | Returns the current time                       |
-| FROMUNIXTIME()        |                                                |
 
 #### Examples
 

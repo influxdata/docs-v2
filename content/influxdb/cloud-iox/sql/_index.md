@@ -8,9 +8,7 @@ menu:
 weight: 101
 ---
 
-InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implementation of SQL. It is assumed that you have some experience using the SQL query language.
-
-SQL queries on a columnar database are very performant.
+InfluxDB SQL uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) query engine. 
 
 
 

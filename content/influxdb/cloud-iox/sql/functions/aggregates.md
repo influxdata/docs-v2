@@ -10,20 +10,53 @@ menu:
 weight: 210
 ---
 
-min
+### The MIN() function
 
-max
+```sql
+SELECT MIN("water_level") as minimum_level, "location"
+FROM "h2o_feet" 
+GROUP BY "location"
+```
+
+Results:
+| location     | minimum_level |
+| :----------- | :------------ |
+| coyote_creek | -0.61         |
+| santa_monica | -0.243        |
 
 
 
-avg
+### The MAX() function
 
-sum
+
+### The COUNT() function
+
+```sql
+SELECT COUNT("water_level") 
+FROM "h2o_feet"
+```
+
+### The AVG() function
+
+```sql
+SELECT AVG("water_level"), "location"
+FROM "h2o_feet" 
+GROUP BY "location"
+```
+
+### The SUM() function
+
+```sql
+SELECT SUM("water_level"), "location"
+FROM "h2o_feet" 
+GROUP BY "location"
+```
+
 
 array_agg
 
 
-is ()
+
 
 
 

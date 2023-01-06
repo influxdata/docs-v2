@@ -10,52 +10,41 @@ weight: 290
 
 ---
 
+## Working with timestamps in InfluxDB SQL
+
+The following timestamp formats ae supported in InfluxDB SQL:
+
+ - '2022-01-31T06:30:30.123Z' (RFC3339) 
+ - '2022-01-31T06:30:30.123' (RFC3339-like)
+ - '2022-01-31 06:30:30.123' (RFC3339-like)
+ - '2022-01-31 06:30:30' ((RFC3339-like, no fractional seconds) 
+ - 1567296000000000000 (Unix epoch nanosecond) - must cast to a timestamp in queries
+
+If the timstamp is nativeley suppported, such as RFCC3339 nanosend timestamps, casting is not required. If the timestamp is not natively supported, such as UNIX epoch, then it must be cast using `::timestamp`. Casting to a timstamp is not case sensitive.  
+
+```sql
+--RFCC3339 examples
+'2019-09-01T00:00:00Z'::timestamp
+'2019-08-19T00:00:00.123Z'::TIMESTAMP
+'2019-09-03 00:12:00'
+'2019-08-18 06:30:30'
+
+--Unix epoch examples
+1566176400::timestamp
+1567296000000000000:TIMESTAMP
+```
+ 
 - [Syntax](#syntax)
 - [Examples](#examples)
 
 ### Syntax
 
-
-### Casting timestamps
-
-this query works
-
-the date/time value does not need to be cast, the UNIX epoch does
-
-
-SELECT *
-FROM h2o_feet 
-WHERE "location" = 'coyote_creek'
-AND "time" >= 1567296000000000000::timestamp AND "time" <= '2019-09-03 00:12:00'
-
-
-### Timestamps
-
-The following timestamp formats ae used in InfluxDB SQL:
-
-what is nativeley suppported (no casting) and what is not (cast)
-
-walk through what values you can cast with ::timestamp
-
-
- - RFCC3339 nanosecond - 2019-09-01T00:00:00Z
- <!-- - unix epoch - 567296000000000000 -->
- - YYYY-MM-DD-time - 2019-09-03 00:12:00 
-
-Must use RFCC3339 timestamp nanosecnd
-
-unix epoch is integer so no quotes
-
-
-select * from measurement where time 'insert-RFCC3339timestamp'::timestamp
-
-### Syntax
+Basic syntax:
 
 ```sql
-SELECT time, myfield, l.mytag AS l, r.mytag as r
-FROM mytable_l AS l
-FULL OUTER JOIN mytable_r AS r ON r.mytag = l.mytag AND (time > now() - interval '30 minutes')
-WHERE (time > now() - interval '30 minutes')
+SELECT * 
+FROM "measurement" 
+WHERE "time" >= 'insert-RFCC3339-timestamp' AND "time" <= 'insert-RFCC3339-timestamp'
 ```
 
 ### Examples
@@ -64,8 +53,8 @@ Specify the time column to show the timestamp:
 
 ```sql
 SELECT degrees, location, time
-  FROM h2o_temperature
-  WHERE "location" = 'coyote_creek'
+FROM h2o_temperature
+WHERE "location" = 'coyote_creek'
 ```
 | degrees | location     | time                     |
 | :------ | :----------- | :----------------------- |
@@ -74,17 +63,6 @@ SELECT degrees, location, time
 | 63      | coyote_creek | 2019-09-01T00:12:00.000Z |
 | 68      | coyote_creek | 2019-09-01T00:18:00.000Z |
 | 62      | coyote_creek | 2019-09-01T00:24:00.000Z |
-
-
-
-SELECT time, myfield, l.mytag AS l, r.mytag as r
-  FROM mytable_l AS l
-  FULL OUTER JOIN mytable_r AS r ON r.mytag = l.mytag AND (time > now() - interval '30 minutes')
-  WHERE (time > now() - interval '30 minutes')
-
-SELECT request, "orgID"
-FROM query_log
-WHERE time BETWEEN (NOW() - INTERVAL'5 MINUTES') AND (NOW() - INTERVAL'10 MINUTES')
 
 Select data based on time interval:
 
@@ -105,11 +83,15 @@ Results:
 | 65      | coyote_creek | 2019-08-20T00:24:00.000Z |
 | 62      | coyote_creek | 2019-08-20T00:30:00.000Z |
 
+Select data within a specified data range:
+
+```sql
 SELECT "water_level" 
 FROM "h2o_feet" 
 WHERE "location" = 'santa_monica' AND time >= '2019-08-18'::timestamp AND time <= '2019-08-18 00:12:00'::timestamp
+```
 
-Select data within a specified time range using Unix epoch timestamps
+Select data within a specified time range using both a Unix epoch timestamp and an RFCC3339 timestamp:
 
 ```sql
 SELECT *
@@ -137,3 +119,12 @@ Results:
 | below 3 feet      | santa_monica | 2019-08-17T13:00:00.000Z | 1.332       |
 | below 3 feet      | santa_monica | 2019-08-17T12:36:00.000Z | 1.355       |
 | below 3 feet      | santa_monica | 2019-08-17T12:48:00.000Z | 1.371       |
+
+Select data using a mix of UNIX epoch and RFCC timestamps:
+
+```sql
+SELECT *
+FROM h2o_feet 
+WHERE "location" = 'coyote_creek'
+AND "time" >= 1567296000000000000::timestamp AND "time" <= '2019-09-03 00:12:00'
+```

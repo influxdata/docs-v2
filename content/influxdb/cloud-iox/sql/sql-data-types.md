@@ -9,9 +9,9 @@ menu:
 weight: 105
 ---
 
-## Data types
+## SQL Data types
 
-InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implementation of SQL. Data types define the type of data a column can contain. DataFusion uses the Arrow type system for query execution. The SQL types from sqlparsers are mapped to Arrow data types according to the following tables. 
+InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implementation of SQL. Data types define the type of data a column can contain. DataFusion uses the Arrow type system for query execution. Data types stored in InfluxDB's storage engine are mapped to SQL data types according to the following tables. When performing casting operations, cast to the name of the data type, not the actual data type.
 
 ### Character types
 
@@ -36,20 +36,40 @@ InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implement
 | float             | FLOAT32    |                                            |
 | real              | FLOAT32    |                                            |
 | double            | FLOAT64    |                                            |
-| decimal           | DECIMAL128 | Decimal support is currently experimental. |
 
-### Date and time types
+
+### Time type
+
+The time type is a single point in time using nanosecond precision.  
 
 | Name      | Data type | Description                |
 | :-------- | :-------- | :------------------------- |
 | timestamp | TIMESTAMP | TimeUnit::Nanosecond, None |
 
+Unix epoch timestamps must be cast with `::timestamp` as show in the example below:
+
+```sql
+1672933793::TIMESTAMP
+## or
+1672933793::timestamp
+```
+
+
 
 ### Boolean types
 
-| Name    | Data type | Description   |
-| :------ | :-------- | :------------ |
-| boolean | BOOLEAN   | TRUE or FALSE |
+| Name    | Data type | Description                                                           |
+| :------ | :-------- | :-------------------------------------------------------------------- |
+| boolean | BOOLEAN   | TRUE or FALSE for strings, 0 and 1 for integers, uintegers and floats |
+
+Booleans are parsed in the following manner:
+
+- string: `TRUE` or `FALSE`
+- integer: 0 is flase, 1 is true
+- uinteger: 0 is flase, 1 is true
+- float: 0.0 is false, 1.0 is true
+
+Note that zero vaules are parsed as `false` and non zero negative values are parsed as `true`. 
 
 ### Unsupported types
 

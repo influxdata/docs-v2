@@ -19,7 +19,7 @@ The `HAVING` clause places conditions on results created by the GROUP BY clause.
 
 ```sql
 SELECT a, b, MEAN(c) 
-FROM table 
+FROM measurement
 GROUP BY a, b 
 HAVING MAX(c) > 10
 ```
