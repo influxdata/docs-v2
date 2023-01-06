@@ -388,6 +388,9 @@ An aggregate function performs a calculation on a set of data values in a column
 | AVG()    | Returns the average value of a column                      |
 | SUM()    | Returns the summed value of a column                       |
 | MEAN()   | Returns the mean value of a column                         |
+| MIN()    |                                                            |
+| MAX() |                                                            |
+
 
 #### Examples
 
