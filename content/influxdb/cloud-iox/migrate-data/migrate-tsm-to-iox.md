@@ -1,9 +1,9 @@
 ---
-title: Migrate data from TSM and IOx in InfluxDB Cloud
+title: Migrate data from TSM to IOx in InfluxDB Cloud
 description: >
-  To migrate data from a TSM-backed InfluxDB Cloud organization to an InfluxDB IOx-backed
-  organization, query the data in time-based batches and write the queried data
-  to an IOx bucket in your InfluxDB Cloud organization.
+  To migrate data from a TSM-backed InfluxDB Cloud organization to an InfluxDB
+  IOx-backed organization, query the data in time-based batches and write the
+  queried data to an IOx bucket in your InfluxDB Cloud organization.
 menu:
   influxdb_cloud_iox:
     name: Migrate from TSM to IOx
@@ -336,13 +336,13 @@ So in this example, **it would be best to set your `batchInterval` to `4d`**.
 {{< /expand-wrapper >}}
 
 ## Monitor the migration progress
-The [InfluxDB Cloud Migration Community template](https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/)
+The [InfluxDB TSM to IOx Migration Community template](https://github.com/influxdata/community-templates/tree/master/influxdb-tsm-iox-migration/)
 installs the migration task outlined in this guide as well as a dashboard
 for monitoring running data migrations.
 
-{{< img-hd src="/img/influxdb/2-1-migration-dashboard.png" alt="InfluxDB Cloud migration dashboard" />}}
+{{< img-hd src="/img/influxdb/cloud-iox-migration-dashboard.png" alt="InfluxDB Cloud migration dashboard" />}}
 
-<a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-cloud-oss-migration/#quick-install">Install the InfluxDB Cloud Migration template</a>
+<a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-tsm-iox-migration/#quick-install">Install the InfluxDB Cloud Migration template</a>
 
 ## Troubleshoot migration task failures
 If the migration task fails, [view your task logs](/influxdb/cloud/process-data/manage-tasks/task-run-history/)
