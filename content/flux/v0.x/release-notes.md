@@ -10,6 +10,27 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.192.0 [2023-01-09]
+
+### Breaking changes
+- Update iox.sql to detect midstream errors.
+
+### Features
+- Add [`geo.totalDistance()`](/flux/v0.x/stdlib/experimental/geo/totaldistance/)
+  to aggregate total distance of consecutive points.
+- Add [`iox.sqlInterval()`](/flux/v0.x/stdlib/experimental/iox/sqlinterval/) to
+  convert Flux durations to SQL interval strings.
+- Add the [`contrib/qxip/hash`](/flux/v0.x/stdlib/contrib/qxip/hash/) package
+  which includes hashing functions.
+- Add the [`contrib/qxip/logql`](/flux/v0.x/stdlib/contrib/qxip/logql/) package
+  which provides functions for working with
+  [Grafana Loki](https://grafana.com/oss/loki/) and [LogQL](https://grafana.com/docs/loki/latest/logql/).
+- Add [`contrib/qxip/clickhouse`](/flux/v0.x/stdlib/contrib/qxip/clickhouse/)
+  package which provides functions for querying data from
+  [Clickhouse](https://clickhouse.com/).
+
+---
+
 ## v0.191.0 [2022-11-14]
 
 ### Features
