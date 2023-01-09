@@ -34,6 +34,10 @@ The migration process uses the following tools:
   separately from InfluxDB OSS 2.x and InfluxDB Cloud.
   [Download and install the 2.x CLI](/influxdb/cloud/tools/influx-cli/).
 
+- **InfluxDB Cloud user interface (UI)**:  
+  Visit [cloud2.influxdata.com](https://cloud2.influxdata.com) to access the
+  InfluxDB Cloud UI.
+
 {{% note %}}
 #### InfluxDB 1.x and 2.x CLIs are unique
 If both the **InfluxDB 1.x and 2.x `influx` CLIs** are installed in your `$PATH`,
@@ -278,3 +282,5 @@ influx write \
 ```
 {{% /code-tab-content %}}
     {{< code-tabs-wrapper >}}
+
+    Repeat for each export file and target bucket.
