@@ -25,16 +25,35 @@ Results:
 | santa_monica | -0.243        |
 
 
-
 ### The MAX() function
 
+```sql
+SELECT MAX("water_level") as maximum_level, "location"
+FROM "h2o_feet" 
+GROUP BY "location"
+```
+
+Results:
+| location     | maximum_level |
+| :----------- | :------------ |
+| santa_monica | 7.205         |
+| coyote_creek | 9.964         |
 
 ### The COUNT() function
+
+The COUNT() function returns the number of rows from a field or tag.
 
 ```sql
 SELECT COUNT("water_level") 
 FROM "h2o_feet"
 ```
+
+Results:
+
+| COUNT(h2o_feet.water_level) |
+| :-------------------------- |
+| 15258                       |
+
 
 ### The AVG() function
 
@@ -53,26 +72,11 @@ GROUP BY "location"
 ```
 
 
-array_agg
-
-
-
-
-
-
-Statistical
- - var / var_samp / var_pop
- - stddev / stddev_samp / stddev_pop
- - covar / covar_samp / covar_pop
- - orr
-
 Approximate Functions
 
-approx_distinct
-approx_distinct(x) -> uint64 returns the approximate number (HyperLogLog) of distinct input values
+approx_distinct -  uint64 returns the approximate number (HyperLogLog) of distinct input values
 
-approx_median
-approx_median(x) -> x returns the approximate median of input values. it is an alias of approx_percentile_cont(x, 0.5).
+approx_median -  x returns the approximate median of input values. it is an alias of approx_percentile_cont(x, 0.5).
 
 approx_percentile_cont
 approx_percentile_cont(x, p) -> x return the approximate percentile (TDigest) of input values, where p is a float64 between 0 and 1 (inclusive).
@@ -93,17 +97,4 @@ It supports raw data as input or pre-aggregated TDigest sketches, then builds or
 It is suitable for low latency OLAP system where a streaming compute engine (e.g. Spark Streaming/Flink) pre-aggregates data to a data store, then queries using Datafusion.
 
 
-### The COUNT() function
 
-The COUNT() function returns the number of rows from a field or tag key.
-
-```sql
-SELECT COUNT("water_level") 
-FROM "h2o_feet"
-```
-
-Results:
-
-| COUNT(h2o_feet.water_level) |
-| :-------------------------- |
-| 15258                       |

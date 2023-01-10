@@ -9,54 +9,66 @@ menu:
 weight: 105
 ---
 
-## SQL Data types
+## InfluxDB SQL Data types
 
-InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implementation of SQL. Data types define the type of data a column can contain. DataFusion uses the Arrow type system for query execution. Data types stored in InfluxDB's storage engine are mapped to SQL data types according to the following tables. When performing casting operations, cast to the name of the data type, not the actual data type.
+InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implementation of SQL. Data types define the type of data a column can contain. DataFusion uses the Arrow type system for query execution. Data types stored in InfluxDB's storage engine are mapped to SQL data types according to the following tables. When performing casting operations, cast to the **name** of the data type, not the actual data type.
 
 ### Character types
 
-| Name    | Data type | Description                      |
-| :------ | :-------- | -------------------------------- |
-| CHAR    | UTF8      | fixed-length, blank padded       |
-| VARCHAR | UTF8      | variable-length character string |
-| TEXT    | UTF8      | variable unlimited length        |
+| Name    | Data type | Description                       |
+| :------ | :-------- | --------------------------------- |
+| CHAR    | UTF8      | Character string, fixed-length    |
+| VARCHAR | UTF8      | Character string, variable-length |
+| TEXT    | UTF8      | Variable unlimited length         |
 
 ### Numeric types
 
-| Name              | Data type  | Description                                |
-| :---------------- | :--------- | :----------------------------------------- |
-| tinyint           | INT8       |                                            |
-| smallint          | INT16      |                                            |
-| integer           | INT32      |                                            |
-| bigint            | INT64      |                                            |
-| tinyint unsigned  | UINT8      |                                            |
-| smallint unsigned | INT16      |                                            |
-| int unsigned      | INT32      |                                            |
-| bigint unsigned   | INT64      |                                            |
-| float             | FLOAT32    |                                            |
-| real              | FLOAT32    |                                            |
-| double            | FLOAT64    |                                            |
+InfluxDB stores all integers as signed 64bit integers. The following numeric types are supported:
 
+| Name            | Data type | Description                  |
+| :-------------- | :-------- | :--------------------------- |
+| bigint          | INT64     | large-range integer          |
+| bigint unsigned | INT64     | large-range unsigned integer |
+| double          | FLOAT64   | 64-bit floating-point number |
+
+
+Minimum integer:` -9223372036854775808`  
+Maximum integer: `9223372036854775807`
+
+Minimum unsigned integer (uinteger): `0`
+Maximum unsigned integer (uinteger): `18446744073709551615`
+
+Floats can be a decimal point, decimal integer or decimal fraction.
+
+```sql
+23.8
+0.0
+-23.987
+```
 
 ### Time type
 
-The time type is a single point in time using nanosecond precision.  
+A time type is a single point in time using nanosecond precision.  
 
 | Name      | Data type | Description                |
 | :-------- | :-------- | :------------------------- |
 | timestamp | TIMESTAMP | TimeUnit::Nanosecond, None |
 
-Unix epoch timestamps must be cast with `::timestamp` as show in the example below:
 
-```sql
-1672933793::TIMESTAMP
-## or
-1672933793::timestamp
-```
+The following date and time formats are supported:
 
-
+ - YYYY-MM-DDT00:00:00.000Z 
+ - YYYY-MM-DDT00:00:00.000-00:00 
+ - YYYY-MM-DD 00:00:00.000-00:00 
+ - YYYY-MM-DDT00:00:00Z
+ - YYYY-MM-DD 00:00:00.000
+ - YYYY-MM-DD 00:00:00
+ - 1567296000000000000 
+-  1566176400 
 
 ### Boolean types
+
+Booleans store TRUE or FALSE values. 
 
 | Name    | Data type | Description                                                           |
 | :------ | :-------- | :-------------------------------------------------------------------- |

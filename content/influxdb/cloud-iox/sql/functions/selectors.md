@@ -7,7 +7,7 @@ menu:
   influxdb_cloud_iox:
     name: Selectors
     parent: SQL functions
-weight: 230
+weight: 220
 ---
 
 Selector functions are unique to time series databases. They behave like aggragte functions but there are key differences that should be noted.

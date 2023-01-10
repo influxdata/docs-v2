@@ -7,11 +7,13 @@ menu:
   influxdb_cloud_iox:
     name: Time series 
     parent: SQL functions
-weight: 260
+weight: 230
 ---
 
+### The NOW() function
 
-### time_bucket_gapfill
+
+### The TIME_BUCKET_GAPFILL function
 
 
 ```sql
@@ -25,7 +27,7 @@ FROM "h2o_temperature"
 ### The DATEBIN() function
 
 ```sql
-SELECT DATE_BIN(INTERVAL '1' day, time, TIMESTAMP '2022-01-01 00:00:00Z') AS time, COUNT("water_level")  as count
+SELECT DATE_BIN(INTERVAL '1' day, time, TIMESTAMP '2022-01-01 00:00:00Z') AS time, COUNT("water_level")  as water_level_count
 FROM "h2o_feet"
 WHERE time >= timestamp '2019-09-17T00:00:00Z' AND time <= timestamp '2019-09-19T00:00:00Z'
 GROUP BY 1
@@ -34,17 +36,25 @@ ORDER BY 1 DESC
 
 Results:
 
-| count | time                     |
-| :---- | ------------------------ |
-| 480   | 2019-09-09T00:00:00.000Z |
-| 480   | 2019-09-08T00:00:00.000Z |
-| 480   | 2019-09-07T00:00:00.000Z |
+| time                     | water_level_count |
+| :----------------------- | ----------------- |
+| 2019-09-17T00:00:00.000Z | 381               |
+| 2019-09-16T00:00:00.000Z | 2                 |
+
+
+### The DATE_TRUNC() function
 
 
 
-### date_trunc
+```sql
+SELECT date_trunc('month',time) AS "date",
+SUM(water_level)
+FROM "h2o_feet"
+GROUP BY time
+```
 
-### date_part
+### The DATE_PART() function
 
-### now
+
+
 

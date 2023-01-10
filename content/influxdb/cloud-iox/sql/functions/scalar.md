@@ -7,7 +7,7 @@ menu:
   influxdb_cloud_iox:
     name: Scalar
     parent: SQL functions
-weight: 250
+weight: 240
 ---
 
 

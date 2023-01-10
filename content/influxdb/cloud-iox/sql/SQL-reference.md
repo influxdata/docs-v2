@@ -48,7 +48,8 @@ The following date and time literals are supported:
  - '2022-01-31T06:30:30.123' (RFC3339-like)
  - '2022-01-31 06:30:30.123' (RFC3339-like)
  - '2022-01-31 06:30:30' ((RFC3339-like, no fractional seconds) 
- - 1567296000000000000 (Unix epoch nanosecond) - must cast to a timestamp in queries
+ - 1567296000000000000 (Unix epoch nanosecond) - must cast to `::timestamp` in queries
+ - 1566176400 (Unix epoch second) -  must cast to `::timestamp` in queries
 
 All dates and times in RFC3339 and RFC3339-like format must be in single quotes.  Unix epoch timestamps do not need quotes and must be cast to `::timestamp`.
 
@@ -72,9 +73,10 @@ Boolean literals are either TRUE or FALSE.
 
 Rules for quoting:
 
-- Always single quote string literals
-- Single quote time durations (excluding Unix epoch) 
-- Double quote database identifiers (column names)
+- Always single quote string literals.
+- Single quote time durations (excluding Unix epoch).
+- Double quote database identifiers (column names).
+- Names using camel case (camelCase) must be in double quotes.
 
 {{% note %}}
 **Note:** Not all identifiers require double quotes.  
@@ -93,11 +95,23 @@ Unquoted identifiers are not case sensitive.
 
 ## Case sensitivity
 
-Need info on FlightSQL case sensitivity
+Key points to keep in mind when working with InfluxDB SQL:
 
-## Duration Units
+ - Column names in a query are not case sensitive **unless** they are quoted.  
+ - Names using mixed case or [camel case](https://en.wikipedia.org/wiki/Camel_case) must be in double quotes.
 
-Duration units specify a length of time.  You must spell out the unit of time.  
+ When a table is created, the case of a column is automaitcally stored in lowercase **unless** the column name is quoted.  The column name `pH` must be quoted in order to preserve the lowercase p and uppercase H. 
+
+ The following query will fail if the measurement `h2o-pH` and the field `pH` are not double quoted:
+
+ ```sql
+SELECT "pH", location, time
+FROM "h2o_pH"
+```
+
+## Duration units
+
+Duration units specify a length of time.  You must spell out the entire unit of time or the query will error.
 
 ```sql
 --Correct:
@@ -285,11 +299,11 @@ FULL JOIN h2o_temperature
 ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperature.time
 ```
 
-The results returned will differ depending on the type of JOIN you use.  
+<!-- The results returned will differ depending on the type of JOIN you use.  
 
 The LEFT INNER JOIN query produces 15258 rows. 
 The RIGHT OUTER JOIN query produces 7604 rows.
-The FULL OUTER JOIN query also produces 15258 rows.
+The FULL OUTER JOIN query also produces 15258 rows. -->
 
 ### The GROUP BY clause 
 
@@ -422,13 +436,13 @@ Selector functions are unique to time series databases. They behave like aggrega
 
 ### Time series functions
 
-| Function              | Description                                    |
-| :-------------------- | :--------------------------------------------- |
-| TIME_BUCKET_GAPFILL() | Returns a contiguous set of time bucketed data |
-| DATEBIN()             |                                                |
-| DATE_TRUNC()          |                                                |
-| DATE_PART()           |                                                |
-| NOW()                 | Returns the current time                       |
+| Function              | Description                                                                                    |
+| :-------------------- | :--------------------------------------------------------------------------------------------- |
+| TIME_BUCKET_GAPFILL() | Returns a contiguous set of time bucketed data                                                 |
+| DATEBIN()             | Bins the input timestamp into a specified interval                                             |
+| DATE_TRUNC()          | Truncates a timestamp expression based on the date part specified, such as hour, day, or month |
+| DATE_PART()           | Returns the specified part of a date                                                           |
+| NOW()                 | Returns the current time                                                                       |
 
 #### Examples
 
@@ -437,9 +451,21 @@ SELECT DATE_BIN(INTERVAL '1 hour', time, '2019-09-18T00:00:00Z'::timestamp),
 SUM(water_level)
 FROM "h2o_feet"
 GROUP BY time
+
+SELECT date_trunc('month',time) AS "date",
+SUM(water_level)
+FROM "h2o_feet"
+GROUP BY time
 ```
 
-### Math functions
+### Approximate functions
+
+| Function      | Description                                    |
+| :------------ | :--------------------------------------------- |
+| APPROX_MEDIAN | Returns the approximate median of input values |
+|               |                                                |
+
+<!-- ### Math functions
 
 | Function | Description                                                                      |
 | :------- | :------------------------------------------------------------------------------- |
@@ -461,6 +487,6 @@ GROUP BY time
 | SINE()   | sine                                                                             |
 | SQRT()   | returns the square root of a number                                              |
 | TAN()    | tangent                                                                          |
-| TRUNC()  | truncates a number to the specified number of decimal places                     |
+| TRUNC()  | truncates a number to the specified number of decimal places                     | -->
 
 
