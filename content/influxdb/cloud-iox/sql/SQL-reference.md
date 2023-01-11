@@ -11,6 +11,16 @@ weight: 190
 
 InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implementation of SQL.  
 
+[Identifiers](#)
+[Quoting](#)
+[Case sensitivity](#)
+[Duration units](#)
+[Operators](#)
+[SQL keywords](#)
+[Statements and clauses](#)
+[Comments](#)
+[Functions](#)
+
 ## Identifiers
 
 An identifier is the name of an object, such as a [`bucket`](/cloud/reference/glossary/#bucket) name (database name), `measurement` name, `tag key`, and `field key`.
@@ -134,7 +144,10 @@ interval'400m'
 | month        |                          |
 | year         |                          |
 
-## Arithmetic operators
+
+## Operators
+
+### Arithmetic operators
 
 Arithmetic operators take two numerical values (either literals or variables) and
 perform a calculation that returns a single numerical value.
@@ -146,7 +159,7 @@ perform a calculation that returns a single numerical value.
 | `*`      | Multiplication | `2 * 3`  | `6`    |
 | `/`      | Division       | `6 / 3`  | `2`    |
 
-## Comparison operators
+### Comparison operators
 
 Comparison operators compare numbers or strings and perform evaluations.
 
@@ -390,7 +403,33 @@ FROM h2o_feet)
 WHERE rn <= 3;
 ```
 
+## Comments
+
+Use comments to describe and add detail to your queries.  
+
+ - Single line comments use the double hyphen `--` symbol. Single line comments end with a line break.
+ - Multi-line comments beign with `/*` and end with ` */`. Multi-line comments span multiple lines. 
+
+ ```sql
+ Single line comments:
+
+-- Examples
+
+SELECT COUNT("water_level") --no timestamp needed
+FROM "h2o_feet"
+
+Multiline comments:
+
+/* author:
+ * date:
+ */
+SELECT COUNT("water_level")
+FROM "h2o_feet"
+```
+
 ## Functions
+
+InfluxDB SQL supports a wide variety of functions. 
 
 ### Aggregates
 
@@ -403,7 +442,8 @@ An aggregate function performs a calculation on a set of data values in a column
 | SUM()    | Returns the summed value of a column                       |
 | MEAN()   | Returns the mean value of a column                         |
 | MIN()    |                                                            |
-| MAX() |                                                            |
+| MAX()    |                                                            |
+|          |                                                            |
 
 
 #### Examples
@@ -482,7 +522,7 @@ GROUP BY time
 | LOG10()  | base 10 logarithm                                                                |
 | LOG2()   | base 2 logarithm                                                                 |
 | POWER()  | returns the value of a number raised to the power of the number                  |
-| ROUND()  | roound to the nearest integer                                                    |
+| ROUND()  | round to the nearest integer                                                    |
 | SIGNUM() | sign of the argument (-1, 0, +1)                                                 |
 | SINE()   | sine                                                                             |
 | SQRT()   | returns the square root of a number                                              |
