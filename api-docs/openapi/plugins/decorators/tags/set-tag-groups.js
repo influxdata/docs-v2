@@ -1,6 +1,5 @@
 module.exports = SetTagGroups;
 
-const { tagGroups } = require('../../../content/content')
 const { collect, getName, sortName } = require('../../helpers/content-helper.js')
 /**
  * Returns an object that defines handler functions for:
@@ -15,8 +14,7 @@ const { collect, getName, sortName } = require('../../helpers/content-helper.js'
  * and sets the value of `All Endpoints` to the collected tags.
  */
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
-function SetTagGroups() {
-  let data = tagGroups();
+function SetTagGroups(data) {
   if(!Array.isArray(data)) {
     data = [];
   }
