@@ -130,7 +130,7 @@ array.from(rows: [{name: data.name, age: data.age}])
 
 | name      | age  |
 | --------- | ---- |
-| nathaniel | 60   |
+| nathaniel | 61   |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
