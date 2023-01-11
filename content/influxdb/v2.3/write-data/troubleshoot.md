@@ -28,7 +28,6 @@ Learn how to avoid unexpected results and recover from errors when writing to In
 - [Handle `write` and `delete` responses](#handle-write-and-delete-responses)
 - [Troubleshoot failures](#troubleshoot-failures)
 - [Troubleshoot rejected points](#troubleshoot-rejected-points)
-- [Troubleshoot MQTT ingest errors](troubleshoot-mqtt-ingest-errors)
 
 {{% /cloud-only %}}
 
@@ -321,34 +320,3 @@ InfluxDB logs the following `rejected_points` entry to the `_monitoring` bucket:
 | _measurement      | _field | _value | bucket             | field         | gotType  | measurement | reason                            | wantType |
 |:------------------|:-------|:-------|:-------------------|:--------------|:---------|:------------|:----------------------------------|:---------|
 | rejected_points   | count  | 1      | a7d5558b880a93da   | temperature   | String   | airSensors  | field type mismatch with schema   | Float    |
-
-{{% cloud-only %}}
-
-## Troubleshoot MQTT ingest errors
-
-If you're having issues ingesting [MQTT data](/influxdb/v2.3/write-data/no-code/load-data/#set-up-a-cloud-native-subscription/) into InfluxDB, try the following:
-
-- [Validate parsing rules and subscription path](#validate-parsing-rules-and-subscription-path).
-- [View the `_monitoring` bucket](#view-the-monitoring-bucket) to check for parsing errors.
-- [Set up a deadman check](#set-up-a-deadman-check).
-
-### Validate parsing rules and subscription path
-
-Verify that your parsing rules don’t have any syntax or other errors by copying and pasting your MQTT message and your parsing rules into a tool. For JSON, we recommend [JSON Path](https://jsonpath.com/). For Regex, we recommend [Regex 101](https://regex101.com/).
-
-
-### View the `_monitoring`bucket
-
-If your parsing rules and subscription path are valid, check for InfluxDB Cloud errors from executing parsing rules in the `_monitoring` bucket.
-
-1. In the navigation menu on the left, click **Data Explorer**.
-2. Select the `_monitoring` bucket, and then the `subscription` measurement.
-3. Click the CSV icon to save the contents as a CSV and view error messages.
-
-
-### Set up a deadman check
-
-If you have a steady stream of MQTT messages, we recommend setting up a deadman alert to detect when messages are not ingested into InfluxDB. See [Create a deadman check](/influxdb/cloud/monitor-alert/checks/create/#deadman-check/).
-
-{{% /cloud-only %}}
-
