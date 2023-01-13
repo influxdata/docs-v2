@@ -1,15 +1,14 @@
 ---
-title: iox.sql() function
+title: hash.xxhash64() function
 description: >
-  `iox.sql()` executes an SQL query against a bucket in an IOx storage node.
+  `hash.xxhash64()` converts a string value to a 64-bit hexadecimal hash using the xxHash algorithm.
 menu:
   flux_0_x_ref:
-    name: iox.sql
-    parent: experimental/iox
-    identifier: experimental/iox/sql
-weight: 201
-flux/v0.x/tags: [inputs]
-introduced: 0.186.0
+    name: hash.xxhash64
+    parent: contrib/qxip/hash
+    identifier: contrib/qxip/hash/xxhash64
+weight: 301
+
 ---
 
 <!------------------------------------------------------------------------------
@@ -21,48 +20,43 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/iox/iox.flux#L56-L56
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/qxip/hash/hash.flux#L48-L48
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`iox.sql()` executes an SQL query against a bucket in an IOx storage node.
+`hash.xxhash64()` converts a string value to a 64-bit hexadecimal hash using the xxHash algorithm.
 
-This function creates a source that reads data from IOx.
+
 
 ##### Function type signature
 
 ```js
-(bucket: string, query: string) => stream[A] where A: Record
+(v: A) => string
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
 
 ## Parameters
 
-### bucket
+### v
 ({{< req >}})
-IOx bucket to read data from.
-
-
-
-### query
-({{< req >}})
-SQL query to execute.
+String to hash.
 
 
 
 
 ## Examples
 
-### Use SQL to query data from IOx
+### Convert a string to 64-bit hash using xxHash
 
 ```js
-import "experimental/iox"
+import "contrib/qxip/hash"
 
-iox.sql(bucket: "example-bucket", query: "SELECT * FROM measurement")
+hash.xxhash64(v: "Hello, world!")// Returns 17691043854468224118
+
 
 ```
 

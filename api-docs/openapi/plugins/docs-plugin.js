@@ -1,3 +1,4 @@
+const {info, tagGroups} = require('./docs-content');
 const ReportTags = require('./rules/report-tags');
 const ValidateServersUrl = require('./rules/validate-servers-url');
 const RemovePrivatePaths = require('./decorators/paths/remove-private-paths');
@@ -22,13 +23,13 @@ const rules = {
 /** @type {import('@redocly/openapi-cli').CustomRulesConfig} */
 const decorators = {
   oas3: {
-    'set-servers': SetServers,
+    'set-servers': () => SetServers([ { url: '/' } ]),
     'delete-servers': DeleteServers,
     'remove-private-paths': RemovePrivatePaths,
     'strip-version-prefix': StripVersionPrefix,
     'strip-trailing-slash': StripTrailingSlash,
-    'set-info': SetInfo,
-    'set-tag-groups': SetTagGroups,
+    'set-info': () => SetInfo(info()),
+    'set-tag-groups': () => SetTagGroups(tagGroups()),
     'replace-docs-url-shortcode': ReplaceShortcodes().docsUrl,
   }
 };
