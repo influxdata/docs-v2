@@ -207,7 +207,7 @@ that embeds sensor metadata (location, model, and ID) into a tag key:
 
 ```
 home,sensor=loc-kitchen.model-A612.id-1726ZA temp=72.1
-home,sensor=loc-bath.model-B723.id-2635YB temp=71.8
+home,sensor=loc-bath.model-A612.id-2635YB temp=71.8
 ```
 
 {{< expand-wrapper >}}
@@ -271,7 +271,7 @@ The better approach would be to write each sensor attribute as an individual tag
 
 ```
 home,location=kitchen,sensor_model=A612,sensor_id=1726ZA temp=72.1
-home,location=bath,sensor_model=B723,sensor_id=2635YB temp=71.8
+home,location=bath,sensor_model=A612,sensor_id=2635YB temp=71.8
 ```
 
 {{< expand-wrapper >}}
