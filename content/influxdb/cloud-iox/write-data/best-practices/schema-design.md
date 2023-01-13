@@ -121,9 +121,9 @@ your fields into a separate measurement.
 
 A sparse schema is one where, for many rows, columns contain null values.
 These generally stem from [non-homogenous measurement schemas](#measurement-schemas-should-be-homogenous)
-or individual fields for a tag set being reported at
-separate times. Sparse schemas require the InfluxDB query engine to evaluate many
-null columns, adding an unnecessary overhead to storing and querying data.
+or individual fields for a tag set being reported at separate times.
+Sparse schemas require the InfluxDB query engine to evaluate many
+null columns, adding unnecessary overhead to storing and querying data.
 
 _For an example of a sparse schema,
 [view the non-homogenous schema example below](#view-example-of-a-sparse-non-homogenous-schema)._
