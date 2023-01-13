@@ -1288,7 +1288,8 @@ pprof-disabled = true
 ---
 
 ### query-concurrency
-Number of queries allowed to execute concurrently. Setting to 0 will allow an unlimited number of queries.
+Number of queries allowed to execute concurrently.
+Setting to `0` allows an unlimited number of concurrent queries.
 
 **Default:** `0`
 
@@ -1482,7 +1483,7 @@ query-memory-bytes = 10485760
 ### query-queue-size
 Maximum number of queries allowed in execution queue.
 When queue limit is reached, new queries are rejected.
-Setting to 0 will allow an unlimited number of queries.
+Setting to `0` allows an unlimited number of queries in the queue.
 
 **Default:** `0`
 
