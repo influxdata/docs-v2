@@ -137,7 +137,7 @@ $('.article--content table').each(function() {
   table.find('td').each(function() {
     let cellContent = $(this)[0].innerText
 
-    if (/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.*Z/.test(cellContent)) {
+    if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.*Z/.test(cellContent)) {
       $(this).addClass('nowrap')
     }
   })
