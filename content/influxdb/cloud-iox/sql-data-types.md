@@ -15,7 +15,8 @@ Data types define the type of values that can be stored in table columns.
 In InfluxDB's SQL implementation, a **measurement** is structured as a table,
 and columns are comprised of **tags**, **fields** and **timestamps**. 
 
-DataFusion uses the Arrow type system for query execution. Data types stored in InfluxDB's storage engine are mapped to SQL data types according to the following tables. 
+DataFusion uses the Arrow type system for query execution.
+Data types stored in InfluxDB's storage engine are mapped to SQL data types at query time. 
 
 {{% note %}}
 When performing casting operations, cast to the **name** of the data type, not the actual data type.  Names are not case sensitive. 
