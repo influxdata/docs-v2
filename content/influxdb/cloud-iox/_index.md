@@ -11,4 +11,4 @@ menu:
 weight: 1
 ---
 
-#### Welcome to InfluxDB Cloud back by IOx
+#### Welcome to InfluxDB Cloud backed by IOx
