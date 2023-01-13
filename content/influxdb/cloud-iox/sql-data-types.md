@@ -37,8 +37,9 @@ SELECT
 | VARCHAR | UTF8      | Character string, variable-length |
 | TEXT    | UTF8      | Variable unlimited length         |
 
+##### Example character types
+
 ```sql
---Examples
 abcdefghijk
 time
 "h2o_temperature"
