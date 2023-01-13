@@ -289,8 +289,8 @@ home,location=bath,sensor_model=A612,sensor_id=2635YB temp=71.8
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-To query data from the sensor with ID `1726ZA` using this schema, you have to can
-use a simple equality expression:
+To query data from the sensor with ID `1726ZA` using this schema, you can use a
+simple equality expression:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
