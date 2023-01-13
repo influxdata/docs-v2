@@ -114,9 +114,10 @@ false
 FALSE
 ```
 
-## Unsupported types
+## Unsupported SQL types
 
-The following types are not currently supported:
+The following SQL types are not currently supported:
+
 - UUID
 - BLOB
 - CLOB
