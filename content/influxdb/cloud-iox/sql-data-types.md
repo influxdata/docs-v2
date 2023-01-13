@@ -19,13 +19,13 @@ DataFusion uses the Arrow type system for query execution.
 Data types stored in InfluxDB's storage engine are mapped to SQL data types at query time. 
 
 {{% note %}}
-When performing casting operations, cast to the **name** of the data type, not the actual data type.  Names are not case sensitive. 
+When performing casting operations, cast to the **name** of the data type, not the actual data type. 
+Names are _case-insensitive_. For example:
 
 ```sql
---Examples
 SELECT
-'99'::BIGINT
-'2019-09-18T00:00:00Z'::timestamp
+  '99'::BIGINT, 
+  '2019-09-18T00:00:00Z'::timestamp
 ```
 {{% /note %}}
 
