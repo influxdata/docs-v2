@@ -10,7 +10,10 @@ menu:
 weight: 105
 ---
 
-InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implementation of SQL. Data types define the type of value that can be stored in table column. In InfluxDB's SQL implementation, a `measurement` is a table, and columns are comprised of `tags`, `fields` and `timestamps`. 
+InfluxDB Cloud backed by InfluxDB IOx uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.
+Data types define the type of values that can be stored in table columns.
+In InfluxDB's SQL implementation, a **measurement** is structured as a table,
+and columns are comprised of **tags**, **fields** and **timestamps**. 
 
 DataFusion uses the Arrow type system for query execution. Data types stored in InfluxDB's storage engine are mapped to SQL data types according to the following tables. 
 
