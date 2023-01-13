@@ -167,7 +167,8 @@ brew list | grep influxdb-cli
 {{% tab-content %}}
 
 {{% note %}}
-It is recommended to run Influx CLI commands in Powershell. Command Prompt does not have full compatibility.
+We recommend running `influx` CLI commands in Powershell.
+Command Prompt is not fully compatibility.
 {{% /note %}}
 
 1. **Download the `influx` CLI package.**
