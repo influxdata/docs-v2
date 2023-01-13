@@ -39,9 +39,11 @@ tags and fields.
   - **Measurement**: Logical grouping for time series data.
     All _points_ in a given measurement should have the same _tags_.
     A measurement contains multiple _tags_ and _fields_.
-      - **Tags**: Key-value pairs that provide provide metadata for each point--for example,
-        something to identify the source of the data like host, location, station, etc.
-      - **Fields**: Key-value pairs with values that change over time--for example: temperature, pressure, stock price, etc.
+      - **Tags**: Key-value pairs that provide metadata for each point--for example,
+        something to identify the source or context of the data like host,
+        location, station, etc.
+      - **Fields**: Key-value pairs with values that change over time--for example,
+        temperature, pressure, stock price, etc.
       - **Timestamp**: Timestamp associated with the data.
         When stored on disk and queried, all data is ordered by time.
 
