@@ -104,9 +104,9 @@ Booleans store TRUE or FALSE values.
 Booleans are parsed in the following manner:
 
 - string: `TRUE` or `FALSE`
-- integer: 0 is false, 1 is true
-- uinteger: 0 is false, 1 is true
-- float: 0.0 is false, 1.0 is true
+- integer: 0 is false, non-zero is true
+- uinteger: 0 is false, non-zero is true
+- float: 0.0 is false, non-zero is true
 
 Note that zero vaules are parsed as `false` and non zero negative values are parsed as `true`. 
 
