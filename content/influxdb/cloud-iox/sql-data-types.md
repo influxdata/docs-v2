@@ -108,8 +108,6 @@ Booleans are parsed in the following manner:
 - uinteger: 0 is false, non-zero is true
 - float: 0.0 is false, non-zero is true
 
-Note that zero vaules are parsed as `false` and non zero negative values are parsed as `true`. 
-
 ##### Example boolean types
 
 ```sql
