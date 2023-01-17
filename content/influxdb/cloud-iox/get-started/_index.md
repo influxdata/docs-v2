@@ -52,9 +52,11 @@ tags and fields.
   - **Measurement**: Logical grouping for time series data.
     All _points_ in a given measurement should have the same _tags_.
     A measurement contains multiple _tags_ and _fields_.
-      - **Tags**: Key-value pairs that provide provide metadata for each point--for example,
-        something to identify the source of the data like host, location, station, etc.
-      - **Fields**: Key-value pairs with values that change over time--for example: temperature, pressure, stock price, etc.
+      - **Tags**: Key-value pairs that provide metadata for each point--for example,
+        something to identify the source or context of the data like host,
+        location, station, etc.
+      - **Fields**: Key-value pairs with values that change over time--for example,
+        temperature, pressure, stock price, etc.
       - **Timestamp**: Timestamp associated with the data.
         When stored on disk and queried, all data is ordered by time.
 
@@ -70,7 +72,7 @@ Measurement schemas are defined by the schema of data as it is written to the me
 
 ### Important definitions
 
-The following are important definitions to understand when using InfluxDB:
+The following definitions are important to understand when using InfluxDB:
 
 - **Point**: Single data record identified by its _measurement, tag keys, tag values, field key, and timestamp_.
 - **Series**: A group of points with the same _measurement, tag keys and values, and field key_.
