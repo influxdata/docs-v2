@@ -62,7 +62,7 @@ Maximum signed integer: `9223372036854775807`
 Minimum unsigned integer (uinteger): `0`  
 Maximum unsigned integer (uinteger): `18446744073709551615`  
 
-Floats can be a decimal point, decimal integer or decimal fraction.
+Floats can be a decimal point, decimal integer, or decimal fraction.
 
 ```sql
 --Examples
