@@ -47,7 +47,7 @@ time
 
 ## Numeric types
 
-InfluxDB stores all integers as signed 64bit integers. The following numeric types are supported:
+The following numeric types are supported:
 
 | Name            | Data type | Description                  |
 | :-------------- | :-------- | :--------------------------- |
