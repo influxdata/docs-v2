@@ -81,7 +81,6 @@ A time type is a single point in time using nanosecond precision.
 | :-------- | :-------- | :------------------------- |
 | TIMESTAMP | TIMESTAMP | TimeUnit::Nanosecond, None |
 
-
 The following date and time formats are supported:
 
 ```sql
