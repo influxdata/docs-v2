@@ -64,8 +64,9 @@ Maximum unsigned integer (uinteger): `18446744073709551615`
 
 Floats can be a decimal point, decimal integer, or decimal fraction.
 
+##### Example float types
+
 ```sql
---Examples
 23.8
 -446.89
 5.00
