@@ -56,8 +56,8 @@ The following numeric types are supported:
 | DOUBLE          | FLOAT64   | 64-bit floating-point number |
 
 
-Minimum integer:` -9223372036854775808`  
-Maximum integer: `9223372036854775807`
+Minimum signed integer:` -9223372036854775808`  
+Maximum signed integer: `9223372036854775807`
 
 Minimum unsigned integer (uinteger): `0`  
 Maximum unsigned integer (uinteger): `18446744073709551615`  
