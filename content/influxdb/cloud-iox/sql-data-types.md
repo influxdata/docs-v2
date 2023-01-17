@@ -51,8 +51,8 @@ The following numeric types are supported:
 
 | Name            | Data type | Description                  |
 | :-------------- | :-------- | :--------------------------- |
-| BIGINT          | INT64     | large-range integer          |
-| BIGINT UNSIGNED | INT64     | large-range unsigned integer |
+| BIGINT          | INT64     | 64-bit signed integer        |
+| BIGINT UNSIGNED | INT64     | 64-bit unsigned integer      |
 | DOUBLE          | FLOAT64   | 64-bit floating-point number |
 
 
