@@ -50,4 +50,21 @@
       </li>
   {{ end }}
   </ul>
+{{ else if eq $type "iox-list" }}
+  <ul>
+  {{ range where .Site.Data.influxdb_urls.cloud.providers "iox" true }}
+    {{ $scratch.Set "title" .name }}
+    {{ if not (in .name .short_name) }}
+      {{ $scratch.Set "title" (print .name " (" .short_name ")")}}
+    {{ end }}
+    {{ $title := $scratch.Get "title" }}
+      <li><strong>{{ $title }}</strong>
+        <ul>
+          {{ range where .regions "iox" true }}
+            <li {{ if .status }}class="{{ .status }}"{{ end }}>{{ .name }}</li>
+          {{ end }}
+        </ul>
+      </li>
+  {{ end }}
+  </ul>
 {{ end }}
