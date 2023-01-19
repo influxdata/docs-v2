@@ -73,19 +73,24 @@ Floats can be a decimal point, decimal integer, or decimal fraction.
 0.033
 ```
 
-## Time types
+## Date and time data types
 
-A time type is a single point in time using nanosecond precision.  
+InfluxDB SQL supports the following DATE/TIME data types:
 
 | Name      | Data type | Description                                                          |
 | :-------- | :-------- | :------------------------------------------------------------------- |
 | TIMESTAMP | TIMESTAMP | TimeUnit::Nanosecond, None                                           |
-| INTERVAL  | TIME      | Interval(IntervalUnit::YearMonth) or Interval(IntervalUnit::DayTime) |
+| INTERVAL  | INTERVAL  | Interval(IntervalUnit::YearMonth) or Interval(IntervalUnit::DayTime) |
+
+
+### Timestamp
+
+A time type is a single point in time using nanosecond precision.  
 
 The following date and time formats are supported:
 
 ```sql
---Examples
+-- Examples
 YYYY-MM-DDT00:00:00.000Z 
 YYYY-MM-DDT00:00:00.000-00:00 
 YYYY-MM-DD 00:00:00.000-00:00 
@@ -94,9 +99,19 @@ YYYY-MM-DD 00:00:00.000
 YYYY-MM-DD 00:00:00
 ```
 
-Following are examples of interval:
+### Interval 
+
+The INTERVAL data type can be used with the following precision: 
+
+- year
+- month
+- day
+- hour
+- minute
+- second
 
 ```sql
+-- Examples
 WHERE time > now() - interval'10 minutes' 
 time >= now() - interval'1 year'
 ```
