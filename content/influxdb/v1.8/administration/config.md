@@ -451,6 +451,13 @@ This setting is a [duration](#configuration-overview).
 
 Environment variable: `INFLUXDB_COORDINATOR_LOG_QUERIES_AFTER`
 
+#### `log-timedout-queries = false`
+
+Set to `true` to log queries that are killed due to exceeding the `query-timeout`.
+The default setting (`false`) will not log timedout queries.
+
+Environment variable: `INFLUXDB_COORDINATOR_LOG_TIMEDOUT_QUERIES`
+
 #### `max-select-point = 0`
 
 The maximum number of [points](/influxdb/v1.8/concepts/glossary/#point) that a
