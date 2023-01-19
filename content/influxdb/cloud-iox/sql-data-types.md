@@ -15,7 +15,7 @@ Data types define the type of values that can be stored in table columns.
 In InfluxDB's SQL implementation, a **measurement** is structured as a table,
 and columns are comprised of **tags**, **fields** and **timestamps**. 
 
-DataFusion uses the Arrow type system for query execution.
+DataFusion uses the [Arrow](https://arrow.apache.org/) type system for query execution.
 Data types stored in InfluxDB's storage engine are mapped to SQL data types at query time. 
 
 {{% note %}}
@@ -77,9 +77,10 @@ Floats can be a decimal point, decimal integer, or decimal fraction.
 
 A time type is a single point in time using nanosecond precision.  
 
-| Name      | Data type | Description                |
-| :-------- | :-------- | :------------------------- |
-| TIMESTAMP | TIMESTAMP | TimeUnit::Nanosecond, None |
+| Name      | Data type | Description                                                          |
+| :-------- | :-------- | :------------------------------------------------------------------- |
+| TIMESTAMP | TIMESTAMP | TimeUnit::Nanosecond, None                                           |
+| INTERVAL  | TIME      | Interval(IntervalUnit::YearMonth) or Interval(IntervalUnit::DayTime) |
 
 The following date and time formats are supported:
 
@@ -91,6 +92,13 @@ YYYY-MM-DD 00:00:00.000-00:00
 YYYY-MM-DDT00:00:00Z
 YYYY-MM-DD 00:00:00.000
 YYYY-MM-DD 00:00:00
+```
+
+Following are examples of interval:
+
+```sql
+WHERE time > now() - interval'10 minutes' 
+time >= now() - interval'1 year'
 ```
 
 ## Boolean types
@@ -132,6 +140,5 @@ The following SQL types are not currently supported:
 - ARRAY
 - ENUM
 - SET
-- INTERVAL
 - DATETIME
 - BYTEA
