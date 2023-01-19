@@ -83,7 +83,7 @@ InfluxDB SQL supports the following DATE/TIME data types:
 | INTERVAL  | INTERVAL  | Interval(IntervalUnit::YearMonth) or Interval(IntervalUnit::DayTime) |
 
 
-### Timestamp
+#### Timestamp
 
 A time type is a single point in time using nanosecond precision.  
 
@@ -99,7 +99,7 @@ YYYY-MM-DD 00:00:00.000
 YYYY-MM-DD 00:00:00
 ```
 
-### Interval 
+#### Interval 
 
 The INTERVAL data type can be used with the following precision: 
 
