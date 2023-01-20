@@ -46,7 +46,7 @@ file are commented out.
 All commented-out settings will be determined by the internal defaults.
 {{% /note %}}
 
----
+-----
 
 ## Global settings
 
@@ -82,7 +82,7 @@ How often to update the cluster with this node's internal status.
 
 Environment variable: `INFLUXDB_GOSSIP_FREQUENCY`
 
----
+-----
 
 ## Enterprise license settings
 
@@ -129,7 +129,7 @@ The `license-key` and `license-path` settings are mutually exclusive and one mus
 
 Environment variable: `INFLUXDB_ENTERPRISE_LICENSE_PATH`
 
----
+-----
 
 ## Meta node settings
 
@@ -230,7 +230,7 @@ For detailed configuration information, see [`meta.ensure-fips`](/enterprise_inf
 
 Environment variable: `INFLUXDB_META_ENSURE_FIPS`
 
----
+-----
 
 ## Data settings
 
@@ -290,7 +290,7 @@ Environment variable: `INFLUXDB_DATA_WAL_FSYNC_DELAY`
 
 Default is `false`.
 
-When `true`, collect statistics of points, values and new series written per-measurement. Metrics are gathered per data node.
+When `true`, collect statistics of points, values and new series written per-measurement. Metrics are gathered per data node. 
 These can be accessed via the `/debug/vars` endpoint and in the `_internal` database if enabled.
 
 Environment variable: `INFLUXDB_DATA_INGRESS_METRIC_BY_MEASUREMENT_ENABLED`
@@ -351,7 +351,8 @@ Default is `50331648`.
 The maximum number of bytes per seconds TSM compactions write to disk. Default is `"48m"` (48 million).
 Note that short bursts are allowed to happen at a possibly larger value, set by `compact-throughput-burst`.
 
-Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT`
+Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT`  
+
 
 #### compact-throughput-burst
 
@@ -359,7 +360,7 @@ Default is `50331648`.
 
 The maximum number of bytes per seconds TSM compactions write to disk during brief bursts. Default is `"48m"` (48 million).
 
-Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT_BURST`
+Environment variable: `INFLUXDB_DATA_COMPACT_THROUGHPUT_BURST`  
 
 #### compact-full-write-cold-duration
 
@@ -453,7 +454,7 @@ increase in cache size may lead to an increase in heap usage.
 
 Environment variable: `INFLUXDB_DATA_SERIES_ID_SET_CACHE_SIZE`
 
----
+-----
 
 ## Cluster settings
 
@@ -607,7 +608,7 @@ Environment variable: `INFLUXDB_CLUSTER_MAX_CONCURRENT_DELETES`
 Default is `"0s"`.
 
 The maximum time a query is allowed to execute before being killed by the system.
-This limit can help prevent run away queries. Setting the value to `0` disables the limit.
+This limit can help prevent run away queries.  Setting the value to `0` disables the limit.
 
 Environment variable: `INFLUXDB_CLUSTER_QUERY_TIMEOUT`
 
@@ -620,13 +621,6 @@ This limit can be set to help discover slow or resource intensive queries.
 Setting the value to `0` disables the slow query logging.
 
 Environment variable: `INFLUXDB_CLUSTER_LOG_QUERIES_AFTER`
-
-#### `log-timedout-queries = false`
-
-Set to `true` to log queries that are killed due to exceeding the `query-timeout`.
-The default setting (`false`) will not log timedout queries.
-
-Environment variable: `INFLUXDB_CLUSTER_LOG_TIMEDOUT_QUERIES`
 
 #### max-select-point
 
@@ -661,7 +655,7 @@ Set to `true` to print all running queries to the log when a data node process r
 
 Environment variable: `INFLUXDB_CLUSTER_TERMINATION_QUERY_LOG`
 
----
+-----
 
 ## Hinted Handoff settings
 
@@ -771,7 +765,7 @@ The interval at which InfluxDB checks to purge data that are above `max-age`.
 
 Environment variable: `INFLUXDB_HINTED_HANDOFF_PURGE_INTERVAL`
 
----
+-----
 
 ## Anti-Entropy (AE) settings
 
@@ -831,7 +825,7 @@ Enables missing shards to automatically be repaired.
 
 Environment variable: `INFLUXDB_ANTI_ENTROPY_AUTO_REPAIR_MISSING`
 
----
+-----
 
 ## Retention policy settings
 
@@ -856,7 +850,7 @@ The interval of time when retention policy enforcement checks run.
 
 Environment variable: `INFLUXDB_RETENTION_CHECK_INTERVAL`
 
----
+-----
 
 ## Shard precreation settings
 
@@ -889,7 +883,7 @@ The default period ahead of the end time of a shard group that its successor gro
 
 Environment variable: `INFLUXDB_SHARD_PRECREATION_ADVANCE_PERIOD`
 
----
+-----
 
 ## Monitor settings
 
@@ -902,8 +896,8 @@ To change the default seven-day retention policy, you must [create](/enterprise_
 
 For InfluxDB Enterprise production systems, InfluxData recommends including a dedicated InfluxDB (OSS) monitoring instance for monitoring InfluxDB Enterprise cluster nodes.
 
-- On the dedicated InfluxDB monitoring instance, set `store-enabled = false` to avoid potential performance and storage issues.
-- On each InfluxDB cluster node, install a Telegraf input plugin and Telegraf output plugin configured to report data to the dedicated InfluxDB monitoring instance.
+* On the dedicated InfluxDB monitoring instance, set `store-enabled = false` to avoid potential performance and storage issues.
+* On each InfluxDB cluster node, install a Telegraf input plugin and Telegraf output plugin configured to report data to the dedicated InfluxDB monitoring instance.
 
 #### store-enabled
 
@@ -937,7 +931,7 @@ The time interval to poll other data nodes' stats when aggregating cluster stats
 
 Environment variable: `INFLUXDB_MONITOR_REMOTE_COLLECT_INTERVAL`
 
----
+-----
 
 ## HTTP endpoint settings
 
@@ -1167,7 +1161,7 @@ Default is `0`.
 The maximum duration for a write to wait in the queue to be processed.
 Setting this to `0` or setting `max-concurrent-write-limit` to `0` disables the limit.
 
----
+-----
 
 ## Logging settings
 
@@ -1200,7 +1194,7 @@ Suppresses the logo output that is printed when the program is started.
 
 Environment variable: `INFLUXDB_LOGGING_SUPPRESS_LOGO`
 
----
+-----
 
 ## Subscriber settings
 
@@ -1269,7 +1263,7 @@ Default is `0`.
 
 Environment variable: `INFLUXDB_SUBSCRIBER_TOTAL_BUFFER_BYTES`
 
----
+-----
 
 ## Graphite settings
 
@@ -1349,7 +1343,7 @@ It can also have optional extra tags following the template.
 Multiple tags should be separated by commas and no spaces similar to the line protocol format.  
 There can be only one default template.
 
----
+-----
 
 ## CollectD settings
 
@@ -1381,6 +1375,7 @@ Default is `""`.
 The path to the `collectd` authorization file.
 Must be set if security level is sign or encrypt.
 
+
 These next lines control how batching works.
 You should have this enabled otherwise you could get dropped metrics or poor performance.
 Batching will buffer points in memory if you have many coming in.
@@ -1409,7 +1404,7 @@ Default is `0`.
 
 UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
 
----
+-----
 
 ## OpenTSDB settings
 
@@ -1458,7 +1453,7 @@ Default is `"1s"`.
 
 Flush at least this often even if we haven't hit buffer limit.
 
----
+-----
 
 ## UDP settings
 
@@ -1507,7 +1502,7 @@ Default is `0`.
 
 UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
 
----
+-----
 
 ## Continuous queries settings
 
@@ -1547,13 +1542,14 @@ The interval for how often continuous queries will be checked whether they need 
 
 Environment variable: `INFLUXDB_CONTINUOUS_QUERIES_RUN_INTERVAL`
 
----
+-----
 
 ## TLS settings
 
+
 ### [tls]
 
-Global configuration settings for Transport Layer Security (TLS) in InfluxDB.
+Global configuration settings for Transport Layer Security (TLS) in InfluxDB.  
 
 If the TLS configuration settings is not specified, InfluxDB supports all of the cipher suite IDs listed and all TLS versions implemented in the [Constants section of the Go `crypto/tls` package documentation](https://golang.org/pkg/crypto/tls/#pkg-constants), depending on the version of Go used to build InfluxDB.
 Use the `SHOW DIAGNOSTICS` command to see the version of Go used to build InfluxDB.
@@ -1618,25 +1614,21 @@ Number of queries allowed to execute concurrently.
 Default is `0`.
 
 #### query-initial-memory-bytes
-
 Initial bytes of memory allocated for a query.
 `0` means unlimited.
 Default is `0`.
 
 #### query-max-memory-bytes
-
 Maximum total bytes of memory allowed for an individual query.
 `0` means unlimited.
 Default is `0`.
 
 #### total-max-memory-bytes
-
 Maximum total bytes of memory allowed for all running Flux queries.
 `0` means unlimited.
 Default is `0`.
 
 #### query-queue-size
-
 Maximum number of queries allowed in execution queue.
 When queue limit is reached, new queries are rejected.
 `0` means unlimited.
