@@ -39,9 +39,12 @@ All query and write requests are subject to your InfluxDB Cloud organization's
 
 {{% note %}}
 The migration process requires two buckets in your source InfluxDB
-organization—one bucket to store the migrated data and another bucket to store migration metadata.
-If the destination organization uses the [InfluxDB Cloud Free Plan](/influxdb/cloud/account-management/limits/#free-plan),
-any buckets in addition to these two will exceed the your plan's bucket limit.
+organization—one bucket to store the data you're migrating and a second bucket
+to store migration metadata.
+If you're using the [InfluxDB Cloud Free Plan](/influxdb/cloud/account-management/limits/#free-plan),
+and have more than one bucket to migrate, you will exceed your plans bucket limit.
+To migrate more than one bucket, you need to [upgrade to the Usage-based plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)
+to complete the migration.
 {{% /note %}}
 
 1.  **In the InfluxDB Cloud (IOx) organization you're migrating data _to_**:

@@ -14,10 +14,10 @@ InfluxDB instances backed by TSM including InfluxDB OSS 1.x, 2.x,
 InfluxDB Enterprise, and InfluxDB Cloud.
 
 - [Should you migrate?](#should-you-migrate)
-  - [Do you not want to worry about series cardinality?](#do-you-not-want-to-worry-about-series-cardinality)
+  - [Are you currently limited by series cardinality?](#are-you-currently-limited-by-series-cardinality)
   - [Do you want to use SQL to query your data?](#do-you-want-to-use-sql-to-query-your-data)
   - [Do you want better InfluxQL performance?](#do-you-want-better-influxql-performance)
-  - [Do you have requirements for cloud providers and regions?](#do-you-have-requirements-for-cloud-providers-and-regions)
+  - [Do you depend on a specific cloud provider or region?](#do-you-depend-on-a-specific-cloud-provider-or-region)
   - [Are you reliant on Flux queries and Flux tasks?](#are-you-reliant-on-flux-queries-and-flux-tasks)
 - [Data migration guides](#data-migration-guides)
 
@@ -26,7 +26,7 @@ InfluxDB Enterprise, and InfluxDB Cloud.
 There are important things to consider with migrating to InfluxDB Cloud backed
 by InfluxDB IOx. The following questions will help guide your decision to migrate.
 
-#### Do you not want to worry about series cardinality?
+#### Are you currently limited by series cardinality?
 
 **Yes, you should migrate**. Series cardinality is a major limiting factor with
 the InfluxDB TSM storage engine. The more unique series in your data, the less
@@ -50,7 +50,7 @@ IOx storage engine was to enable performant implementations of both SQL and Infl
 When compared to querying InfluxDB backed by TSM (InfluxDB OSS 1.x, 2.x, and Enterprise),
 InfluxQL queries are more performant when querying InfluxDB backed by InfluxDB IOx.
 
-#### Do you have requirements for cloud providers and regions?
+#### Do you depend on a specific cloud provider or region?
 
 **You should maybe migrate**. InfluxDB Cloud instances backed by InfluxDB IOx
 are available on the following providers in the following regions:
