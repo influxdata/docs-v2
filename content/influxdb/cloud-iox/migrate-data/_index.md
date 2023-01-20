@@ -53,7 +53,7 @@ InfluxQL queries are more performant when querying InfluxDB backed by InfluxDB I
 #### Do you depend on a specific cloud provider or region?
 
 **You should maybe migrate**. InfluxDB Cloud instances backed by InfluxDB IOx
-are available on the following providers in the following regions:
+are available from the following providers:
 
 {{< cloud_regions type=iox-list >}}
 
