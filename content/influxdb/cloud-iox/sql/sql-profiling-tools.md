@@ -9,9 +9,9 @@ menu:
 weight: 185
 ---
 
-SQL query profiling tools will tell you where InfluxDB SQL allocates time in your query and why.
+SQL query profiling tools tell you where SQL allocates time in your query and why.
 
- - The `EXPLAIN` command shows the execution plan of a SQL SELECT statement.
+ - The `EXPLAIN` command shows the execution plan of a SQL statement.
  - The `EXPLAIN VERBOSE` command provides a more verbose execution plan of a statement.
  - The `EXPLAIN ANALYZE` command provides the execution plan and metrics of a statement. 
 
