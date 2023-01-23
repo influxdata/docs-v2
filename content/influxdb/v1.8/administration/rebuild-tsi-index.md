@@ -19,7 +19,7 @@ Stop InfluxDB by stopping the `influxd` process.
 
 ## 2. Remove all `_series` directories
 Remove all `_series` directories.
-By default, `_series` directories are are stored at `/data/<dbName>/_series`,
+By default, `_series` directories are stored at `/data/<dbName>/_series`,
 however you should check for and remove `_series` files throughout the `/data` directory.
 
 ## 3. Remove all index directories
