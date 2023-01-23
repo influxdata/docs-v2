@@ -214,7 +214,7 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 <!------------------------------- END UI CONTENT ------------------------------>
 {{% /tab-content %}}
 {{% tab-content %}}
-<!---------------------------- BEGIN CLI CONTENT ----------------------------->
+<!----------------------------- BEGIN CLI CONTENT ----------------------------->
 
 1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/cloud-iox/tools/influx-cli/).
 2.  Use the [`influx bucket create` command](/influxdb/cloud-iox/reference/cli/influx/bucket/create/)
