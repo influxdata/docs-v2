@@ -10,9 +10,21 @@ menu:
     identifier: query-sql-aggregate
 weight: 202
 influxdb/cloud-iox/tags: [query, sql]
+list_code_example: |
+  ```sql
+  SELECT
+    DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP),
+    mean(field1),
+    sum(field2),
+    tag1
+  FROM home
+  GROUP BY time, tag1
+  ```
 ---
 
-A SQL query that aggregates data includes the following clauses:
+<!-- PLACEHOLDER DOC -->
+
+<!-- A SQL query that aggregates data includes the following clauses:
 
 {{< req type="key" >}}
 
@@ -28,12 +40,21 @@ A SQL query that aggregates data includes the following clauses:
   function to each group.
 
 ### Downsample data by applying interval-based aggregates
+
+- `DATE_BIN` calculates windows of time based on a specified interval and updates
+  the timestamp in the `time` column of each row based on the start boundary of
+  the window that row's original timestamp is in.
+
+  For example, if you use `DATE_BIN` to window data into one hour intervals,
+  a row with a timestamp of `2023-01-01T12:34:56Z` will be updated with the new
+  timestamp, `2023-01-01T12:00:00Z`.
+
 ```sql
 SELECT
-    DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP),
-    mean(field1),
-    sum(field2),
-    tag1
+  DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP) AS time,
+  mean(field1),
+  sum(field2),
+  tag1
 FROM home
 GROUP BY time, tag1
-```
+``` -->
