@@ -68,7 +68,7 @@ Install Telegraf from the InfluxData repository with the following commands:
 
 {{% code-tab-content %}}
 ```bash
-wget -qO- https://repos.influxdata.com/influxdb.key | sudo tee /etc/apt/trusted.gpg.d/influxdb.asc >/dev/null
+wget -qO- https://repos.influxdata.com/influxdata-oss-archive_compat.key | sudo tee /etc/apt/trusted.gpg.d/influxdb.asc >/dev/null
 echo "deb https://repos.influxdata.com/debian stable main" | sudo tee /etc/apt/sources.list.d/influxdb.list
 sudo apt-get update && sudo apt-get install telegraf
 ```
@@ -76,7 +76,7 @@ sudo apt-get update && sudo apt-get install telegraf
 
 {{% code-tab-content %}}
 ```bash
-curl -s https://repos.influxdata.com/influxdb.key | sudo tee /etc/apt/trusted.gpg.d/influxdb.asc >/dev/null
+curl -s https://repos.influxdata.com/influxdata-oss-archive_compat.key | sudo tee /etc/apt/trusted.gpg.d/influxdb.asc >/dev/null
 echo "deb https://repos.influxdata.com/debian stable main" | sudo tee /etc/apt/sources.list.d/influxdb.list
 sudo apt-get update && sudo apt-get install telegraf
 ```
@@ -128,7 +128,7 @@ name = InfluxData Repository - Stable
 baseurl = https://repos.influxdata.com/stable/\$basearch/main
 enabled = 1
 gpgcheck = 1
-gpgkey = https://repos.influxdata.com/influxdb.key
+gpgkey = https://repos.influxdata.com/influxdata-oss-archive_compat.key
 EOF
 ```
 
