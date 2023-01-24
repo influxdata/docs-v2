@@ -64,7 +64,7 @@ Install Telegraf from the InfluxData repository with the following commands:
 
 {{% code-tab-content %}}
 ```bash
-wget -qO- https://repos.influxdata.com/influxdata-oss-archive_compat.key | sudo apt-key add -
+wget -qO- https://repos.influxdata.com/influxdata-archive.key | sudo apt-key add -
 source /etc/lsb-release
 echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
@@ -72,7 +72,7 @@ echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stabl
 
 {{% code-tab-content %}}
 ```bash
-curl -s https://repos.influxdata.com/influxdata-oss-archive_compat.key | sudo apt-key add -
+curl -s https://repos.influxdata.com/influxdata-archive.key | sudo apt-key add -
 source /etc/lsb-release
 echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
@@ -96,7 +96,7 @@ sudo apt-get update && sudo apt-get install apt-transport-https
 
 # Add the InfluxData key
 
-wget -qO- https://repos.influxdata.com/influxdata-oss-archive_compat.key | sudo apt-key add -  
+wget -qO- https://repos.influxdata.com/influxdata-archive.key | sudo apt-key add -  
 source /etc/os-release  
 test $VERSION_ID = "7" && echo "deb https://repos.influxdata.com/debian wheezy stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 test $VERSION_ID = "8" && echo "deb https://repos.influxdata.com/debian jessie stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
@@ -113,7 +113,7 @@ sudo apt-get update && sudo apt-get install apt-transport-https
 
 # Add the InfluxData key
 
-curl -s https://repos.influxdata.com/influxdata-oss-archive_compat.key | sudo apt-key add -
+curl -s https://repos.influxdata.com/influxdata-archive.key | sudo apt-key add -
 source /etc/os-release
 test $VERSION_ID = "7" && echo "deb https://repos.influxdata.com/debian wheezy stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 test $VERSION_ID = "8" && echo "deb https://repos.influxdata.com/debian jessie stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
@@ -181,7 +181,7 @@ name = InfluxDB Repository - RHEL \$releasever
 baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
 enabled = 1
 gpgcheck = 1
-gpgkey = https://repos.influxdata.com/influxdata-oss-archive_compat.key
+gpgkey = https://repos.influxdata.com/influxdata-archive.key
 EOF
 ```
 
