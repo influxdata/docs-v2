@@ -9,7 +9,13 @@ menu:
 weight: 250
 ---
 
-The `HAVING` clause places conditions on results created by an aggregate or group.  The `HAVING` clause must follow the `GROUP BY` clause and precede the `ORDER BY` clause. Whereas the `WHERE` clause filters rows based on a specified condition, the `HAVING` clause filters based on **groups of rows** with a specified  condition.
+The `HAVING` clause places conditions on results created by an aggregate operation on groups.
+The `HAVING` clause must follow the `GROUP BY` clause and precede the `ORDER BY` clause.
+
+{{% note %}}
+The `WHERE` clause filters rows based on specified conditions _before_ the aggregate operation.
+The `HAVING` clause filters rows based on specified conditions _after_ the aggregate operation has taken place.
+{{% /note %}}
 
 - [Syntax](#syntax)
 - [Examples](#examples)
