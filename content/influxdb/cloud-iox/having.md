@@ -42,7 +42,7 @@ HAVING
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example results %}}
+{{% expand "View example results" %}}
 The query returns on rows with values in the `mean_water_level` greater than 5 _after_ the aggregate operation.
 
 | location     | mean_water_level  |
@@ -67,3 +67,18 @@ HAVING
   "avg_water_level" > 6.82 
 ORDER BY 
   "time"
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
+
+The query calculates the average water level per time and only returns rows with an average greater than 6.82 during the specified time range.
+
+| time                 |    avg_water_level |
+| :------------------- | -----------------: |
+| 2019-09-01T22:06:00Z |             6.8225 |
+| 2019-09-01T22:12:00Z | 6.8405000000000005 |
+| 2019-09-01T22:30:00Z |             6.8505 |
+| 2019-09-01T22:36:00Z |             6.8325 |
+{{% /expand %}}
+{{< /expand-wrapper >}}
