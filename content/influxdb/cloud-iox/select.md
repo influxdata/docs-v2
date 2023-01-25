@@ -56,7 +56,7 @@ Results:
 
 Note that this is a partial results set. `SELECT *` is the most basic SELECT statement.  The query returns all columns from the measurement `h2o_feet`.
 
-Select specific tags and fields from a measurement:
+### Select specific tags and fields from a measurement
 
 ```sql
 SELECT "location","water_level" 
