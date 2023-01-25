@@ -40,7 +40,7 @@ The SELECT clause supports the following:
 The following examples use data from the NOAA database. 
 To download the NOAA test data see [NOAA water sample data](/influxdb/v2.6/reference/sample-data/#noaa-water-sample-data).
 
-Select all fields, tags and timestamps from a measurement:
+### Select all fields and tags from a measurement
 
 ```sql
 SELECT * FROM h2o_feet
