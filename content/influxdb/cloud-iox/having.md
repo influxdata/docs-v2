@@ -20,7 +20,7 @@ The `HAVING` clause filters rows based on specified conditions _after_ the aggre
 - [Syntax](#syntax)
 - [Examples](#examples)
 
-### Syntax
+## Syntax
 
 ```sql
 
