@@ -43,8 +43,7 @@ To download the NOAA test data see [NOAA water sample data](/influxdb/v2.6/refer
 Select all fields, tags and timestamps from a measurement:
 
 ```sql
-SELECT * 
-  FROM h2o_feet
+SELECT * FROM h2o_feet
 ```
 
 Results:
