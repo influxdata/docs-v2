@@ -63,7 +63,8 @@ SELECT * FROM h2o_feet
 SELECT "location", "water_level" FROM "h2o_feet"
 ```
 
-Results:
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
 | location     | water_level |
 | :----------- | :---------- |
 | coyote_creek | 9.126144144 |
@@ -71,8 +72,8 @@ Results:
 | coyote_creek | 8.862       |
 | coyote_creek | 8.714       |
 | coyote_creek | 8.547       |
-
-The query returns the location and water level from the measurement h2o_feet.
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 Select a field, tag and timestamp from a measurement:
 
