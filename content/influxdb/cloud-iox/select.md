@@ -46,15 +46,16 @@ To download the NOAA test data see [NOAA water sample data](/influxdb/v2.6/refer
 SELECT * FROM h2o_feet
 ```
 
-Results:
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
 | level description         | location     | time                     | water_level |
 | :------------------------ | :----------- | :----------------------- | :---------- |
 | at or greater than 9 feet | coyote_creek | 2019-09-01T00:00:00.000Z | 9.126144144 |
 | at or greater than 9 feet | coyote_creek | 2019-09-01T00:06:00.000Z |       9.009 |
 | between 6 and 9 feet      | coyote_creek | 2019-09-01T00:12:00.000Z |       8.862 |
 | between 6 and 9 feet      | coyote_creek | 2019-09-01T00:18:00.000Z |       8.714 |
-
-Note that this is a partial results set. `SELECT *` is the most basic SELECT statement.  The query returns all columns from the measurement `h2o_feet`.
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### Select specific tags and fields from a measurement
 
