@@ -166,6 +166,11 @@ brew list | grep influxdb-cli
 <!-------------------------------- BEGIN Windows -------------------------------->
 {{% tab-content %}}
 
+{{% note %}}
+We recommend running `influx` CLI commands in Powershell.
+Command Prompt is not fully compatible.
+{{% /note %}}
+
 1. **Download the `influx` CLI package.**
 
     <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip" download>influx CLI v{{< latest-patch cli=true >}} (Windows)</a>

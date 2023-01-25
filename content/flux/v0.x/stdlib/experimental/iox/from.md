@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/iox/iox.flux#L20-L20
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/iox/iox.flux#L34-L34
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -54,4 +54,18 @@ IOx bucket to read data from.
 Measurement to read data from.
 
 
+
+
+## Examples
+
+### Use Flux to query data from IOx
+
+```js
+import "experimental/iox"
+
+iox.from(bucket: "example-bucket", measurement: "example-measurement")
+    |> range(start: -1d)
+    |> filter(fn: (r) => r._field == "example-field")
+
+```
 
