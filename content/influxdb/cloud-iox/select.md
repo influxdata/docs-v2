@@ -1,11 +1,10 @@
 ---
-title: The SELECT statement
-list_title: The SELECT statement
+title: SELECT statement
 description: >
-  Use the SQL SELECT statement to query data from a specific measurement or measurements.
+  Use the SQL `SELECT` statement to query data from a measurement.
 menu:
   influxdb_cloud_iox:
-    name: The SELECT statement
+    name: SELECT statement
     parent: Explore data using SQL
 weight: 210
 ---
