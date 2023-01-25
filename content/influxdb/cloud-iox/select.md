@@ -60,8 +60,7 @@ SELECT * FROM h2o_feet
 ### Select specific tags and fields from a measurement
 
 ```sql
-SELECT "location","water_level" 
-FROM "h2o_feet"
+SELECT "location", "water_level" FROM "h2o_feet"
 ```
 
 Results:
