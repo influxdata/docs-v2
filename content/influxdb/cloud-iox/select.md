@@ -35,7 +35,10 @@ The SELECT clause supports the following:
  - `SELECT <"field" or "tag">, <"field" or "tag">` - returns more than one tag or field.
  - `SELECT <"field"> AS a `- return the field as the alias.
 
-### Examples
+## Examples
+
+The following examples use data from the NOAA database. 
+To download the NOAA test data see [NOAA water sample data](/influxdb/v2.6/reference/sample-data/#noaa-water-sample-data).
 
 Select all fields, tags and timestamps from a measurement:
 
