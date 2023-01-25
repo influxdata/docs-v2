@@ -9,7 +9,7 @@ info:
 
 
     If you want to use the latest InfluxDB /api/v2 API instead, see the
-    [InfluxDB v2 API documentation](/influxdb/v2.2/api/).
+    [InfluxDB v2 API documentation](/influxdb/latest/api/).
 
 
     This documentation is generated from the

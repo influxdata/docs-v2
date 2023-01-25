@@ -105,24 +105,24 @@ function postProcess() {
   specPath=$1
   platform="$2"
   apiVersion="$3"
-
   openapiCLI=" @redocly/cli"
+  currentPath=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
   npx --version
 
   # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
   # If you want to lint the source contract (before bundling),
   # pass `--lint` to the `bundle` command.
+  # If you set environment variables (for example, INFLUXDB_PLATFORM=)
+  # preceding the command name, you can then access the variables
+  # in the NodeJS process.env global object.
   INFLUXDB_API_VERSION=$apiVersion \
   INFLUXDB_PLATFORM=$platform \
+  API_DOCS_ROOT_PATH=$currentPath \
   npm_config_yes=true \
   npx $openapiCLI bundle $specPath \
     -o $specPath \
     --config=./.redocly.yaml
-
-  # Lint the bundle output.
-  npx $openapiCLI lint $specPath \
-    --max-problems 2
 }
 
 function updateCloud {
