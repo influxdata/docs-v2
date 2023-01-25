@@ -1,11 +1,10 @@
 ---
-title: The HAVING clause
-list_title: The HAVING clause
+title: HAVING clause
 description: > 
-    Use the `HAVING` clause to filter query results based on a spcified condition.
+    Use the `HAVING` clause to filter query results based on a specified condition.
 menu:
   influxdb_cloud_iox:
-    name: The HAVING clause
+    name: HAVING clause
     parent: Explore data using SQL
 weight: 250
 ---
