@@ -91,14 +91,16 @@ SELECT "water_level", "location", "time" FROM "h2o_feet"
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-Select a field and perform basic arithmetic:
+### Select a field and perform basic arithmetic
+
+The following query takes the value of water_level, multiplies it by 3 and adds 5 to the result.
 
 ```sql
-SELECT ("water_level" * 3) + 5 
-  FROM "h2o_feet"
+SELECT ("water_level" * 3) + 5 FROM "h2o_feet"
 ```
 
-Results:
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
 | water_level        |
 | :----------------- |
 | 30.128             |
@@ -107,6 +109,6 @@ Results:
 | 31.586             |
 | 32.027             |
 | 32.378432432       |
-
-The query takes the value of water_level, multiplies it by 3 and adds 5 to the result.
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
