@@ -28,27 +28,28 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [HAVING_clause] [ORDE
 
 ## Examples
 
-Group results based on a specified function:
+### Return rows with an aggregate value greater than a specified number
 
 ```sql
-SELECT MEAN("water_level") AS "mean_water_level", "location", "time"
-FROM "h2o_feet" 
-GROUP BY "location","time"
-HAVING MEAN("water_level") > 9.8
-ORDER BY "time"
+SELECT
+  MEAN("water_level") AS "mean_water_level", "location"
+FROM
+  "h2o_feet" 
+GROUP BY
+  "location"
+HAVING
+  "mean_water_level" > 5
 ```
-Results:
 
-| location     | mean_water_level | time                     |
-| :----------- | :--------------- | :----------------------- |
-| coyote_creek | 9.816            | 2019-08-28T06:54:00.000Z |
-| coyote_creek | 9.862            | 2019-08-28T07:00:00.000Z |
-| coyote_creek | 9.902            | 2019-08-28T07:06:00.000Z |
-| coyote_creek | 9.938            | 2019-08-28T07:12:00.000Z |
-| coyote_creek | 9.957            | 2019-08-28T07:18:00.000Z |
-| coyote_creek | 9.964            | 2019-08-28T07:24:00.000Z |
+{{< expand-wrapper >}}
+{{% expand "View example results %}}
+The query returns on rows with values in the `mean_water_level` greater than 5 _after_ the aggregate operation.
 
-The query groups results from a `MEAN()` function having a water_level greater than 9.8 feet. This is a partial data set.
+| location     | mean_water_level  |
+| :----------- | :---------------- |
+| coyote_creek | 5.359142420303919 |
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 Return the average result group from a specified time period:
 
