@@ -37,8 +37,6 @@ following clauses:
   of a relational table.
 - `WHERE`: Only return data that meets defined conditions such as falling within
   a time range, containing specific tag values, etc.
-<!-- - `GROUP BY`: Group data into SQL partitions and apply an aggregate or selector
-  function to each group. -->
 
 {{% influxdb/custom-timestamps %}}
 ```sql
@@ -61,8 +59,13 @@ WHERE
   Use the `AND` logical operator to chain multiple predicates together.
 
 ```sql
-SELECT * FROM measurement
-WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+SELECT
+  *
+FROM
+  measurement
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
 ```
 
 Query time boundaries can be relative or absolute.
@@ -77,14 +80,18 @@ Use `now()` to return the timestamp for the current time (UTC).
 ##### Query all data from the last day
 
 ```sql
-SELECT * FROM measurement
-WHERE time >= now() - INTERVAL '1 day'
+SELECT * FROM measurement WHERE time >= now() - INTERVAL '1 day'
 ```
 
 ##### Query one day of data data from a week ago
 ```sql
-SELECT * FROM measurement
-WHERE time >= now() - INTERVAL '7 days' AND time >= now() - INTERVAL '6 days'
+SELECT
+  *
+FROM
+  measurement
+WHERE
+  time >= now() - INTERVAL '7 days'
+  AND time <= now() - INTERVAL '6 days'
 ```
 {{% /expand %}}
 
@@ -96,8 +103,13 @@ Use the `AND` logical operator to chain together multiple predicates and define
 both start and stop boundaries for the query.
 
 ```sql
-SELECT * FROM measurement
-WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+SELECT
+  *
+FROM
+  measurement
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
 ```
 
 {{% /expand %}}

@@ -11,14 +11,30 @@ menu:
 weight: 202
 influxdb/cloud-iox/tags: [query, sql]
 list_code_example: |
+  ##### Aggregate fields
   ```sql
   SELECT
-    DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP),
+    mean(field1) AS mean,
+    selector_first(field2)['value'] as first,
+    tag1
+  FROM
+    home
+  GROUP BY
+    tag
+  ```
+
+  ##### Aggregate by time-based intervals
+  ```sql
+  SELECT
+    DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP) AS time,
     mean(field1),
     sum(field2),
     tag1
-  FROM home
-  GROUP BY time, tag1
+  FROM
+    home
+  GROUP BY
+    time,
+    tag1
   ```
 ---
 
