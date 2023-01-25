@@ -75,22 +75,21 @@ SELECT "location", "water_level" FROM "h2o_feet"
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-Select a field, tag and timestamp from a measurement:
+### Select a field, tag and timestamp from a measurement
 
 ```sql
-SELECT "water_level", "location", "time"
-FROM "h2o_feet"
+SELECT "water_level", "location", "time" FROM "h2o_feet"
 ```
 
-Results:
-
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
 | location     | time                     | water_level |
 | :----------- | :----------------------- | :---------- |
 | coyote_creek | 2019-08-20T00:00:00.000Z | 8.638       |
 | coyote_creek | 2019-08-20T00:06:00.000Z | 8.658       |
 | coyote_creek | 2019-08-20T00:12:00.000Z | 8.678       |
-
-The query returns the location, timestamp and water level from the measurement h2o_feet.
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 Select a field and perform basic arithmetic:
 
