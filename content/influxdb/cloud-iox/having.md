@@ -23,14 +23,7 @@ The `HAVING` clause filters rows based on specified conditions _after_ the aggre
 ## Syntax
 
 ```sql
-
 SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [HAVING_clause] [ORDER_BY_clause] 
-
---Example
-SELECT a, b, MEAN(c) 
-FROM measurement
-GROUP BY a, b 
-HAVING MEAN(c) > 10
 ```
 
 ### Examples
