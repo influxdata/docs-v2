@@ -2,7 +2,8 @@
 title: Perform a basic SQL query
 seotitle: Perform a basic SQL query in InfluxDB Cloud
 description: >
-  ...
+  A basic SQL query that queries data from InfluxDB most commonly includes
+  `SELECT`, `FROM`, and `WHERE` clauses.
 menu:
   influxdb_cloud_iox:
     name: Basic query
