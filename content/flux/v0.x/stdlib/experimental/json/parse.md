@@ -196,10 +196,10 @@ array.from(
 
 #### Output data
 
-| id       | color  | pendingDuration  |
-| -------- | ------ | ---------------- |
-| 15612462 | red    | 3                |
-| 15612462 | blue   | 16               |
+| color  | pendingDuration  | id       |
+| ------ | ---------------- | -------- |
+| red    | 3                | 15612462 |
+| blue   | 16               | 15612462 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

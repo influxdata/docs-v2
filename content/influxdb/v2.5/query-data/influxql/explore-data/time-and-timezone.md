@@ -162,7 +162,7 @@ required.
 
 {{% /expand %}}
 
-{{% expand "Specify a time range with epock timestamps" %}}
+{{% expand "Specify a time range with epoch timestamps" %}}
 
 ```sql
 SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica' AND time >= 1564635600000000000 AND time <= 1566190800000000000
@@ -234,7 +234,7 @@ Note that the whitespace between the `+` and `6m` is required.
 
 {{% /expand %}}
 
-{{% expand "Perform basic arithmetic on an epock timestamp" %}}
+{{% expand "Perform basic arithmetic on an epoch timestamp" %}}
 
 ```sql
 SELECT "water_level" FROM "h2o_feet" WHERE time > 24043524m - 6m

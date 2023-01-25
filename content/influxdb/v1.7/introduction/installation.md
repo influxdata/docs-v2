@@ -66,7 +66,7 @@ For Ubuntu users, add the InfluxData repository with the following commands:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```bash
-wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+wget -qO- https://repos.influxdata.com/influxdata-archive_compat.key | sudo apt-key add -
 source /etc/lsb-release
 echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
@@ -74,7 +74,7 @@ echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stabl
 
 {{% code-tab-content %}}
 ```bash
-curl -s https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+curl -s https://repos.influxdata.com/influxdata-archive_compat.key | sudo apt-key add -
 source /etc/lsb-release
 echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
@@ -90,7 +90,7 @@ For Debian users, add the InfluxData repository:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```bash
-wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+wget -qO- https://repos.influxdata.com/influxdata-archive_compat.key | sudo apt-key add -
 source /etc/os-release
 echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
@@ -98,7 +98,7 @@ echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo 
 
 {{% code-tab-content %}}
 ```bash
-curl -s https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+curl -s https://repos.influxdata.com/influxdata-archive_compat.key | sudo apt-key add -
 source /etc/os-release
 echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 ```
@@ -136,7 +136,7 @@ name = InfluxDB Repository - RHEL \$releasever
 baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
 enabled = 1
 gpgcheck = 1
-gpgkey = https://repos.influxdata.com/influxdb.key
+gpgkey = https://repos.influxdata.com/influxdata-archive_compat.key
 EOF
 ```
 
@@ -231,7 +231,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 1. Download and import InfluxData's public key:
 
     ```
-    curl -s https://repos.influxdata.com/influxdb.key | gpg --import
+    curl -s https://repos.influxdata.com/influxdata-archive_compat.key | gpg --import
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
