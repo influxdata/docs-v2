@@ -9,9 +9,8 @@ menu:
 weight: 210
 ---
 
-The following examples use data from the NOAA database.  To download the NOAA test data see [NOAA water sample data](https://docs.influxdata.com/influxdb/v2.6/reference/sample-data/#noaa-water-sample-data).
-
- Use the `SELECT` statement to query data from a specific measurement or measurements.  The `SELECT` clause is required when querying data in SQL.
+Use the `SELECT` statement to query data from an InfluxDB measurement.
+The `SELECT` clause is required when querying data in SQL.
 
 - [Syntax](#syntax)
 - [Examples](#examples)
