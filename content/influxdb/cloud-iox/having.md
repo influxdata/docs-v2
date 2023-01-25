@@ -26,7 +26,7 @@ The `HAVING` clause filters rows based on specified conditions _after_ the aggre
 SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [HAVING_clause] [ORDER_BY_clause] 
 ```
 
-### Examples
+## Examples
 
 Group results based on a specified function:
 
