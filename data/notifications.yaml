@@ -26,7 +26,13 @@
     - /influxdb/v1.6/introduction/installation/
     - /influxdb/v1.7/introduction/installation/
     - /influxdb/v1.8/introduction/install/
+    - /influxdb/v2.0/install/
+    - /influxdb/v2.1/install/
     - /influxdb/v2.2/install/
+    - /influxdb/v2.3/install/
+    - /influxdb/v2.4/install/
+    - /influxdb/v2.5/install/
+    - /influxdb/v2.6/install/
     - /telegraf/v1.10/introduction/installation/
     - /telegraf/v1.11/introduction/installation/
     - /telegraf/v1.12/introduction/installation/

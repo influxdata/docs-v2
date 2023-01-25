@@ -59,7 +59,7 @@ Install Telegraf from the InfluxData repository with the following commands:
 
 {{% code-tab-content %}}
 ```bash
-wget -qO- https://repos.influxdata.com/influxdata-archive_compat.key | sudo tee /etc/apt/trusted.gpg.d/influxdb.asc >/dev/null
+wget -qO- https://repos.influxdata.com/influxdata-archive_compat.key | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg >/dev/null
 source /etc/os-release
 echo "deb https://repos.influxdata.com/${ID} ${VERSION_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 sudo apt-get update && sudo apt-get install telegraf
@@ -68,7 +68,7 @@ sudo apt-get update && sudo apt-get install telegraf
 
 {{% code-tab-content %}}
 ```bash
-curl -s https://repos.influxdata.com/influxdata-archive_compat.key | sudo tee /etc/apt/trusted.gpg.d/influxdb.asc >/dev/null
+curl -s https://repos.influxdata.com/influxdata-archive_compat.key | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg >/dev/null
 source /etc/os-release
 echo "deb https://repos.influxdata.com/${ID} ${VERSION_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 sudo apt-get update && sudo apt-get install telegraf
