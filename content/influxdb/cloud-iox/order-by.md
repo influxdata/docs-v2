@@ -27,7 +27,7 @@ The ORDER BY clause orders results by the referenced expression.  The result ord
 
 ## Examples
 
-Return the most recent data points first:
+### Sort data by time with the most recent first
 
 ```sql
 SELECT "water_level", "time"
