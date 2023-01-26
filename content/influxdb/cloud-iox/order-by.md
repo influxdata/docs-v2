@@ -76,6 +76,12 @@ FROM
 ORDER BY
   1, 2
 ```
+
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
+The query sorts results the location of a column in the `SELECT` statement:
+first by `location` (1), and second by `water_level` (2). 
+
 | location     | time                     | water_level |
 | :----------- | :----------------------- | :---------- |
 | coyote_creek | 2019-08-28T14:30:00.000Z | -0.61       |
@@ -84,8 +90,6 @@ ORDER BY
 | coyote_creek | 2019-08-28T14:24:00.000Z | -0.587      |
 | coyote_creek | 2019-08-29T15:24:00.000Z | -0.571      |
 | coyote_creek | 2019-08-27T13:42:00.000Z | -0.561      |
-
-The query returns results in order by first column `location`, then by the second column `water_level`. 
 
 Return results by field from within a time range:
 
