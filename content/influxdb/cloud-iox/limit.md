@@ -26,9 +26,12 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIM
 ### Limit results to a maximum of five rows
 
 ```sql
-SELECT "water_level","location", "time"
-FROM "h2o_feet" 
-LIMIT 5
+SELECT
+  "water_level","location", "time"
+FROM
+  "h2o_feet" 
+LIMIT
+  5
 ```
 {{< expand-wrapper >}}
 {{% expand "View example results" %}}
