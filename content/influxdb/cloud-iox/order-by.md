@@ -61,9 +61,12 @@ ORDER BY
 ### Sort data by tag or field values
 
 ```sql
-SELECT "water_level", "time", "location"
-FROM "h2o_feet" 
-ORDER BY "location" 
+SELECT
+  "water_level", "time", "location"
+FROM
+  "h2o_feet" 
+ORDER BY
+  "location", "water_level" DESC
 ```
 
 ### Sort data by selection order
