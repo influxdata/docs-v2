@@ -45,8 +45,8 @@ ORDER BY
   time DESC
 ```
 
-Results:
-
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
 | time                     | water_level |
 | :----------------------- | :----------- |
 | 2019-09-17T16:24:00.000Z | 3.235       |
@@ -55,8 +55,8 @@ Results:
 | 2019-09-17T16:06:00.000Z | 3.497       |
 | 2019-09-17T16:00:00.000Z | 3.599       |
 | 2019-09-17T15:54:00.000Z | 3.704       |
-
-The query returns the most recent data first.
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 Return results by tag or field:
 
