@@ -35,10 +35,14 @@ The following orders are supported:
 ### Sort data by time with the most recent first
 
 ```sql
-SELECT "water_level", "time"
-FROM "h2o_feet" 
-WHERE "location" = 'coyote_creek'  
-ORDER BY time DESC
+SELECT
+  "water_level", "time"
+FROM
+  "h2o_feet" 
+WHERE
+  "location" = 'coyote_creek'  
+ORDER BY
+  time DESC
 ```
 
 Results:
