@@ -1,11 +1,11 @@
 ---
-title: The ORDER BY clause
-list_title: The ORDER BY clause
+title: ORDER BY clause
+list_title: ORDER BY clause
 description: > 
-    Use the ORDER BY clause to filter data based on fields, tags, and/or timestamps.
+    Use the `ORDER BY` clause to filter data based on fields, tags, or timestamps.
 menu:
   influxdb_cloud_iox:
-    name: The ORDER BY clause
+    name: ORDER BY clause
     parent: Explore data using SQL
 weight: 230
 ---
