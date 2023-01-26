@@ -23,7 +23,7 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIM
 
 ## Examples
 
-Limit the results to a specified number:
+### Limit results to a maximum of five rows
 
 ```sql
 SELECT "water_level","location", "time"
