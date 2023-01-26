@@ -58,7 +58,7 @@ ORDER BY
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-Return results by tag or field:
+### Sort data by tag or field values
 
 ```sql
 SELECT "water_level", "time", "location"
