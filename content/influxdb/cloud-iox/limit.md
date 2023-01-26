@@ -53,10 +53,14 @@ Use the `ORDER BY` and `LIMIT` clauses to first sort results by specified column
 then limit the sorted results by a specified number.
 
 ```sql
-SELECT "water_level","location", "time"
-FROM "h2o_feet" 
-ORDER BY 1, 2
-LIMIT 6
+SELECT
+  "water_level", "location", "time"
+FROM
+  "h2o_feet" 
+ORDER BY
+  "water_level" DESC
+LIMIT
+  3
 ```
 
 Results:
