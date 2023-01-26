@@ -21,7 +21,7 @@ The `LIMIT` clause limits the number of rows returned by a query to a specified 
 SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT <N>
 ```
 
-### Examples
+## Examples
 
 Limit the results to a specified number:
 
