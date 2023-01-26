@@ -94,24 +94,3 @@ first by `location` (1), and second by `water_level` (2).
 | coyote_creek | 2019-08-29T15:24:00.000Z | -0.571      |
 | coyote_creek | 2019-08-27T13:42:00.000Z | -0.561      |
 
-Return results by field from within a time range:
-
-```sql
-SELECT *
-FROM "h2o_feet" 
-WHERE "location" = 'santa_monica'
-AND "time" >= '2019-08-18T10:00:00Z'::timestamp AND "time" <= '2019-08-18T12:00:00Z'::timestamp 
-ORDER BY "water_level"
-```
-Results:
-
-| level description | location     | time                     | water_level |
-| :---------------- | :----------- | :----------------------- | :---------- |
-| below 3 feet      | santa_monica | 2019-08-18T11:42:00.000Z | 2.064       |
-| below 3 feet      | santa_monica | 2019-08-18T11:48:00.000Z | 2.1         |
-| below 3 feet      | santa_monica | 2019-08-18T11:54:00.000Z | 2.106       |
-| below 3 feet      | santa_monica | 2019-08-18T12:00:00.000Z | 2.129       |
-| below 3 feet      | santa_monica | 2019-08-18T11:36:00.000Z | 2.178       |
-| below 3 feet      | santa_monica | 2019-08-18T11:30:00.000Z | 2.277       |
-
-The query return results from August 18, 2019 between 10:00am and 12:00pm by water_level ascending.
