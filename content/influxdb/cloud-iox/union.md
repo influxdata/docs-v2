@@ -23,11 +23,19 @@ The `UNION` clause combines the results of two or more `SELECT` statements into 
 ## Syntax
 
 ```sql
-SELECT a, b, c
-FROM measurement_1
+SELECT
+  a,
+  b,
+  c
+FROM
+  measurement_1
 UNION [ALL]
-SELECT a, b, c
-FROM measurement_2
+SELECT
+  a,
+  b,
+  c
+FROM
+  measurement_2
 ``` 
 
 ## Examples
