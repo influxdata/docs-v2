@@ -30,7 +30,9 @@ SELECT "water_level","location", "time"
 FROM "h2o_feet" 
 LIMIT 5
 ```
-Results:
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
+The query returns a maximum of 5 results.
 
 | location     | time                     | water_level |
 | :----------- | :----------------------- | ----------- |
@@ -39,8 +41,8 @@ Results:
 | coyote_creek | 2019-08-28T00:12:00.000Z | 3.901       |
 | coyote_creek | 2019-08-28T00:18:00.000Z | 3.773       |
 | coyote_creek | 2019-08-28T00:24:00.000Z | 3.632       |
-
-The query returns a total of 5 results.
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 Limit the results to the first 6 rows:
 
