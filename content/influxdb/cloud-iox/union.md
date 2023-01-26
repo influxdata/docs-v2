@@ -1,11 +1,10 @@
 ---
-title: The UNION clause
-list_title: The UNION clause
+title: UNION clause
 description: > 
     Use the `UNION` clause to combine the results of two or more queries into a single set of results.
 menu:
   influxdb_cloud_iox:
-    name: The UNION clause
+    name: UNION clause
     parent: Explore data using SQL
 weight: 295
 ---
