@@ -47,7 +47,10 @@ The query returns a maximum of 5 results.
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-Limit the results to the first 6 rows:
+### Sort and limit results
+
+Use the `ORDER BY` and `LIMIT` clauses to first sort results by specified columns,
+then limit the sorted results by a specified number.
 
 ```sql
 SELECT "water_level","location", "time"
