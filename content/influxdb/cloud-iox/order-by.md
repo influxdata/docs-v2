@@ -59,7 +59,7 @@ ORDER BY "location"
 
 The query returns the most recent results for the location coyote_creek. 
 
-Return results by column order:
+### Sort data by selection order
 
 ```sql
 SELECT "location","water_level", "time"
