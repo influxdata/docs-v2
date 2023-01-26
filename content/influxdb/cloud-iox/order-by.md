@@ -15,7 +15,7 @@ The ORDER BY clause orders results by the referenced expression.  The result ord
 - [Syntax](#syntax)
 - [Examples](#examples)
 
-### Syntax
+## Syntax
 
 ```sql
 [SELECT CLAUSE] [FROM CLAUSE] [ ORDER BY expression [ ASC | DESC ][, …] ]
