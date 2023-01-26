@@ -63,16 +63,15 @@ LIMIT
   3
 ```
 
-Results:
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
+The query returns the highest 3 `water_level` readings in the `h2o_feet` measurement.
 
 | location     | time                     | water_level |
 | :----------- | :----------------------- | ----------- |
-| coyote_creek | 2019-08-28T14:30:00.000Z | -0.61       |
-| coyote_creek | 2019-08-29T15:18:00.000Z | -0.594      |
-| coyote_creek | 2019-08-28T14:36:00.000Z | -0.591      |
-| coyote_creek | 2019-08-28T14:24:00.000Z | -0.587      |
-| coyote_creek | 2019-08-29T15:24:00.000Z | -0.571      |
 | coyote_creek | 2019-08-27T13:42:00.000Z | -0.561      |
-
-The query returns the first 6 rows in the `h2o_feet` measurement by `water_level` and `location`.
+| coyote_creek | 2019-08-29T15:24:00.000Z | -0.571      |
+| coyote_creek | 2019-08-28T14:24:00.000Z | -0.587      |
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
