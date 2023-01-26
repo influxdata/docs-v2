@@ -9,7 +9,7 @@ menu:
 weight: 295
 ---
 
-The `UNION` clause combines the results of two or more `SELECT` statements into a single results set.
+The `UNION` clause combines the results of two or more `SELECT` statements into a single result set.
 
 **Note when using the `UNION` clause**:
 
