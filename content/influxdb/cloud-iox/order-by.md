@@ -62,8 +62,6 @@ FROM "h2o_feet"
 ORDER BY "location" 
 ```
 
-The query returns the most recent results for the location coyote_creek. 
-
 ### Sort data by selection order
 
 ```sql
