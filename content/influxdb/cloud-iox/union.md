@@ -80,5 +80,3 @@ SELECT 'top' as type, time, water_level FROM
 | 2019-08-28T14:36:00.000Z | bottom | -0.591      |
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-The query returns the type of `water_level`, top or bottom, using the `OVER` clause to window the data to get the top and bottom 3 results.
