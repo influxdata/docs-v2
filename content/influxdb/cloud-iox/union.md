@@ -59,7 +59,7 @@ Results:
 
 The query returns the location, time and pH from the 2 tables.
 
-`UNION ALL` query using an `OVER` clause:
+### Return the top and bottom three results in a single result set
 
 ```sql
 SELECT 'bottom' as type, time, water_level FROM
