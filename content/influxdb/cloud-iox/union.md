@@ -68,7 +68,8 @@ UNION ALL
 SELECT 'top' as type, time, water_level FROM 
   (SELECT time, "water_level", row_number() OVER (order by water_level DESC) as rn FROM h2o_feet) where rn <= 3
   ```
-Results:
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
 | time                     | type   | water_level |
 | :----------------------- | :----- | ----------- |
 | 2019-08-28T07:24:00.000Z | top    | 9.964       |
@@ -77,5 +78,7 @@ Results:
 | 2019-08-28T14:30:00.000Z | bottom | -0.61       |
 | 2019-08-29T15:18:00.000Z | bottom | -0.594      |
 | 2019-08-28T14:36:00.000Z | bottom | -0.591      |
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 The query returns the type of `water_level`, top or bottom, using the `OVER` clause to window the data to get the top and bottom 3 results.
