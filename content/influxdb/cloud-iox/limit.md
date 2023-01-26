@@ -1,11 +1,10 @@
 ---
-title: The LIMIT clause
-list_title: The LIMIT clause
+title: LIMIT clause
 description: > 
     Use the `LIMIT` clause to filter query results based on a spcified condition.
 menu:
   influxdb_cloud_iox:
-    name: The LIMIT clause
+    name: LIMIT clause
     parent: Explore data using SQL
 weight: 270
 ---
