@@ -18,6 +18,8 @@
   {{ end }}
 {{ else if eq $currentVersion "cloud"}}
   {{ $scratch.Set "siteTitle" "InfluxDB Cloud Documentation" }}
+{{ else if eq $currentVersion "cloud-iox"}}
+  {{ $scratch.Set "siteTitle" "InfluxDB Cloud (IOx) Documentation" }}
 {{ else if eq $currentVersion nil}}
   {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
 {{ else }}
