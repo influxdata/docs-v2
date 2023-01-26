@@ -10,7 +10,12 @@ menu:
 weight: 230
 ---
 
-The ORDER BY clause orders results by the referenced expression.  The result order is ASC **by default**.
+The `ORDER BY` clause orders results by specified columns and order.
+Sort data based on fields, tags, and timestamps.
+The following orders are supported:
+
+- `ASC`: ascending _(default)_
+- `DESC`: descending
 
 - [Syntax](#syntax)
 - [Examples](#examples)
