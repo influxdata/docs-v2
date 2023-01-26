@@ -62,9 +62,12 @@ The query returns the most recent results for the location coyote_creek.
 ### Sort data by selection order
 
 ```sql
-SELECT "location","water_level", "time"
-FROM "h2o_feet"
-ORDER BY 1, 2
+SELECT
+  "location","water_level", "time"
+FROM
+  "h2o_feet"
+ORDER BY
+  1, 2
 ```
 | location     | time                     | water_level |
 | :----------- | :----------------------- | :---------- |
