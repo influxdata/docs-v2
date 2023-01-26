@@ -18,13 +18,7 @@ The `LIMIT` clause limits the number of rows in the result to a maximum count wh
 ### Syntax
 
 ```sql
-
 SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] LIMIT <N>
-
--- Example
-SELECT a, b
-FROM measurement
-LIMIT 10
 ```
 
 ### Examples
