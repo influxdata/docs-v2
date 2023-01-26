@@ -10,7 +10,7 @@ weight: 270
 ---
 
 
-The `LIMIT` clause limits the number of rows in the result to a maximum count which is a non-negative integer.
+The `LIMIT` clause limits the number of rows returned by a query to a specified non-negative integer.
 
 - [Syntax](#syntax)
 - [Examples](#examples)
