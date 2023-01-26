@@ -11,11 +11,11 @@ weight: 295
 
 The `UNION` clause combines the results of two or more `SELECT` statements into a single results set.
 
-Key points to keep in mind when using the `UNION` clause:
+**Note when using the `UNION` clause**:
 
- - the number of columns in the column list must be the same
- - the columns in the column list must be in the same order
- - the data types in the column list must be the same or compatible  
+- The number of columns in each result set must be the same
+- Columns must be in the same order
+- Columns must be the same or compatible data types
 
 - [Syntax](#syntax)
 - [Examples](#examples)
