@@ -25,7 +25,7 @@ The ORDER BY clause orders results by the referenced expression.  The result ord
 **Note:** If your query includes a `GROUP BY` clause, the `ORDER BY` clause must appear **after** the `GROUP BY` clause.
 {{% /note %}}
 
-### Examples
+## Examples
 
 Return the most recent data points first:
 
