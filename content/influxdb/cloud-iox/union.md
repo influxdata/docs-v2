@@ -40,7 +40,7 @@ FROM
 
 ## Examples
 
-Basic `UNION` query:
+### Union results from different measurements
 
 ```sql
 SELECT "pH" as "water_pH", "time", "location"
