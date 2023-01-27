@@ -69,9 +69,9 @@ Literals are the same as constants.
 String literals are surrounded by single quotes. 
 
 ```sql
-"santa_monica"
-"pH"
-"average temperature"  
+'santa_monica'
+'pH'
+'average temperature'
 ```
 
 ### Number literals
