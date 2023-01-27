@@ -137,17 +137,19 @@ perform a calculation that returns a single numeric value.
 
 ### Comparison operators
 
-Comparison operators compare numbers or strings and perform evaluations. They are used in the `WHERE` clause.
+Comparison operators evaluate the relationship between the left and right operands and `TRUE` or `FALSE`.
 
-| Operator | Meaning                  | Example    |
-| :------: | :----------------------- | :--------- |
-|   `=`    | equal to                 | 123 = 123  |
-|   `<>`   | not equal to             | 123 <> 456 |
-|   `!=`   | not equal to             | 123 != 456 |
-|   `>`    | greater than             | 3 > 2      |
-|   `>=`   | greater than or equal to | 3 >=2      |
-|   `<`    | less than                | 1 < 2      |
-|   `<=`   | less than or equal to    | 1<= 2      |
+| Operator | Meaning                               | Example          |
+| :------: | :------------------------------------ | :--------------- |
+|   `=`    | Equal to                              | `123 = 123`      |
+|   `<>`   | Not equal to                          | `123 <> 456`     |
+|   `!=`   | Not equal to                          | `123 != 456`     |
+|   `>`    | Greater than                          | `3 > 2`          |
+|   `>=`   | Greater than or equal to              | `3 >= 2`         |
+|   `<`    | Less than                             | `1 < 2`          |
+|   `<=`   | Less than or equal to                 | `1 <= 2`         |
+|   `~`    | Matches a regular expression          | `'abc' ~ 'a.*'`  |
+|   `!~`   | Does not matches a regular expression | `'abc' !~ 'd.*'` |
 
 ## Keywords
 
