@@ -13,4 +13,8 @@ influxdb/cloud-iox/tags: [query, sql]
 
 Learn to query data stored in InfluxDB using SQL.
 
-{{< children readmore=true >}}
+{{< children type="anchored-list" >}}
+
+---
+
+{{< children readmore=true hr=true >}}

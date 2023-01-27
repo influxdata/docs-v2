@@ -9,21 +9,16 @@ menu:
     name: Basic query
     parent: Query with SQL
     identifier: query-sql-basic
-weight: 201
+weight: 202
 influxdb/cloud-iox/tags: [query, sql]
 list_code_example: |
-  ```js
+  ```sql
   SELECT temp, room FROM home WHERE time >= now() - INTERVAL '1 day'
   ```
 ---
 
 InfluxDB Cloud's SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
 query engine which provides a SQL syntax similar to other relational query languages.
-
-<!--
-TO-DO
-- Sample data
--->
 
 A basic SQL query that queries data from InfluxDB most commonly includes the
 following clauses:
@@ -33,22 +28,41 @@ following clauses:
 - {{< req "\*">}} `SELECT`: Identify specific fields and tags to query from a
   measurement or use the wild card alias (`*`) to select all fields and tags
   from a measurement.
-- {{< req "\*">}} `FROM`: Identify the measurement to query.
-  If coming from a SQL background, an InfluxDB measurement is the equivalent 
-  of a relational table.
+- {{< req "\*">}} `FROM`: Identify the measurement to query from.
 - `WHERE`: Only return data that meets defined conditions such as falling within
   a time range, containing specific tag values, etc.
 
 {{% influxdb/custom-timestamps %}}
 ```sql
 SELECT
-  temp, hum, room
-FROM
-  home
+  temp,
+  hum,
+  room
+FROM home
 WHERE
-  time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
 ```
 {{% /influxdb/custom-timestamps %}}
+
+## Basic query examples
+
+- [Query data within time boundaries](#query-data-within-time-boundaries)
+- [Query data without time boundaries](#query-data-without-time-boundaries)
+- [Query specific fields and tags](#query-specific-fields-and-tags)
+- [Query fields based on tag values](#query-fields-based-on-tag-values)
+- [Query points based on field values](#query-points-based-on-field-values)
+- [Alias queried fields and tags](#alias-queried-fields-and-tags)
+
+{{% note %}}
+#### Sample data
+
+The following examples use the sample data written in the
+[Get started writing data guide](/influxdb/cloud-iox/get-started/write/).
+To run the example queries and return results,
+[write the sample data](/influxdb/cloud-iox/get-started/write/#write-line-protocol-to-influxdb)
+to your InfluxDB Cloud bucket before running the example queries.
+{{% /note %}}
 
 ### Query data within time boundaries
 
@@ -59,15 +73,15 @@ WHERE
   Include time-based predicates that compare the value of the `time` column to a timestamp.
   Use the `AND` logical operator to chain multiple predicates together.
 
+{{% influxdb/custom-timestamps %}}
 ```sql
-SELECT
-  *
-FROM
-  measurement
+SELECT *
+FROM home
 WHERE
   time >= '2022-01-01T08:00:00Z'
-  AND time <= '2022-01-01T20:00:00Z'
+  AND time <= '2022-01-01T12:00:00Z'
 ```
+{{% /influxdb/custom-timestamps %}}
 
 Query time boundaries can be relative or absolute.
 
@@ -78,18 +92,16 @@ To query data from relative time boundaries, compare the value of the `time`
 column to a timestamp calculated by subtracting an interval from a timestamp.
 Use `now()` to return the timestamp for the current time (UTC).
 
-##### Query all data from the last day
+##### Query all data from the last month
 
 ```sql
-SELECT * FROM measurement WHERE time >= now() - INTERVAL '1 day'
+SELECT * FROM home WHERE time >= now() - INTERVAL '1 month'
 ```
 
 ##### Query one day of data data from a week ago
 ```sql
-SELECT
-  *
-FROM
-  measurement
+SELECT *
+FROM home
 WHERE
   time >= now() - INTERVAL '7 days'
   AND time <= now() - INTERVAL '6 days'
@@ -103,15 +115,17 @@ to a timestamp literals.
 Use the `AND` logical operator to chain together multiple predicates and define
 both start and stop boundaries for the query.
 
+{{% influxdb/custom-timestamps %}}
 ```sql
 SELECT
   *
 FROM
-  measurement
+  home
 WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time <= '2022-01-01T20:00:00Z'
 ```
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -127,7 +141,7 @@ The query may take a long time to complete and results may be truncated.
 {{% /warn %}}
 
 ```sql
-SELECT * FROM measurement
+SELECT * FROM home
 ```
 
 ### Query specific fields and tags
@@ -138,7 +152,7 @@ If the field or tag keys include special characters or spaces or are case-sensit
 wrap the key in _double-quotes_.
 
 ```sql
-SELECT field1, field2, tag1 FROM measurement
+SELECT time, room, temp, hum FROM home
 ```
 
 ### Query fields based on tag values
@@ -151,7 +165,7 @@ SELECT field1, field2, tag1 FROM measurement
   multiple conditions.
 
 ```sql
-SELECT * FROM measurement WHERE tag1 = 'value1'
+SELECT * FROM home WHERE room = 'Kitchen'
 ```
 
 ### Query points based on field values
@@ -163,17 +177,18 @@ SELECT * FROM measurement WHERE tag1 = 'value1'
   and apply multiple conditions.
 
 ```sql
-SELECT field1 FROM measurement WHERE field1 >= 10 OR field <= -10
+SELECT co, time FROM home WHERE co >= 10 OR co <= -10
 ```
 
 ### Alias queried fields and tags
+
 To alias or rename fields and tags that you query, pass a string literal after
 the field or tag identifier in the `SELECT` clause.
 You can use the `AS` clause to define the alias, but it isn't necessary.
 The following queries are functionally the same:
 
 ```sql
-SELECT field1 'one', field2 'two' FROM measurement
+SELECT temp 'temperature', hum 'humidity' FROM home
 
-SELECT field1 AS 'one', field2 AS 'two' FROM measurement
+SELECT temp AS 'temperature', hum AS 'humidity' FROM home
 ```
