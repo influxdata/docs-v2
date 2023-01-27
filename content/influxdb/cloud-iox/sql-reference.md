@@ -66,7 +66,7 @@ Literals are the same as constants.
 
 ### String literals
 
-String literals must be surrounded by double quotes. 
+String literals are surrounded by single quotes. 
 
 ```sql
 "santa_monica"
