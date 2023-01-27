@@ -39,6 +39,7 @@ General quoting guidelines:
 - Double-quote identifiers that contain special characters or whitespace characters.
 
 ##### Quoting examples
+
 ```sql
 -- Double-quote identifiers that contain whitespace
 SELECT "water temperature", "buoy location" FROM buoy
@@ -59,10 +60,9 @@ Unquoted identifiers **are not** case-sensitive and match any measurement, tag k
 For example, if you have two fields in a measurement named `ph` and `pH`, the unquoted identifier, `pH` will match both.
 To query in a case-sensitive manner, double-quote identifiers.
 
-
 ## Literals
 
-Literals are the same as constants.  
+A literal is an explicit value not represented by an identifier.
 
 ### String literals
 
@@ -105,7 +105,6 @@ The following date and time literals are supported:
 1643610630123000000::TIMESTAMP -- (Unix epoch nanosecond cast to a timestamp)
 ```
 
-
 ### Boolean literals
 
 Boolean literals are either `TRUE` or `FALSE`. 
@@ -117,6 +116,7 @@ Interval literals specify a length or unit of time.
 ```sql
 INTERVAL '4 minutes'
 INTERVAL '12 days 6 hours 30 minutes'
+```
 
 ## Operators
 
@@ -153,41 +153,43 @@ Comparison operators evaluate the relationship between the left and right operan
 
 ## Keywords
 
-Reserved key words canot be used as identifiers.
+The following reserved key words cannot be used as identifiers.
 
-| Keyword         | Description                                                                                                                                                                                                                      |
-| :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| AND             | Operator which includes columns where all conditions are true. Use with the `WHERE` clause.                                                                                                                                      |
-| ALL             | Returns boolean TRUE if all subquery values have met the specified condition.                                                                                                                                                    |
-| AS              | Renames a column with an alias.  Use in `CAST` operations.                                                                                                                                                                       |
-| ASC             | Sorts query results in ascending order.                                                                                                                                                                                          |
-| BOTTOM          | Specifies the bottom number of records to return.                                                                                                                                                                                |
-| DESC            | Sorts query results in descending order.                                                                                                                                                                                         |
-| DISTINCT        | Selects only distinct values.                                                                                                                                                                                                    |
-| EXISTS          | Find all rows in a relation where a correlated subquery produces one or more matches for that row. Only correlated subqueries are supported.                                                                                     |
-| EXPLAIN         | Shows the logical and physical execution plan for a specified SQL statement.                                                                                                                                                     |
-| FROM            | Specifies the measurement from which to select data.                                                                                                                                                                             |
-| GROUP BY        | Groups results by aggregate function.                                                                                                                                                                                            |
-| HAVING          | Places conditions on results created by the GROUP BY clause.                                                                                                                                                                     |
-| IN              | Find all rows in a relation where a given expression’s value can be found in the results of a correlated subquery .                                                                                                              |
-| INNER JOIN      | A join that only returns rows where there is a match in both tables .                                                                                                                                                            |
-| JOIN            | Combines results from two or more tables into one data set.                                                                                                                                                                      |
-| LEFT JOIN       | Gathers data from all rows in the left table regardless of whether there is a match in the right table.                                                                                                                          |
-| LIMIT           | Limits the number of rows in the result.                                                                                                                                                                                         |
-| NOT EXISTS      | Find all rows in a relation where a correlated subquery produces zero matches for that row. Only correlated subqueries are supported.                                                                                            |
-| NOT IN          | Find all rows in a relation where a given expression’s value can not be found in the results of a correlated subquery.                                                                                                           |
-| OR              | Operator used to test one or more conditions and return a result where the condition is met. Use with the `WHERE` clause.                                                                                                        |
-| ORDER BY        | Orders results by the referenced expression.                                                                                                                                                                                     |
-| FULL OUTER JOIN | A join that is effectively a union of a LEFT OUTER JOIN and RIGHT OUTER JOIN. It will show all rows from the left and right side of the join and will produce null values on either side of the join where there is not a match. |
-| RIGHT JOIN      | A join that includes all rows from the right table even if there is not a match in the left table. When there is no match, null values are produced for the left side of the join.                                               |
-| SELECT          | Retrieves rows from a table (measurement).                                                                                                                                                                                       |
-| SELECT DISTINCT | Returns only distinct (different) values from a table (measurement).                                                                                                                                                             |
-| TOP             | Specifies the top number of records to return.                                                                                                                                                                                   |
-| TYPE            | Groups by common characteristics.                                                                                                                                                                                                |
-| UNION           | Used to combine the result set of at least two queries. Keeps only unique records.                                                                                                                                               |
-| UNION  ALL      | Like UNION, but keeps all records, including duplicates.                                                                                                                                                                         |
-| WHERE           | Used to filter results based on fields, tags, and/or timestamps.                                                                                                                                                                 |
-| WITH            | Provides the ability to write auxiliary statements for use in a larger query.                                                                                                                                                    |
+```sql
+AND 
+ALL  
+AS  
+ASC  
+BOTTOM 
+CASE
+DESC 
+DISTINCT                                       
+EXISTS                                                      
+EXPLAIN  
+EXPLAIN ANALYZE   
+FROM                     
+GROUP BY                                          
+HAVING                                          
+IN                                                
+INNER JOIN  
+JOIN  
+LEFT JOIN
+LIMIT  
+NOT EXISTS                                                                                                   
+NOT IN                                                     
+OR                                                                                     
+ORDER BY                                      
+FULL OUTER JOIN 
+RIGHT JOIN                            
+SELECT                                                      
+SELECT DISTINCT
+TOP                                                
+TYPE  
+UNION 
+UNION ALL
+WHERE  
+WITH  
+```
 
 ## Conditional expressions
 
@@ -207,14 +209,14 @@ InfluxDB SQL supports the following basic syntax for queries:
 ```sql
 [ WITH with_query [, …] ]  
 SELECT [ ALL | DISTINCT ] select_expr [, …]  
-  [ FROM from_item [, …] ]  
-  [ JOIN join_item [, …] ]  
-  [ WHERE condition ]  
-  [ GROUP BY grouping_element [, …] ]  
-  [ HAVING condition]  
-  [ UNION [ ALL ] ]
-  [ ORDER BY expression [ ASC | DESC ][, …] ]  
-  [ LIMIT count ]  
+[ FROM from_item [, …] ]  
+[ JOIN join_item [, …] ]  
+[ WHERE condition ]  
+[ GROUP BY grouping_element [, …] ]  
+[ HAVING condition]  
+[ UNION [ ALL ] ]
+[ ORDER BY expression [ ASC | DESC ][, …] ]  
+[ LIMIT count ]  
 ```
 
 ### SELECT statement and FROM clause
