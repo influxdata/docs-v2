@@ -395,21 +395,27 @@ ORDER BY
   "time" DESC
 ```
 
-### The LIMIT clause
+### LIMIT clause
 
-The `LIMIT` clause limits the number of rows to be a maximum of count rows. The count should be a non-negative integer.
+The `LIMIT` clause limits the number of rows to return.
+The defined limit should be a non-negative integer.
 
 #### Examples
 
 ```sql
-SELECT "water_level","location" 
-FROM "h2o_feet" 
-LIMIT 10
+SELECT 
+  "water_level", 
+  "location" 
+FROM 
+  "h2o_feet" 
+LIMIT 
+  10
 ```
 
-### The WITH clause 
+### WITH clause 
 
-The `WITH` clause provides a way to write auxiliary statements for use in a larger query.  It can help break down large, complicated queries into simpler forms. 
+The `WITH` clause provides a way to write auxiliary statements for use in a larger query.
+It can help break down large, complicated queries into simpler forms. 
 
 ```sql
 WITH summary_data as
@@ -418,9 +424,11 @@ WITH summary_data as
 SELECT * FROM summary_data
 ```
 
-### The OVER clause 
+### OVER clause 
 
-The `OVER` clause is used with SQL window functions. A `window function` performs a calculation across a set of table rows that are related in some way to the current row. While similar to aggregate functions, window functions output results into rows retaining their separate identities.   
+The `OVER` clause is used with SQL window functions.
+A **window function** performs a calculation across a set of table rows that are related in some way to the current row.
+ While similar to aggregate functions, window functions output results into rows retaining their separate identities.   
 
 ```sql
 SELECT 
