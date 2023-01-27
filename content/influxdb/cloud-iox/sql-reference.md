@@ -308,7 +308,7 @@ FROM
   AND h2o_feet.time = h2o_temperature.time
 ```
 
-The FULL JOIN or FULL OUTER JOIN will return all rows from the left and the right side fo the JOIN and will produce NULL values where there is no match.
+The `FULL JOIN` and `FULL OUTER JOIN` clauses return all rows from the left and the right side of the join with `NULL` values where there is no match.
 
 ```sql
 SELECT *
