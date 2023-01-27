@@ -437,21 +437,12 @@ Use comments to describe and add detail and notes to your queries.
  - Single line comments use the double hyphen `--` symbol. Single line comments end with a line break.
  - Multi-line comments begin with `/*` and end with ` */`. Multi-line comments span multiple lines. 
 
- ```sql
- Single line comments:
+```sql
+-- Single-line comment
 
--- Examples
-
-SELECT COUNT("water_level") --no timestamp needed
-FROM "h2o_feet"
-
-Multiline comments:
-
-/* author:
- * date:
+/* 
+ * Multi-line comment
  */
-SELECT COUNT("water_level")
-FROM "h2o_feet"
 ```
 
 ## Schema information
