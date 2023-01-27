@@ -285,7 +285,8 @@ FROM
   INNER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
   AND h2o_feet.time = h2o_temperature.time
 ```
-The LEFT JOIN or LEFT OUTER JOIN clause gathers data from all rows in the left table regardless of whether there is a match in the right table. 
+
+The `LEFT JOIN` and `LEFT OUTER JOIN` clauses gather data from all rows in the left table regardless of whether there is a match in the right table. 
 
 ```sql
 SELECT 
