@@ -55,7 +55,9 @@ SELECT "pH" FROM "Water"
 {{% /note %}}
 
 
-Unquoted identifiers **are not** case sensitive.  When a table is created, the case of a column is automatically stored in lowercase **unless** the column name is quoted.  The column name `pH` must be quoted in order to preserve the lowercase p and uppercase H. 
+Unquoted identifiers **are not** case-sensitive and match any measurement, tag key, or field key with the same characters, despite case.
+For example, if you have two fields in a measurement named `ph` and `pH`, the unquoted identifier, `pH` will match both.
+To query in a case-sensitive manner, double-quote identifiers.
 
 The following query will return an error if the measurement `h2o-pH` and the field `pH` are not double quoted:
 
