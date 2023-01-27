@@ -375,7 +375,12 @@ FROM
 
 ### The ORDER BY clause 
 
-The `ORDER BY` clause orders results by the referenced expression.  The result order is `ASC` **by default**.  You can filter data based on fields, tags, and/or timestamps.
+The `ORDER BY` clause orders results by specified columns and order.
+Sort data based on fields, tags, and timestamps.
+The following orders are supported:
+
+- `ASC`: ascending _(default)_
+- `DESC`: descending
 
 #### Examples
 
