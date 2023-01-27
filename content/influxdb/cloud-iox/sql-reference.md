@@ -240,13 +240,16 @@ Rows that evaluate as `FALSE` are omitted from the result set.
 #### Examples
 
 ```sql
-SELECT * 
-FROM "h2o_feet" 
-WHERE "water_level"  <= 9
-
-SELECT * 
-FROM "h2o_feet" 
-WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet' 
+SELECT * FROM "h2o_feet" WHERE "water_level" <= 9
+```
+```sql
+SELECT 
+  * 
+FROM 
+  "h2o_feet" 
+WHERE 
+  "location" = 'santa_monica' 
+  AND "level description" = 'below 3 feet'
 ```
 
 ### The JOIN clause 
