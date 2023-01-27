@@ -24,7 +24,7 @@ InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implement
 
 ## Identifiers
 
-An identifier is a token which refers to the name of an InfluxDB database object, such as a `bucket`, `measurement`, `tag`, or `field`.
+An identifier is a token which refers to the name of an InfluxDB database object, such as a **measurement** or a column name (**time**, **tag keys**, or **field keys**).
 
 ## Quoting and case sensitivity
 
