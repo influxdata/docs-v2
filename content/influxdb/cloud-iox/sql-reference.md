@@ -333,7 +333,7 @@ GROUP BY
   "location"
 ```
 
-### The HAVING clause
+### HAVING clause
 
  Use the `HAVING` clause to filter query results based on a specified condition.
  The `HAVING` clause must _follow_ the `GROUP BY` clause, but _precede_ the `ORDER BY` clause.
