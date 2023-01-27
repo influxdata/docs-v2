@@ -278,10 +278,12 @@ Use the `JOIN` clause to join data from multiple measurements (tables).  The fol
 The `INNER JOIN` clause gathers data where there is a match between the two measurements being joined.
 
 ```sql
-SELECT *
-FROM h2o_feet
-INNER JOIN h2o_temperature
-ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperature.time
+SELECT 
+  * 
+FROM 
+  h2o_feet 
+  INNER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
+  AND h2o_feet.time = h2o_temperature.time
 ```
 The LEFT JOIN or LEFT OUTER JOIN clause gathers data from all rows in the left table regardless of whether there is a match in the right table. 
 
