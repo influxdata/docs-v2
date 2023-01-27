@@ -286,10 +286,12 @@ ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperat
 The LEFT JOIN or LEFT OUTER JOIN clause gathers data from all rows in the left table regardless of whether there is a match in the right table. 
 
 ```sql
-SELECT *
-FROM h2o_feet
-LEFT OUTER JOIN h2o_temperature
-ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperature.time
+SELECT 
+  * 
+FROM 
+  h2o_feet 
+  LEFT OUTER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
+  AND h2o_feet.time = h2o_temperature.time
 ```
 
 The RIGHT JOIN or RIGHT OUTER JOIN clause gathers data from all rows in the right table regardless of whether there is a match in the left table
