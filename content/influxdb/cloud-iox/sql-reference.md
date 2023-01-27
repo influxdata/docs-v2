@@ -357,7 +357,7 @@ ORDER BY "time"
 
 ### UNION clause
 
-The `UNION` clause combines the results of two or more SELECT statements without returning any duplicate rows. `UNION ALL` returns all results, including duplicates. 
+The `UNION` clause combines the results of two or more `SELECT` statements without returning any duplicate rows. `UNION ALL` returns all results, including duplicates. 
 
 #### Examples
 
