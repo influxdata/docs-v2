@@ -127,12 +127,13 @@ Operators are reserved words or characters which perform certain operations, inl
 Arithmetic operators take two numeric values (either literals or variables) and
 perform a calculation that returns a single numeric value.
 
-| Operator | Description    | Example  | Result |
-|:--------:|:-----------    | -------  | ------ |
-| `+`      | Addition       | `2 + 2`  | `4`    |
-| `-`      | Subtraction    | `4 - 2`  | `2`    |
-| `*`      | Multiplication | `2 * 3`  | `6`    |
-| `/`      | Division       | `6 / 3`  | `2`    |
+| Operator | Description    | Example | Result |
+| :------: | :------------- | ------- | -----: |
+|   `+`    | Addition       | `2 + 2` |    `4` |
+|   `-`    | Subtraction    | `4 - 2` |    `2` |
+|   `*`    | Multiplication | `2 * 3` |    `6` |
+|   `/`    | Division       | `6 / 3` |    `2` |
+|   `%`    | Modulo         | `7 % 2` |    `1` |
 
 ### Comparison operators
 
