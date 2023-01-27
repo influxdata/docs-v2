@@ -124,8 +124,8 @@ Operators are reserved words or characters which perform certain operations, inl
 
 ### Arithmetic operators
 
-Arithmetic operators take two numerical values (either literals or variables) and
-perform a calculation that returns a single numerical value.
+Arithmetic operators take two numeric values (either literals or variables) and
+perform a calculation that returns a single numeric value.
 
 | Operator | Description    | Example  | Result |
 |:--------:|:-----------    | -------  | ------ |
