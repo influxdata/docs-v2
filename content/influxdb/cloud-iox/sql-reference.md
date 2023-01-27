@@ -54,7 +54,6 @@ SELECT "pH" FROM "Water"
 **Note:** We recommend always double-quoting identifiers, regardless of case-sensitivity.
 {{% /note %}}
 
-In some cases, however, using single quotes and misquoting identifiers will return inaccurate results. To avoid this, it is recommended that you double quote identifiers.
 
 Unquoted identifiers **are not** case sensitive.  When a table is created, the case of a column is automatically stored in lowercase **unless** the column name is quoted.  The column name `pH` must be quoted in order to preserve the lowercase p and uppercase H. 
 
