@@ -300,10 +300,12 @@ FROM
 The `RIGHT JOIN` and `RIGHT OUTER JOIN` clauses gather data from all rows in the right table regardless of whether there is a match in the left table
 
 ```sql
-SELECT *
-FROM h2o_feet
-RIGHT OUTER JOIN h2o_temperature
-ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperature.time
+SELECT 
+  * 
+FROM 
+  h2o_feet 
+  RIGHT OUTER JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
+  AND h2o_feet.time = h2o_temperature.time
 ```
 
 The FULL JOIN or FULL OUTER JOIN will return all rows from the left and the right side fo the JOIN and will produce NULL values where there is no match.
