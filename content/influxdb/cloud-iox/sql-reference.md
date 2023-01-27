@@ -411,12 +411,23 @@ SELECT * FROM summary_data
 The `OVER` clause is used with SQL window functions. A `window function` performs a calculation across a set of table rows that are related in some way to the current row. While similar to aggregate functions, window functions output results into rows retaining their separate identities.   
 
 ```sql
-SELECT time, water_level 
-FROM
-(SELECT time, "water_level", row_number() 
- OVER (order by water_level desc) as rn 
-FROM h2o_feet) 
-WHERE rn <= 3;
+SELECT 
+  time, 
+  water_level 
+FROM 
+  (
+    SELECT 
+      time, 
+      "water_level", 
+      row_number() OVER (
+        order by 
+          water_level desc
+      ) as rn 
+    FROM 
+      h2o_feet
+  ) 
+WHERE 
+  rn <= 3;
 ```
 
 ## Comments
