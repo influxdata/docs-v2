@@ -26,7 +26,10 @@ InfluxDB Cloud backed by InfluxDB IOx uses the Apache Arrow DataFusion implement
 
 An identifier is a token which refers to the name of an InfluxDB database object, such as a **measurement** or a column name (**time**, **tag keys**, or **field keys**).
 
-## Quoting and case sensitivity
+## Quoting
+
+Use double quotes on [identifiers](#identifiers) to treat them as case-sensitive.
+Use single quotes on string literals.
 
 Rules for quoting:
 
