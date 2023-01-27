@@ -355,7 +355,7 @@ HAVING MEAN("water_level") > 9.8
 ORDER BY "time"
 ```
 
-### The UNION clause
+### UNION clause
 
 The `UNION` clause combines the results of two or more SELECT statements without returning any duplicate rows. `UNION ALL` returns all results, including duplicates. 
 
