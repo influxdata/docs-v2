@@ -319,7 +319,7 @@ ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperat
 
 ### GROUP BY clause 
 
-Use the `GROUP BY` clause to group query results based on specified tag keys and/or a specified time interval. `GROUP BY` **requires** an aggregate or selector function in the `SELECT` statement.
+Use the `GROUP BY` clause to group query results based on specified column values. `GROUP BY` **requires** an aggregate or selector function in the `SELECT` statement.
 
 #### Examples
 
