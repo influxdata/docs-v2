@@ -324,9 +324,13 @@ Use the `GROUP BY` clause to group query results based on specified column value
 #### Examples
 
 ```sql
-SELECT MEAN("water_level"), "location"
-FROM "h2o_feet" 
-GROUP BY "location","time"
+SELECT 
+  MEAN("water_level"), 
+  "location" 
+FROM 
+  "h2o_feet" 
+GROUP BY 
+  "location"
 ```
 
 ### The HAVING clause
