@@ -297,7 +297,7 @@ FROM
   AND h2o_feet.time = h2o_temperature.time
 ```
 
-The RIGHT JOIN or RIGHT OUTER JOIN clause gathers data from all rows in the right table regardless of whether there is a match in the left table
+The `RIGHT JOIN` and `RIGHT OUTER JOIN` clauses gather data from all rows in the right table regardless of whether there is a match in the left table
 
 ```sql
 SELECT *
