@@ -38,11 +38,16 @@ General quoting guidelines:
 - Double-quote mixed case, [camel case](https://en.wikipedia.org/wiki/Camel_case) or case-sensitive identifiers.
 - Double-quote identifiers that contain special characters or whitespace characters.
 
+##### Quoting examples
 ```sql
--- Examples
-SELECT * FROM "water temperature"
-SELECT * FROM "h2o_temperature"
-SELECT "pH"
+-- Double-quote identifiers that contain whitespace
+SELECT "water temperature", "buoy location" FROM buoy
+
+-- Double-quote measurement names with special characters
+SELECT * FROM "h2o-temperature"
+
+-- Double-quote identifiers that should be treated as case-sensitive
+SELECT "pH" FROM "Water"
 ```
 
 {{% note %}}
