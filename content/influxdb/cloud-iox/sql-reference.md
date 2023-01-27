@@ -232,7 +232,10 @@ FROM "h2o_feet"
 ```
 ### WHERE clause
 
-Use the `WHERE` clause to filter results based on `fields`, `tags`, and/or `timestamps`.
+Use the `WHERE` clause to filter results based on `fields`, `tags`, and `timestamps`.
+Use predicates to evaluate each row.
+Rows that evaluate as `TRUE` are returned in the result set.
+Rows that evaluate as `FALSE` are omitted from the result set.
 
 #### Examples
 
