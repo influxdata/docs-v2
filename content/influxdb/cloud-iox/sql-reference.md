@@ -74,7 +74,7 @@ String literals are surrounded by single quotes.
 'average temperature'
 ```
 
-### Number literals
+### Numeric literals
 
 Number literals are positive or negative numbers that are either exact numbers or floats.
 
