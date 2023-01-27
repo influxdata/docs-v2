@@ -432,10 +432,10 @@ WHERE
 
 ## Comments
 
-Use comments to describe and add detail and notes to your queries.  
+Use comments to describe and add detail or notes to your queries.  
 
- - Single line comments use the double hyphen `--` symbol. Single line comments end with a line break.
- - Multi-line comments begin with `/*` and end with ` */`. Multi-line comments span multiple lines. 
+- Single line comments use the double hyphen `--` symbol. Single line comments end with a line break.
+- Multi-line comments begin with `/*` and end with ` */`.
 
 ```sql
 -- Single-line comment
