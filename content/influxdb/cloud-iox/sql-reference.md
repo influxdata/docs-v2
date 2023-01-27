@@ -275,7 +275,7 @@ Use the `JOIN` clause to join data from multiple measurements (tables).  The fol
 {{< /flex-content >}}
 {{< /flex >}}
 
-The INNER JOIN clause gathers data where there is a match between the two measurements being joined.
+The `INNER JOIN` clause gathers data where there is a match between the two measurements being joined.
 
 ```sql
 SELECT *
