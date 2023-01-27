@@ -112,29 +112,11 @@ Boolean literals are either `TRUE` or `FALSE`.
 
 ## Duration units
 
-Duration units specify a length or unit of time.  You must spell out the entire unit of time or the SQL query will error.
+Interval literals specify a length or unit of time. 
 
 ```sql
---Correct:
-interval'400 minutes'
-
---Incorrect:
-interval'400m'
-```
-
-Supported durations:
-| Unit         | Meaning                  |
-| :----------- | :----------------------- |
-| nanoseconds  | 1 billionth of a second  |
-| microseconds | 1 millionth of a second  |
-| milliseconds | 1 thousandth of a second |
-| second       |                          |
-| minute       | 60 seconds               |
-| hour         | 60 minutes               |
-| day          | 24 hours                 |
-| week         | calendar week            |
-| month        | calendar month           |
-| year         | calendar year            |
+INTERVAL '4 minutes'
+INTERVAL '12 days 6 hours 30 minutes'
 
 ## Operators
 
