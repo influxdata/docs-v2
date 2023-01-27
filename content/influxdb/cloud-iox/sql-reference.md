@@ -105,19 +105,6 @@ The following date and time literals are supported:
 1643610630123000000::TIMESTAMP -- (Unix epoch nanosecond cast to a timestamp)
 ```
 
-All dates and times in RFC3339 and RFC3339-like format must be in single quotes.  Unix epoch timestamps do not need any quotes and must be cast to `::timestamp`.
-
-```sql
---RFC3339 examples
-'2019-09-01T00:00:00Z'::timestamp
-'2019-08-19T00:00:00.123Z'::TIMESTAMP
-'2019-09-03 00:12:00'
-'2019-08-18 06:30:30'
-
---Unix epoch examples
-1566176400::timestamp
-1567296000000000000:TIMESTAMP
-```
 
  ### Boolean literals
 
