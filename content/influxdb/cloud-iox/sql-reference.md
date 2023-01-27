@@ -230,7 +230,7 @@ FROM "h2o_feet"
 SELECT "location","water_level","time"
 FROM "h2o_feet"
 ```
-### The WHERE clause
+### WHERE clause
 
 Use the `WHERE` clause to filter results based on `fields`, `tags`, and/or `timestamps`.
 
