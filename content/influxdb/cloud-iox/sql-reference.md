@@ -97,12 +97,13 @@ Number literals are positive or negative numbers that are either exact numbers o
 
 The following date and time literals are supported:
 
- - 2022-01-31T06:30:30.123Z (RFC3339) 
- - 2022-01-31T06:30:30.123 (RFC3339-like)
- - 2022-01-31 06:30:30.123 (RFC3339-like)
- - 2022-01-31 06:30:30 ((RFC3339-like, no fractional seconds) 
- - 1567296000000000000 (Unix epoch nanosecond) - must cast to `::timestamp` in queries
- - 1566176400 (Unix epoch second) -  must cast to `::timestamp` in queries
+```sql
+'2022-01-31T06:30:30.123Z'     -- (RFC3339) 
+'2022-01-31T06:30:30.123'      -- (RFC3339-like)
+'2022-01-31 06:30:30.123'      -- (RFC3339-like)
+'2022-01-31 06:30:30'          -- ((RFC3339-like, no fractional seconds) 
+1643610630123000000::TIMESTAMP -- (Unix epoch nanosecond cast to a timestamp)
+```
 
 All dates and times in RFC3339 and RFC3339-like format must be in single quotes.  Unix epoch timestamps do not need any quotes and must be cast to `::timestamp`.
 
