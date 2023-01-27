@@ -254,7 +254,7 @@ WHERE
 
 ### JOIN clause 
 
-Use the JOIN clause to join data from multiple measurements (tables).  The following joins are supported:
+Use the `JOIN` clause to join data from multiple measurements (tables).  The following joins are supported:
 
 {{< flex >}}
 {{< flex-content "quarter" >}}
