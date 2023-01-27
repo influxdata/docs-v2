@@ -46,15 +46,7 @@ SELECT "pH"
 ```
 
 {{% note %}}
-**Note:** It is a best practice to always double quote identiifiers, regardless of whether they are case sensitive or not.  The following queries will both return results:
-
-```sql
-SELECT location, water_level 
-FROM h2o_feet
-
-SELECT "location","water_level" 
-FROM "h2o_feet"
-```
+**Note:** We recommend always double-quoting identifiers, regardless of case-sensitivity.
 {{% /note %}}
 
 In some cases, however, using single quotes and misquoting identifiers will return inaccurate results. To avoid this, it is recommended that you double quote identifiers.
