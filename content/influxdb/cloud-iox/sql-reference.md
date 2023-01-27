@@ -217,7 +217,7 @@ SELECT [ ALL | DISTINCT ] select_expr [, …]
   [ LIMIT count ]  
 ```
 
-### The SELECT statement and FROM clause
+### SELECT statement and FROM clause
 
 Use the SQL `SELECT` statement to query data from a specific measurement or measurements. The `FROM` clause always accompanies the `SELECT` statement.  
 
