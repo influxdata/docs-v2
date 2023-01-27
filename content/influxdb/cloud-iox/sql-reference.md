@@ -192,12 +192,11 @@ Reserved key words canot be used as identifiers.
 ## Conditional expressions
 
 Conditional expressions evaluate conditions based on input values.
-
 The following conditional expressions are supported:
 
 | Expression | Description                                                        |
 | :--------- | :----------------------------------------------------------------- |
-| CASE       | Allows for use of IF-TEHN-ELSE statements.                          |
+| CASE       | Allows for use of WHEN-THEN-ELSE statements.                       |
 | COALESCE   | Returns the first non-NULL expression in a specified list.         |
 | NULLIF     | Returns a NULL value if value1 = value2. Otherwise returns value1. |
 
