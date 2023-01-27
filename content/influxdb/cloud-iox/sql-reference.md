@@ -79,9 +79,16 @@ String literals are surrounded by single quotes.
 Number literals are positive or negative numbers that are either exact numbers or floats.
 
 ```sql
+-- Integers
 10
 +10
 -10
+
+-- Unsigned integers
+10::BIGINT UNSIGNED
++10::BIGINT UNSIGNED
+
+-- Floats
 10.78654
 -100.56
 ```
