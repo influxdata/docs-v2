@@ -252,7 +252,7 @@ WHERE
   AND "level description" = 'below 3 feet'
 ```
 
-### The JOIN clause 
+### JOIN clause 
 
 Use the JOIN clause to join data from multiple measurements (tables).  The following joins are supported:
 
