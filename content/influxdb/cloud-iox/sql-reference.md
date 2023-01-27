@@ -335,7 +335,8 @@ GROUP BY
 
 ### The HAVING clause
 
- Use the `HAVING` clause to filter query results based on a specified condition. The `HAVING` clause must follow the `GROUP BY` clause but precedes the `ORDER BY` clause.
+ Use the `HAVING` clause to filter query results based on a specified condition.
+ The `HAVING` clause must _follow_ the `GROUP BY` clause, but _precede_ the `ORDER BY` clause.
 
 #### Examples
 
