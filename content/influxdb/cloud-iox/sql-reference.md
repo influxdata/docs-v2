@@ -373,7 +373,7 @@ FROM
   "h2o_quality"
 ```
 
-### The ORDER BY clause 
+### ORDER BY clause 
 
 The `ORDER BY` clause orders results by specified columns and order.
 Sort data based on fields, tags, and timestamps.
