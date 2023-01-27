@@ -106,7 +106,7 @@ The following date and time literals are supported:
 ```
 
 
- ### Boolean literals
+### Boolean literals
 
 Boolean literals are either TRUE or FALSE. 
 
