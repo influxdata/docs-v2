@@ -59,12 +59,6 @@ Unquoted identifiers **are not** case-sensitive and match any measurement, tag k
 For example, if you have two fields in a measurement named `ph` and `pH`, the unquoted identifier, `pH` will match both.
 To query in a case-sensitive manner, double-quote identifiers.
 
-The following query will return an error if the measurement `h2o-pH` and the field `pH` are not double quoted:
-
-```sql
-SELECT "pH", location, time
-FROM "h2o_pH"
-```
 
 ## Literals
 
