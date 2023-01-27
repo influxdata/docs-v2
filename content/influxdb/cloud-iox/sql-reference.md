@@ -31,13 +31,12 @@ An identifier is a token which refers to the name of an InfluxDB database object
 Use double quotes on [identifiers](#identifiers) to treat them as case-sensitive.
 Use single quotes on string literals.
 
-Rules for quoting:
+General quoting guidelines:
 
-- Single quote RFCC3339 time durations.
-- Do not quote Unix epoch times durations.
-- Double quote database identifiers (column names).
-- Identifiers using mixed case or [camel case](https://en.wikipedia.org/wiki/Camel_case) must be in double quotes.
-- If an identifier contains whitespace it must be in double quotes.
+- Single quote RFC3339 and RFC3339-like time values.
+- Do _not_ quote Unix epoch time values (integers cast to a timestamp).
+- Double-quote mixed case, [camel case](https://en.wikipedia.org/wiki/Camel_case) or case-sensitive identifiers.
+- Double-quote identifiers that contain special characters or whitespace characters.
 
 ```sql
 -- Examples
