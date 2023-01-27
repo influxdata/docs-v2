@@ -311,10 +311,12 @@ FROM
 The `FULL JOIN` and `FULL OUTER JOIN` clauses return all rows from the left and the right side of the join with `NULL` values where there is no match.
 
 ```sql
-SELECT *
-FROM h2o_feet
-FULL JOIN h2o_temperature
-ON h2o_feet.location = h2o_temperature.location AND h2o_feet.time = h2o_temperature.time
+SELECT 
+  * 
+FROM 
+  h2o_feet
+  FULL JOIN h2o_temperature ON h2o_feet.location = h2o_temperature.location 
+  AND h2o_feet.time = h2o_temperature.time
 ```
 
 ### GROUP BY clause 
