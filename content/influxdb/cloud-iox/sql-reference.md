@@ -362,11 +362,15 @@ The `UNION` clause combines the results of two or more `SELECT` statements witho
 #### Examples
 
 ```sql
-SELECT 'pH'
-FROM "h2o_pH"
-UNION ALL
-SELECT "location"
-FROM "h2o_quality"
+SELECT 
+  'pH' 
+FROM 
+  "h2o_pH" 
+UNION ALL 
+SELECT 
+  "location" 
+FROM 
+  "h2o_quality"
 ```
 
 ### The ORDER BY clause 
