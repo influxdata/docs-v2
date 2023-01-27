@@ -447,7 +447,7 @@ Use comments to describe and add detail and notes to your queries.
 
 ## Schema information
 
-InfluxDB Cloud backed by InfluxDB IOx supports the following metedata schema queries:
+InfluxDB {{< current-version >}} backed by InfluxDB IOx supports the following metedata schema queries:
 
 ```sql
 SHOW tables
