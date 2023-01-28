@@ -17,12 +17,11 @@ Use the `GROUP BY` clause to group query results based on specified tag keys and
 ## Syntax
 
 ```sql
---Basic syntax:
-
 SELECT
-  tag 1, field 1, AGGREGATE() function, SELECTOR() function
+  AGGREGATE_FN(field1),
+  tag1
 FROM measurement
-GROUP BY tag 1
+GROUP BY tag1
 ```
 
 ## Examples
