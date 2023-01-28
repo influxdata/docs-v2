@@ -1,11 +1,10 @@
 ---
-title: The GROUP BY clause
-list_title: The GROUP BY clause
+title: GROUP BY clause
 description: > 
     Use the `GROUP BY` clause to group query results based on specified tag keys and/or a specified time interval.
 menu:
   influxdb_cloud_iox:
-    name: The GROUP BY clause
+    name: GROUP BY clause
     parent: Explore data using SQL
 weight: 240
 ---
