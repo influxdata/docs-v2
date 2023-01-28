@@ -29,15 +29,23 @@ GROUP BY tag1
 ### Group data by a tag values
 
 ```sql
-SELECT MEAN("water_level"), "location", "time"
+SELECT
+  AVG("water_level") AS "avg_water_level",
+  "location"
 FROM "h2o_feet" 
 GROUP BY "location"
 ```
-| AVG(h2o_feet.water_level) | location     |
-| :------------------------ | ------------ |
-| 5.359142420303919         | coyote_creek |
-| 3.530712094245885         | santa_monica |
-      |
+
+{{< expand-wrapper >}}}
+{{% expand "View example results" %}}
+
+|   avg_water_level | location     |
+| ----------------: | ------------ |
+| 5.359142420303919 | coyote_creek |
+| 3.530712094245885 | santa_monica |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 Group results in 15 minute time intervals by tag:
 
