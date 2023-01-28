@@ -540,8 +540,8 @@ WHERE time >= timestamp '2019-09-10T00:00:00Z' AND time <= timestamp '2019-09-19
 ### Time series functions
 
 | Function              | Description                                                                                     |
-| :-------------------- | :---------------------------------------------------------------------------------------------- |
-| TIME_BUCKET_GAPFILL() | Returns a contiguous set of time bucketed data.                                                 |
+<!-- | :-------------------- | :---------------------------------------------------------------------------------------------- |
+| TIME_BUCKET_GAPFILL() | Returns a contiguous set of time bucketed data.                                                 | -->
 | DATEBIN()             | Bins the input timestamp into a specified interval.                                             |
 | DATE_TRUNC()          | Truncates a timestamp expression based on the date part specified, such as hour, day, or month. |
 | DATE_PART()           | Returns the specified part of a date.                                                           |
@@ -550,10 +550,10 @@ WHERE time >= timestamp '2019-09-10T00:00:00Z' AND time <= timestamp '2019-09-19
                  
 #### Examples
 
-```sql
+<!-- ```sql
 SELECT time_bucket_gapfill('1 day', time) as day,
 "degrees", "location", "time"
-FROM "h2o_temperature"
+FROM "h2o_temperature" -->
 
 SELECT DATE_BIN(INTERVAL '1 hour', time, '2019-09-18T00:00:00Z'::timestamp),
 SUM(water_level)
