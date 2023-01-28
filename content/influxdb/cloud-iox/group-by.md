@@ -54,24 +54,36 @@ SELECT
   "location",
   DATE_BIN(INTERVAL '15 minutes', time, TIMESTAMP '2022-01-01 00:00:00Z') AS time,
   COUNT("water_level")  AS count
-FROM 
-  "h2o_feet"
-WHERE time >= timestamp '2019-09-17T00:00:00Z' AND time <= timestamp '2019-09-17T01:00:00Z'
-GROUP BY 1,2
-ORDER BY 1
+FROM "h2o_feet"
+WHERE 
+  time >= timestamp '2019-09-17T00:00:00Z'
+  AND time <= timestamp '2019-09-17T01:00:00Z'
+GROUP BY
+  time,
+  location
+ORDER BY
+  location,
+  time
 ```
 
-| count | location     | time                     |
-| :---- | :----------- | :----------------------- |
-| 1     | coyote_creek | 2019-09-16T23:45:00.000Z |
-| 2     | coyote_creek | 2019-09-17T00:30:00.000Z |
-| 3     | coyote_creek | 2019-09-17T00:45:00.000Z |
-| 2     | coyote_creek | 2019-09-17T00:00:00.000Z |
-| 3     | coyote_creek | 2019-09-17T00:15:00.000Z |
-| 1     | santa_monica | 2019-09-16T23:45:00.000Z |
-| 2     | santa_monica | 2019-09-17T00:30:00.000Z |
-| 3     | santa_monica | 2019-09-17T00:45:00.000Z |
-| 2     | santa_monica | 2019-09-17T00:00:00.000Z |
-| 3     | santa_monica | 2019-09-17T00:15:00.000Z |
+{{< expand-wrapper >}}}
+{{% expand "View example results" %}}
 
-The query uses a `COUNT()` function to count the number of water_level points, a `DATE_BIN()` function to group results by 15 minute intervals and an `ORDER BY 1` clause to order the results by location.
+The query uses the `COUNT()` function to count the number of `water_level` points per 15 minute interval.
+Results are then ordered by location and time.
+
+| location     | time                 | count |
+| :----------- | :------------------- | ----: |
+| coyote_creek | 2019-09-16T23:45:00Z |     1 |
+| coyote_creek | 2019-09-17T00:00:00Z |     2 |
+| coyote_creek | 2019-09-17T00:15:00Z |     3 |
+| coyote_creek | 2019-09-17T00:30:00Z |     2 |
+| coyote_creek | 2019-09-17T00:45:00Z |     3 |
+| santa_monica | 2019-09-16T23:45:00Z |     1 |
+| santa_monica | 2019-09-17T00:00:00Z |     2 |
+| santa_monica | 2019-09-17T00:15:00Z |     3 |
+| santa_monica | 2019-09-17T00:30:00Z |     2 |
+| santa_monica | 2019-09-17T00:45:00Z |     3 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
