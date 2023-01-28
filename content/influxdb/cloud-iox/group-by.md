@@ -26,7 +26,7 @@ GROUP BY tag1
 
 ## Examples
 
-Group data by a single tag key:
+### Group data by a tag values
 
 ```sql
 SELECT MEAN("water_level"), "location", "time"
