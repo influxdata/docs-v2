@@ -2,7 +2,7 @@
 title: ORDER BY clause
 list_title: ORDER BY clause
 description: > 
-    Use the `ORDER BY` clause to filter data based on fields, tags, or timestamps.
+    Use the `ORDER BY` clause to sort results by specified columns and order.
 menu:
   influxdb_cloud_iox:
     name: ORDER BY clause
@@ -10,7 +10,7 @@ menu:
 weight: 204
 ---
 
-The `ORDER BY` clause orders results by specified columns and order.
+The `ORDER BY` clause sort results by specified columns and order.
 Sort data based on fields, tags, and timestamps.
 The following orders are supported:
 
