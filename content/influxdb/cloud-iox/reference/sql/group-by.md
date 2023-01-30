@@ -1,15 +1,16 @@
 ---
 title: GROUP BY clause
 description: > 
-    Use the `GROUP BY` clause to group query results based on specified tag keys and/or a specified time interval.
+    Use the `GROUP BY` clause to group query data by column values.
 menu:
   influxdb_cloud_iox:
     name: GROUP BY clause
-    parent: Explore data using SQL
-weight: 240
+    parent: SQL reference
+weight: 203
 ---
 
-Use the `GROUP BY` clause to group query results based on specified tag keys and/or a specified time interval. `GROUP BY` requires an aggregate or selector function in the `SELECT` statement.
+Use the `GROUP BY` clause to group data by column values.
+`GROUP BY` requires an aggregate or selector function in the `SELECT` statement.
 
 - [Syntax](#syntax)
 - [Examples](#examples)

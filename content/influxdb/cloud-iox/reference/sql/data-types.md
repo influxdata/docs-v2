@@ -1,13 +1,14 @@
 ---
 title: SQL data types
+list_title: Data types
 description: >
   The InfluxDB SQL implementation supports a number of data types including 64-bit integers,
   double-precision floating point numbers, strings, and more.
 menu:
   influxdb_cloud_iox:
-    name: SQL data types
-    parent: Query data with SQL
-weight: 105
+    name: Data types
+    parent: SQL reference
+weight: 220
 ---
 
 InfluxDB Cloud backed by InfluxDB IOx uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.
