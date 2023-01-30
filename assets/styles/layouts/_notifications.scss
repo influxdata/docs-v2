@@ -1,6 +1,6 @@
 #docs-notifications {
   position: fixed;
-  top: 10px;
+  top: 65px;
   right: 10px;
   z-index: 100;
   width: calc(100vw - 20px);
@@ -19,7 +19,7 @@
     .notification-content {
       padding: 1.25rem 2.35rem .5rem 1.25rem;
       margin-bottom: 10px;
-      font-size: .95rem;
+      font-size: 1.05rem;
       color: $g20-white;
     }
 
@@ -27,7 +27,7 @@
       position: absolute;
       top: 8px;
       right: 8px;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       cursor: pointer;
       transition: color .2s;
       font-weight: bold;
@@ -57,13 +57,13 @@
       &:first-child { margin-top: 0; }
     }
 
-    h1,h2 { font-size: 1.5rem; }
-    h3 { font-size: 1.25rem; }
-    h4 { font-size: 1.1rem; }
-    h5 { font-size: 1rem; }
-    h6 { font-size: .95rem; font-style: italic; }
+    h1,h2 { font-size: 1.6rem; }
+    h3 { font-size: 1.35rem; }
+    h4 { font-size: 1.2rem; }
+    h5 { font-size: 1.1rem; }
+    h6 { font-size: 1.05rem; font-style: italic; }
 
-    p,li  { line-height: 1.4rem; }
+    p,li  { line-height: 1.5rem; }
 
     p { margin: 0 0 .75rem; }
 
