@@ -28,48 +28,15 @@ For the most performant queries, use SQL and the
 to query InfluxDB.
 
 
-## Build the Grafana FlightSQL plugin
+## Download the FlightSQL Plugin
 
 {{% warn %}}
 The Grafana FlightSQL plugin is experimental and is subject to change.
 {{% /warn %}}
 
-### Install requirements
-
-- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/)
-- [Mage](https://magefile.org/)
-- [Grafana](https://grafana.com/grafana/download) 9.2.0+
-
-### Build the FlightSQL plugin from source
-
-1.  Clone the Grafana FlightSQL plugin repository:
-
-    ```bash
-    git clone https://github.com/influxdata/grafana-flightsql-datasource.git
-    ```
-
-2.  Navigate into the clone repo:
-
-    ```sh
-    cd grafana-flightsql-datasource
-    ```
-
-3.  Use `yarn` to build the FlightSQL plugin from source:
-
-    ```sh
-    yarn build-plugin
-    ```
-
-    <div id="flightsql-plugin-path"></div>
-
-4.  Once built, navigate into the newly created `dist` directory in your
-    `grafana-flightsql-datasource` repository.
-    Use `pwd` to return the currently directory path. You will need this later.
-
-    ```
-    cd dist
-    pwd
-    ```
+```sh
+$ curl -L https://github.com/influxdata/grafana-flightsql-datasource/releases/download/v0.1.0/influxdata-flightsql-datasource-0.1.0.zip
+```
 
 ## Install the Grafana FlightSQL plugin
 
@@ -102,22 +69,14 @@ cannot be installed on or used with Grafana Cloud.
 
 <div id="custom-grafana-plugins-directory"></div>
 
-1.  **Create a directory to store the FlightSQL plugin in**.
-    This directory can be anywhere on your local filesystem.
+1. **Unzip the [FlightSQL plugin files](#flightsql-plugin-path) to your Grafana
+   plugin directory**:
 
     ```sh
-    mkdir -p grafana-plugins/influxdata-flightsql-datasource
+	unzip influxdata-grafana-datasource-0.1.0.zip -d grafana-plugins/
     ```
 
-2. **Copy the [FlightSQL plugin files](#flightsql-plugin-path) to the newly created directory**:
-
-    ```sh
-    cp -r \
-      /path/to/influxdata-flightsql-datasource/dist/* \
-      ./grafana-plugins/influxdata-flightsql-datasource/
-    ```
-
-3.  **Edit your Grafana configuration**.
+2.  **Edit your Grafana configuration**.
     
     Configure Grafana using configuration file or environment variable.
     For information about where to find your Grafana configuration file or what
@@ -176,33 +135,14 @@ docker run \
   --volume $PWD/dist:/var/lib/grafana/plugins/influxdata-flightsql-datasource \
   --publish 3000:3000 \
   --name grafana \
-  --env GF_DEFAULT_APP_MODE=development \
+  --env GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=influxdata-flightsql-datasource \
   grafana/grafana:latest
 ```
 
-{{% note %}}
-It's important to set the `GF_DEFAULT_APP_MODE` environment variable to
-`development`so Grafana starts in development mode.
-The FlightSQL plugin is unsigned and only development mode allows unsigned plugins.
+{{% note %}} It's important to set the
+`GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS` environment variable, because the
+plugin is unsigned and Grafana requires explicit loading of unsigned plugins. 
 {{% /note %}}
-
-### Docker Compose
-
-To apply the deployment above to your `docker-compose` file:
-
-```yaml
-version: '3.0'
-services:
-  grafana:
-    container_name: 'grafana'
-    image: 'grafana/grafana:latest'
-    ports:
-      - 3000:3000/tcp
-    volumes:
-      - ./dist:/var/lib/grafana/plugins/influxdata-flightsql-datasource
-    environment:
-      - GF_DEFAULT_APP_MODE=development
-```
 
 <!----------------------------- END DOCKER CONTENT ---------------------------->
 {{% /tab-content %}}
