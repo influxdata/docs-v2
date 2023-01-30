@@ -106,7 +106,7 @@ The APIs it provides could change at any time.
 5.  Enter your **SQL Alchemy URI** comprised of the following:
 
     - **Protocol**: `datafusion+flightsql`
-    - **Domain**: InfluxDB Cloud region domain
+    - **Domain**: [InfluxDB Cloud region domain](/influxdb/cloud-iox/reference/regions/)
     - **Port**:
       {{% cloud-only %}}443{{% /cloud-only %}}
       {{% oss-only %}}8086 or your custom-configured bind address{{% /oss-only %}}

@@ -161,8 +161,8 @@ to explicitly load unsigned plugins.
 
     - **Host**: Provide the host and port of your Flight SQL client.
       For InfluxDB {{< current-version >}}, this is your
-      {{% cloud-only %}}InfluxDB Cloud region URL{{% /cloud-only %}}
-      {{% oss-only %}}InfluxDB URL{{% /oss-only %}}
+      {{% cloud-only %}}[InfluxDB Cloud region domain](/influxdb/cloud-iox/reference/regions/){{% /cloud-only %}}
+      {{% oss-only %}}InfluxDB domain{{% /oss-only %}}
       and port 443. For example:
 
       ```

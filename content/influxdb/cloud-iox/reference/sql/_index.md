@@ -6,7 +6,7 @@ menu:
   influxdb_cloud_iox:
     name: SQL reference
     parent: Reference
-weight: 201
+weight: 101
 ---
 
 {{< children >}}
