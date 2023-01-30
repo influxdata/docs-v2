@@ -70,11 +70,12 @@ cannot be installed on or used with Grafana Cloud.
 
 <div id="custom-grafana-plugins-directory"></div>
 
-1. **Unzip the [FlightSQL plugin files](#flightsql-plugin-path) to your Grafana
-   plugin directory**:
+1.  **Unzip the FlightSQL plugin archive to your Grafana custom plugin directory**.
+    The custom plugin directory can exist anywhere in your filesystem as long as
+    the Grafana process can access it.
 
     ```sh
-	unzip influxdata-grafana-datasource-0.1.0.zip -d grafana-plugins/
+    unzip influxdata-grafana-datasource-0.1.0.zip -d /path/to/grafana-plugins/
     ```
 
 2.  **Edit your Grafana configuration**.
