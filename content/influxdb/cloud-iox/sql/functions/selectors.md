@@ -11,11 +11,12 @@ weight: 220
 ---
 
 SQL selector functions are designed to work with time series data.
-They behave similar to aggregate functions in that they take a row of data and compute it down to a single value.
+They behave similarly to aggregate functions in that they take a collection of
+data and return a single value.
+However, selectors are unique in that they return a _struct_ that contains
+a **time value** in addition to the computed value.
 
-However, selectors are unique in that they return a **time value** in addition to the computed value. In short, selectors retrun an aggreagetd value along with a timestamp. 
-
-## How selector functions work
+## How do selector functions work?
 
 Each selector function returns a Rust _struct_ (similar to a JSON object)
 representing a single time and value from the specified column in the each group.
@@ -23,7 +24,7 @@ What time and value get returned depend on the logic in the selector function.
 For example, `selector_first` returns the value of specified column in the first row of the group.
 `selector_max` returns the maximum value of the specified column in the group.
 
-#### Selector struct schema
+### Selector struct schema
 
 The struct returned from a selector function has two properties:
 
@@ -34,45 +35,144 @@ The struct returned from a selector function has two properties:
 {time: 2023-01-01T00:00:00Z, value: 72.1}
 ```
 
+### Selector functions in use
 
+In your `SELECT` statement, execute a selector function and use bracket notation
+to reference properties of the [returned struct](#selector-struct-schema) to
+populate the column value:
 
-### SELECTOR_MIN()
+```sql
+SELECT
+  selector_first(temp, time)['time'] AS time,
+  selector_first(temp, time)['value'] AS temp,
+  room
+FROM home
+GROUP BY room
+```
 
-The SELECTOR_MIN() function returns the smallest value of a selected column and a timestamp. 
+## Selector functions
 
-Examples:
+- [selector_min](#selector_min)
+- [selector_max](#selector_max)
+- [selector_first](#selector_first)
+- [selector_last](#selector_last)
+
+### selector_min
+
+`selector_min()` function returns the smallest value of a selected column and a timestamp.
+
+##### Arguments:
+
+- **value**: Column to operate on or a literal value.
+- **timestamp**: Time column or timestamp literal.
+
+```sql
+selector_min(<value>, <timestamp>)
+```
+
+{{< expand-wrapper >}}
+{{% expand "View `selector_min` query example" %}}
 
 ```sql
 SELECT 
-  SELECTOR_MIN(water_level, time)['value'],
-  SELECTOR_MIN(water_level, time)['time'],
+  selector_min(water_level, time)['time'] AS time,
+  selector_min(water_level, time)['value'] AS water_level
 FROM h2o_feet
 ```
-Results:
 
-| time                     | value |
-| :----------------------- | :---- |
-| 2019-08-28T14:30:00.000Z | -0.61 |
+| time                 | water_level |
+| :------------------- | ----------: |
+| 2019-08-28T14:30:00Z |       -0.61 |
 
-### SELECTOR_MAX()
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
-### SELECTOR_FIRST()
+### selector_max
 
-### SELECTOR_LAST()
+`selector_max()` function returns the smallest value of a selected column and a timestamp.
 
-The SELECTOR_LAST function returns the last value of a selected column and the timestamp. If there are multiple rows with the maximum timestamp value, the value is arbitrary.
+##### Arguments:
+
+- **value**: Column to operate on or a literal value.
+- **timestamp**: Time column or timestamp literal.
+
+```sql
+selector_max(<value>, <timestamp>)
+```
+
+{{< expand-wrapper >}}
+{{% expand "View `selector_max` query example" %}}
 
 ```sql
 SELECT 
-  SELECTOR_LAST(degrees, time)['time'],
-  SELECTOR_LAST(degrees, time)['value']
-FROM h2o_temperature
-WHERE time >= timestamp '2019-09-15T00:00:00Z' AND time <= timestamp '2019-09-19T00:00:00Z'
+  selector_max(water_level, time)['time'] AS time,
+  selector_max(water_level, time)['value'] AS water_level
+FROM h2o_feet
 ```
 
-Results:
+| time                 | water_level |
+| :------------------- | ----------: |
+| 2019-08-28T07:24:00Z |       9.964 |
 
-| time                     | value |
-| :----------------------- | :---- |
-| 2019-09-17T16:24:00.000Z | 63    |
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
+### selector_first
+
+`selector_first()` returns the first value ordered by time ascending.
+
+##### Arguments:
+
+- **value**: Column to operate on or a literal value.
+- **timestamp**: Time column or timestamp literal.
+
+```sql
+selector_first(<value>, <timestamp>)
+```
+
+{{< expand-wrapper >}}
+{{% expand "View `selector_first` query example" %}}
+
+```sql
+SELECT 
+  selector_first(water_level, time)['time'] AS time,
+  selector_first(water_level, time)['value'] AS water_level
+FROM h2o_feet
+```
+
+| time                 | water_level |
+| :------------------- | ----------: |
+| 2019-08-28T07:24:00Z |       9.964 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### selector_last
+
+`selector_last()` returns the last value ordered by time ascending.
+
+##### Arguments:
+
+- **value**: Column to operate on or a value literal.
+- **timestamp**: Time column or timestamp literal.
+
+```sql
+selector_last(<value>, <timestamp>)
+```
+
+{{< expand-wrapper >}}
+{{% expand "View `selector_last` query example" %}}
+
+```sql
+SELECT 
+  selector_last(water_level, time)['time'] AS time,
+  selector_last(water_level, time)['value'] AS water_level
+FROM h2o_feet
+```
+
+| time                 | water_level |
+| :------------------- | ----------: |
+| 2019-09-17T21:42:00Z |       4.938 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
