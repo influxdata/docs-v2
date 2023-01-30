@@ -35,7 +35,8 @@ The Grafana FlightSQL plugin is experimental and is subject to change.
 {{% /warn %}}
 
 ```sh
-$ curl -L https://github.com/influxdata/grafana-flightsql-datasource/releases/download/v0.1.0/influxdata-flightsql-datasource-0.1.0.zip
+curl -L https://github.com/influxdata/grafana-flightsql-datasource/releases/download/v0.1.0/influxdata-flightsql-datasource-0.1.0.zip \
+  -o influxdata-flightsql-datasource-0.1.0.zip
 ```
 
 ## Install the Grafana FlightSQL plugin
@@ -176,10 +177,10 @@ plugin is unsigned and Grafana requires explicit loading of unsigned plugins.
 6.  Add connection **MetaData**.
     Provide optional key, value pairs to send to your Flight SQL client.
 
-    InfluxDB {{< current-version >}} requires your **bucket name**:
+    InfluxDB {{< current-version >}} requires your **bucket name** or **bucket-id**:
     
-    - **Key**: `bucket-name`
-    - **Value**: Your bucket name
+    - **Key**: `bucket-name` or `bucket-id`
+    - **Value**: Bucket name or bucket ID
 
 7.  Select **Save & Test**.
 
