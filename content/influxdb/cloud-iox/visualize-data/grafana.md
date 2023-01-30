@@ -141,7 +141,7 @@ docker run \
 
 {{% note %}} It's important to set the
 `GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS` environment variable, because the
-plugin is unsigned and Grafan requires explicit loading of unsigned plugins. 
+plugin is unsigned and Grafana requires explicit loading of unsigned plugins.
 {{% /note %}}
 
 <!----------------------------- END DOCKER CONTENT ---------------------------->
