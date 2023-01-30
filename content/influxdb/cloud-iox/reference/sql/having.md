@@ -5,8 +5,8 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: HAVING clause
-    parent: Explore data using SQL
-weight: 250
+    parent: SQL reference
+weight: 205
 ---
 
 The `HAVING` clause places conditions on results created by an aggregate operation on groups.

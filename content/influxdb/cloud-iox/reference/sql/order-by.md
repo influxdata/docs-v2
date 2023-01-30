@@ -6,8 +6,8 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: ORDER BY clause
-    parent: Explore data using SQL
-weight: 230
+    parent: SQL reference
+weight: 204
 ---
 
 The `ORDER BY` clause orders results by specified columns and order.

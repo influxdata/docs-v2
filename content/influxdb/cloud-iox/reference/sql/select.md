@@ -5,8 +5,8 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: SELECT statement
-    parent: Explore data using SQL
-weight: 210
+    parent: SQL reference
+weight: 201
 ---
 
 Use the `SELECT` statement to query data from an InfluxDB measurement.

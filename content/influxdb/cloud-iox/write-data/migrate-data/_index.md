@@ -6,7 +6,8 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: Migrate data
-weight: 9
+    parent: Write data
+weight: 104
 ---
 
 Migrate data to InfluxDB Cloud backed by InfluxDB IOx from other 

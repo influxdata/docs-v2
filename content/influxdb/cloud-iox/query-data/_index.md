@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: Query data
-weight: 5
+weight: 4
 influxdb/cloud-iox/tags: [query, flux]
 ---
 

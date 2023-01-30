@@ -5,8 +5,8 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: LIMIT clause
-    parent: Explore data using SQL
-weight: 270
+    parent: SQL reference
+weight: 206
 ---
 
 
