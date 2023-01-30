@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: Selectors
-    parent: SQL functions
+    parent: sql-functions
 weight: 220
 ---
 
