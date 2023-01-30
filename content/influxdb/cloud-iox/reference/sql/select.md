@@ -17,14 +17,12 @@ The `SELECT` clause is required when querying data in SQL.
 
 ### Syntax
 
-Basic syntax:
-
 ```sql
 SELECT a, b, "time" FROM <measurement>
 ```
 
 {{% note %}}
-**Note:** The `SELECT` statement **always requires** a `FROM` clause.
+**Note:** When querying InfluxDB, the `SELECT` statement **always requires** a `FROM` clause.
 {{% /note %}}
 
 The SELECT clause supports the following:

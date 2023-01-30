@@ -20,15 +20,15 @@ InfluxDB Cloud backed by InfluxDB IOx supports multiple query languages:
 
 - **SQL**: Traditional SQL powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
   query engine. The supported SQL syntax is similar to PostgreSQL.
-- **InfluxQL**: A SQL-like query language designed to query time series data from
-  InfluxDB.
 - **Flux**: A functional scripting language designed to query and process data
   from InfluxDB and other data sources.
+<!-- - **InfluxQL**: A SQL-like query language designed to query time series data from
+  InfluxDB. -->
 
 This tutorial walks you through the fundamentals of querying data in InfluxDB and
-**focuses primarily on using SQL** to query your time series data.
-For information about using InfluxQL and Flux, see
-[Query data in InfluxDB](/influxdb/cloud-iox/query-data/).
+**focuses on using SQL** to query your time series data.
+<!-- For information about using InfluxQL and Flux, see
+[Query data in InfluxDB](/influxdb/cloud-iox/query-data/). -->
 
 {{% note %}}
 The examples in this section of the tutorial query the data from written in the

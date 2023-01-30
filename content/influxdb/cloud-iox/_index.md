@@ -34,8 +34,8 @@ metrics, IoT data, and event monitoring.
 **InfluxDB IOx** is InfluxDB's next generation storage engine that unlocks series
 limitations present in the Time Structured Merge Tree (TSM) storage engine.
 InfluxDB IOx allows nearly infinite series cardinality without any impact on
-overall database performance. It also brings with it native **SQL support** and
-improved InfluxQL performance.
+overall database performance. It also brings with it native
+**SQL support**<!-- and improved InfluxQL performance -->.
 
 View the following video for more information about InfluxDB IOx:
 

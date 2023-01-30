@@ -11,7 +11,9 @@ weight: 4
 influxdb/cloud-iox/tags: [query, flux]
 ---
 
-Learn to query data stored in InfluxDB using SQL, InfluxQL, and Flux using tools
-like the InfluxDB user interface and the 'influx' command line interface.
+Learn to query data stored in InfluxDB.
+
+<!-- using SQL, InfluxQL, and Flux using tools
+like the InfluxDB user interface and the 'influx' command line interface. -->
 
 {{< children >}}
