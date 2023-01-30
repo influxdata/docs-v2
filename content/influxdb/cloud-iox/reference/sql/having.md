@@ -1,7 +1,8 @@
 ---
 title: HAVING clause
 description: > 
-    Use the `HAVING` clause to filter query results based on a specified condition.
+    Use the `HAVING` clause to filter query results based on values returned from
+    an aggregate operation.
 menu:
   influxdb_cloud_iox:
     name: HAVING clause

@@ -1,14 +1,13 @@
 ---
 title: LIMIT clause
 description: > 
-    Use the `LIMIT` clause to filter query results based on a spcified condition.
+    Use the `LIMIT` clause to limit the number of results returned by a query.
 menu:
   influxdb_cloud_iox:
     name: LIMIT clause
     parent: SQL reference
 weight: 206
 ---
-
 
 The `LIMIT` clause limits the number of rows returned by a query to a specified non-negative integer.
 
