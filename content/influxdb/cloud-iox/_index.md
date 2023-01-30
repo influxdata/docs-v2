@@ -16,7 +16,7 @@ the time series platform designed to handle high write and query loads.
 Learn how to use and leverage InfluxDB Cloud in use cases such as monitoring
 metrics, IoT data, and event monitoring.
 
-<a class="btn">Get started with InfluxDB Cloud (IOx)</a>
+<a class="btn" href="/influxdb/cloud-iox/get-started/">Get started with InfluxDB Cloud (IOx)</a>
 
 ## The InfluxDB IOx storage engine
 
