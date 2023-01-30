@@ -3,7 +3,8 @@ title: Use Grafana to visualize data
 seotitle: Use Grafana to visualize data stored in InfluxDB
 list_title: Grafana
 description: >
-  Use Grafana to query and visualize an InfluxDB bucket backed by InfluxDB IOx.
+  Use [Grafana](https://grafana.com/) to query and visualize data stored in an
+  InfluxDB bucket backed by InfluxDB IOx.
 weight: 101
 menu:
   influxdb_cloud_iox:
@@ -12,8 +13,8 @@ menu:
 influxdb/cloud-iox/tags: [visualization]
 ---
 
-Use [Grafana](https://grafana.com/) to query and visualize an InfluxDB bucket
-backed by InfluxDB IOx.
+Use [Grafana](https://grafana.com/) to query and visualize data stored in an
+InfluxDB bucket backed by InfluxDB IOx.
 
 > [Grafana] enables you to query, visualize, alert on, and explore your metrics,
 > logs, and traces wherever they are stored.

@@ -3,7 +3,8 @@ title: Use Superset to visualize data
 seotitle: Use Apache Superset to visualize data stored in InfluxDB
 list_title: Superset
 description: >
-  Use Grafana to query and visualize an InfluxDB bucket backed by InfluxDB IOx.
+  Use [Apache Superset](https://superset.apache.org/) to query and visualize data
+  stored in an InfluxDB bucket backed by InfluxDB IOx.
 weight: 101
 menu:
   influxdb_cloud_iox:
@@ -12,8 +13,8 @@ menu:
 influxdb/cloud-iox/tags: [visualization]
 ---
 
-Use [Apache Superset](https://superset.apache.org/) to query and visualize an
-InfluxDB bucket backed by InfluxDB IOx.
+Use [Apache Superset](https://superset.apache.org/) to query and visualize data
+stored in an InfluxDB bucket backed by InfluxDB IOx.
 
 > Apache Superset is a modern, enterprise-ready business intelligence web application.
 > It is fast, lightweight, intuitive, and loaded with options that make it easy for
@@ -69,7 +70,7 @@ The APIs it provides could change at any time.
     docker-compose -f docker-compose-non-dev.yml up
     ```
 
-    Once completed, Superset is now running.
+    Once completed, Superset is running.
 
 ## Log in to Superset
 
@@ -84,35 +85,42 @@ The APIs it provides could change at any time.
 
 3.  _(Optional)_ Create a new admin user with a unique password.
 
-    1.  In the Superset user interface (UI), click **Settings** in the top left
+    1.  In the Superset user interface (UI), click **Settings** in the top right
         and select **List Users**.
-    2.  Click **{{< icon "plus" >}}** in the top left.
+    2.  Click **{{< icon "plus" >}}** in the top right.
     3.  Select the **Admin** role and provide the remaining credentials for the new user.
     4.  Click **Save**.
     5.  Delete the default **admin** users.
 
 ## Set up a new database connection
 
-1.  In the Superset UI, click **Settings** in the top left and select
+1.  In the Superset UI, click **Settings** in the top right and select
     **Database Connections**.
-2.  Click **{{< icon "plus" >}} Database** in the top left.
+2.  Click **+ Database** in the top right.
 3.  In the **Connect a Database** window, click on the **Supported Databases**
     drop-down menu and select **Other**.
 
     {{< img-hd src="/img/influxdb/cloud-iox-superset-connect.png" alt="Configure InfluxDB connection in Superset" />}}
 
 4.  Enter a **Display Name** for the database connection.
-5.  Enter your **SQL Alchemy URI**. This URI is comprised of the following URL-encoded strings:
+5.  Enter your **SQL Alchemy URI** comprised of the following:
 
-    - InfluxDB Cloud region URL
-    - InfluxDB bucket name
-    - InfluxDB API token
+    - **Protocol**: `datafusion+flightsql`
+    - **Domain**: InfluxDB Cloud region domain
+    - **Port**:
+      {{% cloud-only %}}443{{% /cloud-only %}}
+      {{% oss-only %}}8086 or your custom-configured bind address{{% /oss-only %}}
+    
+    ##### Query parameters
 
-    {{< code-callout "&lt;(influxdb_url|port|bucket_name|token)&gt;" >}}
+    - **bucket-name**: URL-encoded InfluxDB bucket name
+    - **token**: InfluxDB API token with read access to the specified bucket
+
+    {{< code-callout "&lt;(influxdb-url|port|bucket-name|token)&gt;" >}}
 {{< code-callout "us-east-1-1\.aws\.cloud2\.influxdata\.com|443|example-bucket|example-token" >}}
 ```sh
 # Syntax
-datafusion+flightsql://<influxdb_url>:<port>?bucket-name=<bucket_name>&token=<token>
+datafusion+flightsql://<influxdb-url>:<port>?bucket-name=<bucket-name>&token=<token>
 
 # Example
 datafusion+flightsql://us-east-1-1.aws.cloud2.influxdata.com:443?bucket-name=example-bucket&token=example-token
@@ -128,7 +136,7 @@ datafusion+flightsql://us-east-1-1.aws.cloud2.influxdata.com:443?bucket-name=exa
 With a connection to InfluxDB {{< current-version >}} established, you can begin
 to query and visualize data from InfluxDB.
 
-1.  In the Superset UI, click **SQL ▾** in the top navigation and select **SQL Lab**.
+1.  In the Superset UI, click **SQL ▾** in the top navigation bar and select **SQL Lab**.
 2.  In the left pane:
     
     1. Under **Database**, select your InfluxDB connection.
