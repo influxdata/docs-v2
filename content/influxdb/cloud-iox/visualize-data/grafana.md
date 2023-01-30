@@ -35,7 +35,7 @@ The Grafana FlightSQL plugin is experimental and is subject to change.
 {{% /warn %}}
 
 ```sh
-$ curl -L https://github.com/influxdata/grafana-flightsql-datasource/releases/download/v0.0.1/influxdata-flightsql-datasource-0.0.1.zip
+$ curl -L https://github.com/influxdata/grafana-flightsql-datasource/releases/download/v0.1.0/influxdata-flightsql-datasource-0.1.0.zip
 ```
 
 ## Install the Grafana FlightSQL plugin
@@ -73,7 +73,7 @@ cannot be installed on or used with Grafana Cloud.
    plugin directory**:
 
     ```sh
-	unzip influxdata-grafana-datasource-0.0.1.zip -d grafana-plugins/
+	unzip influxdata-grafana-datasource-0.1.0.zip -d grafana-plugins/
     ```
 
 2.  **Edit your Grafana configuration**.
@@ -141,7 +141,7 @@ docker run \
 
 {{% note %}} It's important to set the
 `GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS` environment variable, because the
-plugin is unsigned and Grafana requires explicit loading of unsigned plugins.
+plugin is unsigned and Grafana requires explicit loading of unsigned plugins. 
 {{% /note %}}
 
 <!----------------------------- END DOCKER CONTENT ---------------------------->
