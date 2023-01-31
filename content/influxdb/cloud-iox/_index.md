@@ -22,7 +22,7 @@ View the right column of your [InfluxDB Cloud organization homepage](https://clo
 to see which storage engine your InfluxDB Cloud organization is powered by.
 {{% /note %}}
 
-InfluxDB Cloud is an hosted and managed version of InfluxDB backed by InfluxDB IOx,
+InfluxDB Cloud is a hosted and managed version of InfluxDB backed by InfluxDB IOx,
 the time series platform designed to handle high write and query loads.
 Learn how to use and leverage InfluxDB Cloud in use cases such as monitoring
 metrics, IoT data, and event monitoring.

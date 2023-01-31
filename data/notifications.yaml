@@ -66,7 +66,7 @@
     ### InfluxDB Cloud backed by InfluxDB IOx
 
     All InfluxDB Cloud organizations created on or after **January 31, 2023**
-    are backed the new InfluxDB IOx storage engine.
+    are backed by the new InfluxDB IOx storage engine.
     Check the right column of your [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com)
     to see which InfluxDB storage engine you're using.
     
@@ -82,7 +82,7 @@
     ### InfluxDB Cloud backed by InfluxDB TSM
 
     All InfluxDB Cloud organizations created on or after **January 31, 2023**
-    are backed the new InfluxDB IOx storage engine which enables nearly unlimited
+    are backed by the new InfluxDB IOx storage engine which enables nearly unlimited
     series cardinality and SQL query support.
     Check the right column of your [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com)
     to see which InfluxDB storage engine you're using.
