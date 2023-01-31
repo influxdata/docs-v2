@@ -2,10 +2,9 @@ influxdb:
   name: InfluxDB
   altname: InfluxDB OSS
   namespace: influxdb
-  list_order: 2
+  list_order: 3
   versions: [v1.3, v1.4, v1.5, v1.6, v1.7, v1.8, v2.0, v2.1, v2.2, v2.3, v2.4, v2.5, v2.6]
   latest: v2.6
-  latest_override: v2.6
   latest_patches:
     "2.6": 1
     "2.5": 1
@@ -33,14 +32,23 @@ influxdb_cloud:
   altname: InfluxDB Cloud
   namespace: influxdb
   versions: [cloud]
-  list_order: 1
+  list_order: 2
   latest: cloud
+  link: "https://cloud2.influxdata.com/signup"
+
+influxdb_cloud_iox:
+  name: InfluxDB Cloud (IOx)
+  altname: InfluxDB Cloud (IOx)
+  namespace: influxdb
+  versions: [cloud-iox]
+  list_order: 1
+  latest: cloud-iox
   link: "https://cloud2.influxdata.com/signup"
 
 telegraf:
   name: Telegraf
   namespace: telegraf
-  list_order: 4
+  list_order: 5
   versions: [v1.9, v1.10, v1.11, v1.12, v1.13, v1.14, v1.15, v1.16, v1.17, v1.18, v1.19, v1.20, v1.21, v1.22, v1.23, v1.24]
   latest: v1.24
   latest_patches:
@@ -61,7 +69,7 @@ telegraf:
 chronograf:
   name: Chronograf
   namespace: chronograf
-  list_order: 5
+  list_order: 6
   versions: [v1.6, v1.7, v1.8, v1.9, v1.10]
   latest: v1.10
   latest_patches:
@@ -74,7 +82,7 @@ chronograf:
 kapacitor:
   name: Kapacitor
   namespace: kapacitor
-  list_order: 6
+  list_order: 7
   versions: [v1.4, v1.5, v1.6]
   latest: v1.6
   latest_patches:
@@ -85,7 +93,7 @@ kapacitor:
 enterprise_influxdb:
   name: "InfluxDB Enterprise"
   namespace: enterprise_influxdb
-  list_order: 3
+  list_order: 4
   versions: [v1.5, v1.6, v1.7, v1.8, v1.9, v1.10]
   latest: v1.10
   latest_patches:
@@ -99,6 +107,6 @@ enterprise_influxdb:
 flux:
   name: Flux
   namespace: flux
-  list_order: 7
+  list_order: 8
   versions: [v0.x]
   latest: v0.x

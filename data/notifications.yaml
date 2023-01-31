@@ -57,3 +57,50 @@
 
     For more information, see the
     [Linux Package Signing Key Rotation blog post](https://www.influxdata.com/blog/linux-package-signing-key-rotation/).
+
+- id: iox-doc-fork
+  level: note
+  scope: 
+    - /influxdb/cloud-iox/
+  message: |
+    ### InfluxDB Cloud backed by InfluxDB IOx
+
+    All InfluxDB Cloud organizations created on or after **January 31, 2023**
+    are backed by the new InfluxDB IOx storage engine.
+    Check the right column of your [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com)
+    to see which InfluxDB storage engine you're using.
+    
+    **If powered by IOx**, this is the correct documentation.
+
+    **If powered by TSM**, see the [TSM-based InfluxDB Cloud documentation](/influxdb/cloud/).
+
+- id: tsm-doc-fork
+  level: note
+  scope: 
+    - /influxdb/cloud/
+  message: |
+    ### InfluxDB Cloud backed by InfluxDB TSM
+
+    All InfluxDB Cloud organizations created on or after **January 31, 2023**
+    are backed by the new InfluxDB IOx storage engine which enables nearly unlimited
+    series cardinality and SQL query support.
+    Check the right column of your [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com)
+    to see which InfluxDB storage engine you're using.
+    
+    **If powered by TSM**, this is the correct documentation.
+
+    **If powered by IOx**, see the [IOx-based InfluxDB Cloud documentation](/influxdb/cloud-iox/).    
+
+- id: iox-wip
+  level: warn
+  scope:
+    - /influxdb/cloud-iox/
+  message: |
+    ### State of the InfluxDB Cloud (IOx) documentation
+
+    The new documentation for **InfluxDB Cloud backed by InfluxDB IOx** is a work
+    in progress. We are adding new information and content almost daily.
+    Thank you for your patience!
+    
+    If there is specific information you're looking for, please
+    [submit a documentation issue](https://github.com/influxdata/docs-v2/issues/new/choose).
