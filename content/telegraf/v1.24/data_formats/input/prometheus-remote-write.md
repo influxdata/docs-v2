@@ -28,7 +28,7 @@ Use the [`inputs.http_listener_v2`](/telegraf/v1.24/plugins/#input-http_listener
   ## Address and port to host HTTP listener on
   service_address = ":1234"
   ## Path to listen to.
-  path = "/recieve"
+  path = "/receive"
   ## Data format to consume.
   data_format = "prometheusremotewrite"
 ```
