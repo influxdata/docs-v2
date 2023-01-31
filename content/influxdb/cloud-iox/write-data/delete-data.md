@@ -2,7 +2,7 @@
 title: Delete data
 description: >
   To delete data from and IOx-backed InfluxDB Cloud bucket, please contact
-  [InfluxData support]().
+  [InfluxData support](https://support.influxdata.com).
 menu:
   influxdb_cloud_iox:
     name: Delete data

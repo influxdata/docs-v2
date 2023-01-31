@@ -754,6 +754,16 @@ If you write a point to a series with a timestamp that matches an existing point
 
 Related entries: [measurement](#measurement), [tag set](#tag-set), [field set](#field-set), [timestamp](#timestamp)
 
+{{% cloud-only %}}
+
+### primary key
+
+With the InfluxDB IOx storage engine, the primary key is the list of columns
+used to uniquely identify each row in a table.
+Rows are uniquely identified by their timestamp and tag set.
+
+{{% /cloud-only %}}
+
 ### precision
 
 The precision configuration setting determines the timestamp precision retained for input data points.
