@@ -87,7 +87,7 @@ SELECT AVG(co) from home
 Use **selector functions** to "select" a value from a specified column.
 The available selector functions are designed to work with time series data.
 
-[View selector functions](#)
+[View selector functions](/influxdb/cloud-iox/reference/sql/functions/selectors/)
 
 Each selector function returns a Rust _struct_ (similar to a JSON object)
 representing a single time and value from the specified column in the each group.
