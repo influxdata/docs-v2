@@ -75,5 +75,5 @@ page_index_eval_time=64ns,
 pushdown_eval_time=64ns, 
 time_elapsed_scanning=3.090043ms, 
 time_elapsed_processing=11.731954ms, 
-time_elapsed_opening=1539226411s]                                                                                                                                                                                                                              plan_type:  Metrics with Metrics
+time_elapsed_opening=1539226411s]                                                                                                                                                                                                                 plan_type:  Metrics with Metrics
  ```
