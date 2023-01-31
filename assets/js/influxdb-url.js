@@ -12,7 +12,7 @@ var elementSelector = ".article--content pre:not(.preserve)"
 
 // Return the page context (cloud, oss/enterprise, other)
 function context() {
-  if (/\/influxdb\/cloud\//.test(window.location.pathname)) {
+  if (/\/influxdb\/cloud/.test(window.location.pathname)) {
     return "cloud"
   } else if (/\/(enterprise_|influxdb).*\/v[1-2]\.[0-9]{1,2}\//.test(window.location.pathname)) {
     return "oss/enterprise"
