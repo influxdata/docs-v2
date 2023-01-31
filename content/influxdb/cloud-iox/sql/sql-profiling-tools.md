@@ -9,7 +9,7 @@ menu:
 weight: 185
 ---
 
-SQL query profiling tools tell you where SQL allocates time in your query and why.
+SQL query profiling tools show you where SQL allocates time in your query and why.
 
  - The `EXPLAIN` command shows the execution plan of a SQL statement.
  - The `EXPLAIN VERBOSE` command provides a more verbose execution plan of a statement.
