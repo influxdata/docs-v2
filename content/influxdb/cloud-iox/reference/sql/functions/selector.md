@@ -5,9 +5,9 @@ description: >
   Select data with SQL selector functions.
 menu:
   influxdb_cloud_iox:
-    name: Selectors
+    name: Selector
     parent: sql-functions
-weight: 220
+weight: 302
 ---
 
 SQL selector functions are designed to work with time series data.
@@ -29,7 +29,7 @@ For example, `selector_first` returns the value of specified column in the first
 The struct returned from a selector function has two properties:
 
 - **time**: `time` value in the selected row
-- **value**: value of the specified column in the selected row
+- **expression**: value of the specified column in the selected row
 
 ```js
 {time: 2023-01-01T00:00:00Z, value: 72.1}
@@ -59,15 +59,15 @@ GROUP BY room
 
 ### selector_min
 
-`selector_min()` function returns the smallest value of a selected column and a timestamp.
+Returns the smallest value of a selected column and a timestamp.
 
 ##### Arguments:
 
-- **value**: Column to operate on or a literal value.
+- **expression**: Column to operate on or a literal value.
 - **timestamp**: Time column or timestamp literal.
 
 ```sql
-selector_min(<value>, <timestamp>)
+selector_min(expression, timestamp)
 ```
 
 {{< expand-wrapper >}}
@@ -89,15 +89,15 @@ FROM h2o_feet
 
 ### selector_max
 
-`selector_max()` function returns the smallest value of a selected column and a timestamp.
+Returns the largest value of a selected column and a timestamp.
 
 ##### Arguments:
 
-- **value**: Column to operate on or a literal value.
+- **expression**: Column to operate on or a literal value.
 - **timestamp**: Time column or timestamp literal.
 
 ```sql
-selector_max(<value>, <timestamp>)
+selector_max(expression, timestamp)
 ```
 
 {{< expand-wrapper >}}
@@ -119,15 +119,15 @@ FROM h2o_feet
 
 ### selector_first
 
-`selector_first()` returns the first value ordered by time ascending.
+Returns the first value ordered by time ascending.
 
 ##### Arguments:
 
-- **value**: Column to operate on or a literal value.
+- **expression**: Column to operate on or a literal value.
 - **timestamp**: Time column or timestamp literal.
 
 ```sql
-selector_first(<value>, <timestamp>)
+selector_first(expression, timestamp)
 ```
 
 {{< expand-wrapper >}}
@@ -149,15 +149,15 @@ FROM h2o_feet
 
 ### selector_last
 
-`selector_last()` returns the last value ordered by time ascending.
+Returns the last value ordered by time ascending.
 
 ##### Arguments:
 
-- **value**: Column to operate on or a value literal.
+- **expression**: Column to operate on or a value literal.
 - **timestamp**: Time column or timestamp literal.
 
 ```sql
-selector_last(<value>, <timestamp>)
+selector_last(expression, timestamp)
 ```
 
 {{< expand-wrapper >}}
