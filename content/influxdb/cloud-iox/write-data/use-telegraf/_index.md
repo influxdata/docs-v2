@@ -1,10 +1,9 @@
 ---
 title: Use Telegraf to write data
 seotitle: Use the Telegraf agent to collect and write data
-list_title: Use the Telegraf agent
 weight: 101
 description: >
-  Use Telegraf to collect and write data to InfluxDB v2.6.
+  Use Telegraf to collect and write data to InfluxDB.
   Create Telegraf configurations in the InfluxDB UI or manually configure Telegraf.
 aliases:
   - /influxdb/cloud-iox/collect-data/advanced-telegraf

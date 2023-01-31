@@ -9,6 +9,12 @@ menu:
 weight: 103
 ---
 
+All Flux reference material is provided in the Flux documentation:
+
+<a class="btn" href="/flux/v0.x/">View the Flux documentation</a>
+
+## Flux with the InfluxDB IOx storage engine
+
 When querying data from an InfluxDB bucket backed by InfluxDB IOx, use the following
 input functions:
 
@@ -67,6 +73,4 @@ is **less performant** than querying a TSM-backed bucket with `from()`.
 For better Flux query performance, use `iox.sql()`.
 {{% /warn %}}
 
-## Full Flux documentation
 
-<a class="btn" href="/flux/v0.x/">View the Flux documentation</a>

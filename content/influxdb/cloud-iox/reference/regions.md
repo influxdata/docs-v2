@@ -5,7 +5,7 @@ description: >
   Each region has a unique InfluxDB Cloud URL and API endpoint.
 aliases:
   - /influxdb/cloud-iox/reference/urls/
-weight: 105
+weight: 106
 menu:
   influxdb_cloud_iox:
     name: InfluxDB Cloud regions
