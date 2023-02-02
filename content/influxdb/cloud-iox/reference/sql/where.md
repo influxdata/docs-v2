@@ -2,7 +2,7 @@
 title: WHERE clause
 list_title: WHERE clause
 description: > 
-    Use the `WHERE` clause to filter results based on fields, tags, and/or timestamps.
+  Use the `WHERE` clause to filter results based on fields, tags, or timestamps.
 menu:
   influxdb_cloud_iox:
     name: WHERE clause
