@@ -166,7 +166,7 @@ to explicitly load unsigned plugins.
       and port 443. For example:
 
       ```
-      us-east-1-1.aws.cloud2.influxdata.com:433
+      us-east-1-1.aws.cloud2.influxdata.com:443
       ```
 
     - **AuthType**: Select **token**.
