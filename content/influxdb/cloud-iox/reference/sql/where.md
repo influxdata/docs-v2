@@ -10,7 +10,7 @@ menu:
 weight: 202
 ---
 
-Use the `WHERE` clause to filter results based on fields, tags, and/or timestamps.
+Use the `WHERE` clause to filter results based on fields, tags, or timestamps.
 
 - [Syntax](#syntax)
 - [Examples](#examples)
