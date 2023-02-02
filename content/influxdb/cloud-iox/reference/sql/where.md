@@ -40,7 +40,8 @@ WHERE "water_level" >= 9.78
 {{< expand-wrapper >}}
 {{% expand "View example results" %}}
 
-The query returns data from the measurement h2o_feet with field values of water_level that are greater than or equal to 9.78. Note that this is a partial data set.
+The query returns data from the `h2o_feet` measurement with `water_level` field values
+that are greater than or equal to 9.78.
 
 | level description         | location     | time                     | water_level |
 | :------------------------ | :----------- | :----------------------- | :---------- |
