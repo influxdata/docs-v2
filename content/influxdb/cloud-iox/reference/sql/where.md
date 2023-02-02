@@ -29,7 +29,7 @@ SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_
 
 Note that single quotes are required for string literals in the `WHERE` clause. 
 
-### Filter data based on specific field value
+### Filter data based on field values
 
 ```sql
 SELECT * 
