@@ -118,7 +118,7 @@ WHERE "level description" = 'less than 3 feet' OR "water_level" < 2.5
 {{< expand-wrapper >}}
 {{% expand "View example results" %}}
 
-The query returns a `level dsescription` of less than 3 feet or `water_level` of less than 2.5 feet. This is a partial data set.
+The query returns results with a `level description` field value equal to `less than 3 feet` or a `water_level` field value less than 2.5.
 
 | level description | location     | time                     | water_level |
 | :---------------- | :----------- | :----------------------- | :---------- |
