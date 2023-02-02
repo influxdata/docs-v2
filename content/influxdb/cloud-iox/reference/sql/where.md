@@ -67,7 +67,8 @@ WHERE "location" = 'santa_monica' and "level description" = 'below 3 feet'
 {{< expand-wrapper >}}
 {{% expand "View example results" %}}
 
-The query returns all data from the `h2o_feet` measurement with the location tag key `santa_monica` and field value of `level description` that equals the `below 3 feet` string. This is a partial data set.
+The query returns all data from the `h2o_feet` measurement with the `location` tag key, `santa_monica`,
+and a `level description` field value that equals `below 3 feet`.
 
 | level description | location     | time                     | water_level |
 | :---------------- | :----------- | :----------------------- | :---------- |
