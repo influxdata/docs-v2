@@ -28,11 +28,11 @@ $(document).click(function() {
 
 // Click the code controls toggle to open code controls
 $('.code-controls-toggle').click(function() {
-  $(this).parent().toggleClass('open');
+  $(this).parent('.code-controls').toggleClass('open');
 })
 
 // Stop event propagation for clicks inside of the code-controls div
-$(".code-controls").click(function(e) {
+$('.code-controls').click(function(e) {
   e.stopPropagation();
 });
 
