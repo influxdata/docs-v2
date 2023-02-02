@@ -74,27 +74,6 @@ pre {
   @import "code-api-methods";
 }
 
-///////////////////////// Codeblocks fullscreen toggle /////////////////////////
-
-.codeblock {
-  position: relative;
-  
-  .fullscreen-toggle {
-    cursor: pointer;
-    position: absolute;
-    top: .5rem;
-    right: .5rem;
-    line-height: 0;
-    font-size: 1.15rem;
-    color: $article-code;
-    opacity: .5;
-    transition: opacity .2s;
-
-    &:hover {opacity: 1}
-  }
-
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

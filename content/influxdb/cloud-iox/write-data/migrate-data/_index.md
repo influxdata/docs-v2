@@ -41,8 +41,8 @@ question, the better solution for high series cardinality workloads.
 IOx lets you query your time series data with SQL. For more information about
 querying your data with SQL, see:
 
-- [Query data with SQL](/influxdb/cloud-iox/...)
-- [InfluxDB SQL reference](/influxdb/cloud-iox/...)
+- [Query data with SQL](/influxdb/cloud-iox/query-data/sql/)
+- [InfluxDB SQL reference](/influxdb/cloud-iox/reference/sql/)
 
 #### Do you want better InfluxQL performance?
 
