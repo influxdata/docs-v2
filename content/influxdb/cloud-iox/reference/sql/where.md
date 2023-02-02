@@ -92,7 +92,8 @@ AND "time" >= '2019-08-19T12:00:00Z'::timestamp AND "time" <= '2019-08-19T13:00:
 {{< expand-wrapper >}}
 {{% expand "View example results" %}}
 
-The query returns results from a range of greater than or equal to 08-19-2019 at 12 noon and less than or equal to  08-19-2019 at 1:00pm. This is a partial data set.
+The query returns results with timestamps greater than or equal to `08-19-2019T12:00:00Z` and
+less than or equal to  `08-19-2019T13:00:00Z`.
 
 | level description | location     | time                     | water_level |
 | :---------------- | :----------- | :----------------------- | :---------- |
