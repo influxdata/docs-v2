@@ -2,7 +2,7 @@
   position: fixed;
   top: 65px;
   right: 10px;
-  z-index: 100;
+  z-index: 98;
   width: calc(100vw - 20px);
   max-width: 450px;
   transition: all .4s ease;
@@ -44,7 +44,7 @@
       position: absolute;
       top: 8px;
       right: 8px;
-      font-size: 1.2rem;
+      font-size: 1.7rem;
       cursor: pointer;
       transition: color .2s;
       font-weight: bold;

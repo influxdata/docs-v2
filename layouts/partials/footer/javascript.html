@@ -11,11 +11,11 @@
 {{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
 {{ $fluxCurrentTime := resources.Get "js/flux-current-time.js" }}
 {{ $influxdbGSTimestamps := resources.Get "js/get-started-timestamps.js" }}
-{{ $fullscreenCode := resources.Get "js/fullscreen-code.js" }}
+{{ $codeControls := resources.Get "js/code-controls.js" }}
 {{ $pageFeedback := resources.Get "js/page-feedback.js" }}
 {{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
 {{ $fluxInfluxDBVersions := resources.Get "/js/flux-influxdb-versions.js"}}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $tabbedContent $notifications $keybindings $fullscreenCode $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $tabbedContent $notifications $keybindings $codeControls $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := slice $fluxGroupKeys | resources.Concat "js/flux-group-keys.js" | resources.Fingerprint }}
 {{ $fluxCurrentTimejs := slice $fluxCurrentTime | resources.Concat "js/flux-current-time.js" | resources.Fingerprint }}
 {{ $influxdbGSTimestampsjs := slice $influxdbGSTimestamps | resources.Concat "js/get-started-timestamps.js" | resources.Fingerprint }}
