@@ -35,8 +35,8 @@ The Grafana FlightSQL plugin is experimental and is subject to change.
 {{% /warn %}}
 
 ```sh
-curl -L https://github.com/influxdata/grafana-flightsql-datasource/releases/download/v0.1.0/influxdata-flightsql-datasource-0.1.0.zip \
-  -o influxdata-flightsql-datasource-0.1.0.zip
+curl -L https://github.com/influxdata/grafana-flightsql-datasource/releases/download/v0.1.1/influxdata-flightsql-datasource-0.1.1.zip \
+  -o influxdata-flightsql-datasource-0.1.1.zip
 ```
 
 ## Install the Grafana FlightSQL plugin
