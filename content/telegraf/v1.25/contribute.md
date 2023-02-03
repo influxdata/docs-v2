@@ -2,7 +2,7 @@
 title: Contribute to Telegraf
 description:
 menu:
-  telegraf_1_24_ref:
+  telegraf_1_25_ref:
     name: Contribute to Telegraf
     weight: 80
 ---

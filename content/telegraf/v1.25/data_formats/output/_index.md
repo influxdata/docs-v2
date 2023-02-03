@@ -2,7 +2,7 @@
 title: Telegraf output data formats
 description: Telegraf serializes metrics into output data formats.
 menu:
-  telegraf_1_24_ref:
+  telegraf_1_25_ref:
 
     name: Output data formats
     weight: 1

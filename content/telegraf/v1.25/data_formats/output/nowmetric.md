@@ -2,7 +2,7 @@
 title: ServiceNow Metrics output data format
 description: Use the ServiceNow Metrics output data format (serializer) to output metrics in the ServiceNow Operational Intelligence format.
 menu:
-  telegraf_1_24_ref:
+  telegraf_1_25_ref:
 
     name: ServiceNow Metrics
     weight: 50

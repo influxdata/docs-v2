@@ -2,7 +2,7 @@
 title: Write an external plugin
 description:
 menu:
-  telegraf_1_24:
+  telegraf_1_25:
 
      name: Write an external plugin
      weight: 50

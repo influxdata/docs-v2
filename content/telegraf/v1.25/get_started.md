@@ -2,7 +2,7 @@
 title: Get started
 description: Configure and start Telegraf
 menu:
-  telegraf_1_24:
+  telegraf_1_25:
     name: Get started
     weight: 30
 ---

@@ -3,7 +3,7 @@ title: Collect data with input plugins
 description: |
   Collect data from a variety of sources with Telegraf input plugins.
 menu:
-  telegraf_1_24:
+  telegraf_1_25:
 
      name: Input plugins
      weight: 10

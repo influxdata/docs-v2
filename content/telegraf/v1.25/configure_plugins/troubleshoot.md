@@ -2,7 +2,7 @@
 title: Troubleshoot Telegraf
 description: Resolve common issues with Telegraf.
 menu:
-  telegraf_1_24:
+  telegraf_1_25:
 
     name: Troubleshoot
     Parent: Configure plugins

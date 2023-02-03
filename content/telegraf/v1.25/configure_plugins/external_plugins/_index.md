@@ -3,7 +3,7 @@ title: Integrate with external plugins
 description: |
   External plugins are external programs that are built outside of Telegraf that can run through an `execd` plugin.
 menu:
-  telegraf_1_24:
+  telegraf_1_25:
      name: External plugins
      weight: 50
      parent: Configure plugins
