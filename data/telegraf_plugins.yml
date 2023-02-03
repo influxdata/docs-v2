@@ -182,6 +182,13 @@ input:
     introduced: 1.24.0
     tags: [linux, macos, windows, aws]
 
+  - name: Azure Monitor
+    id: azure_monitor
+    description: |
+      The Azure Monitor plugin gathers metrics from Azure Monitor API.
+    introduced: 1.25.0
+    tags: [linux, macos, windows, systems, cloud]
+
   - name: Azure Storage Queue
     id: azure_storage_queue
     description: |
@@ -614,6 +621,14 @@ input:
     introduced: 1.10.0
     tags: [linux, macos, windows, cloud, messaging]
 
+  - name: Google Cloud Storage
+    id: google_cloud_storage
+    description: |
+      The Google Cloud Storage input plugin collects metrics by iterating files
+      located on a cloud storage bucket.
+    introduced: 1.25.0
+    tags: [linux, macos, windows, storage, cloud]
+
   - name: Graylog
     id: graylog
     description: |
@@ -819,6 +834,13 @@ input:
       defer to the output plugins configuration.
     introduced: 1.16.0
     tags: [linux, macos, windows, data-stores]
+
+  - name: Intel DLB
+    id: intel_dlb
+    description: |
+      The Intel DLB input plugin reads metrics from DPDK using the telemetry v2 interface.
+    introduced: 1.25.0
+    tags: [linux, systems]
 
   - name: Intel PMU
     id: intel_pmu
@@ -1038,6 +1060,14 @@ input:
     introduced: 0.1.5
     tags: [linux, macos, windows, systems, data-stores]
 
+  - name: Libvirt
+    id: libvirt
+    description: |
+      The Libvirt plugin collects statistics from virtualized guests using
+      virtualization libvirt API.
+    introduced: 1.25.0
+    tags: [linux, systems]
+
   - name: Linux CPU
     id: linux_cpu
     description: |
@@ -1256,6 +1286,14 @@ input:
     introduced: 0.1.1
     tags: [linux, macos, networking]
 
+  - name: Netflow
+    id: netflow
+    description: |
+      The Netflow input plugin gathers metrics from Netflow v5, Netflow v9 and
+      IPFIX collectors.
+    introduced: 1.25.0
+    tags: [linux, networking]
+
   - name: Netstat
     id: netstat
     description: |
@@ -1410,6 +1448,13 @@ input:
     description: |
       The OPC UA plugin gathers metrics from client devices using the [OPC Foundation's Unified Architecture (UA)](https://opcfoundation.org/about/opc-technologies/opc-ua/) machine-to-machine communication protocol for industrial automation.
     introduced: 1.16.0
+    tags: [linux, macos, windows, iot]
+
+  - name: OPC UA Listener
+    id: opcua_listener
+    description: |
+      The OPC UA plugin gathers metrics from subscriptions to OPC UA devices.
+    introduced: 1.25.0
     tags: [linux, macos, windows, iot]
 
   - name: OpenLDAP
