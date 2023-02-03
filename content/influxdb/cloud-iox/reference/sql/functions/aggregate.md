@@ -21,6 +21,16 @@ aggregate value.
   - [min](#min)
   - [sum](#sum)
 - [Statistical aggregate functions](#statistical-aggregate-functions)
+  - [corr](#corr)
+  - [covar](#covar)
+  - [covar_pop](#covar_pop)
+  - [covar_samp](#covar_samp)
+  - [stddev](#stddev)
+  - [stddev_pop](#stddev_pop)
+  - [stddev_samp](#stddev_samp)
+  - [var](#var)
+  - [var_pop](#var_pop)
+  - [var_samp](#var_samp)
 - [Approximate aggregate functions](#approximate-aggregate-functions)
 
 ---
@@ -217,6 +227,28 @@ corr(expression1, expression2)
 - **expression1**: First column or literal value to operate on.
 - **expression2**: Second column or literal value to operate on.
 
+{{< expand-wrapper >}}
+{{% expand "View `corr` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  corr(hum, temp) AS correlation
+FROM home
+GROUP BY room
+```
+
+| room        |         correlation |
+| :---------- | ------------------: |
+| Living Room | 0.43665270457835725 |
+| Kitchen     |  0.6741766954929539 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### covar
 
 Returns the covariance of a set of number pairs.
@@ -224,6 +256,38 @@ Returns the covariance of a set of number pairs.
 ```sql
 covar(expression1, expression2)
 ```
+
+##### Arguments:
+
+- **expression1**: First column or literal value to operate on.
+- **expression2**: Second column or literal value to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `covar` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  covar(hum, temp) AS covar
+FROM home
+GROUP BY room
+```
+
+##### Arguments:
+
+- **expression1**: First column or literal value to operate on.
+- **expression2**: Second column or literal value to operate on.
+
+| room        |               covar |
+| :---------- | ------------------: |
+| Living Room | 0.03346153846153959 |
+| Kitchen     | 0.11134615384615432 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### covar_pop
 
@@ -233,21 +297,273 @@ Returns the population covariance of a set of number pairs.
 covar_pop(expression1, expression2)
 ```
 
+##### Arguments:
+
+- **expression1**: First column or literal value to operate on.
+- **expression2**: Second column or literal value to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `covar_pop` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  covar_pop(hum, temp) AS covar_pop
+FROM home
+GROUP BY room
+```
+
+| room        |            covar_pop |
+| :---------- | -------------------: |
+| Kitchen     |  0.10278106508875783 |
+| Living Room | 0.030887573964498087 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### covar_samp
 
 Returns the sample covariance of a set of number pairs.
 
 ```sql
-covar_pop(expression1, expression2)
+covar_samp(expression1, expression2)
 ```
 
+##### Arguments:
+
+- **expression1**: First column or literal value to operate on.
+- **expression2**: Second column or literal value to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `covar_samp` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  covar_samp(hum, temp) AS covar_samp
+FROM home
+GROUP BY room
+```
+
+| room        |          covar_samp |
+| :---------- | ------------------: |
+| Kitchen     | 0.11134615384615432 |
+| Living Room | 0.03346153846153959 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### stddev
+
+Returns the standard deviation of a set of numbers.
+
+```sql
+stddev(expression)
+```
+
+##### Arguments:
+
+- **expression**: Column or literal value to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `stddev` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  stddev(co) AS stddev
+FROM home
+GROUP BY room
+```
+
+| room        |            stddev |
+| :---------- | ----------------: |
+| Living Room | 5.885662718931967 |
+| Kitchen     | 9.321879418735037 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### stddev_pop
+
+Returns the population standard deviation of a set of numbers.
+
+```sql
+stddev_pop(expression)
+```
+
+##### Arguments:
+
+- **expression**: Column or literal value to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `stddev_pop` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  stddev_pop(co) AS stddev_pop
+FROM home
+GROUP BY room
+```
+
+| room        |        stddev_pop |
+| :---------- | ----------------: |
+| Kitchen     | 8.956172047894082 |
+| Living Room | 5.654761830612032 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### stddev_samp
+
+Returns the sample standard deviation of a set of numbers.
+
+```sql
+stddev_samp(expression)
+```
+
+##### Arguments:
+
+- **expression**: Column or literal value to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `stddev_samp` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  stddev_samp(co) AS stddev_samp
+FROM home
+GROUP BY room
+```
+
+| room        |       stddev_samp |
+| :---------- | ----------------: |
+| Living Room | 5.885662718931967 |
+| Kitchen     | 9.321879418735037 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+---
+
 ### var
+
+Returns the statistical variance of a set of numbers.
+
+```sql
+var(expression)
+```
+
+##### Arguments:
+
+- **expression**: Column or literal value to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `var` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  var(co) AS var
+FROM home
+GROUP BY room
+```
+
+| room        |               var |
+| :---------- | ----------------: |
+| Living Room | 34.64102564102564 |
+| Kitchen     | 86.89743589743587 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### var_pop
+
+Returns the statistical population variance of a set of numbers.
+
+```sql
+var_pop(expression)
+```
+
+##### Arguments:
+
+- **expression**: Column or literal value to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `var_pop` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  var_pop(co) AS var_pop
+FROM home
+GROUP BY room
+```
+
+| room        |            var_pop |
+| :---------- | -----------------: |
+| Living Room | 31.976331360946745 |
+| Kitchen     |  80.21301775147927 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### var_samp
 
+Returns the statistical sample variance of a set of numbers.
+
+```sql
+var_samp(expression)
+```
+
+##### Arguments:
+
+- **expression**: Column or literal value to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `var_samp` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  var_samp(co) AS var_samp
+FROM home
+GROUP BY room
+```
+
+| room        |          var_samp |
+| :---------- | ----------------: |
+| Kitchen     | 86.89743589743587 |
+| Living Room | 34.64102564102564 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## Approximate aggregate functions
 
