@@ -49,8 +49,8 @@
     - /telegraf/v1.23/install/
     - /telegraf/v1.24/install/
     - /telegraf/v1.9/introduction/installation/
+  title: Linux Package Signing Key Rotation
   message: |
-    ### Linux Package Signing Key Rotation
     All signed InfluxData Linux packages have been resigned with an updated key.
     If using Linux, you may need to update your package configuration to continue
     to download and verify InfluxData software packages.
@@ -62,9 +62,8 @@
   level: note
   scope: 
     - /influxdb/cloud-iox/
+  title: InfluxDB Cloud backed by InfluxDB IOx
   message: |
-    ### InfluxDB Cloud backed by InfluxDB IOx
-
     All InfluxDB Cloud organizations created on or after **January 31, 2023**
     are backed by the new InfluxDB IOx storage engine.
     Check the right column of your [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com)
@@ -78,9 +77,8 @@
   level: note
   scope: 
     - /influxdb/cloud/
+  title: InfluxDB Cloud backed by InfluxDB TSM
   message: |
-    ### InfluxDB Cloud backed by InfluxDB TSM
-
     All InfluxDB Cloud organizations created on or after **January 31, 2023**
     are backed by the new InfluxDB IOx storage engine which enables nearly unlimited
     series cardinality and SQL query support.
@@ -95,9 +93,8 @@
   level: warn
   scope:
     - /influxdb/cloud-iox/
+  title: State of the InfluxDB Cloud (IOx) documentation
   message: |
-    ### State of the InfluxDB Cloud (IOx) documentation
-
     The new documentation for **InfluxDB Cloud backed by InfluxDB IOx** is a work
     in progress. We are adding new information and content almost daily.
     Thank you for your patience!
