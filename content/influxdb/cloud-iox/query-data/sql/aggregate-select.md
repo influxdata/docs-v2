@@ -11,6 +11,9 @@ menu:
     identifier: query-sql-aggregate
 weight: 203
 influxdb/cloud-iox/tags: [query, sql]
+related:
+  - /influxdb/cloud-iox/reference/sql/functions/aggregate/
+  - /influxdb/cloud-iox/reference/sql/functions/selector/
 list_code_example: |
   ##### Aggregate fields by groups
   ```sql

@@ -8,6 +8,8 @@ menu:
     name: Aggregate
     parent: sql-functions
 weight: 301
+related:
+  - /influxdb/cloud-iox/query-data/sql/aggregate-select/
 ---
 
 SQL aggregate functions aggregate values in a specified column for each

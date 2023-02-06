@@ -8,6 +8,8 @@ menu:
     name: Selector
     parent: sql-functions
 weight: 302
+related:
+  - /influxdb/cloud-iox/query-data/sql/aggregate-select/
 ---
 
 SQL selector functions are designed to work with time series data.
@@ -15,6 +17,13 @@ They behave similarly to aggregate functions in that they take a collection of
 data and return a single value.
 However, selectors are unique in that they return a _struct_ that contains
 a **time value** in addition to the computed value.
+
+- [How do selector functions work?](#how-do-selector-functions-work)
+- [Selector functions](#selector-functions)
+  - [selector_min](#selector_min)
+  - [selector_max](#selector_max)
+  - [selector_first](#selector_first)
+  - [selector_last](#selector_last)
 
 ## How do selector functions work?
 
