@@ -534,7 +534,7 @@ WHERE time >= timestamp '2019-09-10T00:00:00Z' AND time <= timestamp '2019-09-19
 
 ```
 
-### Time series functions
+### Date and time functions
 
 | Function     | Description                                                                                     |
 | :----------- | :---------------------------------------------------------------------------------------------- |
