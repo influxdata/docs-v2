@@ -227,11 +227,7 @@ Use the SQL `SELECT` statement to query data from a specific measurement or meas
 #### Examples
 
 ```sql
-SELECT *
-FROM "h2o_feet" 
-
-SELECT "location","water_level","time"
-FROM "h2o_feet"
+SELECT * FROM "h2o_feet"
 ```
 ### WHERE clause
 
