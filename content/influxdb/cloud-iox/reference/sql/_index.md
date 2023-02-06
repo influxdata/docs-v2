@@ -541,7 +541,7 @@ WHERE time >= timestamp '2019-09-10T00:00:00Z' AND time <= timestamp '2019-09-19
 | DATE_BIN()   | Bins the input timestamp into a specified interval.                                             |
 | DATE_TRUNC() | Truncates a timestamp expression based on the date part specified, such as hour, day, or month. |
 | DATE_PART()  | Returns the specified part of a date.                                                           |
-| NOW()        | Returns the current time.                                                                       |
+| NOW()        | Returns the current time (UTC).                                                                  |
                  
 #### Examples
 
