@@ -32,6 +32,10 @@ aggregate value.
   - [var_pop](#var_pop)
   - [var_samp](#var_samp)
 - [Approximate aggregate functions](#approximate-aggregate-functions)
+  - [approx_distinct](#approx_distinct)
+  - [approx_median](#approx_median)
+  - [approx_percentile_cont](#approx_percentile_cont)
+  - [approx_percentile_cont_with_weight](#approx_percentile_cont_with_weight)
 
 ---
 
@@ -567,10 +571,154 @@ GROUP BY room
 
 ## Approximate aggregate functions
 
-approx_distinct
+- [approx_distinct](#approx_distinct)
+- [approx_median](#approx_median)
+- [approx_percentile_cont](#approx_percentile_cont)
+- [approx_percentile_cont_with_weight](#approx_percentile_cont_with_weight)
 
-approx_median
+### approx_distinct
 
-approx_percentile_cont
+Returns the approximate number of distinct input values calculated using the
+HyperLogLog algorithm.
 
-approx_percentile_cont_with_weight
+```sql
+approx_distinct(expression)
+```
+
+##### Arguments
+
+- **expression**: Column or literal value to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `approx_distinct` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  approx_distinct(co::string) AS approx_distinct
+FROM home
+GROUP BY room
+```
+
+| room        | approx_distinct |
+| :---------- | --------------: |
+| Living Room |               7 |
+| Kitchen     |               8 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### approx_median
+
+Returns the approximate median (50th percentile) of input values.
+It is an alias of `approx_percentile_cont(x, 0.5)`.
+
+```sql
+approx_median(expression)
+```
+
+##### Arguments
+
+- **expression**: Column or literal value to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `approx_median` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  approx_median(temp) AS approx_median
+FROM home
+GROUP BY room
+```
+
+| room        | approx_median |
+| :---------- | ------------: |
+| Kitchen     |          22.7 |
+| Living Room |          22.3 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### approx_percentile_cont
+
+Returns the approximate percentile of input values using the t-digest algorithm.
+
+```sql
+approx_percentile_cont(expression, percentile, centroids)
+```
+
+##### Arguments
+
+- **expression**: Column or literal value to operate on.
+- **percentile**: Percentile to compute. Must be a float value between 0 and 1 (inclusive).
+- **centroids**: Number of centroids to use in the t-digest algorithm. _Default is 100_.
+
+  If there are this number or fewer unique values, you can expect an exact result.
+  A higher number of centroids results in a more accurate approximation, but
+  requires more memory to compute.
+
+{{< expand-wrapper >}}
+{{% expand "View `approx_percentile_cont` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  approx_percentile_cont(temp, 0.99) AS "99th_percentile"
+FROM home
+GROUP BY room
+```
+
+| room        | 99th_percentile |
+| :---------- | --------------: |
+| Kitchen     |            23.3 |
+| Living Room |            22.8 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### approx_percentile_cont_with_weight
+
+Returns the weighted approximate percentile of input values using the
+t-digest algorithm.
+
+```sql
+approx_percentile_cont_with_weight(expression, weight, percentile)
+```
+
+##### Arguments
+
+- **expression**: Column or literal value to operate on.
+- **weight**: Column or literal value to use as weight.
+- **percentile**: Percentile to compute. Must be a float value between 0 and 1 (inclusive).
+
+{{< expand-wrapper >}}
+{{% expand "View `approx_percentile_cont_with_weight` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  approx_percentile_cont_with_weight(temp, co, 0.99) AS "co_weighted_99th_percentile"
+FROM home
+GROUP BY room
+```
+
+| room        | co_weighted_99th_percentile |
+| :---------- | --------------------------: |
+| Kitchen     |                        23.3 |
+| Living Room |                        22.8 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
