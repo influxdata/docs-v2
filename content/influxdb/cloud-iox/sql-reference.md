@@ -342,16 +342,17 @@ GROUP BY
 #### Examples
 
 ```sql
-SELECT MEAN("water_level"), "location", "time"
-FROM "h2o_feet" 
-GROUP BY "location","time"
-HAVING MEAN("water_level") > 4
-
-SELECT MEAN("water_level"), "location", "time"
-FROM "h2o_feet" 
-GROUP BY "location","time"
-HAVING MEAN("water_level") > 9.8
-ORDER BY "time"
+SELECT 
+  MEAN("water_level"), 
+  "location" 
+FROM 
+  "h2o_feet" 
+GROUP BY 
+  "location" 
+HAVING 
+  MEAN("water_level") > 4
+ORDER BY
+  "location"
 ```
 
 ### UNION clause
