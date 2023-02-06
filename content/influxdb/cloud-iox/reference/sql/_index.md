@@ -559,9 +559,12 @@ GROUP BY time
 
 ### Approximate functions
 
-| Function      | Description                                    |
-| :------------ | :--------------------------------------------- |
-| APPROX_MEDIAN | Returns the approximate median of input values. |
+| Function                           | Description                                                                                   |
+| :--------------------------------- | :-------------------------------------------------------------------------------------------- |
+| APPROX_MEDIAN                      | Returns the approximate median of input values.                                               |
+| APPROX_DISTINCT                    | Returns the approximate count of the number of distinct values. Implemented only for strings. |
+| APPROX_PERCENTILE_CONT             | Returns the approximate percentile of input values.                                           |
+| APPROX_PERCENTILE_CONT_WITH_WEIGHT | Returns the approximate percentile of input values with weight.                               |
 
 
 ### Math functions
