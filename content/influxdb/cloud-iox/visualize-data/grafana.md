@@ -137,7 +137,7 @@ cannot be installed on or used with Grafana Cloud.
     ```
 
 To add the FlightSQL plugin to your pre-existing Grafana Docker deployment
-mount the plugin directory `influxdata-flightsql-datasource` as a volume to your Grafana container:
+mount the plugin directory, `influxdata-flightsql-datasource`, as a volume to your Grafana container:
 
 Docker Run
 ```bash 
@@ -148,7 +148,9 @@ docker run \
   --env GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=influxdata-flightsql-datasource \
   grafana/grafana:latest
 ```
-Docker-Compose
+
+##### Docker-Compose
+
 ```yaml
 version: '3'
 services:
