@@ -52,13 +52,12 @@ number of columns allowed in a table.
 - [Contact InfluxData Support](https://support.influxdata.com) to delete any
   unnecessary data.
 
-<!-- ### Maximum number of tables reached
+### Maximum number of tables reached
 
 ```
-couldn't create table in `namespace`; namespace contains
-<N> existing tables, applying this write would result
-in <N+> tables, limit is 500
+dml handler error: service limit reached: couldn't create new table; namespace contains <N> existing
+tables, applying this write would result in <N+> columns, limit is 500
 ```
 
 This error is returned for any write request that would exceed the maximum
-number of tables allowed in a namespace. -->
+number of tables allowed in a namespace.
