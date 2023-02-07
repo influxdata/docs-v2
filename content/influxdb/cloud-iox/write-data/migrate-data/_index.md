@@ -44,12 +44,12 @@ querying your data with SQL, see:
 - [Query data with SQL](/influxdb/cloud-iox/query-data/sql/)
 - [InfluxDB SQL reference](/influxdb/cloud-iox/reference/sql/)
 
-#### Do you want better InfluxQL performance?
+<!-- #### Do you want better InfluxQL performance?
 
 **Yes, you should migrate**. One of the primary goals when designing the InfluxDB
 IOx storage engine was to enable performant implementations of both SQL and InfluxQL.
 When compared to querying InfluxDB backed by TSM (InfluxDB OSS 1.x, 2.x, and Enterprise),
-InfluxQL queries are more performant when querying InfluxDB backed by InfluxDB IOx.
+InfluxQL queries are more performant when querying InfluxDB backed by InfluxDB IOx. -->
 
 #### Do you depend on a specific cloud provider or region?
 
