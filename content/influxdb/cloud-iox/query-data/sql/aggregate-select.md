@@ -11,6 +11,9 @@ menu:
     identifier: query-sql-aggregate
 weight: 203
 influxdb/cloud-iox/tags: [query, sql]
+related:
+  - /influxdb/cloud-iox/reference/sql/functions/aggregate/
+  - /influxdb/cloud-iox/reference/sql/functions/selector/
 list_code_example: |
   ##### Aggregate fields by groups
   ```sql
@@ -74,7 +77,7 @@ value of `room`.
 Use **aggregate functions** to aggregate values in a specified column for each
 group and return a single row per group containing the aggregate value.
 
-[View aggregate functions](#)
+[View aggregate functions](/influxdb/cloud-iox/reference/sql/functions/aggregate/)
 
 ##### Basic aggregate query
 
@@ -87,7 +90,7 @@ SELECT AVG(co) from home
 Use **selector functions** to "select" a value from a specified column.
 The available selector functions are designed to work with time series data.
 
-[View selector functions](/influxdb/cloud-iox/reference/sql/functions/selectors/)
+[View selector functions](/influxdb/cloud-iox/reference/sql/functions/selector/)
 
 Each selector function returns a Rust _struct_ (similar to a JSON object)
 representing a single time and value from the specified column in the each group.
