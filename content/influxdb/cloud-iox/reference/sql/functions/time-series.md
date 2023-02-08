@@ -5,12 +5,12 @@ description: >
   Use time and date functions to work with time values and time series data.
 menu:
   influxdb_cloud_iox:
-    name: Time series
+    name: Time and date
     parent: sql-functions    
 weight: 305
 ---
 
-InfluxDB's SQL implementation supports time functions and functions specifically designed for working with time series data. 
+InfluxDB's SQL implementation supports time and date functions that are useful when working with time series data. 
 
 - [now](#now)
 - [date_bin](#date_bin)
@@ -19,45 +19,46 @@ InfluxDB's SQL implementation supports time functions and functions specifically
 
 ### now
 
-Use the NOW() function to query data with timestamps relative to the server's current timestamp.  
+Returns the current UTC timestamp.
+
+The `now()` return value is determined at query time and will return the same timestamp,
+no matter when in the query plan the function executes.
 
 ```sql 
-(time >= now() - interval <'insert_interval')
+now()
 ```
 
 {{< expand-wrapper >}}
 {{% expand "View `now` query example" %}}
 
 ```sql
-SELECT "water_level", "time"
+SELECT
+  "water_level",
+  "time"
 FROM h2o_feet
-WHERE time <= now() - interval '12 minutes'
-```
-
-Results:
-
-| time                     | water_level |
-| :----------------------- | :---------- |
-| 2019-09-05T00:00:00.000Z | 7.848       |
-| 2019-09-05T00:06:00.000Z | 7.986       |
-| 2019-09-05T00:12:00.000Z | 8.114       |
+WHERE
+  time <= now() - interval '12 minutes'
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
 ### date_bin
 
-The `date_bin` function "bins" the input timestamp into a specified time interval.  
+Updates a timestamp to the start of the nearest specified interval.
+Use `date_bin` to downsample time series data by grouping rows into time-based "bins" or "windows"
+and applying an aggregate or selector function to each window.
+
+For example, if you "bin" or "window" data into 15 minute intervals, an input timestamp of `2023-01-01T18:18:18Z` will be updated to the start time of the 15 minute bin it is in: `2023-01-01T18:15:00Z`.
 
 ```sql
-date_binN(INTERVAL <'insert_interval'>, expression, TIMESTAMP '<rfc3339_date_time_string>')
+date_bin(interval, expression, origin-timestamp)
 ```
 
 ##### Arguments:
 
-- **interval**: Span of time to bin or window by.
-- **expression**: Column to operate on.  
-- **timestamp**: Starting point used to determine window boundaries.
+- **interval**: Bin interval.
+- **expression**: Column or timestamp literal to operate on.  
+- **timestamp**: Starting point used to determine bin boundaries.
 
 The following intervals are supported:
 
@@ -72,15 +73,19 @@ The following intervals are supported:
 {{< expand-wrapper >}}
 {{% expand "View `date_bin` query example" %}}
 
-```sql
-SELECT date_bin(INTERVAL '1 day', time, TIMESTAMP '2019-01-01 00:00:00Z') AS time, AVG("water_level") as water_level_avg
-FROM "h2o_feet"
-WHERE time >= timestamp '2019-09-10T00:00:00Z' AND time <= timestamp '2019-09-20T00:00:00Z'
-GROUP BY 1
-ORDER BY 1 DESC
-```
+The following query returns the daily average of water levels in the queried time range.
 
-Results:
+```sql
+SELECT
+  date_bin(INTERVAL '1 day', time, TIMESTAMP '1970-01-01 00:00:00Z') AS time,
+  avg("water_level") AS water_level_avg
+FROM "h2o_feet"
+WHERE
+  time >= timestamp '2019-09-10T00:00:00Z'
+  AND time <= timestamp '2019-09-20T00:00:00Z'
+GROUP BY time
+ORDER BY time DESC
+```
 
 | time                     | water_level_avg    |
 | :----------------------- | :----------------- |
@@ -98,43 +103,42 @@ Results:
 
 ### date_trunc
 
-The `date_trunc()` function truncates a timestamp value based on the specified part of the date.  
+Truncates a timestamp value to a specified precision.  
 
 ```sql
-
-date_trunc('precision', expression) 
+date_trunc(precision, expression) 
 ```
 
 ##### Arguments:
 
-- **precision**: Desired time precision.
-- **expression**: Column to operate on.  
+- **precision**: Time precision to truncate to.
+  The following precisions are supported:  
 
-The following precision is supported:  
-
- - year
- - month
- - week
- - day
- - hour
- - minute
- - second
- - millisecond 
- - nanosecond
+    - year
+    - month
+    - week
+    - day
+    - hour
+    - minute
+    - second
+    
+- **expression**: Column or timestamp literal to operate on.  
 
 {{< expand-wrapper >}}
 {{% expand "View `date_trunc` query examples" %}}
+#### Use date_trunc to return hourly averages
 
 ```sql
 SELECT
   avg(water_level) AS level,
-  date_trunc('hour',time) AS "hour"
-FROM "h2o_feet"
-WHERE time >= timestamp '2019-09-10T00:00:00Z' AND time <= timestamp '2019-09-12T00:00:00Z'
+  date_trunc('hour', time) AS hour
+FROM h2o_feet
+WHERE
+  time >= timestamp '2019-09-10T00:00:00Z'
+  AND time <= timestamp '2019-09-12T00:00:00Z'
 GROUP BY hour
 ORDER BY hour
 ```
-Results:
 
 | hour                     | level              |
 | :----------------------- | :----------------- |
@@ -145,18 +149,19 @@ Results:
 | 2019-09-10T04:00:00.000Z | 6.433900000000001  |
 | 2019-09-10T05:00:00.000Z | 6.810949999999998  |
 
+#### Use date_trunc to return weekly averages
 
 ```sql
 SELECT
-	mean(water_level) as level,
-    date_trunc('week',time) AS "week"
-FROM
-	"h2o_feet"
-WHERE time >= timestamp '2019-08-01T00:00:00Z' AND time <= timestamp '2019-10-31T00:00:00Z'
+  mean(water_level) as level,
+  date_trunc('week',time) AS week
+FROM h2o_feet
+WHERE
+  time >= timestamp '2019-08-01T00:00:00Z'
+  AND time <= timestamp '2019-10-31T00:00:00Z'
 GROUP BY week
 ORDER BY week
 ```
-Results:
 
 | level              | week                     |
 | :----------------- | :----------------------- |
@@ -167,55 +172,61 @@ Results:
 | 4.725866897257734  | 2019-09-09T00:00:00.000Z |
 | 4.499938596774042  | 2019-09-16T00:00:00.000Z |
 
-
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
 ### date_part
 
-The `date_part()` function is used to query for subfields from a date or time value and returns the specified part of the date as an integer.
+Returns the specified part of the date as an integer.
 
 ```sql
-date_part('field', source)
+date_part(part, expression)
 ```
+
 ##### Arguments:
 
-- **field**: The field to extract. Must be a string value.
-- **source**: A temporal expression that evaluates to `timestamp`, `time` or `interval`.
+- **part**: Part of the date to return.
+  The follow date parts are supported:
 
-The field values supported include:
-
- - year
- - month
- - week
- - day
- - hour
- - minute
- - second
- - millisecond 
- - nanosecond
- - dow
- - doy
-
+    - year
+    - month
+    - week _(week of the year)_
+    - day _(day of the month)_
+    - hour
+    - minute
+    - second
+    - millisecond 
+    - microsecond
+    - nanosecond
+    - dow _(day of the week)_
+    - doy _(day of the year)_
+    - 
+- **expression**: Column or timestamp literal to operate on.
 
 {{< expand-wrapper >}}
 {{% expand "View `date_part` query example" %}}
 
 ```sql
-SELECT date_part('hour', TIMESTAMP '2019-08-01T10:00:00Z') hour, 
+SELECT
+  date_part('hour', time) AS hour,
+  time,
   "level description", 
-  "location",
-  time
-FROM "h2o_feet"
-WHERE time >= timestamp '2019-08-01T00:00:00Z' AND time <= timestamp '2019-10-31T00:00:00Z'
+  location
+FROM h2o_feet
+WHERE
+  time >= timestamp '2019-08-17T02:54:00Z'
+  AND time <= timestamp '2019-08-17T03:06:00Z'
 ORDER BY time
 ```
 
-| hour | level description    | location     | time                     |
-| :--- | :------------------- | :----------- | :----------------------- |
-| 10   | below 3 feet         | santa_monica | 2019-08-17T00:00:00.000Z |
-| 10   | between 6 and 9 feet | coyote_creek | 2019-08-17T00:00:00.000Z |
-| 10   | below 3 feet         | santa_monica | 2019-08-17T00:06:00.000Z | 
+| hour | time                 | level description    | location     |
+| :--: | :------------------- | :------------------- | :----------- |
+|  2   | 2019-08-17T02:54:00Z | between 3 and 6 feet | coyote_creek |
+|  2   | 2019-08-17T02:54:00Z | between 3 and 6 feet | santa_monica |
+|  3   | 2019-08-17T03:00:00Z | between 3 and 6 feet | coyote_creek |
+|  3   | 2019-08-17T03:00:00Z | between 3 and 6 feet | santa_monica |
+|  3   | 2019-08-17T03:06:00Z | between 3 and 6 feet | coyote_creek |
+|  3   | 2019-08-17T03:06:00Z | between 3 and 6 feet | santa_monica |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
