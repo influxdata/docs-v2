@@ -55,9 +55,9 @@ date_binN(INTERVAL <'insert_interval'>, expression, TIMESTAMP '<rfc3339_date_tim
 
 ##### Arguments:
 
-- **interval**: The span of time to bin or window by.
-- **expression**: The time value or column to operate on.  
-- **timestamp**: The third argument is the starting point used to determine window boundaries.
+- **interval**: Span of time to bin or window by.
+- **expression**: Column to operate on.  
+- **timestamp**: Starting point used to determine window boundaries.
 
 The following intervals are supported:
 
@@ -107,8 +107,8 @@ date_trunc('precision', expression)
 
 ##### Arguments:
 
-- **precision**: The desired time precision.
-- **expression**: The time value or column to operate on.  
+- **precision**: Desired time precision.
+- **expression**: Column to operate on.  
 
 The following precision is supported:  
 
@@ -175,7 +175,15 @@ Results:
 
 The `date_part()` function is used to query for subfields from a date or time value and returns the specified part of the date as an integer.
 
-The precision supported includes:
+```sql
+date_part('field', source)
+```
+##### Arguments:
+
+- **field**: The field to extract. Must be a string value.
+- **source**: A temporal expression that evaluates to `timestamp`, `time` or `interval`.
+
+The field values supported include:
 
  - year
  - month
@@ -189,9 +197,6 @@ The precision supported includes:
  - dow
  - doy
 
-```sql
-date_part(field, source)
-```
 
 {{< expand-wrapper >}}
 {{% expand "View `date_part` query example" %}}
@@ -215,14 +220,4 @@ ORDER BY time
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-<!-- ## The TIME_BUCKET_GAPFILL function (not working for Jan 31 release)
-
-
-```sql
-SELECT time_bucket_gapfill('1 day', time, TIMESTAMP '2022-01-01 00:00:00Z') as day,
-"degrees", "location", "time"
-FROM "h2o_temperature"
-GROUP BY 1,2
-ORDER BY 1,2
-``` -->
 
