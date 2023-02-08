@@ -38,6 +38,7 @@ SELECT
 FROM h2o_feet
 WHERE
   time <= now() - interval '12 minutes'
+```
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -62,6 +63,7 @@ date_bin(interval, expression, origin-timestamp)
 
 The following intervals are supported:
 
+ - milliseconds
  - seconds
  - minutes
  - hours 
