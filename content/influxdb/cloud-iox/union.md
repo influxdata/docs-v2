@@ -43,11 +43,19 @@ FROM
 ### Union results from different measurements
 
 ```sql
-SELECT "pH" as "water_pH", "time", "location"
-FROM "h2o_pH"
-UNION 
-SELECT "location", "time", "randtag" 
-FROM "h2o_quality"
+SELECT
+  "pH" AS "water_pH",
+  "time",
+  "location"
+FROM
+  "h2o_pH"
+UNION
+SELECT
+  "index",
+  "time",
+  "location"
+FROM
+  "h2o_quality"
 ```
 Results:
 
