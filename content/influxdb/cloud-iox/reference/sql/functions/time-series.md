@@ -1,6 +1,6 @@
 ---
-title: SQL time series functions
-list_title: Time series functions
+title: SQL time and date functions
+list_title: Time and date functions
 description: >
   Use functions unique to working with time series data.
 menu:
