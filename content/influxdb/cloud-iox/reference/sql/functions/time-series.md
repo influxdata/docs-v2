@@ -2,7 +2,7 @@
 title: SQL time and date functions
 list_title: Time and date functions
 description: >
-  Use functions unique to working with time series data.
+  Use time and date functions to work with time values and time series data.
 menu:
   influxdb_cloud_iox:
     name: Time series
