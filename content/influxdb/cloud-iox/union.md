@@ -57,14 +57,18 @@ SELECT
 FROM
   "h2o_quality"
 ```
-Results:
-
-| location     | time                     | water_ph |
-| :----------- | :----------------------- | :------- |
-| coyote_creek | 2019-08-21T00:00:00.000Z | 8.0      |
-| coyote_creek | 2019-08-21T00:18:00.000Z | 7.0      |
-| coyote_creek | 2019-08-21T00:42:00.000Z | 8.0      |
-
+{{< expand-wrapper >}}
+{{% expand "View example results" %}}
+| water_pH | time                 | location     |
+| -------: | :------------------- | :----------- |
+|       60 | 2019-08-31T00:54:00Z | coyote_creek |
+|       65 | 2019-08-31T01:36:00Z | coyote_creek |
+|        9 | 2019-08-31T02:18:00Z | coyote_creek |
+|       57 | 2019-08-31T03:30:00Z | coyote_creek |
+|       24 | 2019-08-31T04:54:00Z | coyote_creek |
+|       75 | 2019-08-31T05:00:00Z | coyote_creek |
+{{% /expand %}}
+{{< /expand-wrapper >}}
 The query returns the location, time and pH from the 2 tables.
 
 ### Return the top and bottom three results in a single result set
