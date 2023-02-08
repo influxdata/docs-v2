@@ -69,7 +69,6 @@ FROM
 |       75 | 2019-08-31T05:00:00Z | coyote_creek |
 {{% /expand %}}
 {{< /expand-wrapper >}}
-The query returns the location, time and pH from the 2 tables.
 
 ### Return the top and bottom three results in a single result set
 
