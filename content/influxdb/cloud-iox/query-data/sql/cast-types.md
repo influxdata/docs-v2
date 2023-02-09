@@ -226,7 +226,6 @@ SQL supports casting the following to an unsigned integer:
 - **Timestamps**: Returns the equivalent
   [nanosecond epoch timestamp](/influxdb/cloud-iox/reference/glossary/#unix-timestamp).
 
-
 ---
 
 ## Cast to a boolean type
