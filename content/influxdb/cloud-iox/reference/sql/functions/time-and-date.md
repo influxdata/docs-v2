@@ -16,6 +16,7 @@ InfluxDB's SQL implementation supports time and date functions that are useful w
 - [date_bin](#date_bin)
 - [date_trunc](#date_trunc)  
 - [date_part](#date_part)
+- [to_timestamp_millis](#to-timestamp-millis)
 
 ### now
 
@@ -71,6 +72,7 @@ The following intervals are supported:
  - weeks
  - months 
  - years
+ - century
 
 {{< expand-wrapper >}}
 {{% expand "View `date_bin` query example" %}}
@@ -128,6 +130,7 @@ date_trunc(precision, expression)
 
 {{< expand-wrapper >}}
 {{% expand "View `date_trunc` query examples" %}}
+
 #### Use date_trunc to return hourly averages
 
 ```sql
@@ -202,11 +205,12 @@ date_part(part, expression)
     - nanosecond
     - dow _(day of the week)_
     - doy _(day of the year)_
-    - 
+    
+
 - **expression**: Column or timestamp literal to operate on.
 
 {{< expand-wrapper >}}
-{{% expand "View `date_part` query example" %}}
+{{% expand "View `date_part` query examples" %}}
 
 ```sql
 SELECT
@@ -230,7 +234,88 @@ ORDER BY time
 |  3   | 2019-08-17T03:06:00Z | between 3 and 6 feet | coyote_creek |
 |  3   | 2019-08-17T03:06:00Z | between 3 and 6 feet | santa_monica |
 
+
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+### extract
+
+Retrieves sub-fields from time values.  Similar to `date_part`. 
+
+```sql
+
+extract(field FROM source)
+```
+
+##### Arguments:
+
+- **extract**: Returns values of type u32.
+- **source**: Must be a value expression of type timestamp, date32 or date64.
+- **field**: Identifier that selects what field to extract from the source value.
+
+{{< expand-wrapper >}}
+{{% expand "View `extract` query examples" %}}
+
+```sql
+SELECT 
+  extract (second from time) 
+FROM 
+  cpu 
+LIMIT 1
+```
+
+| datepart(Utf8("SECOND"),cpu.time) |
+| :-------------------------------- |
+| 10                                |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### to_timestamp
+
+Converts timestamp according to the specified format.
+
+```sql
+to_timestamp(timestamp, format)
+```
+
+##### Arguments:
+
+- **timestamp**: Represents the string with date/time value to convert into the timestamp.
+- **format**: Format for the specified timestamp.
+
+
+<!-- #### Use to_timestamp to convert to seconds
+
+#### Use to_timestamp with time column name -->
+
+```sql
+SELECT to_timestamp(time) 
+FROM cpu 
+LIMIT 1;
+
+
+| totimestamp(cpu.time) |
+| :-------------------- |
+| 2023-02-08T17:21:10Z  |
+```
+
+### to_timestamp_millis
+
+Converts timestamp to type millisecond.
+
+
+```sql
+SELECT
+  to_timestamp_millis(time) 
+FROM 
+  cpu
+LIMIT 1;
+```
+
+Results
+| totimestampmillis(h2o_temperature.time) |
+| :-------------------------------------- |
+| 2023-02-08T17:25:18                     |
+|                                         |
 
