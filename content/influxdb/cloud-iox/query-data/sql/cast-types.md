@@ -2,8 +2,8 @@
 title: Cast values to different types
 seotitle: Cast values to different data types in SQL
 description: >
-  A basic SQL query that queries data from InfluxDB most commonly includes
-  `SELECT`, `FROM`, and `WHERE` clauses.
+  Use the `CAST` function or double-colon `::` casting shorthand syntax to cast
+  a value to a specific type.
 menu:
   influxdb_cloud_iox:
     name: Cast types
