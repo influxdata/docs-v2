@@ -240,7 +240,7 @@ ORDER BY time
 
 ### extract
 
-Retrieves sub-fields from time values.  Similar to `date_part`. 
+Retrieves sub-fields from time values.  Similar to `date_part`, but the arguments are different. 
 
 ```sql
 
@@ -273,49 +273,154 @@ LIMIT 1
 
 ### to_timestamp
 
-Converts timestamp according to the specified format.
+Converts a timestamp to nanosecond format.
 
 ```sql
-to_timestamp(timestamp, format)
+to_timestamp(time)
 ```
 
 ##### Arguments:
 
-- **timestamp**: Represents the string with date/time value to convert into the timestamp.
-- **format**: Format for the specified timestamp.
+- **time**: Column to operate on.
 
-
-<!-- #### Use to_timestamp to convert to seconds
-
-#### Use to_timestamp with time column name -->
+{{< expand-wrapper >}}
+{{% expand "View `to_timestamp` query example" %}}
 
 ```sql
 SELECT to_timestamp(time) 
-FROM cpu 
-LIMIT 1;
-
-
-| totimestamp(cpu.time) |
-| :-------------------- |
-| 2023-02-08T17:21:10Z  |
+FROM h2o_feet
+LIMIT 1
 ```
+
+| totimestamp(cpu.time)    |
+| :----------------------- |
+| 2019-08-27T00:00:00.000Z |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### to_timestamp_millis
 
-Converts timestamp to type millisecond.
+Converts timestamp to millisecond format.
 
+```sql
+to_timestamp_millis(time) 
+```
+
+##### Arguments:
+
+- **time**: Column to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `to_timestamp_millis` query example" %}}
 
 ```sql
 SELECT
   to_timestamp_millis(time) 
 FROM 
+  h2o_temperature
+LIMIT 1
+```
+
+Results
+| totimestampmillis(cpu.time) |
+| :-------------------------- |
+| 2023-02-08T17:25:18.864Z    |
+
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### to_timestamp_micros
+
+Converts timestamp to microsecond format.
+
+```sql
+to_timestamp_micros(time)
+```
+
+##### Arguments:
+
+- **time**: Column to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `to_timestamp_micros` query example" %}}
+
+```sql
+SELECT
+  to_timestamp_micros(time)
+FROM 
+  cpu
+LIMIT 1
+```
+
+| totimestampmicros(cpu.time) |
+| :-------------------------- |
+| 2023-02-08T19:21:10.000Z    |
+|                             |
+
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+
+### to_timestamp_seconds
+
+Converts timestamp to seconds format.
+
+```sql
+to_timestamp_seconds(time) 
+```
+
+##### Arguments:
+
+- **time**: Column to operate on.
+
+{{< expand-wrapper >}}
+{{% expand "View `to_timestamp_seconds` query example" %}}
+
+```sql
+SELECT
+  to_timestamp_seconds(time)
+FROM 
   cpu
 LIMIT 1;
 ```
 
-Results
-| totimestampmillis(h2o_temperature.time) |
-| :-------------------------------------- |
-| 2023-02-08T17:25:18                     |
-|                                         |
+ | totimestampseconds(cpu.time) |
+ | :--------------------------- |
+ | 2023-02-08T17:21:10          |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+
+### from_unixtime
+
+Converts unix epoch to RFCC3339 timestamp.
+
+```sql
+select from_unixtime(timestamp)
+```
+
+##### Arguments:
+
+- **timestamp**: Unix Epoch timestamp.
+
+{{< expand-wrapper >}}
+{{% expand "View `from_unixtime` query example" %}}
+
+```sql
+SELECT
+  from_unixtime(1568826000)
+FROM 
+  cpu
+LIMIT 1
+```
+
+| fromunixtime(Int64(1568826000)) |
+| :------------------------------ |
+| 1970-01-01T00:00:01.568Z        |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
