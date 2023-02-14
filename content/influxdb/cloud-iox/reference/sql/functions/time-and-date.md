@@ -394,7 +394,7 @@ Input is parsed as a [Unix nanosecond timestamp](/influxdb/cloud-iox/reference/g
 and returns the corresponding RFC3339 timestamp.
 
 ```sql
-select from_unixtime(timestamp)
+from_unixtime(expression)
 ```
 
 ##### Arguments:
