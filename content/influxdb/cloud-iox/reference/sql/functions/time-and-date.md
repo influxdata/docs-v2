@@ -271,7 +271,7 @@ Integers and unsigned integers are parsed as [Unix nanosecond timestamps](/influ
 and return the corresponding RFC3339 nanosecond timestamp.
 
 ```sql
-to_timestamp(time)
+to_timestamp(expression)
 ```
 
 ##### Arguments:
