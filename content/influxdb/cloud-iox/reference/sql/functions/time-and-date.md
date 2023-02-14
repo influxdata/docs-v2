@@ -250,15 +250,15 @@ extract(field FROM source)
 
 ```sql
 SELECT 
-  extract (second from time) 
+  extract(day from time) AS day
 FROM 
-  cpu 
+  h2o_feet 
 LIMIT 1
 ```
 
-| datepart(Utf8("SECOND"),cpu.time) |
-| :-------------------------------- |
-| 10                                |
+| day |
+| :-- |
+| 25  |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
