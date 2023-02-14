@@ -16,7 +16,12 @@ InfluxDB's SQL implementation supports time and date functions that are useful w
 - [date_bin](#date_bin)
 - [date_trunc](#date_trunc)  
 - [date_part](#date_part)
-- [to_timestamp_millis](#to-timestamp-millis)
+- [extract](#extract)
+- [to_timestamp](#to_timestamp)
+- [to_timestamp_millis](#to_timestamp_millis)
+- [to_timestamp_micros](#to_timestamp_micros)
+- [to_timestamp_seconds](#to_timestamp_seconds)
+- [from_unixtime](#from_unixtime)
 
 ### now
 
@@ -243,9 +248,10 @@ Similar to `date_part`, but with different arguments.
 
 ```sql
 extract(field FROM source)
+```
 
 {{< expand-wrapper >}}
-{{% expand "View `extract` query examples" %}}
+{{% expand "View `extract` query example" %}}
 
 ```sql
 SELECT 
