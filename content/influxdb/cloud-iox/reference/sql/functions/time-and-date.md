@@ -406,10 +406,7 @@ from_unixtime(expression)
 
 ```sql
 SELECT
-  from_unixtime(1568826000)
-FROM 
-  cpu
-LIMIT 1
+  from_unixtime(1672531200000000000) AS RFC3339
 ```
 
 | fromunixtime(Int64(1568826000)) |
