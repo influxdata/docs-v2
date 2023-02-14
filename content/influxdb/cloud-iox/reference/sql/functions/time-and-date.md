@@ -206,7 +206,6 @@ date_part(part, expression)
     - dow _(day of the week)_
     - doy _(day of the year)_
     
-
 - **expression**: Column or timestamp literal to operate on.
 
 {{< expand-wrapper >}}
