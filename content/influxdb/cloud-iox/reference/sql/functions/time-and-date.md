@@ -399,7 +399,7 @@ from_unixtime(expression)
 
 ##### Arguments:
 
-- **timestamp**: Unix Epoch timestamp.
+- **expression**: Column or integer literal to operate on.
 
 {{< expand-wrapper >}}
 {{% expand "View `from_unixtime` query example" %}}
