@@ -239,18 +239,11 @@ ORDER BY time
 
 ### extract
 
-Retrieves sub-fields from time values.  Similar to `date_part`, but the arguments are different. 
+Returns a sub-field from a time value as an integer.
+Similar to `date_part`, but with different arguments. 
 
 ```sql
-
 extract(field FROM source)
-```
-
-##### Arguments:
-
-- **extract**: Returns values of type u32.
-- **source**: Must be a value expression of type timestamp, date32 or date64.
-- **field**: Identifier that selects what field to extract from the source value.
 
 {{< expand-wrapper >}}
 {{% expand "View `extract` query examples" %}}
