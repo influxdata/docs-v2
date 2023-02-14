@@ -233,7 +233,6 @@ ORDER BY time
 |  3   | 2019-08-17T03:06:00Z | between 3 and 6 feet | coyote_creek |
 |  3   | 2019-08-17T03:06:00Z | between 3 and 6 feet | santa_monica |
 
-
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
@@ -296,15 +295,18 @@ LIMIT 1
 
 ### to_timestamp_millis
 
-Converts timestamp to millisecond format.
+Converts a value to RFC3339 millisecond timestamp format (`YYYY-MM-DDT00:00:00.000Z`).
+Supports timestamp, integer, and unsigned integer types as input.
+Integers and unsigned integers are parsed as [Unix nanosecond timestamps](/influxdb/cloud-iox/reference/glossary/#unix-timestamp)
+and return the corresponding RFC3339 timestamp.
 
 ```sql
-to_timestamp_millis(time) 
+to_timestamp_millis(expression) 
 ```
 
 ##### Arguments:
 
-- **time**: Column to operate on.
+- **expression**: Column or literal value to operate on.
 
 {{< expand-wrapper >}}
 {{% expand "View `to_timestamp_millis` query example" %}}
@@ -322,21 +324,23 @@ Results
 | :-------------------------- |
 | 2023-02-08T17:25:18.864Z    |
 
-
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
 ### to_timestamp_micros
 
-Converts timestamp to microsecond format.
+Converts a value to RFC3339 microsecond timestamp format (`YYYY-MM-DDT00:00:00.000000Z`).
+Supports timestamp, integer, and unsigned integer types as input.
+Integers and unsigned integers are parsed as [Unix nanosecond timestamps](/influxdb/cloud-iox/reference/glossary/#unix-timestamp)
+and return the corresponding RFC3339 timestamp.
 
 ```sql
-to_timestamp_micros(time)
+to_timestamp_micros(expression)
 ```
 
 ##### Arguments:
 
-- **time**: Column to operate on.
+- **expression**: Column or literal value to operate on.
 
 {{< expand-wrapper >}}
 {{% expand "View `to_timestamp_micros` query example" %}}
@@ -352,24 +356,24 @@ LIMIT 1
 | totimestampmicros(cpu.time) |
 | :-------------------------- |
 | 2023-02-08T19:21:10.000Z    |
-|                             |
-
-
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
 
 ### to_timestamp_seconds
 
-Converts timestamp to seconds format.
+Converts a value to RFC3339 second timestamp format (`YYYY-MM-DDT00:00:00Z`).
+Supports timestamp, integer, and unsigned integer types as input.
+Integers and unsigned integers are parsed as [Unix nanosecond timestamps](/influxdb/cloud-iox/reference/glossary/#unix-timestamp)
+and return the corresponding RFC3339 timestamp.
 
 ```sql
-to_timestamp_seconds(time) 
+to_timestamp_seconds(expression) 
 ```
 
 ##### Arguments:
 
-- **time**: Column to operate on.
+- **expression**: Column or literal value to operate on.
 
 {{< expand-wrapper >}}
 {{% expand "View `to_timestamp_seconds` query example" %}}
@@ -382,9 +386,9 @@ FROM
 LIMIT 1;
 ```
 
- | totimestampseconds(cpu.time) |
- | :--------------------------- |
- | 2023-02-08T17:21:10          |
+| totimestampseconds(cpu.time) |
+| :--------------------------- |
+| 2023-02-08T17:21:10          |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
