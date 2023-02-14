@@ -276,7 +276,7 @@ to_timestamp(time)
 
 ##### Arguments:
 
-- **time**: Column to operate on.
+- **expression**: Column or literal value to operate on.
 
 {{< expand-wrapper >}}
 {{% expand "View `to_timestamp` query example" %}}
