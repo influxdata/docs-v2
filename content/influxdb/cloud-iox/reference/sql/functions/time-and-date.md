@@ -265,7 +265,10 @@ LIMIT 1
 
 ### to_timestamp
 
-Converts a timestamp to nanosecond format.
+Converts a value to RFC3339 nanosecond timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
+Supports timestamp, integer, and unsigned integer types as input.
+Integers and unsigned integers are parsed as [Unix nanosecond timestamps](/influxdb/cloud-iox/reference/glossary/#unix-timestamp)
+and return the corresponding RFC3339 nanosecond timestamp.
 
 ```sql
 to_timestamp(time)
