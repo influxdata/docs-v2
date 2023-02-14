@@ -389,7 +389,9 @@ LIMIT 1;
 
 ### from_unixtime
 
-Converts unix epoch to RFCC3339 timestamp.
+Converts an integer to RFC3339 timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
+Input is parsed as a [Unix nanosecond timestamp](/influxdb/cloud-iox/reference/glossary/#unix-timestamp)
+and returns the corresponding RFC3339 timestamp.
 
 ```sql
 select from_unixtime(timestamp)
