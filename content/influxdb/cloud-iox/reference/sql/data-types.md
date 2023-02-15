@@ -9,6 +9,8 @@ menu:
     name: Data types
     parent: SQL reference
 weight: 220
+related:
+  - /influxdb/cloud-iox/query-data/sql/cast-types/
 ---
 
 InfluxDB Cloud backed by InfluxDB IOx uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.
@@ -30,20 +32,32 @@ SELECT
 ```
 {{% /note %}}
 
-## Character types
+- [String types](#string-types)
+- [Numeric types](#numeric-types)
+  - [Integers](#integers)
+  - [Unsigned integers](#unsigned-integers)
+  - [Floats](#floats)
+- [Date and time data types](#date-and-time-data-types)
+  - [Timestamp](#timestamp)
+  - [Interval ](#interval-)
+- [Boolean types](#boolean-types)
+- [Unsupported SQL types](#unsupported-sql-types)
+
+## String types
 
 | Name    | Data type | Description                       |
 | :------ | :-------- | --------------------------------- |
+| STRING  | UTF8      | Character string, variable-length |
 | CHAR    | UTF8      | Character string, fixed-length    |
 | VARCHAR | UTF8      | Character string, variable-length |
 | TEXT    | UTF8      | Variable unlimited length         |
 
-##### Example character types
+##### Example string literals
 
 ```sql
-abcdefghijk
-time
-"h2o_temperature"
+'abcdefghijk'
+'time'
+'h2o_temperature'
 ```
 
 ## Numeric types
@@ -56,16 +70,44 @@ The following numeric types are supported:
 | BIGINT UNSIGNED | UINT64    | 64-bit unsigned integer      |
 | DOUBLE          | FLOAT64   | 64-bit floating-point number |
 
+### Integers
 
-Minimum signed integer:` -9223372036854775808`  
-Maximum signed integer: `9223372036854775807`
+InfluxDB SQL supports the 64-bit signed integers:
 
-Minimum unsigned integer (uinteger): `0`  
-Maximum unsigned integer (uinteger): `18446744073709551615`  
+**Minimum signed integer**: `-9223372036854775808`  
+**Maximum signed integer**: `9223372036854775807`
 
+##### Example integer literals
+
+```sql
+234
+-446
+5
+```
+
+### Unsigned integers
+
+InfluxDB SQL supports the 64-bit unsigned integers:
+
+**Minimum unsigned integer**: `0`  
+**Maximum unsigned integer**: `18446744073709551615`
+
+##### Example unsigned integer literals
+
+Unsigned integer literals are comprised of an integer cast to the `BIGINT UNSIGNED` type:
+
+```sql
+234::BIGINT UNSIGNED
+458374893::BIGINT UNSIGNED
+5::BIGINT UNSIGNED
+```
+
+### Floats
+
+InfluxDB SQL supports the 64-bit double floating point values.
 Floats can be a decimal point, decimal integer, or decimal fraction.
 
-##### Example float types
+##### Example float literals
 
 ```sql
 23.8
@@ -83,15 +125,13 @@ InfluxDB SQL supports the following DATE/TIME data types:
 | TIMESTAMP | TIMESTAMP | TimeUnit::Nanosecond, None                                           |
 | INTERVAL  | INTERVAL  | Interval(IntervalUnit::YearMonth) or Interval(IntervalUnit::DayTime) |
 
-
-#### Timestamp
+### Timestamp
 
 A time type is a single point in time using nanosecond precision.  
 
 The following date and time formats are supported:
 
 ```sql
--- Examples
 YYYY-MM-DDT00:00:00.000Z 
 YYYY-MM-DDT00:00:00.000-00:00 
 YYYY-MM-DD 00:00:00.000-00:00 
@@ -100,7 +140,18 @@ YYYY-MM-DD 00:00:00.000
 YYYY-MM-DD 00:00:00
 ```
 
-#### Interval 
+##### Example timestamp literals
+
+```sql
+'2023-01-02T03:04:06.000Z'
+'2023-01-02T03:04:06.000-00:00'
+'2023-01-02 03:04:06.000-00:00'
+'2023-01-02T03:04:06Z'
+'2023-01-02 03:04:06.000'
+'2023-01-02 03:04:06'
+```
+
+### Interval 
 
 The INTERVAL data type can be used with the following precision: 
 
@@ -111,28 +162,22 @@ The INTERVAL data type can be used with the following precision:
 - minute
 - second
 
+##### Example interval literals
 ```sql
--- Examples
-WHERE time > now() - interval'10 minutes' 
-time >= now() - interval'1 year'
+INTERVAL '10 minutes'
+INTERVAL '1 year'
+INTERVAL '2 days 1 hour 31 minutes'
 ```
 
 ## Boolean types
 
 Booleans store TRUE or FALSE values. 
 
-| Name    | Data type | Description                                                           |
-| :------ | :-------- | :-------------------------------------------------------------------- |
-| BOOLEAN | BOOLEAN   | TRUE or FALSE for strings, 0 and 1 for integers, uintegers and floats |
+| Name    | Data type | Description          |
+| :------ | :-------- | :------------------- |
+| BOOLEAN | BOOLEAN   | True or false values |
 
-Booleans are parsed in the following manner:
-
-- string: `TRUE` or `FALSE`
-- integer: 0 is false, non-zero is true
-- uinteger: 0 is false, non-zero is true
-- float: 0.0 is false, non-zero is true
-
-##### Example boolean types
+##### Example boolean literals
 
 ```sql
 true
