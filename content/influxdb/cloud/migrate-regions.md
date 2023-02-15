@@ -16,15 +16,17 @@ you want to migrate to.
 
 ## Migrate Data
 
-If you want to migrate data from your current InfluxDB Cloud account to your new,
+If you want to migrate data from your current InfluxDB Cloud account to your new
 destination InfluxDB Cloud account, there is documentation available that
 walks through the migration.
 The specific process varies depending on whether your destination account is
-powered by our current database engine (Time-Structured Merge Tree or TSM) or
-[our new database engine, InfluxDB IOx](/blog/announcing-general-availability-new-database-engine/).
+powered by our current database engine,
+[Time-Structured Merge Tree (TSM)](/{{< latest "influxdb" >}}/reference/internals/storage-engine/#time-structured-merge-tree-tsm)
+or [our new database engine, InfluxDB IOx](/blog/announcing-general-availability-new-database-engine/).
 
-To see what which database engine your organization is using, log into your 
-InfluxDB Cloud account and, on your organization's the homepage, look at the
+To see what which database engine your organization is using, log in to your 
+InfluxDB Cloud account and, on your organization's homepage, and then look for
+**InfluxDB Cloud powered by TSM** or **InfluxDB Cloud powered by IOx** at the
 bottom of the far-right column.
 
 - [Migrate data from TSM to TSM](/influxdb/cloud/migrate-data/migrate-cloud-to-cloud/). 
@@ -46,18 +48,19 @@ Resources include, but are not limited to the following:
 - dashboards
 - notification rules
 - tasks
-- etc.
+- labels
+- variables
 
 If you have resources that you want to migrate to your destination account
-(rather than recreating these resources in the destination account) you can take
-the following steps.
+(rather than recreating these resources in the destination account) you can do
+the following:
 
 1.  [Download and install the 2.x `influx` CLI](/influxdb/cloud/tools/influx-cli/).
 
 2.  [Set up InfluxDB connection configurations](/influxdb/cloud/tools/influx-cli/#provide-required-authentication-credentials)
     for both your **source** and **destination** InfluxDB Cloud accounts.
-
-    Provide the following for each connection:
+    Use the [`influx config create` command](/influxdb/cloud/reference/cli/influx/config/create/)
+    and provide the following for each connection:
 
     - Connection configuration name
     - [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/)
@@ -89,7 +92,9 @@ the following steps.
     influx export all
     ```
 
-4.  Switch to your **destination** connection configuration.
+4.  Use the [`influx config` command](/influxdb/cloud/reference/cli/influx/config/)
+    to switch to your **destination** connection configuration.
+    Provide the name of the configuration to switch to:
 
     ```sh
     influx config destination
