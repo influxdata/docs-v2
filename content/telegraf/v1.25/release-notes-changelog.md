@@ -10,7 +10,7 @@ menu:
     weight: 60
 ---
 
-## v1.25.2 [2023-01-13]
+## v1.25.2 [2023-02-13]
 
 ### Bug fixes
 - Only read the config once
