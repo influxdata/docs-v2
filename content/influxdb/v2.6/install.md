@@ -33,6 +33,7 @@ Do one of the following:
 
 - [Use Homebrew](#use-homebrew)
 - [Manually download and install](#manually-download-and-install)
+- [For Debian/Ubuntu users, use the repository](#debian-ubuntu-repository)
 
 {{% note %}}
 #### InfluxDB and the influx CLI are separate packages
@@ -144,6 +145,82 @@ or rename them before putting them in your `$PATH`.
 If you rename the binaries, all references to `influxd` and `influx` in this documentation refer to your renamed binaries.
 {{% /note %}}
 
+### Debian Ubuntu Repository
+{{% /tabs %}}
+{{% tab-content %}}
+For instructions on how to install the Debian package from a file,
+please see the
+[downloads page](https://influxdata.com/downloads/).
+
+Debian and Ubuntu users can install the latest stable version of InfluxDB using the
+`apt-get` package manager.
+
+For Ubuntu users, add the InfluxData repository with the following commands:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[wget](#)
+[curl](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+wget -qO- https://repos.influxdata.com/influxdata-archive_compat.key | sudo apt-key add -
+source /etc/lsb-release
+echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```bash
+curl -s https://repos.influxdata.com/influxdata-archive_compat.key | sudo apt-key add -
+source /etc/lsb-release
+echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+For Debian users, add the InfluxData repository:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[wget](#)
+[curl](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+wget -qO- https://repos.influxdata.com/influxdata-archive_compat.key | sudo apt-key add -
+source /etc/os-release
+echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+```
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+```bash
+curl -s https://repos.influxdata.com/influxdata-archive_compat.key | sudo apt-key add -
+source /etc/os-release
+echo "deb https://repos.influxdata.com/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+
+Then, install and start the InfluxDB service:
+
+```bash
+sudo apt-get update && sudo apt-get install influxdb
+sudo service influxdb start
+```
+
+Or if your operating system is using systemd (Ubuntu 15.04+, Debian 8+):
+
+```bash
+sudo apt-get update && sudo apt-get install influxdb
+sudo systemctl unmask influxdb.service
+sudo systemctl start influxdb
+```
+
+{{% /tab-content %}}
+    
 #### Networking ports
 
 By default, InfluxDB uses TCP port `8086` for client-server communication over
