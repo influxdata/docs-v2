@@ -10,6 +10,23 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.193.0 [2023-02-23]
+
+### Features
+- Add `onNonmonotonic` parameter to [`histogramQuantile()`](/flux/v0.x/stdlib/universe/histogramquantile/)
+  to define behavior when bin counts are not monotonically increasing.
+- Add the following functions to the `contrib/qxip/hash` package:
+  - [`hash.sha1()`](/flux/v0.x/stdlib/contrib/qxip/hash/sha1/)
+  - [`hash.md5()`](/flux/v0.x/stdlib/contrib/qxip/hash/md5/)
+  - [`hash.b64()`](/flux/v0.x/stdlib/contrib/qxip/hash/b64/)
+  - [`hash.hmac()`](/flux/v0.x/stdlib/contrib/qxip/hash/hmac/)
+
+### Bug fixes
+- Convert platform-dependent path separators to slashes.
+- `use-after-free` in optimized String array.
+
+---
+
 ## v0.192.0 [2023-01-09]
 
 ### Breaking changes

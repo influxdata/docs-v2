@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L876-L886
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L884-L895
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -57,6 +57,7 @@ The value column represents the value of the desired quantile from the histogram
     <-tables: stream[A],
     ?countColumn: string,
     ?minValue: float,
+    ?onNonmonotonic: string,
     ?quantile: float,
     ?upperBoundColumn: string,
     ?valueColumn: string,
@@ -96,6 +97,18 @@ Column to store the computed quantile in. Default is `_value.
 
 Assumed minimum value of the dataset. Default is `0.0`.
 
+
+
+### onNonmonotonic
+
+Describes behavior when counts are not monotonically increasing
+when sorted by upper bound. Default is `error`.
+
+**Supported values**:
+- **error**: Produce an error.
+- **force**: Force bin counts to be monotonic by adding to each bin such that it
+is equal to the next smaller bin.
+- **drop**: When a nonmonotonic table is encountered, produce no output.
 If the quantile falls below the lowest upper bound, interpolation is
 performed between `minValue` and the lowest upper bound.
 When `minValue` is equal to negative infinity, the lowest upper bound is used.

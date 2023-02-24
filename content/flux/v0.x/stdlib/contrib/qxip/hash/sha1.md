@@ -1,14 +1,14 @@
 ---
-title: hash.cityhash64() function
+title: hash.sha1() function
 description: >
-  `hash.cityhash64()` converts a string value to a 64-bit hexadecimal hash using the CityHash64 algorithm.
+  `hash.sha1()` converts a string value to a hexadecimal hash using the SHA-1 hash algorithm.
 menu:
   flux_0_x_ref:
-    name: hash.cityhash64
+    name: hash.sha1
     parent: contrib/qxip/hash
-    identifier: contrib/qxip/hash/cityhash64
+    identifier: contrib/qxip/hash/sha1
 weight: 301
-
+introduced: 0.193.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -20,14 +20,14 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/qxip/hash/hash.flux#L88-L88
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/qxip/hash/hash.flux#L48-L48
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`hash.cityhash64()` converts a string value to a 64-bit hexadecimal hash using the CityHash64 algorithm.
+`hash.sha1()` converts a string value to a hexadecimal hash using the SHA-1 hash algorithm.
 
 
 
@@ -50,12 +50,14 @@ String to hash.
 
 ## Examples
 
-### Convert a string to a 64-bit hash using CityHash64
+### Convert a string to a SHA-1 hash
 
 ```js
 import "contrib/qxip/hash"
 
-hash.cityhash64(v: "Hello, world!")// Returns 2359500134450972198
+hash.sha1(
+    v: "Hello, world!",
+)// Returns 315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3
 
 
 ```
