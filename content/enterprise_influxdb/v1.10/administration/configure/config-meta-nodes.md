@@ -313,6 +313,23 @@ This setting must have the same value as the data nodes' meta.meta-auth-enabled 
 
 Environment variable: `INFLUXDB_META_AUTH_ENABLED`
 
+#### auth-method
+
+Default is `all`.
+
+`auth-method` configures which authentication methods are allowed for the meta API if `auth-enabled` is true.
+
+Possible values for `auth-method`:
+* `jwt`: Only JWT bearer token authentication using `shared-secret` is allowed.
+* `userpass`: Allows any authentication which uses a username and password. This includes HTTP basic authentication and passing `u` and `p` parameters in the query string.
+* `all`: Allows all supported authentication types.
+
+If no admin user exists in the database, then creating an intial admin user is allowed without requiring any authentication.
+
+`auth-method` does not impact meta API access between meta nodes and data nodes. These always use JWT authentication using the `internal-shared-secret`.
+
+Environment variable: `INFLUXDB_META_AUTH_METHOD`
+
 #### ldap-allowed
 
 Default is `false`.
