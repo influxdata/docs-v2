@@ -1041,6 +1041,16 @@
     - /influxdb/v2.0/reference/flux/functions/http/post/
     - /influxdb/v2.0/reference/flux/stdlib/http/post/
     - /influxdb/cloud/reference/flux/stdlib/http/post/
+  related:
+    - /flux/v0.x/stdlib/http/requests/post/
+  prepend:
+    block: note
+    content: |
+      #### requests.post()
+
+      The `http/requests` package provides a full-featured HTTP library.
+      We recommend using [`requests.post()`](/flux/v0.x/stdlib/http/requests/post/)
+      instead of `http.post()`.
 
 /flux/v0.x/stdlib/influxdata/influxdb/_index.md: |
   aliases:

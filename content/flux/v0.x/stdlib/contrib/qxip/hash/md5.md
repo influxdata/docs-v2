@@ -1,14 +1,14 @@
 ---
-title: hash.cityhash64() function
+title: hash.md5() function
 description: >
-  `hash.cityhash64()` converts a string value to a 64-bit hexadecimal hash using the CityHash64 algorithm.
+  `hash.md5()` converts a string value to an MD5 hash.
 menu:
   flux_0_x_ref:
-    name: hash.cityhash64
+    name: hash.md5
     parent: contrib/qxip/hash
-    identifier: contrib/qxip/hash/cityhash64
+    identifier: contrib/qxip/hash/md5
 weight: 301
-
+introduced: 0.193.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -20,14 +20,14 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/qxip/hash/hash.flux#L88-L88
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/qxip/hash/hash.flux#L128-L128
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`hash.cityhash64()` converts a string value to a 64-bit hexadecimal hash using the CityHash64 algorithm.
+`hash.md5()` converts a string value to an MD5 hash.
 
 
 
@@ -50,12 +50,12 @@ String to hash.
 
 ## Examples
 
-### Convert a string to a 64-bit hash using CityHash64
+### Convert a string to an MD5 hash
 
 ```js
 import "contrib/qxip/hash"
 
-hash.cityhash64(v: "Hello, world!")// Returns 2359500134450972198
+hash.md5(v: "Hello, world!")// Returns 2359500134450972198
 
 
 ```

@@ -1,14 +1,14 @@
 ---
-title: hash.cityhash64() function
+title: hash.hmac() function
 description: >
-  `hash.cityhash64()` converts a string value to a 64-bit hexadecimal hash using the CityHash64 algorithm.
+  `hash.hmac()` converts a string value to an MD5-signed SHA-1 hash.
 menu:
   flux_0_x_ref:
-    name: hash.cityhash64
+    name: hash.hmac
     parent: contrib/qxip/hash
-    identifier: contrib/qxip/hash/cityhash64
+    identifier: contrib/qxip/hash/hmac
 weight: 301
-
+introduced: 0.193.0
 ---
 
 <!------------------------------------------------------------------------------
@@ -20,21 +20,21 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/qxip/hash/hash.flux#L88-L88
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/qxip/hash/hash.flux#L149-L149
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 ------------------------------------------------------------------------------->
 
-`hash.cityhash64()` converts a string value to a 64-bit hexadecimal hash using the CityHash64 algorithm.
+`hash.hmac()` converts a string value to an MD5-signed SHA-1 hash.
 
 
 
 ##### Function type signature
 
 ```js
-(v: A) => string
+(k: A, v: A) => string
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
@@ -47,15 +47,21 @@ String to hash.
 
 
 
+### k
+({{< req >}})
+Key to sign hash.
+
+
+
 
 ## Examples
 
-### Convert a string to a 64-bit hash using CityHash64
+### Convert a string and key to a base64-signed hash
 
 ```js
 import "contrib/qxip/hash"
 
-hash.cityhash64(v: "Hello, world!")// Returns 2359500134450972198
+hash.hmac(v: "helloworld", k: "123456")// Returns 75B5ueLnnGepYvh+KoevTzXCrjc=
 
 
 ```
