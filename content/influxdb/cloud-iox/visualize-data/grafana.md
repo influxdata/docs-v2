@@ -128,17 +128,41 @@ cannot be installed on or used with Grafana Cloud.
 {{% /tab-content %}}
 {{% tab-content %}}
 <!---------------------------- BEGIN DOCKER CONTENT --------------------------->
+**Unzip the FlightSQL plugin archive to your Grafana custom plugin directory**.
+ The custom plugin directory can exist anywhere in your filesystem as long as
+ the Grafana process can access it.
+
+    ```sh
+    unzip influxdata-flightsql-datasource-0.1.2.zip
+    ```
 
 To add the FlightSQL plugin to your pre-existing Grafana Docker deployment
-mount the following volume to your Grafana container:
+mount the plugin directory, `influxdata-flightsql-datasource`, as a volume to your Grafana container:
 
+Docker Run
 ```bash 
 docker run \
-  --volume $PWD/dist:/var/lib/grafana/plugins/influxdata-flightsql-datasource \
+  --volume $PWD/influxdata-flightsql-datasource:/var/lib/grafana/plugins/influxdata-flightsql-datasource \
   --publish 3000:3000 \
   --name grafana \
   --env GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=influxdata-flightsql-datasource \
   grafana/grafana:latest
+```
+
+##### Docker-Compose
+
+```yaml
+version: '3'
+services:
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    environment:
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=influxdata-flightsql-datasource
+    volumes: 
+      - ./influxdata-flightsql-datasource:/var/lib/grafana/plugins/influxdata-flightsql-datasource
+    restart: always
 ```
 
 {{% note %}}
