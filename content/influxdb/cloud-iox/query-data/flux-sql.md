@@ -10,6 +10,8 @@ menu:
 weight: 204
 related:
   - /influxdb/cloud-iox/get-started/query/
+  - /influxdb/cloud-iox/query-data/sql/
+influxdb/cloud-iox/tags: [sql, flux, query]
 ---
 
 InfluxDB Cloud powered by [InfluxDB IOx](/influxdb/cloud-iox/#the-influxdb-iox-storage-engine)
@@ -27,26 +29,36 @@ The query examples below use the
 [Get started sample data](/influxdb/cloud-iox/get-started/write/#write-line-protocol-to-influxdb).
 {{% /note %}}
 
+- [Performance and flexibility](#performance-and-flexibility)
+- [What to do in SQL versus Flux?](#what-to-do-in-sql-versus-flux?)
+- [Use SQL and Flux together](#use-sql-and-flux-together)
+  - [Helper functions for SQL in Flux](#helper-functions-for-sql-in-flux)
+  - [SQL results structure](#sql-results-structure)
+- [Process SQL results with Flux](#process-sql-results-with-flux)
+  - [Group by tags](#group-by-tags)
+  - [Rename the `time` column to `_time`](#rename-the-time-column-to-_time)
+  - [Unpivot your data](#unpivot-your-data)
+  - [Example SQL query with further Flux processing](#example-sql-query-with-further-flux-processing)
+
 ## Performance and flexibility
 
-When querying an InfluxDB bucket powered by InfluxDB IOx, there are performance
-differences between Flux and SQL. Flux was designed and optimized for the
+Flux was designed and optimized for the
 [TSM data model](/influxdb/v2.6/reference/internals/storage-engine/#time-structured-merge-tree-tsm),
 which is fundamentally different from IOx.
 Because of this, Flux is less performant when querying an IOx-powered bucket.
-The IOx on-disk data structure is more compatible with SQL and makes querying
-with SQL more performant.
-
-As a full-featured scripting language, Flux gives you the flexibility to perform
-a wide range of data processing operations, statistical analysis, alerting,
-HTTP API interactions, etc. and other operations that aren't supported SQL.
+However, as a full-featured scripting language, Flux gives you the flexibility
+to perform a wide range of data processing operations such as statistical
+analysis, alerting, HTTP API interactions, and other operations that aren't
+supported in SQL.
 By using Flux and SQL together, you can benefit from both the performance of SQL
 and the flexibility of Flux.
 
 ## What to do in SQL versus Flux?
 
-We recommend doing as much of your query as possible in SQL and do any further
-processing in Flux. The following chain of Flux functions can be done in SQL:
+We recommend doing as much of your query as possible in SQL for the most
+performant queries.
+Do any further processing in Flux.
+The following chain of Flux functions can be replicated in SQL:
 
 ```js
 from() |> range() |> filter() |> aggregateWindow()
@@ -93,7 +105,7 @@ from(bucket: "get-started")
 ##### SQL
 ```sql
 SELECT
-  DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS agg_time,
+  DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS _time,
   room,
   avg(temp) AS temp,
   avg(hum) AS hum,
@@ -101,8 +113,8 @@ FROM home
 WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time < '2022-01-01T20:00:00Z'
-GROUP BY room, agg_time
-ORDER BY agg_time
+GROUP BY room, _time
+ORDER BY _time
 ```
 {{% /influxdb/custom-timestamps %}}
 
@@ -117,6 +129,9 @@ _For more information about performing aggregate queries with SQL, see
 To use SQL and Flux together and benefit from the strengths of both query languages,
 build a **Flux query** that uses the [`iox.sql()` function](/flux/v0.x/stdlib/experimental/iox/sql/)
 to execute a SQL function.
+The SQL query should return the base data set for your query.
+If this data needs further processing that can't be done in SQL, those operations
+can be done with native Flux.
 
 {{% note %}}
 The process below uses the `/api/v2/query` endpoint and can be used to execute
@@ -145,7 +160,7 @@ WHERE
 
 iox.sql(bucket: "get-started", query: query)
 ```
-{{% influxdb/custom-timestamps %}}
+{{% /influxdb/custom-timestamps %}}
 
 {{% note %}}
 #### Escape double quotes in your SQL query
@@ -195,7 +210,7 @@ windowPeriod = 2h
 
 query = "
 SELECT
-  DATE_BIN(INTERVAL '${iox.sqlInterval(d: windowPeriod)}', time, 0::TIMESTAMP) AS agg_time,
+  DATE_BIN(INTERVAL '${iox.sqlInterval(d: windowPeriod)}', time, 0::TIMESTAMP) AS _time,
   room,
   avg(temp) AS temp,
   avg(hum) AS hum
@@ -203,8 +218,8 @@ FROM home
 WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time < '2022-01-01T20:00:00Z'
-GROUP BY room, agg_time
-ORDER BY room, agg_time
+GROUP BY room, _time
+ORDER BY room, _time
 "
 
 iox.sql(bucket: "get-started", query: query)
@@ -234,37 +249,274 @@ The [example query above](#use-sql-and-flux-together) returns:
 |   0 |   36 | Living Room | 21.8 | 2022-01-01T10:00:00Z |
 |   0 |   36 | Living Room | 22.2 | 2022-01-01T11:00:00Z |
 
-{{% influxdb/custom-timestamps %}}
+{{% /influxdb/custom-timestamps %}}
 
 ## Process SQL results with Flux
 
----
+With your base data set returned from `iox.sql()`, you can further process your
+data with Flux to perform actions such as complex data transformations, alerting,
+HTTP requests, etc.
 
-- Process data returned from the SQL query with native Flux functions.
-- Types of operations to run in SQL
-  - Base data selection
-  - Applying aggregates
-  - `from() |> range() |> filter() |> aggregateWindow()`
-  - Aggregating data with a Flux duration
+{{% note %}}
+#### For the best performance, limit SQL results
 
-    ```js
-    import "experimental/iox"
+All data returned by `iox.sql()` is loaded into memory and processed there.
+To maximize the overall performance of your Flux query, try to return as little
+data as possible from your SQL query.
+This can by done by downsampling data in your SQL query or by limiting the
+queried time range.
+{{% /note %}}
 
-    windowPeriod = 1d
+1. [Group by tags](#group-by-tags)
+1. [Rename the `time` column to `_time`](#rename-the-time-column-to-_time)
+1. [Unpivot your data](#unpivot-your-data)
 
-    query = "
-    SELECT
-      date_bin(INTERVAL '${iox.sqlInterval(d: windowPeriod)}', time, 0::TIMESTAMP) AS _time,
-      avg(co),
-      avg(temp),
-      avg(hum)
-    FROM home
-    "
-    ```
+### Group by tags
 
-- Processing SQL query results with Flux
-  - SQL query output
-    - Ungrouped, needs to be grouped by tag
-    - For some transformations, you may need to unpivot the data
-    - Many Flux functions require a specific column name.
-      You may need rename columns.
+The Flux `from()` functions returns results grouped by measurement, tag, and field key
+and much of the Flux language is designed around this data model.
+Because SQL results are ungrouped, to structure results the way many Flux
+functions expect, use [`group()`](/flux/v0.x/stdlib/universe/group/) to group by
+all of your queried tag columns.
+
+{{% note %}}
+Measurements are not stored as a column in the InfluxDB IOx storage engine and
+are not returned by SQL.
+{{% /note %}}
+
+The [Get started sample data](#sample-data) only includes one tag: `room`.
+
+```js
+import "experimental/iox"
+
+iox.sql(...)
+    |> group(columns: ["room"])
+```
+
+_`group()` does not guarantee sort order, so you likely need to use
+[`sort()`](/flux/v0.x/stdlib/universe/sort/) to re-sort your data time **after**
+performing other transformations._
+
+### Rename the `time` column to `_time`
+
+Many Flux functions expect or require a column named `_time` (with a leading underscore).
+The IOx storage engine stores each point's timestamp in the `time` column (no leading underscore).
+Depending on which Flux functions you use, you may need to rename the `time`
+column to `_time`.
+YOu can do this in your SQL query with an `AS` clause or in Flux with the
+[`rename()` function](/flux/v0.x/stdlib/universe/rename/).
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs "small" %}}
+[SQL](#)
+[Flux](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+SELECT time AS _time
+FROM "get-started"
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+// ...
+    |> rename(columns: {time: "_time"})
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+### Unpivot your data
+
+In the context of Flux, data is considered "pivoted" when each field has its own
+column. Flux generally expects a `_field` column that contains the the field key
+and a `_value` column that contains the field. SQL returns each field as a column.
+Depending on your use case and the type of processing you need to do in Flux,
+you may need to "unpivot" your data.
+
+{{< expand-wrapper >}}
+{{% expand "View examples of pivoted and unpivoted data" %}}
+{{% influxdb/custom-timestamps %}}
+
+##### Pivoted data (SQL data model)
+
+| _time                | room    | temp |  hum |
+| :------------------- | :------ | ---: | ---: |
+| 2022-01-01T08:00:00Z | Kitchen |   21 | 35.9 |
+| 2022-01-01T09:00:00Z | Kitchen |   23 | 36.2 |
+| 2022-01-01T10:00:00Z | Kitchen | 22.7 | 36.1 |
+
+##### Unpivoted data (Flux data model)
+
+| _time                | room    | _field | _value |
+| :------------------- | :------ | :----- | -----: |
+| 2022-01-01T08:00:00Z | Kitchen | hum    |   35.9 |
+| 2022-01-01T09:00:00Z | Kitchen | hum    |   36.2 |
+| 2022-01-01T10:00:00Z | Kitchen | hum    |   36.1 |
+
+| _time                | room    | _field | _value |
+| :------------------- | :------ | :----- | -----: |
+| 2022-01-01T08:00:00Z | Kitchen | temp   |     21 |
+| 2022-01-01T09:00:00Z | Kitchen | temp   |     23 |
+| 2022-01-01T10:00:00Z | Kitchen | temp   |   22.7 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+{{% note %}}
+#### Unpivoting data may not be necessary
+
+Depending on your use case, unpivoting the SQL results may not be necessary.
+For Flux queries that already pivot fields into columns, using SQL to return
+pivoted results will greatly improve the performance of your query.
+{{% /note %}}
+
+To unpivot SQL results:
+
+1. Import the `experimental` package.
+2. [Ensure you have a `_time` column](#rename-the-time-column-to-_time).
+3. Use [`experimental.unpivot()`](/flux/v0.x/stdlib/experimental/unpivot/) to unpivot your data.
+
+```js
+import "experimental"
+import "experimental/iox"
+
+iox.sql(...)
+    |> group(columns: ["room"])
+    |> experimental.unpivot()
+```
+
+### Example SQL query with further Flux processing
+
+{{% influxdb/custom-timestamps %}}
+```js
+import "experimental"
+import "experimental/iox"
+
+query = "
+SELECT
+  time AS _time,
+  room,
+  temp,
+  hum,
+  co
+FROM home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z' 
+"
+
+iox.sql(bucket: "get-started", query: query)
+    |> group(columns: ["room"])
+    |> experimental.unpivot()
+```
+{{% /influxdb/custom-timestamps %}}
+
+{{< expand-wrapper >}}
+{{% expand "View processed query results" %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| _time                | room        | _field | _value |
+| :------------------- | :---------- | :----- | -----: |
+| 2022-01-01T08:00:00Z | Kitchen     | co     |      0 |
+| 2022-01-01T09:00:00Z | Kitchen     | co     |      0 |
+| 2022-01-01T10:00:00Z | Kitchen     | co     |      0 |
+| 2022-01-01T11:00:00Z | Kitchen     | co     |      0 |
+| 2022-01-01T12:00:00Z | Kitchen     | co     |      0 |
+| 2022-01-01T13:00:00Z | Kitchen     | co     |      1 |
+| 2022-01-01T14:00:00Z | Kitchen     | co     |      1 |
+| 2022-01-01T15:00:00Z | Kitchen     | co     |      3 |
+| 2022-01-01T16:00:00Z | Kitchen     | co     |      7 |
+| 2022-01-01T17:00:00Z | Kitchen     | co     |      9 |
+| 2022-01-01T18:00:00Z | Kitchen     | co     |     18 |
+| 2022-01-01T19:00:00Z | Kitchen     | co     |     22 |
+| 2022-01-01T20:00:00Z | Kitchen     | co     |     26 |
+
+| _time                | room        | _field | _value |
+| :------------------- | :---------- | :----- | -----: |
+| 2022-01-01T08:00:00Z | Living Room | co     |      0 |
+| 2022-01-01T09:00:00Z | Living Room | co     |      0 |
+| 2022-01-01T10:00:00Z | Living Room | co     |      0 |
+| 2022-01-01T11:00:00Z | Living Room | co     |      0 |
+| 2022-01-01T12:00:00Z | Living Room | co     |      0 |
+| 2022-01-01T13:00:00Z | Living Room | co     |      0 |
+| 2022-01-01T14:00:00Z | Living Room | co     |      0 |
+| 2022-01-01T15:00:00Z | Living Room | co     |      1 |
+| 2022-01-01T16:00:00Z | Living Room | co     |      4 |
+| 2022-01-01T17:00:00Z | Living Room | co     |      5 |
+| 2022-01-01T18:00:00Z | Living Room | co     |      9 |
+| 2022-01-01T19:00:00Z | Living Room | co     |     14 |
+| 2022-01-01T20:00:00Z | Living Room | co     |     17 |
+
+| _time                | room        | _field | _value |
+| :------------------- | :---------- | :----- | -----: |
+| 2022-01-01T08:00:00Z | Kitchen     | hum    |   35.9 |
+| 2022-01-01T09:00:00Z | Kitchen     | hum    |   36.2 |
+| 2022-01-01T10:00:00Z | Kitchen     | hum    |   36.1 |
+| 2022-01-01T11:00:00Z | Kitchen     | hum    |     36 |
+| 2022-01-01T12:00:00Z | Kitchen     | hum    |     36 |
+| 2022-01-01T13:00:00Z | Kitchen     | hum    |   36.5 |
+| 2022-01-01T14:00:00Z | Kitchen     | hum    |   36.3 |
+| 2022-01-01T15:00:00Z | Kitchen     | hum    |   36.2 |
+| 2022-01-01T16:00:00Z | Kitchen     | hum    |     36 |
+| 2022-01-01T17:00:00Z | Kitchen     | hum    |     36 |
+| 2022-01-01T18:00:00Z | Kitchen     | hum    |   36.9 |
+| 2022-01-01T19:00:00Z | Kitchen     | hum    |   36.6 |
+| 2022-01-01T20:00:00Z | Kitchen     | hum    |   36.5 |
+
+| _time                | room        | _field | _value |
+| :------------------- | :---------- | :----- | -----: |
+| 2022-01-01T08:00:00Z | Living Room | hum    |   35.9 |
+| 2022-01-01T09:00:00Z | Living Room | hum    |   35.9 |
+| 2022-01-01T10:00:00Z | Living Room | hum    |     36 |
+| 2022-01-01T11:00:00Z | Living Room | hum    |     36 |
+| 2022-01-01T12:00:00Z | Living Room | hum    |   35.9 |
+| 2022-01-01T13:00:00Z | Living Room | hum    |     36 |
+| 2022-01-01T14:00:00Z | Living Room | hum    |   36.1 |
+| 2022-01-01T15:00:00Z | Living Room | hum    |   36.1 |
+| 2022-01-01T16:00:00Z | Living Room | hum    |     36 |
+| 2022-01-01T17:00:00Z | Living Room | hum    |   35.9 |
+| 2022-01-01T18:00:00Z | Living Room | hum    |   36.2 |
+| 2022-01-01T19:00:00Z | Living Room | hum    |   36.3 |
+| 2022-01-01T20:00:00Z | Living Room | hum    |   36.4 |
+
+| _time                | room        | _field | _value |
+| :------------------- | :---------- | :----- | -----: |
+| 2022-01-01T08:00:00Z | Kitchen     | temp   |     21 |
+| 2022-01-01T09:00:00Z | Kitchen     | temp   |     23 |
+| 2022-01-01T10:00:00Z | Kitchen     | temp   |   22.7 |
+| 2022-01-01T11:00:00Z | Kitchen     | temp   |   22.4 |
+| 2022-01-01T12:00:00Z | Kitchen     | temp   |   22.5 |
+| 2022-01-01T13:00:00Z | Kitchen     | temp   |   22.8 |
+| 2022-01-01T14:00:00Z | Kitchen     | temp   |   22.8 |
+| 2022-01-01T15:00:00Z | Kitchen     | temp   |   22.7 |
+| 2022-01-01T16:00:00Z | Kitchen     | temp   |   22.4 |
+| 2022-01-01T17:00:00Z | Kitchen     | temp   |   22.7 |
+| 2022-01-01T18:00:00Z | Kitchen     | temp   |   23.3 |
+| 2022-01-01T19:00:00Z | Kitchen     | temp   |   23.1 |
+| 2022-01-01T20:00:00Z | Kitchen     | temp   |   22.7 |
+
+| _time                | room        | _field | _value |
+| :------------------- | :---------- | :----- | -----: |
+| 2022-01-01T08:00:00Z | Living Room | temp   |   21.1 |
+| 2022-01-01T09:00:00Z | Living Room | temp   |   21.4 |
+| 2022-01-01T10:00:00Z | Living Room | temp   |   21.8 |
+| 2022-01-01T11:00:00Z | Living Room | temp   |   22.2 |
+| 2022-01-01T12:00:00Z | Living Room | temp   |   22.2 |
+| 2022-01-01T13:00:00Z | Living Room | temp   |   22.4 |
+| 2022-01-01T14:00:00Z | Living Room | temp   |   22.3 |
+| 2022-01-01T15:00:00Z | Living Room | temp   |   22.3 |
+| 2022-01-01T16:00:00Z | Living Room | temp   |   22.4 |
+| 2022-01-01T17:00:00Z | Living Room | temp   |   22.6 |
+| 2022-01-01T18:00:00Z | Living Room | temp   |   22.8 |
+| 2022-01-01T19:00:00Z | Living Room | temp   |   22.5 |
+| 2022-01-01T20:00:00Z | Living Room | temp   |   22.2 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+With the SQL results restructured into the Flux data model, you can do any further
+processing with Flux. For more information about Flux, see the
+[Flux documentation](/flux/v0.x/).
