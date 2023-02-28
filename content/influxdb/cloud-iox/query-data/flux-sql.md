@@ -58,11 +58,36 @@ and the flexibility of Flux.
 We recommend doing as much of your query as possible in SQL for the most
 performant queries.
 Do any further processing in Flux.
-The following chain of Flux functions can be replicated in SQL:
 
+For optimal performance, the following chain of Flux functions can and should be
+performed in SQL:
+
+{{< flex >}}
+{{% flex-content %}}
+#### Flux
 ```js
-from() |> range() |> filter() |> aggregateWindow()
+from(...)
+    |> range(...)
+    |> filter(...)
+    |> aggregateWindow(...)
 ```
+{{% /flex-content %}}
+
+{{% flex-content %}}
+#### SQL
+```sql
+SELECT
+  DATE_BIN(...) AS _time,
+  avg(...) AS ...,
+FROM measurement
+WHERE
+  time >= ...
+  AND time < ...
+GROUP BY _time
+ORDER BY _time
+```
+{{% /flex-content %}}
+{{< /flex >}}
 
 #### Example Flux versus SQL queries
 
@@ -128,15 +153,22 @@ _For more information about performing aggregate queries with SQL, see
 
 To use SQL and Flux together and benefit from the strengths of both query languages,
 build a **Flux query** that uses the [`iox.sql()` function](/flux/v0.x/stdlib/experimental/iox/sql/)
-to execute a SQL function.
+to execute a SQL query.
 The SQL query should return the base data set for your query.
 If this data needs further processing that can't be done in SQL, those operations
 can be done with native Flux.
 
 {{% note %}}
+#### Supported by any InfluxDB 2.x client
+
 The process below uses the `/api/v2/query` endpoint and can be used to execute
 SQL queries against an InfluxDB IOx-powered bucket with all existing
-InfluxDB 2.x clients.
+InfluxDB 2.x clients including, but not limited to, the following:
+
+- InfluxDB 2.x client libraries
+- Grafana and Grafana Cloud InfluxDB data source
+- Flux VS code extensions
+- InfluxDB OSS 2.x dashboards
 {{% /note %}}
 
 1.  Import the [`experimental/iox` package](/flux/v0.x/stdlib/experimental/iox/).
@@ -303,8 +335,9 @@ Many Flux functions expect or require a column named `_time` (with a leading und
 The IOx storage engine stores each point's timestamp in the `time` column (no leading underscore).
 Depending on which Flux functions you use, you may need to rename the `time`
 column to `_time`.
-YOu can do this in your SQL query with an `AS` clause or in Flux with the
-[`rename()` function](/flux/v0.x/stdlib/universe/rename/).
+
+Rename the `time` column in your SQL query with an `AS` clause _**(recommended for performance)**_
+or in Flux with the [`rename()` function](/flux/v0.x/stdlib/universe/rename/).
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs "small" %}}
@@ -385,6 +418,12 @@ iox.sql(...)
     |> group(columns: ["room"])
     |> experimental.unpivot()
 ```
+
+{{% note %}}
+`unpivot()` treats columns _not_ in the [group key](/flux/v0.x/get-started/data-model/#group-key)
+(other than `_time` and `_measurement`) as fields. Be sure to [group by tags](#group-by-tags)
+_before_ unpivoting data.
+{{% /note %}}
 
 ### Example SQL query with further Flux processing
 
