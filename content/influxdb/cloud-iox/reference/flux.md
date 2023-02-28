@@ -26,8 +26,9 @@ input functions:
 Both IOx-based input functions return pivoted data with a column for each field
 in the output. To unpivot the data:
 
-1.  Group by measurement and tag columns.
-2.  Use [`experimental.unpivot()`](/flux/v0.x/stdlib/experimental/unpivot/) to
+1.  Group by tag columns.
+2.  Rename the `time` column to `_time`.
+3.  Use [`experimental.unpivot()`](/flux/v0.x/stdlib/experimental/unpivot/) to
     unpivot the data. All columns not in the group key (other than `_time`) are
     treated as fields.
 
@@ -45,6 +46,7 @@ import "experimental/iox"
 iox.from(bucket: "example-bucket", measurement: "example-measurement")
     |> range(start: -1d)
     |> group(columns: ["tag1", "tag2". "tag3"])
+    |> rename(columns: {time: "_time_"})
     |> experimental.unpivot()
 ```
 
@@ -55,10 +57,11 @@ iox.from(bucket: "example-bucket", measurement: "example-measurement")
 import "experimental"
 import "experimental/iox"
 
-query = "SELECT * FROM \"example-measurement\" WHERE time >= INTERVAL '1 day'"
+query = "SELECT * FROM \"example-measurement\" WHERE time >= now() - INTERVAL '1 day'"
 
 iox.sql(bucket: "example-bucket", query: query)
     |> group(columns: ["tag1", "tag2". "tag3"])
+    |> rename(columns: {time: "_time_"})
     |> experimental.unpivot()
 ```
 
@@ -72,5 +75,3 @@ When querying data from an InfluxDB bucket backed by InfluxDB IOx, using `iox.fr
 is **less performant** than querying a TSM-backed bucket with `from()`.
 For better Flux query performance, use `iox.sql()`.
 {{% /warn %}}
-
-
