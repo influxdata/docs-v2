@@ -162,8 +162,8 @@ can be done with native Flux.
 #### Supported by any InfluxDB 2.x client
 
 The process below uses the `/api/v2/query` endpoint and can be used to execute
-SQL queries against an InfluxDB IOx-powered bucket with all existing
-InfluxDB 2.x clients including, but not limited to, the following:
+SQL queries against an InfluxDB IOx-powered bucket with an HTTP API request or
+with all existing InfluxDB 2.x clients including, but not limited to, the following:
 
 - InfluxDB 2.x client libraries
 - Grafana and Grafana Cloud InfluxDB data source
