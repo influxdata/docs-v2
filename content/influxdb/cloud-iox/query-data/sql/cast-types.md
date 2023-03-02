@@ -36,9 +36,9 @@ SELECT 1234.5::BIGINT
 
 - [Cast to a string type](#cast-to-a-string-type)
 - [Cast to numeric types](#cast-to-numeric-types)
-  - [Float](#-cast-to-a-float)
-  - [Integer](#-cast-to-an-integer)
-  - [Unsigned integer](#-cast-to-an-unsigned-integer)
+  - [Float](#cast-to-a-float)
+  - [Integer](#cast-to-an-integer)
+  - [Unsigned integer](#cast-to-an-unsigned-integer)
 - [Cast to a boolean type](#cast-to-a-boolean-type)
 - [Cast to a timestamp type](#cast-to-a-timestamp-type)
 
