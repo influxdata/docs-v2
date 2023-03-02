@@ -20,6 +20,7 @@ aggregate value.
   - [avg](#avg)
   - [count](#count)
   - [max](#max)
+  - [mean](#mean)
   - [min](#min)
   - [sum](#sum)
 - [Statistical aggregate functions](#statistical-aggregate-functions)
@@ -148,6 +149,10 @@ GROUP BY location
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+### mean
+
+_Alias of [avg](#avg)._
 
 ### min
 
