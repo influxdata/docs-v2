@@ -26,6 +26,7 @@ performing mathematic operations:
 - [log10](#log10)
 - [log2](#log2)
 - [power](#power)
+- [random](#random)
 - [round](#round)
 - [signum](#signum)
 - [sin](#sin)
@@ -434,6 +435,38 @@ SELECT power(temp, hum * .1) AS power FROM home LIMIT 3
 | 55817.099910217476 |
 |  85007.01501569824 |
 |  78569.38332452129 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## random
+
+Returns a random float value.
+The random seed is unique to each row.
+
+```sql
+random()
+```
+
+{{< expand-wrapper >}}
+{{% expand "View `random` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-iox/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT temp * random() AS random FROM home LIMIT 3
+```
+
+{{% note %}}
+Due to the nature of the function, your results will not match the results below.
+{{% /note %}}
+
+|             random |
+| -----------------: |
+| 0.5030770374815072 |
+| 12.938847036567514 |
+| 2.8204596545385385 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
