@@ -40,6 +40,7 @@ operating on string values:
 - [starts_with](#starts_with)
 - [strpos](#strpos)
 - [substr](#substr)
+- [to_hex](#to_hex)
 - [translate](#translate)
 - [trim](#trim)
 - [upper](#upper)
@@ -1030,6 +1031,41 @@ FROM home
 | :---------- | :---------- |
 | Living Room | Living sOOn |
 | Kitchen     | Kitchen     |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## to_hex
+
+Converts an integer to a hexadecimal string.
+
+```sql
+to_hex(int)
+```
+
+##### Arguments
+
+- **int**: Integer column or literal integer to convert.
+
+{{< expand-wrapper >}}
+{{% expand "View `to_hex` query example" %}}
+
+```sql
+SELECT
+  int,
+  to_hex(int) AS to_hex
+FROM
+  (values (123),
+          (345),
+          (678)
+  ) data(int)
+```
+
+| int | to_hex |
+| :-- | -----: |
+| 123 |     7b |
+| 345 |    159 |
+| 678 |    2a6 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
