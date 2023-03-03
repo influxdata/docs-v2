@@ -441,7 +441,7 @@ SELECT power(temp, hum * .1) AS power FROM home LIMIT 3
 
 ## random
 
-Returns a random float value.
+Returns a random float value between 0 and 1.
 The random seed is unique to each row.
 
 ```sql
