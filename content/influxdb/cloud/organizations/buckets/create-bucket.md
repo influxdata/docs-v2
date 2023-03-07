@@ -12,6 +12,9 @@ weight: 201
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
 to create a bucket.
 
+- [Create a bucket in the InfluxDB UI]
+- [Create a bucket using the influx CLI]
+
 ## Create a bucket in the InfluxDB UI
 
 There are two places you can create a bucket in the UI.
@@ -44,24 +47,14 @@ There are two places you can create a bucket in the UI.
 
 ## Create a bucket using the influx CLI
 
-Use the [`influx bucket create` command](/influxdb/cloud/reference/cli/influx/bucket/create)
-to create a new bucket. A bucket requires the following:
+To create a bucket with the `influx` CLI, use the [`influx bucket create` command](/influxdb/cloud/reference/cli/influx/bucket/create)
+and specify values for the following flags:
 
-- bucket name
-- organization name or ID
-- retention period (duration to keep data) in one of the following units:
-  - nanoseconds (`ns`)
-  - microseconds (`us` or `µs`)
-  - milliseconds (`ms`)
-  - seconds (`s`)
-  - minutes (`m`)
-  - hours (`h`)
-  - days (`d`)
-  - weeks (`w`)
-
-  {{% note %}}
-  The minimum retention period is **one hour**.
-  {{% /note %}}
+| Requirement          | Include by                                               |
+|:-----------          |:----------                                               |
+| Organization         | `-o`                |
+| Bucket               | `-n`                 |
+| Retention Rules      | `-r`    |
 
 ```sh
 # Syntax
@@ -70,37 +63,17 @@ influx bucket create -n <BUCKET_NAME> -o <INFLUX_ORG> -r <RETENTION_PERIOD_DURAT
 # Example
 influx bucket create -n my-bucket -o my-org -r 72h
 ```
-### Create a bucket with an explicit schema
 
-{{% bucket-schema/type %}}
+## Create a bucket using the InfluxDB API
 
-  1.
-      ```sh
-     {{< get-shared-text "bucket-schema/bucket-schema-type.sh" >}}
-     ```
-
-  2. Create a bucket schema. For more information, see [Manage bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/).
-
-      ```sh
-      influx bucket-schema create \
-        --bucket my_schema_bucket \
-        --name temperature \
-        --columns-file schema.json
-      ```
-
-### Create a bucket using the InfluxDB API
-
-Use the InfluxDB API to create a bucket.
-
-
-Create a bucket in InfluxDB using an HTTP request to the InfluxDB API `/buckets` endpoint.
-Use the `POST` request method and include the following in your request:
+To create a bucket with the InfluxDB HTTP API, send a request to the `POST /api/v2/buckets` endpoint.
+In your request body, specify values for the following properties:
 
 | Requirement          | Include by                                               |
 |:-----------          |:----------                                               |
-| Organization         | Use `orgID` in the JSON payload.                |
-| Bucket               | Use `name` in the JSON payload.                 |
-| Retention Rules      | Use `retentionRules` in the JSON payload.    |
+| Organization         | `orgID`                |
+| Bucket               | `name`                 |
+| Retention Rules      | `retentionRules`    |
 | API token | Use the `Authorization: Token` header.                   |
 
 #### Example
@@ -112,4 +85,77 @@ The URL depends on your InfluxDB Cloud region _(see [InfluxDB URLs](/influxdb/cl
 ```
 
 _For information about **InfluxDB API options and response codes**, see
-[InfluxDB API Buckets documentation](/influxdb/cloud/api/#operation/PostBuckets)._      
+[InfluxDB API Buckets documentation](/influxdb/cloud/api/#operation/PostBuckets)._
+
+## Create a bucket that enforces explicit schemas
+
+{{% bucket-schema/type %}}
+
+Use the **`influx` CLI** or **InfluxDB HTTP API** to create a bucket with the `explicit` schema-type.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[influx CLI](#)
+[InfluxDB API](#)
+{{% /tabs %}}
+
+{{% tab-content %}}
+<!------------------------------ BEGIN CLI CONTENT ----------------------------->
+
+  1. Use the `influx bucket create` command and specify the `--schema-type=explicit` flag:
+
+      ```sh
+     {{< get-shared-text "bucket-schema/bucket-schema-type.sh" >}}
+     ```
+
+  2. [Create an explicit schema](/influxdb/cloud/organizations/buckets/bucket-schema/) for your data.
+
+{{% /tab-content %}}
+
+{{% tab-content %}}
+<!----------------------------- BEGIN API CONTENT ----------------------------->
+
+  1. To create a bucket with the `explicit` schema-type, use the HTTP API `POST /api/v2/buckets` endpoint and pass the `schemaType: explicit` property in the request body--for example:
+
+      ```js
+      {
+        "orgID": "ORG_ID",
+        "name": "my-explicit-bucket",
+        "description": "My Explicit Bucket",
+        "rp": "string",
+        "retentionRules": [
+          {
+            "type": "expire",
+            "everySeconds": 86400,
+            "shardGroupDurationSeconds": 0
+          }
+        ],
+        "schemaType": "explicit"
+      }
+      ```
+
+      The response body is similar to the following:
+
+        ```js
+        {
+        "id": "7936906a8317470d",
+        "orgID": "ORG_ID",
+        "type": "user",
+        "schemaType": "explicit",
+        "description": "My Explicit Bucket",
+        "name": "my-explicit-bucket",
+        "rp": "string",
+        "retentionRules": [
+          {
+            "type": "expire",
+            "everySeconds": 86400
+          }
+        ],
+        ...
+        }
+        ```
+
+  2. [Create an explicit schema](/influxdb/cloud/organizations/buckets/bucket-schema/) for your data.
+
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
