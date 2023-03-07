@@ -13,15 +13,26 @@ influxdb/v2.7/tags: [write, replication]
 Replication remotes and replication streams can only be configured for InfluxDB OSS.
 {{% /cloud %}}
 
-
 The `influx replication list` command lists all InfluxDB replication streams and their corresponding metrics.
 
+The following metrics are listed for each replication and provide information about how the replication queue is performing:
+
+- **Latest Status Code**: Status code of the last `write` request to the remote.
+  This should be a 204 during healthy operation.
+- **Remaining Bytes to be Synced**: Number of bytes that have not been synced to the remote.
+  This number should stay close to 0 and should not be constantly increasing.
+- **Current Queue Bytes on Disk**: Total size of the replication queue in bytes.
+  The replication queue is cleaned up every `--max-age` seconds.
+  If your queue is filling up your disk, lower this value at the cost of potentially lower reliability.
+
 ## Usage
+
 ```
 influx replication list [command options] [arguments...]
 ```
 
 ## Flags
+
 | Flag |                     | Description                                                           | Input type | {{< cli/mapped >}}    |
 | :--- | :------------------ | :-------------------------------------------------------------------- | :--------: | :-------------------- |
 | `-n` | `--name`            | Filter replication streams by name                                    |   string   |                       |
@@ -39,6 +50,7 @@ influx replication list [command options] [arguments...]
 | `-t` | `--token`           | InfluxDB API token                                                    |   string   | `INFLUX_TOKEN`        |
 
 ## Examples
+
 {{< cli/influx-creds-note >}}
 
 ### List all replication streams
