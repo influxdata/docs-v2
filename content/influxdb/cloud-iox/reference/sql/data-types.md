@@ -8,7 +8,7 @@ menu:
   influxdb_cloud_iox:
     name: Data types
     parent: SQL reference
-weight: 220
+weight: 200
 related:
   - /influxdb/cloud-iox/query-data/sql/cast-types/
 ---
