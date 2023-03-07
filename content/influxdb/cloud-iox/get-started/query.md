@@ -20,15 +20,15 @@ InfluxDB Cloud backed by InfluxDB IOx supports multiple query languages:
 
 - **SQL**: Traditional SQL powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
   query engine. The supported SQL syntax is similar to PostgreSQL.
-- **InfluxQL**: A SQL-like query language designed to query time series data from
-  InfluxDB.
 - **Flux**: A functional scripting language designed to query and process data
   from InfluxDB and other data sources.
+<!-- - **InfluxQL**: A SQL-like query language designed to query time series data from
+  InfluxDB. -->
 
 This tutorial walks you through the fundamentals of querying data in InfluxDB and
-**focuses primarily on using SQL** to query your time series data.
-For information about using InfluxQL and Flux, see
-[Query data in InfluxDB](/influxdb/cloud-iox/query-data/).
+**focuses on using SQL** to query your time series data.
+<!-- For information about using InfluxQL and Flux, see
+[Query data in InfluxDB](/influxdb/cloud-iox/query-data/). -->
 
 {{% note %}}
 The examples in this section of the tutorial query the data from written in the
@@ -77,10 +77,17 @@ InfluxDB SQL queries most commonly include the following clauses:
 {{% influxdb/custom-timestamps %}}
 ```sql
 -- Return the average temperature and humidity from each room
-SELECT mean(temp), mean(hum), room
-FROM home
-WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
-GROUP BY room
+SELECT
+  mean(temp),
+  mean(hum),
+  room
+FROM
+  home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY
+  room
 ```
 {{% /influxdb/custom-timestamps %}}
 
@@ -95,8 +102,13 @@ SELECT * FROM measurement
 
 {{% expand "Select all data in a measurement within time bounds" %}}
 ```sql
-SELECT * FROM measurement
-WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+SELECT
+  *
+FROM
+  measurement
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
 ```
 {{% /expand %}}
 
@@ -120,20 +132,29 @@ SELECT * FROM measurement WHERE tag1 = 'value1'
 
 {{% expand "Select data based on tag value within time bounds" %}}
 ```sql
-SELECT * FROM measurement
-WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z' AND tag1 = 'value1'
+SELECT
+  *
+FROM
+  measurement
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+  AND tag1 = 'value1'
 ```
 {{% /expand %}}
 
 {{% expand "Downsample data by applying interval-based aggregates" %}}
 ```sql
 SELECT
-    DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP),
-    mean(field1),
-    sum(field2),
-    tag1
-FROM home
-GROUP BY time, tag1
+  DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP) as time,
+  mean(field1),
+  sum(field2),
+  tag1
+FROM
+  home
+GROUP BY
+  time,
+  tag1
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -150,8 +171,13 @@ For this example, use the following query to select all the data written to the
 
 {{% influxdb/custom-timestamps %}}
 ```sql
-SELECT * FROM home
-WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+SELECT
+  *
+FROM
+  home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
 ```
 {{% /influxdb/custom-timestamps %}}
 
@@ -231,8 +257,13 @@ import \"experimental/iox\"
 iox.sql(
     bucket: \"get-started\",
     query: \"
-        SELECT * FROM home
-        WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+        SELECT
+          *
+        FROM
+          home
+        WHERE
+          time >= '2022-01-01T08:00:00Z'
+          AND time <= '2022-01-01T20:00:00Z'
     \",
 )"
 ```
@@ -296,8 +327,13 @@ curl --request POST \
     iox.sql(
         bucket: \"get-started\",
         query: \"
-            SELECT * FROM home
-            WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'
+            SELECT
+              *
+            FROM
+              home
+            WHERE
+              time >= '2022-01-01T08:00:00Z'
+              AND time <= '2022-01-01T20:00:00Z'
         \",
     )"
 ```

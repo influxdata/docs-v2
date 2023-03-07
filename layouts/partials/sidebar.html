@@ -90,7 +90,7 @@
   {{ end }}
 
   <!-- Additional resources for all docs -->
-  {{ if ne $product "resources" }}
+  {{ if and (ne $product "resources") (ne $currentVersion "cloud-iox") }}
     <h4 class="resources">Additional resources</h4>
     <li class="nav-category"><a href="/resources/videos/">Videos</a></li>
     <li class="nav-category"><a href="/resources/how-to-guides/">How-to Guides</a></li>

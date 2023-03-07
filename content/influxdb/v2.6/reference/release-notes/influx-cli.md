@@ -8,6 +8,12 @@ menu:
     name: influx CLI 
 ---
 
+## v2.6.1 [2022-12-29]
+
+- Internal code cleanup.
+
+---
+
 ## v2.6.0 [2022-12-15]
 
 ### Bug Fixes

@@ -44,3 +44,7 @@ $('.close-notification').click(function(e) {
   e.preventDefault();
   hideNotification(this);
 })
+
+$('.notification .show').click(function() {
+  $(this).closest('.notification').toggleClass('min');
+})

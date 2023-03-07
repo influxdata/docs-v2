@@ -1,4 +1,4 @@
-{{ $latestInfluxDBVersion := cond (isset .Site.Data.products.influxdb "latest_override" ) .Site.Data.products.influxdb.latest_override .Site.Data.products.influxdb.latest }}
+{{ $latestInfluxDBVersion := .Site.Data.products.influxdb.latest }}
 {{ $latestEnterpriseVersion := .Site.Data.products.enterprise_influxdb.latest }}
 {{ $OSSLink := print "/influxdb/" $latestInfluxDBVersion "/reference/urls/ "}}
 {{ $CloudLink := "/influxdb/cloud/reference/regions/" }}

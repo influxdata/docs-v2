@@ -82,22 +82,48 @@ function updateTimestamps(newStartDate) {
         }
     })
 
-    $('.get-started-timestamps').each(function() {
+    var updateBlockElWhitelist = [
+      '.get-started-timestamps pre',
+      '.get-started-timestamps li',
+      '.get-started-timestamps p',
+      '.get-started-timestamps table'
+    ]
+
+    $(updateBlockElWhitelist.join()).each(function() {
         var wrapper = $(this)[0]
+
+        console.log(wrapper)
 
         times.forEach(function(x) {
             oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ""))
             newDatePart = datePart(x.rfc3339_new.replace(/T.*$/, ""))
-            rfc3339Regex = new RegExp(`${oldDatePart.year}-${oldDatePart.month}-${oldDatePart.day}`, 'g')
-            rfc3339Repl = `${newDatePart.year}-${newDatePart.month}-${newDatePart.day}`
+            rfc3339Regex = new RegExp(`${oldDatePart.year}(.*)${oldDatePart.month}(.*)${oldDatePart.day}`, 'g')
+            rfc3339Repl = `${newDatePart.year}$1${newDatePart.month}$2${newDatePart.day}`
 
             wrapper.innerHTML =
                 wrapper.innerHTML
                     .replaceAll(x.unix, x.unix_new)
                     .replaceAll(rfc3339Regex, rfc3339Repl)
         })
-        console.log(times)
     })
+
+    $('span.get-started-timestamps').each(function() {
+      var wrapper = $(this)[0]
+
+      console.log(wrapper)
+
+      times.forEach(function(x) {
+          oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ""))
+          newDatePart = datePart(x.rfc3339_new.replace(/T.*$/, ""))
+          rfc3339Regex = new RegExp(`${oldDatePart.year}-${oldDatePart.month}-${oldDatePart.day}`, 'g')
+          rfc3339Repl = `${newDatePart.year}-${newDatePart.month}-${newDatePart.day}`
+
+          wrapper.innerHTML =
+              wrapper.innerHTML
+                  .replaceAll(x.unix, x.unix_new)
+                  .replaceAll(rfc3339Regex, rfc3339Repl)
+      })
+  })
 
     // Create a new seed times array with new start time for next change
     times = times.map(x => {

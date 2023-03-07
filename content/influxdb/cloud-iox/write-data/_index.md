@@ -16,4 +16,4 @@ influxdb/cloud-iox/tags: [write, line protocol]
 #   - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
 ---
 
-<!-- PLACEHOLDER -->
+{{< children >}}

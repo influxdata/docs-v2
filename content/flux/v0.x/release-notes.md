@@ -10,6 +10,44 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.193.0 [2023-02-23]
+
+### Features
+- Add `onNonmonotonic` parameter to [`histogramQuantile()`](/flux/v0.x/stdlib/universe/histogramquantile/)
+  to define behavior when bin counts are not monotonically increasing.
+- Add the following functions to the `contrib/qxip/hash` package:
+  - [`hash.sha1()`](/flux/v0.x/stdlib/contrib/qxip/hash/sha1/)
+  - [`hash.md5()`](/flux/v0.x/stdlib/contrib/qxip/hash/md5/)
+  - [`hash.b64()`](/flux/v0.x/stdlib/contrib/qxip/hash/b64/)
+  - [`hash.hmac()`](/flux/v0.x/stdlib/contrib/qxip/hash/hmac/)
+
+### Bug fixes
+- Convert platform-dependent path separators to slashes.
+- `use-after-free` in optimized String array.
+
+---
+
+## v0.192.0 [2023-01-09]
+
+### Breaking changes
+- Update iox.sql to detect midstream errors.
+
+### Features
+- Add [`geo.totalDistance()`](/flux/v0.x/stdlib/experimental/geo/totaldistance/)
+  to aggregate total distance of consecutive points.
+- Add [`iox.sqlInterval()`](/flux/v0.x/stdlib/experimental/iox/sqlinterval/) to
+  convert Flux durations to SQL interval strings.
+- Add the [`contrib/qxip/hash`](/flux/v0.x/stdlib/contrib/qxip/hash/) package
+  which includes hashing functions.
+- Add the [`contrib/qxip/logql`](/flux/v0.x/stdlib/contrib/qxip/logql/) package
+  which provides functions for working with
+  [Grafana Loki](https://grafana.com/oss/loki/) and [LogQL](https://grafana.com/docs/loki/latest/logql/).
+- Add [`contrib/qxip/clickhouse`](/flux/v0.x/stdlib/contrib/qxip/clickhouse/)
+  package which provides functions for querying data from
+  [Clickhouse](https://clickhouse.com/).
+
+---
+
 ## v0.191.0 [2022-11-14]
 
 ### Features

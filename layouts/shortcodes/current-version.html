@@ -3,5 +3,7 @@
 {{- $keep := .Get "keep" | default false -}}
 {{- $keepClass := cond ( $keep ) " keep" "" -}}
 {{- $isCloud := in $currentVersion "cloud" -}}
-{{- $versionText := cond ($isCloud) "Cloud" $currentVersion }}
-<span class="current-version{{ $keepClass }}">{{ $versionText }}</span>
+{{- $noSpan := .Get "nospan" | default false }}
+{{- $versionText := cond ($isCloud) "Cloud" $currentVersion -}}
+{{- if $noSpan -}}{{- $versionText -}}{{- else -}}
+<span class="current-version{{ $keepClass }}">{{- $versionText -}}</span>{{- end -}}

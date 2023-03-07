@@ -31,7 +31,7 @@ during the following operations:
 
 - Writing to the [`/write` v1 compatibility endpoint](/influxdb/v2.6/reference/api/influxdb-1x/write/)
 - {{% cloud-only %}}[Upgrading from InfluxDB 1.x to InfluxDB Cloud](/influxdb/v2.6/upgrade/v1-to-cloud/){{% /cloud-only %}}
-- {{% oss-only %}}[Upgrading from InfluxDB 1.x to {{< current-version >}}](/influxdb/v2.6/upgrade/v1-to-v2/){{% /oss-only %}}
+- {{% oss-only %}}[Upgrading from InfluxDB 1.x to {{< current-version noSpan=true >}}](/influxdb/v2.6/upgrade/v1-to-v2/){{% /oss-only %}}
 - {{% oss-only %}}Creating a bucket ([virtual DBRPs](#virtual-dbrp-mappings)){{% /oss-only %}}
 
 For more information, see [Database and retention policy mapping](/influxdb/v2.6/reference/api/influxdb-1x/dbrp/).

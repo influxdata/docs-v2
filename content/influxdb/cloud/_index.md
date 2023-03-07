@@ -1,7 +1,7 @@
 ---
 title: InfluxDB Cloud documentation
 description: >
-  InfluxDB Cloud is an hosted and managed version of InfluxDB v2.0, the time series platform designed to handle high write and query loads.
+  InfluxDB Cloud is a hosted and managed version of InfluxDB v2.0, the time series platform designed to handle high write and query loads.
   Learn how to use and leverage InfluxDB Cloud in use cases such as monitoring metrics, IoT data, and events.
 layout: landing-influxdb
 menu:

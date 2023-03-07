@@ -50,7 +50,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/golang:latest
+      - image: cimg/go:1.19
     steps:
       - checkout
       - restore_cache:

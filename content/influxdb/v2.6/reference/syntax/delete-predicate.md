@@ -32,6 +32,20 @@ Use [logical operators](#logical-operators) to combine two or more predicate exp
 key1="value1" AND key2="value"
 ```
 
+{{% note %}}
+#### Predicates with special characters or keywords
+If your predicate contains keywords or strings with special characters, wrap each in escaped
+quotes to ensure the predicate string is parsed correctly.
+
+```js
+// Escaped due to the "-"
+"_measurement=\"example-dash\""
+
+// Escaped because "name" is a keyword
+"_measurement=example and \"name\"=predicate"
+```
+{{% /note %}}
+
 {{% warn %}}
 #### Column limitations when deleting data
 **InfluxDB {{< current-version >}}** supports deleting data by any column or tag
