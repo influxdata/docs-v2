@@ -274,14 +274,14 @@ components:
             org:
               description: |
                 The organization name.
-                Specifies the [organization](/influxdb/v2.5/reference/glossary/#organization)
+                Specifies the [organization](/influxdb/v2.6/reference/glossary/#organization)
                 that the token is scoped to.
               readOnly: true
               type: string
             orgID:
               description: |
                 The organization ID.
-                Specifies the [organization](/influxdb/v2.5/reference/glossary/#organization) that the authorization is scoped to.
+                Specifies the [organization](/influxdb/v2.6/reference/glossary/#organization) that the authorization is scoped to.
               type: string
             permissions:
               description: |
@@ -295,7 +295,7 @@ components:
               description: |
                 The API token.
                 The token value is unique to the authorization.
-                [API tokens](/influxdb/v2.5/reference/glossary/#token) are
+                [API tokens](/influxdb/v2.6/reference/glossary/#token) are
                 used to authenticate and authorize InfluxDB API requests and `influx`
                 CLI commands--after receiving the request, InfluxDB checks that the
                 token is valid and that the `permissions` allow the requested action(s).
@@ -308,13 +308,13 @@ components:
             user:
               description: |
                 The user name.
-                Specifies the [user](/influxdb/v2.5/reference/glossary/#user) that owns the authorization.
+                Specifies the [user](/influxdb/v2.6/reference/glossary/#user) that owns the authorization.
                 If the authorization is _scoped_ to a user, the user;
                 otherwise, the creator of the authorization.
               readOnly: true
               type: string
             userID:
-              description: The user ID. Specifies the [user](/influxdb/v2.5/reference/glossary/#user) that owns the authorization. If _scoped_, the user that the authorization is scoped to; otherwise, the creator of the authorization.
+              description: The user ID. Specifies the [user](/influxdb/v2.6/reference/glossary/#user) that owns the authorization. If _scoped_, the user that the authorization is scoped to; otherwise, the creator of the authorization.
               readOnly: true
               type: string
           type: object
@@ -6713,7 +6713,7 @@ info:
     The InfluxDB v2 API provides a programmatic interface for all interactions with InfluxDB. Access the InfluxDB API using the `/api/v2/` endpoint.
 
     This documentation is generated from the
-    [InfluxDB OpenAPI specification](https://github.com/influxdata/openapi/blob/influxdb-oss-v2.5.0/contracts/ref/oss.yml).
+    [InfluxDB OpenAPI specification](https://github.com/influxdata/openapi/blob/influxdb-oss-v2.6.0/contracts/ref/oss.yml).
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -10978,7 +10978,7 @@ paths:
 
             #### Related guides
 
-            - [Manage users](/influxdb/v2.5/users/)
+            - [Manage users](/influxdb/v2.6/users/)
           example: influxdb-oss-session=19aaaZZZGOvP2GGryXVT2qYftlFKu3bIopurM6AGFow1yF1abhtOlbHfsc-d8gozZFC_6WxmlQIAwLMW5xs523w==
           in: cookie
           name: influxdb-oss-session
@@ -18995,28 +18995,28 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
             A user ID.
-            Only returns legacy authorizations scoped to the specified [user](/influxdb/v2.5/reference/glossary/#user).
+            Only returns legacy authorizations scoped to the specified [user](/influxdb/v2.6/reference/glossary/#user).
           in: query
           name: userID
           schema:
             type: string
         - description: |
             A user name.
-            Only returns legacy authorizations scoped to the specified [user](/influxdb/v2.5/reference/glossary/#user).
+            Only returns legacy authorizations scoped to the specified [user](/influxdb/v2.6/reference/glossary/#user).
           in: query
           name: user
           schema:
             type: string
         - description: |
             An organization ID.
-            Only returns legacy authorizations that belong to the specified [organization](/influxdb/v2.5/reference/glossary/#organization).
+            Only returns legacy authorizations that belong to the specified [organization](/influxdb/v2.6/reference/glossary/#organization).
           in: query
           name: orgID
           schema:
             type: string
         - description: |
             An organization name.
-            Only returns legacy authorizations that belong to the specified [organization](/influxdb/v2.5/reference/glossary/#organization).
+            Only returns legacy authorizations that belong to the specified [organization](/influxdb/v2.6/reference/glossary/#organization).
           in: query
           name: org
           schema:
@@ -19242,7 +19242,7 @@ paths:
             description: |
               Media type that the client can understand.
 
-              **Note**: With `application/csv`, query results include [**unix timestamps**](/influxdb/v2.5/reference/glossary/#unix-timestamp) instead of [RFC3339 timestamps](/influxdb/v2.5/reference/glossary/#rfc3339-timestamp).
+              **Note**: With `application/csv`, query results include [**unix timestamps**](/influxdb/v2.6/reference/glossary/#unix-timestamp) instead of [RFC3339 timestamps](/influxdb/v2.6/reference/glossary/#rfc3339-timestamp).
             enum:
               - application/json
               - application/csv
@@ -19277,8 +19277,8 @@ paths:
             type: string
         - description: |
             The database to query data from.
-            This is mapped to an InfluxDB [bucket](/influxdb/v2.5/reference/glossary/#bucket).
-            For more information, see [Database and retention policy mapping](/influxdb/v2.5/api/influxdb-1x/dbrp/).
+            This is mapped to an InfluxDB [bucket](/influxdb/v2.6/reference/glossary/#bucket).
+            For more information, see [Database and retention policy mapping](/influxdb/v2.6/api/influxdb-1x/dbrp/).
           in: query
           name: db
           required: true
@@ -19286,8 +19286,8 @@ paths:
             type: string
         - description: |
             The retention policy to query data from.
-            This is mapped to an InfluxDB [bucket](/influxdb/v2.5/reference/glossary/#bucket).
-            For more information, see [Database and retention policy mapping](/influxdb/v2.5/api/influxdb-1x/dbrp/).
+            This is mapped to an InfluxDB [bucket](/influxdb/v2.6/reference/glossary/#bucket).
+            For more information, see [Database and retention policy mapping](/influxdb/v2.6/api/influxdb-1x/dbrp/).
           in: query
           name: rp
           schema:
@@ -19300,8 +19300,8 @@ paths:
             type: string
         - description: |
             A unix timestamp precision.
-            Formats timestamps as [unix (epoch) timestamps](/influxdb/v2.5/reference/glossary/#unix-timestamp) the specified precision
-            instead of [RFC3339 timestamps](/influxdb/v2.5/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
+            Formats timestamps as [unix (epoch) timestamps](/influxdb/v2.6/reference/glossary/#unix-timestamp) the specified precision
+            instead of [RFC3339 timestamps](/influxdb/v2.6/reference/glossary/#rfc3339-timestamp) with nanosecond precision.
           in: query
           name: epoch
           schema:
@@ -19353,9 +19353,9 @@ paths:
           description: |
             #### InfluxDB Cloud:
               - returns this error if a **read** or **write** request exceeds your
-                plan's [adjustable service quotas](/influxdb/v2.5/account-management/limits/#adjustable-service-quotas)
+                plan's [adjustable service quotas](/influxdb/v2.6/account-management/limits/#adjustable-service-quotas)
                 or if a **delete** request exceeds the maximum
-                [global limit](/influxdb/v2.5/account-management/limits/#global-limits)
+                [global limit](/influxdb/v2.6/account-management/limits/#global-limits)
               - returns `Retry-After` header that describes when to try the write again.
 
             #### InfluxDB OSS:

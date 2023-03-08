@@ -70,7 +70,7 @@
       &:before {
         content: "\e97a";
         margin-right: 0.25em;
-        font-family: 'icomoon';
+        font-family: 'icomoon-v3';
         font-style: normal;
       }
     }
@@ -78,6 +78,10 @@
     a.is-active + .tab-view-output {
       opacity: 0;
     }
+  }
+  &.medium {
+    p { justify-content: flex-start; }
+    a { flex-grow: unset; }
   }
   // Style suggested for tabs that have uneven button widths because of wrapping.
   &.even-wrap a {

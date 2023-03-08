@@ -26,7 +26,8 @@ influx query --file /path/to/query.flux
 influx query - # Return to open the pipe
 
 data = from(bucket: "example-bucket") |> range(start: -10m) # ...
-# ctrl-d to close the pipe and submit the query
+# Linux & macOS: <ctrl-d> to close the pipe and submit the command
+# Windows: <enter>, then <ctrl-d>, then <enter> to close the pipe and submit the command
 ```
 
 {{% note %}}

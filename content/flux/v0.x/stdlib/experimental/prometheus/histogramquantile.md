@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/prometheus/prometheus.flux#L75-L104
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/prometheus/prometheus.flux#L83-L112
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -36,7 +36,7 @@ InfluxDB scrapers available in InfluxDB OSS.
 ##### Function type signature
 
 ```js
-(<-tables: stream[{B with le: D, _field: C}], quantile: float, ?metricVersion: A) => stream[E] where A: Equatable, C: Equatable, E: Record
+(<-tables: stream[{B with le: D, _field: C}], quantile: float, ?metricVersion: A, ?onNonmonotonic: string) => stream[E] where A: Equatable, C: Equatable, E: Record
 ```
 
 {{% caption %}}For more information, see [Function type signatures](/flux/v0.x/function-type-signatures/).{{% /caption %}}
@@ -63,6 +63,17 @@ Default is `2`.
 Input data. Default is piped-forward data (`<-`).
 
 
+
+### onNonmonotonic
+
+Describes behavior when counts are not monotonically increasing
+when sorted by upper bound. Default is `error`.
+
+**Supported values**:
+- **error**: Produce an error.
+- **force**: Force bin counts to be monotonic by adding to each bin such that it
+is equal to the next smaller bin.
+- **drop**: When a nonmonotonic table is encountered, produce no output.
 
 
 ## Examples

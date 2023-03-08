@@ -380,7 +380,7 @@ my_field   boolean
 
 ## What are the minimum and maximum integers that InfluxDB can store?
 InfluxDB stores all integers as signed int64 data types.
-The minimum and maximum valid values for int64 are `-9023372036854775808` and `9023372036854775807`.
+The minimum and maximum valid values for int64 are `-9223372036854775808` and `9223372036854775807`.
 See [Go builtins](http://golang.org/pkg/builtin/#int64) for more information.
 
 Values close to but within those limits may lead to unexpected results; some functions and operators convert the int64 data type to float64 during calculation which can cause overflow issues.

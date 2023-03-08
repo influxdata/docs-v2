@@ -357,8 +357,8 @@ For more information, see [Data retention](/influxdb/v2.5/reference/internals/da
 #### What are the minimum and maximum integers that InfluxDB can store?
 InfluxDB stores all integers as signed 64bit integers.
 
-**Minimum integer**: `-9023372036854775808`  
-**Maximum integer**: `9023372036854775807`  
+**Minimum integer**: `-9223372036854775808`  
+**Maximum integer**: `9223372036854775807`  
 
 Values close to but within those limits may lead to unexpected behavior.
 Some query operations convert 64bit integers to 64bit float values 

@@ -4,7 +4,7 @@ seotitle: Load data source in UI
 list_title: Load data source in UI
 weight: 101
 description: >
-  Load data from sources in the InfluxDB user interface (UI). Choose from popular client libraries (such as Python, Ruby, Scala, and more!) or load data with a Telegraf plugin (like MQTT Consumer, MySQL, File, and many more!).
+  Load data from sources in the InfluxDB user interface (UI). Choose from popular client libraries (such as Python, Ruby, Scala, and more!) or load data with a Telegraf plugin (like MQTT Consumer, MySQL, File, and others).
 menu:
   influxdb_2_5:
     name: Load data source in UI
@@ -17,7 +17,6 @@ Load data from the following sources in the InfluxDB user interface (UI):
 - [Line protocol](#load-data-using-line-protocol)
 - [Client libraries](#load-data-from-a-client-library-in-the-ui)
 - [Telegraf plugins](#load-data-from-a-telegraf-plugin-in-the-ui)
-- {{% cloud-only %}}[Native MQTT subscriptions](#set-up-a-native-mqtt-subscription){{% /cloud-only %}}
 
 ### Load CSV or line protocol in UI
 
@@ -84,11 +83,3 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 9. Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully sending data to InfluxDB.
    Once confirmed, a **Connection Found!** message appears.
 10. Click **Finish**. Your Telegraf configuration name and the associated bucket name appear in the list of Telegraf configurations.
-
-{{% cloud-only %}}
-
-### Set up an MQTT native subscription
-
-For more details about setting up native subscriptions, see [Set up native subscriptions](/influxdb/cloud/write-data/no-code/native-subscriptions).
-
-{{% /cloud-only %}}

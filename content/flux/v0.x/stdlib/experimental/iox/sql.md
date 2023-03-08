@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/iox/iox.flux#L33-L33
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/iox/iox.flux#L56-L56
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -50,7 +50,19 @@ IOx bucket to read data from.
 
 ### query
 ({{< req >}})
-Query to execute.
+SQL query to execute.
 
 
+
+
+## Examples
+
+### Use SQL to query data from IOx
+
+```js
+import "experimental/iox"
+
+iox.sql(bucket: "example-bucket", query: "SELECT * FROM measurement")
+
+```
 

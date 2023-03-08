@@ -135,7 +135,7 @@
 
 ///////////////// Data model table in InfluxDB 2.4+ get started ////////////////
 
-#series-diagram {
+.series-diagram {
   display: flex;
   width: fit-content;
   max-width: 100%;
@@ -146,12 +146,12 @@
   table {margin: 0;}
 
   &:after {
-    content: "series";
+    content: "Series";
     top: 4rem;
-    right: -3.4rem;
+    right: -3.5rem;
   }
 
-  & + #series-diagram {margin-bottom: 3rem;}
+  &:last-child {margin-bottom: 3rem;}
 
 }
 
@@ -159,13 +159,13 @@ table tr.point{
   border: 2px solid $tooltip-bg;
 
   &:after {
-    content: "point";
+    content: "Point";
     bottom: -.8rem;
     left: 1rem;
   }
 }
 
-#series-diagram, table tr.point {
+.series-diagram, table tr.point {
   position: relative;
   &:after {
     color: $tooltip-text;
@@ -176,6 +176,69 @@ table tr.point{
     font-weight: $medium;
     padding: .2rem .5rem;
     line-height: .9rem;
+  }
+}
+
+.sql table {
+
+  tr.points {
+    position: relative;
+    td:first-child{
+      &:before, &:after {
+        display: block;
+        border-radius: $radius;
+        position: absolute;
+        font-size: .9rem;
+        font-weight: $medium;
+        padding: .2rem .5rem;
+        line-height: .9rem;
+        z-index: 1;
+        top: -.25rem;
+        opacity: 0;
+        transition: opacity .2s, top .2s;
+      }
+      &:before {
+        content: "Point 1";
+        color: $g20-white;
+        background: $br-new-magenta;
+      }
+      &:after {
+        content: "Point 2";
+        color: $tooltip-text;
+        background: $tooltip-bg;
+        left: 5rem;
+      }
+    }
+
+    &:hover { td:first-child {
+      &:before, &:after {
+        opacity: 1;
+        top: -.65rem;
+      }
+    }}
+  }
+  span.point{
+    position: relative;
+    display: inline-block;
+
+    &.one:before{
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-top: 2px solid $br-new-magenta;
+      bottom: -2px;
+    }
+    &.two:after{
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-top: 2px solid $tooltip-bg;
+      bottom: -8px;
+    }
   }
 }
 
@@ -286,7 +349,7 @@ table tr.point{
     }
   }
 
-  #series-diagram {
+  .series-diagram {
     width: auto;
   }
 };

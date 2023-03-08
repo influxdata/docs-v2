@@ -1,7 +1,7 @@
 influxdb:
   default: v4
   cloud: v4
-  v2.5: v4
+  v2.6: v4
   v2.4: v4
   v2.3: v3
   v2.2: v3

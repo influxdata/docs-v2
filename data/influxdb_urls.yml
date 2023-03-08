@@ -13,6 +13,7 @@ cloud:
   providers:
     - name: Amazon Web Services
       short_name: AWS
+      iox: true
       regions:
         - name: US West (Oregon)
           location: Oregon, USA
@@ -25,9 +26,11 @@ cloud:
         - name: US East (Virginia)
           location: Virginia, USA
           url: https://us-east-1-1.aws.cloud2.influxdata.com
+          iox: true
         - name: EU Frankfurt
           location: Frankfurt, Germany
           url: https://eu-central-1-1.aws.cloud2.influxdata.com
+          iox: true
         - name: Asia Pacific (Australia)
           location: Sydney, Australia
           url: https://ap-southeast-2-1.aws.cloud2.influxdata.com
