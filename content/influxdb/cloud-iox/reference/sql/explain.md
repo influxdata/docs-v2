@@ -1,16 +1,16 @@
 ---
-title: EXPLAIN keyword
+title: EXPLAIN command
 description: > 
-  The `EXPLAIN` keyword shows the logical and physical execution plan for the
+  The `EXPLAIN` command shows the logical and physical execution plan for the
   specified SQL statement.
 menu:
   influxdb_cloud_iox:
-    name: EXPLAIN keyword
+    name: EXPLAIN command
     parent: SQL reference
 weight: 207
 ---
 
-The `EXPLAIN` keyword returns the logical and physical execution plan for the
+The `EXPLAIN` command returns the logical and physical execution plan for the
 specified SQL statement.
 
 ```sql

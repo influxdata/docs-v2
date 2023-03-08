@@ -27,8 +27,9 @@ a **time value** in addition to the computed value.
 
 ## How do selector functions work?
 
-Each selector function returns a Rust _struct_ (similar to a JSON object)
-representing a single time and value from the specified column in the each group.
+Each selector function returns an [Arrow _struct_](https://arrow.apache.org/docs/format/Columnar.html#struct-layout)
+(similar to a JSON object) representing a single time and value from the
+specified column in the each group.
 What time and value get returned depend on the logic in the selector function.
 For example, `selector_first` returns the value of specified column in the first row of the group.
 `selector_max` returns the maximum value of the specified column in the group.
