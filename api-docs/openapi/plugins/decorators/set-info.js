@@ -1,11 +1,7 @@
 module.exports = SetInfo;
 
-const { info } = require('../../content/content')
-
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
-function SetInfo() {
-  const data = info();
-
+function SetInfo(data) {
   return {
     Info: {
       leave(info, ctx) {

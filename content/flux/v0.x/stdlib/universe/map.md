@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1740-L1740
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L1749-L1749
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -193,20 +193,20 @@ sampledata.int()
 
 #### Output data
 
-| alert  | time                 | source  |
-| ------ | -------------------- | ------- |
-| false  | 2021-01-01T00:00:00Z | t1      |
-| false  | 2021-01-01T00:00:10Z | t1      |
-| false  | 2021-01-01T00:00:20Z | t1      |
-| true   | 2021-01-01T00:00:30Z | t1      |
-| true   | 2021-01-01T00:00:40Z | t1      |
-| false  | 2021-01-01T00:00:50Z | t1      |
-| true   | 2021-01-01T00:00:00Z | t2      |
-| false  | 2021-01-01T00:00:10Z | t2      |
-| false  | 2021-01-01T00:00:20Z | t2      |
-| true   | 2021-01-01T00:00:30Z | t2      |
-| true   | 2021-01-01T00:00:40Z | t2      |
-| false  | 2021-01-01T00:00:50Z | t2      |
+| time                 | source  | alert  |
+| -------------------- | ------- | ------ |
+| 2021-01-01T00:00:00Z | t1      | false  |
+| 2021-01-01T00:00:10Z | t1      | false  |
+| 2021-01-01T00:00:20Z | t1      | false  |
+| 2021-01-01T00:00:30Z | t1      | true   |
+| 2021-01-01T00:00:40Z | t1      | true   |
+| 2021-01-01T00:00:50Z | t1      | false  |
+| 2021-01-01T00:00:00Z | t2      | true   |
+| 2021-01-01T00:00:10Z | t2      | false  |
+| 2021-01-01T00:00:20Z | t2      | false  |
+| 2021-01-01T00:00:30Z | t2      | true   |
+| 2021-01-01T00:00:40Z | t2      | true   |
+| 2021-01-01T00:00:50Z | t2      | false  |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

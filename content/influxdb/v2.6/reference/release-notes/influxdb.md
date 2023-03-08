@@ -8,6 +8,13 @@ menu:
 weight: 101
 ---
 
+## v2.6.1 [2022-12-29]
+
+### Bug Fixes
+
+- Update user interface (UI) to fix dashboard page crash issue.
+- Fix `All-Access` token creation issue.
+
 ## v2.6.0 [2022-12-15]
 
 ### Features

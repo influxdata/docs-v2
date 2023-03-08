@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3556-L3556
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3565-L3565
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -72,13 +72,10 @@ data
 
 #### Input data
 
-| _time                | _value  | *tag | *_field | _measurement  |
-| -------------------- | ------- | ---- | ------- | ------------- |
-| 2021-01-01T00:00:00Z | -2      | t1   | f1      | m             |
-| 2021-01-01T00:00:50Z | 4       | t1   | f1      | m             |
-
-| _time  | _value  | *tag | _measurement  | *_field |
-| ------ | ------- | ---- | ------------- | ------- |
+| _time                | _value  | *tag | _measurement  | *_field |
+| -------------------- | ------- | ---- | ------------- | ------- |
+| 2021-01-01T00:00:00Z | -2      | t1   | m             | f1      |
+| 2021-01-01T00:00:50Z | 4       | t1   | m             | f1      |
 
 | _time                | _value  | *tag | _measurement  | *_field |
 | -------------------- | ------- | ---- | ------------- | ------- |
@@ -86,21 +83,15 @@ data
 | 2021-01-01T00:00:20Z | -3      | t2   | m             | f1      |
 | 2021-01-01T00:00:50Z | 1       | t2   | m             | f1      |
 
-| _time  | _value  | *tag | *_field | _measurement  |
-| ------ | ------- | ---- | ------- | ------------- |
+| _time                | _value  | *tag | _measurement  | *_field |
+| -------------------- | ------- | ---- | ------------- | ------- |
+| 2021-01-01T00:00:10Z | 10      | t1   | m             | f2      |
+| 2021-01-01T00:00:20Z | 7       | t1   | m             | f2      |
 
-| _time                | _value  | *tag | *_field | _measurement  |
-| -------------------- | ------- | ---- | ------- | ------------- |
-| 2021-01-01T00:00:10Z | 10      | t1   | f2      | m             |
-| 2021-01-01T00:00:20Z | 7       | t1   | f2      | m             |
-
-| _time                | _value  | *tag | *_field | _measurement  |
-| -------------------- | ------- | ---- | ------- | ------------- |
-| 2021-01-01T00:00:30Z | 17      | t1   | f3      | m             |
-| 2021-01-01T00:00:40Z | 15      | t1   | f3      | m             |
-
-| _time  | _value  | *tag | _measurement  | *_field |
-| ------ | ------- | ---- | ------------- | ------- |
+| _time                | _value  | *tag | _measurement  | *_field |
+| -------------------- | ------- | ---- | ------------- | ------- |
+| 2021-01-01T00:00:30Z | 17      | t1   | m             | f3      |
+| 2021-01-01T00:00:40Z | 15      | t1   | m             | f3      |
 
 | _time                | _value  | *tag | _measurement  | *_field |
 | -------------------- | ------- | ---- | ------------- | ------- |
@@ -111,13 +102,10 @@ data
 
 #### Output data
 
-| _time                | _value  | *tag | *_field | _measurement  |
-| -------------------- | ------- | ---- | ------- | ------------- |
-| 2021-01-01T00:00:00Z | -2      | t1   | f1      | m             |
-| 2021-01-01T00:00:50Z | 4       | t1   | f1      | m             |
-
-| _time  | _value  | *tag | _measurement  | *_field |
-| ------ | ------- | ---- | ------------- | ------- |
+| _time                | _value  | *tag | _measurement  | *_field |
+| -------------------- | ------- | ---- | ------------- | ------- |
+| 2021-01-01T00:00:00Z | -2      | t1   | m             | f1      |
+| 2021-01-01T00:00:50Z | 4       | t1   | m             | f1      |
 
 | _time                | _value  | *tag | _measurement  | *_field |
 | -------------------- | ------- | ---- | ------------- | ------- |
@@ -125,13 +113,10 @@ data
 | 2021-01-01T00:00:20Z | -3      | t2   | m             | f1      |
 | 2021-01-01T00:00:50Z | 1       | t2   | m             | f1      |
 
-| _time  | _value  | *tag | *_field | _measurement  |
-| ------ | ------- | ---- | ------- | ------------- |
-
-| _time                | _value  | *tag | *_field | _measurement  |
-| -------------------- | ------- | ---- | ------- | ------------- |
-| 2021-01-01T00:00:10Z | 10      | t1   | f2      | m             |
-| 2021-01-01T00:00:20Z | 7       | t1   | f2      | m             |
+| _time                | _value  | *tag | _measurement  | *_field |
+| -------------------- | ------- | ---- | ------------- | ------- |
+| 2021-01-01T00:00:10Z | 10      | t1   | m             | f2      |
+| 2021-01-01T00:00:20Z | 7       | t1   | m             | f2      |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

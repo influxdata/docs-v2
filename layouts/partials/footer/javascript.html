@@ -10,13 +10,15 @@
 {{ $keybindings := resources.Get "js/keybindings.js" }}
 {{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
 {{ $fluxCurrentTime := resources.Get "js/flux-current-time.js" }}
-{{ $fullscreenCode := resources.Get "js/fullscreen-code.js" }}
+{{ $influxdbGSTimestamps := resources.Get "js/get-started-timestamps.js" }}
+{{ $codeControls := resources.Get "js/code-controls.js" }}
 {{ $pageFeedback := resources.Get "js/page-feedback.js" }}
 {{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
 {{ $fluxInfluxDBVersions := resources.Get "/js/flux-influxdb-versions.js"}}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $tabbedContent $notifications $keybindings $fullscreenCode $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $tabbedContent $notifications $keybindings $codeControls $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := slice $fluxGroupKeys | resources.Concat "js/flux-group-keys.js" | resources.Fingerprint }}
 {{ $fluxCurrentTimejs := slice $fluxCurrentTime | resources.Concat "js/flux-current-time.js" | resources.Fingerprint }}
+{{ $influxdbGSTimestampsjs := slice $influxdbGSTimestamps | resources.Concat "js/get-started-timestamps.js" | resources.Fingerprint }}
 
 <!-- Load cloudUrls array -->
 <script type="text/javascript">
@@ -53,4 +55,10 @@
 <!-- Load Flux current time js if when the flux/current-time shortcode is present -->
 {{ if .Page.HasShortcode "flux/current-time" }}
 <script type="text/javascript" src="{{ $fluxCurrentTime.RelPermalink }}"></script>
+{{ end }}
+
+<!-- Load getting started timestamps js if when the influxdb/custom-gs-timestamps shortcode is present -->
+{{ if or (.Page.HasShortcode "influxdb/custom-timestamps") (.Page.HasShortcode "influxdb/custom-timestamps-span") }}
+<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker.min.js"></script>
+<script type="text/javascript" src="{{ $influxdbGSTimestampsjs.RelPermalink }}"></script>
 {{ end }}

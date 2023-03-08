@@ -1,5 +1,5 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
-{{ $latestV2 := cond (isset .Site.Data.products.influxdb "latest_override") .Site.Data.products.influxdb.latest_override .Site.Data.products.influxdb.latest }}
+{{ $latestV2 := .Site.Data.products.influxdb.latest }}
 {{ .Scratch.Set "product" (index $productPathData 0) }}
 {{ if in (.Scratch.Get "product") "influxdb" }}
   {{ .Scratch.Set "product" "influxdb" }}

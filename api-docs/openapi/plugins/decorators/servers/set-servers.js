@@ -1,7 +1,5 @@
 module.exports = SetServers;
 
-const { servers } = require('../../../content/content')
-
 /** @type {import('@redocly/openapi-cli').OasDecorator} */
 
 /**
@@ -9,8 +7,7 @@ const { servers } = require('../../../content/content')
  * The key instructs openapi when to invoke the key's Visitor object.
  * Object key "Server" is an OAS 3.0 node type.
  */
-function SetServers() {
-  const data = servers();
+function SetServers(data) {
   return {
     DefinitionRoot: {
       leave(root) {
