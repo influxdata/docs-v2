@@ -1,22 +1,23 @@
 ---
-title: Manage bucket schemas
-seotitle: Manage bucket schemas in InfluxDB
+title: Enforce your schema with explicit bucket schemas
+seotitle: Manage explicit bucket schemas in InfluxDB
 description: Manage explicit bucket schemas using the influx CLI or InfluxDB HTTP API. Optionally, ensure data you write follows a specific schema.
 menu:
-  influxdb_cloud:
-    name: Manage explicit bucket schemas
-    parent: Manage buckets
+  influxdb_cloud_iox:
+    name: Enforce schema with explicit bucket schemas
+    weight: 201
+    parent: write-best-practices
 weight: 250
-influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, schema]
+influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, explicit measurement schema, schema]
 related:
   - /influxdb/cloud/reference/key-concepts/
   - /influxdb/cloud/reference/key-concepts/data-schema/
   - /influxdb/cloud/reference/key-concepts/data-elements/
-  - /influxdb/cloud/organizations/buckets/create-bucket/
+  - /influxdb/cloud/administer/buckets/create-bucket/
   - /influxdb/cloud/reference/cli/influx/
 ---
 
-Use [**explicit bucket schemas**](/influxdb/cloud/reference/key-concepts/data-elements/#bucket-schema) to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#tag), [fields](/influxdb/cloud/reference/glossary/#field), and
+Use [**explicit bucket schemas**](/influxdb/cloud/reference/glossary/#bucket-schema) to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#tag), [fields](/influxdb/cloud/reference/glossary/#field), and
 [data types](/influxdb/cloud/reference/glossary/#data-type) for your data.
 Explicit bucket schemas ensure that measurements have specific columns and data types and prevent non-conforming write requests.
 
@@ -26,7 +27,7 @@ After you create a bucket schema, you're ready to [write data](/influxdb/cloud/w
 
 #### Before you begin
 
-The examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/). We recommend reviewing data elements, [**InfluxDB key concepts**](/influxdb/cloud/reference/key-concepts/), and [**elements of line protocol**](/influxdb/cloud/reference/syntax/line-protocol/#elements-of-line-protocol) if you aren't familiar with these concepts.
+The examples below reference **InfluxDB data elements**. We recommend reviewing [best practices for schema design](/influxdb/cloud-iox/write-data/best-practices/schema-design/) and [**elements of line protocol**](/influxdb/cloud/reference/syntax/line-protocol/#elements-of-line-protocol) if you aren't familiar with these concepts.
 
 {{% /note %}}
 
@@ -48,7 +49,7 @@ The examples below reference [**InfluxDB data elements**](/influxdb/cloud/refere
 
 To create an explicit bucket and schemas for your data, do the following:
 
-  1. If you haven't already, [create a bucket that enforces explicit schemas](/influxdb/cloud/organizations/buckets/create-bucket/#create-a-bucket-that-enforces-explicit-schemas).
+  1. If you haven't already, [create a bucket that enforces explicit schemas](/influxdb/cloud-iox/administer/buckets/create-bucket/#create-a-bucket-that-enforces-explicit-schemas).
   2. [Create a bucket schema](#create-a-bucket-schema).
 
 ### Create a bucket schema
@@ -56,7 +57,7 @@ To create an explicit bucket and schemas for your data, do the following:
 With an `explicit` bucket, you predefine *measurement schemas* with column names, tags, fields, and data types for measurements.
 A measurement schema has the following properties:
 
-- `name`: the measurement name. The name must match the [measurement column](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) in your data, obey [naming rules](#write-valid-schemas), and be unique within the bucket.
+- `name`: the measurement name. The name must match the [measurement column](/influxdb/cloud-iox/reference/glossary/#measurement) in your data, obey [naming rules](#write-valid-schemas), and be unique within the bucket.
 - `columns`: a list of *column definitions* for the measurement.
 
 To learn more about rules for measurement _names_ and _columns_, see how to [write valid schemas](#write-valid-schemas).
@@ -142,12 +143,11 @@ For example, the following request defines the _explicit_ bucket measurement sch
 
 {{% note %}}
 
-#### Test your schema
+#### Test your explicit schema
 
 After you create an explicit schema, test that it works as you expect.
 To start, we recommend trying to write data that doesn't conform to the schema and that the bucket should reject.
-
-For more information about errors to expect in your tests, see [explicit schema rejections](/influxdb/cloud/write-data/troubleshoot/#troubleshoot-rejected-points).
+For more information about errors to expect in your tests, see [explicit schema rejections](/influxdb/cloud-iox/write-data/troubleshoot/#troubleshoot-rejected-points).
 
 {{% /note %}}
 

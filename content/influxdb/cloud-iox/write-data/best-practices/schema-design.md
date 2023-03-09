@@ -80,7 +80,7 @@ All tags an fields are stored as unique columns in a table representing the
 measurement on disk. Tags and fields named the same cause a column conflict.
 
 {{% note %}}
-Use [explicit bucket schemas](/influxdb/cloud-iox/...) to enforce unique tag and
+Use [explicit bucket schemas](https://docs.influxdata.com/resources/videos/explicit-schemas-in-influxdb/) to enforce unique tag and
 field keys within a schema.
 {{% /note %}}
 

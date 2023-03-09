@@ -3,13 +3,19 @@ title: Create a bucket
 seotitle: Create a bucket in InfluxDB
 description: Create buckets to store time series data in InfluxDB using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
 menu:
-  influxdb_cloud:
+  influxdb_cloud_iox:
     name: Create a bucket
     parent: Manage buckets
 weight: 201
+related:
+  - /influxdb/cloud/reference/key-concepts/
+  - /influxdb/cloud/reference/key-concepts/data-schema/
+  - /influxdb/cloud/reference/key-concepts/data-elements/
+  - /influxdb/cloud/write-data/best-practices/explicit-bucket-schemas/
+  - /influxdb/cloud/reference/cli/influx/
 ---
 
-Use the InfluxDB user interface (UI), the `influx` command line interface (CLI), or the InfluxDB HTTP API
+Use the InfluxDB user interface (UI), `influx` command line interface (CLI), or InfluxDB HTTP API
 to create a bucket.
 
 By default, buckets have an `implicit` **schema-type** and a schema that conforms to your data.
@@ -93,7 +99,7 @@ _For information about **InfluxDB API options and response codes**, see
 
 ## Create a bucket that enforces explicit schemas
 
-A bucket with the `explicit` schema-type enforces [measurement schemas that you define for the bucket](/influxdb/cloud/organizations/buckets/bucket-schema/) and rejects writes that don't conform to any of the schemas.
+A bucket with the `explicit` schema-type enforces [measurement schemas that you define for the bucket](/influxdb/cloud-iox/administer/buckets/bucket-schema/) and rejects writes that don't conform to any of the schemas.
 
 Use the **`influx` CLI** or **InfluxDB HTTP API** to create a bucket with the `explicit` schema-type.
 
@@ -141,4 +147,4 @@ endpoint and set the `schemaType` property value to `explicit` in the request bo
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-Next, see how to [create an explicit bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/) for a measurement.
+Next, see how to [create an explicit bucket schema](/influxdb/cloud-iox/administer/buckets/bucket-schema/) for a measurement.
