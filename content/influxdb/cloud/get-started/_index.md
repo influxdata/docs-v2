@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud:
     name: Get started
-weight: 3
+weight: 2
 influxdb/cloud/tags: [get-started]
 aliases:
   - /influxdb/cloud/introduction/get-started/
