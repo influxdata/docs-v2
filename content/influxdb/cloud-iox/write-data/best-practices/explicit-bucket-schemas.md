@@ -1,10 +1,10 @@
 ---
-title: Enforce your schema with explicit bucket schemas
-seotitle: Manage explicit bucket schemas in InfluxDB
+title: Explicit bucket schemas
+seotitle: Enforce schema with explicit bucket schemas in InfluxDB
 description: Manage explicit bucket schemas using the influx CLI or InfluxDB HTTP API. Optionally, ensure data you write follows a specific schema.
 menu:
   influxdb_cloud_iox:
-    name: Enforce schema with explicit bucket schemas
+    name: Explicit bucket schemas
     weight: 201
     parent: write-best-practices
 weight: 250
