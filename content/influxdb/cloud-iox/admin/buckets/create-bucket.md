@@ -1,7 +1,7 @@
 ---
 title: Create a bucket
-seotitle: Create a bucket in InfluxDB Cloud
-description: Create buckets to store time series data in InfluxDB Cloud using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
+seotitle: Create a bucket in InfluxDB
+description: Create buckets to store time series data in InfluxDB using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
 menu:
   influxdb_cloud_iox:
     name: Create a bucket
@@ -64,7 +64,7 @@ and specify values for the following flags:
 | Bucket                         | `-n`       |
 | Retention Period Duration      | `-r`       |
 
-The following example creates a bucket with a retention period of 72 hours:
+The following example creates a bucket with a retention period of seventy-two hours:
 
 ```sh
 influx bucket create -n my-bucket -o {INFLUX_ORG} -r 72h
