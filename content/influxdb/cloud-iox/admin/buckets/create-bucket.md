@@ -1,15 +1,17 @@
 ---
 title: Create a bucket
-seotitle: Create a bucket in InfluxDB Cloud
-description: Create buckets to store time series data in InfluxDB Cloud using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
+seotitle: Create a bucket in InfluxDB
+description: Create buckets to store time series data in InfluxDB using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
 menu:
-  influxdb_cloud:
+  influxdb_cloud_iox:
     name: Create a bucket
     parent: Manage buckets
 weight: 201
+related:
+  - /influxdb/cloud-iox/admin/buckets/manage-explicit-bucket-schemas/
 ---
 
-Use the InfluxDB user interface (UI), the `influx` command line interface (CLI), or the InfluxDB HTTP API
+Use the InfluxDB user interface (UI), `influx` command line interface (CLI), or InfluxDB HTTP API
 to create a bucket.
 
 By default, buckets have an `implicit` **schema-type** and a schema that conforms to your data.
@@ -56,11 +58,13 @@ There are two places you can create a bucket in the UI.
 To create a bucket with the `influx` CLI, use the [`influx bucket create` command](/influxdb/cloud/reference/cli/influx/bucket/create)
 and specify values for the following flags:
 
-- `-o`, `--org`: Organization name
-- `-n`, `--name`: Bucket name
-- `-r`, `--retention`: Retention period duration
+| Requirement                    | Include by |
+|:-------------------------------|:-----------|
+| Organization                   | `-o`       |
+| Bucket                         | `-n`       |
+| Retention Period Duration      | `-r`       |
 
-The following example creates a bucket with a retention period of `72` hours:
+The following example creates a bucket with a retention period of seventy-two hours:
 
 ```sh
 influx bucket create -n my-bucket -o {INFLUX_ORG} -r 72h
@@ -80,7 +84,7 @@ In your request body, specify values for the following properties:
 | Bucket               | `name`           |
 | Retention Rules      | `retentionRules` |
 
-The following example creates a bucket with a retention period of `86,400` seconds, or 24 hours:
+The following example creates a bucket with a retention period of `86,400` seconds, or twenty-four hours:
 
 ```sh
 {{% get-shared-text "api/v2.0/buckets/oss/create.sh" %}}
@@ -91,7 +95,7 @@ _For information about **InfluxDB API options and response codes**, see
 
 ## Create a bucket that enforces explicit schemas
 
-A bucket with the `explicit` schema-type enforces [measurement schemas that you define for the bucket](/influxdb/cloud/organizations/buckets/bucket-schema/) and rejects writes that don't conform to any of the schemas.
+A bucket with the `explicit` schema-type enforces [measurement schemas that you define for the bucket](/influxdb/cloud-iox/admin/buckets/bucket-schema/) and rejects writes that don't conform to any of the schemas.
 
 Use the **`influx` CLI** or **InfluxDB HTTP API** to create a bucket with the `explicit` schema-type.
 
@@ -139,4 +143,4 @@ endpoint and set the `schemaType` property value to `explicit` in the request bo
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-Next, see how to [create an explicit bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/) for a measurement.
+Next, see how to [create an explicit bucket schema](/influxdb/cloud-iox/admin/buckets/bucket-schema/) for a measurement.
