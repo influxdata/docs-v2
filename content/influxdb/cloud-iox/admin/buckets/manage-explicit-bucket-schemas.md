@@ -1,33 +1,33 @@
 ---
-title: Manage bucket schemas
-seotitle: Manage bucket schemas in InfluxDB
+title: Manage explicit bucket schemas
+seotitle: Manage explicit bucket schemas in InfluxDB
 description: Manage explicit bucket schemas using the influx CLI or InfluxDB HTTP API. Optionally, ensure data you write follows a specific schema.
 menu:
-  influxdb_cloud:
+  influxdb_cloud_iox:
     name: Manage explicit bucket schemas
+    weight: 201
     parent: Manage buckets
 weight: 250
-influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, schema]
+influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, explicit measurement schema, schema]
 related:
   - /influxdb/cloud/reference/key-concepts/
   - /influxdb/cloud/reference/key-concepts/data-schema/
   - /influxdb/cloud/reference/key-concepts/data-elements/
-  - /influxdb/cloud/organizations/buckets/create-bucket/
+  - /influxdb/cloud-iox/admin/buckets/create-bucket/
   - /influxdb/cloud/reference/cli/influx/
 ---
 
-Use [**explicit bucket schemas**](/influxdb/cloud/reference/key-concepts/data-elements/#bucket-schema) to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#tag), [fields](/influxdb/cloud/reference/glossary/#field), and
+Use [**explicit bucket schemas**](/influxdb/cloud/reference/glossary/#bucket-schema) to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#tag), [fields](/influxdb/cloud/reference/glossary/#field), and
 [data types](/influxdb/cloud/reference/glossary/#data-type) for your data.
-Explicit bucket schemas ensure that measurements have specific columns and data types and prevent non-conforming write requests.
+Buckets with the `explicit` schema-type, use
+explicit bucket schemas to ensure measurements have specific columns and data types and to prevent non-conforming writes.
 
 After you create a bucket schema, you're ready to [write data](/influxdb/cloud/write-data/) to your bucket.
 
 {{% note %}}
-
 #### Before you begin
 
-The examples below reference [**InfluxDB data elements**](/influxdb/cloud/reference/key-concepts/data-elements/). We recommend reviewing data elements, [**InfluxDB key concepts**](/influxdb/cloud/reference/key-concepts/), and [**elements of line protocol**](/influxdb/cloud/reference/syntax/line-protocol/#elements-of-line-protocol) if you aren't familiar with these concepts.
-
+The examples below reference **InfluxDB data elements**. We recommend reviewing [schema design best practices](/influxdb/cloud-iox/write-data/best-practices/schema-design/) and [**elements of line protocol**](/influxdb/cloud/reference/syntax/line-protocol/#elements-of-line-protocol) if you aren't familiar with these concepts.
 {{% /note %}}
 
 - [Create an explicit bucket and schema](#create-an-explicit-bucket-and-schema)
@@ -48,7 +48,7 @@ The examples below reference [**InfluxDB data elements**](/influxdb/cloud/refere
 
 To create an explicit bucket and schemas for your data, do the following:
 
-  1. If you haven't already, [create a bucket that enforces explicit schemas](/influxdb/cloud/organizations/buckets/create-bucket/#create-a-bucket-that-enforces-explicit-schemas).
+  1. If you haven't already, [create a bucket that enforces explicit schemas](/influxdb/cloud-iox/admin/buckets/create-bucket/#create-a-bucket-that-enforces-explicit-schemas).
   2. [Create a bucket schema](#create-a-bucket-schema).
 
 ### Create a bucket schema
@@ -56,7 +56,7 @@ To create an explicit bucket and schemas for your data, do the following:
 With an `explicit` bucket, you predefine *measurement schemas* with column names, tags, fields, and data types for measurements.
 A measurement schema has the following properties:
 
-- `name`: the measurement name. The name must match the [measurement column](/influxdb/cloud/reference/key-concepts/data-elements/#measurement) in your data, obey [naming rules](#write-valid-schemas), and be unique within the bucket.
+- `name`: the measurement name. The name must match the [measurement column](/influxdb/cloud-iox/reference/glossary/#measurement) in your data, obey [naming rules](#write-valid-schemas), and be unique within the bucket.
 - `columns`: a list of *column definitions* for the measurement.
 
 To learn more about rules for measurement _names_ and _columns_, see how to [write valid schemas](#write-valid-schemas).
@@ -136,26 +136,24 @@ For example, the following request defines the _explicit_ bucket measurement sch
           {"name": "sensorId", "type": "tag"},
           {"name": "temperature", "type": "field"},
           {"name": "humidity", "type": "field", "dataType": "float"}
-	]
+	  ]
 }
 ```
 
 {{% note %}}
-
-#### Test your schema
+#### Test your explicit schema
 
 After you create an explicit schema, test that it works as you expect.
 To start, we recommend trying to write data that doesn't conform to the schema and that the bucket should reject.
-
-For more information about errors to expect in your tests, see [explicit schema rejections](/influxdb/cloud/write-data/troubleshoot/#troubleshoot-rejected-points).
-
+<!-- Pending IOx troubleshoot page --
+ For more information about errors to expect in your tests, see [explicit schema rejections](/influxdb/cloud-iox/write-data/troubleshoot/#troubleshoot-rejected-points).
+ -->
 {{% /note %}}
 
 ### Write valid schemas
 
-To ensure your schema is valid, review [InfluxDB data elements](/influxdb/cloud/reference/key-concepts/data-elements/).
+To ensure your schema is valid, review [schema design best practices](/influxdb/cloud-iox/write-data/best-practices/schema-design/).
 Follow these rules when creating your schema columns file:
-
   1. Use valid measurement and column names that:
       - Are unique within the schema
       - Are 1 to 128 characters long
@@ -163,8 +161,8 @@ Follow these rules when creating your schema columns file:
       - Don't start with underscore `_`
       - Don't start with a number `0-9`
       - Don't contain single quote `'` or double quote `"`
-  2. Include a column with the [`timestamp`](/influxdb/cloud/reference/key-concepts/data-elements/#timestamp) type.
-  3. Include at least one column with the [`field`](/influxdb/cloud/reference/key-concepts/data-elements/#fields) type (without a field, there is no time-series data), as in the following example:
+  2. Include a column with the [`timestamp`](/influxdb/cloud-iox/reference/glossary/#timestamp) type.
+  3. Include at least one column with the [`field`](/influxdb/cloud-iox/reference/glossary/#field) type (without a field, there is no time-series data), as in the following example:
 
   **Valid**: a schema with [`timestamp`]() and [`field`]() columns.
   ```json
@@ -182,9 +180,9 @@ Follow these rules when creating your schema columns file:
   ]
   ```
 
-The default [field data type](/influxdb/cloud/reference/key-concepts/data-elements/#field-value) is `string`.
+The default [field data type](/influxdb/cloud-iox/reference/glossary/#field-value) is `string`.
 To set the data type of a field column, provide the `dataType` property and a valid
-[field data type](/influxdb/cloud/reference/key-concepts/data-elements/#field-value) (`string`, `float`, `integer`, or `boolean`),
+[field data type](/influxdb/cloud-iox/reference/glossary/#field-value) (`string`, `float`, `integer`, or `boolean`),
 as in the following example:
 
 ```json
@@ -200,7 +198,7 @@ Use the **InfluxDB UI**, [**`influx` CLI**](/influxdb/cloud/reference/cli/influx
 
 ### View schema type and schemas in the InfluxDB UI
 
-  1. [View buckets](/influxdb/cloud/organizations/buckets/view-buckets/).
+  1. [View buckets](/influxdb/cloud-iox/admin/buckets/view-buckets/).
   2. In the list of buckets, see the **Schema Type** in the metadata that follows each bucket name.
   3. Buckets with **Schema Type: Explicit** display the {{< caps >}}Show Schema{{< /caps>}} button. Click {{< caps >}}Show Schema{{< /caps>}} to view measurement schemas for the bucket.
 
@@ -275,7 +273,7 @@ You can't modify or delete columns in bucket schemas.
 ### Bucket not found
 
 Creating and updating bucket schema requires `WRITE` permission for the bucket.  
-If your [API token](/influxdb/cloud/security/tokens/) doesn't have `WRITE` permission for the bucket, InfluxDB returns the following error:
+If your [API token](/influxdb/cloud-iox/reference/glossary/#token) doesn't have `WRITE` permission for the bucket, InfluxDB returns the following error:
 
 ```sh
 Error: bucket "my_explicit_bucket" not found
@@ -297,4 +295,6 @@ InfluxDB returns an error for the following reasons:
 - data in the write request doesn't have a schema defined for the bucket.
 - data in the write request has invalid syntax.
 
+<!-- Pending IOx troubleshoot page --
 To resolve failures and partial writes, see how to [troubleshoot writes](/influxdb/cloud/write-data/troubleshoot/).
+-->
