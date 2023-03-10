@@ -14,12 +14,15 @@ weight: 1
 {{% note %}}
 This InfluxDB Cloud documentation applies to all organizations created through
 **cloud2.influxdata.com** on or after **January 31, 2023** that are powered by
-the InfluxDB IOx storage engine. If your organizations was created before this
+the InfluxDB IOx storage engine. If your organization was created before this
 date or through a Cloud provider marketplace, see the
 [TSM-based InfluxDB Cloud documentation](/influxdb/cloud/).
 
-View the right column of your [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com/)
-to see which storage engine your InfluxDB Cloud organization is powered by.
+To see which storage engine your organization is using,
+find the **InfluxDB Cloud powered by** link in your
+[InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
+If your organization is using IOx, you'll see
+**InfluxDB Cloud powered by IOx** followed by the version number.
 {{% /note %}}
 
 InfluxDB Cloud is a hosted and managed version of InfluxDB backed by InfluxDB IOx,
@@ -46,5 +49,9 @@ View the following video for more information about InfluxDB IOx:
 All InfluxDB Cloud accounts and organizations created through
 [cloud2.influxdata.com](https://cloud2.influxdata.com) on or after **January 31, 2023**
 are backed by the InfluxDB IOx storage engine.
-You can also see which storage engine your organization is using on the
-homepage of your [InfluxDB Cloud user interface (UI)](https://cloud2.influxdata.com).
+
+To see which storage engine your organization is using,
+find the **InfluxDB Cloud powered by** link in your
+[InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
+If your organization is using IOx, you'll see
+**InfluxDB Cloud powered by IOx** followed by the version number.
