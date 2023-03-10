@@ -1,7 +1,7 @@
 ---
 title: View buckets
-seotitle: View buckets in InfluxDB
-description: View a list of all the buckets for an organization in InfluxDB using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
+seotitle: View buckets in InfluxDB Cloud
+description: View a list of all the buckets for an organization in InfluxDB Cloud using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
 menu:
   influxdb_cloud:
     name: View buckets
@@ -38,3 +38,5 @@ for information about other available flags.
 Send a request to the InfluxDB HTTP API [`/api/v2/buckets` endpoint](/influxdb/cloud/api/#operation/GetBuckets) to view buckets in an organization.
 
 {{% api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" %}}
+
+
