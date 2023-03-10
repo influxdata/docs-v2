@@ -21,7 +21,7 @@ VALUES (row_value_list)[,...n]
 ##### Arguments
 
 - **row_value_list**:
-  Comma separate list of column values.
+  Comma-delimited list of column values.
   Enclose each list in parentheses and separate multiple lists with commas.
   Each list must have the same number of values and values must be in the same
   order as columns in the table.
