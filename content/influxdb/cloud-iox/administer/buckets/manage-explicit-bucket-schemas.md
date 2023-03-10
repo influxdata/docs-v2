@@ -22,7 +22,7 @@ Use [**explicit bucket schemas**](/influxdb/cloud-iox/reference/glossary/#bucket
 Buckets with the `explicit` schema-type, use
 explicit bucket schemas to ensure measurements have specific columns and data types and to prevent non-conforming writes.
 
-After you create a bucket schema, you're ready to [write data](/influxdb/cloud/write-data/) to your bucket.
+After you create a bucket schema, you're ready to [write data](/influxdb/cloud-iox/write-data/) to your bucket.
 
 {{% note %}}
 #### Before you begin
