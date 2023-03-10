@@ -75,12 +75,14 @@ The InfluxDB IOx engine supports nearly infinite tag value and series cardinalit
 
 ### Do not use duplicate names for tags and fields
 
-Tags and fields within the same measurement can not be named the same.
-All tags an fields are stored as unique columns in a table representing the
-measurement on disk. Tags and fields named the same cause a column conflict.
+Tags and fields within the same measurement can't be named the same.
+All tags and fields are stored as unique columns in a table representing the
+measurement on disk.
+If you attempt to write a measurement that contains tags or fields with the same name,
+the write fails due to a column conflict.
 
 {{% note %}}
-Use [explicit bucket schemas](https://docs.influxdata.com/resources/videos/explicit-schemas-in-influxdb/) to enforce unique tag and
+Use [explicit bucket schemas](/influxdb/cloud-iox/write-data/best-practices/explicit-bucket-schemas) to enforce unique tag and
 field keys within a schema.
 {{% /note %}}
 
