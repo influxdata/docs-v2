@@ -27,7 +27,7 @@ After you create a bucket schema, you're ready to [write data](/influxdb/cloud-i
 {{% note %}}
 #### Before you begin
 
-The examples below reference **InfluxDB data elements**. We recommend reviewing [schema design best practices](/influxdb/cloud-iox/write-data/best-practices/schema-design/) and [**elements of line protocol**](/influxdb/cloud/reference/syntax/line-protocol/#elements-of-line-protocol) if you aren't familiar with these concepts.
+The examples below reference **InfluxDB data elements**. We recommend reviewing [schema design best practices](/influxdb/cloud-iox/write-data/best-practices/schema-design/) and [**elements of line protocol**](/influxdb/cloud-iox/reference/syntax/line-protocol/#elements-of-line-protocol) if you aren't familiar with these concepts.
 {{% /note %}}
 
 - [Create an explicit bucket and schema](#create-an-explicit-bucket-and-schema)
