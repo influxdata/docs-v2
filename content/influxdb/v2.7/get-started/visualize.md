@@ -3,7 +3,8 @@ title: Get started visualizing data
 seotitle: Visualize data | Get started with InfluxDB
 list_title: Visualize data
 description: >
-  ...
+  Get started visualizing data in InfluxDB by using the InfluxDB user interface
+  (UI) to create a simple dashboard.
 menu:
   influxdb_2_7:
     name: Visualize data
