@@ -17,8 +17,8 @@ related:
   - /influxdb/cloud/reference/cli/influx/
 ---
 
-Use [**explicit bucket schemas**](/influxdb/cloud/reference/glossary/#bucket-schema) to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#tag), [fields](/influxdb/cloud/reference/glossary/#field), and
-[data types](/influxdb/cloud/reference/glossary/#data-type) for your data.
+Use [**explicit bucket schemas**](/influxdb/cloud-iox/reference/glossary/#bucket-schema) to enforce [column names](/influxdb/cloud-iox/reference/glossary/#column), [tags](/influxdb/cloud-iox/reference/glossary/#tag), [fields](/influxdb/cloud-iox/reference/glossary/#field), and
+[data types](/influxdb/cloud-iox/reference/glossary/#data-type) for your data.
 Buckets with the `explicit` schema-type, use
 explicit bucket schemas to ensure measurements have specific columns and data types and to prevent non-conforming writes.
 
