@@ -1,7 +1,8 @@
 ---
 title: Information schema
 description: > 
-    ...
+  The `SHOW TABLES`, `SHOW COLUMNS`, and `SHOW ALL` commands return metadata related to
+  your data schema.
 menu:
   influxdb_cloud_iox:
     parent: SQL reference
