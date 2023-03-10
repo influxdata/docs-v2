@@ -60,7 +60,7 @@ and specify values for the following flags:
 - `-n`, `--name`: Bucket name
 - `-r`, `--retention`: Retention period duration
 
-The following example creates a bucket with a retention period of seventy-two hours:
+The following example creates a bucket with a retention period of `72` hours:
 
 ```sh
 influx bucket create -n my-bucket -o {INFLUX_ORG} -r 72h
