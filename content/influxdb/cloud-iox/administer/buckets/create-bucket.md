@@ -8,11 +8,7 @@ menu:
     parent: Manage buckets
 weight: 201
 related:
-  - /influxdb/cloud/reference/key-concepts/
-  - /influxdb/cloud/reference/key-concepts/data-schema/
-  - /influxdb/cloud/reference/key-concepts/data-elements/
-  - /influxdb/cloud/write-data/best-practices/explicit-bucket-schemas/
-  - /influxdb/cloud/reference/cli/influx/
+  - /influxdb/cloud-iox/administer/buckets/manage-explicit-bucket-schemas/
 ---
 
 Use the InfluxDB user interface (UI), `influx` command line interface (CLI), or InfluxDB HTTP API

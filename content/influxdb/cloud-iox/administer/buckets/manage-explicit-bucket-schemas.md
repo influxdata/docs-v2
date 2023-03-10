@@ -1,12 +1,12 @@
 ---
-title: Explicit bucket schemas
-seotitle: Enforce schema with explicit bucket schemas in InfluxDB
+title: Manage explicit bucket schemas
+seotitle: Manage explicit bucket schemas in InfluxDB
 description: Manage explicit bucket schemas using the influx CLI or InfluxDB HTTP API. Optionally, ensure data you write follows a specific schema.
 menu:
   influxdb_cloud_iox:
-    name: Explicit bucket schemas
+    name: Manage explicit bucket schemas
     weight: 201
-    parent: write-best-practices
+    parent: Manage buckets
 weight: 250
 influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, explicit measurement schema, schema]
 related:
@@ -19,7 +19,8 @@ related:
 
 Use [**explicit bucket schemas**](/influxdb/cloud/reference/glossary/#bucket-schema) to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#tag), [fields](/influxdb/cloud/reference/glossary/#field), and
 [data types](/influxdb/cloud/reference/glossary/#data-type) for your data.
-Explicit bucket schemas ensure that measurements have specific columns and data types and prevent non-conforming write requests.
+Buckets with the `explicit` schema-type, use
+explicit bucket schemas to ensure measurements have specific columns and data types and to prevent non-conforming writes.
 
 After you create a bucket schema, you're ready to [write data](/influxdb/cloud/write-data/) to your bucket.
 

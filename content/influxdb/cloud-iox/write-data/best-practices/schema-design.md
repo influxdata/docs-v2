@@ -25,7 +25,7 @@ for simpler and more performant queries.
 - [Design for query simplicity](#design-for-query-simplicity)
   - [Keep measurement names, tag keys, and field keys simple](#keep-measurement-names-tag-keys-and-field-keys-simple)
   - [Avoid keywords and special characters](#avoid-keywords-and-special-characters)
-
+- [Use explicit bucket schemas to enforce schema](#use-explicit-bucket-schemas-to-enforce-schema)
 ---
 
 ## InfluxDB data structure
@@ -82,7 +82,7 @@ If you attempt to write a measurement that contains tags or fields with the same
 the write fails due to a column conflict.
 
 {{% note %}}
-Use [explicit bucket schemas](/influxdb/cloud-iox/write-data/best-practices/explicit-bucket-schemas) to enforce unique tag and
+Use [explicit bucket schemas](/influxdb/cloud-iox/administer/buckets/manage-explicit-bucket-schemas/) to enforce unique tag and
 field keys within a schema.
 {{% /note %}}
 
@@ -368,3 +368,9 @@ iox.from(bucket: "example-bucket")
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+## Use explicit bucket schemas to enforce schema
+
+By default, buckets have an `implicit` **schema-type** and a schema that conforms to your data.
+To require measurements to have specific columns and data types and prevent non-conforming write requests,
+use [`explicit` buckets and explicit bucket schemas](/influxdb/cloud-iox/administer/buckets/manage-explicit-bucket-schemas/).
