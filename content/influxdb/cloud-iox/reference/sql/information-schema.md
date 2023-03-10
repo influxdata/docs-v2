@@ -11,11 +11,11 @@ weight: 210
 The underlying query engine for the InfluxDB SQL implementation,
 [DataFusion](https://arrow.apache.org/datafusion/index.html), provides commands
 that return metadata related to your data schema.
-To access this information, use the the `SHOW TABLES`, `SHOW COLUMNS`, and
-`SHOW ALL` commands or query views of in [ISO](https://www.iso.org/) SQL
+To access this information, use the `SHOW TABLES`, `SHOW COLUMNS`, and
+`SHOW ALL` commands or query views in the [ISO](https://www.iso.org/) SQL
 `information_schema` schema.
 
-In the context of InfluxDB a [measurement](/influxdb/cloud-iox/reference/glossary/#measurement)
+In the context of InfluxDB, a [measurement](/influxdb/cloud-iox/reference/glossary/#measurement)
 is represented as a table. Time, [tags](/influxdb/cloud-iox/reference/glossary/#tag),
 and [fields](/influxdb/cloud-iox/reference/glossary/#field) are each represented
 by columns in a table.
