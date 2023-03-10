@@ -80,7 +80,7 @@ In your request body, specify values for the following properties:
 | Bucket               | `name`           |
 | Retention Rules      | `retentionRules` |
 
-The following example creates a bucket with a retention period of `86,400` seconds, or twenty-four hours:
+The following example creates a bucket with a retention period of `86,400` seconds, or 24 hours:
 
 ```sh
 {{% get-shared-text "api/v2.0/buckets/oss/create.sh" %}}
