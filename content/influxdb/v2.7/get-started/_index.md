@@ -10,6 +10,7 @@ weight: 3
 influxdb/v2.7/tags: [get-started]
 aliases:
   - /influxdb/v2.7/introduction/get-started/
+  - /influxdb/v2.7/introduction/getting-started/
 ---
 
 InfluxDB {{< current-version >}} is the platform purpose-built to collect, store,
