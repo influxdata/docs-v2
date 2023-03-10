@@ -155,6 +155,7 @@ For more information about errors to expect in your tests, see [explicit schema 
 
 To ensure your schema is valid, review [InfluxDB data elements](/influxdb/cloud/reference/key-concepts/data-elements/).
 Follow these rules when creating your schema columns file:
+
   1. Use valid measurement and column names that:
       - Are unique within the schema
       - Are 1 to 128 characters long
