@@ -136,7 +136,7 @@ For example, the following request defines the _explicit_ bucket measurement sch
           {"name": "sensorId", "type": "tag"},
           {"name": "temperature", "type": "field"},
           {"name": "humidity", "type": "field", "dataType": "float"}
-	  ]
+	]
 }
 ```
 
