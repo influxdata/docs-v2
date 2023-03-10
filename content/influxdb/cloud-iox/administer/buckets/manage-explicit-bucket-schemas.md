@@ -13,7 +13,7 @@ related:
   - /influxdb/cloud/reference/key-concepts/
   - /influxdb/cloud/reference/key-concepts/data-schema/
   - /influxdb/cloud/reference/key-concepts/data-elements/
-  - /influxdb/cloud/administer/buckets/create-bucket/
+  - /influxdb/cloud-iox/administer/buckets/create-bucket/
   - /influxdb/cloud/reference/cli/influx/
 ---
 
@@ -96,8 +96,8 @@ Use the [**`influx` CLI**](/influxdb/cloud/reference/cli/influx/) or [**InfluxDB
 
   2. Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to define an _explicit_ bucket measurement schema. In your command, specify values for the following flags:
 
-      - `--name`: the measurement name.
-      - `--columns-file`: the location of the file that contains *column definitions* for your measurement.
+      - `--name`: Measurement name.
+      - `--columns-file`: Location of the file that contains *column definitions* for your measurement.
 
       For example, each of the following commands adds a unique measurement schema to the bucket:
 
@@ -117,13 +117,14 @@ Use the [**`influx` CLI**](/influxdb/cloud/reference/cli/influx/) or [**InfluxDB
         --name sensor \
         --columns-file sensor.ndjson     
         ```
+
 #### Create a bucket schema using the InfluxDB HTTP API
 
 Send a request to the HTTP API [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb/cloud/api/#operation/createMeasurementSchema)
 and set the following properties in the request body:
 
-- `name`: the measurement name.
-- `columns`: an array of *column definitions* for your measurement.
+- `name`: Measurement name.
+- `columns`: Array of *column definitions* for your measurement.
 
 For example, the following request defines the _explicit_ bucket measurement schema for `airSensors` measurements:
 
@@ -137,7 +138,7 @@ For example, the following request defines the _explicit_ bucket measurement sch
           {"name": "sensorId", "type": "tag"},
           {"name": "temperature", "type": "field"},
           {"name": "humidity", "type": "field", "dataType": "float"}
-	  ]
+	]
 }
 ```
 
@@ -155,6 +156,7 @@ To start, we recommend trying to write data that doesn't conform to the schema a
 
 To ensure your schema is valid, review [schema design best practices](/influxdb/cloud-iox/write-data/best-practices/schema-design/).
 Follow these rules when creating your schema columns file:
+
   1. Use valid measurement and column names that:
       - Are unique within the schema
       - Are 1 to 128 characters long

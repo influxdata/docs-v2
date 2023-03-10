@@ -1,7 +1,7 @@
 ---
 title: Create a bucket
 seotitle: Create a bucket in InfluxDB
-description: Create buckets to store time series data in InfluxDB using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
+description: Create buckets to store time series data in InfluxDB Cloud using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
 menu:
   influxdb_cloud:
     name: Create a bucket
@@ -56,11 +56,9 @@ There are two places you can create a bucket in the UI.
 To create a bucket with the `influx` CLI, use the [`influx bucket create` command](/influxdb/cloud/reference/cli/influx/bucket/create)
 and specify values for the following flags:
 
-| Requirement                    | Include by |
-|:-------------------------------|:-----------|
-| Organization                   | `-o`       |
-| Bucket                         | `-n`       |
-| Retention Period Duration      | `-r`       |
+- `-o`, `--org`: Organization name
+- `-n`, `--name`: Bucket name
+- `-r`, `--retention`: Retention period duration
 
 The following example creates a bucket with a retention period of seventy-two hours:
 
