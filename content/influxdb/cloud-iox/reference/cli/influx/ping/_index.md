@@ -17,6 +17,7 @@ metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 
 {{% note %}}
 #### Works with InfluxDB OSS 2.x
+
 The `influx ping` command works with **InfluxDB OSS 2.x**, but does not work with **InfluxDB Cloud**.
 {{% /note %}}
 

@@ -10,11 +10,4 @@ weight: 201
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/update/
 ---
 
-{{% note %}}
-#### Works with InfluxDB OSS 2.x
-The `influx user update` command updates users in **InfluxDB OSS 2.x**,
-but does not update users in **InfluxDB Cloud**.
-Use the InfluxDB Cloud user interface to update account information.
-{{% /note %}}
-
 {{< duplicate-oss >}}

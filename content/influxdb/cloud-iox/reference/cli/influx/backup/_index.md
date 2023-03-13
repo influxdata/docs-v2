@@ -16,6 +16,7 @@ updated_in: CLI v2.0.2
 
 {{% note %}}
 #### Works with InfluxDB OSS 2.x
+
 The `influx backup` command works with **InfluxDB OSS 2.x**, but does not work with **InfluxDB Cloud**.
 For information about backing up data in InfluxDB Cloud, see
 [InfluxDB Cloud durability](/influxdb/cloud/reference/internals/durability/) or

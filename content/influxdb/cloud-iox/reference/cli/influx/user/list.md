@@ -11,12 +11,4 @@ aliases:
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/list/
 ---
 
-{{% note %}}
-#### Works with InfluxDB OSS 2.x
-The `influx user list` command lists users in **InfluxDB OSS 2.x**,
-but does not list users in **InfluxDB Cloud**.
-For information about managing InfluxDB Cloud users, see
-[Manage users](/influxdb/cloud/organizations/users/).
-{{% /note %}}
-
 {{< duplicate-oss >}}

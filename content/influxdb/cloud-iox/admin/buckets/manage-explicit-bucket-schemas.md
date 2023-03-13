@@ -5,7 +5,6 @@ description: Manage explicit bucket schemas using the influx CLI or InfluxDB HTT
 menu:
   influxdb_cloud_iox:
     name: Manage explicit bucket schemas
-    weight: 201
     parent: Manage buckets
 weight: 250
 influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, explicit measurement schema, schema]

@@ -11,6 +11,14 @@ cascade:
     - /influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
     - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
   metadata: [influx CLI 2.0.0+]
+  prepend:
+    block: warn
+    content: |
+      #### Not supported in InfluxDB IOx-powered organizations
+
+      While this command is included in the `influx` CLI, this functionality is
+      not available in InfluxDB Cloud organizations powered by the InfluxDB IOx
+      storage engine.
 ---
 
 {{< duplicate-oss >}}

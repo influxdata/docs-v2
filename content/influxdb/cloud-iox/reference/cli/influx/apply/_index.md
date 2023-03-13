@@ -15,4 +15,12 @@ related:
 metadata: [influx CLI 2.0.0+]
 ---
 
+{{% warn %}}
+#### Not supported in InfluxDB IOx-powered organizations
+
+While this command is included in the `influx` CLI {{< latest-cli >}}, this
+functionality is not available in InfluxDB Cloud organizations powered by the
+InfluxDB IOx storage engine.
+{{% /warn %}}
+
 {{< duplicate-oss >}}

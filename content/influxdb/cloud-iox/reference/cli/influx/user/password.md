@@ -13,12 +13,4 @@ related:
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/password/
 ---
 
-{{% note %}}
-#### Works with InfluxDB OSS 2.x
-The `influx user password` command updates passwords for **InfluxDB OSS 2.x** users,
-but does not update passwords for **InfluxDB Cloud** accounts.
-To change your InfluxDB Cloud account password, see
-[Change your password](/influxdb/cloud/account-management/change-password/).
-{{% /note %}}
-
 {{< duplicate-oss >}}
