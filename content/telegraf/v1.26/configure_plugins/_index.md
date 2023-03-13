@@ -2,7 +2,7 @@
 title: Configure plugins
 description:
 menu:
-  telegraf_1_25:
+  telegraf_1_26:
 
      name: Configure plugins
      weight: 50

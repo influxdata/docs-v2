@@ -2,7 +2,7 @@
 title: Grok input data format
 description: Use the grok data format to parse line-delimited data using a regular expression-like language.
 menu:
-  telegraf_1_25_ref:
+  telegraf_1_26_ref:
 
     name: Grok
     weight: 40

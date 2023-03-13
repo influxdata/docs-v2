@@ -3,7 +3,7 @@ title: Write data with output plugins
 description: |
   Output plugins define where Telegraf will deliver the collected metrics. 
 menu:
-  telegraf_1_25:
+  telegraf_1_26:
 
      name: Output plugins
      weight: 20
