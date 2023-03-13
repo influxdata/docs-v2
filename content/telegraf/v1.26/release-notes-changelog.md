@@ -160,84 +160,84 @@ menu:
 ## v1.25.2 [2023-02-13]
 
 ### Bug fixes
-- Only read the config once
-- fix link to license for Google flatbuffers
-- Cisco Telemetry MDT (`inputs.cisco_telemetry_mdt`): Check subfield sizes to avoid panics
-- Cloudwatch (`inputs.cloudwatch`): Enable custom endpoint support
-- Conntrack (`inputs.conntrack`): Resolve segfault when setting collect field
-- GNMI (`inputs.gnmi`): Handle both new-style tag_subscription and old-style tag_only
+- Only read the config once.
+- fix link to license for Google flatbuffers.
+- Cisco Telemetry MDT (`inputs.cisco_telemetry_mdt`): Check subfield sizes to avoid panics.
+- Cloudwatch (`inputs.cloudwatch`): Enable custom endpoint support.
+- Conntrack (`inputs.conntrack`): Resolve segfault when setting collect field.
+- GNMI (`inputs.gnmi`): Handle both new-style tag_subscription and old-style tag_only.
 - MongoDB (`inputs.mongodb`):
-  - Improve error logging
-  - SIGSEGV when restarting MongoDB node
-- MySQL (`inputs.mysql`): Avoid side-effects for TLS between plugin instances
-- Prometheus (`inputs.prometheus`): Deprecate and rename the timeout variable
-- Tail (`inputs.tail`): Fix typo in the README
-- UPSD (`inputs.upsd`): Add additional fields
-- x509 Cert (`inputs.x509_cert`): Fix Windows path handling
-- Prometheus Client (`outputs.prometheus_client`): Expire with ticker, not add/collect
-- Secret Stores: Check store id format and presence
+  - Improve error logging.
+  - SIGSEGV when restarting MongoDB node.
+- MySQL (`inputs.mysql`): Avoid side-effects for TLS between plugin instances.
+- Prometheus (`inputs.prometheus`): Deprecate and rename the timeout variable.
+- Tail (`inputs.tail`): Fix typo in the README.
+- UPSD (`inputs.upsd`): Add additional fields.
+- x509 Cert (`inputs.x509_cert`): Fix Windows path handling.
+- Prometheus Client (`outputs.prometheus_client`): Expire with ticker, not add/collect.
+- Secret Stores: Check store id format and presence.
 
 ### Dependency Updates
-- Update cloud.google.com/go/bigquery from 1.44.0 to 1.45.0
-- Update github.com/99designs/keyring from 1.2.1 to 1.2.2
-- Update github.com/antchfx/xmlquery from 1.3.12 to 1.3.15
-- Update github.com/antchfx/xpath from 1.2.2 to 1.2.3
-- Update github.com/coreos/go-semver from 0.3.0 to 0.3.1
-- Update github.com/moby/ipvs from 1.0.2 to 1.1.0
-- Update github.com/multiplay/go-ts3 from 1.0.1 to 1.1.0
-- Update github.com/prometheus/client_golang from 1.13.1 to 1.14.0
-- Update github.com/shirou/gopsutil from 3.22.9 to 3.22.12
-- Update go.mongodb.org/mongo-driver from 1.11.0 to 1.11.1
-- Update golang/x dependencies
-- Update google.golang.org/grpc from 1.51.0 to 1.52.0
-- Update google.golang.org/grpc from 1.52.0 to 1.52.3
+- Update cloud.google.com/go/bigquery from 1.44.0 to 1.45.0.
+- Update github.com/99designs/keyring from 1.2.1 to 1.2.2.
+- Update github.com/antchfx/xmlquery from 1.3.12 to 1.3.15.
+- Update github.com/antchfx/xpath from 1.2.2 to 1.2.3.
+- Update github.com/coreos/go-semver from 0.3.0 to 0.3.1.
+- Update github.com/moby/ipvs from 1.0.2 to 1.1.0.
+- Update github.com/multiplay/go-ts3 from 1.0.1 to 1.1.0.
+- Update github.com/prometheus/client_golang from 1.13.1 to 1.14.0.
+- Update github.com/shirou/gopsutil from 3.22.9 to 3.22.12.
+- Update go.mongodb.org/mongo-driver from 1.11.0 to 1.11.1.
+- Update golang/x dependencies.
+- Update google.golang.org/grpc from 1.51.0 to 1.52.0.
+- Update google.golang.org/grpc from 1.52.0 to 1.52.3.
 
 ## v1.25.1 [2023-01-30]
 
 ### Bug fixes
-- Catch non-existing commands and error out
-- Correctly reload configuration files
-- Handle float time with fractions of seconds correctly
-- Only set default snmp after reading all configs
-- Allow any 2xx status code
-- Kafka: Add keep-alive period setting for input and output
-- Cisco Telemetry MDT (`inputs.cisco_telemetry_mdt`): Add operation-metric and class-policy prefix
-- Exec (`inputs.exec`): Restore pre-v1.21 behavior for CSV data_format
-- GNMI (`inputs.gnmi`): Update configuration documentation
-- Logstash (`inputs.logstash`): Collect opensearch specific stats
-- MySQL (`inputs.mysql`): Revert slice declarations with non-zero initial length
-- OPC UA (`inputs.opcua`): Fix opcua and opcua-listener for servers using password-based auth
+- Catch non-existing commands and error out.
+- Correctly reload configuration files.
+- Handle float time with fractions of seconds correctly.
+- Only set default snmp after reading all configs.
+- Allow any 2xx status code.
+- Kafka: Add keep-alive period setting for input and output.
+- Cisco Telemetry MDT (`inputs.cisco_telemetry_mdt`): Add operation-metric and class-policy prefix.
+- Exec (`inputs.exec`): Restore pre-v1.21 behavior for CSV data_format.
+- GNMI (`inputs.gnmi`): Update configuration documentation.
+- Logstash (`inputs.logstash`): Collect opensearch specific stats.
+- MySQL (`inputs.mysql`): Revert slice declarations with non-zero initial length.
+- OPC UA (`inputs.opcua`): Fix opcua and opcua-listener for servers using password-based auth.
 - Prometheus (`inputs.prometheus`):
-  - Correctly track deleted pods
-  - Set the timeout for slow running API endpoints correctly
+  - Correctly track deleted pods.
+  - Set the timeout for slow running API endpoints correctly.
 - SQL Server (`inputs.sqlserver`):
-  - Add more precise version check
-  - Added own SPID filter
-  - SqlRequests include sleeping sessions with open transactions
-  - Suppress error on secondary replicas
+  - Add more precise version check.
+  - Added own SPID filter.
+  - SqlRequests include sleeping sessions with open transactions.
+  - Suppress error on secondary replicas.
 - UPSD (`inputs.upsd`):
-  - Always convert to float
-  - Ensure firmware is always a string
-- Windows Event Log (`inputs.win_eventlog`): Handle remote events more robustly
-- x509 Cert (`inputs.x509_cert`): Fix off-by-one when adding intermediate certificates
-- Loki (`outputs.loki`): Return response body on error
-- JSON v2 parser (`parsers.json_v2`): In case of invalid json, log message to debug log
+  - Always convert to float.
+  - Ensure firmware is always a string.
+- Windows Event Log (`inputs.win_eventlog`): Handle remote events more robustly.
+- x509 Cert (`inputs.x509_cert`): Fix off-by-one when adding intermediate certificates.
+- Loki (`outputs.loki`): Return response body on error.
+- JSON v2 parser (`parsers.json_v2`): In case of invalid json, log message to debug log.
 - Secret Stores:
-  - Cleanup duplicate printing
-  - Fix handling of "id" and print failing secret-store
-  - Fix handling of TOML strings
+  - Cleanup duplicate printing.
+  - Fix handling of "id" and print failing secret-store.
+  - Fix handling of TOML strings.
 
 ### Dependency Updates
-- Update cloud.google.com/go/storage from 1.23.0 to 1.28.1
-- Update github.com/antchfx/jsonquery from 1.3.0 to 1.3.1
-- Update github.com/aws/aws-sdk-go-v2 from 1.17.1 to 1.17.3
-- Update github.com/aws/aws-sdk-go-v2/service/ec2 from 1.54.4 to 1.80.1
-- Update github.com/denisenkom/go-mssqldb from 0.12.0 to 0.12.3
-- Update github.com/eclipse/paho.mqtt.golang from 1.4.1 to 1.4.2
-- Update github.com/hashicorp/consul/api from 1.15.2 to 1.18.0
-- Update github.com/karrick/godirwalk from 1.16.1 to 1.17.0
-- Update github.com/kardianos/service from 1.2.1 to 1.2.2
-- Update github.com/nats-io/nats-server/v2 from 2.9.4 to 2.9.9
+- Update cloud.google.com/go/storage from 1.23.0 to 1.28.1.
+- Update github.com/antchfx/jsonquery from 1.3.0 to 1.3.1.
+- Update github.com/aws/aws-sdk-go-v2 from 1.17.1 to 1.17.3.
+- Update github.com/aws/aws-sdk-go-v2/service/ec2 from 1.54.4 to 1.80.1.
+- Update github.com/denisenkom/go-mssqldb from 0.12.0 to 0.12.3.
+- Update github.com/eclipse/paho.mqtt.golang from 1.4.1 to 1.4.2.
+- Update github.com/hashicorp/consul/api from 1.15.2 to 1.18.0.
+- Update github.com/karrick/godirwalk from 1.16.1 to 1.17.0.
+- Update github.com/kardianos/service from 1.2.1 to 1.2.2.
+- Update github.com/nats-io/nats-server/v2 from 2.9.4 to 2.9.9.
 
 ## v1.25.0 [2022-12-12]
 
