@@ -1460,7 +1460,7 @@ input:
   - name: OpenSearch Query
     id: opensearch_query
     description: |
-      Gather metrics from OpenSearch query endpoints.
+      Gathers metrics from OpenSearch query endpoints.
     introduced: 1.26.0
     tags: [linux, macos, windows]
 
