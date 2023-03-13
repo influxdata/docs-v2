@@ -15,7 +15,7 @@ Use the `POST` request method and include the following in your request:
 |:-----------          |:----------                                               |
 | Organization         | Use the `org` query parameter in your request URL.       |
 | Bucket               | Use the `bucket` query parameter in your request URL.    |
-| Timestamp precision  | Use the [`precision`](/influxdb/v2.5/write-data/developer-tools/line-protocol/#timestamp-precision) query parameter in your request URL. Default is `ns`. |
+| Timestamp precision  | Use the [`precision`](/influxdb/v2.5/reference/glossary/#precision) query parameter in your request URL. Default is `ns`. |
 | API token | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
 | Line protocol        | Pass as plain text in your request body.                 |
 
