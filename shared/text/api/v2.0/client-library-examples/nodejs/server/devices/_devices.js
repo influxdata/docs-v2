@@ -23,27 +23,19 @@ const INFLUX_BUCKET_AUTH = process.env.INFLUX_BUCKET_AUTH
       |> last()`
     const devices = {}
     console.log(`*** QUERY *** \n ${fluxQuery}`)
-    return await new Promise((resolve, reject) => {
-      queryApi.queryRows(fluxQuery, {
-        next(row, tableMeta) {
-          const o = tableMeta.toObject(row)
-          const deviceId = o.deviceId
-          if (!deviceId) {
-            return
-          }
-          const device = devices[deviceId] || (devices[deviceId] = {deviceId})
-          device[o._field] = o._value
-          if (!device.updatedAt || device.updatedAt < o._time) {
-            device.updatedAt = o._time
-          }
-        },
-        error: reject,
-        complete() {
-          console.log(JSON.stringify(devices))
-          resolve(devices)
-        },
-      })
-    })
+    for await (const {row, tableMeta} of queryApi.iterateRows(fluxQuery)) {
+      const o = tableMeta.toObject(row)
+      const deviceId = o.deviceId
+      if (!deviceId) {
+        return
+      }
+      const device = devices[deviceId] || (devices[deviceId] = {deviceId})
+      device[o._field] = o._value
+      if (!device.updatedAt || device.updatedAt < o._time) {
+        device.updatedAt = o._time
+      }
+    }
+    return devices
   }
 
  

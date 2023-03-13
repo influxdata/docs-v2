@@ -14,7 +14,7 @@ aliases:
 
 Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) in a Node.js environment to query InfluxDB.  
 
-The following example sends a Flux query to an InfluxDB bucket and outputs rows from an observable table.
+The following example sends a Flux query to an InfluxDB bucket and outputs rows as a JavaScript _asynchronous iterable_ object.
 
 ## Before you begin
 
@@ -56,25 +56,21 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
    ```
    Replace *`YOUR_BUCKET`* with the name of your InfluxDB bucket.
 
-4. Use the `queryRows()` method of the query client to query InfluxDB.
-   `queryRows()` takes a Flux query and an [RxJS **Observer**](http://reactivex.io/rxjs/manual/overview.html#observer) object.
-   The client returns [table](/{{% latest "influxdb" %}}/reference/syntax/annotated-csv/#tables) metadata and rows as an  [RxJS **Observable**](http://reactivex.io/rxjs/manual/overview.html#observable).
-   `queryRows()` subscribes your observer to the observable.
-   Finally, the observer logs the rows from the response to the terminal.
+4. Use the `iterateRows()` method of the query client to query InfluxDB.
+   `iterateRows()` takes a Flux query and returns the [table](/{{% latest "influxdb" %}}/reference/syntax/annotated-csv/#tables) of metadata and rows as an asynchronous iterable (`AsyncIterable<Row>`).
+   The following example shows how to write an asynchronous function that uses the `iterateRows()` method to query a bucket and uses the JavaScript `for await...of` statement to iterate over the query results:
+
 
    ```js
-   const observer = {
-     next(row, tableMeta) {
-       const o = tableMeta.toObject(row)
+   const myQuery = async () => {
+     for await (const {values, tableMeta} of queryApi.iterateRows(fluxQuery)) {
+       const o = tableMeta.toObject(values)
        console.log(
          `${o._time} ${o._measurement} in '${o.location}' (${o.sensor_id}): ${o._field}=${o._value}`
        )
      }
    }
-
-   queryApi.queryRows(fluxQuery, observer)
-
-   ```
+   myQuery()
 
 ### Complete example
 
