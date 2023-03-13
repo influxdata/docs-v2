@@ -2867,7 +2867,7 @@ processor:
   - name: Lookup
     id: lookup
     description: |
-      Read specific files and apply a table of annotations to metrics.
+      Reads specific files and apply a table of annotations to metrics.
     introduced: 1.26.0
     tags: [linux, macos, windows]
 
