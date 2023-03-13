@@ -4,7 +4,7 @@
   justify-content: space-between;
   position: relative;
   box-sizing: border-box;
-  z-index: 1;
+  z-index: 99;
 
   .influx-home {
     font-family: 'icomoon-v2';
@@ -185,7 +185,6 @@
   }
 
   .search-btn {
-    margin-top: .15rem;
     width: 0;
     opacity: 0;
   }

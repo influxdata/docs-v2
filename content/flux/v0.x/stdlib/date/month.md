@@ -28,7 +28,20 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `date.month()` returns the month of a specified time. Results range from `[1 - 12]`.
 
-
+| Returned value | Month     |
+| :------------: | :-------- |
+|       1        | January   |
+|       2        | February  |
+|       3        | March     |
+|       4        | April     |
+|       5        | May       |
+|       6        | June      |
+|       7        | July      |
+|       8        | August    |
+|       9        | September |
+|       10       | October   |
+|       11       | November  |
+|       12       | December  |
 
 ##### Function type signature
 

@@ -10,6 +10,8 @@
   {{ .Scratch.Set "menuKey" "platform" }}
 {{ else if eq $product "resources" }}
   {{ .Scratch.Set "menuKey" "resources" }}
+{{ else if in $currentVersion "iox" }}
+  {{ .Scratch.Set "menuKey" "influxdb_cloud_iox" }}
 {{ else }}
   {{ .Scratch.Set "menuKey" (print $product "_" (replaceRE `\.` "_" (replaceRE "v" "" $currentVersion))) }}
 {{ end }}
@@ -24,7 +26,11 @@
 {{ else if (eq $currentVersion nil) }}
   {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
 {{ else if eq $product "influxdb" }}
-  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "v") $currentVersion (title $currentVersion)) " & Flux") }}
+  {{ if in $currentVersion "cloud" }}
+    {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "iox") "Cloud (IOx)" "Cloud & Flux")) }}
+  {{ else }}
+    {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "v") $currentVersion (title $currentVersion)) " & Flux") }}
+  {{ end }}
 {{ else }}
   {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " $currentVersion) }}
 {{ end }}
@@ -32,7 +38,7 @@
 {{ $searchPlaceholder := .Scratch.Get "searchPlaceholder" }}
 
 <aside class="sidebar">
-  {{ partial "sidebar/sidebar-toggle.html" (dict "state" "close") }}
+  {{ partial "sidebar/sidebar-toggle.html" (dict "state" "Close") }}
   <div class="search-and-nav-toggle">
     <div class="sidebar--search">
       <input  class="sidebar--search-field"
@@ -84,7 +90,7 @@
   {{ end }}
 
   <!-- Additional resources for all docs -->
-  {{ if ne $product "resources" }}
+  {{ if and (ne $product "resources") (ne $currentVersion "cloud-iox") }}
     <h4 class="resources">Additional resources</h4>
     <li class="nav-category"><a href="/resources/videos/">Videos</a></li>
     <li class="nav-category"><a href="/resources/how-to-guides/">How-to Guides</a></li>

@@ -22,7 +22,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3872-L3895
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3881-L3904
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -86,7 +86,7 @@ Duration of windows. Default is the `every` value.
 
 ### offset
 
-Duration to shift the window boundaries by. Defualt is `0s`.
+Duration to shift the window boundaries by. Default is `0s`.
 
 `offset` can be negative, indicating that the offset goes backwards in time.
 

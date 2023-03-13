@@ -103,4 +103,4 @@ citibike,station_id=4711 eightd_has_available_keys=false,is_installed=1,is_renti
 
 Now, you can explore and query the Citi Bike data in InfluxDB. The example below is an Flux query and visualization showing the number of available bikes over the past 15 minutes.
 
-![Citi Bike visualization](/img/telegraf/new-citibike_query.png)
+![Citi Bike visualization](/img/telegraf/new-citibike-query.png)

@@ -113,7 +113,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 1. Download and import InfluxData's public key:
 
     ```
-    curl -s https://repos.influxdata.com/influxdb2.key | gpg --import -
+    curl -s https://repos.influxdata.com/influxdata-archive_compat.key | gpg --import -
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
@@ -353,7 +353,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 1. Download and import InfluxData's public key:
 
     ```
-    curl -s https://repos.influxdata.com/influxdb2.key | gpg --import -
+    curl -s https://repos.influxdata.com/influxdata-archive_compat.key | gpg --import -
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
@@ -554,7 +554,7 @@ To mount an InfluxDB configuration file and use it from within Docker:
     ```sh
     docker run \
       --rm influxdb:{{< latest-patch >}} \
-      influxd print-config > config.yml
+      influx server-config > config.yml
     ```
 
 3. Modify the default configuration, which will now be available under `$PWD`.

@@ -1,11 +1,11 @@
-{{ $latestInfluxDBVersion := cond (isset .Site.Data.products.influxdb "latest_override" ) .Site.Data.products.influxdb.latest_override .Site.Data.products.influxdb.latest }}
+{{ $latestInfluxDBVersion := .Site.Data.products.influxdb.latest }}
 {{ $latestEnterpriseVersion := .Site.Data.products.enterprise_influxdb.latest }}
 {{ $OSSLink := print "/influxdb/" $latestInfluxDBVersion "/reference/urls/ "}}
 {{ $CloudLink := "/influxdb/cloud/reference/regions/" }}
 {{ $EnterpriseLink := print "/enterprise_influxdb/" $latestEnterpriseVersion "/administration/config-data-nodes/#http-endpoint-settings" }}
 {{ $isInfluxDB := cond (gt (len (findRE `^/influxdb/|^/enterprise_influxdb/` .RelPermalink)) 0) true false }}
 {{ $isOSS := cond (in .RelPermalink "/influxdb/v") true false }}
-{{ $isCloud := cond (in .RelPermalink "/influxdb/cloud/") true false }}
+{{ $isCloud := cond (in .RelPermalink "/influxdb/cloud") true false }}
 {{ $isEnterprise := cond (in .RelPermalink "/enterprise_influxdb/") true false }}
 
 {{ .Scratch.Set "modalTitle" "Where are you running InfluxDB?" }}

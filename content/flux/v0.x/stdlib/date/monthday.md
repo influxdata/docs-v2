@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L311-L311
+https://github.com/influxdata/flux/blob/master/stdlib/date/date.flux#L296-L296
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,20 +30,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 `date.monthDay()` returns the day of the month for a specified time.
 Results range from `[1 - 31]`.
 
-| Returned value | Month     |
-| :------------: | :-------- |
-|       1        | January   |
-|       2        | February  |
-|       3        | March     |
-|       4        | April     |
-|       5        | May       |
-|       6        | June      |
-|       7        | July      |
-|       8        | August    |
-|       9        | September |
-|       10       | October   |
-|       11       | November  |
-|       12       | December  |
+
 
 ##### Function type signature
 

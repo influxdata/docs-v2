@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_cloud:
     parent: Query with InfluxQL
-weight: 202
+weight: 201
 influxdb/cloud/tags: [influxql, dbrp]
 ---
 

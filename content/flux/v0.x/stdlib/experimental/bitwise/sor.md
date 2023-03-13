@@ -19,7 +19,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L280-L280
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/bitwise/bitwise.flux#L289-L289
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,7 +30,8 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 {{% warn %}}
 #### Deprecated
-`sor` is deprecated in favor of [`bitwise`](/flux/v0.x/stdlib/bitwise/sor/).
+Experimental `bitwise.sor` is deprecated in favor of
+[`bitwise.sor`](/flux/v0.x/stdlib/bitwise/sor/).
 {{% /warn %}}
 
 ##### Function type signature

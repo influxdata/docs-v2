@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3342-L3342
+https://github.com/influxdata/flux/blob/master/stdlib/universe/universe.flux#L3351-L3351
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -58,15 +58,16 @@ Value to convert.
 
 ```js
 string(v: true)
-
 // Returns "true"
+
 string(v: 1m)
-
 // Returns "1m"
-string(v: 2021-01-01T00:00:00Z)
 
+string(v: 2021-01-01T00:00:00Z)
 // Returns "2021-01-01T00:00:00Z"
-string(v: 10.12)// Returns "10.12"
+
+string(v: 10.12)
+// Returns "10.12"
 
 
 ```

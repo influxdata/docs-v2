@@ -75,7 +75,7 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
 
 | body                                      | duration  | headers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | statusCode  |
 | ----------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| {"age":48,"count":25082,"name":"natalie"} | 100000000 | [
+| {"age":49,"count":25082,"name":"natalie"} | 100000000 | [
     Access-Control-Allow-Credentials: true, 
     Access-Control-Allow-Origin: *, 
     Access-Control-Expose-Headers: x-rate-limit-limit,x-rate-limit-remaining,x-rate-limit-reset, 
@@ -83,12 +83,12 @@ requests.peek(response: requests.get(url: "https://api.agify.io", params: ["name
     Connection: keep-alive, 
     Content-Length: 41, 
     Content-Type: application/json; charset=utf-8, 
-    Date: Wed, 02 Nov 2022 17:52:50 GMT, 
+    Date: Thu, 23 Feb 2023 17:56:36 GMT, 
     Server: nginx/1.16.1, 
     X-Rate-Limit-Limit: 1000, 
     X-Rate-Limit-Remaining: 996, 
-    X-Rate-Limit-Reset: 22030, 
-    X-Request-Id: FyPV_RiwO6f_Aa4KMKDB
+    X-Rate-Limit-Reset: 21804, 
+    X-Request-Id: F0aFxgmtOnROQlAIw0LC
 ]                             | 200         |
 
 {{% /expand %}}

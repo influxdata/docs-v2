@@ -20,7 +20,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L272-L289
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/http/requests/requests.flux#L273-L290
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -31,7 +31,7 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 {{% warn %}}
 #### Deprecated
-`get` is deprecated in favor of [`requests`](/flux/v0.x/stdlib/http/requests/get/).
+Experimental `requests.get` is deprecated in favor of [`requests.get`](/flux/v0.x/stdlib/http/requests/get/).
 {{% /warn %}}
 
 ##### Function type signature
@@ -133,7 +133,7 @@ array.from(rows: [{name: data.name, age: data.age}])
 
 | name      | age  |
 | --------- | ---- |
-| nathaniel | 60   |
+| nathaniel | 61   |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

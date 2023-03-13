@@ -2,4 +2,8 @@
 {{- $currentVersion := replaceRE "v" "" (index $productPathData 1) -}}
 {{- $keep := .Get "keep" | default false -}}
 {{- $keepClass := cond ( $keep ) " keep" "" -}}
-<span class="current-version{{ $keepClass }}">{{ $currentVersion }}</span>
+{{- $isCloud := in $currentVersion "cloud" -}}
+{{- $noSpan := .Get "nospan" | default false }}
+{{- $versionText := cond ($isCloud) "Cloud" $currentVersion -}}
+{{- if $noSpan -}}{{- $versionText -}}{{- else -}}
+<span class="current-version{{ $keepClass }}">{{- $versionText -}}</span>{{- end -}}

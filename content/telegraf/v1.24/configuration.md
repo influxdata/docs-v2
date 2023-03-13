@@ -7,7 +7,7 @@ menu:
   telegraf_1_24_ref:
 
     name: Configuration options
-    weight: 20
+    weight: 40
 ---
 
 The Telegraf configuration file (`telegraf.conf`) lists all available Telegraf plugins. See the current version here: [telegraf.conf](https://github.com/influxdata/telegraf/blob/master/etc/telegraf.conf).
@@ -126,14 +126,10 @@ For example, a `flush_jitter` of 5s and `flush_interval` of 10s means flushes wi
 * **precision**: Collected metrics are rounded to the precision specified as an
 `interval` (integer + unit, ex: `1ns`, `1us`, `1ms`, and `1s` . Precision will NOT
 be used for service inputs, such as `logparser` and `statsd`.
-* **logfile**: Specify the log file name. The empty string means to log to `stderr`.
 * **debug**: Run Telegraf in debug mode.
 * **quiet**: Run Telegraf in quiet mode (error messages only).
-* **logtarget**: Control the destination for logs. Can be one of "file",
-"stderr" or, on Windows, "eventlog".  When set to "file", the output file is
-determined by the "logfile" setting.
-* **logfile**: Name the file to be logged to when using the "file" logtarget.  If set
-to the empty then logs are written to stderr.
+* **logtarget**: Controls the destination for logs and can be set to “file”, “stderr”, or, on Windows, “eventlog”. When set to “file”, the output file is determined by the logfile setting.
+* **logfile**: If logtarget is set to “file” specify the logfile name. If set to the empty string then logs are written to stderr.
 * **logfile_rotation_interval**: Rotates logfile after the time interval specified.  When
 set to 0 no time based rotation is performed.
 * **logfile_rotation_max_size**: Rotates logfile when it becomes larger than the specified

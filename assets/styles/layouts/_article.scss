@@ -23,6 +23,8 @@
     & + .highlight pre { margin-top: .5rem }
     & + pre { margin-top: .5rem }
     & + .code-tabs-wrapper { margin-top: 0; }
+    &.green { color: $gr-rainforest; }
+    &.orange { color: $r-dreamsicle; }
   }
   h1 {
     font-weight: normal;
@@ -124,6 +126,7 @@
           "article/flux",
           "article/html-diagrams",
           "article/influxdbu",
+          "article/influxql",
           "article/keybinding",
           "article/list-filters",
           "article/lists",

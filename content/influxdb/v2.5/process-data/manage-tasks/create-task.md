@@ -122,12 +122,14 @@ option task = {
 
 # ... Task script ...
 
-# <ctrl-d> to close the pipe and submit the command
+# Linux & macOS: <ctrl-d> to close the pipe and submit the command
+# Windows: <enter>, then <ctrl-d>, then <enter> to close the pipe and submit the command
 ```
 
 ## Create a task using the InfluxDB API
 
 {{% oss-only %}}
+
 Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/v2.5/api/#operation/PostTasks) to create a task.
 
 {{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" >}}

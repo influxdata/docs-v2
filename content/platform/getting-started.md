@@ -25,7 +25,7 @@ The configuration file for Telegraf specifies where metrics come from and where 
 * `[[outputs.influxdb]]` - declares how to connect to InfluxDB and the destination database, which is the default ‘telegraf’ database.
 * `[[inputs.cpu]]` - declares how to collect the system cpu metrics to be sent to InfluxDB. Enabled by default.
 
-For details about the configuration file, see [Get started with Telegraf](/{{< latest "telegraf" >}}/introduction/getting-started/).
+For details about the configuration file, see [Get started with Telegraf](/{{< latest "telegraf" >}}/get_started/).
 
 ## Query data in InfluxDB
 

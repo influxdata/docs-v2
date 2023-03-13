@@ -57,7 +57,7 @@ To return the version of Flux installed with InfluxDB using the InfluxDB UI:
 
 1.  Click **Data Explorer** in the left navigation bar.
 
-    {{< nav-icon "data-explorer" >}}
+{{< nav-icon "data-explorer" >}}
 
 2.  Click **{{% caps %}}Script Editor{{% /caps %}}** to manually create and
     edit a Flux query.

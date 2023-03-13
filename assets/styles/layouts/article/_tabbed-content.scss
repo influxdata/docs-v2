@@ -59,6 +59,29 @@
       flex-grow: unset;
       padding: .35rem 1rem;
     }
+
+    .tab-view-output {
+      padding: .5rem .5rem 0;
+      font-size: .9rem;
+      opacity: .65;
+      font-style: italic;
+      transition: opacity .2s;
+
+      &:before {
+        content: "\e97a";
+        margin-right: 0.25em;
+        font-family: 'icomoon-v3';
+        font-style: normal;
+      }
+    }
+
+    a.is-active + .tab-view-output {
+      opacity: 0;
+    }
+  }
+  &.medium {
+    p { justify-content: flex-start; }
+    a { flex-grow: unset; }
   }
   // Style suggested for tabs that have uneven button widths because of wrapping.
   &.even-wrap a {
@@ -106,6 +129,8 @@
     width: 100%;
     margin-left: 0;
   }
+
+  & table:last-child { margin-bottom: 0; }
 }
 
 .tab-content:not(:first-of-type) { display: none; }

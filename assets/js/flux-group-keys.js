@@ -39,7 +39,7 @@ function buildTable(inputData) {
       return value
     }
   }
-  var groupKeyString = "Group key = [" + (groupKey.map(column => column + ": " + wrapString(column, (inputData[0])[column]))  ).join(", ") + "]";
+  var groupKeyString = "Group key instance = [" + (groupKey.map(column => column + ": " + wrapString(column, (inputData[0])[column]))  ).join(", ") + "]";
   var groupKeyLabel = document.createElement("p");
   groupKeyLabel.className = "table-group-key"
   groupKeyLabel.innerHTML = groupKeyString

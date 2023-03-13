@@ -3,9 +3,9 @@
 const path = require('path');
 
 const latestVersions = {
-  'influxdb': 'v2.5',
-  'influxdbv2': 'v2.5',
-  'telegraf': 'v1.23',
+  'influxdb': 'v2.6',
+  'influxdbv2': 'v2.6',
+  'telegraf': 'v1.25',
   'chronograf': 'v1.10',
   'kapacitor': 'v1.6',
   'enterprise': 'v1.10',
@@ -81,9 +81,6 @@ exports.handler = (event, context, callback) => {
     '.sha256': true,
   };
 
-  // Remove multiple slashes from path
-  // permanentRedirect(/\/{2,}/.test(request.uri), request.uri.replace(/\/{2,}/, `/`));
-
   // Remove index.html from path
   permanentRedirect(request.uri.endsWith('index.html'), request.uri.substr(0, request.uri.length - indexPath.length));
 
@@ -99,6 +96,9 @@ exports.handler = (event, context, callback) => {
 
   ///////////////////////// Force v in version numbers /////////////////////////
   permanentRedirect(/(^\/[\w]*\/)(\d\.)/.test(request.uri), request.uri.replace(/(^\/[\w]*\/)(\d\.)/, `$1v$2`));
+  
+  ////////////// CLI InfluxQL link (catch before latest redirect) //////////////
+  permanentRedirect(/\/influxdb\/latest\/query_language\/spec/.test(request.uri), request.uri.replace(/latest/, 'v1.8'));
 
   ////////////////////////// Latest version redirects //////////////////////////
   temporaryRedirect(/\/influxdb\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['influxdb']}`));
