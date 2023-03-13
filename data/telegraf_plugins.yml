@@ -2536,7 +2536,7 @@ output:
   - name: Postgre SQL
     id: postgresql
     description: |
-      The Postgre SQL output plugin writes metrics to PostgreSQL (or compatible database.
+      The Postgre SQL output plugin writes metrics to PostgreSQL (or compatible database).
     introduced: 1.24.0
     tags: [linux, macos, windows]
 
