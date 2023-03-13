@@ -136,26 +136,26 @@ menu:
 
 ### Bugfixes
 
-- Fix reload config on config update/SIGHUP
-- Bond (`inputs.bond`): Reset slave stats for each interface
-- Cloudwatch (`inputs.cloudwatch`): Verify endpoint is not nil
-- LVM (`inputs.lvm`): Add options to specify path to binaries
-- XPath (`parsers.xpath`): Fix panic for JSON name expansion
-- JSON (`serializers.json`): Fix stateful transformations
+- Fix reload config on config update/SIGHUP.
+- Bond (`inputs.bond`): Reset slave stats for each interface.
+- Cloudwatch (`inputs.cloudwatch`): Verify endpoint is not nil.
+- LVM (`inputs.lvm`): Add options to specify path to binaries.
+- XPath (`parsers.xpath`): Fix panic for JSON name expansion.
+- JSON (`serializers.json`): Fix stateful transformations.
 
 ### Dependency Updates
 
-- Update cloud.google.com/go/pubsub from 1.27.1 to 1.28.0
-- Update github.com/containerd/containerd from 1.6.8 to 1.6.18
-- Update github.com/go-logfmt/logfmt from 0.5.1 to 0.6.0
-- Update github.com/gofrs/uuid from 4.3.1 to 5.0.0
-- Update github.com/gophercloud/gophercloud from 1.0.0 to 1.2.0
-- Update github.com/pion/dtls/v2 from 2.1.5 to 2.2.4
-- Update golang.org/x/net from 0.5.0 to 0.7.0
-- Update golang.org/x/sys from 0.4.0 to 0.5.0
-- Update google.golang.org/grpc from 1.52.3 to 1.53.0
-- Update k8s.io/apimachinery from 0.25.3 to 0.25.6
-- Update testcontainers from 0.14.0 to 0.18.0
+- Update cloud.google.com/go/pubsub from 1.27.1 to 1.28.0.
+- Update github.com/containerd/containerd from 1.6.8 to 1.6.18.
+- Update github.com/go-logfmt/logfmt from 0.5.1 to 0.6.0.
+- Update github.com/gofrs/uuid from 4.3.1 to 5.0.0.
+- Update github.com/gophercloud/gophercloud from 1.0.0 to 1.2.0.
+- Update github.com/pion/dtls/v2 from 2.1.5 to 2.2.4.
+- Update golang.org/x/net from 0.5.0 to 0.7.0.
+- Update golang.org/x/sys from 0.4.0 to 0.5.0.
+- Update google.golang.org/grpc from 1.52.3 to 1.53.0.
+- Update k8s.io/apimachinery from 0.25.3 to 0.25.6.
+- Update testcontainers from 0.14.0 to 0.18.0.
 
 ## v1.25.2 [2023-02-13]
 
