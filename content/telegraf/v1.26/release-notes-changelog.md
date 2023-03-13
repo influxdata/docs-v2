@@ -14,20 +14,20 @@ menu:
 
 ### Important Changes
 
-- *Static Builds*: Linux builds are now statically built. Other operating systems
+- **Static builds**: Linux builds are now statically built. Other operating systems
   were cross-built in the past and as a result, already static. Users should
   not notice any change in behavior. The `_static` specific Linux binary is no
   longer produced as a result.
-- *telegraf.d Behavior*: The default behavior of reading
-  `/etc/telegraf/telegraf.conf` now includes any .conf files under
+- **telegraf.d behavior**: The default behavior of reading
+  `/etc/telegraf/telegraf.conf` now includes any `.conf` files under
   `/etc/telegraf/telegraf.d/`. This change will apply to the official Telegraf
-  Docker image as well. This will simplify docker usage when using multiple
+  Docker image as well. This will simplify Docker usage when using multiple
   configuration files.
-- *Default Configuration*: The `telegraf config` command and default config file
+- **Default configuration**: The `telegraf config` command and default config file
   provided by Telegraf now includes all plugins and produces the same output
   across all operating systems. Plugin comments specify what platforms are
   supported or not.
-- *State Persistence*: State persistence is now available in select plugins. This
+- **State persistence**: State persistence is now available in select plugins. This
   will allow plugins to start collecting data, where they left off. A
   configuration with state persistence cannot change or it will not be able to
   recover.
@@ -51,86 +51,86 @@ menu:
 
 ### Features
 
-- Always disable cgo support (static builds)
-- Plugin state-persistence
-- Add /etc/telegraf/telegraf.d to default config locations
-- Print loaded configs
-- Accept durations given in days (e.g. 7d)
-- OAuth (`common.oauth`): Add audience parameter
-- TLS (`common.tls`): Add enable flag
-- CGroups (`inputs.cgroup`): Added support for cpu.stat
-- Cisco Telemetry MDT (`inputs.cisco_telemetry_mdt`): Include delete field
-- Disk (`inputs.disk`): Add label as tag
-- DNS Query (`inputs.dns_query`): Add IP field(s)
-- Docker Log (`inputs.docker_log`): Add state-persistence capabilities
+- Always disable cgo support (static builds).
+- Plugin state-persistence.
+- Add `/etc/telegraf/telegraf.d` to default configuration file locations.
+- Print loaded configurationss.
+- Accept durations given in days (e.g. 7d).
+- OAuth (`common.oauth`): Add `audience` parameter.
+- TLS (`common.tls`): Add `enable` flag.
+- CGroups (`inputs.cgroup`): Add support for `cpu.stat`.
+- Cisco Telemetry MDT (`inputs.cisco_telemetry_mdt`): Include `delete` field.
+- Disk (`inputs.disk`): Add label as tag.
+- DNS Query (`inputs.dns_query`): Add IP fields.
+- Docker Log (`inputs.docker_log`): Add state-persistence capabilities.
 - Ethtool (`inputs.ethtool`): Add support for link speed, duplex, etc.
-- GNMI (`inputs.gnmi`): Set max gRPC message size
-- HA Proxy (`inputs.haproxy`): Add support for tcp endpoints in haproxy plugin
-- HTTP Listener v2 (`inputs.http_listener_v2`): Add custom server http headers
-- Icinga2 (`inputs.icinga2`): Support collecting hosts, services, and endpoint metrics
-- InfluxDB (`inputs.influxdb`): Collect uptime statistics
-- Intel PowerStat (`inputs.intel_powerstat`): Add CPU base frequency metric and add support for new platforms
+- GNMI (`inputs.gnmi`): Set max gRPC message size.
+- HA Proxy (`inputs.haproxy`): Add support for TCP endpoints in haproxy plugin.
+- HTTP Listener v2 (`inputs.http_listener_v2`): Add custom server HTTP headers.
+- Icinga2 (`inputs.icinga2`): Support collecting hosts, services, and endpoint metrics.
+- InfluxDB (`inputs.influxdb`): Collect uptime statistics.
+- Intel PowerStat (`inputs.intel_powerstat`): Add CPU base frequency metric and add support for new platforms.
 - Internet Speed (`inputs.internet_speed`):
-  - Add the best server selection via latency and jitter field
-  - Server ID include and exclude filter
-- JTI OpenConfig Telemtry (`inputs.jti_openconfig_telemetry`): Set timestamp from data
+  - Add the best server selection via latency and jitter field.
+  - Server ID include and exclude filter.
+- JTI OpenConfig Telemtry (`inputs.jti_openconfig_telemetry`): Set timestamp from data.
 - Modbus (`inputs.modbus`):
-  - Add RS485 specific config options
-  - Add workaround to enforce reads from zero for coil registers
-  - Allow to convert coil and discrete registers to boolean
-- MySQL (`inputs.mysql`): Add secret-store support
-- Open Weather Map (`inputs.openweathermap`): Add snow parameter
-- Processes (`inputs.processes`): Add use_sudo option for BSD
-- Prometheus (`inputs.prometheus`): Use namespace annotations to filter pods to be scraped
-- Redfish (`inputs.redfish`): Add power control metric
-- SQL Server (`inputs.sqlserver`): Get database pages performance counter
-- Stackdriver (`inputs.stackdriver`): Allow filtering by resource metadata labels
-- Statsd (`inputs.statsd`): Add pending messages stat and allow to configure number of threads
-- Vsphere (`inputs.vsphere`): Flag for more lenient behavior when connect fails on startup
-- Windows Event Log (`inputs.win_eventlog`): Add state-persistence capabilities
-- Windows Performance Counters (`inputs.win_perf_counters`): Add remote system support
-- Wireguard (`inputs.wireguard`): Add allowed_peer_cidr field
+  - Add RS485 specific config options.
+  - Add workaround to enforce reads from zero for coil registers.
+  - Allow to convert coil and discrete registers to boolean.
+- MySQL (`inputs.mysql`): Add secret-store support.
+- Open Weather Map (`inputs.openweathermap`): Add `snow` parameter.
+- Processes (`inputs.processes`): Add use_sudo option for BSD.
+- Prometheus (`inputs.prometheus`): Use namespace annotations to filter pods to be scraped.
+- Redfish (`inputs.redfish`): Add power control metric.
+- SQL Server (`inputs.sqlserver`): Get database pages performance counter.
+- Stackdriver (`inputs.stackdriver`): Allow filtering by resource metadata labels.
+- Statsd (`inputs.statsd`): Add pending messages stat and allow to configure number of threads.
+- Vsphere (`inputs.vsphere`): Flag for more lenient behavior when connect fails on startup.
+- Windows Event Log (`inputs.win_eventlog`): Add state-persistence capabilities.
+- Windows Performance Counters (`inputs.win_perf_counters`): Add remote system support.
+- Wireguard (`inputs.wireguard`): Add allowed_peer_cidr field.
 - x509 Certificates (`inputs.x509_cert`):
-  - Add OCSP stapling information for leaf certificates (#10550)
-  - Add tag for certificate type-classification
+  - Add OCSP stapling information for leaf certificates.
+  - Add tag for certificate type-classification.
 - MQTT (`outputs.mqtt`):
-  - Add option to specify topic layouts
-  - Add support for MQTT 5 publish properties
-  - Enhance routing capabilities
-- XPath Parser (`parsers.xpath`): Add timezone handling
-- Converter Processor (`processors.converter`): Convert tag or field as metric timestamp
-- Unpivot Processor (`processors.unpivot`): Add mode to create new metrics
+  - Add option to specify topic layouts.
+  - Add support for MQTT 5 publish properties.
+  - Enhance routing capabilities.
+- XPath Parser (`parsers.xpath`): Add timezone handling.
+- Converter Processor (`processors.converter`): Convert tag or field as metric timestamp.
+- Unpivot Processor (`processors.unpivot`): Add mode to create new metrics.
 - Secret Stores:
-  - Add command-line option to specify password
-  - Add support for additional input plugins
-  - Convert many output plugins
+  - Add command-line option to specify password.
+  - Add support for additional input plugins.
+  - Convert many output plugins.
 
 ### Bugfixes
 
-- Allow graceful shutdown on interrupt (e.g. Ctrl-C)
-- Only rotate log on SIGHUP if needed
+- Allow graceful shutdown on interrupt (e.g. Ctrl-C).
+- Only rotate log on SIGHUP if needed.
 - AMQP Consumer (`inputs.amqp_consumer`):
-  - Avoid deprecations when handling defaults
-  - Fix panic on Stop() if not connected successfully
-- ethtool (`inputs.ethtool`): Close namespace file to prevent crash
-- statsd (`inputs.statsd`): On close, verify listener is not nil
+  - Avoid deprecations when handling defaults.
+  - Fix panic on Stop() if not connected successfully.
+- ethtool (`inputs.ethtool`): Close namespace file to prevent crash.
+- statsd (`inputs.statsd`): On close, verify listener is not nil.
 
 ### Dependency Updates
 
-- Update cloud.google.com/go/storage from 1.28.1 to 1.29.0
-- Update github.com/Azure/go-autorest/autorest/adal from 0.9.21 to 0.9.22
-- Update github.com/aliyun/alibaba-cloud-sdk-go from 1.62.77 to 1.62.193
-- Update github.com/aws/aws-sdk-go-v2/credentials from 1.13.2 to 1.13.15
-- Update github.com/aws/aws-sdk-go-v2/service/timestreamwrite from 1.14.5 to 1.16.0
-- Update github.com/coocood/freecache from 1.2.2 to 1.2.3
-- Update github.com/karrick/godirwalk from v1.17.0 to v1.16.2
-- Update github.com/opencontainers/runc from 1.1.3 to 1.1.4
-- Update github.com/opensearch-project/opensearch-go/v2 from 2.1.0 to 2.2.0
-- Update github.com/openzipkin-contrib/zipkin-go-opentracing from 0.4.5 to 0.5.0
-- Update github.com/rabbitmq/amqp091-go from 1.5.0 to 1.7.0
-- Update github.com/shirou/gopsutil from v3.22.12 to v3.23.2
-- Update github.com/stretchr/testify from 1.8.1 to 1.8.2
-- Update OpenTelemetry from 0.3.1 to 0.3.3
+- Update cloud.google.com/go/storage from 1.28.1 to 1.29.0.
+- Update github.com/Azure/go-autorest/autorest/adal from 0.9.21 to 0.9.22.
+- Update github.com/aliyun/alibaba-cloud-sdk-go from 1.62.77 to 1.62.193.
+- Update github.com/aws/aws-sdk-go-v2/credentials from 1.13.2 to 1.13.15.
+- Update github.com/aws/aws-sdk-go-v2/service/timestreamwrite from 1.14.5 to 1.16.0.
+- Update github.com/coocood/freecache from 1.2.2 to 1.2.3.
+- Update github.com/karrick/godirwalk from v1.17.0 to v1.16.2.
+- Update github.com/opencontainers/runc from 1.1.3 to 1.1.4.
+- Update github.com/opensearch-project/opensearch-go/v2 from 2.1.0 to 2.2.0.
+- Update github.com/openzipkin-contrib/zipkin-go-opentracing from 0.4.5 to 0.5.0.
+- Update github.com/rabbitmq/amqp091-go from 1.5.0 to 1.7.0.
+- Update github.com/shirou/gopsutil from v3.22.12 to v3.23.2.
+- Update github.com/stretchr/testify from 1.8.1 to 1.8.2.
+- Update OpenTelemetry from 0.3.1 to 0.3.3.
 
 ## v1.25.3 [2023-02-27]
 
