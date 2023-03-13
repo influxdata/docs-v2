@@ -2134,7 +2134,7 @@ input:
   - name: Windows Management Instrumentation
     id: win_wmi
     description: |
-      Enable queries of Windows Management Instrumentation (WMI) classes.
+      Queries Windows Management Instrumentation (WMI) classes.
     introduced: 1.26.0
     tags: [windows, servers, systems]
 
