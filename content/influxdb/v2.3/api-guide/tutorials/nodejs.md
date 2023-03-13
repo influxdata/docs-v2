@@ -259,26 +259,20 @@ const influxdb = new InfluxDB({url: process.env.INFLUX_URL, token: process.env.I
     |> last()`
   const devices = {}
 
-  return await new Promise((resolve, reject) => {
-    queryApi.queryRows(fluxQuery, {
-      next(row, tableMeta) {
-        const o = tableMeta.toObject(row)
-        const deviceId = o.deviceId
-        if (!deviceId) {
-          return
-        }
-        const device = devices[deviceId] || (devices[deviceId] = {deviceId})
-        device[o._field] = o._value
-        if (!device.updatedAt || device.updatedAt < o._time) {
-          device.updatedAt = o._time
-        }
-      },
-      error: reject,
-      complete() {
-        resolve(devices)
-      },
-    })
-  })
+  for await (const {row, tableMeta} of queryApi.iterateRows(fluxQuery)) {
+    const o = tableMeta.toObject(row)
+    const deviceId = o.deviceId
+    if (!deviceId) {
+      return
+    }
+    const device = devices[deviceId] || (devices[deviceId] = {deviceId})
+    device[o._field] = o._value
+    if (!device.updatedAt || device.updatedAt < o._time) {
+      device.updatedAt = o._time
+    }
+  }
+
+  return devices
 }
 ```
 
@@ -294,26 +288,17 @@ for registered devices, processes the data, and returns a Promise with the resul
 If you invoke the function as `getDevices()` (without a _`deviceId`_),
 it retrieves all `deviceauth` points and returns a Promise with `{ DEVICE_ID: ROW_DATA }`.
 
-To send the query and process results, the `getDevices(deviceId)` function uses the `QueryAPI queryRows(query, consumer)` method.
-`queryRows` executes the `query` and provides the Annotated CSV result as an Observable to the `consumer`.
-`queryRows` has the following TypeScript signature:
+To send the query and process results, the `getDevices(deviceId)` function uses the `QueryAPI iterateRows(query)` asynchronous method.
+`iterateRows` executes the `query` and provides the Annotated CSV result as an AsyncIterable.
+`iterateRows` has the following TypeScript signature:
 
 ```ts
-queryRows(
-  query: string | ParameterizedQuery,
-  consumer: FluxResultObserver<string[]>
-): void
+iterateRows(
+  query: string | ParameterizedQuery
+): AsyncIterable<Row>
 ```
 
-{{% caption %}}[@influxdata/influxdb-client-js QueryAPI](https://github.com/influxdata/influxdb-client-js/blob/3db2942432b993048d152e0d0e8ec8499eedfa60/packages/core/src/QueryApi.ts){{% /caption %}}
-
-The `consumer` that you provide must implement the [`FluxResultObserver` interface](https://github.com/influxdata/influxdb-client-js/blob/3db2942432b993048d152e0d0e8ec8499eedfa60/packages/core/src/results/FluxResultObserver.ts) and provide the following callback functions:
-
-- `next(row, tableMeta)`: processes the next row and table metadata--for example, to prepare the response.
-- `error(error)`: receives and handles errors--for example, by rejecting the Promise.
-- `complete()`: signals when all rows have been consumed--for example, by resolving the Promise.
-
-To learn more about Observers, see the [RxJS Guide](https://rxjs.dev/guide/observer).
+{{% caption %}}[@influxdata/influxdb-client-js QueryAPI](https://github.com/influxdata/influxdb-client-js/blob/af7cf3b6c1003ff0400e91bcb6a0b860668d6458/packages/core/src/QueryApi.ts){{% /caption %}}
 
 ## Create the API to register devices
 
