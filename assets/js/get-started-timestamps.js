@@ -97,8 +97,8 @@ function updateTimestamps(newStartDate) {
         times.forEach(function(x) {
             oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ""))
             newDatePart = datePart(x.rfc3339_new.replace(/T.*$/, ""))
-            rfc3339Regex = new RegExp(`${oldDatePart.year}-${oldDatePart.month}-${oldDatePart.day}`, 'g')
-            rfc3339Repl = `${newDatePart.year}-${newDatePart.month}-${newDatePart.day}`
+            rfc3339Regex = new RegExp(`${oldDatePart.year}(.*)${oldDatePart.month}(.*)${oldDatePart.day}`, 'g')
+            rfc3339Repl = `${newDatePart.year}$1${newDatePart.month}$2${newDatePart.day}`
 
             wrapper.innerHTML =
                 wrapper.innerHTML

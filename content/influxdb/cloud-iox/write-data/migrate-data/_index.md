@@ -17,7 +17,7 @@ InfluxDB Enterprise, and InfluxDB Cloud.
 - [Should you migrate?](#should-you-migrate)
   - [Are you currently limited by series cardinality?](#are-you-currently-limited-by-series-cardinality)
   - [Do you want to use SQL to query your data?](#do-you-want-to-use-sql-to-query-your-data)
-  - [Do you want better InfluxQL performance?](#do-you-want-better-influxql-performance)
+  <!-- - [Do you want better InfluxQL performance?](#do-you-want-better-influxql-performance) -->
   - [Do you depend on a specific cloud provider or region?](#do-you-depend-on-a-specific-cloud-provider-or-region)
   - [Are you reliant on Flux queries and Flux tasks?](#are-you-reliant-on-flux-queries-and-flux-tasks)
 - [Data migration guides](#data-migration-guides)
@@ -73,7 +73,7 @@ To maintain performant Flux queries against the IOx storage engine, you need to
 update Flux queries to use a mixture of both SQL and Flux—SQL to query the base
 dataset and Flux to perform other transformations that SQL does not support.
 For information about using SQL and Flux together for performant queries, see
-[Use SQL and Flux to query data](/influxdb/cloud-iox/...).
+[Use Flux and SQL to query data](/influxdb/cloud-iox/query-data/flux-sql/).
 
 ---
 
