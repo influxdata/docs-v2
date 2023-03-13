@@ -1,0 +1,28 @@
+- name: All endpoints
+  tags:
+    - Authorizations (API tokens)
+    - Bucket Schemas
+    - Buckets
+    - Legacy Authorizations
+    - Legacy Query
+    - Legacy Write
+    - Limits
+    - Organizations
+    - Query
+    - Resources
+    - Routes
+    - Secrets
+    - Setup
+    - Usage
+    - Variables
+    - Write
+- name: Security and access endpoints
+  tags:
+    - Authorizations (API tokens)
+    - Organizations
+- name: System information endpoints
+  tags:
+    - Resources
+    - Routes
+    - Setup
+    - Usage
