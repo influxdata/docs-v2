@@ -1,14 +1,161 @@
 ---
-title: Telegraf 1.25 release notes
+title: Telegraf 1.26 release notes
 description: Important features and changes in the latest version of Telegraf.
 aliases:
-  - /telegraf/v1.25/reference/release-notes/influxdb/
-  - /telegraf/v1.25/about_the_project/release-notes-changelog/
+  - /telegraf/v1.26/reference/release-notes/influxdb/
+  - /telegraf/v1.26/about_the_project/release-notes-changelog/
 menu:
   telegraf_1_26_ref:
     name: Release notes
     weight: 60
 ---
+
+## v1.26.0 [2023-03-13]
+
+### Important Changes
+
+- *Static Builds*: Linux builds are now statically built. Other operating systems
+  were cross-built in the past and as a result, already static. Users should
+  not notice any change in behavior. The `_static` specific Linux binary is no
+  longer produced as a result.
+- *telegraf.d Behavior*: The default behavior of reading
+  `/etc/telegraf/telegraf.conf` now includes any .conf files under
+  `/etc/telegraf/telegraf.d/`. This change will apply to the official Telegraf
+  Docker image as well. This will simplify docker usage when using multiple
+  configuration files.
+- *Default Configuration*: The `telegraf config` command and default config file
+  provided by Telegraf now includes all plugins and produces the same output
+  across all operating systems. Plugin comments specify what platforms are
+  supported or not.
+- *State Persistence*: State persistence is now available in select plugins. This
+  will allow plugins to start collecting data, where they left off. A
+  configuration with state persistence cannot change or it will not be able to
+  recover.
+
+### New Plugins
+
+#### Inputs
+
+- [Opensearch Query](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/opensearch_query) (`inputs.opensearch_query`)
+- [P4Runtime](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/p4runtime) (`inputs.p4runtime`)
+- [Radius Auth Response Time](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/radius) (`inputs.radius`)
+- [Windows Management Instrumentation (WMI)](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/win_wmi) (`inputs.win_wmi`)
+
+#### Parsers
+
+- [Apache Avro](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/avro) (`parsers.avro`)
+
+#### Processors
+
+- [lookup](https://github.com/influxdata/telegraf/tree/master/plugins/processors/lookup) (`processors.lookup`)
+
+### Features
+
+- Always disable cgo support (static builds)
+- Plugin state-persistence
+- Add /etc/telegraf/telegraf.d to default config locations
+- Print loaded configs
+- Accept durations given in days (e.g. 7d)
+- OAuth (`common.oauth`): Add audience parameter
+- TLS (`common.tls`): Add enable flag
+- CGroups (`inputs.cgroup`): Added support for cpu.stat
+- Cisco Telemetry MDT (`inputs.cisco_telemetry_mdt`): Include delete field
+- Disk (`inputs.disk`): Add label as tag
+- DNS Query (`inputs.dns_query`): Add IP field(s)
+- Docker Log (`inputs.docker_log`): Add state-persistence capabilities
+- Ethtool (`inputs.ethtool`): Add support for link speed, duplex, etc.
+- GNMI (`inputs.gnmi`): Set max gRPC message size
+- HA Proxy (`inputs.haproxy`): Add support for tcp endpoints in haproxy plugin
+- HTTP Listener v2 (`inputs.http_listener_v2`): Add custom server http headers
+- Icinga2 (`inputs.icinga2`): Support collecting hosts, services, and endpoint metrics
+- InfluxDB (`inputs.influxdb`): Collect uptime statistics
+- Intel PowerStat (`inputs.intel_powerstat`): Add CPU base frequency metric and add support for new platforms
+- Internet Speed (`inputs.internet_speed`):
+  - Add the best server selection via latency and jitter field
+  - Server ID include and exclude filter
+- JTI OpenConfig Telemtry (`inputs.jti_openconfig_telemetry`): Set timestamp from data
+- Modbus (`inputs.modbus`):
+  - Add RS485 specific config options
+  - Add workaround to enforce reads from zero for coil registers
+  - Allow to convert coil and discrete registers to boolean
+- MySQL (`inputs.mysql`): Add secret-store support
+- Open Weather Map (`inputs.openweathermap`): Add snow parameter
+- Processes (`inputs.processes`): Add use_sudo option for BSD
+- Prometheus (`inputs.prometheus`): Use namespace annotations to filter pods to be scraped
+- Redfish (`inputs.redfish`): Add power control metric
+- SQL Server (`inputs.sqlserver`): Get database pages performance counter
+- Stackdriver (`inputs.stackdriver`): Allow filtering by resource metadata labels
+- Statsd (`inputs.statsd`): Add pending messages stat and allow to configure number of threads
+- Vsphere (`inputs.vsphere`): Flag for more lenient behavior when connect fails on startup
+- Windows Event Log (`inputs.win_eventlog`): Add state-persistence capabilities
+- Windows Performance Counters (`inputs.win_perf_counters`): Add remote system support
+- Wireguard (`inputs.wireguard`): Add allowed_peer_cidr field
+- x509 Certificates (`inputs.x509_cert`):
+  - Add OCSP stapling information for leaf certificates (#10550)
+  - Add tag for certificate type-classification
+- MQTT (`outputs.mqtt`):
+  - Add option to specify topic layouts
+  - Add support for MQTT 5 publish properties
+  - Enhance routing capabilities
+- XPath Parser (`parsers.xpath`): Add timezone handling
+- Converter Processor (`processors.converter`): Convert tag or field as metric timestamp
+- Unpivot Processor (`processors.unpivot`): Add mode to create new metrics
+- Secret Stores:
+  - Add command-line option to specify password
+  - Add support for additional input plugins
+  - Convert many output plugins
+
+### Bugfixes
+
+- Allow graceful shutdown on interrupt (e.g. Ctrl-C)
+- Only rotate log on SIGHUP if needed
+- AMQP Consumer (`inputs.amqp_consumer`):
+  - Avoid deprecations when handling defaults
+  - Fix panic on Stop() if not connected successfully
+- ethtool (`inputs.ethtool`): Close namespace file to prevent crash
+- statsd (`inputs.statsd`): On close, verify listener is not nil
+
+### Dependency Updates
+
+- Update cloud.google.com/go/storage from 1.28.1 to 1.29.0
+- Update github.com/Azure/go-autorest/autorest/adal from 0.9.21 to 0.9.22
+- Update github.com/aliyun/alibaba-cloud-sdk-go from 1.62.77 to 1.62.193
+- Update github.com/aws/aws-sdk-go-v2/credentials from 1.13.2 to 1.13.15
+- Update github.com/aws/aws-sdk-go-v2/service/timestreamwrite from 1.14.5 to 1.16.0
+- Update github.com/coocood/freecache from 1.2.2 to 1.2.3
+- Update github.com/karrick/godirwalk from v1.17.0 to v1.16.2
+- Update github.com/opencontainers/runc from 1.1.3 to 1.1.4
+- Update github.com/opensearch-project/opensearch-go/v2 from 2.1.0 to 2.2.0
+- Update github.com/openzipkin-contrib/zipkin-go-opentracing from 0.4.5 to 0.5.0
+- Update github.com/rabbitmq/amqp091-go from 1.5.0 to 1.7.0
+- Update github.com/shirou/gopsutil from v3.22.12 to v3.23.2
+- Update github.com/stretchr/testify from 1.8.1 to 1.8.2
+- Update OpenTelemetry from 0.3.1 to 0.3.3
+
+## v1.25.3 [2023-02-27]
+
+### Bugfixes
+
+- Fix reload config on config update/SIGHUP
+- Bond (`inputs.bond`): Reset slave stats for each interface
+- Cloudwatch (`inputs.cloudwatch`): Verify endpoint is not nil
+- LVM (`inputs.lvm`): Add options to specify path to binaries
+- XPath (`parsers.xpath`): Fix panic for JSON name expansion
+- JSON (`serializers.json`): Fix stateful transformations
+
+### Dependency Updates
+
+- Update cloud.google.com/go/pubsub from 1.27.1 to 1.28.0
+- Update github.com/containerd/containerd from 1.6.8 to 1.6.18
+- Update github.com/go-logfmt/logfmt from 0.5.1 to 0.6.0
+- Update github.com/gofrs/uuid from 4.3.1 to 5.0.0
+- Update github.com/gophercloud/gophercloud from 1.0.0 to 1.2.0
+- Update github.com/pion/dtls/v2 from 2.1.5 to 2.2.4
+- Update golang.org/x/net from 0.5.0 to 0.7.0
+- Update golang.org/x/sys from 0.4.0 to 0.5.0
+- Update google.golang.org/grpc from 1.52.3 to 1.53.0
+- Update k8s.io/apimachinery from 0.25.3 to 0.25.6
+- Update testcontainers from 0.14.0 to 0.18.0
 
 ## v1.25.2 [2023-02-13]
 
@@ -327,7 +474,7 @@ menu:
 ### Input plugin updates
 - Ceph (`ceph`): Modernize metrics.
 - Modbus (`modbus`): Do not fail if a single server reports errors.
-- NTPQ (`ntpq`): Handle pools with `-`. 
+- NTPQ (`ntpq`): Handle pools with `-`.
 
 
 ### Parser updates
@@ -349,16 +496,16 @@ menu:
 ### Breaking change
 
 -  Set default minimum TLS version to v1.2 for security reasons on both server and client connections.
-This is a change from the previous defaults (TLS v1.0) on the server configuration and might break clients relying on older TLS versions. 
+This is a change from the previous defaults (TLS v1.0) on the server configuration and might break clients relying on older TLS versions.
 Older versions can be manually reverted on a per-plugin basis using the `tls_min_version` option in the plugins required.
 
 ### Features
 
-- Create custom builder to scan a Telegraf configuration file for the plugin files being defined and builds a new binary only including these plugins. 
+- Create custom builder to scan a Telegraf configuration file for the plugin files being defined and builds a new binary only including these plugins.
 - Add license checking tool.
 - Add metrics for member and replica-set average health of MongoDB.
 - Allow collecting node-level metrics for Couchbase buckets.
-- Make `config` subcommand. 
+- Make `config` subcommand.
 
 ### Bug fixes
 
@@ -380,7 +527,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 
 #### Outputs
 - [PostgreSQL](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/postgresql) (`postgresql`) - Contributed by [@phemmer](https://github.com/phemmer).
-- [RedisTimeSeries](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/redistimeseries) (`redistimeseries`) - Contributed by [@gkorland](http://github.com/gkorland). 
+- [RedisTimeSeries](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/redistimeseries) (`redistimeseries`) - Contributed by [@gkorland](http://github.com/gkorland).
 - [Stomp (Active MQ)](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/stomp) - Contributed by [@amus-sal](http://github.com/amus-sal).
 
 #### Serializers
@@ -391,7 +538,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 
 - Nats Consumer (`nats_consumer`): Add simple support for jetstream subjects.
 - Cisco Telemetry MDT (`cisco_telemetry_mdt`): Add GRPC Keepalive/timeout configuration options.
-- Directory Monitor (`directory_monitor`): 
+- Directory Monitor (`directory_monitor`):
   - Support paths for `files_to_ignore` and `files_to_monitor`.
   - Traverse subdirectories.
 - Kafka Consumer (`kafka_consumer`): Option to set default fetch message bytes.
@@ -412,7 +559,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
   - Fix filtering for `sqlAzureMIRequests` and s`qlAzureDBRequests`.
 - StatsD (`statsd`): Add median timing calculation.
 - Syslog (`syslog`): Log remote host as source tag.
-- x509 Cert (`x509_cert`): 
+- x509 Cert (`x509_cert`):
   - Add SMTP protocol.
   - Add proxy support.
   - Multiple sources with non-overlapping DNS entries.
@@ -430,7 +577,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - MQTT (`mqtt`): Add support for MQTT protocol version 5.
 - AMQP (`amqp`): Add proxy support.
 - Graphite (`graphite`): Retry connecting to servers with failed send attempts.
-- Groundwork (`groundwork`): 
+- Groundwork (`groundwork`):
   - Improve metric parsing to extend output.
   - Add default appType as configuration option.
 - Redis Time Series (`redistimeseries`): Add integration test
@@ -440,8 +587,8 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 
 
 ### Serializer updates
-- JSON (`json`): Add new `json_transformation` option transform outputted JSON. This new option can be used to transform the JSON output using the JSONata language to accommodate for requirements on the receiver side. The setting can also filter and process JSON data points. 
-- Prometheus (`prometheus`): 
+- JSON (`json`): Add new `json_transformation` option transform outputted JSON. This new option can be used to transform the JSON output using the JSONata language to accommodate for requirements on the receiver side. The setting can also filter and process JSON data points.
+- Prometheus (`prometheus`):
   - Provide option to reduce payload size by removing HELP from payload
   - Sort labels in prometheusremotewrite serializer
 
@@ -604,7 +751,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Remove unexpected deprecation warnings for non-deprecated packages that occurred in 1.24.1.
 - HTTP input plugin (`inputs.http`): Allow both 200 and 201 response codes when generating cookie authentication. Also update the cookie header docs to show a TOML map rather than a string.
 - Microsoft SQL Server input plugin (`inputs.sqlserver`): Use `bigint` for `backupsize` in `sqlserver` queries.
-- gNMI input plugin (`inputs.gnmi`): Refactor `tag_only` subscriptions for complex keys (such as `network-instances`) and to improve concurrrency. The subscription key is no longer hardcoded to the device name and the `name` tag. Adds ability to specify a subscription key on a per-tag basis. 
+- gNMI input plugin (`inputs.gnmi`): Refactor `tag_only` subscriptions for complex keys (such as `network-instances`) and to improve concurrrency. The subscription key is no longer hardcoded to the device name and the `name` tag. Adds ability to specify a subscription key on a per-tag basis.
 - SNMP input plugin (`inputs.snmp`): Now sets gosnmp's `UseUnconnectedUDPSocket` to true when using UDP. Adds support to accept SNMP responses from any address (not just the requested address). Useful when gathering responses from redundant/failover systems.
 
 ## Dependency updates
@@ -1651,7 +1798,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 
 ### Output plugin updates
 
--  [Sumo Logic Output](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/outputs/sumologic/README.md) (`sumologic`): Add support to [sanitize the metric name](https://github.com/influxdata/telegraf/tree/release-1.18/plugins/serializers/carbon2#metric-name-sanitization) in Carbon2 serializer.  
+-  [Sumo Logic Output](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/outputs/sumologic/README.md) (`sumologic`): Add support to [sanitize the metric name](https://github.com/influxdata/telegraf/tree/release-1.18/plugins/serializers/carbon2#metric-name-sanitization) in Carbon2 serializer.
 
 ### Processor plugin updates
 
@@ -1940,7 +2087,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - Microsoft SQL Server (`sqlserver`):
   - Fix a syntax error in Azure queries.
   - Remove synthetic performance counters that no longer exist from the `sqlserver_performance_counters` measurement.
-  - Add a new tag (`sql_version_desc`) to identify the readable SQL Server version.  
+  - Add a new tag (`sql_version_desc`) to identify the readable SQL Server version.
 - RAS (`ras`):
   - Disable on specific Linux architectures (MIPS64, mips64le, ppc64le, riscv64).
   - Fix an issue to properly close file handlers.
@@ -2902,7 +3049,7 @@ for details about the mapping.
 - Microsoft Azure Monitor (`azure_monitor`) output
   - Fix scale set resource id.
 - Microsoft SQL Server (`sqlserver`) input
-   Fix connection closing on error.  
+   Fix connection closing on error.
 - Minecraft (`minecraft`) input
   - Support Minecraft server 1.13 and newer.
 - NGINX Upstream Check (`nginx_upstream_check`) input
@@ -2956,7 +3103,7 @@ for details about the mapping.
 
 ### Breaking changes
 
- Grok input data format (parser): string fields no longer have leading and trailing quotation marks removed.  
+ Grok input data format (parser): string fields no longer have leading and trailing quotation marks removed.
  If you are capturing quoted strings, the patterns might need to be updated.
 
 ### Bug fixes
@@ -3115,7 +3262,7 @@ for details about the mapping.
 * Ceph Storage (`ceph`) input plugin
   * Add backwards compatibility fields in usage and pool statistics.
 * InfluxDB (`influxdb`) output plugin
-  * Fix UDP line splitting.  
+  * Fix UDP line splitting.
 * Microsoft SQL Server (`sqlserver`) input plugin
   * Set deadlock priority to low.
   * Disable results by row in AzureDB query.
@@ -3635,7 +3782,7 @@ for details about the mapping.
   the change of types.
 
   To address this, we have introduced a new `metric_version` option to control
-  enabling the new format.  
+  enabling the new format.
   For in depth recommendations on upgrading, see [Metric version](https://github.com/influxdata/telegraf/tree/release-1.8/plugins/inputs/mysql#metric-version) in the MySQL input plugin documentation.
 
   You are encouraged to migrate to the new model when possible as the old version
@@ -3646,11 +3793,11 @@ for details about the mapping.
   setting should be set less than the collection `interval` to prevent errors.
 
 - The SQL Server (`sqlserver`) input plugin has a new query and data model that can be enabled
-  by setting `query_version = 2`.  
+  by setting `query_version = 2`.
   Migrate to the new model, if possible, since the old version is deprecated and will be removed in a future version.
 
 - The OpenLDAP (`openldap`) input plugin has a new option, `reverse_metric_names = true`, that reverses metric
-  names to improve grouping.  
+  names to improve grouping.
   Enable this option, when possible, as the old ordering is deprecated.
 
 - The new HTTP (`http`) input plugin, when configured with `data_format = "json"`, can perform the
