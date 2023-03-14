@@ -754,6 +754,16 @@ If you write a point to a series with a timestamp that matches an existing point
 
 Related entries: [measurement](#measurement), [tag set](#tag-set), [field set](#field-set), [timestamp](#timestamp)
 
+{{% cloud-only %}}
+
+### primary key
+
+With the InfluxDB IOx storage engine, the primary key is the list of columns
+used to uniquely identify each row in a table.
+Rows are uniquely identified by their timestamp and tag set.
+
+{{% /cloud-only %}}
+
 ### precision
 
 The precision configuration setting determines the timestamp precision retained for input data points.
@@ -766,7 +776,7 @@ For example, if the precision is set to `ms`, the nanosecond epoch timestamp `14
 Telegraf output plugins do not alter the timestamp further.
 The precision setting is ignored for service input plugins.
 
-Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin), [service input plugin](#service-input-plugin)
+Related entries: [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin), [service input plugin](#service-input-plugin)
 
 ### predicate expression
 
@@ -855,7 +865,7 @@ The InfluxDB 2.x equivalent is [retention period](#retention-period).
 For more information about retention policies, see the
 [latest 1.x documentation](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
 
-Related entries:  [retention period](#retention-period),
+Related entries: [retention period](#retention-period),
 
 ### RFC3339 timestamp
 A timestamp that uses the human-readable DateTime format proposed in
@@ -1155,7 +1165,7 @@ There are different types of API tokens:
 
 {{% /cloud-only %}}
 
-Related entries: [Create a token](/influxdb/v2.6/security/tokens/create-token/).
+Learn how to [create a token](/influxdb/v2.6/security/tokens/create-token/).
 
 ### tracing
 

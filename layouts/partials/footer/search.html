@@ -21,6 +21,8 @@ docsearch({
         return '';
       } else if (version === 'cloud') {
         return 'Cloud';
+      } else if (version === 'cloud-iox') {
+        return 'Cloud (IOx)';
       } else if (/v\d\./.test(version)) {
         return version;
       } else {

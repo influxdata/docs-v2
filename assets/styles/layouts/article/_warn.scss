@@ -54,4 +54,7 @@
       color: rgba($article-warn-text, 1);
       background: $article-warn-code-bg};
   }
+  hr, .expand {
+    border-color: rgba($article-warn-base, .4)
+  }
 }

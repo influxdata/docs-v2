@@ -336,9 +336,10 @@ body.home {
         @include gradient($grad-coolDusk);
   
         &:first-child {
-          border-bottom: 1px solid rgba($body-bg, .5);
           a:after {border-radius: 6px 6px 0 0;}
         }
+
+        &:not(:last-child) {border-bottom: 1px solid rgba($body-bg, .5);}
 
         &:last-child a:after {border-radius: 0 0 6px 6px;}
 

@@ -8,7 +8,7 @@
 {{ $searchTag := print $product "-" $currentVersion }}
 
 {{ if not .IsHome }}
-  {{ if or (eq $currentVersion (index $.Site.Data.products $product).latest) (or (eq $product "platform") (eq $product "resources")) (eq $currentVersion (index $.Site.Data.products $product).latest_override) (eq $currentVersion "cloud") }}
+  {{ if or (eq $currentVersion (index $.Site.Data.products $product).latest) (or (eq $product "platform") (eq $product "resources")) (in $currentVersion "cloud") }}
     <meta name="docsearch:latest" content="true">
   {{ end }}
   {{ if and (ne $product "platform") (ne $product "resources") (ne $currentVersion "") }}

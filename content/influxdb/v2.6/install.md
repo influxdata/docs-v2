@@ -456,11 +456,12 @@ To prevent unwanted access to data, we recommend setting the permissions on the 
 
 Example:
 
-````powershell
+```powershell
 > $acl = Get-Acl "C:\Users\<username>\.influxdbv2"
 > $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("everyone","Read","Deny")
 > $acl.SetAccessRule($accessRule)
 > $acl | Set-Acl "C:\Users\<username>\.influxdbv2"
+```
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

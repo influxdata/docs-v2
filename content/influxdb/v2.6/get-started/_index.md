@@ -10,6 +10,7 @@ weight: 3
 influxdb/v2.6/tags: [get-started]
 aliases:
   - /influxdb/v2.6/introduction/get-started/
+  - /influxdb/v2.6/introduction/getting-started/
 ---
 
 InfluxDB {{< current-version >}} is the platform purpose-built to collect, store,
@@ -67,7 +68,7 @@ The following are important definitions to understand when using InfluxDB:
 
 ##### Example InfluxDB query results
 
-{{< influxdb/points-series >}}
+{{< influxdb/points-series-flux >}}
 
 ## Tools to use
 
