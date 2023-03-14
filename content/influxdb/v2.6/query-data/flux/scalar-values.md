@@ -90,8 +90,8 @@ values match the `fn` [predicate function](/{{< latest "flux" >}}/get-started/sy
 #### Extract the correct table
 
 Flux functions do not guarantee table order.
-`findColumn()` and `findRecord` extract only the **first** table that matches the `fn` predicate.
-To extract the correct table, be very specific in your predicate function or
+`findColumn()` and `findRecord()` extract only the **first** table that matches the `fn` predicate.
+To extract the correct table, use the `fn` predicate function to specifically identify the table to extract or
 filter and transform your data to minimize the number of tables piped-forward into the functions.
 {{% /note %}}
 
