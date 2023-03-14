@@ -1457,6 +1457,13 @@ input:
     introduced: 1.25.0
     tags: [linux, macos, windows, iot]
 
+  - name: OpenSearch Query
+    id: opensearch_query
+    description: |
+      Gathers metrics from OpenSearch query endpoints.
+    introduced: 1.26.0
+    tags: [linux, macos, windows]
+
   - name: OpenLDAP
     id: openldap
     description: |
@@ -1509,6 +1516,13 @@ input:
     link: https://github.com/bonitoo-io/telegraf-input-oracle/blob/main/README.md
     external: true
     tags: [linux, macos, windows, oracle, datastores]
+
+  - name: P4 Runtime
+    id: p4runtime
+    description: |
+      Collects metrics from P4 programmable pipelines over gRPC.
+    introduced: 1.26.0
+    tags: [linux, macos, windows]
 
   - name: PF
     id: pf
@@ -1671,6 +1685,13 @@ input:
       [Management Plugin](https://www.rabbitmq.com/management.html).
     introduced: 0.1.5
     tags: [linux, macos, windows, messaging]
+
+  - name: Radius
+    id: Radius
+    description: |
+      Collects authentication response time metrics from Radius.
+    introduced: 1.26.0
+    tags: [linux, macos, windows]
 
   - name: Raindrops Middleware
     id: raindrops
@@ -2040,7 +2061,7 @@ input:
   - name: UPSD
     id: upsd
     description: |
-      The UPSD input plugin reads data of one or more Uninterruptible Power Supplies from an upsd daemon using its NUT network protocol. 
+      The UPSD input plugin reads data of one or more Uninterruptible Power Supplies from an upsd daemon using its NUT network protocol.
     introduced: 1.24.0
     tags: [linux, macos, windows, networking]
 
@@ -2108,6 +2129,13 @@ input:
     description: |
       The Windows Services input plugin reports Windows services info. **Windows only**.
     introduced: 1.4.0
+    tags: [windows, servers, systems]
+
+  - name: Windows Management Instrumentation
+    id: win_wmi
+    description: |
+      Queries Windows Management Instrumentation (WMI) classes.
+    introduced: 1.26.0
     tags: [windows, servers, systems]
 
   - name: Wireless
@@ -2508,7 +2536,7 @@ output:
   - name: Postgre SQL
     id: postgresql
     description: |
-      The Postgre SQL output plugin writes metrics to PostgreSQL (or compatible database. 
+      The Postgre SQL output plugin writes metrics to PostgreSQL (or compatible database).
     introduced: 1.24.0
     tags: [linux, macos, windows]
 
@@ -2835,6 +2863,13 @@ processor:
     link: https://github.com/a-bali/telegraf-geoip/blob/master/README.md
     tags: [linux, macos, windows]
     external: true
+
+  - name: Lookup
+    id: lookup
+    description: |
+      Reads specific files and apply a table of annotations to metrics.
+    introduced: 1.26.0
+    tags: [linux, macos, windows]
 
   - name: Network Interface Name
     id: ifname

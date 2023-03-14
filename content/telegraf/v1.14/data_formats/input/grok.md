@@ -8,10 +8,10 @@ menu:
     parent: Input data formats (parsers)
 ---
 
-The grok data format parses line delimited data using a regular expression-like
+The grok data format parses line-delimited data using a regular expression-like
 language.
 
-If you need to become familiar with grok patterns, see [Grok Basics](https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html#_grok_basics)
+For an introduction to grok patterns, see [Grok Basics](https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html#_grok_basics)
 in the Logstash documentation. The grok parser uses a slightly modified version of logstash "grok"
 patterns, using the format:
 
@@ -65,12 +65,11 @@ See https://golang.org/pkg/time/#Parse for more details.
 
 Telegraf has many of its own [built-in patterns](https://github.com/influxdata/telegraf/blob/master/plugins/parsers/grok/influx_patterns.go),
 as well as support for most of
-[logstash's builtin patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/main/patterns/ecs-v1/grok-patterns.
+[Logstash's core patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/main/patterns/ecs-v1/grok-patterns).
 _Golang regular expressions do not support lookahead or lookbehind.
-logstash patterns that depend on these are not supported._
+Logstash patterns that depend on these are not supported._
 
-If you need help building patterns to match your logs, the
-[Grok Debugger application](https://grokdebug.herokuapp.com) might be helpful.
+If you need help building patterns to match your logs, [Grok Constructor](https://grokconstructor.appspot.com/) might be helpful.
 
 ## Configuration
 
@@ -168,8 +167,8 @@ grok will offset the timestamp accordingly.
 When saving patterns to the configuration file, keep in mind the different TOML
 [string](https://github.com/toml-lang/toml#string) types and the escaping
 rules for each.  These escaping rules must be applied in addition to the
-escaping required by the grok syntax.  Using the Multi-line line literal
-syntax with `'''` may be useful.
+escaping required by the grok syntax.  Using the TOML multi-line literal
+syntax (`'''`) may be useful.
 
 The following config examples will parse this input file:
 
