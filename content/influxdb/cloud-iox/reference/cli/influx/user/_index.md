@@ -19,7 +19,7 @@ cascade:
 
       The `influx user` command and its subcommands manage **InfluxDB OSS 2.x** users,
       but do not manage users in **InfluxDB Cloud**.
-      Use the InfluxDB Cloud user interface to manage account information.
+      Use the InfluxDB Cloud UI to manage account information.
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/
 ---
 
