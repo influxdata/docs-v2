@@ -369,7 +369,7 @@ too many requests
   a smaller interval. Each batch will then query less data.
 
 ### Invalid API token
-If the API token you add as the `INFLUXDB_IOX_SECRET` doesn't have wrote access
+If the API token you add as the `INFLUXDB_IOX_SECRET` doesn't have write access
 to your InfluxDB Cloud (IOx) bucket, the task will return an error similar to:
 
 ```
