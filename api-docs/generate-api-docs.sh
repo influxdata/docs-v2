@@ -92,7 +92,7 @@ do
   if [[ $version == "cloud" ]]; then
     titleVersion="Cloud"
   elif [[ $version == "cloud-iox" ]]; then
-    titleVersion="Cloud IOx"
+    titleVersion="Cloud (IOx)"
   else
     titleVersion="$version"
   fi
