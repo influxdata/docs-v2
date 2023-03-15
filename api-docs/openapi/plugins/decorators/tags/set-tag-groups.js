@@ -32,6 +32,15 @@ function SetTagGroups(data) {
 
   const allEndpointsGroup = data.filter(customGroup => customGroup.name === ALL_ENDPOINTS).pop();
 
+  function addAllEndpointTags(tagGroups) {
+    tagGroups.map(grp => {         
+      if(grp.name === ALL_ENDPOINTS && !grp.tags.length) {
+        grp.tags = endpointTags;
+      }
+      return grp;
+    })
+  }
+
   let tags = [];
   /** Collect tags for each operation and convert string tags to object tags. **/
   return {
@@ -45,10 +54,10 @@ function SetTagGroups(data) {
           ) || [];
 
           const { parent, key } = ctx;
-          if(allEndpointsGroup) {
+          if(allEndpointsGroup?.tags.length) {
             opTags.forEach(
               function(t) {
-                if(!allEndpointsGroup.tags.includes(t.name) && !nonResourceTags.includes(t.name)) {
+                if(!isPresent(allEndpointsGroup.tags, t) && !isPresent(nonResourceTags, t)) {
                   /** If a custom allEndpointsGroup is defined and the current Operation
                    * contains a tag not specified in allEndpointsGroup,
                    * then delete the Operation from the doc so that it doesn't appear in other tags.
@@ -70,7 +79,7 @@ function SetTagGroups(data) {
 
         endpointTags = root.tags
           .filter(t => !t['x-traitTag'])
-          .filter(t => !nonResourceTags.includes(getName(t)))
+          .filter(t => !isPresent(nonResourceTags, t))
           .map(t => getName(t));
 
         /** In Redoc, if x-tagGroups is present, a tag (and its paths)
@@ -78,15 +87,6 @@ function SetTagGroups(data) {
         if(data.length) {
           addAllEndpointTags(data);
           root['x-tagGroups'] = data;
-        }
-        
-        function addAllEndpointTags(tagGroups) {
-          tagGroups.map(grp => {         
-            if(grp.name === 'All endpoints' && !grp.tags.length) {
-              grp.tags = endpointTags;
-            }
-            return grp;
-          })
         }
       }
     }

@@ -6723,7 +6723,7 @@ components:
       name: Authorization
       type: apiKey
 info:
-  title: InfluxDB Cloud IOx API Service
+  title: InfluxDB Cloud (IOx) API Service
   version: Cloud 2.x
   description: |
     The InfluxDB HTTP API provides a programmatic interface for all interactions with InfluxDB.
