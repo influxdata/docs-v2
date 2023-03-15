@@ -3,7 +3,7 @@
 # This script provides a simple way grab the latest fully resolved openapi (OAS, OpenAPI Specification) contract files
 # from the influxdata/openapi repo.
 #
-# Specify a platform to retrieve (cloud-iox, cloud, oss, v1compat, all).
+# Specify a platform to retrieve (cloud, oss, v1compat, all).
 # Optionally specify:
 # - an OSS version as the second argument or using the -o flag.
 #   The version specifies where to write the updated openapi.
@@ -20,7 +20,6 @@
 #   sh ./getswagger.sh -c <platform> -o <version> -b <baseUrl>
 #
 # Examples:
-#   sh ./getswagger.sh cloud-iox
 #   sh ./getswagger.sh cloud
 #   sh ./getswagger.sh -c oss -o v2.0 -b file:///Users/johnsmith/github/openapi
 
@@ -57,7 +56,7 @@ function showHelp {
 subcommand=$1
 
 case "$subcommand" in
-  cloud-iox|cloud|oss|v1compat|all)
+  cloud|oss|v1compat|all)
     platform=$1
     shift
 
@@ -132,12 +131,6 @@ function updateCloud {
   postProcess $outFile cloud
 }
 
-function updateCloudIOx {
-  outFile="cloud-iox/ref.yml"
-  curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
-  postProcess $outFile cloud-iox
-}
-
 function updateOSS {
   mkdir -p ${ossVersion}
   outFile="$ossVersion/ref.yml"
@@ -167,9 +160,6 @@ fi
 if [ "$platform" = "cloud" ];
 then
   updateCloud
-elif [ "$platform" = "cloud-iox" ];
-then
-  updateCloudIOx
 elif [ "$platform" = "oss" ];
 then
   updateOSS
@@ -179,10 +169,9 @@ then
 elif [ "$platform" = "all" ];
 then
   updateCloud
-  updateCloudIOx
   updateOSS
   updateV1Compat
 else
-  echo "Provide a platform argument: cloud, cloud-iox, oss, v1compat, or all."
+  echo "Provide a platform argument: cloud, oss, v1compat, or all."
   showHelp
 fi
