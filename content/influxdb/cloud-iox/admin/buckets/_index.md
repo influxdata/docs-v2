@@ -1,7 +1,7 @@
 ---
 title: Manage buckets
-seotitle: Manage buckets in InfluxDB
-description: Manage buckets in InfluxDB using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
+seotitle: Manage buckets in InfluxDB Cloud
+description: Manage buckets in InfluxDB Cloud using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
 menu:
   influxdb_cloud_iox:
     name: Manage buckets

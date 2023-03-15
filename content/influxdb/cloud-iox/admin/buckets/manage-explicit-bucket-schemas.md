@@ -1,11 +1,10 @@
 ---
 title: Manage explicit bucket schemas
-seotitle: Manage explicit bucket schemas in InfluxDB
+seotitle: Manage explicit bucket schemas in InfluxDB Cloud
 description: Manage explicit bucket schemas using the influx CLI or InfluxDB HTTP API. Optionally, ensure data you write follows a specific schema.
 menu:
   influxdb_cloud_iox:
     name: Manage explicit bucket schemas
-    weight: 201
     parent: Manage buckets
 weight: 250
 influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, explicit measurement schema, schema]
