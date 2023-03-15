@@ -30,7 +30,7 @@ const decorators = {
     'strip-trailing-slash': StripTrailingSlash,
     'set-info': () => SetInfo(info()),
     'set-tag-groups': () => SetTagGroups(tagGroups()),
-    'replace-docs-url-shortcode': ReplaceShortcodes().docsUrl,
+    'replace-docs-url-shortcode': ReplaceShortcodes().docsUrl
   }
 };
 
@@ -50,7 +50,7 @@ module.exports = {
         'docs/strip-trailing-slash': 'error',
       	'docs/set-info': 'error',
       	'docs/set-tag-groups': 'error',
-        'docs/replace-docs-url-shortcode': 'error',
+        'docs/replace-docs-url-shortcode': 'error'
       },
     },
   },
