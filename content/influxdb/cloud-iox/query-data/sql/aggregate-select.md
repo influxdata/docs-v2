@@ -150,8 +150,8 @@ to your InfluxDB Cloud bucket before running the example queries.
 
 To aggregate _all_ queried values in a specified column:
 
-- Use aggregate or selector functions in your `SELECT` statement
-- Do not include a `GROUP BY` clause to leave your data ungrouped
+- Use aggregate or selector functions in your `SELECT` statement.
+- Do not include a `GROUP BY` clause to leave your data ungrouped.
 
 ```sql
 SELECT avg(co) AS 'average co' from home
@@ -167,11 +167,11 @@ SELECT avg(co) AS 'average co' from home
 
 ### Group and aggregate data
 
-To apply aggregate or selector functions to data grouped:
+To apply aggregate or selector functions to grouped data:
 
-- Use aggregate or selector functions in your `SELECT` statement
-- Include columns to group by in your `SELECT` statement
-- Include a `GROUP BY` clause with a comma-delimited list of columns to group by
+- Use aggregate or selector functions in your `SELECT` statement.
+- Include columns to group by in your `SELECT` statement.
+- Include a `GROUP BY` clause with a comma-delimited list of columns to group by.
 
 ```sql
 SELECT
@@ -198,19 +198,23 @@ groups:
 
 - In your `SELECT` clause:
 
-  - Use `DATE_BIN` to calculate windows of time based on a specified interval
-    and update the timestamp in the `time` column based on the start
-    boundary of the window that the original timestamp is in.    
-    For example, if you use `DATE_BIN` to window data into one day intervals,
-    {{% influxdb/custom-timestamps-span %}}`2022-01-01T12:34:56Z`{{% /influxdb/custom-timestamps-span %}}
-    will be updated to
-    {{% influxdb/custom-timestamps-span %}}`2022-01-01T00:00:00Z`{{% /influxdb/custom-timestamps-span %}}.
-
-  - Use aggregate or selector functions on specified columns.
+  - Use the [`DATE_BIN` function](/influxdb/cloud-iox/reference/sql/functions/time-and-date/#date_bin)
+    to calculate time intervals and return a new `time` column that contains the start of the nearest interval associated with your timestamp--for example,
+    the following statement calculates two-hour intervals starting at `1970-01-01T00:00:00Z` and calculates the nearest interval for `time` in each row:
+    
+    ```sql
+    SELECT DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time
+    FROM home
+    ```
+    
+    If the `time` timestamp in your data is
+    {{% influxdb/custom-timestamps-span %}}`2023-03-09T13:00:50.000Z`{{% /influxdb/custom-timestamps-span %}},
+    then the query returns the `time` value
+    {{% influxdb/custom-timestamps-span %}}`2023-03-09T12:00:00.000Z`{{% /influxdb/custom-timestamps-span %}}.
+  - Use [aggregate](/influxdb/cloud-iox/reference/sql/functions/aggregate/) or [selector](/influxdb/cloud-iox/reference/sql/functions/selector/) functions on specified columns.
   - Include columns to group by.
 
 - Include a `GROUP BY` clause with `time` and other columns to group by.
-
 
 ```sql
 SELECT
@@ -245,6 +249,7 @@ GROUP BY time, room
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
 
 ### Query rows based on aggregate values
 
