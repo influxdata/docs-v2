@@ -131,7 +131,7 @@ GROUP BY room
 
 ## Example aggregate queries
 
-- [Performed an ungrouped aggregation](#performed-an-ungrouped-aggregation)
+- [Perform an ungrouped aggregation](#perform-an-ungrouped-aggregation)
 - [Group and aggregate data](#group-and-aggregate-data)
   - [Downsample data by applying interval-based aggregates](#downsample-data-by-applying-interval-based-aggregates)
 - [Query rows based on aggregate values](#query-rows-based-on-aggregate-values)
