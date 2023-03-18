@@ -16,6 +16,11 @@
   <!-- Custom time modal trigger-->
   {{ partial "footer/custom-time-trigger" . }}
 
+  <!-- IOx wayfinding modal -->
+  {{ if in (slice "cloud" "cloud-iox") $currentVersion }}
+    {{ partial "footer/iox-wayfinding.html" . }}
+  {{ end }}
+
   </body>
   {{ partial "footer/javascript.html" . }}
 </html>
