@@ -4,7 +4,7 @@ description: >
   The database and retention policy (DBRP) mapping service maps InfluxDB 1.x
   database and retention policy combinations to InfluxDB Cloud buckets.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud_iox:
     name: DBRP mapping
     parent: 1.x compatibility
 weight: 302
