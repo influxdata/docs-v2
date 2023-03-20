@@ -69,7 +69,7 @@ as well as support for most of
 _Golang regular expressions do not support lookahead or lookbehind.
 Logstash patterns that depend on these are not supported._
 
-If you need help building patterns to match your logs, [Grok Constructor](https://grokconstructor.appspot.com/) might be helpful.
+For help building and testing patterns, see [tips for creating patterns](#tips-for-creating-patterns).
 
 ## Configuration
 
@@ -205,21 +205,28 @@ A multi-line literal string allows us to encode the pattern:
 
 ### Tips for creating patterns
 
-Writing complex patterns can be difficult, here is some advice for writing a
-new pattern or testing a pattern developed [online](https://grokdebug.herokuapp.com).
+Complex patterns can be difficult to read and write.
+For help building and debugging grok patterns, see the following tools:
+- [Grok Constructor](https://grokconstructor.appspot.com/)
+- [Grok Debugger](https://grokdebugger.com/)
 
-Create a file output that writes to stdout, and disable other outputs while
-testing.  This will allow you to see the captured metrics.  Keep in mind that
-the file output will only print once per `flush_interval`.
+We recommend the following steps for building and testing a new pattern with Telegraf and your data:
 
-```toml
-[[outputs.file]]
-  files = ["stdout"]
-```
+1. In your Telegraf configuration, do the following to help you isolate and view the captured metrics:
+    - Configure a file output that writes to stdout:
 
-- Start with a file containing only a single line of your input.
-- Remove all but the first token or piece of the line.
-- Add the section of your pattern to match this piece to your configuration file.
-- Verify that the metric is parsed successfully by running Telegraf.
-- If successful, add the next token, update the pattern and retest.
-- Continue one token at a time until the entire line is successfully parsed.
+      ```toml
+      [[outputs.file]]
+        files = ["stdout"]
+      ```
+
+    - Disable other outputs while testing.
+
+    *Keep in mind that the file output will only print once per `flush_interval`.*
+
+2. For the input, start with a sample file that contains a single line of your data,
+   and then remove all but the first token or piece of the line.
+3. In your Telegraf configuration, add the section of your pattern that matches the piece of data from the previous step.
+4. Run Telegraf and verify that the metric is parsed successfully.
+5. If successful, add the next token to the data file, update the pattern configuration in Telegraf, and then retest.
+6. Continue one token at a time until the entire line is successfully parsed.
