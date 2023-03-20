@@ -60,8 +60,7 @@ To store a query that you can retrieve and reuse, {{% caps %}}**Save**{{% /caps 
 After you **Run** your query, Data Explorer displays the results.
 
 - Click {{< caps >}}Table{{< /caps >}} for a paginated tabular view of all rows and columns.
-- Click {{< caps >}}Graph{{< /caps >}} to select visualization options.
-
+- Click {{< caps >}}Graph{{< /caps >}} to select a *visualization type* and options.
 
 ## Query data with Flux and the Data Explorer
 
@@ -81,7 +80,7 @@ See [how to use Flux and SQL to query data](/influxdb/cloud-iox/query-data/flux-
    - Select a bucket to define your data source or select `+ Create Bucket` to add a new bucket.
    - Edit your time range with the [time range option](#select-time-range) in the dropdown menu.
    - Add filters to narrow your data by selecting attributes or columns in the dropdown menu.
-   - Select **Group** from the **Filter** dropdown menu to group data into tables. For more about how grouping data in Flux works, see [Group data](/influxdb/v2.6/query-data/flux/group-data/).    
+   - Select **Group** from the **Filter** dropdown menu to group data into tables. For more about how grouping data in Flux works, see [group()](/flux/v0.x/stdlib/universe/group/).
 3. Alternatively, click **Script Editor** to manually edit the query.
    To switch back to the query builder, click **Query Builder**. Note that your updates from the Script Editor will not be saved.
 4. Use the **Functions** list to review the available Flux functions.
@@ -105,7 +104,7 @@ To open the cell editor overlay, click the gear icon in the upper right of a cel
 
 ### View raw data
 
-Toggle the **View Raw Data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. Scroll through raw data using arrows, or click page numbers to find specific tables. [Group keys](/influxdb/cloud/reference/glossary/#group-key) and [data types](/influxdb/cloud/reference/glossary/#data-type) are easily identifiable at the top of each column underneath the headings. Use this option when data can't be visualized using a visualization type. 
+Toggle the **View Raw Data** {{< icon "toggle" >}} option to see your data in table format instead of a graph. Scroll through raw data using arrows, or click page numbers to find specific tables. [Group keys](/influxdb/cloud-iox/reference/glossary/#group-key) and [data types](/influxdb/cloud-iox/reference/glossary/#data-type) are easily identifiable at the top of each column underneath the headings. Use this option when data can't be visualized using a visualization type. 
 
  {{< img-hd src="/img/influxdb/cloud-controls-view-raw-data.png" alt="View raw data" />}}
 

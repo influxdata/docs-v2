@@ -10,6 +10,6 @@ menu:
 influxdb/cloud-iox/tags: [query]
 ---
 
-There are multiple ways to execute queries with InfluxDB. Choose from the following options:
+<!-- There are multiple ways to execute queries with InfluxDB. Choose from the following options: -->
 
 {{< children >}}
