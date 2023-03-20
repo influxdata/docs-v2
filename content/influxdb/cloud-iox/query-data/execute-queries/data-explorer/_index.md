@@ -61,6 +61,7 @@ After you **Run** your query, Data Explorer displays the results.
 
 - Click {{< caps >}}Table{{< /caps >}} for a paginated tabular view of all rows and columns.
 - Click {{< caps >}}Graph{{< /caps >}} to select a *visualization type* and options.
+- Click {{< caps >}}CSV{{< /caps >}} to download query results in a comma-delimited file.
 
 ## Query data with Flux and the Data Explorer
 
@@ -93,7 +94,7 @@ See [how to use Flux and SQL to query data](/influxdb/cloud-iox/query-data/flux-
 
 ### Visualize your query
 
-- Select an available [visualization type](/influxdb/cloud-iox/query-data/execute-queries/data-explorer/flux/visualization-types/) from the dropdown menu:
+- Select an available **visualization type** from the dropdown menu:
 
     {{< img-hd src="/img/influxdb/2-0-visualizations-dropdown.png" title="Visualization dropdown" />}}
 
