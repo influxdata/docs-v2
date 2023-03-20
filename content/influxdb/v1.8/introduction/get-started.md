@@ -10,6 +10,8 @@ aliases:
   - /influxdb/v2.2/introduction/getting_started/
   - /influxdb/v2.3/introduction/getting_started/
   - /influxdb/v2.4/introduction/getting_started/
+  - /influxdb/v2.5/introduction/getting_started/
+  - /influxdb/v2.6/introduction/getting_started/
   - /influxdb/latest/introduction/getting-started/
 
 menu:
