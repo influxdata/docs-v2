@@ -55,7 +55,7 @@ function shouldOpenWayfinding() {
   var wayfindingOptedOut = Cookies.get(wayfindingPrefCookie) != 'false';
 
   // Only return true if all conditions are true
-  return ![isExternalReferrer, wayfindingOptedOut].includes(false);
+  return isExternalReferrer && wayfindingOptedOut;
 }
 
 /**
