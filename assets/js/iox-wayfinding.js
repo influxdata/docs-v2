@@ -120,7 +120,7 @@ wayfindingOptOut.onclick = function(event) {
   toggleWayfindingPreference();
 }
 
-// Toggle instructions for finding our which storage engine you're using
+// Toggle instructions for finding out which storage engine you're using
 wayfindingFindOutToggle.onclick = function(event) {
   event.preventDefault();
   if (wayfindingFindOutInstructions.classList.contains('open')) {
