@@ -8,6 +8,9 @@ menu:
     name: Query with Data Explorer
     parent: Execute queries
 influxdb/cloud-iox/tags: [query]
+related:
+  - /influxdb/cloud-iox/query-data/sql/
+  - /influxdb/cloud-iox/query-data/flux-sql/
 ---
 
 Build, execute, and visualize your queries in InfluxDB UI's **Data Explorer**.
@@ -19,62 +22,58 @@ Choose between [visualization types](/influxdb/v2.6/visualize-data/visualization
 
 ## Query data with SQL and the Data Explorer
 
-See [Query data](/influxdb/cloud-iox/query-data/sql/) to learn more about using SQL to query InfluxDB.
-
 1. In the navigation menu on the left, click **Data Explorer**.
 
     {{< nav-icon "data-explorer" >}}
 
-    {{% note %}}
-    #### Save your work
-
-    **Data Explorer** keeps your last change--for example, if you navigate to **Buckets**
-    or signout and then come back, you'll see your SQL query and selections in **Data Explorer**.
-
-    To store a query that you can retrieve and reuse, {{% caps %}}**Save**{{% /caps %}} your query as a script.
-    {{% /note %}}
-
-2. Activate the **SQL Sync** toggle in the **Schema Browser** pane to build your SQL query as you select [data elements]().
+2. Activate the **SQL Sync** toggle in the **Schema Browser** pane to build your SQL query as you select [fields and tag values](/influxdb/cloud-iox/write-data/best-practices/schema-design/#influxdb-data-structure).
    - Typing within the script editor disables **SQL Sync**.
-   - If you reenable **SQL Sync**, any selection changes you made in the **Schema Browser** are immediately copied to the script editor.
+   - If you reenable **SQL Sync**, any selection changes you made in the **Schema Browser** are copied to the script editor.
 3. Select a **Bucket** to define your data source.
-4. Select a **Measurement** from the bucket. By default, InfluxDB selects all columns (`*`) in your data.
+4. Select a **Measurement** from the bucket. By default, InfluxDB selects all columns in your data:
+
+   ```sql
+   SELECT * FROM measurement
+   ```
 5. To add filter conditions to your query, select from the **Fields** and **Tag Keys** lists.
-   - **Fields**: filters for rows that have a non-null value for one of the selected field columns.
+   - **Fields**: filters for rows that have a non-null value for at least one of the selected field columns.
    - **Tag Keys**: filters for rows that have all the selected tag values.
    To learn more, see [Query specific fields and tags](/influxdb/cloud-iox/query-data/sql/basic-query/#query-specific-fields-and-tags).
 6. Use the [time range dropdown](#select-time-range) to edit the time range for your query.
 7. Click the **Run** button (or press `Control+Enter`) to run your query and [view the results](#view-sql-query-results).
 
+See [Query data](/influxdb/cloud-iox/query-data/sql/) to learn more querying InfluxDB with SQL.
+
+{{% note %}}
+
+#### Save your work
+
+**Data Explorer** keeps your last change--for example, if you navigate to **Buckets**
+or signout and then come back, you'll see your SQL query and selections in **Data Explorer**.
+
+To store a query that you can retrieve and reuse, {{% caps %}}**Save**{{% /caps %}} your query as a *script*.
+
+{{% /note %}}
+
 ## View SQL query results
 
 After you **Run** your query, Data Explorer displays the results.
 
-- Click {{< caps >}}**Table**{{< /caps >}} for a paginated tabular view of all rows and columns.
-- Click {{< caps >}}**Graph**{{< /caps >}} to select visualization options.
-
-### Visualize your SQL query
-
-- Select an available [visualization type](/influxdb/cloud-iox/visualize-data/data-explorer/sql) from the dropdown menu:
-
-    <!-- @TODO SQL screenshot -->
-    
-    <!-- {{/* img-hd src="/img/influxdb/2-0-visualizations-dropdown.png" title="Visualization dropdown" */>}} -->
-
-
+- Click {{< caps >}}Table{{< /caps >}} for a paginated tabular view of all rows and columns.
+- Click {{< caps >}}Graph{{< /caps >}} to select visualization options.
 
 
 ## Query data with Flux and the Data Explorer
 
 Flux is a functional data scripting language designed for querying,
 analyzing, and acting on time series data.
-See [Get started with Flux](/influxdb/v2.6/query-data/get-started) to learn more about Flux.
+See [how to use Flux and SQL to query data](/influxdb/cloud-iox/query-data/flux-sql/).
 
 1. In the navigation menu on the left, click **Data Explorer**.
 
     {{< nav-icon "data-explorer" >}}
 
-2. Activate the **Switch to old Data Explorer** toggle to display the Flux builder. By default, the Cloud IOx UI displays the Schema Browser and the SQL script editor for creating queries.
+2. Activate the **Switch to old Data Explorer** toggle to display the Flux builder. By default, the Cloud IOx UI displays the **Schema Browser** and the **SQL** script editor for creating queries.
 
       ![Data Explorer with Flux](/img/influxdb/2-0-data-explorer.png)
 

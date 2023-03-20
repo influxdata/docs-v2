@@ -7,7 +7,7 @@ menu:
     name: Manage explicit bucket schemas
     parent: Manage buckets
 weight: 250
-influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, explicit measurement schema, schema]
+influxdb/cloud-iox/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, explicit measurement schema, schema]
 related:
   - /influxdb/cloud/reference/key-concepts/
   - /influxdb/cloud/reference/key-concepts/data-schema/
