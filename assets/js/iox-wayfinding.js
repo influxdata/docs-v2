@@ -47,7 +47,7 @@ function slideUp(elem) {
 
 /**
  * Check to see if the iox-wayfinding modal should be opened:
- *  - Is the user coming from an non-whitelisted external referrer?
+ *  - Is the user coming from a non-whitelisted external referrer?
  *  - Has the user opted out of the wayfinding modal?
 */ 
 function shouldOpenWayfinding() {
