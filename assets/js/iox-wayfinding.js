@@ -27,7 +27,7 @@ function toggleWayfinding() {
 
 // Toggle wayfinding modal preference cookie
 function toggleWayfindingPreference() {
-  if (Cookies.get(wayfindingPrefCookie) == 'true') {
+  if (Cookies.get(wayfindingPrefCookie) === 'true') {
     Cookies.set(wayfindingPrefCookie, 'false')
   } else {
     Cookies.set(wayfindingPrefCookie, 'true')
