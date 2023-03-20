@@ -48,7 +48,7 @@ function slideUp(elem) {
 /**
  * Check to see if the iox-wayfinding modal should be opened:
  *  - Is the user coming from an non-whitelisted external referrer?
- *  - Has the user opted out of the wayfinding?
+ *  - Has the user opted out of the wayfinding modal?
 */ 
 function shouldOpenWayfinding() {
   var isExternalReferrer = !referrerWhitelist.includes(referrerHost);
