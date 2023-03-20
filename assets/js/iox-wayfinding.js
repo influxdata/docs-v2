@@ -137,9 +137,9 @@ wayfindingFindOutToggle.onclick = function(event) {
  * the iox-wayfinding modal.
  * This reuses the referrerHost variable defined in assets/js/influxdb-url.js
 */
-// if (shouldOpenWayfinding()) {
-//   toggleWayfinding();
-// }
+if (shouldOpenWayfinding()) {
+  toggleWayfinding();
+}
 
 // Set the state of the show wayfinding input checkbox
 setWayfindingInputState();
