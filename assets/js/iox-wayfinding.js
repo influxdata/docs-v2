@@ -52,7 +52,7 @@ function slideUp(elem) {
 */ 
 function shouldOpenWayfinding() {
   var isExternalReferrer = !referrerWhitelist.includes(referrerHost);
-  var wayfindingOptedOut = Cookies.get(wayfindingPrefCookie) != 'false';
+  var wayfindingOptedOut = Cookies.get(wayfindingPrefCookie) !== 'false';
 
   // Only return true if all conditions are true
   return isExternalReferrer && wayfindingOptedOut;
