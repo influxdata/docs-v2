@@ -55,7 +55,7 @@ There are two places you can create a bucket in the UI.
 
 ## Create a bucket using the influx CLI
 
-To create a bucket with the `influx` CLI, use the [`influx bucket create` command](/influxdb/cloud/reference/cli/influx/bucket/create)
+To create a bucket with the `influx` CLI, use the [`influx bucket create` command](/influxdb/cloud-iox/reference/cli/influx/bucket/create)
 and specify values for the following flags:
 
 | Requirement                    | Include by |
@@ -74,7 +74,7 @@ influx bucket create -n my-bucket -o {INFLUX_ORG} -r 72h
 
 To create a bucket with the InfluxDB HTTP API, send a request to the following endpoint:
 
-[{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets" >}}](/influxdb/cloud/api/#operation/PostBuckets)
+[{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets" >}}](/influxdb/cloud-iox/api/#operation/PostBuckets)
 
 In your request body, specify values for the following properties:
 
@@ -91,7 +91,7 @@ The following example creates a bucket with a retention period of `86,400` secon
 ```
 
 _For information about **InfluxDB API options and response codes**, see
-[InfluxDB API Buckets reference documentation](/influxdb/cloud/api/#operation/PostBuckets)._
+[InfluxDB API Buckets reference documentation](/influxdb/cloud-iox/api/#operation/PostBuckets)._
 
 ## Create a bucket that enforces explicit schemas
 
@@ -119,7 +119,7 @@ Use the `influx bucket create` command and specify the `--schema-type=explicit` 
 
 <!----------------------------- BEGIN API CONTENT ----------------------------->
 
-Use the HTTP API [`/api/v2/buckets`](/influxdb/cloud/api/#operation/PostBuckets)
+Use the HTTP API [`/api/v2/buckets`](/influxdb/cloud-iox/api/#operation/PostBuckets)
 endpoint and set the `schemaType` property value to `explicit` in the request body--for example:
 
 {{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets" >}}
