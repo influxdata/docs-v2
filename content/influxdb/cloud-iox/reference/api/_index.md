@@ -18,7 +18,7 @@ Access the InfluxDB HTTP API using the `/api/v2/` endpoint.
 <a class="btn" href="/influxdb/cloud-iox/api/">InfluxDB {{< current-version >}} API documentation</a>
 
 ## InfluxDB v1 compatibility API documentation
-The InfluxDB HTTP API includes [InfluxDB 1.x compatibility endpoints](/influxdb/cloud-iox/reference/api/influxdb-1x/)
+The InfluxDB HTTP API includes InfluxDB 1.x compatibility endpoints
 that work with InfluxDB 1.x client libraries and third-party integrations like
 [Grafana](https://grafana.com) and others.
 

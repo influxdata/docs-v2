@@ -18,7 +18,7 @@ Build, execute, and visualize your queries in InfluxDB UI's **Data Explorer**.
 <!--Need a screenshot of the SQL builder with a pretty graph-->
 
 Query using saved scripts, the SQL builder, the Flux builder, or by manually editing the query.
-Choose between [visualization types](/influxdb/v2.6/visualize-data/visualization-types/) for your query.
+Choose between **visualization types** for your query.
 
 ## Query data with SQL and the Data Explorer
 
@@ -30,19 +30,27 @@ Choose between [visualization types](/influxdb/v2.6/visualize-data/visualization
    - Typing within the script editor disables **SQL Sync**.
    - If you reenable **SQL Sync**, any selection changes you made in the **Schema Browser** are copied to the script editor.
 3. Select a **Bucket** to define your data source.
-4. Select a **Measurement** from the bucket. By default, InfluxDB selects all columns in your data:
+4. Select a **Measurement** from the bucket.
+   Data Explorer inserts a `SELECT` statement to retrieve all columns in the selected measurement:
 
    ```sql
-   SELECT * FROM measurement
+   SELECT *
+   FROM home
    ```
 5. To add filter conditions to your query, select from the **Fields** and **Tag Keys** lists.
    - **Fields**: filters for rows that have a non-null value for at least one of the selected field columns.
    - **Tag Keys**: filters for rows that have all the selected tag values.
    To learn more, see [Query specific fields and tags](/influxdb/cloud-iox/query-data/sql/basic-query/#query-specific-fields-and-tags).
 6. Use the [time range dropdown](#select-time-range) to edit the time range for your query.
+7. Use the script editor to customize your query--for example, to specify what tags and fields to retrieve:
+
+   ```sql
+   SELECT temp, time
+   FROM home
+   ```
 7. Click the **Run** button (or press `Control+Enter`) to run your query and [view the results](#view-sql-query-results).
 
-See [Query data](/influxdb/cloud-iox/query-data/sql/) to learn more querying InfluxDB with SQL.
+See [Query data](/influxdb/cloud-iox/query-data/sql/) to learn more about building SQL queries.
 
 {{% note %}}
 
@@ -54,7 +62,6 @@ or signout and then come back, you'll see your SQL query and selections in **Dat
 To store a query that you can retrieve and reuse, {{% caps %}}**Save**{{% /caps %}} your query as a *script*.
 
 {{% /note %}}
-
 ## View SQL query results
 
 After you **Run** your query, Data Explorer displays the results.
