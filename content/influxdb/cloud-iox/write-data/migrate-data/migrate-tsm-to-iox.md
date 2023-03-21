@@ -39,10 +39,10 @@ All query and write requests are subject to your InfluxDB Cloud organization's
 
 {{% note %}}
 The migration process requires two buckets in your source InfluxDB
-organization—one bucket to store the data you're migrating and a second bucket
+organization: one bucket to store the data you're migrating and a second bucket
 to store migration metadata.
 If you're using the [InfluxDB Cloud Free Plan](/influxdb/cloud/account-management/limits/#free-plan),
-and have more than one bucket to migrate, you will exceed your plans bucket limit.
+and have more than one bucket to migrate, you will exceed your plan's bucket limit.
 To migrate more than one bucket, you need to [upgrade to the Usage-based plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)
 to complete the migration.
 {{% /note %}}
@@ -273,7 +273,7 @@ from(bucket: "example-cloud-bucket")
 
 The `migration.batchInterval` setting controls the time range queried by each batch.
 The "density" of the data in your InfluxDB Cloud bucket and your InfluxDB Cloud
-organization's [rate limits and quotas](/influxdb/cloud/account-management/limits/)
+organization's [rate limits and quotas](/influxdb/cloud-iox/admin/accounts/limits/)
 determine what your batch interval should be.
 
 For example, if you're migrating data collected from hundreds of sensors with
@@ -369,7 +369,7 @@ too many requests
   a smaller interval. Each batch will then query less data.
 
 ### Invalid API token
-If the API token you add as the `INFLUXDB_IOX_SECRET` doesn't have wrote access
+If the API token you add as the `INFLUXDB_IOX_SECRET` doesn't have write access
 to your InfluxDB Cloud (IOx) bucket, the task will return an error similar to:
 
 ```

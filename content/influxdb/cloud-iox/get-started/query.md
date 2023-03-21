@@ -14,6 +14,8 @@ weight: 102
 metadata: [3 / 3]
 related:
   - /influxdb/cloud-iox/query-data/
+  - /influxdb/cloud-iox/query-data/sql/
+  - /influxdb/cloud-iox/query-data/execute-queries/
 ---
 
 InfluxDB Cloud backed by InfluxDB IOx supports multiple query languages:
@@ -41,13 +43,13 @@ InfluxDB supports many different tools for querying data, including:
 
 {{< req type="key" text="Covered in this tutorial" >}}
 
-- InfluxDB user interface (UI){{< req "\*  " >}}
-- [InfluxDB HTTP API](/influxdb/cloud-iox/reference/api/){{< req "\*  " >}}
-- [`influx` CLI](/influxdb/cloud-iox/tools/influx-cli/){{< req "\*  " >}}
+- [InfluxDB user interface (UI)](?t=InfluxDB+UI#execute-a-sql-query){{< req "\*  " >}}
+- [InfluxDB HTTP API](?t=InfluxDB+API#execute-a-sql-query){{< req "\*  " >}}
+- [`influx` CLI](?t=influx+CLI#execute-a-sql-query){{< req "\*  " >}}
 - [Superset](https://superset.apache.org/)
 - [Grafana](/influxdb/cloud-iox/tools/grafana/)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
-- [InfluxDB client libraries](/influxdb/cloud-iox/api-guide/client-libraries/)
+- InfluxDB client libraries
 
 ## SQL query basics
 
@@ -183,9 +185,9 @@ WHERE
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[InfluxDB UI](#)
-[influx CLI](#)
-[InfluxDB API](#)
+[InfluxDB UI](#influxdb-ui)
+[influx CLI](#influx-cli)
+[InfluxDB API](#influxdb-http-api)
 {{% /tabs %}}
 
 {{% tab-content %}}
@@ -210,6 +212,8 @@ WHERE
 5.  Click **{{< icon "play" >}} {{% caps %}}Run{{% /caps %}}**.
 
 Results are displayed under the text editor.
+
+See [Query in the Data Explorer](/influxdb/cloud-iox/query-data/execute-queries/data-explorer/) to learn more.
 
 <!---------------------------- END FLUX UI CONTENT ---------------------------->
 {{% /tab-content %}}

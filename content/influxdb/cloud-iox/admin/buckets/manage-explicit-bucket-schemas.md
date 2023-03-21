@@ -7,26 +7,25 @@ menu:
     name: Manage explicit bucket schemas
     parent: Manage buckets
 weight: 250
-influxdb/cloud/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, explicit measurement schema, schema]
+influxdb/cloud-iox/tags: [buckets, bucket-schema, bucket schemas, explicit bucket schemas, explicit measurement schema, schema]
 related:
-  - /influxdb/cloud/reference/key-concepts/
-  - /influxdb/cloud/reference/key-concepts/data-schema/
-  - /influxdb/cloud/reference/key-concepts/data-elements/
+  - /influxdb/cloud-iox/write-data/best-practices/schema-design/
+  - /influxdb/cloud-iox/reference/cli/influx/bucket-schema/
   - /influxdb/cloud-iox/admin/buckets/create-bucket/
-  - /influxdb/cloud/reference/cli/influx/
+  - /influxdb/cloud-iox/reference/cli/influx/
 ---
 
-Use [**explicit bucket schemas**](/influxdb/cloud/reference/glossary/#bucket-schema) to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#tag), [fields](/influxdb/cloud/reference/glossary/#field), and
-[data types](/influxdb/cloud/reference/glossary/#data-type) for your data.
+Use [**explicit bucket schemas**](/influxdb/cloud-iox/reference/glossary/#bucket-schema) to enforce [column names](/influxdb/cloud-iox/reference/glossary/#column), [tags](/influxdb/cloud-iox/reference/glossary/#tag), [fields](/influxdb/cloud-iox/reference/glossary/#field), and
+[data types](/influxdb/cloud-iox/reference/glossary/#data-type) for your data.
 Buckets with the `explicit` schema-type, use
 explicit bucket schemas to ensure measurements have specific columns and data types and to prevent non-conforming writes.
 
-After you create a bucket schema, you're ready to [write data](/influxdb/cloud/write-data/) to your bucket.
+After you create a bucket schema, you're ready to [write data](/influxdb/cloud-iox/write-data/) to your bucket.
 
 {{% note %}}
 #### Before you begin
 
-The examples below reference **InfluxDB data elements**. We recommend reviewing [schema design best practices](/influxdb/cloud-iox/write-data/best-practices/schema-design/) and [**elements of line protocol**](/influxdb/cloud/reference/syntax/line-protocol/#elements-of-line-protocol) if you aren't familiar with these concepts.
+The examples below reference **InfluxDB data elements**. We recommend reviewing [schema design best practices](/influxdb/cloud-iox/write-data/best-practices/schema-design/) and [**elements of line protocol**](/influxdb/cloud-iox/reference/syntax/line-protocol/#elements-of-line-protocol) if you aren't familiar with these concepts.
 {{% /note %}}
 
 - [Create an explicit bucket and schema](#create-an-explicit-bucket-and-schema)
@@ -60,7 +59,7 @@ A measurement schema has the following properties:
 
 To learn more about rules for measurement _names_ and _columns_, see how to [write valid schemas](#write-valid-schemas).
 
-Use the [**`influx` CLI**](/influxdb/cloud/reference/cli/influx/) or [**InfluxDB HTTP API**](/influxdb/cloud/api) to create an explicit bucket schema for a measurement.
+Use the [**`influx` CLI**](/influxdb/cloud-iox/reference/cli/influx/) or [**InfluxDB HTTP API**](/influxdb/cloud-iox/api) to create an explicit bucket schema for a measurement.
 
 - [Create a bucket schema using the influx CLI](#create-a-bucket-schema-using-the-influx-cli)
 - [Create a bucket schema using the InfluxDB HTTP API](#create-a-bucket-schema-using-the-influxdb-http-api)
@@ -92,7 +91,7 @@ Use the [**`influx` CLI**](/influxdb/cloud/reference/cli/influx/) or [**InfluxDB
   {{% /code-tab-content %}}
   {{< /code-tabs-wrapper >}}
 
-  2. Use the [`influx bucket-schema create` command](/influxdb/cloud/reference/cli/influx/bucket-schema/create) to define an _explicit_ bucket measurement schema. In your command, specify values for the following flags:
+  2. Use the [`influx bucket-schema create` command](/influxdb/cloud-iox/reference/cli/influx/bucket-schema/create) to define an _explicit_ bucket measurement schema. In your command, specify values for the following flags:
 
       - `--name`: the measurement name.
       - `--columns-file`: the location of the file that contains *column definitions* for your measurement.
@@ -117,7 +116,7 @@ Use the [**`influx` CLI**](/influxdb/cloud/reference/cli/influx/) or [**InfluxDB
         ```
 #### Create a bucket schema using the InfluxDB HTTP API
 
-Send a request to the HTTP API [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb/cloud/api/#operation/createMeasurementSchema)
+Send a request to the HTTP API [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb/cloud-iox/api/#operation/createMeasurementSchema)
 and set the following properties in the request body:
 
 - `name`: the measurement name.
@@ -193,7 +192,7 @@ as in the following example:
 
 ## View bucket schema type and schemas
 
-Use the **InfluxDB UI**, [**`influx` CLI**](/influxdb/cloud/reference/cli/influx/), or [**InfluxDB HTTP API**](/influxdb/cloud/api) to view schema type and schemas for buckets.
+Use the **InfluxDB UI**, [**`influx` CLI**](/influxdb/cloud-iox/reference/cli/influx/), or [**InfluxDB HTTP API**](/influxdb/cloud-iox/api) to view schema type and schemas for buckets.
 
 ### View schema type and schemas in the InfluxDB UI
 
@@ -203,12 +202,12 @@ Use the **InfluxDB UI**, [**`influx` CLI**](/influxdb/cloud/reference/cli/influx
 
 ### View schema type and schemas using the influx CLI
 
-To list schemas for a bucket, use the [`influx bucket-schema list` command](/influxdb/cloud/reference/cli/influx/bucket-schema/list/).
+To list schemas for a bucket, use the [`influx bucket-schema list` command](/influxdb/cloud-iox/reference/cli/influx/bucket-schema/list/).
 To view schema column definitions and metadata, specify the `--json` flag.
 
 ### View schema type and schemas using the InfluxDB HTTP API
 
-To list schemas for a bucket, send a request to the InfluxDB HTTP [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb/cloud/api/#operation/getMeasurementSchemas):
+To list schemas for a bucket, send a request to the InfluxDB HTTP [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb/cloud-iox/api/#operation/getMeasurementSchemas):
 
 {{% api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements" %}}
 
@@ -236,7 +235,7 @@ You can't modify or delete columns in bucket schemas.
     echo '{"name": "CO2", "type": "field", "dataType": "float"}' >> sensor.ndjson
     ```
 
-3. To update the bucket schema, use the [`influx bucket-schema update` command](/influxdb/cloud/reference/cli/influx/bucket-schema/update) and specify the columns file with the `--columns-file` flag.
+3. To update the bucket schema, use the [`influx bucket-schema update` command](/influxdb/cloud-iox/reference/cli/influx/bucket-schema/update) and specify the columns file with the `--columns-file` flag.
 
     ```sh
     influx bucket-schema update \
@@ -249,7 +248,7 @@ You can't modify or delete columns in bucket schemas.
 
 1. [View the existing measurement schema](#view-schema-type-and-schemas-using-the-influxdb-http-api) and copy the `columns` list.
 
-2. Send a request to the HTTP API [`/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}` endpoint](/influxdb/cloud/api/#operation/updateMeasurementSchema).
+2. Send a request to the HTTP API [`/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}` endpoint](/influxdb/cloud-iox/api/#operation/updateMeasurementSchema).
 
     In the request body, set the `columns` property to a list of old and new column definitions for the measurement schema--for example, the following request appends the new column `CO2` to `columns` retrieved in the previous step:
 
@@ -295,5 +294,5 @@ InfluxDB returns an error for the following reasons:
 - data in the write request has invalid syntax.
 
 <!-- Pending IOx troubleshoot page --
-To resolve failures and partial writes, see how to [troubleshoot writes](/influxdb/cloud/write-data/troubleshoot/).
+To resolve failures and partial writes, see how to [troubleshoot writes](/influxdb/cloud-iox/write-data/troubleshoot/).
 -->
