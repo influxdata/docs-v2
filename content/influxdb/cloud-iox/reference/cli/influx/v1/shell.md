@@ -9,8 +9,8 @@ menu:
 weight: 101
 influxdb/cloud-iox/tags: [InfluxQL]
 related:
-  - /influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/cloud-iox/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/cloud-iox/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/cloud/query-data/influxql/
   - /influxdb/v2.4/tools/influxql-shell/
 metadata: [influx CLI 2.4.0+, InfluxDB Cloud]

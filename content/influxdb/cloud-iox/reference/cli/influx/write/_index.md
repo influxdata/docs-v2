@@ -11,13 +11,12 @@ weight: 101
 influxdb/cloud-iox/tags: [write]
 cascade:
   related:
-    - /influxdb/cloud/write-data/
-    - /influxdb/cloud/write-data/developer-tools/csv/
-    - /influxdb/cloud/reference/syntax/line-protocol/
-    - /influxdb/cloud/reference/syntax/annotated-csv/
-    - /influxdb/cloud/reference/syntax/annotated-csv/extended/
-    - /influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+    - /influxdb/cloud-iox/write-data/
+    - /influxdb/cloud-iox/reference/syntax/line-protocol/
+    - /influxdb/cloud-iox/reference/syntax/annotated-csv/
+    - /influxdb/cloud-iox/reference/syntax/annotated-csv/extended/
+    - /influxdb/cloud-iox/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+    - /influxdb/cloud-iox/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   metadata: [influx CLI 2.0.0+]
 updated_in: CLI v2.0.5
 ---

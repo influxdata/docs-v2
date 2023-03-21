@@ -10,8 +10,8 @@ aliases:
   - /influxdb/cloud/reference/cli/influx/bucket/create/
 related:
   - /influxdb/cloud/organizations/buckets/create-buckets/
-  - /influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/cloud-iox/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/cloud-iox/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
 updated_in: CLI v2.1.0
 ---
 
