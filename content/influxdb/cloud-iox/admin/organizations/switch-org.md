@@ -4,12 +4,14 @@ seotitle: Switch between InfluxDB Cloud organizations
 description: >
   Switch from one InfluxDB Cloud organization to another.  
 menu:
-  influxdb_cloud:
+  influxdb_cloud_iox:
     name: Switch InfluxDB organizations
-    parent: Account management
+    parent: Manage organizations
 weight: 105
+aliases:
+  - /influxdb/cloud-iox/account-management/switch-org/
 related:
-  - /influxdb/cloud/account-management/switch-account/
+  - /influxdb/cloud-iox/admin/accounts/switch-account/
 ---
 
 If you belong to more than one {{< cloud-name >}} organization with the same email address, you can switch from one organization to another while staying logged in.
