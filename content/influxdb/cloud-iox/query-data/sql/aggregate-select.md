@@ -171,7 +171,12 @@ To apply aggregate or selector functions to grouped data:
 
 - Use aggregate or selector functions in your `SELECT` statement.
 - Include columns to group by in your `SELECT` statement.
-- Include a `GROUP BY` clause with a comma-delimited list of columns to group by.
+- Include a `GROUP BY` clause with a comma-delimited list of columns and expressions to group by.
+
+Keep the following in mind when using `GROUP BY`:
+
+- `GROUP BY` can use column aliases that are defined in the `SELECT` clause.
+- `GROUP BY` can't use an alias named `time`. If you include `time` in `GROUP BY`, it always uses the measurement `time` column.
 
 ```sql
 SELECT
@@ -199,22 +204,37 @@ groups:
 - In your `SELECT` clause:
 
   - Use the [`DATE_BIN` function](/influxdb/cloud-iox/reference/sql/functions/time-and-date/#date_bin)
-    to calculate time intervals and return a new `time` column that contains the start of the nearest interval associated with your timestamp--for example,
-    the following statement calculates two-hour intervals starting at `1970-01-01T00:00:00Z` and calculates the nearest interval for `time` in each row:
+    to calculate time intervals and output a column that contains the start of the interval nearest to the `time` timestamp in each row--for example,
+    the following clause calculates two-hour intervals starting at `1970-01-01T00:00:00Z` and returns a new `time` column that contains the start of the interval
+    nearest to `home.time`:
     
     ```sql
     SELECT DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time
-    FROM home
+    from home
+    ...
     ```
     
-    If the `time` timestamp in your data is
+    Given a `time` value
     {{% influxdb/custom-timestamps-span %}}`2023-03-09T13:00:50.000Z`{{% /influxdb/custom-timestamps-span %}},
-    then the query returns the `time` value
+    the output `time` column contains
     {{% influxdb/custom-timestamps-span %}}`2023-03-09T12:00:00.000Z`{{% /influxdb/custom-timestamps-span %}}.
   - Use [aggregate](/influxdb/cloud-iox/reference/sql/functions/aggregate/) or [selector](/influxdb/cloud-iox/reference/sql/functions/selector/) functions on specified columns.
-  - Include columns to group by.
 
-- Include a `GROUP BY` clause with `time` and other columns to group by.
+- In your `GROUP BY` clause:
+ 
+  - Use the [`DATE_BIN` function](/influxdb/cloud-iox/reference/sql/functions/time-and-date/#date_bin) with the same parameters used in the `SELECT` clause.
+  - Specify other columns (for example, `room`) that are specified in the `SELECT` clause and aren't used in a selector function.
+
+  ```sql
+  SELECT DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time
+  ...
+  GROUP BY DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP), room
+  ...
+  ```
+
+- Include an `ORDER BY` clause with columns to sort by.
+
+The following example retrieves unique combinations of time intervals and rooms with their minimum, maximum, and average temperatures.
 
 ```sql
 SELECT
@@ -224,7 +244,8 @@ SELECT
   selector_min(temp, time)['value'] AS 'min temp',
   avg(temp) AS 'average temp'
 FROM home
-GROUP BY time, room
+GROUP BY DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP), room
+ORDER BY room, time
 ```
 
 {{< expand-wrapper >}}
