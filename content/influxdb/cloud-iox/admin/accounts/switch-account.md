@@ -4,10 +4,12 @@ seotitle: Switch between InfluxDB Cloud accounts
 description: >
   Switch from one InfluxDB Cloud account to another and set a default account.  
 menu:
-  influxdb_cloud:
+  influxdb_cloud_iox:
     name: Switch InfluxDB accounts
     parent: Account management
 weight: 105
+aliases:
+  - /influxdb/cloud-iox/account-management/switch-account/
 ---
 
 If you belong to more than one {{< cloud-name >}} account with the same email address, you can switch from one account to another while staying logged in.
