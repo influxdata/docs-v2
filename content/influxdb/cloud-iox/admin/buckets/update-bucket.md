@@ -3,7 +3,7 @@ title: Update a bucket
 seotitle: Update a bucket in InfluxDB
 description: Update a bucket's name or retention period in InfluxDB using the InfluxDB UI or the influx CLI.
 menu:
-  influxdb_cloud:
+  influxdb_cloud_iox:
     name: Update a bucket
     parent: Manage buckets
 weight: 202
@@ -46,13 +46,13 @@ If you change a bucket name, be sure to update the bucket name in the above plac
 
     {{% note %}}
 Use the [`influx bucket update` command](#update-a-buckets-retention-period)
-or the [InfluxDB HTTP API `PATCH /api/v2/buckets` endpoint](/influxdb/cloud/api/#operation/PatchBucketsID) to set a custom retention period.
+or the [InfluxDB HTTP API `PATCH /api/v2/buckets` endpoint](/influxdb/cloud-iox/api/#operation/PatchBucketsID) to set a custom retention period.
     {{% /note %}}
 5. Click **{{< caps >}}Save Changes{{< /caps >}}**.
 
 ## Update a bucket using the influx CLI
 
-Use the [`influx bucket update` command](/influxdb/cloud/reference/cli/influx/bucket/update)
+Use the [`influx bucket update` command](/influxdb/cloud-iox/reference/cli/influx/bucket/update)
 to update a bucket.
 Updating a bucket requires the following:
 
@@ -97,7 +97,7 @@ influx bucket update -i 034ad714fdd6f000 -r 1209600000000000ns
 
 ## Update a bucket using the HTTP API
 
-Use the InfluxDB HTTP API [`PATCH /api/v2/buckets` endpoint](/influxdb/cloud/api/#operation/PatchBucketsID)
+Use the InfluxDB HTTP API [`PATCH /api/v2/buckets` endpoint](/influxdb/cloud-iox/api/#operation/PatchBucketsID)
 to update a bucket.
 
 Updating a bucket requires the following:
@@ -109,11 +109,11 @@ You can update the following bucket properties:
 - description
 - retention rules
 
-1. To find the bucket ID, send a request to the HTTP API [`GET /api/v2/buckets/` endpoint](/influxdb/cloud/api/#operation/GetBuckets) to retrieve the list of buckets. <!-- @TODO: provide API auth note about tokens and read access to buckets -->
+1. To find the bucket ID, send a request to the HTTP API [`GET /api/v2/buckets/` endpoint](/influxdb/cloud-iox/api/#operation/GetBuckets) to retrieve the list of buckets. <!-- @TODO: provide API auth note about tokens and read access to buckets -->
 
     {{< api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" >}}
 
-2. Send a request to the HTTP API [PATCH `/api/v2/buckets/{BUCKET_ID}` endpoint](/influxdb/cloud/api/#operation/PatchBucketsID).
+2. Send a request to the HTTP API [PATCH `/api/v2/buckets/{BUCKET_ID}` endpoint](/influxdb/cloud-iox/api/#operation/PatchBucketsID).
 
     In the URL path, specify the ID of the bucket from the previous step that you want to update.
     In the request body, set the properties that you want to update--for example:
