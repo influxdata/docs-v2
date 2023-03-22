@@ -7,6 +7,8 @@ menu:
     name: View buckets
     parent: Manage buckets
 weight: 202
+aliases:
+  - /influxdb/cloud-iox/organizations/buckets/view-buckets/
 ---
 
 ## View buckets in the InfluxDB UI

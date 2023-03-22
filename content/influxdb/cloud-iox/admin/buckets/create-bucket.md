@@ -9,6 +9,8 @@ menu:
 weight: 201
 related:
   - /influxdb/cloud-iox/admin/buckets/manage-explicit-bucket-schemas/
+aliases:
+  - /influxdb/cloud-iox/organizations/buckets/create-bucket/
 ---
 
 Use the InfluxDB user interface (UI), `influx` command line interface (CLI), or InfluxDB HTTP API

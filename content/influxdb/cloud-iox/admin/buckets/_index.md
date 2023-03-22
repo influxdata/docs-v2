@@ -8,6 +8,8 @@ menu:
     parent: Administer InfluxDB Cloud
 weight: 105
 influxdb/cloud-iox/tags: [buckets]
+aliases:
+  - /influxdb/cloud-iox/organizations/buckets/
 ---
 
 A **bucket** is a named location where time series data is stored.
