@@ -7136,7 +7136,7 @@ paths:
 
         #### Related Guides
 
-        - [Manage buckets](/influxdb/cloud-iox/organizations/buckets/)
+        - [Manage buckets](/influxdb/cloud-iox/admin/buckets/)
       operationId: GetBuckets
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -7267,7 +7267,7 @@ paths:
 
         #### Related Guides
 
-        - [Create a bucket](/influxdb/cloud-iox/organizations/buckets/create-bucket/)
+        - [Create a bucket](/influxdb/cloud-iox/admin/buckets/create-bucket/)
         - [Create bucket CLI reference](/influxdb/cloud-iox/reference/cli/influx/bucket/create)
       operationId: PostBuckets
       parameters:
@@ -7405,7 +7405,7 @@ paths:
 
         #### Related Guides
 
-        - [Delete a bucket](/influxdb/cloud-iox/organizations/buckets/delete-bucket/#delete-a-bucket-in-the-influxdb-ui)
+        - [Delete a bucket](/influxdb/cloud-iox/admin/buckets/delete-bucket/#delete-a-bucket-in-the-influxdb-ui)
       operationId: DeleteBucketsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -7568,7 +7568,7 @@ paths:
 
         #### Related Guides
 
-        - [Update a bucket](/influxdb/cloud-iox/organizations/buckets/update-bucket/)
+        - [Update a bucket](/influxdb/cloud-iox/admin/buckets/update-bucket/)
       operationId: PatchBucketsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -8449,8 +8449,8 @@ paths:
 
         #### Related guides
 
-        - [Manage bucket schemas](/influxdb/cloud-iox/organizations/buckets/bucket-schema/).
-        - [Create a bucket with an explicit schema](/influxdb/cloud-iox/organizations/buckets/create-bucket/#create-a-bucket-with-an-explicit-schema)
+        - [Manage bucket schemas](/influxdb/cloud-iox/admin/buckets/bucket-schema/).
+        - [Create a bucket with an explicit schema](/influxdb/cloud-iox/admin/buckets/create-bucket/#create-a-bucket-with-an-explicit-schema)
       operationId: createMeasurementSchema
       parameters:
         - description: |
@@ -8637,7 +8637,7 @@ paths:
 
         #### Related guides
 
-        - [Manage bucket schemas](/influxdb/cloud-iox/organizations/buckets/bucket-schema/).
+        - [Manage bucket schemas](/influxdb/cloud-iox/admin/buckets/bucket-schema/).
         - [Using bucket schemas](https://www.influxdata.com/blog/new-bucket-schema-option-protect-from-unwanted-schema-changes/).
       operationId: updateMeasurementSchema
       parameters:
@@ -15907,7 +15907,7 @@ tags:
 
       ### Related guides
 
-      - [Manage buckets](/influxdb/cloud-iox/organizations/buckets/)
+      - [Manage buckets](/influxdb/cloud-iox/admin/buckets/)
     name: Buckets
   - name: Cells
   - name: Checks
@@ -15920,8 +15920,8 @@ tags:
 
       | Query parameter          | Value type            | Description                                |
       |:------------------------ |:--------------------- |:-------------------------------------------|
-      | `bucket`                 | string                | The bucket name or ID ([find your bucket](/influxdb/cloud-iox/organizations/buckets/view-buckets/). |
-      | `bucketID`               | string                | The bucket ID ([find your bucket](/influxdb/cloud-iox/organizations/buckets/view-buckets/). |
+      | `bucket`                 | string                | The bucket name or ID ([find your bucket](/influxdb/cloud-iox/admin/buckets/view-buckets/). |
+      | `bucketID`               | string                | The bucket ID ([find your bucket](/influxdb/cloud-iox/admin/buckets/view-buckets/). |
       | `org`                    | string                | The organization name or ID ([find your organization](/influxdb/cloud-iox/organizations/view-orgs/). |
       | `orgID`                  | 16-byte string        | The organization ID ([find your organization](/influxdb/cloud-iox/organizations/view-orgs/). |
     name: Common parameters

@@ -11,7 +11,7 @@ weight: 202
 
 ## View buckets in the InfluxDB UI
 
-1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
+1. In the navigation menu on the left, select **Load Data** > **Buckets**.
 
     {{< nav-icon "data" >}}
 

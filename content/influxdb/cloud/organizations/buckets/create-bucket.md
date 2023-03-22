@@ -27,7 +27,7 @@ There are two places you can create a bucket in the UI.
 
 ### Create a bucket from the Load Data menu
 
-1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
+1. In the navigation menu on the left, select **Load Data** > **Buckets**.
 
     {{< nav-icon "data" >}}
 
