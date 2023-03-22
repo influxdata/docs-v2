@@ -19,6 +19,6 @@ All dashboards, tasks, buckets, members, etc., belong to an organization.
 An **account** can contain multiple organizations.
 You can use organizations to separate data, environments (dev, staging, prod), teams, providers, and regions within the same account.
 
-<!-- The following articles provide information about managing organizations: -->
+The following articles provide information about managing organizations:
 
 {{< children >}}
