@@ -34,7 +34,7 @@ list_code_example: |
     tag1
   FROM home
   GROUP BY
-    time,
+    DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP),
     tag1
   ```
 ---
