@@ -182,8 +182,8 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
     getting started tutorial. All examples in this tutorial assume a bucket named
     **"get-started"**.
 
-    Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to create a
-    new bucket.
+    Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to [create a
+    bucket](/influxdb/cloud-iox/admin/buckets/create-bucket/).
 
     {{< tabs-wrapper >}}
 {{% tabs %}}

@@ -33,7 +33,7 @@ This tutorial walks you through the fundamentals of querying data in InfluxDB an
 [Query data in InfluxDB](/influxdb/cloud-iox/query-data/). -->
 
 {{% note %}}
-The examples in this section of the tutorial query the data from written in the
+The examples in this section of the tutorial query the [**get-started** bucket](/influxdb/cloud-iox/get-started/setup/) for data written in the
 [Get started writing data](/influxdb/cloud-iox/get-started/write/#write-line-protocol-to-influxdb) section.
 {{% /note %}}
 
@@ -58,7 +58,7 @@ query engine which provides a SQL syntax similar to PostgreSQL.
 
 {{% note %}}
 This is a brief introduction to writing SQL queries for InfluxDB.
-For more in-depth details, see the [SQL reference documentation](/influxdb/cloud-iox/reference/sql/).
+For more in-depth details, see [Query data with SQL](/influxdb/cloud-iox/query-data/sql/).
 {{% /note %}}
 
 InfluxDB SQL queries most commonly include the following clauses:
@@ -78,10 +78,10 @@ InfluxDB SQL queries most commonly include the following clauses:
 
 {{% influxdb/custom-timestamps %}}
 ```sql
--- Return the average temperature and humidity from each room
+-- Return the average temperature and humidity within time bounds from each room
 SELECT
-  mean(temp),
-  mean(hum),
+  avg(temp),
+  avg(hum),
   room
 FROM
   home
@@ -107,7 +107,7 @@ SELECT * FROM measurement
 SELECT
   *
 FROM
-  measurement
+  home
 WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time <= '2022-01-01T20:00:00Z'
@@ -116,19 +116,19 @@ WHERE
 
 {{% expand "Select a specific field within relative time bounds" %}}
 ```sql
-SELECT field1 FROM measurement WHERE time >= now() - INTERVAL '1 day'
+SELECT temp FROM home WHERE time >= now() - INTERVAL '1 day'
 ```
 {{% /expand %}}
 
 {{% expand "Select specific fields and tags from a measurement" %}}
 ```sql
-SELECT field1, field2, tag1 FROM measurement
+SELECT temp, room FROM home
 ```
 {{% /expand %}}
 
 {{% expand "Select data based on tag value" %}}
 ```sql
-SELECT * FROM measurement WHERE tag1 = 'value1'
+SELECT * FROM home WHERE room = 'Kitchen'
 ```
 {{% /expand %}}
 
@@ -137,11 +137,11 @@ SELECT * FROM measurement WHERE tag1 = 'value1'
 SELECT
   *
 FROM
-  measurement
+  home
 WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time <= '2022-01-01T20:00:00Z'
-  AND tag1 = 'value1'
+  AND room = 'Living Room'
 ```
 {{% /expand %}}
 
@@ -149,14 +149,14 @@ WHERE
 ```sql
 SELECT
   DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP) as time,
-  mean(field1),
-  sum(field2),
-  tag1
+  selector_max(temp, DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP))['value'] AS 'max temp',
+  room
 FROM
   home
 GROUP BY
-  time,
-  tag1
+  DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP),
+  'max temp',
+  room
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
