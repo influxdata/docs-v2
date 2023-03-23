@@ -34,7 +34,7 @@ list_code_example: |
     tag1
   FROM home
   GROUP BY
-    time,
+    DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP),
     tag1
   ```
 ---
@@ -43,15 +43,13 @@ A SQL query that aggregates data includes the following clauses:
 
 {{< req type="key" >}}
 
-- {{< req "\*">}} `SELECT`: Identify specific fields and tags to query from a
+- {{< req "\*">}} `SELECT`: Specify fields, tags, and calculations to output from a
   measurement or use the wild card alias (`*`) to select all fields and tags
-  from a measurement. Include any columns you want to group by in the `SELECT`
-  clause.
-- {{< req "\*">}} `FROM`: Identify the measurement to query data from.
-- `WHERE`: Only return data that meets defined conditions such as falling within
-  a time range, containing specific tag values, etc.
-- `GROUP BY`: Group data into SQL partitions by specific columns and apply an
-  aggregate or selector function to each group.
+  from a measurement.
+- {{< req "\*">}} `FROM`: Specify the measurement to query data from.
+- `WHERE`: Only return data that meets the specified conditions--for example, falls within
+  a time range, contains specific tag values, or contains a field value outside a specified range.
+- `GROUP BY`: Group data that have the same values for specified columns and expressions (for example, an aggregate function result).
 
 {{% note %}}
 For simplicity, the term **"aggregate"** in this guide refers to applying
