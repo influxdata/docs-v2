@@ -13,9 +13,14 @@ weight: 101
 metadata: [1 / 3]
 related:
   - /influxdb/cloud-iox/security/tokens/
-  - /influxdb/cloud-iox/organizations/buckets/
-  - /influxdb/cloud-iox/tools/influx-cli/
+  - /influxdb/cloud-iox/security/tokens/create-token/
+  - /influxdb/cloud-iox/security/tokens/view-tokens/
+  - /influxdb/cloud-iox/admin/buckets/
+  - /influxdb/cloud-iox/reference/cli/influx/
   - /influxdb/cloud-iox/reference/api/
+aliases:
+  - /influxdb/cloud-iox/security/tokens/create-token/
+  - /influxdb/cloud-iox/security/tokens/view-tokens/
 ---
 
 As you get started with this tutorial, do the following to make sure everything
