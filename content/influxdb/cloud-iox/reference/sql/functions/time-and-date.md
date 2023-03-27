@@ -69,15 +69,17 @@ date_bin(interval, expression, origin-timestamp)
 
 The following intervals are supported:
 
- - milliseconds
- - seconds
- - minutes
- - hours 
- - days 
- - weeks
- - months 
- - years
- - century
+- nanoseconds
+- microseconds
+- milliseconds
+- seconds
+- minutes
+- hours 
+- days 
+- weeks
+- months 
+- years
+- century
 
 {{< expand-wrapper >}}
 {{% expand "View `date_bin` query example" %}}
