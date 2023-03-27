@@ -109,7 +109,7 @@ pip3 install flightsql-dbapi
     [DB API 2](https://peps.python.org/pep-0249/) interface and
     [SQLAlchemy](https://www.sqlalchemy.org/) dialect for
     [Flight SQL](https://arrow.apache.org/docs/format/FlightSql.html).
-    You need it later for configuring Superset.
+    Later, you'll add it to Superset's Docker configuration.
 
     {{% warn %}}
 The `flightsql-dbapi` library is experimental and under active development.
