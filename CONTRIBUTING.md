@@ -101,7 +101,7 @@ updated_in: # Product and version the referenced feature was updated in (display
 ### Title usage
 
 ##### `title`
-The `title` frontmatter populates each page's h1 header.
+The `title` frontmatter populates each page's HTML `h1` heading tag.
 It shouldn't be overly long, but should set the context for users coming from outside sources.
 
 ##### `seotitle`
