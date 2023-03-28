@@ -117,14 +117,14 @@ You can update the following bucket properties:
 
 1. To find the bucket ID, send a request to the HTTP API [`GET /api/v2/buckets/` endpoint](/influxdb/cloud/api/#operation/GetBuckets) to retrieve the list of buckets. <!-- @TODO: provide API auth note about tokens and read access to buckets -->
 
-    {{< api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" >}}
+    {{< api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" api-ref="/influxdb/cloud/api/#operation/GetBuckets" >}}
 
 2. Send a request to the HTTP API [PATCH `/api/v2/buckets/{BUCKET_ID}` endpoint](/influxdb/cloud/api/#operation/PatchBucketsID).
 
     In the URL path, specify the ID of the bucket from the previous step that you want to update.
     In the request body, set the properties that you want to update--for example:
 
-    {{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}" >}}
+    {{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}" api-ref="/influxdb/cloud/api/#operation/PatchBucketsID" >}}
 
     ```js
     {
