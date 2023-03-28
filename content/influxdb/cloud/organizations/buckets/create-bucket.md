@@ -9,6 +9,7 @@ menu:
     name: Create a bucket
     parent: Manage buckets
 weight: 201
+alt_engine: /influxdb/cloud-iox/admin/buckets/create-bucket/
 ---
 
 Use the InfluxDB user interface (UI), the `influx` command line interface (CLI),

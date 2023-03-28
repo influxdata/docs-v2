@@ -15,6 +15,7 @@ related:
 aliases:
   - /influxdb/cloud-iox/telegraf-configs/create/
   - /influxdb/cloud-iox/telegraf-configs/clone/
+alt_engine: /influxdb/cloud/telegraf-configs/create/
 ---
 
 {{< duplicate-oss "/telegraf-configs/create" >}}

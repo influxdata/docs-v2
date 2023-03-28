@@ -6,6 +6,7 @@ menu:
   influxdb_cloud:
     name: Migrate data
 weight: 9
+alt_engine: /influxdb/cloud-iox/write-data/migrate-data/
 ---
 
 Migrate data to InfluxDB from other InfluxDB instances including by InfluxDB OSS
