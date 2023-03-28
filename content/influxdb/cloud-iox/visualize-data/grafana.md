@@ -3,7 +3,7 @@ title: Use Grafana to query and visualize data
 seotitle: Use Grafana to query and visualize data stored in InfluxDB Cloud (IOx)
 list_title: Use Grafana
 description: >
-  Install and run [Grafana](https://grafana.com/) to query and visualize data stored in an
+  Use [Grafana](https://grafana.com/) to query and visualize data stored in an
   InfluxDB bucket powered by InfluxDB IOx.
 weight: 101
 menu:
@@ -41,18 +41,18 @@ Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-fl
 
 ## Install Grafana
 
-Follow [Grafana installations instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
-for your operating system to Install Grafana.
-
-
-## Download the Grafana Flight SQL plugin
-
-Download the latest release from [influxdata/grafana-flightsql-datasource releases](https://github.com/influxdata/grafana-flightsql-datasource/releases).
+Follow the [Grafana.com instructions to Install Grafana](https://grafana.com/docs/grafana/latest/setup-grafana/installation/) for your system.
 
 {{% warn %}}
 Because Grafana Flight SQL Plugin is a custom plugin, you can't use it with Grafana Cloud.
 For more information, see [Find and Use Plugins in the Grafana Cloud documentation](https://grafana.com/docs/grafana-cloud/fundamentals/find-and-use-plugins/)
+{{% /warn %}}
 
+## Download the Grafana Flight SQL Plugin
+
+Download the latest release from [influxdata/grafana-flightsql-datasource releases](https://github.com/influxdata/grafana-flightsql-datasource/releases).
+
+{{% warn %}}
 The Grafana Flight SQL plugin is experimental and subject to change.
 {{% /warn %}}
 
