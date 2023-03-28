@@ -63,7 +63,7 @@ In the navigation menu on the left, click **Data Explorer**.
 
 ### Add sample data
 
-1. In the navigation menu on the left, click **Data (Load Data)** > **Buckets**.
+1. In the navigation menu on the left, click **Load Data** > **Buckets**.
 
     {{< nav-icon "data" >}}
 

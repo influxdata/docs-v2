@@ -1,0 +1,33 @@
+- name: Using the InfluxDB HTTP API
+  tags:
+    - Quick start
+    - Authentication
+    - Supported operations
+    - Headers
+    - Pagination
+    - Response codes
+    - Data I/O endpoints
+    - Security and access endpoints
+    - System information endpoints
+- name: All endpoints
+  tags:
+    - Authorizations (API tokens)
+    - Bucket Schemas
+    - Buckets
+    - Delete
+    - DBRPs
+    - Invokable Scripts
+    - Legacy Query
+    - Legacy Write
+    - Limits
+    - Organizations
+    - Query
+    - Resources
+    - Routes
+    - Secrets
+    - Tasks
+    - Telegrafs
+    - Templates
+    - Usage
+    - Variables
+    - Write

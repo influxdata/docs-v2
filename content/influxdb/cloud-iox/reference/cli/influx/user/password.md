@@ -7,9 +7,9 @@ menu:
     parent: influx user
 weight: 201
 related:
-  - /influxdb/cloud/account-management/change-password/
-  - /influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
+  - /influxdb/cloud-iox/admin/accounts/change-password/
+  - /influxdb/cloud-iox/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
+  - /influxdb/cloud-iox/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
 canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/password/
 ---
 

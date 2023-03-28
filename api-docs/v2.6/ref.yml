@@ -20092,17 +20092,14 @@ tags:
       Write time series data to [buckets](/influxdb/latest/reference/glossary/#bucket).
     name: Write
 x-tagGroups:
-  - name: Overview
+  - name: Using the InfluxDB HTTP API
     tags:
       - Quick start
       - Authentication
       - Supported operations
       - Headers
-      - Common parameters
       - Pagination
       - Response codes
-  - name: ''
-    tags:
       - Data I/O endpoints
       - Security and access endpoints
       - System information endpoints

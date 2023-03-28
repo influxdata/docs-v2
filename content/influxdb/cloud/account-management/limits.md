@@ -1,5 +1,6 @@
 ---
 title: InfluxDB Cloud limits and adjustable quotas
+list_title: Limits and adjustable quotas
 description: >
   InfluxDB Cloud has adjustable service quotas and global (non-adjustable) system limits.
 weight: 110
@@ -13,10 +14,11 @@ related:
   - /influxdb/cloud/write-data/best-practices/resolve-high-cardinality/
 ---
 
-InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis. Currently, InfluxDB Cloud supports one organization per account.
+InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis.
 
 {{% warn %}}
-All __rates__ (data-in (writes), queries (reads), and deletes) are accrued within a fixed five-minute window. Once a rate is exceeded, an error response is returned until the current five-minute window resets.
+All __rates__ (data-in (writes), queries (reads), and deletes) are accrued within a fixed five-minute window.
+Once a rate is exceeded, an error response is returned until the current five-minute window resets.
 {{% /warn %}}
 
 Review adjustable service quotas and global limits to plan for your bandwidth needs:
@@ -50,7 +52,7 @@ _To request higher service quotas, reach out to [InfluxData Support](https://sup
 - **Storage**: 30 days of data retention (see [retention period](/influxdb/cloud/reference/glossary/#retention-period))
 
 {{% note %}}
-To write historical data older than 30 days, retain data for more than 30 days, or increase rate limits, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
+To write historical data older than 30 days, retain data for more than 30 days, increase rate limits, or create additional organizations, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
 {{% /note %}}
 
 ### Usage-Based Plan
@@ -103,6 +105,6 @@ The following API error responses occur when your plan's service quotas are exce
 
 | HTTP response code              | Error message                               | Description  |
 | :-----------------------------  | :-----------------------------------------  | :----------- |
-| `HTTP 413 "Request Too Large"`  | cannot read data: points in batch is too large | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |  
-| `HTTP 429 "Too Many Requests"`  | Retry-After: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
-| `HTTP 429 "Too Many Requests"` | Series cardinality exceeds your plan's service quota | If **series cardinality** exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) |
+| `HTTP 413 "Request Too Large"`  | cannot read data: points in batch is too large | If a **write** request exceeds the maximum [global limit](#global-limits) |  
+| `HTTP 429 "Too Many Requests"`  | Retry-After: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](#global-limits) |
+| `HTTP 429 "Too Many Requests"` | Series cardinality exceeds your plan's service quota | If **series cardinality** exceeds your plan's [adjustable service quotas](#adjustable-service-quotas) |

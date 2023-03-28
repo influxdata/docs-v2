@@ -118,6 +118,20 @@ INTERVAL '4 minutes'
 INTERVAL '12 days 6 hours 30 minutes'
 ```
 
+The following units of time are supported:
+
+- nanoseconds
+- microseconds
+- milliseconds
+- seconds
+- minutes
+- hours 
+- days 
+- weeks
+- months 
+- years
+- century
+
 ## Operators
 
 Operators are reserved words or characters which perform certain operations, inluding comparisons and arithmetic. 
@@ -549,7 +563,7 @@ WHERE time >= timestamp '2019-09-10T00:00:00Z' AND time <= timestamp '2019-09-19
 SELECT DATE_BIN(INTERVAL '1 hour', time, '2019-09-18T00:00:00Z'::timestamp),
 SUM(water_level)
 FROM "h2o_feet"
-GROUP BY time
+GROUP BY DATE_BIN(INTERVAL '1 hour', time, '2019-09-18T00:00:00Z'::timestamp)
 
 SELECT DATE_TRUNC('month',time) AS "date",
 SUM(water_level)

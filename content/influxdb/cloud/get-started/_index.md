@@ -10,6 +10,7 @@ weight: 2
 influxdb/cloud/tags: [get-started]
 aliases:
   - /influxdb/cloud/introduction/get-started/
+alt_engine: /influxdb/cloud-iox/get-started/
 ---
 
 InfluxDB {{< current-version >}} is the platform purpose-built to collect, store,
