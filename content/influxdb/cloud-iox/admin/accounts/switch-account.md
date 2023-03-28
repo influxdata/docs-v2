@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud_iox:
     name: Switch InfluxDB accounts
-    parent: Account management
+    parent: Manage accounts
 weight: 105
 aliases:
   - /influxdb/cloud-iox/account-management/switch-account/
