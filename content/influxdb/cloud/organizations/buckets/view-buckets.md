@@ -37,4 +37,4 @@ for information about other available flags.
 
 Send a request to the InfluxDB HTTP API [`/api/v2/buckets` endpoint](/influxdb/cloud/api/#operation/GetBuckets) to view buckets in an organization.
 
-{{% api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" %}}
+{{% api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" api-ref="/influxdb/cloud/api/#operation/GetBuckets" %}}

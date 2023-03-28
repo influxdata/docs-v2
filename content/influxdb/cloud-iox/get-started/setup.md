@@ -246,7 +246,7 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 To create a bucket using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/buckets` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/buckets" method="post" >}}
+{{< api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/buckets" method="post" api-ref="/influxdb/cloud-iox/api/#operation/PostBuckets" >}}
 
 Include the following with your request:
 
