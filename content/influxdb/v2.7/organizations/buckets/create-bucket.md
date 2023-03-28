@@ -1,7 +1,9 @@
 ---
 title: Create a bucket
 seotitle: Create a bucket in InfluxDB
-description: Create buckets to store time series data in InfluxDB using the InfluxDB UI or the influx CLI.
+description: >
+  Create buckets to store time series data in InfluxDB using the InfluxDB UI,
+  `influx` CLI, or InfluxDB API.
 menu:
   influxdb_2_7:
     name: Create a bucket
@@ -9,8 +11,8 @@ menu:
 weight: 201
 ---
 
-Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
-to create a bucket.
+Use the InfluxDB user interface (UI) the `influx` command line interface (CLI),
+or the InfluxDB API to create a bucket.
 
 {{% note %}}
 #### Bucket limits
@@ -19,44 +21,65 @@ written to or queried across all organizations depending on the use case.
 Any more than that can adversely affect performance.
 {{% /note %}}
 
-## Create a bucket in the InfluxDB UI
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[InfluxDB UI](#)
+[influx CLI](#)
+[InfluxDB API](#)
+{{% /tabs %}}
+
+<!------------------------------ BEGIN UI CONTENT ----------------------------->
+{{% tab-content %}}
 
 There are two places you can create a bucket in the UI.
 
+- [Create a bucket from the Load Data menu](#create-a-bucket-from-the-load-data-menu)
+- [Create a bucket in the Data Explorer](#create-a-bucket-in-the-data-explorer)
+
 ### Create a bucket from the Load Data menu
 
-1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
+1.  In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
 
-    {{< nav-icon "data" >}}
+{{< nav-icon "data" >}}
 
-2. Click **{{< icon "plus" >}} Create Bucket** in the upper right.
-3. Enter a **Name** for the bucket.
-4. Select when to **Delete Data**:
+2.  Click **{{< icon "plus" >}} Create Bucket** in the upper right.
+3.  Enter a **Name** for the bucket 
+    _(see [Bucket naming restrictions](#bucket-naming-restrictions))_.
+4.  Select when to **Delete Data**:
     - **Never** to retain data forever.  
     - **Older than** to choose a specific retention period.
-5. Click **Create** to create the bucket.
+5.  Click **Create** to create the bucket.
 
 ### Create a bucket in the Data Explorer
 
-1. In the navigation menu on the left, select **Explore* (**Data Explorer**).
+1.  In the navigation menu on the left, select **Explore* (**Data Explorer**).
 
-    {{< nav-icon "data-explorer" >}}
+{{< nav-icon "data-explorer" >}}
 
-2. In the **From** panel in the Flux Builder, select `+ Create Bucket`.
-3. Enter a **Name** for the bucket.
-4. Select when to **Delete Data**:
+2.  In the **From** panel in the Flux Builder, select `+ Create Bucket`.
+3.  Enter a **Name** for the bucket 
+    _(see [Bucket naming restrictions](#bucket-naming-restrictions))_.
+4.  Select when to **Delete Data**:
     - **Never** to retain data forever.  
     - **Older than** to choose a specific retention period.
-5. Click **Create** to create the bucket.
+5.  Click **Create** to create the bucket.
 
-## Create a bucket using the influx CLI
+{{% /tab-content %}}
+<!------------------------------- END UI CONTENT ------------------------------>
+
+
+<!----------------------------- BEGIN CLI CONTENT ----------------------------->
+{{% tab-content %}}
 
 Use the [`influx bucket create` command](/influxdb/v2.7/reference/cli/influx/bucket/create)
-to create a new bucket. A bucket requires the following:
+to create a new bucket.
 
-- bucket name
-- organization name or ID
-- retention period (duration to keep data) in one of the following units:
+Include the following flags with the command:
+
+- `-n`, `--name`: Bucket name
+    _(see [Bucket naming restrictions](#bucket-naming-restrictions))_
+- `-o`, `--org` or `--org-id`: Organization name or ID
+- `-r`, `--retention`: Bucket retention period (duration to keep data) in one of the following units:
   - nanoseconds (`ns`)
   - microseconds (`us` or `µs`)
   - milliseconds (`ms`)
@@ -72,32 +95,44 @@ to create a new bucket. A bucket requires the following:
 
 ```sh
 # Syntax
-influx bucket create -n <bucket-name> -o <org-name> -r <retention-period-duration>
+influx bucket create \
+  --name <bucket-name> \
+  --org <org-name> \
+  --retention <retention-period-duration>
 
 # Example
-influx bucket create -n my-bucket -o my-org -r 72h
+influx bucket create \
+  --name my-bucket \
+  --org my-org \
+  --retention 72h
 ```
 
-## Create a bucket using the InfluxDB API
+{{% /tab-content %}}
+<!------------------------------ END CLI CONTENT ------------------------------>
 
-Use the InfluxDB API to create a bucket.
+<!----------------------------- BEGIN API CONTENT ----------------------------->
+{{% tab-content %}}
 
-{{% note %}}
-#### Bucket limits
-A single InfluxDB {{< current-version >}} OSS instance supports approximately 20 buckets actively being
-written to or queried across all organizations depending on the use case.
-Any more than that can adversely affect performance.
-{{% /note %}}
+To create a bucket with the InfluxDB HTTP API, send a request to the following endpoint:
 
-Create a bucket in InfluxDB using an HTTP request to the InfluxDB API `/buckets` endpoint.
-Use the `POST` request method and include the following in your request:
+{{< api-endpoint method="post" endpoint="https://localhost:8086/api/v2/buckets" api-ref="/influxdb/v2.7/api/#operation/PostBuckets" >}}
 
-| Requirement          | Include by                                               |
-|:-----------          |:----------                                               |
-| Organization         | Use `orgID` in the JSON payload.                |
-| Bucket               | Use `name` in the JSON payload.                 |
-| Retention Rules      | Use `retentionRules` in the JSON payload.    |
-| API token | Use the `Authorization: Token` header.                   |
+Include the following in your request:
+
+- **Headers:**
+  - **Authorization:** `Token` scheme with your InfluxDB [API token](/influxdb/v2.7/security/tokens/)
+  - **Content-type:** `application/json`
+- **Request body:** JSON object with the following fields:  
+  {{< req type="key" >}}
+  - {{< req "\*" >}} **name:** Bucket name
+    _(see [Bucket naming restrictions](#bucket-naming-restrictions))_
+  - {{< req "\*" >}} **orgID:** InfluxDB organization ID
+  - **description:** Bucket description
+  - **retentionRules:** JSON array containing a single object
+    with the following fields:
+    - **type:** expire
+    - **everySecond**: Number of seconds to retain data _(0 means forever)_
+    - **shardGroupDuration**: Number of seconds to retain shard groups _(0 means forever)_
 
 #### Example
 
@@ -110,3 +145,15 @@ instance _(see [InfluxDB URLs](/influxdb/v2.7/reference/urls/))_.
 
 _For information about **InfluxDB API options and response codes**, see
 [InfluxDB API Buckets documentation](/influxdb/v2.7/api/#operation/PostBuckets)._
+
+{{% /tab-content %}}
+<!------------------------------ END API CONTENT ------------------------------>
+{{< /tabs-wrapper >}}
+
+## Bucket naming restrictions
+
+Bucket names must adhere to the following naming restrictions:
+
+- Must contain two or more characters
+- Cannot start with an underscore (`_`)
+- Cannot contain a double quote (`"`)

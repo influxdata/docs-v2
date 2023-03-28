@@ -32,6 +32,11 @@ If you change a bucket name, be sure to update the bucket in the above places as
 3. Review the information in the window that appears and click **I understand, let's rename my bucket**.
 4. Update the bucket's name and click **Change Bucket Name**.
 
+{{% note %}}
+For information about permitted bucket names, see
+[bucket naming restrictions](/influxdb/cloud/organizations/buckets/create-bucket/#bucket-naming-restrictions).
+{{% /note %}}
+
 ## Update a bucket's retention period in the InfluxDB UI
 
 1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
@@ -44,7 +49,7 @@ If you change a bucket name, be sure to update the bucket in the above places as
 
 ## Update a bucket using the influx CLI
 
-Use the [`influx bucket update` command](/influxdb/v2.7/reference/cli/influx/bucket/update)
+Use the [`influx bucket update` command](/influxdb/v2.6/reference/cli/influx/bucket/update)
 to update a bucket. Updating a bucket requires the following:
 
 - The bucket ID _(provided in the output of `influx bucket list`)_
@@ -53,6 +58,11 @@ to update a bucket. Updating a bucket requires the following:
 {{< cli/influx-creds-note >}}
 
 ##### Update the name of a bucket
+
+{{% note %}}
+For information about permitted bucket names, see
+[bucket naming restrictions](/influxdb/cloud/organizations/buckets/create-bucket/#bucket-naming-restrictions).
+{{% /note %}}
 
 ```sh
 # Syntax
