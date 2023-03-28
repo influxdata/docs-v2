@@ -32,6 +32,11 @@ If you change a bucket name, be sure to update the bucket name in the above plac
 3. Review the information in the window that appears and click **{{< caps >}}I understand, let's rename my bucket{{< /caps >}}**.
 4. Update the bucket's name and click **Change Bucket Name**.
 
+{{% note %}}
+For information about permitted bucket names, see
+[bucket naming restrictions](/influxdb/cloud/organizations/buckets/create-bucket/#bucket-naming-restrictions).
+{{% /note %}}
+
 ## Update a bucket's retention period in the InfluxDB UI
 
 1. In the navigation menu on the left, select **Load Data** > **Buckets**.
@@ -105,7 +110,8 @@ Updating a bucket requires the following:
 - The bucket ID _(provided in the output of the `GET /api/v2/buckets/` endpoint)_
 
 You can update the following bucket properties:
-- name
+
+- name _(see [bucket naming restrictions](/influxdb/cloud/organizations/buckets/create-bucket/#bucket-naming-restrictions))_
 - description
 - retention rules
 
