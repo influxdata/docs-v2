@@ -97,9 +97,7 @@ influx v1 dbrp create \
 
 Use the [`/api/v2/dbrps` API endpoint](/influxdb/v2.7/api/#operation/PostDBRP) to create a new DBRP mapping.
 
-<a href="/influxdb/v2.7/api/#operation/PostDBRP">
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps" method="POST" >}}
-</a>
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps" method="POST" api-ref="/influxdb/v2.7/api/#operation/PostDBRP" >}}
 
 Include the following:
 
@@ -171,9 +169,7 @@ influx v1 dbrp list --bucket-id 00oxo0oXx000x0Xo
 {{% tab-content %}}
 Use the [`/api/v2/dbrps` API endpoint](/influxdb/v2.7/api/#operation/GetDBRPs) to list DBRP mappings.
 
-<a href="/influxdb/v2.7/api/#operation/GetDBRPs">
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps" method="GET" >}}
-</a>
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps" method="GET" api-ref="/influxdb/v2.7/api/#operation/GetDBRPs" >}}
 
 Include the following:
 
@@ -256,9 +252,7 @@ influx v1 dbrp update \
 
 Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb/v2.7/api/#operation/GetDBRPs) to update DBRP mappings.
 
-<a href="/influxdb/v2.7/api/#operation/PatchDBRPID">
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps/{dbrpID}" method="PATCH" >}}
-</a>
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps/{dbrpID}" method="PATCH" api-ref="/influxdb/v2.7/api/#operation/PatchDBRPID" >}}
 
 Include the following:
 
@@ -326,9 +320,7 @@ influx v1 dbrp delete --id 00oxo0X0xx0XXoX0
 
 Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb/v2.7/api/#operation/DeleteDBRPID) to delete a DBRP mapping.
 
-<a href="/influxdb/v2.7/api/#operation/DeleteDBRPID">
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps/{dbrpID}" method="DELETE" >}}
-</a>
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/dbrps/{dbrpID}" method="DELETE" api-ref="/influxdb/v2.7/api/#operation/DeleteDBRPID" >}}
 
 Include the following:
 

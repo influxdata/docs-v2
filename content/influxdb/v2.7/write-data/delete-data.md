@@ -113,7 +113,7 @@ influx delete --bucket example-bucket \
 Use the InfluxDB API [`/api/v2/delete` endpoint](/influxdb/v2.7/api/#operation/PostDelete)
 to delete points from InfluxDB.
 
-{{< api-endpoint method="post" endpoint="http://localhost:8086/api/v2/delete" >}}
+{{< api-endpoint method="post" endpoint="http://localhost:8086/api/v2/delete" api-ref="/influxdb/v2.7/api/#operation/PostDelete" >}}
 
 Include the following:
 

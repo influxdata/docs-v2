@@ -120,7 +120,7 @@ see [InfluxDB configuration options](/influxdb/v2.7/reference/config-options/).
 
 Send a request to the InfluxDB API `/api/v2/authorizations` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/authorizations" method="post" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/authorizations" method="post" api-ref="/influxdb/v2.7/api/#operation/PostAuthorizations" >}}
 
 Include the following with your request:
 
@@ -414,7 +414,7 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 To create a bucket using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/buckets` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/buckets" method="post" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/buckets" method="post" api-ref="/influxdb/v2.7/api/#operation/PostBuckets">}}
 
 Include the following with your request:
 

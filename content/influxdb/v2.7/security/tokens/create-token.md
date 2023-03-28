@@ -221,7 +221,7 @@ See the [`influx auth create` documentation](/{{< latest "influxdb" >}}/referenc
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to create a token.
 
-[{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/authorizations" >}}]((/influxdb/v2.7/api/#operation/PostAuthorizations))
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/authorizations" api-ref="/influxdb/v2.7/api/#operation/PostAuthorizations" >}}
 
 Include the following in your request:
 

@@ -101,9 +101,7 @@ max queue size, and latest status code.
 1.  Send a `POST` request to your {{% oss-only %}}local{{% /oss-only %}} InfluxDB OSS  `/api/v2/remotes` endpoint to create a remote connection to replicate data to.
 
     {{< keep-url >}}
-    <a href="/influxdb/v2.7/api/#operation/PostRemoteConnection">
-    {{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="POST" >}}
-    </a>
+    {{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="POST" api-ref="/influxdb/v2.7/api/#operation/PostRemoteConnection" >}}
 
     Include the following in your request:  
 
@@ -144,9 +142,7 @@ max queue size, and latest status code.
     endpoint with the `GET` request method.
 
     {{< keep-url >}}
-    <a href="/influxdb/v2.7/api/#operation/GetRemoteConnections">
-    {{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="GET" >}}
-    </a>
+    {{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="GET" api-ref="/influxdb/v2.7/api/#operation/GetRemoteConnections" >}}
 
     Include the following in your request:
 
@@ -167,9 +163,7 @@ max queue size, and latest status code.
     `/api/v2/replications` endpoint to create a replication stream.
 
     {{< keep-url >}}
-    <a href="/influxdb/v2.7/api/#operation/PostRemoteConnection">
-    {{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="POST" >}}
-    </a>
+    {{< api-endpoint endpoint="localhost:8086/api/v2/remotes" method="POST" api-ref="/influxdb/v2.7/api/#operation/PostRemoteConnection" >}}
     
     Include the following in your request:
 
@@ -220,9 +214,7 @@ information such as the current queue size, max queue size, and latest status
 code for each replication stream, send a `GET` request to your {{% oss-only %}}local{{% /oss-only %}} InfluxDB  OSS `/api/v2/replications` endpoint.
 
 {{< keep-url >}}
-<a href="/influxdb/v2.7/api/#operation/GetReplications">
-{{< api-endpoint endpoint="localhost:8086/api/v2/replications" method="GET" >}}
-</a>
+{{< api-endpoint endpoint="localhost:8086/api/v2/replications" method="GET" api-ref="/influxdb/v2.7/api/#operation/GetReplications" >}}
 
 Include the following in your request:
 

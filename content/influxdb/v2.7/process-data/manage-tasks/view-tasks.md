@@ -41,4 +41,4 @@ for information about other available flags.
 Use the [`/tasks` InfluxDB API endpoint](/influxdb/v2.7/api/#operation/GetTasks)
 to return a list of tasks.
 
-{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks" >}}
+{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks" api-ref="/influxdb/v2.7/api/#operation/GetTasks" >}}
