@@ -20,20 +20,32 @@ By default, buckets have an `implicit` **schema-type** and a schema that conform
 To require measurements to have specific columns and data types and prevent non-conforming write requests,
 [create a bucket with the `explicit` schema-type](#create-a-bucket-that-enforces-explicit-schemas).
 
-- [Create a bucket in the InfluxDB UI](#create-a-bucket-in-the-influxdb-ui)
-- [Create a bucket using the influx CLI](#create-a-bucket-using-the-influx-cli)
-- [Create a bucket using the InfluxDB HTTP API](#create-a-bucket-using-the-influxdb-api)
+- [Create a bucket](#create-a-bucket)
 - [Create a bucket that enforces explicit schemas](#create-a-bucket-that-enforces-explicit-schemas)
 
-## Create a bucket in the InfluxDB UI
+<!-- Invisible anchor for "Create a bucket" -->
+<span id="create-a-bucket"></span>
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[InfluxDB UI](#)
+[influx CLI](#)
+[InfluxDB API](#)
+{{% /tabs %}}
+
+<!------------------------------ BEGIN UI CONTENT ----------------------------->
+{{% tab-content %}}
 
 There are two places you can create a bucket in the UI.
+
+- [Create a bucket from the Load Data menu](#create-a-bucket-from-the-load-data-menu)
+- [Create a bucket in the Data Explorer](#create-a-bucket-in-the-data-explorer)
 
 ### Create a bucket from the Load Data menu
 
 1. In the navigation menu on the left, select **Load Data** > **Buckets**.
 
-    {{< nav-icon "data" >}}
+{{< nav-icon "data" >}}
 
 2. Click **{{< icon "plus" >}} Create Bucket** in the upper right.
 3. Enter a **Name** for the bucket.
@@ -46,7 +58,7 @@ There are two places you can create a bucket in the UI.
 
 1. In the navigation menu on the left, select **Explore* (**Data Explorer**).
 
-    {{< nav-icon "data-explorer" >}}
+{{< nav-icon "data-explorer" >}}
 
 2. In the **From** panel in the Flux Builder, select `+ Create Bucket`.
 3. Enter a **Name** for the bucket.
@@ -55,38 +67,55 @@ There are two places you can create a bucket in the UI.
     - **Older than** to choose a specific retention period.
 5. Click **Create** to create the bucket.
 
-## Create a bucket using the influx CLI
+{{% /tab-content %}}
+<!------------------------------- END UI CONTENT ------------------------------>
+
+<!----------------------------- BEGIN CLI CONTENT ----------------------------->
+{{% tab-content %}}
 
 To create a bucket with the `influx` CLI, use the [`influx bucket create` command](/influxdb/cloud-iox/reference/cli/influx/bucket/create)
 and specify values for the following flags:
 
-| Requirement                    | Include by |
-|:-------------------------------|:-----------|
-| Organization                   | `-o`       |
-| Bucket                         | `-n`       |
-| Retention Period Duration      | `-r`       |
+- `-o`, `--org`: Organization name
+- `-n`, `--name`: Bucket name
+- `-r`, `--retention`: Retention period duration
 
-The following example creates a bucket with a retention period of seventy-two hours:
+The following example creates a bucket with a retention period of 72 hours:
 
 ```sh
-influx bucket create -n my-bucket -o {INFLUX_ORG} -r 72h
+influx bucket create \
+  --name my-bucket \
+  --org {INFLUX_ORG} \
+  --retention 72h
 ```
 
-## Create a bucket using the InfluxDB API
+{{% /tab-content %}}
+<!------------------------------ END CLI CONTENT ------------------------------>
+
+<!----------------------------- BEGIN API CONTENT ----------------------------->
+{{% tab-content %}}
 
 To create a bucket with the InfluxDB HTTP API, send a request to the following endpoint:
 
-[{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets" >}}](/influxdb/cloud-iox/api/#operation/PostBuckets)
+{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets" api-ref="/influxdb/cloud-iox/api/#operation/PostBuckets" >}}
 
-In your request body, specify values for the following properties:
+Include the following in your request:
 
-| Requirement          | Include by       |
-|:---------------------|:-----------------|
-| Organization         | `orgID`          |
-| Bucket               | `name`           |
-| Retention Rules      | `retentionRules` |
+- **Headers:**
+  - **Authorization:** `Token` scheme with your InfluxDB [API token](/influxdb/cloud/security/tokens/)
+  - **Content-type:** `application/json`
+- **Request body:** JSON object with the following fields:  
+  {{< req type="key" >}}
+  - {{< req "\*" >}} **name:** Bucket name
+  - **orgID:** InfluxDB organization ID
+  - **description:** Bucket description
+  - {{< req "\*" >}} **retentionRules:** JSON array containing a single object
+    with the following fields:
+    - **type:** expire
+    - **everySecond**: Number of seconds to retain data _(0 means forever)_
+    - **shardGroupDuration**: Number of seconds to retain shard groups _(0 means forever)_
 
-The following example creates a bucket with a retention period of `86,400` seconds, or twenty-four hours:
+The following example creates a bucket with a retention period of `86,400` seconds, or 24 hours:
 
 ```sh
 {{% get-shared-text "api/v2.0/buckets/oss/create.sh" %}}
@@ -94,6 +123,9 @@ The following example creates a bucket with a retention period of `86,400` secon
 
 _For information about **InfluxDB API options and response codes**, see
 [InfluxDB API Buckets reference documentation](/influxdb/cloud-iox/api/#operation/PostBuckets)._
+
+{{% /tab-content %}}
+<!------------------------------ END API CONTENT ------------------------------>
 
 ## Create a bucket that enforces explicit schemas
 
@@ -112,9 +144,9 @@ Use the **`influx` CLI** or **InfluxDB HTTP API** to create a bucket with the `e
 
 Use the `influx bucket create` command and specify the `--schema-type=explicit` flag:
 
-  ```sh
-  {{< get-shared-text "bucket-schema/bucket-schema-type.sh" >}}
-  ```
+```sh
+{{< get-shared-text "bucket-schema/bucket-schema-type.sh" >}}
+```
 
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -124,7 +156,7 @@ Use the `influx bucket create` command and specify the `--schema-type=explicit` 
 Use the HTTP API [`/api/v2/buckets`](/influxdb/cloud-iox/api/#operation/PostBuckets)
 endpoint and set the `schemaType` property value to `explicit` in the request body--for example:
 
-{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets" >}}
+{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets" api-ref="/influxdb/cloud-iox/api/#operation/PostBuckets" >}}
 
   ```js
   {
