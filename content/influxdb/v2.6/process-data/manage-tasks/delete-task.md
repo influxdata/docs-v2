@@ -38,7 +38,7 @@ _To find the task ID, see [how to view tasks](/influxdb/v2.6/process-data/manage
 
 Use the [`/tasks/TASK_ID` InfluxDB API endpoint](/influxdb/v2.6/api/#operation/DeleteTasksID) to delete a task and all associated records (task runs, logs, and labels).
 
-{{< api-endpoint method="DELETE" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID" >}}
+{{< api-endpoint method="DELETE" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID" api-ref="/influxdb/v2.6/api/#operation/DeleteTasksID" >}}
 
 _To find the task ID, see [how to view tasks](/influxdb/v2.6/process-data/manage-tasks/view-tasks/)_
 

@@ -63,24 +63,23 @@ To retry failed task runs, see how to [run tasks](/influxdb/v2.6/process-data/ma
 
 ## View logs for a task with the InfluxDB API
 
-Use the [`/api/v2/tasks/TASK_ID/logs`
-InfluxDB API endpoint](/influxdb/v2.6/api/#operation/GetTasksIDLogs) to view the log events for a task and exclude additional task metadata.
+Use the [`/api/v2/tasks/TASK_ID/logs` InfluxDB API endpoint](/influxdb/v2.6/api/#operation/GetTasksIDLogs)
+to view the log events for a task and exclude additional task metadata.
 
-{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/logs" >}}
+{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/logs" api-ref="/influxdb/v2.6/api/#operation/GetTasksIDLogs" >}}
 
 ## View a task's run history with the InfluxDB API
 
-Use the [`/tasks/TASK_ID/runs`
-InfluxDB API endpoint](/influxdb/v2.6/api/#operation/GetTasksIDRuns) to view a task's run history.
+Use the [`/tasks/TASK_ID/runs` InfluxDB API endpoint](/influxdb/v2.6/api/#operation/GetTasksIDRuns)
+to view a task's run history.
 
-{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/{taskID}/runs" >}}
+{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/{taskID}/runs" api-ref="/influxdb/v2.6/api/#operation/GetTasksIDRuns" >}}
 
 ### View task run logs with the InfluxDB API
 
 To view logs associated with a run, use the
-[`/api/v2/tasks/TASK_ID/runs/RUN_ID/logs` InfluxDB API
-endpoint](/influxdb/v2.6/api/#operation/GetTasksIDRunsIDLogs).
+[`/api/v2/tasks/TASK_ID/runs/RUN_ID/logs` InfluxDB API endpoint](/influxdb/v2.6/api/#operation/GetTasksIDRunsIDLogs).
 
-{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs/RUN_ID/logs" >}}
+{{< api-endpoint method="GET" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs/RUN_ID/logs" api-ref="/influxdb/v2.6/api/#operation/GetTasksIDRunsIDLogs" >}}
 
 To retry failed task runs, see how to [run tasks](/influxdb/v2.6/process-data/manage-tasks/run-task/).

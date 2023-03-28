@@ -74,7 +74,7 @@ for information about other available flags.
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to view tokens and permissions.
 
-[{{< api-endpoint method="GET" endpoint="/api/v2/authorizations" >}}](/influxdb/cloud/api/#operation/GetAuthorizations)
+{{< api-endpoint method="GET" endpoint="/api/v2/authorizations" api-ref="/influxdb/cloud/api/#operation/GetAuthorizations" >}}
 
 Include the following in your request:
 
@@ -90,7 +90,7 @@ Include the following in your request:
 
 To view a specific authorization and token, include the authorization ID in the URL path.
 
-{{% api-endpoint method="GET" endpoint="/api/v2/authorizations/{authID}" %}}
+{{% api-endpoint method="GET" endpoint="/api/v2/authorizations/{authID}" api-ref="/influxdb/v2.6/api/#operation/GetAuthorizationsID" %}}
 
 ### Filter the token list
 
