@@ -1121,7 +1121,8 @@ Click {{< caps >}}Add Data{{< /caps >}}
 
 #### Code callouts
 Use the `{{< code-callout >}}` shortcode to highlight and emphasize a specific
-piece of code in a code block. Provide the string to highlight in the code block.
+piece of code (for example, a variable, placeholder, or value) in a code block.
+Provide the string to highlight in the code block.
 Include a syntax for the codeblock to properly style the called out code.
 
 ~~~md
