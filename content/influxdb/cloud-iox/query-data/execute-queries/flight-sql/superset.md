@@ -3,7 +3,7 @@ title: Use Superset to query data
 seotitle: Use Apache Superset to query data stored in InfluxDB Cloud (IOx)
 description: >
   Install and run [Apache Superset](https://superset.apache.org/)
-  to query data stored in an InfluxDB bucket.
+  to query data stored in a bucket powered by InfluxDB IOx.
 weight: 101
 menu:
   influxdb_cloud_iox:
