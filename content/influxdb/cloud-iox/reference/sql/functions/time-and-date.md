@@ -51,7 +51,7 @@ WHERE
 
 ### date_bin
 
-Updates a timestamp to the start of the nearest specified interval.
+Calculates time intervals and returns the start of the interval nearest to the specified timestamp.
 Use `date_bin` to downsample time series data by grouping rows into time-based "bins" or "windows"
 and applying an aggregate or selector function to each window.
 
@@ -69,15 +69,17 @@ date_bin(interval, expression, origin-timestamp)
 
 The following intervals are supported:
 
- - milliseconds
- - seconds
- - minutes
- - hours 
- - days 
- - weeks
- - months 
- - years
- - century
+- nanoseconds
+- microseconds
+- milliseconds
+- seconds
+- minutes
+- hours 
+- days 
+- weeks
+- months 
+- years
+- century
 
 {{< expand-wrapper >}}
 {{% expand "View `date_bin` query example" %}}
@@ -92,7 +94,7 @@ FROM "h2o_feet"
 WHERE
   time >= timestamp '2019-09-10T00:00:00Z'
   AND time <= timestamp '2019-09-20T00:00:00Z'
-GROUP BY time
+GROUP BY date_bin(INTERVAL '1 day', time, TIMESTAMP '1970-01-01 00:00:00Z')
 ORDER BY time DESC
 ```
 

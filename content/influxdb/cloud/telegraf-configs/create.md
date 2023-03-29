@@ -12,6 +12,7 @@ related:
   - /influxdb/cloud/write-data/no-code/use-telegraf/manual-config/
   - /influxdb/cloud/write-data/no-code/use-telegraf/auto-config/
   - /influxdb/cloud/telegraf-configs/update/
+alt_engine: /influxdb/cloud-iox/write-data/use-telegraf/telegraf-configs/create/
 ---
 
 {{< duplicate-oss >}}

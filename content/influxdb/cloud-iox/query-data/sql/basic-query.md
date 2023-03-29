@@ -25,12 +25,12 @@ following clauses:
 
 {{< req type="key" >}}
 
-- {{< req "\*">}} `SELECT`: Identify specific fields and tags to query from a
+- {{< req "\*">}} `SELECT`: Specify fields, tags, and calculations to output from a
   measurement or use the wild card alias (`*`) to select all fields and tags
   from a measurement.
-- {{< req "\*">}} `FROM`: Identify the measurement to query from.
-- `WHERE`: Only return data that meets defined conditions such as falling within
-  a time range, containing specific tag values, etc.
+- {{< req "\*">}} `FROM`: Specify the measurement to query data from.
+- `WHERE`: Only return data that meets the specified conditions--for example, falls within
+  a time range, contains specific tag values, or contains a field value outside a specified range.
 
 {{% influxdb/custom-timestamps %}}
 ```sql

@@ -91,6 +91,8 @@ do
   menu="influxdb_$(echo $version | sed 's/\./_/g;s/v//g;')_ref"
   if [[ $version == "cloud" ]]; then
     titleVersion="Cloud"
+  elif [[ $version == "cloud-iox" ]]; then
+    titleVersion="Cloud (IOx)"
   else
     titleVersion="$version"
   fi

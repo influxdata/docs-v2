@@ -15,6 +15,7 @@ related:
   - /{{< latest "telegraf" >}}/plugins//
   - /influxdb/cloud-iox/use-telegraf/telegraf-configs/create/
   - /influxdb/cloud-iox/use-telegraf/telegraf-configs/update/
+alt_engine: /influxdb/cloud/write-data/no-code/use-telegraf/manual-config/
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into
@@ -57,7 +58,7 @@ in the `telegraf.conf`.
 
 To find an example InfluxDB v2 output plugin configuration in the UI:
 
-1. In the navigation menu on the left, select **Data (Load Data)** > **Telegraf**.
+1. In the navigation menu on the left, select **Load Data** > **Telegraf**.
 
     {{< nav-icon "load data" >}}
 

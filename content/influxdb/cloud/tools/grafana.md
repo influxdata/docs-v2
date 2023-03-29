@@ -12,6 +12,7 @@ related:
   - https://grafana.com/docs/, Grafana documentation
   - /influxdb/cloud/query-data/get-started/
   - /influxdb/cloud/query-data/influxql/
+alt_engine: /influxdb/cloud-iox/visualize-data/grafana/
 ---
 
 {{< duplicate-oss >}}

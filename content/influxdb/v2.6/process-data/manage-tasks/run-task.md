@@ -69,13 +69,13 @@ influx task retry-failed \
 ```
 
 ## Run a task with the InfluxDB API
-Use the [`/tasks/TASK_ID/runs`
-InfluxDB API endpoint](/influxdb/v2.6/api/#operation/PostTasksIDRuns) to manually start a task run.
+Use the [`/tasks/TASK_ID/runs` InfluxDB API endpoint](/influxdb/v2.6/api/#operation/PostTasksIDRuns)
+to manually start a task run.
 
-{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs" >}}
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs" api-ref="/influxdb/v2.6/api/#operation/PostTasksIDRuns" >}}
 
 ### Retry failed task runs
-Use the [`/tasks/TASK_ID/runs/RUN_ID/retry`
-InfluxDB API endpoint](/influxdb/v2.6/api/#operation/PostTasksIDRunsIDRetry) to retry a task run.
+Use the [`/tasks/TASK_ID/runs/RUN_ID/retry` InfluxDB API endpoint](/influxdb/v2.6/api/#operation/PostTasksIDRunsIDRetry)
+to retry a task run.
 
-{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs/RUN_ID/retry" >}}
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/TASK_ID/runs/RUN_ID/retry" api-ref="/influxdb/v2.6/api/#operation/PostTasksIDRunsIDRetry">}}

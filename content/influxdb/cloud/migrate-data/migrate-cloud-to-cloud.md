@@ -9,6 +9,7 @@ menu:
     name: Migrate from Cloud to Cloud
     parent: Migrate data
 weight: 102
+alt_engine: /influxdb/cloud-iox/write-data/migrate-data/migrate-tsm-to-iox/
 ---
 
 To migrate data from one InfluxDB Cloud organization to another, query the

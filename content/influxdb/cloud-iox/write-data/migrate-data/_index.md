@@ -8,6 +8,7 @@ menu:
     name: Migrate data
     parent: Write data
 weight: 104
+alt_engine: /influxdb/cloud/migrate-data/
 ---
 
 Migrate data to InfluxDB Cloud backed by InfluxDB IOx from other 
