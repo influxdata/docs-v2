@@ -58,11 +58,11 @@ Returns the average of numeric values in the specified column.
 avg(expression)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression**: Column to operate on.
 
-##### Aliases:
+##### Aliases
 
 - `mean`
 
@@ -97,7 +97,7 @@ in the `WHERE` clause.
 count(expression)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression**: Column to operate on.
 
@@ -124,10 +124,14 @@ GROUP BY location
 
 Returns the maximum value in the specified column.
 
+```sql
+max(expression)
+```
+
 _To return both the maximum value and its associated timestamp, use
 [`selector_max`](/influxdb/cloud-iox/reference/sql/functions/selector/#selector_max)._
 
-##### Arguments:
+##### Arguments
 
 - **expression**: Column to operate on.
 
@@ -158,10 +162,14 @@ _Alias of [avg](#avg)._
 
 Returns the minimum value in the specified column.
 
+```sql
+min(expression)
+```
+
 _To return both the minimum value and its associated timestamp, use
 [`selector_max`](/influxdb/cloud-iox/reference/sql/functions/selector/#selector_min)._
 
-##### Arguments:
+##### Arguments
 
 - **expression**: Column to operate on.
 
@@ -188,7 +196,11 @@ GROUP BY location
 
 Returns the sum of all values in the specified column.
 
-##### Arguments:
+```sql
+sum(expression)
+```
+
+##### Arguments
 
 - **expression**: Column to operate on.
 
@@ -233,7 +245,7 @@ Returns the coefficient of correlation between two numeric values.
 corr(expression1, expression2)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression1**: First column or literal value to operate on.
 - **expression2**: Second column or literal value to operate on.
@@ -268,7 +280,7 @@ Returns the covariance of a set of number pairs.
 covar(expression1, expression2)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression1**: First column or literal value to operate on.
 - **expression2**: Second column or literal value to operate on.
@@ -287,11 +299,6 @@ FROM home
 GROUP BY room
 ```
 
-##### Arguments:
-
-- **expression1**: First column or literal value to operate on.
-- **expression2**: Second column or literal value to operate on.
-
 | room        |               covar |
 | :---------- | ------------------: |
 | Living Room | 0.03346153846153959 |
@@ -308,7 +315,7 @@ Returns the population covariance of a set of number pairs.
 covar_pop(expression1, expression2)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression1**: First column or literal value to operate on.
 - **expression2**: Second column or literal value to operate on.
@@ -343,7 +350,7 @@ Returns the sample covariance of a set of number pairs.
 covar_samp(expression1, expression2)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression1**: First column or literal value to operate on.
 - **expression2**: Second column or literal value to operate on.
@@ -378,7 +385,7 @@ Returns the standard deviation of a set of numbers.
 stddev(expression)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression**: Column or literal value to operate on.
 
@@ -412,7 +419,7 @@ Returns the population standard deviation of a set of numbers.
 stddev_pop(expression)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression**: Column or literal value to operate on.
 
@@ -446,7 +453,7 @@ Returns the sample standard deviation of a set of numbers.
 stddev_samp(expression)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression**: Column or literal value to operate on.
 
@@ -472,8 +479,6 @@ GROUP BY room
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
----
-
 ### var
 
 Returns the statistical variance of a set of numbers.
@@ -482,7 +487,7 @@ Returns the statistical variance of a set of numbers.
 var(expression)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression**: Column or literal value to operate on.
 
@@ -516,7 +521,7 @@ Returns the statistical population variance of a set of numbers.
 var_pop(expression)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression**: Column or literal value to operate on.
 
@@ -550,7 +555,7 @@ Returns the statistical sample variance of a set of numbers.
 var_samp(expression)
 ```
 
-##### Arguments:
+##### Arguments
 
 - **expression**: Column or literal value to operate on.
 
