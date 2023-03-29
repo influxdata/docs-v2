@@ -11,6 +11,7 @@ related:
   - /influxdb/cloud-iox/admin/buckets/manage-explicit-bucket-schemas/
 aliases:
   - /influxdb/cloud-iox/organizations/buckets/create-bucket/
+alt_engine: /influxdb/cloud/organizations/buckets/create-bucket/
 ---
 
 Use the InfluxDB user interface (UI), `influx` command line interface (CLI), or InfluxDB HTTP API

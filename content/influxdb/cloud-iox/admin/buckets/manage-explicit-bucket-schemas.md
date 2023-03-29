@@ -13,6 +13,7 @@ related:
   - /influxdb/cloud-iox/reference/cli/influx/bucket-schema/
   - /influxdb/cloud-iox/admin/buckets/create-bucket/
   - /influxdb/cloud-iox/reference/cli/influx/
+alt_engine: /influxdb/cloud/organizations/buckets/bucket-schema/
 ---
 
 Use [**explicit bucket schemas**](/influxdb/cloud-iox/reference/glossary/#bucket-schema) to enforce [column names](/influxdb/cloud-iox/reference/glossary/#column), [tags](/influxdb/cloud-iox/reference/glossary/#tag), [fields](/influxdb/cloud-iox/reference/glossary/#field), and

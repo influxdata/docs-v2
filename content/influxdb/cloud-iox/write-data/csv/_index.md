@@ -12,6 +12,7 @@ related:
   - /influxdb/cloud-iox/reference/syntax/line-protocol/
   - /influxdb/cloud-iox/reference/syntax/annotated-csv/
   - /influxdb/cloud-iox/reference/cli/influx/write/
+alt_engine: /influxdb/cloud/write-data/developer-tools/csv/
 ---
 
 {{< children >}}

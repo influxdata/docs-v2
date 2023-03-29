@@ -10,6 +10,7 @@ menu:
 weight: 105
 aliases:
   - /influxdb/cloud-iox/account-management/switch-account/
+alt_engine: /influxdb/cloud/account-management/switch-account/
 ---
 
 If you belong to more than one {{< cloud-name >}} account with the same email address, you can switch from one account to another while staying logged in.

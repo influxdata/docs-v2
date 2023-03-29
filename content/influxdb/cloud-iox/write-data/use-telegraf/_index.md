@@ -14,6 +14,7 @@ menu:
   influxdb_cloud_iox:
     name: Use Telegraf
     parent: Write data
+alt_engine: /influxdb/cloud/write-data/no-code/use-telegraf/
 ---
 
 [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) is InfluxData's

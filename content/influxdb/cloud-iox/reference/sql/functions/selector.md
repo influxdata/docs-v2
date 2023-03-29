@@ -39,7 +39,7 @@ For example, `selector_first` returns the value of specified column in the first
 The struct returned from a selector function has two properties:
 
 - **time**: `time` value in the selected row
-- **expression**: value of the specified column in the selected row
+- **value**: value of the specified column in the selected row
 
 ```js
 {time: 2023-01-01T00:00:00Z, value: 72.1}
@@ -71,14 +71,14 @@ GROUP BY room
 
 Returns the smallest value of a selected column and a timestamp.
 
-##### Arguments:
-
-- **expression**: Column to operate on or a literal value.
-- **timestamp**: Time column or timestamp literal.
-
 ```sql
 selector_min(expression, timestamp)
 ```
+
+##### Arguments
+
+- **expression**: Column or literal value to operate on.
+- **timestamp**: Time column or timestamp literal.
 
 {{< expand-wrapper >}}
 {{% expand "View `selector_min` query example" %}}
@@ -101,14 +101,14 @@ FROM h2o_feet
 
 Returns the largest value of a selected column and a timestamp.
 
-##### Arguments:
-
-- **expression**: Column to operate on or a literal value.
-- **timestamp**: Time column or timestamp literal.
-
 ```sql
 selector_max(expression, timestamp)
 ```
+
+##### Arguments
+
+- **expression**: Column or literal value to operate on.
+- **timestamp**: Time column or timestamp literal.
 
 {{< expand-wrapper >}}
 {{% expand "View `selector_max` query example" %}}
@@ -131,14 +131,14 @@ FROM h2o_feet
 
 Returns the first value ordered by time ascending.
 
-##### Arguments:
-
-- **expression**: Column to operate on or a literal value.
-- **timestamp**: Time column or timestamp literal.
-
 ```sql
 selector_first(expression, timestamp)
 ```
+
+##### Arguments
+
+- **expression**: Column or literal value to operate on.
+- **timestamp**: Time column or timestamp literal.
 
 {{< expand-wrapper >}}
 {{% expand "View `selector_first` query example" %}}
@@ -161,14 +161,14 @@ FROM h2o_feet
 
 Returns the last value ordered by time ascending.
 
-##### Arguments:
-
-- **expression**: Column to operate on or a value literal.
-- **timestamp**: Time column or timestamp literal.
-
 ```sql
 selector_last(expression, timestamp)
 ```
+
+##### Arguments
+
+- **expression**: Column or literal value to operate on.
+- **timestamp**: Time column or timestamp literal.
 
 {{< expand-wrapper >}}
 {{% expand "View `selector_last` query example" %}}

@@ -11,6 +11,7 @@ menu:
 related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
+alt_engine: /influxdb/cloud/account-management/limits/
 ---
 
 InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis.

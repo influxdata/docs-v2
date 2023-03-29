@@ -13,7 +13,6 @@ weight: 307
 The InfluxDB SQL implementation supports the following string functions for
 operating on string values:
 
-
 - [ascii](#ascii)
 - [bit_length](#bit_length)
 - [btrim](#btrim)

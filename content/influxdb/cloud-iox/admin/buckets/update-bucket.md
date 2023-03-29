@@ -9,6 +9,7 @@ menu:
 weight: 202
 aliases:
     - /influxdb/cloud-iox/organizations/buckets/update-bucket/
+alt_engine: /influxdb/cloud/organizations/buckets/update-bucket/
 ---
 
 Use the InfluxDB user interface (UI), the `influx` command line interface (CLI), or the InfluxDB HTTP API to update a bucket.
