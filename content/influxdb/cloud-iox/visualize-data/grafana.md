@@ -240,18 +240,17 @@ use Grafana to build, run, and inspect queries against InfluxDB buckets.
 To learn more, see [Query Data](/influxdb/cloud-iox/query-data/sql/).
 {{% /note %}}
 
-{{% warn %}}
-The Grafana Flight SQL plugin doesn't support aggregate functions in `SELECT` or `GROUP BY` lists.
-{{% /warn %}}
-
 1. Click **Explore**.
 2. In the dropdown, select the saved datasource that you want to query.
 3. Use the SQL query form to build your query:
     - **FROM**: Select the measurement that you want to query.
     - **SELECT**: Select one or more fields and tags to return as columns in query results.
-                  To format the result as time series, you must include **time** in the `SELECT` list.
+                  In Grafana, you must specify a **time** column in the `SELECT` list.
     - **WHERE**: To filter the query results, enter a conditional expression.
     - **GROUP BY**: To `GROUP BY` one or more fields or tags, enter them as a comma-delimited list.
+                    If you include an aggregate function in the **SELECT** list,
+                    then you must include a time value in a `GROUP BY` or `PARTITION BY` clause.
+                    SQL will return the aggregation for each group or partition.
 4. Click **Run query** to execute the query.
 {{< img-hd src="/img/influxdb/cloud-iox-grafana-flightsql-explore-query-1.png" alt="Grafana Flight SQL datasource query" />}}
 
