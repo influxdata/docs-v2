@@ -12,6 +12,7 @@ related:
   - /influxdb/cloud-iox/admin/accounts/
 aliases:
   - /influxdb/cloud-iox/organizations/
+alt_engine: /influxdb/cloud/organizations/
 ---
 
 An **organization** is a workspace for a group of users.

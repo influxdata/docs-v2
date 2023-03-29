@@ -8,6 +8,7 @@ menu:
   influxdb_cloud_iox:
     parent: Administer InfluxDB Cloud
     name: Manage accounts
+alt_engine: /influxdb/cloud/account-management/
 ---
 
 {{< children >}}

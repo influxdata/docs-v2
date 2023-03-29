@@ -9,6 +9,7 @@ menu:
 weight: 202
 aliases:
   - /influxdb/cloud-iox/organizations/buckets/view-buckets/
+alt_engine: /influxdb/cloud/organizations/buckets/view-buckets/
 ---
 
 ## View buckets in the InfluxDB UI

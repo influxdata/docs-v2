@@ -12,6 +12,7 @@ aliases:
   - /influxdb/cloud-iox/account-management/switch-org/
 related:
   - /influxdb/cloud-iox/admin/accounts/switch-account/
+alt_engine: /influxdb/cloud/account-management/switch-org/
 ---
 
 If you belong to more than one {{< cloud-name >}} organization with the same email address, you can switch from one organization to another while staying logged in.

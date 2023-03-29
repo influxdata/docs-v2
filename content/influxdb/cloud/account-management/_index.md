@@ -10,6 +10,7 @@ aliases:
 menu:
   influxdb_cloud:
     name: Account management
+alt_engine: /influxdb/cloud-iox/admin/accounts/
 ---
 
 {{< children >}}

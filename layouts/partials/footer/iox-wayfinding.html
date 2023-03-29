@@ -1,3 +1,4 @@
+{{ $scratch := newScratch }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $version := index $productPathData 1 }}
 {{ $altVersion := cond (ne $version "cloud-iox") "cloud-iox" "cloud" }}
@@ -5,6 +6,27 @@
 {{ $altEngine := cond (eq $version "cloud-iox") "TSM" "IOx" }}
 {{ $altDoc := .Page.Params.alt_engine | default "" }}
 {{ $altLink := cond (ne $altDoc "") $altDoc (print "/influxdb/" $altVersion "/") }}
+{{ $isCloud := eq $version "cloud" }}
+{{ $isIOx := eq $version "cloud-iox" }}
+
+{{ $scratch.Set "link" "" }}
+{{ if $isCloud }}
+  {{ $altIOxPage := $.GetPage ((replaceRE "influxdb/cloud" "influxdb/cloud-iox" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+  {{ if ne $altDoc "" }}
+    {{ $scratch.Set "link" $altDoc }}
+  {{ else if gt (len $altIOxPage.Title) 0 }}
+    {{ $scratch.Set "link" $altIOxPage.RelPermalink }}
+  {{ end }}
+{{ else if $isIOx }}
+  {{ $altCloudPage := $.GetPage ((replaceRE "influxdb/cloud-iox" "influxdb/cloud" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+  {{ if ne $altDoc "" }}
+    {{ $scratch.Set "link" $altDoc }}
+  {{ else if gt (len $altCloudPage.Title) 0 }}
+    {{ $scratch.Set "link" $altCloudPage.RelPermalink }}
+  {{ end }}
+{{ end }}
+
+{{ $altLink := cond (eq ($scratch.Get "link") "") (print "/influxdb/" $altVersion "/") ($scratch.Get "link") }}
 
 <div id="iox-wayfinding-modal">
   <div class="wayfinding-wrapper">
