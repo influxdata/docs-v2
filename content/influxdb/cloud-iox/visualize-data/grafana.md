@@ -249,7 +249,7 @@ To learn more, see [Query Data](/influxdb/cloud-iox/query-data/sql/).
     - **WHERE**: To filter the query results, enter a conditional expression.
     - **GROUP BY**: To `GROUP BY` one or more fields or tags, enter them as a comma-delimited list.
                     If you include an aggregate function in the **SELECT** list,
-                    then you must include one or more of the queried columns in a `GROUP BY` or `PARTITION BY` clause.
+                    then you must include a time value in a `GROUP BY` or `PARTITION BY` clause.
                     SQL will return the aggregation for each group or partition.
 4. Click **Run query** to execute the query.
 {{< img-hd src="/img/influxdb/cloud-iox-grafana-flightsql-explore-query-1.png" alt="Grafana Flight SQL datasource query" />}}
