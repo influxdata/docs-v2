@@ -15,8 +15,8 @@ menu:
 InfluxDB Cloud backed by InfluxDB IOx is available on on the following cloud providers and regions.
 Each region has a unique InfluxDB Cloud URL and API endpoint.
 Use the URLs below to interact with your InfluxDB Cloud instances with the
-[InfluxDB API](/influxdb/cloud/reference/api/), [InfluxDB client libraries](/influxdb/cloud/api-guide/client-libraries/),
-[`influx` CLI](/influxdb/cloud/reference/cli/influx/), or [Telegraf](/influxdb/cloud/write-data/no-code/use-telegraf/).
+[InfluxDB API](/influxdb/cloud-iox/reference/api/), [InfluxDB client libraries](/influxdb/cloud/api-guide/client-libraries/),
+[`influx` CLI](/influxdb/cloud-iox/reference/cli/influx/), or [Telegraf](/influxdb/cloud-iox/write-data/use-telegraf/).
 
 {{% note %}}
 #### InfluxDB IOx-enabled cloud regions

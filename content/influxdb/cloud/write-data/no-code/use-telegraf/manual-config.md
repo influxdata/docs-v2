@@ -53,7 +53,7 @@ in the `telegraf.conf`.
 
 To find an example InfluxDB v2 output plugin configuration in the UI:
 
-1. In the navigation menu on the left, select **Data (Load Data)** > **Telegraf**.
+1. In the navigation menu on the left, select **Load Data** > **Telegraf**.
 
     {{< nav-icon "load data" >}}
 

@@ -92,24 +92,22 @@
    git checkout -b release/api-oss origin/master
    ```
 
-7. In `./api-docs`, create a directory for the new OSS version number--for example:
+7. In `./api-docs`, copy the previous version or create a directory for the new OSS version number--for example:
 
    ```sh
    # In your terminal, go to the `docs-v2/api-docs` directory:
    cd ./api-docs
-
-   # Create the directory:
-   mkdir v2.3
    ```
 
-8. Copy custom content from the previous version--for example:
+   If the old version directory contains custom content files (for example, v2.2/content), you'll likely want to copy
+   those for the new version.
 
-    ```sh
-    # In your terminal, copy the `docs-v2/api-docs/openapi/content/v2.2` directory to a new directory:
-    cp -r ./openapi/content/v2.2 ./openapi/content/v2.3
-
-    # TODO: We can probably automate this step now since we pass the version number.
-    ```
+   ```sh
+   # Copy the old version directory to a directory for the new version:
+   cp -r v2.2 v2.3
+   ```
+   
+8. In your editor, update custom content files in NEW_VERSION/content.
 
 9. Enter the following commands into your terminal to fetch and process the contracts:
 
@@ -267,27 +265,42 @@ When you run `getswagger.sh`, it executes `@redocly/openapi-cli` and the plugins
 [`./openapi/plugins/decorators`](./openapi/plugins/decorators) to apply custom
 processing to OpenAPI specs.
 
-`.yml` files in [`./openapi/content`](./openapi/content) set content for sections (nodes) in the contract.
+`.yml` files in [`./PLATFORM/content`](./openapi/content) define custom content for OpenAPI nodes published in the reference docs.
 To update the content for those nodes, you only need to update the YAML files.
-To add new YAML files for other nodes in the contracts,
-configure the new content YAML file in [`./openapi/content/content.js`](./openapi/content/content.js).
-The content structure and Markdown must be valid OAS.
+For example, to customize the Info section for the Cloud API reference, edit `./cloud/content/info.yml`.
 
-Then, you'll need to write or update a decorator module for the node and configure the decorator in the plugin,
-e.g. [`./openapi/plugins/docs-plugin.js`](`./openapi/plugins/docs-plugin.js).
-See the [complete list of OAS v3.0 nodes](https://github.com/Redocly/openapi-cli/blob/master/packages/core/src/types/oas3.ts#L529).
+To add new YAML files for other nodes in the contracts, follow these steps:
 
-`@redocly/openapi-cli` requires that modules use CommonJS `require` syntax for imports.
+1. Create your new content file with valid OAS content structure and Markdown.
+2. Configure the new content YAML file in [`./openapi/content/content.js`](./openapi/content/content.js).
+3. Write or update a decorator module for the node and configure the decorator in
+   [`./openapi/plugins/docs-plugin.js`](`./openapi/plugins/docs-plugin.js).
+   See the [complete list of OAS v3.0 nodes](https://github.com/Redocly/openapi-cli/blob/master/packages/core/src/types/oas3.ts#L529).
 
+`@redocly/cli` requires that modules use CommonJS `require` syntax for imports.
+
+`@redocly/cli` also provides some [built-in decorators](https://redocly.com/docs/cli/decorators/)
+that you can configure in `.redocly` without having to write JavaScript.
 ### How to add tag content or describe a group of paths
 
-In API reference docs, we use OpenAPI `tags` elements for navigation and the
-`x-traitTag` vendor extension to define custom content.
+In API reference docs, we use OpenAPI `tags` elements for navigation,
+the `x-traitTag` vendor extension for providing custom content, and the `x-tagGroups` vendor extension
+for grouping tags in navigation.
 
 | Example                                                                                                | OpenAPI field                                         |                                            |
 |:-------------------------------------------------------------------------------------------------------|-------------------------------------------------------|--------------------------------------------|
 | [Add supplementary documentation](https://docs.influxdata.com/influxdb/cloud/api/#tag/Quick-start)     | `tags: [ { name: 'Quick start', x-traitTag: true } ]` | [Source](https://github.com/influxdata/openapi/master/src/cloud/tags.yml) |
-| [Group and describe related paths](https://docs.influxdata.com/influxdb/cloud/api/#tag/Authorizations) | `tags: [ { name: 'Buckets', description: '...' } ]`   | [Source](https://github.com/influxdata/openapi/master/src/cloud/tags-groups.yml)) |
+| Group tags in navigation                                                                               | `x-tagGroups: [ { name: 'All endpoints', tags: [...], ...} ]`   | [Source](https://github.com/influxdata/docs-v2/blob/da6c2e467de7212fc2197dfe0b87f0f0296688ee/api-docs/cloud-iox/content/tag-groups.yml)) |
+
+#### Add and update x-tagGroups
+
+Custom `x-tagGroups` configured in
+`PLATFORM/content/tag-groups.yml` override `x-tagGroups` defined in `influxdata/openapi`.
+If you assign a list of tags to the `All endpoints` tag group,
+the decorator applies your list and removes Operations that don't contain
+those tags.
+If you assign an empty array(`[]`) to the `All endpoints` x-tagGroup in `PLATFORM/content/tag-groups.yml`,
+the decorator replaces the empty array with the list of tags from all Operations in the spec.
 
 ## How to test your spec or API reference changes
 

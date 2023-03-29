@@ -57,7 +57,7 @@ Each line of line protocol contains the following elements:
   or [booleans](/influxdb/v2.6/reference/syntax/line-protocol/#boolean).
 - **timestamp**: [Unix timestamp](/influxdb/v2.6/reference/syntax/line-protocol/#unix-timestamp)
   associated with the data. InfluxDB supports up to nanosecond precision.
-  _If the precision if the timestamp is not in nanoseconds, you must specify the
+  _If the precision of the timestamp is not in nanoseconds, you must specify the
   precision when writing the data to InfluxDB._
 
 #### Line protocol element parsing
@@ -220,7 +220,7 @@ The UI will confirm that the data has been written successfully.
 To write data to InfluxDB using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/write" method="post" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/write" method="post" api-ref="/influxdb/v2.6/api/#operation/PostWrite" >}}
 
 Include the following with your request:
 

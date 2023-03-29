@@ -7,15 +7,14 @@ menu:
     name: Manage organizations
 weight: 10
 influxdb/cloud/tags: [organizations]
+related:
+  - /influxdb/cloud/account-management/
 ---
 
 An **organization** is a workspace for a group of users.
 All dashboards, tasks, buckets, members, etc., belong to an organization.
-
-{{% cloud %}}
-You cannot currently create additional organizations in {{< cloud-name >}}.
-Only the default organization is available.
-{{% /cloud %}}
+An **account** can contain multiple organizations.
+You can use organizations to separate data, environments (dev, staging, prod), teams, providers, and regions within the same account.
 
 The following articles provide information about managing organizations:
 

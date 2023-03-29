@@ -28,10 +28,10 @@ For the most performant queries, use SQL and the
 to query InfluxDB.
 
 
-## Download the FlightSQL Plugin
+## Download the Flight SQL Plugin
 
 {{% warn %}}
-The Grafana FlightSQL plugin is experimental and is subject to change.
+The Grafana Flight SQL plugin is experimental and is subject to change.
 {{% /warn %}}
 
 ```sh
@@ -39,9 +39,9 @@ curl -L https://github.com/influxdata/grafana-flightsql-datasource/releases/down
   -o influxdata-flightsql-datasource-0.1.5.zip
 ```
 
-## Install the Grafana FlightSQL plugin
+## Install the Grafana Flight SQL plugin
 
-Install the custom-built FlightSQL plugin in a local or Docker-based instance
+Install the custom-built Flight SQL plugin in a local or Docker-based instance
 of Grafana OSS or Grafana Enterprise.
 
 {{% warn %}}
@@ -70,7 +70,7 @@ cannot be installed on or used with Grafana Cloud.
 
 <div id="custom-grafana-plugins-directory"></div>
 
-1.  **Unzip the FlightSQL plugin archive to your Grafana custom plugin directory**.
+1.  **Unzip the Flight SQL plugin archive to your Grafana custom plugin directory**.
     The custom plugin directory can exist anywhere in your filesystem as long as
     the Grafana process can access it.
 
@@ -104,7 +104,7 @@ cannot be installed on or used with Grafana Cloud.
           ```
 
     2.  **Allow Grafana to load unsigned plugins**.
-        The FlightSQL plugin is unsigned and cannot be loaded by default.
+        The Flight SQL plugin is unsigned and cannot be loaded by default.
         Do one of the following:
 
         - Edit the `plugins.allow_loading_unsigned_plugins` directive in your
@@ -128,7 +128,7 @@ cannot be installed on or used with Grafana Cloud.
 {{% /tab-content %}}
 {{% tab-content %}}
 <!---------------------------- BEGIN DOCKER CONTENT --------------------------->
-**Unzip the FlightSQL plugin archive to your Grafana custom plugin directory**.
+**Unzip the Flight SQL plugin archive to your Grafana custom plugin directory**.
  The custom plugin directory can exist anywhere in your filesystem as long as
  the Grafana process can access it.
 
@@ -136,7 +136,7 @@ cannot be installed on or used with Grafana Cloud.
     unzip influxdata-flightsql-datasource-0.1.2.zip
     ```
 
-To add the FlightSQL plugin to your pre-existing Grafana Docker deployment
+To add the Flight SQL plugin to your pre-existing Grafana Docker deployment
 mount the plugin directory, `influxdata-flightsql-datasource`, as a volume to your Grafana container:
 
 Docker Run
@@ -167,7 +167,7 @@ services:
 
 {{% note %}}
 It's important to set the `GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS`
-environment variable. The FlightSQL plugin is unsigned and Grafana requires you
+environment variable. The Flight SQL plugin is unsigned and Grafana requires you
 to explicitly load unsigned plugins. 
 {{% /note %}}
 
@@ -179,7 +179,7 @@ to explicitly load unsigned plugins.
 
 1.  In your Grafana user interface (UI), navigate to **Data Sources**.
 2.  Click **Add data source**.
-3.  Search for and select the **FlightSQL** plugin.
+3.  Search for and select the **Flight SQL** plugin.
 4   Provide a name for your datasource.
 5.  Add your connection credentials:
 
@@ -210,7 +210,7 @@ to explicitly load unsigned plugins.
 
 7.  Select **Save & Test**.
 
-    {{< img-hd src="/img/influxdb/cloud-iox-grafana-flightsql-datasource.png" alt="Grafana FlightSQL datasource" />}}
+    {{< img-hd src="/img/influxdb/cloud-iox-grafana-flightsql-datasource.png" alt="Grafana Flight SQL datasource" />}}
 
 8. Click **Explore** to begin exploring your schema and querying InfluxDB with SQL.
 

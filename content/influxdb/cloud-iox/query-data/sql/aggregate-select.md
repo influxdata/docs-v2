@@ -34,7 +34,7 @@ list_code_example: |
     tag1
   FROM home
   GROUP BY
-    time,
+    DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP),
     tag1
   ```
 ---
@@ -43,15 +43,13 @@ A SQL query that aggregates data includes the following clauses:
 
 {{< req type="key" >}}
 
-- {{< req "\*">}} `SELECT`: Identify specific fields and tags to query from a
+- {{< req "\*">}} `SELECT`: Specify fields, tags, and calculations to output from a
   measurement or use the wild card alias (`*`) to select all fields and tags
-  from a measurement. Include any columns you want to group by in the `SELECT`
-  clause.
-- {{< req "\*">}} `FROM`: Identify the measurement to query data from.
-- `WHERE`: Only return data that meets defined conditions such as falling within
-  a time range, containing specific tag values, etc.
-- `GROUP BY`: Group data into SQL partitions by specific columns and apply an
-  aggregate or selector function to each group.
+  from a measurement.
+- {{< req "\*">}} `FROM`: Specify the measurement to query data from.
+- `WHERE`: Only return data that meets the specified conditions--for example, falls within
+  a time range, contains specific tag values, or contains a field value outside a specified range.
+- `GROUP BY`: Group data that have the same values for specified columns and expressions (for example, an aggregate function result).
 
 {{% note %}}
 For simplicity, the term **"aggregate"** in this guide refers to applying
@@ -131,7 +129,7 @@ GROUP BY room
 
 ## Example aggregate queries
 
-- [Performed an ungrouped aggregation](#performed-an-ungrouped-aggregation)
+- [Perform an ungrouped aggregation](#perform-an-ungrouped-aggregation)
 - [Group and aggregate data](#group-and-aggregate-data)
   - [Downsample data by applying interval-based aggregates](#downsample-data-by-applying-interval-based-aggregates)
 - [Query rows based on aggregate values](#query-rows-based-on-aggregate-values)
@@ -150,8 +148,8 @@ to your InfluxDB Cloud bucket before running the example queries.
 
 To aggregate _all_ queried values in a specified column:
 
-- Use aggregate or selector functions in your `SELECT` statement
-- Do not include a `GROUP BY` clause to leave your data ungrouped
+- Use aggregate or selector functions in your `SELECT` statement.
+- Do not include a `GROUP BY` clause to leave your data ungrouped.
 
 ```sql
 SELECT avg(co) AS 'average co' from home
@@ -167,11 +165,16 @@ SELECT avg(co) AS 'average co' from home
 
 ### Group and aggregate data
 
-To apply aggregate or selector functions to data grouped:
+To apply aggregate or selector functions to grouped data:
 
-- Use aggregate or selector functions in your `SELECT` statement
-- Include columns to group by in your `SELECT` statement
-- Include a `GROUP BY` clause with a comma-delimited list of columns to group by
+- Use aggregate or selector functions in your `SELECT` statement.
+- Include columns to group by in your `SELECT` statement.
+- Include a `GROUP BY` clause with a comma-delimited list of columns and expressions to group by.
+
+Keep the following in mind when using `GROUP BY`:
+
+- `GROUP BY` can use column aliases that are defined in the `SELECT` clause.
+- `GROUP BY` can't use an alias named `time`. If you include `time` in `GROUP BY`, it always uses the measurement `time` column.
 
 ```sql
 SELECT
@@ -198,19 +201,38 @@ groups:
 
 - In your `SELECT` clause:
 
-  - Use `DATE_BIN` to calculate windows of time based on a specified interval
-    and update the timestamp in the `time` column based on the start
-    boundary of the window that the original timestamp is in.    
-    For example, if you use `DATE_BIN` to window data into one day intervals,
-    {{% influxdb/custom-timestamps-span %}}`2022-01-01T12:34:56Z`{{% /influxdb/custom-timestamps-span %}}
-    will be updated to
-    {{% influxdb/custom-timestamps-span %}}`2022-01-01T00:00:00Z`{{% /influxdb/custom-timestamps-span %}}.
+  - Use the [`DATE_BIN` function](/influxdb/cloud-iox/reference/sql/functions/time-and-date/#date_bin)
+    to calculate time intervals and output a column that contains the start of the interval nearest to the `time` timestamp in each row--for example,
+    the following clause calculates two-hour intervals starting at `1970-01-01T00:00:00Z` and returns a new `time` column that contains the start of the interval
+    nearest to `home.time`:
+    
+    ```sql
+    SELECT DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time
+    from home
+    ...
+    ```
+    
+    Given a `time` value
+    {{% influxdb/custom-timestamps-span %}}`2023-03-09T13:00:50.000Z`{{% /influxdb/custom-timestamps-span %}},
+    the output `time` column contains
+    {{% influxdb/custom-timestamps-span %}}`2023-03-09T12:00:00.000Z`{{% /influxdb/custom-timestamps-span %}}.
+  - Use [aggregate](/influxdb/cloud-iox/reference/sql/functions/aggregate/) or [selector](/influxdb/cloud-iox/reference/sql/functions/selector/) functions on specified columns.
 
-  - Use aggregate or selector functions on specified columns.
-  - Include columns to group by.
+- In your `GROUP BY` clause:
+ 
+  - Use the [`DATE_BIN` function](/influxdb/cloud-iox/reference/sql/functions/time-and-date/#date_bin) with the same parameters used in the `SELECT` clause.
+  - Specify other columns (for example, `room`) that are specified in the `SELECT` clause and aren't used in a selector function.
 
-- Include a `GROUP BY` clause with `time` and other columns to group by.
+  ```sql
+  SELECT DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time
+  ...
+  GROUP BY DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP), room
+  ...
+  ```
 
+- Include an `ORDER BY` clause with columns to sort by.
+
+The following example retrieves unique combinations of time intervals and rooms with their minimum, maximum, and average temperatures.
 
 ```sql
 SELECT
@@ -220,7 +242,8 @@ SELECT
   selector_min(temp, time)['value'] AS 'min temp',
   avg(temp) AS 'average temp'
 FROM home
-GROUP BY time, room
+GROUP BY DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP), room
+ORDER BY room, time
 ```
 
 {{< expand-wrapper >}}
@@ -245,6 +268,7 @@ GROUP BY time, room
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
 
 ### Query rows based on aggregate values
 

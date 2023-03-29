@@ -101,7 +101,7 @@ updated_in: # Product and version the referenced feature was updated in (display
 ### Title usage
 
 ##### `title`
-The `title` frontmatter populates each page's h1 header.
+The `title` frontmatter populates each page's HTML `h1` heading tag.
 It shouldn't be overly long, but should set the context for users coming from outside sources.
 
 ##### `seotitle`
@@ -356,14 +356,16 @@ Maintain CLI version numbers in the `data/products.yml` file instead of updating
 
 ### API endpoint
 Use the `{{< api-endpoint >}}` shortcode to generate a code block that contains
-a colored request method and a specified API endpoint.
+a colored request method, a specified API endpoint, and an optional link to
+the API reference documentation.
 Provide the following arguments:
 
 - **method**: HTTP request method (get, post, patch, put, or delete)
 - **endpoint**: API endpoint
+- **api-ref**: Link the endpoint to a specific place in the API documentation
 
 ```md
-{{< api-endpoint method="get" endpoint="/api/v2/tasks">}}
+{{< api-endpoint method="get" endpoint="/api/v2/tasks" api-ref="/influxdb/cloud/api/#operation/GetTasks">}}
 ```
 
 ### Tabbed Content

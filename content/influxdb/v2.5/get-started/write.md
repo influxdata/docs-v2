@@ -57,7 +57,7 @@ Each line of line protocol contains the following elements:
   or [booleans](/influxdb/v2.5/reference/syntax/line-protocol/#boolean).
 - **timestamp**: [Unix timestamp](/influxdb/v2.5/reference/syntax/line-protocol/#unix-timestamp)
   associated with the data. InfluxDB supports up to nanosecond precision.
-  _If the precision if the timestamp is not in nanoseconds, you must specify the
+  _If the precision of the timestamp is not in nanoseconds, you must specify the
   precision when writing the data to InfluxDB._
 
 #### Line protocol element parsing

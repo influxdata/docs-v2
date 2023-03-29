@@ -8,10 +8,10 @@ menu:
     parent: Input data formats (parsers)
 ---
 
-The grok data format parses line delimited data using a regular expression-like
+The grok data format parses line-delimited data using a regular expression-like
 language.
 
-If you need to become familiar with grok patterns, see [Grok Basics](https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html#_grok_basics)
+For an introduction to grok patterns, see [Grok Basics](https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html#_grok_basics)
 in the Logstash documentation. The grok parser uses a slightly modified version of logstash "grok"
 patterns, using the format:
 
@@ -65,12 +65,11 @@ See https://golang.org/pkg/time/#Parse for more details.
 
 Telegraf has many of its own [built-in patterns](https://github.com/influxdata/telegraf/blob/master/plugins/parsers/grok/influx_patterns.go),
 as well as support for most of
-[logstash's builtin patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/main/patterns/ecs-v1/grok-patterns.
+[Logstash's core patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/main/patterns/ecs-v1/grok-patterns).
 _Golang regular expressions do not support lookahead or lookbehind.
-logstash patterns that depend on these are not supported._
+Logstash patterns that depend on these are not supported._
 
-If you need help building patterns to match your logs, the
-[Grok Debugger application](https://grokdebug.herokuapp.com) might be helpful.
+For help building and testing patterns, see [tips for creating patterns](#tips-for-creating-patterns).
 
 ## Configuration
 
@@ -168,8 +167,8 @@ grok will offset the timestamp accordingly.
 When saving patterns to the configuration file, keep in mind the different TOML
 [string](https://github.com/toml-lang/toml#string) types and the escaping
 rules for each.  These escaping rules must be applied in addition to the
-escaping required by the grok syntax.  Using the Multi-line line literal
-syntax with `'''` may be useful.
+escaping required by the grok syntax.  Using the TOML multi-line literal
+syntax (`'''`) may be useful.
 
 The following config examples will parse this input file:
 
@@ -205,22 +204,29 @@ A multi-line literal string allows us to encode the pattern:
 ```
 
 ### Tips for creating patterns
+Complex patterns can be difficult to read and write.
+For help building and debugging grok patterns, see the following tools:
+- [Grok Constructor](https://grokconstructor.appspot.com/)
+- [Grok Debugger](https://grokdebugger.com/)
 
-Writing complex patterns can be difficult, here is some advice for writing a
-new pattern or testing a pattern developed [online](https://grokdebug.herokuapp.com).
+We recommend the following steps for building and testing a new pattern with Telegraf and your data:
 
-Create a file output that writes to stdout, and disable other outputs while
-testing.  This will allow you to see the captured metrics.  Keep in mind that
-the file output will only print once per `flush_interval`.
+1. In your Telegraf configuration, do the following to help you isolate and view the captured metrics:
+    - Configure a file output that writes to stdout:
 
-```toml
-[[outputs.file]]
-  files = ["stdout"]
-```
+      ```toml
+      [[outputs.file]]
+        files = ["stdout"]
+      ```
 
-- Start with a file containing only a single line of your input.
-- Remove all but the first token or piece of the line.
-- Add the section of your pattern to match this piece to your configuration file.
-- Verify that the metric is parsed successfully by running Telegraf.
-- If successful, add the next token, update the pattern and retest.
-- Continue one token at a time until the entire line is successfully parsed.
+    - Disable other outputs while testing.
+
+    *Keep in mind that the file output will only print once per `flush_interval`.*
+
+2. For the input, start with a sample file that contains a single line of your data,
+   and then remove all but the first token or piece of the line.
+3. In your Telegraf configuration, add the section of your pattern that matches the piece of data from the previous step.
+4. Run Telegraf and verify that the metric is parsed successfully.
+5. If successful, add the next token to the data file, update the pattern configuration in Telegraf, and then retest.
+6. Continue one token at a time until the entire line is successfully parsed.
+
