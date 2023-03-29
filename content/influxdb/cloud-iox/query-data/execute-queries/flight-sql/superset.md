@@ -3,7 +3,7 @@ title: Use Superset to query data
 seotitle: Use Apache Superset to query data stored in InfluxDB Cloud (IOx)
 description: >
   Install and run [Apache Superset](https://superset.apache.org/)
-  to query data stored in an InfluxDB bucket.
+  to query data stored in a bucket powered by InfluxDB IOx.
 weight: 101
 menu:
   influxdb_cloud_iox:
@@ -109,7 +109,7 @@ pip3 install flightsql-dbapi
     [DB API 2](https://peps.python.org/pep-0249/) interface and
     [SQLAlchemy](https://www.sqlalchemy.org/) dialect for
     [Flight SQL](https://arrow.apache.org/docs/format/FlightSql.html).
-    You need it later for configuring Superset.
+    Later, you'll add it to Superset's Docker configuration.
 
     {{% warn %}}
 The `flightsql-dbapi` library is experimental and under active development.
