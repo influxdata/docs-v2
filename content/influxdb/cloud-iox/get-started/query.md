@@ -282,7 +282,7 @@ To query data from InfluxDB using SQL and the InfluxDB HTTP API, send a request
 to the InfluxDB API [`/api/v2/query` endpoint](/influxdb/cloud-iox/api/#operation/PostQuery)
 using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/query" method="post" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/query" method="post" api-ref="/influxdb/cloud-iox/api/#operation/PostQuery" >}}
 
 The `/api/v2/query` endpoint only accepts Flux queries.
 To query data with SQL, wrap your SQL query in Flux and use [`iox.sql()`](/flux/v0.x/stdlib/experimental/iox/)

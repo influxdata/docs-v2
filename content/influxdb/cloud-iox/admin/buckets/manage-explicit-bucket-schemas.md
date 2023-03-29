@@ -13,6 +13,7 @@ related:
   - /influxdb/cloud-iox/reference/cli/influx/bucket-schema/
   - /influxdb/cloud-iox/admin/buckets/create-bucket/
   - /influxdb/cloud-iox/reference/cli/influx/
+alt_engine: /influxdb/cloud/organizations/buckets/bucket-schema/
 ---
 
 Use [**explicit bucket schemas**](/influxdb/cloud-iox/reference/glossary/#bucket-schema) to enforce [column names](/influxdb/cloud-iox/reference/glossary/#column), [tags](/influxdb/cloud-iox/reference/glossary/#tag), [fields](/influxdb/cloud-iox/reference/glossary/#field), and
@@ -124,7 +125,7 @@ and set the following properties in the request body:
 
 For example, the following request defines the _explicit_ bucket measurement schema for `airSensors` measurements:
 
-{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements" >}}
+{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements" api-ref="/influxdb/cloud-iox/api/#operation/createMeasurementSchema" >}}
 
 ```js
 {
@@ -209,7 +210,7 @@ To view schema column definitions and metadata, specify the `--json` flag.
 
 To list schemas for a bucket, send a request to the InfluxDB HTTP [`/api/v2/buckets/{BUCKET_ID}/schema/measurements` endpoint](/influxdb/cloud-iox/api/#operation/getMeasurementSchemas):
 
-{{% api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements" %}}
+{{% api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements" api-ref="/influxdb/cloud-iox/api/#operation/getMeasurementSchemas" %}}
 
 ## Update a bucket schema
 
@@ -252,7 +253,7 @@ You can't modify or delete columns in bucket schemas.
 
     In the request body, set the `columns` property to a list of old and new column definitions for the measurement schema--for example, the following request appends the new column `CO2` to `columns` retrieved in the previous step:
 
-    {{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}" >}}
+    {{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}/schema/measurements/{MEASUREMENT_ID}" api-ref="/influxdb/cloud-iox/api/#operation/updateMeasurementSchema" >}}
 
     ```js
     {

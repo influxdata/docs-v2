@@ -132,7 +132,7 @@ option task = {
 
 Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/v2.6/api/#operation/PostTasks) to create a task.
 
-{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" >}}
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" api-ref="/influxdb/v2.6/api/#operation/PostTasks" >}}
 
 Provide the following in your API request:
 ##### Request headers
@@ -178,7 +178,7 @@ You can use tasks to pass script parameters and schedule runs.
 Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/cloud/api/#operation/PostTasks) to create a task
 that references a script ID.
 
-{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" >}}
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/tasks/" api-ref="/influxdb/cloud/api/#operation/PostTasks" >}}
 
 Provide the following in your API request:
 
@@ -258,7 +258,7 @@ Replace **`INFLUX_API_TOKEN`** with your InfluxDB API token.
 
 Use the [`/api/v2/tasks` InfluxDB API endpoint](/influxdb/cloud/api/#operation/PostTasks) to create a task that contains a Flux script with task options.
 
-{{< api-endpoint method="POST" endpoint="https://cloud2.influxdata.com/api/v2/tasks/" >}}
+{{< api-endpoint method="POST" endpoint="https://cloud2.influxdata.com/api/v2/tasks/" api-ref="/influxdb/cloud/api/#operation/PostTasks" >}}
 
 Provide the following in your API request:
 

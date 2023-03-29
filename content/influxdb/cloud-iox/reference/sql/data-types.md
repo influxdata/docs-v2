@@ -155,12 +155,17 @@ YYYY-MM-DD 00:00:00
 
 The INTERVAL data type can be used with the following precision: 
 
-- year
-- month
-- day
-- hour
-- minute
+- nanosecond
+- microsecond
+- millisecond
 - second
+- minute
+- hour
+- day 
+- week
+- month
+- year
+- century
 
 ##### Example interval literals
 ```sql

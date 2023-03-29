@@ -272,7 +272,7 @@ To query data from InfluxDB using Flux and the InfluxDB HTTP API, send a request
 to the InfluxDB API [`/api/v2/query` endpoint](/influxdb/v2.6/api/#operation/PostQuery)
 using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/query" method="post" >}}
+{{< api-endpoint endpoint="http://localhost:8086/api/v2/query" method="post" api-ref="/influxdb/v2.6/api/#operation/PostQuery" >}}
 
 Include the following with your request:
 
@@ -513,7 +513,7 @@ To query data from InfluxDB using InfluxQL and the InfluxDB HTTP API, send a req
 to the InfluxDB API [`/query` 1.X compatibility endpoint](/influxdb/v2.6/reference/api/influxdb-1x/query/)
 using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/query" method="post" >}}
+{{< api-endpoint endpoint="http://localhost:8086/query" method="post" api-ref="/influxdb/v2.6/api/v1-compatibility/#operation/PostQueryV1" >}}
 
 Include the following with your request:
 

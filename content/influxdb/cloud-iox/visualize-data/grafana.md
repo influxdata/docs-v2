@@ -11,6 +11,7 @@ menu:
     name: Use Grafana
     parent: Visualize data
 influxdb/cloud-iox/tags: [visualization]
+alt_engine: /influxdb/cloud/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) to query and visualize data stored in an

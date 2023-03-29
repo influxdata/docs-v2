@@ -118,6 +118,20 @@ INTERVAL '4 minutes'
 INTERVAL '12 days 6 hours 30 minutes'
 ```
 
+The following units of time are supported:
+
+- nanoseconds
+- microseconds
+- milliseconds
+- seconds
+- minutes
+- hours 
+- days 
+- weeks
+- months 
+- years
+- century
+
 ## Operators
 
 Operators are reserved words or characters which perform certain operations, inluding comparisons and arithmetic. 

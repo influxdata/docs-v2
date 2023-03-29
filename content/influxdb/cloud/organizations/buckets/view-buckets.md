@@ -7,6 +7,7 @@ menu:
     name: View buckets
     parent: Manage buckets
 weight: 202
+alt_engine: /influxdb/cloud-iox/admin/buckets/view-buckets/
 ---
 
 ## View buckets in the InfluxDB UI
@@ -37,4 +38,4 @@ for information about other available flags.
 
 Send a request to the InfluxDB HTTP API [`/api/v2/buckets` endpoint](/influxdb/cloud/api/#operation/GetBuckets) to view buckets in an organization.
 
-{{% api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" %}}
+{{% api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" api-ref="/influxdb/cloud/api/#operation/GetBuckets" %}}

@@ -1,6 +1,11 @@
-{{ $method := .Get "method" | upper }}
-{{ $methodStyle := .Get "method" | lower }}
-{{ $endpoint := .Get "endpoint" }}
-<pre>
-<span class="api {{ $methodStyle }}">{{ $method }}</span> {{ $endpoint }}
+{{- $method := .Get "method" | upper -}}
+{{- $methodStyle := .Get "method" | lower -}}
+{{- $endpoint := .Get "endpoint" -}}
+{{- $apiRef := .Get "api-ref" | default "" -}}
+<pre class="api-endpoint">
+  {{- if ne $apiRef "" -}}
+  <a href="{{ $apiRef }}" target="_blank"><span class="api {{ $methodStyle }}">{{ $method }}</span> {{ $endpoint }}</a>
+  {{- else -}}
+  <span class="api {{ $methodStyle }}">{{ $method }}</span> {{ $endpoint }}
+  {{- end -}}
 </pre>

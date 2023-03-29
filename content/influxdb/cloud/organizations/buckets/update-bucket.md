@@ -7,6 +7,7 @@ menu:
     name: Update a bucket
     parent: Manage buckets
 weight: 202
+alt_engine: /influxdb/cloud-iox/admin/buckets/update-bucket/
 ---
 
 Use the InfluxDB user interface (UI), the `influx` command line interface (CLI), or the InfluxDB HTTP API to update a bucket.
@@ -31,6 +32,11 @@ If you change a bucket name, be sure to update the bucket name in the above plac
 3. Click **{{< caps >}}Rename{{< /caps >}}**.
 3. Review the information in the window that appears and click **{{< caps >}}I understand, let's rename my bucket{{< /caps >}}**.
 4. Update the bucket's name and click **Change Bucket Name**.
+
+{{% note %}}
+For information about permitted bucket names, see
+[bucket naming restrictions](/influxdb/cloud/organizations/buckets/create-bucket/#bucket-naming-restrictions).
+{{% /note %}}
 
 ## Update a bucket's retention period in the InfluxDB UI
 
@@ -105,20 +111,21 @@ Updating a bucket requires the following:
 - The bucket ID _(provided in the output of the `GET /api/v2/buckets/` endpoint)_
 
 You can update the following bucket properties:
-- name
+
+- name _(see [bucket naming restrictions](/influxdb/cloud/organizations/buckets/create-bucket/#bucket-naming-restrictions))_
 - description
 - retention rules
 
 1. To find the bucket ID, send a request to the HTTP API [`GET /api/v2/buckets/` endpoint](/influxdb/cloud/api/#operation/GetBuckets) to retrieve the list of buckets. <!-- @TODO: provide API auth note about tokens and read access to buckets -->
 
-    {{< api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" >}}
+    {{< api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" api-ref="/influxdb/cloud/api/#operation/GetBuckets" >}}
 
 2. Send a request to the HTTP API [PATCH `/api/v2/buckets/{BUCKET_ID}` endpoint](/influxdb/cloud/api/#operation/PatchBucketsID).
 
     In the URL path, specify the ID of the bucket from the previous step that you want to update.
     In the request body, set the properties that you want to update--for example:
 
-    {{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}" >}}
+    {{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}" api-ref="/influxdb/cloud/api/#operation/PatchBucketsID" >}}
 
     ```js
     {
