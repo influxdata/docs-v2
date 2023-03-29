@@ -1,14 +1,14 @@
 ---
-title: Use Grafana to visualize data
-seotitle: Use Grafana to visualize data stored in InfluxDB
-list_title: Grafana
+title: Use Grafana to query and visualize data
+seotitle: Use Grafana to query and visualize data stored in InfluxDB Cloud (IOx)
+list_title: Use Grafana
 description: >
-  Use [Grafana](https://grafana.com/) to query and visualize data stored in an
+  Install and run [Grafana](https://grafana.com/) to query and visualize data stored in an
   InfluxDB bucket powered by InfluxDB IOx.
 weight: 101
 menu:
   influxdb_cloud_iox:
-    name: Grafana
+    name: Use Grafana
     parent: Visualize data
 influxdb/cloud-iox/tags: [visualization]
 ---
@@ -231,7 +231,8 @@ services:
 
 ## Query InfluxDB with Grafana
 
-After you [configure and save a Flight SQL datasource](#configure-the-flight-sql-datasource), use Grafana to build, run, and inspect queries against InfluxDB buckets.
+After you [configure and save a Flight SQL datasource](#configure-the-flight-sql-datasource),
+use Grafana to build, run, and inspect queries against InfluxDB buckets.
 
 {{% note %}}
 {{% sql/sql-schema-intro %}}
