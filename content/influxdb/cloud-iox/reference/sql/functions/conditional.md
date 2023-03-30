@@ -29,8 +29,9 @@ coalesce(expression1[, ..., expression_n])
 ##### Arguments
 
 - **expression1, expression_n**:
-  Column or literal value to use if previous expressions are _null_.
-  Pass as many expression arguments as necessary. 
+  Expression to use if previous expressions are _null_.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+  Pass as many expression arguments as necessary.
 
 {{< expand-wrapper >}}
 {{% expand "View `coalesce` query example" %}}
@@ -70,8 +71,10 @@ nullif(expression1, expression2)
 
 ##### Arguments
 
-- **expression1**: Column or literal value to compare and return if equal to expression2.
-- **expression2**: Column or literal value to compare to expression1.
+- **expression1**: Expression to compare and return if equal to expression2.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression2**: Expression to compare to expression1.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `nullif` query example" %}}

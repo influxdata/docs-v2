@@ -29,8 +29,10 @@ regexp_match(str, regexp)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 - **regexp**: Regular expression to match against.
+  Can be a constant, column, or function.
 
 -->
 
@@ -44,9 +46,12 @@ regexp_replace(str, regexp, replacement, flags)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 - **regexp**: Regular expression to match against.
-- **replacement**: Replacement string.
+  Can be a constant, column, or function.
+- **replacement**: Replacement string expression.
+  Can be a constant, column, or function, and any combination of string operators.
 - **flags**: Regular expression flags that control the behavior of the
   regular expression. The following flags are supported.
   - **g**: (global) Search globally and don't return after the first match.

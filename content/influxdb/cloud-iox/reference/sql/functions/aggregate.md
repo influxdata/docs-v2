@@ -60,7 +60,8 @@ avg(expression)
 
 ##### Arguments
 
-- **expression**: Column to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 ##### Aliases
 
@@ -387,7 +388,8 @@ stddev(expression)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `stddev` query example" %}}
@@ -421,7 +423,8 @@ stddev_pop(expression)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `stddev_pop` query example" %}}
@@ -455,7 +458,8 @@ stddev_samp(expression)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `stddev_samp` query example" %}}
@@ -489,7 +493,8 @@ var(expression)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `var` query example" %}}
@@ -523,7 +528,8 @@ var_pop(expression)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `var_pop` query example" %}}
@@ -557,7 +563,8 @@ var_samp(expression)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `var_samp` query example" %}}
@@ -599,7 +606,8 @@ approx_distinct(expression)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `approx_distinct` query example" %}}
@@ -634,7 +642,8 @@ approx_median(expression)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `approx_median` query example" %}}
@@ -668,7 +677,8 @@ approx_percentile_cont(expression, percentile, centroids)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 - **percentile**: Percentile to compute. Must be a float value between 0 and 1 (inclusive).
 - **centroids**: Number of centroids to use in the t-digest algorithm. _Default is 100_.
 
@@ -709,8 +719,10 @@ approx_percentile_cont_with_weight(expression, weight, percentile)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
-- **weight**: Column or literal value to use as weight.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **weight**: Expression to use as weight.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 - **percentile**: Percentile to compute. Must be a float value between 0 and 1 (inclusive).
 
 {{< expand-wrapper >}}
