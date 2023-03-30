@@ -100,7 +100,8 @@ count(expression)
 
 ##### Arguments
 
-- **expression**: Column to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `count` query example" %}}
@@ -134,7 +135,8 @@ _To return both the maximum value and its associated timestamp, use
 
 ##### Arguments
 
-- **expression**: Column to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `max` query example" %}}
@@ -172,7 +174,8 @@ _To return both the minimum value and its associated timestamp, use
 
 ##### Arguments
 
-- **expression**: Column to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `min` query example" %}}
@@ -203,7 +206,8 @@ sum(expression)
 
 ##### Arguments
 
-- **expression**: Column to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `sum` query example" %}}
