@@ -235,13 +235,9 @@ brew update
 brew install telegraf
 ```
 
-To have launchd start telegraf at next login:
+To start telegraf now and restart at login:
 ```
-ln -sfv /usr/local/opt/telegraf/*.plist ~/Library/LaunchAgents
-```
-To load telegraf now:
-```
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.telegraf.plist
+brew services start telegraf
 ```
 
 Or, if you don't want/need launchctl, you can just run:
