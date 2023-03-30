@@ -77,8 +77,11 @@ selector_min(expression, timestamp)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
-- **timestamp**: Time column or timestamp literal.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of string or
+  arithmetic operators.
+- **timestamp**: Time expression.
+  Can be a constant, column, or function.
 
 {{< expand-wrapper >}}
 {{% expand "View `selector_min` query example" %}}
@@ -107,8 +110,11 @@ selector_max(expression, timestamp)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
-- **timestamp**: Time column or timestamp literal.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of string or
+  arithmetic operators.
+- **timestamp**: Time expression.
+  Can be a constant, column, or function.
 
 {{< expand-wrapper >}}
 {{% expand "View `selector_max` query example" %}}
@@ -137,8 +143,11 @@ selector_first(expression, timestamp)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
-- **timestamp**: Time column or timestamp literal.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of string or
+  arithmetic operators.
+- **timestamp**: Time expression.
+  Can be a constant, column, or function.
 
 {{< expand-wrapper >}}
 {{% expand "View `selector_first` query example" %}}
@@ -167,8 +176,11 @@ selector_last(expression, timestamp)
 
 ##### Arguments
 
-- **expression**: Column or literal value to operate on.
-- **timestamp**: Time column or timestamp literal.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of string or
+  arithmetic operators.
+- **timestamp**: Time expression.
+  Can be a constant, column, or function.
 
 {{< expand-wrapper >}}
 {{% expand "View `selector_last` query example" %}}

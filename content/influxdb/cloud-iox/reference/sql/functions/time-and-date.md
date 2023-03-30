@@ -64,7 +64,8 @@ date_bin(interval, expression, origin-timestamp)
 ##### Arguments:
 
 - **interval**: Bin interval.
-- **expression**: Column or timestamp literal to operate on.  
+- **expression**: Time expression to operate on.
+  Can be a constant, column, or function.
 - **timestamp**: Starting point used to determine bin boundaries.
 
 The following intervals are supported:
@@ -123,17 +124,18 @@ date_trunc(precision, expression)
 ##### Arguments:
 
 - **precision**: Time precision to truncate to.
-  The following precisions are supported:  
+  The following precisions are supported:
 
-    - year
-    - month
-    - week
-    - day
-    - hour
-    - minute
-    - second
-    
-- **expression**: Column or timestamp literal to operate on.  
+  - year
+  - month
+  - week
+  - day
+  - hour
+  - minute
+  - second
+
+- **expression**: Time expression to operate on.
+  Can be a constant, column, or function.
 
 {{< expand-wrapper >}}
 {{% expand "View `date_trunc` query examples" %}}
@@ -198,22 +200,23 @@ date_part(part, expression)
 ##### Arguments:
 
 - **part**: Part of the date to return.
-  The follow date parts are supported:
+  The following date parts are supported:
 
-    - year
-    - month
-    - week _(week of the year)_
-    - day _(day of the month)_
-    - hour
-    - minute
-    - second
-    - millisecond 
-    - microsecond
-    - nanosecond
-    - dow _(day of the week)_
-    - doy _(day of the year)_
-    
-- **expression**: Column or timestamp literal to operate on.
+  - year
+  - month
+  - week _(week of the year)_
+  - day _(day of the month)_
+  - hour
+  - minute
+  - second
+  - millisecond
+  - microsecond
+  - nanosecond
+  - dow _(day of the week)_
+  - doy _(day of the year)_
+
+- **expression**: Time expression to operate on.
+  Can be a constant, column, or function.
 
 {{< expand-wrapper >}}
 {{% expand "View `date_part` query examples" %}}
@@ -252,6 +255,27 @@ Similar to `date_part`, but with different arguments.
 extract(field FROM source)
 ```
 
+##### Arguments
+
+- **field**: Part or field of the date to return.
+  The following date fields are supported:
+
+  - year
+  - month
+  - week _(week of the year)_
+  - day _(day of the month)_
+  - hour
+  - minute
+  - second
+  - millisecond
+  - microsecond
+  - nanosecond
+  - dow _(day of the week)_
+  - doy _(day of the year)_
+
+- **source**: Source time expression to operate on.
+  Can be a constant, column, or function.
+
 {{< expand-wrapper >}}
 {{% expand "View `extract` query example" %}}
 
@@ -283,7 +307,8 @@ to_timestamp(expression)
 
 ##### Arguments:
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `to_timestamp` query example" %}}
@@ -314,7 +339,8 @@ to_timestamp_millis(expression)
 
 ##### Arguments:
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `to_timestamp_millis` query example" %}}
@@ -348,7 +374,8 @@ to_timestamp_micros(expression)
 
 ##### Arguments:
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `to_timestamp_micros` query example" %}}
@@ -367,7 +394,6 @@ LIMIT 1
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-
 ### to_timestamp_seconds
 
 Converts a value to RFC3339 second timestamp format (`YYYY-MM-DDT00:00:00Z`).
@@ -381,7 +407,8 @@ to_timestamp_seconds(expression)
 
 ##### Arguments:
 
-- **expression**: Column or literal value to operate on.
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `to_timestamp_seconds` query example" %}}
@@ -414,7 +441,8 @@ from_unixtime(expression)
 
 ##### Arguments:
 
-- **expression**: Column or integer literal to operate on.
+- **expression**: Integer expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `from_unixtime` query example" %}}
