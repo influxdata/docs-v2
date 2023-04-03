@@ -2,7 +2,7 @@ influxdb:
   name: InfluxDB
   altname: InfluxDB OSS
   namespace: influxdb
-  list_order: 3
+  list_order: 4
   versions: [v1.3, v1.4, v1.5, v1.6, v1.7, v1.8, v2.0, v2.1, v2.2, v2.3, v2.4, v2.5, v2.6]
   latest: v2.6
   latest_patches:
@@ -32,18 +32,25 @@ influxdb_cloud:
   altname: InfluxDB Cloud
   namespace: influxdb
   versions: [cloud]
-  list_order: 2
+  list_order: 3
   latest: cloud
-  link: "https://cloud2.influxdata.com/signup"
 
 influxdb_cloud_iox:
   name: InfluxDB Cloud (IOx)
   altname: InfluxDB Cloud (IOx)
   namespace: influxdb
   versions: [cloud-iox]
-  list_order: 1
+  list_order: 2
   latest: cloud-iox
-  link: "https://cloud2.influxdata.com/signup"
+
+influxdb_cloud_dedicated:
+  name: InfluxDB Cloud Dedicated
+  altname: InfluxDB Cloud Dedicated
+  namespace: influxdb
+  versions: [cloud-dedicated]
+  list_order: 1
+  latest: cloud-dedicated
+  link: "https://www.influxdata.com/contact-sales-form/"
 
 telegraf:
   name: Telegraf
