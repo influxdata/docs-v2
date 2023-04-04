@@ -10,6 +10,7 @@ menu:
     parent: Manage Telegraf configs
 aliases:
   - /influxdb/cloud-iox/telegraf-configs/remove/
+alt_engine: /influxdb/cloud/telegraf-configs/remove/
 ---
 
 {{< duplicate-oss "/telegraf-configs/remove" >}}

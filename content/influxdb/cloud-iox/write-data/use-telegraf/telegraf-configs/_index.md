@@ -12,6 +12,7 @@ influxdb/cloud-iox/tags: [telegraf]
 related:
   - /influxdb/cloud-iox/write-data/use-telegraf/manual-config/
   - /influxdb/cloud-iox/write-data/use-telegraf/auto-config/
+alt_engine: /influxdb/cloud/telegraf-configs/
 ---
 
 {{< duplicate-oss "/telegraf-configs/" >}}

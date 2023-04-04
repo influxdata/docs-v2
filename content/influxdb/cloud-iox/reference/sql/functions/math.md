@@ -44,7 +44,8 @@ abs(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `abs` query example" %}}
@@ -75,7 +76,8 @@ acos(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `acos` query example" %}}
@@ -106,7 +108,8 @@ asin(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `asin` query example" %}}
@@ -137,7 +140,8 @@ atan(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `atan` query example" %}}
@@ -163,13 +167,15 @@ SELECT atan(temp * .01) AS atan FROM home LIMIT 3
 Returns the arc tangent or inverse tangent of `expression_y / expression_x`.
 
 ```sql
-atan2(expression_y / expression_x)
+atan2(expression_y, expression_x)
 ```
 
 ##### Arguments
 
-- **expression_y**: First numeric column or literal value to operate on.
-- **expression_x**: Second numeric column or literal value to operate on.
+- **expression_y**: First numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_x**: Second numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `atan2` query example" %}}
@@ -200,7 +206,8 @@ ceil(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `ceil` query example" %}}
@@ -231,7 +238,8 @@ cos(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `cos` query example" %}}
@@ -262,7 +270,8 @@ exp(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to use as the exponent.
+- **numeric_expression**: Numeric expression to use as the exponent.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `exp` query example" %}}
@@ -293,7 +302,8 @@ floor(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `floor` query example" %}}
@@ -324,7 +334,8 @@ ln(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `ln` query example" %}}
@@ -355,7 +366,8 @@ log10(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `log10` query example" %}}
@@ -386,7 +398,8 @@ log2(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `log2` query example" %}}
@@ -417,8 +430,10 @@ power(base, exponent)
 
 ##### Arguments
 
-- **power**: Base numeric column or literal value to operate on.
-- **exponent**: Exponent numeric column or literal value to operate on.
+- **power**: Base numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **exponent**: Exponent numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `power` query example" %}}
@@ -481,7 +496,8 @@ round(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `round` query example" %}}
@@ -514,7 +530,8 @@ signum(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `signum` query example" %}}
@@ -545,7 +562,8 @@ sin(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `sin` query example" %}}
@@ -576,7 +594,8 @@ sqrt(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `sqrt` query example" %}}
@@ -607,7 +626,8 @@ tan(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `tan` query example" %}}
@@ -638,7 +658,8 @@ trunc(numeric_expression)
 
 ##### Arguments
 
-- **numeric_expression**: Numeric column or literal value to operate on.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `trunc` query example" %}}

@@ -7,6 +7,7 @@ menu:
     name: Dual write to OSS & Cloud
     parent: Use Telegraf
 weight: 203
+alt_engine: /influxdb/cloud/write-data/no-code/use-telegraf/dual-write/
 ---
 
 If you want to back up your data in two places, or if you're migrating from OSS to Cloud, you may want to set up dual write.

@@ -3,6 +3,7 @@
   padding: .15rem .5rem .25rem;
   border-radius: $radius;
   color: $g20-white;
+  font-family: $code;
   font-weight: bold;
   font-size: 1rem;
 
@@ -11,4 +12,32 @@
   &.patch { background: $y-topaz; }
   &.delete { background: $r-ruby; }
   &.put {background: $br-pulsar; }
+}
+
+&.api-endpoint {
+  a {
+    position: relative;
+    color: $article-code-link;
+    text-decoration: none;
+
+    &:after {
+      content: "\e90d";
+      position: absolute;
+      right: -1.45rem;
+      top: 0.65rem;
+      font-family: "icomoon-v4";
+      color: $article-code-link-hover;
+      display: inline-block;
+      font-size: 1.1rem;
+      line-height: 0;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    &:hover {
+      color: $article-code-link-hover;
+      &:after {opacity: .6;
+      }
+    }
+  }
 }

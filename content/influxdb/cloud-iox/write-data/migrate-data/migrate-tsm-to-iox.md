@@ -9,6 +9,7 @@ menu:
     name: Migrate from TSM to IOx
     parent: Migrate data
 weight: 102
+alt_engine: /influxdb/cloud/migrate-data/migrate-cloud-to-cloud/
 ---
 
 To migrate data from an InfluxDB Cloud organization backed by TSM to an organization

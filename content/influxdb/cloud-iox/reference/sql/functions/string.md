@@ -13,7 +13,6 @@ weight: 307
 The InfluxDB SQL implementation supports the following string functions for
 operating on string values:
 
-
 - [ascii](#ascii)
 - [bit_length](#bit_length)
 - [btrim](#btrim)
@@ -60,7 +59,8 @@ ascii(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 
 ##### Related functions
 
@@ -102,7 +102,8 @@ bit_length(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 
 ##### Related functions
 
@@ -141,9 +142,11 @@ btrim(str[, trim_str])
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
-- **trim_str**: String column or literal string to trim from the beginning and
-  end of the input string. _Default is whitespace characters_.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
+- **trim_str**: String expression to trim from the beginning and end of the input string.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+  _Default is whitespace characters_.
 
 ##### Related functions
 
@@ -190,8 +193,9 @@ concat(str[, ..., str_n])
 
 ##### Arguments
 
-- **str**: String column or literal string to concatenate.
-- **str_n**: Subsequent string column or literal string to concatenate.
+- **str**: String expression to concatenate.
+  Can be a constant, column, or function, and any combination of string operators.
+- **str_n**: Subsequent string expression to concatenate.
 
 ##### Related functions
 
@@ -234,8 +238,10 @@ concat(separator, str[, ..., str_n])
 ##### Arguments
 
 - **separator**: Separator to insert between concatenated strings.
-- **str**: String column or literal string to concatenate.
-- **str_n**: Subsequent string column or literal string to concatenate.
+- **str**: String expression to concatenate.
+  Can be a constant, column, or function, and any combination of string operators.
+- **str_n**: Subsequent string expression to concatenate.
+  Can be a constant, column, or function, and any combination of string operators.
 
 ##### Related functions
 
@@ -269,15 +275,17 @@ LIMIT 3
 
 ## chr
 
-Returns the character with the specified ASCII code value.
+Returns the character with the specified ASCII or Unicode code value.
 
-```sql
-chr(acsii)
+```
+chr(expression)
 ```
 
-##### Arguments
+#### Arguments
 
-- **ascii**: ASCII code value to operate on.
+- **expression**: Expression containing the ASCII or Unicode code value to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic or
+  string operators.
 
 ##### Related functions
 
@@ -317,7 +325,8 @@ initcap(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 
 ##### Related functions
 
@@ -357,7 +366,8 @@ left(str, n)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 - **n**: Number of characters to return.
 
 ##### Related functions
@@ -400,7 +410,8 @@ length(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 
 ##### Aliases
 
@@ -443,7 +454,8 @@ lower(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 
 ##### Related functions
 
@@ -481,9 +493,11 @@ lpad(str, n[, padding_str])
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 - **n**: String length to pad to.
-- **padding_str**: String column or literal string to pad with.
+- **padding_str**: String expression to pad with.
+  Can be a constant, column, or function, and any combination of string operators.
   _Default is a space._
 
 ##### Related functions
@@ -521,7 +535,8 @@ ltrim(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 
 ##### Related functions
 
@@ -554,7 +569,7 @@ FROM
 
 ## md5
 
-Calculates and returns an MD5 128-bit checksum for a string.
+Computes an MD5 128-bit checksum for a string expression.
 
 ```sql
 md5(str)
@@ -562,7 +577,8 @@ md5(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **expression**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `md5` query example" %}}
@@ -600,7 +616,8 @@ octet_length(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 
 ##### Related functions
 
@@ -638,7 +655,8 @@ repeat(str, n)
 
 ##### Arguments
 
-- **str**: String column or literal string to repeat.
+- **str**: String expression to repeat.
+  Can be a constant, column, or function, and any combination of string operators.
 - **n**: Number of times to repeat the input string.
 
 {{< expand-wrapper >}}
@@ -674,9 +692,12 @@ replace(str, substr, replacement)
 
 ##### Arguments
 
-- **str**: String column or literal string to repeat.
-- **substr**: Substring to replace in the input string.
-- **replacement**: Replacement substring.
+- **str**: String expression to repeat.
+  Can be a constant, column, or function, and any combination of string operators.
+- **substr**: Substring expression to replace in the input string.
+  Can be a constant, column, or function, and any combination of string operators.
+- **replacement**: Replacement substring expression.
+  Can be a constant, column, or function, and any combination of string operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `replace` query example" %}}
@@ -709,7 +730,8 @@ reverse(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to repeat.
+- **str**: String expression to repeat.
+  Can be a constant, column, or function, and any combination of string operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `reverse` query example" %}}
@@ -742,7 +764,8 @@ right(str, n)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 - **n**: Number of characters to return.
 
 ##### Related functions
@@ -779,9 +802,11 @@ rpad(str, n[, padding_str])
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 - **n**: String length to pad to.
-- **padding_str**: String column or literal string to pad with.
+- **padding_str**: String expression to pad with.
+  Can be a constant, column, or function, and any combination of string operators.
   _Default is a space._
 
 ##### Related functions
@@ -819,7 +844,8 @@ rtrim(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 
 ##### Related functions
 
@@ -861,7 +887,8 @@ split_part(str, delimiter, pos)
 
 ##### Arguments
 
-- **str**: String column or literal string to spit.
+- **str**: String expression to spit.
+  Can be a constant, column, or function, and any combination of string operators.
 - **delimiter**: String or character to split on.
 - **pos**: Position of the part to return.
 
@@ -898,7 +925,8 @@ starts_with(str, substr)
 
 ##### Arguments
 
-- **str**: String column or literal string to test.
+- **str**: String expression to test.
+  Can be a constant, column, or function, and any combination of string operators.
 - **substr**: Substring to test for.
 
 {{< expand-wrapper >}}
@@ -939,8 +967,10 @@ strpos(str, substr)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
-- **substr**: Substring to search for.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
+- **substr**: Substring expression to search for.
+  Can be a constant, column, or function, and any combination of string operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `strpos` query example" %}}
@@ -974,7 +1004,8 @@ substr(str, start_pos[, length])
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 - **start_pos**: Character position to start the substring at.
   The first character in the string has a position of 1.
 - **length**: Number of characters to extract.
@@ -1009,7 +1040,8 @@ Translates characters in a string to specified translation characters.
 translate(str, chars, translation)
 ```
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 - **chars**: Characters to translate.
 - **translation**: Translation characters. Translation characters replace only
   characters at the same position in the **chars** string.
@@ -1045,7 +1077,8 @@ to_hex(int)
 
 ##### Arguments
 
-- **int**: Integer column or literal integer to convert.
+- **int**: Integer expression to convert.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
 
 {{< expand-wrapper >}}
 {{% expand "View `to_hex` query example" %}}
@@ -1080,7 +1113,8 @@ trim(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 
 ##### Related functions
 
@@ -1121,7 +1155,8 @@ upper(str)
 
 ##### Arguments
 
-- **str**: String column or literal string to operate on.
+- **str**: String expression to operate on.
+  Can be a constant, column, or function, and any combination of string operators.
 
 ##### Related functions
 
