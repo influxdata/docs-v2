@@ -8,6 +8,33 @@ menu:
 weight: 101
 ---
 
+## v2.7.0 [2023-04-05]
+
+### Bug Fixes
+
+- Update user interface to resolve dashboard crashes and all-access token creation.
+- Show replication queue size and replication TCP errors.
+- Correctly handle when the replication queue cannot be found.
+- Rename stored replication fields to be more clear.
+- Prevent unauthorized writes from Flux `to()` function.
+- Add error message when attempting to delete by field.
+- Prevent scrapers from failing when the `Content-Type` header is not set.
+- Removed timeout reached with large databases or slow servers.
+- Changing file permissions on the manifest is no longer necessary.
+
+### Maintenance
+
+- Update Flux to v0.193.0.
+- Update package repository GPG key/
+- Add additional error logging when deleting a shard.
+- Update to Go 1.20.1.
+- Update end-to-end tests to work locally in UI repo.
+- Bump `github.com/aws/aws-sdk-go` from 1.30.12 to 1.33.0.
+- Bump `testcontainers-go` to 0.18.0.
+- Bump `golang.org/x/net` from 0.5.0 to 0.7.0.
+- Bump `containerd` to 1.6.18.
+- Bump `github.com/opencontainers/runc` from 1.1.3 to 1.1.5.
+
 ## v2.6.1 [2022-12-29]
 
 ### Bug Fixes

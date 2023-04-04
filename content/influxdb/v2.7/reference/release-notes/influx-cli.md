@@ -8,6 +8,27 @@ menu:
     name: influx CLI 
 ---
 
+## v2.7.0 [2023-04-05]
+
+### Features
+
+- Add new replication field to better show queue synchronization progress.
+
+### Bug Fixes
+
+- Update the API for deleting secrets so `influx secret delete` command works correctly.
+- Fix typo in alias of `bucket update` command.
+
+### Maintenance
+
+- Use `fpm` for packaging.
+- Update `openapi`.
+- Upgrade `go releaser` to v1.13.1.
+- Upgrade `go` to 1.19.6.
+- Bump `sys` to v0.6.0 to support `riscv`.
+
+---
+
 ## v2.6.1 [2022-12-29]
 
 - Internal code cleanup.
