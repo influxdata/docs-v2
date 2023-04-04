@@ -730,6 +730,12 @@ use the `influx` command line interface (CLI) or the InfluxDB `/api/v2` API.
 3. Enter your initial **Organization Name**.
 4. Enter your initial **Bucket Name**.
 5. Click **Continue**.
+6. Copy the provided **operator API token** and store it for safe keeping.
+
+    {{% note %}}
+We recommend using a password manager or a secret store to securely store
+sensitive tokens.
+    {{% /note %}}
 
 Your InfluxDB instance is now initialized.
 
@@ -739,14 +745,15 @@ To avoid having to pass your InfluxDB
 API token with each `influx` command, set up a configuration profile to store your credentials--for example,
 enter the following code in your terminal:
 
-    ```sh
-    # Set up a configuration profile
-    influx config create -n default \
-      -u http://localhost:8086 \
-      -o INFLUX_ORG \
-      -t INFLUX_API_TOKEN \
-      -a
-    ```
+```sh
+# Set up a configuration profile
+influx config create \
+  --config-name default \
+  --host-url http://localhost:8086 \
+  --org INFLUX_ORG \
+  --token INFLUX_API_TOKEN \
+  --active
+```
 
 Replace the following:
 
@@ -783,30 +790,37 @@ Pass the `-f, --force` flag to bypass screen prompts.
 
 The following example command shows how to set up InfluxDB in non-interactive
 mode with an initial admin user,
-_[operator token](/influxdb/v2.7/security/tokens/#operator-token)_,
+[operator token](/influxdb/v2.7/security/tokens/#operator-token),
 and bucket:
 
 ```sh
-influx setup -u USERNAME -p PASSWORD -t TOKEN -o ORGANIZATION_NAME -b BUCKET_NAME -f
+influx setup \
+  --username USERNAME \
+  --password PASSWORD \
+  --token TOKEN \
+  --org ORGANIZATION_NAME \
+  --bucket BUCKET_NAME \
+  --force
 ```
 
-The output is the following:
+The command outputs the following:
 
 ```sh
 User        Organization         Bucket
 USERNAME    ORGANIZATION_NAME    BUCKET_NAME
 ```
 
-If you run `influx setup` without the `-t, --token` flag, then InfluxDB
-automatically generates an API token for the initial authorization--for example,
-the following setup command creates the initial authorization with an
-auto-generated API token:
+{{% note %}}
+If you run `influx setup` without the `-t, --token` flag, InfluxDB
+automatically generates an operator API token and stores it in an
+[`influx` CLI connection configuration](/influxdb/v2.7/tools/influx-cli/#provide-required-authentication-credentials).
+{{% /note %}}
 
-```sh
-influx setup -u USERNAME -p PASSWORD -o ORGANIZATION_NAME -b BUCKET_NAME -f
-```
-
-Once setup completes, InfluxDB is initialized with the [authorization](/influxdb/v2.7/security/tokens/), [user](/influxdb/v2.7/reference/glossary/#user), [organization](/influxdb/v2.7/reference/glossary/#organization), and [bucket](/influxdb/v2.7/reference/glossary/#bucket).
+Once setup completes, InfluxDB is initialized with an
+[operator token](/influxdb/v2.7/security/tokens/),
+[user](/influxdb/v2.7/reference/glossary/#user),
+[organization](/influxdb/v2.7/reference/glossary/#organization),
+and [bucket](/influxdb/v2.7/reference/glossary/#bucket).
 
 InfluxDB creates a `default` configuration profile for you that provides your
 InfluxDB URL, organization, and API token to `influx` CLI commands.

@@ -23,7 +23,7 @@ related:
 As you get started with this tutorial, do the following to make sure everything
 you need is in place.
 
-1.  If you haven't already, [download and install InfluxDB](/influxdb/v2.7/install/).
+1.  If you haven't already, [download, install, and set up InfluxDB {{< current-version >}}](/influxdb/v2.7/install/).
 
     Installation instructions depend on your operating system.
     Be sure to go through the installation and initialization process fully.
@@ -47,17 +47,27 @@ see [InfluxDB configuration options](/influxdb/v2.7/reference/config-options/).
 
     Once running, the InfluxDB UI is accessible at [localhost:8086](http://localhost:8086).
 
-3.  {{< req text="(Optional)" color="magenta" >}} **Download, install, and configure the `influx` CLI**.
+3.  **Set up and initialize InfluxDB**.
+
+    If starting InfluxDB for the first time, use the InfluxDB UI or the `influx`
+    CLI to initialize your InfluxDB instance.
+    This process creates a default user, organization, and bucket and provides
+    you with an [operator token](/influxdb/v2.7/security/tokens/#operator-token)
+    for managing your InfluxDB instance.
+
+    For detailed instructions, see [Install InfluxDB – Set up InfluxDB](/influxdb/v2.7/install/#set-up-influxdb).
+
+4.  {{< req text="(Optional)" color="magenta" >}} **Download, install, and configure the `influx` CLI**.
     
     The `influx` CLI provides a simple way to interact with InfluxDB from a 
     command line. For detailed installation and setup instructions,
     see [Use the influx CLI](/influxdb/v2.7/tools/influx-cli/).
 
-4.  {{< req text="(Optional)" color="magenta" >}} **Create an All Access API token.**
+5.  {{< req text="(Optional)" color="magenta" >}} **Create an All Access API token.**
     <span id="create-an-all-access-api-token"></span>
 
-    During the InfluxDB initialization process, you created a user and API token
-    that has permissions to manage everything in your InfluxDB instance.
+    During the [InfluxDB initialization process](/influxdb/v2.7/install/#set-up-influxdb),
+    you created a user and API token that has permissions to manage everything in your InfluxDB instance.
     This is known as an **Operator token**. While you can use your Operator token
     to interact with InfluxDB, we recommend creating an **all access token** that
     is scoped to an organization.
@@ -231,7 +241,7 @@ We recommend using a password manager or a secret store to securely store
 sensitive tokens.
     {{% /note %}}
 
-5. **Configure authentication credentials**. <span id="configure-authentication-credentials"></span>
+6. **Configure authentication credentials**. <span id="configure-authentication-credentials"></span>
 
     As you go through this tutorial, interactions with InfluxDB {{< current-version >}}
     require your InfluxDB **host**, **organization name or ID**, and your **API token**.
@@ -357,7 +367,7 @@ export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
 {{% /tab-content %}}
     {{< /tabs-wrapper >}} 
 
-6.  {{< req text="(Optional)" color="magenta" >}} **Create a bucket**.
+7.  {{< req text="(Optional)" color="magenta" >}} **Create a bucket**.
 
     In the InfluxDB initialization process, you created a bucket.
     You can use that bucket or create a new one specifically for this getting
