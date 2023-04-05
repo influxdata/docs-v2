@@ -77,7 +77,7 @@ through server restarts.
 The InfluxDB Enterprise meta process oversees and manages the InfluxDB Enterprise
 data process. In multi-node clusters, meta nodes manage data syncing and high
 availability of data nodes. In a single-node installation, the meta process 
-and the accompanying [`influx-ctl` utility](/enterprise_influxdb/v1.10/tools/influxd-ctl/)
+and the accompanying [`influxd-ctl` utility](/enterprise_influxdb/v1.10/tools/influxd-ctl/)
 still manage the "cluster", even though the meta and data processes exist on the
 same server.
 
@@ -218,7 +218,7 @@ sudo systemctl start influxdb-meta
     influxdb  3207  0.8  4.4 483000 22168 ?        Ssl  17:05   0:08 /usr/bin/influxd-meta -config /etc/influxdb/influxdb-meta.conf
     ```
 
-5. **Use `influx-ctl` to add the meta process to the InfluxDB Enterprise "cluster"**:
+5. **Use `influxd-ctl` to add the meta process to the InfluxDB Enterprise "cluster"**:
 
     ```sh
     influxd-ctl add-meta <your-host-name>:8091
@@ -230,7 +230,7 @@ sudo systemctl start influxdb-meta
     Added meta node x at <your-host-name>:8091
     ```
 
-6. **Use `influx-ctl` to verify the meta node was added to the InfluxDB Enterprise "cluster"**:
+6. **Use `influxd-ctl` to verify the meta node was added to the InfluxDB Enterprise "cluster"**:
 
     ```sh
     influxd-ctl show
@@ -408,7 +408,7 @@ sudo systemctl start influxdb
     Check the [logs](/enterprise_influxdb/v1.10/administration/logs/)
     for error messages and verify the previous setup steps are complete.
 
-5. **Use `influx-ctl` to add the data process to the InfluxDB Enterprise "cluster"**:
+5. **Use `influxd-ctl` to add the data process to the InfluxDB Enterprise "cluster"**:
 
     ```sh
     influxd-ctl add-data <your-host-name>:8088
@@ -420,7 +420,7 @@ sudo systemctl start influxdb
     Added meta node y at <your-host-name>:8088
     ```
 
-6. **Use `influx-ctl` to verify the data node was added to the InfluxDB Enterprise "cluster"**:
+6. **Use `influxd-ctl` to verify the data node was added to the InfluxDB Enterprise "cluster"**:
 
     ```sh
     influxd-ctl show
