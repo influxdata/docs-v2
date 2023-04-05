@@ -29,12 +29,12 @@ UI and then export those resources as a template.
 
 ## Create a template
 
-Creating a new organization to contain only your template resources is an easy way
+Creating an organization to contain only your template resources is an easy way
 to ensure you export the resources you want.
 Follow these steps to create a template from a new organization.
 
 1. [Start InfluxDB](/influxdb/v2.7/get-started/).
-2. [Create a new organization](/influxdb/v2.7/organizations/create-org/).
+2. [Create an organization](/influxdb/v2.7/organizations/create-org/).
 3. In the InfluxDB UI, add one or more [resources](/influxdb/v2.7/influxdb-templates/#template-resources).
 4. [Create an **All-Access** API token](/influxdb/v2.7/security/tokens/create-token/) (or a token that has **read** access to the organization).
 5. Use the API token from **Step 4** with the [`influx export all` subcommand](/influxdb/v2.7/reference/cli/influx/export/all/) to [export all resources]() in the organization to a template file.

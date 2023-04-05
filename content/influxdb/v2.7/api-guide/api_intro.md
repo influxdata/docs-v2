@@ -24,7 +24,7 @@ If you need to use InfluxDB {{< current-version >}} with **InfluxDB 1.x** API cl
 
 ## Bootstrap your application
 
-With most API requests, you'll need to provide a minimum of your InfluxDB URL, Organization, and Authorization Token.
+With most API requests, you'll need to provide a minimum of your InfluxDB URL and Authorization Token (API Token).
 
 [Install InfluxDB OSS v2.x](/influxdb/v2.7/install/) or upgrade to
 an [InfluxDB Cloud account](/influxdb/cloud/sign-up).

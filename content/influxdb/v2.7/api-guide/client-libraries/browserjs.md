@@ -20,7 +20,7 @@ related:
   - /influxdb/v2.7/api-guide/client-libraries/nodejs/query/
 ---
 
-Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to interact with the InfluxDB API in browsers and front-end clients. This library supports both front-end and server-side environments and provides the following distributions:
+Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to interact with the InfluxDB v2 API in browsers and front-end clients. This library supports both front-end and server-side environments and provides the following distributions:
 * ECMAScript modules (ESM) and CommonJS modules (CJS)
 * Bundled ESM
 * Bundled UMD 

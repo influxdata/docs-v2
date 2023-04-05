@@ -120,9 +120,9 @@ func main() {
 }
 ```
 ## Query data from InfluxDB with Go
-Use the Go library to query data to InfluxDB.
+Use the Go library to query data stored in InfluxDB.
 
-1. Create a Flux query and supply your `bucket` parameter.
+1. Create a Flux query and pass the `bucket` parameter with your bucket name.
 
     ```js
     from(bucket:"<bucket>")
