@@ -9,8 +9,10 @@ weight: 101
 menu:
   influxdb_cloud_iox:
     name: Use Grafana
-    parent: Visualize data
-influxdb/cloud-iox/tags: [visualization]
+    parent: Analyze and visualize data
+influxdb/cloud-iox/tags: [query, visualization]
+aliases:
+  - /influxdb/cloud-iox/query-data/tools/grafana/
 alt_engine: /influxdb/cloud/tools/grafana/
 ---
 
