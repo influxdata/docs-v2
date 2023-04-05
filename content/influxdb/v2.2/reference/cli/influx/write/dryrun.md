@@ -49,7 +49,7 @@ influx write dryrun [flags]
 | `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                          | string      | `INFLUX_ORG`          |
 |      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                               | string      | `INFLUX_ORG_ID`       |
 | `-p` | `--precision`       | Precision of the timestamps (default `ns`)                                      | string      | `INFLUX_PRECISION`    |
-|      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                      | string      |                       |
+|      | `--rate-limit`      | Throttle write rate (examples: `5MB/5min` or `1MB/s`).                      | string      |                       |
 |      | `--skip-verify`     | Skip TLS certificate verification                                               |             | `INFLUX_SKIP_VERIFY`                      |
 |      | `--skipHeader`      | Skip first *n* rows of input data                                               | integer     |                       |
 |      | `--skipRowOnError`  | Output CSV errors to stderr, but continue processing                            |             |                       |

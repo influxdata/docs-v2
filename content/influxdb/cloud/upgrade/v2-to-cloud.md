@@ -274,7 +274,7 @@ consider doing one of the following:
       --active-config cloud \
       --bucket example-bucket \
       --file path/to/bucket-export.lp \
-      --rate-limit "5 MB / 5 min"
+      --rate-limit "5MB/5min"
     ```
 
 - Include `--start` and `--end` flags with `influxd inpsect export-lp` to limit
@@ -320,7 +320,7 @@ influx write \
   --active-config cloud \  
   --bucket example-bucket \
   --compression gzip \
-  --rate-limit "5 MB / 5 min"
+  --rate-limit "5MB/5min"
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
