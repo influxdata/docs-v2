@@ -8,11 +8,11 @@ menu:
     name: Switch InfluxDB accounts
     parent: Account management
 weight: 105
+alt_engine: /influxdb/cloud-iox/admin/accounts/switch-account/
 ---
-An **organization** is a workspace for a group of users.
-All dashboards, tasks, buckets, members, etc., belong to an organization. 
 
-If you belong to more than one {{< cloud-name >}} account with the same email address, you can switch from one account to another while staying logged in. An account can contain multiple organizations. 
+If you belong to more than one {{< cloud-name >}} account with the same email address, you can switch from one account to another while staying logged in.
+An account can contain multiple organizations. 
 
 You can also set a default account. The default account is the account automatically used when the user logs in.
 

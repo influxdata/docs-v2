@@ -14,6 +14,7 @@ menu:
 weight: 201
 related:
   - /influxdb/cloud-iox/use-telegraf/telegraf-configs/create/
+alt_engine: /influxdb/cloud/write-data/no-code/use-telegraf/auto-config/
 ---
 
 The InfluxDB user interface (UI) can automatically create Telegraf configuration files based on user-selected Telegraf plugins.

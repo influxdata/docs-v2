@@ -113,6 +113,7 @@
   pre {
     display: block;
     line-height: 1.75rem;
+    font-family: $code;
 
     @import "article/code-api-methods";
   }

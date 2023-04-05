@@ -8,6 +8,7 @@ menu:
   influxdb_cloud:
     name: Update a config
     parent: Telegraf configurations
+alt_engine: /influxdb/cloud-iox/write-data/use-telegraf/telegraf-configs/update/
 ---
 
 {{< duplicate-oss >}}

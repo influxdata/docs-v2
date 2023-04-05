@@ -2,7 +2,7 @@
 title: Explore your schema with SQL
 description: >
   When working with InfluxDB's implementation of SQL, a **bucket** is equivalent
-  to a databases, a **measurements** is structured as a table, and **time**,
+  to a databases, a **measurement** is structured as a table, and **time**,
   **fields**, and **tags** are structured as columns.
 menu:
   influxdb_cloud_iox:
@@ -23,9 +23,7 @@ list_code_example: |
   ```
 ---
 
-When working with InfluxDB's implementation of SQL, a **bucket** is equivalent
-to a databases, a **measurements** is structured as a table, and **time**,
-**fields**, and **tags** are structured as columns.
+{{% sql/sql-schema-intro %}}
 
 ## List measurements in a bucket
 

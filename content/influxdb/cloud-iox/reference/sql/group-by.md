@@ -9,8 +9,16 @@ menu:
 weight: 203
 ---
 
-Use the `GROUP BY` clause to group data by column values.
-`GROUP BY` requires an aggregate or selector function in the `SELECT` statement.
+Use the `GROUP BY` clause to group data by values.
+
+`GROUP BY` is an optional clause used to group rows that have the same values for all columns and expressions in the list.
+To output an aggregation for each group, include an aggregate or selector function in the `SELECT` statement.
+When `GROUP BY` appears in a query, the `SELECT` list can only use columns that appear in the `GROUP BY` list
+or in aggregate expressions.
+
+`GROUP BY` can use column aliases that are defined in the `SELECT` clause.
+`GROUP BY` can't use an alias named `time`.
+In a `GROUP BY` list, `time` always refers to the measurement `time` column.
 
 - [Syntax](#syntax)
 - [Examples](#examples)
@@ -27,7 +35,7 @@ GROUP BY tag1
 
 ## Examples
 
-### Group data by a tag values
+### Group data by tag values
 
 ```sql
 SELECT
@@ -54,13 +62,13 @@ Group results in 15 minute time intervals by tag:
 SELECT
   "location",
   DATE_BIN(INTERVAL '15 minutes', time, TIMESTAMP '2022-01-01 00:00:00Z') AS time,
-  COUNT("water_level")  AS count
+  COUNT("water_level") AS count
 FROM "h2o_feet"
 WHERE 
   time >= timestamp '2019-09-17T00:00:00Z'
   AND time <= timestamp '2019-09-17T01:00:00Z'
 GROUP BY
-  time,
+  DATE_BIN(INTERVAL '15 minutes', time, TIMESTAMP '2022-01-01 00:00:00Z'),
   location
 ORDER BY
   location,

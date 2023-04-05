@@ -37,7 +37,7 @@ Choose from the following demo data sets:
 
 
 ## Add a demo data bucket
-1.  In the navigation menu on the left, click **Data (Load Data)** > **Buckets**.
+1.  In the navigation menu on the left, click **Load Data** > **Buckets**.
 
     {{< nav-icon "data" >}}
 
