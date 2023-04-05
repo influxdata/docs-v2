@@ -2,13 +2,15 @@
 title: Query data with InfluxQL
 description: >
   Use the [InfluxDB 1.x `/query` compatibility endpoint](/influxdb/v2.6/reference/api/influxdb-1x/query)
-  to query data in InfluxDB Cloud and InfluxDB OSS 2.4 with **InfluxQL**.
+  to query data in InfluxDB Cloud and InfluxDB OSS 2.6 with **InfluxQL**.
 weight: 102
 influxdb/v2.6/tags: [influxql, query]
 menu:
   influxdb_2_6:
     name: Query with InfluxQL
     parent: Query data
+aliases:
+  - /influxdb/v2.6/query_language/spec/
 related:
   - /influxdb/v2.6/reference/api/influxdb-1x/
   - /influxdb/v2.6/reference/api/influxdb-1x/query

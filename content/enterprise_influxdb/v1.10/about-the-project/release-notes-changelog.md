@@ -155,7 +155,7 @@ An edge case regression was introduced into this version that may cause a consta
 
 - Resolve issue to enable [mutex profiling](/enterprise_influxdb/v1.9/tools/api/#debugpprof-http-endpoint).
 
-#### influx-ctl updates
+#### influxd-ctl updates
 
 - Improve [`influxd-ctl join`](/enterprise_influxdb/v1.9/tools/influxd-ctl/#join) robustness and provide better error messages on failure.
 - Add user friendly error message when accessing a TLS-enabled server without TLS enabled on client.

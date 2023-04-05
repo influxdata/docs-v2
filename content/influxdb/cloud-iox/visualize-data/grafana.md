@@ -57,7 +57,7 @@ The Grafana Flight SQL plugin is experimental and subject to change.
 {{% /warn %}}
 
 ```sh
-curl https://github.com/influxdata/grafana-flightsql-datasource/releases/download/v0.1.8/influxdata-flightsql-datasource-0.1.8.zip
+curl -L https://github.com/influxdata/grafana-flightsql-datasource/releases/download/v0.1.9/influxdata-flightsql-datasource-0.1.9.zip --output influxdata-flightsql-datasource.zip
 ```
 
 <span id="custom-grafana-plugins-directory"></span>
@@ -69,7 +69,7 @@ The custom plugins directory can be any filesystem location that Grafana can acc
 
 {{% code-callout "/custom/plugins/directory" %}}
 ```sh
-unzip influxdata-flightsql-datasource-0.1.5.zip -d /custom/plugins/directory/
+unzip influxdata-flightsql-datasource.zip -d /custom/plugins/directory/
 ```
 {{% /code-callout %}}
 
