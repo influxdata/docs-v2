@@ -43,7 +43,7 @@ with the `-portable` flag:
 4. Restore the backup on the cluster by running the following:
 
    ```sh
-   influxd-ctl restore [ -host <host:port> ] <path-to-backup-files>
+   influxd-ctl restore <path-to-backup-files>
    ```
    
     > **Note:**  InfluxDB Enterprise uses the **influxd-ctl utility** to back up and restore data. For more information, 
