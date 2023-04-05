@@ -167,8 +167,7 @@ If there are multiple `time` or `dateTime` columns, the last column (on the righ
 is used as the timestamp in line protocol.
 Other time columns are ignored and the `influx write` command outputs a warning.
 
-Time column values should be **Unix timestamps** (in an [accepted timestamp precision](/influxdb/cloud-iox/write-data/#timestamp-precision)),
-**RFC3339**, or **RFC3339Nano**.
+Time column values should be **Unix nanosecond timestamps**, **RFC3339**, or **RFC3339Nano**.
 
 ##### Example line protocol elements in datatype annotation
 

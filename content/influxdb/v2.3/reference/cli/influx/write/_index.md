@@ -84,7 +84,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 | `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                                       |   string    | `INFLUX_ORG`          |
 |      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                                            |   string    | `INFLUX_ORG_ID`       |
 | `-p` | `--precision`       | [Precision](/influxdb/v2.3/write-data/#timestamp-precision) of the timestamps (default `ns`) |   string    | `INFLUX_PRECISION`    |
-|      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                                   |   string    |                       |
+|      | `--rate-limit`      | Throttle write rate (examples: `5MB/5min` or `1MB/s`).                                   |   string    |                       |
 |      | `--skip-verify`     | Skip TLS certificate verification                                                            |             | `INFLUX_SKIP_VERIFY`  |
 |      | `--skipHeader`      | Skip first *n* rows of input data                                                            |   integer   |                       |
 |      | `--skipRowOnError`  | Output CSV errors to stderr, but continue processing                                         |             |                       |
@@ -285,5 +285,5 @@ influx write \
 influx write \
   --bucket example-bucket \
   --file path/to/data.csv \
-  --rate-limit 5 MB / 5 min
+  --rate-limit 5MB/5min
 ```
