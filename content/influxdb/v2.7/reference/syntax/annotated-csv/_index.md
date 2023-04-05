@@ -14,26 +14,30 @@ related:
   - /influxdb/v2.7/reference/syntax/annotated-csv/extended/
 ---
 
-InfluxDB and Flux return query results in annotated CSV format.
-You can also read annotated CSV directly from Flux with the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/), write data to InfluxDB using annotated CSV and the `influx write` command, or [upload a CSV file](/influxdb/cloud/write-data/no-code/load-data/#load-data-by-uploading-a-csv-or-line-protocol-file) in the UI.
+---
+title: Annotated CSV
+description: >
+  The InfluxDB `/api/v2/query` API returns query results in annotated CSV format.
+  You can write data to InfluxDB using annotated CSV and the `influx write` command.
+weight: 103
+menu:
+  influxdb_cloud_iox:
+    parent: Other syntaxes
+influxdb/cloud-iox/tags: [csv, syntax]
+related:
+  - /influxdb/cloud-iox/reference/syntax/annotated-csv/extended/
+---
+
+The InfluxDB `/api/v2/query` API returns query results in annotated CSV format.
+You can also write data to InfluxDB using annotated CSV and the `influx write` command,
+or [upload a CSV file](/influxdb/cloud-iox/write-data/csv/user-interface) in the InfluxDB UI.
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/).
 InfluxDB removes carriage returns before newline characters.
 
-## Examples
-
-In this topic, you'll find examples of valid CSV syntax for responses to the following query:
-
-```js
-from(bucket:"mydb/autogen")
-    |> range(start:2018-05-08T20:50:00Z, stop:2018-05-08T20:51:00Z)
-    |> group(columns:["_start","_stop", "region", "host"])
-    |> yield(name:"my-result")
-```
-
 ## CSV response format
 
-Flux supports encodings listed below.
+InfluxDB annotated CSV supports encodings listed below.
 
 ### Tables
 
@@ -42,38 +46,20 @@ A table may have the following rows and columns.
 #### Rows
 
 - **Annotation rows**: describe column properties.
-
 - **Header row**: defines column labels (one header row per table).
-
 - **Record row**: describes data in the table (one record per row).
 
 ##### Example
 
-Encoding of a table with and without a header row.
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Header row](#)
-[Without header row](#)
-{{% /code-tabs %}}
-
-{{% code-tab-content %}}
 ```sh
-result,table,_start,_stop,_time,region,host,_value
-my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
-my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
-my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
+#group,false,false,true,true,false,false,true,true,true,true
+#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string
+#default,mean,,,,,,,,,
+,result,table,_start,_stop,_time,_value,_field,_measurement,host,region
+,,0,2022-12-31T05:41:24Z,2023-01-31T05:41:24.001Z,2023-01-01T00:52:00Z,15.43,mem,m,A,east
+,,1,2022-12-31T05:41:24Z,2023-01-31T05:41:24.001Z,2023-01-01T00:52:00Z,59.25,mem,m,B,east
+,,2,2022-12-31T05:41:24Z,2023-01-31T05:41:24.001Z,2023-01-01T00:52:00Z,52.62,mem,m,C,east
 ```
-{{% /code-tab-content %}}
-
-{{% code-tab-content %}}
-```sh
-my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
-my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
-my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 #### Columns
 
@@ -83,9 +69,7 @@ In addition to the data columns, a table may include the following columns:
   Displays the name of an annotation. Value can be empty or a supported [annotation](#annotations).
   You'll notice a space for this column for the entire length of the table,
   so rows appear to start with `,`.
-
 - **Result column**: Contains the name of the result specified by the query.
-
 - **Table column**: Contains a unique ID for each table in a result.
 
 ### Multiple tables and results
@@ -101,41 +85,23 @@ If a file or data stream contains multiple tables or results, the following requ
 
 ##### Example
 
-Encoding of two tables in the same result with the same schema (header row) and different schema.
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Same schema](#)
-[Different schema](#)
-{{% /code-tabs %}}
-
-{{% code-tab-content %}}
 ```sh
-result,table,_start,_stop,_time,region,host,_value
-my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
-my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
-my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
-my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
-my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
-my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
+#group,false,false,true,true,false,false,true,true,true,true
+#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,double,string,string,string,string
+#default,_result,,,,,,,,,
+,result,table,_start,_stop,_time,_value,_field,_measurement,host,region
+,,0,2022-12-31T05:41:24Z,2023-01-31T05:41:24.001Z,2023-01-01T00:00:00Z,15.43,mem,m,A,east
+,,1,2022-12-31T05:41:24Z,2023-01-31T05:41:24.001Z,2023-01-01T00:00:00Z,59.25,mem,m,B,east
+,,2,2022-12-31T05:41:24Z,2023-01-31T05:41:24.001Z,2023-01-01T00:00:00Z,52.62,mem,m,C,east
 
+#group,false,false,true,true,true,true,false,false,true,true
+#datatype,string,long,string,string,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,string
+#default,_result,,,,,,,,,
+,result,table,_field,_measurement,_start,_stop,_time,_value,host,region
+,,3,mem_level,m,2022-12-31T05:41:24Z,2023-01-31T05:41:24.001Z,2023-01-01T00:00:00Z,ok,A,east
+,,4,mem_level,m,2022-12-31T05:41:24Z,2023-01-31T05:41:24.001Z,2023-01-01T00:00:00Z,info,B,east
+,,5,mem_level,m,2022-12-31T05:41:24Z,2023-01-31T05:41:24.001Z,2023-01-01T00:00:00Z,info,C,east
 ```
-{{% /code-tab-content %}}
-
-{{% code-tab-content %}}
-```sh
-,result,table,_start,_stop,_time,region,host,_value
-,my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
-,my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
-,my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
-
-,result,table,_start,_stop,_time,location,device,min,max
-,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,USA,5825,62.73,68.42
-,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,USA,2175,12.83,56.12
-,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,USA,6913,51.62,54.25
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 ## Dialect options
 
@@ -163,7 +129,7 @@ Subsequent columns contain annotation values as shown in the table below.
 
 
 {{% note %}}
-To encode a table with its [group key](/influxdb/v2.7/reference/glossary/#group-key),
+To encode a table with its [group key](/influxdb/cloud-iox/reference/glossary/#group-key),
 the `datatype`, `group`, and `default` annotations must be included.
 If a table has no rows, the `default` annotation provides the group key values.
 {{% /note %}}
@@ -183,9 +149,10 @@ If a table has no rows, the `default` annotation provides the group key values.
 
 
 ## Line protocol elements
+
 The `datatype` annotation accepts [data types](#data-types) and **line protocol elements**.
 Line protocol elements identify how columns are converted into line protocol when using the
-[`influx write` command](/influxdb/v2.7/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
+[`influx write` command](/influxdb/cloud-iox/reference/cli/influx/write/) to write annotated CSV to InfluxDB.
 
 | Line protocol element | Description                                                     |
 |:--------------------- |:-----------                                                     |
@@ -196,26 +163,31 @@ Line protocol elements identify how columns are converted into line protocol whe
 | `ignore` or`ignored`  | column is ignored and not included in line protocol             |
 
 ### Mixing data types and line protocol elements
+
 Columns with [data types](#data-types) (other than `dateTime`) in the
 `#datatype` annotation are treated as **fields** when converted to line protocol.
 Columns without a specified data type default to `field` when converted to line protocol
 and **column values are left unmodified** in line protocol.
 _See an example [below](#example-of-mixing-data-types-line-protocol-elements) and
-[line protocol data types and format](/influxdb/v2.7/reference/syntax/line-protocol/#data-types-and-format)._
+[line protocol data types and format](/influxdb/cloud-iox/reference/syntax/line-protocol/#data-types-and-format)._
 
 ### Time columns
+
 A column with `time` or `dateTime` `#datatype` annotations are used as the timestamp
 when converted to line protocol.
 If there are multiple `time` or `dateTime` columns, the last column (on the right)
 is used as the timestamp in line protocol.
 Other time columns are ignored and the `influx write` command outputs a warning.
 
-Time column values should be **Unix timestamps** (in an [accepted timestamp precision](/influxdb/v2.7/write-data/#timestamp-precision)),
+Time column values should be **Unix timestamps** (in an [accepted timestamp precision](/influxdb/cloud-iox/write-data/#timestamp-precision)),
 **RFC3339**, or **RFC3339Nano**.
 
 ##### Example line protocol elements in datatype annotation
+
 ```
-#datatype measurement,tag,tag,field,field,ignored,time
+#group,false,false,false,false,false,false,false
+#datatype,measurement,tag,tag,field,field,ignored,time
+#default,,,,,,,
 m,cpu,host,time_steal,usage_user,nothing,time
 cpu,cpu1,host1,0,2.7,a,1482669077000000000
 cpu,cpu1,host2,0,2.2,b,1482669087000000000
@@ -229,9 +201,11 @@ cpu,cpu=cpu1,host=host2 time_steal=0,usage_user=2.2 1482669087000000000
 ```
 
 ##### Example of mixing data types line protocol elements
+
 ```
-#datatype measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
-#default test,annotatedDatatypes,,,,,,
+#group,false,false,false,false,false,false,false,false,false
+#datatype,measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
+#default,test,annotatedDatatypes,,,,,,
 m,name,s,d,b,l,ul,dur,time
 ,,str1,1.0,true,1,1,1ms,1
 ,,str2,2.0,false,2,2,2us,2020-01-11T10:10:10Z
@@ -243,34 +217,6 @@ Resulting line protocol:
 test,name=annotatedDatatypes s="str1",d=1,b=true,l=1i,ul=1u,dur=1000000i 1
 test,name=annotatedDatatypes s="str2",d=2,b=false,l=2i,ul=2u,dur=2000i 1578737410000000000
 ```
-
-## Annotated CSV in Flux
-Flux requires all annotation and header rows in annotated CSV.
-The example below illustrates how to use the [`csv.from()` function](/{{< latest "flux" >}}/stdlib/csv/from/)
-to read annotated CSV in Flux:
-
-```js
-import "csv"
-
-csvData = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double,string,string
-#group,false,false,true,true,false,true,false,false,true,true
-#default,,,,,,,,,,
-,result,table,_start,_stop,_time,region,host,_value,_measurement,_field
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43,cpu,usage_system
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25,cpu,usage_system
-,,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62,cpu,usage_system
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73,cpu,usage_system
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83,cpu,usage_system
-,,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62,cpu,usage_system
-"
-
-csv.from(csv: csvData)
-```
-
-{{% warn %}}
-Flux only supports [data types](#data-types) in the `#datatype` annotation.
-It does **does not** support [line protocol elements](#line-protocol-elements).
-{{% /warn %}}
 
 ## Errors
 
@@ -293,19 +239,4 @@ Encoding for an error with the datatype annotation:
 #datatype,string,long
 ,error,reference
 ,Failed to parse query,897
-```
-
-Encoding for an error that occurs after a valid table has been encoded:
-
-```
-#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,dateTime:RFC3339,string,string,double
-,result,table,_start,_stop,_time,region,host,_value
-,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,west,A,62.73
-,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,west,B,12.83
-,my-result,1,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,west,C,51.62
-```
-
-```
-#datatype,string,long
-,error,reference,query terminated: reached maximum allowed memory limits,576
 ```
