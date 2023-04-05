@@ -14,20 +14,6 @@ related:
   - /influxdb/v2.7/reference/syntax/annotated-csv/extended/
 ---
 
----
-title: Annotated CSV
-description: >
-  The InfluxDB `/api/v2/query` API returns query results in annotated CSV format.
-  You can write data to InfluxDB using annotated CSV and the `influx write` command.
-weight: 103
-menu:
-  influxdb_cloud_iox:
-    parent: Other syntaxes
-influxdb/cloud-iox/tags: [csv, syntax]
-related:
-  - /influxdb/cloud-iox/reference/syntax/annotated-csv/extended/
----
-
 The InfluxDB `/api/v2/query` API returns query results in annotated CSV format.
 You can also write data to InfluxDB using annotated CSV and the `influx write` command,
 or [upload a CSV file](/influxdb/cloud-iox/write-data/csv/user-interface) in the InfluxDB UI.
