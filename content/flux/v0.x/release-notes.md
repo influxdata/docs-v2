@@ -10,6 +10,18 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.194.0 [2023-04-06]
+
+### Features
+- Add microsecond and nanosecond support to
+  [`iox.sqlInterval()`](/flux/v0.x/stdlib/experimental/iox/sqlinterval/).
+
+### Bug fixes
+- Fix panic caused by chunking outer joins.
+- Remove 64bit reference counter misalignments.
+
+---
+
 ## v0.193.0 [2023-02-23]
 
 ### Features

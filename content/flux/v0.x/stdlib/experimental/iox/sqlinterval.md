@@ -21,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/experimental/iox/iox.flux#L100-L117
+https://github.com/influxdata/flux/blob/master/stdlib/experimental/iox/iox.flux#L96-L113
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
@@ -30,10 +30,6 @@ Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
 
 `iox.sqlInterval()` converts a duration value to a SQL interval string.
 
-SQL interval strings support down to millisecond precision.
-Any microsecond or nanosecond duration units are dropped from the duration value.
-If the duration only consists of microseconds or nanosecond units,
-`iox.sqlInterval()` returns `1 millisecond`.
 Duration values must be positive to work as a SQL interval string.
 
 ##### Function type signature
@@ -79,12 +75,14 @@ import "experimental/iox"
 windowInterval = 1d12h
 sqlQuery = "
 SELECT
-  DATE_BIN(INTERVAL '${iox.sqlInterval(d: windowInterval)}', time, TIMESTAMP '2023-01-01T00:00:00Z')
+  DATE_BIN(INTERVAL '${iox.sqlInterval(
+        d: windowInterval,
+    )}', time, TIMESTAMP '2023-01-01T00:00:00Z') AS time_bin,
   COUNT(field1)
 FROM
   measurement
 GROUP BY
-  time
+  time_bin
 "
 
 iox.sql(bucket: "example-bucket", query: sqlQuery)
