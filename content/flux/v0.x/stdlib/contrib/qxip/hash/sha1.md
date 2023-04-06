@@ -8,6 +8,7 @@ menu:
     parent: contrib/qxip/hash
     identifier: contrib/qxip/hash/sha1
 weight: 301
+
 introduced: 0.193.0
 ---
 
@@ -20,7 +21,7 @@ documentation is generated.
 To make updates to this documentation, update the function comments above the
 function definition in the Flux source code:
 
-https://github.com/influxdata/flux/blob/master/stdlib/contrib/qxip/hash/hash.flux#L48-L48
+https://github.com/influxdata/flux/blob/master/stdlib/contrib/qxip/hash/hash.flux#L49-L49
 
 Contributing to Flux: https://github.com/influxdata/flux#contributing
 Fluxdoc syntax: https://github.com/influxdata/flux/blob/master/docs/fluxdoc.md
