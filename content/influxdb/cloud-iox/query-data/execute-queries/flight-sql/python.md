@@ -1,6 +1,5 @@
 ---
 title: Use Python and the Flight SQL library to query data
-seotitle: Use Python and the flightsql-dbapi Flight SQL library to query data in InfluxDB Cloud (IOx)
 description: >
   Use Python and the `flightsql-dbapi` Flight SQL library to query data
   stored in a bucket powered by InfluxDB IOx.
@@ -60,7 +59,7 @@ To install Python and create a virtual environment, choose one of the following 
 
 ### Install Python
 
-1. Follow the [Python.org instructions](https://wiki.python.org/moin/BeginnersGuide/Download)
+1. Follow the [Python installation instructions](https://wiki.python.org/moin/BeginnersGuide/Download)
 to install a recent version of the Python programming language for your system.
 2. Check that you can run `python` and `pip` commands.
 `pip` is a package manager included in most Python distributions.
@@ -92,22 +91,25 @@ to install a recent version of the Python programming language for your system.
 1. Create a directory for your Python project and change to the new directory--for example:
 
     ```sh
-    mkdir ./PROJECT_DIRECTORY && cd ./PROJECT_DIRECTORY
+    mkdir ./PROJECT_DIRECTORY && cd $_
     ```
-1. Use the Python `venv` module to create a virtual environment--for example:
+
+2. Use the Python `venv` module to create a virtual environment--for example:
     
     ```sh
     python -m venv envs/virtualenv-1
     ```
 
    `venv` creates the new virtual environment directory in your project.
-2. To activate the new virtual environment in your terminal, run the `source` command and pass the file path of the virtual environment `activate` script:
+   
+3. To activate the new virtual environment in your terminal, run the `source` command and pass the file path of the virtual environment `activate` script:
 
     ```sh
     source envs/VIRTUAL_ENVIRONMENT_NAME/bin/activate
     ```
 
     For example:
+    
     ```sh
     source envs/virtualenv-1/bin/activate
     ```
@@ -118,17 +120,20 @@ to install a recent version of the Python programming language for your system.
 
 ### Install Anaconda
 
-1. Follow the [Continuum.io instructions to install Anaconda](https://docs.continuum.io/anaconda/install/) for your system.
+1. Follow the [Anaconda installation instructions](https://docs.continuum.io/anaconda/install/) for your system.
 2. Check that you can run the `conda` command:
 
     ```sh
     conda
     ```
+
 3. Use `conda` to create a virtual environment:
+
     ```sh
     conda create --prefix envs/virtualenv-1 
     ```
-4. To activate the new virtual environment in your terminal, use the `conda activate` command and pass the file path of the virtual environment `activate` script:
+
+5. To activate the new virtual environment in your terminal, use the `conda activate` command and pass the file path of the virtual environment `activate` script:
 
     ```sh
     conda activate ./envs/virtualenv-1
@@ -146,9 +151,9 @@ When activated, the virtual environment name appears at the beginning of your te
 
 To run sample code using Python's built-in [interpreter](https://docs.python.org/3/tutorial/interpreter.html), do the following:
 
-  1. In your editor, save the Python code to a file (for example: `qt.py`).
-  2. [Replace sample configuration values](#create-a-query-client) with your InfluxDB configuration values. 
-  3. In your terminal, enter the `python<PYTHON_VERSION>` command and pass the file path:
+1. In your editor, save the Python code to a file (for example: `qt.py`).
+2. [Replace sample configuration values](#create-a-query-client) with your InfluxDB configuration values. 
+3. In your terminal, enter the `python<PYTHON_VERSION>` command and pass the file path:
 
     ```sh
     python ./qt.py
@@ -174,22 +179,23 @@ With `flightsql-dbapi` installed, you can query and analyze data stored in an In
 ### Create a query client
 
 To use `flightsql-dbapi` in your Python code, import the `FlightSQLClient` class and instantiate a client
-with your InfluxDB configuration:
+with your InfluxDB configuration. Provide the following:
+
+- **host**: [Your InfluxDB Cloud region URL](/influxdb/cloud-iox/reference/regions/)
+- **token**: Your InfluxDB token with read permissions on the databases you want to query
+- **metadata**:
+  - `'bucket-name'`: Your InfluxDB bucket name
+- **features**:
+  - `'metadata-reflection'`: `'true'`
 
 ```py
 from flightsql import FlightSQLClient
 
-client = FlightSQLClient(host='us-east-1-1.aws.cloud2.influxdata.com',
+client = FlightSQLClient(host='cloud2.influxdata.com',
                         token='INFLUX_READ_WRITE_TOKEN',
                         metadata={'bucket-name': 'INFLUX_BUCKET'},
                         features={'metadata-reflection': 'true'})
 ```
-
-Replace the following:
-
-- **`us-east-1-1.aws.cloud2.influxdata.com`**: your [InfluxDB host](). 
-- **`INFLUX_READ_WRITE_TOKEN`**: your InfluxDB READ/WRITE token
-- **`INFLUX_BUCKET`**: the name of the InfluxDB bucket that you want to query
 
 The default for `port` is `443`.
 

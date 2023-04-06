@@ -50,7 +50,7 @@ Because Grafana Flight SQL Plugin is a custom plugin, you can't use it with Graf
 For more information, see [Find and Use Plugins in the Grafana Cloud documentation](https://grafana.com/docs/grafana-cloud/fundamentals/find-and-use-plugins/)
 {{% /warn %}}
 
-## Download the Grafana Flight SQL Plugin
+## Download the Grafana Flight SQL plugin
 
 Download the latest release from [influxdata/grafana-flightsql-datasource releases](https://github.com/influxdata/grafana-flightsql-datasource/releases).
 

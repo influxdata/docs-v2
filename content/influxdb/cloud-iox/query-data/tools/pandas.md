@@ -1,6 +1,6 @@
 ---
 title: Use pandas to analyze and visualize data
-seotitle: Use pandas, the Python Data Analysis Library, to analyze and visualize data stored in InfluxDB Cloud (IOx)
+seotitle: Use Python and pandas to analyze and visualize data
 description: >
   Install and run [pandas](https://pandas.pydata.org/), the Python Data Analysis Library,
   to analyze and visualize data stored in a bucket powered by InfluxDB IOx.
@@ -44,15 +44,15 @@ install and import the `pyarrow` bindings:
 
 - In your terminal, use `pip` to install `pyarrow` in your [Python virtual environment](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/#create-a-project-virtual-environment):
 
-```sh
-pip install pyarrow
-```
+    ```sh
+    pip install pyarrow
+    ```
 
 - In your code, add an `import` statement for `pyarrow`:
 
-```py
-import pyarrow
-```
+    ```py
+    import pyarrow
+    ```
 
 ## Install pandas
 
@@ -60,17 +60,17 @@ To read and analyze data in a pandas **DataFrame**, you need to install and impo
 
 - In your terminal, use `pip` to install `pandas` in your [Python virtual environment](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/#create-a-project-virtual-environment):
 
-```sh
-pip install pandas
-```
+    ```sh
+    pip install pandas
+    ```
 
 - In your code, add an `import` statement for `pandas`:
 
-```py
-import pandas
-```
+    ```py
+    import pandas
+    ```
 
-## Use PyArrow to convert query result data to pandas
+## Use PyArrow to convert query results to pandas
 
 The following Python sample code executes the query, retrieves data, and then reads the contents
 of the Arrow data stream.

@@ -1,6 +1,5 @@
 ---
 title: Use the PyArrow library to analyze data
-seotitle: Use the PyArrow library to read and analyze InfluxDB query results from a bucket powered by InfluxDB IOx.
 description: >
   Install and run [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze InfluxDB query results from a bucket powered by InfluxDB IOx.
 weight: 101
@@ -13,7 +12,7 @@ influxdb/cloud-iox/tags: [analysis, arrow, pyarrow, python]
 
 Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze query results 
 from an InfluxDB bucket powered by InfluxDB IOx.
-The PyArrow library provides for efficient computation, aggregation, serialization, and conversion of Arrow format data.
+The PyArrow library provides efficient computation, aggregation, serialization, and conversion of Arrow format data.
 
 > Apache Arrow is a development platform for in-memory analytics. It contains a set of technologies that enable
 > big data systems to store, process and move data fast.
@@ -43,17 +42,17 @@ install and import the `pyarrow` bindings:
 
 - In your terminal, use `pip` to install `pyarrow` in your [Python virtual environment](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/#create-a-project-virtual-environment):
 
-```sh
-pip install pyarrow
-```
+    ```sh
+    pip install pyarrow
+    ```
 
 - In your code, add an `import` statement for `pyarrow`:
 
-```py
-import pyarrow
-```
+    ```py
+    import pyarrow
+    ```
 
-## Use PyArrow to read query result data
+## Use PyArrow to read query results
 
 The following Python sample code executes the query, retrieves data, and then reads the contents
 of the Arrow data stream.

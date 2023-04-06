@@ -1,6 +1,6 @@
 ---
 title: Execute queries
-seotitle: Execute queries for data stored in an InfluxDB bucket powered by IOx.
+seotitle: Execute queries for data stored in an InfluxDB bucket powered by IOx
 description: Use tools and libraries to query data stored in an InfluxDB bucket powered by IOx.
 weight: 103
 menu:
