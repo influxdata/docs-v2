@@ -23,10 +23,9 @@ The PyArrow library provides efficient computation, aggregation, serialization, 
 <!-- TOC -->
 
 - [Install prerequisites](#install-prerequisites)
-- [Install pyarrow](#install-pyarrow)
-- [Use PyArrow to read query result data](#use-pyarrow-to-read-query-result-data)
+- [Use PyArrow to read query results](#use-pyarrow-to-read-query-results)
 - [Use PyArrow to analyze data](#use-pyarrow-to-analyze-data)
-    - [Group and aggregate data](#group-and-aggregate-data)
+  - [Group and aggregate data](#group-and-aggregate-data)
 
 <!-- /TOC -->
 
@@ -35,32 +34,63 @@ The PyArrow library provides efficient computation, aggregation, serialization, 
 The examples in this guide assume using a Python virtual environment and the Flight SQL library for Python.
 For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/)
 
-## Install pyarrow
-
-In order to read query results in Apache Arrow format and then convert them to pandas, you need to
-install and import the `pyarrow` bindings:
-
-- In your terminal, use `pip` to install `pyarrow` in your [Python virtual environment](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/#create-a-project-virtual-environment):
-
-    ```sh
-    pip install pyarrow
-    ```
-
-- In your code, add an `import` statement for `pyarrow`:
-
-    ```py
-    import pyarrow
-    ```
+Installing `flightsql-dbapi` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
 
 ## Use PyArrow to read query results
 
-The following Python sample code executes the query, retrieves data, and then reads the contents
-of the Arrow data stream.
-For more information about `FlightSQLClient`, see how to [get started querying InfluxDB with Python and flightsql-dbapi](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/).
+The following example shows how to use Python with `flightsql-dbapi` and `pyarrow` to query InfluxDB and view query results.
+ 
+1. In your editor, copy and paste the following sample code to a new file--for example, `pyarrow-example.py`:
+
+    ```py
+    # pyarrow-example.py
+
+    from flightsql import FlightSQLClient
+
+    # Instantiate a FlightSQLClient configured for a bucket
+    client = FlightSQLClient(host='INFLUXDB_DOMAIN',
+        token='INFLUX_READ_WRITE_TOKEN',
+        metadata={'bucket-name': 'INFLUX_BUCKET'},
+        features={'metadata-reflection': 'true'})
+
+    # Execute the query
+    query = client.execute('SELECT * FROM home')
+
+    # Use the Flight ticket to request the Arrow data stream.
+    # Return a pyarrow.flight.FlightStreamReader for streaming the results.
+    reader = client.do_get(query.endpoints[0].ticket)
+
+    # Use pyarrow to read the data stream into a pyarrow.Table
+    table = reader.read_all()
+
+    print(table)
+    ```
+
+2. Replace the following configuration values:
+
+    - **`INFLUX_READ_WRITE_TOKEN`**: Your InfluxDB token with read permissions on the databases you want to query.
+    - **`INFLUX_BUCKET`**: The name of your InfluxDB bucket.
+
+  For more information about `FlightSQLClient`, see how to [get started querying InfluxDB with Python and flightsql-dbapi](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/).
+
+3. In your terminal, use the Python interpreter to run the file:
+
+    ```sh
+    python pyarrow-example.py
+    ```
+
+## Use PyArrow to analyze data
+
+### Group and aggregate data
+
+With a `pyarrow.Table`, you can use values in a column as _keys_ for grouping.
+
+The following example shows how to query InfluxDB, group the table data, and then calculate an aggregate value for each group:
 
 ```py
+# pyarrow-example.py
+
 from flightsql import FlightSQLClient
-import pyarrow
 
 client = FlightSQLClient(host='INFLUXDB_DOMAIN',
     token='INFLUX_READ_WRITE_TOKEN',
@@ -72,17 +102,8 @@ query = client.execute('SELECT * FROM home')
 reader = client.do_get(query.endpoints[0].ticket)
 
 table = reader.read_all()
-```
 
-See how to [run the sample code in the Python interpreter](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/#run-code-with-the-python-interpreter).
-
-## Use PyArrow to analyze data
-
-### Group and aggregate data
-
-```py
-...
-table = reader.read_all()
+# Use PyArrow to aggregate data
 print(table.group_by('room').aggregate([('temp', 'mean')]))
 ```
 
@@ -99,6 +120,5 @@ room: [["Kitchen","Living Room"]]
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-See how to [run the sample code in the Python interpreter](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/#run-code-with-the-python-interpreter).
 
-For more detail and examples, see the [Apache Arrow and PyArrow documentation](https://arrow.apache.org/docs/python/getstarted.html).
+For more detail and examples, see the [PyArrow documentation](https://arrow.apache.org/docs/python/getstarted.html) and the [Apache Arrow Python Cookbook](https://arrow.apache.org/cookbook/py/data.html).
