@@ -1,7 +1,7 @@
 ---
 title: influxctl database list
 description: >
-  The `influxctl database list` command lists all database in an InfluxDB Cloud
+  The `influxctl database list` command lists all databases in an InfluxDB Cloud
   Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
@@ -9,7 +9,7 @@ menu:
 weight: 301
 ---
 
-The `influxctl database list` command lists all database in an InfluxDB Cloud
+The `influxctl database list` command lists all databases in an InfluxDB Cloud
 Dedicated cluster.
 
 ## Usage
