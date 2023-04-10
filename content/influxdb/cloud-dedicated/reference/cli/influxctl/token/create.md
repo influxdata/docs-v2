@@ -35,12 +35,13 @@ influxctl token create \
 | :-------------------- | :------------------------- |
 | **token-description** | Database token description |
 
-## Flags {#command-flags}
+## Flags
 
-| Flag               | Description                           |
-| :----------------- | :------------------------------------ |
-| `--read-database`  | Grant read permissions to a database  |
-| `--write-database` | Grant write permissions to a database |
+| Flag |                    | Description                           |
+| :--- | :----------------- | :------------------------------------ |
+| `-h` | `--help`           | Output command help                   |
+|      | `--read-database`  | Grant read permissions to a database  |
+|      | `--write-database` | Grant write permissions to a database |
 
 ## Examples
 

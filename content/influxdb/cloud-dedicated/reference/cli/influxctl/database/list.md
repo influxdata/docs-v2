@@ -15,11 +15,12 @@ Dedicated cluster.
 ## Usage
 
 ```sh
-influxctl database list [--format=json]
+influxctl database list [--format=table|json]
 ```
 
-## Flags {#command-flags}
+## Flags
 
-| Flag       | Description                       |
-| :--------- | :-------------------------------- |
-| `--format` | Output format (default is `json`) |
+| Flag |            | Description                                           |
+| :--- | :--------- | :---------------------------------------------------- |
+|      | `--format` | Output format (`table` or `json`, default is `table`) |
+| `-h` | `--help`   | Output command help                                   |

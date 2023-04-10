@@ -28,6 +28,6 @@ influxctl token [subcommand] [flags]
 
 ## Flags
 
-| Flag |          | Description                           |
-| :--- | :------- | :------------------------------------ |
-| `-h` | `--help` | Help for `influxctl token` command |
+| Flag |          | Description         |
+| :--- | :------- | :------------------ |
+| `-h` | `--help` | Output command help |

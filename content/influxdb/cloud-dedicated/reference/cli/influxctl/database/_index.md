@@ -28,6 +28,6 @@ influxctl database [subcommand] [flags]
 
 ## Flags
 
-| Flag |          | Description                           |
-| :--- | :------- | :------------------------------------ |
-| `-h` | `--help` | Help for `influxctl database` command |
+| Flag |          | Description         |
+| :--- | :------- | :------------------ |
+| `-h` | `--help` | Output command help |

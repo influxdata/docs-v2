@@ -35,6 +35,12 @@ when creating a new database.
 | :------- | :----------------------------- |
 | **name** | Name of the database to delete |
 
+## Flags
+
+| Flag |          | Description         |
+| :--- | :------- | :------------------ |
+| `-h` | `--help` | Output command help |
+
 ## Examples
 
 ##### Delete a database named "mydb"

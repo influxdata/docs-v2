@@ -36,6 +36,10 @@ Cloud Dedicated cluster.
 | :----------- | :-------------------------- |
 | **token-id** | Database token ID to delete |
 
+| Flag |          | Description         |
+| :--- | :------- | :------------------ |
+| `-h` | `--help` | Output command help |
+
 ## Examples
 
 ```sh

@@ -9,8 +9,43 @@ menu:
 weight: 301
 ---
 
-The `influxctl database create` command creates a new database in an InfluxDB
-Cloud Dedicated cluster.
+The `influxctl database create` command creates a new database with a specified
+retention period in an InfluxDB Cloud Dedicated cluster.
+
+The retention period defines the maximum age of data retained in the database,
+based on the timestamp of the data.
+The retention period value is a time duration value made up of a numeric value
+plus a duration unit. For example, `30d` means 30 days.
+A zero duration retention period is infinite and data will not expire.
+The retention period value cannot be negative or contain whitespace.
+
+{{< flex >}}
+{{% flex-content %}}
+
+##### Valid durations units include
+
+- **m**: minute
+- **h**: hour
+- **d**: day
+- **w**: week
+- **mo**: month
+- **y**: year
+
+{{% /flex-content %}}
+{{% flex-content %}}
+
+##### Example retention period values
+
+- `0d`: infinite/none
+- `3d`: 3 days
+- `6w`: 6 weeks
+- `1mo`: 1 month (30 days)
+- `1y`: 1 year
+- `30d30d`: 60 days
+- `2.5d`: 60 hours
+
+{{% /flex-content %}}
+{{< /flex >}}
 
 ## Usage
 
@@ -24,11 +59,12 @@ influxctl database create [--retention-period 0s] {name}
 | :------- | :--------------------- |
 | **name** | InfluxDB database name |
 
-## Flags {#command-flags}
+## Flags
 
-| Flag                 | Description                                         |
-| :------------------- | :-------------------------------------------------- |
-| `--retention-period` | Bucket retention period (default is 0s or infinite) |
+| Flag |                      | Description                                         |
+| :--- | :------------------- | :-------------------------------------------------- |
+| `-h` | `--help`             | Output command help                                 |
+|      | `--retention-period` | Bucket retention period (default is 0s or infinite) |
 
 ## Examples
 

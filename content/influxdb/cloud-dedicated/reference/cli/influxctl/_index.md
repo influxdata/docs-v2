@@ -83,7 +83,6 @@ following credentials:
 
 - InfluxDB Cloud Dedicated account ID
 - InfluxDB Cloud Dedicated cluster ID
-- InfluxDB Cloud Dedicated cluster URL
 
 Store these credentials in a `config.toml` at a specific location based on your
 operating system:
@@ -99,27 +98,27 @@ operating system:
 #### Profile settings
 
 In your `config.toml`, you can store _multiple_ profiles, each with a unique
-name. The default profile must be named `default`. For example:
+name. The default profile must be named `default`.
+
+##### Example config.toml
 
 ```toml
 [default]
   account_id = "YOUR_ACCOUNT_ID"
   cluster_id = "YOUR_CLUSTER_ID"
-  cluster_url = "YOUR_CLUSTER_URL"
 
 [custom-profile]
   account_id = "YOUR_OTHER_ACCOUNT_ID"
   cluster_id = "YOUR_OTHER_CLUSTER_ID"
-  cluster_url = "YOUR_OTHER_CLUSTER_URL"
 ```
 
 ## Authentication
 
 The `influxctl` CLI uses [Auth0](https://auth0.com/) to authenticate access to
 your InfluxDB Cloud Dedicated cluster.
-When you issue an `influxctl` command, the CLI checks for an active
-Auth0 token. If none exists, you are directed to login to **Auth0** via a
-browser using credentials you should have created when setting up your
-InfluxDB Cloud Dedicated cluster.
+When you issue an `influxctl` command, the CLI checks for an active Auth0 token.
+If none exists, you are directed to login to **Auth0** via a browser using
+credentials you should have created when setting up your InfluxDB Cloud
+Dedicated cluster.
 Auth0 issues a short-lived (1 hour) token that authenticates access to your
 InfluxDB Cloud Dedicated cluster.
