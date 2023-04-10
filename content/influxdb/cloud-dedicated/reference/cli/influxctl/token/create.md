@@ -24,16 +24,16 @@ We recommend storing database tokens in a secure secret store.
 
 ```sh
 influxctl token create \
-  --read-database={database}... \
-  --write-database={database}... \
-  {token-description}
+  [--read-database=<DATABASE_NAME>] \
+  [--write-database=<DATABASE_NAME>] \
+  <TOKEN_DESCRIPTION>
 ```
 
 ## Arguments
 
 | Argument              | Description                |
 | :-------------------- | :------------------------- |
-| **token-description** | Database token description |
+| **TOKEN_DESCRIPTION** | Database token description |
 
 ## Flags
 
@@ -54,8 +54,8 @@ influxctl token create \
 
 ```sh
 influxctl token create \
-  --read-database=mydb \
-  --write-database=mydb \
+  --read-database mydb \
+  --write-database mydb \
   "Read/write token for mydb"
 ```
 
@@ -63,7 +63,7 @@ influxctl token create \
 
 ```sh
 influxctl token create \
-  --read-database=mydb \
+  --read-database mydb \
   "Read-only token for mydb"
 ```
 
@@ -71,8 +71,8 @@ influxctl token create \
 
 ```sh
 influxctl token create \
-  --read-database=mydb1 \
-  --read-database=mydb2 \
+  --read-database mydb1 \
+  --read-database mydb2 \
   "Read-only token for mydb1 and mydb2"
 ```
 
@@ -80,8 +80,8 @@ influxctl token create \
 
 ```sh
 influxctl token create \
-  --read-database=mydb1 \
-  --read-database=mydb2 \
-  --write-database=mydb2 \
+  --read-database mydb1 \
+  --read-database mydb2 \
+  --write-database mydb2 \
   "Read-only on mydb1, Read/write on mydb2"
 ```

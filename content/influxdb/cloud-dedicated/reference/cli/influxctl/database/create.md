@@ -50,21 +50,21 @@ The retention period value cannot be negative or contain whitespace.
 ## Usage
 
 ```sh
-influxctl database create [--retention-period 0s] {name}
+influxctl database create [--retention-period 0s] <DATABASE_NAME>
 ```
 
 ## Arguments
 
-| Argument | Description            |
-| :------- | :--------------------- |
-| **name** | InfluxDB database name |
+| Argument          | Description            |
+| :---------------- | :--------------------- |
+| **DATABASE_NAME** | InfluxDB database name |
 
 ## Flags
 
-| Flag |                      | Description                                         |
-| :--- | :------------------- | :-------------------------------------------------- |
-| `-h` | `--help`             | Output command help                                 |
-|      | `--retention-period` | Bucket retention period (default is 0s or infinite) |
+| Flag |                      | Description                                           |
+| :--- | :------------------- | :---------------------------------------------------- |
+| `-h` | `--help`             | Output command help                                   |
+|      | `--retention-period` | Database retention period (default is 0s or infinite) |
 
 ## Examples
 

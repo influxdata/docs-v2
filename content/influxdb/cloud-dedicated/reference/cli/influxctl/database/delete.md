@@ -15,7 +15,7 @@ Cloud Dedicated cluster.
 ## Usage
 
 ```sh
-influxctl database delete {name}
+influxctl database delete <DATABASE_NAME>
 ```
 
 {{% warn %}}
@@ -31,9 +31,9 @@ when creating a new database.
 
 ## Arguments
 
-| Argument | Description                    |
-| :------- | :----------------------------- |
-| **name** | Name of the database to delete |
+| Argument          | Description                    |
+| :---------------- | :----------------------------- |
+| **DATABASE_NAME** | Name of the database to delete |
 
 ## Flags
 

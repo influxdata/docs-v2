@@ -37,10 +37,11 @@ influxctl [flags] [command]
 | [version](/influxdb/cloud-dedicated/reference/cli/influxctl/version/)   | Output the current `influxctl` version |
 | [help](/influxdb/cloud-dedicated/reference/cli/influxctl/help/)         | Output `influxctl` help information    |
 
-## Flags {#command-flags}
+## Global flags
 
 | Flag        | Description                                                |
 | :---------- | :--------------------------------------------------------- |
+| `--debug`   | Enable debug logging                                       |
 | `--profile` | Specify a connection profile to use (default is `default`) |
 
 ---

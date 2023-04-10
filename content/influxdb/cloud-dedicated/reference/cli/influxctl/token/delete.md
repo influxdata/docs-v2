@@ -15,7 +15,7 @@ Cloud Dedicated cluster and revokes all permissions associated with the token.
 ## Usage
 
 ```sh
-influxctl token delete {token-id}
+influxctl token delete <TOKEN_ID>
 ```
 
 {{% warn %}}
@@ -34,7 +34,9 @@ Cloud Dedicated cluster.
 
 | Argument     | Description                 |
 | :----------- | :-------------------------- |
-| **token-id** | Database token ID to delete |
+| **TOKEN_ID** | Database token ID to delete |
+
+## Flags
 
 | Flag |          | Description         |
 | :--- | :------- | :------------------ |
