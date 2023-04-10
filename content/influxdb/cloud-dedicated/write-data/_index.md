@@ -16,7 +16,7 @@ influxdb/cloud-dedicated/tags: [write, line protocol]
 #   - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
 ---
 
-Write data to InfluxDB {{% cloud-name %}} using the following tools and methods:
+Write data to {{% cloud-name %}} using the following tools and methods:
 
 {{% note %}}
 Use the v2 API `/api/v2/write` endpoint for all new workloads.

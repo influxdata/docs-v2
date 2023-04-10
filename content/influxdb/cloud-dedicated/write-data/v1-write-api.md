@@ -46,7 +46,7 @@ Name               | Allowed in  | Ignored | Value
 ### Use the v1 API with HTTP clients and custom code
 
 {{% warn %}}
-While the v1 CLI may coincidentally work with InfluxDB {{% cloud-name %}}, it isn't supported.
+While the v1 CLI may coincidentally work with {{% cloud-name %}}, it isn't supported.
 {{% /warn %}}
 
 To test API writes interactively, use common HTTP clients such as cURL and Postman to send requests to the v1 API `/write` endpoint.
@@ -60,7 +60,7 @@ curl -i https://cloud2.influxdata.com/write?db=mydb&precision=s \
 
 ### v1 CLI (not supported)
 
-Don't use the v1 CLI for writing data to InfluxDB {{% cloud-name %}}.
-While the v1 CLI may coincidentally work with InfluxDB {{% cloud-name %}}, it isn't supported.
+Don't use the v1 CLI for writing data to {{% cloud-name %}}.
+While the v1 CLI may coincidentally work with {{% cloud-name %}}, it isn't supported.
 
 If you need to test writes interactively, see how to [use the v1 API with HTTP clients and custom code](#use-the-v1-api-with-http-clients-and-custom-code).
