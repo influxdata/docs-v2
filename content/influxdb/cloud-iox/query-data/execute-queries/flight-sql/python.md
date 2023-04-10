@@ -145,7 +145,7 @@ to install a recent version of the Python programming language for your system.
 
     `conda` creates a virtual environment in a directory named `./envs/virtualenv-1`.
 
-5. To activate the new virtual environment, use the `conda activate` command and pass the directory path of the virtual environment:
+4. To activate the new virtual environment, use the `conda activate` command and pass the directory path of the virtual environment:
 
     ```sh
     conda activate envs/VIRTUAL_ENVIRONMENT_NAME
