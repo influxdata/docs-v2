@@ -16,19 +16,12 @@ influxdb/cloud-dedicated/tags: [write, line protocol]
 #   - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
 ---
 
-Write data to InfluxDB Cloud Dedicated using the InfluxDB v2 `/api/v2/write` endpoint or v1 `/write` endpoint. 
+Write data to InfluxDB {{% cloud-name %}} using the following tools and methods:
 
-Write data with the InfluxDB v2 API `/api/v2/write` endpoint for Cloud Dedicated:
-  - Use v2 API requests from client libraries, Telegraf, or your own code.
-    - You can't use the InfluxDB `influx` CLI.
-    - For help finding the best workflow for your situation, [contact the Engineering team](link).
-  <!-- v2 SAMPLE CODE -->
-
-Write data with the InfluxDB v1 API `/write` endpoint for Cloud Dedicated:
-  - Use your existing InfluxDB v1 write workloads.
-  - Use v1 API requests from the Telegraf v1 Output Plugin or your own code.
-  <!-- v1 SAMPLE CODE -->
-    - Supports Basic Auth.
-      - Use a Database Token as your Basic Auth password.
+{{% note %}}
+Use the v2 API `/api/v2/write` endpoint for all new workloads.
+You can still use the v1 API `/write` endpoint for existing workloads that need it.
+{{% /note %}}
 
 {{< children >}}
+ 
