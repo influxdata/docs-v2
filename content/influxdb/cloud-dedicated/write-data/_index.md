@@ -21,7 +21,7 @@ Write data to InfluxDB Cloud Dedicated using the InfluxDB v2 `/api/v2/write` end
 Write data with the InfluxDB v2 API `/api/v2/write` endpoint for Cloud Dedicated:
   - Use v2 API requests from client libraries, Telegraf, or your own code.
     - You can't use the InfluxDB `influx` CLI.
-    - For questions about the best workflows for your situation, [contact the Engineering team](link).
+    - For help finding the best workflow for your situation, [contact the Engineering team](link).
   <!-- v2 SAMPLE CODE -->
 
 Write data with the InfluxDB v1 API `/write` endpoint for Cloud Dedicated:
