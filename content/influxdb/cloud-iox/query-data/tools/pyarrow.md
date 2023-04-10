@@ -1,13 +1,23 @@
 ---
 title: Use the PyArrow library to analyze data
 description: >
-  Install and run [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze InfluxDB query results from a bucket powered by InfluxDB IOx.
+  Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze InfluxDB query results from a bucket powered by InfluxDB IOx.
 weight: 101
 menu:
   influxdb_cloud_iox:
     parent: Analyze and visualize data
     name: Use PyArrow
 influxdb/cloud-iox/tags: [analysis, arrow, pyarrow, python]
+related:
+    - /influxdb/cloud-iox/query-data/tools/pandas/
+    - /influxdb/cloud-iox/query-data/tools/pyarrow/
+    - /influxdb/cloud-iox/query-data/sql/
+list_code_example: |
+  ```py
+  ...
+  table = reader.read_all()
+  table.group_by('room').aggregate([('temp', 'mean')])
+  ```
 ---
 
 Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze query results 
@@ -38,7 +48,7 @@ Installing `flightsql-dbapi` also installs the [`pyarrow`](https://arrow.apache.
 
 ## Use PyArrow to read query results
 
-The following example shows how to use Python with `flightsql-dbapi` and `pyarrow` to query InfluxDB and view query results.
+The following example shows how to use Python with `flightsql-dbapi` and `pyarrow` to query InfluxDB and view Arrow data as a PyArrow `Table`.
  
 1. In your editor, copy and paste the following sample code to a new file--for example, `pyarrow-example.py`:
 
@@ -48,19 +58,19 @@ The following example shows how to use Python with `flightsql-dbapi` and `pyarro
     from flightsql import FlightSQLClient
 
     # Instantiate a FlightSQLClient configured for a bucket
-    client = FlightSQLClient(host='INFLUXDB_DOMAIN',
+    client = FlightSQLClient(host='cloud2.influxdata.com',
         token='INFLUX_READ_WRITE_TOKEN',
         metadata={'bucket-name': 'INFLUX_BUCKET'},
         features={'metadata-reflection': 'true'})
 
-    # Execute the query
-    query = client.execute('SELECT * FROM home')
+    # Execute the query to retrieve FlightInfo
+    info = client.execute('SELECT * FROM home')
 
-    # Use the Flight ticket to request the Arrow data stream.
-    # Return a pyarrow.flight.FlightStreamReader for streaming the results.
-    reader = client.do_get(query.endpoints[0].ticket)
+    # Use the ticket to request the Arrow data stream.
+    # Return a FlightStreamReader for streaming the results.
+    reader = client.do_get(info.endpoints[0].ticket)
 
-    # Use pyarrow to read the data stream into a pyarrow.Table
+    # Read all data to a pyarrow.Table
     table = reader.read_all()
 
     print(table)
@@ -71,13 +81,16 @@ The following example shows how to use Python with `flightsql-dbapi` and `pyarro
     - **`INFLUX_READ_WRITE_TOKEN`**: Your InfluxDB token with read permissions on the databases you want to query.
     - **`INFLUX_BUCKET`**: The name of your InfluxDB bucket.
 
-  For more information about `FlightSQLClient`, see how to [get started querying InfluxDB with Python and flightsql-dbapi](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/).
 
 3. In your terminal, use the Python interpreter to run the file:
 
     ```sh
     python pyarrow-example.py
     ```
+
+The `FlightStreamReader.read_all()` method reads all Arrow record batches in the stream as a [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html).
+
+Next, [use PyArrow to analyze data](#use-pyarrow-to-analyze-data).
 
 ## Use PyArrow to analyze data
 
@@ -92,14 +105,14 @@ The following example shows how to query InfluxDB, group the table data, and the
 
 from flightsql import FlightSQLClient
 
-client = FlightSQLClient(host='INFLUXDB_DOMAIN',
+client = FlightSQLClient(host='cloud2.influxdata.com',
     token='INFLUX_READ_WRITE_TOKEN',
     metadata={'bucket-name': 'INFLUX_BUCKET'},
     features={'metadata-reflection': 'true'})
 
-query = client.execute('SELECT * FROM home')
+info = client.execute('SELECT * FROM home')
 
-reader = client.do_get(query.endpoints[0].ticket)
+reader = client.do_get(info.endpoints[0].ticket)
 
 table = reader.read_all()
 
@@ -119,6 +132,5 @@ room: [["Kitchen","Living Room"]]
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
 
 For more detail and examples, see the [PyArrow documentation](https://arrow.apache.org/docs/python/getstarted.html) and the [Apache Arrow Python Cookbook](https://arrow.apache.org/cookbook/py/data.html).

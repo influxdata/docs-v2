@@ -10,28 +10,28 @@ menu:
     name: Use Python
     identifier: query_with_python
 influxdb/cloud-iox/tags: [query, flightsql, python]
+related:
+    - /influxdb/cloud-iox/query-data/tools/pandas/
+    - /influxdb/cloud-iox/query-data/tools/pyarrow/
+    - /influxdb/cloud-iox/query-data/sql/
 list_code_example: |
     ```py
     from flightsql import FlightSQLClient
 
-    client = FlightSQLClient(host='INFLUXDB_DOMAIN',
+    client = FlightSQLClient(host='cloud2.influxdata.com',
         token='INFLUX_READ_WRITE_TOKEN',
         metadata={'bucket-name': 'INFLUX_BUCKET'},
         features={'metadata-reflection': 'true'})
 
-    query = client.execute("SELECT * FROM home")
+    info = client.execute("SELECT * FROM home")
 
-    ticket = query.endpoints[0].ticket
+    ticket = info.endpoints[0].ticket
 
     reader = client.do_get(ticket)
-
-    reader.read_all()
     ```
 ---
 
 Use Python and the Flight SQL library to query data stored in a bucket powered by InfluxDB IOx.
-
-<!-- TOC -->
 
 - [Get started using Python to query InfluxDB](#get-started-using-python-to-query-influxdb)
 - [Create a Python virtual environment](#create-a-python-virtual-environment)
@@ -42,13 +42,7 @@ Use Python and the Flight SQL library to query data stored in a bucket powered b
   - [Install the Flight SQL Python Library](#install-the-flight-sql-python-library)
   - [Create a query client](#create-a-query-client)
   - [Execute a query](#execute-a-query)
-    - [Syntax](#syntax)
-    - [Example](#example)
-  - [Retrieve data from the Flight SQL query](#retrieve-data-from-the-flight-sql-query)
-    - [Syntax](#syntax)
-    - [Example {#retrieve-data-from-the-flight-sql-query-example}](#example-retrieve-data-from-the-flight-sql-query-example)
-
-<!-- /TOC -->
+  - [Retrieve data for Flight SQL query results](#retrieve-data-for-flight-sql-query-results)
 
 ## Get started using Python to query InfluxDB
 
@@ -143,13 +137,21 @@ to install a recent version of the Python programming language for your system.
     conda
     ```
 
-3. Use `conda` to create a virtual environment:
+3. Use `conda` to create a virtual environment--for example:
 
     ```sh
     conda create --prefix envs/virtualenv-1 
     ```
 
-5. To activate the new virtual environment in your terminal, use the `conda activate` command and pass the file path of the virtual environment `activate` script:
+    `conda` creates a virtual environment in a directory named `./envs/virtualenv-1`.
+
+5. To activate the new virtual environment, use the `conda activate` command and pass the directory path of the virtual environment:
+
+    ```sh
+    conda activate envs/VIRTUAL_ENVIRONMENT_NAME
+    ```
+
+    For example:
 
     ```sh
     conda activate ./envs/virtualenv-1
@@ -157,7 +159,7 @@ to install a recent version of the Python programming language for your system.
 {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
 
-When activated, the virtual environment name appears at the beginning of your terminal command line--for example:
+When a virtual environment is activated, the name displays at the beginning of your terminal command line--for example:
   {{% code-callout "(virtualenv-1)"%}}
   ```sh
   (virtualenv-1) $ PROJECT_DIRECTORY
@@ -172,17 +174,17 @@ When activated, the virtual environment name appears at the beginning of your te
 
 ### Install the Flight SQL Python Library
 
-In your terminal, use `pip` to install the `flightsql-dbapi` Flight SQL library for Python:
+The [`flightsql-dbapi`](https://github.com/influxdata/flightsql-dbapi) Flight SQL library for Python provides a
+[DB API 2](https://peps.python.org/pep-0249/) interface and
+[SQLAlchemy](https://www.sqlalchemy.org/) dialect for
+[Flight SQL](https://arrow.apache.org/docs/format/FlightSql.html).
+Installing `flightsql-dbapi` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that you'll use for working with Arrow data.
+
+In your terminal, use `pip` to install `flightsql-dbapi`:
 
 ```sh
 pip install flightsql-dbapi
 ```
-
-- [`flightsql-dbapi`](https://github.com/influxdata/flightsql-dbapi) provides a
-[DB API 2](https://peps.python.org/pep-0249/) interface and
-[SQLAlchemy](https://www.sqlalchemy.org/) dialect for
-[Flight SQL](https://arrow.apache.org/docs/format/FlightSql.html).
-- Installing `flightsql-dbapi` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that you'll use later.
 
 With `flightsql-dbapi` and `pyarrow` installed, you're ready to query and analyze data stored in an InfluxDB bucket.
 
@@ -212,107 +214,85 @@ and the _DB API 2_ interface to instantiate a Flight SQL client configured for a
 
 ### Execute a query
 
-To execute an SQL query, call the  `FlightSQLClient.execute` method with the query as a string.
+To execute an SQL query, call the query client's `execute(query)` method and pass the query as a string.
 
-#### Syntax
+#### Syntax {#execute-query-syntax}
 
 ```py
 execute(query: str, call_options: Optional[FlightSQLCallOptions] = None)
 ```
 
-#### Example
+#### Example {#execute-query-example}
 
 ```py
 # query-example.py
 
 from flightsql import FlightSQLClient
 
-client = FlightSQLClient(host='us-east-1-1.aws.cloud2.influxdata.com',
+client = FlightSQLClient(host='cloud2.influxdata.com',
     token='INFLUX_READ_WRITE_TOKEN',
     metadata={'bucket-name': 'INFLUX_BUCKET'},
     features={'metadata-reflection': 'true'})
 
 # Execute the query
-query = client.execute("SELECT * FROM home")
+info = client.execute("SELECT * FROM home")
 ```
 
-The response contains a `flight.FlightInfo` object.
-The object's `endpoint.ticket` property contains a _Flight ticket_ value--the retrieval location for the Arrow data.
+The response contains a `flight.FlightInfo` object that contains metadata and an `endpoints: [...]` list. Each endpoint contains the following:
 
-For example:
+- A list of addresses where you can retrieve the data.
+- A `ticket` value that identifies the data to retrieve.
 
-```py
-ticket = query.endpoints[0].ticket
-```
+Next, use the ticket to [retrieve data for Flight SQL query results](#retrieve-data-for-flight-sql-query-results)
 
-### Retrieve data from the Flight SQL query
+### Retrieve data for Flight SQL query results
 
-To retrieve the Arrow data, call the `FlightSQLClient.do_get` method with the Flight ticket (`ticket`).
+To retrieve Arrow data for a query result, call the client's `do_get(ticket)` method.
 
-#### Syntax
+#### Syntax {#retrieve-data-syntax}
 
 ```py
  do_get(ticket, call_options: Optional[FlightSQLCallOptions] = None)
 ```
 
-#### Example {#retrieve-data-from-the-flight-sql-query-example}
+#### Example {#retrieve-data-example}
 
-The following example shows how to use Python with `flightsql-dbapi` and `pyarrow` to query InfluxDB and get a stream reader for Arrow data.
+The following sample shows how to use Python with `flightsql-dbapi` and `pyarrow` to query InfluxDB and retrieve data.
 
 ```py
 # query-example.py
 
 from flightsql import FlightSQLClient
 
-client = FlightSQLClient(host='INFLUXDB_DOMAIN',
+# Instantiate a FlightSQLClient configured for a bucket
+client = FlightSQLClient(host='cloud2.influxdata.com',
     token='INFLUX_READ_WRITE_TOKEN',
     metadata={'bucket-name': 'INFLUX_BUCKET'},
     features={'metadata-reflection': 'true'})
 
-query = client.execute("SELECT * FROM home")
+# Execute the query to retrieve FlightInfo
+info = client.execute("SELECT * FROM home")
 
-# Get the data location ticket from the response
-ticket = query.endpoints[0].ticket
+# Extract the token for retrieving data
+ticket = info.endpoints[0].ticket
 
 # Use the ticket to request the Arrow data stream.
+# Return a FlightStreamReader for streaming the results.
 reader = client.do_get(ticket)
+
+# Read all data to a pyarrow.Table
+table = reader.read_all()
 ```
 
-`FlightSQLClient.do_get` returns a [`pyarrow.flight.FlightStreamReader`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightStreamReader.html) for streaming the Arrow data.
-To read the data, call one of the following `pyarrow.flight.FlightStreamReader` methods:
+`do_get(ticket)` returns a [`pyarrow.flight.FlightStreamReader`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightStreamReader.html) for streaming Arrow [record batches](https://arrow.apache.org/docs/python/data.html#record-batches).
 
-- `read_all`: Read the entire contents of the stream as a [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html).
-- `read_chunk`: Read the next RecordBatch and metadata.
-- `read_pandas`: Read the entire contents of the stream and convert it to a [`pandas.DataFrame`](https://pandas.pydata.org/docs/reference/frame.html).
+To read data from the stream, call one of the following `FlightStreamReader` methods:
 
-The following example calls `read_all`:
+- `read_all()`: Read all record batches as a [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html).
+- `read_chunk()`: Read the next RecordBatch and metadata.
+- `read_pandas()`: Read all record batches and convert them to a  [`pandas.DataFrame`](https://pandas.pydata.org/docs/reference/frame.html).
 
-    ```py
-    # query-example.py
-
-    from flightsql import FlightSQLClient
-
-    client = FlightSQLClient(host='INFLUXDB_DOMAIN',
-        token='INFLUX_READ_WRITE_TOKEN',
-        metadata={'bucket-name': 'INFLUX_BUCKET'},
-        features={'metadata-reflection': 'true'})
-
-    query = client.execute("SELECT * FROM home")
-
-    ticket = query.endpoints[0].ticket
-
-    reader = client.do_get(ticket)
-
-    print(reader.read_all())
-    ```
-
-```sh
-pandas query-example.py
-```
-
-The output is the result stream as a [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table).
-
-Next, learn how to use Python tools to analyze InfluxDB query results:
+Next, learn how to use Python tools to work with time series data:
 
 - [Use PyArrow](/influxdb/cloud-iox/query-data/tools/pyarrow/)
 - [Use pandas](/influxdb/cloud-iox/query-data/tools/pandas/)
