@@ -56,18 +56,12 @@ For more information, see how to [get started querying InfluxDB with Python and 
 
 ## Install pandas
 
-To use pandas, you need to install and import the `pandas` library:
+To use pandas, you need to install and import the `pandas` library.
 
-- In your terminal, use `pip` to install `pandas` in your [Python virtual environment](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/#create-a-project-virtual-environment):
+In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/#create-a-project-virtual-environment):
 
     ```sh
     pip install pandas
-    ```
-
-- In your code, add an `import` statement for `pandas`:
-
-    ```py
-    import pandas
     ```
 
 ## Use PyArrow to convert query results to pandas
@@ -80,6 +74,7 @@ The following steps use Python, `flightsql-dbapi`, and `pyarrow` to query Influx
     # pandas-example.py
 
     from flightsql import FlightSQLClient
+    import pandas
 
     client = FlightSQLClient(host='cloud2.influxdata.com',
                             token='INFLUX_READ_WRITE_TOKEN',
@@ -116,12 +111,13 @@ Next, [use pandas to analyze data](#use-pandas-to-analyze-data).
 
 ## Use pandas to analyze data
 
-`pandas` provides extensive features for working with time series data.
-
 - [View information and statistics for data](#view-information-and-statistics-for-data)
 - [Downsample time series](#downsample-time-series)
 
 ### View data information and statistics
+
+The following example uses the DataFrame `info()` and `describe()`
+methods to print information about the DataFrame.
 
 ```py
 # pandas-example.py
@@ -148,6 +144,8 @@ print(dataframe.describe())
 ```
 
 ### Downsample time series
+
+The pandas library provides extensive features for working with time series data.
 
 The [`pandas.DataFrame.resample()` method](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.resample.html) downsamples and upsamples data to time-based groups--for example:
 
@@ -198,7 +196,5 @@ Freq: H, Name: temp, Length: 469323, dtype: float64
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-See how to [run the sample code preter](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/#run-code-with-the-python-interpreter).
 
 For more detail and examples, see the [pandas documentation](https://pandas.pydata.org/docs/index.html).
