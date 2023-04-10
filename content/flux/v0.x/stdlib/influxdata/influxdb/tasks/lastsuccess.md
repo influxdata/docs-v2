@@ -44,7 +44,7 @@ or the value of the `orTime` parameter if the task has never successfully run.
 
 ### orTime
 ({{< req >}})
-Defualt time value returned if the task has never successfully run.
+Default time value returned if the task has never successfully run.
 
 
 
