@@ -43,7 +43,9 @@ Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-fl
 
 ## Install Grafana
 
-Follow the [Grafana.com instructions to Install Grafana](https://grafana.com/docs/grafana/latest/setup-grafana/installation/) for your system.
+Follow [Grafana installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
+for your operating system.
+
 
 {{% warn %}}
 Because Grafana Flight SQL Plugin is a custom plugin, you can't use it with Grafana Cloud.
