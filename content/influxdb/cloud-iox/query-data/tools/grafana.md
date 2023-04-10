@@ -30,11 +30,11 @@ Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-fl
 <!-- TOC -->
 
 - [Install Grafana](#install-grafana)
-- [Download the Grafana Flight SQL Plugin](#download-the-grafana-flight-sql-plugin)
+- [Download the Grafana Flight SQL plugin](#download-the-grafana-flight-sql-plugin)
 - [Extract the Flight SQL plugin](#extract-the-flight-sql-plugin)
 - [Install the Grafana Flight SQL plugin](#install-the-grafana-flight-sql-plugin)
-    - [Install with Docker Run](#install-with-docker-run)
-    - [Install with Docker-Compose](#install-with-docker-compose)
+  - [Install with Docker Run](#install-with-docker-run)
+  - [Install with Docker-Compose](#install-with-docker-compose)
 - [Configure the Flight SQL datasource](#configure-the-flight-sql-datasource)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
@@ -43,9 +43,8 @@ Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-fl
 
 ## Install Grafana
 
-Follow [Grafana installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
-for your operating system.
-
+Follow [Grafana instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
+to Install Grafana for your operating system.
 
 {{% warn %}}
 Because Grafana Flight SQL Plugin is a custom plugin, you can't use it with Grafana Cloud.
@@ -81,11 +80,6 @@ unzip influxdata-flightsql-datasource.zip -d /custom/plugins/directory/
 
 Install the custom-built Flight SQL plugin in a local or Docker-based instance
 of Grafana OSS or Grafana Enterprise.
-
-{{% warn %}}
-Because Grafana Flight SQL Plugin is a custom plugin, you can't use it with Grafana Cloud.
-For more information, see [Find and Use Plugins in the Grafana Cloud documentation](https://grafana.com/docs/grafana-cloud/fundamentals/find-and-use-plugins/)
-{{% /warn %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
