@@ -7,6 +7,7 @@ description: >
 menu:
   influxdb_cloud_dedicated:
     parent: Manage databases
+weight: 203
 list_code_example: |
   ```sh
   influxctl database delete <DATABASE_NAME>
