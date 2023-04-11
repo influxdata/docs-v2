@@ -60,9 +60,9 @@ To use pandas, you need to install and import the `pandas` library.
 
 In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb/cloud-iox/query-data/execute-queries/flight-sql/python/#create-a-project-virtual-environment):
 
-    ```sh
-    pip install pandas
-    ```
+```sh
+pip install pandas
+```
 
 ## Use PyArrow to convert query results to pandas
 
