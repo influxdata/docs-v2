@@ -23,7 +23,7 @@ longer part of the InfluxDB data model. However, InfluxDB Cloud Dedicated does
 support InfluxQL, which requires databases and retention policies.
 See [InfluxQL DBRP naming convention](/influxdb/cloud-dedicated/admin/databases/create/#influxql-dbrp-naming-convention).
 
-**If coming from InfluxDB v2 or InfluxDB Cloud**, database and bucket are synonymous.
+**If coming from InfluxDB v2 or InfluxDB Cloud**, _database_ and _bucket_ are synonymous.
 {{% /note %}}
 
 ## Retention periods
