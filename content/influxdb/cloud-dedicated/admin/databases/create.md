@@ -15,7 +15,7 @@ list_code_example: |
 ---
 
 Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
-to create a new InfluxDB in your InfluxDB Cloud Dedicated cluster.
+to create a database in your InfluxDB Cloud Dedicated cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run the `influxctl database create` command and provide the following:
