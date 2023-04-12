@@ -170,7 +170,7 @@ dataframe = dataframe.set_index('time')
 # Print information about the index
 print(dataframe.index)
 
-# Downsample data into 5-minute groups based on the DatetimeIndex
+# Downsample data into 1-hour groups based on the DatetimeIndex
 resample = dataframe.resample("1H")
 
 # Print a summary that shows the start time and average temp for each group
