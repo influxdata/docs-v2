@@ -12,9 +12,10 @@ menu:
 influxdb/cloud-dedicated/tags: [write, line protocol]
 ---
 
-Write data with the InfluxDB v1 API `/write` endpoint for InfluxDB Cloud.
-Use the v1 API `/write` endpoint when you have existing v1 workloads that need it.
-Send writes from the Telegraf v1 Output Plugin or your own code.
+Use the InfluxDB v1 API when you have existing v1 workloads that need it.
+`/write` and `/query` endpoints 
+Write data using the v1 `/write` endpoint with the Telegraf v1 Output Plugin or your existing code.
+Query InfluxDB databases using the v1 `/query` endpoint with tools like Grafana, pandas, and your custom code.
 
 {{% note %}}
 {{% api/cloud/v2-prefer %}}
@@ -22,8 +23,11 @@ Send writes from the Telegraf v1 Output Plugin or your own code.
 
 <!-- v1 SAMPLE CODE -->
 
-InfluxDB 1.x compatibility endpoints that work with
-InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
+The InfluxDB v1 API `/write` endpoint works with
+InfluxDB 1.x client libraries and the Telegraf v1 Output Plugin.
+
+The InfluxDB v1 API `/query` endpoint uses SQL and works with Flight SQL libraries and plugins,
+and third-party integrations like [Grafana](https://grafana.com).
 
 <a class="btn" href="/influxdb/cloud-dedicated/api/v1/">View full v1 API documentation</a>
 
