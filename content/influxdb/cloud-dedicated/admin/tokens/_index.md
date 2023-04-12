@@ -19,9 +19,9 @@ more databases and allow for actions like writing and querying data.
 
 All read and write actions performed against time series data in your InfluxDB
 Cloud Dedicated cluster must be authorized using a token. Administrative actions
-such as managing tokens and databases are authorized using **Auth0** tokens, 
-which allow clients, such as the `influxctl` CLI, to perform administrative
-actions.
+such as managing tokens and databases are authorized using **management tokens**
+issued by **Auth0**. Management tokens allow clients, such as the `influxctl` CLI,
+to perform administrative actions.
 
 {{% note %}}
 #### Store secure tokens in a secret store
