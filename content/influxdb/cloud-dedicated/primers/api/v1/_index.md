@@ -13,15 +13,7 @@ influxdb/cloud-dedicated/tags: [write, line protocol]
 ---
 
 Use the InfluxDB v1 API when you have existing v1 workloads that need it.
-`/write` and `/query` endpoints 
-Write data using the v1 `/write` endpoint with the Telegraf v1 Output Plugin or your existing code.
-Query InfluxDB databases using the v1 `/query` endpoint with tools like Grafana, pandas, and your custom code.
-
-{{% note %}}
-{{% api/cloud/v2-prefer %}}
-{{% /note %}}
-
-<!-- v1 SAMPLE CODE -->
+The v1 `/write` and `/query` endpoints work with existing InfluxDB 1.x tools and your custom code.
 
 The InfluxDB v1 API `/write` endpoint works with
 InfluxDB 1.x client libraries and the Telegraf v1 Output Plugin.
@@ -29,48 +21,23 @@ InfluxDB 1.x client libraries and the Telegraf v1 Output Plugin.
 The InfluxDB v1 API `/query` endpoint uses SQL and works with Flight SQL libraries and plugins,
 and third-party integrations like [Grafana](https://grafana.com).
 
-<a class="btn" href="/influxdb/cloud-dedicated/api/v1/">View full v1 API documentation</a>
+{{% note %}}
+{{% api/cloud/v2-prefer %}}
+{{% /note %}}
+
+<a class="btn" href="/influxdb/cloud-dedicated/api/v1/">View v1 API reference documentation</a>
 
 ## Authenticate API requests
 
 InfluxDB requires each write request to be authenticated with a
 [Database Token](/influxdb/cloud-dedicated/get-started/setup/).
 
-You can use Database Tokens in the following authentication methods:
+You can use Database Tokens with v1-style username and password authorization schemes
+or with the v2 `Token` authorization scheme:
 
-- [Authenticate using the Authorization Token scheme](#authenticate-with-the-token-scheme)
 - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
+- [Authenticate using the Authorization Token scheme](#authenticate-with-the-token-scheme)
 
-### Authenticate using the Authorization Token scheme
-
-Use the `Authorization` header with the `Token` scheme to provide your token to InfluxDB.
-As with [v2 API endpoints](/influxdb/cloud-dedicated/), include your Database Token in an `Authorization: Token DATABASE_TOKEN` HTTP header with each request.
-
-
-#### Syntax
-
-```http
-Authorization: Token DATABASE_TOKEN
-```
-
-#### Example
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[curl](#curl)
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-```sh
-{{% get-shared-text "api/v1-compat/auth/oss/token-auth.sh" %}}
-```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```js
-{{% get-shared-text "api/v1-compat/auth/oss/token-auth.js" %}}
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 ### Authenticate with a username and password scheme
 
@@ -148,8 +115,8 @@ Use InfluxDB v1 API parameters to provide credentials through the query string.
 ##### Syntax
 
 ```sh
-https://cloud2.com/query/?[u=any]&p=DATABASE_TOKEN
-https://cloud2.com/write/?[u=any]&p=DATABASE_TOKEN
+https://cloud2.influxdata.com/query/?[u=any]&p=DATABASE_TOKEN
+https://cloud2.influxdata.com/write/?[u=any]&p=DATABASE_TOKEN
 ```
 
 ##### Example
@@ -175,7 +142,38 @@ https://cloud2.com/write/?[u=any]&p=DATABASE_TOKEN
 Replace the following:
 - *`username`*: any value or leave empty
 - *`DATABASE_TOKEN`*: a [Database Token](/influxdb/cloud-dedicated/get-started/setup/) that has permissions to the database
- 
+
+### Authenticate using the Authorization Token scheme
+
+Use the `Authorization` header with the `Token` scheme to provide your token to InfluxDB.
+As with [v2 API endpoints](/influxdb/cloud-dedicated/), include your Database Token in an `Authorization: Token DATABASE_TOKEN` HTTP header with each request.
+
+
+#### Syntax
+
+```http
+Authorization: Token DATABASE_TOKEN
+```
+
+#### Example
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[curl](#curl)
+[Node.js](#nodejs)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+{{% get-shared-text "api/v1-compat/auth/oss/token-auth.sh" %}}
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```js
+{{% get-shared-text "api/v1-compat/auth/oss/token-auth.js" %}}
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
 ## Responses
 
 ## Use Telegraf with the v1 API write endpoint
