@@ -385,7 +385,7 @@ moving_average:
     code: |
       ```js
       data
-          |> movingAverage(n: 5)
+          |> movingAverage(n: 3)
       ```
     input: |
       | _time                | _value |
