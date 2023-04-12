@@ -20,7 +20,7 @@ to delete a database token from your InfluxDB Cloud Dedicated cluster and revoke
 all permissions associated with the token.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
-2.  Run run [`influxctl token list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/list)
+2.  Run the [`influxctl token list` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/list)
     to output tokens with their IDs.
     Copy the **token ID** of the token you want to delete.
 

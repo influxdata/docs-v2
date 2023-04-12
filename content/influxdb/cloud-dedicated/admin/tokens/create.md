@@ -2,7 +2,7 @@
 title: Create a token
 description: >
   Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
-  to create a new database token in your InfluxDB Cloud Dedicated cluster.
+  to create a database token in your InfluxDB Cloud Dedicated cluster.
   Provide a token description and grant permissions to databases.
 menu:
   influxdb_cloud_dedicated:
@@ -18,7 +18,7 @@ list_code_example: |
 ---
 
 Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
-to create a new token that grants access to databases in your InfluxDB Cloud Dedicated cluster.
+to create a token that grants access to databases in your InfluxDB Cloud Dedicated cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run the `influxctl token create` command and provide the following:

@@ -15,7 +15,7 @@ influxdb/cloud-dedicated/tags: [tokens]
 
 InfluxDB uses token authentication to authorize access to data in your InfluxDB
 Cloud Dedicated cluster. Each token grants read and write permissions to one or
-more databases and allow for actions like writing and querying data.
+more databases and allows for actions like writing and querying data.
 
 All read and write actions performed against time series data in your InfluxDB
 Cloud Dedicated cluster must be authorized using a token. Administrative actions
@@ -32,7 +32,7 @@ We recommend storing database tokens in a secure secret store.
 #### Tokens cannot be updated
 
 Once created, token permissions cannot be updated.
-If you need a token with different permissions, create a new token with the
+If you need a token with different permissions, create a token with the
 appropriate permissions.
 {{% /note %}}
 
