@@ -4,7 +4,7 @@ list_title: Use the InfluxDB v2 API
 description: >
   Use InfluxDB v2 API authentication, endpoints, and tools with InfluxDB Cloud Dedicated (Single-tenant).
   Use the v2 API for new workloads and existing v2 workloads.
-weight: 3
+weight: 1
 menu:
   influxdb_cloud_dedicated:
     parent: API primers

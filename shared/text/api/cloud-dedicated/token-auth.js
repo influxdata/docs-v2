@@ -1,25 +1,23 @@
 /**
-  * Use an InfluxDB 1.x compatible username and password
-  * to query the InfluxDB 1.x compatibility API
-  *
-  * Use authentication query parameters:
-  *   ?p=DATABASE_TOKEN
+  * Use the Token authentication scheme to query InfluxDB.
   */
 
 const https = require('https');
 const querystring = require('querystring');
 
-function queryWithQueryString() {
+function queryWithToken() {
   const queryparams = {
-    db: 'DATABASE_NAME',
-    q: 'SELECT * FROM MEAUREMENT',
-    u: '[USERNAME]',
-    p: 'DATABASE_TOKEN'
+      db: 'mydb',
+      q: 'SELECT * FROM MEASUREMENT',
   };
 
   const options = {
     host: 'localhost:8086',
-    path: "/query?" + querystring.stringify(queryparams)
+    path: "/query?" + querystring.stringify(queryparams),
+    headers: {
+      'Authorization': 'Token DATABASE_TOKEN',
+      'Content-type': 'application/json'
+    },
   };
 
   const request = https.get(options, (response) => {
@@ -34,5 +32,3 @@ function queryWithQueryString() {
 
   request.end();
 }
-
-queryWithQueryString();

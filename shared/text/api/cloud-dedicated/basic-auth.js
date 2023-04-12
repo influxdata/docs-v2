@@ -14,7 +14,7 @@ function queryWithBasicAuth() {
   };
 
   const options = {
-    host: 'cloud2.com',
+    host: 'localhost:8086',
     path: '/query?' + querystring.stringify(queryparams),
     auth: ':DATABASE_TOKEN',
     headers: {

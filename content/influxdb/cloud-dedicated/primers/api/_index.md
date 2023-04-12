@@ -20,4 +20,4 @@ influxdb/cloud-dedicated/tags: [api]
 
 Choose the {{% cloud-name %}} API and tools that best fit your workload:
 
-{{< children >}}
+{{< children sort>}}
