@@ -8,10 +8,12 @@ description: >
 weight: 101
 menu:
   influxdb_cloud_iox:
-    parent: Visualize data
+    parent: Analyze and visualize data
     name: Use Superset
     identifier: visualize_with_superset
-influxdb/cloud-iox/tags: [visualization]
+influxdb/cloud-iox/tags: [query, visualization]
+aliases:
+  - /influxdb/cloud-iox/query-data/tools/superset/
 related:
     - /influxdb/cloud-iox/query-data/execute-queries/flight-sql/superset/
 ---

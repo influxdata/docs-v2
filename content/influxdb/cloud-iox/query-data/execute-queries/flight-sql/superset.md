@@ -86,7 +86,7 @@ pip3 --version
 
     If neither `pip` nor `pip3` works, follow one of the [Pypa.io Pip Installation](https://pip.pypa.io/en/stable/installation/) methods for your system.
 
-3. Use Pip to install the `flightsql-dbapi` Flight SQL SQL Alchemy library.
+3. Use Pip to install the `flightsql-dbapi` library.
 
     {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -105,11 +105,11 @@ pip3 install flightsql-dbapi
 {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
 
-    Flight SQL SQL Alchemy is a Python library that provides a
+    The `flightsql-dbapi` library for Python provides a
     [DB API 2](https://peps.python.org/pep-0249/) interface and
     [SQLAlchemy](https://www.sqlalchemy.org/) dialect for
     [Flight SQL](https://arrow.apache.org/docs/format/FlightSql.html).
-    Later, you'll add it to Superset's Docker configuration.
+    Later, you'll add `flightsql-dbapi` to Superset's Docker configuration.
 
     {{% warn %}}
 The `flightsql-dbapi` library is experimental and under active development.
