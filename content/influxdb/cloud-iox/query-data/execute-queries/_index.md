@@ -1,7 +1,7 @@
 ---
 title: Execute queries
-seotitle: Different ways to query InfluxDB
-description: There are multiple ways to query data from InfluxDB including the InfluxDB UI, CLI, and API.
+seotitle: Execute queries for data stored in an InfluxDB bucket powered by IOx
+description: Use tools and libraries to query data stored in an InfluxDB bucket powered by IOx.
 weight: 103
 menu:
   influxdb_cloud_iox:
