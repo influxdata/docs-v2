@@ -108,7 +108,7 @@ name. The default profile must be named `default`.
   account_id = "YOUR_ACCOUNT_ID"
   cluster_id = "YOUR_CLUSTER_ID"
 
-[custom-profile]
+[custom-profile-name]
   account_id = "YOUR_OTHER_ACCOUNT_ID"
   cluster_id = "YOUR_OTHER_CLUSTER_ID"
 ```

@@ -21,78 +21,122 @@ related:
 As you get started with this tutorial, do the following to make sure everything
 you need is in place.
 
-1.  **Download, install, and configure the `influxctl` CLI**.
+- [Download, install, and configure the influxctl CLI](#download-install-and-configure-the-influxctl-cli)
+- [Create a database](#create-a-database)
+- [Create a database token](#create-a-database-token)
+
+## Download, install, and configure the influxctl CLI
     
-    The `influxctl` CLI provides a simple way to interact with and manage your
-    InfluxDB Cloud Dedicated cluster from a command line.
+The [`influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)
+provides a simple way to manage your InfluxDB Cloud Dedicated cluster from a
+command line. It lets you perform administrative tasks such as managing
+databases and tokens.
 
-2.  **Configure the `influxctl` CLI to connect to and authenticate with your dedicated cluster**.
+1.  **Download the `influxctl` CLI**.
 
-    1.  **Set up a connection profile**.
-        Create a file named `config.toml` at the following locations depending on
-        your operating system:
+    {{< tabs-wrapper >}}
+{{% tabs %}}
+[Linux](#)
+[macOS](#)
+[Windows](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!-------------------------------- BEGIN Linux -------------------------------->
 
-        | OS      | Configuration file location                           |
-        | :------ | :---------------------------------------------------- |
-        | Linux   | `~/.config/influxctl/config.toml`                     |
-        | macOS   | `~/Library/Application Support/influxctl/config.toml` |
-        | Windows | `%APPDATA%\influxctl\config.toml`                     |
+<!-- TODO: Linux installation instructions -->
 
-        Add a `default` profile to `config.toml` with the following properties:
+<!--------------------------------- END Linux --------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!-------------------------------- BEGIN macOS -------------------------------->
+
+<!-- TODO: macOS installation instructions -->
+
+<!--------------------------------- END macOS --------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!-------------------------------- BEGIN Windows ------------------------------->
+
+<!-- TODO: Windows installation instructions -->
+
+<!--------------------------------- END Windows -------------------------------->
+{{% /tab-content %}}
+    {{< /tabs-wrapper >}}
+
+2.  **Create a profile configuration file and add your InfluxDB Cloud Dedicated connection credentials**.
+    The `influxctl` CLI uses the profile configuration file to connect to and
+    authenticate with your InfluxDB Cloud Dedicated cluster.
+
+    1.  Create a file named `config.toml` at the following locations based on your
+        operating system:
+
+        | Operating system | Configuration file location                           |
+        | :--------------- | :---------------------------------------------------- |
+        | Linux            | `~/.config/influxctl/config.toml`                     |
+        | macOS            | `~/Library/Application Support/influxctl/config.toml` |
+        | Windows          | `%APPDATA%\influxctl\config.toml`                     |
+
+    2.  Add a `default` profile to `config.toml` with the following properties:
 
         - **account_id**: Your InfluxDB Cloud Dedicated account ID
         - **cluster_id**: Your InfluxDB Cloud Dedicated cluster ID
-        - **cluster_url**: Your InfluxDB Cloud Dedicated cluster URL
 
         ```toml
         [default]
           account_id = "YOUR_ACCOUNT_ID"
           cluster_id = "YOUR_CLUSTER_ID"
-          cluster_url = "YOUR_CLUSTER_URL"
         ```
 
         _You can add multiple profiles to your `config.toml`.
-        For more information about `influxctl` profiles, see [...](#)_
+        For more information about `influxctl` profiles, see
+        [Configure connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)_.
 
-    2.  **Authenticate with your cluster**.
-        
-        The next time you run an `influxctl` CLI command, you will be directed
-        to login to Auth0. Use the Auth0 credentials provided to you to login.
-        Once successfully authenticated, Auth0 issues a short-lived (1 hour)
-        token for the `influxctl` CLI that grants adminstrative access to your
-        InfluxDB Cloud Dedicated cluster.
+## Create a database
 
-3.  **Create a database**.
+Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxct/database/create/)
+to create a database. You can use an existing database or create a new one
+specifically for this getting started tutorial.
+_Examples in this getting started tutorial assume a database named **"get-started"**._
 
-    Use the **`influxctl database create` command** to create a database.
-    You can use an existing database or create a new one specifically for this
-    getting started tutorial. 
+{{% note %}}
+#### Authenticate with your cluster
     
-    Provide the following:
+The first time you run an `influxctl` CLI command, you are directed
+to login to **Auth0**. Once logged in, Auth0 issues a short-lived (1 hour)
+management token for the `influxctl` CLI that grants administrative access
+to your InfluxDB Cloud Dedicated cluster.
+{{% /note %}}
 
-    - Database name (All examples in this tutorial assume a database named
-    **"get-started"**).
-    - Database retention period as a duration value
+Provide the following:
 
-    ```sh
-    influxctl database create get-started 1d
-    ```
+- Database name.
+- _(Optional)_ Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+  as a duration value.
+  If no retention period is specified, the default is infinite.
 
-4.  **Create a database token**. <span id="create-a-database-token"></span>
+```sh
+influxctl database create \
+  --retention-period 1y \
+  get-started
+```
 
-    Use the `influxctl token create` command to create a database token with
-    read and write permissions on the **get-started** database.
-    Provide the following:
+## Create a database token
 
-    - Permission grants
-    - _(Optional)_ Token description
+Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxct/token/create/)
+to create a database token with read and write permissions for your database.
 
-    ```sh
-    influxctl token create \
-      --read-database=get-started \
-      --write-database=get-started \
-      "Read/write token for get started database"
-    ```
+Provide the following:
 
+- Permission grants
+  - `--read-database`: Grants read access to a database
+  - `--write-database` Grants write access to a database
+- Token description
+
+```sh
+influxctl token create \
+  --read-database get-started \
+  --write-database get-started \
+  "Read/write token for get-started database"
+```
 
 {{< page-nav prev="/influxdb/cloud-dedicated/get-started/" next="/influxdb/cloud-dedicated/get-started/write/" keepTab=true >}}

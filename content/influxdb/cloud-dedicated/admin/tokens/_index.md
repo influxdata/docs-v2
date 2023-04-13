@@ -3,9 +3,8 @@ title: Manage tokens
 seotitle: Manage tokens in InfluxDB Cloud Dedicated
 description: >
   Manage database tokens in your InfluxDB Cloud Dedicated cluster.
-  A database is a named location where time series data is stored.
-  Each InfluxDB database has a retention period, which defines the maximum age
-  of data stored in the database.
+  Database tokens grant read and write permissions to one or more databases and
+  allow for actions like writing and querying data.
 menu:
   influxdb_cloud_dedicated:
     parent: Administer InfluxDB
