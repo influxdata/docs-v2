@@ -1,6 +1,6 @@
 ---
 title: Learn to use APIs for your workloads
-seo_title: Learn to use APIs for your data workloads in InfluxDB Cloud Dedicated (Single-tenant)
+seo_title: Learn to use APIs for your data workloads in InfluxDB Cloud Dedicated
 description: >
   Choose the API and tools that fit your workload.
   Learn how to authenticate, write, and query using Telegraf, client libraries, and HTTP clients.
