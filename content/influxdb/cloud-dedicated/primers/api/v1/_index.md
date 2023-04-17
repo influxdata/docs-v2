@@ -104,7 +104,7 @@ Replace the following:
 #### Query string authentication
 
 Use the `p` query parameter to authenticate `/write` and `/query` requests.
-When authenticating requests, InfluxDB Cloud checks that `p` is an authorized Database Token and ignores the `u` parameter.
+When authenticating requests, InfluxDB Cloud Dedicated checks that `p` is an authorized database token and ignores the `u` parameter.
 
 {{% warn %}}
 ##### Consider when using query string parameters
