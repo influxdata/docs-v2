@@ -215,7 +215,7 @@ The following sample shows how to configure the `outputs.influxdb` Telegraf plug
 Replace the following:
 
 - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
-- **`DATABASE_TOKEN`**: a [Database Token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
+- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
 
 #### Other Telegraf configuration options
 
