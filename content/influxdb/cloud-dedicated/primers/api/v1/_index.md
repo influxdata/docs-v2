@@ -203,7 +203,7 @@ The following sample shows how to configure the `outputs.influxdb` Telegraf plug
 
 ```toml
 [[outputs.influxdb]]
-  urls = ["http://localhost:8086"]
+  urls = ["https://cloud2.influxdata.com"]
   database = "DATABASE_NAME"
   skip_database_creation = true
   retention_policy = ""
