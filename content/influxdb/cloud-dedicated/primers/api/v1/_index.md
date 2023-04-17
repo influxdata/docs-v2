@@ -2,8 +2,8 @@
 title: Use the InfluxDB v1 API with InfluxDB Cloud Dedicated
 list_title: Use the InfluxDB v1 API
 description: >
-  Use InfluxDB v1 API authentication, endpoints, and tools with InfluxDB Cloud Dedicated (Single-tenant).
-  Use the v1 API when you have existing v1 workloads that need it.
+  Use InfluxDB v1 API authentication, endpoints, and tools.
+  Learn how to use v1 `/query`, `/write`, and username/password authentication  when bringing existing 1.x workloads to InfluxDB Cloud Dedicated.
 weight: 3
 menu:
   influxdb_cloud_dedicated:
