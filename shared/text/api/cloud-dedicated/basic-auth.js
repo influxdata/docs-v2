@@ -14,7 +14,7 @@ function queryWithBasicAuth() {
   };
 
   const options = {
-    host: 'localhost:8086',
+    host: 'cloud2.influxdata.com',
     path: '/query?' + querystring.stringify(queryparams),
     auth: ':DATABASE_TOKEN',
     headers: {
