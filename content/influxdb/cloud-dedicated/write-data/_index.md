@@ -18,10 +18,9 @@ influxdb/cloud-dedicated/tags: [write, line protocol]
 
 Write data to {{% cloud-name %}} using the following tools and methods:
 
-{{% note %}}
-Use the v2 API `/api/v2/write` endpoint for all new workloads.
-You can still use the v1 API `/write` endpoint for existing workloads that need it.
-{{% /note %}}
+{{% warn %}}
+{{% api/cloud/v2-prefer %}}
+{{% /warn %}}
 
 {{< children >}}
  

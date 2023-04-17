@@ -1,19 +1,15 @@
 ---
-title: Write data to InfluxDB Cloud Dedicated (Single-tenant) with the v2 API /api/v2/write endpoint
-list_title: Write data with the v2 API /api/v2/write endpoint
+title: Use the InfluxDB v2 API with InfluxDB Cloud Dedicated
+list_title: Use the InfluxDB v2 API
 description: >
-  Use the v2 API /api/v2/write endpoint to write time series data to InfluxDB Cloud Dedicated.
-weight: 3
+  Use InfluxDB v2 API authentication, endpoints, and tools with InfluxDB Cloud Dedicated.
+  Use the v2 API for new workloads and existing v2 workloads.
+weight: 1
 menu:
   influxdb_cloud_dedicated:
-    name: Write data with the API
+    parent: API primers
+    name: v2 API primer
 influxdb/cloud-dedicated/tags: [write, line protocol]
-# related:
-#   - /influxdb/cloud/api/#tag/Write, InfluxDB API /write endpoint
-#   - /influxdb/cloud/reference/syntax/line-protocol
-#   - /influxdb/cloud/reference/syntax/annotated-csv
-#   - /influxdb/cloud/reference/cli/influx/write
-#   - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
 ---
 
 Write data with the InfluxDB v2 API `/api/v2/write` endpoint for InfluxDB Cloud:
