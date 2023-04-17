@@ -55,7 +55,7 @@ Use one of the following authentication schemes with clients that support Basic 
 #### Basic authentication
 
 Use the `Authorization` header with the `Basic` scheme to authenticate v1 API `/write` and `/query` requests.
-When authenticating requests, InfluxDB Cloud checks that `password` is an authorized Database Token and ignores `username`.
+When authenticating requests, InfluxDB Cloud Dedicated checks that `password` is an authorized database token. InfluxDB Cloud Dedicated  ignores `username`.
 
 ##### Syntax
 
