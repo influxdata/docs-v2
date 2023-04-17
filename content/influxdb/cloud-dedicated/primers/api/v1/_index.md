@@ -1,5 +1,5 @@
 ---
-title: Use the InfluxDB v1 API with InfluxDB Cloud Dedicated (Single-tenant)
+title: Use the InfluxDB v1 API with InfluxDB Cloud Dedicated
 list_title: Use the InfluxDB v1 API
 description: >
   Use InfluxDB v1 API authentication, endpoints, and tools with InfluxDB Cloud Dedicated (Single-tenant).
