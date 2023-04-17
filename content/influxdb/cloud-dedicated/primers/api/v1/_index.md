@@ -31,7 +31,7 @@ The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrat
 ## Authenticate API requests
 
 InfluxDB requires each write request to be authenticated with a
-[Database Token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token).
+[database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token).
 With the InfluxDB v1 API, you can use Database Tokens in InfluxDB 1.x username and password
 schemes or in the InfluxDB v2 `Authorization: Token` scheme:
 
