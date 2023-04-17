@@ -261,7 +261,7 @@ To test interactively, use common HTTP clients such as cURL and Postman to send 
 While the v1 CLI may coincidentally work with InfluxDB Cloud Dedicated, it isn't officially supported.
 {{% /warn %}}
 
-The following example shows to use the **cURL** command line tool to write line protocol data to an InfluxDB Cloud database:
+The following example shows how to use the **cURL** command line tool to write line protocol data to an InfluxDB Cloud Dedicated database:
 
 ```sh
 curl -i http://localhost:8086/write?db=DATABASE_NAME&precision=s \
