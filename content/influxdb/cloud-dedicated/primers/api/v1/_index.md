@@ -258,7 +258,7 @@ Use one of the following `precision` values in v1 API `/write` requests:
 To test interactively, use common HTTP clients such as cURL and Postman to send requests to the v1 API `/write` endpoint.
 
 {{% warn %}}
-While the v1 CLI may coincidentally work with {{% cloud-name %}}, it isn't supported.
+While the v1 CLI may coincidentally work with InfluxDB Cloud Dedicated, it isn't officially supported.
 {{% /warn %}}
 
 The following example shows to use the **cURL** command line tool to write line protocol data to an InfluxDB Cloud database:
