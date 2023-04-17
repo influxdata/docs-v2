@@ -55,7 +55,7 @@ Use one of the following authentication schemes with clients that support Basic 
 #### Basic authentication
 
 Use the `Authorization` header with the `Basic` scheme to authenticate v1 API `/write` and `/query` requests.
-When authenticating requests, InfluxDB Cloud Dedicated checks that `password` is an authorized database token. InfluxDB Cloud Dedicated  ignores `username`.
+When authenticating requests, InfluxDB Cloud Dedicated checks that `password` is an authorized database token. InfluxDB Cloud Dedicated ignores `username`.
 
 ##### Syntax
 
@@ -65,9 +65,9 @@ Authorization: Basic <base64-encoded [USERNAME]:DATABASE_TOKEN>
 
 Replace the following:
 
-- **`[USERNAME]`**: any value or leave empty. InfluxDB Cloud Dedicated ignores this part of the credentials.
+- **`[USERNAME]`**: any value or leave empty. InfluxDB Cloud Dedicated ignores this part of the decoded credential.
 - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token).
-- Encode the `[USERNAME]:DATABASE_TOKEN` credentials using base64 encoding, and then append the encoded string to the `Authorization: Basic` header.
+- Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and then append the encoded string to the `Authorization: Basic` header.
 
 {{% api/v1-compat/basic-auth-syntax %}}
 
@@ -103,15 +103,8 @@ Replace the following:
 
 #### Query string authentication
 
-Use the `p` query parameter to authenticate `/write` and `/query` requests.
+In the URL, pass the `p` query parameter to authenticate `/write` and `/query` requests.
 When authenticating requests, InfluxDB Cloud Dedicated checks that `p` is an authorized database token and ignores the `u` parameter.
-
-{{% warn %}}
-##### Consider when using query string parameters
-
-- URL-encode query parameters that may contain whitespace or other special characters.
-- Be aware of the [risks](https://owasp.org/www-community/vulnerabilities/Information_exposure_through_query_strings_in_url) when exposing sensitive data through URLs.
-{{% /warn %}}
 
 ##### Syntax
 
@@ -183,7 +176,21 @@ Authorization: Token DATABASE_TOKEN
 
 ## Write data with the v1 API
 
-### Write data using Telegraf
+Write data with your existing workloads already using the InfluxDB v1 API or v1.x-compatibility API.
+
+The v1 `/write` API endpoint requires the following parameters:
+
+- Database name
+- Request body containing data in [line protocol]() syntax
+- Authentication using [Basic authentication](), [query string authentication](), or [database token authentication]()
+
+Use the v1 `/write` API with the following tools:
+
+- [Write using Telegraf](#write-data-using-telegraf)
+- [Write using v1 client libraries](#write-data-using-v1-client-libraries)
+- [Write directly with HTTP clients](#write-directly-with-http-clients)
+
+### Write using Telegraf
 
 If have existing v1 workloads that use Telegraf,
 you can use the [InfluxDB v1.x `outputs.influxdb` plugin](https://github.com/influxdata/telegraf/blob/release-1.26/plugins/outputs/influxdb/README.md) to write data.
@@ -221,9 +228,12 @@ Replace the following:
 
 `influx_uint_support`: supported in InfluxDB IOx.
 
-### Write data using v1 client libraries
+### Write using v1 client libraries
 
-### Write data using v1 API /write
+
+Use language-specific v1 client libraries to write data with the v1 API `write`
+
+### Write directly with HTTP clients
 
 Use HTTP clients and your custom code to send write requests to the v1 API `/write` endpoint.
 
@@ -253,7 +263,7 @@ Use one of the following `precision` values in v1 API `/write` requests:
 - `m`: minutes
 - `h`: hours
 
-### Write data using HTTP clients
+#### Write data using interactive clients
 
 To test interactively, use common HTTP clients such as cURL and Postman to send requests to the v1 API `/write` endpoint.
 
