@@ -99,7 +99,7 @@ With an empty username:
 
 Replace the following:
 
-- *`DATABASE_TOKEN`*: a [Database Token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with sufficient permissions to the database.
+- *`DATABASE_TOKEN`*: a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with sufficient permissions to the database.
 
 #### Query string authentication
 
