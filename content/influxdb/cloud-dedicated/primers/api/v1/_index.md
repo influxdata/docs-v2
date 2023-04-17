@@ -22,8 +22,7 @@ The v1 `/write` and `/query` endpoints work with username/password authenticatio
 The InfluxDB v1 API `/write` endpoint works with
 InfluxDB 1.x client libraries and the [Telegraf v1 Output Plugin](/telegraf/v1.26/plugins/#output-influxdb).
 
-The InfluxDB v1 API `/query` endpoint uses SQL and works with Flight SQL libraries and plugins,
-and third-party integrations like [Grafana](https://grafana.com).
+The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrations like [Grafana](https://grafana.com).
 
 <!--
 <a class="btn" href="/influxdb/cloud-dedicated/api/v1/">View v1 API reference documentation</a>
