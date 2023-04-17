@@ -59,7 +59,7 @@ Use this endpoint to query data using [Flux](/enterprise_influxdb/v1.10/flux/) a
 - `Content-type: application/vnd.flux`
 - If [authentication is enabled](/enterprise_influxdb/v1.10/administration/authentication_and_authorization),
   provide your InfluxDB username and password:  
-  `Authorization: Token username:password`
+  `Authorization: Token USERNAME:PASSWORD`
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -81,7 +81,7 @@ curl -XPOST localhost:8086/api/v2/query -sS \
 curl -XPOST localhost:8086/api/v2/query -sS \
   -H 'Accept:application/csv' \
   -H 'Content-type:application/vnd.flux' \
-  -H 'Authorization: Token username:password' \
+  -H 'Authorization: Token USERNAME:PASSWORD' \
   -d 'from(bucket:"telegraf")
         |> range(start:-5m)
         |> filter(fn:(r) => r._measurement == "cpu")'
@@ -122,13 +122,7 @@ The `/api/v2/write` endpoint maps the supplied version 1.8 database and retentio
   - `Token` scheme with v1.x credentials:
 
     ```http
-    Authorization: Token username:password
-    ```
-
-  - `Token` scheme with an API token:
-
-    ```http
-    Authorization: Token API_TOKEN
+    Authorization: Token USERNAME:PASSWORD
     ```
 
 {{< code-tabs-wrapper >}}
@@ -188,13 +182,7 @@ The [/api/v2/buckets](/influxdb/latest/api/#tag/Buckets) endpoint accepts `GET`,
   - `Token` scheme with v1.x credentials:
 
     ```http
-    Authorization: Token username:password
-    ```
-
-  - `Token` scheme with an API token:
-
-    ```http
-    Authorization: Token API_TOKEN
+    Authorization: Token USERNAME:PASSWORD
     ```
 
 The following example shows how to list all databases:
@@ -209,7 +197,7 @@ The following example shows to delete a database named "test":
 ```bash
 curl --request DELETE "http://localhost:8086/api/v2/buckets/test/autogen" 
   --header "Content-type: application/json"   
-  -H 'Authorization: Token <user>:<password>'
+  -H 'Authorization: Token <username>:<password>'
 ```
 
 ### `/api/v2/delete/` HTTP endpoint
@@ -233,20 +221,14 @@ The [`/api/v2/delete`](/influxdb/latest/api/#tag/Delete) endpoint accepts `POST`
   - `Token` scheme with v1.x credentials:
 
     ```http
-    Authorization: Token username:password
-    ```
-
-  - `Token` scheme with an API token:
-
-    ```http
-    Authorization: Token API_TOKEN
+    Authorization: Token USERNAME:PASSWORD
     ```
 
 Delete all points in a specified time range:
 
 ```bash
 curl --request POST "http://localhost:8086/api/v2/delete?bucket=exampleDB/autogen \
-  --header 'Authorization: Token API_TOKEN' \
+  --header 'Authorization: Token <username>:<password>' \
   --header 'Content-Type: application/json' \
   --data '{
     "start": "2020-03-01T00:00:00Z",
@@ -258,7 +240,7 @@ Delete points in a specific measurement with a specific tag value:
 
 ```bash
 curl --request POST "http://localhost:8086/api/v2/delete?bucket=exampleDB/autogen \
-  --header 'Authorization: Token API_TOKEN' \
+  --header 'Authorization: Token <username>:<password>' \
   --header 'Content-Type: application/json' \
   --data '{
     "start": "2020-03-01T00:00:00Z",
@@ -340,15 +322,15 @@ To create a `profile.tar.gz` archive, use the following cURL command to generate
 curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=30s"
 ```
 
-As the following example shows, the cURL output includes "Time Spent," the time elapsed (in  seconds).
-After 30 seconds of data has been collected, the results are output to a file.
+The cURL output includes "Time Spent," the time elapsed (in seconds).
 
 ```bash
-➜  ~ curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=30s"
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  237k    0  237k    0     0   8025      0 --:--:--  0:00:30 --:--:-- 79588
 ```
+
+After 30 seconds of data has been collected, the results are output to the specified file.
 
 ### `/debug/requests` HTTP endpoint
 
@@ -619,7 +601,7 @@ A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1.10/query_language
 The following sample passes invalid credentials:
 
 ```bash
-$ curl -XPOST 'http://localhost:8086/query?u=myusername&p=notmypassword' --data-urlencode 'q=CREATE DATABASE "mydb"'
+curl -XPOST 'http://localhost:8086/query?u=myusername&p=notmypassword' --data-urlencode 'q=CREATE DATABASE "mydb"'
 ```
 
 The response body contains the following:
@@ -630,10 +612,10 @@ The response body contains the following:
 
 ##### Create a database using basic authentication
 
-The following example uses valid credentials.
+The following example shows how to use Basic authentication with v1.x credentials and create a database.
 
 ```bash
-$ curl -XPOST -u myusername:mypassword 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE "mydb"'
+curl -XPOST -u myusername:mypassword 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE "mydb"'
 
 {"results":[{"statement_id":0}]}
 ```
@@ -643,14 +625,18 @@ A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1.10/query_language
 The following example uses invalid credentials.
 
 ```bash
-$ curl -XPOST -u myusername:notmypassword 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE "mydb"'
+curl -XPOST -u myusername:notmypassword 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE "mydb"'
+```
 
+The response body contains the following:
+
+```json
 {"error":"authorization failed"}
 ```
 
 #### Request body
 
-```
+```sh
 --data-urlencode "q=<InfluxQL query>"
 ```
 
@@ -1062,10 +1048,10 @@ mymeas,mytag3=9 value=89 1463689710000000000
 
 #### Status codes and responses
 
-In general, status codes of the form `2xx` indicate success, `4xx` indicate
-that InfluxDB could not understand the request, and `5xx` indicate that the
+In general, HTTP `2xx` status codes indicate success, `4xx` status codes indicate
+that InfluxDB could not understand the request, and `5xx` status codes indicate that the
 system is overloaded or significantly impaired.
-Errors are returned in JSON.
+The response body contains an error message in JSON format.
 
 ##### Summary table
 
