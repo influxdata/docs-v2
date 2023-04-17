@@ -187,7 +187,7 @@ Authorization: Token DATABASE_TOKEN
 
 If have existing v1 workloads that use Telegraf,
 you can use the [InfluxDB v1.x `outputs.influxdb` plugin](https://github.com/influxdata/telegraf/blob/release-1.26/plugins/outputs/influxdb/README.md) to write data.
-In order to write data to InfluxDB Cloud Dedicated, you'll need to
+To configure the v1.x output plugin for writing to InfluxDB Cloud Dedicated,
 make the following changes to your `outputs.influxdb` configuration:
 
 Parameter          | Ignored                  | Value
