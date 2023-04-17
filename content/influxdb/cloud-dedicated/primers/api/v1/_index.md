@@ -41,7 +41,10 @@ schemes or in the InfluxDB v2 `Authorization: Token` scheme:
 
 ### Authenticate with a username and password scheme
 
-With the InfluxDB v1 API, you can use the InfluxDB 1.x convention of username and password to authenticate database reads and writes by passing a [Database Token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) as the `password` credential.
+With the InfluxDB v1 API, you can use the InfluxDB 1.x convention of
+username and password to authenticate database reads and writes by passing a
+[database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token)
+as the `password` credential.
 When authenticating requests to the v1 API `/write` and `/query` endpoints, InfluxDB Cloud checks that `password` is an authorized Database Token and ignores `username`.
 
 Use one of the following authentication schemes with clients that support Basic authentication or query parameters (that don't support the `Authorization: Token` scheme):
