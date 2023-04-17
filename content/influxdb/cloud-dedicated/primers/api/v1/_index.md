@@ -66,7 +66,7 @@ Authorization: Basic <base64-encoded [USERNAME]:DATABASE_TOKEN>
 Replace the following:
 
 - **`[USERNAME]`**: any value or leave empty. InfluxDB Cloud Dedicated ignores this part of the credentials.
-- **`DATABASE_TOKEN`**: a [Database Token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token).
+- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token).
 - Encode the `[USERNAME]:DATABASE_TOKEN` credentials using base64 encoding, and then append the encoded string to the `Authorization: Basic` header.
 
 {{% api/v1-compat/basic-auth-syntax %}}
