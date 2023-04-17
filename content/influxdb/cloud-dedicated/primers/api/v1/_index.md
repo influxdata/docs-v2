@@ -12,7 +12,7 @@ menu:
 influxdb/cloud-dedicated/tags: [write, line protocol]
 ---
 
-Use the InfluxDB v1 API when you have existing v1 workloads that need it.
+Use the InfluxDB v1 API when you have existing v1 workloads already using it.
 The v1 `/write` and `/query` endpoints work with username/password authentication, existing InfluxDB 1.x tools, and your custom code.
 
 {{% warn %}}
