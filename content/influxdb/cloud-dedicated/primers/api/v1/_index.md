@@ -3,7 +3,7 @@ title: Use the InfluxDB v1 API with InfluxDB Cloud Dedicated
 list_title: Use the InfluxDB v1 API
 description: >
   Use InfluxDB v1 API authentication, endpoints, and tools.
-  Learn how to use v1 `/query`, `/write`, and username/password authentication when bringing existing 1.x workloads to InfluxDB Cloud Dedicated.
+  Learn how to use InfluxDB Cloud Dedicated v1 `/query`, `/write`, and username/password authentication when bringing existing 1.x workloads.
 weight: 3
 menu:
   influxdb_cloud_dedicated:
@@ -157,7 +157,7 @@ Replace the following:
 
 ### Authenticate with the Token scheme
 
-Use the `Authorization` header with the `Token` scheme to authenticate `/write` and `/query` requests.
+Use the `Authorization` header with the `Token` scheme to authenticate v1 API requests.
 
 #### Syntax
 
@@ -198,7 +198,7 @@ See parameter differences in InfluxDB Cloud Dedicated v1 API and how to configur
 
 ### Write using Telegraf
 
-If have existing v1 workloads that use Telegraf,
+If you have existing v1 workloads that use Telegraf,
 you can use the [InfluxDB v1.x `outputs.influxdb` plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
 To configure the v1.x output plugin for writing to InfluxDB Cloud Dedicated,
 make the following changes to your `outputs.influxdb` configuration:
@@ -338,7 +338,7 @@ To test interactively, use common HTTP clients such as cURL and Postman to send 
 While the v1 CLI may coincidentally work with InfluxDB Cloud Dedicated, it isn't officially supported.
 {{% /warn %}}
 
-The following example shows how to use the **cURL** command line tool to write line protocol data to an InfluxDB Cloud Dedicated database:
+The following example shows how to use the **cURL** command line tool and the InfluxDB Cloud Dedicated v1 API to write line protocol data to a database:
 
 ```sh
 curl -i http://localhost:8086/write?db=DATABASE_NAME&precision=s \
@@ -354,7 +354,7 @@ Replace the following:
 ### v1 CLI (not supported)
 
 Don't use the v1 CLI for writing data to {{% cloud-name %}}.
-While the v1 CLI may coincidentally work with {{% cloud-name %}}, it isn't supported.
+While the v1 CLI may coincidentally work with {{% cloud-name %}}, it isn't officially supported.
 
 If you need to test writes interactively, see how to [write using HTTP clients](#write-using-http-clients).
 
@@ -367,4 +367,4 @@ bring v1 workloads that already use the v1 API and InfluxQL.
 
 ### Query using Flight SQL
 
-Use Flight SQL clients and SQL to query data stored in an InfluxDB Cloud Dedicated database.
+Use Flight SQL clients with gRPC and SQL to query data stored in an InfluxDB Cloud Dedicated database.
