@@ -53,7 +53,7 @@ With the InfluxDB v1 API, you can use the InfluxDB 1.x convention of
 username and password to authenticate database reads and writes by passing a
 [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token)
 as the `password` credential.
-When authenticating requests to the v1 API `/write` and `/query` endpoints, InfluxDB Cloud Dedicated checks that `password` (`p`) is an authorized database token.
+When authenticating requests to the v1 API `/write` and `/query` endpoints, InfluxDB Cloud Dedicated checks that `password` (`p`) is an authorized [database token](/influxdb/cloud-dedicated/admin/tokens/).
 InfluxDB Cloud ignores the `username` (`u`) parameter in the request.
 
 Use one of the following authentication schemes with clients that support Basic authentication or query parameters (that don't support the [`Authorization: Token` scheme](#authenticate-with-the-token-scheme)):
@@ -76,7 +76,7 @@ Authorization: Basic <base64-encoded [USERNAME]:DATABASE_TOKEN>
 Replace the following:
 
 - **`[USERNAME]`**: an optional string value (ignored by InfluxDB Cloud Dedicated).
-- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token).
+- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/).
 - Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and then append the encoded string to the `Authorization: Basic` header.
 
 {{% api/v1-compat/basic-auth-syntax %}}
@@ -110,7 +110,7 @@ With an empty username:
 Replace the following:
 
 - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
-- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with sufficient permissions to the database
+- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
 #### Query string authentication
 
@@ -153,7 +153,7 @@ With an empty username:
 Replace the following:
 
 - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
-- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with sufficient permissions to the database
+- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
 ### Authenticate with the Token scheme
 
@@ -199,7 +199,7 @@ See parameter differences in InfluxDB Cloud Dedicated v1 API and how to configur
 ### Write using Telegraf
 
 If have existing v1 workloads that use Telegraf,
-you can use the [InfluxDB v1.x `outputs.influxdb` plugin](https://github.com/influxdata/telegraf/blob/release-1.26/plugins/outputs/influxdb/README.md) to write data.
+you can use the [InfluxDB v1.x `outputs.influxdb` plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
 To configure the v1.x output plugin for writing to InfluxDB Cloud Dedicated,
 make the following changes to your `outputs.influxdb` configuration:
 
@@ -208,9 +208,9 @@ Parameter                | Ignored                  | Value
 `database`               | Honored                  | Database name
 `retention_policy`       | Honored, but discouraged | [Duration](/influxdb/cloud-iox/reference/glossary/#duration)
 `username`               | Ignored                  | String or empty
-`password`               | Honored                  | [Database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
+`password`               | Honored                  | [Database token](/influxdb/cloud-dedicated/admin/tokens/) with permission to write to the database
 `content_encoding`       | Honored                  | `gzip` (compressed data) or `identity` (uncompressed)
-`skip_database_creation` | Ignored                  | N/A (see how to [create a database](/influxdb/cloud-dedicated/get-started/setup/#create-a-database))
+`skip_database_creation` | Ignored                  | N/A (see how to [create a database](/influxdb/cloud-dedicated/admin/databases/create/))
 
 The following sample shows how to configure the `outputs.influxdb` Telegraf plugin for InfluxDB Cloud Dedicated:
 
@@ -289,19 +289,19 @@ client = InfluxDBClient(
 Replace the following:
 
 - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
-- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with sufficient permissions to the database
+- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
 ### Write using HTTP clients
 
 Use HTTP clients and your custom code to send write requests to the v1 API `/write` endpoint.
 
-{{% api-endpoint endpoint="http://localhost:8086/write" method="post"%}}
+{{% api-endpoint endpoint="https://cloud2.influxdata.com/write" method="post"%}}
 
 Include the following in your request:
 
 - A `db` query string parameter with the name of the database to write to.
 - A request body that contains a string of data in [line protocol](/influxdb/cloud-iox/reference/syntax/line-protocol/) syntax.
-- A [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) in one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [`Token` authentication](#authenticate-with-the-token-scheme).
+- A [database token](/influxdb/cloud-dedicated/admin/tokens/) in one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [`Token` authentication](#authenticate-with-the-token-scheme).
 - Optional [parameters](#v1-api-write-parameters).
 
 #### v1 API /write parameters
@@ -349,7 +349,7 @@ curl -i http://localhost:8086/write?db=DATABASE_NAME&precision=s \
 Replace the following:
 
 - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
-- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with sufficient permissions to the database
+- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
 ### v1 CLI (not supported)
 
