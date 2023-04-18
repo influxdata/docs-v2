@@ -51,30 +51,44 @@ Because Grafana Flight SQL Plugin is a custom plugin, you can't use it with Graf
 For more information, see [Find and Use Plugins in the Grafana Cloud documentation](https://grafana.com/docs/grafana-cloud/fundamentals/find-and-use-plugins/)
 {{% /warn %}}
 
+## Create a custom plugins director
+
+Create a **custom plugins directory** to store the Flight SQL plugin in and
+navigate into the directory.
+_The custom plugins directory can be anywhere in your filesystem that Grafana can access._
+
+{{% code-callout "/custom/plugins/directory" %}}
+```sh
+mkdir -p /custom/plugins/directory/ && cd $_
+```
+{{% /code-callout %}}
+
 ## Download the Grafana Flight SQL plugin
 
-Download the latest release from [influxdata/grafana-flightsql-datasource releases](https://github.com/influxdata/grafana-flightsql-datasource/releases).
+Use the following shell script to download and extract the latest
+[Grafana Flight SQL plugin](https://github.com/influxdata/grafana-flightsql-datasource/releases)
+into the the current working directory.
+**Run the following inside your [custom plugin directory](#create-a-custom-plugins-directory):**
+
+```sh
+curl -s https://docs.influxdata.com/downloads/download-grafana-flightsql-plugin.sh | bash
+```
+
+{{< expand-wrapper >}}
+{{% expand "View the script source code" %}}
+
+```sh
+{{% readfile "/static/downloads/download-grafana-flightsql-plugin.sh" %}}
+```
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 {{% warn %}}
 The Grafana Flight SQL plugin is experimental and subject to change.
 {{% /warn %}}
 
-```sh
-curl -L https://github.com/influxdata/grafana-flightsql-datasource/releases/download/v0.1.9/influxdata-flightsql-datasource-0.1.9.zip --output influxdata-flightsql-datasource.zip
-```
-
 <span id="custom-grafana-plugins-directory"></span>
-
-## Extract the Flight SQL plugin
-
-Extract the Flight SQL plugin archive to your Grafana **custom plugins directory**.
-The custom plugins directory can be any filesystem location that Grafana can access.
-
-{{% code-callout "/custom/plugins/directory" %}}
-```sh
-unzip influxdata-flightsql-datasource.zip -d /custom/plugins/directory/
-```
-{{% /code-callout %}}
 
 ## Install the Grafana Flight SQL plugin
 
