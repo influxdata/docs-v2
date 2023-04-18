@@ -199,9 +199,14 @@ See parameter differences in InfluxDB Cloud Dedicated v1 API and how to configur
 ### Write using Telegraf
 
 If you have existing v1 workloads that use Telegraf,
-you can use the [InfluxDB v1.x `outputs.influxdb` plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
-To configure the v1.x output plugin for writing to InfluxDB Cloud Dedicated,
-make the following changes to your `outputs.influxdb` configuration:
+you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
+
+{{% warn %}}
+Use [Telegraf and the v2 API](/influxdb/cloud-dedicated/primers/api/v2/) for new workloads that don't use already use the v1 API.
+{{% /warn %}}
+
+The following table shows `outputs.influxdb` parameters and values to set for writing
+to InfluxDB Cloud Dedicated: 
 
 Parameter                | Ignored                  | Value
 -------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------
@@ -212,7 +217,8 @@ Parameter                | Ignored                  | Value
 `content_encoding`       | Honored                  | `gzip` (compressed data) or `identity` (uncompressed)
 `skip_database_creation` | Ignored                  | N/A (see how to [create a database](/influxdb/cloud-dedicated/admin/databases/create/))
 
-The following sample shows how to configure the `outputs.influxdb` Telegraf plugin for InfluxDB Cloud Dedicated:
+To configure the v1.x output plugin for writing to InfluxDB Cloud Dedicated,
+add the following `outputs.influxdb` configuration in your `telegraf.conf` file:
 
 ```toml
 [[outputs.influxdb]]
