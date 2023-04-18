@@ -13,9 +13,9 @@ menu:
     identifier: visualize_with_superset
 influxdb/cloud-iox/tags: [query, visualization]
 aliases:
-  - /influxdb/cloud-iox/query-data/tools/superset/
+  - /influxdb/cloud-iox/visualize-data/superset/
 related:
-    - /influxdb/cloud-iox/query-data/execute-queries/flight-sql/superset/
+  - /influxdb/cloud-iox/query-data/execute-queries/flight-sql/superset/
 ---
 
 Use [Apache Superset](https://superset.apache.org/) to query and visualize data
