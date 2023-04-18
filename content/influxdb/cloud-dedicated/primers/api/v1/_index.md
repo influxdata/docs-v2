@@ -3,7 +3,7 @@ title: Use the InfluxDB v1 API with InfluxDB Cloud Dedicated
 list_title: Use the InfluxDB v1 API
 description: >
   Use InfluxDB v1 API authentication, endpoints, and tools.
-  Learn how to use v1 `/query`, `/write`, and username/password authentication  when bringing existing 1.x workloads to InfluxDB Cloud Dedicated.
+  Learn how to use v1 `/query`, `/write`, and username/password authentication when bringing existing 1.x workloads to InfluxDB Cloud Dedicated.
 weight: 3
 menu:
   influxdb_cloud_dedicated:
@@ -12,8 +12,8 @@ menu:
 influxdb/cloud-dedicated/tags: [write, line protocol]
 ---
 
-Use the InfluxDB v1 API when you have existing v1 workloads already using it.
-The v1 `/write` and `/query` endpoints work with username/password authentication, existing InfluxDB 1.x tools, and your custom code.
+Use the InfluxDB v1 API with v1 workloads that you bring to InfluxDB Cloud Dedicated.
+InfluxDB Cloud Dedicated v1 `/write` and `/query` endpoints work with username/password authentication and existing InfluxDB 1.x tools and code.
 The InfluxDB v1 API `/write` endpoint works with
 InfluxDB 1.x client libraries and the [Telegraf v1 Output Plugin](/telegraf/v1.26/plugins/#output-influxdb).
 The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrations like [Grafana](https://grafana.com).
@@ -32,7 +32,7 @@ The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrat
   - [Write using client libraries](#write-using-client-libraries)
   - [Write using HTTP clients](#write-using-http-clients)
   - [v1 CLI not supported](#v1-cli-not-supported)
-
+- [Query data](#query-data)
 <!--
 <a class="btn" href="/influxdb/cloud-dedicated/api/v1/">View v1 API reference documentation</a>
 -->
@@ -357,3 +357,14 @@ Don't use the v1 CLI for writing data to {{% cloud-name %}}.
 While the v1 CLI may coincidentally work with {{% cloud-name %}}, it isn't supported.
 
 If you need to test writes interactively, see how to [write using HTTP clients](#write-using-http-clients).
+
+## Query data
+
+### Query using the v1 API
+
+Use the v1 API `/query` endpoint with InfluxDB Cloud Dedicated when you 
+bring v1 workloads that already use the v1 API and InfluxQL.
+
+### Query using Flight SQL
+
+Use Flight SQL clients and SQL to query data stored in an InfluxDB Cloud Dedicated database.
