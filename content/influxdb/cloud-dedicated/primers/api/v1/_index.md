@@ -190,11 +190,13 @@ Authorization: Token DATABASE_TOKEN
 
 Write data with your existing workloads that already use the InfluxDB v1 API or v1.x-compatibility API.
 
-See parameter differences in InfluxDB Cloud Dedicated v1 API and how to configure writes using the following tools:
+See how to set parameters and configure the following tools for writing to InfluxDB Cloud Dedicated:
 
-- [Write using Telegraf](#write-data-using-telegraf)
-- [Write using client libraries](#write-data-using-v1-client-libraries)
+- [Write using Telegraf](#write-using-telegraf)
+- [Write using client libraries](#write-using-client-libraries)
 - [Write using HTTP clients](#write-using-http-clients)
+  - [v1 API /write parameters](#v1-api-write-parameters)
+  - [Use clients for interactive testing](#use-clients-for-interactive-testing)
 
 ### Write using Telegraf
 
@@ -205,7 +207,7 @@ you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](https://github
 Use [Telegraf and the v2 API](/influxdb/cloud-dedicated/primers/api/v2/) for new workloads that don't use already use the v1 API.
 {{% /warn %}}
 
-The following table shows `outputs.influxdb` parameters and values to set for writing
+The following table shows `outputs.influxdb` parameters and values writing
 to InfluxDB Cloud Dedicated: 
 
 Parameter                | Ignored                  | Value
@@ -240,12 +242,14 @@ Replace the following:
 
 `influx_uint_support`: supported in InfluxDB IOx.
 
+For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) on GitHub.
+
 ### Write using client libraries
 
-Use language-specific [v1 client libraries](/influxdb/v1.7/tools/api_client_libraries/) to write data to InfluxDB Cloud Dedicated.
+Use language-specific [v1 client libraries](/influxdb/v1.7/tools/api_client_libraries/) and your custom code to write data to InfluxDB Cloud Dedicated.
 v1 client libraries send data in [line protocol](/influxdb/cloud-iox/reference/syntax/line-protocol/) syntax to the v1 API `/write` endpoint.
 
-The following samples show how to configure **v1 client libraries** for writing to InfluxDB Cloud Dedicated.
+The following samples show how to configure **v1** client libraries for writing to InfluxDB Cloud Dedicated:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -255,7 +259,7 @@ The following samples show how to configure **v1 client libraries** for writing 
 {{% code-tab-content %}}
 <!-- Start NodeJS -->
 
-Instantiate a [node-influx](/influxdb/v1.7/tools/api_client_libraries/#javascriptnodejs) client for writing to InfluxDB Cloud Dedicated v1 API:
+Create a v1 API client using the [node-influx](/influxdb/v1.7/tools/api_client_libraries/#javascriptnodejs) JavaScript client library:
 
 ```js
 const Influx = require('influx')
@@ -275,7 +279,7 @@ const client = new Influx.InfluxDB({
 {{% code-tab-content %}}
 <!-- Start Python -->
 
-Instantiate an [influxdb-python](/influxdb/v1.7/tools/api_client_libraries/#python) client for writing to the InfluxDB Cloud Dedicated v1 API:
+Create a v1 API client using the [influxdb-python](/influxdb/v1.7/tools/api_client_libraries/#python) Python client library:
 
 ```py
 from influxdb import InfluxDBClient
@@ -321,7 +325,7 @@ Parameter              | Allowed in   | Ignored | Value
 `u`                    | Query string | Ignored | String or empty
 `p`                    | Query string | Honored | For [query string authentication](#query-string-authentication), a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
 `Content-Encoding`     | Header       | Honored | `gzip` (compressed data) or `identity` (uncompressed)
-`Authorization`    | Header      | Honored | `Token DATABASE_TOKEN` or `Basic <base64 [USERNAME]:DATABASE_TOKEN>`
+`Authorization`        | Header       | Honored | `Token DATABASE_TOKEN` or `Basic <base64 [USERNAME]:DATABASE_TOKEN>`
 
 {{% caption %}}{{% req " \*" %}} = {{% req "Required" %}}{{% /caption %}}
 
@@ -336,7 +340,7 @@ Use one of the following `precision` values in v1 API `/write` requests:
 - `m`: minutes
 - `h`: hours
 
-#### Write data using interactive clients
+#### Use clients for interactive testing
 
 To test interactively, use common HTTP clients such as cURL and Postman to send requests to the v1 API `/write` endpoint.
 
@@ -359,8 +363,8 @@ Replace the following:
 
 ### v1 CLI (not supported)
 
-Don't use the v1 CLI for writing data to {{% cloud-name %}}.
-While the v1 CLI may coincidentally work with {{% cloud-name %}}, it isn't officially supported.
+Don't use the v1 CLI with {{% cloud-name %}}.
+While it may coincidentally work, it isn't officially supported.
 
 If you need to test writes interactively, see how to [write using HTTP clients](#write-using-http-clients).
 
@@ -368,8 +372,10 @@ If you need to test writes interactively, see how to [write using HTTP clients](
 
 ### Query using the v1 API
 
-Use the v1 API `/query` endpoint with InfluxDB Cloud Dedicated when you 
-bring v1 workloads that already use the v1 API and InfluxQL.
+Use the v1 API `/query` endpoint and InfluxQL with InfluxDB Cloud Dedicated when you 
+bring InfluxDB 1.x workloads that already use them.
+
+For new workloads, see how to [query using Flight SQL](#query-using-flight-sql).
 
 ### Query using Flight SQL
 
