@@ -351,8 +351,9 @@ While the v1 CLI may coincidentally work with InfluxDB Cloud Dedicated, it isn't
 The following example shows how to use the **cURL** command line tool and the InfluxDB Cloud Dedicated v1 API to write line protocol data to a database:
 
 ```sh
-curl -i http://localhost:8086/write?db=DATABASE_NAME&precision=s \
+curl -i 'https://cloud2.influxdata.com/write?db=DATABASE_NAME&precision=s' \
     --header 'Authorization: Token DATABASE_TOKEN' \
+    --header "Content-type: text/plain; charset=utf-8"
     --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
 

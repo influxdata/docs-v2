@@ -20,6 +20,29 @@ For help finding the best workflow for your situation, [contact Support](mailto:
 
   <!-- v2 SAMPLE CODE -->
 
+<!-- TOC -->
+
+- [Authenticate API requests](#authenticate-api-requests)
+  - [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
+    - [Syntax](#syntax)
+    - [Example](#example)
+- [Responses](#responses)
+  - [Errors](#errors)
+- [Write data](#write-data)
+  - [Write using Telegraf](#write-using-telegraf)
+    - [Other Telegraf configuration options](#other-telegraf-configuration-options)
+  - [Write using client libraries](#write-using-client-libraries)
+  - [Write using HTTP clients](#write-using-http-clients)
+    - [v2 API /api/v2/write parameters](#v2-api-apiv2write-parameters)
+    - [Timestamp precision](#timestamp-precision)
+    - [Use clients for interactive testing](#use-clients-for-interactive-testing)
+  - [influx CLI not supported](#influx-cli-not-supported)
+- [Query data](#query-data)
+  - [Query using Flight SQL](#query-using-flight-sql)
+  - [/api/v2/query not supported](#apiv2query-not-supported)
+
+<!-- /TOC -->
+
 ## Authenticate API requests
 
   <!--TODO: or the `Authorization: Bearer`(???) scheme -->
@@ -41,12 +64,6 @@ Authorization: Token DATABASE_TOKEN
 
 #### Example
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[curl](#curl)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
 The following example shows how to use the **cURL** command line tool
 and the InfluxDB Cloud Dedicated v2 API to write line protocol data to a database:
 
@@ -54,16 +71,26 @@ and the InfluxDB Cloud Dedicated v2 API to write line protocol data to a databas
 {{% get-shared-text "api/cloud-dedicated/token-auth-v2-write.sh" %}}
 ```
 
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 Replace the following:
 
 - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
 - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
-<!-- ## Responses -->
-<!-- TODO: add when testing -->
+## Responses
+
+InfluxDB Cloud Dedicated API responses use standard HTTP status codes.
+InfluxDB Cloud Dedicated API response body messages may differ from InfluxDB Cloud and InfluxDB OSS.
+### Errors
+
+```sh
+Status code: 400
+Reason: Bad Request
+HTTP response body: {"code":"invalid","message":"missing org/bucket value"}
+```
+
+The request is missing the `org` or `bucket` values.
+For `bucket`, provide the database name.
+For `org`, provide a non-zero-length string. InfluxDB ignores it, but it can't be empty.
 
 ## Write data
 
@@ -148,7 +175,7 @@ Create a v2 API client using the [`influxdb-client-js`](https://github.com/influ
    
    Provide the following parameter values:
    
-   - `org`: an empty string (`''`)
+   - `org`: a non-zero-length string. InfluxDB ignores the value, but it can't be empty.
    - `bucket`: InfluxDB Cloud Dedicated database
    - `precision`: a [timestamp precision](#timestamp-precision) (`ns`, `u`, `ms`, `s`, `m`, `h`)
 
@@ -167,16 +194,17 @@ Create a v2 API client using the [influxdb-client-python](https://github.com/inf
 
 1. Call the `InfluxDBClient(url, token, org)` constructor to instantiate an `InfluxDBClient`.
 
-   Provide the following parameter values:
-   
-   - `url=`: InfluxDB Cloud Dedicated cluster URL
-   - `token=`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
-   - `org=`: leave empty
+  Provide the following parameter values:
+
+  - `url=`: InfluxDB Cloud Dedicated cluster URL
+  - `token=`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
+  - `org`: a non-zero-length string. InfluxDB ignores the value, but it can't be empty.
 
   ```py
+  
   influxdb_client = InfluxDBClient(url='https://cloud2.influxdata.com',
                                   token='DATABASE_TOKEN',
-                                  org='')
+                                  org='placeholder_org')
   ```
 
 2. Call the `InfluxDBClient.write_api(write_options)` method to instantiate a **write client**.
@@ -196,11 +224,7 @@ Create a v2 API client using the [influxdb-client-python](https://github.com/inf
     and then calls `write_api.close()` to write the batch:
 
     ```py
-      point = Point('deviceauth') \
-          .tag("deviceId", device_id) \
-          .field('key', f'fake_auth_id_{device_id}') \
-          .field('token', f'fake_auth_token_{device_id}')
-      response = write_api.write(bucket='DATABASE_NAME', record=point)
+      write_api.write(bucket='DATABASE_NAME', record="home,room=kitchen temp=72 1463683075")
       write_api.close()
     ```
 
@@ -231,7 +255,7 @@ Include the following in your request:
 
 Parameter        | Allowed in   | Ignored | Value
 -----------------|--------------|---------|-------------------------
-org              | Query string | Ignored | N/A
+org              | Query string | Ignored | Non-zero-length string (ignored, but can't be empty)
 orgID            | Query string | Ignored | N/A
 bucket {{% req " \*" %}} | Query string | Honored | Database name
 precision        | Query string | Honored | [Timestamp precision](#timestamp-precision): `ns`, `u`, `ms`, `s`, `m`, `h` <!-- default? ns? -->
@@ -297,5 +321,3 @@ Use Flight SQL clients with gRPC and SQL to query data stored in an InfluxDB Clo
 ### /api/v2/query not supported
 
 The `/api/v2/query` and associated tooling aren't supported in InfluxDB Cloud Dedicated. See how to [query using Flight SQL](#query-using-flight-sql).
-
-
