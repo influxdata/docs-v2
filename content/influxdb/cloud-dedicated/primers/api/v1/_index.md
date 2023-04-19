@@ -246,7 +246,7 @@ For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf
 
 ### Write using client libraries
 
-Use language-specific [v1 client libraries](/influxdb/v1.7/tools/api_client_libraries/) and your custom code to write data to InfluxDB Cloud Dedicated.
+Use language-specific [v1 client libraries](/influxdb/v1.8/tools/api_client_libraries/) and your custom code to write data to InfluxDB Cloud Dedicated.
 v1 client libraries send data in [line protocol](/influxdb/cloud-iox/reference/syntax/line-protocol/) syntax to the v1 API `/write` endpoint.
 
 The following samples show how to configure **v1** client libraries for writing to InfluxDB Cloud Dedicated:
