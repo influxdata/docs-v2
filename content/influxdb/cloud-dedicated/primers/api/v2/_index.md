@@ -169,7 +169,7 @@ Create a v2 API client using the [influxdb-client-python](https://github.com/inf
 
    Provide the following parameter values:
    
-   - `url=`: InfluxDB URL
+   - `url=`: InfluxDB Cloud Dedicated cluster URL
    - `token=`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
    - `org=`: leave empty
 
