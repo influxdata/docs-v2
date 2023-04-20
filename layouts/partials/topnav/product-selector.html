@@ -18,7 +18,7 @@
     <p class="selected">{{ if $productData.altname }}{{ $productData.altname }}{{ else }}{{ $productData.name }}{{ end }}</p>
   {{ end }}
   <ul class="item-list products">
-    {{ range sort .Site.Data.products "list_order" "desc" }}
+    {{ range sort .Site.Data.products "list_order" "asc" }}
       {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}
       {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }}
       {{ if $isCurrentProduct }}

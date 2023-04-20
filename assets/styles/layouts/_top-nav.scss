@@ -99,7 +99,7 @@
       margin: 0;
       list-style: none;
       display: flex;
-      flex-direction: column-reverse;
+      flex-direction: column;
 
       &.products{
         li {
@@ -113,7 +113,7 @@
             opacity: .65;
             mix-blend-mode: multiply;
           }
-          &:last-child:before {
+          &:first-child:before {
             content: "Products";
             margin: .3rem .75rem .15rem;
           }
