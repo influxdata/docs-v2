@@ -137,7 +137,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 Use the **InfluxDB v2 HTTP API** or **InfluxDB client libraries** to write the
 line protocol above to InfluxDB.
-Examples are provided for the **Python** and **Go** client libraries.
+The following examples show how to use the **Python** and **Go** client libraries to write line protocol.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -386,13 +386,13 @@ import (
 
 func dbWrite(ctx context.Context) error {
 	// Create write client
-	url := "https://us-east-1-1.aws.cloud2.influxdata.com"
+	url := "https://cloud2.influxdata.com"
 	token := os.Getenv("INFLUX_TOKEN")
 	writeClient := influxdb2.NewClientWithOptions(url, token, influxdb2.DefaultOptions().SetPrecision(time.Second))
 
 	// Define write API
 	org := ""
-	bucket := "<YOUR_INFLUX_DATABASE>"
+	bucket := "DATABASE_NAME"
 	writeAPI := writeClient.WriteAPIBlocking(org, bucket)
 
 	line := [...]string{
