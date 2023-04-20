@@ -148,15 +148,16 @@ WHERE
 {{% expand "Downsample data by applying interval-based aggregates" %}}
 ```sql
 SELECT
-  DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP) as time,
-  selector_max(temp, DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP))['value'] AS 'max temp',
+  DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP) as _time,
   room
+  selector_max(temp, time)['value'] AS 'max temp',
 FROM
   home
 GROUP BY
-  DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP),
+  _time,
   'max temp',
   room
+ORDER BY room, _time
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
