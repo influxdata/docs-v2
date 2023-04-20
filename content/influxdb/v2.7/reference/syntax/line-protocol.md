@@ -44,12 +44,7 @@ Line protocol does not support the newline character `\n` in tag or field values
 
 ## Elements of line protocol
 
-```
-measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
---------------- --------------- --------------------- -------------------
-       |               |                  |                    |
-  Measurement       Tag set           Field set            Timestamp
-```
+{{< influxdb/line-protocol commas=false whitespace=false >}}
 
 ### Measurement
 ({{< req >}})
@@ -110,11 +105,7 @@ Whitespace in line protocol determines how InfluxDB interprets the data point.
 The **first unescaped space** delimits the measurement and the tag set from the field set.
 The **second unescaped space** delimits the field set from the timestamp.
 
-```
-measurementName,tagKey=tagValue fieldKey="fieldValue" 1465839830100400200
-                               |                     |
-                           1st space             2nd space
-```
+{{< influxdb/line-protocol elements=false commas=false >}}
 
 ## Data types and format
 
