@@ -321,21 +321,15 @@ To write data to InfluxDB Cloud Dedicated using Go, use the
 
     1. Create a new module directory and navigate into it.
     2. Initialize a new Go module in the current working directory.
-    3. Create a `main.go` file.
+    3. Create a `write.go` file.
 
     ```sh
     mkdir influxdb_go_client && cd $_
     go mod init influxdb_go_client
-    touch main.go
+    touch write.go
     ```
 
-2.  Install the [influxdb-client-go module](https://github.com/influxdata/influxdb-client-go).
-
-    ```sh
-    go get github.com/influxdata/influxdb-client-go/v2
-    ```
-
-3.  Inside of `main.go` instantiate an InfluxDB write client to write the
+2.  Inside of `main.go` instantiate an InfluxDB write client to write the
     [line protocol above](#home-sensor-data-line-protocol) to InfluxDB.
 
     1.  Import the following packages
@@ -450,10 +444,12 @@ func main() {
 }
 ```
 
-Run the program to write the line protocol to your InfluxDB Cloud Dedicated cluster.
+Install all the necessary packages and run the program to write the line
+protocol to your InfluxDB Cloud Dedicated cluster.
 
 ```sh
-go run ./main.go
+go get ./...
+go run ./write.go
 ```
 
 {{% /influxdb/custom-timestamps %}}
