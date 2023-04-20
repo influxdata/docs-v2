@@ -265,7 +265,7 @@ from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
     host="cloud2.influxdata.com",
-    token="YOUR_INFLUX_TOKEN",
+    token="DATABASE_TOKEN",
     database="get-started",
 )
 
