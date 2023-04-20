@@ -83,29 +83,11 @@ Replace the following:
 
 ##### Example
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[curl](#curl)
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-With an empty username:
+The following example shows how to use cURL with the `Basic` authentication scheme and a [database token](/influxdb/cloud-dedicated/admin/tokens/):
 
 ```sh
 {{% get-shared-text "api/cloud-dedicated/basic-auth.sh" %}}
 ```
-{{% /code-tab-content %}}
-
-{{% code-tab-content %}}
-
-With an empty username:
-
-```js
-{{% get-shared-text "api/cloud-dedicated/basic-auth.js" %}}
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 Replace the following:
 
@@ -126,29 +108,11 @@ https://cloud2.influxdata.com/write/?[u=any]&p=DATABASE_TOKEN
 
 ##### Example
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[curl](#curl)
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
-With an empty username:
+The following example shows how to use cURL with query string authentication and [database token](/influxdb/cloud-dedicated/admin/tokens/).
 
 ```sh
 {{% get-shared-text "api/cloud-dedicated/querystring-auth.sh" %}}
 ```
-{{% /code-tab-content %}}
-
-{{% code-tab-content %}}
-
-With an empty username:
-
-```js
-{{% get-shared-text "api/cloud-dedicated/querystring-auth.js" %}}
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 Replace the following:
 
@@ -167,22 +131,11 @@ Authorization: Token DATABASE_TOKEN
 
 #### Example
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[curl](#curl)
-[Node.js](#nodejs)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+The following example shows how to use cURL with the `Token` authentication scheme and a [database token](/influxdb/cloud-dedicated/admin/tokens/):
+
 ```sh
 {{% get-shared-text "api/cloud-dedicated/token-auth.sh" %}}
 ```
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-```js
-{{% get-shared-text "api/cloud-dedicated/token-auth.js" %}}
-```
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 <!-- ## Responses -->
 
