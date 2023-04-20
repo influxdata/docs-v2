@@ -228,7 +228,7 @@ add the following `outputs.influxdb` configuration in your `telegraf.conf` file:
   database = "DATABASE_NAME"
   skip_database_creation = true
   retention_policy = ""
-  username = ""
+  username = "ignored"
   password = "DATABASE_TOKEN"
   content_encoding = "gzip”
 ```
@@ -270,7 +270,7 @@ const client = new Influx.InfluxDB({
   port: 443,
   protocol: 'https'
   database: 'DATABASE_NAME',
-  username: '',
+  username: 'ignored',
   password: 'DATABASE_TOKEN'
 })
 ```
@@ -287,10 +287,13 @@ from influxdb import InfluxDBClient
 # Instantiate a client for writing to InfluxDB Cloud Dedicated v1 API
 client = InfluxDBClient(
   host='cloud2.influxdata.com',
+  port=443,
   ssl=True,
   database='DATABASE_NAME',
   username='',
-  password='DATABASE_TOKEN')
+  password='DATABASE_TOKEN'
+  headers={'Content-Type': 'text/plain; charset=utf-8'}
+  )
 ```
 <!-- End Python -->
 {{% /code-tab-content %}}
@@ -322,7 +325,7 @@ Parameter              | Allowed in   | Ignored | Value
 `db` {{% req " \*" %}} | Query string | Honored | Database name
 `precision`            | Query string | Honored | [Timestamp precision](#timestamp-precision): `ns`, `u`, `ms`, `s`, `m`, `h` <!-- default? ns? -->
 `rp`                   | Query string | Honored | Honored, but discouraged
-`u`                    | Query string | Ignored | String or empty
+`u`                    | Query string | Ignored | String
 `p`                    | Query string | Honored | For [query string authentication](#query-string-authentication), a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
 `Content-Encoding`     | Header       | Honored | `gzip` (compressed data) or `identity` (uncompressed)
 `Authorization`        | Header       | Honored | `Token DATABASE_TOKEN` or `Basic <base64 [USERNAME]:DATABASE_TOKEN>`
@@ -351,9 +354,8 @@ While the v1 CLI may coincidentally work with InfluxDB Cloud Dedicated, it isn't
 The following example shows how to use the **cURL** command line tool and the InfluxDB Cloud Dedicated v1 API to write line protocol data to a database:
 
 ```sh
-curl -i 'https://cloud2.influxdata.com/write?db=DATABASE_NAME&precision=s' \
-    --header 'Authorization: Token DATABASE_TOKEN' \
-    --header "Content-type: text/plain; charset=utf-8"
+curl -i 'https://cloud2.influxdata.com/write?db=DATABASE_NAME&precision=ns&u=ignored&p=DATABASE_TOKEN' \
+    --header 'Content-type: text/plain; charset=utf-8'
     --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
 
