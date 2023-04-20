@@ -65,10 +65,9 @@ mkdir -p /custom/plugins/directory/ && cd $_
 
 ## Download the Grafana Flight SQL plugin
 
-Download the latest [Grafana Flight SQL plugin (influxdata/grafana-flightsql-datasource)](https://github.com/influxdata/grafana-flightsql-datasource/releases).
-
-The following shell script downloads and extracts the latest Flight SQL plugin
-source code into the the current working directory.
+Use the following shell script to download and extract the latest
+[Grafana Flight SQL plugin](https://github.com/influxdata/grafana-flightsql-datasource/releases)
+into the the current working directory.
 **Run the following inside your [custom plugin directory](#create-a-custom-plugins-directory):**
 
 ```sh
