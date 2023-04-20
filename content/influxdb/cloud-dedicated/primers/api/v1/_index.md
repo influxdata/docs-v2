@@ -3,7 +3,7 @@ title: Use the InfluxDB v1 API with InfluxDB Cloud Dedicated
 list_title: Use the InfluxDB v1 API
 description: >
   Use InfluxDB v1 API authentication, endpoints, and tools.
-  Learn how to use v1 `/query`, `/write`, and username/password authentication when bringing existing 1.x workloads to InfluxDB Cloud Dedicated.
+  Learn how to use InfluxDB Cloud Dedicated v1 `/query`, `/write`, and username/password authentication when bringing existing 1.x workloads.
 weight: 3
 menu:
   influxdb_cloud_dedicated:
@@ -157,7 +157,7 @@ Replace the following:
 
 ### Authenticate with the Token scheme
 
-Use the `Authorization` header with the `Token` scheme to authenticate `/write` and `/query` requests.
+Use the `Authorization` header with the `Token` scheme to authenticate v1 API requests.
 
 #### Syntax
 
@@ -190,18 +190,25 @@ Authorization: Token DATABASE_TOKEN
 
 Write data with your existing workloads that already use the InfluxDB v1 API or v1.x-compatibility API.
 
-See parameter differences in InfluxDB Cloud Dedicated v1 API and how to configure writes using the following tools:
+See how to set parameters and configure the following tools for writing to InfluxDB Cloud Dedicated:
 
-- [Write using Telegraf](#write-data-using-telegraf)
-- [Write using client libraries](#write-data-using-v1-client-libraries)
+- [Write using Telegraf](#write-using-telegraf)
+- [Write using client libraries](#write-using-client-libraries)
 - [Write using HTTP clients](#write-using-http-clients)
+  - [v1 API /write parameters](#v1-api-write-parameters)
+  - [Use clients for interactive testing](#use-clients-for-interactive-testing)
 
 ### Write using Telegraf
 
-If have existing v1 workloads that use Telegraf,
-you can use the [InfluxDB v1.x `outputs.influxdb` plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
-To configure the v1.x output plugin for writing to InfluxDB Cloud Dedicated,
-make the following changes to your `outputs.influxdb` configuration:
+If you have existing v1 workloads that use Telegraf,
+you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
+
+{{% warn %}}
+Use [Telegraf and the v2 API](/influxdb/cloud-dedicated/primers/api/v2/) for new workloads that don't use already use the v1 API.
+{{% /warn %}}
+
+The following table shows `outputs.influxdb` parameters and values writing
+to InfluxDB Cloud Dedicated: 
 
 Parameter                | Ignored                  | Value
 -------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------
@@ -212,7 +219,8 @@ Parameter                | Ignored                  | Value
 `content_encoding`       | Honored                  | `gzip` (compressed data) or `identity` (uncompressed)
 `skip_database_creation` | Ignored                  | N/A (see how to [create a database](/influxdb/cloud-dedicated/admin/databases/create/))
 
-The following sample shows how to configure the `outputs.influxdb` Telegraf plugin for InfluxDB Cloud Dedicated:
+To configure the v1.x output plugin for writing to InfluxDB Cloud Dedicated,
+add the following `outputs.influxdb` configuration in your `telegraf.conf` file:
 
 ```toml
 [[outputs.influxdb]]
@@ -234,12 +242,14 @@ Replace the following:
 
 `influx_uint_support`: supported in InfluxDB IOx.
 
+For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) on GitHub.
+
 ### Write using client libraries
 
-Use language-specific [v1 client libraries](/influxdb/v1.7/tools/api_client_libraries/) to write data to InfluxDB Cloud Dedicated.
+Use language-specific [v1 client libraries](/influxdb/v1.8/tools/api_client_libraries/) and your custom code to write data to InfluxDB Cloud Dedicated.
 v1 client libraries send data in [line protocol](/influxdb/cloud-iox/reference/syntax/line-protocol/) syntax to the v1 API `/write` endpoint.
 
-The following samples show how to configure **v1 client libraries** for writing to InfluxDB Cloud Dedicated.
+The following samples show how to configure **v1** client libraries for writing to InfluxDB Cloud Dedicated:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -249,7 +259,7 @@ The following samples show how to configure **v1 client libraries** for writing 
 {{% code-tab-content %}}
 <!-- Start NodeJS -->
 
-Instantiate a [node-influx](/influxdb/v1.7/tools/api_client_libraries/#javascriptnodejs) client for writing to InfluxDB Cloud Dedicated v1 API:
+Create a v1 API client using the [node-influx](/influxdb/v1.7/tools/api_client_libraries/#javascriptnodejs) JavaScript client library:
 
 ```js
 const Influx = require('influx')
@@ -269,7 +279,7 @@ const client = new Influx.InfluxDB({
 {{% code-tab-content %}}
 <!-- Start Python -->
 
-Instantiate an [influxdb-python](/influxdb/v1.7/tools/api_client_libraries/#python) client for writing to the InfluxDB Cloud Dedicated v1 API:
+Create a v1 API client using the [influxdb-python](/influxdb/v1.7/tools/api_client_libraries/#python) Python client library:
 
 ```py
 from influxdb import InfluxDBClient
@@ -315,7 +325,7 @@ Parameter              | Allowed in   | Ignored | Value
 `u`                    | Query string | Ignored | String or empty
 `p`                    | Query string | Honored | For [query string authentication](#query-string-authentication), a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
 `Content-Encoding`     | Header       | Honored | `gzip` (compressed data) or `identity` (uncompressed)
-`Authorization`    | Header      | Honored | `Token DATABASE_TOKEN` or `Basic <base64 [USERNAME]:DATABASE_TOKEN>`
+`Authorization`        | Header       | Honored | `Token DATABASE_TOKEN` or `Basic <base64 [USERNAME]:DATABASE_TOKEN>`
 
 {{% caption %}}{{% req " \*" %}} = {{% req "Required" %}}{{% /caption %}}
 
@@ -330,7 +340,7 @@ Use one of the following `precision` values in v1 API `/write` requests:
 - `m`: minutes
 - `h`: hours
 
-#### Write data using interactive clients
+#### Use clients for interactive testing
 
 To test interactively, use common HTTP clients such as cURL and Postman to send requests to the v1 API `/write` endpoint.
 
@@ -338,11 +348,12 @@ To test interactively, use common HTTP clients such as cURL and Postman to send 
 While the v1 CLI may coincidentally work with InfluxDB Cloud Dedicated, it isn't officially supported.
 {{% /warn %}}
 
-The following example shows how to use the **cURL** command line tool to write line protocol data to an InfluxDB Cloud Dedicated database:
+The following example shows how to use the **cURL** command line tool and the InfluxDB Cloud Dedicated v1 API to write line protocol data to a database:
 
 ```sh
-curl -i http://localhost:8086/write?db=DATABASE_NAME&precision=s \
+curl -i 'https://cloud2.influxdata.com/write?db=DATABASE_NAME&precision=s' \
     --header 'Authorization: Token DATABASE_TOKEN' \
+    --header "Content-type: text/plain; charset=utf-8"
     --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
 
@@ -353,8 +364,8 @@ Replace the following:
 
 ### v1 CLI (not supported)
 
-Don't use the v1 CLI for writing data to {{% cloud-name %}}.
-While the v1 CLI may coincidentally work with {{% cloud-name %}}, it isn't supported.
+Don't use the v1 CLI with {{% cloud-name %}}.
+While it may coincidentally work, it isn't officially supported.
 
 If you need to test writes interactively, see how to [write using HTTP clients](#write-using-http-clients).
 
@@ -362,9 +373,11 @@ If you need to test writes interactively, see how to [write using HTTP clients](
 
 ### Query using the v1 API
 
-Use the v1 API `/query` endpoint with InfluxDB Cloud Dedicated when you 
-bring v1 workloads that already use the v1 API and InfluxQL.
+Use the v1 API `/query` endpoint and InfluxQL with InfluxDB Cloud Dedicated when you 
+bring InfluxDB 1.x workloads that already use them.
+
+For new workloads, see how to [query using Flight SQL](#query-using-flight-sql).
 
 ### Query using Flight SQL
 
-Use Flight SQL clients and SQL to query data stored in an InfluxDB Cloud Dedicated database.
+Use Flight SQL clients with gRPC and SQL to query data stored in an InfluxDB Cloud Dedicated database.
