@@ -10,6 +10,13 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.194.1 [2023-04-17]
+
+### Bug fixes
+- Make C foreign function interface (FFI) more robust when checking for valid input.
+
+---
+
 ## v0.194.0 [2023-04-06]
 
 ### Features

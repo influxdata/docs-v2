@@ -73,7 +73,7 @@ from(bucket: "db/rp")
 ```
 
 ### Drop columns matching a regex
-The following example drops columns whose names do not being with `_`.
+The following example drops columns whose names do not begin with `_`.
 
 ```js
 from(bucket: "db/rp")
