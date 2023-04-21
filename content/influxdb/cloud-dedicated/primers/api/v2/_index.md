@@ -53,7 +53,7 @@ Use the [`Authorization: Token` scheme](#authenticate-with-the-token-scheme) to 
 
 ### Authenticate with the Token scheme
 
-To authenticate using the `Token` scheme, pass the `Authorization` header with the `Token` scheme and a
+To authenticate using the `Token` scheme, pass an `Authorization: Token` header with a
 [database token](/influxdb/cloud-dedicated/admin/tokens/) that has sufficient read/write permissions to the database.
 
 #### Syntax
@@ -314,9 +314,18 @@ If you need to test writes interactively, see how to [write using HTTP clients](
 
 ## Query data
 
+Use Flight SQL clients with gRPC and SQL to query data stored in an InfluxDB Cloud Dedicated database.
+
 ### Query using Flight SQL
 
-Use Flight SQL clients with gRPC and SQL to query data stored in an InfluxDB Cloud Dedicated database.
+Choose from the following tools to query InfluxDB Cloud Dedicated:
+
+- [Flight SQL plugin]() for [Grafana]()
+- [Superset]()
+- [`pyinflux3` module](https://github.com/InfluxCommunity/pyinflux3)
+- [`flightsql-dbapi`](https://github.com/influxdata/flightsql-dbapi)
+
+See how to [get started querying with SQL](/influxdb/cloud-dedicated/get-started/query/#sql-query-basics)
 
 ### /api/v2/query not supported
 

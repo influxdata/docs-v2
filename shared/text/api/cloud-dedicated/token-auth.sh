@@ -1,5 +1,6 @@
 ########################################################
-# Use the Token authentication scheme to query InfluxDB.
+# Use Token authentication with a database token
+# to query the InfluxDB v1 API
 ########################################################
 
 curl --get "https://cluster-id.influxdb.io" \

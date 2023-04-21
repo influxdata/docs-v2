@@ -1,5 +1,5 @@
 #######################################
-# Use Basic Authentication with a Database Token
+# Use Basic authentication with a database token
 # to query the InfluxDB v1 API
 #######################################
 # Use the --user option with `--user username:DATABASE_TOKEN` syntax
