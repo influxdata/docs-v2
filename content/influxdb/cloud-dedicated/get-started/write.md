@@ -173,7 +173,7 @@ to InfluxDB Cloud dedicated:
 ```sh
 export INFLUX_HOST=http://cloud2.influxdata.com
 export INFLUX_ORG=ignored
-export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
+export INFLUX_TOKEN=DATABASE_TOKEN
 
 curl --request POST \
 "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=get-started&precision=s" \
@@ -272,7 +272,7 @@ from influxdb_client_3 import InfluxDBClient3
 client = InfluxDBClient3(
     host="cloud2.influxdata.com",
     org="",
-    token="YOUR_INFLUX_TOKEN",
+    token="DATABASE_TOKEN",
     database="get-started"
 )
 
@@ -443,6 +443,11 @@ func main() {
 	}
 }
 ```
+
+Replace the following:
+
+- **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
+- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
 Install all the necessary packages and run the program to write the line
 protocol to your InfluxDB Cloud Dedicated cluster.
