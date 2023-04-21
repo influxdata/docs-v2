@@ -136,24 +136,6 @@ of Grafana OSS or Grafana Enterprise.
         GF_PATHS_PLUGINS=/custom/plugins/directory/
         ```
 
-  2.  Allow Grafana to load the unsigned plugin. The Flight SQL plugin is unsigned and Grafana requires you to explicitly load unsigned plugins.
-      Do one of the following:
-
-      - Set the `plugins.allow_loading_unsigned_plugins` directive in your
-        Grafana configuration file to allow the `influxdata-flightsql-datasource`:
-
-        ```ini
-        [plugins]
-        allow_loading_unsigned_plugins = influxdata-flightsql-datasource
-        ```
-
-      - Set the `GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS` environment variable
-        to `influxdata-flightsql-datasource`:
-
-        ```sh
-        GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=influxdata-flightsql-datasource
-        ```
-
 4.  Restart Grafana to apply the configuration changes.
 
 <!----------------------------- END LOCAL CONTENT ----------------------------->
@@ -164,7 +146,6 @@ To add the Flight SQL plugin to your pre-existing Grafana Docker deployment,
 use `docker run` or `docker-compose` to do the following:
 
 -  Mount the plugin directory (`/custom/plugins/directory/influxdata-flightsql-datasource`) as a volume to your Grafana container.
--  Set the `GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS` environment variable to the plugin name. The Flight SQL plugin is unsigned and Grafana requires you to explicitly load unsigned plugins. 
 
 ### Install with Docker Run
 
@@ -174,7 +155,6 @@ docker run \
   --volume $PWD/influxdata-flightsql-datasource:/custom/plugins/directory/influxdata-flightsql-datasource \
   --publish 3000:3000 \
   --name grafana \
-  --env GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=influxdata-flightsql-datasource \
   grafana/grafana:latest
 ```
 {{% /code-callout %}}
@@ -189,8 +169,6 @@ services:
     image: grafana/grafana:latest
     ports:
       - 3000:3000
-    environment:
-      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=influxdata-flightsql-datasource
     volumes: 
       - ./influxdata-flightsql-datasource:/custom/plugins/directory/influxdata-flightsql-datasource
     restart: always
