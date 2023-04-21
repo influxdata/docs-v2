@@ -6,7 +6,7 @@
 #   ?p=DATABASE_TOKEN
 #######################################
 
-curl --get "http://cluster-id.influxdb.io/query" \
+curl --get "https://cluster-id.influxdb.io/query" \
   --data-urlencode "p=DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"
