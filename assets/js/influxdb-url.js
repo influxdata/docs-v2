@@ -402,19 +402,17 @@ function validateUrl(url) {
       new URL(url);
       return {valid: true, error: ""}
     } catch(e) {
-      if (context() !== 'dedicated') {
-        var validProtocol = /^http(s?)/
-        var protocol = url.match(/http(s?):\/\//) ? url.match(/http(s?):\/\//)[0] : "";
-        var domain = url.replace(protocol, "")
+      var validProtocol = /^http(s?)/
+      var protocol = url.match(/http(s?):\/\//) ? url.match(/http(s?):\/\//)[0] : "";
+      var domain = url.replace(protocol, "")
 
-        if (validProtocol.test(protocol) == false) {
-          return {valid: false, error: "Invalid protocol, use http[s]"}
-        } else if (validDomain.test(domain) == false) {
-          return {valid: false, error: "Invalid domain"}
-        } else if (e) {
-          return {valid: false, error: "Invalid URL"}
-        }
-      } 
+      if (validProtocol.test(protocol) == false) {
+        return {valid: false, error: "Invalid protocol, use http[s]"}
+      } else if (validDomain.test(domain) == false) {
+        return {valid: false, error: "Invalid domain"}
+      } else if (e) {
+        return {valid: false, error: "Invalid URL"}
+      }
     }
   } else {
     // Validation for dedicated URLs
