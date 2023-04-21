@@ -5,7 +5,7 @@
 # Use the --user option with `--user username:DATABASE_TOKEN` syntax
 #######################################
 
-curl --get "http://localhost:8086/query" \
-  --user "username":"DATABASE_TOKEN" \
+curl --get "http://cluster-id.influxdb.io/query" \
+  --user "":"DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM MEASUREMENT"

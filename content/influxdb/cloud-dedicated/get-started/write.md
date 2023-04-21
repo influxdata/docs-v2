@@ -152,7 +152,7 @@ The following examples show how to use the **Python** and **Go** client librarie
 To write data to InfluxDB Cloud Dedicated using the InfluxDB v2 HTTP API, send a
 request to the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="http://cloud2.influxdata.com/api/v2/write" method="post" api-ref="/influxdb/cloud-iox/api/#operation/PostWrite" >}}
+{{< api-endpoint endpoint="https://cluster-id.influxdb.io/api/v2/write" method="post" api-ref="/influxdb/cloud-iox/api/#operation/PostWrite" >}}
 
 Include the following with your request:
 
@@ -171,7 +171,7 @@ to InfluxDB Cloud dedicated:
 
 {{% influxdb/custom-timestamps %}}
 ```sh
-export INFLUX_HOST=http://cloud2.influxdata.com
+export INFLUX_HOST=https://cluster-id.influxdb.io
 export INFLUX_ORG=ignored
 export INFLUX_TOKEN=DATABASE_TOKEN
 
@@ -270,7 +270,7 @@ dependencies to your current project.
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host="cloud2.influxdata.com",
+    host="cluster-id.influxdb.io",
     org="",
     token="DATABASE_TOKEN",
     database="get-started"
@@ -386,7 +386,7 @@ import (
 
 func dbWrite(ctx context.Context) error {
 	// Create write client
-	url := "https://cloud2.influxdata.com"
+	url := "https://cluster-id.influxdb.io"
 	token := os.Getenv("INFLUX_TOKEN")
 	writeClient := influxdb2.NewClientWithOptions(url, token, influxdb2.DefaultOptions().SetPrecision(time.Second))
 

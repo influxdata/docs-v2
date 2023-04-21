@@ -125,7 +125,7 @@ add the following `outputs.influxdb_v2` configuration in your `telegraf.conf` fi
 
 ```toml
 [[outputs.influxdb_v2]]
- urls = ["https://cloud2.influxdata.com"]
+ urls = ["https://cluster-id.influxdb.io"]
  token = "DATABASE_TOKEN"
  organization = ""
  bucket = "DATABASE_NAME"
@@ -166,7 +166,7 @@ Create a v2 API client using the [`influxdb-client-js`](https://github.com/influ
    ```js
    import {InfluxDB, Point} from '@influxdata/influxdb-client'
 
-   const influxDB = new InfluxDB({'https://cloud2.influxdata.com', DATABASE_TOKEN})
+   const influxDB = new InfluxDB({'https://cluster-id.influxdb.io', DATABASE_TOKEN})
    ```
 
    The client (`influxDB`) provides the `getWriteAPI(org, bucket, precision, writeOptions)` method that returns a client for writing data to the `/api/v2/write` endpoint.
@@ -202,7 +202,7 @@ Create a v2 API client using the [influxdb-client-python](https://github.com/inf
 
   ```py
   
-  influxdb_client = InfluxDBClient(url='https://cloud2.influxdata.com',
+  influxdb_client = InfluxDBClient(url='https://cluster-id.influxdb.io',
                                   token='DATABASE_TOKEN',
                                   org='placeholder_org')
   ```
@@ -242,7 +242,7 @@ Replace the following:
 
 Use HTTP clients and your custom code to send write requests to the v2 API `/api/v2/write` endpoint.
 
-{{% api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/write" method="post"%}}
+{{% api-endpoint endpoint="https://cluster-id.influxdb.io/api/v2/write" method="post"%}}
 
 Include the following in your request:
 
@@ -291,7 +291,7 @@ The following example shows how to use the **cURL** command line tool and the In
 
 ```sh
 curl --request POST \
-"https://cloud2.influxdata.com/api/v2/write?bucket=DATABASE_NAME&precision=ns" \
+"https://cluster-id.influxdb.io/api/v2/write?bucket=DATABASE_NAME&precision=ns" \
   --header "Authorization: Token DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \

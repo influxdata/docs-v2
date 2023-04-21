@@ -264,7 +264,7 @@ _If your projects virtual environment is already running, skip to step 3._
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host="cloud2.influxdata.com",
+    host="cluster-id.influxdb.io",
     token="DATABASE_TOKEN",
     database="get-started",
 )
@@ -392,7 +392,7 @@ import (
 )
 
 func dbQuery(ctx context.Context) error {
-	url := "us-east-1-1.aws.cloud2.influxdata.com:443"
+	url := "cluster-id.influxdb.io:443"
 	token := os.Getenv("INFLUX_TOKEN")
 	database := "<INFLUX_DATABASE>"
 

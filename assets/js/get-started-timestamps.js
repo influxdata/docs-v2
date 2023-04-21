@@ -92,8 +92,6 @@ function updateTimestamps(newStartDate) {
     $(updateBlockElWhitelist.join()).each(function() {
         var wrapper = $(this)[0]
 
-        console.log(wrapper)
-
         times.forEach(function(x) {
             oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ""))
             newDatePart = datePart(x.rfc3339_new.replace(/T.*$/, ""))
@@ -109,8 +107,6 @@ function updateTimestamps(newStartDate) {
 
     $('span.get-started-timestamps').each(function() {
       var wrapper = $(this)[0]
-
-      console.log(wrapper)
 
       times.forEach(function(x) {
           oldDatePart = datePart(x.rfc3339.replace(/T.*$/, ""))
