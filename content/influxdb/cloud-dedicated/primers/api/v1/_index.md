@@ -120,8 +120,8 @@ When authenticating requests, InfluxDB Cloud Dedicated checks that `p` (_passwor
 ##### Syntax
 
 ```sh
-https://cloud2.influxdata.com/query/?[u=any]&p=DATABASE_TOKEN
-https://cloud2.influxdata.com/write/?[u=any]&p=DATABASE_TOKEN
+https://cluster-id.influxdb.io/query/?[u=any]&p=DATABASE_TOKEN
+https://cluster-id.influxdb.io/write/?[u=any]&p=DATABASE_TOKEN
 ```
 
 ##### Example
@@ -224,7 +224,7 @@ add the following `outputs.influxdb` configuration in your `telegraf.conf` file:
 
 ```toml
 [[outputs.influxdb]]
-  urls = ["https://cloud2.influxdata.com"]
+  urls = ["https://cluster-id.influxdb.io"]
   database = "DATABASE_NAME"
   skip_database_creation = true
   retention_policy = ""
@@ -266,7 +266,7 @@ const Influx = require('influx')
 
 // Instantiate a client for writing to InfluxDB Cloud Dedicated v1 API
 const client = new Influx.InfluxDB({
-  host: 'cloud2.influxdata.com',
+  host: 'cluster-id.influxdb.io',
   port: 443,
   protocol: 'https'
   database: 'DATABASE_NAME',
@@ -286,7 +286,7 @@ from influxdb import InfluxDBClient
 
 # Instantiate a client for writing to InfluxDB Cloud Dedicated v1 API
 client = InfluxDBClient(
-  host='cloud2.influxdata.com',
+  host='cluster-id.influxdb.io',
   ssl=True,
   database='DATABASE_NAME',
   username='',
@@ -305,7 +305,7 @@ Replace the following:
 
 Use HTTP clients and your custom code to send write requests to the v1 API `/write` endpoint.
 
-{{% api-endpoint endpoint="https://cloud2.influxdata.com/write" method="post"%}}
+{{% api-endpoint endpoint="https://cluster-id.influxdb.io/write" method="post"%}}
 
 Include the following in your request:
 
@@ -351,7 +351,7 @@ While the v1 CLI may coincidentally work with InfluxDB Cloud Dedicated, it isn't
 The following example shows how to use the **cURL** command line tool and the InfluxDB Cloud Dedicated v1 API to write line protocol data to a database:
 
 ```sh
-curl -i 'https://cloud2.influxdata.com/write?db=DATABASE_NAME&precision=s' \
+curl -i 'https://cluster-id.influxdb.io/write?db=DATABASE_NAME&precision=s' \
     --header 'Authorization: Token DATABASE_TOKEN' \
     --header "Content-type: text/plain; charset=utf-8"
     --data-binary 'home,room=kitchen temp=72 1463683075'

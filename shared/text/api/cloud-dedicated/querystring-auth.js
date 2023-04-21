@@ -18,7 +18,7 @@ function queryWithQueryString() {
   };
 
   const options = {
-    host: 'localhost:8086',
+    host: 'cluster-id.influxdb.io',
     path: "/query?" + querystring.stringify(queryparams)
   };
 

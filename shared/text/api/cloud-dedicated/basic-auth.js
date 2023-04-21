@@ -14,7 +14,7 @@ function queryWithBasicAuth() {
   };
 
   const options = {
-    host: 'cloud2.influxdata.com',
+    host: 'cluster-id.influxdb.io',
     path: '/query?' + querystring.stringify(queryparams),
     auth: ':DATABASE_TOKEN',
     headers: {
