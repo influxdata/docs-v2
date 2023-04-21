@@ -125,7 +125,7 @@ add the following `outputs.influxdb_v2` configuration in your `telegraf.conf` fi
 
 ```toml
 [[outputs.influxdb_v2]]
- urls = ["cluster-id.influxdb.io"]
+ urls = ["https://cluster-id.influxdb.io"]
  token = "DATABASE_TOKEN"
  organization = ""
  bucket = "DATABASE_NAME"
