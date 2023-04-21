@@ -95,7 +95,7 @@ Rows that evaluate to `true` persist in the output data.
 (r) => (r._measurement == "cpu")
 
 // Example with multiple filters
-(r) => r._measurement == "cpu" and r._field != "usage_system")
+(r) => (r._measurement == "cpu" and r._field != "usage_system")
 ```
 
 #### Use the following:
