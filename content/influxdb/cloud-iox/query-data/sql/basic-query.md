@@ -66,10 +66,10 @@ to your InfluxDB Cloud bucket before running the example queries.
 
 ### Query data within time boundaries
 
-- Use the `SELECT` clause to specify what tags and fields to return.
+- Use the `SELECT` clause to specify what columns (tags and fields) to return.
   To return all tags and fields, use the wildcard alias (`*`).
-- Specify the measurement to query in the `FROM` clause.
-- Specify time boundaries in the `WHERE` clause.
+- In the `FROM` clause, specify the table (measurement) to query.
+- In the `WHERE` clause, specify time boundaries and other conditions for filtering.
   Include time-based predicates that compare the value of the `time` column to a timestamp.
   Use the `AND` logical operator to chain multiple predicates together.
 
@@ -110,8 +110,8 @@ WHERE
 
 {{% expand "Query with absolute time boundaries" %}}
 
-To query data from absolute time boundaries, compare the value of the `time column
-to a timestamp literals.
+To query data from absolute time boundaries, compare the value of the `time` column
+to a timestamp literal.
 Use the `AND` logical operator to chain together multiple predicates and define
 both start and stop boundaries for the query.
 
@@ -132,11 +132,11 @@ WHERE
 
 ### Query data without time boundaries
 
-To query data without time boundaries, do not include any time-based predicates
+To query data without time boundaries, don't include any time-based predicates
 in your `WHERE` clause.
 
 {{% warn %}}
-Querying data _without time bounds_ can return an unexpected amount of data.
+Querying data _without time bounds_ can return a large number of rows.
 The query may take a long time to complete and results may be truncated.
 {{% /warn %}}
 
@@ -146,8 +146,8 @@ SELECT * FROM home
 
 ### Query specific fields and tags
 
-To query specific fields, include them in the `SELECT` clause.
-If querying multiple fields or tags, comma-delimit each.
+To specify columns (fields, tags, or calculations) you want to retrieve, list them in the `SELECT` clause.
+Use a comma to separate column names.
 If the field or tag keys include special characters or spaces or are case-sensitive,
 wrap the key in _double-quotes_.
 
