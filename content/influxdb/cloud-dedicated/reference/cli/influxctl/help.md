@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud_dedicated:
     parent: influxctl
-weight: 203
+weight: 202
 ---
 
 The `influxctl help` command outputs help information for the `influxctl`
