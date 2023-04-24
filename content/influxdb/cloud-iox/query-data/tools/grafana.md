@@ -41,15 +41,17 @@ Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-fl
 
 <!-- /TOC -->
 
-## Install Grafana
+## Install via Grafana Cloud
+Because Grafana Flight SQL Plugin is a community published plugin, you can install it to your existing Grafana Cloud instance.
+
+- In your cloud instance navigate to connections and search for FlightSQL, follow the link to install.
+- Or directly go to this [link](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/?tab=installation) to install the plugin into your cloud instance.
+- Now in your instance you can navigate back to connections and search for FlightSQL which will be installed and allow you to create a FlightSQL datasource.
+
+## Install local Grafana
 
 Follow [Grafana instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
 to Install Grafana for your operating system.
-
-{{% warn %}}
-Because Grafana Flight SQL Plugin is a custom plugin, you can't use it with Grafana Cloud.
-For more information, see [Find and Use Plugins in the Grafana Cloud documentation](https://grafana.com/docs/grafana-cloud/fundamentals/find-and-use-plugins/)
-{{% /warn %}}
 
 ## Create a custom plugins director
 
