@@ -231,10 +231,10 @@ services:
 6.  Add connection **MetaData**.
     Provide optional key-value pairs to send to your Flight SQL client.
 
-    InfluxDB {{< current-version >}} requires your **database name** or **database-id**:
+    InfluxDB {{< current-version >}} requires your **database name**:
     
-    - **Key**: `database-name` or `database-id`
-    - **Value**: Database name or database ID
+    - **Key**: `iox-namespace-name`
+    - **Value**: Database name
 
 7.  Click **Save & test**.
 
