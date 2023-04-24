@@ -28,7 +28,7 @@ InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB 2.x.
 There are multiple reasons for introducing these:
 
 - [InfluxDB 2.x client libraries](/enterprise_influxdb/v1.10/tools/api_client_libraries/)
-  are built for the InfluxDB `api/v2 ` API and work with **InfluxDB 2.x** and **InfluxDB 1.8+**.
+  are built for the InfluxDB `/api/v2` API and work with **InfluxDB 2.x** and **InfluxDB 1.8+**.
 - InfluxDB Cloud is a generally available service across multiple cloud service providers and regions
   that is fully compatible with the InfluxDB 2.x client libraries.
 
