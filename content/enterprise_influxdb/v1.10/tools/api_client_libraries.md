@@ -13,7 +13,7 @@ menu:
 v2: /influxdb/v2.0/api-guide/client-libraries/
 ---
 
-InfluxDB client libraries are language-specific packages that integrate with InfluxDB APIs and support **InfluxDB 1.8+** and **InfluxDB 2.0**.
+InfluxDB client libraries are language-specific packages that integrate with InfluxDB APIs and support **InfluxDB 1.8+** and **InfluxDB 2.x**.
 
 {{% warn %}}
 
