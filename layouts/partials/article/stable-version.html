@@ -2,7 +2,7 @@
 {{ $product := index $productPathData 0 }}
 {{ $productName := (index .Site.Data.products $product).name }}
 {{ $currentVersion := index $productPathData 1 }}
-{{ $latestV2 := index (last 1 .Site.Data.products.influxdb.versions) 0 }}
+{{ $latestV2 := index (first 1 .Site.Data.products.influxdb.versions) 0 }}
 
 {{ $stableVersion := (index .Site.Data.products $product).latest }}
 {{ $stableVersionURL := replaceRE `v[1-2]\.[0-9]{1,2}` $stableVersion .RelPermalink }}
