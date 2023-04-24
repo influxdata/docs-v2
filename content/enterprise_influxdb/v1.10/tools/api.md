@@ -192,7 +192,7 @@ curl --request GET "http://localhost:8086/api/v2/buckets"
   -H 'Authorization: Token <username>:<password>'
 ```
 
-The following example shows to delete a database named "test":
+The following example shows how to delete a database named "test":
 
 ```bash
 curl --request DELETE "http://localhost:8086/api/v2/buckets/test/autogen" 
