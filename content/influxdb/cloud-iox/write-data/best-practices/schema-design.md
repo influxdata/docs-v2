@@ -13,20 +13,23 @@ menu:
 Use the following guidelines to design your [schema](/influxdb/cloud-iox/reference/glossary/#schema)
 for simpler and more performant queries.
 
+<!-- TOC -->
+
 - [InfluxDB data structure](#influxdb-data-structure)
+  - [Primary keys](#primary-keys)
   - [Tags versus fields](#tags-versus-fields)
 - [Schema restrictions](#schema-restrictions)
   - [Do not use duplicate names for tags and fields](#do-not-use-duplicate-names-for-tags-and-fields)
   - [Measurements can contain up to 200 columns](#measurements-can-contain-up-to-200-columns)
 - [Design for performance](#design-for-performance)
   - [Avoid wide schemas](#avoid-wide-schemas)
+    - [Avoid too many tags](#avoid-too-many-tags)
   - [Avoid sparse schemas](#avoid-sparse-schemas)
+    - [Writing individual fields with different timestamps](#writing-individual-fields-with-different-timestamps)
   - [Measurement schemas should be homogenous](#measurement-schemas-should-be-homogenous)
 - [Design for query simplicity](#design-for-query-simplicity)
   - [Keep measurement names, tag keys, and field keys simple](#keep-measurement-names-tag-keys-and-field-keys-simple)
   - [Avoid keywords and special characters](#avoid-keywords-and-special-characters)
-- [Use explicit bucket schemas to enforce schema](#use-explicit-bucket-schemas-to-enforce-schema)
----
 
 ## InfluxDB data structure
 
@@ -35,17 +38,25 @@ A bucket can contain multiple measurements. Measurements contain multiple
 tags and fields.
 
 - **Bucket**: Named location where time series data is stored.
+  In the InfluxDB SQL implementation, a bucket is synonymous with a _database_.
   A bucket can contain multiple _measurements_.
   - **Measurement**: Logical grouping for time series data.
+    In the InfluxDB SQL implementation, a measurement is synonymous with a _table_.
     All _points_ in a given measurement should have the same _tags_.
     A measurement contains multiple _tags_ and _fields_.
-      - **Tags**: Key-value pairs that provide metadata for each point--for example,
-        something to identify the source or context of the data like host,
+      - **Tags**: Key-value pairs that store metadata string values for each point--for example,
+        a value that identifies or differentiates the data source or context--for example, host,
         location, station, etc.
-      - **Fields**: Key-value pairs with values that change over time--for example,
+      - **Fields**: Key-value pairs that store data for each point--for example,
         temperature, pressure, stock price, etc.
       - **Timestamp**: Timestamp associated with the data.
         When stored on disk and queried, all data is ordered by time.
+        In InfluxDB, a timestamp is a nanosecond-scale [unix timestamp](#unix-timestamp) in UTC.
+
+### Primary keys
+
+In time series data, the primary key for a row of data is typically a combination of timestamp and other attributes that uniquely identify each data point.
+In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-iox/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-iox/reference/glossary/#tag-value) on the point.
 
 ### Tags versus fields
 
@@ -54,7 +65,7 @@ tag and what should be a field?" The following guidelines should help answer tha
 question as you design your schema.
 
 - Use tags to store identifying information about the source or context of the data.
-- Use fields to store values that change over time.
+- Use fields to store measured values.
 - Tag values can only be strings.
 - Field values can be any of the following data types:
   - Integer
@@ -64,9 +75,9 @@ question as you design your schema.
   - Boolean
 
 {{% note %}}
-If coming from a version of InfluxDB backed by the TSM storage engine, **tag value**
-cardinality no longer affects the overall performance of your database.
 The InfluxDB IOx engine supports infinite tag value and series cardinality.
+Unlike InfluxDB backed by the TSM storage engine, **tag value**
+cardinality doesn't affect the overall performance of your database.
 {{% /note %}}
 
 ---
@@ -80,11 +91,6 @@ All tags and fields are stored as unique columns in a table representing the
 measurement on disk.
 If you attempt to write a measurement that contains tags or fields with the same name,
 the write fails due to a column conflict.
-
-{{% note %}}
-Use [explicit bucket schemas](/influxdb/cloud-iox/admin/buckets/manage-explicit-bucket-schemas/) to enforce unique tag and
-field keys within a schema.
-{{% /note %}}
 
 ### Measurements can contain up to 200 columns
 
@@ -106,29 +112,54 @@ The following guidelines help to optimize query performance:
 - [Avoid sparse schemas](#avoid-sparse-schemas)
 - [Measurement schemas should be homogenous](#measurement-schemas-should-be-homogenous)
 
+
 ### Avoid wide schemas
 
 A wide schema is one with many tags and fields and corresponding columns for each.
-At query time, InfluxDB evaluates each row in the queried measurement to
-determine what rows to return. The "wider" the measurement (more columns), the
-less performant queries are against that measurement.
-To ensure queries stay performant, the InfluxDB IOx storage engine has a
+With the InfluxDB IOx storage engine, wide schemas don't impact query execution performance.
+Because IOx is a columnar database, it executes queries only against columns selected in the query.
+
+Although a wide schema won't affect query performance, it can lead to the following:
+
+- More resources required for persisting and compacting data during ingestion.
+- Decreased sorting performance due to complex primary keys with [too many tags](#avoid-too-many-tags).
+
+The InfluxDB IOx storage engine has a
 [limit of 200 columns per measurement](#measurements-can-contain-up-to-200-columns).
 
 To avoid a wide schema, limit the number of tags and fields stored in a measurement.
 If you need to store more than 199 total tags and fields, consider segmenting
 your fields into a separate measurement.
 
+#### Avoid too many tags
+
+In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-iox/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-iox/reference/glossary/#tag-value) on the point.
+A point that contains more tags has a more complex primary key, which could impact sorting performance if you sort using all parts of the key.
+
 ### Avoid sparse schemas
 
 A sparse schema is one where, for many rows, columns contain null values.
-These generally stem from [non-homogenous measurement schemas](#measurement-schemas-should-be-homogenous)
-or individual fields for a tag set being reported at separate times.
+
+ These generally stem from the following:
+- [non-homogenous measurement schemas](#measurement-schemas-should-be-homogenous)
+- [writing individual fields with different timestamps]()
+
 Sparse schemas require the InfluxDB query engine to evaluate many
 null columns, adding unnecessary overhead to storing and querying data.
 
 _For an example of a sparse schema,
 [view the non-homogenous schema example below](#view-example-of-a-sparse-non-homogenous-schema)._
+
+#### Writing individual fields with different timestamps
+
+Reporting fields at different times with different timestamps creates distinct rows that contain null values--for example:
+
+You report `fieldA` with `tagset`, and then report `field B` with the same `tagset`, but with a different timestamp.
+The result is two rows: one row has a _null_ value for **field A** and the other has a _null_ value for **field B**.
+
+In contrast, if you report fields at different times while using the same tagset and timestamp, the existing row is updated.
+This requires slightly more resources at ingestion time, but then gets resolved at persistence time or compaction time
+and avoids a sparse schema.
 
 ### Measurement schemas should be homogenous
 
@@ -368,9 +399,3 @@ iox.from(bucket: "example-bucket")
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
-
-## Use explicit bucket schemas to enforce schema
-
-By default, buckets have an `implicit` **schema-type** and a schema that conforms to your data.
-To require measurements to have specific columns and data types and prevent non-conforming write requests,
-use [`explicit` buckets and explicit bucket schemas](/influxdb/cloud-iox/admin/buckets/manage-explicit-bucket-schemas/).
