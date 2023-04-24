@@ -116,7 +116,7 @@ The following guidelines help to optimize query performance:
 ### Avoid wide schemas
 
 A wide schema is one with many tags and fields and corresponding columns for each.
-In InfluxDB IOx, wide schemas don't impact query execution performance.
+With the InfluxDB IOx storage engine, wide schemas don't impact query execution performance.
 Because IOx is a columnar database, it executes queries only against columns selected in the query.
 
 Although a wide schema won't affect query performance, it can lead to the following:
