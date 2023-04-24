@@ -673,6 +673,8 @@ Related entries: [check](#check), [notification endpoint](#notification-endpoint
 
 The local server's nanosecond timestamp.
 
+Related entries: [timestamp](#timestamp)
+
 ### null
 
 A data type that represents a missing or unknown value.
@@ -776,7 +778,7 @@ For example, if the precision is set to `ms`, the nanosecond epoch timestamp `14
 Telegraf output plugins do not alter the timestamp further.
 The precision setting is ignored for service input plugins.
 
-Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin), [service input plugin](#service-input-plugin)
+Related entries:  [aggregator plugin](#aggregator-plugin), [input plugin](#input-plugin), [output plugin](#output-plugin), [processor plugin](#processor-plugin), [service input plugin](#service-input-plugin), [timestamp](#timestamp)
 
 ### predicate expression
 
@@ -1139,12 +1141,12 @@ Irregular time series data changes at non-constant intervals.
 ### timestamp
 
 The date and time associated with a point.
-Time in InfluxDB is in UTC.
+In InfluxDB, a timestamp is a nanosecond-scale [unix timestamp](#unix-timestamp) in UTC.
 
 To specify time when writing data, see [Elements of line protocol](/influxdb/v2.7/reference/syntax/line-protocol/#elements-of-line-protocol).
 To specify time when querying data, see [Query InfluxDB with Flux](/influxdb/v2.7/query-data/get-started/query-influxdb/#2-specify-a-time-range).
 
-Related entries: [point](#point), [unix timestamp](#unix-timestamp), [RFC3339 timestamp](#rfc3339-timestamp)
+Related entries: [point](#point), [precision](#precision), [RFC3339 timestamp](#rfc3339-timestamp), [unix timestamp](#unix-timestamp),
 
 ### token
 
