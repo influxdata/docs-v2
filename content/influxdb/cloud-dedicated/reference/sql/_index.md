@@ -7,6 +7,8 @@ menu:
     name: SQL reference
     parent: Reference
 weight: 101
+related:
+  - /influxdb/cloud-dedicated/reference/internals/arrow-flightsql/
 ---
 
 InfluxDB Cloud Dedicated uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.  
