@@ -413,7 +413,7 @@ func dbQuery(ctx context.Context) error {
 	}
 
 	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+token)
-	ctx = metadata.AppendToOutgoingContext(ctx, "database-name", database)
+	ctx = metadata.AppendToOutgoingContext(ctx, "iox-namespace-name", database)
 
 	// Execute query
 	query := `SELECT
