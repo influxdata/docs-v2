@@ -394,7 +394,7 @@ import (
 func dbQuery(ctx context.Context) error {
 	url := "cluster-id.influxdb.io:443"
 	token := os.Getenv("INFLUX_TOKEN")
-	database := "<INFLUX_DATABASE>"
+	database := "get-started"
 
 	// Create a gRPC transport
 	pool, err := x509.SystemCertPool()
