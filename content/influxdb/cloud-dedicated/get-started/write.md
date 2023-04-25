@@ -362,7 +362,6 @@ To write data to InfluxDB Cloud Dedicated using Go, use the
     4.  Use `writeClient.WriteAPIBlocking` to define a `writeAPI`.
         The write API requires the following credentials:
 
-        - **org**: _Provide an arbitrary string. This credential is ignored._
         - **bucket**: InfluxDB database name.
     
     5.  Define an array of line protocol strings where each element is a single
