@@ -181,7 +181,7 @@ DATABASE_NAME=get-started
 
 curl --request POST \
 "$INFLUX_HOST/api/v2/write?bucket=$DATABASE_NAME&precision=s" \
-  --header "Authorization: Token $INFLUX_TOKEN" \
+  --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
