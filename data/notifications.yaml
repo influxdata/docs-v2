@@ -58,13 +58,13 @@
     For more information, see the
     [Linux Package Signing Key Rotation blog post](https://www.influxdata.com/blog/linux-package-signing-key-rotation/).  
 
-- id: iox-wip
+- id: serverless-wip
   level: warn
   scope:
-    - /influxdb/cloud-iox/
-  title: State of the InfluxDB Cloud (IOx) documentation
+    - /influxdb/cloud-serverless/
+  title: State of the InfluxDB Cloud Serverless documentation
   message: |
-    The new documentation for **InfluxDB Cloud backed by InfluxDB IOx** is a work
+    The new documentation for **InfluxDB Cloud Serverless** is a work
     in progress. We are adding new information and content almost daily.
     Thank you for your patience!
     

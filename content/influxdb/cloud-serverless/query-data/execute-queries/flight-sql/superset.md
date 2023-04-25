@@ -203,7 +203,7 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
 3.  In the **Connect a Database** window, click on the **Supported Databases**
     drop-down menu and select **Other**.
 
-    {{< img-hd src="/img/influxdb/cloud-iox-superset-connect.png" alt="Configure InfluxDB connection in Superset" />}}
+    {{< img-hd src="/img/influxdb/cloud-serverless-superset-connect.png" alt="Configure InfluxDB connection in Superset" />}}
 
 4.  Enter a **Display Name** (for example, _InfluxDB Cloud Serverless_) for the database connection.
 5.  Enter your **SQL Alchemy URI** comprised of the following:
@@ -246,7 +246,7 @@ to query and visualize data from InfluxDB.
 
     The measurement schema appears in the left pane:
 
-    {{< img-hd src="/img/influxdb/cloud-iox-superset-schema.png" alt="Select your InfluxDB schema in Superset" />}}
+    {{< img-hd src="/img/influxdb/cloud-serverless-superset-schema.png" alt="Select your InfluxDB schema in Superset" />}}
 
 3.  Use the **query editor** to write an SQL query that queries data in your 
     InfluxDB bucket.

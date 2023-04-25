@@ -347,7 +347,7 @@ The [InfluxDB TSM to IOx Migration Community template](https://github.com/influx
 installs the migration task outlined in this guide as well as a dashboard
 for monitoring running data migrations.
 
-{{< img-hd src="/img/influxdb/cloud-iox-migration-dashboard.png" alt="InfluxDB Cloud migration dashboard" />}}
+{{< img-hd src="/img/influxdb/cloud-serverless-migration-dashboard.png" alt="InfluxDB Cloud migration dashboard" />}}
 
 <a class="btn" href="https://github.com/influxdata/community-templates/tree/master/influxdb-tsm-iox-migration/#quick-install">Install the InfluxDB Cloud Migration template</a>
 

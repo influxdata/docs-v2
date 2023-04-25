@@ -29,10 +29,10 @@
   {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
 {{ else if eq $product "influxdb" }}
   {{ if in $currentVersion "cloud" }}
-    {{ $isIOx := eq (print $product "/" $currentVersion ) "influxdb/cloud-iox" }}
+    {{ $isIOx := eq (print $product "/" $currentVersion ) "influxdb/cloud-serverless" }}
     {{ $isDedicated := eq (print $product "/" $currentVersion ) "influxdb/cloud-dedicated" }}
-    {{ .Scratch.Set "searchPlaceholder"  "Search InfluxDB Cloud & Flux" }}
-    {{ if $isIOx }}{{ .Scratch.Set "searchPlaceholder" "Search InfluxDB Cloud (IOx)" }}
+    {{ .Scratch.Set "searchPlaceholder"  "Search InfluxDB Cloud (TSM) & Flux" }}
+    {{ if $isIOx }}{{ .Scratch.Set "searchPlaceholder" "Search InfluxDB Cloud Serverless" }}
     {{ else if $isDedicated }}{{ .Scratch.Set "searchPlaceholder" "Search InfluxDB Cloud Dedicated" }}
     {{ end }}
   {{ else }}
@@ -97,7 +97,7 @@
   {{ end }}
 
   <!-- Additional resources for all docs -->
-  {{ if and (ne $product "resources") (ne $currentVersion "cloud-iox") (ne $currentVersion "cloud-dedicated") }}
+  {{ if and (ne $product "resources") (ne $currentVersion "cloud-serverless") (ne $currentVersion "cloud-dedicated") }}
     <h4 class="resources">Additional resources</h4>
     <li class="nav-category"><a href="/resources/videos/">Videos</a></li>
     <li class="nav-category"><a href="/resources/how-to-guides/">How-to Guides</a></li>

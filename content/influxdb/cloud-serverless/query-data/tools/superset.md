@@ -35,4 +35,4 @@ Use Superset to create visualizations and dashboards for InfluxDB IOx queries.
 For a comprehensive walk-through of creating visualizations with
 Superset, see the [Creating Charts and Dashboards in Superset documentation](https://superset.apache.org/docs/creating-charts-dashboards/creating-your-first-dashboard).
 
-{{< img-hd src="/img/influxdb/cloud-iox-superset-dashboard.png" alt="Build InfluxDB dashboards in Apache Superset" />}}
+{{< img-hd src="/img/influxdb/cloud-serverless-superset-dashboard.png" alt="Build InfluxDB dashboards in Apache Superset" />}}

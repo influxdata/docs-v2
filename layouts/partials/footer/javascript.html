@@ -66,6 +66,6 @@
 {{ end }}
 
 <!-- Load IOx wayfinding JS if page is in cloud or cloud-iox -->
-{{ if in (slice "cloud" "cloud-iox") (index (findRE "[^/]+.*?" .Page.RelPermalink) 1) }}
+{{ if in (slice "cloud" "cloud-serverless") (index (findRE "[^/]+.*?" .Page.RelPermalink) 1) }}
 <script type="text/javascript" src="{{ $ioxWayfinding.RelPermalink }}"></script>
 {{ end }}

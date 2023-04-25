@@ -4,7 +4,7 @@
 {{ $currentVersion := index $productPathData 1 }}
 {{ $isOSSv2 := in (print $product "/" $currentVersion ) "influxdb/v2." }}
 {{ $isCloud := eq (print $product "/" $currentVersion ) "influxdb/cloud" }}
-{{ $isIOx := eq (print $product "/" $currentVersion ) "influxdb/cloud-iox" }}
+{{ $isIOx := eq (print $product "/" $currentVersion ) "influxdb/cloud-serverless" }}
 {{ $isDedicated := eq (print $product "/" $currentVersion ) "influxdb/cloud-dedicated" }}
 {{ $altEngine := .Page.Params.alt_engine | default "" }}
 
@@ -14,7 +14,7 @@
   {{ else if or $isCloud $isIOx $isDedicated }}
     {{ $scratch.Set "cloud-type" "" }}
     {{ if $isCloud }}{{ $scratch.Set "cloud-type" $.Site.Data.products.influxdb_cloud.altname}}
-    {{ else if $isIOx }}{{ $scratch.Set "cloud-type" $.Site.Data.products.influxdb_cloud_iox.altname }}
+    {{ else if $isIOx }}{{ $scratch.Set "cloud-type" $.Site.Data.products.influxdb_cloud_serverless.altname }}
     {{ else if $isDedicated }}{{ $scratch.Set "cloud-type" $.Site.Data.products.influxdb_cloud_dedicated.altname }}
     {{ end }}
     {{ $cloudType := $scratch.Get "cloud-type" }}
@@ -32,24 +32,24 @@
       
       {{/* ////////////////// BEGIN IOx WAYFINDING LOGIC ////////////////// */}}
 
-      {{ else if and $isCloud (eq .altname "InfluxDB Cloud (IOx)")}}
-        {{ $altIOxPage := $.GetPage ((replaceRE "influxdb/cloud" "influxdb/cloud-iox" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+      {{ else if and $isCloud (eq .altname "InfluxDB Cloud Serverless")}}
+        {{ $altIOxPage := $.GetPage ((replaceRE "influxdb/cloud" "influxdb/cloud-serverless" $.Page.RelPermalink) | replaceRE `\/$` "") }}
         {{ if ne $altEngine "" }}
           {{ $scratch.Set "link" $altEngine }}
         {{ else if gt (len $altIOxPage.Title) 0 }}
           {{ $scratch.Set "link" $altIOxPage.RelPermalink }}
         {{ end }}
-      {{ else if and $isIOx (eq .altname "InfluxDB Cloud")}}
-        {{ $altCloudPage := $.GetPage ((replaceRE "influxdb/cloud-iox" "influxdb/cloud" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+      {{ else if and $isIOx (eq .altname "InfluxDB Cloud (TSM)")}}
+        {{ $altCloudPage := $.GetPage ((replaceRE "influxdb/cloud-serverless" "influxdb/cloud" $.Page.RelPermalink) | replaceRE `\/$` "") }}
         {{ if ne $altEngine "" }}
           {{ $scratch.Set "link" $altEngine }}
         {{ else if gt (len $altCloudPage.Title) 0 }}
           {{ $scratch.Set "link" $altCloudPage.RelPermalink }}
         {{ end }}
       {{ else if and $isIOx (eq .altname "InfluxDB OSS") }}
-        {{ $altOSSPage := $.GetPage ((replaceRE "influxdb/cloud-iox" (print "influxdb/" $.Site.Data.products.influxdb.latest) $.Page.RelPermalink) | replaceRE `\/$` "") }}
+        {{ $altOSSPage := $.GetPage ((replaceRE "influxdb/cloud-serverless" (print "influxdb/" $.Site.Data.products.influxdb.latest) $.Page.RelPermalink) | replaceRE `\/$` "") }}
         {{ if ne $altEngine "" }}
-          {{ $scratch.Set "link" (replaceRE "influxdb/cloud-iox" (print "influxdb/" $.Site.Data.products.influxdb.latest) $altEngine) }}
+          {{ $scratch.Set "link" (replaceRE "influxdb/cloud-serverless" (print "influxdb/" $.Site.Data.products.influxdb.latest) $altEngine) }}
         {{ else if gt (len $altOSSPage.Title) 0 }}
           {{ $scratch.Set "link" $altOSSPage.RelPermalink }}
         {{ end }}

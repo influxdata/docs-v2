@@ -127,7 +127,7 @@ Grafana Cloud instance.
 
 7.  Click **Save & test**.
 
-    {{< img-hd src="/img/influxdb/cloud-iox-grafana-flightsql-datasource.png" alt="Grafana Flight SQL datasource" />}}
+    {{< img-hd src="/img/influxdb/cloud-serverless-grafana-flightsql-datasource.png" alt="Grafana Flight SQL datasource" />}}
 
     If successful, click **Explore** to begin querying InfluxDB with Flight SQL and Grafana.
 
@@ -154,7 +154,7 @@ To learn more, see [Query Data](/influxdb/cloud-serverless/query-data/sql/).
                     SQL will return the aggregation for each group or partition.
 4. Click **Run query** to execute the query.
 
-{{< img-hd src="/img/influxdb/cloud-iox-grafana-flightsql-explore-query-1.png" alt="Grafana Flight SQL datasource query" />}}
+{{< img-hd src="/img/influxdb/cloud-serverless-grafana-flightsql-explore-query-1.png" alt="Grafana Flight SQL datasource query" />}}
 
 To learn about query management and inspection in Grafana, see the [Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).
 
