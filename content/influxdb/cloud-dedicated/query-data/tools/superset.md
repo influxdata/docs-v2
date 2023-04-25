@@ -26,7 +26,7 @@ stored in an InfluxDB database.
 > users of all skill sets to explore and visualize their data, from simple pie
 > charts to highly detailed deck.gl geospatial charts.
 >
-> {{% caption %}}[Apache Superset documentation](https://superset.apache.org/docs/intro){{% /caption %}}
+> {{% cite %}}-- [Apache Superset documentation](https://superset.apache.org/docs/intro){{% /cite %}}
 
 To get started with Superset and InfluxDB, see [Use Superset to query data](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/).
 ## Build visualizations with Superset
@@ -35,4 +35,4 @@ Use Superset to create visualizations and dashboards for InfluxDB IOx queries.
 For a comprehensive walk-through of creating visualizations with
 Superset, see the [Creating Charts and Dashboards in Superset documentation](https://superset.apache.org/docs/creating-charts-dashboards/creating-your-first-dashboard).
 
-{{< img-hd src="/img/influxdb/cloud-dedicated-superset-dashboard.png" alt="Build InfluxDB dashboards in Apache Superset" />}}
+{{< img-hd src="/img/influxdb/cloud-iox-superset-dashboard.png" alt="Build InfluxDB dashboards in Apache Superset" />}}
