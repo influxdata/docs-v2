@@ -50,7 +50,7 @@ The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrat
     - [Timestamp precision](#timestamp-precision)
     - [Query using HTTP clients](#query-using-http-clients)
   - [Query using Flight SQL](#query-using-flight-sql)
-  - [Database management with InfluxQL unsupported](#database-management-with-influxql-unsupported)
+  - [Database management with InfluxQL not supported](#database-management-with-influxql-not-supported)
 
 <!-- /TOC -->
 <!--
@@ -472,7 +472,7 @@ The response body contains query results in JSON format.
 
 Use Flight SQL clients with gRPC and SQL to query data stored in an InfluxDB Cloud Dedicated database.
 
-### Database management with InfluxQL (unsupported)
+### Database management with InfluxQL (not supported)
 
 InfluxDB Cloud Dedicated doesn't allow InfluxQL commands for managing or modifying databases.
 You can't use the following InfluxQL commands:
