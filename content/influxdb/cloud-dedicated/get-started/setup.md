@@ -41,7 +41,7 @@ databases and tokens.
     The `influxctl` CLI uses [connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
     to connect to and authenticate with your InfluxDB Cloud Dedicated cluster.
 
-    To create connection profile, run `influxctl init` to start an interactive
+    To create a connection profile, run `influxctl init` to start an interactive
     prompt that creates and stores a connection profile.
 
     ```sh

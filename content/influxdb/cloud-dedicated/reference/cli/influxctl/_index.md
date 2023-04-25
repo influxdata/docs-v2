@@ -69,7 +69,7 @@ influxctl init
 
 ### Connection profile store location
 
-The `influxctl` CLI store connection profiles in a `config.toml` at a specific
+The `influxctl` CLI stores connection profiles in a `config.toml` file at a specific
 location based on your operating system:
 
 #### Profile configuration file locations
