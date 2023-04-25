@@ -157,14 +157,17 @@ request to the InfluxDB API `/api/v2/write` endpoint using the `POST` request me
 Include the following with your request:
 
 - **Headers**:
-  - **Authorization**: Token <INFLUX_TOKEN>
+  - **Authorization**: Bearer <INFLUX_TOKEN>
   - **Content-Type**: text/plain; charset=utf-8
   - **Accept**: application/json
 - **Query parameters**:
-  - **org**: _This parameter is ignored and can be an arbitrary string_
   - **bucket**: InfluxDB database name
   - **precision**: Timestamp precision (default is `ns`)
 - **Request body**: Line protocol as plain text
+
+{{% note %}}
+With the InfluxDB Cloud Dedicated v2 API `/api/v2/write` endpoint, `Authorization: Bearer` and `Authorization: Token` are equivalent and you can use either scheme to pass a database token in your request. For more information about HTTP API token schemes, see how to [authenticate API requests](/influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests).
+{{% /note %}}
 
 The following example uses cURL and the InfluxDB v2 API to write line protocol
 to InfluxDB Cloud dedicated:
@@ -172,12 +175,13 @@ to InfluxDB Cloud dedicated:
 {{% influxdb/custom-timestamps %}}
 ```sh
 export INFLUX_HOST=https://cluster-id.influxdb.io
-export INFLUX_ORG=ignored
 export INFLUX_TOKEN=DATABASE_TOKEN
 
+DATABASE_NAME=get-started
+
 curl --request POST \
-"$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=get-started&precision=s" \
-  --header "Authorization: Token $INFLUX_TOKEN" \
+"$INFLUX_HOST/api/v2/write?bucket=$DATABASE_NAME&precision=s" \
+  --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
@@ -233,18 +237,18 @@ dependencies to your current project.
     source ./envs/virtual-env/bin/activate
     ```
 
-3.  Load the following dependencies:
+3.  Install the following dependencies:
 
     - `pyarrow`
     - `flightsql-dbapi`
-    - `pypinflux3`
+    - `pyinflux3`
 
     ```python
     pip install pyarrow flightsql-dbapi pyinflux3
     ```
 
-4.  Build your python script to write the [line protocol above](#home-sensor-data-line-protocol)
-    to InfluxDB. _These can be structured as a Python script or executed in a `python` shell._
+4.  Build your python script to write the [sample line protocol](#home-sensor-data-line-protocol)
+    to InfluxDB. _Save the script to a file and run `python SCRIPT_NAME` or run `python` to write and execute the script using the interactive shell._
 
     1.  Import the `InfluxDBClient3` object from the `influxdb_client_3` module.
     2.  Use the `InfluxDBClient3` constructor to instantiate an InfluxDB Client.
@@ -252,7 +256,7 @@ dependencies to your current project.
         Provide the following credentials:
 
         - **host**: InfluxDB Cloud Dedicated cluster URL (without protocol or trailing slash)
-        - **org**: _Leave as an empty string_
+        - **org**: _Leave as an empty string_ (InfluxDB Cloud Dedicated ignores `org`, but the client requires the parameter)
         - **token**: Database token with write access to the target database
         - **database**: Database name to write to
     
@@ -329,7 +333,7 @@ To write data to InfluxDB Cloud Dedicated using Go, use the
     touch write.go
     ```
 
-2.  Inside of `main.go` instantiate an InfluxDB write client to write the
+2.  Inside of `write.go` instantiate an InfluxDB write client to write the
     [line protocol above](#home-sensor-data-line-protocol) to InfluxDB.
 
     1.  Import the following packages
@@ -358,7 +362,6 @@ To write data to InfluxDB Cloud Dedicated using Go, use the
     4.  Use `writeClient.WriteAPIBlocking` to define a `writeAPI`.
         The write API requires the following credentials:
 
-        - **org**: _Provide an arbitrary string. This credential is ignored._
         - **bucket**: InfluxDB database name.
     
     5.  Define an array of line protocol strings where each element is a single
@@ -449,11 +452,15 @@ Replace the following:
 - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
 - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
-Install all the necessary packages and run the program to write the line
-protocol to your InfluxDB Cloud Dedicated cluster.
+Run the following command to install the necessary packages:
 
 ```sh
 go get ./...
+```
+
+Run `write.go` to write the line protocol to your InfluxDB Cloud Dedicated cluster:
+
+```sh
 go run ./write.go
 ```
 
