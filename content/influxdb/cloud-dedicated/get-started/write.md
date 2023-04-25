@@ -157,7 +157,7 @@ request to the InfluxDB API `/api/v2/write` endpoint using the `POST` request me
 Include the following with your request:
 
 - **Headers**:
-  - **Authorization**: Token <INFLUX_TOKEN>
+  - **Authorization**: Bearer <INFLUX_TOKEN>
   - **Content-Type**: text/plain; charset=utf-8
   - **Accept**: application/json
 - **Query parameters**:
