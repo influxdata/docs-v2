@@ -26,13 +26,33 @@ The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrat
 
 - [Authenticate API requests](#authenticate-api-requests)
   - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
+    - [Basic authentication](#basic-authentication)
+      - [Syntax](#syntax)
+      - [Example](#example)
+    - [Query string authentication](#query-string-authentication)
+      - [Syntax](#syntax)
+      - [Example](#example)
   - [Authenticate with a token](#authenticate-with-a-token)
+    - [Syntax](#syntax)
+    - [Examples](#examples)
 - [Write data with the v1 API](#write-data-with-the-v1-api)
   - [Write using Telegraf](#write-using-telegraf)
+    - [Other Telegraf configuration options](#other-telegraf-configuration-options)
   - [Write using client libraries](#write-using-client-libraries)
   - [Write using HTTP clients](#write-using-http-clients)
+    - [v1 API /write parameters](#v1-api-write-parameters)
+    - [Timestamp precision](#timestamp-precision)
+    - [Use clients for interactive testing](#use-clients-for-interactive-testing)
   - [v1 CLI not supported](#v1-cli-not-supported)
 - [Query data](#query-data)
+  - [Query using the v1 API](#query-using-the-v1-api)
+    - [v1 API /query parameters](#v1-api-query-parameters)
+    - [Timestamp precision](#timestamp-precision)
+    - [Query using HTTP clients](#query-using-http-clients)
+  - [Query using Flight SQL](#query-using-flight-sql)
+  - [Database management with InfluxQL unsupported](#database-management-with-influxql-unsupported)
+
+<!-- /TOC -->
 <!--
 <a class="btn" href="/influxdb/cloud-dedicated/api/v1/">View v1 API reference documentation</a>
 -->
@@ -184,7 +204,7 @@ The following table shows `outputs.influxdb` parameters and values writing
 to InfluxDB Cloud Dedicated: 
 
 Parameter                | Ignored                  | Value
--------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------
+-------------------------|--------------------------|---------------------------------------------------------------------------------------------------
 `database`               | Honored                  | Database name
 `retention_policy`       | Honored, but discouraged | [Duration](/influxdb/cloud-iox/reference/glossary/#duration)
 `username`               | Ignored                  | String or empty
@@ -291,16 +311,16 @@ Include the following in your request:
 
 #### v1 API /write parameters
 
-Parameter              | Allowed in   | Ignored | Value
------------------------|--------------|---------|---------------------------------------------------------------------------------------------------
-`consistency`          | Query string | Ignored | N/A
-`db` {{% req " \*" %}} | Query string | Honored | Database name
-`precision`            | Query string | Honored | [Timestamp precision](#timestamp-precision): `ns`, `u`, `ms`, `s`, `m`, `h` <!-- default? ns? -->
-`rp`                   | Query string | Honored | Honored, but discouraged
-`u`                    | Query string | Ignored | String
-`p`                    | Query string | Honored | For [query string authentication](#query-string-authentication), a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
-`Content-Encoding`     | Header       | Honored | `gzip` (compressed data) or `identity` (uncompressed)
-`Authorization`        | Header       | Honored | `Bearer DATABASE_TOKEN`, `Token DATABASE_TOKEN`, or `Basic <base64 [USERNAME]:DATABASE_TOKEN>`
+Parameter              | Allowed in   | Ignored                  | Value
+-----------------------|--------------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+`consistency`          | Query string | Ignored                  | N/A
+`db` {{% req " \*" %}} | Query string | Honored                  | Database name
+`precision`            | Query string | Honored                  | [Timestamp precision](#timestamp-precision)
+`rp`                   | Query string | Honored, but discouraged | Retention policy
+`u`                    | Query string | Ignored                  | For [query string authentication](#query-string-authentication), any arbitrary string
+`p`                    | Query string | Honored                  | For [query string authentication](#query-string-authentication), a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
+`Content-Encoding`     | Header       | Honored                  | `gzip` (compressed data) or `identity` (uncompressed)
+`Authorization`        | Header       | Honored                  | `Bearer DATABASE_TOKEN`, `Token DATABASE_TOKEN`, or `Basic <base64 [USERNAME]:DATABASE_TOKEN>`
 
 {{% caption %}}{{% req " \*" %}} = {{% req "Required" %}}{{% /caption %}}
 
@@ -348,11 +368,124 @@ If you need to test writes interactively, see how to [write using HTTP clients](
 
 ### Query using the v1 API
 
-Use the v1 API `/query` endpoint and InfluxQL with InfluxDB Cloud Dedicated when you 
+Use the v1 API `/query` endpoint and [InfluxQL](/influxdb/cloud-dedicated/reference/glossary/#influxql) with InfluxDB Cloud Dedicated when you 
 bring InfluxDB 1.x workloads that already use them.
 
+InfluxDB Cloud Dedicated 
+
+{{% note %}}
 For new workloads, see how to [query using Flight SQL](#query-using-flight-sql).
+{{% /note %}}
+
+#### v1 API /query parameters
+
+Parameter | Allowed in | Ignored | Value
+----------|------------|---------|-------------------------------------------------------------------------
+`chunked` |            | Ignored | N/A _(Note that an unbounded query might return a large amount of data)_
+`db`        | Query string | Honored    | Database name                               |
+`epoch`     | Query string | Honored    | [Timestamp precision](#timestamp-precision) |
+`p` | Query string | Honored | Database token
+`pretty` | Query string | Ignored | N/A
+`u`                    | Query string | Ignored                  | For [query string authentication](#query-string-authentication), any arbitrary string
+`p`                    | Query string | Honored                  | For [query string authentication](#query-string-authentication), a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
+`rp` | Query string | Honored, but discouraged | Retention policy
+
+#### Timestamp precision
+
+Use one of the following values for timestamp precision:
+
+- `ns`: nanoseconds
+- `u`: microseconds <!-- @TODO: test that differs from `us` used in v2?? -->
+- `ms`: milliseconds
+- `s`: seconds
+- `m`: minutes
+- `h`: hours
+
+#### Query using HTTP clients
+
+Use HTTP clients and your custom code to send InfluxQL queries to the v1 API `/query` endpoint.
+
+{{% api-endpoint endpoint="https://cluster-id.influxdb.io/query" method="get"%}}
+
+Include the following in your request:
+
+- A `db` query string parameter with the name of the database to write to.
+- A [database token](/influxdb/cloud-dedicated/admin/tokens/) in one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [token authentication](#authenticate-with-a-token).
+- A `q` query string parameter with the InfluxQL query.
+- Optional [parameters](#v1-api-query-parameters).
+
+The following examples show how to query using the v1 API `/query` endpoint and InfluxQL:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[cURL](#curl)
+[Python](#python)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!-- Begin cURL -->
+```sh
+{{% get-shared-text "api/cloud-dedicated/bearer-auth-v1-query.sh" %}}
+```
+
+```sh
+{{% get-shared-text "api/cloud-dedicated/token-auth-v1-query.sh" %}}
+```
+<!-- End cURL -->
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!-- Begin python influxdb v1 client library -->
+```py
+from influxdb import InfluxDBClient
+import os
+
+DATABASE_NAME = os.getenv('CLOUD_DEDICATED_DATABASE_NAME')
+DATABASE_TOKEN = os.getenv('CLOUD_DEDICATED_DATABASE_TOKEN')
+INFLUXDB_URL=os.getenv('CLOUD_DEDICATED_URL')
+INFLUXDB_HOST=os.getenv('CLOUD_DEDICATED_HOST')
+
+def influxdb_v1_client(headers=None):
+  client = InfluxDBClient(
+                        host=INFLUXDB_HOST,
+                        port=443,
+                        ssl=True,
+                        database=DATABASE_NAME,
+                        username='USERNAME',
+                        password=DATABASE_TOKEN,
+                        headers=headers
+                        )
+  print(vars(client))
+  return client
+
+def query_influxql():
+  client = influxdb_v1_client()
+  response = client.query('SHOW MEASUREMENTS')
+  print(response)
+  return response
+```
+<!-- End python -->
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+The response body contains query results in JSON format.
 
 ### Query using Flight SQL
 
 Use Flight SQL clients with gRPC and SQL to query data stored in an InfluxDB Cloud Dedicated database.
+
+### Database management with InfluxQL (unsupported)
+
+InfluxDB Cloud Dedicated doesn't allow InfluxQL commands for managing or modifying databases.
+You can't use the following InfluxQL commands:
+
+```sql
+SELECT INTO
+CREATE
+DELETE
+DROP
+GRANT
+EXPLAIN
+REVOKE
+ALTER
+SET
+KILL
+```
