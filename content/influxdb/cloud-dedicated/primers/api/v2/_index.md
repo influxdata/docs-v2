@@ -89,17 +89,17 @@ Replace the following:
 
 InfluxDB Cloud Dedicated API responses use standard HTTP status codes.
 InfluxDB Cloud Dedicated API response body messages may differ from InfluxDB Cloud and InfluxDB OSS.
+
 ### Errors
 
 ```sh
 Status code: 400
 Reason: Bad Request
-HTTP response body: {"code":"invalid","message":"missing org/bucket value"}
+HTTP response body: {"code":"invalid","message":"missing bucket value"}
 ```
 
-The request is missing the `org` or `bucket` values.
+The request is missing the `bucket` parameter value.
 For `bucket`, provide the database name.
-For `org`, provide a non-zero-length string. InfluxDB ignores it, but it can't be empty.
 
 ## Write data
 
@@ -178,13 +178,11 @@ Create a v2 API client using the [`influxdb-client-js`](https://github.com/influ
    const influxDB = new InfluxDB({'https://cluster-id.influxdb.io', DATABASE_TOKEN})
    ```
 
-   The client (`influxDB`) provides the `getWriteAPI(org, bucket, precision, writeOptions)` method that returns a client for writing data to the `/api/v2/write` endpoint.
-
-2. Call the [`InfluxDB.getWriteApi(org, bucket, precision, writeOptions)` method](https://influxdata.github.io/influxdb-client-js/influxdb-client.influxdb.getwriteapi.html) to instantiate a **write client**.
+2. Call the client's [`getWriteApi(org, bucket, precision, writeOptions)` method](https://influxdata.github.io/influxdb-client-js/influxdb-client.influxdb.getwriteapi.html) to instantiate a **write client** for writing data to the `/api/v2/write` endpoint.
    
    Provide the following parameter values:
    
-   - `org`: a non-zero-length string. InfluxDB ignores the value, but it can't be empty.
+   - `org`: an arbitrary string (the parameter is ignored by InfluxDB Cloud Dedicated, but required by the client)
    - `bucket`: InfluxDB Cloud Dedicated database
    - `precision`: a [timestamp precision](#timestamp-precision) (`ns`, `u`, `ms`, `s`, `m`, `h`)
 
@@ -207,13 +205,12 @@ Create a v2 API client using the [influxdb-client-python](https://github.com/inf
 
   - `url=`: InfluxDB Cloud Dedicated cluster URL
   - `token=`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
-  - `org`: a non-zero-length string. InfluxDB ignores the value, but it can't be empty.
+  - `org`: an arbitrary string (the parameter is ignored by InfluxDB Cloud Dedicated, but required by the client)
 
   ```py
-  
   influxdb_client = InfluxDBClient(url='https://cluster-id.influxdb.io',
                                   token='DATABASE_TOKEN',
-                                  org='placeholder_org')
+                                  org='ignored')
   ```
 
 2. Call the `InfluxDBClient.write_api(write_options)` method to instantiate a **write client**.
