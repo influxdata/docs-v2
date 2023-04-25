@@ -44,20 +44,20 @@ influxdb:
     "2.1": 2.1.0
 
 influxdb_cloud:
-  name: InfluxDB Cloud
-  altname: InfluxDB Cloud
+  name: InfluxDB Cloud (TSM)
+  altname: InfluxDB Cloud (TSM)
   namespace: influxdb
   versions: [cloud]
   list_order: 3
   latest: cloud
 
-influxdb_cloud_iox:
-  name: InfluxDB Cloud (IOx)
-  altname: InfluxDB Cloud (IOx)
+influxdb_cloud_serverless:
+  name: InfluxDB Cloud Serverless
+  altname: InfluxDB Cloud Serverless
   namespace: influxdb
-  versions: [cloud-iox]
+  versions: [cloud-serverless]
   list_order: 2
-  latest: cloud-iox
+  latest: cloud-serverless
 
 influxdb_cloud_dedicated:
   name: InfluxDB Cloud Dedicated

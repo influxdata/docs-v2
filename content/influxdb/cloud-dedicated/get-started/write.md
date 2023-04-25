@@ -22,7 +22,7 @@ related:
 InfluxDB provides many different options for ingesting or writing data, including
 the following:
 
-- [InfluxDB HTTP API (v1 and v2)](/influxdb/cloud-iox/reference/api/)
+- [InfluxDB HTTP API (v1 and v2)](/influxdb/cloud-serverless/reference/api/)
 - [`influx` CLI (v1 and v2)](/influxdb/cloud-dedicated/reference/cli/influx/)
 - [Telegraf](/{{< latest "telegraf" >}}/)
 - [InfluxDB client libraries](/influxdb/cloud-dedicated/api-guide/client-libraries/)
@@ -50,12 +50,12 @@ Each line of line protocol contains the following elements:
   Tag keys and values are unquoted strings. _Spaces, commas, and equal characters must be escaped._
 - {{< req "\*" >}} **field set**: Comma-delimited list of key value pairs, each representing a field.
   Field keys are unquoted strings. _Spaces and commas must be escaped._
-  Field values can be [strings](/influxdb/cloud-iox/reference/syntax/line-protocol/#string) (quoted),
-  [floats](/influxdb/cloud-iox/reference/syntax/line-protocol/#float),
-  [integers](/influxdb/cloud-iox/reference/syntax/line-protocol/#integer),
-  [unsigned integers](/influxdb/cloud-iox/reference/syntax/line-protocol/#uinteger),
-  or [booleans](/influxdb/cloud-iox/reference/syntax/line-protocol/#boolean).
-- **timestamp**: [Unix timestamp](/influxdb/cloud-iox/reference/syntax/line-protocol/#unix-timestamp)
+  Field values can be [strings](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#string) (quoted),
+  [floats](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#float),
+  [integers](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#integer),
+  [unsigned integers](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#uinteger),
+  or [booleans](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#boolean).
+- **timestamp**: [Unix timestamp](/influxdb/cloud-dedicated/reference/syntax/line-protocol/#unix-timestamp)
   associated with the data. InfluxDB supports up to nanosecond precision.
   _If the precision of the timestamp is not in nanoseconds, you must specify the
   precision when writing the data to InfluxDB._
@@ -509,4 +509,4 @@ above is the manual way of writing data, but there are other options available:
 - [Write data to InfluxDB using no-code solutions](/influxdb/cloud-iox/write-data/no-code/)
 - [Write data to InfluxDB using developer tools](/influxdb/cloud-iox/write-data/developer-tools/) -->
 
-{{< page-nav prev="/influxdb/cloud-iox/get-started/setup/" next="/influxdb/cloud-dedicated/get-started/query/" keepTab=true >}}
+{{< page-nav prev="/influxdb/cloud-dedicated/get-started/setup/" next="/influxdb/cloud-dedicated/get-started/query/" keepTab=true >}}
