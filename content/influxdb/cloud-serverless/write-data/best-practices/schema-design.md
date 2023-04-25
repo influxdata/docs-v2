@@ -142,7 +142,7 @@ A sparse schema is one where, for many rows, columns contain null values.
 
  These generally stem from the following:
 - [non-homogenous measurement schemas](#measurement-schemas-should-be-homogenous)
-- [writing individual fields with different timestamps]()
+- [writing individual fields with different timestamps](#writing-individual-fields-with-different-timestamps)
 
 Sparse schemas require the InfluxDB query engine to evaluate many
 null columns, adding unnecessary overhead to storing and querying data.
@@ -173,7 +173,8 @@ A measurement full of null values has a ["sparse" schema](#avoid-sparse-schemas)
 {{% expand "View example of a sparse, non-homogenous schema" %}}
 
 Non-homogenous schemas are often caused by writing points to a measurement with
-inconsistent tag or field sets. For example, lets say data is collected from two
+inconsistent tag or field sets.
+In the following example, data is collected from two
 different sources and each source returns data with different tag and field sets.
 
 {{< flex >}}
@@ -199,7 +200,7 @@ different sources and each source returns data with different tag and field sets
 {{< /flex >}}
 
 These sets of data written to the same measurement will result in a measurement 
-full of null values (also known as a sparse schema):
+full of null values (also known as a _sparse schema_):
 
 | time                 | source | src | code | currency | crypto  |       price |       cost |      volume |
 | :------------------- | :----- | --: | :--- | :------- | :------ | ----------: | ---------: | ----------: |
