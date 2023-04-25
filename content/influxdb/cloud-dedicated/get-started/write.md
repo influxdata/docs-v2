@@ -333,7 +333,7 @@ To write data to InfluxDB Cloud Dedicated using Go, use the
     touch write.go
     ```
 
-2.  Inside of `main.go` instantiate an InfluxDB write client to write the
+2.  Inside of `write.go` instantiate an InfluxDB write client to write the
     [line protocol above](#home-sensor-data-line-protocol) to InfluxDB.
 
     1.  Import the following packages
