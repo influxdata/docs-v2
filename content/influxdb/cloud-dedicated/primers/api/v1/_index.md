@@ -26,7 +26,7 @@ The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrat
 
 - [Authenticate API requests](#authenticate-api-requests)
   - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
-  - [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
+  - [Authenticate with a token](#authenticate-with-a-token)
 - [Write data with the v1 API](#write-data-with-the-v1-api)
   - [Write using Telegraf](#write-using-telegraf)
   - [Write using client libraries](#write-using-client-libraries)
@@ -45,7 +45,7 @@ With the InfluxDB v1 API, you can use database tokens in InfluxDB 1.x username a
 schemes or in the InfluxDB v2 `Authorization: Token` scheme:
 
 - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
-- [Authenticate using the Authorization Token scheme](#authenticate-with-the-token-scheme)
+- [Authenticate with a token](#authenticate-with-a-token)
 
 ### Authenticate with a username and password scheme
 
@@ -56,7 +56,7 @@ as the `password` credential.
 When authenticating requests to the v1 API `/write` and `/query` endpoints, InfluxDB Cloud Dedicated checks that `password` (`p`) is an authorized [database token](/influxdb/cloud-dedicated/admin/tokens/).
 InfluxDB Cloud ignores the `username` (`u`) parameter in the request.
 
-Use one of the following authentication schemes with clients that support Basic authentication or query parameters (that don't support the [`Authorization: Token` scheme](#authenticate-with-the-token-scheme)):
+Use one of the following authentication schemes with clients that support Basic authentication or query parameters (that don't support [token authentication](#authenticate-with-a-token)):
 
 - [Basic authentication](#basic-authentication)
 - [Query string authentication](#query-string-authentication)
@@ -119,23 +119,43 @@ Replace the following:
 - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
 - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
-### Authenticate with the Token scheme
+### Authenticate with a token
 
-Use the `Authorization` header with the `Token` scheme to authenticate v1 API requests.
+Use the `Authorization: Bearer` or the `Authorization: Token` scheme to pass a [database token](/influxdb/cloud-dedicated/admin/tokens/) for authenticating
+v1 API `/write` and `/query` requests.
+In the InfluxDB Cloud Dedicated HTTP API, the schemes are equivalent.
+The `Token` scheme is used in the InfluxDB 2.x API.
+The [`Bearer` scheme](https://www.rfc-editor.org/rfc/rfc6750#page-14) is more common.
+Support for one or the other may vary across InfluxDB API clients.
 
 #### Syntax
+
+```http
+Authorization: Bearer DATABASE_TOKEN
+```
 
 ```http
 Authorization: Token DATABASE_TOKEN
 ```
 
-#### Example
+#### Examples
 
-The following example shows how to use cURL with the `Token` authentication scheme and a [database token](/influxdb/cloud-dedicated/admin/tokens/):
+Use `Bearer` to authenticate a write request:
 
 ```sh
-{{% get-shared-text "api/cloud-dedicated/token-auth.sh" %}}
+{{% get-shared-text "api/cloud-dedicated/bearer-auth-v1-write.sh" %}}
 ```
+
+Use `Token` to authenticate a write request:
+
+```sh
+{{% get-shared-text "api/cloud-dedicated/token-auth-v1-write.sh" %}}
+```
+
+Replace the following:
+
+- **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
+- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
 <!-- ## Responses -->
 
@@ -266,7 +286,7 @@ Include the following in your request:
 
 - A `db` query string parameter with the name of the database to write to.
 - A request body that contains a string of data in [line protocol](/influxdb/cloud-iox/reference/syntax/line-protocol/) syntax.
-- A [database token](/influxdb/cloud-dedicated/admin/tokens/) in one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [`Token` authentication](#authenticate-with-the-token-scheme).
+- A [database token](/influxdb/cloud-dedicated/admin/tokens/) in one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [token authentication](#authenticate-with-a-token).
 - Optional [parameters](#v1-api-write-parameters).
 
 #### v1 API /write parameters
@@ -280,7 +300,7 @@ Parameter              | Allowed in   | Ignored | Value
 `u`                    | Query string | Ignored | String
 `p`                    | Query string | Honored | For [query string authentication](#query-string-authentication), a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token) with permission to write to the database
 `Content-Encoding`     | Header       | Honored | `gzip` (compressed data) or `identity` (uncompressed)
-`Authorization`        | Header       | Honored | `Token DATABASE_TOKEN` or `Basic <base64 [USERNAME]:DATABASE_TOKEN>`
+`Authorization`        | Header       | Honored | `Bearer DATABASE_TOKEN`, `Token DATABASE_TOKEN`, or `Basic <base64 [USERNAME]:DATABASE_TOKEN>`
 
 {{% caption %}}{{% req " \*" %}} = {{% req "Required" %}}{{% /caption %}}
 

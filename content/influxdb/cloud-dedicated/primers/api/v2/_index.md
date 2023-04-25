@@ -23,9 +23,9 @@ For help finding the best workflow for your situation, [contact Support](mailto:
 <!-- TOC -->
 
 - [Authenticate API requests](#authenticate-api-requests)
-  - [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
+  - [Authenticate with a token](#authenticate-with-a-token)
     - [Syntax](#syntax)
-    - [Example](#example)
+    - [Examples](#examples)
 - [Responses](#responses)
   - [Errors](#errors)
 - [Write data](#write-data)
@@ -45,27 +45,36 @@ For help finding the best workflow for your situation, [contact Support](mailto:
 
 ## Authenticate API requests
 
-  <!--TODO: or the `Authorization: Bearer`(???) scheme -->
-  
 InfluxDB requires each write request to be authenticated with a
 [database token](/influxdb/cloud-dedicated/admin/tokens/).
-Use the [`Authorization: Token` scheme](#authenticate-with-the-token-scheme) to provide the token in v2 API requests.
 
-### Authenticate with the Token scheme
+### Authenticate with a token
 
-To authenticate using the `Token` scheme, pass an `Authorization: Token` header with a
-[database token](/influxdb/cloud-dedicated/admin/tokens/) that has sufficient read/write permissions to the database.
+Use the `Authorization: Bearer` or the `Authorization: Token` scheme to pass a [database token](/influxdb/cloud-dedicated/admin/tokens/) that has _write_ permission to your database.
+In the InfluxDB Cloud Dedicated HTTP API, the schemes are equivalent.
+The `Token` scheme is used in the InfluxDB 2.x API.
+The [`Bearer` scheme](https://www.rfc-editor.org/rfc/rfc6750#page-14) is more common.
+Support for one or the other may vary across InfluxDB API clients.
 
 #### Syntax
+
+```http
+Authorization: Bearer DATABASE_TOKEN
+```
 
 ```http
 Authorization: Token DATABASE_TOKEN
 ```
 
-#### Example
+#### Examples
 
-The following example shows how to use the **cURL** command line tool
-and the InfluxDB Cloud Dedicated v2 API to write line protocol data to a database:
+Use `Bearer` to authenticate a write request:
+
+```sh
+{{% get-shared-text "api/cloud-dedicated/bearer-auth-v2-write.sh" %}}
+```
+
+Use `Token` to authenticate a write request:
 
 ```sh
 {{% get-shared-text "api/cloud-dedicated/token-auth-v2-write.sh" %}}
@@ -248,7 +257,7 @@ Include the following in your request:
 
 - A `bucket` query string parameter with the name of the database to write to.
 - A request body that contains a string of data in [line protocol](/influxdb/cloud-iox/reference/syntax/line-protocol/) syntax.
-- A [database token](/influxdb/cloud-dedicated/admin/tokens/) in the [`Token` authentication scheme](#authenticate-with-the-token-scheme).
+- A [database token](/influxdb/cloud-dedicated/admin/tokens/) in a [token authentication scheme](#authenticate-with-a-token).
 - Optional [parameters](#v2-api-apiv2write-parameters).
 
 #### v2 API /api/v2/write parameters
