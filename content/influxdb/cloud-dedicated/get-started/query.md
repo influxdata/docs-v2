@@ -217,7 +217,7 @@ _If your projects virtual environment is already running, skip to step 3._
 
     - `pyarrow` {{< req text="\*" color="magenta" >}}
     - `flightsql-dbapi` {{< req text="\*" color="magenta" >}}
-    - `pypinflux3` {{< req text="\*" color="magenta" >}}
+    - `pyinflux3` {{< req text="\*" color="magenta" >}}
     - `pandas`
     - `tabulate` _(to return formatted tables)_
 

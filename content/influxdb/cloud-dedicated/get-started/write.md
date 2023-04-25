@@ -237,7 +237,7 @@ dependencies to your current project.
 
     - `pyarrow`
     - `flightsql-dbapi`
-    - `pypinflux3`
+    - `pyinflux3`
 
     ```python
     pip install pyarrow flightsql-dbapi pyinflux3
