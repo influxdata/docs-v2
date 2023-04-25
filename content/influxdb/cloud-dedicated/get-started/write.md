@@ -237,7 +237,7 @@ dependencies to your current project.
     source ./envs/virtual-env/bin/activate
     ```
 
-3.  Load the following dependencies:
+3.  Install the following dependencies:
 
     - `pyarrow`
     - `flightsql-dbapi`
@@ -247,8 +247,8 @@ dependencies to your current project.
     pip install pyarrow flightsql-dbapi pyinflux3
     ```
 
-4.  Build your python script to write the [line protocol above](#home-sensor-data-line-protocol)
-    to InfluxDB. _These can be structured as a Python script or executed in a `python` shell._
+4.  Build your python script to write the [sample line protocol](#home-sensor-data-line-protocol)
+    to InfluxDB. _Save the script to a file and run `python SCRIPT_NAME` or run `python` to write and execute the script using the interactive shell._
 
     1.  Import the `InfluxDBClient3` object from the `influxdb_client_3` module.
     2.  Use the `InfluxDBClient3` constructor to instantiate an InfluxDB Client.
@@ -256,7 +256,7 @@ dependencies to your current project.
         Provide the following credentials:
 
         - **host**: InfluxDB Cloud Dedicated cluster URL (without protocol or trailing slash)
-        - **org**: _Leave as an empty string_
+        - **org**: _Leave as an empty string_ (InfluxDB Cloud Dedicated ignores `org`, but the client requires the parameter)
         - **token**: Database token with write access to the target database
         - **database**: Database name to write to
     
