@@ -13,13 +13,19 @@ menu:
 v2: /influxdb/v2.0/api-guide/client-libraries/
 ---
 
-InfluxDB client libraries are language-specific packages that integrate with the InfluxDB 2.0 API and support both **InfluxDB 1.8+** and **InfluxDB 2.0**.
+InfluxDB client libraries are language-specific packages that integrate with InfluxDB APIs and support **InfluxDB 1.8+** and **InfluxDB 2.x**.
 
->**Note:** We recommend using the new client libraries on this page to leverage the new read (via Flux) and write APIs and prepare for conversion to InfluxDB 2.0 and InfluxDB Cloud. For more information, see [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1.10/tools/api/#influxdb-2-0-api-compatibility-endpoints). Client libraries for [InfluxDB 1.7 and earlier](/influxdb/v1.7/tools/api_client_libraries/) may continue to work, but are not maintained by InfluxData.
+{{% warn %}}
 
-## Client libraries
+Client libraries for [InfluxDB 1.7 and earlier](/influxdb/v1.7/tools/api_client_libraries/) may continue to work, but aren't maintained by InfluxData.
 
-Functionality varies between client libraries. Refer to client libraries on GitHub for specifics regarding each client library.
+{{% /warn %}}
+
+## Client libraries for InfluxDB 2.x and 1.8+
+
+InfluxDB 2.x client libraries use InfluxDB `/api/v2` endpoints and work with [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1.10/tools/api/#influxdb-2-0-api-compatibility-endpoints).
+Functionality varies among client libraries.
+For specifics about a client library, see the library's GitHub repository.
 
 ### Arduino
 
@@ -91,9 +97,7 @@ To install and use the Python client library, follow the [instructions below](#i
     ```sh
     database = "<my-db>"
     token = "<my-token>"
-    client = influxdb_client.InfluxDBClient(
-    url="http://localhost:8086",
-    token=token,
+    client = influxdb_client.InfluxDBClient(url="http://localhost:8086",token=token)
     ```
 
     > **Note:** The database (and retention policy, if applicable) are converted to a [bucket](/v2.0/reference/glossary/#bucket) data store compatible with InfluxDB 2.0.
