@@ -17,8 +17,9 @@ alt_engine: /influxdb/cloud/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) to query and visualize data stored in an
-InfluxDB Cloud dedicated database.
-Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-flightsql-datasource) to query InfluxDB with the Flight SQL protocol.
+InfluxDB bucket powered by InfluxDB IOx.
+Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-flightsql-datasource)
+to query InfluxDB with the Flight SQL protocol.
 
 > [Grafana] enables you to query, visualize, alert on, and explore your metrics,
 > logs, and traces wherever they are stored.
@@ -29,209 +30,95 @@ Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-fl
 
 <!-- TOC -->
 
-- [Install Grafana](#install-grafana)
-- [Download the Grafana Flight SQL plugin](#download-the-grafana-flight-sql-plugin)
-- [Extract the Flight SQL plugin](#extract-the-flight-sql-plugin)
-- [Install the Grafana Flight SQL plugin](#install-the-grafana-flight-sql-plugin)
-  - [Install with Docker Run](#install-with-docker-run)
-  - [Install with Docker-Compose](#install-with-docker-compose)
-- [Configure the Flight SQL datasource](#configure-the-flight-sql-datasource)
+- [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
+- [Install the FlightSQL plugin](#install-the-flightsql-plugin)
+- [Create and configure a FlightSQL datasource](#create-and-configure-a-flightsql-datasource)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
 
 <!-- /TOC -->
 
-## Install Grafana
+## Install Grafana or login to Grafana Cloud
 
-Follow [Grafana instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
-to Install Grafana for your operating system.
+If using the open source version of **Grafana**, follow the
+[Grafana installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
+to install Grafana for your operating system.
+If using **Grafana Cloud**, login to your Grafana Cloud instance.
 
-{{% warn %}}
-Because Grafana Flight SQL Plugin is a custom plugin, you can't use it with Grafana Cloud.
-For more information, see [Find and Use Plugins in the Grafana Cloud documentation](https://grafana.com/docs/grafana-cloud/fundamentals/find-and-use-plugins/)
-{{% /warn %}}
-
-## Create a custom plugins director
-
-Create a **custom plugins directory** to store the Flight SQL plugin in and
-navigate into the directory.
-_The custom plugins directory can be anywhere in your filesystem that Grafana can access._
-
-{{% code-callout "/custom/plugins/directory" %}}
-```sh
-mkdir -p /custom/plugins/directory/ && cd $_
-```
-{{% /code-callout %}}
-
-## Download the Grafana Flight SQL plugin
-
-Use the following shell script to download and extract the latest
-[Grafana Flight SQL plugin](https://github.com/influxdata/grafana-flightsql-datasource/releases)
-into the the current working directory.
-**Run the following inside your [custom plugin directory](#create-a-custom-plugins-directory):**
-
-```sh
-curl -s https://docs.influxdata.com/downloads/download-grafana-flightsql-plugin.sh | bash
-```
-
-{{< expand-wrapper >}}
-{{% expand "View the script source code" %}}
-
-```sh
-{{% readfile "/static/downloads/download-grafana-flightsql-plugin.sh" %}}
-```
-
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
-{{% warn %}}
-The Grafana Flight SQL plugin is experimental and subject to change.
-{{% /warn %}}
-
-<span id="custom-grafana-plugins-directory"></span>
-
-## Install the Grafana Flight SQL plugin
-
-Install the custom-built Flight SQL plugin in a local or Docker-based instance
-of Grafana OSS or Grafana Enterprise.
+## Install the FlightSQL plugin
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[Local](#)
-[Docker](#)
+[Local Grafana](#)
+[Grafana Cloud](#)
 {{% /tabs %}}
-
 {{% tab-content %}}
-<!---------------------------- BEGIN LOCAL CONTENT ---------------------------->
+<!---------------------------- BEGIN LOCAL GRAFANA ---------------------------->
 
-  Follow these steps to edit the Grafana configuration file or set environment variables to install the plugin. 
-  
-  {{% note %}}
+When using the local version of Grafana, you can install the FlightSQL plugin
+with the [`grafana-cli` CLI](https://grafana.com/docs/grafana/latest/cli/) or in
+the Grafana user interface (UI).
 
-  If you used **Homebrew** to install Grafana, follow the steps to edit the
-  `/homebrew/install/path/etc/grafana/grafana.ini` configuration file.
-  
-  Replace `/homebrew/install/path` with the output of the [`brew --prefix` command](https://docs.brew.sh/Manpage#--prefix---unbrewed---installed-formula-) for your system.
+- [Use grafana-cli](#use-grafana-cli)
+- [Use the Grafana UI](#use-the-grafana-ui)
 
-  For information about where to find your Grafana configuration file or what
-  environment variables are available, see the
-  [Configure Grafana documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/).
-  
-  {{% /note %}}
-    
-  1.  Set your Grafana custom plugin directory. Do one of the following:
+### Use grafana-cli
 
-      - In your Grafana configuration file, set the `paths.plugins` directive 
-        to the path of your [custom plugins directory](#custom-grafana-plugins-directory):
-      
-        ```ini
-        [paths]
-        plugins = /custom/plugins/directory/
-        ```
+Run the following command to install the FlightSQL plugin:
 
-      - Set the `GF_PATHS_PLUGINS` environment variable to the path
-        of your [custom plugins directory](#custom-grafana-plugins-directory):
-      
-        ```sh
-        GF_PATHS_PLUGINS=/custom/plugins/directory/
-        ```
+```sh
+grafana-cli plugins install influxdata-flightsql-datasource
+```
 
-  2.  Allow Grafana to load the unsigned plugin. The Flight SQL plugin is unsigned and Grafana requires you to explicitly load unsigned plugins.
-      Do one of the following:
+After installing the plugin, you may need to restart your Grafana server.
 
-      - Set the `plugins.allow_loading_unsigned_plugins` directive in your
-        Grafana configuration file to allow the `influxdata-flightsql-datasource`:
+### Use the Grafana UI
 
-        ```ini
-        [plugins]
-        allow_loading_unsigned_plugins = influxdata-flightsql-datasource
-        ```
+1. In the Grafana UI, navigate to **Configuration** > **Plugins**.
+2. Search for and select the **FlightSQL** plugin.
+3. Click **Install**.
 
-      - Set the `GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS` environment variable
-        to `influxdata-flightsql-datasource`:
-
-        ```sh
-        GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=influxdata-flightsql-datasource
-        ```
-
-4.  Restart Grafana to apply the configuration changes.
-
-<!----------------------------- END LOCAL CONTENT ----------------------------->
+<!----------------------------- END LOCAL GRAFANA ----------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
-<!---------------------------- BEGIN DOCKER CONTENT --------------------------->
-To add the Flight SQL plugin to your pre-existing Grafana Docker deployment,
-use `docker run` or `docker-compose` to do the following:
+<!---------------------------- BEGIN GRAFANA CLOUD ---------------------------->
 
--  Mount the plugin directory (`/custom/plugins/directory/influxdata-flightsql-datasource`) as a volume to your Grafana container.
--  Set the `GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS` environment variable to the plugin name. The Flight SQL plugin is unsigned and Grafana requires you to explicitly load unsigned plugins. 
+1. In your Grafana Cloud instance, navigate to **Administration** > **Plugins**.
+2. Search for and select the **FlightSQL** plugin.
+3. Click **Install via grafana.com** to navigate to the plugin page.
+4. On the plugin page, click **Install plugin**.
 
-### Install with Docker Run
+After a moment, Grafana Cloud completes the plugin installation in your
+Grafana Cloud instance.
 
-{{% code-callout "/custom/plugins/directory" %}}
-```sh 
-docker run \
-  --volume $PWD/influxdata-flightsql-datasource:/custom/plugins/directory/influxdata-flightsql-datasource \
-  --publish 3000:3000 \
-  --name grafana \
-  --env GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=influxdata-flightsql-datasource \
-  grafana/grafana:latest
-```
-{{% /code-callout %}}
-
-### Install with Docker-Compose
-
-{{% code-callout "/custom/plugins/directory" %}}
-```yaml
-version: '3'
-services:
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - 3000:3000
-    environment:
-      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=influxdata-flightsql-datasource
-    volumes: 
-      - ./influxdata-flightsql-datasource:/custom/plugins/directory/influxdata-flightsql-datasource
-    restart: always
-```
-{{% /code-callout %}}
-
-- Replace `/custom/plugins/directory` with the path
-  of your [custom plugins directory](#custom-grafana-plugins-directory).
-<!----------------------------- END DOCKER CONTENT ---------------------------->
+<!----------------------------- END GRAFANA CLOUD ----------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-## Configure the Flight SQL datasource
+## Create and configure a FlightSQL datasource
 
 1.  In your Grafana user interface (UI), navigate to **Data Sources**.
-2.  Click **Add data source**.
-3.  Search for and select the **Flight SQL** plugin.
-4   Provide a name for your datasource.
+2.  Click **Add new data source**.
+3.  Search for and select the **FlightSQL** plugin.
+4.  Provide a name for your datasource.
 5.  Add your connection credentials:
 
     - **Host**: Provide the host and port of your Flight SQL client.
-      For InfluxDB {{< current-version >}}, this is your
-      {{% cloud-only %}}[InfluxDB Cloud region domain](/influxdb/cloud-dedicated/reference/regions/){{% /cloud-only %}}
-      {{% oss-only %}}InfluxDB domain{{% /oss-only %}}
-      and port 443. For example:
+      For InfluxDB Cloud Dedicated, this is your cluster URL and port 443:
 
       ```
-      us-east-1-1.aws.cluster-id.influxdb.io:443
+      cluster-id.influxdb.io:443
       ```
 
     - **AuthType**: Select **token**.
-    - **Token**: Provide your InfluxDB API token with read access to the databases
+    - **Token**: Provide your InfluxDB API token with read access to the buckets
       you want to query.
-    - **Require TLS/SSL**:
-      {{% cloud-only %}}Enable this toggle.{{% /cloud-only %}}
-      {{% oss-only %}}If TLS is configured and enabled on your InfluxDB instance, enable this toggle.{{% /oss-only %}}
+    - **Require TLS/SSL**: Enable this toggle.
 
 6.  Add connection **MetaData**.
-    Provide optional key-value pairs to send to your Flight SQL client.
+    Provide key-value pairs to send to your Flight SQL client.
 
-    InfluxDB {{< current-version >}} requires your **database name**:
+    InfluxDB Cloud Serverless requires your **database name**:
     
     - **Key**: `iox-namespace-name`
     - **Value**: Database name
@@ -244,8 +131,8 @@ services:
 
 ## Query InfluxDB with Grafana
 
-After you [configure and save a Flight SQL datasource](#configure-the-flight-sql-datasource),
-use Grafana to build, run, and inspect queries against InfluxDB databases.
+After you [configure and save a FlightSQL datasource](#create-and-configure-a-flightsql-datasource),
+use Grafana to build, run, and inspect queries against InfluxDB buckets.
 
 {{% note %}}
 {{% sql/sql-schema-intro %}}
@@ -264,7 +151,8 @@ To learn more, see [Query Data](/influxdb/cloud-dedicated/query-data/sql/).
                     then you must include one or more of the queried columns in a `GROUP BY` or `PARTITION BY` clause.
                     SQL will return the aggregation for each group or partition.
 4. Click **Run query** to execute the query.
-{{< img-hd src="/img/influxdb/cloud-dedicated-grafana-flightsql-explore-query-1.png" alt="Grafana Flight SQL datasource query" />}}
+
+{{< img-hd src="/img/influxdb/cloud-iox-grafana-flightsql-explore-query-1.png" alt="Grafana Flight SQL datasource query" />}}
 
 To learn about query management and inspection in Grafana, see the [Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).
 
