@@ -166,6 +166,10 @@ Include the following with your request:
   - **precision**: Timestamp precision (default is `ns`)
 - **Request body**: Line protocol as plain text
 
+{{% note %}}
+With the InfluxDB Cloud Dedicated v2 API `/api/v2/write` endpoint, `Authorization: Bearer` and `Authorization: Token` are equivalent and you can use either scheme to pass a database token in your request. For more information about HTTP API token schemes, see how to [authenticate API requests](/influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests).
+{{% /note %}}
+
 The following example uses cURL and the InfluxDB v2 API to write line protocol
 to InfluxDB Cloud dedicated:
 
