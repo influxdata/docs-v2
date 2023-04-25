@@ -452,11 +452,15 @@ Replace the following:
 - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
 - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
-Install all the necessary packages and run the program to write the line
-protocol to your InfluxDB Cloud Dedicated cluster.
+Run the following command to install the necessary packages:
 
 ```sh
 go get ./...
+```
+
+Run `write.go` to write the line protocol to your InfluxDB Cloud Dedicated cluster:
+
+```sh
 go run ./write.go
 ```
 
