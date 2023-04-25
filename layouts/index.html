@@ -27,35 +27,60 @@
   </div>
 
   <div id="influxdb" class="section group-wrapper">
-    <div class="actions">
-      <div>
-        <h2>Get started with <span class="magenta">InfluxDB</span></h2>
-        <p class="subhead">The time series platform</p>
-
-        <div id="influxdb-btn" class="exp-btn-wrapper">
-          <div class="exp-btn">
-            <p>View the InfluxDB documentation</p>
-            <ul class="exp-btn-links">
-              <li><a href="/influxdb/cloud-iox/">InfluxDB Cloud (IOx)</a></li>
-              <li><a href="/influxdb/cloud/">InfluxDB Cloud</a></li>
-              <li><a href="/influxdb/{{ $influxdbVersionV2 }}/">InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</a></li>
-            </ul>
+    <h2>Get started with <span class="magenta">InfluxDB</span></h2>
+    <p class="subhead">The time series platform</p>
+    <div class="categories">
+      <div class="category">
+        <h4>Self-managed</h4>
+        <div class="influxdb-cards">
+          <div class="card">
+            <h3>InfluxDB OSS <span class="version">{{ replaceRE "v" "" $influxdbVersionV2 }}</span></h3>
+            <p>The open source time series platform.</p> 
+            <div class="card-links">
+              <a href="/influxdb/{{ $influxdbVersionV2 }}/">InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }} documenation</a>
+              <a href="/influxdb/{{ $influxdbVersionV2 }}/get-started/">Get started with <strong>InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</strong></a>
+            </div>
           </div>
-          <div class="close-btn">
-            <span class="icon-x"></span>
+          <div class="card">
+            <h3>InfluxDB Enterprise <span class="version">{{ replaceRE "v" "" $enterpriseVersion }}</span></h3>
+            <p>Highly available InfluxDB built for high write and query workloads.</p>
+            <div class="card-links">
+              <a href="/enterprise_influxdb/{{ $enterpriseVersion }}/">InfluxDB Enterprise {{ replaceRE "v" "" $enterpriseVersion }} documenation</a>
+              <a href="/enterprise_influxdb/{{ $enterpriseVersion }}/introduction/">Get started with <strong>InfluxDB Enterprise {{ replaceRE "v" "" $enterpriseVersion }}</strong></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="category">
+        <h4>Managed by InfluxData</h4>
+        <div class="influxdb-cards">
+          <div class="card">
+            <h3>InfluxDB Cloud Serverless</h3>
+            <!-- <p>Collect time series data from many different sources.</p> -->
+            <div class="card-links">
+              <a href="/telegraf/{{ $telegrafVersion }}/">Get started with <strong>Telegraf {{ replaceRE "v" "" $telegrafVersion }}</strong></a>
+              <a href="/telegraf/{{ $telegrafVersion }}/plugins/">View Telegraf plugins</a>
+            </div>
+          </div>
+          <div class="card">
+            <h3>InfluxDB Cloud Dedicated</h3>
+            <!-- <p>The data scripting language that queries, processes, alert ons, and writes data.</p> -->
+            <div class="card-links">
+              <a href="/flux/{{ $fluxVersion }}/">Get started with <strong>Flux {{ replaceRE "v" "" $fluxVersion }}</strong></a>
+              <a href="/flux/{{ $fluxVersion }}/stdlib/">View the Flux standard library</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="hero-img"></div>
   </div>
 
   <div id="api-guides" class="section group-wrapper blue flush-left">
     <div class="padding-wrapper">
       <div>
         <div class="text">
-          <h3>Develop with the InfluxDB API</h3>
-          <p>Build your application using the InfluxDB Cloud and InfluxDB OSS APIs.</p>
+          <h3>Develop with the InfluxDB v2 API</h3>
+          <p>Build your application using the InfluxDB Cloud and InfluxDB OSS v2 APIs.</p>
         </div>
       </div>
       <div id="api-guides-btn" class="exp-btn-wrapper">
