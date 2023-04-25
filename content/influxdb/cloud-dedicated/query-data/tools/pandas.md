@@ -58,7 +58,7 @@ For more information, see how to [get started querying InfluxDB with Python and 
 
 To use pandas, you need to install and import the `pandas` library.
 
-In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/#create-a-project-virtual-environment):
+In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/#venv-install):
 
 ```sh
 pip install pandas
@@ -111,7 +111,7 @@ Next, [use pandas to analyze data](#use-pandas-to-analyze-data).
 
 ## Use pandas to analyze data
 
-- [View information and statistics for data](#view-information-and-statistics-for-data)
+- [View data information and statistics](#view-data-information-and-statistics)
 - [Downsample time series](#downsample-time-series)
 
 ### View data information and statistics

@@ -63,8 +63,8 @@ Windows and Docker, see the
 
     {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[python](#python)
-[python3](#python3)
+[python](#)
+[python3](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
@@ -90,8 +90,8 @@ pip3 --version
 
     {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[pip](#python)
-[pip3](#python3)
+[pip](#)
+[pip3](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sh
@@ -214,7 +214,7 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
     
     **Query parameters**
 
-    - **`?iox-namespace-name`**: URL-encoded InfluxDB [database name](influxdb/cloud-dedicated/admin/databases/list/)
+    - **`?iox-namespace-name`**: URL-encoded InfluxDB [database name](/influxdb/cloud-dedicated/admin/databases/list/)
     - **`?token`**: InfluxDB [API token](/influxdb/cloud-dedicated/get-started/setup/) with `READ` access to the specified database
 
     {{< code-callout "&lt;(domain|port|database-name|token)&gt;" >}}

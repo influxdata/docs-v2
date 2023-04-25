@@ -36,8 +36,8 @@ Use Python and the Flight SQL library to query data stored in InfluxDB.
 - [Get started using Python to query InfluxDB](#get-started-using-python-to-query-influxdb)
 - [Create a Python virtual environment](#create-a-python-virtual-environment)
   - [Install Python](#install-python)
-  - [Create a project virtual environment](#create-a-project-virtual-environment)
-  - [Install Anaconda](#install-anaconda)
+  - [Create a project virtual environment](#venv-install)
+  - [Install Anaconda](#conda-install)
 - [Query InfluxDB using Flight SQL](#query-influxdb-using-flight-sql)
   - [Install the Flight SQL Python Library](#install-the-flight-sql-python-library)
   - [Create a query client](#create-a-query-client)
@@ -52,20 +52,21 @@ continue to [Query InfluxDB using Flight SQL](#query-influxdb-using-flight-sql).
 
 ## Create a Python virtual environment
 
-Python [virtual environments](https://docs.python.org/3/library/venv.html) keep the Python interpreter and dependencies for your project self-contained and isolated from other projects.
+Python [virtual environments](https://docs.python.org/3/library/venv.html) keep
+the Python interpreter and dependencies for your project self-contained and isolated from other projects.
 
 To install Python and create a virtual environment, choose one of the following options:
 
 - [Python venv](?t=venv#venv-install): The [`venv` module](https://docs.python.org/3/library/venv.html) comes standard in Python as of version 3.5.
 - [Anaconda® Distribution](?t=Anaconda#conda-install): A Python/R data science distribution that provides Python and the  **conda** package and environment manager. 
 
-    {{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[venv](#venv-install)
-[Anaconda](#conda-install)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-<!-- Begin venv -->
+    {{< tabs-wrapper >}}
+{{% tabs "small" %}}
+[venv]()
+[Anaconda]()
+{{% /tabs %}}
+{{% tab-content %}}
+<!--------------------------------- Begin venv -------------------------------->
 
 ### Install Python
 
@@ -96,7 +97,7 @@ to install a recent version of the Python programming language for your system.
 
     If neither `pip` nor `pip<PYTHON_VERSION>` works, follow one of the [Pypa.io Pip installation](https://pip.pypa.io/en/stable/installation/) methods for your system.
 
-### Create a project virtual environment
+### Create a project virtual environment {#venv-install}
 
 1. Create a directory for your Python project and change to the new directory--for example:
 
@@ -123,12 +124,12 @@ to install a recent version of the Python programming language for your system.
     ```sh
     source envs/virtualenv-1/bin/activate
     ```
-<!-- End venv -->
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-<!-- Begin conda -->
+<!---------------------------------- End venv --------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!-------------------------------- Begin conda -------------------------------->
 
-### Install Anaconda
+### Install Anaconda {#conda-install}
 
 1. Follow the [Anaconda installation instructions](https://docs.continuum.io/anaconda/install/) for your system.
 2. Check that you can run the `conda` command:
@@ -156,15 +157,18 @@ to install a recent version of the Python programming language for your system.
     ```sh
     conda activate ./envs/virtualenv-1
     ```
-{{% /code-tab-content %}}
-    {{< /code-tabs-wrapper >}}
+
+<!--------------------------------- END conda --------------------------------->
+{{% /tab-content %}}
+    {{< /tabs-wrapper >}}
 
 When a virtual environment is activated, the name displays at the beginning of your terminal command line--for example:
-  {{% code-callout "(virtualenv-1)"%}}
-  ```sh
-  (virtualenv-1) $ PROJECT_DIRECTORY
-  ```
-  {{% /code-callout %}}
+  
+{{% code-callout "(virtualenv-1)"%}}
+```sh
+(virtualenv-1) $ PROJECT_DIRECTORY
+```
+{{% /code-callout %}}
 
 ## Query InfluxDB using Flight SQL
 
