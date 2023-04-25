@@ -34,62 +34,27 @@ databases and tokens.
 
 1.  **Download the `influxctl` CLI**.
 
-    {{< tabs-wrapper >}}
-{{% tabs %}}
-[Linux](#)
-[macOS](#)
-[Windows](#)
-{{% /tabs %}}
-{{% tab-content %}}
-<!-------------------------------- BEGIN Linux -------------------------------->
+    _Contact your InfluxData account representative for information about
+    downloading and installing the `influxctl` CLI._
 
-<!-- TODO: Linux installation instructions -->
+2.  **Create a connection profile and provide your InfluxDB Cloud Dedicated connection credentials**.
+    The `influxctl` CLI uses [connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)
+    to connect to and authenticate with your InfluxDB Cloud Dedicated cluster.
 
-<!--------------------------------- END Linux --------------------------------->
-{{% /tab-content %}}
-{{% tab-content %}}
-<!-------------------------------- BEGIN macOS -------------------------------->
+    To create a connection profile, run `influxctl init` to start an interactive
+    prompt that creates and stores a connection profile.
 
-<!-- TODO: macOS installation instructions -->
+    ```sh
+    influxctl init
+    ```
 
-<!--------------------------------- END macOS --------------------------------->
-{{% /tab-content %}}
-{{% tab-content %}}
-<!-------------------------------- BEGIN Windows ------------------------------->
+    Provide the following required credentials:
 
-<!-- TODO: Windows installation instructions -->
+    - Account ID
+    - Cluster ID
 
-<!--------------------------------- END Windows -------------------------------->
-{{% /tab-content %}}
-    {{< /tabs-wrapper >}}
-
-2.  **Create a profile configuration file and add your InfluxDB Cloud Dedicated connection credentials**.
-    The `influxctl` CLI uses the profile configuration file to connect to and
-    authenticate with your InfluxDB Cloud Dedicated cluster.
-
-    1.  Create a file named `config.toml` at the following locations based on your
-        operating system:
-
-        | Operating system | Configuration file location                           |
-        | :--------------- | :---------------------------------------------------- |
-        | Linux            | `~/.config/influxctl/config.toml`                     |
-        | macOS            | `~/Library/Application Support/influxctl/config.toml` |
-        | Windows          | `%APPDATA%\influxctl\config.toml`                     |
-
-    2.  Add a `default` profile to `config.toml` with the following properties:
-
-        - **account_id**: Your InfluxDB Cloud Dedicated account ID
-        - **cluster_id**: Your InfluxDB Cloud Dedicated cluster ID
-
-        ```toml
-        [default]
-          account_id = "YOUR_ACCOUNT_ID"
-          cluster_id = "YOUR_CLUSTER_ID"
-        ```
-
-        _You can add multiple profiles to your `config.toml`.
-        For more information about `influxctl` profiles, see
-        [Configure connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)_.
+    _For more information about `influxctl` profiles, see
+    [Configure connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)_.
 
 ## Create a database
 
