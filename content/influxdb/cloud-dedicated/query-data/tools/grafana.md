@@ -17,9 +17,11 @@ alt_engine: /influxdb/cloud/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) to query and visualize data stored in an
-InfluxDB bucket powered by InfluxDB IOx.
-Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-flightsql-datasource)
-to query InfluxDB with the Flight SQL protocol.
+InfluxDB Cloud dedicated database.
+InfluxDB Cloud Dedicated supports both **SQL** and **InfluxQL** query languages.
+Install the [Grafana FlightSQL plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/)
+to query InfluxDB with **SQL** using the Flight SQL protocol.
+Use the **InfluxDB** core Grafana plugin to query data with **InfluxQL**.
 
 > [Grafana] enables you to query, visualize, alert on, and explore your metrics,
 > logs, and traces wherever they are stored.
@@ -32,7 +34,7 @@ to query InfluxDB with the Flight SQL protocol.
 
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
 - [Install the FlightSQL plugin](#install-the-flightsql-plugin)
-- [Create and configure a FlightSQL datasource](#create-and-configure-a-flightsql-datasource)
+- [Create a datasource](#create-a-datasource)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
 
@@ -46,6 +48,9 @@ to install Grafana for your operating system.
 If using **Grafana Cloud**, login to your Grafana Cloud instance.
 
 ## Install the FlightSQL plugin
+
+If you want to query InfluxDB Cloud Dedicated with **SQL**, install the
+[Grafana FlightSQL plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/).
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -95,7 +100,21 @@ Grafana Cloud instance.
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
-## Create and configure a FlightSQL datasource
+## Create a datasource
+
+Which datasource you create depends on which query language you want to use to
+query InfluxDB Cloud Dedicated:
+
+- To query with **SQL**, create a **FlightSQL** datasource.
+- To query with **InfluxQL**, create an **InfluxDB** datasource.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!--------------------------------- BEGIN SQL --------------------------------->
 
 1.  In your Grafana user interface (UI), navigate to **Data Sources**.
 2.  Click **Add new data source**.
@@ -111,8 +130,8 @@ Grafana Cloud instance.
       ```
 
     - **AuthType**: Select **token**.
-    - **Token**: Provide your InfluxDB API token with read access to the buckets
-      you want to query.
+    - **Token**: Provide your InfluxDB API token with read access to the
+      databases you want to query.
     - **Require TLS/SSL**: Enable this toggle.
 
 6.  Add connection **MetaData**.
@@ -125,14 +144,59 @@ Grafana Cloud instance.
 
 7.  Click **Save & test**.
 
-    {{< img-hd src="/img/influxdb/cloud-iox-grafana-flightsql-datasource.png" alt="Grafana Flight SQL datasource" />}}
+    {{< img-hd src="/img/influxdb/cloud-dedicated-grafana-flightsql-datasource.png" alt="Grafana FlightSQL datasource for InfluxDB Cloud Dedicated" />}}
 
     If successful, click **Explore** to begin querying InfluxDB with Flight SQL and Grafana.
 
+<!---------------------------------- END SQL ---------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN INFLUXQL ------------------------------>
+
+1.  In your Grafana user interface (UI), navigate to **Data Sources**.
+2.  Click **Add new data source**.
+3.  Search for and select the **InfluxDB** core plugin.
+4.  Provide a name for your datasource.
+5.  Under **Query Language**, select **InfluxQL**.
+    _InfluxDB Cloud Dedicated does not support Flux._
+6.  Under **HTTP**:
+
+    - **URL**: Provide your Influx Cloud Dedicated cluster URL using the HTTPS
+      protocol:
+
+      ```
+      https://cluster-id.influxdb.io
+      ```
+
+7.  Under **InfluxDB Details**:
+
+    - **Database**: Provide a default database name to query.
+    - **User**: Provide an arbitrary string.
+      _This credential is ingored when querying InfluxDB Cloud Dedicated, but it cannot be empty._
+    - **Password**: Provide an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/)
+      with read access to the databases you want to query.
+
+7.  Click **Save & test**.
+
+    {{< img-hd src="/img/influxdb/cloud-dedicated-grafana-influxdb-datasource.png" alt="Grafana InfluxDB datasource for InfluxDB Cloud Dedicated" />}}
+
+
+<!-------------------------------- END INFLUXQL ------------------------------->
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
 ## Query InfluxDB with Grafana
 
-After you [configure and save a FlightSQL datasource](#create-and-configure-a-flightsql-datasource),
-use Grafana to build, run, and inspect queries against InfluxDB buckets.
+After you [configure and save a FlightSQL or InfluxDB datasource](#create-a-datasource),
+use Grafana to build, run, and inspect queries against InfluxDB database.
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!--------------------------------- BEGIN SQL --------------------------------->
 
 {{% note %}}
 {{% sql/sql-schema-intro %}}
@@ -140,7 +204,7 @@ To learn more, see [Query Data](/influxdb/cloud-dedicated/query-data/sql/).
 {{% /note %}}
 
 1. Click **Explore**.
-2. In the dropdown, select the saved data source that you want to query.
+2. In the dropdown, select the **FlightSQL** data source that you want to query.
 3. Use the SQL query form to build your query:
     - **FROM**: Select the measurement that you want to query.
     - **SELECT**: Select one or more fields and tags to return as columns in query results.
@@ -148,13 +212,35 @@ To learn more, see [Query Data](/influxdb/cloud-dedicated/query-data/sql/).
     - **WHERE**: To filter the query results, enter a conditional expression.
     - **GROUP BY**: To `GROUP BY` one or more fields or tags, enter them as a comma-delimited list.
                     If you include an aggregate function in the **SELECT** list,
-                    then you must include one or more of the queried columns in a `GROUP BY` or `PARTITION BY` clause.
+                    then you must include one or more of the queried columns in
+                    a `GROUP BY` or `PARTITION BY` clause.
                     SQL will return the aggregation for each group or partition.
 4. Click **Run query** to execute the query.
 
-{{< img-hd src="/img/influxdb/cloud-iox-grafana-flightsql-explore-query-1.png" alt="Grafana Flight SQL datasource query" />}}
+<!---------------------------------- END SQL ---------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN INFLUXQL ------------------------------>
 
-To learn about query management and inspection in Grafana, see the [Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).
+1. Click **Explore**.
+2. In the dropdown, select the **InfluxDB** data source that you want to query.
+3. Use the InfluxQL query form to build your query:
+    - **FROM**: Select the measurement that you want to query.
+    - **WHERE**: To filter the query results, enter a conditional expression.
+    - **SELECT**: Select fields to query and an aggregate function to apply to each.
+      The aggregate function is applied to each time interval defined in the
+      `GROUP BY` clause.
+    - **GROUP BY**: By default, Grafana groups data by time to downsample results
+      and improve query performance.
+      You can also add other tags to group by.
+4. Click **Run query** to execute the query.
+
+<!-------------------------------- END INFLUXQL ------------------------------->
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
+
+To learn about query management and inspection in Grafana, see the
+[Grafana Explore documentation](https://grafana.com/docs/grafana/latest/explore/).
 
 ## Build visualizations with Grafana
 
