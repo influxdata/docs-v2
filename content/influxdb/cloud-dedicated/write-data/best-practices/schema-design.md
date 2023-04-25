@@ -4,13 +4,13 @@ seotitle: InfluxDB schema design recommendations and best practices
 description: >
   Design your schema for simpler and more performant queries.
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud_dedicated:
     name: Schema design
     weight: 201
     parent: write-best-practices
 ---
 
-Use the following guidelines to design your [schema](/influxdb/cloud-serverless/reference/glossary/#schema)
+Use the following guidelines to design your [schema](/influxdb/cloud-dedicated/reference/glossary/#schema)
 for simpler and more performant queries.
 
 <!-- TOC -->
@@ -56,7 +56,7 @@ tags and fields.
 ### Primary keys
 
 In time series data, the primary key for a row of data is typically a combination of timestamp and other attributes that uniquely identify each data point.
-In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-serverless/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-serverless/reference/glossary/#tag-value) on the point.
+In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-dedicated/reference/glossary/#tag-value) on the point.
 
 ### Tags versus fields
 
@@ -76,7 +76,7 @@ question as you design your schema.
 
 {{% note %}}
 The InfluxDB IOx engine supports infinite tag value and series cardinality.
-Unlike InfluxDB powered by the TSM storage engine, **tag value**
+Unlike InfluxDB backed by the TSM storage engine, **tag value**
 cardinality doesn't affect the overall performance of your database.
 {{% /note %}}
 
@@ -133,7 +133,7 @@ your fields into a separate measurement.
 
 #### Avoid too many tags
 
-In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-serverless/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-serverless/reference/glossary/#tag-value) on the point.
+In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-dedicated/reference/glossary/#tag-value) on the point.
 A point that contains more tags has a more complex primary key, which could impact sorting performance if you sort using all parts of the key.
 
 ### Avoid sparse schemas
@@ -236,7 +236,7 @@ data attributes into a measurement name, tag key, or field key.
 
 #### Not recommended {.orange}
 
-As a basic example, consider the following [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/)
+As a basic example, consider the following [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)
 that embeds sensor metadata (location, model, and ID) into a tag key:
 
 ```
@@ -361,7 +361,7 @@ To simplify query writing, avoid using reserved keywords or special characters
 in measurement names, tag keys, and field keys.
 
 - [SQL keywords](#)
-- [InfluxQL keywords](/influxdb/cloud-serverless/reference/syntax/influxql/spec/#keywords)
+- [InfluxQL keywords](/influxdb/cloud-dedicated/reference/syntax/influxql/spec/#keywords)
 - [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords)
 
 When using SQL or InfluxQL to query measurements, tags, and fields with special
