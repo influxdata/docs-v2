@@ -22,8 +22,8 @@ updated_in: CLI v2.0.5
 #### Use SQL and Flux together
 
 The `influx query` command and the InfluxDB `/api/v2/query` API endpoint it uses
-only support Flux queries. To query an InfluxDB bucket powered by IOx with SQL,
-Use the `iox.sql()` Flux function. For more information, see
+only support Flux queries. To query an InfluxDB Cloud Serverless bucket powered
+by IOx with SQL, use the `iox.sql()` Flux function. For more information, see
 [Use Flux and SQL to query data](/influxdb/cloud-serverless/query-data/flux-sql/).
 {{% /note %}}
 

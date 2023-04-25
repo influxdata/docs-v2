@@ -1,7 +1,7 @@
 ---
 title: Delete data
 description: >
-  To delete data from and IOx-backed InfluxDB Cloud bucket, please contact
+  To delete data from an InfluxDB Cloud Serverless bucket, please contact
   [InfluxData support](https://support.influxdata.com).
 menu:
   influxdb_cloud_serverless:
@@ -15,7 +15,7 @@ influxdb/cloud-serverless/tags: [delete]
 ---
 
 The InfluxDB `/api/v2/delete` API endpoint has been disabled for InfluxDB
-IOx-backed organizations. To delete data from an IOx-backed bucket, please
+Cloud Serverless organizations. To delete data from an bucket, please
 contact InfluxData Support.
 
 <a class="btn" href="https://support.influxdata.com">Contact InfluxData Support</a>

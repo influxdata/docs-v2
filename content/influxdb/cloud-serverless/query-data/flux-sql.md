@@ -14,8 +14,8 @@ related:
 influxdb/cloud-serverless/tags: [sql, flux, query]
 ---
 
-InfluxDB Cloud powered by [InfluxDB IOx](/influxdb/cloud-serverless/#the-influxdb-iox-storage-engine)
-supports both [Flux](/flux/v0.x/) and [SQL](/influxdb/cloud-serverless/reference/sql/) query languages.
+InfluxDB Cloud Serverless supports both [Flux](/flux/v0.x/) and
+[SQL](/influxdb/cloud-serverless/reference/sql/) query languages.
 Flux is a full-featured data scripting language that provides a wide range of
 functionality and flexibility. SQL is a proven and performant relational query language.
 

@@ -1,9 +1,9 @@
 ---
 title: Use Superset to query data
-seotitle: Use Apache Superset to query data stored in InfluxDB Cloud (IOx)
+seotitle: Use Apache Superset to query data stored in InfluxDB Cloud Serverless
 description: >
   Install and run [Apache Superset](https://superset.apache.org/)
-  to query data stored in a bucket powered by InfluxDB IOx.
+  to query data stored in an InfluxDB Cloud Serverless bucket.
 weight: 101
 menu:
   influxdb_cloud_serverless:
@@ -16,7 +16,7 @@ related:
 ---
 
 Use [Apache Superset](https://superset.apache.org/) to query data
-stored in an InfluxDB bucket powered by InfluxDB IOx.
+stored in an InfluxDB Cloud Serverless bucket.
 
 > Apache Superset is a modern, enterprise-ready business intelligence web application.
 > It is fast, lightweight, intuitive, and loaded with options that make it easy for
@@ -205,16 +205,12 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
 
     {{< img-hd src="/img/influxdb/cloud-iox-superset-connect.png" alt="Configure InfluxDB connection in Superset" />}}
 
-4.  Enter a **Display Name** (for example, _InfluxDB Cloud IOx_) for the database connection.
+4.  Enter a **Display Name** (for example, _InfluxDB Cloud Serverless_) for the database connection.
 5.  Enter your **SQL Alchemy URI** comprised of the following:
 
     - **Protocol**: `datafusion+flightsql`
-    - **Domain**:
-      {{% cloud-only %}}[InfluxDB Cloud region domain](/influxdb/cloud-serverless/reference/regions/){{% /cloud-only %}}
-      {{% oss-only %}}localhost{{% /oss-only %}}
-    - **Port**:
-      {{% cloud-only %}}443{{% /cloud-only %}}
-      {{% oss-only %}}8086 or your custom-configured bind address{{% /oss-only %}}
+    - **Domain**: [InfluxDB Cloud Serverless region domain](/influxdb/cloud-serverless/reference/regions/)
+    - **Port**: 443
     
     **Query parameters**
 

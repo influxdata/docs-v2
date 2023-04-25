@@ -9,7 +9,7 @@ menu:
 weight: 101
 ---
 
-InfluxDB Cloud backed by InfluxDB IOx uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.  
+InfluxDB Cloud Serverless uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.  
 
 - [Identifiers](#identifiers)  
 - [Quoting and case sensitivity](#quoting-and-case-sensitivity)    
@@ -480,7 +480,7 @@ Use comments to describe and add detail or notes to your queries.
 
 ## Schema information
 
-InfluxDB {{< current-version >}} backed by InfluxDB IOx supports the following metedata schema queries:
+InfluxDB Cloud Serverless supports the following metedata schema queries:
 
 ```sql
 SHOW tables

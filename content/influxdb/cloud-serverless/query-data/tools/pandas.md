@@ -3,7 +3,7 @@ title: Use pandas to analyze and visualize data
 seotitle: Use Python and pandas to analyze and visualize data
 description: >
   Use the [pandas](https://pandas.pydata.org/) Python data analysis library
-  to analyze and visualize data stored in a bucket powered by InfluxDB IOx.
+  to analyze and visualize data stored in InfluxDB Cloud Serverless.
 weight: 101
 menu:
   influxdb_cloud_serverless:
@@ -29,7 +29,7 @@ list_code_example: |
 ---
 
 Use [pandas](https://pandas.pydata.org/), the Python data analysis library, to process, analyze, and visualize data
-stored in an InfluxDB bucket powered by InfluxDB IOx.
+stored in a InfluxDB Cloud Serverless.
 
 > **pandas** is an open source, BSD-licensed library providing high-performance,
 > easy-to-use data structures and data analysis tools for the Python programming language.

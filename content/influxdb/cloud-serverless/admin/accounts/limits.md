@@ -1,8 +1,8 @@
 ---
-title: InfluxDB Cloud (IOx) limits and adjustable quotas
+title: InfluxDB Cloud Serverless limits and adjustable quotas
 list_title: Limits and adjustable quotas
 description: >
-  InfluxDB Cloud (IOx) has adjustable service quotas and global (non-adjustable) system limits.
+  InfluxDB Cloud Serverless has adjustable service quotas and global (non-adjustable) system limits.
 weight: 110
 menu:
   influxdb_cloud_serverless:
@@ -14,7 +14,8 @@ related:
 alt_engine: /influxdb/cloud/account-management/limits/
 ---
 
-InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis.
+InfluxDB Cloud Serverless applies (non-adjustable) global system limits and
+adjustable service quotas on a per organization basis.
 
 {{% warn %}}
 All __rates__ (data-in (writes), queries (reads), and deletes) are accrued within a fixed five-minute window.
@@ -30,7 +31,8 @@ Review adjustable service quotas and global limits to plan for your bandwidth ne
 
 ## Adjustable service quotas
 
-To reduce the chance of unexpected charges and protect the service for all users, InfluxDB Cloud has adjustable service quotas applied per account.
+To reduce the chance of unexpected charges and protect the service for all users,
+InfluxDB Cloud Serverless has adjustable service quotas applied per account.
 
 _To request higher service quotas, reach out to [InfluxData Support](https://support.influxdata.com/)._
 
@@ -73,7 +75,10 @@ To write historical data older than 30 days, retain data for more than 30 days, 
 
 ## Global limits
 
-InfluxDB Cloud applies global (non-adjustable) system limits to all accounts, which protects the InfluxDB Cloud infrastructure for all users. As the service continues to evolve, we'll continue to review these global limits and adjust them as appropriate.
+InfluxDB Cloud Serverless applies global (non-adjustable) system limits to all accounts,
+which protects the InfluxDB Cloud infrastructure for all users.
+As the service continues to evolve, we'll continue to review these global limits
+and adjust them as appropriate.
 
 Limits include:
 

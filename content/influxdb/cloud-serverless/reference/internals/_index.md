@@ -1,7 +1,7 @@
 ---
-title: InfluxDB Cloud internals
+title: InfluxDB Cloud Serverless internals
 description: >
-  Learn about InfluxDB Cloud internal systems and mechanisms.
+  Learn about InfluxDB Cloud Serverless internal systems and mechanisms.
 menu:
   influxdb_cloud_serverless:
     name: InfluxDB Cloud internals

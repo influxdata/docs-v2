@@ -71,7 +71,7 @@ The InfluxDB output plugin configuration contains the following options:
 ##### urls
 
 An array of URLs for your InfluxDB {{< current-version >}} instances.
-See [InfluxDB Cloud regions](/influxdb/cloud-serverless/reference/regions/) for
+See [InfluxDB Cloud Serverless regions](/influxdb/cloud-serverless/reference/regions/) for
 information about which URLs to use.
 **{{< cloud-name "short">}} requires HTTPS**.
 

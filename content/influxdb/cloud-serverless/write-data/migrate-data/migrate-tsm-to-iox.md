@@ -1,26 +1,28 @@
 ---
 title: Migrate data from TSM to IOx in InfluxDB Cloud
 description: >
-  To migrate data from a TSM-backed InfluxDB Cloud organization to an InfluxDB
-  IOx-backed organization, query the data in time-based batches and write the
-  queried data to an IOx bucket in your InfluxDB Cloud organization.
+  To migrate data from a TSM-powered InfluxDB Cloud organization to an InfluxDB
+  Cloud Serverless organization powered by InfluxDB IOx, query the data in
+  time-based batches and write the queried data to an IOx bucket in your
+  InfluxDB Cloud Serverless organization.
 menu:
   influxdb_cloud_serverless:
-    name: Migrate from TSM to IOx
+    name: Migrate from TSM to Serverless
     parent: Migrate data
 weight: 102
 alt_engine: /influxdb/cloud/migrate-data/migrate-cloud-to-cloud/
 ---
 
-To migrate data from an InfluxDB Cloud organization backed by TSM to an organization
-backed by InfluxDB IOx, query the data from your TSM backed buckets in time-based
-batches and write the queried data to a bucket in your InfluxDB IOx-backed organization.
+To migrate data from an InfluxDB Cloud (TSM) organization to an 
+InfluxDB Cloud Serverless organization powered by InfluxDB IOx, query the data 
+from your TSM-powered buckets in time-based batches and write the queried data to
+a bucket in your InfluxDB Cloud Serverless organization.
 Because full data migrations will likely exceed your organizations' limits and
 adjustable quotas, migrate your data in batches.
 
 The following guide provides instructions for setting up an InfluxDB task
-that queries data from an InfluxDB Cloud TSM-backed bucket in time-based batches
-and writes each batch to another InfluxDB Cloud IOx-backed bucket in another
+that queries data from an InfluxDB Cloud TSM-powered bucket in time-based batches
+and writes each batch to an InfluxDB Cloud Serverless IOx-powered bucket in another
 organization.
 
 {{% cloud %}}
@@ -48,7 +50,7 @@ To migrate more than one bucket, you need to [upgrade to the Usage-based plan](/
 to complete the migration.
 {{% /note %}}
 
-1.  **In the InfluxDB Cloud (IOx) organization you're migrating data _to_**:
+1.  **In the InfluxDB Cloud Serverless organization you're migrating data _to_**:
 
     1. [Create a bucket](/influxdb/cloud-serverless/organizations/buckets/create-bucket/)
         **to migrate data to**.
@@ -57,7 +59,7 @@ to complete the migration.
 
 2.  **In the InfluxDB Cloud (TSM) organization you're migrating data _from_**:
 
-    1.  Add the **InfluxDB Cloud API token from the IOx-backed organization _(created in step 1b)_**
+    1.  Add the **InfluxDB Cloud API token from the InfluxDB Cloud Serverless organization _(created in step 1b)_**
         as a secret using the key, `INFLUXDB_IOX_TOKEN`.
         _See [Add secrets](/influxdb/cloud/security/secrets/add/) for more information._
     3.  [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/)
@@ -97,10 +99,10 @@ Batch range is beyond the migration range. Migration is complete.
       _See [Determine your batch interval](#determine-your-batch-interval)._
     - **batchBucket**: InfluxDB Cloud (TSM) bucket to store migration batch metadata in.
     - **sourceBucket**: InfluxDB Cloud (TSM) bucket to migrate data from.
-    - **destinationHost**: [InfluxDB Cloud (IOx) region URL](/influxdb/cloud-serverless/reference/regions)
+    - **destinationHost**: [InfluxDB Cloud Serverless region URL](/influxdb/cloud-serverless/reference/regions)
       to migrate data from.
-    - **destinationOrg**: InfluxDB Cloud (IOx) organization to migrate data to.
-    - **destinationToken**: InfluxDB Cloud (IOx) API token. To keep the API token secure, store
+    - **destinationOrg**: InfluxDB Cloud Serverless organization to migrate data to.
+    - **destinationToken**: InfluxDB Cloud Serverless API token. To keep the API token secure, store
       it as a secret in InfluxDB Cloud (TSM).
     - **destinationBucket**: InfluxDB OSS bucket to migrate data to.
 
@@ -124,7 +126,7 @@ migration = {
     sourceBucket: "example-cloud-bucket",
     destinationHost: "https://cloud2.influxdata.com",
     destinationOrg: "example-destination-org",
-    destinationToken: secrets.get(key: "INFLUXDB_IOX_TOKEN"),
+    destinationToken: secrets.get(key: "INFLUXDB_SERVERLESS_TOKEN"),
     destinationBucket: "example-destination-bucket",
 }
 
@@ -335,7 +337,7 @@ So in this example, **it would be best to set your `batchInterval` to `4d`**.
 
 ##### Important things to note
 - This assumes no other queries are running in your source InfluxDB Cloud organization.
-- This assumes no other writes are happening in your destination InfluxDB Cloud organization.
+- This assumes no other writes are happening in your destination InfluxDB Cloud Serverless organization.
 {{% /expand %}}
 <!------------------------ END Determine batch interval ----------------------->
 {{< /expand-wrapper >}}
@@ -370,17 +372,17 @@ too many requests
   a smaller interval. Each batch will then query less data.
 
 ### Invalid API token
-If the API token you add as the `INFLUXDB_IOX_SECRET` doesn't have write access
-to your InfluxDB Cloud (IOx) bucket, the task will return an error similar to:
+If the API token you add as the `INFLUXDB_SERVERLESS_SECRET` doesn't have write access
+to your InfluxDB Cloud Serverless bucket, the task will return an error similar to:
 
 ```
 unauthorized access
 ```
 
 **Possible solutions**:
-- Ensure the API token has write access to your InfluxDB Cloud (IOx) bucket.
+- Ensure the API token has write access to your InfluxDB Cloud Serverless bucket.
 - Generate a new API token with write access to the bucket you want to migrate to.
-  Then, update the `INFLUXDB_IOX_TOKEN` secret in your InfluxDB Cloud (TSM)
+  Then, update the `INFLUXDB_SERVERLESS_TOKEN` secret in your InfluxDB Cloud (TSM)
   instance with the new token.
 
 ### Query timeout

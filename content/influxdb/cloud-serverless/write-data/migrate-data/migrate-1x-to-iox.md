@@ -1,24 +1,24 @@
 ---
-title: Migrate data from InfluxDB 1.x to IOx in InfluxDB Cloud
+title: Migrate data from InfluxDB 1.x to InfluxDB Cloud Serverless
 description: >
-  To migrate data from a TSM-backed InfluxDB 1.x (OSS or Enterprise) to an
-  InfluxDB Cloud IOx-backed organization, export the data as line protocol and
-  write the exported data to an IOx bucket in your InfluxDB Cloud organization.
+  To migrate data from a TSM-powered InfluxDB 1.x (OSS or Enterprise) to an
+  InfluxDB Cloud Serverless organization, export the data as line protocol and
+  write the exported data to an bucket in your InfluxDB Cloud Serverless organization.
 menu:
   influxdb_cloud_serverless:
-    name: Migrate from 1.x to IOx
+    name: Migrate from 1.x to Serverless
     parent: Migrate data
 weight: 103
 ---
 
 To migrate data from an InfluxDB 1.x OSS or Enterprise instance to InfluxDB Cloud
-backed by InfluxDB IOx, export the data as line protocol and write the exported
-data to an IOx bucket in your InfluxDB Cloud organization.
+Serverless powered by InfluxDB IOx, export the data as line protocol and write
+the exported data to a bucket in your InfluxDB Cloud Serverless organization.
 Because full data migrations will likely exceed your organizations' limits and
 adjustable quotas, migrate your data in batches.
 
 {{% cloud %}}
-All write requests are subject to your InfluxDB Cloud organization's
+All write requests are subject to your InfluxDB Cloud Serverless organization's
 [rate limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
 {{% /cloud %}}
 
@@ -31,7 +31,7 @@ The migration process uses the following tools:
 
 - **InfluxDB 2.x `influx` CLI**:  
   The [2.x `influx` CLI]((/influxdb/cloud/tools/influx-cli/)) is packaged
-  separately from InfluxDB OSS 2.x and InfluxDB Cloud.
+  separately from InfluxDB OSS 2.x and InfluxDB Cloud Serverless.
   [Download and install the 2.x CLI](/influxdb/cloud/tools/influx-cli/).
 
 - **InfluxDB Cloud user interface (UI)**:  
@@ -163,7 +163,7 @@ influx_inspect export \
 {{% /expand %}}
     {{< /expand-wrapper >}}
 
-2.  Create InfluxDB Cloud buckets for each InfluxDB 1.x database and retention policy combination.
+2.  Create InfluxDB Cloud Serverless buckets for each InfluxDB 1.x database and retention policy combination.
     InfluxDB {{< current-version >}} combines InfluxDB 1.x databases and retention policies
     into buckets--named locations for time series data with specified retention periods.
 
@@ -204,10 +204,10 @@ to create a new bucket.
 
 **Provide the following**:
 
-- [InfluxDB Cloud connection and authentication credentials](#)
+- [InfluxDB Cloud Serverless connection and authentication credentials](#)
 - `-n, --name` flag with the bucket name.
 - `-r, --retention` flag with the bucket's retention period duration.
-  Supported retention periods depend on your InfluxDB Cloud plan.
+  Supported retention periods depend on your InfluxDB Cloud Serverless plan.
 
 ```sh
 influx bucket create \
@@ -232,7 +232,7 @@ influx bucket create \
 3.  Click **+ {{< caps >}}Create bucket{{< /caps >}}**.
 4.  Provide a bucket name (for example: `example-db/autogen`) and select a
     [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period).
-    Supported retention periods depend on your InfluxDB Cloud plan.
+    Supported retention periods depend on your InfluxDB Cloud Serverless plan.
 
 5.  Click **{{< caps >}}Create{{< /caps >}}**.
 
@@ -240,16 +240,16 @@ influx bucket create \
 {{% /tab-content %}}
     {{< /tabs-wrapper >}}
 
-3.  **Write the exported line protocol to your InfluxDB Cloud organization backed by InfluxDB IOx.**
+3.  **Write the exported line protocol to your InfluxDB Cloud Serverless organization.**
 
-    Use the **InfluxDB 2.x CLI** to write data to InfluxDB Cloud.
+    Use the **InfluxDB 2.x CLI** to write data to InfluxDB Cloud Serverless.
     While you can use the `/api/v2/write` API endpoint to write data directly,
     the `influx write` command lets you define the rate at which data is written
     to avoid exceeding your organization's rate limits.
 
     Use the `influx write` command and include the following:
 
-    - [InfluxDB Cloud connection and authentication credentials](#authentication-credentials)
+    - [InfluxDB Cloud Serverless connection and authentication credentials](#authentication-credentials)
     - `-b, --bucket` flag to identify the target bucket.
     - `-f, --file` flag with the path to the line protocol file to import.
     - `-rate-limit` flag with a rate limit that matches your InfluxDB Cloud

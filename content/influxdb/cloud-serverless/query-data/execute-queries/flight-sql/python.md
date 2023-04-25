@@ -2,7 +2,7 @@
 title: Use Python and the Flight SQL library to query data
 description: >
   Use Python and the `flightsql-dbapi` Flight SQL library to query data
-  stored in a bucket powered by InfluxDB IOx.
+  stored in an InfluxDB Cloud Serverless bucket.
 weight: 101
 menu:
   influxdb_cloud_serverless:
@@ -31,7 +31,8 @@ list_code_example: |
     ```
 ---
 
-Use Python and the Flight SQL library to query data stored in a bucket powered by InfluxDB IOx.
+Use Python and the Flight SQL library to query data stored in an InfluxDB Cloud
+Serverless bucket.
 
 - [Get started using Python to query InfluxDB](#get-started-using-python-to-query-influxdb)
 - [Create a Python virtual environment](#create-a-python-virtual-environment)

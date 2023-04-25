@@ -2,7 +2,7 @@
 title: Write data to InfluxDB
 list_title: Write data
 description: >
-  Collect and write time series data to InfluxDB Cloud and InfluxDB OSS.
+  Collect and write time series data to InfluxDB Cloud Serverless and InfluxDB OSS.
 weight: 3
 menu:
   influxdb_cloud_serverless:

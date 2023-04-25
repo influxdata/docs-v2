@@ -18,7 +18,7 @@ related:
   - /influxdb/cloud-serverless/query-data/execute-queries/
 ---
 
-InfluxDB Cloud backed by InfluxDB IOx supports multiple query languages:
+InfluxDB Cloud Serverless supports multiple query languages:
 
 - **SQL**: Traditional SQL powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
   query engine. The supported SQL syntax is similar to PostgreSQL.
@@ -53,7 +53,7 @@ InfluxDB supports many different tools for querying data, including:
 
 ## SQL query basics
 
-InfluxDB Cloud's SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
+The InfluxDB SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
 query engine which provides a SQL syntax similar to PostgreSQL.
 
 {{% note %}}

@@ -1,8 +1,8 @@
 ---
-title: Get started with InfluxDB Cloud
+title: Get started with InfluxDB Cloud Serverless
 list_title: Get started
 description: >
-  Start collecting, querying, processing, and visualizing data in InfluxDB Cloud backed by IOx.
+  Start collecting, querying, processing, and visualizing data in InfluxDB Cloud Serverless.
 menu:
   influxdb_cloud_serverless:
     name: Get started
@@ -95,15 +95,13 @@ InfluxDB {{< current-version >}}. Examples are provided for each of the followin
 ### InfluxDB user interface
 
 The InfluxDB user interface (UI) provides a web-based visual interface for interacting with and managing InfluxDB.
-{{% oss-only %}}The InfluxDB UI is packaged with InfluxDB and runs as part of the InfluxDB service. To access the UI, with InfluxDB running, visit [localhost:8086](http://localhost:8086) in your browser.{{% /oss-only %}}
-{{% cloud-only %}}To access the InfluxDB Cloud UI, [log into your InfluxDB Cloud account](https://cloud2.influxdata.com).{{% /cloud-only %}}
+To access the InfluxDB Cloud Serverless UI, [log into your InfluxDB Cloud account](https://cloud2.influxdata.com).
 
 ### `influx` CLI
 
-The `influx` CLI lets you interact with and manage InfluxDB {{< current-version >}} from a command line.
-{{% oss-only %}}The CLI is packaged separately from InfluxDB and must be downloaded and installed separately.{{% /oss-only %}}
+The `influx` CLI lets you interact with and manage InfluxDB Cloud Serverless from a command line.
 For detailed CLI installation instructions, see
-[Use the influx CLI](/influxdb/v2.5/tools/influx-cli/).
+[Use the influx CLI](/{{< latest "influxdb" >}}/tools/influx-cli/).
 
 ### InfluxDB HTTP API
 

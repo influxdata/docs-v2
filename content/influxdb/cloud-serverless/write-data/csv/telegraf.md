@@ -65,8 +65,7 @@ metrics from different sources and writes them to specified destinations.
 2.  Include the following options:
 
     - **urls**: List of
-      {{% cloud-only %}}[InfluxDB Cloud region URLs](/influxdb/cloud-serverless/reference/regions/){{% /cloud-only %}}
-      {{% oss-only %}}[InfluxDB URLs](/{{< latest "influxdb" >}}/reference/regions/){{% /oss-only %}}
+      [InfluxDB Cloud Serverless region URLs](/influxdb/cloud-serverless/reference/regions/)
       to write data to.
     - **token**: InfluxDB API token.
     - **organization**: InfluxDB organization name.

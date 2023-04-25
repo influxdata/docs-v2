@@ -1,7 +1,9 @@
 ---
 title: View buckets
-seotitle: View buckets in InfluxDB Cloud
-description: View a list of all the buckets for an organization in InfluxDB Cloud using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
+seotitle: View buckets in InfluxDB Cloud Serverless
+description: >
+  View a list of all the buckets for an organization in InfluxDB Cloud Serverless
+  using the InfluxDB UI, influx CLI, or InfluxDB HTTP API.
 menu:
   influxdb_cloud_serverless:
     name: View buckets

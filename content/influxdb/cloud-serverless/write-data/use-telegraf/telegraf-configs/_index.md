@@ -1,8 +1,9 @@
 ---
 title: Manage Telegraf configurations
 description: >
-  InfluxDB Cloud lets you automatically generate Telegraf configurations or upload customized
-  Telegraf configurations that collect metrics and write them to InfluxDB Cloud.
+  InfluxDB Cloud Serverless lets you automatically generate Telegraf configurations
+  or upload customized Telegraf configurations that collect metrics and write
+  them to InfluxDB Cloud Serverless.
 weight: 102
 menu:
   influxdb_cloud_serverless:

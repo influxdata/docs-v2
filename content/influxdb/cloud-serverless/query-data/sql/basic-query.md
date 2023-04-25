@@ -17,7 +17,7 @@ list_code_example: |
   ```
 ---
 
-InfluxDB Cloud's SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
+The InfluxDB SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
 query engine which provides a SQL syntax similar to other relational query languages.
 
 A basic SQL query that queries data from InfluxDB most commonly includes the
@@ -61,7 +61,7 @@ The following examples use the sample data written in the
 [Get started writing data guide](/influxdb/cloud-serverless/get-started/write/).
 To run the example queries and return results,
 [write the sample data](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb)
-to your InfluxDB Cloud bucket before running the example queries.
+to your InfluxDB Cloud Serverless bucket before running the example queries.
 {{% /note %}}
 
 ### Query data within time boundaries

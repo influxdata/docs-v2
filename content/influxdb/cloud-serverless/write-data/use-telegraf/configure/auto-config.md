@@ -124,7 +124,7 @@ Start the Telegraf service using the `-config` flag to specify the location of t
 Telegraf starts using the Telegraf configuration pulled from InfluxDB API.
 
 {{% note %}}
-InfluxDB host URLs and ports differ between InfluxDB OSS and InfluxDB Cloud.
+InfluxDB host URLs and ports differ between InfluxDB OSS and InfluxDB Cloud Serverless.
 For the exact command, see the Telegraf configuration **Setup Instructions** in the InfluxDB UI.
 {{% /note %}}
 

@@ -1,10 +1,10 @@
 ---
 title: Use Grafana to query and visualize data
-seotitle: Use Grafana to query and visualize data stored in InfluxDB Cloud (IOx)
+seotitle: Use Grafana to query and visualize data stored in InfluxDB Cloud Serverless
 list_title: Use Grafana
 description: >
-  Install and run [Grafana](https://grafana.com/) to query and visualize data stored in an
-  InfluxDB bucket powered by InfluxDB IOx.
+  Install and run [Grafana](https://grafana.com/) to query and visualize data
+  stored in InfluxDB Cloud Serverless.
 weight: 101
 menu:
   influxdb_cloud_serverless:
@@ -16,8 +16,8 @@ aliases:
 alt_engine: /influxdb/cloud/tools/grafana/
 ---
 
-Use [Grafana](https://grafana.com/) to query and visualize data stored in an
-InfluxDB bucket powered by InfluxDB IOx.
+Use [Grafana](https://grafana.com/) to query and visualize data stored in
+InfluxDB Cloud Serverless.
 Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-flightsql-datasource)
 to query InfluxDB with the Flight SQL protocol.
 
@@ -26,7 +26,7 @@ to query InfluxDB with the Flight SQL protocol.
 > [Grafana] provides you with tools to turn your time-series database (TSDB)
 > data into insightful graphs and visualizations.
 >
-> {{% caption %}}[Grafana documentation](https://grafana.com/docs/grafana/latest/introduction/){{% /caption %}}
+> {{% cite %}}-- [Grafana documentation](https://grafana.com/docs/grafana/latest/introduction/){{% /cite %}}
 
 <!-- TOC -->
 
@@ -105,7 +105,7 @@ Grafana Cloud instance.
 
     - **Host**: Provide the host and port of your Flight SQL client.
       For InfluxDB Cloud Serverless, this is your
-      [InfluxDB Cloud region domain](/influxdb/cloud-serverless/reference/regions/)
+      [InfluxDB Cloud Serverless region domain](/influxdb/cloud-serverless/reference/regions/)
       and port 443. For example:
 
       ```

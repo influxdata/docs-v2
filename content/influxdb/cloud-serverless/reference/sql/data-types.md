@@ -13,7 +13,7 @@ related:
   - /influxdb/cloud-serverless/query-data/sql/cast-types/
 ---
 
-InfluxDB Cloud backed by InfluxDB IOx uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.
+InfluxDB Cloud Serverless uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.
 Data types define the type of values that can be stored in table columns.
 In InfluxDB's SQL implementation, a **measurement** is structured as a table,
 and  **tags**, **fields** and **timestamps** are exposed as columns.

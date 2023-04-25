@@ -15,7 +15,7 @@ All Flux reference material is provided in the Flux documentation:
 
 ## Flux with the InfluxDB IOx storage engine
 
-When querying data from an InfluxDB bucket backed by InfluxDB IOx, use the following
+When querying data from an InfluxDB bucket powered by InfluxDB IOx, use the following
 input functions:
 
 - [`iox.from()`](/flux/v0.x/stdlib/experimental/iox/from/): alternative to
@@ -71,7 +71,7 @@ iox.sql(bucket: "example-bucket", query: query)
 {{% warn %}}
 #### Flux performance with InfluxDB IOx
 
-When querying data from an InfluxDB bucket backed by InfluxDB IOx, using `iox.from()`
-is **less performant** than querying a TSM-backed bucket with `from()`.
+When querying data from an InfluxDB bucket powered by InfluxDB IOx, using `iox.from()`
+is **less performant** than querying a TSM-powered bucket with `from()`.
 For better Flux query performance, use `iox.sql()`.
 {{% /warn %}}

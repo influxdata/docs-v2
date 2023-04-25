@@ -141,7 +141,7 @@ The following examples use the sample data written in the
 [Get started writing data guide](/influxdb/cloud-serverless/get-started/write/).
 To run the example queries and return results,
 [write the sample data](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb)
-to your InfluxDB Cloud bucket before running the example queries.
+to your InfluxDB Cloud Serverless bucket before running the example queries.
 {{% /note %}}
 
 ### Perform an ungrouped aggregation

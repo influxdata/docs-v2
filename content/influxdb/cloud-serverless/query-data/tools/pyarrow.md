@@ -1,7 +1,8 @@
 ---
 title: Use the PyArrow library to analyze data
 description: >
-  Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze InfluxDB query results from a bucket powered by InfluxDB IOx.
+  Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze
+  InfluxDB query results from InfluxDB Cloud Serverless.
 weight: 101
 menu:
   influxdb_cloud_serverless:
@@ -21,7 +22,7 @@ list_code_example: |
 ---
 
 Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze query results 
-from an InfluxDB bucket powered by InfluxDB IOx.
+from a InfluxDB Cloud Serverless.
 The PyArrow library provides efficient computation, aggregation, serialization, and conversion of Arrow format data.
 
 > Apache Arrow is a development platform for in-memory analytics. It contains a set of technologies that enable

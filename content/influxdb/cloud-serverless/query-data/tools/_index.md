@@ -1,6 +1,6 @@
 ---
-title: Use analysis and visualization tools with InfluxDB Cloud (IOx) APIs
-description: Use popular tools to analyze and visualize time series data stored in an InfluxDB bucket powered by IOx.
+title: Use analysis and visualization tools with InfluxDB Cloud Serverless APIs
+description: Use popular tools to analyze and visualize time series data stored in an InfluxDB Cloud Serverless
 weight: 201
 menu:
   influxdb_cloud_serverless:

@@ -76,7 +76,7 @@ question as you design your schema.
 
 {{% note %}}
 The InfluxDB IOx engine supports infinite tag value and series cardinality.
-Unlike InfluxDB backed by the TSM storage engine, **tag value**
+Unlike InfluxDB powered by the TSM storage engine, **tag value**
 cardinality doesn't affect the overall performance of your database.
 {{% /note %}}
 

@@ -1,8 +1,8 @@
 ---
-title: InfluxDB Cloud regions
+title: InfluxDB Cloud Serverless regions
 description: >
-  InfluxDB Cloud is available on multiple cloud providers and in multiple regions.
-  Each region has a unique InfluxDB Cloud URL and API endpoint.
+  InfluxDB Cloud Serverless is available on multiple cloud providers and in multiple regions.
+  Each region has a unique URL and API endpoint.
 aliases:
   - /influxdb/cloud-serverless/reference/urls/
 weight: 106
@@ -12,9 +12,9 @@ menu:
     parent: Reference
 ---
 
-InfluxDB Cloud backed by InfluxDB IOx is available on on the following cloud providers and regions.
-Each region has a unique InfluxDB Cloud URL and API endpoint.
-Use the URLs below to interact with your InfluxDB Cloud instances with the
+InfluxDB Cloud Serverless is available on on the following cloud providers and regions.
+Each region has a unique URL and API endpoint.
+Use the URLs below to interact with your InfluxDB Cloud Serverless instances with the
 [InfluxDB API](/influxdb/cloud-serverless/reference/api/), [InfluxDB client libraries](/influxdb/cloud/api-guide/client-libraries/),
 [`influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/), or [Telegraf](/influxdb/cloud-serverless/write-data/use-telegraf/).
 
@@ -31,10 +31,10 @@ on other cloud providers and regions.
 
 {{% note %}}
 #### Regions with multiple clusters
-Some InfluxDB Cloud regions have multiple Cloud clusters, each with a unique URL.
-To find your cluster URL, [log in to your InfluxDB Cloud organization](https://cloud2.influxdata.com)
+Some InfluxDB Cloud Serverless regions have multiple Cloud clusters, each with a unique URL.
+To find your cluster URL, [log in to your InfluxDB Cloud Serverless organization](https://cloud2.influxdata.com)
 and review your organization URL. The first subdomain identifies your 
-InfluxDB Cloud cluster. For example:
+InfluxDB Cloud Serverless cluster. For example:
 
 {{< code-callout "us-west-2-1" >}}
 ```sh
