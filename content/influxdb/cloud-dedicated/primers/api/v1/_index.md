@@ -60,7 +60,7 @@ The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrat
 ## Authenticate API requests
 
 InfluxDB requires each write request to be authenticated with a
-[database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token).
+[database token](/influxdb/cloud-dedicated/admin/tokens/).
 With the InfluxDB v1 API, you can use database tokens in InfluxDB 1.x username and password
 schemes or in the InfluxDB v2 `Authorization: Token` scheme:
 
@@ -71,7 +71,7 @@ schemes or in the InfluxDB v2 `Authorization: Token` scheme:
 
 With the InfluxDB v1 API, you can use the InfluxDB 1.x convention of
 username and password to authenticate database reads and writes by passing a
-[database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token)
+[database token](/influxdb/cloud-dedicated/admin/tokens/)
 as the `password` credential.
 When authenticating requests to the v1 API `/write` and `/query` endpoints, InfluxDB Cloud Dedicated checks that `password` (`p`) is an authorized [database token](/influxdb/cloud-dedicated/admin/tokens/).
 InfluxDB Cloud ignores the `username` (`u`) parameter in the request.
@@ -84,7 +84,7 @@ Use one of the following authentication schemes with clients that support Basic 
 #### Basic authentication
 
 Use the `Authorization` header with the `Basic` scheme to authenticate v1 API `/write` and `/query` requests.
-When authenticating requests, InfluxDB Cloud Dedicated checks that the `password` part of the decoded credential is an authorized [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token).
+When authenticating requests, InfluxDB Cloud Dedicated checks that the `password` part of the decoded credential is an authorized [database token](/influxdb/cloud-dedicated/admin/tokens/).
 InfluxDB Cloud Dedicated ignores the `username` part of the decoded credential.
 
 ##### Syntax
