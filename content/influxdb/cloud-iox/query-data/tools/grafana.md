@@ -40,7 +40,7 @@ to query InfluxDB with the Flight SQL protocol.
 
 ## Install Grafana or login to Grafana Cloud
 
-If user the open source version of **Grafana**, follow the
+If using the open source version of **Grafana**, follow the
 [Grafana installation instructions](https://grafana.com/docs/grafana/latest/setup-grafana/installation/)
 to install Grafana for your operating system.
 If using **Grafana Cloud**, login to your Grafana Cloud instance.
@@ -88,7 +88,7 @@ After installing the plugin, you may need to restart your Grafana server.
 3. Click **Install via grafana.com** to navigate to the plugin page.
 4. On the plugin page, click **Install plugin**.
 
-After a moment, Grafana Cloud will complete the plugin installation in your
+After a moment, Grafana Cloud completes the plugin installation in your
 Grafana Cloud instance.
 
 <!----------------------------- END GRAFANA CLOUD ----------------------------->
