@@ -161,7 +161,6 @@ Include the following with your request:
   - **Content-Type**: text/plain; charset=utf-8
   - **Accept**: application/json
 - **Query parameters**:
-  - **org**: _This parameter is ignored and can be an arbitrary string_
   - **bucket**: InfluxDB database name
   - **precision**: Timestamp precision (default is `ns`)
 - **Request body**: Line protocol as plain text
@@ -176,11 +175,12 @@ to InfluxDB Cloud dedicated:
 {{% influxdb/custom-timestamps %}}
 ```sh
 export INFLUX_HOST=https://cluster-id.influxdb.io
-export INFLUX_ORG=ignored
 export INFLUX_TOKEN=DATABASE_TOKEN
 
+DATABASE_NAME=get-started
+
 curl --request POST \
-"$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=get-started&precision=s" \
+"$INFLUX_HOST/api/v2/write?bucket=$DATABASE_NAME&precision=s" \
   --header "Authorization: Token $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
