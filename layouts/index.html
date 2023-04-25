@@ -32,42 +32,50 @@
     <div class="categories">
       <div class="category">
         <h4>Self-managed</h4>
-        <div class="influxdb-cards">
-          <div class="card">
-            <h3>InfluxDB OSS <span class="version">{{ replaceRE "v" "" $influxdbVersionV2 }}</span></h3>
-            <p>The open source time series platform.</p> 
-            <div class="card-links">
-              <a href="/influxdb/{{ $influxdbVersionV2 }}/">InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }} documenation</a>
-              <a href="/influxdb/{{ $influxdbVersionV2 }}/get-started/">Get started with <strong>InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</strong></a>
+        <div class="category-card">
+          <div class="product">
+            <h3><a href="/influxdb/{{ $influxdbVersionV2 }}/">InfluxDB OSS <span class="version">{{ replaceRE "v" "" $influxdbVersionV2 }}</span></a></h3>
+            <p>The open source time series platform designed to store, query, and process time series data.</p> 
+            <div class="product-links">
+              <a href="/influxdb/{{ $influxdbVersionV2 }}/">View documentation</a>
+              <a href="/influxdb/{{ $influxdbVersionV2 }}/get-started/">Get started</a>
             </div>
           </div>
-          <div class="card">
-            <h3>InfluxDB Enterprise <span class="version">{{ replaceRE "v" "" $enterpriseVersion }}</span></h3>
+          <div class="product">
+            <h3><a href="/enterprise_influxdb/{{ $enterpriseVersion }}/">InfluxDB Enterprise <span class="version">{{ replaceRE "v" "" $enterpriseVersion }}</span></a></h3>
             <p>Highly available InfluxDB built for high write and query workloads.</p>
-            <div class="card-links">
-              <a href="/enterprise_influxdb/{{ $enterpriseVersion }}/">InfluxDB Enterprise {{ replaceRE "v" "" $enterpriseVersion }} documenation</a>
-              <a href="/enterprise_influxdb/{{ $enterpriseVersion }}/introduction/">Get started with <strong>InfluxDB Enterprise {{ replaceRE "v" "" $enterpriseVersion }}</strong></a>
+            <div class="product-links">
+              <a href="/enterprise_influxdb/{{ $enterpriseVersion }}/">View documentation</a>
+              <a href="/enterprise_influxdb/{{ $enterpriseVersion }}/introduction/">Get started</a>
             </div>
           </div>
         </div>
       </div>
       <div class="category">
         <h4>Managed by InfluxData</h4>
-        <div class="influxdb-cards">
-          <div class="card">
-            <h3>InfluxDB Cloud Serverless</h3>
-            <!-- <p>Collect time series data from many different sources.</p> -->
-            <div class="card-links">
-              <a href="/telegraf/{{ $telegrafVersion }}/">Get started with <strong>Telegraf {{ replaceRE "v" "" $telegrafVersion }}</strong></a>
-              <a href="/telegraf/{{ $telegrafVersion }}/plugins/">View Telegraf plugins</a>
+        <div class="category-card">
+          <div class="product">
+            <h3><a href="/influxdb/cloud/">InfluxDB Cloud <span class="version">TSM</span></a></h3>
+            <p>Managed InfluxDB powered by the InfluxDB <strong>TSM</strong> storage engine deployed in the cloud.</p>
+            <div class="product-links">
+              <a href="/influxdb/cloud/">View documentation</a>
+              <a href="/influxdb/cloud/get-started/">Get started</a>
             </div>
           </div>
-          <div class="card">
-            <h3>InfluxDB Cloud Dedicated</h3>
-            <!-- <p>The data scripting language that queries, processes, alert ons, and writes data.</p> -->
-            <div class="card-links">
-              <a href="/flux/{{ $fluxVersion }}/">Get started with <strong>Flux {{ replaceRE "v" "" $fluxVersion }}</strong></a>
-              <a href="/flux/{{ $fluxVersion }}/stdlib/">View the Flux standard library</a>
+          <div class="product new">
+            <h3><a href="/influxdb/cloud-serverless/">InfluxDB Cloud Serverless</a></h3>
+            <p>Managed InfluxDB powered by the InfluxDB <strong>IOx</strong> storage engine deployed in the cloud.</p>
+            <div class="product-links">
+              <a href="/influxdb/cloud-serverless/">View documentation</a>
+              <a href="/influxdb/cloud-serverless/get-started/">Get started</a>
+            </div>
+          </div>
+          <div class="product new">
+            <h3><a href="/influxdb/cloud-dedicated/">InfluxDB Cloud Dedicated</a></h3>
+            <p>Managed InfluxDB powered by the InfluxDB <strong>IOx</strong> storage engine deployed in the cloud and dedicated to your workload.</p>
+            <div class="product-links">
+              <a href="/influxdb/cloud-dedicated/">View documentation</a>
+              <a href="/influxdb/cloud-dedicated/get-started/">Get started</a>
             </div>
           </div>
         </div>
