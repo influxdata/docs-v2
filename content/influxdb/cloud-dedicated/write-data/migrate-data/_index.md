@@ -65,15 +65,7 @@ in more regions around the world.
 
 #### Are you reliant on Flux queries and Flux tasks?
 
-**You should maybe migrate**. Flux queries are less performant against the IOx
-storage engine. Flux is optimized to work with the TSM storage engine, but these
-optimizations do not apply to the on-disk structure of InfluxDB IOx.
-
-To maintain performant Flux queries against the IOx storage engine, you need to
-update Flux queries to use a mixture of both SQL and Flux—SQL to query the base
-dataset and Flux to perform other transformations that SQL does not support.
-For information about using SQL and Flux together for performant queries, see
-[Use Flux and SQL to query data](/influxdb/cloud-dedicated/query-data/flux-sql/).
+**You should not migrate**. InfluxDB Cloud Dedicated does not support Flux.
 
 ---
 
