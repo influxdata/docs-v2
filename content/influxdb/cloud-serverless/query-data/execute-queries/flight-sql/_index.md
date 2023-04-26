@@ -12,7 +12,7 @@ influxdb/cloud-serverless/tags: [query, flightsql]
 ---
 
 Use [Apache Arrow Flight SQL](https://arrow.apache.org/) to query data
-stored in an InfluxDB Cloud Serverless.
+stored in an InfluxDB Cloud Serverless bucket.
 
 > Arrow Flight SQL is a protocol for interacting with SQL databases using the
 > [Arrow in-memory format](https://arrow.apache.org/docs/format/Columnar.html)

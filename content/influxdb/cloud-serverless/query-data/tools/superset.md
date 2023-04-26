@@ -4,7 +4,7 @@ seotitle: Use Apache Superset to visualize data stored in InfluxDB
 list_title: Superset
 description: >
   Use [Apache Superset](https://superset.apache.org/) to query and visualize data
-  stored in an InfluxDB bucket powered by InfluxDB IOx.
+  stored in InfluxDB Cloud Serverless.
 weight: 101
 menu:
   influxdb_cloud_serverless:
@@ -19,7 +19,7 @@ related:
 ---
 
 Use [Apache Superset](https://superset.apache.org/) to query and visualize data
-stored in an InfluxDB bucket powered by InfluxDB IOx.
+stored in an InfluxDB Cloud Serverless bucket.
 
 > Apache Superset is a modern, enterprise-ready business intelligence web application.
 > It is fast, lightweight, intuitive, and loaded with options that make it easy for

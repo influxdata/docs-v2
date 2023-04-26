@@ -1,6 +1,6 @@
 ---
 title: Use analysis and visualization tools with InfluxDB Cloud Serverless APIs
-description: Use popular tools to analyze and visualize time series data stored in an InfluxDB Cloud Serverless
+description: Use popular tools to analyze and visualize time series data stored in an InfluxDB Cloud Serverless bucket.
 weight: 201
 menu:
   influxdb_cloud_serverless:

@@ -11,7 +11,7 @@ weight: 101
 influxdb/cloud-serverless/tags: [query, sql]
 ---
 
-Learn to query data stored in InfluxDB using SQL.
+Use SQL to query data stored in an InfluxDB Cloud Serverless bucket.
 
 {{< children type="anchored-list" >}}
 

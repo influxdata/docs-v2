@@ -29,7 +29,7 @@ list_code_example: |
 ---
 
 Use [pandas](https://pandas.pydata.org/), the Python data analysis library, to process, analyze, and visualize data
-stored in a InfluxDB Cloud Serverless.
+stored in an InfluxDB Cloud Serverless bucket.
 
 > **pandas** is an open source, BSD-licensed library providing high-performance,
 > easy-to-use data structures and data analysis tools for the Python programming language.
