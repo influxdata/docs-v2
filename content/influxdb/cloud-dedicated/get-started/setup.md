@@ -58,7 +58,7 @@ databases and tokens.
 
 ## Create a database
 
-Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxct/database/create/)
+Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
 to create a database. You can use an existing database or create a new one
 specifically for this getting started tutorial.
 _Examples in this getting started tutorial assume a database named **"get-started"**._
@@ -87,7 +87,7 @@ influxctl database create \
 
 ## Create a database token
 
-Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxct/token/create/)
+Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
 to create a database token with read and write permissions for your database.
 
 Provide the following:
