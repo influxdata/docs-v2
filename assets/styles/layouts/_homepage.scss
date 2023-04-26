@@ -192,19 +192,21 @@ body.home {
       h3 {
         margin: 0 0 1.5rem;
         line-height: 1.1em;
-        font-size: 2.75rem;
+        font-size: 2.35rem;
       }
+
+      .no-wrap { white-space: nowrap; }
 
       p {
         margin-bottom: 2rem;
-      };
+      }
 
       .card-links {
         margin-top: auto;
         
         a {
           position: relative;
-          display: block;
+          display: inline-block;
           color: $article-text;
           font-weight: $medium;
           text-decoration: none;
@@ -221,7 +223,7 @@ body.home {
 
           &:hover{
             color: $br-new-magenta;
-            &:after {width: 30%}
+            &:after {width: 100%}
           }
         }
       }
@@ -364,6 +366,7 @@ body.home {
     h3 {
       margin: 0;
       font-size: 2rem;
+      color: $br-new-magenta;
       .version {
         opacity: .5;
         font-size: .7em;
@@ -375,7 +378,7 @@ body.home {
         transition: color .2s;
 
         &:hover {
-          color: $br-new-magenta;
+          color: $article-text;
           .version {color: $article-text;}
         }
       }
