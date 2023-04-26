@@ -95,7 +95,7 @@ After you've imported the client library, you're ready to [write data](/{{% late
 
 ## Get started with the example app
 
-This library includes an example browser app that queries from and writes to your InfluxDB instance.
+This library includes an example browser app that writes to your InfluxDB instance.
 
 1. Clone the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repo.
 
