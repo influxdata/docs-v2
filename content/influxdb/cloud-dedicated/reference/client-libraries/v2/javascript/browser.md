@@ -104,7 +104,7 @@ This library includes an example browser app that queries from and writes to you
     cd examples
     ```
 
-3. Update `./env_browser.js` with your InfluxDB [url](/{{% latest "influxdb" %}}/reference/urls/), [bucket](/{{% latest "influxdb" %}}/organizations/buckets/), [organization](/{{% latest "influxdb" %}}/organizations/), and [token](/{{% latest "influxdb" %}}/security/tokens/)
+3. Update `./env_browser.js` with your InfluxDB Cloud Dedicated cluster URL, your database name as `bucket`, an arbitrary string as `org`, and your database token.
 
 4. Run the following command to start the application at [http://localhost:3001/examples/index.html]()
 
