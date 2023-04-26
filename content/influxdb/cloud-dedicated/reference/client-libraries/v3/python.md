@@ -11,11 +11,12 @@ menu:
     params:
       url: https://github.com/InfluxCommunity/pyinflux3
     identifier: pyinflux3
+influxdb/cloud-dedicated/tags: [python, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
 ---
 
 Use the [pyinflux3 client library and CLI](https://github.com/InfluxCommunity/pyinflux3) to integrate
-InfluxDB Cloud Serverless and InfluxDB Cloud Dedicated into Python scripts and applications.
+InfluxDB Cloud Dedicated into Python scripts and applications.
 
 The documentation for this client library is available on GitHub.
 

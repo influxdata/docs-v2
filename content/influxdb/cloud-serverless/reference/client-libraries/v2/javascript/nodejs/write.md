@@ -84,15 +84,8 @@ The Javascript client library includes the following convenient features for wri
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
-[Curl](#curl)
 [Node.js](#nodejs)
 {{% /code-tabs %}}
-{{% code-tab-content %}}
-
-```sh
-{{< get-shared-text "api/v2.0/write/write.sh" >}}
-```
-{{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 ```js
@@ -106,11 +99,17 @@ To run the example from a file, set your InfluxDB environment variables and use 
 
 ```sh
 export INFLUX_URL=http://localhost:8086 && \
-export INFLUX_TOKEN=YOUR_API_TOKEN && \
-export INFLUX_ORG=YOUR_ORG && \
-export INFLUX_BUCKET=YOUR_BUCKET && \
+export INFLUX_TOKEN=INFLUX_READ_WRITE_TOKEN && \
+export INFLUX_ORG=ORG_ID && \
+export INFLUX_BUCKET=BUCKET_NAME && \
 node write.js
 ```
+
+Replace the following:
+
+- *`INFLUX_READ_WRITE_TOKEN`*: InfluxDB token with _write_ permission to the bucket.
+- *`ORG_ID`*: InfluxDB organization ID
+- *`BUCKET_NAME`*: The name of the InfluxDB bucket to write to.
 
 ### Response codes
 _For information about **InfluxDB API response codes**, see

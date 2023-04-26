@@ -61,7 +61,7 @@ The following example shows how to use Python with `flightsql-dbapi` and `pyarro
     # Instantiate a FlightSQLClient configured for a bucket
     client = FlightSQLClient(host='cloud2.influxdata.com',
         token='INFLUX_READ_WRITE_TOKEN',
-        metadata={'bucket-name': 'INFLUX_BUCKET'},
+        metadata={'bucket-name': 'BUCKET_NAME'},
         features={'metadata-reflection': 'true'})
 
     # Execute the query to retrieve FlightInfo
@@ -79,8 +79,8 @@ The following example shows how to use Python with `flightsql-dbapi` and `pyarro
 
 2. Replace the following configuration values:
 
-    - **`INFLUX_READ_WRITE_TOKEN`**: Your InfluxDB token with read permissions on the databases you want to query.
-    - **`INFLUX_BUCKET`**: The name of your InfluxDB bucket.
+    - **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _read_ permission to the bucket.
+    - **`BUCKET_NAME`**: The name of the InfluxDB bucket to query.
 
 
 3. In your terminal, use the Python interpreter to run the file:
@@ -108,7 +108,7 @@ from flightsql import FlightSQLClient
 
 client = FlightSQLClient(host='cloud2.influxdata.com',
     token='INFLUX_READ_WRITE_TOKEN',
-    metadata={'bucket-name': 'INFLUX_BUCKET'},
+    metadata={'bucket-name': 'BUCKET_NAME'},
     features={'metadata-reflection': 'true'})
 
 info = client.execute('SELECT * FROM home')
@@ -133,5 +133,10 @@ room: [["Kitchen","Living Room"]]
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+Replace the following:
+
+- **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _read_ permission to the bucket.
+- **`BUCKET_NAME`**: The name of the InfluxDB bucket to query.
 
 For more detail and examples, see the [PyArrow documentation](https://arrow.apache.org/docs/python/getstarted.html) and the [Apache Arrow Python Cookbook](https://arrow.apache.org/cookbook/py/data.html).

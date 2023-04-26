@@ -57,7 +57,7 @@ Use the Go library to write and query data from InfluxDB.
    org := "example-org"
    token := "example-token"
    // Store the URL of your InfluxDB instance
-   url := "http://localhost:8086"
+   url := "https://cloud2.influxdata.com"
    ```
 
 3. Create the the InfluxDB Go client and pass in the `url` and `token` parameters.
@@ -103,7 +103,7 @@ func main() {
     org := "example-org"
     token := "example-token"
     // Store the URL of your InfluxDB instance
-    url := "http://localhost:8086"
+    url := "https://cloud2.influxdata.com"
     // Create new client with default option for server url authenticate by token
     client := influxdb2.NewClient(url, token)
     // User blocking write client for writes to desired bucket
@@ -119,6 +119,3 @@ func main() {
     client.Close()
 }
 ```
-## Query data from InfluxDB with Go
-To query data stored in Cloud Serverless, use the [Go Flight SQL client](https://github.com/apache/arrow/go/v12/arrow/flight/flightsql).
-For an example, see [Get started querying data](/influxdb/cloud-dedicated/get-started/query/?t=Go#execute-a-sql-query).

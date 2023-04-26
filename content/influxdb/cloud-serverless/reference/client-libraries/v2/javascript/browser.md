@@ -61,6 +61,9 @@ For more information and examples, see [Node.js](/{{% latest "influxdb" %}}/api-
      }
    </script>
    ```
+   Replace the following:
+
+    - **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _write_ permission to the bucket.
 
 2. Import modules from the latest client library browser distribution.
 `@influxdata/influxdb-client-browser` exports bundled ESM and UMD syntaxes. 

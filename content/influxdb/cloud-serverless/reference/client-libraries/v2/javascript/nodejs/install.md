@@ -80,14 +80,16 @@ The examples use these properties to interact with the InfluxDB API.
 
    ```sh
    export INFLUX_URL=https://cloud2.influxdata.com
-   export INFLUX_TOKEN=YOUR_API_TOKEN
-   export INFLUX_ORG=YOUR_ORG
-   export INFLUX_BUCKET=YOUR_BUCKET
+   export INFLUX_TOKEN=INFLUX_READ_WRITE_TOKEN
+   export INFLUX_ORG=ORG_ID
+   export INFLUX_BUCKET=BUCKET_NAME
    ```
+
    Replace the following:
-   - *`YOUR_API_TOKEN`*: InfluxDB API token
-   - *`YOUR_ORG`*: InfluxDB organization ID
-   - *`YOUR_BUCKET`*: InfluxDB bucket name
+   
+   - *`INFLUX_READ_WRITE_TOKEN`*: InfluxDB token with _write_ permission to the bucket.
+   - *`ORG_ID`*: InfluxDB organization ID
+   - *`BUCKET_NAME`*: The name of the InfluxDB bucket to write to.
 
 2. Run an example script.
 
