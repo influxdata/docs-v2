@@ -15,6 +15,7 @@ InfluxDB's SQL implementation supports time and date functions that are useful w
 - [current_date](#current_date)
 - [current_time](#current_time)
 - [date_bin](#date_bin)
+- [date_bin-gapfill](#date_bin-gapfill)
 - [date_trunc](#date_trunc)
 - [datetrunc](#datetrunc)
 - [date_part](#date_part)
@@ -172,6 +173,13 @@ ORDER BY time DESC
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+## date_bin_gapfill
+
+<!-------------------------------- ADD CONTENT -------------------------------->
+<!-------------------------------- ADD CONTENT -------------------------------->
+<!-------------------------------- ADD CONTENT -------------------------------->
+<!-------------------------------- ADD CONTENT -------------------------------->
 
 ## date_trunc
 
