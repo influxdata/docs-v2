@@ -99,7 +99,7 @@ Use the Go library to write data to InfluxDB.
 
 ```go
 func main() {
-    bucket := "example-bucket"
+    bucket := "example-database"
     org := "example-org"
     token := "example-token"
     // Store the URL of your InfluxDB instance
@@ -120,87 +120,8 @@ func main() {
 }
 ```
 ## Query data from InfluxDB with Go
-Use the Go library to query data stored in InfluxDB.
-
-1. Create a Flux query and pass the `bucket` parameter with your bucket name.
-
-    ```js
-    from(bucket:"<bucket>")
-        |> range(start: -1h)
-        |> filter(fn: (r) => r._measurement == "stat")
-    ```
-
-   The query client sends the Flux query to InfluxDB and returns the results as a FluxRecord object with a table structure.
-
-**The query client includes the following methods:**
-
-- `Query`: Sends the Flux query to InfluxDB.
-- `Next`: Iterates over the query response.
-- `TableChanged`: Identifies when the group key changes.
-- `Record`: Returns the last parsed FluxRecord and gives access to value and row properties.
-- `Value`: Returns the actual field value.
-
-```go
-result, err := queryAPI.Query(context.Background(), `from(bucket:"<bucket>")
-    |> range(start: -1h) 
-    |> filter(fn: (r) => r._measurement == "stat")`)
-if err == nil {
-    for result.Next() {
-        if result.TableChanged() {
-            fmt.Printf("table: %s\n", result.TableMetadata().String())
-        }
-        fmt.Printf("value: %v\n", result.Record().Value())
-    }
-    if result.Err() != nil {
-        fmt.Printf("query parsing error: %s\n", result.Err().Error())
-    }
-} else {
-    panic(err)
-}
-```
-
-**The FluxRecord object includes the following methods for accessing your data:**
-
-- `Table()`: Returns the index of the table the record belongs to.
-- `Start()`: Returns the inclusive lower time bound of all records in the current table.
-- `Stop()`: Returns the exclusive upper time bound of all records in the current table.
-- `Time()`: Returns the time of the record.
-- `Value() `: Returns the actual field value.
-- `Field()`: Returns the field name.
-- `Measurement()`: Returns the measurement name of the record.
-- `Values()`: Returns a map of column values.
-- `ValueByKey(<your_tags>)`: Returns a value from the record for given column key.
-
-### Complete example query script
-
-```go
- func main() {
-    // Create client
-    client := influxdb2.NewClient(url, token)
-    // Get query client
-    queryAPI := client.QueryAPI(org)
-    // Get QueryTableResult
-    result, err := queryAPI.Query(context.Background(), `from(bucket:"my-bucket")|> range(start: -1h) |> filter(fn: (r) => r._measurement == "stat")`)
-    if err == nil {
-        // Iterate over query response
-        for result.Next() {
-            // Notice when group key has changed
-            if result.TableChanged() {
-                fmt.Printf("table: %s\n", result.TableMetadata().String())
-            }
-            // Access data
-            fmt.Printf("value: %v\n", result.Record().Value())
-        }
-        // Check for an error
-        if result.Err() != nil {
-            fmt.Printf("query parsing error: %s\n", result.Err().Error())
-        }
-    } else {
-        panic(err)
-    }
-    // Ensures background processes finishes
-    client.Close()
-}
-```
+The InfluxDB v2 Go client cannot query InfluxDB Cloud Dedicated.
+To query your dedicated instance, use the [Go Flight SQL client](https://github.com/apache/arrow/go/v12/arrow/flight/flightsql).
+For an example, see [Get started querying data](/influxdb/cloud-dedicated/get-started/query/?t=Go#execute-a-sql-query).
 
 For more information, see the [Go client README on GitHub](https://github.com/influxdata/influxdb-client-go).
