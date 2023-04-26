@@ -5,7 +5,7 @@
 {{ $EnterpriseLink := print "/enterprise_influxdb/" $latestEnterpriseVersion "/administration/config-data-nodes/#http-endpoint-settings" }}
 {{ $isInfluxDB := cond (gt (len (findRE `^/influxdb/|^/enterprise_influxdb/` .RelPermalink)) 0) true false }}
 {{ $isOSS := cond (in .RelPermalink "/influxdb/v") true false }}
-{{ $isCloud := cond (or (in .RelPermalink "/influxdb/cloud/") (in .RelPermalink "/influxdb/cloud-iox/")) true false }}
+{{ $isCloud := cond (or (in .RelPermalink "/influxdb/cloud/") (in .RelPermalink "/influxdb/cloud-serverless/")) true false }}
 {{ $isDedicated := cond (in .RelPermalink "/influxdb/cloud-dedicated/") true false }}
 {{ $isEnterprise := cond (in .RelPermalink "/enterprise_influxdb/") true false }}
 
