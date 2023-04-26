@@ -57,7 +57,7 @@ For more information and examples, see [Node.js](/{{% latest "influxdb" %}}/api-
    <script>
      window.INFLUX_ENV = {
        url: 'http://localhost:8086',
-       token: 'YOUR_AUTH_TOKEN'
+       token: 'INFLUX_READ_WRITE_TOKEN'
      }
    </script>
    ```
