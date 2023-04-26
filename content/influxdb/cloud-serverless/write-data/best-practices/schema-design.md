@@ -360,7 +360,7 @@ or regular expressions.
 To simplify query writing, avoid using reserved keywords or special characters
 in measurement names, tag keys, and field keys.
 
-- [SQL keywords](#)
+- [SQL keywords](/influxdb/cloud-serverless/reference/sql/#keywords)
 - [InfluxQL keywords](/influxdb/cloud-serverless/reference/syntax/influxql/spec/#keywords)
 - [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords)
 

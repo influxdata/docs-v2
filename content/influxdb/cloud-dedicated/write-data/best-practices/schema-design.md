@@ -360,22 +360,11 @@ or regular expressions.
 To simplify query writing, avoid using reserved keywords or special characters
 in measurement names, tag keys, and field keys.
 
-- [SQL keywords](#)
+- [SQL keywords](/influxdb/cloud-dedicated/reference/sql/#keywords)
 - [InfluxQL keywords](/influxdb/cloud-dedicated/reference/syntax/influxql/spec/#keywords)
-- [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords)
 
 When using SQL or InfluxQL to query measurements, tags, and fields with special
 characters or keywords, you have to wrap these keys in **double quotes**.
-In Flux, if using special characters in tag keys, you have to use
-[bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation)
-to reference those columns.
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[SQL & InfluxQL](#)
-[Flux](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
 
 ```sql
 SELECT
@@ -385,18 +374,3 @@ FROM
 WHERE
   "tag@1-23" = 'ABC'
 ```
-
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
-
-```js
-import "experimental/iox"
-
-iox.from(bucket: "example-bucket")
-    |> range(start: -1y)
-    |> filter(fn: (r) => r._measurement == "example-measurement")
-    |> filter(fn: (r) => r["tag@1-23"] == "ABC")
-```
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
