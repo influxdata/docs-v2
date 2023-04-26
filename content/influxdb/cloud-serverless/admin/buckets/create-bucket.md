@@ -129,6 +129,7 @@ _For information about **InfluxDB API options and response codes**, see
 
 {{% /tab-content %}}
 <!------------------------------ END API CONTENT ------------------------------>
+{{< /tabs-wrapper >}}
 
 ## Create a bucket that enforces explicit schemas
 

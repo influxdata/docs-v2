@@ -281,6 +281,6 @@ influx write \
   --compression gzip
 ```
 {{% /code-tab-content %}}
-    {{< code-tabs-wrapper >}}
+    {{< /code-tabs-wrapper >}}
 
     Repeat for each export file and target bucket.

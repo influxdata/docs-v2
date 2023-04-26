@@ -128,7 +128,7 @@ query results](https://github.com/influxdata/influxdb/issues/7578).
 
 ### Examples
 
-{{% expand-wrapper %}}
+{{< expand-wrapper >}}
 
 {{% expand "Paginate series" %}}
 
@@ -195,6 +195,7 @@ Output:
 {{% influxql/table-meta %}}
 name: h2o_feet  
 tags: location=coyote_creek
+{{% /influxql/table-meta %}}
 
 | time   | mean |
 | :------------------ | ---------------------:|

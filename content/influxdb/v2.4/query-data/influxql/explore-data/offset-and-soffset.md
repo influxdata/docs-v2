@@ -103,8 +103,7 @@ tags: location=coyote_creek
 | 2019-08-18T00:36:00Z | 7.8330000000 |
 | 2019-08-18T00:24:00Z | 8.0710000000 |
 
-{{< /expand >}}
-
+{{% /expand %}}
 {{< /expand-wrapper >}}
 
 ## `SOFFSET` clause
@@ -128,8 +127,7 @@ query results](https://github.com/influxdata/influxdb/issues/7578).
 
 ### Examples
 
-{{% expand-wrapper %}}
-
+{{< expand-wrapper >}}
 {{% expand "Paginate series" %}}
 
 #### Paginate series
@@ -158,7 +156,6 @@ The results above are partial, as the data set is quite large. The query returns
 measurement and the `location = santa_monica` tag. Without `SOFFSET 1`, the query returns data for the series associated with the `h2o_feet` measurement and the `location = coyote_creek` tag.
 
 {{% /expand %}}
-
 {{% expand "Paginate points and include several clauses" %}}
 
 #### Paginate series and include all clauses
@@ -195,6 +192,7 @@ Output:
 {{% influxql/table-meta %}}
 name: h2o_feet  
 tags: location=coyote_creek
+{{% /influxql/table-meta %}}
 
 | time   | mean |
 | :------------------ | ---------------------:|
@@ -202,5 +200,4 @@ tags: location=coyote_creek
 | 2019-08-18T00:00:00Z | 8.4615000000 |
 
 {{% /expand %}}
-
 {{< /expand-wrapper >}}
