@@ -21,15 +21,6 @@ related:
 To migrate data from an InfluxDB 1.x OSS or Enterprise instance to InfluxDB Cloud
 Dedicated, export the data as line protocol and write
 the exported data to an InfluxDB Cloud Dedicated database.
-<!--
-Because full data migrations will likely exceed your organizations' limits and
-adjustable quotas, migrate your data in batches.
--->
-
-<!-- cloud
-All write requests are subject to your InfluxDB Cloud Dedicated organization's
-[rate limits and adjustable quotas](/influxdb/cloud-dedicated/account-management/limits/).
-/cloud -->
 
 ## Tools to use
 The migration process uses the following tools:
