@@ -85,7 +85,7 @@ The following example sends a Flux query to an InfluxDB bucket and outputs rows 
 To run the example from a file, set your InfluxDB environment variables and use `node` to execute the JavaScript file.
 
 ```sh
-export INFLUX_URL=http://localhost:8086 && \
+export INFLUX_URL=https://cloud2.influxdata.com && \
 export INFLUX_TOKEN=INFLUX_READ_WRITE_TOKEN && \
 export INFLUX_ORG=YOUR_ORG && \
 node query.js
