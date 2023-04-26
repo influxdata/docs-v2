@@ -30,7 +30,7 @@ If just getting started, see [Get started with InfluxDB](/influxdb/cloud-dedicat
     go get github.com/influxdata/influxdb-client-go/v2
     ```
 3. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/cloud-dedicated/reference/urls/).
+   For information about what URL to use to connect to your InfluxDB Cloud Dedicated cluster, contact your InfluxData account representative.
 
 ## Boilerplate for the InfluxDB Go Client Library  
 
