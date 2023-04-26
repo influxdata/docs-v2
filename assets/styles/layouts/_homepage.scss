@@ -370,7 +370,7 @@ body.home {
       .version {
         opacity: .5;
         font-size: .7em;
-        color: $article-text;
+        color: $article-bold;
         transition: color .2s;}
       & > a {
         text-decoration: none;
@@ -378,8 +378,8 @@ body.home {
         transition: color .2s;
 
         &:hover {
-          color: $article-text;
-          .version {color: $article-text;}
+          color: $article-bold;
+          .version {color: $article-bold;}
         }
       }
       & + p {margin: .5rem 0;}
