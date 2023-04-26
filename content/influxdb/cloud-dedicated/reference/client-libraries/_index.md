@@ -6,7 +6,6 @@ description: >
 list_title: API client libraries
 weight: 105
 aliases:
-  - /influxdb/cloud-dedicated/reference/client-libraries/
   - /influxdb/cloud-dedicated/reference/api/client-libraries/
   - /influxdb/cloud-dedicated/tools/client-libraries/
   - /influxdb/cloud-dedicated/api-guide/client-libraries/
