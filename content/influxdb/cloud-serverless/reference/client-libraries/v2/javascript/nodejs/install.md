@@ -19,7 +19,7 @@ aliases:
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/).
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/cloud-serverless/reference/urls/).
+   For information about what URL to use to connect to InfluxDB Cloud, see [InfluxDB URLs](/influxdb/cloud-serverless/reference/urls/).
 
 3. Start a new Node.js project.
   The `npm` package manager is included with Node.js.
