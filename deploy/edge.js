@@ -79,7 +79,6 @@ exports.handler = (event, context, callback) => {
     '.zip': true,
     '.md5': true,
     '.sha256': true,
-    '.sh':true,
   };
 
   // Remove index.html from path
