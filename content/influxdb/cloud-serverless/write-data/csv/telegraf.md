@@ -1,5 +1,5 @@
 ---
-title: Use Telegraf to write CSV data
+title: Use Telegraf to write CSV data to InfluxDB Cloud Serverless
 description: >
   Use the Telegraf `file` input plugin to read and parse CSV data into
   [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/)
@@ -21,9 +21,17 @@ and write it to InfluxDB.
 [Telegraf](/{{< latest "telegraf" >}}/) is a plugin-based agent that collects
 metrics from different sources and writes them to specified destinations.
 
+<!-- TOC -->
+
+- [Configure Telegraf to read CSV files](#configure-telegraf-to-read-csv-files)
+- [Configure Telegraf to write to InfluxDB](#configure-telegraf-to-write-to-influxdb)
+    - [Other Telegraf configuration options](#other-telegraf-configuration-options)
+
+<!-- /TOC -->
+
 ## Configure Telegraf to read CSV files
 
-1.  And and enable the [`inputs.file` plugin](/{{< latest "telegraf" >}}/plugins/#input-file)
+1.  Add and enable the [`inputs.file` plugin](/{{< latest "telegraf" >}}/plugins/#input-file)
     in your Telegraf configuration file.
 2.  Use the `files` option to specify the list of CSV files to read.
     CSV files must be accessible by the Telegraf agent.
@@ -60,7 +68,7 @@ metrics from different sources and writes them to specified destinations.
 
 ## Configure Telegraf to write to InfluxDB
 
-1.  Add and enable the the [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2)
+1.  Add and enable the [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2)
     plugin in your Telegraf configuration file.
 2.  Include the following options:
 
@@ -118,3 +126,11 @@ metrics from different sources and writes them to specified destinations.
 
 **Restart the Telegraf agent** to apply the configuration change and write the CSV
 data to InfluxDB.
+
+#### Other Telegraf configuration options
+
+The preceding examples describe Telegraf configurations necessary for writing to InfluxDB Cloud Serverless.
+The output plugin provides several other options for configuring the Telegraf client:
+
+- `influx_uint_support`: supported by the InfluxDB IOx storage engine.
+- See [`influxdb_v2` plugin options](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md) on GitHub.
