@@ -86,7 +86,7 @@ To run the example from a file, set your InfluxDB environment variables and use 
 
 ```sh
 export INFLUX_URL=http://localhost:8086 && \
-export INFLUX_TOKEN=YOUR_API_TOKEN && \
+export INFLUX_TOKEN=INFLUX_READ_WRITE_TOKEN && \
 export INFLUX_ORG=YOUR_ORG && \
 node query.js
 ```
