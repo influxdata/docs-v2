@@ -45,7 +45,7 @@ The Javascript client library includes the following convenient features for wri
    const writeApi = influxDB.getWriteApi(YOUR_ORG, YOUR_BUCKET)
    ```
    Replace the following:
-   - *`YOUR_ORG`*: Arbitrary string (this credential is ignored)
+   - *`YOUR_ORG`*: Arbitrary string (ignored by InfluxDB, but required for the method)
    - *`YOUR_BUCKET`*: InfluxDB database name
 
 3. To apply one or more [tags](/influxdb/cloud-dedicated/reference/glossary/#tag) to all points, use the `useDefaultTags()` method.
