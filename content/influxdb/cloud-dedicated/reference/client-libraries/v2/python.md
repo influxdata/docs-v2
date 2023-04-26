@@ -85,11 +85,11 @@ We are going to write some data in [line protocol](/influxdb/cloud-dedicated/ref
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-bucket = "<my-bucket>"
-org = "<my-org>"
+bucket = "<my-database>"
+org = "ignored"
 token = "<my-token>"
 # Store the URL of your InfluxDB instance
-url="http://localhost:8086"
+url="https://cluster-id.influxdb.io"
 
 client = influxdb_client.InfluxDBClient(
     url=url,
