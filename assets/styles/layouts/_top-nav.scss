@@ -102,25 +102,17 @@
       flex-direction: column;
 
       &.products{
-        li {
-          &:before {
-            display: inline-block;
-            font-size: .85rem;
-            color: $g2-kevlar;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: .04rem;
-            opacity: .65;
-            mix-blend-mode: multiply;
-          }
-          &:first-child:before {
-            content: "Products";
-            margin: .3rem .75rem .15rem;
-          }
-          &.flux:before {
-            content: "Languages";
-            margin: .75rem .75rem .15rem;
-          }
+        &:before {
+          content: attr(data-category);
+          display: inline-block;
+          margin: .75rem .75rem .15rem;
+          font-size: .85rem;
+          color: $g2-kevlar;
+          text-transform: uppercase;
+          font-weight: bold;
+          letter-spacing: .04rem;
+          opacity: .65;
+          mix-blend-mode: multiply;
         }
       }
     }
