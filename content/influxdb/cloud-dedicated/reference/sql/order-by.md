@@ -94,3 +94,5 @@ first by `location` (1), and second by `water_level` (2).
 | coyote_creek | 2019-08-29T15:24:00.000Z | -0.571      |
 | coyote_creek | 2019-08-27T13:42:00.000Z | -0.561      |
 
+{{% /expand %}}
+{{< /expand-wrapper >}}

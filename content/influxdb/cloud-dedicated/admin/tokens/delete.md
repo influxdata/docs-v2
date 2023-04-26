@@ -36,6 +36,8 @@ all permissions associated with the token.
     influxctl token delete <TOKEN_ID>
     ```
 
+4.  Confirm that you want to delete the token.
+
 {{% warn %}}
 #### Deleting a token is immediate and cannot be undone
 

@@ -22,9 +22,11 @@ to delete a database from your InfluxDB Cloud Dedicated cluster.
 
     - Name of the database to delete
 
-```sh
-influxctl database delete <DATABASE_NAME>
-```
+    ```sh
+    influxctl database delete <DATABASE_NAME>
+    ```
+
+3. Confirm that you want to delete the database.
 
 {{% warn %}}
 #### Deleting a database cannot be undone

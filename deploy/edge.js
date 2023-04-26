@@ -79,7 +79,6 @@ exports.handler = (event, context, callback) => {
     '.zip': true,
     '.md5': true,
     '.sha256': true,
-    '.sh':true,
   };
 
   // Remove index.html from path
@@ -97,6 +96,9 @@ exports.handler = (event, context, callback) => {
 
   ///////////////////////// Force v in version numbers /////////////////////////
   permanentRedirect(/(^\/[\w]*\/)(\d\.)/.test(request.uri), request.uri.replace(/(^\/[\w]*\/)(\d\.)/, `$1v$2`));
+
+  /////////////////// cloud-iox to cloud-serverless redirect //////////////////
+  permanentRedirect(/\/influxdb\/cloud-iox/.test(request.uri), request.uri.replace(/\/influxdb\/cloud-iox/, '/influxdb/cloud-serverless'));
   
   ////////////// CLI InfluxQL link (catch before latest redirect) //////////////
   permanentRedirect(/\/influxdb\/latest\/query_language\/spec/.test(request.uri), request.uri.replace(/latest/, 'v1.8'));

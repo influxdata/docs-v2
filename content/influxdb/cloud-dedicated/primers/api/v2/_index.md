@@ -156,7 +156,7 @@ For more plugin options, see [`influxdb_v2`](https://github.com/influxdata/teleg
 ### Write using client libraries
 
 Use language-specific [v2 client libraries](/influxdb/cloud/api-guide/client-libraries/) and your custom code to write data to InfluxDB Cloud Dedicated.
-v2 client libraries send data in [line protocol](/influxdb/cloud-iox/reference/syntax/line-protocol/) syntax to the v2 API `/api/v2/write` endpoint.
+v2 client libraries send data in [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/) syntax to the v2 API `/api/v2/write` endpoint.
 
 The following samples show how to configure **v2** client libraries for writing to InfluxDB Cloud Dedicated:
 
@@ -253,7 +253,7 @@ Use HTTP clients and your custom code to send write requests to the v2 API `/api
 Include the following in your request:
 
 - A `bucket` query string parameter with the name of the database to write to.
-- A request body that contains a string of data in [line protocol](/influxdb/cloud-iox/reference/syntax/line-protocol/) syntax.
+- A request body that contains a string of data in [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/) syntax.
 - A [database token](/influxdb/cloud-dedicated/admin/tokens/) in a [token authentication scheme](#authenticate-with-a-token).
 - Optional [parameters](#v2-api-apiv2write-parameters).
 

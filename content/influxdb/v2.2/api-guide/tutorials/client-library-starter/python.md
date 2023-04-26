@@ -221,12 +221,6 @@ The example below uses the following steps to create the authorization:
 
 Create a `./api/devices.py` file that contains the following:
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
 {{% truncate %}}
 
 ```python
@@ -301,12 +295,6 @@ Storing the device authorization in a bucket allows you to do the following:
 To write a point to InfluxDB, use the InfluxDB client library to send a `POST` request to the `/api/v2/write` InfluxDB API endpoint.
 In `./api/devices.py`, add the following `create_device(device_id)` function:
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
 ```python
 def create_device(device_id=None):
     influxdb_client = InfluxDBClient(url=config.get('APP', 'INFLUX_URL'),
@@ -328,9 +316,6 @@ def create_device(device_id=None):
 ```
 
 {{% caption %}}[iot-api-python/api/devices.py](https://github.com/influxdata/iot-api-python/blob/f354941c80b6bac643ca29efe408fde1deebdc96/api/devices.py#L47){{% /caption %}}
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 `create_device(device_id)` takes a _`device_id`_ and writes data to `INFLUX_BUCKET_AUTH` in the following steps:
 

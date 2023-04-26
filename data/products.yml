@@ -2,7 +2,8 @@ influxdb:
   name: InfluxDB
   altname: InfluxDB OSS
   namespace: influxdb
-  list_order: 3
+  menu_category: self-managed
+  list_order: 4
   versions:
     - v2.7
     - v2.6
@@ -44,34 +45,38 @@ influxdb:
     "2.1": 2.1.0
 
 influxdb_cloud:
-  name: InfluxDB Cloud
-  altname: InfluxDB Cloud
+  name: InfluxDB Cloud (TSM)
+  altname: InfluxDB Cloud (TSM)
   namespace: influxdb
+  menu_category: managed
   versions: [cloud]
-  list_order: 3
+  list_order: 1
   latest: cloud
 
-influxdb_cloud_iox:
-  name: InfluxDB Cloud (IOx)
-  altname: InfluxDB Cloud (IOx)
+influxdb_cloud_serverless:
+  name: InfluxDB Cloud Serverless
+  altname: InfluxDB Cloud Serverless
   namespace: influxdb
-  versions: [cloud-iox]
+  menu_category: managed
+  versions: [cloud-serverless]
   list_order: 2
-  latest: cloud-iox
+  latest: cloud-serverless
 
 influxdb_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
   altname: InfluxDB Cloud Dedicated
   namespace: influxdb
+  menu_category: managed
   versions: [cloud-dedicated]
-  list_order: 1
+  list_order: 3
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-form/"
 
 telegraf:
   name: Telegraf
   namespace: telegraf
-  list_order: 5
+  menu_category: other
+  list_order: 6
   versions:
     - v1.26
     - v1.25
@@ -112,7 +117,8 @@ telegraf:
 chronograf:
   name: Chronograf
   namespace: chronograf
-  list_order: 6
+  menu_category: other
+  list_order: 7
   versions: 
     - v1.10
     - v1.9
@@ -130,6 +136,7 @@ chronograf:
 kapacitor:
   name: Kapacitor
   namespace: kapacitor
+  menu_category: other
   list_order: 7
   versions:
     - v1.6
@@ -144,7 +151,8 @@ kapacitor:
 enterprise_influxdb:
   name: "InfluxDB Enterprise"
   namespace: enterprise_influxdb
-  list_order: 4
+  menu_category: self-managed
+  list_order: 5
   versions:
     - v1.10
     - v1.9
@@ -164,6 +172,7 @@ enterprise_influxdb:
 flux:
   name: Flux
   namespace: flux
+  menu_category: languages
   list_order: 8
   versions: [v0.x]
   latest: v0.x

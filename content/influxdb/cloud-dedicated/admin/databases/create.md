@@ -83,8 +83,8 @@ The retention period value cannot be negative or contain whitespace.
 Database names must adhere to the following naming restrictions:
 
 - Must contain two or more characters
-- Cannot start with an underscore (_)
-- Cannot contain a double quote (")
+- Cannot start with an underscore (`_`)
+- Cannot contain whitespace characters, double quotes (`"`), or percent signs (`%`)
 
 ## InfluxQL DBRP naming convention
 

@@ -60,7 +60,7 @@ The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrat
 ## Authenticate API requests
 
 InfluxDB requires each write request to be authenticated with a
-[database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token).
+[database token](/influxdb/cloud-dedicated/admin/tokens/).
 With the InfluxDB v1 API, you can use database tokens in InfluxDB 1.x username and password
 schemes or in the InfluxDB v2 `Authorization: Token` scheme:
 
@@ -71,7 +71,7 @@ schemes or in the InfluxDB v2 `Authorization: Token` scheme:
 
 With the InfluxDB v1 API, you can use the InfluxDB 1.x convention of
 username and password to authenticate database reads and writes by passing a
-[database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token)
+[database token](/influxdb/cloud-dedicated/admin/tokens/)
 as the `password` credential.
 When authenticating requests to the v1 API `/write` and `/query` endpoints, InfluxDB Cloud Dedicated checks that `password` (`p`) is an authorized [database token](/influxdb/cloud-dedicated/admin/tokens/).
 InfluxDB Cloud ignores the `username` (`u`) parameter in the request.
@@ -84,7 +84,7 @@ Use one of the following authentication schemes with clients that support Basic 
 #### Basic authentication
 
 Use the `Authorization` header with the `Basic` scheme to authenticate v1 API `/write` and `/query` requests.
-When authenticating requests, InfluxDB Cloud Dedicated checks that the `password` part of the decoded credential is an authorized [database token](/influxdb/cloud-dedicated/get-started/setup/#create-a-database-token).
+When authenticating requests, InfluxDB Cloud Dedicated checks that the `password` part of the decoded credential is an authorized [database token](/influxdb/cloud-dedicated/admin/tokens/).
 InfluxDB Cloud Dedicated ignores the `username` part of the decoded credential.
 
 ##### Syntax
@@ -206,7 +206,7 @@ to InfluxDB Cloud Dedicated:
 Parameter                | Ignored                  | Value
 -------------------------|--------------------------|---------------------------------------------------------------------------------------------------
 `database`               | Honored                  | Database name
-`retention_policy`       | Honored, but discouraged | [Duration](/influxdb/cloud-iox/reference/glossary/#duration)
+`retention_policy`       | Honored, but discouraged | [Duration](/influxdb/cloud-dedicated/reference/glossary/#duration)
 `username`               | Ignored                  | String or empty
 `password`               | Honored                  | [Database token](/influxdb/cloud-dedicated/admin/tokens/) with permission to write to the database
 `content_encoding`       | Honored                  | `gzip` (compressed data) or `identity` (uncompressed)
@@ -240,7 +240,7 @@ For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf
 ### Write using client libraries
 
 Use language-specific [v1 client libraries](/influxdb/v1.8/tools/api_client_libraries/) and your custom code to write data to InfluxDB Cloud Dedicated.
-v1 client libraries send data in [line protocol](/influxdb/cloud-iox/reference/syntax/line-protocol/) syntax to the v1 API `/write` endpoint.
+v1 client libraries send data in [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/) syntax to the v1 API `/write` endpoint.
 
 The following samples show how to configure **v1** client libraries for writing to InfluxDB Cloud Dedicated:
 
@@ -305,7 +305,7 @@ Use HTTP clients and your custom code to send write requests to the v1 API `/wri
 Include the following in your request:
 
 - A `db` query string parameter with the name of the database to write to.
-- A request body that contains a string of data in [line protocol](/influxdb/cloud-iox/reference/syntax/line-protocol/) syntax.
+- A request body that contains a string of data in [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/) syntax.
 - A [database token](/influxdb/cloud-dedicated/admin/tokens/) in one of the following authentication schemes: [Basic authentication](#basic-authentication), [query string authentication](#query-string-authentication), or [token authentication](#authenticate-with-a-token).
 - Optional [parameters](#v1-api-write-parameters).
 

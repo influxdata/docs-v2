@@ -221,12 +221,6 @@ The example below uses the following steps to create the authorization:
 
 Create a `./api/devices.py` file that contains the following:
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
 {{% truncate %}}
 
 ```python
@@ -301,12 +295,6 @@ Storing the device authorization in a bucket allows you to do the following:
 To write a point to InfluxDB, use the InfluxDB client library to send a `POST` request to the `/api/v2/write` InfluxDB API endpoint.
 In `./api/devices.py`, add the following `create_device(device_id)` function:
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
-
 ```python
 def create_device(device_id=None):
     influxdb_client = InfluxDBClient(url=config.get('APP', 'INFLUX_URL'),
@@ -328,9 +316,6 @@ def create_device(device_id=None):
 ```
 
 {{% caption %}}[iot-api-python/api/devices.py](https://github.com/influxdata/iot-api-python/blob/f354941c80b6bac643ca29efe408fde1deebdc96/api/devices.py#L47){{% /caption %}}
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 `create_device(device_id)` takes a _`device_id`_ and writes data to `INFLUX_BUCKET_AUTH` in the following steps:
 
@@ -371,12 +356,6 @@ Add the `/api/devices` API endpoint that retrieves, processes, and lists registe
   
    In `./api/devices.py`, add the following:
 
-   {{< code-tabs-wrapper >}}
-   {{% code-tabs %}}
-   [Python](#python)
-   {{% /code-tabs %}}
-   {{% code-tab-content %}}
-
    {{% truncate %}}
 
    ```python
@@ -415,9 +394,6 @@ Add the `/api/devices` API endpoint that retrieves, processes, and lists registe
 
 {{% caption %}}[iot-api-python/api/devices.py get_device()](https://github.com/influxdata/iot-api-python/blob/9bf44a659424a27eb937d545dc0455754354aef5/api/devices.py#L30){{% /caption %}}
 
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 The `get_device(device_id)` function does the following:
 
 1. Instantiates a `QueryApi` client and sends the Flux query to InfluxDB.
@@ -442,12 +418,6 @@ The example below uses the following steps to generate data and then write it to
 3. Use the `WriteAPI write` method to send the point to InfluxDB.
   
 In `./api/devices.py`, add the following `write_measurements(device_id)` function:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
 
 ```python
 def write_measurements(device_id):
@@ -480,9 +450,6 @@ def write_measurements(device_id):
 
 {{% caption %}}[iot-api-python/api/devices.py write_measurement()](https://github.com/influxdata/iot-api-python/blob/f354941c80b6bac643ca29efe408fde1deebdc96/api/devices.py){{% /caption %}}
 
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 ## Query telemetry data
 
 In this section, you retrieve telemetry data from an InfluxDB bucket.
@@ -494,12 +461,6 @@ The example below uses the following steps to retrieve and process telemetry dat
  3. Return CSV data that the [`influxdata/giraffe` UI library](https://github.com/influxdata/giraffe) can process.
 
 In `./api/devices.py`, add the following `get_measurements(device_id)` function:
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
 
 ```python
 def get_measurements(query):
@@ -521,19 +482,10 @@ def get_measurements(query):
 
 {{% caption %}}[iot-api-python/api/devices.py get_measurements()](https://github.com/influxdata/iot-api-python/blob/9bf44a659424a27eb937d545dc0455754354aef5/api/devices.py#L122){{% /caption %}}
 
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
-
 ## Define API responses
 
 In `app.py`, add API endpoints that match incoming requests and respond with the results of your modules.
 In the following `/api/devices/<device_id>` route example, `app.py` retrieves _`device_id`_ from `GET` and `POST` requests, passes it to the `get_device(device_id)` method and returns the result as JSON data with CORS `allow-` headers.
-
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
-[Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
 
 ```python
 @app.route('/api/devices/<string:device_id>', methods=['GET', 'POST'])
@@ -544,9 +496,6 @@ def api_get_device(device_id):
 ```
 
 {{% caption %}}[iot-api-python/app.py](https://github.com/influxdata/iot-api-python/blob/9bf44a659424a27eb937d545dc0455754354aef5/app.py){{% /caption %}}
-
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
 
 Enter the following commands into your terminal to restart the application:
 
