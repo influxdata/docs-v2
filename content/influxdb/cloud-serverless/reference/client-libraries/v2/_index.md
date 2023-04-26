@@ -14,7 +14,7 @@ influxdb/cloud-serverless/tags: [client libraries, API, developer tools]
 ## Client libraries for InfluxDB 2.x and 1.8+
 
 InfluxDB client libraries are language-specific tools that integrate with InfluxDB APIs.
-InfluxDB v2 client libraries use InfluxDB `/api/v2` endpoints and work with [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1.10/tools/api/#influxdb-2-0-api-compatibility-endpoints).
+InfluxDB v2 client libraries use InfluxDB `/api/v2` endpoints and work with [InfluxDB 2.0 API compatibility endpoints](/{{< latest "influxdb" "v1" >}}/tools/api/#influxdb-20-api-compatibility-endpoints).
 
 Functionality varies among client libraries.
 These client libraries are in active development and may not be feature-complete.
