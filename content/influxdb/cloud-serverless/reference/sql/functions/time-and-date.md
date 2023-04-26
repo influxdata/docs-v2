@@ -12,44 +12,104 @@ weight: 305
 
 InfluxDB's SQL implementation supports time and date functions that are useful when working with time series data. 
 
-- [now](#now)
+- [current_date](#current_date)
+- [current_time](#current_time)
 - [date_bin](#date_bin)
-- [date_trunc](#date_trunc)  
+- [date_trunc](#date_trunc)
+- [datetrunc](#datetrunc)
 - [date_part](#date_part)
+- [datepart](#datepart)
 - [extract](#extract)
+- [from_unixtime](#from_unixtime)
+- [now](#now)
 - [to_timestamp](#to_timestamp)
 - [to_timestamp_millis](#to_timestamp_millis)
 - [to_timestamp_micros](#to_timestamp_micros)
 - [to_timestamp_seconds](#to_timestamp_seconds)
-- [from_unixtime](#from_unixtime)
 
-### now
+## current_date
 
-Returns the current UTC timestamp.
+Returns the current UTC date.
 
-The `now()` return value is determined at query time and will return the same timestamp,
-no matter when in the query plan the function executes.
+{{% note %}}
+`current_date` returns a `DATE32` Arrow type, which isn't supported by InfluxDB.
+To use with InfluxDB, [cast the return value to a timestamp](/influxdb/cloud-serverless/query-data/sql/cast-types/#cast-to-a-timestamp-type).
+{{% /note %}}
 
-```sql 
-now()
+The `current_date()` return value is determined at query time and will return
+the same date, no matter when in the query plan the function executes.
+
+```
+current_date()
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View `now` query example" %}}
+{{% expand "View `current_date` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
 
 ```sql
 SELECT
-  "water_level",
-  "time"
-FROM h2o_feet
+  time,
+  temp,
+  current_date()::TIMESTAMP AS current_date
+FROM home
 WHERE
-  time <= now() - interval '12 minutes'
+  time > current_date()::TIMESTAMP - INTERVAL '5 years'
+LIMIT 3
 ```
+
+| time                 | temp | current_date                  |
+| :------------------- | ---: | :---------------------------- |
+| 2022-01-01T08:00:00Z |   21 | {{< datetime/current-date >}} |
+| 2022-01-01T09:00:00Z |   23 | {{< datetime/current-date >}} |
+| 2022-01-01T10:00:00Z | 22.7 | {{< datetime/current-date >}} |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### date_bin
+## current_time
+
+Returns the current UTC time.
+
+{{% note %}}
+`current_date` returns a `TIME64` Arrow type, which isn't supported by InfluxDB.
+To use with InfluxDB, [cast the return value to a string](/influxdb/cloud-serverless/query-data/sql/cast-types/#cast-to-a-string-type).
+{{% /note %}}
+
+The `current_time()` return value is determined at query time and will return the same time,
+no matter when in the query plan the function executes.
+
+```
+current_time()
+```
+
+{{< expand-wrapper >}}
+{{% expand "View `current_time` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  time,
+  temp,
+  current_time()::STRING AS current_time
+FROM home
+LIMIT 3
+```
+
+| time                 | temp | current_time                  |
+| :------------------- | ---: | :---------------------------- |
+| 2022-01-01T08:00:00Z |   21 | {{< datetime/current-time >}} |
+| 2022-01-01T09:00:00Z |   23 | {{< datetime/current-time >}} |
+| 2022-01-01T10:00:00Z | 22.7 | {{< datetime/current-time >}} |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## date_bin
 
 Calculates time intervals and returns the start of the interval nearest to the specified timestamp.
 Use `date_bin` to downsample time series data by grouping rows into time-based "bins" or "windows"
@@ -75,10 +135,10 @@ The following intervals are supported:
 - milliseconds
 - seconds
 - minutes
-- hours 
-- days 
+- hours
+- days
 - weeks
-- months 
+- months
 - years
 - century
 
@@ -113,7 +173,7 @@ ORDER BY time DESC
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### date_trunc
+## date_trunc
 
 Truncates a timestamp value to a specified precision.  
 
@@ -136,6 +196,10 @@ date_trunc(precision, expression)
 
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
+
+##### Aliases
+
+- `datetrunc`
 
 {{< expand-wrapper >}}
 {{% expand "View `date_trunc` query examples" %}}
@@ -189,7 +253,11 @@ ORDER BY week
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### date_part
+## datetrunc
+
+_Alias of [date_trunc](#date_trunc)._
+
+## date_part
 
 Returns the specified part of the date as an integer.
 
@@ -217,6 +285,10 @@ date_part(part, expression)
 
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
+
+##### Aliases
+
+- `datepart`
 
 {{< expand-wrapper >}}
 {{% expand "View `date_part` query examples" %}}
@@ -246,7 +318,11 @@ ORDER BY time
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### extract
+## datepart
+
+_Alias of [date_part](#date_part)._
+
+## extract
 
 Returns a sub-field from a time value as an integer.
 Similar to `date_part`, but with different arguments. 
@@ -294,7 +370,63 @@ LIMIT 1
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### to_timestamp
+## from_unixtime
+
+Converts an integer to RFC3339 timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
+Input is parsed as a [Unix nanosecond timestamp](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
+and returns the corresponding RFC3339 timestamp.
+
+```sql
+from_unixtime(expression)
+```
+
+##### Arguments:
+
+- **expression**: Integer expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `from_unixtime` query example" %}}
+
+```sql
+SELECT
+  from_unixtime(1672531200000000000) AS RFC3339
+```
+
+| RFC3339              |
+| :------------------- |
+| 2023-01-01T00:00:00Z |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## now
+
+Returns the current UTC timestamp.
+
+The `now()` return value is determined at query time and will return the same timestamp,
+no matter when in the query plan the function executes.
+
+```sql 
+now()
+```
+
+{{< expand-wrapper >}}
+{{% expand "View `now` query example" %}}
+
+```sql
+SELECT
+  "water_level",
+  "time"
+FROM h2o_feet
+WHERE
+  time <= now() - interval '12 minutes'
+```
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## to_timestamp
 
 Converts a value to RFC3339 nanosecond timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
 Supports timestamp, integer, and unsigned integer types as input.
@@ -326,7 +458,7 @@ LIMIT 1
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### to_timestamp_millis
+## to_timestamp_millis
 
 Converts a value to RFC3339 millisecond timestamp format (`YYYY-MM-DDT00:00:00.000Z`).
 Supports timestamp, integer, and unsigned integer types as input.
@@ -361,7 +493,7 @@ Results
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### to_timestamp_micros
+## to_timestamp_micros
 
 Converts a value to RFC3339 microsecond timestamp format (`YYYY-MM-DDT00:00:00.000000Z`).
 Supports timestamp, integer, and unsigned integer types as input.
@@ -394,7 +526,7 @@ LIMIT 1
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### to_timestamp_seconds
+## to_timestamp_seconds
 
 Converts a value to RFC3339 second timestamp format (`YYYY-MM-DDT00:00:00Z`).
 Supports timestamp, integer, and unsigned integer types as input.
@@ -424,37 +556,6 @@ LIMIT 1;
 | totimestampseconds(cpu.time) |
 | :--------------------------- |
 | 2023-02-08T17:21:10          |
-
-{{% /expand %}}
-{{< /expand-wrapper >}}
-
-
-### from_unixtime
-
-Converts an integer to RFC3339 timestamp format (`YYYY-MM-DDT00:00:00.000000000Z`).
-Input is parsed as a [Unix nanosecond timestamp](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)
-and returns the corresponding RFC3339 timestamp.
-
-```sql
-from_unixtime(expression)
-```
-
-##### Arguments:
-
-- **expression**: Integer expression to operate on.
-  Can be a constant, column, or function, and any combination of arithmetic operators.
-
-{{< expand-wrapper >}}
-{{% expand "View `from_unixtime` query example" %}}
-
-```sql
-SELECT
-  from_unixtime(1672531200000000000) AS RFC3339
-```
-
-| RFC3339              |
-| :------------------- |
-| 2023-01-01T00:00:00Z |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

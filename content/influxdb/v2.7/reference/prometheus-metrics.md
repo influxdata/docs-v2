@@ -99,63 +99,63 @@ task_executor_run_duration,taskID=00xx0Xx0xx00XX0x0,task_type=threshold 0.5=5.17
 {{% expand "View version 1 tables when queried from InfluxDB" %}}
 | _time                     | _measurement                  | _field  |       _value |
 | :------------------------ | :---------------------------- | :------ | -----------: |
-| {{< flux/current-time >}} | go_memstats_alloc_bytes_total | counter | 1422764240.0 |
+| {{< datetime/current-timestamp >}} | go_memstats_alloc_bytes_total | counter | 1422764240.0 |
 
 | _time                     | _measurement                    | _field |    _value |
 | :------------------------ | :------------------------------ | :----- | --------: |
-| {{< flux/current-time >}} | go_memstats_buck_hash_sys_bytes | gauge  | 5259247.0 |
+| {{< datetime/current-timestamp >}} | go_memstats_buck_hash_sys_bytes | gauge  | 5259247.0 |
 
 | _time                     | _measurement                      | task_type | _field | _value |
 | :------------------------ | :-------------------------------- | :-------- | :----- | -----: |
-| {{< flux/current-time >}} | task_executor_run_latency_seconds | system    | 0.25   | 4413.0 |
+| {{< datetime/current-timestamp >}} | task_executor_run_latency_seconds | system    | 0.25   | 4413.0 |
 
 | _time                     | _measurement                      | task_type | _field |  _value |
 | :------------------------ | :-------------------------------- | :-------- | :----- | ------: |
-| {{< flux/current-time >}} | task_executor_run_latency_seconds | system    | 0.5    | 11901.0 |
+| {{< datetime/current-timestamp >}} | task_executor_run_latency_seconds | system    | 0.5    | 11901.0 |
 
 | _time                     | _measurement                      | task_type | _field |  _value |
 | :------------------------ | :-------------------------------- | :-------- | :----- | ------: |
-| {{< flux/current-time >}} | task_executor_run_latency_seconds | system    | 1      | 12565.0 |
+| {{< datetime/current-timestamp >}} | task_executor_run_latency_seconds | system    | 1      | 12565.0 |
 
 | _time                     | _measurement                      | task_type | _field |  _value |
 | :------------------------ | :-------------------------------- | :-------- | :----- | ------: |
-| {{< flux/current-time >}} | task_executor_run_latency_seconds | system    | 2.5    | 12823.0 |
+| {{< datetime/current-timestamp >}} | task_executor_run_latency_seconds | system    | 2.5    | 12823.0 |
 
 | _time                     | _measurement                      | task_type | _field |  _value |
 | :------------------------ | :-------------------------------- | :-------- | :----- | ------: |
-| {{< flux/current-time >}} | task_executor_run_latency_seconds | system    | 5      | 12844.0 |
+| {{< datetime/current-timestamp >}} | task_executor_run_latency_seconds | system    | 5      | 12844.0 |
 
 | _time                     | _measurement                      | task_type | _field |  _value |
 | :------------------------ | :-------------------------------- | :-------- | :----- | ------: |
-| {{< flux/current-time >}} | task_executor_run_latency_seconds | system    | +Inf   | 74429.0 |
+| {{< datetime/current-timestamp >}} | task_executor_run_latency_seconds | system    | +Inf   | 74429.0 |
 
 | _time                     | _measurement                      | task_type | _field |            _value |
 | :------------------------ | :-------------------------------- | :-------- | :----- | ----------------: |
-| {{< flux/current-time >}} | task_executor_run_latency_seconds | system    | sum    | 425678353867.9698 |
+| {{< datetime/current-timestamp >}} | task_executor_run_latency_seconds | system    | sum    | 425678353867.9698 |
 
 | _time                     | _measurement                      | task_type | _field | _value |
 | :------------------------ | :-------------------------------- | :-------- | :----- | -----: |
-| {{< flux/current-time >}} | task_executor_run_latency_seconds | system    | count  |  74429.0 |
+| {{< datetime/current-timestamp >}} | task_executor_run_latency_seconds | system    | count  |  74429.0 |
 
 | _time                     | _measurement               | task_type | _field |      _value |
 | :------------------------ | :------------------------- | :-------- | :----- | ----------: |
-| {{< flux/current-time >}} | task_executor_run_duration | threshold | 0.5    | 5.178160855 |
+| {{< datetime/current-timestamp >}} | task_executor_run_duration | threshold | 0.5    | 5.178160855 |
 
 | _time                     | _measurement               | task_type | _field |      _value |
 | :------------------------ | :------------------------- | :-------- | :----- | ----------: |
-| {{< flux/current-time >}} | task_executor_run_duration | threshold | 0.9    | 5.178160855 |
+| {{< datetime/current-timestamp >}} | task_executor_run_duration | threshold | 0.9    | 5.178160855 |
 
 | _time                     | _measurement               | task_type | _field |      _value |
 | :------------------------ | :------------------------- | :-------- | :----- | ----------: |
-| {{< flux/current-time >}} | task_executor_run_duration | threshold | 0.99   | 5.178160855 |
+| {{< datetime/current-timestamp >}} | task_executor_run_duration | threshold | 0.99   | 5.178160855 |
 
 | _time                     | _measurement               | task_type | _field |             _value |
 | :------------------------ | :------------------------- | :-------- | :----- | -----------------: |
-| {{< flux/current-time >}} | task_executor_run_duration | threshold | sum    | 2121.9758301650004 |
+| {{< datetime/current-timestamp >}} | task_executor_run_duration | threshold | sum    | 2121.9758301650004 |
 
 | _time                     | _measurement               | task_type | _field | _value |
 | :------------------------ | :------------------------- | :-------- | :----- | -----: |
-| {{< flux/current-time >}} | task_executor_run_duration | threshold | count  |  570.0 |
+| {{< datetime/current-timestamp >}} | task_executor_run_duration | threshold | count  |  570.0 |
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
@@ -225,62 +225,62 @@ prometheus,url=http://localhost:8086/metrics,taskID=00xx0Xx0xx00XX0x0,task_type=
 {{% expand "View version 2 tables when queried from InfluxDB" %}}
 | _time                     | _measurement | url                           | _field                        |       _value |
 | :------------------------ | :----------- | :---------------------------- | :---------------------------- | -----------: |
-| {{< flux/current-time >}} | prometheus   | http://localhost:8086/metrics | go_memstats_alloc_bytes_total | 1422764240.0 |
+| {{< datetime/current-timestamp >}} | prometheus   | http://localhost:8086/metrics | go_memstats_alloc_bytes_total | 1422764240.0 |
 
 | _time                     | _measurement | url                           | _field                          |    _value |
 | :------------------------ | :----------- | :---------------------------- | :------------------------------ | --------: |
-| {{< flux/current-time >}} | prometheus   | http://localhost:8086/metrics | go_memstats_buck_hash_sys_bytes | 5259247.0 |
+| {{< datetime/current-timestamp >}} | prometheus   | http://localhost:8086/metrics | go_memstats_buck_hash_sys_bytes | 5259247.0 |
 
 | _time                     | _measurement | task_type | url                           | le   | _field                            | _value |
 | :------------------------ | :----------- | :-------- | :---------------------------- | :--- | :-------------------------------- | -----: |
-| {{< flux/current-time >}} | prometheus   | system    | http://localhost:8086/metrics | 0.25 | task_executor_run_latency_seconds |   4413 |
+| {{< datetime/current-timestamp >}} | prometheus   | system    | http://localhost:8086/metrics | 0.25 | task_executor_run_latency_seconds |   4413 |
 
 | _time                     | _measurement | task_type | url                           | le  | _field                            | _value |
 | :------------------------ | :----------- | :-------- | :---------------------------- | :-- | :-------------------------------- | -----: |
-| {{< flux/current-time >}} | prometheus   | system    | http://localhost:8086/metrics | 0.5 | task_executor_run_latency_seconds |  11901 |
+| {{< datetime/current-timestamp >}} | prometheus   | system    | http://localhost:8086/metrics | 0.5 | task_executor_run_latency_seconds |  11901 |
 
 | _time                     | _measurement | task_type | url                           | le  | _field                            | _value |
 | :------------------------ | :----------- | :-------- | :---------------------------- | :-- | :-------------------------------- | -----: |
-| {{< flux/current-time >}} | prometheus   | system    | http://localhost:8086/metrics | 1   | task_executor_run_latency_seconds |  12565 |
+| {{< datetime/current-timestamp >}} | prometheus   | system    | http://localhost:8086/metrics | 1   | task_executor_run_latency_seconds |  12565 |
 
 | _time                     | _measurement | task_type | url                           | le  | _field                            | _value |
 | :------------------------ | :----------- | :-------- | :---------------------------- | :-- | :-------------------------------- | -----: |
-| {{< flux/current-time >}} | prometheus   | system    | http://localhost:8086/metrics | 2.5 | task_executor_run_latency_seconds |  12823 |
+| {{< datetime/current-timestamp >}} | prometheus   | system    | http://localhost:8086/metrics | 2.5 | task_executor_run_latency_seconds |  12823 |
 
 | _time                     | _measurement | task_type | url                           | le  | _field                            | _value |
 | :------------------------ | :----------- | :-------- | :---------------------------- | :-- | :-------------------------------- | -----: |
-| {{< flux/current-time >}} | prometheus   | system    | http://localhost:8086/metrics | 5   | task_executor_run_latency_seconds |  12844 |
+| {{< datetime/current-timestamp >}} | prometheus   | system    | http://localhost:8086/metrics | 5   | task_executor_run_latency_seconds |  12844 |
 
 | _time                     | _measurement | task_type | url                           | le   | _field                            | _value |
 | :------------------------ | :----------- | :-------- | :---------------------------- | :--- | :-------------------------------- | -----: |
-| {{< flux/current-time >}} | prometheus   | system    | http://localhost:8086/metrics | +Inf | task_executor_run_latency_seconds |  74429 |
+| {{< datetime/current-timestamp >}} | prometheus   | system    | http://localhost:8086/metrics | +Inf | task_executor_run_latency_seconds |  74429 |
 
 | _time                     | _measurement | task_type | url                           | _field                                |            _value |
 | :------------------------ | :----------- | :-------- | :---------------------------- | :------------------------------------ | ----------------: |
-| {{< flux/current-time >}} | prometheus   | system    | http://localhost:8086/metrics | task_executor_run_latency_seconds_sum | 425678353867.9698 |
+| {{< datetime/current-timestamp >}} | prometheus   | system    | http://localhost:8086/metrics | task_executor_run_latency_seconds_sum | 425678353867.9698 |
 
 | _time                     | _measurement | task_type | url                           | _field                                  | _value |
 | :------------------------ | :----------- | :-------- | :---------------------------- | :-------------------------------------- | -----: |
-| {{< flux/current-time >}} | prometheus   | system    | http://localhost:8086/metrics | task_executor_run_latency_seconds_count |  74429 |
+| {{< datetime/current-timestamp >}} | prometheus   | system    | http://localhost:8086/metrics | task_executor_run_latency_seconds_count |  74429 |
 
 | _time                     | _measurement | task_type | taskID            | url                           | quantile | _field                     |      _value |
 | :------------------------ | :----------- | :-------- | :---------------- | :---------------------------- | :------- | :------------------------- | ----------: |
-| {{< flux/current-time >}} | prometheus   | threshold | 00xx0Xx0xx00XX0x0 | http://localhost:8086/metrics | 0.5      | task_executor_run_duration | 5.178160855 |
+| {{< datetime/current-timestamp >}} | prometheus   | threshold | 00xx0Xx0xx00XX0x0 | http://localhost:8086/metrics | 0.5      | task_executor_run_duration | 5.178160855 |
 
 | _time                     | _measurement | task_type | taskID            | url                           | quantile | _field                     |      _value |
 | :------------------------ | :----------- | :-------- | :---------------- | :---------------------------- | :------- | :------------------------- | ----------: |
-| {{< flux/current-time >}} | prometheus   | threshold | 00xx0Xx0xx00XX0x0 | http://localhost:8086/metrics | 0.9      | task_executor_run_duration | 5.178160855 |
+| {{< datetime/current-timestamp >}} | prometheus   | threshold | 00xx0Xx0xx00XX0x0 | http://localhost:8086/metrics | 0.9      | task_executor_run_duration | 5.178160855 |
 
 | _time                     | _measurement | task_type | taskID            | url                           | quantile | _field                     |      _value |
 | :------------------------ | :----------- | :-------- | :---------------- | :---------------------------- | :------- | :------------------------- | ----------: |
-| {{< flux/current-time >}} | prometheus   | threshold | 00xx0Xx0xx00XX0x0 | http://localhost:8086/metrics | 0.99     | task_executor_run_duration | 5.178160855 |
+| {{< datetime/current-timestamp >}} | prometheus   | threshold | 00xx0Xx0xx00XX0x0 | http://localhost:8086/metrics | 0.99     | task_executor_run_duration | 5.178160855 |
 
 | _time                     | _measurement | task_type | taskID            | url                           | _field                         |             _value |
 | :------------------------ | :----------- | :-------- | :---------------- | :---------------------------- | :----------------------------- | -----------------: |
-| {{< flux/current-time >}} | prometheus   | threshold | 00xx0Xx0xx00XX0x0 | http://localhost:8086/metrics | task_executor_run_duration_sum | 2121.9758301650004 |
+| {{< datetime/current-timestamp >}} | prometheus   | threshold | 00xx0Xx0xx00XX0x0 | http://localhost:8086/metrics | task_executor_run_duration_sum | 2121.9758301650004 |
 
 | _time                     | _measurement | task_type | taskID            | url                           | _field                           | _value |
 | :------------------------ | :----------- | :-------- | :---------------- | :---------------------------- | :------------------------------- | -----: |
-| {{< flux/current-time >}} | prometheus   | threshold | 00xx0Xx0xx00XX0x0 | http://localhost:8086/metrics | task_executor_run_duration_count |    570 |
+| {{< datetime/current-timestamp >}} | prometheus   | threshold | 00xx0Xx0xx00XX0x0 | http://localhost:8086/metrics | task_executor_run_duration_count |    570 |
 {{% /expand %}}
 {{< /expand-wrapper >}}
