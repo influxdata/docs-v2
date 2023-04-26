@@ -50,14 +50,14 @@ Use the Go library to write and query data from InfluxDB.
    )
    ```
 
-2. Define variables for your InfluxDB [bucket](/influxdb/cloud-dedicated/organizations/buckets/), [organization](/influxdb/cloud-dedicated/organizations/), and [token](/influxdb/cloud-dedicated/security/tokens/).
+2. Define variables for your InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) (bucket), organization (required, but ignored), and [token](/influxdb/cloud-dedicated/admin/tokens/).
 
    ```go
-   bucket := "example-bucket"
+   bucket := "example-database"
    org := "example-org"
    token := "example-token"
    // Store the URL of your InfluxDB instance
-   url := "http://localhost:8086"
+   url := "https://cluster-id.influxdb.io"
    ```
 
 3. Create the the InfluxDB Go client and pass in the `url` and `token` parameters.
