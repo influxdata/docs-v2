@@ -42,12 +42,11 @@ If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/) to serve your front-end app.
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/{{% latest "influxdb" %}}/reference/urls/).
+   For information about what URL to use to connect to your InfluxDB Cloud Dedicated cluster, contact your InfluxData account representative.
 
 ## Use with module bundlers
 
 If you use a module bundler like Webpack or Parcel, install `@influxdata/influxdb-client-browser`.
-For more information and examples, see [Node.js](/{{% latest "influxdb" %}}/api-guide/client-libraries/nodejs/).  
 
 ## Use bundled distributions with browsers and module loaders 
 
@@ -56,7 +55,7 @@ For more information and examples, see [Node.js](/{{% latest "influxdb" %}}/api-
    ```html
    <script>
      window.INFLUX_ENV = {
-       url: 'http://localhost:8086',
+       url: 'https://cluster-id.influxdb.io',
        token: 'YOUR_AUTH_TOKEN'
      }
    </script>

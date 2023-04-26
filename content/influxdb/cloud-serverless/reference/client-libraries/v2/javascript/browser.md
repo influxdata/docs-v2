@@ -42,7 +42,7 @@ If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/) to serve your front-end app.
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/{{% latest "influxdb" %}}/reference/urls/).
+   For information about what URL to use to connect to InfluxDB Cloud, see [InfluxDB URLs](/{{% latest "influxdb" %}}/reference/urls/).
 
 ## Use with module bundlers
 

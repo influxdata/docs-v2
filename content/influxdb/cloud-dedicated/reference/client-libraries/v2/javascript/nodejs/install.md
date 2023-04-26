@@ -19,7 +19,7 @@ aliases:
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/).
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB OSS or InfluxDB Cloud, see [InfluxDB URLs](/influxdb/cloud-dedicated/reference/urls/).
+   For information about what URL to use to connect to your InfluxDB Cloud Dedicated cluster, contact your InfluxData account representative.
 
 3. Start a new Node.js project.
   The `npm` package manager is included with Node.js.
@@ -76,18 +76,18 @@ The client examples include an [`env`](https://github.com/influxdata/influxdb-cl
 The examples use these properties to interact with the InfluxDB API.
 {{% /note %}}
 
-1. Set environment variables or update `env.js` with your InfluxDB [bucket](/influxdb/cloud-dedicated/organizations/buckets/), [organization](/influxdb/cloud-dedicated/organizations/), [token](/influxdb/cloud-dedicated/security/tokens/), and [url](/influxdb/cloud-dedicated/reference/urls/).
+1. Set environment variables or update `env.js` with your InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) (bucket), organization (required, but ignored), [token](/influxdb/cloud-dedicated/admin/tokens/), and cluster URL.
 
    ```sh
-   export INFLUX_URL=http://localhost:8086
+   export INFLUX_URL=https://cluster-id.influxdb.io
    export INFLUX_TOKEN=YOUR_API_TOKEN
    export INFLUX_ORG=YOUR_ORG
    export INFLUX_BUCKET=YOUR_BUCKET
    ```
    Replace the following:
-   - *`YOUR_API_TOKEN`*: InfluxDB API token
-   - *`YOUR_ORG`*: InfluxDB organization ID
-   - *`YOUR_BUCKET`*: InfluxDB bucket name
+   - *`YOUR_API_TOKEN`*: InfluxDB database token
+   - *`YOUR_ORG`*: An arbitrary string (this credential is ignored)
+   - *`YOUR_BUCKET`*: InfluxDB database name
 
 2. Run an example script.
 
