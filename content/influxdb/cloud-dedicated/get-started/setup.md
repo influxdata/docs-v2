@@ -21,9 +21,22 @@ related:
 As you get started with this tutorial, do the following to make sure everything
 you need is in place.
 
+- [Request an InfluxDB Cloud Dedicated cluster](#request-an-influxdb-cloud-dedicated-cluster)
 - [Download, install, and configure the influxctl CLI](#download-install-and-configure-the-influxctl-cli)
 - [Create a database](#create-a-database)
 - [Create a database token](#create-a-database-token)
+
+## Request an InfluxDB Cloud Dedicated cluster
+
+[Contact the InfluxData Sales team]({{< dedicated-link >}}) to request an
+InfluxDB Cloud Dedicated cluster.
+When your cluster is deployed, your InfluxData account representative provides
+the following:
+
+- An **Auth0 login** to authenticate access to your cluster
+- Your InfluxDB Cloud Dedicated **account ID**
+- Your InfluxDB Cloud Dedicated **cluster ID**
+- Your InfluxDB Cloud Dedicated **cluster URL**
 
 ## Download, install, and configure the influxctl CLI
     
