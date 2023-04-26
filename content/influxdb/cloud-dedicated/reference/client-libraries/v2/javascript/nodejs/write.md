@@ -105,10 +105,10 @@ The Javascript client library includes the following convenient features for wri
 To run the example from a file, set your InfluxDB environment variables and use `node` to execute the JavaScript file.
 
 ```sh
-export INFLUX_URL=http://localhost:8086 && \
-export INFLUX_TOKEN=YOUR_API_TOKEN && \
+export INFLUX_URL=https://cluster-id.influxdb.io && \
+export INFLUX_TOKEN=YOUR_DATABASE_TOKEN && \
 export INFLUX_ORG=YOUR_ORG && \
-export INFLUX_BUCKET=YOUR_BUCKET && \
+export INFLUX_BUCKET=YOUR_DATABASE_NAME && \
 node write.js
 ```
 
