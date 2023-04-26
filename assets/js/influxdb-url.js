@@ -1,19 +1,23 @@
 var placeholderUrls = {
   cloud: "https://cloud2.influxdata.com",
-  oss: "http://localhost:8086"
+  oss: "http://localhost:8086",
+  dedicated: "cluster-id.influxdb.io"
 }
 
 var defaultUrls = {
   cloud: "https://us-west-2-1.aws.cloud2.influxdata.com",
-  oss: "http://localhost:8086"
+  oss: "http://localhost:8086",
+  dedicated: "cluster-id.influxdb.io"
 }
 
 var elementSelector = ".article--content pre:not(.preserve)"
 
 // Return the page context (cloud, oss/enterprise, other)
 function context() {
-  if (/\/influxdb\/cloud/.test(window.location.pathname)) {
+  if (/\/influxdb\/cloud(?:-iox)/.test(window.location.pathname)) {
     return "cloud"
+  } else if (/\/influxdb\/cloud-dedicated/.test(window.location.pathname)) {
+    return "dedicated"
   } else if (/\/(enterprise_|influxdb).*\/v[1-2]\.[0-9]{1,2}\//.test(window.location.pathname)) {
     return "oss/enterprise"
   } else {
@@ -45,8 +49,10 @@ function setApiLibPreference(preference) {
 //
 // influxdb_oss_url
 // influxdb_cloud_url
+// influxdb_dedicated_url
 // influxdb_prev_oss_url
 // influxdb_prev_cloud_url
+// influxdb_prev_dedicated_url
 // influxdb_pref (cloud | oss)
 // influxdb_custom_url
 
@@ -67,6 +73,19 @@ function storeCustomUrl(customUrl) {
 // Used to clear the form when custom url input is left empty
 function removeCustomUrl() {
   Cookies.remove('influxdb_custom_url')
+}
+
+// Store dedicated URL session cookie – influxdb_dedicated_url
+// Used to populate the custom URL field
+function storeDedicatedUrl(dedicatedUrl) {
+  Cookies.set('influxdb_dedicated_url', dedicatedUrl)
+  $('input#dedicated-url-field').val(dedicatedUrl)
+}
+
+// Remove dedicated URL session cookie – influxdb_dedicated_url
+// Used to clear the form when dedicated url input is left empty
+function removeDedicatedUrl() {
+  Cookies.remove('influxdb_dedicated_url')
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -94,9 +113,11 @@ function addPreserve() {
 function getUrls() {
   var currentCloudUrl = Cookies.get('influxdb_cloud_url') || defaultUrls.cloud
   var currentOSSUrl = Cookies.get('influxdb_oss_url') || defaultUrls.oss
+  var currentDedicatedUrl = Cookies.get('influxdb_dedicated_url') || defaultUrls.dedicated
   var urls = {
     cloud: currentCloudUrl,
-    oss: currentOSSUrl
+    oss: currentOSSUrl,
+    dedicated: currentDedicatedUrl
   };
   return urls;
 }
@@ -107,9 +128,11 @@ function getUrls() {
 function getPrevUrls() {
   var prevCloudUrl = Cookies.get('influxdb_prev_cloud_url') || defaultUrls.cloud
   var prevOSSUrl = Cookies.get('influxdb_prev_oss_url') || defaultUrls.oss
+  var prevDedicatedUrl = Cookies.get('influxdb_prev_dedicated_url') || defaultUrls.dedicated
   var prevUrls = {
     cloud: prevCloudUrl,
-    oss: prevOSSUrl
+    oss: prevOSSUrl,
+    dedicated: prevDedicatedUrl
   };
   return prevUrls;
 }
@@ -133,19 +156,21 @@ function updateUrls(prevUrls, newUrls) {
   var preference = getPreference()
   var prevUrlsParsed = {
     cloud: {},
-    oss: {}
+    oss: {},
+    dedicated: {}
   }
 
   var newUrlsParsed = {
     cloud: {},
-    oss: {}
+    oss: {},
+    dedicated: {}
   }
 
   Object.keys(prevUrls).forEach(function(k) {
     try {
       prevUrlsParsed[k] = new URL(prevUrls[k])
     } catch {
-      prevUrlsParsed[k] = { host: prevUrls[k] }
+      prevUrlsParsed[k] = { origin: prevUrls[k], host: prevUrls[k] }
     }
   })
 
@@ -153,7 +178,7 @@ function updateUrls(prevUrls, newUrls) {
     try {
       newUrlsParsed[k] = new URL(newUrls[k])
     } catch {
-      newUrlsParsed[k] = { host: newUrls[k] }
+      newUrlsParsed[k] = { origin: newUrls[k], host: newUrls[k] }
     }
   })
 
@@ -169,8 +194,12 @@ function updateUrls(prevUrls, newUrls) {
     { replace: prevUrlsParsed.cloud, with: newUrlsParsed.cloud },
     { replace: prevUrlsParsed.oss, with: newUrlsParsed.oss },
   ]
+  var dedicatedReplacements = [
+    { replace: prevUrlsParsed.dedicated, with: newUrlsParsed.dedicated },
+  ]
 
   if (context() === "cloud") { var replacements = cloudReplacements  }
+  else if (context() === "dedicated") { var replacements = dedicatedReplacements  }
   else if (context() === "oss/enterprise") { var replacements = ossReplacements }
   else if ( preference === "cloud" ) { var replacements = cloudReplacements }
   else { var replacements = ossReplacements }
@@ -193,7 +222,7 @@ function updateUrls(prevUrls, newUrls) {
     var endsWithSeparator = new RegExp('[-.:]');
     if(!startsWithSeparator.test(startStr) && !endsWithSeparator.test(endStr)) {
       var newHost = startStr + replacement + endStr
-      return startStr + replacement + endStr;
+      return newHost;
     }
   }
 
@@ -219,10 +248,12 @@ function updateUrls(prevUrls, newUrls) {
 // Append the URL selector button to each codeblock with an InfluxDB Cloud or OSS URL
 function appendUrlSelector() {
 
-  var appendToUrls = [ placeholderUrls.cloud, placeholderUrls.oss ]
+  var appendToUrls = [ placeholderUrls.cloud, placeholderUrls.oss, placeholderUrls.dedicated ]
 
   if (context() === "cloud") {
     var selectorText = "InfluxDB Cloud Region"
+  } else if (context() === "dedicated") {
+    var selectorText = "Set dedicated cluster URL"
   } else if (context() === "oss/enterprise") {
     var selectorText = "Change InfluxDB URL"
   } else {
@@ -320,6 +351,12 @@ $('input[name="influxdb-oss-url"]').change(function() {
 })
 $('input[name="influxdb-oss-url"]').click(function() {setPreference("oss")})
 
+$('input[name="influxdb-dedicated-url"]').change(function() {
+  var newUrl = $(this).val()
+  storeUrl("dedicated", newUrl, getUrls().dedicated)
+  updateUrls(getPrevUrls(), getUrls())
+})
+
 // Toggle preference tabs
 function togglePrefBtns(el) {
   preference = el.length ? el.attr("id").replace("pref-", "") : "cloud"
@@ -353,26 +390,46 @@ showPreference()
 
 // Validate custom URLs
 function validateUrl(url) {
-  try {
-    new URL(url);
-    return {valid: true, error: ""}
-  } catch(e) {
-    var validProtocol = /^http(s?)/
-    var protocol = url.match(/http(s?):\/\//) ? url.match(/http(s?):\/\//)[0] : "";
-    var domain = url.replace(protocol, "")
-    /** validDomain = (Named host | IPv6 host | IPvFuture host)(:Port)? **/
-    var validDomain = new RegExp(`([a-z0-9\-._~%]+`
-                               + `|\[[a-f0-9:.]+\]`
-                               + `|\[v[a-f0-9][a-z0-9\-._~%!$&'()*+,;=:]+\])`
-                               + `(:[0-9]+)?`);
-    if (validProtocol.test(protocol) == false) {
-      return {valid: false, error: "Invalid protocol, use http[s]"}
+  /** validDomain = (Named host | IPv6 host | IPvFuture host)(:Port)? **/
+  var validDomain = new RegExp(`([a-z0-9\-._~%]+`
+  + `|\[[a-f0-9:.]+\]`
+  + `|\[v[a-f0-9][a-z0-9\-._~%!$&'()*+,;=:]+\])`
+  + `(:[0-9]+)?`);
+
+  if (context() !== 'dedicated') {
+    // Validation for non-dedicated custom InfluxDB URLs
+    try {
+      new URL(url);
+      return {valid: true, error: ""}
+    } catch(e) {
+      var validProtocol = /^http(s?)/
+      var protocol = url.match(/http(s?):\/\//) ? url.match(/http(s?):\/\//)[0] : "";
+      var domain = url.replace(protocol, "")
+
+      if (validProtocol.test(protocol) == false) {
+        return {valid: false, error: "Invalid protocol, use http[s]"}
+      } else if (validDomain.test(domain) == false) {
+        return {valid: false, error: "Invalid domain"}
+      } else if (e) {
+        return {valid: false, error: "Invalid URL"}
+      }
+    }
+  } else {
+    // Validation for dedicated URLs
+    var includesProtocol = /^.*:\/\//
+    var protocol = url.match(/^.*:\/\//) ? url.match(/^.*:\/\//)[0] : "";
+    var domain = url.replace(protocol, "")    
+
+    if (url.length === 0) {
+      return {valid: true, error: ""}
+    } else if (includesProtocol.test(protocol) == true) {
+      return {valid: false, error: "Do not include the protocol"}
     } else if (validDomain.test(domain) == false) {
       return {valid: false, error: "Invalid domain"}
-    } else if (e) {
-      return {valid: false, error: "Invalid URL"}
+    } else {
+      return {valid: true, error: ""}
     }
-  }
+  }  
 }
 
 // Show validation errors
@@ -400,11 +457,30 @@ function applyCustomUrl() {
     } else {
       showValidationMessage(urlValidation)
     }
-
   } else {
     removeCustomUrl();
     hideValidationMessage()
     $('input[name="influxdb-oss-url"][value="' + defaultUrls.oss + '"]').trigger('click')
+  }
+}
+
+// Set the dedicated URL cookie and apply the change
+// If the dedicated URL field is empty, it defaults to the dedicated default
+function applyDedicatedUrl() {
+  var dedicatedUrl = $('#dedicated-url-field').val()
+  let urlValidation = validateUrl(dedicatedUrl)
+  if (dedicatedUrl.length > 0 ) {
+    if (urlValidation.valid) {
+      hideValidationMessage()
+      storeDedicatedUrl(dedicatedUrl)
+      getUrls("dedicated", dedicatedUrl, getUrls().dedicated)
+      updateUrls(getPrevUrls(), getUrls())
+    } else {
+      showValidationMessage(urlValidation)
+    }
+  } else {
+    removeDedicatedUrl();
+    hideValidationMessage();
   }
 }
 
@@ -416,20 +492,23 @@ $('input#custom-url-field').focus(function(e) {
 // Update URLs and close modal when using 'enter' to exit custom URL field
 $("#custom-url").submit(function(e) {
   let url = $('#custom-url-field').val() ? $('#custom-url-field').val() : ""
+  if (context() === 'dedicated') {
+    url = $('#dedicated-url-field').val() ? $('#dedicated-url-field').val() : ""
+  }
   let urlValidation = validateUrl(url)
 
   e.preventDefault();
   if (url === "" | urlValidation.valid) {
-    applyCustomUrl()
+    (context() !== 'dedicated') ? applyCustomUrl() : applyDedicatedUrl();
     $('#modal-close').trigger('click')
   } else {
     showValidationMessage(urlValidation)
   }
 });
 
-// Store the custom InfluxDB URL when exiting the field
-$('#custom-url-field').blur(function() {
-  applyCustomUrl()
+// Store the custom InfluxDB URL or dedicated URL when exiting the field
+$('#custom-url-field, #dedicated-url-field').blur(function() {
+  (context() !== 'dedicated') ? applyCustomUrl() : applyDedicatedUrl();
 })
 
 /** Delay execution of a function `fn` for a number of milliseconds `ms`
@@ -444,7 +523,7 @@ function delay(fn, ms) {
 }
 
 function handleUrlValidation() {
-  let url = $('#custom-url-field').val()
+  let url = $('#custom-url-field, #dedicated-url-field').val()
   let urlValidation = validateUrl(url)
   if (urlValidation.valid) {
     hideValidationMessage()
@@ -453,12 +532,18 @@ function handleUrlValidation() {
   }
 }
 // When in erred state, revalidate custom URL on keyup
-$(document).on("keyup", "#custom-url-field", delay(handleUrlValidation, 500));
+$(document).on("keyup", "#custom-url-field, #dedicated-url-field", delay(handleUrlValidation, 500));
 
 // Populate the custom InfluxDB URL field on page load
 if ( Cookies.get('influxdb_custom_url') != undefined ) {
   $('input#custom').val(Cookies.get('influxdb_custom_url'))
   $('#custom-url-field').val(Cookies.get('influxdb_custom_url'))
+}
+
+// Populate the dedicated URL field on page load
+if ( Cookies.get('influxdb_dedicated_url') != undefined ) {
+  $('input#dedicated-url-field').val(Cookies.get('influxdb_dedicated_url'))
+  $('#dedicated-url-field').val(Cookies.get('influxdb_dedicated_url'))
 }
 
 ////////////////////////////////////////////////////////////////////////////////

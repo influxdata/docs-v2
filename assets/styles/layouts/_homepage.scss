@@ -192,19 +192,21 @@ body.home {
       h3 {
         margin: 0 0 1.5rem;
         line-height: 1.1em;
-        font-size: 2.75rem;
+        font-size: 2.35rem;
       }
+
+      .no-wrap { white-space: nowrap; }
 
       p {
         margin-bottom: 2rem;
-      };
+      }
 
       .card-links {
         margin-top: auto;
         
         a {
           position: relative;
-          display: block;
+          display: inline-block;
           color: $article-text;
           font-weight: $medium;
           text-decoration: none;
@@ -221,7 +223,7 @@ body.home {
 
           &:hover{
             color: $br-new-magenta;
-            &:after {width: 30%}
+            &:after {width: 100%}
           }
         }
       }
@@ -258,118 +260,134 @@ body.home {
 
   #influxdb {
     
-    padding-top: .5rem;
-    display: flex;
+    padding-top: 3rem;
 
-    .actions {
+    .categories {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      max-width: 50%;
-      padding: 0 3rem 3rem;
+      width: 100%;
       flex: 1 1 0;
+    }
+
+    .category {
+      width: 50%;
+      margin-right: 2rem;
+      display: flex;
+      flex-direction: column;
+
+      &:last-child { margin-right: 0; }
+      
+      .category-card{
+        padding: 3rem;
+        background: $sidebar-search-bg;
+        border-radius: 30px;
+        box-shadow: 1px 1px 7px $sidebar-search-shadow;
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        // justify-content: space-evenly;
+
+        .product {
+          margin-bottom: 2.5rem;
+
+          &:last-child{margin-bottom: 0;}
+          &.new{
+            h3:after {
+              content: "New";
+              display: inline-block;
+              margin-left: .5rem;
+              padding: .15rem .35rem;
+              font-size: 1rem;
+              vertical-align: middle;
+              border-radius: $radius;
+              color: $br-dark-blue;
+              background-color: $br-chartreuse;
+            }
+          }
+        }
+
+        .product-links {
+          margin-top: .9rem;
+
+          a {
+            position: relative;
+            display: inline-block;
+            color: $article-text;
+            font-weight: $medium;
+            text-decoration: none;
+            
+            &:after {
+              content: "";
+              display: block;
+              margin-top: .15rem;
+              border-top: 2px solid $br-new-magenta;
+              width: 0;
+              transition: width .2s;
+            }
+  
+            &:hover{
+              color: $br-new-magenta;
+              &:after {width: 100%}
+            }
+
+            &:not(:first-child) {
+              position: relative;
+              margin-left: 1.8rem;
+              &:before {
+                content: "";
+                position: absolute;
+                display: inline-block;
+                left: -1rem;
+                top: .1rem;
+                height: 1em;
+                width: 1px;
+                margin-right: 1rem;
+                border-left: 1px solid rgba($article-text, .5);
+              }
+            }
+          }
+        }
+      }
     }
 
     h2 {
       margin: 0;
       font-size: 3.5rem;
       line-height: 1.1em;
+      width: 100%;
+      text-align: center;
+
       & + p {
         font-size: 1.2rem;
         margin: .5rem 0 2rem;
+        text-align: center;
       }
     }
 
     h3 {
       margin: 0;
-      color: $g20-white;
-      font-size: 2.25rem;
+      font-size: 2rem;
+      color: $br-new-magenta;
+      .version {
+        opacity: .5;
+        font-size: .7em;
+        color: $article-bold;
+        transition: color .2s;}
+      & > a {
+        text-decoration: none;
+        color: inherit;
+        transition: color .2s;
 
+        &:hover {
+          color: $article-bold;
+          .version {color: $article-bold;}
+        }
+      }
       & + p {margin: .5rem 0;}
     }
 
-    .hero-img {
-      background-image: url('/img/wind-turbine.jpg');
-      background-size: cover;
-      margin: -.5rem .75rem 0 1rem;
-      z-index: -1;
-      min-height: 600px;
-      border-radius: 0 0 30px 30px;
-      flex: 1 1 0;
-    }
-  }
-
-  #influxdb-btn {  
-    .exp-btn {
-      @include gradient($grad-burningDusk, 270deg);
-      color: $g20-white;
-      position: relative;
-      z-index: 1;
-
-      &:after {
-        content: "";
-        top: 0;
-        left: 0;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        @include gradient($grad-coolDusk);
-        border-radius: 6px;
-        z-index: -1;
-        opacity: 0;
-        transition: opacity .2s;
-      }
-
-      &:hover, &.open {
-        &:after {opacity: 1;}  
-      }
-
-      &.open {
-        padding: 0;        
-        li a {padding: 1rem 2rem;}
-      }
-    }
-
-    .exp-btn-links { 
-      color: $g20-white;      
-      li {
-        @include gradient($grad-coolDusk);
-  
-        &:first-child {
-          a:after {border-radius: 6px 6px 0 0;}
-        }
-
-        &:not(:last-child) {border-bottom: 1px solid rgba($body-bg, .5);}
-
-        &:last-child a:after {border-radius: 0 0 6px 6px;}
-
-        a {
-          color: $g20-white;
-          position: relative;
-          z-index: 1;
-          
-          &:after {
-            content: "";
-            top: 0;
-            left: 0;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            @include gradient($grad-burningDusk, 270deg);
-            border-radius: 6px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity .2s;
-          }
-
-          &:hover:after {opacity: 1}
-        }
-      }
-    }
-  
-    .close-btn {
-      color: rgba($br-new-magenta, .6);  
-      &:hover {color: $br-new-magenta;}
+    h4 {
+      font-size: 1.15rem;
+      margin: 1rem 0 .75rem 1.5rem;
     }
   }
 
@@ -543,12 +561,13 @@ body.home {
 
   @include media(medium) {
     #influxdb {
-      .actions {
-        max-width: 100%;
-        padding-top: 3rem;
-        text-align: center;
+      .categories {
+        flex-direction: column;
+        .category {
+          width: 100%;
+          margin: 0;
+        }
       }
-      .hero-img {display: none}
     }
     #api-guides {
       .padding-wrapper{
@@ -600,8 +619,16 @@ body.home {
       h3 {font-size: 2rem;}
     }
     #influxdb {
-      .actions {padding: 2rem;}
-      h2 {font-size: 2.65rem;}
+      h2 {font-size: 2.15rem; }
+      .subhead {margin-bottom: 1.5rem;}
+      .categories {
+        .category-card {
+          padding: 2rem;
+          h3 {font-size: 1.75rem;}
+          
+          .product { margin-bottom: 2rem; }
+        }
+      }
     }
     #api-guides {
       .padding-wrapper {

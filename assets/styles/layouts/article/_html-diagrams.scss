@@ -321,6 +321,10 @@ table tr.point{
       }
     }
   }
+
+  &.hide-elements {p span.el { border: none; &:before, &:after {display: none}}}
+  &.hide-commas {p span.comma { border: none; &:before, &:after {display: none}}}
+  &.hide-whitespace {p span.whitespace { border: none; &:before, &:after {display: none}}}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

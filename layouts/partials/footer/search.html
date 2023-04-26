@@ -5,6 +5,7 @@
 {{ $fluxSupported := slice "influxdb" "enterprise_influxdb" }}
 {{ $influxdbFluxSupport := slice "v1.7" "v1.8" "v1.9" "cloud" }}
 {{ $includeFlux := cond (and (in $fluxSupported $product) (or (in $influxdbFluxSupport $currentVersion) (gt (len (findRE `v2\.` $currentVersion)) 0))) true false }}
+{{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated") $currentVersion) }}
 
 <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
@@ -20,9 +21,11 @@ docsearch({
       if (version == null) {
         return '';
       } else if (version === 'cloud') {
-        return 'Cloud';
-      } else if (version === 'cloud-iox') {
-        return 'Cloud (IOx)';
+        return 'Cloud (TSM)';
+      } else if (version === 'cloud-serverless') {
+        return 'Cloud Serverless';
+      } else if (version === 'cloud-dedicated') {
+        return 'Cloud Dedicated';
       } else if (/v\d\./.test(version)) {
         return version;
       } else {
@@ -61,9 +64,9 @@ docsearch({
       {{ if or (eq $product "platform") (eq $product "resources") (le (len $productPathData) 1) }}
         'latest:true'
       {{ else if $includeFlux }}
-        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'flux:true', 'resources:true']
+        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'flux:true', 'resources:{{ $includeResources }}']
       {{ else }}
-        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'resources:true']
+        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'resources:{{ $includeResources }}']
       {{ end }}
     ]
   },
