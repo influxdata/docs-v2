@@ -31,12 +31,6 @@ The migration process uses the following tools:
 - **[`influxctl` admin CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/)**.
 - [v1 API `/write` endpoint](/influxdb/cloud-dedicated/primers/api/v1/) or [v2 API `/api/v2/write` endpoint](/influxdb/cloud-dedicated/primers/api/v2/) and API client libraries.
 
-{{% note %}}
-#### InfluxDB 1.x and 2.x CLIs are unique
-If both the **InfluxDB 1.x and 2.x `influx` CLIs** are installed in your `$PATH`,
-rename one of the the binaries to ensure you're executing commands with the
-correct CLI.
-{{% /note %}}
 
 ## Migrate data
 
