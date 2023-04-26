@@ -48,9 +48,9 @@ We are going to write some data in [line protocol](/influxdb/cloud-dedicated/ref
 2. Define a few variables with the name of your [database](/influxdb/cloud-dedicated/admin/databases/) (bucket), organization (required, but ignored), and [token](/influxdb/cloud-dedicated/admin/tokens/).
 
    ```python
-   bucket = "<my-database>"
+   bucket = "DATABASE_NAME"
    org = "ignored"
-   token = "<my-token>"
+   token = "DATABASE_TOKEN"
    # Store the URL of your InfluxDB instance
    url="https://cluster-id.influxdb.io"
    ```
@@ -85,9 +85,9 @@ We are going to write some data in [line protocol](/influxdb/cloud-dedicated/ref
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-bucket = "<my-database>"
+bucket = "DATABASE_NAME"
 org = "ignored"
-token = "<my-token>"
+token = "DATABASE_TOKEN"
 # Store the URL of your InfluxDB instance
 url="https://cluster-id.influxdb.io"
 
