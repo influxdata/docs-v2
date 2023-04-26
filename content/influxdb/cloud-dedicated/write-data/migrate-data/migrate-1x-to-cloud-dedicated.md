@@ -66,7 +66,7 @@ The migration process uses the following tools:
 
     {{% note %}}
 We recommend exporting each database and retention policy combination separately
-to easily write the exported data into corresponding InfluxDB {{< current-version >}}
+to easily write the exported data into corresponding InfluxDB Cloud Dedicated
 databases.
     {{% /note %}}
 
