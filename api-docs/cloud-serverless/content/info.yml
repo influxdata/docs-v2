@@ -1,4 +1,4 @@
-title: InfluxDB Cloud (IOx) API Service
+title: InfluxDB Cloud Serverless API Service
 description: |
     The InfluxDB HTTP API provides a programmatic interface for all interactions with InfluxDB.
     Access the InfluxDB API using the `/api/v2/` endpoint.
