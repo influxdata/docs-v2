@@ -229,7 +229,7 @@ You would create the following InfluxDB {{< current-version >}} databases:
     Write each export file to the target database.
 
     {{% warn %}}
-  #### v2.x CLI not supported
+  #### v2.x influx CLI not supported
 
   Don't use the `influx` CLI with InfluxDB Cloud Dedicated.
   While it may coincidentally work, it isn't officially supported.
