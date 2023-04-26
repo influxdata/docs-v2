@@ -79,7 +79,7 @@ The examples use these properties to interact with the InfluxDB API.
 1. Set environment variables or update `env.js` with your InfluxDB [bucket](/influxdb/cloud-serverless/organizations/buckets/), [organization](/influxdb/cloud-serverless/organizations/), [token](/influxdb/cloud-serverless/security/tokens/), and [url](/influxdb/cloud-serverless/reference/urls/).
 
    ```sh
-   export INFLUX_URL=http://localhost:8086
+   export INFLUX_URL=https://cloud2.influxdata.com
    export INFLUX_TOKEN=YOUR_API_TOKEN
    export INFLUX_ORG=YOUR_ORG
    export INFLUX_BUCKET=YOUR_BUCKET
