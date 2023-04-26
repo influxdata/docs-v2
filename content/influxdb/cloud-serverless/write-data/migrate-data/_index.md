@@ -1,5 +1,5 @@
 ---
-title: Migrate data to the InfluxDB Cloud Serverless
+title: Migrate data to InfluxDB Cloud Serverless
 description: >
   Migrate data from InfluxDB powered by TSM (OSS, Enterprise, or Cloud) to
   InfluxDB Cloud Serverless.
