@@ -7,56 +7,16 @@
 #   message: |
 #     Markdown message content.
 
-- id: signing-key-rotation
-  level: warn
+- id: influxdb-3-announcement
+  level: note
   scope:
-    - /enterprise_influxdb/v1.10/introduction/installation/data_node_installation/
-    - /enterprise_influxdb/v1.10/introduction/installation/meta_node_installation/
-    - /enterprise_influxdb/v1.10/introduction/installation/single-server/
-    - /enterprise_influxdb/v1.7/install-and-deploy/production_installation/data_node_installation/
-    - /enterprise_influxdb/v1.7/install-and-deploy/production_installation/meta_node_installation/
-    - /enterprise_influxdb/v1.8/install-and-deploy/production_installation/data_node_installation/
-    - /enterprise_influxdb/v1.8/install-and-deploy/production_installation/meta_node_installation/
-    - /enterprise_influxdb/v1.9/introduction/installation/data_node_installation/
-    - /enterprise_influxdb/v1.9/introduction/installation/meta_node_installation/
-    - /enterprise_influxdb/v1.9/introduction/installation/single-server/
-    - /influxdb/v1.3/introduction/installation/
-    - /influxdb/v1.4/introduction/installation/
-    - /influxdb/v1.5/introduction/installation/
-    - /influxdb/v1.6/introduction/installation/
-    - /influxdb/v1.7/introduction/installation/
-    - /influxdb/v1.8/introduction/install/
-    - /influxdb/v2.0/install/
-    - /influxdb/v2.1/install/
-    - /influxdb/v2.2/install/
-    - /influxdb/v2.3/install/
-    - /influxdb/v2.4/install/
-    - /influxdb/v2.5/install/
-    - /influxdb/v2.6/install/
-    - /telegraf/v1.10/introduction/installation/
-    - /telegraf/v1.11/introduction/installation/
-    - /telegraf/v1.12/introduction/installation/
-    - /telegraf/v1.13/introduction/installation/
-    - /telegraf/v1.14/introduction/installation/
-    - /telegraf/v1.15/introduction/installation/
-    - /telegraf/v1.16/introduction/installation/
-    - /telegraf/v1.17/introduction/installation/
-    - /telegraf/v1.18/introduction/installation/
-    - /telegraf/v1.19/introduction/installation/
-    - /telegraf/v1.20/introduction/installation/
-    - /telegraf/v1.21/introduction/installation/
-    - /telegraf/v1.22/install/
-    - /telegraf/v1.23/install/
-    - /telegraf/v1.24/install/
-    - /telegraf/v1.9/introduction/installation/
-  title: Linux Package Signing Key Rotation
+    - /
+  title: Introducing InfluxDB 3.0
   message: |
-    All signed InfluxData Linux packages have been resigned with an updated key.
-    If using Linux, you may need to update your package configuration to continue
-    to download and verify InfluxData software packages.
+    The new core of InfluxDB built with Rust and Apache Arrow.
+    Available today in [InfluxDB Cloud Dedicated](/influxdb/cloud-dedicated/).
 
-    For more information, see the
-    [Linux Package Signing Key Rotation blog post](https://www.influxdata.com/blog/linux-package-signing-key-rotation/).  
+    [Learn more](https://www.influxdata.com/blog/introducing-influxdb-3-0) 
 
 - id: serverless-wip
   level: warn
