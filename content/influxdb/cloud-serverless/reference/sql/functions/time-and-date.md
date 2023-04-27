@@ -61,11 +61,15 @@ WHERE
 LIMIT 3
 ```
 
+{{% influxdb/custom-timestamps %}}
+
 | time                 | temp | current_date                  |
 | :------------------- | ---: | :---------------------------- |
 | 2022-01-01T08:00:00Z |   21 | {{< datetime/current-date >}} |
 | 2022-01-01T09:00:00Z |   23 | {{< datetime/current-date >}} |
 | 2022-01-01T10:00:00Z | 22.7 | {{< datetime/current-date >}} |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -119,7 +123,7 @@ and applying an aggregate or selector function to each window.
 For example, if you "bin" or "window" data into 15 minute intervals, an input timestamp of `2023-01-01T18:18:18Z` will be updated to the start time of the 15 minute bin it is in: `2023-01-01T18:15:00Z`.
 
 ```sql
-date_bin(interval, expression, origin-timestamp)
+date_bin(interval, expression[, origin_timestamp])
 ```
 
 ##### Arguments:
@@ -127,7 +131,8 @@ date_bin(interval, expression, origin-timestamp)
 - **interval**: Bin interval.
 - **expression**: Time expression to operate on.
   Can be a constant, column, or function.
-- **timestamp**: Starting point used to determine bin boundaries.
+- **origin_timestamp**: Starting point used to determine bin boundaries.
+  _Default is the Unix epoch._
 
 The following intervals are supported:
 
@@ -177,22 +182,51 @@ ORDER BY time DESC
 ## date_bin_gapfill
 
 Calculates time intervals and returns the start of the interval nearest to the specified timestamp.
-For example, if you "bin" or "window" data into 15 minute intervals, an input
-timestamp of `2023-01-01T18:18:18Z` will be updated to the start time of the 15
-minute bin it is in: `2023-01-01T18:15:00Z`.
 If no rows exist in a time interval, a new row is inserted with a `time` value
 set to the interval start time, all queried
 [primary key](/influxdb/cloud-serverless/reference/glossary/#primary-key)
 columns populated, and null values in aggregate columns.
 
-Use `date_bin_gapfill` with [`interpolate`]() or [`locf`]() to
+Use `date_bin_gapfill` with [`interpolate`](/influxdb/cloud-serverless/reference/sql/functions/misc/#interpolate)
+or [`locf`](/influxdb/cloud-serverless/reference/sql/functions/misc/#locf) to
 [fill gaps in data]()
 at specified time intervals.
 
+```sql
+date_bin_gapfill(interval, expression[, origin_timestamp])
+```
+
+{{% note %}}
+`date_bin_gapfill` requires [time bounds](/influxdb/cloud-serverless/query-data/sql/basic-query/#query-data-within-time-boundaries)
+in the `WHERE` clause.
+{{% /note %}}
+
+##### Arguments:
+
+- **interval**: Bin interval.
+- **expression**: Time expression to operate on.
+  Can be a constant, column, or function.
+- **origin_timestamp**: Starting point used to determine bin boundaries.
+  _Default is the Unix epoch._
+
+The following intervals are supported:
+
+- nanoseconds
+- microseconds
+- milliseconds
+- seconds
+- minutes
+- hours
+- days
+- weeks
+- months
+- years
+- century
+
 ##### Related functions
 
-[interpolate](),
-[locf]()
+[interpolate](/influxdb/cloud-serverless/reference/sql/functions/misc/#interpolate),
+[locf](/influxdb/cloud-serverless/reference/sql/functions/misc/#locf)
 
 {{< expand-wrapper >}}
 {{% expand "View `date_bin_gapfill` query examples" %}}
@@ -204,6 +238,8 @@ _The following examples use the sample data set provided in
 - [Use date_bin_gapfill to fill gaps in data](#use-date_bin_gapfill-to-fill-gaps-in-data)
 
 #### Use date_bin_gapfill to insert rows when no rows exists
+
+{{% influxdb/custom-timestamps %}}
 
 ```sql
 SELECT
@@ -230,6 +266,8 @@ GROUP BY _time, room
 | 2022-01-01T09:30:00Z | Living Room |      |
 | 2022-01-01T10:00:00Z | Living Room | 21.8 |
 
+{{% /influxdb/custom-timestamps %}}
+
 #### Use date_bin_gapfill to fill gaps in data
 
 Use `interpolate` and `locf` to fill the null values in rows inserted by
@@ -242,8 +280,10 @@ Use `interpolate` and `locf` to fill the null values in rows inserted by
 {{% /tabs %}}
 {{% tab-content %}}
 
-The example below uses `interpolate` to fill null values by interpolating values
+The example below uses [`interpolate`](/influxdb/cloud-serverless/reference/sql/functions/misc/#interpolate) to fill null values by interpolating values
 between values that exist.
+
+{{% influxdb/custom-timestamps %}}
 
 ```sql
 SELECT
@@ -270,11 +310,15 @@ GROUP BY _time, room
 | 2022-01-01T09:30:00Z | Living Room |           21.6 |
 | 2022-01-01T10:00:00Z | Living Room |           21.8 |
 
+{{% /influxdb/custom-timestamps %}}
+
 {{% /tab-content %}}
 {{% tab-content %}}
 
-The example below uses `locf` to fill null values by carrying the last observed
+The example below uses [`locf`](/influxdb/cloud-serverless/reference/sql/functions/misc/#locf) to fill null values by carrying the last observed
 value forward.
+
+{{% influxdb/custom-timestamps %}}
 
 ```sql
 SELECT
@@ -300,6 +344,8 @@ GROUP BY _time, room
 | 2022-01-01T09:00:00Z | Living Room |           21.4 |
 | 2022-01-01T09:30:00Z | Living Room |           21.4 |
 | 2022-01-01T10:00:00Z | Living Room |           21.8 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
