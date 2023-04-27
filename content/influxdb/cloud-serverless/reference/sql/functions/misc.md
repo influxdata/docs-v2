@@ -157,9 +157,11 @@ GROUP BY _time, room
 
 ## locf
 
-Fills null values in a specified aggregated column by interpolating values
-from existing values.
+Fills null values in a specified aggregated column by carrying the last observed
+value forward.
 Must be used with [`date_bin_gapfill`](/influxdb/cloud-serverless/reference/sql/functions/time-and-date/#date_bin_gapfill).
+
+_LOCF is an initialism of "last observation carried forward."_
 
 ```sql
 locf(aggregate_expression)

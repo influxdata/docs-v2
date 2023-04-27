@@ -280,8 +280,8 @@ Use `interpolate` and `locf` to fill the null values in rows inserted by
 {{% /tabs %}}
 {{% tab-content %}}
 
-The example below uses [`interpolate`](/influxdb/cloud-serverless/reference/sql/functions/misc/#interpolate) to fill null values by interpolating values
-between values that exist.
+The example below uses [`interpolate`](/influxdb/cloud-serverless/reference/sql/functions/misc/#interpolate)
+to fill null values by interpolating values between non-null values.
 
 {{% influxdb/custom-timestamps %}}
 
@@ -315,8 +315,8 @@ GROUP BY _time, room
 {{% /tab-content %}}
 {{% tab-content %}}
 
-The example below uses [`locf`](/influxdb/cloud-serverless/reference/sql/functions/misc/#locf) to fill null values by carrying the last observed
-value forward.
+The example below uses [`locf`](/influxdb/cloud-serverless/reference/sql/functions/misc/#locf)
+to fill null values by carrying the last observed value forward.
 
 {{% influxdb/custom-timestamps %}}
 
