@@ -12,7 +12,7 @@ weight: 101
 
 ### Bug Fixes
 
-- Update the UI to remove non-functional Data Explorer.
+- Update the InfluxDB UI to remove non-functional Data Explorer.
 
 ## v2.7.0 [2023-04-05]
 
