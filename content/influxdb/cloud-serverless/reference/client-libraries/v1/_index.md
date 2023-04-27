@@ -1,7 +1,7 @@
 ---
 title: InfluxDB v1 client libraries
 description: >
-  v1 client libraries work with the InfluxDB 1.7 API and should be fully compatible with InfluxDB 1.5+.
+  InfluxDB v1 client libraries work with the InfluxDB 1.7 API and should be fully compatible with InfluxDB 1.5+.
   View the list of available client libraries.
 menu:
   influxdb_cloud_serverless:
