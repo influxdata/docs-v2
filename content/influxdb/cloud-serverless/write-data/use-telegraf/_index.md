@@ -46,12 +46,19 @@ Use the `outputs.influxdb_v2` plugin to write metrics collected by Telegraf to I
 
 [[outputs.influxdb_v2]]
   urls = ["http://localhost:8086"]
-  token = "$INFLUX_TOKEN"
-  organization = "example-org"
-  bucket = "example-bucket"
+  token = "${INFLUX_TOKEN}"
+  organization = "ORG_ID"
+  bucket = "BUCKET_NAME"
 
 # ...
 ```
+
+Replace the following:
+
+- **`ORG_ID`**: your InfluxDB Serverless organization ID.
+- **`BUCKET_NAME`**: the name of the InfluxDB Serverless bucket to write to.
+
+In the example, **`INFLUX_TOKEN`** is an environment variable assigned to an InfluxDB API token with _write_ permission to the bucket.
 
 _For more information, see [Manually configure Telegraf](/influxdb/cloud-serverless/write-data/use-telegraf/configure/manual-config/#enable-and-configure-the-influxdb-v2-output-plugin)._
 
