@@ -12,8 +12,8 @@ menu:
 
 ### Bug Fixes
 
-- Packaging is now corrected for RPM and Windows ZIPs.
-- The `--username-password` flag now properly handles multiple cookies.
+- Correct packaging for RPM and Windows ZIPs.
+- Properly handle multiple cookies with `--username-password` flag.
 
 ### Maintenance
 - Upgrade `go` to 1.20.3.
