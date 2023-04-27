@@ -72,17 +72,17 @@ metrics from different sources and writes them to specified destinations.
     plugin in your Telegraf configuration file.
 2.  Include the following options:
 
-    - **urls**: List of
+    - **urls**: a list (`[]`) of
       [InfluxDB Cloud Serverless region URLs](/influxdb/cloud-serverless/reference/regions/)
-      to write data to.
-    - **token**: InfluxDB API token.
-    - **organization**: InfluxDB organization name.
-    - **bucket**: InfluxDB bucket to write to.
+      to write data to
+    - **token**: an InfluxDB API token with _write_ permission to the bucket
+    - **organization**: your InfluxDB organization name
+    - **bucket**: the name of the InfluxDB bucket to write to.
 
 ```toml
 [[outputs.influxdb_v2]]
   urls = ["http://localhost:8086"]
-  token = "$INFLUX_TOKEN"
+  token = "{$INFLUX_TOKEN}"
   organization = "example-org"
   bucket = "example-bucket"
 ```
@@ -116,7 +116,7 @@ metrics from different sources and writes them to specified destinations.
 
 [[outputs.influxdb_v2]]
   urls = ["http://localhost:8086"]
-  token = "$INFLUX_TOKEN"
+  token = "{$INFLUX_TOKEN}"
   organization = "example-org"
   bucket = "example-bucket"
 ```
