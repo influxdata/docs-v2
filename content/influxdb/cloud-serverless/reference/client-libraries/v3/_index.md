@@ -1,7 +1,7 @@
 ---
 title: InfluxDB v3 API client libraries
 description: >
-  InfluxDB v3 client libraries work with InfluxDB powered by the IOx storage engine, including InfluxDB Cloud Serverless and Cloud Dedicated.
+  InfluxDB v3 client libraries work with InfluxDB powered by the IOx storage engine.
   View the list of available client libraries.
 weight: 30
 menu:
@@ -11,10 +11,11 @@ menu:
 influxdb/cloud-serverless/tags: [client libraries, API, developer tools]
 ---
 
-## Client libraries for InfluxDB Cloud Serverless and Cloud Dedicated
+## Client libraries for InfluxDB v3
 
-InfluxDB v3 client libraries work with InfluxDB powered by the IOx storage engine.
-v3 client libraries use the InfluxDB HTTP API to write data and use gRPC and Flight SQL to query data stored in InfluxDB.
+InfluxDB v3 client libraries work with IOx-powered InfluxDB v3, including InfluxDB Cloud Serverless.
+v3 Client libraries use the InfluxDB HTTP API to write data and include [Flight SQL clients](/Users/ja/Documents/GitHub/docs-v2/content/influxdb/cloud-dedicated/reference/client-libraries/flight-sql)
+for querying data stored in InfluxDB v3.
 
 Functionality varies among client libraries.
 These client libraries are in active development and may not be feature-complete.
