@@ -93,8 +93,8 @@ The following steps use Python, `flightsql-dbapi`, and `pyarrow` to query Influx
 
 2. Replace the following configuration values:
 
-    - **`INFLUX_READ_WRITE_TOKEN`**: Your InfluxDB token with read permissions on the databases you want to query.
-    - **`INFLUX_BUCKET`**: The name of your InfluxDB bucket.
+    - **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _read_ permission to the bucket.
+    - **`INFLUX_BUCKET`**: The name of the InfluxDB bucket to query.
 
 3. In your terminal, use the Python interpreter to run the file:
 

@@ -20,7 +20,7 @@ list_code_example: |
 
     client = FlightSQLClient(host='cloud2.influxdata.com',
         token='INFLUX_READ_WRITE_TOKEN',
-        metadata={'bucket-name': 'INFLUX_BUCKET'},
+        metadata={'bucket-name': 'BUCKET_NAME'},
         features={'metadata-reflection': 'true'})
 
     info = client.execute("SELECT * FROM home")
@@ -204,14 +204,14 @@ and the _DB API 2_ interface to instantiate a Flight SQL client configured for a
     # Instantiate a FlightSQLClient configured for your bucket
     client = FlightSQLClient(host='cloud2.influxdata.com',
                             token='INFLUX_READ_WRITE_TOKEN',
-                            metadata={'bucket-name': 'INFLUX_BUCKET'},
+                            metadata={'bucket-name': 'BUCKET_NAME'},
                             features={'metadata-reflection': 'true'})
     ```
 
 2. Replace the following configuration values:
 
-    - **`INFLUX_READ_WRITE_TOKEN`**: Your InfluxDB token with read permissions on the databases you want to query.
-    - **`INFLUX_BUCKET`**: The name of your InfluxDB bucket.
+    - **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _read_ permission to the bucket.
+    - **`BUCKET_NAME`**: The name of the InfluxDB bucket to query.
 
 ### Execute a query
 
@@ -232,12 +232,17 @@ from flightsql import FlightSQLClient
 
 client = FlightSQLClient(host='cloud2.influxdata.com',
     token='INFLUX_READ_WRITE_TOKEN',
-    metadata={'bucket-name': 'INFLUX_BUCKET'},
+    metadata={'bucket-name': 'BUCKET_NAME'},
     features={'metadata-reflection': 'true'})
 
 # Execute the query
 info = client.execute("SELECT * FROM home")
 ```
+
+Replace the following:
+
+- **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _read_ permission to the bucket.
+- **`BUCKET_NAME`**: The name of the InfluxDB bucket to query.
 
 The response contains a `flight.FlightInfo` object that contains metadata and an `endpoints: [...]` list. Each endpoint contains the following:
 
@@ -268,7 +273,7 @@ from flightsql import FlightSQLClient
 # Instantiate a FlightSQLClient configured for a bucket
 client = FlightSQLClient(host='cloud2.influxdata.com',
     token='INFLUX_READ_WRITE_TOKEN',
-    metadata={'bucket-name': 'INFLUX_BUCKET'},
+    metadata={'bucket-name': 'BUCKET_NAME'},
     features={'metadata-reflection': 'true'})
 
 # Execute the query to retrieve FlightInfo
