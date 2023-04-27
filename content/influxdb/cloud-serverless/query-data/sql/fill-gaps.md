@@ -28,12 +28,12 @@ Use [`date_bin_gapfill`](/influxdb/cloud-serverless/reference/sql/functions/time
 with [`interpolate`](/influxdb/cloud-serverless/reference/sql/functions/misc/#interpolate)
 or [`locf`](/influxdb/cloud-serverless/reference/sql/functions/misc/#locf) to
 fill gaps of time where no data is returned.
-Gap filling SQL queries handle missing data in time series data by filling in
+Gap-filling SQL queries handle missing data in time series data by filling in
 gaps with interpolated values or by carrying forward the last available observation.
 
 **To fill gaps in data:**
 
-1.  Use the `date_bin_gapfill` function to window your data into time based groups
+1.  Use the `date_bin_gapfill` function to window your data into time-based groups
     and apply an [aggregate function](/influxdb/cloud-serverless/reference/sql/functions/aggregate/)
     to each window. If no data exists in a window, `date_bin_gapfill` inserts
     a new row with the starting timestamp of the window and null values for the 
@@ -41,7 +41,7 @@ gaps with interpolated values or by carrying forward the last available observat
 
 2.  Use either `interpolate` or `locf` to fill the inserted null values in the specified column.
 
-    - **interpolate**: fills null values inserted by interpolating values between non-null values.
+    - **interpolate**: fills null values by interpolating values between non-null values.
     - **locf**: fills null values by carrying the last observed value forward.
     
     {{% note %}}
@@ -49,12 +49,12 @@ The expression passed to `interpolate` or `locf` must use an
 [aggregate function](/influxdb/cloud-serverless/reference/sql/functions/aggregate/).
     {{% /note %}}
 
-3.  Include a predicate on time in the `WHERE` clause, with both upper and lower time bounds.
+3.  Include a `WHERE` clause that sets upper and lower time bounds.
     For example:
 
 {{% influxdb/custom-timestamps %}}
 ```sql
-WHERE time >= time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T10:00:00Z'
+WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T10:00:00Z'
 ```
 {{% /influxdb/custom-timestamps %}}
 

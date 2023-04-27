@@ -120,7 +120,7 @@ interpolate(aggregate_expression)
 {{< expand-wrapper >}}
 {{% expand "View `interpolate` query example" %}}
 
-_The following example uses the sample data set provided in
+_The following example uses the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
 
 {{% influxdb/custom-timestamps %}}
@@ -182,7 +182,7 @@ locf(aggregate_expression)
 {{< expand-wrapper >}}
 {{% expand "View `locf` query example" %}}
 
-_The following example uses the sample data set provided in
+_The following example uses the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
 
 {{% influxdb/custom-timestamps %}}

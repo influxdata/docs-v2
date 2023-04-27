@@ -93,7 +93,7 @@ current_time()
 {{< expand-wrapper >}}
 {{% expand "View `current_time` query example" %}}
 
-_The following example uses the sample data set provided in
+_The following example uses the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
 
 ```sql
@@ -231,7 +231,7 @@ The following intervals are supported:
 {{< expand-wrapper >}}
 {{% expand "View `date_bin_gapfill` query examples" %}}
 
-_The following examples use the sample data set provided in
+_The following examples use the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
 
 - [Use date_bin_gapfill to insert rows when no rows exists](#use-date_bin_gapfill-to-insert-rows-when-no-rows-exists)

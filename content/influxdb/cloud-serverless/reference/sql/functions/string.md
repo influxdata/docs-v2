@@ -1188,7 +1188,7 @@ FROM home
 
 ## uuid
 
-Returns UUID v4 string value which is unique per row.
+Returns a UUID v4 string value that is unique per row.
 
 ```sql
 uuid()
@@ -1197,7 +1197,7 @@ uuid()
 {{< expand-wrapper >}}
 {{% expand "View `upper` query example" %}}
 
-_The following example uses the sample data set provided in
+_The following example uses the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
 
 ```sql
