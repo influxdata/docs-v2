@@ -47,8 +47,8 @@ databases and tokens.
 
 1.  **Download the `influxctl` CLI**.
 
-    _Contact your InfluxData account representative for information about
-    downloading and installing the `influxctl` CLI._
+    _[Contact InfluxData Support](https://support.influxdata.com) for
+    information about downloading and installing the `influxctl` CLI._
 
 2.  **Create a connection profile and provide your InfluxDB Cloud Dedicated connection credentials**.
     The `influxctl` CLI uses [connection profiles](/influxdb/cloud-dedicated/reference/cli/influxctl/#configure-connection-profiles)

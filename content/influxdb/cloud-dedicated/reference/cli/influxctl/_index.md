@@ -48,8 +48,8 @@ influxctl [flags] [command]
 
 ## Download and install influxctl
 
-_Contact your InfluxData account representative for information about
-downloading and installing the `influxctl` CLI._
+_[Contact InfluxData Support](https://support.influxdata.com) for
+information about downloading and installing the `influxctl` CLI._
 
 ## Configure connection profiles
 
