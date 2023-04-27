@@ -21,4 +21,4 @@ These client libraries are in active development and may not be feature-complete
 
 For specifics about a client library, see the library's GitHub repository.
 
-{{< children type="list" depth="999" >}}
+{{< children depth="999" type="list" >}}

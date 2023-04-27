@@ -1,7 +1,7 @@
 ---
 title: InfluxDB v3 API client libraries
 description: >
-  v3 client libraries work with InfluxDB powered by the IOx storage engine, including InfluxDB Cloud Serverless and Cloud Dedicated.
+  InfluxDB v3 client libraries work with InfluxDB powered by the IOx storage engine, including InfluxDB Cloud Serverless and Cloud Dedicated.
   View the list of available client libraries.
 weight: 30
 menu:
@@ -21,4 +21,4 @@ These client libraries are in active development and may not be feature-complete
 
 For specifics about a client library, see the library's GitHub repository.
 
-{{< children type="list" depth="999" >}}
+{{< children depth="999" description="true" >}}

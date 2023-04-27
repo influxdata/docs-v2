@@ -18,4 +18,4 @@ influxdb/cloud-serverless/tags: [client libraries, API, developer tools]
 
 InfluxDB client libraries are language-specific packages that integrate with InfluxDB APIs.
 
-{{< children depth="999" description="true" >}}
+{{< children depth="999" type="list" >}}
