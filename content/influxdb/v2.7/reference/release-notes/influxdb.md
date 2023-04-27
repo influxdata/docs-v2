@@ -8,7 +8,13 @@ menu:
 weight: 101
 ---
 
-## v2.7.1 [2023-04-05]
+## v2.7.1 [2023-04-27]
+
+### Bug Fixes
+
+- Update the UI to remove non-functional Data Explorer.
+
+## v2.7.0 [2023-04-05]
 
 ### Bug Fixes
 

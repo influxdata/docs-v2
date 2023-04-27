@@ -8,6 +8,16 @@ menu:
     name: influx CLI 
 ---
 
+## v2.7.2 [2023-04-27]
+
+### Bug Fixes
+
+- Packaging is now corrected for RPM and Windows ZIPs.
+- The `--username-password` flag now properly handles multiple cookies.
+
+### Maintenance
+- Upgrade `go` to 1.20.3.
+
 ## v2.7.1 [2023-04-05]
 
 ### Features
