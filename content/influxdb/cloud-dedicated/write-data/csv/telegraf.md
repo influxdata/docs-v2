@@ -72,7 +72,7 @@ metrics from different sources and writes them to specified destinations.
     plugin in your Telegraf configuration file.
 2.  Include the following options:
 
-    - **url**: a list (`[]`) containing your Influx Cloud Dedicated cluster URL using the HTTPS
+    - **url**: a list (`[]`) containing your InfluxDB Cloud Dedicated cluster URL using the HTTPS
       protocol:
 
       ```
