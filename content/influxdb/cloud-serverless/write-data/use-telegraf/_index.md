@@ -39,7 +39,7 @@ Each Telegraf configuration must **have at least one input plugin and one output
 Telegraf input plugins retrieve metrics from different sources.
 Telegraf output plugins write those metrics to a destination.
 
-Use the `outputs.influxdb_v2` plugin to write metrics collected by Telegraf to InfluxDB.
+Use the [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2) to write metrics collected by Telegraf to InfluxDB.
 
 ```toml
 # ...
@@ -55,8 +55,8 @@ Use the `outputs.influxdb_v2` plugin to write metrics collected by Telegraf to I
 
 Replace the following:
 
-- **`ORG_ID`**: your InfluxDB Serverless organization ID.
-- **`BUCKET_NAME`**: the name of the InfluxDB Serverless bucket to write to.
+- **`ORG_ID`**: your InfluxDB Serverless [organization](/influxdb/cloud-serverless/admin/organizations/) ID.
+- **`BUCKET_NAME`**: the name of the [bucket](/influxdb/cloud-serverless/admin/buckets/) to write to.
 
 In the example, **`INFLUX_TOKEN`** is an environment variable assigned to an InfluxDB API token with _write_ permission to the bucket.
 
