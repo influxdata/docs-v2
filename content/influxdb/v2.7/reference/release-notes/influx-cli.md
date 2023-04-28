@@ -8,7 +8,7 @@ menu:
     name: influx CLI 
 ---
 
-## v2.7.2 [2023-04-27]
+## v2.7.3 [2023-04-28]
 
 ### Bug Fixes
 
