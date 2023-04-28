@@ -143,7 +143,7 @@ The example below illustrates an `influxdb_v2` configuration.
 
 [[outputs.influxdb_v2]]
   urls = ["http://localhost:8086"]
-  token = "$INFLUX_TOKEN"
+  token = "{$INFLUX_TOKEN}"
   organization = "example-org"
   bucket = "example-bucket"
 

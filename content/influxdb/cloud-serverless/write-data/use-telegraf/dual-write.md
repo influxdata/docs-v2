@@ -38,7 +38,7 @@ Use the configuration below to write your data to both OSS and Cloud instances s
   urls = ["http://localhost:8086"]
 
   ## OSS token for authentication.
-  token = "$INFLUX_TOKEN_OSS"
+  token = "${INFLUX_TOKEN_OSS}"
 
   ## Organization is the name of the organization you want to write to. It must already exist.
   organization = "influxdata"
@@ -53,7 +53,7 @@ Use the configuration below to write your data to both OSS and Cloud instances s
   urls = ["https://us-west-2-1.aws.cloud2.influxdata.com"]
 
   ## Cloud token for authentication.
-  token = "$INFLUX_TOKEN_CLOUD"
+  token = "${INFLUX_TOKEN_CLOUD}"
 
   ## Organization is the name of the organization you want to write to. It must already exist.
   organization = "example@domain.com"
