@@ -9,7 +9,7 @@
 {{ $notifications := resources.Get "js/notifications.js" }}
 {{ $keybindings := resources.Get "js/keybindings.js" }}
 {{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
-{{ $fluxCurrentTime := resources.Get "js/flux-current-time.js" }}
+{{ $dateTime := resources.Get "js/datetime.js" }}
 {{ $influxdbGSTimestamps := resources.Get "js/get-started-timestamps.js" }}
 {{ $codeControls := resources.Get "js/code-controls.js" }}
 {{ $pageFeedback := resources.Get "js/page-feedback.js" }}
@@ -18,7 +18,7 @@
 {{ $ioxWayfinding := resources.Get "/js/iox-wayfinding.js"}}
 {{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $tabbedContent $notifications $keybindings $codeControls $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := slice $fluxGroupKeys | resources.Concat "js/flux-group-keys.js" | resources.Fingerprint }}
-{{ $fluxCurrentTimejs := slice $fluxCurrentTime | resources.Concat "js/flux-current-time.js" | resources.Fingerprint }}
+{{ $dateTimejs := slice $dateTime | resources.Concat "js/datetime.js" | resources.Fingerprint }}
 {{ $influxdbGSTimestampsjs := slice $influxdbGSTimestamps | resources.Concat "js/get-started-timestamps.js" | resources.Fingerprint }}
 {{ $ioxWayfindingjs := slice $ioxWayfinding | resources.Concat "js/iox-wayfinding.js" | resources.Fingerprint }}
 
@@ -54,9 +54,9 @@
 <script type="text/javascript" src="{{ $fluxGroupKeyjs.RelPermalink }}"></script>
 {{ end }}
 
-<!-- Load Flux current time js if when the flux/current-time shortcode is present -->
-{{ if .Page.HasShortcode "flux/current-time" }}
-<script type="text/javascript" src="{{ $fluxCurrentTime.RelPermalink }}"></script>
+<!-- Load datetime js if when datetime shortcodes are present -->
+{{ if or (.Page.HasShortcode "datetime/current-time") (.Page.HasShortcode "datetime/current-timestamp") (.Page.HasShortcode "datetime/current-date") }}
+<script type="text/javascript" src="{{ $dateTimejs.RelPermalink }}"></script>
 {{ end }}
 
 <!-- Load getting started timestamps js if when the influxdb/custom-gs-timestamps shortcode is present -->

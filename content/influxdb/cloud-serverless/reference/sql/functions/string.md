@@ -43,6 +43,7 @@ operating on string values:
 - [translate](#translate)
 - [trim](#trim)
 - [upper](#upper)
+- [uuid](#uuid)
 
 ## ascii
 
@@ -485,7 +486,7 @@ FROM home
 
 ## lpad
 
-Pads the left side a string with another string to a specified string length.
+Pads the left side of a string with another string to a specified string length.
 
 ```sql
 lpad(str, n[, padding_str])
@@ -794,7 +795,8 @@ FROM home
 {{< /expand-wrapper >}}
 
 ## rpad
-right side a string with another string to a specified string length.
+
+Pads the right side of a string with another string to a specified string length.
 
 ```sql
 rpad(str, n[, padding_str])
@@ -878,7 +880,7 @@ FROM
 
 ## split_part
 
-Splits a string based on a specified delimiter and returns the substring a the
+Splits a string based on a specified delimiter and returns the substring in the
 specified position.
 
 ```sql
@@ -1180,6 +1182,35 @@ FROM home
 | :---------- | :---------- |
 | Living Room | LIVING ROOM |
 | Kitchen     | KITCHEN     |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## uuid
+
+Returns a UUID v4 string value that is unique per row.
+
+```sql
+uuid()
+```
+
+{{< expand-wrapper >}}
+{{% expand "View `upper` query example" %}}
+
+_The following example uses the sample data set provided in the
+[Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  uuid() AS uuid
+FROM (SELECT DISTINCT room FROM home)
+```
+
+| room        |                 uuid                 |
+| :---------- | :----------------------------------: |
+| Kitchen     | f0b41da9-e334-4b7d-b925-a54ca6b082f3 |
+| Living Room | c31be90e-c4ed-4304-b633-47b969ef3ab6 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

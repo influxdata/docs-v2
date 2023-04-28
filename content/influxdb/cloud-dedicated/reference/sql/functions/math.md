@@ -23,9 +23,11 @@ performing mathematic operations:
 - [exp](#exp)
 - [floor](#floor)
 - [ln](#ln)
+- [log](#log)
 - [log10](#log10)
 - [log2](#log2)
 - [power](#power)
+- [pow](#pow)
 - [random](#random)
 - [round](#round)
 - [signum](#signum)
@@ -356,6 +358,47 @@ SELECT ln(temp) AS ln FROM home LIMIT 3
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## log
+
+Returns the base-x logarithm of a number.
+
+```
+log([base, ]numeric_expression)
+```
+
+#### Arguments
+
+- **base**: Base numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+  Default is `10`.
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `log` query example" %}}
+
+_The following example uses the sample data set provided in the 
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  temp,
+  log(2, temp) AS temp_log2,
+  log(4, temp) AS temp_log4,
+  log(temp) AS temp_log10
+FROM home
+LIMIT 3
+```
+
+| temp |         temp_log2 |          temp_log4 |         temp_log10 |
+| :--- | ----------------: | -----------------: | -----------------: |
+| 21   | 4.392317422778761 | 2.1961587113893803 |  1.322219294733919 |
+| 23   | 4.523561956057013 | 2.2617809780285065 | 1.3617278360175928 |
+| 22.7 | 4.504620392403553 | 2.2523101962017766 | 1.3560258571931225 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## log10
 
 Returns the base-10 logarithm of a number.
@@ -390,7 +433,7 @@ SELECT log10(temp) AS log10 FROM home LIMIT 3
 
 ## log2
 
-Returns the base-2 logarithm or a number.
+Returns the base-2 logarithm of a number.
 
 ```sql
 log2(numeric_expression)
@@ -422,15 +465,19 @@ SELECT log2(temp) AS log2 FROM home LIMIT 3
 
 ## power
 
-Returns a base number raised to the power of an exponent.
+Returns a base expression raised to the power of an exponent.
 
 ```sql
 power(base, exponent)
 ```
 
+##### Aliases
+
+- `pow`
+
 ##### Arguments
 
-- **power**: Base numeric expression to operate on.
+- **base**: Numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
 - **exponent**: Exponent numeric expression to operate on.
   Can be a constant, column, or function, and any combination of arithmetic operators.
@@ -453,6 +500,10 @@ SELECT power(temp, hum * .1) AS power FROM home LIMIT 3
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+## `pow`
+
+_Alias of [power](#power)._
 
 ## random
 
