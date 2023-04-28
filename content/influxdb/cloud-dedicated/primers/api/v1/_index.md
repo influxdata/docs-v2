@@ -32,9 +32,11 @@ The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrat
     - [Query string authentication](#query-string-authentication)
       - [Syntax](#syntax)
       - [Example](#example)
-  - [Authenticate with a token](#authenticate-with-a-token)
+  - [Authenticate with a token scheme](#authenticate-with-a-token-scheme)
     - [Syntax](#syntax)
     - [Examples](#examples)
+- [Responses](#responses)
+  - [Error examples](#error-examples)
 - [Write data with the v1 API](#write-data-with-the-v1-api)
   - [Write using Telegraf](#write-using-telegraf)
     - [Other Telegraf configuration options](#other-telegraf-configuration-options)
@@ -62,10 +64,11 @@ The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrat
 InfluxDB requires each write request to be authenticated with a
 [database token](/influxdb/cloud-dedicated/admin/tokens/).
 With the InfluxDB v1 API, you can use database tokens in InfluxDB 1.x username and password
-schemes or in the InfluxDB v2 `Authorization: Token` scheme:
+schemes, in the InfluxDB v2 `Authorization: Token` scheme, or in the OAuth `Authorization: Bearer` scheme.
+In the InfluxDB Cloud Dedicated HTTP API, `Authorization: Bearer` and `Authorization: Token` are equivalent.
 
 - [Authenticate with a username and password scheme](#authenticate-with-a-username-and-password-scheme)
-- [Authenticate with a token](#authenticate-with-a-token)
+- [Authenticate with a token scheme](#authenticate-with-a-token)
 
 ### Authenticate with a username and password scheme
 
@@ -139,13 +142,14 @@ Replace the following:
 - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
 - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
-### Authenticate with a token
+### Authenticate with a token scheme
 
 Use the `Authorization: Bearer` or the `Authorization: Token` scheme to pass a [database token](/influxdb/cloud-dedicated/admin/tokens/) for authenticating
 v1 API `/write` and `/query` requests.
-In the InfluxDB Cloud Dedicated HTTP API, the schemes are equivalent.
+
+`Bearer` and `Token` are equivalent in InfluxDB Cloud Dedicated.
 The `Token` scheme is used in the InfluxDB 2.x API.
-The [`Bearer` scheme](https://www.rfc-editor.org/rfc/rfc6750#page-14) is more common.
+`Bearer` is defined by the [OAuth 2.0 Framework](https://www.rfc-editor.org/rfc/rfc6750#page-14).
 Support for one or the other may vary across InfluxDB API clients.
 
 #### Syntax
@@ -177,7 +181,41 @@ Replace the following:
 - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
 - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
-<!-- ## Responses -->
+## Responses
+
+InfluxDB API responses use standard HTTP status codes.
+For successful writes, InfluxDB responds with a `204 No Content` status code.
+Error responses contain a JSON object with `code` and `message` properties that describe the error.
+Response body messages may differ across InfluxDB Cloud Dedicated v1 API, v2 API, InfluxDB Cloud, and InfluxDB OSS.
+
+### Error examples
+
+- **Invalid namespace name**:
+
+  ```http
+  400 Bad Request
+  ```
+  
+  ```json
+  {"code":"invalid","message":"namespace name  length must be between 1 and 64 characters"}
+  ```
+  
+  The `?db=` parameter value is missing in the request.
+  Provide the [database](/influxdb/cloud-dedicated/admin/databases/) name.
+ 
+
+- **Failed to deserialize db/rp/precision**
+
+    ```http
+  400 Bad Request
+  ```
+  
+  ```json
+  {"code":"invalid","message":"failed to deserialize db/rp/precision in request: unknown variant `u`, expected one of `s`, `ms`, `us`, `ns`"}
+  ```
+  
+  The `?precision=` parameter contains an unknown value.
+  Provide a [timestamp precision](#timestamp-precision).
 
 ## Write data with the v1 API
 
@@ -329,7 +367,7 @@ Parameter              | Allowed in   | Ignored                  | Value
 Use one of the following `precision` values in v1 API `/write` requests:
 
 - `ns`: nanoseconds
-- `u`: microseconds <!-- @TODO: test that differs from `us` used in v2?? -->
+- `us`: microseconds
 - `ms`: milliseconds
 - `s`: seconds
 - `m`: minutes
@@ -347,7 +385,7 @@ The following example shows how to use the **cURL** command line tool and the In
 
 ```sh
 curl -i 'https://cluster-id.influxdb.io/write?db=DATABASE_NAME&precision=s' \
-    --header 'Authorization: Token DATABASE_TOKEN' \
+    --header 'Authorization: Bearer DATABASE_TOKEN' \
     --header "Content-type: text/plain; charset=utf-8"
     --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
@@ -395,7 +433,7 @@ Parameter | Allowed in | Ignored | Value
 Use one of the following values for timestamp precision:
 
 - `ns`: nanoseconds
-- `u`: microseconds <!-- @TODO: test that differs from `us` used in v2?? -->
+- `us`: microseconds
 - `ms`: milliseconds
 - `s`: seconds
 - `m`: minutes
