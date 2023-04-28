@@ -55,7 +55,7 @@ influx remote update [command options] [arguments...]
    ```
 2. Use the following command to update the remote:
     ```sh
-    influx remote remote \
+    influx remote update \
       --id 0ooxX0xxXo0x
       --name new-example-name
       --description new-examle-description
