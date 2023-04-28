@@ -136,6 +136,7 @@ curl --request POST \
 ```
 
 {{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 {{% warn %}}
 #### Flux version in the Flux REPL

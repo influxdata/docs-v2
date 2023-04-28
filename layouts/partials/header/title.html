@@ -17,9 +17,11 @@
     {{ $scratch.Set "siteTitle" "Additional resources | InfluxData Documentation" }}
   {{ end }}
 {{ else if eq $currentVersion "cloud"}}
-  {{ $scratch.Set "siteTitle" "InfluxDB Cloud Documentation" }}
-{{ else if eq $currentVersion "cloud-iox"}}
-  {{ $scratch.Set "siteTitle" "InfluxDB Cloud (IOx) Documentation" }}
+  {{ $scratch.Set "siteTitle" "InfluxDB Cloud (TSM) Documentation" }}
+{{ else if eq $currentVersion "cloud-serverless"}}
+  {{ $scratch.Set "siteTitle" "InfluxDB Cloud Serverless Documentation" }}
+{{ else if eq $currentVersion "cloud-dedicated"}}
+  {{ $scratch.Set "siteTitle" "InfluxDB Cloud Dedicated Documentation" }}
 {{ else if eq $currentVersion nil}}
   {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
 {{ else }}

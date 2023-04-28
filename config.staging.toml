@@ -34,6 +34,8 @@ smartDashes = false
   "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
   "influxdb/v2.0/tag" = "influxdb/v2.0/tags"
   "influxdb/cloud/tag" = "influxdb/cloud/tags"
+  "influxdb/cloud-serverless/tag" = "influxdb/cloud-serverless/tags"
+  "influxdb/cloud-dedicated/tag" = "influxdb/cloud-dedicated/tags"
   "flux/v0.x/tag" = "flux/v0.x/tags"
 
 [markup]

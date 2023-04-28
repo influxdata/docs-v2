@@ -97,5 +97,6 @@ function activateTabs(selector, tab) {
 **/
 var tab = getApiLibPreference();
 (['.code-tabs']).forEach(selector => activateTabs(selector, tab), updateBtnURLs(tab));
+
 tab = getTabQueryParam();
 (['.tabs', '.code-tabs']).forEach(selector => activateTabs(selector, tab), updateBtnURLs(tab));

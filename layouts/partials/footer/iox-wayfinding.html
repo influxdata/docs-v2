@@ -1,24 +1,27 @@
 {{ $scratch := newScratch }}
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $version := index $productPathData 1 }}
-{{ $altVersion := cond (ne $version "cloud-iox") "cloud-iox" "cloud" }}
-{{ $engine := cond (eq $version "cloud-iox") "IOx" "TSM" }}
-{{ $altEngine := cond (eq $version "cloud-iox") "TSM" "IOx" }}
+{{ $altVersion := cond (ne $version "cloud-serverless") "cloud-serverless" "cloud" }}
+{{ $engine := cond (eq $version "cloud-serverless") "IOx" "TSM" }}
+{{ $altEngine := cond (eq $version "cloud-serverless") "TSM" "IOx" }}
 {{ $altDoc := .Page.Params.alt_engine | default "" }}
 {{ $altLink := cond (ne $altDoc "") $altDoc (print "/influxdb/" $altVersion "/") }}
 {{ $isCloud := eq $version "cloud" }}
-{{ $isIOx := eq $version "cloud-iox" }}
+{{ $isIOx := eq $version "cloud-serverless" }}
 
+{{ $scratch.Set "uiText" "" }}
 {{ $scratch.Set "link" "" }}
 {{ if $isCloud }}
-  {{ $altIOxPage := $.GetPage ((replaceRE "influxdb/cloud" "influxdb/cloud-iox" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+  {{ $scratch.Set "uiText" "InfluxDB Cloud powered by TSM"}}
+  {{ $altIOxPage := $.GetPage ((replaceRE "influxdb/cloud" "influxdb/cloud-serverless" $.Page.RelPermalink) | replaceRE `\/$` "") }}
   {{ if ne $altDoc "" }}
     {{ $scratch.Set "link" $altDoc }}
   {{ else if gt (len $altIOxPage.Title) 0 }}
     {{ $scratch.Set "link" $altIOxPage.RelPermalink }}
   {{ end }}
 {{ else if $isIOx }}
-  {{ $altCloudPage := $.GetPage ((replaceRE "influxdb/cloud-iox" "influxdb/cloud" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+{{ $scratch.Set "uiText" "InfluxDB Cloud Serverless"}}
+  {{ $altCloudPage := $.GetPage ((replaceRE "influxdb/cloud-serverless" "influxdb/cloud" $.Page.RelPermalink) | replaceRE `\/$` "") }}
   {{ if ne $altDoc "" }}
     {{ $scratch.Set "link" $altDoc }}
   {{ else if gt (len $altCloudPage.Title) 0 }}
@@ -26,19 +29,22 @@
   {{ end }}
 {{ end }}
 
+{{ $uiText := $scratch.Get "uiText" }}
 {{ $altLink := cond (eq ($scratch.Get "link") "") (print "/influxdb/" $altVersion "/") ($scratch.Get "link") }}
 
 <div id="iox-wayfinding-modal">
   <div class="wayfinding-wrapper">
     <div class="wayfinding-content">
-      <h4>InfluxDB Cloud powered by {{ $engine }}</h4>
+      <h4>InfluxDB Cloud{{ if $isIOx }} Serverless{{ end }} powered by {{ $engine }}</h4>
       <div class="wayfinding-content-info">
         <div>
           <p>
             You are currently viewing documentation specific to InfluxDB Cloud
+            {{ if $isIOx }}Serverless{{ end }}
             powered by the <strong>{{ $engine }} storage engine</strong>, which
-            offers different functionality than InfluxDB Cloud powered by the
-            {{ $altEngine }} storage engine.
+            offers different functionality than InfluxDB Cloud
+            {{ if not $isIOx }}Serverless{{ end }}
+            powered by the {{ $altEngine }} storage engine.
           </p>
           <p>
             <strong>Are you using the {{ $engine }} storage engine?</strong>
@@ -50,7 +56,7 @@
               and look for:
             </p>
             <div class="powered-by-example">
-              InfluxDB Cloud powered by {{ $engine }}
+              {{ $uiText }}
             </div>
           </div>
         </div>

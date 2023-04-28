@@ -10,8 +10,10 @@
   {{ .Scratch.Set "menuKey" "platform" }}
 {{ else if eq $product "resources" }}
   {{ .Scratch.Set "menuKey" "resources" }}
-{{ else if in $currentVersion "iox" }}
-  {{ .Scratch.Set "menuKey" "influxdb_cloud_iox" }}
+{{ else if in $currentVersion "serverless" }}
+  {{ .Scratch.Set "menuKey" "influxdb_cloud_serverless" }}
+{{ else if in $currentVersion "dedicated" }}
+  {{ .Scratch.Set "menuKey" "influxdb_cloud_dedicated" }}
 {{ else }}
   {{ .Scratch.Set "menuKey" (print $product "_" (replaceRE `\.` "_" (replaceRE "v" "" $currentVersion))) }}
 {{ end }}
@@ -27,7 +29,12 @@
   {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
 {{ else if eq $product "influxdb" }}
   {{ if in $currentVersion "cloud" }}
-    {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "iox") "Cloud (IOx)" "Cloud & Flux")) }}
+    {{ $isIOx := eq (print $product "/" $currentVersion ) "influxdb/cloud-serverless" }}
+    {{ $isDedicated := eq (print $product "/" $currentVersion ) "influxdb/cloud-dedicated" }}
+    {{ .Scratch.Set "searchPlaceholder"  "Search InfluxDB Cloud (TSM) & Flux" }}
+    {{ if $isIOx }}{{ .Scratch.Set "searchPlaceholder" "Search InfluxDB Cloud Serverless" }}
+    {{ else if $isDedicated }}{{ .Scratch.Set "searchPlaceholder" "Search InfluxDB Cloud Dedicated" }}
+    {{ end }}
   {{ else }}
     {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "v") $currentVersion (title $currentVersion)) " & Flux") }}
   {{ end }}
@@ -90,7 +97,7 @@
   {{ end }}
 
   <!-- Additional resources for all docs -->
-  {{ if and (ne $product "resources") (ne $currentVersion "cloud-iox") }}
+  {{ if and (ne $product "resources") (ne $currentVersion "cloud-serverless") (ne $currentVersion "cloud-dedicated") }}
     <h4 class="resources">Additional resources</h4>
     <li class="nav-category"><a href="/resources/videos/">Videos</a></li>
     <li class="nav-category"><a href="/resources/how-to-guides/">How-to Guides</a></li>
