@@ -55,10 +55,10 @@ influx remote update [command options] [arguments...]
    ```
 2. Use the following command to update the remote:
     ```sh
-    influx remote remote \
+    influx remote update \
       --id 0ooxX0xxXo0x
       --name new-example-name
-      --description new-examle-description
+      --description new-example-description
       --remote-url http://new-example-url.com
       --remote-api-token myN3wS3crE7t0k3n==
       --remote-org-id new-example-org-id
