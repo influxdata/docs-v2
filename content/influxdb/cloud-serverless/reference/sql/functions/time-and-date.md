@@ -183,9 +183,8 @@ ORDER BY time DESC
 
 Calculates time intervals and returns the start of the interval nearest to the specified timestamp.
 If no rows exist in a time interval, a new row is inserted with a `time` value
-set to the interval start time, all queried
-[primary key](/influxdb/cloud-serverless/reference/glossary/#primary-key)
-columns populated, and null values in aggregate columns.
+set to the interval start time, all columns in the `GROUP BY` clause populated,
+and null values in aggregate columns.
 
 Use `date_bin_gapfill` with [`interpolate`](/influxdb/cloud-serverless/reference/sql/functions/misc/#interpolate)
 or [`locf`](/influxdb/cloud-serverless/reference/sql/functions/misc/#locf) to

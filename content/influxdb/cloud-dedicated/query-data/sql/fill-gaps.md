@@ -2,12 +2,12 @@
 title: Fill gaps in data
 seotitle: Fill gaps in data with SQL
 description: >
-  Use [`date_bin_gapfill`](/influxdb/cloud-serverless/reference/sql/functions/time-and-date/#date_bin_gapfill)
-  with [`interpolate`](/influxdb/cloud-serverless/reference/sql/functions/misc/#interpolate)
-  or [`locf`](/influxdb/cloud-serverless/reference/sql/functions/misc/#locf) to
+  Use [`date_bin_gapfill`](/influxdb/cloud-dedicated/reference/sql/functions/time-and-date/#date_bin_gapfill)
+  with [`interpolate`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#interpolate)
+  or [`locf`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#locf) to
   fill gaps of time where no data is returned.
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud_dedicated:
     parent: Query with SQL
 weight: 206
 list_code_example: |
@@ -24,9 +24,9 @@ list_code_example: |
   ```
 ---
 
-Use [`date_bin_gapfill`](/influxdb/cloud-serverless/reference/sql/functions/time-and-date/#date_bin_gapfill)
-with [`interpolate`](/influxdb/cloud-serverless/reference/sql/functions/misc/#interpolate)
-or [`locf`](/influxdb/cloud-serverless/reference/sql/functions/misc/#locf) to
+Use [`date_bin_gapfill`](/influxdb/cloud-dedicated/reference/sql/functions/time-and-date/#date_bin_gapfill)
+with [`interpolate`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#interpolate)
+or [`locf`](/influxdb/cloud-dedicated/reference/sql/functions/misc/#locf) to
 fill gaps of time where no data is returned.
 Gap-filling SQL queries handle missing data in time series data by filling in
 gaps with interpolated values or by carrying forward the last available observation.
@@ -34,7 +34,7 @@ gaps with interpolated values or by carrying forward the last available observat
 **To fill gaps in data:**
 
 1.  Use the `date_bin_gapfill` function to window your data into time-based groups
-    and apply an [aggregate function](/influxdb/cloud-serverless/reference/sql/functions/aggregate/)
+    and apply an [aggregate function](/influxdb/cloud-dedicated/reference/sql/functions/aggregate/)
     to each window. If no data exists in a window, `date_bin_gapfill` inserts
     a new row with the starting timestamp of the window, all columns in the
     `GROUP BY` clause populated, and null values for the queried fields.
@@ -46,7 +46,7 @@ gaps with interpolated values or by carrying forward the last available observat
     
     {{% note %}}
 The expression passed to `interpolate` or `locf` must use an
-[aggregate function](/influxdb/cloud-serverless/reference/sql/functions/aggregate/).
+[aggregate function](/influxdb/cloud-dedicated/reference/sql/functions/aggregate/).
     {{% /note %}}
 
 3.  Include a `WHERE` clause that sets upper and lower time bounds.
@@ -62,7 +62,7 @@ WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T10:00:00Z'
 ## Example of filling gaps in data
 
 The following examples use the sample data set provided in
-[Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)
 to show how to use `date_bin_gapfill` and the different results of `interplate`
 and `locf`.
 
