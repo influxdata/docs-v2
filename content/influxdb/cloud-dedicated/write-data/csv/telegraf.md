@@ -72,14 +72,14 @@ metrics from different sources and writes them to specified destinations.
     plugin in your Telegraf configuration file.
 2.  Include the following options:
 
-    - **url**: a list containing your Influx Cloud Dedicated cluster URL using the HTTPS
+    - **url**: a list (`[]`) containing your InfluxDB Cloud Dedicated cluster URL using the HTTPS
       protocol:
 
       ```
-      https://cluster-id.influxdb.io
+      ["https://cluster-id.influxdb.io"]
       ```
     - **token**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with permission to write to the database.
-    - **organization**: an empty string (`''`) (InfluxDB Cloud Dedicated ignores this parameter).
+    - **organization**: an empty string (`""`) (ignored by InfluxDB Cloud Dedicated).
     - **bucket**: the name of the [database](/influxdb/cloud-dedicated/admin/databases/) to write to.
 
 The following example shows a minimal [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2) configuration for writing data to InfluxDB Cloud Dedicated:
@@ -94,7 +94,7 @@ The following example shows a minimal [`outputs.influxdb_v2`](/{{< latest "teleg
 
 Replace the following:
 
-- **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
+- **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated [database](/influxdb/cloud-dedicated/admin/databases/)
 - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
 {{< expand-wrapper >}}
@@ -102,7 +102,7 @@ Replace the following:
 
 In the following example:
 
-- **`$INFLUX_TOKEN`** is an environment variable assigned to a [database token](/influxdb/cloud-dedicated/admin/tokens/) value.
+- **`INFLUX_TOKEN`** is an environment variable assigned to a [database token](/influxdb/cloud-dedicated/admin/tokens/) value.
 - **`DATABASE_NAME`** is the InfluxDB Cloud Dedicated database to write to.
 
 ```toml
@@ -131,7 +131,7 @@ In the following example:
 
 [[outputs.influxdb_v2]]
   urls = ["https://cluster-id.influxdb.io"]
-  token = "$INFLUX_TOKEN"
+  token = "${INFLUX_TOKEN}"
   organization = ""
   bucket = "DATABASE_NAME"
   content_encoding = "gzip"

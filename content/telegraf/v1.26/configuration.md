@@ -45,9 +45,9 @@ configuration files.
 
 ## Set environment variables
 
-Add environment variables anywhere in the configuration file by prepending them with `$`.
-For strings, variables must be in quotes (for example, `"$STR_VAR"`).
-For numbers and Booleans, variables must be unquoted (for example, `$INT_VAR`, `$BOOL_VAR`).
+Use environment variables anywhere in the configuration file by enclosing them in `${}`.
+For strings, variables must be in quotes (for example, `"test_${STR_VAR}"`).
+For numbers and Booleans, variables must be unquoted (for example, `${INT_VAR}`, `${BOOL_VAR}`).
 
 You can also set environment variables using the Linux `export` command: `export password=mypassword`
 
