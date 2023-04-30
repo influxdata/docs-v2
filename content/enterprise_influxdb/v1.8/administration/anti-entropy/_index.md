@@ -287,15 +287,17 @@ If a data node suddenly disappears due to a catastrophic hardware failure or for
 
 _View the [Replacing Data Nodes](/enterprise_influxdb/v1.8/guides/replacing-nodes/#replace-data-nodes-in-an-influxdb-enterprise-cluster) documentation for instructions on replacing data nodes in your InfluxDB Enterprise cluster._
 
-### Replacing a machine that is running a data node
+### Replacing a machine running a data node
 
-Perhaps you are replacing a machine that is being decommissioned, upgrading hardware, or something else entirely.
-The Anti-Entropy service will automatically copy shards to the new machines.
+To replace a machine running a data node, doing one of the following:
 
-Once you have successfully run the `influxd-ctl update-data` command, you are free
-to shut down the retired node without causing any interruption to the cluster.
-The Anti-Entropy process will continue copying the appropriate shards from the
-remaining replicas in the cluster.
+- To start the Anti-Entropy service and copy shards to the new machine, on a meta node in your cluster, run [`influxd-ctl update-data`](/enterprise_influxdb/v1.8/administration/cluster-commands/#update-data), and then shut down the retired data node without causing any interruption to the cluster. The Anti-Entropy process continues to copy the appropriate shards from the remaining replicas in the cluster.
+- For nodes where the data set is too large or shaped in such a way that AE cannot be enabled, complete the following steps:
+   a. On a meta node in your cluster, run [`influxd-ctl show-shard`] to review the desired number of replicas for each shard in the cluster.
+   b. Run [`influxd-ctl update-data`](/enterprise_influxdb/v1.8/administration/cluster-commands/#update-data) to retire the old node address and add the new node address.
+   c. Manually rebalance shards using the following tools:
+     - To copy shards to the new node, use [influxd-ctl copy-shard](/enterprise_influxdb/v1.8/administration/cluster-commands/#copy-shard). Make sure to copy the correct number of shard replicas.
+     - To remove shards from old node, use [influxd-ctl remove-shard](/enterprise_influxdb/v1.8/administration/cluster-commands/#remove-shard).
 
 ### Fixing entropy in active shards
 
