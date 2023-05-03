@@ -5,6 +5,9 @@ menu:
   telegraf_1_26:
     name: Get started
     weight: 30
+aliases:
+  - /telegraf/v1.26/introduction/getting-started/
+  - /telegraf/v1.26/get_started/
 ---
 
 After you've [downloaded and installed Telegraf](/telegraf/v1.26/install/), you're ready to begin collecting and sending data. To collect and send data, do the following:

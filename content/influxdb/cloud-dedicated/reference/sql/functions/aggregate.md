@@ -17,10 +17,12 @@ group or SQL partition and return a single row per group containing the
 aggregate value.
 
 - [General aggregate functions](#general-aggregate-functions)
+  - [array_agg](#array_agg)
   - [avg](#avg)
   - [count](#count)
   - [max](#max)
   - [mean](#mean)
+  - [median](#median)
   - [min](#min)
   - [sum](#sum)
 - [Statistical aggregate functions](#statistical-aggregate-functions)
@@ -44,11 +46,55 @@ aggregate value.
 
 ## General aggregate functions
 
+- [array_agg](#array_agg)
 - [avg](#avg)
 - [count](#count)
 - [max](#max)
+- [mean](#mean)
+- [median](#median)
 - [min](#min)
 - [sum](#sum)
+
+### array_agg
+
+Returns an array created from the expression elements.
+
+{{% note %}}
+`array_agg` returns a `LIST` arrow type which is not supported by InfluxDB.
+To use with InfluxDB, use bracket notation to reference the index of an element
+in the returned array. Arrays are 1-indexed.
+{{% /note %}}
+
+```sql
+array_agg(expression)
+```
+
+#### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `array_agg` query example" %}}
+
+_The following example uses the sample data set provided in the 
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT
+  room,
+  array_agg(temp)[3] AS '3rd_temp'
+FROM home
+GROUP BY room
+```
+
+| room        | 3rd_temp |
+| :---------- | -------: |
+| Kitchen     |     22.7 |
+| Living Room |     21.8 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### avg
 
@@ -160,6 +206,38 @@ GROUP BY location
 ### mean
 
 _Alias of [avg](#avg)._
+
+### median
+
+Returns the median value in the specified column.
+
+```
+median(expression)
+```
+
+#### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `median` query example" %}}
+
+```sql
+SELECT 
+  location,
+  median(water_level) AS water_level_max
+FROM h2o_feet
+GROUP BY location
+```
+
+| location     | water_level_median |
+| :----------- | -----------------: |
+| coyote_creek |             5.4645 |
+| santa_monica |              3.471 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### min
 

@@ -27,7 +27,7 @@ For help finding the best workflow for your situation, [contact Support](mailto:
     - [Syntax](#syntax)
     - [Examples](#examples)
 - [Responses](#responses)
-  - [Errors](#errors)
+  - [Error examples](#error-examples)
 - [Write data](#write-data)
   - [Write using Telegraf](#write-using-telegraf)
     - [Other Telegraf configuration options](#other-telegraf-configuration-options)
@@ -50,10 +50,11 @@ InfluxDB requires each write request to be authenticated with a
 
 ### Authenticate with a token
 
-Use the `Authorization: Bearer` or the `Authorization: Token` scheme to pass a [database token](/influxdb/cloud-dedicated/admin/tokens/) that has _write_ permission to your database.
-In the InfluxDB Cloud Dedicated HTTP API, the schemes are equivalent.
+Use the `Authorization: Bearer` scheme or the `Authorization: Token` scheme to pass a [database token](/influxdb/cloud-dedicated/admin/tokens/) that has _write_ permission to your database.
+
+`Bearer` and `Token` are equivalent in InfluxDB Cloud Dedicated.
 The `Token` scheme is used in the InfluxDB 2.x API.
-The [`Bearer` scheme](https://www.rfc-editor.org/rfc/rfc6750#page-14) is more common.
+`Bearer` is defined by the [OAuth 2.0 Framework](https://www.rfc-editor.org/rfc/rfc6750#page-14).
 Support for one or the other may vary across InfluxDB API clients.
 
 #### Syntax
@@ -87,19 +88,38 @@ Replace the following:
 
 ## Responses
 
-InfluxDB Cloud Dedicated API responses use standard HTTP status codes.
-InfluxDB Cloud Dedicated API response body messages may differ from InfluxDB Cloud and InfluxDB OSS.
+InfluxDB API responses use standard HTTP status codes.
+For successful writes, InfluxDB responds with a `204 No Content` status code.
+Error responses contain a JSON object with `code` and `message` properties that describe the error.
+Response body messages may differ across InfluxDB Cloud Dedicated v1 API, v2 API, InfluxDB Cloud, and InfluxDB OSS.
 
-### Errors
+### Error examples
 
-```sh
-Status code: 400
-Reason: Bad Request
-HTTP response body: {"code":"invalid","message":"missing bucket value"}
-```
+- **Missing bucket value**
 
-The request is missing the `bucket` parameter value.
-For `bucket`, provide the database name.
+  ```http
+  400 Bad Request
+  ```
+  
+  ```json
+  HTTP response body: {"code":"invalid","message":"missing bucket value"}
+  ```
+
+  The `?bucket=` parameter value is missing in the request.
+  Provide the [database](/influxdb/cloud-dedicated/admin/databases/) name.
+
+- **Failed to deserialize org/bucket/precision**
+
+  ```http
+  400 Bad Request
+  ```
+  
+  ```json
+  {"code":"invalid","message":"failed to deserialize org/bucket/precision in request: unknown variant `u`, expected one of `s`, `ms`, `us`, `ns`"}
+  ```
+
+  The `?precision=` parameter contains an unknown value.
+  Provide a [timestamp precision](#timestamp-precision).
 
 ## Write data
 
@@ -264,9 +284,9 @@ Parameter        | Allowed in   | Ignored | Value
 org              | Query string | Ignored | Non-zero-length string (ignored, but can't be empty)
 orgID            | Query string | Ignored | N/A
 bucket {{% req " \*" %}} | Query string | Honored | Database name
-precision        | Query string | Honored | [Timestamp precision](#timestamp-precision): `ns`, `u`, `ms`, `s`, `m`, `h` <!-- default? ns? -->
+precision        | Query string | Honored | [Timestamp precision](#timestamp-precision)
 Accept           | Header       | Honored | User-defined
-`Authorization`  {{% req " \*" %}} | Header       | Honored | `Token DATABASE_TOKEN`
+`Authorization`  {{% req " \*" %}} | Header       | Honored | `Bearer DATABASE_TOKEN` or `Token DATABASE_TOKEN`
 `Content-Encoding`     | Header       | Honored | `gzip` (compressed data) or `identity` (uncompressed)
 Content-Length   | Header       | Honored | User-defined
 Content-Type     | Header       | Ignored | N/A (only supports line protocol)
@@ -279,7 +299,7 @@ Zap-Trace-Span   | Header       | Ignored |
 Use one of the following `precision` values in v2 API `/api/v2/write` requests:
 
 - `ns`: nanoseconds
-- `us`: microseconds <!-- @TODO: test that differs from `us` used in v2?? -->
+- `us`: microseconds
 - `ms`: milliseconds
 - `s`: seconds
 - `m`: minutes
@@ -298,7 +318,7 @@ The following example shows how to use the **cURL** command line tool and the In
 ```sh
 curl --request POST \
 "https://cluster-id.influxdb.io/api/v2/write?bucket=DATABASE_NAME&precision=ns" \
-  --header "Authorization: Token DATABASE_TOKEN" \
+  --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary '

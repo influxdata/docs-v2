@@ -107,12 +107,11 @@
   {{ $initialState := .initialState | default "" }}
   <div class="product {{ $initialState }}" id="{{ $formID }}-urls">
     <div class="providers">
-        <div class="provider">
-          <h5>Enter cluster URL</h5>
-          <form action="#" id="custom-url" data-message="">
-            <input type="text" name="influxdb-dedicated-url" id="dedicated-url-field" placeholder="cluster-id.influxdb.io">
-          </form>
-        </div>
+      <div class="provider">
+        <h5>Enter cluster URL</h5>
+        <form action="#" id="custom-url" data-message="">
+          <input type="text" name="influxdb-dedicated-url" id="dedicated-url-field" placeholder="cluster-id.influxdb.io">
+        </form>
       </div>
     </div>
   </div>
