@@ -35,43 +35,42 @@ predict and forecast future values.
 
 Returns N number of predicted [field values](/influxdb/v2.7/reference/glossary/#field-value)
 using the [Holt-Winters](https://www.otexts.org/fpp/7/5) seasonal method.
-Supports int64 and float64 field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
-Works with data that occurs at consistent time intervals.
-Requires an InfluxQL function and the `GROUP BY time()` clause to ensure that
-the Holt-Winters function operates on regular data.
+Input data points must occur at regular time intervals.
+To ensure regular time intervals, `HOLT_WINTERS` requires an aggregate expression
+as input and a a `GROUP BY time()` to apply the aggregate operation at regular intervals.
 
 Use `HOLT_WINTERS()` to:
 
 - Predict when data values will cross a given threshold
 - Compare predicted values with actual values to detect anomalies in your data
 
-#### Syntax
-
+```sql
+HOLT_WINTERS[_WITH_FIT](aggregrate_expression, N, S)
 ```
-SELECT HOLT_WINTERS[_WITH-FIT](<function>(<field_key>),<N>,<S>) FROM_clause [WHERE_clause] GROUP_BY_clause [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
-```
-
-`HOLT_WINTERS(function(field_key),N,S)` returns `N` seasonally adjusted
-predicted field values for the specified [field key](/influxdb/v2.7/reference/glossary/#field-key).
-
-The `N` predicted values occur at the same interval as the [`GROUP BY time()` interval](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals).
-If your `GROUP BY time()` interval is `6m` and `N` is `3` you'll
-receive three predicted values that are each six minutes apart.
-
-`S` is the seasonal pattern parameter and delimits the length of a seasonal
-pattern according to the `GROUP BY time()` interval.
-If your `GROUP BY time()` interval is `2m` and `S` is `3`, then the
-seasonal pattern occurs every six minutes, that is, every three data points.
-If you do not want to seasonally adjust your predicted values, set `S` to `0`
-or `1.`
 
 `HOLT_WINTERS_WITH_FIT(function(field_key),N,S)` returns the fitted values in
 addition to `N` seasonally adjusted predicted field values for the specified field key.
 
+#### Arguments
+
+- **aggregate_expression**:
+  Supports **numeric fields**.
+- **N**: Number of values to predict.
+  Predicted values occur at the same interval specified in the `GROUP BY time()` clause.
+- **S**: Seasonal pattern length (number of values per season) to use when
+  adjusting for seasonal patterns.
+  To _not_ seasonally adjust predicted values, set `S` to `0` or `1.`
+
+#### Notable behaviors
+
+- In some cases, you may receive fewer than `N` predicted points.
+  This typically occurs when the seasonal adjustment (`S`) is invalid or when
+  input data is not suited for the Holt Winters algorithm.
+
 #### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Predict field values associated with a field key" %}}
+{{% expand "Use Holt Winters to predict field values" %}}
 
 ##### Sample data
 
@@ -126,14 +125,6 @@ The second argument in the `HOLT_WINTERS_WITH_FIT()` function (`2`) is the seaso
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-#### Common issues with `HOLT_WINTERS()`
-
-##### Receiving fewer than `N` points
-
-In some cases, you may receive fewer predicted points than requested by the `N` parameter.
-That behavior typically occurs when the math becomes unstable and cannot forecast more
-points. In this case, `HOLT_WINTERS()` may not be suited for the dataset or the seasonal adjustment parameter is invalid.
 
 ## Technical analysis functions
 
