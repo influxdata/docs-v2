@@ -29,14 +29,14 @@ To query with InfluxQL, the bucket you query must be mapped to a database and re
   - [STDDEV()](aggregates/#stddev)
   - [SUM()](aggregates/#sum)
 - [Selectors](selectors/)
-  - [BOTTOM()](selectors/#bottom)
+  <!-- - [BOTTOM()](selectors/#bottom) -->
   - [FIRST()](selectors/#first)
   - [LAST()](selectors/#last)
   - [MAX()](selectors/#max)
   - [MIN()](selectors/#min)
-  - [PERCENTILE()](selectors/#percentile)
-  - [SAMPLE()](selectors/#sample)
-  - [TOP()](selectors/#top)
+  <!-- - [PERCENTILE()](selectors/#percentile) -->
+  <!-- - [SAMPLE()](selectors/#sample) -->
+  <!-- - [TOP()](selectors/#top) -->
 - [Transformations](transformations/)
   - [ABS()](transformations/#abs)
   - [ACOS()](transformations/#acos)

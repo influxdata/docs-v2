@@ -14,1297 +14,1043 @@ Use selector functions to assess, select, and return values in your data.
 Selector functions return one or more rows with the selected values from each
 InfluxQL group.
 
-Each selector function below covers **syntax**, including parameters to pass to
-the function, and **examples** of how to use the function.
-Examples use [NOAA water sample data](/influxdb/v2.7/reference/sample-data/#noaa-water-sample-data).
+_Examples use the sample data set provided in the
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
 
-- [BOTTOM()](#bottom)
+<!-- - [BOTTOM()](#bottom) -->
 - [FIRST()](#first)
 - [LAST()](#last)
 - [MAX()](#max)
 - [MIN()](#min)
-- [PERCENTILE()](#percentile)
-- [SAMPLE()](#sample)
-- [TOP()](#top)
+<!-- - [PERCENTILE()](#percentile) -->
+<!-- - [SAMPLE()](#sample) -->
+<!-- - [TOP()](#top) -->
+- [Notable behaviors of selector functions](#notable-behaviors-of-selector-functions)
 
-## BOTTOM()
+<!-- ## BOTTOM()
 
-Returns the smallest `N` [field values](/influxdb/v2.7/reference/glossary/#field-value). `BOTTOM()` supports int64 and float64 field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
+Returns the smallest `N` [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
+`BOTTOM()` supports int64 and float64 field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
 
 ```sql
 BOTTOM(field_expression[, tag_expression_1[, ..., tag_expression_n]], N)
-
-BOTTOM((field_expression[, tag_expression], N)[,secondary_tag_expression | secondary_field_expression])
 ```
 
 {{% note %}}
-**Note:** `BOTTOM()` returns the field value with the earliest timestamp if there's a tie between two or more values for the smallest value.
+**Note:** `BOTTOM()` returns the field value with the earliest timestamp if
+there's a tie between two or more values for the smallest value.
 {{% /note %}}
 
-##### Arguments
+#### Arguments
 
-- **field_expression**:
-- **tag_expression**:
-- **N**: Number of results to return from each InfluxQL group.
+- **field_expression**: Expression to identify the field to operate on.
+  Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key)
+  or constant.
+- **tag_expression**: Expression to identify a tag key to segment by.
+  Can be a [tag key](/influxdb/cloud-dedicated/reference/glossary/#tag-key)
+  or constant. Comma-delimit multiple tags.
+- **N**: Number of results to return from each InfluxQL group or specified tag segment.
 
-`BOTTOM(field_key,N)`  
-Returns the smallest N field values associated with the [field key](/influxdb/v2.7/reference/glossary/#field-key).
+#### Notable behaviors
 
-`BOTTOM(field_key,tag_key,N)`  
-Returns the smallest field value for N tag values of the [tag key](/influxdb/v2.7/reference/glossary/#tag-key). Add a comma between multiple tag keys: `tag_key,tag_key`.
-
-`BOTTOM((field_key,N),tag_key,field_key)`  
-Returns the smallest N field values associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.7/reference/glossary/#tag) and/or [field](/influxdb/v2.7/reference/glossary/#field). Add a comma between multiple tag or field keys: `tag_key,tag_key,field_key,field_key`.
+- `BOTTOM()` [maintains original timestamps when grouping by time](#timestamps-when-grouping-by-time).
+- `BOTTOM()` [may return fewer points than expected](#selector-functions-may-return-fewer-points-than-expected).
 
 #### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Select the bottom three field values associated with a field key" %}}
-
-Return the smallest three field values in the `water_level` field key and in the
-`h2o_feet` [measurement](/influxdb/v2.7/reference/glossary/#measurement).
+{{% expand "Select the bottom three values of a field" %}}
 
 ```sql
-SELECT BOTTOM("water_level",3) FROM "h2o_feet"
+SELECT BOTTOM(temp, 3) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
+{{% influxdb/custom-timestamps %}}
 
 | time                 | bottom |
 | :------------------- | -----: |
-| 2019-08-29T14:30:00Z | -0.610 |
-| 2019-08-29T14:36:00Z | -0.591 |
-| 2019-08-30T15:18:00Z | -0.594 |
+| 2022-01-01T08:00:00Z |     21 |
+| 2022-01-01T08:00:00Z |   21.1 |
+| 2022-01-01T09:00:00Z |   21.4 |
 
+{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Select the bottom field value associated with a field key for two tags" %}}
-
-Return the smallest field values in the `water_level` field key for two tag
-values associated with the `location` tag key.
+{{% expand "Select the bottom field value for two unique tag values" %}}
 
 ```sql
-SELECT BOTTOM("water_level","location",2) FROM "h2o_feet"
+SELECT BOTTOM(temp, room, 2) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
+{{% influxdb/custom-timestamps %}}
 
-| time                 | bottom | location     |
-| :------------------- | -----: | :----------- |
-| 2019-08-29T10:36:00Z | -0.243 | santa_monica |
-| 2019-08-29T14:30:00Z | -0.610 | coyote_creek |
+| time                 | bottom | room        |
+| :------------------- | -----: | :---------- |
+| 2022-01-01T08:00:00Z |     21 | Kitchen     |
+| 2022-01-01T08:00:00Z |   21.1 | Living Room |
 
+{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Select the bottom four field values associated with a field key and the relevant tags and fields" %}}
-
-Return the smallest four field values in the `water_level` field key and the
-relevant values of the `location` tag key and the `level description` field key.
+{{% expand "Select the bottom three field values and the tag value associated with each" %}}
 
 ```sql
-SELECT BOTTOM("water_level",4),"location","level description" FROM "h2o_feet"
+SELECT BOTTOM(temp, 3), room FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
+{{% influxdb/custom-timestamps %}}
 
-| time                 | bottom | location     | level description |
-| :------------------- | -----: | :----------- | :---------------- |
-| 2019-08-29T14:24:00Z | -0.587 | coyote_creek | below 3 feet      |
-| 2019-08-29T14:30:00Z | -0.610 | coyote_creek | below 3 feet      |
-| 2019-08-29T14:36:00Z | -0.591 | coyote_creek | below 3 feet      |
-| 2019-08-30T15:18:00Z | -0.594 | coyote_creek | below 3 feet      |
+| time                 | bottom | room        |
+| :------------------- | -----: | ----------- |
+| 2022-01-01T08:00:00Z |     21 | Kitchen     |
+| 2022-01-01T08:00:00Z |   21.1 | Living Room |
+| 2022-01-01T09:00:00Z |   21.4 | Living Room |
 
+{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Select the bottom three field values associated with a field key and include several clauses" %}}
+{{% expand "Select the bottom field values for unique tag values and grouped by time" %}}
 
-Return the smallest three values in the `water_level` field key for each 24-minute
-[interval](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#basic-group-by-time-syntax)
-between `2019-08-18T00:00:00Z` and `2019-08-18T00:54:00Z` with results in
-[descending timestamp](/influxdb/v2.7/query-data/influxql/explore-data/order-by/) order.
-
+{{% influxdb/custom-timestamps %}}
 ```sql
-SELECT BOTTOM("water_level",3),"location" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(24m) ORDER BY time DESC
+SELECT
+  BOTTOM(temp, room, 2)
+FROM home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T12:00:00Z'
+GROUP BY time(2h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |       bottom | location     |
-| :------------------- | -----------: | :----------- |
-| 2019-08-18T00:54:00Z |        2.172 | santa_monica |
-| 2019-08-18T00:54:00Z |        7.510 | coyote_creek |
-| 2019-08-18T00:48:00Z |        2.087 | santa_monica |
-| 2019-08-18T00:42:00Z |        2.093 | santa_monica |
-| 2019-08-18T00:36:00Z | 2.1261441420 | santa_monica |
-| 2019-08-18T00:24:00Z |        2.264 | santa_monica |
-| 2019-08-18T00:18:00Z |        2.329 | santa_monica |
-| 2019-08-18T00:12:00Z |        2.343 | santa_monica |
-| 2019-08-18T00:00:00Z |        2.352 | santa_monica |
+| time                 | bottom | room        |
+| :------------------- | -----: | :---------- |
+| 2022-01-01T08:00:00Z |     21 | Kitchen     |
+| 2022-01-01T08:00:00Z |   21.1 | Living Room |
+| 2022-01-01T10:00:00Z |   21.8 | Living Room |
+| 2022-01-01T11:00:00Z |   22.4 | Kitchen     |
+| 2022-01-01T12:00:00Z |   22.2 | Living Room |
+| 2022-01-01T12:00:00Z |   22.5 | Kitchen     |
 
-Notice that the [GROUP BY time() clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals)
-does not override the points’ original timestamps.
-See [Issue 1](#bottom-with-a-group-by-time-clause) in the section below for a
-more detailed explanation of that behavior.
+{{% /influxdb/custom-timestamps %}}
+
+Notice that when grouping by time, `BOTTOM()`
+[maintains the point's original timestamp](#timestamps-when-grouping-by-time).
 
 {{% /expand %}}
-
-{{< /expand-wrapper >}}
-
-### Common issues with BOTTOM()
-
-#### BOTTOM() with a GROUP BY time() clause
-
-Queries with `BOTTOM()` and a `GROUP BY time()` clause return the specified
-number of points per `GROUP BY time()` interval.
-For [most `GROUP BY time()` queries](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals),
-the returned timestamps mark the start of the `GROUP BY time()` interval.
-`GROUP BY time()` queries with the `BOTTOM()` function behave differently;
-they maintain the timestamp of the original data point.
-
-##### Example
-
-The query below returns two points per 18-minute
-`GROUP BY time()` interval.
-Notice that the returned timestamps are the points' original timestamps; they
-are not forced to match the start of the `GROUP BY time()` intervals.
-
-```sql
-SELECT BOTTOM("water_level",2) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | bottom |
-| :------------------- | -----: |
-| 2019-08-18T00:00:00Z |  2.064 |
-| 2019-08-18T00:12:00Z |  2.028 |
-| 2019-08-18T00:24:00Z |  2.041 |
-| 2019-08-18T00:30:00Z |  2.051 |
-
-_Notice that the first two rows contain the smallest values from the first time interval
-and the last two rows contains the smallest values for the second time interval._
-
-#### BOTTOM() and a tag key with fewer than N tag values
-
-Queries with the syntax `SELECT BOTTOM(<field_key>,<tag_key>,<N>)` can return fewer points than expected.
-If the tag key has `X` tag values, the query specifies `N` values, and `X` is smaller than `N`, then the query returns `X` points.
-
-##### Example
-
-The query below asks for the smallest field values of `water_level` for three tag values of the `location` tag key.
-Because the `location` tag key has two tag values (`santa_monica` and `coyote_creek`), the query returns two points instead of three.
-
-```sql
-SELECT BOTTOM("water_level","location",3) FROM "h2o_feet"
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | bottom | location     |
-| :------------------- | -----: | :----------- |
-| 2019-08-29T10:36:00Z | -0.243 | santa_monica |
-| 2019-08-29T14:30:00Z | -0.610 | coyote_creek |
+{{< /expand-wrapper >}} -->
 
 ## FIRST()
 
-Returns the [field value ](/influxdb/v2.7/reference/glossary/#field-value) with the oldest timestamp.
-
-### Syntax
+Returns the [field value](/influxdb/cloud-dedicated/reference/glossary/#field-value) with the oldest timestamp.
 
 ```sql
-SELECT FIRST(<field_key>)[,<tag_key(s)>|<field_key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+FIRST(field_expression)
 ```
 
-`FIRST(field_key)`  
-Returns the oldest field value (determined by timestamp) associated with the field key.
+#### Arguments
 
-`FIRST(/regular_expression/)`  
-Returns the oldest field value (determined by timestamp) associated with each field key that matches the [regular expression](/influxdb/v2.7/query-data/influxql/explore-data/regular-expressions/).
+- **field_expression**: Expression to identify one or more fields to operate on.
+  Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
+  constant, regular expression, or wildcard (`*`).
+  Supports all field [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
 
-`FIRST(*)`  
-Returns the oldest field value (determined by timestamp) associated with each field key in the [measurement](/influxdb/v2.7/reference/glossary/#measurement).
+#### Notable behaviors
 
-`FIRST(field_key),tag_key(s),field_key(s)`  
-Returns the oldest field value (determined by timestamp) associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.7/reference/glossary/#tag) and/or [field](/influxdb/v2.7/reference/glossary/#field).
-
-`FIRST()` supports all field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
+- `FIRST()` [overrides original timestamps when grouping by time](#timestamps-when-grouping-by-time)
 
 #### Examples
 
 {{< expand-wrapper >}}
-
-{{% expand "Select the first field value associated with a field key" %}}
-
-Return the oldest field value (determined by timestamp) associated with the
-`level description` field key and in the `h2o_feet` measurement.
+{{% expand "Select the first value for a field" %}}
 
 ```sql
-SELECT FIRST("level description") FROM "h2o_feet"
+SELECT FIRST(temp) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | first                |
-| :------------------- | :------------------- |
-| 2019-08-17T00:00:00Z | between 6 and 9 feet |
+{{% influxdb/custom-timestamps %}}
+
+| time                 | first |
+| :------------------- | ----: |
+| 2022-01-01T08:00:00Z |  21.1 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 
-{{% expand "Select the first field value associated with each field key in a measurement" %}}
-
-Return the oldest field value (determined by timestamp) for each field key in the `h2o_feet` measurement.
-The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
+{{% expand "Select the first value from each field" %}}
 
 ```sql
-SELECT FIRST(*) FROM "h2o_feet"
+SELECT FIRST(*) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | first_level description | first_water_level |
-| :------------------- | :---------------------- | ----------------: |
-| 1970-01-01T00:00:00Z | between 6 and 9 feet    |             8.120 |
+| time                 | first_co | first_hum | first_temp |
+| :------------------- | -------: | --------: | ---------: |
+| 1970-01-01T00:00:00Z |        0 |      35.9 |       21.1 |
 
 {{% /expand %}}
 
-{{% expand "Select the first field value associated with each field key that matches a regular expression" %}}
-
-Return the oldest field value for each field key that includes the word `level` in the `h2o_feet` measurement.
+{{% expand "Select the first value from each field key that matches a regular expression" %}}
 
 ```sql
-SELECT FIRST(/level/) FROM "h2o_feet"
+SELECT FIRST(/^[th]/) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | first_level description | first_water_level |
-| :------------------- | :---------------------- | ----------------: |
-| 1970-01-01T00:00:00Z | between 6 and 9 feet    |             8.120 |
+| time                 | first_hum | first_temp |
+| :------------------- | --------: | ---------: |
+| 1970-01-01T00:00:00Z |      35.9 |       21.1 |
 
 {{% /expand %}}
 
-{{% expand "Select the first value associated with a field key and the relevant tags and fields" %}}
+{{% expand "Select the first value from a field when grouped by time" %}}
 
-Return the oldest field value (determined by timestamp) in the `level description`
-field key and the relevant values of the `location` tag key and the `water_level` field key.
+{{% influxdb/custom-timestamps %}}
 
 ```sql
-SELECT FIRST("level description"),"location","water_level" FROM "h2o_feet"
+SELECT
+  FIRST(temp)
+FROM home 
+WHERE
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | first                | location     | water_level |
-| :------------------- | :------------------- | :----------- | ----------: |
-| 2019-08-17T00:00:00Z | between 6 and 9 feet | coyote_creek |       8.120 |
-
-{{% /expand %}}
-
-{{% expand "Select the first field value associated with a field key and include several clauses" %}}
-
-Returns the oldest field value (determined by timestamp) in the `water_level`
-field key in the [time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-17T23:48:00Z` and `2019-08-18T00:54:00Z` and
-[groups](/influxdb/v2.7/query-data/influxql/explore-data/group-by/) results into
-12-minute time intervals and per tag.
-Then [fill](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill)
-empty time intervals with `9.01`, and it [limit](/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points and series returned to four and one.
-
-```sql
-SELECT FIRST("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-tags: location=coyote_creek
+name: home
 {{% /influxql/table-meta %}}
 
 | time                 | first |
 | :------------------- | ----: |
-| 2019-08-17T23:48:00Z | 8.635 |
-| 2019-08-18T00:00:00Z | 8.504 |
-| 2019-08-18T00:12:00Z | 8.320 |
-| 2019-08-18T00:24:00Z | 8.130 |
+| 2022-01-01T06:00:00Z |    21 |
+| 2022-01-01T12:00:00Z |  22.5 |
+| 2022-01-01T18:00:00Z |  23.3 |
 
-Notice that the [`GROUP BY time()` clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals) overrides the points' original timestamps.
-The timestamps in the results indicate the the start of each 12-minute time interval;
-the first point in the results covers the time interval between `2019-08-17T23:48:00Z` and just before `2019-08-18T00:00:00Z` and the last point in the results covers the time interval between `2019-08-18T00:24:00Z` and just before `2019-08-18T00:36:00Z`.
+{{% /influxdb/custom-timestamps %}}
+
+Notice that when grouping by time, `FIRST()`
+[overrides the point's original timestamp](#timestamps-when-grouping-by-time).
 
 {{% /expand %}}
-
 {{< /expand-wrapper >}}
 
 ## LAST()
 
-Returns the [field value](/influxdb/v2.7/reference/glossary/#field-value) with the most recent timestamp.
-
-### Syntax
+Returns the [field value](/influxdb/cloud-dedicated/reference/glossary/#field-value) with the most recent timestamp.
 
 ```sql
-SELECT LAST(<field_key>)[,<tag_key(s)>|<field_keys(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+LAST(field_expression)
 ```
 
-`LAST(field_key)`  
-Returns the newest field value (determined by timestamp) associated with the [field key](/influxdb/v2.7/reference/glossary/#field-key).
+#### Arguments
 
-`LAST(/regular_expression/)`  
-Returns the newest field value (determined by timestamp) associated with each field key that matches the [regular expression](/influxdb/v2.7/query-data/influxql/explore-data/regular-expressions/).
+- **field_expression**: Expression to identify one or more fields to operate on.
+  Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
+  constant, regular expression, or wildcard (`*`).
+  Supports all field [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
 
-`LAST(*)`  
-Returns the newest field value (determined by timestamp) associated with each field key in the [measurement](/influxdb/v2.7/reference/glossary/#measurement).
+#### Notable behaviors
 
-`LAST(field_key),tag_key(s),field_key(s)`  
-Returns the newest field value (determined by timestamp) associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.7/reference/glossary/#tag) and/or [field](/influxdb/v2.7/reference/glossary/#field).
-
-`LAST()` supports all field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
+- `LAST()` [overrides original timestamps when grouping by time](#timestamps-when-grouping-by-time)
 
 #### Examples
 
 {{< expand-wrapper >}}
 
-{{% expand "Select the last field values associated with a field key" %}}
-
-Return the newest field value (determined by timestamp) associated with the
-`level description` field key and in the `h2o_feet` measurement.
+{{% expand "Select the last value for a field" %}}
 
 ```sql
-SELECT LAST("level description") FROM "h2o_feet"
+SELECT LAST(temp) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | last                 |
-| :------------------- | :------------------- |
-| 2019-09-17T21:42:00Z | between 3 and 6 feet |
+{{% influxdb/custom-timestamps %}}
+
+| time                 | last |
+| :------------------- | ---: |
+| 2022-01-01T20:00:00Z | 22.7 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 
-{{% expand "Select the last field values associated with each field key in a measurement" %}}
-
-Return the newest field value (determined by timestamp) for each field key in the `h2o_feet` measurement.
-The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
+{{% expand "Select the last value from each field" %}}
 
 ```sql
-SELECT LAST(*) FROM "h2o_feet"
+SELECT LAST(*) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | last_level description | last_water_level |
-| :------------------- | :--------------------- | ---------------: |
-| 1970-01-01T00:00:00Z | between 3 and 6 feet   |            4.938 |
+| time                 | last_co | last_hum | last_temp |
+| :------------------- | ------: | -------: | --------: |
+| 1970-01-01T00:00:00Z |      26 |     36.5 |      22.7 |
 
 {{% /expand %}}
 
-{{% expand "Select the last field value associated with each field key that matches a regular expression" %}}
-
-Return the newest field value for each field key that includes the word `level`
-in the `h2o_feet` measurement.
+{{% expand "Select the last value from each field key that matches a regular expression" %}}
 
 ```sql
-SELECT LAST(/level/) FROM "h2o_feet"
+SELECT LAST(/^[th]/) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | last_level description | last_water_level |
-| :------------------- | :--------------------- | ---------------: |
-| 1970-01-01T00:00:00Z | between 3 and 6 feet   |            4.938 |
+| time                 | last_hum | last_temp |
+| :------------------- | -------: | --------: |
+| 1970-01-01T00:00:00Z |     36.5 |      22.7 |
 
 {{% /expand %}}
 
-{{% expand "Select the last field value associated with a field key and the relevant tags and fields" %}}
+{{% expand "Select the first value from a field when grouped by time" %}}
 
-Return the newest field value (determined by timestamp) in the `level description`
-field key and the relevant values of the `location` tag key and the `water_level` field key.
+{{% influxdb/custom-timestamps %}}
 
 ```sql
-SELECT LAST("level description"),"location","water_level" FROM "h2o_feet"
+SELECT
+  LAST(temp)
+FROM home 
+WHERE
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | last                 | location     | water_level |
-| :------------------- | :------------------- | :----------- | ----------: |
-| 2019-09-17T21:42:00Z | between 3 and 6 feet | santa_monica |       4.938 |
+| time                 | last |
+| :------------------- | ---: |
+| 2022-01-01T06:00:00Z | 22.4 |
+| 2022-01-01T12:00:00Z | 22.7 |
+| 2022-01-01T18:00:00Z | 22.7 |
+
+{{% /influxdb/custom-timestamps %}}
+
+Notice that when grouping by time, `LAST()`
+[overrides the point's original timestamp](#timestamps-when-grouping-by-time).
 
 {{% /expand %}}
-
-{{% expand "Select the last field value associated with a field key and include several clauses" %}}
-
-Return the newest field value (determined by timestamp) in the `water_level`
-field key in the [time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-17T23:48:00Z` and `2019-08-18T00:54:00Z` and
-[groups](/influxdb/v2.7/query-data/influxql/explore-data/group-by/) results into
-12-minute time intervals and per tag.
-Then [fill](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill)
-empty time intervals with `9.01`, and it [limit](/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points and series returned to four and one.
-
-```sql
-SELECT LAST("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-tags: location=coyote_creek
-{{% /influxql/table-meta %}}
-
-| time                 |  last |
-| :------------------- | ----: |
-| 2019-08-17T23:48:00Z | 8.570 |
-| 2019-08-18T00:00:00Z | 8.419 |
-| 2019-08-18T00:12:00Z | 8.225 |
-| 2019-08-18T00:24:00Z | 8.012 |
-
-Notice that the [`GROUP BY time()` clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals) overrides the points' original timestamps.
-The timestamps in the results indicate the the start of each 12-minute time interval;
-the first point in the results covers the time interval between `2019-08-17T23:48:00Z` and just before `2019-08-18T00:00:00Z` and the last point in the results covers the time interval between `2019-08-18T00:24:00Z` and just before `2019-08-18T00:36:00Z`.
-
-{{% /expand %}}
-
 {{< /expand-wrapper >}}
 
 ## MAX()
 
-Returns the greatest [field value](/influxdb/v2.7/reference/glossary/#field-value).
-
-### Syntax
+Returns the greatest [field value](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 
 ```sql
-SELECT MAX(<field_key>)[,<tag_key(s)>|<field__key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+MAX(field_expression)
 ```
 
-`MAX(field_key)`  
-Returns the greatest field value associated with the [field key](/influxdb/v2.7/reference/glossary/#field-key).
+#### Arguments
 
-`MAX(/regular_expression/)`  
-Returns the greatest field value associated with each field key that matches the [regular expression](/influxdb/v2.7/query-data/influxql/explore-data/regular-expressions/).
+- **field_expression**: Expression to identify one or more fields to operate on.
+  Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
+  constant, regular expression, or wildcard (`*`).
+  Supports **numeric fields**.
 
-`MAX(*)`  
-Returns the greatest field value associated with each field key in the [measurement](/influxdb/v2.7/reference/glossary/#measurement).
+#### Notable behaviors
 
-`MAX(field_key),tag_key(s),field_key(s)`  
-Returns the greatest field value associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.7/reference/glossary/#tag) and/or [field](/influxdb/v2.7/reference/glossary/#field).
-
-`MAX()` supports int64 and float64 field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
+- `MAX()` [overrides original timestamps when grouping by time](#timestamps-when-grouping-by-time).
 
 #### Examples
 
 {{< expand-wrapper >}}
 
-{{% expand "Select the maximum field value associated with a field key" %}}
-
-Return the greatest field value in the `water_level` field key and in the `h2o_feet` measurement.
+{{% expand "Select the maximum value from a field" %}}
 
 ```sql
-SELECT MAX("water_level") FROM "h2o_feet"
+SELECT MAX(co) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |   max |
-| :------------------- | ----: |
-| 2019-08-28T07:24:00Z | 9.964 |
+{{% influxdb/custom-timestamps %}}
+
+| time                 | max |
+| :------------------- | --: |
+| 2022-01-01T20:00:00Z |  26 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 
-{{% expand "Select the maximum field value associated with each field key in a measurement" %}}
-
-Return the greatest field value for each field key that stores numeric values
-in the `h2o_feet` measurement.
-The `h2o_feet` measurement has one numeric field: `water_level`.
+{{% expand "Select the maximum value from each field" %}}
 
 ```sql
-SELECT MAX(*) FROM "h2o_feet"
+SELECT MAX(*) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | max_water_level |
-| :------------------- | --------------: |
-| 2019-08-28T07:24:00Z |           9.964 |
+| time                 | max_co | max_hum | max_temp |
+| :------------------- | -----: | ------: | -------: |
+| 1970-01-01T00:00:00Z |     26 |    36.9 |     23.3 |
 
 {{% /expand %}}
 
-{{% expand "Select the maximum field value associated with each field key that matches a regular expression" %}}
-
-Return the greatest field value for each field key that stores numeric values
-and includes the word `water` in the `h2o_feet` measurement.
+{{% expand "Select the maximum value from each field key that matches a regular expression" %}}
 
 ```sql
-SELECT MAX(/level/) FROM "h2o_feet"
+SELECT MAX(/^[th]/) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | max_water_level |
-| :------------------- | --------------: |
-| 2019-08-28T07:24:00Z |           9.964 |
+| time                 | max_hum | max_temp |
+| :------------------- | ------: | -------: |
+| 1970-01-01T00:00:00Z |    36.9 |     23.3 |
 
 {{% /expand %}}
 
-{{% expand "Select the maximum field value associated with a field key and the relevant tags and fields" %}}
+{{% expand "Select the maximum value from a field when grouped by time" %}}
 
-Return the greatest field value in the `water_level` field key and the relevant
-values of the `location` tag key and the `level description` field key.
+{{% influxdb/custom-timestamps %}}
 
 ```sql
-SELECT MAX("water_level"),"location","level description" FROM "h2o_feet"
+SELECT
+  MAX(temp)
+FROM home
+WHERE
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |   max | location     | level description         |
-| :------------------- | ----: | :----------- | :------------------------ |
-| 2019-08-28T07:24:00Z | 9.964 | coyote_creek | at or greater than 9 feet |
+| time                 |  max |
+| :------------------- | ---: |
+| 2022-01-01T06:00:00Z |   23 |
+| 2022-01-01T12:00:00Z | 22.8 |
+| 2022-01-01T18:00:00Z | 23.3 |
+
+{{% /influxdb/custom-timestamps %}}
+
+Notice that when grouping by time, `MAX()`
+[overrides the point's original timestamp](#timestamps-when-grouping-by-time).
 
 {{% /expand %}}
-
-{{% expand "Select the maximum field value associated with a field key and include several clauses" %}}
-
-Return the greatest field value in the `water_level` field key in the
-[time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-17T23:48:00Z` and `2019-08-18T00:54:00Z` and
-[groups](/influxdb/v2.7/query-data/influxql/explore-data/group-by/) results into
-12-minute time intervals and per tag.
-Then [fill](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill)
-empty time intervals with `9.01`, and it [limit](/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points and series returned to four and one.
-
-```sql
-SELECT MAX("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-tags: location=coyote_creek
-{{% /influxql/table-meta %}}
-
-| time                 |   max |
-| :------------------- | ----: |
-| 2019-08-17T23:48:00Z | 8.635 |
-| 2019-08-18T00:00:00Z | 8.504 |
-| 2019-08-18T00:12:00Z | 8.320 |
-| 2019-08-18T00:24:00Z | 8.130 |
-
-Notice that the [`GROUP BY time()` clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals) overrides the points’ original timestamps.
-The timestamps in the results indicate the the start of each 12-minute time interval;
-the first point in the results covers the time interval between `2019-08-17T23:48:00Z` and just before `2019-08-18T00:00:00Z` and the last point in the results covers the time interval between `2019-08-18T00:24:00Z` and just before `2019-08-18T00:36:00Z`.
-
-{{% /expand %}}
-
 {{< /expand-wrapper >}}
 
 ## MIN()
 
-Returns the lowest [field value](/influxdb/v2.7/reference/glossary/#field-value).
-
-### Syntax
+Returns the lowest [field value](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 
 ```sql
-SELECT MIN(<field_key>)[,<tag_key(s)>|<field_key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+MIN(field_expression)
 ```
 
-`MIN(field_key)`  
-Returns the lowest field value associated with the [field key](/influxdb/v2.7/reference/glossary/#field-key).
+#### Arguments
 
-`MIN(/regular_expression/)`  
-Returns the lowest field value associated with each field key that matches the [regular expression](/influxdb/v2.7/query-data/influxql/explore-data/regular-expressions/).
+- **field_expression**: Expression to identify one or more fields to operate on.
+  Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
+  constant, regular expression, or wildcard (`*`).
+  Supports **numeric fields**.
 
-`MIN(*)`  
-Returns the lowest field value associated with each field key in the [measurement](/influxdb/v2.7/reference/glossary/#measurement).
+#### Notable behaviors
 
-`MIN(field_key),tag_key(s),field_key(s)`  
-Returns the lowest field value associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.7/reference/glossary/#tag) and/or [field](/influxdb/v2.7/reference/glossary/#field).
-
-`MIN()` supports int64 and float64 field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
+- `MIN()` [overrides original timestamps when grouping by time](#timestamps-when-grouping-by-time).
 
 #### Examples
 
 {{< expand-wrapper >}}
 
-{{% expand "Select the minimum field value associated with a field key" %}}
-
-Return the lowest field value in the `water_level` field key and in the `h2o_feet` measurement.
+{{% expand "Select the minimum value from a field" %}}
 
 ```sql
-SELECT MIN("water_level") FROM "h2o_feet"
+SELECT MIN(temp) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |    min |
-| :------------------- | -----: |
-| 2019-08-28T14:30:00Z | -0.610 |
+{{% influxdb/custom-timestamps %}}
+
+| time                 | min |
+| :------------------- | --: |
+| 2022-01-01T08:00:00Z |  21 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 
-{{% expand "Select the minimum field value associated with each field key in a measurement" %}}
-
-Return the lowest field value for each field key that stores numeric values in the `h2o_feet` measurement.
-The `h2o_feet` measurement has one numeric field: `water_level`.
+{{% expand "Select the minimum value from each field" %}}
 
 ```sql
-SELECT MIN(*) FROM "h2o_feet"
+SELECT MIN(*) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | min_water_level |
-| :------------------- | --------------: |
-| 2019-08-28T14:30:00Z |          -0.610 |
+| time                 | min_co | min_hum | min_temp |
+| :------------------- | -----: | ------: | -------: |
+| 1970-01-01T00:00:00Z |      0 |    35.9 |       21 |
 
 {{% /expand %}}
 
-{{% expand "Select the minimum field value associated with each field key that matches a regular expression" %}}
-
-Return the lowest field value for each numeric field with `water` in the field
-key in the `h2o_feet` measurement.
+{{% expand "Select the minimum value from each field key that matches a regular expression" %}}
 
 ```sql
-SELECT MIN(/level/) FROM "h2o_feet"
+SELECT MIN(/^[th]/) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | min_water_level |
-| :------------------- | --------------: |
-| 2019-08-28T14:30:00Z |          -0.610 |
+| time                 | min_hum | min_temp |
+| :------------------- | ------: | -------: |
+| 1970-01-01T00:00:00Z |    35.9 |       21 |
 
 {{% /expand %}}
 
-{{% expand "Select the minimum field value associated with a field key and the relevant tags and fields" %}}
+{{% expand "Select the minimum value from a field when grouped by time" %}}
 
-Return the lowest field value in the `water_level` field key and the relevant
-values of the `location` tag key and the `level description` field key.
+{{% influxdb/custom-timestamps %}}
 
 ```sql
-SELECT MIN("water_level"),"location","level description" FROM "h2o_feet"
+SELECT
+  MIN(temp)
+FROM home
+WHERE
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |    min | location     | level description |
-| :------------------- | -----: | :----------- | :---------------- |
-| 2019-08-28T14:30:00Z | -0.610 | coyote_creek | below 3 feet      |
+| time                 |  min |
+| :------------------- | ---: |
+| 2022-01-01T06:00:00Z |   21 |
+| 2022-01-01T12:00:00Z | 22.4 |
+| 2022-01-01T18:00:00Z | 22.7 |
+
+{{% /influxdb/custom-timestamps %}}
+
+Notice that when grouping by time, `MIN()`
+[overrides the point's original timestamp](#timestamps-when-grouping-by-time).
 
 {{% /expand %}}
-
-{{% expand "Select the minimum field value associated with a field key and include several clauses" %}}
-
-Return the lowest field value in the `water_level` field key in the
-[time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-17T23:48:00Z` and `2019-08-18T00:54:00Z` and
-[groups](/influxdb/v2.7/query-data/influxql/explore-data/group-by/) results into
-12-minute time intervals and per tag.
-Then [fill](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill)
-empty time intervals with `9.01`, and it [limit](/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points and series returned to four and one.
-
-```sql
-SELECT MIN("water_level") FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(12m),* fill(9.01) LIMIT 4 SLIMIT 1
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-tags: location=coyote_creek
-{{% /influxql/table-meta %}}
-
-| time                 |   min |
-| :------------------- | ----: |
-| 2019-08-17T23:48:00Z | 8.570 |
-| 2019-08-18T00:00:00Z | 8.419 |
-| 2019-08-18T00:12:00Z | 8.225 |
-| 2019-08-18T00:24:00Z | 8.012 |
-
-Notice that the [`GROUP BY time()` clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals) overrides the points’ original timestamps.
-The timestamps in the results indicate the the start of each 12-minute time interval;
-the first point in the results covers the time interval between `2019-08-17T23:48:00Z` and just before `2019-08-18T00:00:00Z` and the last point in the results covers the time interval between `2019-08-18T00:24:00Z` and just before `2019-08-18T00:36:00Z`.
-
-{{% /expand %}}
-
 {{< /expand-wrapper >}}
 
-## PERCENTILE()
+<!-- ## PERCENTILE()
 
-Returns the `N`th percentile [field value](/influxdb/v2.7/reference/glossary/#field-value).
-
-### Syntax
+Returns the `N`th percentile [field value](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 
 ```sql
-SELECT PERCENTILE(<field_key>, <N>)[,<tag_key(s)>|<field_key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
+PERCENTILE(field_expression, N)
 ```
 
-`PERCENTILE(field_key,N)`  
-Returns the Nth percentile field value associated with the [field key](/influxdb/v2.7/reference/glossary/#field-key).
+#### Arguments
 
-`PERCENTILE(/regular_expression/,N)`  
-Returns the Nth percentile field value associated with each field key that matches the [regular expression](/influxdb/v2.7/query-data/influxql/explore-data/regular-expressions/).
+- **field_expression**: Expression to identify one or more fields to operate on.
+  Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
+  constant, regular expression, or wildcard (`*`).
+  Supports **numeric fields**.
+- **N**: Percentile to return.
+  Must be an integer or float value **greater than 0 and less than or equal to 100**.
 
-`PERCENTILE(*,N)`  
-Returns the Nth percentile field value associated with each field key in the [measurement](/influxdb/v2.7/reference/glossary/#measurement).
+#### Notable behaviors
 
-`PERCENTILE(field_key,N),tag_key(s),field_key(s)`  
-Returns the Nth percentile field value associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.7/reference/glossary/#tag) and/or [field](/influxdb/v2.7/reference/glossary/#field).
-
-`N` must be an integer or floating point number between `0` and `100`, inclusive.
-`PERCENTILE()` supports int64 and float64 field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
+- `PERCENTILE()` [overrides original timestamps when grouping by time](#timestamps-when-grouping-by-time).
+- `PERCENTILE(example_field, 100)` is equivalent to [`MAX(example_field)`](#max).
+- `PERCENTILE(example_field, 50)` is nearly equivalent to
+  [`MEDIAN(example_field)`](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/#median),
+  except `MEDIAN()` returns the average of the two middle values if the field
+  contains an even number of values.
+- `PERCENTILE(example_field, 0)` returns _null_.
 
 #### Examples
 
 {{< expand-wrapper >}}
 
-{{% expand "Select the fifth percentile field value associated with a field key" %}}
-
-Return the field value that is larger than five percent of the field values in
-the `water_level` field key and in the `h2o_feet` measurement.
+{{% expand "Select the 50th percentile value from a field" %}}
 
 ```sql
-SELECT PERCENTILE("water_level",5) FROM "h2o_feet"
+SELECT PERCENTILE(temp, 50) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | percentile |
+| :------------------- | ---------: |
+| 2022-01-01T11:00:00Z |       22.4 |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+
+{{% expand "Select the 50th percentile value from each field" %}}
+
+```sql
+SELECT PERCENTILE(*, 50) FROM home
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+| time                 | percentile_co | percentile_hum | percentile_temp |
+| :------------------- | ------------: | -------------: | --------------: |
+| 1970-01-01T00:00:00Z |             1 |             36 |            22.4 |
+
+{{% /expand %}}
+
+{{% expand "Select the 50th percentile value from each field key that matches a regular expression" %}}
+
+```sql
+SELECT PERCENTILE(/^[th]/, 50) FROM home
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+| time                 | percentile_hum | percentile_temp |
+| :------------------- | -------------: | --------------: |
+| 1970-01-01T00:00:00Z |             36 |            22.4 |
+
+{{% /expand %}}
+
+{{% expand "Select the 50th percentile value from a field when grouped by time" %}}
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  PERCENTILE(temp, 50)
+FROM home
+WHERE
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
+```
+
+{{% influxql/table-meta %}}
+name: home
 {{% /influxql/table-meta %}}
 
 | time                 | percentile |
 | :------------------- | ---------: |
-| 2019-09-01T17:54:00Z |      1.122 |
+| 2022-01-01T06:00:00Z |       22.4 |
+| 2022-01-01T12:00:00Z |       22.7 |
+| 2022-01-01T18:00:00Z |       23.1 |
+
+{{% /influxdb/custom-timestamps %}}
+
+Notice that when grouping by time, `PERCENTILE()`
+[overrides the point's original timestamp](#timestamps-when-grouping-by-time).
 
 {{% /expand %}}
+{{< /expand-wrapper >}} -->
 
-{{% expand "Select the fifth percentile field value associated with each field key in a measurement" %}}
+<!-- ## SAMPLE()
 
-Return the field value that is larger than five percent of the field values in
-each field key that stores numeric values in the `h2o_feet` measurement.
-The `h2o_feet` measurement has one numeric field: `water_level`.
-
-```sql
-SELECT PERCENTILE(*,5) FROM "h2o_feet"
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | percentile_water_level |
-| :------------------- | ---------------------: |
-| 2019-09-01T17:54:00Z |                  1.122 |
-
-{{% /expand %}}
-
-{{% expand "Select fifth percentile field value associated with each field key that matches a regular expression" %}}
-
-Return the field value that is larger than five percent of the field values in
-each numeric field with `water` in the field key.
+Returns a random sample of `N` [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
+`SAMPLE()` supports all field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types)
+and uses [reservoir sampling](https://en.wikipedia.org/wiki/Reservoir_sampling)
+to select random points.
 
 ```sql
-SELECT PERCENTILE(/level/,5) FROM "h2o_feet"
+SAMPLE(field_expression, N)
 ```
 
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
+#### Arguments
 
-| time                 | percentile_water_level |
-| :------------------- | ---------------------: |
-| 2019-09-01T17:54:00Z |                  1.122 |
+- **field_expression**: Expression to identify one or more fields to operate on.
+  Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
+  constant, regular expression, or wildcard (`*`).
+- **N**: Number of results to return from each InfluxQL group.
 
-{{% /expand %}}
+#### Notable behaviors
 
-{{% expand "Select the fifth percentile field values associated with a field key and the relevant tags and fields" %}}
-
-Return the field value that is larger than five percent of the field values in
-the `water_level` field key and the relevant values of the `location` tag key
-and the `level description` field key.
-
-```sql
-SELECT PERCENTILE("water_level",5),"location","level description" FROM "h2o_feet"
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | percentile | location     | level description |
-| :------------------- | ---------: | :----------- | :---------------- |
-| 2019-08-24T10:18:00Z |      1.122 | coyote_creek | below 3 feet      |
-
-{{% /expand %}}
-
-{{% expand "Select the twentieth percentile field value associated with a field key and include several clauses" %}}
-
-Return the field value that is larger than 20 percent of the values in the
-`water_level` field in the [time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-17T23:48:00Z` and `2019-08-18T00:54:00Z` and [group](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals) results into 24-minute intervals.
-Then [fill](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill)
-empty time intervals with `15` and [limit](/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points returned to two.
-
-```sql
-SELECT PERCENTILE("water_level",20) FROM "h2o_feet" WHERE time >= '2019-08-17T23:48:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(24m) fill(15) LIMIT 2
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | percentile |
-| :------------------- | ---------: |
-| 2019-08-17T23:36:00Z |      2.398 |
-| 2019-08-18T00:00:00Z |      2.343 |
-
-Notice that the [`GROUP BY time()` clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals) overrides the points’ original timestamps.
-The timestamps in the results indicate the the start of each 24-minute time interval; the first point in the results covers the time interval between `2019-08-17T23:36:00Z` and just before `2019-08-18T00:00:00Z` and the last point in the results covers the time interval between `2019-08-18T00:00:00Z` and just before `2019-08-18T00:24:00Z`.
-
-{{% /expand %}}
-
-{{< /expand-wrapper >}}
-
-### Common issues with PERCENTILE()
-
-#### PERCENTILE() compared to other InfluxQL functions
-
-- `PERCENTILE(<field_key>,100)` is equivalent to [`MAX(<field_key>)`](#max).
-- `PERCENTILE(<field_key>, 50)` is nearly equivalent to [`MEDIAN(<field_key>)`](/influxdb/v2.7/query-data/influxql/functions/aggregates/#median), except the `MEDIAN()` function returns the average of the two middle values if the field key contains an even number of field values.
-- `PERCENTILE(<field_key>,0)` is not equivalent to [`MIN(<field_key>)`](#min). This is a known [issue](https://github.com/influxdata/influxdb/issues/4418).
-
-## SAMPLE()
-
-Returns a random sample of `N` [field values](/influxdb/v2.7/reference/glossary/#field-value).
-`SAMPLE()` uses [reservoir sampling](https://en.wikipedia.org/wiki/Reservoir_sampling) to generate the random points.
-
-### Syntax
-
-```sql
-SELECT SAMPLE(<field_key>, <N>)[,<tag_key(s)>|<field_key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
-```
-
-`SAMPLE(field_key,N)`  
-Returns N randomly selected field values associated with the [field key](/influxdb/v2.7/reference/glossary/#field-key).
-
-`SAMPLE(/regular_expression/,N)`  
-Returns N randomly selected field values associated with each field key that matches the [regular expression](/influxdb/v2.7/query-data/influxql/explore-data/regular-expressions/).
-
-`SAMPLE(*,N)`  
-Returns N randomly selected field values associated with each field key in the [measurement](/influxdb/v2.7/reference/glossary/#measurement).
-
-`SAMPLE(field_key,N),tag_key(s),field_key(s)`  
-Returns N randomly selected field values associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.7/reference/glossary/#tag) and/or [field](/influxdb/v2.7/reference/glossary/#field).
-
-`N` must be an integer.
-`SAMPLE()` supports all field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
+- `SAMPLE()` [maintains original timestamps when grouping by time](#timestamps-when-grouping-by-time).
+- `SAMPLE()` [may return fewer points than expected](#selector-functions-may-return-fewer-points-than-expected).
 
 #### Examples
 
 {{< expand-wrapper >}}
 
-{{% expand "Select a sample of the field values associated with a field key" %}}
-
-Return two randomly selected points from the `water_level` field key and in the `h2o_feet` measurement.
+{{% expand "Select a sample of values in a field" %}}
 
 ```sql
-SELECT SAMPLE("water_level",2) FROM "h2o_feet"
+SELECT SAMPLE(temp, 3) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | sample |
+| :------------------- | -----: |
+| 2022-01-01T11:00:00Z |   22.2 |
+| 2022-01-01T17:00:00Z |   22.7 |
+| 2022-01-01T18:00:00Z |   23.3 |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+
+{{% expand "Select a sample of values in each field" %}}
+
+```sql
+SELECT SAMPLE(*, 2) FROM home
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | sample_co | sample_hum | sample_temp |
+| -------------------- | --------- | ---------- | ----------- |
+| 2022-01-01T10:00:00Z |           |            | 22.7        |
+| 2022-01-01T12:00:00Z |           |            | 22.5        |
+| 2022-01-01T13:00:00Z | 0         |            |             |
+| 2022-01-01T15:00:00Z |           | 36.2       |             |
+| 2022-01-01T16:00:00Z | 4         |            |             |
+| 2022-01-01T17:00:00Z |           | 36         |             |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+
+{{% expand "Select a sample of values from each field key that matches a regular expression" %}}
+
+```sql
+SELECT SAMPLE(/^[th]/, 2) FROM home
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+ | time                 | sample_hum | sample_temp |
+ | -------------------- | ---------- | ----------- |
+ | 2022-01-01T08:00:00Z | 35.9       |             |
+ | 2022-01-01T10:00:00Z | 36.1       |             |
+ | 2022-01-01T18:00:00Z |            | 23.3        |
+ | 2022-01-01T19:00:00Z |            | 22.5        |
+
+ {{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+
+{{% expand "Select a sample of values in a field when grouping by time" %}}
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  SAMPLE(temp, 2)
+FROM home
+WHERE
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
+```
+
+{{% influxql/table-meta %}}
+name: home
 {{% /influxql/table-meta %}}
 
 | time                 | sample |
 | :------------------- | -----: |
-| 2019-08-22T03:42:00Z |  7.218 |
-| 2019-08-28T20:18:00Z |  2.848 |
+| 2022-01-01T08:00:00Z |     21 |
+| 2022-01-01T11:00:00Z |   22.4 |
+| 2022-01-01T12:00:00Z |   22.5 |
+| 2022-01-01T17:00:00Z |   22.7 |
+| 2022-01-01T18:00:00Z |   23.3 |
+| 2022-01-01T19:00:00Z |   23.1 |
+
+{{% /influxdb/custom-timestamps %}}
+
+Notice that when grouping by time, `SAMPLE()`
+[maintains the points' original timestamps](#timestamps-when-grouping-by-time).
 
 {{% /expand %}}
+{{< /expand-wrapper >}} -->
 
-{{% expand "Select a sample of the field values associated with each field key in a measurement" %}}
+<!-- ## TOP()
 
-Return two randomly selected points for each field key in the `h2o_feet` measurement.
-The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
-
-```sql
-SELECT SAMPLE(*,2) FROM "h2o_feet"
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | sample_level description | sample_water_level |
-| :------------------- | :----------------------- | -----------------: |
-| 2019-08-23T17:30:00Z | below 3 feet             |                    |
-| 2019-09-08T19:18:00Z |                          |              8.379 |
-| 2019-09-09T03:54:00Z | between 6 and 9 feet     |                    |
-| 2019-09-16T04:48:00Z |                          |              1.437 |
-
-{{% /expand %}}
-
-{{% expand "Select a sample of the field values associated with each field key that matches a regular expression" %}}
-
-Return two randomly selected points for each field key that includes the word
-`level` in the `h2o_feet` measurement.
-
-```sql
-SELECT SAMPLE(/level/,2) FROM "h2o_feet"
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | sample_level description | sample_water_level |
-| :------------------- | :----------------------- | -----------------: |
-| 2019-08-19T20:24:00Z |                          |              4.951 |
-| 2019-08-26T06:30:00Z | below 3 feet             |                    |
-| 2019-09-10T09:06:00Z |                          |              1.312 |
-| 2019-09-16T21:00:00Z | between 3 and 6 feet     |                    |
-
-{{% /expand %}}
-
-{{% expand "Select a sample of the field values associated with a field key and the relevant tags and fields" %}}
-
-Return two randomly selected points from the `water_level` field key and the
-relevant values of the `location` tag and the `level description` field.
-
-```sql
-SELECT SAMPLE("water_level",2),"location","level description" FROM "h2o_feet"
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | sample | location     | level description    |
-| :------------------- | -----: | :----------- | :------------------- |
-| 2019-08-31T04:30:00Z |  4.954 | santa_monica | between 3 and 6 feet |
-| 2019-09-13T01:24:00Z |  3.389 | santa_monica | between 3 and 6 feet |
-
-{{% /expand %}}
-
-{{% expand "Select a sample of the field values associated with a field key and include several clauses" %}}
-
-Return one randomly selected point from the `water_level` field key in the
-[time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z` and
-[group](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals)
-results into 18-minute intervals.
-
-```sql
-SELECT SAMPLE("water_level",1) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | sample |
-| :------------------- | -----: |
-| 2019-08-18T00:12:00Z |  2.343 |
-| 2019-08-18T00:24:00Z |  2.264 |
-
-Notice that the [`GROUP BY time()` clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals) does not override the points' original timestamps.
-See [Issue 1](#sample-with-a-group-by-time-clause) in the section below for a
-more detailed explanation of that behavior.
-
-{{% /expand %}}
-
-{{< /expand-wrapper >}}
-
-### Common issues with SAMPLE()
-
-#### SAMPLE() with a GROUP BY time() clause
-
-Queries with `SAMPLE()` and a `GROUP BY time()` clause return the specified
-number of points (`N`) per `GROUP BY time()` interval.
-For [most `GROUP BY time()` queries](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals),
-the returned timestamps mark the start of the `GROUP BY time()` interval.
-`GROUP BY time()` queries with the `SAMPLE()` function behave differently;
-they maintain the timestamp of the original data point.
-
-##### Example
-
-The query below returns two randomly selected points per 18-minute
-`GROUP BY time()` interval.
-Notice that the returned timestamps are the points' original timestamps; they
-are not forced to match the start of the `GROUP BY time()` intervals.
-
-```sql
-SELECT SAMPLE("water_level",2) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | sample |
-| :------------------- | -----: |
-| 2019-08-18T00:06:00Z |  2.116 |
-| 2019-08-18T00:12:00Z |  2.028 |
-| 2019-08-18T00:18:00Z |  2.126 |
-| 2019-08-18T00:30:00Z |  2.051 |
-
-Notice that the first two rows are randomly-selected points from the first time
-interval and the last two rows are randomly-selected points from the second time interval.
-
-## TOP()
-
-Returns the greatest `N` [field values](/influxdb/v2.7/reference/glossary/#field-value).
-
-### Syntax
-
-```sql
-SELECT TOP( <field_key>[,<tag_key(s)>],<N> )[,<tag_key(s)>|<field_key(s)>] FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LIMIT_clause] [OFFSET_clause] [SLIMIT_clause] [SOFFSET_clause]
-```
-
-`TOP(field_key,N)`  
-Returns the greatest N field values associated with the [field key](/influxdb/v2.7/reference/glossary/#field-key).
-
-`TOP(field_key,tag_key(s),N)`  
-Returns the greatest field value for N tag values of the [tag key](/influxdb/v2.7/reference/glossary/#tag-key).
-
-`TOP(field_key,N),tag_key(s),field_key(s)`  
-Returns the greatest N field values associated with the field key in the parentheses and the relevant [tag](/influxdb/v2.7/reference/glossary/#tag) and/or [field](/influxdb/v2.7/reference/glossary/#field).
-
+Returns the greatest `N` [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 `TOP()` supports int64 and float64 field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
 
+```sql
+TOP(field_expression[, tag_expression_1[, ..., tag_expression_n]], N)
+```
+
 {{% note %}}
-**Note:** `TOP()` returns the field value with the earliest timestamp if there's a tie between two or more values for the greatest value.
+**Note:** `TOP()` returns the field value with the earliest timestamp if there's
+a tie between two or more values for the greatest value.
 {{% /note %}}
+
+#### Arguments
+
+- **field_expression**: Expression to identify the field to operate on.
+  Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key)
+  or constant.
+- **tag_expression**: Expression to identify a tag key to segment by.
+  Can be a [tag key](/influxdb/cloud-dedicated/reference/glossary/#tag-key)
+  or constant. Comma-delimit multiple tags.
+- **N**: Number of results to return from each InfluxQL group or specified tag segment.
+
+#### Notable behaviors
+
+- `TOP()` [maintains original timestamps when grouping by time](#timestamps-when-grouping-by-time).
+- `TOP()` [may return fewer points than expected](#selector-functions-may-return-fewer-points-than-expected).
 
 #### Examples
 
 {{< expand-wrapper >}}
-
-{{% expand "Select the top three field values associated with a field key" %}}
-
-Return the greatest three field values in the `water_level` field key and in the
-`h2o_feet` [measurement](/influxdb/v2.7/reference/glossary/#measurement).
+{{% expand "Select the top three values of a field" %}}
 
 ```sql
-SELECT TOP("water_level",3) FROM "h2o_feet"
+SELECT TOP(temp, 3) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
+{{% influxdb/custom-timestamps %}}
 
-| time                 |   top |
-| :------------------- | ----: |
-| 2019-08-28T07:18:00Z | 9.957 |
-| 2019-08-28T07:24:00Z | 9.964 |
-| 2019-08-28T07:30:00Z | 9.954 |
+| time                 |  top |
+| :------------------- | ---: |
+| 2022-01-01T09:00:00Z |   23 |
+| 2022-01-01T18:00:00Z | 23.3 |
+| 2022-01-01T19:00:00Z | 23.1 |
 
+{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Select the top field value associated with a field key for two tags" %}}
-
-Return the greatest field values in the `water_level` field key for two tag
-values associated with the `location` tag key.
+{{% expand "Select the top field value for two unique tag values" %}}
 
 ```sql
-SELECT TOP("water_level","location",2) FROM "h2o_feet"
+SELECT TOP(temp, room, 2) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
+{{% influxdb/custom-timestamps %}}
 
-| time                 |   top | location     |
-| :------------------- | ----: | :----------- |
-| 2019-08-28T03:54:00Z | 7.205 | santa_monica |
-| 2019-08-28T07:24:00Z | 9.964 | coyote_creek |
+| time                 |  top | room        |
+| :------------------- | ---: | :---------- |
+| 2022-01-01T18:00:00Z | 23.3 | Kitchen     |
+| 2022-01-01T18:00:00Z | 22.8 | Living Room |
 
+{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Select the top four field values associated with a field key and the relevant tags and fields" %}}
-
-Return the greatest four field values in the `water_level` field key and the
-relevant values of the `location` tag key and the `level description` field key.
+{{% expand "Select the top three field values and the tag value associated with each" %}}
 
 ```sql
-SELECT TOP("water_level",4),"location","level description" FROM "h2o_feet"
+SELECT TOP(temp, 3), room FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
+{{% influxdb/custom-timestamps %}}
 
-| time                 |   top | location     | level description         |
-| :------------------- | ----: | :----------- | :------------------------ |
-| 2019-08-28T07:18:00Z | 9.957 | coyote_creek | at or greater than 9 feet |
-| 2019-08-28T07:24:00Z | 9.964 | coyote_creek | at or greater than 9 feet |
-| 2019-08-28T07:30:00Z | 9.954 | coyote_creek | at or greater than 9 feet |
-| 2019-08-28T07:36:00Z | 9.941 | coyote_creek | at or greater than 9 feet |
+| time                 |  top | room    |
+| :------------------- | ---: | :------ |
+| 2022-01-01T09:00:00Z |   23 | Kitchen |
+| 2022-01-01T18:00:00Z | 23.3 | Kitchen |
+| 2022-01-01T19:00:00Z | 23.1 | Kitchen |
 
+{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Select the top three field values associated with a field key and include several clauses" %}}
+{{% expand "Select the top field values for unique tag values and grouped by time" %}}
 
-Return the greatest three values in the `water_level` field key for each 24-minute
-[interval](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#basic-group-by-time-syntax)
-between `2019-08-18T00:00:00Z` and `2019-08-18T00:54:00Z` with results in
-[descending timestamp](/influxdb/v2.7/query-data/influxql/explore-data/order-by/) order.
-
+{{% influxdb/custom-timestamps %}}
 ```sql
-SELECT TOP("water_level",3),"location" FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:54:00Z' GROUP BY time(24m) ORDER BY time DESC
+SELECT
+  TOP(temp, room, 2)
+FROM home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T12:00:00Z'
+GROUP BY time(2h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |   top | location     |
-| :------------------- | ----: | :----------- |
-| 2019-08-18T00:54:00Z | 6.982 | coyote_creek |
-| 2019-08-18T00:54:00Z | 2.054 | santa_monica |
-| 2019-08-18T00:48:00Z | 7.110 | coyote_creek |
-| 2019-08-18T00:36:00Z | 7.372 | coyote_creek |
-| 2019-08-18T00:30:00Z | 7.500 | coyote_creek |
-| 2019-08-18T00:24:00Z | 7.635 | coyote_creek |
-| 2019-08-18T00:12:00Z | 7.887 | coyote_creek |
-| 2019-08-18T00:06:00Z | 8.005 | coyote_creek |
-| 2019-08-18T00:00:00Z | 8.120 | coyote_creek |
+| time                 |  top | room        |
+| :------------------- | ---: | :---------- |
+| 2022-01-01T09:00:00Z |   23 | Kitchen     |
+| 2022-01-01T09:00:00Z | 21.4 | Living Room |
+| 2022-01-01T10:00:00Z | 22.7 | Kitchen     |
+| 2022-01-01T11:00:00Z | 22.2 | Living Room |
+| 2022-01-01T12:00:00Z | 22.5 | Kitchen     |
+| 2022-01-01T12:00:00Z | 22.2 | Living Room |
 
-Notice that the [GROUP BY time() clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals) does not override the points’ original timestamps.
-See [Issue 1](#top-with-a-group-by-time-clause) in the section below for a more detailed explanation of that behavior.
+{{% /influxdb/custom-timestamps %}}
+
+Notice that when grouping by time, `TOP()`
+[maintains the point's original timestamp](#timestamps-when-grouping-by-time).
 
 {{% /expand %}}
+{{< /expand-wrapper >}} -->
 
-{{< /expand-wrapper >}}
+## Notable behaviors of selector functions
 
-### Common issues with `TOP()`
+- [Timestamps when grouping by time](#timestamps-when-grouping-by-time)
+<!-- - [Selector functions may return fewer points than expected](#selector-functions-may-return-fewer-points-than-expected) -->
 
-#### `TOP()` with a `GROUP BY time()` clause
+### Timestamps when grouping by time
 
-Queries with `TOP()` and a `GROUP BY time()` clause return the specified
-number of points per `GROUP BY time()` interval.
-For [most `GROUP BY time()` queries](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals),
-the returned timestamps mark the start of the `GROUP BY time()` interval.
-`GROUP BY time()` queries with the `TOP()` function behave differently;
-they maintain the timestamp of the original data point.
+When using selector functions with a `GROUP BY time()` clause, most selector
+functions return the timestamp of the starting boundary for each time interval.
+However functions with an `N` argument that specifies the number of results to
+return per group maintain the original timestamp of each returned point.
 
-##### Example
+{{< flex >}}
+{{% flex-content %}}
 
-The query below returns two points per 18-minute
-`GROUP BY time()` interval.
-Notice that the returned timestamps are the points' original timestamps; they
-are not forced to match the start of the `GROUP BY time()` intervals.
+###### Return the start time of each time interval
 
-```sql
-SELECT TOP("water_level",2) FROM "h2o_feet" WHERE time >= '2019-08-18T00:00:00Z' AND time <= '2019-08-18T00:30:00Z' AND "location" = 'santa_monica' GROUP BY time(18m)
-```
+- [FIRST()](#first)
+- [LAST()](#last)
+- [MAX()](#max)
+- [MIN()](#min)
+<!-- - [PERCENTILE()](#percentile) -->
 
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
+{{% /flex-content %}}
+{{% flex-content %}}
 
-| time                 |   top |
-| :------------------- | ----: |
-| 2019-08-18T00:00:00Z | 2.064 |
-| 2019-08-18T00:06:00Z | 2.116 |
-| 2019-08-18T00:18:00Z | 2.126 |
-| 2019-08-18T00:30:00Z | 2.051 |
+<!-- ###### Maintain the original timestamp
 
-Notice that the first two rows are the greatest points for the first time interval
-and the last two rows are the greatest points for the second time interval.
+- [BOTTOM()](#bottom)
+- [SAMPLE()](#sample)
+- [TOP()](#top) -->
 
-#### TOP() and a tag key with fewer than N tag values
+{{% /flex-content %}}
+{{< /flex >}}
 
-Queries with the syntax `SELECT TOP(<field_key>,<tag_key>,<N>)` can return fewer points than expected.
-If the tag key has `X` tag values, the query specifies `N` values, and `X` is smaller than `N`, then the query returns `X` points.
+<!-- ### Selector functions may return fewer points than expected
 
-##### Example
+Queries that use the following selector functions with an `N` argument may
+return fewer points than expected.
 
-The query below asks for the greatest field values of `water_level` for three tag values of the `location` tag key.
-Because the `location` tag key has two tag values (`santa_monica` and `coyote_creek`), the query returns two points instead of three.
+- [BOTTOM()](#bottom)
+- [SAMPLE()](#sample)
+- [TOP()](#top)
 
-```sql
-SELECT TOP("water_level","location",3) FROM "h2o_feet"
-```
+If the InfluxQL group or specified tag key contains `X` points or unique tag
+values and `X` is less than `N`, the function returns `X` results instead of `N`
+for each group or tag value.
 
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
+{{< expand-wrapper >}}
+{{% expand "View example for `FN(field_key, N)`" %}}
 
-| time                 |   top | location     |
-| :------------------- | ----: | :----------- |
-| 2019-08-29T03:54:00Z | 7.205 | santa_monica |
-| 2019-08-29T07:24:00Z | 9.964 | coyote_creek |
+The example below selects the bottom 5 temperatures from the Kitchen between
+{{% influxdb/custom-timestamps-span %}}2022-01-01T08:00:00Z{{% /influxdb/custom-timestamps-span %}}
+and {{% influxdb/custom-timestamps-span %}}2022-01-01T10:00:00Z{{% /influxdb/custom-timestamps-span %}}.
+There are only 3 points recorded for the Kitchen during the queried time range,
+so the query returns 3 points instead of 5.
 
-<!--
-##### TOP(), tags, and the INTO clause
-
-When combined with an [`INTO` clause](/enterprise_influxdb/v1.9/query_language/explore-data/#the-into-clause) and no [`GROUP BY tag` clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-tags), most InfluxQL functions [convert](/enterprise_influxdb/v1.9/troubleshooting/frequently-asked-questions/#why-are-my-into-queries-missing-data) any tags in the initial data to fields in the newly written data.
-This behavior also applies to the `TOP()` function unless `TOP()` includes a tag key as an argument: `TOP(field_key,tag_key(s),N)`.
-In those cases, the system preserves the specified tag as a tag in the newly written data.
-
-###### Example
-
-The first query in the codeblock below returns the greatest field values in the `water_level` field key for two tag values associated with the `location` tag key.
-It also writes those results to the `top_water_levels` measurement.
-
-The second query [shows](/influxdb/v2.7/query-data/influxql/explore-schema/#show-tag-keys) that InfluxDB preserved the `location` tag as a tag in the `top_water_levels` measurement.
+{{% influxdb/custom-timestamps %}}
 
 ```sql
-SELECT TOP("water_level","location",2) INTO "top_water_levels" FROM "h2o_feet"
-
-name: result
-time                 written
-----                 -------
-1970-01-01T00:00:00Z 2
-
-> SHOW TAG KEYS FROM "top_water_levels"
-
-name: top_water_levels
-tagKey
-------
-location
+SELECT BOTTOM(temp, 5)
+FROM home
+WHERE
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T10:00:00Z'
+  AND room = 'Kitchen'
 ```
--->
+
+| time                 | bottom |
+| :------------------- | -----: |
+| 2022-01-01T08:00:00Z |     21 |
+| 2022-01-01T09:00:00Z |     23 |
+| 2022-01-01T10:00:00Z |   22.7 |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+{{% expand "View example for `FN(field_key, tag_key, N)`" %}}
+
+The example below selects the top temperature from 3 unique values of the `room` tag.
+However, the `room` tag only has 2 unique values, so results only contain 2 values.
+
+```sql
+SELECT TOP(temp, room, 3) FROM home
+```
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 |  top | room        |
+| :------------------- | ---: | :---------- |
+| 2022-01-01T18:00:00Z | 23.3 | Kitchen     |
+| 2022-01-01T18:00:00Z | 22.8 | Living Room |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}} -->

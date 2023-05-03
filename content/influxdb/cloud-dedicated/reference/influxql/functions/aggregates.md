@@ -13,7 +13,8 @@ weight: 205
 Use aggregate functions to assess, aggregate, and return values in your data.
 Aggregate functions return one row containing the aggregate values from each InfluxQL group.
 
-Each aggregate function below covers **syntax** including parameters to pass to the function, and **examples** of how to use the function. Examples use [NOAA water sample data](/influxdb/v2.7/reference/sample-data/#noaa-water-sample-data).
+_Examples use the sample data set provided in the
+[Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
 
 - [COUNT()](#count)
 - [DISTINCT()](#distinct)
@@ -28,135 +29,164 @@ Each aggregate function below covers **syntax** including parameters to pass to 
 ## COUNT()
 
 Returns the number of non-null [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
-Supports all field value [data types](/influxdb/cloud-dedicated/reference/glossary/#data-type).
 
 ```sql
 COUNT(field_expression)
 ```
 
-##### Arguments
+#### Arguments
 
 - **field_expression**: Expression to identify one or more fields to operate on.
   Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
   constant, regular expression, or wildcard (`*`).
+  Supports all field types.
 
 #### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Count values for a field" %}}
-
-Return the number of non-null field values in the `water_level` field key in the `h2o_feet` measurement.
+{{% expand "Count the number of non-null values in a field" %}}
 
 ```sql
-SELECT COUNT("water_level") FROM "h2o_feet"
+SELECT COUNT(temp) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |            count |
-| :------------------- | ---------------: |
-| 1970-01-01T00:00:00Z | 61026.0000000000 |
+| time                 | count |
+| :------------------- | ----: |
+| 1970-01-01T00:00:00Z |    26 |
 
 {{% /expand %}}
 
-{{% expand "Count values for each field in a measurement" %}}
-
-Return the number of non-null field values for each field key associated with the `h2o_feet` measurement.
-The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
+{{% expand "Count the number of non-null values in each field" %}}
 
 ```sql
-SELECT COUNT(*) FROM "h2o_feet"
+SELECT COUNT(*) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | count_level description | count_water_level |
-| :------------------- | ----------------------: | ----------------: |
-| 1970-01-01T00:00:00Z |        61026.0000000000 |  61026.0000000000 |
+| time                 | count_co | count_hum | count_temp |
+| :------------------- | -------: | --------: | ---------: |
+| 1970-01-01T00:00:00Z |       26 |        26 |         26 |
 
 {{% /expand %}}
 
-{{% expand "Count values for fields that match a regular expression" %}}
-
-Return the number of non-null field values for every field key that contains the
-word `water` in the `h2o_feet` measurement.
+{{% expand "Count the number of non-null values in field keys that match a regular expression" %}}
 
 ```sql
-SELECT COUNT(/water/) FROM "h2o_feet"
+SELECT COUNT(/^[th]/) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | count_water_level |
-| :------------------- | ----------------: |
-| 1970-01-01T00:00:00Z |  61026.0000000000 |
+| time                 | count_hum | count_temp |
+| :------------------- | --------: | ---------: |
+| 1970-01-01T00:00:00Z |        26 |         26 |
 
 {{% /expand %}}
 
 {{% expand "Count distinct values for a field" %}}
 
-Return the number of unique field values for the `level description` field key
-and the `h2o_feet` measurement.
-InfluxQL supports nesting [DISTINCT()](#distinct) in `COUNT()`.
+InfluxQL supports nesting [`DISTINCT()`](#distinct) in `COUNT()`.
 
 ```sql
-SELECT COUNT(DISTINCT("level description")) FROM "h2o_feet"
+SELECT COUNT(DISTINCT(co)) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |        count |
-| :------------------- | -----------: |
-| 1970-01-01T00:00:00Z | 4.0000000000 |
+| time                 | count |
+| :------------------- | ----: |
+| 1970-01-01T00:00:00Z |    12 |
 
 {{% /expand %}}
 
+{{% expand "Count the number of non-null field values grouped by time" %}}
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  COUNT(temp)
+FROM home
+WHERE
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+| time                 | count |
+| :------------------- | ----: |
+| 2022-01-01T06:00:00Z |     4 |
+| 2022-01-01T12:00:00Z |     6 |
+| 2022-01-01T18:00:00Z |     3 |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
 {{< /expand-wrapper >}}
 
 ## DISTINCT()
 
 Returns the list of unique [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
-Supports all field value [data types](/influxdb/cloud-dedicated/reference/glossary/#data-type).
-_InfluxQL supports nesting `DISTINCT()` with [`COUNT()`](#count)_.
 
 ```sql
 DISTINCT(field_key)
 ```
 
-##### Arguments
+#### Arguments
 
 - **field_key**: Field key to return distinct values from.
+  Supports all field types.
+
+#### Notable behaviors
+
+- InfluxQL supports nesting `DISTINCT()` with [`COUNT()`](#count-distinct-values-for-a-field).
 
 #### Examples
 
 {{< expand-wrapper >}}
-{{% expand "List the distinct field values associated with a field key" %}}
+{{% expand "List the distinct field values" %}}
 
 Return a tabular list of the unique field values in the `level description`
 field key in the `h2o_feet` measurement.
 
 ```sql
-SELECT DISTINCT("level description") FROM "h2o_feet"
+SELECT DISTINCT(co) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | distinct                  |
-| :------------------- | :------------------------ |
-| 1970-01-01T00:00:00Z | between 6 and 9 feet      |
-| 1970-01-01T00:00:00Z | below 3 feet              |
-| 1970-01-01T00:00:00Z | between 3 and 6 feet      |
-| 1970-01-01T00:00:00Z | at or greater than 9 feet |
+| time                 | distinct |
+| :------------------- | -------: |
+| 1970-01-01T00:00:00Z |        0 |
+| 1970-01-01T00:00:00Z |        1 |
+| 1970-01-01T00:00:00Z |        3 |
+| 1970-01-01T00:00:00Z |        4 |
+| 1970-01-01T00:00:00Z |        7 |
+| 1970-01-01T00:00:00Z |        5 |
+| 1970-01-01T00:00:00Z |        9 |
+| 1970-01-01T00:00:00Z |       18 |
+| 1970-01-01T00:00:00Z |       14 |
+| 1970-01-01T00:00:00Z |       22 |
+| 1970-01-01T00:00:00Z |       17 |
+| 1970-01-01T00:00:00Z |       26 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -175,7 +205,7 @@ and converts those results into the summed area per **unit** of time.
 INTEGRAL(field_expression[, unit])
 ```
 
-##### Arguments
+#### Arguments
 
 - **field_expression**: Expression to identify one or more fields to operate on.
   Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
@@ -186,131 +216,112 @@ INTEGRAL(field_expression[, unit])
 #### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Calculate the integral for the field values associated with a field key" %}}
-
-Return the area under the curve (in seconds) for the field values associated
-with the `water_level` field key and in the `h2o_feet` measurement.
+{{% expand "Calculate the integral for a field" %}}
 
 ```sql
-SELECT INTEGRAL("water_level")
-FROM "h2o_feet"
-WHERE
-  "location" = 'santa_monica'
-  AND time >= '2019-08-18T00:00:00Z'
-  AND time <= '2019-08-18T00:30:00Z'
+SELECT
+  INTEGRAL(co)
+FROM home
+WHERE room = 'Kitchen'
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |        integral |
-| :------------------- | --------------: |
-| 1970-01-01T00:00:00Z | 4184.8200000000 |
+| time                 | integral |
+| :------------------- | -------: |
+| 1970-01-01T00:00:00Z |   266400 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the integral for the field values associated with a field key and specify the unit option" %}}
-
-Return the area under the curve (in minutes) for the field values associated
-with the `water_level` field key and in the `h2o_feet` measurement.
+{{% expand "Calculate the integral for a field and specify the unit option" %}}
 
 ```sql
-SELECT INTEGRAL("water_level", 1m)
-FROM "h2o_feet"
-WHERE
-  "location" = 'santa_monica'
-  AND time >= '2019-08-18T00:00:00Z'
-  AND time <= '2019-08-18T00:30:00Z'
+SELECT
+  INTEGRAL(co, 1h)
+FROM home
+WHERE room = 'Kitchen'
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |      integral |
-| :------------------- | ------------: |
-| 1970-01-01T00:00:00Z | 69.7470000000 |
+| time                 | integral |
+| :------------------- | -------: |
+| 1970-01-01T00:00:00Z |       74 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the integral for the field values associated with each field key in a measurement and specify the unit option" %}}
+{{% expand "Calculate the integral for _each_ field and specify the unit option" %}}
 
 Return the area under the curve (in minutes) for the field values associated
 with each field key that stores numeric values in the `h2o_feet` measurement.
 The `h2o_feet` measurement has on numeric field: `water_level`.
 
 ```sql
-SELECT INTEGRAL(*, 1m)
-FROM "h2o_feet"
-WHERE
-  "location" = 'santa_monica'
-  AND time >= '2019-08-18T00:00:00Z'
-  AND time <= '2019-08-18T00:30:00Z'
+SELECT
+  INTEGRAL(*, 1h)
+FROM home
+WHERE room = 'Kitchen'
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | integral_water_level |
-| :------------------- | -------------------: |
-| 1970-01-01T00:00:00Z |        69.7470000000 |
+| time                 | integral_co | integral_hum | integral_temp |
+| :------------------- | ----------: | -----------: | ------------: |
+| 1970-01-01T00:00:00Z |          74 |          435 |        272.25 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the integral for the field values associated with each field key that matches a regular expression and specify the unit option" %}}
-
-Return the area under the curve (in minutes) for the field values associated
-with each field key that stores numeric values includes the word `water` in
-the `h2o_feet` measurement.
+{{% expand "Calculate the integral for the field keys that matches a regular expression" %}}
 
 ```sql
-SELECT INTEGRAL(/water/, 1m)
-FROM "h2o_feet"
-WHERE
-  "location" = 'santa_monica'
-  AND time >= '2019-08-18T00:00:00Z'
-  AND time <= '2019-08-18T00:30:00Z'
+SELECT
+  INTEGRAL(/^[th]/, 1h)
+FROM home
+WHERE room = 'Kitchen'
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | integral_water_level |
-| :------------------- | -------------------: |
-| 1970-01-01T00:00:00Z |        69.7470000000 |
+| time                 | integral_hum | integral_temp |
+| :------------------- | -----------: | ------------: |
+| 1970-01-01T00:00:00Z |          435 |        272.25 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the integral for the field values associated with a field key and include several clauses" %}}
+{{% expand "Calculate the integral for a field grouping by time" %}}
 
-Return the area under the curve (in minutes) for the field values associated
-with the `water_level` field key and in the `h2o_feet` measurement in the
-[time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax) between
-`2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z`, [grouped](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals) results into 12-minute intervals, and
-[limit](/influxdb/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of results returned to one.
+{{% influxdb/custom-timestamps %}}
 
 ```sql
-SELECT INTEGRAL("water_level", 1m)
-FROM "h2o_feet"
+SELECT
+  INTEGRAL(co, 1h)
+FROM home
 WHERE
-  "location" = 'santa_monica'
-  AND time >= '2019-08-18T00:00:00Z'
-  AND time <= '2019-08-18T00:30:00Z'
-GROUP BY time(12m)
-LIMIT 1
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | integral      |
-| :------------------- | -------------: |
-| 2019-08-18T00:00:00Z | 28.3590000000 |
+| time                 | integral |
+| :------------------- | -------: |
+| 2022-01-01T06:00:00Z |        0 |
+| 2022-01-01T12:00:00Z |       30 |
+| 2022-01-01T18:00:00Z |       44 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -318,111 +329,95 @@ name: h2o_feet
 ## MEAN()
 
 Returns the arithmetic mean (average) of [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
-`MEAN()` supports int64 and float64 field value [data types](/influxdb/cloud-dedicated/reference/glossary/#data-type).
 
 ```sql
 MEAN(field_expression)
 ```
 
-##### Arguments
+#### Arguments
 
 - **field_expression**: Expression to identify one or more fields to operate on.
   Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
   constant, regular expression, or wildcard (`*`).
+  Supports **numeric fields**.
 
 #### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Calculate the mean field value associated with a field key" %}}
-
-Return the average field value in the `water_level` field key in the `h2o_feet` measurement.
+{{% expand "Calculate the mean value of a field" %}}
 
 ```sql
-SELECT MEAN("water_level") FROM "h2o_feet"
+SELECT MEAN(temp) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |         mean |
-| :------------------- | -----------: |
-| 1970-01-01T00:00:00Z | 4.4418674882 |
+| time                 |               mean |
+| :------------------- | -----------------: |
+| 1970-01-01T00:00:00Z | 22.396153846153844 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the mean field value associated with each field key in a measurement" %}}
-
-Return the average field value for every field key that stores numeric values
-in the `h2o_feet` measurement.
-The `h2o_feet` measurement has one numeric field: `water_level`.
+{{% expand "Calculate the mean value of each field" %}}
 
 ```sql
-SELECT MEAN(*) FROM "h2o_feet"
+SELECT MEAN(*) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | mean_water_level |
-| :------------------- | ---------------: |
-| 1970-01-01T00:00:00Z |     4.4418674882 |
+| time                 |           mean_co | mean_hum |          mean_temp |
+| :------------------- | ----------------: | -------: | -----------------: |
+| 1970-01-01T00:00:00Z | 5.269230769230769 |    36.15 | 22.396153846153844 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the mean field value associated with each field key that matches a regular expression" %}}
-
-Return the average field value for each field key that stores numeric values and
-includes the word `water` in the `h2o_feet` measurement.
+{{% expand "Calculate the mean value of field keys that match a regular expression" %}}
 
 ```sql
-SELECT MEAN(/water/) FROM "h2o_feet"
+SELECT MEAN(/^[th]/) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | mean_water_level |
-| :------------------- | ---------------: |
-| 1970-01-01T00:00:00Z |     4.4418674882 |
+| time                 | mean_hum |          mean_temp |
+| :------------------- | -------: | -----------------: |
+| 1970-01-01T00:00:00Z |    36.15 | 22.396153846153844 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the mean field value associated with a field key and include several clauses" %}}
+{{% expand "Calculate the mean value of a field grouped by time" %}}
 
-Return the average of the values in the `water_level` field key in the
-[time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z` and
-[group](/influxdb/v2.7/query-data/influxql/explore-data/group-by/)
-results into 12-minute time intervals and per tag.
-Then [fill](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill)
-empty time intervals with `9.01` and
-[limit](/influxdb/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points and series returned to seven and one.
+{{% influxdb/custom-timestamps %}}
 
 ```sql
-SELECT MEAN("water_level")
-FROM "h2o_feet"
+SELECT
+  MEAN(temp)
+FROM home
 WHERE
-  time >= '2019-08-18T00:00:00Z'
-  AND time <= '2019-08-18T00:30:00Z'
-GROUP BY time(12m),* fill(9.01)
-LIMIT 7
-SLIMIT 1
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
-tags: location=coyote_creek
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |         mean |
-| :------------------- | -----------: |
-| 2019-08-18T00:00:00Z | 8.4615000000 |
-| 2019-08-18T00:12:00Z | 8.2725000000 |
-| 2019-08-18T00:24:00Z | 8.0710000000 |
+| time                 |               mean |
+| :------------------- | -----------------: |
+| 2022-01-01T06:00:00Z |             22.275 |
+| 2022-01-01T12:00:00Z | 22.649999999999995 |
+| 2022-01-01T18:00:00Z | 23.033333333333335 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -430,114 +425,103 @@ tags: location=coyote_creek
 ## MEDIAN()
 
 Returns the middle value from a sorted list of [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
-`MEDIAN()` supports int64 and float64 field value [data types](/influxdb/cloud-dedicated/reference/glossary/#data-type).
-
-{{% note %}}
-**Note:** `MEDIAN()` is nearly equivalent to [`PERCENTILE(field_key, 50)`](/influxdb/v2.7/query-data/influxql/functions/selectors/#percentile), except `MEDIAN()` returns the average of the two middle field values if the field contains an even number of values.
-{{% /note %}}
 
 ```sql
 MEDIAN(field_expression)
 ```
 
-##### Arguments
+#### Arguments
 
 - **field_expression**: Expression to identify one or more fields to operate on.
   Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
   constant, regular expression, or wildcard (`*`).
+  Supports **numeric fields**.
+
+#### Notable behaviors
+
+- `MEDIAN()` is nearly equivalent to
+  [`PERCENTILE(field_key, 50)`](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#percentile),
+  except `MEDIAN()` returns the average of the two middle field values if the
+  field contains an even number of values.
 
 #### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Calculate the median field value associated with a field key" %}}
-
-Return the middle field value in the `water_level` field key and in the `h2o_feet` measurement.
+{{% expand "Calculate the median value of a field" %}}
 
 ```sql
-SELECT MEDIAN("water_level") FROM "h2o_feet"
+SELECT MEDIAN(temp) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |       median |
-| :------------------- | -----------: |
-| 1970-01-01T00:00:00Z | 4.1240000000 |
+| time                 | median |
+| :------------------- | -----: |
+| 1970-01-01T00:00:00Z |  22.45 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the median field value associated with each field key in a measurement" %}}
-
-Return the middle field value for every field key that stores numeric values in the `h2o_feet` measurement.
-The `h2o_feet` measurement has one numeric field: `water_level`.
+{{% expand "Calculate the median value of each field" %}}
 
 ```sql
-SELECT MEDIAN(*) FROM "h2o_feet"
+SELECT MEDIAN(*) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | median_water_level |
-| :------------------- | -----------------: |
-| 1970-01-01T00:00:00Z |       4.1240000000 |
+| time                 | median_co | median_hum | median_temp |
+| :------------------- | --------: | ---------: | ----------: |
+| 1970-01-01T00:00:00Z |         1 |      36.05 |       22.45 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the median field value associated with each field key that matches a regular expression" %}}
+{{% expand "Calculate the median value of field keys that match a regular expression" %}}
 
-Return the middle field value for every field key that stores numeric values and
-includes the word `water` in the `h2o_feet` measurement.
 
 ```sql
-SELECT MEDIAN(/water/) FROM "h2o_feet"
+SELECT MEDIAN(/^[th]/) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | median_water_level |
-| :------------------- | -----------------: |
-| 1970-01-01T00:00:00Z |       4.1240000000 |
+| time                 | median_hum | median_temp |
+| :------------------- | ---------: | ----------: |
+| 1970-01-01T00:00:00Z |      36.05 |       22.45 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the median field value associated with a field key and include several clauses" %}}
+{{% expand "Calculate the median value of a field grouped by time" %}}
 
-Return the middle field value in the `water_level` field key in the
-[time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z` and
-[group](/influxdb/v2.7/query-data/influxql/explore-data/group-by/)
-results into 12-minute time intervals and per tag.
-Then [fill](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill)
-empty time intervals with `700 `, [limit](/influxdb/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points and series returned to seven and one, and [offset](/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/) the series returned by one.
+{{% influxdb/custom-timestamps %}}
 
 ```sql
-SELECT MEDIAN("water_level")
-FROM "h2o_feet"
+SELECT
+  MEDIAN(temp)
+FROM home
 WHERE
-  time >= '2019-08-18T00:00:00Z'
-  AND time <= '2019-08-18T00:30:00Z'
-GROUP BY time(12m),* fill(700)
-LIMIT 7
-SLIMIT 1
-SOFFSET 1
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
-tags: location=santa_monica
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |       median |
-| :------------------- | -----------: |
-| 2019-08-18T00:00:00Z | 2.3655000000 |
-| 2019-08-18T00:12:00Z | 2.3360000000 |
-| 2019-08-18T00:24:00Z | 2.2655000000 |
+| time                 |             median |
+| :------------------- | -----------------: |
+| 2022-01-01T06:00:00Z | 22.549999999999997 |
+| 2022-01-01T12:00:00Z |               22.7 |
+| 2022-01-01T18:00:00Z |               23.1 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -545,118 +529,102 @@ tags: location=santa_monica
 ## MODE()
 
 Returns the most frequent value in a list of [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
-`MODE()` supports all field value [data types](/influxdb/cloud-dedicated/reference/glossary/#data-type).
-
-{{% note %}}
-**Note:** `MODE()` returns the field value with the earliest [timestamp](/influxdb/v2.7/reference/glossary/#timestamp)
-if  there's a tie between two or more values for the maximum number of occurrences.
-{{% /note %}}
 
 ```sql
 MODE(field_expression)
 ```
 
-##### Arguments
+#### Arguments
 
 - **field_expression**: Expression to identify one or more fields to operate on.
   Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
   constant, regular expression, or wildcard (`*`).
+  Supports all field types.
+
+#### Notable behaviors
+
+- `MODE()` returns the field value with the earliest
+  [timestamp](/influxdb/cloud-dedicated/reference/glossary/#timestamp)
+  if  there's a tie between two or more values for the maximum number of occurrences.
 
 #### Examples
 
 {{< expand-wrapper >}}
 
-{{% expand "Calculate the mode field value associated with a field key" %}}
-
-Return the most frequent field value in the `level description` field key and in
-the `h2o_feet` measurement.
+{{% expand "Calculate the mode value of a field" %}}
 
 ```sql
-SELECT MODE("level description") FROM "h2o_feet"
+SELECT MODE(co) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | mode                 |
-| :------------------- | :------------------- |
-| 1970-01-01T00:00:00Z | between 3 and 6 feet |
+| time                 | mode |
+| :------------------- | ---: |
+| 1970-01-01T00:00:00Z |    0 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the mode field value associated with each field key in a measurement" %}}
-
-Return the most frequent field value for every field key in the `h2o_feet` measurement.
-The `h2o_feet` measurement has two field keys: `level description` and `water_level`.
+{{% expand "Calculate the mode value of each field" %}}
 
 ```sql
-SELECT MODE(*) FROM "h2o_feet"
+SELECT MODE(*) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | mode_level description | mode_water_level |
-| :------------------- | :--------------------- | ---------------: |
-| 1970-01-01T00:00:00Z | between 3 and 6 feet   |     2.6900000000 |
+| time                 | mode_co | mode_hum | mode_temp |
+| :------------------- | ------: | -------: | --------: |
+| 1970-01-01T00:00:00Z |       0 |       36 |      22.7 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the mode field value associated with each field key that matches a regular expression" %}}
-
-Return the most frequent field value for every field key that includes the word
-`/water/` in the `h2o_feet` measurement.
+{{% expand "Calculate the mode of field keys that match a regular expression" %}}
 
 ```sql
-SELECT MODE(/water/) FROM "h2o_feet"
+SELECT MODE(/^[th]/) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | mode_water_level |
-| :------------------- | ---------------: |
-| 1970-01-01T00:00:00Z |     2.6900000000 |
+| time                 | mode_hum | mode_temp |
+| :------------------- | -------: | --------: |
+| 1970-01-01T00:00:00Z |       36 |      22.7 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the mode field value associated with a field key and include several clauses" %}}
+{{% expand "Calculate the mode a field grouped by time" %}}
 
-Return the mode of the values associated with the `water_level` field key in the
-[time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z` and
-[group](/influxdb/v2.7/query-data/influxql/explore-data/group-by/)
-results into 12-minute time intervals and per tag.
-Then [limis](/influxdb/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points and series retu
-ned tothree and one, and it [offsets](/influxdb/v2.7/query-data/influxql/explore-data
-#the-offset-and-soffset-clauses) the series returned by one.
+{{% influxdb/custom-timestamps %}}
 
 ```sql
-SELECT MODE("level description")
-FROM "h2o_feet"
+SELECT
+  MODE(co)
+FROM home
 WHERE
-  time >= '2019-08-18T00:00:00Z'
-  AND time <= '2019-08-18T00:30:00Z'
-GROUP BY time(12m),*
-LIMIT 3
-SLIMIT 1
-SOFFSET 1
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
-tags: location=santa_monica
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | mode         |
-| :------------------- | :----------- |
-| 2019-08-18T00:00:00Z | below 3 feet |
-| 2019-08-18T00:12:00Z | below 3 feet |
-| 2019-08-18T00:24:00Z | below 3 feet |
+| time                 | mode |
+| :------------------- | ---: |
+| 2022-01-01T06:00:00Z |    0 |
+| 2022-01-01T12:00:00Z |    1 |
+| 2022-01-01T18:00:00Z |   18 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -664,112 +632,96 @@ tags: location=santa_monica
 ## SPREAD()
 
 Returns the difference between the minimum and maximum [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
-`SPREAD()` supports int64 and float64 field value [data types](/influxdb/cloud-dedicated/reference/glossary/#data-type).
 
 ```sql
 SPREAD(field_expression)
 ```
 
+#### Arguments
+
 - **field_expression**: Expression to identify one or more fields to operate on.
   Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
   constant, regular expression, or wildcard (`*`).
+  Supports **numeric fields**.
 
 #### Examples
 
 {{< expand-wrapper >}}
 
-{{% expand "Calculate the spread for the field values associated with a field key" %}}
-
-Return the difference between the minimum and maximum field values in the
-`water_level` field key and in the `h2o_feet` measurement.
+{{% expand "Calculate the spread of a field" %}}
 
 ```sql
-SELECT SPREAD("water_level") FROM "h2o_feet"
+SELECT SPREAD(temp) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |        spread |
-| :------------------- | ------------: |
-| 1970-01-01T00:00:00Z | 10.5740000000 |
-
-{{% /expand %}}
-
-{{% expand "Calculate the spread for the field values associated with each field key in a measurement" %}}
-
-Return the difference between the minimum and maximum field values for every
-field key that stores numeric values in the `h2o_feet` measurement.
-The `h2o_feet` measurement has one numeric field: `water_level`.
-
-```sql
-SELECT SPREAD(*) FROM "h2o_feet"
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | spread_water_level |
+| time                 |             spread |
 | :------------------- | -----------------: |
-| 1970-01-01T00:00:00Z |      10.5740000000 |
+| 1970-01-01T00:00:00Z | 2.3000000000000007 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the spread for the field values associated with each field key that matches a regular expression" %}}
-
-Return the difference between the minimum and maximum field values for every
-field key that stores numeric values and includes the word `water` in the `h2o_feet` measurement.
+{{% expand "Calculate the spread of each field" %}}
 
 ```sql
-SELECT SPREAD(/water/) FROM "h2o_feet"
+SELECT SPREAD(*) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | spread_water_level |
-| :------------------- | -----------------: |
-| 1970-01-01T00:00:00Z |      10.5740000000 |
+| time                 | spread_co | spread_hum |        spread_temp |
+| :------------------- | --------: | ---------: | -----------------: |
+| 1970-01-01T00:00:00Z |        26 |          1 | 2.3000000000000007 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the spread for the field values associated with a field key and include several clauses" %}}
-
-Return the difference between the minimum and maximum field values in the `water_level` field key in the
-[time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z` and
-[group](/influxdb/v2.7/query-data/influxql/explore-data/group-by/)
-results into 12-minute time intervals and per tag.
-Then [fill](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill)
-empty time intervals with `18`, [lim
-ts](/ifluxdb/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points and series returned to three and one, and [offsets](/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/) the series returned by one.
+{{% expand "Calculate the spread of field keys that match a regular expression" %}}
 
 ```sql
-SELECT SPREAD("water_level")
-FROM "h2o_feet"
+SELECT SPREAD(/^[th]/) FROM home
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+| time                 | spread_hum |        spread_temp |
+| :------------------- | ---------: | -----------------: |
+| 1970-01-01T00:00:00Z |          1 | 2.3000000000000007 |
+
+{{% /expand %}}
+
+{{% expand "Calculate the spread of a field grouped by time" %}}
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  SPREAD(co)
+FROM home
 WHERE
-  time >= '2019-08-18T00:00:00Z'
-  AND time <= '2019-08-18T00:30:00Z'
-GROUP BY time(12m),* fill(18)
-LIMIT 3
-SLIMIT 1
-SOFFSET 1
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
-tags: location=santa_monica
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |       spread |
-| :------------------- | -----------: |
-| 2019-08-18T00:00:00Z | 0.0270000000 |
-| 2019-08-18T00:12:00Z | 0.0140000000 |
-| 2019-08-18T00:24:00Z | 0.0030000000 |
+| time                 | spread |
+| :------------------- | -----: |
+| 2022-01-01T06:00:00Z |      0 |
+| 2022-01-01T12:00:00Z |      9 |
+| 2022-01-01T18:00:00Z |      8 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -777,109 +729,95 @@ tags: location=santa_monica
 ## STDDEV()
 
 Returns the standard deviation of [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
-`STDDEV()` supports int64 and float64 field value [data types](/influxdb/cloud-dedicated/reference/glossary/#data-type).
 
 ```sql
 STDDEV(field_expression)
 ```
 
-##### Arguments
+#### Arguments
 
 - **field_expression**: Expression to identify one or more fields to operate on.
   Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
   constant, regular expression, or wildcard (`*`).
+  Supports **numeric fields**.
 
 #### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Calculate the standard deviation for the field values associated with a field key" %}}
-
-Return the standard deviation of the field values in the `water_level` field key
-and in the `h2o_feet` measurement.
+{{% expand "Calculate the standard deviation of a field" %}}
 
 ```sql
-SELECT STDDEV("water_level") FROM "h2o_feet"
+SELECT STDDEV(temp) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |       stddev |
-| :------------------- | -----------: |
-| 1970-01-01T00:00:00Z | 2.2789744110 |
-
-{{% /expand %}}
-
-{{% expand "Calculate the standard deviation for the field values associated with each field key in a measurement" %}}
-
-Return the standard deviation of numeric fields in the `h2o_feet` measurement.
-The `h2o_feet` measurement has one numeric field: `water_level`.
-
-```sql
-SELECT STDDEV(*) FROM "h2o_feet"
-```
-
-{{% influxql/table-meta %}}
-name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time                 | stddev_water_level |
+| time                 |             stddev |
 | :------------------- | -----------------: |
-| 1970-01-01T00:00:00Z |       2.2789744110 |
+| 1970-01-01T00:00:00Z | 0.5553238833191091 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the standard deviation for the field values associated with each field key that matches a regular expression" %}}
-
-Return the standard deviation of numeric fields with `water` in the field key in the `h2o_feet` measurement.
+{{% expand "Calculate the standard deviation of each field" %}}
 
 ```sql
-SELECT STDDEV(/water/) FROM "h2o_feet"
+SELECT STDDEV(*) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 | stddev_water_level |
-| :------------------- | -----------------: |
-| 1970-01-01T00:00:00Z |       2.2789744110 |
+| time                 |         stddev_co |          stddev_hum |        stddev_temp |
+| :------------------- | ----------------: | ------------------: | -----------------: |
+| 1970-01-01T00:00:00Z | 7.774613519951676 | 0.25495097567963926 | 0.5553238833191091 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the standard deviation for the field values associated with a field key and include several clauses" %}}
-
-Return the standard deviation of the field values in the `water_level` field key in the
-[time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z` and
-[group](/influxdb/v2.7/query-data/influxql/explore-data/group-by/)
-results into 12-minute time intervals and per tag.
-Then [fill](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill)
-empty time intervals with `18000`, [limit](/influxdb/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points and series returned to two and one, and [offsets](/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/) the series returned by one.
+{{% expand "Calculate the standard deviation of field keys that match a regular expression" %}}
 
 ```sql
-SELECT STDDEV("water_level")
-FROM "h2o_feet"
+SELECT STDDEV(/^[th]/) FROM home
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+| time                 |          stddev_hum |        stddev_temp |
+| :------------------- | ------------------: | -----------------: |
+| 1970-01-01T00:00:00Z | 0.25495097567963926 | 0.5553238833191091 |
+
+{{% /expand %}}
+
+{{% expand "Calculate the standard deviation of a field grouped by time" %}}
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT
+  STDDEV(co)
+FROM home
 WHERE
-  time >= '2019-08-18T00:00:00Z'
-  AND time <= '2019-08-18T00:30:00Z'
-GROUP BY time(12m),* fill(18000)
-LIMIT 2
-SLIMIT 1
-SOFFSET 1
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
-tags: location=santa_monica
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |       stddev |
-| :------------------- | -----------: |
-| 2019-08-18T00:00:00Z | 0.0190918831 |
-| 2019-08-18T00:12:00Z | 0.0098994949 |
+| time                 |             stddev |
+| :------------------- | -----------------: |
+| 2022-01-01T06:00:00Z |                  0 |
+| 2022-01-01T12:00:00Z | 3.6742346141747673 |
+| 2022-01-01T18:00:00Z |                  4 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -887,109 +825,95 @@ tags: location=santa_monica
 ## SUM()
 
 Returns the sum of [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
-`SUM()` supports int64 and float64 field value [data types](/influxdb/cloud-dedicated/reference/glossary/#data-type).
 
 ```sql
 SUM(field_expression)
 ```
 
-##### Arguments
+#### Arguments
 
 - **field_expression**: Expression to identify one or more fields to operate on.
   Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
   constant, regular expression, or wildcard (`*`).
+  Supports **numeric fields**.
 
 #### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Calculate the sum of the field values associated with a field key" %}}
-
-Return the summed total of the field values in the `water_level` field key and
-in the `h2o_feet` measurement.
+{{% expand "Calculate the sum of values in a field" %}}
 
 ```sql
-SELECT SUM("water_level") FROM "h2o_feet"
+SELECT SUM(co) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |               sum |
-| :------------------- | ----------------: |
-| 1970-01-01T00:00:00Z | 271069.4053333958 |
+| time                 | sum |
+| :------------------- | --: |
+| 1970-01-01T00:00:00Z | 137 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the sum of the field values associated with each field key in a measurement" %}}
-
-Return the summed total of numeric fields in the `h2o_feet` measurement.
-The `h2o_feet` measurement has one numeric field: `water_level`.
+{{% expand "Calculate the sum of values in each field" %}}
 
 ```sql
-SELECT SUM(*) FROM "h2o_feet"
+SELECT SUM(*) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |   sum_water_level |
-| :------------------- | ----------------: |
-| 1970-01-01T00:00:00Z | 271069.4053333958 |
+| time                 | sum_co | sum_hum | sum_temp |
+| :------------------- | -----: | ------: | -------: |
+| 1970-01-01T00:00:00Z |    137 |   939.9 |    582.3 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the sum of the field values associated with each field key that matches a regular expression" %}}
-
-Return the summed total of numeric fields with `water` in the field key in the `h2o_feet` measurement.
+{{% expand "Calculate the sum of values in field keys that match a regular expression" %}}
 
 ```sql
-SELECT SUM(/water/) FROM "h2o_feet"
+SELECT SUM(/^[th]/) FROM home
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |   sum_water_level |
-| :------------------- | ----------------: |
-| 1970-01-01T00:00:00Z | 271069.4053333958 |
+| time                 | sum_hum | sum_temp |
+| :------------------- | ------: | -------: |
+| 1970-01-01T00:00:00Z |   939.9 |    582.3 |
 
 {{% /expand %}}
 
-{{% expand "Calculate the sum of the field values associated with a field key and include several clauses" %}}
+{{% expand "Calculate the sum of values in a field grouped by time" %}}
 
-Return the summed total of the field values in the `water_level` field key in the
-[time range](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax)
-between `2019-08-18T00:00:00Z` and `2019-08-18T00:30:00Z` and
-[group](/influxdb/v2.7/query-data/influxql/explore-data/group-by/)
-results into 12-minute time intervals and per tag. 
-Then [fill](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#group-by-time-intervals-and-fill)
-empty time intervals with 18000, and [limit](/influxdb/influxdb/v2.7/query-data/influxql/explore-data/limit-and-slimit/)
-the number of points and series returned to four and one.
+{{% influxdb/custom-timestamps %}}
 
 ```sql
-SELECT SUM("water_level")
-FROM "h2o_feet"
+SELECT
+  SUM(co)
+FROM home
 WHERE
-  time >= '2019-08-18T00:00:00Z'
-  AND time <= '2019-08-18T00:30:00Z'
-GROUP BY time(12m),* fill(18000)
-LIMIT 4
-SLIMIT 1
+  room = 'Kitchen'
+  AND time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T20:00:00Z'
+GROUP BY time(6h)
 ```
 
 {{% influxql/table-meta %}}
-name: h2o_feet
-tags: location=coyote_creek
+name: home
 {{% /influxql/table-meta %}}
 
-| time                 |           sum |
-| :------------------- | ------------: |
-| 2019-08-18T00:00:00Z | 16.9230000000 |
-| 2019-08-18T00:12:00Z | 16.5450000000 |
-| 2019-08-18T00:24:00Z | 16.1420000000 |
+| time                 | sum |
+| :------------------- | --: |
+| 2022-01-01T06:00:00Z |   0 |
+| 2022-01-01T12:00:00Z |  21 |
+| 2022-01-01T18:00:00Z |  66 |
+
+{{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
