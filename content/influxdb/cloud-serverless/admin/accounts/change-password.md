@@ -10,6 +10,7 @@ menu:
     name: Change your password
     parent: Manage accounts
 weight: 102
+alt_engine: /influxdb/cloud/account-management/change-password/
 ---
 
 To change or reset your InfluxDB Cloud password:

@@ -8,6 +8,7 @@ menu:
   influxdb_cloud_serverless:
     parent: Administer InfluxDB Cloud
     name: Manage billing
+alt_engine: /influxdb/cloud/account-management/billing/
 ---
 
 Learn how to upgrade your plan, access billing details, and review and resolve plan limit overages:
