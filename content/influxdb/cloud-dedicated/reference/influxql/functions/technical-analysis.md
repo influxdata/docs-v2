@@ -33,8 +33,11 @@ predict and forecast future values.
 
 ### HOLT_WINTERS()
 
-Returns N number of predicted [field values](/influxdb/v2.7/reference/glossary/#field-value)
+Returns N number of predicted [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value)
 using the [Holt-Winters](https://www.otexts.org/fpp/7/5) seasonal method.
+`HOLT_WINTERS_WITH_FIT()` returns the fitted values in addition to `N` seasonally
+adjusted predicted field values.
+
 Input data points must occur at regular time intervals.
 To ensure regular time intervals, `HOLT_WINTERS` requires an aggregate expression
 as input and a a `GROUP BY time()` to apply the aggregate operation at regular intervals.
@@ -48,12 +51,12 @@ Use `HOLT_WINTERS()` to:
 HOLT_WINTERS[_WITH_FIT](aggregrate_expression, N, S)
 ```
 
-`HOLT_WINTERS_WITH_FIT(function(field_key),N,S)` returns the fitted values in
-addition to `N` seasonally adjusted predicted field values for the specified field key.
-
 #### Arguments
 
-- **aggregate_expression**:
+- **aggregate_expression**: Aggregate operation on a specified expression.
+  The operation can use any [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregate/).
+  The expression can operate on a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
+  constant, regular expression, or wildcard (`*`).
   Supports **numeric fields**.
 - **N**: Number of values to predict.
   Predicted values occur at the same interval specified in the `GROUP BY time()` clause.
@@ -70,58 +73,21 @@ addition to `N` seasonally adjusted predicted field values for the specified fie
 #### Examples
 
 {{< expand-wrapper >}}
-{{% expand "Use Holt Winters to predict field values" %}}
+{{% expand "Use Holt Winters to predict field values with no seasonal adjustment" %}}
 
-##### Sample data
 
-The examples use the following subset of the [NOAA water sample data](/influxdb/v2.7/reference/sample-data/#noaa-water-sample-data):
 
-```sql
-SELECT "water_level" FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_monica' AND time >= '2019-08-17T00:00:00Z' AND time <= '2019-08-22T00:00:00Z'
-```
+{{% /expand %}}
 
-##### Step 1: Match the trends of the raw data
+{{% expand "Use Holt Winters to predict field values with seasonal adjustment" %}}
 
-Write a `GROUP BY time()` query that matches the general trends of the raw `water_level` data.
-Here, we use the [`FIRST()`](/influxdb/v2.7/query-data/influxql/functions/selectors/#first) function:
 
-```sql
-SELECT FIRST("water_level") FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_monica' and time >= '2019-08-17T00:00:00Z' AND time <= '2019-08-22T00:00:00Z' GROUP BY time(6h,6h)
-```
 
-In the `GROUP BY time()` clause, the first argument (`6h`) matches
-the length of time that occurs between each peak and trough in the `water_level` data.
-The second argument (`6h`) is the
-[offset interval](/influxdb/v2.7/query-data/influxql/explore-data/group-by/#advanced-group-by-time-syntax).
-The offset interval alters the default `GROUP BY time()` boundaries to
-match the time range of the raw data.
+{{% /expand %}}
 
-{{< img-hd src="/img/influxdb/2-4-influxql-holtwinters-1.png" alt="Holt Winters base data" />}}
+{{% expand "Use Holt Winters to predict field values with fitted values" %}}
 
-###### Step 2: Determine the seasonal pattern
 
-Identify the seasonal pattern in the data using the information from the
-query in step 1.
-
-The pattern in the `water_level` data repeats about every 12 hours.
-There are two data points per season, so `2` is the seasonal pattern argument.
-
-{{< img-hd src="/img/influxdb/2-4-influxql-holtwinters-2.png" alt="Holt Winters seasonal data" />}}
-
-###### Step 3: Apply the HOLT_WINTERS() function
-
-Add the Holt-Winters function to the query.
-Here, we use `HOLT_WINTERS_WITH_FIT()` to view both the fitted values and the predicted values:
-
-```sql
-SELECT HOLT_WINTERS_WITH_FIT(FIRST("water_level"),10,2) FROM "noaa"."autogen"."h2o_feet" WHERE "location"='santa_monica' AND time >= '2019-08-17 00:00:00' AND time <= '2019-08-22 00:00:00' GROUP BY time(6h,6h)
-```
-
-In the `HOLT_WINTERS_WITH_FIT()` function, the first argument (`10`) requests 10 predicted field values.
-Each predicted point is `6h` apart, the same interval as the first argument in the `GROUP BY time()` clause.
-The second argument in the `HOLT_WINTERS_WITH_FIT()` function (`2`) is the seasonal pattern that we determined in the previous step.
-
-{{< img-hd src="/img/influxdb/2-4-influxql-holtwinters-3.png" alt="Holt Winters predicted data" />}}
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
