@@ -4,11 +4,11 @@ description: The Go Flight SQL client integrates with golang scripts and applica
 external_url: https://pkg.go.dev/github.com/apache/arrow/go/v12/arrow/flight/flightsql
 menu:
   influxdb_cloud_serverless:
-    name: Go Flight SQL client
+    name: Go
     parent: Flight SQL clients
+    identifier: go-flightsql-client
     params:
       url: https://pkg.go.dev/github.com/apache/arrow/go/v12/arrow/flight/flightsql
-    identifier: go-flightsql
 influxdb/cloud-serverless/tags: [Golang, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
 ---
