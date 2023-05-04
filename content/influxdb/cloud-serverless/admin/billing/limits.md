@@ -6,19 +6,21 @@ description: >
 weight: 110
 menu:
   influxdb_cloud_serverless:
-    parent: Manage accounts
+    parent: Manage billing
     name: Adjustable quotas and limits
 related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
 alt_engine: /influxdb/cloud/account-management/limits/
+aliases:
+  - /influxdb/cloud-serverless/admin/accounts/limits/
 ---
 
 InfluxDB Cloud Serverless applies (non-adjustable) global system limits and
 adjustable service quotas on a per organization basis.
 
 {{% warn %}}
-All __rates__ (data-in (writes), queries (reads), and deletes) are accrued within a fixed five-minute window.
+All __rates__ (data-in (writes), and queries (reads)) are accrued within a fixed five-minute window.
 Once a rate is exceeded, an error response is returned until the current five-minute window resets.
 {{% /warn %}}
 
@@ -44,12 +46,6 @@ _To request higher service quotas, reach out to [InfluxData Support](https://sup
   - Bytes in HTTP in response payload
 - **Available resources**:
   - 2 buckets (excluding `_monitoring` and `_tasks` buckets)
-  - 5 dashboards
-  - 5 tasks
-- **Alerts**:
-  - 2 checks
-  - 2 notification rules
-  - Unlimited Slack notification endpoints
 - **Storage**: 30 days of data retention (see [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period))
 
 {{% note %}}
@@ -63,20 +59,17 @@ To write historical data older than 30 days, retain data for more than 30 days, 
 - **Read**: Rate of 3 GB data per 5 minutes
   - Bytes in HTTP in response payload
 - **Unlimited resources**
-  - dashboards
-  - tasks
   - buckets
   - users
-- **Alerts**
-  - Unlimited checks
-  - Unlimited notification rules
-  - Unlimited notification endpoints for [all endpoints](/flux/v0.x/tags/notification-endpoints/)
-- **Storage**: Set your retention period to unlimited or up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud-serverless/admin/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or set a custom retention period using the [`influx bucket update command`](/influxdb/cloud-serverless/reference/cli/influx/bucket/update/) with the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
+- **Storage**: Set your retention period to unlimited or up to 1 year by
+  [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud-serverless/admin/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui),
+  or set a custom retention period using the [`influx bucket update command`](/influxdb/cloud-serverless/reference/cli/influx/bucket/update/)
+  with the [`influx` CLI](influxdb/cloud-serverless/reference/cli/influx/).
 
 ## Global limits
 
 InfluxDB Cloud Serverless applies global (non-adjustable) system limits to all accounts,
-which protects the InfluxDB Cloud infrastructure for all users.
+which protects the InfluxDB Cloud Serverless infrastructure for all users.
 As the service continues to evolve, we'll continue to review these global limits
 and adjust them as appropriate.
 
@@ -89,18 +82,20 @@ Limits include:
 - **Total query time**: 1500 seconds of _total_ query time every 30 seconds
 - **Task processing time**: 150 seconds
 - **Total task time**: 1500 seconds of _total_ task time every 30 seconds
-- **Delete request limit**: Rate of 300 every 5 minutes
-  
+<!-- - **Delete request limit**: Rate of 300 every 5 minutes -->
+<!--   
     {{% note %}}
 **Tip:**
 Combine delete predicate expressions (if possible) into a single request. InfluxDB limits delete requests by number of requests (not points per request).
-    {{% /note %}}
+    {{% /note %}} -->
 
 ## UI error messages
 
 The {{< cloud-name >}} UI displays a notification message when service quotas or limits are exceeded. The error messages correspond with the relevant [API error responses](#api-error-responses).
 
-Errors can also be viewed in the [Usage page](/influxdb/cloud-serverless/admin/accounts/data-usage/) under **Limit Events**, e.g. `event_type_limited_query`, `event_type_limited_write`,`event_type_limited_cardinality`, or `event_type_limited_delete_rate`.
+Errors can also be viewed in the [Usage page](/influxdb/cloud-serverless/admin/billing/data-usage/)
+under **Limit Events**, e.g. `event_type_limited_query`, `event_type_limited_write`,
+`event_type_limited_cardinality`, or `event_type_limited_delete_rate`.
 
 ## API error responses
 

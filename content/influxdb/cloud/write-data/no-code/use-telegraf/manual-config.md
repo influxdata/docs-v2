@@ -17,7 +17,7 @@ related:
   - /{{< latest "telegraf" >}}/plugins//
   - /influxdb/cloud/telegraf-configs/create/
   - /influxdb/cloud/telegraf-configs/update/
-alt_engine: /influxdb/cloud-iox/write-data/use-telegraf/configure/manual-config/
+alt_engine: /influxdb/cloud-serverless/write-data/use-telegraf/configure/manual-config/
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into an InfluxDB v2.0 bucket.

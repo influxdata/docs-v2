@@ -10,7 +10,7 @@ menu:
 weight: 201
 related:
   - /influxdb/cloud/telegraf-configs/create/
-alt_engine: /influxdb/cloud-iox/write-data/use-telegraf/configure/auto-config/
+alt_engine: /influxdb/cloud-serverless/write-data/use-telegraf/configure/auto-config/
 ---
 
 The InfluxDB user interface (UI) can automatically create

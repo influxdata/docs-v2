@@ -276,7 +276,7 @@ from(bucket: "example-cloud-bucket")
 
 The `migration.batchInterval` setting controls the time range queried by each batch.
 The "density" of the data in your InfluxDB Cloud bucket and your InfluxDB Cloud
-organization's [rate limits and quotas](/influxdb/cloud-serverless/admin/accounts/limits/)
+organization's [rate limits and quotas](/influxdb/cloud-serverless/admin/billing/limits/)
 determine what your batch interval should be.
 
 For example, if you're migrating data collected from hundreds of sensors with

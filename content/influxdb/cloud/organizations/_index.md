@@ -9,7 +9,7 @@ weight: 10
 influxdb/cloud/tags: [organizations]
 related:
   - /influxdb/cloud/account-management/
-alt_engine: /influxdb/cloud-iox/admin/organizations/
+alt_engine: /influxdb/cloud-serverless/admin/organizations/
 ---
 
 An **organization** is a workspace for a group of users.
