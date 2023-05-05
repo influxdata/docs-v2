@@ -68,11 +68,11 @@ The example uses the [Apache Arrow Java implementation (`org.apache.arrow`)](htt
 interacting with Flight database servers using Arrow Flight RPC and Flight SQL.
 
 1. [Set up InfluxDB](#set-up-influxdb)
-1. [Install prerequisites](#install-prerequisites)
-1. [Create the FlightQuery class](#create-the-flightquery-class)
-2. [Create a query client](#create-a-query-client)
-3. [Execute a query](#execute-a-query)
-4. [Retrieve and process Arrow data](#retrieve-and-process-arrow-data)
+2. [Install prerequisites](#install-prerequisites)
+3. [Create the FlightQuery class](#create-the-flightquery-class)
+4. [Create a query client](#create-a-query-client)
+5. [Execute a query](#execute-a-query)
+6. [Retrieve and process Arrow data](#retrieve-and-process-arrow-data)
 
 To clone or download the example application that you can run with Docker, see the [InfluxCommunity/ArrowFlightClient_Query_Examples repo](https://github.com/InfluxCommunity/ArrowFlightClient_Query_Examples) on GitHub.
 
