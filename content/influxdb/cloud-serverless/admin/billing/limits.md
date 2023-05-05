@@ -95,7 +95,7 @@ The {{< cloud-name >}} UI displays a notification message when service quotas or
 
 Errors can also be viewed in the [Usage page](/influxdb/cloud-serverless/admin/billing/data-usage/)
 under **Limit Events**, e.g. `event_type_limited_query`, `event_type_limited_write`,
-`event_type_limited_cardinality`, or `event_type_limited_delete_rate`.
+or `event_type_limited_delete_rate`.
 
 ## API error responses
 

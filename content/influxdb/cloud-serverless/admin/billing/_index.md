@@ -109,10 +109,11 @@ On the **Billing page**, view the total limits available for the Free Plan.
 
 If you exceed your plan's [adjustable quotas or limits](/influxdb/cloud-serverless/account-management/limits/), you'll receive a notification in the {{< cloud-name "short" >}} user interface (UI) **Usage** page.
 
-If you exceed the series cardinality limit, InfluxDB adds a rate limit event warning on the **Usage** page, and begins to reject write requests with new series. To start processing write requests again, do the following as needed:
+To raise your oranization's rate limits:
 
-- **Usage-Based plan**: To request higher rate limits, contact [InfluxData Support](https://support.influxdata.com).
-- **Free plan**: To raise rate limits, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan).
+- **Usage-Based plan**: Contact [InfluxData Support](https://support.influxdata.com)
+  to request higher rate limits.
+- **Free plan**: [Upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan).
 
 #### Write and query limits (HTTP response code)
 
