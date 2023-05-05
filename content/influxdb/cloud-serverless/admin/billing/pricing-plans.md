@@ -38,12 +38,11 @@ The Usage-Based Plan uses the following pricing vectors to calculate InfluxDB Cl
   user to answer a query, also known as data transfer costs.
 - **Query count** is the total number of individual query operations:
    - Each individual query operation—including those from external clients—is one billable query operation.
-   - Refreshing a dashboard with multiple cells will incur multiple query operations.
    - Failed operations aren’t counted.
 - **Data In** is the amount of data you’re writing into InfluxDB Cloud (measured in MB).
 - **Storage** is the amount of data you’re storing in InfluxDB Cloud (measured in GB/hour).
 
-Discover how to [manage InfluxDB Cloud billing](/influxdb/cloud-serverless/admin/billing/).
+Discover how to [manage InfluxDB Cloud Serverless billing](/influxdb/cloud-serverless/admin/billing/).
 
 ## Annual Plan
 <!-- Maybe this should be "annual commitment"? -->
