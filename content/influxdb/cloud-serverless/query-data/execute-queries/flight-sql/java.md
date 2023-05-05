@@ -365,7 +365,7 @@ public class FlightQuery {
 
 1. In your `<PROJECT_ROOT>/src/main/java` directory, create the `com/influxdb/examples` subdirectories for the `com.influxdb.examples` package.
 2. In the `examples` directory from the preceding step, create the `FlightQuery.java` class file.
-You should have the following directory structure:
+    You should have the following directory structure:
     <!-- Can't make filesystem-diagram shortcode indent properly -->
     ```
     PROJECT_ROOT
