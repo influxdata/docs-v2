@@ -30,7 +30,7 @@ InfluxDB Cloud account and, on your organization's homepage, and then look for
 bottom of the far-right column.
 
 - [Migrate data from TSM to TSM](/influxdb/cloud/migrate-data/migrate-cloud-to-cloud/). 
-- [Migrate data TSM to IOx](/influxdb/cloud-iox/write-data/migrate-data/migrate-tsm-to-iox/)
+- [Migrate data TSM to IOx](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/)
 
 {{% note %}}
 #### Dual write into both organizations

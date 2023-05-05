@@ -7,7 +7,7 @@ menu:
   influxdb_cloud_serverless:
     name: Switch InfluxDB accounts
     parent: Manage accounts
-weight: 105
+weight: 101
 aliases:
   - /influxdb/cloud-serverless/account-management/switch-account/
 alt_engine: /influxdb/cloud/account-management/switch-account/

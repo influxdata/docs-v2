@@ -14,7 +14,7 @@ related:
   - /influxdb/cloud/reference/key-concepts/data-elements/
   - /influxdb/cloud/organizations/buckets/create-bucket/
   - /influxdb/cloud/reference/cli/influx/
-alt_engine: /influxdb/cloud-iox/admin/buckets/manage-explicit-bucket-schemas/
+alt_engine: /influxdb/cloud-serverless/admin/buckets/manage-explicit-bucket-schemas/
 ---
 
 Use [**explicit bucket schemas**](/influxdb/cloud/reference/key-concepts/data-elements/#bucket-schema) to enforce [column names](/influxdb/cloud/reference/glossary/#column), [tags](/influxdb/cloud/reference/glossary/#tag), [fields](/influxdb/cloud/reference/glossary/#field), and

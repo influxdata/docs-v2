@@ -12,7 +12,7 @@ related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
   - /influxdb/cloud/write-data/best-practices/resolve-high-cardinality/
-alt_engine: /influxdb/cloud-iox/admin/accounts/limits/
+alt_engine: /influxdb/cloud-serverless/admin/billing/limits/
 ---
 
 InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis.
