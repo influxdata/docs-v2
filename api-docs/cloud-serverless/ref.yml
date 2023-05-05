@@ -15292,12 +15292,12 @@ paths:
 
           1. Validates the request and queues the write.
           2. If queued, responds with _success_ (HTTP `2xx` status code); _error_ otherwise.
-          3. Handles the delete asynchronously and reaches eventual consistency.
+          3. Handles the write asynchronously and reaches eventual consistency.
 
-          To ensure that InfluxDB Cloud handles writes and deletes in the order you request them,
+          To ensure that InfluxDB Cloud handles writes in the order you request them,
           wait for a success response (HTTP `2xx` status code) before you send the next request.
 
-          Because writes and deletes are asynchronous, your change might not yet be readable
+          Because writes are asynchronous, your change might not yet be readable
           when you receive the response.
 
         #### InfluxDB OSS
