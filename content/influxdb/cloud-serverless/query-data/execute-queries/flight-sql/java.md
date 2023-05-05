@@ -92,7 +92,7 @@ If you don't already have data to query, see how to
 We recommend using Docker and Maven for building and running the Java application and avoiding platform-specific dependency problems.
 
 The example `Dockerfile` installs compatible versions of Maven
-and Java JDK in the Docker container, and runs the Maven commands to download dependencies and compile the application.
+and Java JDK in the Docker container, and then runs the Maven commands to download dependencies and compile the application.
 
 Follow the instructions to download and install Docker for your system:
 
