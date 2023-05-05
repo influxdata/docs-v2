@@ -139,7 +139,7 @@ query InfluxDB Cloud Dedicated:
 
     InfluxDB Cloud Serverless requires your **database name**:
     
-    - **Key**: `iox-namespace-name`
+    - **Key**: `database`
     - **Value**: Database name
 
 7.  Click **Save & test**.
