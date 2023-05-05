@@ -4,8 +4,9 @@ description: The Python `flightsql-dbapi` library integrates with Python scripts
 external_url: https://github.com/influxdata/flightsql-dbapi
 menu:
   influxdb_cloud_serverless:
-    name: Python Flight SQL client
+    name: Python
     parent: Flight SQL clients
+    identifier: python-flightsql-client
     params:
       url: https://github.com/influxdata/flightsql-dbapi
 influxdb/cloud-serverless/tags: [Python, gRPC, SQL, Flight SQL, client libraries]

@@ -196,7 +196,7 @@ To query data from InfluxDB Cloud Dedicated using Python, use the
 [`pyinflux3` module](https://github.com/InfluxCommunity/pyinflux3).
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
-_If your projects virtual environment is already running, skip to step 3._
+_If your project's virtual environment is already running, skip to step 3._
 
 1.  Setup your Python virtual environment.
     Inside of your project directory:
