@@ -387,7 +387,7 @@ public class FlightQuery {
         ```
     
     2. Add `import` statements for the following packages. You'll use classes and methods
-    from these packages in the remaining steps:
+       from these packages in the remaining steps:
     
         - `org.apache.arrow.flight.auth2.BearerCredentialWriter`
         - `org.apache.arrow.flight.CallHeaders`
