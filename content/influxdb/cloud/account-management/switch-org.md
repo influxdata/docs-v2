@@ -10,7 +10,7 @@ menu:
 weight: 105
 related:
   - /influxdb/cloud/account-management/switch-account/
-alt_engine: /influxdb/cloud-iox/admin/organizations/switch-org/
+alt_engine: /influxdb/cloud-serverless/admin/organizations/switch-org/
 ---
 
 If you belong to more than one {{< cloud-name >}} organization with the same email address, you can switch from one organization to another while staying logged in.

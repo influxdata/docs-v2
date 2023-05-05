@@ -6,11 +6,11 @@ description: >
   the [InfluxDB Cloud login page](https://cloud2.influxdata.com/login).
   Passwords must be at least 8 characters in length, and must not contain common words, personal information, or previous passwords. 
 menu:
-  influxdb_cloud:
+  influxdb_cloud_serverless:
     name: Change your password
-    parent: Account management
-weight: 105
-alt_engine: /influxdb/cloud-serverless/admin/accounts/change-password/
+    parent: Manage accounts
+weight: 102
+alt_engine: /influxdb/cloud/account-management/change-password/
 ---
 
 To change or reset your InfluxDB Cloud password:

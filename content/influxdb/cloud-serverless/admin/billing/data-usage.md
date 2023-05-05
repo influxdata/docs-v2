@@ -6,19 +6,19 @@ description: >
 weight: 103
 menu:
   influxdb_cloud_serverless:
-    parent: Manage accounts
+    parent: Manage billing
     name: View data usage
 related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
 alt_engine: /influxdb/cloud/account-management/data-usage/
+aliases:
+  - /influxdb/cloud-serverless/admin/accounts/data-usage/
 ---
 
-View the statistics of your data usage and rate limits (reads, writes, and
-delete limits) on the InfluxDB Cloud Serverless UI **Usage** page.
-Some usage data affects monthly costs and other usage data (for example, delete
-limits), does not affect pricing. For more information, see
-[limits and adjustable quotas](/influxdb/cloud-serverless/admin/accounts/limits/).
+View the statistics of your data usage and rate limits (reads and writes) on the
+InfluxDB Cloud Serverless UI **Usage** page.
+For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/admin/billing/limits/).
 
 To view your {{< cloud-name >}} data usage, do the following:
 
@@ -29,9 +29,7 @@ To view your {{< cloud-name >}} data usage, do the following:
     - **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance.
       Data in and write requests do not count towards your query count.
     - **Query Count:** Total number of individual query operations, which include
-      queries, tasks (alerts, notifications) and Data Explorer activity.
-      Note, a script that includes multiple requests (for example, has multiple
-      `from()...` lines) counts as one query.
+      queries from external clients.
     - **Storage:** Total disk usage in gigabytes.
     - **Data Out:** Total data in MB sent as responses to queries from your
       InfluxDB Cloud Serverless instance.
