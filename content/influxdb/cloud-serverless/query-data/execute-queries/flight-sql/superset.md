@@ -214,17 +214,17 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
     
     **Query parameters**
 
-    - **`?bucket-name`**: URL-encoded InfluxDB [bucket name](influxdb/cloud-serverless/admin/buckets/view-buckets/)
+    - **`?database`**: URL-encoded InfluxDB [bucket name](influxdb/cloud-serverless/admin/buckets/view-buckets/)
     - **`?token`**: InfluxDB [API token](/influxdb/cloud-serverless/get-started/setup/) with `READ` access to the specified bucket
 
-    {{< code-callout "&lt;(domain|port|bucket-name|token)&gt;" >}}
+    {{< code-callout "&lt;(domain|port|database|token)&gt;" >}}
 {{< code-callout "us-east-1-1\.aws\.cloud2\.influxdata\.com|443|example-bucket|example-token" >}}
 ```sh
 # Syntax
-datafusion+flightsql://<domain>:<port>?bucket-name=<bucket-name>&token=<token>
+datafusion+flightsql://<domain>:<port>?database=<database>&token=<token>
 
 # Example
-datafusion+flightsql://us-east-1-1.aws.cloud2.influxdata.com:443?bucket-name=example-bucket&token=example-token
+datafusion+flightsql://us-east-1-1.aws.cloud2.influxdata.com:443?database=example-bucket&token=example-token
 ```
 {{< /code-callout >}}
     {{< /code-callout >}}
