@@ -266,7 +266,12 @@ _If your project's virtual environment is already running, skip to step 3._
 4. Create the `config.json` configuration.
 
     ```sh
-    influx3 config --name="my-config" --database="BUCKET_NAME" --host="cloud2.influxdata.com" --token="INFLUX_API_READ_TOKEN" --org="INFLUX_ORG_ID"
+    influx3 config \
+      --name="my-config" \
+      --database="BUCKET_NAME" \
+      --host="cloud2.influxdata.com" \
+      --token="INFLUX_API_READ_TOKEN" \
+      --org="INFLUX_ORG_ID"
     ```
 
     Replace the following:
