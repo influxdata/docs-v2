@@ -14,7 +14,7 @@ menu:
 related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
-alt_engine: /influxdb/cloud-iox/admin/accounts/data-usage/
+alt_engine: /influxdb/cloud-serverless/admin/billing/data-usage/
 ---
 
 View the statistics of your data usage and rate limits (reads, writes, and delete limits) on the Usage page. Some usage data affects monthly costs ([pricing vectors](/influxdb/cloud/account-management/pricing-plans/#pricing-vectors)) and other usage data (for example, delete limits), does not affect pricing. For more information, see the [InfluxDB Cloud limits and adjustable quotas](/influxdb/cloud/account-management/limits/).

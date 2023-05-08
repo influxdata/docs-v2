@@ -46,7 +46,7 @@ influxdb:
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
-  altname: InfluxDB Cloud (TSM)
+  altname: InfluxDB Cloud
   namespace: influxdb
   menu_category: managed
   versions: [cloud]
@@ -55,7 +55,7 @@ influxdb_cloud:
 
 influxdb_cloud_serverless:
   name: InfluxDB Cloud Serverless
-  altname: InfluxDB Cloud Serverless
+  altname: InfluxDB Cloud
   namespace: influxdb
   menu_category: managed
   versions: [cloud-serverless]
@@ -64,7 +64,7 @@ influxdb_cloud_serverless:
 
 influxdb_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
-  altname: InfluxDB Cloud Dedicated
+  altname: InfluxDB Cloud
   namespace: influxdb
   menu_category: managed
   versions: [cloud-dedicated]

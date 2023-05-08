@@ -11,6 +11,7 @@ menu:
   influxdb_cloud:
     parent: Account management
     name: Cancel InfluxDB Cloud
+alt_engine: /influxdb/cloud-serverless/admin/accounts/cancel-account/
 ---
 
 To cancel your {{< cloud-name >}} subscription, complete the following steps:

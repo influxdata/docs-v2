@@ -7,7 +7,7 @@ menu:
     name: View buckets
     parent: Manage buckets
 weight: 202
-alt_engine: /influxdb/cloud-iox/admin/buckets/view-buckets/
+alt_engine: /influxdb/cloud-serverless/admin/buckets/view-buckets/
 ---
 
 ## View buckets in the InfluxDB UI
