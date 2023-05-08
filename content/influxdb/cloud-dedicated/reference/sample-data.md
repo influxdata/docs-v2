@@ -24,24 +24,26 @@ Includes daily weather metrics from three San Francisco Bay Area airports from
 **January 1, 2020 to December 31, 2022**.
 This sample dataset provides a
 
-- weather _(measurement)_
-  - location _(tag)_
+- weather <em style="opacity: .5">(measurement)</em>
+  - location <em style="opacity: .5">(tag)</em>
     - Concord
     - Hayward
     - San Francisco
-  - precip _(field)_
-  - temp_avg _(field)_
-  - temp_max _(field)_
-  - temp_min _(field)_
-  - wind_avg _(field)_
+  - precip <em style="opacity: .5">(field)</em>
+  - temp_avg <em style="opacity: .5">(field)</em>
+  - temp_max <em style="opacity: .5">(field)</em>
+  - temp_min <em style="opacity: .5">(field)</em>
+  - wind_avg <em style="opacity: .5">(field)</em>
 
+#### Write the NOAA Bay Area weather data to InfluxDB
 
 Use the InfluxDB v2 or v1 API to write the NOAA Bay Area weather sample data to
-InfluxDB Cloud Dedicated.
+{{< cloud-name >}}.
 Replace the following in the script below:
 
 - `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
-- `DATABASE_TOKEN`: a database token with sufficient permissions to the database
+- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
+  with sufficient permissions to the database
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
