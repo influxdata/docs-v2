@@ -34,6 +34,8 @@ Use the **InfluxDB** core Grafana plugin to query data with **InfluxQL**.
 
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
 - [Install the FlightSQL plugin](#install-the-flightsql-plugin)
+  - [Use grafana-cli](#use-grafana-cli)
+  - [Use the Grafana UI](#use-the-grafana-ui)
 - [Create a datasource](#create-a-datasource)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
