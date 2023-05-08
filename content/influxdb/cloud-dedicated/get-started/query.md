@@ -227,7 +227,12 @@ _If your project's virtual environment is already running, skip to step 3._
 4. Create the `config.json` configuration.
 
     ```sh
-    influx3 config --name="my-config" --database="DATABASE_NAME" --host="cluster-id.influxdb.io" --token="DATABASE_TOKEN" --org="INFLUX_ORG_ID"
+    influx3 config \
+      --name="my-config" \
+      --database="DATABASE_NAME" \
+      --host="cluster-id.influxdb.io" \
+      --token="DATABASE_TOKEN" \
+      --org="INFLUX_ORG_ID"
     ```
 
     Replace the following:
