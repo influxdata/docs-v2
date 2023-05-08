@@ -15,13 +15,15 @@ metadata: [3 / 3]
 related:
   - /influxdb/cloud-dedicated/query-data/
   - /influxdb/cloud-dedicated/query-data/sql/
+  - /influxdb/cloud-dedicated/query-data/execute-queries/
+  - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/
 ---
 
 InfluxDB Cloud Dedicated supports multiple query languages:
 
 - **SQL**: Traditional SQL powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
   query engine. The supported SQL syntax is similar to PostgreSQL.
-- **InfluxQL**: A SQL-like query language designed to query time series data from
+- **InfluxQL**: An SQL-like query language designed to query time series data from
   InfluxDB.
 
 This tutorial walks you through the fundamentals of querying data in InfluxDB and
@@ -44,17 +46,16 @@ InfluxDB Cloud Dedicated supports many different tools for querying data, includ
 
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
 
-- [Flight SQL clients](){{< req text="\*  " color="magenta" >}}
-- [InfluxDB client libraries](){{< req text="\*  " color="magenta" >}}
-- [InfluxDB v1 HTTP API](?t=InfluxDB+API#execute-a-sql-query)
-- [Superset](https://superset.apache.org/)
+- [Flight SQL clients](?t=Go#execute-an-sql-query){{< req "\*  " >}}
+- [Superset](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/)
 - [Grafana](/influxdb/cloud-dedicated/query-data/tools/grafana/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 
 ## SQL query basics
 
 InfluxDB Cloud's SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
-query engine which provides a SQL syntax similar to PostgreSQL.
+query engine which provides an SQL syntax similar to PostgreSQL.
 
 {{% note %}}
 This is a brief introduction to writing SQL queries for InfluxDB.
@@ -69,7 +70,7 @@ InfluxDB SQL queries most commonly include the following clauses:
   measurement or use the wild card alias (`*`) to select all fields and tags
   from a measurement.
 - {{< req "\*">}} `FROM`: Identify the measurement to query.
-  If coming from a SQL background, an InfluxDB measurement is the equivalent 
+  If coming from an SQL background, an InfluxDB measurement is the equivalent 
   of a relational table.
 - `WHERE`: Only return data that meets defined conditions such as falling within
   a time range, containing specific tag values, etc.
@@ -162,9 +163,14 @@ ORDER BY room, _time
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-### Execute a SQL query
+### Execute an SQL query
 
-Use the **InfluxDB UI**, **`influx` CLI**, or **InfluxDB API** to execute SQL queries.
+Get started with one of the following tools for querying data stored in an InfluxDB Cloud Dedicated database:
+
+- **Flight SQL clients**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
+- **influx3 CLI**: Send SQL queries from your terminal command-line.
+- **Grafana**: Query InfluxDB v3 with the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/) and connect and visualize data.
+
 For this example, use the following query to select all the data written to the
 **get-started** bucket between
 {{% influxdb/custom-timestamps-span %}}
@@ -185,10 +191,62 @@ WHERE
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
+[influx3 CLI](#influx3-cli)
 [Python](#)
 [Go](#)
 {{% /tabs %}}
+{{% tab-content %}}
+<!--------------------------- BEGIN influx3 CONTENT --------------------------->
 
+Query InfluxDB v3 using SQL and the `influx3` CLI, part of the [`InfluxCommunity/pyinflux3`](https://github.com/InfluxCommunity/pyinflux3) community repository.
+The following steps include setting up a Python virtual environment already
+covered in [Get started writing data](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
+_If your project's virtual environment is already running, skip to step 3._
+
+1.  Setup your Python virtual environment.
+    Inside of your project directory:
+
+    ```sh
+    python -m venv envs/virtual-env
+    ```
+
+2. Activate the virtual environment.
+
+    ```sh
+    source ./envs/virtual-env/bin/activate
+    ```
+
+3. Install the following dependencies:
+
+    {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+
+    - `pyarrow` {{< req text="\*" color="magenta" >}}
+    - `flightsql-dbapi` {{< req text="\*" color="magenta" >}}
+    - `pyinflux3` {{< req text="\*" color="magenta" >}}
+
+4. Create the `config.json` configuration.
+
+    ```sh
+    influx3 config --name="my-config" --database="DATABASE_NAME" --host="cluster-id.influxdb.io" --token="DATABASE_TOKEN" --org="INFLUX_ORG_ID"
+    ```
+
+    Replace the following:
+
+    - **`DATABASE_NAME`**: the name of the InfluxDB Cloud Dedicated bucket to query
+    - **`DATABASE_TOKEN`**: [Database token](/influxdb/cloud-dedicated/admin/tokens/) with
+          read access to the **get-started** database.
+    - **`INFLUX_ORG_ID`**: InfluxDB organization ID
+
+5. Enter the `influx3 sql` command and your SQL query statement.
+
+  ```sh
+  influx3 sql "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'"
+  ```
+
+`influx3` displays query results in your terminal.
+  
+<!--------------------------- END influx3 CONTENT --------------------------->
+{{% /tab-content %}}
 {{% tab-content %}}
 <!--------------------------- BEGIN PYTHON CONTENT ---------------------------->
 
@@ -235,7 +293,8 @@ _If your project's virtual environment is already running, skip to step 3._
         Provide the following credentials:
 
         - **host**: InfluxDB Cloud Dedicated cluster URL (without protocol or trailing slash)
-        - **token**: Database token with read access to the specified database
+        - **token**: [Database token](/influxdb/cloud-dedicated/admin/tokens/) with
+          read access to the **get-started** database.
         - **database**: Database name to query
     
     3.  Provide the SQL query to execute. In the example below, it's assigned
@@ -262,10 +321,13 @@ _If your project's virtual environment is already running, skip to step 3._
 
 ```py
 from influxdb_client_3 import InfluxDBClient3
+import os
+# INFLUX_TOKEN is an environment variable you created for your database READ token
+TOKEN = os.getenv('INFLUX_TOKEN')
 
 client = InfluxDBClient3(
     host="cluster-id.influxdb.io",
-    token="DATABASE_TOKEN",
+    token=TOKEN,
     database="get-started",
 )
 
@@ -393,6 +455,7 @@ import (
 
 func dbQuery(ctx context.Context) error {
 	url := "cluster-id.influxdb.io:443"
+  // INFLUX_TOKEN is an environment variable you created for your database READ token
 	token := os.Getenv("INFLUX_TOKEN")
 	database := "get-started"
 
@@ -461,8 +524,7 @@ func main() {
 
 {{% /influxdb/custom-timestamps %}}
 
-Install all the necessary packages and run the program to write the line
-protocol to your InfluxDB Cloud Dedicated cluster.
+Install all the necessary packages and run the program to query your InfluxDB Cloud Dedicated cluster.
 
 ```sh
 go get ./...
