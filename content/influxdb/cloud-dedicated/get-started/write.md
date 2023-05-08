@@ -390,12 +390,13 @@ import (
 func dbWrite(ctx context.Context) error {
 	// Create write client
 	url := "https://cluster-id.influxdb.io"
+  // INFLUX_TOKEN is an environment variable you assigned to your database token value
 	token := os.Getenv("INFLUX_TOKEN")
 	writeClient := influxdb2.NewClientWithOptions(url, token, influxdb2.DefaultOptions().SetPrecision(time.Second))
 
 	// Define write API
 	org := "ignored"
-	bucket := "DATABASE_NAME"
+	bucket := "get-started"
 	writeAPI := writeClient.WriteAPIBlocking(org, bucket)
 
 	line := [...]string{
@@ -446,11 +447,6 @@ func main() {
 	}
 }
 ```
-
-Replace the following:
-
-- **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
-- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
 Run the following command to install the necessary packages:
 
