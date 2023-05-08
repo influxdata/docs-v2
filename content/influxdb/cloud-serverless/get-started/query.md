@@ -282,10 +282,9 @@ _If your project's virtual environment is already running, skip to step 3._
 
 5. Enter the `influx3 sql` command and your SQL query statement.
 
-  ```sh
-  influx3 sql "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'"
-  ```
-
+  {{% influxdb/custom-timestamps %}}
+```sh
+influx3 sql "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'"
 `influx3` displays query results in your terminal.
   
 <!--------------------------- END influx3 CONTENT --------------------------->
