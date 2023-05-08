@@ -32,6 +32,8 @@ to query InfluxDB with the Flight SQL protocol.
 
 - [Install Grafana or login to Grafana Cloud](#install-grafana-or-login-to-grafana-cloud)
 - [Install the FlightSQL plugin](#install-the-flightsql-plugin)
+  - [Use grafana-cli](#use-grafana-cli)
+  - [Use the Grafana UI](#use-the-grafana-ui)
 - [Create and configure a FlightSQL datasource](#create-and-configure-a-flightsql-datasource)
 - [Query InfluxDB with Grafana](#query-influxdb-with-grafana)
 - [Build visualizations with Grafana](#build-visualizations-with-grafana)
@@ -118,12 +120,10 @@ Grafana Cloud instance.
     - **Require TLS/SSL**: Enable this toggle.
 
 6.  Add connection **MetaData**.
-    Provide optional key-value pairs to send to your Flight SQL client.
-
-    InfluxDB Cloud Serverless requires your **bucket name** or **bucket-id**:
+    InfluxDB Cloud Serverless requires _one_ of the following key-value pairs:
     
-    - **Key**: `bucket-name` or `bucket-id`
-    - **Value**: Bucket name or bucket ID
+    - **Key**: `database`, **Value**: Bucket name
+    - **Key**: `bucket-id`, **Value**: Bucket ID
 
 7.  Click **Save & test**.
 

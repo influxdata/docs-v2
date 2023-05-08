@@ -22,10 +22,10 @@ related:
 InfluxDB provides many different options for ingesting or writing data, including
 the following:
 
-- [InfluxDB HTTP API (v1 and v2)](/influxdb/cloud-serverless/reference/api/)
+- [InfluxDB HTTP API (v1 and v2)](/influxdb/cloud-dedicated/primers/api/)
 - [`influx` CLI (v1 and v2)](/influxdb/cloud-dedicated/reference/cli/influx/)
 - [Telegraf](/{{< latest "telegraf" >}}/)
-- [InfluxDB client libraries](/influxdb/cloud-dedicated/api-guide/client-libraries/)
+- [InfluxDB client libraries](/influxdb/cloud-dedicated/reference/client-libraries/)
 - etc.
 
 This tutorial walks you through the fundamental of using **line protocol** to write
