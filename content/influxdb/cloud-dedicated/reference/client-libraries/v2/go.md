@@ -122,6 +122,6 @@ func main() {
 ## Query data from InfluxDB with Go
 The InfluxDB v2 Go client cannot query InfluxDB Cloud Dedicated.
 To query your dedicated instance, use the [Go Flight SQL client](https://pkg.go.dev/github.com/apache/arrow/go/v12/arrow/flight/flightsql).
-For an example, see [Get started querying data](/influxdb/cloud-dedicated/get-started/query/?t=Go#execute-a-sql-query).
+For an example, see [Get started querying data](/influxdb/cloud-dedicated/get-started/query/?t=Go#execute-an-sql-query).
 
 For more information, see the [Go client README on GitHub](https://github.com/influxdata/influxdb-client-go).

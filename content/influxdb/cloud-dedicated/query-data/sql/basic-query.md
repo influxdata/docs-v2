@@ -18,7 +18,7 @@ list_code_example: |
 ---
 
 The InfluxDB SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
-query engine which provides a SQL syntax similar to other relational query languages.
+query engine which provides an SQL syntax similar to other relational query languages.
 
 A basic SQL query that queries data from InfluxDB most commonly includes the
 following clauses:

@@ -39,7 +39,7 @@ list_code_example: |
   ```
 ---
 
-A SQL query that aggregates data includes the following clauses:
+An SQL query that aggregates data includes the following clauses:
 
 {{< req type="key" >}}
 
