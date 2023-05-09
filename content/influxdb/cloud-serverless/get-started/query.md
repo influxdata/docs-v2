@@ -217,7 +217,7 @@ WHERE
 
 2.  In the side navigation  menu, click **Data Explorer**.
 
-    {{< nav-icon "data-explorer" "v4" >}}
+{{< nav-icon "data-explorer" "v4" >}}
 
 3.  In the schema browser on the left, select the **get-started** bucket from the
     **bucket** drop-down menu.
