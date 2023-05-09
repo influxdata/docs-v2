@@ -72,7 +72,7 @@ HOLT_WINTERS[_WITH_FIT](aggregrate_expression, N, S)
 
 #### Examples
 
-The examples below use the
+The following examples use the
 [NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
 
 {{< expand-wrapper >}}
@@ -264,7 +264,6 @@ CHANDE_MOMENTUM_OSCILLATOR(field_expression, period[, hold_period[, warmup_type]
   - **simple**: Simple moving average of the first `period` values.
   - **none**: The algorithm does not perform any warmup at all.
 
-
 #### Notable behaviors
 
 - Supports `GROUP BY` clauses that group by tags, but not `GROUP BY` clauses that group by time.
@@ -272,22 +271,181 @@ CHANDE_MOMENTUM_OSCILLATOR(field_expression, period[, hold_period[, warmup_type]
   an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
   to the [field_expression](#arguments-cmo).
 
-  {{< expand-wrapper >}}
-{{% expand "View example" %}}
+#### Examples
+
+{{< expand-wrapper >}}
+{{% expand "Apply `CHANDE_MOMENTUM_OSCILLATOR` to a field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  CHANDE_MOMENTUM_OSCILLATOR(temp, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | chande_momentum_oscillator |
+| :------------------- | -------------------------: |
+| 2022-01-01T11:00:00Z |          53.84615384615377 |
+| 2022-01-01T12:00:00Z |           55.5555555555555 |
+| 2022-01-01T13:00:00Z |        -19.999999999999858 |
+| 2022-01-01T14:00:00Z |         14.285714285714432 |
+| 2022-01-01T15:00:00Z |          59.99999999999972 |
+| 2022-01-01T16:00:00Z |        -14.285714285714432 |
+| 2022-01-01T17:00:00Z |        -14.285714285714432 |
+| 2022-01-01T18:00:00Z |          38.46153846153834 |
+| 2022-01-01T19:00:00Z |          28.57142857142868 |
+| 2022-01-01T20:00:00Z |                         20 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `CHANDE_MOMENTUM_OSCILLATOR` to each field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  CHANDE_MOMENTUM_OSCILLATOR(*, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | chande_momentum_oscillator_co | chande_momentum_oscillator_hum | chande_momentum_oscillator_temp |
+| :------------------- | ----------------------------: | -----------------------------: | ------------------------------: |
+| 2022-01-01T11:00:00Z |                             0 |                             20 |               53.84615384615377 |
+| 2022-01-01T12:00:00Z |                             0 |                             20 |                55.5555555555555 |
+| 2022-01-01T13:00:00Z |                           100 |              42.85714285714228 |             -19.999999999999858 |
+| 2022-01-01T14:00:00Z |                           100 |             24.999999999999332 |              14.285714285714432 |
+| 2022-01-01T15:00:00Z |                           100 |             25.000000000000444 |               59.99999999999972 |
+| 2022-01-01T16:00:00Z |                           100 |                              0 |             -14.285714285714432 |
+| 2022-01-01T17:00:00Z |                           100 |                           -100 |             -14.285714285714432 |
+| 2022-01-01T18:00:00Z |                           100 |               50.0000000000003 |               38.46153846153834 |
+| 2022-01-01T19:00:00Z |                           100 |               28.5714285714285 |               28.57142857142868 |
+| 2022-01-01T20:00:00Z |                           100 |             38.461538461538545 |                              20 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `CHANDE_MOMENTUM_OSCILLATOR` with a custom hold period" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  CHANDE_MOMENTUM_OSCILLATOR(temp, 4, 6)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | chande_momentum_oscillator |
+| :------------------- | -------------------------: |
+| 2022-01-01T14:00:00Z |         14.285714285714432 |
+| 2022-01-01T15:00:00Z |          59.99999999999972 |
+| 2022-01-01T16:00:00Z |        -14.285714285714432 |
+| 2022-01-01T17:00:00Z |        -14.285714285714432 |
+| 2022-01-01T18:00:00Z |          38.46153846153834 |
+| 2022-01-01T19:00:00Z |          28.57142857142868 |
+| 2022-01-01T20:00:00Z |                         20 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `CHANDE_MOMENTUM_OSCILLATOR` with a default non-default warmup type" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  CHANDE_MOMENTUM_OSCILLATOR(temp, 4, -1, 'simple')
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | chande_momentum_oscillator |
+| :------------------- | -------------------------: |
+| 2022-01-01T12:00:00Z |           94.9367088607595 |
+| 2022-01-01T13:00:00Z |          95.04132231404957 |
+| 2022-01-01T14:00:00Z |          95.04132231404955 |
+| 2022-01-01T15:00:00Z |          92.68218929543389 |
+| 2022-01-01T16:00:00Z |          83.79002019036625 |
+| 2022-01-01T17:00:00Z |          84.72964405398058 |
+| 2022-01-01T18:00:00Z |          86.77405015296912 |
+| 2022-01-01T19:00:00Z |          76.28466518769179 |
+| 2022-01-01T20:00:00Z |         53.322717259176535 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Use `CHANDE_MOMENTUM_OSCILLATOR` when grouping by time" %}}
+
+The following example use the
+[NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
 
 ```sql
 SELECT
   CHANDE_MOMENTUM_OSCILLATOR(MEAN(temp_avg), 4)
 FROM weather
-WHERE 
+WHERE
   location = 'San Francisco'
   AND time >= '2020-01-01T00:00:00Z'
-  AND time <= '2022-12-31T59:59:59Z'
-GROUP BY time(7d)
+  AND time <= '2022-12-31T23:59:59Z'
+GROUP BY time(90d)
 ```
 
+{{% influxql/table-meta %}}
+name: weather
+{{% /influxql/table-meta %}}
+
+| time                 | chande_momentum_oscillator |
+| :------------------- | -------------------------: |
+| 2020-07-07T00:00:00Z |                        100 |
+| 2020-10-05T00:00:00Z |         21.498959056210964 |
+| 2021-01-03T00:00:00Z |         2.0072053525475924 |
+| 2021-04-03T00:00:00Z |         -6.190741773563866 |
+| 2021-07-02T00:00:00Z |         -8.924485125858132 |
+| 2021-09-30T00:00:00Z |         1.2078830260648301 |
+| 2021-12-29T00:00:00Z |         -5.181655747468743 |
+| 2022-03-29T00:00:00Z |           -2.3768115942029 |
+| 2022-06-27T00:00:00Z |          6.511381683430422 |
+| 2022-09-25T00:00:00Z |        -7.7487391104997485 |
+| 2022-12-24T00:00:00Z |          2.928763268960232 |
+
 {{% /expand %}}
-  {{< /expand-wrapper >}}
+{{< /expand-wrapper >}}
 
 ### DOUBLE_EXPONENTIAL_MOVING_AVERAGE()
 
@@ -340,6 +498,180 @@ DOUBLE_EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmu
   an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
   to the [field_expression](#arguments-dema).
 
+#### Examples
+
+{{< expand-wrapper >}}
+{{% expand "Apply `DOUBLE_EXPONENTIAL_MOVING_AVERAGE` to a field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  DOUBLE_EXPONENTIAL_MOVING_AVERAGE(temp, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | double_exponential_moving_average |
+| :------------------- | --------------------------------: |
+| 2022-01-01T11:00:00Z |                22.630333333333333 |
+| 2022-01-01T12:00:00Z |                           22.5854 |
+| 2022-01-01T13:00:00Z |                22.747560000000004 |
+| 2022-01-01T14:00:00Z |                         22.814328 |
+| 2022-01-01T15:00:00Z |                22.772071999999998 |
+| 2022-01-01T16:00:00Z |                       22.55332832 |
+| 2022-01-01T17:00:00Z |                22.642048063999997 |
+| 2022-01-01T18:00:00Z |                     23.0672594816 |
+| 2022-01-01T19:00:00Z |                    23.12957407488 |
+| 2022-01-01T20:00:00Z |                    22.89127547648 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `DOUBLE_EXPONENTIAL_MOVING_AVERAGE` to each field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  DOUBLE_EXPONENTIAL_MOVING_AVERAGE(*, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | double_exponential_moving_average_co | double_exponential_moving_average_hum | double_exponential_moving_average_temp |
+| :------------------- | -----------------------------------: | ------------------------------------: | -------------------------------------: |
+| 2022-01-01T11:00:00Z |                                    0 |                    36.056000000000004 |                     22.630333333333333 |
+| 2022-01-01T12:00:00Z |                                    0 |                    36.019200000000005 |                                22.5854 |
+| 2022-01-01T13:00:00Z |                                 0.64 |                    36.322880000000005 |                     22.747560000000004 |
+| 2022-01-01T14:00:00Z |                   0.9279999999999999 |                    36.332544000000006 |                              22.814328 |
+| 2022-01-01T15:00:00Z |                               2.3232 |                    36.266816000000006 |                     22.772071999999998 |
+| 2022-01-01T16:00:00Z |                              5.49376 |                    36.104463360000004 |                            22.55332832 |
+| 2022-01-01T17:00:00Z |                              8.15616 |                          36.029302272 |                     22.642048063999997 |
+| 2022-01-01T18:00:00Z |                           15.0096384 |                    36.573555916800004 |                          23.0672594816 |
+| 2022-01-01T19:00:00Z |                          20.51534848 |                        36.62971828224 |                         23.12957407488 |
+| 2022-01-01T20:00:00Z |                         25.294948352 |                    36.581181808640004 |                         22.89127547648 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `DOUBLE_EXPONENTIAL_MOVING_AVERAGE` with a custom hold period" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  DOUBLE_EXPONENTIAL_MOVING_AVERAGE(temp, 4, 6)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | double_exponential_moving_average |
+| :------------------- | --------------------------------: |
+| 2022-01-01T14:00:00Z |                         22.814328 |
+| 2022-01-01T15:00:00Z |                22.772071999999998 |
+| 2022-01-01T16:00:00Z |                       22.55332832 |
+| 2022-01-01T17:00:00Z |                22.642048063999997 |
+| 2022-01-01T18:00:00Z |                     23.0672594816 |
+| 2022-01-01T19:00:00Z |                    23.12957407488 |
+| 2022-01-01T20:00:00Z |                    22.89127547648 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `DOUBLE_EXPONENTIAL_MOVING_AVERAGE` with a default non-default warmup type" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  DOUBLE_EXPONENTIAL_MOVING_AVERAGE(temp, 4, -1, 'simple')
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | double_exponential_moving_average |
+| :------------------- | --------------------------------: |
+| 2022-01-01T14:00:00Z |                           22.8312 |
+| 2022-01-01T15:00:00Z |                22.792303999999998 |
+| 2022-01-01T16:00:00Z |                        22.5715328 |
+| 2022-01-01T17:00:00Z |                       22.65660992 |
+| 2022-01-01T18:00:00Z |                      23.078180096 |
+| 2022-01-01T19:00:00Z |                      23.137436544 |
+| 2022-01-01T20:00:00Z |                    22.89677901824 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Use `DOUBLE_EXPONENTIAL_MOVING_AVERAGE` when grouping by time" %}}
+
+The following example use the
+[NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
+
+```sql
+SELECT
+  DOUBLE_EXPONENTIAL_MOVING_AVERAGE(MEAN(temp_avg), 4)
+FROM weather
+WHERE
+  location = 'San Francisco'
+  AND time >= '2020-01-01T00:00:00Z'
+  AND time <= '2022-12-31T23:59:59Z'
+GROUP BY time(90d)
+```
+
+{{% influxql/table-meta %}}
+name: weather
+{{% /influxql/table-meta %}}
+
+| time                 | double_exponential_moving_average |
+| :------------------- | --------------------------------: |
+| 2020-07-07T00:00:00Z |                 63.01034259259259 |
+| 2020-10-05T00:00:00Z |                 59.68671666666667 |
+| 2021-01-03T00:00:00Z |                56.266558888888895 |
+| 2021-04-03T00:00:00Z |                 58.20687488888889 |
+| 2021-07-02T00:00:00Z |                61.229622000000006 |
+| 2021-09-30T00:00:00Z |                 58.78596032888889 |
+| 2021-12-29T00:00:00Z |                  55.1067106968889 |
+| 2022-03-29T00:00:00Z |                57.311773784533344 |
+| 2022-06-27T00:00:00Z |                 61.66637935722668 |
+| 2022-09-25T00:00:00Z |                 57.77452777735112 |
+| 2022-12-24T00:00:00Z |                55.044203430886405 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### EXPONENTIAL_MOVING_AVERAGE()
 
 An exponential moving average (EMA) (or exponentially weighted moving average)
@@ -391,6 +723,183 @@ EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmup_type]
   an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
   to the [field_expression](#arguments-ema).
 
+#### Examples
+
+{{< expand-wrapper >}}
+{{% expand "Apply `EXPONENTIAL_MOVING_AVERAGE` to a field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  EXPONENTIAL_MOVING_AVERAGE(temp, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | exponential_moving_average |
+| :------------------- | -------------------------: |
+| 2022-01-01T11:00:00Z |                      22.47 |
+| 2022-01-01T12:00:00Z |                     22.482 |
+| 2022-01-01T13:00:00Z |                    22.6092 |
+| 2022-01-01T14:00:00Z |                   22.68552 |
+| 2022-01-01T15:00:00Z |                  22.691312 |
+| 2022-01-01T16:00:00Z |                 22.5747872 |
+| 2022-01-01T17:00:00Z |         22.624872319999998 |
+| 2022-01-01T18:00:00Z |               22.894923392 |
+| 2022-01-01T19:00:00Z |              22.9769540352 |
+| 2022-01-01T20:00:00Z |         22.866172421119998 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `EXPONENTIAL_MOVING_AVERAGE` to each field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  EXPONENTIAL_MOVING_AVERAGE(*, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | exponential_moving_average_co | exponential_moving_average_hum | exponential_moving_average_temp |
+| :------------------- | ----------------------------: | -----------------------------: | ------------------------------: |
+| 2022-01-01T11:00:00Z |                             0 |                          36.06 |                           22.47 |
+| 2022-01-01T12:00:00Z |                             0 |                         36.036 |                          22.482 |
+| 2022-01-01T13:00:00Z |                           0.4 |                        36.2216 |                         22.6092 |
+| 2022-01-01T14:00:00Z |                          0.64 |                       36.25296 |                        22.68552 |
+| 2022-01-01T15:00:00Z |                         1.584 |                      36.231776 |                       22.691312 |
+| 2022-01-01T16:00:00Z |            3.7504000000000004 |                     36.1390656 |                      22.5747872 |
+| 2022-01-01T17:00:00Z |                       5.85024 |                    36.08343936 |              22.624872319999998 |
+| 2022-01-01T18:00:00Z |                     10.710144 |                   36.410063616 |                    22.894923392 |
+| 2022-01-01T19:00:00Z |                    15.2260864 |                  36.4860381696 |                   22.9769540352 |
+| 2022-01-01T20:00:00Z |                   19.53565184 |                 36.49162290176 |              22.866172421119998 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `EXPONENTIAL_MOVING_AVERAGE` with a custom hold period" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  EXPONENTIAL_MOVING_AVERAGE(temp, 4, 6)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | exponential_moving_average |
+| :------------------- | -------------------------: |
+| 2022-01-01T14:00:00Z |                   22.68552 |
+| 2022-01-01T15:00:00Z |                  22.691312 |
+| 2022-01-01T16:00:00Z |                 22.5747872 |
+| 2022-01-01T17:00:00Z |         22.624872319999998 |
+| 2022-01-01T18:00:00Z |               22.894923392 |
+| 2022-01-01T19:00:00Z |              22.9769540352 |
+| 2022-01-01T20:00:00Z |         22.866172421119998 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `EXPONENTIAL_MOVING_AVERAGE` with a default non-default warmup type" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  EXPONENTIAL_MOVING_AVERAGE(temp, 4, -1, 'simple')
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | exponential_moving_average |
+| :------------------- | -------------------------: |
+| 2022-01-01T11:00:00Z |                     22.275 |
+| 2022-01-01T12:00:00Z |                     22.365 |
+| 2022-01-01T13:00:00Z |         22.538999999999998 |
+| 2022-01-01T14:00:00Z |                    22.6434 |
+| 2022-01-01T15:00:00Z |                   22.66604 |
+| 2022-01-01T16:00:00Z |                  22.559624 |
+| 2022-01-01T17:00:00Z |                 22.6157744 |
+| 2022-01-01T18:00:00Z |                22.88946464 |
+| 2022-01-01T19:00:00Z |               22.973678784 |
+| 2022-01-01T20:00:00Z |              22.8642072704 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Use `EXPONENTIAL_MOVING_AVERAGE` when grouping by time" %}}
+
+The following example use the
+[NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
+
+```sql
+SELECT
+  EXPONENTIAL_MOVING_AVERAGE(MEAN(temp_avg), 4)
+FROM weather
+WHERE
+  location = 'San Francisco'
+  AND time >= '2020-01-01T00:00:00Z'
+  AND time <= '2022-12-31T23:59:59Z'
+GROUP BY time(90d)
+```
+
+{{% influxql/table-meta %}}
+name: weather
+{{% /influxql/table-meta %}}
+
+| time                 | exponential_moving_average |
+| :------------------- | -------------------------: |
+| 2020-07-07T00:00:00Z |         59.971944444444446 |
+| 2020-10-05T00:00:00Z |          58.65427777777778 |
+| 2021-01-03T00:00:00Z |          56.77478888888889 |
+| 2021-04-03T00:00:00Z |          57.86042888888889 |
+| 2021-07-02T00:00:00Z |         59.836257333333336 |
+| 2021-09-30T00:00:00Z |         58.657309955555554 |
+| 2021-12-29T00:00:00Z |          56.38994152888889 |
+| 2022-03-29T00:00:00Z |          57.44729825066667 |
+| 2022-06-27T00:00:00Z |          60.13504561706667 |
+| 2022-09-25T00:00:00Z |         58.085471814684446 |
+| 2022-12-24T00:00:00Z |          56.30128308881067 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### KAUFMANS_EFFICIENCY_RATIO()
 
 Kaufman's Efficiency Ration, or simply "Efficiency Ratio" (ER), is calculated by
@@ -431,6 +940,145 @@ KAUFMANS_EFFICIENCY_RATIO(field_expression, period[, hold_period])
   an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
   to the [field_expression](#arguments-er).
 
+#### Examples
+
+{{< expand-wrapper >}}
+{{% expand "Apply `KAUFMANS_EFFICIENCY_RATIO` to a field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  KAUFMANS_EFFICIENCY_RATIO(temp, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | kaufmans_efficiency_ratio |
+| :------------------- | ------------------------: |
+| 2022-01-01T12:00:00Z |         0.555555555555555 |
+| 2022-01-01T13:00:00Z |       0.19999999999999857 |
+| 2022-01-01T14:00:00Z |       0.14285714285714432 |
+| 2022-01-01T15:00:00Z |        0.5999999999999972 |
+| 2022-01-01T16:00:00Z |       0.14285714285714432 |
+| 2022-01-01T17:00:00Z |       0.14285714285714432 |
+| 2022-01-01T18:00:00Z |       0.38461538461538336 |
+| 2022-01-01T19:00:00Z |        0.2857142857142868 |
+| 2022-01-01T20:00:00Z |                       0.2 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `KAUFMANS_EFFICIENCY_RATIO` to each field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  KAUFMANS_EFFICIENCY_RATIO(*, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | kaufmans_efficiency_ratio_co | kaufmans_efficiency_ratio_hum | kaufmans_efficiency_ratio_temp |
+| :------------------- | ---------------------------: | ----------------------------: | -----------------------------: |
+| 2022-01-01T12:00:00Z |                            0 |                           0.2 |              0.555555555555555 |
+| 2022-01-01T13:00:00Z |                            1 |            0.4285714285714228 |            0.19999999999999857 |
+| 2022-01-01T14:00:00Z |                            1 |           0.24999999999999334 |            0.14285714285714432 |
+| 2022-01-01T15:00:00Z |                            1 |           0.25000000000000444 |             0.5999999999999972 |
+| 2022-01-01T16:00:00Z |                            1 |                             0 |            0.14285714285714432 |
+| 2022-01-01T17:00:00Z |                            1 |                             1 |            0.14285714285714432 |
+| 2022-01-01T18:00:00Z |                            1 |             0.500000000000003 |            0.38461538461538336 |
+| 2022-01-01T19:00:00Z |                            1 |             0.285714285714285 |             0.2857142857142868 |
+| 2022-01-01T20:00:00Z |                            1 |           0.38461538461538547 |                            0.2 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `KAUFMANS_EFFICIENCY_RATIO` with a custom hold period" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  KAUFMANS_EFFICIENCY_RATIO(temp, 4, 6)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | kaufmans_efficiency_ratio |
+| :------------------- | ------------------------: |
+| 2022-01-01T14:00:00Z |       0.14285714285714432 |
+| 2022-01-01T15:00:00Z |        0.5999999999999972 |
+| 2022-01-01T16:00:00Z |       0.14285714285714432 |
+| 2022-01-01T17:00:00Z |       0.14285714285714432 |
+| 2022-01-01T18:00:00Z |       0.38461538461538336 |
+| 2022-01-01T19:00:00Z |        0.2857142857142868 |
+| 2022-01-01T20:00:00Z |                       0.2 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Use `KAUFMANS_EFFICIENCY_RATIO` when grouping by time" %}}
+
+The following example use the
+[NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
+
+```sql
+SELECT
+  KAUFMANS_EFFICIENCY_RATIO(MEAN(temp_avg), 4)
+FROM weather
+WHERE
+  location = 'San Francisco'
+  AND time >= '2020-01-01T00:00:00Z'
+  AND time <= '2022-12-31T23:59:59Z'
+GROUP BY time(90d)
+```
+
+{{% influxql/table-meta %}}
+name: weather
+{{% /influxql/table-meta %}}
+
+| time                 | kaufmans_efficiency_ratio |
+| :------------------- | ------------------------: |
+| 2020-10-05T00:00:00Z |       0.21498959056210964 |
+| 2021-01-03T00:00:00Z |      0.020072053525475923 |
+| 2021-04-03T00:00:00Z |       0.06190741773563866 |
+| 2021-07-02T00:00:00Z |       0.08924485125858131 |
+| 2021-09-30T00:00:00Z |        0.0120788302606483 |
+| 2021-12-29T00:00:00Z |       0.05181655747468743 |
+| 2022-03-29T00:00:00Z |      0.023768115942028996 |
+| 2022-06-27T00:00:00Z |       0.06511381683430421 |
+| 2022-09-25T00:00:00Z |       0.07748739110499749 |
+| 2022-12-24T00:00:00Z |      0.029287632689602317 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### KAUFMANS_ADAPTIVE_MOVING_AVERAGE()
 
 Kaufman's Adaptive Moving Average (KAMA) is a moving average designed to account
@@ -467,6 +1115,145 @@ KAUFMANS_ADAPTIVE_MOVING_AVERAGE(field_expression, period[, hold_period])
   To use `KAUFMANS_ADAPTIVE_MOVING_AVERAGE()` with a `GROUP BY time()` clause, apply
   an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
   to the [field_expression](#arguments-kama).
+
+#### Examples
+
+{{< expand-wrapper >}}
+{{% expand "Apply `KAUFMANS_ADAPTIVE_MOVING_AVERAGE` to a field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  KAUFMANS_ADAPTIVE_MOVING_AVERAGE(temp, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | kaufmans_adaptive_moving_average |
+| :------------------- | -------------------------------: |
+| 2022-01-01T12:00:00Z |               22.415923627793976 |
+| 2022-01-01T13:00:00Z |               22.429061002513993 |
+| 2022-01-01T14:00:00Z |                22.43746706604819 |
+| 2022-01-01T15:00:00Z |                22.48506721007708 |
+| 2022-01-01T16:00:00Z |                22.48313945274385 |
+| 2022-01-01T17:00:00Z |               22.488053855248438 |
+| 2022-01-01T18:00:00Z |               22.559247409584806 |
+| 2022-01-01T19:00:00Z |               22.589508047087516 |
+| 2022-01-01T20:00:00Z |                22.59328743653712 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `KAUFMANS_ADAPTIVE_MOVING_AVERAGE` to each field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  KAUFMANS_ADAPTIVE_MOVING_AVERAGE(*, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | kaufmans_adaptive_moving_average_co | kaufmans_adaptive_moving_average_hum | kaufmans_adaptive_moving_average_temp |
+| :------------------- | ----------------------------------: | -----------------------------------: | ------------------------------------: |
+| 2022-01-01T12:00:00Z |                                   0 |                                   36 |                    22.415923627793976 |
+| 2022-01-01T13:00:00Z |                 0.44444444444444453 |                   36.052029136316335 |                    22.429061002513993 |
+| 2022-01-01T14:00:00Z |                  0.6913580246913581 |                   36.063497322866624 |                     22.43746706604819 |
+| 2022-01-01T15:00:00Z |                  1.7174211248285327 |                    36.06981031521873 |                     22.48506721007708 |
+| 2022-01-01T16:00:00Z |                   4.065233958238074 |                   36.069519741586184 |                     22.48313945274385 |
+| 2022-01-01T17:00:00Z |                   6.258463310132264 |                    36.03862207865899 |                    22.488053855248438 |
+| 2022-01-01T18:00:00Z |                  11.476924061184592 |                   36.153751327944484 |                    22.559247409584806 |
+| 2022-01-01T19:00:00Z |                  16.153846700658107 |                    36.17872350475971 |                    22.589508047087516 |
+| 2022-01-01T20:00:00Z |                   20.52991483369895 |                   36.206893865280215 |                     22.59328743653712 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `KAUFMANS_ADAPTIVE_MOVING_AVERAGE` with a custom hold period" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  KAUFMANS_ADAPTIVE_MOVING_AVERAGE(temp, 4, 6)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | kaufmans_adaptive_moving_average |
+| :------------------- | -------------------------------: |
+| 2022-01-01T14:00:00Z |                22.43746706604819 |
+| 2022-01-01T15:00:00Z |                22.48506721007708 |
+| 2022-01-01T16:00:00Z |                22.48313945274385 |
+| 2022-01-01T17:00:00Z |               22.488053855248438 |
+| 2022-01-01T18:00:00Z |               22.559247409584806 |
+| 2022-01-01T19:00:00Z |               22.589508047087516 |
+| 2022-01-01T20:00:00Z |                22.59328743653712 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Use `KAUFMANS_ADAPTIVE_MOVING_AVERAGE` when grouping by time" %}}
+
+The following example use the
+[NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
+
+```sql
+SELECT
+  KAUFMANS_ADAPTIVE_MOVING_AVERAGE(MEAN(temp_avg), 4)
+FROM weather
+WHERE
+  location = 'San Francisco'
+  AND time >= '2020-01-01T00:00:00Z'
+  AND time <= '2022-12-31T23:59:59Z'
+GROUP BY time(90d)
+```
+
+{{% influxql/table-meta %}}
+name: weather
+{{% /influxql/table-meta %}}
+
+| time                 | kaufmans_adaptive_moving_average |
+| :------------------- | -------------------------------: |
+| 2020-10-05T00:00:00Z |                64.23776629054989 |
+| 2021-01-03T00:00:00Z |                64.17743082167587 |
+| 2021-04-03T00:00:00Z |                64.12884833681618 |
+| 2021-07-02T00:00:00Z |                64.11026540732492 |
+| 2021-09-30T00:00:00Z |                64.07304846623671 |
+| 2021-12-29T00:00:00Z |                63.97149717822299 |
+| 2022-03-29T00:00:00Z |                63.94081206327896 |
+| 2022-06-27T00:00:00Z |                63.94324197904272 |
+| 2022-09-25T00:00:00Z |                63.83284150412919 |
+| 2022-12-24T00:00:00Z |                63.76394979616807 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### RELATIVE_STRENGTH_INDEX()
 
@@ -509,6 +1296,179 @@ RELATIVE_STRENGTH_INDEX(field_expression, period[, hold_period[, warmup_type]])
   To use `TRIPLE_EXPONENTIAL_DERIVATIVE()` with a `GROUP BY time()` clause, apply
   an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
   to the [field_expression](#arguments-rsi).
+
+#### Examples
+
+{{< expand-wrapper >}}
+{{% expand "Apply `RELATIVE_STRENGTH_INDEX` to a field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  RELATIVE_STRENGTH_INDEX(temp, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | relative_strength_index |
+| :------------------- | ----------------------: |
+| 2022-01-01T12:00:00Z |       92.39130434782608 |
+| 2022-01-01T13:00:00Z |       92.78350515463916 |
+| 2022-01-01T14:00:00Z |       92.78350515463916 |
+| 2022-01-01T15:00:00Z |       90.03334568358646 |
+| 2022-01-01T16:00:00Z |       80.49022855250077 |
+| 2022-01-01T17:00:00Z |       82.90606558962943 |
+| 2022-01-01T18:00:00Z |       87.14940243872873 |
+| 2022-01-01T19:00:00Z |       78.48983186121941 |
+| 2022-01-01T20:00:00Z |       62.04865064241268 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `RELATIVE_STRENGTH_INDEX` to each field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  RELATIVE_STRENGTH_INDEX(*, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | relative_strength_index_co | relative_strength_index_hum | relative_strength_index_temp |
+| :------------------- | -------------------------: | --------------------------: | ---------------------------: |
+| 2022-01-01T12:00:00Z |                            |           98.11827956989245 |            92.39130434782608 |
+| 2022-01-01T13:00:00Z |                        100 |           98.23677581863977 |            92.78350515463916 |
+| 2022-01-01T14:00:00Z |                        100 |           95.04467912266443 |            92.78350515463916 |
+| 2022-01-01T15:00:00Z |                        100 |           93.02941956003185 |            90.03334568358646 |
+| 2022-01-01T16:00:00Z |                        100 |           88.05084037126848 |            80.49022855250077 |
+| 2022-01-01T17:00:00Z |                        100 |           88.05084037126848 |            82.90606558962943 |
+| 2022-01-01T18:00:00Z |                        100 |           91.63299959013992 |            87.14940243872873 |
+| 2022-01-01T19:00:00Z |                        100 |           80.85951627810859 |            78.48983186121941 |
+| 2022-01-01T20:00:00Z |                        100 |            76.8440852816889 |            62.04865064241268 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `RELATIVE_STRENGTH_INDEX` with a custom hold period" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  RELATIVE_STRENGTH_INDEX(temp, 4, 6)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | relative_strength_index |
+| :------------------- | ----------------------: |
+| 2022-01-01T14:00:00Z |       92.78350515463916 |
+| 2022-01-01T15:00:00Z |       90.03334568358646 |
+| 2022-01-01T16:00:00Z |       80.49022855250077 |
+| 2022-01-01T17:00:00Z |       82.90606558962943 |
+| 2022-01-01T18:00:00Z |       87.14940243872873 |
+| 2022-01-01T19:00:00Z |       78.48983186121941 |
+| 2022-01-01T20:00:00Z |       62.04865064241268 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `RELATIVE_STRENGTH_INDEX` with a default non-default warmup type" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  RELATIVE_STRENGTH_INDEX(temp, 4, -1, 'simple')
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | relative_strength_index |
+| :------------------- | ----------------------: |
+| 2022-01-01T12:00:00Z |       97.46835443037975 |
+| 2022-01-01T13:00:00Z |       97.52066115702479 |
+| 2022-01-01T14:00:00Z |       97.52066115702479 |
+| 2022-01-01T15:00:00Z |       96.34109464771694 |
+| 2022-01-01T16:00:00Z |       91.89501009518312 |
+| 2022-01-01T17:00:00Z |       92.36482202699028 |
+| 2022-01-01T18:00:00Z |       93.38702507648456 |
+| 2022-01-01T19:00:00Z |        88.1423325938459 |
+| 2022-01-01T20:00:00Z |       76.66135862958828 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Use `RELATIVE_STRENGTH_INDEX` when grouping by time" %}}
+
+The following example use the
+[NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
+
+```sql
+SELECT
+  RELATIVE_STRENGTH_INDEX(MEAN(temp_avg), 4)
+FROM weather
+WHERE
+  location = 'San Francisco'
+  AND time >= '2020-01-01T00:00:00Z'
+  AND time <= '2022-12-31T23:59:59Z'
+GROUP BY time(90d)
+```
+
+{{% influxql/table-meta %}}
+name: weather
+{{% /influxql/table-meta %}}
+
+| time                 | relative_strength_index |
+| :------------------- | ----------------------: |
+| 2020-10-05T00:00:00Z |        69.9692046299246 |
+| 2021-01-03T00:00:00Z |       63.37405020679043 |
+| 2021-04-03T00:00:00Z |       70.82662989351107 |
+| 2021-07-02T00:00:00Z |       74.90131747577793 |
+| 2021-09-30T00:00:00Z |      56.212729394565066 |
+| 2021-12-29T00:00:00Z |      46.095152535803514 |
+| 2022-03-29T00:00:00Z |      60.709021374375894 |
+| 2022-06-27T00:00:00Z |       69.93773053391476 |
+| 2022-09-25T00:00:00Z |       44.87321655968338 |
+| 2022-12-24T00:00:00Z |      41.845933101386215 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### TRIPLE_EXPONENTIAL_MOVING_AVERAGE()
 
@@ -560,6 +1520,177 @@ TRIPLE_EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmu
   To use `TRIPLE_EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause, apply
   an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
   to the [field_expression](#arguments-tema).
+
+#### Examples
+
+{{< expand-wrapper >}}
+{{% expand "Apply `TRIPLE_EXPONENTIAL_MOVING_AVERAGE` to a field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  TRIPLE_EXPONENTIAL_MOVING_AVERAGE(temp, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | triple_exponential_moving_average |
+| :------------------- | --------------------------------: |
+| 2022-01-01T11:00:00Z |                 22.54347777777777 |
+| 2022-01-01T12:00:00Z |                22.499126666666672 |
+| 2022-01-01T13:00:00Z |                22.716772000000002 |
+| 2022-01-01T14:00:00Z |                22.790124000000006 |
+| 2022-01-01T15:00:00Z |                22.728720799999994 |
+| 2022-01-01T16:00:00Z |                22.465986271999995 |
+| 2022-01-01T17:00:00Z |                     22.6128236096 |
+| 2022-01-01T18:00:00Z |                23.142821016320013 |
+| 2022-01-01T19:00:00Z |                23.163081365760007 |
+| 2022-01-01T20:00:00Z |                22.834869660416004 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `TRIPLE_EXPONENTIAL_MOVING_AVERAGE` to each field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  TRIPLE_EXPONENTIAL_MOVING_AVERAGE(*, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | triple_exponential_moving_average_co | triple_exponential_moving_average_hum | triple_exponential_moving_average_temp |
+| :------------------- | -----------------------------------: | ------------------------------------: | -------------------------------------: |
+| 2022-01-01T11:00:00Z |                                    0 |                     36.03026666666666 |                      22.54347777777777 |
+| 2022-01-01T12:00:00Z |                                    0 |                              35.99608 |                     22.499126666666672 |
+| 2022-01-01T13:00:00Z |                   0.7840000000000001 |                    36.379856000000004 |                     22.716772000000002 |
+| 2022-01-01T14:00:00Z |                               1.0432 |                             36.353712 |                     22.790124000000006 |
+| 2022-01-01T15:00:00Z |                    2.663040000000001 |                     36.25279040000001 |                     22.728720799999994 |
+| 2022-01-01T16:00:00Z |                    6.300159999999999 |                    36.054262656000006 |                     22.465986271999995 |
+| 2022-01-01T17:00:00Z |                             8.977536 |                     35.98746094080001 |                          22.6128236096 |
+| 2022-01-01T18:00:00Z |                   16.698608639999996 |                        36.67902875136 |                     23.142821016320013 |
+| 2022-01-01T19:00:00Z |                         22.122591232 |                     36.68111467007999 |                     23.163081365760007 |
+| 2022-01-01T20:00:00Z |                   26.541314662400005 |                       36.579546917888 |                     22.834869660416004 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `TRIPLE_EXPONENTIAL_MOVING_AVERAGE` with a custom hold period" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  TRIPLE_EXPONENTIAL_MOVING_AVERAGE(temp, 4, 6)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | triple_exponential_moving_average |
+| :------------------- | --------------------------------: |
+| 2022-01-01T14:00:00Z |                22.790124000000006 |
+| 2022-01-01T15:00:00Z |                22.728720799999994 |
+| 2022-01-01T16:00:00Z |                22.465986271999995 |
+| 2022-01-01T17:00:00Z |                     22.6128236096 |
+| 2022-01-01T18:00:00Z |                23.142821016320013 |
+| 2022-01-01T19:00:00Z |                23.163081365760007 |
+| 2022-01-01T20:00:00Z |                22.834869660416004 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `TRIPLE_EXPONENTIAL_MOVING_AVERAGE` with a default non-default warmup type" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  TRIPLE_EXPONENTIAL_MOVING_AVERAGE(temp, 4, -1, 'simple')
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | triple_exponential_moving_average |
+| :------------------- | --------------------------------: |
+| 2022-01-01T17:00:00Z |                       22.65201408 |
+| 2022-01-01T18:00:00Z |                23.164150553600003 |
+| 2022-01-01T19:00:00Z |                    23.17404420096 |
+| 2022-01-01T20:00:00Z |                    22.84003200512 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Use `TRIPLE_EXPONENTIAL_MOVING_AVERAGE` when grouping by time" %}}
+
+The following example use the
+[NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
+
+```sql
+SELECT
+  TRIPLE_EXPONENTIAL_MOVING_AVERAGE(MEAN(temp_avg), 4)
+FROM weather
+WHERE
+  location = 'San Francisco'
+  AND time >= '2020-01-01T00:00:00Z'
+  AND time <= '2022-12-31T23:59:59Z'
+GROUP BY time(90d)
+```
+
+{{% influxql/table-meta %}}
+name: weather
+{{% /influxql/table-meta %}}
+
+| time                 | triple_exponential_moving_average |
+| :------------------- | --------------------------------: |
+| 2020-07-07T00:00:00Z |                 64.17547253086421 |
+| 2020-10-05T00:00:00Z |                59.182219074074055 |
+| 2021-01-03T00:00:00Z |                 55.03945899999998 |
+| 2021-04-03T00:00:00Z |                 57.98342055555557 |
+| 2021-07-02T00:00:00Z |                 61.72370060000002 |
+| 2021-09-30T00:00:00Z |                  58.3235789128889 |
+| 2021-12-29T00:00:00Z |                53.982153124088896 |
+| 2022-03-29T00:00:00Z |                57.325663060373344 |
+| 2022-06-27T00:00:00Z |                 62.67482784650667 |
+| 2022-09-25T00:00:00Z |                57.274230204423134 |
+| 2022-12-24T00:00:00Z |                 54.17634351477504 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ### TRIPLE_EXPONENTIAL_DERIVATIVE()
 
@@ -620,3 +1751,170 @@ TRIPLE_EXPONENTIAL_DERIVATIVE(field_expression, period[, hold_period[, warmup_ty
   To use `TRIPLE_EXPONENTIAL_DERIVATIVE()` with a `GROUP BY time()` clause, apply
   an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
   to the [field_expression](#arguments-trix).
+
+#### Examples
+
+{{< expand-wrapper >}}
+{{% expand "Apply `TRIPLE_EXPONENTIAL_DERIVATIVE` to a field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  TRIPLE_EXPONENTIAL_DERIVATIVE(temp, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | triple_exponential_derivative |
+| :------------------- | ----------------------------: |
+| 2022-01-01T12:00:00Z |            0.5731400170122969 |
+| 2022-01-01T13:00:00Z |            0.5082054442170802 |
+| 2022-01-01T14:00:00Z |           0.45740027258918126 |
+| 2022-01-01T15:00:00Z |           0.36931756808027405 |
+| 2022-01-01T16:00:00Z |            0.1953270968520826 |
+| 2022-01-01T17:00:00Z |           0.13729679242548976 |
+| 2022-01-01T18:00:00Z |           0.28596038472352703 |
+| 2022-01-01T19:00:00Z |            0.3509641845184319 |
+| 2022-01-01T20:00:00Z |           0.23932489811719915 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `TRIPLE_EXPONENTIAL_DERIVATIVE` to each field" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  TRIPLE_EXPONENTIAL_DERIVATIVE(*, 4)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | triple_exponential_derivative_co | triple_exponential_derivative_hum | triple_exponential_derivative_temp |
+| :------------------- | -------------------------------: | --------------------------------: | ---------------------------------: |
+| 2022-01-01T12:00:00Z |                                  |              0.011689978802653656 |                 0.5731400170122969 |
+| 2022-01-01T13:00:00Z |                                  |               0.08193865253971477 |                 0.5082054442170802 |
+| 2022-01-01T14:00:00Z |               179.99999999999997 |               0.10794983570248107 |                0.45740027258918126 |
+| 2022-01-01T15:00:00Z |               148.57142857142853 |                0.0905729924662868 |                0.36931756808027405 |
+| 2022-01-01T16:00:00Z |               140.22988505747128 |               0.02876803922613469 |                 0.1953270968520826 |
+| 2022-01-01T17:00:00Z |                92.48803827751195 |             -0.022670378539191294 |                0.13729679242548976 |
+| 2022-01-01T18:00:00Z |                84.49217002237135 |               0.10699801078373206 |                0.28596038472352703 |
+| 2022-01-01T19:00:00Z |                64.59469801081093 |               0.17000537478475408 |                 0.3509641845184319 |
+| 2022-01-01T20:00:00Z |                48.10094220759999 |               0.16771238737589567 |                0.23932489811719915 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `TRIPLE_EXPONENTIAL_DERIVATIVE` with a custom hold period" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  TRIPLE_EXPONENTIAL_DERIVATIVE(temp, 4, 6)
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | triple_exponential_derivative |
+| :------------------- | ----------------------------: |
+| 2022-01-01T14:00:00Z |           0.45740027258918126 |
+| 2022-01-01T15:00:00Z |           0.36931756808027405 |
+| 2022-01-01T16:00:00Z |            0.1953270968520826 |
+| 2022-01-01T17:00:00Z |           0.13729679242548976 |
+| 2022-01-01T18:00:00Z |           0.28596038472352703 |
+| 2022-01-01T19:00:00Z |            0.3509641845184319 |
+| 2022-01-01T20:00:00Z |           0.23932489811719915 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Apply `TRIPLE_EXPONENTIAL_DERIVATIVE` with a default non-default warmup type" %}}
+
+The following example uses the
+[Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+```sql
+SELECT
+  TRIPLE_EXPONENTIAL_DERIVATIVE(temp, 4, -1, 'simple')
+FROM home
+WHERE
+  room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}}
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | triple_exponential_derivative |
+| :------------------- | ----------------------------: |
+| 2022-01-01T18:00:00Z |            0.3040309049773704 |
+| 2022-01-01T19:00:00Z |           0.37510717611963784 |
+| 2022-01-01T20:00:00Z |            0.2625157254706467 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Use `TRIPLE_EXPONENTIAL_DERIVATIVE` when grouping by time" %}}
+
+The following example use the
+[NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
+
+```sql
+SELECT
+  TRIPLE_EXPONENTIAL_DERIVATIVE(MEAN(temp_avg), 4)
+FROM weather
+WHERE
+  location = 'San Francisco'
+  AND time >= '2020-01-01T00:00:00Z'
+  AND time <= '2022-12-31T23:59:59Z'
+GROUP BY time(90d)
+```
+
+{{% influxql/table-meta %}}
+name: weather
+{{% /influxql/table-meta %}}
+
+| time                 | triple_exponential_derivative |
+| :------------------- | ----------------------------: |
+| 2020-10-05T00:00:00Z |            1.8609138140919912 |
+| 2021-01-03T00:00:00Z |            0.8545019640246121 |
+| 2021-04-03T00:00:00Z |            0.6716861515154271 |
+| 2021-07-02T00:00:00Z |            1.0528294030543783 |
+| 2021-09-30T00:00:00Z |            0.6847349621789123 |
+| 2021-12-29T00:00:00Z |          -0.18257939931221046 |
+| 2022-03-29T00:00:00Z |           -0.1722392917734461 |
+| 2022-06-27T00:00:00Z |            0.6038050639217252 |
+| 2022-09-25T00:00:00Z |           0.21734485841473639 |
+| 2022-12-24T00:00:00Z |          -0.44578753427667595 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
