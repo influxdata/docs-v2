@@ -32,7 +32,8 @@ To enable authentication in a cluster, do the following:
 1. Next, create an admin user (if you haven't already).
    Using the [`influx` CLI](/enterprise_influxdb/v1.10/tools/influx-cli/),
    run the following command:
-   ```
+
+   ```sql
    CREATE USER admin WITH PASSWORD 'mypassword' WITH ALL PRIVILEGES
    ```
 1. Restart InfluxDB Enterprise.
