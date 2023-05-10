@@ -8,6 +8,8 @@ menu:
     name: Technical analysis
     parent: influxql-functions
 weight: 205
+# None of these functions work yet so listing as draft
+draft: true
 ---
 
 Use technical analysis functions to apply algorithms to your time series data.
@@ -507,7 +509,6 @@ DOUBLE_EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmu
 #### Notable behaviors
 
 - [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
-  ([View example](#...))
 
 #### Examples
 
@@ -730,7 +731,6 @@ EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmup_type]
 #### Notable behaviors
 
 - [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
-  ([View example](#...))
 
 #### Examples
 
@@ -945,7 +945,6 @@ KAUFMANS_EFFICIENCY_RATIO(field_expression, period[, hold_period])
 #### Notable behaviors
 
 - [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
-  ([View example](#...))
 
 #### Examples
 
@@ -1119,7 +1118,6 @@ KAUFMANS_ADAPTIVE_MOVING_AVERAGE(field_expression, period[, hold_period])
 #### Notable behaviors
 
 - [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
-  ([View example](#...))
 
 #### Examples
 
@@ -1298,7 +1296,6 @@ RELATIVE_STRENGTH_INDEX(field_expression, period[, hold_period[, warmup_type]])
 #### Notable behaviors
 
 - [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
-  ([View example](#...))
 
 #### Examples
 
@@ -1520,7 +1517,6 @@ TRIPLE_EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmu
 #### Notable behaviors
 
 - [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
-  ([View example](#...))
 
 #### Examples
 
@@ -1749,7 +1745,6 @@ TRIPLE_EXPONENTIAL_DERIVATIVE(field_expression, period[, hold_period[, warmup_ty
 #### Notable behaviors
 
 - [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
-  ([View example](#...))
 
 #### Examples
 

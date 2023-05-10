@@ -18,13 +18,15 @@ _Examples use the sample data set provided in the
 
 - [COUNT()](#count)
 - [DISTINCT()](#distinct)
-- [INTEGRAL()](#integral)
 - [MEAN()](#mean)
 - [MEDIAN()](#median)
-- [MODE()](#mode)
-- [SPREAD()](#spread)
 - [STDDEV()](#stddev)
 - [SUM()](#sum)
+
+<!-- When implemented, place back in alphabetical order -->
+<!-- - [INTEGRAL()](#integral) -->
+<!-- - [MODE()](#mode) -->
+<!-- - [SPREAD()](#spread) -->
 
 ## COUNT()
 
@@ -191,7 +193,7 @@ name: home
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## INTEGRAL()
+<!-- ## INTEGRAL()
 
 Returns the area under the curve for queried [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value)
 and converts those results into the summed area per **unit** of time.
@@ -324,7 +326,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
+{{< /expand-wrapper >}} -->
 
 ## MEAN()
 
@@ -526,7 +528,7 @@ name: home
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## MODE()
+<!-- ## MODE()
 
 Returns the most frequent value in a list of [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 
@@ -627,9 +629,9 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
+{{< /expand-wrapper >}} -->
 
-## SPREAD()
+<!-- ## SPREAD()
 
 Returns the difference between the minimum and maximum [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 
@@ -724,7 +726,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
+{{< /expand-wrapper >}} -->
 
 ## STDDEV()
 

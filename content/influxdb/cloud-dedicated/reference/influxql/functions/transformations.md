@@ -19,24 +19,24 @@ InfluxQL transformation functions modify and return values in each row of querie
 - [ATAN2()](#atan2)
 - [CEIL()](#ceil)
 - [COS()](#cos)
-- [CUMULATIVE_SUM()](#cumulative_sum)
-- [DERIVATIVE()](#derivative)
-- [DIFFERENCE()](#difference)
-- [ELAPSED()](#elapsed)
 - [EXP()](#exp)
 - [FLOOR()](#floor)
 - [LN()](#ln)
 - [LOG()](#log)
 - [LOG2()](#log2)
 - [LOG10()](#log10)
-- [MOVING_AVERAGE()](#moving_average)
-- [NON_NEGATIVE_DERIVATIVE()](#non_negative_derivative)
-- [NON_NEGATIVE_DIFFERENCE()](#non_negative_difference)
 - [POW()](#pow)
 - [ROUND()](#round)
 - [SIN()](#sin)
 - [SQRT()](#sqrt)
 - [TAN()](#tan)
+<!-- - [CUMULATIVE_SUM()](#cumulative_sum) -->
+<!-- - [DERIVATIVE()](#derivative) -->
+<!-- - [DIFFERENCE()](#difference) -->
+<!-- - [ELAPSED()](#elapsed) -->
+<!-- - [MOVING_AVERAGE()](#moving_average) -->
+<!-- - [NON_NEGATIVE_DERIVATIVE()](#non_negative_derivative) -->
+<!-- - [NON_NEGATIVE_DIFFERENCE()](#non_negative_difference) -->
 
 ## Notable behaviors of transformation functions
 
@@ -455,7 +455,6 @@ name: numbers
 Returns the the arctangent of `y/x` in radians.
 
 ```sql
-ATAN2( [ * | <field_key> | num ], [ <field_key> | num ] )
 ATAN2(expression_y, expression_x)
 ```
 
@@ -485,7 +484,7 @@ The following examples use the
 {{% expand "Apply `ATAN2()` to a field divided by another field" %}}
 
 ```sql
-SELECT ATAN2(a) FROM numbers LIMIT 6
+SELECT ATAN2(a, b) FROM numbers LIMIT 6
 ```
 
 {{% influxql/table-meta %}}
@@ -506,7 +505,7 @@ name: numbers
 {{% expand "Apply `ATAN2()` to each field divided by a numeric value" %}}
 
 ```sql
-SELECT ATAN2(*) FROM numbers LIMIT 6
+SELECT ATAN2(*, 2) FROM numbers LIMIT 6
 ```
 
 {{% influxql/table-meta %}}
@@ -750,7 +749,7 @@ name: numbers
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## CUMULATIVE_SUM()
+<!-- ## CUMULATIVE_SUM()
 
 Returns the running total of subsequent [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 
@@ -864,9 +863,9 @@ name: numbers
 | 2023-01-01T00:50:00Z |   -6.795080184131271 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
+{{< /expand-wrapper >}} -->
 
-## DERIVATIVE()
+<!-- ## DERIVATIVE()
 
 Returns the rate of change between subsequent [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value)
 per `unit`.
@@ -1008,9 +1007,9 @@ name: numbers
 | 2023-01-01T00:50:00Z |  0.021317362457152655 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
+{{< /expand-wrapper >}} -->
 
-## DIFFERENCE()
+<!-- ## DIFFERENCE()
 
 Returns the result of subtraction between subsequent [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 
@@ -1127,9 +1126,9 @@ name: numbers
 | 2023-01-01T00:50:00Z | 0.21317362457152655 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
+{{< /expand-wrapper >}} -->
 
-## ELAPSED()
+<!-- ## ELAPSED()
 
 Returns the difference between subsequent [field value's](/influxdb/cloud-dedicated/reference/glossary/#field-value) 
 timestamps in a specified `unit` of time.
@@ -1245,7 +1244,7 @@ name: numbers
 | 2023-01-01T00:06:00Z |        60 |        60 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
+{{< /expand-wrapper >}} -->
 
 ## EXP()
 
@@ -1846,7 +1845,7 @@ name: numbers
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-## MOVING_AVERAGE()
+<!-- ## MOVING_AVERAGE()
 
 Returns the rolling average across a window of subsequent [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 
@@ -1959,9 +1958,9 @@ name: numbers
 | 2023-01-01T00:50:00Z |  0.6890200973149928 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
+{{< /expand-wrapper >}} -->
 
-## NON_NEGATIVE_DERIVATIVE()
+<!-- ## NON_NEGATIVE_DERIVATIVE()
 
 Returns only non-negative rate of change between subsequent
 [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
@@ -2112,9 +2111,9 @@ name: numbers
 | 2023-01-01T00:50:00Z |    0.021317362457152655 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
+{{< /expand-wrapper >}} -->
 
-## NON_NEGATIVE_DIFFERENCE()
+<!-- ## NON_NEGATIVE_DIFFERENCE()
 
 Returns only non-negative result of subtraction between subsequent
 [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
@@ -2241,7 +2240,7 @@ name: numbers
 | 2023-01-01T00:50:00Z |     0.21317362457152655 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}}
+{{< /expand-wrapper >}} -->
 
 ## POW()
 

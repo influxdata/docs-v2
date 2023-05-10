@@ -21,19 +21,19 @@ To query with InfluxQL, the bucket you query must be mapped to a database and re
 - [Aggregates](aggregates/)
   - [COUNT()](aggregates/#count)
   - [DISTINCT()](aggregates/#distinct)
-  - [INTEGRAL()](aggregates/#integral)
   - [MEAN()](aggregates/#mean)
   - [MEDIAN()](aggregates/#median)
-  - [MODE()](aggregates/#mode)
-  - [SPREAD()](aggregates/#spread)
   - [STDDEV()](aggregates/#stddev)
   - [SUM()](aggregates/#sum)
+  <!-- - [INTEGRAL()](aggregates/#integral) -->
+  <!-- - [MODE()](aggregates/#mode) -->
+  <!-- - [SPREAD()](aggregates/#spread) -->
 - [Selectors](selectors/)
-  <!-- - [BOTTOM()](selectors/#bottom) -->
   - [FIRST()](selectors/#first)
   - [LAST()](selectors/#last)
   - [MAX()](selectors/#max)
   - [MIN()](selectors/#min)
+  <!-- - [BOTTOM()](selectors/#bottom) -->
   <!-- - [PERCENTILE()](selectors/#percentile) -->
   <!-- - [SAMPLE()](selectors/#sample) -->
   <!-- - [TOP()](selectors/#top) -->
@@ -45,10 +45,6 @@ To query with InfluxQL, the bucket you query must be mapped to a database and re
   - [ATAN2()](transformations/#atan2)
   - [CEIL()](transformations/#ceil)
   - [COS()](transformations/#cos)
-  - [CUMULATIVE_SUM()](transformations/#cumulative_sum)
-  - [DERIVATIVE()](transformations/#derivative)
-  - [DIFFERENCE()](transformations/#difference)
-  - [ELAPSED()](transformations/#elapsed)
   - [EXP()](transformations/#exp)
   - [FLOOR()](transformations/#floor)
   - [HISTOGRAM()](transformations/#histogram)
@@ -56,21 +52,25 @@ To query with InfluxQL, the bucket you query must be mapped to a database and re
   - [LOG()](transformations/#log)
   - [LOG2()](transformations/#log2)
   - [LOG10()](transformations/#log10)
-  - [MOVING_AVERAGE()](transformations/#moving_average)
-  - [NON_NEGATIVE_DERIVATIVE()](transformations/#non_negative_derivative)
-  - [NON_NEGATIVE_DIFFERENCE()](transformations/#non_negative_difference)
   - [POW()](transformations/#pow)
   - [ROUND()](transformations/#round)
   - [SIN()](transformations/#sin)
   - [SQRT()](transformations/#sqrt)
   - [TAN()](transformations/#tan)
-- [Technical analysis](technical-analysis/)
-  - (Predictive analysis) [HOLT_WINTERS()](technical-analysis/#holt_winters)
-  - [CHANDE_MOMENTUM_OSCILLATOR()](technical-analysis/#chande_momentum_oscillator)
-  - [DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](technical-analysis/#double_exponential_moving_average)
-  - [EXPONENTIAL_MOVING_AVERAGE()](technical-analysis/#exponential_moving_average)
-  - [KAUFMANS_EFFICIENCY_RATIO()](technical-analysis/#kaufmans_adaptive_moving_average)
-  - [KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](technical-analysis/#kaufmans_adaptive_moving_average)
-  - [RELATIVE_STRENGTH_INDEX()](technical-analysis/#relative_strength_index)
-  - [TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](technical-analysis/#triple_exponential_moving_average)
-  - [TRIPLE_EXPONENTIAL_DERIVATIVE()](technical-analysis/#triple_exponential_derivative)
+  <!-- - [CUMULATIVE_SUM()](transformations/#cumulative_sum) -->
+  <!-- - [DERIVATIVE()](transformations/#derivative) -->
+  <!-- - [DIFFERENCE()](transformations/#difference) -->
+  <!-- - [ELAPSED()](transformations/#elapsed) -->
+  <!-- - [MOVING_AVERAGE()](transformations/#moving_average) -->
+  <!-- - [NON_NEGATIVE_DERIVATIVE()](transformations/#non_negative_derivative) -->
+  <!-- - [NON_NEGATIVE_DIFFERENCE()](transformations/#non_negative_difference) -->
+<!-- - [Technical analysis](technical-analysis/) -->
+  <!-- - (Predictive analysis) [HOLT_WINTERS()](technical-analysis/#holt_winters) -->
+  <!-- - [CHANDE_MOMENTUM_OSCILLATOR()](technical-analysis/#chande_momentum_oscillator) -->
+  <!-- - [DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](technical-analysis/#double_exponential_moving_average) -->
+  <!-- - [EXPONENTIAL_MOVING_AVERAGE()](technical-analysis/#exponential_moving_average) -->
+  <!-- - [KAUFMANS_EFFICIENCY_RATIO()](technical-analysis/#kaufmans_adaptive_moving_average) -->
+  <!-- - [KAUFMANS_ADAPTIVE_MOVING_AVERAGE()](technical-analysis/#kaufmans_adaptive_moving_average) -->
+  <!-- - [RELATIVE_STRENGTH_INDEX()](technical-analysis/#relative_strength_index) -->
+  <!-- - [TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](technical-analysis/#triple_exponential_moving_average) -->
+  <!-- - [TRIPLE_EXPONENTIAL_DERIVATIVE()](technical-analysis/#triple_exponential_derivative) -->

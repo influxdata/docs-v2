@@ -17,11 +17,11 @@ InfluxQL group.
 _Examples use the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
 
-<!-- - [BOTTOM()](#bottom) -->
 - [FIRST()](#first)
 - [LAST()](#last)
 - [MAX()](#max)
 - [MIN()](#min)
+<!-- - [BOTTOM()](#bottom) -->
 <!-- - [PERCENTILE()](#percentile) -->
 <!-- - [SAMPLE()](#sample) -->
 <!-- - [TOP()](#top) -->

@@ -1,13 +1,19 @@
 ---
 title: Sample data
 description: >
-  ...
+  Sample datasets are used throughout the the InfluxDB Cloud Dedicated
+  documentation to demonstrate functionality.
+  Use the following sample datasets to replicate provided examples.
 menu:
   influxdb_cloud_dedicated:
     name: Sample data
     parent: Reference
 weight: 110
 ---
+
+Sample datasets are used throughout the the {{< cloud-name >}} documentation to
+demonstrate functionality.
+Use the following sample datasets to replicate provided examples.
 
 - [Get started home sensor data](#get-started-home-sensor-data)
 - [NOAA Bay Area weather data](#noaa-bay-area-weather-data)
