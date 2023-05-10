@@ -27,6 +27,15 @@ _Examples use the sample data set provided in the
 <!-- - [TOP()](#top) -->
 - [Notable behaviors of selector functions](#notable-behaviors-of-selector-functions)
 
+{{% note %}}
+#### Missing InfluxQL functions
+
+Some InfluxQL functions are in the process of being rearchitected to work with
+the InfluxDB IOx storage engine. If a function you need is not here, check the
+[InfluxQL feature support page](/influxdb/cloud-dedicated/reference/influxql/feature-support/#function-support)
+for more information.
+{{% /note %}}
+
 <!-- ## BOTTOM()
 
 Returns the smallest `N` [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).

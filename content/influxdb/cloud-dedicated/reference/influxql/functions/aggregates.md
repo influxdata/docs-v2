@@ -28,6 +28,15 @@ _Examples use the sample data set provided in the
 <!-- - [MODE()](#mode) -->
 <!-- - [SPREAD()](#spread) -->
 
+{{% note %}}
+#### Missing InfluxQL functions
+
+Some InfluxQL functions are in the process of being rearchitected to work with
+the InfluxDB IOx storage engine. If a function you need is not here, check the
+[InfluxQL feature support page](/influxdb/cloud-dedicated/reference/influxql/feature-support/#function-support)
+for more information.
+{{% /note %}}
+
 ## COUNT()
 
 Returns the number of non-null [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).

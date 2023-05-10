@@ -38,6 +38,15 @@ InfluxQL transformation functions modify and return values in each row of querie
 <!-- - [NON_NEGATIVE_DERIVATIVE()](#non_negative_derivative) -->
 <!-- - [NON_NEGATIVE_DIFFERENCE()](#non_negative_difference) -->
 
+{{% note %}}
+#### Missing InfluxQL functions
+
+Some InfluxQL functions are in the process of being rearchitected to work with
+the InfluxDB IOx storage engine. If a function you need is not here, check the
+[InfluxQL feature support page](/influxdb/cloud-dedicated/reference/influxql/feature-support/#function-support)
+for more information.
+{{% /note %}}
+
 ## Notable behaviors of transformation functions
 
 #### Must use aggregate or selector functions when grouping by time

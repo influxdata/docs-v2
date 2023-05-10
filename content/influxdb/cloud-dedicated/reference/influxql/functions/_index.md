@@ -12,10 +12,6 @@ weight: 202
 
 Use InfluxQL functions to aggregate, select, transform, analyze, and predict data.
 
-{{% note %}}
-To query with InfluxQL, the bucket you query must be mapped to a database and retention policy (DBRP). For more information, see how to [Query data with InfluxQL](/influxdb/v2.7/query-data/influxql/).
-{{%/ note %}}
-
 ## InfluxQL functions (by type)
 
 - [Aggregates](aggregates/)
@@ -74,3 +70,12 @@ To query with InfluxQL, the bucket you query must be mapped to a database and re
   <!-- - [RELATIVE_STRENGTH_INDEX()](technical-analysis/#relative_strength_index) -->
   <!-- - [TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](technical-analysis/#triple_exponential_moving_average) -->
   <!-- - [TRIPLE_EXPONENTIAL_DERIVATIVE()](technical-analysis/#triple_exponential_derivative) -->
+
+{{% note %}}
+#### Missing InfluxQL functions
+
+Some InfluxQL functions are in the process of being rearchitected to work with
+the InfluxDB IOx storage engine. If a function you need is not here, check the
+[InfluxQL feature support page](/influxdb/cloud-dedicated/reference/influxql/feature-support/#function-support)
+for more information.
+{{% /note %}}
