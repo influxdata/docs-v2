@@ -235,15 +235,28 @@ For information about installing the `influx` CLI, see
     with the following commands:
 
     ```sh
-    # Ubuntu/Debian
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-xxx.deb
-    sudo dpkg -i influxdb2-{{< latest-patch >}}-xxx.deb
-
-    # Red Hat/CentOS/Fedora
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-xxx.rpm
-    sudo yum localinstall influxdb2-{{< latest-patch >}}-xxx.rpm
+    # Ubuntu/Debian AMD64
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-amd64.deb
+    sudo dpkg -i influxdb2-{{< latest-patch >}}-amd64.deb
     ```
-    _Use the exact filename of the download of `.rpm` package (for example, `influxdb2-{{< latest-patch >}}-amd64.rpm`)._
+
+    ```sh
+    # Ubuntu/Debian ARM64
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}-arm64.deb
+    sudo dpkg -i influxdb2-{{< latest-patch >}}-arm64.deb
+    ```
+
+    ```sh
+    # Red Hat/CentOS/Fedora x86-64 (x64, AMD64)
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}.x86_64.rpm
+    sudo yum localinstall influxdb2-{{< latest-patch >}}.x86_64.rpm
+    ```
+
+    ```sh
+    # Red Hat/CentOS/Fedora AArch64 (ARMv8-A)
+    wget https://dl.influxdata.com/influxdb/releases/influxdb2-{{< latest-patch >}}.aarch64.rpm
+    sudo yum localinstall influxdb2-{{< latest-patch >}}.aarch64.rpm
+    ```
 
 2.  Start the InfluxDB service:
 

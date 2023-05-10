@@ -20,7 +20,7 @@ list_code_example: |
 
     client = FlightSQLClient(host='cluster-id.influxdb.io',
         token='INFLUX_READ_WRITE_TOKEN',
-        metadata={'iox-namespace-name': 'INFLUX_DATABASE'},
+        metadata={'database': 'INFLUX_DATABASE'},
         features={'metadata-reflection': 'true'})
 
     info = client.execute("SELECT * FROM home")
@@ -207,7 +207,7 @@ and the _DB API 2_ interface to instantiate a Flight SQL client configured for a
     # Instantiate a FlightSQLClient configured for your database
     client = FlightSQLClient(host='cluster-id.influxdb.io',
                             token='INFLUX_READ_WRITE_TOKEN',
-                            metadata={'iox-namespace-name': 'INFLUX_DATABASE'},
+                            metadata={'database': 'INFLUX_DATABASE'},
                             features={'metadata-reflection': 'true'})
     ```
 
@@ -235,7 +235,7 @@ from flightsql import FlightSQLClient
 
 client = FlightSQLClient(host='cluster-id.influxdb.io',
     token='INFLUX_READ_WRITE_TOKEN',
-    metadata={'iox-namespace-name': 'INFLUX_DATABASE'},
+    metadata={'database': 'INFLUX_DATABASE'},
     features={'metadata-reflection': 'true'})
 
 # Execute the query
@@ -271,7 +271,7 @@ from flightsql import FlightSQLClient
 # Instantiate a FlightSQLClient configured for a database
 client = FlightSQLClient(host='cluster-id.influxdb.io',
     token='INFLUX_READ_WRITE_TOKEN',
-    metadata={'iox-namespace-name': 'INFLUX_DATABASE'},
+    metadata={'database': 'INFLUX_DATABASE'},
     features={'metadata-reflection': 'true'})
 
 # Execute the query to retrieve FlightInfo
