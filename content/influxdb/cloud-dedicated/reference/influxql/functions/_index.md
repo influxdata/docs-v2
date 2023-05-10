@@ -7,7 +7,7 @@ menu:
     name: InfluxQL functions
     parent: influxql-reference
     identifier: influxql-functions
-weight: 203
+weight: 202
 ---
 
 Use InfluxQL functions to aggregate, select, transform, analyze, and predict data.

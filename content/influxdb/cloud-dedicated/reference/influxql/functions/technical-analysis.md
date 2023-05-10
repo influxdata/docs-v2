@@ -10,9 +10,9 @@ menu:
 weight: 205
 ---
 
-Use technical analysis functions to apply algorithms to your data--often used to analyze financial and investment data.
-
-Each analysis function below covers **syntax**, including parameters to pass to the function, and **examples** of how to use the function. Examples use [NOAA water sample data](/influxdb/v2.7/reference/sample-data/#noaa-water-sample-data).
+Use technical analysis functions to apply algorithms to your time series data.
+Many of these algorithms are often used to analyze financial and investment data,
+but have application in other use cases as well.
 
 - [Predictive analysis](#predictive-analysis):
   - [HOLT_WINTERS()](#holt_winters)
@@ -210,6 +210,7 @@ Technical analysis functions apply widely used algorithms to your data.
 While they are primarily used in finance and investing, they have
 application in other industries.
 
+- [Notable behaviors of technical analysis functions](#notable-behaviors-of-technical-analysis-functions)
 - [CHANDE_MOMENTUM_OSCILLATOR()](#chande_momentum_oscillator)
 - [DOUBLE_EXPONENTIAL_MOVING_AVERAGE()](#double_exponential_moving_average)
 - [EXPONENTIAL_MOVING_AVERAGE()](#exponential_moving_average)
@@ -218,6 +219,21 @@ application in other industries.
 - [RELATIVE_STRENGTH_INDEX()](#relative_strength_index)
 - [TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](#triple_exponential_moving_average)
 - [TRIPLE_EXPONENTIAL_DERIVATIVE()](#triple_exponential_derivative)
+
+### Notable behaviors of technical analysis functions
+
+#### Must use aggregate or selector functions when grouping by time
+
+All technical analysis functions support `GROUP BY` clauses that group by tags,
+but do not directly support `GROUP BY` clauses that group by time.
+To use technical analysis functions with with a `GROUP BY time()` clause, apply
+an [aggregate](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/)
+or [selector](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/)
+function to the **field_expression** argument.
+The technical analysis function operates on the result of the aggregate or
+selector operation.
+
+---
 
 ### CHANDE_MOMENTUM_OSCILLATOR()
 
@@ -266,10 +282,7 @@ CHANDE_MOMENTUM_OSCILLATOR(field_expression, period[, hold_period[, warmup_type]
 
 #### Notable behaviors
 
-- Supports `GROUP BY` clauses that group by tags, but not `GROUP BY` clauses that group by time.
-  To use `CHANDE_MOMENTUM_OSCILLATOR()` with a `GROUP BY time()` clause, apply
-  an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
-  to the [field_expression](#arguments-cmo).
+- [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
 
 #### Examples
 
@@ -493,10 +506,8 @@ DOUBLE_EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmu
 
 #### Notable behaviors
 
-- Supports `GROUP BY` clauses that group by tags, but not `GROUP BY` clauses that group by time.
-  To use `DOUBLE_EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause, apply
-  an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
-  to the [field_expression](#arguments-dema).
+- [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
+  ([View example](#...))
 
 #### Examples
 
@@ -718,10 +729,8 @@ EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmup_type]
 
 #### Notable behaviors
 
-- Supports `GROUP BY` clauses that group by tags, but not `GROUP BY` clauses that group by time.
-  To use `EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause, apply
-  an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
-  to the [field_expression](#arguments-ema).
+- [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
+  ([View example](#...))
 
 #### Examples
 
@@ -935,10 +944,8 @@ KAUFMANS_EFFICIENCY_RATIO(field_expression, period[, hold_period])
 
 #### Notable behaviors
 
-- Supports `GROUP BY` clauses that group by tags, but not `GROUP BY` clauses that group by time.
-  To use `KAUFMANS_EFFICIENCY_RATIO()` with a `GROUP BY time()` clause, apply
-  an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
-  to the [field_expression](#arguments-er).
+- [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
+  ([View example](#...))
 
 #### Examples
 
@@ -1111,10 +1118,8 @@ KAUFMANS_ADAPTIVE_MOVING_AVERAGE(field_expression, period[, hold_period])
 
 #### Notable behaviors
 
-- Supports `GROUP BY` clauses that group by tags, but not `GROUP BY` clauses that group by time.
-  To use `KAUFMANS_ADAPTIVE_MOVING_AVERAGE()` with a `GROUP BY time()` clause, apply
-  an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
-  to the [field_expression](#arguments-kama).
+- [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
+  ([View example](#...))
 
 #### Examples
 
@@ -1292,10 +1297,8 @@ RELATIVE_STRENGTH_INDEX(field_expression, period[, hold_period[, warmup_type]])
 
 #### Notable behaviors
 
-- Supports `GROUP BY` clauses that group by tags, but not `GROUP BY` clauses that group by time.
-  To use `TRIPLE_EXPONENTIAL_DERIVATIVE()` with a `GROUP BY time()` clause, apply
-  an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
-  to the [field_expression](#arguments-rsi).
+- [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
+  ([View example](#...))
 
 #### Examples
 
@@ -1516,10 +1519,8 @@ TRIPLE_EXPONENTIAL_MOVING_AVERAGE(field_expression, period[, hold_period[, warmu
 
 #### Notable behaviors
 
-- Supports `GROUP BY` clauses that group by tags, but not `GROUP BY` clauses that group by time.
-  To use `TRIPLE_EXPONENTIAL_MOVING_AVERAGE()` with a `GROUP BY time()` clause, apply
-  an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
-  to the [field_expression](#arguments-tema).
+- [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
+  ([View example](#...))
 
 #### Examples
 
@@ -1747,10 +1748,8 @@ TRIPLE_EXPONENTIAL_DERIVATIVE(field_expression, period[, hold_period[, warmup_ty
 
 #### Notable behaviors
 
-- Supports `GROUP BY` clauses that group by tags, but not `GROUP BY` clauses that group by time.
-  To use `TRIPLE_EXPONENTIAL_DERIVATIVE()` with a `GROUP BY time()` clause, apply
-  an [aggregate function](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates)
-  to the [field_expression](#arguments-trix).
+- [Must use aggregate or selector functions when grouping by time](#must-use-aggregate-or-selector-functions-when-grouping-by-time).
+  ([View example](#...))
 
 #### Examples
 

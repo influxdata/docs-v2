@@ -5,7 +5,7 @@ menu:
   influxdb_cloud_dedicated:
     name: InfluxQL internals
     parent: influxql-reference
-weight: 202
+weight: 210
 ---
 
 Learn about the implementation of InfluxQL to understand how

@@ -11,6 +11,7 @@ weight: 110
 
 - [Get started home sensor data](#get-started-home-sensor-data)
 - [NOAA Bay Area weather data](#noaa-bay-area-weather-data)
+- [Random numbers sample data](#random-numbers-sample-data)
 
 ## Get started home sensor data
 
@@ -237,6 +238,84 @@ curl --request POST \
   --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
+```
+{{% /code-callout %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## Random numbers sample data
+
+Includes two fields with randomly generated numbers reported every minute.
+Each field has a specific range of randomly generated numbers.
+This sample dataset is used to demonstrate mathematic operations and
+transformation functions.
+
+##### Time Range
+
+**2023-01-01T00:00:00Z** to **2023-01-01T12:00:00Z**
+
+##### Schema
+
+- numbers <em style="opacity: .5">(measurement)</em>
+  - **fields**
+    - a <em style="opacity: .5">(float between -1 and 1)</em>
+    - b <em style="opacity: .5">(float between -3 and 3)</em>
+
+{{< expand-wrapper >}}
+{{% expand "Write the random number sample data to InfluxDB" %}}
+
+#### Write the random number sample data to InfluxDB
+
+Use the InfluxDB v2 or v1 API to write the random number sample data to
+{{< cloud-name >}}.
+Replace the following in the script below:
+
+- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
+- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
+  with sufficient permissions to the database
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[v2 API](#)
+[v1 API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+```sh
+export INFLUX_HOST=http://cluster-id.influxdb.io
+export INFLUX_TOKEN=DATABASE_TOKEN
+
+INFLUX_DATABASE=DATABASE_NAME
+
+curl --request POST \
+  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_DATABASE" \
+  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
+```
+{{% /code-callout %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+```sh
+export INFLUX_HOST=http://cluster-id.influxdb.io
+export INFLUX_TOKEN=DATABASE_TOKEN
+
+INFLUX_DATABASE=DATABASE_NAME
+
+curl --request POST \
+  "$INFLUX_HOST/write?db=$INFLUX_DATABASE" \
+  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  --header "Content-type: text/plain; charset=utf-8" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
 ```
 {{% /code-callout %}}
 
