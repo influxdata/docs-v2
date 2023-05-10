@@ -2,7 +2,7 @@
 title: InfluxQL aggregate functions
 list_title: Aggregate functions
 description: >
-  Aggregate data with InfluxQL aggregate functions.
+  Use InfluxQL aggregate functions to aggregate your time series data.
 menu:
   influxdb_cloud_dedicated:
     name: Aggregates

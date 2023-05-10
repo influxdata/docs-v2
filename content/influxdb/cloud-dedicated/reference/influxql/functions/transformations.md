@@ -2,7 +2,7 @@
 title: InfluxQL transformation functions
 list_title: Tranfsormation functions
 description: >
-  Use transformation functions modify and return values each row of queried data.
+  Use transformation functions modify and return values in each row of queried data.
 menu:
   influxdb_cloud_dedicated:
     name: Transformations

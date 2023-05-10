@@ -2,7 +2,7 @@
 title: InfluxQL analysis functions
 list_title: Technical analysis functions
 description: >
-  Use technical analysis functions to apply algorithms to your data.
+  Use technical analysis functions to apply algorithms to your time series data.
 menu:
   influxdb_cloud_dedicated:
     name: Technical analysis

@@ -2,7 +2,7 @@
 title: InfluxQL selector functions
 list_title: Selector functions
 description: >
-  Select data with InfluxQL selector functions.
+  Use InfluxQL selector functions to select specific points from your time series data.
 menu:
   influxdb_cloud_dedicated:
     name: Selectors
