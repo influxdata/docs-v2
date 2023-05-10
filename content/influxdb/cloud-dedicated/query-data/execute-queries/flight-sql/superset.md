@@ -214,17 +214,17 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
     
     **Query parameters**
 
-    - **`?iox-namespace-name`**: URL-encoded InfluxDB [database name](/influxdb/cloud-dedicated/admin/databases/list/)
+    - **`?database`**: URL-encoded InfluxDB [database name](/influxdb/cloud-dedicated/admin/databases/list/)
     - **`?token`**: InfluxDB [API token](/influxdb/cloud-dedicated/get-started/setup/) with `READ` access to the specified database
 
     {{< code-callout "&lt;(domain|port|database-name|token)&gt;" >}}
 {{< code-callout "cluster-id\.influxdb\.io|443|example-database|example-token" >}}
 ```sh
 # Syntax
-datafusion+flightsql://<domain>:<port>?iox-namespace-name=<database-name>&token=<token>
+datafusion+flightsql://<domain>:<port>?database=<database-name>&token=<token>
 
 # Example
-datafusion+flightsql://cluster-id.influxdb.io:443?iox-namespace-name=example-database&token=example-token
+datafusion+flightsql://cluster-id.influxdb.io:443?database=example-database&token=example-token
 ```
 {{< /code-callout >}}
     {{< /code-callout >}}

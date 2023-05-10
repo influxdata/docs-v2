@@ -61,7 +61,7 @@ The following example shows how to use Python with `flightsql-dbapi` and `pyarro
     # Instantiate a FlightSQLClient configured for a bucket
     client = FlightSQLClient(host='cloud2.influxdata.com',
         token='INFLUX_READ_WRITE_TOKEN',
-        metadata={'bucket-name': 'BUCKET_NAME'},
+        metadata={'database': 'BUCKET_NAME'},
         features={'metadata-reflection': 'true'})
 
     # Execute the query to retrieve FlightInfo
@@ -108,7 +108,7 @@ from flightsql import FlightSQLClient
 
 client = FlightSQLClient(host='cloud2.influxdata.com',
     token='INFLUX_READ_WRITE_TOKEN',
-    metadata={'bucket-name': 'BUCKET_NAME'},
+    metadata={'database': 'BUCKET_NAME'},
     features={'metadata-reflection': 'true'})
 
 info = client.execute('SELECT * FROM home')

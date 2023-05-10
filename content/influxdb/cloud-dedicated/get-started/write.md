@@ -22,10 +22,10 @@ related:
 InfluxDB provides many different options for ingesting or writing data, including
 the following:
 
-- [InfluxDB HTTP API (v1 and v2)](/influxdb/cloud-serverless/reference/api/)
+- [InfluxDB HTTP API (v1 and v2)](/influxdb/cloud-dedicated/primers/api/)
 - [`influx` CLI (v1 and v2)](/influxdb/cloud-dedicated/reference/cli/influx/)
 - [Telegraf](/{{< latest "telegraf" >}}/)
-- [InfluxDB client libraries](/influxdb/cloud-dedicated/api-guide/client-libraries/)
+- [InfluxDB client libraries](/influxdb/cloud-dedicated/reference/client-libraries/)
 - etc.
 
 This tutorial walks you through the fundamental of using **line protocol** to write
@@ -390,12 +390,13 @@ import (
 func dbWrite(ctx context.Context) error {
 	// Create write client
 	url := "https://cluster-id.influxdb.io"
+  // INFLUX_TOKEN is an environment variable you assigned to your database token value
 	token := os.Getenv("INFLUX_TOKEN")
 	writeClient := influxdb2.NewClientWithOptions(url, token, influxdb2.DefaultOptions().SetPrecision(time.Second))
 
 	// Define write API
 	org := "ignored"
-	bucket := "DATABASE_NAME"
+	bucket := "get-started"
 	writeAPI := writeClient.WriteAPIBlocking(org, bucket)
 
 	line := [...]string{
@@ -446,11 +447,6 @@ func main() {
 	}
 }
 ```
-
-Replace the following:
-
-- **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
-- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
 Run the following command to install the necessary packages:
 

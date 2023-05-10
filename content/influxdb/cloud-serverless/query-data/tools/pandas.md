@@ -78,7 +78,7 @@ The following steps use Python, `flightsql-dbapi`, and `pyarrow` to query Influx
 
     client = FlightSQLClient(host='cloud2.influxdata.com',
                             token='INFLUX_READ_WRITE_TOKEN',
-                            metadata={'bucket-name': 'INFLUX_BUCKET'},
+                            metadata={'database': 'INFLUX_BUCKET'},
                             features={'metadata-reflection': 'true'})
 
     info = client.execute("SELECT * FROM home")
@@ -127,7 +127,7 @@ import pandas
 
 client = FlightSQLClient(host='cloud2.influxdata.com',
                         token='INFLUX_READ_WRITE_TOKEN',
-                        metadata={'bucket-name': 'INFLUX_BUCKET'},
+                        metadata={'database': 'INFLUX_BUCKET'},
                         features={'metadata-reflection': 'true'})
 
 info = client.execute("SELECT * FROM home")
@@ -155,7 +155,7 @@ import pandas
 
 client = FlightSQLClient(host='cloud2.influxdata.com',
                         token='INFLUX_READ_WRITE_TOKEN',
-                        metadata={'bucket-name': 'INFLUX_BUCKET'},
+                        metadata={'database': 'INFLUX_BUCKET'},
                         features={'metadata-reflection': 'true'})
 
 info = client.execute("SELECT * FROM home")
