@@ -38,6 +38,9 @@ influxctl token create \
 The command returns the token ID and the token string.
 **This is the only time the token string is available in plain text.**
 
+InfluxDB might take some time to synchronize new tokens.
+If a new token doesn't immediately work for querying or writing, wait a few seconds and try again.
+
 {{% note %}}
 #### Store secure tokens in a secret store
 
