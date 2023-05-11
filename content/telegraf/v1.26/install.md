@@ -318,11 +318,12 @@ In PowerShell _as an administrator_, do the following:
     ```powershell
     > C:\"Program Files"\InfluxData\telegraf\telegraf.exe --config C:\"Program Files"\InfluxData\telegraf\telegraf.conf --test
     ```
+    > On Windows you need to disable inputs.processes in the `telegraf.conf`.
 
 5.  To start collecting data, run:
 
     ```powershell
-    telegraf.exe --service start
+    .\telegraf.exe --service start
     ```
 
 <!--
