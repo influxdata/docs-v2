@@ -35,7 +35,7 @@ _When listing measurements (tables) available within a namespace, some clients a
 `system.queries` reflects a process-local, in-memory, namespace-scoped query log.
 While this table may be useful for debugging and monitoring queries, keep the following in mind:
 
-- Query entries stored in `system.queries` are volatile.
+- Records stored in `system.queries` are volatile.
   - Records are lost on pod restarts.
   - Queries for one namespace can evict records from another namespace.
 - Data reflects the state of a specific pod answering queries for the namespace.
