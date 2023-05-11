@@ -173,9 +173,6 @@ DISTINCT(field_key)
 {{< expand-wrapper >}}
 {{% expand "List the distinct field values" %}}
 
-Return a tabular list of the unique field values in the `level description`
-field key in the `h2o_feet` measurement.
-
 ```sql
 SELECT DISTINCT(co) FROM home
 ```

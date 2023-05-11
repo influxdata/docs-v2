@@ -25,7 +25,7 @@ results are processed and how to create efficient queries:
 
 2. The AST is passed to the `QueryExecutor` which directs queries to the
    appropriate handlers. For example, queries related to meta data are executed
-   by the meta service and `SELECT` statements are executed by the shards
+   by the **meta service** and `SELECT` statements are executed by the shards
    themselves.
 
 3. The query engine then determines the shards that match the `SELECT`
