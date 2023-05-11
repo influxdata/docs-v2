@@ -2,7 +2,7 @@
 title: InfluxDB system tables
 description: >
   InfluxDB system measurements contain time series data used by and generated from the
-  InfluxDB monitoring system.
+  InfluxDB internal monitoring system.
 menu:
   influxdb_cloud_dedicated:
     name: System tables
