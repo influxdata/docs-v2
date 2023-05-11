@@ -1456,7 +1456,7 @@ name: numbers
 ## LN()
 
 Returns the natural logarithm of the field value.
-Field values must be greater or equal to 0.
+Field values must be greater than or equal to 0.
 
 ```sql
 LN(field_expression)

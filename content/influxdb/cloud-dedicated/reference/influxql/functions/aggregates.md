@@ -87,7 +87,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Count the number of non-null values in field keys that match a regular expression" %}}
+{{% expand "Count the number of non-null values in fields where the field key matches a regular expression" %}}
 
 ```sql
 SELECT COUNT(/^[th]/) FROM home
@@ -387,7 +387,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Calculate the mean value of field keys that match a regular expression" %}}
+{{% expand "Calculate the mean value of fields where the field key matches a regular expression" %}}
 
 ```sql
 SELECT MEAN(/^[th]/) FROM home
@@ -490,7 +490,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Calculate the median value of field keys that match a regular expression" %}}
+{{% expand "Calculate the median value of fields where the field key matches a regular expression" %}}
 
 
 ```sql
@@ -787,7 +787,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Calculate the standard deviation of field keys that match a regular expression" %}}
+{{% expand "Calculate the standard deviation of fields where the field key matches a regular expression" %}}
 
 ```sql
 SELECT STDDEV(/^[th]/) FROM home
@@ -883,7 +883,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Calculate the sum of values in field keys that match a regular expression" %}}
+{{% expand "Calculate the sum of values for fields where the field key matches a regular expression" %}}
 
 ```sql
 SELECT SUM(/^[th]/) FROM home
