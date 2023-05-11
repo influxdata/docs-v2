@@ -14,7 +14,7 @@ related:
 ---
 
 InfluxDB system measurements contain time series data used by and generated from the
-InfluxDB monitoring system.
+InfluxDB internal monitoring system.
 
 Each InfluxDB Serverless namespace includes the following system measurements:
 
