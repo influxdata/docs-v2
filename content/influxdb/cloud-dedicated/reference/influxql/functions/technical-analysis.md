@@ -425,7 +425,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Use `CHANDE_MOMENTUM_OSCILLATOR` when grouping by time" %}}
+{{% expand "Apply `CHANDE_MOMENTUM_OSCILLATOR` to time windows (grouped by time)" %}}
 
 The following example use the
 [NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
@@ -647,7 +647,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Use `DOUBLE_EXPONENTIAL_MOVING_AVERAGE` when grouping by time" %}}
+{{% expand "Apply `DOUBLE_EXPONENTIAL_MOVING_AVERAGE` to time windows (grouped by time)" %}}
 
 The following example use the
 [NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
@@ -872,7 +872,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Use `EXPONENTIAL_MOVING_AVERAGE` when grouping by time" %}}
+{{% expand "Apply `EXPONENTIAL_MOVING_AVERAGE` to time windows (grouped by time)" %}}
 
 The following example use the
 [NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
@@ -1049,7 +1049,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Use `KAUFMANS_EFFICIENCY_RATIO` when grouping by time" %}}
+{{% expand "Apply `KAUFMANS_EFFICIENCY_RATIO` to time windows (grouped by time)" %}}
 
 The following example use the
 [NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
@@ -1222,7 +1222,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Use `KAUFMANS_ADAPTIVE_MOVING_AVERAGE` when grouping by time" %}}
+{{% expand "Apply `KAUFMANS_ADAPTIVE_MOVING_AVERAGE` to time windows (grouped by time)" %}}
 
 The following example use the
 [NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
@@ -1434,7 +1434,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Use `RELATIVE_STRENGTH_INDEX` when grouping by time" %}}
+{{% expand "Apply `RELATIVE_STRENGTH_INDEX` to time windows (grouped by time)" %}}
 
 The following example use the
 [NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
@@ -1652,7 +1652,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Use `TRIPLE_EXPONENTIAL_MOVING_AVERAGE` when grouping by time" %}}
+{{% expand "Apply `TRIPLE_EXPONENTIAL_MOVING_AVERAGE` to time windows (grouped by time)" %}}
 
 The following example use the
 [NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).
@@ -1877,7 +1877,7 @@ name: home
 {{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Use `TRIPLE_EXPONENTIAL_DERIVATIVE` when grouping by time" %}}
+{{% expand "Apply `TRIPLE_EXPONENTIAL_DERIVATIVE` to time windows (grouped by time)" %}}
 
 The following example use the
 [NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather).

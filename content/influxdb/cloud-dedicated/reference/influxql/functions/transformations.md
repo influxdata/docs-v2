@@ -132,7 +132,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `ABS()` when grouping by time" %}}
+{{% expand "Apply `ABS()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -232,7 +232,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `ACOS()` when grouping by time" %}}
+{{% expand "Apply `ACOS()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -332,7 +332,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `ASIN()` when grouping by time" %}}
+{{% expand "Apply `ASIN()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -431,7 +431,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `ATAN()` when grouping by time" %}}
+{{% expand "Apply `ATAN()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -532,7 +532,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `ATAN2()` when grouping by time" %}}
+{{% expand "Apply `ATAN2()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -631,7 +631,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `CEIL()` when grouping by time" %}}
+{{% expand "Apply `CEIL()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -730,7 +730,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `COS()` when grouping by time" %}}
+{{% expand "Apply `COS()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -846,7 +846,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `CUMULATIVE_SUM()` when grouping by time" %}}
+{{% expand "Apply `CUMULATIVE_SUM()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -991,7 +991,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `DERIVATIVE()` when grouping by time" %}}
+{{% expand "Apply `DERIVATIVE()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -1110,7 +1110,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `DIFFERENCE()` when grouping by time" %}}
+{{% expand "Apply `DIFFERENCE()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -1326,7 +1326,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `EXP()` when grouping by time" %}}
+{{% expand "Apply `EXP()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -1425,7 +1425,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `FLOOR()` when grouping by time" %}}
+{{% expand "Apply `FLOOR()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -1525,7 +1525,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `LN()` when grouping by time" %}}
+{{% expand "Apply `LN()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -1626,7 +1626,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `LOG()` when grouping by time" %}}
+{{% expand "Apply `LOG()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -1726,7 +1726,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `LOG2()` when grouping by time" %}}
+{{% expand "Apply `LOG2()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -1826,7 +1826,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `LOG10()` when grouping by time" %}}
+{{% expand "Apply `LOG10()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -1943,7 +1943,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `MOVING_AVERAGE()` when grouping by time" %}}
+{{% expand "Apply `MOVING_AVERAGE()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -2097,7 +2097,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `NON_NEGATIVE_DERIVATIVE()` when grouping by time" %}}
+{{% expand "Apply `NON_NEGATIVE_DERIVATIVE()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -2226,7 +2226,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `NON_NEGATIVE_DIFFERENCE()` when grouping by time" %}}
+{{% expand "Apply `NON_NEGATIVE_DIFFERENCE()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -2323,7 +2323,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `POW()` when grouping by time" %}}
+{{% expand "Apply `POW()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -2422,7 +2422,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `ROUND()` when grouping by time" %}}
+{{% expand "Apply `ROUND()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -2521,7 +2521,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `SIN()` when grouping by time" %}}
+{{% expand "Apply `SIN()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -2622,7 +2622,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `SQRT()` when grouping by time" %}}
+{{% expand "Apply `SQRT()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT
@@ -2721,7 +2721,7 @@ name: numbers
 
 {{% /expand %}}
 
-{{% expand "Apply `TAN()` when grouping by time" %}}
+{{% expand "Apply `TAN()` to time windows (grouped by time)" %}}
 
 ```sql
 SELECT

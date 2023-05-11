@@ -121,7 +121,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Count the number of non-null field values grouped by time" %}}
+{{% expand "Count the number of non-null field values within time windows (grouped by time)" %}}
 
 {{% influxdb/custom-timestamps %}}
 
@@ -400,7 +400,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Calculate the mean value of a field grouped by time" %}}
+{{% expand "Calculate the mean value of a field within time windows (grouped by time)" %}}
 
 {{% influxdb/custom-timestamps %}}
 
@@ -504,7 +504,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Calculate the median value of a field grouped by time" %}}
+{{% expand "Calculate the median value of a field within time windows (grouped by time)" %}}
 
 {{% influxdb/custom-timestamps %}}
 
@@ -607,7 +607,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Calculate the mode a field grouped by time" %}}
+{{% expand "Calculate the mode a field within time windows (grouped by time)" %}}
 
 {{% influxdb/custom-timestamps %}}
 
@@ -704,7 +704,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Calculate the spread of a field grouped by time" %}}
+{{% expand "Calculate the spread of a field within time windows (grouped by time)" %}}
 
 {{% influxdb/custom-timestamps %}}
 
@@ -800,7 +800,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Calculate the standard deviation of a field grouped by time" %}}
+{{% expand "Calculate the standard deviation of a field within time windows (grouped by time)" %}}
 
 {{% influxdb/custom-timestamps %}}
 
@@ -896,7 +896,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Calculate the sum of values in a field grouped by time" %}}
+{{% expand "Calculate the sum of values in a field within time windows (grouped by time)" %}}
 
 {{% influxdb/custom-timestamps %}}
 
