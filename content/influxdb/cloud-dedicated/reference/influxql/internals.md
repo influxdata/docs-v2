@@ -61,21 +61,21 @@ The `IteratorCreator` interface is used at many levels such as the `Shards`,
 `Shard`, and `Engine`. This allows optimizations to be performed when applicable
 such as returning a precomputed `COUNT()`.
 
-Iterators aren't just for reading raw data from storage though. Iterators can be
-composed so that they provided additional functionality around an input
+Iterators aren't just for reading raw data from storage, though. Iterators can be
+composed so that they provide additional functionality around an input
 iterator. For example, a `DistinctIterator` can compute the distinct values for
 each time window for an input iterator. Or a `FillIterator` can generate
 additional points that are missing from an input iterator.
 
-This composition also lends itself well to aggregation. For example, a statement
-such as this:
+This composition also lends itself well to aggregation.
+For example, in the following SQL, `MEAN(value)` is a `MeanIterator` that wraps an iterator from the
+underlying shards:
 
 ```sql
 SELECT MEAN(value) FROM cpu GROUP BY time(10m)
 ```
 
-In this case, `MEAN(value)` is a `MeanIterator` wrapping an iterator from the
-underlying shards. However, if we can add an additional iterator to determine
+The following example wraps `MEAN(value)` with an additional iterator (`DERIVATIVE()`) to determine
 the derivative of the mean:
 
 ```sql
@@ -84,7 +84,7 @@ SELECT DERIVATIVE(MEAN(value), 20m) FROM cpu GROUP BY time(10m)
 
 ### Cursors
 
-A **cursor** identifies data by shard in tuples (time, value) for a single series (measurement, tag set and field). The cursor trasverses data stored as a log-structured merge-tree and handles deduplication across levels, tombstones for deleted data, and merging the cache (Write Ahead Log). A cursor sorts the `(time, value)` tuples by time in ascending or descending order.
+A **cursor** identifies data by shard in tuples (time, value) for a single series (measurement, tag set and field). The cursor traverses data stored as a log-structured merge-tree and handles deduplication across levels, tombstones for deleted data, and merging the cache (Write Ahead Log). A cursor sorts the `(time, value)` tuples by time in ascending or descending order.
 
 For example, a query that evaluates one field for 1,000 series over 3 shards constructs a minimum of 3,000 cursors (1,000 per shard).
 
@@ -113,17 +113,17 @@ There are many helper iterators that let us build queries:
 
 * Merge Iterator - This iterator combines one or more iterators into a single
   new iterator of the same type. This iterator guarantees that all points
-  within a window will be output before starting the next window but does not
+  within a window will be output before starting the next window, but does not
   provide ordering guarantees within the window. This allows for fast access
-  for aggregate queries which do not need stronger sorting guarantees.
+  for aggregate queries that don't need stronger sorting guarantees.
 
-* Sorted Merge Iterator - This iterator also combines one or more iterators
+* Sorted Merge Iterator - Like `MergeIterator`, this iterator combines one or more iterators
   into a new iterator of the same type. However, this iterator guarantees
   time ordering of every point. This makes it slower than the `MergeIterator`
   but this ordering guarantee is required for non-aggregate queries which
   return the raw data points.
 
-* Limit Iterator - This iterator limits the number of points per name/tag
+* Limit Iterator - This iterator limits the number of points per name or tag
   group. This is the implementation of the `LIMIT` & `OFFSET` syntax.
 
 * Fill Iterator - This iterator injects extra points if they are missing from
@@ -135,10 +135,10 @@ There are many helper iterators that let us build queries:
   to provide lookahead for windowing.
 
 * Reduce Iterator - This iterator calls a reduction function for each point in
-  a window. When the window is complete then all points for that window are
+  a window. When the window is complete, then all points for that window are
   output. This is used for simple aggregate functions such as `COUNT()`.
 
-* Reduce Slice Iterator - This iterator collects all points for a window first
+* Reduce Slice Iterator - This iterator collects all points for a window first,
   and then passes them all to a reduction function at once. The results are
   returned from the iterator. This is used for aggregate functions such as
   `DERIVATIVE()`.
@@ -146,18 +146,19 @@ There are many helper iterators that let us build queries:
 * Transform Iterator - This iterator calls a transform function for each point
   from an input iterator. This is used for executing binary expressions.
 
-* Dedupe Iterator - This iterator only outputs unique points. It is resource
-  intensive so it is only used for small queries such as meta query statements.
+* Dedupe Iterator - This iterator only outputs unique points. Because it is resource-intensive, this iterator is only used for small queries such as meta query statements.
 
 ### Call iterators
 
-Function calls in InfluxQL are implemented at two levels. Some calls can be
+Function calls in InfluxQL are implemented at two levels:
+
+- Some calls can be
 wrapped at multiple layers to improve efficiency. For example, a `COUNT()` can
 be performed at the shard level and then multiple `CountIterator`s can be
 wrapped with another `CountIterator` to compute the count of all shards. These
 iterators can be created using `NewCallIterator()`.
 
-Some iterators are more complex or need to be implemented at a higher level.
-For example, the `DERIVATIVE()` function needs to retrieve all points for a window first
+- Some iterators are more complex or need to be implemented at a higher level.
+For example, the `DERIVATIVE()` function needs to retrieve all points for a window
 before performing the calculation. This iterator is created by the engine itself
 and is never requested to be created by the lower levels.

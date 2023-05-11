@@ -11,7 +11,7 @@ menu:
 weight: 110
 ---
 
-Sample datasets are used throughout the the {{< cloud-name >}} documentation to
+Sample datasets are used throughout the {{< cloud-name >}} documentation to
 demonstrate functionality.
 Use the following sample datasets to replicate provided examples.
 
@@ -23,12 +23,12 @@ Use the following sample datasets to replicate provided examples.
 
 Includes hourly home sensor data used in the
 [Get started with {{< cloud-name >}}](/influxdb/cloud-dedicated/get-started/) guide.
-Customized timestamps in the dataset using the {{< icon "clock" >}} button in
-the lower right corner of pages that use this dataset.
-This lets you modify the sample dataset to stay within the retention period of
-the database you write it to.
 This dataset includes anomalous sensor readings and helps to demonstrate
 processing and alerting on time series data.
+To customize timestamps in the dataset, use the {{< icon "clock" >}} button in
+the lower right corner of the page.
+This lets you modify the sample dataset to stay within the retention period of
+the database you write it to.
 
 ##### Time Range
 
@@ -60,7 +60,7 @@ Replace the following in the script below:
 
 - `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
 - `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
-  with sufficient permissions to the database
+  with _write_ permission to the database
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}

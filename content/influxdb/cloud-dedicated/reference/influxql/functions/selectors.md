@@ -219,7 +219,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Select the first value from each field key that matches a regular expression" %}}
+{{% expand "Select the first value from each field where the field key matches a regular expression" %}}
 
 ```sql
 SELECT FIRST(/^[th]/) FROM home
@@ -327,7 +327,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Select the last value from each field key that matches a regular expression" %}}
+{{% expand "Select the last value from each field where the field key matches a regular expression" %}}
 
 ```sql
 SELECT LAST(/^[th]/) FROM home
@@ -343,7 +343,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Select the first value from a field when grouped by time" %}}
+{{% expand "Select the last value from a field when grouped by time" %}}
 
 {{% influxdb/custom-timestamps %}}
 
@@ -435,7 +435,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Select the maximum value from each field key that matches a regular expression" %}}
+{{% expand "Select the maximum value from each field where the field key matches a regular expression" %}}
 
 ```sql
 SELECT MAX(/^[th]/) FROM home
@@ -543,7 +543,7 @@ name: home
 
 {{% /expand %}}
 
-{{% expand "Select the minimum value from each field key that matches a regular expression" %}}
+{{% expand "Select the minimum value from each field where the field key matches a regular expression" %}}
 
 ```sql
 SELECT MIN(/^[th]/) FROM home
