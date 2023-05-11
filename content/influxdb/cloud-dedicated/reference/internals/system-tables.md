@@ -41,7 +41,7 @@ While this table may be useful for debugging and monitoring queries, keep the fo
 - Data reflects the state of a specific pod answering queries for the namespace.
   - A query for records in `system.queries` can return different results depending on the pod the request was routed to.
 
-**Data retention:** Data can be transient and is deleted on pod restarts.
+**Data retention:** System data can be transient and is deleted on pod restarts.
 
 ### queries measurement schema
 
