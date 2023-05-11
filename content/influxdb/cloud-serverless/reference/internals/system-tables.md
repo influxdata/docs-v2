@@ -18,7 +18,7 @@ InfluxDB internal monitoring system.
 
 Each InfluxDB Serverless namespace includes the following system measurements:
 
-- [queries](#_queries-system-measurement)
+- [queries](#queries-system-measurement)
 
 ## queries system measurement
 
