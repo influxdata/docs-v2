@@ -73,8 +73,8 @@ InfluxDB Cloud Dedicated is available on the following cloud providers:
 - [Google Cloud Platform (GCP)](https://cloud.google.com/) _(Coming)_
 
 To ensure data security, availability, and durability:
-- Each instance is isolated and protected in its own virtual private cloud (VPC)
-- Clusters are deployed across multiple provider availability zones
+- Each instance is isolated and protected in its own virtual private cloud (VPC).
+- Clusters are deployed across multiple provider availability zones.
 
 ### Amazon Web Services (AWS)
 
@@ -83,7 +83,7 @@ Each VPC within AWS is segmented into public and private subnets:
 
 - The public subnet contains resources exposed to the public internet, including
   load balancers and network address translation (NAT) gateways.
-- The private subnet contains supporting infrastructure (e.g., compute, storage)
+- The private subnet contains supporting infrastructure (for example, compute and storage)
   not exposed to the public internet.
 
 To ensure fault tolerance across the data layer, clusters are deployed across multiple availability zones.
@@ -95,7 +95,7 @@ For detail about AWS's physical security and data center protocols, see [AWS's C
 In Google Cloud Platform (GCP), InfluxDB Cloud Dedicated uses the Google Kubernetes Engine (GKE)
 and Google Compute Engine to deploy individual cluster components.
 Clusters are isolated at the project level
-to enhance access controls, data governance, and support auditing.
+to enhance access controls and data governance, and support auditing.
 To ensure fault tolerance across the data layer, clusters are deployed across multiple availability zones.
 
 Google Cloud Platform data centers are compliant with many physical and information security standards.
@@ -118,7 +118,7 @@ InfluxDB Cloud Dedicated enforces TLS encryption for data in transit from all
 clients, including Telegraf agents, browsers, and custom applications.
 Requests using TLS 1.1 or earlier are rejected.
 
-By default, data at rest is encrypted using strong encrypted methods (AES-256)
+By default, data at rest is encrypted using strong encryption methods (AES-256)
 within AWS, GCP, and Microsoft Azure.
 
 User managed encryption keys are not supported in InfluxDB Cloud at this time.
@@ -157,9 +157,9 @@ InfluxData follows security best practices throughout the development cycle, inc
   - Mandatory peer code review
   - Automated functional testing and static code analysis
   - Automated vulnerability scans on third-party dependencies and libraries
-- Automated vulnerability scans on containers.
-- Regular dynamic application security testing and third-party penetration tests.
-- Regular engineering team training in secure application development practices.
+- Automated vulnerability scans on containers
+- Regular dynamic application security testing and third-party penetration tests
+- Regular engineering team training in secure application development practices
 
 ### Separation of environments and duties
 
@@ -184,7 +184,7 @@ Dedicated environments.
 
 ### Security assessments
 
-We use trusted third-party security firms to complete penetration testing
+InfluxData uses trusted third-party security firms to complete penetration testing
 to discover vulnerabilities post-development,
 and validate remediations from previous engagements.
 This includes white box and gray box testing against InfluxDB Cloud.
@@ -192,7 +192,7 @@ This includes white box and gray box testing against InfluxDB Cloud.
 ### Business continuity and disaster recovery
 
 InfluxData is a highly distributed organization with employees located across the globe.
-Our IT infrastructure is cloud-based and there is no on-premises infrastructure.
+Our IT infrastructure is cloud-based and there is no on-premise infrastructure.
 This allows us to access services from anywhere around the globe
 and rely upon the disaster recovery capabilities of our service providers to ensure our own business continuity.
 As a cloud-native company, all of InfluxData's business functions that are provided by cloud vendors
@@ -224,8 +224,8 @@ Users can configure the following security controls:
 
 We use [Auth0](https://auth0.com/) for InfluxDB Cloud Dedicated authentication.
 User accounts can be created by InfluxData on the InfluxDB Cloud Dedicated system via Auth0.
-API access within custom applications requires an API token.
-Tokens are mapped to InfluxDB read and write permissions as defined when the token is created.
+User accounts can create database tokens with data read and/or write permissions.
+API requests from custom applications require a database token with sufficient permissions.
 For more information on the types of tokens and ways to create them, see
 [Manage tokens](https://docs.influxdata.com/influxdb/cloud-dedicated/admin/tokens/).
 
