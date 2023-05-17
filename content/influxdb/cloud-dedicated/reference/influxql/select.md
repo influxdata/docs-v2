@@ -126,7 +126,7 @@ To return data associated with tag keys, include at least one field key in the
 When using a wildcard expression (`*`) in the `SELECT` clause, the query returns
 all tags and fields.
 If a [function](/influxdb/cloud-dedicated/reference/influxql/functions/) is
-applied to a wildcard expression, the query returns return all _fields_ with
+applied to a wildcard expression, the query returns all _fields_ with
 the function applied, but does not return _tags_ unless they are included in
 the `SELECT` clause.
 
@@ -335,7 +335,7 @@ Name: weather
 
 {{% /expand %}}
 
-{{% expand "Select all data from a fully-qualified measurement" %}}
+{{% expand "Select all data from a fully-qualified measurement (with default retention policy)" %}}
 
 ```sql
 SELECT * FROM "get-started"..home

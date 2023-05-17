@@ -47,7 +47,7 @@ InfluxQL Regular expressions are surrounded by `/` characters and use the
 
 ### Regular expression flags
 
-Regular expression flags modify the pattern matching behavior of the expression.
+Regular expression flags modify the pattern-matching behavior of the expression.
 InfluxQL supports the following regular expression flags:
 
 | Flag | Description                                                                     |
