@@ -9,7 +9,7 @@ menu:
     name: SELECT statement
     identifier: influxql-select-statement
     parent: influxql-reference
-weight: 301
+weight: 201
 list_code_example: |
   ```sql
   SELECT <field_key>[,<field_key>,<tag_key>] FROM <measurement_name>[,<measurement_name>]

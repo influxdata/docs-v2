@@ -8,7 +8,7 @@ menu:
     name: Quotation
     identifier: influxql-quotation
     parent: influxql-reference
-weight: 314
+weight: 214
 list_code_example: |
   ```sql
   -- String literal

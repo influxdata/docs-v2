@@ -8,217 +8,202 @@ menu:
     name: Regular expressions
     identifier: influxql-regular-expressions
     parent: influxql-reference
-weight: 313
+weight: 213
 list_code_example: |
   ```sql
   SELECT /<regular_expression_field_key>/ FROM /<regular_expression_measurement>/ WHERE [<tag_key> <operator> /<regular_expression_tag_value>/ | <field_key> <operator> /<regular_expression_field_value>/] GROUP BY /<regular_expression_tag_key>/
   ```
 ---
 
-InfluxQL supports using regular expressions when specifying:
+Regular expressions are a sequence of characters used to identify patterns in
+identifiers and string values.
+InfluxQL supports regular expressions in the following operations:
 
-- [field keys](/influxdb/v2.7/reference/glossary/#field-key) and [tag keys](/influxdb/v2.7/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/v2.7/query-data/influxql/explore-data/select/).
-- [measurements](/influxdb/v2.7/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/v2.7/query-data/influxql/explore-data/select/#from-clause).
-- [tag values](/influxdb/v2.7/reference/glossary/#tag-value) and string [field values](/influxdb/v2.7/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/v2.7/query-data/influxql/explore-data/where/).
-- [tag keys](/influxdb/v2.7/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/)
-
-Regular expressions in InfluxQL only support string comparisons and can only evaluate
-[fields](/influxdb/v2.7/reference/glossary/#field) with string values.
-
-<!-- 
-InfluxQL does not support using regular expressions to match
-non-string field values in the
-`WHERE` clause,
-[databases](/influxdb/cloud-dedicated/reference/glossary/#database), and
-[retention policies](/influxdb/cloud-dedicated/reference/glossary/#retention-policy-rp).
--->
+- Identifying **fields** and **tags** to query in the
+  [`SELECT` clause](/influxdb/cloud-dedicated/reference/influxql/select/).
+- Identifying **measurements** to query in the
+  [`FROM` clause](/influxdb/cloud-dedicated/reference/influxql/select/#from-clause).
+- Testing **tag values** and **string field values** in the
+  [`WHERE` clause](/influxdb/cloud-dedicated/reference/influxql/where/).
+- Identifying **tag keys** to group by in the
+  [`GROUP BY` clause](/influxdb/cloud-dedicated/reference/influxql/group-by/)
 
 {{% note %}}
-**Note:** Regular expression comparisons are more computationally intensive than exact
+#### Query performance
+
+Regular expression comparisons are more computationally intensive than exact
 string comparisons. Queries with regular expressions are not as performant
 as those without.
 {{% /note %}}
 
-- [Syntax](#syntax)
-- [Examples](#examples)
+## Regular expression syntax 
 
-## Syntax
+InfluxQL Regular expressions are surrounded by `/` characters and use the
+[Go regular expression syntax](http://golang.org/pkg/regexp/syntax/).
 
 ```sql
-SELECT /<regular_expression_field_key>/ FROM /<regular_expression_measurement>/ WHERE [<tag_key> <operator> /<regular_expression_tag_value>/ | <field_key> <operator> /<regular_expression_field_value>/] GROUP BY /<regular_expression_tag_key>/
+/regular_expression/
 ```
 
-Regular expressions are surrounded by `/` characters and use
-[Golang's regular expression syntax](http://golang.org/pkg/regexp/syntax/).
+### Regular expression flags
 
-## Supported operators
+Regular expression flags modify the pattern matching behavior of the expression.
+InfluxQL supports the following regular expression flags:
 
-`=~`: matches against
-`!~`: doesn't match against
+| Flag | Description                                                                     |
+| :--- | :------------------------------------------------------------------------------ |
+| i    | case-insensitive                                                                |
+| m    | multi-line mode: `^` and `$` match begin/end line in addition to begin/end text |
+| s    | let `.` match `\n`                                                              |
+| U    | ungreedy: swap meaning of `x*` and `x*?`, `x+` and `x+?`, etc.                  |
 
-### Examples
+Include regular expression flags at the beginning of your regular expression
+pattern enclosed in parentheses (`()`) and preceded by a question mark (`?`).
+
+```sql
+/(?iU)foo*/
+```
+
+## Regular expression operators
+
+InfluxQL provides the following regular expression operators that test if a
+string operand matches a regular expression:
+
+- `=~`: Returns true if the string matches the regular expression
+- `!~`: Returns true if the string does not match the regular expression
+
+InfluxQL regular expression operators are used to test string column values in
+the [`WHERE` clause](/influxdb/cloud-dedicated/reference/influxql/where/).
+
+## Regular expression examples
+
+The examples below use the following sample data sets:
+
+- [NOAA Bay Area weather data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather-data)
+- [Get started home sensor data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data)
 
 {{< expand-wrapper >}}
 
 {{% expand "Use a regular expression to specify field keys and tag keys in the SELECT clause" %}}
 
 ```sql
-SELECT /l/ FROM "h2o_feet" LIMIT 1
+SELECT /^t/ FROM weather
 ```
 
-Output:
 {{% influxql/table-meta %}}
-Name: h2o_feet
+name: weather
 {{% /influxql/table-meta %}}
 
-| time | level description | location |  water_level|
-| :------------ | :----------------| :--------------| --------------:|
-| 2019-08-17T00:00:00Z | below 3 feet | santa_monica |  2.0640000000|
-
-The query selects all field keys and tag keys that include an `l`.
-Note that the regular expression in the `SELECT` clause must match at least one
-field key in order to return results for a tag key that matches the regular
-expression.
-
-Currently, there is no syntax to distinguish between regular expressions for
-field keys and regular expressions for tag keys in the `SELECT` clause.
-The syntax `/<regular_expression>/::[field | tag]` is not supported.
+| time                 | temp_avg | temp_max | temp_min |
+| :------------------- | -------: | -------: | -------: |
+| 2020-01-01T00:00:00Z |       52 |       66 |       44 |
+| 2020-01-01T00:00:00Z |       53 |       59 |       47 |
+| 2020-01-01T00:00:00Z |       50 |       57 |       44 |
+| 2020-01-02T00:00:00Z |       54 |       61 |       49 |
+| 2020-01-02T00:00:00Z |       51 |       60 |       44 |
+| 2020-01-02T00:00:00Z |       53 |       66 |       42 |
+| ...                  |      ... |      ... |      ... |
 
 {{% /expand %}}
 
 {{% expand "Use a regular expression to specify measurements in the FROM clause" %}}
 
 ```sql
-SELECT MEAN("degrees") FROM /temperature/
+SELECT /^t/ FROM /^[hw]/
 ```
 
-Output:
-
 {{% influxql/table-meta %}}
-Name: average_temperature
+name: weather
 {{% /influxql/table-meta %}}
 
-| time   | mean |
-| :------------------ | ---------------------:|
-| 1970-01-01T00:00:00Z | 79.9847293223 |
-
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time   | mean |
-| :------------------ | ---------------------:|
-| 1970-01-01T00:00:00Z | 64.9980273540 |
-
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.7/query-data/influxql/functions/aggregates/#mean) to calculate the average `degrees` for every [measurement](/influxdb/v2.7/reference/glossary/#measurement) in the [NOAA sample data] that contains the word `temperature`.
+| time                 | temp | temp_avg | temp_max | temp_min |
+| :------------------- | ---: | -------: | -------: | -------: |
+| 2020-01-01T00:00:00Z |      |       52 |       66 |       44 |
+| 2020-01-01T00:00:00Z |      |       53 |       59 |       47 |
+| 2020-01-01T00:00:00Z |      |       50 |       57 |       44 |
+| 2020-01-02T00:00:00Z |      |       54 |       61 |       49 |
+| 2020-01-02T00:00:00Z |      |       51 |       60 |       44 |
+| 2020-01-02T00:00:00Z |      |       53 |       66 |       42 |
+| ...                  |  ... |      ... |      ... |      ... |
 
 {{% /expand %}}
 
 {{% expand "Use a regular expression to specify tag values in the WHERE clause" %}}
 
 ```sql
-SELECT MEAN(water_level) FROM "h2o_feet" WHERE "location" =~ /[m]/ AND "water_level" > 3
+SELECT * FROM weather WHERE location !~ /^[S]/
 ```
 
-Output:
 {{% influxql/table-meta %}}
-Name: h2o_feet
+name: weather
 {{% /influxql/table-meta %}}
 
-| time   | mean |
-| :------------------ | ---------------------:|
-| 1970-01-01T00:00:00Z | 4.4710766395|
-
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.7/query-data/influxql/functions/aggregates/#mean) to calculate the average `water_level` where the [tag value](/influxdb/v2.7/reference/glossary/#measurement) of `location` includes an `m` and `water_level` is greater than three.
+| time                 | location | precip | temp_avg | temp_max | temp_min | wind_avg |
+| :------------------- | :------- | -----: | -------: | -------: | -------: | -------: |
+| 2020-01-01T00:00:00Z | Concord  |      0 |       52 |       66 |       44 |     3.13 |
+| 2020-01-01T00:00:00Z | Hayward  |      0 |       50 |       57 |       44 |     2.24 |
+| 2020-01-02T00:00:00Z | Concord  |      0 |       53 |       66 |       42 |     3.13 |
+| 2020-01-02T00:00:00Z | Hayward  |      0 |       51 |       60 |       44 |      3.8 |
+| 2020-01-03T00:00:00Z | Concord  |      0 |       49 |       60 |       38 |     2.68 |
+| 2020-01-03T00:00:00Z | Hayward  |      0 |       50 |       62 |       41 |     3.13 |
+| ...                  | ...      |    ... |      ... |      ... |      ... |      ... |
 
 {{% /expand %}}
 
 {{% expand "Use a regular expression to specify a tag with no value in the WHERE clause" %}}
 
 ```sql
-SELECT * FROM "h2o_feet" WHERE "location" !~ /./
->
+SELECT * FROM home, weather WHERE location !~ /./
 ```
 
-The query selects all data from the `h2o_feet` measurement where the `location`
-[tag](/influxdb/v2.7/reference/glossary/#tag) has no value.
-Every data [point](/influxdb/v2.7/reference/glossary/#point) in the [NOAA water sample data](/influxdb/v2.7/reference/sample-data/#noaa-water-sample-data) has a tag value for `location`.
-It's possible to perform this same query without a regular expression.
-See the [Frequently Asked Questions](/influxdb/v2.7/reference/faq/#how-do-i-query-data-by-a-tag-with-a-null-value)
-document for more information.
-
-{{% /expand %}}
-
-{{% expand "Use a regular expression to specify a tag with a value in the WHERE clause" %}}
-
-```sql
-SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" =~ /./
-```
-
-Output:
 {{% influxql/table-meta %}}
-Name: h2o_feet
+name: weather
 {{% /influxql/table-meta %}}
 
-| time   | mean |
-| :------------------ | ---------------------:|
-| 1970-01-01T00:00:00Z |  4.4418434585|
-
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.7/query-data/influxql/functions/aggregates/#mean) to calculate the average `water_level` across all data with a tag value for `location`.
-
-{{% /expand %}}
-
-{{% expand "Use a regular expression to specify a field value in the WHERE clause" %}}
-
-```sql
-SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'santa_monica' AND "level description" =~ /between/
-```
-
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time   | mean |
-| :------------------ | ---------------------:|
-| 1970-01-01T00:00:00Z | 4.4713666916
-
-
-This query uses the InfluxQL [MEAN() function](/influxdb/v2.7/query-data/influxql/functions/aggregates/#mean)
-to calculate the average `water_level` for all data where the field value of `level description` includes the word `between`.
+| time                 |  co |  hum | location | precip | room        | temp | temp_avg | temp_max | temp_min | wind_avg |
+| :------------------- | --: | ---: | -------- | ------ | :---------- | ---: | -------- | -------- | -------- | -------- |
+| 2022-01-01T08:00:00Z |   0 | 35.9 |          |        | Kitchen     |   21 |          |          |          |          |
+| 2022-01-01T08:00:00Z |   0 | 35.9 |          |        | Living Room | 21.1 |          |          |          |          |
+| 2022-01-01T09:00:00Z |   0 | 36.2 |          |        | Kitchen     |   23 |          |          |          |          |
+| 2022-01-01T09:00:00Z |   0 | 35.9 |          |        | Living Room | 21.4 |          |          |          |          |
+| 2022-01-01T10:00:00Z |   0 | 36.1 |          |        | Kitchen     | 22.7 |          |          |          |          |
+| 2022-01-01T10:00:00Z |   0 |   36 |          |        | Living Room | 21.8 |          |          |          |          |
+| ...                  | ... |  ... | ...      | ...    | ...         |  ... | ...      | ...      | ...      | ...      |
 
 {{% /expand %}}
 
 {{% expand "Use a regular expression to specify tag keys in the GROUP BY clause" %}}
 
 ```sql
-SELECT FIRST("index") FROM "h2o_quality" GROUP BY /l/
+SELECT MAX(precip) FROM weather GROUP BY /^l/
 ```
 
-Output: 
 {{% influxql/table-meta %}}
-name: h2o_quality  
-tags: location=coyote_creek
+name: weather  
+tags: location=Concord
 {{% /influxql/table-meta %}}
 
-| time | mean |
-| :------------------ |-------------------:|
-| 2019-08-17T00:00:00Z | 41.0000000000 |
-
+| time                 |  max |
+| :------------------- | ---: |
+| 2021-10-24T00:00:00Z | 4.53 |
 
 {{% influxql/table-meta %}}
-name: h2o_quality  
-tags: location=santa_monica
+name: weather  
+tags: location=Hayward
 {{% /influxql/table-meta %}}
 
-| time | mean |
-| :------------------ |-------------------:|
-| 2019-08-17T00:00:00Z | 99.0000000000 |
+| time                 |  max |
+| :------------------- | ---: |
+| 2022-12-31T00:00:00Z | 4.34 |
 
-This query uses the InfluxQL [FIRST() function](/influxdb/v2.7/query-data/influxql/functions/selectors/#first)
+{{% influxql/table-meta %}}
+name: weather  
+tags: location=San Francisco
+{{% /influxql/table-meta %}}
 
-to select the first value of `index` for every tag that includes the letter `l`
-in its tag key.
+| time                 |  max |
+| :------------------- | ---: |
+| 2021-10-24T00:00:00Z | 4.02 |
 
 {{% /expand %}}
 
