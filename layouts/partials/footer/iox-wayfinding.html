@@ -4,6 +4,8 @@
 {{ $altVersion := cond (ne $version "cloud-serverless") "cloud-serverless" "cloud" }}
 {{ $engine := cond (eq $version "cloud-serverless") "IOx" "TSM" }}
 {{ $altEngine := cond (eq $version "cloud-serverless") "TSM" "IOx" }}
+{{ $productName := cond (eq $version "cloud-serverless") "InfluxDB Cloud Serverless" "InfluxDB Cloud (TSM)" }}
+{{ $altProductName := cond (eq $version "cloud-serverless") "InfluxDB Cloud (TSM)" "InfluxDB Cloud Serverless" }}
 {{ $altDoc := .Page.Params.alt_engine | default "" }}
 {{ $altLink := cond (ne $altDoc "") $altDoc (print "/influxdb/" $altVersion "/") }}
 {{ $isCloud := eq $version "cloud" }}
@@ -47,7 +49,7 @@
             powered by the {{ $altEngine }} storage engine.
           </p>
           <p>
-            <strong>Are you using the {{ $engine }} storage engine?</strong>
+            <strong>Are you using InfluxDB Cloud {{ if $isIOx }}Serverless{{ else }}powered by TSM{{ end }}?</strong>
             <a href="#" id="find-out-toggle">How to find out?</a>
           </p>
           <div id="find-out-instructions">
@@ -61,8 +63,8 @@
           </div>
         </div>
         <div class="wayfinding-actions">
-          <a class="iox-wayfinding-btn" data-engine="{{ $engine | lower }}" href="#" id="iox-wayfinding-stay"><strong>Yes</strong><span class="small"> – I'm using {{ $engine }}</span></a>
-          <a class="iox-wayfinding-btn" data-engine="{{ $altEngine | lower }}" id="iox-wayfinding-switch" href="{{ $altLink }}"><strong>No</strong><span class="small"> – I'm using {{ $altEngine }}</span></a>
+          <a class="iox-wayfinding-btn" data-engine="{{ $engine | lower }}" href="#" id="iox-wayfinding-stay"><strong>Yes</strong><span class="small"> – I'm using {{ $productName }}</span></a>
+          <a class="iox-wayfinding-btn" data-engine="{{ $altEngine | lower }}" id="iox-wayfinding-switch" href="{{ $altLink }}"><strong>No</strong><span class="small"> – I'm using {{ $altProductName }}</span></a>
           <label>
             <input id="iox-wayfinding-opt-out-input" type="checkbox" />
             <span id="iox-wayfinding-opt-out"  class="checkbox"></span>
