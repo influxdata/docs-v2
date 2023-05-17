@@ -8,7 +8,7 @@ description: >
 menu:
   influxdb_cloud_dedicated:
     parent: influxql-reference
-weight: 209
+weight: 220
 ---
 
 InfluxQL is being rearchitected to work with the InfluxDB IOx storage engine.
