@@ -7,6 +7,7 @@ description: >
 menu:
   influxdb_cloud_dedicated:
     name: SELECT statement
+    identifier: influxql-select-statement
     parent: influxql-reference
 weight: 301
 list_code_example: |
@@ -23,12 +24,10 @@ The `SELECT` statement **requires** a [`SELECT` clause](#select-clause) and a
 - [Syntax](#syntax)
   - [SELECT clause](#select-clause)
   - [FROM clause](#from-clause)
-- [Examples](#examples)
-- [Notable behaviors](#notable-behaviors)
-- [Regular expressions](#regular-expressions)
-- [Data types and cast operations](#data-types-and-cast-operations)
-- [Merge behavior](#merge-behavior)
-- [Multiple statements](#multiple-statements)
+- [Notable SELECT statement behaviors](#notable-select-statement-behaviors)
+- [Data types and casting operations](#data-types-and-casting-operations)
+- [SELECT statement examples](#select-statement-examples)
+<!-- - [Multiple statements](#multiple-statements) -->
 
 ## Syntax
 
@@ -36,7 +35,7 @@ The `SELECT` statement **requires** a [`SELECT` clause](#select-clause) and a
 SELECT field_expression[, ..., field_expression_n[, tag_expression[, ..., tag_expression_n]]] FROM measurement_expression[, ..., measurement_expression_n]
 ```
 
-### `SELECT` clause
+### SELECT clause
 
 The `SELECT` clause supports several formats for identifying data to query.
 It requires one or more **field expressions** and optional **tag expressions**.
@@ -45,262 +44,69 @@ It requires one or more **field expressions** and optional **tag expressions**.
   Can be a [field key](/influxdb/cloud-dedicated/reference/glossary/#field-key),
   constant, [regular expression](/influxdb/cloud-dedicated/reference/influxql/regular-expressions/),
   [wildcard (`*`)](#wildcard-expressions-in-select-clauses), or
-  [function](/influxdb/cloud-dedicated/reference/influxql/functions/).
+  [function](/influxdb/cloud-dedicated/reference/influxql/functions/) and any
+  combination of arithmetic operators.
 - **tag_expression**: Expression to identify one or more tags to return in query results.
   Can be a [tag key](/influxdb/cloud-dedicated/reference/glossary/#tag-key) or constant.
 
-{{% note %}}
-#### Wildcard expression in a SELECT clause
-
-A wildcard expression (`*`) without additional functions applied returns _all
-fields and tags_.
-InfluxQL functions applied to a wildcard expression return all _fields_ with
-the function applied, but not _tags_.
-To return specific tags when applying a function to a wildcard expression, include
-the tag keys in your `SELECT` clause.
-{{% /note %}}
+#### Select clause behaviors
 
 - `SELECT field_key` - Returns a specific field.
 - `SELECT field_key1, field_key2` - Returns two specific fields.
 - `SELECT field_key, tag_key` - Returns a specific field and tag.
 - `SELECT *` - Returns all [fields](/influxdb/cloud-dedicated/reference/glossary/#field)
   and [tags](/influxdb/cloud-dedicated/reference/glossary/#tag).
+  _See [Wildcard expressions](#wildcard-expressions)._
 - `SELECT /^[t]/` - Returns all [fields](/influxdb/cloud-dedicated/reference/glossary/#field)
   and [tags](/influxdb/cloud-dedicated/reference/glossary/#tag) with keys that
   match the regular expression. At least one field key must match the regular
   expression. If no field keys match the regular expression, no results are
   returned.
 
-### `FROM` clause
+### FROM clause
 
 The `FROM` clause specifies the
 [measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement) to query.
-It requires one or more **measurement expressions**.
+It requires one or more comma-delimited **measurement expressions**.
 
 - **measurement_expression**: Expression to identify one or more measurements to query.
   Can be a measurement name, fully-qualified measurement, constant, or
   [regular expression](/influxdb/cloud-dedicated/reference/influxql/regular-expressions/).
 
-- `FROM <measurement_name>` - Returns data from a measurement.
-- `FROM <measurement_name>,<measurement_name>` - Returns data from more than one measurement.
-- `FROM <database_name>.<retention_policy_name>.<measurement_name>` - Returns data from a fully qualified measurement.
-- `FROM <database_name>..<measurement_name>` - Returns data from a measurement.
+  - ##### Measurement name
 
-#### Quoting
+    ```sql
+    FROM measurement
+    ```
 
-[Identifiers](/influxdb/v2.7/reference/syntax/influxql/spec/#identifiers) **must** be double quoted if they contain characters other than `[A-z,0-9,_]`,
-begin with a digit, or are an [InfluxQL keyword](https://github.com/influxdata/influxql/blob/master/README.md#keywords).
-While not always necessary, we recommend that you double quote identifiers.
+  - ##### Fully-qualified measurement
 
-{{% note %}}
-**Note:** InfluxQL quoting guidelines differ from [line protocol quoting guidelines](/influxdb/v2.7/reference/syntax/line-protocol/#quotes).
-Please review the [rules for single and double-quoting](/influxdb/v2.7/reference/syntax/line-protocol/#quotes) in queries.
-{{% /note %}}
+    ```sql
+    FROM database.retention_policy.measurement
 
-### Examples
+    -- Fully-qualified measurement with default retention policy
+    FROM database..measurement
+    ```
 
-{{< expand-wrapper >}}
-{{% expand "Select all fields and tags from a measurement" %}}
+    {{% note %}}
+#### InfluxDB retention policies
 
-```sql
-SELECT * FROM "h2o_feet"
+In {{< cloud-name >}}, **retention policies** are not part of the data model like
+they are in InfluxDB 1.x.
+Each {{< cloud-name >}} database has a **retention period** which defines the
+maximum age of data to retain in the database. To use fully-qualified
+measurements in InfluxQL queries, use the following naming convention when
+[creating a database](/influxdb/cloud-dedicated/admin/databases/create/):
+
 ```
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time   | level description | location | water_level |
-| :-------------- |:----------------------| :-------------------| ------------------:|
-| 2019-08-17T00:00:00Z | below 3 feet |santa_monica | 2.0640000000|
-| 2019-08-17T00:00:00Z | between 6 and 9 feet | coyote_creek | 8.1200000000|
-| 2019-08-17T00:06:00Z | below 3 feet| santa_monica | 2.1160000000|
-| 2019- 08-17T00:06:00Z | between 6 and 9 feet |coyote_creek |8.0050000000|
-| 2019-08-17T00:12:00Z | below 3 feet | santa_monica | 2.0280000000|
-| 2019-08-17T00:12:00Z | between 6 and 9 feet | coyote_creek | 7.8870000000|
-| 2019-08-17T00:18:00Z | below 3 feet |santa_monica | 2.1260000000|
-
-The data above is a partial listing of the query output, as the result set is quite large. The query selects all [fields](/influxdb/cloud-dedicated/reference/glossary/#field) and
-[tags](/influxdb/cloud-dedicated/reference/glossary/#tag) from the `h2o_feet`
-[measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement).
-
-{{% /expand %}}
-
-{{% expand "Select specific tags and fields from a measurement" %}}
-
-```sql
-SELECT "level description","location","water_level" FROM "h2o_feet"
+database_name/retention_policy
 ```
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
+    {{% /note %}}
 
-| time   | level description | location | water_level |
-| :-------------- |:----------------------| :-------------------| ------------------:|
-| 2019-08-17T00:00:00Z | below 3 feet |santa_monica | 2.0640000000|
-| 2019-08-17T00:00:00Z | between 6 and 9 feet | coyote_creek | 8.1200000000|
-
-The query selects the `level description` field, the `location` tag, and the
-`water_level` field.
-
-{{% note %}}
-**Note:** The `SELECT` clause must specify at least one field when it includes
-a tag.
-{{% /note %}}
-
-{{% /expand %}}
-
-{{% expand "Select specific tags and fields from a measurement and provide their identifier type" %}}
-
-```sql
-SELECT "level description"::field,"location"::tag,"water_level"::field FROM "h2o_feet"
-```
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time   | level description | location | water_level |
-| :-------------- |:----------------------| :-------------------| ------------------:|
-| 2019-08-17T00:24:00Z  | between 6 and 9 feet   | coyote_creek  | 7.6350000000|
-| 2019-08-17T00:30:00Z  | below 3 feet   | santa_monica   | 2.0510000000|
-| 2019-08-17T00:30:00Z | between 6 and 9 feet   | coyote_creek  |  7.5000000000|
-| 2019-08-17T00:36:00Z  | below 3 feet   | santa_monica  | 2.0670000000 |
-| 2019-08-17T00:36:00Z  | between 6 and 9 feet   |  coyote_creek  | 7.3720000000 |
-| 2019-08-17T00:42:00Z   | below 3 feet  | santa_monica   | 2.0570000000 |
-
-The query selects the `level description` field, the `location` tag, and the
-`water_level` field from the `h2o_feet` measurement.
-The `::[field | tag]` syntax specifies if the
-[identifier](/influxdb/v2.7/reference/syntax/influxql/spec/#identifiers) is a field or tag.
-Use `::[field | tag]` to differentiate between [an identical field key and tag key ](/v2.4/reference/faq/#how-do-i-query-data-with-an-identical-tag-key-and-field-key).
-That syntax is not required for most use cases.
-
-{{% /expand %}}
-
-{{% expand "Select all fields from a measurement" %}}
-
-```sql
-SELECT *::field FROM "h2o_feet"
-```
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time   | level description| water_level |
-| :-------------- | :-------------------| ------------------:|
-| 2019-08-17T00:00:00Z  | below 3 feet | 2.0640000000 | 
-| 2019-08-17T00:00:00Z | between 6 and 9 feet | 8.1200000000|
-| 2019-08-17T00:06:00Z | below 3 feet  | 2.1160000000|
-| 2019-08-17T00:06:00Z  | between 6 and 9 feet | 8.0050000000|
-| 2019-08-17T00:12:00Z | below 3 feet | 2.0280000000|
-| 2019-08-17T00:12:00Z  | between 6 and 9 feet | 7.8870000000|
-
-The query selects all fields from the `h2o_feet` measurement.
-The `SELECT` clause supports combining the `*` syntax with the `::` syntax.
-
-{{% /expand %}}
-
-{{% expand "Select a specific field from a measurement and perform basic arithmetic" %}}
-
-```sql
-SELECT ("water_level" * 2) + 4 FROM "h2o_feet"
-```
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time   | water_level |
-| :-------------- | ------------------:|
-| 2019-08-17T00:00:00Z  | 20.2400000000 |
-| 2019-08-17T00:00:00Z  | 8.1280000000 |
-| 2019-08-17T00:06:00Z  | 20.0100000000 |
-| 2019-08-17T00:06:00Z  | 8.2320000000 |
-| 2019-08-17T00:12:00Z  | 19.7740000000 |
-| 2019-08-17T00:12:00Z  | 8.0560000000 |
-
-The query multiplies `water_level`'s field values by two and adds four to those
-values.
-
-{{% note %}}
-**Note:** InfluxDB follows the standard order of operations.
-See [InfluxQL mathematical operators](/influxdb/v2.7/query-data/influxql/math-operators/)
-for more on supported operators.
-{{% /note %}}
-
-{{% /expand %}}
-
-{{% expand "Select all data from more than one measurement" %}}
-
-```sql
-SELECT * FROM "h2o_feet","h2o_pH"
-```
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time | level description | location | pH | water_level |
-| :-------------- |:-------------| :----------------| :-------------| --------------:|
-| 2019-08-17T00:00:00Z | below 3 feet  | santa_monica  | <nil> |  2.0640000000|
-| 2019-08-17T00:00:00Z | between 6 and 9 feet  | coyote_creek  | <nil> | 8.1200000000|
-| 2019-08-17T00:06:00Z | below 3 feet  | santa_monica  | <nil> | 2.1160000000|
-| 2019-08-17T00:06:00Z | between 6 and 9 feet | coyote_creek  | <nil> | 8.0050000000|
-| 2019-08-17T00:12:00Z | below 3 feet  | santa_monica | <nil> | 2.0280000000 |
-| 2019-08-17T00:12:00Z | between 6 and 9 feet  | coyote_creek | <nil> | 7.8870000000|
-| 2019-08-17T00:18:00Z  | below 3 feet  | santa_monica  | <nil> | 2.1260000000|
-| 2019-08-17T00:18:00Z  | between 6 and 9 feet | coyote_creek | <nil> | 7.7620000000|
-
-{{% influxql/table-meta %}}
-Name: h2o_pH
-{{% /influxql/table-meta %}}
-
-| time | level description | location | pH | water_level |
-| :-------------- |:-------------| :----------------| :-------------| --------------:|
-| 2019-08-17T00:00:00Z  | <nil> | coyote_creek  | 7.00| <nil> |
-| 2019-08-17T00:06:00Z  | <nil> |coyote_creek | 8.00 | <nil> |
-| 2019-08-17T00:06:00Z  | <nil> |santa_monica  | 6.00 | <nil> |
-| 2019-08-17T00:12:00Z  | <nil> |coyote_creek  |8.00 | <nil> |
-
-
-The query selects all fields and tags from two measurements: `h2o_feet` and
-`h2o_pH`.
-Separate multiple measurements with a comma (`,`).
-
-{{% /expand %}}
-
-{{% expand "Select all data from a measurement in a particular database" %}}
-
-```sql
-SELECT * FROM noaa.."h2o_feet"
-```
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-| time   | level description | location | water_level |
-| :-------------- |:----------------------| :-------------------| ------------------:|
-| 2019-08-17T00:00:00Z | below 3 feet |santa_monica | 2.0640000000|
-| 2019-08-17T00:00:00Z | between 6 and 9 feet | coyote_creek | 8.1200000000|
-| 2019-08-17T00:06:00Z | below 3 feet| santa_monica | 2.1160000000|
-| 2019- 08-17T00:06:00Z | between 6 and 9 feet |coyote_creek |8.0050000000|
-| 2019-08-17T00:12:00Z | below 3 feet | santa_monica | 2.0280000000|
-| 2019-08-17T00:12:00Z | between 6 and 9 feet | coyote_creek | 7.8870000000|
-
-The query selects data from the `h2o_feet` measurement in the `noaa` database.
-The `..` indicates the `DEFAULT` retention policy for the specified database.
-
-{{% /expand %}}
-
-{{< /expand-wrapper >}}
-
-## Notable behaviors
+## Notable SELECT statement behaviors
 
 - [Must query at least one field](#must-query-at-least-one-field)
+- [Wildcard expressions](#wildcard-expressions)
 - [Cannot include both aggregate and non-aggregate field expressions](#cannot-include-both-aggregate-and-non-aggregate-field-expressions)
 
 ### Must query at least one field
@@ -314,6 +120,15 @@ matches only tag keys and no field keys, the query returns an empty result.
 
 To return data associated with tag keys, include at least one field key in the
 `SELECT` clause.
+
+### Wildcard expressions
+
+When using a wildcard expression (`*`) in the `SELECT` clause, the query returns
+all tags and fields.
+If a [function](/influxdb/cloud-dedicated/reference/influxql/functions/) is
+applied to a wildcard expression, the query returns return all _fields_ with
+the function applied, but does not return _tags_ unless they are included in
+the `SELECT` clause.
 
 ### Cannot include both aggregate and non-aggregate field expressions
 
@@ -331,224 +146,260 @@ SELECT mean(temp), hum FROM home
 This query returns an error.
 For more information, see [error about mixing aggregate and non-aggregate queries](/{{< latest "enterprise_influxdb" >}}/troubleshooting/errors/#error-parsing-query-mixing-aggregate-and-non-aggregate-queries-is-not-supported).
 
-## Data types and cast operations
+## Data types and casting operations
 
-The [`SELECT` clause](#select-clause) supports specifying a [field's](/influxdb/cloud-dedicated/reference/glossary/#field) type and basic cast operations with the `::` syntax.
-
-  - [Data types](#data-types)
-  - [Cast operations](#cast-operations)
-
-### Data types
-
-[Field values](/influxdb/cloud-dedicated/reference/glossary/#field-value) can be floats, integers, strings, or booleans.
-The `::` syntax allows users to specify the field's type in a query.
-
-{{% note %}}
-**Note:** Generally, it is not necessary to specify the field value type in the [`SELECT` clause](/influxdb/v2.7/query-data/influxql/explore-data/select/). In most cases, InfluxDB rejects any writes that attempt to write a [field value](/influxdb/cloud-dedicated/reference/glossary/#field-value) to a field that previously accepted field values of a different type.
-{{% /note %}}
-
-It is possible for field value types to differ across [shard groups](/influxdb/cloud-dedicated/reference/glossary/#shard-group).
-In these cases, it may be necessary to specify the field value type in the
-`SELECT` clause.
-Please see the
-[Frequently Asked Questions](/influxdb/v2.7/reference/faq/#how-does-influxdb-handle-field-type-discrepancies-across-shards)
-document for more information on how InfluxDB handles field value type discrepancies.
-
-### Syntax
+The [`SELECT` clause](#select-clause) supports specifying a
+[field's](/influxdb/cloud-dedicated/reference/glossary/#field) type and basic
+casting operations with the `::` syntax.
 
 ```sql
-SELECT_clause <field_key>::<type> FROM_clause
+SELECT field_expression::type FROM measurement_expression
 ```
-
-`type` can be `float`, `integer`, `string`, or `boolean`.
-In most cases, InfluxDB returns no data if the `field_key` does not store data of the specified
-`type`. See [Cast Operations](#cast-operations) for more information.
-
-### Example
-
-```sql
-SELECT "water_level"::float FROM "h2o_feet" LIMIT 4
-```
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-|time | water_level |
-| :------------------ |-------------------:|
-| 2019-08-17T00:00:00Z | 8.1200000000 |
-| 2019-08-17T00:00:00Z | 2.0640000000 |
-| 2019-08-17T00:06:00Z | 8.0050000000 |
-| 2019-08-17T00:06:00Z | 2.1160000000 |
-
-The query returns values of the `water_level` field key that are floats.
-
-## Cast operations
 
 The `::` syntax allows users to perform basic cast operations in queries.
-Currently, InfluxDB supports casting [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value) from integers to
-floats or from floats to integers.
+Currently, InfluxQL supports casting _numeric_ [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value)
+to other numeric types.
+Casting to an **identifier type** acts as a filter on results and returns only
+columns of that specific identifier type along with the `time` column.
 
-### Syntax
+{{< flex >}}
+{{% flex-content "third" %}}
 
-```sql
-SELECT_clause <field_key>::<type> FROM_clause
-```
+##### Numeric types
 
-`type` can be `float` or `integer`.
+- `float`
+- `integer`
+- `unsigned`
 
-InfluxDB returns no data if the query attempts to cast an integer or float to a string or boolean.
+{{% /flex-content %}}
+{{% flex-content "third" %}}
 
-### Examples
+##### Non-numeric types
+
+- `string`
+- `boolean`
+
+{{% /flex-content %}}
+{{% flex-content "third" %}}
+
+##### Identifier types
+
+- `field`
+- `tag`
+
+{{% /flex-content %}}
+{{< /flex >}}
+
+{{% note %}}
+InfluxQL returns no data if the query attempts to cast a numeric value to a
+non-numeric type and vice versa.
+{{% /note %}}
+
+When casting a float value to an integer or unsigned integer, the float value
+is truncated at the decimal point. No rounding is performed.
+
+## SELECT statement examples
+
+The examples below use the following sample data sets:
+
+- [Get started home sensor data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data)
+- [NOAA Bay Area weather data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather-data)
 
 {{< expand-wrapper >}}
-
-{{% expand "Cast float field values to integers" %}}
+{{% expand "Select all fields and tags from a measurement" %}}
 
 ```sql
-SELECT "water_level"::integer FROM "h2o_feet" LIMIT 4
+SELECT * FROM home
 ```
-Output:
+
 {{% influxql/table-meta %}}
-Name: h2o_feet
+Name: home
 {{% /influxql/table-meta %}}
 
-|time | water_level |
-| :------------------ |-------------------:|
-| 2019-08-17T00:00:00Z | 8.0000000000 |
-| 2019-08-17T00:00:00Z | 2.0000000000 |
-| 2019-08-17T00:06:00Z | 8.0000000000 |
-| 2019-08-17T00:06:00Z | 2.0000000000 |
+{{% influxdb/custom-timestamps %}}
 
-The query returns the integer form of `water_level`'s float [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
+| time                 |  co |  hum | room        | temp |
+| :------------------- | --: | ---: | :---------- | ---: |
+| 2022-01-01T08:00:00Z |   0 | 35.9 | Kitchen     |   21 |
+| 2022-01-01T08:00:00Z |   0 | 35.9 | Living Room | 21.1 |
+| 2022-01-01T09:00:00Z |   0 | 36.2 | Kitchen     |   23 |
+| 2022-01-01T09:00:00Z |   0 | 35.9 | Living Room | 21.4 |
+| 2022-01-01T10:00:00Z |   0 | 36.1 | Kitchen     | 22.7 |
+| 2022-01-01T10:00:00Z |   0 |   36 | Living Room | 21.8 |
+| ...                  | ... |  ... | ...         |  ... |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Select specific tags and fields from a measurement" %}}
+
+```sql
+SELECT temp, hum, room FROM home
+```
+
+{{% influxql/table-meta %}}
+Name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 | temp |  hum | room        |
+| :------------------- | ---: | ---: | :---------- |
+| 2022-01-01T08:00:00Z |   21 | 35.9 | Kitchen     |
+| 2022-01-01T08:00:00Z | 21.1 | 35.9 | Living Room |
+| 2022-01-01T09:00:00Z |   23 | 36.2 | Kitchen     |
+| 2022-01-01T09:00:00Z | 21.4 | 35.9 | Living Room |
+| 2022-01-01T10:00:00Z | 22.7 | 36.1 | Kitchen     |
+| 2022-01-01T10:00:00Z | 21.8 |   36 | Living Room |
+| ...                  |  ... |  ... | ...         |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Select all fields from a measurement" %}}
+
+```sql
+SELECT *::field FROM home
+```
+
+{{% influxql/table-meta %}}
+Name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 |  co |  hum | temp |
+| :------------------- | --: | ---: | ---: |
+| 2022-01-01T08:00:00Z |   0 | 35.9 |   21 |
+| 2022-01-01T08:00:00Z |   0 | 35.9 | 21.1 |
+| 2022-01-01T09:00:00Z |   0 | 36.2 |   23 |
+| 2022-01-01T09:00:00Z |   0 | 35.9 | 21.4 |
+| 2022-01-01T10:00:00Z |   0 | 36.1 | 22.7 |
+| 2022-01-01T10:00:00Z |   0 |   36 | 21.8 |
+| ...                  | ... |  ... |  ... |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Select a field from a measurement and perform basic arithmetic" %}}
+
+```sql
+SELECT (temp * (9 / 5)) + 32 FROM home
+```
+
+{{% influxql/table-meta %}}
+Name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 |              temp |
+| :------------------- | ----------------: |
+| 2022-01-01T08:00:00Z | 69.80000000000001 |
+| 2022-01-01T08:00:00Z |             69.98 |
+| 2022-01-01T09:00:00Z |              73.4 |
+| 2022-01-01T09:00:00Z |             70.52 |
+| 2022-01-01T10:00:00Z |             72.86 |
+| 2022-01-01T10:00:00Z | 71.24000000000001 |
+| ...                  |               ... |
+
+{{% /influxdb/custom-timestamps %}}
+
+{{% note %}}
+**Note:** InfluxDB follows the standard order of operations.
+See [InfluxQL mathematical operators](/influxdb/cloud-dedicated/reference/influxql/math-operators/)
+for more on supported operators.
+{{% /note %}}
 
 {{% /expand %}}
 
-{{% expand "Cast float field values to strings (this functionality is not supported)" %}}
+{{% expand "Select all data from more than one measurement" %}}
 
 ```sql
-SELECT "water_level"::string FROM "h2o_feet" LIMIT 4
-> No results
+SELECT * FROM home, weather
 ```
 
-The query returns no data as casting a float field value to a string is not yet supported.
+{{% influxql/table-meta %}}
+Name: weather
+{{% /influxql/table-meta %}}
+
+| time                 |  co | hum | location      | precip | room | temp | temp_avg | temp_max | temp_min | wind_avg |
+| :------------------- | --: | --: | :------------ | -----: | :--- | ---: | -------: | -------: | -------: | -------: |
+| 2020-01-01T00:00:00Z |     |     | Concord       |      0 |      |      |       52 |       66 |       44 |     3.13 |
+| 2020-01-01T00:00:00Z |     |     | San Francisco |      0 |      |      |       53 |       59 |       47 |    14.32 |
+| 2020-01-01T00:00:00Z |     |     | Hayward       |      0 |      |      |       50 |       57 |       44 |     2.24 |
+| 2020-01-02T00:00:00Z |     |     | San Francisco |      0 |      |      |       54 |       61 |       49 |     5.82 |
+| 2020-01-02T00:00:00Z |     |     | Hayward       |      0 |      |      |       51 |       60 |       44 |      3.8 |
+| 2020-01-02T00:00:00Z |     |     | Concord       |      0 |      |      |       53 |       66 |       42 |     3.13 |
+| ...                  | ... | ... | ...           |    ... | ...  |  ... |      ... |      ... |      ... |      ... |
+
+{{% /expand %}}
+
+{{% expand "Select all data from a fully-qualified measurement" %}}
+
+```sql
+SELECT * FROM "get-started"..home
+```
+
+{{% influxql/table-meta %}}
+Name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 |  co |  hum | room        | temp |
+| :------------------- | --: | ---: | :---------- | ---: |
+| 2022-01-01T08:00:00Z |   0 | 35.9 | Kitchen     |   21 |
+| 2022-01-01T08:00:00Z |   0 | 35.9 | Living Room | 21.1 |
+| 2022-01-01T09:00:00Z |   0 | 36.2 | Kitchen     |   23 |
+| 2022-01-01T09:00:00Z |   0 | 35.9 | Living Room | 21.4 |
+| 2022-01-01T10:00:00Z |   0 | 36.1 | Kitchen     | 22.7 |
+| 2022-01-01T10:00:00Z |   0 |   36 | Living Room | 21.8 |
+| ...                  | ... |  ... | ...         |  ... |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{< /expand-wrapper >}}
+
+### Type-casting examples
+
+{{< expand-wrapper >}}
+
+{{% expand "Cast an integer field to a float" %}}
+
+```sql
+SELECT co::float FROM home
+```
+
+{{% /expand %}}
+
+{{% expand "Cast a float field to an integer" %}}
+
+```sql
+SELECT temp::integer FROM home
+```
+
+{{% /expand %}}
+
+{{% expand "Cast a float field to an unsigned integer" %}}
+
+```sql
+SELECT temp::unsigned FROM home
+```
 
 {{% /expand %}}
 
 {{< /expand-wrapper >}}
 
-## Merge behavior
-
-InfluxQL merges [series](/influxdb/cloud-dedicated/reference/glossary/#series) automatically.
-
-### Example
-
-{{< expand-wrapper >}}
-
-{{% expand "Merge behavior" %}}
-
-The `h2o_feet` [measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement) in the `noaa` is part of two [series](/influxdb/cloud-dedicated/reference/glossary/#series).
-The first series is made up of the `h2o_feet` measurement and the `location = coyote_creek` [tag](/influxdb/cloud-dedicated/reference/glossary/#tag). The second series is made of up the `h2o_feet` measurement and the `location = santa_monica` tag.
-
-The following query automatically merges those two series when it calculates the average `water_level` using the [MEAN() function](/influxdb/v2.7/query-data/influxql/functions/aggregates/#mean):
-
-```sql
-SELECT MEAN("water_level") FROM "h2o_feet"
-```
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-|time | mean |
-| :------------------ |-------------------:|
-| 1970-01-01T00:00:00Z  | 4.4419314021 |
-
-If you want the average `water_level` for the first series only, specify the relevant tag in the [`WHERE` clause](/influxdb/v2.7/query-data/influxql/explore-data/where/):
-
-```sql
-SELECT MEAN("water_level") FROM "h2o_feet" WHERE "location" = 'coyote_creek'
-```
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-|time | mean |
-| :------------------ |-------------------:|
-| 1970-01-01T00:00:00Z | 5.3591424203 |
-
-If you want the average `water_level` for each individual series, include a [`GROUP BY` clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/):
-
-```sql
-SELECT MEAN("water_level") FROM "h2o_feet" GROUP BY "location"
-```
-Output: 
-{{% influxql/table-meta %}}
-name: h2o_feet  
-tags: location=coyote_creek
-{{% /influxql/table-meta %}}
-
-| time | mean |
-| :------------------ |-------------------:|
- | 1970-01-01T00:00:00Z | 5.3591424203 |
-
-{{% influxql/table-meta %}}
-name: h2o_feet      
-tags: location=santa_monica
-{{% /influxql/table-meta %}}
-
-| time | mean |
-| :------------------ |-------------------:|
-| 1970-01-01T00:00:00Z  | 3.5307120942 |
-
-{{% /expand %}}
-
-{{< /expand-wrapper >}}
-
-## Multiple statements
+<!-- ## Multiple statements
 
 Separate multiple `SELECT` statements in a query with a semicolon (`;`).
 
 ### Examples
 
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[InfluxQL shell](#)
-[InfluxDB API](#)
-{{% /tabs %}}
-
-{{% tab-content %}}
-
-In the [InfluxQL shell](/influxdb/v2.7/tools/influxql-shell/):
-
-```sql
-SELECT MEAN("water_level") FROM "h2o_feet"; SELECT "water_level" FROM "h2o_feet" LIMIT 2
-``` 
-Output:
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-|time | mean |
-| :------------------ |-------------------:|
-| 1970-01-01T00:00:00Z | 4.4419314021 |
-
-
-{{% influxql/table-meta %}}
-Name: h2o_feet
-{{% /influxql/table-meta %}}
-
-|time | water_level |
-| :------------------ |-------------------:|
-| 2019-08-17T00:00:00Z | 8.12 |
-| 2015-08-18T00:00:00Z | 2.064 |
-
-{{% /tab-content %}}
-
-{{% tab-content %}}
-
-With the [InfluxDB API](/influxdb/v2.7/reference/api/influxdb-1x/):
+The **InfluxDB v1 query API** returns a JSON response with a `statement_id`
+field for each `SELECT` statement.
 
 ```json
 {
@@ -595,7 +446,4 @@ With the [InfluxDB API](/influxdb/v2.7/reference/api/influxdb-1x/):
         }
     ]
 }
-```
-
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
+``` -->
