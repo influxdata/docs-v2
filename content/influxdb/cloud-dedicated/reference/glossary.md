@@ -1032,6 +1032,11 @@ The sender continues to send the next packets.
 This means computers can communicate more quickly.
 This protocol is used when speed is desirable and error correction is not necessary.
 
+### unix epoch
+
+The date and time from which Unix system times are measured.
+The Unix epoch is `1970-01-01T00:00:00Z`.
+
 ### unix timestamp
 
 Counts time since **Unix Epoch (1970-01-01T00:00:00Z UTC)** in specified units ([precision](#precision)).

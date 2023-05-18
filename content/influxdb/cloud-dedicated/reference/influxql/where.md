@@ -5,6 +5,7 @@ description: >
 menu:
   influxdb_cloud_dedicated:
     name: WHERE clause
+    identifier: influxql-where-clause
     parent: influxql-reference
 weight: 202
 list_code_example: |
@@ -14,307 +15,357 @@ list_code_example: |
 ---
 
 Use the `WHERE` clause to filter data based on
-[fields](/influxdb/cloud-dedicated/reference/glossary/#field),
-[tags](/influxdb/cloud-dedicated/reference/glossary/#tag), and/or
+[field values](/influxdb/cloud-dedicated/reference/glossary/#field),
+[tag values](/influxdb/cloud-dedicated/reference/glossary/#tag), and
 [timestamps](/influxdb/cloud-dedicated/reference/glossary/#timestamp).
 
 - [Syntax](#syntax)
-- [Examples](#examples)
-- [Common issues](#common-issues-with-the-where-clause)
+- [Operators](#comparison-operators)
+  - [Comparison operators](#comparison-operators)
+  - [Logical operators](#logical-operators)
+- [Time ranges](#time-ranges)
+- [Regular expressions](#regular-expressions)
+- [WHERE clause examples](#where-clause-examples)
+- [Notable behaviors](#notable-behaviors)
+  - [Single and double quotes](#single-and-double-quotes)
+  - [Cannot query multiple time ranges](#cannot-query-multiple-time-ranges)
 
-### Syntax
+## Syntax
 
 ```sql
 SELECT_clause FROM_clause WHERE <conditional_expression> [(AND|OR) <conditional_expression> [...]]
 ```
 
-The `WHERE` clause supports `conditional_expressions` on fields, tags, and timestamps.
+- **conditional_expression**: Comparison between two operands that evaluates to
+  `true` or `false`. Comparison logic is determined by
+  [operators](#operators) used in the expression.
+  These expressions can operate on InfluxDB fields, tags, and timestamps.
+  Use logical operators (`AND`, `OR`) to chain multiple conditional expressions
+  together.
 
-- **conditional_expression**: <!-- -->
+## Operators
+
+Operators evaluate the relationship between two operands and return
+`true` or `false`.
+
+### Comparison operators
+
+| Operator | Meaning                            | Supported data types |
+| :------: | :--------------------------------- | :---------------------- |
+|   `=`    | Equal to                           | all                     |
+|   `<>`   | Not equal to                       | all                     |
+|   `!=`   | Not equal to                       | all                     |
+|   `>`    | Greater than                       | numeric, timestamp      |
+|   `>=`   | Greater than or equal to           | numeric, timestamp      |
+|   `<`    | Less than                          | numeric, timestamp      |
+|   `<=`   | Less than or equal to              | numeric, timestamp      |
+|   `=~`   | Matches a regular expression       | strings                 |
+|   `!~`   | Doesn't match a regular expression | strings                 |
+
+### Logical operators
+
+| Operator | Meaning                                                                 |
+| :------- | :---------------------------------------------------------------------- |
+| `AND`    | Returns `true` if both operands are `true`. Otherwise, returns `false`. |
+| `OR`     | Returns `true` if any operand is `true`. Otherwise, returns `false`.    |
+
+## Time ranges
+
+Use the `WHERE` clause to specify a time range to query.
+If a time range is not defined in the `WHERE` clause, the default time range is
+the Unix epoch (`1970-01-01T00:00:00Z`) to _now_.
+
+Timestamps are stored in the `time` columns.
+Use comparison operators to compare the value of the `time` column to a
+timestamp literal, integer (Unix nanosecond timestamp), or function.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Timestamp](#)
+[Integer](#)
+[Function](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sql
+WHERE
+  time >= '2023-01-01T00:00:00Z'
+  AND time < '2023-07-01T00:00:00Z'
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+WHERE
+  time >= 1672531200000000000
+  AND time < 1688169600000000000
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sql
+WHERE
+  time >= now() - 1d
+  AND time < now()
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+See [Time syntax](/influxdb/cloud-dedicated/reference/influxql/time-and-timezone/#time-syntax)
+for information on how to specify alternative time ranges in the `WHERE` clause.
 
 {{% note %}}
-**Note:** InfluxDB does not support using OR in the WHERE clause to specify multiple time ranges.
-For example, InfluxDB returns an empty response for the following query:
+InfluxQL [does not support querying multiple time ranges](#cannot-query-multiple-time-ranges).
+{{% /note %}}
+
+## Regular expressions
+
+Regular expressions can be used to evaluate _string_ values in the `WHERE` clause
+using regular expression comparison operators:
+
+- `=~`: Matches a regular expression
+- `!~`: Doesn't match a regular expression
+
+```sql
+SELECT * FROM home WHERE room =~ /^K/
+```
+
+For more information about InfluxQL regular expression syntax, see
+[InfluxQL regular expressions](/influxdb/cloud-dedicated/reference/influxql/regular-expressions/).
+
+## WHERE clause examples
+
+The following examples use the
+[Get started home sensor sample dataset](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data).
+
+{{< expand-wrapper >}}
+{{% expand "Select data with a specific tag value" %}}
+
+```sql
+SELECT * FROM home WHERE room = 'Living Room'
+```
+
+{{% influxql/table-meta %}} 
+name: home 
+{{% /influxql/table-meta %}} 
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 |  co |  hum | room        | temp |
+| :------------------- | --: | ---: | :---------- | ---: |
+| 2022-01-01T08:00:00Z |   0 | 35.9 | Living Room | 21.1 |
+| 2022-01-01T09:00:00Z |   0 | 35.9 | Living Room | 21.4 |
+| 2022-01-01T10:00:00Z |   0 |   36 | Living Room | 21.8 |
+| 2022-01-01T11:00:00Z |   0 |   36 | Living Room | 22.2 |
+| 2022-01-01T12:00:00Z |   0 | 35.9 | Living Room | 22.2 |
+| ...                  | ... |  ... | ...         |  ... |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Select data from a specific time range" %}}
+
+{{% influxdb/custom-timestamps %}}
 
 ```sql
 SELECT *
-FROM "mydb"
+FROM home
 WHERE
-  time = '2020-07-31T20:07:00Z' OR
-  time = '2020-07-31T23:07:17Z'`
-```
-{{% /note %}}
-
-#### Fields
-
-```
-field_key <operator> ['string' | boolean | float | integer]
+  time >= '2022-01-01T08:00:00Z'
+  AND time <= '2022-01-01T10:00:00Z'
 ```
 
-The `WHERE` clause supports comparisons against string, boolean, float, and integer [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
-
-Single quote string field values in the `WHERE` clause.
-Queries with unquoted string field values or double quoted string field values will not return any data and, in most cases,
-[will not return an error](#common-issues-with-the-where-clause).
-
-#### Supported operators
-
-| Operator | Meaning                  |
-|:--------:|:--------                 |
-| `=`      | equal to                 |
-| `<>`     | not equal to             |
-| `!=`     | not equal to             |
-| `>`      | greater than             |
-| `>=`     | greater than or equal to |
-| `<`      | less than                |
-| `<=`     | less than or equal to    |
-
-InfluxQL also supports [Regular Expressions](/influxdb/v2.7/query-data/influxql/explore-data/regular-expressions/).
-
-#### Tags
-
-```sql
-tag_key <operator> ['tag_value']
-```
-
-Single quote [tag values](/influxdb/cloud-dedicated/reference/glossary/#tag-value) in
-the `WHERE` clause.
-Queries with unquoted tag values or double quoted tag values will not return
-any data and, in most cases,
-[will not return an error](#common-issues-with-the-where-clause).
-
-#### Supported operators
-
-| Operator | Meaning      |
-|:--------:|:-------      |
-| `=`      | equal to     |
-| `<>`     | not equal to |
-| `!=`     | not equal to |
-
-#### Timestamps
-
-For most `SELECT` statements, the default time range is between [`1677-09-21 00:12:43.145224194` and `2262-04-11T23:47:16.854775806Z` UTC](/influxdb/v2.7/reference/faq/#what-are-the-minimum-and-maximum-integers-that-influxdb-can-store).
-For `SELECT` statements with a [`GROUP BY time()` clause](/influxdb/v2.7/query-data/influxql/explore-data/group-by/), the default time
-range is between `1677-09-21 00:12:43.145224194` UTC and [`now()`](/influxdb/cloud-dedicated/reference/glossary/#now).
-
-See [Time Syntax](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax) for information on how to specify alternative time ranges in the `WHERE` clause.
-
-### Examples
-
-{{< expand-wrapper >}}
-{{% expand "Select data with specific field key-values" %}}
-
-
-```sql
-SELECT * FROM "h2o_feet" WHERE "water_level" > 9
-```
-Output:
 {{% influxql/table-meta %}} 
-Name: h2o_feet 
-{{% /influxql/table-meta %}} 
+name: home
+{{% /influxql/table-meta %}}
 
-| time | level description  | location | water_level |
-| :-------------- | :-------------------| :------------------| -------: |
-| 2019-08-25T04:00:00Z  | at or greater than 9 feet | coyote_creek | 9.0320000000|
-| 2019-08-25T04:06:00Z  | at or greater than 9 feet | coyote_creek | 9.0780000000|
-| 2019-08-25T04:12:00Z  | at or greater than 9 feet | coyote_creek | 9.1110000000|
-| 2019-08-25T04:18:00Z  | at or greater than 9 feet | coyote_creek | 9.1500000000|
-| 2019-08-25T04:24:00Z  | at or greater than 9 feet | coyote_creek | 9.1800000000|
+| time                 |  co |  hum | room        | temp |
+| :------------------- | --: | ---: | :---------- | ---: |
+| 2022-01-01T08:00:00Z |   0 | 35.9 | Kitchen     |   21 |
+| 2022-01-01T08:00:00Z |   0 | 35.9 | Living Room | 21.1 |
+| 2022-01-01T09:00:00Z |   0 | 36.2 | Kitchen     |   23 |
+| 2022-01-01T09:00:00Z |   0 | 35.9 | Living Room | 21.4 |
+| 2022-01-01T10:00:00Z |   0 | 36.1 | Kitchen     | 22.7 |
+| 2022-01-01T10:00:00Z |   0 |   36 | Living Room | 21.8 |
 
-The query returns data from the `h2o_feet` measurement with field values of `water_level` that are greater than nine. 
-This is a partial data set.
-
+{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Select data with a specific string field key-value" %}}
+{{% expand "Select data from a relative time range" %}}
+
+{{% influxdb/custom-timestamps %}}
 
 ```sql
-SELECT * FROM "h2o_feet" WHERE "level description" = 'below 3 feet'
+SELECT * FROM home WHERE time >= '2022-01-01T20:00:00Z' - 2h
 ```
-Output:
+
 {{% influxql/table-meta %}} 
-Name: h2o_feet 
-{{% /influxql/table-meta %}} 
+name: home
+{{% /influxql/table-meta %}}
 
-| time | level description  | location | water_level |
-| :-------------- | :-------------------| :------------------| :------------------ |
-| 2019-08-17T00:00:00Z | below 3 feet | santa_monica | 2.0640000000|
-| 2019-08-17T00:06:00Z | below 3 feet | santa_monica | 2.1160000000|
-| 2019-08-17T00:12:00Z | below 3 feet | santa_monica | 2.0280000000|
-| 2019-08-17T00:18:00Z | below 3 feet | santa_monica | 2.1260000000|
-| 2019-08-17T00:24:00Z | below 3 feet | santa_monica | 2.0410000000|
-| 2019-08-17T00:30:00Z | below 3 feet | santa_monica | 2.0510000000|
+| time                 |  co |  hum | room        | temp |
+| :------------------- | --: | ---: | :---------- | ---: |
+| 2022-01-01T18:00:00Z |  18 | 36.9 | Kitchen     | 23.3 |
+| 2022-01-01T18:00:00Z |   9 | 36.2 | Living Room | 22.8 |
+| 2022-01-01T19:00:00Z |  22 | 36.6 | Kitchen     | 23.1 |
+| 2022-01-01T19:00:00Z |  14 | 36.3 | Living Room | 22.5 |
+| 2022-01-01T20:00:00Z |  26 | 36.5 | Kitchen     | 22.7 |
+| 2022-01-01T20:00:00Z |  17 | 36.4 | Living Room | 22.2 |
 
-The query returns data from the `h2o_feet` measurement with field values of `level description` that equal the `below 3 feet` string. InfluxQL requires single quotes around string field values in the `WHERE` clause.
-
+{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Select data with a specific field key-value and perform basic arithmetic" %}}
+{{% expand "Select field values above a threshold" %}}
 
 ```sql
-SELECT * FROM "h2o_feet" WHERE "water_level" + 2 > 11.9
+SELECT co FROM home WHERE co > 9
 ```
-Output:
+
 {{% influxql/table-meta %}} 
-Name: h2o_feet 
+name: home
 {{% /influxql/table-meta %}} 
 
-| time | level description  | location | water_level |
-| :-------------- | :-------------------| :------------------|---------------: |
-| 2019-08-28T07:06:00Z | at or greater than 9 feet | coyote_creek | 9.9020000000|
-| 2019-08-28T07:12:00Z | at or greater than 9 feet | coyote_creek | 9.9380000000|
-| 2019-08-28T07:18:00Z | at or greater than 9 feet | coyote_creek | 9.9570000000|
-| 2019-08-28T07:24:00Z | at or greater than 9 feet | coyote_creek | 9.9640000000|
-| 2019-08-28T07:30:00Z | at or greater than 9 feet | coyote_creek | 9.9540000000|
-| 2019-08-28T07:36:00Z | at or greater than 9 feet | coyote_creek | 9.9410000000|
-| 2019-08-28T07:42:00Z | at or greater than 9 feet | coyote_creek | 9.9250000000|
-| 2019-08-28T07:48:00Z | at or greater than 9 feet | coyote_creek | 9.9020000000|
-| 2019-09-01T23:30:00Z | at or greater than 9 feet | coyote_creek | 9.9020000000|
+{{% influxdb/custom-timestamps %}}
 
-The query returns data from the `h2o_feet` measurement with field values of
-`water_level` plus two that are greater than 11.9. Note that InfluxDB follows the standard order of operations.
+| time                 |  co |
+| :------------------- | --: |
+| 2022-01-01T18:00:00Z |  18 |
+| 2022-01-01T19:00:00Z |  14 |
+| 2022-01-01T19:00:00Z |  22 |
+| 2022-01-01T20:00:00Z |  17 |
+| 2022-01-01T20:00:00Z |  26 |
 
-See [Mathematical operators](/influxdb/v2.7/query-data/influxql/math-operators/)
-for more on supported operators.
-
+{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Select data with a specific tag key-value" %}}
+{{% expand "Select specific field values" %}}
 
 ```sql
-SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica'
+SELECT room, co FROM home WHERE co = 9
 ```
-Output:
+
 {{% influxql/table-meta %}} 
-Name: h2o_feet 
+name: home
 {{% /influxql/table-meta %}} 
 
-| time | water_level |
-| :-------------- | -------------------:|
-| 2019-08-17T00:00:00Z | 2.0640000000|
-| 2019-08-17T00:06:00Z | 2.1160000000|
-| 2019-08-17T00:12:00Z | 2.0280000000|
-| 2019-08-17T00:18:00Z | 2.1260000000|
-| 2019-08-17T00:24:00Z | 2.0410000000|
+{{% influxdb/custom-timestamps %}}
 
-<!-- name: h2o_feet
---------------
-time                   water_level
-2019-08-18T00:00:00Z   2.064
-2019-08-18T00:06:00Z   2.116
-[...]
-2019-09-18T21:36:00Z   5.066
-2019-09-18T21:42:00Z   4.938 -->
+| time                 | room        |  co |
+| :------------------- | :---------- | --: |
+| 2022-01-01T17:00:00Z | Kitchen     |   9 |
+| 2022-01-01T18:00:00Z | Living Room |   9 |
 
-The query returns data from the `h2o_feet` measurement where the
-[tag key](/influxdb/cloud-dedicated/reference/glossary/#tag-key) `location` is set to `santa_monica`.
-InfluxQL requires single quotes around tag values in the `WHERE` clause.
-
+{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
-{{% expand "Select data with specific field key-values and tag key-valuest" %}}
+{{% expand "Select field values based on arithmetic" %}}
 
 ```sql
-SELECT "water_level" FROM "h2o_feet" WHERE "location" <> 'santa_monica' AND (water_level < -0.59 OR water_level > 9.95)
+SELECT room, co FROM home WHERE co - 10 > 5
 ```
-Output:
+
 {{% influxql/table-meta %}} 
-Name: h2o_feet
+name: home
 {{% /influxql/table-meta %}} 
 
-| time                 |  water_level |
-| :------------------- | -----------: |
-| 2019-08-28T07:18:00Z | 9.9570000000|
-| 2019-08-28T07:24:00Z | 9.9640000000|
-| 2019-08-28T07:30:00Z | 9.9540000000|
-| 2019-08-28T14:30:00Z | -0.6100000000|
-| 2019-08-28T14:36:00Z | -0.5910000000|
-| 2019-08-29T15:18:00Z | -0.5940000000|
+{{% influxdb/custom-timestamps %}}
 
-The query returns data from the `h2o_feet` measurement where the tag key
-`location` is not set to `santa_monica` and where the field values of
-`water_level` are either less than -0.59 or greater than 9.95.
-The `WHERE` clause supports the operators `AND` and `OR`, and supports
-separating logic with parentheses.
+| time                 | room        |  co |
+| :------------------- | :---------- | --: |
+| 2022-01-01T18:00:00Z | Kitchen     |  18 |
+| 2022-01-01T19:00:00Z | Kitchen     |  22 |
+| 2022-01-01T20:00:00Z | Living Room |  17 |
+| 2022-01-01T20:00:00Z | Kitchen     |  26 |
 
+{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 
+{{% expand "Select data with field values above a threshold and a specific tag value" %}}
 
+```sql
+SELECT * FROM home WHERE temp > 22.7 AND room = 'Kitchen'
+```
+
+{{% influxql/table-meta %}} 
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 |  co |  hum | room    | temp |
+| :------------------- | --: | ---: | :------ | ---: |
+| 2022-01-01T09:00:00Z |   0 | 36.2 | Kitchen |   23 |
+| 2022-01-01T13:00:00Z |   1 | 36.5 | Kitchen | 22.8 |
+| 2022-01-01T14:00:00Z |   1 | 36.3 | Kitchen | 22.8 |
+| 2022-01-01T18:00:00Z |  18 | 36.9 | Kitchen | 23.3 |
+| 2022-01-01T19:00:00Z |  22 | 36.6 | Kitchen | 23.1 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
+
+{{% expand "Select data based on the relationship between columns" %}}
+
+```sql
+SELECT co, temp FROM home WHERE co > temp
+```
+
+{{% influxql/table-meta %}} 
+name: home
+{{% /influxql/table-meta %}}
+
+{{% influxdb/custom-timestamps %}}
+
+| time                 |  co | temp |
+| :------------------- | --: | ---: |
+| 2022-01-01T20:00:00Z |  26 | 22.7 |
+
+{{% /influxdb/custom-timestamps %}}
+{{% /expand %}}
 {{< /expand-wrapper >}}
 
-```sql
-SELECT * FROM "h2o_feet" WHERE time > now() - 7d
-```
+## Notable behaviors
 
-The query returns data from the `h2o_feet` measurement with [timestamps](/influxdb/cloud-dedicated/reference/glossary/#timestamp)
-within the past seven days. See [Time Syntax](/influxdb/v2.7/query-data/influxql/explore-data/time-and-timezone/#time-syntax) for more in-depth information on supported time syntax in the `WHERE` clause.
+- [Single and double quotes](#single-and-double-quotes)
+- [Cannot query multiple time ranges](#cannot-query-multiple-time-ranges)
 
-### Common issues with the `WHERE` clause
+### Single and double quotes
 
-#### A `WHERE` clause query unexpectedly returns no data
+In InfluxQL, single quotation marks (`'`) and double quotation marks (`"`) work
+differently and can alter the way a `WHERE` clause functions.
+Single quotes are used in [string](/influxdb/cloud-dedicated/reference/influxql/#strings)
+and [timestamp](/influxdb/cloud-dedicated/reference/influxql/#dates--times) literals.
+Double quotes are used to quote [identifiers](/influxdb/cloud-dedicated/reference/influxql/#identifiers),
+(time, field, and tag column names).
 
-In most cases, this issue is the result of missing single quotes around
-tag values or string field values.
-Queries with unquoted or double quoted tag values or string field values will
-not return any data and, in most cases, will not return an error.
-
-The first two queries in the code block below attempt to specify the tag value
-`santa_monica` without any quotes and with double quotes.
-Those queries return no results.
-The third query single quotes `santa_monica` (this is the supported syntax)
-and returns the expected results.
+For example, the following conditional expression compares the value of the
+`location` _column_ to the _literal string_, `London`:
 
 ```sql
-SELECT "water_level" FROM "h2o_feet" WHERE "location" = santa_monica
-No results
-
-SELECT "water_level" FROM "h2o_feet" WHERE "location" = "santa_monica"
-No results
-
-SELECT "water_level" FROM "h2o_feet" WHERE "location" = 'santa_monica'
+"location" = 'London'
 ```
-Output:
-{{% influxql/table-meta %}} 
-Name: h2o_feet
-{{% /influxql/table-meta %}} 
 
-| time                 |  water_level |
-| :------------------- | -----------: |
-| 2019-08-17T00:00:00Z | 2.0640000000 |
-| 2019-08-17T00:06:00Z | 2.1160000000 |
-| 2019-08-17T00:12:00Z | 2.0280000000 |
-| 2019-08-17T00:18:00Z | 2.1260000000 |
-| 2019-08-17T00:24:00Z | 2.0410000000 |
-| 2019-08-17T00:30:00Z | 2.0510000000 |
-
-The first two queries in the code block below attempt to specify the string
-field value `at or greater than 9 feet` without any quotes and with double
-quotes.
-The first query returns an error because the string field value includes
-white spaces.
-The second query returns no results.
-The third query single quotes `at or greater than 9 feet` (this is the
-supported syntax) and returns the expected results.
+The following conditional expression compares the value of the `location` _column_
+to the value of the `London` _column_:
 
 ```sql
-SELECT "level description" FROM "h2o_feet" WHERE "level description" = at or greater than 9 feet
-ERR: 400 Bad Request: failed to parse query: found than, expected ; at line 1, char 86
-
-SELECT "level description" FROM "h2o_feet" WHERE "level description" = "at or greater than 9 feet"
-No results
-
-SELECT "level description" FROM "h2o_feet" WHERE "level description" = 'at or greater than 9 feet'
+"location" = "London"
 ```
 
-Output:
-{{% influxql/table-meta %}} 
-Name: h2o_feet
-{{% /influxql/table-meta %}} 
+Misused double and single quotes in the `WHERE` clause often results in unexpected
+empty query results.
+For more information about quotation marks, see
+[InfluxQL quotation](/influxdb/cloud-dedicated/reference/influxql/quoting/).
 
-| time                        | level_description |
-| :---------------------------| ------: |
-| 2019-08-25T04:00:00Z | at or greater than 9 feet |
-| 2019-08-25T04:06:00Z | at or greater than 9 feet |
-| 019-08-25T04:12:00Z  | at or greater than 9 feet |
-| 2019-08-25T04:18:00Z | at or greater than 9 feet | 
-| 2019-08-25T04:24:00Z | at or greater than 9 feet |
+### Cannot query multiple time ranges
+
+InfluxDB does not support using `OR` in the `WHERE` clause to query multiple time ranges.
+For example, the following query returns no results:
+
+{{% influxdb/custom-timestamps %}}
+
+```sql
+SELECT *
+FROM home
+WHERE
+  (time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T10:00:00Z')
+  OR (time >= '2022-01-01T18:00:00Z' AND time <= '2022-01-01T20:00:00Z')
+```
+
+{{% /influxdb/custom-timestamps %}}
