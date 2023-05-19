@@ -64,7 +64,7 @@ to skip before returning results.
 
 InfluxQL in {{< cloud-name >}} does not currently let you project additional
 fields when using [selector functions](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/).
-Selector functions return specifics row with the value that meets the criteria
+Selector functions return specific rows with values that meets the criteria
 of the function. Projecting other fields returns additional field values associated
 with the selected row and timestamp. For example:
 

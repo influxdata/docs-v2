@@ -86,7 +86,7 @@ To specify the time range of a query, use conditional expressions in the
 compare the value of the `time` column to an absolute timestamp or a relative
 timestamp.
 
-- **Absolute time range**: Define query time bounds with timestamp literal
+- **Absolute time range**: Define query time bounds with timestamp literals
 
   ```sql
   WHERE time >= '2023-01-01T00:00:00Z' AND time <= '2023-07-01T00:00:00Z'
