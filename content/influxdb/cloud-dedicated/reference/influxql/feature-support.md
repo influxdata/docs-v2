@@ -16,11 +16,67 @@ This process is ongoing and some InfluxQL features are still being implemented.
 This page provides information about the current implementation status of
 InfluxQL features.
 
+- [In-progress features](#in-progress-features)
+  - [Time zones](#time-zones)
+  - [Subqueries](#subqueries)
+  - [SLIMIT clause](#slimit-clause)
+  - [SOFFSET clause](#soffset-clause)
+  - [Project additional fields with selector functions](#project-additional-fields-with-selector-functions)
 - [Function support](#function-support)
   - [Aggregate functions](#aggregate-functions)
   - [Selector functions](#selector-functions)
   - [Transformations](#transformations)
   - [Technical and predictive analysis](#technical-and-predictive-analysis)
+
+## In-progress features
+
+### Time zones
+
+InfluxQL in {{< cloud-name >}} does not currently support the time zone clause,
+which applies a time zone offset to UTC timestamps in query results.
+
+**Tracking issue**: [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933)
+
+### Subqueries
+
+InfluxQL in {{< cloud-name >}} does not currently support subqueries, which
+let you query data from the results of another InfluxQL query.
+
+**Tracking issue**: [influxdb_iox#6897](https://github.com/influxdata/influxdb_iox/issues/6897)
+
+### SLIMIT clause
+
+InfluxQL in {{< cloud-name >}} does not currently support the `SLIMIT` clause,
+which limits the number of [series](/influxdb/cloud-dedicated/reference/glossary/#series)
+returned in query results.
+
+**Tracking issue**: [influxdb_iox#6940](https://github.com/influxdata/influxdb_iox/issues/6940)
+
+### SOFFSET clause
+
+InfluxQL in {{< cloud-name >}} does not currently support the `SOFFSET` clause,
+which specifies the number of [series](/influxdb/cloud-dedicated/reference/glossary/#series)
+to skip before returning results.
+
+**Tracking issue**: [influxdb_iox#6940](https://github.com/influxdata/influxdb_iox/issues/6940)
+
+### Project additional fields with selector functions
+
+InfluxQL in {{< cloud-name >}} does not currently let you project additional
+fields when using [selector functions](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/).
+Selector functions return specific rows with values that meets the criteria
+of the function. Projecting other fields returns additional field values associated
+with the selected row and timestamp. For example:
+
+```sql
+SELECT MAX(co), temp, hum FROM home
+```
+
+This query selects the row with the maximum `co` value and should return the
+`temp` and `hum` value currently associated with that row.
+This query currently returns an error.
+
+**Tracking issue**: [influxdb_iox#7533](https://github.com/influxdata/influxdb_iox/issues/7533)
 
 ## Function support
 
@@ -95,3 +151,10 @@ InfluxQL features.
 | <span style="opacity: .5;">RELATIVE_STRENGTH_INDEX()</span>           |           | [influxdb_iox#6939](https://github.com/influxdata/influxdb_iox/issues/6939) |
 | <span style="opacity: .5;">TRIPLE_EXPONENTIAL_MOVING_AVERAGE()</span> |           | [influxdb_iox#6939](https://github.com/influxdata/influxdb_iox/issues/6939) |
 | <span style="opacity: .5;">TRIPLE_EXPONENTIAL_DERIVATIVE()</span>     |           | [influxdb_iox#6939](https://github.com/influxdata/influxdb_iox/issues/6939) |
+
+### Date and time functions
+
+| Function                                                                       |        Supported         | Tracking Issue                                                              |
+| :----------------------------------------------------------------------------- | :----------------------: | :-------------------------------------------------------------------------- |
+| [now()](/influxdb/cloud-dedicated/reference/influxql/functions/date-time/#now) | **{{< icon "check" >}}** |                                                                             |
+| <span style="opacity: .5;">tz()</span>                                         |                          | [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933) |

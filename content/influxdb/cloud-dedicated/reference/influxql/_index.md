@@ -83,7 +83,12 @@ digit               = "0" … "9" .
 
 ### Identifiers
 
-Identifiers are tokens that refer to [database](/influxdb/cloud-dedicated/reference/glossary/#database) names, [retention policy](/influxdb/cloud-dedicated/reference/glossary/#retention-policy-rp) names, [user](/influxdb//cloud-dedicated/reference/glossary/#user) names, [measurement](/influxdb//cloud-dedicated/reference/glossary/#measurement) names, [tag keys](/influxdb//cloud-dedicated/reference/glossary/#tag-key), and [field keys](/influxdb//cloud-dedicated/reference/glossary/#field-key).
+Identifiers are tokens that refer to
+[database](/influxdb/cloud-dedicated/reference/glossary/#database) names,
+[retention policy](/influxdb/cloud-dedicated/reference/glossary/#retention-policy-rp) names,
+[measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement) names,
+[tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key), and
+[field keys](/influxdb/cloud-dedicated/reference/glossary/#field-key).
 
 The rules are as follows:
 

@@ -28,7 +28,8 @@ differently and serve different purposes.
 ## Single quotes
 
 Use single quotation marks (`'`) in the
-[string literal](/influxdb/cloud-dedicated/reference/influxql/#strings) syntax.
+[string literal](/influxdb/cloud-dedicated/reference/influxql/#strings) and
+[timestamp literal](/influxdb/cloud-dedicated/reference/influxql/#dates--times) syntax.
 
 In the following example, the `WHERE` clause evaluates the value of the `room` tag.
 Tags only contain string values, so the right operand of the predicate expression
