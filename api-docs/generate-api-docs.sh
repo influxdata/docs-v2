@@ -146,20 +146,23 @@ weight: 304
   # If the v1 compatibility spec file differs from master, regenerate the HTML.
   filePath="${version}/swaggerV1Compat.yml"
   update=0
-  if [[ $generate_changed == 0 ]]; then
-    fileChanged=$(git diff --name-status master -- ${filePath})
-    if [[ -z "$fileChanged" ]]; then
-    update=1
+
+  if [ -e "$filePath" ]; then
+    if [[ $generate_changed == 0 ]]; then
+      fileChanged=$(git diff --name-status master -- ${filePath})
+      if [[ -z "$fileChanged" ]]; then
+      update=1
+      fi
     fi
-  fi
 
-  if [[ $update -eq 0 ]]; then
-    outFilename="v1-compatibility"
-    titleSubmodule="v1 compatibility"
-    generateHtml $filePath $outFilename $titleVersion $titleSubmodule
+    if [[ $update -eq 0 ]]; then
+      outFilename="v1-compatibility"
+      titleSubmodule="v1 compatibility"
+      generateHtml $filePath $outFilename $titleVersion $titleSubmodule
 
-    # Create temp file with frontmatter and Redoc html
-    echo "$v1compatfrontmatter" >> $version$outFilename.tmp
-    buildHugoTemplate $version v1 $outFilename
+      # Create temp file with frontmatter and Redoc html
+      echo "$v1compatfrontmatter" >> $version$outFilename.tmp
+      buildHugoTemplate $version v1 $outFilename
+    fi
   fi
 done
