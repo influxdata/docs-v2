@@ -40,7 +40,7 @@ components:
 
           * The `Authorization: Token` header is missing or malformed.
           * The API token value is missing from the header.
-          * The token doesn't have sufficient permissions to write to the database.
+          * The token doesn't have sufficient permissions to write to or query the database.
     BadRequestError:
       content:
         application/json:
