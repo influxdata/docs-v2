@@ -43,7 +43,7 @@ The following example sends a Flux-wrapped SQL query to an InfluxDB bucket, and 
         Assign a variable to the script.
 
         {{% warn %}}
-        To prevent SQL injection attacks, avoid concatenating unsafe user input with queries.
+To prevent SQL injection attacks, avoid concatenating unsafe user input with queries.
         {{% /warn %}}
     4.  Call the `new InfluxDB({url, token})` constructor to instantiate an `InfluxDB` API client. Provide your InfluxDB URL and API token (environment variables you already set in the [Install section](/influxdb/cloud-serverless/reference/client-libraries/v2/javascript/nodejs/install/)).
     5.  Call the client's `getQueryApi()` method with your InfluxDB organization ID to create a `QueryApi` query client configured for your organization.
