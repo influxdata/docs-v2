@@ -54,7 +54,7 @@ components:
             $ref: "#/components/schemas/Error"
       description: |
         Bad request.
-        The response body contains detail about the error.
+        The response body contains details about the error.
     GeneralServerError:
       content:
         application/json:
