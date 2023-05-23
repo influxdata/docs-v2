@@ -19,7 +19,7 @@ related:
   - /influxdb/cloud-dedicated/api-guide/client-libraries/nodejs/query/
 ---
 
-Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an InfluxDB Dedicated database. This library supports both front-end and server-side environments and provides the following distributions:
+Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an InfluxDB Cloud Dedicated database. This library supports both front-end and server-side environments and provides the following distributions:
 * ECMAScript modules (ESM) and CommonJS modules (CJS)
 * Bundled ESM
 * Bundled UMD 
