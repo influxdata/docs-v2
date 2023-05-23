@@ -6726,8 +6726,8 @@ info:
   title: InfluxDB Cloud (IOx) API Service
   version: Cloud 2.x
   description: |
-    The InfluxDB HTTP API provides a programmatic interface for all interactions with InfluxDB.
-    Access the InfluxDB API using the `/api/v2/` endpoint.
+    The InfluxDB HTTP API provides a programmatic interface for interactions with InfluxDB.
+    Access the InfluxDB API using the `/api/v2/` endpoint or InfluxDB v1 endpoints.
 
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
@@ -15607,7 +15607,7 @@ paths:
       - url: /private
   /query:
     get:
-      description: Queries InfluxDB using InfluxQL.
+      description: Queries InfluxDB using InfluxQL with InfluxDB v1 request and response formats.
       operationId: GetLegacyQuery
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -15748,9 +15748,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Error processing query
-      summary: Query with the 1.x compatibility API
+      summary: Query using the InfluxDB v1 API
       tags:
-        - Legacy Query
+        - Query
   /write:
     post:
       operationId: PostLegacyWrite
@@ -15848,9 +15848,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Internal server error
-      summary: Write time series data into InfluxDB in a V1-compatible format
+      summary: Write data using the InfluxDB v1 API
       tags:
-        - Legacy Write
+        - Write
 security:
   - TokenAuthentication: []
 servers:
@@ -15984,8 +15984,6 @@ tags:
     name: Invokable Scripts
   - name: Labels
   - name: Legacy Authorizations
-  - name: Legacy Query
-  - name: Legacy Write
   - name: Limits
   - name: NotificationEndpoints
   - name: NotificationRules
@@ -16036,14 +16034,20 @@ tags:
     x-traitTag: true
   - name: Ping
   - description: |
-      Retrieve data, analyze queries, and get query suggestions.
+      Use the InfluxDB v1 and v2 HTTP APIs with Flux, SQL, or InfluxQL to retrieve data, analyze queries, and get query suggestions.
+
+      To get started using Flight and gRPC for querying InfluxDB v3, see the following:
+
+      - [Get started with InfluxDB Cloud Serverless](/influxdb/cloud-serverless/get-started/)
+      - [Query with Flight SQL](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/)
+      - [InfluxDB v3 client libraries and Flight clients](/influxdb/cloud-serverless/reference/client-libraries/)
     name: Query
   - description: |
-      See the [**API Quick Start**](/influxdb/cloud-serverless/api-guide/api_intro/)
+      See the [**Get started**](/influxdb/cloud-serverless/get-started/) tutorial
       to get up and running authenticating with tokens, writing to buckets, and querying data.
 
-      [**InfluxDB API client libraries**](/influxdb/cloud-serverless/api-guide/client-libraries/)
-      are available for popular languages and ready to import into your application.
+      [**InfluxDB API client libraries and Flight clients**](/influxdb/cloud-serverless/reference/client-libraries/)
+      are available to integrate InfluxDB with your application.
     name: Quick start
     x-traitTag: true
   - name: Resources
@@ -16176,8 +16180,6 @@ x-tagGroups:
       - Delete
       - DBRPs
       - Invokable Scripts
-      - Legacy Query
-      - Legacy Write
       - Limits
       - Organizations
       - Query
