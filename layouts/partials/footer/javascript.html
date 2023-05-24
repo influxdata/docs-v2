@@ -10,7 +10,7 @@
 {{ $keybindings := resources.Get "js/keybindings.js" }}
 {{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
 {{ $dateTime := resources.Get "js/datetime.js" }}
-{{ $influxdbGSTimestamps := resources.Get "js/get-started-timestamps.js" }}
+{{ $influxdbGSTimestamps := resources.Get "js/custom-timestamps.js" }}
 {{ $codeControls := resources.Get "js/code-controls.js" }}
 {{ $pageFeedback := resources.Get "js/page-feedback.js" }}
 {{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
@@ -19,7 +19,7 @@
 {{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $tabbedContent $notifications $keybindings $codeControls $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
 {{ $fluxGroupKeyjs := slice $fluxGroupKeys | resources.Concat "js/flux-group-keys.js" | resources.Fingerprint }}
 {{ $dateTimejs := slice $dateTime | resources.Concat "js/datetime.js" | resources.Fingerprint }}
-{{ $influxdbGSTimestampsjs := slice $influxdbGSTimestamps | resources.Concat "js/get-started-timestamps.js" | resources.Fingerprint }}
+{{ $influxdbGSTimestampsjs := slice $influxdbGSTimestamps | resources.Concat "js/custom-timestamps.js" | resources.Fingerprint }}
 {{ $ioxWayfindingjs := slice $ioxWayfinding | resources.Concat "js/iox-wayfinding.js" | resources.Fingerprint }}
 
 <!-- Load cloudUrls array -->

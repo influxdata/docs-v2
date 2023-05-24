@@ -327,6 +327,103 @@ table tr.point{
   &.hide-whitespace {p span.whitespace { border: none; &:before, &:after {display: none}}}
 }
 
+/////////////////////////// InfluxQL window diagram ////////////////////////////
+
+#influxql-window-diagram {
+  min-width: 520px;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  
+  #timerange-label {
+    position: relative;
+    width: .7rem;
+    margin: 10.5rem .5rem 6.5rem .5rem;
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    border-color: rgba($article-text, .3);
+
+    &::before {
+      content: "Queried time range";
+      display: block;
+      position: absolute;
+      background: $article-bg;
+      padding: 0 .75rem;
+      font-weight: $medium;
+      font-size: .9rem;
+      color: rgba($article-text, .5);
+      transform: rotate(-90deg);
+      white-space: nowrap;
+      top: 13.5rem;
+      left: -4.7rem;
+    }
+  }
+
+  td {
+    font-weight: medium;
+    color: $article-bold;
+
+    span.exclude {
+      opacity: .35;
+      font-weight: normal;
+    }
+  }
+
+  .windows {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4rem 0 2.5rem .25rem;
+  }
+
+  .window-hour {
+    justify-content: space-between;
+    height: 100%;
+    margin-bottom: .5rem;
+    border-left: 1px solid rgba($article-text, .3);
+    flex: 1 1 0;
+    position: relative;
+
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 9px;
+      height: 1px;
+      left: -10px;
+      border-top: 1px solid rgba($article-text, .3);
+    }
+    &::before {top: 0}
+    &::after {bottom: -1px} 
+      
+    p {
+      white-space: nowrap;
+      margin-top: .55rem;
+      position: relative;
+
+      &::before {
+        content: "";
+        display: inline-block;
+        margin-right: .5rem;
+        width: 1rem;
+        height: 0;
+        border-top: 1px solid rgba($article-text, .3);
+        vertical-align: middle;
+      }
+      &::after {
+        content: "Predefined window boundary";
+        display: block;
+        position: absolute;
+        top: 1.25rem;
+        left: 1.5rem;
+        font-size: .9rem;
+        font-weight: $medium;
+        color: rgba($article-text, .5);
+      }
+    }
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -355,5 +452,29 @@ table tr.point{
 
   .series-diagram {
     width: auto;
+  }
+
+  #influxql-window-diagram {
+    justify-content: flex-start;
+    min-width: 300px;
+    .window-hour{
+      width: 60px;
+      p {
+        transform: rotate(-90deg);
+        position: relative;
+        margin-top: 8.75rem;
+        font-size: .95rem;
+        
+        &::before {
+          transform: rotate(90deg);
+          position: absolute;
+          top: -.5rem;
+          left: 4.5rem;
+        }
+        &::after {
+          left: 0;
+        }
+      }
+    }
   }
 };

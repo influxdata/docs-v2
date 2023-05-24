@@ -12,6 +12,15 @@ weight: 205
 
 Use InfluxQL functions to aggregate, select, transform, analyze, and predict data.
 
+{{% note %}}
+#### Missing InfluxQL functions
+
+Some InfluxQL functions are in the process of being rearchitected to work with
+the InfluxDB IOx storage engine. If a function you need is not here, check the
+[InfluxQL feature support page](/influxdb/cloud-dedicated/reference/influxql/feature-support/#function-support)
+for more information.
+{{% /note %}}
+
 ## InfluxQL functions (by type)
 
 - [Aggregates](aggregates/)
@@ -60,6 +69,11 @@ Use InfluxQL functions to aggregate, select, transform, analyze, and predict dat
   <!-- - [MOVING_AVERAGE()](transformations/#moving_average) -->
   <!-- - [NON_NEGATIVE_DERIVATIVE()](transformations/#non_negative_derivative) -->
   <!-- - [NON_NEGATIVE_DIFFERENCE()](transformations/#non_negative_difference) -->
+- [Date and time](date-time/)
+  - [now()](date-time/#now)
+  - [time()](date-time/#time)
+- [Miscellaneous](misc/)
+  - [fill()](misc/#fill)
 <!-- - [Technical analysis](technical-analysis/) -->
   <!-- - (Predictive analysis) [HOLT_WINTERS()](technical-analysis/#holt_winters) -->
   <!-- - [CHANDE_MOMENTUM_OSCILLATOR()](technical-analysis/#chande_momentum_oscillator) -->
@@ -70,12 +84,3 @@ Use InfluxQL functions to aggregate, select, transform, analyze, and predict dat
   <!-- - [RELATIVE_STRENGTH_INDEX()](technical-analysis/#relative_strength_index) -->
   <!-- - [TRIPLE_EXPONENTIAL_MOVING_AVERAGE()](technical-analysis/#triple_exponential_moving_average) -->
   <!-- - [TRIPLE_EXPONENTIAL_DERIVATIVE()](technical-analysis/#triple_exponential_derivative) -->
-
-{{% note %}}
-#### Missing InfluxQL functions
-
-Some InfluxQL functions are in the process of being rearchitected to work with
-the InfluxDB IOx storage engine. If a function you need is not here, check the
-[InfluxQL feature support page](/influxdb/cloud-dedicated/reference/influxql/feature-support/#function-support)
-for more information.
-{{% /note %}}

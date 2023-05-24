@@ -1,4 +1,4 @@
-// Placeholder start date used in InfluxDB getting started docs
+// Placeholder start date used in InfluxDB custom timestamps
 const defaultStartDate = "2022-01-01"
 
 // Return yyyy-mm-dd formatted string from a Date object
@@ -83,10 +83,10 @@ function updateTimestamps(newStartDate) {
     })
 
     var updateBlockElWhitelist = [
-      '.get-started-timestamps pre',
-      '.get-started-timestamps li',
-      '.get-started-timestamps p',
-      '.get-started-timestamps table'
+      '.custom-timestamps pre',
+      '.custom-timestamps li',
+      '.custom-timestamps p',
+      '.custom-timestamps table'
     ]
 
     $(updateBlockElWhitelist.join()).each(function() {
@@ -105,7 +105,7 @@ function updateTimestamps(newStartDate) {
         })
     })
 
-    $('span.get-started-timestamps').each(function() {
+    $('span.custom-timestamps').each(function() {
       var wrapper = $(this)[0]
 
       times.forEach(function(x) {
