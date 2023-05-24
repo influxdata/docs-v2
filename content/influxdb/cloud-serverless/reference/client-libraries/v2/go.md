@@ -98,6 +98,16 @@ Use the Go library to write data to InfluxDB.
 ### Complete example write script
 
 ```go
+package main
+
+import (
+      "context"
+      "fmt"
+      "time"
+
+      "github.com/influxdata/influxdb-client-go/v2"
+)
+
 func main() {
     bucket := "example-bucket"
     org := "example-org"
