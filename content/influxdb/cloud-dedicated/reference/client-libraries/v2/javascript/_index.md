@@ -1,10 +1,10 @@
 ---
 title: JavaScript client library for the InfluxDB v2 API
-seotitle: Use the InfluxDB JavaScript client library for the InfluxDB v2 API
+seotitle: Use the InfluxDB v2 JavaScript client library for the InfluxDB v2 API
 list_title: JavaScript
 description: >
-  Use the InfluxDB JavaScript client library to interact with InfluxDB 2.x and the InfluxDB v2 API.
-external_url: https://github.com/influxdata/influxdb-client-js
+  Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js)
+  for Node.js and browsers to write data to a InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
     name: JavaScript
@@ -15,6 +15,7 @@ aliases:
   - /influxdb/cloud-dedicated/reference/api/client-libraries/js/  
 ---
 
-Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to integrate InfluxDB into Node.js and browser applications.
+Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js)
+for Node.js and browsers to write data to a InfluxDB Cloud Dedicated cluster.
 
 {{< children type="list">}}

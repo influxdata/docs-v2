@@ -1,9 +1,9 @@
 ---
 title: JavaScript client library for web browsers
-seotitle: Use the InfluxDB JavaScript client library for web browsers
+seotitle: Use the InfluxDB v2 JavaScript client library for web browsers
 list_title: JavaScript for browsers
 description: >
-  Use the InfluxDB JavaScript client library to interact with InfluxDB in web clients.
+  Use the InfluxDB v2 JavaScript client library to integrate with InfluxDB in web clients.
 menu:
   influxdb_cloud_serverless:
     name: Browsers and web clients
@@ -19,7 +19,7 @@ related:
   - /influxdb/cloud-serverless/api-guide/client-libraries/nodejs/query/
 ---
 
-Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to interact with the InfluxDB v2 API in browsers and front-end clients. This library supports both front-end and server-side environments and provides the following distributions:
+Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) to integrate the InfluxDB v2 API in browsers and front-end clients. This library supports both front-end and server-side environments and provides the following distributions:
 * ECMAScript modules (ESM) and CommonJS modules (CJS)
 * Bundled ESM
 * Bundled UMD 
