@@ -59,13 +59,15 @@ import {InfluxDB} from '@influxdata/influxdb-client';
 
 // Define the SQL to query data in your bucket.
 const sql=`
-  SELECT DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time,
+  SELECT
+    DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS _time,
     sensor_id,
     AVG(value) AS 'average temp'
   FROM temperature
-  GROUP BY DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP),
+  GROUP BY
+    _time,
     sensor_id
-  ORDER BY sensor_id, time
+  ORDER BY sensor_id, _time
 `;
 
 // Define a Flux script that uses iox.sql() to execute the SQL against the bucket.
