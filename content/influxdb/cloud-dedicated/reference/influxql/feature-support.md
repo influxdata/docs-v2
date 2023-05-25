@@ -154,7 +154,14 @@ This query currently returns an error.
 
 ### Date and time functions
 
-| Function                                                                       |        Supported         | Tracking Issue                                                              |
-| :----------------------------------------------------------------------------- | :----------------------: | :-------------------------------------------------------------------------- |
-| [now()](/influxdb/cloud-dedicated/reference/influxql/functions/date-time/#now) | **{{< icon "check" >}}** |                                                                             |
-| <span style="opacity: .5;">tz()</span>                                         |                          | [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933) |
+| Function                                                                         |        Supported         | Tracking Issue                                                              |
+| :------------------------------------------------------------------------------- | :----------------------: | :-------------------------------------------------------------------------- |
+| [now()](/influxdb/cloud-dedicated/reference/influxql/functions/date-time/#now)   | **{{< icon "check" >}}** |                                                                             |
+| [time()](/influxdb/cloud-dedicated/reference/influxql/functions/date-time/#time) | **{{< icon "check" >}}** |                                                                             |
+| <span style="opacity: .5;">tz()</span>                                           |                          | [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933) |
+
+### Miscellaneous functions
+
+| Function                                                                    |        Supported         | Tracking Issue |
+| :-------------------------------------------------------------------------- | :----------------------: | :------------- |
+| [fill()](/influxdb/cloud-dedicated/reference/influxql/functions/misc/#fill) | **{{< icon "check" >}}** |                |
