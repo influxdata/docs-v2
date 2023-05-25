@@ -28,7 +28,7 @@ now()
 ## time()
 
 Used in the [`GROUP BY` clause](/influxdb/cloud-dedicated/reference/influxql/group-by/)
-to group data into time-based intervals, also known as "windows," using the specified interval.
+to group data into time-based intervals, also known as "windows", using the specified interval.
 Timestamps in the `time` column are updated to the start boundary of the window
 they're in and grouped by `time`.
 Windows use preset round-number boundaries based on the specified interval that

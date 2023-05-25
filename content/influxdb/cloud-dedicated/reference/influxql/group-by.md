@@ -29,7 +29,7 @@ function in the `SELECT` statement.
 - [Notable behaviors of the GROUP BY clause](#notable-behaviors-of-the-group-by-clause)
   - [Cannot group by fields](#cannot-group-by-fields)
   - [Tag order does not matter](#tag-order-does-not-matter)
-  - [Grouping by tag and no time range return unexpected timestamps](#grouping-by-tag-and-no-time-range-return-unexpected-timestamps)
+  - [Grouping by tag and no time range returns unexpected timestamps](#grouping-by-tag-and-no-time-range-returns-unexpected-timestamps)
   - [Data grouped by time may return unexpected timestamps](#data-grouped-by-time-may-return-unexpected-timestamps)
   - [Fill with no data in the queried time range](#fill-with-no-data-in-the-queried-time-range)
   - [Fill with previous if no previous value exists](#fill-with-previous-if-no-previous-value-exists)

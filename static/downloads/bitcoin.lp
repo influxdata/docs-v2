@@ -1,4 +1,3 @@
-
 bitcoin,code=EUR,crypto=bitcoin,description=Euro,symbol=&euro; price=28561.8722 1682900340000000000
 bitcoin,code=EUR,crypto=bitcoin,description=Euro,symbol=&euro; price=28549.727 1682902080000000000
 bitcoin,code=EUR,crypto=bitcoin,description=Euro,symbol=&euro; price=28506.7155 1682904660000000000
