@@ -19,6 +19,7 @@ related:
   - /influxdb/cloud-serverless/reference/cli/influx/
   - /influxdb/cloud-serverless/reference/api/
 aliases:
+  - /influxdb/cloud-serverless/security/tokens/
   - /influxdb/cloud-serverless/security/tokens/create-token/
   - /influxdb/cloud-serverless/security/tokens/view-tokens/
 ---

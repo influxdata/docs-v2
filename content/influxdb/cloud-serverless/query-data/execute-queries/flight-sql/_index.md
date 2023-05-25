@@ -9,6 +9,8 @@ menu:
     name: Query with Flight SQL
     parent: Execute queries
 influxdb/cloud-serverless/tags: [query, flightsql]
+aliases:
+  - /influxdb/cloud-serverless/query-data/execute-queries/influx-api/
 ---
 
 Use [Apache Arrow Flight SQL](https://arrow.apache.org/) to query data

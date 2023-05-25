@@ -4884,15 +4884,14 @@ components:
         scriptID:
           description: |
             A script ID.
-            Specifies the [invokable script](#tag/Invokable-Scripts) that the task executes.
+            Specifies the invokable script that the task executes.
 
             #### Limitations
 
             - If you use the `scriptID` property, you can't use the `flux` property.
 
-            #### Related guides
+            <!-- TSM-ONLY -->
 
-            - [Create a task that references a script](/influxdb/cloud-serverless/process-data/manage-tasks/create-task/#create-a-task-that-references-a-script)
           type: string
         scriptParameters:
           description: |
@@ -5291,7 +5290,6 @@ components:
 
             When you apply a template, InfluxDB replaces `envRef` objects in the template
             with the values that you provide in the `envRefs` parameter.
-            For more examples, see how to [define environment references](/influxdb/cloud-serverless/influxdb-templates/use/#define-environment-references).
 
             The following template fields may use environment references:
 
@@ -5299,8 +5297,8 @@ components:
               - `spec.endpointName`
               - `spec.associations.name`
 
-            For more information about including environment references in template fields, see how to
-            [include user-definable resource names](/influxdb/cloud-serverless/influxdb-templates/create/#include-user-definable-resource-names).
+            <!-- TSM-ONLY -->
+
           type: object
         orgID:
           description: |
@@ -5368,9 +5366,8 @@ components:
             InfluxDB stores the key-value pairs as secrets that you can access with `secrets.get()`.
             Once stored, you can't view secret values in InfluxDB.
 
-            #### Related guides
+            <!-- TSM-ONLY -->
 
-            - [How to pass secrets when installing a template](/influxdb/cloud-serverless/influxdb-templates/use/#pass-secrets-when-installing-a-template)
           type: object
         stackID:
           description: |
@@ -5382,10 +5379,8 @@ components:
 
             To find a stack ID, use the InfluxDB [`/api/v2/stacks` API endpoint](#operation/ListStacks) to list stacks.
 
-            #### Related guides
+            <!-- TSM-ONLY -->
 
-            - [Stacks](/influxdb/cloud-serverless/influxdb-templates/stacks/)
-            - [View stacks](/influxdb/cloud-serverless/influxdb-templates/stacks/view/)
           type: string
         template:
           description: |
@@ -7405,7 +7400,7 @@ paths:
 
         #### Related Guides
 
-        - [Delete a bucket](/influxdb/cloud-serverless/admin/buckets/delete-bucket/#delete-a-bucket-in-the-influxdb-ui)
+        - [Manage buckets](/influxdb/cloud-serverless/admin/buckets/)
       operationId: DeleteBucketsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -7706,7 +7701,7 @@ paths:
         #### Related guides
 
         - Use the [`/api/v2/labels` InfluxDB API endpoint](#tag/Labels) to retrieve and manage labels.
-        - [Manage labels in the InfluxDB UI](/influxdb/cloud-serverless/visualize-data/labels/)
+        - [Manage buckets](/influxdb/cloud-serverless/admin/buckets/)
       operationId: GetBucketsIDLabels
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -7904,10 +7899,7 @@ paths:
 
         Use this endpoint to retrieve all users with access to a bucket.
 
-        #### Related guides
-
-        - [Manage users](/influxdb/cloud-serverless/users/)
-        - [Manage members](/influxdb/cloud-serverless/organizations/members/)
+        <!-- TSM-ONLY -->
       operationId: GetBucketsIDMembers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -8447,10 +8439,7 @@ paths:
         - Buckets must be created with the "explict" `schemaType` in order to use
         schemas.
 
-        #### Related guides
-
-        - [Manage bucket schemas](/influxdb/cloud-serverless/admin/buckets/bucket-schema/).
-        - [Create a bucket with an explicit schema](/influxdb/cloud-serverless/admin/buckets/create-bucket/#create-a-bucket-with-an-explicit-schema)
+        <!-- TSM-ONLY -->
       operationId: createMeasurementSchema
       parameters:
         - description: |
@@ -9192,6 +9181,9 @@ paths:
       description: |
         Deletes data from a bucket.
 
+        **NOTE**: This endpoint has been **disabled** for InfluxDB Cloud Serverless organizations.
+        See how to [**delete data**](/influxdb/cloud-serverless/write-data/delete-data/).
+
         Use this endpoint to delete points from a bucket in a specified time range.
 
         #### InfluxDB Cloud
@@ -9227,9 +9219,6 @@ paths:
         #### Related guides
 
         - [Delete data](/influxdb/cloud-serverless/write-data/delete-data/)
-        - Learn how to use [delete predicate syntax](/influxdb/cloud-serverless/reference/syntax/delete-predicate/).
-        - Learn how InfluxDB handles [deleted tags](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagkeys/)
-          and [deleted fields](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementfieldkeys/).
       operationId: PostDelete
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -9301,11 +9290,6 @@ paths:
           **delete predicate expression** in the `predicate` property of the request body.
           If you don't pass a `predicate`, InfluxDB deletes all data with timestamps
           in the specified time range.
-
-          #### Related guides
-
-          - [Delete data](/influxdb/cloud-serverless/write-data/delete-data/)
-          - Learn how to use [delete predicate syntax](/influxdb/cloud-serverless/reference/syntax/delete-predicate/).
         required: true
       responses:
         '204':
@@ -10391,8 +10375,7 @@ paths:
           schema:
             type: string
         - description: |
-            Earliest time to include in results.
-            For more information about timestamps, see [Manipulate timestamps with Flux](/influxdb/cloud-serverless/query-data/flux/manipulate-timestamps/).
+            Earliest time ([unix timestamp format](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)) to include in results.
           in: query
           name: start
           required: true
@@ -10400,8 +10383,7 @@ paths:
             format: unix timestamp
             type: integer
         - description: |
-            Latest time to include in results.
-            For more information about timestamps, see [Manipulate timestamps with Flux](/influxdb/cloud-serverless/query-data/flux/manipulate-timestamps/).
+            Latest time ([unix timestamp format](/influxdb/cloud-serverless/reference/glossary/#unix-timestamp)) to include in results.
           in: query
           name: stop
           required: false
@@ -11957,11 +11939,10 @@ paths:
   /api/v2/scripts:
     get:
       description: |
-        Lists [scripts](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/).
+        Lists scripts.
 
-        #### Related guides
+        <!-- TSM-ONLY -->
 
-        - [Invoke custom scripts](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/)
       operationId: GetScripts
       parameters:
         - description: |
@@ -12060,13 +12041,11 @@ paths:
               --header "Content-Type: application/json"
     post:
       description: |
-        Creates an [invokable script](https://docs.influxdata.com/resources/videos/api-invokable-scripts/)
+        Creates an invokable script
         and returns the script.
 
-        #### Related guides
+        <!-- TSM-ONLY -->
 
-        - [Invokable scripts](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/)
-        - [Creating custom InfluxDB endpoints](https://docs.influxdata.com/resources/videos/api-invokable-scripts/)
       operationId: PostScripts
       requestBody:
         content:
@@ -12142,7 +12121,7 @@ paths:
   /api/v2/scripts/{scriptID}:
     delete:
       description: |
-        Deletes a [script](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/) and all associated records.
+        Deletes a script and all associated records.
 
         #### Limitations
 
@@ -12150,9 +12129,8 @@ paths:
         - If the script ID you provide doesn't exist for the organization, InfluxDB
         responds with an HTTP `204` status code.
 
-        #### Related Guides
+        <!-- TSM-ONLY -->
 
-        - [Invoke custom scripts](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/)
       operationId: DeleteScriptsID
       parameters:
         - description: |
@@ -12188,11 +12166,10 @@ paths:
               --header 'Accept: application/json'
     get:
       description: |
-        Retrieves a [script](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/).
+        Retrieves a script.
 
-        #### Related Guides
+        <!-- TSM-ONLY -->
 
-        - [Invoke custom scripts](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/)
       operationId: GetScriptsID
       parameters:
         - description: |
@@ -12260,9 +12237,8 @@ paths:
         store an empty script, but InfluxDB will respond with an HTTP `200` status
         code.
 
-        #### Related Guides
+        <!-- TSM-ONLY -->
 
-        - [Invoke custom scripts](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/)
       operationId: PatchScriptsID
       parameters:
         - description: |
@@ -12362,9 +12338,8 @@ paths:
         }
         ```
 
-        #### Related guides
+        <!-- TSM-ONLY -->
 
-        - [Invoke custom scripts](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/)
       operationId: PostScriptsIDInvoke
       parameters:
         - description: |
@@ -12514,9 +12489,8 @@ paths:
         be determined from the context, or the type is determined to
         be a structured type such as an array or record.
 
-        #### Related guides
+        <!-- TSM-ONLY -->
 
-        - [Invoke custom scripts](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/)
       operationId: GetScriptsIDParams
       parameters:
         - description: |
@@ -12595,9 +12569,8 @@ paths:
         If no query parameters are passed, InfluxDB returns all installed stacks
         for the organization.
 
-        #### Related guides
+        <!-- TSM-ONLY -->
 
-        - [View InfluxDB stacks](/influxdb/cloud-serverless/influxdb-templates/stacks/).
       operationId: ListStacks
       parameters:
         - description: |
@@ -12713,10 +12686,8 @@ paths:
 
         - `write` permission for the organization
 
-        #### Related guides
+        <!-- TSM-ONLY -->
 
-        - [Initialize an InfluxDB stack](/influxdb/cloud-serverless/influxdb-templates/stacks/init/).
-        - [Use InfluxDB templates](/influxdb/cloud-serverless/influxdb-templates/use/#apply-templates-to-an-influxdb-instance).
       operationId: CreateStack
       requestBody:
         content:
@@ -13166,12 +13137,8 @@ paths:
 
         - You can't use `flux` and `scriptID` for the same task.
 
-        #### Related guides
+        <!-- TSM-ONLY -->
 
-        - [Get started with tasks](/influxdb/cloud-serverless/process-data/get-started/)
-        - [Create a task](/influxdb/cloud-serverless/process-data/manage-tasks/create-task/)
-        - [Common tasks](/influxdb/cloud-serverless/process-data/common-tasks/)
-        - [Task configuration options](/influxdb/cloud-serverless/process-data/task-options/)
       operationId: PostTasks
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13875,10 +13842,12 @@ paths:
   /api/v2/tasks/{taskID}/runs:
     get:
       description: |
-        Retrieves a list of runs for a [task](/influxdb/cloud-serverless/process-data/).
+        Retrieves a list of runs for a task.
 
         To limit which task runs are returned, pass query parameters in your request.
         If no query parameters are passed, InfluxDB returns all task runs up to the default `limit`.
+        <!-- TSM-ONLY -->
+
       operationId: GetTasksIDRuns
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13946,6 +13915,8 @@ paths:
 
         To _retry_ a previous run (and avoid creating a new run),
         use the [`POST /api/v2/tasks/{taskID}/runs/{runID}/retry` endpoint](#operation/PostTasksIDRunsIDRetry).
+        <!-- TSM-ONLY -->
+
       operationId: PostTasksIDRuns
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13986,6 +13957,8 @@ paths:
         #### InfluxDB Cloud
 
         - Doesn't support this operation.
+        <!-- TSM-ONLY -->
+
       operationId: DeleteTasksIDRunsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -14040,9 +14013,11 @@ paths:
         - Tasks
     get:
       description: |
-        Retrieves a specific run for a [task](/influxdb/cloud-serverless/reference/glossary/#task).
+        Retrieves a specific run for a task.
 
         Use this endpoint to retrieve detail and logs for a specific task run.
+        <!-- TSM-ONLY -->
+
       operationId: GetTasksIDRunsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -14108,6 +14083,8 @@ paths:
         A log is a list of run events with `runID`, `time`, and `message` properties.
 
         Use this endpoint to help analyze task performance and troubleshoot failed task runs.
+        <!-- TSM-ONLY -->
+
       operationId: GetTasksIDRunsIDLogs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -14173,7 +14150,7 @@ paths:
   /api/v2/tasks/{taskID}/runs/{runID}/retry:
     post:
       description: |
-        Queues a [task](/influxdb/cloud-serverless/reference/glossary/#task)  run to
+        Queues a task run to
         retry and returns the scheduled run.
 
         To manually start a _new_ task run, use the
@@ -14695,8 +14672,8 @@ paths:
     post:
       description: |
         Applies a template to
-        create or update a [stack](/influxdb/cloud-serverless/influxdb-templates/stacks/) of InfluxDB
-        [resources](/influxdb/cloud-serverless/reference/cli/influx/export/all/#resources).
+        create or update a stack of InfluxDB
+        resources.
         The response contains the diff of changes and the stack ID.
 
         Use this endpoint to install an InfluxDB template to an organization.
@@ -14712,18 +14689,15 @@ paths:
 
         #### Custom values for templates
 
-        - Some templates may contain [environment references](/influxdb/cloud-serverless/influxdb-templates/create/#include-user-definable-resource-names) for custom metadata.
+        - Some templates may contain environment references for custom metadata.
           To provide custom values for environment references, pass the _`envRefs`_
           property in the request body.
-          For more information and examples, see how to
-          [define environment references](/influxdb/cloud-serverless/influxdb-templates/use/#define-environment-references).
 
         - Some templates may contain queries that use
-          [secrets](/influxdb/cloud-serverless/security/secrets/).
+          [secrets](/influxdb/cloud-serverless/reference/glossary/#secret).
           To provide custom secret values, pass the _`secrets`_ property
           in the request body.
           Don't expose secret values in templates.
-          For more information, see [how to pass secrets when installing a template](/influxdb/cloud-serverless/influxdb-templates/use/#pass-secrets-when-installing-a-template).
 
         #### Required permissions
 
@@ -14734,10 +14708,8 @@ paths:
         - Adjustable service quotas apply.
           For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
 
-        #### Related guides
+        <!-- TSM-ONLY -->
 
-        - [Use templates](/influxdb/cloud-serverless/influxdb-templates/use/)
-        - [Stacks](/influxdb/cloud-serverless/influxdb-templates/stacks/)
       operationId: ApplyTemplate
       requestBody:
         content:
@@ -15319,7 +15291,7 @@ paths:
 
         #### Related guides
 
-        - [Write data with the InfluxDB API](/influxdb/cloud-serverless/write-data/developer-tools/api)
+        - [Write data with the InfluxDB API](/influxdb/cloud-serverless/get-started/write/)
         - [Optimize writes to InfluxDB](/influxdb/cloud-serverless/write-data/best-practices/optimize-writes/)
         - [Troubleshoot issues writing data](/influxdb/cloud-serverless/write-data/troubleshoot/)
       operationId: PostWrite
@@ -15654,7 +15626,7 @@ paths:
         - description: |
             The database to query data from.
             This is mapped to an InfluxDB [bucket](/influxdb/cloud-serverless/reference/glossary/#bucket).
-            For more information, see [Database and retention policy mapping](/influxdb/cloud-serverless/api/influxdb-1x/dbrp/).
+            For more information, see [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/).
           in: query
           name: db
           required: true
@@ -15663,7 +15635,7 @@ paths:
         - description: |
             The retention policy to query data from.
             This is mapped to an InfluxDB [bucket](/influxdb/cloud-serverless/reference/glossary/#bucket).
-            For more information, see [Database and retention policy mapping](/influxdb/cloud-serverless/api/influxdb-1x/dbrp/).
+            For more information, see [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/).
           in: query
           name: rp
           schema:
@@ -15977,10 +15949,7 @@ tags:
       Use the `/api/v2/scripts` endpoints to create and manage scripts.
       See related guides to learn how to define parameters and execute scripts.
 
-      ### Related guides
-
-      - [Invoke custom scripts](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/) from API requests.
-      - [Create a task that references a script](/influxdb/cloud-serverless/process-data/manage-tasks/create-task/#create-a-task-that-references-a-script)
+      <!-- TSM-only -->
     name: Invokable Scripts
   - name: Labels
   - name: Legacy Authorizations
@@ -16063,7 +16032,7 @@ tags:
       |:-----------:|:------------------------ |:--------------------- |
       | `200`       | Success                  |                       |
       | `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |
-      | `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included. For more information, check the `rejected_points` measurement in your [_monitoring bucket](/influxdb/cloud-serverless/reference/internals/system-buckets/#_monitoring-system-bucket).</li><li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
+      | `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included.</li><li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
       | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud-serverless/security/tokens/)</li></ul> |
       | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
       | `405`       | Method not allowed       | The API path doesn't support the HTTP method used in the request--for example, you send a `POST` request to an endpoint that only allows `GET`. |
@@ -16086,7 +16055,7 @@ tags:
     x-traitTag: true
   - name: System information endpoints
   - description: |
-      Process and analyze your data with [tasks](/influxdb/cloud-serverless/reference/glossary/#task)
+      Process and analyze your data with tasks
       in the InfluxDB task engine.
       Use the `/api/v2/tasks` endpoints to schedule and manage tasks, retry task runs, and retrieve run logs.
 
@@ -16103,11 +16072,7 @@ tags:
 
       <SchemaDefinition schemaRef="#/components/schemas/Task" />
 
-      ### Related guides
-
-      - [Get started with tasks](/influxdb/cloud-serverless/process-data/get-started/)
-      - [Common data processing tasks](/influxdb/cloud-serverless/process-data/common-tasks/)
-      - [Create a script](/influxdb/cloud-serverless/api-guide/api-invokable-scripts/#create-an-invokable-script)
+      <!-- TSM-only -->
     name: Tasks
   - name: Telegraf Plugins
   - name: Telegrafs
@@ -16128,10 +16093,7 @@ tags:
 
       Use the `/api/v2/stacks` endpoints to manage installed template resources.
 
-      ### Related guides
-
-      - [InfluxDB stacks](/influxdb/cloud-serverless/influxdb-templates/stacks/)
-      - [InfluxDB templates](/influxdb/cloud-serverless/influxdb-templates/)
+      <!-- TSM-only -->
     name: Templates
   - name: Usage
   - description: |

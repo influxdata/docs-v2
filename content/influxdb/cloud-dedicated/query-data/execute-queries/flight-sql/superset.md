@@ -1,6 +1,6 @@
 ---
 title: Use Superset to query data
-seotitle: Use Apache Superset to query data stored in InfluxDB Cloud (IOx)
+seotitle: Use Apache Superset to query data stored in InfluxDB Cloud Dedicated
 description: >
   Install and run [Apache Superset](https://superset.apache.org/)
   to query data stored in InfluxDB.
@@ -28,8 +28,8 @@ stored in an InfluxDB database.
 <!-- TOC -->
 
 - [Set up Docker for Superset and Flight SQL](#set-up-docker-for-superset-and-flight-sql)
-    - [Install prerequisites for Superset and Flight SQL](#install-prerequisites-for-superset-and-flight-sql)
-    - [Set up Docker for Superset](#set-up-docker-for-superset)
+  - [Install prerequisites for Superset and Flight SQL](#install-prerequisites-for-superset-and-flight-sql)
+  - [Set up Docker for Superset](#set-up-docker-for-superset)
 - [Start the Superset Docker containers](#start-the-superset-docker-containers)
 - [Log in to Superset](#log-in-to-superset)
 - [Create a database connection for InfluxDB](#create-a-database-connection-for-influxdb)
