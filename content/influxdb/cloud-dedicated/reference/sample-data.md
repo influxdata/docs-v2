@@ -17,6 +17,7 @@ Use the following sample datasets to replicate provided examples.
 
 - [Get started home sensor data](#get-started-home-sensor-data)
 - [NOAA Bay Area weather data](#noaa-bay-area-weather-data)
+- [Bitcoin price data](#bitcoin-price-data)
 - [Random numbers sample data](#random-numbers-sample-data)
 
 ## Get started home sensor data
@@ -244,6 +245,96 @@ curl --request POST \
   --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
+```
+{{% /code-callout %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## Bitcoin price data
+
+The Bitcoin price sample dataset provides Bitcoin prices from
+**2023-05-01T00:00:00Z to 2023-05-15T00:00:00Z**—_[Powered by CoinDesk](https://www.coindesk.com/price/bitcoin)_.
+
+##### Time Range
+
+**2023-05-01T00:19:00Z** to **2023-05-14T23:48:00Z**
+
+##### Schema
+
+- bitcoin <em style="opacity: .5">(measurement)</em>
+  - **tags**:
+    - code
+      - EUR
+      - GBP
+      - USD
+    - crypto
+      - bitcoin
+    - description
+      - Euro
+      - British Pound Sterling
+      - United States Dollar
+    - symbol
+      - \&euro; <em style="opacity: .5">(&euro;)</em>
+      - \&pound; <em style="opacity: .5">(&pound;)</em>
+      - \&#36; <em style="opacity: .5">(&#36;)</em>
+  - **fields**
+    - price <em style="opacity: .5">(float)</em>
+
+{{< expand-wrapper >}}
+{{% expand "Write the Bitcoin sample data to InfluxDB" %}}
+
+#### Write the Bitcoin price sample data to InfluxDB
+
+Use the InfluxDB v2 or v1 API to write the Bitcoin price sample data to
+{{< cloud-name >}}.
+Replace the following in the script below:
+
+- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
+- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
+  with sufficient permissions to the database
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[v2 API](#)
+[v1 API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+```sh
+export INFLUX_HOST=https://cluster-id.influxdb.io
+export INFLUX_TOKEN=DATABASE_TOKEN
+
+INFLUX_DATABASE=DATABASE_NAME
+
+curl --request POST \
+  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_DATABASE" \
+  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
+```
+{{% /code-callout %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+```sh
+export INFLUX_HOST=https://cluster-id.influxdb.io
+export INFLUX_TOKEN=DATABASE_TOKEN
+
+INFLUX_DATABASE=DATABASE_NAME
+
+curl --request POST \
+  "$INFLUX_HOST/write?db=$INFLUX_DATABASE" \
+  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  --header "Content-type: text/plain; charset=utf-8" \
+  --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
 {{% /code-callout %}}
 

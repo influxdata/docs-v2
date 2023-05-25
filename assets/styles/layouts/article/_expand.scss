@@ -4,6 +4,10 @@
   margin: 2rem 0 2rem;
 }
 
+h5, h6 {
+  &+ .expand-wrapper { margin-top: .75rem;}
+}
+
 .expand {
   border-top: 1px solid $article-hr;
   padding: .75rem 0;
