@@ -230,15 +230,15 @@ When grouping by time, if a window in the queried time range does not contain da
 results return a row for the empty window containing the timestamp of the empty
 window and _null_ values for each queried field.
 Use the [`fill()` function](/influxdb/cloud-dedicated/reference/influxql/functions/misc/#fill)
-_at the end of the `GROUP BY` clause_ to replace
-_null_ field values.
+_at the end of the `GROUP BY` clause_ to replace _null_ field values.
+If no `FILL` clause is included, the default behavior is `fill(null)`.
 
 `fill()` provides the following behaviors for filling values:
 
 - **numeric literal**: Replaces null values with the specified numeric literal.
 - **linear**: Uses linear interpolation between existing values to replace null values.
-- **none**: Removes rows will null field values from empty windows.
-- **null**: _(Default)_ Keeps null values and associated timestamps.
+- **none**: Removes rows with null field values.
+- **null**: Keeps null values and associated timestamps.
 - **previous**: Replaces null values with the most recent non-null value.
 
 _See the [`fill()` documentation](/influxdb/cloud-dedicated/reference/influxql/functions/misc/#fill)
