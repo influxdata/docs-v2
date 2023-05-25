@@ -55,7 +55,7 @@ SELECT_clause FROM_clause [WHERE_clause] GROUP BY group_expression[, ..., group_
 - `GROUP BY time()` - Groups data into time intervals (windows)
 
 {{% note %}}
-If the query includes a `WHERE` clause, the `GROUP BY` clause must appear after
+If a query includes `WHERE` and `GROUP BY`, the `GROUP BY` clause must appear after
 the `WHERE` clause.
 {{% /note %}}
 
@@ -221,7 +221,7 @@ SELECT_clause FROM_clause WHERE <time_range> GROUP BY time(time_interval[, offse
 `GROUP BY time()` intervals use preset round-number time boundaries that
 are independent of time conditions in the [`WHERE` clause](/influxdb/cloud-dedicated/reference/influxql/where/).
 **Output data uses window start boundaries as the aggregate timestamps.**
-Use the `offset` argument of the `time()` to shift time boundaries forward or
+Use the `offset` argument of the `time()` function to shift time boundaries forward or
 backward in time.
 
 ### GROUP by time and fill gaps
@@ -487,11 +487,11 @@ InfluxQL does not support grouping data by **fields**.
 The order that tags are listed in the `GROUP BY` clause does not affect how
 data is grouped.
 
-### Grouping by tag and no time range return unexpected timestamps
+### Grouping by tag and no time range returns unexpected timestamps
 
 When grouping by tags and no time range is specified in the
 [`WHERE` clause](/influxdb/cloud-dedicated/reference/influxql/where/), results
-use the [Unix epoch]() as the default timestamp for the aggregate timestamp.
+use the [Unix epoch](/influxdb/cloud-dedicated/reference/glossary/#unix-epoch) as the default timestamp for the aggregate timestamp.
 For example:
 
 ```sql
@@ -519,12 +519,12 @@ tags: room=Living Room
 ### Data grouped by time may return unexpected timestamps
 
 Because `GROUP BY time()` intervals use preset round-number time boundaries that
-are independent of time conditions in the [`WHERE` clause](/influxdb/cloud-dedicated/reference/influxql/where/)
-results may include timestamps outside of the quried time range.
-Results represent only data with timestamps the specified time range, but
+are independent of time conditions in the [`WHERE` clause](/influxdb/cloud-dedicated/reference/influxql/where/),
+results may include timestamps outside of the queried time range.
+Results represent only data with timestamps in the specified time range, but
 output timestamps are determined by by the preset time boundaries.
 
-For example, if you group data into 1 hour intervals, but the time range defined
+The following example groups data by 1-hour intervals, but the time range defined
 in the `WHERE` clause covers only part of a window:
 
 ```sql

@@ -306,7 +306,7 @@ Replace the following in the script below:
 
 {{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=http://cluster-id.influxdb.io
+export INFLUX_HOST=https://cluster-id.influxdb.io
 export INFLUX_TOKEN=DATABASE_TOKEN
 
 INFLUX_DATABASE=DATABASE_NAME
@@ -325,7 +325,7 @@ curl --request POST \
 
 {{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=http://cluster-id.influxdb.io
+export INFLUX_HOST=https://cluster-id.influxdb.io
 export INFLUX_TOKEN=DATABASE_TOKEN
 
 INFLUX_DATABASE=DATABASE_NAME
