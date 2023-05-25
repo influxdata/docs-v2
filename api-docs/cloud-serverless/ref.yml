@@ -9192,6 +9192,8 @@ paths:
       description: |
         Deletes data from a bucket.
 
+        _This endpoint has been disabled for InfluxDB Cloud Serverless organizations._
+
         Use this endpoint to delete points from a bucket in a specified time range.
 
         #### InfluxDB Cloud
@@ -9227,9 +9229,6 @@ paths:
         #### Related guides
 
         - [Delete data](/influxdb/cloud-serverless/write-data/delete-data/)
-        - Learn how to use [delete predicate syntax](/influxdb/cloud-serverless/reference/syntax/delete-predicate/).
-        - Learn how InfluxDB handles [deleted tags](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementtagkeys/)
-          and [deleted fields](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/measurementfieldkeys/).
       operationId: PostDelete
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -15319,7 +15318,7 @@ paths:
 
         #### Related guides
 
-        - [Write data with the InfluxDB API](/influxdb/cloud-serverless/write-data/developer-tools/api)
+        - [Write data with the InfluxDB API](/influxdb/cloud-serverless/get-started/write/)
         - [Optimize writes to InfluxDB](/influxdb/cloud-serverless/write-data/best-practices/optimize-writes/)
         - [Troubleshoot issues writing data](/influxdb/cloud-serverless/write-data/troubleshoot/)
       operationId: PostWrite
@@ -16063,7 +16062,7 @@ tags:
       |:-----------:|:------------------------ |:--------------------- |
       | `200`       | Success                  |                       |
       | `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |
-      | `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included. For more information, check the `rejected_points` measurement in your [_monitoring bucket](/influxdb/cloud-serverless/reference/internals/system-buckets/#_monitoring-system-bucket).</li><li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
+      | `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included.</li><li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
       | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud-serverless/security/tokens/)</li></ul> |
       | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
       | `405`       | Method not allowed       | The API path doesn't support the HTTP method used in the request--for example, you send a `POST` request to an endpoint that only allows `GET`. |

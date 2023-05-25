@@ -14,6 +14,7 @@ related:
 alt_engine: /influxdb/cloud/account-management/limits/
 aliases:
   - /influxdb/cloud-serverless/admin/accounts/limits/
+  - /influxdb/cloud-serverless/account-management/limits/
 ---
 
 InfluxDB Cloud Serverless applies (non-adjustable) global system limits and
