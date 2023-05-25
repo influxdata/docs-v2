@@ -1,7 +1,7 @@
 ---
 title: GROUP BY clause
 description: >
-  Use the `GROUP BY` clause ti group data by one or more specified
+  Use the `GROUP BY` clause to group data by one or more specified
   [tags](/influxdb/cloud-dedicated/reference/glossary/#tag) or into specified time intervals.
 menu:
   influxdb_cloud_dedicated:
@@ -15,7 +15,7 @@ list_code_example: |
   ```
 ---
 
-Use the `GROUP BY` clause ti group data by one or more specified
+Use the `GROUP BY` clause to group data by one or more specified
 [tags](/influxdb/cloud-dedicated/reference/glossary/#tag) or into specified time intervals.
 `GROUP BY` requires an [aggregate](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/)
 or [selector](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/)
@@ -207,7 +207,7 @@ tags: code=USD, crypto=bitcoin, description=United States Dollar
 
 ## GROUP BY time
 
-`GROUP BY time()` groups data by into specified time intervals, also known as "windows,"
+`GROUP BY time()` groups data by into specified time intervals, also known as "windows",
 and applies the [aggregate](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/)
 and [selector](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/)
 functions in the `SELECT` clause to each interval.

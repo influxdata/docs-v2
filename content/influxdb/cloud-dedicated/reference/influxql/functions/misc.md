@@ -30,14 +30,14 @@ fill(behavior)
 
 #### Arguments
 
-- **behavior**: Defines the behavior of the fill operation. Default is `null`.
+- **behavior**: Defines the behavior of the fill operation. The default behavior when the `FILL` clause is omitted is `FILL(null)`.
 
   The following options are available:
 
   - **numeric literal**: Replaces null values with the specified numeric literal.
   - **linear**: Uses linear interpolation between existing values to replace null values.
   - **none**: Removes rows will null field values from empty windows.
-  - **null**: _(Default)_ Keeps null values and associated timestamps.
+  - **null**: Keeps null values and associated timestamps.
   - **previous**: Replaces null values with the most recent non-null value.
 
 #### Examples {#fill-examples}
