@@ -41,6 +41,8 @@ function showHelp {
   echo "    With optional arguments:"
   echo "       ./getswagger.sh <platform> -b <baseUrl> -V"
   echo "       ./getswagger.sh cloud"
+  echo "       ./getswagger.sh cloud-dedicated"
+  echo "       ./getswagger.sh cloud-serverless"
   echo "       ./getswagger.sh oss -o <ossVersion> -V"
   echo "       ./getswagger.sh all -o <ossVersion>"
   echo "Commands:"
@@ -57,7 +59,7 @@ function showHelp {
 subcommand=$1
 
 case "$subcommand" in
-  cloud-iox|cloud|oss|v1compat|all)
+  cloud-dedicated|cloud-serverless|cloud|oss|v1compat|all)
     platform=$1
     shift
 
@@ -132,10 +134,16 @@ function updateCloud {
   postProcess $outFile cloud
 }
 
-function updateCloudIOx {
-  outFile="cloud-iox/ref.yml"
+function updateCloudDedicated {
+  outFile="cloud-dedicated/ref.yml"
   curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
-  postProcess $outFile cloud-iox
+  postProcess $outFile cloud-dedicated
+}
+
+function updateCloudServerless {
+  outFile="cloud-serverless/ref.yml"
+  curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  postProcess $outFile cloud-serverless
 }
 
 function updateOSS {
@@ -167,9 +175,12 @@ fi
 if [ "$platform" = "cloud" ];
 then
   updateCloud
-elif [ "$platform" = "cloud-iox" ];
+elif [ "$platform" = "cloud-dedicated" ];
 then
-  updateCloudIOx
+  updateCloudDedicated
+elif [ "$platform" = "cloud-serverless" ];
+then
+  updateCloudServerless
 elif [ "$platform" = "oss" ];
 then
   updateOSS
@@ -179,7 +190,8 @@ then
 elif [ "$platform" = "all" ];
 then
   updateCloud
-  updateCloudIOx
+  updateCloudDedicated
+  updateCloudServerless
   updateOSS
   updateV1Compat
 else

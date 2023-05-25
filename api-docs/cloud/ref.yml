@@ -12389,10 +12389,6 @@ paths:
         Use this endpoint to monitor uptime for the InfluxDB instance. The response
         returns a HTTP `204` status code to inform you the instance is available.
 
-        #### InfluxDB Cloud
-
-        - Isn't versioned and doesn't return `X-Influxdb-Version` in the headers.
-
         #### Related guides
 
         - [Influx ping](/influxdb/cloud/reference/cli/influx/ping/)
@@ -12411,9 +12407,6 @@ paths:
             X-Influxdb-Version:
               description: |
                 The version of InfluxDB.
-
-                #### InfluxDB Cloud
-                  - Doesn't return version.
               schema:
                 type: integer
       servers: []
@@ -12421,21 +12414,12 @@ paths:
       tags:
         - Ping
         - System information endpoints
-      x-codeSamples:
-        - label: cURL
-          lang: Shell
-          source: |
-            curl --request GET "http://localhost:8086/ping"
     head:
       description: |
         Returns the status and InfluxDB version of the instance.
 
         Use this endpoint to monitor uptime for the InfluxDB instance. The response
         returns a HTTP `204` status code to inform you the instance is available.
-
-        #### InfluxDB Cloud
-
-        - Isn't versioned and doesn't return `X-Influxdb-Version` in the headers.
 
         #### Related guides
 
@@ -12454,20 +12438,12 @@ paths:
             X-Influxdb-Version:
               description: |
                 The version of InfluxDB.
-
-                #### InfluxDB Cloud
-                - Doesn't return version.
               schema:
                 type: integer
       servers: []
       summary: Get the status of the instance
       tags:
         - Ping
-      x-codeSamples:
-        - label: cURL
-          lang: Shell
-          source: |
-            curl --request HEAD "http://localhost:8086/ping"
   /api/v2/query:
     post:
       description: |

@@ -54,7 +54,7 @@ Use the Go library to write and query data from InfluxDB.
 
    ```go
    bucket := "example-database"
-   org := "example-org"
+   org := "ignored"
    token := "example-token"
    // Store the URL of your InfluxDB instance
    url := "https://cluster-id.influxdb.io"
@@ -98,12 +98,22 @@ Use the Go library to write data to InfluxDB.
 ### Complete example write script
 
 ```go
+package main
+
+import (
+      "context"
+      "fmt"
+      "time"
+
+      "github.com/influxdata/influxdb-client-go/v2"
+)
+
 func main() {
     bucket := "example-database"
-    org := "example-org"
+    org := "ignored"
     token := "example-token"
     // Store the URL of your InfluxDB instance
-    url := "http://localhost:8086"
+    url := "https://cluster-id.influxdb.io"
     // Create new client with default option for server url authenticate by token
     client := influxdb2.NewClient(url, token)
     // User blocking write client for writes to desired bucket
@@ -120,7 +130,8 @@ func main() {
 }
 ```
 ## Query data from InfluxDB with Go
-The InfluxDB v2 Go client cannot query InfluxDB Cloud Dedicated.
+
+The InfluxDB v2 Go client can't query InfluxDB Cloud Dedicated.
 To query your dedicated instance, use the [Go Flight SQL client](https://pkg.go.dev/github.com/apache/arrow/go/v12/arrow/flight/flightsql).
 For an example, see [Get started querying data](/influxdb/cloud-dedicated/get-started/query/?t=Go#execute-an-sql-query).
 

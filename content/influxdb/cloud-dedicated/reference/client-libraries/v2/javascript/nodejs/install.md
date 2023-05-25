@@ -1,5 +1,5 @@
 ---
-title: Install the InfluxDB JavaScript client library
+title: Install the InfluxDB v2 JavaScript client library
 seotitle: Install the InfluxDB Node.js JavaScript client library
 description: >
   Install the Node.js JavaScript client library to interact with the InfluxDB v2 API.
@@ -12,7 +12,6 @@ weight: 100
 aliases:
   - /influxdb/cloud-dedicated/reference/api/client-libraries/nodejs/install
 ---
-
 
 ## Install Node.js
 
@@ -50,48 +49,36 @@ Many of the client library examples use [TypeScript](https://www.typescriptlang.
 
 ## Install dependencies
 
-The JavaScript client library contains two packages: `@influxdata/influxdb-client` and `@influxdata/influxdb-client-apis`.
-Add both as dependencies of your project.
-
-1. Open a new terminal window and install  `@influxdata/influxdb-client` for querying and writing data:
+Open a new terminal window and install `@influxdata/influxdb-client`:
 
    ```sh
-   npm install --save @influxdata/influxdb-client
+   npm i --save @influxdata/influxdb-client
    ```
 
-3. Install `@influxdata/influxdb-client-apis` for access to the InfluxDB management APIs:
+The `@influxdata/influxdb-client-apis` client library package doesn't
+work with InfluxDB v3.
+It only works with InfluxDB v2 management APIs. 
 
-   ```sh
-   npm install --save @influxdata/influxdb-client-apis
-   ```
+## Configure credentials
 
-## Next steps
-
-Once you've installed the Javascript client library, you're ready to [write data](/influxdb/cloud-dedicated/api-guide/client-libraries/nodejs/write/) to InfluxDB or [get started](#get-started-with-examples) with other examples from the client library.
-
-## Get started with examples
-
-{{% note %}}
 The client examples include an [`env`](https://github.com/influxdata/influxdb-client-js/blob/master/examples/env.js) module for accessing your InfluxDB properties from environment variables or from `env.js`.
 The examples use these properties to interact with the InfluxDB API.
-{{% /note %}}
 
-1. Set environment variables or update `env.js` with your InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) (bucket), organization (required, but ignored), [token](/influxdb/cloud-dedicated/admin/tokens/), and cluster URL.
+Set environment variables or update `env.js` with your InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) (bucket), organization (required, but ignored), [token](/influxdb/cloud-dedicated/admin/tokens/), and cluster URL.
 
    ```sh
    export INFLUX_URL=https://cluster-id.influxdb.io
-   export INFLUX_TOKEN=YOUR_API_TOKEN
-   export INFLUX_ORG=YOUR_ORG
-   export INFLUX_BUCKET=YOUR_BUCKET
+   export INFLUX_TOKEN=DATABASE_TOKEN
+   export INFLUX_ORG=ORG_ID
+   export INFLUX_DATABASE=DATABASE_NAME
    ```
    Replace the following:
-   - *`YOUR_API_TOKEN`*: InfluxDB database token
-   - *`YOUR_ORG`*: An arbitrary string (this credential is ignored)
-   - *`YOUR_BUCKET`*: InfluxDB database name
+   - **`DATABASE_TOKEN`**: InfluxDB database token
+   - **`ORG_ID`**: An arbitrary string (InfluxDB ignores this credential, but the client library requires it)
+   - **`DATABASE_NAME`**: InfluxDB database name
 
-2. Run an example script.
+## Next steps
 
-   ```sh
-   query.ts
-   ```
-{{% api/v2dot0/nodejs/learn-more %}}
+Once you've installed the client library and configured credentials, you're ready to [write data](/influxdb/cloud-dedicated/api-guide/client-libraries/nodejs/write/) to InfluxDB.
+
+{{< page-nav next="/influxdb/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/write/" keepTab=true >}}
