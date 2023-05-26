@@ -61,6 +61,9 @@ the `WHERE` clause.
 
 ### GROUP BY tags examples
 
+The following examples use the
+[Bitcoin price sample data](/influxdb/cloud-dedicated/reference/sample-data/#bitcoin-price-data).
+
 {{< expand-wrapper >}}
 
 {{% expand "Group data by a single tag" %}}
@@ -245,6 +248,9 @@ _See the [`fill()` documentation](/influxdb/cloud-dedicated/reference/influxql/f
 for detailed examples._
 
 ### GROUP BY time examples
+
+The following examples use the
+[Bitcoin price sample data](/influxdb/cloud-dedicated/reference/sample-data/#bitcoin-price-data).
 
 {{< expand-wrapper >}}
 
