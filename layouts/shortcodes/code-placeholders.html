@@ -1,6 +1,6 @@
 {{- $regex := .Get 0 -}}
-{{- $color := .Get 1 | default "green" -}}
-{{- $elReplace := print "<span class='code-callout " $color "'>$0</span>" -}}
+{{- $color := .Get 1 | default "magenta" -}}
+{{- $elReplace := print "<var class='code-placeholder " $color "'>$0</var>" -}}
 {{- $code := .Inner | markdownify -}}
 {{- $codeCallout := replaceRE $regex $elReplace $code -}}
 {{ $codeCallout | safeHTML }}
