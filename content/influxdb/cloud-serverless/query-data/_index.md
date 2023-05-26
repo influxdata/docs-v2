@@ -9,6 +9,8 @@ menu:
     name: Query data
 weight: 4
 influxdb/cloud-serverless/tags: [query, flux]
+aliases:
+  - /influxdb/cloud-serverless/query-data/execute-queries/influx-api/
 ---
 
 Learn to query data stored in InfluxDB.

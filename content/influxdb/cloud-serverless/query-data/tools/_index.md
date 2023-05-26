@@ -9,6 +9,7 @@ menu:
 influxdb/cloud-serverless/tags: [analysis, visualization, tools]
 aliases:
   - /influxdb/cloud-serverless/visualize-data/
+  - /influxdb/cloud-serverless/process-data/
 ---
 
 {{< children >}}
