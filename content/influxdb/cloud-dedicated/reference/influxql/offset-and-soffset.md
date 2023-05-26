@@ -50,8 +50,8 @@ SELECT_clause FROM_clause [WHERE_clause] [GROUP_BY_clause] [ORDER_BY_clause] [LI
 
 ### Notable OFFSET clause behaviors
 
-- If there is no `LIMIT` clause in a query with an `OFFSET` clause, InfluxQL
-  assumes the behavior, `LIMIT 1`.
+- If there is no `LIMIT` clause in a query with an `OFFSET` clause, the query
+  returns a single row per InfluxQL group at the specified offset.
 - If the query doesn't include a [`GROUP BY` clause](/influxdb/cloud-dedicated/reference/influxql/group-by/),
   the entire result set is considered a single group and is returned in full.
 - If a query [groups data by time](/influxdb/cloud-dedicated/reference/influxql/group-by/#group-by-time),
