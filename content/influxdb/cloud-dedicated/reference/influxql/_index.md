@@ -13,6 +13,15 @@ weight: 102
 InfluxQL (Influx Query Language) is a SQL-like query language used to interact
 with InfluxDB and work with times series data.
 
+{{% warn %}}
+#### InfluxQL feature support
+
+InfluxQL is being rearchitected to work with the InfluxDB IOx storage engine.
+This process is ongoing and some InfluxQL features are still being implemented.
+For information about the current implementation status of InfluxQL features,
+see [InfluxQL feature support](/influxdb/cloud-dedicated/reference/influxql/feature-support/).
+{{% /warn %}}
+
 - [Notation](#notation)
 - [Query representation](#query-representation)
   - [Characters](#characters)
@@ -27,12 +36,12 @@ with InfluxDB and work with times series data.
 - [Comments](#comments)
 - [Other](#other)
 
-To learn more about InfluxQL, browse the following topics:
+<!-- To learn more about InfluxQL, browse the following topics:
 
 - [Explore your data with InfluxQL](/influxdb/v2.7/query-data/influxql/explore-data/)
 - [Explore your schema with InfluxQL](/influxdb/v2.7/query-data/influxql/explore-schema/)
 - [Database management](/influxdb/v2.7/query-data/influxql/manage-database/)
-- [Query engine internals](/influxdb/cloud-dedicated/reference/influxql/internals/)
+- [Query engine internals](/influxdb/cloud-dedicated/reference/influxql/internals/) -->
 
 ## Notation
 
@@ -206,7 +215,8 @@ duration_unit       = "ns" | "u" | "µ" | "ms" | "s" | "m" | "h" | "d" | "w" .
 #### Dates & Times
 
 Unlike other notations used in InfluxQL, the date and time literal format isn't specified by EBNF.
-InfluxQL date and time is specified using Go's time parsing format and [reference date](https://pkg.go.dev/time#pkg-constants) written in the format required by InfluxQL.
+InfluxQL date and time is specified using Go's time parsing format and
+[reference date](https://pkg.go.dev/time#pkg-constants) written in the format required by InfluxQL.
 The reference date time is:
 
 InfluxQL reference date time: January 2nd, 2006 at 3:04:05 PM
@@ -232,13 +242,19 @@ regex_lit           = "/" { unicode_char } "/" .
 `!~` doesn't match against
 
 {{% note %}}
-**NOTE:** InfluxQL supports using regular expressions when specifying:
-* [field keys](/influxdb/cloud-dedicated/reference/glossary/#field-key) and [tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/cloud-dedicated/query-data/influxql/explore-data/select/)
-* [measurements](/influxdb/cloud-dedicated/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/cloud-dedicated/query-data/influxql/explore-data/select/#from-clause)
-* [tag values](/influxdb/cloud-dedicated/reference/glossary/#tag-value) and string [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value) in the [`WHERE` clause](/influxdb/cloud-dedicated/query-data/influxql/explore-data/where/)
-* [tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key) in the [`GROUP BY` clause](/influxdb/cloud-dedicated/query-data/influxql/explore-data/group-by/)
+InfluxQL supports using regular expressions when specifying:
 
-Currently, InfluxQL doesn't support using regular expressions to match non-string field values in the `WHERE` clause, [databases](/influxdb/cloud-dedicated/reference/glossary/#database), and [retention polices](/influxdb/cloud-dedicated/reference/glossary/#retention-policy-rp).
+- [field keys](/influxdb/cloud-dedicated/reference/glossary/#field-key) and [tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key) in the [`SELECT` clause](/influxdb/cloud-dedicated/reference/influxql/select/)
+- [measurements](/influxdb/cloud-dedicated/reference/glossary/#measurement) in the [`FROM` clause](/influxdb/cloud-dedicated/reference/influxql/select/#from-clause)
+- [tag values](/influxdb/cloud-dedicated/reference/glossary/#tag-value) and
+  string [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value)
+  in the [`WHERE` clause](/influxdb/cloud-dedicated/reference/influxql/where/)
+- [tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key) in the
+  [`GROUP BY` clause](/influxdb/cloud-dedicated/reference/influxql/group-by/)
+
+Currently, InfluxQL doesn't support using regular expressions to match non-string
+field values in the `WHERE` clause, [databases](/influxdb/cloud-dedicated/reference/glossary/#database),
+and [retention polices](/influxdb/cloud-dedicated/reference/glossary/#retention-policy-rp).
 {{% /note %}}
 
 ## Queries
@@ -350,7 +366,10 @@ EXPLAIN ANALYZE
                 └── planning_time: 14.805277ms```
 ```
 
-> Note: EXPLAIN ANALYZE ignores query output, so the cost of serialization to JSON or CSV isn't accounted for.
+{{% note %}}
+`EXPLAIN ANALYZE` ignores query output, so the cost of serialization to JSON or
+CSV isn't accounted for.
+{{% /note %}}
 
 ##### execution_time
 
@@ -390,15 +409,16 @@ For more information about cursors, see [Understanding cursors](#understanding-c
 
 ##### block types
 
-`EXPLAIN ANALYZE` separates storage block types, and reports the total number of blocks decoded and their size (in bytes) on disk. The following block types are supported:
+`EXPLAIN ANALYZE` separates storage block types, and reports the total number of
+blocks decoded and their size (in bytes) on disk. The following block types are supported:
 
+| Type       | Description                           |
+| :--------- | :------------------------------------ |
 | `float`    | 64-bit IEEE-754 floating-point number |
 | `integer`  | 64-bit signed integer                 |
 | `unsigned` | 64-bit unsigned integer               |
 | `boolean`  | 1-bit, LSB encoded                    |
 | `string`   | UTF-8 string                          |
-
-For more information about storage blocks, see [TSM files](/influxdb/v2.7/reference/internals/storage-engine/#time-structured-merge-tree-tsm).
 
 ### SELECT
 
@@ -446,11 +466,14 @@ SHOW DATABASES
 
 ### SHOW FIELD KEY CARDINALITY
 
-Estimates or counts exactly the cardinality of the field key set for the current database unless a database is specified using the `ON <database>` option.
+Estimates or counts exactly the cardinality of the field key set for the curren
+database unless a database is specified using the `ON <database>` option.
 
-> **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
-> When using these query clauses, the query falls back to an exact count.
-> Filtering by `time` is only supported when Time Series Index (TSI) is enabled and `time` is not supported in the `WHERE` clause.
+{{% note %}}
+**Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`,
+`WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
+When using these query clauses, the query falls back to an exact count.
+{{% /note %}}
 
 ```sql
 show_field_key_cardinality_stmt = "SHOW FIELD KEY CARDINALITY" [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ]
@@ -516,7 +539,8 @@ SHOW SERIES FROM "telegraf"."autogen"."cpu" WHERE cpu = 'cpu8'
 
 ### SHOW SERIES EXACT CARDINALITY
 
-Estimates or counts exactly the cardinality of the series for the current database unless a database is specified using the ON <database> option.
+Estimates or counts exactly the cardinality of the series for the current
+database unless a database is specified using the `ON database` option.
 
 #### Example
 
@@ -527,20 +551,25 @@ SHOW SERIES EXACT CARDINALITY" [ on_clause ] [ from_clause ]
 SHOW SERIES EXACT CARDINALITY ON mydb
 ```
 
-
 {{% note %}}
-**NOTE:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
+**NOTE:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`,
+`WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 When using these query clauses, the query falls back to an exact count.
 Filtering by `time` is not supported in the `WHERE` clause.
 {{% /note %}}
 
 ### SHOW TAG KEY CARDINALITY
 
-Estimates or counts exactly the cardinality of tag key set on the current database unless a database is specified using the `ON <database>` option.
+Estimates or counts exactly the cardinality of tag key set on the current
+database unless a database is specified using the `ON <database>` option.
 
-> **Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
-> When using these query clauses, the query falls back to an exact count.
-> Filtering by `time` is only supported when TSI (Time Series Index) is enabled and `time` is not supported in the `WHERE` clause.
+{{% note %}}
+`ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`,
+`GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
+When using these query clauses, the query falls back to an exact count.
+Filtering by `time` is only supported when TSI (Time Series Index) is enabled
+and `time` is not supported in the `WHERE` clause.
+{{% /note %}}
 
 ```
 show_tag_key_cardinality_stmt = "SHOW TAG KEY CARDINALITY" [ on_clause ] [ from_clause ] [ where_clause ] [ group_by_clause ] [ limit_clause ] [ offset_clause ]
@@ -605,10 +634,13 @@ SHOW TAG VALUES FROM "cpu" WITH KEY IN ("region", "host") WHERE "service" = 'red
 
 ### SHOW TAG VALUES CARDINALITY
 
-Estimates or counts exactly the cardinality of tag key values for the specified tag key on the current database unless a database is specified using the `ON <database>` option.
+Estimates or counts exactly the cardinality of tag key values for the specified
+tag key on the current database unless a database is specified using the
+`ON database` option.
 
 {{% note %}}
-**Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`, `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
+**Note:** `ON <database>`, `FROM <sources>`, `WITH KEY = <key>`,
+`WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 When using these query clauses, the query falls back to an exact count.
 Filtering by `time` is only supported when TSI (Time Series Index) is enabled.
 {{% /note %}}
@@ -676,9 +708,9 @@ unary_expr       = "(" expr ")" | var_ref | time_lit | string_lit | int_lit |
 
 Use comments with InfluxQL statements to describe your queries.
 
-* A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
+- A single line comment begins with two hyphens (`--`) and ends where InfluxDB detects a line break.
   This comment type cannot span several lines.
-* A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
+- A multi-line comment begins with `/*` and ends with `*/`. This comment type can span several lines.
   Multi-line comments do not support nested multi-line comments.
 
 ## Other
@@ -731,5 +763,3 @@ tag_keys         = tag_key { "," tag_key } .
 
 var_ref          = measurement .
 ```
-
-
