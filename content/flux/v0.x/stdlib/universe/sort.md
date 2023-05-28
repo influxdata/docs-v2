@@ -1,7 +1,7 @@
 ---
 title: sort() function
 description: >
-  `sort()` orders rows in each intput table based on values in specified columns.
+  `sort()` orders rows in each input table based on values in specified columns.
 menu:
   flux_0_x_ref:
     name: sort
