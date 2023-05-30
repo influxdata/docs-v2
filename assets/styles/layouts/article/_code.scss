@@ -76,7 +76,7 @@ pre {
 }
 
 // Styles for calling out specific code in code blocks
-span.code-callout {
+span.code-callout, .code-placeholder {
   font-weight:bold;
   margin:0 .15rem;
 
@@ -84,6 +84,27 @@ span.code-callout {
   &.magenta {color: $br-new-magenta;}
   &.orange {color: $r-curacao;}
 }
+
+.code-placeholder {
+  display: inline-block;
+  padding: 0;
+  line-height: 1.4em;
+  border-bottom: 1px dotted;
+  cursor: pointer;
+
+  &:hover {
+    color: $article-code-link;
+  }
+  
+  &-edit{
+    &::before {
+      margin-left: .2rem;
+      font-size: .9em;
+      transition: color .2s; 
+    }
+  }
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
