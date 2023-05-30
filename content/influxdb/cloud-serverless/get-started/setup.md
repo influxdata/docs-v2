@@ -105,8 +105,8 @@ to create a new CLI connection configuration. Include the following flags:
 influx config create \
   --config-name get-started \
   --host-url https://cloud2.influxdata.com \
-  --org <YOUR_INFLUXDB_ORG_NAME> \
-  --token <YOUR_INFLUXDB_API_TOKEN>
+  --org <ORG_NAME> \
+  --token <API_TOKEN>
 ```
 
 _For more information about CLI connection configurations, see
@@ -127,9 +127,9 @@ Set the following environment variables in your command line session:
 
 ```sh
 export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_ORG=<YOUR_INFLUXDB_ORG_NAME>
-export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
-export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
+export INFLUX_ORG=<ORG_NAME>
+export INFLUX_ORG_ID=<ORG_ID>
+export INFLUX_TOKEN=<API_TOKEN>
 ```
 
 {{% /expand %}}
@@ -168,15 +168,14 @@ following ways:
 - **InfluxDB organization name or ID**: Depending on the API endpoint used, pass
   this as part of the URL path, query string, or in the request body.
 
-All API examples in this tutorial use **cURL** from a command line.
-To provide all the necessary credentials to the example cURL commands, set
-the following environment variables in your command line session.
+To provide all the necessary credentials for API requests, set
+the following environment variables in your command line session:
 
 ```sh
 export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_ORG=<YOUR_INFLUXDB_ORG_NAME>
-export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
-export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
+export INFLUX_ORG=<ORG_NAME>
+export INFLUX_ORG_ID=<ORG_ID>
+export INFLUX_TOKEN=<API_TOKEN>
 ```
 <!------------------------------ END API CONTENT ------------------------------>
 {{% /tab-content %}}
@@ -265,8 +264,8 @@ Include the following with your request:
 
 ```sh
 export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
-export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
+export INFLUX_ORG_ID=<ORG_ID>
+export INFLUX_TOKEN=<API_TOKEN>
 
 curl --request POST \
 "$INFLUX_HOST/api/v2/buckets" \
