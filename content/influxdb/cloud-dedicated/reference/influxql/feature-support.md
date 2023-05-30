@@ -22,6 +22,7 @@ InfluxQL features.
   - [SLIMIT clause](#slimit-clause)
   - [SOFFSET clause](#soffset-clause)
   - [Project additional fields with selector functions](#project-additional-fields-with-selector-functions)
+  - [Metaqueries](#metaqueries)
 - [Function support](#function-support)
   - [Aggregate functions](#aggregate-functions)
   - [Selector functions](#selector-functions)
@@ -77,6 +78,35 @@ This query selects the row with the maximum `co` value and should return the
 This query currently returns an error.
 
 **Tracking issue**: [influxdb_iox#7533](https://github.com/influxdata/influxdb_iox/issues/7533)
+
+### Metaqueries
+
+InfluxQL metaqueries return information about the schema of time series data
+stored in InfluxDB.
+The following table provides information about what metaqueries are available in
+{{< cloud-name >}}:
+
+| Metaquery                                                     |        Supported         |
+| :------------------------------------------------------------ | :----------------------: |
+| <span style="opacity: .5;">SHOW DATABASES</span>              |                          |
+| **SHOW MEASUREMENTS**                                         | **{{< icon "check" >}}** |
+| <span style="opacity: .5;">SHOW SERIES</span>                 |                          |
+| <span style="opacity: .5;">SHOW SERIES CARDINALITY</span>     |                          |
+| **SHOW TAG KEYS**                                             | **{{< icon "check" >}}** |
+| <span style="opacity: .5;">SHOW TAG KEY CARDINALITY</span>    |                          |
+| **SHOW TAG VALUES**                                           | **{{< icon "check" >}}** |
+| <span style="opacity: .5;">SHOW TAG VALUES CARDINALITY</span> |                          |
+| **SHOW FIELD KEYS**                                           | **{{< icon "check" >}}** |
+| <span style="opacity: .5;">SHOW FIELD KEYS CARDINALITY</span> |                          |
+
+{{% note %}}
+#### Cardinality metaqueries
+
+With the InfluxDB IOx storage engine, series cardinality is no longer a limiting
+factor for database performance.
+Cardinality-related metaqueries will likely not be supported with the IOx
+storage engine.
+{{% /note %}}
 
 ## Function support
 

@@ -267,6 +267,19 @@ query               = statement { ";" statement } .
 statement           = explain_stmt |
                       explain_analyze_stmt |
                       select_stmt |
+                      show_field_keys_stmt |
+                      show_measurements_stmt |
+                      show_tag_keys_stmt |
+                      show_tag_values_with_key = stmt .
+```
+
+<!-- FULL TSM INFLUXQL STATEMENT LIST
+```
+query               = statement { ";" statement } .
+
+statement           = explain_stmt |
+                      explain_analyze_stmt |
+                      select_stmt |
                       show_databases_stmt |
                       show_field_key_cardinality_stmt |
                       show_field_keys_stmt |
@@ -279,7 +292,7 @@ statement           = explain_stmt |
                       show_tag_keys_stmt |
                       show_tag_values_with_key = stmt |
                       show_tag_values_cardinality_stmt .
-```
+``` -->
 
 ## Statements
 
@@ -436,7 +449,7 @@ Select from measurements grouped by the day with a timezone
 SELECT mean("value") FROM "cpu" GROUP BY region, time(1d) fill(0) tz('America/Chicago')
 ```
 
-### SHOW CARDINALITY
+<!-- ### SHOW CARDINALITY
 
 Refers to the group of commands used to estimate or count exactly the cardinality of measurements, series, tag keys, tag key values, and field keys.
 
@@ -449,9 +462,9 @@ See the specific SHOW CARDINALITY commands for details:
 - [SHOW FIELD KEY CARDINALITY](#show-field-key-cardinality)
 - [SHOW SERIES CARDINALITY](#show-series-cardinality)
 - [SHOW TAG KEY CARDINALITY](#show-tag-key-cardinality)
-- [SHOW TAG VALUES CARDINALITY](#show-tag-values-cardinality)
+- [SHOW TAG VALUES CARDINALITY](#show-tag-values-cardinality) -->
 
-### SHOW DATABASES
+<!-- ### SHOW DATABASES
 
 ```
 show_databases_stmt = "SHOW DATABASES" .
@@ -462,9 +475,9 @@ show_databases_stmt = "SHOW DATABASES" .
 ```sql
 -- show all databases
 SHOW DATABASES
-```
+``` -->
 
-### SHOW FIELD KEY CARDINALITY
+<!-- ### SHOW FIELD KEY CARDINALITY
 
 Estimates or counts exactly the cardinality of the field key set for the curren
 database unless a database is specified using the `ON <database>` option.
@@ -488,7 +501,7 @@ show_field_key_exact_cardinality_stmt = "SHOW FIELD KEY EXACT CARDINALITY" [ on_
 SHOW FIELD KEY CARDINALITY
 -- show exact cardinality on field key set of specified database
 SHOW FIELD KEY EXACT CARDINALITY ON mydb
-```
+``` -->
 
 ### SHOW FIELD KEYS
 
@@ -525,7 +538,7 @@ SHOW MEASUREMENTS WHERE "region" = 'uswest' AND "host" = 'serverA'
 SHOW MEASUREMENTS WITH MEASUREMENT =~ /h2o.*/
 ```
 
-### SHOW SERIES
+<!-- ### SHOW SERIES
 
 ```
 show_series_stmt = "SHOW SERIES" [on_clause] [ from_clause ] [ where_clause ] [ limit_clause ] [ offset_clause ] .
@@ -535,9 +548,9 @@ show_series_stmt = "SHOW SERIES" [on_clause] [ from_clause ] [ where_clause ] [ 
 
 ```sql
 SHOW SERIES FROM "telegraf"."autogen"."cpu" WHERE cpu = 'cpu8'
-```
+``` -->
 
-### SHOW SERIES EXACT CARDINALITY
+<!-- ### SHOW SERIES EXACT CARDINALITY
 
 Estimates or counts exactly the cardinality of the series for the current
 database unless a database is specified using the `ON database` option.
@@ -556,9 +569,9 @@ SHOW SERIES EXACT CARDINALITY ON mydb
 `WHERE <condition>`, `GROUP BY <dimensions>`, and `LIMIT/OFFSET` clauses are optional.
 When using these query clauses, the query falls back to an exact count.
 Filtering by `time` is not supported in the `WHERE` clause.
-{{% /note %}}
+{{% /note %}} -->
 
-### SHOW TAG KEY CARDINALITY
+<!-- ### SHOW TAG KEY CARDINALITY
 
 Estimates or counts exactly the cardinality of tag key set on the current
 database unless a database is specified using the `ON <database>` option.
@@ -584,7 +597,7 @@ show_tag_key_exact_cardinality_stmt = "SHOW TAG KEY EXACT CARDINALITY" [ on_clau
 SHOW TAG KEY CARDINALITY
 -- show exact tag key cardinality
 SHOW TAG KEY EXACT CARDINALITY
-```
+``` -->
 
 ### SHOW TAG KEYS
 
@@ -632,7 +645,7 @@ SHOW TAG VALUES WITH KEY !~ /.*c.*/
 SHOW TAG VALUES FROM "cpu" WITH KEY IN ("region", "host") WHERE "service" = 'redis'
 ```
 
-### SHOW TAG VALUES CARDINALITY
+<!-- ### SHOW TAG VALUES CARDINALITY
 
 Estimates or counts exactly the cardinality of tag key values for the specified
 tag key on the current database unless a database is specified using the
@@ -662,7 +675,7 @@ SHOW TAG VALUES CARDINALITY WITH KEY = "myTagKey"
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
 -- show exact tag key values cardinality for a specified tag key
 SHOW TAG VALUES EXACT CARDINALITY WITH KEY = "myTagKey"
-```
+``` -->
 
 ## Clauses
 
