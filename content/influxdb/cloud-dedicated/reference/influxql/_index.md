@@ -267,6 +267,19 @@ query               = statement { ";" statement } .
 statement           = explain_stmt |
                       explain_analyze_stmt |
                       select_stmt |
+                      show_field_keys_stmt |
+                      show_measurements_stmt |
+                      show_tag_keys_stmt |
+                      show_tag_values_with_key = stmt .
+```
+
+<!-- FULL TSM INFLUXQL STATEMENT LIST
+```
+query               = statement { ";" statement } .
+
+statement           = explain_stmt |
+                      explain_analyze_stmt |
+                      select_stmt |
                       show_databases_stmt |
                       show_field_key_cardinality_stmt |
                       show_field_keys_stmt |
@@ -279,7 +292,7 @@ statement           = explain_stmt |
                       show_tag_keys_stmt |
                       show_tag_values_with_key = stmt |
                       show_tag_values_cardinality_stmt .
-```
+``` -->
 
 ## Statements
 
@@ -506,7 +519,7 @@ SHOW FIELD KEYS
 SHOW FIELD KEYS FROM "cpu"
 ```
 
-<!-- ### SHOW MEASUREMENTS
+### SHOW MEASUREMENTS
 
 ```
 show_measurements_stmt = "SHOW MEASUREMENTS" [on_clause] [ with_measurement_clause ] [ where_clause ] [ limit_clause ] [ offset_clause ] .
@@ -523,7 +536,7 @@ SHOW MEASUREMENTS WHERE "region" = 'uswest' AND "host" = 'serverA'
 
 -- show measurements that start with 'h2o'
 SHOW MEASUREMENTS WITH MEASUREMENT =~ /h2o.*/
-``` -->
+```
 
 <!-- ### SHOW SERIES
 
@@ -586,7 +599,7 @@ SHOW TAG KEY CARDINALITY
 SHOW TAG KEY EXACT CARDINALITY
 ``` -->
 
-<!-- ### SHOW TAG KEYS
+### SHOW TAG KEYS
 
 ```
 show_tag_keys_stmt = "SHOW TAG KEYS" [on_clause] [ from_clause ] [ where_clause ]
@@ -607,9 +620,9 @@ SHOW TAG KEYS FROM "cpu" WHERE "region" = 'uswest'
 
 -- show all tag keys where the host key = 'serverA'
 SHOW TAG KEYS WHERE "host" = 'serverA'
-``` -->
+```
 
-<!-- ### SHOW TAG VALUES
+### SHOW TAG VALUES
 
 ```
 show_tag_values_stmt = "SHOW TAG VALUES" [on_clause] [ from_clause ] with_tag_clause [ where_clause ]
@@ -630,7 +643,7 @@ SHOW TAG VALUES WITH KEY !~ /.*c.*/
 
 -- show tag values from the cpu measurement for region & host tag keys where service = 'redis'
 SHOW TAG VALUES FROM "cpu" WITH KEY IN ("region", "host") WHERE "service" = 'redis'
-``` -->
+```
 
 <!-- ### SHOW TAG VALUES CARDINALITY
 
