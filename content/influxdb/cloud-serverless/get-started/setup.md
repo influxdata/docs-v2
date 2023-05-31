@@ -105,8 +105,8 @@ to create a new CLI connection configuration. Include the following flags:
 influx config create \
   --config-name get-started \
   --host-url https://cloud2.influxdata.com \
-  --org <YOUR_INFLUXDB_ORG_NAME> \
-  --token <YOUR_INFLUXDB_API_TOKEN>
+  --org <ORG_NAME> \
+  --token <API_TOKEN>
 ```
 
 _For more information about CLI connection configurations, see
@@ -127,9 +127,9 @@ Set the following environment variables in your command line session:
 
 ```sh
 export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_ORG=<YOUR_INFLUXDB_ORG_NAME>
-export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
-export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
+export INFLUX_ORG=<ORG_NAME>
+export INFLUX_ORG_ID=<ORG_ID>
+export INFLUX_TOKEN=<API_TOKEN>
 ```
 
 {{% /expand %}}
@@ -158,26 +158,40 @@ or by environment variables.
 {{% tab-content %}}
 <!----------------------------- BEGIN API CONTENT ----------------------------->
 
-When using the InfluxDB API, provide the required connection credentials in the
-following ways:
+cURL and client library examples in this getting started tutorial assume you have
+environment variables assigned to your InfluxDB credentials.
 
-- **InfluxDB host**: [InfluxDB Cloud Serverless region URL](/influxdb/cloud-serverless/reference/regions/)
-- **InfluxDB API Token**: Include an `Authorization` header that uses either 
-  `Bearer` or `Token` scheme and your InfluxDB API token. For example:  
-  `Authorization: Bearer 0xxx0o0XxXxx00Xxxx000xXXxoo0==`.
-- **InfluxDB organization name or ID**: Depending on the API endpoint used, pass
-  this as part of the URL path, query string, or in the request body.
-
-All API examples in this tutorial use **cURL** from a command line.
-To provide all the necessary credentials to the example cURL commands, set
-the following environment variables in your command line session.
+To assign environment variables to your credentials, enter the
+following commands into your profile settings or terminal:
 
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_ORG=<YOUR_INFLUXDB_ORG_NAME>
-export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
-export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
+export INFLUX_URL=https://cloud2.influxdata.com
+export INFLUX_HOST=cloud2.influxdata.com
+export INFLUX_ORG=ORG_NAME
+export INFLUX_ORG_ID=ORG_ID
+export INFLUX_TOKEN=API_TOKEN
 ```
+
+Replace the following:
+
+- **`ORG_NAME`**: your InfluxDB organization name
+- **`ORG_ID`**: your InfluxDB organization ID
+- **`API_TOKEN`**: your InfluxDB API token with sufficient permissions to write or query
+  data in your bucket
+
+Keep the following in mind when using API clients and client libraries:
+
+- InfluxDB ignores `org` and `org_id` parameters in API write and query requests,
+  but some clients still require them.
+- In code samples, **host** usually refers to your
+  [InfluxDB Cloud Serverless region URL](/influxdb/cloud-serverless/reference/regions/)
+  (without `https://`).
+  .
+
+{{% note %}}
+All API, cURL, and client library examples in this getting started tutorial assume your InfluxDB
+**host**, **organization**, **url**, and **token** are provided by environment variables.
+{{% /note %}}
 <!------------------------------ END API CONTENT ------------------------------>
 {{% /tab-content %}}
     {{< /tabs-wrapper >}} 
@@ -264,12 +278,8 @@ Include the following with your request:
       Supported retention periods depend on your InfluxDB Cloud Serverless plan.
 
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_ORG_ID=<YOUR_INFLUXDB_ORG_ID>
-export INFLUX_TOKEN=<YOUR_INFLUXDB_API_TOKEN>
-
 curl --request POST \
-"$INFLUX_HOST/api/v2/buckets" \
+"$INFLUX_URL/api/v2/buckets" \
   --header "Authorization: Token $INFLUX_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{
