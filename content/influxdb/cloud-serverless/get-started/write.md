@@ -139,30 +139,13 @@ The following examples show how to write the
 [sample data](#home-sensor-data-line-protocol), already in line protocol format,
 to an InfluxDB Cloud Serverless bucket.
 
+{{% note %}}
+All API, cURL, and client library examples in this getting started tutorial assume your InfluxDB
+**host**, **organization**, **url**, and **token** are provided by
+[environment variables](/influxdb/cloud-serverless/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
+{{% /note %}}
+
 <!-- To learn more about available tools and write options, see [Write data](influxdb/cloud-serverless/write-data/).-->
-
-{{< expand-wrapper >}}
-{{% expand "Set environment variables" %}}
-
-CLI, cURL, and client library examples use environment variables
-that you assigned to your InfluxDB credentials.
-For example, to set credentials for your active terminal session, enter the
-following command:
-
-```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_ORG=ORG_NAME
-export INFLUX_ORG_ID=ORG_ID
-export INFLUX_TOKEN=API_TOKEN
-```
-
-Replace the following:
-
-- `ORG_NAME`: your InfluxDB organization name
-- `ORG_ID`: your InfluxDB [organization ID](/influxdb/cloud-serverless/organizations/view-orgs/#view-your-organization-id)
-- `API_TOKEN`: your InfluxDB API token with sufficient permissions to the bucket
-{{% /expand %}}
-{{< /expand-wrapper >}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
