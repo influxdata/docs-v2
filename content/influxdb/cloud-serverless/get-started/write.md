@@ -596,82 +596,84 @@ To write data to InfluxDB Cloud Serverless using Node.JS, use the
 
 3. Inside of `write.js`, enter the following sample code:
 
-    ```js
-    'use strict'
-    /** @module write
-    * Writes line protocol strings to InfluxDB using the Javascript client
-    * library with Node.js.
-    **/
-    import {InfluxDB} from '@influxdata/influxdb-client';
+    {{% influxdb/custom-timestamps %}}
+```js
+'use strict'
+/** @module write
+* Writes line protocol strings to InfluxDB using the Javascript client
+* library with Node.js.
+**/
+import {InfluxDB} from '@influxdata/influxdb-client';
 
-    /** Get credentials from environment variables. **/
-    const url = process.env.INFLUX_URL;
-    const token = process.env.INFLUX_TOKEN;
-    const org = process.env.INFLUX_ORG;
+/** Get credentials from environment variables. **/
+const url = process.env.INFLUX_URL;
+const token = process.env.INFLUX_TOKEN;
+const org = process.env.INFLUX_ORG;
 
-    /**
-    * Instantiate the InfluxDB client with a configuration object.
-    **/
-    const influxDB = new InfluxDB({url, token});
+/**
+* Instantiate the InfluxDB client with a configuration object.
+**/
+const influxDB = new InfluxDB({url, token});
 
-    /** 
-    * Define an array of line protocol strings to write.
-    * Include an additional backslash to preserve backslashes
-    * and prevent interpretation of escape sequences---for example,
-    * escaped spaces in tag values.
-    */
-    const lines = [
-      'home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000',
-      'home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000',
-      'home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1641027600',
-      'home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600',
-      'home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1641031200',
-      'home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200',
-      'home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1641034800',
-      'home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800',
-      'home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1641038400',
-      'home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400',
-      'home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1641042000',
-      'home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000',
-      'home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1641045600',
-      'home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600',
-      'home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1641049200',
-      'home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200',
-      'home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1641052800',
-      'home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800',
-      'home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1641056400',
-      'home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400',
-      'home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1641060000',
-      'home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000',
-      'home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1641063600',
-      'home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600',
-      'home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1641067200',
-      'home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200',
-    ];
+/** 
+* Define an array of line protocol strings to write.
+* Include an additional backslash to preserve backslashes
+* and prevent interpretation of escape sequences---for example,
+* escaped spaces in tag values.
+*/
+const lines = [
+  'home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000',
+  'home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000',
+  'home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1641027600',
+  'home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600',
+  'home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1641031200',
+  'home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200',
+  'home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1641034800',
+  'home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800',
+  'home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1641038400',
+  'home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400',
+  'home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1641042000',
+  'home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000',
+  'home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1641045600',
+  'home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600',
+  'home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1641049200',
+  'home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200',
+  'home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1641052800',
+  'home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800',
+  'home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1641056400',
+  'home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400',
+  'home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1641060000',
+  'home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000',
+  'home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1641063600',
+  'home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600',
+  'home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1641067200',
+  'home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200',
+];
 
-    /**
-    * Create a write client from the getWriteApi method.
-    * Provide your org and bucket.
-    **/
-    const writeApi = influxDB.getWriteApi(org, 'get-started', 's');
+/**
+* Create a write client from the getWriteApi method.
+* Provide your org and bucket.
+**/
+const writeApi = influxDB.getWriteApi(org, 'get-started', 's');
 
-    /**
-    * Write line protocol to the batch
-    */
-    writeApi.writeRecords(lines);
+/**
+* Write line protocol to the batch
+*/
+writeApi.writeRecords(lines);
 
-    /**
-    * Flush pending writes from the buffer and close the write client.
-    **/
-    writeApi.close().then(
-      () => {
-        console.log('Data has been written successfully.');
-      },
-      (err) => {
-        console.log('Error writing line protocol');
-      }
-    );
-    ```
+/**
+* Flush pending writes from the buffer and close the write client.
+**/
+writeApi.close().then(
+  () => {
+    console.log('Data has been written successfully.');
+  },
+  (err) => {
+    console.log('Error writing line protocol');
+  }
+);
+```
+    {{% /influxdb/custom-timestamps %}}
 
     The sample does the following:
 
