@@ -183,9 +183,10 @@ Keep the following in mind when using API clients and client libraries:
 
 - InfluxDB ignores `org` and `org_id` parameters in API write and query requests,
   but some clients still require them.
-- In code samples, **host** usually refers to the hostname
-  (`cloud2.influxdata.com`, without the `https://`) part of your
-  [InfluxDB Cloud Serverless region URL](/influxdb/cloud-serverless/reference/regions/).
+- In code samples, **host** usually refers to your
+  [InfluxDB Cloud Serverless region URL](/influxdb/cloud-serverless/reference/regions/)
+  (without `https://`).
+  .
 
 {{% note %}}
 All API, cURL, and client library examples in this getting started tutorial assume your InfluxDB
