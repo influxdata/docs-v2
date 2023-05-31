@@ -403,6 +403,7 @@ client.write(lines,write_precision='s')
         **Because the timestamps in the sample line protocol are in second
         precision, the example passes the `write_precision='s'` option
         to set the timestamp precision to seconds.**
+
 6.  To execute the module and write line protocol to your InfluxDB Cloud serverless
     bucket, enter the following command in your terminal:
     
