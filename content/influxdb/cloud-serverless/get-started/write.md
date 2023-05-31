@@ -442,94 +442,96 @@ To write data to InfluxDB Cloud Serverless using Go, use the
 
 4.  Inside of `write.go`, enter the following sample code:
 
-    ```go
-    package main
+    {{% influxdb/custom-timestamps %}}
+```go
+package main
 
-    import (
-      "context"
-      "fmt"
-      "log"
-      "os"
-      "time"
+import (
+  "context"
+  "fmt"
+  "log"
+  "os"
+  "time"
 
-      influxdb2 "github.com/influxdata/influxdb-client-go/v2"
-    )
+  influxdb2 "github.com/influxdata/influxdb-client-go/v2"
+)
 
-    // Write line protocol data to InfluxDB
-    func dbWrite(ctx context.Context) error {
+// Write line protocol data to InfluxDB
+func dbWrite(ctx context.Context) error {
 
-      // INFLUX_URL is an environment variable you assigned to your
-      // region URL.
-      url := os.Getenv("INFLUX_URL")
+  // INFLUX_URL is an environment variable you assigned to your
+  // region URL.
+  url := os.Getenv("INFLUX_URL")
 
-      // INFLUX_TOKEN is an environment variable you assigned to your
-      // API token value.
-      token := os.Getenv("INFLUX_TOKEN")
-      client := influxdb2.NewClientWithOptions(url,
-                      token,
-                      influxdb2.DefaultOptions().SetPrecision(time.Second))
+  // INFLUX_TOKEN is an environment variable you assigned to your
+  // API token value.
+  token := os.Getenv("INFLUX_TOKEN")
+  client := influxdb2.NewClientWithOptions(url,
+                  token,
+                  influxdb2.DefaultOptions().SetPrecision(time.Second))
 
-      // Define write API
-      org := "ignored"
-      bucket := "get-started"
-      writeAPI := client.WriteAPIBlocking(org, bucket)
+  // Define write API
+  org := "ignored"
+  bucket := "get-started"
+  writeAPI := client.WriteAPIBlocking(org, bucket)
 
-      // Define line protocol records to write.
-      // Use a raw string literal (denoted by backticks)
-      // to preserve backslashes and prevent interpretation
-      // of escape sequences--for example, escaped spaces in tag values.
-      lines := [...]string{
-        `home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000`,
-        `home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000`,
-        `home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600`,
-        `home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600`,
-        `home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200`,
-        `home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200`,
-        `home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800`,
-        `home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800`,
-        `home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400`,
-        `home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400`,
-        `home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000`,
-        `home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000`,
-        `home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600`,
-        `home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600`,
-        `home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200`,
-        `home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200`,
-        `home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800`,
-        `home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800`,
-        `home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400`,
-        `home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400`,
-        `home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000`,
-        `home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000`,
-        `home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600`,
-        `home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600`,
-        `home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200`,
-        `home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200`,
-      }
+  // Define line protocol records to write.
+  // Use a raw string literal (denoted by backticks)
+  // to preserve backslashes and prevent interpretation
+  // of escape sequences--for example, escaped spaces in tag values.
+  lines := [...]string{
+    `home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000`,
+    `home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000`,
+    `home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600`,
+    `home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600`,
+    `home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200`,
+    `home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200`,
+    `home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800`,
+    `home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800`,
+    `home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400`,
+    `home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400`,
+    `home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000`,
+    `home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000`,
+    `home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600`,
+    `home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600`,
+    `home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200`,
+    `home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200`,
+    `home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800`,
+    `home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800`,
+    `home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400`,
+    `home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400`,
+    `home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000`,
+    `home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000`,
+    `home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600`,
+    `home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600`,
+    `home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200`,
+    `home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200`,
+  }
 
-      // Iterate over the lines array and write each line
-      // separately to InfluxDB
+  // Iterate over the lines array and write each line
+  // separately to InfluxDB
 
-      for _, lp := range lines {
-        err := writeAPI.WriteRecord(context.Background(), lp)
-        if err != nil {
-          log.Fatalf("Error writing line protocol: %v", err)
-        }
-      }
-
-      fmt.Println("Data has been written successfully.")
-      client.Close()
-      return nil
+  for _, lp := range lines {
+    err := writeAPI.WriteRecord(context.Background(), lp)
+    if err != nil {
+      log.Fatalf("Error writing line protocol: %v", err)
     }
+  }
 
-    // Module main function
-    func main() {
-      if err := dbWrite(context.Background()); err != nil {
-        fmt.Fprintf(os.Stderr, "error: %v\n", err)
-        os.Exit(1)
-      }
-    }
-    ```
+  fmt.Println("Data has been written successfully.")
+  client.Close()
+  return nil
+}
+
+// Module main function
+func main() {
+  if err := dbWrite(context.Background()); err != nil {
+    fmt.Fprintf(os.Stderr, "error: %v\n", err)
+    os.Exit(1)
+  }
+}
+```
+    {{% /influxdb/custom-timestamps %}}
 
     The sample does the following:
 
