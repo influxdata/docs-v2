@@ -10,8 +10,6 @@ menu:
 weight: 103
 related:
   - /influxdb/cloud-dedicated/reference/syntax/line-protocol/
-  - /influxdb/cloud-dedicated/reference/syntax/annotated-csv/
-  - /influxdb/cloud-dedicated/reference/cli/influx/write/
   - /influxdb/cloud-dedicated/get-started/write/
 ---
 
