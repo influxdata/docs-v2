@@ -574,6 +574,8 @@ To write data to InfluxDB Cloud Serverless using Go, use the
 {{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN NODE.JS CONTENT ----------------------->
+{{% influxdb/custom-timestamps %}}
+
 To write data to InfluxDB Cloud Serverless using Node.JS, use the
 [influxdb-client-js package](https://github.com/influxdata/influxdb-client-js).
 
@@ -697,6 +699,7 @@ To write data to InfluxDB Cloud Serverless using Node.JS, use the
     ```sh
     node write.js
     ```
+{{% /influxdb/custom-timestamps %}}
 <!------------------------------- END NODE.JS CONTENT ------------------------------>
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
