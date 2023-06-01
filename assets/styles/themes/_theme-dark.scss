@@ -216,6 +216,10 @@ $diagram-arrow: $g6-smoke;
 
 $flux-water-process-img: url('/img/flux/0-x-water-process-dark.svg');
 
+// Code placeholder colors
+$code-placeholder: #d43587;
+$code-placeholder-hover: $br-teal;
+
 @import "dark/telegraf",
         "dark/chronograf",
         "dark/kapacitor";

@@ -32,17 +32,3 @@ overall database performance. It also brings with it native
 View the following video for more information about InfluxDB IOx:
 
 {{< youtube "CzWVcDxmWbM" >}}
-
-{{% code-placeholders "(DATABASE|API)_(NAME|TOKEN|ENDPOINT)" %}}
-```sh
-INFLUX_DATABASE=DATABASE_NAME
-INFLUX_TOKEN=DATABASE_TOKEN
-INFLUX_ENDPOINT=API_ENDPOINT
-```
-{{% /code-placeholders %}}
-
-```sh
-INFLUX_DATABASE=DATABASE_NAME
-INFLUX_TOKEN=DATABASE_TOKEN
-INFLUX_ENDPOINT=API_ENDPOINT
-```

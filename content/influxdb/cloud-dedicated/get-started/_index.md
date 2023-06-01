@@ -118,3 +118,20 @@ There a two types of tokens:
   <!-- - Infrastructure management -->
 
 {{< page-nav next="/influxdb/cloud-dedicated/get-started/setup/" >}}
+
+{{% code-placeholders "(DATABASE|API)_(NAME|TOKEN|ENDPOINT)" %}}
+```sh
+INFLUX_DATABASE=DATABASE_NAME
+INFLUX_TOKEN=DATABASE_TOKEN
+INFLUX_ENDPOINT=API_ENDPOINT
+```
+{{% /code-placeholders %}}
+
+
+{{% code-placeholders "(DATABASE|API)_(NAME|TOKEN|ENDPOINT)" %}}
+```sh
+INFLUX_DATABASE=DATABASE_NAME
+INFLUX_TOKEN=DATABASE_TOKEN
+INFLUX_ENDPOINT=API_ENDPOINT
+```
+{{% /code-placeholders %}}

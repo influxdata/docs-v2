@@ -85,22 +85,71 @@ span.code-callout, .code-placeholder {
   &.orange {color: $r-curacao;}
 }
 
-.code-placeholder {
-  display: inline-block;
-  padding: 0;
-  line-height: 1.4em;
-  border-bottom: 1px dotted;
-  cursor: pointer;
+.code-placeholder-wrapper {
+  display: inline;
+  position: relative;
 
-  &:hover {
-    color: $article-code-link;
-  }
+  .code-placeholder {
+    display: inline-block;
+    margin:0 .15rem;
+    padding: 0;
+    line-height: 1.4em;
+    color: $code-placeholder;
+    font-weight:bold;
+    border-bottom: 1px dotted;
+    transition: color .2s;
+    cursor: pointer;
+    
+    .code-placeholder-edit-icon{
+      font-style: normal;
+      &::before {
+        margin-left: .2rem;
+        font-size: .9em;
+        transition: opacity .2s;
+        opacity: .65;
+        z-index: -1;
+      }
+    }
   
-  &-edit{
-    &::before {
-      margin-left: .2rem;
-      font-size: .9em;
-      transition: color .2s; 
+    &:hover {
+      color: $code-placeholder-hover;
+      .code-placeholder-edit-icon::before {opacity: 1}
+    }
+  }
+
+  .code-input-wrapper {
+    position: absolute;
+    top: -3px;
+    left: -4.5px;
+    z-index: 1;
+    color: inherit;
+
+    input.placeholder-edit {
+      width: 100%;
+      max-width: 100%;
+      border: 1px solid $sidebar-search-bg;
+      border-radius: $radius * 2;
+      background-color: $sidebar-search-bg;
+      padding: 2px 20px 2px 6px;
+      color: $code-placeholder-hover;
+      font-weight: bold;
+      &:focus {
+        outline: none;
+        border-color: rgba($code-placeholder-hover, .75);
+        box-shadow: 1px 1px 8px rgba($code-placeholder-hover, .5);
+        border-radius: 2px;
+      }
+    }
+
+    &:hover {cursor: pointer;}
+
+    &:after {
+      content: "\e937";
+      font-family: 'icomoon-v4';
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 3px;
     }
   }
 }
