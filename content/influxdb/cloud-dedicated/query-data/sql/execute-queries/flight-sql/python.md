@@ -3,13 +3,15 @@ title: Use Python and the Flight SQL library to query data
 description: >
   Use Python and the `flightsql-dbapi` Flight SQL library to query data
   stored in InfluxDB.
-weight: 101
+weight: 401
 menu:
   influxdb_cloud_dedicated:
     parent: Query with Flight SQL
     name: Use Python
-    identifier: query_with_python
+    identifier: query-with-python-sql
 influxdb/cloud-dedicated/tags: [query, flightsql, python]
+aliases:
+    - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/
 related:
     - /influxdb/cloud-dedicated/query-data/tools/pandas/
     - /influxdb/cloud-dedicated/query-data/tools/pyarrow/

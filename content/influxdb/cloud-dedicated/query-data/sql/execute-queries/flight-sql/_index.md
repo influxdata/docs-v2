@@ -3,12 +3,14 @@ title: Query with Flight SQL
 seotitle: Query InfluxDB with Arrow Flight SQL
 description: >
   Query your data using Apache Arrow Flight SQL protocol and clients.
-weight: 201
+weight: 301
 menu:
   influxdb_cloud_dedicated:
     name: Query with Flight SQL
-    parent: Execute queries
+    parent: sql-execute-queries
 influxdb/cloud-dedicated/tags: [query, flightsql]
+aliases:
+  - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/
 ---
 
 Use [Apache Arrow Flight SQL](https://arrow.apache.org/) to query data
