@@ -9,8 +9,10 @@ menu:
   influxdb_cloud_dedicated:
     parent: Query with Flight SQL
     name: Use Superset
-    identifier: query_with_superset
+    identifier: query-with-superset
 influxdb/cloud-dedicated/tags: [query, flightsql, superset]
+aliases:
+    - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/
 related:
   - /influxdb/cloud-dedicated/visualize-data/superset/
 ---
