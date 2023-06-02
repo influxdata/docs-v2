@@ -197,6 +197,12 @@ WHERE
 ```
 {{% /influxdb/custom-timestamps %}}
 
+{{% note %}}
+All API, cURL, and client library examples in this getting started tutorial assume your InfluxDB
+**host**, **organization**, **url**, and **token** are provided by
+[environment variables](/influxdb/cloud-serverless/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
+{{% /note %}}
+
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [InfluxDB UI](#influxdb-ui)
@@ -217,7 +223,7 @@ WHERE
 
 2.  In the side navigation  menu, click **Data Explorer**.
 
-    {{< nav-icon "data-explorer" "v4" >}}
+{{< nav-icon "data-explorer" "v4" >}}
 
 3.  In the schema browser on the left, select the **get-started** bucket from the
     **bucket** drop-down menu.
@@ -268,23 +274,25 @@ _If your project's virtual environment is already running, skip to step 3._
     ```sh
     influx3 config \
       --name="my-config" \
-      --database="BUCKET_NAME" \
+      --database="get-started" \
       --host="cloud2.influxdata.com" \
-      --token="INFLUX_API_READ_TOKEN" \
-      --org="INFLUX_ORG_ID"
+      --token="API_TOKEN" \
+      --org="ORG_ID"
     ```
 
     Replace the following:
 
-    - **`BUCKET_NAME`**: the name of the InfluxDB Cloud Serverless bucket to query
-    - **`INFLUX_API_READ_TOKEN`**: InfluxDB API token with _read_ access to the **get-started** bucket
-    - **`INFLUX_ORG_ID`**: InfluxDB organization ID
+    - **`API_TOKEN`**: InfluxDB API token with _read_ access to the **get-started** bucket
+    - **`ORG_ID`**: InfluxDB organization ID
 
 5. Enter the `influx3 sql` command and your SQL query statement.
 
   {{% influxdb/custom-timestamps %}}
   ```sh
-  influx3 sql "SELECT * FROM home WHERE time >= '2022-01-01T08:00:00Z' AND time <= '2022-01-01T20:00:00Z'"
+  influx3 sql "SELECT *
+                FROM home
+                WHERE time >= '2022-01-01T08:00:00Z'
+                AND time <= '2022-01-01T20:00:00Z'"
   ```
   {{% /influxdb/custom-timestamps %}}
 
