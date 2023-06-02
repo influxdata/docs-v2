@@ -10,6 +10,13 @@ menu:
     parent: influxql-execute-queries
     name: v1 query API
 influxdb/cloud-dedicated/tags: [query, influxql, python]
+list_code_example: |
+  ```sh
+  curl --get https://cluster-id.influxdb.io/query \
+    --header "Authorization: Token DATABASE_TOKEN" \
+    --data-urlencode "db=DATABASE_NAME" \
+    --data-urlencode "q=SELECT * FROM home"
+  ```
 ---
 
 Use the InfluxDB v1 HTTP query API to query data in {{< cloud-name >}}
@@ -41,8 +48,9 @@ Provide the following with your request:
   - **q**: URL-encoded InfluxQL query
 
 ```sh
-curl --get https://cluster-id.influxdb.io/query?db=DATABASE_NAME \
+curl --get https://cluster-id.influxdb.io/query \
   --header "Authorization: Token DATABASE_TOKEN" \
+  --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
 
@@ -59,9 +67,10 @@ return results in **CSV**. To return results as CSV, include the `Accept` header
 with the `application/csv` or `text/csv` MIME type:
 
 ```sh
-curl --get https://cluster-id.influxdb.io/query?db=DATABASE_NAME \
+curl --get https://cluster-id.influxdb.io/query \
   --header "Authorization: Token DATABASE_TOKEN" \
   --header "Accept: application/csv" \
+  --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
 
