@@ -58,7 +58,7 @@ Replace the following:
 
 - **`DATABASE_NAME`**: Name of the database to query
 - **`DATABASE_TOKEN`**: [Database token](/influxdb/cloud-dedicated/admin/tokens/)
-  with read permissions on database you want to query
+  with read permission on the database you want to query
 
 ## Return results as JSON or CSV
 
