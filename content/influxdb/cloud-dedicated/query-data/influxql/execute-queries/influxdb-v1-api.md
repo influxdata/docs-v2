@@ -47,18 +47,22 @@ Provide the following with your request:
   - **rp**: _(Optional)_ Retention policy to query 
   - **q**: URL-encoded InfluxQL query
 
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```sh
 curl --get https://cluster-id.influxdb.io/query \
   --header "Authorization: Token DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
+{{% /code-placeholders %}}
 
 Replace the following:
 
-- **`DATABASE_NAME`**: Name of the database to query
-- **`DATABASE_TOKEN`**: [Database token](/influxdb/cloud-dedicated/admin/tokens/)
-  with read permission on the database you want to query
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
+  Name of the database to query
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+  [Database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission
+  on the database you want to query
 
 ## Return results as JSON or CSV
 
@@ -66,6 +70,7 @@ By default, the `/query` endpoint returns results in **JSON**, but it can also
 return results in **CSV**. To return results as CSV, include the `Accept` header
 with the `application/csv` or `text/csv` MIME type:
 
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```sh
 curl --get https://cluster-id.influxdb.io/query \
   --header "Authorization: Token DATABASE_TOKEN" \
@@ -73,6 +78,7 @@ curl --get https://cluster-id.influxdb.io/query \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
+{{% /code-placeholders %}}
 
 <!-- 
 TO-DO: Explain how DBRP mappings work with bucket names
