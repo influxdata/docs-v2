@@ -17,7 +17,7 @@ the token string.
 #### Store secure tokens in a secret store
 
 Token strings are returned _only_ on token creation.
-We recommend storing database tokens in a secure secret store.
+We recommend storing database tokens in a **secure secret store**.
 {{% /note %}}
 
 ## Usage

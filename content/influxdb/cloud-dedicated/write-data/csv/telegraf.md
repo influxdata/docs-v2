@@ -1,5 +1,5 @@
 ---
-title: Use Telegraf to write CSV data to InfluxDB Cloud Dedicated
+title: Use Telegraf to write CSV data to InfluxDB
 description: >
   Use the Telegraf `file` input plugin to read and parse CSV data into
   [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/)
@@ -75,7 +75,7 @@ metrics from different sources and writes them to specified destinations.
     - **url**: a list (`[]`) containing your InfluxDB Cloud Dedicated cluster URL using the HTTPS
       protocol:
 
-      ```
+      ```toml
       ["https://cluster-id.influxdb.io"]
       ```
     - **token**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with permission to write to the database.
