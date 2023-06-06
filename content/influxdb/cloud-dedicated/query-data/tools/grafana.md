@@ -3,8 +3,7 @@ title: Use Grafana to query and visualize data
 seotitle: Use Grafana to query and visualize data stored in InfluxDB Cloud Dedicated
 list_title: Use Grafana
 description: >
-  Install and run [Grafana](https://grafana.com/) to query and visualize data stored in an
-  InfluxDB database.
+  Install and run [Grafana](https://grafana.com/) to query and visualize data stored in InfluxDB.
 weight: 101
 menu:
   influxdb_cloud_dedicated:
@@ -16,9 +15,9 @@ aliases:
 alt_engine: /influxdb/cloud/tools/grafana/
 ---
 
-Use [Grafana](https://grafana.com/) to query and visualize data stored in an
-InfluxDB Cloud dedicated database.
-InfluxDB Cloud Dedicated supports both **SQL** and **InfluxQL** query languages.
+Use [Grafana](https://grafana.com/) to query and visualize data stored in
+{{% cloud-name %}}.
+{{% cloud-name %}} supports both **SQL** and **InfluxQL** query languages.
 Install the [Grafana FlightSQL plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/)
 to query InfluxDB with **SQL** using the Flight SQL protocol.
 Use the **InfluxDB** core Grafana plugin to query data with **InfluxQL**.
@@ -51,7 +50,7 @@ If using **Grafana Cloud**, login to your Grafana Cloud instance.
 
 ## Install the FlightSQL plugin
 
-If you want to query InfluxDB Cloud Dedicated with **SQL**, install the
+If you want to query {{% cloud-name %}} with **SQL**, install the
 [Grafana FlightSQL plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/).
 
 {{< tabs-wrapper >}}
@@ -105,7 +104,7 @@ Grafana Cloud instance.
 ## Create a datasource
 
 Which datasource you create depends on which query language you want to use to
-query InfluxDB Cloud Dedicated:
+query {{% cloud-name %}}:
 
 - To query with **SQL**, create a **FlightSQL** datasource.
 - To query with **InfluxQL**, create an **InfluxDB** datasource.
@@ -125,21 +124,21 @@ query InfluxDB Cloud Dedicated:
 5.  Add your connection credentials:
 
     - **Host**: Provide the host and port of your Flight SQL client.
-      For InfluxDB Cloud Dedicated, this is your cluster URL and port 443:
+      For {{% cloud-name %}}, this is your cluster URL and port 443:
 
       ```
       cluster-id.influxdb.io:443
       ```
 
     - **AuthType**: Select **token**.
-    - **Token**: Provide your InfluxDB API token with read access to the
+    - **Token**: Provide your InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/) with read access to the
       databases you want to query.
     - **Require TLS/SSL**: Enable this toggle.
 
 6.  Add connection **MetaData**.
     Provide key-value pairs to send to your Flight SQL client.
 
-    InfluxDB Cloud Serverless requires your **database name**:
+    {{% cloud-name %}} requires your **database name**:
     
     - **Key**: `database`
     - **Value**: Database name
@@ -160,10 +159,10 @@ query InfluxDB Cloud Dedicated:
 3.  Search for and select the **InfluxDB** core plugin.
 4.  Provide a name for your datasource.
 5.  Under **Query Language**, select **InfluxQL**.
-    _InfluxDB Cloud Dedicated does not support Flux._
+    _{{% cloud-name %}} does not support Flux._
 6.  Under **HTTP**:
 
-    - **URL**: Provide your Influx Cloud Dedicated cluster URL using the HTTPS
+    - **URL**: Provide your {{% cloud-name %}} cluster URL using the HTTPS
       protocol:
 
       ```
@@ -174,7 +173,7 @@ query InfluxDB Cloud Dedicated:
 
     - **Database**: Provide a default database name to query.
     - **User**: Provide an arbitrary string.
-      _This credential is ingored when querying InfluxDB Cloud Dedicated, but it cannot be empty._
+      _This credential is ingored when querying {{% cloud-name %}}, but it cannot be empty._
     - **Password**: Provide an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/)
       with read access to the databases you want to query.
 
@@ -190,7 +189,7 @@ query InfluxDB Cloud Dedicated:
 ## Query InfluxDB with Grafana
 
 After you [configure and save a FlightSQL or InfluxDB datasource](#create-a-datasource),
-use Grafana to build, run, and inspect queries against InfluxDB database.
+use Grafana to build, run, and inspect queries against your InfluxDB database.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
