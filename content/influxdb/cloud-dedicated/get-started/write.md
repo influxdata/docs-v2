@@ -307,36 +307,37 @@ To write data to InfluxDB Cloud Dedicated using Python, use the
 The following steps include setting up a Python virtual environment to scope
 dependencies to your current project.
 
-1.  Setup your Python virtual environment.
-    Inside of your project directory:
+1. Create a new module directory and navigate into it--for example:
+
+    ```sh
+    mkdir influxdb_py_client && cd $_
+    ```
+
+2.  Setup your Python virtual environment.
+    Inside of your module directory:
 
     ```sh
     python -m venv envs/virtual-env
     ```
 
-2. Activate the virtual environment.
+3. Activate the virtual environment.
 
     ```sh
     source ./envs/virtual-env/bin/activate
     ```
 
-3.  Install the following dependencies:
+4.  Install the following dependencies:
 
     - `pyarrow`
-    - `flightsql-dbapi`
-    - `influxdb3-client`
+    - `influxdb_client_3`
 
     ```python
-    pip install pyarrow flightsql-dbapi influxdb3-client
+    pip install pyarrow influxdb_client_3
     ```
 
-4.  Create a file for your code--for example, `write.py`.
+5.  Create a new file for your python code--for example: `write.py`.
 
-    ```sh
-    touch write.py
-    ```
-
-5.  Inside of `write.py`, enter the following sample code:
+6.  Inside of `write.py`, enter the following sample code:
 
       ```py
       from influxdb_client_3 import InfluxDBClient3

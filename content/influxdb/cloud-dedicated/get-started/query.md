@@ -19,7 +19,7 @@ related:
   - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/
 ---
 
-InfluxDB Cloud Dedicated supports multiple query languages:
+{{% cloud-name %}} supports multiple query languages:
 
 - **SQL**: Traditional SQL powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
   query engine. The supported SQL syntax is similar to PostgreSQL.
@@ -42,7 +42,7 @@ The examples in this section of the tutorial query the
 
 ## Tools to execute queries
 
-InfluxDB Cloud Dedicated supports many different tools for querying data, including:
+{{% cloud-name %}} supports many different tools for querying data, including:
 
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
 
@@ -165,14 +165,14 @@ ORDER BY room, _time
 
 ### Execute an SQL query
 
-Get started with one of the following tools for querying data stored in an InfluxDB Cloud Dedicated database:
+Get started with one of the following tools for querying data stored in an {{% cloud-name %}} database:
 
 - **Flight SQL clients**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
 - **influx3 CLI**: Send SQL queries from your terminal command-line.
 - **Grafana**: Query InfluxDB v3 with the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/) and connect and visualize data.
 
 For this example, use the following query to select all the data written to the
-**get-started** bucket between
+**get-started** database between
 {{% influxdb/custom-timestamps-span %}}
 **2022-01-01T08:00:00Z** and **2022-01-01T20:00:00Z**.
 {{% /influxdb/custom-timestamps-span %}}
@@ -198,7 +198,8 @@ WHERE
 {{% tab-content %}}
 <!--------------------------- BEGIN influx3 CONTENT --------------------------->
 
-Query InfluxDB v3 using SQL and the `influx3` CLI, part of the [`InfluxCommunity/pyinflux3`](https://github.com/InfluxCommunity/pyinflux3) community repository.
+Query InfluxDB v3 using SQL and the `influx3` CLI.
+
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
 _If your project's virtual environment is already running, skip to step 3._
@@ -221,25 +222,24 @@ _If your project's virtual environment is already running, skip to step 3._
     {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
 
     - `pyarrow` {{< req text="\*" color="magenta" >}}
-    - `flightsql-dbapi` {{< req text="\*" color="magenta" >}}
-    - `pyinflux3` {{< req text="\*" color="magenta" >}}
+    - `influxdb3-python-cli` {{< req text="\*" color="magenta" >}}
 
 4. Create the `config.json` configuration.
 
     ```sh
     influx3 config \
-      --name="my-config" \
-      --database="DATABASE_NAME" \
+      --name="config-dedicated" \
+      --database="get-started" \
       --host="cluster-id.influxdb.io" \
       --token="DATABASE_TOKEN" \
-      --org="INFLUX_ORG_ID"
+      --org="ORG_ID"
     ```
 
     Replace the following:
 
-    - **`DATABASE_NAME`**: the name of the InfluxDB Cloud Dedicated bucket to query
-    - **`DATABASE_TOKEN`**: [Database token](/influxdb/cloud-dedicated/admin/tokens/) with
-          read access to the **get-started** database.
+    - **`DATABASE_NAME`**: the name of the InfluxDB Cloud Dedicated database to query
+    - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with
+          read access to the **get-started** database
     - **`INFLUX_ORG_ID`**: InfluxDB organization ID
 
 5. Enter the `influx3 sql` command and your SQL query statement.
@@ -249,109 +249,117 @@ _If your project's virtual environment is already running, skip to step 3._
   ```
 
 `influx3` displays query results in your terminal.
-  
+
+For more information about the `influx3` CLI, see the [`InfluxCommunity/
+influxdb3-python-cli
+`](https://github.com/InfluxCommunity/influxdb3-python-cli) community repository on GitHub.
+
 <!--------------------------- END influx3 CONTENT --------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!--------------------------- BEGIN PYTHON CONTENT ---------------------------->
 
 To query data from InfluxDB Cloud Dedicated using Python, use the
-[`pyinflux3` module](https://github.com/InfluxCommunity/pyinflux3).
+[`influxdb_client_3` module](https://github.com/InfluxCommunity/influxdb3-python).
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
 _If your project's virtual environment is already running, skip to step 3._
 
-1.  Setup your Python virtual environment.
-    Inside of your project directory:
+1.  In the `influxdb_py_client` module directory you created in the
+    [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb):
 
-    ```sh
-    python -m venv envs/virtual-env
+    1.  Setup your Python virtual environment.
+        Inside of your module directory:
+
+        ```sh
+        python -m venv envs/virtual-env
+        ```
+
+    2.  Activate the virtual environment.
+
+        ```sh
+        source ./envs/virtual-env/bin/activate
+        ```
+
+    3.  Install the following dependencies:
+
+        {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+
+        - `pyarrow` {{< req text="\*" color="magenta" >}}
+        - `influxdb_client_3` {{< req text="\*" color="magenta" >}}
+        - `pandas`
+        - `tabulate` _(to return formatted tables)_
+
+        ```sh
+        pip install influxdb_client_3 pandas tabulate
+        ```
+
+    4. In your terminal or editor, create a new file for your code--for example: `query.py`.
+
+5.  In `query.py`, enter the following sample code:
+
+    {{% influxdb/custom-timestamps %}}
+    ```py
+    from influxdb_client_3 import InfluxDBClient3
+    import os
+
+    # INFLUX_TOKEN is an environment variable you created for your database READ token
+    TOKEN = os.getenv('INFLUX_TOKEN')
+
+    client = InfluxDBClient3(
+        host="cluster-id.influxdb.io",
+        token=TOKEN,
+        database="get-started",
+    )
+
+    sql = '''
+    SELECT
+      *
+    FROM
+      home
+    WHERE
+      time >= '2022-01-01T08:00:00Z'
+      AND time <= '2022-01-01T20:00:00Z'
+    '''
+
+    table = client.query(sql_query=sql)
+    print(reader.to_pandas().to_markdown())
     ```
+    {{% /influxdb/custom-timestamps %}}
 
-2. Activate the virtual environment.
+    The sample code does the following:
 
-    ```sh
-    source ./envs/virtual-env/bin/activate
-    ```
-
-3. Install the following dependencies:
-
-    {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
-
-    - `pyarrow` {{< req text="\*" color="magenta" >}}
-    - `flightsql-dbapi` {{< req text="\*" color="magenta" >}}
-    - `pyinflux3` {{< req text="\*" color="magenta" >}}
-    - `pandas`
-    - `tabulate` _(to return formatted tables)_
-
-    ```sh
-    pip install pandas tabulate
-    ```
-
-4.  Build your python script to query your InfluxDB database.
-    _These can be structured as a Python script or executed in a `python` shell._
-
-    1.  Import the `InfluxDBClient3` constructor from the `influxdb_client_3` module.
+    1.  Imports `InfluxDBClient3` from the `influxdb_client_3` module.
     
-    2.  Use the `InfluxDBClient3` constructor to instantiate an InfluxDB Client.
-        The example below assigns it to the `client` variable.
-        Provide the following credentials:
+    2.  Calls the `InfluxDBClient3()` constructor method with credentials to instantiate an InfluxDB `client`.
+        configured with the following credentials:
 
-        - **host**: InfluxDB Cloud Dedicated cluster URL (without protocol or trailing slash)
-        - **token**: [Database token](/influxdb/cloud-dedicated/admin/tokens/) with
+        - **host**: InfluxDB Cloud Dedicated cluster URL (without `https://` protocol or trailing slash)
+        - **token**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with
           read access to the **get-started** database.
-        - **database**: Database name to query
+        - **database**: the name of the InfluxDB Cloud Dedicated database to query
     
-    3.  Provide the SQL query to execute. In the example below, it's assigned
-        to the `query`variable.
+    3.  Defines the SQL query to execute and assigns it to a `query` variable.
     
-    4.  Use the `client.query` method to query data in the **get-started**
-        database and return an Arrow table. Assign the return value to the
-        `table` variable. Provide the following:
-        
-        - **sql_query** SQL query string to execute
-    
-    5.  Use [`read_all`](https://docs.python.org/3/library/telnetlib.html#telnetlib.Telnet.read_all)
-        to read the data from InfluxDB and return an Arrow table.
+    4.  Calls the `client.query()` method with the SQL query. `query()` sends a
+        Flight request to InfluxDB, queries the **get-started**
+        database, and retrieves the result data, and then returns a
+        [pyarrow.Table](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table)
+        assigned to the `table` variable.
 
-    6.  Use [`to_pandas`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas)
-        to convert the Arrow table to a pandas DataFrame.
+    6.  Calls the [`to_pandas()` method](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas)
+        to convert the Arrow table to a [pandas DataFrame](https://arrow.apache.org/docs/python/pandas.html).
 
-    7.  Use [`to_markdown`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html)
+    7.  Calls the [`pandas.DataFrame.to_markdown()` method](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html)
         to convert the DataFrame to a markdown table.
 
-    8.  Use `print` to print out the markdown table.
+    8.  Calls `print` to print the markdown table to stdout.
 
-{{% influxdb/custom-timestamps %}}
+6. In your terminal, enter the following command to run the program and query your InfluxDB Cloud Dedicated cluster:
 
-```py
-from influxdb_client_3 import InfluxDBClient3
-import os
-# INFLUX_TOKEN is an environment variable you created for your database READ token
-TOKEN = os.getenv('INFLUX_TOKEN')
-
-client = InfluxDBClient3(
-    host="cluster-id.influxdb.io",
-    token=TOKEN,
-    database="get-started",
-)
-
-sql = '''
-SELECT
-  *
-FROM
-  home
-WHERE
-  time >= '2022-01-01T08:00:00Z'
-  AND time <= '2022-01-01T20:00:00Z'
-'''
-
-table = client.query(sql_query=sql)
-reader = table.read_all()
-print(reader.to_pandas().to_markdown())
-```
-
-{{% /influxdb/custom-timestamps %}}
+    ```sh
+    python query.py
+    ```
 
 {{< expand-wrapper >}}
 {{% expand "View returned markdown table" %}}
@@ -460,6 +468,7 @@ import (
 
 func dbQuery(ctx context.Context) error {
 	url := "cluster-id.influxdb.io:443"
+
   // INFLUX_TOKEN is an environment variable you created for your database READ token
 	token := os.Getenv("INFLUX_TOKEN")
 	database := "get-started"
@@ -526,7 +535,6 @@ func main() {
 	}
 }
 ```
-
 {{% /influxdb/custom-timestamps %}}
 
 Install all the necessary packages and run the program to query your InfluxDB Cloud Dedicated cluster.
