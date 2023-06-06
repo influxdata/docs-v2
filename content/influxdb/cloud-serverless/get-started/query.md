@@ -19,7 +19,7 @@ related:
   - /influxdb/cloud-serverless/reference/client-libraries/flight-sql/
 ---
 
-InfluxDB Cloud Serverless supports multiple query languages:
+{{% cloud-name %}} supports multiple query languages:
 
 - **SQL**: Traditional SQL powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
   query engine. The supported SQL syntax is similar to PostgreSQL.
@@ -45,7 +45,7 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 
 ## Tools to execute queries
 
-InfluxDB Cloud Serverless supports many different tools for querying data, including:
+{{% cloud-name %}} supports many different tools for querying data, including:
 
 {{< req type="key" text="Covered in this tutorial" >}}
 
@@ -76,7 +76,7 @@ InfluxDB SQL queries most commonly include the following clauses:
   measurement or use the wild card alias (`*`) to select all fields and tags
   from a measurement.
 - {{< req "\*">}} `FROM`: Identify the measurement to query.
-  If coming from a SQL background, an InfluxDB measurement is the equivalent 
+  If coming from an SQL background, an InfluxDB measurement is the equivalent 
   of a relational table.
 - `WHERE`: Only return data that meets defined conditions such as falling within
   a time range, containing specific tag values, etc.
@@ -171,7 +171,7 @@ ORDER BY room, _time
 
 ### Execute an SQL query
 
-Get started with one of the following tools for querying data stored in an InfluxDB Cloud Serverless bucket:
+Get started with one of the following tools for querying data stored in an {{% cloud-name %}} bucket:
 
 - **InfluxDB UI**: View your schema, build queries using the query editor, and generate data visualizations.
 - **Flight SQL clients**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
@@ -242,8 +242,10 @@ See [Query in the Data Explorer](/influxdb/cloud-serverless/query-data/execute-q
 {{% /tab-content %}}
 {{% tab-content %}}
 <!--------------------------- BEGIN influx3 CONTENT --------------------------->
+{{% influxdb/custom-timestamps %}}
 
-Query InfluxDB v3 using SQL and the `influx3` CLI, part of the [`InfluxCommunity/pyinflux3`](https://github.com/InfluxCommunity/pyinflux3) community repository.
+Query InfluxDB v3 using SQL and the `influx3` CLI.
+
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb).
 _If your project's virtual environment is already running, skip to step 3._
@@ -266,146 +268,147 @@ _If your project's virtual environment is already running, skip to step 3._
     {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
 
     - `pyarrow` {{< req text="\*" color="magenta" >}}
-    - `flightsql-dbapi` {{< req text="\*" color="magenta" >}}
-    - `pyinflux3` {{< req text="\*" color="magenta" >}}
+    - `influxdb3-python-cli` {{< req text="\*" color="magenta" >}}
 
-4. Create the `config.json` configuration.
+4.  Create the `config.json` configuration.
 
-    ```sh
-    influx3 config \
-      --name="my-config" \
+    <!-- code-placeholders breaks when indented here -->
+      ```sh
+      influx3 config \
+      --name="config-serverless" \
       --database="get-started" \
       --host="cloud2.influxdata.com" \
       --token="API_TOKEN" \
       --org="ORG_ID"
-    ```
+      ```
 
-    Replace the following:
+      Replace the following:
 
-    - **`API_TOKEN`**: InfluxDB API token with _read_ access to the **get-started** bucket
-    - **`ORG_ID`**: InfluxDB organization ID
+      - **`API_TOKEN`**: an InfluxDB [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with _read_ access to the **get-started** bucket
+      - **`ORG_ID`**: an InfluxDB [organization ID](/influxdb/cloud-serverless/admin/organizations/)
 
 5. Enter the `influx3 sql` command and your SQL query statement.
 
-  {{% influxdb/custom-timestamps %}}
   ```sh
   influx3 sql "SELECT *
                 FROM home
                 WHERE time >= '2022-01-01T08:00:00Z'
                 AND time <= '2022-01-01T20:00:00Z'"
   ```
-  {{% /influxdb/custom-timestamps %}}
 
 `influx3` displays query results in your terminal.
-  
+
+For more information about the `influx3` CLI, see the [`InfluxCommunity/
+influxdb3-python-cli
+`](https://github.com/InfluxCommunity/influxdb3-python-cli) community repository on GitHub.
+ {{% /influxdb/custom-timestamps %}}
 <!--------------------------- END influx3 CONTENT --------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!--------------------------- BEGIN PYTHON CONTENT ---------------------------->
-
-To query data from InfluxDB Cloud Serverless using Python, use the
-[`pyinflux3` module](https://github.com/InfluxCommunity/pyinflux3).
+ {{% influxdb/custom-timestamps %}}
+To query data from {{% cloud-name %}} using Python, use the
+[`influxdb_client_3` module](https://github.com/InfluxCommunity/influxdb3-python).
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb).
 _If your project's virtual environment is already running, skip to step 3._
 
-1.  Setup your Python virtual environment.
-    Inside of your project directory:
+1.  In the `influxdb_py_client` module directory you created in the
+    [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb):
 
-    ```sh
-    python -m venv envs/virtual-env
+  1.  Setup your Python virtual environment.
+      Inside of your project directory:
+
+      ```sh
+      python -m venv envs/virtual-env
+      ```
+
+  2.  Activate the virtual environment.
+
+      ```sh
+      source ./envs/virtual-env/bin/activate
+      ```
+
+  3.  Install the following dependencies:
+
+      {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+
+      - `pyarrow` {{< req text="\*" color="magenta" >}}
+      - `influxdb_client_3` {{< req text="\*" color="magenta" >}}
+      - `pandas`
+      - `tabulate` _(to return formatted tables)_
+
+      ```sh
+      pip install influxdb_client_3 pandas tabulate
+      ```
+
+  4. In your terminal or editor, create a new file for your code--for example: `query.py`.
+
+2.  In `query.py`, enter the following sample code:
+
+    ```py
+    from influxdb_client_3 import InfluxDBClient3
+    import os
+
+    # INFLUX_TOKEN is an environment variable you created for your API token
+    TOKEN = os.getenv('INFLUX_TOKEN')
+
+    client = InfluxDBClient3(
+        host="cloud2.influxdata.com",
+        token=TOKEN,
+        database="get-started",
+    )
+
+    sql = '''
+    SELECT
+      *
+    FROM
+      home
+    WHERE
+      time >= '2022-01-01T08:00:00Z'
+      AND time <= '2022-01-01T20:00:00Z'
+    '''
+
+    table = client.query(sql_query=sql)
+    print(reader.to_pandas().to_markdown())
     ```
 
-2. Activate the virtual environment.
+    The sample code does the following:
 
-    ```sh
-    source ./envs/virtual-env/bin/activate
-    ```
-
-3. Install the following dependencies:
-
-    {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
-
-    - `pyarrow` {{< req text="\*" color="magenta" >}}
-    - `flightsql-dbapi` {{< req text="\*" color="magenta" >}}
-    - `pyinflux3` {{< req text="\*" color="magenta" >}}
-    - `pandas`
-    - `tabulate` _(to return formatted tables)_
-
-    ```sh
-    pip install pandas tabulate
-    ```
-
-4.  Build your python script to query your InfluxDB bucket.
-    _These can be structured as a Python script or executed in a `python` shell._
-
-    1.  Import the `InfluxDBClient3` constructor from the `influxdb_client_3` module.
+    1.  Imports the `InfluxDBClient3` constructor from the `influxdb_client_3` module.
     
-    2.  Use the `InfluxDBClient3` constructor to instantiate an InfluxDB Client.
-        The example below assigns it to the `client` variable.
-        Provide the following credentials:
+    2.  Calls the `InfluxDBClient3()` constructor method with credentials to instantiate an InfluxDB `client` with the following credentials:
 
-        - **host**: InfluxDB Cloud Serverless region hostname (URL without protocol or trailing slash)
-        - **token**: InfluxDB API token with _read_ access to the specified bucket.
+        - **host**: {{% cloud-name %}} region hostname (URL without protocol or trailing slash)
+        - **token**:  an [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with _read_ access to the specified bucket.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
-        - **database**: the name of the InfluxDB Cloud Serverless bucket to query
+        - **database**: the name of the {{% cloud-name %}} bucket to query
     
-    3.  Provide the SQL query to execute. In the example below, it's assigned
-        to the `query`variable.
-    
-    4.  Use the `client.query` method to query data in the **get-started**
-        database and return an Arrow table. Assign the return value to the
-        `table` variable. Provide the following:
-        
-        - **sql_query** SQL query string to execute
-    
-    5.  Use [`read_all`](https://docs.python.org/3/library/telnetlib.html#telnetlib.Telnet.read_all)
-        to read the data from InfluxDB and return an Arrow table.
+    3.  Defines the SQL query to execute and assigns it to a `query` variable.
 
-    6.  Use [`to_pandas`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas)
-        to convert the Arrow table to a pandas DataFrame.
+    4.  Calls the `client.query()` method with the SQL query.
+        `query()` sends a
+        Flight request to InfluxDB, queries the database, retrieves result data from the endpoint, and then returns a
+        [pyarrow.Table](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table)
+        assigned to the `table` variable.
+    
+    5.  Calls the [`to_pandas()` method](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas)
+        to convert the Arrow table to a [pandas DataFrame](https://arrow.apache.org/docs/python/pandas.html).
 
-    7.  Use [`to_markdown`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html)
+    6.  Calls the [`pandas.DataFrame.to_markdown()` method](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html)
         to convert the DataFrame to a markdown table.
 
-    8.  Use `print` to print out the markdown table.
+    7.  Calls the `print()` method to print the markdown table to stdout.
 
-{{% influxdb/custom-timestamps %}}
+6. In your terminal, enter the following command to run the program and query {{% cloud-name %}}:
 
-```py
-from influxdb_client_3 import InfluxDBClient3
-import os
-
-# INFLUX_TOKEN is an environment variable you created for your API token
-TOKEN = os.getenv('INFLUX_TOKEN')
-
-client = InfluxDBClient3(
-    host="cloud2.influxdata.com",
-    token=TOKEN,
-    database="get-started",
-)
-
-sql = '''
-SELECT
-  *
-FROM
-  home
-WHERE
-  time >= '2022-01-01T08:00:00Z'
-  AND time <= '2022-01-01T20:00:00Z'
-'''
-
-table = client.query(sql_query=sql)
-reader = table.read_all()
-print(reader.to_pandas().to_markdown())
-```
-
-{{% /influxdb/custom-timestamps %}}
+    ```sh
+    python query.py
+    ```
 
 {{< expand-wrapper >}}
 {{% expand "View returned markdown table" %}}
-{{% influxdb/custom-timestamps %}}
 
 |    |   co |   hum | room        |   temp | time                |
 |---:|-----:|------:|:------------|-------:|:--------------------|
@@ -436,22 +439,109 @@ print(reader.to_pandas().to_markdown())
 | 24 |   14 |  36.3 | Living Room |   22.5 | 2022-01-01 19:00:00 |
 | 25 |   17 |  36.4 | Living Room |   22.2 | 2022-01-01 20:00:00 |
 
-{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
+{{% /influxdb/custom-timestamps %}}
 <!---------------------------- END PYTHON CONTENT ----------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!----------------------------- BEGIN GO CONTENT ------------------------------>
-
+{{% influxdb/custom-timestamps %}}
 1.  In the `influxdb_go_client` directory you created in the
     [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Go#write-line-protocol-to-influxdb),
     create a new file named `query.go`.
 
-2.  In `query.go`:
+2.  In `query.go`, enter the following sample code:
+
+    ```go
+    package main
+
+    import (
+      "context"
+      "crypto/x509"
+      "encoding/json"
+      "fmt"
+      "os"
+
+      "github.com/apache/arrow/go/v12/arrow/flight/flightsql"
+      "google.golang.org/grpc"
+      "google.golang.org/grpc/credentials"
+      "google.golang.org/grpc/metadata"
+    )
+
+    func dbQuery(ctx context.Context) error {
+      url := "cloud2.influxdata.com:443"
+
+      // INFLUX_TOKEN is an environment variable you created for your API token
+      token := os.Getenv("INFLUX_TOKEN")
+      database := "get-started"
+
+      // Create a gRPC transport
+      pool, err := x509.SystemCertPool()
+      if err != nil {
+        return fmt.Errorf("x509: %s", err)
+      }
+      transport := grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(pool, ""))
+      opts := []grpc.DialOption{
+        transport,
+      }
+
+      // Create query client
+      client, err := flightsql.NewClient(url, nil, nil, opts...)
+      if err != nil {
+        return fmt.Errorf("flightsql: %s", err)
+      }
+
+      ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+token)
+      ctx = metadata.AppendToOutgoingContext(ctx, "database", database)
+
+      // Execute query
+      query := `SELECT
+        *
+      FROM
+        home
+      WHERE
+        time >= '2022-01-01T08:00:00Z'
+        AND time <= '2022-01-01T20:00:00Z'`
+
+      info, err := client.Execute(ctx, query)
+      if err != nil {
+        return fmt.Errorf("flightsql flight info: %s", err)
+      }
+      reader, err := client.DoGet(ctx, info.Endpoint[0].Ticket)
+      if err != nil {
+        return fmt.Errorf("flightsql do get: %s", err)
+      }
+
+      // Print results as JSON
+      for reader.Next() {
+        record := reader.Record()
+        b, err := json.MarshalIndent(record, "", "  ")
+        if err != nil {
+          return err
+        }
+        fmt.Println("RECORD BATCH")
+        fmt.Println(string(b))
+
+        if err := reader.Err(); err != nil {
+          return fmt.Errorf("flightsql reader: %s", err)
+        }
+      }
+
+      return nil
+    }
+
+    func main() {
+      if err := dbQuery(context.Background()); err != nil {
+        fmt.Fprintf(os.Stderr, "error: %v\n", err)
+        os.Exit(1)
+      }
+    }
+    ```
+
+    The sample code does the following:
     
-    1.  Import the following packages:
+    1.  Imports the following packages:
 
         - `context`
         - `crypto/x509`
@@ -463,122 +553,36 @@ print(reader.to_pandas().to_markdown())
         - `google.golang.org/grpc/credentials`
         - `google.golang.org/grpc/metadata`
 
-    2.  Create a `dbQuery` function. In `dbQuery, define the following
-        variables:
+    2.  Creates a `dbQuery` function that does the following:
 
-        - **url**: InfluxDB Cloud Serverless region hostname and port (`:443`) _(no protocol)_
-        - **token**: InfluxDB API token with _read_ access to the specified bucket.
+        1.  Defines variables for InfluxDB credentials.
+          
+            - **url**: {{% cloud-name %}} region hostname and port (`:443`) _(no protocol)_
+            - **token**:  an [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with _read_  access to the specified bucket.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
-        - **database**: the name of the InfluxDB Cloud Serverless bucket to query
+            - **database**: the name of the {{% cloud-name %}} bucket to query
 
-    3.  In the `dbQuery` function, create a gRPC transport for communicating
-        with InfluxDB Cloud Serverless over the _gRPC+TLS_ protocol.
+        2.  Defines an `opts` options list that includes a gRPC transport for communicating
+        with {{% cloud-name %}} over the _gRPC+TLS_ protocol.
 
-    4.  Use `flightsql.NewClient` to create a new Flight SQL client.
+        3.  Calls the `flightsql.NewClient()` method with `url` and `opts` to create a new Flight SQL client.
 
-    5.  Append the following key-value pairs to the outgoing context:
+        4.  Appends the following InfluxDB credentials as key-value pairs to the outgoing context:
 
-        - **authorization**: Bearer <INFLUX_TOKEN>
-        - **database-name**: Database name
-    
-    6.  Define the query to execute.
+            - **authorization**: Bearer <INFLUX_TOKEN>
+            - **database-name**: Bucket name
 
-    7.  Create a reader to read the Arrow table returned by the query and print
-        the results as JSON.
+        5.  Define the SQL query to execute.
 
-    8.  Create a `main` function that executes the `dbQuery` function.
+        6.  Calls the `client.execute()` method to send the query request.
+        7.  Calls the `client.doGet()` method with the _ticket_ from the query response to retrieve result data from the endpoint.
+        8.  Creates a reader to read the Arrow table returned by the endpoint and print
+            the results as JSON.
 
-{{% influxdb/custom-timestamps %}}
+    3.  Creates a `main` module function that executes the `dbQuery` function.
 
-```go
-package main
-
-import (
-	"context"
-	"crypto/x509"
-	"encoding/json"
-	"fmt"
-	"os"
-
-	"github.com/apache/arrow/go/v12/arrow/flight/flightsql"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
-	"google.golang.org/grpc/metadata"
-)
-
-func dbQuery(ctx context.Context) error {
-	url := "cloud2.influxdata.com:443"
-  // INFLUX_TOKEN is an environment variable you created for your API token
-	token := os.Getenv("INFLUX_TOKEN")
-	database := "get-started"
-
-	// Create a gRPC transport
-	pool, err := x509.SystemCertPool()
-	if err != nil {
-		return fmt.Errorf("x509: %s", err)
-	}
-	transport := grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(pool, ""))
-	opts := []grpc.DialOption{
-		transport,
-	}
-
-	// Create query client
-	client, err := flightsql.NewClient(url, nil, nil, opts...)
-	if err != nil {
-		return fmt.Errorf("flightsql: %s", err)
-	}
-
-	ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+token)
-	ctx = metadata.AppendToOutgoingContext(ctx, "database", database)
-
-	// Execute query
-	query := `SELECT
-		*
-	FROM
-		home
-	WHERE
-		time >= '2022-01-01T08:00:00Z'
-		AND time <= '2022-01-01T20:00:00Z'`
-
-	info, err := client.Execute(ctx, query)
-	if err != nil {
-		return fmt.Errorf("flightsql flight info: %s", err)
-	}
-	reader, err := client.DoGet(ctx, info.Endpoint[0].Ticket)
-	if err != nil {
-		return fmt.Errorf("flightsql do get: %s", err)
-	}
-
-	// Print results as JSON
-	for reader.Next() {
-		record := reader.Record()
-		b, err := json.MarshalIndent(record, "", "  ")
-		if err != nil {
-			return err
-		}
-		fmt.Println("RECORD BATCH")
-		fmt.Println(string(b))
-
-		if err := reader.Err(); err != nil {
-			return fmt.Errorf("flightsql reader: %s", err)
-		}
-	}
-
-	return nil
-}
-
-func main() {
-	if err := dbQuery(context.Background()); err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
-		os.Exit(1)
-	}
-}
-```
-
-{{% /influxdb/custom-timestamps %}}
-
-Install all the necessary packages and run the program to query InfluxDB Cloud Serverless.
+3. In your terminal, enter the following command to install all the necessary packages and run the program to query {{% cloud-name %}}.
 
 ```sh
 go get ./...
@@ -587,8 +591,6 @@ go run ./query.go
 
 {{< expand-wrapper >}}
 {{% expand "View program output" %}}
-{{% influxdb/custom-timestamps %}}
-
 ```json
 RECORD BATCH
 [
@@ -776,11 +778,9 @@ RECORD BATCH
   }
 ]
 ```
-
-{{% /influxdb/custom-timestamps %}}
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
+ {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END GO CONTENT ------------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -883,7 +883,6 @@ Include the following with your request:
 
 The following example uses cURL and the InfluxDB API to query data with Flux:
 
-
 {{% influxdb/custom-timestamps %}}
 ```sh
 curl --request POST \
@@ -919,6 +918,7 @@ The InfluxDB `/api/v2/query` endpoint returns query results in
 {{< /tabs-wrapper >}}
 
 ### Query results
+
 {{< expand-wrapper >}}
 {{% expand "View query results" %}}
 
@@ -957,7 +957,7 @@ The InfluxDB `/api/v2/query` endpoint returns query results in
 {{< /expand-wrapper >}}
 
 **Congratulations!** You've learned the basics of querying data in InfluxDB with SQL.
-For a deep dive into all the ways you can query InfluxDB, see the
+For a deep dive into all the ways you can query {{% cloud-name %}}, see the
 [Query data in InfluxDB](/influxdb/cloud-serverless/query-data/) section of documentation.
 
 {{< page-nav prev="/influxdb/cloud-serverless/get-started/write/" keepTab=true >}}
