@@ -122,13 +122,13 @@ After setting up InfluxDB and your project, you should have the following:
 The following example shows how to construct `Point` objects that follow the [example `home` schema](#example-home-schema), and then write the points as line protocol to an
 InfluxDB Cloud Dedicated database.
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
+{{< tabs-wrapper >}}
+{{% tabs %}}
 [Go](#)
 [Node.js](#)
 [Python](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+{{% /tabs %}}
+{{% tab-content %}}
 <!-- BEGIN GO PROJECT SETUP -->
 
 1.  Install [Go 1.13 or later](https://golang.org/doc/install).
@@ -140,8 +140,8 @@ InfluxDB Cloud Dedicated database.
     ```
 
 <!-- END GO SETUP PROJECT -->
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
+{{% /tab-content %}}
+{{% tab-content %}}
 <!-- BEGIN NODE.JS PROJECT SETUP -->
 
 Inside of your project directory, install the `@influxdata/influxdb-client` InfluxDB v2 JavaScript client library.
@@ -151,8 +151,8 @@ npm install --save @influxdata/influxdb-client
 ```
 
 <!-- END NODE.JS SETUP PROJECT -->
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
+{{% /tab-content %}}
+{{% tab-content %}}
 <!-- BEGIN PYTHON SETUP PROJECT -->
 
 1.  **Optional, but recommended**: Use `venv` or `conda` to activate a virtual environment for installing and executing code--for example:
@@ -170,92 +170,92 @@ npm install --save @influxdata/influxdb-client
     ```
 
 <!-- END PYTHON SETUP PROJECT -->
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ### Construct points and write line protocol
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
+{{< tabs-wrapper >}}
+{{% tabs %}}
 [Go](#)
 [Node.js](#)
 [Python](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+{{% /tabs %}}
+{{% tab-content %}}
 <!-- BEGIN GO SETUP SAMPLE -->
 
 1.  Create a file for your module--for example: `write-point.go`.
 
 2.  In `write-point.go`, enter the following sample code:
 
-```go
-package main
+    ```go
+    package main
 
-import (
-	"os"
-	"time"
-	"fmt"
-	"github.com/influxdata/influxdb-client-go/v2"
-)
+    import (
+      "os"
+      "time"
+      "fmt"
+      "github.com/influxdata/influxdb-client-go/v2"
+    )
 
-func main() {
-	// Set a log level constant
-	const debugLevel uint = 4
+    func main() {
+      // Set a log level constant
+      const debugLevel uint = 4
 
-	/**
-    * Define options for the client.
-		* Instantiate the client with the following arguments:
-    *   - An object containing InfluxDB URL and token credentials.
-    *   - Write options for batch size and timestamp precision.
-	**/
-  clientOptions := influxdb2.DefaultOptions().
-                    SetBatchSize(20).
-                    SetLogLevel(debugLevel).
-                    SetPrecision(time.Second)
+      /**
+        * Define options for the client.
+        * Instantiate the client with the following arguments:
+        *   - An object containing InfluxDB URL and token credentials.
+        *   - Write options for batch size and timestamp precision.
+      **/
+      clientOptions := influxdb2.DefaultOptions().
+                        SetBatchSize(20).
+                        SetLogLevel(debugLevel).
+                        SetPrecision(time.Second)
 
-	client := influxdb2.NewClientWithOptions(os.Getenv("INFLUX_URL"),
-              os.Getenv("INFLUX_TOKEN"),
-              clientOptions)
+      client := influxdb2.NewClientWithOptions(os.Getenv("INFLUX_URL"),
+                  os.Getenv("INFLUX_TOKEN"),
+                  clientOptions)
 
-	/**
-		* Create an asynchronous, non-blocking write client.
-		* Provide your InfluxDB org and database as arguments
-	**/
-	writeAPI := client.WriteAPI(os.Getenv("INFLUX_ORG"), "get-started")
+      /**
+        * Create an asynchronous, non-blocking write client.
+        * Provide your InfluxDB org and database as arguments
+      **/
+      writeAPI := client.WriteAPI(os.Getenv("INFLUX_ORG"), "get-started")
 
-	// Get the errors channel for the asynchronous write client.
-	errorsCh := writeAPI.Errors()
+      // Get the errors channel for the asynchronous write client.
+      errorsCh := writeAPI.Errors()
 
-	/** Create a point.
-		* Provide measurement, tags, and fields as arguments.
-	**/
-	p := influxdb2.NewPointWithMeasurement("home").
-				AddTag("room", "Kitchen").
-				AddField("temp", 72.0).
-				AddField("hum", 20.2).
-				AddField("co", 9).
-				SetTime(time.Now())
-	
-	// Define a proc for handling errors.
-	go func() {
-		for err := range errorsCh {
-				fmt.Printf("write error: %s\n", err.Error())
-		}
-	}()
+      /** Create a point.
+        * Provide measurement, tags, and fields as arguments.
+      **/
+      p := influxdb2.NewPointWithMeasurement("home").
+            AddTag("room", "Kitchen").
+            AddField("temp", 72.0).
+            AddField("hum", 20.2).
+            AddField("co", 9).
+            SetTime(time.Now())
+      
+      // Define a proc for handling errors.
+      go func() {
+        for err := range errorsCh {
+            fmt.Printf("write error: %s\n", err.Error())
+        }
+      }()
 
-	// Write the point asynchronously
-	writeAPI.WritePoint(p)
+      // Write the point asynchronously
+      writeAPI.WritePoint(p)
 
-	// Send pending writes from the buffer to the database.
-  writeAPI.Flush()
+      // Send pending writes from the buffer to the database.
+      writeAPI.Flush()
 
-	// Ensure background processes finish and release resources.
-	client.Close()
-}
-```
+      // Ensure background processes finish and release resources.
+      client.Close()
+    }
+    ```
 <!-- END GO SETUP SAMPLE -->
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
+{{% /tab-content %}}
+{{% tab-content %}}
 <!-- BEGIN NODE.JS SETUP SAMPLE -->
 
 1.  Create a file for your module--for example: `write-point.js`.
@@ -311,9 +311,9 @@ func main() {
     })
     ```
 <!-- END NODE.JS SETUP SAMPLE -->
-{{% /code-tab-content %}}
+{{% /tab-content %}}
 
-{{% code-tab-content %}}
+{{% tab-content %}}
 <!-- BEGIN PYTHON SETUP SAMPLE -->
 
 1.  Create a file for your module--for example: `write-point.py`.
@@ -356,8 +356,8 @@ func main() {
         write_api.close()
     ```
 <!-- END PYTHON SETUP PROJECT -->
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 The sample code does the following:
 
