@@ -74,6 +74,7 @@ in the `telegraf.conf`.
 ```toml
 [[outputs.influxdb_v2]]
   urls = ["https://cloud2.influxdata.com"]
+  # INFLUX_TOKEN is an environment variable you created for your database READ token
   token = "${INFLUX_TOKEN}"
   organization = ""
   bucket = "get-started"

@@ -68,24 +68,26 @@ metrics from different sources and writes them to specified destinations.
 
 ## Configure Telegraf to write to InfluxDB
 
-1.  Add and enable the [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2)
-    plugin in your Telegraf configuration file.
-2.  Include the following options:
+To send data to {{< cloud-name >}}, enable the
+[`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
+in the `telegraf.conf`.
 
-    - **urls**: a list (`[]`) of
-      [InfluxDB Cloud Serverless region URLs](/influxdb/cloud-serverless/reference/regions/)
-      to write data to
-    - **token**: an InfluxDB API token with _write_ permission to the bucket
-    - **organization**: your InfluxDB organization name
-    - **bucket**: the name of the InfluxDB bucket to write to.
-
+{{% code-placeholders "BUCKET_NAME" %}}
 ```toml
 [[outputs.influxdb_v2]]
-  urls = ["http://localhost:8086"]
-  token = "{$INFLUX_TOKEN}"
-  organization = "example-org"
-  bucket = "example-bucket"
+  urls = ["https://cloud2.influxdata.com"]
+  # INFLUX_TOKEN is an environment variable you created for your API read token
+  token = "${INFLUX_TOKEN}"
+  organization = ""
+  bucket = "BUCKET_NAME"
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- **`BUCKET_NAME`**: the name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to write data to
+
+To learn more about configuration options, see [Enable and configure the InfluxDB v2 output plugin](/influxdb/cloud-serverless/write-data/use-telegraf/configure/#enable-and-configure-the-influxdb-v2-output-plugin).
 
 {{< expand-wrapper >}}
 {{% expand "View full example Telegraf configuration file" %}}
@@ -115,10 +117,10 @@ metrics from different sources and writes them to specified destinations.
   csv_reset_mode = "none"
 
 [[outputs.influxdb_v2]]
-  urls = ["http://localhost:8086"]
+  urls = ["https://cloud2.influxdata.com"]
   token = "{$INFLUX_TOKEN}"
-  organization = "example-org"
-  bucket = "example-bucket"
+  organization = ""
+  bucket = "BUCKET_NAME"
 ```
 
 {{% /expand %}}
@@ -129,7 +131,7 @@ data to InfluxDB.
 
 #### Other Telegraf configuration options
 
-The preceding examples describe Telegraf configurations necessary for writing to InfluxDB Cloud Serverless.
+The preceding examples describe Telegraf configurations necessary for writing to {{% cloud-name %}}.
 The output plugin provides several other options for configuring the Telegraf client:
 
 - `influx_uint_support`: supported by the InfluxDB IOx storage engine.
