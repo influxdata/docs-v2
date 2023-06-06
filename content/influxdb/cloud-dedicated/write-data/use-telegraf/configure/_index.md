@@ -22,7 +22,7 @@ aliases:
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics to
 {{< cloud-name >}}.
-Learn how to enable the `influxdb_v2` output plugin in new and
+Learn how to enable the plugin in new and
 existing Telegraf configurations,
 and then start Telegraf using the custom configuration file.
 
@@ -71,20 +71,28 @@ To send data to {{< cloud-name >}}, enable the
 [`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
 in the `telegraf.conf`.
 
+{{% code-placeholders "DATABASE_NAME" %}}
 ```toml
 [[outputs.influxdb_v2]]
   urls = ["https://cluster-id.influxdb.io"]
+  # INFLUX_TOKEN is an environment variable you created for your database WRITE token
+
   token = "${INFLUX_TOKEN}"
   organization = ""
-  bucket = "get-started"
+  bucket = "DATABASE_NAME"
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
 
 The InfluxDB output plugin configuration contains the following options:
 
 ##### urls
 
 An array of URL strings.
-To write to InfluxDB Cloud Dedicated, include your InfluxDB Cloud Dedicated cluster URL using the HTTPS protocol:
+To write to {{% cloud-name %}}, include your {{% cloud-name %}} cluster URL using the HTTPS protocol:
 
 ```toml
 ["https://cluster-id.influxdb.io"]
@@ -92,7 +100,7 @@ To write to InfluxDB Cloud Dedicated, include your InfluxDB Cloud Dedicated clus
 
 ##### token
 
-Your InfluxDB Cloud Dedicated [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ permission to the database.
+Your {{% cloud-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ permission to the database.
 
 In the examples, **`INFLUX_TOKEN`** is an environment variable assigned to a [database token](/influxdb/cloud-dedicated/admin/tokens/) that has _write_ permission to the database.
 
@@ -102,9 +110,7 @@ For {{% cloud-name %}}, set this to an empty string (`""`).
 
 ##### bucket
 
-The name of the InfluxDB Cloud Dedicated database to write data to.
-
-In the example, **`INFLUX_DATABASE`** is an environment variable assigned to the [database](/influxdb/cloud-dedicated/admin/databases/) name.
+The name of the {{% cloud-name %}} database to write data to.
 
 {{% note %}}
 ##### Write to InfluxDB v1.x and {{< cloud-name >}}

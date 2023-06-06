@@ -76,7 +76,7 @@ in the `telegraf.conf`.
 ```toml
 [[outputs.influxdb_v2]]
   urls = ["https://cloud2.influxdata.com"]
-  # INFLUX_TOKEN is an environment variable you created for your API read token
+  # INFLUX_TOKEN is an environment variable you created for your API WRITE token
   token = "${INFLUX_TOKEN}"
   organization = ""
   bucket = "BUCKET_NAME"
@@ -119,7 +119,7 @@ To learn more about configuration options, see [Enable and configure the InfluxD
 
 [[outputs.influxdb_v2]]
   urls = ["https://cloud2.influxdata.com"]
-  # INFLUX_TOKEN is an environment variable you created for your API read token
+  # INFLUX_TOKEN is an environment variable you created for your API WRITE token
   token = "{$INFLUX_TOKEN}"
   organization = ""
   bucket = "BUCKET_NAME"
