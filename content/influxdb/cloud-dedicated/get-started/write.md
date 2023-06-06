@@ -136,9 +136,9 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 The following examples show how to write the 
 [sample data](#home-sensor-data-line-protocol), already in line protocol format,
-to an InfluxDB Cloud Dedicated database.
+to an {{% cloud-name %}} database.
 
-To learn more about available tools and options, see [Write data](influxdb/cloud-serverless/write-data/).
+To learn more about available tools and options, see [Write data](influxdb/cloud-dedicated/write-data/).
 
 {{% note %}}
 All API, cURL, and client library examples in this getting started tutorial assume your InfluxDB
@@ -235,7 +235,7 @@ To learn more, see how to [use Telegraf to write data](/influxdb/cloud-dedicated
 {{% tab-content %}}
 <!----------------------------- BEGIN cURL CONTENT ----------------------------->
 
-To write data to InfluxDB Cloud Dedicated using the InfluxDB v2 HTTP API, send a
+To write data to InfluxDB using the InfluxDB v2 HTTP API, send a
 request to the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
 {{< api-endpoint endpoint="https://cluster-id.influxdb.io/api/v2/write" method="post" api-ref="/influxdb/cloud-iox/api/#operation/PostWrite" >}}
@@ -252,7 +252,7 @@ Include the following with your request:
 - **Request body**: Line protocol as plain text
 
 {{% note %}}
-With the InfluxDB Cloud Dedicated v2 API `/api/v2/write` endpoint, `Authorization: Bearer` and `Authorization: Token` are equivalent and you can use either scheme to pass a database token in your request. For more information about HTTP API token schemes, see how to [authenticate API requests](/influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests).
+With the {{% cloud-name %}} v2 API `/api/v2/write` endpoint, `Authorization: Bearer` and `Authorization: Token` are equivalent and you can use either scheme to pass a database token in your request. For more information about HTTP API token schemes, see how to [authenticate API requests](/influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests).
 {{% /note %}}
 
 The following example uses cURL and the InfluxDB v2 API to write line protocol
@@ -302,7 +302,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% influxdb/custom-timestamps %}}
 
 
-To write data to InfluxDB Cloud Dedicated using Python, use the
+To write data to {{% cloud-name %}} using Python, use the
 [`influxdb_client_3` module](https://github.com/InfluxCommunity/influxdb3-python).
 The following steps include setting up a Python virtual environment to scope
 dependencies to your current project.
@@ -335,7 +335,11 @@ dependencies to your current project.
     pip install pyarrow influxdb_client_3
     ```
 
-5.  Create a new file for your python code--for example: `write.py`.
+5.  In your terminal or editor, create a new file for your code--for example: `write.py`.
+
+    ```sh
+    touch write.py
+    ```
 
 6.  Inside of `write.py`, enter the following sample code:
 
@@ -392,10 +396,10 @@ dependencies to your current project.
     2.  Calls the `InfluxDBClient3()` constructor to instantiate an InfluxDB client
         configured with the following credentials:
 
-        - **host**: InfluxDB Cloud Dedicated cluster hostname (URL without protocol or trailing slash)
+        - **host**: {{% cloud-name %}} cluster hostname (URL without protocol or trailing slash)
         - **org**: an empty or arbitrary string (InfluxDB ignores this parameter)
-        - **token**: InfluxDB API token with write access to the target database
-        - **database**: InfluxDB Cloud Dedicated database name
+        - **token**: an InfluxDB API token with write access to the target database
+        - **database**: the name of the {{% cloud-name %}} database to write to
     
     3.  Defines a list of line protocol strings where each string represents a data record.
     4.  Calls the `client.write()` method with the line protocol record list and write options.
@@ -404,7 +408,7 @@ dependencies to your current project.
         precision, the example passes the `write_precision='s'` option
         to set the timestamp precision to seconds.**
 
-6.  To execute the module and write line protocol to your InfluxDB Cloud Dedicated
+6.  To execute the module and write line protocol to your {{% cloud-name %}}
     database, enter the following command in your terminal:
     
       ```sh
@@ -419,7 +423,7 @@ dependencies to your current project.
 <!----------------------------- BEGIN GO CONTENT ------------------------------>
 {{% influxdb/custom-timestamps %}}
 
-To write data to InfluxDB Cloud Dedicated using Go, use the
+To write data to {{% cloud-name %}} using Go, use the
 [influxdb-client-go module](https://github.com/influxdata/influxdb-client-go).
 
 1.  Inside of your project directory, create a new module directory and navigate into it.
@@ -434,7 +438,7 @@ To write data to InfluxDB Cloud Dedicated using Go, use the
     go mod init influxdb_go_client
     ```
 
-3. Create a file for your code--for example, `write.go`.
+3.  In your terminal or editor, create a new file for your code--for example: `write.go`.
 
     ```sh
     touch write.go
@@ -566,7 +570,7 @@ To write data to InfluxDB Cloud Dedicated using Go, use the
     ```
 
 6.  To execute the module and write the line protocol
-    to your InfluxDB Cloud Dedicated database, enter the following command:
+    to your {{% cloud-name %}} database, enter the following command:
 
     ```sh
     go run ./write.go
@@ -578,7 +582,7 @@ To write data to InfluxDB Cloud Dedicated using Go, use the
 <!------------------------------- BEGIN NODE.JS CONTENT ----------------------->
 {{% influxdb/custom-timestamps %}}
 
-To write data to InfluxDB Cloud Dedicated using Node.js, use the
+To write data to {{% cloud-name %}} using Node.js, use the
 [influxdb-client-js package](https://github.com/influxdata/influxdb-client-js).
 
 1. Inside of your project directory, create an NPM or Yarn package and install 
@@ -588,7 +592,7 @@ To write data to InfluxDB Cloud Dedicated using Node.js, use the
     npm init -y && npm install --save @influxdata/influxdb-client
     ```
 
-2. Create a file for your code--for example: `write.js`.
+2.  In your terminal or editor, create a new file for your code--for example: `write.js`.
 
     ```sh
     touch write.js
@@ -651,7 +655,7 @@ To write data to InfluxDB Cloud Dedicated using Node.js, use the
 
     /**
     * Create a write client from the getWriteApi method.
-    * Provide your org and Database.
+    * Provide your org and database.
     **/
     const writeApi = influxDB.getWriteApi(org, 'get-started', 's');
 
@@ -695,7 +699,7 @@ To write data to InfluxDB Cloud Dedicated using Node.js, use the
           The `close()` method sends any records remaining in the buffer,
           executes callbacks, and releases resources.
 
-4. To execute the file and write the line protocol to your InfluxDB Cloud Dedicated database,
+4. To execute the file and write the line protocol to your {{% cloud-name %}} database,
     enter the following command in your terminal:
    
     ```sh
