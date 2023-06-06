@@ -1,5 +1,5 @@
 ---
-title: Use Telegraf to write CSV data to InfluxDB Cloud Serverless
+title: Use Telegraf to write CSV data to InfluxDB
 description: >
   Use the Telegraf `file` input plugin to read and parse CSV data into
   [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/)
@@ -92,6 +92,7 @@ To learn more about configuration options, see [Enable and configure the InfluxD
 {{< expand-wrapper >}}
 {{% expand "View full example Telegraf configuration file" %}}
 
+{{% code-placeholders "BUCKET_NAME" %}}
 ```toml
 [[inputs.file]]
   files = ["/path/to/example.csv"]
@@ -118,10 +119,19 @@ To learn more about configuration options, see [Enable and configure the InfluxD
 
 [[outputs.influxdb_v2]]
   urls = ["https://cloud2.influxdata.com"]
+  # INFLUX_TOKEN is an environment variable you created for your API read token
   token = "{$INFLUX_TOKEN}"
   organization = ""
   bucket = "BUCKET_NAME"
+  content_encoding = "gzip"
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- **`BUCKET_NAME`**: the name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to write data to
+
+**`INFLUX_TOKEN`** is an environment variable you created in the [Setup instructions](/influxdb/cloud-serverless/get-started/setup/?t=Telegraf) of the Get Started tutorial.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

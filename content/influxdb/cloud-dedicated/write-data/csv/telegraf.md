@@ -68,43 +68,31 @@ metrics from different sources and writes them to specified destinations.
 
 ## Configure Telegraf to write to InfluxDB
 
-1.  Add and enable the [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2)
-    plugin in your Telegraf configuration file.
-2.  Include the following options:
+To send data to {{< cloud-name >}}, enable the
+[`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
+in the `telegraf.conf`.
 
-    - **url**: a list (`[]`) containing your InfluxDB Cloud Dedicated cluster URL using the HTTPS
-      protocol:
-
-      ```toml
-      ["https://cluster-id.influxdb.io"]
-      ```
-    - **token**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with permission to write to the database.
-    - **organization**: an empty string (`""`) (ignored by InfluxDB Cloud Dedicated).
-    - **bucket**: the name of the [database](/influxdb/cloud-dedicated/admin/databases/) to write to.
-
-The following example shows a minimal [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2) configuration for writing data to InfluxDB Cloud Dedicated:
-
+{{% code-placeholders "DATABASE_NAME" %}}
 ```toml
 [[outputs.influxdb_v2]]
   urls = ["https://cluster-id.influxdb.io"]
-  token = "DATABASE_TOKEN"
+  # INFLUX_TOKEN is an environment variable you created for your API read token
+  token = "${INFLUX_TOKEN}"
   organization = ""
   bucket = "DATABASE_NAME"
 ```
+{{% /code-placeholders %}}
 
 Replace the following:
 
-- **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated [database](/influxdb/cloud-dedicated/admin/databases/)
-- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
+- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
+
+To learn more about configuration options, see [Enable and configure the InfluxDB v2 output plugin](/influxdb/cloud-dedicated/write-data/use-telegraf/configure/#enable-and-configure-the-influxdb-v2-output-plugin).
 
 {{< expand-wrapper >}}
 {{% expand "View full example Telegraf configuration file" %}}
 
-In the following example:
-
-- **`INFLUX_TOKEN`** is an environment variable assigned to a [database token](/influxdb/cloud-dedicated/admin/tokens/) value.
-- **`DATABASE_NAME`** is the InfluxDB Cloud Dedicated database to write to.
-
+{{% code-placeholders "DATABASE_NAME" %}}
 ```toml
 [[inputs.file]]
   files = ["/path/to/example.csv"]
@@ -130,12 +118,20 @@ In the following example:
   csv_reset_mode = "none"
 
 [[outputs.influxdb_v2]]
-  urls = ["https://cluster-id.influxdb.io"]
-  token = "${INFLUX_TOKEN}"
+  urls = ["https://cloud2.influxdata.com"]
+  # INFLUX_TOKEN is an environment variable you created for your API read token
+  token = "{$INFLUX_TOKEN}"
   organization = ""
   bucket = "DATABASE_NAME"
   content_encoding = "gzip"
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
+
+**`INFLUX_TOKEN`** is an environment variable you created in the [Setup instructions](/influxdb/cloud-dedicated/get-started/setup/?t=Telegraf) of the Get Started tutorial.
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -145,7 +141,7 @@ data to InfluxDB.
 
 #### Other Telegraf configuration options
 
-The preceding examples describe Telegraf configurations necessary for writing to InfluxDB Cloud Dedicated.
+The preceding examples describe Telegraf configurations necessary for writing to {{% cloud-name %}}.
 The output plugin provides several other options for configuring the Telegraf client:
 
 - `influx_uint_support`: supported by the InfluxDB IOx storage engine.
