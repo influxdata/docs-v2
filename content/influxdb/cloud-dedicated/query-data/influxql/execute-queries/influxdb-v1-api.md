@@ -64,6 +64,46 @@ Replace the following:
   [Database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission
   on the database you want to query
 
+{{% note %}}
+#### Authenticate with username and password
+
+If using basic authentication or query string authentication (username and password)
+to interact with the v1 HTTP query API, provide your **database token** as the
+**password** and an arbitrary string as the username.
+{{< cloud-name >}} ignores the username.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Basic Auth](#)
+[Query String Auth](#)
+{{% /code-tabs %}}
+
+{{% code-tab-content %}}
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+```sh
+curl --get https://cluster-id.influxdb.io/query \
+  --header "Authorization: Basic ignored:DATABASE_TOKEN" \
+  --data-urlencode "db=DATABASE_NAME" \
+  --data-urlencode "q=SELECT * FROM home"
+```
+{{% /code-placeholders %}}
+{{% /code-tab-content %}}
+
+{{% code-tab-content %}}
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+```sh
+curl --get https://cluster-id.influxdb.io/query \
+  --data-urlencode "u=ignored" \
+  --data-urlencode "p=DATABASE_TOKEN" \
+  --data-urlencode "db=DATABASE_NAME" \
+  --data-urlencode "q=SELECT * FROM home"
+```
+{{% /code-placeholders %}}
+{{% /code-tab-content %}}
+
+{{< /code-tabs-wrapper >}}
+{{% /note %}}
+
 ## Return results as JSON or CSV
 
 By default, the `/query` endpoint returns results in **JSON**, but it can also
