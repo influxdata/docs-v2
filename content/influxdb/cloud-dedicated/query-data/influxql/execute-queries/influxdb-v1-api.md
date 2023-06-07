@@ -61,16 +61,17 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Name of the database to query
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  [Database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission
-  on the database you want to query
+  
 
 {{% note %}}
 #### Authenticate with username and password
 
 If using basic authentication or query string authentication (username and password)
-to interact with the v1 HTTP query API, provide your **database token** as the
-**password** and an arbitrary string as the username.
-{{< cloud-name >}} ignores the username.
+to interact with the v1 HTTP query API, provide the following credentials:
+
+- **username**: Arbitrary string _({{< cloud-name >}} ignores the username)_
+- **password**: [Database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission
+  on the database you want to query
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
