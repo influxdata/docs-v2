@@ -161,21 +161,21 @@ influx auth create \
 ##### Create a token scoped to a user and with specified read and write permissions
 
 ```sh
-  influx auth create       \
-    --org ORG_NAME         \
-    --user USERNAME        \
-    --read-authorizations  \
-    --write-authorizations \
-    --read-buckets         \
-    --write-buckets        \
-    --read-dashboards      \
-    --write-dashboards     \
-    --read-tasks           \
-    --write-tasks          \
-    --read-telegrafs       \
-    --write-telegrafs      \
-    --read-users           \
-    --write-users
+influx auth create       \
+  --org ORG_NAME         \
+  --user USERNAME        \
+  --read-authorizations  \
+  --write-authorizations \
+  --read-buckets         \
+  --write-buckets        \
+  --read-dashboards      \
+  --write-dashboards     \
+  --read-tasks           \
+  --write-tasks          \
+  --read-telegrafs       \
+  --write-telegrafs      \
+  --read-users           \
+  --write-users
 ```
 
 See the [`influx auth create` documentation](/{{< latest "influxdb" >}}/reference/cli/influx/auth/create) for information about other available flags.
