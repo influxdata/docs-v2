@@ -1,5 +1,5 @@
 ---
-title: Use the InfluxDB v1 HTTP query API
+title: Use the InfluxDB v1 HTTP query API to query with InfluxQL
 seotitle: Use InfluxQL and InfluxDB v1 HTTP query API
 description: >
   Use the InfluxDB v1 HTTP query API to query data in InfluxDB Cloud Dedicated
@@ -8,7 +8,7 @@ weight: 401
 menu:
   influxdb_cloud_dedicated:
     parent: influxql-execute-queries
-    name: v1 query API
+    name: Use the v1 query API
 influxdb/cloud-dedicated/tags: [query, influxql, python]
 list_code_example: |
   ```sh
