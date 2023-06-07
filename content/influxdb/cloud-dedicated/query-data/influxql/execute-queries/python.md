@@ -197,11 +197,6 @@ The `influxdb_client_3` module provides a simple and convenient way to interact
 with {{< cloud-name >}} using Python. This module supports both writing data to
 InfluxDB and querying data using SQL or InfluxQL queries.
 
-{{% note %}}
-_To query data with **InfluxQL** and Python, see
-[Use InfluxQL with Python](/influxdb/cloud-dedicated/query-data/influxql/execute-queries/python/)._
-{{% /note %}}
-
 Installing `inflxudb3-python` also installs the
 [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that you'll
 use for working with Arrow data returned from queries.
@@ -229,9 +224,9 @@ example, `query-example.py`:
 
 from influxdb_client_3 import InfluxDBClient3
 
-# Instantiate a InfluxDBClient3 configured for your database
+# Instantiate an InfluxDBClient3 client configured for your database
 client = InfluxDBClient3(
-    host='b0c7cce5-8dbc-428e-98c6-7f996fb96467.a.influxdb.io',
+    host='cluster-id.influxdb.io',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
@@ -268,7 +263,7 @@ query(query: str, language: str)
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host='b0c7cce5-8dbc-428e-98c6-7f996fb96467.a.influxdb.io',
+    host='cluster-id.influxdb.io',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )

@@ -222,7 +222,7 @@ example, `query-example.py`:
 
 from influxdb_client_3 import InfluxDBClient3
 
-# Instantiate a InfluxDBClient3 configured for your database
+# Instantiate an InfluxDBClient3 client configured for your database
 client = InfluxDBClient3(
     host='b0c7cce5-8dbc-428e-98c6-7f996fb96467.a.influxdb.io',
     token='DATABASE_TOKEN',
@@ -261,7 +261,7 @@ query(query: str, language: str)
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host='b0c7cce5-8dbc-428e-98c6-7f996fb96467.a.influxdb.io',
+    host='cluster-id.influxdb.io',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
