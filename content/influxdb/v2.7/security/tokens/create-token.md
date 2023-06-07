@@ -103,64 +103,6 @@ find the token you want to clone and click the **{{< icon "settings" >}}** icon 
 
 ## Create a token using the influx CLI
 
-{{% warn %}}
-InfluxDB 2.4 introduced a bug that prevents you from creating an **all-access** or **operator** token using the `influx auth create` command, and causes the following error: `Error: could not write auth with provided arguments: 403 Forbidden: permission.`
-
-Until this bug is resolved in the next influx CLI release, please use the [workaround below to create an all-access or operator token](/influxdb/v2.7/security/tokens/create-token/#workaround-to-create-an-all-access-or-operator-token).
-{{% /warn %}}
-
-### **Workaround:** To create an all-access or operator token
-
-- Use the following command to create an [all-access](/influxdb/v2.7/security/tokens/#all-access-token) or [operator](/influxdb/v2.7/security/tokens/#operator-token) token. For an operator token, you must also include the `--read-orgs` and `--write-orgs` flags.
-
-```sh
-influx auth create    
-                      --org-id or --org              \
-                      --read-authorizations          \
-                      --write-authorizations         \
-                      --read-buckets                 \
-                      --write-buckets                \
-                      --read-dashboards              \
-                      --write-dashboards             \
-                      --read-tasks                   \
-                      --write-tasks                  \
-                      --read-telegrafs               \
-                      --write-telegrafs              \
-                      --read-users                   \
-                      --write-users                  \
-                      --read-variables               \
-                      --write-variables              \
-                      --read-secrets                 \
-                      --write-secrets                \
-                      --read-labels                  \
-                      --write-labels                 \
-                      --read-views                   \
-                      --write-views                  \
-                      --read-documents               \
-                      --write-documents              \
-                      --read-notificationRules       \
-                      --write-notificationRules      \
-                      --read-notificationEndpoints   \
-                      --write-notificationEndpoints  \
-                      --read-checks                  \
-                      --write-checks                 \
-                      --read-dbrp                    \
-                      --write-dbrp                   \
-                      --read-annotations             \
-                      --write-annotations            \
-                      --read-sources                 \
-                      --write-sources                \
-                      --read-scrapers                \
-                      --write-scrapers               \
-                      --read-notebooks               \
-                      --write-notebooks              \
-                      --read-remotes                 \
-                      --write-remotes                \
-                      --read-replications            \
-                      --write-replications
-```
-
-<!--
 Use the [`influx auth create` command](/influxdb/v2.7/reference/cli/influx/auth/create) to create a token.
 Include flags with the command to grant specific permissions to the token.
 See the [available flags](/influxdb/v2.7/reference/cli/influx/auth/create#flags).
@@ -201,8 +143,9 @@ To create a new operator token without using an existing one, see how to use the
 {{% /note %}}
 {{% /oss-only %}}
 
+#### Create a token with specified permissions
 
-#### Create a token with specified read permissions
+##### Create a token with specified read permissions
 
 ```sh
 influx auth create \
@@ -213,6 +156,26 @@ influx auth create \
   --read-tasks \
   --read-telegrafs \
   --read-user
+```
+
+##### Create a token scoped to a user and with specified read and write permissions
+
+```sh
+  influx auth create       \
+    --org ORG_NAME         \
+    --user USERNAME        \
+    --read-authorizations  \
+    --write-authorizations \
+    --read-buckets         \
+    --write-buckets        \
+    --read-dashboards      \
+    --write-dashboards     \
+    --read-tasks           \
+    --write-tasks          \
+    --read-telegrafs       \
+    --write-telegrafs      \
+    --read-users           \
+    --write-users
 ```
 
 See the [`influx auth create` documentation](/{{< latest "influxdb" >}}/reference/cli/influx/auth/create) for information about other available flags.
@@ -237,7 +200,7 @@ Include the following in your request:
 
 ### Create a token scoped to a user
 
-To scope a token to a user other than the token creator, pass `userID` in the request
+To scope a token to a user other than the token creator, pass the `userID` property in the request
 body.
 
 ```sh
@@ -247,5 +210,3 @@ body.
 See the
 [`POST /api/v2/authorizations` documentation](/influxdb/v2.7/api/#operation/PostAuthorizations)
 for more information about options.
-
-<!--  -->
