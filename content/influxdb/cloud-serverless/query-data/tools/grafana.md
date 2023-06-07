@@ -1,10 +1,10 @@
 ---
 title: Use Grafana to query and visualize data
-seotitle: Use Grafana to query and visualize data stored in InfluxDB Cloud Serverless
+seotitle: Use Grafana to query and visualize data stored in InfluxDB
 list_title: Use Grafana
 description: >
   Install and run [Grafana](https://grafana.com/) to query and visualize data
-  stored in InfluxDB Cloud Serverless.
+  stored in InfluxDB.
 weight: 101
 menu:
   influxdb_cloud_serverless:
@@ -17,7 +17,7 @@ alt_engine: /influxdb/cloud/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) to query and visualize data stored in
-InfluxDB Cloud Serverless.
+{{% cloud-name %}}.
 Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-flightsql-datasource)
 to query InfluxDB with the Flight SQL protocol.
 
@@ -106,8 +106,8 @@ Grafana Cloud instance.
 5.  Add your connection credentials:
 
     - **Host**: Provide the host and port of your Flight SQL client.
-      For InfluxDB Cloud Serverless, this is your
-      [InfluxDB Cloud Serverless region domain](/influxdb/cloud-serverless/reference/regions/)
+      For {{% cloud-name %}}, this is your
+      [{{% cloud-name %}} region domain](/influxdb/cloud-serverless/reference/regions/)
       and port 443. For example:
 
       ```
@@ -115,12 +115,12 @@ Grafana Cloud instance.
       ```
 
     - **AuthType**: Select **token**.
-    - **Token**: Provide your InfluxDB API token with read access to the buckets
+    - **Token**: Provide an InfluxDB [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with read access to the buckets
       you want to query.
     - **Require TLS/SSL**: Enable this toggle.
 
 6.  Add connection **MetaData**.
-    InfluxDB Cloud Serverless requires _one_ of the following key-value pairs:
+    {{% cloud-name %}} requires _one_ of the following key-value pairs:
     
     - **Key**: `database`, **Value**: Bucket name
     - **Key**: `bucket-id`, **Value**: Bucket ID
@@ -134,7 +134,7 @@ Grafana Cloud instance.
 ## Query InfluxDB with Grafana
 
 After you [configure and save a FlightSQL datasource](#create-and-configure-a-flightsql-datasource),
-use Grafana to build, run, and inspect queries against InfluxDB buckets.
+use Grafana to build, run, and inspect queries against your InfluxDB bucket.
 
 {{% note %}}
 {{% sql/sql-schema-intro %}}

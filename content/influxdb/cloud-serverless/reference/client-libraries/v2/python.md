@@ -23,39 +23,44 @@ If just getting started, see [Get started with InfluxDB](/influxdb/cloud-serverl
 
 ## Before you begin
 
+You'll need the following prerequisites:
+
 1. Install the InfluxDB Python library:
 
     ```sh
     pip install influxdb-client
     ```
 
-2. Visit your InfluxDB URL to ensure InfluxDB is running:
-   
-   ```http
-   http://localhost:8086
-   ```
+2. InfluxDB Cloud Serverless region URL using the HTTPS protocol--for example: https://cloud2.influxdata.com.
+3. InfluxDB [organization](/influxdb/cloud-serverless/admin/organizations/) ID.
+4. Name of the [bucket](/influxdb/cloud-serverless/admin/buckets/) to write to.
+5. InfluxDB [API token](/influxdb/cloud-serverless/reference/glossary/#token) with permission to write to the bucket.
+   _For security reasons, we recommend setting an environment variable to store your token and avoid exposing the raw token value in your script._
 
 ## Write data to InfluxDB with Python
 
-We are going to write some data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) using the Python library.
+Follow the steps to write [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) data to an InfluxDB Cloud Serverless bucket.
 
-1. In your Python program, import the InfluxDB client library and use it to write data to InfluxDB.
+1. In your editor, create a file for your Python program--for example: `write.py`.
+2. In the file, import the InfluxDB client library.
 
    ```python
    import influxdb_client
    from influxdb_client.client.write_api import SYNCHRONOUS
+   import os
    ```
 
-2. Define a few variables with the name of your [bucket](/influxdb/cloud-serverless/organizations/buckets/), [organization](/influxdb/cloud-serverless/organizations/), and [token](/influxdb/cloud-serverless/security/tokens/).
+3. Define variables for your [bucket name](/influxdb/cloud-serverless/admin/buckets/), [organization](/influxdb/cloud-serverless/admin/organizations/), and [token](/influxdb/cloud-serverless/reference/glossary/#token).
 
    ```python
-   bucket = "INFLUX_BUCKET"
+   bucket = "BUCKET_NAME"
    org = "INFLUX_ORG"
-   token = "INFLUX_TOKEN"
-   url="http://localhost:8086"
+   # INFLUX_TOKEN is an environment variable you created for your API WRITE token
+   token = os.getenv('INFLUX_TOKEN')
+   url="https://cloud2.influxdata.com"
    ```
 
-3. Instantiate the client. The `InfluxDBClient` object takes three named parameters: `url`, `org`, and `token`. Pass in the named parameters.
+4. To instantiate the client, call the `influxdb_client.InfluxDBClient()` method with the following keyword arguments: `url`, `org`, and `token`.
 
    ```python
    client = influxdb_client.InfluxDBClient(
@@ -66,13 +71,13 @@ We are going to write some data in [line protocol](/influxdb/cloud-serverless/re
    ```
     The `InfluxDBClient` object has a `write_api` method used for configuration.
 
-4. Instantiate a **write client** using the `client` object and the `write_api` method. Use the `write_api` method to configure the writer object.
+5. Instantiate a **write client** by calling the `client.write_api()` method with write configuration options.
 
    ```python
    write_api = client.write_api(write_options=SYNCHRONOUS)
    ```
 
-5. Create a [point](/influxdb/cloud-serverless/reference/glossary/#point) object and write it to InfluxDB using the `write` method of the API writer object. The write method requires three parameters: `bucket`, `org`, and `record`.
+6. Create a [point](/influxdb/cloud-serverless/reference/glossary/#point) object and write it to InfluxDB using the `write` method of the API writer object. The write method requires three parameters: `bucket`, `org`, and `record`.
 
    ```python
    p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)
@@ -84,12 +89,13 @@ We are going to write some data in [line protocol](/influxdb/cloud-serverless/re
 ```python
 import influxdb_client
 from influxdb_client.client.write_api import SYNCHRONOUS
+import os
 
-bucket = "<my-bucket>"
-org = "<my-org>"
-token = "<my-token>"
-# Store the URL of your InfluxDB instance
-url="http://localhost:8086"
+bucket = "BUCKET_NAME"
+org = "INFLUX_ORG"
+# INFLUX_TOKEN is an environment variable you created for your API WRITE token
+token = os.getenv('INFLUX_TOKEN')
+url="https://cloud2.influxdata.com"
 
 client = influxdb_client.InfluxDBClient(
     url=url,
@@ -103,3 +109,7 @@ write_api = client.write_api(write_options=SYNCHRONOUS)
 p = influxdb_client.Point("my_measurement").tag("location", "Prague").field("temperature", 25.3)
 write_api.write(bucket=bucket, org=org, record=p)
 ```
+
+## Query data from InfluxDB with Python
+
+To use query your InfluxDB Cloud Serverless bucket, use a Python [Flight SQL client with gRPC](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/).
