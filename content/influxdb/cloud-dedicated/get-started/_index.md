@@ -102,7 +102,7 @@ be used to perform actions outlined in this tutorial.
 **InfluxDB Cloud Dedicated requires authentication** using
 [tokens](/influxdb/cloud-dedicated/security/tokens/).
 
-There a two types of tokens:
+There are two types of tokens:
 
 - **Database token**: A token that grants read and write access to InfluxDB
   databases.

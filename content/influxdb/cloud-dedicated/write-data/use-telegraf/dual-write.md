@@ -1,9 +1,9 @@
 ---
 title: Dual write to InfluxDB OSS and InfluxDB Cloud
 description: >
-  Configure Telegraf to write data to both InfluxDB OSS and InfluxDB Cloud Serverless simultaneously.
+  Configure Telegraf to write data to both InfluxDB OSS and InfluxDB Cloud Dedicated simultaneously.
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud_dedicated:
     name: Dual write to OSS & Cloud
     parent: Use Telegraf
 weight: 203
@@ -16,10 +16,10 @@ you may want to set up Telegraf to dual write.
 Use Telegraf to write to both InfluxDB OSS and {{< cloud-name >}} simultaneously.
 
 The sample configuration below uses:
-  - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2) twice: first pointing to the OSS instance and then to the {{< cloud-name >}} instance.
-  - Two different tokens, one for OSS and one for Cloud Dedicated. You'll need to configure both tokens as environment variables (see how to [Configure authentication credentials as environment variables](/influxdb/cloud-serverless/get-started/setup/?t=Telegraf)).
+  - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2) twice: first pointing to the OSS instance and then to the {{< cloud-name >}} cluster.
+  - Two different tokens, one for OSS and one for Cloud Dedicated. You'll need to configure both tokens as environment variables (see how to [Configure authentication credentials as environment variables](/influxdb/cloud-dedicated/get-started/setup/#configure-authentication-credentials)).
 
-Use the configuration below to write your data to both OSS and Cloud Serverless instances simultaneously.
+Use the configuration below to write your data to both OSS and Cloud Dedicated instances simultaneously.
 
 ## Sample configuration
 
@@ -44,18 +44,18 @@ Use the configuration below to write your data to both OSS and Cloud Serverless 
   ## Destination bucket to write to.
   bucket = "BUCKET_NAME_OSS"
 
-# Send data to InfluxDB Cloud Serverless instance
+# Send data to InfluxDB Dedicated instance
  [[outputs.influxdb_v2]]
   ## The URLs of the InfluxDB Cloud instance.
 
-  urls = ["https://cloud2.influxdata.com"]
+  urls = ["https://cluster-id.influxdb.io"]
 
   ## Cloud token for authentication.
   token = "${INFLUX_TOKEN}"
 
-  ## For InfluxDB Cloud Serverless, set organization to an empty string.
+  ## For InfluxDB Cloud Dedicated, set organization to an empty string.
   organization = ""
 
   ## Destination bucket to write into.
-  bucket = "BUCKET_NAME"
+  bucket = "DATABASE_NAME"
   ```

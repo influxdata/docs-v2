@@ -6,12 +6,11 @@ description: >
   Use Telegraf to collect and write data to InfluxDB.
   Create Telegraf configurations in the InfluxDB UI or manually configure Telegraf.
 aliases:
-  - /influxdb/cloud-serverless/collect-data/advanced-telegraf
-  - /influxdb/cloud-serverless/collect-data/use-telegraf
-  - /influxdb/cloud-serverless/write-data/use-telegraf/
-  - /influxdb/cloud-serverless/write-data/no-code/use-telegraf/
+  - /influxdb/cloud-dedicated/collect-data/advanced-telegraf
+  - /influxdb/cloud-dedicated/collect-data/use-telegraf
+  - /influxdb/cloud-dedicated/write-data/no-code/use-telegraf/
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud_dedicated:
     name: Use Telegraf
     parent: Write data
 alt_engine: /influxdb/cloud/write-data/no-code/use-telegraf/
@@ -43,15 +42,17 @@ Use the [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influ
 
 ```toml
 # ...
+
 [[outputs.influxdb_v2]]
-  urls = ["https://cloud2.influxdata.com"]
+  urls = ["https://cluster-id.influxdb.io"]
   token = "${INFLUX_TOKEN}"
   organization = ""
-  bucket = "get-started"
+  bucket = "DATABASE_NAME"
+
 # ...
 ```
 
-_See how to [Configure Telegraf](/influxdb/serverless/write-data/use-telegraf/configure/)._
+_See how to [Configure Telegraf](/influxdb/cloud-dedicated/write-data/use-telegraf/configure/)._
 
 ## Use Telegraf with InfluxDB
 

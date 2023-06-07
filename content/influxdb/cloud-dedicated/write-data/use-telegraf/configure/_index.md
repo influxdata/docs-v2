@@ -8,16 +8,16 @@ description: >
   output plugin to write to InfluxDB.
   Start Telegraf using the custom configuration.
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud_dedicated:
     name: Configure Telegraf
     parent: Use Telegraf
 weight: 101
-influxdb/cloud-serverless/tags: [telegraf]
+influxdb/cloud-dedicated/tags: [telegraf]
 related:
   - /{{< latest "telegraf" >}}/plugins/
 alt_engine: /influxdb/cloud/write-data/no-code/use-telegraf/manual-config/
 aliases:
-  - /influxdb/cloud-serverless/write-data/use-telegraf/manual-config/
+  - /influxdb/cloud-dedicated/write-data/use-telegraf/manual-config/
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics to
@@ -27,7 +27,7 @@ existing Telegraf configurations,
 and then start Telegraf using the custom configuration file.
 
 {{% note %}}
-_View the [requirements](/influxdb/cloud-serverless/write-data/use-telegraf#requirements)
+_View the [requirements](/influxdb/cloud-dedicated/write-data/use-telegraf#requirements)
 for using Telegraf with {{< cloud-name >}}._
 {{% /note %}}
 
@@ -51,8 +51,8 @@ Configure Telegraf input and output plugins in the Telegraf configuration file (
 Input plugins collect metrics.
 Output plugins define destinations where metrics are sent.
 
-This guide assumes you followed [Setup instructions](/influxdb/cloud-serverless/get-started/setup/) in the Get Started guide
-to set up InfluxDB and [configure authentication credentials](/influxdb/cloud-serverless/get-started/setup/?t=Telegraf).
+This guide assumes you followed [Setup instructions](/influxdb/cloud-dedicated/get-started/setup/) in the Get Started tutorial
+to set up InfluxDB and [configure authentication credentials](/influxdb/cloud-dedicated/get-started/setup/?t=Telegraf).
 
 ### Add Telegraf plugins
 
@@ -71,37 +71,38 @@ To send data to {{< cloud-name >}}, enable the
 [`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
 in the `telegraf.conf`.
 
-{{% code-placeholders "BUCKET_NAME" %}}
+{{% code-placeholders "DATABASE_NAME" %}}
 ```toml
 [[outputs.influxdb_v2]]
-  urls = ["https://cloud2.influxdata.com"]
-  # INFLUX_TOKEN is an environment variable you created for your API WRITE token
+  urls = ["https://cluster-id.influxdb.io"]
+  # INFLUX_TOKEN is an environment variable you created for your database WRITE token
+
   token = "${INFLUX_TOKEN}"
   organization = ""
-  bucket = "BUCKET_NAME"
+  bucket = "DATABASE_NAME"
 ```
 {{% /code-placeholders %}}
 
 Replace the following:
 
-- **`BUCKET_NAME`**: the name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to write data to
+- **`DATABASE_NAME`**: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to write data to
 
 The InfluxDB output plugin configuration contains the following options:
 
 ##### urls
 
 An array of URL strings.
-To write to {{% cloud-name %}}, include your {{% cloud-name %}} region URL using the HTTPS protocol:
+To write to {{% cloud-name %}}, include your {{% cloud-name %}} cluster URL using the HTTPS protocol:
 
 ```toml
-["https://cloud2.influxdata.com"]
+["https://cluster-id.influxdb.io"]
 ```
 
 ##### token
 
-Your {{% cloud-name %}} [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ permission to the database.
+Your {{% cloud-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ permission to the database.
 
-In the examples, `INFLUX_TOKEN` is an environment variable assigned to a [API token](/influxdb/cloud-serverless/admin/tokens/) that has _write_ permission to the database.
+In the examples, **`INFLUX_TOKEN`** is an environment variable assigned to a [database token](/influxdb/cloud-dedicated/admin/tokens/) that has _write_ permission to the database.
 
 ##### organization
 
@@ -109,13 +110,13 @@ For {{% cloud-name %}}, set this to an empty string (`""`).
 
 ##### bucket
 
-The name of the {{% cloud-name %}} bucket to write data to.
+The name of the {{% cloud-name %}} database to write data to.
 
 {{% note %}}
 ##### Write to InfluxDB v1.x and {{< cloud-name >}}
 
 If a Telegraf agent is already writing to an InfluxDB v1.x database,
-enabling the InfluxDB v2 output plugin will write data to both v1.x and your {{< cloud-name >}} bucket.
+enabling the InfluxDB v2 output plugin will write data to both v1.x and your {{< cloud-name >}} cluster.
 {{% /note %}}
 
 ## Start Telegraf

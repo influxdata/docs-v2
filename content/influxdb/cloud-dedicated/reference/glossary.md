@@ -970,7 +970,7 @@ Related entries:
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
 Related entries:
-[Telegraf plugins](/{{< latest "telegraf" >}}/plugins//),
+[Telegraf plugins](/{{< latest "telegraf" >}}/plugins/),
 [Use Telegraf to collect data](/influxdb/cloud-dedicated/write-data/telegraf/),
 
 ### time (data type)

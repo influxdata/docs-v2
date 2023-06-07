@@ -3,8 +3,8 @@ title: Get started writing data
 seotitle: Write data | Get started with InfluxDB Cloud Dedicated
 list_title: Write data
 description: >
-  Get started writing data to InfluxDB Cloud Dedicated by learning about line protocol
-  and using tools like the InfluxDB API and Telegraf.
+  Get started writing data to InfluxDB by learning about line protocol
+  and using tools like Telegraf, client libraries, and the InfluxDB API.
 menu:
   influxdb_cloud_dedicated:
     name: Write data
@@ -19,17 +19,16 @@ related:
   - /{{< latest "telegraf" >}}/
 ---
 
-InfluxDB provides many different options for ingesting or writing data, including
-the following:
+This tutorial walks you through the fundamental of creating **line protocol** data and writing it to InfluxDB.
 
-- [InfluxDB HTTP API (v1 and v2)](/influxdb/cloud-dedicated/primers/api/)
-- [`influx` CLI (v1 and v2)](/influxdb/cloud-dedicated/reference/cli/influx/)
-- [Telegraf](/{{< latest "telegraf" >}}/)
-- [InfluxDB client libraries](/influxdb/cloud-dedicated/reference/client-libraries/)
-- etc.
+InfluxDB provides many different options for ingesting or writing data, including the following:
 
-This tutorial walks you through the fundamental of using **line protocol** to write
-data to InfluxDB. If using tools like Telegraf or InfluxDB client libraries, they can
+- InfluxDB HTTP API (v1 and v2)
+- `influx` CLI (v1 and v2)
+- Telegraf
+- InfluxDB client libraries
+
+If using tools like Telegraf or InfluxDB client libraries, they can
 build the line protocol for you, but it's good to understand how line protocol works.
 
 ## Line protocol
@@ -45,7 +44,7 @@ Each line of line protocol contains the following elements:
 
 {{< req type="key" >}}
 
-- {{< req "\*" >}} **measurement**:  String that identifies the [measurement]() to store the data in.
+- {{< req "\*" >}} **measurement**:  String that identifies the [measurement](/influxdb/cloud-dedicated/reference/glossary/#measurement) to store the data in.
 - **tag set**: Comma-delimited list of key value pairs, each representing a tag.
   Tag keys and values are unquoted strings. _Spaces, commas, and equal characters must be escaped._
 - {{< req "\*" >}} **field set**: Comma-delimited list of key value pairs, each representing a field.
@@ -135,21 +134,108 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 ## Write line protocol to InfluxDB
 
-Use the **InfluxDB v2 HTTP API** or **InfluxDB client libraries** to write the
-line protocol above to InfluxDB.
-The following examples show how to use the **Python** and **Go** client libraries to write line protocol.
+The following examples show how to write the 
+[sample data](#home-sensor-data-line-protocol), already in line protocol format,
+to an {{% cloud-name %}} database.
+
+To learn more about available tools and options, see [Write data](influxdb/cloud-dedicated/write-data/).
+
+{{% note %}}
+All API, cURL, and client library examples in this getting started tutorial assume your InfluxDB
+**host**, **organization**, **url**, and **token** are provided by
+[environment variables](/influxdb/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
+{{% /note %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
-[InfluxDB API](#)
+[Telegraf](#)
+[cURL](#)
 [Python](#)
 [Go](#)
+[Node.js](#)
 {{% /tabs %}}
-
 {{% tab-content %}}
-<!----------------------------- BEGIN API CONTENT ----------------------------->
+<!------------------------------- BEGIN TELEGRAF CONTENT ------------------------------>
+Use [Telegraf](/{{< latest "telegraf" >}}/) to consume line protocol,
+and then write it to {{< cloud-name >}}.
 
-To write data to InfluxDB Cloud Dedicated using the InfluxDB v2 HTTP API, send a
+1.  If you haven't already, follow the instructions to [download and install Telegraf](/{{< latest "telegraf" >}}/install/).
+
+2.  Copy and save the [home sensor data sample](#home-sensor-data-line-protocol) to a file on your local system--for example, `home.lp`.
+
+3.  Run the following command to generate a Telegraf configuration file (`./telegraf.conf`) that enables the `inputs.file` and `outputs.influxdb_v2` plugins:
+
+    ```sh
+    telegraf --sample-config \
+      --input-filter file \
+      --output-filter influxdb_v2 \
+      > telegraf.conf
+    ```
+
+4.  In your editor, open `./telegraf.conf` and configure the following:
+
+    - **`file` input plugin**: In the `[[inputs.file]].files` list, replace `"/tmp/metrics.out"` with your sample data filename.
+      If Telegraf can't find a file when started, it stops processing and exits.
+
+      ```toml
+      [[inputs.file]]
+        ## Files to parse each interval.  Accept standard unix glob matching rules,
+        ## as well as ** to match recursive files and directories.
+        files = ["home.lp"]
+      ```
+
+    - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]` section, replace the default values with the following configuration for your InfluxDB Cloud Dedicated cluster:
+
+      ```toml
+      [[outputs.influxdb_v2]]
+        # InfluxDB Cloud Dedicated cluster URL
+        urls = ["${INFLUX_URL}"]
+
+        # INFLUX_TOKEN is an environment variable you assigned to your database token
+        token = "${INFLUX_TOKEN}"
+
+        # An empty string (InfluxDB ignores this parameter)
+        organization = ""
+
+        # Database name
+        bucket = "get-started"
+      ```
+
+      The example configuration uses the following InfluxDB credentials:
+
+      - **`urls`**: an array containing your **`INFLUX_URL`** environment variable
+      - **`token`**: your **`INFLUX_TOKEN`** environment variable
+      - **`organization`**: an empty string (InfluxDB ignores this parameter)
+      - **`bucket`**: the name of the database to write to
+
+5.  To write the data, start the `telegraf` daemon with the following options:
+
+    - `--config`: Specifies the filepath of the configuration file.
+    - `--once`: Runs a single Telegraf collection cycle for the configured inputs and outputs, and then exits.
+
+    Enter the following command in your terminal:
+
+    ```sh
+    telegraf --once --config ./telegraf.conf
+    ```
+
+    If the write is successful, the output is similar to the following:
+
+    ```plaintext
+    2023-05-31T20:09:08Z D! [agent] Starting service inputs
+    2023-05-31T20:09:19Z D! [outputs.influxdb_v2] Wrote batch of 52 metrics in 348.008167ms
+    2023-05-31T20:09:19Z D! [outputs.influxdb_v2] Buffer fullness: 0 / 10000 metrics
+    ```
+
+Telegraf and its plugins provide many options for reading and writing data.
+To learn more, see how to [use Telegraf to write data](/influxdb/cloud-dedicated/write-data/use-telegraf/).
+
+<!------------------------------- END TELEGRAF CONTENT ------------------------------>
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN cURL CONTENT ----------------------------->
+
+To write data to InfluxDB using the InfluxDB v2 HTTP API, send a
 request to the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
 {{< api-endpoint endpoint="https://cluster-id.influxdb.io/api/v2/write" method="post" api-ref="/influxdb/cloud-iox/api/#operation/PostWrite" >}}
@@ -166,21 +252,16 @@ Include the following with your request:
 - **Request body**: Line protocol as plain text
 
 {{% note %}}
-With the InfluxDB Cloud Dedicated v2 API `/api/v2/write` endpoint, `Authorization: Bearer` and `Authorization: Token` are equivalent and you can use either scheme to pass a database token in your request. For more information about HTTP API token schemes, see how to [authenticate API requests](/influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests).
+With the {{% cloud-name %}} v2 API `/api/v2/write` endpoint, `Authorization: Bearer` and `Authorization: Token` are equivalent and you can use either scheme to pass a database token in your request. For more information about HTTP API token schemes, see how to [authenticate API requests](/influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests).
 {{% /note %}}
 
 The following example uses cURL and the InfluxDB v2 API to write line protocol
-to InfluxDB Cloud dedicated:
+to InfluxDB:
 
 {{% influxdb/custom-timestamps %}}
 ```sh
-export INFLUX_HOST=https://cluster-id.influxdb.io
-export INFLUX_TOKEN=DATABASE_TOKEN
-
-DATABASE_NAME=get-started
-
 curl --request POST \
-"$INFLUX_HOST/api/v2/write?bucket=$DATABASE_NAME&precision=s" \
+"$INFLUX_HOST/api/v2/write?bucket=get-started&precision=s" \
   --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -214,102 +295,125 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
 {{% /influxdb/custom-timestamps %}}
-<!------------------------------ END API CONTENT ------------------------------>
+<!------------------------------ END cURL CONTENT ------------------------------>
 {{% /tab-content %}}
 {{% tab-content %}}
 <!---------------------------- BEGIN PYTHON CONTENT --------------------------->
+{{% influxdb/custom-timestamps %}}
 
-To write data to InfluxDB Cloud Dedicated using Python, use the
-[`pyinflux3` module](https://github.com/InfluxCommunity/pyinflux3).
+
+To write data to {{% cloud-name %}} using Python, use the
+[`influxdb_client_3` module](https://github.com/InfluxCommunity/influxdb3-python).
 The following steps include setting up a Python virtual environment to scope
 dependencies to your current project.
 
-1.  Setup your Python virtual environment.
-    Inside of your project directory:
+1. Create a new module directory and navigate into it--for example:
+
+    ```sh
+    mkdir influxdb_py_client && cd $_
+    ```
+
+2.  Setup your Python virtual environment.
+    Inside of your module directory:
 
     ```sh
     python -m venv envs/virtual-env
     ```
 
-2. Activate the virtual environment.
+3. Activate the virtual environment.
 
     ```sh
     source ./envs/virtual-env/bin/activate
     ```
 
-3.  Install the following dependencies:
+4.  Install the following dependencies:
 
     - `pyarrow`
-    - `flightsql-dbapi`
-    - `pyinflux3`
+    - `influxdb_client_3`
 
     ```python
-    pip install pyarrow flightsql-dbapi pyinflux3
+    pip install pyarrow influxdb_client_3
     ```
 
-4.  Build your python script to write the [sample line protocol](#home-sensor-data-line-protocol)
-    to InfluxDB. _Save the script to a file and run `python SCRIPT_NAME` or run `python` to write and execute the script using the interactive shell._
+5.  In your terminal or editor, create a new file for your code--for example: `write.py`.
 
-    1.  Import the `InfluxDBClient3` object from the `influxdb_client_3` module.
-    2.  Use the `InfluxDBClient3` constructor to instantiate an InfluxDB Client.
-        The example below assigns it to the `client` variable.
-        Provide the following credentials:
+    ```sh
+    touch write.py
+    ```
 
-        - **host**: InfluxDB Cloud Dedicated cluster URL (without protocol or trailing slash)
-        - **org**: _Leave as an empty string_ (InfluxDB Cloud Dedicated ignores `org`, but the client requires the parameter)
-        - **token**: Database token with write access to the target database
-        - **database**: Database name to write to
+6.  Inside of `write.py`, enter the following sample code:
+
+      ```py
+      from influxdb_client_3 import InfluxDBClient3
+
+      # INFLUX_TOKEN is an environment variable you assigned to your
+      # database token value.
+      token = os.getenv('INFLUX_TOKEN')
+
+      # host is the URL without protocol or trailing slash
+      client = InfluxDBClient3(
+          host='cluster-id.influxdb.io',
+          org='',
+          token=token,
+          database='get-started'
+      )
+
+      lines = [
+          "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000",
+          "home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000",
+          "home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600",
+          "home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600",
+          "home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200",
+          "home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200",
+          "home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800",
+          "home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800",
+          "home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400",
+          "home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400",
+          "home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000",
+          "home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000",
+          "home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600",
+          "home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600",
+          "home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200",
+          "home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200",
+          "home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800",
+          "home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800",
+          "home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400",
+          "home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400",
+          "home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000",
+          "home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000",
+          "home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600",
+          "home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600",
+          "home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200",
+          "home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200"
+      ]
+
+      client.write(lines,write_precision='s')
+      ```
+
+    The sample does the following:
+
+    1.  Imports the `InfluxDBClient3` object from the `influxdb_client_3` module.
+    2.  Calls the `InfluxDBClient3()` constructor to instantiate an InfluxDB client
+        configured with the following credentials:
+
+        - **host**: {{% cloud-name %}} cluster hostname (URL without protocol or trailing slash)
+        - **org**: an empty or arbitrary string (InfluxDB ignores this parameter)
+        - **token**: an InfluxDB API token with write access to the target database
+        - **database**: the name of the {{% cloud-name %}} database to write to
     
-    3.  Use the `client.write` method to write the line protocol to the **get-started**
-        database. Provide the following:
-        
-        - **Line protocol** as an array of strings where each element is an individual
-          line of line protocol.
-        - **`write_precision` option** to specify the timestamp precision as 
-          seconds (`s`).
+    3.  Defines a list of line protocol strings where each string represents a data record.
+    4.  Calls the `client.write()` method with the line protocol record list and write options.
 
-{{% influxdb/custom-timestamps %}}
+        **Because the timestamps in the sample line protocol are in second
+        precision, the example passes the `write_precision='s'` option
+        to set the timestamp precision to seconds.**
 
-```py
-from influxdb_client_3 import InfluxDBClient3
-
-client = InfluxDBClient3(
-    host="cluster-id.influxdb.io",
-    org="",
-    token="DATABASE_TOKEN",
-    database="get-started"
-)
-
-client.write([
-    "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000",
-    "home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000",
-    "home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600",
-    "home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600",
-    "home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200",
-    "home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200",
-    "home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800",
-    "home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800",
-    "home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400",
-    "home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400",
-    "home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000",
-    "home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000",
-    "home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600",
-    "home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600",
-    "home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200",
-    "home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200",
-    "home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800",
-    "home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800",
-    "home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400",
-    "home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400",
-    "home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000",
-    "home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000",
-    "home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600",
-    "home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600",
-    "home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200",
-    "home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200"],
-    write_precision='s'
-)
-```
+6.  To execute the module and write line protocol to your {{% cloud-name %}}
+    database, enter the following command in your terminal:
+    
+      ```sh
+      python write.py
+      ```
 
 {{% /influxdb/custom-timestamps %}}
 
@@ -317,154 +421,297 @@ client.write([
 {{% /tab-content %}}
 {{% tab-content %}}
 <!----------------------------- BEGIN GO CONTENT ------------------------------>
+{{% influxdb/custom-timestamps %}}
 
-To write data to InfluxDB Cloud Dedicated using Go, use the
+To write data to {{% cloud-name %}} using Go, use the
 [influxdb-client-go module](https://github.com/influxdata/influxdb-client-go).
 
-1.  Create a new go module in your project directory.
-
-    1. Create a new module directory and navigate into it.
-    2. Initialize a new Go module in the current working directory.
-    3. Create a `write.go` file.
+1.  Inside of your project directory, create a new module directory and navigate into it.
 
     ```sh
     mkdir influxdb_go_client && cd $_
+    ```
+
+2.  Initialize a new Go module in the directory.
+
+    ```sh
     go mod init influxdb_go_client
+    ```
+
+3.  In your terminal or editor, create a new file for your code--for example: `write.go`.
+
+    ```sh
     touch write.go
     ```
 
-2.  Inside of `write.go` instantiate an InfluxDB write client to write the
-    [line protocol above](#home-sensor-data-line-protocol) to InfluxDB.
+4.  Inside of `write.go`, enter the following sample code:
 
-    1.  Import the following packages
+    ```go
+    package main
 
-        - `context`
-        - `fmt`
-        - `log`
-        - `os`
-        - `time`
-        - `github.com/influxdata/influxdb-client-go/v2` aliased as `influxdb2`
-    
-    2.  Create a `dbWrite` function.
-    3.  In the `dbWrite` function, use `influxdb2.NewClientWithOptions` to
-        create a `writeClient` that accepts write options.
-        The write client requires the following credentials:
+    import (
+      "context"
+      "fmt"
+      "log"
+      "os"
+      "time"
+
+      influxdb2 "github.com/influxdata/influxdb-client-go/v2"
+    )
+
+    // Write line protocol data to InfluxDB
+    func dbWrite(ctx context.Context) error {
+
+      // INFLUX_URL is an environment variable you assigned to your
+      // cluster URL.
+      url := os.Getenv("INFLUX_URL")
+
+      // INFLUX_TOKEN is an environment variable you assigned to your
+      // database token value.
+      token := os.Getenv("INFLUX_TOKEN")
+      client := influxdb2.NewClientWithOptions(url,
+                      token,
+                      influxdb2.DefaultOptions().SetPrecision(time.Second))
+
+      // Define write API
+      org := "ignored"
+      bucket := "get-started"
+      writeAPI := client.WriteAPIBlocking(org, bucket)
+
+      // Define line protocol records to write.
+      // Use a raw string literal (denoted by backticks)
+      // to preserve backslashes and prevent interpretation
+      // of escape sequences--for example, escaped spaces in tag values.
+      lines := [...]string{
+        `home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000`,
+        `home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000`,
+        `home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600`,
+        `home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600`,
+        `home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200`,
+        `home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200`,
+        `home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800`,
+        `home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800`,
+        `home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400`,
+        `home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400`,
+        `home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000`,
+        `home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000`,
+        `home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600`,
+        `home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600`,
+        `home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200`,
+        `home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200`,
+        `home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800`,
+        `home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800`,
+        `home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400`,
+        `home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400`,
+        `home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000`,
+        `home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000`,
+        `home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600`,
+        `home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600`,
+        `home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200`,
+        `home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200`,
+      }
+
+      // Iterate over the lines array and write each line
+      // separately to InfluxDB
+
+      for _, lp := range lines {
+        err := writeAPI.WriteRecord(context.Background(), lp)
+        if err != nil {
+          log.Fatalf("Error writing line protocol: %v", err)
+        }
+      }
+
+      fmt.Println("Data has been written successfully.")
+      client.Close()
+      return nil
+    }
+
+    // Module main function
+    func main() {
+      if err := dbWrite(context.Background()); err != nil {
+        fmt.Fprintf(os.Stderr, "error: %v\n", err)
+        os.Exit(1)
+      }
+    }
+    ```
+
+    The sample does the following:
+
+    1.  Imports required packages.
+      
+    2.  Defines a `dbWrite()` function that does the following:
         
-        - **url**: InfluxDB Cloud Dedicated cluster URL
-        - **token**: [Database token](/influxdb/cloud-dedicated/admin/tokens/)
-          with write access to the **get-started** database.
-          _For security reasons, we recommend setting this as an environment
-          variable rather than including the raw token string._
+        1.  Calls the `influxdb2.NewClientWithOptions()` with InfluxDB URL,
+            database token, and options to create client.
 
-        Because the timestamps in the line protocol are in second
-        precision, **use `SetPrecision(time.Second)` to define the write precision option**.
+            **Because the timestamps in the sample line protocol are in second
+            precision, the example passes `DefaultOptions.SetPrecision(time.Second)`
+            for the `precision` option in order to set the timestamp precision to
+            seconds.**
+
+        2.  Calls the `writeClient.WriteAPIBlocking()` method to
+            create a `writeAPI` client configured to write to the database
+            (the method requires an `org` argument, but InfluxDB ignores it).
     
-    4.  Use `writeClient.WriteAPIBlocking` to define a `writeAPI`.
-        The write API requires the following credentials:
-
-        - **bucket**: InfluxDB database name.
+        3.  Defines an array of line protocol strings where each string
+            represents a data record.
     
-    5.  Define an array of line protocol strings where each element is a single
-        line of line protocol.
+        4.  Iterates through the array of line protocol and calls the
+            write client's `WriteRecord()` method
+            to write each line of line protocol separately to InfluxDB.
     
-    6.  Iterate through the array of line protocol and use `writeAPI.WriteRecord`
-        to write each line of line protocol to InfluxDB.
-    
-    7.  Define a `main` function that executes the `dbWrite` function.
+    3.  Defines a `main` function that executes the `dbWrite` function for the module.
 
-{{% influxdb/custom-timestamps %}}
+5.  In your terminal, enter the following command to install the packages listed
+    in `imports`:
 
-```go
-package main
+    ```sh
+    go get ./...
+    ```
 
-import (
-	"context"
-	"fmt"
-	"log"
-	"os"
-	"time"
+6.  To execute the module and write the line protocol
+    to your {{% cloud-name %}} database, enter the following command:
 
-	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
-)
-
-func dbWrite(ctx context.Context) error {
-	// Create write client
-	url := "https://cluster-id.influxdb.io"
-  // INFLUX_TOKEN is an environment variable you assigned to your database token value
-	token := os.Getenv("INFLUX_TOKEN")
-	writeClient := influxdb2.NewClientWithOptions(url, token, influxdb2.DefaultOptions().SetPrecision(time.Second))
-
-	// Define write API
-	org := "ignored"
-	bucket := "get-started"
-	writeAPI := writeClient.WriteAPIBlocking(org, bucket)
-
-	line := [...]string{
-		`home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000`,
-		`home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000`,
-		`home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600`,
-		`home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600`,
-		`home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200`,
-		`home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200`,
-		`home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800`,
-		`home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800`,
-		`home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400`,
-		`home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400`,
-		`home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000`,
-		`home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000`,
-		`home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600`,
-		`home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600`,
-		`home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200`,
-		`home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200`,
-		`home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800`,
-		`home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800`,
-		`home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400`,
-		`home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400`,
-		`home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000`,
-		`home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000`,
-		`home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600`,
-		`home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600`,
-		`home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200`,
-		`home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200`,
-	}
-
-	for _, lp := range line {
-		err := writeAPI.WriteRecord(context.Background(), lp)
-		if err != nil {
-			log.Fatalf("Error writing line protocol: %v", err)
-		}
-	}
-
-	fmt.Println("Data has been written successfully.")
-	writeClient.Close()
-	return nil
-}
-
-func main() {
-	if err := dbWrite(context.Background()); err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
-		os.Exit(1)
-	}
-}
-```
-
-Run the following command to install the necessary packages:
-
-```sh
-go get ./...
-```
-
-Run `write.go` to write the line protocol to your InfluxDB Cloud Dedicated cluster:
-
-```sh
-go run ./write.go
-```
-
+    ```sh
+    go run ./write.go
+    ```
 {{% /influxdb/custom-timestamps %}}
-
 <!------------------------------- END GO CONTENT ------------------------------>
 {{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN NODE.JS CONTENT ----------------------->
+{{% influxdb/custom-timestamps %}}
+
+To write data to {{% cloud-name %}} using Node.js, use the
+[influxdb-client-js package](https://github.com/influxdata/influxdb-client-js).
+
+1. Inside of your project directory, create an NPM or Yarn package and install 
+    the `@influxdata/influxdb-client` InfluxDB v2 JavaScript client library.
+
+    ```sh
+    npm init -y && npm install --save @influxdata/influxdb-client
+    ```
+
+2.  In your terminal or editor, create a new file for your code--for example: `write.js`.
+
+    ```sh
+    touch write.js
+    ```
+
+3. Inside of `write.js`, enter the following sample code:
+
+    ```js
+    'use strict'
+    /** @module write
+    * Writes line protocol strings to InfluxDB using the Javascript client
+    * library with Node.js.
+    **/
+    import {InfluxDB} from '@influxdata/influxdb-client';
+
+    /** Get credentials from environment variables. **/
+    const url = process.env.INFLUX_URL;
+    const token = process.env.INFLUX_TOKEN;
+    const org = process.env.INFLUX_ORG;
+
+    /**
+    * Instantiate the InfluxDB client with a configuration object.
+    **/
+    const influxDB = new InfluxDB({url, token});
+
+    /** 
+    * Define an array of line protocol strings to write.
+    * Include an additional backslash to preserve backslashes
+    * and prevent interpretation of escape sequences---for example,
+    * escaped spaces in tag values.
+    */
+    const lines = [
+      'home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000',
+      'home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000',
+      'home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1641027600',
+      'home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600',
+      'home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1641031200',
+      'home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200',
+      'home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1641034800',
+      'home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800',
+      'home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1641038400',
+      'home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400',
+      'home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1641042000',
+      'home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000',
+      'home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1641045600',
+      'home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600',
+      'home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1641049200',
+      'home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200',
+      'home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1641052800',
+      'home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800',
+      'home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1641056400',
+      'home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400',
+      'home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1641060000',
+      'home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000',
+      'home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1641063600',
+      'home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600',
+      'home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1641067200',
+      'home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200',
+    ];
+
+    /**
+    * Create a write client from the getWriteApi method.
+    * Provide your org and database.
+    **/
+    const writeApi = influxDB.getWriteApi(org, 'get-started', 's');
+
+    /**
+    * Write line protocol to the batch
+    */
+    writeApi.writeRecords(lines);
+
+    /**
+    * Flush pending writes from the buffer and close the write client.
+    **/
+    writeApi.close().then(
+      () => {
+        console.log('Data has been written successfully.');
+      },
+      (err) => {
+        console.log('Error writing line protocol');
+      }
+    );
+    ```
+
+    The sample does the following:
+
+      1.  Calls the `new InfluxDB()` constructor to instantiate a client configured
+           with the InfluxDB URL and database token.
+
+      2.  Defines an array of line protocol strings where each string represents a data record.
+
+      3.  Calls the client's `getWriteApi()` method to create a
+          **write client** configured to write to the database
+          (the method requires an `org` argument, but InfluxDB ignores it).
+
+          **Because the timestamps in the sample line protocol are in second
+            precision, the example passes `'s'` for the `precision` option in order
+            to set the timestamp precision to seconds**.
+
+      6.  Calls the write client's `writeRecords()` method with the line protocol array
+          to write the records in batches to InfluxDB.
+
+      7.  Calls the write client's `close()` method with callback functions for success and error.
+          The `close()` method sends any records remaining in the buffer,
+          executes callbacks, and releases resources.
+
+4. To execute the file and write the line protocol to your {{% cloud-name %}} database,
+    enter the following command in your terminal:
+   
+    ```sh
+    node write.js
+    ```
+{{% /influxdb/custom-timestamps %}}
+<!------------------------------- END NODE.JS CONTENT ------------------------------>
+{{% /tab-content %}}
+
 {{< /tabs-wrapper >}}
+
+If successful, the output is the success message; otherwise, error details and the failure message.
 
 {{< expand-wrapper >}}
 {{% expand "View the written data" %}}

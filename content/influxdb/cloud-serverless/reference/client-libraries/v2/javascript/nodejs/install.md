@@ -57,7 +57,7 @@ Follow these steps to initialize the TypeScript project:
 
 ## Install dependencies
 
-Use the `@influxdata/influxdb-client` JavaScript client library to write and query data in InfluxDB Cloud Serverless.
+Use the `@influxdata/influxdb-client` JavaScript client library to write and query data in {{% cloud-name %}}.
 
 Open a new terminal window and install the `@influxdata/influxdb-client` package for querying and writing data:
 
@@ -84,9 +84,9 @@ Set environment variables or update `env.js` with your InfluxDB [bucket](/influx
 
    Replace the following:
    
-   - *`API_TOKEN`*: InfluxDB API token with _write_ permission to the bucket.
-   - *`ORG_ID`*: InfluxDB organization ID
-   - *`BUCKET_NAME`*: the name of the InfluxDB Cloud Serverless bucket to write to
+   - *`API_TOKEN`*: InfluxDB [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with _write_ permission to the bucket.
+   - *`ORG_ID`*: InfluxDB [organization ID](/influxdb/cloud-serverless/admin/organizations/view-orgs/)
+   - *`BUCKET_NAME`*: the name of the {{% cloud-name %}} bucket to write to
 
 ## Next steps
 

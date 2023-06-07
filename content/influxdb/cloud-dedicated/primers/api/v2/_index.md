@@ -346,10 +346,10 @@ Use Flight SQL clients with gRPC and SQL to query data stored in an InfluxDB Clo
 
 Choose from the following tools to query InfluxDB Cloud Dedicated:
 
-- [Flight SQL plugin]() for [Grafana]()
-- [Superset]()
-- [`pyinflux3` module](https://github.com/InfluxCommunity/pyinflux3)
-- [`flightsql-dbapi`](https://github.com/influxdata/flightsql-dbapi)
+- [Flight SQL plugin](/influxdb/cloud-dedicated/query-data/tools/grafana/) for Grafana
+- [Superset](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/)
+- [InfluxDB v3 language-specific client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
+- [Flight SQL language-specific clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/)
 
 See how to [get started querying with SQL](/influxdb/cloud-dedicated/get-started/query/#sql-query-basics)
 

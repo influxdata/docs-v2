@@ -1,10 +1,10 @@
 ---
 title: Get started writing data
-seotitle: Write data | Get started with InfluxDB
+seotitle: Write data | Get started with InfluxDB Cloud Serverless
 list_title: Write data
 description: >
   Get started writing data to InfluxDB by learning about line protocol and using
-  tools like the InfluxDB UI, `influx` CLI, and InfluxDB API.
+  tools like the InfluxDB UI, `influx` CLI, Telegraf, client libraries, and the InfluxDB API.
 menu:
   influxdb_cloud_serverless:
     name: Write data
@@ -45,7 +45,7 @@ Each line of line protocol contains the following elements:
 
 {{< req type="key" >}}
 
-- {{< req "\*" >}} **measurement**:  String that identifies the [measurement]() to store the data in.
+- {{< req "\*" >}} **measurement**:  String that identifies the [measurement](/influxdb/cloud-serverless/reference/glossary/#measurement) to store the data in.
 - **tag set**: Comma-delimited list of key value pairs, each representing a tag.
   Tag keys and values are unquoted strings. _Spaces, commas, and equal characters must be escaped._
 - {{< req "\*" >}} **field set**: Comma-delimited list of key value pairs, each representing a field.
@@ -137,7 +137,9 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 The following examples show how to write the 
 [sample data](#home-sensor-data-line-protocol), already in line protocol format,
-to an InfluxDB Cloud Serverless bucket.
+to an {{% cloud-name %}} bucket.
+
+To learn more about available tools and options, see [Write data](influxdb/cloud-serverless/write-data/).
 
 {{% note %}}
 All API, cURL, and client library examples in this getting started tutorial assume your InfluxDB
@@ -145,18 +147,16 @@ All API, cURL, and client library examples in this getting started tutorial assu
 [environment variables](/influxdb/cloud-serverless/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 {{% /note %}}
 
-<!-- To learn more about available tools and write options, see [Write data](influxdb/cloud-serverless/write-data/).-->
-
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [InfluxDB UI](#)
 [influx CLI](#)
+[Telegraf](#)
 [cURL](#)
 [Python](#)
 [Go](#)
 [Node.js](#)
 {{% /tabs %}}
-
 {{% tab-content %}}
 <!------------------------------ BEGIN UI CONTENT ----------------------------->
 
@@ -236,6 +236,84 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 <!------------------------------ END CLI CONTENT ------------------------------>
 {{% /tab-content %}}
 {{% tab-content %}}
+<!------------------------------- BEGIN TELEGRAF CONTENT ------------------------------>
+Use [Telegraf](/{{< latest "telegraf" >}}/) to consume line protocol,
+and then write it to {{< cloud-name >}}.
+
+1.  If you haven't already, follow the instructions to [download and install Telegraf](/{{< latest "telegraf" >}}/install/).
+
+2.  Copy and save the [home sensor data sample](#home-sensor-data-line-protocol) to a file on your local system--for example, `home.lp`.
+
+3.  Run the following command to generate a Telegraf configuration file (`./telegraf.conf`) that enables the `inputs.file` and `outputs.influxdb_v2` plugins:
+
+    ```sh
+    telegraf --sample-config \
+      --input-filter file \
+      --output-filter influxdb_v2 \
+      > telegraf.conf
+    ```
+
+4.  In your editor, open `./telegraf.conf` and configure the following:
+
+    - **`file` input plugin**: In the `[[inputs.file]].files` list, replace `"/tmp/metrics.out"` with your sample data filename.
+      If Telegraf can't find a file when started, it stops processing and exits.
+
+      ```toml
+      [[inputs.file]]
+        ## Files to parse each interval.  Accept standard unix glob matching rules,
+        ## as well as ** to match recursive files and directories.
+        files = ["home.lp"]
+      ```
+
+    - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]` section, replace the default values with the following configuration for your InfluxDB Cloud Dedicated cluster:
+
+      ```toml
+      [[outputs.influxdb_v2]]
+        # InfluxDB Cloud Serverless region URL
+        urls = ["${INFLUX_URL}"]
+
+        # INFLUX_TOKEN is an environment variable you assigned to your API token
+        token = "${INFLUX_TOKEN}"
+
+        # An empty string (InfluxDB ignores this parameter)
+        organization = ""
+
+        # Bucket name
+        bucket = "get-started"
+      ```
+
+      The example configuration uses the following InfluxDB credentials:
+
+      - **`urls`**: an array containing your **`INFLUX_URL`** environment variable
+      - **`token`**: your **`INFLUX_TOKEN`** environment variable
+      - **`organization`**: an empty string (InfluxDB ignores this parameter)
+      - **`bucket`**: the name of the bucket to write to
+
+5.  To write the data, start the `telegraf` daemon with the following options:
+
+    - `--config`: Specifies the filepath of the configuration file.
+    - `--once`: Runs a single Telegraf collection cycle for the configured inputs and outputs, and then exits.
+
+    Enter the following command in your terminal:
+
+    ```sh
+    telegraf --once --config ./telegraf.conf
+    ```
+
+    If the write is successful, the output is similar to the following:
+
+    ```plaintext
+    2023-05-31T20:09:08Z D! [agent] Starting service inputs
+    2023-05-31T20:09:19Z D! [outputs.influxdb_v2] Wrote batch of 52 metrics in 348.008167ms
+    2023-05-31T20:09:19Z D! [outputs.influxdb_v2] Buffer fullness: 0 / 10000 metrics
+    ```
+
+Telegraf and its plugins provide many options for reading and writing data.
+To learn more, see how to [use Telegraf to write data](/influxdb/cloud-serverless/write-data/use-telegraf/).
+
+<!------------------------------- END TELEGRAF CONTENT ------------------------------>
+{{% /tab-content %}}
+{{% tab-content %}}
 <!----------------------------- BEGIN cURL CONTENT ----------------------------->
 
 To write data to InfluxDB using the InfluxDB HTTP API, send a request to
@@ -250,12 +328,11 @@ Include the following with your request:
   - **Content-Type**: text/plain; charset=utf-8
   - **Accept**: application/json
 - **Query parameters**:
-  - **org**: InfluxDB organization name
   - **bucket**: InfluxDB bucket name
   - **precision**: timestamp precision (default is `ns`)
 - **Request body**: Line protocol as plain text
 
-The following example uses cURL and the InfluxDB API to write line protocol
+The following example uses cURL and the InfluxDB v2 API to write line protocol
 to InfluxDB:
 
 {{% influxdb/custom-timestamps %}}
@@ -301,35 +378,40 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 <!---------------------------- BEGIN PYTHON CONTENT --------------------------->
 {{% influxdb/custom-timestamps %}}
 
-To write data to InfluxDB Cloud Serverless using Python, use the
-[`pyinflux3` module](https://github.com/InfluxCommunity/pyinflux3).
+To write data to {{% cloud-name %}} using Python, use the
+[`influxdb_client_3` module](https://github.com/InfluxCommunity/influxdb3-python).
 The following steps include setting up a Python virtual environment to scope
 dependencies to your current project.
 
-1.  Setup your Python virtual environment.
-    Inside of your project directory:
+1. Create a new module directory and navigate into it--for example:
+
+    ```sh
+    mkdir influxdb_py_client && cd $_
+    ```
+
+2.  Setup your Python virtual environment.
+    Inside of your module directory:
 
     ```sh
     python -m venv envs/virtual-env
     ```
 
-2. Activate the virtual environment.
+3. Activate the virtual environment.
 
     ```sh
     source ./envs/virtual-env/bin/activate
     ```
 
-3.  Install the following dependencies:
+4.  Install the following dependencies:
 
     - `pyarrow`
-    - `flightsql-dbapi`
-    - `pyinflux3`
+    - `influxdb_client_3`
 
     ```python
-    pip install pyarrow flightsql-dbapi pyinflux3
+    pip install pyarrow influxdb_client_3
     ```
 
-4.  Create a file for your code--for example, `write.py`.
+5.  In your terminal or editor, create a new file for your code--for example: `write.py`.
 
     ```sh
     touch write.py
@@ -390,10 +472,10 @@ dependencies to your current project.
     2.  Calls the `InfluxDBClient3()` constructor to instantiate an InfluxDB client
         configured with the following credentials:
 
-        - **host**: InfluxDB Cloud Serverless region hostname (URL without protocol or trailing slash)
+        - **host**: {{% cloud-name %}} region hostname (URL without protocol or trailing slash)
         - **org**: an empty or arbitrary string (InfluxDB ignores this parameter)
-        - **token**: InfluxDB API token with write access to the target database
-        - **database**: InfluxDB Cloud Serverless bucket name
+        - **token**: an InfluxDB [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with write access to the target bucket
+        - **database**: the name of the {{% cloud-name %}} bucket to write to
     
     3.  Defines a list of line protocol strings where each string represents a data record.
     4.  Calls the `client.write()` method with the line protocol record list and write options.
@@ -402,7 +484,7 @@ dependencies to your current project.
         precision, the example passes the `write_precision='s'` option
         to set the timestamp precision to seconds.**
 
-6.  To execute the module and write line protocol to your InfluxDB Cloud Serverless
+6.  To execute the module and write line protocol to your {{% cloud-name %}}
     bucket, enter the following command in your terminal:
     
       ```sh
@@ -417,7 +499,7 @@ dependencies to your current project.
 <!----------------------------- BEGIN GO CONTENT ------------------------------>
 {{% influxdb/custom-timestamps %}}
 
-To write data to InfluxDB Cloud Serverless using Go, use the
+To write data to {{% cloud-name %}} using Go, use the
 [influxdb-client-go module](https://github.com/influxdata/influxdb-client-go).
 
 1.  Inside of your project directory, create a new module directory and navigate into it.
@@ -432,7 +514,7 @@ To write data to InfluxDB Cloud Serverless using Go, use the
     go mod init influxdb_go_client
     ```
 
-3. Create a file for your code--for example, `write.go`.
+3.  In your terminal or editor, create a new file for your code--for example: `write.go`.
 
     ```sh
     touch write.go
@@ -564,7 +646,7 @@ To write data to InfluxDB Cloud Serverless using Go, use the
     ```
 
 6.  To execute the module and write the line protocol
-    to your InfluxDB Cloud Serverless bucket, enter the following command:
+    to your {{% cloud-name %}} bucket, enter the following command:
 
     ```sh
     go run ./write.go
@@ -576,7 +658,7 @@ To write data to InfluxDB Cloud Serverless using Go, use the
 <!------------------------------- BEGIN NODE.JS CONTENT ----------------------->
 {{% influxdb/custom-timestamps %}}
 
-To write data to InfluxDB Cloud Serverless using Node.JS, use the
+To write data to {{% cloud-name %}} using Node.js, use the
 [influxdb-client-js package](https://github.com/influxdata/influxdb-client-js).
 
 1. Inside of your project directory, create an NPM or Yarn package and install 
@@ -586,7 +668,7 @@ To write data to InfluxDB Cloud Serverless using Node.JS, use the
     npm init -y && npm install --save @influxdata/influxdb-client
     ```
 
-2. Create a file for your code--for example: `write.js`.
+2.  In your terminal or editor, create a new file for your code--for example: `write.js`.
 
     ```sh
     touch write.js
@@ -693,7 +775,7 @@ To write data to InfluxDB Cloud Serverless using Node.JS, use the
           The `close()` method sends any records remaining in the buffer,
           executes callbacks, and releases resources.
 
-4. To execute the file and write the line protocol to your InfluxDB Cloud Serverless bucket,
+4. To execute the file and write the line protocol to your {{% cloud-name %}} bucket,
     enter the following command in your terminal:
    
     ```sh
