@@ -216,7 +216,7 @@ For 32-bit data:
 SELECT A ^ 4294967295 FROM example
 ```
 
-In each case the constant you need can be calculated as `(2 ** width) - 1`.
+In each case, the constant you need can be calculated as `(2 ** width) - 1`.
 
 ## Notable behaviors of mathematical operators
 

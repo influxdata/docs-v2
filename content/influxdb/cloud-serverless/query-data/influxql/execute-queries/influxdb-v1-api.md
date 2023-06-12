@@ -13,8 +13,8 @@ influxdb/cloud-serverless/tags: [query, influxql, python]
 list_code_example: |
   ```sh
   curl --get https://cloud2.influxdata.com/query \
-    --header "Authorization: Token DATABASE_TOKEN" \
-    --data-urlencode "db=DATABASE_NAME" \
+    --header "Authorization: Token API_TOKEN" \
+    --data-urlencode "db=BUCKET_NAME" \
     --data-urlencode "q=SELECT * FROM home"
   ```
 ---
@@ -41,16 +41,16 @@ Use the v1 `/query` endpoint and the `GET` request method to query data with Inf
 Provide the following with your request:
 
 - **Headers:**
-  - **Authorization:** `Bearer DATABASE_TOKEN`
+  - **Authorization:** `Bearer API_TOKEN`
 - **Query parameters:**
   - **db**: Database to query
   - **rp**: _(Optional)_ Retention policy to query 
   - **q**: URL-encoded InfluxQL query
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
 ```sh
 curl --get https://cloud2.influxdata.com/query \
-  --header "Authorization: Token DATABASE_TOKEN" \
+  --header "Authorization: Token API_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
 ```
@@ -60,7 +60,7 @@ Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Name of the database to query
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
   
 
 {{% note %}}
@@ -70,7 +70,7 @@ If using basic authentication or query string authentication (username and passw
 to interact with the v1 HTTP query API, provide the following credentials:
 
 - **username**: Arbitrary string _({{< cloud-name >}} ignores the username)_
-- **password**: [Database token](/influxdb/cloud-serverless/admin/tokens/) with read permission
+- **password**: [API token](/influxdb/cloud-serverless/admin/tokens/) with read permission
   on the database you want to query
 
 {{< code-tabs-wrapper >}}

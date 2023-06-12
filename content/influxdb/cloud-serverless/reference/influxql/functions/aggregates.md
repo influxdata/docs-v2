@@ -50,7 +50,7 @@ COUNT(field_expression)
 - **field_expression**: Expression to identify one or more fields to operate on.
   Can be a [field key](/influxdb/cloud-serverless/reference/glossary/#field-key),
   constant, regular expression, or wildcard (`*`).
-  Supports all field types.
+  Supports all [field data types](/influxdb/cloud-serverless/reference/glossary/#field-value).
 
 #### Examples
 

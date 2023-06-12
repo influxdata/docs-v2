@@ -216,7 +216,7 @@ For 32-bit data:
 SELECT A ^ 4294967295 FROM example
 ```
 
-In each case the constant you need can be calculated as `(2 ** width) - 1`.
+In each case, the constant you need can be calculated as `(2 ** width) - 1`.
 
 ## Notable behaviors of mathematical operators
 
@@ -228,7 +228,7 @@ In each case the constant you need can be calculated as `(2 ** width) - 1`.
 InfluxQL does not support combining mathematical operations with a wildcard (`*`)
 or [regular expression](/influxdb/cloud-serverless/query-data/influxql/regular-expressions/)
 in the `SELECT` clause.
-The following queries are invalid and the system returns an error:
+The following queries are invalid and the output is an error:
 
 Perform a mathematical operation on a wildcard.
 
