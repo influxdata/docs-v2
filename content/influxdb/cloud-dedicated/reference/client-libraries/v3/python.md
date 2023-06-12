@@ -109,8 +109,35 @@ In batching mode, the client adds the record or records to a batch, and then sch
 The client writes the batch to InfluxDB after reaching `_write_client_options.batch_size` or `_write_client_options.flush_interval`.
 If a write fails, the client reschedules the write according to the `_write_client_options` retry options.
 
-To use batching mode, set the `_write_client_options.WriteOptions` attribute to an instance of `WriteOptions` with `write_type=WriteType.batching`.
+To use batching mode, pass an instance of `WriteOptions` for the `InfluxDBClient3._write_client_options` argument--for example:
 
+1.  Instantiate `WriteOptions()` with defaults or with
+`WriteOptions.write_type=WriteType.batching`.
+
+    ```py
+      # Batching with all batch size, flush, and retry defaults
+      write_options = WriteOptions()
+    ```
+
+2.  Call the a `write_client_options` function to create an options object that uses `write_options` from the preceding step.
+
+    ```py
+    wco = write_client_options(WriteOptions=write_options)
+    ```
+
+3. Initialize the client, setting the `_write_client_options` argument to the `wco` object from the preceding step.
+
+    {{< tabs-wrapper >}}
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+```py
+with InfluxDBClient3(token="DATABASE_TOKEN", host="cluster-id.influxdb.io",
+                    org="", database="DATABASE_NAME",
+                    _write_client_options=wco) as client:
+
+    client.write(record=points)
+```
+{{% /code-placeholders %}}
+    {{< /tabs-wrapper >}}
 #### Synchronous writing
 
 In synchronous mode, the client sends write requests immediately (not batched)
@@ -147,7 +174,7 @@ The following example shows how to initialize a client for writing and querying 
 When writing data, the client will use batch mode with default options and will
 invoke the callback function for the response.
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```py
   import influxdb_client_3 as InfluxDBClient3
   from influxdb_client_3 import write_client_options, WriteOptions, InfluxDBError
@@ -175,15 +202,11 @@ invoke the callback function for the response.
                               retry_callback=retry,
                               WriteOptions=write_options)
 
-  with  InfluxDBClient3.InfluxDBClient3(
-      token="DATABASE_TOKEN",
-      host=cluster-id.influxdb.io,
-      org="",
-      database="DATABASE_NAME",
+  with InfluxDBClient3(token="DATABASE_TOKEN", host="cluster-id.influxdb.io",
+                      org="", database="DATABASE_NAME",
       _write_client_options=wco) as client:
 
       client.write(record=points)
-
 ```
 {{% /code-placeholders %}}
 
@@ -205,8 +228,7 @@ Replace the following:
 ### InfluxDBClient3.write
 
 Writes a record or a list of records to InfluxDB.
-A record can be a `Point` object, a line protocol string, or a dict that represents a point,
-or `DataFrame`.
+A record can be a `Point` object, a dict that represents a point, a line protocol string, or a `DataFrame`.
 
 The client can write using [_batching_ mode](#batch-writing) or [_synchronous_ mode](#synchronous-writing).
 
@@ -224,7 +246,18 @@ write(self, record=None, **kwargs)
 
 ##### Write a line protocol string
 
+{{% influxdb/custom-timestamps %}}
+{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
+```py
+points = "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000"
 
+client = InfluxDBClient3(token="DATABASE_TOKEN", host="cluster-id.influxdb.io",
+                        database="DATABASE_NAME", org="")
+
+client.write(record=points, write_precision="s")
+```
+{{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
 
 ##### Write data using points
 
@@ -253,7 +286,7 @@ The following example shows how to define a `dict` that represents a point, and 
 data to InfluxDB.
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```py
   # Using point dictionary structure
   points = {
@@ -314,6 +347,7 @@ write_file(self, file, measurement_name=None, tag_columns=[],
 The following example shows how to configure write options for batching, retries, and callbacks,
 and how to write data from CSV and JSON files to InfluxDB:
 
+{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3, write_client_options,
                               WritePrecision, WriteOptions, InfluxDBError
@@ -350,12 +384,9 @@ wco = write_client_options(success_callback=callback.success,
                           WriteOptions=write_options 
                         )
 
-with  InfluxDBClient3(
-  token="DATABASE_TOKEN",
-  host=cluster-id.influxdb.io,
-  org="",
-  database="DATABASE_NAME",
-  _write_client_options=wco) as client:
+with  InfluxDBClient3(token="DATABASE_TOKEN", host="cluster-id.influxdb.io",
+                      org="", database="DATABASE_NAME",
+                      _write_client_options=wco) as client:
 
   client.write_file(file='./out.csv', timestamp_column='time',
                     tag_columns=["provider", "machineID"])
@@ -363,6 +394,7 @@ with  InfluxDBClient3(
   client.write_file(file='./out.json', timestamp_column='time',
                     tag_columns=["provider", "machineID"], date_unit='ns')
 ```
+{{% /code-placeholders %}}
 
 ### InfluxDBClient3.query
 
