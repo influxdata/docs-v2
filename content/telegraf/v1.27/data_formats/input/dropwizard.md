@@ -8,7 +8,7 @@ menu:
     weight: 30
     parent: Input data formats
     aliases:
-        - /telegraf/v1.26/data_formats/template-patterns/
+        - /telegraf/v1.27/data_formats/template-patterns/
 ---
 
 The `dropwizard` data format can parse a [Dropwizard JSON representation](http://metrics.dropwizard.io/3.1.0/manual/json/) representation of a single metrics registry. By default, tags are parsed from metric names as if they were actual InfluxDB Line Protocol keys (`measurement<,tag_set>`) which can be overridden using custom [template patterns](#templates). All field value types are supported, including `string`, `number` and `boolean`.
@@ -179,10 +179,10 @@ dropwizard_tags_path = "tags"
 #  tag2 = "tags.tag2"
 ```
 
-## Templates <!--This content is duplicated in /telegraf/v1.26/data_formats/input/graphite/-->
+## Templates <!--This content is duplicated in /telegraf/v1.27/data_formats/input/graphite/-->
 
 Template patterns are a mini language that describes how a dot-delimited
-string should be mapped to and from [metrics](/telegraf/v1.26/concepts/metrics/).
+string should be mapped to and from [metrics](/telegraf/v1.27/concepts/metrics/).
 
 A template has the following format:
 ```

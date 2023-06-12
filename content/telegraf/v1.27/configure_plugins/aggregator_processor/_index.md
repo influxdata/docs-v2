@@ -33,7 +33,7 @@ style Aggregate text-align:left
 
 **Processor plugins** process metrics as they pass through and immediately emit
 results based on the values they process. For example, this could be printing
-all metrics or adding a tag to all metrics that pass through. For a list of processor plugins and links to their detailed configuration options, see [processor plugins](/telegraf/v1.26/plugins/#processor-plugins).
+all metrics or adding a tag to all metrics that pass through. For a list of processor plugins and links to their detailed configuration options, see [processor plugins](/telegraf/v1.27/plugins/#processor-plugins).
 
 **Aggregator plugins**, on the other hand, are a bit more complicated. Aggregators
 are typically for emitting new _aggregate_ metrics, such as a running mean,
@@ -43,7 +43,7 @@ of metrics that each _aggregate_ represents. In other words, the emitted
 _aggregate_ metric will be the aggregated value of the past `period` seconds.
 Since many users will only care about their aggregates and not every single metric
 gathered, there is also a `drop_original` argument, which tells Telegraf to only
-emit the aggregates and not the original metrics. For a list of aggregator plugins and links to their detailed configuration options, see [aggregator plugins](/telegraf/v1.26/plugins/#aggregator-plugins).
+emit the aggregates and not the original metrics. For a list of aggregator plugins and links to their detailed configuration options, see [aggregator plugins](/telegraf/v1.27/plugins/#aggregator-plugins).
 
 {{% note %}}
 #### Behavior of processors and aggregators when used together

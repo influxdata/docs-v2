@@ -8,7 +8,7 @@ menu:
     weight: 40
     parent: Input data formats
     aliases:
-        - /telegraf/v1.26/data_formats/template-patterns/
+        - /telegraf/v1.27/data_formats/template-patterns/
 ---
 
 The Graphite data format translates Graphite *dot* buckets directly into
@@ -56,7 +56,7 @@ By default, the separator is left as `.`, but this can be changed using the
 ## Templates
 
 Template patterns are a mini language that describes how a dot-delimited
-string should be mapped to and from [metrics](/telegraf/v1.26/concepts/metrics/).
+string should be mapped to and from [metrics](/telegraf/v1.27/concepts/metrics/).
 
 A template has the following format:
 ```
@@ -87,7 +87,7 @@ Any part of the template that isn't a keyword is treated as a tag key, which can
 The most basic template is to specify a single transformation to apply to all
 incoming metrics.
 
-##### Template <!--This content is duplicated in /telegraf/v1.26/data_formats/input/graphite/-->
+##### Template <!--This content is duplicated in /telegraf/v1.27/data_formats/input/graphite/-->
 
 ```toml
 templates = [

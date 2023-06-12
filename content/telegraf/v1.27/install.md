@@ -6,8 +6,8 @@ menu:
     name: Install
     weight: 20
 aliases:
-- /telegraf/v1.26/introduction/installation/
-- /telegraf/v1.26/install/
+- /telegraf/v1.27/introduction/installation/
+- /telegraf/v1.27/install/
 ---
 
 This page provides directions for installing, starting, and configuring Telegraf. To install Telegraf, do the following:
@@ -27,7 +27,7 @@ Installation of the Telegraf package may require `root` or administrator privile
 
 ### Networking
 
-Telegraf offers multiple service [input plugins](/telegraf/v1.26/plugins/inputs/) that may
+Telegraf offers multiple service [input plugins](/telegraf/v1.27/plugins/inputs/) that may
 require custom ports.
 Modify port mappings through the configuration file (`telegraf.conf`).
 
@@ -118,7 +118,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.26/administration/configuration/).
+[configuration documentation](/telegraf/v1.27/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN RedHat & CentOS ---------->
 {{% tab-content %}}
@@ -161,7 +161,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.26/administration/configuration/).
+[configuration documentation](/telegraf/v1.27/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN SLES & openSUSE ---------->
 {{% tab-content %}}
@@ -192,7 +192,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.26/administration/configuration/).
+[configuration documentation](/telegraf/v1.27/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN FreeBSD/PC-BSD ---------->
 {{% tab-content %}}
@@ -223,7 +223,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.26/administration/configuration/).
+[configuration documentation](/telegraf/v1.27/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN macOS ---------->
 {{% tab-content %}}
@@ -267,7 +267,7 @@ telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>
 ```
 
 For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1.26/configuration/).
+[configuration documentation](/telegraf/v1.27/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN Windows ---------->
 {{% tab-content %}}
@@ -363,7 +363,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
 ### Requirements
 
 - Ensure you've installed [Go](https://go.dev/) version is 1.18.0 or later.
-- Create your Telegraf configuration file with the plugins you want to use. For details, see [Configuration options](/telegraf/v1.26/configuration/).
+- Create your Telegraf configuration file with the plugins you want to use. For details, see [Configuration options](/telegraf/v1.27/configuration/).
 
 ### Build and run the custom builder
 

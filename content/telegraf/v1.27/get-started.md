@@ -6,24 +6,24 @@ menu:
     name: Get started
     weight: 30
 aliases:
-  - /telegraf/v1.26/introduction/getting-started/
-  - /telegraf/v1.26/get_started/
+  - /telegraf/v1.27/introduction/getting-started/
+  - /telegraf/v1.27/get_started/
 ---
 
-After you've [downloaded and installed Telegraf](/telegraf/v1.26/install/), you're ready to begin collecting and sending data. To collect and send data, do the following:
+After you've [downloaded and installed Telegraf](/telegraf/v1.27/install/), you're ready to begin collecting and sending data. To collect and send data, do the following:
 
 1. [Configure Telegraf](#configure-telegraf)
 2. [Start Telegraf](#start-telegraf)
-3. Use [plugins available in Telegraf](/telegraf/v1.26/plugins/) to gather, transform, and output data.
+3. Use [plugins available in Telegraf](/telegraf/v1.27/plugins/) to gather, transform, and output data.
 
 ## Configure Telegraf
 
-Define which plugins Telegraf will use in the configuration file. Each configuration file needs at least one enabled [input plugin](/telegraf/v1.26/plugins/inputs/) (where the metrics come from) and at least one enabled [output plugin](/telegraf/v1.26/plugins/outputs/) (where the metrics go).
+Define which plugins Telegraf will use in the configuration file. Each configuration file needs at least one enabled [input plugin](/telegraf/v1.27/plugins/inputs/) (where the metrics come from) and at least one enabled [output plugin](/telegraf/v1.27/plugins/outputs/) (where the metrics go).
 
 The following example generates a sample configuration file with all available plugins, then uses `filter` flags to enable specific plugins.
 
 {{% note %}}
-For details on `filter` and other flags, see [Telegraf commands and flags](/telegraf/v1.26/commands/).
+For details on `filter` and other flags, see [Telegraf commands and flags](/telegraf/v1.27/commands/).
 {{% /note %}}
 
 1. Run the following command to create a configuration file:
@@ -35,11 +35,11 @@ For details on `filter` and other flags, see [Telegraf commands and flags](/tele
    * Linux debian and RPM packages: `/etc/telegraf/telegraf.conf`
    * Standalone Binary: see the next section for how to create a configuration file
 
-   > **Note:** You can also specify a remote URL endpoint to pull a configuration file from. See [Configuration file locations](/telegraf/v1.26/configuration/#configuration-file-locations).
+   > **Note:** You can also specify a remote URL endpoint to pull a configuration file from. See [Configuration file locations](/telegraf/v1.27/configuration/#configuration-file-locations).
 
 3. Edit the configuration file using `vim` or a text editor. Because this example uses [InfluxDB V2 output plugin](https://github.com/influxdata/telegraf/blob/release-1.21/plugins/outputs/influxdb_v2/README.md), we need to add the InfluxDB URL, authentication token, organization, and bucket details to this section of the configuration file.
 
-  > **Note:** For more configuration file options, see [Configuration options](/telegraf/v1.26/configuration/).
+  > **Note:** For more configuration file options, see [Configuration options](/telegraf/v1.27/configuration/).
 
 4. For this example, specify two inputs (`cpu` and `mem`) with the `--input-filter` flag.
 Specify InfluxDB as the output with the `--output-filter` flag.

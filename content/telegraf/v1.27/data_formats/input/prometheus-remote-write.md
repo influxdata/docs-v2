@@ -21,7 +21,7 @@ For the metrics to completely align with the 1.x endpoint, add a Starlark proces
 
 ### Configuration
 
-Use the [`inputs.http_listener_v2`](/telegraf/v1.26/plugins/#input-http_listener_v2) plug and set `data_format = "prometheusremotewrite"`
+Use the [`inputs.http_listener_v2`](/telegraf/v1.27/plugins/#input-http_listener_v2) plug and set `data_format = "prometheusremotewrite"`
 
 ```toml
 [[inputs.http_listener_v2]]

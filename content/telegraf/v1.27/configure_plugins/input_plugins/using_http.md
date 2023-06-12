@@ -11,7 +11,7 @@ menu:
 
 This example walks through using the Telegraf HTTP input plugin to collect live metrics on Citi Bike stations in New York City. Live station data is available in JSON format directly from [Citi Bike](https://ride.citibikenyc.com/system-data).
 
-For the following example to work, configure [`influxdb_v2` output plugin](/telegraf/v1.26/plugins/#output-influxdb_v2). This plugin is what allows Telegraf to write the metrics to InfluxDB.
+For the following example to work, configure [`influxdb_v2` output plugin](/telegraf/v1.27/plugins/#output-influxdb_v2). This plugin is what allows Telegraf to write the metrics to InfluxDB.
 
 ## Configure the HTTP Input plugin in your Telegraf configuration file
 
@@ -85,7 +85,7 @@ The format used to interpret the designated `timestamp_key`. The `last_reported`
 
 ## Start Telegraf and verify data appears
 
-[Start the Telegraf service](/telegraf/v1.26/get_started/#start-telegraf).
+[Start the Telegraf service](/telegraf/v1.27/get_started/#start-telegraf).
 
 To test that the data is being sent to InfluxDB, run the following (replacing `telegraf.conf` with the path to your configuration file):
 

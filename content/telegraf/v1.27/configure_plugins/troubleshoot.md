@@ -8,8 +8,8 @@ menu:
     Parent: Configure plugins
     weight: 79
 aliases:
-  - /telegraf/v1.26/administration/troubleshooting/
-  - /telegraf/v1.26/administration/troubleshooting/
+  - /telegraf/v1.27/administration/troubleshooting/
+  - /telegraf/v1.27/administration/troubleshooting/
 ---
 
 ## Validate your Telegraf configuration with `--test`
