@@ -4,7 +4,7 @@ description: Overview of the Telegraf configuration file, enabling plugins, and 
 aliases:
   - /telegraf/v1.26/administration/configuration/
 menu:
-  telegraf_1_26_ref:
+  telegraf_1_27_ref:
 
     name: Configuration options
     weight: 40

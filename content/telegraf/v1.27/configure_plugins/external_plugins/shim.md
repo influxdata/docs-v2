@@ -2,7 +2,7 @@
 title: Use the `execd` shim
 description:
 menu:
-  telegraf_1_26:
+  telegraf_1_27:
   
      name: Use the `execd` shim
      weight: 50

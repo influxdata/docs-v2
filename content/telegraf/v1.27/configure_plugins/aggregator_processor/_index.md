@@ -3,7 +3,7 @@ title: Transform data with aggregator and processor plugins
 description: |
   Aggregator and processor plugins aggregate and process metrics.
 menu:
-  telegraf_1_26:
+  telegraf_1_27:
      name: Aggregator and processor plugins
      weight: 50
      parent: Configure plugins

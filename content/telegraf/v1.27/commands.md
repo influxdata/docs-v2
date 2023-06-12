@@ -2,7 +2,7 @@
 title: Telegraf commands and flags
 description: The `telegraf` command starts and runs all the processes necessary for Telegraf to function.
 menu:
-  telegraf_1_26_ref:
+  telegraf_1_27_ref:
 
     name: Commands
     weight: 25

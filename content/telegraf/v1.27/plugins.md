@@ -5,7 +5,7 @@ description: >
   It supports four categories of plugins including input, output, aggregator, and processor.
   View and search all available Telegraf plugins.
 menu:
-  telegraf_1_26_ref:
+  telegraf_1_27_ref:
 
     weight: 10
 weight: 6

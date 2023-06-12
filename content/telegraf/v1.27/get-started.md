@@ -2,7 +2,7 @@
 title: Get started
 description: Configure and start Telegraf
 menu:
-  telegraf_1_26:
+  telegraf_1_27:
     name: Get started
     weight: 30
 aliases:

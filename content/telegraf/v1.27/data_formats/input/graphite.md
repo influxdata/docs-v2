@@ -2,7 +2,7 @@
 title: Graphite input data format
 description: Use the Graphite data format to translate Graphite dot buckets directly into Telegraf measurement names, with a single value field, and without any tags.
 menu:
-  telegraf_1_26_ref:
+  telegraf_1_27_ref:
 
     name: Graphite
     weight: 40

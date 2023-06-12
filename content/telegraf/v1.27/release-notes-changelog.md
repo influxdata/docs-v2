@@ -5,7 +5,7 @@ aliases:
   - /telegraf/v1.26/reference/release-notes/influxdb/
   - /telegraf/v1.26/about_the_project/release-notes-changelog/
 menu:
-  telegraf_1_26_ref:
+  telegraf_1_27_ref:
     name: Release notes
     weight: 60
 ---
