@@ -56,4 +56,4 @@ cpu.usage_idle;cpu=cpu-total;dc=us-east-1;host=tars 98.09 1455320690
 
 ### templates
 
-For more information on templates and template patterns, see [Template patterns](/telegraf/v1.15/data_formats/template-patterns/).
+For more information on templates and template patterns, see [Template patterns](/telegraf/v1.27/data_formats/input/graphite/#templates).
