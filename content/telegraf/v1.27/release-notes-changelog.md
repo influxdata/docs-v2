@@ -10,6 +10,136 @@ menu:
     weight: 60
 ---
 
+## v1.27.0 [2023-06-12]
+
+### Important Changes
+
+- **Timezone Parsing**: Fix parsing of timezone abbreviations such as `MST`. Up
+  to now, when parsing times with abbreviated timezones (i.e. the format ) the
+  timezone information is ignored completely and the _timestamp_ is located in
+  UTC. This is a golang issue (see
+  [#9617](https://github.com/golang/go/issues/9617) or
+  [#56528](https://github.com/golang/go/issues/56528)). If you worked around
+  that issue, please remove the workaround before using v1.27+. In case you
+  experience issues with abbreviated timezones please file an issue!
+- **Internal Parser methods**: Removal of old-style parser creation. This
+  should not directly affect users as it is an API change. All parsers in
+  Telegraf are already ported to the new framework. If you experience any
+  issues with not being able to create parsers let us know!
+
+### New Plugins
+
+#### Inputs
+
+- [ctrlX Data Layer](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/ctrlx_datalayer) (`inputs.ctrlx_datalayer`)
+- [Intel Baseband Accelerator](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/intel_baseband) (`inputs.intel_baseband`)
+
+#### Outputs
+
+- [Clarify](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/clarify) (`outputs.clarify`)
+- [Nebius Cloud Monitoring](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/nebius_cloud_monitoring) (`outputs.nebius_cloud_monitoring`)
+
+#### Processors
+
+- [Scale](https://github.com/influxdata/telegraf/tree/master/plugins/processors/scale) (`processors.scale`)
+
+#### Secret Stores
+
+- [Docker](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/docker) (`secretstores.docker`)
+- [HTTP](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/http) (`secretstores.http`)
+
+#### Serializers
+
+- [Cloud Events](https://github.com/influxdata/telegraf/tree/master/plugins/serializers/cloudevents) (`serializers.cloudevents`)
+
+### Features
+
+#13144 Add common expression language metric filtering
+- Agent (`agent`): Add option to avoid filtering of explicit plugin tags
+- BasicStats (`aggregators.basicstats`): Add percentage change
+- Cloud PubSub (`cloud_pubsub`): Add support for gzip compression
+- OPCUA (`common.opcua`): Add support for secret-store secrets
+- TLS (`common.tls`): Add support for passphrase-protected private key
+- Config (`config`):
+  - Add framework for migrating deprecated plugins
+  - Support shell like syntax for environment variable substitution
+- Cloudwatch (`inputs.cloudwatch`): Add support for cross account observability
+- Directory Monitor (`inputs.directory_monitor`): Improve internal stats
+- Filecount (`inputs.filecount`): Add oldestFileTimestamp and newestFileTimestamp
+- GNMI (`inputs.gnmi`):
+  - Allow canonical field names
+  - Support Juniper GNMI Extension Header
+- Internet Speed (`inputs.internet_speed`): Support multi-server test
+- Kafka Consumer (`inputs.kafka_consumer`): Add regular expression support for topics
+- Kubernetes (`inputs.kubernetes`): Extend kube_inventory plugin to include and extend resource quota, secret, node, and pod measurement
+- Nats Consumer (`inputs.nats_consumer`): Add receiver subject as tag
+- Netflow (`inputs.netflow`):
+  - Add sFlow decoder
+  - Allow custom PEN field mappings
+- Nvidia SMI (`inputs.nvidia_smi`): Add additional memory related fields
+- Open Telemetry (`inputs.opentelemetry`): Add configurable span dimensions
+- Prometheus (`inputs.prometheus`): Control which pod metadata is added as tags
+- SQL (`inputs.sql`):
+  - Add disconnected_servers_behavior field in the configuration
+  - Add FlightSQL support
+- SQL Server (`inputs.sqlserver`):
+  - Add Azure Arc-enabled SQL MI support
+  - Check SQL Server encryptionEnforce with xp_instance_regread
+- StatsD (`inputs.statsd`): Add optional temporality and start_time tag for statsd metrics
+- Suricata (`inputs.suricata`): Add ability to parse drop or rejected
+- Vsphere (`inputs.vsphere`): Add vSAN extension
+- Internal (`internal`): Add additional faster compression options
+- Loki (`outputs.loki`): Add option for metric name label
+- Wavefront (`outputs.wavefront`): Add TLS and HTTP Timeout configuration fields
+- OpenTSDB (`parsers.opentsdb`): Add OpenTSDB data format parser
+- AWS EC2 (`processors.aws_ec2`): Add caching of imds and ec2 tags
+- Parser (`processors.parser`): Add merge with timestamp option
+- Scale (`processors.scale`): Add scaling by factor and offset
+- Tempalte (`processors.template`): Allow tag to be a template
+- Prometheus Remote (`serializer.prometheusremote`): Improve performance
+- Test (`test`): Allow to capture all messages during test
+
+### Bugfixes
+
+- Cloud PubSub (`inputs.cloud_pubsub`): Fix gzip decompression.
+- GNMI (`inputs.gnmi`):
+  - Allow optional origin for update path.
+  - Handle canonical field-name correctly for non-explicit subscriptions.
+- MQTT (`inputs.mqtt`): ACK messages when persistence is enabled.
+- MySQL (`inputs.mysql`): Update MariaDB Dialect regex version check.
+- Netflow (`inputs.netflow`):
+  - Fix field mappings.
+  - Handle PEN messages correctly.
+- Prometheus (`inputs.prometheus`): Avoid race when creating informer factory.
+- Socket Listener (`inputs.socket_listener`): Avoid noisy logs on closed connection.
+- Temp (`inputs.temp`): Ignore warnings and instead return only errors.
+- UPSD (`inputs.upsd`): Handle float battery.runtime value.
+- Internal (`internal`): Fix time parsing for abbreviated timezones.
+- SQL (`outputs.sql`): Use config.duration to correctly to parse toml config.
+- Wavefront (`outputs.wavefront`): Flush metric buffer before reaching overflow.
+- Lookup (`processors.lookup`): Do not strip tracking info.
+- Influx (`serializers.influx`): Restore disabled uint support by default.
+
+### Dependency Updates
+
+- Update cloud.google.com/go/monitoring from 1.13.0 to 1.14.0.
+- Update github.com/aliyun/alibaba-cloud-sdk-go from 1.62.193 to 1.62.337.
+- Update github.com/aws/aws-sdk-go-v2/feature/ec2/imds from 1.13.2 to 1.13.3.
+- Update github.com/aws/aws-sdk-go-v2/service/sts from 1.18.9 to 1.19.0.
+- Update github.com/Azure/azure-event-hubs-go/v3 from 3.4.0 to 3.5.0.
+- Update github.com/Azure/go-autorest/autorest from 0.11.28 to 0.11.29.
+- Update github.com/influxdata/influxdb-observability libraries from 0.3.3 to 0.3.15.
+- Update github.com/jackc/pgconn from 1.13.0 to 1.14.0.
+- Update github.com/jackc/pgtype from 1.12.0 to 1.14.0.
+- Update github.com/Mellanox/rdmamap to 1.1.0.
+- Update github.com/pion/dtls/v2 from 2.2.6 to 2.2.7.
+- Update github.com/prometheus/common from 0.43.0 to 0.44.0.
+- Update github.com/rabbitmq/amqp091-go from 1.8.0 to 1.8.1.
+- Update github.com/shirou/gopsutil from 3.23.4 to 3.23.5.
+- Update github.com/showwin/speedtest-go from 1.5.2 to 1.6.2.
+- Update github.com/urfave/cli/v2 from 2.23.5 to 2.25.5.
+- Update k8s.io/client-go from 0.26.2 to 0.27.2.
+
 ## v1.26.0 [2023-03-13]
 
 ### Important Changes
