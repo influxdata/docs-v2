@@ -54,5 +54,5 @@ This can have unintended consequences, such as executing mathematical operations
 _See [influxdata/telegraf#7993](https://github.com/influxdata/telegraf/issues/7993)._
 
 If using custom processor scripts, they must be idempotent (repeatable, without side-effects).
-For custom processes that are not idempotent, use [namepass or namedrop](/telegraf/v1.17/administration/configuration/#input-config-namepass-and-namedrop) to avoid issues when aggregated data is processed a second time.
+For custom processes that are not idempotent, use [namepass or namedrop](/telegraf/v1.27/configuration/#metric-filtering) to avoid issues when aggregated data is processed a second time.
 {{% /note %}}
