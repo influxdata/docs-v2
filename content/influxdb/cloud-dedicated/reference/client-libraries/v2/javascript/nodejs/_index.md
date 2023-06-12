@@ -15,7 +15,7 @@ aliases:
 ---
 
 Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js)
-to write data from Node.js and browser applications to an InfluxDB Cloud Dedicated cluster.
+to write data from Node.js and browser applications to an {{% cloud-name %}} cluster.
 
 ## Use the client library in a Node.js application
 
@@ -26,11 +26,12 @@ to write data from Node.js and browser applications to an InfluxDB Cloud Dedicat
 ### Tools to execute queries
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an InfluxDB Cloud Dedicated cluster.
+This endpoint can't query an {{% cloud-name %}} cluster.
 
-InfluxDB Cloud Dedicated supports many different tools for querying data, including:
+{{% cloud-name %}} supports many different tools for querying data, including:
 
-- [Flight SQL clients](?t=Go#execute-an-sql-query)
+- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
+- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/)
 - [Superset](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/)
 - [Grafana](/influxdb/cloud-dedicated/query-data/tools/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
