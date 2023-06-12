@@ -49,14 +49,16 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 
 {{< req type="key" text="Covered in this tutorial" >}}
 
-- [Flight SQL clients](?t=Go#execute-an-sql-query){{< req "\*  " >}}
 - [InfluxDB user interface (UI)](?t=InfluxDB+UI#execute-an-sql-query){{< req "\*  " >}}
 - [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req "\*  " >}}
-- [InfluxDB HTTP API](?t=InfluxDB+API#execute-an-sql-query){{< req "\*  " >}}
-- [`influx` CLI](?t=influx+CLI#execute-an-sql-query){{< req "\*  " >}}
+- [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
+- [Flight SQL clients](- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
+){{< req "\*  " >}}
 - [Superset](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/superset/)
 - [Grafana](/influxdb/cloud-serverless/query-data/tools/grafana/)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
+- [InfluxDB HTTP API](?t=InfluxDB+API#execute-an-sql-query){{< req "\*  " >}}
+- [`influx` CLI](?t=influx+CLI#execute-an-sql-query){{< req "\*  " >}}
 
 ## SQL query basics
 
