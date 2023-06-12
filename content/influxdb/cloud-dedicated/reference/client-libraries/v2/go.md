@@ -10,15 +10,22 @@ menu:
     parent: v2 client libraries
 influxdb/cloud-dedicated/tags: [client libraries, Go]
 weight: 201
-aliases:
-  - /influxdb/cloud-dedicated/reference/api/client-libraries/go/
-  - /influxdb/cloud-dedicated/tools/client-libraries/go/
 ---
 
-Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to integrate InfluxDB into Go scripts and applications.
+Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to write data to a {{% cloud-name %}} database.
 
 This guide presumes some familiarity with Go and InfluxDB.
 If just getting started, see [Get started with InfluxDB](/influxdb/cloud-dedicated/get-started/).
+
+{{% note %}}
+### Use the InfluxDB v3 client library
+
+InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
+This endpoint can't query an {{% cloud-name %}} cluster.
+
+Use the [InfluxDB v3 Go client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/go/)
+to write and query data stored in {{% cloud-name %}}.
+{{% /note %}}
 
 ## Before you begin
 
@@ -30,7 +37,7 @@ If just getting started, see [Get started with InfluxDB](/influxdb/cloud-dedicat
     go get github.com/influxdata/influxdb-client-go/v2
     ```
 3. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to your InfluxDB Cloud Dedicated cluster, contact your InfluxData account representative.
+   For information about what URL to use to connect to your {{% cloud-name %}} cluster, contact your InfluxData account representative.
 
 ## Boilerplate for the InfluxDB Go Client Library  
 
@@ -129,10 +136,11 @@ func main() {
     client.Close()
 }
 ```
+
 ## Query data from InfluxDB with Go
 
-The InfluxDB v2 Go client can't query InfluxDB Cloud Dedicated.
-To query your dedicated instance, use the [Go Flight SQL client](https://pkg.go.dev/github.com/apache/arrow/go/v12/arrow/flight/flightsql).
+The InfluxDB v2 Go client can't query {{% cloud-name %}}.
+To write and query data in {{% cloud-name %}}, use the [InfluxDB v3 Go client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/go/).
 For an example, see [Get started querying data](/influxdb/cloud-dedicated/get-started/query/?t=Go#execute-an-sql-query).
 
 For more information, see the [Go client README on GitHub](https://github.com/influxdata/influxdb-client-go).
