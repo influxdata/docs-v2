@@ -5,7 +5,7 @@ description: >
   documentation to demonstrate functionality.
   Use the following sample datasets to replicate provided examples.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_cloud_serverless:
     name: Sample data
     parent: Reference
 weight: 110
@@ -23,13 +23,13 @@ Use the following sample datasets to replicate provided examples.
 ## Get started home sensor data
 
 Includes hourly home sensor data used in the
-[Get started with {{< cloud-name >}}](/influxdb/cloud-dedicated/get-started/) guide.
+[Get started with {{< cloud-name >}}](/influxdb/cloud-serverless/get-started/) guide.
 This dataset includes anomalous sensor readings and helps to demonstrate
 processing and alerting on time series data.
 To customize timestamps in the dataset, use the {{< icon "clock" >}} button in
 the lower right corner of the page.
 This lets you modify the sample dataset to stay within the retention period of
-the database you write it to.
+the bucket you write it to.
 
 ##### Time Range
 
@@ -66,15 +66,15 @@ to {{< cloud-name >}}.
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
+{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=https://cluster-id.influxdb.io
-export INFLUX_TOKEN=DATABASE_TOKEN
+export INFLUX_HOST=https://cloud2.influxdata.com
+export INFLUX_TOKEN=API_TOKEN
 
-INFLUX_DATABASE=DATABASE_NAME
+INFLUX_BUCKET=BUCKET_NAME
 
 curl --request POST \
-  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_DATABASE&precision=s" \
+  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_BUCKET&precision=s" \
   --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -114,15 +114,15 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
+{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=https://cluster-id.influxdb.io
-export INFLUX_TOKEN=DATABASE_TOKEN
+export INFLUX_HOST=https://cloud2.influxdata.com
+export INFLUX_TOKEN=API_TOKEN
 
-INFLUX_DATABASE=DATABASE_NAME
+INFLUX_BUCKET=BUCKET_NAME
 
 curl --request POST \
-  "$INFLUX_HOST/write?db=$INFLUX_DATABASE&precision=s" \
+  "$INFLUX_HOST/write?db=$INFLUX_BUCKET&precision=s" \
   --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "
@@ -162,9 +162,11 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 Replace the following in the script above:
 
-- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
-- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
-  with _write_ permission to the database
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
+  your InfluxDB Cloud Serverless bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
+  an [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ pe
+  mission to the bucket
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -210,15 +212,15 @@ Use the InfluxDB v2 or v1 API to write the NOAA Bay Area weather sample data to
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
+{{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
 ```sh
-export INFLUX_HOST=http://cluster-id.influxdb.io
-export INFLUX_TOKEN=DATABASE_TOKEN
+export INFLUX_HOST=https://cloud2.influxdata.com
+export INFLUX_TOKEN=API_TOKEN
 
-INFLUX_DATABASE=DATABASE_NAME
+INFLUX_BUCKET=BUCKET_NAME
 
 curl --request POST \
-  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_DATABASE" \
+  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_BUCKET" \
   --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -229,15 +231,15 @@ curl --request POST \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
+{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=http://cluster-id.influxdb.io
-export INFLUX_TOKEN=DATABASE_TOKEN
+export INFLUX_HOST=https://cloud2.influxdata.com
+export INFLUX_TOKEN=API_TOKEN
 
-INFLUX_DATABASE=DATABASE_NAME
+INFLUX_BUCKET=BUCKET_NAME
 
 curl --request POST \
-  "$INFLUX_HOST/write?db=$INFLUX_DATABASE" \
+  "$INFLUX_HOST/write?db=$INFLUX_BUCKET" \
   --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
@@ -249,9 +251,11 @@ curl --request POST \
 
 Replace the following in the script above:
 
-- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
-- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
-  with sufficient permissions to the database
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
+  your InfluxDB Cloud Serverless bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
+  an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient
+  permissions to the bucket
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -301,15 +305,15 @@ Use the InfluxDB v2 or v1 API to write the Bitcoin price sample data to
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
+{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=https://cluster-id.influxdb.io
-export INFLUX_TOKEN=DATABASE_TOKEN
+export INFLUX_HOST=https://cloud2.influxdata.com
+export INFLUX_TOKEN=API_TOKEN
 
-INFLUX_DATABASE=DATABASE_NAME
+INFLUX_BUCKET=BUCKET_NAME
 
 curl --request POST \
-  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_DATABASE" \
+  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_BUCKET" \
   --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -320,15 +324,15 @@ curl --request POST \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
+{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=https://cluster-id.influxdb.io
-export INFLUX_TOKEN=DATABASE_TOKEN
+export INFLUX_HOST=https://cloud2.influxdata.com
+export INFLUX_TOKEN=API_TOKEN
 
-INFLUX_DATABASE=DATABASE_NAME
+INFLUX_BUCKET=BUCKET_NAME
 
 curl --request POST \
-  "$INFLUX_HOST/write?db=$INFLUX_DATABASE" \
+  "$INFLUX_HOST/write?db=$INFLUX_BUCKET" \
   --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
@@ -340,9 +344,11 @@ curl --request POST \
 
 Replace the following in the script above:
 
-- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
-- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
-  with sufficient permissions to the database
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
+  your InfluxDB Cloud Serverless bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
+  an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient
+  permissions to the bucket
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -380,15 +386,15 @@ Use the InfluxDB v2 or v1 API to write the random number sample data to
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
+{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=http://cluster-id.influxdb.io
-export INFLUX_TOKEN=DATABASE_TOKEN
+export INFLUX_HOST=https://cloud2.influxdata.com
+export INFLUX_TOKEN=API_TOKEN
 
-INFLUX_DATABASE=DATABASE_NAME
+INFLUX_BUCKET=BUCKET_NAME
 
 curl --request POST \
-  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_DATABASE" \
+  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_BUCKET" \
   --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -399,15 +405,15 @@ curl --request POST \
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
+{{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=http://cluster-id.influxdb.io
-export INFLUX_TOKEN=DATABASE_TOKEN
+export INFLUX_HOST=https://cloud2.influxdata.com
+export INFLUX_TOKEN=API_TOKEN
 
-INFLUX_DATABASE=DATABASE_NAME
+INFLUX_BUCKET=BUCKET_NAME
 
 curl --request POST \
-  "$INFLUX_HOST/write?db=$INFLUX_DATABASE" \
+  "$INFLUX_HOST/write?db=$INFLUX_BUCKET" \
   --header "Authorization: Bearer $INFLUX_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
@@ -419,9 +425,11 @@ curl --request POST \
 
 Replace the following in the script above:
 
-- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
-- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
-  with sufficient permissions to the database
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
+  your InfluxDB Cloud Serverless bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
+  an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient
+  permissions to the bucket
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
