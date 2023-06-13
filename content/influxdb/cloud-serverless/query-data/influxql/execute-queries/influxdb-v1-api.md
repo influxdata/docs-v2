@@ -43,11 +43,11 @@ Provide the following with your request:
 - **Headers:**
   - **Authorization:** `Bearer API_TOKEN`
 - **Query parameters:**
-  - **db**: Database to query
+  - **db**: Database (bucket) to query
   - **rp**: _(Optional)_ Retention policy to query 
   - **q**: URL-encoded InfluxQL query
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
+{{% code-placeholders "DATABASE_NAME|API_TOKEN" %}}
 ```sh
 curl --get https://cloud2.influxdata.com/query \
   --header "Authorization: Token API_TOKEN" \
@@ -61,7 +61,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Name of the database to query
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
-  
+  InfluxDB token with read permissions on the databases you want to query.
 
 {{% note %}}
 #### Authenticate with username and password
