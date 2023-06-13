@@ -78,6 +78,7 @@ telegraf:
   menu_category: other
   list_order: 6
   versions:
+    - v1.27
     - v1.26
     - v1.25
     - v1.24
@@ -96,9 +97,10 @@ telegraf:
     - v1.11
     - v1.10
     - v1.9
-  latest: v1.26
+  latest: v1.27
   latest_patches:
-    "1.26": 2
+    "1.27": 0
+    "1.26": 3
     "1.25": 3
     "1.24": 4
     "1.23": 4
@@ -119,7 +121,7 @@ chronograf:
   namespace: chronograf
   menu_category: other
   list_order: 7
-  versions: 
+  versions:
     - v1.10
     - v1.9
     - v1.8
