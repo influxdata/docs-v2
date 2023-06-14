@@ -40,7 +40,7 @@ To follow best practices for secure API token generation and retrieval, InfluxDB
 
 ## Create a token in the InfluxDB UI
 
-To create an InfluxDB API Tokens in the InfluxDB UI, navigate to the **API Tokens** management page.
+To create an InfluxDB API token in the InfluxDB UI, navigate to the **API Tokens** management page.
 In the navigation menu on the left, select **Load Data** > **API Tokens**.
 
 {{< nav-icon "load-data" >}}

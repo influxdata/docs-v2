@@ -13,8 +13,8 @@ View API tokens and permissions using the InfluxDB user interface (UI),
 the `influx` command line interface (CLI), or the InfluxDB API.
 
 {{% note %}}
-To follow best practices for secure API token generation and retrieval, InfluxDB Cloud enforces access restrictions on API tokens.
-  - InfluxDB Cloud UI only allows access to the API token value immediately after the token is created.
+To follow best practices for secure API token generation and retrieval, {{% cloud-name %}} enforces access restrictions on API tokens.
+  - InfluxDB UI only allows access to the API token value immediately after the token is created.
   - You can't change access (**read/write**) permissions for an API token after it's created.
   - Tokens stop working when the user who created the token is deleted.
 
