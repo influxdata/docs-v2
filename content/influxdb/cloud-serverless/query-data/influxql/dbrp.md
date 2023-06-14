@@ -12,7 +12,7 @@ weight: 101
 InfluxQL requires a database and retention policy (DBRP) combination in order to query data.
 In {{< cloud-name >}}, databases and retention policies are
 combined and replaced by InfluxDB [buckets](/influxdb/cloud-serverless/reference/glossary/#bucket).
-To query an {{< cloud-name >}} bucket with InfluxQL, first map the each DBRP
+To query an {{< cloud-name >}} bucket with InfluxQL, first map each DBRP
 combination to a bucket.
 
 - [Automatic DBRP mapping](#automatic-dbrp-mapping)
@@ -57,7 +57,7 @@ Include the following:
 {{< req type="key" >}}
 
 - {{< req "\*" >}} **API token** to authenticate. We recommend setting your token to
-  your active InfluxDB connection configuration in the influx CLI, so you don't
+  your active InfluxDB connection configuration in the `influx` CLI, so you don't
   have to add these parameters to each command.
   To set up your active InfluxDB configuration, see
   [`influx config set`](/influxdb/cloud-serverless/reference/cli/influx/config/set/).
@@ -120,14 +120,14 @@ curl --request POST https://cloud2.influxdata.com/api/v2/dbrps \
 ## List DBRP mappings
 
 Use the [`influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/) or the
-[InfluxDB API](/influxdb/cloud-serverless/reference/api/) to list all DBRP
+[InfluxDB HTTP API](/influxdb/cloud-serverless/reference/api/) to list all DBRP
 mappings and verify the buckets you want to query are mapped to a database and
 retention policy.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [influx CLI](#)
-[InfluxDB API](#)
+[InfluxDB HTTP API](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
@@ -213,12 +213,12 @@ curl --request GET \
 ## Update a DBRP mapping
 
 Use the [`influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/) or the
-[InfluxDB API](/influxdb/cloud-serverless/reference/api/) to update a DBRP mapping.
+[InfluxDB HTTP API](/influxdb/cloud-serverless/reference/api/) to update a DBRP mapping.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [influx CLI](#)
-[InfluxDB API](#)
+[InfluxDB HTTP API](#)
 {{% /tabs %}}
 {{% tab-content %}}
 
