@@ -75,7 +75,8 @@ pre {
   @import "code-api-methods";
 }
 
-// Styles for calling out specific code in code blocks
+////////////// Styles for calling out specific code in code blocks /////////////
+/// 
 span.code-callout, .code-placeholder {
   font-weight:bold;
   margin:0 .15rem;
@@ -85,6 +86,7 @@ span.code-callout, .code-placeholder {
   &.orange {color: $r-curacao;}
 }
 
+/////////////// Styles for code placeholders that can be updated ///////////////
 .code-placeholder-wrapper {
   display: inline;
   position: relative;
@@ -95,7 +97,8 @@ span.code-callout, .code-placeholder {
     padding: 0;
     line-height: 1.4em;
     color: $code-placeholder;
-    font-weight:bold;
+    font-weight: normal;
+    font-style: normal;
     border-bottom: 1px dotted;
     transition: color .2s;
     cursor: pointer;
@@ -104,7 +107,7 @@ span.code-callout, .code-placeholder {
       font-style: normal;
       &::before {
         margin-left: .2rem;
-        font-size: .9em;
+        font-size: .8em;
         transition: opacity .2s;
         opacity: .65;
         z-index: -1;
@@ -132,7 +135,7 @@ span.code-callout, .code-placeholder {
       background-color: $sidebar-search-bg;
       padding: 2px 20px 2px 6px;
       color: $code-placeholder-hover;
-      font-weight: bold;
+      font-weight: normal;
       &:focus {
         outline: none;
         border-color: rgba($code-placeholder-hover, .75);
@@ -145,6 +148,7 @@ span.code-callout, .code-placeholder {
 
     &:after {
       content: "\e937";
+      color: $code-placeholder-hover;
       font-family: 'icomoon-v4';
       display: block;
       position: absolute;
@@ -153,6 +157,7 @@ span.code-callout, .code-placeholder {
     }
   }
 }
+.code-placeholder-key code {color: $code-placeholder}
 
 
 ////////////////////////////////////////////////////////////////////////////////
