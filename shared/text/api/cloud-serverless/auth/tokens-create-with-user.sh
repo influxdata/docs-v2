@@ -12,13 +12,13 @@
 function create_token_with_user() {
   curl --request POST \
     "https://cloud2.influxdata.com/api/v2/users/" \
-    --header "Authorization: Bearer API_TOKEN" \
+    --header "Authorization: Token API_TOKEN" \
     --header 'Content-type: application/json' \
     --data "{\"name\": \"$1\"}"
   
   curl --request GET \
     "https://cloud2.influxdata.com/api/v2/users?name=$1" \
-    --header "Authorization: Bearer API_TOKEN" \
+    --header "Authorization: Token API_TOKEN" \
     --header 'Content-type: application/json' | \
   
   jq --arg USER $1 '.users[0] // error("User missing")
@@ -33,7 +33,7 @@ function create_token_with_user() {
   
   curl --request POST \
     "https://cloud2.influxdata.com/api/v2/authorizations" \
-    --header "Authorization: Bearer API_TOKEN" \
+    --header "Authorization: Token API_TOKEN" \
     --header 'Content-type: application/json' \
     --data @- | \
   

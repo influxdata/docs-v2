@@ -85,7 +85,7 @@ Use the `/api/v2/authorizations` InfluxDB API endpoint to view tokens and permis
 Include the following in your request:
 
 - **Headers**:
-  - **Authorization**: `Bearer API_TOKEN`
+  - **Authorization**: `Token API_TOKEN`
     (API token with the [`read: authorizations`](/influxdb/cloud-serverless/api/#operation/PostAuthorizations) permission)
   - **Content-type**: `application/json`
 
@@ -104,7 +104,7 @@ To view a specific authorization and token, include the authorization ID in the 
 Include the following in your request:
 
 - **Headers**:
-  - **Authorization**: `Bearer API_TOKEN`
+  - **Authorization**: `Token API_TOKEN`
     (API token with the [`read: authorizations`](/influxdb/cloud-serverless/api/#operation/PostAuthorizations) permission)
   - **Content-type**: `application/json`
 
@@ -112,7 +112,7 @@ Include the following in your request:
 ```sh
 curl --request GET \
 	"https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/authorizations/AUTHORIZATION_ID" \
-  --header "Authorization: Bearer API_TOKEN" \
+  --header "Authorization: Token API_TOKEN" \
   --header 'Content-type: application/json'
 ```
 {{% /code-placeholders %}}

@@ -187,7 +187,7 @@ Use the `/api/v2/authorizations` InfluxDB API endpoint to create a token.
 Include the following in your request:
 
 - **Headers**
-  - **Authorization**: `Bearer API_TOKEN`
+  - **Authorization**: `Token API_TOKEN`
     (API token with the [`write: authorizations`](/influxdb/cloud-serverless/api/#operation/PostAuthorizations) permission)
   - **Content-type**: `application/json`
 - **Request body**: JSON object with the following properties:
@@ -201,7 +201,7 @@ Include the following in your request:
       - **type**: Resource type
       - **name**: _(Optional)_ Resource name to scope permission to
 
-{{% code-placeholders "(API|ORG)_(TOKEN|ID)" %}}
+{{% code-placeholders "(API|ORG|AUTHORIZATION)_(TOKEN|ID|DESCRIPTION)" %}}
 ```sh
 {{% get-shared-text "api/cloud-serverless/auth/token-create.sh" %}}
 ```

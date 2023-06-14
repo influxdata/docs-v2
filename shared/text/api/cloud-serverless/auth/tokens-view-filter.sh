@@ -6,14 +6,14 @@
 
 function list_write_auths() {
   curl "https://cloud2.influxdata.com/api/v2/users/?name=$1" \
-    --header "Authorization: Bearer API_TOKEN" \
+    --header "Authorization: Token API_TOKEN" \
     --header 'Content-type: application/json' | \
   
   jq --arg USER $1 '.users[] | select(.name == $USER) | .id' | \
   
   xargs -I '%' \
   curl "https://cloud2.influxdata.com/api/v2/authorizations/?userID=%" \
-    --header "Authorization: Bearer API_TOKEN" \
+    --header "Authorization: Token API_TOKEN" \
     --header 'Content-type: application/json' | \
   
   jq '.authorizations[]

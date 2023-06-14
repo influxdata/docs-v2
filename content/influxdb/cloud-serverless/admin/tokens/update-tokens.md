@@ -111,7 +111,7 @@ and status of a token.
 Include the following in your request:
 
 - **Headers**:
-  - **Authorization**: `Bearer API_TOKEN`
+  - **Authorization**: `Token API_TOKEN`
     (API token with the [`write: authorizations`](/influxdb/cloud-serverless/api/#operation/PostAuthorizations) permission)
   - **Content-type**: `application/json`
 - **Path parameters**:
@@ -127,13 +127,13 @@ Include the following in your request:
 # Update the description and status of the first authorization listed for the user.
 
 curl --request GET \
-  "https://cloud2.influxdata.com/api/v2/authorizations?user=user2" \
-  --header "Authorization: Bearer API_TOKEN" \
+  https://cloud2.influxdata.com/api/v2/authorizations?user=user2 \
+  --header "Authorization: Token API_TOKEN" \
   --header 'Content-type: application/json' \
 | jq .authorizations[0].id \
 | xargs -I authid curl --request PATCH \
   https://cloud2.influxdata.com/api/v2/authorizations/authid \
-  --header "Authorization: Bearer API_TOKEN" \
+  --header "Authorization: Token API_TOKEN" \
   --header 'Content-type: application/json' \
   --data '{
             "description": "deactivated_auth",

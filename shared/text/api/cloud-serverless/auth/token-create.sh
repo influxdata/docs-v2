@@ -1,10 +1,10 @@
-curl -v --request POST \
+curl --request POST \
   https://cloud2.influxdata.com/api/v2/authorizations \
-  --header "Authorization: Bearer API_TOKEN" \
+  --header "Authorization: Token API_TOKEN" \
   --header 'Content-type: application/json' \
   --data '{
   "status": "active",
-  "description": "iot-center-device",
+  "description": "AUTHORIZATION_DESCRIPTION",
   "orgID": "ORG_ID",
   "permissions": [
     {
