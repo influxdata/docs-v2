@@ -6,10 +6,12 @@ description: >
 weight: 101
 menu:
   influxdb_cloud_serverless:
-    parent: Query with Flight SQL
+    parent: Execute SQL queries
     name: Use Java
     identifier: query_with_java
 influxdb/cloud-serverless/tags: [query, flightsql, java]
+aliases:
+  - /influxdb/cloud-serverless/query-data/execute-queries/flight-sql/java/
 related:
     - /influxdb/cloud-serverless/query-data/sql/
 list_code_example: |

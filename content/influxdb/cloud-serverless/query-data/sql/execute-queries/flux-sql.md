@@ -6,12 +6,28 @@ description: >
 menu:
   influxdb_cloud_serverless:
     name: Use Flux & SQL
-    parent: Query data
+    parent: Execute SQL queries
 weight: 204
+aliases: 
+  - /influxdb/cloud-serverless/query-data/flux-sql/
 related:
   - /influxdb/cloud-serverless/get-started/query/
   - /influxdb/cloud-serverless/query-data/sql/
 influxdb/cloud-serverless/tags: [sql, flux, query]
+list_code_example: |
+  ```js
+  import "experimental/iox"
+
+  query = "
+  SELECT *
+  FROM home
+  WHERE
+    time >= '2022-01-01T08:00:00Z'
+    AND time < '2022-01-01T20:00:00Z'
+  "
+
+  iox.sql(bucket: "get-started", query: query)
+  ```
 ---
 
 InfluxDB Cloud Serverless supports both [Flux](/flux/v0.x/) and

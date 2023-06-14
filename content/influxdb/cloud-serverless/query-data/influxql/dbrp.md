@@ -1,7 +1,8 @@
 ---
 title: Map databases and retention policies to buckets
 description: >
-  ...
+  To query an an InfluxDB Cloud Serverless bucket with InfluxQL, first map each
+  database and retention policy (DBRP) combination to a bucket.
 menu:
   influxdb_cloud_serverless:
     name: DBRP mappings

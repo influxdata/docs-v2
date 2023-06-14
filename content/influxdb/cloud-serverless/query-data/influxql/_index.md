@@ -8,6 +8,9 @@ menu:
     parent: Query data
 weight: 102
 influxdb/cloud-serverless/tags: [query, influxql]
+cascade:
+  related:
+    - /influxdb/cloud-serverless/reference/influxql
 ---
 
 Learn to use InfluxQL to query data stored in InfluxDB Cloud Serverless.

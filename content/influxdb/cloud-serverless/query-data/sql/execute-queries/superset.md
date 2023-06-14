@@ -7,10 +7,12 @@ description: >
 weight: 101
 menu:
   influxdb_cloud_serverless:
-    parent: Query with Flight SQL
+    parent: Execute SQL queries
     name: Use Superset
     identifier: query_with_superset
 influxdb/cloud-serverless/tags: [query, flightsql, superset]
+aliases:
+  - content/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/superset/
 related:
   - /influxdb/cloud-serverless/visualize-data/superset/
 ---
