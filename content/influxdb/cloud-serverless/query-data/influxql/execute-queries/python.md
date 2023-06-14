@@ -51,6 +51,15 @@ results in Apache Arrow format.
   - [Create an InfluxDB client](#create-an-influxdb-client)
   - [Execute a query](#execute-a-query)
 
+{{% note %}}
+#### Databases and retention policies map to InfluxDB buckets
+
+InfluxQL **databases** and **retention policies** are used to route queries to
+an InfluxDB **bucket** based on database and retention policy (DBRP) mappings.
+For more information, see
+[Map databases and retention policies to buckets](/influxdb/cloud-serverless/query-data/influxql/dbrp/).
+{{% /note %}}
+
 {{% warn %}}
 #### InfluxQL feature support
 

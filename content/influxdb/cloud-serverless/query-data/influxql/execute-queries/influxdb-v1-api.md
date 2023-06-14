@@ -25,6 +25,15 @@ with InfluxQL.
 The examples below use **cURL** to send HTTP requests to the InfluxDB v1 HTTP API,
 but you can use any HTTP client.
 
+{{% note %}}
+#### Databases and retention policies map to InfluxDB buckets
+
+InfluxQL **databases** and **retention policies** are used to route queries to
+an InfluxDB **bucket** based on database and retention policy (DBRP) mappings.
+For more information, see
+[Map databases and retention policies to buckets](/influxdb/cloud-serverless/query-data/influxql/dbrp/).
+{{% /note %}}
+
 {{% warn %}}
 #### InfluxQL feature support
 
@@ -47,7 +56,7 @@ Provide the following with your request:
   - **rp**: _(Optional)_ Retention policy to query 
   - **q**: URL-encoded InfluxQL query
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
+{{% code-placeholders "DATABASE_NAME|API_TOKEN" %}}
 ```sh
 curl --get https://cloud2.influxdata.com/query \
   --header "Authorization: Token API_TOKEN" \
@@ -61,7 +70,7 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   Name of the database to query
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
-  
+  InfluxDB token with read permissions on the databases you want to query.
 
 {{% note %}}
 #### Authenticate with username and password
