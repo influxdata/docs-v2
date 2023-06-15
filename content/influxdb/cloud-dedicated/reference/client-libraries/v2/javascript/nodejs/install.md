@@ -108,4 +108,4 @@ Set environment variables or update `env.js` with your InfluxDB [database](/infl
 
 Once you've installed the client library and configured credentials, you're ready to [write data](/influxdb/cloud-serverless/api-guide/client-libraries/nodejs/write/) to InfluxDB.
 
-{{< page-nav next="/influxdb/cloud-serverless/reference/client-libraries/v2/javascript/nodejs/write/" keepTab=true >}}
+{{< page-nav next="/influxdb/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/write/" keepTab=true >}}
