@@ -201,6 +201,13 @@ WHERE
 
 Query InfluxDB v3 using SQL and the `influx3` CLI.
 
+The `influxdb3-python-cli` package for Python provides the `influx3` command-line
+interface for writing data to InfluxDB and querying data using SQL or InfluxQL queries.
+
+Installing `influxdb3-python-cli` also installs the `influxdb3-python` client library
+package and the
+[`pyarrow`](https://arrow.apache.org/docs/python/index.html) library for working with Arrow data returned from queries.
+
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
 _If your project's virtual environment is already running, skip to step 3._
@@ -222,26 +229,24 @@ _If your project's virtual environment is already running, skip to step 3._
 
     {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
 
-    - `pyarrow` {{< req text="\*" color="magenta" >}}
     - `influxdb3-python-cli` {{< req text="\*" color="magenta" >}}
 
 4. Create the `config.json` configuration.
 
-    <!-- code-placeholders breaks when indented here -->
     ```sh
     influx3 config \
-      --name="config-dedicated" \
-      --database="get-started" \
-      --host="cluster-id.influxdb.io" \
-      --token="DATABASE_TOKEN" \
-      --org="ORG_ID"
+    --name="config-dedicated" \
+    --database="get-started" \
+    --host="cluster-id.influxdb.io" \
+    --token="DATABASE_TOKEN" \
+    --org="ORG_ID"
     ```
-
+    
     Replace the following:
 
-    - **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with
           read access to the **get-started** database
-    - **`ORG_ID`**: any non-empty string (InfluxDB ignores this parameter, but the client requires it)
+    - {{% code-placeholder-key %}}`ORG_ID`{{% /code-placeholder-key %}}: any non-empty string (InfluxDB ignores this parameter, but the client requires it)
 
 5. Enter the `influx3 sql` command and your SQL query statement.
 
@@ -264,7 +269,11 @@ influxdb3-python-cli
 <!--------------------------- BEGIN PYTHON CONTENT ---------------------------->
  {{% influxdb/custom-timestamps %}}
 To query data from {{% cloud-name %}} using Python, use the
-[`influxdb_client_3` module](https://github.com/InfluxCommunity/influxdb3-python).
+`influxdb_client_3` module provided by the [`influxdb3-python` client library](https://github.com/InfluxCommunity/influxdb3-python) package.
+
+Installing  the `influxdb3-python` client library
+package also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library for working with Arrow data returned from queries.
+
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
 _If your project's virtual environment is already running, skip to step 3._
@@ -288,8 +297,6 @@ _If your project's virtual environment is already running, skip to step 3._
     3.  Install the following dependencies:
 
         {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
-
-        - `pyarrow` {{< req text="\*" color="magenta" >}}
         - `influxdb_client_3` {{< req text="\*" color="magenta" >}}
         - `pandas`
         - `tabulate` _(to return formatted tables)_

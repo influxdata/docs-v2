@@ -148,12 +148,106 @@ All API, cURL, and client library examples in this getting started tutorial assu
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
+[influx3 CLI](#)
 [Telegraf](#)
 [cURL](#)
 [Python](#)
 [Go](#)
 [Node.js](#)
 {{% /tabs %}}
+{{% tab-content %}}
+<!--------------------------- BEGIN influx3 CONTENT --------------------------->
+{{% influxdb/custom-timestamps %}}
+
+Use the `influx3` CLI to write data to InfluxDB.
+The `influxdb3-python-cli` package for Python provides the `influx3` command-line
+interface for writing data to InfluxDB and querying data using SQL or InfluxQL queries.
+
+Installing `influxdb3-python-cli` also installs the `influxdb3-python` client library
+package and the
+[`pyarrow`](https://arrow.apache.org/docs/python/index.html) library for transforming
+and analyzing Arrow data.
+
+The following steps include setting up a Python virtual environment also
+covered in the [Python example](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
+_If your project's virtual environment is already running, skip to step 3._
+
+1.  Optional: Setup your Python virtual environment.
+    Inside of your project directory:
+
+    ```sh
+    python -m venv envs/virtual-env
+    ```
+
+2.  Optional: Activate the virtual environment.
+
+    ```sh
+    source ./envs/virtual-env/bin/activate
+    ```
+
+3.  Install the following dependencies:
+
+    - `influxdb3-python-cli` {{< req text="\*" color="magenta" >}}
+
+4.  Create the `config.json` configuration.
+
+    ```sh
+    influx3 config \
+    --name="config-dedicated" \
+    --database="get-started" \
+    --host="cluster-id.influxdb.io" \
+    --token="DATABASE_TOKEN" \
+    --org="ORG_ID"
+    ```
+    
+    Replace the following:
+
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with
+          WRITE access to the **get-started** database
+    - {{% code-placeholder-key %}}`ORG_ID`{{% /code-placeholder-key %}}: any non-empty string (InfluxDB ignores this parameter, but the client requires it)
+
+5. Enter the `influx3 write` command and a string containing the line protocol sample data.
+
+  ```sh
+  influx3 write "\
+    home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+    home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+    home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+    home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+    home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+    home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+    home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+    home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+    home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+    home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+    home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+    home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+    home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+    home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+    home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+    home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+    home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+    home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+    home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+    home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+    home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+    home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+    home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+    home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+    home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+    home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
+    "
+  ```
+
+`influx3` displays query results in your terminal.
+
+For more information about the `influx3` CLI, see the [`InfluxCommunity/
+influxdb3-python-cli
+`](https://github.com/InfluxCommunity/influxdb3-python-cli) community repository on GitHub.
+ {{% /influxdb/custom-timestamps %}}
+<!--------------------------- END influx3 CONTENT --------------------------->
+{{% /tab-content %}}
+
 {{% tab-content %}}
 <!------------------------------- BEGIN TELEGRAF CONTENT ------------------------------>
 Use [Telegraf](/{{< latest "telegraf" >}}/) to consume line protocol,
