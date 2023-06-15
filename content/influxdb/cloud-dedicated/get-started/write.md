@@ -24,8 +24,8 @@ This tutorial walks you through the fundamental of creating **line protocol** da
 InfluxDB provides many different options for ingesting or writing data, including the following:
 
 - InfluxDB HTTP API (v1 and v2)
-- `influx` CLI (v1 and v2)
 - Telegraf
+- `influx3` data CLI
 - InfluxDB client libraries
 
 If using tools like Telegraf or InfluxDB client libraries, they can
