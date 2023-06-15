@@ -4,7 +4,7 @@ seotitle: InfluxDB v2 JavaScript client library for Node.js
 list_title: Node.js
 description: >
   The [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js)
-  for Node.js integrates with the InfluxDB v2 API to write data to InfluxDB Cloud Serverless.
+  for Node.js integrates with the InfluxDB v2 API to write data to an InfluxDB Cloud Serverless bucket.
 menu:
   influxdb_cloud_serverless:
     name: Node.js
@@ -12,15 +12,13 @@ menu:
 influxdb/cloud-serverless/tags: [client libraries, JavaScript, NodeJS]
 weight: 201
 aliases:
-  - /influxdb/cloud-serverless/reference/api/client-libraries/nodejs/ 
+  - /influxdb/cloud-serverless/reference/api/client-libraries/nodejs/
+  - /influxdb/cloud-serverless/reference/api/client-libraries/nodejs/query/
+
 ---
 
 The [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js)
 integrates with the InfluxDB v2 API to write data from Node.js and browser applications to {{% cloud-name %}}.
-
-## Use the client library in a Node.js application
-
-{{< children >}}
 
 {{% note %}}
 
@@ -39,3 +37,9 @@ This endpoint can't query an {{% cloud-name %}} cluster.
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 
 {{% /note %}}
+
+## Use the client library in a Node.js application
+
+{{< children >}}
+
+

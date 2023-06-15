@@ -1,9 +1,8 @@
 ---
-title: JavaScript client library for web browsers
-seotitle: Use the InfluxDB v2 JavaScript client library for web browsers
+title: InfluxDB v2 JavaScript client library for web browsers
 list_title: JavaScript for browsers
 description: >
-  Use the InfluxDB v2 JavaScript client library to interact with InfluxDB in web clients.
+  Use the InfluxDB v2 JavaScript client library in browsers and front-end clients to write data to an InfluxDB Cloud Dedicated database.
 menu:
   influxdb_cloud_dedicated:
     name: Browsers and web clients
@@ -19,19 +18,14 @@ related:
   - /influxdb/cloud-dedicated/api-guide/client-libraries/nodejs/query/
 ---
 
-Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an {{% cloud-name %}} database. This library supports both front-end and server-side environments and provides the following distributions:
-* ECMAScript modules (ESM) and CommonJS modules (CJS)
-* Bundled ESM
-* Bundled UMD 
-
-This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
-If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{{% latest "influxdb" %}}/get-started/).
+Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an {{% cloud-name %}} database.
 
 {{% note %}}
+
 ### Tools to execute queries
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% cloud-name %}} cluster.
+This endpoint can't query an {{% cloud-name %}} database.
 
 {{% cloud-name %}} supports many different tools for querying data, including:
 
@@ -43,6 +37,15 @@ This endpoint can't query an {{% cloud-name %}} cluster.
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 
 {{% /note %}}
+
+This library supports both front-end and server-side environments and provides the following distributions:
+* ECMAScript modules (ESM) and CommonJS modules (CJS)
+* Bundled ESM
+* Bundled UMD 
+
+This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
+If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{{% latest "influxdb" %}}/get-started/).
+
 
 {{% warn %}}
 ### Tokens in production applications

@@ -1,9 +1,8 @@
 ---
-title: Go client library
-seotitle: Use the InfluxDB Go client library
+title: InfluxDB v2 Go client library
 list_title: Go
 description: >
-  Use the InfluxDB Go client library to interact with InfluxDB.
+   The InfluxDB v2 Go client library integrates with Go applications to write data to an InfluxDB Cloud Dedicated database.
 menu:
   influxdb_cloud_dedicated:
     name: Go
@@ -14,18 +13,18 @@ weight: 201
 
 Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to write data to a {{% cloud-name %}} database.
 
-This guide presumes some familiarity with Go and InfluxDB.
-If just getting started, see [Get started with InfluxDB](/influxdb/cloud-dedicated/get-started/).
-
 {{% note %}}
 ### Use the InfluxDB v3 client library
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% cloud-name %}} cluster.
+This endpoint can't query an {{% cloud-name %}} database.
 
 Use the [InfluxDB v3 Go client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/go/)
 to write and query data stored in {{% cloud-name %}}.
 {{% /note %}}
+
+This guide presumes some familiarity with Go and InfluxDB.
+If just getting started, see [Get started with InfluxDB](/influxdb/cloud-dedicated/get-started/).
 
 ## Before you begin
 
@@ -60,9 +59,9 @@ Use the Go library to write and query data from InfluxDB.
 2. Define variables for your InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) (bucket), organization (required, but ignored), and [token](/influxdb/cloud-dedicated/admin/tokens/).
 
    ```go
-   bucket := "example-database"
+   bucket := "DATABASE_NAME"
    org := "ignored"
-   token := "example-token"
+   token := "DATABASE_TOKEN"
    // Store the URL of your InfluxDB instance
    url := "https://cluster-id.influxdb.io"
    ```
@@ -77,12 +76,6 @@ Use the Go library to write and query data from InfluxDB.
 
    ```go
    writeAPI := client.WriteAPIBlocking(org, bucket)
-   ```
-
-5. To query data, create an InfluxDB **query client** and pass in your InfluxDB `org`.
-
-   ```go
-   queryAPI := client.QueryAPI(org)
    ```
 
 ## Write data to InfluxDB with Go
@@ -116,9 +109,9 @@ import (
 )
 
 func main() {
-    bucket := "example-database"
+    bucket := "DATABASE_NAME"
     org := "ignored"
-    token := "example-token"
+    token := "DATABASE_TOKEN"
     // Store the URL of your InfluxDB instance
     url := "https://cluster-id.influxdb.io"
     // Create new client with default option for server url authenticate by token
@@ -136,11 +129,3 @@ func main() {
     client.Close()
 }
 ```
-
-## Query data from InfluxDB with Go
-
-The InfluxDB v2 Go client can't query {{% cloud-name %}}.
-To write and query data in {{% cloud-name %}}, use the [InfluxDB v3 Go client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/go/).
-For an example, see [Get started querying data](/influxdb/cloud-dedicated/get-started/query/?t=Go#execute-an-sql-query).
-
-For more information, see the [Go client README on GitHub](https://github.com/influxdata/influxdb-client-go).
