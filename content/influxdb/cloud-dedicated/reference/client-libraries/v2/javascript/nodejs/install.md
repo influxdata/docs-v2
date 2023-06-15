@@ -91,7 +91,7 @@ It only works with InfluxDB v2 management APIs.
 The client examples include an [`env`](https://github.com/influxdata/influxdb-client-js/blob/master/examples/env.js) module for accessing your InfluxDB properties from environment variables or from `env.js`.
 The examples use these properties to interact with the InfluxDB API.
 
-Set environment variables or update `env.js` with your InfluxDB [database](/influxdb/cloud-serverless/admin/databases/) (bucket), organization (required, but ignored), [token](/influxdb/cloud-serverless/admin/tokens/), and cluster URL.
+Set environment variables or update `env.js` with your InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/), organization (required, but ignored), [token](/influxdb/cloud-dedicated/admin/tokens/), and cluster URL.
 
    ```sh
    export INFLUX_URL=https://cluster-id.influxdb.io
