@@ -25,7 +25,8 @@ The v1 endpoints work with username/password authentication and existing InfluxD
 The InfluxDB v1 API `/write` endpoint works with
 InfluxDB 1.x client libraries and the [Telegraf v1 Output Plugin](/telegraf/v1.26/plugins/#output-influxdb).
 The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrations like [Grafana](https://grafana.com).
-Learn how to authenticate requests, adjust request parameters for existing v1 workloads, and find compatible tools for writing and querying data stored in a {{% cloud-name %}} database.
+
+Learn how to authenticate requests, adjust request parameters for existing v1 workloads, and find compatible tools for writing and querying data stored in an {{% cloud-name %}} database.
 
 <!-- TOC -->
 
@@ -94,11 +95,7 @@ When authenticating requests, {{% cloud-name %}} checks that the `password` part
 Authorization: Basic <base64-encoded [USERNAME]:API_TOKEN>
 ```
 
-Replace the following:
-
-- **`[USERNAME]`**: an optional string value (ignored by {{% cloud-name %}}).
-- **`API_TOKEN`**: an [API token](/influxdb/cloud-serverless/admin/tokens/).
-- Encode the `[USERNAME]:API_TOKEN` credential using base64 encoding, and then append the encoded string to the `Authorization: Basic` header.
+Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and then append the encoded string to the `Authorization: Basic` header.
 
 {{% api/v1-compat/basic-auth-syntax %}}
 
@@ -106,14 +103,17 @@ Replace the following:
 
 The following example shows how to use cURL with the `Basic` authentication scheme and an [API token](/influxdb/cloud-serverless/admin/tokens/):
 
+{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```sh
 {{% get-shared-text "api/cloud-serverless/basic-auth.sh" %}}
 ```
+{{% /code-placeholders %}}
 
 Replace the following:
 
-- **`BUCKET_NAME`**: your {{% cloud-name %}} bucket
-- **`API_TOKEN`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} bucket
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% cloud-name %}} retention policy
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
 
 #### Query string authentication
 
@@ -131,14 +131,17 @@ https://cloud2.influxdata.com/write/?[u=any]&p=API_TOKEN
 
 The following example shows how to use cURL with query string authentication and [API token](/influxdb/cloud-serverless/admin/tokens/).
 
+{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```sh
 {{% get-shared-text "api/cloud-serverless/querystring-auth.sh" %}}
 ```
+{{% /code-placeholders %}}
 
 Replace the following:
 
-- **`BUCKET_NAME`**: your {{% cloud-name %}} bucket
-- **`API_TOKEN`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} bucket
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% cloud-name %}} retention policy
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
 
 ### Authenticate with a token scheme
 
@@ -155,14 +158,17 @@ Authorization: Token API_TOKEN
 
 Use `Token` to authenticate a write request:
 
+{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```sh
 {{% get-shared-text "api/cloud-serverless/token-auth-v1-write.sh" %}}
 ```
+{{% /code-placeholders %}}
 
 Replace the following:
 
-- **`BUCKET_NAME`**: your {{% cloud-name %}} bucket
-- **`API_TOKEN`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} bucket
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% cloud-name %}} retention policy
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
 
 ## Responses
 
@@ -215,6 +221,8 @@ Write data with your existing workloads that already use the InfluxDB v1 or v1.x
 
 #### v1 API /write parameters
 
+For {{% cloud-name %}} v1 API `/write` requests, set parameters as listed in the following table:
+
 Parameter              | Allowed in   | Ignored                  | Value
 -----------------------|--------------|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 `consistency`          | Query string | Ignored                  | N/A
@@ -241,10 +249,10 @@ Use one of the following `precision` values in v1 API `/write` requests:
 
 ### Tools for writing to the v1 API
 
-See how to configure the following tools for writing data to {{% cloud-name %}}:
+The following tools work with the {{% cloud-name %}} `/write` endpoint:
 
-- [Interactive clients](#interactive-clients)
 - [Telegraf](#telegraf)
+- [Interactive clients](#interactive-clients)
 - [Client libraries](#client-libraries)
 
 #### Telegraf
@@ -252,9 +260,9 @@ See how to configure the following tools for writing data to {{% cloud-name %}}:
 If you have existing v1 workloads that use Telegraf,
 you can use the [InfluxDB v1.x `influxdb` Telegraf output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) to write data.
 
-{{% warn %}}
+{{% note %}}
 See how to [use Telegraf and the v2 API](/influxdb/cloud-serverless/write-data/use-telegraf/) for new workloads that don't already use the v1 API.
-{{% /warn %}}
+{{% /note %}}
 
 The following table shows `outputs.influxdb` plugin parameters and values for writing to the {{% cloud-name %}} v1 API: 
 
@@ -269,21 +277,24 @@ Parameter                | Ignored                  | Value
 
 To configure the v1.x output plugin for writing to {{% cloud-name %}}, add the following `outputs.influxdb` configuration in your `telegraf.conf` file:
 
+{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```toml
 [[outputs.influxdb]]
   urls = ["https://cloud2.influxdata.com"]
   database = "BUCKET_NAME"
   skip_database_creation = true
-  retention_policy = ""
+  retention_policy = "RETENTION_POLICY"
   username = "ignored"
   password = "API_TOKEN"
   content_encoding = "gzip”
 ```
+{{% /code-placeholders %}}
 
 Replace the following:
 
-- **`BUCKET_NAME`**: your {{% cloud-name %}} bucket
-- **`API_TOKEN`**: an [API token](/influxdb/cloud-serverless/admin/tokens) with permission to write to the bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} bucket
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% cloud-name %}} retention policy
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
 
 ##### Other Telegraf configuration options
 
@@ -304,18 +315,20 @@ Include the following in your request:
 
 The following example shows how to use the **cURL** command line tool and the {{% cloud-name %}} v1 API to write line protocol data to a bucket:
 
+{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```sh
 curl -i 'https://cloud2.influxdata.com/write?db=BUCKET_NAME&rp=RETENTION_POLICY&precision=s' \
     --header 'Authorization: Token API_TOKEN' \
     --header "Content-type: text/plain; charset=utf-8"
     --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
+{{% /code-placeholders %}}
 
 Replace the following:
 
-- **`BUCKET_NAME`**: your {{% cloud-name %}} bucket
-- **`RETENTION_POLICY`**: your {{% cloud-name %}} retention policy
-- **`API_TOKEN`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} bucket
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% cloud-name %}} retention policy
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
 
 ##### v1 CLI (not supported)
 
@@ -329,16 +342,17 @@ v1 client libraries send data in [line protocol](/influxdb/cloud-serverless/refe
 
 The following samples show how to configure **v1** client libraries for writing to {{% cloud-name %}}:
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
+{{< tabs-wrapper >}}
+{{% tabs %}}
 [Node.js](#nodejs)
 [Python](#python)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+{{% /tabs %}}
+{{% tab-content %}}
 <!-- Start NodeJS -->
 
 Create a v1 API client using the [node-influx](/influxdb/v1.7/tools/api_client_libraries/#javascriptnodejs) JavaScript client library:
 
+{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```js
 const Influx = require('influx')
 
@@ -351,14 +365,19 @@ const client = new Influx.InfluxDB({
   username: 'ignored',
   password: 'API_TOKEN'
 })
+
+// When calling write or query functions, specify the retention policy name in options.
 ```
+{{% /code-placeholders %}}
+
 <!-- End NodeJS -->
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
+{{% /tab-content %}}
+{{% tab-content %}}
 <!-- Start Python -->
 
 Create a v1 API client using the [influxdb-python](/influxdb/v1.7/tools/api_client_libraries/#python) Python client library:
 
+{{% code-placeholders "BUCKET_NAME|API_TOKEN|RETENTION_POLICY" %}}
 ```py
 from influxdb import InfluxDBClient
 
@@ -371,22 +390,27 @@ client = InfluxDBClient(
   password='API_TOKEN'
   headers={'Content-Type': 'text/plain; charset=utf-8'}
   )
+
+# When calling write or query functions, specify the retention policy name in options.
 ```
+{{% /code-placeholders %}}
+
 <!-- End Python -->
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 Replace the following:
 
-- **`BUCKET_NAME`**: your {{% cloud-name %}} bucket
-- **`API_TOKEN`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} bucket
+- {{% code-placeholder-key %}}`RETENTION_POLICY`{{% /code-placeholder-key %}}: your {{% cloud-name %}} retention policy
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
 
 ## Query data
 
 {{% cloud-name %}} provides the following protocols for executing a query:
 
-- Flight+gRPC request that contains an SQL or InfluxQL query
-- InfluxDB v1 API `/query` request that contains an InfluxQL query
+- [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
+- InfluxDB v1 API `/query` request that contains an InfluxQL query.
 
 Use the v1 API `/query` endpoint and [InfluxQL](/influxdb/cloud-serverless/reference/glossary/#influxql) with {{% cloud-name %}} when you bring InfluxDB 1.x workloads that already use them.
 
@@ -421,8 +445,8 @@ Use one of the following values for timestamp precision:
 
 {{% cloud-name %}} provides the following protocols for executing a query:
 
-- Flight+gRPC request that contains an SQL or InfluxQL query
-- InfluxDB v1 API `/query` request that contains an InfluxQL query
+- [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
+- InfluxDB v1 API `/query` request that contains an InfluxQL query.
 
 {{% note %}}
 

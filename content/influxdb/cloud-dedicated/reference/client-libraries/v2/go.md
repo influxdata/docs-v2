@@ -11,7 +11,7 @@ influxdb/cloud-dedicated/tags: [client libraries, Go]
 weight: 201
 ---
 
-Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to write data to a {{% cloud-name %}} database.
+Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to write data to an {{% cloud-name %}} database.
 
 {{% note %}}
 ### Use the InfluxDB v3 client library

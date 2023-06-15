@@ -16,7 +16,7 @@ aliases:
 ---
 
 The [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js)
-for Node.js and browsers integrates with the InfluxDB v2 API to write data to a {{% cloud-name %}} cluster.
+for Node.js and browsers integrates with the InfluxDB v2 API to write data to an {{% cloud-name %}} cluster.
 
 {{% note %}}
 ### Tools to execute queries

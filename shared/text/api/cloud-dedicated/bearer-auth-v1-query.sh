@@ -1,5 +1,5 @@
 ########################################################
-# Use Token authentication with a database token
+# Use the Bearer authorization scheme with a database token
 # to query the InfluxDB v1 API
 ########################################################
 

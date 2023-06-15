@@ -22,7 +22,7 @@ related:
 ---
 
 Use the InfluxDB v2 API `/api/v2/write` endpoint for new write workloads and existing v2 write workloads that you bring to {{% cloud-name %}}.
-Learn how to authenticate requests, adjust request parameters for existing v2 workloads, and find compatible tools for writing and querying data stored in a {{% cloud-name %}} database.
+Learn how to authenticate requests, adjust request parameters for existing v2 workloads, and find compatible tools for writing and querying data stored in an {{% cloud-name %}} database.
 
 For help finding the best workflow for your situation, [contact Support](mailto:support@influxdata.com).
 
@@ -43,8 +43,8 @@ For help finding the best workflow for your situation, [contact Support](mailto:
     - [influx CLI not supported](#influx-cli-not-supported)
     - [Client libraries](#client-libraries)
 - [Query data](#query-data)
-  - [/api/v2/query not supported](#apiv2query-not-supported)
     - [Tools to execute queries](#tools-to-execute-queries)
+  - [/api/v2/query not supported](#apiv2query-not-supported)
 
 <!-- /TOC -->
 
@@ -75,20 +75,24 @@ Authorization: Token DATABASE_TOKEN
 
 Use `Bearer` to authenticate a write request:
 
+{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
 {{% get-shared-text "api/cloud-dedicated/bearer-auth-v2-write.sh" %}}
 ```
+{{% /code-placeholders %}}
 
 Use `Token` to authenticate a write request:
 
+{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
 {{% get-shared-text "api/cloud-dedicated/token-auth-v2-write.sh" %}}
 ```
+{{% /code-placeholders %}}
 
 Replace the following:
 
-- **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
-- **`DATABASE_TOKEN`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
 ## Responses
 
@@ -140,6 +144,8 @@ We recommend using the InfluxDB v2 API `/api/v2/write` endpoint for new write wo
 
 ### /api/v2/write parameters
 
+For {{% cloud-name %}} v2 API `/api/v2/write` requests, set parameters as listed in the following table:
+
 Parameter        | Allowed in   | Ignored | Value
 -----------------|--------------|---------|-------------------------
 org              | Query string | Ignored | Non-zero-length string (ignored, but can't be empty)
@@ -168,24 +174,21 @@ Use one of the following `precision` values in v2 API `/api/v2/write` requests:
 
 ### Tools for writing to the v2 API
 
-See how to configure the following tools for writing data to {{% cloud-name %}}:
+The following tools work with the {{% cloud-name %}} `/api/v2/write` endpoint:
 
-- [Interactive clients](#interactive-command-line-clients)
 - [Telegraf](#telegraf)
+- [Interactive clients](#interactive-clients)
 - [Client libraries](#client-libraries)
-
-{{% warn %}}
-While the `influx` CLI may coincidentally work with InfluxDB Cloud Serverless, it isn't officially supported.
-{{% /warn %}}
 
 #### Telegraf
 
-See how to [configure Telegraf](/influxdb/cloud-dedicated/write-data/use-telegraf/configure/) using the [InfluxDB v2.x `influxdb_v2` Telegraf output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md) to write to {{% cloud-name %}}.
+See how to [configure Telegraf](/influxdb/cloud-dedicated/write-data/use-telegraf/configure/) to write to {{% cloud-name %}}.
 
 #### Interactive clients
 
 To test InfluxDB v2 API writes interactively, use the [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli) or common HTTP clients such as cURL and Postman.
-To setup and start using command line clients, see the [Get started](/influxdb/cloud-dedicated/get-started/) tutorial.
+
+To setup and start using interactive clients, see the [Get started](/influxdb/cloud-dedicated/get-started/) tutorial.
 
 {{% warn %}}
 
@@ -201,18 +204,15 @@ While it may coincidentally work, it isn't officially supported.
 InfluxDB [v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) and [v2 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v2/)
 can write data to the InfluxDB v2 API `/api/v2/write` endpoint.
 Client libraries are language-specific packages that integrate InfluxDB APIs with your application.
+
 To setup and start using client libraries, see the [Get started](/influxdb/cloud-dedicated/get-started/) tutorial.
 
 ## Query data
 
 {{% cloud-name %}} provides the following protocols for executing a query:
 
-- Flight+gRPC request that contains an SQL or InfluxQL query
-- InfluxDB v1 API `/query` request that contains an InfluxQL query
-
-### /api/v2/query not supported
-
-The `/api/v2/query` API endpoint and associated tooling aren't supported in {{% cloud-name %}}.
+- [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
+- InfluxDB v1 API `/query` request that contains an InfluxQL query.
 
 {{% note %}}
 
@@ -229,3 +229,8 @@ The `/api/v2/query` API endpoint and associated tooling aren't supported in {{% 
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 
 {{% /note %}}
+
+### /api/v2/query not supported
+
+The `/api/v2/query` API endpoint and associated tooling aren't supported in {{% cloud-name %}}.
+

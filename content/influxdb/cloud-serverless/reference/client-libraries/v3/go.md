@@ -1,7 +1,7 @@
 ---
 title: Go client library for InfluxDB v3
 list_title: Go
-description: The InfluxDB v3 `influxdb3-go` Go client library integrates with Go scripts and applications to write and query data stored in a {{% cloud-name %}} bucket.
+description: The InfluxDB v3 `influxdb3-go` Go client library integrates with Go scripts and applications to write and query data stored in an {{% cloud-name %}} bucket.
 external_url: https://github.com/InfluxCommunity/influxdb3-go
 menu:
   influxdb_cloud_serverless:

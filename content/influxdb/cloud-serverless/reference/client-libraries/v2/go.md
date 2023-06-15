@@ -12,7 +12,7 @@ weight: 201
 ---
 
 The [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go)
-integrates with Go applications to write data to a {{% cloud-name %}} bucket.
+integrates with Go applications to write data to an {{% cloud-name %}} bucket.
 
 {{% note %}}
 ### Use the InfluxDB v3 client library
