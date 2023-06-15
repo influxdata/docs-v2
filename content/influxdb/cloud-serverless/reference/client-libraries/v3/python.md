@@ -333,6 +333,7 @@ write_file(self, file, measurement_name=None, tag_columns=[],
     | [Comma-separated values](https://arrow.apache.org/docs/python/csv.html)    | `.csv`              |
     | [JSON](https://pandas.pydata.org/docs/reference/api/pandas.read_json.html) | `.json`             |
     | [ORC](https://arrow.apache.org/docs/python/orc.html)                       | `.orc`              |  
+    
 - **`measurement_name`**: Defines the measurement name for records in the file.
   The specified value takes precedence over `measurement` and `iox::measurement` columns in the file.
   If no value is specified for the parameter, and a `measurement` column exists in the file, the `measurement` column value is used for the measurement name.
