@@ -22,7 +22,7 @@ to line protocol.
 
 InfluxDB v3 client libraries can query InfluxDB v3 using the Arrow Flight protocol with gRPC.
 Client libraries use Flight clients to execute SQL and InfluxQL queries, request
-bucket information, and retrieve data stored in {{% cloud-name %}}.
+database information, and retrieve data stored in {{% cloud-name %}}.
 
 Additional functionality may vary among client libraries and some may not be feature-complete.
 
