@@ -39,9 +39,10 @@ This endpoint can't query an {{% cloud-name %}} database.
 {{% /note %}}
 
 This library supports both front-end and server-side environments and provides the following distributions:
-* ECMAScript modules (ESM) and CommonJS modules (CJS)
-* Bundled ESM
-* Bundled UMD 
+
+- ECMAScript modules (ESM) and CommonJS modules (CJS)
+- Bundled ESM
+- Bundled UMD 
 
 This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
 If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{{% latest "influxdb" %}}/get-started/).
