@@ -1,9 +1,9 @@
 ---
-title: Telegraf 1.26 release notes
+title: Telegraf 1.27 release notes
 description: Important features and changes in the latest version of Telegraf.
 aliases:
-  - /telegraf/v1.26/reference/release-notes/influxdb/
-  - /telegraf/v1.26/about_the_project/release-notes-changelog/
+  - /telegraf/v1.27/reference/release-notes/influxdb/
+  - /telegraf/v1.27/about_the_project/release-notes-changelog/
 menu:
   telegraf_1_27_ref:
     name: Release notes
