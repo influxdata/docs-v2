@@ -206,7 +206,7 @@ function updateUrls(prevUrls, newUrls) {
 
   replacements.forEach(function (o) {
     if (o.replace.origin != o.with.origin) {
-      var fuzzyOrigin = new RegExp(o.replace.origin + "(:[0-9]+)?", "g");
+      var fuzzyOrigin = new RegExp(o.replace.origin + "(:(^443)|[0-9]+)?", "g");
       $(elementSelector).each(function() {
         $(this).html(
           $(this).html().replace(fuzzyOrigin, function(m){
