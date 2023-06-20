@@ -1,18 +1,15 @@
 ---
 title: Use Tableau to query data with SQL
-seotitle: Use Tableau to query data stored in InfluxDB Cloud Dedicated
+seotitle: Use Tableau to query data stored in InfluxDB Cloud Serverless
 description: >
   Install and use [Tableau](https://www.tableau.com/) to query data stored in InfluxDB.
-weight: 401
+weight: 101
 menu:
-  influxdb_cloud_dedicated:
-    parent: sql-execute-queries
+  influxdb_cloud_serverless:
+    parent: Execute SQL queries
     name: Use Tableau
     identifier: query-with-tableau
-influxdb/cloud-dedicated/tags: [query, flightsql, tableau, sql]
-aliases:
-  - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/
-  - /influxdb/cloud-dedicated/visualize-data/superset/
+influxdb/cloud-serverless/tags: [query, flightsql, tableau, sql]
 ---
 
 Use [Tableau](https://www.tableau.com/) to query and visualize time series data
@@ -66,33 +63,34 @@ To query {{< cloud-name >}} from Tableau, use the **Flight SQL protocol** and th
     the full list of connection options.
 3.  Provide the required credentials:
 
-    - **URL**: Your **InfluxDB Cloud Dedicated cluster URL** with the following:
+    - **URL**: Your [InfluxDB Cloud Serverless region URL](/influxdb/cloud-serverless/reference/regions/)
+      with the following:
 
       - **Protocol**: `jdbc:arrow-flight-sql`
       - **Port**: `443`
       - **Query parameters**:
         - **disableCertificateVerification**: `true`
-        - **database**: InfluxDB database name to query
+        - **database**: InfluxDB bucket name to query
     
       _See an [example connection URL](#example-connection-url)._
     
     - **Dialect**: PostreSQL
     - **Username**: _Leave empty_
-    - **Password**: [Database token](/influxdb/cloud-dedicated/admin/tokens/)
-      with read access to the specified database
+    - **Password**: [API token](/influxdb/cloud-serverless/admin/tokens/)
+      with read access to the specified bucket
     - **Properties File**: _Leave empty_
 
 4.  Click **Sign In**.
 
 #### Example connection URL
 
-{{< code-placeholders "DATABASE_NAME" >}}
+{{< code-placeholders "BUCKET_NAME" >}}
 ```
-jdbc:arrow-flight-sql://cluster-id.influxdb.io:443?disableCertificateVerification=true&database=DATABASE_NAME
+jdbc:arrow-flight-sql://us-east-1-1.aws.cloud2.influxdata.com:443?disableCertificateVerification=true&database=BUCKET_NAME
 ```
 {{< /code-placeholders >}}
 
-## Query InfluxDB Cloud Dedicated
+## Query InfluxDB Cloud Serverless
 
 With the connection successfully established, query your time series data stored
 in {{< cloud-name >}}. In the left pane:
