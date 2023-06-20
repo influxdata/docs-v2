@@ -1,13 +1,15 @@
 ---
-title: Query in Data Explorer
+title: Use the InfluxDB Data Explorer to query data
 description: >
   Query your data in the InfluxDB user interface (UI) Data Explorer.
 weight: 201
 menu:
-  influxdb_cloud_serverless:
-    name: Query with Data Explorer
-    parent: Execute queries
+   influxdb_cloud_serverless:
+      name: Use the Data Explorer
+      parent: Execute SQL queries
 influxdb/cloud-serverless/tags: [query]
+aliases:
+  - /influxdb/cloud-serverless/query-data/execute-queries/data-explorer/
 related:
   - /influxdb/cloud-serverless/query-data/sql/
   - /influxdb/cloud-serverless/query-data/flux-sql/

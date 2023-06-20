@@ -1,28 +1,27 @@
 ---
-title: Use Python to query data with SQL
+title: Use Python to query data with InfluxQL
 description: >
   Use Python and the `influxdb3-python` library to query data stored in InfluxDB
-  with SQL.
-weight: 101
+  with InfluxQL.
+weight: 401
 menu:
-  influxdb_cloud_dedicated:
-    parent: sql-execute-queries
+  influxdb_cloud_serverless:
+    parent: influxql-execute-queries
     name: Use Python
-    identifier: query-with-python-sql
-influxdb/cloud-dedicated/tags: [query, flightsql, python, sql]
-aliases:
-    - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/
+    identifier: query-with-python-influxql
+influxdb/cloud-serverless/tags: [query, influxql, python]
 related:
-    - /influxdb/cloud-dedicated/query-data/tools/pandas/
-    - /influxdb/cloud-dedicated/query-data/tools/pyarrow/
-    - /influxdb/cloud-dedicated/reference/sql/
+    - /influxdb/cloud-serverless/query-data/tools/pandas/
+    - /influxdb/cloud-serverless/query-data/tools/pyarrow/
+    - /influxdb/cloud-serverless/reference/influxql/
 list_code_example: |
     ```py
     from influxdb_client_3 import InfluxDBClient3
 
     # Instantiate an InfluxDB client
     client = InfluxDBClient3(
-        host='cluster-id.influxdb.io',
+        host='cloud2.influxdata.com',
+        org='ORG_NAME',
         token='DATABASE_TOKEN',
         database='DATABASE_NAME'
     )
@@ -30,7 +29,7 @@ list_code_example: |
     # Execute the query and return an Arrow table
     table = client.query(
         query="SELECT * FROM home",
-        language="sql"
+        language="influxql"
     )
 
     # Return query results as a markdown table
@@ -38,7 +37,7 @@ list_code_example: |
     ```
 ---
 
-Use the `influxdb3-python` client library to query data stored in InfluxDB with SQL.
+Use the `influxdb3-python` client library to query data stored in InfluxDB with InfluxQL.
 The `influxdb3-client` uses Flight SQL to query data from InfluxDB and return
 results in Apache Arrow format.
 
@@ -51,6 +50,24 @@ results in Apache Arrow format.
   - [Install the influxdb3-python library](#install-the-influxdb3-python-library)
   - [Create an InfluxDB client](#create-an-influxdb-client)
   - [Execute a query](#execute-a-query)
+
+{{% note %}}
+#### Databases and retention policies map to InfluxDB buckets
+
+InfluxQL **databases** and **retention policies** are used to route queries to
+an InfluxDB **bucket** based on database and retention policy (DBRP) mappings.
+For more information, see
+[Map databases and retention policies to buckets](/influxdb/cloud-serverless/query-data/influxql/dbrp/).
+{{% /note %}}
+
+{{% warn %}}
+#### InfluxQL feature support
+
+InfluxQL is being rearchitected to work with the InfluxDB IOx storage engine.
+This process is ongoing and some InfluxQL features are still being implemented.
+For information about the current implementation status of InfluxQL features,
+see [InfluxQL feature support](/influxdb/cloud-serverless/reference/influxql/feature-support/).
+{{% /warn %}}
 
 ## Get started using Python to query InfluxDB
 
@@ -190,11 +207,6 @@ The `influxdb_client_3` module provides a simple and convenient way to interact
 with {{< cloud-name >}} using Python. This module supports both writing data to
 InfluxDB and querying data using SQL or InfluxQL queries.
 
-{{% note %}}
-_To query data with **InfluxQL** and Python, see
-[Use InfluxQL with Python](/influxdb/cloud-dedicated/query-data/influxql/execute-queries/python/)._
-{{% /note %}}
-
 Installing `inflxudb3-python` also installs the
 [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that you'll
 use for working with Arrow data returned from queries.
@@ -216,7 +228,7 @@ and to instantiate a client configured for an InfluxDB database.
 In your editor, copy and paste the following sample code to a new file--for
 example, `query-example.py`:
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+{{% code-placeholders "(DATABASE|ORG)_(NAME|TOKEN)" %}}
 ```py
 # query-example.py
 
@@ -224,7 +236,8 @@ from influxdb_client_3 import InfluxDBClient3
 
 # Instantiate an InfluxDBClient3 client configured for your database
 client = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='cloud2.influxdata.com',
+    org='ORG_NAME',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
@@ -240,11 +253,11 @@ Replace the following configuration values:
 
 ### Execute a query
 
-To execute an SQL query, call the client's `query(query,language)` method and
-specify the following arguments:
+To execute an InfluxQL query, call the client's `query(query,language)` method
+and specify the following arguments:
 
-- **query**: SQL query string to execute.
-- **language**: `sql`
+- **query**: InfluxQL query string to execute.
+- **language**: `influxql`
 
 #### Syntax {#execute-query-syntax}
 
@@ -254,14 +267,15 @@ query(query: str, language: str)
 
 #### Example {#execute-query-example}
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+{{% code-placeholders "(DATABASE|ORG)_(NAME|TOKEN)" %}}
 ```py
 # query-example.py
 
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='cloud2.influxdata.com',
+    org='ORG_NAME',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
@@ -269,7 +283,7 @@ client = InfluxDBClient3(
 # Execute the query and return an Arrow table
 table = client.query(
     query="SELECT * FROM home",
-    language="sql"
+    language="influxql"
 )
 
 # Return query results as a markdown table
@@ -279,5 +293,5 @@ print(table.to_pandas().to_markdown())
 
 Next, learn how to use Python tools to work with time series data:
 
-- [Use PyArrow](/influxdb/cloud-dedicated/query-data/tools/pyarrow/)
-- [Use pandas](/influxdb/cloud-dedicated/query-data/tools/pandas/)
+- [Use PyArrow](/influxdb/cloud-serverless/query-data/tools/pyarrow/)
+- [Use pandas](/influxdb/cloud-serverless/query-data/tools/pandas/)
