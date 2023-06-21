@@ -25,6 +25,7 @@ Use these tips to optimize performance and system overhead when writing data to 
 {{% note %}}
 The following tools write to InfluxDB and employ _most_ write optimizations by default:
 
+- [`influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/write/)
 - [Telegraf](/influxdb/cloud-serverless/write-data/use-telegraf/)
 - [InfluxDB client libraries](/influxdb/cloud-serverless/reference/client-libraries/)
 {{% /note %}}
@@ -101,9 +102,11 @@ For specific instructions, see the
 When using the InfluxDB API `/api/v2/write` endpoint to write data,
 compress the data with `gzip` and set the `Content-Encoding` header to `gzip`.
 
+{{% code-callout "Content-Encoding: gzip" "orange" %}}
 ```sh
 {{% get-shared-text "/api/cloud-serverless/write-compressed.sh" %}}
 ```
+{{% /code-callout %}}
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 

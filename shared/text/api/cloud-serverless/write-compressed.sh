@@ -1,5 +1,5 @@
-curl --request POST "http://cloud2.influxdata.com/api/v2/write?org=YOUR_ORG&bucket=YOUR_BUCKET&precision=s" \
-  --header "Authorization: Token YOURAUTHTOKEN" \
+curl --request POST "http://cloud2.influxdata.com/api/v2/write?org=ORG_NAME&bucket=BUCKET_NAME&precision=s" \
+  --header "Authorization: Token API_TOKEN" \
   --header "Content-Encoding: gzip" \
   --data-raw "
 mem,host=host1 used_percent=23.43234543 1556896326
