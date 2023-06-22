@@ -128,86 +128,86 @@ InfluxDB Cloud Serverless bucket.
 
 ### Construct points and write line protocol
 
-{{< code-tabs-wrapper >}}
-{{% code-tabs %}}
+{{< tabs-wrapper >}}
+{{% tabs %}}
 [Go](#)
 [Node.js](#)
 [Python](#)
-{{% /code-tabs %}}
-{{% code-tab-content %}}
+{{% /tabs %}}
+{{% tab-content %}}
 <!-- BEGIN GO SETUP SAMPLE -->
 
 1.  Create a file for your module--for example: `write-point.go`.
 
 2.  In `write-point.go`, enter the following sample code:
 
-```go
-package main
+  ```go
+  package main
 
-import (
-	"os"
-	"time"
-	"fmt"
-	"github.com/influxdata/influxdb-client-go/v2"
-)
+  import (
+    "os"
+    "time"
+    "fmt"
+    "github.com/influxdata/influxdb-client-go/v2"
+  )
 
-func main() {
-	// Set a log level constant
-	const debugLevel uint = 4
+  func main() {
+    // Set a log level constant
+    const debugLevel uint = 4
 
-	/**
-		* Instantiate a client with a configuration object
-		* that contains your InfluxDB URL and token.
-	**/
+    /**
+      * Instantiate a client with a configuration object
+      * that contains your InfluxDB URL and token.
+    **/
 
-  clientOptions := influxdb2.DefaultOptions().
-                  SetBatchSize(20).
-                  SetLogLevel(debugLevel).
-                  SetPrecision(time.Second)
+    clientOptions := influxdb2.DefaultOptions().
+                    SetBatchSize(20).
+                    SetLogLevel(debugLevel).
+                    SetPrecision(time.Second)
 
-	client := influxdb2.NewClientWithOptions(os.Getenv("INFLUX_URL"),
-              os.Getenv("INFLUX_TOKEN"),
-		          clientOptions)
+    client := influxdb2.NewClientWithOptions(os.Getenv("INFLUX_URL"),
+                os.Getenv("INFLUX_TOKEN"),
+                clientOptions)
 
-	/**
-		* Create an asynchronous, non-blocking write client.
-		* Provide your InfluxDB org and bucket as arguments
-	**/
-	writeAPI := client.WriteAPI(os.Getenv("INFLUX_ORG"), "get-started")
+    /**
+      * Create an asynchronous, non-blocking write client.
+      * Provide your InfluxDB org and bucket as arguments
+    **/
+    writeAPI := client.WriteAPI(os.Getenv("INFLUX_ORG"), "get-started")
 
-	// Get the errors channel for the asynchronous write client.
-	errorsCh := writeAPI.Errors()
+    // Get the errors channel for the asynchronous write client.
+    errorsCh := writeAPI.Errors()
 
-	/** Create a point.
-		* Provide measurement, tags, and fields as arguments.
-	**/
-	p := influxdb2.NewPointWithMeasurement("home").
-				AddTag("room", "Kitchen").
-				AddField("temp", 72.0).
-				AddField("hum", 20.2).
-				AddField("co", 9).
-				SetTime(time.Now())
-	
-	// Define a proc for handling errors.
-	go func() {
-		for err := range errorsCh {
-				fmt.Printf("write error: %s\n", err.Error())
-		}
-	}()
+    /** Create a point.
+      * Provide measurement, tags, and fields as arguments.
+    **/
+    p := influxdb2.NewPointWithMeasurement("home").
+          AddTag("room", "Kitchen").
+          AddField("temp", 72.0).
+          AddField("hum", 20.2).
+          AddField("co", 9).
+          SetTime(time.Now())
+    
+    // Define a proc for handling errors.
+    go func() {
+      for err := range errorsCh {
+          fmt.Printf("write error: %s\n", err.Error())
+      }
+    }()
 
-	// Write the point asynchronously
-	writeAPI.WritePoint(p)
+    // Write the point asynchronously
+    writeAPI.WritePoint(p)
 
-	// Send pending writes from the buffer to the bucket.
-  writeAPI.Flush()
+    // Send pending writes from the buffer to the bucket.
+    writeAPI.Flush()
 
-	// Ensure background processes finish and release resources.
-	client.Close()
-}
-```
+    // Ensure background processes finish and release resources.
+    client.Close()
+  }
+  ```
 <!-- END GO SETUP SAMPLE -->
-{{% /code-tab-content %}}
-{{% code-tab-content %}}
+{{% /tab-content %}}
+{{% tab-content %}}
 <!-- BEGIN NODE.JS SETUP SAMPLE -->
 
 1.  Create a file for your module--for example: `write-point.js`.
@@ -263,9 +263,9 @@ func main() {
     })
     ```
 <!-- END NODE.JS SETUP SAMPLE -->
-{{% /code-tab-content %}}
+{{% /tab-content %}}
 
-{{% code-tab-content %}}
+{{% tab-content %}}
 <!-- BEGIN PYTHON SETUP SAMPLE -->
 
 1.  Create a file for your module--for example: `write-point.py`.
@@ -308,8 +308,8 @@ func main() {
         write_api.close()
     ```
 <!-- END PYTHON SETUP PROJECT -->
-{{% /code-tab-content %}}
-{{< /code-tabs-wrapper >}}
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 The sample code does the following:
 

@@ -3,13 +3,13 @@ title: Use Python to query data with SQL
 description: >
   Use Python and the `influxdb3-python` library to query data stored in InfluxDB
   with SQL.
-weight: 401
+weight: 101
 menu:
   influxdb_cloud_dedicated:
     parent: sql-execute-queries
     name: Use Python
     identifier: query-with-python-sql
-influxdb/cloud-dedicated/tags: [query, flightsql, python]
+influxdb/cloud-dedicated/tags: [query, flightsql, python, sql]
 aliases:
     - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/
 related:
@@ -224,7 +224,7 @@ from influxdb_client_3 import InfluxDBClient3
 
 # Instantiate an InfluxDBClient3 client configured for your database
 client = InfluxDBClient3(
-    host='b0c7cce5-8dbc-428e-98c6-7f996fb96467.a.influxdb.io',
+    host='cluster-id.influxdb.io',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )

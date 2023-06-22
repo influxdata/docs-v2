@@ -57,11 +57,6 @@ to
 
 Use the InfluxDB v2 or v1 API to write the Get started home sensor sample data
 to {{< cloud-name >}}.
-Replace the following in the script below:
-
-- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
-- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
-  with _write_ permission to the database
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -71,7 +66,7 @@ Replace the following in the script below:
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 export INFLUX_HOST=https://cluster-id.influxdb.io
 export INFLUX_TOKEN=DATABASE_TOKEN
@@ -112,14 +107,14 @@ home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
-{{% /code-callout %}}
+{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 {{% influxdb/custom-timestamps %}}
-{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 export INFLUX_HOST=https://cluster-id.influxdb.io
 export INFLUX_TOKEN=DATABASE_TOKEN
@@ -159,11 +154,17 @@ home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
 home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
-{{% /code-callout %}}
+{{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+Replace the following in the script above:
+
+- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
+- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
+  with _write_ permission to the database
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -201,11 +202,6 @@ series use cases that involve seasonality.
 
 Use the InfluxDB v2 or v1 API to write the NOAA Bay Area weather sample data to
 {{< cloud-name >}}.
-Replace the following in the script below:
-
-- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
-- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
-  with sufficient permissions to the database
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -214,7 +210,7 @@ Replace the following in the script below:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 export INFLUX_HOST=http://cluster-id.influxdb.io
 export INFLUX_TOKEN=DATABASE_TOKEN
@@ -228,12 +224,12 @@ curl --request POST \
   --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
-{{% /code-callout %}}
+{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 export INFLUX_HOST=http://cluster-id.influxdb.io
 export INFLUX_TOKEN=DATABASE_TOKEN
@@ -246,10 +242,16 @@ curl --request POST \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
-{{% /code-callout %}}
+{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+Replace the following in the script above:
+
+- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
+- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
+  with sufficient permissions to the database
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -291,11 +293,6 @@ The Bitcoin price sample dataset provides Bitcoin prices from
 
 Use the InfluxDB v2 or v1 API to write the Bitcoin price sample data to
 {{< cloud-name >}}.
-Replace the following in the script below:
-
-- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
-- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
-  with sufficient permissions to the database
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -304,7 +301,7 @@ Replace the following in the script below:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 export INFLUX_HOST=https://cluster-id.influxdb.io
 export INFLUX_TOKEN=DATABASE_TOKEN
@@ -318,12 +315,12 @@ curl --request POST \
   --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
-{{% /code-callout %}}
+{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 export INFLUX_HOST=https://cluster-id.influxdb.io
 export INFLUX_TOKEN=DATABASE_TOKEN
@@ -336,10 +333,16 @@ curl --request POST \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
-{{% /code-callout %}}
+{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+Replace the following in the script above:
+
+- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
+- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
+  with sufficient permissions to the database
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -369,11 +372,6 @@ transformation functions.
 
 Use the InfluxDB v2 or v1 API to write the random number sample data to
 {{< cloud-name >}}.
-Replace the following in the script below:
-
-- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
-- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
-  with sufficient permissions to the database
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -382,7 +380,7 @@ Replace the following in the script below:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 
-{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 export INFLUX_HOST=http://cluster-id.influxdb.io
 export INFLUX_TOKEN=DATABASE_TOKEN
@@ -396,12 +394,12 @@ curl --request POST \
   --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
 ```
-{{% /code-callout %}}
+{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
-{{% code-callout "DATABASE_TOKEN|DATABASE_NAME" "magenta" %}}
+{{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 export INFLUX_HOST=http://cluster-id.influxdb.io
 export INFLUX_TOKEN=DATABASE_TOKEN
@@ -414,10 +412,16 @@ curl --request POST \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
 ```
-{{% /code-callout %}}
+{{% /code-placeholders %}}
 
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
+
+Replace the following in the script above:
+
+- `DATABASE_NAME`: your InfluxDB Cloud Dedicated database
+- `DATABASE_TOKEN`: a [database token](/influxdb/cloud-dedicated/admin/tokens/)
+  with sufficient permissions to the database
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

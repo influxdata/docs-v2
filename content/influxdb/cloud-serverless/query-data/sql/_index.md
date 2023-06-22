@@ -9,6 +9,9 @@ menu:
     parent: Query data
 weight: 101
 influxdb/cloud-serverless/tags: [query, sql]
+cascade:
+  related:
+    - /influxdb/cloud-serverless/reference/sql/
 ---
 
 Use SQL to query data stored in an InfluxDB Cloud Serverless bucket.
