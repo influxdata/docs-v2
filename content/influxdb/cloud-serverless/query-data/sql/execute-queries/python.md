@@ -203,7 +203,7 @@ use for working with Arrow data returned from queries.
 In your terminal, use `pip` to install `influxdb3-python`:
 
 ```sh
-pip install influxdb3-python
+pip install influxdb3-python pandas
 ```
 
 With `influxdb3-python` and `pyarrow` installed, you're ready to query and
@@ -222,13 +222,14 @@ example, `query-example.py`:
 # query-example.py
 
 from influxdb_client_3 import InfluxDBClient3
+import pandas
 
-# Instantiate an InfluxDBClient3 client configured for your database
+# Instantiate an InfluxDBClient3 client configured for your organization
 client = InfluxDBClient3(
     host='cloud2.influxdata.com',
     org='ORG_NAME'
-    token='DATABASE_TOKEN',
-    database='DATABASE_NAME'
+    token='API_TOKEN',
+    database='BUCKET_NAME'
 )
 ```
 {{% /code-placeholders %}}
@@ -237,10 +238,10 @@ Replace the following configuration values:
 
 - {{% code-placeholder-key %}}`ORG_NAME`{{% /code-placeholder-key %}}:
   Your InfluxDB organization name.
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  Your InfluxDB token with read permissions on the databases you want to query.
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  The name of your InfluxDB database.
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
+  Your InfluxDB API token with read permissions on the bucket you want to query.
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
+  The name of your InfluxDB bucket.
 
 ### Execute a query
 
