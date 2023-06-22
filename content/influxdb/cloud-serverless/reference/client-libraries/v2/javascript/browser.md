@@ -1,9 +1,8 @@
 ---
-title: JavaScript client library for web browsers
-seotitle: Use the InfluxDB v2 JavaScript client library for web browsers
+title: InfluxDB v2 JavaScript client library for web browsers
 list_title: JavaScript for browsers
 description: >
-  Use the InfluxDB v2 JavaScript client library to integrate with InfluxDB in web clients.
+  Use the InfluxDB v2 JavaScript client library in browsers and front-end clients to write data to an InfluxDB Cloud Serverless bucket.
 menu:
   influxdb_cloud_serverless:
     name: Browsers and web clients
@@ -19,7 +18,27 @@ related:
   - /influxdb/cloud-serverless/api-guide/client-libraries/nodejs/query/
 ---
 
-Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) to integrate the InfluxDB v2 API in browsers and front-end clients. This library supports both front-end and server-side environments and provides the following distributions:
+Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an {{% cloud-name %}} bucket.
+
+{{% note %}}
+
+### Tools to execute queries
+
+InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
+This endpoint can't query an {{% cloud-name %}} cluster.
+
+{{% cloud-name %}} supports many different tools for querying data, including:
+
+- [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
+- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
+- [Superset](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/superset/)
+- [Grafana](/influxdb/cloud-serverless/query-data/tools/grafana/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/primers/api/v1/#query-using-the-v1-api)
+- [Chronograf](/{{< latest "Chronograf" >}}/)
+
+{{% /note %}}
+
+This library supports both front-end and server-side environments and provides the following distributions:
 * ECMAScript modules (ESM) and CommonJS modules (CJS)
 * Bundled ESM
 * Bundled UMD 
@@ -42,12 +61,10 @@ If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/) to serve your front-end app.
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB Cloud, see [InfluxDB URLs](/{{% latest "influxdb" %}}/reference/urls/).
 
 ## Use with module bundlers
 
 If you use a module bundler like Webpack or Parcel, install `@influxdata/influxdb-client-browser`.
-For more information and examples, see [Node.js](/{{% latest "influxdb" %}}/api-guide/client-libraries/nodejs/).  
 
 ## Use bundled distributions with browsers and module loaders 
 
@@ -56,14 +73,14 @@ For more information and examples, see [Node.js](/{{% latest "influxdb" %}}/api-
    ```html
    <script>
      window.INFLUX_ENV = {
-       url: 'http://localhost:8086',
-       token: 'INFLUX_READ_WRITE_TOKEN'
+       url: 'https://cloud2.influxdata.com',
+       token: 'API_TOKEN'
      }
    </script>
    ```
    Replace the following:
 
-    - **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _write_ permission to the bucket.
+    - **`API_TOKEN`**: An InfluxDB token with WRITE permission to the bucket.
 
 2. Import modules from the latest client library browser distribution.
 `@influxdata/influxdb-client-browser` exports bundled ESM and UMD syntaxes. 
@@ -95,20 +112,21 @@ For more information and examples, see [Node.js](/{{% latest "influxdb" %}}/api-
    {{% /code-tab-content %}}
    {{< /code-tabs-wrapper >}}
 
-After you've imported the client library, you're ready to [write data](/{{% latest "influxdb" %}}/api-guide/client-libraries/nodejs/write/?t=nodejs) to InfluxDB.
+After you've imported the client library, you're ready to [get started writing data with the example app](#get-started-with-the-example-app).
 
 ## Get started with the example app
 
-This library includes an example browser app that queries from and writes to your InfluxDB instance.
+The client library includes an example browser app that writes to your InfluxDB instance.
 
 1. Clone the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repo.
 
 2. Navigate to the `examples` directory:
+
     ```js
     cd examples
     ```
 
-3. Update `./env_browser.js` with your InfluxDB [url](/{{% latest "influxdb" %}}/reference/urls/), [bucket](/{{% latest "influxdb" %}}/organizations/buckets/), [organization](/{{% latest "influxdb" %}}/organizations/), and [token](/{{% latest "influxdb" %}}/security/tokens/)
+3. Update `./env_browser.js` with your {{% cloud-name %}} region URL, your [bucket](/influxdb/cloud-serverless/admin/buckets/), an arbitrary string as `org`, and your [API token](/influxdb/cloud-serverless/admin/tokens/).
 
 4. Run the following command to start the application at [http://localhost:3001/examples/index.html]()
 
@@ -117,3 +135,5 @@ This library includes an example browser app that queries from and writes to you
     ```
 
     `index.html` loads the `env_browser.js` configuration, the client library ESM modules, and the application in your browser.
+
+For more examples, see how to [write data using the JavaScript client library for Node.js](/influxdb/cloud-serverless/reference/client-libraries/v2/javascript/nodejs/write/).

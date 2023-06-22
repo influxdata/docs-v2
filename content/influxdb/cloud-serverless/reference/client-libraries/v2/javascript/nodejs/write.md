@@ -2,7 +2,7 @@
 title: Write data with the InfluxDB v2 JavaScript client library
 list_title: Write data
 description: >
-  Use the JavaScript client library to write data with the InfluxDB API in Node.js.
+  The JavaScript client library integrates with Node.js applications to write data to an InfluxDB Cloud Serverless bucket.
 menu:
   influxdb_cloud_serverless:
     name: Write
@@ -63,7 +63,7 @@ The Javascript client library includes the following convenient features for wri
     ```js
     const point1 = new Point('temperature')
       .tag('sensor_id', 'TLM010')
-      .floatField('value', 24)
+      .floatField('value', 24.0)
     ```
 
 5. Use the `writePoint()` method to write the point to your InfluxDB bucket.

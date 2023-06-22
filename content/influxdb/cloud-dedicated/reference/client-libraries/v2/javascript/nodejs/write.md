@@ -2,7 +2,7 @@
 title: Write data with the InfluxDB v2 JavaScript client library
 list_title: Write data
 description: >
-  Use the JavaScript client library to write data with the InfluxDB API in Node.js.
+  The InfluxDB v2 JavaScript client library integrates with Node.js applications to write data to the InfluxDB v2 API.
 menu:
   influxdb_cloud_dedicated:
     name: Write
@@ -29,7 +29,7 @@ The Javascript client library includes the following convenient features for wri
 
 ### Write data with the client library
 
-1. Instantiate an `InfluxDB` client. Provide your InfluxDB URL and database token.
+1. Instantiate a client by calling the `new InfluxDB()` constructor with your InfluxDB URL and database token (environment variables you already set in the [Install section](/influxdb/cloud-dedicated/api-guide/client-libraries/nodejs/install/)).
 
    ```js
    import {InfluxDB, Point} from '@influxdata/influxdb-client'

@@ -1,6 +1,6 @@
 ---
 title: Configure Telegraf for InfluxDB
-seotitle: Configure Telegraf to write to InfluxDB
+seotitle: Configure Telegraf to write data to InfluxDB
 description: >
   Telegraf is a plugin-based agent with plugins that are enabled and configured in
   your Telegraf configuration file (`telegraf.conf`).
@@ -41,6 +41,7 @@ for using Telegraf with {{< cloud-name >}}._
       - [organization](#organization)
       - [bucket](#bucket)
       - [Write to InfluxDB v1.x and {{< cloud-name >}}](#write-to-influxdb-v1x-and--cloud-name-)
+  - [Other Telegraf configuration options](#other-telegraf-configuration-options)
 - [Start Telegraf](#start-telegraf)
 
 <!-- /TOC -->
@@ -118,6 +119,12 @@ The name of the {{% cloud-name %}} database to write data to.
 If a Telegraf agent is already writing to an InfluxDB v1.x database,
 enabling the InfluxDB v2 output plugin will write data to both v1.x and your {{< cloud-name >}} cluster.
 {{% /note %}}
+
+### Other Telegraf configuration options
+
+`influx_uint_support`: supported in InfluxDB IOx.
+
+For more plugin options, see [`influxdb`](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb/README.md) on GitHub.
 
 ## Start Telegraf
 

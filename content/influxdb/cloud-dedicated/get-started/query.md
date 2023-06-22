@@ -46,6 +46,7 @@ The examples in this section of the tutorial query the
 
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
 
+- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
 - [Flight SQL clients](?t=Go#execute-an-sql-query){{< req "\*  " >}}
 - [Superset](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/)
 - [Grafana](/influxdb/cloud-dedicated/query-data/tools/grafana/)
