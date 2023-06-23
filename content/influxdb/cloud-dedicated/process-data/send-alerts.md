@@ -3,7 +3,7 @@ title: Send alerts using data in InfluxDB
 description: >
   Query, analyze, and send alerts using time series data stored in InfluxDB.
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud_dedicated:
     name: Send alerts
     parent: Process data
 weight: 101
@@ -16,7 +16,7 @@ This guide uses [Python](https://www.python.org/), the
 and the [Python Slack SDK](https://slack.dev/python-slack-sdk/) to demonstrate
 how to query data from InfluxDB and send alerts to Slack, but you can use your
 runtime and alerting platform of choice with any of the available
-[InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/).
+[InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/).
 Whatever clients and platforms you choose the use, the process is the same:
 
 #### Alerting process
@@ -46,7 +46,7 @@ More information is provided in the
 
 {{% note %}}
 This guide assumes you have already
-[setup your Python project and virtual environment](/influxdb/cloud-serverless/query-data/sql/execute-queries/python/#create-a-python-virtual-environment).
+[setup your Python project and virtual environment](/influxdb/cloud-dedicated/query-data/sql/execute-queries/python/#create-a-python-virtual-environment).
 {{% /note %}}
 
 Use `pip` to install the following dependencies:
@@ -65,24 +65,22 @@ Use the `InfluxDBClient3` function in the `influxdb_client_3` module to
 instantiate an InfluxDB client.
 Provide the following credentials:
 
-- **host**: [{{< cloud-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
-  _(without the protocol)_
+- **host**: {{< cloud-name >}} cluster URL _(without the protocol)_
 - **org**: InfluxDB organization name
-- **token**: [InfluxDB API token](/influxdb/cloud-serverless/admin/tokens/) with
-  read permissions on the bucket you want to query
-- **database**: InfluxDB bucket name
+- **token**: [InfluxDB database token](/influxdb/cloud-dedicated/admin/tokens/)
+  read permissions on the database you want to query
+- **database**: InfluxDB database name
 
-{{% code-placeholders "(API|BUCKET|ORG)_(NAME|TOKEN)" %}}
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
-# Instantiate an InfluxDBClient3 client configured for your bucket
+# Instantiate an InfluxDBClient3 client configured for your database
 influxdb = InfluxDBClient3(
-    host='cloud2.influxdata.com',
-    org='ORG_NAME',
-    token='API_TOKEN',
-    database='BUCKET_NAME'
+    host='cluster-id.influxdb.io',
+    token='DATABASE_TOKEN',
+    database='DATABASE_NAME'
 )
 ```
 {{% /code-placeholders %}}
@@ -249,7 +247,7 @@ for index, row in data_frame.iterrows():
 <!--------------------------------- BEGIN SQL --------------------------------->
 {{% code-tab-content %}}
 
-{{% code-placeholders "(API|BUCKET|ORG|SLACK(_BOT)*)_(NAME|TOKEN|CHANNEL)" %}}
+{{% code-placeholders "(DATABASE|SLACK(_BOT)*)_(NAME|TOKEN|CHANNEL)" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3
 import pandas
@@ -257,10 +255,9 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 influxdb = InfluxDBClient3(
-    host='cloud2.influxdata.com',
-    org='ORG_NAME',
-    token='API_TOKEN',
-    database='BUCKET_NAME'
+    host='cluster-id.influxdb.io',
+    token='DATABASE_TOKEN',
+    database='DATABASE_NAME'
 )
 
 slack = WebClient(token='SLACK_BOT_TOKEN')
@@ -293,7 +290,7 @@ for index, row in data_frame.iterrows():
 <!------------------------------- BEGIN INFLUXQL ------------------------------>
 {{% code-tab-content %}}
 
-{{% code-placeholders "(API|BUCKET|ORG|SLACK(_BOT)*)_(NAME|TOKEN|CHANNEL)" %}}
+{{% code-placeholders "(DATABASE|SLACK(_BOT)*)_(NAME|TOKEN|CHANNEL)" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3
 import pandas
@@ -301,10 +298,9 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 influxdb = InfluxDBClient3(
-    host='cloud2.influxdata.com',
-    org='ORG_NAME',
-    token='API_TOKEN',
-    database='BUCKET_NAME'
+    host='cluster-id.influxdb.io',
+    token='DATABASE_TOKEN',
+    database='DATABASE_NAME'
 )
 
 slack = WebClient(token='SLACK_BOT_TOKEN')

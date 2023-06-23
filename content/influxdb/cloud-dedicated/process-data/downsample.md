@@ -70,9 +70,9 @@ instantiate two InfluxDB clients:
 
 Provide the following credentials for each client:
 
-- **host**: {{< cloud-name >}} cluster URL
-- **token**: InfluxDB API token with read and write permissions on the databases
-  you want to query and write to.
+- **host**: {{< cloud-name >}} cluster URL _(without the protocol)_
+- **token**: [InfluxDB database token](/influxdb/cloud-dedicated/admin/tokens/)
+  with read and write permissions on the databases you want to query and write to.
 - **database**: InfluxDB database name
 
 {{% code-placeholders "((RAW_|DOWNSAMPLED_)*DATABASE)_(NAME|TOKEN)" %}}
