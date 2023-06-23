@@ -1,8 +1,7 @@
 ---
 title: Install the InfluxDB v2 JavaScript client library
-seotitle: Install the InfluxDB Node.js JavaScript client library
 description: >
-  Install the Node.js JavaScript client library to integrate with the InfluxDB v2 API.
+  Install the Node.js JavaScript client library to write data to InfluxDB Cloud Serverless.
 menu:
   influxdb_cloud_serverless:
     name: Install
@@ -13,13 +12,32 @@ aliases:
   - /influxdb/cloud-serverless/reference/api/client-libraries/nodejs/install
 ---
 
+{{% note %}}
+
+Install the Node.js JavaScript client library to write data to InfluxDB {{% cloud-name %}}.
+
+### Tools to execute queries
+
+InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
+This endpoint can't query an {{% cloud-name %}} cluster.
+
+{{% cloud-name %}} supports many different tools for querying data, including:
+
+- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
+- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/)
+- [Superset](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/)
+- [Grafana](/influxdb/cloud-dedicated/query-data/tools/grafana/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
+- [Chronograf](/{{< latest "Chronograf" >}}/)
+
+{{% /note %}}
 
 ## Install Node.js
 
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/).
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to InfluxDB Cloud, see [InfluxDB URLs](/influxdb/cloud-serverless/reference/urls/).
+   For information about what URL to use to connect to {{% cloud-name %}}, see [InfluxDB URLs](/influxdb/cloud-serverless/reference/urls/).
 
 3. In your terminal, create a directory for your Node.js project and change to it.
 
@@ -57,15 +75,15 @@ Follow these steps to initialize the TypeScript project:
 
 ## Install dependencies
 
-Use the `@influxdata/influxdb-client` JavaScript client library to write and query data in {{% cloud-name %}}.
+Use the `@influxdata/influxdb-client` JavaScript client library to write data in {{% cloud-name %}}.
 
 Open a new terminal window and install the `@influxdata/influxdb-client` package for querying and writing data:
 
    ```sh
-   npm install --save @influxdata/influxdb-client
+   npm i --save @influxdata/influxdb-client
    ```
 
-The `@influxdata/influxdb-client-apis` client library package won't work with InfluxDB v3.
+The `@influxdata/influxdb-client-apis` client library package won't work with {{% cloud-name %}}.
 It only works with InfluxDB v2 management APIs.
 
 ## Configure credentials

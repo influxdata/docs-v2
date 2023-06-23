@@ -1,9 +1,8 @@
 ---
-title: JavaScript client library for web browsers
-seotitle: Use the InfluxDB v2 JavaScript client library for web browsers
+title: InfluxDB v2 JavaScript client library for web browsers
 list_title: JavaScript for browsers
 description: >
-  Use the InfluxDB v2 JavaScript client library to interact with InfluxDB in web clients.
+  Use the InfluxDB v2 JavaScript client library in browsers and front-end clients to write data to an InfluxDB Cloud Dedicated database.
 menu:
   influxdb_cloud_dedicated:
     name: Browsers and web clients
@@ -19,29 +18,35 @@ related:
   - /influxdb/cloud-dedicated/api-guide/client-libraries/nodejs/query/
 ---
 
-Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an InfluxDB Cloud Dedicated database. This library supports both front-end and server-side environments and provides the following distributions:
-* ECMAScript modules (ESM) and CommonJS modules (CJS)
-* Bundled ESM
-* Bundled UMD 
-
-This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
-If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{{% latest "influxdb" %}}/get-started/).
+Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an {{% cloud-name %}} database.
 
 {{% note %}}
+
 ### Tools to execute queries
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an InfluxDB Cloud Dedicated cluster.
+This endpoint can't query an {{% cloud-name %}} database.
 
-InfluxDB Cloud Dedicated supports many different tools for querying data, including:
+{{% cloud-name %}} supports many different tools for querying data, including:
 
-- [Flight SQL clients](?t=Go#execute-an-sql-query)
+- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
+- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/)
 - [Superset](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/)
 - [Grafana](/influxdb/cloud-dedicated/query-data/tools/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 
 {{% /note %}}
+
+This library supports both front-end and server-side environments and provides the following distributions:
+
+- ECMAScript modules (ESM) and CommonJS modules (CJS)
+- Bundled ESM
+- Bundled UMD 
+
+This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
+If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{{% latest "influxdb" %}}/get-started/).
+
 
 {{% warn %}}
 ### Tokens in production applications
@@ -58,7 +63,7 @@ InfluxDB Cloud Dedicated supports many different tools for querying data, includ
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/) to serve your front-end app.
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to your InfluxDB Cloud Dedicated cluster, contact your InfluxData account representative.
+   For information about what URL to use to connect to your {{% cloud-name %}} cluster, contact your InfluxData account representative.
 
 ## Use with module bundlers
 
@@ -121,7 +126,7 @@ The client library includes an example browser app that writes to your InfluxDB 
     cd examples
     ```
 
-3. Update `./env_browser.js` with your InfluxDB Cloud Dedicated cluster URL, your database name as `bucket`, an arbitrary string as `org`, and your database token.
+3. Update `./env_browser.js` with your {{% cloud-name %}} cluster URL, your database name as `bucket`, an arbitrary string as `org`, and your database token.
 
 4. Run the following command to start the application at [http://localhost:3001/examples/index.html]()
 
