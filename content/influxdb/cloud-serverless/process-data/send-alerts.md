@@ -126,9 +126,9 @@ The example query below only returns values above a threshold that should trigge
 {{% code-tab-content %}}
 ```sql
 SELECT
-  time,
-  room,
-  selector_last(co, time)['value'] AS co
+  selector_last(co, time)['time'] AS time,
+  selector_last(co, time)['value'] AS co,
+  room
 FROM home
 WHERE co > 10
 GROUP BY room
