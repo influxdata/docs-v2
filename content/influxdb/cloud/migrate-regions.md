@@ -26,7 +26,7 @@ or [our new database engine, InfluxDB IOx](/blog/announcing-general-availability
 
 To see what which database engine your organization is using, log in to your 
 InfluxDB Cloud account and, on your organization's homepage, and then look for
-**InfluxDB Cloud powered by TSM** or **InfluxDB Cloud powered by IOx** at the
+**InfluxDB Cloud powered by TSM** or **InfluxDB Cloud Serverless** at the
 bottom of the far-right column.
 
 - [Migrate data from TSM to TSM](/influxdb/cloud/migrate-data/migrate-cloud-to-cloud/). 

@@ -37,7 +37,7 @@
 <div id="iox-wayfinding-modal">
   <div class="wayfinding-wrapper">
     <div class="wayfinding-content">
-      <h4>InfluxDB Cloud{{ if $isIOx }} Serverless{{ end }} powered by {{ $engine }}</h4>
+      <h4>InfluxDB Cloud{{ if $isIOx }} Serverless{{ else }} powered by {{ $engine }}{{end}}</h4>
       <div class="wayfinding-content-info">
         <div>
           <p>

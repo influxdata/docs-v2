@@ -22,7 +22,7 @@ To see which storage engine your organization is using,
 find the **InfluxDB Cloud powered by** link in your
 [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
 If your organization is using IOx, you'll see
-**InfluxDB Cloud powered by IOx** followed by the version number.
+**InfluxDB Cloud Serverless** followed by the version number.
 {{% /note %}}
 
 InfluxDB Cloud Serverless is a hosted and managed version of InfluxDB backed
@@ -54,4 +54,4 @@ To see which storage engine your organization is using,
 find the **InfluxDB Cloud powered by** link in your
 [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
 If your organization is using IOx, you'll see
-**InfluxDB Cloud powered by IOx** followed by the version number.
+**InfluxDB Cloud Serverless** followed by the version number.
