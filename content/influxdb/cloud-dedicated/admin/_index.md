@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud_dedicated:
     name: Administer InfluxDB
-weight: 5
+weight: 6
 ---
 
 The following articles provide information about managing your InfluxDB Cloud
