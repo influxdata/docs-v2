@@ -232,7 +232,7 @@ data_frame = data_frame.reset_index()
 
 for index, row in data_frame.iterrows():
     slack.chat_postMessage(
-        channel="#"+SLACK_CHANNEL,
+        channel="#SLACK_CHANNEL",
         text=f'Carbon monoxide (co) high in {row.room}: {row.co} ppm at {row.time}'
     )
 ```
