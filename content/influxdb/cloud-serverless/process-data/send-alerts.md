@@ -7,8 +7,6 @@ menu:
     name: Send alerts
     parent: Process data
 weight: 101
-related:
-  - /influxdb/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)
 ---
 
 Query, analyze, and send alerts using time series data stored in InfluxDB.
