@@ -26,6 +26,15 @@ Whatever clients and platforms you choose the use, the process is the same:
 
 ---
 
+- [Create a Slack app](#create-a-slack-app)
+- [Install dependencies](#install-dependencies)
+- [Create an InfluxDB client](#create-an-influxdb-client)
+- [Create a Slack client](#create-a-slack-client)
+- [Query InfluxDB](#query-influxdb)
+  - [Execute the query](#execute-the-query)
+- [Send alerts](#send-alerts)
+- [Full alerting script](#full-alerting-script)
+
 ## Create a Slack app
 
 To send alerts to Slack, first create a Slack app and gather the required
@@ -197,8 +206,7 @@ table = influxdb_raw.query(query=query, language="influxql")
 data_frame = table.to_pandas()
 ```
 {{% /code-tab-content %}}
-<!-------------------------------- END INFLUXQL ------------------------------->\
-
+<!-------------------------------- END INFLUXQL ------------------------------->
 {{< /code-tabs-wrapper >}}
 
 ## Send alerts
@@ -325,4 +333,3 @@ for index, row in data_frame.iterrows():
 {{% /code-tab-content %}}
 <!-------------------------------- END INFLUXQL ------------------------------->
 {{< /code-tabs-wrapper >}}
-
