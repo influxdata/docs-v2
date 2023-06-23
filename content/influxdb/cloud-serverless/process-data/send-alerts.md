@@ -211,7 +211,7 @@ Iterate through the DataFrame and send an alert to Slack for each row.
     [Slack client](#create-a-slack-client) to send a message (per row) to Slack.
     Provide the following arguments:
 
-    - **channel**: Slack change to send the alert to
+    - **channel**: Slack channel to send the alert to.
     - **text**: Message text to send. Use string interpolation to insert column
       values from each row into the message text.
 
