@@ -15,8 +15,10 @@ Query and downsample time series data stored in InfluxDB and write the
 downsampled data back to InfluxDB.
 
 This guide uses [Python](https://www.python.org/) and the
-[InfluxDB v3 Python client library](https://github.com/InfluxCommunity/influxdb3-python).
-and assumes you have already
+[InfluxDB v3 Python client library](https://github.com/InfluxCommunity/influxdb3-python),
+but you can use your runtime of choice and any of the available
+[InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/).
+This guide also assumes you have already
 [setup your Python project and virtual environment](/influxdb/cloud-serverless/query-data/sql/execute-queries/python/#create-a-python-virtual-environment).
 
 - [Install dependencies](#install-dependencies)
@@ -41,18 +43,25 @@ pip install influxdb3-python pandas
 
 ## Prepare InfluxDB buckets
 
-The downsampling process involves two InfluxDB buckets:
+The downsampling process involves two InfluxDB buckets.
+Each bucket has a [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period)
+that specifies how long data persists in the database before it expires and is deleted.
+By using two buckets, you can store unmodified, high-resolution data in a bucket
+with a shorter retention period and then downsampled, low-resolution data in a
+bucket with a longer retention period.
+
+Ensure you have a bucket for each of the following:
 
 - One to query unmodified data from
 - The other to write downsampled data to
 
-Ensure you have a bucket for each. For more information, see
+For information about creating buckets, see
 [Create a bucket](/influxdb/cloud-serverless/admin/buckets/create-bucket/).
 
 ## Create InfluxDB clients
 
 Use the `InfluxDBClient3` function in the `influxdb_client_3` module to 
-instantiate a two InfluxDB clients:
+instantiate two InfluxDB clients:
 
 - One configured to connect to your InfluxDB bucket with _unmodified_ data.
 - The other configured to connect to the InfluxDB bucket that you want to
@@ -107,6 +116,7 @@ functions to time intervals.
 [InfluxQL](#)
 {{% /tabs %}}
 
+<!--------------------------------- BEGIN SQL --------------------------------->
 {{% tab-content %}}
 
 1.  In the `SELECT` clause:
@@ -123,6 +133,8 @@ functions to time intervals.
 
 2.  Include a `GROUP BY` clause that groups by intervals returned from the `DATE_BIN`
     function in your `SELECT` clause and any other queried tags.
+    The example below uses `GROUP BY 1` to group by the first column in the
+    `SELECT` clause.
 3.  Include an `ORDER BY` clause that sorts data by `time`.
 
 _For more information, see
@@ -137,11 +149,13 @@ SELECT
   AVG(co) AS co
 FROM home
 WHERE time >= now() - INTERVAL '24 hours'
-GROUP BY DATE_BIN(INTERVAL '1 hour', time), room
+GROUP BY 1, room
 ORDER BY room, time
 ```
 {{% /tab-content %}}
+<!---------------------------------- END SQL ---------------------------------->
 
+<!------------------------------- BEGIN INFLUXQL ------------------------------>
 {{% tab-content %}}
 
 1.  In the `SELECT` clause, apply an
@@ -162,6 +176,7 @@ WHERE time >= now() - 24h
 GROUP BY time(1h)
 ```
 {{% /tab-content %}}
+<!-------------------------------- END INFLUXQL ------------------------------->
 {{< /tabs-wrapper >}}
 
 ### Execute the query
@@ -181,6 +196,7 @@ GROUP BY time(1h)
 [InfluxQL](#)
 {{% /code-tabs %}}
 
+<!--------------------------------- BEGIN SQL --------------------------------->
 {{% code-tab-content %}}
 ```py
 # ...
@@ -194,7 +210,7 @@ SELECT
   AVG(co) AS co
 FROM home
 WHERE time >= now() - INTERVAL '24 hours'
-GROUP BY DATE_BIN(INTERVAL '1 hour', time), room
+GROUP BY 1, room
 ORDER BY time
 '''
 
@@ -202,7 +218,9 @@ table = influxdb_raw.query(query=query, language="sql")
 data_frame = table.to_pandas()
 ```
 {{% /code-tab-content %}}
+<!---------------------------------- END SQL ---------------------------------->
 
+<!------------------------------- BEGIN INFLUXQL ------------------------------>
 {{% code-tab-content %}}
 ```py
 # ...
@@ -221,6 +239,7 @@ table = influxdb_raw.query(query=query, language="influxql")
 data_frame = table.to_pandas()
 ```
 {{% /code-tab-content %}}
+<!-------------------------------- END INFLUXQL ------------------------------->\
 
 {{< /code-tabs-wrapper >}}
 
@@ -263,7 +282,11 @@ influxdb_downsampled.write(
 [SQL](#)
 [InfluxQL](#)
 {{% /code-tabs %}}
+
+<!--------------------------------- BEGIN SQL --------------------------------->
 {{% code-tab-content %}}
+
+{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3
 import pandas
@@ -291,7 +314,7 @@ SELECT
   AVG(co) AS co
 FROM home
 WHERE time >= now() - INTERVAL '24 hours'
-GROUP BY DATE_BIN(INTERVAL '1 hour', time), room
+GROUP BY 1, room
 ORDER BY time
 '''
 
@@ -306,9 +329,15 @@ influxdb_downsampled.write(
     data_frame_tag_columns=['room']
 )
 ```
-{{% /code-tab-content %}}
+{{% /code-placeholders %}}
 
+{{% /code-tab-content %}}
+<!---------------------------------- END SQL ---------------------------------->
+
+<!------------------------------- BEGIN INFLUXQL ------------------------------>
 {{% code-tab-content %}}
+
+{{% code-placeholders "(API|(RAW|DOWNSAMPLED)_BUCKET|ORG)_(NAME|TOKEN)" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3
 import pandas
@@ -348,7 +377,9 @@ influxdb_downsampled.write(
     data_frame_tag_columns=['room']
 )
 ```
-{{% /code-tab-content %}}
+{{% /code-placeholders %}}
 
+{{% /code-tab-content %}}
+<!-------------------------------- END INFLUXQL ------------------------------->
 {{< /code-tabs-wrapper >}}
 
