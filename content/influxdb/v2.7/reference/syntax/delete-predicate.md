@@ -37,12 +37,15 @@ key1="value1" AND key2="value"
 If your predicate contains keywords or strings with special characters, wrap each in escaped
 quotes to ensure the predicate string is parsed correctly.
 
+Because delete predicates follow [InfluxQL](/influxdb/v2.7/reference/syntax/influxql) syntax, [any InfluxQL keyword](/influxdb/v2.7/reference/syntax/influxql/spec/#keywords)
+that matches your tag name needs to be escaped. Keywords are case-insensitive.
+
 ```js
 // Escaped due to the "-"
 "_measurement=\"example-dash\""
 
-// Escaped because "name" is a keyword
-"_measurement=example and \"name\"=predicate"
+// Escaped because "Name" is a keyword
+"_measurement=example and \"Name\"=predicate"
 ```
 {{% /note %}}
 
@@ -116,4 +119,4 @@ The delete predicate syntax has the following limitations.
 - Delete predicates only support equality (`=`), not inequality (`!=`).
 - Delete predicates can use any column or tag **except** `_time`
   {{% oss-only %}}, `_field`, {{% /oss-only %}}or `_value`.
-  
+
