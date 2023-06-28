@@ -29,8 +29,7 @@ The IOx storage engine enforces the following storage-level limits:
 - **Maximum number of columns per table**: 200
 
 {{% note %}}
-IOx storage service-level limits are configurable per _namespace_.
-To adjust your service-level limits, [contact InfluxData Support](https://support.influxdata.com).
+If you need higher limits than those show above please [contact InfluxData Sales]([https://support.influxdata.com](https://www.influxdata.com/contact-sales/).
 {{% /note %}}
 
 ## Error messages
@@ -49,8 +48,7 @@ number of columns allowed in a table.
 #### Potential solutions
 
 - Consider storing new fields in a new measurement.
-- [Contact InfluxData Support](https://support.influxdata.com) to delete any
-  unnecessary data.
+- [Contact InfluxData Support](https://support.influxdata.com) to help you review your database schema.
 
 ### Maximum number of tables reached
 
