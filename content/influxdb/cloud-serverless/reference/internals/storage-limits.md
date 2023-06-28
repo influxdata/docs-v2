@@ -29,7 +29,7 @@ The IOx storage engine enforces the following storage-level limits:
 - **Maximum number of columns per table**: 200
 
 {{% note %}}
-If you need higher limits than those show above please [contact InfluxData Sales]([https://support.influxdata.com](https://www.influxdata.com/contact-sales/).
+If you need higher limits than those show above please [contact InfluxData Sales](https://www.influxdata.com/contact-sales/).
 {{% /note %}}
 
 ## Error messages
