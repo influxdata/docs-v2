@@ -109,11 +109,7 @@ On the **Billing page**, view the total limits available for the Free Plan.
 
 If you exceed your plan's [adjustable quotas or limits](/influxdb/cloud-serverless/account-management/limits/), you'll receive a notification in the {{< cloud-name "short" >}} user interface (UI) **Usage** page.
 
-To raise your oranization's rate limits:
-
-- **Usage-Based plan**: Contact [InfluxData Support](https://support.influxdata.com)
-  to request higher rate limits.
-- **Free plan**: [Upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan).
+If using the **Free plan**, [upgrade to a Usage-based Plan](#upgrade-to-usage-based-plan) to raise your organization's rate limits.
 
 #### Write and query limits (HTTP response code)
 
@@ -134,5 +130,5 @@ Billing occurs on the first day of the month for the previous month. For example
 | :--------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Initial declined payment** | We'll retry charge every 72 hours. During this period, update your payment method to successfully process your payment.                                                                                                           |
 | **One week later**           | Account disabled except data writes. Update your payment method to successfully process your payment and enable your account.                                                                                                     |
-| **10-14 days later**         | Account completely disabled. During this period, you must contact us at [support.influxdata.com](https://support.influxdata.com) to process your payment and enable your account.                                                 |
-| **21 days later**            | Account suspended. Contact [support.influxdata.com](https://support.influxdata.com) to settle your final bill and retrieve a copy of your data or access to InfluxDB Cloud dashboards, tasks, Telegraf configurations, and so on. |
+| **10-14 days later**         | Account completely disabled. During this period, you must contact [InfluxData Support](https://support.influxdata.com/) to process your payment and enable your account.                                                 |
+| **21 days later**            | Account suspended. Contact [InfluxData Support](https://support.influxdata.com/) to settle your final bill and retrieve a copy of your data or access to InfluxDB Cloud dashboards, tasks, Telegraf configurations, and so on. |
