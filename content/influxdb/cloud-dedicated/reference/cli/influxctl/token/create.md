@@ -40,48 +40,56 @@ influxctl token create \
 | Flag |                    | Description                           |
 | :--- | :----------------- | :------------------------------------ |
 | `-h` | `--help`           | Output command help                   |
-|      | `--read-database`  | Grant read permissions to a database  |
-|      | `--write-database` | Grant write permissions to a database |
+|      | `--read-database`  | Grant read permissions to a database. Repeatable.  |
+|      | `--write-database` | Grant write permissions to a database. Repeatable. |
 
 ## Examples
 
 - [Create a token with read and write access to a database](#create-a-token-with-read-and-write-access-to-a-database)
 - [Create a token with read-only access to a database](#create-a-token-with-read-only-access-to-a-database)
-- [Create a token with read-only access to multiple database](#create-a-token-with-read-only-access-to-multiple-database)
-- [Create a token with mixed permissions on multiple database](#create-a-token-with-mixed-permissions-on-multiple-database)
+- [Create a token with read-only access to multiple databases](#create-a-token-with-read-only-access-to-multiple-database)
+- [Create a token with mixed permissions to multiple databases](#create-a-token-with-mixed-permissions-on-multiple-database)
 
 ##### Create a token with read and write access to a database
 
+{{% code-placeholders "DATABASE_NAME" %}}
 ```sh
 influxctl token create \
-  --read-database mydb \
-  --write-database mydb \
-  "Read/write token for mydb"
+  --read-database DATABASE_NAME \
+  --write-database DATABASE_NAME \
+  "Read/write token for DATABASE_NAME"
 ```
+{{% /code-placeholders %}}
 
 ##### Create a token with read-only access to a database
 
+{{% code-placeholders "DATABASE_NAME" %}}
 ```sh
 influxctl token create \
-  --read-database mydb \
-  "Read-only token for mydb"
+  --read-database DATABASE_NAME \
+  "Read-only token for DATABASE_NAME"
 ```
+{{% /code-placeholders %}}
 
-##### Create a token with read-only access to multiple database
+##### Create a token with read-only access to multiple databases
 
+{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME" %}}
 ```sh
 influxctl token create \
-  --read-database mydb1 \
-  --read-database mydb2 \
-  "Read-only token for mydb1 and mydb2"
+  --read-database DATABASE_NAME \
+  --read-database DATABASE2_NAME \
+  "Read-only token for DATABASE_NAME and DATABASE2_NAME"
 ```
+{{% /code-placeholders %}}
 
-##### Create a token with mixed permissions on multiple database
+##### Create a token with mixed permissions to multiple databases
 
+{{% code-placeholders "DATABASE_NAME|DATABASE2_NAME" %}}
 ```sh
 influxctl token create \
-  --read-database mydb1 \
-  --read-database mydb2 \
-  --write-database mydb2 \
-  "Read-only on mydb1, Read/write on mydb2"
+  --read-database DATABASE_NAME \
+  --read-database DATABASE2_NAME \
+  --write-database DATABASE2_NAME \
+  "Read-only on DATABASE_NAME, read/write on DATABASE2_NAME"
 ```
+{{% /code-placeholders %}}
