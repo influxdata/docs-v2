@@ -439,6 +439,7 @@ dependencies to your current project.
 
       ```py
       from influxdb_client_3 import InfluxDBClient3
+      import os
 
       # INFLUX_TOKEN is an environment variable you assigned to your
       # database token value.
