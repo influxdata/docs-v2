@@ -591,7 +591,11 @@ See [line protocol](/influxdb/v2.7/reference/syntax/line-protocol/).
 The part of InfluxDB's structure that describes the data stored in the associated fields.
 Measurements are strings.
 
-Related entries: [field](#field), [series](#series)
+{{% cloud-only %}}
+With InfluxDB v3, a time series measurement equates to a relational database table with fields, tags, and timestamp as columns.
+{{% /cloud-only %}}
+
+Related entries: [field](#field), [series](#series), [table](#table)
 
 ### member
 
@@ -1071,8 +1075,16 @@ InfluxDB uses Transmission Control Protocol (TCP) port 8086 for client-server co
 
 ### table
 
+{{% oss-only %}}
 Flux processes a series of tables for a specified time series.
 These tables in sequence result in a stream of data.
+{{% oss-only %}}
+
+{{% cloud-only %}}
+With InfluxDB v3, a time series measurement equates to a relational database table with fields, tags, and timestamp as columns.
+{{% /cloud-only %}}
+
+Related entries: [measurement](#measurement)
 
 ### tag
 
