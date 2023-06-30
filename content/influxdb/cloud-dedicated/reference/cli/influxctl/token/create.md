@@ -48,7 +48,7 @@ influxctl token create \
 - [Create a token with read and write access to a database](#create-a-token-with-read-and-write-access-to-a-database)
 - [Create a token with read-only access to a database](#create-a-token-with-read-only-access-to-a-database)
 - [Create a token with read-only access to multiple databases](#create-a-token-with-read-only-access-to-multiple-databases)
-- [Create a token with mixed permissions to multiple databases](#create-a-token-with-mixed-permissions-on-multiple-database)
+- [Create a token with mixed permissions to multiple databases](#create-a-token-with-mixed-permissions-on-multiple-databases)
 
 ##### Create a token with read and write access to a database
 
