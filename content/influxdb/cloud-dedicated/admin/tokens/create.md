@@ -2,7 +2,7 @@
 title: Create a token
 description: >
   Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
-  to create a database token in your InfluxDB Cloud Dedicated cluster.
+  to create a database token for reading and writing data in your InfluxDB Cloud Dedicated cluster.
   Provide a token description and permissions for databases.
 menu:
   influxdb_cloud_dedicated:
