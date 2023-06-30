@@ -181,4 +181,4 @@ Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgradin
 
 For InfluxDB Enterprise customers, Insights and Aware are free services that can monitor your data. InfluxDB Insights sends your data to a private Cloud account and will be monitored with the help of the support team. InfluxDB Aware is a similar service, but you monitor your data yourself. 
 
-To apply for this service, please contact the [InfluxData Support team](mailto:support@influxdata.com).
+To apply for this service, contact [InfluxData Support](https://support.influxdata.com/).
