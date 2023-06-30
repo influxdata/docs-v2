@@ -19,10 +19,8 @@ do one of the following:
 - [Use InfluxQL for diagnostics](/enterprise_influxdb/v1.10/administration/monitor/diagnostics/)
 
 {{% note %}}
-### Monitor with InfluxDB Aware and Influx Insights
-InfluxDB Aware and Influx Insights is a free Enterprise service that sends your data to a free Cloud account.
-Aware assists you in monitoring your data by yourself.
-Insights assists you in monitoring your data with the help of the support team.
+### Monitor with InfluxDB Insights
+For InfluxDB Enterprise customers, Insights is a free services that can monitor your cluster. InfluxDB Insights sends monitoring metrics for your cluster to a private Cloud account. This allows the support team to monitor your cluster health as well as making resource usage statistics available to assist with support tickets that you raise.
 
 To apply for this service, please contact the [support team](https://support.influxdata.com/s/login/).
 {{% /note %}}
