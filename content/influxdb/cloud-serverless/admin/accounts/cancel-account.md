@@ -12,6 +12,7 @@ menu:
   influxdb_cloud_serverless:
     parent: Manage accounts
     name: Cancel InfluxDB Cloud
+alt_engine: /influxdb/cloud/account-management/offboarding/
 ---
 
 To cancel your InfluxDB Cloud Serverless subscription, complete the following steps:
@@ -48,12 +49,6 @@ in to an external system or an InfluxDB OSS instance.
 Cloud to InfluxDB OSS, see: [Migrate data from InfluxDB Cloud to InfluxDB OSS](/influxdb/cloud-serverless/migrate-data/migrate-cloud-to-oss/). -->
 
 ## Cancel service
-
-{{% note %}}
-Cancelling your usage-based plan will delete your organization.
-However, those in multi-user organizations must contact
-[InfluxData Support](https://support.influxdata.com) to delete your organization. 
-{{% /note %}}
 
 1. Click the account name in the header of your InfluxDB Cloud Serverless
    user interface (UI) and select **Billing**.
