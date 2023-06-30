@@ -179,6 +179,6 @@ Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgradin
 
 ## Monitor with InfluxDB Insights
 
-For InfluxDB Enterprise customers, Insights is a free services that can monitor your cluster. InfluxDB Insights sends monitoring metrics for your cluster to a private Cloud account. This allows the support team to monitor your cluster health as well as making resource usage statistics available to assist with support tickets that you raise.
+For InfluxDB Enterprise customers, Insights is a free service that monitors your cluster and sends metrics to a private Cloud account. This allows InfluxDB Support to monitor your cluster health and access usage statistics when assisting with support tickets that you raise.
 
 To apply for this service, contact [InfluxData Support](https://support.influxdata.com/).
