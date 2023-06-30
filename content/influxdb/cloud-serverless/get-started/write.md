@@ -24,10 +24,11 @@ This tutorial walks you through the fundamental of creating **line protocol** da
 InfluxDB provides many different options for ingesting or writing data, including the following:
 
 - Influx user interface (UI)
-- InfluxDB HTTP API
-- `influx` CLI
+- InfluxDB HTTP API (v1 and v2)
 - Telegraf
+- `influx3` data CLI
 - InfluxDB client libraries
+- `influx` CLI
 
 If using tools like Telegraf or InfluxDB client libraries, they can
 build the line protocol for you, but it's good to understand how line protocol works.
@@ -402,14 +403,13 @@ dependencies to your current project.
     source ./envs/virtual-env/bin/activate
     ```
 
-4.  Install the following dependencies:
+4.  Install the client library package:
 
-    - `pyarrow`
-    - `influxdb_client_3`
-
-    ```python
-    pip install pyarrow influxdb_client_3
+    ```sh
+    pip install influxdb3-python
     ```
+
+    The `influxdb3-python` package provides the `influxdb_client_3` module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
 
 5.  In your terminal or editor, create a new file for your code--for example: `write.py`.
 
@@ -421,6 +421,7 @@ dependencies to your current project.
 
       ```py
       from influxdb_client_3 import InfluxDBClient3
+      import os
 
       # INFLUX_TOKEN is an environment variable you assigned to your
       # API token value.
@@ -474,7 +475,7 @@ dependencies to your current project.
 
         - **host**: {{% cloud-name %}} region hostname (URL without protocol or trailing slash)
         - **org**: an empty or arbitrary string (InfluxDB ignores this parameter)
-        - **token**: an InfluxDB [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with write access to the target bucket
+        - **token**: an InfluxDB [API token](/influxdb/cloud-serverless/admin/tokens/) with write access to the target bucket
         - **database**: the name of the {{% cloud-name %}} bucket to write to
     
     3.  Defines a list of line protocol strings where each string represents a data record.

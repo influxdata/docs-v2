@@ -1,17 +1,16 @@
 ---
 title: Use Python to query data with SQL
 description: >
-  Use Python and the `influxdb3-python` library to query data stored in InfluxDB
-  with SQL.
+  Use the `influxdb_client_3` Python module and SQL to query data stored in InfluxDB.
 weight: 101
 menu:
   influxdb_cloud_serverless:
     parent: Execute SQL queries
     name: Use Python
-    identifier: query_with_python
+    identifier: query-with-python-sql
+influxdb/cloud-serverless/tags: [query, flightsql, python, sql]
 aliases:
   - content/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/python/
-influxdb/cloud-serverless/tags: [query, flightsql, python, sql]
 related:
     - /influxdb/cloud-serverless/query-data/tools/pandas/
     - /influxdb/cloud-serverless/query-data/tools/pyarrow/
@@ -39,9 +38,8 @@ list_code_example: |
     ```
 ---
 
-Use the `influxdb3-python` client library to query data stored in InfluxDB with SQL.
-The `influxdb3-client` uses Flight SQL to query data from InfluxDB and return
-results in Apache Arrow format.
+Use the InfluxDB `influxdb_client_3` Python client library module and SQL to query data stored in InfluxDB.
+Execute queries and retrieve data over the Flight protocol, and then process data using common Python tools.
 
 - [Get started using Python to query InfluxDB](#get-started-using-python-to-query-influxdb)
 - [Create a Python virtual environment](#create-a-python-virtual-environment)
@@ -187,23 +185,26 @@ When a virtual environment is activated, the name displays at the beginning of y
 
 ### Install the influxdb3-python library
 
-The `influxdb_client_3` module provides a simple and convenient way to interact
-with {{< cloud-name >}} using Python. This module supports both writing data to
-InfluxDB and querying data using SQL or InfluxQL queries.
+The `influxdb3-python` package provides the `influxdb_client_3` module for integrating {{% cloud-name %}} with your Python code.
+The module supports writing data to InfluxDB and querying data using SQL or InfluxQL.
 
 {{% note %}}
 _To query data with **InfluxQL** and Python, see
 [Use InfluxQL with Python](/influxdb/cloud-serverless/query-data/influxql/execute-queries/python/)._
 {{% /note %}}
 
-Installing `inflxudb3-python` also installs the
-[`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that you'll
-use for working with Arrow data returned from queries.
+Install the following dependencies:
 
-In your terminal, use `pip` to install `influxdb3-python`:
+{{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+
+- `influxdb3-python` {{< req text="\* " color="magenta" >}}: Provides the `influxdb_client_3` module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
+- `pandas`: Provides [pandas modules](https://pandas.pydata.org/) for analyzing and manipulating data.
+- `tabulate`: Provides the [`tabulate` function](https://pypi.org/project/tabulate/) for formatting tabular data.
+
+Enter the following command in your terminal:
 
 ```sh
-pip install influxdb3-python pandas
+pip install influxdb3-python pandas tabulate
 ```
 
 With `influxdb3-python` and `pyarrow` installed, you're ready to query and
@@ -211,20 +212,20 @@ analyze data stored in an InfluxDB database.
 
 ### Create an InfluxDB client
 
-The following example shows how to use Python with `influxdb3-python`
-and to instantiate a client configured for an InfluxDB database.
+The following example shows how to use Python with the `influxdb_client_3`
+module to instantiate a client configured for an {{% cloud-name %}} bucket.
 
 In your editor, copy and paste the following sample code to a new file--for
 example, `query-example.py`:
 
-{{% code-placeholders "(DATABASE|ORG)_(NAME|TOKEN)" %}}
+{{% code-placeholders "(BUCKET|ORG|API)_(NAME|TOKEN)" %}}
 ```py
 # query-example.py
 
 from influxdb_client_3 import InfluxDBClient3
 import pandas
 
-# Instantiate an InfluxDBClient3 client configured for your organization
+# Instantiate an InfluxDBClient3 client configured for your bucket
 client = InfluxDBClient3(
     host='cloud2.influxdata.com',
     org='ORG_NAME'
@@ -245,21 +246,17 @@ Replace the following configuration values:
 
 ### Execute a query
 
-To execute an SQL query, call the client's `query(query,language)` method and
+To execute an SQL query, call the client's [`query(query,language)` method](/influxdb/cloud-serverless/reference/client-libraries/v3/python/#influxdbclient3query) and
 specify the following arguments:
 
 - **query**: SQL query string to execute.
 - **language**: `sql`
 
-#### Syntax {#execute-query-syntax}
-
-```py
-query(query: str, language: str)
-```
-
 #### Example {#execute-query-example}
 
-{{% code-placeholders "(DATABASE|ORG)_(NAME|TOKEN)" %}}
+The following example shows how to use SQL to select all fields in a measurement, and then output the results formatted as a Markdown table.
+
+{{% code-placeholders "(BUCKET|ORG|API)_(NAME|TOKEN)" %}}
 ```py
 # query-example.py
 
@@ -268,8 +265,8 @@ from influxdb_client_3 import InfluxDBClient3
 client = InfluxDBClient3(
     host='cloud2.influxdata.com',
     org='ORG_NAME',
-    token='DATABASE_TOKEN',
-    database='DATABASE_NAME'
+    token='API_TOKEN',
+    database='BUCKET_NAME'
 )
 
 # Execute the query and return an Arrow table

@@ -74,7 +74,7 @@ Each line of line protocol contains the following elements:
 
 ---
 
-_For schema design recommendations, see [InfluxDB schema design](/influxdb/cloud-iox/write-data/best-practices/schema-design/)._
+_For schema design recommendations, see [InfluxDB schema design](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/)._
 
 ## Construct line protocol
 
@@ -301,7 +301,6 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 <!---------------------------- BEGIN PYTHON CONTENT --------------------------->
 {{% influxdb/custom-timestamps %}}
 
-
 To write data to {{% cloud-name %}} using Python, use the
 [`influxdb_client_3` module](https://github.com/InfluxCommunity/influxdb3-python).
 The following steps include setting up a Python virtual environment to scope
@@ -326,14 +325,13 @@ dependencies to your current project.
     source ./envs/virtual-env/bin/activate
     ```
 
-4.  Install the following dependencies:
+4.  Install the client library package:
 
-    - `pyarrow`
-    - `influxdb_client_3`
-
-    ```python
-    pip install pyarrow influxdb_client_3
+    ```sh
+    pip install influxdb3-python
     ```
+
+    The `influxdb3-python` package provides the `influxdb_client_3` module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
 
 5.  In your terminal or editor, create a new file for your code--for example: `write.py`.
 
@@ -345,6 +343,7 @@ dependencies to your current project.
 
       ```py
       from influxdb_client_3 import InfluxDBClient3
+      import os
 
       # INFLUX_TOKEN is an environment variable you assigned to your
       # database token value.
@@ -398,7 +397,7 @@ dependencies to your current project.
 
         - **host**: {{% cloud-name %}} cluster hostname (URL without protocol or trailing slash)
         - **org**: an empty or arbitrary string (InfluxDB ignores this parameter)
-        - **token**: an InfluxDB API token with write access to the target database
+        - **token**: an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/) with write access to the target database
         - **database**: the name of the {{% cloud-name %}} database to write to
     
     3.  Defines a list of line protocol strings where each string represents a data record.
