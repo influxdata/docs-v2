@@ -51,7 +51,7 @@ number of columns allowed in a table.
 
 - Consider storing new fields in a new [measurement](/influxdb/cloud-serverless/reference/glossary/#measurement) (not to exceed the [maximum number of tables](#maximum-number-of-tables-reached)).
 - Review [InfluxDB schema design recommendations](/influxdb/cloud-serverless/write-data/best-practices/schema-design/).
-- Customers with an annual or support contract can [contact InfluxData Support](https://support.influxdata.com) to request a review of their database schema.
+- Customers with an annual or support contract can contact [InfluxData Support](https://support.influxdata.com) to request a review of their database schema.
 
 ### Maximum number of tables reached
 
