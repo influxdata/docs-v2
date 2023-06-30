@@ -14,7 +14,7 @@ alias:
 ---
 
 To upload a large amount **(10GB or greater)** of previously existing *historical*
-data into InfluxDB Cloud, [contact InfluxData Support](https://support.influxdata.com) for assistance.
+data into InfluxDB Cloud, contact [InfluxData Support](https://support.influxdata.com/) for assistance.
 We’ll review your ingest rate limits, volume, and existing
 [data schema](/influxdb/cloud/reference/key-concepts/data-schema) to ensure the
 most efficient migration.
