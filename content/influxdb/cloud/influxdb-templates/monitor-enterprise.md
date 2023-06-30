@@ -22,7 +22,7 @@ Do the following:
 5. [View the Monitoring dashboard](#view-the-monitoring-dashboard)
 6. (Optional) [Alert when metrics stop reporting](#alert-when-metrics-stop-reporting)
 7. (Optional) [Create a notification endpoint and rule](#create-a-notification-endpoint-and-rule)
-8. (Optional) [Monitor with InfluxDB Insights and Aware](#monitor-with-influxdb-insights-and-aware)
+8. (Optional) [Monitor with InfluxDB Insights](#monitor-with-influxdb-insights)
 
 ## Review requirements
 
@@ -177,8 +177,8 @@ Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgradin
 1. Go to **Alerts > Notification Rules** and click **{{< icon "plus" >}} Create**. 
 2. Fill out the **About** and **Conditions** section then click **Create Notification Rule**. 
 
-## Monitor with InfluxDB Insights and Aware 
+## Monitor with InfluxDB Insights
 
-For InfluxDB Enterprise customers, Insights and Aware are free services that can monitor your data. InfluxDB Insights sends your data to a private Cloud account and will be monitored with the help of the support team. InfluxDB Aware is a similar service, but you monitor your data yourself. 
+For InfluxDB Enterprise customers, Insights is a free service that monitors your cluster and sends metrics to a private Cloud account. This allows InfluxDB Support to monitor your cluster health and access usage statistics when assisting with support tickets that you raise.
 
 To apply for this service, contact [InfluxData Support](https://support.influxdata.com/).
