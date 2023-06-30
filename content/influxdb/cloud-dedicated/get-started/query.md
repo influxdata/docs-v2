@@ -4,7 +4,7 @@ seotitle: Query data | Get started with InfluxDB Cloud Dedicated
 list_title: Query data
 description: >
   Get started querying data in InfluxDB Cloud Dedicated by learning about SQL and
-  InfluxQL and using tools like InfluxDB client libraries and Flight SQL clients.
+  InfluxQL, and using tools like InfluxDB client libraries.
 menu:
   influxdb_cloud_dedicated:
     name: Query data
@@ -23,8 +23,7 @@ related:
 
 - **SQL**: Traditional SQL powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
   query engine. The supported SQL syntax is similar to PostgreSQL.
-- **InfluxQL**: An SQL-like query language designed to query time series data from
-  InfluxDB.
+- **InfluxQL**: An SQL-like query language designed to query time series data stored in InfluxDB.
 
 This tutorial walks you through the fundamentals of querying data in InfluxDB and
 **focuses on using SQL** to query your time series data.
@@ -45,7 +44,7 @@ The examples in this section of the tutorial query the
 {{% cloud-name %}} supports many different tools for querying data, including:
 
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
-
+- [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req "\*  " >}}
 - [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
 - [Flight SQL clients](?t=Go#execute-an-sql-query){{< req "\*  " >}}
 - [Superset](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/)
@@ -55,7 +54,7 @@ The examples in this section of the tutorial query the
 
 ## SQL query basics
 
-InfluxDB Cloud's SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
+The {{% cloud-name %}} SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
 query engine which provides an SQL syntax similar to PostgreSQL.
 
 {{% note %}}
@@ -160,8 +159,8 @@ ORDER BY room, _time
 
 Get started with one of the following tools for querying data stored in an {{% cloud-name %}} database:
 
-- **Flight SQL clients**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
-- **influx3 CLI**: Send SQL queries from your terminal command-line.
+- **InfluxDB v3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
+- **influx3 CLI**: Send queries from your terminal command-line.
 - **Grafana**: Query InfluxDB v3 with the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/) and connect and visualize data.
 
 For this example, use the following query to select all the data written to the
@@ -192,7 +191,7 @@ WHERE
 <!--------------------------- BEGIN influx3 CONTENT --------------------------->
 {{% influxdb/custom-timestamps %}}
 
-Query InfluxDB v3 using SQL and the `influx3` CLI.
+Query InfluxDB v3 using SQL and the [`influx3` CLI](https://github.com/InfluxCommunity/influxdb3-python-cli).
 
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
@@ -205,20 +204,22 @@ _If your project's virtual environment is already running, skip to step 3._
     python -m venv envs/virtual-env
     ```
 
-2. Activate the virtual environment.
+2.  Activate the virtual environment.
 
     ```sh
     source ./envs/virtual-env/bin/activate
     ```
 
-3. Install the following dependencies:
+3.  Install the CLI package (already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)).
 
-    {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+    ```sh
+    pip install influxdb3-python-cli
+    ```
 
-    - `pyarrow` {{< req text="\*" color="magenta" >}}
-    - `influxdb3-python-cli` {{< req text="\*" color="magenta" >}}
+    Installing `influxdb3-python-cli` also installs the
+    [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library for working with Arrow data returned from queries.
 
-4. Create the `config.json` configuration.
+4.  Create the `config.json` configuration.
 
     <!-- code-placeholders breaks when indented here -->
     ```sh
@@ -236,7 +237,7 @@ _If your project's virtual environment is already running, skip to step 3._
           read access to the **get-started** database
     - **`ORG_ID`**: any non-empty string (InfluxDB ignores this parameter, but the client requires it)
 
-5. Enter the `influx3 sql` command and your SQL query statement.
+5.  Enter the `influx3 sql` command and your SQL query statement.
 
   ```sh
   influx3 sql "SELECT *
@@ -247,26 +248,23 @@ _If your project's virtual environment is already running, skip to step 3._
 
 `influx3` displays query results in your terminal.
 
-For more information about the `influx3` CLI, see the [`InfluxCommunity/
-influxdb3-python-cli
-`](https://github.com/InfluxCommunity/influxdb3-python-cli) community repository on GitHub.
  {{% /influxdb/custom-timestamps %}}
 <!--------------------------- END influx3 CONTENT --------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!--------------------------- BEGIN PYTHON CONTENT ---------------------------->
  {{% influxdb/custom-timestamps %}}
-To query data from {{% cloud-name %}} using Python, use the
-[`influxdb_client_3` module](https://github.com/InfluxCommunity/influxdb3-python).
+Use the `influxdb_client_3` module to integrate {{< cloud-name >}} with your Python code.
+This module supports writing data to InfluxDB and querying data using SQL or InfluxQL.
+
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
 _If your project's virtual environment is already running, skip to step 3._
 
-1.  In the `influxdb_py_client` module directory you created in the
+1.  Open a terminal in the `influxdb_py_client` module directory you created in the
     [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb):
 
-    1.  Setup your Python virtual environment.
-        Inside of your module directory:
+    1.  To create your Python virtual environment, enter the following command in your terminal:
 
         ```sh
         python -m venv envs/virtual-env
@@ -282,16 +280,17 @@ _If your project's virtual environment is already running, skip to step 3._
 
         {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
 
-        - `pyarrow` {{< req text="\*" color="magenta" >}}
-        - `influxdb_client_3` {{< req text="\*" color="magenta" >}}
-        - `pandas`
-        - `tabulate` _(to return formatted tables)_
+        - `influxdb3-python`{{< req text="\* " color="magenta" >}}: Provides the `influxdb_client_3` module and  also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
+        - `pandas`: Provides [pandas modules](https://pandas.pydata.org/) for analyzing and manipulating data.
+        - `tabulate`: Provides the [`tabulate` function](https://pypi.org/project/tabulate/) for formatting tabular data.
+
+        Enter the following command in your terminal:
 
         ```sh
-        pip install influxdb_client_3 pandas tabulate
+        pip install influxdb3-python pandas tabulate
         ```
 
-    4. In your terminal or editor, create a new file for your code--for example: `query.py`.
+    4.  In your terminal or editor, create a new file for your code--for example: `query.py`.
 
 2.  In `query.py`, enter the following sample code:
 
@@ -299,7 +298,7 @@ _If your project's virtual environment is already running, skip to step 3._
       from influxdb_client_3 import InfluxDBClient3
       import os
 
-      # INFLUX_TOKEN is an environment variable you created for your database READ token
+      # INFLUX_TOKEN is an environment variable you assigned to your database READ token string
       TOKEN = os.getenv('INFLUX_TOKEN')
 
       client = InfluxDBClient3(
