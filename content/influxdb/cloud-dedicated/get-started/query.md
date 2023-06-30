@@ -100,7 +100,7 @@ GROUP BY
 ##### Select all data in a measurement
 
 ```sql
-SELECT * FROM measurement
+SELECT * FROM home
 ```
 
 ##### Select all data in a measurement within time bounds
