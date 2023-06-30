@@ -7,6 +7,8 @@ menu:
     name: IOx storage limits
     parent: InfluxDB Cloud internals
 weight: 201
+related:
+  - /influxdb/cloud-serverless/write-data/best-practices/
 ---
 
 The InfluxDB IOx storage enforces specific limits on the storage level.
@@ -29,8 +31,7 @@ The IOx storage engine enforces the following storage-level limits:
 - **Maximum number of columns per table**: 200
 
 {{% note %}}
-IOx storage service-level limits are configurable per _namespace_.
-To adjust your service-level limits, [contact InfluxData Support](https://support.influxdata.com).
+If you need higher limits than those show above, [contact InfluxData Sales](https://www.influxdata.com/contact-sales/).
 {{% /note %}}
 
 ## Error messages
@@ -48,9 +49,9 @@ number of columns allowed in a table.
 
 #### Potential solutions
 
-- Consider storing new fields in a new measurement.
-- [Contact InfluxData Support](https://support.influxdata.com) to delete any
-  unnecessary data.
+- Consider storing new fields in a new [measurement](/influxdb/cloud-serverless/reference/glossary/#measurement) (not to exceed the [maximum number of tables](#maximum-number-of-tables-reached)).
+- Review [InfluxDB schema design recommendations](/influxdb/cloud-serverless/write-data/best-practices/schema-design/).
+- Customers with an annual or support contract can contact [InfluxData Support](https://support.influxdata.com) to request a review of their database schema.
 
 ### Maximum number of tables reached
 
@@ -60,4 +61,4 @@ tables, applying this write would result in <N+> columns, limit is 500
 ```
 
 This error is returned for any write request that would exceed the maximum
-number of tables allowed in a namespace.
+number of tables (measurements) allowed in a namespace.

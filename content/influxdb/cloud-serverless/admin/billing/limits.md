@@ -37,8 +37,6 @@ Review adjustable service quotas and global limits to plan for your bandwidth ne
 To reduce the chance of unexpected charges and protect the service for all users,
 InfluxDB Cloud Serverless has adjustable service quotas applied per account.
 
-_To request higher service quotas, reach out to [InfluxData Support](https://support.influxdata.com/)._
-
 ### Free Plan
 
 - **Data-in**: Rate of 5 MB per 5 minutes (average of 17 kb/s)
