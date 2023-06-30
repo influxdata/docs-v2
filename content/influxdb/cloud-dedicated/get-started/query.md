@@ -95,16 +95,15 @@ GROUP BY
 ```
 {{% /influxdb/custom-timestamps %}}
 
-##### Example SQL queries
+#### Example SQL queries
 
-{{< expand-wrapper >}}
-{{% expand "Select all data in a measurement" %}}
+##### Select all data in a measurement
+
 ```sql
 SELECT * FROM measurement
 ```
-{{% /expand %}}
 
-{{% expand "Select all data in a measurement within time bounds" %}}
+##### Select all data in a measurement within time bounds
 ```sql
 SELECT
   *
@@ -114,27 +113,23 @@ WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time <= '2022-01-01T20:00:00Z'
 ```
-{{% /expand %}}
 
-{{% expand "Select a specific field within relative time bounds" %}}
+##### Select a specific field within relative time bounds
 ```sql
 SELECT temp FROM home WHERE time >= now() - INTERVAL '1 day'
 ```
-{{% /expand %}}
 
-{{% expand "Select specific fields and tags from a measurement" %}}
+##### Select specific fields and tags from a measurement
 ```sql
 SELECT temp, room FROM home
 ```
-{{% /expand %}}
 
-{{% expand "Select data based on tag value" %}}
+##### Select data based on tag value
 ```sql
 SELECT * FROM home WHERE room = 'Kitchen'
 ```
-{{% /expand %}}
 
-{{% expand "Select data based on tag value within time bounds" %}}
+##### Select data based on tag value within time bounds
 ```sql
 SELECT
   *
@@ -145,9 +140,8 @@ WHERE
   AND time <= '2022-01-01T20:00:00Z'
   AND room = 'Living Room'
 ```
-{{% /expand %}}
 
-{{% expand "Downsample data by applying interval-based aggregates" %}}
+##### Downsample data by applying interval-based aggregates
 ```sql
 SELECT
   DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP) as _time,
@@ -161,8 +155,6 @@ GROUP BY
   room
 ORDER BY room, _time
 ```
-{{% /expand %}}
-{{< /expand-wrapper >}}
 
 ### Execute an SQL query
 
