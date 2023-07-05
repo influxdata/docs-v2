@@ -3,8 +3,8 @@ title: Get started querying data
 seotitle: Query data | Get started with InfluxDB
 list_title: Query data
 description: >
-  Get started querying data in InfluxDB by learning about SQL, InfluxQL, and Flux and
-  using tools like the InfluxDB UI, `influx` CLI, InfluxDB API, and Flight SQL clients.
+  Get started querying data in InfluxDB by learning about SQL and InfluxQL, and
+  using tools like the InfluxDB UI, `influx` CLI, InfluxDB API, and InfluxDB client libraries.
 menu:
   influxdb_cloud_serverless:
     name: Query data
@@ -23,10 +23,7 @@ related:
 
 - **SQL**: Traditional SQL powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
   query engine. The supported SQL syntax is similar to PostgreSQL.
-- **Flux**: A functional scripting language designed to query and process data
-  from InfluxDB and other data sources.
-<!-- - **InfluxQL**: A SQL-like query language designed to query time series data from
-  InfluxDB. -->
+- **InfluxQL**: A SQL-like query language designed to query time series data stored in InfluxDB.
 
 This tutorial walks you through the fundamentals of querying data in InfluxDB and
 **focuses on using SQL** to query your time series data.
@@ -35,8 +32,6 @@ a protocol for interacting with SQL databases using the Arrow in-memory format a
 [Flight RPC](https://arrow.apache.org/docs/format/Flight.html) framework.
 It leverages the performance of [Apache Arrow](https://arrow.apache.org/) with
 the simplicity of SQL.
-<!-- For information about using InfluxQL and Flux, see
-[Query data in InfluxDB](/influxdb/cloud-serverless/query-data/). -->
 
 {{% note %}}
 The examples in this section of the tutorial query the [**get-started** bucket](/influxdb/cloud-serverless/get-started/setup/) for data written in the
@@ -52,8 +47,7 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 - [InfluxDB user interface (UI)](?t=InfluxDB+UI#execute-an-sql-query){{< req "\*  " >}}
 - [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req "\*  " >}}
 - [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
-- [Flight SQL clients](- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
-){{< req "\*  " >}}
+- [Flight SQL clients](?t=Go#execute-an-sql-query){{< req "\*  " >}}
 - [Superset](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/superset/)
 - [Grafana](/influxdb/cloud-serverless/query-data/tools/grafana/)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
@@ -62,7 +56,7 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 
 ## SQL query basics
 
-The InfluxDB SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
+The {{% cloud-name %}} SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
 query engine which provides a SQL syntax similar to PostgreSQL.
 
 {{% note %}}
@@ -102,16 +96,15 @@ GROUP BY
 ```
 {{% /influxdb/custom-timestamps %}}
 
-##### Example SQL queries
+#### Example SQL queries
 
-{{< expand-wrapper >}}
-{{% expand "Select all data in a measurement" %}}
+##### Select all data in a measurement
+
 ```sql
-SELECT * FROM measurement
+SELECT * FROM home
 ```
-{{% /expand %}}
 
-{{% expand "Select all data in a measurement within time bounds" %}}
+##### Select all data in a measurement within time bounds
 ```sql
 SELECT
   *
@@ -121,27 +114,23 @@ WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time <= '2022-01-01T20:00:00Z'
 ```
-{{% /expand %}}
 
-{{% expand "Select a specific field within relative time bounds" %}}
+##### Select a specific field within relative time bounds
 ```sql
 SELECT temp FROM home WHERE time >= now() - INTERVAL '1 day'
 ```
-{{% /expand %}}
 
-{{% expand "Select specific fields and tags from a measurement" %}}
+##### Select specific fields and tags from a measurement
 ```sql
 SELECT temp, room FROM home
 ```
-{{% /expand %}}
 
-{{% expand "Select data based on tag value" %}}
+##### Select data based on tag value
 ```sql
 SELECT * FROM home WHERE room = 'Kitchen'
 ```
-{{% /expand %}}
 
-{{% expand "Select data based on tag value within time bounds" %}}
+##### Select data based on tag value within time bounds
 ```sql
 SELECT
   *
@@ -152,9 +141,8 @@ WHERE
   AND time <= '2022-01-01T20:00:00Z'
   AND room = 'Living Room'
 ```
-{{% /expand %}}
 
-{{% expand "Downsample data by applying interval-based aggregates" %}}
+##### Downsample data by applying interval-based aggregates
 ```sql
 SELECT
   DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP) as _time,
@@ -168,18 +156,15 @@ GROUP BY
   room
 ORDER BY room, _time
 ```
-{{% /expand %}}
-{{< /expand-wrapper >}}
 
 ### Execute an SQL query
 
 Get started with one of the following tools for querying data stored in an {{% cloud-name %}} bucket:
 
 - **InfluxDB UI**: View your schema, build queries using the query editor, and generate data visualizations.
-- **Flight SQL clients**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
-- **influx3 CLI**: Send SQL queries from your terminal command-line.
+- **InfluxDB v3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
+- **influx3 CLI**: Send queries from your terminal command-line.
 - **Grafana**: Query InfluxDB v3 with the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/) and connect and visualize data.
-- **`influx` CLI**, **InfluxDB API**, and **InfluxDB API v2 client libraries**: Use the InfluxDB `/api/v2/query` endpoint and Flux to execute SQL.
 
 For this example, use the following query to select all the data written to the
 **get-started** bucket between
@@ -246,7 +231,7 @@ See [Query in the Data Explorer](/influxdb/cloud-serverless/query-data/execute-q
 <!--------------------------- BEGIN influx3 CONTENT --------------------------->
 {{% influxdb/custom-timestamps %}}
 
-Query InfluxDB v3 using SQL and the `influx3` CLI.
+Query InfluxDB v3 using SQL and the [`influx3` CLI](https://github.com/InfluxCommunity/influxdb3-python-cli).
 
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb).
@@ -259,18 +244,20 @@ _If your project's virtual environment is already running, skip to step 3._
     python -m venv envs/virtual-env
     ```
 
-2. Activate the virtual environment.
+2.  Activate the virtual environment.
 
     ```sh
     source ./envs/virtual-env/bin/activate
     ```
 
-3. Install the following dependencies:
+3.  Install the CLI package (already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)).
 
-    {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+    ```sh
+    pip install influxdb3-python-cli
+    ```
 
-    - `pyarrow` {{< req text="\*" color="magenta" >}}
-    - `influxdb3-python-cli` {{< req text="\*" color="magenta" >}}
+    Installing `influxdb3-python-cli` also installs the
+    [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library for working with Arrow data returned from queries.
 
 4.  Create the `config.json` configuration.
 
@@ -309,42 +296,43 @@ influxdb3-python-cli
 {{% tab-content %}}
 <!--------------------------- BEGIN PYTHON CONTENT ---------------------------->
  {{% influxdb/custom-timestamps %}}
-To query data from {{% cloud-name %}} using Python, use the
-[`influxdb_client_3` module](https://github.com/InfluxCommunity/influxdb3-python).
+Use the `influxdb_client_3` client library module to integrate {{< cloud-name >}} with your Python code.
+The client library supports writing data to InfluxDB and querying data using SQL or InfluxQL.
+
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb).
 _If your project's virtual environment is already running, skip to step 3._
 
-1.  In the `influxdb_py_client` module directory you created in the
+1.  Open a terminal in the `influxdb_py_client` module directory you created in the
     [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb):
 
-  1.  Setup your Python virtual environment.
-      Inside of your project directory:
+    1.  To create your Python virtual environment, enter the following command in your terminal:
 
-      ```sh
-      python -m venv envs/virtual-env
-      ```
+        ```sh
+        python -m venv envs/virtual-env
+        ```
 
-  2.  Activate the virtual environment.
+    2.  Activate the virtual environment.
 
-      ```sh
-      source ./envs/virtual-env/bin/activate
-      ```
+        ```sh
+        source ./envs/virtual-env/bin/activate
+        ```
 
-  3.  Install the following dependencies:
+    3.  Install the following dependencies:
 
-      {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+        {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
 
-      - `pyarrow` {{< req text="\*" color="magenta" >}}
-      - `influxdb_client_3` {{< req text="\*" color="magenta" >}}
-      - `pandas`
-      - `tabulate` _(to return formatted tables)_
+        - `influxdb3-python`{{< req text="\* " color="magenta" >}}: Provides the `influxdb_client_3` module and  also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
+        - `pandas`: Provides [pandas modules](https://pandas.pydata.org/) for analyzing and manipulating data.
+        - `tabulate`: Provides the [`tabulate` function](https://pypi.org/project/tabulate/) for formatting tabular data.
 
-      ```sh
-      pip install influxdb_client_3 pandas tabulate
-      ```
+        Enter the following command in your terminal:
 
-  4. In your terminal or editor, create a new file for your code--for example: `query.py`.
+        ```sh
+        pip install influxdb3-python pandas tabulate
+        ```
+
+    4. In your terminal or editor, create a new file for your code--for example: `query.py`.
 
 2.  In `query.py`, enter the following sample code:
 
@@ -352,7 +340,7 @@ _If your project's virtual environment is already running, skip to step 3._
     from influxdb_client_3 import InfluxDBClient3
     import os
 
-    # INFLUX_TOKEN is an environment variable you created for your API token
+    # INFLUX_TOKEN is an environment variable you assigned to your API token string
     TOKEN = os.getenv('INFLUX_TOKEN')
 
     client = InfluxDBClient3(
@@ -382,7 +370,7 @@ _If your project's virtual environment is already running, skip to step 3._
     2.  Calls the `InfluxDBClient3()` constructor method with credentials to instantiate an InfluxDB `client` with the following credentials:
 
         - **host**: {{% cloud-name %}} region hostname (URL without protocol or trailing slash)
-        - **token**:  an [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with _read_ access to the specified bucket.
+        - **token**:  an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
         - **database**: the name of the {{% cloud-name %}} bucket to query
