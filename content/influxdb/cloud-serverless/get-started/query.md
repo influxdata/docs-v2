@@ -322,11 +322,11 @@ _If your project's virtual environment is already running, skip to step 3._
 
         {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
 
-        - `influxdb3-python`{{< req text="\* " color="magenta" >}}: Provides the `influxdb_client_3` module and  also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
-        - `pandas`: Provides [pandas modules](https://pandas.pydata.org/) for analyzing and manipulating data.
-        - `tabulate`: Provides the [`tabulate` function](https://pypi.org/project/tabulate/) for formatting tabular data.
+        - [`influxdb3-python`{{< req text="\* " color="magenta" >}}](https://github.com/InfluxCommunity/influxdb3-python): Provides the InfluxDB `influxdb_client_3` Python client library module and  also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
+        - [`pandas`](https://pandas.pydata.org/): Provides `pandas` functions, modules, and data structures for analyzing and manipulating data.
+        - [`tabulate`](https://pypi.org/project/tabulate/): Provides the `tabulate` function for formatting tabular data.
 
-        Enter the following command in your terminal:
+        In your terminal, enter the following command:
 
         ```sh
         pip install influxdb3-python pandas tabulate
@@ -359,7 +359,7 @@ _If your project's virtual environment is already running, skip to step 3._
       AND time <= '2022-01-01T20:00:00Z'
     '''
 
-    table = client.query(sql_query=sql)
+    table = client.query(query=sql)
     print(reader.to_pandas().to_markdown())
     ```
 
