@@ -11,9 +11,9 @@ menu:
     identifier: query_with_java
 influxdb/cloud-serverless/tags: [query, flightsql, java]
 aliases:
-  - /influxdb/cloud-serverless/query-data/execute-queries/flight-sql/java/
+  - /influxdb/cloud-serverless/query-data/tools/java/
 related:
-    - /influxdb/cloud-serverless/query-data/sql/
+  - /influxdb/cloud-serverless/query-data/sql/
 list_code_example: |
     ```java
     public class Query {

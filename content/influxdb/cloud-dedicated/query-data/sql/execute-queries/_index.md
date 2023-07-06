@@ -11,6 +11,7 @@ menu:
 influxdb/cloud-dedicated/tags: [query, sql]
 aliases:
   - /influxdb/cloud-dedicated/query-data/execute-queries/
+  - /influxdb/cloud-dedicated/query-data/tools/
 ---
 
 The InfluxDB SQL implementation uses [Arrow DataFusion](https://arrow.apache.org/datafusion/)

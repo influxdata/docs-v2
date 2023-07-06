@@ -1,5 +1,6 @@
 ---
 title: Use Python to query data with SQL
+list_title: Use Python
 description: >
   Use the `influxdb_client_3` Python module and SQL to query data stored in InfluxDB.
 weight: 101
@@ -11,9 +12,10 @@ menu:
 influxdb/cloud-dedicated/tags: [query, flightsql, python, sql]
 aliases:
     - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/
+    - /influxdb/cloud-dedicated/query-data/tools/python/
 related:
-    - /influxdb/cloud-dedicated/query-data/tools/pandas/
-    - /influxdb/cloud-dedicated/query-data/tools/pyarrow/
+    - /influxdb/cloud-dedicated/process-data/tools/pandas/
+    - /influxdb/cloud-dedicated/process-data/tools/pyarrow/
     - /influxdb/cloud-dedicated/reference/sql/
 list_code_example: |
     ```py
@@ -277,5 +279,5 @@ print(table.to_pandas().to_markdown())
 
 Next, learn how to use Python tools to work with time series data:
 
-- [Use PyArrow](/influxdb/cloud-dedicated/query-data/tools/pyarrow/)
-- [Use pandas](/influxdb/cloud-dedicated/query-data/tools/pandas/)
+- [Use PyArrow](/influxdb/cloud-dedicated/process-data/tools/pyarrow/)
+- [Use pandas](/influxdb/cloud-dedicated/process-data/tools/pandas/)

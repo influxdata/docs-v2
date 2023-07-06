@@ -11,6 +11,7 @@ menu:
 influxdb/cloud-serverless/tags: [query]
 aliases:
   - /influxdb/cloud-serverless/query-data/execute-queries/
+  - /influxdb/cloud-serverless/query-data/tools/
 ---
 
 The InfluxDB SQL implementation uses [Arrow DataFusion](https://arrow.apache.org/datafusion/)

@@ -1,6 +1,7 @@
 ---
 title: Use Superset to query data
 seotitle: Use Apache Superset to query data stored in InfluxDB Cloud Dedicated
+list_title: Use Superset
 description: >
   Install and run [Apache Superset](https://superset.apache.org/)
   to query data stored in InfluxDB.
@@ -12,7 +13,8 @@ menu:
     identifier: query-with-superset
 influxdb/cloud-dedicated/tags: [query, flightsql, superset]
 aliases:
-    - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/
+  - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/
+  - /influxdb/cloud-dedicated/query-data/tools/superset/
 related:
   - /influxdb/cloud-dedicated/visualize-data/superset/
 ---
