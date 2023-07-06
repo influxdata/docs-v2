@@ -138,7 +138,7 @@ The following examples show how to write the
 [sample data](#home-sensor-data-line-protocol), already in line protocol format,
 to an {{% cloud-name %}} database.
 
-To learn more about available tools and options, see [Write data](influxdb/cloud-dedicated/write-data/).
+To learn more about available tools and options, see [Write data](/influxdb/cloud-dedicated/write-data/).
 
 {{% note %}}
 All API, cURL, and client library examples in this getting started tutorial assume your InfluxDB
