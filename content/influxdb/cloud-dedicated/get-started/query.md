@@ -47,8 +47,8 @@ The examples in this section of the tutorial query the
 - [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req "\*  " >}}
 - [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
 - [Flight SQL clients](?t=Go#execute-an-sql-query){{< req "\*  " >}}
-- [Superset](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/)
-- [Grafana](/influxdb/cloud-dedicated/query-data/tools/grafana/)
+- [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
+- [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 

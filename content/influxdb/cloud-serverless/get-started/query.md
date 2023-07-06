@@ -48,8 +48,8 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 - [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req "\*  " >}}
 - [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
 - [Flight SQL clients](?t=Go#execute-an-sql-query){{< req "\*  " >}}
-- [Superset](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/superset/)
-- [Grafana](/influxdb/cloud-serverless/query-data/tools/grafana/)
+- [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
+- [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 - [InfluxDB HTTP API](?t=InfluxDB+API#execute-an-sql-query){{< req "\*  " >}}
 - [`influx` CLI](?t=influx+CLI#execute-an-sql-query){{< req "\*  " >}}

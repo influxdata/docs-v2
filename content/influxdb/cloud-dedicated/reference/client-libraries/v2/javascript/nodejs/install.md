@@ -25,8 +25,8 @@ This endpoint can't query an {{% cloud-name %}} database.
 
 - [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
 - [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
-- [Superset](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/superset/)
-- [Grafana](/influxdb/cloud-serverless/query-data/tools/grafana/)
+- [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
+- [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/primers/api/v1/#query-using-the-v1-api)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 
