@@ -6,10 +6,10 @@ menu:
   influxdb_cloud_dedicated:
     name: Install
     parent: Node.js
-influxdb/cloud-serverless/tags: [client libraries, JavaScript]
+influxdb/cloud-dedicated/tags: [client libraries, JavaScript]
 weight: 100
 aliases:
-  - /influxdb/cloud-serverless/reference/api/client-libraries/nodejs/install
+  - /influxdb/cloud-dedicated/reference/api/client-libraries/nodejs/install
 ---
 
 {{% note %}}
@@ -23,11 +23,11 @@ This endpoint can't query an {{% cloud-name %}} database.
 
 {{% cloud-name %}} supports many different tools for querying data, including:
 
-- [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
-- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
-- [Superset](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/superset/)
-- [Grafana](/influxdb/cloud-serverless/query-data/tools/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/primers/api/v1/#query-using-the-v1-api)
+- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
+- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/)
+- [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
+- [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 
 {{% /note %}}
@@ -106,6 +106,6 @@ Set environment variables or update `env.js` with your InfluxDB [database](/infl
 
 ## Next steps
 
-Once you've installed the client library and configured credentials, you're ready to [write data](/influxdb/cloud-serverless/api-guide/client-libraries/nodejs/write/) to InfluxDB.
+Once you've installed the client library and configured credentials, you're ready to [write data](/influxdb/cloud-dedicated/api-guide/client-libraries/nodejs/write/) to InfluxDB.
 
 {{< page-nav next="/influxdb/cloud-dedicated/reference/client-libraries/v2/javascript/nodejs/write/" keepTab=true >}}

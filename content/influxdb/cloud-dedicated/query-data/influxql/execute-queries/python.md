@@ -11,8 +11,8 @@ menu:
     identifier: query-with-python-influxql
 influxdb/cloud-dedicated/tags: [query, influxql, python]
 related:
-    - /influxdb/cloud-dedicated/query-data/tools/pandas/
-    - /influxdb/cloud-dedicated/query-data/tools/pyarrow/
+    - /influxdb/cloud-dedicated/process-data/tools/pandas/
+    - /influxdb/cloud-dedicated/process-data/tools/pyarrow/
     - /influxdb/cloud-dedicated/reference/influxql/
 list_code_example: |
     ```py
@@ -281,5 +281,5 @@ print(table.to_pandas().to_markdown())
 
 Next, learn how to use Python tools to work with time series data:
 
-- [Use PyArrow](/influxdb/cloud-dedicated/query-data/tools/pyarrow/)
-- [Use pandas](/influxdb/cloud-dedicated/query-data/tools/pandas/)
+- [Use PyArrow](/influxdb/cloud-dedicated/process-data/tools/pyarrow/)
+- [Use pandas](/influxdb/cloud-dedicated/process-data/tools/pandas/)

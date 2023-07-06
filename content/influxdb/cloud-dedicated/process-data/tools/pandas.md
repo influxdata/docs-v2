@@ -1,19 +1,21 @@
 ---
 title: Use pandas to analyze and visualize data
+list_title: pandas
 seotitle: Use Python and pandas to analyze and visualize data
 description: >
   Use the [pandas](https://pandas.pydata.org/) Python data analysis library
-  to analyze and visualize data stored in InfluxDB Cloud Serverless.
+  to analyze and visualize data stored in InfluxDB.
 weight: 101
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud_dedicated:
     parent: Analyze and visualize data
     name: Use pandas
-influxdb/cloud-serverless/tags: [analysis, pandas, pyarrow, python, visualization]
+    identifier: analyze-with-pandas
+influxdb/cloud-dedicated/tags: [analysis, pandas, pyarrow, python, visualization]
+aliases:
+  - /influxdb/cloud-dedicated/visualize-data/pandas/
 related:
-    - /influxdb/cloud-serverless/query-data/tools/python/
-    - /influxdb/cloud-serverless/query-data/tools/pyarrow/
-    - /influxdb/cloud-serverless/query-data/sql/
+  - /influxdb/cloud-dedicated/query-data/sql/execute-queries/python/
 list_code_example: |
     ```py
     ...
@@ -29,7 +31,7 @@ list_code_example: |
 ---
 
 Use [pandas](https://pandas.pydata.org/), the Python data analysis library, to process, analyze, and visualize data
-stored in an InfluxDB Cloud Serverless bucket.
+stored in InfluxDB.
 
 > **pandas** is an open source, BSD-licensed library providing high-performance,
 > easy-to-use data structures and data analysis tools for the Python programming language.
@@ -52,13 +54,13 @@ stored in an InfluxDB Cloud Serverless bucket.
 The examples in this guide assume using a Python virtual environment and the Flight SQL library for Python.
 Installing `flightsql-dbapi` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
 
-For more information, see how to [get started querying InfluxDB with Python and flightsql-dbapi](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/python/)
+For more information, see how to [get started querying InfluxDB with Python and flightsql-dbapi](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/)
 
 ## Install pandas
 
 To use pandas, you need to install and import the `pandas` library.
 
-In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/python/#create-a-project-virtual-environment):
+In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/#venv-install):
 
 ```sh
 pip install pandas
@@ -76,9 +78,9 @@ The following steps use Python, `flightsql-dbapi`, and `pyarrow` to query Influx
     from flightsql import FlightSQLClient
     import pandas
 
-    client = FlightSQLClient(host='cloud2.influxdata.com',
+    client = FlightSQLClient(host='cluster-id.influxdb.io',
                             token='INFLUX_READ_WRITE_TOKEN',
-                            metadata={'database': 'INFLUX_BUCKET'},
+                            metadata={'database': 'INFLUX_DATABASE'},
                             features={'metadata-reflection': 'true'})
 
     info = client.execute("SELECT * FROM home")
@@ -93,8 +95,8 @@ The following steps use Python, `flightsql-dbapi`, and `pyarrow` to query Influx
 
 2. Replace the following configuration values:
 
-    - **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _read_ permission to the bucket.
-    - **`INFLUX_BUCKET`**: The name of the InfluxDB bucket to query.
+    - **`INFLUX_READ_WRITE_TOKEN`**: Your InfluxDB token with read permissions on the databases you want to query.
+    - **`INFLUX_DATABASE`**: The name of your InfluxDB database.
 
 3. In your terminal, use the Python interpreter to run the file:
 
@@ -111,7 +113,7 @@ Next, [use pandas to analyze data](#use-pandas-to-analyze-data).
 
 ## Use pandas to analyze data
 
-- [View information and statistics for data](#view-information-and-statistics-for-data)
+- [View data information and statistics](#view-data-information-and-statistics)
 - [Downsample time series](#downsample-time-series)
 
 ### View data information and statistics
@@ -125,9 +127,9 @@ methods to print information about the DataFrame.
 from flightsql import FlightSQLClient
 import pandas
 
-client = FlightSQLClient(host='cloud2.influxdata.com',
+client = FlightSQLClient(host='cluster-id.influxdb.io',
                         token='INFLUX_READ_WRITE_TOKEN',
-                        metadata={'database': 'INFLUX_BUCKET'},
+                        metadata={'database': 'INFLUX_DATABASE'},
                         features={'metadata-reflection': 'true'})
 
 info = client.execute("SELECT * FROM home")
@@ -136,10 +138,11 @@ reader = client.do_get(info.endpoints[0].ticket)
 
 dataframe = reader.read_pandas()
 
-# Print a summary of the DataFrame to stdout
+# Print information about the results DataFrame,
+# including the index dtype and columns, non-null values, and memory usage.
 dataframe.info()
 
-# Calculate summary statistics for the data
+# Calculate descriptive statistics that summarize the distribution of the results.
 print(dataframe.describe())
 ```
 
@@ -153,9 +156,9 @@ The [`pandas.DataFrame.resample()` method](https://pandas.pydata.org/docs/refere
 from flightsql import FlightSQLClient
 import pandas
 
-client = FlightSQLClient(host='cloud2.influxdata.com',
+client = FlightSQLClient(host='cluster-id.influxdb.io',
                         token='INFLUX_READ_WRITE_TOKEN',
-                        metadata={'database': 'INFLUX_BUCKET'},
+                        metadata={'database': 'INFLUX_DATABASE'},
                         features={'metadata-reflection': 'true'})
 
 info = client.execute("SELECT * FROM home")

@@ -464,8 +464,8 @@ Use one of the following values for timestamp precision:
 - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
 - [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
 - [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/)
-- [Superset](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/)
-- [Grafana](/influxdb/cloud-dedicated/query-data/tools/grafana/)
+- [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
+- [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 

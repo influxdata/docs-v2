@@ -281,7 +281,7 @@ following _point_ data structure:
 - **measurement** (str): the measurement name
 - **tags** (dict): a dictionary of tag key-value pairs
 - **fields** (dict): a dictionary of field key-value pairs
-- **time**: the [timestamp](/influxdb/cloud-dedicated/reference/glossary/#timestamp) for the record
+- **time**: the [timestamp](/influxdb/cloud-serverless/reference/glossary/#timestamp) for the record
 
 The following example shows how to define a `dict` that represents a point, and then write the
 data to InfluxDB.

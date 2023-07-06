@@ -176,7 +176,7 @@ To setup and start using interactive clients, see the [Get started](/influxdb/cl
 InfluxDB [v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) and [v2 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v2/) can write data to the InfluxDB v2 API `/api/v2/write` endpoint.
 Client libraries are language-specific packages that integrate InfluxDB APIs with your application.
 
-To setup and start using client libraries, see the [Get started](/influxdb/cloud-dedicated/get-started/) tutorial.
+To setup and start using client libraries, see the [Get started](/influxdb/cloud-serverless/get-started/) tutorial.
 
 ## Query data
 
@@ -194,8 +194,8 @@ InfluxDB v3 provides the following protocols for executing a query:
 - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
 - [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
 - [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
-- [Superset](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/superset/)
-- [Grafana](/influxdb/cloud-serverless/query-data/tools/grafana/)
+- [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
+- [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/primers/api/v1/#query-using-the-v1-api)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 

@@ -1,19 +1,19 @@
 ---
-title: Use Grafana to query and visualize data
-seotitle: Use Grafana to query and visualize data stored in InfluxDB
-list_title: Use Grafana
+title: Use Grafana to query data
+seotitle: Use Grafana to query data stored in InfluxDB
+list_title: Grafana
 description: >
-  Install and run [Grafana](https://grafana.com/) to query and visualize data
+  Install and run [Grafana](https://grafana.com/) to query data
   stored in InfluxDB.
 weight: 101
 menu:
   influxdb_cloud_serverless:
     name: Use Grafana
-    parent: Analyze and visualize data
-influxdb/cloud-serverless/tags: [query, visualization]
+    parent: Execute SQL queries
+    identifier: query-with-grafana-sql
+influxdb/cloud-serverless/tags: [query, visualization, Grafana]
 aliases:
   - /influxdb/cloud-serverless/query-data/tools/grafana/
-alt_engine: /influxdb/cloud/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) to query and visualize data stored in

@@ -20,7 +20,7 @@ integrates with Go applications to write data to an {{% cloud-name %}} bucket.
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
 This endpoint can't query an {{% cloud-name %}} cluster.
 
-Use the [InfluxDB v3 Go client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/go/)
+Use the [InfluxDB v3 Go client library](/influxdb/cloud-serverless/reference/client-libraries/v3/go/)
 to write and query data stored in {{% cloud-name %}}.
 {{% /note %}}
 

@@ -12,7 +12,7 @@ menu:
     identifier: query_with_superset
 influxdb/cloud-serverless/tags: [query, flightsql, superset]
 aliases:
-  - content/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/superset/
+  - /influxdb/cloud-serverless/query-data/tools/superset/
 related:
   - /influxdb/cloud-serverless/visualize-data/superset/
 ---
@@ -30,8 +30,8 @@ stored in an InfluxDB Cloud Serverless bucket.
 <!-- TOC -->
 
 - [Set up Docker for Superset and Flight SQL](#set-up-docker-for-superset-and-flight-sql)
-    - [Install prerequisites for Superset and Flight SQL](#install-prerequisites-for-superset-and-flight-sql)
-    - [Set up Docker for Superset](#set-up-docker-for-superset)
+  - [Install prerequisites for Superset and Flight SQL](#install-prerequisites-for-superset-and-flight-sql)
+  - [Set up Docker for Superset](#set-up-docker-for-superset)
 - [Start the Superset Docker containers](#start-the-superset-docker-containers)
 - [Log in to Superset](#log-in-to-superset)
 - [Create a database connection for InfluxDB](#create-a-database-connection-for-influxdb)

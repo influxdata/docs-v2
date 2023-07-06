@@ -1,17 +1,21 @@
 ---
 title: Use the PyArrow library to analyze data
+list_title: PyArrow
 description: >
-  Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze InfluxDB query results.
+  Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze
+  InfluxDB query results from InfluxDB Cloud Serverless.
 weight: 101
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_cloud_serverless:
     parent: Analyze and visualize data
     name: Use PyArrow
-influxdb/cloud-dedicated/tags: [analysis, arrow, pyarrow, python]
+    identifier: analyze-with-pyarrow
+influxdb/cloud-serverless/tags: [analysis, arrow, pyarrow, python]
+aliases:
+  - /influxdb/cloud-serverless/visualize-data/pyarrow/
 related:
-    - /influxdb/cloud-dedicated/query-data/tools/pandas/
-    - /influxdb/cloud-dedicated/query-data/tools/pyarrow/
-    - /influxdb/cloud-dedicated/query-data/sql/
+  - /influxdb/cloud-serverless/process-data/tools/pandas/
+  - /influxdb/cloud-serverless/query-data/sql/
 list_code_example: |
   ```py
   ...
@@ -21,7 +25,7 @@ list_code_example: |
 ---
 
 Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze query results 
-from InfluxDB Cloud Dedicated
+from a InfluxDB Cloud Serverless.
 The PyArrow library provides efficient computation, aggregation, serialization, and conversion of Arrow format data.
 
 > Apache Arrow is a development platform for in-memory analytics. It contains a set of technologies that enable
@@ -42,7 +46,7 @@ The PyArrow library provides efficient computation, aggregation, serialization, 
 ## Install prerequisites
 
 The examples in this guide assume using a Python virtual environment and the Flight SQL library for Python.
-For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/)
+For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-serverless/query-data/sql/execute-queries/python/)
 
 Installing `flightsql-dbapi` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
 
@@ -57,10 +61,10 @@ The following example shows how to use Python with `flightsql-dbapi` and `pyarro
 
     from flightsql import FlightSQLClient
 
-    # Instantiate a FlightSQLClient configured for a database
-    client = FlightSQLClient(host='cluster-id.influxdb.io',
+    # Instantiate a FlightSQLClient configured for a bucket
+    client = FlightSQLClient(host='cloud2.influxdata.com',
         token='INFLUX_READ_WRITE_TOKEN',
-        metadata={'database': 'INFLUX_DATABASE'},
+        metadata={'database': 'BUCKET_NAME'},
         features={'metadata-reflection': 'true'})
 
     # Execute the query to retrieve FlightInfo
@@ -78,8 +82,8 @@ The following example shows how to use Python with `flightsql-dbapi` and `pyarro
 
 2. Replace the following configuration values:
 
-    - **`INFLUX_READ_WRITE_TOKEN`**: Your InfluxDB token with read permissions on the databases you want to query.
-    - **`INFLUX_DATABASE`**: The name of your InfluxDB database.
+    - **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _read_ permission to the bucket.
+    - **`BUCKET_NAME`**: The name of the InfluxDB bucket to query.
 
 
 3. In your terminal, use the Python interpreter to run the file:
@@ -105,9 +109,9 @@ The following example shows how to query InfluxDB, group the table data, and the
 
 from flightsql import FlightSQLClient
 
-client = FlightSQLClient(host='cluster-id.influxdb.io',
+client = FlightSQLClient(host='cloud2.influxdata.com',
     token='INFLUX_READ_WRITE_TOKEN',
-    metadata={'database': 'INFLUX_DATABASE'},
+    metadata={'database': 'BUCKET_NAME'},
     features={'metadata-reflection': 'true'})
 
 info = client.execute('SELECT * FROM home')
@@ -132,5 +136,10 @@ room: [["Kitchen","Living Room"]]
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
+
+Replace the following:
+
+- **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _read_ permission to the bucket.
+- **`BUCKET_NAME`**: The name of the InfluxDB bucket to query.
 
 For more detail and examples, see the [PyArrow documentation](https://arrow.apache.org/docs/python/getstarted.html) and the [Apache Arrow Python Cookbook](https://arrow.apache.org/cookbook/py/data.html).

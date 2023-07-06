@@ -1,5 +1,6 @@
 ---
 title: Use Python to query data with SQL
+list_title: Use Python
 description: >
   Use the `influxdb_client_3` Python module and SQL to query data stored in InfluxDB.
 weight: 101
@@ -11,9 +12,10 @@ menu:
 influxdb/cloud-dedicated/tags: [query, flightsql, python, sql]
 aliases:
     - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/
+    - /influxdb/cloud-dedicated/query-data/tools/python/
 related:
-    - /influxdb/cloud-dedicated/query-data/tools/pandas/
-    - /influxdb/cloud-dedicated/query-data/tools/pyarrow/
+    - /influxdb/cloud-dedicated/process-data/tools/pandas/
+    - /influxdb/cloud-dedicated/process-data/tools/pyarrow/
     - /influxdb/cloud-dedicated/reference/sql/
 list_code_example: |
     ```py
@@ -194,7 +196,7 @@ _To query data with **InfluxQL** and Python, see
 
 Install the following dependencies:
 
-{{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+{{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
 
 - `influxdb3-python` {{< req text="\* " color="magenta" >}}: Provides the `influxdb_client_3` module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
 - `pandas`: Provides [pandas modules](https://pandas.pydata.org/) for analyzing and manipulating data.
@@ -277,5 +279,5 @@ print(table.to_pandas().to_markdown())
 
 Next, learn how to use Python tools to work with time series data:
 
-- [Use PyArrow](/influxdb/cloud-dedicated/query-data/tools/pyarrow/)
-- [Use pandas](/influxdb/cloud-dedicated/query-data/tools/pandas/)
+- [Use PyArrow](/influxdb/cloud-dedicated/process-data/tools/pyarrow/)
+- [Use pandas](/influxdb/cloud-dedicated/process-data/tools/pandas/)

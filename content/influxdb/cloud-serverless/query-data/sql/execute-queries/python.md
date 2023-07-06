@@ -10,10 +10,10 @@ menu:
     identifier: query-with-python-sql
 influxdb/cloud-serverless/tags: [query, flightsql, python, sql]
 aliases:
-  - content/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/python/
+  - /influxdb/cloud-serverless/query-data/tools/python/
 related:
-    - /influxdb/cloud-serverless/query-data/tools/pandas/
-    - /influxdb/cloud-serverless/query-data/tools/pyarrow/
+    - /influxdb/cloud-serverless/process-data/tools/pandas/
+    - /influxdb/cloud-serverless/process-data/tools/pyarrow/
     - /influxdb/cloud-serverless/query-data/sql/
 list_code_example: |
     ```py
@@ -282,5 +282,5 @@ print(table.to_pandas().to_markdown())
 
 Next, learn how to use Python tools to work with time series data:
 
-- [Use PyArrow](/influxdb/cloud-serverless/query-data/tools/pyarrow/)
-- [Use pandas](/influxdb/cloud-serverless/query-data/tools/pandas/)
+- [Use PyArrow](/influxdb/cloud-serverless/process-data/tools/pyarrow/)
+- [Use pandas](/influxdb/cloud-serverless/process-data/tools/pandas/)
