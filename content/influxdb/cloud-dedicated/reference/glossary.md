@@ -373,16 +373,6 @@ Related entries:
 
 ## G
 
-### group key
-
-In [Flux](/{{< latest "flux" >}}/), the group key determines the schema and
-contents of tables in Flux output.
-A group key is a list of columns for which every row in the table has the same value.
-Columns with unique values in each row are not part of the group key.
-
-Related entries:
-[primary key](#primary-key)
-
 ### gzip
 
 gzip is a type of data compression that compress chunks of data, which is
