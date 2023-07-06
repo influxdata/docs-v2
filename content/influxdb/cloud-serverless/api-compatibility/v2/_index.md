@@ -176,7 +176,7 @@ To setup and start using interactive clients, see the [Get started](/influxdb/cl
 InfluxDB [v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) and [v2 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v2/) can write data to the InfluxDB v2 API `/api/v2/write` endpoint.
 Client libraries are language-specific packages that integrate InfluxDB APIs with your application.
 
-To setup and start using client libraries, see the [Get started](/influxdb/cloud-dedicated/get-started/) tutorial.
+To setup and start using client libraries, see the [Get started](/influxdb/cloud-serverless/get-started/) tutorial.
 
 ## Query data
 

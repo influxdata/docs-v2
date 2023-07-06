@@ -226,7 +226,7 @@ In each case, the constant you need can be calculated as `(2 ** width) - 1`.
 ### Mathematical operators with wildcards and regular expressions
 
 InfluxQL does not support combining mathematical operations with a wildcard (`*`)
-or [regular expression](/influxdb/cloud-serverless/query-data/influxql/regular-expressions/)
+or [regular expression](/influxdb/cloud-dedicated/query-data/influxql/regular-expressions/)
 in the `SELECT` clause.
 The following queries are invalid and the output is an error:
 

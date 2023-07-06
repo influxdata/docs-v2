@@ -20,7 +20,7 @@ Data processing tasks all follow essentially the same workflow:
 2.  Process data using tools available in the external runtime.
 3.  _(Optional)_ Write the processed data back to InfluxDB.
 
-The following guides utilize [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
+The following guides utilize [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
 to demonstrate how to process data.
 
 {{< children >}}

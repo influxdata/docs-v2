@@ -112,4 +112,4 @@ write_api.write(bucket=bucket, org=org, record=p)
 
 ## Query data from InfluxDB with Python
 
-To use query your InfluxDB Cloud Serverless bucket, use a Python [Flight SQL client with gRPC](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/).
+To query your {{% cloud-name %}} bucket, use the [Python client library for InfluxDB v3](/influxdb/cloud-serverless/reference/client-libraries/v3/python/).
