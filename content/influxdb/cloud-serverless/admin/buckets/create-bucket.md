@@ -57,19 +57,6 @@ There are two places you can create a bucket in the UI.
     - **Older than** to choose a specific retention period.
 5. Click **Create** to create the bucket.
 
-### Create a bucket in the Data Explorer
-
-1. In the navigation menu on the left, select **Explore* (**Data Explorer**).
-
-{{< nav-icon "data-explorer" >}}
-
-2. In the **From** panel in the Flux Builder, select `+ Create Bucket`.
-3. Enter a **Name** for the bucket.
-4. Select when to **Delete Data**:
-    - **Never** to retain data forever.  
-    - **Older than** to choose a specific retention period.
-5. Click **Create** to create the bucket.
-
 {{% /tab-content %}}
 <!------------------------------- END UI CONTENT ------------------------------>
 
