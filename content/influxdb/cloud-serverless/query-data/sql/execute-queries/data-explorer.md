@@ -19,7 +19,7 @@ Build, execute, and visualize your queries in InfluxDB UI's **Data Explorer**.
 
 <!--Need a screenshot of the SQL builder with a pretty graph-->
 
-Query using saved scripts or the SQL builder, or by manually editing the query.
+Query using saved scripts, the SQL builder, or by manually editing the query.
 Choose between **visualization types** for your query.
 
 ## Query data with SQL and the Data Explorer
