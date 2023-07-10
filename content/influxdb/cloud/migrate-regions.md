@@ -24,14 +24,17 @@ powered by our current database engine,
 [Time-Structured Merge Tree (TSM)](/{{< latest "influxdb" >}}/reference/internals/storage-engine/#time-structured-merge-tree-tsm)
 or [our new database engine, InfluxDB IOx](/blog/announcing-general-availability-new-database-engine/).
 
-To see what which database engine your organization is using, log in to your 
-InfluxDB Cloud account and, on your organization's homepage, and then look for
-**InfluxDB Cloud powered by TSM** or **InfluxDB Cloud Serverless** at the
-bottom of the far-right column.
+To benefit from IOx's unlimited cardinality and support for SQL, migrate your data to IOx.
 
-- [Migrate data from TSM to TSM](/influxdb/cloud/migrate-data/migrate-cloud-to-cloud/). 
 - [Migrate data TSM to IOx](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/)
+- [Migrate data from TSM to TSM](/influxdb/cloud/migrate-data/migrate-cloud-to-cloud/). 
 
+To see which storage engine your organization is using,
+find the **InfluxDB Cloud powered by** link in your
+[InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
+If your organization is using TSM, you'll see **TSM** followed by the version number.
+If IOx, you'll see
+**InfluxDB Cloud Serverless** followed by the version number.
 {{% note %}}
 #### Dual write into both organizations
 
