@@ -12,7 +12,7 @@ weight: 1
 ---
 
 {{% note %}}
-This InfluxDB Cloud documentation applies to all organizations created through
+This InfluxDB Cloud documentation applies to all [organizations](/influxdb/cloud-serverless/admin/organizations/) created through
 **cloud2.influxdata.com** on or after **January 31, 2023** that are powered by
 the InfluxDB IOx storage engine. If your organization was created before this
 date or through the Google Cloud Platform (GCP) or Azure marketplaces, see the
@@ -46,7 +46,7 @@ View the following video for more information about InfluxDB IOx:
 
 ## How do you use InfluxDB IOx?
 
-All InfluxDB Cloud accounts and organizations created through
+All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and [organizations](/influxdb/cloud-serverless/admin/organizations/) created through
 [cloud2.influxdata.com](https://cloud2.influxdata.com) on or after **January 31, 2023**
 are powered by the InfluxDB IOx storage engine.
 
