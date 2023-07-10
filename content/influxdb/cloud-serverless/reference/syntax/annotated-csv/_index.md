@@ -1,8 +1,7 @@
 ---
 title: Annotated CSV
 description: >
-  The InfluxDB `/api/v2/query` API returns query results in annotated CSV format.
-  You can write data to InfluxDB using annotated CSV and the `influx write` command.
+  You can write data to InfluxDB using annotated CSV and the InfluxDB HTTP API.
 weight: 103
 menu:
   influxdb_cloud_serverless:
@@ -12,8 +11,7 @@ related:
   - /influxdb/cloud-serverless/reference/syntax/annotated-csv/extended/
 ---
 
-The InfluxDB `/api/v2/query` API returns query results in annotated CSV format.
-You can also write data to InfluxDB using annotated CSV and the `influx write` command,
+You can write data to InfluxDB using annotated CSV and the InfluxDB HTTP API
 or [upload a CSV file](/influxdb/cloud-serverless/write-data/csv/user-interface) in the InfluxDB UI.
 
 CSV tables must be encoded in UTF-8 and Unicode Normal Form C as defined in [UAX15](http://www.unicode.org/reports/tr15/).
@@ -111,29 +109,22 @@ Subsequent columns contain annotation values as shown in the table below.
 
 | Annotation name | Values                                                                         | Description                                                                      |
 |:--------        |:---------                                                                      | :-------                                                                         |
-| **datatype**    | a [data type](#data-types) or [line protocol element](#line-protocol-elements) | Describes the type of data or which line protocol element the column represents. |
-| **group**       | boolean flag `true` or `false`                                                 | Indicates the column is part of the group key.                                   |
+| **datatype**    | a [data type](#data-types) or [line protocol element](#line-protocol-elements) | Describes the type of data or which line protocol element the column represents. |                                  |
 | **default**     | a value of the column's data type                                              | Value to use for rows with an empty value.                                       |
 
 
-{{% note %}}
-To encode a table with its [group key](/influxdb/cloud-serverless/reference/glossary/#group-key),
-the `datatype`, `group`, and `default` annotations must be included.
-If a table has no rows, the `default` annotation provides the group key values.
-{{% /note %}}
-
 ## Data types
 
-| Datatype     | Flux type  | Description                                                                                                    |
-| :--------    | :--------- | :----------                                                                                                    |
-| boolean      | bool       | "true" or "false"                                                                                              |
-| unsignedLong | uint       | unsigned 64-bit integer                                                                                        |
-| long         | int        | signed 64-bit integer                                                                                          |
-| double       | float      | IEEE-754 64-bit floating-point number                                                                          |
-| string       | string     | UTF-8 encoded string                                                                                           |
-| base64Binary | bytes      | base64 encoded sequence of bytes as defined in RFC 4648                                                        |
-| dateTime     | time       | instant in time, may be followed with a colon : and a description of the format (number, RFC3339, RFC3339Nano) |
-| duration     | duration   | length of time represented as an unsigned 64-bit integer number of nanoseconds                                 |
+| Datatype     | Description                                                                                                    |
+| :--------    | :----------                                                                                                    |
+| boolean      | "true" or "false"                                                                                              |
+| unsignedLong | unsigned 64-bit integer                                                                                        |
+| long         | signed 64-bit integer                                                                                          |
+| double       | IEEE-754 64-bit floating-point number                                                                          |
+| string       | UTF-8 encoded string                                                                                           |
+| base64Binary | base64 encoded sequence of bytes as defined in RFC 4648                                                        |
+| dateTime     | instant in time, may be followed with a colon : and a description of the format (number, RFC3339, RFC3339Nano) |
+| duration     | length of time represented as an unsigned 64-bit integer number of nanoseconds                                 |
 
 
 ## Line protocol elements

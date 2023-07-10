@@ -9,6 +9,9 @@ menu:
     parent: Write data
 weight: 104
 alt_engine: /influxdb/cloud/migrate-data/
+aliases:
+  - /influxdb/cloud-serverless/reference/flux/
+  - /influxdb/cloud-serverless/query-data/sql/execute-queries/flux-sql/
 ---
 
 Migrate data to InfluxDB Cloud Serverless powered by InfluxDB IOx from other 
@@ -68,12 +71,6 @@ in more regions around the world.
 **You should maybe migrate**. Flux queries are less performant against the IOx
 storage engine. Flux is optimized to work with the TSM storage engine, but these
 optimizations do not apply to the on-disk structure of InfluxDB IOx.
-
-To maintain performant Flux queries against the IOx storage engine, you need to
-update Flux queries to use a mixture of both SQL and Flux—SQL to query the base
-dataset and Flux to perform other transformations that SQL does not support.
-For information about using SQL and Flux together for performant queries, see
-[Use Flux and SQL to query data](/influxdb/cloud-serverless/query-data/flux-sql/).
 
 ---
 
