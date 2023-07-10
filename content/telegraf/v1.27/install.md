@@ -384,7 +384,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
         ```sh
         ./tools/custom_builder/custom_builder --config /etc/telegraf.conf
         ```
-    - **Single Telegraf confiuaration and Telegraf configuration directory**: 
+    - **Single Telegraf configuration and Telegraf configuration directory**: 
         ```sh
         ./tools/custom_builder/custom_builder \
           --config /etc/telegraf.conf \
