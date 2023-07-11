@@ -79,10 +79,11 @@ my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,
 
 In addition to the data columns, a table may include the following columns:
 
-- **Annotation column**: Only used in annotation rows. Always the first column.
-  Displays the name of an annotation. Value can be empty or a supported [annotation](#annotations).
-  You'll notice a space for this column for the entire length of the table,
-  so rows appear to start with `,`.
+- **Annotation column**: Displays the name of an annotation.
+  Only used in annotation rows and is always the first column.
+  Value can be empty or a supported [annotation](#annotations).
+  The response format uses a comma (`,`) to separate an annotation name from values in the row.
+  To account for this, rows in the table start with a leading comma; you'll notice an empty column for the entire length of the table.
 
 - **Result column**: Contains the name of the result specified by the query.
 
