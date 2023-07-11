@@ -163,6 +163,8 @@ Subsequent columns contain annotation values as shown in the table below.
 | **default**     | a value of the column's data type                                              | Value to use for rows with an empty value.                                       |
 
 
+Some tools might use or require a comma (`,`) to separate the annotation name from values in an annotation row.
+
 {{% note %}}
 To encode a table with its [group key](/influxdb/v2.3/reference/glossary/#group-key),
 the `datatype`, `group`, and `default` annotations must be included.
