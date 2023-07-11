@@ -171,9 +171,9 @@ Time column values should be **Unix nanosecond timestamps**, **RFC3339**, or **R
 ##### Example line protocol elements in datatype annotation
 
 ```
-#group,false,false,false,false,false,false,false
-#datatype,measurement,tag,tag,field,field,ignored,time
-#default,,,,,,,
+#group false,false,false,false,false,false,false
+#datatype measurement,tag,tag,field,field,ignored,time
+#default ,,,,,,
 m,cpu,host,time_steal,usage_user,nothing,time
 cpu,cpu1,host1,0,2.7,a,1482669077000000000
 cpu,cpu1,host2,0,2.2,b,1482669087000000000
