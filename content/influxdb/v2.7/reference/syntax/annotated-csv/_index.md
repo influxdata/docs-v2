@@ -186,7 +186,7 @@ cpu,cpu=cpu1,host=host1 time_steal=0,usage_user=2.7 1482669077000000000
 cpu,cpu=cpu1,host=host2 time_steal=0,usage_user=2.2 1482669087000000000
 ```
 
-##### Example of mixing data types line protocol elements
+##### Example of mixing data types and line protocol elements
 
 ```
 #group,false,false,false,false,false,false,false,false,false
