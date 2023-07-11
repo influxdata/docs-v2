@@ -184,9 +184,9 @@ cpu,cpu=cpu1,host=host2 time_steal=0,usage_user=2.2 1482669087000000000
 #group,false,false,false,false,false,false,false,false,false
 #datatype,measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
 #default,test,annotatedDatatypes,,,,,,
-m,name,s,d,b,l,ul,dur,time
-,,str1,1.0,true,1,1,1ms,1
-,,str2,2.0,false,2,2,2us,2020-01-11T10:10:10Z
+,m,name,s,d,b,l,ul,dur,time
+,,,str1,1.0,true,1,1,1ms,1
+,,,str2,2.0,false,2,2,2us,2020-01-11T10:10:10Z
 ```
 
 Resulting line protocol:
