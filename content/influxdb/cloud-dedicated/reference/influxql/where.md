@@ -72,18 +72,17 @@ Operators evaluate the relationship between two operands and return
 ## Time ranges
 
 Use the `WHERE` clause to specify a time range to query.
-If a time range is not defined in the `WHERE` clause, the default time range is
-the Unix epoch (`1970-01-01T00:00:00Z`) to _now_.
+If a time range isn't specified in the `WHERE` clause, the [default time range](/influxdb/cloud-dedicated/reference/influxql/#default-time-range) is used.
 
-Timestamps are stored in the `time` columns.
+Timestamps are stored in the `time` column.
 Use comparison operators to compare the value of the `time` column to a
-timestamp literal, integer (Unix nanosecond timestamp), or function.
+timestamp literal, integer (Unix nanosecond timestamp), or [expression](/influxdb/cloud-dedicated/reference/glossary/#expression).
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
 [Timestamp](#)
 [Integer](#)
-[Function](#)
+[Expression](#)
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 ```sql

@@ -45,6 +45,11 @@ WHERE
 ```
 {{% /influxdb/custom-timestamps %}}
 
+## Result set
+
+If at least one row satisfies the query, {{% cloud-name %}} returns row data in the query result set.
+An SQL query result set includes columns listed in the query's `SELECT` statement.
+
 ## Basic query examples
 
 - [Query data within time boundaries](#query-data-within-time-boundaries)
@@ -191,10 +196,3 @@ SELECT temp 'temperature', hum 'humidity' FROM home
 
 SELECT temp AS 'temperature', hum AS 'humidity' FROM home
 ```
-
-### Query result set
-
-If at least one row satisfies the query, {{% cloud-name %}} returns row data in the query result set.
-An SQL query result set includes the following columns:
-
-- Data for columns listed in the query's `SELECT` statement

@@ -49,6 +49,20 @@ WHERE
 ```
 {{% /influxdb/custom-timestamps %}}
 
+## Result set
+
+If at least one row satisfies the query, {{% cloud-name %}} returns row data in the query result set.
+If a query uses a `GROUP BY` clause, the result set includes the following:
+
+- Columns listed in the query's `SELECT` clause
+- A `time` column that contains the timestamp for the record or the group
+- An `iox::measurement` column that contains the record's measurement (table) name
+- Columns listed in the query's `GROUP BY` clause; each row in the result set contains the values used for grouping
+
+### GROUP BY result columns
+
+If a query uses `GROUP BY` and the `WHERE` clause doesn't filter by time, then groups are based on the [default time range](/influxdb/cloud-serverless/reference/group-by/#default-time-range).
+
 ## Basic query examples
 
 - [Query data within time boundaries](#query-data-within-time-boundaries)
@@ -197,12 +211,3 @@ SELECT temp AS "temperature", hum AS "humidity" FROM home
 When aliasing columns in **InfluxQL**, use the `AS` clause and double-quoted alias names.
 When [aliasing columns in **SQL**](/influxdb/cloud-serverless/query-data/sql/basic-query/#alias-queried-fields-and-tags), you can use the `AS` clause to define the alias, but it isn't necessary.
 {{% /note %}}
-
-### Query result set
-
-If at least one row satisfies the query, {{% cloud-name %}} returns row data in the query result set.
-An InfluxQL query result set includes the following columns:
-
-- Data for columns listed in the query's `SELECT` statement
-- The `time` column that contains the timestamp for each record
-- An `iox::measurement` column that contains the record's measurement (table) name
