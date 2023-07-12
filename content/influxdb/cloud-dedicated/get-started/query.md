@@ -67,7 +67,7 @@ InfluxDB SQL queries most commonly include the following clauses:
 {{< req type="key" >}}
 
 - {{< req "\*">}} `SELECT`: Identify specific fields and tags to query from a
-  measurement or use the wild card alias (`*`) to select all fields and tags
+  measurement or use the wildcard alias (`*`) to select all fields and tags
   from a measurement.
 - {{< req "\*">}} `FROM`: Identify the measurement to query.
   If coming from an SQL background, an InfluxDB measurement is the equivalent 

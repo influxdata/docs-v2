@@ -26,7 +26,7 @@ following clauses:
 {{< req type="key" >}}
 
 - {{< req "\*">}} `SELECT`: Specify fields, tags, and calculations to output from a
-  measurement or use the wild card alias (`*`) to select all fields and tags
+  measurement or use the wildcard alias (`*`) to select all fields and tags
   from a measurement.
 - {{< req "\*">}} `FROM`: Specify the measurement to query data from.
 - `WHERE`: Only return data that meets the specified conditions--for example, falls within
