@@ -79,10 +79,11 @@ my-result,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,
 
 In addition to the data columns, a table may include the following columns:
 
-- **Annotation column**: Only used in annotation rows. Always the first column.
-  Displays the name of an annotation. Value can be empty or a supported [annotation](#annotations).
-  You'll notice a space for this column for the entire length of the table,
-  so rows appear to start with `,`.
+- **Annotation column**: Displays the name of an annotation.
+  Only used in annotation rows and is always the first column.
+  Value can be empty or a supported [annotation](#annotations).
+  The response format uses a comma (`,`) to separate an annotation name from values in the row.
+  To account for this, rows in the table start with a leading comma; you'll notice an empty column for the entire length of the table.
 
 - **Result column**: Contains the name of the result specified by the query.
 
@@ -162,6 +163,8 @@ Subsequent columns contain annotation values as shown in the table below.
 | **default**     | a value of the column's data type                                              | Value to use for rows with an empty value.                                       |
 
 
+Some tools might use or require a comma (`,`) to separate the annotation name from values in an annotation row.
+
 {{% note %}}
 To encode a table with its [group key](/influxdb/v2.6/reference/glossary/#group-key),
 the `datatype`, `group`, and `default` annotations must be included.
@@ -228,7 +231,7 @@ cpu,cpu=cpu1,host=host1 time_steal=0,usage_user=2.7 1482669077000000000
 cpu,cpu=cpu1,host=host2 time_steal=0,usage_user=2.2 1482669087000000000
 ```
 
-##### Example of mixing data types line protocol elements
+##### Example of mixing data types and line protocol elements
 ```
 #datatype measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
 #default test,annotatedDatatypes,,,,,,

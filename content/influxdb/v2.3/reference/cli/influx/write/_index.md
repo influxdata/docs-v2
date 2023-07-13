@@ -209,7 +209,7 @@ influx write \
   --bucket example-bucket \
   --format csv \
   "#constant measurement,sensorData
-#datatype,datetime:RFC3339,double
+#datatype dateTime:RFC3339,double
 time,temperature
 2020-12-18T18:16:11Z,72.7
 2020-12-18T18:16:21Z,73.8
