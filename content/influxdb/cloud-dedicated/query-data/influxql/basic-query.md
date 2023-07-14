@@ -116,7 +116,7 @@ Use `now()` to return the timestamp for the current time (UTC).
 ##### Query all data from the last month
 
 ```sql
-SELECT * FROM home WHERE time >= now() - INTERVAL '1 month'
+SELECT * FROM home WHERE time >= now() - 30d
 ```
 
 ##### Query one day of data data from a week ago
