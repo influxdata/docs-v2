@@ -206,7 +206,7 @@ To alias or rename fields and tags that you query, use the `AS` clause.
 After the tag, field, or expression you want to alias, pass `AS` followed by the alias name as an identifier (wrap in double quotes (`"`) if the alias includes spaces or special characters)--for example:
 
 ```sql
-SELECT temp AS "temperature", hum AS "humidity" FROM home
+SELECT temp AS temperature, hum AS "humidity (%)" FROM home
 ```
 
 {{% note %}}
