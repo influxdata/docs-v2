@@ -1,5 +1,5 @@
 ---
-title: Use visualization tools query data with InfluxQLQL
+title: Use visualization tools to query data with InfluxQL
 list_title: Use visualization tools
 description: >
   Use visualization tools and InfluxQL to query data stored in InfluxDB.

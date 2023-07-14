@@ -2,7 +2,7 @@
 title: Use Grafana to query and visualize data
 list_title: Use Grafana
 description: >
-  Install and run [Grafana](https://grafana.com/) to query data stored in InfluxDB.
+  Install and run [Grafana](https://grafana.com/) to query and visualize data stored in InfluxDB.
 weight: 201
 menu:
   influxdb_cloud_dedicated:

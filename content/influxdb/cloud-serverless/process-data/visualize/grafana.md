@@ -1,9 +1,9 @@
 ---
-title: Use Grafana to query data
-seotitle: Use Grafana to query data stored in InfluxDB
+title: Use Grafana to query and visualize data
+seotitle: Use Grafana to query and visualize data stored in InfluxDB
 list_title: Use Grafana
 description: >
-  Install and run [Grafana](https://grafana.com/) to query data
+  Install and run [Grafana](https://grafana.com/) to query and visualize data
   stored in InfluxDB.
 weight: 201
 menu:
