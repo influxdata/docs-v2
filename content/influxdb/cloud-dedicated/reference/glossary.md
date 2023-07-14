@@ -276,6 +276,15 @@ Metrics gathered at irregular time intervals.
 
 A combination of one or more constants, variables, operators, and functions.
 
+In the following SQL example, `now() - INTERVAL '7 days'` is an expression that calculates the difference between the `now()` function expression and the duration represented by `INTERVAL '7 days`:
+
+```sql
+SELECT *
+FROM home
+WHERE
+  time >= now() - INTERVAL '7 days'
+```
+
 ## F
 
 ### field
@@ -421,7 +430,6 @@ An open-source time series database (TSDB) developed by InfluxData.
 Written in Go and optimized for fast, high-availability storage and retrieval of
 time series data in fields such as operations monitoring, application metrics,
 Internet of Things sensor data, and real-time analytics.
-
 
 ### InfluxQL
 

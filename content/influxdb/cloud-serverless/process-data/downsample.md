@@ -85,17 +85,17 @@ import pandas
 # Instantiate an InfluxDBClient3 client configured for your unmodified bucket
 influxdb_raw = InfluxDBClient3(
     host='cloud2.influxdata.com',
-    org='ORG_NAME',
     token='API_TOKEN',
     database='RAW_BUCKET_NAME'
 )
 
-# Instantiate an InfluxDBClient3 client configured for your downsampled bucket
+# Instantiate an InfluxDBClient3 client configured for your downsampled database.
+# When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
     host='cloud2.influxdata.com',
-    org='ORG_NAME',
     token='API_TOKEN',
-    database='DOWNSAMPLED_BUCKET_NAME'
+    database='DOWNSAMPLED_BUCKET_NAME',
+    org=''
 )
 ```
 {{% /code-placeholders %}}
@@ -246,7 +246,9 @@ data_frame = table.to_pandas()
 
 ## Write the downsampled data back to InfluxDB
 
-1.  Use the `sort_values` method to sort data in the Pandas DataFrame by `time`
+1.  _For InfluxQL query results_, delete (`drop`) the `iox::measurement` column _before_ writing data back to InfluxDB.
+    You'll avoid measurement name conflicts when querying your downsampled data later. 
+2.  Use the `sort_values` method to sort data in the Pandas DataFrame by `time`
     to ensure writing back to InfluxDB is as performant as possible.
 2.  Use the `write` method of your [instantiated downsampled client](#create-an-influxdb-client)
     to write the query results back to your InfluxDB bucket for downsampled data.
@@ -294,16 +296,16 @@ import pandas
 
 influxdb_raw = InfluxDBClient3(
     host='cloud2.influxdata.com',
-    org='ORG_NAME',
     token='API_TOKEN',
     database='RAW_BUCKET_NAME'
 )
 
+# When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
     host='cloud2.influxdata.com',
-    org='ORG_NAME',
     token='API_TOKEN',
-    database='DOWNSAMPLED_BUCKET_NAME'
+    database='DOWNSAMPLED_BUCKET_NAME',
+    org=''
 )
 
 query = '''
@@ -350,11 +352,12 @@ influxdb_raw = InfluxDBClient3(
     database='RAW_BUCKET_NAME'
 )
 
+# When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
     host='cloud2.influxdata.com',
-    org='ORG_NAME',
     token='API_TOKEN',
-    database='DOWNSAMPLED_BUCKET_NAME'
+    database='DOWNSAMPLED_BUCKET_NAME',
+    org=''
 )
 
 query = '''
@@ -366,6 +369,11 @@ FROM home
 WHERE time >= now() - 24h
 GROUP BY time(1h)
 '''
+
+# To prevent naming conflicts when querying downsampled data,
+# drop the iox::measurement column before writing the data
+# with the new measurement.
+data_frame = data_frame.drop(columns=['iox::measurement'])
 
 table = influxdb_raw.query(query=query, language="influxql")
 data_frame = table.to_pandas()

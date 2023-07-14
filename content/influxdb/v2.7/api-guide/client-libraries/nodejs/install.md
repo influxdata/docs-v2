@@ -72,11 +72,11 @@ Once you've installed the Javascript client library, you're ready to [write data
 ## Get started with examples
 
 {{% note %}}
-The client examples include an [`env`](https://github.com/influxdata/influxdb-client-js/blob/master/examples/env.js) module for accessing your InfluxDB properties from environment variables or from `env.js`.
+The client examples include an [`env`](https://github.com/influxdata/influxdb-client-js/blob/master/examples/env.mjs) module for accessing your InfluxDB properties from environment variables or from `env.mjs`.
 The examples use these properties to interact with the InfluxDB API.
 {{% /note %}}
 
-1. Set environment variables or update `env.js` with your InfluxDB [bucket](/influxdb/v2.7/organizations/buckets/), [organization](/influxdb/v2.7/organizations/), [token](/influxdb/v2.7/security/tokens/), and [url](/influxdb/v2.7/reference/urls/).
+1. Set environment variables or update `env.mjs` with your InfluxDB [bucket](/influxdb/v2.7/organizations/buckets/), [organization](/influxdb/v2.7/organizations/), [token](/influxdb/v2.7/security/tokens/), and [url](/influxdb/v2.7/reference/urls/).
 
    ```sh
    export INFLUX_URL=http://localhost:8086
