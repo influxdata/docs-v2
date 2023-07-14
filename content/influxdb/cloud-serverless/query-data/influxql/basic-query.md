@@ -75,10 +75,10 @@ If a query uses `GROUP BY` and the `WHERE` clause doesn't filter by time, then g
 {{% note %}}
 #### Sample data
 
-The following examples use the sample data written in the
-[Get started writing data guide](/influxdb/cloud-serverless/get-started/write/).
+The following examples use the 
+[Get started home sensor data](/influxdb/cloud-serverless/reference/sample-data/#get-started-home-sensor-data).
 To run the example queries and return results,
-[write the sample data](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb)
+[write the sample data](/influxdb/cloud-serverless/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
 to your {{% cloud-name %}} database before running the example queries.
 {{% /note %}}
 
