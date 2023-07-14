@@ -1,21 +1,24 @@
 ---
-title: Use Tableau to query data with SQL
-seotitle: Use Tableau to query data stored in InfluxDB Cloud Dedicated
+title: Use Tableau to query and visualize data
 list_title: Use Tableau
 description: >
-  Install and use [Tableau](https://www.tableau.com/) to query data stored in InfluxDB.
-weight: 401
+  Install and use [Tableau](https://www.tableau.com/) to query and visualize
+  data stored in InfluxDB.
+weight: 201
 menu:
   influxdb_cloud_dedicated:
-    parent: sql-execute-queries
+    parent: Visualize data
     name: Use Tableau
     identifier: query-with-tableau
 influxdb/cloud-dedicated/tags: [query, flightsql, tableau, sql]
 aliases:
   - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/tableau/
   - /influxdb/cloud-dedicated/query-data/tools/tableau/
+  - /influxdb/cloud-dedicated/query-data/sql/execute-queries/tableau/
+  - /influxdb/cloud-dedicated/process-data/tools/tableau/
 related:
   - /influxdb/cloud-dedicated/visualize-data/tableau/
+metadata: [SQL only]
 ---
 
 Use [Tableau](https://www.tableau.com/) to query and visualize time series data

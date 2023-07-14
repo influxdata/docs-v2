@@ -3,13 +3,14 @@ title: Use Tableau to query data with SQL
 seotitle: Use Tableau to query data stored in InfluxDB Cloud Serverless
 description: >
   Install and use [Tableau](https://www.tableau.com/) to query data stored in InfluxDB.
-weight: 101
+weight: 201
 menu:
   influxdb_cloud_serverless:
-    parent: Execute SQL queries
+    parent: Visualize data
     name: Use Tableau
-    identifier: query-with-tableau
 influxdb/cloud-serverless/tags: [query, flightsql, tableau, sql]
+aliases:
+  - /influxdb/cloud-serverless/query-data/sql/execute-queries/tableau/
 ---
 
 Use [Tableau](https://www.tableau.com/) to query and visualize time series data
@@ -101,3 +102,7 @@ in {{< cloud-name >}}. In the left pane:
 4.  Use Tableau to build and execute SQL queries.
     For more information, see the
     [Tableau Desktop documentation](https://help.tableau.com/current/pro/desktop/en-us/default.htm).
+
+## Build visualizations with Tableau
+
+After you've connected Tableau to your InfluxDB database, see the Tableau documentation to [Set Up Data Sources](https://help.tableau.com/current/pro/desktop/en-us/datasource_prepare.htm) and begin working with data.

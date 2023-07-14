@@ -3,7 +3,7 @@ title: Use Python to query data with SQL
 list_title: Use Python
 description: >
   Use the `influxdb_client_3` Python module and SQL to query data stored in InfluxDB.
-weight: 101
+weight: 401
 menu:
   influxdb_cloud_dedicated:
     parent: sql-execute-queries

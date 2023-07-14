@@ -1,16 +1,17 @@
 ---
-title: Analyze and visualize data stored in InfluxDB
+title: Use data analysis tools
 description: >
-  Use popular tools to analyze and visualize time series data stored in an
+  Use popular data analysis tools to analyze time series data stored in an
   InfluxDB database.
 weight: 101
 menu:
   influxdb_cloud_dedicated:
-    name: Analyze and visualize data
-    parent: Process data
+    name: Use data analysis tools
+    parent: Process & visualize data
 influxdb/cloud-dedicated/tags: [analysis, visualization, tools]
-aliases:
-  - /influxdb/cloud-dedicated/visualize-data/
 ---
+
+Use popular data analysis tools to analyze time series data stored in an
+InfluxDB database.
 
 {{< children >}}
