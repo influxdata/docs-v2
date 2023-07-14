@@ -161,7 +161,7 @@ Get started with one of the following tools for querying data stored in an {{% c
 
 - **InfluxDB v3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
 - **influx3 CLI**: Send queries from your terminal command-line.
-- **Grafana**: Query InfluxDB v3 with the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/) and connect and visualize data.
+- **Grafana**: Use the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/), to query, connect, and visualize data.
 
 For this example, use the following query to select all the data written to the
 **get-started** database between
@@ -294,32 +294,32 @@ _If your project's virtual environment is already running, skip to step 3._
 
 2.  In `query.py`, enter the following sample code:
 
-      ```py
-      from influxdb_client_3 import InfluxDBClient3
-      import os
+    ```py
+    from influxdb_client_3 import InfluxDBClient3
+    import os
 
-      # INFLUX_TOKEN is an environment variable you assigned to your database READ token string
-      TOKEN = os.getenv('INFLUX_TOKEN')
+    # INFLUX_TOKEN is an environment variable you assigned to your database READ token string
+    TOKEN = os.getenv('INFLUX_TOKEN')
 
-      client = InfluxDBClient3(
-          host="cluster-id.influxdb.io",
-          token=TOKEN,
-          database="get-started",
-      )
+    client = InfluxDBClient3(
+        host="cluster-id.influxdb.io",
+        token=TOKEN,
+        database="get-started",
+    )
 
-      sql = '''
-        SELECT
-          *
-        FROM
-          home
-        WHERE
-          time >= '2022-01-01T08:00:00Z'
-          AND time <= '2022-01-01T20:00:00Z'
-      '''
+    sql = '''
+      SELECT
+        *
+      FROM
+        home
+      WHERE
+        time >= '2022-01-01T08:00:00Z'
+        AND time <= '2022-01-01T20:00:00Z'
+    '''
 
-      table = client.query(query=sql)
-      print(reader.to_pandas().to_markdown())
-      ```
+    table = client.query(query=sql)
+    print(reader.to_pandas().to_markdown())
+    ```
 
     The sample code does the following:
 
