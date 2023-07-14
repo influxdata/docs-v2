@@ -124,8 +124,8 @@ SELECT * FROM home WHERE time >= now() - 30d
 SELECT *
 FROM home
 WHERE
-  time >= now() - INTERVAL '7 days'
-  AND time <= now() - INTERVAL '6 days'
+  time >= now() - 7d
+  AND time <= now() - 6d
 ```
 {{% /expand %}}
 
