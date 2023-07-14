@@ -203,7 +203,7 @@ SELECT co, time FROM home WHERE co >= 10 OR co <= -10
 ### Alias queried fields and tags
 
 To alias or rename fields and tags that you query, use the `AS` clause.
-After the tag, field, or expression you want to alias, pass `AS` followed by the alias name as a string literal in double quotes (`"`)--for example:
+After the tag, field, or expression you want to alias, pass `AS` followed by the alias name as an identifier (wrap in double quotes (`"`) if the alias includes spaces or special characters)--for example:
 
 ```sql
 SELECT temp AS "temperature", hum AS "humidity" FROM home
