@@ -25,9 +25,11 @@ following clauses:
 
 {{< req type="key" >}}
 
-- {{< req "\*">}} `SELECT`: Specify fields, tags, and calculations to output from a
+- {{< req "\*">}} `SELECT`: Specify fields, tags, and calculations to return from a
   measurement or use the wildcard alias (`*`) to select all fields and tags
-  from a measurement. It requires at least one [field key](/influxdb/cloud-serverless/reference/glossary/#field-key) or the wildcard alias (`*`). For more information, see [/influxdb/cloud-serverless/reference/influxql/select/#notable-select-statement-behaviors].
+  from a measurement. It requires at least one
+  [field key](/influxdb/cloud-serverless/reference/glossary/#field-key) or the wildcard alias (`*`).
+  For more information, see [Notable SELECT statement behaviors](/influxdb/cloud-serverless/reference/influxql/select/#notable-select-statement-behaviors).
 - {{< req "\*">}} `FROM`: Specify the [measurement](/influxdb/cloud-serverless/reference/glossary/#measurement) to query from.
 It requires one or more comma-delimited [measurement expressions](/influxdb/cloud-serverless/reference/influxql/select/#measurement_expression).
 - `WHERE`: Filter data based on
