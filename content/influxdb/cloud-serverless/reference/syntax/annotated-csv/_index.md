@@ -49,10 +49,11 @@ A table may have the following rows and columns.
 
 In addition to the data columns, a table may include the following columns:
 
-- **Annotation column**: Only used in annotation rows. Always the first column.
-  Displays the name of an annotation. Value can be empty or a supported [annotation](#annotations).
-  You'll notice a space for this column for the entire length of the table,
-  so rows appear to start with `,`.
+- **Annotation column**: Displays the name of an annotation.
+  Only used in annotation rows and is always the first column.
+  Value can be empty or a supported [annotation](#annotations).
+  The response format uses a comma (`,`) to separate an annotation name from values in the row.
+  To account for this, rows in the table start with a leading comma; you'll notice an empty column for the entire length of the table.
 
 - **Result column**: Contains the name of the result specified by the query.
 
@@ -163,9 +164,9 @@ Time column values should be **Unix nanosecond timestamps**, **RFC3339**, or **R
 ##### Example line protocol elements in datatype annotation
 
 ```
-#group,false,false,false,false,false,false,false
-#datatype,measurement,tag,tag,field,field,ignored,time
-#default,,,,,,,
+#group false,false,false,false,false,false,false
+#datatype measurement,tag,tag,field,field,ignored,time
+#default ,,,,,,
 m,cpu,host,time_steal,usage_user,nothing,time
 cpu,cpu1,host1,0,2.7,a,1482669077000000000
 cpu,cpu1,host2,0,2.2,b,1482669087000000000
@@ -178,15 +179,15 @@ cpu,cpu=cpu1,host=host1 time_steal=0,usage_user=2.7 1482669077000000000
 cpu,cpu=cpu1,host=host2 time_steal=0,usage_user=2.2 1482669087000000000
 ```
 
-##### Example of mixing data types line protocol elements
+##### Example of mixing data types and line protocol elements
 
 ```
 #group,false,false,false,false,false,false,false,false,false
 #datatype,measurement,tag,string,double,boolean,long,unsignedLong,duration,dateTime
 #default,test,annotatedDatatypes,,,,,,
-m,name,s,d,b,l,ul,dur,time
-,,str1,1.0,true,1,1,1ms,1
-,,str2,2.0,false,2,2,2us,2020-01-11T10:10:10Z
+,m,name,s,d,b,l,ul,dur,time
+,,,str1,1.0,true,1,1,1ms,1
+,,,str2,2.0,false,2,2,2us,2020-01-11T10:10:10Z
 ```
 
 Resulting line protocol:
