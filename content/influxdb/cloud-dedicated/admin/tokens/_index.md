@@ -7,7 +7,7 @@ description: >
   allow for actions like writing and querying data.
 menu:
   influxdb_cloud_dedicated:
-    parent: Administer InfluxDB
+    parent: Administer InfluxDB Cloud
 weight: 101
 influxdb/cloud-dedicated/tags: [tokens]
 ---

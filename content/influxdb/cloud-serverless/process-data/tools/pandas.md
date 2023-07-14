@@ -8,10 +8,10 @@ description: >
 weight: 101
 menu:
   influxdb_cloud_serverless:
-    parent: Analyze and visualize data
+    parent: Use data analysis tools
     name: Use pandas
     identifier: analyze-with-pandas
-influxdb/cloud-serverless/tags: [analysis, pandas, pyarrow, python, visualization]
+influxdb/cloud-serverless/tags: [analysis, pandas, pyarrow, python]
 aliases:
   - /influxdb/cloud-serverless/visualize-data/pandas/
   - /influxdb/cloud-serverless/visualize-data/python/

@@ -5,7 +5,7 @@ description: >
 menu:
   influxdb_cloud_serverless:
     name: Summarize data
-    parent: Process data
+    parent: Process & visualize data
 weight: 101
 influxdb/cloud-serverless/tags: [analysis, pandas, pyarrow, python, schema]
 related:

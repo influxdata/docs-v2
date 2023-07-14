@@ -1,18 +1,19 @@
 ---
-title: Use Grafana to query data with SQL
-seotitle: Use Grafana to query data stored in InfluxDB Cloud Dedicated
+title: Use Grafana to query and visualize data
 list_title: Use Grafana
 description: >
-  Install and run [Grafana](https://grafana.com/) to query data stored in InfluxDB.
-weight: 101
+  Install and run [Grafana](https://grafana.com/) to query and visualize data stored in InfluxDB.
+weight: 201
 menu:
   influxdb_cloud_dedicated:
     name: Use Grafana
-    parent: sql-execute-queries
-    identifier: query-with-grafana-sql
+    parent: Visualize data
 influxdb/cloud-dedicated/tags: [query, visualization]
 aliases:
   - /influxdb/cloud-dedicated/query-data/tools/grafana/
+  - /influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/
+  - /influxdb/cloud-dedicated/query-data/influxql/execute-queries/grafana
+  - /influxdb/cloud-dedicated/process-data/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) to query data stored in

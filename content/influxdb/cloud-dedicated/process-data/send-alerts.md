@@ -5,8 +5,8 @@ description: >
 menu:
   influxdb_cloud_dedicated:
     name: Send alerts
-    parent: Process data
-weight: 101
+    parent: Process & visualize data
+weight: 104
 ---
 
 Query, analyze, and send alerts using time series data stored in InfluxDB.

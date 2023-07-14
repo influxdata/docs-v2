@@ -1,25 +1,27 @@
 ---
-title: Use Superset to query data
-seotitle: Use Apache Superset to query data stored in InfluxDB Cloud Dedicated
+title: Use Superset to query and visualize data
 list_title: Use Superset
 description: >
   Install and run [Apache Superset](https://superset.apache.org/)
-  to query data stored in InfluxDB.
-weight: 401
+  to query and visualize data stored in InfluxDB.
+weight: 201
 menu:
   influxdb_cloud_dedicated:
-    parent: sql-execute-queries
+    parent: Visualize data
     name: Use Superset
     identifier: query-with-superset
 influxdb/cloud-dedicated/tags: [query, flightsql, superset]
 aliases:
   - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/
   - /influxdb/cloud-dedicated/query-data/tools/superset/
+  - /influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/
+  - /influxdb/cloud-dedicated/process-data/tools/superset/
 related:
   - /influxdb/cloud-dedicated/visualize-data/superset/
+metadata: [SQL only]
 ---
 
-Use [Apache Superset](https://superset.apache.org/) to query data
+Use [Apache Superset](https://superset.apache.org/) to query and visualize data
 stored in an InfluxDB database.
 
 > Apache Superset is a modern, enterprise-ready business intelligence web application.
@@ -38,6 +40,7 @@ stored in an InfluxDB database.
 - [Log in to Superset](#log-in-to-superset)
 - [Create a database connection for InfluxDB](#create-a-database-connection-for-influxdb)
 - [Query InfluxDB with Superset](#query-influxdb-with-superset)
+- [Build visualizations with Superset](#build-visualizations-with-superset)
 
 <!-- /TOC -->
 
@@ -258,5 +261,10 @@ to query and visualize data from InfluxDB.
 
 Query results appear below the query editor.
 
-With a connection to InfluxDB {{< current-version >}} established and a query
-that returns results, you're ready to [visualize data using Superset](/influxdb/cloud-dedicated/visualize-data/superset/).
+## Build visualizations with Superset
+
+Use Superset to create visualizations and dashboards for InfluxDB queries.
+For a comprehensive walk-through of creating visualizations with
+Superset, see the [Creating Charts and Dashboards in Superset documentation](https://superset.apache.org/docs/creating-charts-dashboards/creating-your-first-dashboard).
+
+{{< img-hd src="/img/influxdb/cloud-serverless-superset-dashboard.png" alt="Build InfluxDB dashboards in Apache Superset" />}}

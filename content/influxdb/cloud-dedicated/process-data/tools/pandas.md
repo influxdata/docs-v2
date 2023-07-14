@@ -1,17 +1,17 @@
 ---
-title: Use pandas to analyze and visualize data
+title: Use pandas to analyze data
 list_title: pandas
-seotitle: Use Python and pandas to analyze and visualize data
+seotitle: Use Python and pandas to analyze data
 description: >
   Use the [pandas](https://pandas.pydata.org/) Python data analysis library
-  to analyze and visualize data stored in InfluxDB.
-weight: 101
+  to analyze time series data stored in InfluxDB.
+weight: 201
 menu:
   influxdb_cloud_dedicated:
-    parent: Analyze and visualize data
+    parent: Use data analysis tools
     name: Use pandas
     identifier: analyze-with-pandas
-influxdb/cloud-dedicated/tags: [analysis, pandas, pyarrow, python, visualization]
+influxdb/cloud-dedicated/tags: [analysis, pandas, pyarrow, python]
 aliases:
   - /influxdb/cloud-dedicated/visualize-data/pandas/
 related:

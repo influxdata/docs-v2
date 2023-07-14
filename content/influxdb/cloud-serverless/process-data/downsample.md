@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud_serverless:
     name: Downsample data
-    parent: Process data
+    parent: Process & visualize data
 weight: 101
 related:
   - /influxdb/cloud-serverless/query-data/sql/aggregate-select/, Aggregate or apply selector functions to data (SQL)

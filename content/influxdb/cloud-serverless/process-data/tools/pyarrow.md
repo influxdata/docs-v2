@@ -7,7 +7,7 @@ description: >
 weight: 101
 menu:
   influxdb_cloud_serverless:
-    parent: Analyze and visualize data
+    parent: Use data analysis tools
     name: Use PyArrow
     identifier: analyze-with-pyarrow
 influxdb/cloud-serverless/tags: [analysis, arrow, pyarrow, python]
