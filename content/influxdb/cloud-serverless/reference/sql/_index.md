@@ -9,7 +9,7 @@ menu:
 weight: 101
 ---
 
-InfluxDB Cloud Serverless uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.  
+{{% cloud-name %}} uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.  
 
 - [Identifiers](#identifiers)  
 - [Quoting and case sensitivity](#quoting-and-case-sensitivity)    
@@ -20,7 +20,7 @@ InfluxDB Cloud Serverless uses the [Apache Arrow DataFusion](https://arrow.apach
 - [Conditional expressions](#conditional-expressions)
 - [Statements and clauses](#statements-and-clauses)  
 - [Comments](#comments)  
-- [Functions](#functions)  
+- [Functions](#functions)
 
 ## Identifiers
 
@@ -480,7 +480,7 @@ Use comments to describe and add detail or notes to your queries.
 
 ## Schema information
 
-InfluxDB Cloud Serverless supports the following metedata schema queries:
+{{% cloud-name %}} supports the following metedata schema queries:
 
 ```sql
 SHOW tables
@@ -619,4 +619,3 @@ GROUP BY time
 | :------------- | :---------------------------------------------------------------------------- |
 | REGEXP_MATCH   | Matches a regular expression against a string and returns matched substrings. |
 | REGEXP_REPLACE | Replaces substrings that match a regular expression by a new substring.       |
-

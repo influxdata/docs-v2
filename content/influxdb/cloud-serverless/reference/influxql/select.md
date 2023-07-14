@@ -44,7 +44,7 @@ It requires one or more **field expressions** and optional **tag expressions**.
   Can be a [field key](/influxdb/cloud-serverless/reference/glossary/#field-key),
   constant, [regular expression](/influxdb/cloud-serverless/reference/influxql/regular-expressions/),
   [wildcard (`*`)](#wildcard-expressions-in-select-clauses), or
-  [function](/influxdb/cloud-serverless/reference/influxql/functions/) and any
+  [function expression](/influxdb/cloud-serverless/reference/influxql/functions/) and any
   combination of arithmetic operators.
 - **tag_expression**: Expression to identify one or more tags to return in query results.
   Can be a [tag key](/influxdb/cloud-serverless/reference/glossary/#tag-key) or constant.
@@ -67,9 +67,11 @@ It requires one or more **field expressions** and optional **tag expressions**.
 
 The `FROM` clause specifies the
 [measurement](/influxdb/cloud-serverless/reference/glossary/#measurement) to query.
-It requires one or more comma-delimited **measurement expressions**.
+It requires one or more comma-delimited [measurement_expressions](#measurement_expression).
 
-- **measurement_expression**: Expression to identify one or more measurements to query.
+- #### measurement_expression
+
+  Expression to identify one or more measurements to query.
   Can be a measurement name, fully-qualified measurement, constant, or
   [regular expression](/influxdb/cloud-serverless/reference/influxql/regular-expressions/).
 

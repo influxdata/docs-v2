@@ -21,19 +21,31 @@ Use the `GROUP BY` clause to group data by one or more specified
 or [selector](/influxdb/cloud-serverless/reference/influxql/functions/selectors/)
 function in the `SELECT` statement.
 
+<!-- TOC -->
+
 - [Syntax](#syntax)
+- [GROUP BY clause behaviors](#group-by-clause-behaviors)
+- [Group by tags](#group-by-tags)
   - [GROUP BY tags examples](#group-by-tags-examples)
 - [GROUP BY time](#group-by-time)
   - [GROUP by time and fill gaps](#group-by-time-and-fill-gaps)
   - [GROUP BY time examples](#group-by-time-examples)
+        - [GROUP BY time with offset](#group-by-time-with-offset)
+        - [GROUP BY time and fill gaps](#group-by-time-and-fill-gaps)
+- [Result set](#result-set)
+  - [Default time range](#default-time-range)
 - [Notable behaviors of the GROUP BY clause](#notable-behaviors-of-the-group-by-clause)
   - [Cannot group by fields](#cannot-group-by-fields)
   - [Tag order does not matter](#tag-order-does-not-matter)
   - [Grouping by tag and no time range returns unexpected timestamps](#grouping-by-tag-and-no-time-range-returns-unexpected-timestamps)
   - [Data grouped by time may return unexpected timestamps](#data-grouped-by-time-may-return-unexpected-timestamps)
+    - [Example data](#example-data)
+    - [Query results](#query-results)
   - [Fill with no data in the queried time range](#fill-with-no-data-in-the-queried-time-range)
   - [Fill with previous if no previous value exists](#fill-with-previous-if-no-previous-value-exists)
   - [Fill with linear interpolation if there are not two values to interpolate between](#fill-with-linear-interpolation-if-there-are-not-two-values-to-interpolate-between)
+
+<!-- /TOC -->
 
 ## Syntax
 
@@ -44,13 +56,13 @@ SELECT_clause FROM_clause [WHERE_clause] GROUP BY group_expression[, ..., group_
 - **group_expression**: Expression to identify tags or time intervals to group by.
   Can be a [tag key](/influxdb/cloud-serverless/reference/glossary/#tag-key),
   constant, [regular expression](/influxdb/cloud-serverless/reference/influxql/regular-expressions/),
-  wildcard (`*`), or [function](/influxdb/cloud-serverless/reference/influxql/functions/).
+  wildcard (`*`), or [function expression](/influxdb/cloud-serverless/reference/influxql/functions/).
 
-#### GROUP BY clause behaviors
+## GROUP BY clause behaviors
 
 - `GROUP BY tag_key` - Groups data by a specific tag
 - `GROUP BY tag_key1, tag_key2` - Groups data by more than one tag
-- `GROUP BY *` - Groups data by all [tags](/influxdb/v2.7/reference/glossary/#tag)
+- `GROUP BY *` - Groups data by all [tags](/influxdb/cloud-serverless/reference/glossary/#tag)
 - `GROUP BY /regex/` - Groups data by tag keys that match the regular expression
 - `GROUP BY time()` - Groups data into time intervals (windows)
 
@@ -58,6 +70,10 @@ SELECT_clause FROM_clause [WHERE_clause] GROUP BY group_expression[, ..., group_
 If a query includes `WHERE` and `GROUP BY`, the `GROUP BY` clause must appear after
 the `WHERE` clause.
 {{% /note %}}
+
+## GROUP BY tags
+
+Groups data by one or more tag columns.
 
 ### GROUP BY tags examples
 
@@ -482,23 +498,24 @@ name: bitcoin
 
 {{< /expand-wrapper >}}
 
-## Notable behaviors of the GROUP BY clause
+## Result set
 
-### Cannot group by fields
+If at least one row satisfies the query, {{% cloud-name %}} returns row data in the query result set.
+If a query uses a `GROUP BY` clause, the result set includes the following:
 
-InfluxQL does not support grouping data by **fields**.
+- Columns listed in the query's `SELECT` clause
+- A `time` column that contains the timestamp for the record or the group
+- An `iox::measurement` column that contains the record's measurement (table) name
+- Columns listed in the query's `GROUP BY` clause; each row in the result set contains the values used for grouping
 
-### Tag order does not matter
+### Default time range
 
-The order that tags are listed in the `GROUP BY` clause does not affect how
-data is grouped.
-
-### Grouping by tag and no time range returns unexpected timestamps
-
-When grouping by tags and no time range is specified in the
-[`WHERE` clause](/influxdb/cloud-serverless/reference/influxql/where/), results
-use the [Unix epoch](/influxdb/cloud-serverless/reference/glossary/#unix-epoch) as the default timestamp for the aggregate timestamp.
-For example:
+If a query doesn't specify a time range in the
+[`WHERE` clause](/influxdb/cloud-serverless/reference/influxql/where/), InfluxDB uses the
+[default time range](/influxdb/cloud-serverless/reference/influxql/#default-time-range) for filtering and grouping by time.
+If a query includes the `GROUP BY` clause and doesn't specify a time range in the
+`WHERE` clause, the default time group is the
+[default time range](/influxdb/cloud-serverless/reference/influxql/#default-time-range), and the `time` column in the result set contains the start of the range--for example:
 
 ```sql
 SELECT mean(temp) FROM home GROUP BY room
@@ -521,6 +538,21 @@ tags: room=Living Room
 | time                 |              mean |
 | :------------------- | ----------------: |
 | 1970-01-01T00:00:00Z | 22.16923076923077 |
+
+## Notable behaviors of the GROUP BY clause
+
+### Cannot group by fields
+
+InfluxQL does not support grouping data by **fields**.
+
+### Tag order does not matter
+
+The order that tags are listed in the `GROUP BY` clause does not affect how
+data is grouped.
+
+### Grouping by tag and no time range returns unexpected timestamps
+
+The `time` column contains the start of the [default time range](#default-time-range).
 
 ### Data grouped by time may return unexpected timestamps
 

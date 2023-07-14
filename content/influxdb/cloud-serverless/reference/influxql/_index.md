@@ -35,6 +35,7 @@ see [InfluxQL feature support](/influxdb/cloud-serverless/reference/influxql/fea
 - [Expressions](#expressions)
 - [Comments](#comments)
 - [Other](#other)
+- [Result set](#result-set)
 
 <!-- To learn more about InfluxQL, browse the following topics:
 
@@ -157,7 +158,9 @@ In those cases, you don't need to double-quote `time`  in queries.
 `time` can't be a [field key](/influxdb/cloud-serverless/reference/glossary/#field-key) or
 [tag key](/influxdb/cloud-serverless/reference/glossary/#tag-key);
 InfluxDB rejects writes with `time` as a field key or tag key and returns an error.
+<!--
 See [Frequently Asked Questions](/influxdb/v2.7/reference/faq/) for more information.
+-->
 
 ### Literals
 
@@ -716,6 +719,10 @@ expr             = unary_expr { binary_op unary_expr } .
 unary_expr       = "(" expr ")" | var_ref | time_lit | string_lit | int_lit |
                    float_lit | bool_lit | duration_lit | regex_lit .
 ```
+
+## Default time range
+
+The default time range is the Unix epoch (`1970-01-01T00:00:00Z`) to _now_.
 
 ## Comments
 
