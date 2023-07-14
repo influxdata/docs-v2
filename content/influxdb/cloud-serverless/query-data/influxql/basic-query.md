@@ -210,6 +210,6 @@ SELECT temp AS temperature, hum AS "humidity (%)" FROM home
 ```
 
 {{% note %}}
-When aliasing columns in **InfluxQL**, use the `AS` clause and double-quoted alias names.
+When aliasing columns in **InfluxQL**, use the `AS` clause and an [identifier](/influxdb/cloud-serverless/reference/influxql/#identifiers).
 When [aliasing columns in **SQL**](/influxdb/cloud-serverless/query-data/sql/basic-query/#alias-queried-fields-and-tags), you can use the `AS` clause to define the alias, but it isn't necessary.
 {{% /note %}}
