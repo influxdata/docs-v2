@@ -2,7 +2,8 @@
 title: Use Grafana to query and visualize data
 list_title: Use Grafana
 description: >
-  Install and run [Grafana](https://grafana.com/) to query and visualize data stored in InfluxDB.
+  Install and run [Grafana](https://grafana.com/) to query and visualize data
+  stored in InfluxDB.
 weight: 201
 menu:
   influxdb_cloud_dedicated:
@@ -16,7 +17,7 @@ aliases:
   - /influxdb/cloud-dedicated/process-data/tools/grafana/
 ---
 
-Use [Grafana](https://grafana.com/) to query data stored in
+Use [Grafana](https://grafana.com/) to query and visualize data stored in
 {{% cloud-name %}}.
 {{% cloud-name %}} supports both **SQL** and **InfluxQL** query languages.
 Install the [Grafana FlightSQL plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/)
@@ -28,7 +29,7 @@ Use the **InfluxDB** core Grafana plugin to query data with **InfluxQL**.
 > [Grafana] provides you with tools to turn your time-series database (TSDB)
 > data into insightful graphs and visualizations.
 >
-> {{% caption %}}[Grafana documentation](https://grafana.com/docs/grafana/latest/introduction/){{% /caption %}}
+> {{% cite %}}[Grafana documentation](https://grafana.com/docs/grafana/latest/introduction/){{% /cite %}}
 
 <!-- TOC -->
 
@@ -53,6 +54,14 @@ If using **Grafana Cloud**, login to your Grafana Cloud instance.
 
 If you want to query {{% cloud-name %}} with **SQL**, install the
 [Grafana FlightSQL plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/).
+
+{{% note %}}
+#### Only required if using SQL
+
+Installing the Grafana FlightSQL plugin is only required if using **SQL** to query
+data from InfluxDB. If using **InfluxQL**, enable the
+[Grafana InfluxDB core plugin](/influxdb/cloud-dedicated/process-data/visualize/grafana/?t=InfluxQL#create-a-datasource).
+{{% /note %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
