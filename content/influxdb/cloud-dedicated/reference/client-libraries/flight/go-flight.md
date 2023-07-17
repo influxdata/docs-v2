@@ -8,7 +8,7 @@ menu:
     params:
       url: https://pkg.go.dev/github.com/apache/arrow/go/v12/arrow/flight#Client
     identifier: go-flight-client
-influxdb/cloud-dedicated/tags: [Golang, gRPC, SQL, Flight SQL, client libraries]
+influxdb/cloud-dedicated/tags: [Go, gRPC, SQL, Flight SQL, client libraries]
 aliases:
   - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/go-flightsql/
 weight: 201
