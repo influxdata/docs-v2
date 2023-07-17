@@ -30,7 +30,7 @@ list_code_example: |
     GROUP BY
       _time,
       room
-    ORDER BY room, time"""
+    ORDER BY room, _time"""
     
   flight_ticket = Ticket(json.dumps({
     "namespace_name": "DATABASE_NAME",
