@@ -1,7 +1,7 @@
 ---
 title: InfluxDB v3 API client libraries
 description: >
-  InfluxDB v3 client libraries use InfluxDB HTTP APIs to write data and use [Flight SQL clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql) to query data stored in an InfluxDB Cloud Dedicated database.
+  InfluxDB v3 client libraries use InfluxDB HTTP APIs to write data and use [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql) to execute SQL and InfluxQL queries.
   View the list of available client libraries.
 weight: 30
 menu:
@@ -20,7 +20,7 @@ InfluxDB client libraries provide configurable batch writing of data to InfluxDB
 They can be used to construct line protocol data and transform data from other formats
 to line protocol.
 
-InfluxDB v3 client libraries can query InfluxDB v3 using the Arrow Flight protocol with gRPC.
+InfluxDB v3 client libraries can query InfluxDB v3 using InfluxDB v3's IOx-specific Arrow Flight protocol with gRPC.
 Client libraries use Flight clients to execute SQL and InfluxQL queries, request
 database information, and retrieve data stored in {{% cloud-name %}}.
 
