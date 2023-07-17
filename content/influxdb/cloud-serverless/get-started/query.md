@@ -51,13 +51,11 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 - [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
-- [InfluxDB HTTP API](?t=InfluxDB+API#execute-an-sql-query){{< req "\*  " >}}
-- [`influx` CLI](?t=influx+CLI#execute-an-sql-query){{< req "\*  " >}}
 
 ## SQL query basics
 
 The {{% cloud-name %}} SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
-query engine which provides a SQL syntax similar to PostgreSQL.
+query engine which provides an SQL syntax similar to PostgreSQL.
 
 {{% note %}}
 This is a brief introduction to writing SQL queries for InfluxDB.
@@ -164,7 +162,7 @@ Get started with one of the following tools for querying data stored in an {{% c
 - **InfluxDB UI**: View your schema, build queries using the query editor, and generate data visualizations.
 - **InfluxDB v3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
 - **influx3 CLI**: Send queries from your terminal command-line.
-- **Grafana**: Query InfluxDB v3 with the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/) and connect and visualize data.
+- **Grafana**: Use the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/), to query, connect, and visualize data.
 
 For this example, use the following query to select all the data written to the
 **get-started** bucket between
@@ -196,8 +194,6 @@ All API, cURL, and client library examples in this getting started tutorial assu
 [influx3 CLI](#influx3-cli)
 [Python](#)
 [Go](#)
-[influx CLI](#influx-cli)
-[InfluxDB API](#influxdb-http-api)
 {{% /tabs %}}
 
 {{% tab-content %}}
@@ -287,9 +283,6 @@ _If your project's virtual environment is already running, skip to step 3._
 
 `influx3` displays query results in your terminal.
 
-For more information about the `influx3` CLI, see the [`InfluxCommunity/
-influxdb3-python-cli
-`](https://github.com/InfluxCommunity/influxdb3-python-cli) community repository on GitHub.
  {{% /influxdb/custom-timestamps %}}
 <!--------------------------- END influx3 CONTENT --------------------------->
 {{% /tab-content %}}
@@ -332,7 +325,7 @@ _If your project's virtual environment is already running, skip to step 3._
         pip install influxdb3-python pandas tabulate
         ```
 
-    4. In your terminal or editor, create a new file for your code--for example: `query.py`.
+    4.  In your terminal or editor, create a new file for your code--for example: `query.py`.
 
 2.  In `query.py`, enter the following sample code:
 
@@ -350,13 +343,13 @@ _If your project's virtual environment is already running, skip to step 3._
     )
 
     sql = '''
-    SELECT
-      *
-    FROM
-      home
-    WHERE
-      time >= '2022-01-01T08:00:00Z'
-      AND time <= '2022-01-01T20:00:00Z'
+      SELECT
+        *
+      FROM
+        home
+      WHERE
+        time >= '2022-01-01T08:00:00Z'
+        AND time <= '2022-01-01T20:00:00Z'
     '''
 
     table = client.query(query=sql)
