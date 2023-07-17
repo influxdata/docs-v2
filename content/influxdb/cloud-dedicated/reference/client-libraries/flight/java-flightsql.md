@@ -1,6 +1,6 @@
 ---
 title: Java Flight SQL package
-description: The Java Flight SQL clients integrates with Java applications to query and retrieve data from Flight database servers using RPC and SQL.
+description: The Java Flight SQL client integrates with Java applications to query and retrieve data from Flight database servers using RPC and SQL.
 external_url: https://arrow.apache.org/docs/java/reference/org/apache/arrow/flight/sql/package-summary.html
 menu:
   influxdb_cloud_dedicated:
