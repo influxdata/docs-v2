@@ -8,7 +8,7 @@ menu:
     parent: Process & visualize data
 weight: 103
 related:
-  - influxdb/cloud-dedicated/query-data/
+  - influxdb/cloud-serverless/query-data/
 ---
 
 Use visualization tools like Grafana, Superset, and others to visualize time

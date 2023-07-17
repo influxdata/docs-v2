@@ -22,7 +22,7 @@ list_code_example: |
     client = InfluxDBClient3(
         host='cloud2.influxdata.com',
         org='ORG_NAME',
-        token='DATABASE_TOKEN',
+        token='API_TOKEN',
         database='DATABASE_NAME'
     )
 
@@ -38,7 +38,7 @@ list_code_example: |
 ---
 
 Use the `influxdb3-python` client library to query data stored in InfluxDB with InfluxQL.
-The `influxdb3-client` uses Flight SQL to query data from InfluxDB and return
+The `influxdb3-client` uses InfluxDB v3's Flight RPC protocol to query data from InfluxDB and return
 results in Apache Arrow format.
 
 - [Get started using Python to query InfluxDB](#get-started-using-python-to-query-influxdb)
@@ -228,7 +228,7 @@ and to instantiate a client configured for an InfluxDB database.
 In your editor, copy and paste the following sample code to a new file--for
 example, `query-example.py`:
 
-{{% code-placeholders "(DATABASE|ORG)_(NAME|TOKEN)" %}}
+{{% code-placeholders "(DATABASE|ORG|API)_(NAME|TOKEN)" %}}
 ```py
 # query-example.py
 
@@ -238,7 +238,7 @@ from influxdb_client_3 import InfluxDBClient3
 client = InfluxDBClient3(
     host='cloud2.influxdata.com',
     org='ORG_NAME',
-    token='DATABASE_TOKEN',
+    token='API_TOKEN',
     database='DATABASE_NAME'
 )
 ```
@@ -246,8 +246,8 @@ client = InfluxDBClient3(
 
 Replace the following configuration values:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  Your InfluxDB token with read permissions on the databases you want to query.
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
+  Your InfluxDB [token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the databases you want to query.
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
   The name of your InfluxDB database.
 
@@ -267,7 +267,7 @@ query(query: str, language: str)
 
 #### Example {#execute-query-example}
 
-{{% code-placeholders "(DATABASE|ORG)_(NAME|TOKEN)" %}}
+{{% code-placeholders "(DATABASE|ORG|API)_(NAME|TOKEN)" %}}
 ```py
 # query-example.py
 
@@ -276,7 +276,7 @@ from influxdb_client_3 import InfluxDBClient3
 client = InfluxDBClient3(
     host='cloud2.influxdata.com',
     org='ORG_NAME',
-    token='DATABASE_TOKEN',
+    token='API_TOKEN',
     database='DATABASE_NAME'
 )
 
