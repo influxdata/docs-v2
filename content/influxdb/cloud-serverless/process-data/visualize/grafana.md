@@ -58,7 +58,7 @@ If you want to query {{% cloud-name %}} with **SQL**, install the
 
 Installing the Grafana FlightSQL plugin is only required if using **SQL** to query
 data from InfluxDB. If using **InfluxQL**, enable the
-[Grafana InfluxDB core plugin](/influxdb/cloud-dedicated/process-data/visualize/grafana/?t=InfluxQL#create-a-datasource).
+[Grafana InfluxDB core plugin](/influxdb/cloud-serverless/process-data/visualize/grafana/?t=InfluxQL#create-a-datasource).
 {{% /note %}}
 
 {{< tabs-wrapper >}}
