@@ -115,7 +115,7 @@ sql="""
   GROUP BY
     1,
     room
-  ORDER BY room, time"""
+  ORDER BY room, 1"""
   
 flight_ticket = Ticket(json.dumps({
   "namespace_name": "DATABASE_NAME",
