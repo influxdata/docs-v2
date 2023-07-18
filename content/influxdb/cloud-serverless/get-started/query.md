@@ -50,7 +50,7 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 - [Flight clients](?t=Go#execute-an-sql-query){{< req "\*  " >}}
 - [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
-- [Chronograf](/{{< latest "Chronograf" >}}/)
+- [Chronograf](/{{< latest "chronograf" >}}/)
 
 ## SQL query basics
 
