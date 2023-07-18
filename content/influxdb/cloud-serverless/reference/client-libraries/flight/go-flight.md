@@ -1,6 +1,6 @@
 ---
 title: Go Flight client
-description: The Go Flight client integrates with golang scripts and applications to query data stored in InfluxDB.
+description: The Go Flight client integrates with Go scripts and applications to query data stored in InfluxDB.
 menu:
   influxdb_cloud_serverless:
     name: Go

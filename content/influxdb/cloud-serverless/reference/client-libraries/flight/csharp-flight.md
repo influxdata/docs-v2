@@ -1,6 +1,6 @@
 ---
 title: C# .NET Flight client
-description: The C# .NET Flight client integrates with golang scripts and applications to query data stored in InfluxDB.
+description: The C# .NET Flight client integrates with C# .NET scripts and applications to query data stored in InfluxDB.
 external_url: https://github.com/apache/arrow/tree/main/csharp/examples/FlightClientExample
 menu:
   influxdb_cloud_serverless:
