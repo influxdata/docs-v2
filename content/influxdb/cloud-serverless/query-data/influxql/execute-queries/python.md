@@ -39,7 +39,7 @@ list_code_example: |
 
 Use the `influxdb3-python` client library to query data stored in InfluxDB with InfluxQL.
 The `influxdb3-client` uses InfluxDB v3's Flight RPC protocol to query data from InfluxDB and return
-results in Apache Arrow format.
+results in Apache Arrow Table format.
 
 - [Get started using Python to query InfluxDB](#get-started-using-python-to-query-influxdb)
 - [Create a Python virtual environment](#create-a-python-virtual-environment)
