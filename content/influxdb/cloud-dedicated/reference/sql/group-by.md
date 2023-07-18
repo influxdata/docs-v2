@@ -61,18 +61,18 @@ Group results in 15 minute time intervals by tag:
 ```sql
 SELECT
   "location",
-  DATE_BIN(INTERVAL '15 minutes', time, TIMESTAMP '2022-01-01 00:00:00Z') AS time,
+  DATE_BIN(INTERVAL '15 minutes', time, TIMESTAMP '2022-01-01 00:00:00Z') AS _time,
   COUNT("water_level") AS count
 FROM "h2o_feet"
 WHERE 
   time >= timestamp '2019-09-17T00:00:00Z'
   AND time <= timestamp '2019-09-17T01:00:00Z'
 GROUP BY
-  DATE_BIN(INTERVAL '15 minutes', time, TIMESTAMP '2022-01-01 00:00:00Z'),
+  _time,
   location
 ORDER BY
   location,
-  time
+  _time
 ```
 
 {{< expand-wrapper >}}}
@@ -81,18 +81,18 @@ ORDER BY
 The query uses the `COUNT()` function to count the number of `water_level` points per 15 minute interval.
 Results are then ordered by location and time.
 
-| location     | time                 | count |
-| :----------- | :------------------- | ----: |
-| coyote_creek | 2019-09-16T23:45:00Z |     1 |
-| coyote_creek | 2019-09-17T00:00:00Z |     2 |
-| coyote_creek | 2019-09-17T00:15:00Z |     3 |
-| coyote_creek | 2019-09-17T00:30:00Z |     2 |
-| coyote_creek | 2019-09-17T00:45:00Z |     3 |
-| santa_monica | 2019-09-16T23:45:00Z |     1 |
-| santa_monica | 2019-09-17T00:00:00Z |     2 |
-| santa_monica | 2019-09-17T00:15:00Z |     3 |
-| santa_monica | 2019-09-17T00:30:00Z |     2 |
-| santa_monica | 2019-09-17T00:45:00Z |     3 |
+| location     | _time                 | count |
+| :----------- | :-------------------- | ----: |
+| coyote_creek | 2019-09-16T23:45:00Z  |     1 |
+| coyote_creek | 2019-09-17T00:00:00Z  |     2 |
+| coyote_creek | 2019-09-17T00:15:00Z  |     3 |
+| coyote_creek | 2019-09-17T00:30:00Z  |     2 |
+| coyote_creek | 2019-09-17T00:45:00Z  |     3 |
+| santa_monica | 2019-09-16T23:45:00Z  |     1 |
+| santa_monica | 2019-09-17T00:00:00Z  |     2 |
+| santa_monica | 2019-09-17T00:15:00Z  |     3 |
+| santa_monica | 2019-09-17T00:30:00Z  |     2 |
+| santa_monica | 2019-09-17T00:45:00Z  |     3 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

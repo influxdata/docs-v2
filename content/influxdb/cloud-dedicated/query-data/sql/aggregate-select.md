@@ -33,9 +33,7 @@ list_code_example: |
     sum(field2),
     tag1
   FROM home
-  GROUP BY
-    DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP),
-    tag1
+  GROUP BY 1, tag1
   ```
 ---
 
@@ -207,8 +205,9 @@ groups:
     nearest to `home.time`:
     
     ```sql
-    SELECT DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time
-    from home
+    SELECT
+      DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time
+    FROM home
     ...
     ```
     
@@ -216,18 +215,30 @@ groups:
     {{% influxdb/custom-timestamps-span %}}`2023-03-09T13:00:50.000Z`{{% /influxdb/custom-timestamps-span %}},
     the output `time` column contains
     {{% influxdb/custom-timestamps-span %}}`2023-03-09T12:00:00.000Z`{{% /influxdb/custom-timestamps-span %}}.
+
   - Use [aggregate](/influxdb/cloud-dedicated/reference/sql/functions/aggregate/) or [selector](/influxdb/cloud-dedicated/reference/sql/functions/selector/) functions on specified columns.
 
 - In your `GROUP BY` clause:
  
-  - Use the [`DATE_BIN` function](/influxdb/cloud-dedicated/reference/sql/functions/time-and-date/#date_bin) with the same parameters used in the `SELECT` clause.
+  - Specify the `DATE_BIN(...)` column ordinal reference (`1`).
   - Specify other columns (for example, `room`) that are specified in the `SELECT` clause and aren't used in a selector function.
 
   ```sql
-  SELECT DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time
+  SELECT
+    DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS time
   ...
-  GROUP BY DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP), room
+  GROUP BY 1, room
   ...
+  ```
+
+  To reference the `DATE_BIN(...)` result column by _name_ in the `GROUP BY` clause, assign an alias other than "time" in the `SELECT` clause--for example:
+
+  ```sql
+  SELECT
+    DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP) AS _time
+  FROM home
+  ...
+  GROUP BY _time, room
   ```
 
 - Include an `ORDER BY` clause with columns to sort by.
@@ -242,8 +253,8 @@ SELECT
   selector_min(temp, time)['value'] AS 'min temp',
   avg(temp) AS 'average temp'
 FROM home
-GROUP BY DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP), room
-ORDER BY room, time
+GROUP BY 1, room
+ORDER BY room, 1
 ```
 
 {{< expand-wrapper >}}
@@ -269,6 +280,25 @@ ORDER BY room, time
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+{{% note %}}
+#### GROUP BY time
+
+In the `GROUP BY` clause, the name "time" always refers to the `time` column in the source table.
+If you want to reference a calculated time column by name, use an alias different from "time"--for example:
+
+```sql
+SELECT
+  DATE_BIN(INTERVAL '2 hours', time, '1970-01-01T00:00:00Z'::TIMESTAMP)
+  AS _time,
+  room,
+  selector_max(temp, time)['value'] AS 'max temp',
+  selector_min(temp, time)['value'] AS 'min temp',
+  avg(temp) AS 'average temp'
+FROM home
+GROUP BY _time, room
+ORDER BY room, _time
+```
+{{% /note %}}
 
 ### Query rows based on aggregate values
 

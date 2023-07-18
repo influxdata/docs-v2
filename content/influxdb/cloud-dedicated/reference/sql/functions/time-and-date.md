@@ -161,7 +161,7 @@ FROM "h2o_feet"
 WHERE
   time >= timestamp '2019-09-10T00:00:00Z'
   AND time <= timestamp '2019-09-20T00:00:00Z'
-GROUP BY date_bin(INTERVAL '1 day', time, TIMESTAMP '1970-01-01 00:00:00Z')
+GROUP BY 1
 ORDER BY time DESC
 ```
 

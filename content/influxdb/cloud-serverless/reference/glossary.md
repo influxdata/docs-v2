@@ -421,8 +421,8 @@ Related entries:
 <!--
 ### influxctl
 
-[`influxctl`](/influxdb/cloud-dedicated/reference/cli/influxctl/) is a CLI that
-performs [administrative tasks](/influxdb/cloud-dedicated/admin/) for an
+[`influxctl`](/influxdb/cloud-serverless/reference/cli/influxctl/) is a CLI that
+performs [administrative tasks](/influxdb/cloud-serverless/admin/) for an
 InfluxDB Cloud dedicated cluster.
 -->
 

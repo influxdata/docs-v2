@@ -149,9 +149,11 @@ SELECT
   AVG(hum) AS hum,
   AVG(co) AS co
 FROM home
+--In WHERE, time refers to <source_table>.time
 WHERE time >= now() - INTERVAL '24 hours'
+--1 refers to the DATE_BIN column
 GROUP BY 1, room
-ORDER BY room, time
+ORDER BY time
 ```
 {{% /tab-content %}}
 <!---------------------------------- END SQL ---------------------------------->
@@ -210,9 +212,11 @@ SELECT
   AVG(hum) AS hum,
   AVG(co) AS co
 FROM home
+--In WHERE, time refers to <source_table>.time
 WHERE time >= now() - INTERVAL '24 hours'
+--1 refers to the DATE_BIN column
 GROUP BY 1, room
-ORDER BY time
+ORDER BY 1
 '''
 
 table = influxdb_raw.query(query=query, language="sql")
@@ -316,9 +320,11 @@ SELECT
   AVG(hum) AS hum,
   AVG(co) AS co
 FROM home
+--In WHERE, time refers to <source_table>.time
 WHERE time >= now() - INTERVAL '24 hours'
+--1 refers to the DATE_BIN column
 GROUP BY 1, room
-ORDER BY time
+ORDER BY 1
 '''
 
 table = influxdb_raw.query(query=query, language="sql")
