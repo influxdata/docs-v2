@@ -15,6 +15,7 @@ aliases:
   - /influxdb/cloud-serverless/query-data/tools/grafana/
   - /influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/
   - /influxdb/cloud-serverless/process-data/tools/grafana/
+  - /influxdb/cloud-serverless/visualize-data/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) to query and visualize data stored in
