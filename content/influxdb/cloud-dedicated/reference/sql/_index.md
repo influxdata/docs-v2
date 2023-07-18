@@ -562,11 +562,13 @@ WHERE time >= timestamp '2019-09-10T00:00:00Z' AND time <= timestamp '2019-09-19
 #### Examples
 
 ```sql
-SELECT DATE_BIN(INTERVAL '1 hour', time, '2019-09-18T00:00:00Z'::timestamp),
+SELECT DATE_BIN(INTERVAL '1 hour', time, '2019-09-18T00:00:00Z'::timestamp) AS "_time",
 SUM(water_level)
 FROM "h2o_feet"
-GROUP BY DATE_BIN(INTERVAL '1 hour', time, '2019-09-18T00:00:00Z'::timestamp)
+GROUP BY "_time"
+```
 
+```sql
 SELECT DATE_TRUNC('month',time) AS "date",
 SUM(water_level)
 FROM "h2o_feet"
