@@ -112,11 +112,6 @@ Next, you need to start the Telegraf service and direct it to your configuration
 telegraf --config telegraf.conf
 ```
 
-### Linux (sysvinit and upstart installations)
-```bash
-sudo service telegraf start
-```
-
 ### Linux (systemd installations)
 ```bash
 systemctl start telegraf
