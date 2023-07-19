@@ -39,7 +39,7 @@ influx write dryrun [flags]
 |      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)           | string      | `INFLUX_CONFIGS_PATH` |
 |      | `--debug`           | Output errors to stderr                                                         |             |                       |
 |      | `--encoding`        | Character encoding of input (default `UTF-8`)                                   | string      |                       |
-|      | `--error-file`      | Path to a file used for recording rejected row errors                           | string      |                       |
+|      | `--errors-file`      | Path to a file used for recording rejected row errors                           | string      |                       |
 | `-f` | `--file`            | File to import                                                                  | stringArray |                       |
 |      | `--format`          | Input format (`lp` or `csv`, default `lp`)                                      | string      |                       |
 |      | `--header`          | Prepend header line to CSV input data                                           | string      |                       |
