@@ -18,6 +18,8 @@ function context() {
     return "cloud"
   } else if (/\/influxdb\/cloud-dedicated/.test(window.location.pathname)) {
     return "dedicated"
+  } else if (/\/influxdb\/cloud-serverless/.test(window.location.pathname)) {
+    return "serverless"
   } else if (/\/(enterprise_|influxdb).*\/v[1-2]\.[0-9]{1,2}\//.test(window.location.pathname)) {
     return "oss/enterprise"
   } else {
@@ -250,7 +252,7 @@ function appendUrlSelector() {
 
   var appendToUrls = [ placeholderUrls.cloud, placeholderUrls.oss, placeholderUrls.dedicated ]
 
-  if (context() === "cloud") {
+  if (context() === "cloud" || "serverless") {
     var selectorText = "InfluxDB Cloud Region"
   } else if (context() === "dedicated") {
     var selectorText = "Set dedicated cluster URL"
