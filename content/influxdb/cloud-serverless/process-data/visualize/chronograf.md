@@ -108,7 +108,7 @@ For example, you **cannot** do the following:
 - Add users
 - Kill queries
 
-When connected to an {{% cloud-name %}}, functionality in the
+When connected to an {{% cloud-name %}} bucket, functionality in the
 **{{< icon "crown" >}} InfluxDB Admin** section of Chronograf is disabled.
 
 To complete administrative tasks, use the following:

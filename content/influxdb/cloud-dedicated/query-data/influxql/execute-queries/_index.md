@@ -11,8 +11,7 @@ menu:
 influxdb/cloud-dedicated/tags: [query, influxql]
 ---
 
-There are multiple ways to execute InfluxQL queries with {{< cloud-name >}}.
-Choose from the following options:
+Choose from the following options for executing InfluxQL queries with {{< cloud-name >}}:
 
 {{< children type="anchored-list" >}}
 

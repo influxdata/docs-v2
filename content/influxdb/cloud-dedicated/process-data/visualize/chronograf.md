@@ -50,7 +50,7 @@ If you haven't already, [download and install Chronograf](/{{< latest "chronogra
 
 In {{% cloud-name %}}, databases and retention-policies (DBRPs) are no longer 
 separate entities in the data model. Rather than having one or more retention policies,
-An {{% cloud-name %}} database has a retention period, which defines the maximum
+an {{% cloud-name %}} database has a retention period, which defines the maximum
 age of data to retain in the database.
 InfluxQL queries still assume the 1.x DBRP convention, but with {{% cloud-name %}},
 InfluxQL queries are mapped to databases using the `database-name/retention-policy`
@@ -115,7 +115,7 @@ For example, you **cannot** do the following:
 - Add users
 - Kill queries
 
-When connected to an {{% cloud-name %}}, functionality in the
+When connected to an {{% cloud-name %}} database, functionality in the
 **{{< icon "crown" >}} InfluxDB Admin** section of Chronograf is disabled.
 
 To complete [administrative tasks](/influxdb/cloud-dedicated/admin/), use the
