@@ -74,7 +74,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 |      | `--compression`     | Input compression (`none` or `gzip`, default is `none` unless input file ends with `.gz`.) | string      |                       |
 |      | `--debug`           | Output errors to stderr                                                                    |             |                       |
 |      | `--encoding`        | Character encoding of input (default `UTF-8`)                                              | string      |                       |
-|      | `--error-file`      | Path to a file used for recording rejected row errors                                      | string      |                       |
+|      | `--errors-file`      | Path to a file used for recording rejected row errors                                      | string      |                       |
 | `-f` | `--file`            | File to import                                                                             | stringArray |                       |
 |      | `--format`          | Input format (`lp` or `csv`, default `lp`)                                                 | string      |                       |
 |      | `--header`          | Prepend header line to CSV input data                                                      | string      |                       |
