@@ -14,6 +14,7 @@ aliases:
   - /influxdb/cloud-serverless/query-data/tools/superset/
   - /influxdb/cloud-serverless/query-data/sql/execute-queries/superset/
   - /influxdb/cloud-serverless/process-data/tools/superset/
+metadata: [SQL only]
 ---
 
 Use [Apache Superset](https://superset.apache.org/) to query and visualize data

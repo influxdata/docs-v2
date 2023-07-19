@@ -14,4 +14,6 @@ influxdb/cloud-dedicated/tags: [query, influxql]
 There are multiple ways to execute InfluxQL queries with {{< cloud-name >}}.
 Choose from the following options:
 
+{{< children type="anchored-list" >}}
+
 {{< children readmore=true hr=true >}}

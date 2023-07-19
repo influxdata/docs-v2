@@ -11,6 +11,7 @@ menu:
 influxdb/cloud-serverless/tags: [query, flightsql, tableau, sql]
 aliases:
   - /influxdb/cloud-serverless/query-data/sql/execute-queries/tableau/
+metadata: [SQL only]
 ---
 
 Use [Tableau](https://www.tableau.com/) to query and visualize time series data

@@ -14,6 +14,8 @@ influxdb/cloud-serverless/tags: [query, influxql]
 There are multiple ways to execute InfluxQL queries with {{< cloud-name >}}.
 Choose from the following options:
 
+{{< children type="anchored-list" >}}
+
 {{% note %}}
 #### Map databases and retention policies to buckets
 

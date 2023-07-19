@@ -10,13 +10,19 @@ menu:
     name: Use visualization tools
     identifier: query-with-visualization-tools-influxql
 influxdb/cloud-dedicated/tags: [query, influxql]
-related:
-    - /influxdb/cloud-dedicated/process-data/visualize/grafana/
 ---
 
 Use visualization tools to query data stored in {{% cloud-name %}} with InfluxQL.
 The following visualization tools support querying InfluxDB with InfluxQL:
 
-- [Grafana](/influxdb/cloud-dedicated/process-data/visualize/grafana/)
-- [Superset](/influxdb/cloud-dedicated/process-data/visualize/superset/)
-- [Tableau](/influxdb/cloud-dedicated/process-data/visualize/tableau/)
+- [Grafana](/influxdb/cloud-dedicated/process-data/visualize/grafana/?t=InfluxQL)
+- [Chronograf](/influxdb/cloud-dedicated/process-data/visualize/chronograf/)
+
+{{% warn %}}
+#### InfluxQL feature support
+
+InfluxQL is being rearchitected to work with the InfluxDB IOx storage engine.
+This process is ongoing and some InfluxQL features are still being implemented.
+For information about the current implementation status of InfluxQL features,
+see [InfluxQL feature support](/influxdb/cloud-dedicated/reference/influxql/feature-support/).
+{{% /warn %}}
