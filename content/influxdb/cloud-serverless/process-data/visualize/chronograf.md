@@ -75,13 +75,17 @@ For information, see [Create DBRP mappings](/influxdb/cloud-serverless/query-dat
 #### Schema information is not available
 
 {{% cloud-name %}} currently offers limited support of InfluxQL metaqueries, so
-schema information may not be available in the Data Explorer which limits
-the Data Explorer's query building functionality.
-This requires you to build your queries manually using
+schema information may not be available in the Data Explorer.
+This limits the Data Explorer's query building functionality and requires you to
+build queries manually using
 [fully-qualified measurements](/influxdb/cloud-serverless/reference/influxql/select/#fully-qualified-measurement)
 in the `FROM` clause. For example:
 
 ```sql
+-- Fully-qualified measurement
+SELECT * FROM "db-name"."rp-name"."measurement-name"
+
+-- Fully-qualified measurement shorthand (use the default retention policy)
 SELECT * FROM "db-name".."measurement-name"
 ```
 
