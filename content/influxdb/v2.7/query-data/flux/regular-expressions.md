@@ -76,7 +76,7 @@ The following example drops columns whose names do not begin with `_`.
 from(bucket: "example-bucket")
     |> range(start: -15m)
     |> filter(fn: (r) => r._measurement == "mem")
-    |> drop(fn: (column) => column !~ /_.*/)
+    |> drop(fn: (column) => column !~ /^_.*/)
 ```
 
 ## Helpful links
