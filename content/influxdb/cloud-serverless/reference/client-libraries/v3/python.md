@@ -12,6 +12,27 @@ weight: 201
 influxdb/cloud-serverless/tags: [python, gRPC, SQL, Flight SQL, client libraries]
 aliases:
   - /influxdb/cloud-serverless/reference/client-libraries/v3/pyinflux3/
+list_code_example: >
+  ```py
+  from influxdb_client_3 import InfluxDBClient3
+
+  # Instantiate an InfluxDB client configured for a bucket
+
+  client = InfluxDBClient3(
+    "https://cloud2.influxdata.com",
+    database="BUCKET_NAME",
+    token="API_TOKEN")
+
+  # Execute the query and retrieve data formatted as a PyArrow Table
+
+  table = client.query(
+    '''SELECT *
+      FROM home
+      WHERE time >= now() - INTERVAL '90 days'
+      ORDER BY time'''
+  )
+
+  ```
 ---
 
 The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)

@@ -11,13 +11,20 @@ menu:
     identifier: analyze_with_pyarrow
 influxdb/cloud-dedicated/tags: [analysis, arrow, pyarrow, python]
 related:
+  - /influxdb/cloud-dedicated/process-data/tools/pandas/
+  - /influxdb/cloud-dedicated/query-data/sql/
   - /influxdb/cloud-dedicated/query-data/sql/execute-queries/python/
 aliases:
   - /influxdb/cloud-dedicated/visualize-data/pyarrow/
 list_code_example: |
   ```py
   ...
-  table = reader.read_all()
+  table = client.query(
+          '''SELECT *
+            FROM home
+            WHERE time >= now() - INTERVAL '90 days'
+            ORDER BY time'''
+        )
   table.group_by('room').aggregate([('temp', 'mean')])
   ```
 ---
@@ -44,46 +51,52 @@ and conversion of Arrow format data.
 
 ## Install prerequisites
 
-The examples in this guide assume using a Python virtual environment and the Flight SQL library for Python.
+The examples in this guide assume using a Python virtual environment and the InfluxDB v3 [`influxdb3-python` Python client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/).
 For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/)
 
-Installing `flightsql-dbapi` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
+Installing `influxdb3-python` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
 
 ## Use PyArrow to read query results
 
-The following example shows how to use Python with `flightsql-dbapi` and `pyarrow` to query InfluxDB and view Arrow data as a PyArrow `Table`.
+The following example shows how to use `influxdb3-python` and `pyarrow` to query InfluxDB and view Arrow data as a PyArrow `Table`.
  
-1. In your editor, copy and paste the following sample code to a new file--for example, `pyarrow-example.py`:
+1.  In your editor, copy and paste the following sample code to a new file--for example, `pyarrow-example.py`:
 
-    ```py
-    # pyarrow-example.py
+    {{% tabs-wrapper %}}
+{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
+```py
+# pyarrow-example.py
 
-    from flightsql import FlightSQLClient
+from influxdb_client_3 import InfluxDBClient3
+import pandas
 
-    # Instantiate a FlightSQLClient configured for a database
-    client = FlightSQLClient(host='cluster-id.influxdb.io',
-        token='INFLUX_READ_WRITE_TOKEN',
-        metadata={'database': 'INFLUX_DATABASE'},
-        features={'metadata-reflection': 'true'})
+def querySQL():
+  
+  # Instantiate an InfluxDB client configured for a database
+  client = InfluxDBClient3(
+    "https://cluster-id.influxdb.io",
+    database="DATABASE_NAME",
+    token="DATABASE_TOKEN")
 
-    # Execute the query to retrieve FlightInfo
-    info = client.execute('SELECT * FROM home')
+  # Execute the query to retrieve data formatted as a PyArrow Table
+  table = client.query(
+    '''SELECT *
+      FROM home
+      WHERE time >= now() - INTERVAL '90 days'
+      ORDER BY time'''
+  )
 
-    # Use the ticket to request the Arrow data stream.
-    # Return a FlightStreamReader for streaming the results.
-    reader = client.do_get(info.endpoints[0].ticket)
+  client.close()
 
-    # Read all data to a pyarrow.Table
-    table = reader.read_all()
+print(querySQL())
+```
+{{% /code-placeholders %}}
+  {{% /tabs-wrapper %}}
 
-    print(table)
-    ```
+2.  Replace the following configuration values:
 
-2. Replace the following configuration values:
-
-    - **`INFLUX_READ_WRITE_TOKEN`**: Your InfluxDB token with read permissions on the databases you want to query.
-    - **`INFLUX_DATABASE`**: The name of your InfluxDB database.
-
+    - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: An InfluxDB [token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the databases you want to query.
+    - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/) to query.
 
 3. In your terminal, use the Python interpreter to run the file:
 
@@ -91,7 +104,7 @@ The following example shows how to use Python with `flightsql-dbapi` and `pyarro
     python pyarrow-example.py
     ```
 
-The `FlightStreamReader.read_all()` method reads all Arrow record batches in the stream as a [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html).
+The `InfluxDBClient3.query()` method sends the query request, and then returns a [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html) that contains all the Arrow record batches from the response stream. 
 
 Next, [use PyArrow to analyze data](#use-pyarrow-to-analyze-data).
 
@@ -101,27 +114,46 @@ Next, [use PyArrow to analyze data](#use-pyarrow-to-analyze-data).
 
 With a `pyarrow.Table`, you can use values in a column as _keys_ for grouping.
 
-The following example shows how to query InfluxDB, group the table data, and then calculate an aggregate value for each group:
+The following example shows how to query InfluxDB, and then use PyArrow to group the table data and calculate an aggregate value for each group:
 
+{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```py
 # pyarrow-example.py
 
-from flightsql import FlightSQLClient
+from influxdb_client_3 import InfluxDBClient3
+import pandas
 
-client = FlightSQLClient(host='cluster-id.influxdb.io',
-    token='INFLUX_READ_WRITE_TOKEN',
-    metadata={'database': 'INFLUX_DATABASE'},
-    features={'metadata-reflection': 'true'})
+def querySQL():
+  
+  # Instantiate an InfluxDB client configured for a database
+  client = InfluxDBClient3(
+    "https://cluster-id.influxdb.io",
+    database="DATABASE_NAME",
+    token="DATABASE_TOKEN")
 
-info = client.execute('SELECT * FROM home')
+  # Execute the query to retrieve data formatted as a PyArrow Table
+  table = client.query(
+    '''SELECT *
+      FROM home
+      WHERE time >= now() - INTERVAL '90 days'
+      ORDER BY time'''
+  )
 
-reader = client.do_get(info.endpoints[0].ticket)
+  client.close()
 
-table = reader.read_all()
+  return table
+
+table = querySQL()
 
 # Use PyArrow to aggregate data
 print(table.group_by('room').aggregate([('temp', 'mean')]))
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: An InfluxDB [token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the databases you want to query.
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/tokens/) to query.
 
 {{< expand-wrapper >}}
 {{% expand "View example results" %}}
