@@ -77,7 +77,12 @@ To query {{< cloud-name >}} from Tableau, use the **Flight SQL protocol** and th
       - **Protocol**: `jdbc:arrow-flight-sql`
       - **Port**: `443`
       - **Query parameters**:
-        - **disableCertificateVerification**: `true`
+        - **useSystemTrustStore**: `false`
+        {{% note %}}
+        #### Setting `useSystemTrustStore=false` is:
+          1. Only necessary on a mac
+          2. Doesn't actually affect the security
+        {{% /note %}}
         - **database**: InfluxDB database name to query
     
       _See an [example connection URL](#example-connection-url)._
@@ -94,7 +99,7 @@ To query {{< cloud-name >}} from Tableau, use the **Flight SQL protocol** and th
 
 {{< code-placeholders "DATABASE_NAME" >}}
 ```
-jdbc:arrow-flight-sql://cluster-id.influxdb.io:443?disableCertificateVerification=true&database=DATABASE_NAME
+jdbc:arrow-flight-sql://cluster-id.influxdb.io:443?useSystemTrustStore=false&database=DATABASE_NAME
 ```
 {{< /code-placeholders >}}
 
