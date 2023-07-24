@@ -72,13 +72,9 @@ To query {{< cloud-name >}} from Tableau, use the **Flight SQL protocol** and th
       - **Port**: `443`
       - **Query parameters**:
         - **useSystemTrustStore**: `false`
-
-        {{% note %}}
-        #### Setting `useSystemTrustStore=false` is:
-          1. Only necessary on a mac
-          2. Doesn't actually affect the security
-        {{% /note %}}
-
+            {{% note %}}
+Setting `useSystemTrustStore=false` is only necessary on macOS and doesn't actually affect the security of the connection to Tableau.
+            {{% /note %}}
         - **database**: InfluxDB bucket name to query
     
       _See an [example connection URL](#example-connection-url)._
