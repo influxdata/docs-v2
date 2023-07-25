@@ -53,7 +53,7 @@ and conversion of Arrow format data.
 ## Install prerequisites
 
 The examples in this guide assume using a Python virtual environment and the InfluxDB v3 [`influxdb3-python` Python client library](/influxdb/cloud-serverless/reference/client-libraries/v3/python/).
-For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/)
+For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/python/).
 
 Installing `influxdb3-python` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
 
@@ -79,7 +79,7 @@ def querySQL():
     database="BUCKET_NAME",
     token="API_TOKEN")
 
-  # Execute the query to retrieve data formatted as a PyArrow Table
+  # Execute the query to retrieve all record batches in the stream formatted as a PyArrow Table.
   table = client.query(
     '''SELECT *
       FROM home
@@ -132,7 +132,8 @@ def querySQL():
     database="BUCKET_NAME",
     token="API_TOKEN")
 
-  # Execute the query to retrieve data formatted as a PyArrow Table
+  # Execute the query to retrieve data 
+  # formatted as a PyArrow Table
   table = client.query(
     '''SELECT *
       FROM home
