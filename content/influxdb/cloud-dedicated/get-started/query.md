@@ -516,7 +516,7 @@ _If your project's virtual environment is already running, skip to step 3._
     }
     ```
 
-    When the `main` package is executed, `main()` will write and query data stored in {{% cloud-name %}}.
+    When the `main` package is executed, `main()` writes and queries data stored in {{% cloud-name %}}.
 
 3.  In your terminal, enter the following command to install the necessary packages, build the module, and run the program:
 
