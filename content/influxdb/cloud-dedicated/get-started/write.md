@@ -543,7 +543,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
         1.  To instantiate the client, calls the `influx.New(influx.Configs)` function and passes the InfluxDB URL,
             database token, and [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) for writing data to {{% cloud-name %}}.
 
-        2.  Defines a deferred function that will close the client when the function returns.
+        2.  Defines a deferred function that closes the client when the function returns.
     
         3.  Defines an array of line protocol strings where each string
             represents a data record.
