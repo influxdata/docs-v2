@@ -4,7 +4,7 @@ seotitle: Query data | Get started with InfluxDB Cloud Dedicated
 list_title: Query data
 description: >
   Get started querying data in InfluxDB Cloud Dedicated by learning about SQL and
-  InfluxQL, and using tools like InfluxDB client libraries.
+  InfluxQL, and using tools like the influx3 CLI and InfluxDB client libraries.
 menu:
   influxdb_cloud_dedicated:
     name: Query data
@@ -16,7 +16,7 @@ related:
   - /influxdb/cloud-dedicated/query-data/
   - /influxdb/cloud-dedicated/query-data/sql/
   - /influxdb/cloud-dedicated/query-data/execute-queries/
-  - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/
+  - /influxdb/cloud-dedicated/reference/client-libraries/v3/
 ---
 
 {{% cloud-name %}} supports multiple query languages:
@@ -46,7 +46,7 @@ The examples in this section of the tutorial query the
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
 - [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req "\*  " >}}
 - [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
-- [Flight clients](?t=Go#execute-an-sql-query){{< req "\*  " >}}
+- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight/){{< req "\*  " >}}
 - [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
@@ -103,6 +103,8 @@ SELECT * FROM home
 ```
 
 ##### Select all data in a measurement within time bounds
+
+{{% influxdb/custom-timestamps %}}
 ```sql
 SELECT
   *
@@ -112,6 +114,7 @@ WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time <= '2022-01-01T20:00:00Z'
 ```
+{{% /influxdb/custom-timestamps %}}
 
 ##### Select a specific field within relative time bounds
 ```sql
@@ -129,6 +132,8 @@ SELECT * FROM home WHERE room = 'Kitchen'
 ```
 
 ##### Select data based on tag value within time bounds
+
+{{% influxdb/custom-timestamps %}}
 ```sql
 SELECT
   *
@@ -139,8 +144,12 @@ WHERE
   AND time <= '2022-01-01T20:00:00Z'
   AND room = 'Living Room'
 ```
+{{% /influxdb/custom-timestamps %}}
+
 
 ##### Downsample data by applying interval-based aggregates
+
+{{% influxdb/custom-timestamps %}}
 ```sql
 SELECT
   DATE_BIN(INTERVAL '1 hour', time, '2022-01-01T00:00:00Z'::TIMESTAMP) as _time,
@@ -154,6 +163,7 @@ GROUP BY
   room
 ORDER BY room, _time
 ```
+{{% /influxdb/custom-timestamps %}}
 
 ### Execute an SQL query
 
@@ -180,6 +190,12 @@ WHERE
   AND time <= '2022-01-01T20:00:00Z'
 ```
 {{% /influxdb/custom-timestamps %}}
+
+{{% note %}}
+Some examples in this getting started tutorial assume your InfluxDB
+credentials (**url**, **organization**, and **token**) are provided by
+[environment variables](/influxdb/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
+{{% /note %}}
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -254,8 +270,8 @@ _If your project's virtual environment is already running, skip to step 3._
 {{% tab-content %}}
 <!--------------------------- BEGIN PYTHON CONTENT ---------------------------->
  {{% influxdb/custom-timestamps %}}
-Use the `influxdb_client_3` module to integrate {{< cloud-name >}} with your Python code.
-This module supports writing data to InfluxDB and querying data using SQL or InfluxQL.
+Use the `influxdb_client_3` client library module to integrate {{< cloud-name >}} with your Python code.
+The client library supports writing data to InfluxDB and querying data using SQL or InfluxQL.
 
 The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb).
@@ -329,7 +345,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
         - **host**: {{% cloud-name %}} cluster URL (without `https://` protocol or trailing slash)
         - **token**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with
-          read access to the **get-started** database.
+          read access to the specified database.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
         - **database**: the name of the {{% cloud-name %}} database to query
@@ -407,84 +423,57 @@ _If your project's virtual environment is already running, skip to step 3._
 
     import (
       "context"
-      "crypto/x509"
-      "encoding/json"
       "fmt"
+      "io"
       "os"
+      "text/tabwriter"
 
-      "github.com/apache/arrow/go/v12/arrow/flight/flightsql"
-      "google.golang.org/grpc"
-      "google.golang.org/grpc/credentials"
-      "google.golang.org/grpc/metadata"
+      "github.com/apache/arrow/go/v12/arrow"
+      "github.com/InfluxCommunity/influxdb3-go/influx"
     )
 
-    func dbQuery(ctx context.Context) error {
-      url := "cluster-id.influxdb.io:443"
+    func Query() error {
 
-      // INFLUX_TOKEN is an environment variable you created for your database READ token
+      // INFLUX_TOKEN is an environment variable you created for your database read token
       token := os.Getenv("INFLUX_TOKEN")
       database := "get-started"
 
-      // Create a gRPC transport
-      pool, err := x509.SystemCertPool()
-      if err != nil {
-        return fmt.Errorf("x509: %s", err)
-      }
-      transport := grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(pool, ""))
-      opts := []grpc.DialOption{
-        transport,
-      }
+      client, err := influx.New(influx.Configs{
+        HostURL: "https://cluster-id.influxdb.io",
+        AuthToken: token,
+      })
 
-      // Create query client
-      client, err := flightsql.NewClient(url, nil, nil, opts...)
-      if err != nil {
-        return fmt.Errorf("flightsql: %s", err)
-      }
-
-      ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+token)
-      ctx = metadata.AppendToOutgoingContext(ctx, "database", database)
+      defer func (client *influx.Client)  {
+        err := client.Close()
+        if err != nil {
+            panic(err)
+        }
+      }(client)
 
       // Execute query
-      query := `SELECT
-        *
-      FROM
-        home
-      WHERE
-        time >= '2022-01-01T08:00:00Z'
-        AND time <= '2022-01-01T20:00:00Z'`
+      query := `SELECT *
+        FROM home
+        WHERE time >= '2022-01-02T08:00:00Z'
+        AND time <= '2022-01-02T20:00:00Z'`
 
-      info, err := client.Execute(ctx, query)
+      iterator, err := client.Query(context.Background(), database, query)
+
       if err != nil {
-        return fmt.Errorf("flightsql flight info: %s", err)
-      }
-      reader, err := client.DoGet(ctx, info.Endpoint[0].Ticket)
-      if err != nil {
-        return fmt.Errorf("flightsql do get: %s", err)
+        panic(err)
       }
 
-      // Print results as JSON
-      for reader.Next() {
-        record := reader.Record()
-        b, err := json.MarshalIndent(record, "", "  ")
-        if err != nil {
-          return err
-        }
-        fmt.Println("RECORD BATCH")
-        fmt.Println(string(b))
+      w := tabwriter.NewWriter(io.Discard, 4, 4, 1, ' ', 0)
+      w.Init(os.Stdout, 0, 8, 0, '\t', 0)
+      fmt.Fprintln(w, "time\troom\ttemp\thum\tco")
 
-        if err := reader.Err(); err != nil {
-          return fmt.Errorf("flightsql reader: %s", err)
-        }
+      for iterator.Next() {
+        row := iterator.Value()
+        day := (row["time"].(arrow.Timestamp)).ToTime(arrow.TimeUnit(arrow.Nanosecond))
+        fmt.Fprintf(w, "%s\t%s\t%.2f\t%.2f\t%d\n", day, row["room"], row["temp"], row["hum"], row["co"])
       }
 
+      w.Flush()
       return nil
-    }
-
-    func main() {
-      if err := dbQuery(context.Background()); err != nil {
-        fmt.Fprintf(os.Stderr, "error: %v\n", err)
-        os.Exit(1)
-      }
     }
     ```
 
@@ -493,246 +482,118 @@ _If your project's virtual environment is already running, skip to step 3._
     1.  Imports the following packages:
 
         - `context`
-        - `crypto/x509`
-        - `encoding/json`
         - `fmt`
+        - `io`
         - `os`
-        - `github.com/apache/arrow/go/v12/arrow/flight/flightsql`
-        - `google.golang.org/grpc`
-        - `google.golang.org/grpc/credentials`
-        - `google.golang.org/grpc/metadata`
+        - `text/tabwriter`
+        - `github.com/apache/arrow/go/v12/arrow`
+        - `github.com/InfluxCommunity/influxdb3-go/influx`
 
-    2.  Creates a `dbQuery` function that does the following:
+    2.  Defines a `Query()` function that does the following:
 
-        1.  Defines variables for InfluxDB credentials.
+        1.  Instantiates `influx.Client` with InfluxDB credentials.
           
-            - **url**: {{% cloud-name %}} region hostname and port (`:443`) _(no protocol)_
-            - **token**: a [database token](/influxdb/cloud-dedicated/admin/tokens) with _read_  access to the specified database.
+            - **HostURL**: your {{% cloud-name %}} cluster URL.
+            - **AuthToken**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_  access to the specified database.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
-            - **database**: the name of the {{% cloud-name %}} database to query
 
-        2.  Defines an `opts` options list that includes a gRPC transport for communicating
-        with {{% cloud-name %}} over the _gRPC+TLS_ protocol.
+        2.  Defines a deferred function to close the client after execution.
+        3.  Defines a string variable for the SQL query.
 
-        3.  Calls the `flightsql.NewClient()` method with `url` and `opts` to create a new Flight SQL client.
+        4.  Calls the `influx.Client.query()` method to send the query request with the database name and SQL string. The `query()` method returns an `iterator` for data in the response stream.
+        5.  Iterates over rows and prints the data in table format to stdout.
 
-        4.  Appends the following InfluxDB credentials as key-value pairs to the outgoing context:
+3.  In your editor, open the `main.go` file you created in the
+    [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Go#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
 
-            - **authorization**: Bearer <INFLUX_TOKEN>
-            - **database-name**: Database name
+    ```go
+    package main
 
-        5.  Define the SQL query to execute.
+    func main() {	
+      WriteLineProtocol()
+      Query()
+    }
+    ```
 
-        6.  Calls the `client.execute()` method to send the query request.
-        7.  Calls the `client.doGet()` method with the _ticket_ from the query response to retrieve result data from the endpoint.
-        8.  Creates a reader to read the Arrow table returned by the endpoint and print
-            the results as JSON.
+    When the `main` package is executed, `main()` writes and queries data stored in {{% cloud-name %}}.
 
-    3.  Creates a `main` module function that executes the `dbQuery` function.
+3.  In your terminal, enter the following command to install the necessary packages, build the module, and run the program:
 
-3. In your terminal, enter the following command to install all the necessary packages and run the program to query {{% cloud-name %}}.
+    ```sh
+    go mod tidy && go build && go run influxdb_go_client
+    ```
 
-```sh
-go get ./...
-go run ./query.go
-```
+    The program writes the data and prints the query results to the console.
 
 {{< expand-wrapper >}}
-{{% expand "View program output" %}}
-```json
-RECORD BATCH
-[
-  {
-    "co": 0,
-    "hum": 35.9,
-    "room": "Kitchen",
-    "temp": 21,
-    "time": "2022-01-01 08:00:00"
-  },
-  {
-    "co": 0,
-    "hum": 36.2,
-    "room": "Kitchen",
-    "temp": 23,
-    "time": "2022-01-01 09:00:00"
-  },
-  {
-    "co": 0,
-    "hum": 36.1,
-    "room": "Kitchen",
-    "temp": 22.7,
-    "time": "2022-01-01 10:00:00"
-  },
-  {
-    "co": 0,
-    "hum": 36,
-    "room": "Kitchen",
-    "temp": 22.4,
-    "time": "2022-01-01 11:00:00"
-  },
-  {
-    "co": 0,
-    "hum": 36,
-    "room": "Kitchen",
-    "temp": 22.5,
-    "time": "2022-01-01 12:00:00"
-  },
-  {
-    "co": 1,
-    "hum": 36.5,
-    "room": "Kitchen",
-    "temp": 22.8,
-    "time": "2022-01-01 13:00:00"
-  },
-  {
-    "co": 1,
-    "hum": 36.3,
-    "room": "Kitchen",
-    "temp": 22.8,
-    "time": "2022-01-01 14:00:00"
-  },
-  {
-    "co": 3,
-    "hum": 36.2,
-    "room": "Kitchen",
-    "temp": 22.7,
-    "time": "2022-01-01 15:00:00"
-  },
-  {
-    "co": 7,
-    "hum": 36,
-    "room": "Kitchen",
-    "temp": 22.4,
-    "time": "2022-01-01 16:00:00"
-  },
-  {
-    "co": 9,
-    "hum": 36,
-    "room": "Kitchen",
-    "temp": 22.7,
-    "time": "2022-01-01 17:00:00"
-  },
-  {
-    "co": 18,
-    "hum": 36.9,
-    "room": "Kitchen",
-    "temp": 23.3,
-    "time": "2022-01-01 18:00:00"
-  },
-  {
-    "co": 22,
-    "hum": 36.6,
-    "room": "Kitchen",
-    "temp": 23.1,
-    "time": "2022-01-01 19:00:00"
-  },
-  {
-    "co": 26,
-    "hum": 36.5,
-    "room": "Kitchen",
-    "temp": 22.7,
-    "time": "2022-01-01 20:00:00"
-  },
-  {
-    "co": 0,
-    "hum": 35.9,
-    "room": "Living Room",
-    "temp": 21.1,
-    "time": "2022-01-01 08:00:00"
-  },
-  {
-    "co": 0,
-    "hum": 35.9,
-    "room": "Living Room",
-    "temp": 21.4,
-    "time": "2022-01-01 09:00:00"
-  },
-  {
-    "co": 0,
-    "hum": 36,
-    "room": "Living Room",
-    "temp": 21.8,
-    "time": "2022-01-01 10:00:00"
-  },
-  {
-    "co": 0,
-    "hum": 36,
-    "room": "Living Room",
-    "temp": 22.2,
-    "time": "2022-01-01 11:00:00"
-  },
-  {
-    "co": 0,
-    "hum": 35.9,
-    "room": "Living Room",
-    "temp": 22.2,
-    "time": "2022-01-01 12:00:00"
-  },
-  {
-    "co": 0,
-    "hum": 36,
-    "room": "Living Room",
-    "temp": 22.4,
-    "time": "2022-01-01 13:00:00"
-  },
-  {
-    "co": 0,
-    "hum": 36.1,
-    "room": "Living Room",
-    "temp": 22.3,
-    "time": "2022-01-01 14:00:00"
-  },
-  {
-    "co": 1,
-    "hum": 36.1,
-    "room": "Living Room",
-    "temp": 22.3,
-    "time": "2022-01-01 15:00:00"
-  },
-  {
-    "co": 4,
-    "hum": 36,
-    "room": "Living Room",
-    "temp": 22.4,
-    "time": "2022-01-01 16:00:00"
-  },
-  {
-    "co": 5,
-    "hum": 35.9,
-    "room": "Living Room",
-    "temp": 22.6,
-    "time": "2022-01-01 17:00:00"
-  },
-  {
-    "co": 9,
-    "hum": 36.2,
-    "room": "Living Room",
-    "temp": 22.8,
-    "time": "2022-01-01 18:00:00"
-  },
-  {
-    "co": 14,
-    "hum": 36.3,
-    "room": "Living Room",
-    "temp": 22.5,
-    "time": "2022-01-01 19:00:00"
-  },
-  {
-    "co": 17,
-    "hum": 36.4,
-    "room": "Living Room",
-    "temp": 22.2,
-    "time": "2022-01-01 20:00:00"
-  }
-]
+{{% expand "View returned table" %}}
+```sh
+time                            room            co      hum     temp
+2022-01-02 11:46:40 +0000 UTC   Kitchen         0       35.90   21.00
+2022-01-02 12:46:40 +0000 UTC   Kitchen         0       36.20   23.00
+2022-01-02 13:46:40 +0000 UTC   Kitchen         0       36.10   22.70
+2022-01-02 14:46:40 +0000 UTC   Kitchen         0       36.00   22.40
+2022-01-02 15:46:40 +0000 UTC   Kitchen         0       36.00   22.50
+2022-01-02 16:46:40 +0000 UTC   Kitchen         1       36.50   22.80
+2022-01-02 17:46:40 +0000 UTC   Kitchen         1       36.30   22.80
+2022-01-02 18:46:40 +0000 UTC   Kitchen         3       36.20   22.70
+2022-01-02 19:46:40 +0000 UTC   Kitchen         7       36.00   22.40
+2022-01-02 11:46:40 +0000 UTC   Living Room     0       35.90   21.10
+2022-01-02 12:46:40 +0000 UTC   Living Room     0       35.90   21.40
+2022-01-02 13:46:40 +0000 UTC   Living Room     0       36.00   21.80
+2022-01-02 14:46:40 +0000 UTC   Living Room     0       36.00   22.20
+2022-01-02 15:46:40 +0000 UTC   Living Room     0       35.90   22.20
+2022-01-02 16:46:40 +0000 UTC   Living Room     0       36.00   22.40
+2022-01-02 17:46:40 +0000 UTC   Living Room     0       36.10   22.30
+2022-01-02 18:46:40 +0000 UTC   Living Room     1       36.10   22.30
+2022-01-02 19:46:40 +0000 UTC   Living Room     4       36.00   22.40
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
- {{% /influxdb/custom-timestamps %}}
+{{% /influxdb/custom-timestamps %}}
 <!------------------------------ END GO CONTENT ------------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
+
+### Query results
+
+{{< expand-wrapper >}}
+{{% expand "View query results" %}}
+
+{{% influxdb/custom-timestamps %}}
+| time                 | room        |  co |  hum | temp |
+| :------------------- | :---------- | --: | ---: | ---: |
+| 2022-01-01T08:00:00Z | Kitchen     |   0 | 35.9 |   21 |
+| 2022-01-01T09:00:00Z | Kitchen     |   0 | 36.2 |   23 |
+| 2022-01-01T10:00:00Z | Kitchen     |   0 | 36.1 | 22.7 |
+| 2022-01-01T11:00:00Z | Kitchen     |   0 |   36 | 22.4 |
+| 2022-01-01T12:00:00Z | Kitchen     |   0 |   36 | 22.5 |
+| 2022-01-01T13:00:00Z | Kitchen     |   1 | 36.5 | 22.8 |
+| 2022-01-01T14:00:00Z | Kitchen     |   1 | 36.3 | 22.8 |
+| 2022-01-01T15:00:00Z | Kitchen     |   3 | 36.2 | 22.7 |
+| 2022-01-01T16:00:00Z | Kitchen     |   7 |   36 | 22.4 |
+| 2022-01-01T17:00:00Z | Kitchen     |   9 |   36 | 22.7 |
+| 2022-01-01T18:00:00Z | Kitchen     |  18 | 36.9 | 23.3 |
+| 2022-01-01T19:00:00Z | Kitchen     |  22 | 36.6 | 23.1 |
+| 2022-01-01T20:00:00Z | Kitchen     |  26 | 36.5 | 22.7 |
+| 2022-01-01T08:00:00Z | Living Room |   0 | 35.9 | 21.1 |
+| 2022-01-01T09:00:00Z | Living Room |   0 | 35.9 | 21.4 |
+| 2022-01-01T10:00:00Z | Living Room |   0 |   36 | 21.8 |
+| 2022-01-01T11:00:00Z | Living Room |   0 |   36 | 22.2 |
+| 2022-01-01T12:00:00Z | Living Room |   0 | 35.9 | 22.2 |
+| 2022-01-01T13:00:00Z | Living Room |   0 |   36 | 22.4 |
+| 2022-01-01T14:00:00Z | Living Room |   0 | 36.1 | 22.3 |
+| 2022-01-01T15:00:00Z | Living Room |   1 | 36.1 | 22.3 |
+| 2022-01-01T16:00:00Z | Living Room |   4 |   36 | 22.4 |
+| 2022-01-01T17:00:00Z | Living Room |   5 | 35.9 | 22.6 |
+| 2022-01-01T18:00:00Z | Living Room |   9 | 36.2 | 22.8 |
+| 2022-01-01T19:00:00Z | Living Room |  14 | 36.3 | 22.5 |
+| 2022-01-01T20:00:00Z | Living Room |  17 | 36.4 | 22.2 |
+{{% /influxdb/custom-timestamps %}}
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 **Congratulations!** You've learned the basics of querying data in InfluxDB with SQL.
 For a deep dive into all the ways you can query {{% cloud-name %}}, see the
