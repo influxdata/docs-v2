@@ -494,7 +494,7 @@ _If your project's virtual environment is already running, skip to step 3._
         1.  Instantiates `influx.Client` with InfluxDB credentials.
           
             - **HostURL**: your {{% cloud-name %}} cluster URL.
-            - **AuthToken**:  an [API token](/influxdb/cloud-dedicated/admin/tokens/) with _read_  access to the specified database.
+            - **AuthToken**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_  access to the specified database.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
 
