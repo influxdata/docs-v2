@@ -432,7 +432,6 @@ dependencies to your current project.
       # host is the URL without protocol or trailing slash
       client = InfluxDBClient3(
           host='cloud2.influxdata.com',
-          org='',
           token=token,
           database='get-started'
       )
@@ -476,8 +475,8 @@ dependencies to your current project.
         configured with the following credentials:
 
         - **host**: {{% cloud-name %}} region hostname (URL without protocol or trailing slash)
-        - **org**: an empty or arbitrary string (InfluxDB ignores this parameter)
-        - **token**: an InfluxDB [API token](/influxdb/cloud-serverless/admin/tokens/) with write access to the target bucket
+        - **token**: an InfluxDB [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+        _For security reasons, we recommend setting this as an environment variable rather than including the raw token string._
         - **database**: the name of the {{% cloud-name %}} bucket to write to
     
     3.  Defines a list of line protocol strings where each string represents a data record.
@@ -806,6 +805,8 @@ To write data to {{% cloud-name %}} using Node.js, use the
 5.  In your editor, create a `Write.cs` file and enter the following sample code:
 
     ```c#
+    // Write.cs
+
     using System;
     using System.Threading.Tasks;
     using InfluxDB3.Client;
@@ -818,31 +819,30 @@ To write data to {{% cloud-name %}} using Node.js, use the
       /**
         * Writes line protocol to InfluxDB using the C# .NET client
         * library.
-        **/ 
+        */ 
       public static async Task WriteLines()
       {
-        /** Set InfluxDB credentials **/
+        // Set InfluxDB credentials
         const string hostUrl = "https://cloud2.influxdata.com";
         string? database = "get-started";
 
-      /** INFLUX_TOKEN is an environment variable you assigned to your
-        * API token value.
-        **/
+        /**
+          * INFLUX_TOKEN is an environment variable you assigned to your
+          * API token value.
+          */
         string? authToken = System.Environment
             .GetEnvironmentVariable("INFLUX_TOKEN");
 
-        /**
-        * Instantiate the InfluxDB client with credentials.
-        **/
+        // Instantiate the InfluxDB client with credentials.
         using var client = new InfluxDBClient(
             hostUrl, authToken: authToken, database: database);
 
         /** 
-        * Define an array of line protocol strings to write.
-        * Include an additional backslash to preserve backslashes
-        * and prevent interpretation of escape sequences---for example,
-        * escaped spaces in tag values.
-        */
+          * Define an array of line protocol strings to write.
+          * Include an additional backslash to preserve backslashes
+          * and prevent interpretation of escape sequences---for example,
+          * escaped spaces in tag values.
+          */
         string[] lines = new string[] {
               "home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000",
               "home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000",
@@ -888,25 +888,27 @@ To write data to {{% cloud-name %}} using Node.js, use the
     The sample does the following:
 
       1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
-           with the InfluxDB URL, database name, and token.
-           
-           _Instantiating the client with the `using` statement ensures that the client is disposed of when it's no longer needed._
+           with InfluxDB credentials.
+
+          - **hostUrl**: your {{% cloud-name %}} region URL
+          - **database**: the name of the {{% cloud-name %}} bucket to write to
+          - **authToken**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+          _For security reasons, we recommend setting this as an environment variable rather than including the raw token string._
+
+          _Instantiating the client with the `using` statement ensures that the client is disposed of when it's no longer needed._
 
       2.  Defines an array of line protocol strings where each string represents a data record.
-      3.  Calls the client's `WriteRecordAsync()` method to write each line protocol record
-          to InfluxDB.
+      3.  Calls the client's `WriteRecordAsync()` method to write each line protocol record to InfluxDB.
 
           **Because the timestamps in the sample line protocol are in second
           precision, the example passes the [`WritePrecision.S` enum value](https://github.com/InfluxCommunity/influxdb3-csharp/blob/main/Client/Write/WritePrecision.cs)
           to the `precision:` option in order to set the timestamp precision to seconds.**
 
-      7.  Calls the client's `close()` method with callback functions for success and error.
-          The `close()` method sends any records remaining in the buffer,
-          executes callbacks, and releases resources.
-
 6.  In your editor, open the `Program.cs` file and replace its contents with the following:
 
     ```c#
+    // Program.cs
+
     using System;
     using System.Threading.Tasks;
 
@@ -925,8 +927,7 @@ To write data to {{% cloud-name %}} using Node.js, use the
     and defines a `Main()` function that calls `Write.WriteLineProtocol()`.
     The `dotnet` CLI recognizes `Program.Main()` as the entry point for your program.
 
-7.  To build and execute the program and write the line protocol to your {{% cloud-name %}} bucket,
-    enter the following commands in your terminal:
+7.  To build and execute the program and write the line protocol to your {{% cloud-name %}} bucket, enter the following commands in your terminal:
 
     ```sh
     dotnet build
@@ -980,11 +981,5 @@ If successful, the output is the success message; otherwise, error details and t
 
 **Congratulations!** You have written data to InfluxDB.
 With data now stored in InfluxDB, let's query it.
-
-<!-- The method described
-above is the manual way of writing data, but there are other options available:
-
-- [Write data to InfluxDB using no-code solutions](/influxdb/cloud-serverless/write-data/no-code/)
-- [Write data to InfluxDB using developer tools](/influxdb/cloud-serverless/write-data/developer-tools/) -->
 
 {{< page-nav prev="/influxdb/cloud-serverless/get-started/setup/" next="/influxdb/cloud-serverless/get-started/query/" keepTab=true >}}
