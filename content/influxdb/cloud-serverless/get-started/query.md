@@ -103,6 +103,8 @@ SELECT * FROM home
 ```
 
 ##### Select all data in a measurement within time bounds
+
+{{% influxdb/custom-timestamps %}}
 ```sql
 SELECT
   *
@@ -112,6 +114,7 @@ WHERE
   time >= '2022-01-01T08:00:00Z'
   AND time <= '2022-01-01T20:00:00Z'
 ```
+{{% /influxdb/custom-timestamps %}}
 
 ##### Select a specific field within relative time bounds
 ```sql
@@ -201,6 +204,7 @@ credentials (**url**, **organization**, and **token**) are provided by
 [influx3 CLI](#influx3-cli)
 [Python](#)
 [Go](#)
+[C#](#)
 {{% /tabs %}}
 
 {{% tab-content %}}
@@ -382,7 +386,7 @@ _If your project's virtual environment is already running, skip to step 3._
         Flight request to InfluxDB, queries the database, retrieves result data from the endpoint, and then returns a
         [pyarrow.Table](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table)
         assigned to the `table` variable.
-    
+
     5.  Calls the [`to_pandas()` method](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas)
         to convert the Arrow table to a [pandas DataFrame](https://arrow.apache.org/docs/python/pandas.html).
 
@@ -451,6 +455,7 @@ _If your project's virtual environment is already running, skip to step 3._
       "fmt"
       "io"
       "os"
+      "time"
       "text/tabwriter"
 
       "github.com/apache/arrow/go/v12/arrow"
@@ -459,15 +464,18 @@ _If your project's virtual environment is already running, skip to step 3._
 
     func Query() error {
 
-       // INFLUX_TOKEN is an environment variable you created for your API read token
+       // INFLUX_TOKEN is an environment variable you created
+       // for your API read token.
       token := os.Getenv("INFLUX_TOKEN")
       database := "get-started"
 
+      // Instantiate the client.
       client, err := influx.New(influx.Configs{
         HostURL: "https://cloud2.influxdata.com",
         AuthToken: token,
       })
 
+      // Close the client when the function returns.
       defer func (client *influx.Client)  {
         err := client.Close()
         if err != nil {
@@ -475,12 +483,13 @@ _If your project's virtual environment is already running, skip to step 3._
         }
       }(client)
 
-      // Execute query
+      // Define the query.
       query := `SELECT *
         FROM home
         WHERE time >= '2022-01-02T08:00:00Z'
         AND time <= '2022-01-02T20:00:00Z'`
 
+      // Execute the query.
       iterator, err := client.Query(context.Background(), database, query)
 
       if err != nil {
@@ -491,10 +500,16 @@ _If your project's virtual environment is already running, skip to step 3._
       w.Init(os.Stdout, 0, 8, 0, '\t', 0)
       fmt.Fprintln(w, "time\troom\ttemp\thum\tco")
 
+      // Iterate over rows and prints column values in table format.
       for iterator.Next() {
         row := iterator.Value()
-        day := (row["time"].(arrow.Timestamp)).ToTime(arrow.TimeUnit(arrow.Nanosecond))
-        fmt.Fprintf(w, "%s\t%s\t%.2f\t%.2f\t%d\n", day, row["room"], row["temp"], row["hum"], row["co"])
+        // Use Go arrow and time packages to format unix timestamp
+        // as a time with timezone layout (RFC3339).
+        time := (row["time"].(arrow.Timestamp)).
+          ToTime(arrow.TimeUnit(arrow.Nanosecond)).
+          Format(time.RFC3339)
+        fmt.Fprintf(w, "%s\t%s\t%d\t%.2f\t%.2f\n",
+          time, row["room"], row["co"], row["hum"], row["temp"])
       }
 
       w.Flush()
@@ -518,7 +533,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
         1.  Instantiates `influx.Client` with InfluxDB credentials.
           
-            - **HostURL**: your {{% cloud-name %}} region URL.
+            - **HostURL**: your {{% cloud-name %}} region URL
             - **AuthToken**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_  access to the specified bucket.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
@@ -527,7 +542,7 @@ _If your project's virtual environment is already running, skip to step 3._
         3.  Defines a string variable for the SQL query.
 
         4.  Calls the `influx.Client.query()` method to send the query request with the database (bucket) name and SQL string. The `query()` method returns an `iterator` for data in the response stream.
-        5.  Iterates over rows and prints the data in table format to stdout.
+        5.  Iterates over rows, formats the timestamp as an[RFC3339 timestamp](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp), and prints the data in table format to stdout.
 
 3.  In your editor, open the `main.go` file you created in the
     [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Go#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
@@ -578,6 +593,123 @@ time                            room            co      hum     temp
 {{< /expand-wrapper >}}
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END GO CONTENT ------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------ BEGIN C# CONTENT ----------------------------->
+```c#
+// Query.cs
+
+using System;
+using System.Threading.Tasks;
+using InfluxDB3.Client;
+using InfluxDB3.Client.Query;
+
+namespace InfluxDBv3;
+
+public class Query
+{
+  /**
+    * Queries an InfluxDB database (bucket) using the C# .NET client
+    * library.
+    **/
+  public static async Task QuerySQL()
+  {
+    /** Set InfluxDB credentials **/
+    const string hostUrl = "https://cloud2.influxdata.com";
+    string? database = "get-started";
+
+    /** INFLUX_TOKEN is an environment variable you assigned to your
+      * API token value.
+      **/
+    string? authToken = System.Environment
+        .GetEnvironmentVariable("INFLUX_TOKEN");
+
+    /**
+      * Instantiate the InfluxDB client with credentials.
+      **/
+    using var client = new InfluxDBClient(
+        hostUrl, authToken: authToken, database: database);
+  
+    const string sql = @"
+      SELECT time, room, temp, hum, co
+      FROM home
+      WHERE time >= '2022-01-02T08:00:00Z'
+      AND time <= '2022-01-02T20:00:00Z'
+    ";
+
+    Console.WriteLine("{0,-30}{1,-15}{2,-15}{3,-15}{4,-15}",
+        "time", "room", "temp", "hum", "co");
+    
+    await foreach (var row in client.Query(query: sql))
+    {
+      {
+        /** 
+          * Iterate over rows and print column values in table format.
+          * Format the timestamp as sortable UTC format.
+          */
+        Console.WriteLine("{0,-30:u}{1,-15}{2,-15}{3,-15}{4,-15}",
+            row[0], row[1], row[2], row[3], row[4]);
+      }
+    }
+    Console.WriteLine();
+  }
+}
+```
+
+The sample code does the following:
+
+1.  Imports the following classes:
+
+    - `System`
+    - `System.Threading.Tasks`;
+    - `InfluxDB3.Client`;
+    - `InfluxDB3.Client.Query`;
+
+2.  Defines a `Query` class with a `QuerySQL()` method that does the following:
+
+    1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
+           with InfluxDB credentials.
+      
+        - **hostURL**: your {{% cloud-name %}} region URL.
+        - **authToken**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_  access to the specified bucket.
+        _For security reasons, we recommend setting this as an environment variable rather than including the raw token string._
+        - **database**: the name of the {{% cloud-name %}} bucket to query
+    2.  Defines a string variable for the SQL query.
+    3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string. `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
+    4.  Iterates over rows and prints the data in table format to stdout.
+3.  In your editor, open the `Program.cs` file you created in the
+    [Write data section](/influxdb/cloud-serverless/get-started/write/?t=C%23#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
+
+      ```c#
+      // Program.cs
+
+      using System;
+      using System.Threading.Tasks;
+
+      namespace InfluxDBv3;
+
+      public class Program
+      {
+        public static async Task Main()
+        {
+          await Write.WriteLineProtocol();
+          await Query.QuerySQL();
+        }
+      }
+      ```
+
+4.  To build and execute the program and query {{% cloud-name %}},
+    enter the following commands in your terminal:
+
+    ```sh
+    dotnet build
+    ```
+
+    ```sh
+    dotnet run
+    ```
+<!------------------------------ END C# CONTENT ------------------------------->
+
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
