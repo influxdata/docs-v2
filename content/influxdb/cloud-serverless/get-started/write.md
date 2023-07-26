@@ -783,6 +783,7 @@ To write data to {{% cloud-name %}} using Node.js, use the
 {{% /tab-content %}}
 {{% tab-content %}}
 <!---------------------------- BEGIN C# CONTENT --------------------------->
+{{% influxdb/custom-timestamps %}}
 1.  If you haven't already, follow the [Microsoft.com download instructions](https://dotnet.microsoft.com/en-us/download) to install .NET and the `dotnet` CLI.
 2. In your terminal, create an executable C# project using the .NET **console** template.
 
@@ -937,6 +938,7 @@ To write data to {{% cloud-name %}} using Node.js, use the
     dotnet run
     ```
 <!---------------------------- END C# CONTENT --------------------------->
+{{% /influxdb/custom-timestamps %}}
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
