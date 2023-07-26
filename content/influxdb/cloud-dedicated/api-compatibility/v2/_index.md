@@ -212,6 +212,7 @@ To setup and start using client libraries, see the [Get started](/influxdb/cloud
 {{% cloud-name %}} provides the following protocols for executing a query:
 
 - [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
+  To learn how to query {{% cloud-name %}} using Flight and SQL, see the [Get started](/influxdb/cloud-dedicated/get-started/) tutorial.
 - InfluxDB v1 API `/query` request that contains an InfluxQL query.
 
 {{% note %}}
@@ -222,7 +223,7 @@ To setup and start using client libraries, see the [Get started](/influxdb/cloud
 
 - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
 - [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
-- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/)
+- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight/)
 - [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
