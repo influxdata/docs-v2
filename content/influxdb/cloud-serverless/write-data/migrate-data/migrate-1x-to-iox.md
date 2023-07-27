@@ -30,9 +30,9 @@ The migration process uses the following tools:
   is packaged with InfluxDB 1.x OSS and Enterprise.
 
 - **InfluxDB 2.x `influx` CLI**:  
-  The [2.x `influx` CLI]((/influxdb/cloud/tools/influx-cli/)) is packaged
+  The [2.x `influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/) is packaged
   separately from InfluxDB OSS 2.x and InfluxDB Cloud Serverless.
-  [Download and install the 2.x CLI](/influxdb/cloud/tools/influx-cli/).
+  [Download and install the 2.x CLI](/influxdb/cloud-serverless/reference/cli/influx/).
 
 - **InfluxDB Cloud user interface (UI)**:  
   Visit [cloud2.influxdata.com](https://cloud2.influxdata.com) to access the
