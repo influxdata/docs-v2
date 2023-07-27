@@ -10,6 +10,8 @@ menu:
     parent: CLIs
 weight: 101
 influxdb/cloud-serverless/tags: [cli]
+aliases:
+  - /influxdb/cloud-serverless/tools/influx-cli/
 related:
   - /influxdb/cloud/tools/clis/
 ---

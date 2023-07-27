@@ -188,7 +188,7 @@ The UI will confirm that the data has been written successfully.
 {{% tab-content %}}
 <!---------------------------- BEGIN CLI CONTENT ----------------------------->
 
-1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/cloud-serverless/tools/influx-cli/).
+1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/cloud-serverless/get-started/setup/?t=influx+CLI#download-install-and-configure-the-influx-cli).
 2.  Use the [`influx write` command](/influxdb/cloud-serverless/reference/cli/influx/write/)
     to write the [line protocol above](#home-sensor-data-line-protocol) to InfluxDB.
     
