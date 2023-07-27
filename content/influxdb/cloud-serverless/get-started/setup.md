@@ -38,7 +38,7 @@ you need is in place.
 
     The `influx` CLI provides a simple way to interact with InfluxDB from a 
     command line. For detailed installation and setup instructions,
-    see [Use the influx CLI](/influxdb/cloud-serverless/tools/influx-cli/).
+    see the [`influx` CLI reference](/influxdb/cloud-serverless/reference/cli/influx/).
 
 2.  **Create an All Access API token**.
     <span id="create-an-all-access-api-token"></span>
@@ -120,8 +120,8 @@ influx config create \
 ```
 {{% /code-placeholders%}}
 
-_For more information about CLI connection configurations, see
-[Install and use the `influx` CLI](/influxdb/cloud-serverless/tools/influx-cli/#set-up-the-influx-cli)._
+_For more information about CLI connection configurations, see the
+[`influx config` command](/influxdb/cloud-serverless/reference/cli/influx/config/)._
 
 {{% /expand %}}
 
@@ -374,7 +374,7 @@ All API, cURL, and client library examples in this getting started tutorial assu
 {{% tab-content %}}
 <!----------------------------- BEGIN CLI CONTENT ----------------------------->
 
-1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/cloud-serverless/tools/influx-cli/).
+1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/).
 2.  Use the [`influx bucket create` command](/influxdb/cloud-serverless/reference/cli/influx/bucket/create/)
     to create a new bucket.
     

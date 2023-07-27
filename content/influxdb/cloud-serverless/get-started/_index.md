@@ -101,7 +101,7 @@ To access the InfluxDB Cloud Serverless UI, [log into your InfluxDB Cloud accoun
 
 The `influx` CLI lets you interact with and manage InfluxDB Cloud Serverless from a command line.
 For detailed CLI installation instructions, see
-[Use the influx CLI](/{{< latest "influxdb" >}}/tools/influx-cli/).
+the [`influx` CLI reference](/influxdb/cloud-serverless/reference/cli/influx/).
 
 ### InfluxDB HTTP API
 
