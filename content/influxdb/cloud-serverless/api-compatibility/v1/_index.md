@@ -22,8 +22,7 @@ related:
 
 Use the InfluxDB v1 API `/write` and `/query` endpoints with v1 workloads that you bring to {{% cloud-name %}}.
 The v1 endpoints work with username/password authentication and existing InfluxDB 1.x tools and code.
-The InfluxDB v1 API `/write` endpoint works with
-InfluxDB 1.x client libraries and the [Telegraf v1 Output Plugin](/telegraf/v1.26/plugins/#output-influxdb).
+The InfluxDB v1 API `/write` endpoint works with InfluxDB 1.x client libraries and the [Telegraf v1 Output Plugin](/telegraf/v1.26/plugins/#output-influxdb).
 The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrations like [Grafana](https://grafana.com).
 
 Learn how to authenticate requests, adjust request parameters for existing v1 workloads, and find compatible tools for writing and querying data stored in an {{% cloud-name %}} database.
@@ -53,10 +52,9 @@ Learn how to authenticate requests, adjust request parameters for existing v1 wo
       - [v1 CLI not supported](#v1-cli-not-supported)
     - [Client libraries](#client-libraries)
 - [Query data](#query-data)
+    - [Tools to execute queries](#tools-to-execute-queries)
   - [v1 API /query parameters](#v1-api-query-parameters)
     - [Timestamp precision](#timestamp-precision)
-- [Query data](#query-data)
-    - [Tools to execute queries](#tools-to-execute-queries)
   - [Bucket management with InfluxQL not supported](#bucket-management-with-influxql-not-supported)
 
 <!-- /TOC -->
@@ -410,25 +408,40 @@ Replace the following:
 {{% cloud-name %}} provides the following protocols for executing a query:
 
 - [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
-- InfluxDB v1 API `/query` request that contains an InfluxQL query.
+  To learn how to query {{% cloud-name %}} using Flight and SQL, see the [Get started](/influxdb/cloud-serverless/get-started/) tutorial.
+- InfluxDB v1 API `/query` request that contains an InfluxQL query. Use this endpoint with {{% cloud-name %}} when you bring InfluxDB 1.x workloads that already use [InfluxQL](/influxdb/cloud-serverless/reference/glossary/#influxql) and the v1 API `/query` endpoint.
 
-Use the v1 API `/query` endpoint and [InfluxQL](/influxdb/cloud-serverless/reference/glossary/#influxql) with {{% cloud-name %}} when you bring InfluxDB 1.x workloads that already use them.
+{{% note %}}
+#### Tools to execute queries
 
-- [v1 API /query parameters](#v1-api-query-parameters)
-- [Query using HTTP clients]()
+{{% cloud-name %}} supports many different tools for querying data, including:
+
+- [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
+- [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
+- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
+- [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
+- [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/query-data/influxql/execute-queries/influxdb-v1-api/)
+- [Chronograf](/{{< latest "Chronograf" >}}/)
+{{% /note %}}
 
 ### v1 API /query parameters
 
-Parameter | Allowed in | Ignored | Value
-----------|------------|---------|-------------------------------------------------------------------------
-`chunked` |            | Ignored | N/A _(Note that an unbounded query might return a large amount of data)_
-`db`        | Query string | Honored    | Bucket name                               |
-`epoch`     | Query string | Honored    | [Timestamp precision](#timestamp-precision) |
-`p` | Query string | Honored | API token
-`pretty` | Query string | Ignored | N/A
-`u`                    | Query string | Ignored                  | For [query string authentication](#query-string-authentication), any arbitrary string
-`p`                    | Query string | Honored                  | For [query string authentication](#query-string-authentication), an [API token](/influxdb/cloud-serverless/admin/tokens) with permission to write to the bucket
-`rp` | Query string | Honored | Retention policy
+For {{% cloud-name %}} v1 API `/query` requests, set parameters as listed in the following table:
+
+Parameter   | Allowed in   | Ignored | Value
+------------|--------------|---------|-------------------------------------------------------------------------
+`chunked`   |              | Ignored | N/A _(Note that an unbounded query might return a large amount of data)_
+`db`        | Query string | Honored | Bucket name
+`epoch`     | Query string | Honored | [Timestamp precision](#timestamp-precision)
+`pretty`    | Query string | Ignored | N/A
+`u`         | Query string | Ignored | For [query string authentication](#query-string-authentication), any arbitrary string
+`p`         | Query string | Honored | For [query string authentication](#query-string-authentication), an [API token](/influxdb/cloud-serverless/admin/tokens) with permission to write to the bucket
+`rp`        | Query string | Honored | Retention policy
+
+{{% note %}}
+When bringing v1 API workloads to {{% cloud-name %}}, you'll need to adjust request parameters in your client configuration or code.
+{{% /note %}}
 
 #### Timestamp precision
 
@@ -440,30 +453,6 @@ Use one of the following values for timestamp precision:
 - `s`: seconds
 - `m`: minutes
 - `h`: hours
-
-## Query data
-
-{{% cloud-name %}} provides the following protocols for executing a query:
-
-- [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
-- InfluxDB v1 API `/query` request that contains an InfluxQL query.
-
-{{% note %}}
-
-#### Tools to execute queries
-
-{{% cloud-name %}} supports many different tools for querying data, including:
-
-- [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
-- [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
-- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
-- [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
-- [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/primers/api/v1/#query-using-the-v1-api)
-- [Chronograf](/{{< latest "Chronograf" >}}/)
-
-{{% /note %}}
-
 
 ### Bucket management with InfluxQL (not supported)
 
