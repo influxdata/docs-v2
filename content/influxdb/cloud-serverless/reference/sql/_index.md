@@ -172,39 +172,40 @@ Comparison operators evaluate the relationship between the left and right operan
 The following reserved keywords cannot be used as identifiers.
 
 ```sql
-AND 
-ALL  
-ANALYZE  
-AS  
-ASC  
+AND
+ALL
+ANALYZE
+AS
+ASC
 BETWEEN
-BOTTOM 
+BOTTOM
 CASE
-DESC 
-DISTINCT                                       
-EXISTS                                                      
-EXPLAIN  
-FROM                     
-GROUP BY                                          
-HAVING                                          
-IN                                                
-INNER JOIN  
-JOIN  
+DESC
+DISTINCT
+EXISTS
+EXPLAIN
+FROM
+GROUP BY
+HAVING
+IN
+INNER JOIN
+JOIN
 LEFT JOIN
-LIMIT  
-NOT EXISTS                                                                                                   
-NOT IN                                                     
-OR                                                                                     
-ORDER BY                                      
-FULL OUTER JOIN 
-RIGHT JOIN                            
-SELECT                                                      
-TOP                                                
-TYPE  
-UNION 
+LIMIT
+NOT
+EXISTS
+NOT IN
+OR
+ORDER BY
+FULL OUTER JOIN
+RIGHT JOIN
+SELECT
+TOP
+TYPE
+UNION
 UNION ALL
-WHERE  
-WITH  
+WHERE
+WITH
 ```
 
 ## Conditional expressions
