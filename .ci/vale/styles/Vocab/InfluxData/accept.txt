@@ -1,0 +1,47 @@
+\b.*_.*\b
+Anaconda
+Arrow
+authToken
+AuthToken
+[Cc]hronograf
+CLI
+[Cc]loud
+cloud-dedicated
+Cloud Dedicated
+cloud-name
+cloud-serverless
+Cloud Serverless
+conda
+Data Explorer
+[Dd]ownsampl.*
+Flight
+FlightQuery
+Grafana
+hostname
+hostUrl
+hostURL
+HostURL
+influxctl
+[Ii]nflux[Dd]ata
+influxdb
+InfluxDB
+influxql
+InfluxQL
+influx3
+iox
+IOx
+Kapacitor
+locf
+noaa
+NOAA
+pandas
+pyarrow
+Py.*\b
+pyinflux
+rearchitect(ed)?
+retention_policy
+rp
+[Ss]erverless
+Superset
+[Tt]elegraf
+venv
