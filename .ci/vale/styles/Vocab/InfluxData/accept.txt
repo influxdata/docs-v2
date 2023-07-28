@@ -1,5 +1,6 @@
 \b.*_.*\b
 Anaconda
+APIs?
 Arrow
 authToken
 AuthToken
@@ -25,7 +26,7 @@ hostURL
 HostURL
 influxctl
 [Ii]nflux[Dd]ata
-influxdb
+influxdb?
 InfluxDB
 influxql
 InfluxQL
@@ -34,6 +35,7 @@ iox
 IOx
 Kapacitor
 locf
+namespace
 noaa
 NOAA
 pandas
