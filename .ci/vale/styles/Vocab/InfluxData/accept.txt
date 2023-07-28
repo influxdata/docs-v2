@@ -14,6 +14,7 @@ Cloud Serverless
 conda
 Data Explorer
 [Dd]ownsampl.*
+enum
 Flight
 FlightQuery
 Grafana
@@ -42,6 +43,8 @@ rearchitect(ed)?
 retention_policy
 rp
 [Ss]erverless
+stdout
 Superset
+svg
 [Tt]elegraf
 venv
