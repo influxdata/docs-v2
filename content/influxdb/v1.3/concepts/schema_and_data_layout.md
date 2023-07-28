@@ -31,7 +31,7 @@ This means that queries on tags are more performant than those on fields.
 
 In general, your queries should guide what gets stored as a tag and what gets stored as a field:
 
-* Store data in tags if they're commonly-queried meta data
+* Store data in tags if they're commonly queried meta data
 * Store data in tags if you plan to use them with `GROUP BY()`
 * Store data in fields if you plan to use them with an [InfluxQL function](/influxdb/v1.3/query_language/functions/)
 * Store data in fields if you *need* them to be something other than a string - [tag values](/influxdb/v1.3/concepts/glossary/#tag-value) are always interpreted as strings
