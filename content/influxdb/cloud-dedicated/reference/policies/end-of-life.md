@@ -36,10 +36,10 @@ products and features, including the shutdown of InfluxDB Cloud regions.
     - For annual accounts or accounts billing more than $500 USD per month, an
       additional personal outreach is attempted by a Sales Team Member or
       Technical Support Team member.
-    - Notification at [docs.influxdata.com](https://docs.influxdata.com) informing
+    - [docs.influxdata.com](https://docs.influxdata.com) notification informing
       visitors of the upcoming end-of-life. The notification remains from the
       date of the first email through the end-of-life date. 
-    - Publish reminders in the InfluxDB Community Slack channel starting on the
+    - Reminders published in the InfluxDB Community Slack channel starting on the
       day of the initial email and the day before the event.
     - For any planned InfluxDB Cloud cluster removal, a banner notification is
       added to the InfluxData status page located at [status.influxdata.com](https://status.influxdata.com)
@@ -53,9 +53,9 @@ products and features, including the shutdown of InfluxDB Cloud regions.
     and before deleting any data. At least 30 days before the scheduled service
     removal, InfluxData temporarily disables the service (in a fully
     reversible manner) for up to 24 hours so that all users relying on the
-    service should be able to detect the service loss and can get assistance.
+    service should be able to detect the service loss and get assistance.
     After 24 hours, the service is returned to normal operation.
-    Depending on the results of the first "scream test," InfluxData may perform
+    Depending on the results of the first "scream test", InfluxData may perform
     additional scream tests.
 
     - As soon as the first "scream test" is started, a banner is added to the
