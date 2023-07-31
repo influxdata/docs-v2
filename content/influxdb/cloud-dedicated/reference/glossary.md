@@ -922,7 +922,7 @@ Related entries:
 
 The key-value pair in InfluxDB's data structure that records metadata.
 Tags are an optional part of InfluxDB's data structure but they are useful for
-storing commonly-queried metadata.
+storing commonly queried metadata.
 
 Related entries:
 [field](#field),

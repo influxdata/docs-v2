@@ -15,9 +15,9 @@ related:
   - /influxdb/cloud-serverless/write-data/troubleshoot/
 ---
 
-Use the [InfluxDB v2 Javascript client library](https://github.com/influxdata/influxdb-client-js) to write data from a Node.js environment to InfluxDB.
+Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) to write data from a Node.js environment to InfluxDB.
 
-The Javascript client library includes the following convenient features for writing data to InfluxDB:
+The JavaScript client library includes the following convenient features for writing data to InfluxDB:
 - Apply default tags to data points.
 - Buffer points into batches to optimize data transfer.
 - Automatically retry requests on failure.
@@ -83,7 +83,7 @@ The Javascript client library includes the following convenient features for wri
 ```js
 'use strict'
 /** @module write
- * Writes a data point to InfluxDB using the Javascript client library with Node.js.
+ * Writes a data point to InfluxDB using the JavaScript client library with Node.js.
 **/
 
 import {InfluxDB, Point} from '@influxdata/influxdb-client'
