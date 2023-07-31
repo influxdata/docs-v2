@@ -37,7 +37,7 @@ menu:
 ### Maintenance updates
 
 - Upgrade to [Go 1.18.3](https://go.dev/blog/go1.18).
-- Upgrade Javascript dependencies.
+- Upgrade JavaScript dependencies.
 - Upgrade Node.js to 16 LTS.
 
 ## v1.9.4 [2022-03-28]

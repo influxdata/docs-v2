@@ -469,7 +469,7 @@ client.close()
 influxdb_client_3.Point
 ```
 
-A timeseries data point.
+A time series data point.
 
 ## Class WriteOptions
 

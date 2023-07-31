@@ -14,9 +14,9 @@ related:
   - /influxdb/v2.3/write-data/troubleshoot/
 ---
 
-Use the [InfluxDB Javascript client library](https://github.com/influxdata/influxdb-client-js) to write data from a Node.js environment to InfluxDB.
+Use the [InfluxDB JavaScript client library](https://github.com/influxdata/influxdb-client-js) to write data from a Node.js environment to InfluxDB.
 
-The Javascript client library includes the following convenient features for writing data to InfluxDB:
+The JavaScript client library includes the following convenient features for writing data to InfluxDB:
 - Apply default tags to data points.
 - Buffer points into batches to optimize data transfer.
 - Automatically retry requests on failure.

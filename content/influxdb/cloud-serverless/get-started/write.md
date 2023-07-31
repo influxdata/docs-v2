@@ -677,7 +677,7 @@ To write data to {{% cloud-name %}} using Node.js, use the
     ```js
     'use strict'
     /** @module write
-    * Writes line protocol strings to InfluxDB using the Javascript client
+    * Writes line protocol strings to InfluxDB using the JavaScript client
     * library with Node.js.
     **/
     import {InfluxDB} from '@influxdata/influxdb-client';

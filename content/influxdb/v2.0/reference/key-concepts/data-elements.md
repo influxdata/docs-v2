@@ -105,7 +105,7 @@ location = portland, scientist = mullen
 
 {{% note %}}
 **Tags are indexed:** Tags are optional. You don't need tags in your data structure, but it's typically a good idea to include tags.
-Because tags are indexed, queries on tags are faster than queries on fields. This makes tags ideal for storing commonly-queried metadata.
+Because tags are indexed, queries on tags are faster than queries on fields. This makes tags ideal for storing commonly queried metadata.
 {{% /note %}}
 
 {{% note %}}
