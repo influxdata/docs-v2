@@ -36,10 +36,10 @@ products and features, including the shutdown of InfluxDB Cloud regions.
     - For annual accounts or accounts billing more than $500 USD per month, an
       additional personal outreach is attempted by a Sales Team Member or
       Technical Support Team member.
-    - Notification at [docs.influxdata.com](https://docs.influxdata.com) informing
+    -[docs.influxdata.com](https://docs.influxdata.com) notification informing
       visitors of the upcoming end-of-life. The notification remains from the
       date of the first email through the end-of-life date. 
-    - Publish reminders in the InfluxDB Community Slack channel starting on the
+    - Reminders published in the InfluxDB Community Slack channel starting on the
       day of the initial email and the day before the event.
     - For any planned InfluxDB Cloud cluster removal, a banner notification is
       added to the InfluxData status page located at [status.influxdata.com](https://status.influxdata.com)

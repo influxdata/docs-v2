@@ -42,4 +42,4 @@ to view your buckets' retention periods.
 InfluxDB routinely deletes [Parquet](https://parquet.apache.org/) files containing only expired data.
 InfluxDB retains expired Parquet files for at least 100 days for disaster recovery.
 After the disaster recovery period, expired Parquet files are permanently deleted
-and cannot be recovered.
+and can't be recovered.
