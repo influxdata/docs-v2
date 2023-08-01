@@ -12,6 +12,13 @@ menu:
 influxdb/cloud-serverless/tags: [write, line protocol]
 aliases:
   - /influxdb/cloud-serverless/primers/api/v2/
+related:
+  - /influxdb/cloud-serverless/query-data/sql/
+  - /influxdb/cloud-serverless/query-data/influxql/
+  - /influxdb/cloud-serverless/write-data/
+  - /influxdb/cloud-serverless/write-data/use-telegraf/configure/
+  - /influxdb/cloud-serverless/reference/api/
+  - /influxdb/cloud-serverless/reference/client-libraries/
 ---
 
 {{% cloud-name %}} is compatible with the InfluxDB v2 API `/api/v2/write` endpoint and existing InfluxDB 2.x tools and code.
@@ -158,7 +165,7 @@ Use one of the following `precision` values in v2 API `/api/v2/write` requests:
 The following tools work with the {{% cloud-name %}} `/api/v2/write` endpoint:
 
 - [Telegraf](#telegraf)
-- [Interactive clients](#interactive-command-line-clients)
+- [Interactive clients](#interactive-clients)
 - [Client libraries](#client-libraries)
 
 #### Telegraf
@@ -183,6 +190,7 @@ To setup and start using client libraries, see the [Get started](/influxdb/cloud
 InfluxDB v3 provides the following protocols for executing a query:
 
 - [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
+  To learn how to query {{% cloud-name %}} using Flight and SQL, see the [Get started](/influxdb/cloud-serverless/get-started/) tutorial.
 - InfluxDB v1 API `/query` request that contains an InfluxQL query.
 
 {{% note %}}
@@ -193,7 +201,7 @@ InfluxDB v3 provides the following protocols for executing a query:
 
 - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
 - [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
-- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
+- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight/)
 - [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/primers/api/v1/#query-using-the-v1-api)

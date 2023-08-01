@@ -13,7 +13,7 @@ menu:
 weight: 201
 ---
 
-Swift is a programming language created by Apple for building applications accross multiple Apple platforms.
+Swift is a programming language created by Apple for building applications across multiple Apple platforms.
 
 The documentation for this client library is available on GitHub.  
 

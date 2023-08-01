@@ -11,22 +11,29 @@ menu:
     name: Use PyArrow
     identifier: analyze-with-pyarrow
 influxdb/cloud-serverless/tags: [analysis, arrow, pyarrow, python]
-aliases:
-  - /influxdb/cloud-serverless/visualize-data/pyarrow/
 related:
   - /influxdb/cloud-serverless/process-data/tools/pandas/
   - /influxdb/cloud-serverless/query-data/sql/
+  - /influxdb/cloud-serverless/query-data/sql/execute-queries/python/
+aliases:
+  - /influxdb/cloud-serverless/visualize-data/pyarrow/
 list_code_example: |
   ```py
   ...
-  table = reader.read_all()
+  table = client.query(
+          '''SELECT *
+            FROM home
+            WHERE time >= now() - INTERVAL '90 days'
+            ORDER BY time'''
+        )
   table.group_by('room').aggregate([('temp', 'mean')])
   ```
 ---
 
-Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze query results 
-from a InfluxDB Cloud Serverless.
-The PyArrow library provides efficient computation, aggregation, serialization, and conversion of Arrow format data.
+Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze query
+results from {{% cloud-name %}}.
+The PyArrow library provides efficient computation, aggregation, serialization,
+and conversion of Arrow format data.
 
 > Apache Arrow is a development platform for in-memory analytics. It contains a set of technologies that enable
 > big data systems to store, process and move data fast.
@@ -45,46 +52,52 @@ The PyArrow library provides efficient computation, aggregation, serialization, 
 
 ## Install prerequisites
 
-The examples in this guide assume using a Python virtual environment and the Flight SQL library for Python.
-For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-serverless/query-data/sql/execute-queries/python/)
+The examples in this guide assume using a Python virtual environment and the InfluxDB v3 [`influxdb3-python` Python client library](/influxdb/cloud-serverless/reference/client-libraries/v3/python/).
+For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/python/).
 
-Installing `flightsql-dbapi` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
+Installing `influxdb3-python` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
 
 ## Use PyArrow to read query results
 
-The following example shows how to use Python with `flightsql-dbapi` and `pyarrow` to query InfluxDB and view Arrow data as a PyArrow `Table`.
+The following example shows how to use `influxdb3-python` and `pyarrow` to query InfluxDB and view Arrow data as a PyArrow `Table`.
  
-1. In your editor, copy and paste the following sample code to a new file--for example, `pyarrow-example.py`:
+1.  In your editor, copy and paste the following sample code to a new file--for example, `pyarrow-example.py`:
 
-    ```py
-    # pyarrow-example.py
+    {{% tabs-wrapper %}}
+{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
+```py
+# pyarrow-example.py
 
-    from flightsql import FlightSQLClient
+from influxdb_client_3 import InfluxDBClient3
+import pandas
 
-    # Instantiate a FlightSQLClient configured for a bucket
-    client = FlightSQLClient(host='cloud2.influxdata.com',
-        token='INFLUX_READ_WRITE_TOKEN',
-        metadata={'database': 'BUCKET_NAME'},
-        features={'metadata-reflection': 'true'})
+def querySQL():
+  
+  # Instantiate an InfluxDB client configured for a bucket
+  client = InfluxDBClient3(
+    "https://cloud2.influxdata.com",
+    database="BUCKET_NAME",
+    token="API_TOKEN")
 
-    # Execute the query to retrieve FlightInfo
-    info = client.execute('SELECT * FROM home')
+  # Execute the query to retrieve all record batches in the stream formatted as a PyArrow Table.
+  table = client.query(
+    '''SELECT *
+      FROM home
+      WHERE time >= now() - INTERVAL '90 days'
+      ORDER BY time'''
+  )
 
-    # Use the ticket to request the Arrow data stream.
-    # Return a FlightStreamReader for streaming the results.
-    reader = client.do_get(info.endpoints[0].ticket)
+  client.close()
 
-    # Read all data to a pyarrow.Table
-    table = reader.read_all()
+print(querySQL())
+```
+{{% /code-placeholders %}}
+  {{% /tabs-wrapper %}}
 
-    print(table)
-    ```
+2.  Replace the following configuration values:
 
-2. Replace the following configuration values:
-
-    - **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _read_ permission to the bucket.
-    - **`BUCKET_NAME`**: The name of the InfluxDB bucket to query.
-
+    - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: An InfluxDB [token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the buckets you want to query.
+    - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to query.
 
 3. In your terminal, use the Python interpreter to run the file:
 
@@ -92,7 +105,7 @@ The following example shows how to use Python with `flightsql-dbapi` and `pyarro
     python pyarrow-example.py
     ```
 
-The `FlightStreamReader.read_all()` method reads all Arrow record batches in the stream as a [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html).
+The `InfluxDBClient3.query()` method sends the query request, and then returns a [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html) that contains all the Arrow record batches from the response stream. 
 
 Next, [use PyArrow to analyze data](#use-pyarrow-to-analyze-data).
 
@@ -102,27 +115,47 @@ Next, [use PyArrow to analyze data](#use-pyarrow-to-analyze-data).
 
 With a `pyarrow.Table`, you can use values in a column as _keys_ for grouping.
 
-The following example shows how to query InfluxDB, group the table data, and then calculate an aggregate value for each group:
+The following example shows how to query InfluxDB, and then use PyArrow to group the table data and calculate an aggregate value for each group:
 
+{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
 ```py
 # pyarrow-example.py
 
-from flightsql import FlightSQLClient
+from influxdb_client_3 import InfluxDBClient3
+import pandas
 
-client = FlightSQLClient(host='cloud2.influxdata.com',
-    token='INFLUX_READ_WRITE_TOKEN',
-    metadata={'database': 'BUCKET_NAME'},
-    features={'metadata-reflection': 'true'})
+def querySQL():
+  
+  # Instantiate an InfluxDB client configured for a bucket
+  client = InfluxDBClient3(
+    "https://cloud2.influxdata.com",
+    database="BUCKET_NAME",
+    token="API_TOKEN")
 
-info = client.execute('SELECT * FROM home')
+  # Execute the query to retrieve data 
+  # formatted as a PyArrow Table
+  table = client.query(
+    '''SELECT *
+      FROM home
+      WHERE time >= now() - INTERVAL '90 days'
+      ORDER BY time'''
+  )
 
-reader = client.do_get(info.endpoints[0].ticket)
+  client.close()
 
-table = reader.read_all()
+  return table
+
+table = querySQL()
 
 # Use PyArrow to aggregate data
 print(table.group_by('room').aggregate([('temp', 'mean')]))
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: An InfluxDB [token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the buckets you want to query.
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/tokens/) to query.
 
 {{< expand-wrapper >}}
 {{% expand "View example results" %}}
@@ -136,10 +169,5 @@ room: [["Kitchen","Living Room"]]
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}
-
-Replace the following:
-
-- **`INFLUX_READ_WRITE_TOKEN`**: An InfluxDB token with _read_ permission to the bucket.
-- **`BUCKET_NAME`**: The name of the InfluxDB bucket to query.
 
 For more detail and examples, see the [PyArrow documentation](https://arrow.apache.org/docs/python/getstarted.html) and the [Apache Arrow Python Cookbook](https://arrow.apache.org/cookbook/py/data.html).

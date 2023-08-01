@@ -136,7 +136,7 @@ The following units of time are supported:
 
 ## Operators
 
-Operators are reserved words or characters which perform certain operations, inluding comparisons and arithmetic. 
+Operators are reserved words or characters which perform certain operations, including comparisons and arithmetic. 
 
 ### Arithmetic operators
 
@@ -483,7 +483,7 @@ Use comments to describe and add detail or notes to your queries.
 
 ## Schema information
 
-{{% cloud-name %}} supports the following metedata schema queries:
+{{% cloud-name %}} supports the following metadata schema queries:
 
 ```sql
 SHOW tables
@@ -526,7 +526,7 @@ GROUP BY "location"
 
 ### Selector functions
 
-Selector functions are unique to InfluxDB. They behave like aggregate functions in that they take a row of data and compute it down to a single value.  However, selectors are unique in that they return a **time value** in addition to the computed value. In short, selectors retrun an aggreagetd value along with a timestamp. 
+Selector functions are unique to InfluxDB. They behave like aggregate functions in that they take a row of data and compute it down to a single value.  However, selectors are unique in that they return a **time value** in addition to the computed value. In short, selectors return an aggregated value along with a timestamp. 
 
 | Function         | Description                                                     |
 | :--------------- | :-------------------------------------------------------------- |

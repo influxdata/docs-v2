@@ -75,7 +75,7 @@ Pass your ranged data into the `filter()` function to narrow results based on da
 The `filter()` function has one parameter, `fn`, which expects an anonymous function
 with logic that filters data based on columns or attributes.
 
-Flux's anonymous function syntax is very similar to Javascript's.
+Flux's anonymous function syntax is very similar to JavaScript's.
 Records or rows are passed into the `filter()` function as an record (`r`).
 The anonymous function takes the record and evaluates it to see if it matches the defined filters.
 Use the `AND` relational operator to chain multiple filters.

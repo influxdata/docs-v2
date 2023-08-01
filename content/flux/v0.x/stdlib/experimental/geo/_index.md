@@ -70,7 +70,7 @@ generating S2 Cell ID tokens. For example:
 
 - **Go:** [`s2.CellID.ToToken()`](https://godoc.org/github.com/golang/geo/s2#CellID.ToToken)
 - **Python:** [`s2sphere.CellId.to_token()`](https://s2sphere.readthedocs.io/en/latest/api.html#s2sphere.CellId)
-- **Javascript:** [`s2.cellid.toToken()`](https://github.com/mapbox/node-s2/blob/master/API.md#cellidtotoken---string)
+- **JavaScript:** [`s2.cellid.toToken()`](https://github.com/mapbox/node-s2/blob/master/API.md#cellidtotoken---string)
 
 ### Add S2 Cell IDs to existing geotemporal data
 Use `geo.shapeData()` to add `s2_cell_id` tags to data that includes fields

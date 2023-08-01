@@ -12,6 +12,27 @@ influxdb/cloud-dedicated/tags: [python, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
 aliases:
   - /influxdb/cloud-dedicated/reference/client-libraries/v3/pyinflux3/
+list_code_example: >
+  ```py
+  from influxdb_client_3 import InfluxDBClient3
+
+  # Instantiate an InfluxDB client configured for a database
+
+  client = InfluxDBClient3(
+    "https://us-east-1-1.aws.cloud2.influxdata.com",
+    database="DATABASE_NAME",
+    token="DATABASE_TOKEN")
+
+  # Execute the query and retrieve data formatted as a PyArrow Table
+
+  table = client.query(
+    '''SELECT *
+       FROM home
+       WHERE time >= now() - INTERVAL '90 days'
+       ORDER BY time'''
+  )
+
+  ```
 ---
 
 The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
@@ -448,7 +469,7 @@ client.close()
 influxdb_client_3.Point
 ```
 
-A timeseries data point.
+A time series data point.
 
 ## Class WriteOptions
 

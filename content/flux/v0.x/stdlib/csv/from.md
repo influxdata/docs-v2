@@ -69,12 +69,12 @@ header row and all subsequent rows as data.
 
 ## Examples
 
-- [Query anotated CSV data from file](#query-anotated-csv-data-from-file)
+- [Query annotated CSV data from file](#query-annotated-csv-data-from-file)
 - [Query raw data from CSV file](#query-raw-data-from-csv-file)
 - [Query an annotated CSV string](#query-an-annotated-csv-string)
 - [Query a raw CSV string](#query-a-raw-csv-string)
 
-### Query anotated CSV data from file
+### Query annotated CSV data from file
 
 ```js
 import "csv"

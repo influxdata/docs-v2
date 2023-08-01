@@ -1065,7 +1065,7 @@ These tables in sequence result in a stream of data.
 ### tag
 
 The key-value pair in InfluxDB's data structure that records metadata.
-Tags are an optional part of InfluxDB's data structure but they are useful for storing commonly-queried metadata; tags are indexed so queries on tags are performant.
+Tags are an optional part of InfluxDB's data structure but they are useful for storing commonly queried metadata; tags are indexed so queries on tags are performant.
 *Query tip:* Compare tags to fields; fields are not indexed.
 
 Related entries: [field](#field), [tag key](#tag-key), [tag set](#tag-set), [tag value](#tag-value)
@@ -1221,7 +1221,7 @@ Related entries: [timestamp](#timestamp), [RFC3339 timestamp](#rfc3339-timestamp
 A whole number that is positive or zero (`0`, `143`). Also known as a "uinteger."
 InfluxDB supports 64-bit unsigned integers (minimum: `0`, maximum: `18446744073709551615`).
 In [annotated CSV](/influxdb/v2.5/reference/syntax/annotated-csv/), columns that contain
-integers are annotated with the `unisgnedLong` datatype.
+integers are annotated with the `unsignedLong` datatype.
 
 Related entries: [integer](#integer)
 

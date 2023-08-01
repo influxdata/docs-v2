@@ -143,8 +143,8 @@ to an {{% cloud-name %}} bucket.
 To learn more about available tools and options, see [Write data](influxdb/cloud-serverless/write-data/).
 
 {{% note %}}
-All API, cURL, and client library examples in this getting started tutorial assume your InfluxDB
-**host**, **organization**, **url**, and **token** are provided by
+Some examples in this getting started tutorial assume your InfluxDB
+credentials (**url**, **organization**, and **token**) are provided by
 [environment variables](/influxdb/cloud-serverless/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 {{% /note %}}
 
@@ -157,6 +157,7 @@ All API, cURL, and client library examples in this getting started tutorial assu
 [Python](#)
 [Go](#)
 [Node.js](#)
+[C#](#)
 {{% /tabs %}}
 {{% tab-content %}}
 <!------------------------------ BEGIN UI CONTENT ----------------------------->
@@ -187,7 +188,7 @@ The UI will confirm that the data has been written successfully.
 {{% tab-content %}}
 <!---------------------------- BEGIN CLI CONTENT ----------------------------->
 
-1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/cloud-serverless/tools/influx-cli/).
+1.  If you haven't already, [download, install, and configure the `influx` CLI](/influxdb/cloud-serverless/get-started/setup/?t=influx+CLI#download-install-and-configure-the-influx-cli).
 2.  Use the [`influx write` command](/influxdb/cloud-serverless/reference/cli/influx/write/)
     to write the [line protocol above](#home-sensor-data-line-protocol) to InfluxDB.
     
@@ -320,7 +321,7 @@ To learn more, see how to [use Telegraf to write data](/influxdb/cloud-serverles
 To write data to InfluxDB using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="http://localhost:8086/api/v2/write" method="post" api-ref="/influxdb/cloud-serverless/api/#operation/PostWrite" >}}
+{{< api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/write" method="post" api-ref="/influxdb/cloud-serverless/api/#operation/PostWrite" >}}
 
 Include the following with your request:
 
@@ -336,11 +337,12 @@ Include the following with your request:
 The following example uses cURL and the InfluxDB v2 API to write line protocol
 to InfluxDB:
 
+{{% code-placeholders "API_TOKEN"%}}
 {{% influxdb/custom-timestamps %}}
 ```sh
 curl --request POST \
 "https://cloud2.influxdata.com/api/v2/write?bucket=get-started&precision=s" \
-  --header "Authorization: Token $INFLUX_TOKEN" \
+  --header "Authorization: Token API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
@@ -373,6 +375,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 "
 ```
 {{% /influxdb/custom-timestamps %}}
+{{% /code-placeholders %}}
 <!------------------------------ END cURL CONTENT ------------------------------>
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -430,7 +433,6 @@ dependencies to your current project.
       # host is the URL without protocol or trailing slash
       client = InfluxDBClient3(
           host='cloud2.influxdata.com',
-          org='',
           token=token,
           database='get-started'
       )
@@ -474,8 +476,8 @@ dependencies to your current project.
         configured with the following credentials:
 
         - **host**: {{% cloud-name %}} region hostname (URL without protocol or trailing slash)
-        - **org**: an empty or arbitrary string (InfluxDB ignores this parameter)
-        - **token**: an InfluxDB [API token](/influxdb/cloud-serverless/admin/tokens/) with write access to the target bucket
+        - **token**: an InfluxDB [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+        _For security reasons, we recommend setting this as an environment variable rather than including the raw token string._
         - **database**: the name of the {{% cloud-name %}} bucket to write to
     
     3.  Defines a list of line protocol strings where each string represents a data record.
@@ -501,7 +503,7 @@ dependencies to your current project.
 {{% influxdb/custom-timestamps %}}
 
 To write data to {{% cloud-name %}} using Go, use the
-[influxdb-client-go module](https://github.com/influxdata/influxdb-client-go).
+InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommunity/influxdb3-go).
 
 1.  Inside of your project directory, create a new module directory and navigate into it.
 
@@ -528,87 +530,85 @@ To write data to {{% cloud-name %}} using Go, use the
 
     import (
       "context"
+      "os"
       "fmt"
       "log"
-      "os"
-      "time"
 
-      influxdb2 "github.com/influxdata/influxdb-client-go/v2"
+      "github.com/InfluxCommunity/influxdb3-go/influx"
     )
 
     // Write line protocol data to InfluxDB
-    func dbWrite(ctx context.Context) error {
-
-      // INFLUX_URL is an environment variable you assigned to your
-      // region URL.
-      url := os.Getenv("INFLUX_URL")
-
+    func WriteLineProtocol() error {
+      url := "https://cloud2.influxdata.com"
       // INFLUX_TOKEN is an environment variable you assigned to your
       // API token value.
       token := os.Getenv("INFLUX_TOKEN")
-      client := influxdb2.NewClientWithOptions(url,
-                      token,
-                      influxdb2.DefaultOptions().SetPrecision(time.Second))
+      database := os.Getenv("INFLUX_DATABASE")
+      
+      // Initialize a client with URL and token,
+      // and set the timestamp precision for writes.
+      client, err := influx.New(influx.Configs{
+        HostURL: url,
+        AuthToken: token,
+		    WriteParams: influx.WriteParams{Precision: lineprotocol.Second},
+      })
 
-      // Define write API
-      org := "ignored"
-      bucket := "get-started"
-      writeAPI := client.WriteAPIBlocking(org, bucket)
+      // Close the client when the function returns.
+      defer func (client *influx.Client)  {
+        err := client.Close()
+        if err != nil {
+            panic(err)
+        }
+      }(client)
 
       // Define line protocol records to write.
       // Use a raw string literal (denoted by backticks)
       // to preserve backslashes and prevent interpretation
       // of escape sequences--for example, escaped spaces in tag values.
       lines := [...]string{
-        `home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000`,
-        `home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000`,
-        `home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600`,
-        `home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600`,
-        `home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200`,
-        `home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200`,
-        `home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800`,
-        `home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800`,
-        `home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400`,
-        `home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400`,
-        `home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000`,
-        `home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000`,
-        `home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600`,
-        `home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600`,
-        `home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200`,
-        `home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200`,
-        `home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800`,
-        `home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800`,
-        `home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400`,
-        `home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400`,
-        `home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000`,
-        `home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000`,
-        `home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600`,
-        `home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600`,
-        `home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200`,
-        `home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200`,
+        `home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641124000`,
+        `home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641124000`,
+        `home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641127600`,
+        `home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641127600`,
+        `home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641131200`,
+        `home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641131200`,
+        `home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641134800`,
+        `home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641134800`,
+        `home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641138400`,
+        `home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641138400`,
+        `home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641142000`,
+        `home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641142000`,
+        `home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641145600`,
+        `home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641145600`,
+        `home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641149200`,
+        `home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641149200`,
+        `home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641152800`,
+        `home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641152800`,
+        `home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641156400`,
+        `home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641156400`,
+        `home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641160000`,
+        `home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641160000`,
+        `home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641163600`,
+        `home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641163600`,
+        `home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641167200`,
+        `home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641167200`,
       }
-
+      
       // Iterate over the lines array and write each line
       // separately to InfluxDB
-
-      for _, lp := range lines {
-        err := writeAPI.WriteRecord(context.Background(), lp)
+      for _, record := range lines {
+        err = client.Write(context.Background(), database, []byte(record))
         if err != nil {
           log.Fatalf("Error writing line protocol: %v", err)
         }
       }
 
-      fmt.Println("Data has been written successfully.")
-      client.Close()
-      return nil
-    }
-
-    // Module main function
-    func main() {
-      if err := dbWrite(context.Background()); err != nil {
-        fmt.Fprintf(os.Stderr, "error: %v\n", err)
-        os.Exit(1)
+      if err != nil {
+        panic(err)
       }
+      
+      fmt.Println("Data has been written successfully.")
+      return nil
     }
     ```
 
@@ -616,42 +616,39 @@ To write data to {{% cloud-name %}} using Go, use the
 
     1.  Imports required packages.
       
-    2.  Defines a `dbWrite()` function that does the following:
+    2.  Defines a `WriteLineProtocol()` function that does the following:
         
-        1.  Calls the `influxdb2.NewClientWithOptions()` with InfluxDB URL,
-            API token, and options to create client.
+        1.  To instantiate the client, calls the `influx.New(influx.Configs)` function and passes the InfluxDB URL,
+            database token, and [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) for writing data to {{% cloud-name %}}.
 
-            **Because the timestamps in the sample line protocol are in second
-            precision, the example passes `DefaultOptions.SetPrecision(time.Second)`
-            for the `precision` option in order to set the timestamp precision to
-            seconds.**
-
-        2.  Calls the `writeClient.WriteAPIBlocking()` method to
-            create a `writeAPI` client configured to write to the bucket
-            (the method requires an `org` argument, but InfluxDB ignores it).
+        2.  Defines a deferred function that closes the client when the function returns.
     
         3.  Defines an array of line protocol strings where each string
             represents a data record.
     
         4.  Iterates through the array of line protocol and calls the
-            write client's `WriteRecord()` method
+            write client's `Write()` method
             to write each line of line protocol separately to InfluxDB.
-    
-    3.  Defines a `main` function that executes the `dbWrite` function for the module.
 
-5.  In your terminal, enter the following command to install the packages listed
-    in `imports`:
+4.  In your editor, create a `main.go` file and enter the following sample code that calls the `WriteLineProtocol()` function:
 
-    ```sh
-    go get ./...
+    ```go
+    package main
+
+    // Module main function
+    func main() {	
+      WriteLineProtocol()
+    }
     ```
 
-6.  To execute the module and write the line protocol
-    to your {{% cloud-name %}} bucket, enter the following command:
+5.  In your terminal, enter the following command to install the packages listed in `imports`, build the `influxdb_go_client` module, and execute the `main()` function:
 
     ```sh
-    go run ./write.go
+    go mod tidy && go build && go run influxdb_go_client
     ```
+
+    The program writes the line protocol to your {{% cloud-name %}} bucket.
+
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------- END GO CONTENT ------------------------------>
 {{% /tab-content %}}
@@ -680,7 +677,7 @@ To write data to {{% cloud-name %}} using Node.js, use the
     ```js
     'use strict'
     /** @module write
-    * Writes line protocol strings to InfluxDB using the Javascript client
+    * Writes line protocol strings to InfluxDB using the JavaScript client
     * library with Node.js.
     **/
     import {InfluxDB} from '@influxdata/influxdb-client';
@@ -785,6 +782,165 @@ To write data to {{% cloud-name %}} using Node.js, use the
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------- END NODE.JS CONTENT ------------------------------>
 {{% /tab-content %}}
+{{% tab-content %}}
+<!---------------------------- BEGIN C# CONTENT --------------------------->
+{{% influxdb/custom-timestamps %}}
+1.  If you haven't already, follow the [Microsoft.com download instructions](https://dotnet.microsoft.com/en-us/download) to install .NET and the `dotnet` CLI.
+2. In your terminal, create an executable C# project using the .NET **console** template.
+
+    ```sh
+    dotnet new console --name influxdb_csharp_client
+    ```
+
+3. Change into the generated `influxdb_csharp_client` directory.
+    
+    ```sh
+    cd influxdb_csharp_client
+    ```
+
+4. Run the following command to install the latest version of the InfluxDB v3 C# client library.
+
+    ```sh
+    dotnet add package InfluxDB3.Client
+    ```
+
+5.  In your editor, create a `Write.cs` file and enter the following sample code:
+
+    ```c#
+    // Write.cs
+
+    using System;
+    using System.Threading.Tasks;
+    using InfluxDB3.Client;
+    using InfluxDB3.Client.Query;
+
+    namespace InfluxDBv3;
+
+    public class Write
+    {
+      /**
+        * Writes line protocol to InfluxDB using the C# .NET client
+        * library.
+        */ 
+      public static async Task WriteLines()
+      {
+        // Set InfluxDB credentials
+        const string hostUrl = "https://cloud2.influxdata.com";
+        string? database = "get-started";
+
+        /**
+          * INFLUX_TOKEN is an environment variable you assigned to your
+          * API token value.
+          */
+        string? authToken = System.Environment
+            .GetEnvironmentVariable("INFLUX_TOKEN");
+
+        // Instantiate the InfluxDB client with credentials.
+        using var client = new InfluxDBClient(
+            hostUrl, authToken: authToken, database: database);
+
+        /** 
+          * Define an array of line protocol strings to write.
+          * Include an additional backslash to preserve backslashes
+          * and prevent interpretation of escape sequences---for example,
+          * escaped spaces in tag values.
+          */
+        string[] lines = new string[] {
+              "home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000",
+              "home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000",
+              "home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1641027600",
+              "home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600",
+              "home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1641031200",
+              "home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200",
+              "home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1641034800",
+              "home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800",
+              "home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1641038400",
+              "home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400",
+              "home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1641042000",
+              "home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000",
+              "home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1641045600",
+              "home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600",
+              "home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1641049200",
+              "home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200",
+              "home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1641052800",
+              "home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800",
+              "home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1641056400",
+              "home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400",
+              "home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1641060000",
+              "home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000",
+              "home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1641063600",
+              "home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600",
+              "home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1641067200",
+              "home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200"
+        };
+
+        // Write each record separately.
+        foreach (string line in lines)
+        {
+          // Write the record to InfluxDB with timestamp precision in seconds.
+          await client.WriteRecordAsync(
+              record: line, precision: WritePrecision.S);
+          Console.WriteLine(
+              "Data has been written successfully: {0,-30}", line);
+        }
+      }
+    }
+    ```
+
+    The sample does the following:
+
+      1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
+           with InfluxDB credentials.
+
+          - **hostUrl**: your {{% cloud-name %}} region URL
+          - **database**: the name of the {{% cloud-name %}} bucket to write to
+          - **authToken**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+          _For security reasons, we recommend setting this as an environment variable rather than including the raw token string._
+
+          _Instantiating the client with the `using` statement ensures that the client is disposed of when it's no longer needed._
+
+      2.  Defines an array of line protocol strings where each string represents a data record.
+      3.  Calls the client's `WriteRecordAsync()` method to write each line protocol record to InfluxDB.
+
+          **Because the timestamps in the sample line protocol are in second
+          precision, the example passes the [`WritePrecision.S` enum value](https://github.com/InfluxCommunity/influxdb3-csharp/blob/main/Client/Write/WritePrecision.cs)
+          to the `precision:` option in order to set the timestamp precision to seconds.**
+
+6.  In your editor, open the `Program.cs` file and replace its contents with the following:
+
+    ```c#
+    // Program.cs
+
+    using System;
+    using System.Threading.Tasks;
+
+    namespace InfluxDBv3;
+
+    public class Program
+    {
+      public static async Task Main()
+      {
+        await Write.WriteLineProtocol();
+      }
+    }
+    ```
+
+    The `Program` class shares the same `InfluxDBv3` namespace as the `Write` class you defined in the preceding step
+    and defines a `Main()` function that calls `Write.WriteLineProtocol()`.
+    The `dotnet` CLI recognizes `Program.Main()` as the entry point for your program.
+
+7.  To build and execute the program and write the line protocol to your {{% cloud-name %}} bucket, enter the following commands in your terminal:
+
+    ```sh
+    dotnet build
+    ```
+
+    ```sh
+    dotnet run
+    ```
+<!---------------------------- END C# CONTENT --------------------------->
+{{% /influxdb/custom-timestamps %}}
+{{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
 If successful, the output is the success message; otherwise, error details and the failure message.
@@ -828,11 +984,5 @@ If successful, the output is the success message; otherwise, error details and t
 
 **Congratulations!** You have written data to InfluxDB.
 With data now stored in InfluxDB, let's query it.
-
-<!-- The method described
-above is the manual way of writing data, but there are other options available:
-
-- [Write data to InfluxDB using no-code solutions](/influxdb/cloud-serverless/write-data/no-code/)
-- [Write data to InfluxDB using developer tools](/influxdb/cloud-serverless/write-data/developer-tools/) -->
 
 {{< page-nav prev="/influxdb/cloud-serverless/get-started/setup/" next="/influxdb/cloud-serverless/get-started/query/" keepTab=true >}}

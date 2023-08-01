@@ -52,10 +52,9 @@ Learn how to authenticate requests, adjust request parameters for existing v1 wo
       - [v1 CLI not supported](#v1-cli-not-supported)
     - [Client libraries](#client-libraries)
 - [Query data](#query-data)
+    - [Tools to execute queries](#tools-to-execute-queries)
   - [v1 API /query parameters](#v1-api-query-parameters)
     - [Timestamp precision](#timestamp-precision)
-- [Query data](#query-data)
-    - [Tools to execute queries](#tools-to-execute-queries)
   - [Database management with InfluxQL not supported](#database-management-with-influxql-not-supported)
 
 <!-- /TOC -->
@@ -416,7 +415,22 @@ Replace the following:
 {{% cloud-name %}} provides the following protocols for executing a query:
 
 - [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
-- InfluxDB v1 API `/query` request that contains an InfluxQL query.
+  To learn how to query {{% cloud-name %}} using Flight and SQL, see the [Get started](/influxdb/cloud-dedicated/get-started/) tutorial.
+- InfluxDB v1 API `/query` request that contains an InfluxQL query. Use this endpoint with {{% cloud-name %}} when you bring InfluxDB 1.x workloads that already use [InfluxQL](/influxdb/cloud-dedicated/reference/glossary/#influxql) and the v1 API `/query` endpoint.
+
+{{% note %}}
+#### Tools to execute queries
+
+{{% cloud-name %}} supports many different tools for querying data, including:
+
+- [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
+- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
+- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight/)
+- [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
+- [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/query-data/influxql/execute-queries/influxdb-v1-api/)
+- [Chronograf](/{{< latest "Chronograf" >}}/)
+{{% /note %}}
 
 ### v1 API /query parameters
 
@@ -447,30 +461,6 @@ Use one of the following values for timestamp precision:
 - `s`: seconds
 - `m`: minutes
 - `h`: hours
-
-## Query data
-
-{{% cloud-name %}} provides the following protocols for executing a query:
-
-- [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
-- InfluxDB v1 API `/query` request that contains an InfluxQL query.
-
-{{% note %}}
-
-#### Tools to execute queries
-
-{{% cloud-name %}} supports many different tools for querying data, including:
-
-- [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
-- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
-- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/)
-- [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
-- [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
-- [Chronograf](/{{< latest "Chronograf" >}}/)
-
-{{% /note %}}
-
 
 ### Database management with InfluxQL (not supported)
 

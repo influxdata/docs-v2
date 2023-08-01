@@ -365,7 +365,7 @@ Subscriptions can use TCP or UDP for transmitting the writes.
 ## tag
 
 The key-value pair in the InfluxDB data structure that records metadata.
-Tags are an optional part of the data structure, but they are useful for storing commonly-queried metadata; tags are indexed so queries on tags are performant.
+Tags are an optional part of the data structure, but they are useful for storing commonly queried metadata; tags are indexed so queries on tags are performant.
 *Query tip:* Compare tags to fields; fields are not indexed.
 
 Related entries: [field](#field), [tag key](#tag-key), [tag set](#tag-set), [tag value](#tag-value)
