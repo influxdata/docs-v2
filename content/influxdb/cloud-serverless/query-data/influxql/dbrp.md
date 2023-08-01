@@ -27,7 +27,7 @@ combination to a bucket.
 {{< cloud-name >}} automatically creates DBRP mappings for you during the
 following operations:
 
-- Writing to the [`/write` v1 compatibility endpoint](/influxdb/cloud-servereless/reference/api/influxdb-1x/write/)
+- Writing to the [`/write` v1 compatibility endpoint](/influxdb/cloud-serverless/api-compatibility/v1/#write-data)
 - [Upgrading from InfluxDB 1.x to InfluxDB Cloud](/influxdb/v2.7/upgrade/v1-to-cloud/)
 
 For more information, see [Database and retention policy mapping](/influxdb/cloud-serverless/api/#tag/DBRPs).

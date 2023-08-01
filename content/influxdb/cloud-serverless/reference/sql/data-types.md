@@ -23,7 +23,7 @@ Data types stored in InfluxDB's storage engine are mapped to SQL data types at q
 
 {{% note %}}
 When performing casting operations, cast to the **name** of the data type, not the actual data type. 
-Names and indentifiers in SQL are _case-insensitive_ by default. For example:
+Names and identifiers in SQL are _case-insensitive_ by default. For example:
 
 ```sql
 SELECT

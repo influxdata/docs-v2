@@ -843,7 +843,7 @@ guide for a detailed walkthrough of this common use case.
 ### Pre-calculating Expensive Queries
 
 Shorten query runtimes by pre-calculating expensive queries with CQs.
-Use a CQ to automatically downsample commonly-queried, high precision data to a
+Use a CQ to automatically downsample commonly queried, high precision data to a
 lower precision.
 Queries on lower precision data require fewer resources and return faster.
 

@@ -89,7 +89,7 @@ Fields are a required piece of the InfluxDB data structure - you cannot have dat
 It's also important to note that fields are not indexed.
 [Queries](/enterprise_influxdb/v1.9/concepts/glossary/#query) that use field values as filters must scan all values that match the other conditions in the query.
 As a result, those queries are not performant relative to queries on tags (more on tags below).
-In general, fields should not contain commonly-queried metadata.
+In general, fields should not contain commonly queried metadata.
 
 The last two columns in the sample data, called `location` and `scientist`, are tags.
 Tags are made up of tag keys and tag values.
@@ -108,7 +108,7 @@ The four tag sets in the sample data are:
 
 Tags are optional.
 You don't need to have tags in your data structure, but it's generally a good idea to make use of them because, unlike fields, tags are indexed.
-This means that queries on tags are faster and that tags are ideal for storing commonly-queried metadata.
+This means that queries on tags are faster and that tags are ideal for storing commonly queried metadata.
 
 Avoid using the following reserved keys:
 

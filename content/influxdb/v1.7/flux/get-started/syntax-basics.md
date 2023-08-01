@@ -135,7 +135,7 @@ data |> someFunction() |> anotherFunction()
 
 ## Real-world application of basic syntax
 This likely seems familiar if you've already been through through the other [getting started guides](/influxdb/v1.7/flux/get-started).
-Flux's syntax is inspired by Javascript and other functional scripting languages.
+Flux's syntax is inspired by JavaScript and other functional scripting languages.
 As you begin to apply these basic principles in real-world use cases such as creating data stream variables,
 custom functions, etc., the power of Flux and its ability to query and process data will become apparent.
 
