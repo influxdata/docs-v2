@@ -1,3 +1,5 @@
+arccosine
+arcsine
 # SQL_INFO_SQL_KEYWORDS
 # Source: https://github.com/influxdata/influxdb_iox/blob/4f9c901dcfece5fcc4d17cfecb6ec45a0dccda5a/flightsql/src/sql_info
 absolute
