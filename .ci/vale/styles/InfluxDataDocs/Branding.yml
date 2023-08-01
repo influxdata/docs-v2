@@ -1,0 +1,9 @@
+extends: substitution
+message: Use '%s' instead of '%s'
+level: warning
+ignorecase: true
+# swap maps tokens in form of bad: good
+swap:
+  # NOTE: The left-hand (bad) side can match the right-hand (good) side; Vale
+  # will ignore any alerts that match the intended form.
+  "java[ -]?scripts?": JavaScript
