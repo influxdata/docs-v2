@@ -2,7 +2,7 @@
 title: Product and feature end-of-life procedures
 description: >
   InfluxData adheres to the following process for any End-of-Life (EOL) of
-  products and features, including the shutdown of InfluxDB Cloud regions.
+  products and features.
 menu:
   influxdb_cloud_dedicated:
     parent: Policies & procedures
@@ -11,7 +11,7 @@ weight: 201
 ---
 
 InfluxData adheres to the following process for any End-of-Life (EOL) of
-products and features, including the shutdown of InfluxDB Cloud regions.
+products and features.
 
 1.  **Email Notices**: Customers are given at least six months notice of the
     change in service via the following communication methods:
@@ -41,10 +41,6 @@ products and features, including the shutdown of InfluxDB Cloud regions.
       date of the first email through the end-of-life date. 
     - Reminders published in the InfluxDB Community Slack channel starting on the
       day of the initial email and the day before the event.
-    - For any planned InfluxDB Cloud cluster removal, a banner notification is
-      added to the InfluxData status page located at [status.influxdata.com](https://status.influxdata.com)
-      at the same time the first notification is sent (at least six months in
-      advance of the shutdown).
 
 3.  **Fail-Safe Controls**: Because the above communication methods may not be
     100% effective, InfluxData implements the following fail-safe controls to
