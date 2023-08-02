@@ -248,7 +248,7 @@ If using a non-POSIX-compliant operating system (such as Windows), specify the r
     pip install certifi
     ```
 
-2.  In your Python code, import `certifi` and call the `certifi.where()` method to retrieve the root certificate path.
+2.  In your Python code, import `certifi` and call the `certifi.where()` method to retrieve the certificate path.
 3.  When instantiating the client, pass the `flight_client_options.tls_root_certs=<ROOT_CERT_PATH>` option with the certificate path.
 
 The following example shows how to use the Python `certifi` package and client library options to pass the certificate path:
