@@ -350,7 +350,7 @@ _If your project's virtual environment is already running, skip to step 3._
       pip install certifi
       ```
   
-  2.  In your Python code, import `certifi` and call the `certifi.where()` method to retrieve the root certificate path.
+  2.  In your Python code, import `certifi` and call the `certifi.where()` method to retrieve the certificate path.
   3.  When instantiating the client, pass the `flight_client_options.tls_root_certs=<ROOT_CERT_PATH>` option with the certificate path--for example:
 
       ```py
