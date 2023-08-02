@@ -126,8 +126,8 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
 
         1.  Defines variables for InfluxDB credentials.
           
-            - **url**: {{% cloud-name %}} cluster hostname and port (`:443`) _(no protocol)_
-            - **token**:  a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-an-all-access-api-token) with _read_  access to the specified bucket.
+            - **`url`**: {{% cloud-name %}} cluster hostname and port (`:443`) _(no protocol)_
+            - **`token`**:  a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-an-all-access-api-token) with _read_  access to the specified bucket.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
             - **database**: the name of the {{% cloud-name %}} database to query
@@ -137,8 +137,8 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
         3.  Calls the `flightsql.NewClient()` method with `url` and `opts` to create a new Flight SQL client.
         4.  Appends the following InfluxDB credentials as key-value pairs to the outgoing context:
 
-            - **authorization**: Bearer <INFLUX_TOKEN>
-            - **database-name**: Database name
+            - **`authorization`**: Bearer <INFLUX_TOKEN>
+            - **`database`**: Database name
 
         5.  Defines the SQL query to execute.
         6.  Calls the `client.execute()` method to send the query request.
