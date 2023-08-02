@@ -7,6 +7,7 @@ AuthToken
 bundlers?
 [Cc]hronograf
 CLI
+Clockface
 [Cc]loud
 cloud-dedicated
 Cloud Dedicated
@@ -20,6 +21,7 @@ enum
 Flight
 FlightQuery
 Grafana
+gzip(ped)?
 hostname
 hostUrl
 hostURL
@@ -34,7 +36,9 @@ influx3
 iox
 IOx
 Kapacitor
+lat
 locf
+lon
 namespace
 noaa
 NOAA
@@ -50,6 +54,7 @@ stdout
 Superset
 svg
 [Tt]elegraf
+[Tt]ombstoned
 unescaped
 venv
 Webpack
