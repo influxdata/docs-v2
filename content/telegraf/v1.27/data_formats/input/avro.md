@@ -3,7 +3,6 @@ title: Avro input data format
 description: Use the `avro` input data format to parse metrics from a message serialized as Avro binary or JSON format.
 menu:
   telegraf_1_27_ref:
-
     name: Avro
     weight: 10
     parent: Input data formats
@@ -17,7 +16,7 @@ Avro messages should conform to [Wire Format](https://docs.confluent.io/platform
 
 | Bytes | Area       | Description                                      |
 | ----- | ---------- | ------------------------------------------------ |
-| 0     | Magic Byte | Confluent serialization format version number; currently always `0` |
+| 0     | Magic Byte | Confluent serialization format version number; currently always `0`. |
 | 1-4   | Schema ID  | 4-byte schema ID as returned by Schema Registry. |
 | 5-    | Data       | Serialized data.                                 |
 
