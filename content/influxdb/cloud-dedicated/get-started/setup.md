@@ -53,8 +53,8 @@ you need is in place.
 
     1.  **Download the `influxctl` CLI**.
 
-        _[Contact InfluxData Support](https://support.influxdata.com) for
-        information about downloading and installing the `influxctl` CLI._
+        _Information about downloading and installing the `influxctl` CLI is
+        provided in your {{% cloud-name %}} welcome email._
 
     2.  **Create a connection profile and provide your InfluxDB Cloud Dedicated connection credentials**.
 
