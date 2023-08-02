@@ -10,8 +10,10 @@ menu:
     identifier: query-with-python-sql
 influxdb/cloud-serverless/tags: [query, flightsql, python, sql]
 aliases:
-  - /influxdb/cloud-serverless/query-data/tools/python/
+    - /influxdb/cloud-serverless/query-data/execute-queries/flight-sql/python/
+    - /influxdb/cloud-serverless/query-data/tools/python/
 related:
+    - /influxdb/cloud-serverless/reference/client-libraries/v3/python/
     - /influxdb/cloud-serverless/process-data/tools/pandas/
     - /influxdb/cloud-serverless/process-data/tools/pyarrow/
     - /influxdb/cloud-serverless/query-data/sql/
@@ -234,6 +236,49 @@ client = InfluxDBClient3(
 )
 ```
 {{% /code-placeholders %}}
+
+{{< expand-wrapper >}}
+{{% expand "<span class='req'>Important</span>: If using **Windows**, specify the **Windows** certificate path" %}}
+
+If using a non-POSIX-compliant operating system (such as Windows), specify the root certificate path when instantiating the client.
+
+1.  In your terminal, install the Python `certifi` package.
+
+    ```sh
+    pip install certifi
+    ```
+
+2.  In your Python code, import `certifi` and call the `certifi.where()` method to retrieve the root certificate path.
+3.  When instantiating the client, pass the `flight_client_options.tls_root_certs=<ROOT_CERT_PATH>` option with the certificate path.
+
+The following example shows how to use the Python `certifi` package and client library options to pass the certificate path:
+
+
+{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
+{{< code-callout "flight_client_options|tls_root_certs|(cert\b)" >}}
+```py
+from influxdb_client_3 import InfluxDBClient3, flight_client_options
+import certifi
+
+fh = open(certifi.where(), "r")
+cert = fh.read()
+fh.close()
+
+client = InfluxDBClient3(
+host="cloud2.influxdata.com",
+token='API_TOKEN',
+database='BUCKET_NAME',
+flight_client_options=flight_client_options(
+tls_root_certs=cert))
+...
+```
+{{< /code-callout >}}
+{{% /code-placeholders %}}
+
+For more information, see [`influxdb_client_3` query exceptions](/influxdb/cloud-serverless/reference/client-libraries/v3/python/#query-exceptions).
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 Replace the following configuration values:
 
