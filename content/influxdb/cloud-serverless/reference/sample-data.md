@@ -16,6 +16,7 @@ demonstrate functionality.
 Use the following sample datasets to replicate provided examples.
 
 - [Get started home sensor data](#get-started-home-sensor-data)
+- [Home sensor actions data](#home-sensor-actions-data)
 - [NOAA Bay Area weather data](#noaa-bay-area-weather-data)
 - [Bitcoin price data](#bitcoin-price-data)
 - [Random numbers sample data](#random-numbers-sample-data)
