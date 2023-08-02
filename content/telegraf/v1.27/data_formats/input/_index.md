@@ -9,9 +9,11 @@ menu:
     parent: Data formats
 ---
 
-Telegraf contains many general purpose plugins that use a configurable parser for parsing input data into [metrics][].  This allows, for example, the
-`kafka_consumer` input plugin to process messages formatted in InfluxDB Line
-Protocol or in JSON format. Telegraf supports the following input data formats:
+Telegraf contains many general purpose plugins that use a configurable parser for parsing input data into [metrics][].
+This allows input plugins such as [`kafka_consumer` input plugin](/telegraf/v1.27/plugins/#input-kafka_consumer)
+to consume and process different data formats, such as InfluxDB Line
+Protocol or JSON.
+Telegraf supports the following input **data formats**:
 
 {{< children >}}
 
