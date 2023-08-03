@@ -151,7 +151,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Replace the following in the script above:
+Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Serverless bucket
@@ -337,7 +337,7 @@ curl --request POST \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Replace the following in the script above:
+Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Serverless bucket
@@ -420,7 +420,7 @@ curl --request POST \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Replace the following in the script above:
+Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Serverless bucket
@@ -491,7 +491,7 @@ curl --request POST \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Replace the following in the script above:
+Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Serverless bucket

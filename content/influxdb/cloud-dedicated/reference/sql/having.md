@@ -8,6 +8,8 @@ menu:
     name: HAVING clause
     parent: SQL reference
 weight: 205
+related:
+  - /influxdb/cloud-dedicated/reference/sql/subqueries/
 ---
 
 The `HAVING` clause places conditions on results created by an aggregate operation on groups.

@@ -4,15 +4,15 @@ description: >
   Subqueries (also known as inner queries or nested queries) are queries within
   a query. Subqueries can be used in `SELECT`, `FROM`, `WHERE`, and `HAVING` clauses.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_cloud_serverless:
     name: Subqueries
     parent: SQL reference
 weight: 210
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/reference/sql/select/
-  - /influxdb/cloud-dedicated/reference/sql/where/
-  - /influxdb/cloud-dedicated/reference/sql/having/
+  - /influxdb/cloud-serverless/query-data/sql/
+  - /influxdb/cloud-serverless/reference/sql/select/
+  - /influxdb/cloud-serverless/reference/sql/where/
+  - /influxdb/cloud-serverless/reference/sql/having/
 ---
 
 Subqueries (also known as inner queries or nested queries) are queries within
@@ -37,8 +37,8 @@ Subqueries can be used in `SELECT`, `FROM`, `WHERE`, and `HAVING` clauses.
 
 Query examples on this page use the following sample data sets:
 
-- [Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data)
-- [Home sensor actions sample data](/influxdb/cloud-dedicated/reference/sample-data/#home-sensor-actions-data)
+- [Get started home sensor sample data](/influxdb/cloud-serverless/reference/sample-data/#get-started-home-sensor-data)
+- [Home sensor actions sample data](/influxdb/cloud-serverless/reference/sample-data/#home-sensor-actions-data)
 - [NOAA Bay Area weather sample data](/influxdb/cloud-serverless/reference/sample-data/#noaa-bay-area-weather-data)
 
 {{% /note %}}
@@ -307,7 +307,7 @@ FROM
 
 ## WHERE clause subqueries
 
-[`WHERE` clause](/influxdb/cloud-dedicated/reference/sql/where/) subqueries
+[`WHERE` clause](/influxdb/cloud-serverless/reference/sql/where/) subqueries
 compare an expression to the result of the subquery and return _true_ or _false_.
 Rows that evaluate to _false_ are filtered from results.
 The `WHERE` clause supports correlated and non-correlated subqueries
@@ -489,7 +489,7 @@ but the following table contains the median `temp` value for each room.
 
 ## HAVING clause subqueries
 
-[`HAVING` clause](/influxdb/cloud-dedicated/reference/sql/having/) subqueries
+[`HAVING` clause](/influxdb/cloud-serverless/reference/sql/having/) subqueries
 compare an expression that uses aggregate values returned by aggregate functions
 in the `SELECT` clause to the result of the subquery and return _true_ or _false_.
 Rows that evaluate to _false_ are filtered from results.
@@ -672,7 +672,7 @@ behavior of the subquery:
 In a **correlated** subquery, the inner query depends on the outer query, using
 values from the outer query for its results.
 Correlated subqueries can return a maximum of one row, so
-[aggregations](/influxdb/cloud-dedicated/reference/sql/functions/aggregate/) may
+[aggregations](/influxdb/cloud-serverless/reference/sql/functions/aggregate/) may
 be required in the inner query.
 
 In the query below, the inner query (`SELECT temp_avg FROM weather WHERE location = home.room`)
