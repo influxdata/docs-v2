@@ -165,7 +165,7 @@ SELECT [expression1[, expression2, ..., expressionN],] (<subquery>)
 ```
 
 {{% note %}}
-`SELECT` clause subqueries can be used as an alternative to join operations.
+`SELECT` clause subqueries can be used as an alternative to `JOIN` operations.
 {{% /note %}}
 
 ### Examples {#select-subquery-examples}
@@ -197,7 +197,7 @@ ORDER BY
 
 #### Inner query results
 
-Because the inner query is a [correlated subquery](#correlated-subqueroies),
+Because the inner query is a [correlated subquery](#correlated-subqueries),
 the result depends on the values of `room` and `time` columns in the outer query.
 The results below represent the action description for each `room` and `time`
 combination with a `level` value that does not equal `ok`.
@@ -309,7 +309,7 @@ FROM
 [`WHERE` clause](/influxdb/cloud-dedicated/reference/sql/where/) subqueries
 compare an expression to the result of the subquery and return _true_ or _false_.
 Rows that evaluate to _false_ are filtered from results.
-The `WHERE` clause supports both both correlated and non-correlated subqueries
+The `WHERE` clause supports correlated and non-correlated subqueries
 as well as scalar and non-scalar subqueries (depending on the the operator used
 in the predicate expression).
 
@@ -325,7 +325,7 @@ WHERE
 ```
 
 {{% note %}}
-`WHERE` clause subqueries can be used as an alternative to join operations.
+`WHERE` clause subqueries can be used as an alternative to `JOIN` operations.
 {{% /note %}}
 
 ### Examples {#where-subquery-examples}
@@ -492,7 +492,7 @@ but the following table contains the median `temp` value for each room.
 compare an expression that uses aggregate values returned by aggregate functions
 in the `SELECT` clause to the result of the subquery and return _true_ or _false_.
 Rows that evaluate to _false_ are filtered from results.
-The `HAVING` clause supports both both correlated and non-correlated subqueries
+The `HAVING` clause supports correlated and non-correlated subqueries
 as well as scalar and non-scalar subqueries (depending on the the operator used
 in the predicate expression).
 
@@ -706,7 +706,7 @@ execute for each row returned by the outer query, correlated subqueries are
 
 ### Non-correlated subqueries
 
-In a **non-correlated** subquery, the inner query deos _not_ depend on the outer
+In a **non-correlated** subquery, the inner query _doesn't_ depend on the outer
 query and executes independently.
 The inner query executes first, and then passes the results to the outer query.
 

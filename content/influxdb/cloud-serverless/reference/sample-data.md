@@ -258,7 +258,7 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Replace the following in the script above:
+Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Serverless bucket
