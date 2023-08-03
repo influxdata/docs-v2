@@ -1,7 +1,7 @@
 ---
 title: Sample data
 description: >
-  Sample datasets are used throughout the the InfluxDB Cloud Dedicated
+  Sample datasets are used throughout the the InfluxDB Cloud Serverless
   documentation to demonstrate functionality.
   Use the following sample datasets to replicate provided examples.
 menu:
@@ -16,6 +16,7 @@ demonstrate functionality.
 Use the following sample datasets to replicate provided examples.
 
 - [Get started home sensor data](#get-started-home-sensor-data)
+- [Home sensor actions data](#home-sensor-actions-data)
 - [NOAA Bay Area weather data](#noaa-bay-area-weather-data)
 - [Bitcoin price data](#bitcoin-price-data)
 - [Random numbers sample data](#random-numbers-sample-data)
@@ -68,14 +69,9 @@ to {{< cloud-name >}}.
 {{% influxdb/custom-timestamps %}}
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_TOKEN=API_TOKEN
-
-INFLUX_BUCKET=BUCKET_NAME
-
 curl --request POST \
-  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_BUCKET&precision=s" \
-  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME&precision=s \
+  --header "Authorization: Bearer API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
@@ -116,14 +112,9 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% influxdb/custom-timestamps %}}
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_TOKEN=API_TOKEN
-
-INFLUX_BUCKET=BUCKET_NAME
-
 curl --request POST \
-  "$INFLUX_HOST/write?db=$INFLUX_BUCKET&precision=s" \
-  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  https://cloud2.influxdata.com/write?db=BUCKET_NAME&precision=s \
+  --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "
 home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
@@ -160,13 +151,120 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Replace the following in the script above:
+Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Serverless bucket
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
   an [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ pe
   mission to the bucket
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## Home sensor actions data
+
+Includes hypothetical actions triggered by data in the [Get started home sensor data](#get-started-home-sensor-data)
+and is a companion dataset to that sample dataset.
+To customize timestamps in the dataset, use the {{< icon "clock" >}} button in
+the lower right corner of the page.
+This lets you modify the sample dataset to stay within the retention period of
+the database you write it to.
+
+##### Time Range
+
+**{{% influxdb/custom-timestamps-span %}}2022-01-01T08:00:00Z{{% /influxdb/custom-timestamps-span %}}**
+to
+**{{% influxdb/custom-timestamps-span %}}2022-01-01T20:00:00Z{{% /influxdb/custom-timestamps-span %}}**
+<em style="opacity: .5">(Customizable)</em>
+
+##### Schema
+
+- home_actions <em style="opacity: .5">(measurement)</em>
+  - **tags**:
+    - room
+      - Kitchen
+      - Living Room
+    - action
+      - alert
+      - cool
+    - level
+      - ok
+      - warn
+  - **fields**:
+    - description <em style="opacity: .5">(string)</em>
+
+{{< expand-wrapper >}}
+{{% expand "Write home sensor actions data to InfluxDB" %}}
+
+#### Write the home sensor actions data to InfluxDB
+
+Use the InfluxDB v2 or v1 API to write the home sensor actions sample data
+to {{< cloud-name >}}.
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[v2 API](#)
+[v1 API](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+
+{{% influxdb/custom-timestamps %}}
+{{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
+```sh
+curl --request POST \
+  https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME&precision=s \
+  --header "Authorization: Bearer API_TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary '
+home_actions,room=Kitchen,action=cool,level=ok description="Temperature at or above 23°C (23°C). Cooling to 22°C." 1641027600
+home_actions,room=Kitchen,action=cool,level=ok description="Temperature at or above 23°C (23.3°C). Cooling to 22°C." 1641060000
+home_actions,room=Kitchen,action=cool,level=ok description="Temperature at or above 23°C (23.1°C). Cooling to 22°C." 1641063600
+home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide level above normal: 18 ppm." 1641060000
+home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide level above normal: 22 ppm." 1641063600
+home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide level above normal: 26 ppm." 1641067200
+home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 14 ppm." 1641063600
+home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 17 ppm." 1641067200
+'
+```
+{{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
+
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+
+{{% influxdb/custom-timestamps %}}
+{{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
+```sh
+curl --request POST \
+  https://cloud2.influxdata.com/write?db=BUCKET_NAME&precision=s \
+  --header "Authorization: Bearer API_TOKEN" \
+  --header "Content-type: text/plain; charset=utf-8" \
+  --data-binary '
+home_actions,room=Kitchen,action=cool,level=ok description="Temperature at or above 23°C (23°C). Cooling to 22°C." 1641027600
+home_actions,room=Kitchen,action=cool,level=ok description="Temperature at or above 23°C (23.3°C). Cooling to 22°C." 1641060000
+home_actions,room=Kitchen,action=cool,level=ok description="Temperature at or above 23°C (23.1°C). Cooling to 22°C." 1641063600
+home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide level above normal: 18 ppm." 1641060000
+home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide level above normal: 22 ppm." 1641063600
+home_actions,room=Kitchen,action=alert,level=warn description="Carbon monoxide level above normal: 26 ppm." 1641067200
+home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 14 ppm." 1641063600
+home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monoxide level above normal: 17 ppm." 1641067200
+'
+```
+{{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
+
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+Replace the following in the sample script:
+
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
+  your InfluxDB Cloud Serverless bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
+  a [database token](/influxdb/cloud-serverless/admin/tokens/)
+  with _write_ permission to the database
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -214,14 +312,9 @@ Use the InfluxDB v2 or v1 API to write the NOAA Bay Area weather sample data to
 
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_TOKEN=API_TOKEN
-
-INFLUX_BUCKET=BUCKET_NAME
-
 curl --request POST \
-  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_BUCKET" \
-  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME \
+  --header "Authorization: Bearer API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
@@ -233,14 +326,9 @@ curl --request POST \
 
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_TOKEN=API_TOKEN
-
-INFLUX_BUCKET=BUCKET_NAME
-
 curl --request POST \
-  "$INFLUX_HOST/write?db=$INFLUX_BUCKET" \
-  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  https://cloud2.influxdata.com/write?db=BUCKET_NAME \
+  --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
 ```
@@ -249,7 +337,7 @@ curl --request POST \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Replace the following in the script above:
+Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Serverless bucket
@@ -307,14 +395,9 @@ Use the InfluxDB v2 or v1 API to write the Bitcoin price sample data to
 
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_TOKEN=API_TOKEN
-
-INFLUX_BUCKET=BUCKET_NAME
-
 curl --request POST \
-  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_BUCKET" \
-  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME \
+  --header "Authorization: Bearer API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
@@ -326,14 +409,9 @@ curl --request POST \
 
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_TOKEN=API_TOKEN
-
-INFLUX_BUCKET=BUCKET_NAME
-
 curl --request POST \
-  "$INFLUX_HOST/write?db=$INFLUX_BUCKET" \
-  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  https://cloud2.influxdata.com/write?db=BUCKET_NAME \
+  --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
 ```
@@ -342,7 +420,7 @@ curl --request POST \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Replace the following in the script above:
+Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Serverless bucket
@@ -388,14 +466,9 @@ Use the InfluxDB v2 or v1 API to write the random number sample data to
 
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_TOKEN=API_TOKEN
-
-INFLUX_BUCKET=BUCKET_NAME
-
 curl --request POST \
-  "$INFLUX_HOST/api/v2/write?bucket=$INFLUX_BUCKET" \
-  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME \
+  --header "Authorization: Bearer API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
@@ -407,14 +480,9 @@ curl --request POST \
 
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
-export INFLUX_TOKEN=API_TOKEN
-
-INFLUX_BUCKET=BUCKET_NAME
-
 curl --request POST \
-  "$INFLUX_HOST/write?db=$INFLUX_BUCKET" \
-  --header "Authorization: Bearer $INFLUX_TOKEN" \
+  https://cloud2.influxdata.com/write?db=BUCKET_NAME \
+  --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"
 ```
@@ -423,7 +491,7 @@ curl --request POST \
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Replace the following in the script above:
+Replace the following in the sample script:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}:
   your InfluxDB Cloud Serverless bucket

@@ -7,6 +7,8 @@ menu:
     name: SELECT statement
     parent: SQL reference
 weight: 201
+related:
+  - /influxdb/cloud-serverless/reference/sql/subqueries/
 ---
 
 Use the `SELECT` statement to query data from an InfluxDB measurement.

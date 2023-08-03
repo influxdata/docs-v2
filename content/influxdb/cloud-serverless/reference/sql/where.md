@@ -8,6 +8,8 @@ menu:
     name: WHERE clause
     parent: SQL reference
 weight: 202
+related:
+  - /influxdb/cloud-serverless/reference/sql/subqueries/
 ---
 
 Use the `WHERE` clause to filter results based on fields, tags, or timestamps.
