@@ -7,9 +7,14 @@ menu:
     name: XML
     weight: 110
     parent: Input data formats
+metadata: [XPath parser plugin]
 ---
 
 The XML input data format parses XML data into Telegraf metrics.
+
+## Parser
+
+The [XPath parser plugin](/{{% latest "telegraf" %}}/plugins/parsers/xpath/) provides the XML data format.
 
 
 ## Configuration
