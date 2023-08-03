@@ -184,7 +184,7 @@ menu:
 - Always disable cgo support (static builds).
 - Plugin state-persistence.
 - Add `/etc/telegraf/telegraf.d` to default configuration file locations.
-- Print loaded configurationss.
+- Print loaded configurations.
 - Accept durations given in days (e.g. 7d).
 - OAuth (`common.oauth`): Add `audience` parameter.
 - TLS (`common.tls`): Add `enable` flag.
@@ -1147,7 +1147,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
   - Update client API version.
 - ECS (`ecs`): Use current time as timestamp.
 - Execd `execd`: Add newline for Prometheus parsing.
-- File (`file`): Statefull parser handling.
+- File (`file`): Stateful parser handling.
 - GNMI (`gnmi`): Add dynamic tagging.
 - Graylog (`graylog`):
   - Add `toml` tags.
