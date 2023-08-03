@@ -62,7 +62,7 @@ SELECT "location", "water_level" FROM "h2o_feet"
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example results" %}}
+{{% expand "View example results" "1" %}}
 | location     | water_level |
 | :----------- | :---------- |
 | coyote_creek | 9.126144144 |
@@ -80,7 +80,7 @@ SELECT "water_level", "location", "time" FROM "h2o_feet"
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example results" %}}
+{{% expand "View example results" "2" %}}
 | location     | time                     | water_level |
 | :----------- | :----------------------- | :---------- |
 | coyote_creek | 2019-08-20T00:00:00.000Z | 8.638       |
@@ -98,7 +98,7 @@ SELECT ("water_level" * 3) + 5 FROM "h2o_feet"
 ```
 
 {{< expand-wrapper >}}
-{{% expand "View example results" %}}
+{{% expand "View example results" "3" %}}
 | water_level        |
 | :----------------- |
 | 30.128             |
