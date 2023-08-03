@@ -24,46 +24,43 @@ Functionality varies between client libraries. Refer to client libraries on GitH
 ### Arduino
 
 - [InfluxDB Arduino Client](https://github.com/tobiasschuerg/InfluxDB-Client-for-Arduino)
-  - Contributed by [Tobias Schürg (tobiasschuerg)](https://github.com/tobiasschuerg)
+
 
 ### C\#
 
 - [influxdb-client-csharp](https://github.com/influxdata/influxdb-client-csharp)
-  - Maintained by [InfluxData](https://github.com/influxdata)
 
 ## C++
 * [influxdb-cxx](https://github.com/offa/influxdb-cxx)
-  * Maintained by [offa](https://github.com/offa)
+
 
 ### Go
 
 - [influxdb-client-go](https://github.com/influxdata/influxdb-client-go)
-  - Maintained by [InfluxData](https://github.com/influxdata)
 
 ### Java
 
 - [influxdb-client-java](https://github.com/influxdata/influxdb-client-java)
-   - Maintained by [InfluxData](https://github.com/influxdata)
 
 ### JavaScript
 
 * [influxdb-javascript](https://github.com/influxdata/influxdb-client-js)
-   - Maintained by [InfluxData](https://github.com/influxdata)
+
 
 ### PHP
 
 - [influxdb-client-php](https://github.com/influxdata/influxdb-client-php)
-   - Maintained by [InfluxData](https://github.com/influxdata)
+
 
 ### Python
 
 * [influxdb-client-python](https://github.com/influxdata/influxdb-client-python)
-   - Maintained by [InfluxData](https://github.com/influxdata)
+
 
 ### Ruby
 
 - [influxdb-client-ruby](https://github.com/influxdata/influxdb-client-ruby)
-   - Maintained by [InfluxData](https://github.com/influxdata)
+
 
 ## Install and use a client library
 

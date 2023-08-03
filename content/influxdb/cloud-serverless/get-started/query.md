@@ -16,14 +16,14 @@ related:
   - /influxdb/cloud-serverless/query-data/
   - /influxdb/cloud-serverless/query-data/sql/
   - /influxdb/cloud-serverless/query-data/execute-queries/
-  - /influxdb/cloud-dedicated/reference/client-libraries/v3/
+  - /influxdb/cloud-serverless/reference/client-libraries/v3/
 ---
 
 {{% cloud-name %}} supports multiple query languages:
 
 - **SQL**: Traditional SQL powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
   query engine. The supported SQL syntax is similar to PostgreSQL.
-- **InfluxQL**: A SQL-like query language designed to query time series data stored in InfluxDB.
+- **InfluxQL**: An SQL-like query language designed to query time series data stored in InfluxDB.
 
 This tutorial walks you through the fundamentals of querying data in InfluxDB and
 **focuses on using SQL** to query your time series data.
@@ -50,6 +50,7 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 - [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight/){{< req "\*  " >}}
 - [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/query-data/influxql/execute-queries/influxdb-v1-api/)
 - [Chronograf](/{{< latest "chronograf" >}}/)
 
 ## SQL query basics
@@ -146,7 +147,6 @@ WHERE
 ```
 {{% /influxdb/custom-timestamps %}}
 
-
 ##### Downsample data by applying interval-based aggregates
 
 {{% influxdb/custom-timestamps %}}
@@ -194,7 +194,7 @@ WHERE
 
 {{% note %}}
 Some examples in this getting started tutorial assume your InfluxDB
-credentials (**url**, **organization**, and **token**) are provided by
+credentials (**URL**, **organization**, and **token**) are provided by
 [environment variables](/influxdb/cloud-serverless/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 {{% /note %}}
 
@@ -328,7 +328,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
         - [`influxdb3-python`{{< req text="\* " color="magenta" >}}](https://github.com/InfluxCommunity/influxdb3-python): Provides the InfluxDB `influxdb_client_3` Python client library module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
         - [`pandas`](https://pandas.pydata.org/): Provides `pandas` functions, modules, and data structures for analyzing and manipulating data.
-        - [`tabulate`](https://pypi.org/project/tabulate/): Provides the `tabulate` function for formatting tabular data.
+        - [`tabulate`](https://pypi.org/project/tabulate/): Provides the `tabulate` function for formatting tabular data. pandas requires this module for formatting data as Markdown.
 
         In your terminal, enter the following command:
 
@@ -344,7 +344,8 @@ _If your project's virtual environment is already running, skip to step 3._
     from influxdb_client_3 import InfluxDBClient3
     import os
 
-    # INFLUX_TOKEN is an environment variable you assigned to your API token string
+    # INFLUX_TOKEN is an environment variable you assigned to your 
+    # API READ token string
     TOKEN = os.getenv('INFLUX_TOKEN')
 
     client = InfluxDBClient3(
@@ -367,33 +368,72 @@ _If your project's virtual environment is already running, skip to step 3._
     print(reader.to_pandas().to_markdown())
     ```
 
-    The sample code does the following:
+{{< expand-wrapper >}}
+{{% expand "<span class='req'>Important</span>: If using **Windows**, specify the **Windows** certificate path" %}}
 
-    1.  Imports the `InfluxDBClient3` constructor from the `influxdb_client_3` module.
-    
-    2.  Calls the `InfluxDBClient3()` constructor method with credentials to instantiate an InfluxDB `client` with the following credentials:
+  If using a non-POSIX-compliant operating system (such as Windows), specify the root certificate path when instantiating the client.
+  The following example shows how to use the Python `certifi` package and client library options to pass the certificate path:
 
-        - **host**: {{% cloud-name %}} region hostname (URL without protocol or trailing slash)
-        - **token**:  an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
-          _For security reasons, we recommend setting this as an environment
-          variable rather than including the raw token string._
-        - **database**: the name of the {{% cloud-name %}} bucket to query
-    
-    3.  Defines the SQL query to execute and assigns it to a `query` variable.
+  1.  In your terminal, install the Python `certifi` package.
 
-    4.  Calls the `client.query()` method with the SQL query.
-        `query()` sends a
-        Flight request to InfluxDB, queries the database, retrieves result data from the endpoint, and then returns a
-        [pyarrow.Table](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table)
-        assigned to the `table` variable.
+      ```sh
+      pip install certifi
+      ```
+  
+  2.  In your Python code, import `certifi` and call the `certifi.where()` method to retrieve the root certificate path.
+  3.  When instantiating the client, pass the `flight_client_options.tls_root_certs=<ROOT_CERT_PATH>` option with the certificate path--for example:
 
-    5.  Calls the [`to_pandas()` method](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas)
-        to convert the Arrow table to a [pandas DataFrame](https://arrow.apache.org/docs/python/pandas.html).
+      ```py
+      from influxdb_client_3 import InfluxDBClient3, flight_client_options
+      import os
+      import certifi
 
-    6.  Calls the [`pandas.DataFrame.to_markdown()` method](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html)
-        to convert the DataFrame to a markdown table.
+      TOKEN = os.getenv('INFLUX_TOKEN')
 
-    7.  Calls the `print()` method to print the markdown table to stdout.
+      fh = open(certifi.where(), "r")
+      cert = fh.read()
+      fh.close()
+
+      client = InfluxDBClient3(
+          host="cloud2.influxdata.com",
+          token=TOKEN,
+          database="get-started",
+          flight_client_options=flight_client_options(
+              tls_root_certs=cert))
+      ...
+      ```
+  
+  For more information, see [`influxdb_client_3` query exceptions](/influxdb/cloud-serverless/reference/client-libraries/v3/python/#query-exceptions).
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+  The sample code does the following:
+
+  1.  Imports the `InfluxDBClient3` constructor from the `influxdb_client_3` module.
+  
+  2.  Calls the `InfluxDBClient3()` constructor method with credentials to instantiate an InfluxDB `client` with the following credentials:
+
+      - **`host`**: {{% cloud-name %}} region hostname (URL without protocol or trailing slash)
+      - **`token`**:  an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
+        _Store this in a secret store or environment variable to avoid exposing the raw token string._
+      - **`database`**: the name of the {{% cloud-name %}} bucket to query
+  
+  3.  Defines the SQL query to execute and assigns it to a `query` variable.
+
+  4.  Calls the `client.query()` method with the SQL query.
+      `query()` sends a
+      Flight request to InfluxDB, queries the database, retrieves result data from the endpoint, and then returns a
+      [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table)
+      assigned to the `table` variable.
+
+  5.  Calls the [`to_pandas()` method](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table.to_pandas)
+      to convert the Arrow table to a [`pandas.DataFrame`](https://arrow.apache.org/docs/python/pandas.html).
+
+  6.  Calls the [`pandas.DataFrame.to_markdown()` method](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_markdown.html)
+      to convert the DataFrame to a markdown table.
+
+  7.  Calls the `print()` method to print the markdown table to stdout.
 
 6. In your terminal, enter the following command to run the program and query {{% cloud-name %}}:
 
@@ -533,10 +573,9 @@ _If your project's virtual environment is already running, skip to step 3._
 
         1.  Instantiates `influx.Client` with InfluxDB credentials.
           
-            - **HostURL**: your {{% cloud-name %}} region URL
-            - **AuthToken**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_  access to the specified bucket.
-          _For security reasons, we recommend setting this as an environment
-          variable rather than including the raw token string._
+            - **`HostURL`**: your {{% cloud-name %}} region URL
+            - **`AuthToken`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_  access to the specified bucket.
+              _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
         2.  Defines a deferred function to close the client after execution.
         3.  Defines a string variable for the SQL query.
@@ -596,6 +635,7 @@ time                            room            co      hum     temp
 {{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------ BEGIN C# CONTENT ----------------------------->
+{{% influxdb/custom-timestamps %}}
 ```c#
 // Query.cs
 
@@ -670,10 +710,10 @@ The sample code does the following:
     1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
            with InfluxDB credentials.
       
-        - **hostURL**: your {{% cloud-name %}} region URL.
-        - **authToken**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_  access to the specified bucket.
-        _For security reasons, we recommend setting this as an environment variable rather than including the raw token string._
-        - **database**: the name of the {{% cloud-name %}} bucket to query
+        - **`hostURL`**: your {{% cloud-name %}} region URL.
+        - **`authToken`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_  access to the specified bucket.
+          _Store this in a secret store or environment variable to avoid exposing the raw token string._
+        - **`database`**: the name of the {{% cloud-name %}} bucket to query.
     2.  Defines a string variable for the SQL query.
     3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string. `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
     4.  Iterates over rows and prints the data in table format to stdout.
@@ -698,7 +738,7 @@ The sample code does the following:
       }
       ```
 
-4.  To build and execute the program and query {{% cloud-name %}},
+4.  To execute the program and query {{% cloud-name %}},
     enter the following commands in your terminal:
 
     ```sh
@@ -708,6 +748,8 @@ The sample code does the following:
     ```sh
     dotnet run
     ```
+
+{{% /influxdb/custom-timestamps %}}
 <!------------------------------ END C# CONTENT ------------------------------->
 
 {{% /tab-content %}}

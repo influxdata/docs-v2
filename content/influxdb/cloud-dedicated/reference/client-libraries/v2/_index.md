@@ -17,7 +17,7 @@ InfluxDB client libraries are language-specific tools that integrate with Influx
 InfluxDB v2 client libraries use InfluxDB `/api/v2` endpoints and work with [InfluxDB 2.0 API compatibility endpoints](/{{< latest "influxdb" "v1" >}}/tools/api/#influxdb-20-api-compatibility-endpoints).
 
 Functionality varies among client libraries.
-
+InfluxDB client libraries are maintained by the InfluxDB community.
 For specifics about a client library, see the library's GitHub repository.
 
 {{% note %}}
