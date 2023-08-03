@@ -661,7 +661,7 @@ but the following table contains the median `temp` value for each room.
 
 ## Subquery categories
 
-SQL subqueries can be categorized as one or more of the following base on the
+SQL subqueries can be categorized as one or more of the following based on the
 behavior of the subquery:
 
 - [correlated](#correlated-subqueries) or [non-correlated](#non-correlated-subqueries) <!-- GET MORE INFO -->
