@@ -32,8 +32,10 @@ Where the following keywords can be set:
 Any part of the template that is not a keyword is treated as a tag key. This
 can also be specified multiple times.
 
-**NOTE:** `measurement` must be specified in your template.
-**NOTE:** `field*` cannot be used in conjunction with `measurement*`.
+**Note the following:**
+
+- `measurement` must be specified in your template.
+- `field*` cannot be used in conjunction with `measurement*`.
 
 ## Examples
 
