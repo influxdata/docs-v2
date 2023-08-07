@@ -9,8 +9,8 @@ menu:
     name: Template patterns
 ---
 
-Template patterns are a mini language that describes how a dot delimited
-string should be mapped to and from [metrics](/{{% latest "telegraf" %}}/metrics/).
+Template patterns describe how a dot-delimited string should be mapped to
+and from Telegraf [metrics](/telegraf/v1.27/metrics/).
 
 A template has the form:
 
