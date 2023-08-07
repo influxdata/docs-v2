@@ -315,7 +315,7 @@ package for details and additional examples on how to set the time format.  If
 `timestamp_format` is omitted `unix` format is assumed as result of the
 `timestamp` query.
 
-The `timezone` setting will be used to locate the parsed time in the given
+The `timezone` setting is used to locate the parsed time in the given
 timezone. This is helpful for cases where the time does not contain timezone
 information, e.g. `2023-03-09 14:04:40` and is not located in _UTC_, which is
 the default setting. It is also possible to set the `timezone` to `Local` which
