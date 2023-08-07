@@ -340,7 +340,7 @@ fields to the metrics. The specified path can be absolute (starting with `/`) or
 relative. Relative paths use the currently selected node as reference.
 
 __NOTE:__ Results of field_int-queries will always be converted to
-__int64__. The conversion will fail in case the query result is not convertible!
+__int64__. The conversion fails in case the query result is not convertible.
 
 ### fields sub-section
 
