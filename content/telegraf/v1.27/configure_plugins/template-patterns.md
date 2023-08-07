@@ -50,7 +50,7 @@ templates = [
 ]
 ```
 
-would result in the following Graphite -> Telegraf transformation.
+This results in the following Graphite to Telegraf metric transformation.
 
 ```text
 us.west.cpu.load 100
