@@ -1,5 +1,6 @@
 ---
 title: Carbon2 output data format
+list_title: Carbon2
 description: Use the `carbon2` output data format (serializer) to format and output Telegraf metrics as Carbon2 format.
 menu:
   telegraf_1_27_ref:

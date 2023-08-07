@@ -1,5 +1,6 @@
 ---
 title: Binary input data format
+list_title: Binary
 description: 
   Use the `binary` input data format with user-specified configurations to parse binary protocols into Telegraf metrics.
 menu:

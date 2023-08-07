@@ -1,5 +1,6 @@
 ---
 title: Graphite output data format
+list_title: Graphite
 description: Use the `graphite` output data format (serializer) to format and output Telegraf metrics as Graphite Message Format.
 menu:
   telegraf_1_27_ref:

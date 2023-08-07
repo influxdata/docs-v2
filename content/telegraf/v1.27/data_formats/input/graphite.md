@@ -1,5 +1,6 @@
 ---
 title: Graphite input data format
+list_title: Graphite
 description: Use the `graphite` input data format to parse Graphite dot buckets into Telegraf metrics.
 menu:
   telegraf_1_27_ref:

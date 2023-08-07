@@ -1,5 +1,6 @@
 ---
 title: Dropwizard input data format
+list_title: Dropwizard
 description: Use the `dropwizard` input data format to parse Dropwizard JSON representations into Telegraf metrics.
 menu:
   telegraf_1_27_ref:

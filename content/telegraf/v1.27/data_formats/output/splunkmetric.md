@@ -1,6 +1,7 @@
 ---
-title: SplunkMetric output data format
-description: Use the `splunk` metric output data format (serializer) to output Telegraf metrics in a format that can be consumed by a Splunk metrics index.
+title: Splunk metrics output data format
+list_title: Splunk metrics
+description: Use the `splunkmetric` metric output data format (serializer) to output Telegraf metrics in a format that can be consumed by a Splunk metrics index.
 menu:
   telegraf_1_27_ref:
     name: Splunk metric

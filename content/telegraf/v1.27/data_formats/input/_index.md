@@ -1,5 +1,6 @@
 ---
 title: Telegraf input data formats
+list_title: Input data formats
 description: Telegraf supports parsing input data formats into Telegraf metrics.
 menu:
   telegraf_1_27_ref:

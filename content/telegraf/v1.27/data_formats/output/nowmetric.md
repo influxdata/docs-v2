@@ -1,5 +1,6 @@
 ---
-title: ServiceNow Metrics output data format
+title: ServiceNow metrics output data format
+list_title: ServiceNow metrics
 description: Use the `nowmetric` ServiceNow metrics output data format (serializer) to output Telegraf metrics as ServiceNow Operational Intelligence format.
 menu:
   telegraf_1_27_ref:

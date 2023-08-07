@@ -1,5 +1,6 @@
 ---
 title: InfluxDB line protocol output data format
+list_title: InfluxDB line protocol
 description: Use the `influx` output data format (serializer) to format and output metrics as InfluxDB line protocol format.
 menu:
   telegraf_1_27_ref:

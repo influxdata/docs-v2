@@ -1,5 +1,6 @@
 ---
-title: OpenTSDB Telnet-style "PUT" input data format
+title: OpenTSDB Telnet "PUT" API input data format
+list_title: OpenTSDB Telnet PUT API
 description: 
   Use the `opentsdb` data format to parse OpenTSDB Telnet `PUT` API data into Telegraf metrics.
 menu:

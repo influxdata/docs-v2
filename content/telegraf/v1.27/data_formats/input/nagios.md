@@ -1,5 +1,6 @@
 ---
 title: Nagios input data format
+list_title: Nagios
 description: Use the `nagios` input data format to parse the output of Nagios plugins into Telegraf metrics.
 menu:
   telegraf_1_27_ref:

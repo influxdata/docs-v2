@@ -1,5 +1,6 @@
 ---
 title: XPath JSON input data format
+list_title: XPath JSON
 description: 
   Use the `xpath_json` input data format and XPath expressions to parse JSON into Telegraf metrics.
 menu:

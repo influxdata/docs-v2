@@ -1,5 +1,6 @@
 ---
 title: XML input data format
+list_title: XML
 description: Use the `xml` input data format to parse XML data into Telegraf metrics.
 menu:
   telegraf_1_27_ref:

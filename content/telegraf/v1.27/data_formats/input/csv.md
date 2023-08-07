@@ -1,5 +1,6 @@
 ---
 title: CSV input data format
+list_title: CSV
 description: Use the `csv` input data format to parse comma-separated values into Telegraf metrics.
 menu:
   telegraf_1_27_ref:

@@ -1,5 +1,6 @@
 ---
 title: JSON input data format
+list_title: JSON
 description: |
   The `json` input data format parses JSON objects, or an array of objects, into Telegraf metrics.
   For most cases, use the JSON v2 input data format instead.

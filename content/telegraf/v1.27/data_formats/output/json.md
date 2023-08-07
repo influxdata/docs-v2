@@ -1,5 +1,6 @@
 ---
 title: JSON output data format
+list_title: JSON
 description: Use the `json` output data format (serializer) to format and output Telegraf metrics as JSON documents.
 menu:
   telegraf_1_27_ref:

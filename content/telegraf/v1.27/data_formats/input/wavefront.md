@@ -1,5 +1,6 @@
 ---
 title: Wavefront input data format
+list_title: Wavefront
 description: Use the `wavefront` input data format to parse Wavefront data into Telegraf metrics.
 menu:
   telegraf_1_27_ref:

@@ -1,5 +1,6 @@
 ---
 title: Prometheus Remote Write input data format
+list_title: Prometheus Remote Write
 description: 
   Use the `prometheusremotewrite` input data format to parse Prometheus Remote Write samples into Telegraf metrics.
 menu:

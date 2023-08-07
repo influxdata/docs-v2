@@ -1,5 +1,6 @@
 ---
 title: InfluxDB line protocol input data format
+list_title: InfluxDB line protocol
 description: Use the `influx` line protocol input data format to parse InfluxDB metrics directly into Telegraf metrics.
 menu:
   telegraf_1_27_ref:

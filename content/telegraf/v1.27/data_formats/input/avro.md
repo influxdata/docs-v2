@@ -1,5 +1,6 @@
 ---
 title: Avro input data format
+list_title: Avro
 description: Use the `avro` input data format to parse Avro binary or JSON data into Telegraf metrics.
 menu:
   telegraf_1_27_ref:

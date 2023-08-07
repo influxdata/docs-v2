@@ -1,5 +1,6 @@
 ---
 title: Grok input data format
+list_title: Grok
 description: Use the `grok` data format to parse line-delimited data using a regular expression-like language.
 menu:
   telegraf_1_27_ref:

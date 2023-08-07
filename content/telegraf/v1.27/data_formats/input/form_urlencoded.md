@@ -1,5 +1,6 @@
 ---
-title: Form Urlencoded Parser Plugin
+title: Form URL-encoded input data format
+list_title: Form URL-encoded
 description: 
   Use the `form-urlencoded` data format to parse `application/x-www-form-urlencoded`
   data, such as HTTP query strings.

@@ -1,5 +1,6 @@
 ---
-title: XPath Protocol Buffers
+title: XPath Protocol Buffers input data format
+list_title: XPath Protocol Buffers
 description: 
   Use the `xpath_protobuf` input data format and XPath expressions to parse protobuf (Protocol Buffer) data into Telegraf metrics.
 menu:

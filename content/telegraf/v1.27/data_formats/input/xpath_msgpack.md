@@ -1,5 +1,6 @@
 ---
 title: XPath MessagePack input data format
+list_title: XPath MessagePack
 description: 
   Use the `xpath_msgpack` input data format and XPath expressions to parse MessagePack data into Telegraf metrics.
 menu:
