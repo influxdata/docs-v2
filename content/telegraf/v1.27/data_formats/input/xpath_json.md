@@ -352,8 +352,8 @@ The type of the field is specified in the [XPath][xpath] query using the type
 conversion functions of XPath such as `number()`, `boolean()` or `string()` If
 no conversion is performed in the query the field will be of type string.
 
-__NOTE: Path conversion functions will always succeed even if you convert a text
-to float!__
+__NOTE: Path conversion functions always succeed even if you convert a text
+to float.__
 
 ### field_selection, field_name, field_value (optional)
 
