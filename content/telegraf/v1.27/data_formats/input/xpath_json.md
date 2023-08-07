@@ -376,8 +376,8 @@ fields especially for documents where the node names are not known a priori or
 if there is a large number of fields to be specified. These options can also be
 combined with the field specifications above.
 
-__NOTE: Path conversion functions will always succeed even if you convert a text
-to float!__
+__NOTE: Path conversion functions always succeed even if you convert a text
+to float.__
 
 ### field_name_expansion (optional)
 
