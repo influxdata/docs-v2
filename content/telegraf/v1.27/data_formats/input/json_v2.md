@@ -1,19 +1,18 @@
 ---
 title: JSON v2 input data format
-description: Use the JSON v2 input data format to parse [JSON][json] objects, or an array of objects, into Telegraf metric fields.
+description: Use the `json_v2` input data format to parse [JSON][json] objects, or an array of objects, into Telegraf metrics.
 menu:
   telegraf_1_27_ref:
-
-    name: JSON v2 input
-    weight: 70
+    name: JSON v2
+    weight: 10
     parent: Input data formats
 ---
 
-The JSON v2 input data format parses a [JSON][json] object or an array of objects into Telegraf metric fields.
-This parser takes valid JSON input and turns it into metrics.
+Use the `json_v2` input data format to parse a [JSON][json] object or an array of objects into Telegraf metrics.
 
-The query syntax supported is [GJSON Path Syntax](https://github.com/tidwall/gjson/blob/v1.7.5/SYNTAX.md),
-Use to [this playground](https://gjson.dev/) to test out your GJSON path.
+The parser supports [GJSON Path Syntax](https://github.com/tidwall/gjson/blob/v1.7.5/SYNTAX.md) for querying JSON.
+
+To test your GJSON path, use [GJSON Playground](https://gjson.dev/).
 
 You can find multiple examples [here](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/json_v2/testdata) in the Telegraf repository.
 

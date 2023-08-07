@@ -1,15 +1,16 @@
 ---
-title: InfluxDB Line Protocol output data format
-description: The `influx` data format outputs metrics into the InfluxDB Line Protocol format.
+title: InfluxDB line protocol output data format
+description: Use the `influx` output data format (serializer) to format and output metrics as InfluxDB line protocol format.
 menu:
   telegraf_1_27_ref:
-
-    name: InfluxDB Line Protocol
-    weight: 30
+    name: InfluxDB line protocol
+    weight: 10
     parent: Output data formats
+    identifier: output-data-format-influx
 ---
 
-The `influx` output data format outputs metrics into [InfluxDB Line Protocol][line protocol]. InfluxData recommends this data format unless another format is required for interoperability.
+Use the `influx` output data format (serializer) to format and output metrics as [InfluxDB line protocol][line protocol].
+InfluxData recommends this data format unless another format is required for interoperability.
 
 ## Configuration
 

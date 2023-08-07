@@ -1,21 +1,15 @@
 ---
 title: XML input data format
-description: Use the XML input data format to parse XML data into Telegraf metrics.
+description: Use the `xml` input data format to parse XML data into Telegraf metrics.
 menu:
   telegraf_1_27_ref:
-
     name: XML
-    weight: 110
+    weight: 10
     parent: Input data formats
 metadata: [XPath parser plugin]
 ---
 
-The XML input data format parses XML data into Telegraf metrics.
-
-## Parser
-
-The [XPath parser plugin](/{{% latest "telegraf" %}}/plugins/parsers/xpath/) provides the XML data format.
-
+Use the `xml` input data format, provided by the [XPath parser plugin](https://github.com/influxdata/telegraf/tree/master/plugins/parsers/xpath), with XPath expressions to parse XML data into Telegraf metrics.
 
 ## Configuration
 

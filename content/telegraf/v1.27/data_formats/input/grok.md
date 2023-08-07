@@ -1,31 +1,31 @@
 ---
 title: Grok input data format
-description: Use the grok data format to parse line-delimited data using a regular expression-like language.
+description: Use the `grok` data format to parse line-delimited data using a regular expression-like language.
 menu:
   telegraf_1_27_ref:
-
     name: Grok
-    weight: 40
+    weight: 10
     parent: Input data formats
 ---
 
-The grok data format parses line-delimited data using a regular expression-like
+Use the `grok` data format to parse line-delimited data using a regular expression-like
 language.
 
 For an introduction to grok patterns, see [Grok Basics](https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html#_grok_basics)
-in the Logstash documentation. The grok parser uses a slightly modified version of logstash "grok"
+in the Logstash documentation. The grok parser uses a slightly modified version of logstash **grok**
 patterns, using the format:
 
-```
+```text
 %{<capture_syntax>[:<semantic_name>][:<modifier>]}
 ```
 
-The `capture_syntax` defines the grok pattern that is used to parse the input
+The `capture_syntax` defines the grok pattern used to parse the input
 line and the `semantic_name` is used to name the field or tag.  The extension
 `modifier` controls the data type that the parsed item is converted to or
 other special handling.
 
-By default, all named captures are converted into string fields.
+By default all named captures are converted into string fields.
+If a pattern does not have a semantic name it will not be captured.
 Timestamp modifiers can be used to convert captures to the timestamp of the
 parsed metric.  If no timestamp is parsed the metric will be created using the
 current time.
@@ -55,6 +55,7 @@ You must capture at least one field per line.
   - ts-httpd         ("02/Jan/2006:15:04:05 -0700")
   - ts-epoch         (seconds since unix epoch, may contain decimal)
   - ts-epochnano     (nanoseconds since unix epoch)
+  - ts-epochmilli    (milliseconds since unix epoch)
   - ts-syslog        ("Jan 02 15:04:05", parsed time is set to the current year)
   - ts-"CUSTOM"
 
@@ -67,10 +68,18 @@ See https://golang.org/pkg/time/#Parse for more details.
 Telegraf has many of its own [built-in patterns](https://github.com/influxdata/telegraf/blob/master/plugins/parsers/grok/influx_patterns.go),
 as well as support for most of
 [Logstash's core patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/main/patterns/ecs-v1/grok-patterns).
-_Golang regular expressions do not support lookahead or lookbehind.
-Logstash patterns that depend on these are not supported._
+_Golang regular expressions do not support _lookahead_ or _lookbehind_.
+Logstash patterns that depend on these aren't supported._
 
 For help building and testing patterns, see [tips for creating patterns](#tips-for-creating-patterns).
+
+<!-- TOC -->
+
+- [Configuration](#configuration)
+  - [Timestamp Examples](#timestamp-examples)
+    - [TOML Escaping](#toml-escaping)
+  - [Tips for creating patterns](#tips-for-creating-patterns)
+    - [Performance](#performance)
 
 ## Configuration
 
@@ -115,13 +124,20 @@ For help building and testing patterns, see [tips for creating patterns](#tips-f
   ##   2. "Canada/Eastern"  -- Unix TZ values like those found in https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   ##   3. UTC               -- or blank/unspecified, will return timestamp in UTC
   grok_timezone = "Canada/Eastern"
+
+  ## When set to "disable" timestamp will not incremented if there is a
+  ## duplicate.
+  # grok_unique_timestamp = "auto"
+
+  ## Enable multiline messages to be processed.
+  # grok_multiline = false
 ```
 
-### Timestamp examples
+### Timestamp Examples
 
 This example input and config parses a file using a custom timestamp conversion:
 
-```
+```text
 2017-02-21 13:10:34 value=42
 ```
 
@@ -132,7 +148,7 @@ This example input and config parses a file using a custom timestamp conversion:
 
 This example input and config parses a file using a timestamp in unix time:
 
-```
+```text
 1466004605 value=42
 1466004605.123456789 value=42
 ```
@@ -144,7 +160,7 @@ This example input and config parses a file using a timestamp in unix time:
 
 This example parses a file using a built-in conversion and a custom pattern:
 
-```
+```text
 Wed Apr 12 13:10:34 PST 2017 value=42
 ```
 
@@ -156,24 +172,42 @@ Wed Apr 12 13:10:34 PST 2017 value=42
   '''
 ```
 
-For cases where the timestamp itself is without offset, the `timezone` config var is available
-to denote an offset. By default (with `timezone` either omit, blank or set to `"UTC"`), the times
-are processed as if in the UTC timezone. If specified as `timezone = "Local"`, the timestamp
-will be processed based on the current machine timezone configuration. Lastly, if using a
-timezone from the list of Unix [timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones),
-grok will offset the timestamp accordingly.
+This example input and config parses a file using a custom timestamp conversion
+that doesn't match any specific standard:
 
-### TOML escaping
+```text
+21/02/2017 13:10:34 value=42
+```
+
+```toml
+[[inputs.file]]
+  grok_patterns = ['%{MY_TIMESTAMP:timestamp:ts-"02/01/2006 15:04:05"} value=%{NUMBER:value:int}']
+
+  grok_custom_patterns = '''
+    MY_TIMESTAMP (?:\d{2}.\d{2}.\d{4} \d{2}:\d{2}:\d{2})
+  '''
+```
+
+For cases where the timestamp itself is without offset, the `timezone` config
+var is available to denote an offset. By default (with `timezone` either omit,
+blank or set to `"UTC"`), the times are processed as if in the UTC timezone. If
+specified as `timezone = "Local"`, the timestamp will be processed based on the
+current machine timezone configuration. Lastly, if using a timezone from the
+list of Unix
+[timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), grok
+will offset the timestamp accordingly.
+
+#### TOML Escaping
 
 When saving patterns to the configuration file, keep in mind the different TOML
 [string](https://github.com/toml-lang/toml#string) types and the escaping
 rules for each.  These escaping rules must be applied in addition to the
-escaping required by the grok syntax.  Using the TOML multi-line literal
-syntax (`'''`) may be useful.
+escaping required by the grok syntax.  Using the Multi-line line literal
+syntax with `'''` may be useful.
 
 The following config examples will parse this input file:
 
-```
+```text
 |42|\uD83D\uDC2F|'telegraf'|
 ```
 
@@ -189,6 +223,7 @@ backslash must be escaped, requiring us to escape the backslash a second time.
 
 We cannot use a literal TOML string for the pattern, because we cannot match a
 `'` within it.  However, it works well for the custom pattern.
+
 ```toml
 [[inputs.file]]
   grok_patterns = ["\\|%{NUMBER:value:int}\\|%{UNICODE_ESCAPE:escape}\\|'%{WORD:name}'\\|"]
@@ -196,6 +231,7 @@ We cannot use a literal TOML string for the pattern, because we cannot match a
 ```
 
 A multi-line literal string allows us to encode the pattern:
+
 ```toml
 [[inputs.file]]
   grok_patterns = ['''
@@ -231,3 +267,15 @@ We recommend the following steps for building and testing a new pattern with Tel
 5. If successful, add the next token to the data file, update the pattern configuration in Telegraf, and then retest.
 6. Continue one token at a time until the entire line is successfully parsed.
 
+#### Performance
+
+Performance depends heavily on the regular expressions that you use, but there
+are a few techniques that can help:
+
+- Avoid using patterns such as `%{DATA}` that will always match.
+- If possible, add `^` and `$` anchors to your pattern:
+
+  ```toml
+  [[inputs.file]]
+    grok_patterns = ["^%{COMBINED_LOG_FORMAT}$"]
+  ```

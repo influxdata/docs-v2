@@ -1,14 +1,15 @@
 ---
 title: Avro input data format
-description: Use the `avro` input data format to parse metrics from a message serialized as Avro binary or JSON format.
+description: Use the `avro` input data format to parse Avro binary or JSON data into Telegraf metrics.
 menu:
   telegraf_1_27_ref:
     name: Avro
     weight: 10
     parent: Input data formats
+metadata: [Avro Parser Plugin]
 ---
 
-The Avro input data format parses messages serialized as [Avro](https://avro.apache.org/) format and encoded as binary or JSON.
+Use the `avro` input data format to parse binary or JSON [Avro](https://avro.apache.org/) message data into Telegraf metrics.
 
 ## Wire format
 

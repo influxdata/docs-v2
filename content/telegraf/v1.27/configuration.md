@@ -5,7 +5,6 @@ aliases:
   - /telegraf/v1.27/administration/configuration/
 menu:
   telegraf_1_27_ref:
-
     name: Configuration options
     weight: 40
 ---
