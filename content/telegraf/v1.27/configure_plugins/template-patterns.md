@@ -1,8 +1,8 @@
 ---
 title: Telegraf template patterns
 description: |
-    Template patterns are a mini language that describes how a dot delimited
-    string should be mapped to and from Telegraf metrics.
+    Template patterns describe how a dot-delimited string should be mapped to
+    and from Telegraf metrics.
 menu:
   telegraf_1_27_ref:
     weight: 10
