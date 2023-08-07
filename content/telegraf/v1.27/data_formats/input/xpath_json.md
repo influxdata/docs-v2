@@ -382,7 +382,7 @@ to float.__
 ### field_name_expansion (optional)
 
 When _true_, field names selected with `field_selection` are expanded to a
-_path_ relative to the _selected node_. This is necessary if we e.g. select all
+_path_ relative to the _selected node_. This is necessary if we select all
 leaf nodes as fields and those leaf nodes do not have unique names. That is in
 case you have duplicate names in the fields you select you should set this to
 `true`.
