@@ -335,7 +335,7 @@ _If your project's virtual environment is already running, skip to step 3._
     '''
 
     table = client.query(query=sql)
-    print(reader.to_pandas().to_markdown())
+    print(table.to_pandas().to_markdown())
     ```
 
 {{< expand-wrapper >}}
