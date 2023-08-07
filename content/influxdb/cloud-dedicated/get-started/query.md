@@ -519,7 +519,7 @@ _If your project's virtual environment is already running, skip to step 3._
         time := (row["time"].(arrow.Timestamp)).
           ToTime(arrow.TimeUnit(arrow.Nanosecond)).
           Format(time.RFC3339)
-        fmt.Fprintf(w, "%s\t%s\t%d\t%.2f\t%.2f\n",
+        fmt.Fprintf(w, "%s\t%s\t%d\t%.1f\t%.1f\n",
           time, row["room"], row["co"], row["hum"], row["temp"])
       }
 
@@ -566,128 +566,107 @@ _If your project's virtual environment is already running, skip to step 3._
     }
     ```
 
-    When the `main` package is executed, `main()` writes and queries data stored in {{% cloud-name %}}.
-
-3.  In your terminal, enter the following command to install the necessary packages, build the module, and run the program:
+4.  In your terminal, enter the following command to install the necessary packages, build the module, and run the program:
 
     ```sh
     go mod tidy && go build && go run influxdb_go_client
     ```
 
-    The program writes the data and prints the query results to the console.
+    The program executes the `main()` function that writes the data and prints the query results to the console.
 
-{{< expand-wrapper >}}
-{{% expand "View returned table" %}}
-```sh
-time                            room            co      hum     temp
-2022-01-02 11:46:40 +0000 UTC   Kitchen         0       35.90   21.00
-2022-01-02 12:46:40 +0000 UTC   Kitchen         0       36.20   23.00
-2022-01-02 13:46:40 +0000 UTC   Kitchen         0       36.10   22.70
-2022-01-02 14:46:40 +0000 UTC   Kitchen         0       36.00   22.40
-2022-01-02 15:46:40 +0000 UTC   Kitchen         0       36.00   22.50
-2022-01-02 16:46:40 +0000 UTC   Kitchen         1       36.50   22.80
-2022-01-02 17:46:40 +0000 UTC   Kitchen         1       36.30   22.80
-2022-01-02 18:46:40 +0000 UTC   Kitchen         3       36.20   22.70
-2022-01-02 19:46:40 +0000 UTC   Kitchen         7       36.00   22.40
-2022-01-02 11:46:40 +0000 UTC   Living Room     0       35.90   21.10
-2022-01-02 12:46:40 +0000 UTC   Living Room     0       35.90   21.40
-2022-01-02 13:46:40 +0000 UTC   Living Room     0       36.00   21.80
-2022-01-02 14:46:40 +0000 UTC   Living Room     0       36.00   22.20
-2022-01-02 15:46:40 +0000 UTC   Living Room     0       35.90   22.20
-2022-01-02 16:46:40 +0000 UTC   Living Room     0       36.00   22.40
-2022-01-02 17:46:40 +0000 UTC   Living Room     0       36.10   22.30
-2022-01-02 18:46:40 +0000 UTC   Living Room     1       36.10   22.30
-2022-01-02 19:46:40 +0000 UTC   Living Room     4       36.00   22.40
-```
-{{% /expand %}}
-{{< /expand-wrapper >}}
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END GO CONTENT ------------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!------------------------------ BEGIN C# CONTENT ----------------------------->
 {{% influxdb/custom-timestamps %}}
-```c#
-// Query.cs
+1.  In the `influxdb_csharp_client` directory you created in the
+    [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=C%23),
+    create a new file named `Query.cs`.
 
-using System;
-using System.Threading.Tasks;
-using InfluxDB3.Client;
-using InfluxDB3.Client.Query;
+2.  In `Query.cs`, enter the following sample code:
 
-namespace InfluxDBv3;
+    ```c#
+    // Query.cs
 
-public class Query
-{
-  /**
-    * Queries an InfluxDB database using the C# .NET client
-    * library.
-    **/
-  public static async Task QuerySQL()
-  {
-    /** Set InfluxDB credentials **/
-    const string hostUrl = "https://cluster-id.influxdb.io";
-    string? database = "get-started";
+    using System;
+    using System.Threading.Tasks;
+    using InfluxDB3.Client;
+    using InfluxDB3.Client.Query;
 
-    /** INFLUX_TOKEN is an environment variable you assigned to your
-      * API token value.
-      **/
-    string? authToken = System.Environment
-        .GetEnvironmentVariable("INFLUX_TOKEN");
+    namespace InfluxDBv3;
 
-    /**
-      * Instantiate the InfluxDB client with credentials.
-      **/
-    using var client = new InfluxDBClient(
-        hostUrl, authToken: authToken, database: database);
-  
-    const string sql = @"
-      SELECT time, room, temp, hum, co
-      FROM home
-      WHERE time >= '2022-01-02T08:00:00Z'
-      AND time <= '2022-01-02T20:00:00Z'
-    ";
-
-    Console.WriteLine("{0,-30}{1,-15}{2,-15}{3,-15}{4,-15}",
-        "time", "room", "temp", "hum", "co");
-    
-    await foreach (var row in client.Query(query: sql))
+    public class Query
     {
+      /**
+        * Queries an InfluxDB database using the C# .NET client
+        * library.
+        **/
+      public static async Task QuerySQL()
       {
-        /** 
-          * Iterate over rows and print column values in table format.
-          * Format the timestamp as sortable UTC format.
-          */
-        Console.WriteLine("{0,-30:u}{1,-15}{2,-15}{3,-15}{4,-15}",
-            row[0], row[1], row[2], row[3], row[4]);
+        /** Set InfluxDB credentials **/
+        const string hostUrl = "https://cluster-id.influxdb.io";
+        string? database = "get-started";
+
+        /** INFLUX_TOKEN is an environment variable you assigned to your
+          * API token value.
+          **/
+        string? authToken = System.Environment
+            .GetEnvironmentVariable("INFLUX_TOKEN");
+
+        /**
+          * Instantiate the InfluxDB client with credentials.
+          **/
+        using var client = new InfluxDBClient(
+            hostUrl, authToken: authToken, database: database);
+      
+        const string sql = @"
+          SELECT time, room, temp, hum, co
+          FROM home
+          WHERE time >= '2022-01-02T08:00:00Z'
+          AND time <= '2022-01-02T20:00:00Z'
+        ";
+
+        Console.WriteLine("{0,-30}{1,-15}{2,-15}{3,-15}{4,-15}",
+            "time", "room", "co", "hum", "temp");
+        
+        await foreach (var row in client.Query(query: sql))
+        {
+          {
+            /** 
+              * Iterate over rows and print column values in table format.
+              * Format the timestamp as sortable UTC format.
+              */
+            Console.WriteLine("{0,-30:u}{1,-15}{4,-15}{3,-15}{2,-15}",
+                row[0], row[1], row[2], row[3], row[4]);
+          }
+        }
+        Console.WriteLine();
       }
     }
-    Console.WriteLine();
-  }
-}
-```
+    ```
 
-The sample code does the following:
+    The sample code does the following:
 
-1.  Imports the following classes:
+    1.  Imports the following classes:
 
-    - `System`
-    - `System.Threading.Tasks`;
-    - `InfluxDB3.Client`;
-    - `InfluxDB3.Client.Query`;
+        - `System`
+        - `System.Threading.Tasks`;
+        - `InfluxDB3.Client`;
+        - `InfluxDB3.Client.Query`;
 
-2.  Defines a `Query` class with a `QuerySQL()` method that does the following:
+    2.  Defines a `Query` class with a `QuerySQL()` method that does the following:
 
-    1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
-           with InfluxDB credentials.
-      
-        - **`hostURL`**: your {{% cloud-name %}} cluster URL.
-        - **`authToken`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_  access to the specified database.
-          _Store this in a secret store or environment variable to avoid exposing the raw token value._
-        - **`database`**: the name of the {{% cloud-name %}} database to query.
-    2.  Defines a string variable for the SQL query.
-    3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string. `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
-    4.  Iterates over rows and prints the data in table format to stdout.
+        1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
+              with InfluxDB credentials.
+          
+            - **`hostURL`**: your {{% cloud-name %}} cluster URL.
+            - **`authToken`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_  access to the specified database.
+            _For security reasons, we recommend setting this as an environment variable rather than including the raw token string._
+            - **`database`**: the name of the {{% cloud-name %}} database to query
+        2.  Defines a string variable for the SQL query.
+        3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string. `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
+        4.  Iterates over rows and prints the data in table format to stdout.
 3.  In your editor, open the `Program.cs` file you created in the
     [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=C%23#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
 
@@ -722,7 +701,6 @@ The sample code does the following:
 
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END C# CONTENT ------------------------------->
-
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
