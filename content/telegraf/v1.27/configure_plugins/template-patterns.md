@@ -41,8 +41,8 @@ can also be specified multiple times.
 
 ### Measurement and tag templates
 
-The most basic template is to specify a single transformation to apply to all
-incoming metrics. So the following template:
+A basic template specifies a single transformation to apply to all
+incoming metrics:
 
 ```toml
 templates = [
