@@ -20,14 +20,14 @@ A template has the form:
 
 Where the following keywords can be set:
 
-1. `measurement`: specifies that this section of the graphite bucket corresponds
-to the measurement name. This can be specified multiple times.
-2. `field`: specifies that this section of the graphite bucket corresponds
-to the field name. This can be specified multiple times.
-3. `measurement*`: specifies that all remaining elements of the graphite bucket
-correspond to the measurement name.
-4. `field*`: specifies that all remaining elements of the graphite bucket
-correspond to the field name.
+- `measurement`: specifies that this section of the graphite bucket corresponds
+  to the measurement name. This can be specified multiple times.
+- `field`: specifies that this section of the graphite bucket corresponds
+  to the field name. This can be specified multiple times.
+- `measurement*`: specifies that all remaining elements of the graphite bucket
+  correspond to the measurement name.
+- `field*`: specifies that all remaining elements of the graphite bucket
+  correspond to the field name.
 
 Any part of the template that is not a keyword is treated as a tag key. This
 can also be specified multiple times.
