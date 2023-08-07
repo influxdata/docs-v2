@@ -95,16 +95,15 @@ Use the `binary` input data format with user-specified configurations to parse b
     #
 ```
 
-In this configuration mode, you explicitly specify the field and tags you want
-to scrape out of your data.
+In this configuration mode, you explicitly specify the field and tags
+to parse from your data.
 
-A configuration can contain multiple `binary` subsections for e.g. the file
-plugin to process the binary data multiple times. This can be useful
-(together with _filters_) to handle different message types.
+A configuration can contain multiple `binary` subsections.
+For example, the `file` plugin can process binary data multiple times.
+This can be useful (together with _filters_) to handle different message types.
 
-__Please note__: The `filter` section needs to be placed __after__ the `entries`
-definitions due to TOML constraints as otherwise the entries will be assigned
-to the filter section.
+**Note**: The `filter` section needs to be placed _after_ the `entries`
+definitions, otherwise the entries will be assigned to the filter section.
 
 ### General options and remarks
 
@@ -117,7 +116,7 @@ you only want to collect a subset of the available messages.
 #### `endianness` (optional)
 
 This specifies the endianness of the data. If not specified, the parser will
-fallback to the "host" endianness, assuming that the message and Telegraf
+fall back to the "host" endianness, assuming that the message and Telegraf
 machine share the same endianness.
 Alternatively, you can explicitly specify big-endian format (`"be"`) or
 little-endian format (`"le"`).
@@ -141,28 +140,32 @@ section.
 
 ### Entries definitions
 
-The entry array specifies how to dissect the message into the measurement name,
-the timestamp, tags and fields.
+The `entries` array specifies how to parse the message into the measurement name,
+timestamp, tags, and fields.
 
 #### `measurement` specification
 
 When setting the `assignment` to `"measurement"`, the extracted value
-will be used as the metric name, overriding other specifications.
+is used as the metric name, overriding other specifications.
 The `type` setting is assumed to be `"string"` and can be omitted similar
 to the `name` option. See [`string` type handling](#string-type-handling)
 for details and further options.
 
-### `time` specification
+#### `time` specification
 
 When setting the `assignment` to `"time"`, the extracted value
-will be used as the timestamp of the metric. By default the current
-time will be used for all created metrics.
+is used as the timestamp of the metric. The default is the _current
+time_ for all created metrics.
 
-The `type` setting here contains the time-format can be set to `unix`,
-`unix_ms`, `unix_us`, `unix_ns`, or an accepted
-[Go "reference time"][time const]. Consult the Go [time][time parse]
-package for details and additional examples on how to set the time format.
-If `type` is omitted the `unix` format is assumed.
+The `type` setting specifies the time-format of included timestamps.
+Use one of the following:
+
+- `unix` _(default)_
+- `unix_ms`
+- `unix_us`
+- `unix_ns`
+- [Go "reference time"][time const]. Consult the Go [time][time parse]
+  package for details and additional examples on how to set the time format.
 
 For the `unix` format and derivatives, the underlying value is assumed
 to be a 64-bit integer. The `bits` setting can be used to specify other
@@ -170,17 +173,17 @@ length settings. All other time-formats assume a fixed-length `string`
 value to be extracted. The length of the string is automatically
 determined using the format setting in `type`.
 
-The `timezone` setting allows to convert the extracted time to the
-given value timezone. By default the time will be interpreted as `utc`.
-Other valid values are `local`, i.e. the local timezone configured for
-the machine, or valid timezone-specification e.g. `Europe/Berlin`.
+The `timezone` setting converts the extracted time to the
+given value timezone. By default, the time will be interpreted as `utc`.
+Other valid values are `local` (the local timezone configured for
+the machine), or valid timezone-specification (for example,`Europe/Berlin`).
 
 ### `tag` specification
 
 When setting the `assignment` to `"tag"`, the extracted value
-will be used as a tag. The `name` setting will be the name of the tag
-and the `type` will default to `string`. When specifying other types,
-the extracted value will first be interpreted as the given type and
+is used as a tag. The `name` setting is the name of the tag
+and the `type` defaults to `string`. When specifying other types,
+the extracted value is first interpreted as the given type and
 then converted to `string`.
 
 The `bits` setting can be used to specify the length of the data to
@@ -189,8 +192,8 @@ extract and is required for fixed-length `string` types.
 ### `field` specification
 
 When setting the `assignment` to `"field"` or omitting the `assignment`
-setting, the extracted value will be used as a field. The `name` setting
-is used as the name of the field and the `type` as type of the field value.
+setting, the extracted value is used as a field. The `name` setting
+is used as the name of the field and the `type` as the type of the field value.
 
 The `bits` setting can be used to specify the length of the data to
 extract. By default the length corresponding to `type` is used.
@@ -204,17 +207,17 @@ Strings are assumed to be fixed-length strings by default. In this case, the
 
 To handle dynamic strings, the `terminator` setting can be used to specify
 characters to terminate the string. The two named options, `fixed` and `null`
-will specify fixed-length and null-terminated strings, respectively.
-Any other setting will be interpreted as hexadecimal sequence of bytes
+specify fixed-length and null-terminated strings, respectively.
+Any other setting is interpreted as a hexadecimal sequence of bytes
 matching the end of the string. The termination-sequence is removed from
 the result.
 
 ### `bool` type handling
 
-By default `bool` types are assumed to be _one_ bit in length. You can
+By default, `bool` types are assumed to be _one_ bit in length. You can
 specify any other length by using the `bits` setting.
-When interpreting values as booleans, any zero value will be `false`,
-while any non-zero value will result in `true`.
+When interpreting values as booleans, any zero value is `false` and
+any non-zero value is `true`.
 
 ### omitting data
 
@@ -232,18 +235,17 @@ All have to match to apply the configuration.
 
 #### `length` and `length_min` options
 
-Using the `length` option, the filter will check if the data to parse has
-exactly the given number of _bytes_. Otherwise, the configuration will not
-be applied.
+Using the `length` option, the filter checks if the parsed data has
+exactly the given number of _bytes_. Otherwise, the configuration is not applied.
 Similarly, for `length_min` the data has to have _at least_ the given number
 of _bytes_ to generate a match.
 
 #### `selection` list
 
 Selections can be used with or without length constraints to match the content
-of the data. Here, the `offset` and `bits` properties will specify the start
+of the data. Here, the `offset` and `bits` properties specify the start
 and length of the data to check. Both values are in _bit_ allowing for non-byte
-aligned value extraction. The extracted data will the be checked against the
+aligned value extraction. The extracted data is checked against the
 given `match` value specified in HEX.
 
 If multiple `selection` entries are specified _all_ of the selections must
@@ -286,7 +288,7 @@ in little-endian format
 
 All messages consists of a 4-byte header containing the _message type_
 in the 3rd byte and a message specific body. To parse those messages
-you can use the following configuration
+you can use the following configuration:
 
 ```toml
 [[inputs.file]]
@@ -337,7 +339,7 @@ you can use the following configuration
 The above configuration has one `[[inputs.file.binary]]` section per
 message type and uses a filter in each of those sections to apply
 the correct configuration by comparing the 3rd byte (containing
-the message type). This will lead to the following output
+the message type). This results in the following output:
 
 ```text
 metricA,address=383,failure=false count=42i,value=3.1415 1658835984000000000
@@ -345,7 +347,7 @@ metricB value=3737169374i 1658847037000000000
 metricC x=2.718280076980591,y=0.0000000000000000000000000000000006626070178575745 1658835984000000000
 ```
 
-where `metricB` uses the parsing time as timestamp due to missing
+`metricB` uses the parsing time as timestamp due to missing
 information in the data. The other two metrics use the timestamp
 derived from the data.
 

@@ -6,7 +6,6 @@ description:
 menu:
   telegraf_1_27_ref:
      name: XPath JSON
-
      weight: 10
      parent: Input data formats
 metadata: [XPath parser plugin]
@@ -16,8 +15,8 @@ Use the `xpath_json` input data format, provided by the [XPath parser plugin](ht
 
 For information about supported XPath functions, see [the underlying XPath library][xpath lib].
 
-__NOTE:__ The type of fields are specified using [XPath functions][xpath
-lib]. The only exception are _integer_ fields that need to be specified in a
+**NOTE:** The type of fields are specified using [XPath functions][xpath
+lib]. The only exceptions are _integer_ fields that need to be specified in a
 `fields_int` section.
 
 ## Supported data formats
@@ -182,10 +181,10 @@ This is a list of known headers and the corresponding values for
 ```
 
 In this configuration mode, you explicitly specify the field and tags you want
-to scrape out of your data.
+to scrape from your data.
 
-A configuration can contain muliple _xpath_ subsections for e.g. the file plugin
-to process the xml-string multiple times. Consult the [XPath syntax][xpath] and
+A configuration can contain muliple _xpath_ subsections (for example, the file plugin
+to process the xml-string multiple times). Consult the [XPath syntax][xpath] and
 the [underlying library's functions][xpath lib] for details and help regarding
 XPath queries. Consider using an XPath tester such as [xpather.com][xpather] or
 [Code Beautify's XPath Tester][xpath tester] for help developing and debugging
@@ -278,10 +277,10 @@ in the metric.
 
 ```
 
-__Please note__: The resulting fields are _always_ of type string!
+**Please note**: The resulting fields are _always_ of type string.
 
 It is also possible to specify a mixture of the two alternative ways of
-specifying fields. In this case _explicitly_ defined tags and fields take
+specifying fields. In this case, _explicitly_ defined tags and fields take
 _precedence_ over the batch instances if both use the same tag/field name.
 
 ### metric_selection (optional)
@@ -290,11 +289,11 @@ You can specify a [XPath][xpath] query to select a subset of nodes from the XML
 document, each used to generate a new metrics with the specified fields, tags
 etc.
 
-For relative queries in subsequent queries they are relative to the
-`metric_selection`. To specify absolute paths, please start the query with a
+Relative queries in subsequent queries are relative to the
+`metric_selection`. To specify absolute paths, start the query with a
 slash (`/`).
 
-Specifying `metric_selection` is optional. If not specified all relative queries
+Specifying `metric_selection` is optional. If not specified, all relative queries
 are relative to the root node of the XML document.
 
 ### metric_name (optional)
@@ -305,7 +304,7 @@ metric name is used.
 
 ### timestamp, timestamp_format, timezone (optional)
 
-By default the current time will be used for all created metrics. To set the
+By default, the current time is used for all created metrics. To set the
 time from values in the XML document you can specify a [XPath][xpath] query in
 `timestamp` and set the format in `timestamp_format`.
 

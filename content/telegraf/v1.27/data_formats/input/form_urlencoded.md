@@ -15,7 +15,7 @@ metadata: [Form URLencoded parser plugin]
 Use the `form-urlencoded` data format to parse `application/x-www-form-urlencoded`
 data, such as HTTP query strings.
 
-A common use case is to pair it with the [http_listener_v2][] input plugin to parse
+A common use case is to pair it with the [http_listener_v2](/telegraf/v1.27/plugins/#input-http_listener_v2) input plugin to parse
 the HTTP request body or query parameters.
 
 ## Configuration

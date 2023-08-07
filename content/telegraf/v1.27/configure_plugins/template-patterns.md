@@ -57,20 +57,18 @@ us.west.cpu.load 100
 => cpu.load,region=us.west value=100
 ```
 
-Multiple templates can also be specified, but these should be differentiated
-using _filters_ (see below for more details)
+You can specify multiple templates and differentiate them using _[filters](#filter-templates)_.
 
 ```toml
 templates = [
-    "*.*.* region.region.measurement", # <- all 3-part measurements will match this one.
-    "*.*.*.* region.region.host.measurement", # <- all 4-part measurements will match this one.
+    "*.*.* region.region.measurement", # All 3-part measurements will match this one.
+    "*.*.*.* region.region.host.measurement", # All 4-part measurements will match this one.
 ]
 ```
 
-### Field Templates
+### Field templates
 
-The field keyword tells Telegraf to give the metric that field name.
-So the following template:
+The `field` keyword tells Telegraf to give the metric that field name.
 
 ```toml
 separator = "_"
@@ -79,7 +77,7 @@ templates = [
 ]
 ```
 
-would result in the following Graphite -> Telegraf transformation.
+This results in the following Graphite to Telegraf metric transformation.
 
 ```text
 cpu.usage.idle.percent.eu-east 100
@@ -96,17 +94,16 @@ templates = [
 ]
 ```
 
-which would result in the following Graphite -> Telegraf transformation.
+This results in the following Graphite to Telegraf metric transformation.
 
 ```text
 cpu.usage.eu-east.idle.percentage 100
 => cpu_usage,region=eu-east idle_percentage=100
 ```
 
-### Filter Templates
+### Filter templates
 
-Users can also filter the templates to use based on the name of the bucket,
-using glob matching--for example:
+Use glob matching to filter templates to use based on the name of the bucket:
 
 ```toml
 templates = [
@@ -115,7 +112,7 @@ templates = [
 ]
 ```
 
-which would result in the following transformation:
+This results in the following transformation:
 
 ```text
 cpu.load.eu-east 100
@@ -125,12 +122,10 @@ mem.cached.localhost 256
 => mem_cached,host=localhost value=256
 ```
 
-### Adding Tags
+### Add tags
 
-Additional tags can be added to a metric that don't exist on the received metric.
-You can add additional tags by specifying them after the pattern.
-Tags have the same format as the line protocol.
-Multiple tags are separated by commas.
+To add additional tags to a metric, include them after the template pattern
+using the InfluxDB line protocol tag format (comma-separated key-value pairs).
 
 ```toml
 templates = [
@@ -138,7 +133,7 @@ templates = [
 ]
 ```
 
-would result in the following Graphite -> Telegraf transformation.
+This results in the following Graphite to Telegraf metric transformation.
 
 ```text
 cpu.usage.idle.eu-east 100

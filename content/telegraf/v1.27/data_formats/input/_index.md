@@ -9,8 +9,8 @@ menu:
     parent: Data formats
 ---
 
-Telegraf [input plugins](/{{< latest "telegraf" >}}/plugins/inputs/) consume data in one or more data formats and 
-parse the data into Telegraf [metrics][].
+Telegraf [input plugins](/telegraf/v1.27/plugins/inputs/) consume data in one or more data formats and 
+parse the data into Telegraf [metrics][/telegraf/v1.27/metrics/].
 Many input plugins use configurable parsers for parsing data formats into metrics.
 This allows input plugins such as [`kafka_consumer` input plugin](/telegraf/v1.27/plugins/#input-kafka_consumer)
 to consume and process different data formats, such as InfluxDB line
@@ -39,7 +39,7 @@ desired parser:
 
 ## Input parser plugins
 
-When you specify a `data_format` in an [input plugin](/{{< latest "telegraf" >}}/plugins/inputs/) configuration that supports it, the input plugin uses the associated [parser plugin](https://github.com/influxdata/telegraf/tree/master/plugins/parsers) to convert data from its source format into Telegraf metrics.
+When you specify a `data_format` in an [input plugin](/telegraf/v1.27/plugins/inputs/) configuration that supports it, the input plugin uses the associated [parser plugin](https://github.com/influxdata/telegraf/tree/master/plugins/parsers) to convert data from its source format into Telegraf metrics.
 Many parser plugins provide additional configuration options for specifying details about your data schema and how it should map to fields in Telegraf metrics.
 
 [metrics]: /telegraf/v1.27/metrics/
