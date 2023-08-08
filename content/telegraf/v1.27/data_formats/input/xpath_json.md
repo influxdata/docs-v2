@@ -281,8 +281,7 @@ in the metric.
 
 It is also possible to specify a mixture of the two alternative ways of
 specifying fields. In this case, _explicitly_ defined tags and fields take
-_precedence_ over the batch instances if both use the same tag/field name.
-
+_precedence_ over the batch instances if both use the same tag or field name.
 ### metric_selection (optional)
 
 You can specify a [XPath][xpath] query to select a subset of nodes from the XML
