@@ -1,20 +1,17 @@
 ---
-title: InfluxDB Line Protocol input data format
-description: Use the InfluxDB Line Protocol input data format to parse InfluxDB metrics directly into Telegraf metrics.
+title: InfluxDB line protocol input data format
+list_title: InfluxDB line protocol
+description: Use the `influx` line protocol input data format to parse InfluxDB metrics directly into Telegraf metrics.
 menu:
   telegraf_1_27_ref:
-
-    name: InfluxDB Line Protocol input
-    weight: 60
+    name: InfluxDB line protocol
+    weight: 10
     parent: Input data formats
 ---
 
-There are no additional configuration options for InfluxDB [line protocol][]. The
-InfluxDB metrics are parsed directly into Telegraf metrics.
+Use the `influx` line protocol input data format to parse InfluxDB [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) data into Telegraf [metrics](/telegraf/v1.27/metrics/).
 
-[line protocol]: /{{< latest "influxdb" "v1" >}}/write_protocols/line/
-
-### Configuration
+## Configuration
 
 ```toml
 [[inputs.file]]
@@ -25,4 +22,9 @@ InfluxDB metrics are parsed directly into Telegraf metrics.
   ## more about them here:
   ##   https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md
   data_format = "influx"
+
+  ## Influx line protocol parser
+  ## 'internal' is the default. 'upstream' is a newer parser that is faster
+  ## and more memory efficient.
+  ## influx_parser_type = "internal"
 ```

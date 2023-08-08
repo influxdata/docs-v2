@@ -1,15 +1,16 @@
 ---
 title: JSON output data format
-description: Telegraf's `json` output data format converts metrics into JSON documents.
+list_title: JSON
+description: Use the `json` output data format (serializer) to format and output Telegraf metrics as JSON documents.
 menu:
   telegraf_1_27_ref:
-
     name: JSON
-    weight: 40
+    weight: 10
     parent: Output data formats
+    identifier: output-data-format-json
 ---
 
-The `json` output data format serializes Telegraf metrics into JSON documents.
+Use the `json` output data format (serializer) to format and output Telegraf metrics as [JSON](https://www.json.org/json-en.html) documents.
 
 ## Configuration
 

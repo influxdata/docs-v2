@@ -1,15 +1,15 @@
 ---
-title: ServiceNow Metrics output data format
-description: Use the ServiceNow Metrics output data format (serializer) to output metrics in the ServiceNow Operational Intelligence format.
+title: ServiceNow metrics output data format
+list_title: ServiceNow metrics
+description: Use the `nowmetric` ServiceNow metrics output data format (serializer) to output Telegraf metrics as ServiceNow Operational Intelligence format.
 menu:
   telegraf_1_27_ref:
-
-    name: ServiceNow Metrics
-    weight: 50
+    name: ServiceNow metrics
+    weight: 10
     parent: Output data formats
 ---
 
-The ServiceNow Metrics output data format (serializer) outputs metrics in the [ServiceNow Operational Intelligence format](https://docs.servicenow.com/bundle/kingston-it-operations-management/page/product/event-management/reference/mid-POST-metrics.html).
+The `nowmetric` output data format (serializer) outputs Telegraf metrics as [ServiceNow Operational Intelligence format](https://docs.servicenow.com/bundle/kingston-it-operations-management/page/product/event-management/reference/mid-POST-metrics.html).
 
 It can be used to write to a file using the File output plugin, or for sending metrics to a MID Server with Enable REST endpoint activated using the standard telegraf HTTP output.
 If you're using the HTTP output plugin, this serializer knows how to batch the metrics so you don't end up with an HTTP POST per metric.

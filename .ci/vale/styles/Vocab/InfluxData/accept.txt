@@ -4,6 +4,7 @@ APIs?
 Arrow
 authToken
 AuthToken
+[Bb]oolean
 bundlers?
 [Cc]hronograf
 CLI
@@ -38,6 +39,7 @@ IOx
 Kapacitor
 lat
 locf
+[Ll]ogstash
 lon
 namespace
 noaa
@@ -49,7 +51,9 @@ pyinflux
 rearchitect(ed)?
 retention_policy
 rp
+serializer
 [Ss]erverless
+Splunk
 stdout
 Superset
 svg
@@ -58,3 +62,5 @@ svg
 unescaped
 venv
 Webpack
+xpath
+XPath
