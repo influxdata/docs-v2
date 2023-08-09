@@ -12,7 +12,7 @@ aliases:
   - /influxdb/clustered/reference/client-libraries/flight-sql/python-flightsql/
 ---
 
-The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influxdata/flightsql-dbapi) integrates with Python applications using SQL to query data stored in an {{% cloud-name %}} database. The `flightsql-dbapi` library uses the [Flight SQL protocol](https://arrow.apache.org/docs/format/FlightSql.html) to query and retrieve data.
+The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influxdata/flightsql-dbapi) integrates with Python applications using SQL to query data stored in an {{% product-name %}} database. The `flightsql-dbapi` library uses the [Flight SQL protocol](https://arrow.apache.org/docs/format/FlightSql.html) to query and retrieve data.
 
 {{% note %}}
 #### InfluxDB v3 client libraries
@@ -20,7 +20,7 @@ The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influ
 We recommend using the [`influxdb3-python` Python client library](/influxdb/clustered/reference/client-libraries/v3/python/) for integrating InfluxDB v3 with your Python application code.
 
 [InfluxDB v3 client libraries](/influxdb/clustered/reference/client-libraries/v3/) client libraries wrap Apache Arrow Flight clients
-and provide convenient methods for writing, querying, and processing data stored in {{% cloud-name %}}.
+and provide convenient methods for writing, querying, and processing data stored in {{% product-name %}}.
 Client libraries can query using [SQL](/influxdb/clustered/query-data/sql/execute-queries/python/) or [InfluxQL](/influxdb/clustered/query-data/influxql/execute-queries/python/).
 {{% /note %}}
 
@@ -94,8 +94,8 @@ client = FlightSQLClient(host='cluster-id.influxdb.io',
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% cloud-name %}} [database token](/influxdb/clustered/admin/tokens/) with read permissions on the databases you want to query
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% cloud-name %}} [database](/influxdb/clustered/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [database token](/influxdb/clustered/admin/tokens/) with read permissions on the databases you want to query
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/clustered/admin/databases/)
 
 ### Instance methods
 

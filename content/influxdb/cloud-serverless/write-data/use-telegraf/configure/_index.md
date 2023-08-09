@@ -21,14 +21,14 @@ aliases:
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics to
-{{< cloud-name >}}.
+{{< product-name >}}.
 Learn how to enable the plugin in new and
 existing Telegraf configurations,
 and then start Telegraf using the custom configuration file.
 
 {{% note %}}
 _View the [requirements](/influxdb/cloud-serverless/write-data/use-telegraf#requirements)
-for using Telegraf with {{< cloud-name >}}._
+for using Telegraf with {{< product-name >}}._
 {{% /note %}}
 
 <!-- TOC -->
@@ -40,7 +40,7 @@ for using Telegraf with {{< cloud-name >}}._
       - [token](#token)
       - [organization](#organization)
       - [bucket](#bucket)
-      - [Write to InfluxDB v1.x and {{< cloud-name >}}](#write-to-influxdb-v1x-and--cloud-name-)
+      - [Write to InfluxDB v1.x and {{< product-name >}}](#write-to-influxdb-v1x-and--product-name-)
 - [Start Telegraf](#start-telegraf)
 
 <!-- /TOC -->
@@ -67,7 +67,7 @@ To add any of the available [Telegraf plugins](/{{< latest "telegraf" >}}/plugin
 
 ### Enable and configure the InfluxDB v2 output plugin
 
-To send data to {{< cloud-name >}}, enable the
+To send data to {{< product-name >}}, enable the
 [`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
 in the `telegraf.conf`.
 
@@ -91,7 +91,7 @@ The InfluxDB output plugin configuration contains the following options:
 ##### urls
 
 An array of URL strings.
-To write to {{% cloud-name %}}, include your {{% cloud-name %}} region URL using the HTTPS protocol:
+To write to {{% product-name %}}, include your {{% product-name %}} region URL using the HTTPS protocol:
 
 ```toml
 ["https://cloud2.influxdata.com"]
@@ -99,23 +99,23 @@ To write to {{% cloud-name %}}, include your {{% cloud-name %}} region URL using
 
 ##### token
 
-Your {{% cloud-name %}} [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ permission to the database.
+Your {{% product-name %}} [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ permission to the database.
 
 In the examples, `INFLUX_TOKEN` is an environment variable assigned to a [API token](/influxdb/cloud-serverless/admin/tokens/) that has _write_ permission to the database.
 
 ##### organization
 
-For {{% cloud-name %}}, set this to an empty string (`""`).
+For {{% product-name %}}, set this to an empty string (`""`).
 
 ##### bucket
 
-The name of the {{% cloud-name %}} bucket to write data to.
+The name of the {{% product-name %}} bucket to write data to.
 
 {{% note %}}
-##### Write to InfluxDB v1.x and {{< cloud-name >}}
+##### Write to InfluxDB v1.x and {{< product-name >}}
 
 If a Telegraf agent is already writing to an InfluxDB v1.x database,
-enabling the InfluxDB v2 output plugin will write data to both v1.x and your {{< cloud-name >}} bucket.
+enabling the InfluxDB v2 output plugin will write data to both v1.x and your {{< product-name >}} bucket.
 {{% /note %}}
 
 ## Start Telegraf

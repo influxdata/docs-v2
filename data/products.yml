@@ -72,6 +72,16 @@ influxdb_cloud_dedicated:
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-form/"
 
+influxdb_clustered:
+  name: InfluxDB Clustered
+  altname: InfluxDB Clustered
+  namespace: influxdb
+  menu_category: self-managed
+  versions: [clustered]
+  list_order: 3
+  latest: clustered
+  link: "https://www.influxdata.com/contact-sales-form/"
+
 telegraf:
   name: Telegraf
   namespace: telegraf

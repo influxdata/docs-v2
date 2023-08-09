@@ -15,10 +15,10 @@ related:
 alt_engine: /influxdb/cloud/account-management/switch-org/
 ---
 
-If you belong to more than one {{< cloud-name >}} organization with the same email address, you can switch from one organization to another while staying logged in.
+If you belong to more than one {{< product-name >}} organization with the same email address, you can switch from one organization to another while staying logged in.
 
 To switch InfluxDB Cloud organizations:
 
 1. (Optional) To switch to an organization in a different account, [switch accounts](/influxdb/cloud/account-management/switch-account/).
-2. In the {{< cloud-name "short" >}} UI, click the organization name in the header and select **Switch Organizations**.
+2. In the {{< product-name "short" >}} UI, click the organization name in the header and select **Switch Organizations**.
 3. Select the organization you want to switch to from the drop-down list.

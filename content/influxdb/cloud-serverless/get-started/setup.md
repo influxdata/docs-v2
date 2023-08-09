@@ -106,7 +106,7 @@ credentials. Use the [`influx config create` command](/influxdb/cloud-serverless
 to create a new CLI connection configuration. Include the following flags:
 
 - `-n, --config-name`: Connection configuration name. This examples uses `get-started`.
-- `-u, --host-url`: [{{% cloud-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
+- `-u, --host-url`: [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
 - `-o, --org`: InfluxDB [organization name](/influxdb/cloud-serverless/admin/organizations/).
 - `-t, --token`:  your [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token).
 
@@ -131,7 +131,7 @@ The `influx` CLI checks for specific environment variables and, if present,
 uses those environment variables to populate authentication credentials.
 Set the following environment variables in your command line session:
 
-- `INFLUX_HOST`: [{{% cloud-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
+- `INFLUX_HOST`: [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
 - `INFLUX_ORG`: InfluxDB [organization name or ID](/influxdb/cloud-serverless/admin/organizations/view-orgs/).
 - `INFLUX_TOKEN`:  your [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token).
 
@@ -186,7 +186,7 @@ set INFLUX_TOKEN=API_TOKEN
 
 Use the following `influx` CLI flags to provide required credentials to commands:
 
-- `--host`: [{{% cloud-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
+- `--host`: [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
 - `-o`, `--org`: InfluxDB organization name or
   [ID](/influxdb/cloud-serverless/organizations/view-orgs/#view-your-organization-id).
 - `-t`, `--token`:  your [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token).
@@ -323,7 +323,7 @@ Keep the following in mind when using API clients and client libraries:
 - InfluxDB ignores `org` and `org_id` parameters in API write and query requests,
   but some clients still require the parameters.
 - Some clients use `host` to refer to your _hostname_, your
-  [{{% cloud-name %}} region URL](/influxdb/cloud-serverless/reference/regions/)
+  [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/)
   without `https://`.
 
 {{% note %}}
@@ -365,7 +365,7 @@ All API, cURL, and client library examples in this getting started tutorial assu
 3.  Click **+ {{< caps >}}Create bucket{{< /caps >}}**.
 4.  Provide a bucket name (get-started) and select a
     [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period).
-    Supported retention periods depend on your {{% cloud-name %}} plan.
+    Supported retention periods depend on your {{% product-name %}} plan.
 
 5.  Click **{{< caps >}}Create{{< /caps >}}**.
 
@@ -382,7 +382,7 @@ All API, cURL, and client library examples in this getting started tutorial assu
 
     - `-n, --name` flag with the bucket name.
     - `-r, --retention` flag with the bucket's retention period duration.
-      Supported retention periods depend on your {{% cloud-name %}} plan.
+      Supported retention periods depend on your {{% product-name %}} plan.
     - [Connection and authentication credentials](#configure-authentication-credentials)
 
   {{% code-placeholders "get-started|7d" %}}
@@ -415,7 +415,7 @@ Include the following with your request:
     Each retention rule object has the following properties:
     - **type**: `"expire"`
     - **everySeconds**: Retention period duration in seconds.
-      Supported retention periods depend on your {{% cloud-name %}} plan.
+      Supported retention periods depend on your {{% product-name %}} plan.
 
 {{% code-placeholders "\$INFLUX_TOKEN|\$INFLUX_ORG_ID|https://cloud2.influxdata.com|get-started"%}}
 ```sh

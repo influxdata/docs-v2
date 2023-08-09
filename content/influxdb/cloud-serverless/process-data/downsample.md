@@ -70,7 +70,7 @@ instantiate two InfluxDB clients:
 
 Provide the following credentials for each client:
 
-- **host**: [{{< cloud-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
+- **host**: [{{< product-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
   _(without the protocol)_
 - **org**: InfluxDB organization name
 - **token**: InfluxDB API token with read and write permissions on the buckets you

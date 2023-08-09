@@ -12,17 +12,17 @@ menu:
 weight: 1
 ---
 
-{{% warn %}}
+{{% note %}}
 #### Currently in early access
 
 InfluxDB Clustered is currently in early access and only available to a limited
 group of InfluxData customers.
 If interested in being part of the InfluxDB Clustered early access group,
 please contact the [InfluxData Sales team]({{< dedicated-link >}}).
-{{% /warn %}}
+{{% /note %}}
 
 InfluxDB Clustered is a highly available InfluxDB 3.0 cluster hosted and
-managed on your own hardware.
+managed on your own infrastructure.
 The InfluxDB time series platform is designed to handle high write and query loads.
 Learn how to use and leverage InfluxDB Clustered for your specific
 time series use case.

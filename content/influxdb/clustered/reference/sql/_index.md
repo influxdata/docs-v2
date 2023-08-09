@@ -11,7 +11,7 @@ related:
   - /influxdb/clustered/reference/internals/arrow-flightsql/
 ---
 
-{{% cloud-name %}} uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.  
+{{% product-name %}} uses the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/) implementation of SQL.  
 
 - [Identifiers](#identifiers)  
 - [Quoting and case sensitivity](#quoting-and-case-sensitivity)    
@@ -483,7 +483,7 @@ Use comments to describe and add detail or notes to your queries.
 
 ## Schema information
 
-{{% cloud-name %}} supports the following metadata schema queries:
+{{% product-name %}} supports the following metadata schema queries:
 
 ```sql
 SHOW tables

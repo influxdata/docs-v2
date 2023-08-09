@@ -18,7 +18,7 @@ related:
 
 [Chronograf](/{{< latest "chronograf" >}}/) is a data visualization and dashboarding
 tool designed to visualize data in InfluxDB 1.x using the **InfluxQL** query language.
-This page walks through how to use Chronograf with **{{% cloud-name %}}**.
+This page walks through how to use Chronograf with **{{% product-name %}}**.
 
 ## Download and install Chronograf
 
@@ -28,9 +28,9 @@ If you haven't already, [download and install Chronograf](/{{< latest "chronogra
 
 1. In Chronograf, click **Configuration** in the left navigation bar,
    and then click **{{< icon "plus" >}} Add Connection**.
-2. Enter your {{% cloud-name %}} connection credentials:
+2. Enter your {{% product-name %}} connection credentials:
 
-    - **Connection URL:** [{{% cloud-name %}} region URL](/influxdb/cloud-serverless/reference/regions/)
+    - **Connection URL:** [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/)
 
       ```
       https://cloud2.influxdata.com
@@ -48,7 +48,7 @@ If you haven't already, [download and install Chronograf](/{{< latest "chronogra
         {{% note %}}
 #### DBRPs map to InfluxDB buckets
 
-In {{% cloud-name %}}, database and retention-policy (DBRP) combinations
+In {{% product-name %}}, database and retention-policy (DBRP) combinations
 are mapped to buckets using the `database-name/retention-policy` naming convention
 or using manually created DBRP mappings.
 **DBRP mappings are required to query InfluxDB Cloud using InfluxQL.**
@@ -74,7 +74,7 @@ For information, see [Create DBRP mappings](/influxdb/cloud-serverless/query-dat
 {{% note %}}
 #### Schema information is not available
 
-{{% cloud-name %}} currently offers limited support of InfluxQL metaqueries, so
+{{% product-name %}} currently offers limited support of InfluxQL metaqueries, so
 schema information may not be available in the Data Explorer.
 This limits the Data Explorer's query building functionality and requires you to
 build queries manually using
@@ -100,7 +100,7 @@ For more information about available InfluxQL functionality, see
 
 ### No administrative functionality
 
-Chronograf cannot be used for administrative tasks in {{% cloud-name %}}.
+Chronograf cannot be used for administrative tasks in {{% product-name %}}.
 For example, you **cannot** do the following:
 
 - Define databases
@@ -108,7 +108,7 @@ For example, you **cannot** do the following:
 - Add users
 - Kill queries
 
-When connected to an {{% cloud-name %}} bucket, functionality in the
+When connected to an {{% product-name %}} bucket, functionality in the
 **{{< icon "crown" >}} InfluxDB Admin** section of Chronograf is disabled.
 
 To complete administrative tasks, use the following:

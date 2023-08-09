@@ -10,7 +10,7 @@ influxdb/cloud-serverless/tags: [Python, SQL, Flight SQL]
 weight: 201
 ---
 
-The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influxdata/flightsql-dbapi) integrates with Python applications using SQL to query data stored in an {{% cloud-name %}} bucket. The `flightsql-dbapi` library uses the [Flight SQL protocol](https://arrow.apache.org/docs/format/FlightSql.html) to query and retrieve data.
+The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influxdata/flightsql-dbapi) integrates with Python applications using SQL to query data stored in an {{% product-name %}} bucket. The `flightsql-dbapi` library uses the [Flight SQL protocol](https://arrow.apache.org/docs/format/FlightSql.html) to query and retrieve data.
 
 {{% note %}}
 #### InfluxDB v3 client libraries
@@ -18,7 +18,7 @@ The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influ
 We recommend using the [`influxdb3-python` Python client library](/influxdb/cloud-serverless/reference/client-libraries/v3/python/) for integrating InfluxDB v3 with your Python application code.
 
 [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) client libraries wrap Apache Arrow Flight clients
-and provide convenient methods for writing, querying, and processing data stored in {{% cloud-name %}}.
+and provide convenient methods for writing, querying, and processing data stored in {{% product-name %}}.
 Client libraries can query using [SQL](/influxdb/cloud-serverless/query-data/sql/execute-queries/python/) or [InfluxQL](/influxdb/cloud-serverless/query-data/influxql/execute-queries/python/).
 {{% /note %}}
 
@@ -92,8 +92,8 @@ client = FlightSQLClient(host='cloud2.influxdata.com',
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an {{% cloud-name %}} [API token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the buckets you want to query
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of your {{% cloud-name %}} [bucket](/influxdb/cloud-serverless/admin/buckets/)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [API token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the buckets you want to query
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [bucket](/influxdb/cloud-serverless/admin/buckets/)
 
 ### Instance methods
 

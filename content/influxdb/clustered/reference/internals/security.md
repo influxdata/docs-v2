@@ -8,6 +8,9 @@ menu:
     name: Security
     parent: InfluxDB internals
 influxdb/clustered/tags: [security, internals]
+# Much of the security will need to be managed by the user so we need to find
+# out what we do control
+draft: true
 ---
 
 InfluxData's information security program is based on industry-recognized standards and frameworks,
@@ -171,8 +174,7 @@ least privilege and separation of duties.
 
 ### Monitoring, logging, and alerting
 
-InfluxData continuously monitors and analyzes metrics from InfluxDB Cloud
-Dedicated environments.
+InfluxData continuously monitors and analyzes metrics from InfluxDB Clustered environments.
 
 - Services are carefully monitored to ensure performance and availability, and
   to detect anomalies.

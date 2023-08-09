@@ -90,7 +90,7 @@ Combine delete predicate expressions (if possible) into a single request. Influx
 
 ## UI error messages
 
-The {{< cloud-name >}} UI displays a notification message when service quotas or limits are exceeded. The error messages correspond with the relevant [API error responses](#api-error-responses).
+The {{< product-name >}} UI displays a notification message when service quotas or limits are exceeded. The error messages correspond with the relevant [API error responses](#api-error-responses).
 
 Errors can also be viewed in the [Usage page](/influxdb/cloud-serverless/admin/billing/data-usage/)
 under **Limit Events**, e.g. `event_type_limited_query`, `event_type_limited_write`,

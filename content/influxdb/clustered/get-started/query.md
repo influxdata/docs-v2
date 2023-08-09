@@ -19,7 +19,7 @@ related:
   - /influxdb/clustered/reference/client-libraries/v3/
 ---
 
-{{% cloud-name %}} supports multiple query languages:
+{{% product-name %}} supports multiple query languages:
 
 - **SQL**: Traditional SQL powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
   query engine. The supported SQL syntax is similar to PostgreSQL.
@@ -41,7 +41,7 @@ The examples in this section of the tutorial query the
 
 ## Tools to execute queries
 
-{{% cloud-name %}} supports many different tools for querying data, including:
+{{% product-name %}} supports many different tools for querying data, including:
 
 {{< req type="key" text="Covered in this tutorial" color="magenta" >}}
 - [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req "\*  " >}}
@@ -54,7 +54,7 @@ The examples in this section of the tutorial query the
 
 ## SQL query basics
 
-The {{% cloud-name %}} SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
+The {{% product-name %}} SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
 query engine which provides an SQL syntax similar to PostgreSQL.
 
 {{% note %}}
@@ -166,7 +166,7 @@ ORDER BY room, _time
 
 ### Execute an SQL query
 
-Get started with one of the following tools for querying data stored in an {{% cloud-name %}} database:
+Get started with one of the following tools for querying data stored in an {{% product-name %}} database:
 
 - **InfluxDB v3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
 - **influx3 CLI**: Send queries from your terminal command-line.
@@ -240,7 +240,7 @@ _If your project's virtual environment is already running, skip to step 3._
     <!-- code-placeholders breaks when indented here -->
     ```sh
     influx3 config \
-      --name="config-dedicated" \
+      --name="config-serverless" \
       --database="get-started" \
       --host="cluster-id.influxdb.io" \
       --token="DATABASE_TOKEN" \
@@ -270,7 +270,7 @@ _If your project's virtual environment is already running, skip to step 3._
 {{% tab-content %}}
 <!--------------------------- BEGIN PYTHON CONTENT ---------------------------->
 {{% influxdb/custom-timestamps %}}
-Use the `influxdb_client_3` client library module to integrate {{< cloud-name >}} with your Python code.
+Use the `influxdb_client_3` client library module to integrate {{< product-name >}} with your Python code.
 The client library supports writing data to InfluxDB and querying data using SQL or InfluxQL.
 
 The following steps include setting up a Python virtual environment already
@@ -384,11 +384,11 @@ _If your project's virtual environment is already running, skip to step 3._
   
   2.  Calls the `InfluxDBClient3()` constructor method with credentials to instantiate an InfluxDB `client` with the following credentials:
 
-      - **`host`**: {{% cloud-name %}} cluster URL (without `https://` protocol or trailing slash)
+      - **`host`**: {{% product-name %}} cluster URL (without `https://` protocol or trailing slash)
       - **`token`**: a [database token](/influxdb/clustered/admin/tokens/) with
         read access to the specified database.
         _Store this in a secret store or environment variable to avoid exposing the raw token string._
-      - **`database`**: the name of the {{% cloud-name %}} database to query
+      - **`database`**: the name of the {{% product-name %}} database to query
   
   3.  Defines the SQL query to execute and assigns it to a `query` variable.
 
@@ -406,7 +406,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
   7.  Calls the `print()` method to print the markdown table to stdout.
 
-2.  Enter the following command to run the program and query your {{% cloud-name %}} cluster:
+2.  Enter the following command to run the program and query your {{% product-name %}} cluster:
 
     ```sh
     python query.py
@@ -544,7 +544,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
         1.  Instantiates `influx.Client` with InfluxDB credentials.
           
-            - **`HostURL`**: your {{% cloud-name %}} cluster URL
+            - **`HostURL`**: your {{% product-name %}} cluster URL
             - **`AuthToken`**:  a [database token](/influxdb/clustered/admin/tokens/) with _read_  access to the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
@@ -566,7 +566,7 @@ _If your project's virtual environment is already running, skip to step 3._
     }
     ```
 
-    When the `main` package is executed, `main()` writes and queries data stored in {{% cloud-name %}}.
+    When the `main` package is executed, `main()` writes and queries data stored in {{% product-name %}}.
 
 3.  In your terminal, enter the following command to install the necessary packages, build the module, and run the program:
 
@@ -681,10 +681,10 @@ The sample code does the following:
     1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
            with InfluxDB credentials.
       
-        - **`hostURL`**: your {{% cloud-name %}} cluster URL.
+        - **`hostURL`**: your {{% product-name %}} cluster URL.
         - **`authToken`**: a [database token](/influxdb/clustered/admin/tokens/) with _read_  access to the specified database.
           _Store this in a secret store or environment variable to avoid exposing the raw token value._
-        - **`database`**: the name of the {{% cloud-name %}} database to query.
+        - **`database`**: the name of the {{% product-name %}} database to query.
     2.  Defines a string variable for the SQL query.
     3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string. `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
     4.  Iterates over rows and prints the data in table format to stdout.
@@ -709,7 +709,7 @@ The sample code does the following:
       }
       ```
 
-4.  To execute the program and query your {{% cloud-name %}} cluster,
+4.  To execute the program and query your {{% product-name %}} cluster,
     enter the following commands in your terminal:
 
     ```sh
@@ -766,7 +766,7 @@ The sample code does the following:
 {{< /expand-wrapper >}}
 
 **Congratulations!** You've learned the basics of querying data in InfluxDB with SQL.
-For a deep dive into all the ways you can query {{% cloud-name %}}, see the
+For a deep dive into all the ways you can query {{% product-name %}}, see the
 [Query data in InfluxDB](/influxdb/clustered/query-data/) section of documentation.
 
 {{< page-nav prev="/influxdb/clustered/get-started/write/" keepTab=true >}}

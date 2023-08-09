@@ -10,9 +10,10 @@ weight: 3
 influxdb/clustered/tags: [get-started]
 ---
 
-InfluxDB Clustered is the platform purpose-built to collect, store, and
-query time series data.
-It is powered by the InfluxDB IOx storage engine which provides a number of
+InfluxDB Clustered is a highly available InfluxDB 3.0 cluster hosted and
+managed on your own infrastructure and is the platform purpose-built to collect,
+store, and query time series data.
+It is powered by the InfluxDB 3.0 storage engine which provides a number of
 benefits including nearly unlimited series cardinality, improved query performance,
 and interoperability with widely used data processing tools and platforms.
 
@@ -29,7 +30,7 @@ Examples of time series data include:
 - Stock prices
 
 This multi-part tutorial walks you through writing time series data to
-your dedicated InfluxDB Cloud cluster, querying, and then visualizing that data.
+your InfluxDB cluster, querying, and then visualizing that data.
 
 ## Key concepts before you get started
 

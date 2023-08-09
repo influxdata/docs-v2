@@ -20,7 +20,7 @@ InfluxDB Cloud offers a [Free Plan](#free-plan), a [Usage-Based Plan](#usage-bas
 
 ## Free Plan
 
-All new {{< cloud-name >}} accounts start with Free Plan that provides a limited number of resources and data usage. See [plan limits](/influxdb/cloud/account-management/limits/).
+All new {{< product-name >}} accounts start with Free Plan that provides a limited number of resources and data usage. See [plan limits](/influxdb/cloud/account-management/limits/).
 
 ## Usage-Based Plan
 

@@ -139,7 +139,7 @@ The following examples use the sample data written in the
 [Get started writing data guide](/influxdb/clustered/get-started/write/).
 To run the example queries and return results,
 [write the sample data](/influxdb/clustered/get-started/write/#write-line-protocol-to-influxdb)
-to your InfluxDB Cloud dedicated database before running the example queries.
+to your InfluxDB database before running the example queries.
 {{% /note %}}
 
 ### Perform an ungrouped aggregation

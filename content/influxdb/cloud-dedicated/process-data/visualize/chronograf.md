@@ -18,7 +18,7 @@ related:
 
 [Chronograf](/{{< latest "chronograf" >}}/) is a data visualization and dashboarding
 tool designed to visualize data in InfluxDB 1.x using the **InfluxQL** query language.
-This page walks through how to use Chronograf with **{{% cloud-name %}}**.
+This page walks through how to use Chronograf with **{{% product-name %}}**.
 
 ## Download and install Chronograf
 
@@ -28,9 +28,9 @@ If you haven't already, [download and install Chronograf](/{{< latest "chronogra
 
 1. In Chronograf, click **Configuration** in the left navigation bar,
    and then click **{{< icon "plus" >}} Add Connection**.
-2. Enter your {{% cloud-name %}} connection credentials:
+2. Enter your {{% product-name %}} connection credentials:
 
-    - **Connection URL:** {{% cloud-name %}} cluster URL
+    - **Connection URL:** {{% product-name %}} cluster URL
 
       ```
       https://cluster-id.influxdb.io
@@ -48,11 +48,11 @@ If you haven't already, [download and install Chronograf](/{{< latest "chronogra
         {{% note %}}
 #### DBRPs map to InfluxDB databases
 
-In {{% cloud-name %}}, databases and retention-policies (DBRPs) are no longer 
+In {{% product-name %}}, databases and retention-policies (DBRPs) are no longer 
 separate entities in the data model. Rather than having one or more retention policies,
-an {{% cloud-name %}} database has a retention period, which defines the maximum
+an {{% product-name %}} database has a retention period, which defines the maximum
 age of data to retain in the database.
-InfluxQL queries still assume the 1.x DBRP convention, but with {{% cloud-name %}},
+InfluxQL queries still assume the 1.x DBRP convention, but with {{% product-name %}},
 InfluxQL queries are mapped to databases using the `database-name/retention-policy`
 naming convention. For example:
 
@@ -60,7 +60,7 @@ naming convention. For example:
 SELECT * FROM mydb.autogen.measurement
 ```
 
-This query is routed to the {{% cloud-name %}} database with the name `mydb/autogen`.
+This query is routed to the {{% product-name %}} database with the name `mydb/autogen`.
       {{% /note %}}
 
 3. Click **Add Connection**.
@@ -81,7 +81,7 @@ This query is routed to the {{% cloud-name %}} database with the name `mydb/auto
 {{% note %}}
 #### Schema information is not available
 
-{{% cloud-name %}} currently offers limited support of InfluxQL metaqueries, so
+{{% product-name %}} currently offers limited support of InfluxQL metaqueries, so
 schema information may not be available in the Data Explorer.
 This limits the Data Explorer's query building functionality and requires you to
 build queries manually using
@@ -107,7 +107,7 @@ For more information about available InfluxQL functionality, see
 
 ### No administrative functionality
 
-Chronograf cannot be used for administrative tasks in {{% cloud-name %}}.
+Chronograf cannot be used for administrative tasks in {{% product-name %}}.
 For example, you **cannot** do the following:
 
 - Define databases
@@ -115,7 +115,7 @@ For example, you **cannot** do the following:
 - Add users
 - Kill queries
 
-When connected to an {{% cloud-name %}} database, functionality in the
+When connected to an {{% product-name %}} database, functionality in the
 **{{< icon "crown" >}} InfluxDB Admin** section of Chronograf is disabled.
 
 To complete [administrative tasks](/influxdb/cloud-dedicated/admin/), use the

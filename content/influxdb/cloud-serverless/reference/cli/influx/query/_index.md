@@ -23,7 +23,7 @@ prepend:
     #### Command not supported
 
     The `influx query` command and the InfluxDB `/api/v2/query` API endpoint it uses
-    don't work with {{% cloud-name %}}.
+    don't work with {{% product-name %}}.
 
-    Use [SQL](/influxdb/cloud-serverless/query-data/sql/execute-queries/) or [InfluxQL](/influxdb/cloud-serverless/query-data/influxql/execute-queries/) tools to query a {{% cloud-name %}} bucket.
+    Use [SQL](/influxdb/cloud-serverless/query-data/sql/execute-queries/) or [InfluxQL](/influxdb/cloud-serverless/query-data/influxql/execute-queries/) tools to query a {{% product-name %}} bucket.
 ---

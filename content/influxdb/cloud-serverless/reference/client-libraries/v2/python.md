@@ -112,4 +112,4 @@ write_api.write(bucket=bucket, org=org, record=p)
 
 ## Query data from InfluxDB with Python
 
-To query your {{% cloud-name %}} bucket, use the [Python client library for InfluxDB v3](/influxdb/cloud-serverless/reference/client-libraries/v3/python/).
+To query your {{% product-name %}} bucket, use the [Python client library for InfluxDB v3](/influxdb/cloud-serverless/reference/client-libraries/v3/python/).

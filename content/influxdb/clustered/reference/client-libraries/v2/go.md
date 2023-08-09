@@ -11,16 +11,16 @@ influxdb/clustered/tags: [client libraries, Go]
 weight: 201
 ---
 
-Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to write data to an {{% cloud-name %}} database.
+Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go) to write data to an {{% product-name %}} database.
 
 {{% note %}}
 ### Use the InfluxDB v3 client library
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% cloud-name %}} database.
+This endpoint can't query an {{% product-name %}} database.
 
 Use the [InfluxDB v3 Go client library](/influxdb/clustered/reference/client-libraries/v3/go/)
-to write and query data stored in {{% cloud-name %}}.
+to write and query data stored in {{% product-name %}}.
 {{% /note %}}
 
 This guide presumes some familiarity with Go and InfluxDB.
@@ -36,7 +36,7 @@ If just getting started, see [Get started with InfluxDB](/influxdb/clustered/get
     go get github.com/influxdata/influxdb-client-go/v2
     ```
 3. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to your {{% cloud-name %}} cluster, contact your InfluxData account representative.
+   For information about what URL to use to connect to your {{% product-name %}} cluster, contact your InfluxData account representative.
 
 ## Boilerplate for the InfluxDB Go Client Library  
 

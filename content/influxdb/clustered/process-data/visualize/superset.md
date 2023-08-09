@@ -216,7 +216,7 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
 5.  Enter your **SQL Alchemy URI** comprised of the following:
 
     - **Protocol**: `datafusion+flightsql`
-    - **Domain**: InfluxDB Cloud dedicated cluster URL
+    - **Domain**: InfluxDB cluster URL
     - **Port**: 443
     
     **Query parameters**

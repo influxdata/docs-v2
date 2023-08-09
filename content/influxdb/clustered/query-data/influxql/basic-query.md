@@ -53,7 +53,7 @@ WHERE
 
 ## Result set
 
-If at least one row satisfies the query, {{% cloud-name %}} returns row data in the query result set.
+If at least one row satisfies the query, {{% product-name %}} returns row data in the query result set.
 If a query uses a `GROUP BY` clause, the result set includes the following:
 
 - Columns listed in the query's `SELECT` clause
@@ -81,7 +81,7 @@ The following examples use the
 [Get started home sensor data](/influxdb/clustered/reference/sample-data/#get-started-home-sensor-data).
 To run the example queries and return results,
 [write the sample data](/influxdb/clustered/reference/sample-data/#write-the-home-sensor-data-to-influxdb)
-to your {{% cloud-name %}} database before running the example queries.
+to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
 ### Query data within time boundaries

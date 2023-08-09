@@ -47,7 +47,7 @@ WHERE
 
 ## Result set
 
-If at least one row satisfies the query, {{% cloud-name %}} returns row data in the query result set.
+If at least one row satisfies the query, {{% product-name %}} returns row data in the query result set.
 An SQL query result set includes columns listed in the query's `SELECT` statement.
 
 ## Basic query examples
@@ -66,7 +66,7 @@ The following examples use the sample data written in the
 [Get started writing data guide](/influxdb/clustered/get-started/write/).
 To run the example queries and return results,
 [write the sample data](/influxdb/clustered/get-started/write/#write-line-protocol-to-influxdb)
-to your {{% cloud-name %}} database before running the example queries.
+to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
 ### Query data within time boundaries

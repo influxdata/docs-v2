@@ -416,7 +416,7 @@ Related entries:
 
 ### influx
 
-`influx` is a command line interface (CLI) that interacts with {{% cloud-name %}} and the InfluxDB v1.x and v2.x server.
+`influx` is a command line interface (CLI) that interacts with {{% product-name %}} and the InfluxDB v1.x and v2.x server.
 
 <!--
 ### influxctl
@@ -742,7 +742,7 @@ Field type conflicts are a common cause of rejected points.
 
 ### retention period
 
-The [duration](#duration) of time that an {{% cloud-name %}} bucket retains data.
+The [duration](#duration) of time that an {{% product-name %}} bucket retains data.
 InfluxDB drops points with timestamps older than their bucket's retention period
 relative to [now](#now).
 The minimum retention period is **one hour**.
@@ -756,7 +756,7 @@ Related entries:
 Retention policy is an InfluxDB 1.x concept that represents the duration of time
 that each data point in the retention policy persists.
 The equivalent is [retention period](#retention-period), however retention periods
-are not part of the {{% cloud-name %}} data model.
+are not part of the {{% product-name %}} data model.
 The retention period describes the behavior of a bucket.
 
 Related entries:
@@ -791,7 +791,7 @@ Related entries:
 ### schema
 
 How data is organized in InfluxDB.
-The fundamentals of the {{% cloud-name %}} schema are buckets, measurements (or _tables_),
+The fundamentals of the {{% product-name %}} schema are buckets, measurements (or _tables_),
 tag keys, tag values, and field keys.
 
 Related entries:
@@ -830,7 +830,7 @@ Related entries:
 
 ### series cardinality
 
-The number of unique measurement, tag set, and field key combinations in an {{% cloud-name %}} bucket.
+The number of unique measurement, tag set, and field key combinations in an {{% product-name %}} bucket.
 
 For example, assume that an InfluxDB bucket has one measurement.
 The single measurement has two tag keys: `email` and `status`.
@@ -1008,7 +1008,7 @@ Related entries:
 ### token
 
 Tokens provide authorization to perform specific actions in InfluxDB.
-{{% cloud-name %}} uses **API tokens** to authorize read and write access to resources and data.
+{{% product-name %}} uses **API tokens** to authorize read and write access to resources and data.
 
 Related entries:
 [Manage tokens](/influxdb/cloud-serverless/admin/tokens/)

@@ -9,7 +9,7 @@ menu:
 weight: 6
 ---
 
-The following articles provide information about managing your InfluxDB Cloud
-Dedicated resources:
+The following articles provide information about managing your InfluxDB Clustered
+resources:
 
 {{< children >}}

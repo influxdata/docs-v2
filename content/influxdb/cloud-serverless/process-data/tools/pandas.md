@@ -169,7 +169,7 @@ Next, [use pandas to analyze data](#use-pandas-to-analyze-data).
 
 ### View data information and statistics
 
-The following example shows how to use pandas `DataFrame` methods to transform and summarize data stored in {{% cloud-name %}}.
+The following example shows how to use pandas `DataFrame` methods to transform and summarize data stored in {{% product-name %}}.
 
 {{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
 ```py

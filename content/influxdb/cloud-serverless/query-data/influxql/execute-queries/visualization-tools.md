@@ -15,7 +15,7 @@ related:
   - /influxdb/cloud-serverless/process-data/visualize/chronograf/
 ---
 
-Use visualization tools to query data stored in {{% cloud-name %}} with InfluxQL.
+Use visualization tools to query data stored in {{% product-name %}} with InfluxQL.
 The following visualization tools support querying InfluxDB with InfluxQL:
 
 - [Grafana](/influxdb/cloud-serverless/process-data/visualize/grafana/?t=InfluxQL)

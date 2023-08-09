@@ -10,7 +10,7 @@ aliases:
   - /influxdb/cloud/security/secrets/manage-secrets/add/
 ---
 
-Add secrets using the {{< cloud-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
+Add secrets using the {{< product-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
 
 - [Add a secret using the InfluxDB Cloud UI](#add-a-secret-using-the-influxdb-cloud-ui)
 - [Add a secret using the influx CLI](#add-a-secret-using-the-influx-cli)
@@ -18,7 +18,7 @@ Add secrets using the {{< cloud-name "short" >}} UI, `influx` command line inter
 
 ## Add a secret using the InfluxDB Cloud UI
 
-1. In the {{< cloud-name "short" >}} UI, click **Settings**.
+1. In the {{< product-name "short" >}} UI, click **Settings**.
 
     {{< nav-icon "settings" >}}
 2. Click the **Secrets** tab.

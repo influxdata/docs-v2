@@ -12,7 +12,7 @@ menu:
 influxdb/cloud-dedicated/tags: [query, influxql]
 ---
 
-Use visualization tools to query data stored in {{% cloud-name %}} with InfluxQL.
+Use visualization tools to query data stored in {{% product-name %}} with InfluxQL.
 The following visualization tools support querying InfluxDB with InfluxQL:
 
 - [Grafana](/influxdb/cloud-dedicated/process-data/visualize/grafana/?t=InfluxQL)

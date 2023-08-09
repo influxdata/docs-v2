@@ -417,7 +417,7 @@ Related entries:
 
 [`influxctl`](/influxdb/clustered/reference/cli/influxctl/) is a CLI that
 performs [administrative tasks](/influxdb/clustered/admin/) for an
-InfluxDB Cloud dedicated cluster.
+InfluxDB cluster.
 
 ### influxd
 

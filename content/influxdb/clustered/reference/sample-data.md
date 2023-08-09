@@ -11,7 +11,7 @@ menu:
 weight: 110
 ---
 
-Sample datasets are used throughout the {{< cloud-name >}} documentation to
+Sample datasets are used throughout the {{< product-name >}} documentation to
 demonstrate functionality.
 Use the following sample datasets to replicate provided examples.
 
@@ -24,7 +24,7 @@ Use the following sample datasets to replicate provided examples.
 ## Get started home sensor data
 
 Includes hourly home sensor data used in the
-[Get started with {{< cloud-name >}}](/influxdb/clustered/get-started/) guide.
+[Get started with {{< product-name >}}](/influxdb/clustered/get-started/) guide.
 This dataset includes anomalous sensor readings and helps to demonstrate
 processing and alerting on time series data.
 To customize timestamps in the dataset, use the {{< icon "clock" >}} button in
@@ -57,7 +57,7 @@ to
 #### Write the home sensor data to InfluxDB
 
 Use the InfluxDB v2 or v1 API to write the Get started home sensor sample data
-to {{< cloud-name >}}.
+to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -200,7 +200,7 @@ to
 #### Write the home sensor actions data to InfluxDB
 
 Use the InfluxDB v2 or v1 API to write the home sensor actions sample data
-to {{< cloud-name >}}.
+to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -301,7 +301,7 @@ series use cases that involve seasonality.
 #### Write the NOAA Bay Area weather data to InfluxDB
 
 Use the InfluxDB v2 or v1 API to write the NOAA Bay Area weather sample data to
-{{< cloud-name >}}.
+{{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -384,7 +384,7 @@ The Bitcoin price sample dataset provides Bitcoin prices from
 #### Write the Bitcoin price sample data to InfluxDB
 
 Use the InfluxDB v2 or v1 API to write the Bitcoin price sample data to
-{{< cloud-name >}}.
+{{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -455,7 +455,7 @@ transformation functions.
 #### Write the random number sample data to InfluxDB
 
 Use the InfluxDB v2 or v1 API to write the random number sample data to
-{{< cloud-name >}}.
+{{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}

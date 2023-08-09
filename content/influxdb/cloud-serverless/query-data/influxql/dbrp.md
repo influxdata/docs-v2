@@ -11,9 +11,9 @@ weight: 101
 ---
 
 InfluxQL requires a database and retention policy (DBRP) combination in order to query data.
-In {{< cloud-name >}}, databases and retention policies are
+In {{< product-name >}}, databases and retention policies are
 combined and replaced by InfluxDB [buckets](/influxdb/cloud-serverless/reference/glossary/#bucket).
-To query an {{< cloud-name >}} bucket with InfluxQL, first map each DBRP
+To query an {{< product-name >}} bucket with InfluxQL, first map each DBRP
 combination to a bucket.
 
 - [Automatic DBRP mapping](#automatic-dbrp-mapping)
@@ -24,7 +24,7 @@ combination to a bucket.
 
 ## Automatic DBRP mapping
 
-{{< cloud-name >}} automatically creates DBRP mappings for you during the
+{{< product-name >}} automatically creates DBRP mappings for you during the
 following operations:
 
 - Writing to the [`/write` v1 compatibility endpoint](/influxdb/cloud-serverless/api-compatibility/v1/#write-data)

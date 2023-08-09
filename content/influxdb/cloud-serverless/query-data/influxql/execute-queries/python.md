@@ -204,7 +204,7 @@ When a virtual environment is activated, the name displays at the beginning of y
 ### Install the influxdb3-python library
 
 The `influxdb_client_3` module provides a simple and convenient way to interact
-with {{< cloud-name >}} using Python. This module supports both writing data to
+with {{< product-name >}} using Python. This module supports both writing data to
 InfluxDB and querying data using SQL or InfluxQL queries.
 
 Installing `inflxudb3-python` also installs the

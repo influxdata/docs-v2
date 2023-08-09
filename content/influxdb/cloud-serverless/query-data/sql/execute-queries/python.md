@@ -187,7 +187,7 @@ When a virtual environment is activated, the name displays at the beginning of y
 
 ### Install the influxdb3-python library
 
-The `influxdb3-python` package provides the `influxdb_client_3` module for integrating {{% cloud-name %}} with your Python code.
+The `influxdb3-python` package provides the `influxdb_client_3` module for integrating {{% product-name %}} with your Python code.
 The module supports writing data to InfluxDB and querying data using SQL or InfluxQL.
 
 {{% note %}}
@@ -215,7 +215,7 @@ analyze data stored in an InfluxDB database.
 ### Create an InfluxDB client
 
 The following example shows how to use Python with the `influxdb_client_3`
-module to instantiate a client configured for an {{% cloud-name %}} bucket.
+module to instantiate a client configured for an {{% product-name %}} bucket.
 
 In your editor, copy and paste the following sample code to a new file--for
 example, `query-example.py`:

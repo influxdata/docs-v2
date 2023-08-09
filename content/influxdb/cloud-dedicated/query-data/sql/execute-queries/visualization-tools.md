@@ -16,7 +16,7 @@ related:
     - /influxdb/cloud-dedicated/process-data/visualize/tableau/
 ---
 
-Use visualization tools to query data stored in {{% cloud-name %}} with SQL.
+Use visualization tools to query data stored in {{% product-name %}} with SQL.
 The following visualization tools support querying InfluxDB with SQL:
 
 - [Grafana](/influxdb/cloud-dedicated/process-data/visualize/grafana/)

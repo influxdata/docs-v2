@@ -9,8 +9,7 @@ menu:
 weight: 301
 ---
 
-The `influxctl token list` command lists all database tokens in an InfluxDB Cloud
-Dedicated cluster.
+The `influxctl token list` command lists all database tokens in an InfluxDB cluster.
 
 ## Usage
 

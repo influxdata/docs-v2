@@ -24,9 +24,9 @@ For specifics about a client library, see the library's GitHub repository.
 ### Tools to execute queries
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% cloud-name %}} cluster.
+This endpoint can't query an {{% product-name %}} cluster.
 
-{{% cloud-name %}} supports many different tools for querying data, including:
+{{% product-name %}} supports many different tools for querying data, including:
 
 - [InfluxDB v3 client libraries](/influxdb/clustered/reference/client-libraries/v3/)
 - [Flight clients](/influxdb/clustered/reference/client-libraries/flight-sql/)

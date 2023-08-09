@@ -18,7 +18,7 @@ weight: 201
 
 ### Example query using Flight SQL
 
-The following example shows how to use the Arrow Flight SQL client for Go to query an {{% cloud-name %}} bucket:
+The following example shows how to use the Arrow Flight SQL client for Go to query an {{% product-name %}} bucket:
 
 1.  In your editor, open a new file named `query.go` and enter the following sample code:
 
@@ -126,11 +126,11 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
 
         1.  Defines variables for InfluxDB credentials.
           
-            - **`url`**: {{% cloud-name %}} region hostname and port (`:443`) _(no protocol)_
+            - **`url`**: {{% product-name %}} region hostname and port (`:443`) _(no protocol)_
             - **`token`**:  an [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with _read_  access to the specified bucket.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
-            - **`database`**: the name of the {{% cloud-name %}} bucket to query
+            - **`database`**: the name of the {{% product-name %}} bucket to query
 
         2.  Defines an `opts` options list that includes a gRPC transport for communicating
         with InfluxDB over the _gRPC+TLS_ protocol.
@@ -148,7 +148,7 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
 
     3.  Creates a `main` module function that executes the `dbQuery` function.
 
-2.  Enter the following commands to install all the necessary packages and run the program to query {{% cloud-name %}}:
+2.  Enter the following commands to install all the necessary packages and run the program to query {{% product-name %}}:
 
     ```sh
     go get ./...

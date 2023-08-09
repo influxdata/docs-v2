@@ -14,14 +14,14 @@ aliases:
 
 {{% note %}}
 
-Install the Node.js JavaScript client library to write data to an {{% cloud-name %}} database.
+Install the Node.js JavaScript client library to write data to an {{% product-name %}} database.
 
 ### Tools to execute queries
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% cloud-name %}} database.
+This endpoint can't query an {{% product-name %}} database.
 
-{{% cloud-name %}} supports many different tools for querying data, including:
+{{% product-name %}} supports many different tools for querying data, including:
 
 - [InfluxDB v3 client libraries](/influxdb/clustered/reference/client-libraries/v3/)
 - [Flight clients](/influxdb/clustered/reference/client-libraries/flight-sql/)
@@ -37,7 +37,7 @@ This endpoint can't query an {{% cloud-name %}} database.
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/).
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to your {{% cloud-name %}} cluster, contact your InfluxData account representative.
+   For information about what URL to use to connect to your {{% product-name %}} cluster, contact your InfluxData account representative.
 
 3. In your terminal, create a directory for your Node.js project and change to it.
 
@@ -75,7 +75,7 @@ Follow these steps to initialize the TypeScript project:
 
 ## Install dependencies
 
-Use the `@influxdata/influxdb-client` JavaScript client library to write data in {{% cloud-name %}}.
+Use the `@influxdata/influxdb-client` JavaScript client library to write data in {{% product-name %}}.
 
 Open a new terminal window and install the `@influxdata/influxdb-client` package for querying and writing data:
 
@@ -83,7 +83,7 @@ Open a new terminal window and install the `@influxdata/influxdb-client` package
    npm i --save @influxdata/influxdb-client
    ```
 
-The `@influxdata/influxdb-client-apis` client library package won't work with {{% cloud-name %}}.
+The `@influxdata/influxdb-client-apis` client library package won't work with {{% product-name %}}.
 It only works with InfluxDB v2 management APIs.
 
 ## Configure credentials

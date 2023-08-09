@@ -35,8 +35,8 @@ Collect and write data to InfluxDB using the Telegraf plugins, the InfluxDB v2 A
 
 #### Use Telegraf
 
-Use Telegraf to quickly write data to {{< cloud-name >}}.
-Create new Telegraf configurations automatically in the InfluxDB UI, or manually update an existing Telegraf configuration to send data to your {{< cloud-name "short" >}} instance.
+Use Telegraf to quickly write data to {{< product-name >}}.
+Create new Telegraf configurations automatically in the InfluxDB UI, or manually update an existing Telegraf configuration to send data to your InfluxDB Cloud instance.
 
 For details, see [Automatically configure Telegraf](/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/)
 and [Manually update Telegraf configurations](/influxdb/v2.0/write-data/no-code/use-telegraf/manual-config/).

@@ -68,7 +68,7 @@ metrics from different sources and writes them to specified destinations.
 
 ## Configure Telegraf to write to InfluxDB
 
-To send data to {{< cloud-name >}}, enable the
+To send data to {{< product-name >}}, enable the
 [`influxdb_v2` output plugin](https://github.com/influxdata/telegraf/blob/master/plugins/outputs/influxdb_v2/README.md)
 in the `telegraf.conf`.
 
@@ -141,7 +141,7 @@ data to InfluxDB.
 
 #### Other Telegraf configuration options
 
-The preceding examples describe Telegraf configurations necessary for writing to {{% cloud-name %}}.
+The preceding examples describe Telegraf configurations necessary for writing to {{% product-name %}}.
 The output plugin provides several other options for configuring the Telegraf client:
 
 - `influx_uint_support`: supported by the InfluxDB IOx storage engine.

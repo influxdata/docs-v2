@@ -12,7 +12,7 @@ menu:
 influxdb/clustered/tags: [internals]
 ---
 
-{{< cloud-name >}} enforces database retention periods at query time.
+{{< product-name >}} enforces database retention periods at query time.
 Any points with timestamps beyond a database's [retention period](#database-retention-period)
 are filtered out of query results, even though the data may still exist.
 

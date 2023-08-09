@@ -19,7 +19,7 @@ list_code_example: |
   ```
 ---
 
-Use the InfluxDB v1 HTTP query API to query data in {{< cloud-name >}}
+Use the InfluxDB v1 HTTP query API to query data in {{< product-name >}}
 with InfluxQL.
 
 The examples below use **cURL** to send HTTP requests to the InfluxDB v1 HTTP API,
@@ -69,7 +69,7 @@ Replace the following:
 If using basic authentication or query string authentication (username and password)
 to interact with the v1 HTTP query API, provide the following credentials:
 
-- **username**: Arbitrary string _({{< cloud-name >}} ignores the username)_
+- **username**: Arbitrary string _({{< product-name >}} ignores the username)_
 - **password**: [Database token](/influxdb/clustered/admin/tokens/) with read permission
   on the database you want to query
 

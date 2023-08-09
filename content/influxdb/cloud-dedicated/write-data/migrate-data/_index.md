@@ -65,7 +65,7 @@ in more regions around the world.
 
 #### Are you reliant on Flux queries and Flux tasks?
 
-**You should not migrate**. {{% cloud-name %}} doesn't support Flux.
+**You should not migrate**. {{% product-name %}} doesn't support Flux.
 
 ---
 

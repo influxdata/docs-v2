@@ -138,7 +138,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 The following examples show how to write the 
 [sample data](#home-sensor-data-line-protocol), already in line protocol format,
-to an {{% cloud-name %}} bucket.
+to an {{% product-name %}} bucket.
 
 To learn more about available tools and options, see [Write data](influxdb/cloud-serverless/write-data/).
 
@@ -240,7 +240,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% tab-content %}}
 <!------------------------------- BEGIN TELEGRAF CONTENT ------------------------------>
 Use [Telegraf](/{{< latest "telegraf" >}}/) to consume line protocol,
-and then write it to {{< cloud-name >}}.
+and then write it to {{< product-name >}}.
 
 1.  If you haven't already, follow the instructions to [download and install Telegraf](/{{< latest "telegraf" >}}/install/).
 
@@ -382,7 +382,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 <!---------------------------- BEGIN PYTHON CONTENT --------------------------->
 {{% influxdb/custom-timestamps %}}
 
-To write data to {{% cloud-name %}} using Python, use the
+To write data to {{% product-name %}} using Python, use the
 [`influxdb_client_3` module](https://github.com/InfluxCommunity/influxdb3-python).
 The following steps include setting up a Python virtual environment to scope
 dependencies to your current project.
@@ -475,10 +475,10 @@ dependencies to your current project.
     2.  Calls the `InfluxDBClient3()` constructor to instantiate an InfluxDB client
         configured with the following credentials:
 
-        - **host**: {{% cloud-name %}} region hostname (URL without protocol or trailing slash)
+        - **host**: {{% product-name %}} region hostname (URL without protocol or trailing slash)
         - **token**: an InfluxDB [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
         _For security reasons, we recommend setting this as an environment variable rather than including the raw token string._
-        - **database**: the name of the {{% cloud-name %}} bucket to write to
+        - **database**: the name of the {{% product-name %}} bucket to write to
     
     3.  Defines a list of line protocol strings where each string represents a data record.
     4.  Calls the `client.write()` method with the line protocol record list and write options.
@@ -487,7 +487,7 @@ dependencies to your current project.
         precision, the example passes the `write_precision='s'` option
         to set the timestamp precision to seconds.**
 
-6.  To execute the module and write line protocol to your {{% cloud-name %}}
+6.  To execute the module and write line protocol to your {{% product-name %}}
     bucket, enter the following command in your terminal:
     
       ```sh
@@ -502,7 +502,7 @@ dependencies to your current project.
 <!----------------------------- BEGIN GO CONTENT ------------------------------>
 {{% influxdb/custom-timestamps %}}
 
-To write data to {{% cloud-name %}} using Go, use the
+To write data to {{% product-name %}} using Go, use the
 InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommunity/influxdb3-go).
 
 1.  Inside of your project directory, create a new module directory and navigate into it.
@@ -619,7 +619,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     2.  Defines a `WriteLineProtocol()` function that does the following:
         
         1.  To instantiate the client, calls the `influx.New(influx.Configs)` function and passes the InfluxDB URL,
-            database token, and [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) for writing data to {{% cloud-name %}}.
+            database token, and [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) for writing data to {{% product-name %}}.
 
         2.  Defines a deferred function that closes the client when the function returns.
     
@@ -647,7 +647,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     go mod tidy && go build && go run influxdb_go_client
     ```
 
-    The program writes the line protocol to your {{% cloud-name %}} bucket.
+    The program writes the line protocol to your {{% product-name %}} bucket.
 
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------- END GO CONTENT ------------------------------>
@@ -656,7 +656,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 <!------------------------------- BEGIN NODE.JS CONTENT ----------------------->
 {{% influxdb/custom-timestamps %}}
 
-To write data to {{% cloud-name %}} using Node.js, use the
+To write data to {{% product-name %}} using Node.js, use the
 [influxdb-client-js package](https://github.com/influxdata/influxdb-client-js).
 
 1. Inside of your project directory, create an NPM or Yarn package and install 
@@ -773,7 +773,7 @@ To write data to {{% cloud-name %}} using Node.js, use the
           The `close()` method sends any records remaining in the buffer,
           executes callbacks, and releases resources.
 
-4. To execute the file and write the line protocol to your {{% cloud-name %}} bucket,
+4. To execute the file and write the line protocol to your {{% product-name %}} bucket,
     enter the following command in your terminal:
    
     ```sh
@@ -892,8 +892,8 @@ To write data to {{% cloud-name %}} using Node.js, use the
       1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
            with InfluxDB credentials.
 
-          - **hostUrl**: your {{% cloud-name %}} region URL
-          - **database**: the name of the {{% cloud-name %}} bucket to write to
+          - **hostUrl**: your {{% product-name %}} region URL
+          - **database**: the name of the {{% product-name %}} bucket to write to
           - **authToken**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
           _For security reasons, we recommend setting this as an environment variable rather than including the raw token string._
 
@@ -929,7 +929,7 @@ To write data to {{% cloud-name %}} using Node.js, use the
     and defines a `Main()` function that calls `Write.WriteLineProtocol()`.
     The `dotnet` CLI recognizes `Program.Main()` as the entry point for your program.
 
-7.  To build and execute the program and write the line protocol to your {{% cloud-name %}} bucket, enter the following commands in your terminal:
+7.  To build and execute the program and write the line protocol to your {{% product-name %}} bucket, enter the following commands in your terminal:
 
     ```sh
     dotnet build

@@ -21,6 +21,6 @@ related:
   - /influxdb/clustered/reference/client-libraries/
 ---
 
-Choose the {{% cloud-name %}} API and tools that best fit your workload:
+Choose the {{% product-name %}} API and tools that best fit your workload:
 
 {{< children sort>}}

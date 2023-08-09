@@ -13,12 +13,12 @@ influxdb/cloud/tags: [get-started, install, cli]
 InfluxDB Cloud is a fully managed and hosted version of InfluxDB 2.0, the time series
 platform purpose-built to collect, store, process and visualize metrics and events.
 
-{{< cloud-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
+{{< product-name >}} is API-compatible and functionally compatible with InfluxDB OSS 2.0.
 The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
 - [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
-  targets are not available in {{< cloud-name "short" >}}.
-- {{< cloud-name "short" >}} instances are currently limited to a single organization.
+  targets are not available in {{< product-name "short" >}}.
+- {{< product-name "short" >}} instances are currently limited to a single organization.
 
 - [Start for free](#start-for-free)
 - [Sign up](#sign-up)
@@ -28,7 +28,7 @@ The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
 ## Start for free
 
-Start using {{< cloud-name >}} at no cost with the [Free Plan](/influxdb/cloud/account-management/pricing-plans/#free-plan).
+Start using {{< product-name >}} at no cost with the [Free Plan](/influxdb/cloud/account-management/pricing-plans/#free-plan).
 Use it as much and as long as you like within the plan's rate-limits.
 [Limits](/influxdb/cloud/account-management/limits/) are designed to let you monitor 5-10 sensors, stacks or servers comfortably.
 
@@ -79,7 +79,7 @@ Currently, we do **not support** using an existing InfluxDB Cloud account to sig
 2. If you signed up with your email address, InfluxDB Cloud requires email verification to complete the sign up process.
    Verify your email address by opening the email sent to the address you provided and clicking **Verify Your Email**.
 3. (If you subscribed through InfluxData) Choose your cloud provider.
-4. Select a provider and region for your {{< cloud-name >}} instance. The following are available:
+4. Select a provider and region for your {{< product-name >}} instance. The following are available:
 
     {{< cloud_regions type="list" >}}
 
@@ -89,8 +89,8 @@ Currently, we do **not support** using an existing InfluxDB Cloud account to sig
    For details on the agreements, see the [InfluxDB Cloud: Services Subscription Agreement](https://www.influxdata.com/legal/terms-of-use/) and the [InfluxData Global Data Processing Agreement](https://www.influxdata.com/legal/influxdata-global-data-processing-agreement/).
 
 7. Click **Continue**, and then choose your plan:
-   - To upgrade to a Usage-Based plan, click **Upgrade Now**, set your limits (you may opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). Next, enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< cloud-name >}} opens with a default organization and bucket (both created from your email address). To review your usage and billing details at any time, see how to [access billing details](/influxdb/cloud/account-management/billing/#access-billing-details).  
-   - To keep the free plan, click **Keep**. {{< cloud-name >}} opens with a default organization and bucket (both created from your email address). _To update organization and bucket names, see [Update an organization](/influxdb/cloud/organizations/update-org/)
+   - To upgrade to a Usage-Based plan, click **Upgrade Now**, set your limits (you may opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). Next, enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< product-name >}} opens with a default organization and bucket (both created from your email address). To review your usage and billing details at any time, see how to [access billing details](/influxdb/cloud/account-management/billing/#access-billing-details).  
+   - To keep the free plan, click **Keep**. {{< product-name >}} opens with a default organization and bucket (both created from your email address). _To update organization and bucket names, see [Update an organization](/influxdb/cloud/organizations/update-org/)
     and [Update a bucket](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-name-in-the-influxdb-ui)._
    - To upgrade to an Annual plan, click **Contact Sales**, enter your information, and then click **Send**. Our team will contact you as soon as possible.
 

@@ -14,7 +14,7 @@ weight: 201
 ---
 
 The InfluxDB v3 [`influxdb3-java` Java client library](https://github.com/InfluxCommunity/influxdb3-java) integrates with Java application code
-to write and query data stored in an {{% cloud-name %}} bucket.
+to write and query data stored in an {{% product-name %}} bucket.
 
 The documentation for this client library is available on GitHub.
 

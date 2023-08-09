@@ -14,7 +14,7 @@ weight: 201
 ---
 
 The InfluxDB v3 [`influxdb3-csharp` C# .NET client library](https://github.com/InfluxCommunity/influxdb3-csharp) integrates with C# .NET scripts and applications
-to write and query data stored in an {{% cloud-name %}} database.
+to write and query data stored in an {{% product-name %}} database.
 
 The documentation for this client library is available on GitHub.
 

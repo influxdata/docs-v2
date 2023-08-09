@@ -115,4 +115,4 @@ write_api.write(bucket=database, org=org, record=p)
 ## Query data from InfluxDB with Python
 
 The InfluxDB v2 Python client can't query InfluxDB Clustered.
-To query your dedicated instance, use a Python [Flight SQL client with gRPC](/influxdb/clustered/reference/client-libraries/flight-sql/).
+To query your cluster, use a Python [Flight SQL client with gRPC](/influxdb/clustered/reference/client-libraries/flight-sql/).

@@ -31,7 +31,7 @@ list_code_example: |
 ---
 
 Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze query
-results from {{% cloud-name %}}.
+results from {{% product-name %}}.
 The PyArrow library provides efficient computation, aggregation, serialization,
 and conversion of Arrow format data.
 

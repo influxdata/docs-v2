@@ -17,7 +17,7 @@ aliases:
 ---
 
 The InfluxDB v3 [`influxdb3-go` Go client library](https://github.com/InfluxCommunity/influxdb3-go) integrates with Go scripts and applications
-to write and query data stored in an {{% cloud-name %}} database.
+to write and query data stored in an {{% product-name %}} database.
 
 The documentation for this client library is available on GitHub.
 

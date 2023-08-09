@@ -54,7 +54,7 @@ you need is in place.
     1.  **Download the `influxctl` CLI**.
 
         _Information about downloading and installing the `influxctl` CLI is
-        provided in your {{% cloud-name %}} welcome email._
+        provided in your {{% product-name %}} welcome email._
 
     2.  **Create a connection profile and provide your InfluxDB Cloud Dedicated connection credentials**.
 

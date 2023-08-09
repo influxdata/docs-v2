@@ -11,7 +11,7 @@ menu:
 influxdb/clustered/tags: [query, influxql]
 ---
 
-Choose from the following options for executing InfluxQL queries with {{< cloud-name >}}:
+Choose from the following options for executing InfluxQL queries with {{< product-name >}}:
 
 {{< children type="anchored-list" >}}
 

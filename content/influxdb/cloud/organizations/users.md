@@ -16,7 +16,7 @@ aliases:
   - /influxdb/cloud/users/
 ---
 
-{{< cloud-name >}} lets you invite and collaborate with multiple users in your organization.
+{{< product-name >}} lets you invite and collaborate with multiple users in your organization.
 By default, each user has full permissions on resources in your organization.
 
 - [Users management page](#users-management-page)
@@ -31,7 +31,7 @@ If you have multiple users, we recommend creating a system account for administr
 
 ## Members page
 Manage your organization's users from your organization's **Members page**.
-In the {{< cloud-name "short" >}} user interface (UI), click your user avatar in the left
+In the {{< product-name "short" >}} user interface (UI), click your user avatar in the left
 navigation menu, and select **Organization** > **Members**.
 
 {{< nav-icon "account" >}}

@@ -6,11 +6,9 @@ description: >
   write the exported data to your InfluxDB Clustered database.
 menu:
   influxdb_clustered:
-    name: Migrate from 1.x to Dedicated
+    name: Migrate from 1.x to Clustered
     parent: Migrate data
 weight: 103
-aliases:
-  - /influxdb/clustered/write-data/migrate-data/migrate-1x-to-iox/
 related:
   - /influxdb/clustered/admin/databases/
   - /influxdb/clustered/admin/tokens/
@@ -18,11 +16,11 @@ related:
   - /influxdb/clustered/primers/api/v2/
 ---
 
-To migrate data from an InfluxDB 1.x OSS or Enterprise instance to InfluxDB Cloud
-Dedicated, export the data as line protocol and write
-the exported data to an InfluxDB Clustered database.
+To migrate data from an InfluxDB 1.x OSS or Enterprise instance to InfluxDB Clustered,
+export the data as line protocol and write the exported data to an InfluxDB database.
 
 ## Tools to use
+
 The migration process uses the following tools:
 
 - **`influx_inspect` utility**:

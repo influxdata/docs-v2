@@ -49,7 +49,7 @@ list_code_example: |
 
 [Apache Arrow Python bindings](https://arrow.apache.org/docs/python/index.html) integrate with Python scripts and applications to query data stored in InfluxDB.
 
-The following examples show how to use the `pyarrow.flight` and `pandas` Python modules to query and format data stored in an {{% cloud-name %}} bucket:
+The following examples show how to use the `pyarrow.flight` and `pandas` Python modules to query and format data stored in an {{% product-name %}} bucket:
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
@@ -141,7 +141,7 @@ print(data_frame.to_markdown())
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} bucket
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: a [token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the bucket
 
 {{% /code-tabs-wrapper %}}
