@@ -205,6 +205,7 @@ credentials (**URL**, **organization**, and **token**) are provided by
 [Python](#)
 [Go](#)
 [C#](#)
+[Java](#)
 {{% /tabs %}}
 
 {{% tab-content %}}
@@ -481,6 +482,7 @@ _If your project's virtual environment is already running, skip to step 3._
 {{% tab-content %}}
 <!----------------------------- BEGIN GO CONTENT ------------------------------>
 {{% influxdb/custom-timestamps %}}
+
 1.  In the `influxdb_go_client` directory you created in the
     [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Go#write-line-protocol-to-influxdb),
     create a new file named `query.go`.
@@ -526,8 +528,8 @@ _If your project's virtual environment is already running, skip to step 3._
       // Define the query.
       query := `SELECT *
         FROM home
-        WHERE time >= '2022-01-02T08:00:00Z'
-        AND time <= '2022-01-02T20:00:00Z'`
+        WHERE time >= '2022-01-01T08:00:00Z'
+        AND time <= '2022-01-01T20:00:00Z'`
 
       // Execute the query.
       iterator, err := client.Query(context.Background(), database, query)
@@ -548,7 +550,7 @@ _If your project's virtual environment is already running, skip to step 3._
         time := (row["time"].(arrow.Timestamp)).
           ToTime(arrow.TimeUnit(arrow.Nanosecond)).
           Format(time.RFC3339)
-        fmt.Fprintf(w, "%s\t%s\t%d\t%.2f\t%.2f\n",
+        fmt.Fprintf(w, "%s\t%s\t%d\t%.1f\t%.1f\n",
           time, row["room"], row["co"], row["hum"], row["temp"])
       }
 
@@ -581,7 +583,7 @@ _If your project's virtual environment is already running, skip to step 3._
         3.  Defines a string variable for the SQL query.
 
         4.  Calls the `influx.Client.query()` method to send the query request with the database (bucket) name and SQL string. The `query()` method returns an `iterator` for data in the response stream.
-        5.  Iterates over rows, formats the timestamp as an[RFC3339 timestamp](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp), and prints the data in table format to stdout.
+        5.  Iterates over rows, formats the timestamp as an [RFC3339 timestamp](/influxdb/cloud-serverless/reference/glossary/#rfc3339-timestamp), and prints the data in table format to stdout.
 
 3.  In your editor, open the `main.go` file you created in the
     [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Go#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
@@ -609,6 +611,7 @@ _If your project's virtual environment is already running, skip to step 3._
 {{% tab-content %}}
 <!------------------------------ BEGIN C# CONTENT ----------------------------->
 {{% influxdb/custom-timestamps %}}
+
 1.  In the `influxdb_csharp_client` directory you created in the
     [Write data section](/influxdb/cloud-serverless/get-started/write/?t=C%23),
     create a new file named `Query.cs`.
@@ -652,8 +655,8 @@ _If your project's virtual environment is already running, skip to step 3._
         const string sql = @"
           SELECT time, room, temp, hum, co
           FROM home
-          WHERE time >= '2022-01-02T08:00:00Z'
-          AND time <= '2022-01-02T20:00:00Z'
+          WHERE time >= '2022-01-01T08:00:00Z'
+          AND time <= '2022-01-01T20:00:00Z'
         ";
 
         Console.WriteLine("{0,-30}{1,-15}{2,-15}{3,-15}{4,-15}",
@@ -691,7 +694,7 @@ _If your project's virtual environment is already running, skip to step 3._
           
             - **`hostURL`**: your {{% cloud-name %}} region URL.
             - **`authToken`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_  access to the specified bucket.
-            _For security reasons, we recommend setting this as an environment variable rather than including the raw token string._
+              _Store this in a secret store or environment variable to avoid exposing the raw token string._
             - **`database`**: the name of the {{% cloud-name %}} bucket to query
         2.  Defines a string variable for the SQL query.
         3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string. `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
@@ -729,6 +732,164 @@ _If your project's virtual environment is already running, skip to step 3._
     ```
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END C# CONTENT ------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------ BEGIN JAVA CONTENT ------------------------------->
+{{% influxdb/custom-timestamps %}}
+
+_This tutorial assumes using Maven version 3.9, Java version >= 15, and a `influxdb_java_client` Maven project created in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Java)._
+
+1.  In your terminal or editor, change to the `influxdb_java_client` directory you created in the
+    [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Java).
+2.  Inside of the `src/main/java/com/influxdbv3` directory, create a new file named `Query.java`.
+3.  In `Query.java`, enter the following sample code:
+
+    ```java
+    // Query.java
+    package com.influxdbv3;
+
+    import com.influxdb.v3.client.InfluxDBClient;
+    import java.util.stream.Stream;
+
+    /**
+      * Queries an InfluxDB database (bucket) using the Java client
+      * library.
+      **/
+    public final class Query {
+
+        private Query() {
+            //not called
+        }
+
+        /**
+        * @throws Exception
+        */
+        public static void querySQL() throws Exception {
+            /**
+            * Query using SQL.
+            */
+
+            /** Set InfluxDB credentials. **/
+            final String hostUrl = "https://cloud2.influxdata.com";
+            final String database = "get-started";
+
+            /** INFLUX_TOKEN is an environment variable you assigned to your
+              * API token value.
+              **/
+            final char[] authToken = (System.getenv("INFLUX_TOKEN")).
+            toCharArray();
+
+            try (InfluxDBClient client = InfluxDBClient.getInstance(hostUrl,
+            authToken, database)) {
+                String sql =
+                    """
+                    SELECT time, room, temp, hum, co
+                    FROM home
+                    WHERE time >= '2022-01-01T08:00:00Z'
+                    AND time <= '2022-01-01T20:00:00Z'""";
+
+                String layoutHead = "| %-16s | %-12s | %-6s | %-6s | %-6s |%n";
+                System.out.printf(
+                "--------------------------------------------------------%n");
+                System.out.printf(layoutHead,
+                "time", "room", "co", "hum", "temp");
+                System.out.printf(
+                "--------------------------------------------------------%n");
+                String layout = "| %-16s | %-12s | %-6s | %.1f | %.1f |%n";
+
+                try (Stream<Object[]> stream = client.query(sql)) {
+                    stream.forEach(row -> 
+                      System.out.printf(layout,
+                      row[0], row[1], row[4], row[3], row[2])
+                    );
+                }
+            }
+        }
+    }
+    ```
+
+    The sample code does the following:
+
+    1.  Assigns the `com.influxdbv3` package name (the Maven **groupId**).
+    2.  Imports the following classes:
+
+        - `com.influxdb.v3.client.InfluxDBClient`
+        - `java.util.stream.Stream`
+
+    3.  Defines a `Query` class with a `querySQL()` method that does the following:
+
+        1.  Calls `InfluxDBClient.getInstance()` to instantiate a client configured
+            with InfluxDB credentials.
+
+            - **`hostUrl`**: your {{% cloud-name %}} cluster URL
+            - **`database`**: the name of the {{% cloud-name %}} bucket to write to
+            - **`authToken`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
+              _Store this in a secret store or environment variable to avoid exposing the raw token string._
+        2.  Defines a string variable (`sql`) for the SQL query.
+        3.  Defines a Markdown table format layout for headings and data rows.
+        4.  Calls the `InfluxDBClient.query()` method to send the query request with the SQL string.
+            `query()` returns a stream of rows.
+        5.  Iterates over rows and prints the data in the specified layout to stdout.
+
+4.  In your editor, open the `src/main/java/com/influxdbv3/App.java` file and replace its contents with the following sample code:
+
+    ```java
+    // App.java
+
+    package com.influxdbv3;
+
+    /**
+    * Execute the client functions.
+    *
+    */
+    public class App {
+
+        /**
+        * @param args
+        * @throws Exception
+        */
+        public static void main(final String[] args) throws Exception {
+            // Write data to InfluxDB v3.
+            Write.writeLineProtocol();
+            // Run the SQL query.
+            Query.querySQL();
+        }
+    }
+    ```
+
+    - The `App`, `Write`, and `Query` classes are part of the same `com.influxdbv3` package (your project **groupId**).
+    - `App` defines a `main()` function that calls `Write.writeLineProtocol()` and `Query.querySQL()`.
+4.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
+
+    ```sh
+    mvn compile
+    ```
+
+5.  Set the `--add-opens=java.base/java.nio=ALL-UNNAMED` Java option for your environment.
+    The Apache Arrow Flight library requires this setting for access to the [java.nio API package](https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/nio/package-summary.html).
+
+    For example, enter the following command in your terminal:
+
+    **Linux/MacOS**
+
+    ```sh
+    export MAVEN_OPTS="--add-opens=java.base/java.nio=ALL-UNNAMED"
+    ```
+
+    **Windows PowerShell**
+
+    ```powershell
+    $env:MAVEN_OPTS="--add-opens=java.base/java.nio=ALL-UNNAMED"
+    ```
+
+6. To run the app to write to and query {{% cloud-name %}}, execute `App.main()`--for example, using Maven:
+
+    ```sh
+    mvn exec:java -Dexec.mainClass="com.influxdbv3.App"
+    ```
+
+{{% /influxdb/custom-timestamps %}}
+<!------------------------------ END JAVA CONTENT ------------------------------->
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
 
