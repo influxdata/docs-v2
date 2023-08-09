@@ -1022,43 +1022,43 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
         precision, the example passes the [`WritePrecision.S` enum value](https://github.com/InfluxCommunity/influxdb3-java/blob/main/src/main/java/com/influxdb/v3/client/write/WritePrecision.java)
         as the `precision` argument to set the write[timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) to seconds.**
 
-  8.  In your editor, open the `App.java` file (created by Maven) and replace its contents with the following sample code:
+8.  In your editor, open the `App.java` file (created by Maven) and replace its contents with the following sample code:
 
-      ```java
-      // App.java
+    ```java
+    // App.java
 
-      package com.influxdbv3;
+    package com.influxdbv3;
 
-      /**
-      * Execute the client functions.
-      *
-      */
-      public class App {
+    /**
+    * Execute the client functions.
+    *
+    */
+    public class App {
 
-          /**
-          * @param args
-          * @throws Exception
-          */
-          public static void main(final String[] args) throws Exception {
-              // Write data to InfluxDB v3.
-              Write.writeLineProtocol();
-          }
-      }
-      ```
-      
-      - The `App` class and `Write` class are part of the same `com.influxdbv3` package (your project **groupId**).
-      - `App` defines a `main()` function that calls `Write.writeLineProtocol()`.
-  9.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
-  
-      ```sh
-      mvn compile
-      ```
+        /**
+        * @param args
+        * @throws Exception
+        */
+        public static void main(final String[] args) throws Exception {
+            // Write data to InfluxDB v3.
+            Write.writeLineProtocol();
+        }
+    }
+    ```
+    
+    - The `App` class and `Write` class are part of the same `com.influxdbv3` package (your project **groupId**).
+    - `App` defines a `main()` function that calls `Write.writeLineProtocol()`.
+9.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
 
-  10. In your terminal or editor, execute `App.main()` to write to InfluxDB--for example, using Maven:
+    ```sh
+    mvn compile
+    ```
 
-      ```sh
-      mvn exec:java -Dexec.mainClass="com.influxdbv3.App"
-      ```
+10. In your terminal or editor, execute `App.main()` to write to InfluxDB--for example, using Maven:
+
+    ```sh
+    mvn exec:java -Dexec.mainClass="com.influxdbv3.App"
+    ```
 <!---------------------------- END JAVA CONTENT --------------------------->
 {{% /influxdb/custom-timestamps %}}
 {{% /tab-content %}}
