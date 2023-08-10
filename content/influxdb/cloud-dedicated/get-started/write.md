@@ -878,6 +878,7 @@ To write data to {{% cloud-name %}} using Node.js, use the
 <!---------------------------- BEGIN JAVA CONTENT --------------------------->
 
 _The tutorial assumes using Maven version 3.9 and Java version >= 15._
+
 1.  If you haven't already, follow the instructions to download and install the [Java JDK](https://www.oracle.com/java/technologies/downloads/) and [Maven](https://maven.apache.org/download.cgi) for your system.
 2.  In your terminal or editor, use Maven to generate a project--for example:
 
@@ -889,7 +890,8 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
     -Dversion="1.0"
     ```
 
-    The example command creates the `<artifactId>` directory (`./influxdb_java_client`) that contains a `pom.xml` and scaffolding for your `com.influxdbv3.influxdb_java_client` Java application.
+    The example command creates the `<artifactId>` directory (`./influxdb_java_client`) that
+    contains a `pom.xml` and scaffolding for your `com.influxdbv3.influxdb_java_client` Java application.
 
 3.  In your terminal or editor, change into the `./influxdb_java_client` directory--for example:
 
