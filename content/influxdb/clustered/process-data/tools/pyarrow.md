@@ -74,7 +74,7 @@ def querySQL():
   
   # Instantiate an InfluxDB client configured for a database
   client = InfluxDBClient3(
-    "https://cluster-id.influxdb.io",
+    "https://{{< influxdb/host >}}",
     database="DATABASE_NAME",
     token="DATABASE_TOKEN")
 
@@ -127,7 +127,7 @@ def querySQL():
   
   # Instantiate an InfluxDB client configured for a database
   client = InfluxDBClient3(
-    "https://cluster-id.influxdb.io",
+    "https://{{< influxdb/host >}}",
     database="DATABASE_NAME",
     token="DATABASE_TOKEN")
 

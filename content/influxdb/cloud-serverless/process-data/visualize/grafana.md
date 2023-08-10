@@ -182,7 +182,7 @@ To query {{% product-name %}} with InfluxQL, first map database and retention po
     using the HTTPS protocol:
 
       ```
-      https://cloud2.influxdata.com
+      https://{{< influxdb/host >}}
       ```
 
 7.  Under **InfluxDB Details**:

@@ -79,7 +79,7 @@ import pandas
 
 # Instantiate an InfluxDBClient3 client configured for your bucket
 influxdb = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     org='ORG_NAME',
     token='API_TOKEN',
     database='BUCKET_NAME'
@@ -257,7 +257,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 influxdb = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     org='ORG_NAME',
     token='API_TOKEN',
     database='BUCKET_NAME'
@@ -301,7 +301,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 influxdb = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     org='ORG_NAME',
     token='API_TOKEN',
     database='BUCKET_NAME'

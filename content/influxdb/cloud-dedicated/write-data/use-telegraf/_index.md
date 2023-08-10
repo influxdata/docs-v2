@@ -44,7 +44,7 @@ Use the [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influ
 # ...
 
 [[outputs.influxdb_v2]]
-  urls = ["https://cluster-id.influxdb.io"]
+  urls = ["https://{{< influxdb/host >}}"]
   token = "${INFLUX_TOKEN}"
   organization = ""
   bucket = "DATABASE_NAME"

@@ -75,7 +75,7 @@ in the `telegraf.conf`.
 {{% code-placeholders "DATABASE_NAME" %}}
 ```toml
 [[outputs.influxdb_v2]]
-  urls = ["https://cluster-id.influxdb.io"]
+  urls = ["https://{{< influxdb/host >}}"]
   # INFLUX_TOKEN is an environment variable you created for your database WRITE token
 
   token = "${INFLUX_TOKEN}"
@@ -96,7 +96,7 @@ An array of URL strings.
 To write to {{% product-name %}}, include your {{% product-name %}} cluster URL using the HTTPS protocol:
 
 ```toml
-["https://cluster-id.influxdb.io"]
+["https://{{< influxdb/host >}}"]
 ```
 
 ##### token

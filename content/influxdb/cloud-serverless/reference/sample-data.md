@@ -70,7 +70,7 @@ to {{< product-name >}}.
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
 curl --request POST \
-  https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME&precision=s \
+  https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision=s \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -113,7 +113,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
 curl --request POST \
-  https://cloud2.influxdata.com/write?db=BUCKET_NAME&precision=s \
+  https://{{< influxdb/host >}}/write?db=BUCKET_NAME&precision=s \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "
@@ -213,7 +213,7 @@ to {{< product-name >}}.
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
 ```sh
 curl --request POST \
-  https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME&precision=s \
+  https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision=s \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -238,7 +238,7 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
 ```sh
 curl --request POST \
-  https://cloud2.influxdata.com/write?db=BUCKET_NAME&precision=s \
+  https://{{< influxdb/host >}}/write?db=BUCKET_NAME&precision=s \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary '
@@ -313,7 +313,7 @@ Use the InfluxDB v2 or v1 API to write the NOAA Bay Area weather sample data to
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" %}}
 ```sh
 curl --request POST \
-  https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME \
+  https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -327,7 +327,7 @@ curl --request POST \
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
 curl --request POST \
-  https://cloud2.influxdata.com/write?db=BUCKET_NAME \
+  https://{{< influxdb/host >}}/write?db=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
@@ -396,7 +396,7 @@ Use the InfluxDB v2 or v1 API to write the Bitcoin price sample data to
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
 curl --request POST \
-  https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME \
+  https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -410,7 +410,7 @@ curl --request POST \
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
 curl --request POST \
-  https://cloud2.influxdata.com/write?db=BUCKET_NAME \
+  https://{{< influxdb/host >}}/write?db=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
@@ -467,7 +467,7 @@ Use the InfluxDB v2 or v1 API to write the random number sample data to
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
 curl --request POST \
-  https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME \
+  https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -481,7 +481,7 @@ curl --request POST \
 {{% code-placeholders "API_TOKEN|BUCKET_NAME" "magenta" %}}
 ```sh
 curl --request POST \
-  https://cloud2.influxdata.com/write?db=BUCKET_NAME \
+  https://{{< influxdb/host >}}/write?db=BUCKET_NAME \
   --header "Authorization: Bearer API_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"

@@ -87,7 +87,7 @@ influx bucket create \
 
 To create a bucket with the InfluxDB HTTP API, send a request to the following endpoint:
 
-{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets" api-ref="/influxdb/cloud-serverless/api/#operation/PostBuckets" >}}
+{{< api-endpoint method="post" endpoint="https://{{< influxdb/host >}}/api/v2/buckets" api-ref="/influxdb/cloud-serverless/api/#operation/PostBuckets" >}}
 
 Include the following in your request:
 
@@ -147,7 +147,7 @@ Use the `influx bucket create` command and specify the `--schema-type=explicit` 
 Use the HTTP API [`/api/v2/buckets`](/influxdb/cloud-serverless/api/#operation/PostBuckets)
 endpoint and set the `schemaType` property value to `explicit` in the request body--for example:
 
-{{< api-endpoint method="post" endpoint="https://cloud2.influxdata.com/api/v2/buckets" api-ref="/influxdb/cloud-serverless/api/#operation/PostBuckets" >}}
+{{< api-endpoint method="post" endpoint="https://{{< influxdb/host >}}/api/v2/buckets" api-ref="/influxdb/cloud-serverless/api/#operation/PostBuckets" >}}
 
   ```js
   {

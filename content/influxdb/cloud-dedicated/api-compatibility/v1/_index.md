@@ -120,8 +120,8 @@ When authenticating requests, {{% product-name %}} checks that the `p` (_passwor
 ##### Syntax
 
 ```sh
-https://cluster-id.influxdb.io/query/?[u=any]&p=DATABASE_TOKEN
-https://cluster-id.influxdb.io/write/?[u=any]&p=DATABASE_TOKEN
+https://{{< influxdb/host >}}/query/?[u=any]&p=DATABASE_TOKEN
+https://{{< influxdb/host >}}/write/?[u=any]&p=DATABASE_TOKEN
 ```
 
 ##### Example
@@ -226,7 +226,7 @@ Response body messages may differ across {{% product-name %}} v1 API, v2 API, In
 
 Write data with your existing workloads that already use the InfluxDB v1 or v1.x-compatibility `/write` API endpoint.
 
-{{% api-endpoint endpoint="https://cluster-id.influxdb.io/write" method="post" %}}
+{{% api-endpoint endpoint="https://{{< influxdb/host >}}/write" method="post" %}}
 
 - [`/api/v2/write` parameters](#v1-api-write-parameters)
 - [Tools for writing to the v1 API](#tools-for-writing-to-the-v1-api)
@@ -292,7 +292,7 @@ To configure the v1.x output plugin for writing to {{% product-name %}}, add the
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```toml
 [[outputs.influxdb]]
-  urls = ["https://cluster-id.influxdb.io"]
+  urls = ["https://{{< influxdb/host >}}"]
   database = "DATABASE_NAME"
   skip_database_creation = true
   retention_policy = ""
@@ -328,7 +328,7 @@ The following example shows how to use the **cURL** command line tool and the {{
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
-curl -i 'https://cluster-id.influxdb.io/write?db=DATABASE_NAME&precision=s' \
+curl -i 'https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s' \
     --header 'Authorization: Bearer DATABASE_TOKEN' \
     --header "Content-type: text/plain; charset=utf-8"
     --data-binary 'home,room=kitchen temp=72 1463683075'
@@ -368,7 +368,7 @@ const Influx = require('influx')
 
 // Instantiate a client for writing to {{% product-name %}} v1 API
 const client = new Influx.InfluxDB({
-  host: 'cluster-id.influxdb.io',
+  host: '{{< influxdb/host >}}',
   port: 443,
   protocol: 'https'
   database: 'DATABASE_NAME',
@@ -391,7 +391,7 @@ from influxdb import InfluxDBClient
 
 # Instantiate a client for writing to {{% product-name %}} v1 API
 client = InfluxDBClient(
-  host='cluster-id.influxdb.io',
+  host='{{< influxdb/host >}}',
   ssl=True,
   database='DATABASE_NAME',
   username='',

@@ -12,7 +12,7 @@ menu:
 influxdb/clustered/tags: [query, influxql, python]
 list_code_example: |
   ```sh
-  curl --get https://cluster-id.influxdb.io/query \
+  curl --get https://{{< influxdb/host >}}/query \
     --header "Authorization: Token DATABASE_TOKEN" \
     --data-urlencode "db=DATABASE_NAME" \
     --data-urlencode "q=SELECT * FROM home"
@@ -36,7 +36,7 @@ see [InfluxQL feature support](/influxdb/clustered/reference/influxql/feature-su
 
 Use the v1 `/query` endpoint and the `GET` request method to query data with InfluxQL:
 
-{{< api-endpoint endpoint="https://cluster-id.influxdb.io/query" method="get" api-ref="/influxdb/clustered/api/#tag/Query" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/query" method="get" api-ref="/influxdb/clustered/api/#tag/Query" >}}
 
 Provide the following with your request:
 
@@ -49,7 +49,7 @@ Provide the following with your request:
 
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```sh
-curl --get https://cluster-id.influxdb.io/query \
+curl --get https://{{< influxdb/host >}}/query \
   --header "Authorization: Token DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
@@ -82,7 +82,7 @@ to interact with the v1 HTTP query API, provide the following credentials:
 {{% code-tab-content %}}
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```sh
-curl --get https://cluster-id.influxdb.io/query \
+curl --get https://{{< influxdb/host >}}/query \
   --header "Authorization: Basic ignored:DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
@@ -93,7 +93,7 @@ curl --get https://cluster-id.influxdb.io/query \
 {{% code-tab-content %}}
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```sh
-curl --get https://cluster-id.influxdb.io/query \
+curl --get https://{{< influxdb/host >}}/query \
   --data-urlencode "u=ignored" \
   --data-urlencode "p=DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
@@ -113,7 +113,7 @@ with the `application/csv` or `text/csv` MIME type:
 
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```sh
-curl --get https://cluster-id.influxdb.io/query \
+curl --get https://{{< influxdb/host >}}/query \
   --header "Authorization: Token DATABASE_TOKEN" \
   --header "Accept: application/csv" \
   --data-urlencode "db=DATABASE_NAME" \

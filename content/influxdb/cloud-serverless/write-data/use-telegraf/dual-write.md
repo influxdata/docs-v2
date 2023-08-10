@@ -48,7 +48,7 @@ Use the configuration below to write your data to both OSS and Cloud Serverless 
  [[outputs.influxdb_v2]]
   ## The URLs of the InfluxDB Cloud instance.
 
-  urls = ["https://cloud2.influxdata.com"]
+  urls = ["https://{{< influxdb/host >}}"]
 
   ## Cloud token for authentication.
   token = "${INFLUX_TOKEN}"

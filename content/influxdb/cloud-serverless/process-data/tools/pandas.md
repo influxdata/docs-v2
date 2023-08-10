@@ -84,7 +84,7 @@ import pandas
 
 # Instantiate an InfluxDB client configured for a bucket
 client = InfluxDBClient3(
-  "https://cloud2.influxdata.com",
+  "https://{{< influxdb/host >}}",
   database="BUCKET_NAME",
   token="API_TOKEN")
 
@@ -180,7 +180,7 @@ import pandas
 
 # Instantiate an InfluxDB client configured for a bucket
 client = InfluxDBClient3(
-  "https://cloud2.influxdata.com",
+  "https://{{< influxdb/host >}}",
   database="BUCKET_NAME",
   token="API_TOKEN")
 

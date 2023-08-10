@@ -71,7 +71,7 @@ Use `Token` to authenticate a write request:
 {{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
 ```sh
 # Use the Token authentication scheme with /api/v2/write
-curl --post "https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME&precision=s" \
+curl --post "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision=s" \
   --header "Authorization: Token API_TOKEN" \
   --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
@@ -125,7 +125,7 @@ Response body messages may differ across {{% product-name %}} v1 API, v2 API, In
 
 We recommend using the InfluxDB v2 API `/api/v2/write` endpoint for new write workloads and existing v2 workloads.
 
-{{% api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/write" method="post"%}}
+{{% api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write" method="post"%}}
 
 - [`/api/v2/write` parameters](#apiv2write-parameters)
 - [Tools for writing to the v2 API](#tools-for-writing-to-the-v2-api)

@@ -84,7 +84,7 @@ import pandas
 
 # Instantiate an InfluxDBClient3 client configured for your unmodified bucket
 influxdb_raw = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     token='API_TOKEN',
     database='RAW_BUCKET_NAME'
 )
@@ -92,7 +92,7 @@ influxdb_raw = InfluxDBClient3(
 # Instantiate an InfluxDBClient3 client configured for your downsampled database.
 # When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     token='API_TOKEN',
     database='DOWNSAMPLED_BUCKET_NAME',
     org=''
@@ -299,14 +299,14 @@ from influxdb_client_3 import InfluxDBClient3
 import pandas
 
 influxdb_raw = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     token='API_TOKEN',
     database='RAW_BUCKET_NAME'
 )
 
 # When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     token='API_TOKEN',
     database='DOWNSAMPLED_BUCKET_NAME',
     org=''
@@ -352,7 +352,7 @@ from influxdb_client_3 import InfluxDBClient3
 import pandas
 
 influxdb_raw = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     org='ORG_NAME',
     token='API_TOKEN',
     database='RAW_BUCKET_NAME'
@@ -360,7 +360,7 @@ influxdb_raw = InfluxDBClient3(
 
 # When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     token='API_TOKEN',
     database='DOWNSAMPLED_BUCKET_NAME',
     org=''

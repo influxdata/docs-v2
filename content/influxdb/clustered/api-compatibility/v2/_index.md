@@ -137,7 +137,7 @@ Response body messages may differ across {{% product-name %}} v1 API, v2 API, In
 
 We recommend using the InfluxDB v2 API `/api/v2/write` endpoint for new write workloads and existing v2 workloads.
 
-{{% api-endpoint endpoint="https://cluster-id.influxdb.io/api/v2/write" method="post"%}}
+{{% api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write" method="post"%}}
 
 - [`/api/v2/write` parameters](#apiv2write-parameters)
 - [Tools for writing to the v2 API](#tools-for-writing-to-the-v2-api)

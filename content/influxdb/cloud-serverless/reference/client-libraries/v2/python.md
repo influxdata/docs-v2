@@ -57,7 +57,7 @@ Follow the steps to write [line protocol](/influxdb/cloud-serverless/reference/s
    org = "INFLUX_ORG"
    # INFLUX_TOKEN is an environment variable you created for your API WRITE token
    token = os.getenv('INFLUX_TOKEN')
-   url="https://cloud2.influxdata.com"
+   url="https://{{< influxdb/host >}}"
    ```
 
 4. To instantiate the client, call the `influxdb_client.InfluxDBClient()` method with the following keyword arguments: `url`, `org`, and `token`.
@@ -95,7 +95,7 @@ bucket = "BUCKET_NAME"
 org = "INFLUX_ORG"
 # INFLUX_TOKEN is an environment variable you created for your API WRITE token
 token = os.getenv('INFLUX_TOKEN')
-url="https://cloud2.influxdata.com"
+url="https://{{< influxdb/host >}}"
 
 client = influxdb_client.InfluxDBClient(
     url=url,

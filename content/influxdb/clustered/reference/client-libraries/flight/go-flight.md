@@ -39,7 +39,7 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
     )
 
     func dbQuery(ctx context.Context) error {
-      url := "cluster-id.influxdb.io:443"
+      url := "{{< influxdb/host >}}:443"
 
       // INFLUX_TOKEN is an environment variable you created for your database READ token
       token := os.Getenv("INFLUX_TOKEN")
