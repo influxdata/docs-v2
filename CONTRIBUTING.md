@@ -363,10 +363,10 @@ Provide the following arguments:
 - **method**: HTTP request method (get, post, patch, put, or delete)
 - **endpoint**: API endpoint
 - **api-ref**: Link the endpoint to a specific place in the API documentation
-- **influxdb_host**: Specify which InfluxDB version host to use
+- **influxdb_host**: Specify which InfluxDB product host to use
   _if the `endpoint` contains the `influxdb/host` shortcode_.
-  Uses the current InfluxDB version as default.
-  Supports the following values:
+  Uses the current InfluxDB product as default.
+  Supports the following product values:
 
   - oss
   - cloud
@@ -1257,8 +1257,8 @@ https://cloud2.influxdata.com
 The InfluxDB host placeholder that gets replaced by custom domains differs
 between each InfluxDB product/version.
 Use the `influxdb/host` shortcode to automatically render the correct
-host placeholder value for the current version. You can also pass a single
-argument to specify a specific version of InfluxDB to use.
+host placeholder value for the current product. You can also pass a single
+argument to specify a specific InfluxDB product to use.
 Supported argument values:
 
 - oss
