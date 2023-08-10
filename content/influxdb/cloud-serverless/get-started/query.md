@@ -210,10 +210,8 @@ credentials (**URL**, **organization**, and **token**) are provided by
 {{% tab-content %}}
 <!--------------------------- BEGIN UI CONTENT --------------------------->
 
-1.  Go to
-    {{% oss-only %}}[localhost:8086](http://localhost:8086){{% /oss-only %}}
-    {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
-    in a browser to log in and access the InfluxDB UI.
+1.  Go to [cloud2.influxdata.com](https://cloud2.influxdata.com) in a browser to
+    log in and access the InfluxDB UI.
 
 2.  In the side navigation  menu, click **Data Explorer**.
 
