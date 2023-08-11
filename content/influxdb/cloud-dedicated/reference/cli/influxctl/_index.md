@@ -74,7 +74,7 @@ location based on your operating system:
 
 #### Profile configuration file locations
 
-| Operating system | Profile configuration filepath                        |
+| Operating system | Profile configuration path                        |
 | :--------------- | :---------------------------------------------------- |
 | Linux            | `~/.config/influxctl/config.toml`                     |
 | macOS            | `~/Library/Application Support/influxctl/config.toml` |

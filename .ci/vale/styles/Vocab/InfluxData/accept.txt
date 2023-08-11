@@ -10,19 +10,21 @@ bundlers?
 CLI
 Clockface
 [Cc]loud
-cloud-dedicated
-Cloud Dedicated
-cloud-name
-cloud-serverless
-Cloud Serverless
 conda
+csv
+CSV
 Data Explorer
-[Dd]ownsampl.*
+dashboarding
+datasource
+dateTime
+[Dd]ownsampl.*\b
+dotenv
 enum
 Flight
 FlightQuery
 Grafana
 gzip(ped)?
+homogenous
 hostname
 hostUrl
 hostURL
@@ -41,11 +43,16 @@ lat
 locf
 [Ll]ogstash
 lon
+lookahead
+lookbehind
 namespace
 noaa
 NOAA
 npm
+OAuth
 pandas
+performant
+pushdown
 pyarrow
 Py.*\b
 pyinflux
@@ -55,12 +62,21 @@ rp
 serializer
 [Ss]erverless
 Splunk
+SQLAlchemy
 stdout
+subquer(y|ies)
+substring
 Superset
 svg
+tagset
 [Tt]elegraf
 [Tt]ombstoned
+tsm|TSM
+uint|UINT
+uinteger
 unescaped
+unix
+urls
 venv
 Webpack
 xpath
