@@ -24,7 +24,7 @@ list_code_example: |
 
     # Instantiate an InfluxDB client
     client = InfluxDBClient3(
-        host='cluster-id.influxdb.io',
+        host='{{< influxdb/host >}}',
         token='DATABASE_TOKEN',
         database='DATABASE_NAME'
     )
@@ -229,7 +229,7 @@ import pandas
 
 # Instantiate an InfluxDBClient3 client configured for your database
 client = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
@@ -264,7 +264,7 @@ cert = fh.read()
 fh.close()
 
 client = InfluxDBClient3(
-host="cluster-id.influxdb.io",
+host="{{< influxdb/host >}}",
 token='DATABASE_TOKEN',
 database='DATABASE_NAME',
 flight_client_options=flight_client_options(
@@ -305,7 +305,7 @@ The following example shows how to use SQL to select all fields in a measurement
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )

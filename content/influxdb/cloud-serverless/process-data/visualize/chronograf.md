@@ -33,7 +33,7 @@ If you haven't already, [download and install Chronograf](/{{< latest "chronogra
     - **Connection URL:** [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/)
 
       ```
-      https://cloud2.influxdata.com
+      https://{{< influxdb/host >}}
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration

@@ -363,9 +363,23 @@ Provide the following arguments:
 - **method**: HTTP request method (get, post, patch, put, or delete)
 - **endpoint**: API endpoint
 - **api-ref**: Link the endpoint to a specific place in the API documentation
+- **influxdb_host**: Specify which InfluxDB product host to use
+  _if the `endpoint` contains the `influxdb/host` shortcode_.
+  Uses the current InfluxDB product as default.
+  Supports the following product values:
+
+  - oss
+  - cloud
+  - serverless
+  - dedicated
+  - clustered
 
 ```md
 {{< api-endpoint method="get" endpoint="/api/v2/tasks" api-ref="/influxdb/cloud/api/#operation/GetTasks">}}
+```
+
+```md
+{{< api-endpoint method="get" endpoint="{{< influxdb/host >}}/api/v2/tasks" influxdb_host="cloud">}}
 ```
 
 ### Tabbed Content
@@ -1238,6 +1252,29 @@ users select a Cloud region in the URL select modal.
 https://cloud2.influxdata.com
 ```
 ~~~
+
+### Automatically populate InfluxDB host placeholder
+The InfluxDB host placeholder that gets replaced by custom domains differs
+between each InfluxDB product/version.
+Use the `influxdb/host` shortcode to automatically render the correct
+host placeholder value for the current product. You can also pass a single
+argument to specify a specific InfluxDB product to use.
+Supported argument values:
+
+- oss
+- cloud
+- cloud-tsm
+- cloud-serverless
+- serverless
+- cloud-dedicated
+- dedicated
+- clustered
+
+```
+{{< host/influxdb >}}
+
+{{< host/influxdb "serverless" >}}
+```
 
 ## New Versions of InfluxDB
 Version bumps occur regularly in the documentation.

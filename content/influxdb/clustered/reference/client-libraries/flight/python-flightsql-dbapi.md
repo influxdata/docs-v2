@@ -85,7 +85,7 @@ and the _DB API 2_ interface to instantiate a Flight SQL client configured for a
 from flightsql import FlightSQLClient
 
 # Instantiate a FlightSQLClient configured for a database
-client = FlightSQLClient(host='cluster-id.influxdb.io',
+client = FlightSQLClient(host='{{< influxdb/host >}}',
                         token='DATABASE_TOKEN',
                         metadata={'database': 'DATABASE_NAME'},
                         features={'metadata-reflection': 'true'})
@@ -140,7 +140,7 @@ The following sample shows how to use Python with `flightsql-dbapi` and `pyarrow
 from flightsql import FlightSQLClient
 
 # Instantiate a FlightSQLClient configured for a database
-client = FlightSQLClient(host='cluster-id.influxdb.io',
+client = FlightSQLClient(host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     metadata={'database': 'DATABASE_NAME'},
     features={'metadata-reflection': 'true'})

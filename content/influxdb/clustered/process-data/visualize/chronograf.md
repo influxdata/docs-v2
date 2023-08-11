@@ -33,7 +33,7 @@ If you haven't already, [download and install Chronograf](/{{< latest "chronogra
     - **Connection URL:** {{% product-name %}} cluster URL
 
       ```
-      https://cluster-id.influxdb.io
+      https://{{< influxdb/host >}}
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration

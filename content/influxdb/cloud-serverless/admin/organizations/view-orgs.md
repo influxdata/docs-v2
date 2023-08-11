@@ -23,6 +23,6 @@ After logging in to the InfluxDB UI, your organization ID appears in the URL--fo
 
 {{< code-callout "03a2bbf46249a000" >}}
 ```sh
-https://cloud2.influxdata.com/orgs/03a2bbf46249a000/...
+https://{{< influxdb/host >}}/orgs/03a2bbf46249a000/...
 ```
 {{< /code-callout >}}

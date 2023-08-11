@@ -137,7 +137,7 @@ query {{% product-name %}}:
       For {{% product-name %}}, this is your cluster URL and port 443:
 
       ```
-      cluster-id.influxdb.io:443
+      {{< influxdb/host >}}:443
       ```
 
     - **AuthType**: Select **token**.
@@ -176,7 +176,7 @@ query {{% product-name %}}:
       protocol:
 
       ```
-      https://cluster-id.influxdb.io
+      https://{{< influxdb/host >}}
       ```
 
 7.  Under **InfluxDB Details**:

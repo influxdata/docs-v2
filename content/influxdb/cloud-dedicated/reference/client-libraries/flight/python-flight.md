@@ -40,7 +40,7 @@ list_code_example: |
 
   token = (b"authorization", bytes(f"Bearer DATABASE_TOKEN".encode('utf-8')))
   options = FlightCallOptions(headers=[token])
-  client = FlightClient(f"grpc+tls://cluster-id.influxdb.io:443")
+  client = FlightClient(f"grpc+tls://{{< influxdb/host >}}:443")
 
   reader = client.do_get(flight_ticket, options)
   arrow_table = reader.read_all()
@@ -88,7 +88,7 @@ flight_ticket = Ticket(json.dumps({
 
 token = (b"authorization", bytes(f"Bearer DATABASE_TOKEN".encode('utf-8')))
 options = FlightCallOptions(headers=[token])
-client = FlightClient(f"grpc+tls://cluster-id.influxdb.io:443")
+client = FlightClient(f"grpc+tls://{{< influxdb/host >}}:443")
 
 reader = client.do_get(flight_ticket, options)
 arrow_table = reader.read_all()
@@ -126,7 +126,7 @@ flight_ticket = Ticket(json.dumps({
 
 token = (b"authorization", bytes(f"Bearer DATABASE_TOKEN".encode('utf-8')))
 options = FlightCallOptions(headers=[token])
-client = FlightClient(f"grpc+tls://cluster-id.influxdb.io:443")
+client = FlightClient(f"grpc+tls://{{< influxdb/host >}}:443")
 
 reader = client.do_get(flight_ticket, options)
 arrow_table = reader.read_all()

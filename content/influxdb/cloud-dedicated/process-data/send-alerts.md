@@ -78,7 +78,7 @@ import pandas
 
 # Instantiate an InfluxDBClient3 client configured for your database
 influxdb = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
@@ -255,7 +255,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 influxdb = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
@@ -298,7 +298,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 influxdb = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )

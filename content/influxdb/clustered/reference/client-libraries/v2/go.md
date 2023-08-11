@@ -63,7 +63,7 @@ Use the Go library to write and query data from InfluxDB.
    org := "ignored"
    token := "DATABASE_TOKEN"
    // Store the URL of your InfluxDB instance
-   url := "https://cluster-id.influxdb.io"
+   url := "https://{{< influxdb/host >}}"
    ```
 
 3. Create the the InfluxDB Go client and pass in the `url` and `token` parameters.
@@ -113,7 +113,7 @@ func main() {
     org := "ignored"
     token := "DATABASE_TOKEN"
     // Store the URL of your InfluxDB instance
-    url := "https://cluster-id.influxdb.io"
+    url := "https://{{< influxdb/host >}}"
     // Create new client with default option for server url authenticate by token
     client := influxdb2.NewClient(url, token)
     // User blocking write client for writes to desired bucket

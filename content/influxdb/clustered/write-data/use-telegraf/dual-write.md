@@ -48,7 +48,7 @@ Use the configuration below to write your data to both OSS and Clustered instanc
  [[outputs.influxdb_v2]]
   ## The URLs of the InfluxDB instance.
 
-  urls = ["https://cluster-id.influxdb.io"]
+  urls = ["https://{{< influxdb/host >}}"]
 
   ## Cloud token for authentication.
   token = "${INFLUX_TOKEN}"

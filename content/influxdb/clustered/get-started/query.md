@@ -242,7 +242,7 @@ _If your project's virtual environment is already running, skip to step 3._
     influx3 config \
       --name="config-serverless" \
       --database="get-started" \
-      --host="cluster-id.influxdb.io" \
+      --host="{{< influxdb/host >}}" \
       --token="DATABASE_TOKEN" \
       --org="ORG_ID"
     ```
@@ -319,7 +319,7 @@ _If your project's virtual environment is already running, skip to step 3._
     TOKEN = os.getenv('INFLUX_TOKEN')
 
     client = InfluxDBClient3(
-        host="cluster-id.influxdb.io",
+        host="{{< influxdb/host >}}",
         token=TOKEN,
         database="get-started",
     )
@@ -365,7 +365,7 @@ _If your project's virtual environment is already running, skip to step 3._
       fh.close()
 
       client = InfluxDBClient3(
-          host="cluster-id.influxdb.io",
+          host="{{< influxdb/host >}}",
           token=TOKEN,
           database="get-started",
           flight_client_options=flight_client_options(
@@ -482,7 +482,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
       // Instantiate the client.
       client, err := influx.New(influx.Configs{
-        HostURL: "https://cluster-id.influxdb.io",
+        HostURL: "https://{{< influxdb/host >}}",
         AuthToken: token,
       })
 
@@ -626,7 +626,7 @@ public class Query
   public static async Task QuerySQL()
   {
     /** Set InfluxDB credentials **/
-    const string hostUrl = "https://cluster-id.influxdb.io";
+    const string hostUrl = "https://{{< influxdb/host >}}";
     string? database = "get-started";
 
     /** INFLUX_TOKEN is an environment variable you assigned to your

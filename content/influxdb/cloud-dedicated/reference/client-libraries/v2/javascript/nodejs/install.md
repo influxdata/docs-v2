@@ -94,7 +94,7 @@ The examples use these properties to interact with the InfluxDB API.
 Set environment variables or update `env.js` with your InfluxDB [database](/influxdb/cloud-dedicated/admin/databases/), organization (required, but ignored), [token](/influxdb/cloud-dedicated/admin/tokens/), and cluster URL.
 
    ```sh
-   export INFLUX_URL=https://cluster-id.influxdb.io
+   export INFLUX_URL=https://{{< influxdb/host >}}
    export INFLUX_TOKEN=DATABASE_TOKEN
    export INFLUX_ORG=ORG_ID
    export INFLUX_DATABASE=DATABASE_NAME

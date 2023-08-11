@@ -76,7 +76,7 @@ If you use a module bundler like Webpack or Parcel, install `@influxdata/influxd
    ```html
    <script>
      window.INFLUX_ENV = {
-       url: 'https://cluster-id.influxdb.io',
+       url: 'https://{{< influxdb/host >}}',
        token: 'DATABASE_TOKEN'
      }
    </script>

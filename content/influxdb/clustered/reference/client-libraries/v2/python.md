@@ -34,7 +34,7 @@ You'll need the following prerequisites:
 2. InfluxDB cluster URL using the HTTPS protocol--for example:
     
     ```
-    https://cluster-id.influxdb.io
+    https://{{< influxdb/host >}}
     ```
 3. Name of the [database](/influxdb/clustered/admin/databases/) to write to.
 4. InfluxDB [database token](/influxdb/clustered/admin/tokens/) with permission to write to the database.
@@ -60,7 +60,7 @@ Follow the steps to write [line protocol](/influxdb/clustered/reference/syntax/l
    org = "ignored"
    # INFLUX_TOKEN is an environment variable you created for your database WRITE token
    token = os.getenv('INFLUX_TOKEN')
-   url="https://cluster-id.influxdb.io"
+   url="https://{{< influxdb/host >}}"
    ```
 
 4. To instantiate the client, call the `influxdb_client.InfluxDBClient()` method with the following keyword arguments: `url`, `org`, and `token`.
@@ -98,7 +98,7 @@ database = "DATABASE_NAME"
 org = "ignored"
 # INFLUX_TOKEN is an environment variable you created for your database WRITE token
 token = os.getenv('INFLUX_TOKEN')
-url="https://cluster-id.influxdb.io"
+url="https://{{< influxdb/host >}}"
 
 client = influxdb_client.InfluxDBClient(
     url=url,

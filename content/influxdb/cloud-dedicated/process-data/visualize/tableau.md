@@ -97,7 +97,7 @@ Setting `useSystemTrustStore=false` is only necessary on macOS and doesn't actua
 
 {{< code-placeholders "DATABASE_NAME" >}}
 ```
-jdbc:arrow-flight-sql://cluster-id.influxdb.io:443?useSystemTrustStore=false&database=DATABASE_NAME
+jdbc:arrow-flight-sql://{{< influxdb/host >}}:443?useSystemTrustStore=false&database=DATABASE_NAME
 ```
 {{< /code-placeholders >}}
 

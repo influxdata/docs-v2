@@ -162,10 +162,8 @@ credentials (**url**, **organization**, and **token**) are provided by
 {{% tab-content %}}
 <!------------------------------ BEGIN UI CONTENT ----------------------------->
 
-1.  Go to
-    {{% oss-only %}}[localhost:8086](http://localhost:8086){{% /oss-only %}}
-    {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
-    in a browser to log in and access the InfluxDB UI.
+1.  Go to [cloud2.influxdata.com](https://cloud2.influxdata.com) in a browser to
+    log in and access the InfluxDB UI.
 
 2.  Navigate to **Load Data** > **Buckets** using the left navigation bar.
 
@@ -321,7 +319,7 @@ To learn more, see how to [use Telegraf to write data](/influxdb/cloud-serverles
 To write data to InfluxDB using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/write" method="post" api-ref="/influxdb/cloud-serverless/api/#operation/PostWrite" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write" method="post" api-ref="/influxdb/cloud-serverless/api/#operation/PostWrite" >}}
 
 Include the following with your request:
 
@@ -341,7 +339,7 @@ to InfluxDB:
 {{% influxdb/custom-timestamps %}}
 ```sh
 curl --request POST \
-"https://cloud2.influxdata.com/api/v2/write?bucket=get-started&precision=s" \
+"https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
   --header "Authorization: Token API_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -432,7 +430,7 @@ dependencies to your current project.
 
       # host is the URL without protocol or trailing slash
       client = InfluxDBClient3(
-          host='cloud2.influxdata.com',
+          host='{{< influxdb/host >}}',
           token=token,
           database='get-started'
       )
@@ -539,7 +537,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 
     // Write line protocol data to InfluxDB
     func WriteLineProtocol() error {
-      url := "https://cloud2.influxdata.com"
+      url := "https://{{< influxdb/host >}}"
       // INFLUX_TOKEN is an environment variable you assigned to your
       // API token value.
       token := os.Getenv("INFLUX_TOKEN")
@@ -825,7 +823,7 @@ To write data to {{% product-name %}} using Node.js, use the
       public static async Task WriteLines()
       {
         // Set InfluxDB credentials
-        const string hostUrl = "https://cloud2.influxdata.com";
+        const string hostUrl = "https://{{< influxdb/host >}}";
         string? database = "get-started";
 
         /**

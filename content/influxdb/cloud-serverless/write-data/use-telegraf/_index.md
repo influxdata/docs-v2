@@ -44,7 +44,7 @@ Use the [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influ
 ```toml
 # ...
 [[outputs.influxdb_v2]]
-  urls = ["https://cloud2.influxdata.com"]
+  urls = ["https://{{< influxdb/host >}}"]
   token = "${INFLUX_TOKEN}"
   organization = ""
   bucket = "get-started"

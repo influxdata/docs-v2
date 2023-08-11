@@ -19,7 +19,7 @@ list_code_example: >
   # Instantiate an InfluxDB client configured for a database
 
   client = InfluxDBClient3(
-    "https://us-east-1-1.aws.cloud2.influxdata.com",
+    "https://us-east-1-1.aws.{{< influxdb/host >}}",
     database="DATABASE_NAME",
     token="DATABASE_TOKEN")
 
@@ -156,7 +156,7 @@ To use batching mode, pass an instance of `WriteOptions` to the `InfluxDBClient3
 ```py
 from influxdb_client_3 import InfluxDBClient3
 
-with InfluxDBClient3(token="DATABASE_TOKEN", host="cluster-id.influxdb.io",
+with InfluxDBClient3(token="DATABASE_TOKEN", host="{{< influxdb/host >}}",
                     org="", database="DATABASE_NAME",
                     write_client_options=wco) as client:
 
@@ -184,7 +184,7 @@ Given `_write_client_options=None`, the client uses synchronous mode when writin
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(token="DATABASE_TOKEN",
-                         host="cluster-id.influxdb.io",
+                         host="{{< influxdb/host >}}",
                          org="",
                          database="DATABASE_NAME")
 ```
@@ -232,7 +232,7 @@ invokes the callback function for the response.
                               retry_callback=retry,
                               WriteOptions=write_options)
 
-  with InfluxDBClient3(token="DATABASE_TOKEN", host="cluster-id.influxdb.io",
+  with InfluxDBClient3(token="DATABASE_TOKEN", host="{{< influxdb/host >}}",
                       org="", database="DATABASE_NAME",
                       write_client_options=wco) as client:
 
@@ -283,7 +283,7 @@ from influxdb_client_3 import InfluxDBClient3
                     
 points = "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000"
 
-client = InfluxDBClient3(token="DATABASE_TOKEN", host="cluster-id.influxdb.io",
+client = InfluxDBClient3(token="DATABASE_TOKEN", host="{{< influxdb/host >}}",
                         database="DATABASE_NAME", org="")
 
 client.write(record=points, write_precision="s")
@@ -331,7 +331,7 @@ data to InfluxDB.
             }
   
   client = InfluxDBClient3(token="DATABASE_TOKEN",
-                          host="cluster-id.influxdb.io",
+                          host="{{< influxdb/host >}}",
                           database="DATABASE_NAME",
                           org="")
   
@@ -418,7 +418,7 @@ wco = write_client_options(success_callback=callback.success,
                           WriteOptions=write_options 
                         )
 
-with  InfluxDBClient3(token="DATABASE_TOKEN", host="cluster-id.influxdb.io",
+with  InfluxDBClient3(token="DATABASE_TOKEN", host="{{< influxdb/host >}}",
                       org="", database="DATABASE_NAME",
                       _write_client_options=wco) as client:
 
@@ -560,7 +560,7 @@ fh.close()
 
 client = InfluxDBClient3(
     token="DATABASE_TOKEN",
-    host="cluster-id.influxdb.io",
+    host="{{< influxdb/host >}}",
     org="",
     database="DATABASE_NAME",
     flight_client_options=flight_client_options(

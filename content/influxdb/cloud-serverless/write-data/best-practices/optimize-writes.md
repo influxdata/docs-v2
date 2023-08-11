@@ -80,7 +80,7 @@ In the `influxdb_v2` output plugin configuration in your `telegraf.conf`, set th
 
 ```toml
 [[outputs.influxdb_v2]]
-  urls = ["https://cloud2.influxdata.com"]
+  urls = ["https://{{< influxdb/host >}}"]
   # ...
   content_encoding = "gzip"
 ```

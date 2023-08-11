@@ -42,7 +42,7 @@ import influxdb_client_3 as InfluxDBClient3
 import pandas
 
 client = InfluxDBClient3.InfluxDBClient3(token='API_TOKEN',
-                      host='cloud2.influxdata.com',
+                      host='{{< influxdb/host >}}',
                       database='BUCKET_NAME',
                       org="",
                       write_options=SYNCHRONOUS)
