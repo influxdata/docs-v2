@@ -204,6 +204,7 @@ credentials (**URL**, **organization**, and **token**) are provided by
 [influx3 CLI](#influx3-cli)
 [Python](#)
 [Go](#)
+[Node.js](#)
 [C#](#)
 [Java](#)
 {{% /tabs %}}
@@ -424,7 +425,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
   4.  Calls the `client.query()` method with the SQL query.
       `query()` sends a
-      Flight request to InfluxDB, queries the database, retrieves result data from the endpoint, and then returns a
+      Flight request to InfluxDB, queries the database (bucket), retrieves result data from the endpoint, and then returns a
       [`pyarrow.Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table)
       assigned to the `table` variable.
 
@@ -609,6 +610,121 @@ _If your project's virtual environment is already running, skip to step 3._
 <!------------------------------ END GO CONTENT ------------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
+{{% influxdb/custom-timestamps %}}
+<!---------------------------- BEGIN NODE.JS CONTENT --------------------------->
+
+_This tutorial assumes you installed Node.js and npm, and created an `influxdb_js_client` npm project as described in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Nodejs)._
+
+1.  In your terminal or editor, change to the `influxdb_js_client` directory you created in the
+    [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Nodejs).
+2.  If you haven't already, install the `@influxdata/influxdb3-client` JavaScript client library as a dependency to your project:
+
+    ```sh
+    npm install --save @influxdata/influxdb3-client
+    ```
+3.  Create a file named `query.mjs`. The `.mjs` extension tells the Node.js interpreter that you're using [ES6 module syntax](https://nodejs.org/api/esm.html#modules-ecmascript-modules).
+4.  Inside of `query.mjs`, enter the following sample code:
+
+    ```js
+    // query.mjs
+    import {InfluxDBClient} from '@influxdata/influxdb3-client'
+    import {tableFromArrays} from 'apache-arrow';
+
+    /**
+    * Set InfluxDB credentials.
+    */
+    const host = "https://cloud2.influxdata.com";
+    const database = 'get-started';
+    /**
+    * INFLUX_TOKEN is an environment variable you assigned to your
+    * API READ token value.
+    */
+    const token = process.env.INFLUX_TOKEN;
+
+    /**
+    * Query InfluxDB with SQL using the JavaScript client library.
+    */
+    export async function querySQL() {
+      /**
+      * Instantiate an InfluxDBClient
+      */
+      const client = new InfluxDBClient({host, token})
+      const sql = `
+      SELECT *
+      FROM home
+      WHERE time >= '2022-01-01T08:00:00Z'
+        AND time <= '2022-01-01T20:00:00Z'
+      `
+
+      const data = {time: [], room: [], co: [], hum: [], temp: []};
+      const result = client.query(query, database);
+
+      for await (const row of result) {
+        data.time.push(new Date(row._time))
+        data.room.push(row.room)
+        data.co.push(row.co);
+        data.hum.push(row.hum);
+        data.temp.push(row.temp);
+      }
+
+      console.table([...tableFromArrays(data)])
+
+      client.close()
+    }
+
+    ```
+
+    The sample code does the following:
+
+    1.  Imports the following:
+        - `InfluxDBClient` class
+        - `tableFromArrays` function
+    2.  Calls `new InfluxDBClient()` and passes a `ClientOptions` object to instantiate a client configured
+        with InfluxDB credentials.
+
+        - **`host`**: your {{% cloud-name %}} region URL
+        - **`token`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
+          _Store this in a secret store or environment variable to avoid exposing the raw token string._
+
+      3.  Defines a string variable (`sql`) for the SQL query.
+      4.  Defines an object (`data`) with column names for keys and array values for storing row data.
+      5.  Calls the `InfluxDBClient.query()` method with the following arguments:
+
+          - **`sql`**: the query to execute
+          - **`database`**: the name of the {{% cloud-name %}} bucket to query
+          
+          `query()` returns a stream of row vectors.
+      6.  Iterates over rows and adds the column data to the arrays in `data`.
+      7.  Passes `data` to the Arrow `tableFromArrays()` function to format the arrays as a table, and then passes the result to the `console.table()` method to output a highlighted table in the terminal.
+5.  Inside of `index.mjs` (created in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Nodejs)), enter the following sample code to import the modules and call the functions:
+
+    ```js
+    // index.mjs
+    import { writeLineProtocol } from "./write.mjs";
+    import { querySQL } from "./query.mjs";
+
+    /**
+    * Execute the client functions.
+    */
+    async function main() {
+      /** Write line protocol data to InfluxDB. */
+      await writeLineProtocol();
+      /** Query data from InfluxDB using SQL. */
+      await querySQL();
+    }
+
+    main();
+    ```
+
+9.  In your terminal, execute `index.mjs` to write to and query {{% cloud-name %}}:
+
+    ```sh
+    node index.mjs
+    ```
+<!---------------------------- END NODE.JS CONTENT --------------------------->
+{{% /influxdb/custom-timestamps %}}
+{{% /tab-content %}}
+{{% tab-content %}}
 <!------------------------------ BEGIN C# CONTENT ----------------------------->
 {{% influxdb/custom-timestamps %}}
 
@@ -641,7 +757,7 @@ _If your project's virtual environment is already running, skip to step 3._
         string? database = "get-started";
 
         /** INFLUX_TOKEN is an environment variable you assigned to your
-          * API token value.
+          * API READ token value.
           **/
         string? authToken = System.Environment
             .GetEnvironmentVariable("INFLUX_TOKEN");
@@ -774,7 +890,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and a `influ
             final String database = "get-started";
 
             /** INFLUX_TOKEN is an environment variable you assigned to your
-              * API token value.
+              * API READ token value.
               **/
             final char[] authToken = (System.getenv("INFLUX_TOKEN")).
             toCharArray();
@@ -821,7 +937,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and a `influ
         1.  Calls `InfluxDBClient.getInstance()` to instantiate a client configured
             with InfluxDB credentials.
 
-            - **`hostUrl`**: your {{% cloud-name %}} cluster URL
+            - **`hostUrl`**: your {{% cloud-name %}} region URL
             - **`database`**: the name of the {{% cloud-name %}} bucket to write to
             - **`authToken`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
