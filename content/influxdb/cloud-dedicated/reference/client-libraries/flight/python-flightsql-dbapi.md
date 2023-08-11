@@ -73,7 +73,7 @@ a client](#initialize-a-client) and interacting with a Flight SQL server.
 __init__(self, host=None, token=None, metadata=None, features=None)
 ```
 
-Initializes and returns a `FlightSQLClient` instance for interating with the server.
+Initializes and returns a `FlightSQLClient` instance for interacting with the server.
 
 ## Initialize a client
 

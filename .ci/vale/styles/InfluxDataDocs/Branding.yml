@@ -6,4 +6,6 @@ ignorecase: true
 swap:
   # NOTE: The left-hand (bad) side can match the right-hand (good) side; Vale
   # will ignore any alerts that match the intended form.
+  "FlightSQL": Flight SQL
   "java[ -]?scripts?": JavaScript
+  "SQL Alchemy": SQLAlchemy

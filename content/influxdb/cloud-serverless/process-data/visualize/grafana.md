@@ -189,7 +189,7 @@ To query {{% cloud-name %}} with InfluxQL, first map database and retention poli
 
     - **Database**: Provide a default database (bucket) name to query.
     - **User**: Provide an arbitrary string.
-      _This credential is ingored when querying {{% cloud-name %}}, but it cannot be empty._
+      _This credential is ignored when querying {{% cloud-name %}}, but it cannot be empty._
     - **Password**: Provide an [API token](/influxdb/cloud-serverless/admin/tokens/)
       with read access to the buckets you want to query.
 
