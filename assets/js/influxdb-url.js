@@ -420,7 +420,7 @@ function validateUrl(url) {
   + `(:[0-9]+)?`);
 
   if (!['dedicated','clustered'].includes(context())) {
-    // Validation for non-dedicated custom InfluxDB URLs
+    // Validation for non-dedicated, non-clustered custom InfluxDB URLs
     try {
       new URL(url);
       return {valid: true, error: ""}
