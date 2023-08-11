@@ -514,19 +514,26 @@ $('input#custom-url-field').focus(function(e) {
 
 // Update URLs and close modal when using 'enter' to exit custom URL field
 $("#custom-url").submit(function(e) {
-  var productContext = context()
-  let url = $('#custom-url-field').val() ? $('#custom-url-field').val() : ""
-  if (['dedicated', 'clustered'].includes(productContext)) {
-    url = $(`#${productContext}-url-field`).val() ? $(`#${productContext}-url-field`).val() : ""
-  }
-  let urlValidation = validateUrl(url)
-
   e.preventDefault();
-  if (url === "" | urlValidation.valid) {
-    ( !['dedicated', 'clustered'].includes(productContext)) ? applyCustomUrl() : applyProductUrl(productContext);
-    $('#modal-close').trigger('click')
+
+  const productContext = context();
+  let url = $('#custom-url-field').val() || '';
+
+  if (['dedicated', 'clustered'].includes(productContext)) {
+    url = $(`#${productContext}-url-field`).val() || '';
+  }
+
+  const urlValidation = validateUrl(url);
+
+  if (url === '' || urlValidation.valid) {
+    if (!['dedicated', 'clustered'].includes(productContext)) {
+      applyCustomUrl();
+    } else {
+      applyProductUrl(productContext);
+    }
+    $('#modal-close').trigger('click');
   } else {
-    showValidationMessage(urlValidation)
+    showValidationMessage(urlValidation);
   }
 });
 
