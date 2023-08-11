@@ -1,6 +1,6 @@
 ---
 title: influx remote create
-description: Create a new remote InfluxDB connection for replicating data.
+description: Create a remote InfluxDB connection for replicating data.
 menu:
   influxdb_cloud_serverless:
     name: influx remote create
