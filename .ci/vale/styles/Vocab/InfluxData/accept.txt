@@ -44,6 +44,7 @@ lon
 namespace
 noaa
 NOAA
+npm
 pandas
 pyarrow
 Py.*\b
