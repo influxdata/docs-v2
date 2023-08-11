@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_cloud_dedicated:
     parent: influxctl token
-weight: 302
+weight: 301
 ---
 
 The `influxctl token delete` command deletes a database token from an InfluxDB
@@ -15,7 +15,7 @@ Cloud Dedicated cluster and revokes all permissions associated with the token.
 ## Usage
 
 ```sh
-influxctl token delete <TOKEN_ID>
+influxctl token delete <TOKEN_ID> [<TOKEN_ID_N>...]
 ```
 
 {{% warn %}}
@@ -39,12 +39,24 @@ Cloud Dedicated cluster.
 
 ## Flags
 
-| Flag |          | Description         |
-| :--- | :------- | :------------------ |
-| `-h` | `--help` | Output command help |
+| Flag |           | Description                                                 |
+| :--- | :-------- | :---------------------------------------------------------- |
+|      | `--force` | Do not prompt for confirmation to delete (default is false) |
+| `-h` | `--help`  | Output command help                                         |
 
 ## Examples
 
+- [Delete a database token](#delete-a-database-token)
+- [Delete multiple database tokens](#delete-multiple-database-tokens)
+
+### Delete a database token
+
 ```sh
 influxctl token delete 000xX0Xx00xX
+```
+
+### Delete multiple database tokens
+
+```sh
+influxctl token delete 000xX0Xx00xX-1 00x00xXxxX00-2
 ```

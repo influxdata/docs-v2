@@ -1,16 +1,15 @@
 ---
-title: influxctl token list
+title: influxctl user list
 description: >
-  The `influxctl token list` command lists all database tokens in an InfluxDB
-  Cloud Dedicated cluster.
+  The `influxctl user list` command ...
 menu:
   influxdb_cloud_dedicated:
-    parent: influxctl token
+    parent: influxctl user
 weight: 301
 ---
 
-The `influxctl token list` command lists all database tokens in an InfluxDB Cloud
-Dedicated cluster.
+The `influxctl user list` command lists all users associated with your InfluxDB
+Cloud Dedicated account ID.
 
 The `--format` option lets you print result in other formats.
 By default, the 'table' format is used, but the 'json' format is
@@ -19,7 +18,7 @@ available for programmatic parsing by other tooling.
 ## Usage
 
 ```sh
-influxctl token list [--format=table|json]
+influxctl user list [command options]
 ```
 
 ## Flags
