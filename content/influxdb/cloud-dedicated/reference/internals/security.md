@@ -24,7 +24,7 @@ To protect data, InfluxDB Cloud Dedicated includes the following:
   building on security controls of these cloud providers,
   such as physical security, disk encryption, and key management services (KMS).
 - Comprehensive [application and service security](#application-and-service-security)
-  covering both technical security measures and the people and processes that maintain the platform, including:
+  covering technical security measures and the people and processes that maintain the platform, including:
   - [Internal access controls](#internal-access-controls)
   - [Configuration management](#configuration-management)
   - [Secure software development life cycle (SDLC)](#secure-software-development-life-cycle-sdlc)
@@ -50,7 +50,7 @@ Access control includes:
 - A unique cluster ID assigned to each InfluxDB Cloud Dedicated cluster.
   All internal Cloud services require this cluster ID to authenticate entities before accessing or operating on data.
 - All external requests must be authorized with a valid token or session.
-  Every InfluxDB Cloud Dedicated service enforce this policy.
+  Every InfluxDB Cloud Dedicated service enforces this policy.
 
 ## Data integrity
 
@@ -134,7 +134,7 @@ InfluxData maintains the following application and service security controls:
 - Multi-factor authentication (MFA) is required for all infrastructure (AWS, GCP, and Azure)
   and for other production systems with access to user information
   (see [InfluxData Subprocessors](https://www.influxdata.com/legal/influxdata-subprocessors/)).
-- InfluxDB Cloud access is logged and audited regularly.
+- InfluxDB Cloud Dedicated access is logged and audited regularly.
 
 ### Configuration management
 
@@ -212,7 +212,7 @@ Ingested data is also recorded out of band to provider-operated object storage.
 ### Incident response
 
 Report security incidents to <security@influxdata.com> or <support@influxdata.com>.
-We maintain procedures for incident alerting and response, performance or
+InfluxData maintains procedures for incident alerting and response, performance or
 downtime events, security, and customer notification.
 We perform root cause analysis (RCA) as part of our incident response.
 
@@ -222,12 +222,75 @@ Users can configure the following security controls:
 
 ### Access, authentication, and authorization
 
-We use [Auth0](https://auth0.com/) for InfluxDB Cloud Dedicated authentication.
-User accounts can be created by InfluxData on the InfluxDB Cloud Dedicated system via Auth0.
-User accounts can create database tokens with data read and/or write permissions.
-API requests from custom applications require a database token with sufficient permissions.
-For more information on the types of tokens and ways to create them, see
-[Manage tokens](https://docs.influxdata.com/influxdb/cloud-dedicated/admin/tokens/).
+InfluxDB Cloud Dedicated uses [Auth0](https://auth0.com/) for authentication and separates workload cluster management authorizations from database read and write authorizations.
+
+- [User provisioning](#user-provisioning)
+- [Management tokens](#management-tokens)
+- [Database tokens](#database-tokens)
+
+#### User provisioning
+
+InfluxData creates user accounts on the InfluxDB Cloud Dedicated system via Auth0.
+After a user account is created, InfluxData provides the user with the following:
+
+- An **Auth0 login** to authenticate access to the cluster
+- The InfluxDB Cloud Dedicated **account ID**
+- The InfluxDB Cloud Dedicated **cluster ID**
+- The InfluxDB Cloud Dedicated **cluster URL**
+- A password reset email for setting the login password
+
+With a valid password, the user can login via InfluxData's `influxctl` command line tool.
+The login command initiates an Auth0 browser login so that the password is never exchanged with `influxctl`.
+With a successful authentication to Auth0, InfluxDB Cloud Dedicated provides the user's `influxctl` session with a short-term management token for access to the Granite service.
+The user interacts with the `influxctl` command line tool to manage the workload cluster, including creating database tokens for database read and write access.
+
+#### Management tokens
+
+Management tokens authenticate user accounts to the Granite service and provide authorizations for workload cluster management activities, including:
+ 
+ - account, pricing, and infrastructure management
+ - creating, listing, and deleting, and databases
+ - creating, listing, and deleting database tokens
+
+Management tokens consist of the following:
+
+- An access token string (sensitive)
+- A permissions set for management activities (configured by InfluxData during initial provisioning)
+- A mandatory 1 hour expiration
+
+When a user issues a command using the `influxctl` command-line tool, `influxctl` sends the management token string with the request to the server, where Granite validates the token (for example, using Auth0).
+If the management token is valid and not expired, the service then compares the token's permissions against the permissions needed to complete the user's request.
+
+Only valid unexpired tokens that have the necessary permissions sets are authorized to perform management functions with InfluxDB Cloud Dedicated's Granite server.
+Following security best practice, Granite never persists management tokens, which prevents token theft from the server.
+On the client (the user's system), the management token is stored on disk with restricted permissions for `influxctl` to use on subsequent runs.
+For example, a user's Linux system would store the management token at  `~/.cache/influxctl/*.json` with `0600` permissions (that is, owner read and write, and no access for group or other).
+
+#### Database tokens
+
+Database tokens provide user and application authorization for reading and writing data and metadata in a InfluxDB Cloud Dedicated database.
+All data write and query API requests require a valid database token with sufficient permissions.
+_Note that an all-access management token can't read or write to a database because it's not a database token._
+
+Database tokens consist of the following:
+
+- An identifier
+- A description
+- A permissions set for reading from a database, writing to a database, or both
+- A base64-encoded 512-bit random string (the API key string; sensitive)
+
+When a user successfully creates a database token, InfluxDB Cloud Dedicated's Granite server reveals the new database token to the user as an API key string - the key string is only visible when it's created.
+The user is responsible for securely storing and managing the API key string.
+
+Following security best practice, InfluxDB Cloud Dedicated's Granite server and workload clusters never persist database tokens, which prevents token theft from the server.
+The servers store the SHA512 of the database token's API key string.
+When a user provides the API key as part of a request to the workload cluster, the cluster validates the token's SHA512 against the stored SHA512.
+If the database token is valid, InfluxDB Cloud Dedicated compares the token's permissions against the permissions needed to complete the user's request.
+The request is only authorized if it contains a valid token with the necessary permissions set.
+
+Database tokens don't have an expiration.
+Database token revocation is provided for by deleting the token.
+Token rotation consists of deleting the database token and creating a new one.
 
 ### Role-based access controls (RBAC)
 
@@ -237,24 +300,24 @@ in your InfluxDB Cloud Dedicated cluster.
 
 ### Advanced controls
 
-For users needing stricter security around data access and risk mitigation measures,
-we recommend the following:
+Users needing stricter security around data access and risk mitigation measures
+should implement the following:
 
 - **Single sign-on (SSO)**.
   Authentication requests from a particular email domain can be routed to an
   Enterprise SSO provider for authentication before they are provided with a
   valid management token.
-  If you would like to set this up, please contact us at <sales@influxdata.com>.
+  If you would like to set this up, please contact <sales@influxdata.com>.
 - **Multi-factor authentication (MFA)**.
-  Currently, we can enable MFA via an Enterprise SSO connection.
+  InfluxData can enable MFA via an Enterprise SSO connection.
   MFA is then enabled on the user's Enterprise SSO authentication provider.
-  If you would like to set this up, please contact us at <sales@influxdata.com>.
+  If you would like to set this up, please contact <sales@influxdata.com>.
 - **Periodic Token rotation**.
-  We recommend that users periodically delete their current database tokens and
+  Users should periodically delete their current database tokens and
   create new tokens.
 
 ## Compliance and auditing
 
 InfluxDB Cloud is **SOC2 Type II** certified.
-To request a copy of our SOC2 Type II report,
-or for information on the ISO 27001 Information Security Management System, please email <sales@influxdata.com>.
+To request a copy of the SOC2 Type II report,
+or for information on the ISO 27001 Information Security Management System, contact <sales@influxdata.com>.

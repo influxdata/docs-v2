@@ -59,11 +59,13 @@ pyinflux
 rearchitect(ed)?
 retention_policy
 rp
+serializable
 serializer
 [Ss]erverless
 Splunk
 SQLAlchemy
 stdout
+subnet
 subquer(y|ies)
 substring
 Superset
@@ -76,6 +78,7 @@ uint|UINT
 uinteger
 unescaped
 unix
+upsert
 urls
 venv
 Webpack
