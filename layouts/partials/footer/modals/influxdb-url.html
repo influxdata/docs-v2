@@ -9,6 +9,7 @@
 {{ $isCloud := cond (or (in .RelPermalink "/influxdb/cloud/") (in .RelPermalink "/influxdb/cloud-serverless/")) true false }}
 {{ $isServerless := cond (in .RelPermalink "/influxdb/cloud-serverless/") true false }}
 {{ $isDedicated := cond (in .RelPermalink "/influxdb/cloud-dedicated/") true false }}
+{{ $isClustered := cond (in .RelPermalink "/influxdb/clustered/") true false }}
 {{ $isEnterprise := cond (in .RelPermalink "/enterprise_influxdb/") true false }}
 
 {{ .Scratch.Set "modalTitle" "Where are you running InfluxDB?" }}
@@ -18,6 +19,8 @@
   {{ .Scratch.Set "modalTitle" "Select your InfluxDB Cloud region" }}
 {{ else if $isDedicated }}
   {{ .Scratch.Set "modalTitle" "What is your InfluxDB Cloud Dedicated cluster URL?" }}
+{{ else if $isClustered }}
+  {{ .Scratch.Set "modalTitle" "What is your InfluxDB cluster URL?" }}
 {{ end }}
 
 {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region and cluster** or your **InfluxDB OSS URL** and we'll customize code examples for you. _[Identify your InfluxDB Cloud cluster](/influxdb/cloud/reference/regions/#regions-with-multiple-clusters)_." }}
@@ -29,6 +32,8 @@
   {{ .Scratch.Set "modalMessage" "Select your **InfluxDB Cloud region and cluster** and we'll customize code examples for you. _[Identify your InfluxDB Cloud cluster](/influxdb/cloud/reference/regions/#regions-with-multiple-clusters)_." }}
 {{ else if $isDedicated }}
   {{ .Scratch.Set "modalMessage" "Enter your **InfluxDB Cloud Dedicated cluster URL** and we'll update code examples for you." }}
+{{ else if $isClustered }}
+  {{ .Scratch.Set "modalMessage" "Enter your **InfluxDB cluster URL** and we'll update code examples for you." }}
 {{ end }}
 
 {{ .Scratch.Set "modalRefLinks" (print "[InfluxDB Cloud regions](" $CloudLink ") or [InfluxDB OSS URLs](" $OSSLink ")") }}
@@ -108,16 +113,17 @@
   </div>
 {{ end }}
 
-{{ define "dedicatedForm" }}
+{{ define "productSpecificForm" }}
   {{ $p := .product }}
   {{ $formID := .formID }}
+  {{ $placeholder := .placeholder }}
   {{ $initialState := .initialState | default "" }}
   <div class="product {{ $initialState }}" id="{{ $formID }}-urls">
     <div class="providers">
       <div class="provider">
         <h5>Enter cluster URL</h5>
         <form action="#" id="custom-url" data-message="">
-          <input type="text" name="influxdb-dedicated-url" id="dedicated-url-field" placeholder="cluster-id.influxdb.io">
+          <input type="text" name="influxdb-{{ $formID }}-url" id="{{ $formID }}-url-field" placeholder="{{ $placeholder}}">
         </form>
       </div>
     </div>
@@ -140,9 +146,11 @@
     {{ else if or $isOSS $isEnterprise }}
       {{ template "productSection" dict "product" .Site.Data.influxdb_urls.oss "formID" "oss" }}
     {{ else if $isDedicated }}
-      {{ template "dedicatedForm" dict "product" nil "formID" "dedicated" }}
+      {{ template "productSpecificForm" dict "product" nil "formID" "dedicated" "placeholder" "cluster-id.influxdb.io" }}
+    {{ else if $isClustered }}
+      {{ template "productSpecificForm" dict "product" nil "formID" "clustered" "placeholder" "cluster-host.com" }}
     {{ end }}
   </div>
-  {{ if not $isDedicated }}<p class="note">For more information, see {{ $modalRefLinks | markdownify }}.</p>{{ end }}
+  {{ if not (or $isDedicated $isClustered) }}<p class="note">For more information, see {{ $modalRefLinks | markdownify }}.</p>{{ end }}
 </div>
 
