@@ -245,7 +245,7 @@ InfluxDB Cloud Dedicated uses [Auth0](https://auth0.com/) for authentication and
 
 #### User provisioning
 
-InfluxData creates user accounts on the InfluxDB Cloud Dedicated system via Auth0.
+InfluxData uses Auth0 to create user accounts and assign permission sets to user accounts on the InfluxDB Cloud Dedicated system.
 After a user account is created, InfluxData provides the user with the following:
 
 - An **Auth0 login** to authenticate access to the cluster
