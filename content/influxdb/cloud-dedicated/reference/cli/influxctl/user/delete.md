@@ -38,6 +38,12 @@ and cannot be undone.
 
 ## Examples
 
+{{% code-placeholders "USER_ID" %}}
 ```sh
-influxctl user delete 000xX0Xx00xX
+influxctl user delete USER_ID
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`USER_ID`{{% /code-placeholder-key %}}: user ID to delete

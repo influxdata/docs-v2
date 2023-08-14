@@ -40,5 +40,5 @@ influxctl cluster get <CLUSTER_ID>
 ##### Return information about a cluster
 
 ```sh
-influxctl cluster get 000xX0Xx00xX
+influxctl cluster get 000xX0Xx-00xX-XXx0-x00X-00xxX0xXX00x
 ```

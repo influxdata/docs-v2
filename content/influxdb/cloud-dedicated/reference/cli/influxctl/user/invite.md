@@ -34,6 +34,17 @@ influxctl user invite [command options] <FIRST_NAME> <LAST_NAME> <EMAIL>
 
 ## Examples
 
+{{% code-placeholders "(FIRST|LAST)_NAME|EMAIL" %}}
 ```sh
-influxctl user invite John Doe jdoe@example.com
+influxctl user invite FIRST_NAME LAST_NAME EMAIL
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`FIRST_NAME`{{% /code-placeholder-key %}}:
+  User's first name
+- {{% code-placeholder-key %}}`LAST_NAME`{{% /code-placeholder-key %}}:
+  User's last name
+- {{% code-placeholder-key %}}`EMAIL`{{% /code-placeholder-key %}}:
+  User's email address

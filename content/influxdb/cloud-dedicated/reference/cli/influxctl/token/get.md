@@ -31,6 +31,12 @@ influxctl token get [command options] <TOKEN_ID>
 
 ## Examples
 
+{{% code-placeholders "TOKEN_ID" %}}
 ```sh
-influxctl token get 000xX0Xx00xX
+influxctl token get TOKEN_ID
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`TOKEN_ID`{{% /code-placeholder-key %}}: token ID to delete

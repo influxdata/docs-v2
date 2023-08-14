@@ -49,14 +49,22 @@ Cloud Dedicated cluster.
 - [Delete a database token](#delete-a-database-token)
 - [Delete multiple database tokens](#delete-multiple-database-tokens)
 
+In the examples below, replace the following:
+
+- {{% code-placeholder-key %}}`TOKEN_ID`{{% /code-placeholder-key %}}: token ID to delete
+
 ### Delete a database token
 
+{{% code-placeholders "TOKEN_ID" %}}
 ```sh
-influxctl token delete 000xX0Xx00xX
+influxctl token delete TOKEN_ID
 ```
+{{% /code-placeholders %}}
 
 ### Delete multiple database tokens
 
+{{% code-placeholders "TOKEN_ID_\d{1}" %}}
 ```sh
-influxctl token delete 000xX0Xx00xX-1 00x00xXxxX00-2
+influxctl token delete TOKEN_ID_1 TOKEN_ID_2
 ```
+{{% /code-placeholders %}}
