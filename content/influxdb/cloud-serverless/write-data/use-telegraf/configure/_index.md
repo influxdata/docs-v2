@@ -88,7 +88,7 @@ Replace the following:
 
 The InfluxDB output plugin configuration contains the following options:
 
-##### urls
+##### `urls`
 
 An array of URL strings.
 To write to {{% product-name %}}, include your {{% product-name %}} region URL using the HTTPS protocol:
@@ -97,17 +97,17 @@ To write to {{% product-name %}}, include your {{% product-name %}} region URL u
 ["https://{{< influxdb/host >}}"]
 ```
 
-##### token
+##### `token`
 
 Your {{% product-name %}} [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ permission to the database.
 
 In the examples, `INFLUX_TOKEN` is an environment variable assigned to a [API token](/influxdb/cloud-serverless/admin/tokens/) that has _write_ permission to the database.
 
-##### organization
+##### `organization`
 
 For {{% product-name %}}, set this to an empty string (`""`).
 
-##### bucket
+##### `bucket`
 
 The name of the {{% product-name %}} bucket to write data to.
 

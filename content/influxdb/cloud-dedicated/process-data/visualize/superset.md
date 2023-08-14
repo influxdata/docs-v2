@@ -193,7 +193,7 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
     - **Username**: admin
     - **Password**: admin
 
-3.  Optional: Create a new admin user with a unique password.
+3.  Optional: Create an admin user with a unique password.
 
     1.  In the Superset UI, click **Settings** in the top right
         and select **List Users**.

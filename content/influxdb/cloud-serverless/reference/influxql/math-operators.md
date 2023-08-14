@@ -189,9 +189,9 @@ InfluxQL does not know how wide your bitfield is, so cannot implement a suitable
 bitwise-not operator.
 
 For example, if your bitfield is 8 bits wide, then the integer 1 represents the bits `0000 0001`.
-The bitwise-not of this should return the bits `1111 1110`, i.e. the integer 254.
+The bitwise-not of this should return the bits `1111 1110` (that is,  the integer 254)
 However, if your bitfield is 16 bits wide, then the integer 1 represents the bits `0000 0000 0000 0001`.
-The bitwise-not of this should return the bits `1111 1111 1111 1110`, i.e. the integer 65534.
+The bitwise-not of this should return the bits `1111 1111 1111 1110` (that is,  the integer 65534)
 
 #### Solution
 

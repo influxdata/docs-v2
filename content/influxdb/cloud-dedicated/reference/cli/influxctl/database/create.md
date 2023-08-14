@@ -61,26 +61,38 @@ influxctl database create [--retention-period 0s] <DATABASE_NAME>
 
 ## Flags
 
-| Flag |                      | Description                                           |
-| :--- | :------------------- | :---------------------------------------------------- |
-| `-h` | `--help`             | Output command help                                   |
-|      | `--retention-period` | Database retention period (default is 0s or infinite) |
+| Flag |                      | Description                                                  |
+| :--- | :------------------- | :----------------------------------------------------------- |
+|      | `--retention-period` | Database retention period (default is 0s or infinite)        |
+|      | `--max-tables`       | Maximum tables per database (default is 500, 0 uses default) |
+|      | `--max-columns`      | Maximum columns per table (default is 250, 0 uses default)   |
+| `-h` | `--help`             | Output command help                                          |
 
 ## Examples
 
 - [Create a database with an infinite retention period](#create-a-database-with-an-infinite-retention-period)
-- [Create a database with a 30 day retention period](#create-a-database-with-a-30-day-retention-period)
+- [Create a database with a 30-day retention period](#create-a-database-with-a-30-day-retention-period)
+- [Create a database with non-default table and column limits](#create-a-database-with-non-default-table-and-column-limits)
 
-##### Create a database with an infinite retention period
+### Create a database with an infinite retention period
 
 ```sh
 influxctl database create mydb
 ```
 
-##### Create a database with a 30 day retention period
+### Create a database with a 30-day retention period
 
 ```sh
 influxctl database create \
   --retention-period 30d \
+  mydb
+```
+
+### Create a database with non-default table and column limits
+
+```sh
+influxctl database create \
+  --max-tables 200 \
+  --max-columns 150 \
   mydb
 ```

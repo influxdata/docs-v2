@@ -118,7 +118,7 @@ After you've imported the client library, you're ready to [get started writing d
 
 The client library includes an example browser app that writes to your InfluxDB instance.
 
-1. Clone the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repo.
+1. Clone the [influxdb-client-js](https://github.com/influxdata/influxdb-client-js) repository.
 
 2. Navigate to the `examples` directory:
 

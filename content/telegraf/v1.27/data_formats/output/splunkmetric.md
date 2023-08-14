@@ -1,16 +1,17 @@
 ---
-title: SplunkMetric output data format
-description: The SplunkMetric serializer formats and outputs data in a format that can be consumed by a Splunk metrics index.
+title: Splunk metrics output data format
+list_title: Splunk metrics
+description: Use the `splunkmetric` metric output data format (serializer) to output Telegraf metrics in a format that can be consumed by a Splunk metrics index.
 menu:
   telegraf_1_27_ref:
-
-    name: SplunkMetric
-    weight: 60
+    name: Splunk metric
+    weight: 10
     parent: Output data formats
 ---
 
-The SplunkMetric serializer formats and outputs the metric data in a format that can be consumed by a Splunk metrics index.
-It can be used to write to a file using the file output, or for sending metrics to a HEC using the standard Telegraf HTTP output.
+Use the `splunkmetric` output data format (serializer) to output Telegraf metrics in a format that can be consumed by a Splunk metrics index.
+
+The output data format can write to a file using the file output, or send metrics to a HEC using the standard Telegraf HTTP output.
 
 If you're using the HTTP output, this serializer knows how to batch the metrics so you don't end up with an HTTP POST per metric.
 

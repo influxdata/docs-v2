@@ -1,15 +1,15 @@
 ---
 title: Carbon2 output data format
-description: Use the Carbon2 output data format (serializer) to convert Telegraf metrics into  the Carbon2 format.
+list_title: Carbon2
+description: Use the `carbon2` output data format (serializer) to format and output Telegraf metrics as Carbon2 format.
 menu:
   telegraf_1_27_ref:
-
     name: Carbon2
     weight: 10
     parent: Output data formats
 ---
 
-The `carbon2` output data format (serializer) translates the Telegraf metric format to the [Carbon2 format](http://metrics20.org/implementations/).
+Use the `carbon2` output data format (serializer) to format and output Telegraf metrics as [Carbon2 format](http://metrics20.org/implementations/).
 
 ### Configuration
 

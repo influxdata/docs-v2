@@ -32,7 +32,7 @@ swap:
   Android device: Android-powered device
   android: Android
   API explorer: APIs Explorer
-  application: app
+  # application: app
   approx\.: approximately
   authN: authentication
   authZ: authorization
@@ -71,6 +71,8 @@ swap:
   overview screen: recents screen
   regex: regular expression
   SHA1: SHA-1|HAS-SHA1
+  SHA256: SHA-256|HAS-SHA256
+  SHA512: SHA-512|HAS-SHA512
   sign into: sign in to
   sign-?on: single sign-on
   static IP address: static external IP address

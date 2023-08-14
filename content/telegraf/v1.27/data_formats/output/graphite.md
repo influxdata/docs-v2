@@ -1,18 +1,19 @@
 ---
 title: Graphite output data format
-description: Use the Graphite output data format to serialize data from Telegraf metrics.
+list_title: Graphite
+description: Use the `graphite` output data format (serializer) to format and output Telegraf metrics as Graphite Message Format.
 menu:
   telegraf_1_27_ref:
-
-    name: Graphite output
-    weight: 20
+    name: Graphite
+    weight: 10
     parent: Output data formats
+    identifier: output-data-format-graphite
 ---
 
-The Graphite data format is serialized from Telegraf metrics using either the
-template pattern or tag support method.  You can select between the two
-methods using the [`graphite_tag_support`](#graphite_tag_support) option.  When set, the tag support method is used,
-otherwise the [template pattern][templates]) option is used.
+Use the `graphite` output data format (serializer) to format and output Telegraf metrics as [Graphite Message Format](https://graphite.readthedocs.io/en/latest/feeding-carbon.html#step-3-understanding-the-graphite-message-format).
+
+The serializer uses either the _template pattern_ method (_default_) or the _tag support_ method.
+To use the tag support method, set the [`graphite_tag_support`](#graphite_tag_support) option.
 
 ## Configuration
 
@@ -54,6 +55,6 @@ cpu.usage_user;cpu=cpu-total;dc=us-east-1;host=tars 0.89 1455320690
 cpu.usage_idle;cpu=cpu-total;dc=us-east-1;host=tars 98.09 1455320690
 ```
 
-### templates
+### Templates
 
-For more information on templates and template patterns, see [Template patterns](/telegraf/v1.27/data_formats/input/graphite/#templates).
+To learn more about using templates and template patterns, see [Template patterns](/telegraf/v1.27/configure_plugins/template-patterns/).

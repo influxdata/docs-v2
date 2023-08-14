@@ -1,6 +1,6 @@
 ---
 title: influx replication create
-description: Create a new InfluxDB replication stream.
+description: Create an InfluxDB replication stream.
 menu:
   influxdb_cloud_serverless:
     name: influx replication create

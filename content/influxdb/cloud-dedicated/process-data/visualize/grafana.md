@@ -183,7 +183,7 @@ query {{% product-name %}}:
 
     - **Database**: Provide a default database name to query.
     - **User**: Provide an arbitrary string.
-      _This credential is ingored when querying {{% product-name %}}, but it cannot be empty._
+      _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
     - **Password**: Provide an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/)
       with read access to the databases you want to query.
 

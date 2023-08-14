@@ -90,7 +90,7 @@ Replace the following:
 
 The InfluxDB output plugin configuration contains the following options:
 
-##### urls
+##### `urls`
 
 An array of URL strings.
 To write to {{% product-name %}}, include your {{% product-name %}} cluster URL using the HTTPS protocol:
@@ -99,17 +99,17 @@ To write to {{% product-name %}}, include your {{% product-name %}} cluster URL 
 ["https://{{< influxdb/host >}}"]
 ```
 
-##### token
+##### `token`
 
 Your {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ permission to the database.
 
 In the examples, **`INFLUX_TOKEN`** is an environment variable assigned to a [database token](/influxdb/cloud-dedicated/admin/tokens/) that has _write_ permission to the database.
 
-##### organization
+##### `organization`
 
 For {{% product-name %}}, set this to an empty string (`""`).
 
-##### bucket
+##### `bucket`
 
 The name of the {{% product-name %}} database to write data to.
 

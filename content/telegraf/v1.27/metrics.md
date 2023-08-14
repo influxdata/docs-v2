@@ -2,15 +2,15 @@
 title: Telegraf metrics
 description: Telegraf metrics are internal representations used to model data during processing and are based on InfluxDB's data model. Each metric component includes the measurement name, tags, fields, and timestamp.
 menu:
-  telegraf_1_27:
+  telegraf_1_27_ref:
     name: Metrics
     weight: 10
     parent: Concepts
-    draft: true
 ---
 
 Telegraf metrics are the internal representation used to model data during
-processing.  These metrics are closely based on InfluxDB's data model and contain
+processing.
+These metrics are closely based on InfluxDB's data model and contain
 four main components:
 
 - **Measurement name**: Description and namespace for the metric.
@@ -20,10 +20,12 @@ four main components:
   metric data.
 - **Timestamp**: Date and time associated with the fields.
 
-This metric type exists only in memory and must be converted to a concrete
-representation in order to be transmitted or viewed. Telegraf provides [output data formats][output data formats] (also known as *serializers*) for these conversions.  Telegraf's default serializer converts to [InfluxDB Line
-Protocol][line protocol], which provides a high performance and one-to-one
+Telegraf metrics exist only in memory and must be converted to a concrete
+representation to be transmitted or viewed.
+Telegraf provides [output data formats][output data formats] (also known as *serializers*) for these conversions.
+Telegraf's default serializer converts to [InfluxDB line
+protocol][line protocol], which provides a high performance and one-to-one
 direct mapping from Telegraf metrics.
 
-[output data formats]: /telegraf/v1.27/data_formats/output/
-[line protocol]: /telegraf/v1.27/data_formats/output/influx/
+[output data formats]: /{{% latest "telegraf" %}}/data_formats/output/
+[line protocol]: /{{% latest "telegraf" %}}/data_formats/output/influx/

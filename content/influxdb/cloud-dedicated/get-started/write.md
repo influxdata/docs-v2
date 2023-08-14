@@ -142,7 +142,7 @@ To learn more about available tools and options, see [Write data](/influxdb/clou
 
 {{% note %}}
 Some examples in this getting started tutorial assume your InfluxDB
-credentials (**url**, **organization**, and **token**) are provided by
+credentials (**URL**, **organization**, and **token**) are provided by
 [environment variables](/influxdb/cloud-dedicated/get-started/setup/?t=InfluxDB+API#configure-authentication-credentials).
 {{% /note %}}
 
@@ -154,6 +154,7 @@ credentials (**url**, **organization**, and **token**) are provided by
 [Go](#)
 [Node.js](#)
 [C#](#)
+[Java](#)
 {{% /tabs %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN TELEGRAF CONTENT ------------------------------>
@@ -211,7 +212,7 @@ and then write it to {{< product-name >}}.
 
 5.  To write the data, start the `telegraf` daemon with the following options:
 
-    - `--config`: Specifies the filepath of the configuration file.
+    - `--config`: Specifies the path of the configuration file.
     - `--once`: Runs a single Telegraf collection cycle for the configured inputs and outputs, and then exits.
 
     Enter the following command in your terminal:
@@ -249,7 +250,7 @@ Include the following with your request:
   - **Accept**: application/json
 - **Query parameters**:
   - **bucket**: InfluxDB database name
-  - **precision**: Timestamp precision (default is `ns`)
+  - **precision**:[timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) (default is `ns`)
 - **Request body**: Line protocol as plain text
 
 {{% note %}}
@@ -309,7 +310,7 @@ To write data to {{% product-name %}} using Python, use the
 The following steps include setting up a Python virtual environment to scope
 dependencies to your current project.
 
-1. Create a new module directory and navigate into it--for example:
+1. Create a module directory and navigate into it--for example:
 
     ```sh
     mkdir influxdb_py_client && cd $_
@@ -349,7 +350,7 @@ dependencies to your current project.
       import os
 
       # INFLUX_TOKEN is an environment variable you assigned to your
-      # database token value.
+      # database WRITE token value.
       token = os.getenv('INFLUX_TOKEN')
 
       # host is the URL without protocol or trailing slash
@@ -398,17 +399,18 @@ dependencies to your current project.
     2.  Calls the `InfluxDBClient3()` constructor to instantiate an InfluxDB client
         configured with the following credentials:
 
-        - **host**: {{% product-name %}} cluster hostname (URL without protocol or trailing slash)
-        - **org**: an empty or arbitrary string (InfluxDB ignores this parameter)
-        - **token**: an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/) with write access to the target database
-        - **database**: the name of the {{% product-name %}} database to write to
+        - **`host`**: {{% product-name %}} cluster hostname (URL without protocol or trailing slash)
+        - **`org`**: an empty or arbitrary string (InfluxDB ignores this parameter)
+        - **`token`**: an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/) with write access to the target database.
+          _Store this in a secret store or environment variable to avoid exposing the raw token string._
+        - **`database`**: the name of the {{% product-name %}} database to write to
     
     3.  Defines a list of line protocol strings where each string represents a data record.
     4.  Calls the `client.write()` method with the line protocol record list and write options.
 
         **Because the timestamps in the sample line protocol are in second
         precision, the example passes the `write_precision='s'` option
-        to set the timestamp precision to seconds.**
+        to set the[timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) to seconds.**
 
 6.  To execute the module and write line protocol to your {{% product-name %}}
     database, enter the following command in your terminal:
@@ -464,7 +466,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     func WriteLineProtocol() error {
       url := "https://{{< influxdb/host >}}"
       // INFLUX_TOKEN is an environment variable you assigned to your
-      // database token value.
+      // database WRITE token value.
       token := os.Getenv("INFLUX_TOKEN")
       database := os.Getenv("INFLUX_DATABASE")
       
@@ -541,9 +543,16 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       
     2.  Defines a `WriteLineProtocol()` function that does the following:
         
-        1.  To instantiate the client, calls the `influx.New(influx.Configs)` function and passes the InfluxDB URL,
-            database token, and [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) for writing data to {{% product-name %}}.
+        1.  To instantiate the client, calls the `influx.New(influx.Configs)` function and passes the following:
+            - **`HostURL`**: the {{% product-name %}} cluster URL
+            - **`AuthToken`**: an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+              _Store this in a secret store or environment variable to avoid exposing the raw token string._
+            - **`WriteParams`**: `influx.WriteParams` options for writing to InfluxDB.
 
+              **Because the timestamps in the sample line protocol are in second
+              precision, the example passes the `Precision: lineprotocol.Second` option
+              to set the [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) to seconds.**
+  
         2.  Defines a deferred function that closes the client when the function returns.
     
         3.  Defines an array of line protocol strings where each string
@@ -553,7 +562,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
             write client's `Write()` method
             to write each line of line protocol separately to InfluxDB.
 
-4.  In your editor, create a `main.go` file and enter the following sample code that calls the `WriteLineProtocol()` function:
+5.  In your editor, create a `main.go` file and enter the following sample code that calls the `WriteLineProtocol()` function:
 
     ```go
     package main
@@ -564,7 +573,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     }
     ```
 
-5.  In your terminal, enter the following command to install the packages listed in `imports`, build the `influxdb_go_client` module, and execute the `main()` function:
+6.  In your terminal, enter the following command to install the packages listed in `imports`, build the `influxdb_go_client` module, and execute the `main()` function:
 
     ```sh
     go mod tidy && go build && go run influxdb_go_client
@@ -576,134 +585,157 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 <!------------------------------- END GO CONTENT ------------------------------>
 {{% /tab-content %}}
 {{% tab-content %}}
-<!------------------------------- BEGIN NODE.JS CONTENT ----------------------->
 {{% influxdb/custom-timestamps %}}
+<!---------------------------- BEGIN NODE.JS CONTENT --------------------------->
 
-To write data to {{% product-name %}} using Node.js, use the
-[influxdb-client-js package](https://github.com/influxdata/influxdb-client-js).
-
-1. Inside of your project directory, create an NPM or Yarn package and install 
-    the `@influxdata/influxdb-client` InfluxDB v2 JavaScript client library.
+1.  If you haven't already, follow the instructions for [Downloading and installing Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) for your system.
+2.  In your terminal, enter the following command to create a `influxdb_js_client` project and `package.json` file:
 
     ```sh
-    npm init -y && npm install --save @influxdata/influxdb-client
+    npm init -y -w influxdb_js_client
     ```
 
-2.  In your terminal or editor, create a new file for your code--for example: `write.js`.
+3.  Change into the `influxdb_js_client` directory.
 
     ```sh
-    touch write.js
+    cd influxdb_js_client
     ```
+4.  Install the `@influxdata/influxdb3-client` JavaScript client library as a dependency to your project:
 
-3. Inside of `write.js`, enter the following sample code:
+    ```sh
+    npm install --save @influxdata/influxdb3-client
+    ```
+5.  In your terminal or editor, create a `write.mjs` file. The `.mjs` extension tells the Node.js interpreter that this is an [ES6 module](https://nodejs.org/api/esm.html#modules-ecmascript-modules).
+6.  Inside of `write.mjs`, enter the following sample code:
 
     ```js
-    'use strict'
-    /** @module write
-    * Writes line protocol strings to InfluxDB using the JavaScript client
-    * library with Node.js.
-    **/
-    import {InfluxDB} from '@influxdata/influxdb-client';
+    // write.mjs
+    import { InfluxDBClient } from "@influxdata/influxdb3-client";
 
-    /** Get credentials from environment variables. **/
-    const url = process.env.INFLUX_URL;
+    /**
+    * Set InfluxDB credentials.
+    */
+    const host = "https://cluster-id.influxdb.io";
+    const database = "get-started";
+    /**
+    * INFLUX_TOKEN is an environment variable you assigned to your
+    * database WRITE token value.
+    */
     const token = process.env.INFLUX_TOKEN;
-    const org = process.env.INFLUX_ORG;
 
     /**
-    * Instantiate the InfluxDB client with a configuration object.
-    **/
-    const influxDB = new InfluxDB({url, token});
-
-    /** 
-    * Define an array of line protocol strings to write.
-    * Include an additional backslash to preserve backslashes
-    * and prevent interpretation of escape sequences---for example,
-    * escaped spaces in tag values.
+    * Write line protocol to InfluxDB using the JavaScript client library.
     */
-    const lines = [
-      'home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000',
-      'home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000',
-      'home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1641027600',
-      'home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600',
-      'home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1641031200',
-      'home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200',
-      'home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1641034800',
-      'home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800',
-      'home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1641038400',
-      'home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400',
-      'home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1641042000',
-      'home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000',
-      'home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1641045600',
-      'home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600',
-      'home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1641049200',
-      'home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200',
-      'home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1641052800',
-      'home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800',
-      'home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1641056400',
-      'home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400',
-      'home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1641060000',
-      'home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000',
-      'home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1641063600',
-      'home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600',
-      'home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1641067200',
-      'home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200',
-    ];
+    export async function writeLineProtocol() {
+      /**
+      * Instantiate an InfluxDBClient
+      */
+      const client = new InfluxDBClient({ host, token });
 
-    /**
-    * Create a write client from the getWriteApi method.
-    * Provide your org and database.
-    **/
-    const writeApi = influxDB.getWriteApi(org, 'get-started', 's');
+      /**
+      * Define line protocol records to write.
+      */
+      const records = [
+        `home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641124000`,
+        `home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641124000`,
+        `home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1641127600`,
+        `home,room=Kitchen temp=23.0,hum=36.2,co=0 1641127600`,
+        `home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1641131200`,
+        `home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641131200`,
+        `home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1641134800`,
+        `home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641134800`,
+        `home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1641138400`,
+        `home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641138400`,
+        `home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1641142000`,
+        `home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641142000`,
+        `home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1641145600`,
+        `home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641145600`,
+        `home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1641149200`,
+        `home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641149200`,
+        `home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1641152800`,
+        `home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641152800`,
+        `home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1641156400`,
+        `home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641156400`,
+        `home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1641160000`,
+        `home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641160000`,
+        `home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1641163600`,
+        `home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641163600`,
+        `home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1641167200`,
+        `home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641167200`,
+      ];
 
-    /**
-    * Write line protocol to the batch
-    */
-    writeApi.writeRecords(lines);
+      /**
+      * Creates an array that contains separate write request promises
+      * for all the records.
+      */
+      const writePromises = records.map((record) => {
+        return client.write(record, database, "", { precision: "s" })
+        .then(() => `Data has been written successfully: ${record}`,
+              () => `Failed writing data: ${record}`);
+      });
 
-    /**
-    * Flush pending writes from the buffer and close the write client.
-    **/
-    writeApi.close().then(
-      () => {
-        console.log('Data has been written successfully.');
-      },
-      (err) => {
-        console.log('Error writing line protocol');
-      }
-    );
+      /**
+      * Wait for all the write promises to settle, and then output the results.
+      */  
+      const writeResults = await Promise.allSettled(writePromises);
+      writeResults.forEach(write => console.log(write.value));
+
+      /** Close the client to release resources. */
+      await client.close();
+    }
     ```
 
-    The sample does the following:
+    The sample code does the following:
 
-      1.  Calls the `new InfluxDB()` constructor to instantiate a client configured
-           with the InfluxDB URL and database token.
+    1.  Imports the `InfluxDBClient` class.
+    2.  Calls the `new InfluxDBClient()` constructor and passes a `ClientOptions` object to instantiate a client configured
+        with InfluxDB credentials.
 
-      2.  Defines an array of line protocol strings where each string represents a data record.
+        - **`host`**: your {{% product-name %}} cluster URL
+        - **`token`**: an [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+          _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
-      3.  Calls the client's `getWriteApi()` method to create a
-          **write client** configured to write to the database
-          (the method requires an `org` argument, but InfluxDB ignores it).
+    3.  Defines a list of line protocol strings where each string represents a data record.
+    4.  Calls the client's `write()` method for each record, defines the success or failure message to return, and collects the pending promises into the `writePromises` array.
+        Each call to `write()` passes the following arguments:
+        
+        - **`record`**: the line protocol record
+        - **`database`**: the name of the {{% product-name %}} database to write to
+        - **`{precision}`**: a `WriteOptions` object that sets the `precision` value.
 
-          **Because the timestamps in the sample line protocol are in second
-            precision, the example passes `'s'` for the `precision` option in order
-            to set the timestamp precision to seconds**.
+        **Because the timestamps in the sample line protocol are in second
+        precision, the example passes `s` as the `precision` value to set the write
+        [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) to seconds.**
 
-      6.  Calls the write client's `writeRecords()` method with the line protocol array
-          to write the records in batches to InfluxDB.
+    5.  Calls `Promise.allSettled()` with the promises array to pause execution until the promises have completed, and then assigns the array containing success and failure messages to a `writeResults` constant.
+    7.  Iterates over and prints the messages in `writeResults`.
+    8.  Closes the client to release resources.
+7.  In your terminal or editor, create an `index.mjs` file.
+8.  Inside of `index.mjs`, enter the following sample code to import and call `writeLineProtocol()`:
 
-      7.  Calls the write client's `close()` method with callback functions for success and error.
-          The `close()` method sends any records remaining in the buffer,
-          executes callbacks, and releases resources.
+    ```js
+    // index.mjs
+    import { writeLineProtocol } from "./write.mjs";
 
-4. To execute the file and write the line protocol to your {{% product-name %}} database,
-    enter the following command in your terminal:
-   
+    /**
+    * Execute the client functions.
+    */
+    async function main() {
+      /** Write line protocol data to InfluxDB. */
+      await writeLineProtocol();
+    }
+
+    main();
+    ```
+
+9.  In your terminal, execute `index.mjs` to write to {{% product-name %}}:
+
     ```sh
-    node write.js
+    node index.mjs
     ```
+
 {{% /influxdb/custom-timestamps %}}
-<!------------------------------- END NODE.JS CONTENT ------------------------------>
+<!---------------------------- END NODE.JS CONTENT --------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
 <!---------------------------- BEGIN C# CONTENT --------------------------->
@@ -748,12 +780,12 @@ To write data to {{% product-name %}} using Node.js, use the
       public static async Task WriteLines()
       {
         // Set InfluxDB credentials
-        const string hostUrl = "https://{{< influxdb/host >}}";
+        const string hostUrl = "https://cluster-id.influxdb.io";
         string? database = "get-started";
 
         /**
           * INFLUX_TOKEN is an environment variable you assigned to your
-          * database token value.
+          * database WRITE token value.
           */
         string? authToken = System.Environment
             .GetEnvironmentVariable("INFLUX_TOKEN");
@@ -815,10 +847,10 @@ To write data to {{% product-name %}} using Node.js, use the
       1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
            with InfluxDB credentials.
 
-          - **hostUrl**: your {{% product-name %}} cluster URL
-          - **database**: the name of the {{% product-name %}} database to write to
-          - **authToken**: an [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified bucket.
-          _For security reasons, we recommend setting this as an environment variable rather than including the raw token string._
+          - **`hostUrl`**: your {{% product-name %}} cluster URL
+          - **`database`**: the name of the {{% product-name %}} database to write to
+          - **`authToken`**: an [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified bucket.
+            _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
           _Instantiating the client with the `using` statement ensures that the client is disposed of when it's no longer needed._
 
@@ -827,7 +859,7 @@ To write data to {{% product-name %}} using Node.js, use the
 
           **Because the timestamps in the sample line protocol are in second
           precision, the example passes the [`WritePrecision.S` enum value](https://github.com/InfluxCommunity/influxdb3-csharp/blob/main/Client/Write/WritePrecision.cs)
-          to the `precision:` option in order to set the timestamp precision to seconds.**
+          to the `precision:` option to set the[timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) to seconds.**
 
 6.  In your editor, open the `Program.cs` file and replace its contents with the following:
 
@@ -862,6 +894,204 @@ To write data to {{% product-name %}} using Node.js, use the
     dotnet run
     ```
 <!---------------------------- END C# CONTENT --------------------------->
+{{% /influxdb/custom-timestamps %}}
+{{% /tab-content %}}
+{{% tab-content %}}
+{{% influxdb/custom-timestamps %}}
+<!---------------------------- BEGIN JAVA CONTENT --------------------------->
+
+_The tutorial assumes using Maven version 3.9 and Java version >= 15._
+
+1.  If you haven't already, follow the instructions to download and install the [Java JDK](https://www.oracle.com/java/technologies/downloads/) and [Maven](https://maven.apache.org/download.cgi) for your system.
+2.  In your terminal or editor, use Maven to generate a project--for example:
+
+    ```sh
+    mvn org.apache.maven.plugins:maven-archetype-plugin:3.1.2:generate \
+    -DarchetypeArtifactId="maven-archetype-quickstart" \
+    -DarchetypeGroupId="org.apache.maven.archetypes" -DarchetypeVersion="1.4" \
+    -DgroupId="com.influxdbv3" -DartifactId="influxdb_java_client"
+    -Dversion="1.0"
+    ```
+
+    The example command creates the `<artifactId>` directory (`./influxdb_java_client`) that
+    contains a `pom.xml` and scaffolding for your `com.influxdbv3.influxdb_java_client` Java application.
+
+3.  In your terminal or editor, change into the `./influxdb_java_client` directory--for example:
+
+    ```sh
+    cd ./influxdb_java_client
+    ```
+4.  In your editor, open the `pom.xml` Maven configuration file and add the `com.influxdb.influxdb3-java` client library into `dependencies`.
+
+    ```pom
+    ...
+    <dependencies>
+      ...
+      <dependency>
+      <groupId>com.influxdb</groupId>
+      <artifactId>influxdb3-java</artifactId>
+      <version>0.1.0</version>
+      </dependency>
+      ...
+    </dependencies>
+    ```
+5.  To check your `pom.xml` for errors, run Maven's `validate` command--for example, enter the following in your terminal:
+    
+    ```sh
+    mvn validate
+    ```
+
+6.  In your editor, navigate to the `./influxdb_java_client/src/main/java/com/influxdbv3` directory and create a `Write.java` file.
+7.  In `Write.java`, enter the following sample code:
+
+    ```java
+    // Write.java
+    package com.influxdbv3;
+
+    import java.util.List;
+    import com.influxdb.v3.client.InfluxDBClient;
+    import com.influxdb.v3.client.write.WriteParameters;
+    import com.influxdb.v3.client.write.WritePrecision;
+
+    /**
+      * Writes line protocol to InfluxDB using the Java client
+      * library.
+      */ 
+    public final class Write {
+        /**
+        * Write data to InfluxDB v3.
+        */
+        private Write() {
+            //not called
+        }
+
+        /**
+          * @throws Exception
+          */
+        public static void writeLineProtocol() throws Exception {
+        
+            // Set InfluxDB credentials
+            final String hostUrl = "https://cluster-id.influxdb.io";
+            final String database = "get-started";
+
+            /**
+              * INFLUX_TOKEN is an environment variable you assigned to your
+              * database WRITE token value.
+              */
+            final char[] authToken = (System.getenv("INFLUX_TOKEN")).
+            toCharArray();
+
+            // Instantiate the InfluxDB client.
+            try (InfluxDBClient client = InfluxDBClient.getInstance(hostUrl,
+            authToken, database)) {
+                // Create a list of line protocol records.
+                final List<String> records = List.of(
+                  "home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000",
+                  "home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000",
+                  "home,room=Living\\ Room temp=21.4,hum=35.9,co=0i 1641027600",
+                  "home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600",
+                  "home,room=Living\\ Room temp=21.8,hum=36.0,co=0i 1641031200",
+                  "home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200",
+                  "home,room=Living\\ Room temp=22.2,hum=36.0,co=0i 1641034800",
+                  "home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800",
+                  "home,room=Living\\ Room temp=22.2,hum=35.9,co=0i 1641038400",
+                  "home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400",
+                  "home,room=Living\\ Room temp=22.4,hum=36.0,co=0i 1641042000",
+                  "home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000",
+                  "home,room=Living\\ Room temp=22.3,hum=36.1,co=0i 1641045600",
+                  "home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600",
+                  "home,room=Living\\ Room temp=22.3,hum=36.1,co=1i 1641049200",
+                  "home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200",
+                  "home,room=Living\\ Room temp=22.4,hum=36.0,co=4i 1641052800",
+                  "home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800",
+                  "home,room=Living\\ Room temp=22.6,hum=35.9,co=5i 1641056400",
+                  "home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400",
+                  "home,room=Living\\ Room temp=22.8,hum=36.2,co=9i 1641060000",
+                  "home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000",
+                  "home,room=Living\\ Room temp=22.5,hum=36.3,co=14i 1641063600",
+                  "home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600",
+                  "home,room=Living\\ Room temp=22.2,hum=36.4,co=17i 1641067200",
+                  "home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200"
+                );
+
+                /**
+                 * Write each record separately to InfluxDB with timestamp
+                 * precision in seconds.
+                 * If no error occurs, print a success message.
+                 * */
+                for (String record : records) {
+                    client.writeRecord(record, new WriteParameters(null, null,
+                    WritePrecision.S));
+                    System.out.printf("Data has been written successfully:
+                    %s%n", record);
+                }
+            }
+        }
+    }
+    ```
+
+    The sample code does the following:
+
+    1.  Imports the following classes:
+        
+        - `java.util.List`;
+        - `com.influxdb.v3.client.InfluxDBClient`
+        - `com.influxdb.v3.client.write.WriteParameters`
+        - `com.influxdb.v3.client.write.WritePrecision`
+
+    2.  Calls `InfluxDBClient.getInstance()` to instantiate a client configured
+        with InfluxDB credentials.
+
+        - **`hostUrl`**: your {{% product-name %}} cluster URL
+        - **`database`**: the name of the {{% product-name %}} database to write to
+        - **`authToken`**: an [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+          _Store this in a secret store or environment variable to avoid exposing the raw token string._
+
+    2.  Defines a list of line protocol strings where each string represents a data record.
+    3.  Calls the client's `writeRecord()` method to write each record separately to InfluxDB.
+
+        **Because the timestamps in the sample line protocol are in second
+        precision, the example passes the [`WritePrecision.S` enum value](https://github.com/InfluxCommunity/influxdb3-java/blob/main/src/main/java/com/influxdb/v3/client/write/WritePrecision.java)
+        as the `precision` argument to set the write [timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) to seconds.**
+
+8.  In your editor, open the `App.java` file (created by Maven) and replace its contents with the following sample code:
+
+    ```java
+    // App.java
+
+    package com.influxdbv3;
+
+    /**
+    * Execute the client functions.
+    *
+    */
+    public class App {
+
+        /**
+        * @param args
+        * @throws Exception
+        */
+        public static void main(final String[] args) throws Exception {
+            // Write data to InfluxDB v3.
+            Write.writeLineProtocol();
+        }
+    }
+    ```
+    
+    - The `App` class and `Write` class are part of the same `com.influxdbv3` package (your project **groupId**).
+    - `App` defines a `main()` function that calls `Write.writeLineProtocol()`.
+9.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
+
+    ```sh
+    mvn compile
+    ```
+
+10. In your terminal or editor, execute `App.main()` to write to InfluxDB--for example, using Maven:
+
+    ```sh
+    mvn exec:java -Dexec.mainClass="com.influxdbv3.App"
+    ```
+<!---------------------------- END JAVA CONTENT --------------------------->
 {{% /influxdb/custom-timestamps %}}
 {{% /tab-content %}}
 {{< /tabs-wrapper >}}
