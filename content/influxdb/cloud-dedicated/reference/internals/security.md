@@ -277,7 +277,7 @@ Management tokens consist of the following:
 When a user issues a command using the `influxctl` command-line tool, `influxctl` sends the management token string with the request to the server, where Granite validates the token (for example, using Auth0).
 If the management token is valid and not expired, the service then compares the token's permissions against the permissions needed to complete the user's request.
 
-Only valid unexpired tokens that have the necessary permissions sets are authorized to perform management functions with InfluxDB Cloud Dedicated.
+Only valid, unexpired tokens that have the necessary permission sets are authorized to perform management functions with InfluxDB Cloud Dedicated.
 Following security best practice, management tokens are never stored on InfluxDB Cloud Dedicated (Granite or workload cluster) servers, which prevents token theft from the server.
 On the client (the user's system), the management token is stored on disk with restricted permissions for `influxctl` to use on subsequent runs.
 For example, a user's Linux system would store the management token at  `~/.cache/influxctl/*.json` with `0600` permissions (that is, owner read and write, and no access for _group_ or _other_).
