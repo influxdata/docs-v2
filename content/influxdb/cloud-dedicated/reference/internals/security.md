@@ -293,7 +293,7 @@ Database tokens consist of the following:
 - An identifier
 - A description
 - A permissions set for reading from a database, writing to a database, or both
-- A base64-encoded 512-bit random string (the API key string)
+- An API key string (sensitive, with the format apiv<N>_<base64-encoded 512-bit random string>)
 
 When a user successfully creates a database token, the InfluxDB Cloud Dedicated Granite server reveals the new database token to the user as an API key string - the key string is only visible when it's created.
 The user is responsible for securely storing and managing the API key string.
