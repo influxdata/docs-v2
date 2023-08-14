@@ -284,7 +284,7 @@ For example, a user's Linux system would store the management token at  `~/.cach
 
 #### Database tokens
 
-Database tokens provide authorization for users and client applications to read and write data and metadata in a InfluxDB Cloud Dedicated database.
+Database tokens provide authorization for users and client applications to read and write data and metadata in an InfluxDB Cloud Dedicated database.
 All data write and query API requests require a valid database token with sufficient permissions.
 _**Note:** an all-access management token can't read or write to a database because it's not a database token._
 
