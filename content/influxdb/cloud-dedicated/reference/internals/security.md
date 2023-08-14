@@ -299,7 +299,7 @@ When a user successfully creates a database token, the InfluxDB Cloud Dedicated 
 The user is responsible for securely storing and managing the API key string.
 
 Following security best practice, a database token's raw API key string is never stored on InfluxDB Cloud Dedicated (Granite or workload cluster) servers, which prevents token theft from the server.
-The servers store the SHA512 of the database token's API key string.
+The servers store non-sensitive database token attributes (identifier, description, and permissions set) and the SHA512 of the token API key string.
 When a user provides the API key as part of a request to the workload cluster, the cluster validates the token's SHA512 against the stored SHA512.
 If the database token is valid, InfluxDB Cloud Dedicated compares the token's permissions against the permissions needed to complete the user's request.
 The request is only authorized if it contains a valid token with the necessary permissions set.
