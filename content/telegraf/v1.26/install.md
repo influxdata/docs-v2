@@ -178,7 +178,7 @@ zypper in telegraf
 
 ## Configuration
 
-### Create a configuration file with default input and output plugins.
+### Create a configuration file with default input and output plugins
 
 Every plugin will be in the file, but most will be commented out.
 
@@ -235,16 +235,22 @@ brew update
 brew install telegraf
 ```
 
-To have launchd start telegraf at next login:
+Run one of the following commands to start Telegraf collecting and processing metrics:
+
+To have launchd start Telegraf as a service after the next login:
+
 ```
 ln -sfv /usr/local/opt/telegraf/*.plist ~/Library/LaunchAgents
 ```
-To load telegraf now:
+
+To start Telegraf as a service now:
+
 ```
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.telegraf.plist
 ```
 
-Or, if you don't want/need launchctl, you can just run:
+To run `telegraf` directly (and not as a launchd service):
+
 ```
 telegraf -config /usr/local/etc/telegraf.conf
 ```
@@ -255,11 +261,11 @@ telegraf -config /usr/local/etc/telegraf.conf
 
 ### Create a configuration file with default input and output plugins.
 
-Every plugin will be in the file, but most will be commented out.
-
 ```
 telegraf config > telegraf.conf
 ```
+
+The output `telegraf.conf` contains all available plugins--some are enabled and the rest are commented out.
 
 ### Create a configuration file with specific inputs and outputs
 ```
@@ -286,41 +292,69 @@ In PowerShell _as an administrator_, do the following:
     and extract its contents to `C:\Program Files\InfluxData\telegraf\`:
 
     ```powershell
-    > wget https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_windows_amd64.zip -UseBasicParsing -OutFile telegraf-{{< latest-patch >}}_windows_amd64.zip
-    > Expand-Archive .\telegraf-{{% latest-patch %}}_windows_amd64.zip -DestinationPath 'C:\Program Files\InfluxData\telegraf\'
+    wget `
+    https://dl.influxdata.com/telegraf/releases/telegraf-{{% latest-patch %}}_windows_amd64.zip `
+    -UseBasicParsing `
+    -OutFile telegraf-{{< latest-patch >}}_windows_amd64.zip `
+    Expand-Archive .\telegraf-{{% latest-patch %}}_windows_amd64.zip `
+    -DestinationPath 'C:\Program Files\InfluxData\telegraf\'
     ```
 
-2.  Move the `telegraf.exe` and `telegraf.conf` files from
-    `C:\Program Files\InfluxData\telegraf\telegraf-{{% latest-patch %}}`
-    up a level to `C:\Program Files\InfluxData\telegraf`:
+2.  Choose one of the following steps to place your `telegraf.exe` and `telegraf.conf` files in `C:\Program Files\InfluxData\telegraf`:
+
+    - Move the `telegraf.exe` and `telegraf.conf` files from
+    `C:\Program Files\InfluxData\telegraf\telegraf-{{% latest-patch %}}` to the parent directory `C:\Program Files\InfluxData\telegraf`--for example:
+
+        ```powershell
+        cd "C:\Program Files\InfluxData\telegraf";
+        mv .\telegraf-{{% latest-patch %}}\telegraf.* .
+        ```
+
+    - **Or**, create a [Windows symbolic link (Symlink)](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/) for
+    `C:\Program Files\InfluxData\telegraf` that points to the extracted directory.
+
+    > The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files are stored in `C:\Program Files\InfluxData\telegraf` or that you created a Symlink to point to this directory.
+
+3.  Optional: Disable the [`inputs.processes` plugin](/{{% latest "telegraf" %}}/plugins/#input-processes).
+    This plugin doesn't support Windows and returns an error when run with the `--test` flag.
+    Open `telegraf.conf` in your editor and comment the `inputs.processes` configuration lines.
+
+    ```toml
+    ...
+    # This plugin ONLY supports non-Windows
+    # [[inputs.processes]]
+    ...
+    #  # use_sudo = false
+    ...
+    ```
+
+4.  Optional: Enable a plugin to collect Windows-specific metrics--for example, uncomment the [`inputs.win_services`  plugin](/{{% latest "telegraf" %}}/plugins/#input-win_services) configuration line:
+
+    ```toml
+    ...
+    # # Input plugin to report Windows services info.
+    # # This plugin ONLY supports Windows
+    [[inputs.win_services]]
+    ...
+    ```
+
+5.  Run the following command to install Telegraf and the configuration as a Windows service.
+    For the `--config` option, pass the absolute path of the `telegraf.conf` configuration file.
 
     ```powershell
-    > cd "C:\Program Files\InfluxData\telegraf"
-    > mv .\telegraf-{{% latest-patch %}}\telegraf.* .
+    .\telegraf.exe --service install `
+    --config "C:\Program Files\InfluxData\telegraf\telegraf.conf"
     ```
 
-    Or create a [Windows symbolic link (Symlink)](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/)
-    to point to this directory.
-
-    > The instructions below assume that either the `telegraf.exe` and `telegraf.conf` files are stored in `C:\Program Files\InfluxData\telegraf`, or you've created a Symlink to point to this directory.
-
-3.  Install Telegraf as a service:
+6.  To test that the installation works, enter the following command:
 
     ```powershell
-    > .\telegraf.exe --service install --config "C:\Program Files\InfluxData\telegraf\telegraf.conf"
+    .\telegraf.exe `
+    --config C:\"Program Files"\InfluxData\telegraf\telegraf.conf --test
     ```
 
-    Make sure to provide the absolute path of the `telegraf.conf` configuration file,
-    otherwise the Windows service may fail to start.
-
-4.  To test that the installation works, run:
-
-    ```powershell
-    > C:\"Program Files"\InfluxData\telegraf\telegraf.exe --config C:\"Program Files"\InfluxData\telegraf\telegraf.conf --test
-    ```
-    > On Windows you need to disable inputs.processes in the `telegraf.conf`.
-
-5.  To start collecting data, run:
+    When run in test mode (using the `--test` flag), Telegraf runs once, collects metrics, outputs them to the console, and then exits. It doesn't run processors, aggregators, or output plugins.
+6.  To start collecting data, run:
 
     ```powershell
     .\telegraf.exe --service start
@@ -334,7 +368,7 @@ If you have multiple Telegraf configuration files, you can specify a `--config-d
 1. Create a directory for configuration snippets at `C:\Program Files\Telegraf\telegraf.d`.
 2. Include the `--config-directory` option when registering the service:
    ```powershell
-   > C:\"Program Files"\Telegraf\telegraf.exe --service install --config C:\"Program Files"\Telegraf\telegraf.conf --config-directory C:\"Program Files"\Telegraf\telegraf.d
+   C:\"Program Files"\Telegraf\telegraf.exe --service install --config C:\"Program Files"\Telegraf\telegraf.conf --config-directory C:\"Program Files"\Telegraf\telegraf.d
    ```
 -->
 
@@ -376,7 +410,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
     ```
     cd telegraf
     ```
-3. Build the Telegraf custom builder tool by entering the folllowing command:
+3. Build the Telegraf custom builder tool by entering the following command:
     ```sh
     make build_tools
     ```
@@ -385,7 +419,7 @@ Use the Telegraf custom builder tool to compile Telegraf with only the plugins y
         ```sh
         ./tools/custom_builder/custom_builder --config /etc/telegraf.conf
         ```
-    - **Single Telegraf confiuaration and Telegraf configuration directory**: 
+    - **Single Telegraf configuration and Telegraf configuration directory**: 
         ```sh
         ./tools/custom_builder/custom_builder \
           --config /etc/telegraf.conf \
