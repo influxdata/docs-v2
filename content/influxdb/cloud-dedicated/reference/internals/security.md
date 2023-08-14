@@ -12,7 +12,7 @@ influxdb/cloud-dedicated/tags: [security, internals]
 
 InfluxData's information security program is based on industry-recognized standards and frameworks,
 including but not limited to ISO 27001, NIST 800-53, CIS20, and SOC2 Type II.
-Our security policy describes the secure development, deployment, and operation of InfluxDB Cloud.
+The security policy describes the secure development, deployment, and operation of InfluxDB Cloud.
 
 To protect data, InfluxDB Cloud Dedicated includes the following:
 
@@ -271,13 +271,13 @@ Management tokens authenticate user accounts to the Granite service and provide 
 Management tokens consist of the following:
 
 - An access token string (sensitive)
-- A permissions set for management activities (configured by InfluxData during initial provisioning)
+- A permission set for management activities (configured during user provisioning)
 - A mandatory 1 hour expiration
 
 When a user issues a command using the `influxctl` command-line tool, `influxctl` sends the management token string with the request to the server, where Granite validates the token (for example, using Auth0).
 If the management token is valid and not expired, the service then compares the token's permissions against the permissions needed to complete the user's request.
 
-Only valid, unexpired tokens that have the necessary permission sets are authorized to perform management functions with InfluxDB Cloud Dedicated.
+Only valid unexpired tokens that have the necessary permission sets are authorized to perform management functions with InfluxDB Cloud Dedicated.
 Following security best practice, management tokens are never stored on InfluxDB Cloud Dedicated (Granite or workload cluster) servers, which prevents token theft from the server.
 On the client (the user's system), the management token is stored on disk with restricted permissions for `influxctl` to use on subsequent runs.
 For example, a user's Linux system would store the management token at  `~/.cache/influxctl/*.json` with `0600` permissions (that is, owner read and write, and no access for _group_ or _other_).
@@ -292,17 +292,17 @@ Database tokens consist of the following:
 
 - An identifier
 - A description
-- A permissions set for reading from a database, writing to a database, or both
+- A permission set for reading from a database, writing to a database, or both
 - An API key string (sensitive, with the format apiv<N>_<base64-encoded 512-bit random string>)
 
 When a user successfully creates a database token, the InfluxDB Cloud Dedicated Granite server reveals the new database token to the user as an API key string--the key string is only visible when it's created.
 The user is responsible for securely storing and managing the API key string.
 
 Following security best practice, a database token's raw API key string is never stored on InfluxDB Cloud Dedicated (Granite or workload cluster) servers, which prevents token theft from the server.
-The servers store non-sensitive database token attributes (identifier, description, and permissions set) and the SHA512 of the token API key string.
-When a user provides the API key as part of a request to the workload cluster, the cluster validates the token's SHA512 against the stored SHA512.
+The servers store non-sensitive database token attributes (identifier, description, and permission set) and the SHA-512 of the token API key string.
+When a user provides the API key as part of a request to the workload cluster, the cluster validates the token's SHA-512 against the stored SHA-512.
 If the database token is valid, InfluxDB Cloud Dedicated compares the token's permissions against the permissions needed to complete the user's request.
-The request is only authorized if it contains a valid token with the necessary permissions set.
+The request is only authorized if it contains a valid token with the necessary permission set.
 
 ##### Token rotation
 
