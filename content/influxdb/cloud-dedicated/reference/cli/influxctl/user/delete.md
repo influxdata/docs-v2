@@ -1,7 +1,7 @@
 ---
 title: influxctl user delete
 description: >
-  The `influxctl user delete` command ...
+  The `influxctl user delete` command deletes a user from your InfluxDB Cloud Dedicated account.
 menu:
   influxdb_cloud_dedicated:
     parent: influxctl user

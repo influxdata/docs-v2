@@ -216,8 +216,10 @@ sudo yum install influxctl
     Expand the downloaded archive into C:\Program Files\InfluxData\ and rename it if desired.
 
     ```powershell
-    > Expand-Archive .\influxctl-v{{< latest-influxctl >}}-windows-x86_64.zip -DestinationPath 'C:\Program Files\InfluxData\'
-    > mv 'C:\Program Files\InfluxData\influxctl-v{{< latest-influxctl >}}-windows-x86_64' 'C:\Program Files\InfluxData\influxctl'
+    Expand-Archive .\influxctl-v{{< latest-influxctl >}}-windows-x86_64.zip `
+    -DestinationPath 'C:\Program Files\InfluxData\'
+    mv 'C:\Program Files\InfluxData\influxctl-v{{< latest-influxctl >}}-windows-x86_64' `
+    'C:\Program Files\InfluxData\influxctl'
     ```
 
 3.  **Grant network access to the influx CLI**.
@@ -251,8 +253,7 @@ following credentials:
 
 ### Create a configuration file
 
-Create a `config.toml` that includes the necessary credentials and store in
-on your machine.
+Create a `config.toml` that includes the necessary credentials.
 If stored at the [default location](#default-connection-profile-store-location)
 for your operating system, `influxctl` automatically detects and uses the connection
 profile configurations.

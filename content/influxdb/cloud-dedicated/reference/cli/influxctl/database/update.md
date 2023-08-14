@@ -1,7 +1,7 @@
 ---
 title: influxctl database update
 description: >
-  The `influxctl database update` command updates databases' retention period,
+  The `influxctl database update` command updates a database's retention period,
   tables, or columns.
 menu:
   influxdb_cloud_dedicated:
@@ -9,7 +9,7 @@ menu:
 weight: 301
 ---
 
-The `influxctl database update` command updates databases' retention period,
+The `influxctl database update` command updates a database's retention period,
 table (measurement), or column limits in InfluxDB.
 
 ## Usage
@@ -36,8 +36,8 @@ influxctl database update <DATABASE_NAME> [flags]
 ## Examples
 
 - [Update a database's retention period](#update-a-databases-retention-period)
-- [Update a databases's table limit](#update-a-databasess-table-limit)
-- [Update a databases's column limit](#update-a-databasess-column-limit)
+- [Update a database's table limit](#update-a-databases-table-limit)
+- [Update a database's column limit](#update-a-databases-column-limit)
 
 ### Update a database's retention period
 
@@ -73,13 +73,13 @@ influxctl database update mydb --retention-period 1mo
 {{% /flex-content %}}
 {{< /flex >}}
 
-### Update a databases's table limit
+### Update a database's table limit
 
 ```sh
 influxctl database update mydb --max-tables 300
 ```
 
-### Update a databases's column limit
+### Update a database's column limit
 
 ```sh
 influxctl database update mydb --max-columns 200

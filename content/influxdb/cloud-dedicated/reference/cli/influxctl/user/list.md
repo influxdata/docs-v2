@@ -1,7 +1,8 @@
 ---
 title: influxctl user list
 description: >
-  The `influxctl user list` command ...
+  The `influxctl user list` command lists all users associated with your InfluxDB
+Cloud Dedicated account ID.
 menu:
   influxdb_cloud_dedicated:
     parent: influxctl user
