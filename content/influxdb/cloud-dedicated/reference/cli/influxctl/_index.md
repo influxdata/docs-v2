@@ -72,7 +72,7 @@ influxctl [flags] [command]
     <a class="btn download" href="https://dl.influxdata.com/influxctl/releases/influxctl-v{{< latest-influxctl >}}-darwin-x86_64.zip" download>influxctl CLI v{{< latest-influxctl >}} (x86_64)</a>
     <a class="btn download" href="https://dl.influxdata.com/influxctl/releases/influxctl-v{{< latest-influxctl >}}-darwin-arm64.zip" download>influxctl CLI v{{< latest-influxctl >}} (arm64)</a>
 
-    ##### Command line {#linux-command-line-download}
+    ##### Command line {#macos-command-line-download}
 
     ```sh
     # x86_64
