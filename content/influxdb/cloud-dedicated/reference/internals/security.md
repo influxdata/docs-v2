@@ -298,7 +298,7 @@ Database tokens consist of the following:
 When a user successfully creates a database token, the InfluxDB Cloud Dedicated Granite server reveals the new database token to the user as an API key string - the key string is only visible when it's created.
 The user is responsible for securely storing and managing the API key string.
 
-Following security best practice, database tokens are never stored on InfluxDB Cloud Dedicated (Granite or workload cluster) servers, which prevents token theft from the server.
+Following security best practice, a database token's raw API key string is never stored on InfluxDB Cloud Dedicated (Granite or workload cluster) servers, which prevents token theft from the server.
 The servers store the SHA512 of the database token's API key string.
 When a user provides the API key as part of a request to the workload cluster, the cluster validates the token's SHA512 against the stored SHA512.
 If the database token is valid, InfluxDB Cloud Dedicated compares the token's permissions against the permissions needed to complete the user's request.
