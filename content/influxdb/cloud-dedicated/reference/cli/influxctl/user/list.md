@@ -11,7 +11,7 @@ weight: 301
 The `influxctl user list` command lists all users associated with your InfluxDB
 Cloud Dedicated account ID.
 
-The `--format` option lets you print result in other formats.
+The `--format` option lets you print the output in other formats.
 By default, the 'table' format is used, but the 'json' format is
 available for programmatic parsing by other tooling.
 

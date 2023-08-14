@@ -39,8 +39,8 @@ influxctl token create \
 
 | Flag |                    | Description                                        |
 | :--- | :----------------- | :------------------------------------------------- |
-|      | `--read-database`  | Grant read permissions to a database. Repeatable.  |
-|      | `--write-database` | Grant write permissions to a database. Repeatable. |
+|      | `--read-database`  | Grant read permissions to a database _(Repeatable)_ |
+|      | `--write-database` | Grant write permissions to a database _(Repeatable)_ |
 | `-h` | `--help`           | Output command help                                |
 
 ## Examples

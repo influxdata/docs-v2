@@ -71,7 +71,7 @@ influxctl database create [--retention-period 0s] <DATABASE_NAME>
 ## Examples
 
 - [Create a database with an infinite retention period](#create-a-database-with-an-infinite-retention-period)
-- [Create a database with a 30 day retention period](#create-a-database-with-a-30-day-retention-period)
+- [Create a database with a 30-day retention period](#create-a-database-with-a-30-day-retention-period)
 - [Create a database with non-default table and column limits](#create-a-database-with-non-default-table-and-column-limits)
 
 ### Create a database with an infinite retention period
@@ -80,7 +80,7 @@ influxctl database create [--retention-period 0s] <DATABASE_NAME>
 influxctl database create mydb
 ```
 
-### Create a database with a 30 day retention period
+### Create a database with a 30-day retention period
 
 ```sh
 influxctl database create \
