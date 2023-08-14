@@ -37,11 +37,11 @@ influxctl token create \
 
 ## Flags
 
-| Flag |                    | Description                           |
-| :--- | :----------------- | :------------------------------------ |
-| `-h` | `--help`           | Output command help                   |
-|      | `--read-database`  | Grant read permissions to a database. Repeatable.  |
-|      | `--write-database` | Grant write permissions to a database. Repeatable. |
+| Flag |                    | Description                                        |
+| :--- | :----------------- | :------------------------------------------------- |
+|      | `--read-database`  | Grant read permissions to a database _(Repeatable)_ |
+|      | `--write-database` | Grant write permissions to a database _(Repeatable)_ |
+| `-h` | `--help`           | Output command help                                |
 
 ## Examples
 
@@ -50,7 +50,13 @@ influxctl token create \
 - [Create a token with read-only access to multiple databases](#create-a-token-with-read-only-access-to-multiple-databases)
 - [Create a token with mixed permissions to multiple databases](#create-a-token-with-mixed-permissions-on-multiple-databases)
 
-##### Create a token with read and write access to a database
+In the examples below, replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database name
+- {{% code-placeholder-key %}}`DATABASE2_NAME`{{% /code-placeholder-key %}}: your second {{% cloud-name %}} database name
+- {{% code-placeholder-key %}}`TOKEN_ID`{{% /code-placeholder-key %}}: token ID to update
+
+### Create a token with read and write access to a database
 
 {{% code-placeholders "DATABASE_NAME" %}}
 ```sh
@@ -61,11 +67,7 @@ influxctl token create \
 ```
 {{% /code-placeholders %}}
 
-Replace the following:
-
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database
-
-##### Create a token with read-only access to a database
+### Create a token with read-only access to a database
 
 {{% code-placeholders "DATABASE_NAME" %}}
 ```sh
@@ -75,7 +77,7 @@ influxctl token create \
 ```
 {{% /code-placeholders %}}
 
-##### Create a token with read-only access to multiple databases
+### Create a token with read-only access to multiple databases
 
 {{% code-placeholders "DATABASE_NAME|DATABASE2_NAME" %}}
 ```sh
@@ -86,12 +88,7 @@ influxctl token create \
 ```
 {{% /code-placeholders %}}
 
-Replace the following:
-
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database
-- {{% code-placeholder-key %}}`DATABASE2_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database
-
-##### Create a token with mixed permissions to multiple databases
+### Create a token with mixed permissions to multiple databases
 
 {{% code-placeholders "DATABASE_NAME|DATABASE2_NAME" %}}
 ```sh

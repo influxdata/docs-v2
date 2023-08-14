@@ -1,16 +1,16 @@
 ---
-title: influxctl token list
+title: influxctl cluster list
 description: >
-  The `influxctl token list` command lists all database tokens in an InfluxDB
-  Cloud Dedicated cluster.
+  The `influxctl cluster list` command information about all InfluxDB
+  Cloud Dedicated clusters associated with your account ID.
 menu:
   influxdb_cloud_dedicated:
-    parent: influxctl token
+    parent: influxctl cluster
 weight: 301
 ---
 
-The `influxctl token list` command lists all database tokens in an InfluxDB Cloud
-Dedicated cluster.
+The `influxctl cluster list` command returns information about all InfluxDB
+Cloud Dedicated clusters associated with your account ID.
 
 The `--format` option lets you print the output in other formats.
 By default, the 'table' format is used, but the 'json' format is
@@ -19,7 +19,7 @@ available for programmatic parsing by other tooling.
 ## Usage
 
 ```sh
-influxctl token list [--format=table|json]
+influxctl cluster list
 ```
 
 ## Flags
