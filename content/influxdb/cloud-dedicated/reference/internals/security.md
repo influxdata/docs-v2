@@ -265,7 +265,7 @@ Management tokens authenticate user accounts to the Granite service and provide 
  
  - account, pricing, and infrastructure management
  - inviting, listing, and deleting users
- - creating, listing, and deleting, and databases
+ - creating, listing, and deleting databases
  - creating, listing, and deleting database tokens
 
 Management tokens consist of the following:
