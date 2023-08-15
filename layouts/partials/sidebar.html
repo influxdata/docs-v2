@@ -79,10 +79,10 @@
   {{ end }}
 
   <!-- Flux links for InfluxDB docs -->
-  {{ $fluxWhitelist := slice "influxdb/v1.7" "influxdb/v1.8" "influxdb/v2.0" "influxdb/v2.1" "influxdb/cloud" }}
+  {{ $fluxWhitelist := `influxdb\/((v(1\.[7-8]))|(v(2\.[0-9]))|cloud)$` }}
   {{ $productAndVersion := print $product "/" $currentVersion }}
   {{ $latestFlux := $.Site.Data.products.flux.latest }}
-  {{ if in $fluxWhitelist $productAndVersion }}
+  {{ if gt (len (findRE $fluxWhitelist $productAndVersion)) 0 }}
     <h4 class="flux">Flux</h4>
     <li class="nav-category"><a href="/flux/{{ $latestFlux }}/">Flux {{ $latestFlux }} Documentation</a></li>
     <li class="nav-category"><a href="/flux/{{ $latestFlux }}/get-started/">Get started with Flux</a></li>
@@ -97,7 +97,9 @@
   {{ end }}
 
   <!-- Additional resources for all docs -->
-  {{ if and (ne $product "resources") (ne $currentVersion "cloud-serverless") (ne $currentVersion "cloud-dedicated") }}
+  {{ $resourcesProductWhitelist := slice "platform" "influxdb" "enterprise_influxdb" "telegraf" "chronograf" "kapacitor" "flux" }}
+  {{ $resourcesVersionWhitelist := `(?:v\d\.(?:\d{1,2}|x))|cloud$` }}
+  {{ if and (in $resourcesProductWhitelist $product) (gt (len (findRE $resourcesVersionWhitelist $currentVersion)) 0) }}
     <h4 class="resources">Additional resources</h4>
     <li class="nav-category"><a href="/resources/videos/">Videos</a></li>
     <li class="nav-category"><a href="/resources/how-to-guides/">How-to Guides</a></li>

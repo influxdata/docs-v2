@@ -40,9 +40,10 @@
   <ul class="item-list products" data-category="Managed">
     {{ range $sortedProducts }}
        {{ if eq .menu_category "managed" }}       
-        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}
-        {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }}        
-        {{ if $isCurrentProduct }}
+        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
+        {{ if not $isCurrentProduct }}
+          {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }} 
+        {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
         
         {{ else if eq $product "influxdb" }}
@@ -51,14 +52,13 @@
           
           {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
           {{ if (gt (len $altLinks) 0) }}
-            {{ $productKey := index (index $influxdbInfo .name) "key"  | default "" }}
+            {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
             {{ if isset $altLinks $productKey }}
               {{ $scratch.Set "link" (index $altLinks $productKey) }}
             {{ end }}
-          {{ end }}
 
           {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-          {{ if gt (len $altProductPage.Title) 0 }}
+          {{ else if gt (len $altProductPage.Title) 0 }}
             {{ $scratch.Set "link" $altProductPage.RelPermalink }}
           {{ end }}        
         {{ end }}
@@ -72,9 +72,10 @@
   <ul class="item-list products" data-category="Self-managed">
     {{ range $sortedProducts }}
       {{ if eq .menu_category "self-managed" }}
-        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}
-        {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }}        
-        {{ if $isCurrentProduct }}
+        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
+        {{ if not $isCurrentProduct }}
+          {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }} 
+        {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
         
         {{ else if eq $product "influxdb" }}
@@ -87,10 +88,9 @@
             {{ if isset $altLinks $productKey }}
               {{ $scratch.Set "link" (index $altLinks $productKey) }}
             {{ end }}
-          {{ end }}
 
           {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-          {{ if gt (len $altProductPage.Title) 0 }}
+          {{ else if gt (len $altProductPage.Title) 0 }}
             {{ $scratch.Set "link" $altProductPage.RelPermalink }}
           {{ end }}        
         {{ end }}
@@ -104,9 +104,10 @@
   <ul class="item-list products" data-category="Other products">
     {{ range $sortedProducts }}
       {{ if eq .menu_category "other" }}
-        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}
-        {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }}        
-        {{ if $isCurrentProduct }}
+        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
+        {{ if not $isCurrentProduct }}
+          {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }} 
+        {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
         
         {{ else if eq $product "influxdb" }}
@@ -119,10 +120,9 @@
             {{ if isset $altLinks $productKey }}
               {{ $scratch.Set "link" (index $altLinks $productKey) }}
             {{ end }}
-          {{ end }}
 
           {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-          {{ if gt (len $altProductPage.Title) 0 }}
+          {{ else if gt (len $altProductPage.Title) 0 }}
             {{ $scratch.Set "link" $altProductPage.RelPermalink }}
           {{ end }}        
         {{ end }}
@@ -136,9 +136,10 @@
   <ul class="item-list products" data-category="Languages">
     {{ range $sortedProducts }}
       {{ if eq .menu_category "languages" }}
-        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}
-        {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }}        
-        {{ if $isCurrentProduct }}
+        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
+        {{ if not $isCurrentProduct }}
+          {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }} 
+        {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
         
         {{ else if eq $product "influxdb" }}
@@ -151,10 +152,9 @@
             {{ if isset $altLinks $productKey }}
               {{ $scratch.Set "link" (index $altLinks $productKey) }}
             {{ end }}
-          {{ end }}
 
           {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-          {{ if gt (len $altProductPage.Title) 0 }}
+          {{ else if gt (len $altProductPage.Title) 0 }}
             {{ $scratch.Set "link" $altProductPage.RelPermalink }}
           {{ end }}        
         {{ end }}
