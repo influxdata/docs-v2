@@ -12,7 +12,8 @@ related:
   - /influxdb/cloud-serverless/reference/cli/influx/bucket-schema/
   - /influxdb/cloud-serverless/admin/buckets/create-bucket/
   - /influxdb/cloud-serverless/reference/cli/influx/
-alt_engine: /influxdb/cloud/organizations/buckets/bucket-schema/
+alt_links:
+  cloud: /influxdb/cloud/organizations/buckets/bucket-schema/
 ---
 
 {{% warn %}}

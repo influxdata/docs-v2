@@ -9,7 +9,7 @@ menu:
 weight: 301
 ---
 
-The `influxctl user invite` command invites a user to your {{< cloud-name >}}
+The `influxctl user invite` command invites a user to your {{< product-name >}}
 account.
 
 ## Usage

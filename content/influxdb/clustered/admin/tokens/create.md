@@ -16,7 +16,9 @@ list_code_example: |
     --write-database DATABASE2_NAME \
     "Read-only on DATABASE1_NAME, Read/write on DATABASE2_NAME"
   ```
-alt_engine: /influxdb/cloud-serverless/admin/tokens/create-token/
+alt_links:
+  cloud: /influxdb/cloud/security/tokens/create-token/
+  cloud-serverless: /influxdb/cloud-serverless/admin/tokens/create-token/
 ---
 
 Use the [`influxctl token create` command](/influxdb/clustered/reference/cli/influxctl/token/create/)

@@ -11,7 +11,8 @@ menu:
 weight: 202
 aliases:
   - /influxdb/cloud-serverless/organizations/buckets/view-buckets/
-alt_engine: /influxdb/cloud/organizations/buckets/view-buckets/
+alt_links:
+  cloud: /influxdb/cloud/organizations/buckets/view-buckets/
 ---
 
 ## View buckets in the InfluxDB UI

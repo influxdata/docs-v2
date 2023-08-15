@@ -15,7 +15,8 @@ weight: 101
 influxdb/cloud-serverless/tags: [telegraf]
 related:
   - /{{< latest "telegraf" >}}/plugins/
-alt_engine: /influxdb/cloud/write-data/no-code/use-telegraf/manual-config/
+alt_links:
+  cloud: /influxdb/cloud/write-data/no-code/use-telegraf/manual-config/
 aliases:
   - /influxdb/cloud-serverless/write-data/use-telegraf/manual-config/
 ---

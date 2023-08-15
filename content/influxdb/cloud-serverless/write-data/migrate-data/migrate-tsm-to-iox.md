@@ -10,7 +10,8 @@ menu:
     name: Migrate from TSM to Serverless
     parent: Migrate data
 weight: 102
-alt_engine: /influxdb/cloud/migrate-data/migrate-cloud-to-cloud/
+alt_links:
+  cloud: /influxdb/cloud/migrate-data/migrate-cloud-to-cloud/
 ---
 
 To migrate data from an InfluxDB Cloud (TSM) organization to an 

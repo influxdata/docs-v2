@@ -7,7 +7,8 @@ menu:
     name: Create a token
     parent: Manage tokens
 weight: 201
-alt_engine: /influxdb/cloud/security/tokens/create-token/
+alt_links:
+  cloud: /influxdb/cloud/security/tokens/create-token/
 ---
 
 Create API tokens using the InfluxDB user interface (UI), the `influx`

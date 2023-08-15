@@ -7,7 +7,8 @@ menu:
     name: Update a bucket
     parent: Manage buckets
 weight: 202
-alt_engine: /influxdb/cloud-serverless/admin/buckets/update-bucket/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/admin/buckets/update-bucket/
 ---
 
 Use the InfluxDB user interface (UI), the `influx` command line interface (CLI), or the InfluxDB HTTP API to update a bucket.

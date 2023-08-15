@@ -10,7 +10,7 @@ weight: 201
 ---
 
 The `influxctl cluster` command and its subcommands provide information about
-{{< cloud-name >}} clusters.
+{{< product-name >}} clusters.
 
 ## Usage
 

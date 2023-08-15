@@ -8,7 +8,8 @@ menu:
   influxdb_cloud:
     name: View configs
     parent: Telegraf configurations
-alt_engine: /influxdb/cloud-serverless/write-data/use-telegraf/telegraf-configs/view/
+alt_links: 
+  cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/telegraf-configs/view/
 ---
 
 {{< duplicate-oss >}}

@@ -7,7 +7,10 @@ menu:
     name: View buckets
     parent: Manage buckets
 weight: 202
-alt_engine: /influxdb/cloud-serverless/admin/buckets/view-buckets/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/admin/buckets/view-buckets/
+  cloud-dedicated: /influxdb/cloud-dedicated/admin/databases/view/
+  clustered: /influxdb/clustered/admin/databases/view/
 ---
 
 ## View buckets in the InfluxDB UI

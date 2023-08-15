@@ -12,7 +12,7 @@ cascade:
 ---
 
 The `influxctl user` command and its subcommands manage users in
-{{< cloud-name >}} clusters.
+{{< product-name >}} clusters.
 
 ## Usage
 

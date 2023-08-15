@@ -1,5 +1,5 @@
 ---
-title: Write data to InfluxDB Clustered (Single-tenant)
+title: Write data to InfluxDB Clustered
 list_title: Write data
 description: >
   Collect and write time series data to InfluxDB Clustered.

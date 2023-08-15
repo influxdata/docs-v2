@@ -13,7 +13,8 @@ related:
   - /influxdb/cloud-serverless/admin/buckets/manage-explicit-bucket-schemas/
 aliases:
   - /influxdb/cloud-serverless/organizations/buckets/create-bucket/
-alt_engine: /influxdb/cloud/organizations/buckets/create-bucket/
+alt_links:
+  cloud: /influxdb/cloud/organizations/buckets/create-bucket/
 ---
 
 Use the InfluxDB user interface (UI), `influx` command line interface (CLI), or InfluxDB HTTP API

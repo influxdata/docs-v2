@@ -13,7 +13,8 @@ menu:
   influxdb_clustered:
     name: Use Telegraf
     parent: Write data
-alt_engine: /influxdb/cloud/write-data/no-code/use-telegraf/
+alt_links:
+  cloud: /influxdb/cloud/write-data/no-code/use-telegraf/
 ---
 
 [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) is a

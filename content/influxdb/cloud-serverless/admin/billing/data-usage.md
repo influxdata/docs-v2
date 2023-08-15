@@ -11,7 +11,8 @@ menu:
 related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
-alt_engine: /influxdb/cloud/account-management/data-usage/
+alt_links:
+  cloud: /influxdb/cloud/account-management/data-usage/
 aliases:
   - /influxdb/cloud-serverless/admin/accounts/data-usage/
 ---

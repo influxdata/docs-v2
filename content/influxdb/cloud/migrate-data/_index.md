@@ -6,7 +6,10 @@ menu:
   influxdb_cloud:
     name: Migrate data
 weight: 9
-alt_engine: /influxdb/cloud-serverless/write-data/migrate-data/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/write-data/migrate-data/
+  cloud-dedicated: /influxdb/cloud-dedicated/write-data/migrate-data/
+  clustered: /influxdb/clustered/write-data/migrate-data/
 ---
 
 Migrate data to InfluxDB from other InfluxDB instances including by InfluxDB OSS

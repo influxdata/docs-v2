@@ -12,7 +12,8 @@ related:
   - /influxdb/cloud-serverless/admin/accounts/
 aliases:
   - /influxdb/cloud-serverless/organizations/
-alt_engine: /influxdb/cloud/organizations/
+alt_links:
+  cloud: /influxdb/cloud/organizations/
 ---
 
 An **organization** is a workspace for a group of users.
