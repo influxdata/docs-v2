@@ -315,7 +315,10 @@ In PowerShell _as an administrator_, do the following:
     - **Or**, create a [Windows symbolic link (Symlink)](https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/) for
     `C:\Program Files\InfluxData\telegraf` that points to the extracted directory.
 
-    > The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files are stored in `C:\Program Files\InfluxData\telegraf` or that you created a Symlink to point to this directory.
+    {{% note %}}
+The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files are stored in
+`C:\Program Files\InfluxData\telegraf` or that you created a Symlink to point to this directory.
+    {{% /note %}}
 
 3.  Optional: Disable the [`inputs.processes` plugin](/{{% latest "telegraf" %}}/plugins/#input-processes).
     This plugin doesn't support Windows and returns an error when run with the `--test` flag.
