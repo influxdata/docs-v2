@@ -2,7 +2,7 @@
 
 ## Sign the InfluxData CLA
 The InfluxData Contributor License Agreement (CLA) is part of the legal framework
-for the open-source ecosystem that protects both you and InfluxData.
+for the open source ecosystem that protects both you and InfluxData.
 To make substantial contributions to InfluxData documentation, first sign the InfluxData CLA.
 What constitutes a "substantial" change is at the discretion of InfluxData documentation maintainers.
 
@@ -10,7 +10,7 @@ What constitutes a "substantial" change is at the discretion of InfluxData docum
 
 _**Note:** Typo and broken link fixes are greatly appreciated and do not require signing the CLA._
 
-*If it's your first time contributing and you're looking for an easy update, check out our [good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue)!*
+*If you're new to contributing or you're looking for an easy update, check out our [good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue).*
 
 ## Make suggested updates
 
@@ -20,6 +20,20 @@ _**Note:** Typo and broken link fixes are greatly appreciated and do not require
 
 ### Run the documentation locally (optional)
 To run the documentation locally, follow the instructions provided in the README.
+
+### Install and run Vale
+Use the [Vale](https://vale.sh/) style linter to check spelling and enforce style guidelines.
+To install Vale, follow the instructions to install the [Vale CLI](https://vale.sh/docs/vale-cli/installation/) for your system and the [integration](https://vale.sh/docs/integrations/guide/) for your editor.
+
+The `docs-v2` repository contains `.vale.ini` files that configure InfluxData spelling and style rules used by the [Vale CLI](https://vale.sh/docs/vale-cli/installation/) and editor extensions, such as [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode).
+When run (with the CLI or an editor extension) Vale searches for a `.vale.ini` file in the directory of the file being linted.
+
+To lint multiple directories with specified configuration files and generate a report, run the `.ci/vale/vale.sh` script.
+
+`docs-v2` style rules are located at `.ci/vale/styles/`.
+The easiest way to add accepted or rejected spellings is to enter your terms (or regular expression patterns) into the Vocabulary files at `.ci/vale/styles/Vocab`.
+
+To learn more about configuration and rules, see [Vale configuration](https://vale.sh/docs/topics/config).
 
 ### Make your changes
 Make your suggested changes being sure to follow the [style and formatting guidelines](#style--formatting) outline below.
@@ -1289,7 +1303,7 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
 7. Copy the InfluxDB `swagger.yml` specific to the new version into the
    `/api-docs/v<version-number>/` directory.
 
-8. Commit the changes and push the new branch to Github.
+8. Commit the changes and push the new branch to GitHub.
 
 These changes lay the foundation for the new version.
 All other changes specific to the new version should be merged into this branch.

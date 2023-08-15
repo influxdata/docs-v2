@@ -10,6 +10,7 @@ bundlers?
 CLI
 Clockface
 [Cc]loud
+codeblock
 conda
 csv
 CSV
@@ -57,11 +58,13 @@ pyarrow
 Py.*\b
 pyinflux
 rearchitect(ed)?
+Redoc
 retention_policy
 rp
 serializable
 serializer
 [Ss]erverless
+shortcode
 Splunk
 SQLAlchemy
 stdout
@@ -81,6 +84,7 @@ unix
 upsert
 urls
 venv
+VSCode
 Webpack
 xpath
 XPath
