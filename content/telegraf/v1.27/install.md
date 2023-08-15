@@ -243,7 +243,7 @@ To have launchd start Telegraf as a service after the next login:
 ln -sfv /usr/local/opt/telegraf/*.plist ~/Library/LaunchAgents
 ```
 
-To start Telegraf as a service now:
+Start Telegraf as a launchd service:
 
 ```
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.telegraf.plist
