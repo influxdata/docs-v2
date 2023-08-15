@@ -75,7 +75,7 @@ influxdb_cloud_dedicated:
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-form/"
   placeholder_host: cluster-id.influxdb.io
-  latest_cli: 2.0.0
+  latest_cli: 2.0.1
 
 influxdb_clustered:
   name: InfluxDB Clustered
