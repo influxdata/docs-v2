@@ -10,7 +10,7 @@ menu:
     identifier: write-best-practices
     parent: Write data
 related:
-  - /influxdb/cloud-serverless/reference/internals/storage-limits/
+  - /influxdb/cloud-serverless/admin/billing/limits/
 aliases:
   - /influxdb/cloud-serverless/write-data/troubleshoot/
 ---
