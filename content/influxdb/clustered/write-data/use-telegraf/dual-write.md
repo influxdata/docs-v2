@@ -17,7 +17,7 @@ you may want to set up Telegraf to dual write.
 Use Telegraf to write to both InfluxDB OSS and {{< product-name >}} simultaneously.
 
 The sample configuration below uses:
-  - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2) twice: first pointing to the OSS instance and then to the {{< product-name >}} cluster.
+  - The [InfluxDB v2 output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/influxdb_v2) twice: first pointing to the OSS instance and then to the {{< product-name omit="Clustered" >}} cluster.
   - Two different tokens, one for OSS and one for Clustered. You'll need to configure both tokens as environment variables (see how to [Configure authentication credentials as environment variables](/influxdb/clustered/get-started/setup/#configure-authentication-credentials)).
 
 Use the configuration below to write your data to both OSS and Clustered instances simultaneously.

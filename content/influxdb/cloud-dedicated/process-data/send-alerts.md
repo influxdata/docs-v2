@@ -65,7 +65,7 @@ Use the `InfluxDBClient3` function in the `influxdb_client_3` module to
 instantiate an InfluxDB client.
 Provide the following credentials:
 
-- **host**: {{< product-name >}} cluster URL _(without the protocol)_
+- **host**: {{< product-name omit="Clustered" >}} cluster URL _(without the protocol)_
 - **org**: InfluxDB organization name
 - **token**: [InfluxDB database token](/influxdb/cloud-dedicated/admin/tokens/)
   read permissions on the database you want to query

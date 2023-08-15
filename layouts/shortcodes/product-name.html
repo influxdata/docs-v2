@@ -1,6 +1,7 @@
 {{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
 {{- $currentProduct := index $productPathData 1 -}}
 {{- $length := .Get 0 | default "long" -}}
+{{- $omit := .Get "omit" | default "" -}}
 {{- $scratch := newScratch -}}
 {{- if eq $currentProduct "cloud" -}}
   {{- $scratch.Set "productData" .Site.Data.products.influxdb_cloud -}}
@@ -13,7 +14,7 @@
 {{- end -}}
 {{- $productData := $scratch.Get "productData" -}}
 {{- if eq $length "long" }}
-  {{- $productData.name -}}
+  {{- $productData.name | replaceRE $omit "" -}}
 {{ else if eq $length "short" }}
-  {{- $productData.altname -}}
+  {{- $productData.altname | replaceRE $omit "" -}}
 {{ end -}}
