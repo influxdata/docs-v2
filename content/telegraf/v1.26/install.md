@@ -235,7 +235,7 @@ brew update
 brew install telegraf
 ```
 
-Run one of the following commands to start Telegraf collecting and processing metrics:
+Run one of the following commands to start Telegraf and begin collecting and processing metrics:
 
 To have launchd start Telegraf as a service after the next login:
 
