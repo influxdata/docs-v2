@@ -30,7 +30,7 @@ you need is in place.
 1.  **Request an InfluxDB cluster**.
     <span id="request-an-influxdb-clustered-cluster"></span>
 
-    [Contact the InfluxData Sales team]({{< dedicated-link >}}) to request an
+    [Contact the InfluxData Sales team]({{< cta-link >}}) to request an
     InfluxDB cluster.
     When your cluster is deployed, your InfluxData account representative provides
     the following:

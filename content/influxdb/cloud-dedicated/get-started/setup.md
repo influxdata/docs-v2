@@ -29,7 +29,7 @@ you need is in place.
 
 ## Request an InfluxDB Cloud Dedicated cluster
 
-[Contact the InfluxData Sales team]({{< dedicated-link >}}) to request an
+[Contact the InfluxData Sales team]({{< cta-link >}}) to request an
 InfluxDB Cloud Dedicated cluster.
 When your cluster is deployed, your InfluxData account representative provides
 the following:
