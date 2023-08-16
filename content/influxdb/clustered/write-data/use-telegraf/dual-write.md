@@ -4,7 +4,7 @@ description: >
   Configure Telegraf to write data to both InfluxDB OSS and InfluxDB Clustered simultaneously.
 menu:
   influxdb_clustered:
-    name: Dual write to OSS & Cloud
+    name: Dual write to OSS & Clustered
     parent: Use Telegraf
 weight: 203
 alt_links:
