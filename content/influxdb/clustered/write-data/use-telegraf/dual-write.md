@@ -1,5 +1,5 @@
 ---
-title: Dual write to InfluxDB OSS and InfluxDB Cloud
+title: Dual write to InfluxDB OSS and InfluxDB Clustered
 description: >
   Configure Telegraf to write data to both InfluxDB OSS and InfluxDB Clustered simultaneously.
 menu:

@@ -212,7 +212,7 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
 
     {{< img-hd src="/img/influxdb/cloud-serverless-superset-connect.png" alt="Configure InfluxDB connection in Superset" />}}
 
-4.  Enter a **Display Name** (for example, _InfluxDB Cloud IOx_) for the database connection.
+4.  Enter a **Display Name** (for example, _InfluxDB Clustered_) for the database connection.
 5.  Enter your **SQL Alchemy URI** comprised of the following:
 
     - **Protocol**: `datafusion+flightsql`

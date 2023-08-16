@@ -5,7 +5,7 @@ description: >
   creating and managing tokens and databases.
 menu:
   influxdb_clustered:
-    name: Administer InfluxDB Cloud
+    name: Administer InfluxDB Clustered
 weight: 6
 ---
 

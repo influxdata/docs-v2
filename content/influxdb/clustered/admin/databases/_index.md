@@ -8,7 +8,7 @@ description: >
   of data stored in the database.
 menu:
   influxdb_clustered:
-    parent: Administer InfluxDB Cloud
+    parent: Administer InfluxDB Clustered
 weight: 101
 influxdb/clustered/tags: [databases]
 ---
@@ -23,7 +23,8 @@ longer part of the InfluxDB data model. However, InfluxDB Clustered does
 support InfluxQL, which requires databases and retention policies.
 See [InfluxQL DBRP naming convention](/influxdb/clustered/admin/databases/create/#influxql-dbrp-naming-convention).
 
-**If coming from InfluxDB v2 or InfluxDB Cloud**, _database_ and _bucket_ are synonymous.
+**If coming from InfluxDB v2, InfluxDB Cloud (TSM), or InfluxDB Cloud Serverless**,
+_database_ and _bucket_ are synonymous.
 {{% /note %}}
 
 ## Retention periods
