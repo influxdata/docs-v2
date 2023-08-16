@@ -2,7 +2,7 @@
 title: InfluxDB Clustered documentation
 description: >
   InfluxDB Clustered is a highly available InfluxDB 3.0 cluster hosted and
-  managed on your own hardware.
+  managed on your own infrastructure.
   The InfluxDB time series platform is designed to handle high write and query loads.
   Learn how to use and leverage InfluxDB Clustered for your specific
   time series use case.
