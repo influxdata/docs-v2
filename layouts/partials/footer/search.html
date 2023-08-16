@@ -26,6 +26,8 @@ docsearch({
         return 'Cloud Serverless';
       } else if (version === 'cloud-dedicated') {
         return 'Cloud Dedicated';
+      } else if (version === 'clustered') {
+        return 'Clustered';
       } else if (/v\d\./.test(version)) {
         return version;
       } else {
