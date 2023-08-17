@@ -20,11 +20,14 @@ influxctl token [subcommand] [flags]
 
 ## Subcommands
 
-| Subcommand                                                                | Description             |
-| :------------------------------------------------------------------------ | :---------------------- |
-| [create](/influxdb/clustered/reference/cli/influxctl/token/create/) | Create a database token |
-| [list](/influxdb/clustered/reference/cli/influxctl/token/list/)     | List database tokens    |
-| [delete](/influxdb/clustered/reference/cli/influxctl/token/delete/) | Delete a database token |
+| Subcommand                                                          | Description                   |
+| :------------------------------------------------------------------ | :---------------------------- |
+| [create](/influxdb/clustered/reference/cli/influxctl/token/create/) | Create a database token       |
+| [delete](/influxdb/clustered/reference/cli/influxctl/token/delete/) | Delete a database token       |
+| [get](/influxdb/clustered/reference/cli/influxctl/token/get/)       | Get information about a token |
+| [list](/influxdb/clustered/reference/cli/influxctl/token/list/)     | List database tokens          |
+| [update](/influxdb/clustered/reference/cli/influxctl/token/update/) | Update a database token       |
+| help, h                                                             | Output command help           |
 
 ## Flags
 

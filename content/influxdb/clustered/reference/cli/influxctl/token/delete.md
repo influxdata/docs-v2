@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_clustered:
     parent: influxctl token
-weight: 302
+weight: 301
 ---
 
 The `influxctl token delete` command deletes a database token from an InfluxDB
@@ -15,7 +15,7 @@ cluster and revokes all permissions associated with the token.
 ## Usage
 
 ```sh
-influxctl token delete <TOKEN_ID>
+influxctl token delete <TOKEN_ID> [<TOKEN_ID_N>...]
 ```
 
 {{% warn %}}
@@ -27,8 +27,7 @@ and cannot be undone.
 #### Rotate deleted tokens
 
 After deleting a database token, any clients using the deleted token need to be
-updated with a new database token to continue to interact with your InfluxDB
-cluster.
+updated with a new database token to continue to interact with your InfluxDB cluster.
 {{% /warn %}}
 
 ## Arguments
@@ -39,12 +38,32 @@ cluster.
 
 ## Flags
 
-| Flag |          | Description         |
-| :--- | :------- | :------------------ |
-| `-h` | `--help` | Output command help |
+| Flag |           | Description                                                 |
+| :--- | :-------- | :---------------------------------------------------------- |
+|      | `--force` | Do not prompt for confirmation to delete (default is false) |
+| `-h` | `--help`  | Output command help                                         |
 
 ## Examples
 
+- [Delete a database token](#delete-a-database-token)
+- [Delete multiple database tokens](#delete-multiple-database-tokens)
+
+In the examples below, replace the following:
+
+- {{% code-placeholder-key %}}`TOKEN_ID`{{% /code-placeholder-key %}}: token ID to delete
+
+### Delete a database token
+
+{{% code-placeholders "TOKEN_ID" %}}
 ```sh
-influxctl token delete 000xX0Xx00xX
+influxctl token delete TOKEN_ID
 ```
+{{% /code-placeholders %}}
+
+### Delete multiple database tokens
+
+{{% code-placeholders "TOKEN_ID_\d{1}" %}}
+```sh
+influxctl token delete TOKEN_ID_1 TOKEN_ID_2
+```
+{{% /code-placeholders %}}
