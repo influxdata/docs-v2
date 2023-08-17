@@ -201,7 +201,9 @@ credentials (**URL**, **organization**, and **token**) are provided by
 [influx3 CLI](#influx3-cli)
 [Python](#)
 [Go](#)
+[Node.js](#)
 [C#](#)
+[Java](#)
 {{% /tabs %}}
 {{% tab-content %}}
 <!--------------------------- BEGIN influx3 CONTENT --------------------------->
@@ -240,7 +242,7 @@ _If your project's virtual environment is already running, skip to step 3._
     <!-- code-placeholders breaks when indented here -->
     ```sh
     influx3 config \
-      --name="config-serverless" \
+      --name="config-clustered" \
       --database="get-started" \
       --host="{{< influxdb/host >}}" \
       --token="DATABASE_TOKEN" \
@@ -452,6 +454,7 @@ _If your project's virtual environment is already running, skip to step 3._
 {{% tab-content %}}
 <!----------------------------- BEGIN GO CONTENT ------------------------------>
 {{% influxdb/custom-timestamps %}}
+
 1.  In the `influxdb_go_client` directory you created in the
     [Write data section](/influxdb/clustered/get-started/write/?t=Go#write-line-protocol-to-influxdb),
     create a new file named `query.go`.
@@ -497,8 +500,8 @@ _If your project's virtual environment is already running, skip to step 3._
       // Define the query.
       query := `SELECT *
         FROM home
-        WHERE time >= '2022-01-02T08:00:00Z'
-        AND time <= '2022-01-02T20:00:00Z'`
+        WHERE time >= '2022-01-01T08:00:00Z'
+        AND time <= '2022-01-01T20:00:00Z'`
 
       // Execute the query.
       iterator, err := client.Query(context.Background(), database, query)
@@ -519,7 +522,7 @@ _If your project's virtual environment is already running, skip to step 3._
         time := (row["time"].(arrow.Timestamp)).
           ToTime(arrow.TimeUnit(arrow.Nanosecond)).
           Format(time.RFC3339)
-        fmt.Fprintf(w, "%s\t%s\t%d\t%.2f\t%.2f\n",
+        fmt.Fprintf(w, "%s\t%s\t%d\t%.1f\t%.1f\n",
           time, row["room"], row["co"], row["hum"], row["temp"])
       }
 
@@ -552,7 +555,7 @@ _If your project's virtual environment is already running, skip to step 3._
         3.  Defines a string variable for the SQL query.
 
         4.  Calls the `influx.Client.query()` method to send the query request with the database name and SQL string. The `query()` method returns an `iterator` for data in the response stream.
-        5.  Iterates over rows, formats the timestamp as an[RFC3339 timestamp](/influxdb/clustered/reference/glossary/#rfc3339-timestamp), and prints the data in table format to stdout.
+        5.  Iterates over rows, formats the timestamp as an [RFC3339 timestamp](/influxdb/clustered/reference/glossary/#rfc3339-timestamp), and prints the data in table format to stdout.
 
 3.  In your editor, open the `main.go` file you created in the
     [Write data section](/influxdb/clustered/get-started/write/?t=Go#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
@@ -566,128 +569,223 @@ _If your project's virtual environment is already running, skip to step 3._
     }
     ```
 
-    When the `main` package is executed, `main()` writes and queries data stored in {{% product-name %}}.
-
-3.  In your terminal, enter the following command to install the necessary packages, build the module, and run the program:
+4.  In your terminal, enter the following command to install the necessary packages, build the module, and run the program:
 
     ```sh
     go mod tidy && go build && go run influxdb_go_client
     ```
 
-    The program writes the data and prints the query results to the console.
+    The program executes the `main()` function that writes the data and prints the query results to the console.
 
-{{< expand-wrapper >}}
-{{% expand "View returned table" %}}
-```sh
-time                            room            co      hum     temp
-2022-01-02 11:46:40 +0000 UTC   Kitchen         0       35.90   21.00
-2022-01-02 12:46:40 +0000 UTC   Kitchen         0       36.20   23.00
-2022-01-02 13:46:40 +0000 UTC   Kitchen         0       36.10   22.70
-2022-01-02 14:46:40 +0000 UTC   Kitchen         0       36.00   22.40
-2022-01-02 15:46:40 +0000 UTC   Kitchen         0       36.00   22.50
-2022-01-02 16:46:40 +0000 UTC   Kitchen         1       36.50   22.80
-2022-01-02 17:46:40 +0000 UTC   Kitchen         1       36.30   22.80
-2022-01-02 18:46:40 +0000 UTC   Kitchen         3       36.20   22.70
-2022-01-02 19:46:40 +0000 UTC   Kitchen         7       36.00   22.40
-2022-01-02 11:46:40 +0000 UTC   Living Room     0       35.90   21.10
-2022-01-02 12:46:40 +0000 UTC   Living Room     0       35.90   21.40
-2022-01-02 13:46:40 +0000 UTC   Living Room     0       36.00   21.80
-2022-01-02 14:46:40 +0000 UTC   Living Room     0       36.00   22.20
-2022-01-02 15:46:40 +0000 UTC   Living Room     0       35.90   22.20
-2022-01-02 16:46:40 +0000 UTC   Living Room     0       36.00   22.40
-2022-01-02 17:46:40 +0000 UTC   Living Room     0       36.10   22.30
-2022-01-02 18:46:40 +0000 UTC   Living Room     1       36.10   22.30
-2022-01-02 19:46:40 +0000 UTC   Living Room     4       36.00   22.40
-```
-{{% /expand %}}
-{{< /expand-wrapper >}}
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END GO CONTENT ------------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
-<!------------------------------ BEGIN C# CONTENT ----------------------------->
 {{% influxdb/custom-timestamps %}}
-```c#
-// Query.cs
+<!---------------------------- BEGIN NODE.JS CONTENT --------------------------->
 
-using System;
-using System.Threading.Tasks;
-using InfluxDB3.Client;
-using InfluxDB3.Client.Query;
+_This tutorial assumes you installed Node.js and npm, and created an `influxdb_js_client` npm project as described in the [Write data section](/influxdb/clustered/get-started/write/?t=Nodejs)._
 
-namespace InfluxDBv3;
+1.  In your terminal or editor, change to the `influxdb_js_client` directory you created in the
+    [Write data section](/influxdb/clustered/get-started/write/?t=Nodejs).
+2.  If you haven't already, install the `@influxdata/influxdb3-client` JavaScript client library as a dependency to your project:
 
-public class Query
-{
-  /**
-    * Queries an InfluxDB database using the C# .NET client
-    * library.
-    **/
-  public static async Task QuerySQL()
-  {
-    /** Set InfluxDB credentials **/
-    const string hostUrl = "https://{{< influxdb/host >}}";
-    string? database = "get-started";
+    ```sh
+    npm install --save @influxdata/influxdb3-client
+    ```
+3.  Create a file named `query.mjs`. The `.mjs` extension tells the Node.js interpreter that you're using [ES6 module syntax](https://nodejs.org/api/esm.html#modules-ecmascript-modules).
+4.  Inside of `query.mjs`, enter the following sample code:
 
-    /** INFLUX_TOKEN is an environment variable you assigned to your
-      * API token value.
-      **/
-    string? authToken = System.Environment
-        .GetEnvironmentVariable("INFLUX_TOKEN");
+    ```js
+    // query.mjs
+    import {InfluxDBClient} from '@influxdata/influxdb3-client'
+    import {tableFromArrays} from 'apache-arrow';
 
     /**
-      * Instantiate the InfluxDB client with credentials.
-      **/
-    using var client = new InfluxDBClient(
-        hostUrl, authToken: authToken, database: database);
-  
-    const string sql = @"
-      SELECT time, room, temp, hum, co
-      FROM home
-      WHERE time >= '2022-01-02T08:00:00Z'
-      AND time <= '2022-01-02T20:00:00Z'
-    ";
+    * Set InfluxDB credentials.
+    */
+    const host = "https://{{< influxdb/host >}}";
+    const database = 'get-started';
+    /**
+    * INFLUX_TOKEN is an environment variable you assigned to your
+    * database READ token value.
+    */
+    const token = process.env.INFLUX_TOKEN;
 
-    Console.WriteLine("{0,-30}{1,-15}{2,-15}{3,-15}{4,-15}",
-        "time", "room", "temp", "hum", "co");
-    
-    await foreach (var row in client.Query(query: sql))
+    /**
+    * Query InfluxDB with SQL using the JavaScript client library.
+    */
+    export async function querySQL() {
+      /**
+      * Instantiate an InfluxDBClient
+      */
+      const client = new InfluxDBClient({host, token})
+      const sql = `
+      SELECT *
+      FROM home
+      WHERE time >= '2022-01-01T08:00:00Z'
+        AND time <= '2022-01-01T20:00:00Z'
+      `
+
+      const data = {time: [], room: [], co: [], hum: [], temp: []};
+      const result = client.query(query, database);
+
+      for await (const row of result) {
+        data.time.push(new Date(row._time))
+        data.room.push(row.room)
+        data.co.push(row.co);
+        data.hum.push(row.hum);
+        data.temp.push(row.temp);
+      }
+
+      console.table([...tableFromArrays(data)])
+
+      client.close()
+    }
+
+    ```
+
+    The sample code does the following:
+
+    1.  Imports the following:
+        - `InfluxDBClient` class
+        - `tableFromArrays` function
+    2.  Calls `new InfluxDBClient()` and passes a `ClientOptions` object to instantiate a client configured
+        with InfluxDB credentials.
+
+        - **`host`**: your {{% product-name %}} cluster URL
+        - **`token`**: an [database token](/influxdb/clustered/admin/tokens/) with _read_ access to the specified database.
+          _Store this in a secret store or environment variable to avoid exposing the raw token string._
+
+      3.  Defines a string variable (`sql`) for the SQL query.
+      4.  Defines an object (`data`) with column names for keys and array values for storing row data.
+      5.  Calls the `InfluxDBClient.query()` method with the following arguments:
+
+          - **`sql`**: the query to execute
+          - **`database`**: the name of the {{% product-name %}} database to query
+          
+          `query()` returns a stream of row vectors.
+      6.  Iterates over rows and adds the column data to the arrays in `data`.
+      7.  Passes `data` to the Arrow `tableFromArrays()` function to format the arrays as a table, and then passes the result to the `console.table()` method to output a highlighted table in the terminal.
+5.  Inside of `index.mjs` (created in the [Write data section](/influxdb/clustered/get-started/write/?t=Nodejs)), enter the following sample code to import the modules and call the functions:
+
+    ```js
+    // index.mjs
+    import { writeLineProtocol } from "./write.mjs";
+    import { querySQL } from "./query.mjs";
+
+    /**
+    * Execute the client functions.
+    */
+    async function main() {
+      /** Write line protocol data to InfluxDB. */
+      await writeLineProtocol();
+      /** Query data from InfluxDB using SQL. */
+      await querySQL();
+    }
+
+    main();
+    ```
+
+9.  In your terminal, execute `index.mjs` to write to and query {{% product-name %}}:
+
+    ```sh
+    node index.mjs
+    ```
+<!---------------------------- END NODE.JS CONTENT --------------------------->
+{{% /influxdb/custom-timestamps %}}
+{{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------ BEGIN C# CONTENT ----------------------------->
+{{% influxdb/custom-timestamps %}}
+
+1.  In the `influxdb_csharp_client` directory you created in the
+    [Write data section](/influxdb/clustered/get-started/write/?t=C%23),
+    create a new file named `Query.cs`.
+
+2.  In `Query.cs`, enter the following sample code:
+
+    ```c#
+    // Query.cs
+
+    using System;
+    using System.Threading.Tasks;
+    using InfluxDB3.Client;
+    using InfluxDB3.Client.Query;
+
+    namespace InfluxDBv3;
+
+    public class Query
     {
+      /**
+        * Queries an InfluxDB database using the C# .NET client
+        * library.
+        **/
+      public static async Task QuerySQL()
       {
-        /** 
-          * Iterate over rows and print column values in table format.
-          * Format the timestamp as sortable UTC format.
-          */
-        Console.WriteLine("{0,-30:u}{1,-15}{2,-15}{3,-15}{4,-15}",
-            row[0], row[1], row[2], row[3], row[4]);
+        /** Set InfluxDB credentials **/
+        const string hostUrl = "https://cluster-id.influxdb.io";
+        string? database = "get-started";
+
+        /** INFLUX_TOKEN is an environment variable you assigned to your
+          * database READ token value.
+          **/
+        string? authToken = System.Environment
+            .GetEnvironmentVariable("INFLUX_TOKEN");
+
+        /**
+          * Instantiate the InfluxDB client with credentials.
+          **/
+        using var client = new InfluxDBClient(
+            hostUrl, authToken: authToken, database: database);
+      
+        const string sql = @"
+          SELECT time, room, temp, hum, co
+          FROM home
+          WHERE time >= '2022-01-01T08:00:00Z'
+          AND time <= '2022-01-01T20:00:00Z'
+        ";
+
+        Console.WriteLine("{0,-30}{1,-15}{2,-15}{3,-15}{4,-15}",
+            "time", "room", "co", "hum", "temp");
+        
+        await foreach (var row in client.Query(query: sql))
+        {
+          {
+            /** 
+              * Iterate over rows and print column values in table format.
+              * Format the timestamp as sortable UTC format.
+              */
+            Console.WriteLine("{0,-30:u}{1,-15}{4,-15}{3,-15}{2,-15}",
+                row[0], row[1], row[2], row[3], row[4]);
+          }
+        }
+        Console.WriteLine();
       }
     }
-    Console.WriteLine();
-  }
-}
-```
+    ```
 
-The sample code does the following:
+    The sample code does the following:
 
-1.  Imports the following classes:
+    1.  Imports the following classes:
 
-    - `System`
-    - `System.Threading.Tasks`;
-    - `InfluxDB3.Client`;
-    - `InfluxDB3.Client.Query`;
+        - `System`
+        - `System.Threading.Tasks`;
+        - `InfluxDB3.Client`;
+        - `InfluxDB3.Client.Query`;
 
-2.  Defines a `Query` class with a `QuerySQL()` method that does the following:
+    2.  Defines a `Query` class with a `QuerySQL()` method that does the following:
 
-    1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
-           with InfluxDB credentials.
-      
-        - **`hostURL`**: your {{% product-name %}} cluster URL.
-        - **`authToken`**: a [database token](/influxdb/clustered/admin/tokens/) with _read_  access to the specified database.
-          _Store this in a secret store or environment variable to avoid exposing the raw token value._
-        - **`database`**: the name of the {{% product-name %}} database to query.
-    2.  Defines a string variable for the SQL query.
-    3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string. `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
-    4.  Iterates over rows and prints the data in table format to stdout.
+        1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
+              with InfluxDB credentials.
+          
+            - **`hostURL`**: your {{% product-name %}} cluster URL.
+            - **`authToken`**: a [database token](/influxdb/clustered/admin/tokens/) with _read_  access to the specified database.
+              _Store this in a secret store or environment variable to avoid exposing the raw token string._
+            - **`database`**: the name of the {{% product-name %}} database to query
+        2.  Defines a string variable for the SQL query.
+        3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string. `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
+        4.  Iterates over rows and prints the data in table format to stdout.
 3.  In your editor, open the `Program.cs` file you created in the
     [Write data section](/influxdb/clustered/get-started/write/?t=C%23#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
 
@@ -719,11 +817,168 @@ The sample code does the following:
     ```sh
     dotnet run
     ```
-
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END C# CONTENT ------------------------------->
-
 {{% /tab-content %}}
+{{% tab-content %}}
+<!------------------------------ BEGIN JAVA CONTENT ------------------------------->
+{{% influxdb/custom-timestamps %}}
+
+_This tutorial assumes using Maven version 3.9, Java version >= 15, and an `influxdb_java_client` Maven project created in the [Write data section](/influxdb/clustered/get-started/write/?t=Java)._
+
+1.  In your terminal or editor, change to the `influxdb_java_client` directory you created in the
+    [Write data section](/influxdb/clustered/get-started/write/?t=Java).
+2.  Inside of the `src/main/java/com/influxdbv3` directory, create a new file named `Query.java`.
+3.  In `Query.java`, enter the following sample code:
+
+    ```java
+    // Query.java
+    package com.influxdbv3;
+
+    import com.influxdb.v3.client.InfluxDBClient;
+    import java.util.stream.Stream;
+
+    /**
+      * Queries an InfluxDB database using the Java client
+      * library.
+      **/
+    public final class Query {
+
+        private Query() {
+            //not called
+        }
+
+        /**
+        * @throws Exception
+        */
+        public static void querySQL() throws Exception {
+            /**
+            * Query using SQL.
+            */
+
+            /** Set InfluxDB credentials. **/
+            final String hostUrl = "https://cluster-id.influxdb.io";
+            final String database = "get-started";
+
+            /** INFLUX_TOKEN is an environment variable you assigned to your
+              * database READ token value.
+              **/
+            final char[] authToken = (System.getenv("INFLUX_TOKEN")).
+            toCharArray();
+
+            try (InfluxDBClient client = InfluxDBClient.getInstance(hostUrl,
+            authToken, database)) {
+                String sql =
+                    """
+                    SELECT time, room, temp, hum, co
+                    FROM home
+                    WHERE time >= '2022-01-01T08:00:00Z'
+                    AND time <= '2022-01-01T20:00:00Z'""";
+
+                String layoutHead = "| %-16s | %-12s | %-6s | %-6s | %-6s |%n";
+                System.out.printf(
+                "--------------------------------------------------------%n");
+                System.out.printf(layoutHead,
+                "time", "room", "co", "hum", "temp");
+                System.out.printf(
+                "--------------------------------------------------------%n");
+                String layout = "| %-16s | %-12s | %-6s | %.1f | %.1f |%n";
+
+                try (Stream<Object[]> stream = client.query(sql)) {
+                    stream.forEach(row -> 
+                      System.out.printf(layout,
+                      row[0], row[1], row[4], row[3], row[2])
+                    );
+                }
+            }
+        }
+    }
+    ```
+
+    The sample code does the following:
+
+    1.  Assigns the `com.influxdbv3` package name (the Maven **groupId**).
+    2.  Imports the following classes:
+
+        - `com.influxdb.v3.client.InfluxDBClient`
+        - `java.util.stream.Stream`
+
+    3.  Defines a `Query` class with a `querySQL()` method that does the following:
+
+        1.  Calls `InfluxDBClient.getInstance()` to instantiate a client configured
+            with InfluxDB credentials.
+
+            - **`hostUrl`**: your {{% product-name %}} cluster URL
+            - **`database`**: the name of the {{% product-name %}} database to write to
+            - **`authToken`**: a [database token](/influxdb/clustered/admin/tokens/) with _read_ access to the specified database.
+              _Store this in a secret store or environment variable to avoid exposing the raw token string._
+        2.  Defines a string variable (`sql`) for the SQL query.
+        3.  Defines a Markdown table format layout for headings and data rows.
+        4.  Calls the `InfluxDBClient.query()` method to send the query request with the SQL string.
+            `query()` returns a stream of rows.
+        5.  Iterates over rows and prints the data in the specified layout to stdout.
+
+4.  In your editor, open the `src/main/java/com/influxdbv3/App.java` file and replace its contents with the following sample code:
+
+    ```java
+    // App.java
+
+    package com.influxdbv3;
+
+    /**
+    * Execute the client functions.
+    *
+    */
+    public class App {
+
+        /**
+        * @param args
+        * @throws Exception
+        */
+        public static void main(final String[] args) throws Exception {
+            // Write data to InfluxDB v3.
+            Write.writeLineProtocol();
+            // Run the SQL query.
+            Query.querySQL();
+        }
+    }
+    ```
+
+    - The `App`, `Write`, and `Query` classes are part of the same `com.influxdbv3` package (your project **groupId**).
+    - `App` defines a `main()` function that calls `Write.writeLineProtocol()` and `Query.querySQL()`.
+4.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
+
+    ```sh
+    mvn compile
+    ```
+
+5.  Set the `--add-opens=java.base/java.nio=ALL-UNNAMED` Java option for your environment.
+    The Apache Arrow Flight library requires this setting for access to the [java.nio API package](https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/nio/package-summary.html).
+
+    For example, enter the following command in your terminal:
+
+    **Linux/MacOS**
+
+    ```sh
+    export MAVEN_OPTS="--add-opens=java.base/java.nio=ALL-UNNAMED"
+    ```
+
+    **Windows PowerShell**
+
+    ```powershell
+    $env:MAVEN_OPTS="--add-opens=java.base/java.nio=ALL-UNNAMED"
+    ```
+
+6. To run the app to write to and query {{% product-name %}}, execute `App.main()`--for example, using Maven:
+
+    ```sh
+    mvn exec:java -Dexec.mainClass="com.influxdbv3.App"
+    ```
+
+{{% /influxdb/custom-timestamps %}}
+<!------------------------------ END JAVA CONTENT ------------------------------->
+{{% /tab-content %}}
+
 {{< /tabs-wrapper >}}
 
 ### Query results
