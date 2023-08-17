@@ -25,7 +25,7 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
 
 2.  **Install NodeJS, Yarn, Hugo, & Asset Pipeline Tools**
 
-    The InfluxData documentation uses [Hugo](https://gohugo.io/), a static site generator built in Go. The site uses Hugo's asset pipeline, which requires the extended version of Hugo along with NodeJS tools like PostCSS, to build and process stylesheets and javascript.
+    The InfluxData documentation uses [Hugo](https://gohugo.io/), a static site generator built in Go. The site uses Hugo's asset pipeline, which requires the extended version of Hugo along with NodeJS tools like PostCSS, to build and process stylesheets and JavaScript.
 
     To install the required dependencies and build the assets, do the following:
 
@@ -38,7 +38,7 @@ including our GPG key, can be found at https://www.influxdata.com/how-to-report-
           yarn install
           ```
 
-       _**Note:** The most recent version of Hugo tested with this documentation is **0.83.1**._
+       _**Note:** The most recent version of Hugo tested with this documentation is **0.101.0**._
 
 3. To generate the API docs, see [api-docs/README.md](api-docs/README.md).
 
