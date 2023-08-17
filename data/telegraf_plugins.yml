@@ -2788,8 +2788,8 @@ aggregator:
     id: valuecounter
     description: |
       The ValueCounter aggregator plugin counts the occurrence of values in fields
-      and emits the counter once every 'period' seconds. This plugin does not
-      apply to tags, only fields.
+      and emits the count at regular intervals of 'period' seconds.
+      This plugin exclusively operates on fields and doesn't affect tags.
 
       The fields which will be counted must be configured with the fields configuration directive.
       When no fields are provided, the plugin will not count any fields.
