@@ -1,6 +1,5 @@
 ---
-title: Use the InfluxDB v1 API with InfluxDB Cloud Serverless
-list_title: Use the InfluxDB v1 API
+title: Use the InfluxDB v1 API
 description: >
   Use InfluxDB v1 API authentication, endpoints, and tools when bringing existing 1.x workloads to InfluxDB Cloud Serverless.
 weight: 3
@@ -61,7 +60,7 @@ Learn how to authenticate requests, adjust request parameters for existing v1 wo
 
 ## Authenticate API requests
 
-InfluxDB requires each API request to be authenticated with a
+{{% cloud-name %}} requires each API request to be authenticated with an
 [API token](/influxdb/cloud-serverless/admin/tokens/).
 With the InfluxDB v1 API, you can use API tokens in InfluxDB 1.x username and password
 schemes or in the InfluxDB v2 `Authorization: Token` scheme.
@@ -421,7 +420,7 @@ Replace the following:
 - [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
 - [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/query-data/influxql/execute-queries/influxdb-v1-api/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/query-data/execute-queries/influxdb-v1-api/)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 {{% /note %}}
 

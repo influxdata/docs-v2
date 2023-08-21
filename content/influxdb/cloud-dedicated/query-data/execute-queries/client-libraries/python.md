@@ -1,19 +1,27 @@
 ---
-title: Use Python to query data with InfluxQL
+title: Use Python and SQL or InfluxQL to query data
+list_title: Use Python
 description: >
-  Use Python and the `influxdb3-python` library to query data stored in InfluxDB
-  with InfluxQL.
+  Use the `influxdb_client_3` Python module and SQL or InfluxQL to query data stored in InfluxDB.
+  Execute queries and retrieve data over the Flight+gRPC protocol, and then process data using common Python tools.
 weight: 401
 menu:
   influxdb_cloud_dedicated:
-    parent: influxql-execute-queries
+    parent: Use client libraries
     name: Use Python
-    identifier: query-with-python-influxql
-influxdb/cloud-dedicated/tags: [query, influxql, python]
+    identifier: query-with-python-sql
+influxdb/cloud-dedicated/tags: [query, flight, python, sql, influxql]
+aliases:
+    - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/
+    - /influxdb/cloud-dedicated/query-data/execute-queries/influxql/python/
+    - /influxdb/cloud-dedicated/query-data/execute-queries/sql/python/
+    - /influxdb/cloud-dedicated/query-data/tools/python/
 related:
+    - /influxdb/cloud-dedicated/reference/client-libraries/v3/python/
     - /influxdb/cloud-dedicated/process-data/tools/pandas/
     - /influxdb/cloud-dedicated/process-data/tools/pyarrow/
-    - /influxdb/cloud-dedicated/reference/influxql/
+    - /influxdb/cloud-dedicated/reference/sql/
+    - /influxdb/cloud-dedicated/reference/client-libraries/flight/
 list_code_example: |
     ```py
     from influxdb_client_3 import InfluxDBClient3
@@ -28,7 +36,7 @@ list_code_example: |
     # Execute the query and return an Arrow table
     table = client.query(
         query="SELECT * FROM home",
-        language="influxql"
+        language="sql"
     )
 
     # Return query results as a markdown table
@@ -36,9 +44,8 @@ list_code_example: |
     ```
 ---
 
-Use the `influxdb3-python` client library to query data stored in InfluxDB with InfluxQL.
-The `influxdb3-client` uses InfluxDB v3's Flight RPC protocol to query data from InfluxDB and return
-results in Apache Arrow format.
+Use the InfluxDB `influxdb_client_3` Python client library module and SQL or InfluxQL to query data stored in InfluxDB.
+Execute queries and retrieve data over the Flight+gRPC protocol, and then process data using common Python tools.
 
 - [Get started using Python to query InfluxDB](#get-started-using-python-to-query-influxdb)
 - [Create a Python virtual environment](#create-a-python-virtual-environment)
@@ -49,15 +56,6 @@ results in Apache Arrow format.
   - [Install the influxdb3-python library](#install-the-influxdb3-python-library)
   - [Create an InfluxDB client](#create-an-influxdb-client)
   - [Execute a query](#execute-a-query)
-
-{{% warn %}}
-#### InfluxQL feature support
-
-InfluxQL is being rearchitected to work with the InfluxDB IOx storage engine.
-This process is ongoing and some InfluxQL features are still being implemented.
-For information about the current implementation status of InfluxQL features,
-see [InfluxQL feature support](/influxdb/cloud-dedicated/reference/influxql/feature-support/).
-{{% /warn %}}
 
 ## Get started using Python to query InfluxDB
 
@@ -128,7 +126,7 @@ to install a recent version of the Python programming language for your system.
 
    `venv` creates the new virtual environment directory in your project.
    
-3. To activate the new virtual environment in your terminal, run the `source` command and pass the file path of the virtual environment `activate` script:
+3. To activate the new virtual environment in your terminal, run the `source` command and pass the path of the virtual environment `activate` script:
 
     ```sh
     source envs/VIRTUAL_ENVIRONMENT_NAME/bin/activate
@@ -193,18 +191,26 @@ When a virtual environment is activated, the name displays at the beginning of y
 
 ### Install the influxdb3-python library
 
-The `influxdb_client_3` module provides a simple and convenient way to interact
-with {{< cloud-name >}} using Python. This module supports both writing data to
-InfluxDB and querying data using SQL or InfluxQL queries.
+The `influxdb3-python` package provides the `influxdb_client_3` module for integrating {{% cloud-name %}} with your Python code.
+The module supports writing data to InfluxDB and querying data using SQL or InfluxQL.
 
-Installing `inflxudb3-python` also installs the
-[`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that you'll
-use for working with Arrow data returned from queries.
+{{% note %}}
+_To query data with **InfluxQL** and Python, see
+[Use InfluxQL with Python](/influxdb/cloud-dedicated/query-data/influxql/execute-queries/python/)._
+{{% /note %}}
 
-In your terminal, use `pip` to install `influxdb3-python`:
+Install the following dependencies:
+
+{{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+
+- `influxdb3-python` {{< req text="\* " color="magenta" >}}: Provides the `influxdb_client_3` module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
+- `pandas`: Provides [pandas modules](https://pandas.pydata.org/) for analyzing and manipulating data.
+- `tabulate`: Provides the [`tabulate` function](https://pypi.org/project/tabulate/) for formatting tabular data.
+
+Enter the following command in your terminal:
 
 ```sh
-pip install influxdb3-python
+pip install influxdb3-python pandas tabulate
 ```
 
 With `influxdb3-python` and `pyarrow` installed, you're ready to query and
@@ -212,8 +218,8 @@ analyze data stored in an InfluxDB database.
 
 ### Create an InfluxDB client
 
-The following example shows how to use Python with `influxdb3-python`
-and to instantiate a client configured for an InfluxDB database.
+The following example shows how to use Python with the `influxdb_client_3`
+module to instantiate a client configured for an {{% cloud-name %}} bucket.
 
 In your editor, copy and paste the following sample code to a new file--for
 example, `query-example.py`:
@@ -223,6 +229,7 @@ example, `query-example.py`:
 # query-example.py
 
 from influxdb_client_3 import InfluxDBClient3
+import pandas
 
 # Instantiate an InfluxDBClient3 client configured for your database
 client = InfluxDBClient3(
@@ -233,29 +240,101 @@ client = InfluxDBClient3(
 ```
 {{% /code-placeholders %}}
 
+{{< expand-wrapper >}}
+{{% expand "<span class='req'>Important</span>: If using **Windows**, specify the **Windows** certificate path" %}}
+
+If using a non-POSIX-compliant operating system (such as Windows), specify the root certificate path when instantiating the client.
+
+1.  In your terminal, install the Python `certifi` package.
+
+    ```sh
+    pip install certifi
+    ```
+
+2.  In your Python code, import `certifi` and call the `certifi.where()` method to retrieve the root certificate path.
+3.  When instantiating the client, pass the `flight_client_options.tls_root_certs=<ROOT_CERT_PATH>` option with the certificate path.
+
+The following example shows how to use the Python `certifi` package and client library options to pass the certificate path:
+
+
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+{{< code-callout "flight_client_options|tls_root_certs|(cert\b)" >}}
+```py
+from influxdb_client_3 import InfluxDBClient3, flight_client_options
+import certifi
+
+fh = open(certifi.where(), "r")
+cert = fh.read()
+fh.close()
+
+client = InfluxDBClient3(
+host="cluster-id.influxdb.io",
+token='DATABASE_TOKEN',
+database='DATABASE_NAME',
+flight_client_options=flight_client_options(
+tls_root_certs=cert))
+...
+```
+{{< /code-callout >}}
+{{% /code-placeholders %}}
+
+For more information, see [`influxdb_client_3` query exceptions](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/#query-exceptions).
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 Replace the following configuration values:
 
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
   Your InfluxDB token with read permissions on the databases you want to query.
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  The name of your InfluxDB database.
+  The name of your {{% cloud-name %}} database.
 
 ### Execute a query
 
-To execute an InfluxQL query, call the client's `query(query,language)` method
-and specify the following arguments:
+To execute an SQL query, call the client's [`query(query,language)` method](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/#influxdbclient3query) and
+specify the following arguments:
 
-- **query**: InfluxQL query string to execute.
-- **language**: `influxql`
-
-#### Syntax {#execute-query-syntax}
-
-```py
-query(query: str, language: str)
-```
+- **query**: A string. The SQL or InfluxQL query to execute.
+- **language**: A string (`"sql"` or `"influxql"`). The `query` language.
 
 #### Example {#execute-query-example}
 
+The following example shows how to use SQL to select all fields in a measurement, and then output the results formatted as a Markdown table.
+
+{{% code-tabs-wrapper %}}
+{{% code-tabs %}}
+[SQL](#)
+[InfluxQL](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!---- BEGIN SQL EXAMPLE --->
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+```py
+# query-example.py
+
+from influxdb_client_3 import InfluxDBClient3
+
+client = InfluxDBClient3(
+    host='cluster-id.influxdb.io',
+    token='DATABASE_TOKEN',
+    database='DATABASE_NAME'
+)
+
+# Execute the query and return an Arrow table
+table = client.query(
+    query="SELECT * FROM home",
+    language="sql"
+)
+
+# Return query results as a markdown table
+print(table.to_pandas().to_markdown())
+```
+{{% /code-placeholders %}}
+<!---- END SQL EXAMPLE ---->
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!---- BEGIN INFLUXQL EXAMPLE ---->
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```py
 # query-example.py
@@ -278,6 +357,9 @@ table = client.query(
 print(table.to_pandas().to_markdown())
 ```
 {{% /code-placeholders %}}
+<!---- END INFLUXQL EXAMPLE ---->
+{{% /code-tab-content %}}
+{{% /code-tabs-wrapper %}}
 
 Next, learn how to use Python tools to work with time series data:
 
