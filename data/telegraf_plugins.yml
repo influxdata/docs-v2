@@ -370,6 +370,13 @@ input:
     introduced: 1.18.0
     tags: [linux, macos, windows, web, servers]
 
+  - name: ctrlX Data Layer
+    id: ctrlx_datalayer
+    description: |
+      Gather data from communication middleware running on ctrlX CORE devices
+    introduced: 1.27.0
+    tags: [linux, macos, windows, messaging]
+
   - name: Disk
     id: disk
     description: |
@@ -834,6 +841,13 @@ input:
       defer to the output plugins configuration.
     introduced: 1.16.0
     tags: [linux, macos, windows, data-stores]
+
+  - name: Intel Baseband
+    id: intel_baseband
+    description: |
+      Collects metrics from both dedicated and integrated Intel devices that provide Wireless Baseband hardware acceleration
+    introduced: 1.27.0
+    tags: [linux, systems]
 
   - name: Intel DLB
     id: intel_dlb
@@ -2297,6 +2311,13 @@ output:
     introduced: 1.5.0
     tags: [linux, macos, windows, data-stores]
 
+  - name: Clarify
+    id: clarify
+    description: |
+      Write data to Clairfy
+    introduced: 1.27.0
+    tags: [linux, macos, windows, cloud, data-stores]
+
   - name: Datadog
     id: datadog
     description: |
@@ -2498,6 +2519,13 @@ output:
       The NATS Output output plugin writes to a (list of) specified NATS instance(s).
     introduced: 1.1.0
     tags: [linux, macos, windows, messaging]
+
+  - name: Nebius Cloud Monitoring
+    id: nebius_cloud_monitoring
+    description: |
+      Send aggregated metrics to Nebius.Cloud Monitoring
+    introduced: 1.27.0
+    tags: [linux, macos, windows, cloud, data-stores]
 
   - name: New Relic
     id: newrelic
@@ -2760,14 +2788,11 @@ aggregator:
     id: valuecounter
     description: |
       The ValueCounter aggregator plugin counts the occurrence of values in fields
-      and emits the counter once every 'period' seconds.
+      and emits the count at regular intervals of 'period' seconds.
+      This plugin exclusively operates on fields and doesn't affect tags.
 
-      A use case for the ValueCounter aggregator plugin is when you are processing
-      an HTTP access log with the [Logparser input plugin](#logparser) and want to
-      count the HTTP status codes.
-
-      The fields which will be counted must be configured with the fields configuration directive.
-      When no fields are provided, the plugin will not count any fields.
+      To count specific fields, configure them using the fields configuration directive.
+      If no fields are specified, the plugin won't count any fields.
       The results are emitted in fields, formatted as `originalfieldname_fieldvalue = count`.
 
       ValueCounter only works on fields of the type `int`, `bool`, or `string`.
@@ -2969,6 +2994,13 @@ processor:
       Tags are used in Flux `experimental/geo` functions.
       Specify `lat` and `lon` field values with WGS-84 coordinates in decimal degrees.
     introduced: 1.14.0
+    tags: [linux, macos, windows]
+
+  - name: Scale
+    id: scale
+    description: |
+      Processor to scale values from a specified range into another range
+    introduced: 1.27.0
     tags: [linux, macos, windows]
 
   - name: Starlark

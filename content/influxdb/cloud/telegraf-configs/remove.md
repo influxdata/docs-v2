@@ -11,7 +11,7 @@ menu:
 aliases:
   - /influxdb/cloud/write-data/no-code/use-telegraf/auto-config/delete-telegraf-config/
   - /influxdb/cloud/collect-data/use-telegraf/auto-config/delete-telegraf-config
-alt_engine: /influxdb/cloud-iox/write-data/use-telegraf/telegraf-configs/remove/
+alt_engine: /influxdb/cloud-serverless/write-data/use-telegraf/telegraf-configs/remove/
 ---
 
 {{< duplicate-oss >}}

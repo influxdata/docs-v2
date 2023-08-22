@@ -10,6 +10,23 @@ menu:
 weight: 11
 ---
 
+{{% note %}}
+#### Migrate to IOx
+
+To benefit from IOx's unlimited cardinality and support for SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/).
+
+All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and [organizations](/influxdb/cloud-serverless/admin/organizations/) created through
+[cloud2.influxdata.com](https://cloud2.influxdata.com) on or after **January 31, 2023**
+are powered by the InfluxDB IOx storage engine.
+
+To see which storage engine your organization uses,
+find the **InfluxDB Cloud powered by** link in your
+[InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
+If your organization is using TSM, you'll see **TSM** followed by the version number.
+If IOx, you'll see
+**InfluxDB Cloud Serverless** followed by the version number.
+{{% /note %}}
+
 To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
 
 1. [Create an InfluxDB Cloud account](#create-an-influxdb-cloud-account)
@@ -274,7 +291,7 @@ consider doing one of the following:
       --active-config cloud \
       --bucket example-bucket \
       --file path/to/bucket-export.lp \
-      --rate-limit "5 MB / 5 min"
+      --rate-limit "5MB/5min"
     ```
 
 - Include `--start` and `--end` flags with `influxd inpsect export-lp` to limit
@@ -320,7 +337,7 @@ influx write \
   --active-config cloud \  
   --bucket example-bucket \
   --compression gzip \
-  --rate-limit "5 MB / 5 min"
+  --rate-limit "5MB/5min"
 ```
 {{% /expand %}}
 {{< /expand-wrapper >}}

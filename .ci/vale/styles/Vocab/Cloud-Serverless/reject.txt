@@ -1,0 +1,4 @@
+Cloud Dedicated
+cloud-dedicated
+database name
+database token

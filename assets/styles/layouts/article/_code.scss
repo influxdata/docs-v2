@@ -75,6 +75,91 @@ pre {
   @import "code-api-methods";
 }
 
+////////////// Styles for calling out specific code in code blocks /////////////
+/// 
+span.code-callout, .code-placeholder {
+  font-weight:bold;
+  margin:0 .15rem;
+
+  &.green {color: $article-code-accent3;}
+  &.magenta {color: $br-new-magenta;}
+  &.orange {color: $r-curacao;}
+}
+
+/////////////// Styles for code placeholders that can be updated ///////////////
+.code-placeholder-wrapper {
+  display: inline;
+  position: relative;
+
+  .code-placeholder {
+    display: inline-block;
+    margin:0 .15rem;
+    padding: 0;
+    line-height: 1.4em;
+    color: $code-placeholder;
+    font-weight: normal;
+    font-style: normal;
+    border-bottom: 1px dotted;
+    transition: color .2s;
+    cursor: pointer;
+    
+    .code-placeholder-edit-icon{
+      font-style: normal;
+      &::before {
+        margin-left: .2rem;
+        font-size: .8em;
+        transition: opacity .2s;
+        opacity: .65;
+        z-index: -1;
+      }
+    }
+  
+    &:hover {
+      color: $code-placeholder-hover;
+      .code-placeholder-edit-icon::before {opacity: 1}
+    }
+  }
+
+  .code-input-wrapper {
+    position: absolute;
+    top: -3px;
+    left: -4.5px;
+    z-index: 1;
+    color: inherit;
+
+    input.placeholder-edit {
+      width: 100%;
+      max-width: 100%;
+      border: 1px solid $sidebar-search-bg;
+      border-radius: $radius * 2;
+      background-color: $sidebar-search-bg;
+      padding: 2px 20px 2px 6px;
+      color: $code-placeholder-hover;
+      font-weight: normal;
+      &:focus {
+        outline: none;
+        border-color: rgba($code-placeholder-hover, .75);
+        box-shadow: 1px 1px 8px rgba($code-placeholder-hover, .5);
+        border-radius: 2px;
+      }
+    }
+
+    &:hover {cursor: pointer;}
+
+    &:after {
+      content: "\e937";
+      color: $code-placeholder-hover;
+      font-family: 'icomoon-v4';
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 3px;
+    }
+  }
+}
+.code-placeholder-key code {color: $code-placeholder}
+
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

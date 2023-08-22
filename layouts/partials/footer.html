@@ -17,7 +17,7 @@
   {{ partial "footer/custom-time-trigger" . }}
 
   <!-- IOx wayfinding modal -->
-  {{ if in (slice "cloud" "cloud-iox") $currentVersion }}
+  {{ if in (slice "cloud" "cloud-serverless") $currentVersion }}
     {{ partial "footer/iox-wayfinding.html" . }}
   {{ end }}
 

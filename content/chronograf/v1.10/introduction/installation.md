@@ -41,19 +41,19 @@ If your download includes a TAR package, save the underlying datastore `chronogr
     {{% /tabs %}}
     {{% tab-content %}}
 ```sh
-tar zxvf chronograf-<version#>_darwin_amd64.tar.gz
+tar zxvf chronograf-{{< latest-patch >}}_darwin_amd64.tar.gz
 ```
     {{% /tab-content %}}
 
     {{% tab-content %}}
 ```sh
-sudo dpkg -i chronograf_<version#>_amd64.deb
+sudo dpkg -i chronograf_{{< latest-patch >}}_amd64.deb
 ```
     {{% /tab-content %}}
 
     {{% tab-content %}}
 ```sh
-sudo yum localinstall chronograf-<version#>.x86_64.rpm
+sudo yum localinstall chronograf-{{< latest-patch >}}.x86_64.rpm
 ```
     {{% /tab-content %}}
     {{% /tabs-wrapper %}}

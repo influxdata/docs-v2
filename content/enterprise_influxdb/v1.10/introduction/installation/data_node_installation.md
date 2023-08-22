@@ -150,7 +150,6 @@ For added security, follow these steps to verify the signature of your InfluxDB 
 First, in `/etc/influxdb/influxdb.conf`:
 
 * Uncomment `hostname` at the top of the file and set it to the full hostname of the data node.
-* Uncomment `auth-enabled` in the `[http]` section and set it to `true`.
 * Uncomment `meta-auth-enabled` in the `[meta]` section and set it to `true`.
 * Uncomment `meta-internal-shared-secret` in the `[meta]` section and set it to a long pass phrase.
   The internal shared secret is used in JWT authentication for intra-node communication.
@@ -193,9 +192,6 @@ hostname="<enterprise-data-0x>"
 
   # The bind address used by the HTTP service.
   # bind-address = ":8086"
-
-  # Determines whether HTTP authentication is enabled.
-  auth-enabled = true # Recommended, but not required
 
 [...]
 
@@ -296,18 +292,6 @@ If not, there may be artifacts of a previous cluster in the metastore.
 
 If you do not see your data nodes in the output, please retry adding them
 to the cluster.
-
-## Step 4: Create an admin user
-
-In [Step 2](#b-edit-the-data-node-configuration-files), you enabled authentication.
-To access the cluster, you must create at least one admin user.
-To create an admin user, use the [`influx` CLI](/enterprise_influxdb/v1.10/tools/influx-cli/), and run the following:
-
-```sql
-CREATE USER admin WITH PASSWORD '<password>' WITH ALL PRIVILEGES
-```
-
----
 
 ## Next steps
 

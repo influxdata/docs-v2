@@ -83,7 +83,7 @@ Duration of windows. Default is the `every` value.
 
 ### offset
 
-Duration to shift the window boundaries by. Defualt is `0s`.
+Duration to shift the window boundaries by. Default is `0s`.
 
 `offset` can be negative, indicating that the offset goes backwards in time.
 

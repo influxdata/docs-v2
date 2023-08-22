@@ -9,7 +9,7 @@ menu:
     name: Create a bucket
     parent: Manage buckets
 weight: 201
-alt_engine: /influxdb/cloud-iox/admin/buckets/create-bucket/
+alt_engine: /influxdb/cloud-serverless/admin/buckets/create-bucket/
 ---
 
 Use the InfluxDB user interface (UI), the `influx` command line interface (CLI),
@@ -126,7 +126,7 @@ The following example creates a bucket with a retention period of `86,400` secon
 ```
 
 _For information about **InfluxDB API options and response codes**, see
-[InfluxDB API Buckets reference documentation](/influxdb/cloud-iox/api/#operation/PostBuckets)._
+[InfluxDB API Buckets reference documentation](/influxdb/cloud-serverless/api/#operation/PostBuckets)._
 
 {{% /tab-content %}}
 <!------------------------------ END API CONTENT ------------------------------>

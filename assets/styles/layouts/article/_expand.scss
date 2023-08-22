@@ -4,7 +4,12 @@
   margin: 2rem 0 2rem;
 }
 
+h5, h6 {
+  &+ .expand-wrapper { margin-top: .75rem;}
+}
+
 .expand {
+  position: relative;
   border-top: 1px solid $article-hr;
   padding: .75rem 0;
   &:last-of-type, &:only-child { border-bottom: 1px solid $article-hr; }
@@ -15,10 +20,28 @@
   align-items: center;
   font-weight: bold;
   margin-bottom: 0;
+  padding-right: 2.5rem;
   cursor: pointer;
 
   &:hover {
     .expand-toggle { background: $b-laser; }
+  }
+}
+
+.expand-link {
+  display: block;
+  position: absolute;
+  top: 1rem;
+  right: .75rem;
+  min-height: 20px;
+  min-width: 20px;
+  font-size: 1.25rem;
+  color: $article-bold;
+  opacity: .3;
+  transition: opacity .2s;
+  &:hover {
+    color: $article-bold;
+    opacity: 1;
   }
 }
 

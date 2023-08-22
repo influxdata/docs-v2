@@ -247,7 +247,7 @@ include the `--rate-limit` flag with `influx write` to rate limit written data.
 influx write \
   --bucket example-bucket \
   --file /path/to/example-db_example-rp.lp \
-  --rate-limit "5 MB / 5 min"
+  --rate-limit "5MB/5min"
 ```
 {{% caption %}}
 See [Required InfluxDB Cloud credentials](#required-influxdb-cloud-credentials)

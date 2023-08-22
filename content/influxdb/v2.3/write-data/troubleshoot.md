@@ -320,3 +320,5 @@ InfluxDB logs the following `rejected_points` entry to the `_monitoring` bucket:
 | _measurement      | _field | _value | bucket             | field         | gotType  | measurement | reason                            | wantType |
 |:------------------|:-------|:-------|:-------------------|:--------------|:---------|:------------|:----------------------------------|:---------|
 | rejected_points   | count  | 1      | a7d5558b880a93da   | temperature   | String   | airSensors  | field type mismatch with schema   | Float    |
+
+{{% /cloud-only %}}

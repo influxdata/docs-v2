@@ -13,7 +13,7 @@ v2: /influxdb/v2.0/reference/api/
 ---
 
 The InfluxDB API provides a simple way to interact with the database.
-It uses HTTP response codes, HTTP authentication, JWT Tokens, and basic authentication, and responses are returned in JSON.
+It uses HTTP response codes, authentication with username and password credentials or API tokens, and JSON-formatted response data.
 
 The following sections assume your InfluxDB instance is running on `localhost`
 port `8086` and HTTPS is not enabled.
@@ -27,13 +27,13 @@ Those settings [are configurable](/enterprise_influxdb/v1.10/administration/conf
 InfluxDB 1.8.0 introduced forward compatibility APIs for InfluxDB 2.x.
 There are multiple reasons for introducing these:
 
-- The latest [InfluxDB client libraries](/enterprise_influxdb/v1.10/tools/api_client_libraries/)
-  are built for the InfluxDB 2.x API, but now also work with **InfluxDB 1.8.0+**.
+- [InfluxDB 2.x client libraries](/enterprise_influxdb/v1.10/tools/api_client_libraries/)
+  are built for the InfluxDB `/api/v2` API and work with **InfluxDB 2.x** and **InfluxDB 1.8+**.
 - InfluxDB Cloud is a generally available service across multiple cloud service providers and regions
-  that is fully compatible with the **latest** client libraries.
+  that is fully compatible with the InfluxDB 2.x client libraries.
 
 If you are just getting started with InfluxDB 1.x today, we recommend adopting
-the [latest client libraries](/enterprise_influxdb/v1.10/tools/api_client_libraries/).
+the [latest InfluxDB 2.x client libraries](/enterprise_influxdb/v1.10/tools/api_client_libraries/).
 They allow you to easily move from InfluxDB 1.x to InfluxDB OSS 2.x or InfluxDB Cloud
 (when you are ready).
 
@@ -59,7 +59,7 @@ Use this endpoint to query data using [Flux](/enterprise_influxdb/v1.10/flux/) a
 - `Content-type: application/vnd.flux`
 - If [authentication is enabled](/enterprise_influxdb/v1.10/administration/authentication_and_authorization),
   provide your InfluxDB username and password:  
-  `Authorization: Token username:password`
+  `Authorization: Token USERNAME:PASSWORD`
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -81,7 +81,7 @@ curl -XPOST localhost:8086/api/v2/query -sS \
 curl -XPOST localhost:8086/api/v2/query -sS \
   -H 'Accept:application/csv' \
   -H 'Content-type:application/vnd.flux' \
-  -H 'Authorization: Token username:password' \
+  -H 'Authorization: Token USERNAME:PASSWORD' \
   -d 'from(bucket:"telegraf")
         |> range(start:-5m)
         |> filter(fn:(r) => r._measurement == "cpu")'
@@ -114,11 +114,16 @@ The `/api/v2/write` endpoint maps the supplied version 1.8 database and retentio
 
 **Include the following HTTP header:**
 
-- `Authorization`: In InfluxDB 2.x uses [API Tokens](/influxdb/v2.0/security/tokens/)
-  to access the platform and all its capabilities.
-  InfluxDB v1.x uses a username and password combination when accessing the HTTP APIs.
-  Use the Token schema to provide your InfluxDB 1.x username and password separated by a colon (`:`).
-  For example: `Authorization: Token username:password`.
+- `Authorization`: InfluxDB 2.x uses this header with the `Token` scheme and [API Tokens](/influxdb/v2.0/security/tokens/)
+  to authenticate each API request.
+  InfluxDB v1.x uses username and password credentials for authenticating API requests.
+  To provide InfluxDB 1.x credentials, use the `Token` scheme and include your username and password separated by a colon (`:`).
+
+  - `Token` scheme with v1.x credentials:
+
+    ```http
+    Authorization: Token USERNAME:PASSWORD
+    ```
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -169,25 +174,30 @@ The [/api/v2/buckets](/influxdb/latest/api/#tag/Buckets) endpoint accepts `GET`,
 
 **Include the following HTTP header:**
 
-- `Authorization`: In InfluxDB 2.x uses [API Tokens](/influxdb/v2.0/security/tokens/)
-  to access the platform and all its capabilities.
-  InfluxDB v1.x uses a username and password combination when accessing the HTTP APIs.
-  Use the Token schema to provide your InfluxDB 1.x username and password separated by a colon (`:`).
-  For example: `Authorization: Token username:password`.
+- `Authorization`: InfluxDB 2.x uses this header with the `Token` scheme and [API Tokens](/influxdb/v2.0/security/tokens/)
+  to authenticate each API request.
+  InfluxDB v1.x uses username and password credentials for authenticating API requests.
+  To provide InfluxDB 1.x credentials, use the `Token` scheme and include your username and password separated by a colon (`:`).
 
-In this example, the response will produce a list of all databases:
+  - `Token` scheme with v1.x credentials:
+
+    ```http
+    Authorization: Token USERNAME:PASSWORD
+    ```
+
+The following example shows how to list all databases:
 
 ```bash
 curl --request GET "http://localhost:8086/api/v2/buckets"   
   -H 'Authorization: Token <username>:<password>'
 ```
 
-In this example we are deleting the "test" database:
+The following example shows how to delete a database named "test":
 
 ```bash
 curl --request DELETE "http://localhost:8086/api/v2/buckets/test/autogen" 
   --header "Content-type: application/json"   
-  -H 'Authorization: Token <user>:<password>'
+  -H 'Authorization: Token <username>:<password>'
 ```
 
 ### `/api/v2/delete/` HTTP endpoint
@@ -203,17 +213,22 @@ The [`/api/v2/delete`](/influxdb/latest/api/#tag/Delete) endpoint accepts `POST`
 
 **Include the following HTTP header:**
 
-- `Authorization`: In InfluxDB 2.x uses [API Tokens](/influxdb/v2.0/security/tokens/)
-  to access the platform and all its capabilities.
-  InfluxDB v1.x uses a username and password combination when accessing the HTTP APIs.
-  Use the Token schema to provide your InfluxDB 1.x username and password separated by a colon (`:`).
-  For example: `Authorization: Token username:password`.
+- `Authorization`: InfluxDB 2.x uses this header with the `Token` scheme and [API Tokens](/influxdb/v2.0/security/tokens/)
+  to authenticate each API request.
+  InfluxDB v1.x uses username and password credentials for authenticating API requests.
+  To provide InfluxDB 1.x credentials, use the `Token` scheme and include your username and password separated by a colon (`:`).
+
+  - `Token` scheme with v1.x credentials:
+
+    ```http
+    Authorization: Token USERNAME:PASSWORD
+    ```
 
 Delete all points in a specified time range:
 
 ```bash
 curl --request POST "http://localhost:8086/api/v2/delete?bucket=exampleDB/autogen \
-  --header 'Authorization: Token YOUR_API_TOKEN' \
+  --header 'Authorization: Token <username>:<password>' \
   --header 'Content-Type: application/json' \
   --data '{
     "start": "2020-03-01T00:00:00Z",
@@ -225,7 +240,7 @@ Delete points in a specific measurement with a specific tag value:
 
 ```bash
 curl --request POST "http://localhost:8086/api/v2/delete?bucket=exampleDB/autogen \
-  --header 'Authorization: Token YOUR_API_TOKEN' \
+  --header 'Authorization: Token <username>:<password>' \
   --header 'Content-Type: application/json' \
   --data '{
     "start": "2020-03-01T00:00:00Z",
@@ -307,15 +322,15 @@ To create a `profile.tar.gz` archive, use the following cURL command to generate
 curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=30s"
 ```
 
-As the following example shows, the cURL output includes "Time Spent," the time elapsed (in  seconds).
-After 30 seconds of data has been collected, the results are output to a file.
+The cURL output includes "Time Spent," the time elapsed (in seconds).
 
 ```bash
-➜  ~ curl -o profiles.tar.gz "http://localhost:8086/debug/pprof/all?cpu=30s"
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  237k    0  237k    0     0   8025      0 --:--:--  0:00:30 --:--:-- 79588
 ```
+
+After 30 seconds of data has been collected, the results are output to the specified file.
 
 ### `/debug/requests` HTTP endpoint
 
@@ -393,8 +408,8 @@ HEAD http://localhost:8086/ping
 
 #### `verbose` option
 
-By default, the `/ping` HTTP endpoint returns a simple HTTP 204 status response to let the client know that the server is running. Default value is `false`.
-When `verbose` option is set to `true` (`/ping?verbose=true`), an HTTP 200 status  is returned.
+Default value is `false`. By default, the `/ping` HTTP endpoint responds with HTTP status `204` and an empty response body to let the client know that the server is running. 
+If set to `true` (`/ping?verbose=true`), the server responds with HTTP status `200` status and a response body that contains details.
 The `verbose=true` option is required for [Google Cloud Load Balancing](https://cloud.google.com/load-balancing/docs/health-check-concepts) health checks.
 
 #### Example
@@ -568,30 +583,39 @@ $ curl -G 'http://localhost:8086/query?db=mydb&epoch=s' --data-urlencode 'q=SELE
 
 ##### Create a database using HTTP authentication
 
-Valid credentials:
+The following example shows how to authenticate with v1.x credentials in the query string and
+create a database:
 
 ```bash
 $ curl -XPOST 'http://localhost:8086/query?u=myusername&p=mypassword' --data-urlencode 'q=CREATE DATABASE "mydb"'
+```
 
+The response body contains the following:
+
+```json
 {"results":[{"statement_id":0}]}
 ```
 
 A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1.10/query_language/manage-database/#create-database) returns no additional information.
 
-Invalid credentials:
+The following sample passes invalid credentials:
 
 ```bash
-$ curl -XPOST 'http://localhost:8086/query?u=myusername&p=notmypassword' --data-urlencode 'q=CREATE DATABASE "mydb"'
+curl -XPOST 'http://localhost:8086/query?u=myusername&p=notmypassword' --data-urlencode 'q=CREATE DATABASE "mydb"'
+```
 
+The response body contains the following:
+
+```json
 {"error":"authorization failed"}
 ```
 
 ##### Create a database using basic authentication
 
-The following example uses valid credentials.
+The following example shows how to use Basic authentication with v1.x credentials and create a database.
 
 ```bash
-$ curl -XPOST -u myusername:mypassword 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE "mydb"'
+curl -XPOST -u myusername:mypassword 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE "mydb"'
 
 {"results":[{"statement_id":0}]}
 ```
@@ -601,14 +625,18 @@ A successful [`CREATE DATABASE` query](/enterprise_influxdb/v1.10/query_language
 The following example uses invalid credentials.
 
 ```bash
-$ curl -XPOST -u myusername:notmypassword 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE "mydb"'
+curl -XPOST -u myusername:notmypassword 'http://localhost:8086/query' --data-urlencode 'q=CREATE DATABASE "mydb"'
+```
 
+The response body contains the following:
+
+```json
 {"error":"authorization failed"}
 ```
 
 #### Request body
 
-```
+```sh
 --data-urlencode "q=<InfluxQL query>"
 ```
 
@@ -739,16 +767,16 @@ The request maps `$tag_value` to `12` and `$field_value` to `30`.
 
 #### Status codes and responses
 
-Responses are returned in JSON.
-Include the query string parameter `pretty=true`
-to enable pretty-print JSON.
+The API response body contains results or error messages in JSON format.
+To pretty-print JSON for viewing, include the query string parameter `pretty=true`
+or pipe the response to a JSON-processor like [**jq**](https://stedolan.github.io/jq/).
 
 ##### Summary table
 
 | HTTP status code | Description |
 | :--------------- | :---------- |
-| 200 OK | Success! The returned JSON offers further information. |
-| 400 Bad Request | Unacceptable request. Can occur with a syntactically incorrect query. The returned JSON offers further information. |
+| 200 OK | Success. Response body contains data in JSON format. |
+| 400 Bad Request | Unacceptable request. Can occur with a syntactically incorrect query. Response body contains an error message with additional information in JSON format. |
 | 401 Unauthorized | Unacceptable request. Can occur with invalid authentication credentials. |
 
 #### Examples
@@ -769,7 +797,7 @@ Transfer-Encoding: chunked
 {"results":[{"statement_id":0,"series":[{"name":"mymeas","columns":["time","myfield","mytag1","mytag2"],"values":[["2017-03-01T00:16:18Z",33.1,null,null],["2017-03-01T00:17:18Z",12.4,"12","14"]]}]}]}
 ```
 
-##### A successful request that returns an error
+##### A query that contains an error
 
 ```bash
 $ curl -i -G 'http://localhost:8086/query?db=mydb1' --data-urlencode 'q=SELECT * FROM "mymeas"'
@@ -800,7 +828,7 @@ Content-Length: 76
 {"error":"error parsing query: found EOF, expected FROM at line 1, char 9"}
 ```
 
-##### Query data with invalid authentication credentials
+##### A request with invalid authentication credentials
 
 ```bash
 $ curl -i  -XPOST 'http://localhost:8086/query?u=myusername&p=notmypassword' --data-urlencode 'q=CREATE DATABASE "mydb"'
@@ -1020,10 +1048,10 @@ mymeas,mytag3=9 value=89 1463689710000000000
 
 #### Status codes and responses
 
-In general, status codes of the form `2xx` indicate success, `4xx` indicate
-that InfluxDB could not understand the request, and `5xx` indicate that the
+In general, HTTP `2xx` status codes indicate success, `4xx` status codes indicate
+that InfluxDB could not understand the request, and `5xx` status codes indicate that the
 system is overloaded or significantly impaired.
-Errors are returned in JSON.
+The response body contains an error message in JSON format.
 
 ##### Summary table
 

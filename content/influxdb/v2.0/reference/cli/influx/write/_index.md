@@ -72,7 +72,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 |      | `--compression`     | Input compression (`none` or `gzip`, default is `none` unless input file ends with `.gz`.) | string      |                       |
 |      | `--debug`           | Output errors to stderr                                                                    |             |                       |
 |      | `--encoding`        | Character encoding of input (default `UTF-8`)                                              | string      |                       |
-|      | `--error-file`      | Path to a file used for recording rejected row errors                                      | string      |                       |
+|      | `--errors-file`      | Path to a file used for recording rejected row errors                                      | string      |                       |
 | `-f` | `--file`            | File to import                                                                             | stringArray |                       |
 |      | `--format`          | Input format (`lp` or `csv`, default `lp`)                                                 | string      |                       |
 |      | `--header`          | Prepend header line to CSV input data                                                      | string      |                       |
@@ -82,7 +82,7 @@ In **extended annotated CSV**, measurements, fields, and values and their types 
 | `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                                     | string      | `INFLUX_ORG`          |
 |      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                                          | string      | `INFLUX_ORG_ID`       |
 | `-p` | `--precision`       | [Precision](/influxdb/v2.0/write-data/#timestamp-precision) of the timestamps (default `ns`)                                                 | string      | `INFLUX_PRECISION`    |
-|      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                                 | string      |                       |
+|      | `--rate-limit`      | Throttle write rate (examples: `5MB/5min` or `1MB/s`).                                 | string      |                       |
 |      | `--skip-verify`     | Skip TLS certificate verification                                                          |             | `INFLUX_SKIP_VERIFY`  |
 |      | `--skipHeader`      | Skip first *n* rows of input data                                                          | integer     |                       |
 |      | `--skipRowOnError`  | Output CSV errors to stderr, but continue processing                                       |             |                       |
@@ -207,7 +207,7 @@ influx write \
   --bucket example-bucket \
   --format csv \
   "#constant measurement,sensorData
-#datatype,datetime:RFC3339,double
+#datatype dateTime:RFC3339,double
 time,temperature
 2020-12-18T18:16:11Z,72.7
 2020-12-18T18:16:21Z,73.8
@@ -283,5 +283,5 @@ influx write \
 influx write \
   --bucket example-bucket \
   --file path/to/data.csv \
-  --rate-limit 5 MB / 5 min
+  --rate-limit 5MB/5min
 ```

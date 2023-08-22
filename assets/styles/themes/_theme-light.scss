@@ -31,7 +31,7 @@ $sidebar-search-highlight: $b-pool !default;
 $sidebar-search-text: $g6-smoke !default;
 
 // Left Navigation
-$nav-category: $b-dodger !default;
+$nav-category: $b-ocean !default;
 $nav-category-hover: $br-magenta !default;
 $nav-item: $g9-mountain !default;
 $nav-item-hover: $br-magenta !default;
@@ -214,6 +214,10 @@ $flux-water-process-img: url('/img/flux/0-x-water-process-light.svg') !default;
 
 // Diagram colors
 $diagram-arrow: $g14-chromium !default;
+
+// Code placeholder colors
+$code-placeholder: $br-new-magenta !default;
+$code-placeholder-hover: $br-new-purple !default;
 
 @import "light/telegraf",
         "light/chronograf",

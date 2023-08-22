@@ -2,7 +2,7 @@
 title: Cancel your InfluxDB Cloud subscription
 description: >
   Cancel your InfluxDB Cloud account at any time by stopping all read and write
-  requests, backing up data, and contacting InfluxData Support.
+  requests, and backing up data.
 weight: 106
 aliases:
   - /influxdb/v2.0/account-management/offboarding
@@ -11,6 +11,7 @@ menu:
   influxdb_cloud:
     parent: Account management
     name: Cancel InfluxDB Cloud
+alt_engine: /influxdb/cloud-serverless/admin/accounts/cancel-account/
 ---
 
 To cancel your {{< cloud-name >}} subscription, complete the following steps:
@@ -61,8 +62,6 @@ Cloud to InfluxDB OSS, see: [Migrate data from InfluxDB Cloud to InfluxDB OSS](/
 
 {{% note %}}
 Cancelling your usage-based plan will delete your organization.
-However, those in multi-user organizations must contact
-[InfluxData Support](mailto:support@influxdata.com) to delete your organization. 
 {{% /note %}}
 
 1. Click the account name in the header of your {{< cloud-name "short" >}}

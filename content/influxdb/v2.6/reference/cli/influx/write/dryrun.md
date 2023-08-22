@@ -39,7 +39,7 @@ influx write dryrun [flags]
 |      | `--configs-path`    | Path to `influx` CLI configurations (default `~/.influxdbv2/configs`)           | string      | `INFLUX_CONFIGS_PATH` |
 |      | `--debug`           | Output errors to stderr                                                         |             |                       |
 |      | `--encoding`        | Character encoding of input (default `UTF-8`)                                   | string      |                       |
-|      | `--error-file`      | Path to a file used for recording rejected row errors                           | string      |                       |
+|      | `--errors-file`      | Path to a file used for recording rejected row errors                           | string      |                       |
 | `-f` | `--file`            | File to import                                                                  | stringArray |                       |
 |      | `--format`          | Input format (`lp` or `csv`, default `lp`)                                      | string      |                       |
 |      | `--header`          | Prepend header line to CSV input data                                           | string      |                       |
@@ -49,7 +49,7 @@ influx write dryrun [flags]
 | `-o` | `--org`             | Organization name (mutually exclusive with `--org-id`)                          | string      | `INFLUX_ORG`          |
 |      | `--org-id`          | Organization ID (mutually exclusive with `--org`)                               | string      | `INFLUX_ORG_ID`       |
 | `-p` | `--precision`       | Precision of the timestamps (default `ns`)                                      | string      | `INFLUX_PRECISION`    |
-|      | `--rate-limit`      | Throttle write rate (examples: `5 MB / 5 min` or `1MB/s`).                      | string      |                       |
+|      | `--rate-limit`      | Throttle write rate (examples: `5MB/5min` or `1MB/s`).                      | string      |                       |
 |      | `--skip-verify`     | Skip TLS certificate verification                                               |             | `INFLUX_SKIP_VERIFY`                      |
 |      | `--skipHeader`      | Skip first *n* rows of input data                                               | integer     |                       |
 |      | `--skipRowOnError`  | Output CSV errors to stderr, but continue processing                            |             |                       |

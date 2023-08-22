@@ -92,7 +92,8 @@ li.custom {
 
   &.error {
     &:after { display: block; }
-    input#custom-url-field {
+    input#custom-url-field,
+    input#dedicated-url-field {
       border-color: $r-fire;
       &:focus {
         border-color: $r-fire;
@@ -102,7 +103,8 @@ li.custom {
   }
 
   input {
-    &#custom-url-field {
+    &#custom-url-field,
+    &#dedicated-url-field {
       font-family: $proxima;
       font-weight: $medium;
       background: $modal-field-bg;
@@ -126,6 +128,16 @@ li.custom {
         font-style: italic;
       }
     }
+  }
+}
+
+#dedicated-urls {
+  .providers {
+    padding-bottom: 1rem;
+  }
+  #custom-url {
+    margin-top: .5rem;
+    padding: 0; 
   }
 }
 
