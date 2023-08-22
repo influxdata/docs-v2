@@ -32,11 +32,13 @@ all permissions associated with the token.
 
     - Token ID to delete
 
-    ```sh
-    influxctl token delete <TOKEN_ID>
-    ```
-
 4.  Confirm that you want to delete the token.
+
+{{% code-placeholders "TOKEN_ID" %}}
+```sh
+influxctl token delete TOKEN_ID
+```
+{{% /code-placeholders %}}
 
 {{% warn %}}
 #### Deleting a token is immediate and cannot be undone

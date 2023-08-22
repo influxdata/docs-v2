@@ -11,6 +11,8 @@ list_code_example: |
   ```sh
   influxctl database list
   ```
+related:
+  - /influxdb/clustered/reference/cli/influxctl/database/list/
 ---
 
 Use the [`influxctl database list` command](/influxdb/clustered/reference/cli/influxctl/database/list/)
@@ -42,14 +44,45 @@ with your command to format the database list as JSON.
 {{% code-tab-content %}}
 
 ```sh
-# Insert table output
++---------------+------------------+------------+-----------------------+
+| DATABASE NAME | RETENTION PERIOD | MAX TABLES | MAX COLUMNS PER TABLE |
++---------------+------------------+------------+-----------------------+
+| mydb1         | infinite         |        500 |                   250 |
+| mydb2         | infinite         |        500 |                   200 |
+| mydb3         | 24h              |        100 |                   200 |
++---------------+------------------+------------+-----------------------+
 ```
 
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 
 ```json
-// Insert json output
+[
+  {
+    "account_id": "0x0x0x00-0Xx0-00x0-x0X0-00x00XX0Xx0X",
+    "cluster_id": "X0x0xxx0-0XXx-000x-00x0-0X000Xx00000",
+    "database_name": "mydb1",
+    "retention_period_ns": 0,
+    "max_tables": 500,
+    "max_columns_per_table": 250
+  },
+  {
+    "account_id": "0x0x0x00-0Xx0-00x0-x0X0-00x00XX0Xx0X",
+    "cluster_id": "X0x0xxx0-0XXx-000x-00x0-0X000Xx00000",
+    "database_name": "mydb2",
+    "retention_period_ns": 0,
+    "max_tables": 500,
+    "max_columns_per_table": 200
+  },
+  {
+    "account_id": "0x0x0x00-0Xx0-00x0-x0X0-00x00XX0Xx0X",
+    "cluster_id": "X0x0xxx0-0XXx-000x-00x0-0X000Xx00000",
+    "database_name": "mydb3",
+    "retention_period_ns": 86400000000000,
+    "max_tables": 100,
+    "max_columns_per_table": 200
+  },
+]
 ```
 
 {{% /code-tab-content %}}

@@ -1,46 +1,50 @@
 ---
-title: Create a database
+title: Update a database
 description: >
-  Use the [`influxctl database create` command](/influxdb/clustered/reference/cli/influxctl/database/create/)
-  to create a new InfluxDB database in your InfluxDB cluster.
-  Provide a database name and an optional retention period.
+  Use the [`influxctl database update` command](/influxdb/clustered/reference/cli/influxctl/database/update/)
+  to update a database in your InfluxDB cluster.
 menu:
   influxdb_clustered:
     parent: Manage databases
 weight: 201
 list_code_example: |
   ```sh
-  influxctl database create \
+  influxctl database update DATABASE_NAME \
     --retention-period 30d \
     --max-tables 500 \
-    --max-columns 250 \
-    <DATABASE_NAME>
+    --max-tables 250
   ```
 related:
-  - /influxdb/clustered/reference/cli/influxctl/database/create/
+  - /influxdb/clustered/reference/cli/influxctl/database/update/
 ---
 
-Use the [`influxctl database create` command](/influxdb/clustered/reference/cli/influxctl/database/create/)
-to create a database in your InfluxDB cluster.
+Use the [`influxctl database update` command](/influxdb/clustered/reference/cli/influxctl/database/update/)
+to update a database in your {{< product-name omit=" Clustered" >}}.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/#download-and-install-influxctl).
-2.  Run the `influxctl database create` command and provide the following:
+2.  Run the `influxctl database update` command and provide the following:
 
+    - Database name
     - _Optional_: Database [retention period](/influxdb/clustered/admin/databases/#retention-periods)
       _(default is infinite)_
     - _Optional_: Database table (measurement) limit _(default is 500)_
     - _Optional_: Database column limit _(default is 250)_
-    - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
 
 {{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
 ```sh
-influxctl database create \
+influxctl database update DATABASE_NAME \
   --retention-period 30d \
   --max-tables 500 \
-  --max-columns 250 \
-  DATABASE_NAME
+  --max-tables 250
 ```
 {{% /code-placeholders %}}
+
+{{% warn %}}
+#### Database names can't be updated
+
+The `influxctl database update` command uses the database name to identify which
+database to apply updates to. The database name itself can't be updated.
+{{% /warn %}}
 
 - [Retention period syntax](#retention-period-syntax)
 - [Database naming restrictions](#database-naming-restrictions)
@@ -97,7 +101,7 @@ Database names must adhere to the following naming restrictions:
 
 In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
 and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
-In InfluxDB Clustered, databases and retention policies have been merged into
+In InfluxDB Cloud Dedicated, databases and retention policies have been merged into
 _databases_, where databases have a retention period, but retention policies
 are no longer part of the data model.
 Because InfluxQL uses the 1.x data model, a database must be mapped to a v1

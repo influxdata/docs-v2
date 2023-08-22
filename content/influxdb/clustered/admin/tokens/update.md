@@ -1,10 +1,10 @@
 ---
 title: Update a token
 description: >
-  Use the [`influxctl token update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/update/)
-  to update a database token's permissions in your InfluxDB Cloud Dedicated cluster.
+  Use the [`influxctl token update` command](/influxdb/clustered/reference/cli/influxctl/token/update/)
+  to update a database token's permissions in your InfluxDB cluster.
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_clustered:
     parent: Manage tokens
 weight: 201
 list_code_example: |
@@ -16,13 +16,13 @@ list_code_example: |
     <TOKEN_ID>
   ```
 alt_links:
-  serverless: /influxdb/cloud-serverless/admin/tokens/update-tokens/
+  - serverless: /influxdb/cloud-serverless/admin/tokens/update-tokens/
 ---
 
-Use the [`influxctl token update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/update/)
+Use the [`influxctl token update` command](/influxdb/clustered/reference/cli/influxctl/token/update/)
 to update a database token's permissions in your {{< product-name omit=" Clustered" >}}.
 
-1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
+1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run the `influxctl token create` command and provide the following:
 
     - Token permissions (read and write)

@@ -9,7 +9,6 @@
 {{ $isDedicated := eq $pageRoot "influxdb/cloud-dedicated" }}
 {{ $isClustered := eq $pageRoot "influxdb/clustered" }}
 {{ $altLinks := .Page.Params.alt_links | default dict }}
-{{ $altEngine := .Page.Params.alt_engine | default "" }}
 {{ $sortedProducts := sort .Site.Data.products "list_order" "asc"}}
 
 {{/* //////////////////// INFLUXDB PRODUCT DICTIONARIES /////////////////// */}}

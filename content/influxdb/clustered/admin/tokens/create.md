@@ -59,9 +59,19 @@ We recommend storing database tokens in a **secure secret store**.
 For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
 {{% /note %}}
 
-#### Example token creation commands
+#### Examples
 
-##### Create a token with read and write access to a database
+- [Create a token with read and write access to a database](#create-a-token-with-read-and-write-access-to-a-database)
+- [Create a token with read-only access to a database](#create-a-token-with-read-only-access-to-a-database)
+- [Create a token with read-only access to multiple databases](#create-a-token-with-read-only-access-to-multiple-databases)
+- [Create a token with mixed permissions to multiple databases](#create-a-token-with-mixed-permissions-to-multiple-databases)
+
+In the examples below, replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} database
+- {{% code-placeholder-key %}}`DATABASE2_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} database
+
+#### Create a token with read and write access to a database
 
 {{% code-placeholders "DATABASE_NAME" %}}
 ```sh
@@ -72,11 +82,7 @@ influxctl token create \
 ```
 {{% /code-placeholders %}}
 
-Replace the following:
-
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
-
-##### Create a token with read-only access to a database
+#### Create a token with read-only access to a database
 
 {{% code-placeholders "DATABASE_NAME" %}}
 ```sh
@@ -86,7 +92,7 @@ influxctl token create \
 ```
 {{% /code-placeholders %}}
 
-##### Create a token with read-only access to multiple databases
+#### Create a token with read-only access to multiple databases
 
 {{% code-placeholders "DATABASE_NAME|DATABASE2_NAME" %}}
 ```sh
@@ -97,12 +103,7 @@ influxctl token create \
 ```
 {{% /code-placeholders %}}
 
-Replace the following:
-
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
-- {{% code-placeholder-key %}}`DATABASE2_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
-
-##### Create a token with mixed permissions to multiple databases
+#### Create a token with mixed permissions to multiple databases
 
 {{% code-placeholders "DATABASE_NAME|DATABASE2_NAME" %}}
 ```sh
@@ -113,11 +114,3 @@ influxctl token create \
   "Read-only on DATABASE_NAME, read/write on DATABASE2_NAME"
 ```
 {{% /code-placeholders %}}
-
-{{% note %}}
-#### Tokens cannot be updated
-
-Once created, token permissions cannot be updated.
-If you need a token with different permissions, create a new token with the
-appropriate permissions.
-{{% /note %}}

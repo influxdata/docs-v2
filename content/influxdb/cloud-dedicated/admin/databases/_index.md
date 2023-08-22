@@ -40,7 +40,7 @@ never be removed by the retention enforcement service.
 
 ## Table and column limits
 
-In {{< cloud-name >}}, table (measurement) and column limits can be
+In {{< product-name >}}, table (measurement) and column limits can be
 custom configured when [creating](#create-a-database) or
 [updating a database](#update-a-database).
 Each measurement is represented by a table.

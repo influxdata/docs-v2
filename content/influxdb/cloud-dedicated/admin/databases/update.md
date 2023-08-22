@@ -19,7 +19,7 @@ related:
 ---
 
 Use the [`influxctl database update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/update/)
-to update a database in your {{< cloud-name >}} cluster.
+to update a database in your {{< product-name omit=" Clustered" >}}.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run the `influxctl database update` command and provide the following:
@@ -124,7 +124,7 @@ database_name/retention_policy_name
 
 ## Table and column limits
 
-In {{< cloud-name >}}, table (measurement) and column limits can be
+In {{< product-name >}}, table (measurement) and column limits can be
 configured using the `--max-tables` and `--max-columns` flags.
 Each measurement is represented by a table.
 Time, fields, and tags are each represented by a column.
