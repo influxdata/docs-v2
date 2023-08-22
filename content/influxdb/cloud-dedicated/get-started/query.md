@@ -492,10 +492,10 @@ _If your project's virtual environment is already running, skip to step 3._
       })
 
       // Close the client when the function returns.
-      defer func (client *influx.Client)  {
+      defer func(client *influxdb3.Client) {
         err := client.Close()
         if err != nil {
-            panic(err)
+          panic(err)
         }
       }(client)
 
@@ -550,7 +550,7 @@ _If your project's virtual environment is already running, skip to step 3._
         1.  Instantiates `influx.Client` with InfluxDB credentials.
           
             - **`Host`**: your {{% cloud-name %}} cluster URL
-            - **`Database`: The name of your {{% cloud-name %}} database
+            - **`Database`**: The name of your {{% cloud-name %}} database
             - **`Token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_  access to the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
@@ -808,12 +808,8 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
       }
       ```
 
-4.  To execute the program and query your {{% cloud-name %}} cluster,
-    enter the following commands in your terminal:
-
-    ```sh
-    dotnet build
-    ```
+4.  To build and execute the program and query your {{% cloud-name %}} cluster,
+    enter the following command in your terminal:
 
     ```sh
     dotnet run
@@ -864,7 +860,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
             /** INFLUX_TOKEN is an environment variable you assigned to your
               * database READ token value.
               **/
-            final char[] authToken = (System.getenv("INFLUX_TOKEN")).
+            final char[] token = (System.getenv("INFLUX_TOKEN")).
             toCharArray();
 
             try (InfluxDBClient client = InfluxDBClient.getInstance(host,
