@@ -38,12 +38,20 @@ The _minimum_ retention period for and InfluxDB database is 1 hour.
 The _maximum_ retention period is infinite meaning data does not expire and will
 never be removed by the retention enforcement service.
 
-{{% warn %}}
-#### Retention periods cannot be updated
+## Table and column limits
 
-Retention periods cannot be changed after a database is created.
-To move to a different retention period, create a new database with the retention
-period you want and migrate existing data to the new database.
+In {{< cloud-name >}}, table (measurement) and column limits can be
+custom configured when [creating](#create-a-database) or
+[updating a database](#update-a-database).
+Each measurement is represented by a table.
+Time, fields, and tags are each represented by a column.
+
+**Default maximum number of tables**: 500  
+**Default maximum number of columns**: 250
+
+{{% warn %}}
+Setting table and column limits above the default limits may adversely affect
+database performance.
 {{% /warn %}}
 
 ---

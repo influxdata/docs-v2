@@ -12,6 +12,8 @@ list_code_example: |
   ```sh
   influxctl database delete <DATABASE_NAME>
   ```
+related:
+  - /influxdb/cloud-dedicated/reference/cli/influxctl/database/delete/
 ---
 
 Use the [`influxctl database delete` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/delete/)
@@ -22,11 +24,13 @@ to delete a database from your InfluxDB Cloud Dedicated cluster.
 
     - Name of the database to delete
 
-    ```sh
-    influxctl database delete <DATABASE_NAME>
-    ```
-
 3. Confirm that you want to delete the database.
+
+{{% code-placeholders "DATABASE_NAME" %}}
+```sh
+influxctl database delete DATABASE_NAME
+```
+{{% /code-placeholders %}}
 
 {{% warn %}}
 #### Deleting a database cannot be undone

@@ -1,46 +1,50 @@
 ---
-title: Create a database
+title: Update a database
 description: >
-  Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
-  to create a new InfluxDB database in your InfluxDB Cloud Dedicated cluster.
-  Provide a database name and an optional retention period.
+  Use the [`influxctl database update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/update/)
+  to update a database in your InfluxDB Cloud Dedicated cluster.
 menu:
   influxdb_cloud_dedicated:
     parent: Manage databases
 weight: 201
 list_code_example: |
   ```sh
-  influxctl database create \
+  influxctl database update DATABASE_NAME \
     --retention-period 30d \
     --max-tables 500 \
-    --max-columns 250 \
-    <DATABASE_NAME>
+    --max-tables 250
   ```
 related:
-  - /influxdb/cloud-dedicated/reference/cli/influxctl/database/create/
+  - /influxdb/cloud-dedicated/reference/cli/influxctl/database/update/
 ---
 
-Use the [`influxctl database create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/)
-to create a database in your InfluxDB Cloud Dedicated cluster.
+Use the [`influxctl database update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/database/update/)
+to update a database in your {{< cloud-name >}} cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
-2.  Run the `influxctl database create` command and provide the following:
+2.  Run the `influxctl database update` command and provide the following:
 
-    - _Optional:_ Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
+    - Database name
+    - _Optional_: Database [retention period](/influxdb/cloud-dedicated/admin/databases/#retention-periods)
       _(default is infinite)_
     - _Optional_: Database table (measurement) limit _(default is 500)_
     - _Optional_: Database column limit _(default is 250)_
-    - Database name _(see [Database naming restrictions](#database-naming-restrictions))_
 
 {{% code-placeholders "DATABASE_NAME|30d|500|200" %}}
 ```sh
-influxctl database create \
+influxctl database update DATABASE_NAME \
   --retention-period 30d \
   --max-tables 500 \
-  --max-columns 250 \
-  DATABASE_NAME
+  --max-tables 250
 ```
 {{% /code-placeholders %}}
+
+{{% warn %}}
+#### Database names can't be updated
+
+The `influxctl database update` command uses the database name to identify which
+database to apply updates to. The database name itself can't be updated.
+{{% /warn %}}
 
 - [Retention period syntax](#retention-period-syntax)
 - [Database naming restrictions](#database-naming-restrictions)

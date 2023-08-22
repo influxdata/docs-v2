@@ -746,11 +746,15 @@ Related entries:
 
 ### retention policy (RP)
 
-Retention policy is an InfluxDB 1.x concept that represents the duration of time
-that each data point in the retention policy persists.
-The equivalent is [retention period](#retention-period) however retention periods
-are not part of the InfluxDB Cloud Dedicated data model.
-The retention period describes the behavior of a database.
+A retention policy is part of the InfluxDB 1.x data model that describes how long
+InfluxDB keeps data (duration), how many copies of the data to store when in a
+in the cluster (replication factor), and the time range covered by shard groups
+(shard group duration). RPs are unique per database and along with the measurement
+and tag set define a series.
+
+In {{< cloud-name >}} the equivalent is [retention period](#retention-period),
+however retention periods are not part of the data model.
+The retention period describes the data persistence behavior of a database.
 
 Related entries:
 [retention period](#retention-period),
