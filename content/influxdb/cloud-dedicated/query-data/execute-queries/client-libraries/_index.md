@@ -7,12 +7,12 @@ description: >
   Execute queries and retrieve data and metadata over the Flight+gRPC protocol, and then process data using tools in the language of your choice.
 weight: 30
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud_dedicated:
     name: Use client libraries
     parent: Execute queries
-influxdb/cloud-serverless/tags: [client libraries, SQL, InfluxQL, API, Flight, developer tools]
+influxdb/cloud-dedicated/tags: [client libraries, SQL, InfluxQL, API, Flight, developer tools]
 related:
-  - /influxdb/cloud-serverless/reference/client-libraries/v3/
+  - /influxdb/cloud-dedicated/reference/client-libraries/v3/
 ---
 
 Use the InfluxDB v3 client libraries with SQL or InfluxQL to query data stored in InfluxDB.
