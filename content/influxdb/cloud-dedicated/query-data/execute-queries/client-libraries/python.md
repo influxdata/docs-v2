@@ -205,7 +205,7 @@ The module supports writing data to InfluxDB and querying data using SQL or Infl
 
 Install the following dependencies:
 
-{{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+{{% req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" %}}
 
 - `influxdb3-python` {{< req text="\* " color="magenta" >}}: Provides the `influxdb_client_3` module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
 - `pandas`: Provides [pandas modules](https://pandas.pydata.org/) for analyzing and manipulating data.
