@@ -109,7 +109,7 @@ In your `influxdb_go_client` module directory, create a file named `query.go` an
 Replace the following configuration values in the sample code:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to query
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an InfluxDB [token](/influxdb/cloud-serverless/admin/tokens/) with _read_ permission on the specified bucket
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an InfluxDB [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ permission on the specified bucket
 
 
 {{% tabs-wrapper %}}
