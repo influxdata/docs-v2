@@ -40,4 +40,4 @@ We’ll continue to fix bugs on the 1.x versions of the [line protocol](/enterpr
 InfluxData has not presently made any decision to discontinue support and
 distribution of its InfluxDB Enterprise product, but in any event, would provide
 at least 2 years' prior notice to customers (which would mean any discontinuance
-would not occur before September 1, 2025 at the earliest).
+would not occur before {{< datetime/enterprise-eol-date >}} at the earliest).
