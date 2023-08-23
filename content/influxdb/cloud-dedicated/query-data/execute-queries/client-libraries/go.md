@@ -6,15 +6,15 @@ description: >
   Execute queries and retrieve data over the Flight+gRPC protocol, and then process data using common Go tools.
 weight: 401
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud_dedicated:
     parent: Use client libraries
     name: Use Go
     identifier: query-with-go
-influxdb/cloud-serverless/tags: [query, flight, go, sql, influxql]
+influxdb/cloud-dedicated/tags: [query, flight, go, sql, influxql]
 related:
-    - /influxdb/cloud-serverless/reference/client-libraries/v3/go/
-    - /influxdb/cloud-serverless/reference/sql/
-    - /influxdb/cloud-serverless/reference/client-libraries/flight/
+    - /influxdb/cloud-dedicated/reference/client-libraries/v3/go/
+    - /influxdb/cloud-dedicated/reference/sql/
+    - /influxdb/cloud-dedicated/reference/client-libraries/flight/
 list_code_example: |
     ```go
     import (
@@ -102,15 +102,14 @@ analyze data stored in an InfluxDB database.
 
 ### Execute a query
 
-The following examples show how to create an [InfluxDB client](/influxdb/cloud-serverless/reference/client-libraries/v3/go/#function-new), use client query methods to select all fields in a measurement, and then access query result data and metadata.
+The following examples show how to create an [InfluxDB client](/influxdb/cloud-dedicated/reference/client-libraries/v3/go/#function-new), use client query methods to select all fields in a measurement, and then access query result data and metadata.
 
 In your `influxdb_go_client` module directory, create a file named `query.go` and enter one of the following samples to query using SQL or InfluxQL.
 
 Replace the following configuration values in the sample code:
 
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to query
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an InfluxDB [token](/influxdb/cloud-serverless/admin/tokens/) with _read_ permission on the specified bucket
-
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [database](/influxdb/cloud-dedicated/admin/dedicated/) to query
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an InfluxDB [token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ permission on the specified database
 
 {{% tabs-wrapper %}}
 {{% tabs %}}
@@ -123,7 +122,7 @@ Replace the following configuration values in the sample code:
 
 #### Query using SQL
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```go
 // query.go
 package main
@@ -144,9 +143,9 @@ func Query() error {
 
     // Instantiate the client.
     client, err := influxdb3.New(influxdb3.ClientConfig{
-        Host:       "https://cloud2.influxdata.com",
-        Token:      "API_TOKEN",
-        Database:   "BUCKET_NAME",
+        Host:       "https://cluster-id.influxdb.io",
+        Token:      "DATABASE_TOKEN",
+        Database:   "DATABASE_NAME",
     })
 
     defer func(client *influxdb3.Client) {
@@ -219,7 +218,7 @@ The sample code does the following:
 
 #### Query using InfluxQL
 
-{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
+{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```go
 // query.go
 
@@ -241,9 +240,9 @@ func InfluxQL() error {
 
     // Instantiate the client.
     client, err := influxdb3.New(influxdb3.ClientConfig{
-        Host:       "https://cloud2.influxdata.com",
-        Token:      "API_TOKEN",
-        Database:   "BUCKET_NAME",
+        Host:       "https://cluster-id.influxdb.io",
+        Token:      "DATABASE_TOKEN",
+        Database:   "DATABASE_NAME",
     })
 
     defer func(client *influxdb3.Client) {
@@ -257,7 +256,7 @@ func InfluxQL() error {
         FROM home
         WHERE time >= 1641124000s
         AND time <= 1641124000s + 8h`
-    
+
     queryOptions := influxdb3.QueryOptions{
         QueryType: influxdb3.InfluxQL,
     }
@@ -272,7 +271,7 @@ func InfluxQL() error {
     if err != nil {
         panic(err)
     }
-    
+
     // Example 2: Query data, view the result schema, and then process result data row by row.
     iterator2, err = client.QueryWithOptions(context.Background(), &queryOptions, query)
 
@@ -312,7 +311,7 @@ The sample code does the following:
     [`QueryWithOptions(ctx context.Context, options *QueryOptions, query string)`](https://github.com/InfluxCommunity/influxdb3-go/blob/9225231e68ac1b90e8519e7d5d12706e66758041/influxdb3/query.go#L90)
 
     and passes the following arguments:
-    
+
     - **options**: A `QueryOptions` struct with the `QueryType` property set to `influxdb3.InfluxQL`.
     - **query**: A string. The SQL or InfluxQL query to execute.
     `QueryWithOptions` returns the following:
@@ -330,7 +329,7 @@ The sample code does the following:
     ```go
     package main
 
-    func main() {    
+    func main() {
       Query()
     }
     ```
@@ -342,4 +341,3 @@ The sample code does the following:
     ```
 
     The program executes the `main()` function that writes the data and prints the query results to the console.
-

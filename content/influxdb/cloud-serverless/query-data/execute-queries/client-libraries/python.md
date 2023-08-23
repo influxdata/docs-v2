@@ -6,24 +6,25 @@ description: >
   Execute queries and retrieve data over the Flight+gRPC protocol, and then process data using common Python tools.
 weight: 401
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_cloud_serverless:
     parent: Use client libraries
     name: Use Python
     identifier: query-with-python-sql
-influxdb/cloud-dedicated/tags: [query, flight, python, sql, influxql]
+influxdb/cloud-serverless/tags: [query, flight, python, sql, influxql]
+metadata: [SQL, InfluxQL]
 aliases:
-    - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/
-    - /influxdb/cloud-dedicated/query-data/execute-queries/influxql/python/
-    - /influxdb/cloud-dedicated/query-data/execute-queries/sql/python/
-    - /influxdb/cloud-dedicated/query-data/tools/python/
+    - /influxdb/cloud-serverless/query-data/execute-queries/flight-sql/python/
+    - /influxdb/cloud-serverless/query-data/execute-queries/influxql/python/
+    - /influxdb/cloud-serverless/query-data/execute-queries/sql/python/
+    - /influxdb/cloud-serverless/query-data/tools/python/
 related:
-    - /influxdb/cloud-dedicated/reference/client-libraries/v3/python/
-    - /influxdb/cloud-dedicated/process-data/tools/pandas/
-    - /influxdb/cloud-dedicated/process-data/tools/pyarrow/
-    - /influxdb/cloud-dedicated/query-data/influxql/
-    - /influxdb/cloud-dedicated/query-data/sql/
-    - /influxdb/cloud-dedicated/reference/influxql/
-    - /influxdb/cloud-dedicated/reference/sql/
+    - /influxdb/cloud-serverless/reference/client-libraries/v3/python/
+    - /influxdb/cloud-serverless/process-data/tools/pandas/
+    - /influxdb/cloud-serverless/process-data/tools/pyarrow/
+    - /influxdb/cloud-serverless/query-data/influxql/
+    - /influxdb/cloud-serverless/query-data/sql/
+    - /influxdb/cloud-serverless/reference/influxql/
+    - /influxdb/cloud-serverless/reference/sql/
 
 list_code_example: |
     ```py
@@ -31,7 +32,7 @@ list_code_example: |
 
     # Instantiate an InfluxDB client
     client = InfluxDBClient3(
-        host='cluster-id.influxdb.io',
+        host='cloud2.influxdata.com',
         token='DATABASE_TOKEN',
         database='DATABASE_NAME'
     )
@@ -62,12 +63,18 @@ Execute queries and retrieve data over the Flight+gRPC protocol, and then proces
 
 ## Get started using Python to query InfluxDB
 
-This guide follows the recommended practice of using Python _virtual environments_.
-If you don't want to use virtual environments and you have Python installed,
-continue to [Query InfluxDB](#query-influxdb).
+This guide assumes the following prerequisites:
+
+- an {{% cloud-name %}} [bucket](/influxdb/cloud-serverless/admin/buckets/) with data to query
+- an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the database
+
+To learn how to set up InfluxDB and write data, see the [Setup instructions](/influxdb/cloud-serverless/get-started/setup/) in the Get Started tutorial.
 
 ## Create a Python virtual environment
 
+This guide follows the recommended practice of using Python _virtual environments_.
+If you don't want to use virtual environments and you have Python installed,
+continue to [Query InfluxDB](#query-influxdb).
 Python [virtual environments](https://docs.python.org/3/library/venv.html) keep
 the Python interpreter and dependencies for your project self-contained and isolated from other projects.
 
@@ -197,14 +204,9 @@ When a virtual environment is activated, the name displays at the beginning of y
 The `influxdb3-python` package provides the `influxdb_client_3` module for integrating {{% cloud-name %}} with your Python code.
 The module supports writing data to InfluxDB and querying data using SQL or InfluxQL.
 
-{{% note %}}
-_To query data with **InfluxQL** and Python, see
-[Use InfluxQL with Python](/influxdb/cloud-dedicated/query-data/influxql/execute-queries/python/)._
-{{% /note %}}
-
 Install the following dependencies:
 
-{{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
+{{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
 
 - `influxdb3-python` {{< req text="\* " color="magenta" >}}: Provides the `influxdb_client_3` module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
 - `pandas`: Provides [pandas modules](https://pandas.pydata.org/) for analyzing and manipulating data.
@@ -222,23 +224,22 @@ analyze data stored in an InfluxDB database.
 ### Create an InfluxDB client
 
 The following example shows how to use Python with the `influxdb_client_3`
-module to instantiate a client configured for an {{% cloud-name %}} database.
+module to instantiate a client configured for an {{% cloud-name %}} bucket.
 
 In your editor, copy and paste the following sample code to a new file--for
-example, `query-example.py`:
+example, `query-example.py`.
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+{{% code-placeholders "(BUCKET|ORG|API)_(NAME|TOKEN)" %}}
 ```py
 # query-example.py
 
 from influxdb_client_3 import InfluxDBClient3
-import pandas
 
-# Instantiate an InfluxDBClient3 client configured for your database
+# Instantiate an InfluxDBClient3 client configured for your bucket
 client = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
-    token='DATABASE_TOKEN',
-    database='DATABASE_NAME'
+    host='cloud2.influxdata.com',
+    token='API_TOKEN',
+    database='BUCKET_NAME'
 )
 ```
 {{% /code-placeholders %}}
@@ -257,9 +258,9 @@ If using a non-POSIX-compliant operating system (such as Windows), specify the r
 2.  In your Python code, import `certifi` and call the `certifi.where()` method to retrieve the certificate path.
 3.  When instantiating the client, pass the `flight_client_options.tls_root_certs=<ROOT_CERT_PATH>` option with the certificate path.
 
-The following example shows how to use the Python `certifi` package and client library options to pass the certificate path:
+The following code sample shows how to use the Python `certifi` package and client library options to pass the certificate path:
 
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
 {{< code-callout "flight_client_options|tls_root_certs|(cert\b)" >}}
 ```py
 from influxdb_client_3 import InfluxDBClient3, flight_client_options
@@ -270,9 +271,9 @@ cert = fh.read()
 fh.close()
 
 client = InfluxDBClient3(
-host="cluster-id.influxdb.io",
-token='DATABASE_TOKEN',
-database='DATABASE_NAME',
+host="cloud2.influxdata.com",
+token='API_TOKEN',
+database='BUCKET_NAME',
 flight_client_options=flight_client_options(
 tls_root_certs=cert))
 ...
@@ -280,23 +281,22 @@ tls_root_certs=cert))
 {{< /code-callout >}}
 {{% /code-placeholders %}}
 
-For more information, see [`influxdb_client_3` query exceptions](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/#query-exceptions).
+For more information, see [`influxdb_client_3` query exceptions](/influxdb/cloud-serverless/reference/client-libraries/v3/python/#query-exceptions).
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
 Replace the following configuration values:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  Your InfluxDB token with read permissions on the databases you want to query.
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  The name of your {{% cloud-name %}} database.
+- **`database`**: the name of the [{{% cloud-name %}} bucket](/influxdb/cloud-serverless/admin/buckets/) to query
+- **`token`**:  an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
+  _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 ### Execute a query
 
 To execute a query, call the following client method:
 
-[`query(query,language)` method](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/#influxdbclient3query)
+[`query(query,language)` method](/influxdb/cloud-serverless/reference/client-libraries/v3/python/#influxdbclient3query)
 
 and specify the following arguments:
 
@@ -305,7 +305,7 @@ and specify the following arguments:
 
 #### Example {#execute-query-example}
 
-The following examples shows how to use SQL or InfluxQL to select all fields in a measurement, and then output the results formatted as a Markdown table.
+The following examples show how to use SQL or InfluxQL to select all fields in a measurement, and then output the results formatted as a Markdown table.
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
@@ -315,16 +315,16 @@ The following examples shows how to use SQL or InfluxQL to select all fields in 
 {{% code-tab-content %}}
 <!---- BEGIN SQL EXAMPLE --->
 {{% influxdb/custom-timestamps %}}
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+{{% code-placeholders "(BUCKET|API)_(NAME|TOKEN)" %}}
 ```py
 # query-example.py
 
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
-    token='DATABASE_TOKEN',
-    database='DATABASE_NAME'
+    host='cloud2.influxdata.com',
+    token='API_TOKEN',
+    database='BUCKET_NAME'
 )
 
 # Execute the query and return an Arrow table
@@ -333,8 +333,26 @@ table = client.query(
     language="sql"
 )
 
-# Return query results as a markdown table
-print(table.to_pandas().to_markdown())
+print("\n#### View Schema information\n")
+print(table.schema)
+print(table.schema.names)
+print(table.schema.types)
+print(table.field('room').type)
+print(table.schema.field('time').metadata)
+
+print("\n#### View column types (timestamp, tag, and field) and data types\n")
+print(table.schema.field('time').metadata[b'iox::column::type'])
+print(table.schema.field('room').metadata[b'iox::column::type'])
+print(table.schema.field('temp').metadata[b'iox::column::type'])
+
+print("\n#### Use PyArrow to read the specified columns\n")
+print(table.column('temp'))
+print(table.select(['room', 'temp']))
+print(table.select(['time', 'room', 'temp']))
+
+print("\n#### Use PyArrow compute functions to aggregate data\n")
+print(table.group_by('hum').aggregate([]))
+print(table.group_by('room').aggregate([('temp', 'mean')]))
 ```
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
@@ -342,7 +360,7 @@ print(table.to_pandas().to_markdown())
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 <!---- BEGIN INFLUXQL EXAMPLE ---->
-{{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
+{{% code-placeholders "(BUCKET|API)_(NAME|TOKEN)" %}}
 ```py
 # query-example.py
 
@@ -360,8 +378,26 @@ table = client.query(
     language="influxql"
 )
 
-# Return query results as a markdown table
-print(table.to_pandas().to_markdown())
+print("\n#### View Schema information\n")
+print(table.schema)
+print(table.schema.names)
+print(table.schema.types)
+print(table.field('room').type)
+print(table.schema.field('time').metadata)
+
+print("\n#### View column types (timestamp, tag, and field) and data types\n")
+print(table.schema.field('time').metadata[b'iox::column::type'])
+print(table.schema.field('room').metadata[b'iox::column::type'])
+print(table.schema.field('temp').metadata[b'iox::column::type'])
+
+print("\n#### Use PyArrow to read the specified columns\n")
+print(table.column('temp'))
+print(table.select(['room', 'temp']))
+print(table.select(['time', 'room', 'temp']))
+
+print("\n#### Use PyArrow compute functions to aggregate data\n")
+print(table.group_by('hum').aggregate([]))
+print(table.group_by('room').aggregate([('temp', 'mean')]))
 ```
 {{% /code-placeholders %}}
 <!---- END INFLUXQL EXAMPLE ---->
@@ -370,12 +406,11 @@ print(table.to_pandas().to_markdown())
 
 Replace the following configuration values:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  Your InfluxDB token with read permissions on the databases you want to query.
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  The name of your {{% cloud-name %}} database.
+- **`database`**: the name of the [{{% cloud-name %}} bucket](/influxdb/cloud-serverless/admin/buckets/) to query
+- **`token`**:  an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
+  _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
 Next, learn how to use Python tools to work with time series data:
 
-- [Use PyArrow](/influxdb/cloud-dedicated/process-data/tools/pyarrow/)
-- [Use pandas](/influxdb/cloud-dedicated/process-data/tools/pandas/)
+- [Use PyArrow](/influxdb/cloud-serverless/process-data/tools/pyarrow/)
+- [Use pandas](/influxdb/cloud-serverless/process-data/tools/pandas/)

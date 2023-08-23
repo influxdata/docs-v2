@@ -72,7 +72,7 @@ pip install pandas
 
 The following steps use Python, `influxdb3-python`, and `pyarrow` to query InfluxDB and stream Arrow data to a pandas `DataFrame`.
 
-1. In your editor, copy and paste the following code to a new file--for example, `pandas-example.py`:
+1.  In your editor, copy and paste the following code to a new file--for example, `pandas-example.py`:
 
     {{% tabs-wrapper %}}
 {{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
@@ -107,12 +107,12 @@ print(dataframe)
 {{% /code-placeholders %}}
     {{% /tabs-wrapper %}}
 
-2. Replace the following configuration values:
+2.  Replace the following configuration values:
 
-    - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: An InfluxDB [token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the buckets you want to query.
-    - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to query.
+    - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to query
+    - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an InfluxDB [token](/influxdb/cloud-serverless/admin/tokens/) with _read_ permission on the specified bucket
 
-3. In your terminal, use the Python interpreter to run the file:
+3.  In your terminal, use the Python interpreter to run the file:
 
     ```sh
     python pandas-example.py
