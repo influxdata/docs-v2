@@ -8,6 +8,8 @@ menu:
     identifier: java-flightsql-client
 influxdb/cloud-dedicated/tags: [Java, gRPC, SQL, Flight SQL]
 weight: 201
+related:
+  - /influxdb/cloud-dedicated/reference/client-libraries/v3/java/
 aliases:
   - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/java-flightsql/
 list_code_example: |

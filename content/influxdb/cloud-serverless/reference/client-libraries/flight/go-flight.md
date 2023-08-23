@@ -1,12 +1,14 @@
 ---
-title: Go Flight client
-description: The Go Flight client integrates with Go scripts and applications to query data stored in InfluxDB.
+title: Go Arrow Flight client
+description: The Go Arrow Flight client integrates with Go scripts and applications to query data stored in InfluxDB.
 menu:
   influxdb_cloud_serverless:
     name: Go
     parent: Arrow Flight clients
     identifier: go-flight-client
 influxdb/cloud-serverless/tags: [Golang, gRPC, SQL, Flight SQL, client libraries]
+related:
+  - /influxdb/cloud-serverless/reference/client-libraries/v3/go/
 aliases:
   - /influxdb/cloud-serverless/reference/client-libraries/flight-sql/go-flightsql/
 weight: 201
