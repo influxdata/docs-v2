@@ -16,8 +16,7 @@ aliases:
   - /influxdb/cloud-serverless/visualize-data/pandas/
   - /influxdb/cloud-serverless/visualize-data/python/
 related:
-  - /influxdb/cloud-serverless/query-data/execute-queries/
-  client-libraries/python/
+  - /influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/
   - /influxdb/cloud-serverless/process-data/tools/pyarrow/
   - /influxdb/cloud-serverless/query-data/sql/
 list_code_example: |
@@ -25,11 +24,7 @@ list_code_example: |
   ...
   dataframe = reader.read_pandas()
   dataframe = dataframe.set_index('time')
-
-  print(dataframe.index)
-
   resample = dataframe.resample("1H")
-
   resample['temp'].mean()
   ```
 ---
@@ -44,6 +39,8 @@ stored in an {{% cloud-name %}} bucket.
 
 <!-- TOC -->
 
+- [Install prerequisites](#install-prerequisites)
+- [Install pandas](#install-pandas)
 - [Use PyArrow to convert query results to pandas](#use-pyarrow-to-convert-query-results-to-pandas)
 - [Use pandas to analyze data](#use-pandas-to-analyze-data)
   - [View data information and statistics](#view-data-information-and-statistics)

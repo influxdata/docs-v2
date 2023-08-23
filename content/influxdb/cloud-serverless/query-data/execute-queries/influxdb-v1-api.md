@@ -12,9 +12,10 @@ menu:
     name: Use the v1 query API
 influxdb/cloud-serverless/tags: [query, influxql, python]
 metadata: [InfluxQL]
+related:
+  - /influxdb/cloud-serverless/api-compatibility/v1/
 aliases:
   - /influxdb/cloud-serverless/query-data/influxql/execute-queries/influxdb-v1-api/
-
 list_code_example: |
   ```sh
   curl --get https://cloud2.influxdata.com/query \

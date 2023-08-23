@@ -50,12 +50,4 @@ exec git diff-index --check --cached $against --
 
 # Use Vale to lint docs for style, grammar, and spelling.
 # Lint cloud-dedicated
-docspath=.
-contentpath=$docspath/content
-exec vale --config=$contentpath/influxdb/cloud-dedicated/.vale.ini --output=line --relative --minAlertLevel=error $contentpath/influxdb/cloud-dedicated
-
-# Lint cloud-serverless
-exec vale --config=$contentpath/influxdb/cloud-serverless/.vale.ini --output=line --relative --minAlertLevel=error $contentpath/influxdb/cloud-serverless
-
-# Lint telegraf
-# vale --config=$docspath/.vale.ini --output=line --relative --minAlertLevel=error $contentpath/telegraf
+exec vale --output=line --relative --minAlertLevel=error $(git diff --cached --name-only --diff-filter=ACMR)

@@ -12,9 +12,10 @@ menu:
     name: Use the v1 query API
 influxdb/cloud-dedicated/tags: [query, influxql, python]
 metadata: [InfluxQL]
+related:
+  - /influxdb/cloud-dedicated/api-compatibility/v1/
 aliases:
   - /influxdb/cloud-dedicated/query-data/influxql/execute-queries/influxdb-v1-api/
-
 list_code_example: |
   ```sh
   curl --get https://cluster-id.influxdb.io/query \

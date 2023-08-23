@@ -15,21 +15,16 @@ influxdb/cloud-dedicated/tags: [analysis, pandas, pyarrow, python]
 aliases:
   - /influxdb/cloud-dedicated/visualize-data/pandas/
 related:
-  - /influxdb/cloud-dedicated/query-data/execute-queries/
-  client-libraries/python/
+  - /influxdb/cloud-dedicated/query-data/execute-queries/client-libraries/python/
   - /influxdb/cloud-dedicated/process-data/tools/pyarrow/
 list_code_example: |
-    ```py
-    ...
-    dataframe = reader.read_pandas()
-    dataframe = dataframe.set_index('time')
-
-    print(dataframe.index)
-
-    resample = dataframe.resample("1H")
-
-    resample['temp'].mean()
-    ```
+  ```py
+  ...
+  dataframe = reader.read_pandas()
+  dataframe = dataframe.set_index('time')
+  resample = dataframe.resample("1H")
+  resample['temp'].mean()
+  ```
 ---
 
 Use [pandas](https://pandas.pydata.org/), the Python data analysis library, to process, analyze, and visualize data
