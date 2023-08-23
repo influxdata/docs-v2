@@ -40,6 +40,16 @@ list_code_example: |
 
 [Apache Arrow Flight SQL for Java](https://arrow.apache.org/docs/java/reference/org/apache/arrow/flight/sql/package-summary.html) integrates with Java applications to query and retrieve data from Flight database servers using RPC and SQL.
 
+{{% note %}}
+#### Use InfluxDB v3 client libraries
+
+We recommend using the [`influxdb3-java` Go client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/java/) for integrating InfluxDB v3 with your Java application code.
+
+[InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) client libraries wrap Apache Arrow Flight clients
+and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% cloud-name %}}.
+Client libraries can query using SQL or InfluxQL.
+{{% /note %}}
+
 <!-- TOC -->
 
 - [Get started using the Java Flight SQL client to query InfluxDB](#get-started-using-the-java-flight-sql-client-to-query-influxdb)
@@ -51,8 +61,6 @@ list_code_example: |
   - [Retrieve and process Arrow data](#retrieve-and-process-arrow-data)
   - [Run the application](#run-the-application)
 - [Troubleshoot Arrow Flight requests](#troubleshoot-arrow-flight-requests)
-
-<!-- /TOC -->
 
 ## Get started using the Java Flight SQL client to query InfluxDB
 

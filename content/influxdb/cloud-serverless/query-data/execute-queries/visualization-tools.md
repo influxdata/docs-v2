@@ -22,7 +22,7 @@ related:
 
 Use visualization tools to query data stored in {{% cloud-name %}}.
 
-## SQL
+## Query using SQL
 
 The following visualization tools support querying InfluxDB with SQL:
 
@@ -30,7 +30,7 @@ The following visualization tools support querying InfluxDB with SQL:
 - [Superset](/influxdb/cloud-serverless/process-data/visualize/superset/)
 - [Tableau](/influxdb/cloud-serverless/process-data/visualize/tableau/)
 
-## InfluxQL
+## Query using InfluxQL
 
 The following visualization tools support querying InfluxDB with InfluxQL:
 

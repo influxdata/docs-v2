@@ -103,7 +103,7 @@ By convention, you can express `true` as the integer `1` and false as the intege
 ### bucket
 
 "Bucket" is the term used in InfluxDB 2.x and _InfluxDB Cloud Serverless_ to refer
-to named location where time series data is stored.
+to a named location where time series data is stored.
 Bucket is synonymous with "database" when using InfluxDB Cloud Dedicated.
 
 Related entries:

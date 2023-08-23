@@ -13,13 +13,13 @@ weight: 201
 The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influxdata/flightsql-dbapi) integrates with Python applications using SQL to query data stored in an {{% cloud-name %}} bucket. The `flightsql-dbapi` library uses the [Flight SQL protocol](https://arrow.apache.org/docs/format/FlightSql.html) to query and retrieve data.
 
 {{% note %}}
-#### InfluxDB v3 client libraries
+#### Use InfluxDB v3 client libraries
 
 We recommend using the [`influxdb3-python` Python client library](/influxdb/cloud-serverless/reference/client-libraries/v3/python/) for integrating InfluxDB v3 with your Python application code.
 
 [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) client libraries wrap Apache Arrow Flight clients
-and provide convenient methods for writing, querying, and processing data stored in {{% cloud-name %}}.
-Client libraries can query using [SQL](/influxdb/cloud-serverless/query-data/sql/execute-queries/python/) or [InfluxQL](/influxdb/cloud-serverless/query-data/influxql/execute-queries/python/).
+and provide convenient methods for [writing](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-serverless/get-started/query/#execute-an-sql-query), and processing data stored in {{% cloud-name %}}.
+Client libraries can query using SQL or InfluxQL.
 {{% /note %}}
 
 ## Installation
