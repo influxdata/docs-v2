@@ -419,9 +419,9 @@ _If your project's virtual environment is already running, skip to step 3._
   2.  Calls the `InfluxDBClient3()` constructor method with credentials to instantiate an InfluxDB `client` with the following credentials:
 
       - **`host`**: {{% cloud-name %}} region hostname (URL without protocol or trailing slash)
+      - **`database`**: the name of the [{{% cloud-name %}} bucket](/influxdb/cloud-serverless/admin/buckets/) to query
       - **`token`**:  an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
         _Store this in a secret store or environment variable to avoid exposing the raw token string._
-      - **`database`**: the name of the {{% cloud-name %}} bucket to query
   
   3.  Defines the SQL query to execute and assigns it to a `query` variable.
 
@@ -580,7 +580,7 @@ _If your project's virtual environment is already running, skip to step 3._
           
             - **`Host`**: your {{% cloud-name %}} region URL
             - **`Database`**: The name of your {{% cloud-name %}} bucket
-            - **`Token`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_  access to the specified bucket.
+            - **`Token`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with read permission on the specified bucket.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
         2.  Defines a deferred function to close the client after execution.
@@ -809,7 +809,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
               with InfluxDB credentials.
           
             - **`host`**: your {{% cloud-name %}} region URL.
-            - **`token`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_  access to the specified bucket.
+            - **`token`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with read permission on the specified bucket.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
             - **`database`**: the name of the {{% cloud-name %}} bucket to query
         2.  Defines a string variable for the SQL query.

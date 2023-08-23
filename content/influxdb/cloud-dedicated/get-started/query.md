@@ -551,7 +551,7 @@ _If your project's virtual environment is already running, skip to step 3._
           
             - **`Host`**: your {{% cloud-name %}} cluster URL
             - **`Database`**: The name of your {{% cloud-name %}} database
-            - **`Token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_  access to the specified database.
+            - **`Token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
         2.  Defines a deferred function to close the client after execution.
@@ -658,7 +658,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
         with InfluxDB credentials.
 
         - **`host`**: your {{% cloud-name %}} cluster URL
-        - **`token`**: an [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ access to the specified database.
+        - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the database you want to query.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
       3.  Defines a string variable (`sql`) for the SQL query.
@@ -780,9 +780,9 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
               with InfluxDB credentials.
           
             - **`host`**: your {{% cloud-name %}} cluster URL.
-            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_  access to the specified database.
-              _Store this in a secret store or environment variable to avoid exposing the raw token string._
             - **`database`**: the name of the {{% cloud-name %}} database to query
+            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the specified database.
+              _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable for the SQL query.
         3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string.
             `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
@@ -907,7 +907,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
 
             - **`host`**: your {{% cloud-name %}} cluster URL
             - **`database`**: the name of the {{% cloud-name %}} database to write to
-            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ access to the specified database.
+            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable (`sql`) for the SQL query.
         3.  Defines a Markdown table format layout for headings and data rows.
