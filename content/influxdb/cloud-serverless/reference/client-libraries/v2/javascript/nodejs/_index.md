@@ -25,7 +25,7 @@ integrates with the InfluxDB v2 API to write data from Node.js and browser appli
 ### Tools to execute queries
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% product-name %}} cluster.
+This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
 
 {{% product-name %}} supports many different tools for querying data, including:
 

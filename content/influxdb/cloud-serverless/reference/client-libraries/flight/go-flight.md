@@ -1,18 +1,30 @@
 ---
-title: Go Flight client
-description: The Go Flight client integrates with Go scripts and applications to query data stored in InfluxDB.
+title: Go Arrow Flight client
+description: The Go Arrow Flight client integrates with Go scripts and applications to query data stored in InfluxDB.
 menu:
   influxdb_cloud_serverless:
     name: Go
     parent: Arrow Flight clients
     identifier: go-flight-client
 influxdb/cloud-serverless/tags: [Golang, gRPC, SQL, Flight SQL, client libraries]
+related:
+  - /influxdb/cloud-serverless/reference/client-libraries/v3/go/
 aliases:
   - /influxdb/cloud-serverless/reference/client-libraries/flight-sql/go-flightsql/
 weight: 201
 ---
 
 [Apache Arrow for Go](https://pkg.go.dev/github.com/apache/arrow/go/v12) integrates with Go scripts and applications to query data stored in InfluxDB.
+
+{{% note %}}
+#### Use InfluxDB v3 client libraries
+
+We recommend using the [`influxdb3-go` Go client library](/influxdb/cloud-serverless/reference/client-libraries/v3/go/) for integrating InfluxDB v3 with your Go application code.
+
+[InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
+and provide convenient methods for [writing](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-serverless/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+Client libraries can query using SQL or InfluxQL.
+{{% /note %}}
 
 ## Flight SQL client
 
@@ -127,10 +139,10 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
         1.  Defines variables for InfluxDB credentials.
           
             - **`url`**: {{% product-name %}} region hostname and port (`:443`) _(no protocol)_
-            - **`token`**:  an [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with _read_  access to the specified bucket.
+            - **`database`**: the name of the {{% product-name %}} bucket to query
+            - **`token`**:  an [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with read permission on the specified bucket.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
-            - **`database`**: the name of the {{% product-name %}} bucket to query
 
         2.  Defines an `opts` options list that includes a gRPC transport for communicating
         with InfluxDB over the _gRPC+TLS_ protocol.

@@ -36,7 +36,7 @@ If just getting started, see [Get started with InfluxDB](/influxdb/clustered/get
     go get github.com/influxdata/influxdb-client-go/v2
     ```
 3. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to your {{% product-name %}} cluster, contact your InfluxData account representative.
+   For information about what URL to use to connect to your {{% product-name omit=" Clustered" %}} cluster, contact your InfluxData account representative.
 
 ## Boilerplate for the InfluxDB Go Client Library  
 

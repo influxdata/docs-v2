@@ -81,6 +81,7 @@ uint|UINT
 uinteger
 unescaped
 unix
+upsample
 upsert
 urls
 venv

@@ -63,7 +63,7 @@ If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/) to serve your front-end app.
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to your {{% product-name %}} cluster, contact your InfluxData account representative.
+   For information about what URL to use to connect to your {{% product-name omit=" Clustered" %}} cluster, contact your InfluxData account representative.
 
 ## Use with module bundlers
 
@@ -126,7 +126,7 @@ The client library includes an example browser app that writes to your InfluxDB 
     cd examples
     ```
 
-3. Update `./env_browser.js` with your {{% product-name %}} cluster URL, your database name as `bucket`, an arbitrary string as `org`, and your database token.
+3. Update `./env_browser.js` with your {{% product-name omit=" Clustered" %}} cluster URL, your database name as `bucket`, an arbitrary string as `org`, and your database token.
 
 4. Run the following command to start the application at [http://localhost:3001/examples/index.html]()
 

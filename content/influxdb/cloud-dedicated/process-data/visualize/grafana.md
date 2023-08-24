@@ -172,7 +172,7 @@ query {{% product-name %}}:
     _{{% product-name %}} does not support Flux._
 6.  Under **HTTP**:
 
-    - **URL**: Provide your {{% product-name %}} cluster URL using the HTTPS
+    - **URL**: Provide your {{% product-name omit=" Clustered" %}} cluster URL using the HTTPS
       protocol:
 
       ```

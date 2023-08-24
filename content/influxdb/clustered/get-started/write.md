@@ -399,7 +399,7 @@ dependencies to your current project.
     2.  Calls the `InfluxDBClient3()` constructor to instantiate an InfluxDB client
         configured with the following credentials:
 
-        - **`host`**: {{% product-name %}} cluster hostname (URL without protocol or trailing slash)
+        - **`host`**: {{% product-name omit=" Clustered" %}} cluster hostname (URL without protocol or trailing slash)
         - **`org`**: an empty or arbitrary string (InfluxDB ignores this parameter)
         - **`token`**: an InfluxDB [database token](/influxdb/clustered/admin/tokens/) with write access to the target database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
@@ -544,7 +544,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     2.  Defines a `WriteLineProtocol()` function that does the following:
         
         1.  To instantiate the client, calls the `influx.New(influx.Configs)` function and passes the following:
-            - **`HostURL`**: the {{% product-name %}} cluster URL
+            - **`HostURL`**: the {{% product-name omit=" Clustered" %}} cluster URL
             - **`AuthToken`**: an InfluxDB [database token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
             - **`WriteParams`**: `influx.WriteParams` options for writing to InfluxDB.
@@ -691,7 +691,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     2.  Calls the `new InfluxDBClient()` constructor and passes a `ClientOptions` object to instantiate a client configured
         with InfluxDB credentials.
 
-        - **`host`**: your {{% product-name %}} cluster URL
+        - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
         - **`token`**: an [database token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
@@ -847,7 +847,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
            with InfluxDB credentials.
 
-          - **`hostUrl`**: your {{% product-name %}} cluster URL
+          - **`hostUrl`**: your {{% product-name omit=" Clustered" %}} cluster URL
           - **`database`**: the name of the {{% product-name %}} database to write to
           - **`authToken`**: an [database token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified bucket.
             _Store this in a secret store or environment variable to avoid exposing the raw token string._
@@ -1042,7 +1042,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
     2.  Calls `InfluxDBClient.getInstance()` to instantiate a client configured
         with InfluxDB credentials.
 
-        - **`hostUrl`**: your {{% product-name %}} cluster URL
+        - **`hostUrl`**: your {{% product-name omit=" Clustered" %}} cluster URL
         - **`database`**: the name of the {{% product-name %}} database to write to
         - **`authToken`**: an [database token](/influxdb/clustered/admin/tokens/) with _write_ access to the specified database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._

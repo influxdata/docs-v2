@@ -7,12 +7,24 @@ menu:
     parent: Arrow Flight clients
     identifier: go-flight-client
 influxdb/cloud-dedicated/tags: [Go, gRPC, SQL, Flight SQL, client libraries]
+related:
+  - /influxdb/cloud-dedicated/reference/client-libraries/v3/go/
 aliases:
   - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/go-flightsql/
 weight: 201
 ---
 
 [Apache Arrow for Go](https://pkg.go.dev/github.com/apache/arrow/go/v12) integrates with Go scripts and applications to query data stored in InfluxDB.
+
+{{% note %}}
+#### Use InfluxDB v3 client libraries
+
+We recommend using the [`influxdb3-go` Go client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/go/) for integrating InfluxDB v3 with your Go application code.
+
+[InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
+and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+Client libraries can query using SQL or InfluxQL.
+{{% /note %}}
 
 ## Flight SQL client
 
@@ -126,11 +138,12 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
 
         1.  Defines variables for InfluxDB credentials.
           
-            - **`url`**: {{% product-name %}} cluster hostname and port (`:443`) _(no protocol)_
-            - **`token`**:  a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-an-all-access-api-token) with _read_  access to the specified bucket.
+            - **`url`**: {{% product-name omit=" Clustered" %}} cluster hostname and port (`:443`) _(no protocol)_
+            - **`database`**: the name of the {{% product-name %}} database to query
+            - **`token`**:  a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-an-all-access-api-token) with read permission on the specified database.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
-            - **database**: the name of the {{% product-name %}} database to query
+
 
         2.  Defines an `opts` options list that includes a gRPC transport for communicating
         with InfluxDB over the _gRPC+TLS_ protocol.

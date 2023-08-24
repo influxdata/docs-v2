@@ -94,7 +94,7 @@ The InfluxDB output plugin configuration contains the following options:
 ##### urls
 
 An array of URL strings.
-To write to {{% product-name %}}, include your {{% product-name %}} cluster URL using the HTTPS protocol:
+To write to {{% product-name %}}, include your {{% product-name omit=" Clustered" %}} cluster URL using the HTTPS protocol:
 
 ```toml
 ["https://{{< influxdb/host >}}"]

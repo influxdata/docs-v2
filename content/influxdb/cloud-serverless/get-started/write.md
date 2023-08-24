@@ -267,7 +267,7 @@ and then write it to {{< product-name >}}.
       ```
 
     - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]` section, replace the default values with the following configuration for your InfluxDB Cloud Serverless bucket:
-
+p
       ```toml
       [[outputs.influxdb_v2]]
         # InfluxDB Cloud Serverless region URL
@@ -533,12 +533,11 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       "fmt"
       "log"
 
-      "github.com/InfluxCommunity/influxdb3-go/influx"
+      "github.com/InfluxCommunity/influxdb3-go/influxdb3"
     )
 
     // Write line protocol data to InfluxDB
     func WriteLineProtocol() error {
-      url := "https://{{< influxdb/host >}}"
       // INFLUX_TOKEN is an environment variable you assigned to your
       // API WRITE token value.
       token := os.Getenv("INFLUX_TOKEN")
@@ -546,17 +545,18 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       
       // Initialize a client with URL and token,
       // and set the timestamp precision for writes.
-      client, err := influx.New(influx.Configs{
-        HostURL: url,
-        AuthToken: token,
-		    WriteParams: influx.WriteParams{Precision: lineprotocol.Second},
+      client, err := influxdb3.New(influxdb3.ClientConfig{
+        Host:     "https://{{< influxdb/host >}}",
+        Token:    token,
+        Database: database,
+		    WriteOptions: &influxdb3.WriteOptions{Precision: lineprotocol.Second},
       })
 
       // Close the client when the function returns.
-      defer func (client *influx.Client)  {
+      defer func(client *influxdb3.Client) {
         err := client.Close()
         if err != nil {
-            panic(err)
+          panic(err)
         }
       }(client)
 
@@ -596,7 +596,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       // Iterate over the lines array and write each line
       // separately to InfluxDB
       for _, record := range lines {
-        err = client.Write(context.Background(), database, []byte(record))
+        err = client.Write(context.Background(), []byte(record))
         if err != nil {
           log.Fatalf("Error writing line protocol: %v", err)
         }
@@ -617,11 +617,11 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       
     2.  Defines a `WriteLineProtocol()` function that does the following:
         
-        1.  To instantiate the client, calls the `influx.New(influx.Configs)` function and passes the following:
-            - **`HostURL`**: the {{% product-name %}} region URL
-            - **`AuthToken`**: an InfluxDB [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+        1.  To instantiate the client, calls the `influxdb3.New(influxdb3.ClientConfig)` function and passes the following:
+            - **`Host`**: your {{% product-name %}} region URL
+            - **`Token`**: an InfluxDB [API](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
-            - **`WriteParams`**: `influx.WriteParams` options for writing to InfluxDB.
+            - **`WriteOptions`**: `influxdb3.WriteOptions` options for writing to InfluxDB.
 
               **Because the timestamps in the sample line protocol are in second
               precision, the example passes the `Precision: lineprotocol.Second` option
@@ -854,19 +854,19 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       public static async Task WriteLines()
       {
         // Set InfluxDB credentials
-        const string hostUrl = "https://{{< influxdb/host >}}";
+        const string host = "https://{{< influxdb/host >}}";
         string? database = "get-started";
 
         /**
           * INFLUX_TOKEN is an environment variable you assigned to your
           * API WRITE token value.
           */
-        string? authToken = System.Environment
+        string? token = System.Environment
             .GetEnvironmentVariable("INFLUX_TOKEN");
 
         // Instantiate the InfluxDB client with credentials.
         using var client = new InfluxDBClient(
-            hostUrl, authToken: authToken, database: database);
+            host, token: token, database: database);
 
         /** 
           * Define an array of line protocol strings to write.
@@ -921,9 +921,9 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
            with InfluxDB credentials.
 
-          - **hostUrl**: your {{% product-name %}} region URL
+          - **host**: your {{% product-name %}} region URL
           - **database**: the name of the {{% product-name %}} bucket to write to
-          - **authToken**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+          - **token**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
             _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
           _Instantiating the client with the `using` statement ensures that the client is disposed of when it's no longer needed._
@@ -975,6 +975,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 <!---------------------------- BEGIN JAVA CONTENT --------------------------->
 
 _The tutorial assumes using Maven version 3.9 and Java version >= 15._
+
 1.  If you haven't already, follow the instructions to download and install the [Java JDK](https://www.oracle.com/java/technologies/downloads/) and [Maven](https://maven.apache.org/download.cgi) for your system.
 2.  In your terminal or editor, use Maven to generate a project--for example:
 
@@ -986,7 +987,8 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
     -Dversion="1.0"
     ```
 
-    The example command creates the `<artifactId>` directory (`./influxdb_java_client`) that contains a `pom.xml` and scaffolding for your `com.influxdbv3.influxdb_java_client` Java application.
+    Maven creates the `<artifactId>` directory (`./influxdb_java_client`) that
+    contains a `pom.xml` and scaffolding for your `com.influxdbv3.influxdb_java_client` Java application.
 
 3.  In your terminal or editor, change into the `./influxdb_java_client` directory--for example:
 
@@ -1022,7 +1024,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
 
     import java.util.List;
     import com.influxdb.v3.client.InfluxDBClient;
-    import com.influxdb.v3.client.write.WriteParameters;
+    import com.influxdb.v3.client.write.WriteOptions;
     import com.influxdb.v3.client.write.WritePrecision;
 
     /**
@@ -1043,19 +1045,19 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
         public static void writeLineProtocol() throws Exception {
         
             // Set InfluxDB credentials
-            final String hostUrl = "https://cloud2.influxdata.com";
+            final String host = "https://{{< influxdb/host >}}";
             final String database = "get-started";
 
             /**
               * INFLUX_TOKEN is an environment variable you assigned to your
               * API WRITE token value.
               */
-            final char[] authToken = (System.getenv("INFLUX_TOKEN")).
+            final char[] token = (System.getenv("INFLUX_TOKEN")).
             toCharArray();
 
             // Instantiate the InfluxDB client.
-            try (InfluxDBClient client = InfluxDBClient.getInstance(hostUrl,
-            authToken, database)) {
+            try (InfluxDBClient client = InfluxDBClient.getInstance(host,
+            token, database)) {
                 // Create a list of line protocol records.
                 final List<String> records = List.of(
                   "home,room=Living\\ Room temp=21.1,hum=35.9,co=0i 1641024000",
@@ -1092,7 +1094,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
                  * If no error occurs, print a success message.
                  * */
                 for (String record : records) {
-                    client.writeRecord(record, new WriteParameters(null, null,
+                    client.writeRecord(record, new WriteOptions(null, null,
                     WritePrecision.S));
                     System.out.printf("Data has been written successfully:
                     %s%n", record);
@@ -1114,9 +1116,9 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
     2.  Calls `InfluxDBClient.getInstance()` to instantiate a client configured
         with InfluxDB credentials.
 
-        - **`hostUrl`**: the {{% product-name %}} region URL
+        - **`host`**: your {{% product-name %}} region URL
         - **`database`**: the name of the {{% product-name %}} bucket to write to
-        - **`authToken`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
+        - **`token`**: an [API token](/influxdb/cloud-serverless/admin/tokens/) with _write_ access to the specified bucket.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
     2.  Defines a list of line protocol strings where each string represents a data record.

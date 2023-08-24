@@ -30,7 +30,7 @@ If you haven't already, [download and install Chronograf](/{{< latest "chronogra
    and then click **{{< icon "plus" >}} Add Connection**.
 2. Enter your {{% product-name %}} connection credentials:
 
-    - **Connection URL:** {{% product-name %}} cluster URL
+    - **Connection URL:** {{% product-name omit=" Clustered" %}} cluster URL
 
       ```
       https://{{< influxdb/host >}}

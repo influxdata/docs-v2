@@ -386,7 +386,7 @@ _If your project's virtual environment is already running, skip to step 3._
   
   2.  Calls the `InfluxDBClient3()` constructor method with credentials to instantiate an InfluxDB `client` with the following credentials:
 
-      - **`host`**: {{% product-name %}} cluster URL (without `https://` protocol or trailing slash)
+      - **`host`**: {{% product-name omit=" Clustered" %}} cluster URL (without `https://` protocol or trailing slash)
       - **`token`**: a [database token](/influxdb/clustered/admin/tokens/) with
         read access to the specified database.
         _Store this in a secret store or environment variable to avoid exposing the raw token string._
@@ -408,7 +408,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
   7.  Calls the `print()` method to print the markdown table to stdout.
 
-2.  Enter the following command to run the program and query your {{% product-name %}} cluster:
+2.  Enter the following command to run the program and query your {{% product-name omit=" Clustered" %}} cluster:
 
     ```sh
     python query.py
@@ -547,7 +547,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
         1.  Instantiates `influx.Client` with InfluxDB credentials.
           
-            - **`HostURL`**: your {{% product-name %}} cluster URL
+            - **`HostURL`**: your {{% product-name omit=" Clustered" %}} cluster URL
             - **`AuthToken`**:  a [database token](/influxdb/clustered/admin/tokens/) with _read_  access to the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
@@ -653,7 +653,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
     2.  Calls `new InfluxDBClient()` and passes a `ClientOptions` object to instantiate a client configured
         with InfluxDB credentials.
 
-        - **`host`**: your {{% product-name %}} cluster URL
+        - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
         - **`token`**: an [database token](/influxdb/clustered/admin/tokens/) with _read_ access to the specified database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
@@ -779,7 +779,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
         1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
               with InfluxDB credentials.
           
-            - **`hostURL`**: your {{% product-name %}} cluster URL.
+            - **`hostURL`**: your {{% product-name omit=" Clustered" %}} cluster URL.
             - **`authToken`**: a [database token](/influxdb/clustered/admin/tokens/) with _read_  access to the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
             - **`database`**: the name of the {{% product-name %}} database to query
@@ -807,7 +807,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
       }
       ```
 
-4.  To execute the program and query your {{% product-name %}} cluster,
+4.  To execute the program and query your {{% product-name omit=" Clustered" %}} cluster,
     enter the following commands in your terminal:
 
     ```sh
@@ -908,7 +908,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
         1.  Calls `InfluxDBClient.getInstance()` to instantiate a client configured
             with InfluxDB credentials.
 
-            - **`hostUrl`**: your {{% product-name %}} cluster URL
+            - **`hostUrl`**: your {{% product-name omit=" Clustered" %}} cluster URL
             - **`database`**: the name of the {{% product-name %}} database to write to
             - **`authToken`**: a [database token](/influxdb/clustered/admin/tokens/) with _read_ access to the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._

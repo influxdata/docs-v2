@@ -37,7 +37,7 @@ This endpoint can't query an {{% product-name %}} database.
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/).
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to your {{% product-name %}} cluster, contact your InfluxData account representative.
+   For information about what URL to use to connect to your {{% product-name omit=" Clustered" %}} cluster, contact your InfluxData account representative.
 
 3. In your terminal, create a directory for your Node.js project and change to it.
 
