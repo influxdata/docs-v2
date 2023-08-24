@@ -64,7 +64,7 @@ the WAL to the Parquet files before shutting down.
 
 - **Backup of Parquet files**: Parquet files are stored in object storage where
   they are redundantly stored on multiple devices across a minimum of three
-  availability zones in a cloud Region. Parquet files associated with each
+  availability zones in a cloud region. Parquet files associated with each
   database are kept in object storage for the duration of database retention period
   plus an additional time period (approximately 100 days).
 
@@ -81,7 +81,7 @@ InfluxData can perform the following recovery operations:
   started up and reads from the WAL file for the recently ingested data.
 
 - **Recovery of Parquet files**: {{< cloud-name >}} uses the provided object
-  storage-provided data durability to recover Parquet files.
+  storage data durability to recover Parquet files.
 
 - **Recovery of the catalog**: InfluxData can restore the InfluxDB catalog to
   the most recent daily backup of the catalog and then reapply any transactions
