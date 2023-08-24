@@ -344,7 +344,7 @@ _If your project's virtual environment is already running, skip to step 3._
 {{% expand "<span class='req'>Important</span>: If using **Windows**, specify the **Windows** certificate path" %}}
 
   When instantiating the client, Python looks for SSL/TLS certificate authority (CA) certificates for verifying the server's authenticity.
-  If using a non-POSIX-compliant operating system (such as Windows), you'll need to specify a certificate bundle path that Python can access on your system.
+  If using a non-POSIX-compliant operating system (such as Windows), you need to specify a certificate bundle path that Python can access on your system.
 
   The following example shows how to use the [Python `certifi` package](https://certifiio.readthedocs.io/en/latest/) and client library options to provide a bundle of trusted certificates to the Python Flight client:
 
