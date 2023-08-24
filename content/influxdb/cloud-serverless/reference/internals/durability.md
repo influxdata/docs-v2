@@ -8,7 +8,7 @@ weight: 102
 menu:
   influxdb_cloud_serverless:
     name: Data durability
-    parent: InfluxDB internals
+    parent: InfluxDB Cloud internals
 influxdb/cloud-dedicated/tags: [backups, internals]
 related:
   - https://docs.aws.amazon.com/AmazonS3/latest/userguide/DataDurability.html, AWS S3 Data Durabililty
