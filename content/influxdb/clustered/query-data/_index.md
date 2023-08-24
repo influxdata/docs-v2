@@ -1,6 +1,6 @@
 ---
-title: Query data in InfluxDB Clustered
-seotitle: Query data stored in InfluxDB Clustered
+title: Query data in InfluxDB Cloud
+seotitle: Query data stored in InfluxDB Cloud
 description: >
   Learn to query data stored in InfluxDB using SQL and InfluxQL.
 menu:

@@ -10,7 +10,7 @@ weight: 102
 influxdb/clustered/tags: [query, influxql]
 ---
 
-Learn to use InfluxQL to query data stored in InfluxDB Clustered.
+Learn to use InfluxQL to query data stored in {{% product-name %}}.
 
 {{< children type="anchored-list" >}}
 

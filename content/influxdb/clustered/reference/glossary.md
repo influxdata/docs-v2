@@ -103,7 +103,7 @@ By convention, you can express `true` as the integer `1` and false as the intege
 ### bucket
 
 "Bucket" is the term used in InfluxDB 2.x and _InfluxDB Cloud Serverless_ to refer
-to named location where time series data is stored.
+to a named location where time series data is stored.
 Bucket is synonymous with "database" when using InfluxDB Clustered.
 
 Related entries:
@@ -1021,7 +1021,7 @@ Related entries:
 
 The InfluxDB v1 and v2 data storage format that allows greater compaction and
 higher write and read throughput than B+ or LSM tree implementations.
-The TSM storage engine has been replace by [IOx](#iox).
+The TSM storage engine has been replaced by [IOx](#iox).
 
 Related entries:
 [IOx](#iox)

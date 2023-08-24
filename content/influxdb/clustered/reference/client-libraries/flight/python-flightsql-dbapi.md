@@ -1,6 +1,8 @@
 ---
 title: Python Flight SQL DBAPI client
-description: The Python `flightsql-dbapi` library uses SQL and the Flight SQL protocol to query data stored in an InfluxDB Clustered database. 
+description: >
+  The Python `flightsql-dbapi` library uses SQL and the Flight SQL protocol to
+  query data stored in an InfluxDB Clustered database. 
 menu:
   influxdb_clustered:
     name: Python Flight SQL
@@ -8,20 +10,18 @@ menu:
     identifier: python-flightsql-client
 influxdb/clustered/tags: [Python, SQL, Flight SQL]
 weight: 201
-aliases:
-  - /influxdb/clustered/reference/client-libraries/flight-sql/python-flightsql/
 ---
 
 The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influxdata/flightsql-dbapi) integrates with Python applications using SQL to query data stored in an {{% product-name %}} database. The `flightsql-dbapi` library uses the [Flight SQL protocol](https://arrow.apache.org/docs/format/FlightSql.html) to query and retrieve data.
 
 {{% note %}}
-#### InfluxDB v3 client libraries
+#### Use InfluxDB v3 client libraries
 
 We recommend using the [`influxdb3-python` Python client library](/influxdb/clustered/reference/client-libraries/v3/python/) for integrating InfluxDB v3 with your Python application code.
 
-[InfluxDB v3 client libraries](/influxdb/clustered/reference/client-libraries/v3/) client libraries wrap Apache Arrow Flight clients
-and provide convenient methods for writing, querying, and processing data stored in {{% product-name %}}.
-Client libraries can query using [SQL](/influxdb/clustered/query-data/sql/execute-queries/python/) or [InfluxQL](/influxdb/clustered/query-data/influxql/execute-queries/python/).
+[InfluxDB v3 client libraries](/influxdb/clustered/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
+and provide convenient methods for [writing](/influxdb/clustered/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/clustered/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
+Client libraries can query using SQL or InfluxQL.
 {{% /note %}}
 
 ## Installation
@@ -73,7 +73,7 @@ a client](#initialize-a-client) and interacting with a Flight SQL server.
 __init__(self, host=None, token=None, metadata=None, features=None)
 ```
 
-Initializes and returns a `FlightSQLClient` instance for interating with the server.
+Initializes and returns a `FlightSQLClient` instance for interacting with the server.
 
 ## Initialize a client
 

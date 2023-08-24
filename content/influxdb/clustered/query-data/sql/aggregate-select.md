@@ -1,6 +1,6 @@
 ---
 title: Aggregate or apply selector functions to data
-seotitle: Perform a basic SQL query in InfluxDB Clustered
+seotitle: Perform a basic SQL query in InfluxDB Cloud
 description: >
   Use aggregate and selector functions to perform aggregate operations on your
   time series data.
@@ -139,7 +139,7 @@ The following examples use the sample data written in the
 [Get started writing data guide](/influxdb/clustered/get-started/write/).
 To run the example queries and return results,
 [write the sample data](/influxdb/clustered/get-started/write/#write-line-protocol-to-influxdb)
-to your InfluxDB database before running the example queries.
+to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
 ### Perform an ungrouped aggregation
