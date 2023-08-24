@@ -52,7 +52,7 @@ the WAL to the Parquet files before shutting down.
 
 ## Backups
 
-{{< cloud-name >}} implements to following data backup strategies:
+{{< cloud-name >}} implements the following data backup strategies:
 
 - **Backup of WAL file**: The WAL file is written on locally-attached storage.
   If an ingester process fails, the new ingester simply reads the WAL file on
