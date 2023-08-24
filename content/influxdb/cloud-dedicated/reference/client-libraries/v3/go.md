@@ -80,7 +80,7 @@ import (
 
 func main() {
     client, err := influxdb3.New(influxdb3.ClientConfig{
-        Host:       "https://cluster-id.influxdb.io",
+        Host:       "https://{{< influxdb/host >}}",
         Token:      "DATABASE_TOKEN",
         Database:   "DATABASE_NAME",
     })

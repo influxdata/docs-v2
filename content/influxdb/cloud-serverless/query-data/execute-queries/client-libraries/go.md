@@ -1,5 +1,6 @@
 ---
-title: Use Go and SQL or InfluxQL to query data
+title: Use Go to query data
+seotitle: Use Go and SQL or InfluxQL to query data
 list_title: Use Go
 description: >
   Use the `influxdb3-go` Go package and SQL or InfluxQL to query data stored in InfluxDB.
@@ -25,7 +26,7 @@ list_code_example: |
 
     func Query() error {
         client, err := influxdb3.New(influxdb3.ClientConfig{
-            Host:       "https://cluster-id.influxdb.io",
+            Host:       "https://cloud2.influxdata.com",
             Token:      "DATABASE_TOKEN",
             Database:   "DATABASE_NAME",
         })
@@ -145,7 +146,7 @@ func Query() error {
 
     // Instantiate the client.
     client, err := influxdb3.New(influxdb3.ClientConfig{
-        Host:       "https://cloud2.influxdata.com",
+        Host:       "https://{{< influxdb/host >}}",
         Token:      "API_TOKEN",
         Database:   "BUCKET_NAME",
     })
@@ -242,7 +243,7 @@ func InfluxQL() error {
 
     // Instantiate the client.
     client, err := influxdb3.New(influxdb3.ClientConfig{
-        Host:       "https://cloud2.influxdata.com",
+        Host:       "https://{{< influxdb/host >}}",
         Token:      "API_TOKEN",
         Database:   "BUCKET_NAME",
     })

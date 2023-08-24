@@ -186,7 +186,7 @@ and then write it to {{< cloud-name >}}.
         files = ["home.lp"]
       ```
 
-    - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]` section, replace the default values with the following configuration for your InfluxDB Cloud Dedicated database:
+    - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]` section, replace the default values with the following configuration for your {{% cloud-name %}} database:
 
       ```toml
       [[outputs.influxdb_v2]]
@@ -472,7 +472,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       // Initialize a client with URL and token,
       // and set the timestamp precision for writes.
       client, err := influxdb3.New(influxdb3.ClientConfig{
-        Host:     "https://cluster-id.influxdb.io",
+        Host:     "https://{{< influxdb/host >}}",
         Token:    token,
         Database: database,
 		    WriteOptions: &influxdb3.WriteOptions{Precision: lineprotocol.Second},
@@ -781,7 +781,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       public static async Task WriteLines()
       {
         // Set InfluxDB credentials
-        const string host = "https://cluster-id.influxdb.io";
+        const string host = "https://{{< influxdb/host >}}";
         string? database = "get-started";
 
         /**
@@ -968,7 +968,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
         public static void writeLineProtocol() throws Exception {
         
             // Set InfluxDB credentials
-            final String host = "https://cluster-id.influxdb.io";
+            final String host = "https://{{< influxdb/host >}}";
             final String database = "get-started";
 
             /**

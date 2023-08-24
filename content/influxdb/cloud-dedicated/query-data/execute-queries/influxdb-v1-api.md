@@ -55,7 +55,7 @@ Provide the following with your request:
 
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```sh
-curl --get https://cluster-id.influxdb.io/query \
+curl --get https://{{< influxdb/host >}}/query \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"

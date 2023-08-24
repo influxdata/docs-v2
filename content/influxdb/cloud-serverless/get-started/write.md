@@ -548,7 +548,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       // Initialize a client with URL and token,
       // and set the timestamp precision for writes.
       client, err := influxdb3.New(influxdb3.ClientConfig{
-        Host:     "https://cloud2.influxdata.com",
+        Host:     "https://{{< influxdb/host >}}",
         Token:    token,
         Database: database,
 		    WriteOptions: &influxdb3.WriteOptions{Precision: lineprotocol.Second},
@@ -856,7 +856,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       public static async Task WriteLines()
       {
         // Set InfluxDB credentials
-        const string host = "https://cloud2.influxdata.com";
+        const string host = "https://{{< influxdb/host >}}";
         string? database = "get-started";
 
         /**
@@ -1047,7 +1047,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
         public static void writeLineProtocol() throws Exception {
         
             // Set InfluxDB credentials
-            final String host = "https://cloud2.influxdata.com";
+            final String host = "https://{{< influxdb/host >}}";
             final String database = "get-started";
 
             /**

@@ -81,7 +81,7 @@ import (
 func Query() error {
 
     client, err := influxdb3.New(influxdb3.ClientConfig{
-        Host:       "https://cloud2.influxdata.com",
+        Host:       "https://{{< influxdb/host >}}",
         Token:      "API_TOKEN",
         Database:   "BUCKET_NAME",
     })

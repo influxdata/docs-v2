@@ -737,7 +737,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
           * Instantiate the InfluxDB client with credentials.
           **/
         using var client = new InfluxDBClient(
-            "https://cluster-id.influxdb.io", token: token, database: database);
+            "https://{{< influxdb/host >}}", token: token, database: database);
       
         const string sql = @"
           SELECT time, room, temp, hum, co
@@ -854,7 +854,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
             */
 
             /** Set InfluxDB credentials. **/
-            final String host = "https://cluster-id.influxdb.io";
+            final String host = "https://{{< influxdb/host >}}";
             final String database = "get-started";
 
             /** INFLUX_TOKEN is an environment variable you assigned to your

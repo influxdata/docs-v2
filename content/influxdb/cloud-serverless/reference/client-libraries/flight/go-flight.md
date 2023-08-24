@@ -21,7 +21,7 @@ weight: 201
 
 We recommend using the [`influxdb3-go` Go client library](/influxdb/cloud-serverless/reference/client-libraries/v3/go/) for integrating InfluxDB v3 with your Go application code.
 
-[InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) client libraries wrap Apache Arrow Flight clients
+[InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
 and provide convenient methods for [writing](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-serverless/get-started/query/#execute-an-sql-query), and processing data stored in {{% cloud-name %}}.
 Client libraries can query using SQL or InfluxQL.
 {{% /note %}}

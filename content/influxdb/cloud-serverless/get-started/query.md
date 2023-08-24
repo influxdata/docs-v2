@@ -374,7 +374,7 @@ _If your project's virtual environment is already running, skip to step 3._
 {{% expand "<span class='req'>Important</span>: If using **Windows**, specify the **Windows** certificate path" %}}
 
   When instantiating the client, Python looks for SSL/TLS certificate authority (CA) certificates for verifying the server's authenticity.
-  If using a non-POSIX-compliant operating system (such as Windows), you'll need to specify a certificate bundle path that Python can access on your system.
+  If using a non-POSIX-compliant operating system (such as Windows), you need to specify a certificate bundle path that Python can access on your system.
 
   The following example shows how to use the [Python `certifi` package](https://certifiio.readthedocs.io/en/latest/) and client library options to provide a bundle of trusted certificates to the Python Flight client:
 
@@ -515,7 +515,7 @@ _If your project's virtual environment is already running, skip to step 3._
       
       // Instantiate the client.
       client, err := influxdb3.New(influxdb3.ClientConfig{
-        Host:     "https://cloud2.influxdata.com",
+        Host:     "https://{{< influxdb/host >}}",
         Token:    token,
         Database: "get-started",
       })
@@ -766,7 +766,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
           * Instantiate the InfluxDB client with credentials.
           **/
         using var client = new InfluxDBClient(
-            "https://cloud2.influxdata.com", token: token, database: database);
+            "https://{{< influxdb/host >}}", token: token, database: database);
       
         const string sql = @"
           SELECT time, room, temp, hum, co
@@ -883,7 +883,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
             */
 
             /** Set InfluxDB credentials. **/
-            final String host = "https://cloud2.influxdata.com";
+            final String host = "https://{{< influxdb/host >}}";
             final String database = "get-started";
 
             /** INFLUX_TOKEN is an environment variable you assigned to your

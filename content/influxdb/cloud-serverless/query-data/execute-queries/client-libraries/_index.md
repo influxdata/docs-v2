@@ -1,5 +1,6 @@
 ---
-title: Use InfluxDB client libraries and SQL or InfluxQL to query data
+title: Use InfluxDB client libraries to query data
+seotitle: Use InfluxDB client libraries and SQL or InfluxQL to query data
 list_title: Use client libraries
 description: >
   Use the InfluxDB v3 client libraries with SQL or InfluxQL to query data stored in InfluxDB.

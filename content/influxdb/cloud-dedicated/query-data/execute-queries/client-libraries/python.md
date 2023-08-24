@@ -1,5 +1,6 @@
 ---
-title: Use Python and SQL or InfluxQL to query data
+title: Use Python to query data
+seotitle: Use Python and SQL or InfluxQL to query data
 list_title: Use Python
 description: >
   Use the `influxdb_client_3` Python module and SQL or InfluxQL to query data stored in InfluxDB.
@@ -366,7 +367,7 @@ print(table.group_by('room').aggregate([('temp', 'mean')]))
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
