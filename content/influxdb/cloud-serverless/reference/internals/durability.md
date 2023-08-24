@@ -1,12 +1,12 @@
 ---
-title: InfluxDB Cloud Dedicated data durability
+title: InfluxDB Cloud Serverless data durability
 description: >
-  InfluxDB Cloud Dedicated replicates all time series data in the storage tier across
+  InfluxDB Cloud Serverless replicates all time series data in the storage tier across
   multiple availability zones within a cloud region and automatically creates backups
   that can be used to restore data in the event of a node failure or data corruption.
 weight: 102
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_cloud_serverless:
     name: Data durability
     parent: InfluxDB internals
 influxdb/cloud-dedicated/tags: [backups, internals]
