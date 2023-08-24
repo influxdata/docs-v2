@@ -355,5 +355,5 @@ InfluxDB Cloud Dedicated cluster.
 
   To silence the warning, make one of the following changes to your system:
   
-  - Unset the `GTK_MODULES` environment variable or remove `gail:atk-bridge` from it's value.
+  - Unset the `GTK_MODULES` environment variable or remove `gail:atk-bridge` from its value.
   - Remove the `libatk-adaptor` package and reboot.
