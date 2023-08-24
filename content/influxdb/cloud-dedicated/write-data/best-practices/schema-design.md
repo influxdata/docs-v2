@@ -47,16 +47,20 @@ tags and fields.
       - **Tags**: Key-value pairs that store metadata string values for each point--for example,
         a value that identifies or differentiates the data source or context--for example, host,
         location, station, etc.
+        Tag values may be null.
       - **Fields**: Key-value pairs that store data for each point--for example,
         temperature, pressure, stock price, etc.
+        Field values may be null, but at least one field value is not null on any given row.
       - **Timestamp**: Timestamp associated with the data.
         When stored on disk and queried, all data is ordered by time.
         In InfluxDB, a timestamp is a nanosecond-scale [unix timestamp](#unix-timestamp) in UTC.
+        A timestamp is never null.
 
 ### Primary keys
 
 In time series data, the primary key for a row of data is typically a combination of timestamp and other attributes that uniquely identify each data point.
 In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-dedicated/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-dedicated/reference/glossary/#tag-value) on the point.
+A row's primary key _tag set_ does not include tags with null values.
 
 ### Tags versus fields
 
