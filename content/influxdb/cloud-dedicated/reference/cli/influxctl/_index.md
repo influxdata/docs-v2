@@ -343,3 +343,11 @@ credentials you should have created when setting up your InfluxDB Cloud
 Dedicated cluster.
 Auth0 issues a short-lived (1 hour) token that authenticates access to your
 InfluxDB Cloud Dedicated cluster.
+
+
+When authenticating on Linux, if you see a warning on `stderr` like
+`Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.`,
+this can be prevented by either:
+- Unsetting the `GTK_MODULES` environment variable
+  (or at least removing `gail:atk-bridge` from it's value)
+- Removing the `libatk-adaptor` package and rebooting
