@@ -486,7 +486,7 @@ _If your project's virtual environment is already running, skip to step 3._
 
       // Instantiate the client.
       client, err := influxdb3.New(influxdb3.ClientConfig{
-        Host:     "https://cluster-id.influxdb.io",
+        Host:     "https://{{< influxdb/host >}}",
         Token:    token,
         Database: "get-started",
       })
