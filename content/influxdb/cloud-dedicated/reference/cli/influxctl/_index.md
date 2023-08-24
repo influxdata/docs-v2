@@ -347,13 +347,14 @@ InfluxDB Cloud Dedicated cluster.
 
 ## Troubleshoot
 
-- **Not loading module "atk-bridge"**: When authenticating, some Linux systems might report the following warning in the terminal (stderr):
+- **Not loading module "atk-bridge"**: When authenticating, some Linux systems might report the following warning in the terminal (on stderr):
 
   ```sh
   Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
   ```
 
-  To silence the warning, make one of the following changes to your system:
-  
-  - Unset the `GTK_MODULES` environment variable or remove `gail:atk-bridge` from its value.
-  - Remove the `libatk-adaptor` package and reboot.
+  To silence the warning when running `influxctl` commands, unset the `GTK_MODULES` environment variable (or remove `gail:atk-bridge` from its value)--for example:
+
+  ```sh
+  GTK_MODULES= influxctl ...
+  ```
