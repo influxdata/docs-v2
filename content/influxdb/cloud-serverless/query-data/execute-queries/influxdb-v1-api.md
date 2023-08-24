@@ -75,7 +75,7 @@ curl --get https://cloud2.influxdata.com/query \
 Replace the following configuration values:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  the name of the [database (bucket)](/influxdb/cloud-serverless/admin/buckets/) to query.
+  the name of the [database (bucket)](/influxdb/cloud-serverless/admin/buckets/) to query
 - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}:
   an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified database.
 
