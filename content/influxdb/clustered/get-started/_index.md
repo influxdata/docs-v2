@@ -56,10 +56,13 @@ Measurements contain multiple tags and fields.
       - **Tags**: Key-value pairs that provide metadata for each point--for example,
         something to identify the source or context of the data like host,
         location, station, etc.
+        Tag values may be null.
       - **Fields**: Key-value pairs with values that change over time--for example,
         temperature, pressure, stock price, etc.
+        Field values may be null, but at least one field value is not null on any given row.
       - **Timestamp**: Timestamp associated with the data.
         When stored on disk and queried, all data is ordered by time.
+        A timestamp is never null.
 
 ### Schema on write
 
@@ -76,6 +79,7 @@ The following definitions are important to understand when using InfluxDB:
 - **Series**: A group of points with the same _measurement, tag keys and values, and field key_.
 - **Primary key**: Columns used to uniquely identify each row in a table.
   Rows are uniquely identified by their _timestamp and tag set_.
+  A row's primary key _tag set_ does not include tags with null values.
 
 ##### Example InfluxDB query results
 
