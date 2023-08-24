@@ -68,8 +68,8 @@ the WAL to the Parquet files before shutting down.
   plus an additional time period (approximately 100 days).
 
 - **Backup of catalog**: InfluxData keeps a transaction log of all recent updates
-  to the [InfluxDB catalog](#influxdb-catalog). We also generate a daily backup of
-  the catalog and preserve them for at least 100 days in object storage across a minimum
+  to the [InfluxDB catalog](#influxdb-catalog) and generates a daily backup of
+  the catalog. Backups are preserved for at least 100 days in object storage across a minimum
   of three availability zones.
 
 ## Recovery
