@@ -344,7 +344,6 @@ Dedicated cluster.
 Auth0 issues a short-lived (1 hour) token that authenticates access to your
 InfluxDB Cloud Dedicated cluster.
 
-
 ## Troubleshoot
 
 - **Not loading module "atk-bridge"**: When authenticating, some Linux systems might report the following warning in the terminal (on stderr):
