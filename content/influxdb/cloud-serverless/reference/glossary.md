@@ -586,6 +586,7 @@ The local server's nanosecond timestamp.
 
 A data type that represents a missing or unknown value.
 Denoted by the `null` value.
+Values of [tags](#tag) and [fields](#field) may be `null`, but timestamp values are never `null`.
 
 ## O
 
@@ -667,6 +668,7 @@ Related entries:
 With the InfluxDB IOx storage engine, the primary key is the list of columns
 used to uniquely identify each row in a table.
 Rows are uniquely identified by their timestamp and tag set.
+A row's primary key tag set does not include tags with null values.
 
 ### precision
 
@@ -959,6 +961,7 @@ The collection of tag keys and tag values on a point.
 
 Related entries:
 [point](#point),
+[primary key](#primary-key),
 [series](#series),
 [tag](#tag),
 [tag key](#tag-key),
