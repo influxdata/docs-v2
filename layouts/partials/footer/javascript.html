@@ -57,7 +57,7 @@
 {{ end }}
 
 <!-- Load datetime js if when datetime shortcodes are present -->
-{{ if or (.Page.HasShortcode "datetime/current-time") (.Page.HasShortcode "datetime/current-timestamp") (.Page.HasShortcode "datetime/current-date") }}
+{{ if or (.Page.HasShortcode "datetime/current-time") (.Page.HasShortcode "datetime/current-timestamp") (.Page.HasShortcode "datetime/current-date") (.Page.HasShortcode "datetime/enterprise-eol-date") }}
 <script type="text/javascript" src="{{ $dateTimejs.RelPermalink }}"></script>
 {{ end }}
 

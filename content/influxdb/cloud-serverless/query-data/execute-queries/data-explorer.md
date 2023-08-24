@@ -6,16 +6,17 @@ weight: 201
 menu:
    influxdb_cloud_serverless:
       name: Use the Data Explorer
-      parent: Execute SQL queries
+      parent: Execute queries
 influxdb/cloud-serverless/tags: [query]
 aliases:
-  - /influxdb/cloud-serverless/query-data/execute-queries/data-explorer/
+  - /influxdb/cloud-serverless/query-data/execute-queries/sql/data-explorer/
 related:
   - /influxdb/cloud-serverless/query-data/sql/
   - /influxdb/cloud-serverless/query-data/flux-sql/
+metadata: [SQL]
 ---
 
-Build, execute, and visualize your queries in InfluxDB UI's **Data Explorer**.
+Build, execute, and visualize SQL queries in the InfluxDB UI **Data Explorer**.
 
 <!--Need a screenshot of the SQL builder with a pretty graph-->
 

@@ -39,7 +39,7 @@ Query examples on this page use the following sample data sets:
 
 - [Get started home sensor sample data](/influxdb/cloud-dedicated/reference/sample-data/#get-started-home-sensor-data)
 - [Home sensor actions sample data](/influxdb/cloud-dedicated/reference/sample-data/#home-sensor-actions-data)
-- [NOAA Bay Area weather sample data](/influxdb/cloud-serverless/reference/sample-data/#noaa-bay-area-weather-data)
+- [NOAA Bay Area weather sample data](/influxdb/cloud-dedicated/reference/sample-data/#noaa-bay-area-weather-data)
 
 {{% /note %}}
 

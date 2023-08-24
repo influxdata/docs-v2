@@ -11,6 +11,8 @@ menu:
     identifier: influxdb3-java
 influxdb/cloud-serverless/tags: [Java, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
+aliases:
+  - /cloud-serverless/query-data/sql/execute-queries/java/
 ---
 
 The InfluxDB v3 [`influxdb3-java` Java client library](https://github.com/InfluxCommunity/influxdb3-java) integrates with Java application code

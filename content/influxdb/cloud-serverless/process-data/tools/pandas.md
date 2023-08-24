@@ -16,6 +16,7 @@ aliases:
   - /influxdb/cloud-serverless/visualize-data/pandas/
   - /influxdb/cloud-serverless/visualize-data/python/
 related:
+  - /influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/
   - /influxdb/cloud-serverless/process-data/tools/pyarrow/
   - /influxdb/cloud-serverless/query-data/sql/
 list_code_example: |
@@ -23,17 +24,13 @@ list_code_example: |
   ...
   dataframe = reader.read_pandas()
   dataframe = dataframe.set_index('time')
-
-  print(dataframe.index)
-
   resample = dataframe.resample("1H")
-
   resample['temp'].mean()
   ```
 ---
 
 Use [pandas](https://pandas.pydata.org/), the Python data analysis library, to process, analyze, and visualize data
-stored in an InfluxDB Cloud Serverless bucket.
+stored in an {{% cloud-name %}} bucket.
 
 > **pandas** is an open source, BSD-licensed library providing high-performance,
 > easy-to-use data structures and data analysis tools for the Python programming language.
@@ -54,7 +51,7 @@ stored in an InfluxDB Cloud Serverless bucket.
 ## Install prerequisites
 
 The examples in this guide assume using a Python virtual environment and the InfluxDB v3 [`influxdb3-python` Python client library](/influxdb/cloud-serverless/reference/client-libraries/v3/python/).
-For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/python/).
+For more information, see how to [get started using Python to query InfluxDB](/influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/).
 
 Installing `influxdb3-python` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
 
@@ -62,7 +59,7 @@ Installing `influxdb3-python` also installs the [`pyarrow`](https://arrow.apache
 
 To use pandas, you need to install and import the `pandas` library.
 
-In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb/cloud-serverless/query-data/sql/execute-queries/python/#create-a-project-virtual-environment):
+In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb/cloud-serverless/query-data/execute-queries/python/#create-a-project-virtual-environment):
 
 ```sh
 pip install pandas
@@ -72,7 +69,7 @@ pip install pandas
 
 The following steps use Python, `influxdb3-python`, and `pyarrow` to query InfluxDB and stream Arrow data to a pandas `DataFrame`.
 
-1. In your editor, copy and paste the following code to a new file--for example, `pandas-example.py`:
+1.  In your editor, copy and paste the following code to a new file--for example, `pandas-example.py`:
 
     {{% tabs-wrapper %}}
 {{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
@@ -107,12 +104,12 @@ print(dataframe)
 {{% /code-placeholders %}}
     {{% /tabs-wrapper %}}
 
-2. Replace the following configuration values:
+2.  Replace the following configuration values:
 
-    - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: An InfluxDB [token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the buckets you want to query.
-    - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to query.
+    - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to query
+    - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an InfluxDB [token](/influxdb/cloud-serverless/admin/tokens/) with _read_ permission on the specified bucket
 
-3. In your terminal, use the Python interpreter to run the file:
+3.  In your terminal, use the Python interpreter to run the file:
 
     ```sh
     python pandas-example.py
@@ -215,8 +212,8 @@ print(dataframe.to_markdown())
 
 Replace the following configuration values:
 
-  - {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: An InfluxDB [token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the buckets you want to query.
-  - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: The name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to query.
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of the InfluxDB [bucket](/influxdb/cloud-serverless/admin/buckets/) to query
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: An InfluxDB [token](/influxdb/cloud-serverless/admin/tokens/) with read permission on the specified bucket.
   
 ### Downsample time series
 
@@ -246,7 +243,7 @@ print(resample['temp'].mean())
 {{< expand-wrapper >}}
 {{% expand "View example results" %}}
 ```sh
-time  
+time
 2023-07-16 22:00:00          NaN
 2023-07-16 23:00:00    22.600000
 2023-07-17 00:00:00    22.513889

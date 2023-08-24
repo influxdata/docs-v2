@@ -4,6 +4,7 @@ influxdb:
   namespace: influxdb
   menu_category: self-managed
   list_order: 4
+  placeholder_host: localhost:1313
   versions:
     - v2.7
     - v2.6
@@ -52,6 +53,7 @@ influxdb_cloud:
   versions: [cloud]
   list_order: 1
   latest: cloud
+  placeholder_host: cloud2.influxdata.com
 
 influxdb_cloud_serverless:
   name: InfluxDB Cloud Serverless
@@ -61,6 +63,7 @@ influxdb_cloud_serverless:
   versions: [cloud-serverless]
   list_order: 2
   latest: cloud-serverless
+  placeholder_host: cloud2.influxdata.com
 
 influxdb_cloud_dedicated:
   name: InfluxDB Cloud Dedicated
@@ -72,6 +75,7 @@ influxdb_cloud_dedicated:
   latest: cloud-dedicated
   link: "https://www.influxdata.com/contact-sales-form/"
   latest_cli: 2.0.2
+  placeholder_host: cluster-id.influxdb.io
 
 telegraf:
   name: Telegraf
