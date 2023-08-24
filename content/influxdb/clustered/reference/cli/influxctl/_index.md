@@ -342,3 +342,20 @@ credentials you should have created when setting up your InfluxDB Cloud
 Dedicated cluster.
 Auth0 issues a short-lived (1 hour) token that authenticates access to your
 InfluxDB cluster.
+
+## Troubleshoot
+
+- **Not loading module "atk-bridge"**: When authenticating, some Linux systems
+  might report the following warning in the terminal (on stderr):
+
+  ```sh
+  Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
+  ```
+
+  To silence the warning when running `influxctl` commands, unset the
+  `GTK_MODULES` environment variable
+  (or remove `gail:atk-bridge` from its value)--for example:
+
+  ```sh
+  GTK_MODULES= influxctl ...
+  ```
