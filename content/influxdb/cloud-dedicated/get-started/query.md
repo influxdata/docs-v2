@@ -49,7 +49,7 @@ The examples in this section of the tutorial query the
 - [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight/){{< req "\*  " >}}
 - [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/query-data/influxql/execute-queries/influxdb-v1-api/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/query-data/execute-queries/influxdb-v1-api/)
 - [Chronograf](/{{< latest "chronograf" >}}/)
 
 ## SQL query basics
@@ -343,8 +343,10 @@ _If your project's virtual environment is already running, skip to step 3._
 {{< expand-wrapper >}}
 {{% expand "<span class='req'>Important</span>: If using **Windows**, specify the **Windows** certificate path" %}}
 
-  If using a non-POSIX-compliant operating system (such as Windows), specify the root certificate path when instantiating the client.
-  The following example shows how to use the Python `certifi` package and client library options to pass the certificate path:
+  When instantiating the client, Python looks for SSL/TLS certificate authority (CA) certificates for verifying the server's authenticity.
+  If using a non-POSIX-compliant operating system (such as Windows), you need to specify a certificate bundle path that Python can access on your system.
+
+  The following example shows how to use the [Python `certifi` package](https://certifiio.readthedocs.io/en/latest/) and client library options to provide a bundle of trusted certificates to the Python Flight client:
 
   1.  In your terminal, install the Python `certifi` package.
 
@@ -473,7 +475,7 @@ _If your project's virtual environment is already running, skip to step 3._
       "text/tabwriter"
 
       "github.com/apache/arrow/go/v12/arrow"
-      "github.com/InfluxCommunity/influxdb3-go/influx"
+      "github.com/InfluxCommunity/influxdb3-go/influxdb3"
     )
 
     func Query() error {
@@ -481,19 +483,19 @@ _If your project's virtual environment is already running, skip to step 3._
       // INFLUX_TOKEN is an environment variable you created
       // for your database read token.
       token := os.Getenv("INFLUX_TOKEN")
-      database := "get-started"
 
       // Instantiate the client.
-      client, err := influx.New(influx.Configs{
-        HostURL: "https://cluster-id.influxdb.io",
-        AuthToken: token,
+      client, err := influxdb3.New(influxdb3.ClientConfig{
+        Host:     "https://{{< influxdb/host >}}",
+        Token:    token,
+        Database: "get-started",
       })
 
       // Close the client when the function returns.
-      defer func (client *influx.Client)  {
+      defer func(client *influxdb3.Client) {
         err := client.Close()
         if err != nil {
-            panic(err)
+          panic(err)
         }
       }(client)
 
@@ -504,7 +506,7 @@ _If your project's virtual environment is already running, skip to step 3._
         AND time <= '2022-01-01T20:00:00Z'`
 
       // Execute the query.
-      iterator, err := client.Query(context.Background(), database, query)
+      iterator, err := client.Query(context.Background(), query)
 
       if err != nil {
         panic(err)
@@ -541,20 +543,22 @@ _If your project's virtual environment is already running, skip to step 3._
         - `os`
         - `text/tabwriter`
         - `github.com/apache/arrow/go/v12/arrow`
-        - `github.com/InfluxCommunity/influxdb3-go/influx`
+        - `github.com/InfluxCommunity/influxdb3-go/influxdb3`
 
     2.  Defines a `Query()` function that does the following:
 
         1.  Instantiates `influx.Client` with InfluxDB credentials.
           
-            - **`HostURL`**: your {{% cloud-name %}} cluster URL
-            - **`AuthToken`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_  access to the specified database.
+            - **`Host`**: your {{% cloud-name %}} cluster URL
+            - **`Database`**: The name of your {{% cloud-name %}} database
+            - **`Token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
         2.  Defines a deferred function to close the client after execution.
         3.  Defines a string variable for the SQL query.
 
-        4.  Calls the `influx.Client.query()` method to send the query request with the database name and SQL string. The `query()` method returns an `iterator` for data in the response stream.
+        4.  Calls the `influxdb3.Client.Query(sql string)` method and passes the SQL string to query InfluxDB.
+            `Query(sql string)` method returns an `iterator` for data in the response stream.
         5.  Iterates over rows, formats the timestamp as an [RFC3339 timestamp](/influxdb/cloud-dedicated/reference/glossary/#rfc3339-timestamp), and prints the data in table format to stdout.
 
 3.  In your editor, open the `main.go` file you created in the
@@ -654,7 +658,7 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
         with InfluxDB credentials.
 
         - **`host`**: your {{% cloud-name %}} cluster URL
-        - **`token`**: an [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ access to the specified database.
+        - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the database you want to query.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
       3.  Defines a string variable (`sql`) for the SQL query.
@@ -723,21 +727,17 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
         **/
       public static async Task QuerySQL()
       {
-        /** Set InfluxDB credentials **/
-        const string hostUrl = "https://cluster-id.influxdb.io";
-        string? database = "get-started";
-
         /** INFLUX_TOKEN is an environment variable you assigned to your
           * database READ token value.
           **/
-        string? authToken = System.Environment
+        string? token = System.Environment
             .GetEnvironmentVariable("INFLUX_TOKEN");
 
         /**
           * Instantiate the InfluxDB client with credentials.
           **/
         using var client = new InfluxDBClient(
-            hostUrl, authToken: authToken, database: database);
+            "https://{{< influxdb/host >}}", token: token, database: database);
       
         const string sql = @"
           SELECT time, room, temp, hum, co
@@ -779,12 +779,13 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
         1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
               with InfluxDB credentials.
           
-            - **`hostURL`**: your {{% cloud-name %}} cluster URL.
-            - **`authToken`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_  access to the specified database.
-              _Store this in a secret store or environment variable to avoid exposing the raw token string._
+            - **`host`**: your {{% cloud-name %}} cluster URL.
             - **`database`**: the name of the {{% cloud-name %}} database to query
+            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the specified database.
+              _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable for the SQL query.
-        3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string. `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
+        3.  Calls the `InfluxDBClient.Query()` method to send the query request with the SQL string.
+            `Query()` returns batches of rows from the response stream as a two-dimensional array--an array of rows in which each row is an array of values.
         4.  Iterates over rows and prints the data in table format to stdout.
 3.  In your editor, open the `Program.cs` file you created in the
     [Write data section](/influxdb/cloud-dedicated/get-started/write/?t=C%23#write-line-protocol-to-influxdb) and insert code to call the `Query()` function--for example:
@@ -807,12 +808,8 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
       }
       ```
 
-4.  To execute the program and query your {{% cloud-name %}} cluster,
-    enter the following commands in your terminal:
-
-    ```sh
-    dotnet build
-    ```
+4.  To build and execute the program and query your {{% cloud-name %}} cluster,
+    enter the following command in your terminal:
 
     ```sh
     dotnet run
@@ -857,17 +854,17 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
             */
 
             /** Set InfluxDB credentials. **/
-            final String hostUrl = "https://cluster-id.influxdb.io";
+            final String host = "https://{{< influxdb/host >}}";
             final String database = "get-started";
 
             /** INFLUX_TOKEN is an environment variable you assigned to your
               * database READ token value.
               **/
-            final char[] authToken = (System.getenv("INFLUX_TOKEN")).
+            final char[] token = (System.getenv("INFLUX_TOKEN")).
             toCharArray();
 
-            try (InfluxDBClient client = InfluxDBClient.getInstance(hostUrl,
-            authToken, database)) {
+            try (InfluxDBClient client = InfluxDBClient.getInstance(host,
+            token, database)) {
                 String sql =
                     """
                     SELECT time, room, temp, hum, co
@@ -908,9 +905,9 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
         1.  Calls `InfluxDBClient.getInstance()` to instantiate a client configured
             with InfluxDB credentials.
 
-            - **`hostUrl`**: your {{% cloud-name %}} cluster URL
+            - **`host`**: your {{% cloud-name %}} cluster URL
             - **`database`**: the name of the {{% cloud-name %}} database to write to
-            - **`authToken`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ access to the specified database.
+            - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permission on the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
         2.  Defines a string variable (`sql`) for the SQL query.
         3.  Defines a Markdown table format layout for headings and data rows.
@@ -944,7 +941,7 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
     }
     ```
 
-    - The `App`, `Write`, and `Query` classes are part of the same `com.influxdbv3` package (your project **groupId**).
+    - The `App`, `Write`, and `Query` classes belong to the `com.influxdbv3` package (your project **groupId**).
     - `App` defines a `main()` function that calls `Write.writeLineProtocol()` and `Query.querySQL()`.
 4.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
 
@@ -978,7 +975,6 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------ END JAVA CONTENT ------------------------------->
 {{% /tab-content %}}
-
 {{< /tabs-wrapper >}}
 
 ### Query results
