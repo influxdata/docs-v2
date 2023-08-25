@@ -104,7 +104,7 @@ be used to perform actions outlined in this tutorial.
 ## Authorization
 
 **InfluxDB Cloud Dedicated requires authentication** using
-[tokens](/influxdb/cloud-dedicated/security/tokens/).
+[tokens](/influxdb/cloud-dedicated/admin/tokens/).
 
 There are two types of tokens:
 
