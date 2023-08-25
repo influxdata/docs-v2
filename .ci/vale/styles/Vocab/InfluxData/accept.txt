@@ -86,6 +86,7 @@ upsert
 urls
 venv
 VSCode
+WALs?
 Webpack
 xpath
 XPath
