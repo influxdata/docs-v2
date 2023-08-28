@@ -14,8 +14,10 @@ related:
   - https://docs.aws.amazon.com/AmazonS3/latest/userguide/DataDurability.html, AWS S3 Data Durabililty
 ---
 
-{{< cloud-name >}} writes data to multiple Write-Ahead-Log (WAL) files on local storage and retains WALs until the data is persisted to Parquet files in object storage.
-Parquet data files in object storage are redundantly stored on multiple devices across a minimum of three availability zones in a cloud region.
+{{< cloud-name >}} writes data to multiple Write-Ahead-Log (WAL) files on local
+storage and retains WALs until the data is persisted to Parquet files in object storage.
+Parquet data files in object storage are redundantly stored on multiple devices
+across a minimum of three availability zones in a cloud region.
 
 ## Data storage
 
