@@ -10,6 +10,8 @@ menu:
     parent: Administer InfluxDB Cloud
 weight: 101
 influxdb/cloud-dedicated/tags: [tokens]
+aliases:
+- /influxdb/cloud-dedicated/security/tokens/
 ---
 
 InfluxDB uses token authentication to authorize access to data in your InfluxDB
