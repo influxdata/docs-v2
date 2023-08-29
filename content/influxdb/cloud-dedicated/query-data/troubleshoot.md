@@ -16,8 +16,10 @@ Learn how to handle responses and troubleshoot errors encountered when querying 
 <!-- TOC -->
 
 - [InfluxDB Flight responses](#influxdb-flight-responses)
+  - [Stream](#stream)
   - [Schema](#schema)
     - [Example](#example)
+  - [RecordBatch](#recordbatch)
   - [InfluxDB error codes](#influxdb-error-codes)
   - [Troubleshoot errors](#troubleshoot-errors)
     - [Internal Error: Received RST_STREAM](#internal-error-received-rst_stream)
