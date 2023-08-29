@@ -106,7 +106,7 @@ The following table describes InfluxDB status codes and, if they can appear in g
 | OK                   | success              | ✓             | 0         | OK               |                                                                   |
 | Conflict             | conflict             | ✓             |           |                  |                                                                   |
 | Internal             | internal error       | ✓             | 13        | INTERNAL         | An error internal to the service implementation occurred.         |
-| Invalid              | invalid              | ✓             | 3         | INVALID_ARGUMENT | The client passed an invalid argument to the RPC.                 |
+| Invalid              | invalid              | ✓             | 3         | INVALID_ARGUMENT | The client passed an invalid argument to the RPC (e.g. invalid SQL).                 |
 | NotFound             | not found            | ✓             | 5         | NOT_FOUND        | The requested resource (action, data stream) wasn't found.        |
 | NotImplemented       | not implemented      | ✓             | 12        | UNIMPLEMENTED    | The RPC is not implemented.                                       |
 | RequestCanceled      | request canceled     | ✓             | 1         | CANCELLED        | The operation was cancelled (either by the client or the server). |
