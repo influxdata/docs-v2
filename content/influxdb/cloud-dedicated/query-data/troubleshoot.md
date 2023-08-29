@@ -46,26 +46,31 @@ InfluxDB responds with one of the following:
 
 ### Stream
 
-After InfluxDB successfully processes a query, it sends a stream in [Arrow IPC format](https://arrow.apache.org/docs/format/Columnar.html#serialization-and-interprocess-communication-ipc) that contains the following:
+After InfluxDB processes a query, it sends a stream in [Arrow IPC format](https://arrow.apache.org/docs/format/Columnar.html#serialization-and-interprocess-communication-ipc).
+Flight client libraries, such as `pyarrow.flight` and the Go Arrow Flight package, implement an Arrow interface for retrieving the query result schema and data from the stream.
+Each client or library may provide additional methods and options for reading the data.
 
-1. [Schema](#schema) that applies to all record batches in the stream
+If InfluxDB processes the query successfully, {{% cloud-name %}} responds with a stream that contains the following:
+
+1. A [Schema](#schema) that applies to all record batches in the stream
 2. [RecordBatch](#recordbatch) messages with query result data
-3. the request status (`OK`)
+3. The request status (`OK`)
 4. Optional: trailing metadata
 
 ### Schema
 
 An InfluxDB Flight response contains a [Flight schema](https://arrow.apache.org/docs/format/Columnar.html#schema-message) that describes the data type and InfluxDB column type (timestamp, tag, or field) for columns in the data set.
+All data chunks, or record batches, in the stream have the same schema.
 Data transformation tools can use the schema when converting Arrow data to other formats and back to Arrow.
 
 Use the `Reader.schema` attribute to access the schema for query results in the stream.
 
 #### Example
 
-The following example shows how to access the schema from the `Reader` instance returned by the `InfluxDBClient3.query()` Python client library method.
+The following example shows how to access the schema from a [`Table`](https://arrow.apache.org/docs/python/generated/pyarrow.Table.html#pyarrow.Table) returned by the Python client library `InfluxDBClient3.query(query)` method.
 
 ```py
-# Execute the query and retrieve data formatted as a PyArrow Table
+# Execute the query and read all the data into a PyArrow Table.
 table = client.query(
   '''SELECT co, delete, hum, room, temp, time
       FROM home
@@ -74,7 +79,11 @@ table = client.query(
 )
 print("\n#### View Schema information\n")
 print(table.schema)
+```
 
+The output is the following:
+
+```py
 #### View Schema information
 
 co: int64
@@ -99,24 +108,30 @@ time: timestamp[ns] not null
 
 ### RecordBatch
 
-`RecordBatch` messages in the InfluxDB Flight response contain query result data in Arrow format.
+[`RecordBatch` messages](https://arrow.apache.org/docs/format/Columnar.html#recordbatch-message) in the  {{% cloud-name %}} response stream contain query result data in Arrow format.
 When the Flight client receives a stream, it reads each record batch from the stream until there are no more messages to read.
 The client considers the request complete when it has received all the messages.
 
-The Flight API defines `Reader` methods to access record batches.
-InfluxDB v3 client libraries and Flight clients implement the Flight API and provide for reading each batch ("chunking"), reading all the data at once, or iterating by row.
-Client library classes, methods, and implementations may vary slightly for different languages.
+Flight clients and InfluxDB v3 client libraries provide methods for reading record batches, or "data chunks," in a stream.
+For example, the InfluxDB v3 Python client library uses the [`pyarrow.flight.FlightStreamReader`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightStreamReader.html#pyarrow.flight.FlightStreamReader) class and provides the following reader methods:
+
+- `all`: Read all record batches into a `pyarrow.Table`.
+- `pandas`: Read all record batches into a `pandas.DataFrame`.
+- `chunk`: Read the next batch and metadata, if available.
+- `reader`: Convert the `FlightStreamReader` instance into a `RecordBatchReader`.
+
+Client library classes, methods, and implementations vary for each language and client library.
 
 ### InfluxDB error codes
-
-gRPC defines the integer [status codes](https://grpc.github.io/grpc/core/status_8h.html) and definitions for servers and clients and
-Arrow Flight defines a `FlightStatusDetail` class and the [error codes](https://arrow.apache.org/docs/format/Flight.html#error-handling) that a Flight RPC service may implement.
 
 During a request, the gRPC client and server may each return a status--for example:
 
 - The server fails to process the query; responds with status `internal error` and gRPC status `13`.
 - The request is missing a database token; the server responds with status `unauthenticated` and gRPC status `16`.
-- The client loses the connection due to a network failure; returns status `unavailable` and gRPC status `???`
+- The server responds with a stream, but the client loses the connection due to a network failure and returns status `unavailable` (gRPC status `???`).
+
+gRPC defines the integer [status codes](https://grpc.github.io/grpc/core/status_8h.html) and definitions for servers and clients and
+Arrow Flight defines a `FlightStatusDetail` class and the [error codes](https://arrow.apache.org/docs/format/Flight.html#error-handling) that a Flight RPC service may implement.
 
 While Flight defines the status codes available for servers, a server can choose which status to return for an RPC call.
 In error responses, the status `details` field contains an error code that clients can use to determine if the error should be displayed to users (for example, if the client should retry the request).
