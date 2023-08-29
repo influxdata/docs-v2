@@ -30,42 +30,48 @@ Learn how to handle responses and troubleshoot errors encountered when querying 
 
 {{% cloud-name %}} provides an InfluxDB-specific Arrow Flight service that uses gRPC Remote Procedure Calls (gRPC) to transport query result data in Arrow format.
 Flight defines a set of [RPC methods](https://arrow.apache.org/docs/format/Flight.html#rpc-methods-and-request-patterns) for servers and clients.
+
+<@alamb>Also Flight SQL (which basically is a set of messages on top of Flight)?
+
 Using gRPC, a Flight client (for example, `influx3` or an InfluxDB v3 client library) calls an InfluxDB Flight RPC server method to send a request to the server.
 In gRPC, every call returns a status object that contains an integer code and a string message.
-While gRPC defines the integer [status codes](https://grpc.github.io/grpc/core/status_8h.html) and definitions for servers and clients,
-a server can choose which status to return for an RPC call.
-During a request, the gRPC client and server may each return a status independent of the other.
 
 InfluxDB v3 client library query methods implement the Flight [`DoGet(FlightCallOptions, Ticket)` method](https://arrow.apache.org/docs/cpp/api/flight.html#_CPPv4N5arrow6flight12FlightClient5DoGetERK17FlightCallOptionsRK6Ticket) that retrieves a single stream for the the request.
 For example, if you call the `influxdb3-python` Python client library `InfluxDBClient3.query()` method, the client in turn calls the `pyarrow.flight.FlightClient.do_get()` method and passes a Flight ticket with your credentials and query to InfluxDB.
 
-InfluxDB v3 can respond with one of the following:
+InfluxDB responds with one of the following:
 
-- The schema for record batches in the stream, followed by a stream of query result data (`RecordBatch`), the request status (`OK`), and optional trailing metadata
-- The schema, a stream or partial stream of data, and no status (for example, in the event of a network interruption)
+- A [stream](#stream) in Arrow IPC streaming format
 - An [error status code](#influxdb-error-codes) and an optional `details` field that contains the status and a message that describes the error
 
-_To learn more about Flight RPC requests, see the [Apache Arrow Flight RPC documentation](https://arrow.apache.org/docs/format/Flight.html)_
+### Stream
 
-When the Flight client receives a stream, it reads each `RecordBatch`  from the stream until there are no more messages to read, and considers the request complete when it has received all the messages.
+After InfluxDB successfully processes a query, it sends a stream in [Arrow IPC format](https://arrow.apache.org/docs/format/Columnar.html#serialization-and-interprocess-communication-ipc) that contains the following:
+
+1. [Schema](#schema) that applies to all record batches in the stream
+2. [RecordBatch](#recordbatch) messages with query result data
+3. the request status (`OK`)
+4. Optional: trailing metadata
 
 ### Schema
 
-A Flight response can contain a schema that describes the size and columns in the query result data.
-You can inspect the schema in a {{% cloud-name %}} response to find the data type and InfluxDB column type (timestamp, tag, or field) for columns in the data set.
-Data transformations can use the schema when converting Arrow data to other formats and back to Arrow.
+An InfluxDB Flight response contains a [Flight schema](https://arrow.apache.org/docs/format/Columnar.html#schema-message) that describes the data type and InfluxDB column type (timestamp, tag, or field) for columns in the data set.
+Data transformation tools can use the schema when converting Arrow data to other formats and back to Arrow.
 
-The schema has the following structure:
-
-- 4 bytes - an optional IPC_CONTINUATION_TOKEN prefix
-- 4 bytes - the byte length of the payload
-- a flatbuffer message whose header is the schema
+Use the `Reader.schema` attribute to access the schema for query results in the stream.
 
 #### Example
 
-The following example uses the `Reader` instance returned by the `InfluxDBClient3.query()` Python client library method to print the schema.
+The following example shows how to access the schema from the `Reader` instance returned by the `InfluxDBClient3.query()` Python client library method.
 
 ```py
+# Execute the query and retrieve data formatted as a PyArrow Table
+table = client.query(
+  '''SELECT co, delete, hum, room, temp, time
+      FROM home
+      WHERE time >= now() - INTERVAL '90 days'
+      ORDER BY time'''
+)
 print("\n#### View Schema information\n")
 print(table.schema)
 
@@ -75,9 +81,6 @@ co: int64
   -- field metadata --
   iox::column::type: 'iox::column_type::field::integer'
 delete: string
-  -- field metadata --
-  iox::column::type: 'iox::column_type::tag'
-host: string
   -- field metadata --
   iox::column::type: 'iox::column_type::tag'
 hum: double
@@ -94,32 +97,52 @@ time: timestamp[ns] not null
   iox::column::type: 'iox::column_type::timestamp'
 ```
 
+### RecordBatch
+
+`RecordBatch` messages in the InfluxDB Flight response contain query result data in Arrow format.
+When the Flight client receives a stream, it reads each record batch from the stream until there are no more messages to read.
+The client considers the request complete when it has received all the messages.
+
+The Flight API defines `Reader` methods to access record batches.
+InfluxDB v3 client libraries and Flight clients implement the Flight API and provide for reading each batch ("chunking"), reading all the data at once, or iterating by row.
+Client library classes, methods, and implementations may vary slightly for different languages.
+
 ### InfluxDB error codes
 
-In gRPC error responses, the gRPC status `details` field contains an error code that clients can use to determine if the error should be displayed to users (for example, if the client should retry the request).
+gRPC defines the integer [status codes](https://grpc.github.io/grpc/core/status_8h.html) and definitions for servers and clients and
 Arrow Flight defines a `FlightStatusDetail` class and the [error codes](https://arrow.apache.org/docs/format/Flight.html#error-handling) that a Flight RPC service may implement.
+
+During a request, the gRPC client and server may each return a status--for example:
+
+- The server fails to process the query; responds with status `internal error` and gRPC status `13`.
+- The request is missing a database token; the server responds with status `unauthenticated` and gRPC status `16`.
+- The client loses the connection due to a network failure; returns status `unavailable` and gRPC status `???`
+
+While Flight defines the status codes available for servers, a server can choose which status to return for an RPC call.
+In error responses, the status `details` field contains an error code that clients can use to determine if the error should be displayed to users (for example, if the client should retry the request).
 
 The following table describes InfluxDB status codes and, if they can appear in gRPC requests, their corresponding gRPC and Flight codes:
 
-| InfluxDB status code | Description          | Used for gRPC | gRPC code | Flight code      | Flight Description                                                |
-|:---------------------|:---------------------|:--------------|:----------|:-----------------|:------------------------------------------------------------------|
-| OK                   | success              | ✓             | 0         | OK               |                                                                   |
-| Conflict             | conflict             | ✓             |           |                  |                                                                   |
-| Internal             | internal error       | ✓             | 13        | INTERNAL         | An error internal to the service implementation occurred.         |
-| Invalid              | invalid              | ✓             | 3         | INVALID_ARGUMENT | The client passed an invalid argument to the RPC (e.g. invalid SQL).                 |
-| NotFound             | not found            | ✓             | 5         | NOT_FOUND        | The requested resource (action, data stream) wasn't found.        |
-| NotImplemented       | not implemented      | ✓             | 12        | UNIMPLEMENTED    | The RPC is not implemented.                                       |
-| RequestCanceled      | request canceled     | ✓             | 1         | CANCELLED        | The operation was cancelled (either by the client or the server). |
-| TooLarge             | request too large    | ✓             |           |                  |                                                                   |
-| Unauthorized         | unauthorized         | ✓             | 16        | UNAUTHENTICATED, UNAUTHORIZED | The client isn't authenticated or doesn't have permissions for the requested operation. |
-| Unavailable          | unavailable          | ✓             |           | UNAVAILABLE      | The server isn't available. May be emitted by the client for connectivity reasons.      |
-| Unknown              | internal error       | ✓             | 2         | UNKNOWN          | An unknown error. The default if no other error applies.          |
-| UnprocessableEntity  | unprocessable entity |               |           |                  |                                                                   |
-| EmptyValue           | empty value          |               |           |                  |                                                                   |
-| Forbidden            | forbidden            |               |           |                  |                                                                   |
-| TooManyRequests      | too many requests    |               |           |                  |                                                                   |
-| MethodNotAllowed     | method not allowed   |               |           |                  |                                                                   |
-| UpstreamServer       | upstream server      |               |           |                  |                                                                   |
+| InfluxDB status code | Used for gRPC | gRPC code | Flight code      | Description                                                        |
+|:---------------------|:--------------|:----------|:-----------------|:------------------------------------------------------------------|
+| OK                   | ✓             | 0         | OK               |                                                                   |
+| Conflict             | ✓             |           |                  |                                                                   |
+| Internal             | ✓             | 13        | INTERNAL         | An error internal to the service implementation occurred.         |
+| Invalid              | ✓             | 3         | INVALID_ARGUMENT | The client passed an invalid argument to the RPC (for example, invalid SQL). |
+| NotFound             | ✓             | 5         | NOT_FOUND        | The requested resource (action, data stream) wasn't found.        |
+| NotImplemented       | ✓             | 12        | UNIMPLEMENTED    | The RPC is not implemented.                                       |
+| RequestCanceled      | ✓             | 1         | CANCELLED        | The operation was cancelled (either by the client or the server). |
+| TooLarge             | ✓             |           |                  |                                                                   |
+| Unauthenticated      | ✓             | 16        | UNAUTHENTICATED  | The client isn't authenticated (credentials are missing or invalid). |
+| Unauthorized         | ✓             | 16        | UNAUTHORIZED     | The client doesn't have permissions for the requested operation (credentials aren't sufficient for the request). |
+| Unavailable          | ✓             |           | UNAVAILABLE      | The server isn't available. May be emitted by the client for connectivity reasons.      |
+| Unknown              | ✓             | 2         | UNKNOWN          | An unknown error. The default if no other error applies.          |
+| UnprocessableEntity  |               |           |                  |                                                                   |
+| EmptyValue           |               |           |                  |                                                                   |
+| Forbidden            |               |           |                  |                                                                   |
+| TooManyRequests      |               |           |                  |                                                                   |
+| MethodNotAllowed     |               |           |                  |                                                                   |
+| UpstreamServer       |               |           |                  |                                                                   |
 
 <!-- Reference: influxdb_iox/service_grpc_influxrpc/src/service#InfluxCode -->
 
