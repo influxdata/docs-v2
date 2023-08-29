@@ -21,14 +21,13 @@ time series use case.
 <a class="btn" href="{{< dedicated-link >}}">Request an InfluxDB Cloud Dedicated cluster</a>  
 <a class="btn" href="/influxdb/cloud-dedicated/get-started/">Get started with InfluxDB Cloud Dedicated</a>
 
-## The InfluxDB IOx storage engine
+## InfluxDB 3.0
 
-**InfluxDB IOx** is InfluxDB's next generation storage engine that unlocks series
-limitations present in the Time Structured Merge Tree (TSM) storage engine.
-InfluxDB IOx allows infinite series cardinality without any impact on
-overall database performance. It also brings with it native
-**SQL support** and improved InfluxQL performance.
+**InfluxDB 3.0** is InfluxDB's next generation that unlocks series
+limitations present in the Time Structured Merge Tree (TSM) storage engine and
+allows infinite series cardinality without any impact on overall database performance.
+It also brings with it native **SQL support** and improved InfluxQL performance.
 
-View the following video for more information about InfluxDB IOx:
+View the following video for more information about InfluxDB 3.0:
 
-{{< youtube "CzWVcDxmWbM" >}}
+{{< youtube "uwqLWpmlQHM" >}}
