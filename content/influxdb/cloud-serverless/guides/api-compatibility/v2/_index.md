@@ -12,6 +12,7 @@ menu:
 influxdb/cloud-serverless/tags: [write, line protocol]
 aliases:
   - /influxdb/cloud-serverless/primers/api/v2/
+  - /influxdb/cloud-serverless/api-compatibility/v2/
 related:
   - /influxdb/cloud-serverless/query-data/sql/
   - /influxdb/cloud-serverless/query-data/influxql/

@@ -8,7 +8,10 @@ weight: 10
 menu:
   influxdb_cloud_serverless:
     name: API compatibility
+    parent: Guides
 influxdb/cloud-serverless/tags: [api]
+aliases:
+  - /influxdb/cloud-serverless/api-compatibility/
 related:
   - /influxdb/cloud-serverless/reference/api/
 ---

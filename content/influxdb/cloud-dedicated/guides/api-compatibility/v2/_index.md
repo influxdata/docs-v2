@@ -12,6 +12,7 @@ menu:
 influxdb/cloud-dedicated/tags: [write, line protocol]
 aliases:
   - /influxdb/cloud-dedicated/primers/api/v2/
+  - /influxdb/cloud-dedicated/api-compatibility/v2/
 related:
   - /influxdb/cloud-dedicated/query-data/sql/
   - /influxdb/cloud-dedicated/query-data/influxql/
