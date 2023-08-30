@@ -3,7 +3,7 @@ title: Prototype your app on InfluxDB Cloud Serverless
 description: >
   Utilize InfluxDB Cloud Serverless to prototype your production application and
   then move it to InfluxDB Cloud Dedicated.
-  Learn about important differences between Cloud Serverless and Dedicated and
+  Learn about important differences between Cloud Serverless and Cloud Dedicated and
   best practices for building an application prototype on Cloud Serverless.
 menu:
   influxdb_cloud_serverless:
@@ -14,12 +14,12 @@ weight: 104
 
 Utilize InfluxDB Cloud Serverless to prototype your production application and
 then move it to InfluxDB Cloud Dedicated.
-Learn about important differences between Cloud Serverless and Dedicated and
+Learn about important differences between Cloud Serverless and Cloud Dedicated and
 best practices for building an application prototype on Cloud Serverless.
 
 <!-- BEGIN TOC -->
 
-- [Key differences between InfluxDB Cloud Serverless and Dedicated](#key-differences-between-influxdb-cloud-serverless-and-dedicated)
+- [Key differences between InfluxDB Cloud Serverless and Cloud Dedicated](#key-differences-between-influxdb-cloud-serverless-and-cloud-dedicated)
   - [User interface differences](#user-interface-differences)
   - [Terminology differences](#terminology-differences)
   - [InfluxQL data retention policy mapping differences](#influxql-data-retention-policy-mapping-differences)
@@ -39,19 +39,17 @@ best practices for building an application prototype on Cloud Serverless.
   
 <!-- END TOC -->
 
-## Key differences between InfluxDB Cloud Serverless and Dedicated
+## Key differences between InfluxDB Cloud Serverless and Cloud Dedicated
 
 ### User interface differences
 
 The user interfaces between InfluxDB Cloud Serverless and InfluxDB Cloud
 Dedicated are completely different.
-InfluxDB Cloud Serverless was initially developed as an offering not just for
-business-to-business (B2B) customers, but also individual developers, data scientists,
-and general hobbyists. Because of this, a graphical user interface was developed
-to provide basic database administration features (add/delete databases, generate tokens, etc.)
-as well as basic query, visualization, and dashboarding.
+InfluxDB Cloud Serverless is designed for individual developers, data scientists,
+and general hobbyists, as well as business-to-business (B2B) customers.
+The Cloud Serverless graphical user interface (GUI) provides basic features for database administration (add/delete databases, generate tokens, etc.), query, visualization, and dashboarding.
 
-Unlike Cloud Serverless, Cloud Dedicated does not come with a graphical user interface (GUI).
+Unlike Cloud Serverless, Cloud Dedicated does not come with a GUI.
 Cloud Dedicated customers use an administrative command line tool (`influxctl`)
 for managing databases and tokens. The `influxctl` utility is not available for
 InfluxDB Cloud Serverless. Because the platforms use different administrative tools,
@@ -67,7 +65,7 @@ which databases were referred to as "buckets".
 Cloud Serverless still uses this term.
 
 InfluxDB Cloud Dedicated has only ever used the InfluxDB 3.0 storage engine.
-Its names are more traditionally aligned with SQL database engines.
+Resource names in Cloud Dedicated are more traditionally aligned with SQL database engines.
 Databases are named "databases" and "measurements" are structured as tables.
 "Tables" or "measurements" can be used interchangeably.
 
@@ -100,9 +98,9 @@ InfluxDB Cloud Serverless and Cloud Dedicated support SQL and InfluxQL.
 | InfluxQL | Natively supported        | Natively supported       |
 
 The v2 API (which uses the Flux language for querying) is reachable in InfluxDB
-Cloud Serverless, but is not supported. If you plan to use InfluxDB Cloud
+Cloud Serverless, but isn't supported. If you plan to use InfluxDB Cloud
 Serverless as an evaluation or staging platform for InfluxDB Cloud Dedicated,
-use only SQL and InfluxQL query languages.
+use SQL or InfluxQL.
 
 ### API and client library differences
 
@@ -124,11 +122,11 @@ blog post.
 
 InfluxDB Cloud Serverless had built-in task and alert systems.
 These were built on Flux and have not been carried forward to InfluxDB Cloud Dedicated.
-If you are using InfluxDB Cloud Serverless as an evaluation platform for
-InfluxDB Cloud Dedicated, don’t utilize these features as they are not available
+If you use InfluxDB Cloud Serverless as an evaluation platform for
+InfluxDB Cloud Dedicated, don’t utilize these features as they aren't available
 on InfluxDB Cloud Dedicated.
 
-You can certainly do tasking and alerting with InfluxDB Cloud Dedicated, but it would be via your own applications and development or through 3rd party tools like Grafana or Prefect. Here are some examples:
+With InfluxDB Cloud Dedicated, you can build custom task and alerting solutions or use 3rd-party tools like Grafana or Prefect--for example:
 
 - [Send alerts using data in InfluxDB Cloud Serverless](/influxdb/cloud-serverless/process-data/send-alerts/)
 - [Downsample data](/influxdb/cloud-serverless/process-data/downsample/)
@@ -139,7 +137,7 @@ You can certainly do tasking and alerting with InfluxDB Cloud Dedicated, but it 
 
 In addition to the token management UI differences mentioned previously
 (there is a UI and API for this with Cloud Serverless, with InfluxDB Cloud
-Dedicated you use `influxctl`), there are also some differences in the granularity
+Dedicated you use `influxctl`), there are also differences in the granularity
 of token permissions---InfluxDB Cloud Dedicated has a few more permission options. 
 
 | Function             | InfluxDB Cloud Serverless | InfluxDB Cloud Dedicated |
@@ -151,25 +149,22 @@ of token permissions---InfluxDB Cloud Dedicated has a few more permission option
 InfluxDB Cloud Serverless is a multi-tenant solution and has a number of factors
 that could affect database performance, including:
 
-- **Rate limiting**: limits on reads and writes in InfluxDB Cloud Serverless
-- **Noisy neighbors**: unexpected high usage from other customers could cause
-  slight performance differences in your own experience.
-- **Tag-specific queries**: query performance is optimized generically with
-  InfluxDB Cloud Serverless. As a result, queries that select rows with a subset
-  of tag values may be noticeably slower compared to previous versions.
+- **Rate limiting**: Limits on reads and writes.
+- **Noisy neighbors**: Unexpected high usage from other customers could impact your experience.
 - **Generic optimization**: Cloud Serverless is generically optimized to fit the
-  most common workloads. InfluxDB Cloud Dedicated and can be tuned to your
-  specific data sets and workload with options such as custom partitioning and others.
-
+  most common workloads. InfluxDB Cloud Dedicated can be tuned to your
+  specific data sets and workload with options such as custom partitioning.
+- **Tag-specific queries**: Due to generic optimization, queries that select rows with a subset
+  of tag values may be noticeably slower than in previous versions.
 If you are using InfluxDB Cloud Serverless for evaluation purposes, consider
-investing in an actual proof-of-concept (PoC) of InfluxDB Cloud Dedicated to get
+investing in an  InfluxDB Cloud Dedicated  proof-of-concept (PoC) to get
 a more accurate picture of your expected performance.
 
 ### Schema differences
 
-Schema support in InfluxDB Cloud Serverless and InfluxDB Cloud Dedicated is basically identical.
-However, InfluxDB Cloud Dedicated provides more flexibility by letting you raise
-or exceed the normal limits for the number of tables (measurements) and columns
+Schema support in InfluxDB Cloud Serverless and InfluxDB Cloud Dedicated is nearly identical.
+However, InfluxDB Cloud Dedicated provides more flexibility, letting you raise
+or exceed limits on the number of tables (measurements) and columns
 (time, fields, and tags) in a database.
 _See [Stay within the schema limits of InfluxDB Cloud Serverless](#stay-within-the-schema-limits-of-influxdb-cloud-serverless)_.
 
@@ -178,21 +173,19 @@ _See [Stay within the schema limits of InfluxDB Cloud Serverless](#stay-within-t
 InfluxDB Cloud Serverless has a feature that lets you create sub-organizations
 within your account. InfluxDB Cloud Dedicated does not have this feature.
 
-Additionally, due to being multi-tenant, Cloud Serverless requires the use of an
-organization name or organization ID in many interactions where this is not
-required in Cloud Dedicated.
+Additionally, due to being multi-tenant, Cloud Serverless requires specifying
+organization name or ID in some interactions. This isn't required with Cloud Dedicated.
 
 ## Best practices
 
-The following are recommended best practices for using InfluxDB Cloud Serverless
+Follow these recommended best practices when using InfluxDB Cloud Serverless
 as an evaluation or prototyping platform for InfluxDB Cloud Dedicated.
 
 ### Use the v3 lightweight client libraries
 
 Use the InfluxDB [v3 lightweight client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
-to ensure your application code that writes to and queries InfluxDB will be
-equally compatible with InfluxDB Cloud Serverless and Dedicated.
-The only change you’ll need to make is to your InfluxDB connection credentials
+to help make your code for writing and querying cross-compatible with InfluxDB Cloud Serverless and Cloud Dedicated.
+You'll only need to change your InfluxDB connection credentials
 (host, database name, and token).
 
 ### Avoid features that are not included with InfluxDB Cloud Dedicated
@@ -200,18 +193,18 @@ The only change you’ll need to make is to your InfluxDB connection credentials
 The easiest way to avoid using features in InfluxDB Cloud Serverless that don’t
 exist in Cloud Dedicated is to avoid using the Cloud Serverless UI, except when
 managing tokens and buckets.
-In order to maintain compatibility with Cloud Dedicated, avoid using the following
+In order to maintain compatibility with Cloud Dedicated, specifically avoid using the following
 InfluxDB Cloud Serverless features: 
 
 - The v2 query API and the Flux language
 - Administrative APIs
 - Tasks and alerts from the Cloud Serverless UI (instead use one of the options
 mentioned in _[Tasks and alerts differences](#tasks-and-alerts-differences)_).
-- InfluxDB dashboards and visualization tools (use 3rd party Visualization Tools)
+- InfluxDB dashboards and visualization tools (use 3rd-party visualization tools)
 
 ### Use SQL or InfluxQL as your Query Language
 
-Both SQL and InfluxQL are optimized for InfluxDB v3 and both are excellent
+SQL and InfluxQL are optimized for InfluxDB v3 and both are excellent
 options in Cloud Dedicated and Cloud Serverless.
 Avoid Flux since it can’t be used with InfluxDB Cloud Dedicated.
 
@@ -233,15 +226,11 @@ If you are using InfluxDB Cloud Serverless for prototyping or evaluation, use
 test data and don’t store production data on the platform.
 This has the following benefits:
 
-- If you make a mistake with your schema and you want to start over, it is easier
-  to delete your test data and start from scratch. If you are using production
+- Using test data is less risky. If you make a mistake with your schema, you can delete your data and start over. If you use production
   data that you rely on and only have one copy, schema mistakes are harder to
   recover from.
-- After you have completed your evaluation or prototype, you won’t have any data
-  that needs to be migrated to InfluxDB Cloud Dedicated.
+- You won't need to migrate data. After you have completed your evaluation, you can delete your test data and start using Cloud Dedicated.
 
-There is nothing preventing you from using live or real production data in this circumstance.
-You can move data from InfluxDB Cloud Serverless to Cloud Dedicated after you
-have completed your prototype and evaluation. However, currently this require
+_You can use live or production data for protoype in InfluxDB Cloud Serverless, and then migrate it to Cloud Dedicated after you complete your evaluation. However, currently this requires
 that you write code to query and extract the data, convert it to line protocol
-format, and then write it back to Cloud Dedicated.
+format, and then write it to InfluxDB Cloud Dedicated._
