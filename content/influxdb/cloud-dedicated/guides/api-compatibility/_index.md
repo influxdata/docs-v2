@@ -4,14 +4,16 @@ seo_title: Learn to use APIs for your data workloads in InfluxDB Cloud Dedicated
 description: >
   Choose the API and tools that fit your workload.
   Learn how to authenticate, write, and query using Telegraf, client libraries, and HTTP clients.
-weight: 19
+weight: 101
 menu:
   influxdb_cloud_dedicated:
     name: API compatibility
+    parent: Guides
 influxdb/cloud-dedicated/tags: [api]
 aliases:
   - /influxdb/cloud-dedicated/primers/
   - /influxdb/cloud-dedicated/primers/api/
+  - /influxdb/cloud-dedicated/api-compatibility/
 related:
   - /influxdb/cloud-dedicated/query-data/sql/
   - /influxdb/cloud-dedicated/query-data/influxql/

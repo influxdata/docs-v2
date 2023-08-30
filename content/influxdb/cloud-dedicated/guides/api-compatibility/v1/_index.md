@@ -9,6 +9,7 @@ menu:
     name: v1 API
 aliases:
   - /influxdb/cloud-dedicated/primers/api/v1/
+  - /influxdb/cloud-dedicated/api-compatibility/v1/
 influxdb/cloud-dedicated/tags: [write, line protocol]
 related:
   - /influxdb/cloud-dedicated/query-data/sql/

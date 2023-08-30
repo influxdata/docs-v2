@@ -11,6 +11,7 @@ menu:
 weight: 103
 aliases:
   - /influxdb/cloud-dedicated/write-data/migrate-data/migrate-1x-to-iox/
+  - /influxdb/cloud-dedicated/write-data/migrate-data/migrate-1x-to-cloud-dedicated/
 related:
   - /influxdb/cloud-dedicated/admin/databases/
   - /influxdb/cloud-dedicated/admin/tokens/

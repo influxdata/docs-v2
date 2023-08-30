@@ -9,6 +9,8 @@ menu:
     name: Migrate from 1.x to Serverless
     parent: Migrate data
 weight: 103
+aliases:
+  - /influxdb/cloud-serverless/write-data/migrate-data/migrate-1x-to-iox
 ---
 
 To migrate data from an InfluxDB 1.x OSS or Enterprise instance to InfluxDB Cloud

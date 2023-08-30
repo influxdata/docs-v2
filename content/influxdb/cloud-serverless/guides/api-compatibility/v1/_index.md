@@ -9,6 +9,7 @@ menu:
     name: v1 API
 aliases:
   - /influxdb/cloud-serverless/primers/api/v1/
+  - /influxdb/cloud-serverless/api-compatibility/v1/
 influxdb/cloud-serverless/tags: [write, line protocol]
 related:
   - /influxdb/cloud-serverless/query-data/sql/

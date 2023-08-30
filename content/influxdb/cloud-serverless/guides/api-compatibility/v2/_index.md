@@ -1,30 +1,32 @@
 ---
-title: Use the InfluxDB v2 API with InfluxDB Cloud Dedicated
+title: Use the InfluxDB v2 API with InfluxDB Cloud Serverless
 list_title: InfluxDB v2 API compatibility
 description: >
   Use the InfluxDB v2 API for new write workloads and existing v2 write workloads.
-  InfluxDB Cloud Dedicated is compatible with the InfluxDB v2 API `/api/v2/write` endpoint and existing InfluxDB 2.x tools and code.
+  InfluxDB Cloud Serverless is compatible with the InfluxDB v2 API `/api/v2/write` endpoint and existing InfluxDB 2.x tools and code.
 weight: 1
 menu:
-  influxdb_cloud_dedicated:
+  influxdb_cloud_serverless:
     parent: API compatibility
     name: v2 API
-influxdb/cloud-dedicated/tags: [write, line protocol]
+influxdb/cloud-serverless/tags: [write, line protocol]
 aliases:
-  - /influxdb/cloud-dedicated/primers/api/v2/
+  - /influxdb/cloud-serverless/primers/api/v2/
+  - /influxdb/cloud-serverless/api-compatibility/v2/
 related:
-  - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/query-data/influxql/
-  - /influxdb/cloud-dedicated/write-data/
-  - /influxdb/cloud-dedicated/write-data/use-telegraf/configure/
-  - /influxdb/cloud-dedicated/reference/api/
-  - /influxdb/cloud-dedicated/reference/client-libraries/
+  - /influxdb/cloud-serverless/query-data/sql/
+  - /influxdb/cloud-serverless/query-data/influxql/
+  - /influxdb/cloud-serverless/write-data/
+  - /influxdb/cloud-serverless/write-data/use-telegraf/configure/
+  - /influxdb/cloud-serverless/reference/api/
+  - /influxdb/cloud-serverless/reference/client-libraries/
 ---
 
-Use the InfluxDB v2 API `/api/v2/write` endpoint for new write workloads and existing v2 write workloads that you bring to {{% product-name %}}.
-Learn how to authenticate requests, adjust request parameters for existing v2 workloads, and find compatible tools for writing and querying data stored in an {{% product-name %}} database.
+{{% product-name %}} is compatible with the InfluxDB v2 API `/api/v2/write` endpoint and existing InfluxDB 2.x tools and code.
+Use the InfluxDB v2 API for new write workloads and existing v2 write workloads that you bring to {{% product-name %}}.
 
-For help finding the best workflow for your situation, [contact Support](mailto:support@influxdata.com).
+InfluxDB v2 API endpoints won't work for managing resources or querying data in {{% product-name %}}.
+To query data, use the _Flight+gRPC_ protocol  or the InfluxDB v1 `/query` HTTP API endpoint and [associated tools](#tools-to-execute-queries).
 
 <!-- TOC -->
 
@@ -40,7 +42,6 @@ For help finding the best workflow for your situation, [contact Support](mailto:
   - [Tools for writing to the v2 API](#tools-for-writing-to-the-v2-api)
     - [Telegraf](#telegraf)
     - [Interactive clients](#interactive-clients)
-    - [influx CLI not supported](#influx-cli-not-supported)
     - [Client libraries](#client-libraries)
 - [Query data](#query-data)
     - [Tools to execute queries](#tools-to-execute-queries)
@@ -50,49 +51,37 @@ For help finding the best workflow for your situation, [contact Support](mailto:
 
 ## Authenticate API requests
 
-InfluxDB API endpoints require each request to be authenticated with a [database token](/influxdb/cloud-dedicated/admin/tokens/).
+InfluxDB API endpoints require each request to be authenticated with an [API token](/influxdb/cloud-serverless/admin/tokens/).
 
 ### Authenticate with a token
 
-Use the `Authorization: Bearer` scheme or the `Authorization: Token` scheme to pass a [database token](/influxdb/cloud-dedicated/admin/tokens/) that has the necessary permissions for the operation.
+Use the `Authorization: Token` scheme to pass an [API token](/influxdb/cloud-serverless/admin/tokens/) that has the necessary permissions for the operation.
 
-`Bearer` and `Token` are equivalent in InfluxDB Cloud Dedicated.
 The `Token` scheme is used in the InfluxDB 2.x API.
-`Bearer` is defined by the [OAuth 2.0 Framework](https://www.rfc-editor.org/rfc/rfc6750#page-14).
-Support for one or the other may vary across InfluxDB API clients.
 
 #### Syntax
 
 ```http
-Authorization: Bearer DATABASE_TOKEN
-```
-
-```http
-Authorization: Token DATABASE_TOKEN
+Authorization: Token API_TOKEN
 ```
 
 #### Examples
 
-Use `Bearer` to authenticate a write request:
-
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```sh
-{{% get-shared-text "api/cloud-dedicated/bearer-auth-v2-write.sh" %}}
-```
-{{% /code-placeholders %}}
-
 Use `Token` to authenticate a write request:
 
-{{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
+{{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
 ```sh
-{{% get-shared-text "api/cloud-dedicated/token-auth-v2-write.sh" %}}
+# Use the Token authentication scheme with /api/v2/write
+curl --post "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision=s" \
+  --header "Authorization: Token API_TOKEN" \
+  --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
 {{% /code-placeholders %}}
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your InfluxDB Cloud Serverless [bucket](/influxdb/cloud-serverless/admin/buckets/)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the database
 
 ## Responses
 
@@ -116,7 +105,7 @@ Response body messages may differ across {{% product-name %}} v1 API, v2 API, In
   ```
 
   The `?bucket=` parameter value is missing in the request.
-  Provide the [database](/influxdb/cloud-dedicated/admin/databases/) name.
+  Provide the [bucket](/influxdb/cloud-serverless/admin/buckets/) name.
 
 - **Failed to deserialize org/bucket/precision**
 
@@ -125,7 +114,7 @@ Response body messages may differ across {{% product-name %}} v1 API, v2 API, In
   ```
   
   ```json
-  { "code":"invalid",
+  { "code": "invalid",
     "message":"failed to deserialize org/bucket/precision in request: unknown variant `u`, expected one of `s`, `ms`, `us`, `ns`"
   }
   ```
@@ -153,7 +142,7 @@ orgID            | Query string | Ignored | N/A
 bucket {{% req " \*" %}} | Query string | Honored | Database name
 precision        | Query string | Honored | [Timestamp precision](#timestamp-precision)
 Accept           | Header       | Honored | User-defined
-`Authorization`  {{% req " \*" %}} | Header       | Honored | `Bearer DATABASE_TOKEN` or `Token DATABASE_TOKEN`
+`Authorization`  {{% req " \*" %}} | Header       | Honored | `Token API_TOKEN`
 `Content-Encoding`     | Header       | Honored | `gzip` (compressed data) or `identity` (uncompressed)
 Content-Length   | Header       | Honored | User-defined
 Content-Type     | Header       | Ignored | N/A (only supports line protocol)
@@ -182,37 +171,27 @@ The following tools work with the {{% product-name %}} `/api/v2/write` endpoint:
 
 #### Telegraf
 
-See how to [configure Telegraf](/influxdb/cloud-dedicated/write-data/use-telegraf/configure/) to write to {{% product-name %}}.
+See how to [configure Telegraf](/influxdb/cloud-serverless/write-data/use-telegraf/configure/) to write to {{% product-name %}}.
 
 #### Interactive clients
 
-To test InfluxDB v2 API writes interactively, use the [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli) or common HTTP clients such as cURL and Postman.
+To test InfluxDB v2 API writes interactively from the command line, use the [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli) or common HTTP clients such as cURL and Postman.
 
-To setup and start using interactive clients, see the [Get started](/influxdb/cloud-dedicated/get-started/) tutorial.
-
-{{% warn %}}
-
-#### influx CLI not supported
-
-Don't use the `influx` CLI with {{% product-name %}}.
-While it may coincidentally work, it isn't officially supported.
-
-{{% /warn %}}
+To setup and start using interactive clients, see the [Get started](/influxdb/cloud-serverless/get-started/) tutorial.
 
 #### Client libraries
 
-InfluxDB [v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) and [v2 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v2/)
-can write data to the InfluxDB v2 API `/api/v2/write` endpoint.
+InfluxDB [v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) and [v2 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v2/) can write data to the InfluxDB v2 API `/api/v2/write` endpoint.
 Client libraries are language-specific packages that integrate InfluxDB APIs with your application.
 
-To setup and start using client libraries, see the [Get started](/influxdb/cloud-dedicated/get-started/) tutorial.
+To setup and start using client libraries, see the [Get started](/influxdb/cloud-serverless/get-started/) tutorial.
 
 ## Query data
 
-{{% product-name %}} provides the following protocols for executing a query:
+InfluxDB v3 provides the following protocols for executing a query:
 
 - [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
-  To learn how to query {{% product-name %}} using Flight and SQL, see the [Get started](/influxdb/cloud-dedicated/get-started/) tutorial.
+  To learn how to query {{% product-name %}} using Flight and SQL, see the [Get started](/influxdb/cloud-serverless/get-started/) tutorial.
 - InfluxDB v1 API `/query` request that contains an InfluxQL query.
 
 {{% note %}}
@@ -222,11 +201,11 @@ To setup and start using client libraries, see the [Get started](/influxdb/cloud
 {{% product-name %}} supports many different tools for querying data, including:
 
 - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
-- [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
-- [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight/)
-- [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/)
-- [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-dedicated/primers/api/v1/#query-using-the-v1-api)
+- [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
+- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight/)
+- [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
+- [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
+- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/primers/api/v1/#query-using-the-v1-api)
 - [Chronograf](/{{< latest "Chronograf" >}}/)
 
 {{% /note %}}
