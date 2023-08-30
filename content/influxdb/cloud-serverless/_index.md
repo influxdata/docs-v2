@@ -21,37 +21,36 @@ date or through the Google Cloud Platform (GCP) or Azure marketplaces, see the
 To see which storage engine your organization is using,
 find the **InfluxDB Cloud powered by** link in your
 [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
-If your organization is using IOx, you'll see
+If your organization is using InfluxDB 3.0, you'll see
 **InfluxDB Cloud Serverless** followed by the version number.
 {{% /note %}}
 
 InfluxDB Cloud Serverless is a hosted and managed version of InfluxDB backed
-by InfluxDB IOx, the time series platform designed to handle high write and query loads.
+by InfluxDB 3.0, the time series platform designed to handle high write and query loads.
 Learn how to use and leverage InfluxDB Cloud Serverless in use cases such as monitoring
 metrics, IoT data, and event monitoring.
 
 <a class="btn" href="/influxdb/cloud-serverless/get-started/">Get started with InfluxDB Cloud Serverless</a>
 
-## The InfluxDB IOx storage engine
+## InfluxDB 3.0
 
-**InfluxDB IOx** is InfluxDB's next generation storage engine that unlocks series
-limitations present in the Time Structured Merge Tree (TSM) storage engine.
-InfluxDB IOx allows infinite series cardinality without any impact on
-overall database performance. It also brings with it native
-**SQL support**<!-- and improved InfluxQL performance -->.
+**InfluxDB 3.0** is InfluxDB's next generation that unlocks series
+limitations present in the Time Structured Merge Tree (TSM) storage engine and
+allows infinite series cardinality without any impact on overall database performance.
+It also brings native **SQL support** and improved InfluxQL performance.
 
-View the following video for more information about InfluxDB IOx:
+View the following video for more information about InfluxDB 3.0:
 
-{{< youtube "CzWVcDxmWbM" >}}
+{{< youtube "uwqLWpmlQHM" >}}
 
-## How do you use InfluxDB IOx?
+## How do you use InfluxDB 3.0?
 
 All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and [organizations](/influxdb/cloud-serverless/admin/organizations/) created through
 [cloud2.influxdata.com](https://cloud2.influxdata.com) on or after **January 31, 2023**
-are powered by the InfluxDB IOx storage engine.
+are powered by the InfluxDB 3.0.
 
 To see which storage engine your organization is using,
 find the **InfluxDB Cloud powered by** link in your
 [InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
-If your organization is using IOx, you'll see
+If your organization is using InfluxDB 3.0, you'll see
 **InfluxDB Cloud Serverless** followed by the version number.
