@@ -21,14 +21,13 @@ time series use case.
 <a class="btn" href="{{< cta-link >}}">Request a proof of concept</a>  
 <a class="btn" href="/influxdb/clustered/get-started/">Get started with InfluxDB Clustered</a>
 
-## The InfluxDB 3.0 storage engine
+## InfluxDB 3.0
 
-The InfluxDB 3.0 storage engine unlocks series limitations present in the Time
-Structured Merge Tree (TSM) storage engine.
-InfluxDB 3.0 allows infinite series cardinality without any impact on
-overall database performance. It also brings with it native
-**SQL support** and improved InfluxQL performance.
+**InfluxDB 3.0** is InfluxDB's next generation that unlocks series
+limitations present in the Time Structured Merge Tree (TSM) storage engine and
+allows infinite series cardinality without any impact on overall database performance.
+It also brings with it native **SQL support** and improved InfluxQL performance.
 
 View the following video for more information about InfluxDB 3.0:
 
-{{< youtube "CzWVcDxmWbM" >}}
+{{< youtube "uwqLWpmlQHM" >}}

@@ -6,10 +6,10 @@
 
 {{ if in $earlyAccessList (print $product "/" $version )}}
 <div class="block cloud">
-  <h4>Currently in early access</h4>
+  <h4>Limited availability</h4>
   <p>
-    <strong>{{ $productData.name }}</strong> is currently in early access and only available to a limited group of InfluxData customers.
-    If interested in being part of the early access group, please
+    <strong>{{ $productData.name }}</strong> is currently only available to a limited group of InfluxData customers.
+    If interested in being part of the limited access group, please
     <a href="{{ $productData.link }}" target="_blank">contact the InfluxData Sales team</a>.
   </p>
 </div>

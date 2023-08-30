@@ -58,7 +58,8 @@ All tag key-value pairs for the point.
 Key-value relationships are denoted with the `=` operand.
 Multiple tag key-value pairs are comma-delimited.
 _Tag keys and tag values are case-sensitive.
-Tag keys are subject to [naming restrictions](#naming-restrictions)._
+Tag keys are subject to [naming restrictions](#naming-restrictions).
+Tag values cannot be empty; instead, omit the tag from the tag set._
 
 _**Key data type:** [String](#string)_  
 _**Value data type:** [String](#string)_
