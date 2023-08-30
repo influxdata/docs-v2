@@ -26,7 +26,7 @@ time series use case.
 **InfluxDB 3.0** is InfluxDB's next generation that unlocks series
 limitations present in the Time Structured Merge Tree (TSM) storage engine and
 allows infinite series cardinality without any impact on overall database performance.
-It also brings with it native **SQL support** and improved InfluxQL performance.
+It also brings native **SQL support** and improved InfluxQL performance.
 
 View the following video for more information about InfluxDB 3.0:
 
