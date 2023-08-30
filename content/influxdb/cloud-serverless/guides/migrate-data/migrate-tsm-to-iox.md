@@ -10,6 +10,8 @@ menu:
     name: Migrate from TSM to Serverless
     parent: Migrate data
 weight: 102
+aliases:
+  - /influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox
 alt_engine: /influxdb/cloud/migrate-data/migrate-cloud-to-cloud/
 ---
 
@@ -211,7 +213,7 @@ metadata = () => {
                                 ) * 100.0,
                     }),
             )
-            |> group(columns: ["_measurement", "srcOrg", "srcBucket", "dstBucket"])
+            |> group(columns: ["_measurement", "dstOrg", "srcBucket", "dstBucket"])
 }
 
 // Write the queried data to the specified InfluxDB OSS bucket.
