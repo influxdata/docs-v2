@@ -6,7 +6,7 @@ description: >
   Learn about important differences between Cloud Serverless and Cloud Dedicated and
   best practices for building an application prototype on Cloud Serverless.
 menu:
-  influxdb_cloud_serverless:
+  influxdb_cloud_dedicated:
     name: Prototype your app
     parent: Guides
 weight: 104
@@ -128,10 +128,10 @@ on InfluxDB Cloud Dedicated.
 With InfluxDB Cloud Dedicated, you can build custom task and alerting solutions
 or use 3rd-party tools like Grafana or Prefect--for example:
 
-- [Send alerts using data in InfluxDB Cloud Serverless](/influxdb/cloud-serverless/process-data/send-alerts/)
-- [Downsample data](/influxdb/cloud-serverless/process-data/downsample/)
-- [Summarize data](/influxdb/cloud-serverless/process-data/summarize/)
-- [Use data analysis tools](/influxdb/cloud-serverless/process-data/tools/)
+- [Send alerts using data in InfluxDB Cloud Serverless](/influxdb/cloud-dedicated/process-data/send-alerts/)
+- [Downsample data](/influxdb/cloud-dedicated/process-data/downsample/)
+- [Summarize data](/influxdb/cloud-dedicated/process-data/summarize/)
+- [Use data analysis tools](/influxdb/cloud-dedicated/process-data/tools/)
 
 ### Token management and authorization differences
 
@@ -183,7 +183,7 @@ as an evaluation or prototyping platform for InfluxDB Cloud Dedicated.
 
 ### Use the v3 lightweight client libraries
 
-Use the InfluxDB [v3 lightweight client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
+Use the InfluxDB [v3 lightweight client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
 to help make your code for writing and querying cross-compatible with InfluxDB Cloud Serverless and Cloud Dedicated.
 You'll only need to change your InfluxDB connection credentials
 (host, database name, and token).
