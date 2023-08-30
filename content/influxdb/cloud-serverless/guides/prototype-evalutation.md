@@ -62,7 +62,7 @@ able to evaluate the Cloud Dedicated administrative features directly.
 InfluxDB Cloud Serverless was an upgrade that introduced the InfluxDB 3.0 storage
 engine to InfluxData’s original InfluxDB Cloud (TSM) multi-tenant solution.
 InfluxDB Cloud utilizes the Time-Structured Merge Tree (TSM) storage engine in
-which databases were referred to as "buckets".
+which databases were referred to as _buckets_.
 Cloud Serverless still uses this term.
 
 InfluxDB Cloud Dedicated has only ever used the InfluxDB 3.0 storage engine.
@@ -125,8 +125,7 @@ If you use InfluxDB Cloud Serverless as an evaluation platform for
 InfluxDB Cloud Dedicated, don’t utilize these features as they aren't available
 on InfluxDB Cloud Dedicated.
 
-With InfluxDB Cloud Dedicated, you can build custom task and alerting solutions
-or use 3rd-party tools like Grafana or Prefect--for example:
+With InfluxDB Cloud Dedicated, you can build custom task and alerting solutions or use third-party tools like Grafana or Prefect--for example:
 
 - [Send alerts using data in InfluxDB Cloud Serverless](/influxdb/cloud-serverless/process-data/send-alerts/)
 - [Downsample data](/influxdb/cloud-serverless/process-data/downsample/)
@@ -200,7 +199,7 @@ InfluxDB Cloud Serverless features:
 - Administrative APIs
 - Tasks and alerts from the Cloud Serverless UI (instead use one of the options
 mentioned in _[Tasks and alerts differences](#tasks-and-alerts-differences)_).
-- InfluxDB dashboards and visualization tools (use 3rd-party visualization tools)
+- InfluxDB dashboards and visualization tools (use third-party visualization tools)
 
 ### Use SQL or InfluxQL as your Query Language
 
