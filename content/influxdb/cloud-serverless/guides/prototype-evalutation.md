@@ -85,8 +85,6 @@ Cloud Serverless requires that customers first create DBRP mappings
 (via the CLI or API) for the bucket.
 In Cloud Dedicated, DBRP mapping is handled through naming conventions and
 doesn’t require customers to configure a mapping for InfluxQL queries.
-This difference is really only relevant to customers who used earlier versions
-of InfluxDB and want to move to InfluxDB Cloud Serverless or Cloud Dedicated.
 
 ### Query Language Differences
 
