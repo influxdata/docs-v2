@@ -12,12 +12,6 @@ menu:
     name: Use Python
     identifier: query-with-python-sql
 influxdb/clustered/tags: [query, flight, python, sql, influxql]
-aliases:
-    - /influxdb/clustered/query-data/execute-queries/flight-sql/python/
-    - /influxdb/clustered/query-data/execute-queries/influxql/python/
-    - /influxdb/clustered/query-data/execute-queries/sql/python/
-    - /influxdb/clustered/query-data/tools/python/
-related:
     - /influxdb/clustered/reference/client-libraries/v3/python/
     - /influxdb/clustered/process-data/tools/pandas/
     - /influxdb/clustered/process-data/tools/pyarrow/

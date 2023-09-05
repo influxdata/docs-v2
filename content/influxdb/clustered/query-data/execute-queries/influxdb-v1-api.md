@@ -5,7 +5,7 @@ list_title: Use the v1 query API and InfluxQL
 description: >
   Use the InfluxDB v1 HTTP query API to query data in InfluxDB Clustered
   with InfluxQL.
-weight: 401
+weight: 301
 menu:
   influxdb_clustered:
     parent: Execute queries
