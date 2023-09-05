@@ -80,6 +80,7 @@ tsm|TSM
 uint|UINT
 uinteger
 unescaped
+unprocessable
 unix
 upsample
 upsert
