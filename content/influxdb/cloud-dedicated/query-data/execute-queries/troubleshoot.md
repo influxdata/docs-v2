@@ -30,7 +30,7 @@ Learn how to handle responses and troubleshoot errors encountered when querying 
 
 ## InfluxDB Flight responses
 
-{{% cloud-name %}} provides an InfluxDB-specific Arrow Flight RPC and Flight SQL service that uses gRPC Remote Procedure Calls (gRPC) to transport data in Arrow format.
+{{% cloud-name %}} provides an InfluxDB-specific Arrow Flight remote procedure calls (RPC) and Flight SQL service that uses gRPC, a high performance RPC framework, to transport data in Arrow format.
 Flight defines a set of [RPC methods](https://arrow.apache.org/docs/format/Flight.html#rpc-methods-and-request-patterns) that servers and clients can use to exchange information.
 Flight SQL uses Flight RPC and defines additional methods to query database metadata, execute queries, and manipulate prepared statements.
 To learn more about Flight SQL, see [Introducing Apache Arrow Flight SQL: Accelerating Database Access](https://arrow.apache.org/blog/2022/02/16/introducing-arrow-flight-sql/).
