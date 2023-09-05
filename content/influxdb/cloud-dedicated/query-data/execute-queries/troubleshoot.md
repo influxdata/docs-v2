@@ -1,7 +1,7 @@
 ---
 title: Understand and troubleshoot Flight responses
 description: >
-  Understand responses and troubleshoot errors encountered when querying {{% cloud-name %}} with Flight+gRPC and Arrow Flight clients.
+  Understand responses and troubleshoot errors encountered when querying InfluxDB with Flight+gRPC and Arrow Flight clients.
 weight: 401
 menu:
   influxdb_cloud_dedicated:

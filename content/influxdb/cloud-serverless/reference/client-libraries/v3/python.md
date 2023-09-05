@@ -210,9 +210,9 @@ Replace the following:
 
 #### Initialize a client for batch writing
 
-The following example shows how to initialize a client for writing and querying the bucket.
-When writing data, the client will use batch mode with default options and will
-invoke the callback function for the response.
+The following example shows how to initialize a client for writing and querying the database.
+When writing data, the client uses batch mode with default options and
+invokes the callback function defined for the response status (`success`, `error`, or `retry`).
 
 {{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
 ```py
