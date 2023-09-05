@@ -130,7 +130,7 @@ Initializes and returns an `InfluxDBClient3` instance with the following:
 
 ### Parameters
 
-- **org** (str): The organization name (for {{% cloud-name %}}, set this to an empty string (`""`)).
+- **org** (str): The organization name (for {{% product-name %}}, set this to an empty string (`""`)).
 - **database** (str): The database to use for writing and querying.
 - **write_client_options** (dict): Options to use when writing to InfluxDB.
   If `None`, writes are [synchronous](#synchronous-writing).
@@ -204,8 +204,8 @@ client = InfluxDBClient3(token="DATABASE_TOKEN",
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% cloud-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% cloud-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the specified database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the specified database
 
 
 ##### Initialize a client for batch writing
@@ -255,8 +255,8 @@ invokes the callback function defined for the response status (`success`, `error
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% cloud-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% cloud-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the specified database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the specified database
 
 ### InfluxDBClient3 instance methods
 

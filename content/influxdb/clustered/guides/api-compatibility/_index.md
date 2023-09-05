@@ -8,6 +8,7 @@ weight: 19
 menu:
   influxdb_clustered:
     name: API compatibility
+    parent: Guides
 influxdb/clustered/tags: [api]
 aliases:
   - /influxdb/clustered/primers/

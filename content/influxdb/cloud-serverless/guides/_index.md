@@ -10,6 +10,6 @@ weight: 10
 ---
 
 Learn how to integrate with and perform specific operations on data stored in
-{{< cloud-name >}}.
+{{< product-name >}}.
 
 {{< children >}}

@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_clustered:
     name: Migrate data
-    parent: Write data
+    parent: Guides
 weight: 104
 alt_links:
   cloud: /influxdb/cloud/migrate-data/
@@ -51,18 +51,6 @@ series data with SQL. For more information about querying your data with SQL, se
 IOx storage engine was to enable performant implementations of both SQL and InfluxQL.
 When compared to querying InfluxDB powered by TSM (InfluxDB OSS 1.x, 2.x, and Enterprise),
 InfluxQL queries are more performant when querying InfluxDB powered by InfluxDB IOx.
-
-#### Do you depend on a specific cloud provider or region?
-
-**You should maybe migrate**. InfluxDB Clustered instances are available
-from the following providers:
-
-{{< cloud_regions type=iox-list >}}
-
-If your deployment requires other cloud providers or regions, you may need to
-wait until the IOx storage engine is available in a region that meets your requirements.
-We are currently working to make InfluxDB IOx available on more providers and
-in more regions around the world.
 
 #### Are you reliant on Flux queries and Flux tasks?
 
