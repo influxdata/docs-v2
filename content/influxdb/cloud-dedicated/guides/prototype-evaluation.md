@@ -36,7 +36,7 @@ best practices for building an application prototype on Cloud Serverless.
   - [Use SQL or InfluxQL as your Query Language](#use-sql-or-influxql-as-your-query-language)
   - [Stay within the schema limits of InfluxDB Cloud Serverless](#stay-within-the-schema-limits-of-influxdb-cloud-serverless)
   - [Keep test and production data separate](#keep-test-and-production-data-separate)
-  
+
 <!-- END TOC -->
 
 ## Key differences between InfluxDB Cloud Serverless and Cloud Dedicated
@@ -138,7 +138,7 @@ or use 3rd-party tools like Grafana or Prefect--for example:
 In addition to the token management UI differences mentioned previously
 (there is a UI and API for this with Cloud Serverless, with InfluxDB Cloud
 Dedicated you use `influxctl`), there are also differences in the granularity
-of token permissions---InfluxDB Cloud Dedicated has a few more permission options. 
+of token permissions---InfluxDB Cloud Dedicated has a few more permission options.
 
 | Function             | InfluxDB Cloud Serverless | InfluxDB Cloud Dedicated |
 | :------------------- | :------------------------ | :----------------------- |
@@ -194,7 +194,7 @@ The easiest way to avoid using features in InfluxDB Cloud Serverless that don’
 exist in Cloud Dedicated is to avoid using the Cloud Serverless UI, except when
 managing tokens and buckets.
 In order to maintain compatibility with Cloud Dedicated, specifically avoid using the following
-InfluxDB Cloud Serverless features: 
+InfluxDB Cloud Serverless features:
 
 - The v2 query API and the Flux language
 - Administrative APIs
@@ -213,7 +213,7 @@ Avoid Flux since it can’t be used with InfluxDB Cloud Dedicated.
 If you stay within InfluxDB Cloud Serverless limits for tables (measurements)
 and columns (time, fields, and tags) within a table, then you won’t have any
 problems with limits in InfluxDB Cloud Dedicated.
-Cloud Dedicated also provides more flexibility by letting you configure limits. 
+Cloud Dedicated also provides more flexibility by letting you configure limits.
 
 | Description                  | Limit |
 | :--------------------------- | ----: |

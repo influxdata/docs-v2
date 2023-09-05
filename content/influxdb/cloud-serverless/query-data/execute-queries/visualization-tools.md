@@ -3,7 +3,7 @@ title: Use visualization tools to query data
 list_title: Use visualization tools
 description: >
   Use visualization tools and SQL or InfluxQL to query data stored in InfluxDB.
-weight: 401
+weight: 301
 menu:
   influxdb_cloud_serverless:
     parent: Execute queries

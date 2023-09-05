@@ -8,7 +8,7 @@ menu:
     name: Python
     parent: v3 client libraries
     identifier: influxdb3-python
-influxdb/cloud-dedicated/tags: [python, gRPC, SQL, Flight SQL, client libraries]
+influxdb/cloud-dedicated/tags: [python, gRPC, SQL, client libraries]
 weight: 201
 aliases:
   - /influxdb/cloud-dedicated/reference/client-libraries/v3/pyinflux3/
@@ -47,6 +47,19 @@ The `influxdb3-python` Python client library wraps the Apache Arrow `pyarrow.fli
 in a convenient InfluxDB v3 interface for executing SQL and InfluxQL queries, requesting
 server metadata, and retrieving data from {{% product-name %}} using the Flight protocol with gRPC.
 
+<!-- TOC -->
+
+- [Installation](#installation)
+- [Importing the module](#importing-the-module)
+- [API reference](#api-reference)
+- [Classes](#classes)
+- [Class InfluxDBClient3](#class-influxdbclient3)
+- [Class Point](#class-point)
+- [Class WriteOptions](#class-writeoptions)
+- [Functions](#functions)
+- [Constants](#constants)
+- [Exceptions](#exceptions)
+
 ## Installation
 
 Install the client library and dependencies using `pip`:
@@ -72,9 +85,11 @@ Import specific class methods from the module:
 from influxdb_client_3 import InfluxDBClient3, Point, WriteOptions
 ```
 
-- [`influxdb_client_3.InfluxDBClient3`](#class-influxdbclient3): an interface for [initializing a client](#initialization) and interacting with InfluxDB
-- [`influxdb_client_3.Point`](#class-point): an interface for constructing a time series data point
-- [`influxdb_client_3.WriteOptions`](#class-writeoptions): an interface for configuring write options for the client
+- [`influxdb_client_3.InfluxDBClient3`](#class-influxdbclient3): a class for interacting with InfluxDB
+- `influxdb_client_3.Point`: a class for constructing a time series data
+point
+- `influxdb_client_3.WriteOptions`: a class for configuring client
+write options.
 
 ## API reference
 
@@ -113,52 +128,49 @@ Initializes and returns an `InfluxDBClient3` instance with the following:
 - A singleton _write client_ configured for writing to the database.
 - A singleton _Flight client_ configured for querying the database.
 
-### Attributes
+### Parameters
 
-- **`_org`** (str): The organization name (for {{% product-name %}}, set this to an empty string (`""`)).
-- **`_database`** (str): The database to use for writing and querying.
-- **`_write_client_options`** (dict): Options passed to the write client for writing to InfluxDB.
+- **org** (str): The organization name (for {{% cloud-name %}}, set this to an empty string (`""`)).
+- **database** (str): The database to use for writing and querying.
+- **write_client_options** (dict): Options to use when writing to InfluxDB.
   If `None`, writes are [synchronous](#synchronous-writing).
-- **`_flight_client_options`** (dict): Options passed to the Flight client for querying InfluxDB.
+- **flight_client_options** (dict): Options to use when querying InfluxDB.
 
 #### Batch writing
 
 In batching mode, the client adds the record or records to a batch, and then schedules the batch for writing to InfluxDB.
-The client writes the batch to InfluxDB after reaching `_write_client_options.batch_size` or `_write_client_options.flush_interval`.
-If a write fails, the client reschedules the write according to the `_write_client_options` retry options.
+The client writes the batch to InfluxDB after reaching `write_client_options.batch_size` or `write_client_options.flush_interval`.
+If a write fails, the client reschedules the write according to the `write_client_options` retry options.
 
-To use batching mode, pass an instance of `WriteOptions` to the `InfluxDBClient3.write_client_options` argument--for example:
+To use batching mode, pass `WriteOptions` as key-value pairs to the client `write_client_options` parameter--for example:
 
 1.  Instantiate `WriteOptions()` with defaults or with
 `WriteOptions.write_type=WriteType.batching`.
 
     ```py
-      from influxdb_client_3 import WriteOptions
-
-      # Initialize batch writing default options (batch size, flush, and retry).
-      # Returns an influxdb_client.client.write_api.WriteOptions object.
+      # Create a WriteOptions instance for batch writes with batch size, flush, and retry defaults.
       write_options = WriteOptions()
     ```
 
-2.  Call the [`write_client_options()` function](#function-write_client_optionskwargs) to create an options object that uses `write_options` from the preceding step.
+2.  Pass `write_options` from the preceding step to the `write_client_options` function.
 
     ```py
-    from influxdb_client_3 import write_client_options
-
-    # Create a dict of keyword arguments from WriteOptions
     wco = write_client_options(WriteOptions=write_options)
     ```
 
-3.  Initialize the client, setting the `write_client_options` argument to the `wco` object from the preceding step.
+    The output is a dict with `WriteOptions`  key-value pairs.
+
+3.  Initialize the client, setting the `write_client_options` argument to `wco` from the preceding step.
 
     {{< tabs-wrapper >}}
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3
 
-with InfluxDBClient3(token="DATABASE_TOKEN", host="{{< influxdb/host >}}",
-                    org="", database="DATABASE_NAME",
-                    write_client_options=wco) as client:
+with InfluxDBClient3(token="DATABASE_TOKEN",
+                     host="{{< influxdb/host >}}",
+                     org="", database="DATABASE_NAME",
+                     write_client_options=wco) as client:
 
     client.write(record=points)
 ```
@@ -192,14 +204,15 @@ client = InfluxDBClient3(token="DATABASE_TOKEN",
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the databases you want to query
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% cloud-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% cloud-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the specified database
+
 
 ##### Initialize a client for batch writing
 
 The following example shows how to initialize a client for writing and querying the database.
 When writing data, the client uses batch mode with default options and
-invokes the callback function for the response.
+invokes the callback function defined for the response status (`success`, `error`, or `retry`).
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```py
@@ -242,35 +255,27 @@ invokes the callback function for the response.
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
-  Your InfluxDB token with READ permissions on the databases you want to query.
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}:
-  The name of your InfluxDB database.
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% cloud-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% cloud-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the specified database
 
 ### InfluxDBClient3 instance methods
-
-<!-- TOC -->
-- [InfluxDBClient3.write](#influxdbclient3write)
-- [InfluxDBClient3.write_file](#influxdbclient3write_file)
-- [InfluxDBClient3.query](#influxdbclient3query)
-- [InfluxDBClient3.close](#influxdbclient3close)
 
 ### InfluxDBClient3.write
 
 Writes a record or a list of records to InfluxDB.
-A record can be a `Point` object, a dict that represents a point, a line protocol string, or a `DataFrame`.
 
 The client can write using [_batching_ mode](#batch-writing) or [_synchronous_ mode](#synchronous-writing).
-
-##### Attributes
-
-- **`write_precision=`**: `"ms"`, `"s"`, `"us"`, `"ns"`. Default is `"ns"`.
 
 #### Syntax
 
 ```py
 write(self, record=None, **kwargs)
 ```
+
+#### Parameters
+
+- **`record`**: A record or list of records to write. A record can be a `Point` object, a dict that represents a point, a line protocol string, or a `DataFrame`.
+- **`write_precision=`**: `"ms"`, `"s"`, `"us"`, `"ns"`. Default is `"ns"`.
 
 #### Examples
 
@@ -280,11 +285,11 @@ write(self, record=None, **kwargs)
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```py
 from influxdb_client_3 import InfluxDBClient3
-                    
+
 points = "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000"
 
-client = InfluxDBClient3(token="DATABASE_TOKEN", host="{{< influxdb/host >}}",
-                        database="DATABASE_NAME", org="")
+client = InfluxDBClient3(token="DATABASE_TOKEN", host="cluster-id.influxdb.io",
+                        database="DATABASE_NAME")
 
 client.write(record=points, write_precision="s")
 ```
@@ -293,7 +298,9 @@ client.write(record=points, write_precision="s")
 
 ##### Write data using points
 
-The following example shows how to create a [`Point`](#class-point), and then write the
+The `influxdb_client_3.Point` class provides an interface for constructing a data
+point for a measurement and setting fields, tags, and the timestamp for the point.
+The following example shows how to create a `Point` object, and then write the
 data to InfluxDB.
 
 ```py
@@ -307,7 +314,7 @@ client.write(point)
 
 `InfluxDBClient3` can serialize a dictionary object into line protocol.
 If you pass a `dict` to `InfluxDBClient3.write`, the client expects the `dict` to have the
-following _point_ data structure:
+following _point_ attributes:
 
 - **measurement** (str): the measurement name
 - **tags** (dict): a dictionary of tag key-value pairs
@@ -320,22 +327,22 @@ data to InfluxDB.
 {{% influxdb/custom-timestamps %}}
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```py
-  from influxdb_client_3 import InfluxDBClient3
+from influxdb_client_3 import InfluxDBClient3
 
-  # Using point dictionary structure
-  points = {
-            "measurement": "home",
-            "tags": {"room": "Kitchen", "sensor": "K001"},
-            "fields": {"temp": 72.2, "hum": 36.9, "co": 4},
-            "time": 1641067200
-            }
-  
-  client = InfluxDBClient3(token="DATABASE_TOKEN",
-                          host="{{< influxdb/host >}}",
-                          database="DATABASE_NAME",
-                          org="")
-  
-  client.write(record=points, write_precision="s")
+# Using point dictionary structure
+points = {
+          "measurement": "home",
+          "tags": {"room": "Kitchen", "sensor": "K001"},
+          "fields": {"temp": 72.2, "hum": 36.9, "co": 4},
+          "time": 1641067200
+          }
+
+client = InfluxDBClient3(token="DATABASE_TOKEN",
+                        host="{{< influxdb/host >}}",
+                        database="DATABASE_NAME",
+                        org="")
+
+client.write(record=points, write_precision="s")
 ```
 {{% /code-placeholders %}}
 {{% /influxdb/custom-timestamps %}}
@@ -352,20 +359,18 @@ The client can write using [_batching_ mode](#batch-writing) or [_synchronous_ m
 write_file(self, file, measurement_name=None, tag_columns=[],
           timestamp_column='time', **kwargs)
 ```
-##### Attributes
+#### Parameters
 
--   **`file`**: A file containing records to write to InfluxDB. 
-    The following file formats and filename extensions are supported.
-    The filename must end with one of the supported extensions.
-    For more information about encoding and formatting data, see the documentation for each supported format.
+-   **`file`** (str): A path to a file containing records to write to InfluxDB.
+    The filename must end with one of the following supported extensions.
+    For more information about encoding and formatting data, see the documentation for each supported format:
   
-    | Supported format                                                           | File name extension |
-    |:---------------------------------------------------------------------------|:--------------------|
-    | [Feather](https://arrow.apache.org/docs/python/feather.html)               | `.feather`          |
-    | [Parquet](https://arrow.apache.org/docs/python/parquet.html)               | `.parquet`          |
-    | [Comma-separated values](https://arrow.apache.org/docs/python/csv.html)    | `.csv`              |
-    | [JSON](https://pandas.pydata.org/docs/reference/api/pandas.read_json.html) | `.json`             |
-    | [ORC](https://arrow.apache.org/docs/python/orc.html)                       | `.orc`              |  
+    - `.feather`: [Feather](https://arrow.apache.org/docs/python/feather.html)
+    - `.parquet`: [Parquet](https://arrow.apache.org/docs/python/parquet.html)
+    - `.csv`: [Comma-separated values](https://arrow.apache.org/docs/python/csv.html)
+    - `.json`: [JSON](https://pandas.pydata.org/docs/reference/api/pandas.read_json.html)
+    - `.orc`: [ORC](https://arrow.apache.org/docs/python/orc.html)
+
 - **`measurement_name`**: Defines the measurement name for records in the file.
   The specified value takes precedence over `measurement` and `iox::measurement` columns in the file.
   If no value is specified for the parameter, and a `measurement` column exists in the file, the `measurement` column value is used for the measurement name.
@@ -438,23 +443,70 @@ Returns all data in the query result as an Arrow table.
 #### Syntax
 
 ```py
-query(self, query, language="sql")
+query(self, query, language="sql", mode="all", **kwargs )
 ```
+
+#### Parameters
+
+- **`query`** (str): the SQL or InfluxQL to execute.
+- **`language`** (str): the query language used in the `query` parameter--`"sql"` or `"influxql"`. Default is `"sql"`.
+- **`mode`** (str): specifies what the [`pyarrow.flight.FlightStreamReader`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightStreamReader.html#pyarrow.flight.FlightStreamReader) will return.
+  Default is `"all"`.
+  - `all`: Read the entire contents of the stream and return it as a `pyarrow.Table`.
+  - `chunk`: Read the next message (a `FlightStreamChunk`) and return `data` and `app_metadata`.
+    Returns `null` if there are no more messages.
+  - `pandas`: Read the contents of the stream and return it as a `pandas.DataFrame`.
+  - `reader`: Convert the `FlightStreamReader` into a [`pyarrow.RecordBatchReader`](https://arrow.apache.org/docs/python/generated/pyarrow.RecordBatchReader.html#pyarrow-recordbatchreader).
+  - `schema`: Return the schema for all record batches in the stream.
 
 #### Examples
 
 ##### Query using SQL
 
 ```py
-query = "select * from measurement"
-reader = client.query(query=query)
+table = client.query("SELECT * FROM measurement WHERE time >= now() - INTERVAL '90 days'")
+# Filter columns.
+print(table.select(['room', 'temp']))
+# Use PyArrow to aggregate data.
+print(table.group_by('hum').aggregate([]))
 ```
 
 ##### Query using InfluxQL
 
 ```py
-query = "select * from measurement"
-reader = client.query(query=query, language="influxql")
+query = "SELECT * FROM measurement WHERE time >= -90d"
+table = client.query(query=query, language="influxql")
+# Filter columns.
+print(table.select(['room', 'temp']))
+```
+
+##### Read all data from the stream and return a pandas DataFrame
+
+```py
+query = "SELECT * FROM measurement WHERE time >= now() - INTERVAL '90 days'"
+pd = client.query(query=query, mode="pandas")
+# Print the pandas DataFrame formatted as a Markdown table.
+print(pd.to_markdown())
+```
+
+##### View the schema for all batches in the stream
+
+```py
+table = client.query('''
+  SELECT *
+  FROM measurement
+  WHERE time >= now() - INTERVAL '90 days''''
+)
+# Get the schema attribute value.
+print(table.schema)
+```
+
+##### Retrieve the result schema and no data
+
+```py
+query = "SELECT * FROM measurement WHERE time >= now() - INTERVAL '90 days'"
+schema = client.query(query=query, mode="schema")
+print(schema)
 ```
 
 ### InfluxDBClient3.close
@@ -561,7 +613,6 @@ fh.close()
 client = InfluxDBClient3(
     token="DATABASE_TOKEN",
     host="{{< influxdb/host >}}",
-    org="",
     database="DATABASE_NAME",
     flight_client_options=flight_client_options(
         tls_root_certs=cert))
@@ -576,28 +627,3 @@ client = InfluxDBClient3(
 ## Exceptions
 
 - `influxdb_client_3.InfluxDBError`: Exception class raised for InfluxDB-related errors
-- [`pyarrow._flight.FlightUnavailableError`](#flightunavailableerror-could-not-get-default-pem-root-certs): Exception class raised for Flight gRPC errors
-
-### Query exceptions
-
-#### FlightUnavailableError: Could not get default pem root certs
-
-[Specify the root certificate path](#specify-the-root-certificate-path) for the Flight gRPC client.
-
-Non-POSIX-compliant systems (such as Windows) need to specify the root certificates in SslCredentialsOptions for the gRPC client, since the defaults are only configured for POSIX filesystems.
-
-If unable to locate a root certificate for _gRPC+TLS_, the Flight client returns errors similar to the following:
-
-```sh
-UNKNOWN:Failed to load file... filename:"/usr/share/grpc/roots.pem",
-  children:[UNKNOWN:No such file or directory
-...
-Could not get default pem root certs...
-
-pyarrow._flight.FlightUnavailableError: Flight returned unavailable error,
-  with message: empty address list: . gRPC client debug context:
-  UNKNOWN:empty address list
-...
-```
-
-For more information about gRPC SSL/TLS client-server authentication, see [Using client-side SSL/TLS](https://grpc.io/docs/guides/auth/#using-client-side-ssltls) in the [gRPC.io Authentication guide](https://grpc.io/docs/guides/auth/).
