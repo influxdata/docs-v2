@@ -35,8 +35,8 @@ Flight defines a set of [RPC methods](https://arrow.apache.org/docs/format/Fligh
 Flight SQL uses Flight RPC and defines additional methods to query database metadata, execute queries, and manipulate prepared statements.
 To learn more about Flight SQL, see [Introducing Apache Arrow Flight SQL: Accelerating Database Access](https://arrow.apache.org/blog/2022/02/16/introducing-arrow-flight-sql/).
 
-To query data or retrieve information about data stored in {{% cloud-name %}}, a Flight client (for example, `influx3` or an InfluxDB v3 client library) sends a request that calls an InfluxDB Flight RPC or Flight SQL service method.
-For example, if you call the `influxdb3-python` Python client library `InfluxDBClient3.query()` method, the client in turn calls the `pyarrow.flight.FlightClient.do_get()` method that passes a Flight ticket containing your credentials and query to InfluxDB's Flight [`DoGet(FlightCallOptions, Ticket)` method](https://arrow.apache.org/docs/cpp/api/flight.html#_CPPv4N5arrow6flight12FlightClient5DoGetERK17FlightCallOptionsRK6Ticket).
+To query data or retrieve information about data stored in {{% cloud-name %}}, use a Flight client to send a call to an InfluxDB Flight RPC or Flight SQL service method.
+For example, if you use the [`influxdb3-python` Python client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/) and call the `InfluxDBClient3.query()` method, the client in turn calls the `pyarrow.flight.FlightClient.do_get()` method and passes a Flight ticket containing your credentials and query to InfluxDB's Flight [`DoGet(FlightCallOptions, Ticket)` method](https://arrow.apache.org/docs/cpp/api/flight.html#_CPPv4N5arrow6flight12FlightClient5DoGetERK17FlightCallOptionsRK6Ticket).
 
 InfluxDB responds with one of the following:
 
@@ -128,7 +128,7 @@ During a request, the gRPC client and server may each return a status--for examp
 
 - The server fails to process the query; responds with status `internal error` and gRPC status `13`.
 - The request is missing a database token; the server responds with status `unauthenticated` and gRPC status `16`.
-- The server responds with a stream, but the client loses the connection due to a network failure and returns status `unavailable` (gRPC status `???`).
+- The server responds with a stream, but the client loses the connection due to a network failure and returns status `unavailable`.
 
 gRPC defines the integer [status codes](https://grpc.github.io/grpc/core/status_8h.html) and definitions for servers and clients and
 Arrow Flight defines a `FlightStatusDetail` class and the [error codes](https://arrow.apache.org/docs/format/Flight.html#error-handling) that a Flight RPC service may implement.
