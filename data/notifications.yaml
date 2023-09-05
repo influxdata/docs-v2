@@ -4,25 +4,35 @@
 #   level: note or warn
 #   scope:
 #     - list of URL paths to show notification on, no scope shows everywhere
+#   title: Message title
+#   slug: (optional) Short notification summary
 #   message: |
 #     Markdown message content.
 
-- id: influxdb-3-announcement
+- id: influxdb-clustered-announcement
   level: note
   scope:
     - /
-  title: Introducing InfluxDB 3.0
+  title: Introducing InfluxDB Clustered
+  slug: A highly available InfluxDB 3.0 cluster on your own infrastructure.
   message: |
-    The new core of InfluxDB built with Rust and Apache Arrow.
-    Available today in [InfluxDB Cloud Dedicated](/influxdb/cloud-dedicated/).
+    [InfluxDB Clustered](/influxdb/clustered/) is a highly available InfluxDB 3.0
+    cluster built for high write and query workloads on your own infrastructure.
+    
+    InfluxDB Clustered is currently in **limited availability** and is only
+    available to a limited group of InfluxData customers. If interested in being
+    part of the limited access group, please
+    [contact the InfluxData Sales team](https://www.influxdata.com/proof-of-concept/).
 
-    [Learn more](https://www.influxdata.com/blog/introducing-influxdb-3-0) 
+    [Learn more](/influxdb/clustered/)  
+    [Contact InfluxData Sales](https://www.influxdata.com/proof-of-concept/)
 
 - id: serverless-wip
   level: warn
   scope:
     - /influxdb/cloud-serverless/
   title: State of the InfluxDB Cloud Serverless documentation
+  slug: InfluxDB Cloud Serverless documentation is a work in progress.
   message: |
     The new documentation for **InfluxDB Cloud Serverless** is a work
     in progress. We are adding new information and content almost daily.

@@ -4,6 +4,11 @@
       <div class="notification-title">
         <h3>{{ .title }}</h3>
       </div>
+      {{ if .slug }}
+      <div class="notification-slug">
+        {{ .slug | markdownify }}
+      </div>
+      {{ end }}
       <div class="notification-content">
         {{ .message | markdownify }}
       </div>
