@@ -72,10 +72,10 @@ Data transformation tools can use the schema when converting Arrow data to other
 Given the following query:
 
 ```sql
-  '''SELECT co, delete, hum, room, temp, time
-      FROM home
-      WHERE time >= now() - INTERVAL '90 days'
-      ORDER BY time'''
+SELECT co, delete, hum, room, temp, time
+  FROM home
+  WHERE time >= now() - INTERVAL '90 days'
+  ORDER BY time
 ```
 
 The Python client library outputs the following schema representation:
