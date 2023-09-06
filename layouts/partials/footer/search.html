@@ -5,7 +5,7 @@
 {{ $fluxSupported := slice "influxdb" "enterprise_influxdb" }}
 {{ $influxdbFluxSupport := slice "v1.7" "v1.8" "v1.9" "cloud" }}
 {{ $includeFlux := cond (and (in $fluxSupported $product) (or (in $influxdbFluxSupport $currentVersion) (gt (len (findRE `v2\.` $currentVersion)) 0))) true false }}
-{{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated") $currentVersion) }}
+{{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated" "clustered") $currentVersion) }}
 
 <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
