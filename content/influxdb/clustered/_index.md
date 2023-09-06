@@ -18,7 +18,7 @@ The InfluxDB time series platform is designed to handle high write and query loa
 Learn how to use and leverage InfluxDB Clustered for your specific
 time series use case.
 
-<a class="btn" href="{{< cta-link >}}">Request a proof of concept</a>  
+<a class="btn" href="{{< cta-link >}}">Contact InfluxData Sales</a>  
 <a class="btn" href="/influxdb/clustered/get-started/">Get started with InfluxDB Clustered</a>
 
 ## InfluxDB 3.0

@@ -85,7 +85,7 @@ influxdb_clustered:
   versions: [clustered]
   list_order: 3
   latest: clustered
-  link: "https://www.influxdata.com/proof-of-concept/"
+  link: "https://www.influxdata.com/contact-sales-influxdb-clustered"
   placeholder_host: cluster-host.com
 
 telegraf:
