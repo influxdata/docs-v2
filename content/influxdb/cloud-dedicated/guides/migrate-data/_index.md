@@ -10,7 +10,8 @@ menu:
 weight: 104
 aliases: 
   - /influxdb/cloud-dedicated/write-data/migrate-data/
-alt_engine: /influxdb/cloud/migrate-data/
+alt_links:
+  cloud: /influxdb/cloud/migrate-data/
 ---
 
 Migrate data to InfluxDB Cloud Dedicated powered by InfluxDB IOx from other 
@@ -67,7 +68,7 @@ in more regions around the world.
 
 #### Are you reliant on Flux queries and Flux tasks?
 
-**You should not migrate**. {{% cloud-name %}} doesn't support Flux.
+**You should not migrate**. {{% product-name %}} doesn't support Flux.
 
 ---
 

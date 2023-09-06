@@ -66,7 +66,7 @@ The InfluxDB output plugin configuration contains the following options:
 ##### urls
 An array of URLs for your InfluxDB {{< current-version >}} instances.
 See [InfluxDB URLs](/influxdb/v2.7/reference/urls/) for information about which URLs to use.
-**{{< cloud-name "short">}} requires HTTPS**.
+**InfluxDB Cloud requires HTTPS**.
 
 ##### token
 Your InfluxDB {{< current-version >}} API token.

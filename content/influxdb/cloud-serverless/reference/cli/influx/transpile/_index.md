@@ -11,7 +11,7 @@ prepend:
   content: |
     ### Removed in influx CLI v2.0.5
     The `influx transpile` command was removed in **v2.0.5** of the `influx` CLI.
-    Use [SQL](/influxdb/cloud-serverless/query-data/sql/execute-queries/) or [InfluxQL](/influxdb/cloud-serverless/query-data/influxql/execute-queries/) tools to query a {{% cloud-name %}} bucket.
+    Use [SQL](/influxdb/cloud-serverless/query-data/sql/execute-queries/) or [InfluxQL](/influxdb/cloud-serverless/query-data/influxql/execute-queries/) tools to query a {{% product-name %}} bucket.
 ---
 
 {{< duplicate-oss >}}

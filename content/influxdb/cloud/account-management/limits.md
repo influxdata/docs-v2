@@ -12,7 +12,8 @@ related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
   - /influxdb/cloud/write-data/best-practices/resolve-high-cardinality/
-alt_engine: /influxdb/cloud-serverless/admin/billing/limits/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/admin/billing/limits/
 ---
 
 InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis.
@@ -94,7 +95,7 @@ Combine delete predicate expressions (if possible) into a single request. Influx
 
 ## UI error messages
 
-The {{< cloud-name >}} UI displays a notification message when service quotas or limits are exceeded. The error messages correspond with the relevant [API error responses](#api-error-responses).
+The {{< product-name >}} UI displays a notification message when service quotas or limits are exceeded. The error messages correspond with the relevant [API error responses](#api-error-responses).
 
 Errors can also be viewed in the [Usage page](/influxdb/cloud/account-management/data-usage/) under **Limit Events**, e.g. `event_type_limited_query`, `event_type_limited_write`,`event_type_limited_cardinality`, or `event_type_limited_delete_rate`.
 

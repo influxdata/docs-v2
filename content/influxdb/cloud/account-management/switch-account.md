@@ -8,17 +8,18 @@ menu:
     name: Switch InfluxDB accounts
     parent: Account management
 weight: 105
-alt_engine: /influxdb/cloud-serverless/admin/accounts/switch-account/
+alt_links: 
+  cloud-serverless: /influxdb/cloud-serverless/admin/accounts/switch-account/
 ---
 
-If you belong to more than one {{< cloud-name >}} account with the same email address, you can switch from one account to another while staying logged in.
+If you belong to more than one {{< product-name >}} account with the same email address, you can switch from one account to another while staying logged in.
 An account can contain multiple organizations. 
 
 You can also set a default account. The default account is the account automatically used when the user logs in.
 
-To switch {{< cloud-name "short" >}} accounts:
+To switch {{< product-name "short" >}} accounts:
 
-1. In the {{< cloud-name "short" >}} UI, click the account name drop-down list in the upper left.
+1. In the {{< product-name "short" >}} UI, click the account name drop-down list in the upper left.
 2. Select **Switch Account**. If this option doesn't appear, your email address is only associated with one account.
 3. Select the account you want to switch to.
 

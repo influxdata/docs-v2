@@ -11,7 +11,8 @@ menu:
 related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
-alt_engine: /influxdb/cloud/account-management/data-usage/
+alt_links:
+  cloud: /influxdb/cloud/account-management/data-usage/
 aliases:
   - /influxdb/cloud-serverless/admin/accounts/data-usage/
 ---
@@ -20,13 +21,13 @@ View the statistics of your data usage and rate limits (reads and writes) on the
 InfluxDB Cloud Serverless UI **Usage** page.
 For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/admin/billing/limits/).
 
-To view your {{< cloud-name >}} data usage, do the following:
+To view your {{< product-name >}} data usage, do the following:
 
 1.  Click on your organization in the header near the top of the page.
 2.  Select **Usage** from the dropdown menu.
 3.  Select a time range to review data usage (by default, `Past 24h`), and then select one of the following:
 
-    - **Data In:** Total data in MB written to your {{< cloud-name "short" >}} instance.
+    - **Data In:** Total data in MB written to your {{< product-name "short" >}} instance.
       Data in and write requests do not count towards your query count.
     - **Query Count:** Total number of individual query operations, which include
       queries from external clients.

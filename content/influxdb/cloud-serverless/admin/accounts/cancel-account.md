@@ -12,7 +12,8 @@ menu:
   influxdb_cloud_serverless:
     parent: Manage accounts
     name: Cancel InfluxDB Cloud
-alt_engine: /influxdb/cloud/account-management/offboarding/
+alt_links:
+  cloud: /influxdb/cloud/account-management/offboarding/
 ---
 
 To cancel your InfluxDB Cloud Serverless subscription, complete the following steps:

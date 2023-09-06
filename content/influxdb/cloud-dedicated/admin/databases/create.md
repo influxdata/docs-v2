@@ -120,7 +120,7 @@ database_name/retention_policy_name
 
 ## Table and column limits
 
-In {{< cloud-name >}}, table (measurement) and column limits can be
+In {{< product-name >}}, table (measurement) and column limits can be
 configured using the `--max-tables` and `--max-columns` flags.
 Each measurement is represented by a table.
 Time, fields, and tags are each represented by a column.

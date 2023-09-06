@@ -136,7 +136,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 
 The following examples show how to write the 
 [sample data](#home-sensor-data-line-protocol), already in line protocol format,
-to an {{% cloud-name %}} database.
+to an {{% product-name %}} database.
 
 To learn more about available tools and options, see [Write data](/influxdb/cloud-dedicated/write-data/).
 
@@ -159,7 +159,7 @@ credentials (**URL**, **organization**, and **token**) are provided by
 {{% tab-content %}}
 <!------------------------------- BEGIN TELEGRAF CONTENT ------------------------------>
 Use [Telegraf](/{{< latest "telegraf" >}}/) to consume line protocol,
-and then write it to {{< cloud-name >}}.
+and then write it to {{< product-name >}}.
 
 1.  If you haven't already, follow the instructions to [download and install Telegraf](/{{< latest "telegraf" >}}/install/).
 
@@ -186,7 +186,7 @@ and then write it to {{< cloud-name >}}.
         files = ["home.lp"]
       ```
 
-    - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]` section, replace the default values with the following configuration for your {{% cloud-name %}} database:
+    - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]` section, replace the default values with the following configuration for your {{% product-name %}} database:
 
       ```toml
       [[outputs.influxdb_v2]]
@@ -240,7 +240,7 @@ To learn more, see how to [use Telegraf to write data](/influxdb/cloud-dedicated
 To write data to InfluxDB using the InfluxDB v2 HTTP API, send a
 request to the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="https://cluster-id.influxdb.io/api/v2/write" method="post" api-ref="/influxdb/cloud-iox/api/#operation/PostWrite" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write" method="post" api-ref="/influxdb/cloud-iox/api/#operation/PostWrite" >}}
 
 Include the following with your request:
 
@@ -254,7 +254,7 @@ Include the following with your request:
 - **Request body**: Line protocol as plain text
 
 {{% note %}}
-With the {{% cloud-name %}} v2 API `/api/v2/write` endpoint, `Authorization: Bearer` and `Authorization: Token` are equivalent and you can use either scheme to pass a database token in your request. For more information about HTTP API token schemes, see how to [authenticate API requests](/influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests).
+With the {{% product-name %}} v2 API `/api/v2/write` endpoint, `Authorization: Bearer` and `Authorization: Token` are equivalent and you can use either scheme to pass a database token in your request. For more information about HTTP API token schemes, see how to [authenticate API requests](/influxdb/cloud-dedicated/primers/api/v2/#authenticate-api-requests).
 {{% /note %}}
 
 The following example uses cURL and the InfluxDB v2 API to write line protocol
@@ -264,7 +264,7 @@ to InfluxDB:
 {{% influxdb/custom-timestamps %}}
 ```sh
 curl --request POST \
-"https://cluster-id.influxdb.io/api/v2/write?bucket=get-started&precision=s" \
+"https://{{< influxdb/host >}}/api/v2/write?bucket=get-started&precision=s" \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -305,7 +305,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 <!---------------------------- BEGIN PYTHON CONTENT --------------------------->
 {{% influxdb/custom-timestamps %}}
 
-To write data to {{% cloud-name %}} using Python, use the
+To write data to {{% product-name %}} using Python, use the
 [`influxdb_client_3` module](https://github.com/InfluxCommunity/influxdb3-python).
 The following steps include setting up a Python virtual environment to scope
 dependencies to your current project.
@@ -355,7 +355,7 @@ dependencies to your current project.
 
       # host is the URL without protocol or trailing slash
       client = InfluxDBClient3(
-          host='cluster-id.influxdb.io',
+          host='{{< influxdb/host >}}',
           org='',
           token=token,
           database='get-started'
@@ -399,11 +399,11 @@ dependencies to your current project.
     2.  Calls the `InfluxDBClient3()` constructor to instantiate an InfluxDB client
         configured with the following credentials:
 
-        - **`host`**: {{% cloud-name %}} cluster hostname (URL without protocol or trailing slash)
+        - **`host`**: {{% product-name omit=" Clustered" %}} cluster hostname (URL without protocol or trailing slash)
         - **`org`**: an empty or arbitrary string (InfluxDB ignores this parameter)
         - **`token`**: an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/) with write access to the target database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
-        - **`database`**: the name of the {{% cloud-name %}} database to write to
+        - **`database`**: the name of the {{% product-name %}} database to write to
     
     3.  Defines a list of line protocol strings where each string represents a data record.
     4.  Calls the `client.write()` method with the line protocol record list and write options.
@@ -412,7 +412,7 @@ dependencies to your current project.
         precision, the example passes the `write_precision='s'` option
         to set the[timestamp precision](/influxdb/cloud-dedicated/reference/glossary/#timestamp-precision) to seconds.**
 
-6.  To execute the module and write line protocol to your {{% cloud-name %}}
+6.  To execute the module and write line protocol to your {{% product-name %}}
     database, enter the following command in your terminal:
     
       ```sh
@@ -427,7 +427,7 @@ dependencies to your current project.
 <!----------------------------- BEGIN GO CONTENT ------------------------------>
 {{% influxdb/custom-timestamps %}}
 
-To write data to {{% cloud-name %}} using Go, use the
+To write data to {{% product-name %}} using Go, use the
 InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommunity/influxdb3-go).
 
 1.  Inside of your project directory, create a new module directory and navigate into it.
@@ -544,8 +544,8 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     2.  Defines a `WriteLineProtocol()` function that does the following:
         
         1.  To instantiate the client, calls the `influxdb3.New(influxdb3.ClientConfig)` function and passes the following:
-            - **`Host`**: the {{% cloud-name %}} cluster URL
-            - **`Database`**: The name of your {{% cloud-name %}} database
+            - **`Host`**: the {{% product-name omit=" Clustered" %}} cluster URL
+            - **`Database`**: The name of your {{% product-name %}} database
             - **`Token`**: an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
               _Store this in a secret store or environment variable to avoid exposing the raw token string._
             - **`WriteOptions`**: `influxdb3.WriteOptions` options for writing to InfluxDB.
@@ -580,7 +580,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     go mod tidy && go build && go run influxdb_go_client
     ```
 
-    The program writes the line protocol to your {{% cloud-name %}} database.
+    The program writes the line protocol to your {{% product-name %}} database.
 
 {{% /influxdb/custom-timestamps %}}
 <!------------------------------- END GO CONTENT ------------------------------>
@@ -692,8 +692,8 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     2.  Calls the `new InfluxDBClient()` constructor and passes a `ClientOptions` object to instantiate a client configured
         with InfluxDB credentials.
 
-        - **`host`**: your {{% cloud-name %}} cluster URL
-        - **`token`**: an [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+        - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
+        - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
     3.  Defines a list of line protocol strings where each string represents a data record.
@@ -701,7 +701,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
         Each call to `write()` passes the following arguments:
         
         - **`record`**: the line protocol record
-        - **`database`**: the name of the {{% cloud-name %}} database to write to
+        - **`database`**: the name of the {{% product-name %}} database to write to
         - **`{precision}`**: a `WriteOptions` object that sets the `precision` value.
 
         **Because the timestamps in the sample line protocol are in second
@@ -729,7 +729,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     main();
     ```
 
-9.  In your terminal, execute `index.mjs` to write to {{% cloud-name %}}:
+9.  In your terminal, execute `index.mjs` to write to {{% product-name %}}:
 
     ```sh
     node index.mjs
@@ -848,9 +848,9 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
       1.  Calls the `new InfluxDBClient()` constructor to instantiate a client configured
            with InfluxDB credentials.
 
-          - **`host`**: your {{% cloud-name %}} cluster URL
-          - **`database`**: the name of the {{% cloud-name %}} database to write to
-          - **`token`**: an [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified bucket.
+          - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
+          - **`database`**: the name of the {{% product-name %}} database to write to
+          - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified bucket.
             _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
           _Instantiating the client with the `using` statement ensures that the client is disposed of when it's no longer needed._
@@ -885,7 +885,7 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     and defines a `Main()` function that calls `Write.WriteLineProtocol()`.
     The `dotnet` CLI recognizes `Program.Main()` as the entry point for your program.
 
-7.  To build and execute the program and write the line protocol to your {{% cloud-name %}} database, enter the following command in your terminal:
+7.  To build and execute the program and write the line protocol to your {{% product-name %}} database, enter the following command in your terminal:
 
     ```sh
     dotnet run
@@ -1039,9 +1039,9 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
     2.  Calls `InfluxDBClient.getInstance()` to instantiate a client configured
         with InfluxDB credentials.
 
-        - **`host`**: your {{% cloud-name %}} cluster URL
-        - **`database`**: the name of the {{% cloud-name %}} database to write to
-        - **`token`**: an [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+        - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
+        - **`database`**: the name of the {{% product-name %}} database to write to
+        - **`token`**: a [database token]/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
     2.  Defines a list of line protocol strings where each string represents a data record.

@@ -19,7 +19,7 @@ aliases:
 ---
 
 Use [Grafana](https://grafana.com/) to query and visualize data stored in
-{{% cloud-name %}}.
+{{% product-name %}}.
 Install the [grafana-flight-sql-plugin](https://github.com/influxdata/grafana-flightsql-datasource)
 to query InfluxDB with the Flight SQL protocol.
 
@@ -51,7 +51,7 @@ If using **Grafana Cloud**, login to your Grafana Cloud instance.
 
 ## Install the FlightSQL plugin
 
-If you want to query {{% cloud-name %}} with **SQL**, install the
+If you want to query {{% product-name %}} with **SQL**, install the
 [Grafana FlightSQL plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/).
 
 {{% note %}}
@@ -113,7 +113,7 @@ Grafana Cloud instance.
 ## Create a datasource
 
 Which datasource you create depends on which query language you want to use to
-query {{% cloud-name %}}:
+query {{% product-name %}}:
 
 - To query with **SQL**, create a **FlightSQL** datasource.
 - To query with **InfluxQL**, create an **InfluxDB** datasource.
@@ -133,8 +133,8 @@ query {{% cloud-name %}}:
 5.  Add your connection credentials:
 
     - **Host**: Provide the host and port of your Flight SQL client.
-      For {{% cloud-name %}}, this is your
-      [{{% cloud-name %}} region domain](/influxdb/cloud-serverless/reference/regions/)
+      For {{% product-name %}}, this is your
+      [{{% product-name %}} region domain](/influxdb/cloud-serverless/reference/regions/)
       and port 443. For example:
 
       ```
@@ -147,7 +147,7 @@ query {{% cloud-name %}}:
     - **Require TLS/SSL**: Enable this toggle.
 
 6.  Add connection **MetaData**.
-    {{% cloud-name %}} requires _one_ of the following key-value pairs:
+    {{% product-name %}} requires _one_ of the following key-value pairs:
     
     - **Key**: `database`, **Value**: Bucket name
     - **Key**: `bucket-id`, **Value**: Bucket ID
@@ -166,7 +166,7 @@ query {{% cloud-name %}}:
 {{% note %}}
 #### Map databases and retention policies to buckets
 
-To query {{% cloud-name %}} with InfluxQL, first map database and retention policy
+To query {{% product-name %}} with InfluxQL, first map database and retention policy
 (DBRP) combinations to your InfluxDB Cloud buckets. For more information, see
 [Map databases and retention policies to buckets](/influxdb/cloud-serverless/query-data/influxql/dbrp/).
 {{% /note %}}
@@ -178,18 +178,18 @@ To query {{% cloud-name %}} with InfluxQL, first map database and retention poli
 5.  Under **Query Language**, select **InfluxQL**.
 6.  Under **HTTP**:
 
-    - **URL**: Provide your [{{% cloud-name %}} region URL](/influxdb/cloud-serverless/reference/regions/)
+    - **URL**: Provide your [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/)
     using the HTTPS protocol:
 
       ```
-      https://cloud2.influxdata.com
+      https://{{< influxdb/host >}}
       ```
 
 7.  Under **InfluxDB Details**:
 
     - **Database**: Provide a database name to query. Use the database name that is mapped to your InfluxBD Cloud bucket.
     - **User**: Provide an arbitrary string.
-      _This credential is ignored when querying {{% cloud-name %}}, but it cannot be empty._
+      _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
     - **Password**: Provide an [API token](/influxdb/cloud-serverless/admin/tokens/)
       with read access to the buckets you want to query.
 

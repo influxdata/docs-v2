@@ -12,16 +12,16 @@ weight: 201
 ---
 
 The [InfluxDB Go client library](https://github.com/influxdata/influxdb-client-go)
-integrates with Go applications to write data to an {{% cloud-name %}} bucket.
+integrates with Go applications to write data to an {{% product-name %}} bucket.
 
 {{% note %}}
 ### Use the InfluxDB v3 client library
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% cloud-name %}} cluster.
+This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
 
 Use the [InfluxDB v3 Go client library](/influxdb/cloud-serverless/reference/client-libraries/v3/go/)
-to write and query data stored in {{% cloud-name %}}.
+to write and query data stored in {{% product-name %}}.
 {{% /note %}}
 
 This guide presumes some familiarity with Go and InfluxDB.
@@ -65,7 +65,7 @@ Use the Go library to write and query data from InfluxDB.
    org := "ignored"
    token := "API_TOKEN"
    // Store the URL of your InfluxDB instance
-   url := "https://cloud2.influxdata.com"
+   url := "https://{{< influxdb/host >}}"
    ```
 
 3. Create the the InfluxDB Go client and pass in the `url` and `token` parameters.
@@ -115,7 +115,7 @@ func main() {
     org := "ignored"
     token := "API_TOKEN"
     // Store the URL of your InfluxDB instance
-    url := "https://cloud2.influxdata.com"
+    url := "https://{{< influxdb/host >}}"
     // Create new client with default option for server url authenticate by token
     client := influxdb2.NewClient(url, token)
     // User blocking write client for writes to desired bucket

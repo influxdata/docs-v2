@@ -43,10 +43,8 @@ you need is in place.
 2.  **Create an All Access API token**.
     <span id="create-an-all-access-api-token"></span>
 
-    1.  Go to
-        {{% oss-only %}}[localhost:8086](https://cloud2.influxdata.com){{% /oss-only %}}
-        {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
-        in a browser to log in and access the InfluxDB UI.
+    1.  Go to [cloud2.influxdata.com](https://cloud2.influxdata.com) in a browser
+        to log in and access the InfluxDB UI.
 
     2.  Navigate to **Load Data** > **API Tokens** using the left navigation bar.
 
@@ -106,15 +104,15 @@ credentials. Use the [`influx config create` command](/influxdb/cloud-serverless
 to create a new CLI connection configuration. Include the following flags:
 
 - `-n, --config-name`: Connection configuration name. This examples uses `get-started`.
-- `-u, --host-url`: [{{% cloud-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
+- `-u, --host-url`: [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
 - `-o, --org`: InfluxDB [organization name](/influxdb/cloud-serverless/admin/organizations/).
 - `-t, --token`:  your [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token).
 
-{{% code-placeholders "API_TOKEN|ORG_NAME|https://cloud2.influxdata.com|get-started" %}}
+{{% code-placeholders "API_TOKEN|ORG_NAME|https://{{< influxdb/host >}}|get-started" %}}
 ```sh
 influx config create \
   --config-name get-started \
-  --host-url https://cloud2.influxdata.com \
+  --host-url https://{{< influxdb/host >}} \
   --org ORG_NAME \
   --token API_TOKEN
 ```
@@ -131,7 +129,7 @@ The `influx` CLI checks for specific environment variables and, if present,
 uses those environment variables to populate authentication credentials.
 Set the following environment variables in your command line session:
 
-- `INFLUX_HOST`: [{{% cloud-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
+- `INFLUX_HOST`: [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
 - `INFLUX_ORG`: InfluxDB [organization name or ID](/influxdb/cloud-serverless/admin/organizations/view-orgs/).
 - `INFLUX_TOKEN`:  your [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token).
 
@@ -143,9 +141,9 @@ Set the following environment variables in your command line session:
 {{% /code-tabs %}}
 {{% code-tab-content %}}
 <!-- BEGIN MACOS/LINUX -->
-{{% code-placeholders "API_TOKEN|ORG_NAME|https://cloud2.influxdata.com" %}}
+{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
+export INFLUX_HOST=https://{{< influxdb/host >}}
 export INFLUX_ORG=ORG_NAME
 export INFLUX_TOKEN=API_TOKEN
 ```
@@ -155,9 +153,9 @@ export INFLUX_TOKEN=API_TOKEN
 
 {{% code-tab-content %}}
 <!-- BEGIN POWERSHELL -->
-{{% code-placeholders "API_TOKEN|ORG_NAME|https://cloud2.influxdata.com" %}}
+{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
 ```sh
-$env:INFLUX_HOST = "https://cloud2.influxdata.com"
+$env:INFLUX_HOST = "https://{{< influxdb/host >}}"
 $env:INFLUX_TOKEN = "API_TOKEN"
 $env:INFLUX_ORG = "ORG_NAME"
 ```
@@ -167,9 +165,9 @@ $env:INFLUX_ORG = "ORG_NAME"
 
 {{% code-tab-content %}}
 <!-- BEGIN CMD -->
-{{% code-placeholders "API_TOKEN|ORG_NAME|https://cloud2.influxdata.com" %}}
+{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
 ```sh
-set INFLUX_HOST=https://cloud2.influxdata.com
+set INFLUX_HOST=https://{{< influxdb/host >}}
 set INFLUX_ORG=ORG_NAME
 set INFLUX_TOKEN=API_TOKEN
 # Make sure to include a space character at the end of this command.
@@ -186,7 +184,7 @@ set INFLUX_TOKEN=API_TOKEN
 
 Use the following `influx` CLI flags to provide required credentials to commands:
 
-- `--host`: [{{% cloud-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
+- `--host`: [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
 - `-o`, `--org`: InfluxDB organization name or
   [ID](/influxdb/cloud-serverless/organizations/view-orgs/#view-your-organization-id).
 - `-t`, `--token`:  your [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token).
@@ -272,9 +270,9 @@ following commands into your profile settings or terminal:
 {{% code-tab-content %}}
 <!-- BEGIN MACOS/LINUX -->
 
-{{% code-placeholders "API_TOKEN|ORG_NAME|https://cloud2.influxdata.com" %}}
+{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
 ```sh
-export INFLUX_HOST=https://cloud2.influxdata.com
+export INFLUX_HOST=https://{{< influxdb/host >}}
 export INFLUX_ORG=ORG_NAME
 export INFLUX_TOKEN=API_TOKEN
 ```
@@ -285,9 +283,9 @@ export INFLUX_TOKEN=API_TOKEN
 {{% code-tab-content %}}
 <!-- BEGIN POWERSHELL -->
 
-{{% code-placeholders "API_TOKEN|ORG_NAME|https://cloud2.influxdata.com" %}}
+{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
 ```powershell
-$env:INFLUX_HOST = "https://cloud2.influxdata.com"
+$env:INFLUX_HOST = "https://{{< influxdb/host >}}"
 $env:INFLUX_ORG = "ORG_NAME"
 $env:INFLUX_TOKEN = "API_TOKEN"
 ```
@@ -298,9 +296,9 @@ $env:INFLUX_TOKEN = "API_TOKEN"
 {{% code-tab-content %}}
 <!-- BEGIN CMD -->
 
-{{% code-placeholders "API_TOKEN|ORG_NAME|https://cloud2.influxdata.com" %}}
+{{% code-placeholders "API_TOKEN|ORG_NAME" %}}
 ```sh
-set INFLUX_HOST=https://cloud2.influxdata.com
+set INFLUX_HOST=https://{{< influxdb/host >}}
 set INFLUX_ORG=ORG_NAME
 set INFLUX_TOKEN=API_TOKEN 
 # Make sure to include a space character at the end of this command.
@@ -323,7 +321,7 @@ Keep the following in mind when using API clients and client libraries:
 - InfluxDB ignores `org` and `org_id` parameters in API write and query requests,
   but some clients still require the parameters.
 - Some clients use `host` to refer to your _hostname_, your
-  [{{% cloud-name %}} region URL](/influxdb/cloud-serverless/reference/regions/)
+  [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/)
   without `https://`.
 
 {{% note %}}
@@ -353,10 +351,8 @@ All API, cURL, and client library examples in this getting started tutorial assu
 {{% tab-content %}}
 <!------------------------------ BEGIN UI CONTENT ----------------------------->
 
-1.  Go to
-    {{% oss-only %}}[localhost:8086](https://cloud2.influxdata.com){{% /oss-only %}}
-    {{% cloud-only %}}[cloud2.influxdata.com](https://cloud2.influxdata.com){{% /cloud-only %}}
-    in a browser to log in and access the InfluxDB UI.
+1.  Go to [cloud2.influxdata.com](https://cloud2.influxdata.com) in a browser to
+    log in and access the InfluxDB UI.
 
 2.  Navigate to **Load Data** > **Buckets** using the left navigation bar.
 
@@ -365,7 +361,7 @@ All API, cURL, and client library examples in this getting started tutorial assu
 3.  Click **+ {{< caps >}}Create bucket{{< /caps >}}**.
 4.  Provide a bucket name (get-started) and select a
     [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period).
-    Supported retention periods depend on your {{% cloud-name %}} plan.
+    Supported retention periods depend on your {{% product-name %}} plan.
 
 5.  Click **{{< caps >}}Create{{< /caps >}}**.
 
@@ -382,7 +378,7 @@ All API, cURL, and client library examples in this getting started tutorial assu
 
     - `-n, --name` flag with the bucket name.
     - `-r, --retention` flag with the bucket's retention period duration.
-      Supported retention periods depend on your {{% cloud-name %}} plan.
+      Supported retention periods depend on your {{% product-name %}} plan.
     - [Connection and authentication credentials](#configure-authentication-credentials)
 
   {{% code-placeholders "get-started|7d" %}}
@@ -401,7 +397,7 @@ influx bucket create \
 To create a bucket using the InfluxDB HTTP API, send a request to
 the InfluxDB API `/api/v2/buckets` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/buckets" method="post" api-ref="/influxdb/cloud-serverless/api/#operation/PostBuckets" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/buckets" method="post" api-ref="/influxdb/cloud-serverless/api/#operation/PostBuckets" >}}
 
 Include the following with your request:
 
@@ -415,12 +411,12 @@ Include the following with your request:
     Each retention rule object has the following properties:
     - **type**: `"expire"`
     - **everySeconds**: Retention period duration in seconds.
-      Supported retention periods depend on your {{% cloud-name %}} plan.
+      Supported retention periods depend on your {{% product-name %}} plan.
 
-{{% code-placeholders "\$INFLUX_TOKEN|\$INFLUX_ORG_ID|https://cloud2.influxdata.com|get-started"%}}
+{{% code-placeholders "\$INFLUX_TOKEN|\$INFLUX_ORG_ID|get-started"%}}
 ```sh
 curl --request POST \
-"https://cloud2.influxdata.com/api/v2/buckets" \
+"https://{{< influxdb/host >}}/api/v2/buckets" \
   --header "Authorization: Token $INFLUX_TOKEN" \
   --header "Content-Type: application/json" \
   --data '{

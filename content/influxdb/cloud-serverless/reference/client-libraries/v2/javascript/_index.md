@@ -16,15 +16,15 @@ aliases:
 ---
 
 The [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js)
-for Node.js and browsers integrates with the InfluxDB v2 API to write data to an {{% cloud-name %}} cluster.
+for Node.js and browsers integrates with the InfluxDB v2 API to write data to an {{% product-name omit=" Clustered" %}} cluster.
 
 {{% note %}}
 ### Tools to execute queries
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% cloud-name %}} cluster.
+This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
 
-{{% cloud-name %}} supports many different tools for querying data, including:
+{{% product-name %}} supports many different tools for querying data, including:
 
 - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
 - [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)

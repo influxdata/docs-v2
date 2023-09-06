@@ -8,7 +8,7 @@ menu:
 weight: 301
 ---
 
-The `influxctl user delete` command deletes a user from your {{< cloud-name >}}
+The `influxctl user delete` command deletes a user from your {{< product-name >}}
 account.
 
 ## Usage

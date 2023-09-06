@@ -17,7 +17,10 @@ related:
   - /{{< latest "telegraf" >}}/plugins/
   - /influxdb/cloud/telegraf-configs/create/
   - /influxdb/cloud/telegraf-configs/update/
-alt_engine: /influxdb/cloud-serverless/write-data/use-telegraf/configure/manual-config/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/configure/
+  cloud-dedicated: /influxdb/cloud-dedicated/write-data/use-telegraf/configure/
+  clustered: /influxdb/clustered/write-data/use-telegraf/configure/
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into an InfluxDB v2.0 bucket.
@@ -67,7 +70,7 @@ The InfluxDB output plugin configuration contains the following options:
 ##### urls
 An array of URLs for your InfluxDB v2.0 instances.
 See [InfluxDB URLs](/influxdb/cloud/reference/urls/) for information about which URLs to use.
-**{{< cloud-name "short">}} requires HTTPS**.
+**{{< product-name "short">}} requires HTTPS**.
 
 ##### token
 Your InfluxDB v2.0 authorization token.

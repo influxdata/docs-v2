@@ -9,7 +9,8 @@ menu:
 weight: 202
 aliases:
     - /influxdb/cloud-serverless/organizations/buckets/update-bucket/
-alt_engine: /influxdb/cloud/organizations/buckets/update-bucket/
+alt_links:
+  cloud: /influxdb/cloud/organizations/buckets/update-bucket/
 ---
 
 Use the InfluxDB user interface (UI), the `influx` command line interface (CLI), or the InfluxDB HTTP API to update a bucket.
@@ -114,14 +115,14 @@ You can update the following bucket properties:
 
 1. To find the bucket ID, send a request to the HTTP API [`GET /api/v2/buckets/` endpoint](/influxdb/cloud-serverless/api/#operation/GetBuckets) to retrieve the list of buckets. <!-- @TODO: provide API auth note about tokens and read access to buckets -->
 
-    {{< api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" api-ref="/influxdb/cloud-serverless/api/#operation/GetBuckets" >}}
+    {{< api-endpoint method="get" endpoint="https://{{< influxdb/host >}}/api/v2/buckets" api-ref="/influxdb/cloud-serverless/api/#operation/GetBuckets" >}}
 
 2. Send a request to the HTTP API [PATCH `/api/v2/buckets/{BUCKET_ID}` endpoint](/influxdb/cloud-serverless/api/#operation/PatchBucketsID).
 
     In the URL path, specify the ID of the bucket from the previous step that you want to update.
     In the request body, set the properties that you want to update--for example:
 
-    {{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}" api-ref="/influxdb/cloud-serverless/api/#operation/PatchBucketsID" >}}
+    {{< api-endpoint method="patch" endpoint="https://{{< influxdb/host >}}/api/v2/buckets/{BUCKET_ID}" api-ref="/influxdb/cloud-serverless/api/#operation/PatchBucketsID" >}}
 
     ```js
     {

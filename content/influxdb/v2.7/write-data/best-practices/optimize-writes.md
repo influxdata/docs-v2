@@ -128,5 +128,5 @@ If the rate limit format is invalid, `influx write` prints out the format and an
 The `--rate-limit` flag can be also used with [`influx write dryrun`](/influxdb/v2.7/reference/cli/influx/write/dryrun/).
 
 {{% cloud %}}
-By default, the free tier rate limit in {{< cloud-name "short" >}} is `1MB/min`.
+By default, the free tier rate limit in InfluxDB Cloud is `1MB/min`.
 {{% /cloud %}}

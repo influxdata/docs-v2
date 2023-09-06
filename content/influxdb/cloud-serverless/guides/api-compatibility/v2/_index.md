@@ -22,10 +22,10 @@ related:
   - /influxdb/cloud-serverless/reference/client-libraries/
 ---
 
-{{% cloud-name %}} is compatible with the InfluxDB v2 API `/api/v2/write` endpoint and existing InfluxDB 2.x tools and code.
-Use the InfluxDB v2 API for new write workloads and existing v2 write workloads that you bring to {{% cloud-name %}}.
+{{% product-name %}} is compatible with the InfluxDB v2 API `/api/v2/write` endpoint and existing InfluxDB 2.x tools and code.
+Use the InfluxDB v2 API for new write workloads and existing v2 write workloads that you bring to {{% product-name %}}.
 
-InfluxDB v2 API endpoints won't work for managing resources or querying data in {{% cloud-name %}}.
+InfluxDB v2 API endpoints won't work for managing resources or querying data in {{% product-name %}}.
 To query data, use the _Flight+gRPC_ protocol  or the InfluxDB v1 `/query` HTTP API endpoint and [associated tools](#tools-to-execute-queries).
 
 <!-- TOC -->
@@ -72,7 +72,7 @@ Use `Token` to authenticate a write request:
 {{% code-placeholders "BUCKET_NAME|API_TOKEN" %}}
 ```sh
 # Use the Token authentication scheme with /api/v2/write
-curl --post "https://cloud2.influxdata.com/api/v2/write?bucket=BUCKET_NAME&precision=s" \
+curl --post "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&precision=s" \
   --header "Authorization: Token API_TOKEN" \
   --data-binary 'home,room=kitchen temp=72 1463683075'
 ```
@@ -88,7 +88,7 @@ Replace the following:
 InfluxDB API responses use standard HTTP status codes.
 For successful writes, InfluxDB responds with a `204 No Content` status code.
 Error responses contain a JSON object with `code` and `message` properties that describe the error.
-Response body messages may differ across {{% cloud-name %}} v1 API, v2 API, InfluxDB Cloud, and InfluxDB OSS.
+Response body messages may differ across {{% product-name %}} v1 API, v2 API, InfluxDB Cloud, and InfluxDB OSS.
 
 ### Error examples
 
@@ -126,14 +126,14 @@ Response body messages may differ across {{% cloud-name %}} v1 API, v2 API, Infl
 
 We recommend using the InfluxDB v2 API `/api/v2/write` endpoint for new write workloads and existing v2 workloads.
 
-{{% api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/write" method="post"%}}
+{{% api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write" method="post"%}}
 
 - [`/api/v2/write` parameters](#apiv2write-parameters)
 - [Tools for writing to the v2 API](#tools-for-writing-to-the-v2-api)
 
 ### /api/v2/write parameters
 
-For {{% cloud-name %}} v2 API `/api/v2/write` requests, set parameters as listed in the following table:
+For {{% product-name %}} v2 API `/api/v2/write` requests, set parameters as listed in the following table:
 
 Parameter        | Allowed in   | Ignored | Value
 -----------------|--------------|---------|-------------------------
@@ -163,7 +163,7 @@ Use one of the following `precision` values in v2 API `/api/v2/write` requests:
 
 ### Tools for writing to the v2 API
 
-The following tools work with the {{% cloud-name %}} `/api/v2/write` endpoint:
+The following tools work with the {{% product-name %}} `/api/v2/write` endpoint:
 
 - [Telegraf](#telegraf)
 - [Interactive clients](#interactive-clients)
@@ -171,7 +171,7 @@ The following tools work with the {{% cloud-name %}} `/api/v2/write` endpoint:
 
 #### Telegraf
 
-See how to [configure Telegraf](/influxdb/cloud-serverless/write-data/use-telegraf/configure/) to write to {{% cloud-name %}}.
+See how to [configure Telegraf](/influxdb/cloud-serverless/write-data/use-telegraf/configure/) to write to {{% product-name %}}.
 
 #### Interactive clients
 
@@ -191,14 +191,14 @@ To setup and start using client libraries, see the [Get started](/influxdb/cloud
 InfluxDB v3 provides the following protocols for executing a query:
 
 - [Flight+gRPC](https://arrow.apache.org/docs/format/Flight.html) request that contains an SQL or InfluxQL query.
-  To learn how to query {{% cloud-name %}} using Flight and SQL, see the [Get started](/influxdb/cloud-serverless/get-started/) tutorial.
+  To learn how to query {{% product-name %}} using Flight and SQL, see the [Get started](/influxdb/cloud-serverless/get-started/) tutorial.
 - InfluxDB v1 API `/query` request that contains an InfluxQL query.
 
 {{% note %}}
 
 #### Tools to execute queries
 
-{{% cloud-name %}} supports many different tools for querying data, including:
+{{% product-name %}} supports many different tools for querying data, including:
 
 - [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
 - [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
@@ -212,5 +212,5 @@ InfluxDB v3 provides the following protocols for executing a query:
 
 ### /api/v2/query not supported
 
-The `/api/v2/query` API endpoint and associated tooling aren't supported in {{% cloud-name %}}.
+The `/api/v2/query` API endpoint and associated tooling aren't supported in {{% product-name %}}.
 

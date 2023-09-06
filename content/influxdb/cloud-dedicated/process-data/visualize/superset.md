@@ -231,7 +231,7 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
 datafusion+flightsql://<domain>:<port>?database=<database-name>&token=<token>
 
 # Example
-datafusion+flightsql://cluster-id.influxdb.io:443?database=example-database&token=example-token
+datafusion+flightsql://{{< influxdb/host >}}:443?database=example-database&token=example-token
 ```
 {{< /code-callout >}}
     {{< /code-callout >}}

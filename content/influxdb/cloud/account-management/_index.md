@@ -10,7 +10,8 @@ aliases:
 menu:
   influxdb_cloud:
     name: Account management
-alt_engine: /influxdb/cloud-serverless/admin/accounts/
+alt_links:
+  influxdb-serverless: /influxdb/cloud-serverless/admin/accounts/
 ---
 
 {{< children >}}

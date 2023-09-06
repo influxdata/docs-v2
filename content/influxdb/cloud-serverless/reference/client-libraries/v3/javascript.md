@@ -17,7 +17,7 @@ aliases:
 ---
 
 The InfluxDB v3 [`influxdb3-js` JavaScript client library](https://github.com/InfluxCommunity/influxdb3-js) integrates with JavaScript scripts and applications
-to write and query data stored in an {{% cloud-name %}} bucket.
+to write and query data stored in an {{% product-name %}} bucket.
 
 The documentation for this client library is available on GitHub.
 

@@ -18,8 +18,8 @@ aliases:
 ---
 
 Use [Grafana](https://grafana.com/) to query and visualize data stored in
-{{% cloud-name %}}.
-{{% cloud-name %}} supports both **SQL** and **InfluxQL** query languages.
+{{% product-name %}}.
+{{% product-name %}} supports both **SQL** and **InfluxQL** query languages.
 Install the [Grafana FlightSQL plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/)
 to query InfluxDB with **SQL** using the Flight SQL protocol.
 Use the **InfluxDB** core Grafana plugin to query data with **InfluxQL**.
@@ -52,7 +52,7 @@ If using **Grafana Cloud**, login to your Grafana Cloud instance.
 
 ## Install the FlightSQL plugin
 
-If you want to query {{% cloud-name %}} with **SQL**, install the
+If you want to query {{% product-name %}} with **SQL**, install the
 [Grafana FlightSQL plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/).
 
 {{% note %}}
@@ -114,7 +114,7 @@ Grafana Cloud instance.
 ## Create a datasource
 
 Which datasource you create depends on which query language you want to use to
-query {{% cloud-name %}}:
+query {{% product-name %}}:
 
 - To query with **SQL**, create a **FlightSQL** datasource.
 - To query with **InfluxQL**, create an **InfluxDB** datasource.
@@ -134,10 +134,10 @@ query {{% cloud-name %}}:
 5.  Add your connection credentials:
 
     - **Host**: Provide the host and port of your Flight SQL client.
-      For {{% cloud-name %}}, this is your cluster URL and port 443:
+      For {{% product-name %}}, this is your cluster URL and port 443:
 
       ```
-      cluster-id.influxdb.io:443
+      {{< influxdb/host >}}:443
       ```
 
     - **AuthType**: Select **token**.
@@ -148,7 +148,7 @@ query {{% cloud-name %}}:
 6.  Add connection **MetaData**.
     Provide key-value pairs to send to your Flight SQL client.
 
-    {{% cloud-name %}} requires your **database name**:
+    {{% product-name %}} requires your **database name**:
     
     - **Key**: `database`
     - **Value**: Database name
@@ -169,21 +169,21 @@ query {{% cloud-name %}}:
 3.  Search for and select the **InfluxDB** core plugin.
 4.  Provide a name for your datasource.
 5.  Under **Query Language**, select **InfluxQL**.
-    _{{% cloud-name %}} does not support Flux._
+    _{{% product-name %}} does not support Flux._
 6.  Under **HTTP**:
 
-    - **URL**: Provide your {{% cloud-name %}} cluster URL using the HTTPS
+    - **URL**: Provide your {{% product-name omit=" Clustered" %}} cluster URL using the HTTPS
       protocol:
 
       ```
-      https://cluster-id.influxdb.io
+      https://{{< influxdb/host >}}
       ```
 
 7.  Under **InfluxDB Details**:
 
     - **Database**: Provide a default database name to query.
     - **User**: Provide an arbitrary string.
-      _This credential is ignored when querying {{% cloud-name %}}, but it cannot be empty._
+      _This credential is ignored when querying {{% product-name %}}, but it cannot be empty._
     - **Password**: Provide an InfluxDB [database token](/influxdb/cloud-dedicated/admin/tokens/)
       with read access to the databases you want to query.
 

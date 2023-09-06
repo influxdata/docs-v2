@@ -22,7 +22,7 @@ Scrapers can collect data from any HTTP(S)-accessible endpoint that provides dat
 in the [Prometheus data format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 
 {{% cloud %}}
-Scrapers are not available in {{< cloud-name "short" >}}.
+Scrapers are not available in InfluxDB Cloud.
 {{% /cloud %}}
 
 

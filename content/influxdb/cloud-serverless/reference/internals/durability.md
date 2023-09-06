@@ -14,14 +14,14 @@ related:
   - https://docs.aws.amazon.com/AmazonS3/latest/userguide/DataDurability.html, AWS S3 Data Durabililty
 ---
 
-{{< cloud-name >}} writes data to multiple Write-Ahead-Log (WAL) files on local
+{{< product-name >}} writes data to multiple Write-Ahead-Log (WAL) files on local
 storage and retains WALs until the data is persisted to Parquet files in object storage.
 Parquet data files in object storage are redundantly stored on multiple devices
 across a minimum of three availability zones in a cloud region.
 
 ## Data storage
 
-In {{< cloud-name >}}, all measurements are stored in
+In {{< product-name >}}, all measurements are stored in
 [Apache Parquet](https://parquet.apache.org/) files that represent a
 point-in-time snapshot of the data. The Parquet files are immutable and are
 never replaced nor modified. Parquet files are stored in object storage.
@@ -42,7 +42,7 @@ youngest data in the Parquet file ages out of retention.
 
 ## Data ingest
 
-When data is written to {{< cloud-name >}}, the data is first written to a
+When data is written to {{< product-name >}}, the data is first written to a
 Write-Ahead-Log (WAL) on locally-attached storage on the ingester node before
 the write request is acknowledged. After acknowledging the write request, the
 ingester holds the data in memory temporarily and then writes the contents of
@@ -53,7 +53,7 @@ the WAL to the Parquet files before shutting down.
 
 ## Backups
 
-{{< cloud-name >}} implements the following data backup strategies:
+{{< product-name >}} implements the following data backup strategies:
 
 - **Backup of WAL file**: The WAL file is written on locally-attached storage.
   If an ingester process fails, the new ingester simply reads the WAL file on
@@ -81,7 +81,7 @@ InfluxData can perform the following recovery operations:
 - **Recovery after ingester failure**: If an ingester fails, a new ingester is
   started up and reads from the WAL file for the recently ingested data.
 
-- **Recovery of Parquet files**: {{< cloud-name >}} uses the provided object
+- **Recovery of Parquet files**: {{< product-name >}} uses the provided object
   storage data durability to recover Parquet files.
 
 - **Recovery of the catalog**: InfluxData can restore the InfluxDB catalog to

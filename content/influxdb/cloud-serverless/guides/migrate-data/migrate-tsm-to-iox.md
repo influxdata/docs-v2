@@ -12,7 +12,8 @@ menu:
 weight: 102
 aliases:
   - /influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox
-alt_engine: /influxdb/cloud/migrate-data/migrate-cloud-to-cloud/
+alt_links:
+  cloud: /influxdb/cloud/migrate-data/migrate-cloud-to-cloud/
 ---
 
 To migrate data from an InfluxDB Cloud (TSM) organization to an 
@@ -126,7 +127,7 @@ migration = {
     batchInterval: 1h,
     batchBucket: "migration",
     sourceBucket: "example-cloud-bucket",
-    destinationHost: "https://cloud2.influxdata.com",
+    destinationHost: "https://{{< influxdb/host >}}",
     destinationOrg: "example-destination-org",
     destinationToken: secrets.get(key: "INFLUXDB_SERVERLESS_TOKEN"),
     destinationBucket: "example-destination-bucket",
@@ -303,7 +304,7 @@ INFLUXDB_CLOUD_TOKEN=<your_influxdb_cloud_token>
 INFLUXDB_CLOUD_BUCKET=<your_influxdb_cloud_bucket>
 
 curl -so /dev/null --request POST \
-  https://cloud2.influxdata.com/api/v2/query?org=$INFLUXDB_CLOUD_ORG  \
+  https://{{< influxdb/host >}}/api/v2/query?org=$INFLUXDB_CLOUD_ORG  \
   --header "Authorization: Token $INFLUXDB_CLOUD_TOKEN" \
   --header "Accept: application/csv" \
   --header "Content-type: application/vnd.flux" \

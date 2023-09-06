@@ -40,7 +40,7 @@ list_code_example: |
 
   token = (b"authorization", bytes(f"Bearer DATABASE_TOKEN".encode('utf-8')))
   options = FlightCallOptions(headers=[token])
-  client = FlightClient(f"grpc+tls://cluster-id.influxdb.io:443")
+  client = FlightClient(f"grpc+tls://{{< influxdb/host >}}:443")
 
   reader = client.do_get(flight_ticket, options)
   arrow_table = reader.read_all()
@@ -55,11 +55,11 @@ list_code_example: |
 We recommend using the [`influxdb3-python` Python client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/) for integrating InfluxDB v3 with your Python application code.
 
 [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% cloud-name %}}.
+and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 Client libraries can query using SQL or InfluxQL.
 {{% /note %}}
 
-The following examples show how to use the `pyarrow.flight` and `pandas` Python modules to query and format data stored in an {{% cloud-name %}} database:
+The following examples show how to use the `pyarrow.flight` and `pandas` Python modules to query and format data stored in an {{% product-name %}} database:
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
@@ -98,7 +98,7 @@ flight_ticket = Ticket(json.dumps({
 
 token = (b"authorization", bytes(f"Bearer DATABASE_TOKEN".encode('utf-8')))
 options = FlightCallOptions(headers=[token])
-client = FlightClient(f"grpc+tls://cluster-id.influxdb.io:443")
+client = FlightClient(f"grpc+tls://{{< influxdb/host >}}:443")
 
 reader = client.do_get(flight_ticket, options)
 arrow_table = reader.read_all()
@@ -136,7 +136,7 @@ flight_ticket = Ticket(json.dumps({
 
 token = (b"authorization", bytes(f"Bearer DATABASE_TOKEN".encode('utf-8')))
 options = FlightCallOptions(headers=[token])
-client = FlightClient(f"grpc+tls://cluster-id.influxdb.io:443")
+client = FlightClient(f"grpc+tls://{{< influxdb/host >}}:443")
 
 reader = client.do_get(flight_ticket, options)
 arrow_table = reader.read_all()
@@ -150,7 +150,7 @@ print(data_frame.to_markdown())
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
 
 {{% /code-tabs-wrapper %}}

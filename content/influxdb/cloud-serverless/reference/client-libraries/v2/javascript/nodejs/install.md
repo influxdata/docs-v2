@@ -14,14 +14,14 @@ aliases:
 
 {{% note %}}
 
-Install the Node.js JavaScript client library to write data to InfluxDB {{% cloud-name %}}.
+Install the Node.js JavaScript client library to write data to InfluxDB {{% product-name %}}.
 
 ### Tools to execute queries
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% cloud-name %}} cluster.
+This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
 
-{{% cloud-name %}} supports many different tools for querying data, including:
+{{% product-name %}} supports many different tools for querying data, including:
 
 - [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
 - [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
@@ -37,7 +37,7 @@ This endpoint can't query an {{% cloud-name %}} cluster.
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/).
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to {{% cloud-name %}}, see [InfluxDB URLs](/influxdb/cloud-serverless/reference/urls/).
+   For information about what URL to use to connect to {{% product-name %}}, see [InfluxDB URLs](/influxdb/cloud-serverless/reference/urls/).
 
 3. In your terminal, create a directory for your Node.js project and change to it.
 
@@ -75,7 +75,7 @@ Follow these steps to initialize the TypeScript project:
 
 ## Install dependencies
 
-Use the `@influxdata/influxdb-client` JavaScript client library to write data in {{% cloud-name %}}.
+Use the `@influxdata/influxdb-client` JavaScript client library to write data in {{% product-name %}}.
 
 Open a new terminal window and install the `@influxdata/influxdb-client` package for querying and writing data:
 
@@ -83,7 +83,7 @@ Open a new terminal window and install the `@influxdata/influxdb-client` package
    npm i --save @influxdata/influxdb-client
    ```
 
-The `@influxdata/influxdb-client-apis` client library package won't work with {{% cloud-name %}}.
+The `@influxdata/influxdb-client-apis` client library package won't work with {{% product-name %}}.
 It only works with InfluxDB v2 management APIs.
 
 ## Configure credentials
@@ -94,7 +94,7 @@ The examples use these properties to interact with the InfluxDB API.
 Set environment variables or update `env.js` with your InfluxDB [bucket](/influxdb/cloud-serverless/organizations/buckets/), [organization](/influxdb/cloud-serverless/organizations/), [token](/influxdb/cloud-serverless/security/tokens/), and [url](/influxdb/cloud-serverless/reference/urls/).
 
    ```sh
-   export INFLUX_URL=https://cloud2.influxdata.com
+   export INFLUX_URL=https://{{< influxdb/host >}}
    export INFLUX_TOKEN=API_TOKEN
    export INFLUX_ORG=ORG_ID
    export INFLUX_BUCKET=BUCKET_NAME
@@ -104,7 +104,7 @@ Set environment variables or update `env.js` with your InfluxDB [bucket](/influx
    
    - *`API_TOKEN`*: InfluxDB [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token) with _write_ permission to the bucket.
    - *`ORG_ID`*: InfluxDB [organization ID](/influxdb/cloud-serverless/admin/organizations/view-orgs/)
-   - *`BUCKET_NAME`*: the name of the {{% cloud-name %}} bucket to write to
+   - *`BUCKET_NAME`*: the name of the {{% product-name %}} bucket to write to
 
 ## Next steps
 

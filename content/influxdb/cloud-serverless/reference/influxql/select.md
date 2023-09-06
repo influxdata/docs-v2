@@ -93,9 +93,9 @@ It requires one or more comma-delimited [measurement_expressions](#measurement_e
     {{% note %}}
 #### InfluxDB retention policies
 
-In {{< cloud-name >}}, **retention policies** are not part of the data model like
+In {{< product-name >}}, **retention policies** are not part of the data model like
 they are in InfluxDB 1.x.
-Each {{< cloud-name >}} bucket has a **retention period** which defines the
+Each {{< product-name >}} bucket has a **retention period** which defines the
 maximum age of data to retain in the bucket. To use fully-qualified
 measurements in InfluxQL queries, use the following naming convention when
 [creating a bucket](/influxdb/cloud-serverless/admin/buckets/create-bucket/):

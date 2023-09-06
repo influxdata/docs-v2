@@ -10,7 +10,7 @@ menu:
 influxdb/cloud-dedicated/tags: [query, sql, influxql]
 ---
 
-Learn how to handle responses and troubleshoot errors encountered when querying {{% cloud-name %}} with Flight+gRPC and Arrow Flight clients.
+Learn how to handle responses and troubleshoot errors encountered when querying {{% product-name %}} with Flight+gRPC and Arrow Flight clients.
 
 <!-- TOC -->
 
@@ -30,12 +30,12 @@ Learn how to handle responses and troubleshoot errors encountered when querying 
 
 ## InfluxDB Flight responses
 
-{{% cloud-name %}} provides an InfluxDB-specific Arrow Flight remote procedure calls (RPC) and Flight SQL service that uses gRPC, a high performance RPC framework, to transport data in Arrow format.
+{{% product-name %}} provides an InfluxDB-specific Arrow Flight remote procedure calls (RPC) and Flight SQL service that uses gRPC, a high performance RPC framework, to transport data in Arrow format.
 Flight defines a set of [RPC methods](https://arrow.apache.org/docs/format/Flight.html#rpc-methods-and-request-patterns) that servers and clients can use to exchange information.
 Flight SQL uses Flight RPC and defines additional methods to query database metadata, execute queries, and manipulate prepared statements.
 To learn more about Flight SQL, see [Introducing Apache Arrow Flight SQL: Accelerating Database Access](https://arrow.apache.org/blog/2022/02/16/introducing-arrow-flight-sql/).
 
-To query data or retrieve information about data stored in {{% cloud-name %}}, use a Flight client to send a call to an InfluxDB Flight RPC or Flight SQL service method.
+To query data or retrieve information about data stored in {{% product-name %}}, use a Flight client to send a call to an InfluxDB Flight RPC or Flight SQL service method.
 For example, if you use the [`influxdb3-python` Python client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/) and call the `InfluxDBClient3.query()` method, the client in turn calls the `pyarrow.flight.FlightClient.do_get()` method and passes a Flight ticket containing your credentials and query to InfluxDB's Flight [`DoGet(FlightCallOptions, Ticket)` method](https://arrow.apache.org/docs/cpp/api/flight.html#_CPPv4N5arrow6flight12FlightClient5DoGetERK17FlightCallOptionsRK6Ticket).
 
 InfluxDB responds with one of the following:
@@ -54,7 +54,7 @@ An Arrow Flight service, such as InfluxDB, sends a stream in [Arrow IPC streamin
 
 Flight client libraries, such as `pyarrow.flight` and the Go Arrow Flight package, implement an Arrow interface for retrieving the data, schema, and metadata from the stream.
 
-After {{% cloud-name %}} successfully processes a query, it sends a stream that contains the following:
+After {{% product-name %}} successfully processes a query, it sends a stream that contains the following:
 
 1. A [Schema](#schema) that applies to all record batches in the stream
 2. [RecordBatch](#recordbatch) messages with query result data
@@ -107,7 +107,7 @@ See [`InfluxDBClient3.query()` examples](/influxdb/cloud-dedicated/reference/cli
 
 ### RecordBatch
 
-[`RecordBatch` messages](https://arrow.apache.org/docs/format/Columnar.html#recordbatch-message) in the  {{% cloud-name %}} response stream contain query result data in Arrow format.
+[`RecordBatch` messages](https://arrow.apache.org/docs/format/Columnar.html#recordbatch-message) in the  {{% product-name %}} response stream contain query result data in Arrow format.
 When the Flight client receives a stream, it reads each record batch from the stream until there are no more messages to read.
 The client considers the request complete when it has received all the messages.
 

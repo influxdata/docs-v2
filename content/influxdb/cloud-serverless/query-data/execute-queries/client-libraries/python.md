@@ -66,7 +66,7 @@ Execute queries and retrieve data over the Flight+gRPC protocol, and then proces
 
 This guide assumes the following prerequisites:
 
-- an {{% cloud-name %}} [bucket](/influxdb/cloud-serverless/admin/buckets/) with data to query
+- an {{% product-name %}} [bucket](/influxdb/cloud-serverless/admin/buckets/) with data to query
 - an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the database
 
 To learn how to set up InfluxDB and write data, see the [Setup instructions](/influxdb/cloud-serverless/get-started/setup/) in the Get Started tutorial.
@@ -202,7 +202,7 @@ When a virtual environment is activated, the name displays at the beginning of y
 
 ### Install the influxdb3-python library
 
-The `influxdb3-python` package provides the `influxdb_client_3` module for integrating {{% cloud-name %}} with your Python code.
+The `influxdb3-python` package provides the `influxdb_client_3` module for integrating {{% product-name %}} with your Python code.
 The module supports writing data to InfluxDB and querying data using SQL or InfluxQL.
 
 Install the following dependencies:
@@ -225,7 +225,7 @@ analyze data stored in an InfluxDB database.
 ### Create an InfluxDB client
 
 The following example shows how to use Python with the `influxdb_client_3`
-module to instantiate a client configured for an {{% cloud-name %}} bucket.
+module to instantiate a client configured for an {{% product-name %}} bucket.
 
 In your editor, copy and paste the following sample code to a new file--for
 example, `query-example.py`.
@@ -272,7 +272,7 @@ cert = fh.read()
 fh.close()
 
 client = InfluxDBClient3(
-host="cloud2.influxdata.com",
+host="{{< influxdb/host >}}",
 token='API_TOKEN',
 database='BUCKET_NAME',
 flight_client_options=flight_client_options(
@@ -289,7 +289,7 @@ For more information, see [`influxdb_client_3` query exceptions](/influxdb/cloud
 
 Replace the following configuration values:
 
-- **`database`**: the name of the [{{% cloud-name %}} bucket](/influxdb/cloud-serverless/admin/buckets/) to query
+- **`database`**: the name of the [{{% product-name %}} bucket](/influxdb/cloud-serverless/admin/buckets/) to query
 - **`token`**:  an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
@@ -407,7 +407,7 @@ print(table.group_by('room').aggregate([('temp', 'mean')]))
 
 Replace the following configuration values:
 
-- **`database`**: the name of the [{{% cloud-name %}} bucket](/influxdb/cloud-serverless/admin/buckets/) to query
+- **`database`**: the name of the [{{% product-name %}} bucket](/influxdb/cloud-serverless/admin/buckets/) to query
 - **`token`**:  an [API token](/influxdb/cloud-serverless/admin/tokens/) with _read_ access to the specified bucket.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 

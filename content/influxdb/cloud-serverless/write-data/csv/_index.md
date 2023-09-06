@@ -12,7 +12,8 @@ related:
   - /influxdb/cloud-serverless/reference/syntax/line-protocol/
   - /influxdb/cloud-serverless/reference/syntax/annotated-csv/
   - /influxdb/cloud-serverless/reference/cli/influx/write/
-alt_engine: /influxdb/cloud/write-data/developer-tools/csv/
+alt_links:
+  cloud: /influxdb/cloud/write-data/developer-tools/csv/
 ---
 
 {{< children >}}

@@ -14,7 +14,7 @@ aliases:
   - /influxdb/cloud-serverless/query-data/influxql/execute-queries/
 ---
 
-Use tools and libraries to query data stored in an {{% cloud-name %}} bucket.
+Use tools and libraries to query data stored in an {{% product-name %}} bucket.
 
 InfluxDB client libraries and Flight clients can use the Flight+gRPC protocol to query with SQL or InfluxQL and retrieve data in the [Arrow in-memory format](https://arrow.apache.org/docs/format/Columnar.html).
 HTTP clients can use the InfluxDB v1 `/query` REST API to query with InfluxQL and retrieve data in formatted as JSON.

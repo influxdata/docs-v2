@@ -16,7 +16,8 @@ list_code_example: |
     --write-database DATABASE2_NAME \
     "Read-only on DATABASE1_NAME, Read/write on DATABASE2_NAME"
   ```
-alt_engine: /influxdb/cloud-serverless/admin/tokens/create-token/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/admin/tokens/create-token/
 ---
 
 Use the [`influxctl token create` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/)
@@ -41,7 +42,7 @@ influxctl token create \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
 
 The command returns the token ID and the token string.
 **This is the only time the token string is available in plain text.**
@@ -66,8 +67,8 @@ For example, see how to [authenticate Telegraf using tokens in your OS secret st
 
 In the examples below, replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database
-- {{% code-placeholder-key %}}`DATABASE2_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} database
+- {{% code-placeholder-key %}}`DATABASE2_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} database
 
 #### Create a token with read and write access to a database
 

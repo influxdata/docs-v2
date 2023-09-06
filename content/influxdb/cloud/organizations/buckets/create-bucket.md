@@ -9,7 +9,10 @@ menu:
     name: Create a bucket
     parent: Manage buckets
 weight: 201
-alt_engine: /influxdb/cloud-serverless/admin/buckets/create-bucket/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/admin/buckets/create-bucket/
+  cloud-dedicated: /influxdb/cloud-dedicated/admin/databases/create/
+  clustered: /influxdb/clustered/admin/databases/create/
 ---
 
 Use the InfluxDB user interface (UI), the `influx` command line interface (CLI),

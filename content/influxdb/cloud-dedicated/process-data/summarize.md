@@ -21,14 +21,14 @@ The following examples use the sample data written in the
 [Get started writing data guide](/influxdb/cloud-dedicated/get-started/write/).
 To run the example queries and return results,
 [write the sample data](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb)
-to your {{% cloud-name %}} database before running the example queries.
+to your {{% product-name %}} database before running the example queries.
 {{% /note %}}
 
 ### View data information and statistics
 
 #### Using Python and pandas
 
-The following example uses the [InfluxDB client library for Python](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/) to query an {{% cloud-name %}} database,
+The following example uses the [InfluxDB client library for Python](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/) to query an {{% product-name %}} database,
 and then uses pandas [`DataFrame.info()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.info.html) and [`DataFrame.describe()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html) methods to summarize the schema and distribution of the data.
 
 1.  In your editor, create a file (for example, `pandas-example.py`) and enter the following sample code:
@@ -42,7 +42,7 @@ import influxdb_client_3 as InfluxDBClient3
 import pandas
 
 client = InfluxDBClient3.InfluxDBClient3(token='DATABASE_TOKEN',
-                      host='cluster-id.influxdb.io',
+                      host='{{< influxdb/host >}}',
                       database='DATABASE_NAME',
                       org="",
                       write_options=SYNCHRONOUS)

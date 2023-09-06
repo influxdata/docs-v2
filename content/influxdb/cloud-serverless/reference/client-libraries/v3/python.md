@@ -19,7 +19,7 @@ list_code_example: >
   # Instantiate an InfluxDB client configured for a bucket
 
   client = InfluxDBClient3(
-    "https://cloud2.influxdata.com",
+    "https://{{< influxdb/host >}}",
     database="BUCKET_NAME",
     token="API_TOKEN")
 
@@ -36,16 +36,16 @@ list_code_example: >
 ---
 
 The InfluxDB v3 [`influxdb3-python` Python client library](https://github.com/InfluxCommunity/influxdb3-python)
-integrates {{% cloud-name %}} write and query operations with Python scripts and applications.
+integrates {{% product-name %}} write and query operations with Python scripts and applications.
 
-InfluxDB client libraries provide configurable batch writing of data to {{% cloud-name %}}.
+InfluxDB client libraries provide configurable batch writing of data to {{% product-name %}}.
 Client libraries can be used to construct line protocol data, transform data from other formats
 to line protocol, and batch write line protocol data to InfluxDB HTTP APIs.
 
-InfluxDB v3 client libraries can query {{% cloud-name %}} using SQL or InfluxQL.
+InfluxDB v3 client libraries can query {{% product-name %}} using SQL or InfluxQL.
 The `influxdb3-python` Python client library wraps the Apache Arrow `pyarrow.flight` client 
 in a convenient InfluxDB v3 interface for executing SQL queries, requesting
-server metadata, and retrieving data from {{% cloud-name %}} using the Flight protocol with gRPC.
+server metadata, and retrieving data from {{% product-name %}} using the Flight protocol with gRPC.
 
 <!-- TOC -->
 
@@ -130,7 +130,7 @@ Initializes and returns an `InfluxDBClient3` instance with the following:
 
 ### Parameters
 
-- **org** (str): The organization name (for {{% cloud-name %}}, set this to an empty string (`""`)).
+- **org** (str): The organization name (for {{% product-name %}}, set this to an empty string (`""`)).
 - **database** (str): The database to use for writing and querying.
 - **write_client_options** (dict): Options to use when writing to InfluxDB.
   If `None`, writes are [synchronous](#synchronous-writing).
@@ -204,8 +204,8 @@ client = InfluxDBClient3(token="API_TOKEN",
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of your {{% cloud-name %}} [bucket](/influxdb/cloud-serverless/admin/buckets/)
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an {{% cloud-name %}} [API token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the specified bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [bucket](/influxdb/cloud-serverless/admin/buckets/)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [API token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the specified bucket
 
 
 #### Initialize a client for batch writing
@@ -255,8 +255,8 @@ invokes the callback function defined for the response status (`success`, `error
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of your {{% cloud-name %}} [bucket](/influxdb/cloud-serverless/admin/buckets/)
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an {{% cloud-name %}} [API token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the specified bucket
+- {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [bucket](/influxdb/cloud-serverless/admin/buckets/)
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [API token](/influxdb/cloud-serverless/admin/tokens/) with read permissions on the specified bucket
 
 ### Instance methods
 

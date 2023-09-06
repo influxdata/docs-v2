@@ -68,7 +68,7 @@ influx auth delete \
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to delete a token.
 
-{{< api-endpoint method="DELETE" endpoint="https://cloud2.influxdata.com/api/v2/authorizations/{AUTH_ID}" api-ref="/influxdb/v2.7/api/#operation/DeleteAuthorizationsID" >}}
+{{< api-endpoint method="DELETE" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations/{AUTH_ID}" api-ref="/influxdb/v2.7/api/#operation/DeleteAuthorizationsID" >}}
 
 Include the following in your request:
 
@@ -83,12 +83,12 @@ Include the following in your request:
 ```sh
 # Delete the first authorization listed for the user.
 curl --request GET \
-  https://cloud2.influxdata.com/api/v2/authorizations?user=user2 \
+  https://{{< influxdb/host >}}/api/v2/authorizations?user=user2 \
   --header "Authorization: Token API_TOKEN" \
   --header 'Content-type: application/json' \
 | jq .authorizations[0].id \
 | xargs -I authid curl --request DELETE \
-  https://cloud2.influxdata.com/api/v2/authorizations/authid \
+  https://{{< influxdb/host >}}/api/v2/authorizations/authid \
   --header "Authorization: Token API_TOKEN" \
   --header 'Content-type: application/json'
 ```

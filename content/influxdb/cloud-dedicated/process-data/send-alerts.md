@@ -65,7 +65,7 @@ Use the `InfluxDBClient3` function in the `influxdb_client_3` module to
 instantiate an InfluxDB client.
 Provide the following credentials:
 
-- **host**: {{< cloud-name >}} cluster URL _(without the protocol)_
+- **host**: {{< product-name omit="Clustered" >}} cluster URL _(without the protocol)_
 - **org**: InfluxDB organization name
 - **token**: [InfluxDB database token](/influxdb/cloud-dedicated/admin/tokens/)
   read permissions on the database you want to query
@@ -78,7 +78,7 @@ import pandas
 
 # Instantiate an InfluxDBClient3 client configured for your database
 influxdb = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
@@ -255,7 +255,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 influxdb = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
@@ -298,7 +298,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 influxdb = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )

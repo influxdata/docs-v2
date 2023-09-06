@@ -68,7 +68,7 @@ Execute queries and retrieve data over the Flight+gRPC protocol, and then proces
 ## Get started using Go to query InfluxDB
 
 The following example shows how to use Go with the `influxdb3-go`
-module to create a client and query an {{% cloud-name %}} database.
+module to create a client and query an {{% product-name %}} database.
 
 ### Install Go
 

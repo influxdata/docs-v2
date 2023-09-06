@@ -13,7 +13,8 @@ menu:
   influxdb_cloud:
     parent: Account management
     name: Manage billing
-alt_engine: /influxdb/cloud-serverless/admin/billing/
+alt_links:
+  influxdb-serverless: /influxdb/cloud-serverless/admin/billing/
 ---
 
 Learn how to upgrade your plan, access billing details, and review and resolve plan limit overages:
@@ -31,13 +32,13 @@ Learn how to upgrade your plan, access billing details, and review and resolve p
 
 ## Upgrade to Usage-Based Plan
 
-1. Click **Upgrade Now** in the upper right corner of the {{< cloud-name "short" >}} user interface (UI).
+1. Click **Upgrade Now** in the upper right corner of the {{< product-name "short" >}} user interface (UI).
 2. Set your limits (opt to receive an email when your usage exceeds the amount you enter in the **Limit ($1 minimum)** field). All service updates, security notifications, and other important information are sent to the email address you provide.
-3. Enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< cloud-name >}} opens with a default organization and bucket (both created from your email address).
+3. Enter your payment information and billing address, and then click **Upgrade**. A Ready To Rock confirmation appears; click **Start building your team**. Your plan will be upgraded and {{< product-name >}} opens with a default organization and bucket (both created from your email address).
 
 ## Access billing details
 
-1. In the {{< cloud-name "short" >}} UI, select the **user avatar** in the left
+1. In the {{< product-name "short" >}} UI, select the **user avatar** in the left
    navigation menu, and select **Account** >
    **Billing**.
 
@@ -99,7 +100,7 @@ On the **Billing page**, view the total limits available for the Free Plan.
 
 ## Review and resolve plan limit overages
 
-If you exceed your plan's [adjustable quotas or limits](/influxdb/cloud/account-management/limits/), you'll receive a notification in the {{< cloud-name "short" >}} user interface (UI) **Usage** page.
+If you exceed your plan's [adjustable quotas or limits](/influxdb/cloud/account-management/limits/), you'll receive a notification in the {{< product-name "short" >}} user interface (UI) **Usage** page.
 
 If you exceed the series cardinality limit, InfluxDB adds a rate limit event warning on the **Usage** page, and begins to reject write requests with new series. To start processing write requests again, do the following as needed:
 

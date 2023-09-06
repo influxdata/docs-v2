@@ -290,18 +290,25 @@ body.home {
           margin-bottom: 2.5rem;
 
           &:last-child{margin-bottom: 0;}
-          &.new{
+          &.new, &.limited{
             h3:after {
-              content: "New";
               display: inline-block;
-              margin-left: .5rem;
+              margin-left: .75rem;
               padding: .15rem .35rem;
               font-size: 1rem;
               vertical-align: middle;
               border-radius: $radius;
-              color: $br-dark-blue;
-              background-color: $br-chartreuse;
             }
+          }
+          &.new h3:after {
+            content: "New";
+            color: $br-dark-blue;
+            background-color: $br-chartreuse;
+          }
+          &.limited h3:after{
+            content: "Limited Availability";
+            color: $br-dark-blue;
+            background-color: $br-teal;
           }
         }
 

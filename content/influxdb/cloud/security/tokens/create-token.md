@@ -7,7 +7,10 @@ menu:
     name: Create a token
     parent: Manage tokens
 weight: 201
-alt_engine: /influxdb/cloud-serverless/admin/tokens/create-token
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/admin/tokens/create-token
+  cloud-dedicated: /influxdb/cloud-dedicated/admin/tokens/create
+  clustered: /influxdb/clustered/admin/tokens/create
 ---
 
 {{< duplicate-oss >}}

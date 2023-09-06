@@ -57,7 +57,7 @@ Follow the steps to write [line protocol](/influxdb/cloud-serverless/reference/s
    org = "INFLUX_ORG"
    # INFLUX_TOKEN is an environment variable you created for your API WRITE token
    token = os.getenv('INFLUX_TOKEN')
-   url="https://cloud2.influxdata.com"
+   url="https://{{< influxdb/host >}}"
    ```
 
 4. To instantiate the client, call the `influxdb_client.InfluxDBClient()` method with the following keyword arguments: `url`, `org`, and `token`.
@@ -95,7 +95,7 @@ bucket = "BUCKET_NAME"
 org = "INFLUX_ORG"
 # INFLUX_TOKEN is an environment variable you created for your API WRITE token
 token = os.getenv('INFLUX_TOKEN')
-url="https://cloud2.influxdata.com"
+url="https://{{< influxdb/host >}}"
 
 client = influxdb_client.InfluxDBClient(
     url=url,
@@ -112,4 +112,4 @@ write_api.write(bucket=bucket, org=org, record=p)
 
 ## Query data from InfluxDB with Python
 
-To query your {{% cloud-name %}} bucket, use the [Python client library for InfluxDB v3](/influxdb/cloud-serverless/reference/client-libraries/v3/python/).
+To query your {{% product-name %}} bucket, use the [Python client library for InfluxDB v3](/influxdb/cloud-serverless/reference/client-libraries/v3/python/).

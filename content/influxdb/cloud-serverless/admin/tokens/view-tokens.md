@@ -13,7 +13,7 @@ View API tokens and permissions using the InfluxDB user interface (UI),
 the `influx` command line interface (CLI), or the InfluxDB API.
 
 {{% note %}}
-To follow best practices for secure API token generation and retrieval, {{% cloud-name %}} enforces access restrictions on API tokens.
+To follow best practices for secure API token generation and retrieval, {{% product-name %}} enforces access restrictions on API tokens.
   - InfluxDB UI only allows access to the API token value immediately after the token is created.
   - You can't change access (**read/write**) permissions for an API token after it's created.
   - Tokens stop working when the user who created the token is deleted.
@@ -77,7 +77,7 @@ for information about other available flags.
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to view tokens and permissions.
 
-{{< api-endpoint method="GET" endpoint="https://cloud2.influxdata.com/api/v2/authorizations" api-ref="/influxdb/cloud-serverless/api/#operation/GetAuthorizations" >}}
+{{< api-endpoint method="GET" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations" api-ref="/influxdb/cloud-serverless/api/#operation/GetAuthorizations" >}}
 
 - [View a single token](#view-a-single-token)
 - [Filter the token list](#filter-the-token-list)
@@ -99,7 +99,7 @@ Include the following in your request:
 
 To view a specific authorization and token, include the authorization ID in the URL path.
 
-{{% api-endpoint method="GET" endpoint="https://cloud2.influxdata.com/api/v2/authorizations/{authID}" api-ref="/influxdb/cloud-serverless/api/#operation/GetAuthorizationsID" %}}
+{{% api-endpoint method="GET" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations/{authID}" api-ref="/influxdb/cloud-serverless/api/#operation/GetAuthorizationsID" %}}
 
 Include the following in your request:
 
@@ -111,7 +111,7 @@ Include the following in your request:
 {{% code-placeholders "(API|AUTHORIZATION)_(TOKEN|ID)" %}}
 ```sh
 curl --request GET \
-	"https://us-west-2-1.aws.cloud2.influxdata.com/api/v2/authorizations/AUTHORIZATION_ID" \
+	"https://us-west-2-1.aws.{{< influxdb/host >}}/api/v2/authorizations/AUTHORIZATION_ID" \
   --header "Authorization: Token API_TOKEN" \
   --header 'Content-type: application/json'
 ```

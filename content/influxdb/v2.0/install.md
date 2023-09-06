@@ -13,8 +13,8 @@ Download, install, and set up InfluxDB OSS.
 <!-- The primary differences between InfluxDB OSS 2.0 and InfluxDB Cloud are:
 
 - [InfluxDB scrapers](/influxdb/v2.0/write-data/no-code/scrape-data/) that collect data from specified
-  targets are not available in {{< cloud-name "short" >}}.
-- {{< cloud-name "short" >}} instances are currently limited to a single organization. -->
+  targets are not available in InfluxDB Cloud.
+- InfluxDB Cloud instances are currently limited to a single organization. -->
 
 {{< tabs-wrapper >}}
 {{% tabs %}}

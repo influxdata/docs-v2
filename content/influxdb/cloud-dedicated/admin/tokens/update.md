@@ -15,11 +15,12 @@ list_code_example: |
     --write-database <DATABASE2_NAME> \
     <TOKEN_ID>
   ```
-alt_engine: /influxdb/cloud-serverless/admin/tokens/update-tokens/
+alt_links:
+  serverless: /influxdb/cloud-serverless/admin/tokens/update-tokens/
 ---
 
 Use the [`influxctl token update` command](/influxdb/cloud-dedicated/reference/cli/influxctl/token/update/)
-to update a database token's permissions in your {{< cloud-name >}} cluster.
+to update a database token's permissions in your {{< product-name omit=" Clustered" >}} cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/cloud-dedicated/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run the `influxctl token create` command and provide the following:
@@ -40,7 +41,7 @@ influxctl token create \
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} database
 - {{% code-placeholder-key %}}`TOKEN ID`{{% /code-placeholder-key %}}: ID of the token to update
 
 {{% note %}}
@@ -60,8 +61,8 @@ To retain existing permissions, include them in the update command.
 
 In the examples below, Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database
-- {{% code-placeholder-key %}}`DATABASE2_NAME`{{% /code-placeholder-key %}}: your {{% cloud-name %}} database
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} database
+- {{% code-placeholder-key %}}`DATABASE2_NAME`{{% /code-placeholder-key %}}: your {{< product-name >}} database
 - {{% code-placeholder-key %}}`TOKEN ID`{{% /code-placeholder-key %}}: ID of the token to update
 
 #### Update a token with read and write access to a database

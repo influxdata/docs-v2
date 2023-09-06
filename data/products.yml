@@ -77,6 +77,17 @@ influxdb_cloud_dedicated:
   latest_cli: 2.0.2
   placeholder_host: cluster-id.influxdb.io
 
+influxdb_clustered:
+  name: InfluxDB Clustered
+  altname: InfluxDB Clustered
+  namespace: influxdb
+  menu_category: self-managed
+  versions: [clustered]
+  list_order: 3
+  latest: clustered
+  link: "https://www.influxdata.com/contact-sales-influxdb-clustered"
+  placeholder_host: cluster-host.com
+
 telegraf:
   name: Telegraf
   namespace: telegraf

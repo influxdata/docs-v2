@@ -20,7 +20,7 @@ related:
   - /influxdb/cloud-serverless/process-data/visualize/tableau/
 ---
 
-Use visualization tools to query data stored in {{% cloud-name %}}.
+Use visualization tools to query data stored in {{% product-name %}}.
 
 ## Query using SQL
 

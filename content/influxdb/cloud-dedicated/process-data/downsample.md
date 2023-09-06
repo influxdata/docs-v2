@@ -70,7 +70,7 @@ instantiate two InfluxDB clients:
 
 Provide the following credentials for each client:
 
-- **host**: {{< cloud-name >}} cluster URL _(without the protocol)_
+- **host**: {{< product-name omit="Clustered" >}} cluster URL _(without the protocol)_
 - **token**: [InfluxDB database token](/influxdb/cloud-dedicated/admin/tokens/)
   with read and write permissions on the databases you want to query and write to.
 - **database**: InfluxDB database name
@@ -82,7 +82,7 @@ import pandas
 
 # Instantiate an InfluxDBClient3 client configured for your unmodified database
 influxdb_raw = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='RAW_DATABASE_NAME'
 )
@@ -90,7 +90,7 @@ influxdb_raw = InfluxDBClient3(
 # Instantiate an InfluxDBClient3 client configured for your downsampled database.
 # When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DOWNSAMPLED_DATABASE_NAME',
     org=''
@@ -297,14 +297,14 @@ from influxdb_client_3 import InfluxDBClient3
 import pandas
 
 influxdb_raw = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='RAW_DATABASE_NAME'
 )
 
 # When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DOWNSAMPLED_DATABASE_NAME',
     org=''
@@ -350,14 +350,14 @@ from influxdb_client_3 import InfluxDBClient3
 import pandas
 
 influxdb_raw = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='RAW_DATABASE_NAME'
 )
 
 # When writing, the org= argument is required by the client (but ignored by InfluxDB).
 influxdb_downsampled = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DOWNSAMPLED_DATABASE_NAME',
     org=''

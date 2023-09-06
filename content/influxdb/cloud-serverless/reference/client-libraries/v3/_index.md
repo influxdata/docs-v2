@@ -14,7 +14,7 @@ influxdb/cloud-serverless/tags: [client libraries, API, developer tools]
 ## Client libraries for InfluxDB v3
 
 InfluxDB v3 client libraries are language-specific packages that work with
-and integrate with your application to write to and query data in {{% cloud-name %}}.
+and integrate with your application to write to and query data in {{% product-name %}}.
 InfluxData and the user community maintain client libraries for developers who want to take advantage of:
 
 - Idioms for InfluxDB requests, responses, and errors.
@@ -27,7 +27,7 @@ to line protocol.
 
 InfluxDB v3 client libraries can query InfluxDB v3 using InfluxDB v3's IOx-specific Arrow Flight protocol with gRPC.
 Client libraries use Flight clients to execute SQL and InfluxQL queries, request
-database information, and retrieve data stored in {{% cloud-name %}}.
+database information, and retrieve data stored in {{% product-name %}}.
 
 Additional features may vary among client libraries.
 

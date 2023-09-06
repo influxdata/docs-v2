@@ -12,7 +12,7 @@ aliases:
   - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/python-flightsql/
 ---
 
-The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influxdata/flightsql-dbapi) integrates with Python applications using SQL to query data stored in an {{% cloud-name %}} database. The `flightsql-dbapi` library uses the [Flight SQL protocol](https://arrow.apache.org/docs/format/FlightSql.html) to query and retrieve data.
+The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influxdata/flightsql-dbapi) integrates with Python applications using SQL to query data stored in an {{% product-name %}} database. The `flightsql-dbapi` library uses the [Flight SQL protocol](https://arrow.apache.org/docs/format/FlightSql.html) to query and retrieve data.
 
 {{% note %}}
 #### Use InfluxDB v3 client libraries
@@ -20,7 +20,7 @@ The [Python `flightsql-dbapi` Flight SQL DBAPI library](https://github.com/influ
 We recommend using the [`influxdb3-python` Python client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/) for integrating InfluxDB v3 with your Python application code.
 
 [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% cloud-name %}}.
+and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 Client libraries can query using SQL or InfluxQL.
 {{% /note %}}
 
@@ -85,7 +85,7 @@ and the _DB API 2_ interface to instantiate a Flight SQL client configured for a
 from flightsql import FlightSQLClient
 
 # Instantiate a FlightSQLClient configured for a database
-client = FlightSQLClient(host='cluster-id.influxdb.io',
+client = FlightSQLClient(host='{{< influxdb/host >}}',
                         token='DATABASE_TOKEN',
                         metadata={'database': 'DATABASE_NAME'},
                         features={'metadata-reflection': 'true'})
@@ -94,8 +94,8 @@ client = FlightSQLClient(host='cluster-id.influxdb.io',
 
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% cloud-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the databases you want to query
-- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% cloud-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the databases you want to query
+- {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
 
 ### Instance methods
 
@@ -140,7 +140,7 @@ The following sample shows how to use Python with `flightsql-dbapi` and `pyarrow
 from flightsql import FlightSQLClient
 
 # Instantiate a FlightSQLClient configured for a database
-client = FlightSQLClient(host='cluster-id.influxdb.io',
+client = FlightSQLClient(host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     metadata={'database': 'DATABASE_NAME'},
     features={'metadata-reflection': 'true'})

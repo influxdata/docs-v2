@@ -32,7 +32,7 @@ list_code_example: |
 
     # Instantiate an InfluxDB client
     client = InfluxDBClient3(
-        host='cluster-id.influxdb.io',
+        host='{{< influxdb/host >}}',
         token='DATABASE_TOKEN',
         database='DATABASE_NAME'
     )
@@ -65,7 +65,7 @@ Execute queries and retrieve data over the Flight+gRPC protocol, and then proces
 
 This guide assumes the following prerequisites:
 
-- an {{% cloud-name %}} [database](/influxdb/cloud-dedicated/admin/databases/) with data to query
+- an {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/) with data to query
 - a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ access to the database
 
 To learn how to set up InfluxDB and write data, see the [Setup instructions](/influxdb/cloud-dedicated/get-started/setup/) in the Get Started tutorial.
@@ -201,7 +201,7 @@ When a virtual environment is activated, the name displays at the beginning of y
 
 ### Install the influxdb3-python library
 
-The `influxdb3-python` package provides the `influxdb_client_3` module for integrating {{% cloud-name %}} with your Python code.
+The `influxdb3-python` package provides the `influxdb_client_3` module for integrating {{% product-name %}} with your Python code.
 The module supports writing data to InfluxDB and querying data using SQL or InfluxQL.
 
 Install the following dependencies:
@@ -224,7 +224,7 @@ analyze data stored in an InfluxDB database.
 ### Create an InfluxDB client
 
 The following example shows how to use Python with the `influxdb_client_3`
-module to instantiate a client configured for an {{% cloud-name %}} database.
+module to instantiate a client configured for an {{% product-name %}} database.
 
 In your editor, copy and paste the following sample code to a new file--for
 example, `query-example.py`:
@@ -237,7 +237,7 @@ from influxdb_client_3 import InfluxDBClient3
 
 # Instantiate an InfluxDBClient3 client configured for your database
 client = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
@@ -271,7 +271,7 @@ cert = fh.read()
 fh.close()
 
 client = InfluxDBClient3(
-host="cluster-id.influxdb.io",
+host="{{< influxdb/host >}}",
 token='DATABASE_TOKEN',
 database='DATABASE_NAME',
 flight_client_options=flight_client_options(
@@ -288,7 +288,7 @@ For more information, see [`influxdb_client_3` query exceptions](/influxdb/cloud
 
 Replace the following configuration values:
 
-- **`database`**: the name of the [{{% cloud-name %}} database](/influxdb/cloud-dedicated/admin/buckets/) to query
+- **`database`**: the name of the [{{% product-name %}} database](/influxdb/cloud-dedicated/admin/buckets/) to query
 - **`token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ access to the specified database.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
@@ -322,7 +322,7 @@ The following examples shows how to use SQL or InfluxQL to select all fields in 
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(
-    host='cluster-id.influxdb.io',
+    host='{{< influxdb/host >}}',
     token='DATABASE_TOKEN',
     database='DATABASE_NAME'
 )
@@ -406,7 +406,7 @@ print(table.group_by('room').aggregate([('temp', 'mean')]))
 
 Replace the following configuration values:
 
-- **`database`**: the name of the [{{% cloud-name %}} database](/influxdb/cloud-dedicated/admin/buckets/) to query
+- **`database`**: the name of the [{{% product-name %}} database](/influxdb/cloud-dedicated/admin/buckets/) to query
 - **`token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ access to the specified database.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 

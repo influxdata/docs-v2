@@ -22,6 +22,6 @@ For more information, see the [C# client example on GitHub](https://github.com/a
 We recommend using the [`influxdb3-csharp` C# client library](/influxdb/cloud-serverless/reference/client-libraries/v3/csharp/) for integrating InfluxDB v3 with your C# application code.
 
 [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-serverless/get-started/query/#execute-an-sql-query), and processing data stored in {{% cloud-name %}}.
+and provide convenient methods for [writing](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-serverless/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 Client libraries can query using SQL or InfluxQL.
 {{% /note %}}

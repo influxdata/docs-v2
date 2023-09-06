@@ -13,7 +13,10 @@ related:
   - /influxdb/cloud/reference/syntax/line-protocol/
   - /influxdb/cloud/reference/syntax/annotated-csv/
   - /influxdb/cloud/reference/cli/influx/write/
-alt_engine: /influxdb/cloud-serverless/write-data/csv/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/write-data/csv/
+  cloud-dedicated: /influxdb/cloud-dedicated/write-data/csv/
+  clustered: /influxdb/clustered/write-data/csv/
 ---
 
 {{< duplicate-oss >}}

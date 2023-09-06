@@ -15,7 +15,7 @@ products: [oss]
 ---
 
 {{% cloud %}}
-Restores **not supported in {{< cloud-name "short" >}}**.
+Restores **not supported in InfluxDB Cloud**.
 {{% /cloud %}}
 
 Use the `influx restore` command to restore backup data and metadata from InfluxDB OSS.

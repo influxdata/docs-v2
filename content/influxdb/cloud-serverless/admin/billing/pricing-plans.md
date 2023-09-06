@@ -11,7 +11,8 @@ menu:
   influxdb_cloud_serverless:
     parent: Manage billing
     name: Pricing plans
-alt_engine: /influxdb/cloud/account-management/pricing-plans/
+alt_links:
+  cloud: /influxdb/cloud/account-management/pricing-plans/
 ---
 
 InfluxDB Cloud Serverless offers a [Free Plan](#free-plan), a [Usage-Based Plan](#usage-based-plan) to pay as you go, and a discounted [Annual Plan](#annual-plan).
@@ -20,7 +21,7 @@ InfluxDB Cloud Serverless offers a [Free Plan](#free-plan), a [Usage-Based Plan]
 
 ## Free Plan
 
-New {{< cloud-name >}} accounts start with the Free Plan that provides a limited
+New {{< product-name >}} accounts start with the Free Plan that provides a limited
 number of resources and data usage.
 See [plan limits](/influxdb/cloud-serverless/admin/billing/limits/).
 

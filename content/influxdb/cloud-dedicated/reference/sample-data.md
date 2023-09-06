@@ -11,7 +11,7 @@ menu:
 weight: 110
 ---
 
-Sample datasets are used throughout the {{< cloud-name >}} documentation to
+Sample datasets are used throughout the {{< product-name >}} documentation to
 demonstrate functionality.
 Use the following sample datasets to replicate provided examples.
 
@@ -24,7 +24,7 @@ Use the following sample datasets to replicate provided examples.
 ## Get started home sensor data
 
 Includes hourly home sensor data used in the
-[Get started with {{< cloud-name >}}](/influxdb/cloud-dedicated/get-started/) guide.
+[Get started with {{< product-name >}}](/influxdb/cloud-dedicated/get-started/) guide.
 This dataset includes anomalous sensor readings and helps to demonstrate
 processing and alerting on time series data.
 To customize timestamps in the dataset, use the {{< icon "clock" >}} button in
@@ -57,7 +57,7 @@ to
 #### Write the home sensor data to InfluxDB
 
 Use the InfluxDB v2 or v1 API to write the Get started home sensor sample data
-to {{< cloud-name >}}.
+to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -70,7 +70,7 @@ to {{< cloud-name >}}.
 {{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  https://cluster-id.influxdb.io/api/v2/write?bucket=DATABASE_NAME&precision=s \
+  https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -113,7 +113,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  https://cluster-id.influxdb.io/write?db=DATABASE_NAME&precision=s \
+  https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "
@@ -200,7 +200,7 @@ to
 #### Write the home sensor actions data to InfluxDB
 
 Use the InfluxDB v2 or v1 API to write the home sensor actions sample data
-to {{< cloud-name >}}.
+to {{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -213,7 +213,7 @@ to {{< cloud-name >}}.
 {{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  https://cluster-id.influxdb.io/api/v2/write?bucket=DATABASE_NAME&precision=s \
+  https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -238,7 +238,7 @@ home_actions,room=Living\ Room,action=alert,level=warn description="Carbon monox
 {{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  https://cluster-id.influxdb.io/write?db=DATABASE_NAME&precision=s \
+  https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary '
@@ -301,7 +301,7 @@ series use cases that involve seasonality.
 #### Write the NOAA Bay Area weather data to InfluxDB
 
 Use the InfluxDB v2 or v1 API to write the NOAA Bay Area weather sample data to
-{{< cloud-name >}}.
+{{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -313,7 +313,7 @@ Use the InfluxDB v2 or v1 API to write the NOAA Bay Area weather sample data to
 {{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  http://cluster-id.influxdb.io/api/v2/write?bucket=DATABASE_NAME \
+  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -327,7 +327,7 @@ curl --request POST \
 {{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  http://cluster-id.influxdb.io/write?db=DATABASE_NAME \
+  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bay-area-weather.lp)"
@@ -384,7 +384,7 @@ The Bitcoin price sample dataset provides Bitcoin prices from
 #### Write the Bitcoin price sample data to InfluxDB
 
 Use the InfluxDB v2 or v1 API to write the Bitcoin price sample data to
-{{< cloud-name >}}.
+{{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -396,7 +396,7 @@ Use the InfluxDB v2 or v1 API to write the Bitcoin price sample data to
 {{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  http://cluster-id.influxdb.io/api/v2/write?bucket=DATABASE_NAME \
+  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -410,7 +410,7 @@ curl --request POST \
 {{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  http://cluster-id.influxdb.io/write?db=DATABASE_NAME \
+  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/bitcoin.lp)"
@@ -455,7 +455,7 @@ transformation functions.
 #### Write the random number sample data to InfluxDB
 
 Use the InfluxDB v2 or v1 API to write the random number sample data to
-{{< cloud-name >}}.
+{{< product-name >}}.
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -467,7 +467,7 @@ Use the InfluxDB v2 or v1 API to write the random number sample data to
 {{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  http://cluster-id.influxdb.io/api/v2/write?bucket=DATABASE_NAME \
+  http://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
@@ -481,7 +481,7 @@ curl --request POST \
 {{% code-placeholders "DATABASE_TOKEN|DATABASE_NAME" %}}
 ```sh
 curl --request POST \
-  http://cluster-id.influxdb.io/write?db=DATABASE_NAME \
+  http://{{< influxdb/host >}}/write?db=DATABASE_NAME \
   --header "Authorization: Bearer DATABASE_TOKEN" \
   --header "Content-type: text/plain; charset=utf-8" \
   --data-binary "$(curl --request GET https://docs.influxdata.com/downloads/random-numbers.lp)"

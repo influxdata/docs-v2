@@ -15,7 +15,7 @@ metadata: [SQL only]
 ---
 
 Use [Tableau](https://www.tableau.com/) to query and visualize time series data
-stored in {{< cloud-name >}}. Tableau supports multiple SQL dialects.
+stored in {{< product-name >}}. Tableau supports multiple SQL dialects.
 
 > Tableau is a visual analytics platform transforming the way we use data to
 > solve problems—empowering people and organizations to make the most of their data.
@@ -27,7 +27,7 @@ stored in {{< cloud-name >}}. Tableau supports multiple SQL dialects.
 
 These instructions are for **Tableau Desktop**.
 Tableau Cloud and other Tableau products have not been tested, but may support
-connecting to {{< cloud-name >}} through the **Flight SQL JDBC driver**.
+connecting to {{< product-name >}} through the **Flight SQL JDBC driver**.
 {{% /note %}}
 
 ## Install Tableau Desktop
@@ -36,7 +36,7 @@ If you have not already, [download and install Tableau Desktop](https://www.tabl
 
 ## Download and install the Flight SQL JDBC driver
 
-To query {{< cloud-name >}} from Tableau, use the **Flight SQL protocol** and the
+To query {{< product-name >}} from Tableau, use the **Flight SQL protocol** and the
 **Flight SQL JDBC driver**.
 
 1.  **Download the Flight SQL JDBC driver.**
@@ -98,7 +98,7 @@ jdbc:arrow-flight-sql://us-east-1-1.aws.cloud2.influxdata.com:443?useSystemTrust
 ## Query InfluxDB Cloud Serverless
 
 With the connection successfully established, query your time series data stored
-in {{< cloud-name >}}. In the left pane:
+in {{< product-name >}}. In the left pane:
 
 1.  Under **Database**, select **public** from the drop-down menu.
 2.  Under **Schema**, select **iox** from the drop-down menu.

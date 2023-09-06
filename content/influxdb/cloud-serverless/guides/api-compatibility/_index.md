@@ -16,6 +16,6 @@ related:
   - /influxdb/cloud-serverless/reference/api/
 ---
 
-Choose the {{% cloud-name %}} API and tools that best fit your workload:
+Choose the {{% product-name %}} API and tools that best fit your workload:
 
 {{< children sort>}}

@@ -46,7 +46,7 @@ list_code_example: |
 We recommend using the [`influxdb3-java` Go client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/java/) for integrating InfluxDB v3 with your Java application code.
 
 [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% cloud-name %}}.
+and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 Client libraries can query using SQL or InfluxQL.
 {{% /note %}}
 
@@ -64,8 +64,8 @@ Client libraries can query using SQL or InfluxQL.
 
 ## Get started using the Java Flight SQL client to query InfluxDB
 
-Write a Java class for a Flight SQL client that connects to {{% cloud-name %}},
-executes an SQL query, and retrieves data stored in an {{% cloud-name %}} database.
+Write a Java class for a Flight SQL client that connects to {{% product-name %}},
+executes an SQL query, and retrieves data stored in an {{% product-name %}} database.
 
 The example uses the [Apache Arrow Java implementation (`org.apache.arrow`)](https://arrow.apache.org/docs/java/index.html) for interacting with Flight database servers like InfluxDB v3.
 
@@ -84,10 +84,10 @@ To clone or download the example application that you can run with Docker, see t
 
 ### Set up InfluxDB
 
-To configure the application for querying {{% cloud-name %}}, you'll need the following InfluxDB resources:
+To configure the application for querying {{% product-name %}}, you'll need the following InfluxDB resources:
 
-- {{% cloud-name %}} **database**
-- {{% cloud-name %}} **database token** with _read_ permission to the database
+- {{% product-name %}} **database**
+- {{% product-name %}} **database token** with _read_ permission to the database
 
 If you don't already have a database token and a database, see how to [set up InfluxDB](/influxdb/cloud-dedicated/get-started/setup/).
 If you don't already have data to query, see how to
@@ -479,9 +479,9 @@ Follow these steps to build and run the application using Docker:
 2. Open a terminal in your project root directory.
 3. In your terminal, run the `docker build` command and pass `--build-arg` flags for the server credentials:
    
-    - **`DATABASE_NAME`**: your [{{% cloud-name %}} database](/influxdb/cloud-dedicated/admin/databases/)
-    - **`HOST`**: your [{{% cloud-name %}} region](/influxdb/cloud-dedicated/reference/regions/) hostname (URL without the "https://")
-    - **`TOKEN`**: your [{{% cloud-name %}} database token](/influxdb/cloud-dedicated/get-started/setup/) with _read_ permission to the database
+    - **`DATABASE_NAME`**: your [{{% product-name %}} database](/influxdb/cloud-dedicated/admin/databases/)
+    - **`HOST`**: your [{{% product-name %}} region](/influxdb/cloud-dedicated/reference/regions/) hostname (URL without the "https://")
+    - **`TOKEN`**: your [{{% product-name %}} database token](/influxdb/cloud-dedicated/get-started/setup/) with _read_ permission to the database
 
     ```sh
     docker build \

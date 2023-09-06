@@ -22,7 +22,7 @@ weight: 201
 We recommend using the [`influxdb3-go` Go client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/go/) for integrating InfluxDB v3 with your Go application code.
 
 [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% cloud-name %}}.
+and provide convenient methods for [writing](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-dedicated/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 Client libraries can query using SQL or InfluxQL.
 {{% /note %}}
 
@@ -30,7 +30,7 @@ Client libraries can query using SQL or InfluxQL.
 
 ### Example query using Flight SQL
 
-The following example shows how to use the Arrow Flight SQL client for Go to query an {{% cloud-name %}} database:
+The following example shows how to use the Arrow Flight SQL client for Go to query an {{% product-name %}} database:
 
 1.  In your editor, open a new file named `query.go` and enter the following sample code:
 
@@ -51,7 +51,7 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
     )
 
     func dbQuery(ctx context.Context) error {
-      url := "cluster-id.influxdb.io:443"
+      url := "{{< influxdb/host >}}:443"
 
       // INFLUX_TOKEN is an environment variable you created for your database READ token
       token := os.Getenv("INFLUX_TOKEN")
@@ -138,8 +138,8 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
 
         1.  Defines variables for InfluxDB credentials.
           
-            - **`url`**: {{% cloud-name %}} cluster hostname and port (`:443`) _(no protocol)_
-            - **`database`**: the name of the {{% cloud-name %}} database to query
+            - **`url`**: {{% product-name omit=" Clustered" %}} cluster hostname and port (`:443`) _(no protocol)_
+            - **`database`**: the name of the {{% product-name %}} database to query
             - **`token`**:  a [database token](/influxdb/cloud-dedicated/get-started/setup/#create-an-all-access-api-token) with read permission on the specified database.
           _For security reasons, we recommend setting this as an environment
           variable rather than including the raw token string._
@@ -161,7 +161,7 @@ The following example shows how to use the Arrow Flight SQL client for Go to que
 
     3.  Creates a `main` module function that executes the `dbQuery` function.
 
-2.  Enter the following commands to install all the necessary packages and run the program to query {{% cloud-name %}}:
+2.  Enter the following commands to install all the necessary packages and run the program to query {{% product-name %}}:
 
     ```sh
     go get ./...

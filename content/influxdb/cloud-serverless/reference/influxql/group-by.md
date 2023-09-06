@@ -500,7 +500,7 @@ name: bitcoin
 
 ## Result set
 
-If at least one row satisfies the query, {{% cloud-name %}} returns row data in the query result set.
+If at least one row satisfies the query, {{% product-name %}} returns row data in the query result set.
 If a query uses a `GROUP BY` clause, the result set includes the following:
 
 - Columns listed in the query's `SELECT` clause

@@ -18,14 +18,14 @@ aliases:
   - /influxdb/cloud-dedicated/query-data/influxql/execute-queries/influxdb-v1-api/
 list_code_example: |
   ```sh
-  curl --get https://cluster-id.influxdb.io/query \
+  curl --get https://{{< influxdb/host >}}/query \
     --header "Authorization: Token DATABASE_TOKEN" \
     --data-urlencode "db=DATABASE_NAME" \
     --data-urlencode "q=SELECT * FROM home"
   ```
 ---
 
-Use the InfluxDB v1 HTTP query API to query data in {{< cloud-name >}}
+Use the InfluxDB v1 HTTP query API to query data in {{< product-name >}}
 with InfluxQL.
 
 The examples below use **cURL** to send HTTP requests to the InfluxDB v1 HTTP API,
@@ -42,7 +42,7 @@ see [InfluxQL feature support](/influxdb/cloud-dedicated/reference/influxql/feat
 
 Use the v1 `/query` endpoint and the `GET` request method to query data with InfluxQL:
 
-{{< api-endpoint endpoint="https://cluster-id.influxdb.io/query" method="get" api-ref="/influxdb/cloud-dedicated/api/#tag/Query" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/query" method="get" api-ref="/influxdb/cloud-dedicated/api/#tag/Query" >}}
 
 Provide the following with your request:
 
@@ -75,7 +75,7 @@ Replace the following configuration values:
 If using basic authentication or query string authentication (username and password)
 to interact with the v1 HTTP query API, provide the following credentials:
 
-- **username**: an arbitrary string _({{< cloud-name >}} ignores the username)_
+- **username**: an arbitrary string _({{< product-name >}} ignores the username)_
 - **password**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ access to the specified database.
 
 {{< code-tabs-wrapper >}}
@@ -87,7 +87,7 @@ to interact with the v1 HTTP query API, provide the following credentials:
 {{% code-tab-content %}}
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```sh
-curl --get https://cluster-id.influxdb.io/query \
+curl --get https://{{< influxdb/host >}}/query \
   --header "Authorization: Basic ignored:DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
   --data-urlencode "q=SELECT * FROM home"
@@ -98,7 +98,7 @@ curl --get https://cluster-id.influxdb.io/query \
 {{% code-tab-content %}}
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```sh
-curl --get https://cluster-id.influxdb.io/query \
+curl --get https://{{< influxdb/host >}}/query \
   --data-urlencode "u=ignored" \
   --data-urlencode "p=DATABASE_TOKEN" \
   --data-urlencode "db=DATABASE_NAME" \
@@ -118,7 +118,7 @@ with the `application/csv` or `text/csv` MIME type:
 
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```sh
-curl --get https://cluster-id.influxdb.io/query \
+curl --get https://{{< influxdb/host >}}/query \
   --header "Authorization: Token DATABASE_TOKEN" \
   --header "Accept: application/csv" \
   --data-urlencode "db=DATABASE_NAME" \

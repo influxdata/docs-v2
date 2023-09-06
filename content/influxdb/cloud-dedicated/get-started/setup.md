@@ -29,7 +29,7 @@ you need is in place.
 
 ## Request an InfluxDB Cloud Dedicated cluster
 
-[Contact the InfluxData Sales team]({{< dedicated-link >}}) to request an
+[Contact the InfluxData Sales team]({{< cta-link >}}) to request an
 InfluxDB Cloud Dedicated cluster.
 When your cluster is deployed, your InfluxData account representative provides
 the following:
@@ -69,7 +69,7 @@ If stored at a non-default location, include the `--config` flag with each
     {{% /note %}}
 
     **Copy and paste the sample configuration profile code** into your `config.toml`
-    and replace the following with your {{< cloud-name >}} credentials:
+    and replace the following with your {{< product-name >}} credentials:
 
     - `ACCOUNT_ID`: Your account ID
     - `CLUSTER_ID`: Your cluster ID

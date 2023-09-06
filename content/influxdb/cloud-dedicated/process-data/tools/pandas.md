@@ -28,7 +28,7 @@ list_code_example: |
 ---
 
 Use [pandas](https://pandas.pydata.org/), the Python data analysis library, to process, analyze, and visualize data
-stored in an {{% cloud-name %}} database.
+stored in an {{% product-name %}} database.
 
 > **pandas** is an open source, BSD-licensed library providing high-performance,
 > easy-to-use data structures and data analysis tools for the Python programming language.
@@ -79,7 +79,7 @@ import pandas
 
 # Instantiate an InfluxDB client configured for a database
 client = InfluxDBClient3(
-  "https://cluster-id.influxdb.io",
+  "https://{{< influxdb/host >}}",
   database="DATABASE_NAME",
   token="DATABASE_TOKEN")
 
@@ -164,7 +164,7 @@ Next, [use pandas to analyze data](#use-pandas-to-analyze-data).
 
 ### View data information and statistics
 
-The following example shows how to use pandas `DataFrame` methods to transform and summarize data stored in {{% cloud-name %}}.
+The following example shows how to use pandas `DataFrame` methods to transform and summarize data stored in {{% product-name %}}.
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```py
@@ -175,7 +175,7 @@ import pandas
 
 # Instantiate an InfluxDB client configured for a database
 client = InfluxDBClient3(
-  "https://cluster-id.influxdb.io",
+  "https://{{< influxdb/host >}}",
   database="DATABASE_NAME",
   token="DATABASE_TOKEN")
 

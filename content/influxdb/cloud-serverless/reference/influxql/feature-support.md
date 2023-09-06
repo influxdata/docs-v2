@@ -33,21 +33,21 @@ InfluxQL features.
 
 ### Time zones
 
-InfluxQL in {{< cloud-name >}} does not currently support the time zone clause,
+InfluxQL in {{< product-name >}} does not currently support the time zone clause,
 which applies a time zone offset to UTC timestamps in query results.
 
 **Tracking issue**: [influxdb_iox#6933](https://github.com/influxdata/influxdb_iox/issues/6933)
 
 ### Subqueries
 
-InfluxQL in {{< cloud-name >}} does not currently support subqueries, which
+InfluxQL in {{< product-name >}} does not currently support subqueries, which
 let you query data from the results of another InfluxQL query.
 
 **Tracking issue**: [influxdb_iox#6897](https://github.com/influxdata/influxdb_iox/issues/6897)
 
 ### SLIMIT clause
 
-InfluxQL in {{< cloud-name >}} does not currently support the `SLIMIT` clause,
+InfluxQL in {{< product-name >}} does not currently support the `SLIMIT` clause,
 which limits the number of [series](/influxdb/cloud-serverless/reference/glossary/#series)
 returned in query results.
 
@@ -55,7 +55,7 @@ returned in query results.
 
 ### SOFFSET clause
 
-InfluxQL in {{< cloud-name >}} does not currently support the `SOFFSET` clause,
+InfluxQL in {{< product-name >}} does not currently support the `SOFFSET` clause,
 which specifies the number of [series](/influxdb/cloud-serverless/reference/glossary/#series)
 to skip before returning results.
 
@@ -63,7 +63,7 @@ to skip before returning results.
 
 ### Project additional fields with selector functions
 
-InfluxQL in {{< cloud-name >}} does not currently let you project additional
+InfluxQL in {{< product-name >}} does not currently let you project additional
 fields when using [selector functions](/influxdb/cloud-serverless/reference/influxql/functions/selectors/).
 Selector functions return specific rows with values that meets the criteria
 of the function. Projecting other fields returns additional field values associated
@@ -84,7 +84,7 @@ This query currently returns an error.
 InfluxQL metaqueries return information about the schema of time series data
 stored in InfluxDB.
 The following table provides information about what metaqueries are available in
-{{< cloud-name >}}:
+{{< product-name >}}:
 
 | Metaquery                                                     |        Supported         |
 | :------------------------------------------------------------ | :----------------------: |

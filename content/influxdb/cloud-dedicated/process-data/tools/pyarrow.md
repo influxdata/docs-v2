@@ -30,7 +30,7 @@ list_code_example: |
 ---
 
 Use [PyArrow](https://arrow.apache.org/docs/python/) to read and analyze query
-results from {{% cloud-name %}}.
+results from {{% product-name %}}.
 The PyArrow library provides efficient computation, aggregation, serialization,
 and conversion of Arrow format data.
 
@@ -74,7 +74,7 @@ def querySQL():
   
   # Instantiate an InfluxDB client configured for a database
   client = InfluxDBClient3(
-    "https://cluster-id.influxdb.io",
+    "https://{{< influxdb/host >}}",
     database="DATABASE_NAME",
     token="DATABASE_TOKEN")
 
@@ -127,7 +127,7 @@ def querySQL():
   
   # Instantiate an InfluxDB client configured for a database
   client = InfluxDBClient3(
-    "https://cluster-id.influxdb.io",
+    "https://{{< influxdb/host >}}",
     database="DATABASE_NAME",
     token="DATABASE_TOKEN")
 

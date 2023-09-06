@@ -65,7 +65,7 @@ Use the `InfluxDBClient3` function in the `influxdb_client_3` module to
 instantiate an InfluxDB client.
 Provide the following credentials:
 
-- **host**: [{{< cloud-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
+- **host**: [{{< product-name >}} region URL](/influxdb/cloud-serverless/reference/regions)
   _(without the protocol)_
 - **org**: InfluxDB organization name
 - **token**: [InfluxDB API token](/influxdb/cloud-serverless/admin/tokens/) with
@@ -79,7 +79,7 @@ import pandas
 
 # Instantiate an InfluxDBClient3 client configured for your bucket
 influxdb = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     org='ORG_NAME',
     token='API_TOKEN',
     database='BUCKET_NAME'
@@ -257,7 +257,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 influxdb = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     org='ORG_NAME',
     token='API_TOKEN',
     database='BUCKET_NAME'
@@ -301,7 +301,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 influxdb = InfluxDBClient3(
-    host='cloud2.influxdata.com',
+    host='{{< influxdb/host >}}',
     org='ORG_NAME',
     token='API_TOKEN',
     database='BUCKET_NAME'

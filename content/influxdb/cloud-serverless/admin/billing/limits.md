@@ -12,7 +12,8 @@ related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
   - /influxdb/cloud-serverless/write-data/best-practices/
-alt_engine: /influxdb/cloud/account-management/limits/
+alt_links:
+  cloud: /influxdb/cloud/account-management/limits/
 aliases:
   - /influxdb/cloud-serverless/admin/accounts/limits/
   - /influxdb/cloud-serverless/account-management/limits/
@@ -165,7 +166,7 @@ number of tables (measurements) allowed in a namespace.
 
 ### Error messages in the UI
 
-The {{< cloud-name >}} UI displays a notification message when service quotas or limits are exceeded.
+The {{< product-name >}} UI displays a notification message when service quotas or limits are exceeded.
 The error messages correspond with the relevant [API error response messages](#api-error-response-messages).
 
 Errors can also be viewed in the [Usage page](/influxdb/cloud-serverless/admin/billing/data-usage/)

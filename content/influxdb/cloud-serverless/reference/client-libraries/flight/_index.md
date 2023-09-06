@@ -23,14 +23,14 @@ Apache Arrow Flight RPC and Flight SQL protocols define APIs for servers and cli
 
 We recommend using [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) for integrating InfluxDB v3 with your application code.
 Client libraries wrap Apache Arrow Flight clients
-and provide convenient methods for [writing](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-serverless/get-started/query/#execute-an-sql-query), and processing data stored in {{% cloud-name %}}.
+and provide convenient methods for [writing](/influxdb/cloud-serverless/get-started/write/#write-line-protocol-to-influxdb), [querying](/influxdb/cloud-serverless/get-started/query/#execute-an-sql-query), and processing data stored in {{% product-name %}}.
 {{% /note %}}
 
-**Flight RPC clients** can use SQL or InfluxQL to query data stored in an {{% cloud-name %}} bucket.
+**Flight RPC clients** can use SQL or InfluxQL to query data stored in an {{% product-name %}} bucket.
 Using InfluxDB v3's IOx-specific Flight RPC protocol, clients send a single `DoGet()` request to authenticate, query, and retrieve data.
 
 **Flight SQL clients** use the [Flight SQL protocol](https://arrow.apache.org/docs/format/FlightSql.html) for querying an SQL database server.
-They can use SQL to query data stored in an {{% cloud-name %}} bucket, but they can't use InfuxQL.
+They can use SQL to query data stored in an {{% product-name %}} bucket, but they can't use InfuxQL.
 
 Clients are maintained by Apache Arrow projects or third-parties.
 For specifics about a Flight client, see the client's GitHub repository.

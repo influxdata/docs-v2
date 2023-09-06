@@ -11,9 +11,9 @@ weight: 101
 ---
 
 InfluxQL requires a database and retention policy (DBRP) combination in order to query data.
-In {{< cloud-name >}}, databases and retention policies are
+In {{< product-name >}}, databases and retention policies are
 combined and replaced by InfluxDB [buckets](/influxdb/cloud-serverless/reference/glossary/#bucket).
-To query an {{< cloud-name >}} bucket with InfluxQL, first map each DBRP
+To query an {{< product-name >}} bucket with InfluxQL, first map each DBRP
 combination to a bucket.
 
 - [Automatic DBRP mapping](#automatic-dbrp-mapping)
@@ -24,7 +24,7 @@ combination to a bucket.
 
 ## Automatic DBRP mapping
 
-{{< cloud-name >}} automatically creates DBRP mappings for you during the
+{{< product-name >}} automatically creates DBRP mappings for you during the
 following operations:
 
 - Writing to the [`/write` v1 compatibility endpoint](/influxdb/cloud-serverless/guides/api-compatibility/v1/#write-data)
@@ -84,7 +84,7 @@ influx v1 dbrp create \
 Use the [`/api/v2/dbrps` API endpoint](/influxdb/cloud-serverless/api/#operation/PostDBRP)
 to create a new DBRP mapping.
 
-{{< api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/dbrps" method="POST" api-ref="/influxdb/cloud-serverless/api/#operation/PostDBRP" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps" method="POST" api-ref="/influxdb/cloud-serverless/api/#operation/PostDBRP" >}}
 
 Include the following:
 
@@ -102,7 +102,7 @@ Include the following:
 
 {{% code-placeholders "(DATABASE|RETENTION_POLICY|BUCKET|API|ORG)_(NAME|TOKEN|ID)" %}}
 ```sh
-curl --request POST https://cloud2.influxdata.com/api/v2/dbrps \
+curl --request POST https://{{< influxdb/host >}}/api/v2/dbrps \
   --header "Authorization: Token API_TOKEN" \
   --header 'Content-type: application/json' \
   --data '{
@@ -161,7 +161,7 @@ influx v1 dbrp list \
 
 Use the [`/api/v2/dbrps` API endpoint](/influxdb/cloud-serverless/api/#operation/GetDBRPs) to list DBRP mappings.
 
-{{< api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/dbrps" method="GET" api-ref="/influxdb/cloud-serverless/api/#operation/GetDBRPs" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps" method="GET" api-ref="/influxdb/cloud-serverless/api/#operation/GetDBRPs" >}}
 
 Include the following:
 
@@ -182,7 +182,7 @@ Include the following:
 
 ```sh
 curl --request GET \
-  https://cloud2.influxdata.com/api/v2/dbrps \
+  https://{{< influxdb/host >}}/api/v2/dbrps \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "orgID=ORG_ID"
 ```
@@ -191,7 +191,7 @@ curl --request GET \
 
 ```sh
 curl --request GET \
-  https://cloud2.influxdata.com/api/v2/dbrps \
+  https://{{< influxdb/host >}}/api/v2/dbrps \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "orgID=ORG_ID" \
   --data-urlencode  "db=DATABASE_NAME"
@@ -201,7 +201,7 @@ curl --request GET \
 
 ```sh
 curl --request GET \
-  https://cloud2.influxdata.com/api/v2/dbrps \
+  https://{{< influxdb/host >}}/api/v2/dbrps \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "orgID=ORG_ID" \
   --data-urlencode  "bucketID=BUCKET_ID"
@@ -255,7 +255,7 @@ influx v1 dbrp update \
 
 Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb/cloud-serverless/api/#operation/GetDBRPs) to update DBRP mappings.
 
-{{< api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/dbrps/{dbrpID}" method="PATCH" api-ref="/influxdb/cloud-serverless/api/#operation/PatchDBRPID" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps/{dbrpID}" method="PATCH" api-ref="/influxdb/cloud-serverless/api/#operation/PatchDBRPID" >}}
 
 Include the following:
 
@@ -277,7 +277,7 @@ Include the following:
 {{% code-placeholders "(DBRP|RETENTION_POLICY|API|ORG)_(NAME|TOKEN|ID)" %}}
 ```sh
 curl --request PATCH \
-  https://cloud2.influxdata.com/api/v2/dbrps/DBRP_ID \
+  https://{{< influxdb/host >}}/api/v2/dbrps/DBRP_ID \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "orgID=ORG_ID" \
   --data '{
@@ -328,7 +328,7 @@ influx v1 dbrp delete \
 Use the [`/api/v2/dbrps/{dbrpID}` API endpoint](/influxdb/cloud-serverless/api/#operation/DeleteDBRPID)
 to delete a DBRP mapping.
 
-{{< api-endpoint endpoint="https://cloud2.influxdata.com/api/v2/dbrps/{dbrpID}" method="DELETE" api-ref="/influxdb/cloud-serverless/api/#operation/DeleteDBRPID" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/dbrps/{dbrpID}" method="DELETE" api-ref="/influxdb/cloud-serverless/api/#operation/DeleteDBRPID" >}}
 
 Include the following:
 
@@ -346,7 +346,7 @@ Include the following:
 {{% code-placeholders "(DBRP|API|ORG)_(TOKEN|ID)" %}}
 ```sh
 curl --request DELETE \
-  https://cloud2.influxdata.com/api/v2/dbrps/DBRP_ID \
+  https://{{< influxdb/host >}}/api/v2/dbrps/DBRP_ID \
   --header "Authorization: Token API_TOKEN" \
   --data-urlencode "orgID=ORG_ID"
 ```

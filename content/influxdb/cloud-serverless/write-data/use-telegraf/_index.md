@@ -14,7 +14,8 @@ menu:
   influxdb_cloud_serverless:
     name: Use Telegraf
     parent: Write data
-alt_engine: /influxdb/cloud/write-data/no-code/use-telegraf/
+alt_links:
+  cloud: /influxdb/cloud/write-data/no-code/use-telegraf/
 ---
 
 [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) is a
@@ -39,12 +40,12 @@ Each Telegraf configuration must **have at least one input plugin and one output
 Telegraf input plugins retrieve metrics from different sources.
 Telegraf output plugins write those metrics to a destination.
 
-Use the [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2) plugin to write metrics collected by Telegraf to {{< cloud-name >}}.
+Use the [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2) plugin to write metrics collected by Telegraf to {{< product-name >}}.
 
 ```toml
 # ...
 [[outputs.influxdb_v2]]
-  urls = ["https://cloud2.influxdata.com"]
+  urls = ["https://{{< influxdb/host >}}"]
   token = "${INFLUX_TOKEN}"
   organization = ""
   bucket = "get-started"

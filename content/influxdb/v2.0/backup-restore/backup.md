@@ -28,7 +28,7 @@ The InfluxDB 2.0 `influx backup` command is not compatible with versions of Infl
 {{% /note %}}
 
 {{% cloud %}}
-The `influx backup` command **cannot** back up data stored in **{{< cloud-name "short" >}}**.
+The `influx backup` command **cannot** back up data stored in **InfluxDB Cloud**.
 {{% /cloud %}}
 
 The `influx backup` command requires:

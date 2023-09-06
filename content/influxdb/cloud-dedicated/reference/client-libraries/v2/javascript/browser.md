@@ -18,16 +18,16 @@ related:
   - /influxdb/cloud-dedicated/api-guide/client-libraries/nodejs/query/
 ---
 
-Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an {{% cloud-name %}} database.
+Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an {{% product-name %}} database.
 
 {{% note %}}
 
 ### Tools to execute queries
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% cloud-name %}} database.
+This endpoint can't query an {{% product-name %}} database.
 
-{{% cloud-name %}} supports many different tools for querying data, including:
+{{% product-name %}} supports many different tools for querying data, including:
 
 - [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/)
 - [Flight clients](/influxdb/cloud-dedicated/reference/client-libraries/flight-sql/)
@@ -63,7 +63,7 @@ If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{
 1. Install [Node.js](https://nodejs.org/en/download/package-manager/) to serve your front-end app.
 
 2. Ensure that InfluxDB is running and you can connect to it.
-   For information about what URL to use to connect to your {{% cloud-name %}} cluster, contact your InfluxData account representative.
+   For information about what URL to use to connect to your {{% product-name omit=" Clustered" %}} cluster, contact your InfluxData account representative.
 
 ## Use with module bundlers
 
@@ -76,7 +76,7 @@ If you use a module bundler like Webpack or Parcel, install `@influxdata/influxd
    ```html
    <script>
      window.INFLUX_ENV = {
-       url: 'https://cluster-id.influxdb.io',
+       url: 'https://{{< influxdb/host >}}',
        token: 'DATABASE_TOKEN'
      }
    </script>
@@ -126,7 +126,7 @@ The client library includes an example browser app that writes to your InfluxDB 
     cd examples
     ```
 
-3. Update `./env_browser.js` with your {{% cloud-name %}} cluster URL, your database name as `bucket`, an arbitrary string as `org`, and your database token.
+3. Update `./env_browser.js` with your {{% product-name omit=" Clustered" %}} cluster URL, your database name as `bucket`, an arbitrary string as `org`, and your database token.
 
 4. Run the following command to start the application at [http://localhost:3001/examples/index.html]()
 

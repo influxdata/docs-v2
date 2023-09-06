@@ -18,16 +18,16 @@ related:
   - /influxdb/cloud-serverless/api-guide/client-libraries/nodejs/query/
 ---
 
-Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an {{% cloud-name %}} bucket.
+Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js) in browsers and front-end clients to write data to an {{% product-name %}} bucket.
 
 {{% note %}}
 
 ### Tools to execute queries
 
 InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% cloud-name %}} cluster.
+This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
 
-{{% cloud-name %}} supports many different tools for querying data, including:
+{{% product-name %}} supports many different tools for querying data, including:
 
 - [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
 - [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
@@ -73,7 +73,7 @@ If you use a module bundler like Webpack or Parcel, install `@influxdata/influxd
    ```html
    <script>
      window.INFLUX_ENV = {
-       url: 'https://cloud2.influxdata.com',
+       url: 'https://{{< influxdb/host >}}',
        token: 'API_TOKEN'
      }
    </script>
@@ -126,7 +126,7 @@ The client library includes an example browser app that writes to your InfluxDB 
     cd examples
     ```
 
-3. Update `./env_browser.js` with your {{% cloud-name %}} region URL, your [bucket](/influxdb/cloud-serverless/admin/buckets/), an arbitrary string as `org`, and your [API token](/influxdb/cloud-serverless/admin/tokens/).
+3. Update `./env_browser.js` with your {{% product-name %}} region URL, your [bucket](/influxdb/cloud-serverless/admin/buckets/), an arbitrary string as `org`, and your [API token](/influxdb/cloud-serverless/admin/tokens/).
 
 4. Run the following command to start the application at [http://localhost:3001/examples/index.html]()
 

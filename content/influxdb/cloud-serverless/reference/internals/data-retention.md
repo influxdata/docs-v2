@@ -12,7 +12,7 @@ menu:
 influxdb/cloud-serverless/tags: [internals]
 ---
 
-{{< cloud-name >}} enforces bucket retention periods at query time.
+{{< product-name >}} enforces bucket retention periods at query time.
 Any points with timestamps beyond a bucket's [retention period](#bucket-retention-period)
 are filtered out of query results, even though the data may still exist.
 
