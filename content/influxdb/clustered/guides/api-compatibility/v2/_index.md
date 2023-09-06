@@ -75,9 +75,12 @@ Authorization: Token DATABASE_TOKEN
 
 Use `Bearer` to authenticate a write request:
 
+{{% influxdb/custom-timestamps %}}
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
-{{% get-shared-text "api/clustered/bearer-auth-v2-write.sh" %}}
+curl --post 'https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s' \
+  --header 'Authorization: Bearer DATABASE_TOKEN' \
+  --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
 {{% /code-placeholders %}}
 
@@ -85,9 +88,12 @@ Use `Token` to authenticate a write request:
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
-{{% get-shared-text "api/clustered/token-auth-v2-write.sh" %}}
+curl --post "https://{{< influxdb/host >}}/api/v2/write?bucket=DATABASE_NAME&precision=s" \
+  --header "Authorization: Token DATABASE_TOKEN" \
+  --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
 {{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
 
 Replace the following:
 

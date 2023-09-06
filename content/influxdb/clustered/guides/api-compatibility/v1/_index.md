@@ -102,7 +102,10 @@ The following example shows how to use cURL with the `Basic` authentication sche
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
-{{% get-shared-text "api/clustered/basic-auth.sh" %}}
+curl --get "https://{{< influxdb/host >}}/query" \
+  --user "":"DATABASE_TOKEN" \
+  --data-urlencode "db=DATABASE_NAME" \
+  --data-urlencode "q=SELECT * FROM MEASUREMENT"
 ```
 {{% /code-placeholders %}}
 
@@ -129,7 +132,10 @@ The following example shows how to use cURL with query string authentication and
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
-{{% get-shared-text "api/clustered/querystring-auth.sh" %}}
+curl --get "https://{{< influxdb/host >}}/query" \
+  --data-urlencode "p=DATABASE_TOKEN" \
+  --data-urlencode "db=DATABASE_NAME" \
+  --data-urlencode "q=SELECT * FROM MEASUREMENT"
 ```
 {{% /code-placeholders %}}
 
@@ -162,19 +168,29 @@ Authorization: Token DATABASE_TOKEN
 
 Use `Bearer` to authenticate a write request:
 
+{{% influxdb/custom-timestamps %}}
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
-{{% get-shared-text "api/clustered/bearer-auth-v1-write.sh" %}}
+curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s" \
+    --header "Authorization: Bearer DATABASE_TOKEN" \
+    --header "Content-type: text/plain; charset=utf-8" \
+    --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
 {{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
 
 Use `Token` to authenticate a write request:
 
+{{% influxdb/custom-timestamps %}}
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
-{{% get-shared-text "api/clustered/token-auth-v1-write.sh" %}}
+curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s" \
+    --header "Authorization: Token DATABASE_TOKEN" \
+    --header "Content-type: text/plain; charset=utf-8" \
+    --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
 {{% /code-placeholders %}}
+{{% /influxdb/custom-timestamps %}}
 
 Replace the following:
 
