@@ -247,8 +247,10 @@ sudo yum install influxctl
 
 To connect with your InfluxDB cluster, `influxctl` needs the following credentials:
 
-- InfluxDB account ID
-- InfluxDB cluster ID
+- InfluxDB cluster host
+- InfluxDB cluster port
+- OAuth provider credentials
+  _(what credentials are needed depend on your OAuth provider)_
 
 ### Create a configuration file
 
@@ -262,7 +264,7 @@ If stored at a non-default location, include the `--config` flag with each
 {{< expand-wrapper >}}
 {{% expand "View sample `config.toml`" %}}
 
-{{% code-placeholders "(PROFILE|ACCOUNT|CLUSTER)_(NAME|ID)" %}}
+{{% code-placeholders "(PROFILE|INFLUXDB|OAUTH)_(NAME|HOST|PORT|CLIENT_ID|TOKEN_URL|DEVICE_URL)" %}}
 ```toml
 ## influxctl - example configuration
 
@@ -275,18 +277,18 @@ If stored at a non-default location, include the `--config` flag with each
 
     ## Product type
     ## Choose from "clustered" or "dedicated"
-    product = "dedicated"
-
-    ### Clustered Specific Options ###
-    ## Account ID and cluster ID
-    account_id = "ACCOUNT_ID"
-    cluster_id = "CLUSTER_ID"
+    product = "clustered"
 
     ### Dedicated Specific Options ###
+    ## Account ID and cluster ID
+    # account_id = ""
+    # cluster_id = ""
+
+    ### Clustered Specific Options ###
     ## Host and port
-    ## The hostname/IP address and port to connect to the dedicated instance
-    # host = ""
-    # port = ""
+    ## The hostname/IP address and port to connect to the InfluxDB cluster
+    host = "INFLUXDB_HOST"
+    port = "INFLUXDB_PORT"
 
     ## Custom client-side TLS certs
     ## By default, the system certificates are used. If a custom certificate
@@ -297,13 +299,13 @@ If stored at a non-default location, include the `--config` flag with each
         # ca = ""
 
     ## OAuth2 client authorization settings
-    # [profile.auth.oauth2]
-        # client_id = ""
-        # client_secret = ""
-        # scopes = [""]
-        # parameters = { audience = "" }
-        # token_url = "https://indentityprovider/oauth2/v1/token"
-        # device_url = "https://indentityprovider/oauth2/v1/auth/device"
+    [profile.auth.oauth2]
+        client_id = "OAUTH_CLIENT_ID"
+        client_secret = ""
+        scopes = [""]
+        parameters = { audience = "" }
+        token_url = "OAUTH_TOKEN_URL"
+        device_url = "OAUTH_DEVICE_URL"
 
 ```
 {{% /code-placeholders %}}
@@ -313,10 +315,16 @@ Replace the following values in the sample:
 - {{% code-placeholder-key %}}`PROFILE_NAME`{{% /code-placeholder-key %}}:
   Use `default` for your default connection profile or a custom name for a
   non-default profile.
-- {{% code-placeholder-key %}}`ACCOUNT_ID`{{% /code-placeholder-key %}}:
-  InfluxDB account ID
-- {{% code-placeholder-key %}}`CLUSTER_ID`{{% /code-placeholder-key %}}:
-  InfluxDB cluster ID
+- {{% code-placeholder-key %}}`INFLUXDB_HOST`{{% /code-placeholder-key %}}:
+  InfluxDB account host
+- {{% code-placeholder-key %}}`INFLUXDB_PORT`{{% /code-placeholder-key %}}:
+  InfluxDB cluster port
+- {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}:
+  OAuth client ID
+- {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}:
+  OAuth provider token URL (for example: `https://indentityprovider/oauth2/v1/token`)
+- {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}:
+  OAuth provider device URL (for example: `https://indentityprovider/oauth2/v1/auth/device`)
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

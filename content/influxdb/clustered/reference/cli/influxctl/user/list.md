@@ -2,7 +2,7 @@
 title: influxctl user list
 description: >
   The `influxctl user list` command lists all users associated with your InfluxDB
-  Clustered account ID.
+  cluster.
 
 menu:
   influxdb_clustered:
@@ -11,7 +11,7 @@ weight: 301
 ---
 
 The `influxctl user list` command lists all users associated with your InfluxDB
-Clustered account ID.
+cluster.
 
 The `--format` option lets you print result in other formats.
 By default, the 'table' format is used, but the 'json' format is

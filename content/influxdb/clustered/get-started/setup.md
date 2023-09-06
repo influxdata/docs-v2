@@ -32,16 +32,6 @@ you need is in place.
 {{% note %}}
 _InfluxDB Clustered installation instructions are coming soon._
 {{% /note %}}
-    
-<!--
-When your cluster is deployed, you should have the following credentials:
-
-- An **Auth0 login** to authenticate access to your cluster
-- Your InfluxDB Clustered **account ID**
-- Your InfluxDB Clustered **cluster ID**
-- Your InfluxDB Clustered **cluster URL**
--->
-
 
 ## Download, install, and configure the influxctl CLI
     
@@ -74,16 +64,25 @@ If stored at a non-default location, include the `--config` flag with each
     **Copy and paste the sample configuration profile code** into your `config.toml`
     and replace the following with your {{< product-name >}} credentials:
 
-    - `ACCOUNT_ID`: Your account ID
-    - `CLUSTER_ID`: Your cluster ID
+    - {{% code-placeholder-key %}}`PORT`{{% /code-placeholder-key %}}: the port to use to access your InfluxDB cluster
+    - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}: the client URL of your OAuth2 provider
+      (for example: `https://indentityprovider/oauth2/v1/token`)
+    - {{% code-placeholder-key %}}`OAUTH_DEVICE_ID`{{% /code-placeholder-key %}}: the device URL of your OAuth2 provider
+      (for example: `https://indentityprovider/oauth2/v1/auth/device`)
 
-{{% code-placeholders "ACCOUNT_ID|CLUSTER_ID" %}}
+{{% code-placeholders "PORT|OAUTH_TOKEN_URL|OAUTH_DEVICE_URL" %}}
 ```toml
 [[profile]]
   name = "default"
   product = "clustered"
-  account_id = "ACCOUNT_ID"
-  cluster_id = "CLUSTER_ID"
+  host = "{{< influxdb/host >}}"
+  port = "PORT"
+
+[profile.auth.oauth2]
+  client_id = "OAUTH_CLIENT_ID"
+  scopes = [""]
+  token_url = "OAUTH_TOKEN_URL"
+  device_url = "OAUTH_DEVICE_URL"
 ```
 {{% /code-placeholders %}}
 
