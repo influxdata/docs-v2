@@ -11,7 +11,7 @@ weight: 204
 
 Use tokens to authenticate requests to InfluxDB, including requests to write,
 query, and manage data and resources.
-Authenticate requests using the [`influx` CLI](/influxdb/v2.7/reference/cli/influx/),
+Authenticate requests using the [`influx` CLI](/influxdb/v2/reference/cli/influx/),
 API requests made with client libraries, and tools like cURL.
 
 ### Add a token to a CLI request

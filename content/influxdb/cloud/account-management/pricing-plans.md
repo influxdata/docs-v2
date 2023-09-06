@@ -3,9 +3,9 @@ title: InfluxDB Cloud plans
 description: >
   InfluxDB Cloud provides two pricing plans to fit your needs – the Free Plan and the Usage-based Plan.
 aliases:
-  - /influxdb/v2.0/cloud/rate-limits/
-  - /influxdb/v2.0/cloud/pricing-plans/
-  - /influxdb/v2.0/pricing-plans/
+  - /influxdb/v2/cloud/rate-limits/
+  - /influxdb/v2/cloud/pricing-plans/
+  - /influxdb/v2/pricing-plans/
 weight: 102
 menu:
   influxdb_cloud:

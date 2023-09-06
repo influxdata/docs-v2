@@ -1,5 +1,5 @@
-{{ $influxdbVersionV2 := (index (first 1 (findRE `v2\.[0-9]{1,2}` (delimit .Site.Data.products.influxdb.versions " "))) 0) }}
-{{ $influxdbVersionV1 := (index (first 1 (findRE `v1\.[0-9]{1,2}` (delimit .Site.Data.products.influxdb.versions " "))) 0) }}
+{{ $influxdbVersionV2 := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb.latest_patches.v2 }}
+{{ $influxdbVersionV1 := replaceRE `\.[0-9]+$` "" .Site.Data.products.influxdb.latest_patches.v1 }}
 {{ $enterpriseVersion := .Site.Data.products.enterprise_influxdb.latest }}
 {{ $telegrafVersion := .Site.Data.products.telegraf.latest }}
 {{ $chronografVersion := .Site.Data.products.chronograf.latest }}
@@ -42,19 +42,19 @@
             </div>
           </div>
           <div class="product">
-            <h3><a href="/enterprise_influxdb/{{ $enterpriseVersion }}/">InfluxDB Enterprise <span class="version">{{ replaceRE "v" "" $enterpriseVersion }}</span></a></h3>
+            <h3><a href='/enterprise_influxdb/v1/'>InfluxDB Enterprise <span class="version">{{ replaceRE "v" "" $enterpriseVersion }}</span></a></h3>
             <p>Highly available InfluxDB built for high write and query workloads.</p>
             <div class="product-links">
-              <a href="/enterprise_influxdb/{{ $enterpriseVersion }}/">View documentation</a>
-              <a href="/enterprise_influxdb/{{ $enterpriseVersion }}/introduction/">Get started</a>
+              <a href="/enterprise_influxdb/v1/">View documentation</a>
+              <a href="/enterprise_influxdb/v1/introduction/">Get started</a>
             </div>
           </div>
           <div class="product">
-            <h3><a href="/influxdb/{{ $influxdbVersionV2 }}/">InfluxDB OSS <span class="version">{{ replaceRE "v" "" $influxdbVersionV2 }}</span></a></h3>
+            <h3><a href="/influxdb/v2/">InfluxDB OSS <span class="version">{{ replaceRE "v" "" $influxdbVersionV2 }}</span></a></h3>
             <p>The open source time series platform designed to store, query, and process time series data.</p> 
             <div class="product-links">
-              <a href="/influxdb/{{ $influxdbVersionV2 }}/">View documentation</a>
-              <a href="/influxdb/{{ $influxdbVersionV2 }}/get-started/">Get started</a>
+              <a href="/influxdb/v2/">View documentation</a>
+              <a href="/influxdb/v2/get-started/">Get started</a>
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@
           <p>View the InfluxDB API Dev Guides</p>
           <ul class="exp-btn-links">
             <li><a href="/influxdb/cloud/api-guide/">InfluxDB Cloud</a></li>
-            <li><a href="/influxdb/{{ $influxdbVersionV2 }}/api-guide/">InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</a></li>
+            <li><a href="/influxdb/v2/api-guide/">InfluxDB OSS {{ replaceRE "v" "" $influxdbVersionV2 }}</a></li>
           </ul>
         </div>
         <div class="close-btn">
@@ -120,16 +120,16 @@
         <h3>Collect data with <span class="orange">Telegraf</span></h3>
         <!-- <p>Collect time series data from many different sources.</p> -->
         <div class="card-links">
-          <a href="/telegraf/{{ $telegrafVersion }}/">Get started with <strong>Telegraf {{ replaceRE "v" "" $telegrafVersion }}</strong></a><br/>
-          <a href="/telegraf/{{ $telegrafVersion }}/plugins/">View Telegraf plugins</a>
+          <a href="/telegraf/v1/">Get started with <strong>Telegraf {{ replaceRE "v" "" $telegrafVersion }}</strong></a><br/>
+          <a href="/telegraf/v1/plugins/">View Telegraf plugins</a>
         </div>
       </div>
       <div id="flux" class="card">
         <h3>Query & process data <span class="no-wrap">with <span class="blue">Flux</span></span></h3>
         <!-- <p>The data scripting language that queries, processes, alert ons, and writes data.</p> -->
         <div class="card-links">
-          <a href="/flux/{{ $fluxVersion }}/">Get started with <strong>Flux {{ replaceRE "v" "" $fluxVersion }}</strong></a><br/>
-          <a href="/flux/{{ $fluxVersion }}/stdlib/">View the Flux standard library</a>
+          <a href="/flux/v0/">Get started with Flux</a><br/>
+          <a href="/flux/v0/stdlib/">View the Flux standard library</a>
         </div>
       </div>
     </div>

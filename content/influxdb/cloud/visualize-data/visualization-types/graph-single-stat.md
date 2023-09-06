@@ -11,8 +11,8 @@ menu:
     name: Graph + Single Stat
     parent: Visualization types
 related:
-  - /influxdb/v2.0/visualize-data/visualization-types/graph
-  - /influxdb/v2.0/visualize-data/visualization-types/single-stat
+  - /influxdb/v2/visualize-data/visualization-types/graph
+  - /influxdb/v2/visualize-data/visualization-types/single-stat
 ---
 
 {{< duplicate-oss >}}

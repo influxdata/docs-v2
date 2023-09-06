@@ -5,8 +5,8 @@ description: >
   requests, backing up data, and contacting InfluxData Support.
 weight: 106
 aliases:
-  - /influxdb/v2.0/account-management/offboarding
-  - /influxdb/v2.0/cloud/account-management/offboarding
+  - /influxdb/v2/account-management/offboarding
+  - /influxdb/v2/cloud/account-management/offboarding
   - /influxdb/cloud-serverless/admin/accounts/offboarding
 menu:
   influxdb_cloud_serverless:

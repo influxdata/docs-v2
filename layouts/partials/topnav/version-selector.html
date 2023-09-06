@@ -2,9 +2,13 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
+{{ $doNotIncludeVersion := slice "resources" "platform" }}
 
-{{ if or (eq $product nil) (lt (len (findRE `v[0-2]\.[0-9x]{1,2}` $currentVersion)) 1) }}
+{{ if or (eq $product nil) (in $doNotIncludeVersion $product) }}
 {{ else }}
+{{ $isOSS := gt (len (findRE `v[0-9]` $currentVersion)) 0 }}
+{{ $moreThanOneVersion := gt (len (index $.Site.Data.products $product).versions) 1 }}
+{{ if and $isOSS $moreThanOneVersion}}
 <div class="dropdown">
   <p class="selected">{{ cond (in $currentVersion "v") $currentVersion (title $currentVersion) }}</p>
   <ul class="item-list versions">
@@ -26,4 +30,5 @@
     {{ end }}
   </ul>
 </div>
+{{ end }}
 {{ end }}

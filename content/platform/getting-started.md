@@ -9,7 +9,7 @@ menu:
 weight: 2
 ---
 
-To get started with the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2.0/get-started/).
+To get started with the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2/get-started/).
 
 To get started with the **InfluxData 1.x** platform, [download and install](/platform/install-and-deploy/install/) each component of the TICK stack, or [Install the InfluxData Sandbox](/platform/install-and-deploy/deploying/sandbox-install/), and then follow the steps below.
 

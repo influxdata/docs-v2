@@ -1695,7 +1695,7 @@ The triple exponential derivative indicator, commonly referred to as "TRIX," is
 an oscillator used to identify oversold and overbought markets, and can also be
 used as a momentum indicator.
 TRIX calculates a [triple exponential moving average](#triple_exponential_moving_average)
-of the [log](/influxdb/v2.7/query-data/influxql/functions/transformations/#log)
+of the [log](/influxdb/v2/query-data/influxql/functions/transformations/#log)
 of the data input over the period of time.
 The previous value is subtracted from the previous value.
 This prevents cycles that are shorter than the defined period from being considered by the indicator.

@@ -3,7 +3,7 @@
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
 {{ $pageRoot := print $product "/" $currentVersion }}
-{{ $isOSSv2 := in $pageRoot "influxdb/v2." }}
+{{ $isOSSv2 := in $pageRoot "influxdb/v2" }}
 {{ $isCloud := eq $pageRoot "influxdb/cloud" }}
 {{ $isServerless := eq $pageRoot "influxdb/cloud-serverless" }}
 {{ $isDedicated := eq $pageRoot "influxdb/cloud-dedicated" }}
@@ -12,7 +12,7 @@
 {{ $sortedProducts := sort .Site.Data.products "list_order" "asc"}}
 
 {{/* //////////////////// INFLUXDB PRODUCT DICTIONARIES /////////////////// */}}
-{{ $ossInfo := dict $.Site.Data.products.influxdb.name (dict "path" (print "influxdb/" $.Site.Data.products.influxdb.latest) "key" "oss") }}
+{{ $ossInfo := dict $.Site.Data.products.influxdb.name (dict "path" (print "influxdb/" (index $.Site.Data.products.influxdb.versions 0)) "key" "oss") }}
 {{ $cloudInfo := dict $.Site.Data.products.influxdb_cloud.name (dict "path" "influxdb/cloud" "key" "cloud") }}
 {{ $serverlessInfo := dict $.Site.Data.products.influxdb_cloud_serverless.name (dict "path" "influxdb/cloud-serverless" "key" "cloud-serverless") }}
 {{ $dedicatedInfo := dict $.Site.Data.products.influxdb_cloud_dedicated.name (dict "path" "influxdb/cloud-dedicated" "key" "cloud-dedicated") }}
@@ -41,7 +41,7 @@
        {{ if eq .menu_category "managed" }}       
         {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
         {{ if not $isCurrentProduct }}
-          {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }} 
+          {{ $scratch.Set "link" (print "/" .namespace "/" (index .versions 0) "/") }} 
         {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
         
@@ -73,7 +73,7 @@
       {{ if eq .menu_category "self-managed" }}
         {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
         {{ if not $isCurrentProduct }}
-          {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }} 
+          {{ $scratch.Set "link" (print "/" .namespace "/" (index .versions 0) "/") }}
         {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
         
@@ -105,7 +105,7 @@
       {{ if eq .menu_category "other" }}
         {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
         {{ if not $isCurrentProduct }}
-          {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }} 
+          {{ $scratch.Set "link" (print "/" .namespace "/" (index .versions 0) "/") }}
         {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
         
@@ -137,7 +137,7 @@
       {{ if eq .menu_category "languages" }}
         {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
         {{ if not $isCurrentProduct }}
-          {{ $scratch.Set "link" (print "/" .namespace "/" .latest "/") }} 
+          {{ $scratch.Set "link" (print "/" .namespace "/" (index .versions 0) "/") }}
         {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
         

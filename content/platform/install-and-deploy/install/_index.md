@@ -9,7 +9,7 @@ menu:
     parent: install-and-deploy-platform
 ---
 
-To install and configure the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2.0/get-started/).
+To install and configure the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2/get-started/).
 
 To get install and configure the **InfluxData 1.x** platform, use one of the following methods:
 

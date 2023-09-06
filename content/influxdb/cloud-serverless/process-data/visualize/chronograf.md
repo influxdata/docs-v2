@@ -62,7 +62,7 @@ For information, see [Create DBRP mappings](/influxdb/cloud-serverless/query-dat
    and then click **Continue**. Otherwise, click **Skip**.
 
    <!-- <!-- _For information about using Kapacitor with InfluxDB Cloud or InfluxDB OSS {{< current-version >}}, -->
-   <!-- see [Use Kapacitor with InfluxDB](/influxdb/v2.7/tools/kapacitor/)._ -->
+   <!-- see [Use Kapacitor with InfluxDB](/influxdb/v2/tools/kapacitor/)._ -->
 
 6. Click **Finish**.
 

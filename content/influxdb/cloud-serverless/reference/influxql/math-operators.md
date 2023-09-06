@@ -277,5 +277,5 @@ SELECT mean(10 * "value") FROM "cpu"
 ```
 
 <!-- {{% note %}}
-InfluxQL supports [subqueries](/influxdb/v2.7/query-data/influxql/explore-data/subqueries/) which offer similar functionality to using mathematical operators inside a function call.
+InfluxQL supports [subqueries](/influxdb/v2/query-data/influxql/explore-data/subqueries/) which offer similar functionality to using mathematical operators inside a function call.
 {{% /note %}} -->

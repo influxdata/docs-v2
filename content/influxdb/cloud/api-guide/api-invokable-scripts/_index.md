@@ -24,7 +24,7 @@ Use the `/api/v2/scripts` InfluxDB API endpoint to:
 
 ## Create an invokable script
 To create an API-invokable script
-for your [organization](/influxdb/v2.0/reference/glossary/#organization),
+for your [organization](/influxdb/v2/reference/glossary/#organization),
 send a request using the `POST` method to the `/api/v2/scripts` InfluxDB API endpoint.
 
 
@@ -43,7 +43,7 @@ JSON object with the following fields:
 - **language** : language of your script ("flux")
 - **name** : script name, unique within your organization
 - **description** : script description
-- **orgID**: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+- **orgID**: your [InfluxDB organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
 
 ### Use parameters in a script
 To create an invokable script that accepts parameters (variables),
@@ -61,14 +61,14 @@ If you don't provide a value for a referenced parameter, InfluxDB returns the fo
 ## Examples
 
 ### Create an invokable Flux script
-The following example creates a new Flux script that references the `params.mybucket` parameter and returns the last point from the [bucket](/influxdb/v2.0/reference/glossary/#bucket).
+The following example creates a new Flux script that references the `params.mybucket` parameter and returns the last point from the [bucket](/influxdb/v2/reference/glossary/#bucket).
 
 ```sh
 {{% get-shared-text "api/v2.0/api-invokable-scripts/create-flux-script.sh" %}}
 ```
 Replace the following:
 - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
-- *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+- *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
 
 InfluxDB returns the newly created script. Next, see how to [invoke a script](#invoke-a-script).
 

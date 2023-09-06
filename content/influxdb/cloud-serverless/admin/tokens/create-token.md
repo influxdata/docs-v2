@@ -184,7 +184,7 @@ for information about other available flags.
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to create a token.
 
-{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/authorizations" api-ref="/influxdb/v2.7/api/#operation/PostAuthorizations" >}}
+{{< api-endpoint method="POST" endpoint="http://localhost:8086/api/v2/authorizations" api-ref="/influxdb/v2/api/#operation/PostAuthorizations" >}}
 
 Include the following in your request:
 
@@ -221,7 +221,7 @@ body.
 {{% /code-placeholders %}}
 
 See the
-[`POST /api/v2/authorizations` documentation](/influxdb/v2.7/api/#operation/PostAuthorizations)
+[`POST /api/v2/authorizations` documentation](/influxdb/v2/api/#operation/PostAuthorizations)
 for more information about options.
 
 {{% /tab-content %}}

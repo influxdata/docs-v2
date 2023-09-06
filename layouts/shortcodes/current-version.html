@@ -1,5 +1,5 @@
 {{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $currentVersion := replaceRE "v" "" (index $productPathData 1) -}}
+{{- $currentVersion := index $productPathData 1 -}}
 {{- $keep := .Get "keep" | default false -}}
 {{- $keepClass := cond ( $keep ) " keep" "" -}}
 {{- $isCloud := in $currentVersion "cloud" -}}

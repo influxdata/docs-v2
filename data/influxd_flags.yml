@@ -69,12 +69,10 @@
 - flag: "--nats-max-payload-bytes"
   added: 2.0
   deprecated: 2.2
-  # removed: 2.2
 
 - flag: "--nats-port"
   added: 2.0
   deprecated: 2.2
-  # removed: 2.2
 
 - flag: "--no-tasks"
   added: 2.0

@@ -15,7 +15,7 @@ weight: 1
 
 The **InfluxDB 2.0 platform** consolidates InfluxDB, Chronograf, and Kapacitor from the **InfluxData 1.x platform** into a single packaged solution, with added features and flexibility:
 
-  - [InfluxDB OSS 2.0](/influxdb/v2.0/get-started/): open source platform solution in a single binary
+  - [InfluxDB OSS 2.0](/influxdb/v2/get-started/): open source platform solution in a single binary
   - [InfluxDB Cloud](/influxdb/cloud/get-started/) (**commercial offering**): hosted cloud solution
   - [Telegraf](#telegraf): collect data
 
@@ -23,7 +23,7 @@ The **InfluxDB 2.0 platform** consolidates InfluxDB, Chronograf, and Kapacitor f
 
 #### Integrate InfluxDB 2.0 applications with InfluxDB Enterprise 1.8+
 
-Use [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1.9/tools/api/#influxdb-20-api-compatibility-endpoints) to integrate applications built on InfluxDB 2.0 or InfluxDB Cloud with InfluxDB Enterprise 1.8+:
+Use [InfluxDB 2.0 API compatibility endpoints](/enterprise_influxdb/v1/tools/api/#influxdb-20-api-compatibility-endpoints) to integrate applications built on InfluxDB 2.0 or InfluxDB Cloud with InfluxDB Enterprise 1.8+:
 
 - Query data in InfluxDB Enterprise using `api/v2/query` and Flux.
 - Write data to InfluxDB Enterprise using `api/v2/write` (compatible with InfluxDB 2.0 client libraries).
@@ -156,4 +156,4 @@ To get started with the **InfluxData 1.x** platform, see
 [Installation and Configuration](/platform/install-and-deploy/)  
 [Getting Started](/platform/introduction/getting-started)
 
-To get started with the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2.0/get-started/).
+To get started with the **InfluxDB 2.0** platform, see [**InfluxDB Cloud**](/influxdb/cloud/get-started/) or [**InfluxDB OSS 2.0**](/influxdb/v2/get-started/).

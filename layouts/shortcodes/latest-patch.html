@@ -2,12 +2,12 @@
 {{- $cli := .Get "cli" | default false }}
 {{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
 {{- $parsedProduct := index $productPathData 0 | default "influxdb" -}}
-{{- $parsedVersion := replaceRE "v" "" (index $productPathData 1) -}}
+{{- $parsedVersion := index $productPathData 1 -}}
 {{- $productArg := .Get "product" | default "" -}}
 {{- $versionArg := .Get "version" | default "" -}}
 {{- $minorVersionOffset := .Get "minorVersionOffset" | default 0 -}}
 {{- $product := cond (gt (len $productArg) 0) $productArg $parsedProduct -}}
-{{- $latestVersion := replaceRE "v" "" (index (index .Site.Data.products $product) "latest") -}}
+{{- $latestVersion := index (index .Site.Data.products $product) "latest" -}}
 {{- $versionNoOffset := cond (gt (len $versionArg) 0) $versionArg (cond (ne $product $parsedProduct) $latestVersion $parsedVersion) -}}
 {{- $version := replaceRE `\d+$` (add (int (index (findRE `\d+$` $versionNoOffset) 0)) $minorVersionOffset) $versionNoOffset  -}}
 {{- $patchVersions := index (index .Site.Data.products $product) "latest_patches" -}}

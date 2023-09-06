@@ -15,7 +15,7 @@ has become a popular way to deploy and manage containers across multiple servers
 {{% note %}}
 This page is about using Kubernetes with the TICK stack and 1.x versions of InfluxDB.
 
-To start experimenting with InfluxDB 2.0 and Kubernetes, go to the **Kubernetes** section of the [Get Started page for InfluxDB 2.0](/influxdb/v2.0/get-started/).
+To start experimenting with InfluxDB 2.0 and Kubernetes, go to the **Kubernetes** section of the [Get Started page for InfluxDB 2.0](/influxdb/v2/get-started/).
 {{% /note %}}
 
 There are several ways use the InfluxData Platform with Kubernetes:

@@ -1,7 +1,7 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $productName := print (index .Site.Data.products $product).name }}
-{{ $inStdlib := and (in .Page.RelPermalink "/flux/v0.x/stdlib/") (ne .Page.RelPermalink "/flux/v0.x/stdlib/") (ne .Page.RelPermalink "/flux/v0.x/stdlib/all-functions/") }}
+{{ $inStdlib := and (in .Page.RelPermalink "/flux/v0/stdlib/") (ne .Page.RelPermalink "/flux/v0/stdlib/") (ne .Page.RelPermalink "/flux/v0/stdlib/all-functions/") }}
 {{ if .Page.Params.introduced }}
 <ul class="metadata">
   <li>

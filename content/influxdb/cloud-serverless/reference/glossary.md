@@ -234,9 +234,9 @@ InfluxDB supports the following data types:
 
 For more information about different data types, see:
 
-- [line protocol](/influxdb/v2.7/reference/syntax/line-protocol/#data-types-and-format)
-- [InfluxQL](/influxdb/v1.8/query_language/spec/#literals)
-- [InfluxDB](/influxdb/v2.7/reference/syntax/line-protocol/#data-types-and-format)
+- [line protocol](/influxdb/v2/reference/syntax/line-protocol/#data-types-and-format)
+- [InfluxQL](/influxdb/v1/query_language/spec/#literals)
+- [InfluxDB](/influxdb/v2/reference/syntax/line-protocol/#data-types-and-format)
 
 #### database
 

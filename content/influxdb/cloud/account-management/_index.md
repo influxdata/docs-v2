@@ -5,8 +5,8 @@ description: >
   pricing plans, data usage, account cancellation, etc.
 weight: 10
 aliases:
-  - /influxdb/v2.0/cloud/account-management/
-  - /influxdb/v2.0/account-management
+  - /influxdb/v2/cloud/account-management/
+  - /influxdb/v2/account-management
 menu:
   influxdb_cloud:
     name: Account management

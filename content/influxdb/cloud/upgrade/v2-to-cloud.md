@@ -238,7 +238,7 @@ InfluxDB Cloud instance, do the following:
     influx bucket list --active-config oss
     ```
 
-2.  Use the [`influxd inspect export-lp` command](/influxdb/v2.0/reference/cli/influxd/inspect/export-lp/)
+2.  Use the [`influxd inspect export-lp` command](/influxdb/v2/reference/cli/influxd/inspect/export-lp/)
     to export data from a bucket in your **InfluxDB 2.x** instance as line protocol.
     Include the following flags:
 

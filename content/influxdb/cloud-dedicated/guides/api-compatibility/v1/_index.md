@@ -22,7 +22,7 @@ related:
 
 Use the InfluxDB v1 API `/write` and `/query` endpoints with v1 workloads that you bring to {{% product-name %}}.
 The v1 endpoints work with username/password authentication and existing InfluxDB 1.x tools and code.
-The InfluxDB v1 API `/write` endpoint works with InfluxDB 1.x client libraries and the [Telegraf v1 Output Plugin](/telegraf/v1.26/plugins/#output-influxdb).
+The InfluxDB v1 API `/write` endpoint works with InfluxDB 1.x client libraries and the [Telegraf v1 Output Plugin](/telegraf/v1/plugins/#output-influxdb).
 The InfluxDB v1 API `/query` endpoint supports InfluxQL and third-party integrations like [Grafana](https://grafana.com).
 
 Learn how to authenticate requests, adjust request parameters for existing v1 workloads, and find compatible tools for writing and querying data stored in an {{% product-name %}} database.
@@ -347,7 +347,7 @@ While it may coincidentally work, it isn't officially supported.
 
 #### Client libraries
 
-Use language-specific [v1 client libraries](/influxdb/v1.8/tools/api_client_libraries/) and your custom code to write data to InfluxDB.
+Use language-specific [v1 client libraries](/influxdb/v1/tools/api_client_libraries/) and your custom code to write data to InfluxDB.
 v1 client libraries send data in [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/) syntax to the v1 API `/write` endpoint.
 
 The following samples show how to configure **v1** client libraries for writing to {{% product-name %}}:
@@ -360,7 +360,7 @@ The following samples show how to configure **v1** client libraries for writing 
 {{% tab-content %}}
 <!-- Start NodeJS -->
 
-Create a v1 API client using the [node-influx](/influxdb/v1.7/tools/api_client_libraries/#javascriptnodejs) JavaScript client library:
+Create a v1 API client using the [node-influx](/influxdb/v1/tools/api_client_libraries/#javascriptnodejs) JavaScript client library:
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```js
@@ -383,7 +383,7 @@ const client = new Influx.InfluxDB({
 {{% tab-content %}}
 <!-- Start Python -->
 
-Create a v1 API client using the [influxdb-python](/influxdb/v1.7/tools/api_client_libraries/#python) Python client library:
+Create a v1 API client using the [influxdb-python](/influxdb/v1/tools/api_client_libraries/#python) Python client library:
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```py
