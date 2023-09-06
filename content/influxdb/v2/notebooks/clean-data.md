@@ -4,7 +4,7 @@ description: >
   Learn how to create a notebook that normalizes or cleans data to make it
   easier to work with.
 weight: 105
-influxdb/v2.7/tags: [notebooks]
+influxdb/v2/tags: [notebooks]
 menu:
   influxdb_v2:
     name: Normalize data

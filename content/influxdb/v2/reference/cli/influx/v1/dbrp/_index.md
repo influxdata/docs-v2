@@ -8,7 +8,7 @@ menu:
     name: influx v1 dbrp
     parent: influx v1
 weight: 101
-influxdb/v2.7/tags: [DBRP]
+influxdb/v2/tags: [DBRP]
 cascade:
   related:
     - /influxdb/v2/upgrade/v1-to-v2/

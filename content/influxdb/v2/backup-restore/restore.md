@@ -7,7 +7,7 @@ menu:
   influxdb_v2:
     parent: Back up & restore data
 weight: 101
-influxdb/v2.7/tags: [restore]
+influxdb/v2/tags: [restore]
 related:
   - /influxdb/v2/backup-restore/backup/
   - /influxdb/v2/reference/cli/influxd/restore/

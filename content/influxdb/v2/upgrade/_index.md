@@ -6,7 +6,7 @@ menu: influxdb_v2
 weight: 3
 aliases:
   - /influxdb/v2/reference/upgrading/
-influxdb/v2.7/tags: [upgrade]
+influxdb/v2/tags: [upgrade]
 ---
 
 {{< children >}}

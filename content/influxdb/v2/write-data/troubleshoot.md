@@ -8,7 +8,7 @@ menu:
   influxdb_v2:
     name: Troubleshoot issues
     parent: Write data
-influxdb/v2.7/tags: [write, line protocol, errors]
+influxdb/v2/tags: [write, line protocol, errors]
 related:
   - /influxdb/v2/api/#tag/Write, InfluxDB API /write endpoint
   - /influxdb/v2/reference/internals

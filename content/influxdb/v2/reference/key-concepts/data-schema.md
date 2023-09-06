@@ -9,7 +9,7 @@ menu:
   influxdb_v2_ref:
     parent: Key concepts
     name: Data schema
-influxdb/v2.7/tags: [key concepts]
+influxdb/v2/tags: [key concepts]
 ---
 
 InfluxDB [data elements](/influxdb/v2/reference/key-concepts/data-elements/) are stored in **time-structured merge tree (TSM)** and **time series index (TSI)** files to efficiently compact stored data.

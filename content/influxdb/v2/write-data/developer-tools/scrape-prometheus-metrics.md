@@ -17,7 +17,7 @@ related:
   - /{{< latest "flux" >}}/prometheus/metric-types/
   - /influxdb/v2/reference/prometheus-metrics/
   - /influxdb/v2/write-data/no-code/scrape-data/
-influxdb/v2.7/tags: [prometheus, scraper]
+influxdb/v2/tags: [prometheus, scraper]
 ---
 
 Use [Telegraf](/{{< latest "telegraf" >}}/){{% oss-only %}}, [InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/),{{% /oss-only %}}

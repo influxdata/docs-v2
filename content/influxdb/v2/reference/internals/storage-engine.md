@@ -7,7 +7,7 @@ menu:
   influxdb_v2_ref:
     name: Storage engine
     parent: InfluxDB internals
-influxdb/v2.7/tags: [storage, internals]
+influxdb/v2/tags: [storage, internals]
 products: [oss]
 related:
   - /resources/videos/tsm-engine/

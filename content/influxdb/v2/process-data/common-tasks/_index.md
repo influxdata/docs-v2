@@ -4,7 +4,7 @@ seotitle: Common data processing tasks performed with with InfluxDB
 description: >
   InfluxDB Tasks process data on specified schedules.
   This collection of articles walks through common use cases for InfluxDB tasks.
-influxdb/v2.7/tags: [tasks]
+influxdb/v2/tags: [tasks]
 menu:
   influxdb_v2:
     name: Common tasks

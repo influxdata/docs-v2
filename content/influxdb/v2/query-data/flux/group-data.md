@@ -3,7 +3,7 @@ title: Group data in InfluxDB with Flux
 list_title: Group
 description: >
   Use `group()` to group data with common values in specific columns.
-influxdb/v2.7/tags: [group]
+influxdb/v2/tags: [group]
 menu:
   influxdb_v2:
     name: Group

@@ -8,7 +8,7 @@ menu:
     parent: Monitor with templates
     name: Monitor InfluxDB OSS
 weight: 102
-influxdb/v2.7/tags: [templates, monitor]
+influxdb/v2/tags: [templates, monitor]
 aliases:
   - /influxdb/v2/influxdb-templates/monitor/
 related:

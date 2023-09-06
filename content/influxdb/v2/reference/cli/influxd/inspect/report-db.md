@@ -2,7 +2,7 @@
 title: influxd inspect report-db
 description: >
   The `influxd inspect report-db` command reports the cardinality for an InfluxDB bucket.
-influxdb/v2.7/tags: [cardinality, inspect]
+influxdb/v2/tags: [cardinality, inspect]
 menu:
   influxdb_v2_ref:
     parent: influxd inspect

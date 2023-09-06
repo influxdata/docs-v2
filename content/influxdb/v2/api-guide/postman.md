@@ -8,7 +8,7 @@ menu:
     parent: Tools & integrations
     name: Use Postman
 weight: 105
-influxdb/v2.7/tags: [api, authentication]
+influxdb/v2/tags: [api, authentication]
 aliases:
   - /influxdb/v2/reference/api/postman/
 ---

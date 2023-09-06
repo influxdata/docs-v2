@@ -5,7 +5,7 @@ description: >
   Telegraf configurations that collect metrics and write them to InfluxDB OSS.
 weight: 12
 menu: influxdb_v2
-influxdb/v2.7/tags: [telegraf]
+influxdb/v2/tags: [telegraf]
 related:
   - /influxdb/v2/write-data/no-code/use-telegraf/manual-config/
   - /influxdb/v2/write-data/no-code/use-telegraf/auto-config/

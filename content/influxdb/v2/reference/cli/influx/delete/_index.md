@@ -6,7 +6,7 @@ menu:
     name: influx delete
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [delete]
+influxdb/v2/tags: [delete]
 related:
   - /influxdb/v2/write-data/delete-data
   - /influxdb/v2/reference/syntax/delete-predicate

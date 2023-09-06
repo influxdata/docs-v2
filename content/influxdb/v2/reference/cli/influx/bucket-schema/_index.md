@@ -6,7 +6,7 @@ menu:
     name: influx bucket-schema
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [buckets, bucket-schema]
+influxdb/v2/tags: [buckets, bucket-schema]
 cascade:
   related:
     - /influxdb/cloud/organizations/buckets/bucket-schema

@@ -7,7 +7,7 @@ menu:
     name: Calculate a weekly mean
     parent: Common tasks
 weight: 202
-influxdb/v2.7/tags: [tasks]
+influxdb/v2/tags: [tasks]
 ---
 
 {{% note %}}

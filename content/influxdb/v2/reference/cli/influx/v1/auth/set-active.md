@@ -7,7 +7,7 @@ menu:
     name: influx v1 auth set-active
     parent: influx v1 auth
 weight: 101
-influxdb/v2.7/tags: [authorization]
+influxdb/v2/tags: [authorization]
 ---
 
 The `influx v1 auth set-active` command activates an authorization in the [InfluxDB 1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/).

@@ -9,7 +9,7 @@ menu:
   influxdb_v2:
     parent: Query with Flux
     name: Moving Average
-influxdb/v2.7/tags: [query, moving average]
+influxdb/v2/tags: [query, moving average]
 related:
   - /{{< latest "flux" >}}/stdlib/universe/movingaverage/
   - /{{< latest "flux" >}}/stdlib/universe/timedmovingaverage/

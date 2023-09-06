@@ -8,7 +8,7 @@ menu:
   influxdb_v2:
     parent: Query with InfluxQL
 weight: 201
-influxdb/v2.7/tags: [influxql, dbrp]
+influxdb/v2/tags: [influxql, dbrp]
 ---
 
 InfluxQL requires a database and retention policy (DBRP) combination in order to query data.

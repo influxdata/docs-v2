@@ -6,7 +6,7 @@ description: >
 aliases:
   - /influxdb/v2/query-data/get-started/getting-started
 weight: 101
-influxdb/v2.7/tags: [query, flux, get-started]
+influxdb/v2/tags: [query, flux, get-started]
 menu:
   influxdb_v2:
     name: Get started with Flux

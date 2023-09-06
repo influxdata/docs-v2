@@ -7,7 +7,7 @@ menu:
   influxdb_cloud_ref:
     name: Prometheus metrics
 weight: 8
-influxdb/v2.0/tags: [prometheus]
+influxdb/cloud/tags: [prometheus]
 related:
   - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
   - /influxdb/cloud/write-data/developer-tools/scrape-prometheus-metrics/

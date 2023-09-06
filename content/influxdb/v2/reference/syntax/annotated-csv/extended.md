@@ -9,7 +9,7 @@ menu:
     name: Extended annotated CSV
     parent: Annotated CSV
 weight: 201
-influxdb/v2.7/tags: [csv, syntax, write]
+influxdb/v2/tags: [csv, syntax, write]
 related:
   - /influxdb/v2/write-data/developer-tools/csv/
   - /influxdb/v2/reference/cli/influx/write/

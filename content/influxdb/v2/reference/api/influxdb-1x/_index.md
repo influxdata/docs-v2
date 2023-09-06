@@ -8,7 +8,7 @@ menu:
     name: 1.x compatibility
     parent: InfluxDB v2 API
 weight: 104
-influxdb/v2.7/tags: [influxql, query, write]
+influxdb/v2/tags: [influxql, query, write]
 related:
   - /influxdb/v2/query-data/influxql
   - /influxdb/v2/upgrade/v1-to-v2/

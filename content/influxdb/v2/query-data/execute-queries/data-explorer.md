@@ -9,7 +9,7 @@ menu:
   influxdb_v2:
     name: Query with Data Explorer
     parent: Execute queries
-influxdb/v2.7/tags: [query]
+influxdb/v2/tags: [query]
 ---
 
 Build, execute, and visualize your queries in InfluxDB UI's **Data Explorer**.

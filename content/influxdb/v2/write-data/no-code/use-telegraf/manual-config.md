@@ -12,7 +12,7 @@ menu:
   influxdb_v2:
     parent: Telegraf (agent)
 weight: 202
-influxdb/v2.7/tags: [manually, plugin, mqtt]
+influxdb/v2/tags: [manually, plugin, mqtt]
 related:
   - /{{< latest "telegraf" >}}/plugins//
   - /influxdb/v2/telegraf-configs/create/

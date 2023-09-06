@@ -8,7 +8,7 @@ menu:
     parent: Monitor with templates
     name: Monitor InfluxDB Enterprise
 weight: 102
-influxdb/v2.0/tags: [templates, monitor]
+influxdb/cloud/tags: [templates, monitor]
 ---
 
 Use [InfluxDB Cloud](/influxdb/cloud/), the [InfluxDB Enterprise 1.x Template](https://github.com/influxdata/community-templates/tree/master/influxdb-enterprise-1x), and Telegraf to monitor one or more InfluxDB Enterprise instances.

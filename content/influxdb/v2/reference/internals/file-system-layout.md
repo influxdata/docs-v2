@@ -8,7 +8,7 @@ menu:
   influxdb_v2_ref:
     name: File system layout
     parent: InfluxDB internals
-influxdb/v2.7/tags: [storage, internals]
+influxdb/v2/tags: [storage, internals]
 related:
   - /influxdb/v2/admin/internals/
 ---

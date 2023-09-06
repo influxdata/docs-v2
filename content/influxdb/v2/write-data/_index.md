@@ -10,7 +10,7 @@ aliases:
 menu:
   influxdb_v2:
     name: Write data
-influxdb/v2.7/tags: [write, line protocol]
+influxdb/v2/tags: [write, line protocol]
 related:
   - /influxdb/v2/write-data/no-code/use-telegraf/
   - /influxdb/v2/api/#tag/Write, InfluxDB API /write endpoint

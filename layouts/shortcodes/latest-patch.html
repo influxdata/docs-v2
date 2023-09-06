@@ -20,9 +20,9 @@
   {{- end -}}
 {{- else -}}
   {{- if eq $version "cloud" -}}
-    {{- $scratch.Set "patchVersion" (print $latestVersion "." (index $patchVersions $latestVersion)) -}}
+    {{- $scratch.Set "patchVersion" (index $patchVersions $latestVersion) -}}
   {{- else -}}
-    {{- $scratch.Set "patchVersion" (print $version "." (index $patchVersions $version)) -}}
+    {{- $scratch.Set "patchVersion" (index $patchVersions $version) -}}
   {{- end -}}
 {{- end -}}
 {{- $scratch.Get "patchVersion" -}}

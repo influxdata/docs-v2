@@ -8,7 +8,7 @@ menu:
     name: influx write dryrun
     parent: influx write
 weight: 101
-influxdb/v2.7/tags: [write]
+influxdb/v2/tags: [write]
 related:
   - /influxdb/v2/write-data/
   - /influxdb/v2/write-data/developer-tools/csv/

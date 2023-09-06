@@ -1,7 +1,7 @@
 ---
 title: Manage secrets
 description: Manage, use, and store secrets in InfluxDB.
-influxdb/v2.7/tags: [secrets, security]
+influxdb/v2/tags: [secrets, security]
 menu:
   influxdb_v2:
     parent: Security & authorization

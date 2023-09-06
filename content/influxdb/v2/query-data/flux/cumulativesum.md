@@ -9,7 +9,7 @@ menu:
   influxdb_v2:
     parent: Query with Flux
     name: Cumulative sum
-influxdb/v2.7/tags: [query, cumulative sum]
+influxdb/v2/tags: [query, cumulative sum]
 related:
   - /{{< latest "flux" >}}/stdlib/universe/cumulativesum/
 list_query_example: cumulative_sum

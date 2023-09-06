@@ -9,7 +9,7 @@ menu:
     name: Shards & shard groups
     parent: InfluxDB internals
 weight: 103
-influxdb/v2.7/tags: [storage, internals]
+influxdb/v2/tags: [storage, internals]
 related:
   - /influxdb/v2/reference/internals/storage-engine/
   - /influxdb/v2/organizations/buckets/

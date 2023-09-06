@@ -3,7 +3,7 @@ title: Create histograms with Flux
 list_title: Histograms
 description: >
   Use `histogram()` to create cumulative histograms with Flux.
-influxdb/v2.7/tags: [histogram]
+influxdb/v2/tags: [histogram]
 menu:
   influxdb_v2:
     name: Histograms

@@ -7,7 +7,7 @@ menu:
   influxdb_v2:
     name: Client library tutorials
     parent: Develop with the API
-influxdb/v2.7/tags: [api]
+influxdb/v2/tags: [api]
 ---
 
 Follow step-by-step tutorials to build an Internet-of-Things (IoT) application with InfluxData client libraries and your favorite framework or language.

@@ -9,7 +9,7 @@ menu:
     parent: Tools & integrations
     identifier: influx-cli-task-based
 weight: 101
-influxdb/v2.7/tags: [cli]
+influxdb/v2/tags: [cli]
 aliases:
   - /influxdb/v2/tools/clis/
 related:

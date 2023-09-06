@@ -9,7 +9,7 @@ menu:
     name: /write
     parent: 1.x compatibility
 weight: 301
-influxdb/v2.7/tags: [write]
+influxdb/v2/tags: [write]
 list_code_example: |
   <pre>
   <span class="api post">POST</span> http://localhost:8086/write

@@ -2,7 +2,7 @@
 title: Delete a dashboard
 seotitle: Delete an InfluxDB dashboard
 description: Delete a dashboard from the InfluxDB user interface (UI).
-influxdb/v2.7/tags: [dashboards]
+influxdb/v2/tags: [dashboards]
 menu:
   influxdb_v2:
     parent: Manage dashboards

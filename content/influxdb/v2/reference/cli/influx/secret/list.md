@@ -6,7 +6,7 @@ menu:
     name: influx secret list
     parent: influx secret
 weight: 101
-influxdb/v2.7/tags: [secrets]
+influxdb/v2/tags: [secrets]
 ---
 
 The `influx secret list` command lists secret keys.

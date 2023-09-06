@@ -6,7 +6,7 @@ menu:
   influxdb_v2:
     parent: Use and manage variables
 weight: 204
-influxdb/v2.7/tags: [variables]
+influxdb/v2/tags: [variables]
 ---
 Export dashboard variables from the InfluxDB user interface (UI).
 Variables are exported as downloadable JSON files.

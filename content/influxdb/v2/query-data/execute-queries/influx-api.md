@@ -6,7 +6,7 @@ menu:
   influxdb_v2:
     name: Query with the InfluxDB API
     parent: Execute queries
-influxdb/v2.7/tags: [query]
+influxdb/v2/tags: [query]
 ---
 
 The [InfluxDB v2 API](/influxdb/v2/reference/api) provides a programmatic interface for all interactions with InfluxDB.

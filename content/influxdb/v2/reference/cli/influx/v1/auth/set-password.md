@@ -7,7 +7,7 @@ menu:
     name: influx v1 auth set-password
     parent: influx v1 auth
 weight: 101
-influxdb/v2.7/tags: [authorization]
+influxdb/v2/tags: [authorization]
 updated_in: CLI v2.0.3
 ---
 

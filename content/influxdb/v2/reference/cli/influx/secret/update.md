@@ -6,7 +6,7 @@ menu:
     name: influx secret update
     parent: influx secret
 weight: 101
-influxdb/v2.7/tags: [secrets]
+influxdb/v2/tags: [secrets]
 ---
 
 The `influx secret update` command adds and updates secrets.

@@ -6,7 +6,7 @@ menu:
   influxdb_v2:
     parent: Use and manage variables
 weight: 205
-influxdb/v2.7/tags: [variables]
+influxdb/v2/tags: [variables]
 ---
 
 Delete an existing variable in the InfluxDB user interface (UI).

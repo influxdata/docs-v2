@@ -8,7 +8,7 @@ menu:
   influxdb_v2:
     name: Node.js
     parent: Client libraries
-influxdb/v2.7/tags: [client libraries, JavaScript]
+influxdb/v2/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
   - /influxdb/v2/reference/api/client-libraries/nodejs/

@@ -7,7 +7,7 @@ weight: 105
 menu:
   influxdb_v2:
     parent: Security & authorization
-influxdb/v2.7/tags: [security, development]
+influxdb/v2/tags: [security, development]
 ---
 
 By default, InfluxDB {{< current-version >}} enables useful functionality that exposes some level of information about your instance. Two of these are endpoints for observability of the health and activity of your instance. The third is the bundled UI. Depending on your site requirements, you may want to disable one or more of these when running InfluxDB in production. To disable, use the following configuration options:

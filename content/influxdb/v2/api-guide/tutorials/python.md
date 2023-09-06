@@ -11,7 +11,7 @@ menu:
     identifier: client-library-starter-py
     name: Python
     parent: Client library tutorials
-influxdb/v2.7/tags: [api, python]
+influxdb/v2/tags: [api, python]
 ---
 
 {{% api/iot-starter-intro %}}

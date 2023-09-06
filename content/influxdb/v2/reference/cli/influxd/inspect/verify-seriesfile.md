@@ -2,7 +2,7 @@
 title: influxd inspect verify-seriesfile
 description: >
   The `influxd inspect verify-seriesfile` command verifies the integrity of series files.
-influxdb/v2.7/tags: [inspect]
+influxdb/v2/tags: [inspect]
 menu:
   influxdb_v2_ref:
     parent: influxd inspect

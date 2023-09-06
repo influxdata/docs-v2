@@ -8,7 +8,7 @@ menu:
     name: Create a template
     identifier: Create an InfluxDB template
 weight: 103
-influxdb/v2.7/tags: [templates]
+influxdb/v2/tags: [templates]
 related:
   - /influxdb/v2/reference/cli/influx/export/
   - /influxdb/v2/reference/cli/influx/export/all/

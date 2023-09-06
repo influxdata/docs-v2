@@ -1,7 +1,7 @@
 ---
 title: Query InfluxDB with Flux
 description: Learn the basics of using Flux to query data from InfluxDB.
-influxdb/v2.7/tags: [query, flux]
+influxdb/v2/tags: [query, flux]
 menu:
   influxdb_v2:
     name: Query InfluxDB

@@ -7,7 +7,7 @@ menu:
     name: Use the InfluxQL shell
     parent: Tools & integrations
 weight: 104
-influxdb/v2.7/tags: [InfluxQL]
+influxdb/v2/tags: [InfluxQL]
 related:
   - /influxdb/v2/reference/cli/influx/v1/shell/
 ---

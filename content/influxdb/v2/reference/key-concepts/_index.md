@@ -6,7 +6,7 @@ weight: 2
 menu:
   influxdb_v2_ref:
     name: Key concepts
-influxdb/v2.7/tags: [key concepts]
+influxdb/v2/tags: [key concepts]
 ---
 
 Before working with InfluxDB {{< current-version >}}, it's helpful to learn a few key concepts. Browse the topics and videos below to learn more.

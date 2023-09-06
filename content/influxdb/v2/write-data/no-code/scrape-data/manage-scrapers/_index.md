@@ -9,7 +9,7 @@ menu:
     name: Manage scrapers
     parent: Scrape data
 weight: 201
-influxdb/v2.7/tags: [scraper, prometheus]
+influxdb/v2/tags: [scraper, prometheus]
 related:
   - /influxdb/v2/write-data/no-code/scrape-data/
   

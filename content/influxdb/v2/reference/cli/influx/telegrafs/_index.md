@@ -8,7 +8,7 @@ menu:
     name: influx telegrafs
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [telegraf]
+influxdb/v2/tags: [telegraf]
 cascade:
   related:
     - /influxdb/v2/telegraf-configs/

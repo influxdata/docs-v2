@@ -8,7 +8,7 @@ menu:
     name: influx query
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [query]
+influxdb/v2/tags: [query]
 related:
   - /influxdb/v2/query-data/
   - /influxdb/v2/query-data/execute-queries/influx-query/

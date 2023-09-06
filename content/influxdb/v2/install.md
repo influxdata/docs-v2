@@ -3,12 +3,12 @@ title: Install InfluxDB
 description: Download, install, and set up InfluxDB OSS.
 menu: influxdb_v2
 weight: 2
-influxdb/v2.7/tags: [install]
+influxdb/v2/tags: [install]
 related:
-- /influxdb/v2/reference/cli/influx/auth/
-- /influxdb/v2/reference/cli/influx/config/
-- /influxdb/v2/reference/cli/influx/
-- /influxdb/v2/security/tokens/
+  - /influxdb/v2/reference/cli/influx/auth/
+  - /influxdb/v2/reference/cli/influx/config/
+  - /influxdb/v2/reference/cli/influx/
+  - /influxdb/v2/security/tokens/
 ---
 
 The InfluxDB v2 time series platform is purpose-built to collect, store,

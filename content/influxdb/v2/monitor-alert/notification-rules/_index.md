@@ -3,7 +3,7 @@ title: Manage notification rules
 description: >
   Manage notification rules in InfluxDB.
 weight: 103
-influxdb/v2.7/tags: [monitor, notifications, alert]
+influxdb/v2/tags: [monitor, notifications, alert]
 menu:
   influxdb_v2:
     parent: Monitor & alert

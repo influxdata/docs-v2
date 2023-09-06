@@ -2,7 +2,7 @@
 title: influxd inspect dump-tsm
 description: >
   The `influxd inspect dump-tsm` command outputs low-level information about `tsi1` files.
-influxdb/v2.7/tags: [tsm, inspect]
+influxdb/v2/tags: [tsm, inspect]
 menu:
   influxdb_v2_ref:
     parent: influxd inspect

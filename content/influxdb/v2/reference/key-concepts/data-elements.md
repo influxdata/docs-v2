@@ -7,7 +7,7 @@ menu:
   influxdb_v2_ref:
     parent: Key concepts
     name: Data elements
-influxdb/v2.7/tags: [key concepts, schema]
+influxdb/v2/tags: [key concepts, schema]
 related: 
   - /resources/videos/data-model-building-blocks/
 ---

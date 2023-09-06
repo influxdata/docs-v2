@@ -3,7 +3,7 @@ title: Join data with Flux
 seotitle: Join data in InfluxDB with Flux
 list_title: Join
 description: This guide walks through joining data with Flux and outlines how it shapes your data in the process.
-influxdb/v2.7/tags: [join, flux]
+influxdb/v2/tags: [join, flux]
 menu:
   influxdb_v2:
     name: Join

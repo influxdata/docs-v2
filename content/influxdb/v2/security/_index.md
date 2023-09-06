@@ -8,7 +8,7 @@ weight: 12
 menu:
   influxdb_v2:
     name: Security & authorization
-influxdb/v2.7/tags: [security, authentication]
+influxdb/v2/tags: [security, authentication]
 ---
 
 Security, access control, and sensitive secret handling are incredibly important

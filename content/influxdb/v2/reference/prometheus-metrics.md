@@ -7,7 +7,7 @@ menu:
   influxdb_v2_ref:
     name: Prometheus metrics
 weight: 8
-influxdb/v2.7/tags: [prometheus]
+influxdb/v2/tags: [prometheus]
 related:
   - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
   - /influxdb/v2/write-data/developer-tools/scrape-prometheus-metrics/

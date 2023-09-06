@@ -6,7 +6,7 @@ menu:
   influxdb_v2:
     name: Query in the Flux REPL
     parent: Execute queries
-influxdb/v2.7/tags: [query]
+influxdb/v2/tags: [query]
 ---
 
 The [Flux REPL](/influxdb/v2/tools/flux-repl/) starts an interactive

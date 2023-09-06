@@ -8,7 +8,7 @@ menu:
   influxdb_v2:
     name: Go
     parent: Client libraries
-influxdb/v2.7/tags: [client libraries, Go]
+influxdb/v2/tags: [client libraries, Go]
 weight: 201
 aliases:
   - /influxdb/v2/reference/api/client-libraries/go/

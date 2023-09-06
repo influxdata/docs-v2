@@ -10,7 +10,7 @@ menu:
   influxdb_v2:
     parent: Query with Flux
     name: Percentile & quantile
-influxdb/v2.7/tags: [query, percentile, quantile]
+influxdb/v2/tags: [query, percentile, quantile]
 related:
   - /influxdb/v2/query-data/flux/query-median/
   - /{{< latest "flux" >}}/stdlib/universe/quantile/

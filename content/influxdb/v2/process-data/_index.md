@@ -8,7 +8,7 @@ menu:
   influxdb_v2:
     name: Process data
 weight: 6
-influxdb/v2.7/tags: [tasks]
+influxdb/v2/tags: [tasks]
 related:
   - /resources/videos/influxdb-tasks/
 ---

@@ -6,7 +6,7 @@ menu:
     name: influx user
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [users]
+influxdb/v2/tags: [users]
 cascade:
   related:
     - /influxdb/v2/users/

@@ -6,7 +6,7 @@ menu:
   influxdb_v2:
     parent: Use and manage variables
 weight: 201
-influxdb/v2.7/tags: [variables]
+influxdb/v2/tags: [variables]
 ---
 
 Create dashboard variables in the Data Explorer, from the Settings section, or import a variable.

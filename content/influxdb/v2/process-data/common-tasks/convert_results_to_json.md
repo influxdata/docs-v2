@@ -9,7 +9,7 @@ menu:
     name: Convert results to JSON
     parent: Common tasks
 weight: 203
-influxdb/v2.7/tags: [tasks]
+influxdb/v2/tags: [tasks]
 ---
 {{% note %}}
 This example uses [NOAA water sample data](/influxdb/v2/reference/sample-data/#noaa-water-sample-data).

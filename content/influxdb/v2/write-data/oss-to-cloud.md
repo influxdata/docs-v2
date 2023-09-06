@@ -8,7 +8,7 @@ menu:
     name: Write from OSS to Cloud
     parent: Write data
 weight: 105
-influxdb/v2.7/tags: [write]
+influxdb/v2/tags: [write]
 ---
 
 To write data from InfluxDB OSS to InfluxDB Cloud, use the Flux

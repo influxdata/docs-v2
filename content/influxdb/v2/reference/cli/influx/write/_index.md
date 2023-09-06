@@ -8,7 +8,7 @@ menu:
     name: influx write
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [write]
+influxdb/v2/tags: [write]
 cascade:
   related:
     - /influxdb/v2/write-data/

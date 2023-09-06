@@ -8,7 +8,7 @@ menu:
 weight: 201
 aliases:
   - /influxdb/v2/reference/cli/influx/pkg/stack/init/
-influxdb/v2.7/tags: [templates]
+influxdb/v2/tags: [templates]
 ---
 
 The `influx stacks init` command initializes an InfluxDB stack.

@@ -6,7 +6,7 @@ menu:
     name: influx replication update
     parent: influx replication
 weight: 102
-influxdb/v2.7/tags: [write, replication]
+influxdb/v2/tags: [write, replication]
 ---
 
 {{% cloud %}}

@@ -6,7 +6,7 @@ menu:
     name: influx template
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [templates]
+influxdb/v2/tags: [templates]
 aliases:
   - /influxdb/v2/reference/cli/influx/pkg/summary/
 cascade:

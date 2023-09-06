@@ -1,7 +1,7 @@
 ---
 title: Store secrets in Vault
 description: Use Vault as an InfluxDB secret store and manage secrets through the in InfluxDB API.
-influxdb/v2.7/tags: [secrets, security]
+influxdb/v2/tags: [secrets, security]
 menu:
   influxdb_v2:
     parent: Manage secrets

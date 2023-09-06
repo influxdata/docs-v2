@@ -5,7 +5,7 @@ list_title: Exists
 description: >
   Use the Flux `exists` operator to check if a row record contains a column or if
   that column's value is `null`.
-influxdb/v2.7/tags: [exists]
+influxdb/v2/tags: [exists]
 menu:
   influxdb_v2:
     name: Exists

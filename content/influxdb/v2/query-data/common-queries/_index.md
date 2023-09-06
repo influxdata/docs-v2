@@ -3,7 +3,7 @@ title: Common queries
 seotitle: Common queries with Flux
 description: >
   This collection of articles walks through common use cases for Flux queries.
-influxdb/v2.7/tags: [queries]
+influxdb/v2/tags: [queries]
 menu:
   influxdb_v2:
     name: Common queries

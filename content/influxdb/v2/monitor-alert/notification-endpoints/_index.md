@@ -3,7 +3,7 @@ title: Manage notification endpoints
 list_title: Manage notification endpoints
 description: >
   Create, read, update, and delete endpoints in the InfluxDB UI.
-influxdb/v2.7/tags: [monitor, endpoints, notifications, alert]
+influxdb/v2/tags: [monitor, endpoints, notifications, alert]
 menu:
   influxdb_v2:
     parent: Monitor & alert

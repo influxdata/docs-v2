@@ -7,7 +7,7 @@ menu:
     name: Use Grafana
     parent: Tools & integrations
 weight: 104
-influxdb/v2.7/tags: [grafana]
+influxdb/v2/tags: [grafana]
 aliases:
   - /influxdb/v2/visualize-data/other-tools/grafana/
 related:

@@ -5,7 +5,7 @@ list_title: Sort and limit
 description: >
   Use `sort()` to order records within each table by specific columns and
   `limit()` to limit the number of records in output tables to a fixed number, `n`.
-influxdb/v2.7/tags: [sort, limit]
+influxdb/v2/tags: [sort, limit]
 menu:
   influxdb_v2:
     name: Sort and limit

@@ -8,7 +8,7 @@ weight: 103
 menu:
   influxdb_v2_ref:
     parent: Syntax
-influxdb/v2.7/tags: [csv, syntax]
+influxdb/v2/tags: [csv, syntax]
 related:
   - /{{< latest "flux" >}}/stdlib/csv/from/
   - /influxdb/v2/reference/syntax/annotated-csv/extended/

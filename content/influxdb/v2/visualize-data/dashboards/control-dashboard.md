@@ -2,7 +2,7 @@
 title: Control a dashboard
 seotitle: Control an InfluxDB dashboard
 description: Control an InfluxDB dashboard in the InfluxDB user interface (UI).
-influxdb/v2.7/tags: [dashboards]
+influxdb/v2/tags: [dashboards]
 menu:
   influxdb_v2:
     name: Control a dashboard

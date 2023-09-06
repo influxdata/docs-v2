@@ -9,7 +9,7 @@ menu:
     name: Task options
     parent: Process data
 weight: 105
-influxdb/v2.7/tags: [tasks, flux]
+influxdb/v2/tags: [tasks, flux]
 ---
 
 Task options define specific information about a task.

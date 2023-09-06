@@ -7,7 +7,7 @@ menu:
     name: influx v1 shell
     parent: influx v1
 weight: 101
-influxdb/v2.7/tags: [InfluxQL]
+influxdb/v2/tags: [InfluxQL]
 related:
   - /influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions

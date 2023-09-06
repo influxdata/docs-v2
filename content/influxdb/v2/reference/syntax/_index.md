@@ -7,7 +7,7 @@ weight: 5
 menu:
   influxdb_v2_ref:
     name: Syntax
-influxdb/v2.7/tags: [syntax]
+influxdb/v2/tags: [syntax]
 ---
 
 InfluxDB uses a handful of languages and syntaxes to perform tasks such as

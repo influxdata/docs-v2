@@ -6,7 +6,7 @@ menu:
     name: influx task
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [tasks]
+influxdb/v2/tags: [tasks]
 cascade:
   related:
     - /influxdb/v2/process-data/

@@ -1,7 +1,7 @@
 ---
 title: influxd version
 description: The `influxd version` command outputs the current version of InfluxDB.
-influxdb/v2.7/tags: [influxd, cli]
+influxdb/v2/tags: [influxd, cli]
 menu:
   influxdb_v2_ref:
     parent: influxd

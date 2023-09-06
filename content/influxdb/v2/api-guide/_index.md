@@ -6,7 +6,7 @@ weight: 4
 menu:
   influxdb_v2:
     name: Develop with the API
-influxdb/v2.7/tags: [api]
+influxdb/v2/tags: [api]
 ---
 
 The InfluxDB v2 API provides a programmatic interface for interactions with InfluxDB.

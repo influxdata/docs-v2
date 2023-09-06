@@ -8,7 +8,7 @@ menu:
     name: influx ping
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [ping, health]
+influxdb/v2/tags: [ping, health]
 related:
   - /influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions

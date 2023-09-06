@@ -10,7 +10,7 @@ menu:
     name: Window & aggregate
     parent: Query with Flux
 weight: 204
-influxdb/v2.7/tags: [flux, aggregates]
+influxdb/v2/tags: [flux, aggregates]
 aliases:
   - /influxdb/v2/query-data/guides/window-aggregate/
   - /influxdb/v2/query-data/flux/windowing-aggregating/

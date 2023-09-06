@@ -7,7 +7,7 @@ menu:
     name: influx v1 dbrp create
     parent: influx v1 dbrp
 weight: 101
-influxdb/v2.7/tags: [DBRP]
+influxdb/v2/tags: [DBRP]
 ---
 
 The `influx v1 dbrp create` command creates a DBRP mapping with the [InfluxDB 1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/).

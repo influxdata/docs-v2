@@ -5,7 +5,7 @@ description: >
   from dashboards and Telegraf configurations to notifications and alerts.
 menu: influxdb_v2
 weight: 10
-influxdb/v2.7/tags: [templates]
+influxdb/v2/tags: [templates]
 ---
 
 InfluxDB templates are prepackaged InfluxDB configurations that contain everything

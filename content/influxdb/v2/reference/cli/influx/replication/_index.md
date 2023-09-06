@@ -6,7 +6,7 @@ menu:
     name: influx replication
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [write, replication]
+influxdb/v2/tags: [write, replication]
 cascade:
   related:
     - /influxdb/v2/reference/cli/influx/remote

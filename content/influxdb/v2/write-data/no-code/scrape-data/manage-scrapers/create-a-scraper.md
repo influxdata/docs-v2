@@ -5,7 +5,7 @@ description: Create an InfluxDB scraper that collects data from InfluxDB or a re
 aliases:
   - /influxdb/v2/collect-data/scrape-data/manage-scrapers/create-a-scraper
   - /influxdb/v2/write-data/scrape-data/manage-scrapers/create-a-scraper
-influxdb/v2.7/tags: [scraper]
+influxdb/v2/tags: [scraper]
 menu:
   influxdb_v2:
     name: Create a scraper

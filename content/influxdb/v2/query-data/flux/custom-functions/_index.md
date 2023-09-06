@@ -2,7 +2,7 @@
 title: Create custom Flux functions
 description: Create your own custom Flux functions to transform and operate on data.
 list_title: Custom functions
-influxdb/v2.7/tags: [functions, custom, flux]
+influxdb/v2/tags: [functions, custom, flux]
 menu:
   influxdb_v2:
     name: Custom functions

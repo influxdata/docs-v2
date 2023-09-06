@@ -6,7 +6,7 @@ menu:
   influxdb_v2:
     name: Use the influx CLI
     parent: Execute queries
-influxdb/v2.7/tags: [query]
+influxdb/v2/tags: [query]
 related:
   - /influxdb/v2/reference/cli/influx/query/
 ---

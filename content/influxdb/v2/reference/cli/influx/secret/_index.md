@@ -6,7 +6,7 @@ menu:
     name: influx secret
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [secrets]
+influxdb/v2/tags: [secrets]
 cascade:
   related:
     - /influxdb/v2/security/secrets/

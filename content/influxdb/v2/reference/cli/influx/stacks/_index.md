@@ -10,7 +10,7 @@ menu:
 weight: 101
 aliases:
   - /influxdb/v2/reference/cli/influx/pkg/stack/list/
-influxdb/v2.7/tags: [templates]
+influxdb/v2/tags: [templates]
 cascade:
   related:
     - /influxdb/v2/influxdb-templates/stacks/

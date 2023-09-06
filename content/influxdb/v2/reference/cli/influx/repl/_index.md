@@ -3,7 +3,7 @@ title: influx repl
 description: >
   The `influx repl` command opens an interactive Read-Eval-Print Loop (REPL)
   from which you can run Flux commands.
-influxdb/v2.7/tags: [query]
+influxdb/v2/tags: [query]
 related:
   - /influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions

@@ -9,7 +9,7 @@ menu:
   influxdb_v2:
     parent: Query with Flux
     name: Flux version
-influxdb/v2.7/tags: [query]
+influxdb/v2/tags: [query]
 related:
   - /{{< latest "flux" >}}/stdlib/runtime/version/
 list_code_example: |

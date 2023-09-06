@@ -6,7 +6,7 @@ menu:
     name: influx scripts
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [scripts]
+influxdb/v2/tags: [scripts]
 cascade:
   related:
     - /influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials

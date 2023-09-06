@@ -6,7 +6,7 @@ menu:
     name: influx remote delete
     parent: influx remote
 weight: 102
-influxdb/v2.7/tags: [write, replication]
+influxdb/v2/tags: [write, replication]
 related:
   - /influxdb/v2/reference/cli/influx/replication
 ---

@@ -6,7 +6,7 @@ menu:
     name: influx org
     parent: influx
 weight: 101
-influxdb/v2.7/tags: [organizations]
+influxdb/v2/tags: [organizations]
 cascade:
   related:
     - /influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials

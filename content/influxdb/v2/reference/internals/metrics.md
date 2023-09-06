@@ -6,7 +6,7 @@ menu:
  influxdb_v2_ref:
    parent: InfluxDB internals
    name: Metrics
-influxdb/v2.7/tags: [cpu, memory, metrics, performance, Prometheus, storage, usage]
+influxdb/v2/tags: [cpu, memory, metrics, performance, Prometheus, storage, usage]
 ---
 Get metrics about the workload performance of an InfluxDB OSS instance.
 

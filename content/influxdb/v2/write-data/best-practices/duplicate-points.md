@@ -10,7 +10,7 @@ menu:
   influxdb_v2:
     name: Handle duplicate points
     parent: write-best-practices
-influxdb/v2.7/tags: [best practices, write]
+influxdb/v2/tags: [best practices, write]
 ---
 
 InfluxDB identifies unique data points by their measurement, tag set, and timestamp

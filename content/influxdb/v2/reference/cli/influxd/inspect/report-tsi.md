@@ -3,7 +3,7 @@ title: influxd inspect report-tsi
 description: >
   The `influxd inspect report-tsi` command analyzes Time Series Index (TSI) files
   in a storage directory and reports the cardinality of data stored in the files.
-influxdb/v2.7/tags: [tsi, cardinality, inspect]
+influxdb/v2/tags: [tsi, cardinality, inspect]
 menu:
   influxdb_v2_ref:
     parent: influxd inspect

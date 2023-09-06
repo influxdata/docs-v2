@@ -5,7 +5,7 @@ description: >
   within specified time intervals, reducing the overall disk usage as data
   collects over time.
 weight: 104
-influxdb/v2.7/tags: [notebooks]
+influxdb/v2/tags: [notebooks]
 menu:
   influxdb_v2:
     name: Downsample data

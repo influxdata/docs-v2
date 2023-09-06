@@ -6,7 +6,7 @@ menu:
   influxdb_v2:
     name: Write
     parent: Node.js
-influxdb/v2.7/tags: [client libraries, JavaScript]
+influxdb/v2/tags: [client libraries, JavaScript]
 weight: 101
 aliases:
   - /influxdb/v2/reference/api/client-libraries/nodejs/write

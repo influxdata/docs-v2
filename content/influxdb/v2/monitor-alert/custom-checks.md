@@ -7,7 +7,7 @@ menu:
   influxdb_v2:
     parent: Monitor & alert
 weight: 201
-influxdb/v2.7/tags: [alerts, checks, tasks, Flux]
+influxdb/v2/tags: [alerts, checks, tasks, Flux]
 ---
 
 In the UI, you can create two kinds of [checks](/influxdb/v2/reference/glossary/#check):

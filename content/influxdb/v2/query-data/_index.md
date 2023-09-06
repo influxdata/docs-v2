@@ -10,7 +10,7 @@ menu:
   influxdb_v2:
     name: Query data
 weight: 5
-influxdb/v2.7/tags: [query, flux]
+influxdb/v2/tags: [query, flux]
 ---
 
 Learn to query data stored in InfluxDB using Flux and tools such as the InfluxDB

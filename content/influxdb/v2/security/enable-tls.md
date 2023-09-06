@@ -7,7 +7,7 @@ weight: 101
 menu:
   influxdb_v2:
     parent: Security & authorization
-influxdb/v2.7/tags: [security, authentication, tls, https, ssl]
+influxdb/v2/tags: [security, authentication, tls, https, ssl]
 products: [oss]
 ---
 

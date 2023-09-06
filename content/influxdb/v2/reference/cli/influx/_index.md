@@ -9,7 +9,7 @@ menu:
     name: influx
     parent: Command line tools
 weight: 101
-influxdb/v2.7/tags: [cli]
+influxdb/v2/tags: [cli]
 related:
   - /influxdb/v2/tools/influx-cli/
 ---

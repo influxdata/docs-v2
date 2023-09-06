@@ -10,7 +10,7 @@ menu:
     identifier: client-library-starter-js
     name: JavaScript
     parent: Client library tutorials
-influxdb/v2.7/tags: [api, javascript, nodejs]
+influxdb/v2/tags: [api, javascript, nodejs]
 ---
 
 {{% api/iot-starter-intro %}}

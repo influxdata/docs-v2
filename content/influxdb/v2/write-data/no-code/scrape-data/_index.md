@@ -9,7 +9,7 @@ aliases:
   - /influxdb/v2/collect-data/scrape-data
   - /influxdb/v2/write-data/scrape-data
   - /influxdb/v2/write-data/scrapable-endpoints
-influxdb/v2.7/tags: [scraper]
+influxdb/v2/tags: [scraper]
 menu:
   influxdb_v2:
     name: Scrape data

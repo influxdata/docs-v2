@@ -8,7 +8,7 @@ menu:
   influxdb_v2:
     name: Monitor & alert
 weight: 7
-influxdb/v2.7/tags: [monitor, alert, checks, notification, endpoints]
+influxdb/v2/tags: [monitor, alert, checks, notification, endpoints]
 ---
 
 Monitor your time series data and send alerts by creating checks, notification

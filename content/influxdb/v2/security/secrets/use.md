@@ -1,7 +1,7 @@
 ---
 title: Use secrets
 description: Use secrets in a query with Flux.
-influxdb/v2.7/tags: [secrets, security]
+influxdb/v2/tags: [secrets, security]
 menu:
   influxdb_v2:
     parent: Manage secrets

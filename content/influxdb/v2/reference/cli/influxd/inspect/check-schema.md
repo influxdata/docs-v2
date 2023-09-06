@@ -2,7 +2,7 @@
 title: influxd inspect check-schema
 description: >
   The `influxd inspect check-schema` command checks for conflicts between shard types.
-influxdb/v2.7/tags: [shards, inspect]
+influxdb/v2/tags: [shards, inspect]
 menu:
   influxdb_v2_ref:
     parent: influxd inspect

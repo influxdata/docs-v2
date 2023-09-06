@@ -4,7 +4,7 @@ seotitle: Manage API tokens in InfluxDB
 description: Manage API tokens in InfluxDB using the InfluxDB UI or the influx CLI.
 aliases:
   - /influxdb/v2/users/tokens
-influxdb/v2.7/tags: [tokens, authentication, security]
+influxdb/v2/tags: [tokens, authentication, security]
 menu:
   influxdb_v2:
     name: Manage tokens

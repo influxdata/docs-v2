@@ -8,7 +8,7 @@ weight: 102
 menu:
   influxdb_v2:
     parent: Security & authorization
-influxdb/v2.7/tags: [security, hardening]
+influxdb/v2/tags: [security, hardening]
 ---
 
 InfluxDB {{< current-version >}} provides optional security features that ensure your

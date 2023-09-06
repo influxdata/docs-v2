@@ -9,7 +9,7 @@ weight: 201
 menu:
   influxdb_v2:
     parent: Query with Flux
-influxdb/v2.7/tags: [query, select, where]
+influxdb/v2/tags: [query, select, where]
 related:
   - /{{< latest "flux" >}}/stdlib/universe/filter/
   - /influxdb/v2/query-data/flux/conditional-logic/

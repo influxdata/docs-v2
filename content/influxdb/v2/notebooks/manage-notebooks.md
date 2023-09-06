@@ -2,7 +2,7 @@
 title: Manage notebooks
 description: View, update, and delete notebooks.
 weight: 103
-influxdb/v2.7/tags: [notebooks]
+influxdb/v2/tags: [notebooks]
 menu:
   influxdb_v2:
     name: Manage notebooks

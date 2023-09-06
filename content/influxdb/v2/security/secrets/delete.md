@@ -1,7 +1,7 @@
 ---
 title: Delete secrets
 description: Delete secrets using the `influx` CLI or the InfluxDB API.
-influxdb/v2.7/tags: [secrets, security]
+influxdb/v2/tags: [secrets, security]
 menu:
   influxdb_v2:
     parent: Manage secrets

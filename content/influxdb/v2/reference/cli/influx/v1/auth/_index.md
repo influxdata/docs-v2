@@ -7,7 +7,7 @@ menu:
     name: influx v1 auth
     parent: influx v1
 weight: 101
-influxdb/v2.7/tags: [authorization]
+influxdb/v2/tags: [authorization]
 cascade:
   related:
     - /influxdb/v2/upgrade/v1-to-v2/

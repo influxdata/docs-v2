@@ -14,7 +14,7 @@ related:
   - /{{< latest "flux" >}}/prometheus/scrape-prometheus/
   - /{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/
   - /{{< latest "flux" >}}/prometheus/metric-types/
-influxdb/v2.0/tags: [prometheus]
+influxdb/cloud/tags: [prometheus]
 ---
 
 {{< duplicate-oss >}}

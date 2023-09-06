@@ -9,7 +9,7 @@ menu:
     parent: Administer InfluxDB
 weight: 20
 cascade:
-  influxdb/v2.7/tags: [storage, internals]
+  influxdb/v2/tags: [storage, internals]
 ---
 
 Manage InfluxDB internal systems, including the time series index (TSI), time-structured merge tree (TSM) storage engine, and write-ahead log (WAL).

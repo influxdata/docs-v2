@@ -8,7 +8,7 @@ menu:
   influxdb_v2_ref:
     name: Data retention
     parent: InfluxDB internals
-influxdb/v2.7/tags: [storage, internals]
+influxdb/v2/tags: [storage, internals]
 related: 
   - /influxdb/v2/reference/internals/shards/
   - /influxdb/v2/reference/internals/storage-engine/

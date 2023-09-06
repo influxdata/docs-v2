@@ -8,7 +8,7 @@ menu:
   influxdb_v2:
     name: Replicate data
     parent: Edge data replication
-influxdb/v2.7/tags: [write, replication]
+influxdb/v2/tags: [write, replication]
 related:
   - /influxdb/v2/reference/cli/influx/remote
   - /influxdb/v2/reference/cli/influx/replication

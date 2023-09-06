@@ -8,7 +8,7 @@ menu:
     name: /query
     parent: 1.x compatibility
 weight: 301
-influxdb/v2.7/tags: [influxql, query]
+influxdb/v2/tags: [influxql, query]
 list_code_example: |
   <pre>
   <span class="api get">GET</span> http://localhost:8086/query

@@ -9,7 +9,7 @@ menu:
     name: Extract scalar values
     parent:  Query with Flux
 weight: 220
-influxdb/v2.7/tags: [scalar]
+influxdb/v2/tags: [scalar]
 related:
   - /{{< latest "flux" >}}/function-types/#dynamic-queries, Flux dynamic query functions
 aliases:

@@ -6,7 +6,7 @@ menu:
   influxdb_v2:
     parent: Use and manage variables
 weight: 207
-influxdb/v2.7/tags: [variables]
+influxdb/v2/tags: [variables]
 ---
 
 Variable types determine how a variable's list of possible values is populated.
