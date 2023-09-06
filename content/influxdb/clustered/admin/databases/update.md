@@ -19,7 +19,7 @@ related:
 ---
 
 Use the [`influxctl database update` command](/influxdb/clustered/reference/cli/influxctl/database/update/)
-to update a database in your {{< product-name omit=" Clustered" >}}.
+to update a database in your {{< product-name omit=" Clustered" >}} cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run the `influxctl database update` command and provide the following:

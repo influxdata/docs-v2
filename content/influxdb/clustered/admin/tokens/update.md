@@ -20,7 +20,7 @@ alt_links:
 ---
 
 Use the [`influxctl token update` command](/influxdb/clustered/reference/cli/influxctl/token/update/)
-to update a database token's permissions in your {{< product-name omit=" Clustered" >}}.
+to update a database token's permissions in your {{< product-name omit=" Clustered" >}} cluster.
 
 1.  If you haven't already, [download and install the `influxctl` CLI](/influxdb/clustered/reference/cli/influxctl/#download-and-install-influxctl).
 2.  Run the `influxctl token create` command and provide the following:
