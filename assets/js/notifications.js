@@ -48,3 +48,10 @@ $('.close-notification').click(function(e) {
 $('.notification .show').click(function() {
   $(this).closest('.notification').toggleClass('min');
 })
+
+// Notification element scroll position
+const notificationsInitialPosition = parseInt($('#docs-notifications').css('top'), 10)
+$(window).scroll(function(){
+  var notificationPosition = (notificationsInitialPosition - scrollY > 10) ? notificationsInitialPosition - scrollY : 10;
+  $('#docs-notifications').css('top', notificationPosition)
+})

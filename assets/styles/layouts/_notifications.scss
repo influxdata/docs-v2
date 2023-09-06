@@ -2,10 +2,10 @@
   position: fixed;
   top: 65px;
   right: 10px;
-  z-index: 98;
+  z-index: 100;
   width: calc(100vw - 20px);
   max-width: 450px;
-  transition: all .4s ease;
+  transition: all .4s ease, top 0s;
 
   .notification {
     display: none; // initial hidden state
@@ -27,12 +27,26 @@
       }
     }
 
+    .notification-content-wrapper{
+      position: relative;
+    }
+
+    .notification-slug {
+      font-size: .97rem;
+      margin: -.5rem 0 1.5rem 0;
+
+      & + .notification-content {
+        border-top: 1px dotted rgba($g20-white, .5);
+        padding-top: 1.25rem;
+      }
+    }
+
     .notification-content {
       font-size: 1.05rem;
       opacity: 1;
       max-height: 500px;
       margin-bottom: 1.5rem;
-      transition: opacity .4s, max-height .2s ease-out, margin .2s ease-out;
+      transition: opacity .4s, max-height .2s ease-out, margin .2s ease-out, padding .2s;
       
       h1,h2,h3,h4,h5,h6 {
         margin: 1rem 0 .75rem;
@@ -127,9 +141,16 @@
       .notification-content {
         max-height: 0;
         margin: 0;
+        padding: 0;
         opacity: 0;
       }
       .show::before {content: "Show more"}
     }
   }
+}
+
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+
+@include media(small) {
+  #docs-notifications {top: 50px;}
 }
