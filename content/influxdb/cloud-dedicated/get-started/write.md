@@ -1041,7 +1041,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
 
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
         - **`database`**: the name of the {{% product-name %}} database to write to
-        - **`token`**: an [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+        - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
     2.  Defines a list of line protocol strings where each string represents a data record.
