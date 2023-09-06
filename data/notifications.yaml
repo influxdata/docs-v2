@@ -22,10 +22,10 @@
     InfluxDB Clustered is currently in **limited availability** and is only
     available to a limited group of InfluxData customers. If interested in being
     part of the limited access group, please
-    [contact the InfluxData Sales team](https://www.influxdata.com/proof-of-concept/).
+    [contact the InfluxData Sales team](https://www.influxdata.com/contact-sales-influxdb-clustered).
 
     [Learn more](/influxdb/clustered/)  
-    [Contact InfluxData Sales](https://www.influxdata.com/proof-of-concept/)
+    [Contact InfluxData Sales](https://www.influxdata.com/contact-sales-influxdb-clustered)
 
 - id: serverless-wip
   level: warn
