@@ -184,7 +184,7 @@ Use `Token` to authenticate a write request:
 {{% influxdb/custom-timestamps %}}
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```sh
-curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=ms" \
+curl -i "https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s" \
     --header "Authorization: Token DATABASE_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --data-binary 'home,room=kitchen temp=72 1641024000'
