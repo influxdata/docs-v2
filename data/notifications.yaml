@@ -27,6 +27,32 @@
     [Learn more](https://www.influxdata.com/blog/announcing-influxdb-clustered/)  
     [Contact InfluxData Sales](https://www.influxdata.com/contact-sales-influxdb-clustered)
 
+- id: future-of-flux
+  level: warn
+  scope:
+    - /flux/v0
+    - /influxdb/v1
+    - /influxdb/v2
+    - /influxdb/cloud/
+  title: The future of Flux
+  slug: |
+    Flux is going into maintenance mode. You can continue to use it as you
+    currently are without any changes to your code.
+  message: |      
+    Due to the clear success and continued growth and adoption of SQL and InfluxQL
+    in InfluxDB 3.0, we are focusing our development efforts on supporting SQL
+    and InfluxQL. We are not bringing Flux into InfluxDB 3.0. If you are
+    interested in transitioning to InfluxDB 3.0 and want to future-proof your
+    code, we suggest using InfluxQL.
+
+    We will continue supporting Flux in InfluxDB 1.x, 2.x, and InfluxDB Cloud (TSM)
+    and you can continue using these products without any changes to your code.
+
+    For information about the decisions behind the future of Flux, see the following:
+
+    - [The plan for InfluxDB 3.0 Open Source](https://www.influxdata.com/blog/the-plan-for-influxdb-3-0-open-source/)
+    - [InfluxDB 3.0 benchmarks](https://www.influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
+
 - id: serverless-wip
   level: warn
   scope:
