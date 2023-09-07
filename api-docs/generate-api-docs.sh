@@ -88,11 +88,15 @@ for version in $versions
 do
   # Trim the trailing slash off the directory name
   version="${version%/}"
-  menu="influxdb_$(echo $version | sed 's/\./_/g;s/v//g;')_ref"
+  menu="influxdb_$(echo $version | sed 's/\./_/g;')_ref"
   if [[ $version == "cloud" ]]; then
     titleVersion="Cloud"
-  elif [[ $version == "cloud-iox" ]]; then
-    titleVersion="Cloud (IOx)"
+  elif [[ $version == "cloud-serverless" ]]; then
+    titleVersion="Cloud Serverless"
+  elif [[ $version == "cloud-dedicated" ]]; then
+    titleVersion="Cloud Dedicated"
+  elif [[ $version == "clustered" ]]; then
+    titleVersion="Clustered"
   else
     titleVersion="$version"
   fi
@@ -113,11 +117,11 @@ weight: 102
   v1compatfrontmatter="---
 title: InfluxDB $titleVersion v1 compatibility API documentation
 description: >
-  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1.x compatibility endpoints.
+  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1 compatibility endpoints.
 layout: api
 menu:
   $menu:
-    parent: 1.x compatibility
+    parent: v1 compatibility
     name: View v1 compatibility API docs
 weight: 304
 ---
