@@ -445,13 +445,13 @@ to migrate InfluxDB key-value metadata schemas to earlier 2.x versions when nece
 #### Flux
 
 - Update to [Flux v0.139.0](/flux/v0.x/release-notes/#v01390-2021-11-01).
-- Enable writing to remote hosts using the Flux [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) and [`experimental.to()`](/{{< latest "flux" >}}/v0.x/stdlib/experimental/to/) functions.
+- Enable writing to remote hosts using the Flux [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) and [`experimental.to()`](/flux/v0/v0.x/stdlib/experimental/to/) functions.
 - Flux now supports locations that dynamically modify time offsets based on your specified timezone. You can also specify fixed time offsets relative to UTC.
-- Perform [bitwise operations](/{{< latest "flux" >}}/stdlib/experimental/bitwise/)
+- Perform [bitwise operations](/flux/v0/stdlib/experimental/bitwise/)
   on integers and unsigned integers.
-- [Query](/{{< latest "flux" >}}/query-data/sql/vertica/) and
-  [write to Vertica](/{{< latest "flux" >}}/query-data/sql/vertica/) SQL databases.
-- Add the [`hex` package](/{{< latest "flux" >}}/stdlib/contrib/bonitoo-io/hex/)
+- [Query](/flux/v0/query-data/sql/vertica/) and
+  [write to Vertica](/flux/v0/query-data/sql/vertica/) SQL databases.
+- Add the [`hex` package](/flux/v0/stdlib/contrib/bonitoo-io/hex/)
   for working with hexadecimal string values.
 
 #### InfluxQL
@@ -637,9 +637,9 @@ To adopt the new, separate `influx` CLI early, download the latest release from 
 
 ### Features
 
-- Optimize [`table.fill()`](/{{< latest "flux" >}}/stdlib/experimental/table/fill/)
+- Optimize [`table.fill()`](/flux/v0/stdlib/experimental/table/fill/)
   execution within Flux aggregate windows.
-- Upgrade Flux to [v0.117.0](/{{< latest "flux" >}}/release-notes/#v01171-2021-06-01).
+- Upgrade Flux to [v0.117.0](/flux/v0/release-notes/#v01171-2021-06-01).
 - Upgrade UI to v2.0.7.
 - Upgrade `flux-lsp-browser` to v0.5.47.
 
@@ -726,7 +726,7 @@ The prefix used for Prometheus metrics from the query controller has changed fro
 - Display task IDs in the tasks list in the InfluxDB UI.
 - Write to standard output (`stdout`) when `--output-path -` is passed to [`influxd inspect export-lp`](/influxdb/v2/reference/cli/influxd/inspect/export-lp/).
 - Add `-p, --profilers` flag to [`influx query` command](/influxdb/v2/reference/cli/influx/query/)
-  to enable [Flux profilers](/{{< latest "flux" >}}/stdlib/profiler/) on
+  to enable [Flux profilers](/flux/v0/stdlib/profiler/) on
   a query executed from the `influx` CLI.
 - Update InfluxDB OSS UI to match InfluxDB Cloud.
 - Support disabling concurrency limits in the Flux controller.
@@ -805,7 +805,7 @@ The startup process automatically generates replacement `tsi1` indexes for shard
 - Promote schema and fill query optimizations to default behavior.
 
 #### Flux updates
-- Upgrade to [Flux v0.104.0](/{{< latest "flux" >}}/release-notes/#v0-104-0-2021-02-02).
+- Upgrade to [Flux v0.104.0](/flux/v0/release-notes/#v0-104-0-2021-02-02).
 - Upgrade to `flux-lsp-browser` v0.5.31.
 
 ### Bug Fixes
@@ -871,7 +871,7 @@ This release also defines v2-specific path defaults and provides [helper scripts
 - Allow password to be specified as a CLI option in [`influx v1 auth set-password`](/influxdb/cloud/reference/cli/influx/auth/).
 - Implement [delete with predicate](/influxdb/v2/write-data/delete-data/).
 - Improve ID-related error messages for `influx v1 dbrp` commands.
-- Update Flux to [v0.99.0](/{{< latest "flux" >}}/release-notes/#v0-99-0-2020-12-15).
+- Update Flux to [v0.99.0](/flux/v0/release-notes/#v0-99-0-2020-12-15).
 - Update `flux-lsp-browser` to v0.5.25.
 - Support for ARM64 preview build.
 
@@ -899,7 +899,7 @@ Previously, the database retention policy (DBRP) mapping API did not match the s
 - Improvements to upgrade from 1.x to 2.x:
     - Warning appears if auth is not enabled in 1.x (`auth-enabled = false`), which is not an option in 2.x. For details, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2/upgrade/v1-to-v2/).
     - `upgrade` command now checks to see if continuous queries are running and automatically exports them to a local file.
-- Upgrade to [Flux v0.95.0](/{{< latest "flux" >}}/release-notes/#v0-95-0-2020-11-17).
+- Upgrade to [Flux v0.95.0](/flux/v0/release-notes/#v0-95-0-2020-11-17).
 - Upgrade `flux-lsp-browser` to v.0.5.23.
 - Manage database retention policy (DBRP) mappings via CLI. See [`influx v1 dbrp`](/influxdb/v2/reference/cli/influx/v1/dbrp/).
 - Filter task runs by time.
@@ -942,7 +942,7 @@ Highlights include:
 - Support for **upgrading to InfluxDB 2.0**:
    - To upgrade **from InfluxDB 1.x**, see [Upgrade from InfluxDB 1.x to InfluxDB 2.0](/influxdb/v2/upgrade/v1-to-v2).
    - To upgrade **from InfluxDB 2.0 beta 16 or earlier**, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2/upgrade/v2-beta-to-v2).
-- **Flux**, our powerful new functional data scripting language designed for querying, analyzing, and acting on data. This release includes [Flux v0.94.0](/{{< latest "flux" >}}/release-notes/#v0-94-0-2020-11-09). If you're new to Flux, [check out how to get started with Flux](/influxdb/v2/query-data/get-started/). Next, delve deeper into the [Flux standard library](/{{< latest "flux" >}}/stdlib//) reference docs and see how to [query with Flux](/influxdb/v2/query-data/flux/).
+- **Flux**, our powerful new functional data scripting language designed for querying, analyzing, and acting on data. This release includes [Flux v0.94.0](/flux/v0/release-notes/#v0-94-0-2020-11-09). If you're new to Flux, [check out how to get started with Flux](/influxdb/v2/query-data/get-started/). Next, delve deeper into the [Flux standard library](/flux/v0/stdlib//) reference docs and see how to [query with Flux](/influxdb/v2/query-data/flux/).
 - Support for [InfluxDB 1.x API compatibility](/influxdb/v2/reference/api/influxdb-1x/).
 - **Templates** and **stacks**. Discover how to [use community templates](/influxdb/v2/influxdb-templates/use/) and how to [manage templates with stacks](/influxdb/v2/influxdb-templates/stacks/).
 
@@ -952,7 +952,7 @@ If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/i
 
 ### Features
 - Improve  UI for v1 `influx auth` commands.
-- Upgrade to [Flux v0.94.0](/{{< latest "flux" >}}/release-notes/#v0-94-0-2020-11-10)
+- Upgrade to [Flux v0.94.0](/flux/v0/release-notes/#v0-94-0-2020-11-10)
 - Upgrade `flux-lsp-browser` to v0.5.22.
 - Add [RAS Telegraf input plugin](/telegraf/v1/plugins//#ras).
 
@@ -973,7 +973,7 @@ If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/i
 
 ### Features
 
-- Upgrade to [Flux v0.93.0](/{{< latest "flux" >}}/release-notes/#v0-93-0-2020-11-02).
+- Upgrade to [Flux v0.93.0](/flux/v0/release-notes/#v0-93-0-2020-11-02).
 - Add `influx backup` and `influx restore` CLI commands to support backing up and restoring data in InfluxDB 2.0.
 - Add the `v1/authorization` package to support authorizing requests to the InfluxDB 1.x API.
 
@@ -997,7 +997,7 @@ If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/i
 
 ### Features
 
-- Upgrade to [Flux v0.91.0](/{{< latest "flux" >}}/release-notes/#v0910-2020-10-26).
+- Upgrade to [Flux v0.91.0](/flux/v0/release-notes/#v0910-2020-10-26).
 - Enable window aggregate mean pushdown.
 - Add `newMultiShardArrayCursors` to aggregate array cursors.
 - UI updates:
@@ -1019,7 +1019,7 @@ If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/i
 
 ### Features
 
-- Upgrade to [Flux v0.90.0](/{{< latest "flux" >}}/release-notes/#v0900-2020-10-19).
+- Upgrade to [Flux v0.90.0](/flux/v0/release-notes/#v0900-2020-10-19).
 - Add `--force` option to the `influx stacks rm` command, which lets you remove a stack without the confirmation prompt.
 - Add `aggregate_resultset` for mean aggregate pushdown to optimize windowed results.
 - Return an error if adding a resource to a stack (`influx stacks update --addResource`) fails due to an invalid resource type or resource ID.
@@ -1042,7 +1042,7 @@ If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/i
 ### Bug Fixes
 - Enable scrapers. (Scrapers did not work in rc0.)
 - Update default number of tasks listed with `influx task list` to 100.
-- Add support for [duration unit identifiers](/{{< latest "flux" >}}/spec/lexical-elements/#duration-literals) to templates.
+- Add support for [duration unit identifiers](/flux/v0/spec/lexical-elements/#duration-literals) to templates.
 - Preserve cell colors in imported and exported templates.
 - Resolve issue to ensure the `influx` CLI successfully returns a single Telegraf configuration.
 - Ensure passwords are at least 8 characters in `influx setup`.
@@ -1671,7 +1671,7 @@ The `map()` function panics if the first record processed has a `null` value.
 
 ### Features
 - Add `influxd inspect verify-wal` tool.
-- Move to [Flux 0.34.2](/{{< latest "flux" >}}/release-notes/#v0342-2019-06-27) -
+- Move to [Flux 0.34.2](/flux/v0/release-notes/#v0342-2019-06-27) -
   includes new string functions and initial multi-datasource support with `sql.from()`.
 - Only click save once to save cell.
 - Enable selecting more columns for line visualizations.

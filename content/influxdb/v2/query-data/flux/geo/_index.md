@@ -18,12 +18,12 @@ list_code_example: |
   ```
 ---
 
-Use the [Flux Geo package](/{{< latest "flux" >}}/stdlib/experimental/geo) to
+Use the [Flux Geo package](/flux/v0/stdlib/experimental/geo) to
 filter geo-temporal data and group by geographic location or track.
 
 {{% warn %}}
 The Geo package is experimental and subject to change at any time.
-By using it, you agree to the [risks of experimental functions](/{{< latest "flux" >}}/stdlib/experimental/to/#experimental-functions-are-subject-to-change).
+By using it, you agree to the [risks of experimental functions](/flux/v0/stdlib/experimental/to/#experimental-functions-are-subject-to-change).
 {{% /warn %}}
 
 **To work with geo-temporal data:**
@@ -50,10 +50,10 @@ Many of the examples in this section use a `sampleGeoData` variable that represe
 a sample set of geo-temporal data.
 The [Bird Migration Sample Data](/influxdb/v2/reference/sample-data/#bird-migration-sample-data)
 provides sample geo-temporal data that meets the
-[requirements of the Flux Geo package](/{{< latest "flux" >}}/stdlib/experimental/geo/#geo-schema-requirements).
+[requirements of the Flux Geo package](/flux/v0/stdlib/experimental/geo/#geo-schema-requirements).
 
 ### Load bird migration sample data
-Use the [`sample.data()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/data/)
+Use the [`sample.data()` function](/flux/v0/stdlib/influxdata/influxdb/sample/data/)
 to load the sample bird migration data:
 
 ```js
@@ -64,6 +64,6 @@ sampleGeoData = sample.data(set: "birdMigration")
 
 {{% note %}}
 `sample.data()` downloads sample data each time you execute the query **(~1.3 MB)**.
-If bandwidth is a concern, use the [`to()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/)
-to write the data to a bucket, and then query the bucket with [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/).
+If bandwidth is a concern, use the [`to()` function](/flux/v0/stdlib/influxdata/influxdb/to/)
+to write the data to a bucket, and then query the bucket with [`from()`](/flux/v0/stdlib/influxdata/influxdb/from/).
 {{% /note %}}

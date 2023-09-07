@@ -85,11 +85,11 @@ A minimal Flux script uses the following functions to retrieve a specified amoun
 of data from a data source
 and then filter the data based on time or column values:
 
-1. [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/):
+1. [`from()`](/flux/v0/stdlib/influxdata/influxdb/from/):
    queries data from InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}}.
-2. [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/): defines the time
+2. [`range()`](/flux/v0/stdlib/universe/range/): defines the time
    range to return data from.
-3. [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/): filters
+3. [`filter()`](/flux/v0/stdlib/universe/filter/): filters
    data based on column values.
 
 The following sample Flux retrieves data from an InfluxDB bucket and then filters by
@@ -101,7 +101,7 @@ from(bucket: "example-bucket")
     |> filter(fn: (r) => r._measurement == "mem" and r.host == "myHost")
 ```
 
-_To retrieve data from other sources, see [Flux input functions](/{{< latest "flux" >}}/function-types/#inputs)._
+_To retrieve data from other sources, see [Flux input functions](/flux/v0/function-types/#inputs)._
 
 {{% note %}}
 
@@ -129,9 +129,9 @@ Scripts process or transform data in some way--for example: downsampling, detect
 anomalies, or sending notifications.
 
 Consider a task that runs hourly and downsamples data by calculating the average of set intervals.
-It uses [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
+It uses [`aggregateWindow()`](/flux/v0/stdlib/universe/aggregatewindow/)
 to group points into 5-minute (`5m`) windows and calculate the average of each
-window with [`mean()`](/{{< latest "flux" >}}/stdlib/universe/mean/).
+window with [`mean()`](/flux/v0/stdlib/universe/mean/).
 
 The following sample code shows the Flux script with task options:
 
@@ -199,7 +199,7 @@ To create a script and a task that use parameters, see how to [create a task to 
 In most cases, you'll want to send and store data after the task has transformed it.
 The destination could be a separate InfluxDB measurement or bucket.
 
-The example below uses [`to()`](/{{< latest "flux" >}}/stdlib/universe/to)
+The example below uses [`to()`](/flux/v0/stdlib/universe/to)
 to write the transformed data back to another InfluxDB bucket:
 
 ```js
@@ -215,7 +215,7 @@ To write data into InfluxDB, `to()` requires the following columns:
 - `_value`
 
 _To write data to other destinations, see
-[Flux output functions](/{{< latest "flux" >}}/function-types/#outputs)._
+[Flux output functions](/flux/v0/function-types/#outputs)._
 
 ## Full example Flux task script
 

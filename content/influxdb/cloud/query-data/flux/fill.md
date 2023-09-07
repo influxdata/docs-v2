@@ -12,7 +12,7 @@ menu:
     name: Fill
 influxdb/cloud/tags: [query, fill]
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/fill/
+  - /flux/v0/stdlib/universe/fill/
 list_query_example: fill_null
 ---
 

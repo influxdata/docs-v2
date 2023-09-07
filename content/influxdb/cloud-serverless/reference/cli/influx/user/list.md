@@ -8,7 +8,7 @@ menu:
 weight: 201
 aliases:
   - /influxdb/cloud/reference/cli/influx/user/find
-canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/list/
+canonical: /influxdb/v2/reference/cli/influx/user/list/
 ---
 
 {{< duplicate-oss >}}

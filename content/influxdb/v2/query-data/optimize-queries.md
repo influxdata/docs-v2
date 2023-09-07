@@ -121,20 +121,20 @@ Reasonable window durations depend on the total time range queried.
 The following functions use more memory or CPU than others.
 Consider their necessity in your data processing before using them:
 
-- [map()](/{{< latest "flux" >}}/stdlib/universe/map/)
-- [reduce()](/{{< latest "flux" >}}/stdlib/universe/reduce/)
-- [join()](/{{< latest "flux" >}}/stdlib/universe/join/)
-- [union()](/{{< latest "flux" >}}/stdlib/universe/union/)
-- [pivot()](/{{< latest "flux" >}}/stdlib/universe/pivot/)
+- [map()](/flux/v0/stdlib/universe/map/)
+- [reduce()](/flux/v0/stdlib/universe/reduce/)
+- [join()](/flux/v0/stdlib/universe/join/)
+- [union()](/flux/v0/stdlib/universe/union/)
+- [pivot()](/flux/v0/stdlib/universe/pivot/)
 
 {{% note %}}
 We're continually optimizing Flux and this list may not represent its current state.
 {{% /note %}}
 
 ## Use set() instead of map() when possible
-[`set()`](/{{< latest "flux" >}}/stdlib/universe/set/),
-[`experimental.set()`](/{{< latest "flux" >}}/stdlib/experimental/set/),
-and [`map`](/{{< latest "flux" >}}/stdlib/universe/map/)
+[`set()`](/flux/v0/stdlib/universe/set/),
+[`experimental.set()`](/flux/v0/stdlib/experimental/set/),
+and [`map`](/flux/v0/stdlib/universe/map/)
 can each set columns value in data, however **set** functions have performance
 advantages over `map()`.
 
@@ -170,7 +170,7 @@ Flux must store these points in memory to generate a response. Use [pushdowns](#
 To query data over large periods of time, create a task to [downsample data](/influxdb/v2/process-data/common-tasks/downsample-data/), and then query the downsampled data instead.
 
 ## Measure query performance with Flux profilers
-Use the [Flux Profiler package](/{{< latest "flux" >}}/stdlib/profiler/)
+Use the [Flux Profiler package](/flux/v0/stdlib/profiler/)
 to measure query performance and append performance metrics to your query output.
 The following Flux profilers are available:
 
@@ -187,4 +187,4 @@ option profiler.enabledProfilers = ["query", "operator"]
 // Query to profile
 ```
 
-For more information about Flux profilers, see the [Flux Profiler package](/{{< latest "flux" >}}/stdlib/profiler/).
+For more information about Flux profilers, see the [Flux Profiler package](/flux/v0/stdlib/profiler/).

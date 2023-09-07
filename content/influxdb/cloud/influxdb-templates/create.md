@@ -27,10 +27,10 @@ Templatable resources are scoped to a single organization, so the simplest way t
 template is to create a new organization, build the template within the organization,
 and then [export all resources](#export-all-resources) as a template.
 
-**[InfluxDB OSS](/{{< latest "influxdb" "v2" >}}/)** supports multiple organizations so you
+**[InfluxDB OSS](/influxdb/v2/)** supports multiple organizations so you
 can create new organizations for the sole purpose of building and maintaining a template.
 In **InfluxDB Cloud**, your user account is an organization.
-**We recommend [using InfluxDB OSS to create InfluxDB templates](/{{< latest "influxdb" "v2" >}}/influxdb-templates/create/).**
+**We recommend [using InfluxDB OSS to create InfluxDB templates](/influxdb/v2/influxdb-templates/create/).**
 {{% /note %}}
 
 ## Export a template

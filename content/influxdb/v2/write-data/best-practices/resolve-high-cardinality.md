@@ -42,9 +42,9 @@ High series cardinality is a primary driver of high memory usage for many databa
 ## Measure series cardinality
 
 Use the following to measure series cardinality of your buckets:
-- [`influxdb.cardinality()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/cardinality): Flux function that returns the number of unique [series keys](/influxdb/v2/reference/glossary/#series) in your data.
+- [`influxdb.cardinality()`](/flux/v0/stdlib/influxdata/influxdb/cardinality): Flux function that returns the number of unique [series keys](/influxdb/v2/reference/glossary/#series) in your data.
 
-- [`SHOW SERIES CARDINALITY`](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-series-cardinality): InfluxQL command that returns the number of unique [series keys](/influxdb/v2/reference/glossary/#series) in your data.
+- [`SHOW SERIES CARDINALITY`](/influxdb/v1/query_language/spec/#show-series-cardinality): InfluxQL command that returns the number of unique [series keys](/influxdb/v2/reference/glossary/#series) in your data.
 
 ## Resolve high cardinality
 

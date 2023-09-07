@@ -82,7 +82,7 @@ Data nodes hold the actual time series data. The minimum number of data nodes to
 
 ## Chronograf
 
-[Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/) is the user interface component of InfluxData’s TICK stack.
+[Chronograf](/chronograf/v1/introduction/getting-started/) is the user interface component of InfluxData’s TICK stack.
 It makes owning the monitoring and alerting for your infrastructure easy to setup and maintain.
 It talks directly to the data and meta nodes over their HTTP protocols, which are bound by default to ports `8086` for data nodes and port `8091` for meta nodes.
 

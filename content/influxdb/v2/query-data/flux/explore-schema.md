@@ -11,14 +11,14 @@ menu:
     parent: Query with Flux
 weight: 206
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/buckets/
-  - /{{< latest "flux" >}}/stdlib/schema/measurements
-  - /{{< latest "flux" >}}/stdlib/schema/fieldkeys
-  - /{{< latest "flux" >}}/stdlib/schema/measurementfieldkeys
-  - /{{< latest "flux" >}}/stdlib/schema/tagkeys
-  - /{{< latest "flux" >}}/stdlib/schema/measurementtagkeys
-  - /{{< latest "flux" >}}/stdlib/schema/tagvalues
-  - /{{< latest "flux" >}}/stdlib/schema/measurementtagvalues
+  - /flux/v0/stdlib/universe/buckets/
+  - /flux/v0/stdlib/schema/measurements
+  - /flux/v0/stdlib/schema/fieldkeys
+  - /flux/v0/stdlib/schema/measurementfieldkeys
+  - /flux/v0/stdlib/schema/tagkeys
+  - /flux/v0/stdlib/schema/measurementtagkeys
+  - /flux/v0/stdlib/schema/tagvalues
+  - /flux/v0/stdlib/schema/measurementtagvalues
 list_code_example: |
   ```js
   import "influxdata/influxdb/schema"
@@ -54,7 +54,7 @@ Functions in the `schema` package are not supported in the [Flux REPL](/influxdb
 {{% /warn %}}
 
 ## List buckets
-Use [`buckets()`](/{{< latest "flux" >}}/stdlib/universe/buckets/)
+Use [`buckets()`](/flux/v0/stdlib/universe/buckets/)
 to list **buckets in your organization**.
 
 ```js
@@ -84,7 +84,7 @@ buckets()
 {{< /expand-wrapper >}}
 
 ## List measurements
-Use [`schema.measurements()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurements)
+Use [`schema.measurements()`](/flux/v0/stdlib/influxdata/influxdb/schema/measurements)
 to list **measurements in a bucket**.
 _By default, this function returns results from the last 30 days._
 
@@ -112,7 +112,7 @@ Each row contains the name of a measurement.
 {{< /expand-wrapper >}}
 
 ## List field keys
-Use [`schema.fieldKeys`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/fieldkeys)
+Use [`schema.fieldKeys`](/flux/v0/stdlib/influxdata/influxdb/schema/fieldkeys)
 to list **field keys in a bucket**.
 _By default, this function returns results from the last 30 days._
 
@@ -140,7 +140,7 @@ Each row contains a unique field key from the specified bucket.
 {{< /expand-wrapper >}}
 
 ### List fields in a measurement
-Use [`schema.measurementFieldKeys`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementfieldkeys)
+Use [`schema.measurementFieldKeys`](/flux/v0/stdlib/influxdata/influxdb/schema/measurementfieldkeys)
 to list **field keys in a measurement**.
 _By default, this function returns results from the last 30 days._
 
@@ -171,7 +171,7 @@ Each row contains the name of a unique field key in the specified bucket and mea
 {{< /expand-wrapper >}}
 
 ## List tag keys
-Use [`schema.tagKeys()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/tagkeys)
+Use [`schema.tagKeys()`](/flux/v0/stdlib/influxdata/influxdb/schema/tagkeys)
 to list **tag keys in a bucket**.
 _By default, this function returns results from the last 30 days._
 
@@ -199,7 +199,7 @@ Each row contains the a unique tag key from the specified bucket.
 {{< /expand-wrapper >}}
 
 ### List tag keys in a measurement
-Use [`schema.measurementTagKeys`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementtagkeys)
+Use [`schema.measurementTagKeys`](/flux/v0/stdlib/influxdata/influxdb/schema/measurementtagkeys)
 to list **tag keys in a measurement**.
 _By default, this function returns results from the last 30 days._
 
@@ -230,7 +230,7 @@ Each row contains a unique tag key from the specified bucket and measurement.
 {{< /expand-wrapper >}}
 
 ## List tag values
-Use [`schema.tagValues()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/tagvalues)
+Use [`schema.tagValues()`](/flux/v0/stdlib/influxdata/influxdb/schema/tagvalues)
 to list **tag values for a given tag in a bucket**.
 _By default, this function returns results from the last 30 days._
 
@@ -258,7 +258,7 @@ Each row contains a unique tag value from the specified bucket and tag key.
 {{< /expand-wrapper >}}
 
 ### List tag values in a measurement
-Use [`schema.measurementTagValues`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementtagvalues)
+Use [`schema.measurementTagValues`](/flux/v0/stdlib/influxdata/influxdb/schema/measurementtagvalues)
 to list **tag values for a given tag in a measurement**.
 _By default, this function returns results from the last 30 days._
 

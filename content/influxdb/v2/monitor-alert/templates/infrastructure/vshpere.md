@@ -10,7 +10,7 @@ weight: 206
 ---
 
 Use the [vSphere Dashboard for InfluxDB v2 template](https://github.com/influxdata/community-templates/tree/master/vsphere) to monitor your vSphere host. First, [apply the template](#apply-the-template), and then [view incoming data](#view-incoming-data).
-This template uses the [Docker input plugin](/{{< latest "telegraf" >}}/plugins//#docker) to collect metrics stored in InfluxDB and display these metrics in a dashboard.
+This template uses the [Docker input plugin](/telegraf/v1/plugins//#docker) to collect metrics stored in InfluxDB and display these metrics in a dashboard.
 
 The Docker Monitoring template includes the following:
 
@@ -33,7 +33,7 @@ The Docker Monitoring template includes the following:
 Ensure your `influx` CLI is configured with your account credentials and that configuration is active. For more information, see [influx config](/influxdb/v2/reference/cli/influx/config/).
     {{% /note %}}
 
-2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both the vSphere host and [InfluxDB v2 API](/influxdb/v2/reference/api/).
+2. [Install Telegraf](/telegraf/v1/introduction/installation/) on a server with network access to both the vSphere host and [InfluxDB v2 API](/influxdb/v2/reference/api/).
 3. In your [Telegraf configuration file (`telegraf.conf`)](/influxdb/v2/telegraf-configs/), do the following:
     - Set the following environment variables:
       - INFLUX_TOKEN: Token must have permissions to read Telegraf configurations and write data to the `telegraf` bucket. See how to [view tokens](/influxdb/v2/security/tokens/view-tokens/).

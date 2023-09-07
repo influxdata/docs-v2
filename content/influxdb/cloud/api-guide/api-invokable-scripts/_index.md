@@ -39,7 +39,7 @@ Provide the following in your API request:
 #### Request body
 JSON object with the following fields:
 
-- **script** : [Flux](/{{% latest "flux" %}}) script as a string.
+- **script** : [Flux](/flux/v0) script as a string.
 - **language** : language of your script ("flux")
 - **name** : script name, unique within your organization
 - **description** : script description

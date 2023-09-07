@@ -36,7 +36,7 @@ Related entries: [input plugin](#input-plugin), [output plugin](#output-plugin),
 ### aggregate
 
 A function that returns an aggregated value across a set of points.
-For a list of available aggregation functions, see [Flux aggregate functions](/{{< latest "flux" >}}/function-types#aggregates).
+For a list of available aggregation functions, see [Flux aggregate functions](/flux/v0/function-types#aggregates).
 
 Related entries: [function](#function), [selector](#selector), [transformation](#transformation)
 
@@ -403,7 +403,7 @@ A lightweight scripting language for querying databases (like InfluxDB) and work
 ### function
 
 Flux functions aggregate, select, and transform time series data.
-For a complete list of Flux functions, see [Flux functions](/{{< latest "flux" >}}/stdlib/all-functions/).
+For a complete list of Flux functions, see [Flux functions](/flux/v0/stdlib/all-functions/).
 
 Related entries: [aggregate](#aggregate), [selector](#selector), [transformation](#transformation)
 
@@ -453,7 +453,7 @@ A visual representation of statistical information that uses rectangles to show 
 
 Identifiers are tokens that refer to task names, bucket names, field keys,
 measurement names, tag keys, and user names.
-For examples and rules, see [Flux language lexical elements](/{{< latest "flux" >}}/spec/lexical-elements/#identifiers).
+For examples and rules, see [Flux language lexical elements](/flux/v0/spec/lexical-elements/#identifiers).
 
 Related entries:
 [bucket](#bucket)
@@ -553,7 +553,7 @@ JavaScript Object Notation (JSON) is an open-standard file format that uses huma
 A keyword is reserved by a program because it has special meaning.
 Every programming language has a set of keywords (reserved names) that cannot be used as an identifier.
 
-See a list of [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords).
+See a list of [Flux keywords](/flux/v0/spec/lexical-elements/#keywords).
 
 ## L
 
@@ -562,7 +562,7 @@ See a list of [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keyw
 A literal is value in an expression, a number, character, string, function, record, or array.
 Literal values are interpreted as defined.
 
-See examples of [Flux literals](/{{< latest "flux" >}}/spec/expressions/#examples-of-function-literals).
+See examples of [Flux literals](/flux/v0/spec/expressions/#examples-of-function-literals).
 
 <!-- enterprise
 ### load balancing
@@ -644,7 +644,7 @@ Related entries: [output plugin](#output-plugin)
 Denoted by a null value.
 Identifies missing information, which may be useful to include in an error message.
 
-The Flux data model includes [Missing values (null)](/{{< latest "flux" >}}/spec/data-model/#missing-values-null).
+The Flux data model includes [Missing values (null)](/flux/v0/spec/data-model/#missing-values-null).
 
 ## N
 
@@ -698,13 +698,13 @@ The object or value on either side of an operator.
 Represents a storage location for any value of a specified type.
 Mutable, can hold different values during its lifetime.
 
-See built-in Flux [options](/{{< latest "flux" >}}/spec/options/).
+See built-in Flux [options](/flux/v0/spec/options/).
 
 ### option assignment
 
 An option assignment binds an identifier to an option.
 
-Learn about the [option assignment](/{{< latest "flux" >}}/spec/assignment-scope/#option-assignment) in Flux.
+Learn about the [option assignment](/flux/v0/spec/assignment-scope/#option-assignment) in Flux.
 
 ### organization
 
@@ -867,7 +867,7 @@ Retention policy is an InfluxDB 1.x concept that represents the duration of time
 that each data point in the retention policy persists.
 The InfluxDB 2.x equivalent is [retention period](#retention-period).
 For more information about retention policies, see the
-[latest 1.x documentation](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
+[latest 1.x documentation](/influxdb/v1/concepts/glossary/#retention-policy-rp).
 
 Related entries:  [retention period](#retention-period),
 
@@ -906,7 +906,7 @@ Secrets are key-value pairs that contain information you want to control access 
 ### selector
 
 A Flux function that returns a single point from the range of specified points.
-See [Flux selector functions](/{{< latest "flux" >}}/stdlib/universe/) for a complete list of available selector functions.
+See [Flux selector functions](/flux/v0/stdlib/universe/) for a complete list of available selector functions.
 
 Related entries: [aggregate](#aggregate), [function](#function), [transformation](#transformation)
 
@@ -954,8 +954,8 @@ The series cardinality would remain unchanged at 6, as `firstname` is already sc
 | cliff@influxdata.com | finish | clifford  |
 
 ##### Query for cardinality:
-- **Flux:** [influxdb.cardinality()](/{{< latest "flux" >}}/stdlib/influxdb/cardinality/)
-- **InfluxQL:** [SHOW CARDINALITY](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-cardinality)
+- **Flux:** [influxdb.cardinality()](/flux/v0/stdlib/influxdb/cardinality/)
+- **InfluxQL:** [SHOW CARDINALITY](/influxdb/v1/query_language/spec/#show-cardinality)
 
 Related entries: [field key](#field-key),[measurement](#measurement), [tag key](#tag-key), [tag set](#tag-set)
 
@@ -1024,7 +1024,7 @@ For more information, see:
 - [Shards and shard groups (OSS)](/influxdb/%762.1/reference/internals/shards/)
 - [Manage buckets](/influxdb/v2/organizations/buckets/)
 
-<!-- See [Retention Policy management](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#retention-policy-management) for more information.
+<!-- See [Retention Policy management](/influxdb/v1/query_language/manage-database/#retention-policy-management) for more information.
 
 For example, given a retention policy with `SHARD DURATION` set to `1w`, each shard group will span a single week and contain all points with timestamps in that week.
 
@@ -1131,7 +1131,7 @@ A new feature released to gather feedback from customers and the InfluxDB commun
 
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
-Related entries: [Automatically configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/auto-config/), [Manually configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/manual-config/), [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//), [Use Telegraf to collect data](/influxdb/v2/write-data/no-code/use-telegraf/), [View a Telegraf configuration](/influxdb/v2/telegraf-configs/view/)
+Related entries: [Automatically configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/auto-config/), [Manually configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/manual-config/), [Telegraf plugins](/telegraf/v1/plugins//), [Use Telegraf to collect data](/influxdb/v2/write-data/no-code/use-telegraf/), [View a Telegraf configuration](/influxdb/v2/telegraf-configs/view/)
 
 ### time (data type)
 
@@ -1186,7 +1186,7 @@ see [InfluxDB OSS configuration options](/influxdb/v2%2E0/reference/config-optio
 ### transformation
 
 An InfluxQL function that returns a value or a set of values calculated from specified points, but does not return an aggregated value across those points.
-See [InfluxQL functions](/{{< latest "influxdb" "v1" >}}/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
+See [InfluxQL functions](/influxdb/v1/query_language/functions/#transformations) for a complete list of the available and upcoming aggregations.
 
 Related entries: [aggregate](#aggregate), [function](#function), [selector](#selector)
 
@@ -1201,7 +1201,7 @@ The Time Series Logs (TSL) extension (`.tsl`) identifies Time Series Index (TSI)
 ### TSM (Time Structured Merge tree)
 
 A data storage format that allows greater compaction and higher write and read throughput than B+ or LSM tree implementations.
-For more information, see [Storage engine](/{{< latest "influxdb" "v1" >}}/concepts/storage_engine/).
+For more information, see [Storage engine](/influxdb/v1/concepts/storage_engine/).
 
 Related entries: [TSI](#tsi-time-series-index)
 

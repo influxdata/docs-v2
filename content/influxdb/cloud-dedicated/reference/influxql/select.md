@@ -146,7 +146,7 @@ SELECT mean(temp), hum FROM home
 ```
 
 This query returns an error.
-For more information, see [error about mixing aggregate and non-aggregate queries](/{{< latest "enterprise_influxdb" >}}/troubleshooting/errors/#error-parsing-query-mixing-aggregate-and-non-aggregate-queries-is-not-supported).
+For more information, see [error about mixing aggregate and non-aggregate queries](/enterprise_influxdb/v1/troubleshooting/errors/#error-parsing-query-mixing-aggregate-and-non-aggregate-queries-is-not-supported).
 
 ## Data types and casting operations
 

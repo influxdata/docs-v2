@@ -10,7 +10,7 @@ menu:
     parent: work-w-kapacitor
 related: 
   - /influxdb/cloud/tools/kapacitor/
-  - /{{< latest "influxdb" >}}/tools/kapacitor/
+  - /influxdb/v2/tools/kapacitor/
   - /kapacitor/v1/working/flux/manage/create/
   - /influxdb/cloud/process-data/get-started/, Get started with Flux tasks
   - /influxdb/cloud/process-data/common-tasks/
@@ -125,16 +125,16 @@ see [Configure Kapacitor](/kapacitor/v1/administration/configuration/#flux-tasks
 1.  Create a Flux task script. Include [the task option](/influxdb/v2/process-data/task-options/)
     in your script to configure the Kapacitor Flux task. _For more information about writing Flux tasks, see:_
      
-    - [Get started with Flux tasks](/{{< latest "influxdb" >}}/process-data/get-started/)
-    - [Common data processing tasks](/{{< latest "influxdb" >}}/process-data/common-tasks/)
+    - [Get started with Flux tasks](/influxdb/v2/process-data/get-started/)
+    - [Common data processing tasks](/influxdb/v2/process-data/common-tasks/)
 
     #### Provide InfluxDB connection credentials
-    [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/) and
-    [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) functions
+    [`from()`](/flux/v0/stdlib/influxdata/influxdb/from/) and
+    [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) functions
     require your InfluxDB **host** and **token**.
 
     - **host:** InfluxDB URL.
-    - **token:** If **[InfluxDB authentication is enabled](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization)**,
+    - **token:** If **[InfluxDB authentication is enabled](/influxdb/v1/administration/authentication_and_authorization)**,
       use the `username:password` syntax.
       Otherwise, use an empty string (`""`) for your token.
 
@@ -187,7 +187,7 @@ Configure Kapacitor to connect to InfluxDB Cloud or InfluxDB OSS 2.x.
 For detailed instructions, see the following:
 
 - [Use Kapacitor with InfluxDB Cloud](/influxdb/cloud/tools/kapacitor/)
-- [Use Kapacitor with InfluxDB 2.x OSS](/{{< latest "influxdb" >}}/tools/kapacitor/)
+- [Use Kapacitor with InfluxDB 2.x OSS](/influxdb/v2/tools/kapacitor/)
 
 ## Configure Kapacitor Flux tasks for InfluxDB Cloud or 2.x
 Update or add the following settings under `[fluxtask]` your `kapacitor.conf`:
@@ -221,16 +221,16 @@ Update or add the following settings under `[fluxtask]` your `kapacitor.conf`:
 1.  Create a Flux task script. Include [the task option](/influxdb/v2/process-data/task-options/)
     in your script to configure the Kapacitor Flux task. _For more information about writing Flux tasks, see:_
      
-    - [Get started with Flux tasks](/{{< latest "influxdb" >}}/process-data/get-started/)
-    - [Common data processing tasks](/{{< latest "influxdb" >}}/process-data/common-tasks/)
+    - [Get started with Flux tasks](/influxdb/v2/process-data/get-started/)
+    - [Common data processing tasks](/influxdb/v2/process-data/common-tasks/)
 
     #### Provide InfluxDB connection credentials
-    `from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/) and
-    [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) functions
+    `from()`](/flux/v0/stdlib/influxdata/influxdb/from/) and
+    [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) functions
     require your InfluxDB **host** and **token**.
 
     - **host:** InfluxDB URL.
-    - **token:** If **[InfluxDB authentication is enabled](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization)**,
+    - **token:** If **[InfluxDB authentication is enabled](/influxdb/v1/administration/authentication_and_authorization)**,
       use the `username:password` syntax.
       Otherwise, use an empty string (`""`) for your token.
 

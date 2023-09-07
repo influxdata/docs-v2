@@ -320,7 +320,7 @@ The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files 
 `C:\Program Files\InfluxData\telegraf` or that you created a Symlink to point to this directory.
     {{% /note %}}
 
-3.  Optional: Disable the [`inputs.processes` plugin](/{{% latest "telegraf" %}}/plugins/#input-processes).
+3.  Optional: Disable the [`inputs.processes` plugin](/telegraf/v1/plugins/#input-processes).
     This plugin doesn't support Windows and returns an error when run with the `--test` flag.
     Open `telegraf.conf` in your editor and comment the `inputs.processes` configuration lines.
 
@@ -333,7 +333,7 @@ The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files 
     ...
     ```
 
-4.  Optional: Enable a plugin to collect Windows-specific metrics--for example, uncomment the [`inputs.win_services`  plugin](/{{% latest "telegraf" %}}/plugins/#input-win_services) configuration line:
+4.  Optional: Enable a plugin to collect Windows-specific metrics--for example, uncomment the [`inputs.win_services`  plugin](/telegraf/v1/plugins/#input-win_services) configuration line:
 
     ```toml
     ...

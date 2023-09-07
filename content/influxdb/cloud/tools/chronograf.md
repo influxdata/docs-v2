@@ -11,7 +11,7 @@ menu:
     parent: Tools & integrations
 weight: 103
 related:
-  - /{{< latest "chronograf" >}}/
+  - /chronograf/v1/
 ---
 
 {{< duplicate-oss >}}

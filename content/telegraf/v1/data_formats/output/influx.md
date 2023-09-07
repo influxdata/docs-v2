@@ -41,4 +41,4 @@ InfluxData recommends this data format unless another format is required for int
   influx_uint_support = false
 ```
 
-[line protocol]: /{{< latest "influxdb" "v1" >}}/write_protocols/line_protocol_tutorial/
+[line protocol]: /influxdb/v1/write_protocols/line_protocol_tutorial/

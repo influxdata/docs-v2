@@ -18,9 +18,9 @@ This example calculates a temperature weekly mean and stores it in a separate bu
 
 The sample query performs the following operations:
 
-- Uses [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to select records with the `average_temperature` measurement.
-- Uses [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/) to define the start time.
-- Uses [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/) to group records by week and compute the mean.
+- Uses [`filter()`](/flux/v0/stdlib/universe/filter/) to select records with the `average_temperature` measurement.
+- Uses [`range()`](/flux/v0/stdlib/universe/range/) to define the start time.
+- Uses [`aggregateWindow()`](/flux/v0/stdlib/universe/aggregatewindow/) to group records by week and compute the mean.
 - Sends the weekly mean to a new bucket (`weekly_means`).
 
 ```js

@@ -34,7 +34,7 @@ This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
 - [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/primers/api/v1/#query-using-the-v1-api)
-- [Chronograf](/{{< latest "Chronograf" >}}/)
+- [Chronograf](/chronograf/v1/)
 
 {{% /note %}}
 

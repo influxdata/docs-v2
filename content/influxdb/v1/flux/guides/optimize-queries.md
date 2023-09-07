@@ -24,9 +24,9 @@ These are known as "pushdown" functions and using them correctly can greatly
 reduce the amount of memory necessary to run a query.
 
 #### Pushdown functions
-- [range()](/{{< latest "flux" >}}/stdlib/universe/range/)
-- [filter()](/{{< latest "flux" >}}/stdlib/universe/filter/)
-- [group()](/{{< latest "flux" >}}/stdlib/universe/group/)
+- [range()](/flux/v0/stdlib/universe/range/)
+- [filter()](/flux/v0/stdlib/universe/filter/)
+- [group()](/flux/v0/stdlib/universe/group/)
 
 Use pushdown functions at the beginning of your query.
 Once a non-pushdown function runs, Flux pulls data into memory and runs all
@@ -54,12 +54,12 @@ Reasonable window durations depend on the total time range queried.
 The following functions use more memory or CPU than others.
 Consider their necessity in your data processing before using them:
 
-- [map()](/{{< latest "flux" >}}/stdlib/universe/map/)
-- [reduce()](/{{< latest "flux" >}}/stdlib/universe/reduce/)
-- [window()](/{{< latest "flux" >}}/stdlib/universe/window/)
-- [join()](/{{< latest "flux" >}}/stdlib/universe/join/)
-- [union()](/{{< latest "flux" >}}/stdlib/universe/union/)
-- [pivot()](/{{< latest "flux" >}}/stdlib/universe/pivot/)
+- [map()](/flux/v0/stdlib/universe/map/)
+- [reduce()](/flux/v0/stdlib/universe/reduce/)
+- [window()](/flux/v0/stdlib/universe/window/)
+- [join()](/flux/v0/stdlib/universe/join/)
+- [union()](/flux/v0/stdlib/universe/union/)
+- [pivot()](/flux/v0/stdlib/universe/pivot/)
 
 {{% note %}}
 We're continually optimizing Flux and this list may not represent its current state.

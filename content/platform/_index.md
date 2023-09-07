@@ -51,9 +51,9 @@ The **InfluxData 1.x platform** includes the following open source components ([
 ### Telegraf
 
 Telegraf is a data collection agent that captures data from a growing list of sources
-and translates it into [InfluxDB line protocol format](/{{< latest "influxdb" "v1" >}}/write_protocols/line_protocol_reference/)
+and translates it into [InfluxDB line protocol format](/influxdb/v1/write_protocols/line_protocol_reference/)
 for storage in InfluxDB. Telegraf's extensible architecture makes it easy to
-create [plugins](/{{< latest "telegraf" >}}/plugins/) that both pull data (input plugins) and push data (output plugins)
+create [plugins](/telegraf/v1/plugins/) that both pull data (input plugins) and push data (output plugins)
 to and from different sources and endpoints.
 
 ### InfluxDB
@@ -97,13 +97,13 @@ InfluxDB Enterprise provides functionality necessary to run a high-availability 
 #### Hinted handoff
 
 Data is written across nodes using an eventually consistent write model.
-All writes are added to the [Hinted Handoff Queue (HHQ)](/{{< latest "enterprise_influxdb" >}}/concepts/clustering/#hinted-handoff),
+All writes are added to the [Hinted Handoff Queue (HHQ)](/enterprise_influxdb/v1/concepts/clustering/#hinted-handoff),
 then written to other nodes in the cluster.
 
 #### Anti-Entropy
 
 InfluxDB Enterprise's
-[Anti-Entropy (AE)](/{{< latest "enterprise_influxdb" >}}/administration/anti-entropy/)
+[Anti-Entropy (AE)](/enterprise_influxdb/v1/administration/anti-entropy/)
 process ensures data shards in the cluster are in sync. When "entropy" (out-of-sync
 data) is detected, AE will repair the affected shards, syncing the missing data.
 

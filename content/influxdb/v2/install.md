@@ -689,7 +689,7 @@ Use the [InfluxDB Raspberry Pi template](/influxdb/cloud/monitor-alert/templates
 to easily configure collecting and visualizing system metrics for the Raspberry Pi.
 
 #### Monitor 32-bit Raspberry Pi systems
-If you have a 32-bit Raspberry Pi, [use Telegraf](/{{< latest "telegraf" >}}/)
+If you have a 32-bit Raspberry Pi, [use Telegraf](/telegraf/v1/)
 to collect and send data to:
 
 - [InfluxDB OSS](/influxdb/v2/), running on a 64-bit system

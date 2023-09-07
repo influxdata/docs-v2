@@ -71,7 +71,7 @@ sudo yum localinstall chronograf-{{< latest-patch >}}.x86_64.rpm
     - **Connection String**: InfluxDB hostname or IP, and port (default port is `8086`).
     - **Connection Name**: Connection name.
     - **Username** and **Password**: If you've enabled
-      [InfluxDB authentication](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization),
+      [InfluxDB authentication](/influxdb/v1/administration/authentication_and_authorization),
       provide your InfluxDB username and password. Otherwise, leave blank.
 
       {{% note %}}

@@ -7,7 +7,7 @@ menu:
     name: Monitor states
     parent: Query with Flux
 weight: 20
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/monitor-states/
+canonical: /influxdb/v2/query-data/flux/monitor-states/
 v2: /influxdb/v2/query-data/flux/monitor-states/
 ---
 
@@ -24,7 +24,7 @@ If you're just getting started with Flux queries, check out the following:
 
 ## Find how long a state persists
 
-1. Use the [`stateDuration()`](/{{< latest "flux" >}}/stdlib/universe/stateduration/) function to calculate how long a column value has remained the same value (or state). Include the following information:
+1. Use the [`stateDuration()`](/flux/v0/stdlib/universe/stateduration/) function to calculate how long a column value has remained the same value (or state). Include the following information:
 
     - **Column to search:** any tag key, tag value, field key, field value, or measurement.
     - **Value:** the value (or state) to search for in the specified column.

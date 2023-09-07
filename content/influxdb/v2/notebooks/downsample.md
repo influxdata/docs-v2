@@ -43,20 +43,20 @@ and then writes the downsampled data to an InfluxDB bucket.
     
     1.  Use `__PREVIOUS_RESULT__` to load the output of the previous notebook
         cell into the Flux script.
-    2.  Use [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
+    2.  Use [`aggregateWindow()`](/flux/v0/stdlib/universe/aggregatewindow/)
         to window data into ten minute intervals and return the average of each interval.
         Specify the following parameters:
 
         - **every**: Window interval _(should be less than or equal to the duration of the queried time range)_.
           For this example, use `10m`.
-        - **fn**: [Aggregate](/{{< latest "flux" >}}/function-types/#aggregates)
-          or [selector](/{{< latest "flux" >}}/function-types/#selectors) function
+        - **fn**: [Aggregate](/flux/v0/function-types/#aggregates)
+          or [selector](/flux/v0/function-types/#selectors) function
           to apply to each window.
           For this example, use `mean`.
 
     3.  {{% cloud-only %}}
         
-        Use [`to()`](/{{< latest "flux">}}/stdlib/influxdata/influxdb/to/)
+        Use [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/)
         to write the downsampled data back to an InfluxDB bucket.
 
         {{% /cloud-only %}}

@@ -17,7 +17,7 @@ The following scenarios illustrate common queries used to extract information fr
 - [Calculate value between events](#calculate-value-between-events)
 - [Determine a state within existing values](#determine-a-state-within-existing-values)
 
-All scenarios below use the `machineProduction` sample dataset provided by the [InfluxDB `sample` package](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/).
+All scenarios below use the `machineProduction` sample dataset provided by the [InfluxDB `sample` package](/flux/v0/stdlib/influxdata/influxdb/sample/).
 For more information, see [Sample data](/influxdb/cloud/reference/sample-data/).
 
 ## Calculate time in state
@@ -28,7 +28,7 @@ To visualize the time in state, see the [Mosaic visualization](#mosaic-visualiza
 
 **To calculate the percentage of time a machine spends in each state**
 
-1. Import the [`contrib/tomhollingworth/events` package](/{{< latest "flux" >}}/stdlib/contrib/tomhollingworth/events/).
+1. Import the [`contrib/tomhollingworth/events` package](/flux/v0/stdlib/contrib/tomhollingworth/events/).
 1. Query the `state` field.
 2. Use `events.duration()` to return the amount of time (in a specified unit) between each data point, and store the interval in the `duration` column.
 3. Group columns by the status value column (in this case `_value`), `_start`, `_stop`, and other relevant dimensions.
@@ -114,7 +114,7 @@ Set `createEmpty` to `false` so results  won't include empty time windows.
 
 ## Calculate time weighted average
 
-To calculate the time-weighted average of data points, use the [`timeWeightedAvg()` function](/{{< latest "flux" >}}/stdlib/universe/timeweightedavg/).
+To calculate the time-weighted average of data points, use the [`timeWeightedAvg()` function](/flux/v0/stdlib/universe/timeweightedavg/).
 
 The example below queries the `oil_temp` field in the `machinery` measurement. The `timeWeightedAvg()` function returns the time-weighted average of oil temperatures based on 5 second intervals.
 

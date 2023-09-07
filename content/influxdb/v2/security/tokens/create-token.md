@@ -178,7 +178,7 @@ influx auth create       \
   --write-users
 ```
 
-See the [`influx auth create` documentation](/{{< latest "influxdb" >}}/reference/cli/influx/auth/create) for information about other available flags.
+See the [`influx auth create` documentation](/influxdb/v2/reference/cli/influx/auth/create) for information about other available flags.
 
 ## Create a token using the InfluxDB API
 

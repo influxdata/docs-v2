@@ -86,7 +86,7 @@ functionName = (tables=<-) => tables |> functionOperations
 ###### Multiply row values by x
 The example below defines a `multByX` function that multiplies the `_value` column
 of each row in the input table by the `x` parameter.
-It uses the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map)
+It uses the [`map()` function](/flux/v0/stdlib/universe/map)
 to modify each `_value`.
 
 ```js
@@ -116,9 +116,9 @@ Defaults are overridden by explicitly defining the parameter in the function cal
 #### Get a list of leaders
 The example below defines a `leaderBoard` function that returns a limited number
 of records sorted by values in specified columns.
-It uses the [`sort()` function](/{{< latest "flux" >}}/stdlib/universe/sort)
+It uses the [`sort()` function](/flux/v0/stdlib/universe/sort)
 to sort records in either descending or ascending order.
-It then uses the [`limit()` function](/{{< latest "flux" >}}/stdlib/universe/limit)
+It then uses the [`limit()` function](/flux/v0/stdlib/universe/limit)
 to return a specified number of records from the sorted table.
 
 ```js
@@ -183,7 +183,7 @@ alertLevel(v: 87.3)
 
 #### Convert a HEX color code to a name
 The following function converts a hexadecimal (HEX) color code to the equivalent HTML color name.
-The functions uses the [Flux dictionary package](/{{< latest "flux" >}}/stdlib/dict/)
+The functions uses the [Flux dictionary package](/flux/v0/stdlib/dict/)
 to create a dictionary of HEX codes and their corresponding names.
 
 ```js

@@ -12,9 +12,9 @@ menu:
     name: Get started with Flux
     parent: Query data
 related:
-  - /{{< latest "flux" >}}/get-started/
-  - /{{< latest "flux" >}}/
-  - /{{< latest "flux" >}}/stdlib/
+  - /flux/v0/get-started/
+  - /flux/v0/
+  - /flux/v0/stdlib/
 ---
 
 Flux is InfluxData's functional data scripting language designed for querying,
@@ -29,7 +29,7 @@ the different tools available for querying InfluxDB with Flux.
 
 ## Before you start
 To get a basic understanding of the Flux data model and syntax, see
-[Get started with Flux](/{{< latest "flux" >}}/get-started/) in the
-[Flux documentation](/{{< latest "flux" >}}/).
+[Get started with Flux](/flux/v0/get-started/) in the
+[Flux documentation](/flux/v0/).
 
 {{< page-nav next="/influxdb/v2/query-data/get-started/query-influxdb/" >}}

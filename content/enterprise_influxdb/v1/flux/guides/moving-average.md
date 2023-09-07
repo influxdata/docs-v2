@@ -10,12 +10,12 @@ menu:
     parent: Query with Flux
     name: Moving Average
 list_query_example: moving_average
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/moving-average/
+canonical: /influxdb/v2/query-data/flux/moving-average/
 v2: /influxdb/v2/query-data/flux/moving-average/
 ---
 
-Use the [`movingAverage()`](/{{< latest "flux" >}}/stdlib/universe/movingaverage/)
-or [`timedMovingAverage()`](/{{< latest "flux" >}}/stdlib/universe/timedmovingaverage/)
+Use the [`movingAverage()`](/flux/v0/stdlib/universe/movingaverage/)
+or [`timedMovingAverage()`](/flux/v0/stdlib/universe/timedmovingaverage/)
 functions to return the moving average of data.
 
 ```js

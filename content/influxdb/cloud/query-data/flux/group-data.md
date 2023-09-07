@@ -11,8 +11,8 @@ menu:
     parent: Query with Flux
 weight: 202
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/group
-  - /{{< latest "flux" >}}/stdlib/experimental/group
+  - /flux/v0/stdlib/universe/group
+  - /flux/v0/stdlib/experimental/group
 list_query_example: group
 ---
 

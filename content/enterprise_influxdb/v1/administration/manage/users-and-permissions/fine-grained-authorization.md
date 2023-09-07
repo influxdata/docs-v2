@@ -11,7 +11,7 @@ aliases:
   - /enterprise_influxdb/v1/guides/fine-grained-authorization/
 related:
   - /enterprise_influxdb/v1/administration/authentication_and_authorization/
-  - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
+  - /chronograf/v1/administration/managing-influxdb-users/
 ---
 
 {{% enterprise-warning-authn-b4-authz %}}
@@ -195,7 +195,7 @@ curl -s --location-trusted -XPOST "http://localhost:8091/role" \
 ### Remove role permissions
 To remove permissions from a role, use the InfluxDB Meta API `/role` endpoint with the `action` field
 set to `remove-permissions`.
-Specify the [permissions](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/#permissions) to remove from each database.
+Specify the [permissions](/chronograf/v1/administration/managing-influxdb-users/#permissions) to remove from each database.
 
 The following example removes read and write permissions from `db1` for the `east` role.
 

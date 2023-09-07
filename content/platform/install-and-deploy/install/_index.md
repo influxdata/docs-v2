@@ -18,8 +18,8 @@ To get install and configure the **InfluxData 1.x** platform, use one of the fol
 
   - [Install the open source version of InfluxData 1.x platform](/platform/install-and-deploy/install/oss-install)
   - Install InfluxData 1.x Enterprise:
-      1. [Install Telegraf](/{{< latest "telegraf" >}}/install/)
-      2. [Install InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/install-and-deploy/)
+      1. [Install Telegraf](/telegraf/v1/install/)
+      2. [Install InfluxDB Enterprise](/enterprise_influxdb/v1/install-and-deploy/)
 
 {{% note %}}
 Windows support is experimental.

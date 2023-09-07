@@ -33,8 +33,8 @@ The following examples find and count unique locations where data was collected.
 
 This query:
 
-  - Uses [`group()`](/{{< latest "flux" >}}/stdlib/universe/group/) to ungroup data and return results in a single table.
-  - Uses [`keep()`](/{{< latest "flux" >}}/stdlib/universe/keep/) and [`unique()`](/{{< latest "flux" >}}/stdlib/universe/selectors/unique/) to return unique values in the specified column.
+  - Uses [`group()`](/flux/v0/stdlib/universe/group/) to ungroup data and return results in a single table.
+  - Uses [`keep()`](/flux/v0/stdlib/universe/keep/) and [`unique()`](/flux/v0/stdlib/universe/selectors/unique/) to return unique values in the specified column.
 
 ```js
 from(bucket: "noaa")
@@ -54,8 +54,8 @@ from(bucket: "noaa")
 
 This query:
 
-- Uses [`group()`](/{{< latest "flux" >}}/stdlib/universe/group/) to ungroup data and return results in a single table.
-- Uses [`keep()`](/{{< latest "flux" >}}/stdlib/universe/keep/), [`unique()`](/{{< latest "flux" >}}/stdlib/universe/unique/), and then [`count()`](/{{< latest "flux" >}}/stdlib/universe/count/) to count the number of unique values.
+- Uses [`group()`](/flux/v0/stdlib/universe/group/) to ungroup data and return results in a single table.
+- Uses [`keep()`](/flux/v0/stdlib/universe/keep/), [`unique()`](/flux/v0/stdlib/universe/unique/), and then [`count()`](/flux/v0/stdlib/universe/count/) to count the number of unique values.
 
 ```js
 from(bucket: "noaa")
@@ -73,12 +73,12 @@ from(bucket: "noaa")
 
 ## Recalculate the _values column
 
-To recalculate the `_value` column, use the `with` operator in [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to overwrite the existing `_value` column.
+To recalculate the `_value` column, use the `with` operator in [`map()`](/flux/v0/stdlib/universe/map/) to overwrite the existing `_value` column.
 
 The following query:
 
-  - Uses [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to filter the `average_temperature` measurement.
-  - Uses [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to convert Fahrenheit temperature values into Celsius.
+  - Uses [`filter()`](/flux/v0/stdlib/universe/filter/) to filter the `average_temperature` measurement.
+  - Uses [`map()`](/flux/v0/stdlib/universe/map/) to convert Fahrenheit temperature values into Celsius.
 
 ```js
 
@@ -110,8 +110,8 @@ This example below converts temperature from Fahrenheit to Celsius and maps the 
 
 The following query:
 
-  - Uses [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to filter the `average_temperature` measurement.
-  - Uses [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to create a new column calculated from existing values in each row.
+  - Uses [`filter()`](/flux/v0/stdlib/universe/filter/) to filter the `average_temperature` measurement.
+  - Uses [`map()`](/flux/v0/stdlib/universe/map/) to create a new column calculated from existing values in each row.
 
 ```js
 from(bucket: "noaa")

@@ -294,7 +294,7 @@ For information about managing 1.x compatible authorizations, see the
 ## Migrate time series data
 To migrate time series data from your InfluxDB 1.x instance to InfluxDB {{< current-version >}}:
 
-1. Use the **InfluxDB 1.x** [`influx_inspect export` command](/{{< latest "influxdb" "v1" >}}/tools/influx_inspect/#export)
+1. Use the **InfluxDB 1.x** [`influx_inspect export` command](/influxdb/v1/tools/influx_inspect/#export)
    to export time series data as line protocol.
    Include the `-lponly` flag to exclude comments and the data definition
    language (DDL) from the output file.

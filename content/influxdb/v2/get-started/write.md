@@ -16,7 +16,7 @@ related:
   - /influxdb/v2/write-data/
   - /influxdb/v2/write-data/best-practices/
   - /influxdb/v2/reference/syntax/line-protocol/
-  - /{{< latest "telegraf" >}}/
+  - /telegraf/v1/
 ---
 
 InfluxDB provides many different options for ingesting or writing data, including
@@ -25,7 +25,7 @@ the following:
 - Influx user interface (UI)
 - [InfluxDB HTTP API](/influxdb/v2/reference/api/)
 - [`influx` CLI](/influxdb/v2/tools/influx-cli/)
-- [Telegraf](/{{< latest "telegraf" >}}/)
+- [Telegraf](/telegraf/v1/)
 - [InfluxDB client libraries](/influxdb/v2/api-guide/client-libraries/)
 
 This tutorial walks you through the fundamental of using **line protocol** to write

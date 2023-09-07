@@ -8,7 +8,7 @@ menu:
     name: Grafana
     weight: 60
     parent: Tools
-canonical: /{{< latest "influxdb" >}}/tools/grafana/
+canonical: /influxdb/v2/tools/grafana/
 ---
 
 Use [Grafana](https://grafana.com/) or [Grafana Cloud](https://grafana.com/products/cloud/)

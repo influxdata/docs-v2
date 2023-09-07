@@ -10,7 +10,7 @@ menu:
     name: Conditional logic
     parent: Query with Flux
 weight: 20
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/conditional-logic/
+canonical: /influxdb/v2/query-data/flux/conditional-logic/
 v2: /influxdb/v2/query-data/flux/conditional-logic/
 list_code_example: |
   ```js
@@ -33,9 +33,9 @@ Conditional expressions are most useful in the following contexts:
 
 - When defining variables.
 - When using functions that operate on a single row at a time (
-  [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/),
-  [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/),
-  [`reduce()`](/{{< latest "flux" >}}/stdlib/universe/reduce) ).
+  [`filter()`](/flux/v0/stdlib/universe/filter/),
+  [`map()`](/flux/v0/stdlib/universe/map/),
+  [`reduce()`](/flux/v0/stdlib/universe/reduce) ).
 
 ## Evaluating conditional expressions
 
@@ -98,7 +98,7 @@ from(bucket: "telegraf/autogen")
 ```
 
 ### Conditionally transform column values with map()
-The following example uses the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map/)
+The following example uses the [`map()` function](/flux/v0/stdlib/universe/map/)
 to conditionally transform column values.
 It sets the `level` column to a specific string based on `_value` column.
 
@@ -152,8 +152,8 @@ from(bucket: "telegraf/autogen")
 {{< /code-tabs-wrapper >}}
 
 ### Conditionally increment a count with reduce()
-The following example uses the [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
-and [`reduce()`](/{{< latest "flux" >}}/stdlib/universe/reduce/)
+The following example uses the [`aggregateWindow()`](/flux/v0/stdlib/universe/aggregatewindow/)
+and [`reduce()`](/flux/v0/stdlib/universe/reduce/)
 functions to count the number of records in every five minute window that exceed a defined threshold.
 
 {{< code-tabs-wrapper >}}

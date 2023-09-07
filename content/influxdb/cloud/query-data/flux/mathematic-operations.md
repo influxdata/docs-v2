@@ -12,10 +12,10 @@ menu:
     parent: Query with Flux
 weight: 208
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/map
-  - /{{< latest "flux" >}}/stdlib/universe/reduce/
-  - /{{< latest "flux" >}}/language/operators/
-  - /{{< latest "flux" >}}/function-types#type-conversions, Flux type-conversion functions
+  - /flux/v0/stdlib/universe/map
+  - /flux/v0/stdlib/universe/reduce/
+  - /flux/v0/language/operators/
+  - /flux/v0/function-types#type-conversions, Flux type-conversion functions
   - /influxdb/cloud/query-data/flux/calculate-percentages/
 list_query_example: map_math
 ---

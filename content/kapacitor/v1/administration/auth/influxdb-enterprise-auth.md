@@ -23,9 +23,9 @@ authenticate requests to the Kapacitor HTTP API.
 The process of using InfluxDB Enterprise authorizations to authenticate with Kapacitor
 involves three components of the enterprise [TICK stack](/platform/#influxdata-1x-tick-stack):
 
-- [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) meta nodes
+- [InfluxDB Enterprise](/enterprise_influxdb/v1/) meta nodes
 - [Kapacitor](/kapacitor/v1/)
-- [Chronograf](/{{< latest "chronograf" >}}/) _(to aid in the creation of users and roles)_
+- [Chronograf](/chronograf/v1/) _(to aid in the creation of users and roles)_
 
 1.  Kapacitor parses user credentials provided in an API request.
 2.  Kapacitor checks to see if the username and password currently match any user
@@ -51,7 +51,7 @@ or to create a role with Kapacitor permissions and assign a user to that role.
 
 {{% note %}}
 The examples below use the InfluxDB Enterprise meta API to manage users and roles,
-but you can also [use Chronograf to manage users and roles](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/).
+but you can also [use Chronograf to manage users and roles](/chronograf/v1/administration/managing-influxdb-users/).
 {{% /note %}}
 
 **To interact with Kapacitor, the user or role must have one or both of the following permissions:**

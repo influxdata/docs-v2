@@ -11,13 +11,13 @@ menu:
     name: Moving Average
 influxdb/v2/tags: [query, moving average]
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/movingaverage/
-  - /{{< latest "flux" >}}/stdlib/universe/timedmovingaverage/
+  - /flux/v0/stdlib/universe/movingaverage/
+  - /flux/v0/stdlib/universe/timedmovingaverage/
 list_query_example: moving_average
 ---
 
-Use [`movingAverage()`](/{{< latest "flux" >}}/stdlib/universe/movingaverage/)
-or [`timedMovingAverage()`](/{{< latest "flux" >}}/stdlib/universe/timedmovingaverage/)
+Use [`movingAverage()`](/flux/v0/stdlib/universe/movingaverage/)
+or [`timedMovingAverage()`](/flux/v0/stdlib/universe/timedmovingaverage/)
 to return the moving average of data.
 
 ```js

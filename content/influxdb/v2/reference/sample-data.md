@@ -12,7 +12,7 @@ weight: 7
 
 Use sample data to familiarize yourself with time series data and InfluxDB.
 InfluxData provides many sample time series datasets to use with InfluxDB.
-You can also use the [Flux InfluxDB sample package](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/)
+You can also use the [Flux InfluxDB sample package](/flux/v0/stdlib/influxdata/influxdb/sample/)
 to view, download, and output sample datasets.
 
 - [Live datasets](#live-datasets)
@@ -177,7 +177,7 @@ Static datasets are fixed datasets from a specific past time range.
 #### Static sample data and bucket retention periods
 
 If writing a static sample dataset to a bucket with a limited retention period,
-use [sample.alignToNow()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/sample/aligntonow/)
+use [sample.alignToNow()](/flux/v0/stdlib/influxdata/influxdb/sample/aligntonow/)
 to shift timestamps to align the last point in the set to now.
 This will prevent writing points with timestamps beyond the bucket's retention period.
 For example:

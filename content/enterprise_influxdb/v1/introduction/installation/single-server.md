@@ -10,7 +10,7 @@ menu:
 ---
 
 Installing and running InfluxDB Enterprise on a single server or node is an
-alternative to using [InfluxDB OSS 1.x](/{{< latest "influxdb" "v1" >}}).
+alternative to using [InfluxDB OSS 1.x](/influxdb/v1).
 InfluxDB Enterprise provides advanced functionality such as
 [LDAP authentication](/enterprise_influxdb/v1/administration/configure/security/ldap/),
 [fine-grained authorization](/enterprise_influxdb/v1/administration/manage/users-and-permissions/fine-grained-authorization/),
@@ -469,7 +469,7 @@ time series data, manage InfluxDB Enterprise users, and easily create alerting
 and automation rules.
 
 For Chronograf installation instructions, see
-[Install Chronograf](/{{< latest "chronograf" >}}/introduction/installation/).
+[Install Chronograf](/chronograf/v1/introduction/installation/).
 
 ## Next steps
 - Add more users if necessary.

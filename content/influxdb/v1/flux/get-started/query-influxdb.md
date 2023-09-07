@@ -8,7 +8,7 @@ menu:
     weight: 1
 aliases:
   - /influxdb/v1/flux/getting-started/query-influxdb/
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/query-influxdb/
+canonical: /influxdb/v2/query-data/get-started/query-influxdb/
 v2: /influxdb/v2/query-data/get-started/query-influxdb/
 ---
 
@@ -24,7 +24,7 @@ Every Flux query needs the following:
 
 
 ## 1. Define your data source
-Flux's [`from()`](/{{< latest "flux" >}}/stdlib/universe/from) function defines an InfluxDB data source.
+Flux's [`from()`](/flux/v0/stdlib/universe/from) function defines an InfluxDB data source.
 It requires a [`bucket`](/influxdb/v1/flux/get-started/#buckets) parameter.
 For this example, use `telegraf/autogen`, a combination of the default database and retention policy provided by the TICK stack.
 
@@ -37,11 +37,11 @@ Flux requires a time range when querying time series data.
 "Unbounded" queries are very resource-intensive and as a protective measure,
 Flux will not query the database without a specified range.
 
-Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/{{< latest "flux" >}}/stdlib/universe/range)
+Use the pipe-forward operator (`|>`) to pipe data from your data source into the [`range()`](/flux/v0/stdlib/universe/range)
 function, which specifies a time range for your query.
 It accepts two properties: `start` and `stop`.
-Ranges can be **relative** using negative [durations](/{{< latest "flux" >}}/language/lexical-elements#duration-literals)
-or **absolute** using [timestamps](/{{< latest "flux" >}}/language/lexical-elements#date-and-time-literals).
+Ranges can be **relative** using negative [durations](/flux/v0/language/lexical-elements#duration-literals)
+or **absolute** using [timestamps](/flux/v0/language/lexical-elements#date-and-time-literals).
 
 ###### Example relative time ranges
 ```js

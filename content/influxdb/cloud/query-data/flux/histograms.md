@@ -11,8 +11,8 @@ menu:
     parent: Query with Flux
 weight: 210
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/histogram
-  - /{{< latest "flux" >}}/prometheus/metric-types/histogram/, Work with Prometheus histograms in Flux
+  - /flux/v0/stdlib/universe/histogram
+  - /flux/v0/prometheus/metric-types/histogram/, Work with Prometheus histograms in Flux
 list_query_example: histogram
 ---
 

@@ -51,7 +51,7 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 - [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/query-data/execute-queries/influxdb-v1-api/)
-- [Chronograf](/{{< latest "chronograf" >}}/)
+- [Chronograf](/chronograf/v1/)
 
 ## SQL query basics
 

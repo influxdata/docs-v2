@@ -13,11 +13,11 @@ menu:
     name: Increase
 influxdb/v2/tags: [query, increase, counters]
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/increase/
+  - /flux/v0/stdlib/universe/increase/
 list_query_example: increase
 ---
 
-Use [`increase()`](/{{< latest "flux" >}}/stdlib/universe/increase/)
+Use [`increase()`](/flux/v0/stdlib/universe/increase/)
 to track increases across multiple columns in a table.
 This function is especially useful when tracking changes in counter values that
 wrap over time or periodically reset.

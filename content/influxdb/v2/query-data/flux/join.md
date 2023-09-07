@@ -12,17 +12,17 @@ weight: 210
 aliases:
   - /influxdb/v2/query-data/guides/join/
 related:
-  - /{{< latest "flux" >}}/join-data/
-  - /{{< latest "flux" >}}/join-data/inner/
-  - /{{< latest "flux" >}}/join-data/left-outer/
-  - /{{< latest "flux" >}}/join-data/right-outer/
-  - /{{< latest "flux" >}}/join-data/full-outer/
-  - /{{< latest "flux" >}}/join-data/time/
-  - /{{< latest "flux" >}}/stdlib/join/
+  - /flux/v0/join-data/
+  - /flux/v0/join-data/inner/
+  - /flux/v0/join-data/left-outer/
+  - /flux/v0/join-data/right-outer/
+  - /flux/v0/join-data/full-outer/
+  - /flux/v0/join-data/time/
+  - /flux/v0/stdlib/join/
 list_query_example: join-new
 ---
 
-Use the Flux [`join` package](/{{< latest "flux" >}}/stdlib/join/) to join two data sets
+Use the Flux [`join` package](/flux/v0/stdlib/join/) to join two data sets
 based on common values using the following join methods:
 
 {{< flex >}}
@@ -45,8 +45,8 @@ based on common values using the following join methods:
 {{< /flex >}}
 
 The join package lets you join data from different data sources such as
-[InfluxDB](/{{< latest "flux" >}}/query-data/influxdb/), [SQL database](/{{< latest "flux" >}}/query-data/sql/),
-[CSV](/{{< latest "flux" >}}/query-data/csv/), and [others](/{{< latest "flux" >}}/query-data/).
+[InfluxDB](/flux/v0/query-data/influxdb/), [SQL database](/flux/v0/query-data/sql/),
+[CSV](/flux/v0/query-data/csv/), and [others](/flux/v0/query-data/).
 
 ## Use join functions to join your data
 
@@ -67,18 +67,18 @@ The join package lets you join data from different data sources such as
 
     - Each stream must have one or more columns with common values.
       Column labels do not need to match, but column values do.
-    - Each stream should have identical [group keys](/{{< latest "flux" >}}/get-started/data-model/#group-key).
+    - Each stream should have identical [group keys](/flux/v0/get-started/data-model/#group-key).
 
-    _For more information, see [join data requirements](/{{< latest "flux" >}}/join-data/#data-requirements)._
+    _For more information, see [join data requirements](/flux/v0/join-data/#data-requirements)._
 
-3. Use [`join.inner()`](/{{< latest "flux" >}}/stdlib/join/inner/) to join the two streams together.
+3. Use [`join.inner()`](/flux/v0/stdlib/join/inner/) to join the two streams together.
     Provide the following required parameters:
 
     - `left`: Stream of data representing the left side of the join.
     - `right`: Stream of data representing the right side of the join.
-    - `on`: [Join predicate](/{{< latest "flux" >}}/join-data/#join-predicate-function-on).
+    - `on`: [Join predicate](/flux/v0/join-data/#join-predicate-function-on).
       For example: `(l, r) => l.column == r.column`.
-    - `as`: [Join output function](/{{< latest "flux" >}}/join-data/#join-output-function-as)
+    - `as`: [Join output function](/flux/v0/join-data/#join-output-function-as)
       that returns a record with values from each input stream.
       For example: `(l, r) => ({l with column1: r.column1, column2: r.column2})`.
 
@@ -107,7 +107,7 @@ join.inner(
 )
 ```
 
-For more information and detailed examples, see [Perform an inner join](/{{< latest "flux" >}}/join-data/inner/)
+For more information and detailed examples, see [Perform an inner join](/flux/v0/join-data/inner/)
 in the Flux documentation.
 
 {{% /tab-content %}}
@@ -121,18 +121,18 @@ in the Flux documentation.
 
     - Each stream must have one or more columns with common values.
       Column labels do not need to match, but column values do.
-    - Each stream should have identical [group keys](/{{< latest "flux" >}}/get-started/data-model/#group-key).
+    - Each stream should have identical [group keys](/flux/v0/get-started/data-model/#group-key).
 
-    _For more information, see [join data requirements](/{{< latest "flux" >}}/join-data/#data-requirements)._
+    _For more information, see [join data requirements](/flux/v0/join-data/#data-requirements)._
 
-3. Use [`join.left()`](/{{< latest "flux" >}}/stdlib/join/left/) to join the two streams together.
+3. Use [`join.left()`](/flux/v0/stdlib/join/left/) to join the two streams together.
     Provide the following required parameters:
 
     - `left`: Stream of data representing the left side of the join.
     - `right`: Stream of data representing the right side of the join.
-    - `on`: [Join predicate](/{{< latest "flux" >}}/join-data/#join-predicate-function-on).
+    - `on`: [Join predicate](/flux/v0/join-data/#join-predicate-function-on).
       For example: `(l, r) => l.column == r.column`.
-    - `as`: [Join output function](/{{< latest "flux" >}}/join-data/#join-output-function-as)
+    - `as`: [Join output function](/flux/v0/join-data/#join-output-function-as)
       that returns a record with values from each input stream.
       For example: `(l, r) => ({l with column1: r.column1, column2: r.column2})`.
 
@@ -161,7 +161,7 @@ join.left(
 )
 ```
 
-For more information and detailed examples, see [Perform a left outer join](/{{< latest "flux" >}}/join-data/left-outer/)
+For more information and detailed examples, see [Perform a left outer join](/flux/v0/join-data/left-outer/)
 in the Flux documentation.
 
 {{% /tab-content %}}
@@ -175,18 +175,18 @@ in the Flux documentation.
 
     - Each stream must have one or more columns with common values.
       Column labels do not need to match, but column values do.
-    - Each stream should have identical [group keys](/{{< latest "flux" >}}/get-started/data-model/#group-key).
+    - Each stream should have identical [group keys](/flux/v0/get-started/data-model/#group-key).
 
-    _For more information, see [join data requirements](/{{< latest "flux" >}}/join-data/#data-requirements)._
+    _For more information, see [join data requirements](/flux/v0/join-data/#data-requirements)._
 
-3. Use [`join.right()`](/{{< latest "flux" >}}/stdlib/join/right/) to join the two streams together.
+3. Use [`join.right()`](/flux/v0/stdlib/join/right/) to join the two streams together.
     Provide the following required parameters:
 
     - `left`: Stream of data representing the left side of the join.
     - `right`: Stream of data representing the right side of the join.
-    - `on`: [Join predicate](/{{< latest "flux" >}}/join-data/#join-predicate-function-on).
+    - `on`: [Join predicate](/flux/v0/join-data/#join-predicate-function-on).
       For example: `(l, r) => l.column == r.column`.
-    - `as`: [Join output function](/{{< latest "flux" >}}/join-data/#join-output-function-as)
+    - `as`: [Join output function](/flux/v0/join-data/#join-output-function-as)
       that returns a record with values from each input stream.
       For example: `(l, r) => ({l with column1: r.column1, column2: r.column2})`.
 
@@ -215,7 +215,7 @@ join.right(
 )
 ```
 
-For more information and detailed examples, see [Perform a right outer join](/{{< latest "flux" >}}/join-data/right-outer/)
+For more information and detailed examples, see [Perform a right outer join](/flux/v0/join-data/right-outer/)
 in the Flux documentation.
 
 {{% /tab-content %}}
@@ -228,18 +228,18 @@ in the Flux documentation.
 
     - Each stream must have one or more columns with common values.
       Column labels do not need to match, but column values do.
-    - Each stream should have identical [group keys](/{{< latest "flux" >}}/get-started/data-model/#group-key).
+    - Each stream should have identical [group keys](/flux/v0/get-started/data-model/#group-key).
 
-    _For more information, see [join data requirements](/{{< latest "flux" >}}/join-data/#data-requirements)._
+    _For more information, see [join data requirements](/flux/v0/join-data/#data-requirements)._
 
-3. Use [`join.full()`](/{{< latest "flux" >}}/stdlib/join/full/) to join the two streams together.
+3. Use [`join.full()`](/flux/v0/stdlib/join/full/) to join the two streams together.
     Provide the following required parameters:
 
     - `left`: Stream of data representing the left side of the join.
     - `right`: Stream of data representing the right side of the join.
-    - `on`: [Join predicate](/{{< latest "flux" >}}/join-data/#join-predicate-function-on).
+    - `on`: [Join predicate](/flux/v0/join-data/#join-predicate-function-on).
       For example: `(l, r) => l.column == r.column`.
-    - `as`: [Join output function](/{{< latest "flux" >}}/join-data/#join-output-function-as)
+    - `as`: [Join output function](/flux/v0/join-data/#join-output-function-as)
       that returns a record with values from each input stream.
       For example: `(l, r) => ({l with column1: r.column1, column2: r.column2})`.
 
@@ -247,7 +247,7 @@ in the Flux documentation.
 Full outer joins must account for non-group-key columns in both `l` and `r`
 records being null. Use conditional logic to check which record contains non-null
 values for columns not in the group key.
-For more information, see [Account for missing, non-group-key values](/{{< latest "flux" >}}/join-data/full-outer/#account-for-missing-non-group-key-values).
+For more information, see [Account for missing, non-group-key values](/flux/v0/join-data/full-outer/#account-for-missing-non-group-key-values).
 {{% /note %}}
 
 ```js
@@ -279,7 +279,7 @@ join.full(
 )
 ```
 
-For more information and detailed examples, see [Perform a full outer join](/{{< latest "flux" >}}/join-data/full-outer/)
+For more information and detailed examples, see [Perform a full outer join](/flux/v0/join-data/full-outer/)
 in the Flux documentation.
 
 {{% /tab-content %}}
@@ -294,17 +294,17 @@ in the Flux documentation.
     - Each stream must also have a `_time` column.
     - Each stream must have one or more columns with common values.
       Column labels do not need to match, but column values do.
-    - Each stream should have identical [group keys](/{{< latest "flux" >}}/get-started/data-model/#group-key).
+    - Each stream should have identical [group keys](/flux/v0/get-started/data-model/#group-key).
 
-    _For more information, see [join data requirements](/{{< latest "flux" >}}/join-data/#data-requirements)._
+    _For more information, see [join data requirements](/flux/v0/join-data/#data-requirements)._
 
-3. Use [`join.time()`](/{{< latest "flux" >}}/stdlib/join/time/) to join the two streams
+3. Use [`join.time()`](/flux/v0/stdlib/join/time/) to join the two streams
     together based on time values.
     Provide the following parameters:
 
     - `left`: ({{< req >}}) Stream of data representing the left side of the join.
     - `right`: ({{< req >}}) Stream of data representing the right side of the join.
-    - `as`: ({{< req >}}) [Join output function](/{{< latest "flux" >}}/join-data/#join-output-function-as)
+    - `as`: ({{< req >}}) [Join output function](/flux/v0/join-data/#join-output-function-as)
       that returns a record with values from each input stream.
       For example: `(l, r) => ({r with column1: l.column1, column2: l.column2})`.
     - `method`: Join method to use. Default is `inner`.
@@ -328,7 +328,7 @@ right =
 join.time(method: "left", left: left, right: right, as: (l, r) => ({l with f2: r._value}))
 ```
 
-For more information and detailed examples, see [Join on time](/{{< latest "flux" >}}/join-data/time/)
+For more information and detailed examples, see [Join on time](/flux/v0/join-data/time/)
 in the Flux documentation.
 
 {{% /tab-content %}}
@@ -342,7 +342,7 @@ in the Flux documentation.
 We recommend using the `join` package to join streams that have mostly different
 schemas or that come from two separate data sources.
 If you're joining two datasets queried from InfluxDB, using
-[`union()`](/{{< latest "flux" >}}/stdlib/universe/union/) and [`pivot()`](/{{< latest "flux" >}}/stdlib/universe/pivot/)
+[`union()`](/flux/v0/stdlib/universe/union/) and [`pivot()`](/flux/v0/stdlib/universe/pivot/)
 to combine the data will likely be more performant.
 
 For example, if you need to query fields from different InfluxDB buckets and align

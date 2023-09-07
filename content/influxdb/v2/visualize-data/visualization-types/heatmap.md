@@ -83,8 +83,8 @@ the visualization dropdown.
 
 ### Cross-measurement correlation
 The following example explores possible correlation between CPU and Memory usage.
-It uses data collected with the Telegraf [Mem](/{{< latest "telegraf" >}}/plugins//#mem)
-and [CPU](/{{< latest "telegraf" >}}/plugins//#cpu) input plugins.
+It uses data collected with the Telegraf [Mem](/telegraf/v1/plugins//#mem)
+and [CPU](/telegraf/v1/plugins//#cpu) input plugins.
 
 ###### Join CPU and memory usage
 The following query joins CPU and memory usage on `_time`.

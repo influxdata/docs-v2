@@ -73,7 +73,7 @@ The Flux data model is separate from the queried data source model.
 Queried sources return data structured into columnar tables.
 The table structure and columns included depends on the data source. 
 
-For example, InfluxDB returns data grouped by [series](/{{< latest "influxdb" >}}/reference/glossary/#series),
+For example, InfluxDB returns data grouped by [series](/influxdb/v2/reference/glossary/#series),
 so each table in the returned stream of tables represents a unique series.
 However, [SQL data sources](/flux/v0/stdlib/sql/from/) return a stream of tables
 with a single table and an empty group key.

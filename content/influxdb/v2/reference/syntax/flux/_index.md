@@ -15,12 +15,12 @@ influxdb/v2/tags: [syntax, flux]
 Flux is a functional data scripting language designed for querying, analyzing, and acting on data.
 
 ## Flux documentation
-View the [Flux documentation](/{{< latest "flux" >}}/) for more information about
+View the [Flux documentation](/flux/v0/) for more information about
 the Flux syntax.
 
-- [Get started with Flux](/{{< latest "flux" >}}/get-started/)
-- [Flux standard library](/{{< latest "flux" >}}/stdlib/)
-- [Flux language specification](/{{< latest "flux" >}}/spec/)
+- [Get started with Flux](/flux/v0/get-started/)
+- [Flux standard library](/flux/v0/stdlib/)
+- [Flux language specification](/flux/v0/spec/)
 
 ---
 

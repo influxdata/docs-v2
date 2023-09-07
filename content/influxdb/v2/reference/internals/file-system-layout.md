@@ -23,7 +23,7 @@ or containerization platform used to install InfluxDB.
 The InfluxDB file structure includes of the following:
 
 #### Engine path
-Directory path to the [storage engine](/{{< latest "influxdb" >}}/reference/internals/storage-engine/),
+Directory path to the [storage engine](/influxdb/v2/reference/internals/storage-engine/),
 where InfluxDB stores time series data, includes the following directories:
 
 - **data**: Stores time-structured merge tree (TSM) files.

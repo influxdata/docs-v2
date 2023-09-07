@@ -20,7 +20,7 @@ and feature development of external plugins.
    - [Processor plugins](https://github.com/influxdata/telegraf/blob/master/docs/PROCESSORS.md)
    - [Aggregator plugins](https://github.com/influxdata/telegraf/blob/master/docs/AGGREGATORS.md)
    - [Output plugins](https://github.com/influxdata/telegraf/blob/master/docs/OUTPUTS.md)
-2. If your plugin is written in Go, follow the steps for the [Execd Go Shim](/{{< latest "telegraf" >}}/configure_plugins/external_plugins/shim).
+2. If your plugin is written in Go, follow the steps for the [Execd Go Shim](/telegraf/v1/configure_plugins/external_plugins/shim).
 3. Add usage and development instructions in the homepage of your repository for running your plugin with its respective `execd` plugin. Refer to [openvpn](https://github.com/danielnelson/telegraf-execd-openvpn#usage) and [awsalarms](https://github.com/vipinvkmenon/awsalarms#installation) for examples.
 Include the following steps:
      - How to download the release package for your platform or how to clone the binary for your external plugin

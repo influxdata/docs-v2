@@ -61,9 +61,9 @@ Use the following conventions when naming your tag and field keys:
 ### Avoid reserved keywords in tag and field keys
 
 Not required, but avoiding the use of reserved keywords in your tag keys and field keys simplifies writing queries because you won't have to wrap your keys in double quotes.
-See [InfluxQL](https://github.com/influxdata/influxql/blob/master/README.md#keywords) and  [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords) to avoid.
+See [InfluxQL](https://github.com/influxdata/influxql/blob/master/README.md#keywords) and  [Flux keywords](/flux/v0/spec/lexical-elements/#keywords) to avoid.
 
-Also, if a tag key or field key contains characters other than `[A-z,_]`, you must wrap it in double quotes in InfluxQL or use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in Flux.
+Also, if a tag key or field key contains characters other than `[A-z,_]`, you must wrap it in double quotes in InfluxQL or use [bracket notation](/flux/v0/data-types/composite/record/#bracket-notation) in Flux.
 
 ### Avoid the same name for a tag and a field
 
@@ -119,7 +119,7 @@ weather_sensor blueberries.plot-2.midwest.temp=49.8 1472515200000000000
 #### Compare queries
 
 Compare the following queries of the [_Good Measurements_](#good-measurements-schema) and [_Bad Measurements_](#bad-measurements-schema) schemas.
-The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blueberries in the `north` region
+The [Flux](/flux/v0/) queries calculate the average `temp` for blueberries in the `north` region
 
 **Easy to query**: [_Good Measurements_](#good-measurements-schema) data is easily filtered by `region` tag values, as in the following example.
 

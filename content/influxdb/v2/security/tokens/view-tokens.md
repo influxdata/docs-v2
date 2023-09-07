@@ -103,7 +103,7 @@ To filter tokens by user, include `userID` as a query parameter in your request.
 
 {{% oss-only %}}
 
-[***Operator tokens***](/{{% latest "influxdb" %}}/security/tokens/#operator-token) have access to all organizations' authorizations.
+[***Operator tokens***](/influxdb/v2/security/tokens/#operator-token) have access to all organizations' authorizations.
 To filter authorizations by organization when using an operator token, include an `org` or `orgID` query parameter in your request.
 
 {{% /oss-only %}}

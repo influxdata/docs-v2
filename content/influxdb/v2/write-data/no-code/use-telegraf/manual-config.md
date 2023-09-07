@@ -14,7 +14,7 @@ menu:
 weight: 202
 influxdb/v2/tags: [manually, plugin, mqtt]
 related:
-  - /{{< latest "telegraf" >}}/plugins//
+  - /telegraf/v1/plugins//
   - /influxdb/v2/telegraf-configs/create/
   - /influxdb/v2/telegraf-configs/update/
 ---
@@ -35,13 +35,13 @@ Configure Telegraf input and output plugins in the Telegraf configuration file (
 Input plugins collect metrics.
 Output plugins define destinations where metrics are sent.
 
-_See [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//) for a complete list of available plugins._
+_See [Telegraf plugins](/telegraf/v1/plugins//) for a complete list of available plugins._
 
 ### Manually add Telegraf plugins
 
-To manually add any of the available [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//), follow the steps below.
+To manually add any of the available [Telegraf plugins](/telegraf/v1/plugins//), follow the steps below.
 
-1. Find the plugin you want to enable from the complete list of available [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//).
+1. Find the plugin you want to enable from the complete list of available [Telegraf plugins](/telegraf/v1/plugins//).
 2. Click **View** to the right of the plugin name to open the plugin page on GitHub. For example, view the MQTT plugin GitHub page [here](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/mqtt_consumer/README.md).
 3. Copy and paste the example configuration into your Telegraf configuration file (typically named `telegraf.conf`).
 

@@ -15,9 +15,9 @@ aliases:
   - /influxdb/v2/query-data/guides/conditional-logic/
 related:
   - /influxdb/v2/query-data/flux/query-fields/
-  - /{{< latest "flux" >}}/stdlib/universe/filter/
-  - /{{< latest "flux" >}}/stdlib/universe/map/
-  - /{{< latest "flux" >}}/stdlib/universe/reduce/
+  - /flux/v0/stdlib/universe/filter/
+  - /flux/v0/stdlib/universe/map/
+  - /flux/v0/stdlib/universe/reduce/
 list_code_example: |
   ```js
   if color == "green" then "008000" else "ffffff"
@@ -28,7 +28,7 @@ Flux provides `if`, `then`, and `else` conditional expressions that allow for po
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ##### Conditional expression syntax
@@ -44,9 +44,9 @@ Conditional expressions are most useful in the following contexts:
 
 - When defining variables.
 - When using functions that operate on a single row at a time (
-  [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/),
-  [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/),
-  [`reduce()`](/{{< latest "flux" >}}/stdlib/universe/reduce) ).
+  [`filter()`](/flux/v0/stdlib/universe/filter/),
+  [`map()`](/flux/v0/stdlib/universe/map/),
+  [`reduce()`](/flux/v0/stdlib/universe/reduce) ).
 
 ## Evaluating conditional expressions
 
@@ -109,7 +109,7 @@ from(bucket: "example-bucket")
 
 
 ### Conditionally transform column values with map()
-The following example uses the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map/)
+The following example uses the [`map()` function](/flux/v0/stdlib/universe/map/)
 to conditionally transform column values.
 It sets the `level` column to a specific string based on `_value` column.
 
@@ -163,8 +163,8 @@ from(bucket: "example-bucket")
 {{< /code-tabs-wrapper >}}
 
 ### Conditionally increment a count with reduce()
-The following example uses the [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
-and [`reduce()`](/{{< latest "flux" >}}/stdlib/universe/reduce/)
+The following example uses the [`aggregateWindow()`](/flux/v0/stdlib/universe/aggregatewindow/)
+and [`reduce()`](/flux/v0/stdlib/universe/reduce/)
 functions to count the number of records in every five minute window that exceed a defined threshold.
 
 {{< code-tabs-wrapper >}}

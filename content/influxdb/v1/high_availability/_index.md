@@ -14,17 +14,17 @@ aliases:
   - /influxdb/v1/guides/clustering/
   - /influxdb/v1/high_availability/clusters/
 related:
-  - /{{< latest "enterprise_influxdb" >}}/introduction/installation/
-  - /{{< latest "enterprise_influxdb" >}}/concepts/clustering/
-canonical: /{{< latest "enterprise_influxdb" >}}/introduction/installation/
+  - /enterprise_influxdb/v1/introduction/installation/
+  - /enterprise_influxdb/v1/concepts/clustering/
+canonical: /enterprise_influxdb/v1/introduction/installation/
 ---
 
 InfluxDB OSS {{< current-version >}} does **not** support clustering.
 For high availability or horizontal scaling of InfluxDB, use the commercial
-clustered offering, [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/).
+clustered offering, [InfluxDB Enterprise](/enterprise_influxdb/v1/).
 
 - For information about creating an InfluxDB Enterprise cluster, see
-  [Install an InfluxDB Enterprise cluster](/{{< latest "enterprise_influxdb" >}}/introduction/installation/).
+  [Install an InfluxDB Enterprise cluster](/enterprise_influxdb/v1/introduction/installation/).
 
 - To learn more about high availability clustering, see
-  [Clustering in InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/concepts/clustering/).
+  [Clustering in InfluxDB Enterprise](/enterprise_influxdb/v1/concepts/clustering/).

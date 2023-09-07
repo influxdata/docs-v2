@@ -17,7 +17,7 @@ This helps to recognize and diagnose patterns, then quickly dive into logged eve
 - [Logs in dashboards](#logs-in-dashboards)
 
 ## Set up logging
-Logs data is a first class citizen in InfluxDB and is populated using available log-related [Telegraf input plugins](/{{< latest "telegraf" >}}/plugins/#input-plugins):
+Logs data is a first class citizen in InfluxDB and is populated using available log-related [Telegraf input plugins](/telegraf/v1/plugins/#input-plugins):
 
 - [Docker Log](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/docker_log/README.md)
 - [Graylog](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/graylog/README.md)

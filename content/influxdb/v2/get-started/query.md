@@ -21,7 +21,7 @@ InfluxDB supports many different tools for querying data, including:
 - InfluxDB user interface (UI)
 - [InfluxDB HTTP API](/influxdb/v2/reference/api/)
 - [`influx` CLI](/influxdb/v2/tools/influx-cli/)
-- [Chronograf](/{{< latest "Chronograf" >}}/)
+- [Chronograf](/chronograf/v1/)
 - [Grafana](/influxdb/v2/tools/grafana/)
 - [InfluxDB client libraries](/influxdb/v2/api-guide/client-libraries/)
 
@@ -55,19 +55,19 @@ from InfluxDB and [other data sources](/flux/v0.x/query-data/).
 
 {{% note %}}
 This is a brief introduction to writing Flux queries.
-For a more in-depth introduction, see [Get started with Flux](/{{< latest "flux" >}}/get-started/).
+For a more in-depth introduction, see [Get started with Flux](/flux/v0/get-started/).
 {{% /note %}}
 
 ### Flux query basics
 
 When querying InfluxDB with Flux, there are three primary functions you use:
 
-- [from()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/):
+- [from()](/flux/v0/stdlib/influxdata/influxdb/from/):
   Queries data from an InfluxDB bucket.
-- [range()](/{{< latest "flux" >}}/stdlib/universe/range/):
+- [range()](/flux/v0/stdlib/universe/range/):
   Filters data based on time bounds. Flux requires "bounded" queries—queries
   limited to a specific time range.
-- [filter()](/{{< latest "flux" >}}/stdlib/universe/filter/):
+- [filter()](/flux/v0/stdlib/universe/filter/):
   Filters data based on column values. Each row is represented by `r`
   and each column is represented by a property of `r`.
   You can apply multiple subsequent filters.
@@ -78,7 +78,7 @@ When querying InfluxDB with Flux, there are three primary functions you use:
   {{< expand-wrapper >}}
 {{% expand "Learn more about how `filter()` works" %}}
 
-[`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) reads each row as a
+[`filter()`](/flux/v0/stdlib/universe/filter/) reads each row as a
 [record](/flux/v0.x/data-types/composite/record/) named `r`.
 In the `r` record, each key-value pair represents a column and its value.
 For example:

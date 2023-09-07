@@ -102,7 +102,7 @@ weather_sensor blueberries.plot-2.midwest.temp=49.8 1472515200000000000
 #### Compare queries
 
 Compare the following queries of the [_Good Measurements_](#good-measurements-schema) and [_Bad Measurements_](#bad-measurements-schema) schemas.
-The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blueberries in the `north` region
+The [Flux](/flux/v0/) queries calculate the average `temp` for blueberries in the `north` region
 
 **Easy to query**: [_Good Measurements_](#good-measurements-schema) data is easily filtered by `region` tag values, as in the following example.
 
@@ -135,9 +135,9 @@ In addition to keeping your keys free of data, follow these additional guideline
 ##### Avoid keywords and special characters in keys
 
 To simplify query writing, don't include reserved keywords or special characters in tag and field keys.
-If you use [Flux keywords](/{{< latest "flux" >}}/spec/lexical-elements/#keywords) in keys,
+If you use [Flux keywords](/flux/v0/spec/lexical-elements/#keywords) in keys,
 then you'll have to wrap the keys in double quotes.
-If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#bracket-notation) in [Flux](/{{< latest "flux" >}}/).
+If you use non-alphanumeric characters in keys, then you'll have to use [bracket notation](/flux/v0/data-types/composite/record/#bracket-notation) in [Flux](/flux/v0/).
 
 ##### Avoid duplicate names for tags and fields
 
@@ -166,7 +166,7 @@ Your queries should guide what you store in tags and what you store in fields.
 ### Use tags to improve query performance
 
 - Store values as tag values if they can be reasonably indexed.
-- Store values as [tag values](/influxdb/v2/reference/glossary/#tag-value) if the values are used in [filter()]({{< latest "flux" >}}/universe/filter/) or [group()](/{{< latest "flux" >}}/universe/group/) functions.
+- Store values as [tag values](/influxdb/v2/reference/glossary/#tag-value) if the values are used in [filter()](flux/v0/universe/filter/) or [group()](/flux/v0/universe/group/) functions.
 - Store values as tag values if the values are shared across multiple data points, i.e. metadata about the field.
 
 Because InfluxDB indexes tags, the query engine doesn't need to scan every record in a bucket to locate a tag value.
@@ -225,7 +225,7 @@ weather_sensor,crop=blueberries,location=plot-2.midwest temp=49.8 14725152000000
 #### Compare queries
 
 Compare queries of the [_Good Tags_](#good-tags-schema) and [_Bad Tags_](#bad-tags-schema) schemas.
-The [Flux](/{{< latest "flux" >}}/) queries calculate the average `temp` for blueberries in the `north` region.
+The [Flux](/flux/v0/) queries calculate the average `temp` for blueberries in the `north` region.
 
 **Easy to query**: [_Good Tags_](#good-tags-schema) data is easily filtered by `region` tag values, as in the following example.
 

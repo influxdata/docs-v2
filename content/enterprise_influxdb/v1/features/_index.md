@@ -56,7 +56,7 @@ For FIPS compliance, InfluxDB Enterprise password hashing alogrithms are configu
 
 {{% note %}}
 Kapacitor OSS can also delegate its LDAP and security setup to InfluxDB Enterprise.
-For details, see ["Set up InfluxDB Enterprise authorizations"](/{{< latest "kapacitor" >}}/administration/auth/influxdb-enterprise-auth/).
+For details, see ["Set up InfluxDB Enterprise authorizations"](/kapacitor/v1/administration/auth/influxdb-enterprise-auth/).
 {{% /note %}}
 
 ## Eventual consistency

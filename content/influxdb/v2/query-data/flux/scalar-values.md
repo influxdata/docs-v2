@@ -11,7 +11,7 @@ menu:
 weight: 220
 influxdb/v2/tags: [scalar]
 related:
-  - /{{< latest "flux" >}}/function-types/#dynamic-queries, Flux dynamic query functions
+  - /flux/v0/function-types/#dynamic-queries, Flux dynamic query functions
 aliases:
   - /influxdb/v2/query-data/guides/scalar-values/
 list_code_example: |
@@ -25,7 +25,7 @@ list_code_example: |
   ```
 ---
 
-Use Flux [dynamic query functions](/{{< latest "flux" >}}/function-types/#dynamic-queries)
+Use Flux [dynamic query functions](/flux/v0/function-types/#dynamic-queries)
 to extract scalar values from Flux query output.
 This lets you, for example, dynamically set variables using query results.
 
@@ -46,9 +46,9 @@ This endpoint does not support raw scalar output.
 
 To output a scalar value as part of a stream of tables:
 
-1.  Import the [`array` package](/{{< latest "flux" >}}/stdlib/array/from/).
-2.  Use [`array.from()`](/{{< latest "flux" >}}/stdlib/array/from/) and
-    [`display()`](/{{< latest "flux" >}}/stdlib/universe/display/) to wrap the
+1.  Import the [`array` package](/flux/v0/stdlib/array/from/).
+2.  Use [`array.from()`](/flux/v0/stdlib/array/from/) and
+    [`display()`](/flux/v0/stdlib/universe/display/) to wrap the
     literal representation of a scalar value in a stream of tables and return it
     as output.
 
@@ -81,10 +81,10 @@ array.from(rows: [{ output: display(v: SFOTemps) }])
 ## Table extraction
 
 Flux formats query results as a stream of tables.
-Both [`findColumn()`](/{{< latest "flux" >}}/stdlib/universe/findcolumn/)
-and [`findRecord()`](/{{< latest "flux" >}}/stdlib/universe/findrecord/)
-extract the first table in a stream of tables whose [group key](/{{< latest "flux" >}}/get-started/data-model/#group-key)
-values match the `fn` [predicate function](/{{< latest "flux" >}}/get-started/syntax-basics/#predicate-functions).
+Both [`findColumn()`](/flux/v0/stdlib/universe/findcolumn/)
+and [`findRecord()`](/flux/v0/stdlib/universe/findrecord/)
+extract the first table in a stream of tables whose [group key](/flux/v0/get-started/data-model/#group-key)
+values match the `fn` [predicate function](/flux/v0/get-started/syntax-basics/#predicate-functions).
 
 {{% note %}}
 #### Extract the correct table
@@ -97,7 +97,7 @@ filter and transform your data to minimize the number of tables piped-forward in
 
 ## Extract a column
 
-Use the [`findColumn()` function](/{{< latest "flux" >}}/stdlib/universe/findcolumn/)
+Use the [`findColumn()` function](/flux/v0/stdlib/universe/findcolumn/)
 to output an array of values from a specific column in the extracted table.
 
 _See [Sample data](#sample-data) below._
@@ -151,7 +151,7 @@ To return this value from the InfluxDB query API, InfluxDB UI, or influx CLI see
 
 ## Extract a row
 
-Use the [`findRecord()` function](/{{< latest "flux" >}}/stdlib/universe/findrecord/)
+Use the [`findRecord()` function](/flux/v0/stdlib/universe/findrecord/)
 to output data from a single row in the extracted table.
 Specify the index of the row to output using the `idx` parameter.
 The function outputs a record with key-value pairs for each column.
@@ -180,7 +180,7 @@ To return this value from the InfluxDB query API, InfluxDB UI, or influx CLI see
 
 Use a variable to store the extracted row record.
 In the example below, `tempInfo` represents the extracted row.
-Use [dot or bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#dot-notation)
+Use [dot or bracket notation](/flux/v0/data-types/composite/record/#dot-notation)
 to reference keys in the record.
 
 ```js
@@ -275,8 +275,8 @@ To return this value from the InfluxDB query API, InfluxDB UI, or influx CLI see
 
 The following sample data set represents fictional temperature metrics collected
 from three locations.
-It's formatted as an array of Flux [records](/{{< latest "flux" >}}/data-types/composite/record/)
-and structured as a stream of stables using [`array.from()` function](/{{< latest "flux" >}}/stdlib/array/from/).
+It's formatted as an array of Flux [records](/flux/v0/data-types/composite/record/)
+and structured as a stream of stables using [`array.from()` function](/flux/v0/stdlib/array/from/).
 
 Place the following at the beginning of your query to use the sample data:
 

@@ -10,7 +10,7 @@ menu:
     parent: Query with Flux
     list_title: SQL data
 weight: 20
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/sql/
+canonical: /influxdb/v2/query-data/flux/sql/
 v2: /influxdb/v2/query-data/flux/sql/
 list_code_example: |
   ```js
@@ -25,7 +25,7 @@ list_code_example: |
 ---
 
 The Flux `sql` package provides functions for working with SQL data sources.
-[`sql.from()`](/{{< latest "flux" >}}/stdlib/sql/from/) lets you query SQL data sources
+[`sql.from()`](/flux/v0/stdlib/sql/from/) lets you query SQL data sources
 like [PostgreSQL](https://www.postgresql.org/), [MySQL](https://www.mysql.com/),
 and [SQLite](https://www.sqlite.org/index.html), and use the results with InfluxDB
 dashboards, tasks, and other operations.
@@ -88,7 +88,7 @@ sql.from(
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-_See the [`sql.from()` documentation](/{{< latest "flux" >}}/stdlib/sql/from/) for
+_See the [`sql.from()` documentation](/flux/v0/stdlib/sql/from/) for
 information about required function parameters._
 
 ## Join SQL data with data in InfluxDB

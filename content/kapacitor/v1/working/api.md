@@ -117,7 +117,7 @@ breaking changes to the previewed endpoints.
 
 ## Write data
 
-Kapacitor accepts writing data over HTTP using InfluxData's [Line Protocol data format](/{{< latest "influxdb" "v1" >}}/write_protocols/).
+Kapacitor accepts writing data over HTTP using InfluxData's [Line Protocol data format](/influxdb/v1/write_protocols/).
 The `kapacitor/v1/write` endpoint is identical in nature to the InfluxDB `/write` endpoint.
 
 | Query Parameter | Purpose                               |
@@ -587,7 +587,7 @@ GET /kapacitor/v1/tasks/TASK_ID/mycustom_endpoint
 }
 ```
 
-The output is the same as a query for data to [InfluxDB](/{{< latest "influxdb" "v1" >}}/guides/querying_data/).
+The output is the same as a query for data to [InfluxDB](/influxdb/v1/guides/querying_data/).
 
 
 ## Manage templates

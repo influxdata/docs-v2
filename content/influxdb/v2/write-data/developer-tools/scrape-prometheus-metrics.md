@@ -11,17 +11,17 @@ menu:
     name: Scrape Prometheus metrics
     parent: Developer tools
 related:
-  - /{{< latest "telegraf" >}}/plugins/#input-prometheus, Telegraf Prometheus input plugin
-  - /{{< latest "flux" >}}/prometheus/scrape-prometheus/, Scrape Prometheus metrics with Flux
-  - /{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/
-  - /{{< latest "flux" >}}/prometheus/metric-types/
+  - /telegraf/v1/plugins/#input-prometheus, Telegraf Prometheus input plugin
+  - /flux/v0/prometheus/scrape-prometheus/, Scrape Prometheus metrics with Flux
+  - /flux/v0/stdlib/experimental/prometheus/scrape/
+  - /flux/v0/prometheus/metric-types/
   - /influxdb/v2/reference/prometheus-metrics/
   - /influxdb/v2/write-data/no-code/scrape-data/
 influxdb/v2/tags: [prometheus, scraper]
 ---
 
-Use [Telegraf](/{{< latest "telegraf" >}}/){{% oss-only %}}, [InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/),{{% /oss-only %}}
-or the [`prometheus.scrape` Flux function](/{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)
+Use [Telegraf](/telegraf/v1/){{% oss-only %}}, [InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/),{{% /oss-only %}}
+or the [`prometheus.scrape` Flux function](/flux/v0/stdlib/experimental/prometheus/scrape/)
 to scrape Prometheus-formatted metrics from an HTTP-accessible endpoint and store them in InfluxDB.
 
 {{% oss-only %}}
@@ -42,12 +42,12 @@ to scrape Prometheus-formatted metrics from an HTTP-accessible endpoint and stor
 To use Telegraf to scrape Prometheus-formatted metrics from an HTTP-accessible
 endpoint and write them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, follow these steps:
 
-1. Add the [Prometheus input plugin](/{{< latest "telegraf" >}}/plugins/#input-prometheus) to your Telegraf configuration file.
+1. Add the [Prometheus input plugin](/telegraf/v1/plugins/#input-prometheus) to your Telegraf configuration file.
     1. Set the `urls` to scrape metrics from.
     2. Set the `metric_version` configuration option to specify which
       [metric parsing version](/influxdb/v2/reference/prometheus-metrics/) to use
       _(version `2` is recommended)_.
-2. Add the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2)
+2. Add the [InfluxDB v2 output plugin](/telegraf/v1/plugins/#output-influxdb_v2)
    to your Telegraf configuration file and configure it to to write to
    InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}.
   
@@ -81,13 +81,13 @@ For information about setting up an InfluxDB scraper, see
 {{% /oss-only %}}
 
 ## Use prometheus.scrape()
-To use the [`prometheus.scrape()` Flux function](/{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/)
+To use the [`prometheus.scrape()` Flux function](/flux/v0/stdlib/experimental/prometheus/scrape/)
 to scrape Prometheus-formatted metrics from an HTTP-accessible endpoint and write
 them to InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}}, do the following in your Flux script:
 
-1. Import the [`experimental/prometheus` package](/{{< latest "flux" >}}/stdlib/experimental/prometheus/).
+1. Import the [`experimental/prometheus` package](/flux/v0/stdlib/experimental/prometheus/).
 2. Use `prometheus.scrape()` and provide the URL to scrape metrics from.
-3. Use [`to()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/) and specify the  InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}} bucket to write
+3. Use [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) and specify the  InfluxDB{{% cloud-only %}} Cloud{{% /cloud-only %}} bucket to write
   the scraped metrics to.
 
 ##### Example Flux script
@@ -99,7 +99,7 @@ prometheus.scrape(url: "http://example.com/metrics")
 ```
 
 4. (Optional) To scrape Prometheus metrics at regular intervals using Flux, add your Flux
-scraping script as an [InfluxDB task](/{{< latest "influxdb" >}}/process-data/).
+scraping script as an [InfluxDB task](/influxdb/v2/process-data/).
 
 _For information about scraping Prometheus-formatted metrics with `prometheus.scrape()`,
-see [Scrape Prometheus metrics with Flux](/{{< latest "flux" >}}/prometheus/scrape-prometheus/)._
+see [Scrape Prometheus metrics with Flux](/flux/v0/prometheus/scrape-prometheus/)._

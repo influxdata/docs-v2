@@ -68,7 +68,7 @@ To convert continuous queries to InfluxDB tasks, see
 InfluxDB {{< current-version >}} doesn't directly support the alternate write protocols
 [supported in InfluxDB 1.x](/influxdb/v1/supported_protocols/)
 (CollectD, Graphite, OpenTSDB, Prometheus, UDP).
-Use [Telegraf](/{{< latest "telegraf" >}}/) to translate these protocols to line protocol.
+Use [Telegraf](/telegraf/v1/) to translate these protocols to line protocol.
 
 ### Kapacitor
 
@@ -78,8 +78,8 @@ You can continue to use Kapacitor with InfluxDB OSS {{< current-version >}} unde
   Existing Kapacitor user credentials should continue to work using the [1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/).
 - InfluxDB {{< current-version >}} has no subscriptions API and does not support Kapacitor stream tasks.
   To continue using stream tasks, write data directly to both InfluxDB and Kapacitor.
-  Use **Telegraf** and its [InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb)
-  to write to Kapacitor and the [InfluxDB v2 output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2) to write to InfluxDB v2.
+  Use **Telegraf** and its [InfluxDB output plugin](/telegraf/v1/plugins/#output-influxdb)
+  to write to Kapacitor and the [InfluxDB v2 output plugin](/telegraf/v1/plugins/#output-influxdb_v2) to write to InfluxDB v2.
 
 ##### Example Telegraf configuration
 ```toml
@@ -102,8 +102,8 @@ You can continue to use Kapacitor with InfluxDB OSS {{< current-version >}} unde
 
 `influxd upgrade` migrates existing 1.x users and their permissions **except** the following users:
 
-- [1.x admin users](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#admin-users)
-- [1.x non-admin users](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#non-admin-users)
+- [1.x admin users](/influxdb/v1/administration/authentication_and_authorization/#admin-users)
+- [1.x non-admin users](/influxdb/v1/administration/authentication_and_authorization/#non-admin-users)
   that have not been granted any privileges
 
 {{< expand-wrapper >}}

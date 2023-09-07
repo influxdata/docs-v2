@@ -56,7 +56,7 @@ Replace `SCRIPT_ID` with the ID of your InfluxDB invokable script.
 
 ## every
 
-The interval at which the task runs. This option also determines when the task first starts to run, depending on the specified time (in [duration literal](/{{< latest "flux" >}}/spec/lexical-elements/#duration-literals)).
+The interval at which the task runs. This option also determines when the task first starts to run, depending on the specified time (in [duration literal](/flux/v0/spec/lexical-elements/#duration-literals)).
 
 _**Data type:** Duration_
 

@@ -181,7 +181,7 @@ Enable HTTPS in the `[http]` section of the configuration file (`/etc/influxdb/i
 ```
 
 > If setting up HTTPS for [InfluxDB Enterprise](/enterprise_influxdb), you also need to configure insecure TLS connections between both meta and data nodes in your cluster.
-> Instructions are provided in the [InfluxDB Enterprise HTTPS Setup guide](/{{< latest "enterprise_influxdb" >}}/guides/https_setup/#set-up-https-with-a-self-signed-certificate).
+> Instructions are provided in the [InfluxDB Enterprise HTTPS Setup guide](/enterprise_influxdb/v1/guides/https_setup/#set-up-https-with-a-self-signed-certificate).
 
 #### Step 4: Restart InfluxDB
 
@@ -211,7 +211,7 @@ That's it! You've successfully set up HTTPS with InfluxDB.
 
 ## Connect Telegraf to a secured InfluxDB instance
 
-Connecting [Telegraf](/{{< latest "telegraf" >}}/) to an InfluxDB instance that's using
+Connecting [Telegraf](/telegraf/v1/) to an InfluxDB instance that's using
 HTTPS requires some additional steps.
 
 In the Telegraf configuration file (`/etc/telegraf/telegraf.conf`), edit the `urls`

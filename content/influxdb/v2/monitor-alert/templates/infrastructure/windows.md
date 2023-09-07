@@ -32,7 +32,7 @@ The Windows System Monitoring template includes the following:
 Ensure your `influx` CLI is configured with your account credentials and that configuration is active. For more information, see [influx config](/influxdb/v2/reference/cli/influx/config/).
     {{% /note %}}
 
-2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both the Windows system and [InfluxDB v2 API](/influxdb/v2/reference/api/).
+2. [Install Telegraf](/telegraf/v1/introduction/installation/) on a server with network access to both the Windows system and [InfluxDB v2 API](/influxdb/v2/reference/api/).
 3. In your [Telegraf configuration file (`telegraf.conf`)](/influxdb/v2/telegraf-configs/), do the following:
     - Set the following environment variables:
       - INFLUX_TOKEN: Token must have permissions to read Telegraf configurations and write data to the `telegraf` bucket. See how to [view tokens](/influxdb/v2/security/tokens/view-tokens/).

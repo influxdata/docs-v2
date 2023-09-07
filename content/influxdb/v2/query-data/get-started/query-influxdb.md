@@ -8,11 +8,11 @@ menu:
     parent: Get started with Flux
 weight: 201
 related:
-  - /{{< latest "flux" >}}/get-started/query-basics/
+  - /flux/v0/get-started/query-basics/
   - /influxdb/v2/query-data/flux/
-  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/from
-  - /{{< latest "flux" >}}/stdlib/universe/range
-  - /{{< latest "flux" >}}/stdlib/universe/filter
+  - /flux/v0/stdlib/influxdata/influxdb/from
+  - /flux/v0/stdlib/universe/range
+  - /flux/v0/stdlib/universe/filter
 ---
 
 This guide walks through the basics of using Flux to query data from InfluxDB.
@@ -24,8 +24,8 @@ Every Flux query needs the following:
 
 
 ## 1. Define your data source
-Flux's [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/) function defines an InfluxDB data source.
-It requires a [`bucket`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/#bucket) parameter.
+Flux's [`from()`](/flux/v0/stdlib/influxdata/influxdb/from/) function defines an InfluxDB data source.
+It requires a [`bucket`](/flux/v0/stdlib/influxdata/influxdb/from/#bucket) parameter.
 The following examples use `example-bucket` as the bucket name.
 
 ```js
@@ -37,12 +37,12 @@ Flux requires a time range when querying time series data.
 "Unbounded" queries are very resource-intensive and as a protective measure,
 Flux will not query the database without a specified range.
 
-Use the [pipe-forward operator](/{{< latest "flux" >}}/get-started/syntax-basics/#pipe-forward-operator)
+Use the [pipe-forward operator](/flux/v0/get-started/syntax-basics/#pipe-forward-operator)
 (`|>`) to pipe data from your data source into
-[`range()`](/{{< latest "flux" >}}/stdlib/universe/range), which specifies a time range for your query.
+[`range()`](/flux/v0/stdlib/universe/range), which specifies a time range for your query.
 It accepts two parameters: `start` and `stop`.
-Start and stop values can be **relative** using negative [durations](/{{< latest "flux" >}}/data-types/basic/duration/)
-or **absolute** using [timestamps](/{{< latest "flux" >}}/data-types/basic/time/).
+Start and stop values can be **relative** using negative [durations](/flux/v0/data-types/basic/duration/)
+or **absolute** using [timestamps](/flux/v0/data-types/basic/time/).
 
 ###### Example relative time ranges
 ```js
@@ -76,13 +76,13 @@ from(bucket:"example-bucket")
 ## 3. Filter your data
 Pass your ranged data into `filter()` to narrow results based on data attributes or columns.
 `filter()` has one parameter, `fn`, which expects a
-[predicate function](/{{< latest "flux" >}}/get-started/syntax-basics/#predicate-functions)
+[predicate function](/flux/v0/get-started/syntax-basics/#predicate-functions)
 evaluates rows by column values.
 
 `filter()` iterates over every input row and structures row data as a Flux
-[record](/{{< latest "flux" >}}/data-types/composite/record/). 
+[record](/flux/v0/data-types/composite/record/). 
 The record is passed into the predicate function as `r` where it is evaluated using
-[predicate expressions](/{{< latest "flux" >}}/get-started/syntax-basics/#predicate-expressions).
+[predicate expressions](/flux/v0/get-started/syntax-basics/#predicate-expressions).
 
 Rows that evaluate to `false` are dropped from the output data.
 Rows that evaluate to `true` persist in the output data.
@@ -109,7 +109,7 @@ from(bucket: "example-bucket")
 ```
 
 ## 4. Yield your queried data
-[`yield()`](/{{< latest "flux" >}}/stdlib/universe/yield/) outputs the result of the query.
+[`yield()`](/flux/v0/stdlib/universe/yield/) outputs the result of the query.
 
 ```js
 from(bucket: "example-bucket")

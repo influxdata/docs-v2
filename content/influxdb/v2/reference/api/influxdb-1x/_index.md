@@ -259,8 +259,8 @@ Replace the following:
 The compatibility API supports InfluxQL, with the following caveats:
 
 - The `INTO` clause (e.g. `SELECT ... INTO ...`) is not supported.
-- With the exception of [`DELETE`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-series-with-delete) and
-  [`DROP MEASUREMENT`](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-measurements-with-drop-measurement) queries, which are still allowed,
+- With the exception of [`DELETE`](/influxdb/v1/query_language/manage-database/#delete-series-with-delete) and
+  [`DROP MEASUREMENT`](/influxdb/v1/query_language/manage-database/#delete-measurements-with-drop-measurement) queries, which are still allowed,
   InfluxQL database management commands are not supported.
 
 ## Compatibility endpoints

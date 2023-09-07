@@ -658,7 +658,7 @@ Returns: [FromNode](/kapacitor/v1/nodes/from_node/)
 
 ### HoltWinters
 
-Compute the Holt-Winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
+Compute the Holt-Winters (/influxdb/v1/query_language/functions/#holt-winters) forecast of a data set.
 
 
 ```js
@@ -669,7 +669,7 @@ Returns: [InfluxQLNode](/kapacitor/v1/nodes/influx_q_l_node/)
 
 ### HoltWintersWithFit
 
-Compute the Holt-Winters (/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) forecast of a data set.
+Compute the Holt-Winters (/influxdb/v1/query_language/functions/#holt-winters) forecast of a data set.
 This method also outputs all the points used to fit the data in addition to the forecasted data.
 
 

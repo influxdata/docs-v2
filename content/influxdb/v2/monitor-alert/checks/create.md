@@ -94,7 +94,7 @@ in a specified amount of time.
 
 3.  In the **{{< caps >}}Status Message Template{{< /caps >}}** column, enter
     the status message template for the check.
-    Use [Flux string interpolation](/{{< latest "flux" >}}/data-types/basic/string/#interpolate-strings)
+    Use [Flux string interpolation](/flux/v0/data-types/basic/string/#interpolate-strings)
     to populate the message with data from the query.
 
     Check data is represented as a record, `r`.

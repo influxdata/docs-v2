@@ -26,9 +26,9 @@ Provide the following parameters to both functions:
 
 - **bucket** or **bucketID**: _InfluxDB bucket name_ or _bucket ID_ to write to.
 - **org** or **orgID**: _InfluxDB organization name_ or _organization ID_ to write to.
-- **host**: [InfluxDB URL](/{{< latest "influxdb" >}}/reference/urls/) or
+- **host**: [InfluxDB URL](/influxdb/v2/reference/urls/) or
   [InfluxDB Cloud region](/influxdb/cloud/reference/regions) URL.
-- **token**: [InfluxDB API token](/{{< latest "influxdb" >}}/security/tokens/).
+- **token**: [InfluxDB API token](/influxdb/v2/security/tokens/).
 
 ##### Write options
 - [Write data to InfluxDB](#write-data-to-influxdb)
@@ -38,7 +38,7 @@ Provide the following parameters to both functions:
 
 ## Write data to InfluxDB
 Use [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) to write data structured using the standard 
-[InfluxDB v2.x and InfluxDB Cloud data structure](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/).
+[InfluxDB v2.x and InfluxDB Cloud data structure](/influxdb/v2/reference/key-concepts/data-elements/).
 Data must include, at a minimum, the following columns:
 
 - `_time`
@@ -46,7 +46,7 @@ Data must include, at a minimum, the following columns:
 - `_field`
 - `_value`
 
-_All other columns are written to InfluxDB as [tags](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/#tags)._
+_All other columns are written to InfluxDB as [tags](/influxdb/v2/reference/key-concepts/data-elements/#tags)._
 
 Given the following input [stream of tables](/flux/v0/get-started/data-model/#stream-of-tables):
 
@@ -62,7 +62,7 @@ Given the following input [stream of tables](/flux/v0/get-started/data-model/#st
 | 2021-01-01T01:00:00Z | m            | 001 | SF  |    hum |   50.1 |
 | 2021-01-01T02:00:00Z | m            | 001 | SF  |    hum |   52.8 |
 
-`to()` generates the following [line protocol](/{{< latest "influxdb" >}}/reference/syntax/line-protocol/)
+`to()` generates the following [line protocol](/influxdb/v2/reference/syntax/line-protocol/)
 and writes it to InfluxDB:
 
 ```
@@ -115,8 +115,8 @@ Input data must have the following columns:
 - `_measurement`
 
 All columns **in the [group key](/flux/v0/get-started/data-model/#group-key)**
-other than `_time` and `_measurement` are written to InfluxDB as [tags](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/#tags).
-Columns **not in the group key** are written to InfluxDB as [fields](/{{< latest "influxdb" >}}/reference/key-concepts/data-elements/#fields).
+other than `_time` and `_measurement` are written to InfluxDB as [tags](/influxdb/v2/reference/key-concepts/data-elements/#tags).
+Columns **not in the group key** are written to InfluxDB as [fields](/influxdb/v2/reference/key-concepts/data-elements/#fields).
 
 {{% note %}}
 `_start` and `_stop` columns are ignored.
@@ -150,7 +150,7 @@ Given the following input [stream of tables](/flux/v0/get-started/data-model/#st
 | 2021-01-01T01:00:00Z | m            | 001 | BK  |   3 |   5 |  4.0 |
 | 2021-01-01T02:00:00Z | m            | 001 | BK  |   5 |   8 |  6.5 |
 
-`experimental.to()` generates the following [line protocol](/{{< latest "influxdb" >}}/reference/syntax/line-protocol/)
+`experimental.to()` generates the following [line protocol](/influxdb/v2/reference/syntax/line-protocol/)
 and writes it to InfluxDB:
 
 ```

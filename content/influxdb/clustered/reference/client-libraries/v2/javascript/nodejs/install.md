@@ -28,7 +28,7 @@ This endpoint can't query an {{% product-name %}} database.
 - [Superset](/influxdb/clustered/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/clustered/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/clustered/primers/api/v1/#query-using-the-v1-api)
-- [Chronograf](/{{< latest "Chronograf" >}}/)
+- [Chronograf](/chronograf/v1/)
 
 {{% /note %}}
 

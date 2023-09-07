@@ -22,13 +22,13 @@ no-code data collection agent for collecting and reporting metrics.
 Its vast library of input plugins and "plug-and-play" architecture lets you quickly
 and easily collect metrics from many different sources.
 
-For a list of available plugins, see [Telegraf plugins](/{{< latest "telegraf" >}}/plugins/).
+For a list of available plugins, see [Telegraf plugins](/telegraf/v1/plugins/).
 
 #### Requirements
 
 - **Telegraf 1.9.2 or greater**.
   _For information about installing Telegraf, see the
-  [Telegraf Installation instructions](/{{< latest "telegraf" >}}/install/)._
+  [Telegraf Installation instructions](/telegraf/v1/install/)._
 
 ## Basic Telegraf usage
 
@@ -39,7 +39,7 @@ Each Telegraf configuration must **have at least one input plugin and one output
 Telegraf input plugins retrieve metrics from different sources.
 Telegraf output plugins write those metrics to a destination.
 
-Use the [`outputs.influxdb_v2`](/{{< latest "telegraf" >}}/plugins/#output-influxdb_v2) plugin to write metrics collected by Telegraf to {{< product-name >}}.
+Use the [`outputs.influxdb_v2`](/telegraf/v1/plugins/#output-influxdb_v2) plugin to write metrics collected by Telegraf to {{< product-name >}}.
 
 ```toml
 # ...

@@ -37,7 +37,7 @@ To create a new notebook, do the following:
 3.  Enter a name for your notebook in the **Untitled Notebook** field.
 4. Do the following at the top of the page:
    - Select your local time zone or UTC.
-   - Choose a time [range](/{{% latest "flux" %}}/stdlib/universe/range/) for your data.
+   - Choose a time [range](/flux/v0/stdlib/universe/range/) for your data.
 5. Your notebook should have a **Data Source** cell as the first cell. **Data Source** cells provide data to subsequent cells. The presets (listed in step 2) include either a **Query Builder** or a **Flux Script** as the first cell.
 6. To define your data source query, do one of the following:
    - If your notebook uses a **Query Builder** cell, select your bucket and any additional filters for your query.

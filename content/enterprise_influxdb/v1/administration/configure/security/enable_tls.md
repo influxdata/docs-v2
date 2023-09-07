@@ -254,7 +254,7 @@ With a self-signed certificate, you must also use the `-k` option to skip certif
 
 ## Connect Telegraf to a secured InfluxDB Enterprise instance
 
-Connecting [Telegraf](/{{< latest "telegraf" >}}/)
+Connecting [Telegraf](/telegraf/v1/)
 to an HTTPS-enabled InfluxDB Enterprise instance requires some additional steps.
 
 In Telegraf's configuration file (`/etc/telegraf/telegraf.conf`), under the OUTPUT PLUGINS section,

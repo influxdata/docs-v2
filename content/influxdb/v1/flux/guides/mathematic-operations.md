@@ -10,12 +10,12 @@ menu:
     parent: Query with Flux
 weight: 5
 list_query_example: map_math
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/mathematic-operations/
+canonical: /influxdb/v2/query-data/flux/mathematic-operations/
 v2: /influxdb/v2/query-data/flux/mathematic-operations/
 ---
 
 Flux supports mathematic expressions in data transformations.
-This article describes how to use [Flux arithmetic operators](/{{< latest "flux" >}}/language/operators/#arithmetic-operators)
+This article describes how to use [Flux arithmetic operators](/flux/v0/language/operators/#arithmetic-operators)
 to "map" over data and transform values using mathematic operations.
 
 If you're just getting started with Flux queries, check out the following:
@@ -48,7 +48,7 @@ Otherwise, you will get an error similar to:
 Error: type error: float != int
 ```
 
-To convert operands to the same type, use [type-conversion functions](/{{< latest "flux" >}}/function-types#type-conversions)
+To convert operands to the same type, use [type-conversion functions](/flux/v0/function-types#type-conversions)
 or manually format operands.
 The operand data type determines the output data type.
 For example:
@@ -67,7 +67,7 @@ For example:
 {{% /note %}}
 
 ## Custom mathematic functions
-Flux lets you [create custom functions](/{{< latest "influxdb" "v2" >}}/query-data/flux/custom-functions) that use mathematic operations.
+Flux lets you [create custom functions](/influxdb/v2/query-data/flux/custom-functions) that use mathematic operations.
 View the examples below.
 
 ###### Custom multiplication function
@@ -89,9 +89,9 @@ percent(sample: 20.0, total: 80.0)
 ### Transform values in a data stream
 To transform multiple values in an input stream, your function needs to:
 
-- [Handle piped-forward data](/{{< latest "influxdb" "v2" >}}/query-data/flux/custom-functions/#use-piped-forward-data-in-a-custom-function).
+- [Handle piped-forward data](/influxdb/v2/query-data/flux/custom-functions/#use-piped-forward-data-in-a-custom-function).
 - Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
-- Use the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map) to iterate over each row.
+- Use the [`map()` function](/flux/v0/stdlib/universe/map) to iterate over each row.
 
 The example `multiplyByX()` function below includes:
 
@@ -155,7 +155,7 @@ data
 #### Include partial gigabytes
 Because the original metric (bytes) is an integer, the output of the operation is an integer and does not include partial GBs.
 To calculate partial GBs, convert the `_value` column and its values to floats using the
-[`float()` function](/{{< latest "flux" >}}/stdlib/universe/float)
+[`float()` function](/flux/v0/stdlib/universe/float)
 and format the denominator in the division operation as a float.
 
 ```js

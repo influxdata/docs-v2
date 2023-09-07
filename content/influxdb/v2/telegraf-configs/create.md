@@ -16,7 +16,7 @@ related:
 Telegraf has an extensive list of plugins for many different technologies and use cases.
 Not all plugins are available through the InfluxDB UI, but you can
 [create and upload custom Telegraf configurations](#create-a-custom-telegraf-configuration)
-to include any of the available [Telegraf plugins](/{{< latest "telegraf" >}}/plugins/).
+to include any of the available [Telegraf plugins](/telegraf/v1/plugins/).
 
 Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2/reference/cli/influx/)
 to create a Telegraf configuration.
@@ -67,6 +67,6 @@ influx telegrafs create \
 1. Create a custom Telegraf configuration file that includes the `outputs.influxdb_v2`
    output plugin. _See [Manually configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/manual-config/)_
    for more information.
-2. Add and customize [Telegraf plugins](/{{< latest "telegraf" >}}/plugins/) and save your changes.
+2. Add and customize [Telegraf plugins](/telegraf/v1/plugins/) and save your changes.
 3. [Use the `influx telegrafs create` command](#use-the-influx-cli) to upload your
    custom Telegraf configuration to InfluxDB.

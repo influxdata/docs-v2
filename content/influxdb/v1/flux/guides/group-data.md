@@ -11,7 +11,7 @@ weight: 2
 aliases:
   - /influxdb/v1/flux/guides/grouping-data/
 list_query_example: group
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/group-data/
+canonical: /influxdb/v2/query-data/flux/group-data/
 v2: /influxdb/v2/query-data/flux/group-data/
 ---
 
@@ -37,7 +37,7 @@ Understanding how modifying group keys shapes output data is key to successfully
 grouping and transforming data into your desired output.
 
 ## group() Function
-Flux's [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group) defines the
+Flux's [`group()` function](/flux/v0/stdlib/universe/group) defines the
 group key for output tables, i.e. grouping records based on values for specific columns.
 
 ###### group() example

@@ -10,10 +10,10 @@ menu:
     parent: Tools & integrations
 weight: 102
 related:
-  - /{{< latest "kapacitor" >}}/
+  - /kapacitor/v1/
 ---
 
-[Kapacitor](/{{< latest "kapacitor" >}}/) is a data processing framework that makes
+[Kapacitor](/kapacitor/v1/) is a data processing framework that makes
 it easy to create alerts, run ETL jobs and detect anomalies.
 Kapacitor interacts with **InfluxDB Cloud** and **InfluxDB OSS {{< current-version >}}** using the
 [InfluxDB 1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/), so
@@ -36,7 +36,7 @@ For more information, see [below](#use-kapacitor-stream-tasks).
 
 ## Configure Kapacitor to connect to InfluxDB
 To connect Kapacitor to InfluxDB Cloud or InfluxDB OSS {{< current-version >}}, update the `[[influxdb]]`
-section(s) of your [Kapacitor configuration file](/{{< latest "kapacitor" >}}/administration/configuration/#kapacitor-configuration-file):
+section(s) of your [Kapacitor configuration file](/kapacitor/v1/administration/configuration/#kapacitor-configuration-file):
 
 - [Specify your InfluxDB URL](#specify-your-influxdb-url)
 - [Provide InfluxDB authentication credentials](#provide-influxdb-authentication-credentials)
@@ -93,15 +93,15 @@ see [Write back to InfluxDB](#write-back-to-influxdb) below.
 
 ## Use Kapacitor stream tasks
 InfluxDB Cloud and OSS {{< current-version >}} do not have subscription APIs and do not support Kapacitor stream tasks directly.
-To use Kapacitor stream tasks, write data directly to Kapacitor using the [Kapacitor `write` API](/{{< latest "kapacitor" >}}/working/api/#writing-data). We recommend using the [Telegraf InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb) to write data to both InfluxDB Cloud or OSS and Kapacitor.
+To use Kapacitor stream tasks, write data directly to Kapacitor using the [Kapacitor `write` API](/kapacitor/v1/working/api/#writing-data). We recommend using the [Telegraf InfluxDB output plugin](/telegraf/v1/plugins/#output-influxdb) to write data to both InfluxDB Cloud or OSS and Kapacitor.
 
 ##### Write data using the Telegraf InfluxDB output plugin
 
 To write data to both InfluxDB and Kapacitor using the InfluxDB output plugin, complete the following steps:
 
-1. [Install Telegraf](/{{< latest "telegraf" >}}/install/).
+1. [Install Telegraf](/telegraf/v1/install/).
 2. [Create a DBRP mapping](/influxdb/v2/query-data/influxql/dbrp/#create-dbrp-mappings). 
-3. In the [Telegraf InfluxDB output plugin](/{{< latest "telegraf" >}}/plugins/#output-influxdb) configuration file, specify the following options, replacing `database`, `retention_policy`, `username` and `password` to match your DBRP mapping, and set `skip_database_creation` to `true`:
+3. In the [Telegraf InfluxDB output plugin](/telegraf/v1/plugins/#output-influxdb) configuration file, specify the following options, replacing `database`, `retention_policy`, `username` and `password` to match your DBRP mapping, and set `skip_database_creation` to `true`:
 
 ```toml
 # Write to Kapacitor

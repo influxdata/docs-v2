@@ -12,7 +12,7 @@ menu:
 aliases:
   - /influxdb/v1/flux/getting-started/
   - /influxdb/v1/flux/introduction/getting-started/
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/get-started/
+canonical: /influxdb/v2/query-data/get-started/
 v2: /influxdb/v2/query-data/get-started/
 ---
 
@@ -42,7 +42,7 @@ Dashboards in Chronograf v1.8+ also support Flux queries.
 
 ---
 
-_For information about downloading and installing Chronograf, see [Chronograf installation](/{{< latest "chronograf" >}}/introduction/installation)._
+_For information about downloading and installing Chronograf, see [Chronograf installation](/chronograf/v1/introduction/installation)._
 
 ---
 
@@ -55,7 +55,7 @@ A **bucket** is a named location where data is stored that has a retention polic
 It's similar to an InfluxDB v1.x "database," but is a combination of both a database and a retention policy.
 When using multiple retention policies, each retention policy is treated as is its own bucket.
 
-Flux's [`from()` function](/{{< latest "flux" >}}/stdlib/universe/from), which defines an InfluxDB data source, requires a `bucket` parameter.
+Flux's [`from()` function](/flux/v0/stdlib/universe/from), which defines an InfluxDB data source, requires a `bucket` parameter.
 When using Flux with InfluxDB v1.x, use the following bucket naming convention which combines
 the database name and retention policy into a single bucket name:
 

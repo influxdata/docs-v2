@@ -18,8 +18,8 @@ related:
 
 Use InfluxQL (an SQL-like query language) to interact with InfluxDB, and query and analyze your times series data.
 
-In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
-and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
+In InfluxDB 1.x, data is stored in [databases](/influxdb/v1/concepts/glossary/#database)
+and [retention policies](/influxdb/v1/concepts/glossary/#retention-policy-rp).
 In InfluxDB OSS {{< current-version >}}, data is stored in [buckets](/influxdb/v2/reference/glossary/#bucket).
 Because InfluxQL uses the 1.x data model, a bucket must be mapped to a database and retention policy (DBRP) before it can be queried using InfluxQL.
 

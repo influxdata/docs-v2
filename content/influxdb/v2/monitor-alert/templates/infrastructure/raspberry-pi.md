@@ -16,12 +16,12 @@ The Raspberry Pi template includes the following:
 
 - one [bucket](/influxdb/v2/reference/glossary/#bucket): `rasp-pi` (7d retention)
 - labels: `raspberry-pi` + Telegraf plugin labels
-  - [Diskio input plugin](/{{< latest "telegraf" >}}/plugins//#diskio) 
-  - [Mem input plugin](/{{< latest "telegraf" >}}/plugins//#mem) 
-  - [Net input plugin](/{{< latest "telegraf" >}}/plugins//#net) 
-  - [Processes input plugin](/{{< latest "telegraf" >}}/plugins//#processes) 
-  - [Swap input plugin](/{{< latest "telegraf" >}}/plugins//#swap) 
-  - [System input plugin](/{{< latest "telegraf" >}}/plugins//#system) 
+  - [Diskio input plugin](/telegraf/v1/plugins//#diskio) 
+  - [Mem input plugin](/telegraf/v1/plugins//#mem) 
+  - [Net input plugin](/telegraf/v1/plugins//#net) 
+  - [Processes input plugin](/telegraf/v1/plugins//#processes) 
+  - [Swap input plugin](/telegraf/v1/plugins//#swap) 
+  - [System input plugin](/telegraf/v1/plugins//#system) 
 - one [Telegraf configuration](/influxdb/v2/telegraf-configs/)
 - one [dashboard](/influxdb/v2/reference/glossary/#dashboard): Raspberry Pi System
 - two variables: `bucket` and `linux_host`
@@ -34,7 +34,7 @@ The Raspberry Pi template includes the following:
     influx apply -f https://raw.githubusercontent.com/influxdata/community-templates/master/raspberry-pi/raspberry-pi-system.yml
     ```
     For more information, see [influx apply](/influxdb/v2/reference/cli/influx/apply/).
-2.  [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on
+2.  [Install Telegraf](/telegraf/v1/introduction/installation/) on
     your Raspberry Pi and ensure your Raspberry Pi has network access to the
     [InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} API](/influxdb/v2/reference/api/).
 3. Add the following environment variables to your Telegraf environment:

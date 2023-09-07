@@ -8,7 +8,7 @@ menu:
     name: Manipulate timestamps
     parent: Query with Flux
 weight: 20
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/manipulate-timestamps/
+canonical: /influxdb/v2/query-data/flux/manipulate-timestamps/
 v2: /influxdb/v2/query-data/flux/manipulate-timestamps/
 ---
 
@@ -35,9 +35,9 @@ If you're just getting started with Flux queries, check out the following:
 - [RFC3339 to Unix nanosecond](#rfc3339-to-unix-nanosecond)
 
 ### Unix nanosecond to RFC3339
-Use the [`time()` function](/{{< latest "flux" >}}/stdlib/universe/type-conversions/time/)
-to convert a [Unix **nanosecond** timestamp](/{{< latest "influxdb" "v2" >}}/reference/glossary/#unix-timestamp)
-to an [RFC3339 timestamp](/{{< latest "influxdb" "v2" >}}/reference/glossary/#rfc3339-timestamp).
+Use the [`time()` function](/flux/v0/stdlib/universe/type-conversions/time/)
+to convert a [Unix **nanosecond** timestamp](/influxdb/v2/reference/glossary/#unix-timestamp)
+to an [RFC3339 timestamp](/influxdb/v2/reference/glossary/#rfc3339-timestamp).
 
 ```js
 time(v: 1568808000000000000)
@@ -45,7 +45,7 @@ time(v: 1568808000000000000)
 ```
 
 ### RFC3339 to Unix nanosecond
-Use the [`uint()` function](/{{< latest "flux" >}}/stdlib/universe/type-conversions/uint/)
+Use the [`uint()` function](/flux/v0/stdlib/universe/type-conversions/uint/)
 to convert an RFC3339 timestamp to a Unix nanosecond timestamp.
 
 ```js
@@ -54,7 +54,7 @@ uint(v: 2019-09-18T12:00:00.000000000Z)
 ```
 
 ## Calculate the duration between two timestamps
-Flux doesn't support mathematical operations using [time type](/{{< latest "flux" >}}/language/types/#time-types) values.
+Flux doesn't support mathematical operations using [time type](/flux/v0/language/types/#time-types) values.
 To calculate the duration between two timestamps:
 
 1. Use the `uint()` function to convert each timestamp to a Unix nanosecond timestamp.
@@ -71,7 +71,7 @@ duration(v: time2 - time1)
 
 {{% note %}}
 Flux doesn't support duration column types.
-To store a duration in a column, use the [`string()` function](/{{< latest "flux" >}}/stdlib/universe/type-conversions/string/)
+To store a duration in a column, use the [`string()` function](/flux/v0/stdlib/universe/type-conversions/string/)
 to convert the duration to a string.
 {{% /note %}}
 
@@ -80,7 +80,7 @@ to convert the duration to a string.
 - [Current system time](#current-system-time)
 
 ### Current UTC time
-Use the [`now()` function](/{{< latest "flux" >}}/stdlib/built-in/misc/now/) to
+Use the [`now()` function](/flux/v0/stdlib/built-in/misc/now/) to
 return the current UTC time in RFC3339 format.
 
 ```js
@@ -93,7 +93,7 @@ return the same value.
 {{% /note %}}
 
 ### Current system time
-Import the `system` package and use the [`system.time()` function](/{{< latest "flux" >}}/stdlib/system/time/)
+Import the `system` package and use the [`system.time()` function](/flux/v0/stdlib/system/time/)
 to return the current system time of the host machine in RFC3339 format.
 
 ```js
@@ -109,9 +109,9 @@ in a Flux script returns a unique value.
 
 ## Normalize irregular timestamps
 To normalize irregular timestamps, truncate all `_time` values to a specified unit
-with the [`truncateTimeColumn()` function](/{{< latest "flux" >}}/stdlib/universe/truncatetimecolumn/).
-This is useful in [`join()`](/{{< latest "flux" >}}/stdlib/universe/join/)
-and [`pivot()`](/{{< latest "flux" >}}/stdlib/universe/pivot/)
+with the [`truncateTimeColumn()` function](/flux/v0/stdlib/universe/truncatetimecolumn/).
+This is useful in [`join()`](/flux/v0/stdlib/universe/join/)
+and [`pivot()`](/flux/v0/stdlib/universe/pivot/)
 operations where points should align by time, but timestamps vary slightly.
 
 ```js
@@ -149,12 +149,12 @@ data
 - [Subtract a duration from a timestamp](#subtract-a-duration-from-a-timestamp)
 
 ### Add a duration to a timestamp
-The [`experimental.addDuration()` function](/{{< latest "flux" >}}/stdlib/experimental/addduration/)
+The [`experimental.addDuration()` function](/flux/v0/stdlib/experimental/addduration/)
 adds a duration to a specified time and returns the resulting time.
 
 {{% warn %}}
 By using `experimental.addDuration()`, you accept the
-[risks of experimental functions](/{{< latest "flux" >}}/stdlib/experimental/#experimental-functions-are-subject-to-change).
+[risks of experimental functions](/flux/v0/stdlib/experimental/#experimental-functions-are-subject-to-change).
 {{% /warn %}}
 
 ```js
@@ -166,12 +166,12 @@ experimental.addDuration(d: 6h, to: 2019-09-16T12:00:00Z)
 ```
 
 ### Subtract a duration from a timestamp
-The [`experimental.subDuration()` function](/{{< latest "flux" >}}/stdlib/experimental/subduration/)
+The [`experimental.subDuration()` function](/flux/v0/stdlib/experimental/subduration/)
 subtracts a duration from a specified time and returns the resulting time.
 
 {{% warn %}}
 By using `experimental.subDuration()`, you accept the
-[risks of experimental functions](/{{< latest "flux" >}}/stdlib/experimental/#experimental-functions-are-subject-to-change).
+[risks of experimental functions](/flux/v0/stdlib/experimental/#experimental-functions-are-subject-to-change).
 {{% /warn %}}
 
 ```js

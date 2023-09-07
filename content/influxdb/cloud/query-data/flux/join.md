@@ -10,13 +10,13 @@ menu:
     parent: Query with Flux
 weight: 210
 related:
-  - /{{< latest "flux" >}}/join-data/
-  - /{{< latest "flux" >}}/join-data/inner/
-  - /{{< latest "flux" >}}/join-data/left-outer/
-  - /{{< latest "flux" >}}/join-data/right-outer/
-  - /{{< latest "flux" >}}/join-data/full-outer/
-  - /{{< latest "flux" >}}/join-data/time/
-  - /{{< latest "flux" >}}/stdlib/join/
+  - /flux/v0/join-data/
+  - /flux/v0/join-data/inner/
+  - /flux/v0/join-data/left-outer/
+  - /flux/v0/join-data/right-outer/
+  - /flux/v0/join-data/full-outer/
+  - /flux/v0/join-data/time/
+  - /flux/v0/stdlib/join/
 list_query_example: join-new
 ---
 

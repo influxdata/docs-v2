@@ -8,8 +8,8 @@ menu:
     parent: Geo-temporal data
 weight: 302
 related:
-  - /{{< latest "flux" >}}/stdlib/experimental/geo/
-  - /{{< latest "flux" >}}/stdlib/experimental/geo/filterrows/
+  - /flux/v0/stdlib/experimental/geo/
+  - /flux/v0/stdlib/experimental/geo/filterrows/
 list_code_example: |
   ```js
   import "experimental/geo"
@@ -19,7 +19,7 @@ list_code_example: |
   ```
 ---
 
-Use the [`geo.filterRows` function](/{{< latest "flux" >}}/stdlib/experimental/geo/filterrows/)
+Use the [`geo.filterRows` function](/flux/v0/stdlib/experimental/geo/filterrows/)
 to filter geo-temporal data by geographic region:
 
 1. [Define a geographic region](#define-a-geographic-region)

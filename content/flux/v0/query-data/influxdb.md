@@ -42,7 +42,7 @@ To query InfluxDB Cloud or 2.x remotely, provide the following parameters
 in addition to **bucket** or **bucketID**.
 
 - **host**: [InfluxDB Cloud region URL](/influxdb/cloud/reference/urls/) or
-  [InfluxDB URL](/{{< latest "influxdb" >}}/reference/urls/)
+  [InfluxDB URL](/influxdb/v2/reference/urls/)
 - **org** or **orgID**: InfluxDB organization name or ID
 - **token**: InfluxDB [API token](/influxdb/cloud/security/tokens/)
 
@@ -65,7 +65,7 @@ from(bucket: "telegraf/autogen")
     |> range(start: -30m)
 ```
 
-To query the [default retention policy](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#create-a-retention-policy) in a database, use the same bucket naming
+To query the [default retention policy](/influxdb/v1/query_language/manage-database/#create-a-retention-policy) in a database, use the same bucket naming
 convention, but do not provide a retention policy:
 
 ```js
@@ -115,7 +115,7 @@ Hover over highlighted text to view description.
 
 {{% note %}}
 #### Structure results like InfluxQL
-[InfluxQL](/{{< latest "influxdb" "v1" >}}/query_language/) returns each field as
+[InfluxQL](/influxdb/v1/query_language/) returns each field as
 a column where the column label is the field key and the column value is the field value.
 To structure results similarly with Flux, use [`pivot()`](/flux/v0/stdlib/universe/pivot/)
 or [`schema.fieldsAsCols()`](/flux/v0/stdlib/influxdata/influxdb/schema/fieldsascols/)

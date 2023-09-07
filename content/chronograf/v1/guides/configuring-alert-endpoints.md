@@ -17,7 +17,7 @@ This guide offers step-by-step instructions for configuring Chronograf alert end
 
 ## Kapacitor event handlers supported in Chronograf
 
-Chronograf integrates with [Kapacitor](/{{< latest "kapacitor" >}}/), InfluxData's data processing platform, to send alert messages to event handlers.
+Chronograf integrates with [Kapacitor](/kapacitor/v1/), InfluxData's data processing platform, to send alert messages to event handlers.
 Chronograf supports the following event handlers:
 
 - [Alerta](#alerta)
@@ -38,14 +38,14 @@ Chronograf supports the following event handlers:
 - [VictorOps](#victorops)
 - [Zenoss](#zenoss)
 
-To configure a Kapacitor event handler in Chronograf, [install Kapacitor](/{{< latest "kapacitor" >}}/introduction/installation/) and [connect it to Chronograf](/{{< latest "kapacitor" >}}/working/kapa-and-chrono/#add-a-kapacitor-instance).
+To configure a Kapacitor event handler in Chronograf, [install Kapacitor](/kapacitor/v1/introduction/installation/) and [connect it to Chronograf](/kapacitor/v1/working/kapa-and-chrono/#add-a-kapacitor-instance).
 The **Configure Kapacitor** page includes the event handler configuration options.
 
 ## Alert endpoint configurations
 
 Alert endpoint configurations appear on the Chronograf Configure Kapacitor page.
 You must have a connected Kapacitor instance to access the configurations.
-For more information, see [Kapacitor installation instructions](/{{< latest "kapacitor" >}}/introduction/installation/) and how to [connect a Kapacitor instance](/{{< latest "kapacitor" >}}/working/kapa-and-chrono/#add-a-kapacitor-instance) to Chronograf.
+For more information, see [Kapacitor installation instructions](/kapacitor/v1/introduction/installation/) and how to [connect a Kapacitor instance](/kapacitor/v1/working/kapa-and-chrono/#add-a-kapacitor-instance) to Chronograf.
 
 Note that the configuration options in the **Configure alert endpoints** section are not all-inclusive.
 Some event handlers allow users to customize event handler configurations per [alert rule](/chronograf/v1/guides/create-a-kapacitor-alert/).
@@ -111,7 +111,7 @@ For example, Chronograf's Slack integration allows users to specify a default ch
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
 
-To enable Kafka services using TICKscript, see [Kafka event handler (Kapacitor)](/{{< latest "kapacitor" >}}/event_handlers/kafka/).
+To enable Kafka services using TICKscript, see [Kafka event handler (Kapacitor)](/kapacitor/v1/event_handlers/kafka/).
 
 ### OpsGenie
 
@@ -146,9 +146,9 @@ Send an incident alert to OpsGenie teams and recipients using the Chronograf ale
 
 See [Alert API](https://docs.opsgenie.com/docs/alert-api) in the OpsGenie documentation for details on the OpsGenie Alert API
 
-See [OpsGenie V2 event handler](/{{< latest "kapacitor" >}}/event_handlers/opsgenie/v2/) in the Kapacitor documentation for details about the OpsGenie V2 event handler.
+See [OpsGenie V2 event handler](/kapacitor/v1/event_handlers/opsgenie/v2/) in the Kapacitor documentation for details about the OpsGenie V2 event handler.
 
-See the [AlertNode (Kapacitor TICKscript node) - OpsGenie v2](/{{< latest "kapacitor" >}}/nodes/alert_node/#opsgenie-v2) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
+See the [AlertNode (Kapacitor TICKscript node) - OpsGenie v2](/kapacitor/v1/nodes/alert_node/#opsgenie-v2) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
 
 ### PagerDuty
 
@@ -175,7 +175,7 @@ Use the [PagerDuty2](#pagerduty2) alert endpoint.
 See the [PagerDuty Events API V2 Overview](https://v2.developer.pagerduty.com/docs/events-api-v2)
 for details on the PagerDuty Events API and recognized event types (`trigger`, `acknowledge`, and `resolve`).
 
-To enable a new "Generic API" service using TICKscript, see [AlertNode (Kapacitor TICKscript node) - PagerDuty v2](/{{< latest "kapacitor" >}}/nodes/alert_node/#pagerduty-v2).
+To enable a new "Generic API" service using TICKscript, see [AlertNode (Kapacitor TICKscript node) - PagerDuty v2](/kapacitor/v1/nodes/alert_node/#pagerduty-v2).
 
 ### Pushover
 
@@ -308,7 +308,7 @@ To enable a new "Generic API" service using TICKscript, see [AlertNode (Kapacito
 
 **To configure a Telegram alert endpoint:**
 
-1. [Set up a Telegram bot and credentials](/{{< latest "kapacitor" >}}/guides/event-handler-setup/#telegram-setup).
+1. [Set up a Telegram bot and credentials](/kapacitor/v1/guides/event-handler-setup/#telegram-setup).
 2. In the **Configure Alert Endpoints** of the **Configure Kapacitor Connection** page,
    click the **Telegram** tab.
 3. Enter the following:

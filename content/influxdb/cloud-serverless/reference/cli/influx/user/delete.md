@@ -6,7 +6,7 @@ menu:
     name: influx user delete
     parent: influx user
 weight: 201
-canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/delete/
+canonical: /influxdb/v2/reference/cli/influx/user/delete/
 ---
 
 {{< duplicate-oss >}}

@@ -29,7 +29,7 @@ Choose from the following methods:
 
     {{< img-hd src="/img/chronograf/1-9-write-db-rp.png" alt="Select database and retention policy to write to" />}}
 
-4.  Select one of the following methods for uploading [line protocol](/{{< latest "influxdb" "v1" >}}/write_protocols/line_protocol_tutorial/):
+4.  Select one of the following methods for uploading [line protocol](/influxdb/v1/write_protocols/line_protocol_tutorial/):
     
     - **Upload File**: Upload a file containing line protocol to write to InfluxDB.
         Either drag and drop a file into the file uploader or click to use your
@@ -50,7 +50,7 @@ Choose from the following methods:
 
 ## Use the InfluxQL `INTO` clause in a query
 To write data back to InfluxDB with an InfluxQL query, include the
-[`INTO` clause](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-into-clause)
+[`INTO` clause](/influxdb/v1/query_language/explore-data/#the-into-clause)
 in your query:
 
 1.  Select **{{< icon "data-explorer" "v2" >}} Explore** in the left navigation bar.
@@ -70,21 +70,21 @@ in your query:
 {{% note %}}
 #### Use InfluxQL to write to InfluxDB 2.x or InfluxDB Cloud
 To use InfluxQL to write to an **InfluxDB 2.x** or **InfluxDB Cloud** instance,
-[configure database and retention policy mappings](/{{< latest "influxdb" >}}/upgrade/v1-to-v2/manual-upgrade/#create-dbrp-mappings)
+[configure database and retention policy mappings](/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/#create-dbrp-mappings)
 and ensure the current [InfluxDB connection](/chronograf/v1/administration/creating-connections/#manage-influxdb-connections-using-the-chronograf-ui)
 includes the appropriate connection credentials.
 {{% /note %}}
 
 ## Use the Flux `to()` function in a query
 To write data back to InfluxDB with an InfluxQL query, include the
-[`INTO` clause](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#the-into-clause)
+[`INTO` clause](/influxdb/v1/query_language/explore-data/#the-into-clause)
 in your query:
 
 1.  Select **{{< icon "data-explorer" "v2" >}} Explore** in the left navigation bar.
 2.  Select **Flux** as your data source type.
 
     {{% note %}}
-To query InfluxDB with Flux, [enable Flux](/{{< latest "influxdb" "v1" >}}/flux/installation/)
+To query InfluxDB with Flux, [enable Flux](/influxdb/v1/flux/installation/)
 in your InfluxDB configuration.
     {{% /note %}}
 

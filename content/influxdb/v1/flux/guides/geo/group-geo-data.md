@@ -8,10 +8,10 @@ menu:
     parent: Geo-temporal data
 weight: 302
 related:
-  - /{{< latest "flux" >}}/stdlib/experimental/geo/
-  - /{{< latest "flux" >}}/stdlib/experimental/geo/groupbyarea/
-  - /{{< latest "flux" >}}/stdlib/experimental/geo/astracks/
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/geo/group-geo-data/
+  - /flux/v0/stdlib/experimental/geo/
+  - /flux/v0/stdlib/experimental/geo/groupbyarea/
+  - /flux/v0/stdlib/experimental/geo/astracks/
+canonical: /influxdb/v2/query-data/flux/geo/group-geo-data/
 v2: /influxdb/v2/query-data/flux/geo/group-geo-data/
 list_code_example: |
   ```js
@@ -30,7 +30,7 @@ to group data into tracks or routes.
 - [Group data into tracks or routes](#group-data-by-track-or-route)
 
 ### Group data by area
-Use the [`geo.groupByArea()` function](/{{< latest "flux" >}}/stdlib/experimental/geo/groupbyarea/)
+Use the [`geo.groupByArea()` function](/flux/v0/stdlib/experimental/geo/groupbyarea/)
 to group geo-temporal data points by geographic area.
 Areas are determined by [S2 grid cells](https://s2geometry.io/devguide/s2cell_hierarchy.html#s2cellid-numbering)
 
@@ -53,7 +53,7 @@ sampleGeoData
 ```
 
 ### Group data by track or route
-Use [`geo.asTracks()` function](/{{< latest "flux" >}}/stdlib/experimental/geo/astracks/)
+Use [`geo.asTracks()` function](/flux/v0/stdlib/experimental/geo/astracks/)
 to group data points into tracks or routes and order them by time or other columns.
 Data must contain a unique identifier for each track. For example: `id` or `tid`.
 

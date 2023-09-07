@@ -7,13 +7,13 @@ menu:
     weight: 100
     parent: Guides
 related:
-  - /{{< latest "kapacitor" >}}/introduction/getting-started/
-  - /{{< latest "kapacitor" >}}/working/kapa-and-chrono/
-  - /{{< latest "kapacitor" >}}/working/flux/
+  - /kapacitor/v1/introduction/getting-started/
+  - /kapacitor/v1/working/kapa-and-chrono/
+  - /kapacitor/v1/working/flux/
 
 ---
 
-Chronograf provides a user interface for [Kapacitor](/{{< latest "kapacitor" >}}/),
+Chronograf provides a user interface for [Kapacitor](/kapacitor/v1/),
 InfluxData's processing framework for creating alerts, running ETL jobs, and detecting anomalies in your data.
 Learn how Kapacitor interacts with Chronograf.
 
@@ -24,11 +24,11 @@ Learn how Kapacitor interacts with Chronograf.
 
 Chronograf provides information about Kapacitor alerts on the Alert History page.
 Chronograf writes Kapacitor alert data to InfluxDB as time series data.
-It stores the data in the `alerts` [measurement](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#measurement)
+It stores the data in the `alerts` [measurement](/influxdb/v1/concepts/glossary/#measurement)
 in the `chronograf` database.
-By default, this data is subject to an infinite [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp) (RP).
+By default, this data is subject to an infinite [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp) (RP).
 If you expect to have a large number of alerts or do not want to store your alert
-history forever, consider shortening the [duration](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#duration)
+history forever, consider shortening the [duration](/influxdb/v1/concepts/glossary/#duration)
 of the default retention policy.
 
 ### Modify the retention policy of the chronograf database
@@ -41,7 +41,7 @@ In the Databases tab:
     next to the retention policy to update.
 3.  Update the **Duration** of the retention policy.
     The minimum supported duration is one hour (`1h`) and the maximum is infinite (`INF` or `∞`).
-    _See [supported duration units](/{{< latest "influxdb" "v1" >}}/query_language/spec/#duration-units)._
+    _See [supported duration units](/influxdb/v1/query_language/spec/#duration-units)._
 4.  Click **Save**.
 
 
@@ -84,4 +84,4 @@ To manage Kapacitor Flux tasks in Chronograf, click
   - Enable and disable Kapacitor Flux tasks.
   - Delete Kapacitor Flux tasks.
 
-For more information on Flux tasks and Kapacitor see [Use Flux tasks with Kapacitor](/{{< latest "kapacitor" >}}/working/flux/).
+For more information on Flux tasks and Kapacitor see [Use Flux tasks with Kapacitor](/kapacitor/v1/working/flux/).

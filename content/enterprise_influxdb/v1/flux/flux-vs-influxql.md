@@ -32,9 +32,9 @@ This article outlines many of the tasks possible with Flux but not InfluxQL and 
 - [Work with geo-temporal data](#work-with-geo-temporal-data)
 
 ### Joins
-InfluxQL has never supported joins. They can be accomplished using [TICKscript](/{{< latest "kapacitor" >}}/tick/introduction/),
+InfluxQL has never supported joins. They can be accomplished using [TICKscript](/kapacitor/v1/tick/introduction/),
 but even TICKscript's join capabilities are limited.
-Flux's [`join()` function](/{{< latest "flux" >}}/stdlib/universe/join/) lets you
+Flux's [`join()` function](/flux/v0/stdlib/universe/join/) lets you
 to join data **from any bucket, any measurement, and on any columns** as long as
 each data set includes the columns on which they are to be joined.
 This opens the door for really powerful and useful operations.
@@ -84,7 +84,7 @@ join(tables: {mem: memUsed, proc: procTotal}, on: ["_time", "_stop", "_start", "
 ### Sort by tags
 InfluxQL's sorting capabilities are very limited, allowing you only to control the
 sort order of `time` using the `ORDER BY time` clause.
-Flux's [`sort()` function](/{{< latest "flux" >}}/stdlib/universe/sort) sorts records based on list of columns.
+Flux's [`sort()` function](/flux/v0/stdlib/universe/sort) sorts records based on list of columns.
 Depending on the column type, records are sorted lexicographically, numerically, or chronologically.
 
 ```js
@@ -97,7 +97,7 @@ from(bucket: "telegraf/autogen")
 ### Group by any column
 InfluxQL lets you group by tags or by time intervals, but nothing else.
 Flux lets you group by any column in the dataset, including `_value`.
-Use the Flux [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group/)
+Use the Flux [`group()` function](/flux/v0/stdlib/universe/group/)
 to define which columns to group data by.
 
 ```js
@@ -124,9 +124,9 @@ InfluxQL can only query data stored in InfluxDB.
 Flux can query data from other data sources such as CSV, PostgreSQL, MySQL, Google BigTable, and more.
 Join that data with data in InfluxDB to enrich query results.
 
-- [Flux CSV package](/{{< latest "flux" >}}/stdlib/csv/)
-- [Flux SQL package](/{{< latest "flux" >}}/stdlib/sql/)
-- [Flux BigTable package](/{{< latest "flux" >}}/stdlib/experimental/bigtable/)
+- [Flux CSV package](/flux/v0/stdlib/csv/)
+- [Flux SQL package](/flux/v0/stdlib/sql/)
+- [Flux BigTable package](/flux/v0/stdlib/experimental/bigtable/)
 
 <!-- -->
 ```js
@@ -158,7 +158,7 @@ _For an in-depth walkthrough of querying SQL data, see [Query SQL data sources](
 
 ### DatePart-like queries
 InfluxQL doesn't support DatePart-like queries that only return results during specified hours of the day.
-The Flux [`hourSelection` function](/{{< latest "flux" >}}/stdlib/universe/hourselection/)
+The Flux [`hourSelection` function](/flux/v0/stdlib/universe/hourselection/)
 returns only data with time values in a specified hour range.
 
 ```js
@@ -170,7 +170,7 @@ from(bucket: "telegraf/autogen")
 
 ### Pivot
 Pivoting data tables has never been supported in InfluxQL.
-The Flux [`pivot()` function](/{{< latest "flux" >}}/stdlib/universe/pivot) provides the ability
+The Flux [`pivot()` function](/flux/v0/stdlib/universe/pivot) provides the ability
 to pivot data tables by specifying `rowKey`, `columnKey`, and `valueColumn` parameters.
 
 ```js
@@ -182,7 +182,7 @@ from(bucket: "telegraf/autogen")
 
 ### Histograms
 The ability to generate histograms has been a highly requested feature for InfluxQL, but has never been supported.
-Flux's [`histogram()` function](/{{< latest "flux" >}}/stdlib/universe/histogram) uses input
+Flux's [`histogram()` function](/flux/v0/stdlib/universe/histogram) uses input
 data to generate a cumulative histogram with support for other histogram types coming in the future.
 
 ```js
@@ -200,8 +200,8 @@ _For an example of using Flux to create a cumulative histogram, see [Create hist
 
 ### Covariance
 Flux provides functions for simple covariance calculation.
-The [`covariance()` function](/{{< latest "flux" >}}/stdlib/universe/covariance)
-calculates the covariance between two columns and the [`cov()` function](/{{< latest "flux" >}}/stdlib/universe/cov)
+The [`covariance()` function](/flux/v0/stdlib/universe/covariance)
+calculates the covariance between two columns and the [`cov()` function](/flux/v0/stdlib/universe/cov)
 calculates the covariance between two data streams.
 
 ###### Covariance between two columns
@@ -226,7 +226,7 @@ cov(x: table1, y: table2, on: ["_time", "_field"])
 
 ### Cast booleans to integers
 InfluxQL supports type casting, but only for numeric data types (floats to integers and vice versa).
-[Flux type conversion functions](/{{< latest "flux" >}}/stdlib/universe/type-conversions/)
+[Flux type conversion functions](/flux/v0/stdlib/universe/type-conversions/)
 provide much broader support for type conversions and let you perform some long-requested
 operations like casting a boolean values to integers.
 
@@ -240,8 +240,8 @@ from(bucket: "telegraf/autogen")
 
 ### String manipulation and data shaping
 InfluxQL doesn't support string manipulation when querying data.
-The [Flux Strings package](/{{< latest "flux" >}}/stdlib/strings/) is a collection of functions that operate on string data.
-When combined with the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map/),
+The [Flux Strings package](/flux/v0/stdlib/strings/) is a collection of functions that operate on string data.
+When combined with the [`map()` function](/flux/v0/stdlib/universe/map/),
 functions in the string package allow for operations like string sanitization and normalization.
 
 ```js
@@ -262,7 +262,7 @@ from(bucket: "telegraf/autogen")
 
 ### Work with geo-temporal data
 InfluxQL doesn't provide functionality for working with geo-temporal data.
-The [Flux Geo package](/{{< latest "flux" >}}/stdlib/experimental/geo/) is a collection of functions that
+The [Flux Geo package](/flux/v0/stdlib/experimental/geo/) is a collection of functions that
 let you shape, filter, and group geo-temporal data.
 
 ```js
@@ -281,27 +281,27 @@ from(bucket: "geo/autogen")
 Flux is working towards complete parity with InfluxQL and new functions are being added to that end.
 The table below shows InfluxQL statements, clauses, and functions along with their equivalent Flux functions.
 
-_For a complete list of Flux functions, [view all Flux functions](/{{< latest "flux" >}}/stdlib/all-functions)._
+_For a complete list of Flux functions, [view all Flux functions](/flux/v0/stdlib/all-functions)._
 
 ### InfluxQL and Flux parity
 
 | InfluxQL                                                                                                                                    | Flux Functions                                                                                                                                                     |
 | :------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [SELECT](/enterprise_influxdb/v1/query_language/explore-data/#the-basic-select-statement)                                                 | [filter()](/{{< latest "flux" >}}/stdlib/universe/filter/)                                                                                                         |
-| [WHERE](/enterprise_influxdb/v1/query_language/explore-data/#the-where-clause)                                                            | [filter()](/{{< latest "flux" >}}/stdlib/universe/filter/), [range()](/{{< latest "flux" >}}/stdlib/universe/range/)                                               |
-| [GROUP BY](/enterprise_influxdb/v1/query_language/explore-data/#the-group-by-clause)                                                      | [group()](/{{< latest "flux" >}}/stdlib/universe/group/)                                                                                                           |
-| [INTO](/enterprise_influxdb/v1/query_language/explore-data/#the-into-clause)                                                              | [to()](/{{< latest "flux" >}}/stdlib/universe/to/) <span><a style="color:orange" href="#footnote">*</a></span>                                                     |
-| [ORDER BY](/enterprise_influxdb/v1/query_language/explore-data/#order-by-time-desc)                                                       | [sort()](/{{< latest "flux" >}}/stdlib/universe/sort/)                                                                                                             |
-| [LIMIT](/enterprise_influxdb/v1/query_language/explore-data/#the-limit-clause)                                                            | [limit()](/{{< latest "flux" >}}/stdlib/universe/limit/)                                                                                                           |
+| [SELECT](/enterprise_influxdb/v1/query_language/explore-data/#the-basic-select-statement)                                                 | [filter()](/flux/v0/stdlib/universe/filter/)                                                                                                         |
+| [WHERE](/enterprise_influxdb/v1/query_language/explore-data/#the-where-clause)                                                            | [filter()](/flux/v0/stdlib/universe/filter/), [range()](/flux/v0/stdlib/universe/range/)                                               |
+| [GROUP BY](/enterprise_influxdb/v1/query_language/explore-data/#the-group-by-clause)                                                      | [group()](/flux/v0/stdlib/universe/group/)                                                                                                           |
+| [INTO](/enterprise_influxdb/v1/query_language/explore-data/#the-into-clause)                                                              | [to()](/flux/v0/stdlib/universe/to/) <span><a style="color:orange" href="#footnote">*</a></span>                                                     |
+| [ORDER BY](/enterprise_influxdb/v1/query_language/explore-data/#order-by-time-desc)                                                       | [sort()](/flux/v0/stdlib/universe/sort/)                                                                                                             |
+| [LIMIT](/enterprise_influxdb/v1/query_language/explore-data/#the-limit-clause)                                                            | [limit()](/flux/v0/stdlib/universe/limit/)                                                                                                           |
 | [SLIMIT](/enterprise_influxdb/v1/query_language/explore-data/#the-slimit-clause)                                                          | --                                                                                                                                                                 |
 | [OFFSET](/enterprise_influxdb/v1/query_language/explore-data/#the-offset-clause)                                                          | --                                                                                                                                                                 |
 | [SOFFSET](/enterprise_influxdb/v1/query_language/explore-data/#the-soffset-clause)                                                        | --                                                                                                                                                                 |
-| [SHOW DATABASES](/enterprise_influxdb/v1/query_language/explore-schema/#show-databases)                                                   | [buckets()](/{{< latest "flux" >}}/stdlib/universe/buckets/)                                                                                                       |
-| [SHOW MEASUREMENTS](/enterprise_influxdb/v1/query_language/explore-schema/#show-measurements)                                             | [v1.measurements](/{{< latest "flux" >}}/stdlib/influxdb-v1/measurements)                                                                                          |
-| [SHOW FIELD KEYS](/enterprise_influxdb/v1/query_language/explore-schema/#show-field-keys)                                                 | [keys()](/{{< latest "flux" >}}/stdlib/universe/keys/)                                                                                                             |
-| [SHOW RETENTION POLICIES](/enterprise_influxdb/v1/query_language/explore-schema/#show-retention-policies)                                 | [buckets()](/{{< latest "flux" >}}/stdlib/universe/buckets/)                                                                                                       |
-| [SHOW TAG KEYS](/enterprise_influxdb/v1/query_language/explore-schema/#show-tag-keys)                                                     | [v1.tagKeys()](/{{< latest "flux" >}}/stdlib/influxdb-v1/tagkeys), [v1.measurementTagKeys()](/{{< latest "flux" >}}/stdlib/influxdb-v1/measurementtagkeys)         |
-| [SHOW TAG VALUES](/enterprise_influxdb/v1/query_language/explore-schema/#show-tag-values)                                                 | [v1.tagValues()](/{{< latest "flux" >}}/stdlib/influxdb-v1/tagvalues), [v1.measurementTagValues()](/{{< latest "flux" >}}/stdlib/influxdb-v1/measurementtagvalues) |
+| [SHOW DATABASES](/enterprise_influxdb/v1/query_language/explore-schema/#show-databases)                                                   | [buckets()](/flux/v0/stdlib/universe/buckets/)                                                                                                       |
+| [SHOW MEASUREMENTS](/enterprise_influxdb/v1/query_language/explore-schema/#show-measurements)                                             | [v1.measurements](/flux/v0/stdlib/influxdb-v1/measurements)                                                                                          |
+| [SHOW FIELD KEYS](/enterprise_influxdb/v1/query_language/explore-schema/#show-field-keys)                                                 | [keys()](/flux/v0/stdlib/universe/keys/)                                                                                                             |
+| [SHOW RETENTION POLICIES](/enterprise_influxdb/v1/query_language/explore-schema/#show-retention-policies)                                 | [buckets()](/flux/v0/stdlib/universe/buckets/)                                                                                                       |
+| [SHOW TAG KEYS](/enterprise_influxdb/v1/query_language/explore-schema/#show-tag-keys)                                                     | [v1.tagKeys()](/flux/v0/stdlib/influxdb-v1/tagkeys), [v1.measurementTagKeys()](/flux/v0/stdlib/influxdb-v1/measurementtagkeys)         |
+| [SHOW TAG VALUES](/enterprise_influxdb/v1/query_language/explore-schema/#show-tag-values)                                                 | [v1.tagValues()](/flux/v0/stdlib/influxdb-v1/tagvalues), [v1.measurementTagValues()](/flux/v0/stdlib/influxdb-v1/measurementtagvalues) |
 | [SHOW SERIES](/enterprise_influxdb/v1/query_language/explore-schema/#show-series)                                                         | --                                                                                                                                                                 |
 | [CREATE DATABASE](/enterprise_influxdb/v1/query_language/manage-database/#create-database)                                                | --                                                                                                                                                                 |
 | [DROP DATABASE](/enterprise_influxdb/v1/query_language/manage-database/#delete-a-database-with-drop-database)                             | --                                                                                                                                                                 |
@@ -312,57 +312,57 @@ _For a complete list of Flux functions, [view all Flux functions](/{{< latest "f
 | [CREATE RETENTION POLICY](/enterprise_influxdb/v1/query_language/manage-database/#create-retention-policies-with-create-retention-policy) | --                                                                                                                                                                 |
 | [ALTER RETENTION POLICY](/enterprise_influxdb/v1/query_language/manage-database/#modify-retention-policies-with-alter-retention-policy)   | --                                                                                                                                                                 |
 | [DROP RETENTION POLICY](/enterprise_influxdb/v1/query_language/manage-database/#delete-retention-policies-with-drop-retention-policy)     | --                                                                                                                                                                 |
-| [COUNT](/enterprise_influxdb/v1/query_language/functions#count)                                                                           | [count()](/{{< latest "flux" >}}/stdlib/universe/count/)                                                                                                           |
-| [DISTINCT](/enterprise_influxdb/v1/query_language/functions#distinct)                                                                     | [distinct()](/{{< latest "flux" >}}/stdlib/universe/distinct/)                                                                                                     |
-| [INTEGRAL](/enterprise_influxdb/v1/query_language/functions#integral)                                                                     | [integral()](/{{< latest "flux" >}}/stdlib/universe/integral/)                                                                                                     |
-| [MEAN](/enterprise_influxdb/v1/query_language/functions#mean)                                                                             | [mean()](/{{< latest "flux" >}}/stdlib/universe/mean/)                                                                                                             |
-| [MEDIAN](/enterprise_influxdb/v1/query_language/functions#median)                                                                         | [median()](/{{< latest "flux" >}}/stdlib/universe/median/)                                                                                                         |
-| [MODE](/enterprise_influxdb/v1/query_language/functions#mode)                                                                             | [mode()](/{{< latest "flux" >}}/stdlib/universe/mode/)                                                                                                             |
-| [SPREAD](/enterprise_influxdb/v1/query_language/functions#spread)                                                                         | [spread()](/{{< latest "flux" >}}/stdlib/universe/spread/)                                                                                                         |
-| [STDDEV](/enterprise_influxdb/v1/query_language/functions#stddev)                                                                         | [stddev()](/{{< latest "flux" >}}/stdlib/universe/stddev/)                                                                                                         |
-| [SUM](/enterprise_influxdb/v1/query_language/functions#sum)                                                                               | [sum()](/{{< latest "flux" >}}/stdlib/universe/sum/)                                                                                                               |
-| [BOTTOM](/enterprise_influxdb/v1/query_language/functions#bottom)                                                                         | [bottom()](/{{< latest "flux" >}}/stdlib/universe/bottom/)                                                                                                         |
-| [FIRST](/enterprise_influxdb/v1/query_language/functions#first)                                                                           | [first()](/{{< latest "flux" >}}/stdlib/universe/first/)                                                                                                           |
-| [LAST](/enterprise_influxdb/v1/query_language/functions#last)                                                                             | [last()](/{{< latest "flux" >}}/stdlib/universe/last/)                                                                                                             |
-| [MAX](/enterprise_influxdb/v1/query_language/functions#max)                                                                               | [max()](/{{< latest "flux" >}}/stdlib/universe/max/)                                                                                                               |
-| [MIN](/enterprise_influxdb/v1/query_language/functions#min)                                                                               | [min()](/{{< latest "flux" >}}/stdlib/universe/min/)                                                                                                               |
-| [PERCENTILE](/enterprise_influxdb/v1/query_language/functions#percentile)                                                                 | [quantile()](/{{< latest "flux" >}}/stdlib/universe/quantile/)                                                                                                     |
-| [SAMPLE](/enterprise_influxdb/v1/query_language/functions#sample)                                                                         | [sample()](/{{< latest "flux" >}}/stdlib/universe/sample/)                                                                                                         |
-| [TOP](/enterprise_influxdb/v1/query_language/functions#top)                                                                               | [top()](/{{< latest "flux" >}}/stdlib/universe/top/)                                                                                                               |
-| [ABS](/enterprise_influxdb/v1/query_language/functions#abs)                                                                               | [math.abs()](/{{< latest "flux" >}}/stdlib/math/abs/)                                                                                                              |
-| [ACOS](/enterprise_influxdb/v1/query_language/functions#acos)                                                                             | [math.acos()](/{{< latest "flux" >}}/stdlib/math/acos/)                                                                                                            |
-| [ASIN](/enterprise_influxdb/v1/query_language/functions#asin)                                                                             | [math.asin()](/{{< latest "flux" >}}/stdlib/math/asin/)                                                                                                            |
-| [ATAN](/enterprise_influxdb/v1/query_language/functions#atan)                                                                             | [math.atan()](/{{< latest "flux" >}}/stdlib/math/atan/)                                                                                                            |
-| [ATAN2](/enterprise_influxdb/v1/query_language/functions#atan2)                                                                           | [math.atan2()](/{{< latest "flux" >}}/stdlib/math/atan2/)                                                                                                          |
-| [CEIL](/enterprise_influxdb/v1/query_language/functions#ceil)                                                                             | [math.ceil()](/{{< latest "flux" >}}/stdlib/math/ceil/)                                                                                                            |
-| [COS](/enterprise_influxdb/v1/query_language/functions#cos)                                                                               | [math.cos()](/{{< latest "flux" >}}/stdlib/math/cos/)                                                                                                              |
-| [CUMULATIVE_SUM](/enterprise_influxdb/v1/query_language/functions#cumulative-sum)                                                         | [cumulativeSum()](/{{< latest "flux" >}}/stdlib/universe/cumulativesum/)                                                                                           |
-| [DERIVATIVE](/enterprise_influxdb/v1/query_language/functions#derivative)                                                                 | [derivative()](/{{< latest "flux" >}}/stdlib/universe/derivative/)                                                                                                 |
-| [DIFFERENCE](/enterprise_influxdb/v1/query_language/functions#difference)                                                                 | [difference()](/{{< latest "flux" >}}/stdlib/universe/difference/)                                                                                                 |
-| [ELAPSED](/enterprise_influxdb/v1/query_language/functions#elapsed)                                                                       | [elapsed()](/{{< latest "flux" >}}/stdlib/universe/elapsed/)                                                                                                       |
-| [EXP](/enterprise_influxdb/v1/query_language/functions#exp)                                                                               | [math.exp()](/{{< latest "flux" >}}/stdlib/math/exp/)                                                                                                              |
-| [FLOOR](/enterprise_influxdb/v1/query_language/functions#floor)                                                                           | [math.floor()](/{{< latest "flux" >}}/stdlib/math/floor/)                                                                                                          |
-| [HISTOGRAM](/enterprise_influxdb/v1/query_language/functions#histogram)                                                                   | [histogram()](/{{< latest "flux" >}}/stdlib/universe/histogram/)                                                                                                   |
-| [LN](/enterprise_influxdb/v1/query_language/functions#ln)                                                                                 | [math.log()](/{{< latest "flux" >}}/stdlib/math/log/)                                                                                                              |
-| [LOG](/enterprise_influxdb/v1/query_language/functions#log)                                                                               | [math.logb()](/{{< latest "flux" >}}/stdlib/math/logb/)                                                                                                            |
-| [LOG2](/enterprise_influxdb/v1/query_language/functions#log2)                                                                             | [math.log2()](/{{< latest "flux" >}}/stdlib/math/log2/)                                                                                                            |
-| [LOG10](/enterprise_influxdb/v1/query_language/functions/#log10)                                                                          | [math.log10()](/{{< latest "flux" >}}/stdlib/math/log10/)                                                                                                          |
-| [MOVING_AVERAGE](/enterprise_influxdb/v1/query_language/functions#moving-average)                                                         | [movingAverage()](/{{< latest "flux" >}}/stdlib/universe/movingaverage/)                                                                                           |
-| [NON_NEGATIVE_DERIVATIVE](/enterprise_influxdb/v1/query_language/functions#non-negative-derivative)                                       | [derivative(nonNegative:true)](/{{< latest "flux" >}}/stdlib/universe/derivative/)                                                                                 |
-| [NON_NEGATIVE_DIFFERENCE](/enterprise_influxdb/v1/query_language/functions#non-negative-difference)                                       | [difference(nonNegative:true)](/{{< latest "flux" >}}/stdlib/universe/derivative/)                                                                                 |
-| [POW](/enterprise_influxdb/v1/query_language/functions#pow)                                                                               | [math.pow()](/{{< latest "flux" >}}/stdlib/math/pow/)                                                                                                              |
-| [ROUND](/enterprise_influxdb/v1/query_language/functions#round)                                                                           | [math.round()](/{{< latest "flux" >}}/stdlib/math/round/)                                                                                                          |
-| [SIN](/enterprise_influxdb/v1/query_language/functions#sin)                                                                               | [math.sin()](/{{< latest "flux" >}}/stdlib/math/sin/)                                                                                                              |
-| [SQRT](/enterprise_influxdb/v1/query_language/functions#sqrt)                                                                             | [math.sqrt()](/{{< latest "flux" >}}/stdlib/math/sqrt/)                                                                                                            |
-| [TAN](/enterprise_influxdb/v1/query_language/functions#tan)                                                                               | [math.tan()](/{{< latest "flux" >}}/stdlib/math/tan/)                                                                                                              |
-| [HOLT_WINTERS](/enterprise_influxdb/v1/query_language/functions#holt-winters)                                                             | [holtWinters()](/{{< latest "flux" >}}/stdlib/universe/holtwinters/)                                                                                               |
-| [CHANDE_MOMENTUM_OSCILLATOR](/enterprise_influxdb/v1/query_language/functions#chande-momentum-oscillator)                                 | [chandeMomentumOscillator()](/{{< latest "flux" >}}/stdlib/universe/chandemomentumoscillator/)                                                                     |
-| [EXPONENTIAL_MOVING_AVERAGE](/enterprise_influxdb/v1/query_language/functions#exponential-moving-average)                                 | [exponentialMovingAverage()](/{{< latest "flux" >}}/stdlib/universe/exponentialmovingaverage/)                                                                     |
-| [DOUBLE_EXPONENTIAL_MOVING_AVERAGE](/enterprise_influxdb/v1/query_language/functions#double-exponential-moving-average)                   | [doubleEMA()](/{{< latest "flux" >}}/stdlib/universe/doubleema/)                                                                                                   |
-| [KAUFMANS_EFFICIENCY_RATIO](/enterprise_influxdb/v1/query_language/functions#kaufmans-efficiency-ratio)                                   | [kaufmansER()](/{{< latest "flux" >}}/stdlib/universe/kaufmanser/)                                                                                                 |
-| [KAUFMANS_ADAPTIVE_MOVING_AVERAGE](/enterprise_influxdb/v1/query_language/functions#kaufmans-adaptive-moving-average)                     | [kaufmansAMA()](/{{< latest "flux" >}}/stdlib/universe/kaufmansama/)                                                                                               |
-| [TRIPLE_EXPONENTIAL_MOVING_AVERAGE](/enterprise_influxdb/v1/query_language/functions#triple-exponential-moving-average)                   | [tripleEMA()](/{{< latest "flux" >}}/stdlib/universe/tripleema/)                                                                                                   |
-| [TRIPLE_EXPONENTIAL_DERIVATIVE](/enterprise_influxdb/v1/query_language/functions#triple-exponential-derivative)                           | [tripleExponentialDerivative()](/{{< latest "flux" >}}/stdlib/universe/tripleexponentialderivative/)                                                               |
-| [RELATIVE_STRENGTH_INDEX](/enterprise_influxdb/v1/query_language/functions#relative-strength-index)                                       | [relativeStrengthIndex()](/{{< latest "flux" >}}/stdlib/universe/relativestrengthindex/)                                                                           |
+| [COUNT](/enterprise_influxdb/v1/query_language/functions#count)                                                                           | [count()](/flux/v0/stdlib/universe/count/)                                                                                                           |
+| [DISTINCT](/enterprise_influxdb/v1/query_language/functions#distinct)                                                                     | [distinct()](/flux/v0/stdlib/universe/distinct/)                                                                                                     |
+| [INTEGRAL](/enterprise_influxdb/v1/query_language/functions#integral)                                                                     | [integral()](/flux/v0/stdlib/universe/integral/)                                                                                                     |
+| [MEAN](/enterprise_influxdb/v1/query_language/functions#mean)                                                                             | [mean()](/flux/v0/stdlib/universe/mean/)                                                                                                             |
+| [MEDIAN](/enterprise_influxdb/v1/query_language/functions#median)                                                                         | [median()](/flux/v0/stdlib/universe/median/)                                                                                                         |
+| [MODE](/enterprise_influxdb/v1/query_language/functions#mode)                                                                             | [mode()](/flux/v0/stdlib/universe/mode/)                                                                                                             |
+| [SPREAD](/enterprise_influxdb/v1/query_language/functions#spread)                                                                         | [spread()](/flux/v0/stdlib/universe/spread/)                                                                                                         |
+| [STDDEV](/enterprise_influxdb/v1/query_language/functions#stddev)                                                                         | [stddev()](/flux/v0/stdlib/universe/stddev/)                                                                                                         |
+| [SUM](/enterprise_influxdb/v1/query_language/functions#sum)                                                                               | [sum()](/flux/v0/stdlib/universe/sum/)                                                                                                               |
+| [BOTTOM](/enterprise_influxdb/v1/query_language/functions#bottom)                                                                         | [bottom()](/flux/v0/stdlib/universe/bottom/)                                                                                                         |
+| [FIRST](/enterprise_influxdb/v1/query_language/functions#first)                                                                           | [first()](/flux/v0/stdlib/universe/first/)                                                                                                           |
+| [LAST](/enterprise_influxdb/v1/query_language/functions#last)                                                                             | [last()](/flux/v0/stdlib/universe/last/)                                                                                                             |
+| [MAX](/enterprise_influxdb/v1/query_language/functions#max)                                                                               | [max()](/flux/v0/stdlib/universe/max/)                                                                                                               |
+| [MIN](/enterprise_influxdb/v1/query_language/functions#min)                                                                               | [min()](/flux/v0/stdlib/universe/min/)                                                                                                               |
+| [PERCENTILE](/enterprise_influxdb/v1/query_language/functions#percentile)                                                                 | [quantile()](/flux/v0/stdlib/universe/quantile/)                                                                                                     |
+| [SAMPLE](/enterprise_influxdb/v1/query_language/functions#sample)                                                                         | [sample()](/flux/v0/stdlib/universe/sample/)                                                                                                         |
+| [TOP](/enterprise_influxdb/v1/query_language/functions#top)                                                                               | [top()](/flux/v0/stdlib/universe/top/)                                                                                                               |
+| [ABS](/enterprise_influxdb/v1/query_language/functions#abs)                                                                               | [math.abs()](/flux/v0/stdlib/math/abs/)                                                                                                              |
+| [ACOS](/enterprise_influxdb/v1/query_language/functions#acos)                                                                             | [math.acos()](/flux/v0/stdlib/math/acos/)                                                                                                            |
+| [ASIN](/enterprise_influxdb/v1/query_language/functions#asin)                                                                             | [math.asin()](/flux/v0/stdlib/math/asin/)                                                                                                            |
+| [ATAN](/enterprise_influxdb/v1/query_language/functions#atan)                                                                             | [math.atan()](/flux/v0/stdlib/math/atan/)                                                                                                            |
+| [ATAN2](/enterprise_influxdb/v1/query_language/functions#atan2)                                                                           | [math.atan2()](/flux/v0/stdlib/math/atan2/)                                                                                                          |
+| [CEIL](/enterprise_influxdb/v1/query_language/functions#ceil)                                                                             | [math.ceil()](/flux/v0/stdlib/math/ceil/)                                                                                                            |
+| [COS](/enterprise_influxdb/v1/query_language/functions#cos)                                                                               | [math.cos()](/flux/v0/stdlib/math/cos/)                                                                                                              |
+| [CUMULATIVE_SUM](/enterprise_influxdb/v1/query_language/functions#cumulative-sum)                                                         | [cumulativeSum()](/flux/v0/stdlib/universe/cumulativesum/)                                                                                           |
+| [DERIVATIVE](/enterprise_influxdb/v1/query_language/functions#derivative)                                                                 | [derivative()](/flux/v0/stdlib/universe/derivative/)                                                                                                 |
+| [DIFFERENCE](/enterprise_influxdb/v1/query_language/functions#difference)                                                                 | [difference()](/flux/v0/stdlib/universe/difference/)                                                                                                 |
+| [ELAPSED](/enterprise_influxdb/v1/query_language/functions#elapsed)                                                                       | [elapsed()](/flux/v0/stdlib/universe/elapsed/)                                                                                                       |
+| [EXP](/enterprise_influxdb/v1/query_language/functions#exp)                                                                               | [math.exp()](/flux/v0/stdlib/math/exp/)                                                                                                              |
+| [FLOOR](/enterprise_influxdb/v1/query_language/functions#floor)                                                                           | [math.floor()](/flux/v0/stdlib/math/floor/)                                                                                                          |
+| [HISTOGRAM](/enterprise_influxdb/v1/query_language/functions#histogram)                                                                   | [histogram()](/flux/v0/stdlib/universe/histogram/)                                                                                                   |
+| [LN](/enterprise_influxdb/v1/query_language/functions#ln)                                                                                 | [math.log()](/flux/v0/stdlib/math/log/)                                                                                                              |
+| [LOG](/enterprise_influxdb/v1/query_language/functions#log)                                                                               | [math.logb()](/flux/v0/stdlib/math/logb/)                                                                                                            |
+| [LOG2](/enterprise_influxdb/v1/query_language/functions#log2)                                                                             | [math.log2()](/flux/v0/stdlib/math/log2/)                                                                                                            |
+| [LOG10](/enterprise_influxdb/v1/query_language/functions/#log10)                                                                          | [math.log10()](/flux/v0/stdlib/math/log10/)                                                                                                          |
+| [MOVING_AVERAGE](/enterprise_influxdb/v1/query_language/functions#moving-average)                                                         | [movingAverage()](/flux/v0/stdlib/universe/movingaverage/)                                                                                           |
+| [NON_NEGATIVE_DERIVATIVE](/enterprise_influxdb/v1/query_language/functions#non-negative-derivative)                                       | [derivative(nonNegative:true)](/flux/v0/stdlib/universe/derivative/)                                                                                 |
+| [NON_NEGATIVE_DIFFERENCE](/enterprise_influxdb/v1/query_language/functions#non-negative-difference)                                       | [difference(nonNegative:true)](/flux/v0/stdlib/universe/derivative/)                                                                                 |
+| [POW](/enterprise_influxdb/v1/query_language/functions#pow)                                                                               | [math.pow()](/flux/v0/stdlib/math/pow/)                                                                                                              |
+| [ROUND](/enterprise_influxdb/v1/query_language/functions#round)                                                                           | [math.round()](/flux/v0/stdlib/math/round/)                                                                                                          |
+| [SIN](/enterprise_influxdb/v1/query_language/functions#sin)                                                                               | [math.sin()](/flux/v0/stdlib/math/sin/)                                                                                                              |
+| [SQRT](/enterprise_influxdb/v1/query_language/functions#sqrt)                                                                             | [math.sqrt()](/flux/v0/stdlib/math/sqrt/)                                                                                                            |
+| [TAN](/enterprise_influxdb/v1/query_language/functions#tan)                                                                               | [math.tan()](/flux/v0/stdlib/math/tan/)                                                                                                              |
+| [HOLT_WINTERS](/enterprise_influxdb/v1/query_language/functions#holt-winters)                                                             | [holtWinters()](/flux/v0/stdlib/universe/holtwinters/)                                                                                               |
+| [CHANDE_MOMENTUM_OSCILLATOR](/enterprise_influxdb/v1/query_language/functions#chande-momentum-oscillator)                                 | [chandeMomentumOscillator()](/flux/v0/stdlib/universe/chandemomentumoscillator/)                                                                     |
+| [EXPONENTIAL_MOVING_AVERAGE](/enterprise_influxdb/v1/query_language/functions#exponential-moving-average)                                 | [exponentialMovingAverage()](/flux/v0/stdlib/universe/exponentialmovingaverage/)                                                                     |
+| [DOUBLE_EXPONENTIAL_MOVING_AVERAGE](/enterprise_influxdb/v1/query_language/functions#double-exponential-moving-average)                   | [doubleEMA()](/flux/v0/stdlib/universe/doubleema/)                                                                                                   |
+| [KAUFMANS_EFFICIENCY_RATIO](/enterprise_influxdb/v1/query_language/functions#kaufmans-efficiency-ratio)                                   | [kaufmansER()](/flux/v0/stdlib/universe/kaufmanser/)                                                                                                 |
+| [KAUFMANS_ADAPTIVE_MOVING_AVERAGE](/enterprise_influxdb/v1/query_language/functions#kaufmans-adaptive-moving-average)                     | [kaufmansAMA()](/flux/v0/stdlib/universe/kaufmansama/)                                                                                               |
+| [TRIPLE_EXPONENTIAL_MOVING_AVERAGE](/enterprise_influxdb/v1/query_language/functions#triple-exponential-moving-average)                   | [tripleEMA()](/flux/v0/stdlib/universe/tripleema/)                                                                                                   |
+| [TRIPLE_EXPONENTIAL_DERIVATIVE](/enterprise_influxdb/v1/query_language/functions#triple-exponential-derivative)                           | [tripleExponentialDerivative()](/flux/v0/stdlib/universe/tripleexponentialderivative/)                                                               |
+| [RELATIVE_STRENGTH_INDEX](/enterprise_influxdb/v1/query_language/functions#relative-strength-index)                                       | [relativeStrengthIndex()](/flux/v0/stdlib/universe/relativestrengthindex/)                                                                           |
 
 _<span style="font-size:.9rem" id="footnote"><span style="color:orange">*</span> The <code>to()</code> function only writes to InfluxDB 2.0.</span>_

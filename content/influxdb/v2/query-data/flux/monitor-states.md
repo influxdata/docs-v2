@@ -11,8 +11,8 @@ weight: 220
 aliases:
   - /influxdb/v2/query-data/guides/monitor-states/
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/stateduration/
-  - /{{< latest "flux" >}}/stdlib/universe/statecount/
+  - /flux/v0/stdlib/universe/stateduration/
+  - /flux/v0/stdlib/universe/statecount/
 ---
 
 Flux helps you monitor states in your metrics and events:
@@ -23,12 +23,12 @@ Flux helps you monitor states in your metrics and events:
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux.
+- [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux.
 - [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## Find how long a state persists
 
-Use [`stateDuration()`](/{{< latest "flux" >}}/stdlib/universe/stateduration/)
+Use [`stateDuration()`](/flux/v0/stdlib/universe/stateduration/)
 to calculate the duration of consecutive rows with a specified state.
 For each consecutive point that matches the specified state, `stateDuration()`
 increments and stores the duration (in the specified unit) in a user-defined column.
@@ -80,7 +80,7 @@ Results for the example query above may look like this (for simplicity, we've om
 
 ## Count the number of consecutive states
 
-Use the [`stateCount()` function](/{{< latest "flux" >}}/stdlib/universe/statecount/)
+Use the [`stateCount()` function](/flux/v0/stdlib/universe/statecount/)
 and include the following information:
 
 - **Column to search:** any tag key, tag value, field key, field value, or measurement.

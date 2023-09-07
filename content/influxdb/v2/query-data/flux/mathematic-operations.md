@@ -13,22 +13,22 @@ weight: 208
 aliases:
   - /influxdb/v2/query-data/guides/mathematic-operations/
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/map
-  - /{{< latest "flux" >}}/stdlib/universe/aggregates/reduce/
-  - /{{< latest "flux" >}}/language/operators/
-  - /{{< latest "flux" >}}/function-types/#type-conversions, Flux type-conversion functions
+  - /flux/v0/stdlib/universe/map
+  - /flux/v0/stdlib/universe/aggregates/reduce/
+  - /flux/v0/language/operators/
+  - /flux/v0/function-types/#type-conversions, Flux type-conversion functions
   - /influxdb/v2/query-data/flux/calculate-percentages/
 list_query_example: map_math
 ---
 
-[Flux](/{{< latest "flux" >}}/), InfluxData's data scripting and query language,
+[Flux](/flux/v0/), InfluxData's data scripting and query language,
 supports mathematic expressions in data transformations.
-This article describes how to use [Flux arithmetic operators](/{{< latest "flux" >}}/spec/operators/#arithmetic-operators)
+This article describes how to use [Flux arithmetic operators](/flux/v0/spec/operators/#arithmetic-operators)
 to "map" over data and transform values using mathematic operations.
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ##### Basic mathematic operations
@@ -56,7 +56,7 @@ Otherwise, you will get an error similar to:
 Error: type error: float != int
 ```
 
-To convert operands to the same type, use [type-conversion functions](/{{< latest "flux" >}}/stdlib/universe/)
+To convert operands to the same type, use [type-conversion functions](/flux/v0/stdlib/universe/)
 or manually format operands.
 The operand data type determines the output data type.
 For example:
@@ -99,7 +99,7 @@ To transform multiple values in an input stream, your function needs to:
 
 - [Handle piped-forward data](/influxdb/v2/query-data/flux/custom-functions/#use-piped-forward-data-in-a-custom-function).
 - Each operand necessary for the calculation exists in each row _(see [Pivot vs join](#pivot-vs-join) below)_.
-- Use the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map) to iterate over each row.
+- Use the [`map()` function](/flux/v0/stdlib/universe/map) to iterate over each row.
 
 The example `multiplyByX()` function below includes:
 
@@ -146,7 +146,7 @@ data
 #### Include partial gigabytes
 Because the original metric (bytes) is an integer, the output of the operation is an integer and does not include partial GBs.
 To calculate partial GBs, convert the `_value` column and its values to floats using the
-[`float()` function](/{{< latest "flux" >}}/stdlib/universe/float)
+[`float()` function](/flux/v0/stdlib/universe/float)
 and format the denominator in the division operation as a float.
 
 ```js

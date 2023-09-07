@@ -45,13 +45,13 @@ the normalized data to a bucket.
         value to a cardinal direction (N, NNE, NE, etc.).
     2.  Use `__PREVIOUS_RESULT__` to load the output of the previous notebook
         cell into the Flux script.
-    3.  Use [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) to iterate
+    3.  Use [`map()`](/flux/v0/stdlib/universe/map/) to iterate
         over each input row, update the field key to `wind_dir_cardinal`, and
         normalize the `_value` column to a cardinal direction using the custom
         `cardinalDir()` function.
     4.  {{% cloud-only %}}
         
-        Use [`to()`](/{{< latest "flux">}}/stdlib/influxdata/influxdb/to/)
+        Use [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/)
         to write the normalized data back to InfluxDB.
         Specify an existing bucket to write to or
         [create a new bucket](/influxdb/v2/organizations/buckets/create-bucket/).

@@ -13,9 +13,9 @@ influxdb/v2/tags: [variables]
 List all buckets in the current organization.
 
 _**Flux functions:**
-[buckets()](/{{< latest "flux" >}}/stdlib/universe/buckets/),
-[rename()](/{{< latest "flux" >}}/stdlib/universe/rename/),
-[keep()](/{{< latest "flux" >}}/stdlib/universe/keep/)_
+[buckets()](/flux/v0/stdlib/universe/buckets/),
+[rename()](/flux/v0/stdlib/universe/rename/),
+[keep()](/flux/v0/stdlib/universe/keep/)_
 
 ```js
 buckets()
@@ -26,8 +26,8 @@ buckets()
 ## List measurements
 List all measurements in a specified bucket.
 
-_**Flux package:** [InfluxDB schema](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/)  
-**Flux functions:** [schema.measurements()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurements/)_
+_**Flux package:** [InfluxDB schema](/flux/v0/stdlib/influxdata/influxdb/schema/)  
+**Flux functions:** [schema.measurements()](/flux/v0/stdlib/influxdata/influxdb/schema/measurements/)_
 
 ```js
 import "influxdata/influxdb/schema"
@@ -38,8 +38,8 @@ schema.measurements(bucket: "bucket-name")
 ## List fields in a measurement
 List all fields in a specified bucket and measurement.
 
-_**Flux package:** [InfluxDB schema](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/)  
-**Flux functions:** [schema.measurementTagValues()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementtagvalues/)_
+_**Flux package:** [InfluxDB schema](/flux/v0/stdlib/influxdata/influxdb/schema/)  
+**Flux functions:** [schema.measurementTagValues()](/flux/v0/stdlib/influxdata/influxdb/schema/measurementtagvalues/)_
 
 ```js
 import "influxdata/influxdb/schema"
@@ -55,8 +55,8 @@ schema.measurementTagValues(
 List all unique tag values for a specific tag in a specified bucket.
 The example below lists all unique values of the `host` tag.
 
-_**Flux package:** [InfluxDB schema](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/)_  
-_**Flux functions:** [schema.tagValues()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/tagvalues/)_  
+_**Flux package:** [InfluxDB schema](/flux/v0/stdlib/influxdata/influxdb/schema/)_  
+_**Flux functions:** [schema.tagValues()](/flux/v0/stdlib/influxdata/influxdb/schema/tagvalues/)_  
 
 ```js
 import "influxdata/influxdb/schema"
@@ -67,9 +67,9 @@ schema.tagValues(bucket: "bucket-name", tag: "host")
 ## List Docker containers
 List all Docker containers when using the Docker Telegraf plugin.
 
-_**Telegraf plugin:** [Docker](/{{< latest "telegraf" >}}/plugins/#input-docker)_  
-_**Flux package:** [InfluxDB schema](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/)_  
-_**Flux functions:** [schema.tagValues()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/tagvalues/)_
+_**Telegraf plugin:** [Docker](/telegraf/v1/plugins/#input-docker)_  
+_**Flux package:** [InfluxDB schema](/flux/v0/stdlib/influxdata/influxdb/schema/)_  
+_**Flux functions:** [schema.tagValues()](/flux/v0/stdlib/influxdata/influxdb/schema/tagvalues/)_
 
 ```js
 import "influxdata/influxdb/schema"
@@ -80,9 +80,9 @@ schema.tagValues(bucket: "bucket-name", tag: "container_name")
 ## List Kubernetes pods
 List all Kubernetes pods when using the Kubernetes Telegraf plugin.
 
-_**Telegraf plugin:** [Kubernetes](/{{< latest "telegraf" >}}/plugins/#input-kubernetes)_  
-_**Flux package:** [InfluxDB schema](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/)_  
-_**Flux functions:** [schema.measurementTagValues()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementtagvalues/)_
+_**Telegraf plugin:** [Kubernetes](/telegraf/v1/plugins/#input-kubernetes)_  
+_**Flux package:** [InfluxDB schema](/flux/v0/stdlib/influxdata/influxdb/schema/)_  
+_**Flux functions:** [schema.measurementTagValues()](/flux/v0/stdlib/influxdata/influxdb/schema/measurementtagvalues/)_
 
 ```js
 import "influxdata/influxdb/schema"
@@ -97,9 +97,9 @@ schema.measurementTagValues(
 ## List Kubernetes nodes
 List all Kubernetes nodes when using the Kubernetes Telegraf plugin.
 
-_**Telegraf plugin:** [Kubernetes](/{{< latest "telegraf" >}}/plugins/#input-kubernetes)_  
-_**Flux package:** [InfluxDB schema](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/)_  
-_**Flux functions:** [schema.measurementTagValues()](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementtagvalues/)_
+_**Telegraf plugin:** [Kubernetes](/telegraf/v1/plugins/#input-kubernetes)_  
+_**Flux package:** [InfluxDB schema](/flux/v0/stdlib/influxdata/influxdb/schema/)_  
+_**Flux functions:** [schema.measurementTagValues()](/flux/v0/stdlib/influxdata/influxdb/schema/measurementtagvalues/)_
 
 ```js
 import "influxdata/influxdb/schema"

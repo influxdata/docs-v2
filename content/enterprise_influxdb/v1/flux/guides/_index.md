@@ -9,7 +9,7 @@ menu:
   enterprise_influxdb_v1:
     name: Query with Flux
     parent: Flux
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/
+canonical: /influxdb/v2/query-data/flux/
 v2: /influxdb/v2/query-data/flux/
 ---
 

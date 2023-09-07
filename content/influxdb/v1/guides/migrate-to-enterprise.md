@@ -13,5 +13,5 @@ menu:
 
 To migrate InfluxDB {{< current-version >}} to InfluxDB Enterprise, follow the
 instructions provided in
-[Migrate InfluxDB OSS instances to InfluxDB Enterprise clusters](/{{< latest "enterprise_influxdb" >}}/guides/migration/)
+[Migrate InfluxDB OSS instances to InfluxDB Enterprise clusters](/enterprise_influxdb/v1/guides/migration/)
 In the InfluxDB Enterprise documentation.

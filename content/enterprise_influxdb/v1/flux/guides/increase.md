@@ -12,11 +12,11 @@ menu:
     parent: Query with Flux
     name: Increase
 list_query_example: increase
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/increase/
+canonical: /influxdb/v2/query-data/flux/increase/
 v2: /influxdb/v2/query-data/flux/increase/
 ---
 
-Use the [`increase()` function](/{{< latest "flux" >}}/stdlib/universe/increase/)
+Use the [`increase()` function](/flux/v0/stdlib/universe/increase/)
 to track increases across multiple columns in a table.
 This function is especially useful when tracking changes in counter values that
 wrap over time or periodically reset.

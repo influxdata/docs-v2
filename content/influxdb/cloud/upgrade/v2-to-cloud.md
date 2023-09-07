@@ -45,9 +45,9 @@ To upgrade from **InfluxDB OSS 2.x** to **InfluxDB Cloud**:
   - Multiple [organizations](/influxdb/cloud/reference/glossary/#organization) per account.
     Upgrade a single InfluxDB OSS 2.x organization to an InfluxDB Cloud organization.
     To upgrade multiple organizations, create a separate InfluxDB Cloud account for each organization.
-  - [InfluxDB scrapers](/{{< latest "influxdb" >}}/write-data/no-code/scrape-data/).
-    To scrape Prometheus-formatted metrics, use the [Telegraf Prometheus input plugin](/{{< latest "telegraf" >}}/plugins/#prometheus).
-  - [1.x compatible authorizations](/{{< latest "influxdb" >}}/reference/api/influxdb-1x/#authentication).
+  - [InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/).
+    To scrape Prometheus-formatted metrics, use the [Telegraf Prometheus input plugin](/telegraf/v1/plugins/#prometheus).
+  - [1.x compatible authorizations](/influxdb/v2/reference/api/influxdb-1x/#authentication).
 {{% /note %}}
 
 ## Create an InfluxDB Cloud account
@@ -91,13 +91,13 @@ Include the following flags for each configuration:
   The examples below use `cloud` and `oss` respectively. 
 - **-\-host-url**: 
   [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/) or 
-  [InfluxDB 2.x URL](/{{< latest "influxdb" >}}/reference/urls/). 
+  [InfluxDB 2.x URL](/influxdb/v2/reference/urls/). 
 - **-\-org**: 
   InfluxDB organization name. 
   The default organization name in InfluxDB Cloud is the email address associated with your account. 
 - **-\-token**: API token to use to connect to InfluxDB. 
     - **InfluxDB Cloud**: Provide an **All-Access** token.
-    - **InfluxDB OSS 2.x**: Provide an [Operator token](/{{< latest "influxdb" >}}/security/tokens/#operator-token). 
+    - **InfluxDB OSS 2.x**: Provide an [Operator token](/influxdb/v2/security/tokens/#operator-token). 
 
 ##### Create an InfluxDB Cloud connection configuration
 ```sh
@@ -243,7 +243,7 @@ InfluxDB Cloud instance, do the following:
     Include the following flags:
 
     - **-\-bucket-id**: Bucket ID to export
-    - **-\-engine-path**: InfluxDB [engine path](/{{< latest "influxdb" >}}/reference/internals/file-system-layout/#engine-path)
+    - **-\-engine-path**: InfluxDB [engine path](/influxdb/v2/reference/internals/file-system-layout/#engine-path)
     - **-\-output-path**: Output file path
     - **-\-compress**: _(Optional)_ Gzip the exported line protocol
     - **-\-start**: _(Optional)_ Earliest timestamp to export

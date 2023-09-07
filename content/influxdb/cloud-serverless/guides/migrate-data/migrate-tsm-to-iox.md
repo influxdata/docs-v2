@@ -92,7 +92,7 @@ Batch range is beyond the migration range. Migration is complete.
     _See [Determine your task interval](#determine-your-task-interval)._
 
 2.  Define the following properties in the `migration`
-    [record](/{{< latest "flux" >}}/data-types/composite/record/):
+    [record](/flux/v0/data-types/composite/record/):
 
     ##### migration
     - **start**: Earliest time to include in the migration.

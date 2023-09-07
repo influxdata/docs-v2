@@ -62,11 +62,11 @@ and moved both of these functions from the experimental package to the date pack
 - Add new `hh_node` measurement to the `/debug/vars` monitoring telemetry. This tracks more accurately with the `max-size` configuration setting for hinted handoff in data nodes.
 
 #### Flux updates
-- Add [http requests package](/{{< latest "flux" >}}/stdlib/experimental/http/requests/).
-- Add [isType()](/{{< latest "flux" >}}/stdlib/types/istype/) function.
-- Add [display()](/{{< latest "flux" >}}/stdlib/universe/display/) function.
-- Enhancements to the following functions: [increase()](/{{< latest "flux" >}}/stdlib/universe/increase/), [sort()](/{{< latest "flux" >}}/stdlib/universe/sort/), [derivative()](/{{< latest "flux" >}}/stdlib/universe/derivative/), [union()](/{{< latest "flux" >}}/stdlib/universe/union/), [timeShift()](/{{< latest "flux" >}}/stdlib/universe/timeshift/), vectorization to applicable functions such as [map()](/{{< latest "flux" >}}/stdlib/universe/map/).
-- Add TCP connection pooling to [mqtt.publish()](/{{< latest "flux" >}}/stdlib/experimental/mqtt/publish/) function when called in a map() function.
+- Add [http requests package](/flux/v0/stdlib/experimental/http/requests/).
+- Add [isType()](/flux/v0/stdlib/types/istype/) function.
+- Add [display()](/flux/v0/stdlib/universe/display/) function.
+- Enhancements to the following functions: [increase()](/flux/v0/stdlib/universe/increase/), [sort()](/flux/v0/stdlib/universe/sort/), [derivative()](/flux/v0/stdlib/universe/derivative/), [union()](/flux/v0/stdlib/universe/union/), [timeShift()](/flux/v0/stdlib/universe/timeshift/), vectorization to applicable functions such as [map()](/flux/v0/stdlib/universe/map/).
+- Add TCP connection pooling to [mqtt.publish()](/flux/v0/stdlib/experimental/mqtt/publish/) function when called in a map() function.
 
 ### Bug fixes
 - Fix race condition causing `influxd-ctl restore` command to fail.
@@ -96,11 +96,11 @@ An edge case regression was introduced into this version that may cause a consta
 - Throttle inter-node data replication, both incoming writes and hinted hand-off, when errors are encountered.
 
 #### Flux updates
-- Add [http requests package](/{{< latest "flux" >}}/stdlib/experimental/http/requests/).
-- Add [isType()](/{{< latest "flux" >}}/stdlib/types/istype/) function.
-- Add [display()](/{{< latest "flux" >}}/stdlib/universe/display/) function.
-- Enhancements to the following functions: [increase()](/{{< latest "flux" >}}/stdlib/universe/increase/), [sort()](/{{< latest "flux" >}}/stdlib/universe/sort/), [derivative()](/{{< latest "flux" >}}/stdlib/universe/derivative/), [union()](/{{< latest "flux" >}}/stdlib/universe/union/), [timeShift()](/{{< latest "flux" >}}/stdlib/universe/timeshift/), vectorization to applicable functions such as [map()](/{{< latest "flux" >}}/stdlib/universe/map/).
-- Add TCP connection pooling to [mqtt.publish()](/{{< latest "flux" >}}/stdlib/experimental/mqtt/publish/) function when called in a map() function.
+- Add [http requests package](/flux/v0/stdlib/experimental/http/requests/).
+- Add [isType()](/flux/v0/stdlib/types/istype/) function.
+- Add [display()](/flux/v0/stdlib/universe/display/) function.
+- Enhancements to the following functions: [increase()](/flux/v0/stdlib/universe/increase/), [sort()](/flux/v0/stdlib/universe/sort/), [derivative()](/flux/v0/stdlib/universe/derivative/), [union()](/flux/v0/stdlib/universe/union/), [timeShift()](/flux/v0/stdlib/universe/timeshift/), vectorization to applicable functions such as [map()](/flux/v0/stdlib/universe/map/).
+- Add TCP connection pooling to [mqtt.publish()](/flux/v0/stdlib/experimental/mqtt/publish/) function when called in a map() function.
 
 ### Bug fixes
 - Fix race condition causing `influxd-ctl restore` command to fail.
@@ -1195,4 +1195,4 @@ Backup and restore has been updated to fix issues and refine existing capabiliti
 The Enterprise Web Console has officially been deprecated and will be eliminated entirely by the end of 2017.
 No additional features will be added and no additional bug fix releases are planned.
 
-For browser-based access to InfluxDB Enterprise, [Chronograf](/{{< latest "chronograf" >}}/introduction) is now the recommended tool to use.
+For browser-based access to InfluxDB Enterprise, [Chronograf](/chronograf/v1/introduction) is now the recommended tool to use.

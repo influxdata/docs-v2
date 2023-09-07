@@ -10,7 +10,7 @@ menu:
     name: Exists
     parent: Query with Flux
 weight: 20
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/exists/
+canonical: /influxdb/v2/query-data/flux/exists/
 v2: /influxdb/v2/query-data/flux/exists/
 list_code_example: |
   ##### Filter null values
@@ -39,9 +39,9 @@ If you're just getting started with Flux queries, check out the following:
 - [Execute queries](/enterprise_influxdb/v1/flux/guides/execute-queries/) to discover a variety of ways to run your queries.
 
 Use `exists` with row functions (
-[`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/),
-[`map()`](/{{< latest "flux" >}}/stdlib/universe/map/),
-[`reduce()`](/{{< latest "flux" >}}/stdlib/universe/reduce/))
+[`filter()`](/flux/v0/stdlib/universe/filter/),
+[`map()`](/flux/v0/stdlib/universe/map/),
+[`reduce()`](/flux/v0/stdlib/universe/reduce/))
 to check if a row includes a column or if the value for that column is `null`.
 
 #### Filter null values

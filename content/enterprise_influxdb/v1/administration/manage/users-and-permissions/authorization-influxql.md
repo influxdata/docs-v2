@@ -8,7 +8,7 @@ menu:
 weight: 40
 related:
   - /enterprise_influxdb/v1/administration/manage/security/authorization-api.md
-  - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
+  - /chronograf/v1/administration/managing-influxdb-users/
   - /enterprise_influxdb/v1/administration/manage/security/fine-grained-authorization/
 aliases:
   - /enterprise_influxdb/v1/administration/manage/security/authentication_and_authorization-api/
@@ -17,7 +17,7 @@ aliases:
 {{% enterprise-warning-authn-b4-authz %}}
 
 {{% note %}}
-We recommend using [Chronograf](/{{< latest "chronograf" >}}/administration/managing-influxdb-users/)
+We recommend using [Chronograf](/chronograf/v1/administration/managing-influxdb-users/)
 and/or the [Enterprise meta API](/enterprise_influxdb/v1/administration/manage/users-and-permissions/authorization-api/)
 to manage InfluxDB Enterprise users and roles.
 {{% /note %}}

@@ -11,11 +11,11 @@ menu:
     name: Fill
 influxdb/v2/tags: [query, fill]
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/fill/
+  - /flux/v0/stdlib/universe/fill/
 list_query_example: fill_null
 ---
 
-Use [`fill()`](/{{< latest "flux" >}}/stdlib/universe/fill/)
+Use [`fill()`](/flux/v0/stdlib/universe/fill/)
 to replace _null_ values with:
 
 - [the previous non-null value](#fill-with-the-previous-value)
@@ -79,8 +79,8 @@ data
 
 ## Fill with a specified value
 To fill _null_ values with a specified value, use the `value` parameter to specify the fill value.
-_The fill value must match the [data type](/{{< latest "flux" >}}/spec/types/#basic-types)
-of the [column](/{{< latest "flux" >}}/stdlib/universe/fill/#column)._
+_The fill value must match the [data type](/flux/v0/spec/types/#basic-types)
+of the [column](/flux/v0/stdlib/universe/fill/#column)._
 
 ```js
 data

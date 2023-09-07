@@ -362,7 +362,7 @@ Related entries: [database](#database), [retention policy](#retention-policy-rp)
 
 ## subscription
 
-Subscriptions allow [Kapacitor](/{{< latest "kapacitor" >}}/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
+Subscriptions allow [Kapacitor](/kapacitor/v1/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
 When Kapacitor is configured to work with InfluxDB, the subscription will automatically push every write for the subscribed database from InfluxDB to Kapacitor.
 Subscriptions can use TCP or UDP for transmitting the writes.
 
@@ -451,6 +451,6 @@ Related entries: [tsm](#tsm-time-structured-merge-tree)
 
 Legacy user interface for the InfluxDB Enterprise.
 
-This interface has been deprecated. We recommend using [Chronograf](/{{< latest "chronograf" >}}/introduction/).
+This interface has been deprecated. We recommend using [Chronograf](/chronograf/v1/introduction/).
 
 If you are transitioning from the Enterprise Web Console to Chronograf, see how to [transition from the InfluxDB Web Admin Interface](/chronograf/v1/guides/transition-web-admin-interface/).

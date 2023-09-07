@@ -294,7 +294,7 @@ Related entries: [database](/influxdb/v1/concepts/glossary/#database), [retentio
 
 ## subscription
 
-Subscriptions allow [Kapacitor](/{{< latest "kapacitor" >}}/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
+Subscriptions allow [Kapacitor](/kapacitor/v1/) to receive data from InfluxDB in a push model rather than the pull model based on querying data.
 When Kapacitor is configured to work with InfluxDB, the subscription will automatically push every write for the subscribed database from InfluxDB to Kapacitor.
 Subscriptions can use TCP or UDP for transmitting the writes.
 

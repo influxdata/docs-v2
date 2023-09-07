@@ -11,10 +11,10 @@ menu:
     parent: Tools & integrations
 weight: 103
 related:
-  - /{{< latest "chronograf" >}}/
+  - /chronograf/v1/
 ---
 
-[Chronograf](/{{< latest "chronograf" >}}/) is a data visualization and dashboarding
+[Chronograf](/chronograf/v1/) is a data visualization and dashboarding
 tool designed to visualize data in InfluxDB 1.x. It is part of the [TICKstack](/platform/)
 that provides an InfluxQL data explorer, Kapacitor integrations, and more.
 Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS {{< current-version >}}** and the
@@ -39,7 +39,7 @@ Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS {{< curren
     - **Token:** InfluxDB [API token](/influxdb/v2/security/tokens/)
     - **Telegraf Database Name:** InfluxDB [bucket](/influxdb/v2/organizations/buckets/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
-    - **Default Retention Policy:** default [retention policy](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp)
+    - **Default Retention Policy:** default [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp)
       _**(leave blank)**_
 
         {{% note %}}

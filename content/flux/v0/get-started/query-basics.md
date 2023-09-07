@@ -101,13 +101,13 @@ or [selector](/flux/v0/function-types/#selectors) function to the restructured t
 
 ## Write a basic query
 
-Use [InfluxDB sample data](/{{< latest "influxdb" >}}/reference/sample-data/) to
+Use [InfluxDB sample data](/influxdb/v2/reference/sample-data/) to
 write a basic Flux query that queries data, filters the data by time and column values,
 and then applies an [aggregate](/flux/v0/function-types/#aggregates).
 
 {{% note %}}
 Use the [InfluxDB Data Explorer](/influxdb/cloud/query-data/execute-queries/data-explorer/)
-or the [Flux REPL](/{{< latest "influxdb" >}}/tools/flux-repl/#build-the-repl)
+or the [Flux REPL](/influxdb/v2/tools/flux-repl/#build-the-repl)
 to build and execute the following basic query.
 {{% /note %}}
 

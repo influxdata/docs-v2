@@ -9,4 +9,4 @@ description: >
 Telegraf is a plugin-driven agent that collects, processes, aggregates, and writes metrics.
 It supports four categories of plugins including input, output, aggregator, and processor.
 
-<a class="btn" href="/{{< latest "telegraf" >}}/plugins//">View Telegraf plugins</a>
+<a class="btn" href="/telegraf/v1/plugins//">View Telegraf plugins</a>

@@ -11,7 +11,7 @@ menu:
     name: Cumulative sum
 influxdb/cloud/tags: [query, cumulative sum]
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/cumulativesum/
+  - /flux/v0/stdlib/universe/cumulativesum/
 list_query_example: cumulative_sum
 ---
 

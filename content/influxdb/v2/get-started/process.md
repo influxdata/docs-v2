@@ -15,8 +15,8 @@ metadata: [4 / 5]
 related:
   - /influxdb/v2/process-data/
   - /influxdb/v2/process-data/get-started/
-  - /{{< latest "flux" >}}/get-started/
-  - /{{< latest "flux" >}}/stdlib/
+  - /flux/v0/get-started/
+  - /flux/v0/stdlib/
 ---
 
 Now that you know the [basics of querying data from InfluxDB](/influxdb/v2/get-started/query/),
@@ -39,7 +39,7 @@ instead of using the **Query Builder.**
 
 ## Remap or assign values in your data
 
-Use the [`map()` function](/{{< latest "flux" >}}/stdlib/universe/map/) to
+Use the [`map()` function](/flux/v0/stdlib/universe/map/) to
 iterate over each row in your data and update the values in that row.
 `map()` is one of the most useful functions in Flux and will help you accomplish
 many of they data processing operations you need to perform.
@@ -49,7 +49,7 @@ many of they data processing operations you need to perform.
 
 `map()` takes a single parameter, `fn`.
 `fn` takes an anonymous function that reads each row as a
-[record](/{{< latest "flux" >}}/data-types/composite/record/) named `r`.
+[record](/flux/v0/data-types/composite/record/) named `r`.
 In the `r` record, each key-value pair represents a column and its value.
 For example:
 
@@ -202,7 +202,7 @@ from(bucket: "get-started")
 
 {{% expand "Conditionally assign a state" %}}
 
-Within a `map()` function, you can use [conditional expressions](/{{< latest "flux" >}}/spec/expressions/#conditional-expressions) (if/then/else) to conditionally assign values.
+Within a `map()` function, you can use [conditional expressions](/flux/v0/spec/expressions/#conditional-expressions) (if/then/else) to conditionally assign values.
 For example, using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
 
 1.  Query the `co` field to return carbon monoxide parts per million (ppm) readings in each room.
@@ -289,7 +289,7 @@ from(bucket: "get-started")
 {{% expand "Alert on data" %}}
 
 `map()` lets you execute more complex operations on a per row basis.
-Using a [Flux block (`{}`)](/{{< latest "flux" >}}/spec/blocks/) in the `fn` function,
+Using a [Flux block (`{}`)](/flux/v0/spec/blocks/) in the `fn` function,
 you can create scoped variables and execute other functions within the context 
 of each row. For example, you can send a message to [Slack](https://slack.com).
 
@@ -300,7 +300,7 @@ For this example to actually send messages to Slack, you need to
 
 For example, using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
 
-1.  Import the [`slack` package](/{{< latest "flux" >}}/stdlib/slack/).
+1.  Import the [`slack` package](/flux/v0/stdlib/slack/).
 2.  Query the `co` field to return carbon monoxide parts per million (ppm) readings in each room.
 3.  Use `map()` to iterate over each row, evaluate the value in the `_value`
     column, and then conditionally assign a state:
@@ -309,12 +309,12 @@ For example, using the [data written in "Get started writing to InfluxDB"](/infl
     - Otherwise, assign the state: **warning**.
 
     Store the state in a **state** column.
-4.  Use [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to return
+4.  Use [`filter()`](/flux/v0/stdlib/universe/filter/) to return
     only rows with **warning** in the state column.
 5.  Use `map()` to iterate over each row.
-    In your `fn` function, use a [Flux block (`{}`)](/{{< latest "flux" >}}/spec/blocks/) to:
+    In your `fn` function, use a [Flux block (`{}`)](/flux/v0/spec/blocks/) to:
 
-    1.  Create a `responseCode` variable that uses [`slack.message()`](/{{< latest "flux" >}}/stdlib/slack/message/)
+    1.  Create a `responseCode` variable that uses [`slack.message()`](/flux/v0/stdlib/slack/message/)
         to send a message to Slack using data from the input row.
         `slack.message()` returns the response code of the Slack API request as an integer.
     2.  Use a `return` statement to return a new row record.
@@ -413,7 +413,7 @@ as a user interface for configuring checks and alerting on data.
 
 ## Group data
 
-Use the [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group/) to
+Use the [`group()` function](/flux/v0/stdlib/universe/group/) to
 regroup your data by specific column values in preparation for further processing.
 
 ```js
@@ -427,7 +427,7 @@ from(bucket: "get-started")
 Understanding data grouping and why it matters is important, but may be too much
 for this "getting started" tutorial.
 For more information about how data is grouped and why it matters, see the
-[Flux data model](/{{< latest "flux" >}}/get-started/data-model/) documentation.
+[Flux data model](/flux/v0/get-started/data-model/) documentation.
 {{% /note %}}
 
 By default, `from()` returns data queried from InfluxDB grouped by series
@@ -634,8 +634,8 @@ When ungrouped, a data is returned in a single table.
 
 ## Aggregate or select specific data
 
-Use Flux [aggregate](/{{< latest "flux" >}}/function-types/#aggregates)
-or [selector](/{{< latest "flux" >}}/function-types/#selectors) functions to
+Use Flux [aggregate](/flux/v0/function-types/#aggregates)
+or [selector](/flux/v0/function-types/#selectors) functions to
 return aggregate or selected values from **each** input table.
 
 ```js
@@ -655,7 +655,7 @@ If you want to query aggregate values over time, this is a form of
 
 ### Aggregate functions
 
-[Aggregate functions](/{{< latest "flux" >}}/function-types/#aggregates) drop
+[Aggregate functions](/flux/v0/function-types/#aggregates) drop
 columns that are **not** in the [group key](/flux/v0.x/get-started/data-model/#group-key)
 and return a single row for each input table with the aggregate value of that table.
 
@@ -855,7 +855,7 @@ from(bucket: "get-started")
 
 ### Selector functions
 
-[Selector functions](/{{< latest "flux" >}}/function-types/#selectors) return
+[Selector functions](/flux/v0/function-types/#selectors) return
 one or more columns from each input table and retain all columns and their values.
 
 #### Selector examples
@@ -867,7 +867,7 @@ one or more columns from each input table and retain all columns and their value
 Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field.
-2.  Use [`first()`](/{{< latest "flux" >}}/stdlib/universe/first/) to return the
+2.  Use [`first()`](/flux/v0/stdlib/universe/first/) to return the
     first row from each table.
 
 ```js
@@ -935,7 +935,7 @@ from(bucket: "get-started")
 Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field.
-2.  Use [`last()`](/{{< latest "flux" >}}/stdlib/universe/last/) to return the
+2.  Use [`last()`](/flux/v0/stdlib/universe/last/) to return the
     last row from each table.
 
 ```js
@@ -1003,7 +1003,7 @@ from(bucket: "get-started")
 Using the [data written in "Get started writing to InfluxDB"](/influxdb/v2/get-started/write/#view-the-written-data):
 
 1.  Query the `temp` field.
-2.  Use [`max()`](/{{< latest "flux" >}}/stdlib/universe/max/) to return the row
+2.  Use [`max()`](/flux/v0/stdlib/universe/max/) to return the row
     with the highest value in the `_value` column from each table.
 
 ```js
@@ -1075,7 +1075,7 @@ the data model that Flux uses is different than what you're used to.
 Flux returns multiple tables where each table contains a different field.
 A "relational" schema structures each field as a column in each row.
 
-Use the [`pivot()` function](/{{< latest "flux" >}}/stdlib/universe/pivot/) to
+Use the [`pivot()` function](/flux/v0/stdlib/universe/pivot/) to
 pivot data into a "relational" schema based on timestamps.
 
 ```js
@@ -1168,12 +1168,12 @@ The most common way to downsample data is by time intervals or "windows."
 For example, you may want to query the last hour of data and return the average
 value for every five minute window.
 
-Use [`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
+Use [`aggregateWindow()`](/flux/v0/stdlib/universe/aggregatewindow/)
 to downsample data by specified time intervals:
 
 - Use the `every` parameter to specify the duration of each window.
-- Use the `fn` parameter to specify what [aggregate](/{{< latest "flux" >}}/function-types/#aggregates)
-  or [selector](/{{< latest "flux" >}}/function-types/#selectors) function
+- Use the `fn` parameter to specify what [aggregate](/flux/v0/function-types/#aggregates)
+  or [selector](/flux/v0/function-types/#selectors) function
   to apply to each window.
 - _(Optional)_ Use the `timeSrc` parameter to specify which column value to
   use to create the new aggregate timestamp for each window.
@@ -1253,7 +1253,7 @@ from(bucket: "get-started")
 
 [InfluxDB tasks](/influxdb/v2/process-data/get-started/) are scheduled queries
 that can perform any of the data processing operations described above.
-Generally tasks then use the [`to()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/to/)
+Generally tasks then use the [`to()` function](/flux/v0/stdlib/influxdata/influxdb/to/)
 to write the processed result back to InfluxDB.
 
 _For more information about creating and configuring tasks, see

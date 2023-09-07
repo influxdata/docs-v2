@@ -2442,7 +2442,7 @@ name: h2o_feet
 
 _InfluxQL does not currently support histogram generation.
 For information about creating histograms with data stored in InfluxDB, see
-[Flux's `histogram()` function](/{{< latest "flux" >}}/stdlib/universe/histogram)._
+[Flux's `histogram()` function](/flux/v0/stdlib/universe/histogram)._
 
 ## LN()
 

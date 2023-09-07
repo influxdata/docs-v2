@@ -9,7 +9,7 @@ menu:
 weight: 30
 related:
   - /enterprise_influxdb/v1/guides/fine-grained-authorization/
-  - /{{< latest "chronograf" >}}/administration/managing-influxdb-users/
+  - /chronograf/v1/administration/managing-influxdb-users/
 ---
 
 Authorization in InfluxDB Enterprise refers to managing user permissions.

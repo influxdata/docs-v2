@@ -14,7 +14,7 @@ menu:
     name: Increase
 influxdb/cloud/tags: [query, increase, counters]
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/increase/
+  - /flux/v0/stdlib/universe/increase/
 list_query_example: increase
 ---
 

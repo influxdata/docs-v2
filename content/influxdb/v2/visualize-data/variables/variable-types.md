@@ -49,11 +49,11 @@ _For examples of dashboard variable queries, see [Common variable queries](/infl
 #### Important things to note about variable queries
 - The variable will only use values from the `_value` column.
   If the data you’re looking for is in a column other than `_value`, use the
-  [`rename()`](/{{< latest "flux" >}}/stdlib/universe/rename/) or
-  [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/) functions
+  [`rename()`](/flux/v0/stdlib/universe/rename/) or
+  [`map()`](/flux/v0/stdlib/universe/map/) functions
   to change the name of that column to `_value`.
 - The variable will only use the first table in the output stream.
-  Use the [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group)
+  Use the [`group()` function](/flux/v0/stdlib/universe/group)
   to group everything into a single table.
 - Do not use any [predefined dashboard variables](/influxdb/v2/visualize-data/variables/#predefined-dashboard-variables) in variable queries.
 {{% /note %}}
@@ -76,7 +76,7 @@ value4
 
 ## Use custom dashboard variables
 
-Use the Flux `v` record and [dot or bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#reference-values-in-a-record) to access custom dashboard variables. 
+Use the Flux `v` record and [dot or bracket notation](/flux/v0/data-types/composite/record/#reference-values-in-a-record) to access custom dashboard variables. 
 
 For example, to use a custom dashboard variable named `exampleVar` in a query,
 reference the variable with `v.exampleVar`:

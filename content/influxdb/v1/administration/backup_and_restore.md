@@ -20,12 +20,12 @@ These utilities let you:
 
 - Back up and restore multiple databases at a time.
 - Back up specific time ranges.
-- Import data from [InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/) clusters.
+- Import data from [InfluxDB Enterprise](/enterprise_influxdb/v1/) clusters.
 - Create backup files compatible with InfluxDB Enterprise.
 
 {{% note %}}
 #### InfluxDB Enterprise users
-See [Back up and restore in InfluxDB Enterprise](/{{< latest "enterprise_influxdb" >}}/administration/backup-and-restore/).
+See [Back up and restore in InfluxDB Enterprise](/enterprise_influxdb/v1/administration/backup-and-restore/).
 {{% /note %}}
 
 - [Backup formats](#backup-formats)

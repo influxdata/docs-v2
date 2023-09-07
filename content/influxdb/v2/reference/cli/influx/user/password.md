@@ -8,7 +8,7 @@ menu:
 weight: 201
 related:
   - /influxdb/v2/users/change-password/
-canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/password/
+canonical: /influxdb/v2/reference/cli/influx/user/password/
 ---
 
 The `influx user password` command updates the password for a user in InfluxDB.

@@ -26,7 +26,7 @@ To open the **Data Explorer**, click the **Explore** icon in the navigation bar:
 
 ## Explore data with InfluxQL
 
-InfluxQL is a SQL-like query language you can use to interact with data in InfluxDB. For detailed tutorials and reference material, see our [InfluxQL documentation](/{{< latest "influxdb" "v1" >}}/query_language/).
+InfluxQL is a SQL-like query language you can use to interact with data in InfluxDB. For detailed tutorials and reference material, see our [InfluxQL documentation](/influxdb/v1/query_language/).
 
 {{% note %}}
 #### Limited InfluxQL support in InfluxDB Cloud and OSS 2.x
@@ -46,7 +46,7 @@ For more information, see [InfluxQL support](/influxdb/cloud/query-data/influxql
 
 ## Explore data with Flux
 
-Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. The **Script Builder** lets you build a complete Flux script scoped to a selected time range. View new tag keys and tag values based on already selected tag keys and tag values. Search for key names and values. To learn more about Flux, see [Getting started with Flux](/{{< latest "influxdb" "v2" >}}/query-data/get-started).
+Flux is InfluxData's new functional data scripting language designed for querying, analyzing, and acting on time series data. The **Script Builder** lets you build a complete Flux script scoped to a selected time range. View new tag keys and tag values based on already selected tag keys and tag values. Search for key names and values. To learn more about Flux, see [Getting started with Flux](/influxdb/v2/query-data/get-started).
 
 1. Open the Data Explorer by clicking **Explore** in the left navigation bar.
 2. Select **Flux** as the source type.
@@ -83,53 +83,53 @@ Metaquery templates provide templated InfluxQL queries manage databases, retenti
 Choose from the following options in the **Metaquery Templates** dropdown list:
 
 ###### Manage databases
-- [Show Databases](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-databases)
-- [Create Database](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#create-database)
-- [Drop Database](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-a-database-with-drop-database)
+- [Show Databases](/influxdb/v1/query_language/explore-schema/#show-databases)
+- [Create Database](/influxdb/v1/query_language/manage-database/#create-database)
+- [Drop Database](/influxdb/v1/query_language/manage-database/#delete-a-database-with-drop-database)
 
 ###### Measurements, Tags, and Fields
-- [Show Measurements](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-measurements)
-- [Show Tag Keys](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-keys)
-- [Show Tag Values](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-tag-values)
-- [Show Field Keys](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-field-keys)
+- [Show Measurements](/influxdb/v1/query_language/explore-schema/#show-measurements)
+- [Show Tag Keys](/influxdb/v1/query_language/explore-schema/#show-tag-keys)
+- [Show Tag Values](/influxdb/v1/query_language/explore-schema/#show-tag-values)
+- [Show Field Keys](/influxdb/v1/query_language/explore-schema/#show-field-keys)
 
 ###### Cardinality
-- [Show Field Key Cardinality](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-field-key-cardinality)
-- [Show Measurement Cardinality](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-measurement-cardinality)
-- [Show Series Cardinality](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-series-cardinality)
-- [Show Tag Key Cardinality](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-tag-key-cardinality)
-- [Show Tag Values Cardinality](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-tag-values-cardinality)
+- [Show Field Key Cardinality](/influxdb/v1/query_language/spec/#show-field-key-cardinality)
+- [Show Measurement Cardinality](/influxdb/v1/query_language/spec/#show-measurement-cardinality)
+- [Show Series Cardinality](/influxdb/v1/query_language/spec/#show-series-cardinality)
+- [Show Tag Key Cardinality](/influxdb/v1/query_language/spec/#show-tag-key-cardinality)
+- [Show Tag Values Cardinality](/influxdb/v1/query_language/spec/#show-tag-values-cardinality)
 
 ###### Manage retention policies
-- [Show Retention Polices](/{{< latest "influxdb" "v1" >}}/query_language/explore-schema/#show-retention-policies)
-- [Create Retention Policy](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#create-retention-policies-with-create-retention-policy)
-- [Drop Retention Policy](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-retention-policies-with-drop-retention-policy)
+- [Show Retention Polices](/influxdb/v1/query_language/explore-schema/#show-retention-policies)
+- [Create Retention Policy](/influxdb/v1/query_language/manage-database/#create-retention-policies-with-create-retention-policy)
+- [Drop Retention Policy](/influxdb/v1/query_language/manage-database/#delete-retention-policies-with-drop-retention-policy)
 
 ###### Manage continuous queries
-- [Show Continuous Queries](/{{< latest "influxdb" "v1" >}}/query_language/continuous_queries/#listing-continuous-queries)
-- [Create Continuous Query](/{{< latest "influxdb" "v1" >}}/query_language/continuous_queries/#syntax)
-- [Drop Continuous Query](/{{< latest "influxdb" "v1" >}}/query_language/continuous_queries/#deleting-continuous-queries)
+- [Show Continuous Queries](/influxdb/v1/query_language/continuous_queries/#listing-continuous-queries)
+- [Create Continuous Query](/influxdb/v1/query_language/continuous_queries/#syntax)
+- [Drop Continuous Query](/influxdb/v1/query_language/continuous_queries/#deleting-continuous-queries)
 
 ###### Manage users and permissions
-- [Show Users](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-users)
-- [Show Grants](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-grants)
-- [Create User](/{{< latest "influxdb" "v1" >}}/query_language/spec/#create-user)
-- [Create Admin User](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#admin-user-management)
-- [Drop User](/{{< latest "influxdb" "v1" >}}/query_language/spec/#drop-user)
+- [Show Users](/influxdb/v1/query_language/spec/#show-users)
+- [Show Grants](/influxdb/v1/query_language/spec/#show-grants)
+- [Create User](/influxdb/v1/query_language/spec/#create-user)
+- [Create Admin User](/influxdb/v1/administration/authentication_and_authorization/#admin-user-management)
+- [Drop User](/influxdb/v1/query_language/spec/#drop-user)
 
 ###### Delete data
-- [Drop Measurement](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-measurements-with-drop-measurement)
-- [Drop Series](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#drop-series-from-the-index-with-drop-series)
-- [Delete](/{{< latest "influxdb" "v1" >}}/query_language/manage-database/#delete-series-with-delete)
+- [Drop Measurement](/influxdb/v1/query_language/manage-database/#delete-measurements-with-drop-measurement)
+- [Drop Series](/influxdb/v1/query_language/manage-database/#drop-series-from-the-index-with-drop-series)
+- [Delete](/influxdb/v1/query_language/manage-database/#delete-series-with-delete)
 
 ###### Analyze queries
-- [Explain](/{{< latest "influxdb" "v1" >}}/query_language/spec/#explain)
-- [Explain Analyze](/{{< latest "influxdb" "v1" >}}/query_language/spec/#explain-analyze)
+- [Explain](/influxdb/v1/query_language/spec/#explain)
+- [Explain Analyze](/influxdb/v1/query_language/spec/#explain-analyze)
 
 ###### Inspect InfluxDB internal metrics
-- [Show Stats](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-stats)
-- [Show Diagnostics](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-diagnostics)
-- [Show Subscriptions](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-subscriptions)
-- [Show Queries](/{{< latest "influxdb" "v1" >}}/troubleshooting/query_management/#list-currently-running-queries-with-show-queries)
-- [Show Shards](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-shards)
-- [Show Shard Groups](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-shard-groups)
+- [Show Stats](/influxdb/v1/query_language/spec/#show-stats)
+- [Show Diagnostics](/influxdb/v1/query_language/spec/#show-diagnostics)
+- [Show Subscriptions](/influxdb/v1/query_language/spec/#show-subscriptions)
+- [Show Queries](/influxdb/v1/troubleshooting/query_management/#list-currently-running-queries-with-show-queries)
+- [Show Shards](/influxdb/v1/query_language/spec/#show-shards)
+- [Show Shard Groups](/influxdb/v1/query_language/spec/#show-shard-groups)

@@ -81,7 +81,7 @@ to the underlying data source, so data returned by the
 previous function loads into memory.
 This often results in a significant performance hit.
 
-For example, the following query uses [Chronograf dashboard template variables](/{{< latest "chronograf" >}}/guides/dashboard-template-variables/)
+For example, the following query uses [Chronograf dashboard template variables](/chronograf/v1/guides/dashboard-template-variables/)
 and string concatenation to define a region to filter by.
 Because `filter()` uses string concatenation inline, it can't push its operation
 to the underlying data source and loads all data returned from `range()` into memory.

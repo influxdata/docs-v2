@@ -27,7 +27,7 @@ For more information about AST design, see [Abstract Syntax Tree on Wikipedia](h
 
 A background process started by (or on behalf of) a user that typically requires user input.
 
-[Telegraf]({{< latest "telegraf" >}}/) is an agent that requires user input
+[Telegraf](telegraf/v1/) is an agent that requires user input
 (a configuration file) to gather metrics from declared input plugins and sends
 metrics to declared output plugins, based on the plugins enabled for a configuration.
 
@@ -982,7 +982,7 @@ Related entries:
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
 Related entries:
-[Telegraf plugins](/{{< latest "telegraf" >}}/plugins/),
+[Telegraf plugins](/telegraf/v1/plugins/),
 [Use Telegraf to collect data](/influxdb/cloud-serverless/write-data/telegraf/),
 
 ### time (data type)

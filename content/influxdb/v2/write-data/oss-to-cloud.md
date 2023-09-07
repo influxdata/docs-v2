@@ -30,7 +30,7 @@ Write requests to InfluxDB Cloud are subject to the rate limits associated with 
 {{% /cloud %}}
 
 1.  Query data from InfluxDB OSS.
-2.  _(Optional)_ [Filter](/{{% latest "flux" %}}/stdlib/universe/filter/) or process data to write to InfluxDB Cloud.
+2.  _(Optional)_ [Filter](/flux/v0/stdlib/universe/filter/) or process data to write to InfluxDB Cloud.
 3.  Use `to` or `experimental.to` to write data to InfluxDB Cloud.
     For most use cases, `to()` is the correct function to use, but depending on
     the structure of the data you're writing, `experimental.to` may be required.

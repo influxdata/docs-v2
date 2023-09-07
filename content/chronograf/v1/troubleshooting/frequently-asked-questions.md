@@ -10,7 +10,7 @@ menu:
 
 ## How do I connect Chronograf to an InfluxDB Enterprise cluster?
 
-The connection details form requires additional information when connecting Chronograf to an [InfluxDB Enterprise cluster](/{{< latest "enterprise_influxdb" >}}/).
+The connection details form requires additional information when connecting Chronograf to an [InfluxDB Enterprise cluster](/enterprise_influxdb/v1/).
 
 When you enter the InfluxDB HTTP bind address in the `Connection String` input, Chronograf automatically checks if that InfluxDB instance is a data node.
 If it is a data node, Chronograf automatically adds the `Meta Service Connection URL` input to the connection details form.

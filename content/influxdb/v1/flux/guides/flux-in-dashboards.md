@@ -8,10 +8,10 @@ menu:
     name: Use Flux in dashboards
     parent: Query with Flux
 weight: 30
-canonical: /{{< latest "influxdb" "v1" >}}/flux/guides/flux-in-dashboards/
+canonical: /influxdb/v1/flux/guides/flux-in-dashboards/
 ---
 
-[Chronograf](/{{< latest "chronograf" >}}/) is the web user interface for managing for the
+[Chronograf](/chronograf/v1/) is the web user interface for managing for the
 InfluxData platform that lest you create and customize dashboards that visualize your data.
 Visualized data is retrieved using either an InfluxQL or Flux query.
 This guide walks through using Flux queries in Chronograf dashboard cells.
@@ -75,7 +75,7 @@ data and raw data shown in table form.
 _The **View Raw Data** toggle is only available when using Flux._
 
 ## Template variables in Flux
-Chronograf [template variables](/{{< latest "chronograf" >}}/guides/dashboard-template-variables/)
+Chronograf [template variables](/chronograf/v1/guides/dashboard-template-variables/)
 allow you to alter specific components of cells’ queries using elements provided in the
 Chronograf user interface.
 

@@ -171,7 +171,7 @@ influx auth create \
 ```
 {{% /code-placeholders %}}
 
-See the [`influx auth create` documentation](/{{< latest "influxdb" >}}/reference/cli/influx/auth/create)
+See the [`influx auth create` documentation](/influxdb/v2/reference/cli/influx/auth/create)
 for information about other available flags.
 
 {{% /tab-content %}}

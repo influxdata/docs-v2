@@ -11,11 +11,11 @@ menu:
     name: Cumulative sum
 influxdb/v2/tags: [query, cumulative sum]
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/cumulativesum/
+  - /flux/v0/stdlib/universe/cumulativesum/
 list_query_example: cumulative_sum
 ---
 
-Use the [`cumulativeSum()` function](/{{< latest "flux" >}}/stdlib/universe/cumulativesum/)
+Use the [`cumulativeSum()` function](/flux/v0/stdlib/universe/cumulativesum/)
 to calculate a running total of values.
 `cumulativeSum` sums the values of subsequent records and returns each row updated with the summed total.
 
@@ -53,7 +53,7 @@ data
 ```
 
 ## Use cumulativeSum() with aggregateWindow()
-[`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
+[`aggregateWindow()`](/flux/v0/stdlib/universe/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
 point, then removes the time-based segmentation.
 It is primarily used to [downsample data](/influxdb/v2/process-data/common-tasks/downsample-data/).

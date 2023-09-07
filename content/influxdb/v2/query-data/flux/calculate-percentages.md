@@ -13,9 +13,9 @@ aliases:
  - /influxdb/v2/query-data/guides/calculate-percentages/
 related:
   - /influxdb/v2/query-data/flux/mathematic-operations
-  - /{{< latest "flux" >}}/stdlib/universe/map
-  - /{{< latest "flux" >}}/stdlib/universe/pivot
-  - /{{< latest "flux" >}}/stdlib/universe/join
+  - /flux/v0/stdlib/universe/map
+  - /flux/v0/stdlib/universe/pivot
+  - /flux/v0/stdlib/universe/join
 list_query_example: percentages
 ---
 
@@ -25,12 +25,12 @@ Use `map()` to re-map values in the row and calculate a percentage.
 
 **To calculate percentages**
 
-1. Use [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from/),
-   [`range()`](/{{< latest "flux" >}}/stdlib/universe/range/) and
-   [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/) to query operands.
+1. Use [`from()`](/flux/v0/stdlib/influxdata/influxdb/from/),
+   [`range()`](/flux/v0/stdlib/universe/range/) and
+   [`filter()`](/flux/v0/stdlib/universe/filter/) to query operands.
 2. Use [`pivot()` or `join()`](/influxdb/v2/query-data/flux/mathematic-operations/#pivot-vs-join)
    to align operand values into rows.
-3. Use [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/)
+3. Use [`map()`](/flux/v0/stdlib/universe/map/)
    to divide the numerator operand value by the denominator operand value and multiply by 100.
 
 {{% note %}}

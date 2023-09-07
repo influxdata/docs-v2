@@ -12,9 +12,9 @@ menu:
 weight: 209
 related:
   - /influxdb/cloud/query-data/flux/mathematic-operations
-  - /{{< latest "flux" >}}/stdlib/universe/map
-  - /{{< latest "flux" >}}/stdlib/universe/pivot
-  - /{{< latest "flux" >}}/stdlib/universe/join
+  - /flux/v0/stdlib/universe/map
+  - /flux/v0/stdlib/universe/pivot
+  - /flux/v0/stdlib/universe/join
 list_query_example: percentages
 ---
 

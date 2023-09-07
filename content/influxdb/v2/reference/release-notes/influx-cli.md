@@ -109,8 +109,8 @@ menu:
 
 ### Features
 
-- Add [`influx remote`](/{{< latest "influxdb" >}}/reference/cli/influx/remote/) command.
-- Add [`influx replication`](/{{< latest "influxdb" >}}/reference/cli/influx/replication/) command.
+- Add [`influx remote`](/influxdb/v2/reference/cli/influx/remote/) command.
+- Add [`influx replication`](/influxdb/v2/reference/cli/influx/replication/) command.
 - Enhanced error messaging for InfluxDB and OSS specific commands.
 - Add `api/v2/config` endpoint to display the runtime configuration (for example, when you run `influxd print-config`). This endpoint lets you review runtime configuration while the instance is live.
 

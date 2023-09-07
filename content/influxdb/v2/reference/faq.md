@@ -201,7 +201,7 @@ InfluxDB {{< current-version >}} provides different ways to monitor its status:
 {{% /expand-wrapper %}}
 
 - The [`/metrics` API endpoint](/influxdb/v2/api/#tag/Metrics) provides internal
-  InfluxDB metrics in Prometheus exposition format. Use [Telegraf](/{{< latest "telegraf" >}}/),
+  InfluxDB metrics in Prometheus exposition format. Use [Telegraf](/telegraf/v1/),
   [InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/), or the Flux
   [`prometheus.scrape()` function](/flux/v0.x/stdlib/experimental/prometheus/scrape/)
   to scrape these metrics and store them in InfluxDB where you can monitor and
@@ -686,7 +686,7 @@ and configuring DBRP mapping, see [Query with InfluxQL](influxdb/v2.7/query-data
 
 #### How do I perform mathematical operations in an InfluxQL function?
 InfluxQL does not support mathematical operations within functions.
-Use a [subquery](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#subqueries) to perform
+Use a [subquery](/influxdb/v1/query_language/explore-data/#subqueries) to perform
 the mathematical calculation.
 
 For example, InfluxQL does not support the following syntax:
@@ -709,22 +709,22 @@ function with an unbounded time range, InfluxDB returns epoch 0 as the timestamp
 #### Which InfluxQL functions support nesting?
 The following InfluxQL functions support nesting:
 
-- [`COUNT()`](/{{< latest "influxdb" "v1" >}}/query_language/functions/#count) with [`DISTINCT()`](/{{< latest "influxdb" "v1" >}}/query_language/functions/#distinct)
-- [`CUMULATIVE_SUM()`](/{{< latest "influxdb" "v1" >}}/query_language/functions/#cumulative-sum)
-- [`DERIVATIVE()`](/{{< latest "influxdb" "v1" >}}/query_language/functions/#derivative)
-- [`DIFFERENCE()`](/{{< latest "influxdb" "v1" >}}/query_language/functions/#difference)
-- [`ELAPSED()`](/{{< latest "influxdb" "v1" >}}/query_language/functions/#elapsed)
-- [`MOVING_AVERAGE()`](/{{< latest "influxdb" "v1" >}}/query_language/functions/#moving-average)
-- [`NON_NEGATIVE_DERIVATIVE()`](/{{< latest "influxdb" "v1" >}}/query_language/functions/#non-negative-derivative)
-- [`HOLT_WINTERS()`](/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters) and [`HOLT_WINTERS_WITH_FIT()`](/{{< latest "influxdb" "v1" >}}/query_language/functions/#holt-winters)
+- [`COUNT()`](/influxdb/v1/query_language/functions/#count) with [`DISTINCT()`](/influxdb/v1/query_language/functions/#distinct)
+- [`CUMULATIVE_SUM()`](/influxdb/v1/query_language/functions/#cumulative-sum)
+- [`DERIVATIVE()`](/influxdb/v1/query_language/functions/#derivative)
+- [`DIFFERENCE()`](/influxdb/v1/query_language/functions/#difference)
+- [`ELAPSED()`](/influxdb/v1/query_language/functions/#elapsed)
+- [`MOVING_AVERAGE()`](/influxdb/v1/query_language/functions/#moving-average)
+- [`NON_NEGATIVE_DERIVATIVE()`](/influxdb/v1/query_language/functions/#non-negative-derivative)
+- [`HOLT_WINTERS()`](/influxdb/v1/query_language/functions/#holt-winters) and [`HOLT_WINTERS_WITH_FIT()`](/influxdb/v1/query_language/functions/#holt-winters)
 
 For information on how to use subqueries as substitutes for nested functions, see
-[InfluxQL data exploration](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#subqueries).
+[InfluxQL data exploration](/influxdb/v1/query_language/explore-data/#subqueries).
 
 #### What determines the time intervals returned by `GROUP BY time()` queries?
 The time intervals returned by `GROUP BY time()` queries conform to the InfluxDB
 database's preset time windows or to the user-specified
-[offset interval](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#advanced-group-by-time-syntax).
+[offset interval](/influxdb/v1/query_language/explore-data/#advanced-group-by-time-syntax).
 
 ###### Preset time windows
 For example, the following query calculates the average value of `sunflowers` between
@@ -797,15 +797,15 @@ retention policy to get results.
 An InfluxQL query requires at least one **field key** in the `SELECT` clause.
 If the `SELECT` clause includes only **tag keys**, the query returns an empty response.
 For more information, see
-[InfluxQL Data exploration](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#common-issues-with-the-select-statement).
+[InfluxQL Data exploration](/influxdb/v1/query_language/explore-data/#common-issues-with-the-select-statement).
 
 ##### SELECT query includes `GROUP BY time()`
 
-If your `SELECT` query includes a [`GROUP BY time()` clause](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#group-by-time-intervals),
+If your `SELECT` query includes a [`GROUP BY time()` clause](/influxdb/v1/query_language/explore-data/#group-by-time-intervals),
 only data points between `1677-09-21 00:12:43.145224194` and
-[`now()`](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#now) are returned.
+[`now()`](/influxdb/v1/concepts/glossary/#now) are returned.
 If any of your data points occur after `now()`, specify
-[an alternative upper bound](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#time-syntax)
+[an alternative upper bound](/influxdb/v1/query_language/explore-data/#time-syntax)
 in your time interval.
 
 ##### Tag and field key with the same name
@@ -833,7 +833,7 @@ time                leaves     leaves_1
 `SELECT` statements without a time range defined in the `WHERE` clause have a
 default time range of `1677-09-21 00:12:43.145224194` to `2262-04-11T23:47:16.854775806Z` UTC.
 For `SELECT` statements that don't specify a time range but have a
-[`GROUP BY time()` clause](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#group-by-time-intervals),
+[`GROUP BY time()` clause](/influxdb/v1/query_language/explore-data/#group-by-time-intervals),
 the default time range is `1677-09-21 00:12:43.145224194` UTC to [`now()`](/influxdb/v2/reference/glossary/#now).
 
 To query data with timestamps that occur after `now()`, `SELECT` statements with
@@ -858,7 +858,7 @@ WHERE time >= now()
 GROUP BY time(12m) fill(none)
 ```
 
-For for more on time syntax in queries, see [InfluxQL data Exploration](/{{< latest "influxdb" "v1" >}}/query_language/explore-data/#time-syntax).
+For for more on time syntax in queries, see [InfluxQL data Exploration](/influxdb/v1/query_language/explore-data/#time-syntax).
 
 #### Can I perform mathematical operations against timestamps?
 
@@ -866,7 +866,7 @@ InfluxQL does not support mathematical operators against timestamp values.
 Most time calculations must be carried out by the client receiving the query results.
 
 There is limited support for using InfluxQL functions against timestamp values.
-The [ELAPSED()](/{{< latest "influxdb" "v1" >}}/query_language/functions/#elapsed)
+The [ELAPSED()](/influxdb/v1/query_language/functions/#elapsed)
 function returns the difference between subsequent timestamps in a single field.
 
 #### Can I identify write precision from returned timestamps?
@@ -888,7 +888,7 @@ Follow these general rules for quotes in InfluxQL queries:
 
 ###### Double quotes
 - Use on identifiers that start with a digit, contain characters other than `[A-z,0-9,_]`,
-  or that are an [InfluxQL keyword](/{{< latest "influxdb" "v1" >}}/query_language/spec/#keywords).
+  or that are an [InfluxQL keyword](/influxdb/v1/query_language/spec/#keywords).
   We generally recommend using double quotes on all identifiers, even if they
   don't meet these criteria.
 - Do **not** use on date-time strings.
@@ -1090,7 +1090,7 @@ runaway cardinality. For information about adjusting cardinality limits, see
 {{% /oss-only %}}
 
 Use [`influxdb.cardinality()`](/flux/v0.x/stdlib/influxdata/influxdb/cardinality/) in Flux
-or [`SHOW SERIES CARDINALITY`](/{{< latest "influxdb" "v1" >}}/query_language/spec/#show-series-cardinality)
+or [`SHOW SERIES CARDINALITY`](/influxdb/v1/query_language/spec/#show-series-cardinality)
 in InfluxQL to measure the series cardinality in a bucket.
 See [Resolve high series cardinality](/influxdb/v2/write-data/best-practices/resolve-high-cardinality/)
 for information about reducing series cardinality.

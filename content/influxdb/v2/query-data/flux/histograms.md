@@ -12,8 +12,8 @@ weight: 210
 aliases:
   - /influxdb/v2/query-data/guides/histograms/
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/histogram
-  - /{{< latest "flux" >}}/prometheus/metric-types/histogram/, Work with Prometheus histograms in Flux
+  - /flux/v0/stdlib/universe/histogram
+  - /flux/v0/prometheus/metric-types/histogram/, Work with Prometheus histograms in Flux
 list_query_example: histogram
 ---
 
@@ -22,12 +22,12 @@ This guide walks through using Flux's `histogram()` function to transform your d
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ## histogram() function
 
-The [`histogram()` function](/{{< latest "flux" >}}/stdlib/universe/histogram) approximates the
+The [`histogram()` function](/flux/v0/stdlib/universe/histogram) approximates the
 cumulative distribution of a dataset by counting data frequencies for a list of "bins."
 A **bin** is simply a range in which a data point falls.
 All data points that are less than or equal to the bound are counted in the bin.
@@ -51,7 +51,7 @@ Flux provides two helper functions for generating histogram bins.
 Each generates an array of floats designed to be used in the `histogram()` function's `bins` parameter.
 
 ### linearBins()
-The [`linearBins()` function](/{{< latest "flux" >}}/stdlib/universe/linearbins) generates a list of linearly separated floats.
+The [`linearBins()` function](/flux/v0/stdlib/universe/linearbins) generates a list of linearly separated floats.
 
 ```js
 linearBins(start: 0.0, width: 10.0, count: 10)
@@ -60,7 +60,7 @@ linearBins(start: 0.0, width: 10.0, count: 10)
 ```
 
 ### logarithmicBins()
-The [`logarithmicBins()` function](/{{< latest "flux" >}}/stdlib/universe/logarithmicbins) generates a list of exponentially separated floats.
+The [`logarithmicBins()` function](/flux/v0/stdlib/universe/logarithmicbins) generates a list of exponentially separated floats.
 
 ```js
 logarithmicBins(start: 1.0, factor: 2.0, count: 10, infinity: true)
@@ -168,4 +168,4 @@ and `severity` as the **Group By** option:
 ### Use Prometheus histograms in Flux
 
 _For information about working with Prometheus histograms in Flux, see
-[Work with Prometheus histograms](/{{< latest "flux" >}}/prometheus/metric-types/histogram/)._
+[Work with Prometheus histograms](/flux/v0/prometheus/metric-types/histogram/)._

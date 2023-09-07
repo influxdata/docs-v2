@@ -12,9 +12,9 @@ menu:
 ---
 
 
-Chronograf provides a user interface for [Kapacitor](/{{< latest "kapacitor" >}}/), InfluxData's processing framework for creating alerts, ETL jobs (running extract, transform, load), and detecting anomalies in your data.
+Chronograf provides a user interface for [Kapacitor](/kapacitor/v1/), InfluxData's processing framework for creating alerts, ETL jobs (running extract, transform, load), and detecting anomalies in your data.
 Chronograf alert rules correspond to Kapacitor tasks that trigger alerts whenever certain conditions are met.
-Behind the scenes, these tasks are stored as [TICKscripts](/{{< latest "kapacitor" >}}/tick/) that can be edited manually or through Chronograf.
+Behind the scenes, these tasks are stored as [TICKscripts](/kapacitor/v1/tick/) that can be edited manually or through Chronograf.
 Common alerting use cases that can be managed using Chronograf include:
 
 * Thresholds with static ceilings, floors, and ranges.
@@ -22,14 +22,14 @@ Common alerting use cases that can be managed using Chronograf include:
 * Deadman switches.
 
 Complex alerts and other tasks can be defined directly in Kapacitor as TICKscripts, but can be viewed and managed within Chronograf.
-To learn about managing Kapacitor TICKscripts in Chronograf, see [Manage Kapacitor TICKscripts](/{{< latest "chronograf" >}}/guides/advanced-kapacitor/#manage-kapacitor-tickscripts).
+To learn about managing Kapacitor TICKscripts in Chronograf, see [Manage Kapacitor TICKscripts](/chronograf/v1/guides/advanced-kapacitor/#manage-kapacitor-tickscripts).
 
 ## Requirements
 
-[Get started with Chronograf](/{{< latest "chronograf" >}}/introduction/getting-started/) offers step-by-step instructions for each of the following requirements:
+[Get started with Chronograf](/chronograf/v1/introduction/getting-started/) offers step-by-step instructions for each of the following requirements:
 
 * Download and install the entire TICKstack (Telegraf, InfluxDB, Chronograf, and Kapacitor).
-* [Create a Kapacitor connection in Chronograf](/{{< latest "chronograf" >}}/introduction/installation/#connect-chronograf-to-kapacitor).
+* [Create a Kapacitor connection in Chronograf](/chronograf/v1/introduction/installation/#connect-chronograf-to-kapacitor).
 
 ## Manage Chronograf alert rules
 

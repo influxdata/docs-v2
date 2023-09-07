@@ -17,7 +17,7 @@ related:
 ---
 
 Use [InfluxDB Cloud](/influxdb/cloud/), the [InfluxDB Open Source (OSS) Metrics template](https://github.com/influxdata/community-templates/tree/master/influxdb2_oss_metrics),
-and [Telegraf](/{{< latest "telegraf" >}}/) to monitor one or more InfluxDB OSS instances.
+and [Telegraf](/telegraf/v1/) to monitor one or more InfluxDB OSS instances.
 
 Do the following:
 
@@ -70,9 +70,9 @@ InfluxDB OSS metrics to an InfluxDB endpoint and a dashboard that visualizes the
 By default, InfluxDB OSS 2.x has a `/metrics` endpoint available, which exports 
 internal InfluxDB metrics in [Prometheus format](https://prometheus.io/docs/concepts/data_model/).
 
-1. Ensure the `/metrics` endpoint is [enabled](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled).
+1. Ensure the `/metrics` endpoint is [enabled](/influxdb/v2/reference/config-options/#metrics-disabled).
    If you've changed the default settings to disable the `/metrics` endpoint,
-   [re-enable these settings](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled).
+   [re-enable these settings](/influxdb/v2/reference/config-options/#metrics-disabled).
 2. Navigate to the `/metrics` endpoint of your InfluxDB OSS instance to view the InfluxDB OSS system metrics in your browser: 
 
 ## Set up Telegraf
@@ -81,7 +81,7 @@ Set up Telegraf to scrape metrics from InfluxDB OSS to send to your InfluxDB Clo
 
 On each InfluxDB OSS instance you want to monitor, do the following:
 
-1. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/).
+1. [Install Telegraf](/telegraf/v1/introduction/installation/).
 2. Set the following environment variables in your Telegraf environment:
     
     - `INFLUX_URL`: Your [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/)

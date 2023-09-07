@@ -16,8 +16,8 @@ menu:
     name: Rate
 influxdb/cloud/tags: [query, rate]
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/derivative/
-  - /{{< latest "flux" >}}/stdlib/experimental/aggregate/rate/
+  - /flux/v0/stdlib/universe/derivative/
+  - /flux/v0/stdlib/experimental/aggregate/rate/
 list_query_example: rate_of_change
 ---
 

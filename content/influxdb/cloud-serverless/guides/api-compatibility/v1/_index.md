@@ -422,7 +422,7 @@ Replace the following:
 - [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/query-data/execute-queries/influxdb-v1-api/)
-- [Chronograf](/{{< latest "Chronograf" >}}/)
+- [Chronograf](/chronograf/v1/)
 {{% /note %}}
 
 ### v1 API /query parameters

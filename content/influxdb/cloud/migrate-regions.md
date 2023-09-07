@@ -21,7 +21,7 @@ destination InfluxDB Cloud account, there is documentation available that
 walks through the migration.
 The specific process varies depending on whether your destination account is
 powered by our current database engine,
-[Time-Structured Merge Tree (TSM)](/{{< latest "influxdb" >}}/reference/internals/storage-engine/#time-structured-merge-tree-tsm)
+[Time-Structured Merge Tree (TSM)](/influxdb/v2/reference/internals/storage-engine/#time-structured-merge-tree-tsm)
 or [our new database engine, InfluxDB IOx](/blog/announcing-general-availability-new-database-engine/).
 
 To benefit from IOx's unlimited cardinality and support for SQL, migrate your data to IOx.

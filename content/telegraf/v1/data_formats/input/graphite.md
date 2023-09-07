@@ -53,7 +53,7 @@ By default, the separator is left as `.`, but this can be changed using the
 
 ## Templates
 
-[Template patterns](/{{% latest "telegraf" %}}/concepts/metrics/) specify how a dot-delimited
-string should be mapped to and from [metrics](/{{% latest "telegraf" %}}/configure_plugins/template-patterns/).
+[Template patterns](/telegraf/v1/concepts/metrics/) specify how a dot-delimited
+string should be mapped to and from [metrics](/telegraf/v1/configure_plugins/template-patterns/).
 
 

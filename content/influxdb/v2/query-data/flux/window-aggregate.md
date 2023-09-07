@@ -15,10 +15,10 @@ aliases:
   - /influxdb/v2/query-data/guides/window-aggregate/
   - /influxdb/v2/query-data/flux/windowing-aggregating/
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/aggregatewindow
-  - /{{< latest "flux" >}}/stdlib/universe/window
-  - /{{< latest "flux" >}}/function-types/#aggregates, Flux aggregate functions
-  - /{{< latest "flux" >}}/function-types/#selectors, Flux selector functions
+  - /flux/v0/stdlib/universe/aggregatewindow
+  - /flux/v0/stdlib/universe/window
+  - /flux/v0/function-types/#aggregates, Flux aggregate functions
+  - /flux/v0/function-types/#selectors, Flux selector functions
 list_query_example: aggregate_window
 ---
 
@@ -29,7 +29,7 @@ how data is shaped in the process.
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 {{% note %}}
@@ -98,7 +98,7 @@ Table: keys: [_start, _stop, _field, _measurement]
 {{% /truncate %}}
 
 ## Windowing data
-Use the [`window()` function](/{{< latest "flux" >}}/stdlib/universe/window)
+Use the [`window()` function](/flux/v0/stdlib/universe/window)
 to group your data based on time bounds.
 The most common parameter passed with the `window()` is `every` which
 defines the duration of time between windows.
@@ -111,7 +111,7 @@ dataSet
 ```
 
 {{% note %}}
-The `every` parameter supports all [valid duration units](/{{< latest "flux" >}}/spec/types/#duration-types),
+The `every` parameter supports all [valid duration units](/flux/v0/spec/types/#duration-types),
 including **calendar months (`1mo`)** and **years (`1y`)**.
 {{% /note %}}
 
@@ -187,14 +187,14 @@ When visualized in the InfluxDB UI, each window table is displayed in a differen
 ![Windowed data](/img/flux/simple-windowed-data.png)
 
 ## Aggregate data
-[Aggregate functions](/{{< latest "flux" >}}/function-types#aggregates) take the values
+[Aggregate functions](/flux/v0/function-types#aggregates) take the values
 of all rows in a table and use them to perform an aggregate operation.
 The result is output as a new value in a single-row table.
 
 Since windowed data is split into separate tables, aggregate operations run against
 each table separately and output new tables containing only the aggregated value.
 
-For this example, use the [`mean()` function](/{{< latest "flux" >}}/stdlib/universe/mean)
+For this example, use the [`mean()` function](/flux/v0/stdlib/universe/mean)
 to output the average of each window:
 
 ```js
@@ -258,7 +258,7 @@ These represent the lower and upper bounds of the time window.
 
 Many Flux functions rely on the `_time` column.
 To further process your data after an aggregate function, you need to re-add `_time`.
-Use the [`duplicate()` function](/{{< latest "flux" >}}/stdlib/universe/duplicate) to
+Use the [`duplicate()` function](/flux/v0/stdlib/universe/duplicate) to
 duplicate either the `_start` or `_stop` column as a new `_time` column.
 
 ```js
@@ -346,7 +346,7 @@ With the aggregate values in a single table, data points in the visualization ar
 You have now created a Flux query that windows and aggregates data.
 The data transformation process outlined in this guide should be used for all aggregation operations.
 
-Flux also provides the [`aggregateWindow()` function](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow)
+Flux also provides the [`aggregateWindow()` function](/flux/v0/stdlib/universe/aggregatewindow)
 which performs all these separate functions for you.
 
 The following Flux query will return the same results:

@@ -55,7 +55,7 @@ InfluxDB uses [API tokens](/influxdb/v2/security/tokens/) to authorize API reque
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
-Postman is another popular tool for exploring APIs. See how to [send authenticated requests with Postman](/{{< latest "influxdb" >}}/api-guide/postman/#send-authenticated-api-requests-with-postman).
+Postman is another popular tool for exploring APIs. See how to [send authenticated requests with Postman](/influxdb/v2/api-guide/postman/#send-authenticated-api-requests-with-postman).
 
 ## Buckets API
 

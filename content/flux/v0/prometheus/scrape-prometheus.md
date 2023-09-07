@@ -12,9 +12,9 @@ related:
   - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
   - /flux/v0/stdlib/experimental/prometheus/scrape/
   - /influxdb/cloud/process-data/manage-tasks/create-task/, Create an InfluxDB task
-  - /{{< latest "influxdb" >}}/reference/prometheus-metrics/, InfluxDB Prometheus metric parsing formats
+  - /influxdb/v2/reference/prometheus-metrics/, InfluxDB Prometheus metric parsing formats
   - /influxdb/cloud/write-data/developer-tools/scrape-prometheus-metrics, Scrape Prometheus metrics with InfluxDB Cloud
-  - /{{< latest "influxdb" >}}/write-data/developer-tools/scrape-prometheus-metrics, Scrape Prometheus metrics with InfluxDB OSS
+  - /influxdb/v2/write-data/developer-tools/scrape-prometheus-metrics, Scrape Prometheus metrics with InfluxDB OSS
 ---
 
 To use Flux to scrape [Prometheus-formatted metrics](https://prometheus.io/docs/concepts/data_model/) 
@@ -146,14 +146,14 @@ When scraped by Flux, these metrics return the following stream of tables:
 
 {{% note %}}
 #### Different data structures for scraped Prometheus metrics
-[Telegraf](/{{< latest "telegraf" >}}/) and [InfluxDB](/{{< latest "influxdb" >}}/) 
+[Telegraf](/telegraf/v1/) and [InfluxDB](/influxdb/v2/) 
 provide tools that scrape Prometheus metrics and store them in InfluxDB.
 Depending on the tool and and configuration you use to scrape metrics, 
 the resulting data structure may differ from the structure returned by `prometheus.scrape()`
 described [above](#output-structure).
 
 For information about the different data structures of scraped Prometheus metrics
-stored in InfluxDB, see [InfluxDB Prometheus metric parsing formats](/{{< latest "influxdb" >}}/reference/prometheus-metrics/).
+stored in InfluxDB, see [InfluxDB Prometheus metric parsing formats](/influxdb/v2/reference/prometheus-metrics/).
 {{% /note %}}
 
 ## Write Prometheus metrics to InfluxDB

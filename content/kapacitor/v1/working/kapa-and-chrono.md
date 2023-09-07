@@ -24,16 +24,16 @@ menu:
 ## Overview
 
 As a part of the [TICK stack](https://www.influxdata.com/products/),
-[Chronograf](/{{< latest "chronograf" >}}/) is a graphical user interface designed to
+[Chronograf](/chronograf/v1/) is a graphical user interface designed to
 simplify monitoring infrastructure, visualizing data, administering databases
 and managing alerts. It is through alert management that Chronograf gets
 integrated with Kapacitor.
 
 In the Chronograf documentation, working with Kapacitor is covered in the
-sections [Connecting Chronograf to Kapacitor](/{{< latest "chronograf" >}}/introduction/getting-started/#4-connect-chronograf-to-kapacitor),
-[Create a Kapacitor Alert](/{{< latest "chronograf" >}}/guides/create-a-kapacitor-alert/),
-[Configure Kapacitor Event Handlers](/{{< latest "chronograf" >}}/guides/configure-kapacitor-event-handlers/),
-and [Advanced Kapacitor Usage](/{{< latest "chronograf" >}}/guides/advanced-kapacitor/).
+sections [Connecting Chronograf to Kapacitor](/chronograf/v1/introduction/getting-started/#4-connect-chronograf-to-kapacitor),
+[Create a Kapacitor Alert](/chronograf/v1/guides/create-a-kapacitor-alert/),
+[Configure Kapacitor Event Handlers](/chronograf/v1/guides/configure-kapacitor-event-handlers/),
+and [Advanced Kapacitor Usage](/chronograf/v1/guides/advanced-kapacitor/).
 
 This current document will summarize many of the points presented there and
 provide tips for working with tasks and TICKscripts in Chronograf.
@@ -44,7 +44,7 @@ Kapacitor instances in Chronograf are associated with specific InfluxDB database
 which should already be bound to both Kapacitor and Chronograf.  To define an
 InfluxDB database in Kapacitor, see [Getting started with Kapacitor](/kapacitor/v1/introduction/getting-started/)
 or the [Configuring Kapacitor](/kapacitor/v1/administration/configuration/#influxdb)
-guides. To define an InfluxDB database in Chronograf, see [InfluxDB setup](/{{< latest "chronograf" >}}/introduction/getting-started/#influxdb-setup)
+guides. To define an InfluxDB database in Chronograf, see [InfluxDB setup](/chronograf/v1/introduction/getting-started/#influxdb-setup)
 in the Chronograf documentation.
 
 ### Add a Kapacitor instance

@@ -8,7 +8,7 @@ menu:
     parent: Query with Flux
 weight: 20
 list_query_example: regular_expressions
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/regular-expressions/
+canonical: /influxdb/v2/query-data/flux/regular-expressions/
 v2: /influxdb/v2/query-data/flux/regular-expressions/
 ---
 

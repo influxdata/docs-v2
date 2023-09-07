@@ -10,7 +10,7 @@ weight: 1
 cascade:
   related:
     - /kapacitor/v1/working/flux/
-    - /{{< latest "chronograf" >}}/guides/advanced-kapacitor/
+    - /chronograf/v1/guides/advanced-kapacitor/
 ---
 
 Use the **`kapacitor` CLI** and the **Kapacitor HTTP API** to manage Kapacitor Flux tasks.
@@ -19,7 +19,7 @@ Use the **`kapacitor` CLI** and the **Kapacitor HTTP API** to manage Kapacitor F
 **Chronograf 1.9+** provides a user interface for enabling or disabling Flux tasks,
 viewing task logs, and more.
 Kapacitor Flux task code is read-only in Chronograf.
-For more information, see [Advanced Kapacitor usage](/{{< latest "chronograf" >}}/guides/advanced-kapacitor/#manage-kapacitor-flux-tasks).
+For more information, see [Advanced Kapacitor usage](/chronograf/v1/guides/advanced-kapacitor/#manage-kapacitor-flux-tasks).
 {{% /note %}}
 
 {{< children >}}

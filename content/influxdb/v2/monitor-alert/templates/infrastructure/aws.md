@@ -19,7 +19,7 @@ The AWS CloudWatch Monitoring template includes the following:
 - two [buckets](/influxdb/v2/reference/glossary/#bucket): `kubernetes` and `cloudwatch`
 - two labels: `inputs.cloudwatch`, `AWS`
 - one variable: `v.bucket`
-- one [Telegraf configuration](/influxdb/v2/telegraf-configs/): [AWS CloudWatch input plugin](/{{< latest "telegraf" >}}/plugins//#cloudwatch)
+- one [Telegraf configuration](/influxdb/v2/telegraf-configs/): [AWS CloudWatch input plugin](/telegraf/v1/plugins//#cloudwatch)
 
 ## Apply the template
 
@@ -29,7 +29,7 @@ The AWS CloudWatch Monitoring template includes the following:
     influx apply -f https://raw.githubusercontent.com/influxdata/community-templates/master/aws_cloudwatch/aws_cloudwatch.yml
     ```
     For more information, see [influx apply](/influxdb/v2/reference/cli/influx/apply/).
-2. [Install Telegraf](/{{< latest "telegraf" >}}/introduction/installation/) on a server with network access to both the CloudWatch API and [InfluxDB v2 API](/influxdb/v2/reference/api/).
+2. [Install Telegraf](/telegraf/v1/introduction/installation/) on a server with network access to both the CloudWatch API and [InfluxDB v2 API](/influxdb/v2/reference/api/).
 3. In your Telegraf configuration file (`telegraf.conf`), find the following example `influxdb_v2` output plugins, and then **replace** the `urls` to specify the servers to monitor:
 
    ```sh

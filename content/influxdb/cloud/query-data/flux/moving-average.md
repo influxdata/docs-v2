@@ -13,8 +13,8 @@ menu:
     name: Moving Average
 influxdb/cloud/tags: [query, moving average]
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/movingaverage/
-  - /{{< latest "flux" >}}/stdlib/universe/timedmovingaverage/
+  - /flux/v0/stdlib/universe/movingaverage/
+  - /flux/v0/stdlib/universe/timedmovingaverage/
 list_query_example: moving_average
 ---
 

@@ -23,7 +23,7 @@ Complete the following tasks
 to migrate data from OSS to an InfluxDB Enterprise cluster without downtime or missing data.
 
 1. Upgrade InfluxDB OSS and InfluxDB Enterprise to the latest stable versions.
-   - [Upgrade InfluxDB OSS](/{{< latest "influxdb" "v1" >}}/administration/upgrading/)
+   - [Upgrade InfluxDB OSS](/influxdb/v1/administration/upgrading/)
    - [Upgrade InfluxDB Enterprise](/enterprise_influxdb/v1/administration/upgrading/)
 
 2. On each meta node and each data node,
@@ -70,7 +70,7 @@ and [`restore`](/enterprise_influxdb/v1/administration/backup-and-restore/#resto
 
 8. Verify data is successfully migrated to your Enterprise cluster. See:
    - [Query data with the InfluxDB API](/enterprise_influxdb/v1/guides/query_data/)
-   - [View data in Chronograf](/{{< latest "chronograf" >}}/)
+   - [View data in Chronograf](/chronograf/v1/)
 
 Next, stop writes to OSS instance, and remove it.
 
@@ -318,5 +318,5 @@ It may take a few minutes before the existing data is available.
    on all existing retention polices to the number of data nodes in your cluster.
 2. [Rebalance your cluster manually](/enterprise_influxdb/v1/guides/rebalance/)
    to meet the desired replication factor for existing shards.
-3. If you were using [Chronograf](/{{< latest "chronograf" >}}/),
+3. If you were using [Chronograf](/chronograf/v1/),
    add your Enterprise instance as a new data source.

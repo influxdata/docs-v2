@@ -10,11 +10,11 @@ menu:
     parent: Query with Flux
     name: Fill
 list_query_example: fill_null
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/fill/
+canonical: /influxdb/v2/query-data/flux/fill/
 v2: /influxdb/v2/query-data/flux/fill/
 ---
 
-Use the [`fill()` function](/{{< latest "flux" >}}/stdlib/universe/fill/)
+Use the [`fill()` function](/flux/v0/stdlib/universe/fill/)
 to replace _null_ values with:
 
 - [the previous non-null value](#fill-with-the-previous-value)
@@ -78,8 +78,8 @@ data
 
 ## Fill with a specified value
 To fill _null_ values with a specified value, use the `value` parameter to specify the fill value.
-_The fill value must match the [data type](/{{< latest "flux" >}}/language/types/#basic-types)
-of the [column](/{{< latest "flux" >}}/stdlib/universe/fill/#column)._
+_The fill value must match the [data type](/flux/v0/language/types/#basic-types)
+of the [column](/flux/v0/stdlib/universe/fill/#column)._
 
 ```js
 data

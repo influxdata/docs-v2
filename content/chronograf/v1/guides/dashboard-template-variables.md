@@ -53,7 +53,7 @@ For **predefined meta queries** such as "Field Keys" and "Tag Values", **do not 
 SELECT :variable_name: FROM "telegraf"."autogen".:measurement: WHERE time < :dashboardTime:
 ```
 
-For **custom queries**, **CSV**, or **map queries**, quote the values in the query following standard [InfluxQL](/{{< latest "influxdb" "v1" >}}/query_language/) syntax:
+For **custom queries**, **CSV**, or **map queries**, quote the values in the query following standard [InfluxQL](/influxdb/v1/query_language/) syntax:
 
 - For numerical values, **do not quote**.
 - For string values, choose to quote the values in the variable definition (or not).  See [String examples](#string-examples) below.
@@ -287,7 +287,7 @@ Chronograf supports the following template variable types:
 - [Text](#text)
 
 ### Databases
-Database template variables allow you to select from multiple target [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database).
+Database template variables allow you to select from multiple target [databases](/influxdb/v1/concepts/glossary/#database).
 
 _**Database meta query**_  
 Database template variables use the following meta query to return an array of all databases in your InfluxDB instance.
@@ -306,7 +306,7 @@ Use database template variables when visualizing multiple databases with similar
 Variables let you quickly switch between visualizations for each of your databases.
 
 ### Measurements
-Vary the target [measurement](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#measurement).
+Vary the target [measurement](/influxdb/v1/concepts/glossary/#measurement).
 
 _**Measurement meta query**_  
 Measurement template variables use the following meta query to return an array of all measurements in a given database.
@@ -325,7 +325,7 @@ Measurement template variables allow you to quickly switch between measurements 
 
 
 ### Field Keys
-Vary the target [field key](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#field-key).
+Vary the target [field key](/influxdb/v1/concepts/glossary/#field-key).
 
 _**Field key meta query**_  
 Field key template variables use the following meta query to return an array of all field keys in a given measurement from a given database.
@@ -344,7 +344,7 @@ Field key template variables are great if you want to quickly switch between fie
 
 
 ### Tag Keys
-Vary the target [tag key](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#tag-key).
+Vary the target [tag key](/influxdb/v1/concepts/glossary/#tag-key).
 
 _**Tag key meta query**_  
 Tag key template variables use the following meta query to return an array of all tag keys in a given measurement from a given database.
@@ -363,7 +363,7 @@ Tag key template variables are great if you want to quickly switch between tag k
 
 
 ### Tag Values
-Vary the target [tag value](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#tag-value).
+Vary the target [tag value](/influxdb/v1/concepts/glossary/#tag-value).
 
 _**Tag value meta query**_  
 Tag value template variables use the following meta query to return an array of all values associated with a given tag key in a specified measurement and database.
@@ -396,7 +396,7 @@ value4
 ```
 
 {{% note %}}
-String field values [require single quotes in InfluxQL](/{{< latest "influxdb" "v1" >}}/troubleshooting/frequently-asked-questions/#when-should-i-single-quote-and-when-should-i-double-quote-in-queries).
+String field values [require single quotes in InfluxQL](/influxdb/v1/troubleshooting/frequently-asked-questions/#when-should-i-single-quote-and-when-should-i-double-quote-in-queries).
 
 ```csv
 'string1','string2','string3','string4'
@@ -428,7 +428,7 @@ key4,value4
 <img src="/img/chronograf/1-6-template-vars-map-dropdown.png" style="width:100%;max-width:140px;" alt="Map variable dropdown"/>
 
 {{% note %}}
-Wrap string field values in single quotes ([required by InfluxQL](/{{< latest "influxdb" "v1" >}}/troubleshooting/frequently-asked-questions/#when-should-i-single-quote-and-when-should-i-double-quote-in-queries)).
+Wrap string field values in single quotes ([required by InfluxQL](/influxdb/v1/troubleshooting/frequently-asked-questions/#when-should-i-single-quote-and-when-should-i-double-quote-in-queries)).
 Variable keys do not require quotes.
 
 ```csv

@@ -10,11 +10,11 @@ menu:
     parent: Query with Flux
     name: Median
 list_query_example: median
-canonical: /{{< latest "influxdb" "v2" >}}/query-data/flux/median/
+canonical: /influxdb/v2/query-data/flux/median/
 v2: /influxdb/v2/query-data/flux/median/
 ---
 
-Use the [`median()` function](/{{< latest "flux" >}}/stdlib/universe/median/)
+Use the [`median()` function](/flux/v0/stdlib/universe/median/)
 to return a value representing the `0.5` quantile (50th percentile) or median of input data.
 
 ## Select a method for calculating the median
@@ -129,13 +129,13 @@ data
 ```
 
 ## Use median() with aggregateWindow()
-[`aggregateWindow()`](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
+[`aggregateWindow()`](/flux/v0/stdlib/universe/aggregatewindow/)
 segments data into windows of time, aggregates data in each window into a single
 point, and then removes the time-based segmentation.
 It is primarily used to downsample data.
 
 To specify the [median calculation method](#select-a-method-for-calculating-the-median) in `aggregateWindow()`, use the
-[full function syntax](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/#specify-parameters-of-the-aggregate-function):
+[full function syntax](/flux/v0/stdlib/universe/aggregatewindow/#specify-parameters-of-the-aggregate-function):
 
 ```js
 data

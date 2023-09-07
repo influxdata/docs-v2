@@ -14,19 +14,19 @@ weight: 203
 aliases:
   - /influxdb/v2/query-data/guides/sort-limit/
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/sort
-  - /{{< latest "flux" >}}/stdlib/universe/limit
+  - /flux/v0/stdlib/universe/sort
+  - /flux/v0/stdlib/universe/limit
 list_query_example: sort_limit
 ---
 
-Use [`sort()`](/{{< latest "flux" >}}/stdlib/universe/sort)
+Use [`sort()`](/flux/v0/stdlib/universe/sort)
 to order records within each table by specific columns and
-[`limit()`](/{{< latest "flux" >}}/stdlib/universe/limit)
+[`limit()`](/flux/v0/stdlib/universe/limit)
 to limit the number of records in output tables to a fixed number, `n`.
 
 If you're just getting started with Flux queries, check out the following:
 
-- [Get started with Flux](/{{< latest "flux" >}}/get-started/) for a conceptual overview of Flux and parts of a Flux query.
+- [Get started with Flux](/flux/v0/get-started/) for a conceptual overview of Flux and parts of a Flux query.
 - [Execute queries](/influxdb/v2/query-data/execute-queries/) to discover a variety of ways to run your queries.
 
 ##### Example sorting system uptime
@@ -40,7 +40,7 @@ from(bucket: "example-bucket")
     |> sort(columns: ["region", "host", "_value"])
 ```
 
-The [`limit()` function](/{{< latest "flux" >}}/stdlib/universe/limit)
+The [`limit()` function](/flux/v0/stdlib/universe/limit)
 limits the number of records in output tables to a fixed number, `n`.
 The following example shows up to 10 records from the past hour.
 
@@ -63,6 +63,6 @@ from(bucket: "example-bucket")
 ```
 
 You now have created a Flux query that sorts and limits data.
-Flux also provides the [`top()`](/{{< latest "flux" >}}/stdlib/universe/top)
-and [`bottom()`](/{{< latest "flux" >}}/stdlib/universe/bottom)
+Flux also provides the [`top()`](/flux/v0/stdlib/universe/top)
+and [`bottom()`](/flux/v0/stdlib/universe/bottom)
 functions to perform both of these functions at the same time.

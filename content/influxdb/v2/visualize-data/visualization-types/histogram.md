@@ -68,7 +68,7 @@ the visualization dropdown.
 ### View error counts by severity over time
 The following example uses the Histogram visualization to show the number of errors
 "binned" by time and segmented by severity.
-_It utilizes data from the [Telegraf Syslog plugin](/{{< latest "telegraf" >}}/plugins//#syslog)._
+_It utilizes data from the [Telegraf Syslog plugin](/telegraf/v1/plugins//#syslog)._
 
 ##### Query for errors by severity code
 ```js

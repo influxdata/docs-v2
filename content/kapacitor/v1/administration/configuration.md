@@ -413,7 +413,7 @@ Identify one of the InfluxDB groups as the `default`.
 {{% note %}}
 #### InfluxDB user must have admin privileges
 To use Kapacitor with an InfluxDB instance that requires authentication,
-the InfluxDB user must have [admin privileges](/{{< latest "influxdb" "v1" >}}/administration/authentication_and_authorization/#admin-users).
+the InfluxDB user must have [admin privileges](/influxdb/v1/administration/authentication_and_authorization/#admin-users).
 {{% /note %}}
 
 {{< keep-url >}}

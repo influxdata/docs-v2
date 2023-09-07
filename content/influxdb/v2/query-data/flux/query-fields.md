@@ -11,7 +11,7 @@ menu:
     parent: Query with Flux
 influxdb/v2/tags: [query, select, where]
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/filter/
+  - /flux/v0/stdlib/universe/filter/
   - /influxdb/v2/query-data/flux/conditional-logic/
   - /influxdb/v2/query-data/flux/regular-expressions/
 list_code_example: |
@@ -23,7 +23,7 @@ list_code_example: |
   ```
 ---
 
-Use [`filter()`](/{{< latest "flux" >}}/stdlib/universe/filter/)
+Use [`filter()`](/flux/v0/stdlib/universe/filter/)
 to query data based on fields, tags, or any other column value.
 `filter()` performs operations similar to the `SELECT` statement and the `WHERE`
 clause in InfluxQL and other SQL-like query languages.
@@ -43,9 +43,9 @@ Rows that evaluate to `false` are **excluded** from the output data.
 The `fn` predicate function requires an `r` argument, which represents each row
 as `filter()` iterates over input data.
 Key-value pairs in the row record represent columns and their values.
-Use [dot notation or bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#reference-values-in-a-record) 
+Use [dot notation or bracket notation](/flux/v0/data-types/composite/record/#reference-values-in-a-record) 
 to reference specific column values in the predicate function.
-Use [logical operators](/{{< latest "flux" >}}/spec/operators/#logical-operators)
+Use [logical operators](/flux/v0/spec/operators/#logical-operators)
 to chain multiple predicate expressions together.
 
 ```js
@@ -60,8 +60,8 @@ r = {foo: "bar", baz: "quz"}
 ```
 
 ## Filter by fields and tags
-The combination of [`from()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from),
-[`range()`](/{{< latest "flux" >}}/stdlib/universe/range),
+The combination of [`from()`](/flux/v0/stdlib/influxdata/influxdb/from),
+[`range()`](/flux/v0/stdlib/universe/range),
 and `filter()` represent the most basic Flux query:
 
 1. Use `from()` to define your [bucket](/influxdb/v2/reference/glossary/#bucket).

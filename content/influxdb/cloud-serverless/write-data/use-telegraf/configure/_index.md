@@ -14,7 +14,7 @@ menu:
 weight: 101
 influxdb/cloud-serverless/tags: [telegraf]
 related:
-  - /{{< latest "telegraf" >}}/plugins/
+  - /telegraf/v1/plugins/
 alt_links:
   cloud: /influxdb/cloud/write-data/no-code/use-telegraf/manual-config/
 aliases:
@@ -57,10 +57,10 @@ to set up InfluxDB and [configure authentication credentials](/influxdb/cloud-se
 
 ### Add Telegraf plugins
 
-To add any of the available [Telegraf plugins](/{{< latest "telegraf" >}}/plugins/), follow the steps below.
+To add any of the available [Telegraf plugins](/telegraf/v1/plugins/), follow the steps below.
 
 1.  Find the plugin you want to enable from the complete list of available
-    [Telegraf plugins](/{{< latest "telegraf" >}}/plugins/).
+    [Telegraf plugins](/telegraf/v1/plugins/).
 2.  Click **View** to the right of the plugin name to open the plugin page on GitHub.
     For example, view the [MQTT plugin GitHub page](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/mqtt_consumer/README.md).
 3.  Copy and paste the example configuration into your Telegraf configuration file
