@@ -38,28 +38,30 @@
   
   <ul class="item-list products" data-category="Managed">
     {{ range $sortedProducts }}
-       {{ if eq .menu_category "managed" }}       
+      {{ if eq .menu_category "managed" }}       
         {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
         {{ if not $isCurrentProduct }}
-          {{ $scratch.Set "link" (print "/" .namespace "/" (index .versions 0) "/") }} 
+          {{ $scratch.Set "link" (print "/" .namespace "/" (index .versions 0) "/") }}
+
+          {{ if eq $product "influxdb" }}
+            {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
+            {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
+            
+            {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
+            {{ if (gt (len $altLinks) 0) }}
+              {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
+              {{ if isset $altLinks $productKey }}
+                {{ $scratch.Set "link" (index $altLinks $productKey) }}
+              {{ end }}
+
+            {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
+            {{ else if gt (len $altProductPage.Title) 0 }}
+              {{ $scratch.Set "link" $altProductPage.RelPermalink }}
+            {{ end }}        
+          {{ end }}
+
         {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
-        
-        {{ else if eq $product "influxdb" }}
-          {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
-          {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
-          
-          {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
-          {{ if (gt (len $altLinks) 0) }}
-            {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
-            {{ if isset $altLinks $productKey }}
-              {{ $scratch.Set "link" (index $altLinks $productKey) }}
-            {{ end }}
-
-          {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-          {{ else if gt (len $altProductPage.Title) 0 }}
-            {{ $scratch.Set "link" $altProductPage.RelPermalink }}
-          {{ end }}        
         {{ end }}
         {{ $link := $scratch.Get "link" }}
         <li>
@@ -74,24 +76,26 @@
         {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
         {{ if not $isCurrentProduct }}
           {{ $scratch.Set "link" (print "/" .namespace "/" (index .versions 0) "/") }}
+          
+          {{ if eq $product "influxdb" }}
+            {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
+            {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
+            
+            {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
+            {{ if (gt (len $altLinks) 0) }}
+              {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
+              {{ if isset $altLinks $productKey }}
+                {{ $scratch.Set "link" (index $altLinks $productKey) }}
+              {{ end }}
+
+            {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
+            {{ else if gt (len $altProductPage.Title) 0 }}
+              {{ $scratch.Set "link" $altProductPage.RelPermalink }}
+            {{ end }}        
+          {{ end }}
+
         {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
-        
-        {{ else if eq $product "influxdb" }}
-          {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
-          {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
-          
-          {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
-          {{ if (gt (len $altLinks) 0) }}
-            {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
-            {{ if isset $altLinks $productKey }}
-              {{ $scratch.Set "link" (index $altLinks $productKey) }}
-            {{ end }}
-
-          {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-          {{ else if gt (len $altProductPage.Title) 0 }}
-            {{ $scratch.Set "link" $altProductPage.RelPermalink }}
-          {{ end }}        
         {{ end }}
         {{ $link := $scratch.Get "link" }}
         <li>
@@ -106,24 +110,26 @@
         {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
         {{ if not $isCurrentProduct }}
           {{ $scratch.Set "link" (print "/" .namespace "/" (index .versions 0) "/") }}
+          
+          {{ if eq $product "influxdb" }}
+            {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
+            {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
+            
+            {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
+            {{ if (gt (len $altLinks) 0) }}
+              {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
+              {{ if isset $altLinks $productKey }}
+                {{ $scratch.Set "link" (index $altLinks $productKey) }}
+              {{ end }}
+
+            {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
+            {{ else if gt (len $altProductPage.Title) 0 }}
+              {{ $scratch.Set "link" $altProductPage.RelPermalink }}
+            {{ end }}        
+          {{ end }}
+
         {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
-        
-        {{ else if eq $product "influxdb" }}
-          {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
-          {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
-          
-          {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
-          {{ if (gt (len $altLinks) 0) }}
-            {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
-            {{ if isset $altLinks $productKey }}
-              {{ $scratch.Set "link" (index $altLinks $productKey) }}
-            {{ end }}
-
-          {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-          {{ else if gt (len $altProductPage.Title) 0 }}
-            {{ $scratch.Set "link" $altProductPage.RelPermalink }}
-          {{ end }}        
         {{ end }}
         {{ $link := $scratch.Get "link" }}
         <li>
@@ -138,24 +144,26 @@
         {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
         {{ if not $isCurrentProduct }}
           {{ $scratch.Set "link" (print "/" .namespace "/" (index .versions 0) "/") }}
+          
+          {{ if eq $product "influxdb" }}
+            {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
+            {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
+            
+            {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
+            {{ if (gt (len $altLinks) 0) }}
+              {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
+              {{ if isset $altLinks $productKey }}
+                {{ $scratch.Set "link" (index $altLinks $productKey) }}
+              {{ end }}
+
+            {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
+            {{ else if gt (len $altProductPage.Title) 0 }}
+              {{ $scratch.Set "link" $altProductPage.RelPermalink }}
+            {{ end }}        
+          {{ end }}
+
         {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
-        
-        {{ else if eq $product "influxdb" }}
-          {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
-          {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
-          
-          {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
-          {{ if (gt (len $altLinks) 0) }}
-            {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
-            {{ if isset $altLinks $productKey }}
-              {{ $scratch.Set "link" (index $altLinks $productKey) }}
-            {{ end }}
-
-          {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
-          {{ else if gt (len $altProductPage.Title) 0 }}
-            {{ $scratch.Set "link" $altProductPage.RelPermalink }}
-          {{ end }}        
         {{ end }}
         {{ $link := $scratch.Get "link" }}
         <li>
