@@ -36,22 +36,20 @@
     - /influxdb/cloud/
   title: The future of Flux
   slug: |
-    Flux is going into maintenance mode. You can continue to use it as you
+    Flux is going into maintenance mode. You can continue using it as you
     currently are without any changes to your code.
   message: |      
-    Due to the clear success and continued growth and adoption of SQL and InfluxQL
-    in InfluxDB 3.0, we are focusing our development efforts on supporting SQL
-    and InfluxQL. We are not bringing Flux into InfluxDB 3.0. If you are
-    interested in transitioning to InfluxDB 3.0 and want to future-proof your
-    code, we suggest using InfluxQL.
+    Flux is going into maintenance mode and will not be supported in InfluxDB 3.0.
+    This was a decision based on the broad demand for SQL and the continued growth
+    and adoption of InfluxQL. We are continuing to support Flux for users in 1.x
+    and 2.x so you can continue using it with no changes to your code.
+    If you are interested in transitioning to InfluxDB 3.0 and want to
+    future-proof your code, we suggest using InfluxQL.
 
-    We will continue supporting Flux in InfluxDB 1.x, 2.x, and InfluxDB Cloud (TSM)
-    and you can continue using these products without any changes to your code.
-
-    For information about the decisions behind the future of Flux, see the following:
-
-    - [The plan for InfluxDB 3.0 Open Source](https://www.influxdata.com/blog/the-plan-for-influxdb-3-0-open-source/)
-    - [InfluxDB 3.0 benchmarks](https://www.influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
+    For information about the future of Flux, see the following:
+    
+    - [The plan for InfluxDB 3.0 Open Source](https://influxdata.com/blog/the-plan-for-influxdb-3-0-open-source)
+    - [InfluxDB 3.0 benchmarks](https://influxdata.com/blog/influxdb-3-0-is-2.5x-45x-faster-compared-to-influxdb-open-source/)
 
 - id: serverless-wip
   level: warn
