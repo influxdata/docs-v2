@@ -8,8 +8,7 @@ menu:
 weight: 301
 ---
 
-The `influxctl token list` command lists all database tokens in an InfluxDB Cloud
-Dedicated cluster.
+The `influxctl token list` command lists all database tokens in an InfluxDB cluster.
 
 The `--format` option lets you print the output in other formats.
 By default, the 'table' format is used, but the 'json' format is

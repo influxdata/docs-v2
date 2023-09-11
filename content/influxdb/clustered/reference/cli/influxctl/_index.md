@@ -346,8 +346,8 @@ The `influxctl` CLI uses [Auth0](https://auth0.com/) to authenticate access to
 your InfluxDB cluster.
 When you issue an `influxctl` command, the CLI checks for an active **Auth0** token.
 If none exists, you are directed to login to **Auth0** via a browser using
-credentials you should have created when setting up your InfluxDB Cloud
-Dedicated cluster.
+credentials you should have created when setting up your
+{{< product-name omit=" Clustered" >}} cluster.
 Auth0 issues a short-lived (1 hour) token that authenticates access to your
 InfluxDB cluster.
 
