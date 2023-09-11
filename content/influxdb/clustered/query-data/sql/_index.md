@@ -2,7 +2,7 @@
 title: Query data with SQL
 seotitle: Query data with SQL
 description: >
-  Learn to query data stored in InfluxDB Cloud using SQL.
+  Learn to query data stored in InfluxDB Clustered using SQL.
 menu:
   influxdb_clustered:
     name: Query with SQL
