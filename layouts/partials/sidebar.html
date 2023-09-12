@@ -26,7 +26,7 @@
 {{ .Scratch.Set "searchPlaceholder" "Search"}}
 
 {{ $fluxBlacklist := slice "cloud-serverless" "cloud-dedicated" "clustered" }}
-{{ $influxdbProductKey := print "influxdb_" $currentVersion }}
+{{ $influxdbProductKey := print "influxdb_" (replaceRE "-" "_" $currentVersion) }}
 
 {{ if and (eq (index .Site.Data.products $product).name nil) (eq (len (findRE `v[1-2]` $currentVersion nil)) 0) }}
   {{ .Scratch.Set "searchPlaceholder" "Search the docs" }}
