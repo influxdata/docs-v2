@@ -1204,8 +1204,8 @@ components:
         ### Basic authentication scheme
 
         Use the `Authorization` header with the `Basic` scheme to authenticate v1 API `/write` and `/query` requests.
-        When authenticating requests, InfluxDB Cloud Dedicated checks that the `password` part of the decoded credential is an authorized [database token](/influxdb/clustered/admin/tokens/).
-        InfluxDB Cloud Dedicated ignores the `username` part of the decoded credential.
+        When authenticating requests, InfluxDB Clustered checks that the `password` part of the decoded credential is an authorized [database token](/influxdb/clustered/admin/tokens/).
+        InfluxDB Clustered ignores the `username` part of the decoded credential.
 
         ### Syntax
 
@@ -1215,7 +1215,7 @@ components:
   
         Replace the following:
 
-        - **`[USERNAME]`**: an optional string value (ignored by InfluxDB Cloud Dedicated).
+        - **`[USERNAME]`**: an optional string value (ignored by InfluxDB Clustered).
         - **`DATABASE_TOKEN`**: a [database token](/influxdb/clustered/admin/tokens/).
         - Encode the `[USERNAME]:DATABASE_TOKEN` credential using base64 encoding, and then append the encoded string to the `Authorization: Basic` header.
 
@@ -1239,7 +1239,7 @@ components:
 
         Replace the following:
 
-        - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
+        - **`DATABASE_NAME`**: your InfluxDB Clustered database
         - **`DATABASE_TOKEN`**: a [database token](/influxdb/clustered/admin/tokens/) with sufficient permissions to the database
       scheme: basic
       type: http
@@ -1254,7 +1254,7 @@ components:
         ### Query string authentication
 
         In the URL, pass the `p` query parameter to authenticate `/write` and `/query` requests.
-        When authenticating requests, InfluxDB Cloud Dedicated checks that `p` (_password_) is an authorized database token and ignores the `u` (_username_) parameter.
+        When authenticating requests, InfluxDB Clustered checks that `p` (_password_) is an authorized database token and ignores the `u` (_username_) parameter.
 
         ### Syntax
 
@@ -1284,7 +1284,7 @@ components:
 
         Replace the following:
 
-        - **`DATABASE_NAME`**: your InfluxDB Cloud Dedicated database
+        - **`DATABASE_NAME`**: your InfluxDB Clustered database
         - **`DATABASE_TOKEN`**: a [database token](/influxdb/clustered/admin/tokens/) with sufficient permissions to the database
     BearerAuthentication:
       type: http
@@ -1357,8 +1357,8 @@ components:
       name: Authorization
       type: apiKey
 info:
-  title: InfluxDB Cloud Dedicated API Service
-  version: Cloud 2.x
+  title: InfluxDB Clustered API Service
+  version: 3.x
   description: |
     The InfluxDB HTTP API provides a programmatic interface for interactions with InfluxDB.
     Access the InfluxDB API using the `/api/v2/` endpoint or InfluxDB v1 endpoints.
@@ -2002,7 +2002,7 @@ tags:
 
       - HTTP clients can query the v1 [`/query` endpoint](/influxdb/clustered/api/#operation/GetLegacyQuery)
       using **InfluxQL** and retrieve data in **CSV** or **JSON** format.
-      - The `/api/v2/query` endpoint can't query InfluxDB Cloud Dedicated.
+      - The `/api/v2/query` endpoint can't query InfluxDB Clustered.
       - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and retrieve data in **Arrow** format.
 
       To learn more about using Flight, see the following:

@@ -88,7 +88,15 @@ for version in $versions
 do
   # Trim the trailing slash off the directory name
   version="${version%/}"
-  menu="influxdb_$(echo $version | sed 's/\./_/g;')_ref"
+
+  # Define the menu key
+  if [[ $version == "cloud-serverless" ]] || [[ $version == "cloud-dedicated" ]] || [[ $version == "clustered" ]]; then
+    menu="influxdb_$(echo $version | sed 's/\./_/g;s/-/_/g;')"
+  else 
+    menu="influxdb_$(echo $version | sed 's/\./_/g;')_ref"
+  fi
+
+  # Define the title text based on the version
   if [[ $version == "cloud" ]]; then
     titleVersion="Cloud"
   elif [[ $version == "cloud-serverless" ]]; then
@@ -99,6 +107,13 @@ do
     titleVersion="Clustered"
   else
     titleVersion="$version"
+  fi
+
+  # Define frontmatter version
+  if [[ $version == "cloud-serverless" ]] || [[ $version == "cloud-dedicated" ]] || [[ $version == "clustered" ]]; then
+    frontmatterVersion="v3"
+  else 
+    frontmatterVersion="v2"
   fi
 
   # Generate the frontmatter
@@ -126,6 +141,14 @@ menu:
 weight: 304
 ---
 "
+  v3frontmatter="---
+title: InfluxDB $titleVersion API documentation
+description: >
+  The InfluxDB API provides a programmatic interface for interactions with InfluxDB $titleVersion.
+layout: api
+weight: 102
+---
+"
 
   # If the v2 spec file differs from master, regenerate the HTML.
   filePath="${version}/ref.yml"
@@ -143,7 +166,11 @@ weight: 304
     generateHtml $filePath $outFilename $titleVersion $titleSubmodule
 
     # Create temp file with frontmatter and Redoc html
-    echo "$v2frontmatter" >> $version$outFilename.tmp
+    if [[ $frontmatterVersion == "v3" ]]; then
+      echo "$v3frontmatter" >> $version$outFilename.tmp
+    else
+      echo "$v2frontmatter" >> $version$outFilename.tmp
+    fi
     buildHugoTemplate $version v2 $outFilename
   fi
 
