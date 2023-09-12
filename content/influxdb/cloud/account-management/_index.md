@@ -11,7 +11,7 @@ menu:
   influxdb_cloud:
     name: Account management
 alt_links:
-  influxdb-serverless: /influxdb/cloud-serverless/admin/accounts/
+  cloud-serverless: /influxdb/cloud-serverless/admin/accounts/
 ---
 
 {{< children >}}

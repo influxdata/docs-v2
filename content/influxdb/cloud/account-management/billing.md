@@ -14,7 +14,7 @@ menu:
     parent: Account management
     name: Manage billing
 alt_links:
-  influxdb-serverless: /influxdb/cloud-serverless/admin/billing/
+  cloud-serverless: /influxdb/cloud-serverless/admin/billing/
 ---
 
 Learn how to upgrade your plan, access billing details, and review and resolve plan limit overages:

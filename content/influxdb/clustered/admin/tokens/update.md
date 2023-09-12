@@ -16,7 +16,7 @@ list_code_example: |
     <TOKEN_ID>
   ```
 alt_links:
-  - serverless: /influxdb/cloud-serverless/admin/tokens/update-tokens/
+  cloud-serverless: /influxdb/cloud-serverless/admin/tokens/update-tokens/
 ---
 
 Use the [`influxctl token update` command](/influxdb/clustered/reference/cli/influxctl/token/update/)
