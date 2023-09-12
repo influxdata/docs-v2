@@ -656,7 +656,7 @@ If you want to query aggregate values over time, this is a form of
 ### Aggregate functions
 
 [Aggregate functions](/flux/v0/function-types/#aggregates) drop
-columns that are **not** in the [group key](/flux/v0.x/get-started/data-model/#group-key)
+columns that are **not** in the [group key](/flux/v0/get-started/data-model/#group-key)
 and return a single row for each input table with the aggregate value of that table.
 
 #### Aggregate examples

@@ -7,7 +7,7 @@ menu:
   influxdb_v2:
     parent: Upgrade InfluxDB
     name: InfluxDB 2.x to 2.7
-weight: 10
+weight: 9
 related:
   - /influxdb/v2/reference/cli/influxd/downgrade/
   - /influxdb/v2/install/

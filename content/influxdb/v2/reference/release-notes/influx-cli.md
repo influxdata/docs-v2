@@ -227,7 +227,7 @@ The command now uses lowerCamelCase consistently for all objects keys, matching 
 - (InfluxDB Cloud only) Add [`buck
 - (InfluxDB OSS only) Updates to `backup` and `restore`:
   - Reimplement [`backup`](/influxdb/cloud/reference/cli/influx/backup/) to support downloading embedded SQL store from InfluxDB 2.0 or later.
-  - Add [`--compression`](/influxdb/v2/reference/cli/influx/backup/_index.md) flag to support GZIP compression of downloaded files.
+  - Add [`--compression`](/influxdb/v2/reference/cli/influx/backup/) flag to support GZIP compression of downloaded files.
   - Reimplement `restore` to support uploading embedded SQL store from InfluxDB v2.1.x.
 - (InfluxDB OSS only) Add [`--password`](/influxdb/cloud/reference/cli/influx/user/password/) flag to `user password` command to allow bypassing interactive prompt.
 

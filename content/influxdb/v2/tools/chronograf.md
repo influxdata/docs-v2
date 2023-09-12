@@ -28,7 +28,7 @@ Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS {{< curren
     {{< img-hd src="/img/influxdb/2-0-tools-chronograf-v2-auth.png" alt="InfluxDB v2 Auth toggle" />}}
 3. Enter your InfluxDB connection credentials:
     - **Connection URL:** InfluxDB URL _(see [InfluxDB Cloud regions](/influxdb/cloud/reference/regions/)
-      or [InfluxDB OSS URLs](/influxdb/%762.1/reference/urls/))_
+      or [InfluxDB OSS URLs](/influxdb/v2/reference/urls/))_
 
       ```
       http://localhost:8086

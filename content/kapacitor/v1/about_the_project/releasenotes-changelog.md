@@ -496,7 +496,7 @@ For example, to define the above aggregate handler on the system topic, use this
 kapacitor define-handler system aggregate_by_1m.yaml
 ```
 
-For more details on the alerting system, see the full documentation [here](/kapacitor/v1/alerts).
+For more details on the alerting system, see the full documentation [here](/kapacitor/v1/working/alerts/).
 
 ### Breaking Change
 

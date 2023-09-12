@@ -31,7 +31,7 @@ SELECT_clause FROM ( SELECT_statement ) [...]
 
 InfluxDB **performs the subquery first** and the main query second.
 
-The main query surrounds the subquery and requires at least the [`SELECT` clause](/influxdb//v2.4/query-data/influxql/explore-data/select/) and the [`FROM` clause](/influxdb/v2/query-data/influxql/explore-data/select/#from-clause).
+The main query surrounds the subquery and requires at least the [`SELECT` clause](/influxdb/v2/query-data/influxql/explore-data/select/) and the [`FROM` clause](/influxdb/v2/query-data/influxql/explore-data/select/#from-clause).
 The main query supports all clauses listed in InfluxQL 2.x documentation.
 
 The subquery appears in the main query's `FROM` clause, and it requires surrounding parentheses.

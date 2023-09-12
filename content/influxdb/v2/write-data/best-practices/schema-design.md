@@ -166,7 +166,7 @@ Your queries should guide what you store in tags and what you store in fields.
 ### Use tags to improve query performance
 
 - Store values as tag values if they can be reasonably indexed.
-- Store values as [tag values](/influxdb/v2/reference/glossary/#tag-value) if the values are used in [filter()](flux/v0/universe/filter/) or [group()](/flux/v0/universe/group/) functions.
+- Store values as [tag values](/influxdb/v2/reference/glossary/#tag-value) if the values are used in [filter()](/flux/v0/universe/filter/) or [group()](/flux/v0/universe/group/) functions.
 - Store values as tag values if the values are shared across multiple data points, i.e. metadata about the field.
 
 Because InfluxDB indexes tags, the query engine doesn't need to scan every record in a bucket to locate a tag value.

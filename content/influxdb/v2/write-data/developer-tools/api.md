@@ -11,13 +11,13 @@ menu:
 Write data to InfluxDB using an HTTP request to the InfluxDB API `/api/v2/write` endpoint.
 Use the `POST` request method and include the following in your request:
 
-| Requirement          | Include by                                               |
-|:-----------          |:----------                                               |
-| Organization         | Use the `org` query parameter in your request URL.       |
-| Bucket               | Use the `bucket` query parameter in your request URL.    |
-| Timestamp precision  | Use the [`precision`](/influxdb/v2/write-data/developer-tools/line-protocol/#timestamp-precision) query parameter in your request URL. Default is `ns`. |
-| API token | Use the `Authorization: Token YOUR_API_TOKEN` header.                   |
-| Line protocol        | Pass as plain text in your request body.                 |
+| Requirement         | Include by                                                               |
+| :------------------ | :----------------------------------------------------------------------- |
+| Organization        | Use the `org` query parameter in your request URL.                       |
+| Bucket              | Use the `bucket` query parameter in your request URL.                    |
+| Timestamp precision | Use the `precision`query parameter in your request URL. Default is `ns`. |
+| API token           | Use the `Authorization: Token YOUR_API_TOKEN` header.                    |
+| Line protocol       | Pass as plain text in your request body.                                 |
 
 #### Send a write request
 

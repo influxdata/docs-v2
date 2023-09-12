@@ -333,7 +333,7 @@ or for datasets with higher [series cardinality](/enterprise_influxdb/v1/concept
 If you have lots of RAM you could set it to `0` to disable the cached memory
 limit and never get this error.
 You can also examine the `memBytes` field in the`cache` measurement in the
-[`_internal` database](/enterprise_influxdb/v1/administration/monitor/server_monitoring/#internal-monitoring)
+[`_internal` database](/platform/monitoring/influxdata-platform/tools/measurements-internal/)
 to get a sense of how big the caches are in memory.
 
 ## `already killed`

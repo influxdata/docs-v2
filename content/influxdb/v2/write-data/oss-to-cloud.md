@@ -12,8 +12,8 @@ influxdb/v2/tags: [write]
 ---
 
 To write data from InfluxDB OSS to InfluxDB Cloud, use the Flux
-[`to()`](/flux/v0.x/stdlib/influxdata/influxdb/to/) or
-[`experimental.to()`](/flux/v0.x/stdlib/experimental/to/) functions.
+[`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) or
+[`experimental.to()`](/flux/v0/stdlib/experimental/to/) functions.
 Write data once with a single query execution or use [InfluxDB tasks](/influxdb/v2/process-data/)
 to [routinely write data to InfluxDB Cloud](#automate-writing-data-from-influxdb-oss-to-influxdb-cloud).
 
@@ -52,7 +52,7 @@ Write requests to InfluxDB Cloud are subject to the rate limits associated with 
       
 5.  ({{< req "Recommended" >}}) To keep your raw API token out of queries, store
     your InfluxDB Cloud API token as an [InfluxDB secret](/influxdb/v2/security/secrets/)
-    in your InfluxDB OSS instance and use [`secrets.get()`](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/)
+    in your InfluxDB OSS instance and use [`secrets.get()`](/flux/v0/stdlib/influxdata/influxdb/secrets/get/)
     to retrieve the secret value as shown in the following example
     (select the function you're using to see the correct format):
 
@@ -136,7 +136,7 @@ example-m,exampleTag=A temp=81.1,rpm=4901i 1609459320000000000
 
 {{% tab-content %}}
 - `experimental.to()` requires `_time` and `_measurement` columns.
-- Columns **in** the [group key](/flux/v0.x/get-started/data-model/#grouop-key)
+- Columns **in** the [group key](/flux/v0/get-started/data-model/#grouop-key)
   (other than `_measurement`) are parsed as tags where the column name is the
   tag key and the column value is the tag value.
 - Columns **not in** the group key (other than `_time_`) are parsed as fields

@@ -47,7 +47,7 @@ Additionally, every 10 seconds, a late data point is written somewhere in the la
 
 Before diving into the code, take a high level look at the logic of the Flux scripts.
 
-{{< img-hd src="static/img/resources/late-arriving-data.png" alt="Late arriving data architecture" />}}
+{{< img-hd src="/static/img/resources/late-arriving-data.png" alt="Late arriving data architecture" />}}
 
 The `water_level_checksum.flux` is a task that runs every minute.
 It counts the number of points that exist in the **water_level_raw** bucket (new count) and compares

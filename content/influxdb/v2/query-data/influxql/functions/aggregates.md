@@ -211,7 +211,7 @@ SELECT INTEGRAL( [ * | <field_key> | /<regular_expression>/ ] [ , <unit> ]  ) FR
 ```
 
 InfluxDB calculates the area under the curve for subsequent field values and converts those results into the summed area per `unit`.
-The `unit` argument is an integer followed by an optional [duration literal](/influxdb/v2/reference/syntax/spec/#literals).
+The `unit` argument is an integer followed by an optional [duration literal](/influxdb/v2/reference/syntax/influxql/spec/#literals).
 If the query does not specify the `unit`, the unit defaults to one second (`1s`).
 
 `INTEGRAL(field_key)`

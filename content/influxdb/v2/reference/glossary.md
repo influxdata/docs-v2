@@ -998,7 +998,7 @@ A shard consists of one or more [TSM files](#tsm-time-structured-merge-tree) on 
 All points in a series in a given shard group are stored in the same shard (TSM file) on disk.
 A shard belongs to a single [shard group](#shard-group).
 
-For more information, see [Shards and shard groups (OSS)](/influxdb/%762.1/reference/internals/shards/).
+For more information, see [Shards and shard groups (OSS)](/influxdb/v2/reference/internals/shards/).
 
 Related entries: [series](#series), [shard duration](#shard-duration),
 [shard group](#shard-group), [tsm](#tsm-time-structured-merge-tree)
@@ -1010,7 +1010,7 @@ Every bucket with data has at least one shard group.
 A shard group contains all shards with data for the time interval covered by the shard group.
 The interval spanned by each shard group is the [shard group duration](#shard-group-duration).
 
-For more information, see [Shards and shard groups (OSS)](/influxdb/%762.1/reference/internals/shards/).
+For more information, see [Shards and shard groups (OSS)](/influxdb/v2/reference/internals/shards/).
 
 Related entries: [bucket](#bucket), [retention period](#retention-period),
 [series](#series), [shard](#shard), [shard duration](#shard-duration)
@@ -1021,7 +1021,7 @@ The duration of time or interval that each [shard group](#shard-group) covers. S
 
 For more information, see:
 
-- [Shards and shard groups (OSS)](/influxdb/%762.1/reference/internals/shards/)
+- [Shards and shard groups (OSS)](/influxdb/v2/reference/internals/shards/)
 - [Manage buckets](/influxdb/v2/organizations/buckets/)
 
 <!-- See [Retention Policy management](/influxdb/v1/query_language/manage-database/#retention-policy-management) for more information.
@@ -1181,7 +1181,7 @@ Related entries: [Create a token](/influxdb/v2/security/tokens/create-token/).
 
 By default, tracing is disabled in InfluxDB OSS.
 To enable tracing or set other InfluxDB OSS configuration options,
-see [InfluxDB OSS configuration options](/influxdb/v2%2E0/reference/config-options/).
+see [InfluxDB OSS configuration options](/influxdb/v2/reference/config-options/).
 
 ### transformation
 

@@ -32,7 +32,6 @@ To learn more about InfluxQL, browse the following topics:
 
 - [Explore your data with InfluxQL](/influxdb/v2/query-data/influxql/explore-data/)
 - [Explore your schema with InfluxQL](/influxdb/v2/query-data/influxql/explore-schema/)
-- [Database management](/influxdb/v2/query-data/influxql/manage-database/)
 - [Query engine internals](/influxdb/v2/reference/syntax/influxql/internals/)
 
 ## Notation

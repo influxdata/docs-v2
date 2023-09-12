@@ -51,7 +51,7 @@ The examples in this section of the tutorial query the data from written in the
 ## Query data with Flux
 
 Flux is a functional scripting language that lets you query and process data
-from InfluxDB and [other data sources](/flux/v0.x/query-data/).
+from InfluxDB and [other data sources](/flux/v0/query-data/).
 
 {{% note %}}
 This is a brief introduction to writing Flux queries.
@@ -79,7 +79,7 @@ When querying InfluxDB with Flux, there are three primary functions you use:
 {{% expand "Learn more about how `filter()` works" %}}
 
 [`filter()`](/flux/v0/stdlib/universe/filter/) reads each row as a
-[record](/flux/v0.x/data-types/composite/record/) named `r`.
+[record](/flux/v0/data-types/composite/record/) named `r`.
 In the `r` record, each key-value pair represents a column and its value.
 For example:
 
@@ -93,7 +93,7 @@ r = {
 }
 ```
 
-To filter rows, use [predicate expressions](/flux/v0.x/get-started/syntax-basics/#predicate-expressions)
+To filter rows, use [predicate expressions](/flux/v0/get-started/syntax-basics/#predicate-expressions)
 to evaluate the values of columns. Given the row record above:
 
 ```javascript

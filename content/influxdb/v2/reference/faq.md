@@ -203,7 +203,7 @@ InfluxDB {{< current-version >}} provides different ways to monitor its status:
 - The [`/metrics` API endpoint](/influxdb/v2/api/#tag/Metrics) provides internal
   InfluxDB metrics in Prometheus exposition format. Use [Telegraf](/telegraf/v1/),
   [InfluxDB scrapers](/influxdb/v2/write-data/no-code/scrape-data/), or the Flux
-  [`prometheus.scrape()` function](/flux/v0.x/stdlib/experimental/prometheus/scrape/)
+  [`prometheus.scrape()` function](/flux/v0/stdlib/experimental/prometheus/scrape/)
   to scrape these metrics and store them in InfluxDB where you can monitor and
   alert on any anomalies.
 
@@ -280,7 +280,7 @@ Use one of the following methods to identify the version of InfluxDB OSS you're 
 
 #### How can I identify the version of Flux I'm using in InfluxDB?
 For information about what versions of Flux are packaged with official InfluxDB
-releases, see [Flux versions in InfluxDB](/flux/v0.x/influxdb-versions/).
+releases, see [Flux versions in InfluxDB](/flux/v0/influxdb-versions/).
 
 If using a custom build, use the following query to return the current version
 of Flux being used:
@@ -373,7 +373,7 @@ InfluxDB uses 64bit integers to represent Unix nanosecond timestamps.
 Timestamps outside that range return a parsing error.
 
 #### Can I change a field's data type?
-[Flux type-conversion functions](/flux/v0.x/function-types/#type-conversions) let
+[Flux type-conversion functions](/flux/v0/function-types/#type-conversions) let
 you change a fields data type at query time.
 However, you cannot change the type of a field on disk.
 Below are some possible workarounds:
@@ -576,12 +576,12 @@ For sparse historical data, we recommend:
 
 #### How do I structure fields as columns (like InfluxQL)?
 A `SELECT` statement in InfluxQL returns data with a column for each queried tag and field.
-The Flux [`from()`](/flux/v0.x/stdlib/influxdata/influxdb/from/) function returns
+The Flux [`from()`](/flux/v0/stdlib/influxdata/influxdb/from/) function returns
 data with a column for each tag as well as a `_field` column that contains the
 field key. Each field is grouped into a different table.
 
-To structure each field as a column, use either [`pivot()`](/flux/v0.x/stdlib/universe/pivot/)
-or [`schema.fieldsAsCols()`](/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldsascols/).
+To structure each field as a column, use either [`pivot()`](/flux/v0/stdlib/universe/pivot/)
+or [`schema.fieldsAsCols()`](/flux/v0/stdlib/influxdata/influxdb/schema/fieldsascols/).
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -676,13 +676,13 @@ Using InfluxQL with InfluxDB {{< current-version >}} is made possible by the
 the `/query` endpoint from InfluxDB 1.x. This allows all InfluxDB 1.x-compatible
 clients to work with InfluxDB {{< current-version >}}. However, InfluxQL relies
 on a database and retention policy data model doesn't exist in InfluxDB
-{{< current-version >}}, but has been replaced by [buckets](influxdb/v2.7/reference/glossary/#bucket).
+{{< current-version >}}, but has been replaced by [buckets](/influxdb/v2/reference/glossary/#bucket).
 
 InfluxDB {{< current-version >}} lets you map unique database and retention 
 policy combinations used in InfluxQL to specific buckets using DBRP mappings.
 
 For detailed instructions on using InfluxQL with InfluxDB {{< current-version >}}
-and configuring DBRP mapping, see [Query with InfluxQL](influxdb/v2.7/query-data/influxql/).
+and configuring DBRP mapping, see [Query with InfluxQL](/influxdb/v2/query-data/influxql/).
 
 #### How do I perform mathematical operations in an InfluxQL function?
 InfluxQL does not support mathematical operations within functions.
@@ -838,7 +838,7 @@ the default time range is `1677-09-21 00:12:43.145224194` UTC to [`now()`](/infl
 
 To query data with timestamps that occur after `now()`, `SELECT` statements with
 a `GROUP BY time()` clause must provide an alternative **upper** bound in the
-[`WHERE` clause](/influxdb/v2/query_language/explore-data/#the-where-clause).
+[`WHERE` clause](/influxdb/v2/query-data/influxql/explore-data/where/).
 For example:
 
 ```sql
@@ -1048,11 +1048,11 @@ If the query returns results, the data has not been fully deleted.
 
 When you retry a task that uses relative time ranges, it will query the original
 time range of the task execution (run).
-Whenever a task executes, InfluxDB sets the [`now` option ](/flux/v0.x/stdlib/universe/#options)
+Whenever a task executes, InfluxDB sets the [`now` option ](/flux/v0/stdlib/universe/#options)
 in the task to the scheduled execution time of the task.
-When using [`range()`](/flux/v0.x/stdlib/universe/range/)
+When using [`range()`](/flux/v0/stdlib/universe/range/)
 or other functions that support relative duration values, these duration values
-are relative to [`now()`](/flux/v0.x/stdlib/universe/now/), which returns the
+are relative to [`now()`](/flux/v0/stdlib/universe/now/), which returns the
 value of the `now` option. Every task run has a unique `now` option based on
 the time the run was scheduled to execute.
 
@@ -1089,7 +1089,7 @@ runaway cardinality. For information about adjusting cardinality limits, see
 
 {{% /oss-only %}}
 
-Use [`influxdb.cardinality()`](/flux/v0.x/stdlib/influxdata/influxdb/cardinality/) in Flux
+Use [`influxdb.cardinality()`](/flux/v0/stdlib/influxdata/influxdb/cardinality/) in Flux
 or [`SHOW SERIES CARDINALITY`](/influxdb/v1/query_language/spec/#show-series-cardinality)
 in InfluxQL to measure the series cardinality in a bucket.
 See [Resolve high series cardinality](/influxdb/v2/write-data/best-practices/resolve-high-cardinality/)

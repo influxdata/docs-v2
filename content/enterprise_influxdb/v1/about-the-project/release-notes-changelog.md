@@ -604,7 +604,7 @@ If it is not set, an error will be logged and `influxd-meta` will not start.
 
 #### Review production installation configurations
 
-The [Production Installation](/enterprise_influxdb/v1/production_installation/)
+The [Production Installation](/enterprise_influxdb/v1/introduction/installation/)
 documentation has been updated to fix errors in configuration settings, including changing `shared-secret` to `internal-shared-secret` and adding missing steps for configuration settings of data nodes and meta nodes. All Enterprise users should review their current configurations to ensure that the configuration settings properly enable JWT authentication for internode communication.
 
 The following summarizes the expected settings for proper configuration of JWT authentication for internode communication:
@@ -935,8 +935,8 @@ This change only affects users who have disabled the `retention-autocreate` opti
 ##### Backup and Restore
 <br>
 
-- Prevent the `shard not found` error by making [backups](/enterprise_influxdb/v1/guides/backup-and-restore/#backup) skip empty shards
-- Prevent the `shard not found` error by making [restore](/enterprise_influxdb/v1/guides/backup-and-restore/#restore) handle empty shards
+- Prevent the `shard not found` error by making [backups](/enterprise_influxdb/v1/administration/backup-and-restore/#backup) skip empty shards
+- Prevent the `shard not found` error by making [restore](/enterprise_influxdb/v1/administration/backup-and-restore/#restore) handle empty shards
 - Ensure that restores from an incremental backup correctly handle file paths
 - Allow incremental backups with restrictions (for example, they use the `-db` or `rp` flags) to be stores in the same directory
 - Support restores on meta nodes that are not the raft leader
@@ -984,7 +984,7 @@ To disable the auto-creation of retention policies, set `retention-autocreate` t
 #### Cluster-specific Features
 
 - Improve the meta store: any meta store changes are done via a compare and swap
-- Add support for [incremental backups](/enterprise_influxdb/v1/guides/backup-and-restore/)
+- Add support for [incremental backups](/enterprise_influxdb/v1/administration/backup-and-restore/)
 - Automatically remove any deleted shard groups from the data store
 - Uncomment the section headers in the default [configuration file](/enterprise_influxdb/v1/administration/configuration/)
 - Add InfluxQL support for [subqueries](/influxdb/v1/query_language/data_exploration/#subqueries)

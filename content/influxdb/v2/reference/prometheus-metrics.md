@@ -30,7 +30,7 @@ are parsed and written to InfluxDB in one of two formats, depending on the scrap
 | :----------------------------------------------------------------------------------------- | ----------------------------------------------------: |
 | [Telegraf Prometheus plugin](/telegraf/v1/plugins/#input-prometheus)         | _Determined by `metric_version` configuration option_ |
 | [InfluxDB scraper](/influxdb/v2/write-data/no-code/scrape-data/)                         |                                                     1 |
-| Flux [`prometheus.scrape()`](flux/v0/stdlib/experimental/prometheus/scrape/) |                                                     2 |
+| Flux [`prometheus.scrape()`](/flux/v0/stdlib/experimental/prometheus/scrape/) |                                                     2 |
 
 {{% /oss-only %}}
 {{% cloud-only %}}
@@ -38,7 +38,7 @@ are parsed and written to InfluxDB in one of two formats, depending on the scrap
 | Scraping tool                                                                              |                               InfluxDB Metric version |
 | :----------------------------------------------------------------------------------------- | ----------------------------------------------------: |
 | [Telegraf Prometheus plugin](/telegraf/v1/plugins/#input-prometheus)         | _Determined by `metric_version` configuration option_ |
-| Flux [`prometheus.scrape()`](flux/v0/stdlib/experimental/prometheus/scrape/) |                                                     2 |
+| Flux [`prometheus.scrape()`](/flux/v0/stdlib/experimental/prometheus/scrape/) |                                                     2 |
 
 {{% /cloud-only %}}
 

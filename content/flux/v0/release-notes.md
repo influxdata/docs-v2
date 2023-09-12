@@ -378,7 +378,7 @@ representative of the Flux SPEC.
   details.
 - Add tagging support to Flux tests.
 - Add new function [`experimental.catch()`](/flux/v0/stdlib/experimental/catch/).
-- Add new function [`testing.shouldError()`](flux/v0.x/stdlib/testing/shoulderror/).
+- Add new function [`testing.shouldError()`](/flux/v0.x/stdlib/testing/shoulderror/).
 
 ### Bug fixes
 
@@ -609,8 +609,8 @@ representative of the Flux SPEC.
 - Replace the main `flux` CLI with a new `flux` CLI that starts a Flux REPL by
   default or executes a Flux script via stdin.
 - Track freed memory with `SetFinalizer`.
-- Move [`addDuration()`](/flux/v0/stdlib/date/addduration/) and
-  [`subDuration()`](/flux/v0/stdlib/date/subduration/) from the `experimental`
+- Move [`addDuration()`](/flux/v0/stdlib/date/add/) and
+  [`subDuration()`](/flux/v0/stdlib/date/sub/) from the `experimental`
   package to the `date` package.
 
 ### Bug fixes
@@ -1287,7 +1287,7 @@ representative of the Flux SPEC.
 ## v0.123.0 [2021-07-19]
 
 ### Breaking changes
-- Remove the [`sleep()` function](/flux/v0/stdlib/universe/sleep/).
+- Remove the `sleep()` function.
 
 ### Features
 - Optimize [`pivot()` transformation](/flux/v0/stdlib/universe/pivot/).
@@ -1939,7 +1939,7 @@ representative of the Flux SPEC.
 ## v0.77.0 [2020-08-03]
 
 ### Features
-- Add a faster [`map()` function](/flux/v0/stdlib/contrib/jsternberg/rows/map/) _(user-contributed)_.
+- Add a faster `map()` function _(user-contributed `/contrib/jsternberg/rows` package)_.
 - Add an [`influxdb.select()` function](/flux/v0/stdlib/contrib/jsternberg/influxdb/select/) _(user-contributed)_.
 - Flatbuffer deserialization for type expression AST nodes.
 - Flatbuffer types for monotype and type expression AST nodes.

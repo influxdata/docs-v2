@@ -102,7 +102,7 @@ weight: 101
 
 ### Maintenance
 
-- Upgrade to [Flux 0.188.1](/flux/v0.x/release-notes/#v01870-2022-10-17)
+- Upgrade to [Flux 0.188.1](/flux/v0/release-notes/#v01870-2022-10-17)
 - Upgrade to [Go 1.18.7](https://go.dev/doc/go1.18)
 - Upgrade to [Rust 1.63.0](https://www.rust-lang.org/)
 
@@ -115,23 +115,23 @@ weight: 101
 - Change to operator model so that `admin` user has instance-level permissions without `operator` token.
 
 #### Flux advancement highlights
-- Add the [`join` package](/flux/v0.x/stdlib/join/) to support inner joins, right outer joins, left outer joins, and full outer joins.
-- Promote `experimental.to()` to [`influxdb.wideTo()`](/flux/v0.x/stdlib/influxdata/influxdb/wideto/).
-- Add [`initialZero`](/flux/v0.x/stdlib/universe/derivative/#initialzero) parameter to [`derivative()`](/flux/v0.x/stdlib/universe/derivative/).
-- Add `time()` function to the [`date package`](flux/v0.x/stdlib/date/) to convert timeable types (time and duration) to time types.
-- Promote the following functions from `experimental.array` into the [`array` package](/flux/v0.x/stdlib/array/):
-  - [`array.concat()`](/flux/v0.x/stdlib/array/concat/)
-  - [`array.filter()`](/flux/v0.x/stdlib/array/filter/)
-  - [`array.map()`](/flux/v0.x/stdlib/array/map/)
-- Promote the following functions from the experimental `http.requests` package into the [`http/requests` package](/flux/v0.x/stdlib/http/requests/): 
-  - [`requests.do()`](/flux/v0.x/stdlib/http/requests/do/) 
-  - [`requests.get()`](/flux/v0.x/stdlib/http/requests/get/)
-  - [`requests.peek()`](/flux/v0.x/stdlib/http/requests/peek/)
-  - [`requests.post()`](/flux/v0.x/stdlib/http/requests/post/)
-- Promote `experimental.bitwise()` into the [`bitwise` package](/flux/v0.x/stdlib/bitwise/). 
-- Add new [experimental.catch()](/flux/v0.x/stdlib/experimental/catch/) and [testing.shouldError()](/flux/v0.x/stdlib/testing/shoulderror/) functions.
-- Support conditional expressions, constants, and literals in vectorized [`map()`](flux/v0.x/stdlib/universe/map/).
-- Optimize [`holtWinters()`](/flux/v0.x/stdlib/universe/holtwinters/) and redundant sorts.
+- Add the [`join` package](/flux/v0/stdlib/join/) to support inner joins, right outer joins, left outer joins, and full outer joins.
+- Promote `experimental.to()` to [`influxdb.wideTo()`](/flux/v0/stdlib/influxdata/influxdb/wideto/).
+- Add [`initialZero`](/flux/v0/stdlib/universe/derivative/#initialzero) parameter to [`derivative()`](/flux/v0/stdlib/universe/derivative/).
+- Add `time()` function to the [`date package`](/flux/v0/stdlib/date/) to convert timeable types (time and duration) to time types.
+- Promote the following functions from `experimental.array` into the [`array` package](/flux/v0/stdlib/array/):
+  - [`array.concat()`](/flux/v0/stdlib/array/concat/)
+  - [`array.filter()`](/flux/v0/stdlib/array/filter/)
+  - [`array.map()`](/flux/v0/stdlib/array/map/)
+- Promote the following functions from the experimental `http.requests` package into the [`http/requests` package](/flux/v0/stdlib/http/requests/): 
+  - [`requests.do()`](/flux/v0/stdlib/http/requests/do/) 
+  - [`requests.get()`](/flux/v0/stdlib/http/requests/get/)
+  - [`requests.peek()`](/flux/v0/stdlib/http/requests/peek/)
+  - [`requests.post()`](/flux/v0/stdlib/http/requests/post/)
+- Promote `experimental.bitwise()` into the [`bitwise` package](/flux/v0/stdlib/bitwise/). 
+- Add new [experimental.catch()](/flux/v0/stdlib/experimental/catch/) and [testing.shouldError()](/flux/v0/stdlib/testing/shoulderror/) functions.
+- Support conditional expressions, constants, and literals in vectorized [`map()`](/flux/v0/stdlib/universe/map/).
+- Optimize [`holtWinters()`](/flux/v0/stdlib/universe/holtwinters/) and redundant sorts.
 - Deprecate the following experimental functions:
   - `http.get()`
   - `csv.from()`
@@ -146,7 +146,7 @@ weight: 101
 ### Maintenance 
 
 - Upgrade to [Go 1.18.4](https://go.dev/doc/go1.18).
-- Upgrade to [Flux 0.179.0](/flux/v0.x/release-notes/#v01790-2022-08-15).
+- Upgrade to [Flux 0.179.0](/flux/v0/release-notes/#v01790-2022-08-15).
 
 ## v2.3.0 [2022-6-17]
 
@@ -160,7 +160,7 @@ InfluxDB 2.2 introduced a technical preview of how to [replicate data from Influ
 
 ### Maintenance
 
-- Upgrade from Flux 0.161.0 to [Flux 0.171.0](/flux/v0.x/release-notes/#v01710-2022-06-14).
+- Upgrade from Flux 0.161.0 to [Flux 0.171.0](/flux/v0/release-notes/#v01710-2022-06-14).
 - Upgrade to [Go 1.18.3](https://go.dev/doc/go1.18).
 
 ### Features
@@ -182,7 +182,7 @@ InfluxDB 2.2 introduced a technical preview of how to [replicate data from Influ
 - Add `date.scale()` to let users dynamically scale durations in dates.
 - Add [OpenTracing](https://opentracing.io/docs/overview/spans/) spans to Flux transformations. Lets you monitor Flux scripts more precisely.
 - Add `trace` option to Flux CLI.
-- Rename `addDuration()` to [add](/flux/v0.x/stdlib/date/add/) and `subDuration()` to [sub](/flux/v0.x/stdlib/date/sub/),
+- Rename `addDuration()` to [add](/flux/v0/stdlib/date/add/) and `subDuration()` to [sub](/flux/v0/stdlib/date/sub/),
 and moved both of these functions from the experimental package to the date package.
 - Add location support to `date.truncate()`.
 - Add `_status` tag to PagerDuty record.
@@ -241,7 +241,7 @@ Replicating data remotely lets you do following:
 
 #### Flux updates
 
-- Update to [Flux v0.150.0](/flux/v0.x/release-notes/#v01500-2022-01-19).
+- Update to [Flux v0.150.0](/flux/v0/release-notes/#v01500-2022-01-19).
 - Add option to log Flux queries that are cancelled because of server shutdown.
 
 #### Build maintenance
@@ -323,7 +323,7 @@ This prevents crafted authenticated requests from exfiltrating files accessible 
   via the InfluxQL `/query` compatibility API.
 Additionally, several security issues were fixed in dependencies and
 the toolchain used to build InfluxDB, including:
-- The following cumulative security fixes for [Flux v0.161.0](/flux/v0.x/release-notes/) since 0.139.0 are included in this release:
+- The following cumulative security fixes for [Flux v0.161.0](/flux/v0/release-notes/) since 0.139.0 are included in this release:
   - Quote db identifiers.
     This addresses injection vulnerabilities in database connections using `to()`.
   - Make substring check bounds correctly.
@@ -444,7 +444,7 @@ to migrate InfluxDB key-value metadata schemas to earlier 2.x versions when nece
 
 #### Flux
 
-- Update to [Flux v0.139.0](/flux/v0.x/release-notes/#v01390-2021-11-01).
+- Update to [Flux v0.139.0](/flux/v0/release-notes/#v01390-2021-11-01).
 - Enable writing to remote hosts using the Flux [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) and [`experimental.to()`](/flux/v0/v0.x/stdlib/experimental/to/) functions.
 - Flux now supports locations that dynamically modify time offsets based on your specified timezone. You can also specify fixed time offsets relative to UTC.
 - Perform [bitwise operations](/flux/v0/stdlib/experimental/bitwise/)
@@ -531,8 +531,8 @@ New features include:
 
 #### Flux updates
 
-- Update to [Flux v0.130.0](/flux/v0.x/release-notes/#v01300-2021-09-15).
-- Add support for [`influxdb.cardinality()`](/flux/v0.x/stdlib/influxdata/influxdb/cardinality/) function.
+- Update to [Flux v0.130.0](/flux/v0/release-notes/#v01300-2021-09-15).
+- Add support for [`influxdb.cardinality()`](/flux/v0/stdlib/influxdata/influxdb/cardinality/) function.
 - Operational improvements:
   - Add logging to Flux end-to-end tests (`TestFluxEndToEnd`) to help diagnose test failures.
   - Add `--flux-log-enabled` option to [`influxd`](/influxdb/v2/reference/config-options/) to show detailed logs for Flux queries.
@@ -1052,14 +1052,14 @@ If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/i
 {{% warn %}}
 #### Manual upgrade required
 
-To simplify the migration for existing users of InfluxDB 1.x, this release includes significant breaking changes that require a manual upgrade from all alpha and beta versions. For more information, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2/reference/upgrading/rc-upgrade-guide/),
+To simplify the migration for existing users of InfluxDB 1.x, this release includes significant breaking changes that require a manual upgrade from all alpha and beta versions. For more information, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2/upgrade/v2-beta-to-v2/),
 {{% /warn %}}
 
 ### Breaking changes
 
 #### Manual upgrade
 
-- To continue using data from InfluxDB 2.0 beta 16 or earlier, you must move all existing data out of the `~/.influxdbv2` (or equivalent) path, including `influxd.bolt`. All existing dashboards, tasks, integrations, alerts, users, and tokens must be recreated. For information on how to migrate your data, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2/reference/upgrading/rc-upgrade-guide/).
+- To continue using data from InfluxDB 2.0 beta 16 or earlier, you must move all existing data out of the `~/.influxdbv2` (or equivalent) path, including `influxd.bolt`. All existing dashboards, tasks, integrations, alerts, users, and tokens must be recreated. For information on how to migrate your data, see [Upgrade to InfluxDB OSS 2.0rc](/influxdb/v2/upgrade/v2-beta-to-v2/).
 
 #### Port update to 8086
 

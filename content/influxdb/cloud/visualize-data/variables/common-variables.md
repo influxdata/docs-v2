@@ -26,8 +26,8 @@ buckets()
 ## List measurements
 List all measurements in a specified bucket.
 
-_**Flux package:** [InfluxDB v1](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/)  
-**Flux functions:** [v1.measurements()](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurements/)_
+_**Flux package:** [InfluxDB v1](/flux/stdlib/influxdata/influxdb/v1/)  
+**Flux functions:** [v1.measurements()](/flux/stdlib/influxdata/influxdb/v1/measurements/)_
 
 ```js
 import "influxdata/influxdb/v1"
@@ -38,8 +38,8 @@ v1.measurements(bucket: "bucket-name")
 ## List fields in a measurement
 List all fields in a specified bucket and measurement.
 
-_**Flux package:** [InfluxDB v1](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/)  
-**Flux functions:** [v1.measurementTagValues()](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurementtagvalues/)_
+_**Flux package:** [InfluxDB v1](/flux/stdlib/influxdata/influxdb/v1/)  
+**Flux functions:** [v1.measurementTagValues()](/flux/stdlib/influxdata/influxdb/v1/measurementtagvalues/)_
 
 ```js
 import "influxdata/influxdb/v1"
@@ -55,8 +55,8 @@ v1.measurementTagValues(
 List all unique tag values for a specific tag in a specified bucket.
 The example below lists all unique values of the `host` tag.
 
-_**Flux package:** [InfluxDB v1](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/)_  
-_**Flux functions:** [v1.tagValues()](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/tagvalues/)_  
+_**Flux package:** [InfluxDB v1](/flux/stdlib/influxdata/influxdb/v1/)_  
+_**Flux functions:** [v1.tagValues()](/flux/stdlib/influxdata/influxdb/v1/tagvalues/)_  
 
 ```js
 import "influxdata/influxdb/v1"
@@ -68,8 +68,8 @@ v1.tagValues(bucket: "bucket-name", tag: "host")
 List all Docker containers when using the Docker Telegraf plugin.
 
 _**Telegraf plugin:** [Docker](/telegraf/v1/plugins/#input-docker)_  
-_**Flux package:** [InfluxDB v1](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/)_  
-_**Flux functions:** [v1.tagValues()](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/tagvalues/)_
+_**Flux package:** [InfluxDB v1](/flux/stdlib/influxdata/influxdb/v1/)_  
+_**Flux functions:** [v1.tagValues()](/flux/stdlib/influxdata/influxdb/v1/tagvalues/)_
 
 ```js
 import "influxdata/influxdb/v1"
@@ -81,8 +81,8 @@ v1.tagValues(bucket: "bucket-name", tag: "container_name")
 List all Kubernetes pods when using the Kubernetes Telegraf plugin.
 
 _**Telegraf plugin:** [Kubernetes](/telegraf/v1/plugins/#input-kubernetes)_  
-_**Flux package:** [InfluxDB v1](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/)_  
-_**Flux functions:** [v1.measurementTagValues()](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurementtagvalues/)_
+_**Flux package:** [InfluxDB v1](/flux/stdlib/influxdata/influxdb/v1/)_  
+_**Flux functions:** [v1.measurementTagValues()](/flux/stdlib/influxdata/influxdb/v1/measurementtagvalues/)_
 
 ```js
 import "influxdata/influxdb/v1"
@@ -98,8 +98,8 @@ v1.measurementTagValues(
 List all Kubernetes nodes when using the Kubernetes Telegraf plugin.
 
 _**Telegraf plugin:** [Kubernetes](/telegraf/v1/plugins/#input-kubernetes)_  
-_**Flux package:** [InfluxDB v1](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/)_  
-_**Flux functions:** [v1.measurementTagValues()](/influxdb/cloud/reference/flux/stdlib/influxdb-v1/measurementtagvalues/)_
+_**Flux package:** [InfluxDB v1](/flux/stdlib/influxdata/influxdb/v1/)_  
+_**Flux functions:** [v1.measurementTagValues()](/flux/stdlib/influxdata/influxdb/v1/measurementtagvalues/)_
 
 ```js
 import "influxdata/influxdb/v1"

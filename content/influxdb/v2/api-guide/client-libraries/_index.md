@@ -8,7 +8,7 @@ aliases:
   - /influxdb/v2/reference/client-libraries/
   - /influxdb/v2/reference/api/client-libraries/
   - /influxdb/v2/tools/client-libraries/
-  - /influxdb/v2.x/api-guide/client-libraries/
+  - /influxdb/v2/api-guide/client-libraries/
 menu:
   influxdb_v2:
     name: Client libraries
