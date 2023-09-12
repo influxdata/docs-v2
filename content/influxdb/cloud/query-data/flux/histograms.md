@@ -2,7 +2,7 @@
 title: Create histograms with Flux
 list_title: Histograms
 description: >
-  Use the [`histogram()` function](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/histogram/)
+  Use the [`histogram()` function](/flux/v0/stdlib/universe/histogram/)
   to create cumulative histograms with Flux.
 influxdb/cloud/tags: [histogram]
 menu:

@@ -14,7 +14,7 @@ aliases:
   - /influxdb/v2/query-data/guides/mathematic-operations/
 related:
   - /flux/v0/stdlib/universe/map
-  - /flux/v0/stdlib/universe/aggregates/reduce/
+  - /flux/v0/stdlib/universe/reduce/
   - /flux/v0/language/operators/
   - /flux/v0/function-types/#type-conversions, Flux type-conversion functions
   - /influxdb/v2/query-data/flux/calculate-percentages/

@@ -34,7 +34,7 @@ The following examples find and count unique locations where data was collected.
 This query:
 
   - Uses [`group()`](/flux/v0/stdlib/universe/group/) to ungroup data and return results in a single table.
-  - Uses [`keep()`](/flux/v0/stdlib/universe/keep/) and [`unique()`](/flux/v0/stdlib/universe/selectors/unique/) to return unique values in the specified column.
+  - Uses [`keep()`](/flux/v0/stdlib/universe/keep/) and [`unique()`](/flux/v0/stdlib/universe/unique/) to return unique values in the specified column.
 
 ```js
 from(bucket: "noaa")

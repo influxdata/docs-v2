@@ -63,7 +63,7 @@ If a query uses a `GROUP BY` clause, the result set includes the following:
 
 ### GROUP BY result columns
 
-If a query uses `GROUP BY` and the `WHERE` clause doesn't filter by time, then groups are based on the [default time range](/influxdb/clustered/reference/group-by/#default-time-range).
+If a query uses `GROUP BY` and the `WHERE` clause doesn't filter by time, then groups are based on the [default time range](/influxdb/clustered/reference/influxql/group-by/#default-time-range).
 
 ## Basic query examples
 

@@ -106,6 +106,6 @@ Set environment variables or update `env.js` with your InfluxDB [database](/infl
 
 ## Next steps
 
-Once you've installed the client library and configured credentials, you're ready to [write data](/influxdb/clustered/api-guide/client-libraries/nodejs/write/) to InfluxDB.
+Once you've installed the client library and configured credentials, you're ready to [write data](/influxdb/clustered/reference/client-libraries/v2/javascript/nodejs/write/) to InfluxDB.
 
 {{< page-nav next="/influxdb/clustered/reference/client-libraries/v2/javascript/nodejs/write/" keepTab=true >}}

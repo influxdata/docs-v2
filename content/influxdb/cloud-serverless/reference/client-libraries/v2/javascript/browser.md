@@ -14,7 +14,7 @@ aliases:
   - /influxdb/cloud-serverless/api-guide/client-libraries/browserjs/write
   - /influxdb/cloud-serverless/api-guide/client-libraries/browserjs/query
 related:
-  - /influxdb/cloud-serverless/api-guide/client-libraries/nodejs/write/
+  - /influxdb/cloud-serverless/reference/client-libraries/v2/javascript/nodejs/write/
   - /influxdb/cloud-serverless/api-guide/client-libraries/nodejs/query/
 ---
 

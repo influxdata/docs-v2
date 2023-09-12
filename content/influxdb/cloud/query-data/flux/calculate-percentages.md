@@ -3,7 +3,7 @@ title: Calculate percentages with Flux
 list_title: Calculate percentages
 description: >
   Use [`pivot()` or `join()`](/influxdb/cloud/query-data/flux/mathematic-operations/#pivot-vs-join)
-  and the [`map()` function](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/map/)
+  and the [`map()` function](/flux/v0/stdlib/universe/map/)
   to align operand values into rows and calculate a percentage.
 menu:
   influxdb_cloud:

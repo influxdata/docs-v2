@@ -194,7 +194,7 @@ to your InfluxDB Cloud instance.
 
 {{< expand-wrapper >}}
 {{% expand "Migrate DBRP mappings to InfluxDB Cloud"%}}
-1.  Use the [`influx v1 dbrp list` command](/influxdb/cloud/reference/cli/influx/influx/v1/dbrp/list/)
+1.  Use the [`influx v1 dbrp list` command](/influxdb/cloud/reference/cli/influx/v1/dbrp/list/)
     to view the list of DBRP mappings in your **InfluxDB 2.x** instance.
 
     ```sh
@@ -208,7 +208,7 @@ to your InfluxDB Cloud instance.
     influx bucket list --active-config cloud
     ```
 
-3.  Use the [`influx v1 dbrp create` command](/influxdb/cloud/reference/cli/influx/influx/v1/dbrp/create/)
+3.  Use the [`influx v1 dbrp create` command](/influxdb/cloud/reference/cli/influx/v1/dbrp/create/)
     to create DBRP mappings in your **InfluxDB Cloud** instance that map DBRP
     combinations to the appropriate bucket ID.
 

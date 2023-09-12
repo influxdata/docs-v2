@@ -25,7 +25,7 @@ For more information about AST design, see [Abstract Syntax Tree on Wikipedia](h
 
 A background process started by (or on behalf of) a user that typically requires user input.
 
-[Telegraf](telegraf/v1/) is an agent that requires user input
+[Telegraf](/telegraf/v1/) is an agent that requires user input
 (a configuration file) to gather metrics from declared input plugins and sends
 metrics to declared output plugins, based on the plugins enabled for a configuration.
 
@@ -809,7 +809,7 @@ o, such as API keys, passwords, or certificates.
 ### selector
 
 A function that returns a single point from the range of specified points.
-See [SQL selector functions](/influxdb/clustered/reference/sql/functions/selectors/)
+See [SQL selector functions](/influxdb/clustered/reference/sql/functions/selector/)
 for a complete list of available SQL selector functions.
 
 Related entries:
@@ -976,7 +976,7 @@ A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
 Related entries:
 [Telegraf plugins](/telegraf/v1/plugins/),
-[Use Telegraf to collect data](/influxdb/clustered/write-data/telegraf/),
+[Use Telegraf to collect data](/influxdb/clustered/write-data/use-telegraf/),
 
 ### time (data type)
 

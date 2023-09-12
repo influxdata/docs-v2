@@ -13,7 +13,7 @@ influxdb/cloud-dedicated/tags: [analysis, arrow, pyarrow, python]
 related:
   - /influxdb/cloud-dedicated/process-data/tools/pandas/
   - /influxdb/cloud-dedicated/query-data/sql/
-  - /influxdb/cloud-dedicated/query-data/sql/execute-queries/python/
+  - /influxdb/cloud-dedicated/query-data/execute-queries/client-libraries/python/
 aliases:
   - /influxdb/cloud-dedicated/visualize-data/pyarrow/
 list_code_example: |

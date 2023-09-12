@@ -271,7 +271,7 @@ Parameter                | Ignored                  | Value
 `username`               | Ignored                  | String or empty
 `password`               | Honored                  | [API token](/influxdb/cloud-serverless/admin/tokens/) with permission to write to the bucket
 `content_encoding`       | Honored                  | `gzip` (compressed data) or `identity` (uncompressed)
-`skip_database_creation` | Ignored                  | N/A (see how to [create a bucket](/influxdb/cloud-serverless/admin/buckets/create/))
+`skip_database_creation` | Ignored                  | N/A (see how to [create a bucket](/influxdb/cloud-serverless/admin/buckets/create-bucket/))
 
 To configure the v1.x output plugin for writing to {{% product-name %}}, add the following `outputs.influxdb` configuration in your `telegraf.conf` file:
 

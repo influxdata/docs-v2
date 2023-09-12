@@ -140,7 +140,7 @@ The following examples show how to write the
 [sample data](#home-sensor-data-line-protocol), already in line protocol format,
 to an {{% product-name %}} bucket.
 
-To learn more about available tools and options, see [Write data](influxdb/cloud-serverless/write-data/).
+To learn more about available tools and options, see [Write data](/influxdb/cloud-serverless/write-data/).
 
 {{% note %}}
 Some examples in this getting started tutorial assume your InfluxDB

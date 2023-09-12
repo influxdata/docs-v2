@@ -62,7 +62,7 @@ The InfluxDB UI provides a form for defining task options.
 
 ### Task options for invokable scripts
 
-Use the InfluxDB Cloud API to create tasks that reference and run [invokable scripts](influxdb/cloud/api-guide/api-invokable-scripts/).
+Use the InfluxDB Cloud API to create tasks that reference and run [invokable scripts](/influxdb/cloud/api-guide/api-invokable-scripts/).
 When you create or update the task, pass task options as properties in the request body--for example:
 
 ```json

@@ -1,0 +1,8 @@
+- url: https://{baseurl}
+  description: InfluxDB Clustered API URL
+  variables:
+    baseurl:
+      enum:
+        - 'cluster-host.com'
+      default: 'cluster-host.com'
+      description: InfluxDB Clustered URL

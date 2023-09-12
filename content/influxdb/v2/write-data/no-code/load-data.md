@@ -84,11 +84,3 @@ Load CSV or line protocol data by uploading a file or pasting the data manually 
 9. Once Telegraf is running, click **Listen for Data** to confirm Telegraf is successfully sending data to InfluxDB.
    Once confirmed, a **Connection Found!** message appears.
 10. Click **Finish**. Your Telegraf configuration name and the associated bucket name appear in the list of Telegraf configurations.
-
-{{% cloud-only %}}
-
-### Set up an MQTT native subscription
-
-For more details about setting up native subscriptions, see [Set up native subscriptions](/influxdb/cloud/write-data/no-code/native-subscriptions).
-
-{{% /cloud-only %}}

@@ -13,7 +13,7 @@ influxdb/clustered/tags: [analysis, arrow, pyarrow, python]
 related:
   - /influxdb/clustered/process-data/tools/pandas/
   - /influxdb/clustered/query-data/sql/
-  - /influxdb/clustered/query-data/sql/execute-queries/python/
+  - /influxdb/clustered/query-data/execute-queries/client-libraries/python/
 aliases:
   - /influxdb/clustered/visualize-data/pyarrow/
 list_code_example: |
@@ -52,7 +52,7 @@ and conversion of Arrow format data.
 ## Install prerequisites
 
 The examples in this guide assume using a Python virtual environment and the InfluxDB v3 [`influxdb3-python` Python client library](/influxdb/clustered/reference/client-libraries/v3/python/).
-For more information, see how to [get started using Python to query InfluxDB](/influxdb/clustered/query-data/execute-queries/flight-sql/python/).
+For more information, see how to [get started using Python to query InfluxDB](/influxdb/clustered/query-data/execute-queries/client-libraries/python/).
 
 Installing `influxdb3-python` also installs the [`pyarrow`](https://arrow.apache.org/docs/python/index.html) library that provides Python bindings for Apache Arrow.
 

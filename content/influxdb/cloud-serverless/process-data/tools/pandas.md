@@ -59,7 +59,7 @@ Installing `influxdb3-python` also installs the [`pyarrow`](https://arrow.apache
 
 To use pandas, you need to install and import the `pandas` library.
 
-In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb/cloud-serverless/query-data/execute-queries/python/#create-a-project-virtual-environment):
+In your terminal, use `pip` to install `pandas` in your active [Python virtual environment](/influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/#create-a-project-virtual-environment):
 
 ```sh
 pip install pandas

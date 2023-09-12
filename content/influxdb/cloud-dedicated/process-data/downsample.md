@@ -20,7 +20,7 @@ This guide uses [Python](https://www.python.org/) and the
 but you can use your runtime of choice and any of the available
 [InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/).
 This guide also assumes you have already
-[setup your Python project and virtual environment](/influxdb/cloud-dedicated/query-data/sql/execute-queries/python/#create-a-python-virtual-environment).
+[setup your Python project and virtual environment](/influxdb/cloud-dedicated/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
 
 - [Install dependencies](#install-dependencies)
 - [Prepare InfluxDB databases](#prepare-influxdb-databases)

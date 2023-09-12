@@ -3,7 +3,7 @@ title: Calculate the rate of change
 seotitle: Calculate the rate of change in Flux
 list_title: Rate
 description: >
-  Use the [`derivative()` function](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/derivative/)
+  Use the [`derivative()` function](/flux/v0/stdlib/universe/derivative/)
   to calculate the rate of change between subsequent values or the
   [`aggregate.rate()` function](/influxdb/cloud/reference/flux/stdlib/experimental/aggregate/rate/)
   to calculate the average rate of change per window of time.

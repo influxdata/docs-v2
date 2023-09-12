@@ -339,7 +339,7 @@ To simplify query writing, avoid using reserved keywords or special characters
 in measurement names, tag keys, and field keys.
 
 - [SQL keywords](/influxdb/cloud-dedicated/reference/sql/#keywords)
-- [InfluxQL keywords](/influxdb/cloud-dedicated/reference/syntax/influxql/spec/#keywords)
+- [InfluxQL keywords](/influxdb/cloud-dedicated/reference/influxql/#keywords)
 
 When using SQL or InfluxQL to query measurements, tags, and fields with special
 characters or keywords, you have to wrap these keys in **double quotes**.

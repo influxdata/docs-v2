@@ -240,7 +240,7 @@ To learn more, see how to [use Telegraf to write data](/influxdb/clustered/write
 To write data to InfluxDB using the InfluxDB v2 HTTP API, send a
 request to the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
-{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write" method="post" api-ref="/influxdb/cloud-iox/api/#operation/PostWrite" >}}
+{{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write" method="post" api-ref="/influxdb/clustered/api/#operation/PostWrite" >}}
 
 Include the following with your request:
 

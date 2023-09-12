@@ -1081,7 +1081,7 @@ process with an out of memory (OOM) exception.
 
 {{% cloud-only %}}
 
-InfluxDB maintains an in-memory index of every [series](/influxdb/v2/reference/glcloudary/#series).
+InfluxDB maintains an in-memory index of every [series](/influxdb/v2/reference/glossary/#series).
 As the number of unique series grows, it can negatively affect query performance.
 Each InfluxDB Cloud organization has a series cardinality limit to prevent
 runaway cardinality. For information about adjusting cardinality limits, see
