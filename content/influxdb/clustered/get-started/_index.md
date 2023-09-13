@@ -105,7 +105,7 @@ be used to perform actions outlined in this tutorial.
 ## Authorization
 
 **InfluxDB Clustered requires authentication** using
-[tokens](/influxdb/clustered/security/tokens/).
+[tokens](/influxdb/clustered/admin/tokens/).
 
 There are two types of tokens:
 

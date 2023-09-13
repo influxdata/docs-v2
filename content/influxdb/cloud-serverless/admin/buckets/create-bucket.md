@@ -20,13 +20,6 @@ alt_links:
 Use the InfluxDB user interface (UI), `influx` command line interface (CLI), or InfluxDB HTTP API
 to create a bucket.
 
-By default, buckets have an `implicit` **schema-type** and a schema that conforms to your data.
-To require measurements to have specific columns and data types and prevent non-conforming write requests,
-[create a bucket with the `explicit` schema-type](#create-a-bucket-that-enforces-explicit-schemas).
-
-- [Create a bucket](#create-a-bucket)
-- [Create a bucket that enforces explicit schemas](#create-a-bucket-that-enforces-explicit-schemas)
-
 <!-- Invisible anchor for "Create a bucket" -->
 <span id="create-a-bucket"></span>
 
@@ -118,55 +111,3 @@ _For information about **InfluxDB API options and response codes**, see
 {{% /tab-content %}}
 <!------------------------------ END API CONTENT ------------------------------>
 {{< /tabs-wrapper >}}
-
-## Create a bucket that enforces explicit schemas
-
-A bucket with the `explicit` schema-type enforces [measurement schemas that you define for the bucket](/influxdb/cloud-serverless/admin/buckets/bucket-schema/) and rejects writes that don't conform to any of the schemas.
-
-Use the **`influx` CLI** or **InfluxDB HTTP API** to create a bucket with the `explicit` schema-type.
-
-{{< tabs-wrapper >}}
-{{% tabs %}}
-[influx CLI](#)
-[InfluxDB API](#)
-{{% /tabs %}}
-
-{{% tab-content %}}
-<!------------------------------ BEGIN CLI CONTENT ----------------------------->
-
-Use the `influx bucket create` command and specify the `--schema-type=explicit` flag:
-
-```sh
-{{< get-shared-text "bucket-schema/bucket-schema-type.sh" >}}
-```
-
-{{% /tab-content %}}
-{{% tab-content %}}
-
-<!----------------------------- BEGIN API CONTENT ----------------------------->
-
-Use the HTTP API [`/api/v2/buckets`](/influxdb/cloud-serverless/api/#operation/PostBuckets)
-endpoint and set the `schemaType` property value to `explicit` in the request body--for example:
-
-{{< api-endpoint method="post" endpoint="https://{{< influxdb/host >}}/api/v2/buckets" api-ref="/influxdb/cloud-serverless/api/#operation/PostBuckets" >}}
-
-  ```js
-  {
-    "orgID": "{INFLUX_ORG_ID}",
-    "name": "my-explicit-bucket",
-    "description": "My Explicit Bucket",
-    "rp": "string",
-    "retentionRules": [
-      {
-        "type": "expire",
-        "everySeconds": 86400,
-        "shardGroupDurationSeconds": 0
-      }
-    ],
-    "schemaType": "explicit"
-  }
-  ```
-{{% /tab-content %}}
-{{< /tabs-wrapper >}}
-
-Next, see how to [create an explicit bucket schema](/influxdb/cloud-serverless/admin/buckets/bucket-schema/) for a measurement.

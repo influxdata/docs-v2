@@ -48,7 +48,7 @@ InfluxDB Cloud is a built-in component of ThingWorx on PTC Cloud in Azure. There
     Replace the following:
     - *`INFLUX_BUCKET_ID`*: your [InfluxDB bucket](/influxdb/cloud/reference/glossary/#bucket) ID, created in step 2
     - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token), created in step 3
-    - *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2.0/organizations/view-orgs/#view-your-organization-id)
+    - *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
     - *`INFLUX_BUCKET`*: your [InfluxDB bucket](/influxdb/cloud/reference/glossary/#bucket) name (`thingworx`), created in step 2
     - *`INFLUX_RETENTION_PERIOD`*: your [InfluxDB retention period](/influxdb/cloud/reference/glossary/#retention-period), typically `autogen`
 

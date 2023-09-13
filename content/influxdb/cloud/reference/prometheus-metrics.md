@@ -7,13 +7,13 @@ menu:
   influxdb_cloud_ref:
     name: Prometheus metrics
 weight: 8
-influxdb/v2.0/tags: [prometheus]
+influxdb/cloud/tags: [prometheus]
 related:
   - https://prometheus.io/docs/concepts/data_model/, Prometheus data model
   - /influxdb/cloud/write-data/developer-tools/scrape-prometheus-metrics/
-  - /{{< latest "flux" >}}/prometheus/, Work with Prometheus in Flux
-  - /{{< latest "telegraf" >}}/input-prometheus, Telegraf Prometheus input plugin
-  - /{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/
+  - /flux/v0/prometheus/, Work with Prometheus in Flux
+  - /telegraf/v1/input-prometheus, Telegraf Prometheus input plugin
+  - /flux/v0/stdlib/experimental/prometheus/scrape/
 ---
 
 {{< duplicate-oss >}}

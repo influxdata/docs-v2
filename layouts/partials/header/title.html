@@ -2,7 +2,7 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $currentVersion := index $productPathData 1 }}
-{{ $version := title (replaceRE "v" "" $currentVersion) }}
+{{ $version := cond (gt (len (findRE `^v` $currentVersion)) 0) $currentVersion (title $currentVersion) }}
 {{ $resourceSection := cond (and (eq $product "resources") (eq $version nil)) (title (replaceRE "-" " " $currentVersion)) "" }}
 
 {{ $scratch.Set "siteTitle" "InfluxData Documentation" }}
@@ -24,13 +24,15 @@
   {{ $scratch.Set "siteTitle" "InfluxDB Cloud Dedicated Documentation" }}
 {{ else if eq $currentVersion "clustered"}}
   {{ $scratch.Set "siteTitle" "InfluxDB Clustered Documentation" }}
+{{ else if and (eq $product "influxdb") (in $currentVersion "v")}}
+  {{ $scratch.Set "siteTitle" (print "InfluxDB OSS " $version " Documentation") }}
 {{ else if eq $currentVersion nil}}
   {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
 {{ else }}
   {{ if (isset (index .Site.Data.products $product) "altname" ) }}
-    {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).altname " " $version " Documentation") }}
+    {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).altname " Documentation") }}
   {{ else }}
-    {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " " $version " Documentation") }}
+    {{ $scratch.Set "siteTitle" (print  (index .Site.Data.products $product).name " Documentation") }}
   {{ end }}
 {{ end }}
 

@@ -19,22 +19,22 @@ to be installed, configured, and started separately.
 
 ## Install Telegraf
 
-The [Telegraf installation instructions](/{{< latest "telegraf" >}}/install/)
+The [Telegraf installation instructions](/telegraf/v1/install/)
 walk through installing and configuring Telegraf.
 
 ## Install InfluxDB
 
-The [InfluxDB OSS installation instructions](/{{< latest "influxdb" "v1" >}}/introduction/installation/)
+The [InfluxDB OSS installation instructions](/influxdb/v1/introduction/installation/)
 walk through installing and configuring the open source version of InfluxDB.
 
 ## Install Chronograf
 
-The [Chronograf installation instructions](/{{< latest "chronograf" >}}/introduction/installation/)
+The [Chronograf installation instructions](/chronograf/v1/introduction/installation/)
 walk through installing and configuring Chronograf.
 
 ## Install Kapacitor
 
-The [Kapacitor OSS installation instructions](/{{< latest "kapacitor" >}}/introduction/installation/)
+The [Kapacitor OSS installation instructions](/kapacitor/v1/introduction/installation/)
 walk through installing and configuring the open source version of Kapacitor.
 
 ## InfluxData Sandbox

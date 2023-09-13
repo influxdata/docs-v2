@@ -91,7 +91,7 @@ If you need higher storage-level limits, [contact InfluxData Sales](https://www.
   - 30 days of data retention (see [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period))
 
 {{% note %}}
-To write historical data older than 30 days, retain data for more than 30 days, increase rate limits, or create additional organizations, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud-serverless/admin/accounts/pricing-plans/#usage-based-plan).
+To write historical data older than 30 days, retain data for more than 30 days, increase rate limits, or create additional organizations, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud-serverless/admin/billing/pricing-plans/#usage-based-plan).
 {{% /note %}}
 
 ### Usage-Based Plan
@@ -108,7 +108,7 @@ To write historical data older than 30 days, retain data for more than 30 days, 
   - Set your retention period to unlimited or up to 1 year by
   [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud-serverless/admin/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui),
   or set a custom retention period using the [`influx bucket update command`](/influxdb/cloud-serverless/reference/cli/influx/bucket/update/)
-  with the [`influx` CLI](influxdb/cloud-serverless/reference/cli/influx/).
+  with the [`influx` CLI](/influxdb/cloud-serverless/reference/cli/influx/).
 
 ## Global limits
 

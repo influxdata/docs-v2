@@ -109,9 +109,10 @@ The examples in this guide assume you followed [Set up InfluxDB](/influxdb/clust
 After setting up InfluxDB and your project, you should have the following:
 
 - InfluxDB Clustered credentials:
+
    - [Database](/influxdb/clustered/admin/databases/)
    - [Token](/influxdb/clustered/admin/tokens/)
-   - [Region URL](/influxdb/clustered/reference/regions/)
+   - Cluster hostname
 
 - A directory for your project.
 

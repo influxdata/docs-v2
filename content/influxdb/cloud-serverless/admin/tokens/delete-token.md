@@ -42,7 +42,7 @@ have access to your InfluxDB instance.
 
 ## Delete a token using the influx CLI
 
-Use the [`influx auth delete` command](/influxdb/v2.7/reference/cli/influx/auth/delete)
+Use the [`influx auth delete` command](/influxdb/v2/reference/cli/influx/auth/delete)
 to delete a token.
 
 Provide the following flags:
@@ -68,7 +68,7 @@ influx auth delete \
 
 Use the `/api/v2/authorizations` InfluxDB API endpoint to delete a token.
 
-{{< api-endpoint method="DELETE" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations/{AUTH_ID}" api-ref="/influxdb/v2.7/api/#operation/DeleteAuthorizationsID" >}}
+{{< api-endpoint method="DELETE" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations/{AUTH_ID}" api-ref="/influxdb/v2/api/#operation/DeleteAuthorizationsID" >}}
 
 Include the following in your request:
 

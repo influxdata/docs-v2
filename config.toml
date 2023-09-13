@@ -21,19 +21,12 @@ hrefTargetBlank = true
 smartDashes = false
 
 [taxonomies]
-  "influxdb/v2.7tag" = "influxdb/v2.7/tags"
-  "influxdb/v2.6/tag" = "influxdb/v2.6/tags"
-  "influxdb/v2.5/tag" = "influxdb/v2.5/tags"
-  "influxdb/v2.4/tag" = "influxdb/v2.4/tags"
-  "influxdb/v2.3/tag" = "influxdb/v2.3/tags"
-  "influxdb/v2.2/tag" = "influxdb/v2.2/tags"
-  "influxdb/v2.1/tag" = "influxdb/v2.1/tags"
-  "influxdb/v2.0/tag" = "influxdb/v2.0/tags"
+  "influxdb/v2/tag" = "influxdb/v2/tags"
   "influxdb/cloud/tag" = "influxdb/cloud/tags"
   "influxdb/cloud-serverless/tag" = "influxdb/cloud-serverless/tags"
   "influxdb/cloud-dedicated/tag" = "influxdb/cloud-dedicated/tags"
   "influxdb/clustered/tag" = "influxdb/clustered/tags"
-  "flux/v0.x/tag" = "flux/v0.x/tags"
+  "flux/v0/tag" = "flux/v0/tags"
 
 [markup]
   [markup.goldmark]

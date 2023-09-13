@@ -8,10 +8,10 @@ menu:
     parent: Monitor with templates
     name: Monitor InfluxDB OSS 2.x
 weight: 102
-influxdb/v2.0/tags: [templates, monitor]
+influxdb/cloud/tags: [templates, monitor]
 related:
-  - /influxdb/v2.0/reference/cli/influx/apply/
-  - /influxdb/v2.0/reference/cli/influx/template/
+  - /influxdb/v2/reference/cli/influx/apply/
+  - /influxdb/v2/reference/cli/influx/template/
   - /influxdb/cloud/influxdb-templates/monitor
 ---
 

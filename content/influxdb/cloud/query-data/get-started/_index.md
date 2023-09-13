@@ -12,9 +12,9 @@ menu:
     name: Get started with Flux
     parent: Query data
 related:
-  - /{{< latest "flux" >}}/get-started/
-  - /{{< latest "flux" >}}/
-  - /{{< latest "flux" >}}/stdlib/
+  - /flux/v0/get-started/
+  - /flux/v0/
+  - /flux/v0/stdlib/
 ---
 
 {{< duplicate-oss >}}

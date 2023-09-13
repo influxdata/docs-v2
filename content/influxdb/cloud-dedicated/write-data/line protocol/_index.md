@@ -109,9 +109,10 @@ The examples in this guide assume you followed [Set up InfluxDB](/influxdb/cloud
 After setting up InfluxDB and your project, you should have the following:
 
 - InfluxDB Cloud Dedicated credentials:
+
    - [Database](/influxdb/cloud-dedicated/admin/databases/)
    - [Token](/influxdb/cloud-dedicated/admin/tokens/)
-   - [Region URL](/influxdb/cloud-dedicated/reference/regions/)
+   - Cluster hostname
 
 - A directory for your project.
 

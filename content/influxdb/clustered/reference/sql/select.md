@@ -38,7 +38,7 @@ The SELECT clause supports the following:
 ## Examples
 
 The following examples use data from the NOAA database. 
-To download the NOAA test data see [NOAA water sample data](/influxdb/v2.6/reference/sample-data/#noaa-water-sample-data).
+To download the NOAA test data see [NOAA water sample data](/influxdb/v2/reference/sample-data/#noaa-water-sample-data).
 
 ### Select all fields and tags from a measurement
 

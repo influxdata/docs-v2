@@ -28,7 +28,7 @@ combination to a bucket.
 following operations:
 
 - Writing to the [`/write` v1 compatibility endpoint](/influxdb/cloud-serverless/guides/api-compatibility/v1/#write-data)
-- [Upgrading from InfluxDB 1.x to InfluxDB Cloud](/influxdb/v2.7/upgrade/v1-to-cloud/)
+- [Upgrading from InfluxDB 1.x to InfluxDB Cloud](/influxdb/v2/upgrade/v1-to-cloud/)
 
 For more information, see [Database and retention policy mapping](/influxdb/cloud-serverless/api/#tag/DBRPs).
 

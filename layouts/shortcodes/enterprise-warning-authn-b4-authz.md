@@ -14,7 +14,7 @@ If authentication is not enabled, *permissions will not be enforced*.
 **Important**  
 Authentication _must be enabled **before**_ authorization can be managed.
 If authentication is not enabled, *permissions will not be enforced*.
-See ["Enable authentication"](/enterprise_influxdb/v1.9/administration/configure/security/authentication/).
+See ["Enable authentication"](/enterprise_influxdb/v1/administration/configure/security/authentication/).
 
 </div>
 {{ end }}

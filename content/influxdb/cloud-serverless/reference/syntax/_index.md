@@ -11,4 +11,4 @@ menu:
 influxdb/cloud-serverless/tags: [syntax]
 ---
 
-{{< duplicate-oss >}}
+{{< children >}}

@@ -6,6 +6,9 @@ influxdb:
   list_order: 4
   placeholder_host: localhost:1313
   versions:
+    - v2
+    - v1
+  minor_versions:
     - v2.7
     - v2.6
     - v2.5
@@ -16,34 +19,12 @@ influxdb:
     - v2.0
     - v1.8
     - v1.7
-    - v1.6
-    - v1.5
-    - v1.4
-    - v1.3
   latest: v2.7
   latest_patches:
-    "2.7": 0
-    "2.6": 1
-    "2.5": 1
-    "2.4": 0
-    "2.3": 0
-    "2.2": 0
-    "2.1": 1
-    "2.0": 9
-    "1.8": 10
-    "1.7": 11
-    "1.6": 6
-    "1.5": 5
-    "1.4": 3
-    "1.3": 9
+    v2: 2.7.1
+    v1: 1.8.10
   latest_cli:
-    "2.7": 2.7.3
-    "2.6": 2.6.1
-    "2.5": 2.5.0
-    "2.4": 2.4.0
-    "2.3": 2.3.0
-    "2.2": 2.2.1
-    "2.1": 2.1.0
+    v2: 2.7.3
 
 influxdb_cloud:
   name: InfluxDB Cloud (TSM)
@@ -93,104 +74,50 @@ telegraf:
   namespace: telegraf
   menu_category: other
   list_order: 6
-  versions:
-    - v1.27
-    - v1.26
-    - v1.25
-    - v1.24
-    - v1.23
-    - v1.22
-    - v1.21
-    - v1.20
-    - v1.19
-    - v1.18
-    - v1.17
-    - v1.16
-    - v1.15
-    - v1.14
-    - v1.13
-    - v1.12
-    - v1.11
-    - v1.10
-    - v1.9
+  versions: [v1]
   latest: v1.27
   latest_patches:
-    "1.27": 0
-    "1.26": 3
-    "1.25": 3
-    "1.24": 4
-    "1.23": 4
-    "1.22": 2
-    "1.21": 4
-    "1.20": 4
-    "1.19": 3
-    "1.18": 3
-    "1.17": 3
-    "1.16": 3
-    "1.15": 4
-    "1.14": 5
-    "1.13": 4
-    "1.12": 6
+    v1: 1.27.4
 
 chronograf:
   name: Chronograf
   namespace: chronograf
   menu_category: other
   list_order: 7
-  versions:
-    - v1.10
-    - v1.9
-    - v1.8
-    - v1.7
-    - v1.6
+  versions: [v1]
   latest: v1.10
   latest_patches:
-    "1.10": 0
-    "1.9": 4
-    "1.8": 10
-    "1.7": 17
-    "1.6": 2
+    v1: 1.10.0
 
 kapacitor:
   name: Kapacitor
   namespace: kapacitor
   menu_category: other
   list_order: 7
-  versions:
-    - v1.6
-    - v1.5
-    - v1.4
+  versions: [v1]
   latest: v1.6
   latest_patches:
-    "1.6": 1
-    "1.5": 9
-    "1.4": 1
+    v1: 1.6.5
 
 enterprise_influxdb:
   name: "InfluxDB Enterprise"
   namespace: enterprise_influxdb
   menu_category: self-managed
   list_order: 5
-  versions:
+  versions: [v1]
+  minor_versions:
     - v1.10
     - v1.9
     - v1.8
     - v1.7
-    - v1.6
-    - v1.5
   latest: v1.10
   latest_patches:
-    "1.10": 0
-    "1.9": 7
-    "1.8": 10
-    "1.7": 10
-    "1.6": 6
-    "1.5": 4
+    v1: 1.10.0
 
 flux:
   name: Flux
   namespace: flux
   menu_category: languages
   list_order: 8
-  versions: [v0.x]
+  versions: [v0]
   latest: v0.x

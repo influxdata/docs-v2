@@ -9,7 +9,7 @@ menu:
     parent: Manage organizations
     name: Manage users
 aliases:
-  - /influxdb/v2.0/account-management/multi-user/
+  - /influxdb/v2/account-management/multi-user/
   - /influxdb/cloud/account-management/multi-user/
   - /influxdb/cloud/account-management/multi-user/invite-user/
   - /influxdb/cloud/account-management/multi-user/remove-user/

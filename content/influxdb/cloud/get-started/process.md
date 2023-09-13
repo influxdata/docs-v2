@@ -15,8 +15,8 @@ metadata: [4 / 5]
 related:
   - /influxdb/cloud/process-data/
   - /influxdb/cloud/process-data/get-started/
-  - /{{< latest "flux" >}}/get-started/
-  - /{{< latest "flux" >}}/stdlib/
+  - /flux/v0/get-started/
+  - /flux/v0/stdlib/
 ---
 
 {{< duplicate-oss >}}

@@ -16,7 +16,7 @@ related:
   - /influxdb/cloud-dedicated/write-data/
   - /influxdb/cloud-dedicated/write-data/best-practices/
   - /influxdb/cloud-dedicated/reference/syntax/line-protocol/
-  - /{{< latest "telegraf" >}}/
+  - /telegraf/v1/
 ---
 
 This tutorial walks you through the fundamental of creating **line protocol** data and writing it to InfluxDB.
@@ -158,10 +158,10 @@ credentials (**URL**, **organization**, and **token**) are provided by
 {{% /tabs %}}
 {{% tab-content %}}
 <!------------------------------- BEGIN TELEGRAF CONTENT ------------------------------>
-Use [Telegraf](/{{< latest "telegraf" >}}/) to consume line protocol,
+Use [Telegraf](/telegraf/v1/) to consume line protocol,
 and then write it to {{< product-name >}}.
 
-1.  If you haven't already, follow the instructions to [download and install Telegraf](/{{< latest "telegraf" >}}/install/).
+1.  If you haven't already, follow the instructions to [download and install Telegraf](/telegraf/v1/install/).
 
 2.  Copy and save the [home sensor data sample](#home-sensor-data-line-protocol) to a file on your local system--for example, `home.lp`.
 

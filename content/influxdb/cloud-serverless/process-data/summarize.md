@@ -9,7 +9,7 @@ menu:
 weight: 101
 influxdb/cloud-serverless/tags: [analysis, pandas, pyarrow, python, schema]
 related:
-  - /influxdb/cloud-serverless/query-data/sql/execute-queries/python/
+  - /influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/
 ---
 
 Query data stored in InfluxDB and use tools like pandas to summarize the results schema and distribution.

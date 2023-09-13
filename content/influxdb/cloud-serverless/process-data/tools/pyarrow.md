@@ -14,7 +14,7 @@ influxdb/cloud-serverless/tags: [analysis, arrow, pyarrow, python]
 related:
   - /influxdb/cloud-serverless/process-data/tools/pandas/
   - /influxdb/cloud-serverless/query-data/sql/
-  - /influxdb/cloud-serverless/query-data/sql/execute-queries/python/
+  - /influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/
 aliases:
   - /influxdb/cloud-serverless/visualize-data/pyarrow/
 list_code_example: |

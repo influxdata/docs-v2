@@ -15,7 +15,7 @@ series: [Meet the Developers S2]
 metadata: [Meet the Developer Series]
 related:
   - /influxdb/cloud/write-data/, Write data to InfluxDB Cloud
-  - /{{< latest "influxdb" >}}/write-data/, Write data to InfluxDB OSS
+  - /influxdb/v2/write-data/, Write data to InfluxDB OSS
   - /influxdb/cloud/api-guide/client-libraries/, InfluxDB client libraries
 ---
 

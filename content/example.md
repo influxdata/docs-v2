@@ -4,8 +4,8 @@ description: This is just an example post to show the format of new 2.0 posts
 weight: 1
 draft: true
 related:
-  - /influxdb/v2.0/write-data/
-  - /influxdb/v2.0/write-data/quick-start
+  - /influxdb/v2/write-data/
+  - /influxdb/v2/write-data/quick-start
   - https://influxdata.com, This is an external link
 products: [cloud, oss, enterprise]
 ---

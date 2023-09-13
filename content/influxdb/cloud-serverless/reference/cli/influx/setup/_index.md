@@ -14,7 +14,7 @@ related:
   - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
 metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 updated_in: CLI v2.0.3
-canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/setup/
+canonical: /influxdb/v2/reference/cli/influx/setup/
 ---
 
 {{% note %}}
