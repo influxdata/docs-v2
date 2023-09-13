@@ -11,14 +11,14 @@ menu:
     parent: Write CSV data
 weight: 203
 related:
-  - /{{< latest "telegraf" >}}/data_formats/input/csv/
+  - /telegraf/v1/data_formats/input/csv/
   - /influxdb/clustered/write-data/use-telegraf/
 ---
 
 Use the Telegraf `file` input plugin to read and parse CSV data into
 [line protocol](/influxdb/clustered/reference/syntax/line-protocol/)
 and write it to InfluxDB.
-[Telegraf](/{{< latest "telegraf" >}}/) is a plugin-based agent that collects
+[Telegraf](/telegraf/v1/) is a plugin-based agent that collects
 metrics from different sources and writes them to specified destinations.
 
 <!-- TOC -->
@@ -31,7 +31,7 @@ metrics from different sources and writes them to specified destinations.
 
 ## Configure Telegraf to read CSV files
 
-1.  Add and enable the [`inputs.file` plugin](/{{< latest "telegraf" >}}/plugins/#input-file)
+1.  Add and enable the [`inputs.file` plugin](/telegraf/v1/plugins/#input-file)
     in your Telegraf configuration file.
 2.  Use the `files` option to specify the list of CSV files to read.
     CSV files must be accessible by the Telegraf agent.
@@ -39,7 +39,7 @@ metrics from different sources and writes them to specified destinations.
 4.  Define all other `csv_` configuration options specific to the CSV data you
     want to write to InfluxDB.
     _For detailed information about each of the CSV format configuration options,
-    see [CSV input data format](/{{< latest "telegraf" >}}/data_formats/input/csv/)._
+    see [CSV input data format](/telegraf/v1/data_formats/input/csv/)._
 
 ```toml
 [[inputs.file]]

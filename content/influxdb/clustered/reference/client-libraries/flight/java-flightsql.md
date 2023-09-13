@@ -480,7 +480,8 @@ Follow these steps to build and run the application using Docker:
 3. In your terminal, run the `docker build` command and pass `--build-arg` flags for the server credentials:
    
     - **`DATABASE_NAME`**: your [{{% product-name %}} database](/influxdb/clustered/admin/databases/)
-    - **`HOST`**: your [{{% product-name %}} region](/influxdb/clustered/reference/regions/) hostname (URL without the "https://")
+    - **`HOST`**: your [{{% product-name omit=" Clustered" %}} cluster hostname
+      (URL without the "https://")
     - **`TOKEN`**: your [{{% product-name %}} database token](/influxdb/clustered/get-started/setup/) with _read_ permission to the database
 
     ```sh

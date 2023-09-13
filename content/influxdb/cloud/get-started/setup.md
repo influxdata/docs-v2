@@ -12,7 +12,6 @@ menu:
 weight: 101
 metadata: [1 / 5]
 related:
-  - /influxdb/cloud/install/
   - /influxdb/cloud/reference/config-options/
   - /influxdb/cloud/security/tokens/
   - /influxdb/cloud/organizations/buckets/

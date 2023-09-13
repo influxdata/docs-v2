@@ -16,7 +16,7 @@ related:
   - /influxdb/cloud/write-data/
   - /influxdb/cloud/write-data/best-practices/
   - /influxdb/cloud/reference/syntax/line-protocol/
-  - /{{< latest "telegraf" >}}/
+  - /telegraf/v1/
 ---
 
 {{< duplicate-oss >}}

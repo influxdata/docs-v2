@@ -9,8 +9,8 @@ menu:
 weight: 202
 alt_links:
   cloud-serverless: /influxdb/cloud-serverless/admin/buckets/view-buckets/
-  cloud-dedicated: /influxdb/cloud-dedicated/admin/databases/view/
-  clustered: /influxdb/clustered/admin/databases/view/
+  cloud-dedicated: /influxdb/cloud-dedicated/admin/databases/list/
+  clustered: /influxdb/clustered/admin/databases/list/
 ---
 
 ## View buckets in the InfluxDB UI

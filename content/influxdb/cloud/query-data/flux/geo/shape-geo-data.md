@@ -9,9 +9,9 @@ menu:
     parent: Geo-temporal data
 weight: 301
 related:
-  - /{{< latest "flux" >}}/stdlib/experimental/geo/
-  - /{{< latest "flux" >}}/stdlib/experimental/geo/shapedata/
-  - /{{< latest "flux" >}}/stdlib/experimental/geo/s2cellidtoken/
+  - /flux/v0/stdlib/experimental/geo/
+  - /flux/v0/stdlib/experimental/geo/shapedata/
+  - /flux/v0/stdlib/experimental/geo/s2cellidtoken/
 list_code_example: |
   ```js
   import "experimental/geo"

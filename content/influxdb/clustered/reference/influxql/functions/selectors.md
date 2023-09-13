@@ -39,7 +39,7 @@ for more information.
 <!-- ## BOTTOM()
 
 Returns the smallest `N` [field values](/influxdb/clustered/reference/glossary/#field-value).
-`BOTTOM()` supports int64 and float64 field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
+`BOTTOM()` supports int64 and float64 field value [data types](/influxdb/v2/query-data/influxql/explore-data/select/#data-types).
 
 ```sql
 BOTTOM(field_expression[, tag_expression_1[, ..., tag_expression_n]], N)
@@ -174,7 +174,7 @@ FIRST(field_expression)
 - **field_expression**: Expression to identify one or more fields to operate on.
   Can be a [field key](/influxdb/clustered/reference/glossary/#field-key),
   constant, regular expression, or wildcard (`*`).
-  Supports all field [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
+  Supports all field [data types](/influxdb/v2/query-data/influxql/explore-data/select/#data-types).
 
 #### Notable behaviors
 
@@ -281,7 +281,7 @@ LAST(field_expression)
 - **field_expression**: Expression to identify one or more fields to operate on.
   Can be a [field key](/influxdb/clustered/reference/glossary/#field-key),
   constant, regular expression, or wildcard (`*`).
-  Supports all field [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
+  Supports all field [data types](/influxdb/v2/query-data/influxql/explore-data/select/#data-types).
 
 #### Notable behaviors
 
@@ -711,7 +711,7 @@ Notice that when grouping by time, `PERCENTILE()`
 <!-- ## SAMPLE()
 
 Returns a random sample of `N` [field values](/influxdb/clustered/reference/glossary/#field-value).
-`SAMPLE()` supports all field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types)
+`SAMPLE()` supports all field value [data types](/influxdb/v2/query-data/influxql/explore-data/select/#data-types)
 and uses [reservoir sampling](https://en.wikipedia.org/wiki/Reservoir_sampling)
 to select random points.
 
@@ -844,7 +844,7 @@ Notice that when grouping by time, `SAMPLE()`
 <!-- ## TOP()
 
 Returns the greatest `N` [field values](/influxdb/clustered/reference/glossary/#field-value).
-`TOP()` supports int64 and float64 field value [data types](/influxdb/v2.7/query-data/influxql/explore-data/select/#data-types).
+`TOP()` supports int64 and float64 field value [data types](/influxdb/v2/query-data/influxql/explore-data/select/#data-types).
 
 ```sql
 TOP(field_expression[, tag_expression_1[, ..., tag_expression_n]], N)

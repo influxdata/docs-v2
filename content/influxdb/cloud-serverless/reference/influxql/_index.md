@@ -39,9 +39,9 @@ see [InfluxQL feature support](/influxdb/cloud-serverless/reference/influxql/fea
 
 <!-- To learn more about InfluxQL, browse the following topics:
 
-- [Explore your data with InfluxQL](/influxdb/v2.7/query-data/influxql/explore-data/)
-- [Explore your schema with InfluxQL](/influxdb/v2.7/query-data/influxql/explore-schema/)
-- [Database management](/influxdb/v2.7/query-data/influxql/manage-database/)
+- [Explore your data with InfluxQL](/influxdb/v2/query-data/influxql/explore-data/)
+- [Explore your schema with InfluxQL](/influxdb/v2/query-data/influxql/explore-schema/)
+- [Database management](/influxdb/v2/query-data/influxql/manage-database/)
 - [Query engine internals](/influxdb/cloud-serverless/reference/influxql/internals/) -->
 
 ## Notation
@@ -159,7 +159,7 @@ In those cases, you don't need to double-quote `time`  in queries.
 [tag key](/influxdb/cloud-serverless/reference/glossary/#tag-key);
 InfluxDB rejects writes with `time` as a field key or tag key and returns an error.
 <!--
-See [Frequently Asked Questions](/influxdb/v2.7/reference/faq/) for more information.
+See [Frequently Asked Questions](/influxdb/v2/reference/faq/) for more information.
 -->
 
 ### Literals

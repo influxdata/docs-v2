@@ -10,19 +10,19 @@ menu:
     parent: Visualize data
 weight: 202
 related:
-  - /{{< latest "chronograf" >}}/
+  - /chronograf/v1/
 metadata: [InfluxQL only]
 related:
   - /influxdb/clustered/query-data/influxql/
 ---
 
-[Chronograf](/{{< latest "chronograf" >}}/) is a data visualization and dashboarding
+[Chronograf](/chronograf/v1/) is a data visualization and dashboarding
 tool designed to visualize data in InfluxDB 1.x using the **InfluxQL** query language.
 This page walks through how to use Chronograf with **{{% product-name %}}**.
 
 ## Download and install Chronograf
 
-If you haven't already, [download and install Chronograf](/{{< latest "chronograf" >}}/introduction/installation/#download-and-install).
+If you haven't already, [download and install Chronograf](/chronograf/v1/introduction/installation/#download-and-install).
 
 ## Create an InfluxDB connection
 
@@ -69,7 +69,7 @@ This query is routed to the {{% product-name %}} database with the name `mydb/au
    and then click **Continue**. Otherwise, click **Skip**.
 
    <!-- <!-- _For information about using Kapacitor with {{< product-name >}} or InfluxDB OSS {{< current-version >}}, -->
-   <!-- see [Use Kapacitor with InfluxDB](/influxdb/v2.7/tools/kapacitor/)._ -->
+   <!-- see [Use Kapacitor with InfluxDB](/influxdb/v2/tools/kapacitor/)._ -->
 
 6. Click **Finish**.
 

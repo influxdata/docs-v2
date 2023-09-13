@@ -11,7 +11,7 @@ date: 2022-6-30
 series: [Meet the Developers S5]
 metadata: [Meet the Developer Series]
 related: 
-  - /telegraf/v1.24/configure_plugins/aggregator_processor/  
+  - /telegraf/v1/configure_plugins/aggregator_processor/  
   
 ---
 

@@ -25,11 +25,11 @@ The JavaScript client library includes the following convenient features for wri
 
 ### Before you begin
 
-- [Install the client library and other dependencies](/influxdb/clustered/api-guide/client-libraries/nodejs/install/).
+- [Install the client library and other dependencies](/influxdb/clustered/reference/client-libraries/v2/javascript/nodejs/install/).
 
 ### Write data with the client library
 
-1. Instantiate a client by calling the `new InfluxDB()` constructor with your InfluxDB URL and database token (environment variables you already set in the [Install section](/influxdb/clustered/api-guide/client-libraries/nodejs/install/)).
+1. Instantiate a client by calling the `new InfluxDB()` constructor with your InfluxDB URL and database token (environment variables you already set in the [Install section](/influxdb/clustered/reference/client-libraries/v2/javascript/nodejs/install/)).
 
    ```js
    import {InfluxDB, Point} from '@influxdata/influxdb-client'

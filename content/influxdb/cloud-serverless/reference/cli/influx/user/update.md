@@ -7,7 +7,7 @@ menu:
     name: influx user update
     parent: influx user
 weight: 201
-canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/update/
+canonical: /influxdb/v2/reference/cli/influx/user/update/
 ---
 
 {{< duplicate-oss >}}

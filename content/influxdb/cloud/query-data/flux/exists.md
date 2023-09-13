@@ -13,7 +13,7 @@ menu:
 weight: 220
 related:
   - /influxdb/cloud/query-data/flux/query-fields/
-  - /{{< latest "flux" >}}/stdlib/universe/filter/
+  - /flux/v0/stdlib/universe/filter/
 list_code_example: |
   ##### Filter null values
   ```js

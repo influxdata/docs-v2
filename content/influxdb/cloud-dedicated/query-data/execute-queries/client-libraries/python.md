@@ -288,7 +288,7 @@ For more information, see [`influxdb_client_3` query exceptions](/influxdb/cloud
 
 Replace the following configuration values:
 
-- **`database`**: the name of the [{{% product-name %}} database](/influxdb/cloud-dedicated/admin/buckets/) to query
+- **`database`**: the name of the [{{% product-name %}} database](/influxdb/cloud-dedicated/admin/databases/) to query
 - **`token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ access to the specified database.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
@@ -406,7 +406,7 @@ print(table.group_by('room').aggregate([('temp', 'mean')]))
 
 Replace the following configuration values:
 
-- **`database`**: the name of the [{{% product-name %}} database](/influxdb/cloud-dedicated/admin/buckets/) to query
+- **`database`**: the name of the [{{% product-name %}} database](/influxdb/cloud-dedicated/admin/databases/) to query
 - **`token`**:  a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _read_ access to the specified database.
   _Store this in a secret store or environment variable to avoid exposing the raw token string._
 

@@ -10,11 +10,11 @@ menu:
     name: Scrape Prometheus metrics
     parent: Developer tools
 related:
-  - /{{< latest "telegraf" >}}/plugins/#input-prometheus, Telegraf Prometheus input plugin
-  - /{{< latest "flux" >}}/prometheus/scrape-prometheus/
-  - /{{< latest "flux" >}}/stdlib/experimental/prometheus/scrape/
-  - /{{< latest "flux" >}}/prometheus/metric-types/
-influxdb/v2.0/tags: [prometheus]
+  - /telegraf/v1/plugins/#input-prometheus, Telegraf Prometheus input plugin
+  - /flux/v0/prometheus/scrape-prometheus/
+  - /flux/v0/stdlib/experimental/prometheus/scrape/
+  - /flux/v0/prometheus/metric-types/
+influxdb/cloud/tags: [prometheus]
 ---
 
 {{< duplicate-oss >}}

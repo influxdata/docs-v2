@@ -99,9 +99,9 @@ Database names must adhere to the following naming restrictions:
 
 ## InfluxQL DBRP naming convention
 
-In InfluxDB 1.x, data is stored in [databases](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#database)
-and [retention policies](/{{< latest "influxdb" "v1" >}}/concepts/glossary/#retention-policy-rp).
-In InfluxDB Cloud Dedicated, databases and retention policies have been merged into
+In InfluxDB 1.x, data is stored in [databases](/influxdb/v1/concepts/glossary/#database)
+and [retention policies](/influxdb/v1/concepts/glossary/#retention-policy-rp).
+In {{< product-name >}}, databases and retention policies have been merged into
 _databases_, where databases have a retention period, but retention policies
 are no longer part of the data model.
 Because InfluxQL uses the 1.x data model, a database must be mapped to a v1

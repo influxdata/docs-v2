@@ -11,15 +11,15 @@ weight: 220
 aliases:
   - /influxdb/cloud/query-data/flux/manipulate-timestamps
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/now/
-  - /{{< latest "flux" >}}/stdlib/system/time/
-  - /{{< latest "flux" >}}/stdlib/universe/time/
-  - /{{< latest "flux" >}}/stdlib/universe/uint/
-  - /{{< latest "flux" >}}/stdlib/universe/int/
-  - /{{< latest "flux" >}}/stdlib/universe/truncatetimecolumn/
-  - /{{< latest "flux" >}}/stdlib/date/truncate/
-  - /{{< latest "flux" >}}/stdlib/experimental/addduration/
-  - /{{< latest "flux" >}}/stdlib/experimental/subduration/
+  - /flux/v0/stdlib/universe/now/
+  - /flux/v0/stdlib/system/time/
+  - /flux/v0/stdlib/universe/time/
+  - /flux/v0/stdlib/universe/uint/
+  - /flux/v0/stdlib/universe/int/
+  - /flux/v0/stdlib/universe/truncatetimecolumn/
+  - /flux/v0/stdlib/date/truncate/
+  - /flux/v0/stdlib/experimental/addduration/
+  - /flux/v0/stdlib/experimental/subduration/
 ---
 
 {{< duplicate-oss >}}

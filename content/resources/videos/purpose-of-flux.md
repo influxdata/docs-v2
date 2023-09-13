@@ -13,7 +13,7 @@ date: 2022-01-04
 series: [Meet the Developers S2]
 metadata: [Meet the Developer Series]
 related:
-  - /{{< latest "flux" >}}/get-started/
+  - /flux/v0/get-started/
 ---
 
 {{< resources/video-content >}}

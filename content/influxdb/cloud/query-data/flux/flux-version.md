@@ -11,7 +11,7 @@ menu:
     name: Flux version
 influxdb/cloud/tags: [query]
 related:
-  - /{{< latest "flux" >}}/stdlib/runtime/version/
+  - /flux/v0/stdlib/runtime/version/
 list_code_example: |
   ```js
   import "array"

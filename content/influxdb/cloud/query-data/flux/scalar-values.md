@@ -11,7 +11,7 @@ menu:
 weight: 220
 influxdb/cloud/tags: [scalar]
 related:
-  - /{{< latest "flux" >}}/function-types/#dynamic-queries, Flux dynamic query functions
+  - /flux/v0/function-types/#dynamic-queries, Flux dynamic query functions
 list_code_example: |
   ```js
   scalarValue = (tables=<-) => {

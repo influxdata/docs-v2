@@ -6,7 +6,7 @@ menu:
     name: influx user create
     parent: influx user
 weight: 201
-canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/create/
+canonical: /influxdb/v2/reference/cli/influx/user/create/
 ---
 
 {{% note %}}

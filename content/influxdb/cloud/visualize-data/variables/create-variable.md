@@ -54,7 +54,7 @@ _For information about common Query variables, see [Common variable queries](/in
 3. Click the **{{< icon "plus" >}} Create Variable** drop-down menu and select **New Variable**.
 4. In the window that appears:
    - Enter a name for your variable.
-   - Select your variable type. For details on each type, see [Variable types](/influxdb/v2.2/visualize-data/variables/variable-types/).
+   - Select your variable type. For details on each type, see [Variable types](/influxdb/v2/visualize-data/variables/variable-types/).
    - Enter the appropriate variable information based on the variable type.
 6. Click **Create Variable**.
 

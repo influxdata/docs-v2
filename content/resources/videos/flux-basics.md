@@ -14,9 +14,9 @@ date: 2022-01-04
 series: [Meet the Developers S2]
 metadata: [Meet the Developer Series]
 related: 
-  - /{{< latest "flux" >}}/get-started/
-  - /{{< latest "flux" >}}/get-started/data-model/
-  - /{{< latest "flux" >}}/get-started/query-basics/
+  - /flux/v0/get-started/
+  - /flux/v0/get-started/data-model/
+  - /flux/v0/get-started/query-basics/
 ---
 
 {{< resources/video-content >}}

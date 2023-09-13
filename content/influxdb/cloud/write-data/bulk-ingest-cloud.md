@@ -10,7 +10,7 @@ menu:
     name: Bulk ingest historical data
     parent: Write data
 alias:
-  - /influxdb/v2.0/write-data/bulk-ingest-cloud
+  - /influxdb/v2/write-data/bulk-ingest-cloud
 ---
 
 To upload a large amount **(10GB or greater)** of previously existing *historical*

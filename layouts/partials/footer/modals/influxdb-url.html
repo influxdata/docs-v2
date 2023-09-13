@@ -1,9 +1,7 @@
-{{ $latestInfluxDBVersion := .Site.Data.products.influxdb.latest }}
-{{ $latestEnterpriseVersion := .Site.Data.products.enterprise_influxdb.latest }}
-{{ $OSSLink := print "/influxdb/" $latestInfluxDBVersion "/reference/urls/ "}}
+{{ $OSSLink := print "/influxdb/v2/reference/urls/ "}}
 {{ $CloudLink := "/influxdb/cloud/reference/regions/" }}
 {{ $ServerlessLink := "/influxdb/cloud-serverless/reference/regions/" }}
-{{ $EnterpriseLink := print "/enterprise_influxdb/" $latestEnterpriseVersion "/administration/config-data-nodes/#http-endpoint-settings" }}
+{{ $EnterpriseLink := print "/enterprise_influxdb/v1/administration/config-data-nodes/#http-endpoint-settings" }}
 {{ $isInfluxDB := cond (gt (len (findRE `^/influxdb/|^/enterprise_influxdb/` .RelPermalink)) 0) true false }}
 {{ $isOSS := cond (in .RelPermalink "/influxdb/v") true false }}
 {{ $isCloud := cond (or (in .RelPermalink "/influxdb/cloud/") (in .RelPermalink "/influxdb/cloud-serverless/")) true false }}

@@ -44,7 +44,7 @@
 			{{ if .Params.list_code_example }}
 				{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
 				{{- $currentVersion := index $productPathData 1 -}}
-				{{- $isOSS := ne (len (findRE `^v[0-9]\.` $currentVersion)) 0 -}}
+				{{- $isOSS := ne (len (findRE `^v[0-9]` $currentVersion)) 0 -}}
 				{{- $productKey := cond $isOSS "oss" $currentVersion -}}
 				{{- $productAliases := dict "oss" "influxdb" "cloud" "influxdb_cloud" "cloud-tsm" "influxdb_cloud" "cloud-serverless" "influxdb_cloud_serverless" "serverless" "influxdb_cloud_serverless" "cloud-dedicated" "influxdb_cloud_dedicated" "dedicated" "influxdb_cloud_dedicated" "clustered" "influxdb_clustered" -}}
 				{{- $productRef := index $productAliases $productKey -}}

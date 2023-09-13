@@ -3,13 +3,13 @@
 const path = require('path');
 
 const latestVersions = {
-  'influxdb': 'v2.6',
-  'influxdbv2': 'v2.6',
-  'telegraf': 'v1.25',
-  'chronograf': 'v1.10',
-  'kapacitor': 'v1.6',
-  'enterprise': 'v1.10',
-  'flux': 'v0.x',
+  'influxdb': 'v2',
+  'influxdbv2': 'v2',
+  'telegraf': 'v1',
+  'chronograf': 'v1',
+  'kapacitor': 'v1',
+  'enterprise': 'v1',
+  'flux': 'v0',
 };
 
 const archiveDomain = 'https://archive.docs.influxdata.com';
@@ -101,7 +101,7 @@ exports.handler = (event, context, callback) => {
   permanentRedirect(/\/influxdb\/cloud-iox/.test(request.uri), request.uri.replace(/\/influxdb\/cloud-iox/, '/influxdb/cloud-serverless'));
   
   ////////////// CLI InfluxQL link (catch before latest redirect) //////////////
-  permanentRedirect(/\/influxdb\/latest\/query_language\/spec/.test(request.uri), request.uri.replace(/latest/, 'v1.8'));
+  permanentRedirect(/\/influxdb\/latest\/query_language\/spec/.test(request.uri), request.uri.replace(/latest/, 'v1'));
 
   ////////////////////////// Latest version redirects //////////////////////////
   temporaryRedirect(/\/influxdb\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['influxdb']}`));
@@ -118,6 +118,9 @@ exports.handler = (event, context, callback) => {
   temporaryRedirect(request.uri === '/kapacitor/', `/kapacitor/${latestVersions['kapacitor']}/`);
   temporaryRedirect(request.uri === '/enterprise_influxdb/', `/enterprise_influxdb/${latestVersions['enterprise']}/`);
   temporaryRedirect(request.uri === '/flux/', `/flux/${latestVersions['flux']}/`);
+
+  /////////////////////// VERSION RESTRUCTURE REDIRECTS ////////////////////////
+  permanentRedirect(/^\/\w+\/(v\d{1})\.[\dx]+/.test(request.uri), request.uri.replace(/^\/(\w+)\/(v\d{1})\.[\dx]+(.*$)/, `/$1/$2$3`));
 
   /////////////////////////////// Flux redirects ///////////////////////////////
   // Redirect old Flux guides and introduction 
