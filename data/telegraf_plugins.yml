@@ -856,6 +856,13 @@ input:
     introduced: 1.25.0
     tags: [linux, systems]
 
+  - name: Intel PMT
+    id: intel_pmt
+    description: |
+      Intel Platform Monitoring Technology plugin exposes Intel PMT metrics available through the Intel PMT kernel space.
+    introduced: 1.28.0
+    tags: [linux, systems]
+
   - name: Intel PMU
     id: intel_pmu
     description: |
@@ -1807,9 +1814,9 @@ input:
     id: s7comm
     description: |
       This plugin gathers information from Siemens PLC (Programmatic Logic Controller).
-    introduced: 1.19.0
+    introduced: 1.28.0
     link: https://github.com/nicolasme/s7comm/blob/main/README.md
-    tags: [external, iot]
+    tags: [serial, iot]
 
   - name: Slab
     id: slab
@@ -1990,6 +1997,13 @@ input:
 
     introduced: 1.13.0
     tags: [linux, systems]
+
+  - name: Tacacs
+    id: tacacs
+    description: |
+      Tacacs plugin collects successful tacacs authentication response times.
+    introduced: 1.28.0
+    tags: [linux, networking]
 
   - name: Tail
     id: tail
@@ -3001,6 +3015,13 @@ processor:
     description: |
       Processor to scale values from a specified range into another range
     introduced: 1.27.0
+    tags: [linux, macos, windows]
+
+  - name: Split
+    id: split
+    description: |
+      Split a metric into one or more metrics with the specified field(s)/tag(s)
+    introduced: 1.28.0
     tags: [linux, macos, windows]
 
   - name: Starlark
