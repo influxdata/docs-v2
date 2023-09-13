@@ -5,7 +5,7 @@ description: >
   analyzing, and acting on data.
 menu:
   flux_v0:
-    name: Flux 0.x
+    name: Flux documentation
 weight: 1
 aliases:
   - /influxdb/v2/reference/flux/

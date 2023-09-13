@@ -1,5 +1,5 @@
 ---
-title: InfluxDB Enterprise 1.10 documentation
+title: InfluxDB Enterprise documentation
 description: >
   Documentation for InfluxDB Enterprise, which adds clustering, high availability, fine-grained authorization, and more to InfluxDB OSS.
 aliases:
