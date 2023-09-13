@@ -1,5 +1,5 @@
 ---
-title: Telegraf 1.28 release notes
+title: Telegraf release notes
 description: Important features and changes in the latest version of Telegraf.
 aliases:
   - /telegraf/v1/reference/release-notes/influxdb/
