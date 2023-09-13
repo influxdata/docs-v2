@@ -39,7 +39,7 @@
     {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $influxdbProductKey).name) }}
   {{ end }}
 {{ else }}
-  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " $currentVersion) }}
+  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
 {{ end }}
 
 {{ $searchPlaceholder := .Scratch.Get "searchPlaceholder" }}

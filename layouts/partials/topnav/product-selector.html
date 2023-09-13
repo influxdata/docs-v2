@@ -46,7 +46,7 @@
           {{ if eq $product "influxdb" }}
             {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
             {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
-            
+
             {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
             {{ if (gt (len $altLinks) 0) }}
               {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
@@ -73,14 +73,15 @@
   <ul class="item-list products" data-category="Self-managed">
     {{ range $sortedProducts }}
       {{ if eq .menu_category "self-managed" }}
-        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}       
+        {{ $isCurrentProduct := and (eq .namespace $product) (in .versions $currentVersion) }}
+
         {{ if not $isCurrentProduct }}
           {{ $scratch.Set "link" (print "/" .namespace "/" (index .versions 0) "/") }}
-          
+                   
           {{ if eq $product "influxdb" }}
             {{ $replacementPath := index (index $influxdbInfo .name) "path" }}
             {{ $altProductPage := $.GetPage ((replaceRE $pageRoot $replacementPath $.Page.RelPermalink) | replaceRE `\/$` "") }}
-            
+
             {{/* ////////////// GET ALT LINKS FROM FRONTMATTER ////////////// */}}
             {{ if (gt (len $altLinks) 0) }}
               {{ $productKey := index (index $influxdbInfo .name) "key" | default "" }}
@@ -91,12 +92,13 @@
             {{/* ///////////// GET DEFAULT ALT PAGE AT SAME PATH //////////// */}}
             {{ else if gt (len $altProductPage.Title) 0 }}
               {{ $scratch.Set "link" $altProductPage.RelPermalink }}
-            {{ end }}        
+            {{ end }}
           {{ end }}
 
         {{ else if $isCurrentProduct }}
           {{ $scratch.Set "link" "" }}
         {{ end }}
+
         {{ $link := $scratch.Get "link" }}
         <li>
           <a href='{{ $link }}' {{ if $isCurrentProduct }}class="active"{{ end }}>{{ if .altname }}{{.altname}}{{ else }}{{ .name }}{{ end }}</a>
