@@ -17,26 +17,27 @@ InfluxQL group.
 _Examples use the sample data set provided in the
 [Get started with InfluxDB tutorial](/influxdb/cloud-dedicated/get-started/write/#construct-line-protocol)._
 
+- [BOTTOM()](#bottom)
 - [FIRST()](#first)
 - [LAST()](#last)
 - [MAX()](#max)
 - [MIN()](#min)
-<!-- - [BOTTOM()](#bottom) -->
-<!-- - [PERCENTILE()](#percentile) -->
-<!-- - [SAMPLE()](#sample) -->
-<!-- - [TOP()](#top) -->
+- [PERCENTILE()](#percentile)
+- [TOP()](#top)
 - [Notable behaviors of selector functions](#notable-behaviors-of-selector-functions)
+
+<!-- - [SAMPLE()](#sample) -->
 
 {{% note %}}
 #### Missing InfluxQL functions
 
 Some InfluxQL functions are in the process of being rearchitected to work with
-the InfluxDB IOx storage engine. If a function you need is not here, check the
+the InfluxDB 3.0 storage engine. If a function you need is not here, check the
 [InfluxQL feature support page](/influxdb/cloud-dedicated/reference/influxql/feature-support/#function-support)
 for more information.
 {{% /note %}}
 
-<!-- ## BOTTOM()
+## BOTTOM()
 
 Returns the smallest `N` [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 `BOTTOM()` supports int64 and float64 field value [data types](/influxdb/v2/query-data/influxql/explore-data/select/#data-types).
@@ -159,7 +160,7 @@ Notice that when grouping by time, `BOTTOM()`
 [maintains the point's original timestamp](#timestamps-when-grouping-by-time).
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
 ## FIRST()
 
@@ -592,7 +593,7 @@ Notice that when grouping by time, `MIN()`
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-<!-- ## PERCENTILE()
+## PERCENTILE()
 
 Returns the `N`th percentile [field value](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 
@@ -706,7 +707,7 @@ Notice that when grouping by time, `PERCENTILE()`
 [overrides the point's original timestamp](#timestamps-when-grouping-by-time).
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
 <!-- ## SAMPLE()
 
@@ -841,7 +842,7 @@ Notice that when grouping by time, `SAMPLE()`
 {{% /expand %}}
 {{< /expand-wrapper >}} -->
 
-<!-- ## TOP()
+## TOP()
 
 Returns the greatest `N` [field values](/influxdb/cloud-dedicated/reference/glossary/#field-value).
 `TOP()` supports int64 and float64 field value [data types](/influxdb/v2/query-data/influxql/explore-data/select/#data-types).
@@ -964,12 +965,12 @@ Notice that when grouping by time, `TOP()`
 [maintains the point's original timestamp](#timestamps-when-grouping-by-time).
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
 ## Notable behaviors of selector functions
 
 - [Timestamps when grouping by time](#timestamps-when-grouping-by-time)
-<!-- - [Selector functions may return fewer points than expected](#selector-functions-may-return-fewer-points-than-expected) -->
+- [Selector functions may return fewer points than expected](#selector-functions-may-return-fewer-points-than-expected)
 
 ### Timestamps when grouping by time
 
@@ -987,28 +988,28 @@ return per group maintain the original timestamp of each returned point.
 - [LAST()](#last)
 - [MAX()](#max)
 - [MIN()](#min)
-<!-- - [PERCENTILE()](#percentile) -->
+- [PERCENTILE()](#percentile)
 
 {{% /flex-content %}}
 {{% flex-content %}}
 
-<!-- ###### Maintain the original timestamp
+###### Maintain the original timestamp
 
 - [BOTTOM()](#bottom)
-- [SAMPLE()](#sample)
-- [TOP()](#top) -->
+- [TOP()](#top)
+<!-- - [SAMPLE()](#sample) -->
 
 {{% /flex-content %}}
 {{< /flex >}}
 
-<!-- ### Selector functions may return fewer points than expected
+### Selector functions may return fewer points than expected
 
 Queries that use the following selector functions with an `N` argument may
 return fewer points than expected.
 
 - [BOTTOM()](#bottom)
-- [SAMPLE()](#sample)
 - [TOP()](#top)
+<!-- - [SAMPLE()](#sample) -->
 
 If the InfluxQL group or specified tag key contains `X` points or unique tag
 values and `X` is less than `N`, the function returns `X` results instead of `N`
@@ -1062,4 +1063,4 @@ SELECT TOP(temp, room, 3) FROM home
 {{% /influxdb/custom-timestamps %}}
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}

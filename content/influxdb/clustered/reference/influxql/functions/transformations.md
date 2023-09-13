@@ -19,30 +19,31 @@ InfluxQL transformation functions modify and return values in each row of querie
 - [ATAN2()](#atan2)
 - [CEIL()](#ceil)
 - [COS()](#cos)
+- [CUMULATIVE_SUM()](#cumulative_sum)
+- [DERIVATIVE()](#derivative)
+- [DIFFERENCE()](#difference)
 - [EXP()](#exp)
 - [FLOOR()](#floor)
 - [LN()](#ln)
 - [LOG()](#log)
 - [LOG2()](#log2)
 - [LOG10()](#log10)
+- [MOVING_AVERAGE()](#moving_average)
+- [NON_NEGATIVE_DERIVATIVE()](#non_negative_derivative)
+- [NON_NEGATIVE_DIFFERENCE()](#non_negative_difference)
 - [POW()](#pow)
 - [ROUND()](#round)
 - [SIN()](#sin)
 - [SQRT()](#sqrt)
 - [TAN()](#tan)
-<!-- - [CUMULATIVE_SUM()](#cumulative_sum) -->
-<!-- - [DERIVATIVE()](#derivative) -->
-<!-- - [DIFFERENCE()](#difference) -->
+
 <!-- - [ELAPSED()](#elapsed) -->
-<!-- - [MOVING_AVERAGE()](#moving_average) -->
-<!-- - [NON_NEGATIVE_DERIVATIVE()](#non_negative_derivative) -->
-<!-- - [NON_NEGATIVE_DIFFERENCE()](#non_negative_difference) -->
 
 {{% note %}}
 #### Missing InfluxQL functions
 
 Some InfluxQL functions are in the process of being rearchitected to work with
-the InfluxDB IOx storage engine. If a function you need is not here, check the
+the InfluxDB 3.0 storage engine. If a function you need is not here, check the
 [InfluxQL feature support page](/influxdb/clustered/reference/influxql/feature-support/#function-support)
 for more information.
 {{% /note %}}
@@ -758,7 +759,7 @@ name: numbers
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-<!-- ## CUMULATIVE_SUM()
+## CUMULATIVE_SUM()
 
 Returns the running total of subsequent [field values](/influxdb/clustered/reference/glossary/#field-value).
 
@@ -872,9 +873,9 @@ name: numbers
 | 2023-01-01T00:50:00Z |   -6.795080184131271 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
-<!-- ## DERIVATIVE()
+## DERIVATIVE()
 
 Returns the rate of change between subsequent [field values](/influxdb/clustered/reference/glossary/#field-value)
 per `unit`.
@@ -1016,9 +1017,9 @@ name: numbers
 | 2023-01-01T00:50:00Z |  0.021317362457152655 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
-<!-- ## DIFFERENCE()
+## DIFFERENCE()
 
 Returns the result of subtraction between subsequent [field values](/influxdb/clustered/reference/glossary/#field-value).
 
@@ -1135,7 +1136,7 @@ name: numbers
 | 2023-01-01T00:50:00Z | 0.21317362457152655 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
 <!-- ## ELAPSED()
 
@@ -1854,7 +1855,7 @@ name: numbers
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
-<!-- ## MOVING_AVERAGE()
+## MOVING_AVERAGE()
 
 Returns the rolling average across a window of subsequent [field values](/influxdb/clustered/reference/glossary/#field-value).
 
@@ -1967,9 +1968,9 @@ name: numbers
 | 2023-01-01T00:50:00Z |  0.6890200973149928 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
-<!-- ## NON_NEGATIVE_DERIVATIVE()
+## NON_NEGATIVE_DERIVATIVE()
 
 Returns only non-negative rate of change between subsequent
 [field values](/influxdb/clustered/reference/glossary/#field-value).
@@ -2120,9 +2121,9 @@ name: numbers
 | 2023-01-01T00:50:00Z |    0.021317362457152655 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
-<!-- ## NON_NEGATIVE_DIFFERENCE()
+## NON_NEGATIVE_DIFFERENCE()
 
 Returns only non-negative result of subtraction between subsequent
 [field values](/influxdb/clustered/reference/glossary/#field-value).
@@ -2249,7 +2250,7 @@ name: numbers
 | 2023-01-01T00:50:00Z |     0.21317362457152655 |
 
 {{% /expand %}}
-{{< /expand-wrapper >}} -->
+{{< /expand-wrapper >}}
 
 ## POW()
 
