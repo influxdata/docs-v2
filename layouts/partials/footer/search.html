@@ -9,6 +9,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
+var multiVersion = ['influxdb']
 docsearch({
   apiKey: '501434b53a46a92a7931aecc7c9672e2',
   appId: 'WHM9UWMP6M',
@@ -17,7 +18,7 @@ docsearch({
   // Set debug to true if you want to inspect the dropdown
   debug: true,
   transformData: function (hits) {
-    function fmtVersion (version) {
+    function fmtVersion (version, productKey) {
       if (version == null) {
         return '';
       } else if (version === 'cloud') {
@@ -28,7 +29,7 @@ docsearch({
         return 'Cloud Dedicated';
       } else if (version === 'clustered') {
         return 'Clustered';
-      } else if (/v\d+/.test(version)) {
+      } else if (multiVersion.includes(productKey)) {
         return version;
       } else {
         return '';
@@ -47,7 +48,7 @@ docsearch({
     hits.map(hit => {
       pathData = new URL(hit.url).pathname.split('/').filter(n => n);
       product = productNames[pathData[0]];
-      version = fmtVersion(pathData[1]);
+      version = fmtVersion(pathData[1], pathData[0]);
 
       hit.product = product;
       hit.version = version;
