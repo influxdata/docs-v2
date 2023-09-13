@@ -13,8 +13,8 @@ date: 2022-01-04
 series: [Meet the Developers S2]
 metadata: [Meet the Developer Series]
 related: 
-  - /{{< latest "telegraf" >}}/
-  - /{{< latest "telegraf" >}}/plugins/
+  - /telegraf/v1/
+  - /telegraf/v1/plugins/
 ---
 
 {{< resources/video-content >}}

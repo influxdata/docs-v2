@@ -13,7 +13,7 @@ menu:
     list_title: SQL data
 weight: 220
 related:
-  - /{{< latest "flux" >}}/stdlib/sql/
+  - /flux/v0/stdlib/sql/
 list_code_example: |
   ```js
   import "sql"

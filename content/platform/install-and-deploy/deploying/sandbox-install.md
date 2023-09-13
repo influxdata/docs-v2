@@ -69,9 +69,9 @@ Once started, two tabs will open in your browser:
 Chronograf is the web-based user interface for the TICK stack and can be used to manage the stack. You can use Chronograf to:
 
 * query and explore data
-* [create Kapacitor alerts](/chronograf/v1.6/guides/create-alert-rules/)
-* preview [data visualizations](/chronograf/v1.6/guides/visualization-types/)
-* [build custom dashboards](/chronograf/v1.6/guides/create-a-dashboard/)
+* [create Kapacitor alerts](/chronograf/v1/guides/create-alert-rules/)
+* preview [data visualizations](/chronograf/v1/guides/visualization-types/)
+* [build custom dashboards](/chronograf/v1/guides/create-a-dashboard/)
 
 ### Using nightly builds
 

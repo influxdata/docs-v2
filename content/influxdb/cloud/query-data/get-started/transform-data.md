@@ -8,8 +8,8 @@ menu:
     parent: Get started with Flux
 weight: 202
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/aggregatewindow
-  - /{{< latest "flux" >}}/stdlib/universe/window
+  - /flux/v0/stdlib/universe/aggregatewindow
+  - /flux/v0/stdlib/universe/window
 ---
 
 {{< duplicate-oss >}}

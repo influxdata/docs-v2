@@ -13,7 +13,7 @@ menu:
 influxdb/cloud/tags: [query, percentile, quantile]
 related:
   - /influxdb/cloud/query-data/flux/query-median/
-  - /{{< latest "flux" >}}/stdlib/universe/quantile/
+  - /flux/v0/stdlib/universe/quantile/
 list_query_example: quantile
 ---
 

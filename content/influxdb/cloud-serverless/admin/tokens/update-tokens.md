@@ -106,7 +106,7 @@ influx auth inactive \
 Use the `/api/v2/authorizations` InfluxDB API endpoint to update the description
 and status of a token.
 
-{{< api-endpoint method="PATCH" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations/{AUTH_ID}" api-ref="/influxdb/v2.7/api/#operation/PatchAuthorizationsID" >}}
+{{< api-endpoint method="PATCH" endpoint="https://{{< influxdb/host >}}/api/v2/authorizations/{AUTH_ID}" api-ref="/influxdb/v2/api/#operation/PatchAuthorizationsID" >}}
 
 Include the following in your request:
 

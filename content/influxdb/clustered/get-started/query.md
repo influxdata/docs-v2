@@ -50,7 +50,7 @@ The examples in this section of the tutorial query the
 - [Superset](/influxdb/clustered/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/clustered/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/clustered/query-data/execute-queries/influxdb-v1-api/)
-- [Chronograf](/{{< latest "chronograf" >}}/)
+- [Chronograf](/chronograf/v1/)
 
 ## SQL query basics
 

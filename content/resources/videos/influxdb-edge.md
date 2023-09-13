@@ -11,7 +11,7 @@ date: 2022-03-01
 series: [Meet the Developers S3]
 metadata: [Meet the Developer Series]
 related: 
-  - /{{< latest "influxdb" >}}/get-started/
+  - /influxdb/v2/get-started/
 
 ---
 

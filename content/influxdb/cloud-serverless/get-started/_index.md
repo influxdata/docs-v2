@@ -64,7 +64,7 @@ tags and fields.
         A timestamp is never null.
 
 <!-- _For detailed information and examples of the InfluxDB data model, see
-[Data elements](/influxdb/v2.5/reference/key-concepts/data-elements/)._ -->
+[Data elements](/influxdb/v2/reference/key-concepts/data-elements/)._ -->
 
 ### Schema on write
 
@@ -109,14 +109,14 @@ the [`influx` CLI reference](/influxdb/cloud-serverless/reference/cli/influx/).
 
 ### InfluxDB HTTP API
 
-The [InfluxDB API](/influxdb/v2.5/reference/api/) provides a simple way to
+The [InfluxDB API](/influxdb/v2/reference/api/) provides a simple way to
 interact with the InfluxDB {{< current-version >}} using HTTP(S) clients.
 Examples in this tutorial use cURL, but any HTTP(S) client will work.
 
 {{% note %}}
 #### InfluxDB client libraries
 
-[InfluxDB client libraries](/influxdb/v2.5/api-guide/client-libraries/) are
+[InfluxDB client libraries](/influxdb/v2/api-guide/client-libraries/) are
 language-specific clients that interact with the InfluxDB HTTP API.
 Examples for client libraries are not provided in this tutorial, but these can
 be used to perform all the actions outlined in this tutorial.
@@ -124,7 +124,7 @@ be used to perform all the actions outlined in this tutorial.
 
 ## Authorization
 
-**InfluxDB {{< current-version >}} requires authentication** using [API tokens](/influxdb/v2.5/security/tokens/).
+**InfluxDB {{< current-version >}} requires authentication** using [API tokens](/influxdb/v2/security/tokens/).
 Each API token is associated with a user and a specific set of permissions for InfluxDB resources.
 
 {{< page-nav next="/influxdb/cloud-serverless/get-started/setup/" >}}

@@ -10,7 +10,7 @@ related:
   - /influxdb/cloud/account-management/change-password/
   - /influxdb/cloud/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/cloud/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
-canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/password/
+canonical: /influxdb/v2/reference/cli/influx/user/password/
 ---
 
 {{% note %}}

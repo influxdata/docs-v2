@@ -11,7 +11,7 @@ const path = require('path')
 
 // Check to see if frontmatter has already been injected
 hasFrontmatter = () => {
-  var sampleFile = fs.readFileSync(path.resolve(__dirname, "../content/flux/v0.x/stdlib/array/_index.md")).toString();
+  var sampleFile = fs.readFileSync(path.resolve(__dirname, "../content/flux/v0/stdlib/array/_index.md")).toString();
 
   return sampleFile.includes("aliases:");
 }

@@ -11,8 +11,8 @@ menu:
 weight: 107
 influxdb/cloud/tags: [delete]
 related:
-  - /influxdb/v2.0/reference/syntax/delete-predicate/
-  - /influxdb/v2.0/reference/cli/influx/delete/
+  - /influxdb/v2/reference/syntax/delete-predicate/
+  - /influxdb/v2/reference/cli/influx/delete/
 ---
 
 {{< duplicate-oss >}}

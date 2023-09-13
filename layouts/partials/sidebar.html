@@ -17,7 +17,7 @@
 {{ else if eq $currentVersion "clustered" }}
   {{ .Scratch.Set "menuKey" "influxdb_clustered" }}
 {{ else }}
-  {{ .Scratch.Set "menuKey" (print $product "_" (replaceRE `\.` "_" (replaceRE "v" "" $currentVersion))) }}
+  {{ .Scratch.Set "menuKey" (print $product "_" $currentVersion) }}
 {{ end }}
 
 {{ $menuKey := .Scratch.Get "menuKey" }}
@@ -26,9 +26,9 @@
 {{ .Scratch.Set "searchPlaceholder" "Search"}}
 
 {{ $fluxBlacklist := slice "cloud-serverless" "cloud-dedicated" "clustered" }}
-{{ $influxdbProductKey := print "influxdb_" (replaceRE "-" "_" $currentVersion)}}
+{{ $influxdbProductKey := print "influxdb_" (replaceRE "-" "_" $currentVersion) }}
 
-{{ if and (eq (index .Site.Data.products $product).name nil) (eq (len (findRE `v[1-2]\.` $currentVersion nil)) 0) }}
+{{ if and (eq (index .Site.Data.products $product).name nil) (eq (len (findRE `v[1-2]` $currentVersion nil)) 0) }}
   {{ .Scratch.Set "searchPlaceholder" "Search the docs" }}
 {{ else if (eq $currentVersion nil) }}
   {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
@@ -39,7 +39,7 @@
     {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $influxdbProductKey).name) }}
   {{ end }}
 {{ else }}
-  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " $currentVersion) }}
+  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
 {{ end }}
 
 {{ $searchPlaceholder := .Scratch.Get "searchPlaceholder" }}

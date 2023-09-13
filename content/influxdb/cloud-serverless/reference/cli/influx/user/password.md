@@ -10,7 +10,7 @@ related:
   - /influxdb/cloud-serverless/admin/accounts/change-password/
   - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-canonical: /{{< latest "influxdb" "v2" >}}/reference/cli/influx/user/password/
+canonical: /influxdb/v2/reference/cli/influx/user/password/
 ---
 
 {{< duplicate-oss >}}

@@ -11,14 +11,14 @@ menu:
     parent: Query with Flux
 weight: 206
 related:
-  - /{{< latest "flux" >}}/stdlib/univese/buckets/
-  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurements
-  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/fieldkeys
-  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementfieldkeys
-  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/tagkeys
-  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementtagkeys
-  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/tagvalues
-  - /{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/measurementtagvalues
+  - /flux/v0/stdlib/univese/buckets/
+  - /flux/v0/stdlib/influxdata/influxdb/schema/measurements
+  - /flux/v0/stdlib/influxdata/influxdb/schema/fieldkeys
+  - /flux/v0/stdlib/influxdata/influxdb/schema/measurementfieldkeys
+  - /flux/v0/stdlib/influxdata/influxdb/schema/tagkeys
+  - /flux/v0/stdlib/influxdata/influxdb/schema/measurementtagkeys
+  - /flux/v0/stdlib/influxdata/influxdb/schema/tagvalues
+  - /flux/v0/stdlib/influxdata/influxdb/schema/measurementtagvalues
 list_code_example: |
   ```js
   import "influxdata/influxdb/schema"

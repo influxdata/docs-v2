@@ -186,7 +186,7 @@ Use the following `influx` CLI flags to provide required credentials to commands
 
 - `--host`: [{{% product-name %}} region URL](/influxdb/cloud-serverless/reference/regions/).
 - `-o`, `--org`: InfluxDB organization name or
-  [ID](/influxdb/cloud-serverless/organizations/view-orgs/#view-your-organization-id).
+  [ID](/influxdb/cloud-serverless/admin/organizations/view-orgs/#view-your-organization-id).
 - `-t`, `--token`:  your [API token](/influxdb/cloud-serverless/get-started/setup/#create-an-all-access-api-token).
 
 {{% /expand %}}

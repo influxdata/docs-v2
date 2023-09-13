@@ -14,7 +14,7 @@ date: 2022-01-04
 series: [Meet the Developers S2]
 metadata: [Meet the Developer Series]
 related:
-  - /{{< latest "influxdb" >}}/reference/internals/storage-engine/
+  - /influxdb/v2/reference/internals/storage-engine/
 ---
 
 {{< resources/video-content >}}

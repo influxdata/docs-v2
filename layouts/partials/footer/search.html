@@ -3,8 +3,8 @@
 {{ $currentVersion := index $productPathData 1 }}
 {{ $latestV2 := .Site.Data.products.influxdb.latest }}
 {{ $fluxSupported := slice "influxdb" "enterprise_influxdb" }}
-{{ $influxdbFluxSupport := slice "v1.7" "v1.8" "v1.9" "cloud" }}
-{{ $includeFlux := cond (and (in $fluxSupported $product) (or (in $influxdbFluxSupport $currentVersion) (gt (len (findRE `v2\.` $currentVersion)) 0))) true false }}
+{{ $influxdbFluxSupport := slice "v1" "v2" "cloud" }}
+{{ $includeFlux := cond (and (in $fluxSupported $product) (in $influxdbFluxSupport $currentVersion)) true false }}
 {{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated" "clustered") $currentVersion) }}
 
 <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
@@ -28,7 +28,7 @@ docsearch({
         return 'Cloud Dedicated';
       } else if (version === 'clustered') {
         return 'Clustered';
-      } else if (/v\d\./.test(version)) {
+      } else if (/v\d+/.test(version)) {
         return version;
       } else {
         return '';

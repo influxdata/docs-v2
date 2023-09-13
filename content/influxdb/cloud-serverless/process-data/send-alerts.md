@@ -46,7 +46,7 @@ More information is provided in the
 
 {{% note %}}
 This guide assumes you have already
-[setup your Python project and virtual environment](/influxdb/cloud-serverless/query-data/sql/execute-queries/python/#create-a-python-virtual-environment).
+[setup your Python project and virtual environment](/influxdb/cloud-serverless/query-data/execute-queries/client-libraries/python/#create-a-python-virtual-environment).
 {{% /note %}}
 
 Use `pip` to install the following dependencies:

@@ -101,7 +101,7 @@ Quickly start writing and querying your data with **JavaScript/Node.js**. Now, w
 ## May 2022
 
 ### Bulk delete API tokens
-Efficiently delete multiple tokens at once. For details, see [Delete a token using the InfluxDB API](/influxdb/v2.2/security/tokens/delete-token/#delete-a-token-using-the-influxdb-api).
+Efficiently delete multiple tokens at once. For details, see [Delete a token using the InfluxDB API](/influxdb/v2/security/tokens/delete-token/#delete-a-token-using-the-influxdb-api).
 
 ### Help bar
 Find relevant content easily from the Cloud UI using the help tab in left side panel.
@@ -211,7 +211,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 - **Paginated tasks in UI**: Previously, the Tasks page only listed the first 100 tasks. Now, all tasks are accessible and paginated on the Tasks page.
 
-- **Enhanced Flux VS Code extension to include tasks**: Add ability to create and edit [InfluxDB tasks](/influxdb/v2.0/process-data/get-started/) in Visual Studio Code using the Flux extension. See how to [use the Flux VS Code extension](/influxdb/v2.0/tools/flux-vscode/).
+- **Enhanced Flux VS Code extension to include tasks**: Add ability to create and edit [InfluxDB tasks](/influxdb/v2/process-data/get-started/) in Visual Studio Code using the Flux extension. See how to [use the Flux VS Code extension](/influxdb/v2/tools/flux-vscode/).
 
 ## August 2021
 
@@ -283,7 +283,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 ### Visualization updates
 
-  - Add new [Band Plot visualization](/influxdb/v2.0/visualize-data/visualization-types/band/).
+  - Add new [Band Plot visualization](/influxdb/v2/visualize-data/visualization-types/band/).
   - Add the `legendColorizeRows` property to toggle the color on and off in the legend.
 
 ### CLI updates

@@ -1,8 +1,7 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 | default "" }}
 {{ $currentVersion := index $productPathData 1 | default ""}}
-{{ $latestFlux := .Site.Data.products.flux.latest }}
-{{ $fluxPath := print "/flux/" $latestFlux "/" }}
+{{ $fluxPath := print "/flux/v0/" }}
 {{ $isFluxLatest := cond (in .RelPermalink $fluxPath) true false }}
 {{ $isResources :=  cond (eq $product "resources") true false}}
 {{ $searchTag := print $product "-" $currentVersion }}

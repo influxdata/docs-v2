@@ -14,7 +14,7 @@ aliases:
   - /influxdb/clustered/api-guide/client-libraries/browserjs/write
   - /influxdb/clustered/api-guide/client-libraries/browserjs/query
 related:
-  - /influxdb/clustered/api-guide/client-libraries/nodejs/write/
+  - /influxdb/clustered/reference/client-libraries/v2/javascript/nodejs/write/
   - /influxdb/clustered/api-guide/client-libraries/nodejs/query/
 ---
 
@@ -34,7 +34,7 @@ This endpoint can't query an {{% product-name %}} database.
 - [Superset](/influxdb/clustered/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/clustered/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/clustered/primers/api/v1/#query-using-the-v1-api)
-- [Chronograf](/{{< latest "Chronograf" >}}/)
+- [Chronograf](/chronograf/v1/)
 
 {{% /note %}}
 
@@ -45,7 +45,7 @@ This library supports both front-end and server-side environments and provides t
 - Bundled UMD 
 
 This guide presumes some familiarity with JavaScript, browser environments, and InfluxDB.
-If you're just getting started with InfluxDB, see [Get started with InfluxDB](/{{% latest "influxdb" %}}/get-started/).
+If you're just getting started with InfluxDB, see [Get started with InfluxDB](/influxdb/v2/get-started/).
 
 
 {{% warn %}}

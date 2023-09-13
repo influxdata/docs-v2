@@ -217,7 +217,7 @@ With Superset running, you're ready to [log in](#log-in-to-superset) and set up 
     
     **Query parameters**
 
-    - **`?database`**: URL-encoded InfluxDB [bucket name](influxdb/cloud-serverless/admin/buckets/view-buckets/)
+    - **`?database`**: URL-encoded InfluxDB [bucket name](/influxdb/cloud-serverless/admin/buckets/view-buckets/)
     - **`?token`**: InfluxDB [API token](/influxdb/cloud-serverless/get-started/setup/) with `READ` access to the specified bucket
 
     {{< code-callout "&lt;(domain|port|database|token)&gt;" >}}

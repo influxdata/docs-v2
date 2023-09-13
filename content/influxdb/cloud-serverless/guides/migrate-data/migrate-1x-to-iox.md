@@ -28,7 +28,7 @@ All write requests are subject to your InfluxDB Cloud Serverless organization's
 The migration process uses the following tools:
 
 - **`influx_inspect` utility**:  
-  The [`influx_inspect` utility](/{{< latest "influxdb" "v1" >}}/tools/influx_inspect/#export)
+  The [`influx_inspect` utility](/influxdb/v1/tools/influx_inspect/#export)
   is packaged with InfluxDB 1.x OSS and Enterprise.
 
 - **InfluxDB 2.x `influx` CLI**:  
@@ -63,13 +63,13 @@ correct CLI.
     - `-datadir` flag with the path to your InfluxDB 1.x `data` directory.
       Only required if the `data` directory is at a non-default location.
       For information about default locations, see
-      [InfluxDB OSS 1.x file system layout](/{{< latest "influxdb" "v1" >}}/concepts/file-system-layout/#file-system-layout)
-      or [InfluxDB Enterprise 1.x file system layout](/{{< latest "enterprise_influxdb" >}}/concepts/file-system-layout/#file-system-layout).
+      [InfluxDB OSS 1.x file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
+      or [InfluxDB Enterprise 1.x file system layout](/enterprise_influxdb/v1/concepts/file-system-layout/#file-system-layout).
     - `-waldir` flag with the path to your InfluxDB 1.x `wal` directory.
       Only required if the `wal` directory is at a non-default location.
       For information about default locations, see
-      [InfluxDB OSS 1.x file system layout](/{{< latest "influxdb" "v1" >}}/concepts/file-system-layout/#file-system-layout)
-      or [InfluxDB Enterprise 1.x file system layout](/{{< latest "enterprise_influxdb" >}}/concepts/file-system-layout/#file-system-layout).
+      [InfluxDB OSS 1.x file system layout](/influxdb/v1/concepts/file-system-layout/#file-system-layout)
+      or [InfluxDB Enterprise 1.x file system layout](/enterprise_influxdb/v1/concepts/file-system-layout/#file-system-layout).
     - `-database` flag with a specific database name to export.
       By default, all databases are exported.
     - `-retention` flag with a specific retention policy to export.
