@@ -1,5 +1,5 @@
 ---
-title: Telegraf 1.27 release notes
+title: Telegraf 1.28 release notes
 description: Important features and changes in the latest version of Telegraf.
 aliases:
   - /telegraf/v1/reference/release-notes/influxdb/
@@ -9,6 +9,134 @@ menu:
     name: Release notes
     weight: 60
 ---
+
+## v1.28.1 [2023-09-12]
+
+### Bugfixes
+
+- Packaging: Revert permission change on package configs
+- Redis (`inputs.redis`): Fix password typo
+- Vsphere (`inputs.vsphere`): Fix config name typo in example
+
+## v1.28.0 [2023-09-11]
+
+### Important Changes
+
+- **metricpass**: Removed the Python compatibility support for "not", "and", and
+  "or" keywords. This support was incorrectly removing these keywords from
+  actual data. Users should instead use the standard "!", "&&", and "||"
+  operators.
+- **Avro Processor**: The avro processor will no longer create a timestamp field
+  by default unless explicitly provided in the parser config.
+
+### New Plugins
+
+#### Inputs
+
+- [Intel PMT](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/intel_pmt) (`inputs.intel_pmt`)
+- [S7comm](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/s7comm) (`inputs.s7comm`)
+- [Tacacs](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/tacacs) (`inputs.tacacs`)
+
+#### Processors
+
+- [Split metrics](https://github.com/influxdata/telegraf/tree/master/plugins/processors/split) (`processors.split`)
+
+#### Secret Stores
+
+- [OAuth2 services](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/oauth2) (`secretstores.oauth2`)
+
+#### Serializers
+
+- [Template based](https://github.com/influxdata/telegraf/tree/master/plugins/serializers/template) (`serializers.template`)
+
+### Features
+
+- Agent:
+  - Add option to avoid filtering of global tags
+  - Watch default config files if none specified
+- CLI: Add plugins subcommand to list available and deprecated
+- AMQP Consumer (`inputs.amqp_consumer`): Add support to rabbitmq stream queue
+- Cisco Telemetry MDT (`inputs.cisco_telemetry_mdt`): Add microbust support
+- Couchbase (`inputs.couchbase`): Add failover metrics
+- Fail2Ban (`inputs.fail2ban`): Allow specification of socket
+- Fibaro (`inputs.fibaro`): Support HC3 device types
+- HTTP (`inputs.http`): Rework token options
+- InfluxDB Listener (`inputs.influxdb_listener`): Add token based authentication
+- Internal (`inputs.internal`): Add Go metric collection option
+- Jenkins (`inputs.jenkins`): Add option for node labels as tag
+- JTI OpenConfig Telemetry (`inputs.jti_openconfig_telemetry`): Add keep-alive setting
+- Kernel (`inputs.kernel`): Collect KSM metrics
+- Modbus (`inputs.modbus`): Add per-metric configuration style
+- Nvidia SMI (`inputs.nvidia_smi`):
+  - Add Nvidia DCGM MIG usage values
+  - Add additional fields
+  - Support newer data schema versions
+- OpenStack (`inputs.openstack`): Gather cinder services
+- OpenTelemetry (`inputs.opentelemetry`): Add configurable log record dimensions
+- PGBouncer (`inputs.pgbouncer`): Add show_commands to select the collected pgbouncer metrics
+- PostgreSQL Extensible (`inputs.postgresql_extensible`): Introduce max_version for query
+- Procstat (`inputs.procstat`): Add status field
+- Prometheus (`inputs.prometheus`): Always apply kubernetes label and field selectors
+- RavenDB (`inputs.ravendb`): Add new disk metrics fields
+- Redfish (`inputs.redfish`): Add additional chassis tags
+- Redis (`inputs.redis`):
+  - Add additional commandstat fields
+  - Support of redis 6.2 ERRORSTATS
+- Redis Sentinel (`inputs.redis_sentinel`): Allow username and password
+- Solr (`inputs.solr`): Support version 7.x to 9.3
+- SQL Server (`inputs.sqlserver`): Add IsHadrEnabled server property
+- Vsphere (`inputs.vsphere`):
+  - Allow to set vSAN sampling interval
+  - Support explicit proxy setting
+- Internal (`internal`):
+  - Add gather_timeouts metric
+  - Add zstd to internal content_coding
+- Kafka (`kafka`): Set and send SASL extensions
+- Migrations:
+  - Add migration for inputs.httpjson
+  - Add migration for inputs.io
+- execd (`outputs.execd`): Add option for batch format
+- File (`outputs.file`): Add compression
+- HTTP (`outputs.http`): Allow PATCH method
+- Postgresql (`outputs.postgresql`):
+  - Add option to create time column with timezone
+  - Add option to rename time column
+- Prometheus Client (`outputs.prometheus_client`): Add secretstore support for basic_password
+- Wavefront (`outputs.wavefront`): Add more auth options and update SDK
+- Avro (`parsers.avro`): Add support for JSON format
+- Influx (`parsers.influx`): Allow a user to set the timestamp precision
+- Value (`parsers.value`): Add support for automatic fallback for numeric types
+- XPath (`parsers.xpath`):
+  - Add Concise Binary Object Representation parser
+  - Add option to store fields as base64
+- Parser (`processors.parser`) Allow also non-string fields
+- Template (`processors.template`): Unify template metric
+
+### Bugfixes
+
+- Packaging: Change the systemd KillMode from control-group to mixed
+- AMQP Consumer (`inputs.amqp_consumer`): Print error on connection failure
+- Kafka Consumer (`inputs.kafka_consumer`): Use per-message parser to avoid races
+- OPCUA (`inputs.opcua`): Verify groups or root nodes included in config
+- PostgreSQL (`inputs.postgresql`): Fix default database definition
+- Procstat (`inputs.procstat`): Collect swap via /proc/$pid/smaps
+- SQL Server (`inputs.sqlserver`): Cast max_size to bigint
+- Sysstat (`inputs.sysstat`): Remove tmpfile to avoid file-descriptor leak
+- Avro (`parsers.avro`):
+  - Do not force addition of timestamp as a field
+  - Handle timestamp format checking correctly
+- SQL (`sql`):
+  - Allow sqlite on Windows (amd64 and arm64)
+  - Move conversion_style config option to the right place of sample config
+
+### Dependency Updates
+
+- Update github.com/aws/aws-sdk-go-v2/service/kinesis from 1.18.2 to 1.18.5
+- Update github.com/hashicorp/consul/api from 1.20.0 to 1.24.0
+- Update github.com/nats-io/nats.go from 1.27.0 to 1.28.0
+- Update github.com/prometheus/prometheus from 0.42.0 to 0.46.0
+- Update github.com/showwin/speedtest-go from 1.6.2 to 1.6.6
+- Update k8s.io/api from 0.27.4 to 0.28.1
 
 ## v1.27.0 [2023-06-12]
 
