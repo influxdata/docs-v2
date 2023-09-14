@@ -83,7 +83,7 @@ The following table provides information about what metaqueries are available in
 {{% note %}}
 #### Cardinality metaqueries
 
-With the InfluxDB IOx storage engine, series cardinality is no longer a limiting
+With the InfluxDB 3.0 storage engine, series cardinality is no longer a limiting
 factor for database performance.
 Cardinality-related metaqueries will likely not be supported with the IOx
 storage engine.
