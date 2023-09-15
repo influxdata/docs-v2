@@ -9197,14 +9197,6 @@ paths:
         To ensure that InfluxDB Cloud handles writes and deletes in the order you request them,
         wait for a success response (HTTP `2xx` status code) before you send the next request.
 
-        Because writes and deletes are asynchronous, your change might not yet be readable
-        when you receive the response.
-
-        #### InfluxDB OSS
-
-        - Validates the request, handles the delete synchronously,
-          and then responds with success or failure.
-
         #### Required permissions
 
         - `write-buckets` or `write-bucket BUCKET_ID`.
@@ -15258,36 +15250,19 @@ paths:
 
         Use this endpoint to send data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) format to InfluxDB.
 
-        #### InfluxDB Cloud
+        InfluxDB does the following when you send a write request:
 
-        - Does the following when you send a write request:
+        1. Validates the request
+        2. If successful, attempts to [ingest the data](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest); _error_ otherwise.
+        3.  If successful, responds with _success_ (HTTP `204` status code), acknowledging that the data is written and queryable; _error_ otherwise.
 
-          1. Validates the request and queues the write.
-          2. If queued, responds with _success_ (HTTP `2xx` status code); _error_ otherwise.
-          3. Handles the write asynchronously and reaches eventual consistency.
+        To ensure that InfluxDB Cloud handles writes in the order you request them,
+        wait for a success response (HTTP `2xx` status code) before you send the next request.
 
-          To ensure that InfluxDB Cloud handles writes in the order you request them,
-          wait for a success response (HTTP `2xx` status code) before you send the next request.
-
-          Because writes are asynchronous, your change might not yet be readable
-          when you receive the response.
-
-        #### InfluxDB OSS
-
-        - Validates the request and handles the write synchronously.
-        - If all points were written successfully, responds with HTTP `2xx` status code;
-          otherwise, returns the first line that failed.
-
-        #### Required permissions
-
-        - `write-buckets` or `write-bucket BUCKET_ID`.
-
-         *`BUCKET_ID`* is the ID of the destination bucket.
-
-        #### Rate limits (with InfluxDB Cloud)
+        #### Rate limits
 
         `write` rate limits apply.
-        For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
+        For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/admin/billing/limits/).
 
         #### Related guides
 
@@ -15299,7 +15274,7 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
             The compression applied to the line protocol in the request payload.
-            To send a GZIP payload, pass `Content-Encoding: gzip` header.
+            To send a gzip payload, pass `Content-Encoding: gzip` header.
           in: header
           name: Content-Encoding
           schema:
@@ -15426,7 +15401,7 @@ paths:
 
           To send compressed data, do the following:
 
-            1. Use [GZIP](https://www.gzip.org/) to compress the line protocol data.
+            1. Use [gzip](https://www.gzip.org/) to compress the line protocol data.
             2. In your request, send the compressed data and the
                `Content-Encoding: gzip` header.
 
@@ -15456,32 +15431,18 @@ paths:
             application/json:
               examples:
                 measurementSchemaFieldTypeConflict:
-                  summary: (Cloud) field type conflict thrown by an explicit bucket schema
+                  summary: field type conflict thrown by an explicit bucket schema
                   value:
                     code: invalid
-                    message: 'partial write error (2 written): unable to parse ''air_sensor,service=S1,sensor=L1 temperature="90.5",humidity=70.0 1632850122'': schema: field type for field "temperature" not permitted by schema; got String but expected Float'
-                orgNotFound:
-                  summary: (OSS) organization not found
-                  value:
-                    code: invalid
-                    message: 'failed to decode request body: organization not found'
+                    message: 'field type for field "temperature" not permitted by schema; got String but expected Float'
+
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
           description: |
             Bad request. The response body contains detail about the error.
 
-            InfluxDB returns this error if the line protocol data in the request is malformed.
+            InfluxDB returns this error if the line protocol data in the request is malformed or contains a database schema conflict.
             The response body contains the first malformed line in the data, and indicates what was expected.
-            For partial writes, the number of points written and the number of points rejected are also included.
-            For more information, check the `rejected_points` measurement in your `_monitoring` bucket.
-
-            #### InfluxDB Cloud
-
-            - Returns this error for bucket schema conflicts.
-
-            #### InfluxDB OSS
-
-            - Returns this error if the `org` parameter or `orgID` parameter doesn't match an organization.
         '401':
           $ref: '#/components/responses/AuthorizationError'
         '404':
@@ -15518,7 +15479,7 @@ paths:
             #### InfluxDB Cloud:
 
              - Returns this error if the payload exceeds the 50MB size limit.
-             - Returns `Content-Type: text/html` for this error.
+
 
             #### InfluxDB OSS:
 
@@ -15537,10 +15498,6 @@ paths:
 
               Rates (data-in (writes), queries (reads), and deletes) accrue within a fixed five-minute window.
               Once a rate limit is exceeded, InfluxDB returns an error response until the current five-minute window resets.
-
-            #### InfluxDB OSS
-
-              - Doesn't return this error.
           headers:
             Retry-After:
               description: Non-negative decimal integer indicating seconds to wait before retrying the request.
@@ -16031,7 +15988,7 @@ tags:
       | &nbsp;Code&nbsp; | Status                   | Description      |
       |:-----------:|:------------------------ |:--------------------- |
       | `200`       | Success                  |                       |
-      | `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |
+      | `204`       | Success. No content      | InfluxDB doesn't return data for the request. For example, a successful write request returns `204` status code, acknowledging that data is written and queryable. |
       | `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included.</li><li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
       | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud-serverless/security/tokens/)</li></ul> |
       | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
