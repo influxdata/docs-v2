@@ -10049,7 +10049,7 @@ paths:
             application/octet-stream:
               schema:
                 description: |
-                  GZIP compressed TAR file (`.tar.gz`) that contains
+                  Gzip compressed TAR file (`.tar.gz`) that contains
                   [Go runtime profile](https://pkg.go.dev/runtime/pprof) reports.
                 externalDocs:
                   description: Golang pprof package
@@ -14864,7 +14864,7 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
             The value tells InfluxDB what compression is applied to the line protocol in the request payload.
-            To make an API request with a GZIP payload, send `Content-Encoding: gzip` as a request header.
+            To make an API request with a gzip payload, send `Content-Encoding: gzip` as a request header.
           in: header
           name: Content-Encoding
           schema:
@@ -14915,7 +14915,7 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
             The value tells InfluxDB what compression is applied to the line protocol in the request payload.
-            To make an API request with a GZIP payload, send `Content-Encoding: gzip` as a request header.
+            To make an API request with a gzip payload, send `Content-Encoding: gzip` as a request header.
           in: header
           name: Content-Encoding
           schema:
@@ -14962,7 +14962,7 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
             The value tells InfluxDB what compression is applied to the line protocol in the request payload.
-            To make an API request with a GZIP payload, send `Content-Encoding: gzip` as a request header.
+            To make an API request with a gzip-compressed payload, send `Content-Encoding: gzip` as a request header.
           in: header
           name: Content-Encoding
           schema:
@@ -18958,7 +18958,7 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
             The compression applied to the line protocol in the request payload.
-            To send a GZIP payload, pass `Content-Encoding: gzip` header.
+            To send a gzip payload, pass `Content-Encoding: gzip` header.
           in: header
           name: Content-Encoding
           schema:
@@ -19085,7 +19085,7 @@ paths:
 
           To send compressed data, do the following:
 
-            1. Use [GZIP](https://www.gzip.org/) to compress the line protocol data.
+            1. Use [gzip](https://www.gzip.org/) to compress the line protocol data.
             2. In your request, send the compressed data and the
                `Content-Encoding: gzip` header.
 
@@ -19131,8 +19131,6 @@ paths:
 
             InfluxDB returns this error if the line protocol data in the request is malformed.
             The response body contains the first malformed line in the data, and indicates what was expected.
-            For partial writes, the number of points written and the number of points rejected are also included.
-            For more information, check the `rejected_points` measurement in your `_monitoring` bucket.
 
             #### InfluxDB Cloud
 
@@ -19915,7 +19913,7 @@ tags:
       | &nbsp;Code&nbsp; | Status                   | Description      |
       |:-----------:|:------------------------ |:--------------------- |
       | `200`       | Success                  |                       |
-      | `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |
+      | `204`       | Success. No content      | InfluxDB doesn't return data for the request. |
       | `400`       | Bad request              | May indicate one of the following: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included. For more information, check the `rejected_points` measurement in your `_monitoring` bucket.</li><li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
       | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/latest/security/tokens/)</li></ul> |
       | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
