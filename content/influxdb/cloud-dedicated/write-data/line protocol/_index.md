@@ -121,7 +121,7 @@ After setting up InfluxDB and your project, you should have the following:
 - Client libraries installed for writing data to InfluxDB.
 
 The following example shows how to construct `Point` objects that follow the [example `home` schema](#example-home-schema), and then write the points as line protocol to an
-InfluxDB Cloud Dedicated database.
+{{% product-name %}} database.
 
 {{< tabs-wrapper >}}
 {{% tabs %}}
@@ -156,18 +156,18 @@ npm install --save @influxdata/influxdb-client
 {{% tab-content %}}
 <!-- BEGIN PYTHON SETUP PROJECT -->
 
-1.  **Optional, but recommended**: Use `venv` or `conda` to activate a virtual environment for installing and executing code--for example:
+1.  **Optional, but recommended**: Use [`venv`](https://docs.python.org/3/library/venv.html)) or [`conda`](https://docs.continuum.io/anaconda/install/) to activate a virtual environment for installing and executing code--for example:
 
-    Inside of your project directory, enter the following command to create and activate a virtual environment for the project:
+    Inside of your project directory, enter the following command using `venv` to create and activate a virtual environment for the project:
 
     ```sh
     python3 -m venv envs/env1 && source ./envs/env1/bin/activate
     ```
 
-2.  Install the `influxdb-client` InfluxDB v2 Python library.
+2.  Install the [`influxdb3-python`](https://github.com/InfluxCommunity/influxdb3-python), which provides the InfluxDB `influxdb_client_3` Python client library module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data.
 
     ```sh
-    pip install influxdb-client
+    pip install influxdb3-python
     ```
 
 <!-- END PYTHON SETUP PROJECT -->
@@ -313,24 +313,16 @@ npm install --save @influxdata/influxdb-client
     ```
 <!-- END NODE.JS SETUP SAMPLE -->
 {{% /tab-content %}}
-
 {{% tab-content %}}
 <!-- BEGIN PYTHON SETUP SAMPLE -->
 
 1.  Create a file for your module--for example: `write-point.py`.
 
-2.  In `write-point.py`, enter the following sample code:
+2.  In `write-point.py`, enter the following sample code to write data in batching mode:
 
     ```python
     import os
-    from influxdb_client import InfluxDBClient, Point
-
-    # Instantiate a client with a configuration object
-    # that contains your InfluxDB URL and token.
-    # InfluxDB ignores the org argument, but the client requires it.
-    client = InfluxDBClient(url=os.getenv('INFLUX_URL'),
-                            token=os.getenv('INFLUX_TOKEN'),
-                            org='ignored')
+    from influxdb_client_3 import Point, write_client_options, WritePrecision, WriteOptions, InfluxDBError
 
     # Create an array of points with tags and fields.
     points = [Point("home")
@@ -339,22 +331,40 @@ npm install --save @influxdata/influxdb-client
                 .field('hum', 20.2)
                 .field('co', 9)]
 
-    # Execute code after a successful write request.
+    # With batching mode, define callbacks to execute after a successful or failed write request.
     # Callback methods receive the configuration and data sent in the request.
-    def success_callback(self, data):
-        print(f"{data}")
-        print(f"WRITE FINISHED")
+    def success(self, data: str):
+        print(f"Successfully wrote batch: data: {data}")
 
-    # Create a write client.
-    # Optionally, provide callback methods to execute on request success, error, and completion.
-    with client.write_api(success_callback=success_callback) as write_api:
-        # Write the data to the database.
-        write_api.write(bucket='get-started',
-                        record=points,
-                        content_encoding="identity",
-                        content_type="text/plain; charset=utf-8",)
-        # Flush the write buffer and release resources.
-        write_api.close()
+    def error(self, data: str, exception: InfluxDBError):
+        print(f"Failed writing batch: config: {self}, data: {data} due: {exception}")
+
+    def retry(self, data: str, exception: InfluxDBError):
+        print(f"Failed retry writing batch: config: {self}, data: {data} retry: {exception}")
+
+    # Configure options for batch writing.
+    write_options = WriteOptions(batch_size=500,
+                                        flush_interval=10_000,
+                                        jitter_interval=2_000,
+                                        retry_interval=5_000,
+                                        max_retries=5,
+                                        max_retry_delay=30_000,
+                                        exponential_base=2)
+
+    # Create an options dict that sets callbacks and WriteOptions.
+    wco = write_client_options(success_callback=success,
+                              error_callback=error,
+                              retry_callback=retry,
+                              WriteOptions=write_options)
+
+    # Instantiate a synchronous instance of the client with your
+    # InfluxDB credentials and write options.
+    with InfluxDBClient3(host=config['INFLUX_HOST'],
+                            token=config['INFLUX_TOKEN'],
+                            database=config['INFLUX_DATABASE'],
+                            write_client_options=wco) as client:
+
+          client.write(points, write_precision='s')
     ```
 <!-- END PYTHON SETUP PROJECT -->
 {{% /tab-content %}}
