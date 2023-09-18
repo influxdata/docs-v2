@@ -50,7 +50,7 @@ Write requests return the following status codes:
 | `413 “Request too large”`       | cannot read data: points in batch is too large                          | If a request exceeds the maximum [global limit](/influxdb/cloud-serverless/admin/billing/limits/) |
 | `429 “Too many requests”`       | `Retry-After` header: xxx (seconds to wait before retrying the request) | If a request exceeds your plan's [adjustable service quotas](/influxdb/cloud-serverless/admin/billing/limits/#adjustable-service-quotas) |
 | `500 "Internal server error"`   |                                                                         | Default status for an error |
-|`503` "Service unavailable"      |                                                                         | If the server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
+| `503` "Service unavailable"     |                                                                         | If the server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
 
 The `message` property of the response body may contain additional details about the error.
 If your data did not write to the database, see how to [troubleshoot rejected points](#troubleshoot-rejected-points).
