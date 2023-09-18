@@ -50,7 +50,7 @@ Write requests return the following status codes:
 | `401 "Unauthorized"`            |                                                                         | If the `Authorization` header is missing or malformed or if the [token](/influxdb/cloud-dedicated/admin/tokens/) doesn't have [permission](/influxdb/cloud-dedicated/reference/cli/influxctl/token/create/#examples) to write to the database. See [examples using credentials](/influxdb/cloud-dedicated/get-started/write/#write-line-protocol-to-influxdb) in write requests. |
 | `404 "Not found"`               | requested **resource type** (for example, "organization" or "database"), and **resource name**     | If a requested resource (for example, organization or database) wasn't found |
 | `500 "Internal server error"`   |                                                                         | Default status for an error |
-|`503` "Service unavailable"      |                                                                         | If the server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
+| `503` "Service unavailable"     |                                                                         | If the server is temporarily unavailable to accept writes. The `Retry-After` header describes when to try the write again.
 
 If your data did not write to the database, see how to [troubleshoot rejected points](#troubleshoot-rejected-points).
 
