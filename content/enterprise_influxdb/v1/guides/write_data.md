@@ -30,7 +30,7 @@ curl -i -XPOST http://localhost:8086/query \
 
 The InfluxDB API is the primary means of writing data into InfluxDB.
 
-- To **write to a database using the InfluxDB 1.8 API**, send a `POST` request to the `/write` endpoint and include the following:
+- To **write to a database using the InfluxDB API**, send a `POST` request to the `/write` endpoint and include the following:
   - **`?db=DATABASE_NAME`** query parameter: Specifies the database to write data to.
   - **`?rp=RETENTION_POLICY`** query parameter: _Optional_. If set, InfluxDB uses the specified retention policy; otherwise, uses the _default_ retention policy.
   - A request body that contains time series data in [InfluxDB line protocol](/enterprise_influxdb/v1/concepts/glossary/#influxdb-line-protocol) format.
