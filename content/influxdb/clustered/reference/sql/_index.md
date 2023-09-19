@@ -155,17 +155,46 @@ perform a calculation that returns a single numeric value.
 
 Comparison operators evaluate the relationship between the left and right operands and `TRUE` or `FALSE`.
 
-| Operator | Meaning                             | Example          |
-| :------: | :---------------------------------- | :--------------- |
-|   `=`    | Equal to                            | `123 = 123`      |
-|   `<>`   | Not equal to                        | `123 <> 456`     |
-|   `!=`   | Not equal to                        | `123 != 456`     |
-|   `>`    | Greater than                        | `3 > 2`          |
-|   `>=`   | Greater than or equal to            | `3 >= 2`         |
-|   `<`    | Less than                           | `1 < 2`          |
-|   `<=`   | Less than or equal to               | `1 <= 2`         |
-|   `~`    | Matches a regular expression        | `'abc' ~ 'a.*'`  |
-|   `!~`   | Does not match a regular expression | `'abc' !~ 'd.*'` |
+| Operator | Meaning                                                  | Example            |
+| :------: | :------------------------------------------------------- | :----------------- |
+|   `=`    | Equal to                                                 | `123 = 123`        |
+|   `<>`   | Not equal to                                             | `123 <> 456`       |
+|   `!=`   | Not equal to                                             | `123 != 456`       |
+|   `>`    | Greater than                                             | `3 > 2`            |
+|   `>=`   | Greater than or equal to                                 | `3 >= 2`           |
+|   `<`    | Less than                                                | `1 < 2`            |
+|   `<=`   | Less than or equal to                                    | `1 <= 2`           |
+|   `~`    | Matches a regular expression                             | `'abc' ~ 'a.*'`    |
+|  `~\*`   | Matches a regular expression _(case-insensitive)_        | `'Abc' ~\* 'A.*'`  |
+|   `!~`   | Does not match a regular expression                      | `'abc' !~ 'd.*'`   |
+|  `!~\*`  | Does not match a regular expression _(case-insensitive)_ | `'Abc' !~\* 'a.*'` |
+
+### Logical operators
+
+| Operator | Meaning                                                           |
+| :------: | :---------------------------------------------------------------- |
+|  `AND`   | Returns true if both operands are true. Otherwise, returns false. |
+|   `OR`   | Returns true if any operand is true. Otherwise, returns false.    |
+|  `NOT`   | Negates the subsequent expression                                 |
+
+### Bitwise operators
+
+Bitwise operators perform bitwise operations on bit patterns or binary numerals.
+
+| Operator | Meaning             | Example  | Result |
+| :------: | :------------------ | :------- | -----: |
+|   `&`    | Bitwise and         | `5 & 3`  |    `1` |
+|   `\|`   | Bitwise or          | `5 \| 3` |    `7` |
+|   `#`    | Bitwise xor         | `5 # 3`  |    `6` |
+|   `^`    | Bitwise xor         | `5 ^ 3`  |    `6` |
+|   `>>`   | Bitwise shift right | `5 >> 3` |    `0` |
+|   `<<`   | Bitwise shift left  | `5 << 3` |   `40` |
+
+### Other operators
+
+| Operator | Meaning              | Example                 | Result        |
+| :------: | :------------------- | :---------------------- | :------------ |
+|  `\|\|`  | Concatenates strings | `'Hello' \|\| ' world'` | `Hello world` |
 
 ## Keywords
 

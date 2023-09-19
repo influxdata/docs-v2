@@ -1,7 +1,7 @@
 ---
 title: InfluxQL feature support
 description: >
-  InfluxQL is being rearchitected to work with the InfluxDB IOx storage engine.
+  InfluxQL is being rearchitected to work with the InfluxDB 3.0 storage engine.
   This process is ongoing and some InfluxQL features are still being implemented.
   This page provides information about the current implementation status of
   InfluxQL features.
@@ -11,7 +11,7 @@ menu:
 weight: 220
 ---
 
-InfluxQL is being rearchitected to work with the InfluxDB IOx storage engine.
+InfluxQL is being rearchitected to work with the InfluxDB 3.0 storage engine.
 This process is ongoing and some InfluxQL features are still being implemented.
 This page provides information about the current implementation status of
 InfluxQL features.
@@ -21,7 +21,6 @@ InfluxQL features.
   - [Subqueries](#subqueries)
   - [SLIMIT clause](#slimit-clause)
   - [SOFFSET clause](#soffset-clause)
-  - [Project additional fields with selector functions](#project-additional-fields-with-selector-functions)
   - [Metaqueries](#metaqueries)
 - [Function support](#function-support)
   - [Aggregate functions](#aggregate-functions)
@@ -61,24 +60,6 @@ to skip before returning results.
 
 **Tracking issue**: [influxdb_iox#6940](https://github.com/influxdata/influxdb_iox/issues/6940)
 
-### Project additional fields with selector functions
-
-InfluxQL in {{< product-name >}} does not currently let you project additional
-fields when using [selector functions](/influxdb/cloud-serverless/reference/influxql/functions/selectors/).
-Selector functions return specific rows with values that meets the criteria
-of the function. Projecting other fields returns additional field values associated
-with the selected row and timestamp. For example:
-
-```sql
-SELECT MAX(co), temp, hum FROM home
-```
-
-This query selects the row with the maximum `co` value and should return the
-`temp` and `hum` value currently associated with that row.
-This query currently returns an error.
-
-**Tracking issue**: [influxdb_iox#7533](https://github.com/influxdata/influxdb_iox/issues/7533)
-
 ### Metaqueries
 
 InfluxQL metaqueries return information about the schema of time series data
@@ -102,7 +83,7 @@ The following table provides information about what metaqueries are available in
 {{% note %}}
 #### Cardinality metaqueries
 
-With the InfluxDB IOx storage engine, series cardinality is no longer a limiting
+With the InfluxDB 3.0 storage engine, series cardinality is no longer a limiting
 factor for database performance.
 Cardinality-related metaqueries will likely not be supported with the IOx
 storage engine.
@@ -126,46 +107,46 @@ storage engine.
 
 ### Selector functions
 
-| Function                                                                            |        Supported         | Tracking Issue                                                              |
-| :---------------------------------------------------------------------------------- | :----------------------: | :-------------------------------------------------------------------------- |
-| <span style="opacity: .5;">BOTTOM()</span>                                          |                          | [influxdb_iox#6935](https://github.com/influxdata/influxdb_iox/issues/6935) |
-| [FIRST()](/influxdb/cloud-serverless/reference/influxql/functions/selectors/#first) | **{{< icon "check" >}}** |                                                                             |
-| [LAST()](/influxdb/cloud-serverless/reference/influxql/functions/selectors/#last)   | **{{< icon "check" >}}** |                                                                             |
-| [MAX()](/influxdb/cloud-serverless/reference/influxql/functions/selectors/#max)     | **{{< icon "check" >}}** |                                                                             |
-| [MIN()](/influxdb/cloud-serverless/reference/influxql/functions/selectors/#min)     | **{{< icon "check" >}}** |                                                                             |
-| <span style="opacity: .5;">PERCENTILE()</span>                                      |                          | [influxdb_iox#7664](https://github.com/influxdata/influxdb_iox/issues/7664) |
-| <span style="opacity: .5;">SAMPLE()</span>                                          |                          | [influxdb_iox#6935](https://github.com/influxdata/influxdb_iox/issues/6935) |
-| <span style="opacity: .5;">TOP()</span>                                             |                          | [influxdb_iox#7650](https://github.com/influxdata/influxdb_iox/issues/7650) |
+| Function                                                                                      |        Supported         | Tracking Issue                                                              |
+| :-------------------------------------------------------------------------------------------- | :----------------------: | :-------------------------------------------------------------------------- |
+| [BOTTOM()](/influxdb/cloud-serverless/reference/influxql/functions/selectors/#bottom)         | **{{< icon "check" >}}** |                                                                             |
+| [FIRST()](/influxdb/cloud-serverless/reference/influxql/functions/selectors/#first)           | **{{< icon "check" >}}** |                                                                             |
+| [LAST()](/influxdb/cloud-serverless/reference/influxql/functions/selectors/#last)             | **{{< icon "check" >}}** |                                                                             |
+| [MAX()](/influxdb/cloud-serverless/reference/influxql/functions/selectors/#max)               | **{{< icon "check" >}}** |                                                                             |
+| [MIN()](/influxdb/cloud-serverless/reference/influxql/functions/selectors/#min)               | **{{< icon "check" >}}** |                                                                             |
+| [PERCENTILE()](/influxdb/cloud-serverless/reference/influxql/functions/selectors/#percentile) | **{{< icon "check" >}}** |                                                                             |
+| <span style="opacity: .5;">SAMPLE()</span>                                                    |                          | [influxdb_iox#6935](https://github.com/influxdata/influxdb_iox/issues/6935) |
+| [TOP()](/influxdb/cloud-serverless/reference/influxql/functions/selectors/#top)               | **{{< icon "check" >}}** |                                                                             |
 
 ### Transformations
 
-| Function                                                                                  |        Supported         | Tracking Issue                                                              |
-| :---------------------------------------------------------------------------------------- | :----------------------: | :-------------------------------------------------------------------------- |
-| [ABS()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#abs)     | **{{< icon "check" >}}** |                                                                             |
-| [ACOS()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#acos)   | **{{< icon "check" >}}** |                                                                             |
-| [ASIN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#asin)   | **{{< icon "check" >}}** |                                                                             |
-| [ATAN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#atan)   | **{{< icon "check" >}}** |                                                                             |
-| [ATAN2()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#atan2) | **{{< icon "check" >}}** |                                                                             |
-| [CEIL()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#ceil)   | **{{< icon "check" >}}** |                                                                             |
-| [COS()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#cos)     | **{{< icon "check" >}}** |                                                                             |
-| <span style="opacity: .5;">CUMULATIVE_SUM()<span>                                         |                          | [influxdb_iox#7467](https://github.com/influxdata/influxdb_iox/issues/7467) |
-| <span style="opacity: .5;">DERIVATIVE()<span>                                             |                          | [influxdb_iox#7647](https://github.com/influxdata/influxdb_iox/issues/7647) |
-| <span style="opacity: .5;">DIFFERENCE()<span>                                             |                          | [influxdb_iox#7468](https://github.com/influxdata/influxdb_iox/issues/7468) |
-| <span style="opacity: .5;">ELAPSED()<span>                                                |                          | [influxdb_iox#6934](https://github.com/influxdata/influxdb_iox/issues/6934) |
-| [EXP()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#exp)     | **{{< icon "check" >}}** |                                                                             |
-| [FLOOR()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#floor) | **{{< icon "check" >}}** |                                                                             |
-| [LN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#ln)       | **{{< icon "check" >}}** |                                                                             |
-| [LOG()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#log)     | **{{< icon "check" >}}** |                                                                             |
-| [LOG2()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#log2)   | **{{< icon "check" >}}** |                                                                             |
-| [LOG10()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#log10) | **{{< icon "check" >}}** |                                                                             |
-| <span style="opacity: .5;">MOVING_AVERAGE()<span>                                         |                          | [influxdb_iox#7600](https://github.com/influxdata/influxdb_iox/issues/7600) |
-| <span style="opacity: .5;">NON_NEGATIVE_DERIVATIVE()<span>                                |                          | [influxdb_iox#7649](https://github.com/influxdata/influxdb_iox/issues/7649) |
-| <span style="opacity: .5;">NON_NEGATIVE_DIFFERENCE()<span>                                |                          | [influxdb_iox#7628](https://github.com/influxdata/influxdb_iox/issues/7628) |
-| [POW()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#pow)     | **{{< icon "check" >}}** |                                                                             |
-| [ROUND()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#round) | **{{< icon "check" >}}** |                                                                             |
-| [SIN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#sin)     | **{{< icon "check" >}}** |                                                                             |
-| [SQRT()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#sqrt)   | **{{< icon "check" >}}** |                                                                             |
-| [TAN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#tan)     | **{{< icon "check" >}}** |                                                                             |
+| Function                                                                                                                      |        Supported         | Tracking Issue                                                              |
+| :---------------------------------------------------------------------------------------------------------------------------- | :----------------------: | :-------------------------------------------------------------------------- |
+| [ABS()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#abs)                                         | **{{< icon "check" >}}** |                                                                             |
+| [ACOS()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#acos)                                       | **{{< icon "check" >}}** |                                                                             |
+| [ASIN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#asin)                                       | **{{< icon "check" >}}** |                                                                             |
+| [ATAN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#atan)                                       | **{{< icon "check" >}}** |                                                                             |
+| [ATAN2()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#atan2)                                     | **{{< icon "check" >}}** |                                                                             |
+| [CEIL()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#ceil)                                       | **{{< icon "check" >}}** |                                                                             |
+| [COS()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#cos)                                         | **{{< icon "check" >}}** |                                                                             |
+| [CUMULATIVE_SUM()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#cumulative_sum)                   | **{{< icon "check" >}}** |                                                                             |
+| [DERIVATIVE()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#derivative)                           | **{{< icon "check" >}}** |                                                                             |
+| [DIFFERENCE()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#difference)                           | **{{< icon "check" >}}** |                                                                             |
+| <span style="opacity: .5;">ELAPSED()<span>                                                                                    |                          | [influxdb_iox#6934](https://github.com/influxdata/influxdb_iox/issues/6934) |
+| [EXP()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#exp)                                         | **{{< icon "check" >}}** |                                                                             |
+| [FLOOR()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#floor)                                     | **{{< icon "check" >}}** |                                                                             |
+| [LN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#ln)                                           | **{{< icon "check" >}}** |                                                                             |
+| [LOG()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#log)                                         | **{{< icon "check" >}}** |                                                                             |
+| [LOG2()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#log2)                                       | **{{< icon "check" >}}** |                                                                             |
+| [LOG10()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#log10)                                     | **{{< icon "check" >}}** |                                                                             |
+| [MOVING_AVERAGE()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#moving_average)                   | **{{< icon "check" >}}** |                                                                             |
+| [NON_NEGATIVE_DERIVATIVE()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#non_negative_derivative) | **{{< icon "check" >}}** |                                                                             |
+| [NON_NEGATIVE_DIFFERENCE()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#non_negative_difference) | **{{< icon "check" >}}** |                                                                             |
+| [POW()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#pow)                                         | **{{< icon "check" >}}** |                                                                             |
+| [ROUND()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#round)                                     | **{{< icon "check" >}}** |                                                                             |
+| [SIN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#sin)                                         | **{{< icon "check" >}}** |                                                                             |
+| [SQRT()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#sqrt)                                       | **{{< icon "check" >}}** |                                                                             |
+| [TAN()](/influxdb/cloud-serverless/reference/influxql/functions/transformations/#tan)                                         | **{{< icon "check" >}}** |                                                                             |
 
 ### Technical and predictive analysis
 
@@ -192,6 +173,6 @@ storage engine.
 
 ### Miscellaneous functions
 
-| Function                                                                    |        Supported         | Tracking Issue |
-| :-------------------------------------------------------------------------- | :----------------------: | :------------- |
+| Function                                                                     |        Supported         | Tracking Issue |
+| :--------------------------------------------------------------------------- | :----------------------: | :------------- |
 | [fill()](/influxdb/cloud-serverless/reference/influxql/functions/misc/#fill) | **{{< icon "check" >}}** |                |

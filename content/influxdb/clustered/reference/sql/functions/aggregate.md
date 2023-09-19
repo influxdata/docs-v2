@@ -19,7 +19,14 @@ aggregate value.
 - [General aggregate functions](#general-aggregate-functions)
   - [array_agg](#array_agg)
   - [avg](#avg)
+  - [bit_and](#bit_and)
+  - [bit_or](#bit_or)
+  - [bit_xor](#bit_xor)
+  - [bool_and](#bool_and)
+  - [bool_or](#bool_or)
   - [count](#count)
+  - [first_value](#first_value)
+  - [last_value](#last_value)
   - [max](#max)
   - [mean](#mean)
   - [median](#median)
@@ -30,6 +37,15 @@ aggregate value.
   - [covar](#covar)
   - [covar_pop](#covar_pop)
   - [covar_samp](#covar_samp)
+  - [regr_avgx](#regr_avgx)
+  - [regr_avgy](#regr_avgy)
+  - [regr_count](#regr_count)
+  - [regr_intercept](#regr_intercept)
+  - [regr_r2](#regr_r2)
+  - [regr_slope](#regr_slope)
+  - [regr_sxx](#regr_sxx)
+  - [regr_syy](#regr_syy)
+  - [regr_sxy](#regr_sxy)
   - [stddev](#stddev)
   - [stddev_pop](#stddev_pop)
   - [stddev_samp](#stddev_samp)
@@ -48,7 +64,14 @@ aggregate value.
 
 - [array_agg](#array_agg)
 - [avg](#avg)
+- [bit_and](#bit_and)
+- [bit_or](#bit_or)
+- [bit_xor](#bit_xor)
+- [bool_and](#bool_and)
+- [bool_or](#bool_or)
 - [count](#count)
+- [first_value](#first_value)
+- [last_value](#last_value)
 - [max](#max)
 - [mean](#mean)
 - [median](#median)
@@ -132,6 +155,186 @@ GROUP BY location
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+### bit_and
+
+Computes the bitwise `AND` of all non-null input values.
+
+```sql
+bit_and(expression)
+```
+
+##### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `bit_and` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  bit_and(precip::BIGINT) AS precip_bit_and
+FROM weather
+GROUP BY location
+```
+
+| location      | precip_bit_and |
+| :------------ | -------------: |
+| Concord       |              0 |
+| Hayward       |              0 |
+| San Francisco |              0 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### bit_or
+
+Computes the bitwise OR of all non-null input values.
+
+```sql
+bit_or(expression)
+```
+
+##### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `bit_or` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  bit_or(precip::BIGINT) AS precip_bit_or
+FROM weather
+GROUP BY location
+```
+
+| location      | precip_bit_or |
+| :------------ | ------------: |
+| Concord       |             7 |
+| Hayward       |             7 |
+| San Francisco |             7 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### bit_xor
+
+Computes the bitwise exclusive OR of all non-null input values.
+
+```sql
+bit_xor(expression)
+```
+
+##### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `bit_xor` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  bit_xor(precip::BIGINT) AS precip_bit_xor
+FROM weather
+GROUP BY location
+```
+
+| location      | precip_bit_xor |
+| :------------ | -------------: |
+| Concord       |              4 |
+| Hayward       |              6 |
+| San Francisco |              4 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### bool_and
+
+Returns `true` if _all_ non-null input values are `true`, otherwise returns `false`.
+
+```sql
+bool_and(expression)
+```
+
+##### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `bool_and` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  bool_and(precip > 0) AS precip_bool_and
+FROM weather
+GROUP BY location
+```
+
+| location      | precip_bool_and |
+| :------------ | --------------: |
+| Concord       |           false |
+| Hayward       |           false |
+| San Francisco |           false |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### bool_or
+
+Returns `true` if _any_ non-null input value is `true`, otherwise returns `false`.
+
+```sql
+bool_or(expression)
+```
+
+##### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `bool_or` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  bool_or(precip > 0) AS precip_bool_or
+FROM weather
+GROUP BY location
+```
+
+| location      | precip_bool_or |
+| :------------ | -------------: |
+| Concord       |           true |
+| Hayward       |           true |
+| San Francisco |           true |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ### count
 
 Returns the number of rows in the specified column.
@@ -152,18 +355,96 @@ count(expression)
 {{< expand-wrapper >}}
 {{% expand "View `count` query example" %}}
 
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
 ```sql
 SELECT 
   location,
-  count(water_level) AS water_level_count
-FROM h2o_feet
+  count(precip) AS precip_count
+FROM weather
 GROUP BY location
 ```
 
-| location     | water_level_count |
-| :----------- | ----------------: |
-| coyote_creek |              7604 |
-| santa_monica |              7654 |
+| location      | precip_count |
+| :------------ | -----------: |
+| Concord       |         1094 |
+| Hayward       |         1096 |
+| San Francisco |         1096 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### first_value
+
+Returns the first element in an aggregation group according to the specified ordering.
+If no ordering is specified, returns an arbitrary element from the group.
+
+```sql
+first_value(expression [ORDER BY expression])
+```
+
+##### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `first_value` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  first_value(temp_max ORDER BY time) AS temp_max_first_value
+FROM weather
+GROUP BY location
+```
+
+| location      | temp_max_first_value |
+| :------------ | -------------------: |
+| Concord       |                   59 |
+| Hayward       |                   57 |
+| San Francisco |                   66 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### last_value
+
+Returns the last element in an aggregation group according to the specified ordering.
+If no ordering is specified, returns an arbitrary element from the group.
+
+```sql
+last_value(expression [ORDER BY expression])
+```
+
+##### Arguments
+
+- **expression**: Expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `last_value` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  last_value(temp_max ORDER BY time) AS temp_max_last_value
+FROM weather
+GROUP BY location
+```
+
+| location      | temp_max_last_value |
+| :------------ | ------------------: |
+| Concord       |                  59 |
+| Hayward       |                  58 |
+| San Francisco |                  62 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -313,6 +594,15 @@ GROUP BY location
 - [covar](#covar)
 - [covar_pop](#covar_pop)
 - [covar_samp](#covar_samp)
+- [regr_avgx](#regr_avgx)
+- [regr_avgy](#regr_avgy)
+- [regr_count](#regr_count)
+- [regr_intercept](#regr_intercept)
+- [regr_r2](#regr_r2)
+- [regr_slope](#regr_slope)
+- [regr_sxx](#regr_sxx)
+- [regr_syy](#regr_syy)
+- [regr_sxy](#regr_sxy)
 - [stddev](#stddev)
 - [stddev_pop](#stddev_pop)
 - [stddev_samp](#stddev_samp)
@@ -456,6 +746,354 @@ GROUP BY room
 | :---------- | ------------------: |
 | Kitchen     | 0.11134615384615432 |
 | Living Room | 0.03346153846153959 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### regr_avgx
+
+Computes the average of the independent variable (input), `expression_x`, for the
+non-null dependent variable, `expression_y`.
+
+```sql
+regr_avgx(expression_y, expression_x)
+```
+
+##### Arguments
+
+- **expression_y**: Dependent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_x**: Independent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `regr_avgx` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  regr_avgx(temp_min, temp_max) AS temp_regr_avgx
+FROM weather
+GROUP BY location
+```
+
+| location      |    temp_regr_avgx |
+| :------------ | ----------------: |
+| Concord       | 75.54379562043796 |
+| Hayward       | 69.14808043875686 |
+| San Francisco | 67.59945255474454 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### regr_avgy
+
+Computes the average of the dependent variable (output), `expression_y`, for the
+non-null dependent variable, `expression_y`.
+
+```sql
+regr_avgy(expression_y, expression_x)
+```
+
+##### Arguments
+
+- **expression_y**: Dependent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_x**: Independent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `regr_avgy` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  regr_avgy(temp_min, temp_max) AS temp_regr_avgy
+FROM weather
+GROUP BY location
+```
+
+| location      |     temp_regr_avgy |
+| :------------ | -----------------: |
+| Concord       | 50.153284671532845 |
+| Hayward       | 50.913162705667276 |
+| San Francisco |  51.52372262773722 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### regr_count
+
+Counts the number of non-null paired data points.
+
+```sql
+regr_count(expression_y, expression_x)
+```
+
+##### Arguments
+
+- **expression_y**: Dependent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_x**: Independent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `regr_count` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  regr_count(temp_min, temp_max) AS temp_regr_count
+FROM weather
+GROUP BY location
+```
+
+| location      | temp_regr_count |
+| :------------ | --------------: |
+| Concord       |            1096 |
+| Hayward       |            1094 |
+| San Francisco |            1096 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### regr_intercept
+
+Computes the y-intercept of the linear regression line.
+For the equation `(y = kx + b)`, this function returns `b`.
+
+```sql
+regr_intercept(expression_y, expression_x)
+```
+
+##### Arguments
+
+- **expression_y**: Dependent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_x**: Independent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `regr_intercept` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  regr_intercept(temp_min, temp_max) AS temp_regr_intercept
+FROM weather
+GROUP BY location
+```
+
+| location      | temp_regr_intercept |
+| :------------ | ------------------: |
+| Concord       |  11.636281392206769 |
+| Hayward       |  12.876956842745152 |
+| San Francisco |  19.125237647086607 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### regr_r2
+
+Computes the square of the correlation coefficient between the independent and
+dependent variables.
+
+```sql
+regr_r2(expression_y, expression_x)
+```
+
+##### Arguments
+
+- **expression_y**: Dependent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_x**: Independent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `regr_r2` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  regr_r2(temp_min, temp_max) AS temp_regr_r2
+FROM weather
+GROUP BY location
+```
+
+| location      |       temp_regr_r2 |
+| :------------ | -----------------: |
+| Concord       | 0.6474628308450441 |
+| Hayward       | 0.5166296626320914 |
+| San Francisco | 0.5032317511200297 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### regr_slope
+
+Returns the slope of the linear regression line for non-null pairs in aggregate columns.
+Given input column `Y` and `X`: `regr_slope(Y, X)` returns the slope
+(`k` in `Y = k*X + b`) using minimal RSS fitting.
+
+``` sql
+regr_slope(expression_y, expression_x)
+``` 
+
+##### Arguments
+
+- **expression_y**: Y expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_x**: X expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `regr_slope` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  regr_slope(temp_min, temp_max) AS temp_regr_slope
+FROM weather
+GROUP BY location
+```
+
+| location      |    temp_regr_slope |
+| :------------ | -----------------: |
+| Concord       | 0.5098632252058237 |
+| Hayward       | 0.5500688612261629 |
+| San Francisco | 0.4792714105844738 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### regr_sxx
+
+Computes the sum of squares of the independent variable.
+
+```sql
+regr_sxx(expression_y, expression_x)
+```
+
+##### Arguments
+
+- **expression_y**: Dependent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_x**: Independent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `regr_sxx` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  regr_sxx(temp_min, temp_max) AS temp_regr_sxx
+FROM weather
+GROUP BY location
+```
+
+| location      |      temp_regr_sxx |
+| :------------ | -----------------: |
+| Concord       | 210751.89781021897 |
+| Hayward       |  99644.01096892142 |
+| San Francisco |  77413.15967153282 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### regr_syy
+
+Computes the sum of squares of the dependent variable.
+
+```sql
+regr_syy(expression_y, expression_x)
+```
+
+##### Arguments
+
+- **expression_y**: Dependent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_x**: Independent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `regr_syy` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  regr_syy(temp_min, temp_max) AS temp_regr_syy
+FROM weather
+GROUP BY location
+```
+
+| location      |      temp_regr_syy |
+| :------------ | -----------------: |
+| Concord       |  84618.24817518248 |
+| Hayward       | 58358.750457038404 |
+| San Francisco |  35335.38321167884 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+### regr_sxy
+
+Computes the sum of products of paired data points.
+
+```sql
+regr_sxy(expression_y, expression_x)
+```
+
+#### Arguments
+
+- **expression_y**: Dependent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_x**: Independent variable.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `regr_sxy` query example" %}}
+
+_The following example uses the
+[NOAA Bay Area weather data](/influxdb/clustered/reference/sample-data/#noaa-bay-area-weather-data)._
+
+```sql
+SELECT 
+  location,
+  regr_sxy(temp_min, temp_max) AS temp_regr_sxy
+FROM weather
+GROUP BY location
+```
+
+| location      |      temp_regr_sxy |
+| :------------ | -----------------: |
+| Concord       | 107454.64233576645 |
+| Hayward       |  54811.06764168191 |
+| San Francisco | 37101.914233576645 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

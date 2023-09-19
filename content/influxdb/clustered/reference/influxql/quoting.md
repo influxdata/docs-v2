@@ -46,6 +46,7 @@ Identifiers **must** be double-quoted in the following cases:
 
 - The identifier contains non-word characters.
   Word characters are defined as `[a-z,A-Z,0-9,_]`.
+- The identifier is case-sensitive.
 - The identifier contains [InfluxQL keywords](/influxdb/clustered/reference/influxql/#keywords).
 - The identifier begins with a digit.
 
