@@ -121,7 +121,7 @@ tags: room=Living Room
 ## SLIMIT clause
 
 {{% warn %}}
-InfluxQL is being rearchitected to work with the InfluxDB IOx storage engine.
+InfluxQL is being rearchitected to work with the InfluxDB 3.0 storage engine.
 This process is ongoing and some InfluxQL features, such as `SLIMIT` are still
 being implemented. For more information, see
 [InfluxQL feature support](/influxdb/cloud-serverless/reference/influxql/feature-support/).

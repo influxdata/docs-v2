@@ -15,25 +15,41 @@ performing mathematic operations:
 
 - [abs](#abs)
 - [acos](#acos)
+- [acosh](#acosh)
 - [asin](#asin)
+- [asinh](#asinh)
 - [atan](#atan)
+- [atanh](#atanh)
 - [atan2](#atan2)
+- [cbrt](#cbrt)
 - [ceil](#ceil)
 - [cos](#cos)
+- [cosh](#cosh)
+- [degrees](#degrees)
 - [exp](#exp)
+- [factorial](#factorial)
 - [floor](#floor)
+- [gcd](#gcd)
+- [isnan](#isnan)
+- [iszero](#iszero)
+- [lcm](#lcm)
 - [ln](#ln)
 - [log](#log)
 - [log10](#log10)
 - [log2](#log2)
+- [nanvl](#nanvl)
+- [pi](#pi)
 - [power](#power)
 - [pow](#pow)
+- [radians](#radians)
 - [random](#random)
 - [round](#round)
 - [signum](#signum)
 - [sin](#sin)
+- [sinh](#sinh)
 - [sqrt](#sqrt)
 - [tan](#tan)
+- [tanh](#tanh)
 - [trunc](#trunc)
 
 ## abs
@@ -100,6 +116,38 @@ SELECT acos(temp * .01) AS acos FROM home LIMIT 3
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## acosh
+
+Returns the area hyperbolic cosine or inverse hyperbolic cosine of a number.
+
+```sql
+acosh(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `acosh` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT acosh(temp) AS acosh FROM home LIMIT 3
+```
+
+|              acosh |
+| -----------------: |
+|  3.737102242198924 |
+| 3.8281684713331012 |
+| 3.8150265878962055 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## asin
 
 Returns the arc sine or inverse sine of a number.
@@ -128,6 +176,38 @@ SELECT asin(temp * .01) AS asin FROM home LIMIT 3
 |  0.2115749597580956 |
 | 0.23207768286271319 |
 | 0.22899615634507337 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## asinh
+
+Returns the area hyperbolic sine or inverse hyperbolic sine of a number.
+
+```sql
+asinh(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `asinh` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT asinh(temp) AS asinh FROM home LIMIT 3
+```
+
+|              asinh |
+| -----------------: |
+| 3.7382360302615427 |
+| 3.8291136516208812 |
+| 3.8159969160459988 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -164,6 +244,38 @@ SELECT atan(temp * .01) AS atan FROM home LIMIT 3
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## atanh
+
+Returns the area hyperbolic tangent or inverse hyperbolic tangent of a number.
+
+```sql
+atanh(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `atanh` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT atanh(temp * .01) AS atanh FROM home LIMIT 3
+```
+
+|               atanh |
+| ------------------: |
+| 0.21317134656485978 |
+|  0.2341894667593668 |
+| 0.23102419806174476 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## atan2
 
 Returns the arc tangent or inverse tangent of `expression_y / expression_x`.
@@ -194,6 +306,38 @@ SELECT atan2(temp, hum) AS atan2 FROM home LIMIT 3
 | 0.5292859396993504 |
 | 0.5660139100632452 |
 | 0.5613335864315844 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## cbrt
+
+Returns the cube root of a number.
+
+```sql
+cbrt(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `cbrt` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT cbrt(temp) AS cbrt FROM home LIMIT 3
+```
+
+|               cbrt |
+| -----------------: |
+| 2.7589241763811208 |
+|  2.843866979851566 |
+|  2.831448188528187 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -262,6 +406,70 @@ SELECT cos(temp) AS cos FROM home LIMIT 3
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## cosh
+
+Returns the hyperbolic cosine of a number.
+
+```sql
+cosh(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `cosh` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT cosh(temp) AS cosh FROM home LIMIT 3
+```
+
+|               cosh |
+| -----------------: |
+|  659407867.2416073 |
+|  4872401723.124452 |
+| 3609563974.9715896 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## degrees
+
+Converts radians to degrees.
+
+```sql
+degrees(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `degrees` query example" %}}
+
+_The following example uses the
+[Random numbers sample dataset](/influxdb/cloud-serverless/reference/sample-data/#random-numbers-sample-data)._
+
+```sql
+SELECT degrees(a) AS degrees FROM numbers LIMIT 3
+```
+
+|             degrees |
+| ------------------: |
+|  19.428488139031185 |
+| -44.403317464348774 |
+| -52.771542485064785 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## exp
 
 Returns the base-e exponential of a number.
@@ -294,6 +502,39 @@ SELECT exp(temp) AS exp FROM home LIMIT 3
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## factorial
+
+Returns 1 if value is less than 2.
+
+```sql
+factorial(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Must be an integer (`BIGINT`).
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `factorial` query example" %}}
+
+_The following example uses the
+[Random numbers sample dataset](/influxdb/cloud-serverless/reference/sample-data/#random-numbers-sample-data)._
+
+```sql
+SELECT factorial((b + 2)::BIGINT) AS factorial FROM numbers LIMIT 3
+```
+
+| factorial |
+| --------: |
+|         1 |
+|         2 |
+|         1 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## floor
 
 Returns the nearest integer less than or equal to a number.
@@ -322,6 +563,157 @@ SELECT floor(temp) AS floor FROM home LIMIT 3
 |    21 |
 |    23 |
 |    22 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## gcd
+
+Returns the greatest common divisor of `expression_x` and `expression_y`.
+Returns `0` if both inputs are zero.
+
+```sql
+gcd(expression_x, expression_y)
+```
+
+##### Arguments
+
+- **expression_x**: First numeric expression to operate on.
+  Must be an integer (`BIGINT`).
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_y**: Second numeric expression to operate on.
+  Must be an integer (`BIGINT`).
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `gcd` query example" %}}
+
+_The following example uses the
+[Random numbers sample dataset](/influxdb/cloud-serverless/reference/sample-data/#random-numbers-sample-data)._
+
+```sql
+SELECT gcd((a * 5)::BIGINT, (b * 5)::BIGINT) AS gcd FROM numbers LIMIT 3
+```
+
+| gcd |
+| --------: |
+|         1 |
+|         3 |
+|         2 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## isnan
+
+Returns `true` if a given number is ±NaN, otherwise returns `false`.
+
+```sql
+isnan(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Must be a float (`DOUBLE`).
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `isnan` query example" %}}
+
+_The following example uses the
+[Table value constructor](/influxdb/cloud-serverless/reference/sql/table-value-constructor/)
+to simulate sample data._
+
+```sql
+SELECT isnan(a)
+FROM
+  (VALUES (4.56),
+          ('NaN'::DOUBLE),
+          (16.2)
+  ) AS data(a)
+```
+
+| isnan |
+| ----: |
+| false |
+|  true |
+| false |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## iszero
+
+Returns `true` if the given number is ±0.0, otherwise returns `false`.
+
+```sql
+iszero(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `iszero` query example" %}}
+
+_The following example uses the
+[Table value constructor](/influxdb/cloud-serverless/reference/sql/table-value-constructor/)
+to simulate sample data._
+
+```sql
+SELECT iszero(a)
+FROM
+  (VALUES (0),
+          (1),
+          (2)
+  ) AS data(a)
+```
+
+| iszero |
+| -----: |
+|   true |
+|  false |
+|  false |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## lcm
+
+Returns the least common multiple of `expression_x` and `expression_y`.
+Returns `0` if either input is zero.
+
+```sql
+lcm(expression_x, expression_y)
+```
+
+##### Arguments
+
+- **expression_x**: First numeric expression to operate on.
+  Must be an integer (`BIGINT`).
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_y**: Second numeric expression to operate on.
+  Must be an integer (`BIGINT`).
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `lcm` query example" %}}
+
+_The following example uses the
+[Random numbers sample dataset](/influxdb/cloud-serverless/reference/sample-data/#random-numbers-sample-data)._
+
+```sql
+SELECT lcm((a * 10)::BIGINT, (b * 10)::BIGINT) AS lcm FROM numbers LIMIT 3
+```
+
+| lcm |
+| --: |
+|   3 |
+|   7 |
+|  36 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -463,6 +855,69 @@ SELECT log2(temp) AS log2 FROM home LIMIT 3
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## nanvl
+
+Returns the first argument if it’s not `±NaN`.
+Otherwise returns the second argument.
+
+```sql
+nanvl(expression_x, expression_y)
+```
+
+##### Arguments
+
+- **expression_x**: Numeric expression to return if it’s not `NaN`.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+- **expression_y**: Numeric expression to return if the first expression is `NaN`.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `nanvl` query example" %}}
+
+_The following example uses the
+[Table value constructor](/influxdb/cloud-serverless/reference/sql/table-value-constructor/)
+to simulate sample data._
+
+```sql
+SELECT nanvl(a, 0.0) AS nanvl
+FROM
+  (VALUES (4.56),
+          ('NaN'::DOUBLE),
+          (16.2)
+  ) AS data(a)
+```
+
+| nanvl |
+| ----: |
+|  4.56 |
+|     0 |
+|  16.2 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## pi
+
+Returns an approximate value of π.
+
+```sql
+pi()
+```
+
+{{< expand-wrapper >}}
+{{% expand "View `pi` query example" %}}
+
+```sql
+SELECT pi() AS pi
+```
+
+| pi                |
+| :---------------- |
+| 3.141592653589793 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## power
 
 Returns a base expression raised to the power of an exponent.
@@ -504,6 +959,38 @@ SELECT power(temp, hum * .1) AS power FROM home LIMIT 3
 ## `pow`
 
 _Alias of [power](#power)._
+
+## radians
+
+Converts degrees to radians.
+
+```sql
+radians(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `radians` query example" %}}
+
+_The following example uses the
+[Random numbers sample dataset](/influxdb/cloud-serverless/reference/sample-data/#random-numbers-sample-data)._
+
+```sql
+SELECT radians(b) AS radians FROM numbers LIMIT 3
+```
+
+|               radians |
+| --------------------: |
+|   -0.0028561101762876 |
+| 0.0023917008411179744 |
+| -0.008428949313343818 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 ## random
 
@@ -635,6 +1122,38 @@ SELECT sin(temp) AS sin FROM home LIMIT 3
 {{% /expand %}}
 {{< /expand-wrapper >}}
 
+## sinh
+
+Returns the hyperbolic sine of a number.
+
+```sql
+sinh(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `sinh ` query example" %}}
+
+_The following example uses the sample data set provided in
+[Get started with InfluxDB tutorial](/influxdb/cloud-serverless/get-started/write/#construct-line-protocol)._
+
+```sql
+SELECT sinh(temp) AS sinh FROM home LIMIT 3
+```
+
+|               sinh |
+| -----------------: |
+|  659407867.2416073 |
+|  4872401723.124452 |
+| 3609563974.9715896 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## sqrt
 
 Returns the square root of a number.
@@ -695,6 +1214,38 @@ SELECT tan(temp) AS tan FROM home LIMIT 3
 | -1.5274985276366035 |
 |  1.5881530833912738 |
 |  0.8575335036257101 |
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+## tanh
+
+Returns the hyperbolic tangent of a number.
+
+```sql
+tanh(numeric_expression)
+```
+
+##### Arguments
+
+- **numeric_expression**: Numeric expression to operate on.
+  Can be a constant, column, or function, and any combination of arithmetic operators.
+
+{{< expand-wrapper >}}
+{{% expand "View `tanh` query example" %}}
+
+_The following example uses the
+[Random numbers sample dataset](/influxdb/cloud-serverless/reference/sample-data/#random-numbers-sample-data)._
+
+```sql
+SELECT tanh(a) AS tanh FROM numbers LIMIT 3
+```
+
+|                tanh |
+| ------------------: |
+| 0.32666571332086836 |
+| -0.6498182711525403 |
+| -0.7263877015335474 |
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
