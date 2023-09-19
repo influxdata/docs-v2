@@ -34,14 +34,14 @@ for more information.
   <!-- - [MODE()](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/#mode) -->
   <!-- - [SPREAD()](/influxdb/cloud-dedicated/reference/influxql/functions/aggregates/#spread) -->
 - [Selectors](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/)
+  - [BOTTOM()](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#bottom)
   - [FIRST()](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#first)
   - [LAST()](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#last)
   - [MAX()](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#max)
   - [MIN()](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#min)
-  <!-- - [BOTTOM()](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#bottom) -->
-  <!-- - [PERCENTILE()](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#percentile) -->
+  - [PERCENTILE()](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#percentile)
+  - [TOP()](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#top)
   <!-- - [SAMPLE()](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#sample) -->
-  <!-- - [TOP()](/influxdb/cloud-dedicated/reference/influxql/functions/selectors/#top) -->
 - [Transformations](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/)
   - [ABS()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#abs)
   - [ACOS()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#acos)
@@ -50,6 +50,9 @@ for more information.
   - [ATAN2()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#atan2)
   - [CEIL()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#ceil)
   - [COS()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#cos)
+  - [CUMULATIVE_SUM()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#cumulative_sum)
+  - [DERIVATIVE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#derivative)
+  - [DIFFERENCE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#difference)
   - [EXP()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#exp)
   - [FLOOR()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#floor)
   - [HISTOGRAM()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#histogram)
@@ -57,18 +60,15 @@ for more information.
   - [LOG()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#log)
   - [LOG2()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#log2)
   - [LOG10()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#log10)
+  - [MOVING_AVERAGE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#moving_average)
+  - [NON_NEGATIVE_DERIVATIVE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#non_negative_derivative)
+  - [NON_NEGATIVE_DIFFERENCE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#non_negative_difference)
   - [POW()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#pow)
   - [ROUND()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#round)
   - [SIN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#sin)
   - [SQRT()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#sqrt)
   - [TAN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#tan)
-  <!-- - [CUMULATIVE_SUM()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#cumulative_sum) -->
-  <!-- - [DERIVATIVE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#derivative) -->
-  <!-- - [DIFFERENCE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#difference) -->
   <!-- - [ELAPSED()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#elapsed) -->
-  <!-- - [MOVING_AVERAGE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#moving_average) -->
-  <!-- - [NON_NEGATIVE_DERIVATIVE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#non_negative_derivative) -->
-  <!-- - [NON_NEGATIVE_DIFFERENCE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#non_negative_difference) -->
 - [Date and time](/influxdb/cloud-dedicated/reference/influxql/functions/date-time/)
   - [now()](/influxdb/cloud-dedicated/reference/influxql/functions/date-time/#now)
   - [time()](/influxdb/cloud-dedicated/reference/influxql/functions/date-time/#time)
