@@ -121,7 +121,7 @@ weather_sensor blueberries.plot-2.midwest.temp=49.8 1472515200000000000
 Compare the following queries of the [_Good Measurements_](#good-measurements-schema) and [_Bad Measurements_](#bad-measurements-schema) schemas.
 The [Flux](/flux/v0/) queries calculate the average `temp` for blueberries in the `north` region
 
-**Easy to query**: [_Good Measurements_](#good-measurements-schema) data is easily filtered by `region` tag values, as in the following example.
+**Easy to query**: [_Good Measurements_](#good-measurements-schema) data is easily filtered by `region` tag values--for example:
 
 ```js
 // Query *Good Measurements*, data stored in separate tags (recommended)
@@ -131,7 +131,7 @@ from(bucket: "<database>/<retention_policy>")
     |> mean()
 ```
 
-**Difficult to query**: [_Bad Measurements_](#bad-measurements-schema) requires regular expressions to extract `plot` and `region` from the measurement, as in the following example.
+**Difficult to query**: [_Bad Measurements_](#bad-measurements-schema) requires regular expressions to extract `plot` and `region` from the measurement--for example:
 
 ```js
 // Query *Bad Measurements*, data encoded in the measurement (not recommended)
@@ -243,11 +243,12 @@ This reduces data duplication, improves compression efficiency, and improves que
 
 Shorter shard group durations allow the system to more efficiently drop data and record incremental backups.
 When InfluxDB enforces an RP it drops entire shard groups, not individual data points, even if the points are older than the RP duration.
-A shard group will only be removed once a shard group's duration *end time* is older than the RP duration.
+A shard group is only removed once a shard group's duration *end time* is older than the RP duration.
 
-For example, if your RP has a duration of one day, InfluxDB will drop an hour's worth of data every hour and will always have 25 shard groups. One for each hour in the day and an extra shard group that is partially expiring, but isn't removed until the whole shard group is older than 24 hours.
+For example, if your RP has a duration of one day, InfluxDB drops an hour's worth of data every hour and always maintains 25 shard groups.
+One for each hour in the day, and an extra shard group that is partially expiring, but isn't removed until the whole shard group is older than 24 hours.
 
->**Note:** A special use case to consider: filtering queries on schema data (such as tags, series, measurements) by time. For example, if you want to filter schema data within a one hour interval, you must set the shard group duration to 1h. For more information, see [filter schema data by time](/enterprise_influxdb/v1/query_language/explore-schema/#filter-meta-queries-by-time).
+>**Note:** A special use case to consider: filtering queries on schema data (such as tags, series, measurements) by time. For example, if you want to filter schema data within a one hour interval, you must set the shard group duration to `1h`. For more information, see [filter schema data by time](/enterprise_influxdb/v1/query_language/explore-schema/#filter-meta-queries-by-time).
 
 ### Shard group duration recommendations
 
@@ -263,7 +264,8 @@ Here are some recommendations for longer shard group durations:
 | infinite  | 52 weeks or longer  |
 
 > **Note:** Note that `INF` (infinite) is not a [valid shard group duration](/enterprise_influxdb/v1/query_language/manage-database/#retention-policy-management).
-In extreme cases where data covers decades and will never be deleted, a long shard group duration like `1040w` (20 years) is perfectly valid.
+
+Longer shard durations may be appropriate for some use cases (for example, [backfilling](#shard-group-duration-for-backfilling)), however updates and deletes to larger shards incur higher costs for recompaction.
 
 Other factors to consider before setting shard group duration:
 
@@ -273,7 +275,10 @@ Other factors to consider before setting shard group duration:
 
 #### Shard group duration for backfilling
 
-Bulk insertion of historical data covering a large time range in the past will trigger the creation of a large number of shards at once.
+Bulk insertion of historical data covering a large time range in the past triggers the creation of a large number of shards at once.
 The concurrent access and overhead of writing to hundreds or thousands of shards can quickly lead to slow performance and memory exhaustion.
 
-When writing historical data, we highly recommend temporarily setting a longer shard group duration so fewer shards are created. Typically, a shard group duration of 52 weeks works well for backfilling.
+When writing historical data, set a longer shard group duration so that InfluxDB creates fewer shards.
+Typically, a shard group duration of 30 days works well for backfilling, however consider whether the shards are likely to be affected by backfills again in the future.
+A longer shard duration makes backfilling a data set more efficient the first time, but makes subsequent backfills of the shard more expensive.
+If you expect a shard to require multiple backfills, updates, or deletes, then a slightly shorter duration may be preferable to reduce the resource cost of shard recompaction.
