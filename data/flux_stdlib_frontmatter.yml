@@ -2015,6 +2015,8 @@
     - /influxdb/cloud/reference/flux/stdlib/profiler/
   related:
     - /influxdb/v2/query-data/optimize-queries/
+  exclude_from:
+    enterprise: ^1\.
 
 /flux/v0/stdlib/pushbullet/_index.md: |
   aliases:

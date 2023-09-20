@@ -303,8 +303,8 @@ If stored at a non-default location, include the `--config` flag with each
         # client_secret = ""
         # scopes = [""]
         # parameters = { audience = "" }
-        # token_url = "https://indentityprovider/oauth2/v1/token"
-        # device_url = "https://indentityprovider/oauth2/v1/auth/device"
+        # token_url = "https://indentityprovider/oauth2/v2/token"
+        # device_url = "https://indentityprovider/oauth2/v2/auth/device"
 
 ```
 {{% /code-placeholders %}}

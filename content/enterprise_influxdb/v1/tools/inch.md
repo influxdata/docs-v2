@@ -18,7 +18,7 @@ Use the InfluxDB inch tool to simulate streaming data to InfluxDB and measure yo
 1. To install `inch`, run the following command in your terminal:
 
     ```bash
-    $ go get github.com/influxdata/inch/cmd/inch
+    $ go install github.com/influxdata/inch/cmd/inch
     ```
 
 2. Verify `inch` is successfully installed in your `GOPATH/bin` (default on Unix `$HOME/go/bin`).

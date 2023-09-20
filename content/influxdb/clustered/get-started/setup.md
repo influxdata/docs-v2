@@ -66,9 +66,9 @@ If stored at a non-default location, include the `--config` flag with each
 
     - {{% code-placeholder-key %}}`PORT`{{% /code-placeholder-key %}}: the port to use to access your InfluxDB cluster
     - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}: the client URL of your OAuth2 provider
-      (for example: `https://indentityprovider/oauth2/v1/token`)
+      (for example: `https://indentityprovider/oauth2/v2/token`)
     - {{% code-placeholder-key %}}`OAUTH_DEVICE_ID`{{% /code-placeholder-key %}}: the device URL of your OAuth2 provider
-      (for example: `https://indentityprovider/oauth2/v1/auth/device`)
+      (for example: `https://indentityprovider/oauth2/v2/auth/device`)
 
 {{% code-placeholders "PORT|OAUTH_TOKEN_URL|OAUTH_DEVICE_URL" %}}
 ```toml
