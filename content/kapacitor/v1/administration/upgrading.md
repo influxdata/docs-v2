@@ -1,8 +1,8 @@
 ---
-title: Upgrade to Kapacitor v1.6
+title: Upgrade to Kapacitor v1
 description: Upgrade to the latest version of Kapacitor.
 aliases:
-    - kapacitor/v1.6/introduction/upgrading/
+    - kapacitor/v1/introduction/upgrading/
 menu:
   kapacitor_v1:
     parent: Administration

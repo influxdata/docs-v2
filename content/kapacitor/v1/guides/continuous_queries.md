@@ -2,7 +2,7 @@
 title: Kapacitor as a Continuous Query engine
 description: Use Kapacitor to downsample and process data at scheduled intervals.
 aliases:
-    - kapacitor/v1.6/examples/continuous_queries/
+    - kapacitor/v1/examples/continuous_queries/
 menu:
   kapacitor_v1:
     name: Kapacitor as a Continuous Query engine

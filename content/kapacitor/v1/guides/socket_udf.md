@@ -3,7 +3,7 @@ title: Write socket-based user-defined functions (UDFs)
 description: >
   Learn how to write a simple socket-based UDF.
 aliases:
-    - kapacitor/v1.6/examples/socket_udf/
+    - kapacitor/v1/examples/socket_udf/
 menu:
   kapacitor_v1:
     name: Write socket-based UDFs
