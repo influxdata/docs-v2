@@ -10,7 +10,7 @@ menu:
 weight: 201
 related:
   - /kapacitor/v1/working/api/#users, Kapacitor HTTP API – Manage users
-  - /kapacitor/v1/user-types-permissions
+  - /kapacitor/v1/reference/user-types-permissions
 ---
 
 Use user-based authorizations and permissions stored in Kapacitor to
@@ -98,7 +98,7 @@ authenticate requests to the Kapacitor HTTP API.
     For more information, see:
 
     - [Kapacitor HTTP API – Create a user](/kapacitor/v1/working/api/#create-a-user)
-    - [Kapacitor user types and permissions](/kapacitor/v1/user-types-permissions)
+    - [Kapacitor user types and permissions](/kapacitor/v1/reference/user-types-permissions)
 
 
 ## Authenticate with the Kapacitor CLI

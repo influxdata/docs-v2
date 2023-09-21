@@ -17,7 +17,7 @@ without triggering alerts.
 
 ## Sideload
 Avoid unnecessary alerts during scheduled downtime by using the
-[`sideload`](/kapacitor/v1/nodes/sideload_node) node to load information from
+[`sideload`](/kapacitor/v1/reference/nodes/sideload_node) node to load information from
 files in the filesystem and set fields and tags on data points which can then be used in alert logic.
 The `sideload` node adds fields and tags to points based on hierarchical data
 from various file-based sources.

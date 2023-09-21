@@ -32,7 +32,7 @@ Before proceeding with the Kapacitor upgrade please ensure that InfluxDB and Tel
 
 For instructions on upgrading InfluxDB, please see the [InfluxDB upgrade](/influxdb/v1/administration/upgrading/) documentation.
 
-For information about what is new in the latest Kapacitor release, view the [Changelog](/kapacitor/v1/about_the_project/releasenotes-changelog/).
+For information about what is new in the latest Kapacitor release, view the [Changelog](/kapacitor/v1/reference/about_the_project/release-notes/).
 
 In general the steps for upgrading Kapacitor are as follows:
 

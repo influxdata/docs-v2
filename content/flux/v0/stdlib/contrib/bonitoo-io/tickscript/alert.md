@@ -34,7 +34,7 @@ and writes them to the `statuses` measurement in the InfluxDB `_monitoring`
 system bucket.
 
 This function is comparable to
-TICKscript [`alert()`](/kapacitor/v1/nodes/alert_node/).
+TICKscript [`alert()`](/kapacitor/v1/reference/nodes/alert_node/).
 
 ##### Function type signature
 

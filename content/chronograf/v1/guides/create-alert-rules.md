@@ -14,7 +14,7 @@ menu:
 
 Chronograf provides a user interface for [Kapacitor](/kapacitor/v1/), InfluxData's processing framework for creating alerts, ETL jobs (running extract, transform, load), and detecting anomalies in your data.
 Chronograf alert rules correspond to Kapacitor tasks that trigger alerts whenever certain conditions are met.
-Behind the scenes, these tasks are stored as [TICKscripts](/kapacitor/v1/tick/) that can be edited manually or through Chronograf.
+Behind the scenes, these tasks are stored as [TICKscripts](/kapacitor/v1/reference/tick/) that can be edited manually or through Chronograf.
 Common alerting use cases that can be managed using Chronograf include:
 
 * Thresholds with static ceilings, floors, and ranges.

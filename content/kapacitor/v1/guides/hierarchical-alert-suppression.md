@@ -14,7 +14,7 @@ Kapacitor allows you to build out a robust monitoring and alerting solution with
 multiple "levels" or "tiers" of alerts.
 However, an issue arises when an event triggers both high-level and low-level alerts
 and you end up getting multiple alerts from different contexts.
-The [AlertNode's `.inhibit()`](/kapacitor/v1/nodes/alert_node/#inhibit) method
+The [AlertNode's `.inhibit()`](/kapacitor/v1/reference/nodes/alert_node/#inhibit) method
 allows you to suppress other alerts when an alert is triggered.
 
 For example, let's say you are monitoring a cluster of servers.
@@ -62,7 +62,7 @@ stream
 ```
 
 The following TICKscript is a cluster-level alert that monitors the uptime of hosts in the cluster.
-It uses the [`deadman()`](/kapacitor/v1/nodes/alert_node/#deadman) function to
+It uses the [`deadman()`](/kapacitor/v1/reference/nodes/alert_node/#deadman) function to
 create an alert when a host is unresponsive or offline.
 The `.inhibit()` method in the deadman alert suppresses all alerts to the `system_alerts`
 category that include a matching `host` tag, meaning they are from the same host.
