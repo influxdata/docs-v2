@@ -3,7 +3,7 @@ title: Load directory service
 description: >
   The load directory service enables file-based definitions of Kapacitor tasks, templates, and topic handlers that are loaded on startup or when a SIGHUP signal is sent to the process.
 aliases:
-    - kapacitor/v1.6/examples/load_directory/
+    - kapacitor/v1/examples/load_directory/
 menu:
   kapacitor_v1:
     name: Load directory service

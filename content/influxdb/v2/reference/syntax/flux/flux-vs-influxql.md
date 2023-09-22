@@ -37,7 +37,7 @@ Check out the following distinctions between Flux and InfluxQL:
 - [Work with geo-temporal data](#work-with-geo-temporal-data)
 
 ### Joins
-InfluxQL has never supported joins. Although you can use a join in a [TICKscript](/kapacitor/v1/tick/introduction/),
+InfluxQL has never supported joins. Although you can use a join in a [TICKscript](/kapacitor/v1/reference/tick/introduction/),
 TICKscript's join capabilities are limited.
 Flux's [`join()` function](/flux/v0/stdlib/universe/join/) lets you
 join data **from any bucket, any measurement, and on any columns** as long as

@@ -390,7 +390,7 @@ kapacitord -blacklist-cidrs 10.0.0.0/8,0.0.0.0/32
 ### Disable specific alert handlers
 
 Use the `-disable-handlers` flag to disable a set of alert handlers.
-Pass a comma-separated list of [handlers](/kapacitor/v1/event_handlers/):
+Pass a comma-separated list of [handlers](/kapacitor/v1/reference/event_handlers/):
 
 ```sh
 kapacitord -disable-handlers exec,httppost

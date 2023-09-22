@@ -16,7 +16,7 @@ Kapacitor subscribes to InfluxDB allowing it to capture, manipulate, and act on 
 
 ## How Kapacitor subscriptions work
 Kapacitor allows you to manipulate and act on data as it is written into InfluxDB.
-Rather than querying InfluxDB for data *(except when using the [BatchNode](/kapacitor/v1/nodes/batch_node/))*,
+Rather than querying InfluxDB for data *(except when using the [BatchNode](/kapacitor/v1/reference/nodes/batch_node/))*,
 all data is copied to your Kapacitor server or cluster through an InfluxDB subscription.
 This reduces the query load on InfluxDB and isolates overhead associated with data
 manipulation to your Kapacitor server or cluster.
