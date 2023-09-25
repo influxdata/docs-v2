@@ -1,5 +1,6 @@
 ---
-title: Use the InfluxDB v1 API
+title: Use the InfluxDB v1 API with InfluxDB Clustered
+list_title: InfluxDB v1 API compatibility
 description: >
   Use InfluxDB v1 API authentication, endpoints, and tools when bringing existing 1.x workloads to InfluxDB Clustered.
 weight: 3
@@ -342,12 +343,14 @@ Include the following in your request:
 The following example shows how to use the **cURL** command line tool and the {{% product-name %}} v1 API to write line protocol data to a database:
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
+{{% influxdb/custom-timestamps %}}
 ```sh
 curl -i 'https://{{< influxdb/host >}}/write?db=DATABASE_NAME&precision=s' \
     --header 'Authorization: Bearer DATABASE_TOKEN' \
-    --header "Content-type: text/plain; charset=utf-8"
-    --data-binary 'home,room=kitchen temp=72 1463683075'
+    --header "Content-type: text/plain; charset=utf-8" \
+    --data-binary 'home,room=kitchen temp=72 1641024000'
 ```
+{{% /influxdb/custom-timestamps %}}
 {{% /code-placeholders %}}
 
 Replace the following:
