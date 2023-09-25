@@ -16,6 +16,8 @@ related:
   - /influxdb/clustered/write-data/
   - /influxdb/clustered/write-data/best-practices/
   - /influxdb/clustered/reference/syntax/line-protocol/
+  - /influxdb/clustered/guides/api-compatibility/v1/
+  - /influxdb/clustered/guides/api-compatibility/v2/
   - /telegraf/v1/
 ---
 

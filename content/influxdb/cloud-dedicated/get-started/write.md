@@ -16,6 +16,8 @@ related:
   - /influxdb/cloud-dedicated/write-data/
   - /influxdb/cloud-dedicated/write-data/best-practices/
   - /influxdb/cloud-dedicated/reference/syntax/line-protocol/
+  - /influxdb/cloud-dedicated/guides/api-compatibility/v1/
+  - /influxdb/cloud-dedicated/guides/api-compatibility/v2/
   - /telegraf/v1/
 ---
 

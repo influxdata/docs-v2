@@ -1,5 +1,6 @@
 ---
-title: Use the InfluxDB v1 API
+title: Use the InfluxDB v1 API with InfluxDB Cloud Dedicated
+list_title: InfluxDB v1 API compatibility
 description: >
   Use InfluxDB v1 API authentication, endpoints, and tools when bringing existing 1.x workloads to InfluxDB Cloud Dedicated.
 weight: 3
