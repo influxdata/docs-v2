@@ -84,7 +84,7 @@ There is no software limit, but it will be limited by available server resources
 
 ### What causes unexpected or additional values with same timestamp?
 
-If data is ingested at irregular intervals and you see unexpected results with the same timestamp, use the [`log node`](/kapacitor/v1/nodes/log_node) when ingesting data in your TICKscript to debug issues. This surfaces issues, for example, duplicate data hidden by httpOut.
+If data is ingested at irregular intervals and you see unexpected results with the same timestamp, use the [`log node`](/kapacitor/v1/reference/nodes/log_node) when ingesting data in your TICKscript to debug issues. This surfaces issues, for example, duplicate data hidden by httpOut.
 
 ## Performance
 
@@ -126,11 +126,11 @@ As you optimize Kapacitor tasks, consider the following:
 
 #### "Batch" incoming data
 
-[`batch`](/kapacitor/v1/nodes/batch_node/) queries data from InfluxDB in batches.
+[`batch`](/kapacitor/v1/reference/nodes/batch_node/) queries data from InfluxDB in batches.
 As long as Kapacitor is able to process a batch before the next batch is queried,
 it won't need to queue anything.
 
-[`stream`](/kapacitor/v1/nodes/stream_node/) mirrors all InfluxDB writes to
+[`stream`](/kapacitor/v1/reference/nodes/stream_node/) mirrors all InfluxDB writes to
 Kapacitor in real time and is more prone to queueing.
 If using `stream`, segment incoming data into time-based batches using
-[`window`](/kapacitor/v1/nodes/window_node/).
+[`window`](/kapacitor/v1/reference/nodes/window_node/).

@@ -542,7 +542,7 @@ GET /kapacitor/v1/tasks?fields=status&fields=executing&fields=error
 
 ### Custom task HTTP endpoints
 
-In TICKscript, it is possible to expose a cache of recent data via the [HTTPOut](/kapacitor/v1/nodes/http_out_node/) node.
+In TICKscript, it is possible to expose a cache of recent data via the [HTTPOut](/kapacitor/v1/reference/nodes/http_out_node/) node.
 The data is available at the path `/kapacitor/v1/tasks/TASK_ID/ENDPOINT_NAME`.
 
 ### Example
@@ -2343,7 +2343,7 @@ Define a user as a JSON object with the following properties:
 | type        | User type  (`normal` or `admin`, _see [User](/influxdb/v1/concepts/glossary/#user)_)     |
 | permissions | List of valid user permission strings (`none`, `api`, `config_api`, `write_points`, `all`) |
 
-_See [Kapacitor user types and permissions](/kapacitor/v1/user-types-permissions)._
+_See [Kapacitor user types and permissions](/kapacitor/v1/reference/user-types-permissions)._
 
 #### Example
 ```sh

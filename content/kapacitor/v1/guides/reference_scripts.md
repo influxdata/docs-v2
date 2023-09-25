@@ -2,7 +2,7 @@
 title: Reference TICKscripts
 description: Example TICKscripts available in the Kapacitor repository.
 aliases:
-    - kapacitor/v1.6/examples/reference_scripts/
+    - kapacitor/v1/examples/reference_scripts/
 menu:
   kapacitor_v1:
     name: Reference TICKscripts

@@ -111,7 +111,7 @@ For example, Chronograf's Slack integration allows users to specify a default ch
 3. Click **Save Changes** to save the configuration settings.
 4. Click **Send Test Alert** to verify the configuration.
 
-To enable Kafka services using TICKscript, see [Kafka event handler (Kapacitor)](/kapacitor/v1/event_handlers/kafka/).
+To enable Kafka services using TICKscript, see [Kafka event handler (Kapacitor)](/kapacitor/v1/reference/event_handlers/kafka/).
 
 ### OpsGenie
 
@@ -146,9 +146,9 @@ Send an incident alert to OpsGenie teams and recipients using the Chronograf ale
 
 See [Alert API](https://docs.opsgenie.com/docs/alert-api) in the OpsGenie documentation for details on the OpsGenie Alert API
 
-See [OpsGenie V2 event handler](/kapacitor/v1/event_handlers/opsgenie/v2/) in the Kapacitor documentation for details about the OpsGenie V2 event handler.
+See [OpsGenie V2 event handler](/kapacitor/v1/reference/event_handlers/opsgenie/v2/) in the Kapacitor documentation for details about the OpsGenie V2 event handler.
 
-See the [AlertNode (Kapacitor TICKscript node) - OpsGenie v2](/kapacitor/v1/nodes/alert_node/#opsgenie-v2) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
+See the [AlertNode (Kapacitor TICKscript node) - OpsGenie v2](/kapacitor/v1/reference/nodes/alert_node/#opsgenie-v2) in the Kapacitor documentation for details about enabling OpsGenie services using TICKscripts.
 
 ### PagerDuty
 
@@ -175,7 +175,7 @@ Use the [PagerDuty2](#pagerduty2) alert endpoint.
 See the [PagerDuty Events API V2 Overview](https://v2.developer.pagerduty.com/docs/events-api-v2)
 for details on the PagerDuty Events API and recognized event types (`trigger`, `acknowledge`, and `resolve`).
 
-To enable a new "Generic API" service using TICKscript, see [AlertNode (Kapacitor TICKscript node) - PagerDuty v2](/kapacitor/v1/nodes/alert_node/#pagerduty-v2).
+To enable a new "Generic API" service using TICKscript, see [AlertNode (Kapacitor TICKscript node) - PagerDuty v2](/kapacitor/v1/reference/nodes/alert_node/#pagerduty-v2).
 
 ### Pushover
 

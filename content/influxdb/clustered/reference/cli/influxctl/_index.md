@@ -322,9 +322,9 @@ Replace the following values in the sample:
 - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}:
   OAuth client ID
 - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}:
-  OAuth provider token URL (for example: `https://indentityprovider/oauth2/v1/token`)
+  OAuth provider token URL (for example: `https://indentityprovider/oauth2/v2/token`)
 - {{% code-placeholder-key %}}`OAUTH_CLIENT_ID`{{% /code-placeholder-key %}}:
-  OAuth provider device URL (for example: `https://indentityprovider/oauth2/v1/auth/device`)
+  OAuth provider device URL (for example: `https://indentityprovider/oauth2/v2/auth/device`)
 
 {{% /expand %}}
 {{< /expand-wrapper >}}

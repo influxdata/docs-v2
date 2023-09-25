@@ -2,7 +2,7 @@
 title: Guides
 description: Step-by-step guides for working with Kapacitor.
 aliases:
-    - kapacitor/v1.6/examples/
+    - kapacitor/v1/examples/
 menu:
   kapacitor_v1:
     name: Guides

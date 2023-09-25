@@ -143,6 +143,7 @@
         margin: 0;
         padding: 0;
         opacity: 0;
+        pointer-events: none;
       }
       .show::before {content: "Show more"}
     }

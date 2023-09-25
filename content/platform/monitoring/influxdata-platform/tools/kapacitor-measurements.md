@@ -108,7 +108,7 @@ The total number of Kapacitor tasks.
 
 ### kapacitor_edges
 The `kapacitor_edges` measurement stores fields with information related to
-[edges](/kapacitor/v1/tick/introduction/#pipelines)
+[edges](/kapacitor/v1/reference/tick/introduction/#pipelines)
 in Kapacitor TICKscripts.
 
 #### collected
@@ -225,7 +225,7 @@ The total number of bytes allocated, even if freed.
 
 ### kapacitor_nodes
 The `kapacitor_nodes` measurement stores fields related to events that occur in
-[TICKscript nodes](/kapacitor/v1/nodes/).
+[TICKscript nodes](/kapacitor/v1/reference/nodes/).
 
 #### alerts_inhibited
 The total number of alerts inhibited by TICKscripts.
