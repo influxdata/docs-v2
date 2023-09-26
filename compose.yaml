@@ -1,0 +1,17 @@
+# For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
+services:
+  test:
+    image: docs-v2-tests
+    env_file:
+      - ./test/.env.influxdbv3
+    volumes:
+      - type: bind
+        source: ./test/tmp
+        target: /app/test/tmp
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - SOURCE_DIR=test
+        - TESTS_DIR=tmp
