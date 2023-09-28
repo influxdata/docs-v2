@@ -22,7 +22,7 @@ function context() {
     return "dedicated"
   } else if (/\/influxdb\/clustered/.test(window.location.pathname)) {
     return "clustered"
-  } else if (/\/(enterprise_|influxdb).*\/v[1-2]\.[0-9]{1,2}\//.test(window.location.pathname)) {
+  } else if (/\/(enterprise_|influxdb).*\/v[1-2]\//.test(window.location.pathname)) {
     return "oss/enterprise"
   } else {
     return "other"
