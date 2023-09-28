@@ -16,7 +16,7 @@ topics or handlers.
 ## Usage
 
 ```sh
-kapacitor delete <resource-type> [topic] [<resource-id-or-pattern>]
+kapacitor delete <resource-type> [<topic>] [<resource-id-or-pattern>]
 ```
 
 ## Arguments
@@ -30,6 +30,8 @@ kapacitor delete <resource-type> [topic] [<resource-id-or-pattern>]
   - `replays`
   - `topics`
   - `topic-handlers`
+
+- **topic**: Topic to delete a handler from. _Only required when deleting a handler_.
 
 - **resource-id-or-pattern**: Resource ID or glob pattern to match resource IDs
   to delete.
