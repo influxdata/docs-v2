@@ -81,8 +81,12 @@
 
     .truncate a.truncate-toggle:hover { color: $kapacitor-article-link; }
 
+    //////////////////// NO-WRAP on Kapacitor command tables ///////////////////
+    #commands + table tr td:first-child{white-space: nowrap;}
+
   }
 
   .algolia-autocomplete .algolia-docsearch-suggestion--highlight { color: $kapacitor-article-link; }
 
 }
+
