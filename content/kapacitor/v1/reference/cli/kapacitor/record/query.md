@@ -1,7 +1,7 @@
 ---
 title: kapacitor record query
 description: >
-  The `kapacitor record query` command records the result of a Kapacitor stream task.
+  The `kapacitor record query` command records the result of an InfluxQL query.
 menu:
   kapacitor_v1:
     name: kapacitor record query

@@ -1,5 +1,5 @@
 ---
-title: kapacitor
+title: kapacitor CLI
 description: >
   The `kapacitor` CLI interacts with and manages the Kapacitor server.
 menu:

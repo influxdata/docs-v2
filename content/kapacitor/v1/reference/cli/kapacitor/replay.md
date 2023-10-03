@@ -14,7 +14,7 @@ related:
 
 The `kapacitor replay` command replays a task or query recording.
 
-The times of the data points will either be relative to `now` or, `-rec-time`
+The times of the data points will either be relative to `now` or, if the `-rec-time`
 flag is included, the exact times in the recording.
 In either case, relative times between data points remain the same.
 

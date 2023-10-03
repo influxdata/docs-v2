@@ -24,7 +24,12 @@ kapacitor show-topic <topic-id>
 ## Examples
 
 ```sh
-> kapacitor show-topic example-topic-id
+kapacitor show-topic example-topic-id
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
+```text
 ID: example-topic-id
 Level: OK
 Collected: 0
@@ -33,3 +38,5 @@ Events:
 Event   Level    Message       Date
 cpu:nil OK       cpu:nil is OK 13 Sep 23 13:34 CET
 ```
+{{% /expand %}}
+{{< /expand-wrapper >}}

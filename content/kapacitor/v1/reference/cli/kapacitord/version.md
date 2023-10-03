@@ -22,6 +22,13 @@ kapacitord version
 ## Examples
 
 ```sh
-> kapacitord version
+kapacitord version
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
+```sh
 Kapacitor OSS version v{{< latest-patch >}} (git: HEAD 00x0x0X0Xx0x0xXX0xxxXxx00000xX0000x0xXx0)
 ```
+{{% /expand %}}
+{{< /expand-wrapper >}}

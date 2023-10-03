@@ -66,7 +66,7 @@ kapacitord -config /path/to/kapacitor.conf
 
 ### Disable alert handlers
 
-Disabling alert handlers can be useful for security reasons. For example,
+Disabling alert handlers can be useful for security reasons--for example,
 disabling the `exec` handler on a shared system.
 
 ```sh

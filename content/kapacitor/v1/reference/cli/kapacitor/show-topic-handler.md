@@ -25,10 +25,17 @@ kapacitor show-topic-handler <topic-id> <handler-id>
 ## Examples
 
 ```sh
-> kapacitor show-topic-handler cpu slack
+kapacitor show-topic-handler cpu slack
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
+```text
 ID: slack
 Topic: cpu
 Kind: slack
 Match:
 Options: {"channel":"#kapacitor"}
 ```
+{{% /expand %}}
+{{< /expand-wrapper >}}

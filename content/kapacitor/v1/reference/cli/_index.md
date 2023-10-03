@@ -1,5 +1,5 @@
 ---
-title: Kapacitor Command line tools
+title: Kapacitor command line tools
 description: >
   ...
 menu:

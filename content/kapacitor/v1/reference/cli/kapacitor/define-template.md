@@ -14,7 +14,7 @@ A template is defined using a TICKscript that contains the data processing
 pipeline of the template.
 
 {{% note %}}
-Updating a template will reload all associated tasks.
+Updating a template reloads all associated tasks.
 {{% /note %}}
 
 ## Usage
