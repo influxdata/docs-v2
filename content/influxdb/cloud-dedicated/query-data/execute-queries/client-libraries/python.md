@@ -25,6 +25,7 @@ related:
     - /influxdb/cloud-dedicated/query-data/sql/
     - /influxdb/cloud-dedicated/reference/influxql/
     - /influxdb/cloud-dedicated/reference/sql/
+    - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
 
 list_code_example: |
     ```py
@@ -305,7 +306,7 @@ and specify the following arguments:
 
 #### Example {#execute-query-example}
 
-The following examples shows how to use SQL or InfluxQL to select all fields in a measurement, and then output the results formatted as a Markdown table.
+The following example shows how to use SQL or InfluxQL to select all fields in a measurement, and then use PyArrow functions to extract metadata and aggregate data.
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}
