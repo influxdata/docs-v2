@@ -31,9 +31,16 @@ kapacitor service-tests [<service> ...]
 ## Examples
 
 ```sh
-> kapacitor service-tests slack talk smtp
+kapacitor service-tests slack talk smtp
+```
+
+{{< expand-wrapper >}}
+{{% expand "View example output" %}}
+```text
 Service             Success   Message
 slack               true
 talk                false     service is not enabled
 smtp                false     service is not enabled
 ```
+{{% /expand %}}
+{{< /expand-wrapper >}}
