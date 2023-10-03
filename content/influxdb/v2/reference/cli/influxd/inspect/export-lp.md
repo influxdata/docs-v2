@@ -22,7 +22,7 @@ influxd inspect export-lp [flags]
 | Flag |                 | Description                                             | Input type |
 |:---- |:---             |:-----------                                             |:----------:|
 |      | `--bucket-id`   | ({{< req >}}) Bucket ID                                 | string     |
-|      | `--compress`    | Compress output with GZIP                               |            |
+|      | `--compress`    | Compress output with gzip                                |            |
 |      | `--end`         | End time to export (RFC3339 format)                     | string     |
 |      | `--engine-path` | ({{< req >}}) Path to persistent InfluxDB engine files  | string     |
 | `-h` | `--help`        | Help for the `export-lp` command.                       |            |

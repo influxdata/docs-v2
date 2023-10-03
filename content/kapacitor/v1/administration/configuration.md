@@ -174,19 +174,35 @@ Enable and configure user authentication and authorization in Kapacitor.
 [auth]
   # Enable authentication for Kapacitor
   enabled = false
+  
   # User permissions cache expiration time.
   cache-expiration = "10m"
+  
   # Cost to compute bcrypt password hashes.
   # bcrypt rounds = 2^cost
   bcrypt-cost = 10
+  
   # Address of a meta server.
   # If empty then meta, is not used as a user backend.
   # host:port
   meta-addr = "172.17.0.2:8091"
   meta-use-tls = false
+
+  # Username for basic user authorization when using meta API. meta-password should also be set.
+  meta-username = "kapauser"
+
+  # Password for basic user authorization when using meta API. meta-username must also be set.
+  meta-password = "kapapass"
+
+  # Shared secret for JWT bearer token authentication when using meta API. 
+  # If this is set, then the `meta-username` and `meta-password` settings are ignored.
+  # This should match the `[meta] internal-shared-secret` setting on the meta nodes.
+  meta-internal-shared-secret = "MyVoiceIsMyPassport"
+
   # Absolute path to PEM encoded Certificate Authority (CA) file.
   # A CA can be provided without a key/certificate pair.
   meta-ca = "/etc/kapacitor/ca.pem"
+
   # Absolute paths to PEM encoded private key and server certificate files.
   meta-cert = "/etc/kapacitor/cert.pem"
   meta-key = "/etc/kapacitor/key.pem"
@@ -382,7 +398,7 @@ Use the `[storage]` group to define the location of the BoltDB database file on 
 #### Deadman
 
 Use the `[deadman]` group to configure Kapacitor's deadman's switch globally.
-See the [Deadman](/kapacitor/v1/nodes/alert_node/#deadman) helper function topic in the AlertNode documentation.
+See the [Deadman](/kapacitor/v1/reference/nodes/alert_node/#deadman) helper function topic in the AlertNode documentation.
 
 ```toml
 # ...
@@ -581,7 +597,7 @@ to store statistics in.
 
 #### Alert
 Use the `[alert]` group to globally configure alerts created by the 
-[alertNode](/kapacitor/v1/nodes/alert_node).
+[alertNode](/kapacitor/v1/reference/nodes/alert_node).
 
 ```toml
 # ...
@@ -616,7 +632,7 @@ Optional features include:
 
 Event handlers manage communications from Kapacitor to third party services or
 across Internet standard messaging protocols.
-They are activated through chaining methods on the [AlertNode](/kapacitor/v1/nodes/alert_node/).
+They are activated through chaining methods on the [AlertNode](/kapacitor/v1/reference/nodes/alert_node/).
 
 Every event handler has the property `enabled`.
 They also need an endpoint to send messages to.
@@ -625,12 +641,12 @@ Most include an authentication mechanism such as a `token` or a pair of properti
 
 For information about available event handlers and their configuration options:
 
-<a class="btn" href="/kapacitor/v1/event_handlers/">View available event handlers</a>
+<a class="btn" href="/kapacitor/v1/reference/event_handlers/">View available event handlers</a>
 
 #### Docker services
 
-Use Kapacitor to trigger changes in Docker clusters with [SwarmAutoScale](/kapacitor/v1/nodes/swarm_autoscale_node/)
-and [K8sAutoScale](/kapacitor/v1/nodes/k8s_autoscale_node/) nodes.
+Use Kapacitor to trigger changes in Docker clusters with [SwarmAutoScale](/kapacitor/v1/reference/nodes/swarm_autoscale_node/)
+and [K8sAutoScale](/kapacitor/v1/reference/nodes/k8s_autoscale_node/) nodes.
 
 - [Swarm](#swarm)
 - [Kubernetes](#kubernetes)
@@ -656,7 +672,7 @@ and [K8sAutoScale](/kapacitor/v1/nodes/k8s_autoscale_node/) nodes.
 # ...
 ```
 {{% caption %}}
-See [SwarmAutoscaleNode](/kapacitor/v1/nodes/swarm_autoscale_node/).
+See [SwarmAutoscaleNode](/kapacitor/v1/reference/nodes/swarm_autoscale_node/).
 {{% /caption %}}
 
 ##### Kubernetes
@@ -691,12 +707,12 @@ See [SwarmAutoscaleNode](/kapacitor/v1/nodes/swarm_autoscale_node/).
 # ...
 ```
 {{% caption %}}
-_See [K8sAutoScaleNode](/kapacitor/v1/nodes/k8s_autoscale_node/)._
+_See [K8sAutoScaleNode](/kapacitor/v1/reference/nodes/k8s_autoscale_node/)._
 {{% /caption %}}
 
 #### User defined functions (UDFs)
 
-Use Kapacitor to run user defined functions ([UDF](/kapacitor/v1/nodes/u_d_f_node/)),
+Use Kapacitor to run user defined functions ([UDF](/kapacitor/v1/reference/nodes/u_d_f_node/)),
 as chaining methods in a TICKscript.
 Define a UDF configuration group in your `kapacitor.conf` using the group
 identifier pattern:

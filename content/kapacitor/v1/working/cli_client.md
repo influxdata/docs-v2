@@ -635,7 +635,7 @@ Topic handlers bind topics to services, allowing messages to be forwarded by var
 Working with topics and topic handlers is introduced in the
 [Using alert topics](/kapacitor/v1/working/using_alert_topics/) documentation.
 
-Topics are created through the `topic()` method of the [AlertNode](/kapacitor/v1/nodes/alert_node) in TICKscripts.
+Topics are created through the `topic()` method of the [AlertNode](/kapacitor/v1/reference/nodes/alert_node) in TICKscripts.
 
 ### `define-topic-handler`
 The `define-topic-handler` command defines or redefines a topic handler based on
@@ -756,7 +756,7 @@ To verify the results, use the `list topics` command.
 
 Tasks and task definitions comprise the core Kapacitor functionality.
 Tasks are introduced in the [Getting Started](/kapacitor/v1/introduction/getting-started/) guide
-and are explored in detail along side the [TICKscript](/kapacitor/v1/tick/).
+and are explored in detail along side the [TICKscript](/kapacitor/v1/reference/tick/).
 
 Task templates make it easy to reuse generic task structures to create a suite of similar tasks.
 They are introduced in the [Template Tasks](/kapacitor/v1/working/template_tasks/) document.

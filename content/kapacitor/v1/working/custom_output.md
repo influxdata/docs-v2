@@ -3,8 +3,8 @@ title: Contributing new Kapacitor output nodes
 description: >
   Contribute a new node to Kapacitor to output data to a custom endpoint.
 aliases:
-    - kapacitor/v1.6/contributing/custom_output/
-    - kapacitor/v1.6/about_the_project/custom_output/
+    - kapacitor/v1/contributing/custom_output/
+    - kapacitor/v1/about_the_project/custom_output/
 menu:
   kapacitor_v1:
     name: Writing your own output node

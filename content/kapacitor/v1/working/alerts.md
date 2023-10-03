@@ -11,7 +11,7 @@ menu:
 Kapacitor makes it possible to handle alert messages in two different ways.
 
 * The messages can be pushed directly to an event handler exposed through the
-[Alert](/kapacitor/v1/nodes/alert_node/) node.
+[Alert](/kapacitor/v1/reference/nodes/alert_node/) node.
 * The messages can be published to a topic namespace to which one or more alert
 handlers can subscribe.
 
@@ -89,29 +89,34 @@ Each handler operates on exactly one topic.
 
 The following is a list of available alert event handlers:
 
-| Handler                       | Description                                                                           |
-| -------                       | -----------                                                                           |
-| [Alerta](/kapacitor/v1/event_handlers/alerta)             | Post alert message to Alerta.                                                         |
-| [email](/kapacitor/v1/event_handlers/email)               | Send and email with alert data.                                                       |
-| [exec](/kapacitor/v1/event_handlers/exec)                 | Execute a command passing alert data over STDIN.                                      |
-| [HipChat](/kapacitor/v1/event_handlers/hipchat)           | Post alert message to HipChat room.                                                   |
-| [Kafka](/kapacitor/v1/event_handlers/kafka)               | Send alert to a Apache Kafka cluster.                                                 |
-| [log](/kapacitor/v1/event_handlers/log)                   | Log alert data to file.                                                               |
-| [MQTT](/kapacitor/v1/event_handlers/mqtt)                 | Post alert message to MQTT.                                                           |
-| [OpsGenie v1](/kapacitor/v1/event_handlers/opsgenie/v1)   | Send alert to OpsGenie using their v1 API. <em style="opacity: .5">(Deprecated)</em>  |
-| [OpsGenie v2](/kapacitor/v1/event_handlers/opsgenie/v2)   | Send alert to OpsGenie using their v2 API.                                            |
-| [PagerDuty v1](/kapacitor/v1/event_handlers/pagerduty/v1) | Send alert to PagerDuty using their v1 API. <em style="opacity: .5">(Deprecated)</em> |
-| [PagerDuty v2](/kapacitor/v1/event_handlers/pagerduty/v2) | Send alert to PagerDuty using their v2 API.                                           |
-| [post](/kapacitor/v1/event_handlers/post)                 | HTTP POST data to a specified URL.                                                    |
-| [Pushover](/kapacitor/v1/event_handlers/pushover)         | Send alert to Pushover.                                                               |
-| [Sensu](/kapacitor/v1/event_handlers/sensu)               | Post alert message to Sensu client.                                                   |
-| [Slack](/kapacitor/v1/event_handlers/slack)               | Post alert message to Slack channel.                                                  |
-| [SNMPTrap](/kapacitor/v1/event_handlers/snmptrap)         | Trigger SNMP traps.                                                                   |
-| [Talk](/kapacitor/v1/event_handlers/talk)                 | Post alert message to Talk client.                                                    |
-| [tcp](/kapacitor/v1/event_handlers/tcp)                   | Send data to a specified address via raw TCP.                                         |
-| [Telegram](/kapacitor/v1/event_handlers/telegram)         | Post alert message to Telegram client.                                                |
-| [VictorOps](/kapacitor/v1/event_handlers/victorops)       | Send alert to VictorOps.                                                              |
-
+| Handler                                                                   | Description                                                                            |
+| ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| [aggregate](/kapacitor/v1/reference/event_handlers/aggregate/)            | Aggregate alert messages over a specified interval.                                    |
+| [Alerta](/kapacitor/v1/reference/event_handlers/alerta/)                  | Post alert messages to Alerta.                                                         |
+| [BigPanda](/kapacitor/v1/reference/event_handlers/bigpanda/)              | Send alert messages to BigPanda.                                                       |
+| [Discord](/kapacitor/v1/reference/event_handlers/discord/)                | Send alert messages to Discord.                                                        |
+| [email](/kapacitor/v1/reference/event_handlers/email/)                    | Send and email with alert data.                                                        |
+| [exec](/kapacitor/v1/reference/event_handlers/exec/)                      | Execute a command passing alert data over STDIN.                                       |
+| [HipChat](/kapacitor/v1/reference/event_handlers/hipchat/)                | Post alert messages to HipChat room.                                                   |
+| [Kafka](/kapacitor/v1/reference/event_handlers/kafka/)                    | Send alerts to a Apache Kafka cluster.                                                 |
+| [log](/kapacitor/v1/reference/event_handlers/log/)                        | Log alert data to file.                                                                |
+| [Microsoft Teams](/kapacitor/v1/reference/event_handlers/microsoftteams/) | Send alert messages to a Microsoft Teams channel.                                      |
+| [MQTT](/kapacitor/v1/reference/event_handlers/mqtt/)                      | Post alert messages to MQTT.                                                           |
+| [OpsGenie v1](/kapacitor/v1/reference/event_handlers/opsgenie/v1/)        | Send alerts to OpsGenie using their v1 API. <em style="opacity: .5">(Deprecated)</em>  |
+| [OpsGenie v2](/kapacitor/v1/reference/event_handlers/opsgenie/v2/)        | Send alerts to OpsGenie using their v2 API.                                            |
+| [PagerDuty v1](/kapacitor/v1/reference/event_handlers/pagerduty/v1/)      | Send alerts to PagerDuty using their v1 API. <em style="opacity: .5">(Deprecated)</em> |
+| [PagerDuty v2](/kapacitor/v1/reference/event_handlers/pagerduty/v2/)      | Send alerts to PagerDuty using their v2 API.                                           |
+| [post](/kapacitor/v1/reference/event_handlers/post/)                      | HTTP POST data to a specified URL.                                                     |
+| [publish](/kapacitor/v1/reference/event_handlers/publish/)                | Publish alerts to multiple Kapacitor topics.                                           |
+| [Pushover](/kapacitor/v1/reference/event_handlers/pushover/)              | Send alerts to Pushover.                                                               |
+| [Sensu](/kapacitor/v1/reference/event_handlers/sensu/)                    | Post alert messages to Sensu client.                                                   |
+| [ServiceNow](/kapacitor/v1/reference/event_handlers/servicenow/)          | Send alerts to ServiceNow.                                                             |
+| [Slack](/kapacitor/v1/reference/event_handlers/slack/)                    | Post alert messages to Slack channel.                                                  |
+| [SNMPTrap](/kapacitor/v1/reference/event_handlers/snmptrap/)              | Trigger SNMP traps.                                                                    |
+| [tcp](/kapacitor/v1/reference/event_handlers/tcp/)                        | Send data to a specified address via raw TCP.                                          |
+| [Telegram](/kapacitor/v1/reference/event_handlers/telegram/)              | Post alert messages to Telegram client.                                                |
+| [VictorOps](/kapacitor/v1/reference/event_handlers/victorops/)            | Send alerts to VictorOps.                                                              |
+| [Zenoss](/kapacitor/v1/reference/event_handlers/zenoss/)                  | Send alerts to Zenoss.                                                                 |
 
 ## Match expressions
 
@@ -175,9 +180,9 @@ Each alert event that gets sent to a handler contains the following alert data:
 | **Duration**    | The duration of the alert in nanoseconds.                                                                                                        |
 | **Level**       | One of OK, INFO, WARNING or CRITICAL.                                                                                                            |
 | **Data**        | influxql.Result containing the data that triggered the alert.                                                                                    |
-| **Recoverable** | Indicates whether the alert is auto-recoverable. Determined by the [`.noRecoveries()`](/kapacitor/v1/nodes/alert_node/#norecoveries) property. |
+| **Recoverable** | Indicates whether the alert is auto-recoverable. Determined by the [`.noRecoveries()`](/kapacitor/v1/reference/nodes/alert_node/#norecoveries) property. |
 
-This data is used by [event handlers](/kapacitor/v1/event_handlers) in their
+This data is used by [event handlers](/kapacitor/v1/reference/event_handlers) in their
 handling of alert events.
 
 Alert messages use [Golang Template](https://golang.org/pkg/text/template/) and

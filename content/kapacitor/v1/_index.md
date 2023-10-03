@@ -1,9 +1,11 @@
 ---
 title: Kapacitor documentation
-
+description: >
+  Kapacitor is an open source data processing framework that makes it easy to
+  create alerts, run ETL jobs and detect anomalies.
 menu:
   kapacitor_v1:
-    name: Kapacitor v1.6
+    name: Kapacitor v1.7
 weight: 1
 ---
 

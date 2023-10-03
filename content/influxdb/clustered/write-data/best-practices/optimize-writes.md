@@ -100,23 +100,20 @@ For specific instructions, see the
 ### Use gzip compression with the InfluxDB API
 
 When using the InfluxDB API `/api/v2/write` endpoint to write data,
-compress the data with `gzip` and set the `Content-Encoding` header to `gzip`.
+compress the data with `gzip` and set the `Content-Encoding` header to `gzip`--for example:
 
 {{% influxdb/custom-timestamps %}}
 {{% code-callout "Content-Encoding: gzip" "orange" %}}
-```sh
-curl --request POST "https://{{< influxdb/host >}}/api/v2/write" \
-  --header "Authorization: Token DATABASE_TOKEN" \
-  --header "Content-Encoding: gzip" \
-  --data-urlencode "org=ignored" \
-  --data-urlencode "bucket=DATABASE_NAME" \
-  --data-urlencode "precision=s" \
-  --data-raw "
-mem,host=host1 used_percent=23.43234543 1641024000
+```bash
+echo "mem,host=host1 used_percent=23.43234543 1641024000
 mem,host=host2 used_percent=26.81522361 1641027600
 mem,host=host1 used_percent=22.52984738 1641031200
-mem,host=host2 used_percent=27.18294630 1641034800
-"
+mem,host=host2 used_percent=27.18294630 1641034800" | gzip > system.gzip \
+
+curl --request POST "https://{{< influxdb/host >}}/api/v2/write?org=ignored&bucket=DATABASE_NAME&precision=s" \
+  --header "Authorization: Token DATABASE_TOKEN" \
+  --header "Content-Encoding: gzip" \
+  --data-binary @system.gzip
 ```
 {{% /code-callout %}}
 {{% /influxdb/custom-timestamps %}}

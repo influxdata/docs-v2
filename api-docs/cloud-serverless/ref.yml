@@ -3568,7 +3568,7 @@ components:
             The [shard group duration](/influxdb/cloud-serverless/reference/glossary/#shard).
             The number of seconds that each shard group covers.
 
-            #### InfluxDB Cloud
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use `shardGroupDurationsSeconds`.
 
@@ -3716,15 +3716,6 @@ components:
           default: implicit
           description: |
             The schema Type. Default is `implicit`.
-
-            #### InfluxDB Cloud
-
-            - Use `explicit` to enforce column names, tags, fields, and data types for
-            your data.
-
-            #### InfluxDB OSS
-
-            - Doesn't support `explicit` bucket schemas.
       required:
         - orgID
         - name
@@ -4011,14 +4002,9 @@ components:
             The shard group duration.
             The duration or interval (in seconds) that each shard group covers.
 
-            #### InfluxDB Cloud
+            #### InfluxDB Cloud Serverless
 
             - Does not use `shardGroupDurationsSeconds`.
-
-            #### InfluxDB OSS
-
-            - Default value depends on the
-            [bucket retention period](/influxdb/cloud-serverless/reference/internals/shards/#shard-group-duration).
           format: int64
           type: integer
         type:
@@ -4034,7 +4020,7 @@ components:
         Retention rules to expire or retain data.
         The InfluxDB `/api/v2` API uses `RetentionRules` to configure the [retention period](/influxdb/cloud-serverless/reference/glossary/#retention-period).
 
-        #### InfluxDB Cloud
+        #### InfluxDB Cloud Serverless
 
         - `retentionRules` is required.
 
@@ -6766,9 +6752,7 @@ paths:
         To limit which authorizations are returned, pass query parameters in your request.
         If no query parameters are passed, InfluxDB returns all authorizations.
 
-        #### InfluxDB Cloud
-
-        - InfluxDB Cloud doesn't expose [API token](/influxdb/cloud-serverless/reference/glossary/#token)
+        InfluxDB Cloud Serverless doesn't expose [API token](/influxdb/cloud-serverless/reference/glossary/#token)
           values in `GET /api/v2/authorizations` responses;
           returns `token: redacted` for all authorizations.
 
@@ -7141,14 +7125,10 @@ paths:
         - description: |
             An organization name.
 
-            #### InfluxDB Cloud
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
             - Lists buckets for the organization associated with the authorization (API token).
-
-            #### InfluxDB OSS
-
-            - Lists buckets for the specified organization.
           in: query
           name: org
           schema:
@@ -7156,15 +7136,10 @@ paths:
         - description: |
             An organization ID.
 
-            #### InfluxDB Cloud
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
             - Lists buckets for the organization associated with the authorization (API token).
-
-            #### InfluxDB OSS
-
-            - Requires either the `org` parameter or `orgID` parameter.
-            - Lists buckets for the specified organization.
           in: query
           name: orgID
           schema:
@@ -7381,18 +7356,13 @@ paths:
       description: |
         Deletes a bucket and all associated records.
 
-        #### InfluxDB Cloud
+        #### InfluxDB Cloud Serverless
 
         - Does the following when you send a delete request:
 
           1. Validates the request and queues the delete.
           2. Returns an HTTP `204` status code if queued; _error_ otherwise.
           3. Handles the delete asynchronously.
-
-        #### InfluxDB OSS
-
-        - Validates the request, handles the delete synchronously,
-        and then responds with success or failure.
 
         #### Limitations
 
@@ -7417,11 +7387,8 @@ paths:
           description: |
             Success.
 
-            #### InfluxDB Cloud
+            #### InfluxDB Cloud Serverless
               - The bucket is queued for deletion.
-
-            #### InfluxDB OSS
-              - The bucket is deleted.
         '400':
           content:
             application/json:
@@ -7552,14 +7519,10 @@ paths:
         Use this endpoint to update properties
         (`name`, `description`, and `retentionRules`) of a bucket.
 
-        #### InfluxDB Cloud
+        #### InfluxDB Cloud Serverless
 
         - Requires the `retentionRules` property in the request body. If you don't
         provide `retentionRules`, InfluxDB responds with an HTTP `403` status code.
-
-        #### InfluxDB OSS
-
-        - Doesn't require `retentionRules`.
 
         #### Related Guides
 
@@ -8097,10 +8060,8 @@ paths:
         Bucket owners have permission to delete buckets and remove user and member
         permissions from the bucket.
 
-        #### InfluxDB Cloud
+        InfluxDB Cloud Serverless uses [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign resource permissions; doesn't use `owner` and `member` roles.
 
-        - Doesn't use `owner` and `member` roles.
-          Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign user permissions.
 
         #### Limitations
 
@@ -8118,9 +8079,6 @@ paths:
 
         - [Authorizations](#tag/Authorizations-(API-tokens))
 
-        #### Related guides
-
-        - [Manage users](/influxdb/cloud-serverless/users/)
       operationId: GetBucketsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -8178,10 +8136,7 @@ paths:
         Bucket owners have permission to delete buckets and remove user and member
         permissions from the bucket.
 
-        #### InfluxDB Cloud
-
-        - Doesn't use `owner` and `member` roles.
-          Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign user permissions.
+        InfluxDB Cloud Serverless uses [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign resource permissions; doesn't use `owner` and `member` roles.
 
         #### Limitations
 
@@ -8279,10 +8234,7 @@ paths:
 
         Use this endpoint to remove a user's `owner` role for a bucket.
 
-        #### InfluxDB Cloud
-
-        - Doesn't use `owner` and `member` roles.
-          Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign user permissions.
+        InfluxDB Cloud Serverless uses [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign resource permissions; doesn't use `owner` and `member` roles.
 
         #### Limitations
 
@@ -9184,38 +9136,6 @@ paths:
         **NOTE**: This endpoint has been **disabled** for InfluxDB Cloud Serverless organizations.
         See how to [**delete data**](/influxdb/cloud-serverless/write-data/delete-data/).
 
-        Use this endpoint to delete points from a bucket in a specified time range.
-
-        #### InfluxDB Cloud
-
-        - Does the following when you send a delete request:
-
-          1. Validates the request and queues the delete.
-          2. If queued, responds with _success_ (HTTP `2xx` status code); _error_ otherwise.
-          3. Handles the delete asynchronously and reaches eventual consistency.
-
-        To ensure that InfluxDB Cloud handles writes and deletes in the order you request them,
-        wait for a success response (HTTP `2xx` status code) before you send the next request.
-
-        Because writes and deletes are asynchronous, your change might not yet be readable
-        when you receive the response.
-
-        #### InfluxDB OSS
-
-        - Validates the request, handles the delete synchronously,
-          and then responds with success or failure.
-
-        #### Required permissions
-
-        - `write-buckets` or `write-bucket BUCKET_ID`.
-
-        *`BUCKET_ID`* is the ID of the destination bucket.
-
-        #### Rate limits (with InfluxDB Cloud)
-
-        `write` rate limits apply.
-        For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
-
         #### Related guides
 
         - [Delete data](/influxdb/cloud-serverless/write-data/delete-data/)
@@ -9225,17 +9145,9 @@ paths:
         - description: |
             An organization name or ID.
 
-            #### InfluxDB Cloud
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
-            - Deletes data from the bucket in the organization
-              associated with the authorization (API token).
-
-            #### InfluxDB OSS
-
-            - Requires either the `org` parameter or the `orgID` parameter.
-            - Deletes data from the bucket in the specified organization.
-            - If you pass both `orgID` and `org`, they must both be valid.
           in: query
           name: org
           schema:
@@ -9253,17 +9165,9 @@ paths:
         - description: |
             An organization ID.
 
-            #### InfluxDB Cloud
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
-            - Deletes data from the bucket in the organization
-              associated with the authorization (API token).
-
-            #### InfluxDB OSS
-
-            - Requires either the `org` parameter or the `orgID` parameter.
-            - Deletes data from the bucket in the specified organization.
-            - If you pass both `orgID` and `org`, they must both be valid.
           in: query
           name: orgID
           schema:
@@ -9294,23 +9198,8 @@ paths:
       responses:
         '204':
           description: |
-            Success.
-
-            #### InfluxDB Cloud
-
-            - Validated and queued the request.
-            - Handles the delete asynchronously - the deletion might not have completed yet.
-
-            An HTTP `2xx` status code acknowledges that the write or delete is queued.
-            To ensure that InfluxDB Cloud handles writes and deletes in the order you request them,
-            wait for a response before you send the next request.
-
-            Because writes are asynchronous, data might not yet be written
-            when you receive the response.
-
-            #### InfluxDB OSS
-
-            - Deleted the data.
+            **NOTE**: This endpoint has been **disabled** for InfluxDB Cloud Serverless organizations.
+            See how to [**delete data**](/influxdb/cloud-serverless/write-data/delete-data/).
         '400':
           content:
             application/json:
@@ -9339,20 +9228,7 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Delete data
       tags:
-        - Data I/O endpoints
         - Delete
-      x-codeSamples:
-        - label: cURL
-          lang: Shell
-          source: |
-            curl --request POST INFLUX_URL/api/v2/delete?org=INFLUX_ORG&bucket=INFLUX_BUCKET \
-              --header 'Authorization: Token INFLUX_API_TOKEN' \
-              --header 'Content-Type: application/json' \
-              --data '{
-                "start": "2020-03-01T00:00:00Z",
-                "stop": "2020-11-14T00:00:00Z",
-                "predicate": "tag1=\"value1\" and (tag2=\"value2\" and tag3!=\"value3\")"
-              }'
   /api/v2/flags: {}
   /api/v2/labels: {}
   /api/v2/labels/{labelID}: {}
@@ -9389,12 +9265,7 @@ paths:
       description: |
         Lists [organizations](/influxdb/cloud-serverless/reference/glossary/#organization/).
 
-        To limit which organizations are returned, pass query parameters in your request.
-        If no query parameters are passed, InfluxDB returns all organizations up to the default `limit`.
-
-        #### InfluxDB Cloud
-
-        - Only returns the organization that owns the token passed in the request.
+        InfluxDB Cloud Serverless only returns the organization that owns the token passed in the request.
 
         #### Related guides
 
@@ -9467,15 +9338,12 @@ paths:
       summary: List organizations
       tags:
         - Organizations
-        - Security and access endpoints
     post:
       description: |
         Creates an [organization](/influxdb/cloud-serverless/reference/glossary/#organization)
         and returns the newly created organization.
 
-        #### InfluxDB Cloud
-
-        - Doesn't allow you to use this endpoint to create organizations.
+        InfluxDB Cloud Serverless doesn't allow you to use this endpoint to create organizations.
 
         #### Related guides
 
@@ -9684,7 +9552,6 @@ paths:
       summary: Retrieve an organization
       tags:
         - Organizations
-        - Security and access endpoints
     patch:
       description: |
         Updates an organization.
@@ -9782,33 +9649,8 @@ paths:
       description: |
         Lists all users that belong to an organization.
 
-        InfluxDB [users](/influxdb/cloud-serverless/reference/glossary/#user) have
-        permission to access InfluxDB.
-
-        [Members](/influxdb/cloud-serverless/reference/glossary/#member) are users
-        within the organization.
-
-        #### InfluxDB Cloud
-
-        - Doesn't use `owner` and `member` roles.
-          Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign user permissions.
-
-        #### Limitations
-
-        - Member permissions are separate from API token permissions.
-        - Member permissions are used in the context of the InfluxDB UI.
-
-        #### Required permissions
-
-        - `read-orgs INFLUX_ORG_ID`
-
-        *`INFLUX_ORG_ID`* is the ID of the organization that you want to retrieve
-        members for.
-
-        #### Related guides
-
-        - [Manage users](/influxdb/cloud-serverless/users/)
-        - [Manage members](/influxdb/cloud-serverless/organizations/members/)
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
+        Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: GetOrgsIDMembers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -9876,36 +9718,12 @@ paths:
       summary: List all members of an organization
       tags:
         - Organizations
-        - Security and access endpoints
     post:
       description: |
         Add a user to an organization.
 
-        InfluxDB [users](/influxdb/cloud-serverless/reference/glossary/#user) have
-        permission to access InfluxDB.
-
-        [Members](/influxdb/cloud-serverless/reference/glossary/#member) are users
-        within the organization.
-
-        #### InfluxDB Cloud
-        - Doesn't use `owner` and `member` roles.
-          Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign user permissions.
-
-        #### Limitations
-
-        - Member permissions are separate from API token permissions.
-        - Member permissions are used in the context of the InfluxDB UI.
-
-        #### Required permissions
-
-        - `write-orgs INFLUX_ORG_ID`
-
-        *`INFLUX_ORG_ID`* is the ID of the organization that you want to add a member to.
-
-        #### Related guides
-
-        - [Manage users](/influxdb/cloud-serverless/users/)
-        - [Manage members](/influxdb/cloud-serverless/organizations/members/)
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
+        Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: PostOrgsIDMembers
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -9981,30 +9799,8 @@ paths:
       description: |
         Removes a member from an organization.
 
-        Use this endpoint to remove a user's member privileges for an organization.
-        Removing member privileges removes the user's `read` and `write` permissions
-        from the organization.
-
-        #### InfluxDB Cloud
-
-        - Doesn't use `owner` and `member` roles.
-          Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign user permissions.
-
-        #### Limitations
-
-        - Member permissions are separate from API token permissions.
-        - Member permissions are used in the context of the InfluxDB UI.
-
-        #### Required permissions
-
-        - `write-orgs INFLUX_ORG_ID`
-
-        *`INFLUX_ORG_ID`* is the ID of the organization that you want to remove an
-        owner from.
-
-        #### Related guides
-
-        - [Manage members](/influxdb/cloud-serverless/organizations/members/)
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
+        Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: DeleteOrgsIDMembersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10040,23 +9836,13 @@ paths:
       summary: Remove a member from an organization
       tags:
         - Organizations
-        - Security and access endpoints
   /api/v2/orgs/{orgID}/owners:
     get:
       description: |
         Lists all owners of an organization.
 
-        #### InfluxDB Cloud
-
-        - Doesn't use `owner` and `member` roles.
-          Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign user permissions.
-
-        #### Required permissions
-
-        - `read-orgs INFLUX_ORG_ID`
-
-        *`INFLUX_ORG_ID`* is the ID of the organization that you want to retrieve a
-        list of owners from.
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
+        Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: GetOrgsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10101,27 +9887,12 @@ paths:
       summary: List all owners of an organization
       tags:
         - Organizations
-        - Security and access endpoints
     post:
       description: |
         Adds an owner to an organization.
 
-        Use this endpoint to assign the organization `owner` role to a user.
-
-        #### InfluxDB Cloud
-
-        - Doesn't use `owner` and `member` roles.
-          Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign user permissions.
-
-        #### Required permissions
-
-        - `write-orgs INFLUX_ORG_ID`
-
-        *`INFLUX_ORG_ID`* is the ID of the organization that you want to add an owner for.
-
-        #### Related endpoints
-
-        - [Authorizations](#tag/Authorizations-(API-tokens))
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
+        Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: PostOrgsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10190,27 +9961,8 @@ paths:
         Removes an [owner](/influxdb/cloud-serverless/reference/glossary/#owner) from
         the organization.
 
-        Organization owners have permission to delete organizations and remove user and member
-        permissions from the organization.
-
-        #### InfluxDB Cloud
-        - Doesn't use `owner` and `member` roles.
-          Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to assign user permissions.
-
-        #### Limitations
-
-        - Owner permissions are separate from API token permissions.
-        - Owner permissions are used in the context of the InfluxDB UI.
-
-        #### Required permissions
-
-        - `write-orgs INFLUX_ORG_ID`
-
-        *`INFLUX_ORG_ID`* is the ID of the organization that you want to
-        remove an owner from.
-
-        #### Related endpoints
-        - [Authorizations](#tag/Authorizations-(API-tokens))
+        InfluxDB Cloud Serverless doesn't use `owner` and `member` roles.
+        Use [`/api/v2/authorizations`](#tag/Authorizations-(API-tokens)) to manage resource permissions.
       operationId: DeleteOrgsIDOwnersID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10247,7 +9999,6 @@ paths:
       summary: Remove an owner from an organization
       tags:
         - Organizations
-        - Security and access endpoints
   /api/v2/orgs/{orgID}/secrets:
     get:
       operationId: GetOrgsIDSecrets
@@ -10275,7 +10026,6 @@ paths:
       summary: List all secret keys for an organization
       tags:
         - Secrets
-        - Security and access endpoints
     patch:
       operationId: PatchOrgsIDSecrets
       parameters:
@@ -10331,7 +10081,6 @@ paths:
       summary: Delete a secret from an organization
       tags:
         - Secrets
-        - Security and access endpoints
   /api/v2/orgs/{orgID}/secrets/delete:
     post:
       deprecated: true
@@ -10363,7 +10112,6 @@ paths:
       summary: Delete secrets from an organization
       tags:
         - Secrets
-        - Security and access endpoints
   /api/v2/orgs/{orgID}/usage:
     get:
       operationId: GetOrgUsageID
@@ -10425,20 +10173,13 @@ paths:
   /ping: {}
   /api/v2/query:
     post:
+      deprecated: true
       description: |
         Retrieves data from buckets.
 
-        Use this endpoint to send a Flux query request and retrieve data from a bucket.
+        This endpoint isn't supported in InfluxDB Cloud Serverless.
 
-        #### Rate limits (with InfluxDB Cloud)
-
-        `read` rate limits apply.
-        For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
-
-        #### Related guides
-
-        - [Query with the InfluxDB API](/influxdb/cloud-serverless/query-data/execute-queries/influx-api/)
-        - [Get started with Flux](https://docs.influxdata.com/flux/v0.x/get-started/)
+        See how to [query data](/influxdb/cloud-serverless/query-data/).
       operationId: PostQuery
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10462,15 +10203,9 @@ paths:
         - description: |
             An organization name or ID.
 
-            #### InfluxDB Cloud
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
-            - Queries the bucket in the organization associated with the authorization (API token).
-
-            #### InfluxDB OSS
-
-            - Requires either the `org` parameter or `orgID` parameter.
-            - Queries the bucket in the specified organization.
           in: query
           name: org
           schema:
@@ -10478,15 +10213,9 @@ paths:
         - description: |
             An organization ID.
 
-            #### InfluxDB Cloud
+            #### InfluxDB Cloud Serverless
 
             - Doesn't use the `org` parameter or `orgID` parameter.
-            - Queries the bucket in the organization associated with the authorization (API token).
-
-            #### InfluxDB OSS
-
-            - Requires either the `org` parameter or `orgID` parameter.
-            - Queries the bucket in the specified organization.
           in: query
           name: orgID
           schema:
@@ -10497,10 +10226,6 @@ paths:
             schema:
               $ref: '#/components/schemas/Query'
           application/vnd.flux:
-            example: |
-              from(bucket: "example-bucket")
-                  |> range(start: -5m)
-                  |> filter(fn: (r) => r._measurement == "example-measurement")
             schema:
               type: string
         description: Flux query or specification to execute
@@ -10508,14 +10233,11 @@ paths:
         '200':
           content:
             application/csv:
-              example: |
-                result,table,_start,_stop,_time,region,host,_value
-                mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:00Z,east,A,15.43
-                mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:20Z,east,B,59.25
-                mean,0,2018-05-08T20:50:00Z,2018-05-08T20:51:00Z,2018-05-08T20:50:40Z,east,C,52.62
               schema:
                 type: string
-          description: Success. The response body contains query results.
+          description: |
+            This endpoint isn't supported in InfluxDB Cloud Serverless.
+            See how to [query data](/influxdb/cloud-serverless/query-data/).
           headers:
             Content-Encoding:
               description: Lists encodings (usually compression algorithms) that have been applied to the response payload.
@@ -10556,15 +10278,11 @@ paths:
           $ref: '#/components/responses/ResourceNotFoundError'
         '429':
           description: |
-            #### InfluxDB Cloud:
+            #### InfluxDB Cloud Serverless:
               - returns this error if a **read** or **write** request exceeds your
                 plan's [adjustable service quotas](/influxdb/cloud-serverless/account-management/limits/#adjustable-service-quotas)
                 or if a **delete** request exceeds the maximum
-                [global limit](/influxdb/cloud-serverless/account-management/limits/#global-limits)
-              - returns `Retry-After` header that describes when to try the write again.
-
-            #### InfluxDB OSS:
-              - doesn't return this error.
+                [global limit](/influxdb/cloud-serverless/account-management/limits/#global-limits).
           headers:
             Retry-After:
               description: Non-negative decimal integer indicating seconds to wait before retrying the request.
@@ -10577,54 +10295,13 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Query data
       tags:
-        - Data I/O endpoints
         - Query
-      x-codeSamples:
-        - label: cURL
-          lang: Shell
-          source: |
-            curl --request POST 'INFLUX_URL/api/v2/query?org=INFLUX_ORG' \
-            --header 'Content-Type: application/vnd.flux' \
-            --header 'Accept: application/csv \
-            --header 'Authorization: Token INFLUX_API_TOKEN' \
-            --data 'from(bucket: "example-bucket")
-                      |> range(start: -5m)
-                      |> filter(fn: (r) => r._measurement == "example-measurement")'
   /api/v2/query/analyze:
     post:
+      deprecated: true
       description: |
-        Analyzes a [Flux query](https://docs.influxdata.com/flux/v0.x/) for syntax
-        errors and returns the list of errors.
-
-        In the following sample query, `from()` is missing the property key.
-
-            ```json
-            { "query": "from(: \"iot_center\")\
-                        |> range(start: -90d)\
-                        |> filter(fn: (r) => r._measurement == \"environment\")",
-              "type": "flux"
-            }
-            ```
-
-        If you pass this in a request to the `/api/v2/analyze` endpoint,
-        InfluxDB returns an `errors` list that contains an error object for the missing key.
-
-        #### Limitations
-
-        -  The endpoint doesn't validate values in the query--for example:
-
-          - The following sample query has correct syntax, but contains an incorrect `from()` property key:
-
-            ```json
-            { "query": "from(foo: \"iot_center\")\
-                        |> range(start: -90d)\
-                        |> filter(fn: (r) => r._measurement == \"environment\")",
-              "type": "flux"
-            }
-            ```
-
-            If you pass this in a request to the `/api/v2/analyze` endpoint,
-            InfluxDB returns an empty `errors` list.
+        This endpoint isn't supported in InfluxDB Cloud Serverless.
+        See how to [query data](/influxdb/cloud-serverless/query-data/).
       operationId: PostQueryAnalyze
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10667,9 +10344,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/AnalyzeQueryResponse'
           description: |
-            Success.
-            The response body contains the list of `errors`.
-            If the query syntax is valid, the endpoint returns an empty `errors` list.
+            This endpoint isn't supported in InfluxDB Cloud Serverless.
+            See how to [query data](/influxdb/cloud-serverless/query-data/).
         '400':
           content:
             application/json:
@@ -10724,67 +10400,12 @@ paths:
       summary: Analyze a Flux query
       tags:
         - Query
-      x-codeSamples:
-        - label: 'cURL: Analyze a Flux query'
-          lang: Shell
-          source: |
-            curl -v --request POST \
-              "http://localhost:8086/api/v2/query/analyze" \
-              --header "Authorization: Token INFLUX_API_TOKEN" \
-              --header 'Content-type: application/json' \
-              --header 'Accept: application/json' \
-              --data-binary @- << EOF
-              { "query": "from(bucket: \"iot_center\")\
-                          |> range(start: -90d)\
-                          |> filter(fn: (r) => r._measurement == \"environment\")",
-                "type": "flux"
-              }
-            EOF
   /api/v2/query/ast:
     post:
+      deprecated: true
       description: |
-        Analyzes a Flux query and returns a complete package source [Abstract Syntax
-        Tree (AST)](/influxdb/cloud-serverless/reference/glossary/#abstract-syntax-tree-ast)
-        for the query.
-
-        Use this endpoint for deep query analysis such as debugging unexpected query
-        results.
-
-        A Flux query AST provides a semantic, tree-like representation with contextual
-        information about the query. The AST illustrates how the query is distributed
-        into different components for execution.
-
-        #### Limitations
-
-        -  The endpoint doesn't validate values in the query--for example:
-
-            The following sample Flux query has correct syntax, but contains an incorrect `from()` property key:
-
-            ```js
-            from(foo: "iot_center")
-                |> range(start: -90d)
-                |> filter(fn: (r) => r._measurement == "environment")
-            ```
-
-            The following sample JSON shows how to pass the query in the request body:
-
-            ```js
-            from(foo: "iot_center")
-            |> range(start: -90d)
-            |> filter(fn: (r) => r._measurement == "environment")
-            ```
-
-            The following code sample shows how to pass the query as JSON in the request body:
-
-            ```json
-            { "query": "from(foo: \"iot_center\")\
-                            |> range(start: -90d)\
-                            |> filter(fn: (r) => r._measurement == \"environment\")"
-            }
-            ```
-
-            Passing this to `/api/v2/query/ast` will return a successful response
-            with a generated AST.
+        This endpoint isn't supported in InfluxDB Cloud Serverless.
+        See how to [query data](/influxdb/cloud-serverless/query-data/).
       operationId: PostQueryAst
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10803,338 +10424,11 @@ paths:
       responses:
         '200':
           content:
-            application/json:
-              examples:
-                successResponse:
-                  value:
-                    ast:
-                      files:
-                        - body:
-                            - expression:
-                                argument:
-                                  argument:
-                                    arguments:
-                                      - location:
-                                          end:
-                                            column: 25
-                                            line: 1
-                                          source: 'bucket: "example-bucket"'
-                                          start:
-                                            column: 6
-                                            line: 1
-                                        properties:
-                                          - key:
-                                              location:
-                                                end:
-                                                  column: 12
-                                                  line: 1
-                                                source: bucket
-                                                start:
-                                                  column: 6
-                                                  line: 1
-                                              name: bucket
-                                              type: Identifier
-                                            location:
-                                              end:
-                                                column: 25
-                                                line: 1
-                                              source: 'bucket: "example-bucket"'
-                                              start:
-                                                column: 6
-                                                line: 1
-                                            type: Property
-                                            value:
-                                              location:
-                                                end:
-                                                  column: 25
-                                                  line: 1
-                                                source: '"example-bucket"'
-                                                start:
-                                                  column: 14
-                                                  line: 1
-                                              type: StringLiteral
-                                              value: example-bucket
-                                        type: ObjectExpression
-                                    callee:
-                                      location:
-                                        end:
-                                          column: 5
-                                          line: 1
-                                        source: from
-                                        start:
-                                          column: 1
-                                          line: 1
-                                      name: from
-                                      type: Identifier
-                                    location:
-                                      end:
-                                        column: 26
-                                        line: 1
-                                      source: 'from(bucket: "example-bucket")'
-                                      start:
-                                        column: 1
-                                        line: 1
-                                    type: CallExpression
-                                  call:
-                                    arguments:
-                                      - location:
-                                          end:
-                                            column: 46
-                                            line: 1
-                                          source: 'start: -5m'
-                                          start:
-                                            column: 36
-                                            line: 1
-                                        properties:
-                                          - key:
-                                              location:
-                                                end:
-                                                  column: 41
-                                                  line: 1
-                                                source: start
-                                                start:
-                                                  column: 36
-                                                  line: 1
-                                              name: start
-                                              type: Identifier
-                                            location:
-                                              end:
-                                                column: 46
-                                                line: 1
-                                              source: 'start: -5m'
-                                              start:
-                                                column: 36
-                                                line: 1
-                                            type: Property
-                                            value:
-                                              argument:
-                                                location:
-                                                  end:
-                                                    column: 46
-                                                    line: 1
-                                                  source: 5m
-                                                  start:
-                                                    column: 44
-                                                    line: 1
-                                                type: DurationLiteral
-                                                values:
-                                                  - magnitude: 5
-                                                    unit: m
-                                              location:
-                                                end:
-                                                  column: 46
-                                                  line: 1
-                                                source: '-5m'
-                                                start:
-                                                  column: 43
-                                                  line: 1
-                                              operator: '-'
-                                              type: UnaryExpression
-                                        type: ObjectExpression
-                                    callee:
-                                      location:
-                                        end:
-                                          column: 35
-                                          line: 1
-                                        source: range
-                                        start:
-                                          column: 30
-                                          line: 1
-                                      name: range
-                                      type: Identifier
-                                    location:
-                                      end:
-                                        column: 47
-                                        line: 1
-                                      source: 'range(start: -5m)'
-                                      start:
-                                        column: 30
-                                        line: 1
-                                    type: CallExpression
-                                  location:
-                                    end:
-                                      column: 47
-                                      line: 1
-                                    source: 'from(bucket: "example-bucket") |> range(start: -5m)'
-                                    start:
-                                      column: 1
-                                      line: 1
-                                  type: PipeExpression
-                                call:
-                                  arguments:
-                                    - location:
-                                        end:
-                                          column: 108
-                                          line: 1
-                                        source: 'fn: (r) => r._measurement == "example-measurement"'
-                                        start:
-                                          column: 58
-                                          line: 1
-                                      properties:
-                                        - key:
-                                            location:
-                                              end:
-                                                column: 60
-                                                line: 1
-                                              source: fn
-                                              start:
-                                                column: 58
-                                                line: 1
-                                            name: fn
-                                            type: Identifier
-                                          location:
-                                            end:
-                                              column: 108
-                                              line: 1
-                                            source: 'fn: (r) => r._measurement == "example-measurement"'
-                                            start:
-                                              column: 58
-                                              line: 1
-                                          type: Property
-                                          value:
-                                            body:
-                                              left:
-                                                location:
-                                                  end:
-                                                    column: 83
-                                                    line: 1
-                                                  source: r._measurement
-                                                  start:
-                                                    column: 69
-                                                    line: 1
-                                                object:
-                                                  location:
-                                                    end:
-                                                      column: 70
-                                                      line: 1
-                                                    source: r
-                                                    start:
-                                                      column: 69
-                                                      line: 1
-                                                  name: r
-                                                  type: Identifier
-                                                property:
-                                                  location:
-                                                    end:
-                                                      column: 83
-                                                      line: 1
-                                                    source: _measurement
-                                                    start:
-                                                      column: 71
-                                                      line: 1
-                                                  name: _measurement
-                                                  type: Identifier
-                                                type: MemberExpression
-                                              location:
-                                                end:
-                                                  column: 108
-                                                  line: 1
-                                                source: r._measurement == "example-measurement"
-                                                start:
-                                                  column: 69
-                                                  line: 1
-                                              operator: '=='
-                                              right:
-                                                location:
-                                                  end:
-                                                    column: 108
-                                                    line: 1
-                                                  source: '"example-measurement"'
-                                                  start:
-                                                    column: 87
-                                                    line: 1
-                                                type: StringLiteral
-                                                value: example-measurement
-                                              type: BinaryExpression
-                                            location:
-                                              end:
-                                                column: 108
-                                                line: 1
-                                              source: (r) => r._measurement == "example-measurement"
-                                              start:
-                                                column: 62
-                                                line: 1
-                                            params:
-                                              - key:
-                                                  location:
-                                                    end:
-                                                      column: 64
-                                                      line: 1
-                                                    source: r
-                                                    start:
-                                                      column: 63
-                                                      line: 1
-                                                  name: r
-                                                  type: Identifier
-                                                location:
-                                                  end:
-                                                    column: 64
-                                                    line: 1
-                                                  source: r
-                                                  start:
-                                                    column: 63
-                                                    line: 1
-                                                type: Property
-                                                value: null
-                                            type: FunctionExpression
-                                      type: ObjectExpression
-                                  callee:
-                                    location:
-                                      end:
-                                        column: 57
-                                        line: 1
-                                      source: filter
-                                      start:
-                                        column: 51
-                                        line: 1
-                                    name: filter
-                                    type: Identifier
-                                  location:
-                                    end:
-                                      column: 109
-                                      line: 1
-                                    source: 'filter(fn: (r) => r._measurement == "example-measurement")'
-                                    start:
-                                      column: 51
-                                      line: 1
-                                  type: CallExpression
-                                location:
-                                  end:
-                                    column: 109
-                                    line: 1
-                                  source: 'from(bucket: "example-bucket") |> range(start: -5m) |> filter(fn: (r) => r._measurement == "example-measurement")'
-                                  start:
-                                    column: 1
-                                    line: 1
-                                type: PipeExpression
-                              location:
-                                end:
-                                  column: 109
-                                  line: 1
-                                source: 'from(bucket: "example-bucket") |> range(start: -5m) |> filter(fn: (r) => r._measurement == "example-measurement")'
-                                start:
-                                  column: 1
-                                  line: 1
-                              type: ExpressionStatement
-                          imports: null
-                          location:
-                            end:
-                              column: 109
-                              line: 1
-                            source: 'from(bucket: "example-bucket") |> range(start: -5m) |> filter(fn: (r) => r._measurement == "example-measurement")'
-                            start:
-                              column: 1
-                              line: 1
-                          metadata: parser-type=rust
-                          package: null
-                          type: File
-                      package: main
-                      type: Package
               schema:
                 $ref: '#/components/schemas/ASTResponse'
           description: |
-            Success.
-            The response body contains an Abstract Syntax Tree (AST) of the Flux query.
+            This endpoint isn't supported in InfluxDB Cloud Serverless.
+            See how to [query data](/influxdb/cloud-serverless/query-data/).
         '400':
           content:
             application/json:
@@ -11169,641 +10463,20 @@ paths:
       summary: Generate a query Abstract Syntax Tree (AST)
       tags:
         - Query
-      x-codeSamples:
-        - label: 'cURL: Analyze and generate AST for the query'
-          lang: Shell
-          source: |
-            curl --request POST "http://localhost:8086/api/v2/query/ast" \
-              --header 'Content-Type: application/json' \
-              --header 'Accept: application/json' \
-              --header "Authorization: Token INFLUX_TOKEN" \
-              --data-binary @- << EOL
-                  {
-                    "query": "from(bucket: \"INFLUX_BUCKET_NAME\")\
-                    |> range(start: -5m)\
-                    |> filter(fn: (r) => r._measurement == \"example-measurement\")"
-                  }
-            EOL
   /api/v2/query/suggestions:
     get:
+      deprecated: true
       description: |
-        Lists Flux query suggestions. Each suggestion contains a
-        [Flux function](https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/)
-        name and parameters.
-
-        Use this endpoint to retrieve a list of Flux query suggestions used in the
-        InfluxDB Flux Query Builder.
-
-        #### Limitations
-
-        - When writing a query, avoid using `_functionName()` helper functions
-        exposed by this endpoint.  Helper function names have an underscore (`_`)
-        prefix and aren't meant to be used directly in queries--for example:
-
-          - To sort on a column and keep the top n records, use the
-            `top(n, columns=["_value"], tables=<-)` function instead of the `_sortLimit`
-            helper function. `top` uses `_sortLimit`.
-
-        #### Related Guides
-
-        - [List of all Flux functions](https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/)
+        This endpoint isn't supported in InfluxDB Cloud Serverless.
+        See how to [query data](/influxdb/cloud-serverless/query-data/).
       operationId: GetQuerySuggestions
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
       responses:
         '200':
-          content:
-            application/json:
-              examples:
-                successResponse:
-                  value:
-                    funcs:
-                      - name: _fillEmpty
-                        params:
-                          createEmpty: bool
-                          tables: stream
-                      - name: _highestOrLowest
-                        params:
-                          _sortLimit: function
-                          column: invalid
-                          groupColumns: array
-                          'n': invalid
-                          reducer: function
-                          tables: stream
-                      - name: _hourSelection
-                        params:
-                          location: object
-                          start: int
-                          stop: int
-                          tables: stream
-                          timeColumn: string
-                      - name: _sortLimit
-                        params:
-                          columns: array
-                          desc: bool
-                          'n': int
-                          tables: stream
-                      - name: _window
-                        params:
-                          createEmpty: bool
-                          every: duration
-                          location: object
-                          offset: duration
-                          period: duration
-                          startColumn: string
-                          stopColumn: string
-                          tables: stream
-                          timeColumn: string
-                      - name: aggregateWindow
-                        params:
-                          column: invalid
-                          createEmpty: bool
-                          every: duration
-                          fn: function
-                          location: object
-                          offset: duration
-                          period: duration
-                          tables: stream
-                          timeDst: string
-                          timeSrc: string
-                      - name: bool
-                        params:
-                          v: invalid
-                      - name: bottom
-                        params:
-                          columns: array
-                          'n': int
-                          tables: stream
-                      - name: buckets
-                        params:
-                          host: string
-                          org: string
-                          orgID: string
-                          token: string
-                      - name: bytes
-                        params:
-                          v: invalid
-                      - name: cardinality
-                        params:
-                          bucket: string
-                          bucketID: string
-                          host: string
-                          org: string
-                          orgID: string
-                          predicate: function
-                          start: invalid
-                          stop: invalid
-                          token: string
-                      - name: chandeMomentumOscillator
-                        params:
-                          columns: array
-                          'n': int
-                          tables: stream
-                      - name: columns
-                        params:
-                          column: string
-                          tables: stream
-                      - name: contains
-                        params:
-                          set: array
-                          value: invalid
-                      - name: count
-                        params:
-                          column: string
-                          tables: stream
-                      - name: cov
-                        params:
-                          'on': array
-                          pearsonr: bool
-                          x: invalid
-                          'y': invalid
-                      - name: covariance
-                        params:
-                          columns: array
-                          pearsonr: bool
-                          tables: stream
-                          valueDst: string
-                      - name: cumulativeSum
-                        params:
-                          columns: array
-                          tables: stream
-                      - name: derivative
-                        params:
-                          columns: array
-                          initialZero: bool
-                          nonNegative: bool
-                          tables: stream
-                          timeColumn: string
-                          unit: duration
-                      - name: die
-                        params:
-                          msg: string
-                      - name: difference
-                        params:
-                          columns: array
-                          initialZero: bool
-                          keepFirst: bool
-                          nonNegative: bool
-                          tables: stream
-                      - name: display
-                        params:
-                          v: invalid
-                      - name: distinct
-                        params:
-                          column: string
-                          tables: stream
-                      - name: doubleEMA
-                        params:
-                          'n': int
-                          tables: stream
-                      - name: drop
-                        params:
-                          columns: array
-                          fn: function
-                          tables: stream
-                      - name: duplicate
-                        params:
-                          as: string
-                          column: string
-                          tables: stream
-                      - name: duration
-                        params:
-                          v: invalid
-                      - name: elapsed
-                        params:
-                          columnName: string
-                          tables: stream
-                          timeColumn: string
-                          unit: duration
-                      - name: exponentialMovingAverage
-                        params:
-                          'n': int
-                          tables: stream
-                      - name: fill
-                        params:
-                          column: string
-                          tables: stream
-                          usePrevious: bool
-                          value: invalid
-                      - name: filter
-                        params:
-                          fn: function
-                          onEmpty: string
-                          tables: stream
-                      - name: findColumn
-                        params:
-                          column: string
-                          fn: function
-                          tables: stream
-                      - name: findRecord
-                        params:
-                          fn: function
-                          idx: int
-                          tables: stream
-                      - name: first
-                        params:
-                          column: string
-                          tables: stream
-                      - name: float
-                        params:
-                          v: invalid
-                      - name: from
-                        params:
-                          bucket: string
-                          bucketID: string
-                          host: string
-                          org: string
-                          orgID: string
-                          token: string
-                      - name: getColumn
-                        params:
-                          column: string
-                      - name: getRecord
-                        params:
-                          idx: int
-                      - name: group
-                        params:
-                          columns: array
-                          mode: string
-                          tables: stream
-                      - name: highestAverage
-                        params:
-                          column: string
-                          groupColumns: array
-                          'n': int
-                          tables: stream
-                      - name: highestCurrent
-                        params:
-                          column: string
-                          groupColumns: array
-                          'n': int
-                          tables: stream
-                      - name: highestMax
-                        params:
-                          column: string
-                          groupColumns: array
-                          'n': int
-                          tables: stream
-                      - name: histogram
-                        params:
-                          bins: array
-                          column: string
-                          countColumn: string
-                          normalize: bool
-                          tables: stream
-                          upperBoundColumn: string
-                      - name: histogramQuantile
-                        params:
-                          countColumn: string
-                          minValue: float
-                          quantile: float
-                          tables: stream
-                          upperBoundColumn: string
-                          valueColumn: string
-                      - name: holtWinters
-                        params:
-                          column: string
-                          interval: duration
-                          'n': int
-                          seasonality: int
-                          tables: stream
-                          timeColumn: string
-                          withFit: bool
-                      - name: hourSelection
-                        params:
-                          location: object
-                          start: int
-                          stop: int
-                          tables: stream
-                          timeColumn: string
-                      - name: increase
-                        params:
-                          columns: array
-                          tables: stream
-                      - name: int
-                        params:
-                          v: invalid
-                      - name: integral
-                        params:
-                          column: string
-                          interpolate: string
-                          tables: stream
-                          timeColumn: string
-                          unit: duration
-                      - name: join
-                        params:
-                          method: string
-                          'on': array
-                          tables: invalid
-                      - name: kaufmansAMA
-                        params:
-                          column: string
-                          'n': int
-                          tables: stream
-                      - name: kaufmansER
-                        params:
-                          'n': int
-                          tables: stream
-                      - name: keep
-                        params:
-                          columns: array
-                          fn: function
-                          tables: stream
-                      - name: keyValues
-                        params:
-                          keyColumns: array
-                          tables: stream
-                      - name: keys
-                        params:
-                          column: string
-                          tables: stream
-                      - name: last
-                        params:
-                          column: string
-                          tables: stream
-                      - name: length
-                        params:
-                          arr: array
-                      - name: limit
-                        params:
-                          'n': int
-                          offset: int
-                          tables: stream
-                      - name: linearBins
-                        params:
-                          count: int
-                          infinity: bool
-                          start: float
-                          width: float
-                      - name: logarithmicBins
-                        params:
-                          count: int
-                          factor: float
-                          infinity: bool
-                          start: float
-                      - name: lowestAverage
-                        params:
-                          column: string
-                          groupColumns: array
-                          'n': int
-                          tables: stream
-                      - name: lowestCurrent
-                        params:
-                          column: string
-                          groupColumns: array
-                          'n': int
-                          tables: stream
-                      - name: lowestMin
-                        params:
-                          column: string
-                          groupColumns: array
-                          'n': int
-                          tables: stream
-                      - name: map
-                        params:
-                          fn: function
-                          mergeKey: bool
-                          tables: stream
-                      - name: max
-                        params:
-                          column: string
-                          tables: stream
-                      - name: mean
-                        params:
-                          column: string
-                          tables: stream
-                      - name: median
-                        params:
-                          column: string
-                          compression: float
-                          method: string
-                          tables: stream
-                      - name: min
-                        params:
-                          column: string
-                          tables: stream
-                      - name: mode
-                        params:
-                          column: string
-                          tables: stream
-                      - name: movingAverage
-                        params:
-                          'n': int
-                          tables: stream
-                      - name: now
-                        params: {}
-                      - name: pearsonr
-                        params:
-                          'on': array
-                          x: invalid
-                          'y': invalid
-                      - name: pivot
-                        params:
-                          columnKey: array
-                          rowKey: array
-                          tables: stream
-                          valueColumn: string
-                      - name: quantile
-                        params:
-                          column: string
-                          compression: float
-                          method: string
-                          q: float
-                          tables: stream
-                      - name: range
-                        params:
-                          start: invalid
-                          stop: invalid
-                          tables: stream
-                      - name: reduce
-                        params:
-                          fn: function
-                          identity: invalid
-                          tables: stream
-                      - name: relativeStrengthIndex
-                        params:
-                          columns: array
-                          'n': int
-                          tables: stream
-                      - name: rename
-                        params:
-                          columns: invalid
-                          fn: function
-                          tables: stream
-                      - name: sample
-                        params:
-                          column: string
-                          'n': int
-                          pos: int
-                          tables: stream
-                      - name: set
-                        params:
-                          key: string
-                          tables: stream
-                          value: string
-                      - name: skew
-                        params:
-                          column: string
-                          tables: stream
-                      - name: sort
-                        params:
-                          columns: array
-                          desc: bool
-                          tables: stream
-                      - name: spread
-                        params:
-                          column: string
-                          tables: stream
-                      - name: stateCount
-                        params:
-                          column: string
-                          fn: function
-                          tables: stream
-                      - name: stateDuration
-                        params:
-                          column: string
-                          fn: function
-                          tables: stream
-                          timeColumn: string
-                          unit: duration
-                      - name: stateTracking
-                        params:
-                          countColumn: string
-                          durationColumn: string
-                          durationUnit: duration
-                          fn: function
-                          tables: stream
-                          timeColumn: string
-                      - name: stddev
-                        params:
-                          column: string
-                          mode: string
-                          tables: stream
-                      - name: string
-                        params:
-                          v: invalid
-                      - name: sum
-                        params:
-                          column: string
-                          tables: stream
-                      - name: tableFind
-                        params:
-                          fn: function
-                          tables: stream
-                      - name: tail
-                        params:
-                          'n': int
-                          offset: int
-                          tables: stream
-                      - name: time
-                        params:
-                          v: invalid
-                      - name: timeShift
-                        params:
-                          columns: array
-                          duration: duration
-                          tables: stream
-                      - name: timeWeightedAvg
-                        params:
-                          tables: stream
-                          unit: duration
-                      - name: timedMovingAverage
-                        params:
-                          column: string
-                          every: duration
-                          period: duration
-                          tables: stream
-                      - name: to
-                        params:
-                          bucket: string
-                          bucketID: string
-                          fieldFn: function
-                          host: string
-                          measurementColumn: string
-                          org: string
-                          orgID: string
-                          tables: stream
-                          tagColumns: array
-                          timeColumn: string
-                          token: string
-                      - name: toBool
-                        params:
-                          tables: stream
-                      - name: toFloat
-                        params:
-                          tables: stream
-                      - name: toInt
-                        params:
-                          tables: stream
-                      - name: toString
-                        params:
-                          tables: stream
-                      - name: toTime
-                        params:
-                          tables: stream
-                      - name: toUInt
-                        params:
-                          tables: stream
-                      - name: today
-                        params: {}
-                      - name: top
-                        params:
-                          columns: array
-                          'n': int
-                          tables: stream
-                      - name: tripleEMA
-                        params:
-                          'n': int
-                          tables: stream
-                      - name: tripleExponentialDerivative
-                        params:
-                          'n': int
-                          tables: stream
-                      - name: truncateTimeColumn
-                        params:
-                          tables: stream
-                          timeColumn: invalid
-                          unit: duration
-                      - name: uint
-                        params:
-                          v: invalid
-                      - name: union
-                        params:
-                          tables: array
-                      - name: unique
-                        params:
-                          column: string
-                          tables: stream
-                      - name: wideTo
-                        params:
-                          bucket: string
-                          bucketID: string
-                          host: string
-                          org: string
-                          orgID: string
-                          tables: stream
-                          token: string
-                      - name: window
-                        params:
-                          createEmpty: bool
-                          every: duration
-                          location: object
-                          offset: duration
-                          period: duration
-                          startColumn: string
-                          stopColumn: string
-                          tables: stream
-                          timeColumn: string
-                      - name: yield
-                        params:
-                          name: string
-                          tables: stream
-              schema:
-                $ref: '#/components/schemas/FluxSuggestions'
           description: |
-            Success.
-            The response body contains a list of Flux query suggestions--function
-            names used in the Flux Query Builder autocomplete suggestions.
+            This endpoint isn't supported in InfluxDB Cloud Serverless.
+            See how to [query data](/influxdb/cloud-serverless/query-data/).
         '301':
           content:
             text/html:
@@ -11842,24 +10515,10 @@ paths:
               --header "Authorization: Token INFLUX_API_TOKEN"
   /api/v2/query/suggestions/{name}:
     get:
+      deprecated: true
       description: |
-        Retrieves a query suggestion that contains the name and parameters of the
-        requested function.
-
-        Use this endpoint to pass a branching suggestion (a Flux function name) and
-        retrieve the parameters of the requested function.
-
-        #### Limitations
-
-        - Use `/api/v2/query/suggestions/{name}` (without a trailing slash).
-        `/api/v2/query/suggestions/{name}/` (note the trailing slash) results in a
-        HTTP `301 Moved Permanently` status.
-
-        - The function `name` must exist and must be spelled correctly.
-
-        #### Related Guides
-
-        - [List of all Flux functions](https://docs.influxdata.com/flux/v0.x/stdlib/all-functions/)
+        This endpoint isn't supported in InfluxDB Cloud Serverless.
+        See how to [query data](/influxdb/cloud-serverless/query-data/).
       operationId: GetQuerySuggestionsName
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -11872,20 +10531,9 @@ paths:
             type: string
       responses:
         '200':
-          content:
-            application/json:
-              examples:
-                successResponse:
-                  value:
-                    name: sum
-                    params:
-                      column: string
-                      tables: stream
-              schema:
-                $ref: '#/components/schemas/FluxSuggestion'
           description: |
-            Success.
-            The response body contains the function name and parameters.
+            This endpoint isn't supported in InfluxDB Cloud Serverless.
+            See how to [query data](/influxdb/cloud-serverless/query-data/).
         '500':
           content:
             application/json:
@@ -11905,13 +10553,6 @@ paths:
       summary: Retrieve a query suggestion for a branching suggestion
       tags:
         - Query
-      x-codeSamples:
-        - label: cURL
-          lang: Shell
-          source: |
-            curl --request GET "INFLUX_URL/api/v2/query/suggestions/sum/" \
-              --header "Accept: application/json" \
-              --header "Authorization: Token INFLUX_API_TOKEN"
   /api/v2/resources:
     get:
       operationId: GetResources
@@ -12029,7 +10670,6 @@ paths:
           description: Unexpected error.
       summary: List scripts
       tags:
-        - Data I/O endpoints
         - Invokable Scripts
       x-codeSamples:
         - label: 'cURL: retrieves the first 100 scripts.'
@@ -12103,21 +10743,6 @@ paths:
       summary: Create a script
       tags:
         - Invokable Scripts
-      x-codeSamples:
-        - label: cURL
-          lang: Shell
-          source: |
-            curl --request POST "INFLUX_URL/api/v2/scripts" \
-              --header "Authorization: Token INFLUX_API_TOKEN" \
-              --header "Accept: application/json" \
-              --header "Content-Type: application/json" \
-              --data '{
-                  "name": "getLastPoint",
-                  "description": "getLastPoint finds the last point in a bucket",
-                  "orgID": "INFLUX_ORG_ID",
-                  "script": "from(bucket: INFLUX_BUCKET) |> range(start: -7d) |> limit(n:1)",
-                  "language": "flux"
-                }'
   /api/v2/scripts/{scriptID}:
     delete:
       description: |
@@ -12221,7 +10846,6 @@ paths:
           description: Internal server error.
       summary: Retrieve a script
       tags:
-        - Data I/O endpoints
         - Invokable Scripts
     patch:
       description: |
@@ -12432,21 +11056,7 @@ paths:
           description: Unexpected error.
       summary: Invoke a script
       tags:
-        - Data I/O endpoints
         - Invokable Scripts
-      x-codeSamples:
-        - label: cURL
-          lang: Shell
-          source: |
-            curl --request POST "INFLUX_URL/api/v2/scripts/SCRIPT_ID/invoke" \
-                      --header "Authorization: Token INFLUX_TOKEN" \
-                      --header 'Accept: application/csv' \
-                      --header 'Content-Type: application/json' \
-                      --data '{
-                        "params": {
-                            "mybucket": "air_sensor"
-                            }
-                        }'
   /api/v2/scripts/{scriptID}/params:
     get:
       description: |
@@ -13077,7 +11687,6 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: List all tasks
       tags:
-        - Data I/O endpoints
         - Tasks
       x-codeSamples:
         - label: 'cURL: all tasks, basic output'
@@ -13192,7 +11801,6 @@ paths:
           description: Unexpected error
       summary: Create a task
       tags:
-        - Data I/O endpoints
         - Tasks
       x-codeSamples:
         - label: 'cURL: create a Flux script task'
@@ -13299,7 +11907,6 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Retrieve a task
       tags:
-        - Data I/O endpoints
         - Tasks
     patch:
       description: |
@@ -13945,7 +12552,6 @@ paths:
           $ref: '#/components/responses/GeneralServerError'
       summary: Start a task run, overriding the schedule
       tags:
-        - Data I/O endpoints
         - Tasks
   /api/v2/tasks/{taskID}/runs/{runID}:
     delete:
@@ -15258,36 +13864,19 @@ paths:
 
         Use this endpoint to send data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) format to InfluxDB.
 
-        #### InfluxDB Cloud
+        InfluxDB does the following when you send a write request:
 
-        - Does the following when you send a write request:
+        1. Validates the request
+        2. If successful, attempts to [ingest the data](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest); _error_ otherwise.
+        3.  If successful, responds with _success_ (HTTP `204` status code), acknowledging that the data is written and queryable; _error_ otherwise.
 
-          1. Validates the request and queues the write.
-          2. If queued, responds with _success_ (HTTP `2xx` status code); _error_ otherwise.
-          3. Handles the write asynchronously and reaches eventual consistency.
+        To ensure that InfluxDB Cloud handles writes in the order you request them,
+        wait for a success response (HTTP `2xx` status code) before you send the next request.
 
-          To ensure that InfluxDB Cloud handles writes in the order you request them,
-          wait for a success response (HTTP `2xx` status code) before you send the next request.
-
-          Because writes are asynchronous, your change might not yet be readable
-          when you receive the response.
-
-        #### InfluxDB OSS
-
-        - Validates the request and handles the write synchronously.
-        - If all points were written successfully, responds with HTTP `2xx` status code;
-          otherwise, returns the first line that failed.
-
-        #### Required permissions
-
-        - `write-buckets` or `write-bucket BUCKET_ID`.
-
-         *`BUCKET_ID`* is the ID of the destination bucket.
-
-        #### Rate limits (with InfluxDB Cloud)
+        #### Rate limits
 
         `write` rate limits apply.
-        For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
+        For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/admin/billing/limits/).
 
         #### Related guides
 
@@ -15299,7 +13888,7 @@ paths:
         - $ref: '#/components/parameters/TraceSpan'
         - description: |
             The compression applied to the line protocol in the request payload.
-            To send a GZIP payload, pass `Content-Encoding: gzip` header.
+            To send a gzip payload, pass `Content-Encoding: gzip` header.
           in: header
           name: Content-Encoding
           schema:
@@ -15338,14 +13927,10 @@ paths:
             Writes only return a response body if they fail--for example,
             due to a formatting problem or quota limit.
 
-            #### InfluxDB Cloud
+            #### InfluxDB Cloud Serverless
 
               - Returns only `application/json` for format and limit errors.
               - Returns only `text/html` for some quota limit errors.
-
-            #### InfluxDB OSS
-
-              - Returns only `application/json` for format and limit errors.
 
             #### Related guides
 
@@ -15361,17 +13946,8 @@ paths:
         - description: |
             An organization name or ID.
 
-            #### InfluxDB Cloud
-
-            - Doesn't use the `org` parameter or `orgID` parameter.
-            - Writes data to the bucket in the organization
-              associated with the authorization (API token).
-
-            #### InfluxDB OSS
-
-            - Requires either the `org` parameter or the `orgID` parameter.
-            - If you pass both `orgID` and `org`, they must both be valid.
-            - Writes data to the bucket in the specified organization.
+            InfluxDB Cloud Serverless writes data to the bucket in the organization associated with the authorization (API token);
+            doesn't use the `org` parameter or `orgID` parameter.
           in: query
           name: org
           required: true
@@ -15381,17 +13957,8 @@ paths:
         - description: |
             An organization ID.
 
-            #### InfluxDB Cloud
-
-            - Doesn't use the `org` parameter or `orgID` parameter.
-            - Writes data to the bucket in the organization
-              associated with the authorization (API token).
-
-            #### InfluxDB OSS
-
-            - Requires either the `org` parameter or the `orgID` parameter.
-            - If you pass both `orgID` and `org`, they must both be valid.
-            - Writes data to the bucket in the specified organization.
+            InfluxDB Cloud Serverless writes data to the bucket in the organization associated with the authorization (API token);
+            doesn't use the `org` parameter or `orgID` parameter.
           in: query
           name: orgID
           schema:
@@ -15426,7 +13993,7 @@ paths:
 
           To send compressed data, do the following:
 
-            1. Use [GZIP](https://www.gzip.org/) to compress the line protocol data.
+            1. Use [gzip](https://www.gzip.org/) to compress the line protocol data.
             2. In your request, send the compressed data and the
                `Content-Encoding: gzip` header.
 
@@ -15437,51 +14004,24 @@ paths:
       responses:
         '204':
           description: |
-            Success.
-
-            #### InfluxDB Cloud
-
-            - Validated and queued the request.
-            - Handles the write asynchronously - the write might not have completed yet.
-
-            #### InfluxDB OSS
-
-            - Successfully wrote all points in the batch.
-
-            #### Related guides
-
-            - [How to check for write errors](/influxdb/cloud-serverless/write-data/troubleshoot/)
+            Success. Data is written and queryable.
         '400':
           content:
             application/json:
               examples:
                 measurementSchemaFieldTypeConflict:
-                  summary: (Cloud) field type conflict thrown by an explicit bucket schema
+                  summary: field type conflict thrown by an explicit bucket schema
                   value:
                     code: invalid
-                    message: 'partial write error (2 written): unable to parse ''air_sensor,service=S1,sensor=L1 temperature="90.5",humidity=70.0 1632850122'': schema: field type for field "temperature" not permitted by schema; got String but expected Float'
-                orgNotFound:
-                  summary: (OSS) organization not found
-                  value:
-                    code: invalid
-                    message: 'failed to decode request body: organization not found'
+                    message: 'failed to parse line protocol: error writing line 2: Unable to insert iox::column_type::field::integer type into column temp  with type iox::column_type::field::string'
+
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
           description: |
             Bad request. The response body contains detail about the error.
 
-            InfluxDB returns this error if the line protocol data in the request is malformed.
+            InfluxDB returns this error if the line protocol data in the request is malformed or contains a database schema conflict.
             The response body contains the first malformed line in the data, and indicates what was expected.
-            For partial writes, the number of points written and the number of points rejected are also included.
-            For more information, check the `rejected_points` measurement in your `_monitoring` bucket.
-
-            #### InfluxDB Cloud
-
-            - Returns this error for bucket schema conflicts.
-
-            #### InfluxDB OSS
-
-            - Returns this error if the `org` parameter or `orgID` parameter doesn't match an organization.
         '401':
           $ref: '#/components/responses/AuthorizationError'
         '404':
@@ -15518,12 +14058,6 @@ paths:
             #### InfluxDB Cloud:
 
              - Returns this error if the payload exceeds the 50MB size limit.
-             - Returns `Content-Type: text/html` for this error.
-
-            #### InfluxDB OSS:
-
-             - Returns this error only if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
-             - Returns `Content-Type: application/json` for this error.
         '429':
           description: |
             Too many requests.
@@ -15537,10 +14071,6 @@ paths:
 
               Rates (data-in (writes), queries (reads), and deletes) accrue within a fixed five-minute window.
               Once a rate limit is exceeded, InfluxDB returns an error response until the current five-minute window resets.
-
-            #### InfluxDB OSS
-
-              - Doesn't return this error.
           headers:
             Retry-After:
               description: Non-negative decimal integer indicating seconds to wait before retrying the request.
@@ -15579,7 +14109,13 @@ paths:
       - url: /private
   /query:
     get:
-      description: Queries InfluxDB using InfluxQL with InfluxDB v1 request and response formats.
+      description: |
+        Queries InfluxDB using InfluxQL with InfluxDB v1 request and response formats.
+
+        #### Related guides
+
+        - [Use the InfluxDB v1 API](/influxdb/cloud-serverless/guides/api-compatibility/v1/)
+        - [Query data](/influxdb/cloud-serverless/query-data/)
       operationId: GetLegacyQuery
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -15705,9 +14241,6 @@ paths:
                 or if a **delete** request exceeds the maximum
                 [global limit](/influxdb/cloud-serverless/account-management/limits/#global-limits)
               - returns `Retry-After` header that describes when to try the write again.
-
-            #### InfluxDB OSS:
-              - doesn't return this error.
           headers:
             Retry-After:
               description: A non-negative decimal integer indicating the seconds to delay after the response is received.
@@ -15722,6 +14255,7 @@ paths:
           description: Error processing query
       summary: Query using the InfluxDB v1 API
       tags:
+        - Data I/O endpoints
         - Query
   /write:
     post:
@@ -16031,7 +14565,7 @@ tags:
       | &nbsp;Code&nbsp; | Status                   | Description      |
       |:-----------:|:------------------------ |:--------------------- |
       | `200`       | Success                  |                       |
-      | `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |
+      | `204`       | Success. No content      | InfluxDB doesn't return data for the request. For example, a successful write request returns `204` status code, acknowledging that data is written and queryable. |
       | `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. For _writes_, the error may indicate one of the following problems: <ul><li>Line protocol is malformed. The response body contains the first malformed line in the data and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included.</li><li>`Authorization` header is missing or malformed or the API token doesn't have permission for the operation.</li></ul> |
       | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage API tokens](/influxdb/cloud-serverless/security/tokens/)</li></ul> |
       | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |

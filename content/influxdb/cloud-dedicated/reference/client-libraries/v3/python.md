@@ -2,7 +2,6 @@
 title: Python client library for InfluxDB v3
 list_title: Python
 description: The InfluxDB v3 `influxdb3-python` Python client library integrates with Python scripts and applications to write and query data stored in an InfluxDB Cloud Dedicated database.
-external_url: https://github.com/InfluxCommunity/influxdb3-python
 menu:
   influxdb_cloud_dedicated:
     name: Python
@@ -12,6 +11,8 @@ influxdb/cloud-dedicated/tags: [python, gRPC, SQL, client libraries]
 weight: 201
 aliases:
   - /influxdb/cloud-dedicated/reference/client-libraries/v3/pyinflux3/
+related:
+  - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
 list_code_example: >
   ```py
   from influxdb_client_3 import InfluxDBClient3
@@ -19,7 +20,7 @@ list_code_example: >
   # Instantiate an InfluxDB client configured for a database
 
   client = InfluxDBClient3(
-    "https://us-east-1-1.aws.{{< influxdb/host >}}",
+    "https://{{< influxdb/host >}}",
     database="DATABASE_NAME",
     token="DATABASE_TOKEN")
 
@@ -86,10 +87,9 @@ from influxdb_client_3 import InfluxDBClient3, Point, WriteOptions
 ```
 
 - [`influxdb_client_3.InfluxDBClient3`](#class-influxdbclient3): a class for interacting with InfluxDB
-- `influxdb_client_3.Point`: a class for constructing a time series data
+- [`influxdb_client_3.Point`](#class-point):a class for constructing a time series data
 point
-- `influxdb_client_3.WriteOptions`: a class for configuring client
-write options.
+- [`influxdb_client_3.WriteOptions`](#class-writeoptions): a class for configuring client
 
 ## API reference
 
@@ -136,11 +136,16 @@ Initializes and returns an `InfluxDBClient3` instance with the following:
   If `None`, writes are [synchronous](#synchronous-writing).
 - **flight_client_options** (dict): Options to use when querying InfluxDB.
 
+#### Non-batch writing
+
+When writing data in non-batching mode, the client immediately tries to write the data, doesn't retry failed requests, and doesn't invoke response callbacks.
+
 #### Batch writing
 
 In batching mode, the client adds the record or records to a batch, and then schedules the batch for writing to InfluxDB.
 The client writes the batch to InfluxDB after reaching `write_client_options.batch_size` or `write_client_options.flush_interval`.
 If a write fails, the client reschedules the write according to the `write_client_options` retry options.
+When using batching mode, you can define `success_callback`, `error_callback`, and `retry_callback` functions.
 
 To use batching mode, pass `WriteOptions` as key-value pairs to the client `write_client_options` parameter--for example:
 
@@ -165,11 +170,23 @@ To use batching mode, pass `WriteOptions` as key-value pairs to the client `writ
     {{< tabs-wrapper >}}
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```py
-from influxdb_client_3 import InfluxDBClient3
+from influxdb_client_3 import Point, InfluxDBClient3
+
+points = [
+    Point("home")
+            .tag("room", "Kitchen")
+            .field("temp", 25.3)
+            .field('hum', 20.2)
+            .field('co', 9),
+    Point("home")
+            .tag("room", "Living Room")
+            .field("temp", 24.0)
+            .field('hum', 20.0)
+            .field('co', 5)]
 
 with InfluxDBClient3(token="DATABASE_TOKEN",
                      host="{{< influxdb/host >}}",
-                     org="", database="DATABASE_NAME",
+                     database="DATABASE_NAME",
                      write_client_options=wco) as client:
 
     client.write(record=points)
@@ -179,17 +196,17 @@ with InfluxDBClient3(token="DATABASE_TOKEN",
 
 #### Synchronous writing
 
-In synchronous mode, the client sends write requests immediately (not batched)
-and doesn't retry failed writes.
-
-To use synchronous mode, set `_write_client_options=None` or `_write_client_options.write_type=WriteType.synchronous`.
+Synchronous mode is the default mode for writing data (in batch and non-batch modes).
+To specify synchronous mode, set `_write_client_options=None` or `_write_client_options.write_type=WriteType.synchronous`.
 
 ### Examples
 
 ##### Initialize a client
 
-The following example initializes a client for writing and querying the database.
-Given `_write_client_options=None`, the client uses synchronous mode when writing data.
+The following example initializes a client for writing and querying data in a {{% product-name %}} database.
+When writing or querying, the client waits synchronously for the response.
+
+Given `client.write_client_options` doesn't set `WriteOptions`, the client uses the default [non-batch writing](#non-batch-writing) mode.
 
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
 ```py
@@ -197,7 +214,6 @@ from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(token="DATABASE_TOKEN",
                          host="{{< influxdb/host >}}",
-                         org="",
                          database="DATABASE_NAME")
 ```
 {{% /code-placeholders %}}
@@ -207,36 +223,30 @@ Replace the following:
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: the name of your {{% product-name %}} [database](/influxdb/cloud-dedicated/admin/databases/)
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: an {{% product-name %}} [database token](/influxdb/cloud-dedicated/admin/tokens/) with read permissions on the specified database
 
-
 ##### Initialize a client for batch writing
 
-The following example shows how to initialize a client for writing and querying the database.
+The following example shows how to initialize a client for batch writing data to the database.
 When writing data, the client uses batch mode with default options and
-invokes the callback function defined for the response status (`success`, `error`, or `retry`).
+invokes the callback function, if specified, for the response status (success, error, or retryable error).
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
 ```py
-  from influxdb_client_3 import Point,
-                                InfluxDBClient3,
+  from influxdb_client_3 import InfluxDBClient3,
                                 write_client_options,
                                 WriteOptions,
                                 InfluxDBError
 
-  points = [Point("home").tag("room", "Kitchen").field("temp", 25.3),
-            Point("home").tag("room", "Living Room").field("temp", 18.4)]
-
   # Define callbacks for write responses
-  def success(self, conf: (str, str, str)):
-      """BATCH WRITE SUCCESS."""
-      print(f"Wrote batch: {conf}")
+  def success(self, data: str):
+      print(f"Successfully wrote batch: data: {data}")
 
-  def error(self, conf: (str, str, str), exception: InfluxDBError):
-      """BATCH WRITE FAILURE."""
-      print(f"Cannot write batch: {conf}, due to: {exception}")
+  def error(self, data: str, exception: InfluxDBError):
+      print(f"Failed writing batch: config: {self}, data: {data},
+      error: {exception}")
 
-  def retry(self, conf: (str, str, str), exception: InfluxDBError):
-      """BATCH WRITE RETRY"""
-      print(f"Retryable error occurs for batch: {conf}, retry: {exception}")
+  def retry(self, data: str, exception: InfluxDBError):
+      print(f"Failed retry writing batch: config: {self}, data: {data},
+      error: {exception}")
 
   # Instantiate WriteOptions for batching
   write_options = WriteOptions()
@@ -245,11 +255,14 @@ invokes the callback function defined for the response status (`success`, `error
                               retry_callback=retry,
                               WriteOptions=write_options)
 
+  # Use the with...as statement to ensure the file is properly closed and resources
+  # are released.
   with InfluxDBClient3(token="DATABASE_TOKEN", host="{{< influxdb/host >}}",
                       org="", database="DATABASE_NAME",
                       write_client_options=wco) as client:
 
-      client.write(record=points)
+      client.write_file(file='./home.csv',
+        timestamp_column='time', tag_columns=["room"])
 ```
 {{% /code-placeholders %}}
 
@@ -264,8 +277,6 @@ Replace the following:
 
 Writes a record or a list of records to InfluxDB.
 
-The client can write using [_batching_ mode](#batch-writing) or [_synchronous_ mode](#synchronous-writing).
-
 #### Syntax
 
 ```py
@@ -275,7 +286,12 @@ write(self, record=None, **kwargs)
 #### Parameters
 
 - **`record`**: A record or list of records to write. A record can be a `Point` object, a dict that represents a point, a line protocol string, or a `DataFrame`.
-- **`write_precision=`**: `"ms"`, `"s"`, `"us"`, `"ns"`. Default is `"ns"`.
+- **`database`**: The database to write to. Default is to write to the database specified for the client.
+- **`**kwargs`**: Additional write options--for example:
+  - **`write_precision`**: _Optional_. Default is `"ns"`.
+  Specifies the [precision](/influxdb/cloud-dedicated/reference/glossary/#precision) (`"ms"`, `"s"`, `"us"`, `"ns"`) for timestamps in `record`.
+  - **`write_client_options`**: _Optional_.
+  Specifies callback functions and options for [batch writing](#batch-writing) mode.
 
 #### Examples
 
@@ -288,7 +304,7 @@ from influxdb_client_3 import InfluxDBClient3
 
 points = "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000"
 
-client = InfluxDBClient3(token="DATABASE_TOKEN", host="cluster-id.influxdb.io",
+client = InfluxDBClient3(token="DATABASE_TOKEN", host="{{< influxdb/host >}}",
                         database="DATABASE_NAME")
 
 client.write(record=points, write_precision="s")
@@ -350,8 +366,7 @@ client.write(record=points, write_precision="s")
 ### InfluxDBClient3.write_file
 
 Writes data from a file to InfluxDB.
-
-The client can write using [_batching_ mode](#batch-writing) or [_synchronous_ mode](#synchronous-writing).
+Execution is synchronous.
 
 #### Syntax
 
@@ -378,6 +393,12 @@ write_file(self, file, measurement_name=None, tag_columns=[],
 - **`tag_columns`**: A list containing the names of tag columns.
   Columns not included in the list and not specified by another parameter are assumed to be fields.
 - **`timestamp_column`**: The name of the column that contains timestamps. Default is `'time'`.
+- **`database`**: The database to write to. Default is to write to the database specified for the client.
+- **`**kwargs`**: Additional write options--for example:
+  - **`write_precision`**: _Optional_. Default is `"ns"`.
+  Specifies the [precision](/influxdb/cloud-dedicated/reference/glossary/#precision) (`"ms"`, `"s"`, `"us"`, `"ns"`) for timestamps in `record`.
+  - **`write_client_options`**: _Optional_.
+  Specifies callback functions and options for [batch writing](#batch-writing) mode.
 
 #### Examples
 
@@ -394,17 +415,16 @@ from influxdb_client_3 import InfluxDBClient3, write_client_options,
 class BatchingCallback(object):
 
   # Define callbacks for write responses
-  def success(self, conf: (str, str, str)):
-      """BATCH WRITE SUCCESS."""
-      print(f"Wrote batch: {conf}")
+  def success(self, data: str):
+      print(f"Successfully wrote batch: data: {data}")
 
-  def error(self, conf: (str, str, str), exception: InfluxDBError):
-      """BATCH WRITE FAILURE."""
-      print(f"Cannot write batch: {conf}, due to: {exception}")
+  def error(self, data: str, exception: InfluxDBError):
+      print(f"Failed writing batch: config: {self}, data: {data},
+      error: {exception}")
 
-  def retry(self, conf: (str, str, str), exception: InfluxDBError):
-      """BATCH WRITE RETRY"""
-      print(f"Retryable error occurs for batch: {conf}, retry: {exception}")
+  def retry(self, data: str, exception: InfluxDBError):
+      print(f"Failed retry writing batch: config: {self}, data: {data},
+      error: {exception}")
 
 # Instantiate the callbacks
 callback = BatchingCallback()
@@ -420,18 +440,17 @@ write_options = WriteOptions(batch_size=500,
 wco = write_client_options(success_callback=callback.success,
                           error_callback=callback.error,
                           retry_callback=callback.retry,
-                          WriteOptions=write_options 
-                        )
+                          WriteOptions=write_options)
 
 with  InfluxDBClient3(token="DATABASE_TOKEN", host="{{< influxdb/host >}}",
-                      org="", database="DATABASE_NAME",
+                      database="DATABASE_NAME",
                       _write_client_options=wco) as client:
 
-  client.write_file(file='./out.csv', timestamp_column='time',
-                    tag_columns=["provider", "machineID"])
+  client.write_file(file='./home.csv', timestamp_column='time',
+                    tag_columns=["room"])
   
-  client.write_file(file='./out.json', timestamp_column='time',
-                    tag_columns=["provider", "machineID"], date_unit='ns')
+  client.write_file(file='./home.json', timestamp_column='time',
+                    tag_columns=["room"], date_unit='ns')
 ```
 {{% /code-placeholders %}}
 
@@ -450,14 +469,14 @@ query(self, query, language="sql", mode="all", **kwargs )
 
 - **`query`** (str): the SQL or InfluxQL to execute.
 - **`language`** (str): the query language used in the `query` parameter--`"sql"` or `"influxql"`. Default is `"sql"`.
-- **`mode`** (str): specifies what the [`pyarrow.flight.FlightStreamReader`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightStreamReader.html#pyarrow.flight.FlightStreamReader) will return.
-  Default is `"all"`.
-  - `all`: Read the entire contents of the stream and return it as a `pyarrow.Table`.
-  - `chunk`: Read the next message (a `FlightStreamChunk`) and return `data` and `app_metadata`.
-    Returns `null` if there are no more messages.
-  - `pandas`: Read the contents of the stream and return it as a `pandas.DataFrame`.
-  - `reader`: Convert the `FlightStreamReader` into a [`pyarrow.RecordBatchReader`](https://arrow.apache.org/docs/python/generated/pyarrow.RecordBatchReader.html#pyarrow-recordbatchreader).
-  - `schema`: Return the schema for all record batches in the stream.
+- **`mode`** (str): Specifies the output to return from the [`pyarrow.flight.FlightStreamReader`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightStreamReader.html#pyarrow.flight.FlightStreamReader).
+                    Default is `"all"`.
+    - `all`: Read the entire contents of the stream and return it as a `pyarrow.Table`.
+    - `chunk`: Read the next message (a `FlightStreamChunk`) and return `data` and `app_metadata`.
+      Returns `null` if there are no more messages.
+    - `pandas`: Read the contents of the stream and return it as a `pandas.DataFrame`.
+    - `reader`: Convert the `FlightStreamReader` into a [`pyarrow.RecordBatchReader`](https://arrow.apache.org/docs/python/generated/pyarrow.RecordBatchReader.html#pyarrow-recordbatchreader).
+    - `schema`: Return the schema for all record batches in the stream.
 
 #### Examples
 
@@ -539,7 +558,7 @@ The following example shows how to create a `Point`, and then write the
 data to InfluxDB.
 
 ```py
-point = Point("home").tag("room", "Kitchen").field("temp", 72)
+point = Point("home").tag("room", "Living Room").field("temp", 72)
 client.write(point)
 ```
 
@@ -620,7 +639,6 @@ client = InfluxDBClient3(
 
 ## Constants
 
-- `influxdb_client_3.ASYNCHRONOUS`: Represents asynchronous write mode
 - `influxdb_client_3.SYNCHRONOUS`: Represents synchronous write mode
 - `influxdb_client_3.WritePrecision`: Enum class that represents write precision
 

@@ -26,7 +26,7 @@ Use Kapacitor to import (stream or batch)  time series data, and then transform,
 
 ## Overview
 
-Kapacitor tasks define work to do on a set of data using [TICKscript](/kapacitor/v1/tick/) syntax. Kapacitor tasks include:
+Kapacitor tasks define work to do on a set of data using [TICKscript](/kapacitor/v1/reference/tick/) syntax. Kapacitor tasks include:
 
 - `stream` tasks. A stream task replicates data written to InfluxDB in Kapacitor. Offloads query overhead and requires Kapacitor to store the data on disk.
 - `batch` tasks. A batch task queries and processes data for a specified interval.
@@ -474,7 +474,7 @@ Something so simple as defining an alert can quickly be extended to apply to a m
 With the above script, an alert will be triggered if any service in any datacenter deviates more than 3
 standard deviations away from normal behavior as defined by the historical 95th percentile of cpu usage, and will do so within 1 minute!
 
-For more information on how alerting works, see the [AlertNode](/kapacitor/v1/nodes/alert_node/) docs.
+For more information on how alerting works, see the [AlertNode](/kapacitor/v1/reference/nodes/alert_node/) docs.
 
 ## Trigger alerts from batch data
 

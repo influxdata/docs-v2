@@ -1358,7 +1358,7 @@ components:
       type: apiKey
 info:
   title: InfluxDB Cloud Dedicated API Service
-  version: Cloud 2.x
+  version: 3.x
   description: |
     The InfluxDB HTTP API provides a programmatic interface for interactions with InfluxDB.
     Access the InfluxDB API using the `/api/v2/` endpoint or InfluxDB v1 endpoints.
@@ -1445,36 +1445,27 @@ paths:
 
         Use this endpoint to send data in [line protocol](/influxdb/cloud-dedicated/reference/syntax/line-protocol/) format to InfluxDB.
 
-        #### InfluxDB Cloud
+        InfluxDB does the following when you send a write request:
 
-        - Does the following when you send a write request:
+        1. Validates the request
+        2. If successful, attempts to [ingest the data](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest); _error_ otherwise.
+        3.  If successful, responds with _success_ (HTTP `204` status code), acknowledging that the data is written and queryable; _error_ otherwise.
 
-          1. Validates the request and queues the write.
-          2. If queued, responds with _success_ (HTTP `2xx` status code); _error_ otherwise.
-          3. Handles the write asynchronously and reaches eventual consistency.
-
-          To ensure that InfluxDB Cloud handles writes in the order you request them,
-          wait for a success response (HTTP `2xx` status code) before you send the next request.
-
-          Because writes are asynchronous, your change might not yet be readable
-          when you receive the response.
-
-        #### Rate limits (with InfluxDB Cloud)
-
-        `write` rate limits apply.
-        For more information, see [limits and adjustable quotas](/influxdb/cloud-dedicated/account-management/limits/).
+        To ensure that InfluxDB Cloud handles writes in the order you request them,
+        wait for a success response (HTTP `2xx` status code) before you send the next request.
 
         #### Related guides
 
-        - [Write data with the InfluxDB API](/influxdb/cloud-dedicated/write-data/developer-tools/api)
-        - [Optimize writes to InfluxDB](/influxdb/cloud-dedicated/write-data/best-practices/optimize-writes/)
+        - [Get started writing data](/influxdb/cloud-dedicated/get-started/write/)
+        - [Write data](/influxdb/cloud-dedicated/write-data/)
+        - [Best practices for writing data](/influxdb/cloud-dedicated/write-data/best-practices/)
         - [Troubleshoot issues writing data](/influxdb/cloud-dedicated/write-data/troubleshoot/)
       operationId: PostWrite
       parameters:
         - $ref: "#/components/parameters/TraceSpan"
         - description: |
             The compression applied to the line protocol in the request payload.
-            To send a GZIP payload, pass `Content-Encoding: gzip` header.
+            To send a gzip payload, pass `Content-Encoding: gzip` header.
           in: header
           name: Content-Encoding
           schema:
@@ -1530,13 +1521,10 @@ paths:
               - application/json
             type: string
         - description: |
-            An organization name or ID.
+            Ignored. An organization name or ID.
 
-            #### InfluxDB Cloud
-
-            - Ignores `org` and `orgID` parameters.
-            - Authorizes the request using the specified database token
-              and writes data to the specified cluster database.
+            InfluxDB ignores this parameter; authorizes the request using the specified database token
+            and writes data to the specified cluster database.
           in: query
           name: org
           required: true
@@ -1544,13 +1532,10 @@ paths:
             description: The organization name or ID.
             type: string
         - description: |
-            An organization ID.
+            Ignored. An organization ID.
 
-            #### InfluxDB Cloud
-
-            - Ignores `org` and `orgID` parameters.
-            - Authorizes the request using the specified database token
-              and writes data to the specified cluster database.
+            InfluxDB ignores this parameter; authorizes the request using the specified database token
+            and writes data to the specified cluster database.
           in: query
           name: orgID
           schema:
@@ -1585,7 +1570,7 @@ paths:
 
           To send compressed data, do the following:
 
-            1. Use [GZIP](https://www.gzip.org/) to compress the line protocol data.
+            1. Use [gzip](https://www.gzip.org/) to compress the line protocol data.
             2. In your request, send the compressed data and the
                `Content-Encoding: gzip` header.
 
@@ -1596,42 +1581,24 @@ paths:
       responses:
         "204":
           description: |
-            Success.
-
-            #### InfluxDB Cloud
-
-            - Validated and queued the request.
-            - Handles the write asynchronously - the write might not have completed yet.
-
-            #### Related guides
-
-            - [How to check for write errors](/influxdb/cloud-dedicated/write-data/troubleshoot/)
+            Success. Data is written and queryable.
         "400":
           content:
             application/json:
               examples:
                 measurementSchemaFieldTypeConflict:
-                  summary: (Cloud) field type conflict thrown by an explicit database schema
+                  summary: field type conflict thrown by an explicit database schema
                   value:
                     code: invalid
-                    message: 'partial write error (2 written): unable to parse ''air_sensor,service=S1,sensor=L1 temperature="90.5",humidity=70.0 1632850122'': schema: field type for field "temperature" not permitted by schema; got String but expected Float'
-                orgNotFound:
-                  summary: (OSS) organization not found
-                  value:
-                    code: invalid
-                    message: "failed to decode request body: organization not found"
+                    message: 'failed to parse line protocol: error writing line 2: Unable to insert iox::column_type::field::integer type into column temp  with type iox::column_type::field::string'
+
               schema:
                 $ref: "#/components/schemas/LineProtocolError"
           description: |
             Bad request. The response body contains detail about the error.
 
-            InfluxDB returns this error if the line protocol data in the request is malformed.
+            InfluxDB returns this error if the line protocol data in the request is malformed or contains a database schema conflict.
             The response body contains the first malformed line in the data, and indicates what was expected.
-            For partial writes, the number of points written and the number of points rejected are also included.
-
-            #### InfluxDB Cloud
-
-            - Returns this error for database schema conflicts.
         "401":
           $ref: "#/components/responses/AuthorizationError"
         "404":
@@ -1665,10 +1632,7 @@ paths:
             The request payload is too large.
             InfluxDB rejected the batch and did not write any data.
 
-            #### InfluxDB Cloud:
-
-             - Returns this error if the payload exceeds the 50MB size limit.
-             - Returns `Content-Type: text/html` for this error.
+            InfluxDB returns this error if the payload exceeds the size limit.
         "429":
           description: |
             Too many requests.
@@ -2029,7 +1993,7 @@ tags:
       | &nbsp;Code&nbsp; | Status                   | Description      |
       |:-----------:|:------------------------ |:--------------------- |
       | `200`       | Success                  |                       |
-      | `204`       | No content               | For a `POST` request, `204` indicates that InfluxDB accepted the request and request data is valid. Asynchronous operations, such as `write`, might not have completed yet. |
+      | `204`       | Success. No content      | InfluxDB doesn't return data for the request. For example, a successful write request returns `204` status code, acknowledging that data is written and queryable. |
       | `400`       | Bad request              | InfluxDB can't parse the request due to an incorrect parameter or bad syntax. If line protocol in the request body is malformed. The response body contains the first malformed line and indicates what was expected. For partial writes, the number of points written and the number of points rejected are also included. |
       | `401`       | Unauthorized             | May indicate one of the following: <ul><li>`Authorization: Token` header is missing or malformed</li><li>API token value is missing from the header</li><li>API token doesn't have permission. For more information about token types and permissions, see [Manage tokens](/influxdb/cloud-dedicated/admin/tokens/)</li></ul> |
       | `404`       | Not found                | Requested resource was not found. `message` in the response body provides details about the requested resource. |
