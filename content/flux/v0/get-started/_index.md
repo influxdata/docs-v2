@@ -86,8 +86,4 @@ Each example includes the following functions (in the order listed):
 _For detailed information about basic Flux queries,
 see [Flux query basics](/flux/v0/get-started/query-basics/)._
 
-For an introduction to Flux and how it works with time series data, watch the following video:
-
-{{< youtube QwOJttyg858 >}}
-
 {{< page-nav next="/flux/v0/get-started/data-model/" >}}
