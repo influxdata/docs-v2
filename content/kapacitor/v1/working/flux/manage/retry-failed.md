@@ -10,6 +10,7 @@ weight: 5
 related:
   - /kapacitor/v1/working/flux/
   - /kapacitor/v1/working/flux/manage/task/runs
+  - /kapacitor/v1/reference/cli/kapacitor/flux/task/retry-failed/
 ---
 
 Use the `kapacitor flux task retry-failed` command to retry failed Kapacitor Flux task runs.
