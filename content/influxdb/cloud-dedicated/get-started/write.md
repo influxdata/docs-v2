@@ -305,7 +305,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% /code-placeholders %}}
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the specified database
 <!------------------------------ END v1 API CONTENT ------------------------------>
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -1006,7 +1006,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
       ...
     </dependencies>
     ```
-5.  To check your `pom.xml` for errors, run Maven's `validate` command--for example, enter the following in your terminal:
+5.  To validate your `pom.xml`, run Maven's `validate` command--for example, enter the following in your terminal:
     
     ```sh
     mvn validate
@@ -1115,7 +1115,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
 
         - **`host`**: your {{% product-name omit=" Clustered" %}} cluster URL
         - **`database`**: the name of the {{% product-name %}} database to write to
-        - **`token`**: a [database token]/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
+        - **`token`**: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with _write_ access to the specified database.
           _Store this in a secret store or environment variable to avoid exposing the raw token string._
 
     2.  Defines a list of line protocol strings where each string represents a data record.

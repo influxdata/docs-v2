@@ -18,12 +18,14 @@ Data Explorer
 dashboarding
 datasource
 dateTime
+deserialize
 [Dd]ownsampl.*\b
 dotenv
 enum
 Flight
 FlightQuery
 Grafana
+groupId
 gzip(ped)?
 homogenous
 hostname

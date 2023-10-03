@@ -343,7 +343,7 @@ Replace the following in the sample script:
   your InfluxDB Clustered database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
   a [database token](/influxdb/clustered/admin/tokens/)
-  with sufficient permissions to the database
+  with sufficient permissions to the specified database
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -426,7 +426,7 @@ Replace the following in the sample script:
   your InfluxDB Clustered database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
   a [database token](/influxdb/clustered/admin/tokens/)
-  with sufficient permissions to the database
+  with sufficient permissions to the specified database
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
@@ -497,7 +497,7 @@ Replace the following in the sample script:
   your InfluxDB Clustered database
 - {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}:
   a [database token](/influxdb/clustered/admin/tokens/)
-  with sufficient permissions to the database
+  with sufficient permissions to the specified database
 
 {{% /expand %}}
 {{< /expand-wrapper >}}
