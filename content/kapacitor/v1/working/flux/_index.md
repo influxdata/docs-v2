@@ -12,6 +12,7 @@ related:
   - /influxdb/cloud/tools/kapacitor/
   - /influxdb/v2/tools/kapacitor/
   - /kapacitor/v1/working/flux/manage/create/
+  - /kapacitor/v1/reference/cli/kapacitor/flux/
   - /influxdb/cloud/process-data/get-started/, Get started with Flux tasks
   - /influxdb/cloud/process-data/common-tasks/
   - /influxdb/cloud/process-data/task-options/

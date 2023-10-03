@@ -2,7 +2,7 @@
 title: kapacitor delete
 description: >
   The `kapacitor delete` command deletes tasks, templates, recordings, replays,
-  topics or handlers.
+  topics, or handlers.
 menu:
   kapacitor_v1:
     name: kapacitor delete
@@ -11,7 +11,7 @@ weight: 301
 ---
 
 The `kapacitor delete` command deletes tasks, templates, recordings, replays,
-topics or handlers.
+topics, or handlers.
 
 ## Usage
 

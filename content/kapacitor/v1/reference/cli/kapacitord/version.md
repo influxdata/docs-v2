@@ -1,8 +1,8 @@
 ---
 title: kapacitord version
 description: >
-  The `kapacitord version` outputs the version, build branch, and git commit hash
-  for the current Kapacitor server.
+  The `kapacitord version` command outputs the version, build branch, and git
+  commit hash for the current Kapacitor server.
 menu:
   kapacitor_v1:
     name: kapacitord version
@@ -10,8 +10,8 @@ menu:
 weight: 301
 ---
 
-The `kapacitord version` outputs the version, build branch, and git commit hash
-for the current Kapacitor server.
+The `kapacitord version` command outputs the version, build branch, and git
+commit hash for the current Kapacitor server.
 
 ## Usage
 
