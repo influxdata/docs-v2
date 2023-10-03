@@ -7,6 +7,8 @@ menu:
     name: List Flux tasks
     parent: Manage Flux tasks
 weight: 2
+related:
+  - /kapacitor/v1/reference/cli/kapacitor/flux/task/list/
 ---
 
 Use the **`kapacitor` CLI** or the **Kapacitor HTTP API** to list Kapacitor Flux tasks.

@@ -7,6 +7,8 @@ menu:
     name: Create Flux tasks
     parent: Manage Flux tasks
 weight: 1
+related:
+  - /kapacitor/v1/reference/cli/kapacitor/flux/task/create/
 ---
 
 Use the **`kapacitor` CLI** or the **Kapacitor HTTP API** to create Kapacitor Flux tasks.
