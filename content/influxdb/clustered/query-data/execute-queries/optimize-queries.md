@@ -311,7 +311,7 @@ To get information about queries you've run on the current instance, use SQL to 
 If you [enabled trace logging for the query](#enable-trace-logging-for-a-query), the `trace-id` appears in the `system.queries.trace_id` column for the query run.
 
 The `system.queries` table is an InfluxDB v3 **debug feature**.
-To enable the feature and query `system.queries`, include an `"iox-debug"` header set to `"true"` and use SQL to query the table
+To enable the feature and query `system.queries`, include an `"iox-debug"` header set to `"true"` and use SQL to query the table.
 
 The following sample code shows how to use the Python client library to do the following:
 
