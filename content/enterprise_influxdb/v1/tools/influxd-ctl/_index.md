@@ -1,138 +1,91 @@
 ---
-title: influxd-ctl
+title: influxd-ctl CLI
 description: >
-  Use the influxd-ctl tool to manage InfluxDB Enterprise clusters
+  Use the `influxd-ctl` CLI to manage your InfluxDB Enterprise cluster.
 menu:
   enterprise_influxdb_v1:
     weight: 11
     parent: Tools
+    name: influxd-ctl
 aliases:
     - /enterprise_influxdb/v1/tools/influxd/restore/
     - /enterprise_influxdb/v1/tools/influxd/backup/
 ---
 
-The `influxd-ctl` utility provides commands for managing your InfluxDB Enterprise clusters.
-Use the `influxd-ctl` cluster management utility to manage your cluster nodes, back up and restore data, and rebalance clusters.
-The `influxd-ctl` utility is available on all [meta nodes](/enterprise_influxdb/v1/concepts/glossary/#meta-node).
+The `influxd-ctl` CLI provides commands for managing your InfluxDB Enterprise cluster.
+The `influxd-ctl` utility is available on all InfluxDB Enterprise
+[meta nodes](/enterprise_influxdb/v1/concepts/glossary/#meta-node).
 
-## `influxd-ctl` cluster management utility
-
-* [Syntax](#syntax)
-* [Global options](#global-options)
-  * [`-auth-type`](#auth-type-none-basic-jwt)
-  * [`-bind-tls`](#bind-tls)
-  * [`-config`](#config-path-to-configuration-file)
-  * [`-pwd`](#pwd-password)
-  * [`-k`](#k)
-  * [`-secret`](#secret-jwt-shared-secret)
-  * [`-user`](#user-username)
-* [Commands](#commands)
-  * [`add-data`](#add-data)
-  * [`add-meta`](#add-meta)
-  * [`backup`](#backup)
-  * [`copy-shard`](#copy-shard)
-  * [`copy-shard-status`](#copy-shard-status)
-  * [`entropy`](#entropy)
-  * [`join`](#join)
-  * [`kill-copy-shard`](#kill-copy-shard)
-  * [`leave`](#leave)
-  * [`node-labels`](#node-labels)
-  * [`remove-data`](#remove-data)
-  * [`remove-meta`](#remove-meta)
-  * [`remove-shard`](#remove-shard)
-  * [`restore`](#restore)
-  * [`show`](#show)
-  * [`show-shards`](#show-shards)
-  * [`token`](#token)
-  * [`truncate-shards`](#truncate-shards)
-  * [`update-data`](#update-data)
-
-### Syntax
+## Usage
 
 ```
-influxd-ctl [ global-options ] <command> [ arguments ]
+influxd-ctl [global-options] <command> [command-options] [arguments]
 ```
 
-#### Global options
+## Commands
 
-Optional arguments are in brackets.
+| Command                                                                           | Description                      |
+| :-------------------------------------------------------------------------------- | :------------------------------- |
+| [add-data](/enterprise_influxdb/v1/tools/influxd-ctl/add-data/)                   | Add a data node                  |
+| [add-meta](/enterprise_influxdb/v1/tools/influxd-ctl/add-meta/)                   | Add a meta node                  |
+| [backup](/enterprise_influxdb/v1/tools/influxd-ctl/backup/)                       | Back up a cluster                |
+| [copy-shard](/enterprise_influxdb/v1/tools/influxd-ctl/copy-shard/)               | Copy a shard between data nodes  |
+| [copy-shard-status](/enterprise_influxdb/v1/tools/influxd-ctl/copy-shard-status/) | Show all active copy shard tasks |
+| [entropy](/enterprise_influxdb/v1/tools/influxd-ctl/entropy/)                     | Manage entropy in a cluster      |
+| [join](/enterprise_influxdb/v1/tools/influxd-ctl/join/)                           | Join a meta or data node         |
+| [kill-copy-shard](/enterprise_influxdb/v1/tools/influxd-ctl/kill-copy-shard/)     | Abort an in-progress shard copy  |
+| [ldap](/enterprise_influxdb/v1/tools/influxd-ctl/ldap/)                           | Manage LDAP in a cluster         |
+| [leave](/enterprise_influxdb/v1/tools/influxd-ctl/leave/)                         | Remove a meta or data node       |
+| [remove-data](/enterprise_influxdb/v1/tools/influxd-ctl/remove-data/)             | Remove a data node               |
+| [remove-meta](/enterprise_influxdb/v1/tools/influxd-ctl/remove-meta/)             | Remove a meta node               |
+| [remove-shard](/enterprise_influxdb/v1/tools/influxd-ctl/remove-shard/)           | Remove a shard from a data node  |
+| [restore](/enterprise_influxdb/v1/tools/influxd-ctl/restore/)                     | Restore a backup of a cluster    |
+| [show](/enterprise_influxdb/v1/tools/influxd-ctl/show/)                           | Show cluster members             |
+| [show-shards](/enterprise_influxdb/v1/tools/influxd-ctl/show-shards/)             | Shows shards in a cluster        |
+| [node-labels](/enterprise_influxdb/v1/tools/influxd-ctl/node-labels/)             | Manage node labels               |
+| [token](/enterprise_influxdb/v1/tools/influxd-ctl/token/)                         | Generates a signed JWT token     |
+| [truncate-shards](/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/)     | Truncate current shards          |
+| [update-data](/enterprise_influxdb/v1/tools/influxd-ctl/update-data/)             | Update a data node               |
 
-##### `[ -auth-type [ none | basic | jwt ] ]`
+## Global flags {#influxd-ctl-global-flags}
 
-Specify the type of authentication to use. Default value is `none`.
+| Flag         | Description                                                              |
+| :----------- | :----------------------------------------------------------------------- |
+| `-auth-type` | Authentication type to use (`none` _default_, `basic`, `jwt`)            |
+| `-bind`      | Meta node HTTP bind address _(default is `localhost:8091`)_              |
+| `-bind-tls`  | Use TLS                                                                  |
+| `-config`    | Configuration file path                                                  |
+| `-k`         | Skip certificate verification _(ignored without `-bind-tls`)_            |
+| `-pwd`       | Password for basic authentication _(ignored without `-auth-type basic`)_ |
+| `-secret`    | JWT shared secret _(ignored without `-auth-type jwt`)_                   |
+| `-user`      | Username _(ignored without `-auth-type basic` or `jwt`)_                 |
 
-##### `[ -bind <hostname>:<port> ]`  
+## Examples
 
-Specify the bind HTTP address of a meta node to connect to. Default value is `localhost:8091`.
+- [Bind to a remote meta node](#bind-to-a-remote-meta-node)
+- [Authenticate with JWT](#authenticate-with-jwt)
+- [Authenticate with basic authentication](#authenticate-with-basic-authentication)
 
-##### `[ -bind-tls ]`  
+### Bind to a remote meta node
 
-Use TLS.  If you have enabled HTTPS, you MUST use this argument in order to connect to the meta node.
-
-##### `[ -config '<path-to-configuration-file> ]'`  
-
-Specify the path to the configuration file.
-
-##### `[ -pwd <password> ]`  
-
-Specify the user’s password. This argument is ignored if `-auth-type basic` isn’t specified.
-
-##### `[ -k ]`  
-
-Skip certificate verification; use this argument with a self-signed certificate. `-k` is ignored if `-bind-tls` isn't specified.
-
-##### `[ -secret <JWT-shared-secret> ]`  
-
-Specify the JSON Web Token (JWT) shared secret. This argument is ignored if `-auth-type jwt` isn't specified.
-
-##### `[ -user <username> ]`  
-
-Specify the user’s username. This argument is ignored if `-auth-type basic` isn’t specified.
-
-### Examples
-
-The following examples use the `influxd-ctl` utility's [`show` option](#show).
-
-#### Bind to a remote meta node
-
-```bash
-influxd-ctl -bind meta-node-02:8091 show
+```sh
+influxd-ctl -bind meta-node-02:8091
 ```
 
-The `influxd-ctl` utility binds to the meta node with the hostname `meta-node-02` at port `8091`.
-By default, the tool binds to the meta node with the hostname `localhost` at port `8091`.
+### Authenticate with JWT
 
-#### Authenticate with JWT
-
-```bash
-influxd-ctl -auth-type jwt -secret oatclusters show
+```sh
+influxd-ctl -auth-type jwt -secret oatclusters
 ```
 
-The `influxd-ctl` utility uses JWT authentication with the shared secret `oatclusters`.
+### Authenticate with basic authentication
 
-If authentication is enabled in the cluster's [meta node configuration files](/enterprise_influxdb/v1/administration/configure/config-meta-nodes/#auth-enabled)
-and [data node configuration files](/enterprise_influxdb/v1/administration/config-data-nodes/#meta-auth-enabled)
-and the `influxd-ctl` command does not include authentication details, the system returns:
-
-```bash
-Error: unable to parse authentication credentials.
+```sh
+influxd-ctl -auth-type basic -user admin -pwd passw0rd
 ```
 
-If authentication is enabled and the `influxd-ctl` command provides the incorrect shared secret, the system returns:
-
-```bash
-Error: signature is invalid.
-```
-
-#### Authenticate with basic authentication
-
-To authenticate a user with basic authentication, use the `-auth-type basic` option on the `influxd-ctl` utility, with the `-user` and `-password` options.
-
-In the following example, the `influxd-ctl` utility uses basic authentication for a cluster user.
-
-```bash
-influxd-ctl -auth-type basic -user admini -pwd mouse show
-```
+{{< expand-wrapper >}}
+{{% expand "Troubleshoot `influxd-ctl` authentication" %}}
 
 If authentication is enabled in the cluster's
 [meta node configuration files](/enterprise_influxdb/v1/administration/config-meta-nodes/#auth-enabled-false)
@@ -143,281 +96,31 @@ and the `influxd-ctl` command does not include authentication details, the syste
 Error: unable to parse authentication credentials.
 ```
 
-If authentication is enabled and the `influxd-ctl` command provides the incorrect username or password, the system returns:
+If authentication is enabled and the `influxd-ctl` command provides the incorrect
+username or password, the system returns:
 
 ```bash
 Error: authorization failed.
 ```
 
-### **Commands**
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
+<!----------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+
 
 ### `add-data`
 
-Adds a data node to a cluster.
-By default, `influxd-ctl` adds the specified data node to the local meta node's cluster.
-Use `add-data` instead of the [`join` argument](#join) when [installing a data node](/enterprise_influxdb/v1/installation/data_node_installation/) an InfluxDB Enterprise cluster.
-
-##### Syntax
-
-```
-add-data <data-node-TCP-bind-address>
-```
-
-Resources: [Installation](/enterprise_influxdb/v1/installation/data_node_installation/)
-
-##### Arguments
-
-Optional arguments are in brackets.
-
-##### `[ -p ]`  
-Add a passive node to an Enterprise cluster.
-
-### Examples
-
-###### Add a data node to a cluster using the local meta node
-
-In the following example, the `add-data` command contacts the local meta node running at `localhost:8091` and adds a data node to that meta node's cluster.
-The data node has the hostname `cluster-data-node` and runs on port `8088`.
-
-```bash
-$ influxd-ctl add-data cluster-data-node:8088
-
-Added data node 3 at cluster-data-node:8088
-```
-
-###### Add a data node to a cluster using a remote meta node
-
-In the following example, the command contacts the meta node running at `cluster-meta-node-01:8091` and adds a data node to that meta node's cluster.
-The data node has the hostname `cluster-data-node` and runs on port `8088`.
-
-```bash
-$ influxd-ctl -bind cluster-meta-node-01:8091 add-data cluster-data-node:8088
-
-Added data node 3 at cluster-data-node:8088
-```
-
-###### Add a passive node to a cluster
-**Passive nodes** act as load balancers--they accept write calls, perform shard lookup and RPC calls (on active data nodes), and distribute writes to active data nodes. They do not own shards or accept writes. If you are using passive nodes, they should be the write endpoint for all data ingest. A cluster can have multiple passive nodes.
-
-```bash
-influxd-ctl add-data -p <passive-data-node-TCP-bind-address>
-```
-
 ### `add-meta`
-
-Adds a meta node to a cluster.
-By default, `influxd-ctl` adds the specified meta node to the local meta node's cluster.
-Use `add-meta` instead of the [`join` argument](#join) when [installing a meta node](/enterprise_influxdb/v1/installation/meta_node_installation/) an InfluxDB Enterprise cluster.
-
-Resources: [Installation](/enterprise_influxdb/v1/installation/data_node_installation/)
-
-#### Syntax
-
-```
-influxd-ctl add-meta <meta-node-HTTP-bind-address>
-```
-
-#### Examples
-
-##### Add a meta node to a cluster using the local meta node
-
-In the following example, the `add-meta` command contacts the local meta node running at `localhost:8091` and adds a meta node to that local meta node's cluster.
-The added meta node has the hostname `cluster-meta-node-03` and runs on port `8091`.
-
-```bash
-$ influxd-ctl add-meta cluster-meta-node-03:8091
-
-Added meta node 3 at cluster-meta-node:8091
-```
-
-##### Add a meta node to a cluster using a remote meta node**
-
-In the following example, the `add-meta` command contacts the meta node running at `cluster-meta-node-01:8091` and adds a meta node to that meta node's cluster.
-The added meta node has the hostname `cluster-meta-node-03` and runs on port `8091`.
-
-```bash
-$ influxd-ctl -bind cluster-meta-node-01:8091 add-meta cluster-meta-node-03:8091
-
-Added meta node 3 at cluster-meta-node-03:8091
-```
 
 ### `backup`
 
-Creates a backup of a cluster's [metastore](/enterprise_influxdb/v1/concepts/glossary/#metastore)
-and [shard](/enterprise_influxdb/v1/concepts/glossary/#shard) data at that point in time
-and stores the copy in the specified directory.
-To back up only the cluster metastore, use the `-strategy` flag with the `only-meta` option.
-Backups are incremental by default; they create a copy of the metastore and shard
-data that have changed since the previous incremental backup.
-If there are no existing incremental backups, the system automatically performs a complete backup.
-
-#### Syntax
-
-```
-influxd-ctl backup [ -db <database> | -from <data-node-TCP-bind-address> | -full | -rp <retention-policy> | -shard <shard-id> | -strategy <only-meta|incremental|full|> ] <backup-directory>
-```
-
-##### Arguments
-
-Optional arguments are in brackets.
-
-###### [ `-db <db_name>` ]
-
-Name of the single database to back up.
-
-###### [ `-estimate` ]
-
-Provide estimated backup size and progress messages during backup.
-
-**Sample output:**
-
-```
-Backing up node backup_data_0_1:8088, db stress, rp autogen, shard 14
-Files: 8 / 9 Bytes: 189543424 / 231921095 Completed: 82% in 22s Estimated remaining: 3s
-Files: 8 / 9 Bytes: 189543424 / 231921095 Completed: 82% in 23s Estimated remaining: 2s
-Files: 9 / 9 Bytes: 231736320 / 231921095 Completed: 100% in 24s Estimated remaining: 447µs
-Done backing up node backup_data_0_1:8088, db stress, rp autogen, shard 14 in 67ms: 42192896 bytes transferred
-```
-
-###### [ `-from <data-node-TCP-address>` ]
-
-TCP address of the target data node.
-
-###### [ `-full` ]
-
-Perform a [full backup](/enterprise_influxdb/v1/administration/backup-and-restore/#backup-utility).
-
-###### [ `-rp <rp_name>` ]
-
-Name of the single [retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp) to back up (requires the `-db` flag).
-
-###### [ `-shard <shard_ID>` ]
-
-Identifier of the shard to back up.
-
-> Restoring a `-full` backup and restoring an incremental backup require different syntax.
-To prevent issues with [`restore`](#restore), keep `-full` backups and incremental backups in separate directories.
-
-###### [ `-start <start_timestamp>` ]
-
-Include all points starting with specified timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
-
-###### [ `-end <end_timestamp>` ]
-
-Exclude all points after timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
-
-###### [ `-strategy` ]
-
-Specify the type of back up to perform:
-
-- `only-meta` back up metastore data only, including users, roles, databases, continuous queries, and retention policies. This option does not back up shards.
-- `full` back up metastore and shard data
-- `incremental` back up metastore and shard data that have changed since the last incremental backup. If there are no existing incremental backups, the system automatically performs a full backup.
-
-Resources: [Back up and restore InfluxDB Enterprise](/enterprise_influxdb/v1/administration/backup-and-restore/)
-
-#### Examples
-
-##### Perform an incremental backup
-
-In the following example, the command performs an incremental backup and stores it in the current directory.
-If there are any existing backups the current directory, the system performs an incremental backup.
-If there aren’t any existing backups in the current directory, the system performs a complete backup of the cluster.
-
-```bash
-influxd-ctl backup .
-```
-
-Output
-
-```bash
-Backing up meta data... Done. 421 bytes transferred
-Backing up node cluster-data-node:8088, db telegraf, rp autogen, shard 4... Done. Backed up in 903.539567ms, 307712 bytes transferred
-Backing up node cluster-data-node:8088, db _internal, rp monitor, shard 1... Done. Backed up in 138.694402ms, 53760 bytes transferred
-Backing up node cluster-data-node:8088, db _internal, rp monitor, shard 2... Done. Backed up in 101.791148ms, 40448 bytes transferred
-Backing up node cluster-data-node:8088, db _internal, rp monitor, shard 3... Done. Backed up in 144.477159ms, 39424 bytes transferred
-Backed up to . in 1.293710883s, transferred 441765 bytes
-
-$ ls
-20160803T222310Z.manifest  20160803T222310Z.s1.tar.gz  20160803T222310Z.s3.tar.gz
-20160803T222310Z.meta      20160803T222310Z.s2.tar.gz  20160803T222310Z.s4.tar.gz
-```
-
-##### Perform a full backup
-
-In the following example, the `backup` command performs a full backup of the cluster and stores the backup in the existing directory `backup_dir`.
-
-```bash
-influxd-ctl backup -full backup_dir
-```
-
-Output
-
-```bash
-Backing up meta data... Done. 481 bytes transferred
-Backing up node cluster-data-node:8088, db _internal, rp monitor, shard 1... Done. Backed up in 33.207375ms, 238080 bytes transferred
-Backing up node cluster-data-node:8088, db telegraf, rp autogen, shard 2... Done. Backed up in 15.184391ms, 95232 bytes transferred
-Backed up to backup_dir in 51.388233ms, transferred 333793 bytes
-
-~# ls backup_dir
-20170130T184058Z.manifest
-20170130T184058Z.meta
-20170130T184058Z.s1.tar.gz
-20170130T184058Z.s2.tar.gz
-```
-
 ### `copy-shard`
 
-Copies a [shard](/enterprise_influxdb/v1/concepts/glossary/#shard) from a source data node to a destination data node.
-
-#### Syntax
-
-```
-influxd-ctl copy-shard <data-node-source-TCP-address> <data-node-destination-TCP-address> <shard-id>
-```
-
-Resources: [Rebalance InfluxDB Enterprise clusters](/enterprise_influxdb/v1/guides/rebalance/)
-
-#### Examples
-
-##### Copy a shard from one data node to another data node
-
-In the following example, the `copy-shard` command copies the shard with the id `22` from the data node running at `cluster-data-node-01:8088` to the data node running at `cluster-data-node-02:8088`.
-
-```bash
-$ influxd-ctl copy-shard cluster-data-node-01:8088 cluster-data-node-02:8088 22
-
-Copied shard 22 from cluster-data-node-01:8088 to cluster-data-node-02:8088
-```
 
 ### `copy-shard-status`
-
-Shows all in-progress [copy shard](#copy-shard) operations,
-including the shard's source node, destination node, database,
-[retention policy](/enterprise_influxdb/v1/concepts/glossary/#retention-policy-rp),
-shard ID, total size, current size, and the operation's start time.
-
-#### Syntax
-
-```
-influxd-ctl copy-shard-status
-```
-
-#### Examples
-
-##### Display all in-progress copy-shard operations
-
-In this example, the `copy-shard-status` command returns one in-progress copy-shard operation.
-The system is copying shard `34` from `cluster-data-node-02:8088` to `cluster-data-node-03:8088`.
-Shard `34` is associated with the `telegraf` database and the `autogen` retention policy.
-The `TotalSize` and `CurrentSize` columns are reported in bytes.
-
-```bash
-influxd-ctl copy-shard-status
-
-Source                     Dest                       Database  Policy   ShardID  TotalSize  CurrentSize  StartedAt
-cluster-data-node-02:8088  cluster-data-node-03:8088  telegraf  autogen  34       119624324  119624324    2017-06-22 23:45:09.470696179 +0000 UTC
-```
 
 ### `entropy`
 
