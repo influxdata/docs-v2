@@ -102,7 +102,7 @@ The output is similar to the following:
 |                   |   EmptyExec: produce_one_row=false, metrics=[]
 ```
 
-### Enable trace logging
+## Enable trace logging
 
 Use query tracing in {{% product-name %}} to get observability into a slow query.
 The tracing system follows the [OpenTelemetry traces](https://opentelemetry.io/docs/concepts/signals/traces/) model for providing observability into a request.
