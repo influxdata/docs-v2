@@ -15,18 +15,15 @@ related:
   - /influxdb/cloud-dedicated/reference/client-libraries/v3/
 ---
 
-## Troubleshoot query performance
-
 Use the following tools to help you identify performance bottlenecks and troubleshoot problems in queries:
 
 <!-- TOC -->
 
-- [Troubleshoot query performance](#troubleshoot-query-performance)
-  - [EXPLAIN and ANALYZE](#explain-and-analyze)
-  - [Enable trace logging](#enable-trace-logging)
-    - [Extract a trace ID](#extract-a-trace-id)
-  - [Retrieve system information](#retrieve-system-information)
-    - [Retrieve query instance information](#retrieve-query-instance-information)
+- [EXPLAIN and ANALYZE](#explain-and-analyze)
+- [Enable trace logging](#enable-trace-logging)
+  - [Extract a trace ID](#extract-a-trace-id)
+- [Retrieve system information](#retrieve-system-information)
+  - [Retrieve query instance information](#retrieve-query-instance-information)
 
 <!-- /TOC -->
 
