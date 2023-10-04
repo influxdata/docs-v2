@@ -304,7 +304,7 @@ InfluxDB-specific information.
 The information in each system table is scoped to the namespace you're querying;
 you can only retrieve system information for that particular instance.
 
-#### Retrieve query instance information
+### Retrieve query instance information
 
 To get information about queries you've run on the current instance, use SQL to query the [`system.queries` table](/influxdb/clustered/reference/internals/system-tables/#systemqueries-measurement).
 `system.queries` contains information about queries run against the IOx instance that is currently handling queries.
