@@ -27,7 +27,7 @@ Use the following tools to help you identify performance bottlenecks and trouble
 
 <!-- /TOC -->
 
-### EXPLAIN and ANALYZE
+## EXPLAIN and ANALYZE
 
 To view the query engine's execution plan and metrics for an SQL query, prepend [`EXPLAIN`](/influxdb/cloud-dedicated/reference/sql/explain/) or [`EXPLAIN ANALYZE`](/influxdb/cloud-dedicated/reference/sql/explain/#explain-analyze) to the query.
 The report can reveal query bottlenecks such as a large number of table scans or parquet files, and can help triage the question, "Is the query slow due to the amount of work required or due to a problem with the schema, compactor, etc.?"
