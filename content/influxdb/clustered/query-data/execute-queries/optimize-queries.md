@@ -297,7 +297,7 @@ query_with_middleware()
 ```
 {{% /code-placeholders %}}
 
-### Retrieve system information
+## Retrieve system information
 
 In addition to the SQL standard `information_schema`, {{% product-name %}} contains _system_ tables that provide access to
 InfluxDB-specific information.
