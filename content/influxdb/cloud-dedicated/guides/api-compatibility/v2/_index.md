@@ -93,7 +93,7 @@ Use `Token` to authenticate a write request:
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the specified database
 
 ## Responses
 
@@ -136,7 +136,7 @@ Response body messages may differ across {{% product-name %}} v1 API, v2 API, In
 
 ## Write data
 
-We recommend using the InfluxDB v2 API `/api/v2/write` endpoint for new write workloads and existing v2 workloads.
+Use the InfluxDB v2 API `/api/v2/write` endpoint for new write workloads and existing v2 workloads.
 
 {{% api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write" method="post"%}}
 

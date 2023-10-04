@@ -305,7 +305,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 {{% /code-placeholders %}}
 Replace the following:
 
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/clustered/admin/tokens/) with sufficient permissions to the database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/clustered/admin/tokens/) with sufficient permissions to the specified database
 <!------------------------------ END v1 API CONTENT ------------------------------>
 {{% /tab-content %}}
 {{% tab-content %}}
