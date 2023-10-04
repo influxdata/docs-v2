@@ -81,7 +81,7 @@ curl --post "https://{{< influxdb/host >}}/api/v2/write?bucket=BUCKET_NAME&preci
 Replace the following:
 
 - {{% code-placeholder-key %}}`BUCKET_NAME`{{% /code-placeholder-key %}}: your InfluxDB Cloud Serverless [bucket](/influxdb/cloud-serverless/admin/buckets/)
-- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the database
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: an [API token](/influxdb/cloud-serverless/admin/tokens/) with sufficient permissions to the specified bucket
 
 ## Responses
 
@@ -124,7 +124,7 @@ Response body messages may differ across {{% product-name %}} v1 API, v2 API, In
 
 ## Write data
 
-We recommend using the InfluxDB v2 API `/api/v2/write` endpoint for new write workloads and existing v2 workloads.
+Use the InfluxDB v2 API `/api/v2/write` endpoint for new write workloads and existing v2 workloads.
 
 {{% api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write" method="post"%}}
 
