@@ -11,6 +11,7 @@ menu:
 weight: 201
 related:
   - /enterprise_influxdb/v1/administration/backup-and-restore/
+  - /enterprise_influxdb/v1/tools/influxd-ctl/backup/
 ---
 
 The `influxd-ctl backup` command backs up an InfluxDB Enterprise cluster's

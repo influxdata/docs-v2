@@ -107,11 +107,11 @@ Meta nodes expose the `/debug/pprof` endpoints for profiling and troubleshooting
 
 ## Shard movement
 
-* [Copy shard](/enterprise_influxdb/v1/tools/influxd-ctl/#copy-shard) support - copy a shard from one node to another
-* [Copy shard status](/enterprise_influxdb/v1/tools/influxd-ctl/#copy-shard-status) - query the status of a copy shard request
-* [Kill copy shard](/enterprise_influxdb/v1/tools/influxd-ctl/#kill-copy-shard) - kill a running shard copy
-* [Remove shard](/enterprise_influxdb/v1/tools/influxd-ctl/#remove-shard) - remove a shard from a node (this deletes data)
-* [Truncate shards](/enterprise_influxdb/v1/tools/influxd-ctl/#truncate-shards) - truncate all active shard groups and start new shards immediately (This is useful when adding nodes or changing replication factors.)
+* [Copy shard](/enterprise_influxdb/v1/tools/influxd-ctl/copy-shard/) support - copy a shard from one node to another
+* [Copy shard status](/enterprise_influxdb/v1/tools/influxd-ctl/copy-shard-status/) - query the status of a copy shard request
+* [Kill copy shard](/enterprise_influxdb/v1/tools/influxd-ctl/kill-copy-shard/) - kill a running shard copy
+* [Remove shard](/enterprise_influxdb/v1/tools/influxd-ctl/remove-shard/) - remove a shard from a node (this deletes data)
+* [Truncate shards](/enterprise_influxdb/v1/tools/influxd-ctl/truncate-shards/) - truncate all active shard groups and start new shards immediately (This is useful when adding nodes or changing replication factors.)
 
 This functionality is exposed via an API on the meta service and through [`influxd-ctl` sub-commands](/enterprise_influxdb/v1/tools/influxd-ctl/).
 
@@ -145,7 +145,7 @@ Best practices when using an active-passive node setup:
   - Keep the ratio of active to passive nodes between 1:1 and 2:1.
   - Passive nodes should receive all writes.  
 
-For more inforrmation, see how to [add a passive node to a cluster](/enterprise_influxdb/v1/tools/influxd-ctl/#add-a-passive-node-to-the-cluster).
+For more inforrmation, see how to [add a passive node to a cluster](/enterprise_influxdb/v1/tools/influxd-ctl/add-data/#add-a-passive-data-node-to-a-cluster).
 
 {{% note %}}
 **Note:**  This feature is experimental and available only in InfluxDB Enterprise.

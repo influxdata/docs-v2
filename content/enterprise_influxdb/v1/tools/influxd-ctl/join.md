@@ -7,6 +7,8 @@ menu:
   enterprise_influxdb_v1:
     parent: influxd-ctl
 weight: 201
+related:
+  - /enterprise_influxdb/v1/tools/influxd-ctl/leave/
 ---
 
 The `influxd-ctl join` command joins a meta or data node data node to an
