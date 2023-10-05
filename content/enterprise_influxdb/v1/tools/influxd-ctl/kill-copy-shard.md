@@ -1,7 +1,7 @@
 ---
 title: influxd-ctl kill-copy-shard
 description: >
-  The `influxd-ctl kill-copy-shard` command aborts and in-progress copy-shard operation.
+  The `influxd-ctl kill-copy-shard` command aborts an in-progress copy-shard operation.
 menu:
   enterprise_influxdb_v1:
     parent: influxd-ctl
@@ -11,7 +11,7 @@ related:
   - /enterprise_influxdb/v1/tools/influxd-ctl/copy-shard/
 ---
 
-The `influxd-ctl kill-copy-shard` command aborts and in-progress
+The `influxd-ctl kill-copy-shard` command aborts an in-progress
 [copy-shard operation](/enterprise_influxdb/v1/tools/influxd-ctl/copy-shard.).
 
 ## Usage

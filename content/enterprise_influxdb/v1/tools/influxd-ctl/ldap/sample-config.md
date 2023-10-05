@@ -2,14 +2,14 @@
 title: influxd-ctl ldap sample-config
 description: >
   The `influxd-ctl ldap sample-config` command prints a sample InfluxDB Enterprise
-  LDAP configuration to _stdout_.
+  LDAP configuration to stdout.
 menu:
   enterprise_influxdb_v1:
     parent: influxd-ctl ldap
 ---
 
 The `influxd-ctl ldap sample-config` command prints a sample InfluxDB Enterprise
-LDAP configuration to _stdout_.
+LDAP configuration to stdout.
 
 ## Usage
 
@@ -36,7 +36,7 @@ enabled = true
 
   # Credentials to use when searching for a user or group.
   bind-dn = "cn=read-only-admin,dc=example,dc=com"
-  bind-password = "read-only-admin's password"
+  bind-password = "read-only-admin password"
 
   # Base DNs to use when applying the search-filter to discover an LDAP user.
   search-base-dns = [
@@ -97,7 +97,7 @@ enabled = true
 
   # Credentials to use when searching for a user or group.
   bind-dn = "cn=read-only-admin,dc=example,dc=com"
-  bind-password = "read-only-admin's password"
+  bind-password = "read-only-admin password"
 
   # Base DNs to use when applying the search-filter to discover an LDAP user.
   search-base-dns = [

@@ -1,7 +1,7 @@
 ---
 title: influxd-ctl node-labels
 description: >
-  The `influxd-ctl node-labels` command and subcommands manage node labels   in
+  The `influxd-ctl node-labels` command and subcommands manage node labels in
   an InfluxDB Enterprise cluster.
 menu:
   enterprise_influxdb_v1:

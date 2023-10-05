@@ -133,7 +133,6 @@ Successfully joined cluster
 
 Common problems when attempting to join nodes to InfluxDB Enterprise clusters:
 
-- The `influxd` or `influxd-meta` processes are using a non-standard ports
-  (8088, 8091) and can't be detected.
+- The `influxd` or `influxd-meta` processes are using non-standard ports and can't be detected.
 - The `influxd` or `influxd-meta` processes are not running.
   Check the logs for startup errors.

@@ -86,10 +86,10 @@ Successfully left cluster
 
 In the following example, `influxd-ctl leave` detects the meta node running at
 `cluster-node-03:8091` and the data node running at `cluster-node-03:8088` in an
-existing InfluxDB Enterprise cluster removes them from the cluster without prompts.
+existing InfluxDB Enterprise cluster and then, without prompting for input, removes them from the cluster:
 
 ```bash
-$ influxd-ctl leave -y
+influxd-ctl leave -y
 ```
 
 ###### Command output
