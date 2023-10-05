@@ -10,6 +10,8 @@ weight: 30
 aliases:
   - /enterprise_influxdb/v1/administration/ldap/
   - /enterprise_influxdb/v1/administration/manage/security/ldap/
+related:
+  - /enterprise_influxdb/v1/tools/influxd-ctl/ldap/
 ---
 
 Configure InfluxDB Enterprise to use LDAP (Lightweight Directory Access Protocol) to:
@@ -222,6 +224,9 @@ enabled = true
 
 ## Troubleshoot LDAP in InfluxDB Enterprise
 
+- [InfluxDB Enterprise does not recognize a new LDAP server](#influxdb-enterprise-does-not-recognize-a-new-ldap-server)
+- [User cannot log in after updating their password in the LDAP server](#user-cannot-log-in-after-updating-their-password-in-the-ldap-server)
+
 ### InfluxDB Enterprise does not recognize a new LDAP server
 
 If you ever replace an LDAP server with a new one, you need to update your
@@ -297,3 +302,23 @@ sudo systemctl restart influxdb-meta
 ```
 {{% /code-tab-content %}}
     {{< /code-tabs-wrapper >}}
+
+### User cannot log in after updating their password in the LDAP server
+
+LDAP credentials are cached on InfluxDB Enterprise data nodes. If credentials
+change in the LDAP server, the cached credentials need to be purged and the
+cache refreshed to add the updated credentials.
+
+1.  Use the [`influxd-ctl ldap purge-cache` command](/enterprise_influxdb/v1/tools/influxd-ctl/ldap/purge-cache/)
+    to purge LDAP credential caches on data nodes.
+
+    ```sh
+    influxd-ctl ldap purge-cache
+    ```
+
+2.  Use the [`influxd-ctl ldap warm-cache` command](/enterprise_influxdb/v1/tools/influxd-ctl/ldap/warm-cache/)
+    to warm LDAP credential caches on data nodes.
+
+    ```sh
+    influxd-ctl ldap warm-cache
+    ```
