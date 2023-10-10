@@ -14,7 +14,7 @@ menu:
 ### Features
 
 - Add crypto implementation information to `/debug/vars`.
-- Add `influx-meta` for manual metadata changes.
+- Add tools for manual metadata changes.
 - Upload `influx_tools` binaries to `influxdata-unpublished`.
 - Explicitlty run a FIPS POST and log results to ensure the POST is run.
 - Eliminate false FIPS audit failures for replaced modules.
