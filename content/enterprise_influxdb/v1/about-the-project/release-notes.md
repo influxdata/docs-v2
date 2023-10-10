@@ -1,5 +1,5 @@
 ---
-title: InfluxDB Enterprise 1.10 release notes
+title: InfluxDB Enterprise 1.11 release notes
 description: >
   Important changes and what's new in each version InfluxDB Enterprise.
 menu:
@@ -9,7 +9,129 @@ menu:
     parent: About the project
 ---
 
-## 1.10 [2022-09-07]
+## v1.11.2 [2023/09/28]
+
+### Features
+
+- Add crypto implementation information to `/debug/vars`.
+- Add [`influx-meta` tool](/enterprise_influxdb/v1/tools/influx-meta/) for manual metadata changes.
+- Upload `influx_tools` binaries to `influxdata-unpublished`.
+- Explicitlty run a FIPS POST and log results to ensure the POST is run.
+- Eliminate false FIPS audit failures for replaced modules.
+
+### Bug Fixes
+
+- Miscellaneous build system and continuous integration fixes.
+- Execute `compact-series-file` at startup.
+- Pass `CIRCLE_TAG` to package builder.
+
+### Other
+
+- Upgrade to Go 1.19.6.
+- Fix arm builds for macOS.
+- Fix issue when building `boringcrypto` builds on fresh containers.
+- Upgrade enterprise license key references.
+- Update influxdb to remove `golang.org/x/crypto/ssh` usage.
+- Upgrade Flux to 0.194.3.
+- Various build-system and continuous integration updates.
+
+---
+
+## v1.11.1 [2023/04/13]
+
+### Features
+
+- Audit enabled TLS cipher suites for FIPS builds.
+- Implement remote artifact signing.
+- Output the log level on startup.
+- On `SIGHUP`, restart the anti-entropy service and reload configuration.
+- Use BoringCrypto's `PBKDF2` implementation for FIPS builds.
+- Implement FIPS-compliant in-memory password hash caching.
+- Honor `ensure-fips` for crypto and TLS implementations on startup
+
+### Bug Fixes
+
+- Handle an edge case where operator precedence was not handled correctly.
+- Surround binary expressions in parenthesis.
+- Miscellaneous build system and continuous integration fixes.
+- Update Dockerfiles to support Alpine and Ruby.
+- Prevent index out of range panic in merge cursor code.
+- Add tests for boringcrypto and fipsonly builds.
+- Optimize `SHOW FIELD KEY CARDINALITY` metaquery.
+- Update Makefile to locate `pkg-config` dependency.
+
+### Other
+
+- Upgrade Go to 1.19.8.
+- Upgrade Flux to v0.188.0.
+- Update log levels to `error` or `warn` where appropriate.
+- Update Influxdb to remove the `golang.org/x/crypto/ssh` dependency.
+- Use the correct version of Flux for FIPS builds.
+- Use `pkg/boringutil/xcrypto` instead of `golang.org/x/crypto` for FIPS builds.
+- Remove `golang.org/x/crypto/bcrypt` dependency from FIPS build.
+- Eliminate the `golang.org/x/crypto` dependencies.
+- Use common semantic PR and commit message checks.
+- Automatically resolve git tags for `changelogger`.
+- Add peer address and stream ID to logging context.
+- Enable FIPS builds.
+- Use scheduled pipeline.
+- Add script and Makefile rules to audit binaries for packages disallowed by FIPS.
+
+---
+
+## v1.10.4 [2023/06/22]
+
+### Other
+
+- Update Influxdb `go.mod` version.
+- Upgrade Influxdb reference (1.10).
+
+---
+
+## v1.10.3 [2023/04/13]
+
+### Features
+
+- Implement remote artifact signing.
+
+### Bug Fixes
+
+- Checkout repo in `changelog_*` workflows.
+- Miscellaneous build-system and continuous integration updates.
+- Correct spelling of "fingerprints".
+
+### Other
+
+- Update CircleCI automation and packages
+- Build `digest` and `influx_tools`.
+
+---
+
+## v1.10.2 [2023/03/13]
+
+### Features
+
+- Allow limiting authentication methods for meta API.
+
+---
+
+## v1.10.1 [2023/02/10]
+
+### Bug Fixes
+
+- Update Dockerfiles to support Alpine and Ruby.
+- Add monitoring to the continuous query service.
+- Remove unnecessary buffer.
+
+### Other
+
+- Update Go to 1.18.9.
+- Use scheduled pipeline.
+- Prevent `index out of range` panic in merge cursor process.
+
+---
+
+## v1.10.0 [2022-09-07]
 
 ### Features
 - Add [/api/v2/buckets](/enterprise_influxdb/v1/tools/api/#apiv2buckets-http-endpoint) support for create, delete, list, retrieve, and update operations.
@@ -21,13 +143,13 @@ menu:
 
 #### Flux updates
 - Add `preview()` to experimental package for limiting return rows and tables (as opposed to just rows with `limit()`).
-- Add [date.scale()](/flux/v0.x/stdlib/date/scale/) to let users dynamically scale durations in dates.
+- Add [date.scale()](/flux/v0/stdlib/date/scale/) to let users dynamically scale durations in dates.
 - Add [OpenTracing](https://opentracing.io/docs/overview/spans/) spans to Flux transformations. Lets you monitor Flux scripts more precisely.
 - Add `trace` option to Flux CLI.
-- Rename `addDuration()` to [add](/flux/v0.x/stdlib/date/add/) and `subDuration()` to [sub](/flux/v0.x/stdlib/date/sub/),
+- Rename `addDuration()` to [add](/flux/v0/stdlib/date/add/) and `subDuration()` to [sub](/flux/v0/stdlib/date/sub/),
 and moved both of these functions from the experimental package to the date package.
-- Add location support to [date.truncate()](/flux/v0.x/stdlib/date/truncate/).
-- Vectorize arithmetic operators in [map()](/flux/v0.x/stdlib/universe/map/).
+- Add location support to [date.truncate()](/flux/v0/stdlib/date/truncate/).
+- Vectorize arithmetic operators in [map()](/flux/v0/stdlib/universe/map/).
 - Vectorize logical operations in `map()`.
 - Enable `movingAverage()` and `cumulativeSum()` optimizations by default. 
 
@@ -50,11 +172,13 @@ and moved both of these functions from the experimental package to the date pack
 - Fix shard confusion when multiple sub-queries reference different retention policies.
 
 ### Maintenance updates
-- Upgrade to [Flux 0.170.0](/flux/v0.x/release-notes/#v01700-2022-06-02).
+- Upgrade to [Flux 0.170.0](/flux/v0/release-notes/#v01700-2022-06-02).
 - Upgrade to Go 1.18.3.  
 - Fixes issue with OSXCross and Darwin builds. This results in the new minimum OSX version being MacOSX10.14/darwin18.
 
-## 1.9.8 [2022-07-11]
+---
+
+## v1.9.8 [2022-07-11]
 
 ### Features
 - Expose passive node feature to influxd-ctl and the API.
@@ -83,9 +207,11 @@ and moved both of these functions from the experimental package to the date pack
 
 ### Maintenance updates
 - Upgrade to Go 1.17.11
-- Update to [Flux v0.161.0](/flux/v0.x/release-notes/#v01610-2022-03-24).
+- Update to [Flux v0.161.0](/flux/v0/release-notes/#v01610-2022-03-24).
 
-## 1.9.7 [2022-05-26]
+---
+
+## v1.9.7 [2022-05-26]
 
 {{% warn %}}
 An edge case regression was introduced into this version that may cause a constant build-up of hinted handoff if writes are rejected due to malformed requests. If you experience write errors and hinted hand-off growth, we recommend upgrading to 1.9.8 or the latest release.
@@ -113,9 +239,11 @@ An edge case regression was introduced into this version that may cause a consta
 
 ### Maintenance updates
 - Upgrade to Go 1.17.9
-- Update to [Flux v0.161.0](/flux/v0.x/release-notes/#v01610-2022-03-24).
+- Update to [Flux v0.161.0](/flux/v0/release-notes/#v01610-2022-03-24).
 
-## 1.9.6 [2022-02-16]
+---
+
+## v1.9.6 [2022-02-16]
 
 {{% note %}} InfluxDB Enterprise offerings are no longer available on AWS, Azure, and GCP marketplaces. Please [contact Sales](https://www.influxdata.com/contact-sales/) to request an license key to [install InfluxDB Enterprise in your own environment](/enterprise_influxdb/v1/introduction/installation/).
 {{% /note %}}
@@ -136,7 +264,7 @@ An edge case regression was introduced into this version that may cause a consta
 
 ### Maintenance updates
 
-- Update to [Flux v0.140](/flux/v0.x/release-notes/#v01400-2021-11-22).
+- Update to [Flux v0.140](/flux/v0/release-notes/#v01400-2021-11-22).
 - Upgrade to Go 1.17.
 - Upgrade `protobuf` library.
 
@@ -160,6 +288,8 @@ An edge case regression was introduced into this version that may cause a consta
 - Improve [`influxd-ctl join`](/enterprise_influxdb/v1/tools/influxd-ctl/join/) robustness and provide better error messages on failure.
 - Add user friendly error message when accessing a TLS-enabled server without TLS enabled on client.
 
+---
+
 ## v1.9.5 [2021-10-11]
 
 {{% note %}}
@@ -182,9 +312,10 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Improve memory performance by making `compact-full-write-cold-duration` apply to both TSM files and the TSI index.
 #### Maintenance updates 
 - Update Protocol Buffers library versions.
-- Update to Flux [0.131.0](/flux/v0.x/release-notes/#v01310-2021-09-20).
+- Update to Flux [0.131.0](/flux/v0/release-notes/#v01310-2021-09-20).
 
 ### Bug fixes
+
 #### Data
 - Fix issue with adjacent shards accidentally overlapping during `influx_tools import`.
 - Prevent dropped writes with overlapping shards in certain edge cases.
@@ -212,6 +343,8 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Fix incorrect TLS handling for `influxd-ctl entropy` commands.
 - Use TLS for nested LDAP connections when TLS is enabled.
 
+---
+
 ## v1.9.3 [2021-07-19]
 
 ### Features
@@ -234,6 +367,8 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 - Change default limit for memory usage from 4GB to unlimited.
 - Make `total-max-memory-bytes` and other flux controller configuration work correctly.
 - Use a constant amount of RAM as hinted handoff grows, instead of growing RAM usage.
+
+---
 
 ## v1.9.2 [2021-06-17]
 
@@ -313,6 +448,8 @@ in that there is no corresponding InfluxDB OSS release.
 Bug fixes intended for 1.9.0 and 1.9.1 were rolled into InfluxDB Enterprise 1.9.2.
 {{% /note %}}
 
+---
+
 ## v1.8.6 [2021-05-21]
 
 {{% warn %}}
@@ -340,11 +477,13 @@ Versions prior to InfluxDB Enterprise 1.8.5 are not affected.
 - Previously, the Anti-Entropy service would loop trying to copy an empty shard to a data node missing that shard. Now, an empty shard is successfully created on a new node.
 - Check for previously ignored errors in `DiffIterator.Next()`. Update to check before possible function exit and ensure handles are closed on error in digest diffs.
 
+---
+
 ## v1.8.5 [2020-04-20]
 
 The InfluxDB Enterprise v1.8.5 release builds on the InfluxDB OSS v1.8.5 release.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/#v185-2021-04-20).
+[InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/#v185-2021-04-20).
 
 ### Bug fixes
 
@@ -354,11 +493,13 @@ For details on changes incorporated from the InfluxDB OSS release, see
 - Add labels to the values returned in SHOW SHARDS output to clarify the node ID and TCP address.
 - Always forward repairs to the next data node (even if the current data node does not have to take action for the repair).
 
+---
+
 ## v1.8.4 [2020-02-08]
 
 The InfluxDB Enterprise 1.8.4 release builds on the InfluxDB OSS 1.8.4 release.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/#v1-8-4-unreleased).
+[InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/#v1-8-4-unreleased).
 
    > **Note:** InfluxDB Enterprise 1.8.3 was not released. Bug fixes intended for 1.8.3 were rolled into InfluxDB Enterprise 1.8.4.
 
@@ -373,13 +514,15 @@ Add the ability to [renew or update your license key or file](/enterprise_influx
 - Correct output for `influxd-ctl show shards`.
 - Properly encode/decode `control.Shard.Err`.
 
+---
+
 ## v1.8.2 [2020-08-24]
 
 The InfluxDB Enterprise 1.8.2 release builds on the InfluxDB OSS 1.8.2 and 1.8.1 releases.
 Due to a defect in InfluxDB OSS 1.8.1, InfluxDB Enterprise 1.8.1 was not released.
 This release resolves the defect and includes the features and bug fixes listed below.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+[InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Features
 
@@ -400,11 +543,13 @@ For details on changes incorporated from the InfluxDB OSS release, see
 - LDAP configuration: `GroupSearchBaseDNs`, `SearchFilter`, `GroupMembershipSearchFilter`, and `GroupSearchFilter` values in the LDAP section of the configuration file are now all escaped.
 - Eliminate orphaned, temporary directories when an error occurs during `processCreateShardSnapshotRequest()` and provide useful log information regarding the reason a temporary directory is created.
 
-## v1.8 [2020-04-27]
+---
+
+## v1.8.0 [2020-04-27]
 
 The InfluxDB Enterprise 1.8 release builds on the InfluxDB OSS 1.8 release.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+[InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Features
 
@@ -428,11 +573,13 @@ For more information, see the [`influxd-ctl backup` syntax](/enterprise_influxdb
 
 - Update the Anti-Entropy (AE) service to ignore expired shards.
 
+---
+
 ## v1.7.10 [2020-02-07]
 
 The InfluxDB Enterprise 1.7.10 release builds on the InfluxDB OSS 1.7.10 release.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+[InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Features
 - Log when meta state file cannot be opened.
@@ -441,11 +588,13 @@ For details on changes incorporated from the InfluxDB OSS release, see
 - Update `MaxShardGroupID` on meta update.
 - Don't reassign shard ownership when removing a data node.
 
+---
+
 ## v1.7.9 [2019-10-27]
 
 The InfluxDB Enterprise 1.7.9 release builds on the InfluxDB OSS 1.7.9 release.
 For details on changes incorporated from the InfluxDB OSS release, see
-[InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+[InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Release notes
 - This release is built using Go 1.12.10 which eliminates the
@@ -457,7 +606,9 @@ For details on changes incorporated from the InfluxDB OSS release, see
 - Fix RPC pool TLS configuration.
 - Update example configuration file with new authorization options.
 
-## 1.7.8 [2019-09-03]
+---
+
+## v1.7.8 [2019-09-03]
 
 {{% warn %}}
 InfluxDB now rejects all non-UTF-8 characters.
@@ -467,7 +618,7 @@ InfluxDB Enterprise customers can contact InfluxData support for more informatio
 {{% /warn %}}
 
 The InfluxDB Enterprise 1.7.8 release builds on the InfluxDB OSS 1.7.8 release.
-For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Bug fixes
 - Clarified `influxd-ctl` error message when the Anti-Entropy (AE) service is disabled.
@@ -478,9 +629,11 @@ For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB
 ### Features
 - The Flux Technical Preview has advanced to version [0.36.2](/flux/v0.36/).
 
-## 1.7.7 [2019-07-12]
+---
 
-The InfluxDB Enterprise 1.7.7 release builds on the InfluxDB OSS 1.7.7 release. For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+## v1.7.7 [2019-07-12]
+
+The InfluxDB Enterprise 1.7.7 release builds on the InfluxDB OSS 1.7.7 release. For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Known issues
 
@@ -497,15 +650,19 @@ The InfluxDB Enterprise 1.7.7 release builds on the InfluxDB OSS 1.7.7 release. 
 - Always forward AE repair to next node.
 - Improve hinted handoff metrics.
 
-## 1.7.6 [2019-05-07]
+---
 
-This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.6 release. For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+## v1.7.6 [2019-05-07]
+
+This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.6 release. For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Bug fixes
 
 - Reverts v1.7.5 InfluxQL regressions that removed parentheses and resulted in operator precedence causing changing results in complex queries and regular expressions.
 
-## 1.7.5 [2019-03-26]
+---
+
+## v1.7.5 [2019-03-26]
 
 {{% warn %}}
 
@@ -522,7 +679,7 @@ Examples:
 
 {{% /warn %}}
 
-This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.5 release. For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.5 release. For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Features
 
@@ -533,17 +690,21 @@ This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.5 release. For d
 - Anti-Entropy: fix `contains no .tsm files` error.
 - `fix(cluster)`: account for nil result set when writing read response.
 
-## 1.7.4 [2019-02-13]
+---
 
-This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.4 release. For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+## v1.7.4 [2019-02-13]
+
+This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.4 release. For details on changes incorporated from the InfluxDB OSS release, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Bug fixes
 
 - Use `systemd` for Amazon Linux 2.
 
-## 1.7.3 [2019-01-11]
+---
 
-This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.3 release. For details on changes incorporated from the InfluxDB OSS release, see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+## v1.7.3 [2019-01-11]
+
+This InfluxDB Enterprise release builds on the InfluxDB OSS 1.7.3 release. For details on changes incorporated from the InfluxDB OSS release, see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Important update [2019-02-13]
 
@@ -580,18 +741,23 @@ Prior to v.1.7.3, the anti-entropy (AE) service was enabled by default. When sha
 
 -	Update sample configuration.
 
-## 1.6.6 [2019-02-28]
--------------------
+---
+
+## v1.6.6 [2019-02-28]
 
 This release only includes the InfluxDB OSS 1.6.6 changes (no Enterprise-specific changes).
 
-## 1.6.5 [2019-01-10]
+---
 
-This release builds off of the InfluxDB OSS 1.6.0 through 1.6.5 releases. For details about changes incorporated from InfluxDB OSS releases, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+## v1.6.5 [2019-01-10]
 
-## 1.6.4 [2018-10-23]
+This release builds off of the InfluxDB OSS 1.6.0 through 1.6.5 releases. For details about changes incorporated from InfluxDB OSS releases, see [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
-This release builds off of the InfluxDB OSS 1.6.0 through 1.6.4 releases. For details about changes incorporated from InfluxDB OSS releases, see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+---
+
+## v1.6.4 [2018-10-23]
+
+This release builds off of the InfluxDB OSS 1.6.0 through 1.6.4 releases. For details about changes incorporated from InfluxDB OSS releases, see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Breaking changes
 
@@ -647,9 +813,11 @@ The following summarizes the expected settings for proper configuration of JWT a
 - Reject `influxd-ctl update-data` from one existing host to another.
 - Require `internal-shared-secret` if meta auth enabled.
 
-## 1.6.2 [08-27-2018]
+---
 
-This release builds off of the InfluxDB OSS 1.6.0 through 1.6.2 releases. For details about changes incorporated from InfluxDB OSS releases, see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/).
+## v1.6.2 [08-27-2018]
+
+This release builds off of the InfluxDB OSS 1.6.0 through 1.6.2 releases. For details about changes incorporated from InfluxDB OSS releases, see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/).
 
 ### Features
 
@@ -667,13 +835,17 @@ This release builds off of the InfluxDB OSS 1.6.0 through 1.6.2 releases. For de
 - Ensure the hinted handoff (hh) queue makes forward progress when segment errors occur.
 - Add hinted handoff (hh) queue back pressure.
 
-## 1.5.4 [2018-06-21]
+---
 
-This release builds off of the InfluxDB OSS 1.5.4 release. Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/) for more information about the InfluxDB OSS release.
+## v1.5.4 [2018-06-21]
 
-## 1.5.3 [2018-05-25]
+This release builds off of the InfluxDB OSS 1.5.4 release. Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
 
-This release builds off of the InfluxDB OSS 1.5.3 release. Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/) for more information about the InfluxDB OSS release.
+---
+
+## v1.5.3 [2018-05-25]
+
+This release builds off of the InfluxDB OSS 1.5.3 release. Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
 
 ### Features
 
@@ -685,25 +857,30 @@ This release builds off of the InfluxDB OSS 1.5.3 release. Please see the [Influ
 * Hinted-handoff: enforce max queue size per peer node.
 * TSM files not closed when shard deleted.
 
+---
 
 ## v1.5.2 [2018-04-12]
 
-This release builds off of the InfluxDB OSS 1.5.2 release. Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/) for more information about the InfluxDB OSS release.
+This release builds off of the InfluxDB OSS 1.5.2 release. Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
 
 ### Bug fixes
 
 * Running backup snapshot with client's retryWithBackoff function.
 * Ensure that conditions are encoded correctly even if the AST is not properly formed.
 
+---
+
 ## v1.5.1 [2018-03-20]
 
 This release builds off of the InfluxDB OSS 1.5.1 release. There are no Enterprise-specific changes.
-Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/) for more information about the InfluxDB OSS release.
+Please see the [InfluxDB OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
+
+---
 
 ## v1.5.0 [2018-03-06]
 
 > ***Note:*** This release builds off of the 1.5 release of InfluxDB OSS. Please see the [InfluxDB OSS release
-> notes](/influxdb/v1/about_the_project/releasenotes-changelog/) for more information about the InfluxDB OSS release.
+> notes](/influxdb/v1/about_the_project/release-notes/) for more information about the InfluxDB OSS release.
 
 For highlights of the InfluxDB 1.5 release, see [What's new in InfluxDB 1.5](/influxdb/v1/about_the_project/whats_new/).
 
@@ -759,6 +936,8 @@ The default logging format has been changed. See [Logging and tracing in InfluxD
 * Updated yamux resolves race condition when SYN is successfully sent and a write timeout occurs.
 * Fix no license message.
 
+---
+
 ## v1.3.9 [2018-01-19]
 
 ### Upgrading -- for users of the TSI preview
@@ -773,6 +952,8 @@ so it will require downtime.
 * Discard remote iterators that label their type as unknown.
 * Do not queue `partial write` errors to hinted handoff.
 
+---
+
 ## v1.3.8 [2017-12-04]
 
 ### Upgrading -- for users of the TSI preview
@@ -785,6 +966,8 @@ If you have been using the TSI preview with 1.3.6 or earlier 1.3.x releases, you
 - Resend authentication credentials on redirect.
 - Fix wildcard when one shard has no data for a measurement with partial replication.
 - Fix spurious `rpc error: i/o deadline exceeded` errors.
+
+---
 
 ## v1.3.7 [2017-10-26]
 
@@ -804,6 +987,8 @@ We will update this release note with operational steps once the utility is avai
  - Address Deadlock issue in meta server on 1.3.6
  - Fix logger panic associated with anti-entropy service and manually removed shards.
 
+---
+
 ## v1.3.6 [2017-09-28]
 
 ### Bugfixes
@@ -815,26 +1000,34 @@ We will update this release note with operational steps once the utility is avai
   Contributed back to the yamux project via: https://github.com/hashicorp/yamux/pull/50
 - Address data race reading Len() in connection pool.
 
+---
+
 ## v1.3.5 [2017-08-29]
 
 This release builds off of the 1.3.5 release of OSS InfluxDB.
-Please see the OSS [release notes](/influxdb/v1/about_the_project/releasenotes-changelog/#v1-3-5-2017-08-29) for more information about the OSS releases.
+Please see the OSS [release notes](/influxdb/v1/about_the_project/release-notes/#v1-3-5-2017-08-29) for more information about the OSS releases.
+
+---
 
 ## v1.3.4 [2017-08-23]
 
-This release builds off of the 1.3.4 release of OSS InfluxDB. Please see the [OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/) for more information about the OSS releases.
+This release builds off of the 1.3.4 release of OSS InfluxDB. Please see the [OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the OSS releases.
 
 ### Bugfixes
 
 - Close connection for remote iterators after EOF to avoid writer hanging indefinitely
 
+---
+
 ## v1.3.3 [2017-08-10]
 
-This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OSS release notes](/influxdb/v1/about_the_project/releasenotes-changelog/) for more information about the OSS releases.
+This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OSS release notes](/influxdb/v1/about_the_project/release-notes/) for more information about the OSS releases.
 
 ### Bugfixes
 
 - Connections are not closed when `CreateRemoteIterator` RPC returns no iterators, resolved memory leak
+
+---
 
 ## v1.3.2 [2017-08-04]
 
@@ -846,6 +1039,8 @@ This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OS
 - Switch back to using cluster-tracing config option to enable meta HTTP request logging.
 - Fix remove-data error.
 
+---
+
 ## v1.3.1 [2017-07-20]
 
 #### Bug fixes
@@ -853,6 +1048,8 @@ This release builds off of the 1.3.3 release of OSS InfluxDB. Please see the [OS
 - Show a subset of config settings in SHOW DIAGNOSTICS.
 - Switch back to using cluster-tracing config option to enable meta HTTP request logging.
 - Fix remove-data error.
+
+---
 
 ## v1.3.0 [2017-06-21]
 
@@ -889,10 +1086,12 @@ The admin UI is removed and unusable in this release. The `[admin]` configuratio
 - Writing points outside of retention policy does not return error
 - Decrement internal database's replication factor when a node is removed.
 
+---
+
 ## v1.2.5 [2017-05-16]
 
 This release builds off of the 1.2.4 release of OSS InfluxDB.
-Please see the OSS [release notes](/influxdb/v1/about_the_project/releasenotes-changelog/#v1-2-4-2017-05-08) for more information about the OSS releases.
+Please see the OSS [release notes](/influxdb/v1/about_the_project/release-notes/#v1-2-4-2017-05-08) for more information about the OSS releases.
 
 #### Bug fixes
 
@@ -903,6 +1102,8 @@ Please see the OSS [release notes](/influxdb/v1/about_the_project/releasenotes-c
 - Prevent certain user permissions from having a database-specific scope.
 - Reduce the cost of the admin user check for clusters with large numbers of users.
 - Fix hinted-handoff remote write batching.
+
+---
 
 ## v1.2.2 [2017-03-15]
 
@@ -942,13 +1143,11 @@ This change only affects users who have disabled the `retention-autocreate` opti
 - Support restores on meta nodes that are not the raft leader
 
 ##### Hinted handoff
-<br>
 
 - Fix issue where dropped writes were not recorded when the [hinted handoff](/enterprise_influxdb/v1/concepts/clustering/#hinted-handoff) queue reached the maximum size
 - Prevent the hinted handoff from becoming blocked if it encounters field type errors
 
 ##### Other
-<br>
 
 - Return partial results for the [`SHOW TAG VALUES` query](/influxdb/v1/query_language/schema_exploration/#show-tag-values) even if the cluster includes an unreachable data node
 - Return partial results for the [`SHOW MEASUREMENTS` query](/influxdb/v1/query_language/schema_exploration/#show-measurements) even if the cluster includes an unreachable data node
@@ -962,6 +1161,8 @@ This change only affects users who have disabled the `retention-autocreate` opti
 - Fix the `influxd-ctl`'s [force removal](/enterprise_influxdb/v1/features/cluster-commands/#remove-meta) of meta nodes
 - Update the meta node and data node sample configuration files
 
+---
+
 ## v1.2.1 [2017-01-25]
 
 #### Cluster-specific Bugfixes
@@ -969,6 +1170,8 @@ This change only affects users who have disabled the `retention-autocreate` opti
 - Fix panic: Slice bounds out of range
 &emsp;Fix how the system removes expired shards.
 - Remove misplaced newlines from cluster logs
+
+---
 
 ## v1.2.0 [2017-01-24]
 
@@ -1008,6 +1211,8 @@ To disable the auto-creation of retention policies, set `retention-autocreate` t
 - Fix the output for `influxd-ctl show-shards`
 - Send the correct RPC response for `ExecuteStatementRequestMessage`
 
+---
+
 ## v1.1.5 [2017-04-28]
 
 ### Bug fixes
@@ -1015,21 +1220,29 @@ To disable the auto-creation of retention policies, set `retention-autocreate` t
 - Prevent certain user permissions from having a database-specific scope.
 - Fix security escalation bug in subscription management.
 
+---
+
 ## v1.1.3 [2017-02-27]
 
 This release incorporates the changes in the 1.1.4 release of OSS InfluxDB.
 Please see the OSS [changelog](https://github.com/influxdata/influxdb/blob/v1.1.4/CHANGELOG.md) for more information about the OSS release.
+
+---
 
 ### Bug fixes
 
 - Delay when a node listens for network connections until after all requisite services are running. This prevents queries to the cluster from failing unnecessarily.
 - Allow users to set the `GOMAXPROCS` environment variable.
 
+---
+
 ## v1.1.2 [internal]
 
 This release was an internal release only.
 It incorporates the changes in the 1.1.3 release of OSS InfluxDB.
 Please see the OSS [changelog](https://github.com/influxdata/influxdb/blob/v1.1.3/CHANGELOG.md) for more information about the OSS release.
+
+---
 
 ## v1.1.1 [2016-12-06]
 
@@ -1044,6 +1257,8 @@ users currently running on the macOS platform, powered by the Darwin operating s
 
 - Fix hinted-handoff issue: Fix record size larger than max size
 &emsp;If a Hinted Handoff write appended a block that was larger than the maximum file size, the queue would get stuck because       the maximum size was not updated. When reading the block back out during processing, the system would return an error         because the block size was larger than the file size -- which indicates a corrupted block.
+
+---
 
 ## v1.1.0 [2016-11-14]
 
@@ -1089,6 +1304,8 @@ Switches to journald logging for on systemd systems. Logs are no longer sent to 
 - Prevent `copy-shard` from retrying if the `copy-shard` command was killed
 - Prevent a hanging `influxd-ctl add-data` command by making data nodes check for meta nodes before they join a cluster
 
+---
+
 ## v1.0.4 [2016-10-19]
 
 #### Cluster-specific bug fixes
@@ -1096,11 +1313,15 @@ Switches to journald logging for on systemd systems. Logs are no longer sent to 
 - Respect the [Hinted Handoff settings](/enterprise_influxdb/v1/administration/configuration/#hinted-handoff) in the configuration file
 - Fix expanding regular expressions when all shards do not exist on node that's handling the request
 
+---
+
 ## v1.0.3 [2016-10-07]
 
 #### Cluster-specific bug fixes
 
 - Fix a panic in the Hinted Handoff: `lastModified`
+
+---
 
 ## v1.0.2 [2016-10-06]
 
@@ -1111,6 +1332,8 @@ This release builds off of the 1.0.2 release of OSS InfluxDB.  Please see the OS
 - Prevent double read-lock in the meta client
 - Fix a panic around a corrupt block in Hinted Handoff
 - Fix  issue where `systemctl enable` would throw an error if the symlink already exists
+
+---
 
 ## v1.0.1 [2016-09-28]
 
@@ -1125,6 +1348,8 @@ for more information about the OSS release.
 * Ensure meta node redirects to leader when removing data node
 * Fix a panic in the Hinted Handoff: `runtime error: makeslice: len out of range`
 * Update the data node configuration file so that only the minimum configuration options are uncommented
+
+---
 
 ## v1.0.0 [2016-09-07]
 
