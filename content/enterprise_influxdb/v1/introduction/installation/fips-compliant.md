@@ -37,8 +37,8 @@ InfluxDB Enterprise.
   - A FIPS-compliant password hash that conforms to
     [NIST SP 800](https://www.nist.gov/itl/publications-0/nist-special-publication-800-series-general-information)
     and [OWASP](https://owasp.org/) guidelines is used by default.
-  - Check there is no configuration file from a previous Enterprise installation
-    which  sets a non-compliant password hash.
+  - Check that there is no configuration file from a previous Enterprise installation,
+    which sets a non-compliant password hash.
     Non-FIPS password hash configurations, like `bcrypt`, cause FIPS-compliant
     InfluxDB Enterprise builds to return an error on startup.
 
