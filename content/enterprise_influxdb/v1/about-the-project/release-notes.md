@@ -9,6 +9,31 @@ menu:
     parent: About the project
 ---
 
+## v1.11.3 [2023/10/12]
+
+{{% note %}}
+#### InfluxDB Enterprise and FIPS-compliance
+
+**InfluxDB Enterprise 1.11+** introduces builds that are compliant with 
+[Federal Information Processing Standards (FIPS)](https://www.nist.gov/standardsgov/compliance-faqs-federal-information-processing-standards-fips)
+and adhere to a strict set of security standards. Both standard and FIPS-compliant
+InfluxDB Enterprise builds are available. For more information, see
+[FIPS-compliant InfluxDB Enterprise builds](/enterprise_influxdb/v1/introduction/installation/fips-compliant/).
+{{% /note %}}
+
+### Bug Fixes
+
+- Surround binary expressions in parenthesis.
+- Miscellaneous build-system and continuous integration fixes.
+
+### Other
+
+- Generate `DIGESTS.tag` for each release.
+- Update `golang.org/x/crypto` version to match `go.mod`.
+- Upgrade Go to 1.20.10.
+
+---
+
 ## v1.11.2 [2023/09/28]
 
 ### Features
@@ -16,7 +41,7 @@ menu:
 - Add crypto implementation information to `/debug/vars`.
 - Add tools for manual metadata changes.
 - Upload `influx_tools` binaries to `influxdata-unpublished`.
-- Explicitlty run a FIPS POST and log results to ensure the POST is run.
+- Explicitly run a FIPS POST and log results to ensure the POST is run.
 - Eliminate false FIPS audit failures for replaced modules.
 
 ### Bug Fixes
