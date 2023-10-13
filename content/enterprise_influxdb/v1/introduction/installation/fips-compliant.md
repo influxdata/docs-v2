@@ -34,13 +34,14 @@ InfluxDB Enterprise.
 
   - Follow the regular [InfluxDB Enterprise installation instructions](/enterprise_influxdb/v1/introduction/installation/)
     using the FIPS-compliant packages. 
-  - A FIPS-compliant password hash that conforms to
+  - Ensure that your meta and data node configuration files use a FIPS-compliant
+    password hash that conforms to
     [NIST SP 800](https://www.nist.gov/itl/publications-0/nist-special-publication-800-series-general-information)
-    and [OWASP](https://owasp.org/) guidelines is used by default.
-  - Check that there is no configuration file from a previous Enterprise installation,
-    which sets a non-compliant password hash.
-    Non-FIPS password hash configurations, like `bcrypt`, cause FIPS-compliant
-    InfluxDB Enterprise builds to return an error on startup.
+    and [OWASP](https://owasp.org/) guidelines.
+    In both meta and data node configuration files, set `[meta].password-hash` to
+    either `pbkdf2-sha256` or `pbkdf2-sha512`.
+    Non-FIPS-compliant password hash configurations, like `bcrypt`, cause
+    FIPS-compliant InfluxDB Enterprise builds to return an error on startup.
 
 - **Enable FIPS on an _existing_ InfluxDB Enterprise cluster**:
 
