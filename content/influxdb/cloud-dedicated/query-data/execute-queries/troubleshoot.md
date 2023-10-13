@@ -269,6 +269,6 @@ pyarrow._flight.FlightUnavailableError: Flight returned unavailable error,
 **Potential reason**:
 
 - Non-POSIX-compliant systems (such as Windows) need to specify the root certificates in SslCredentialsOptions for the gRPC client, since the defaults are only configured for POSIX filesystems.
-  [Specify the root certificate path](#specify-the-root-certificate-path) for the Flight gRPC client.
+  [Specify the root certificate path](/influxdb/cloud-dedicated/reference/client-libraries/v3/python/#specify-the-root-certificate-path) For Windows User to config the Flight gRPC client.
 
   For more information about gRPC SSL/TLS client-server authentication, see [Using client-side SSL/TLS](https://grpc.io/docs/guides/auth/#using-client-side-ssltls) in the [gRPC.io Authentication guide](https://grpc.io/docs/guides/auth/).
