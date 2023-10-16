@@ -16,6 +16,8 @@ related:
   - /influxdb/clustered/write-data/
   - /influxdb/clustered/write-data/best-practices/
   - /influxdb/clustered/reference/syntax/line-protocol/
+  - /influxdb/clustered/guides/api-compatibility/v1/
+  - /influxdb/clustered/guides/api-compatibility/v2/
   - /telegraf/v1/
 ---
 
@@ -149,7 +151,8 @@ credentials (**URL**, **organization**, and **token**) are provided by
 {{< tabs-wrapper >}}
 {{% tabs %}}
 [Telegraf](#)
-[cURL](#)
+[v1 API](#)
+[v2 API](#)
 [Python](#)
 [Go](#)
 [Node.js](#)
@@ -235,9 +238,80 @@ To learn more, see how to [use Telegraf to write data](/influxdb/clustered/write
 <!------------------------------- END TELEGRAF CONTENT ------------------------------>
 {{% /tab-content %}}
 {{% tab-content %}}
-<!----------------------------- BEGIN cURL CONTENT ----------------------------->
+<!----------------------------- BEGIN v1 API CONTENT ----------------------------->
+Write data with your existing workloads that already use the InfluxDB v1 `/write` API endpoint.
 
-To write data to InfluxDB using the InfluxDB v2 HTTP API, send a
+To write data to InfluxDB using the [InfluxDB v1 HTTP API](/influxdb/clustered/reference/api/), send a
+request to the [InfluxDB API `/write` endpoint](/influxdb/clustered/api/#operation/PostLegacyWrite) using the `POST` request method.
+
+{{% api-endpoint endpoint="https://{{< influxdb/host >}}/write" method="post" api-ref="/influxdb/clustered/api/#operation/PostLegacyWrite"%}}
+
+Include the following with your request:
+
+- **Headers**:
+  - **Authorization**: Bearer <INFLUX_TOKEN>
+  - **Content-Type**: text/plain; charset=utf-8
+  - **Accept**: application/json
+- **Query parameters**:
+  - **db**: InfluxDB database name
+  - **precision**:[timestamp precision](/influxdb/clustered/reference/glossary/#timestamp-precision) (default is `ns`)
+- **Request body**: Line protocol as plain text
+
+{{% note %}}
+With the {{% product-name %}} [v1 API `/write` endpoint](/influxdb/clustered/api/#operation/PostLegacyWrite), `Authorization: Bearer` and `Authorization: Token` are equivalent and you can use either scheme to pass a database token in your request.
+For more information about HTTP API token schemes, see how to [authenticate API requests](/influxdb/clustered/guides/api-compatibility/v1/).
+{{% /note %}}
+
+The following example uses cURL and the InfluxDB v1 API to write line protocol
+to InfluxDB:
+
+{{% code-placeholders "DATABASE_TOKEN" %}}
+{{% influxdb/custom-timestamps %}}
+```sh
+curl -i 'https://{{< influxdb/host >}}/write?db=get-started&precision=s' \
+    --header 'Authorization: Bearer DATABASE_TOKEN' \
+    --header "Content-type: text/plain; charset=utf-8" \
+    --header "Accept: application/json" \
+    --data-binary "
+home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
+"
+```
+{{% /influxdb/custom-timestamps %}}
+{{% /code-placeholders %}}
+Replace the following:
+
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/clustered/admin/tokens/) with sufficient permissions to the specified database
+<!------------------------------ END v1 API CONTENT ------------------------------>
+{{% /tab-content %}}
+{{% tab-content %}}
+<!----------------------------- BEGIN v2 API CONTENT ----------------------------->
+
+To write data to InfluxDB using the [InfluxDB v2 HTTP API](/influxdb/clustered/reference/api/), send a
 request to the InfluxDB API `/api/v2/write` endpoint using the `POST` request method.
 
 {{< api-endpoint endpoint="https://{{< influxdb/host >}}/api/v2/write" method="post" api-ref="/influxdb/clustered/api/#operation/PostWrite" >}}
@@ -299,7 +373,7 @@ home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
 ```
 {{% /influxdb/custom-timestamps %}}
 {{% /code-placeholders %}}
-<!------------------------------ END cURL CONTENT ------------------------------>
+<!------------------------------ END v2 API CONTENT ------------------------------>
 {{% /tab-content %}}
 {{% tab-content %}}
 <!---------------------------- BEGIN PYTHON CONTENT --------------------------->

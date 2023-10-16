@@ -10,6 +10,10 @@ weight: 4
 related:
   - /kapacitor/v1/working/flux/manage/retry-failed/
   - /kapacitor/v1/working/flux/
+  - /kapacitor/v1/reference/cli/kapacitor/flux/task/run/
+  - /kapacitor/v1/reference/cli/kapacitor/flux/task/run/list/
+  - /kapacitor/v1/reference/cli/kapacitor/flux/task/run/retry/
+  - /kapacitor/v1/reference/cli/kapacitor/flux/task/retry-failed/
 ---
 
 Use the **`kapacitor` CLI** or the **Kapacitor HTTP API** to manage Kapacitor Flux task runs.

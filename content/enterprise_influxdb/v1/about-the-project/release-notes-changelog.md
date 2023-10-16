@@ -124,9 +124,9 @@ An edge case regression was introduced into this version that may cause a consta
 
 #### Backup enhancements
 
-- **Revert damaged meta nodes to a previous state**: Add the `-meta-only-overwrite-force` option to [`influxd-ctl restore`](/enterprise_influxdb/v1/tools/influxd-ctl/#restore) to revert damaged meta nodes in an existing cluster to a previous state when restoring an InfluxDB Enterprise database.
+- **Revert damaged meta nodes to a previous state**: Add the `-meta-only-overwrite-force` option to [`influxd-ctl restore`](/enterprise_influxdb/v1/tools/influxd-ctl/restore/) to revert damaged meta nodes in an existing cluster to a previous state when restoring an InfluxDB Enterprise database.
 
-- **Estimate the size of a backup** (full or incremental) and provide progress messages. Add `-estimate` option to [`influxd-ctl backup`](/enterprise_influxdb/v1/tools/influxd-ctl/#backup) to estimate the size of a backup (full or incremental) and provide progress messages. Prints the number of files to back up, the percentage of bytes transferred for each file (organized by shard), and the estimated time remaining to complete the backup.
+- **Estimate the size of a backup** (full or incremental) and provide progress messages. Add `-estimate` option to [`influxd-ctl backup`](/enterprise_influxdb/v1/tools/influxd-ctl/backup/) to estimate the size of a backup (full or incremental) and provide progress messages. Prints the number of files to back up, the percentage of bytes transferred for each file (organized by shard), and the estimated time remaining to complete the backup.
 
 #### Logging enhancements
 
@@ -157,7 +157,7 @@ An edge case regression was introduced into this version that may cause a consta
 
 #### influxd-ctl updates
 
-- Improve [`influxd-ctl join`](/enterprise_influxdb/v1/tools/influxd-ctl/#join) robustness and provide better error messages on failure.
+- Improve [`influxd-ctl join`](/enterprise_influxdb/v1/tools/influxd-ctl/join/) robustness and provide better error messages on failure.
 - Add user friendly error message when accessing a TLS-enabled server without TLS enabled on client.
 
 ## v1.9.5 [2021-10-11]
@@ -170,7 +170,7 @@ Changes below are included in InfluxDB Enterprise 1.9.5.
 ### Features
 
 #### New restore options
-- Add the following options for [restoring](/enterprise_influxdb/v1/tools/influxd-ctl/#restore) InfluxDB Enterprise databases:
+- Add the following options for [restoring](/enterprise_influxdb/v1/tools/influxd-ctl/restore/) InfluxDB Enterprise databases:
   - Restore data with a new retention policy into an existing database.
   - Override the duration of a retention policy while restoring.
   - Specify a destination shard when restoring a specific shard.

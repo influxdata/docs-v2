@@ -128,33 +128,33 @@ SPREAD [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/693
 
 ### Transformations
 
-| Function                                                                                                                     |        Supported         | Tracking Issue                                                              |
-| :--------------------------------------------------------------------------------------------------------------------------- | :----------------------: | :-------------------------------------------------------------------------- |
-| [ABS()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#abs)                                         | **{{< icon "check" >}}** |                                                                             |
-| [ACOS()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#acos)                                       | **{{< icon "check" >}}** |                                                                             |
-| [ASIN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#asin)                                       | **{{< icon "check" >}}** |                                                                             |
-| [ATAN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#atan)                                       | **{{< icon "check" >}}** |                                                                             |
-| [ATAN2()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#atan2)                                     | **{{< icon "check" >}}** |                                                                             |
-| [CEIL()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#ceil)                                       | **{{< icon "check" >}}** |                                                                             |
-| [COS()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#cos)                                         | **{{< icon "check" >}}** |                                                                             |
-| [CUMULATIVE_SUM()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#cumulative_sum)                   | **{{< icon "check" >}}** |                                                                             |
-| [DERIVATIVE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#derivative)                           | **{{< icon "check" >}}** |                                                                             |
-| [DIFFERENCE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#difference)                           | **{{< icon "check" >}}** |                                                                             |
-| <span style="opacity: .5;">ELAPSED()<span>                                                                                   |                          | [influxdb_iox#6934](https://github.com/influxdata/influxdb_iox/issues/6934) |
-| [EXP()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#exp)                                         | **{{< icon "check" >}}** |                                                                             |
-| [FLOOR()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#floor)                                     | **{{< icon "check" >}}** |                                                                             |
-| [LN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#ln)                                           | **{{< icon "check" >}}** |                                                                             |
-| [LOG()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#log)                                         | **{{< icon "check" >}}** |                                                                             |
-| [LOG2()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#log2)                                       | **{{< icon "check" >}}** |                                                                             |
-| [LOG10()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#log10)                                     | **{{< icon "check" >}}** |                                                                             |
-| [MOVING_AVERAGE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#moving_average)                   | **{{< icon "check" >}}** |                                                                             |
-| [NON_NEGATIVE_DERIVATIVE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#non_negative_derivative) | **{{< icon "check" >}}** |                                                                             |
-| [NON_NEGATIVE_DIFFERENCE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#non_negative_difference) | **{{< icon "check" >}}** |                                                                             |
-| [POW()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#pow)                                         | **{{< icon "check" >}}** |                                                                             |
-| [ROUND()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#round)                                     | **{{< icon "check" >}}** |                                                                             |
-| [SIN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#sin)                                         | **{{< icon "check" >}}** |                                                                             |
-| [SQRT()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#sqrt)                                       | **{{< icon "check" >}}** |                                                                             |
-| [TAN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#tan)                                         | **{{< icon "check" >}}** |                                                                             |
+| Function                                                                                                                     |        Supported         |
+| :--------------------------------------------------------------------------------------------------------------------------- | :----------------------: |
+| [ABS()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#abs)                                         | **{{< icon "check" >}}** |
+| [ACOS()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#acos)                                       | **{{< icon "check" >}}** |
+| [ASIN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#asin)                                       | **{{< icon "check" >}}** |
+| [ATAN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#atan)                                       | **{{< icon "check" >}}** |
+| [ATAN2()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#atan2)                                     | **{{< icon "check" >}}** |
+| [CEIL()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#ceil)                                       | **{{< icon "check" >}}** |
+| [COS()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#cos)                                         | **{{< icon "check" >}}** |
+| [CUMULATIVE_SUM()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#cumulative_sum)                   | **{{< icon "check" >}}** |
+| [DERIVATIVE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#derivative)                           | **{{< icon "check" >}}** |
+| [DIFFERENCE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#difference)                           | **{{< icon "check" >}}** |
+| <span style="opacity: .5;">ELAPSED()<span>                                                                                   |                          |
+| [EXP()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#exp)                                         | **{{< icon "check" >}}** |
+| [FLOOR()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#floor)                                     | **{{< icon "check" >}}** |
+| [LN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#ln)                                           | **{{< icon "check" >}}** |
+| [LOG()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#log)                                         | **{{< icon "check" >}}** |
+| [LOG2()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#log2)                                       | **{{< icon "check" >}}** |
+| [LOG10()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#log10)                                     | **{{< icon "check" >}}** |
+| [MOVING_AVERAGE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#moving_average)                   | **{{< icon "check" >}}** |
+| [NON_NEGATIVE_DERIVATIVE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#non_negative_derivative) | **{{< icon "check" >}}** |
+| [NON_NEGATIVE_DIFFERENCE()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#non_negative_difference) | **{{< icon "check" >}}** |
+| [POW()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#pow)                                         | **{{< icon "check" >}}** |
+| [ROUND()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#round)                                     | **{{< icon "check" >}}** |
+| [SIN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#sin)                                         | **{{< icon "check" >}}** |
+| [SQRT()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#sqrt)                                       | **{{< icon "check" >}}** |
+| [TAN()](/influxdb/cloud-dedicated/reference/influxql/functions/transformations/#tan)                                         | **{{< icon "check" >}}** |
 
 <!-- ELAPSED() [influxdb_iox#6934](https://github.com/influxdata/influxdb_iox/issues/6934) -->
 

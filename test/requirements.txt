@@ -1,0 +1,10 @@
+## Code sample dependencies
+influxdb3-python
+pandas
+## Tabulate for printing pandas DataFrames.
+tabulate
+python-dotenv==1.0.0
+## Test dependencies
+pytest==7.4.1
+pytest-cov==2.12.1
+pytest-codeblocks==0.16.1

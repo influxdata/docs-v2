@@ -7,6 +7,8 @@ menu:
     name: Update Flux tasks
     parent: Manage Flux tasks
 weight: 3
+related:
+  - /kapacitor/v1/reference/cli/kapacitor/flux/task/update/
 ---
 
 Use the **`kapacitor` CLI** or the **Kapacitor HTTP API** to update Kapacitor Flux tasks.
@@ -36,14 +38,14 @@ Provide the following flags:
 ##### Update Flux task code
 ```sh
 kapacitor flux task update \
-  --id 000x00xX0xXXx00
+  --id 000x00xX0xXXx00 \
   --file /path/to/updated-task.flux
 ```
 
 ##### Enable or disable a Flux task
 ```sh
 kapacitor flux task update \
-  --id 000x00xX0xXXx00
+  --id 000x00xX0xXXx00 \
   --status inactive
 ```
 {{% /tab-content %}}

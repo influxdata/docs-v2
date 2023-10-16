@@ -11,6 +11,7 @@ cascade:
   related:
     - /kapacitor/v1/working/flux/
     - /chronograf/v1/guides/advanced-kapacitor/
+    - /kapacitor/v1/reference/cli/kapacitor/flux/
 ---
 
 Use the **`kapacitor` CLI** and the **Kapacitor HTTP API** to manage Kapacitor Flux tasks.

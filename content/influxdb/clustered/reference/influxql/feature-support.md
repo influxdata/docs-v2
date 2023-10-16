@@ -128,33 +128,33 @@ SPREAD [influxdb_iox#6937](https://github.com/influxdata/influxdb_iox/issues/693
 
 ### Transformations
 
-| Function                                                                                                               |        Supported         | Tracking Issue                                                              |
-| :--------------------------------------------------------------------------------------------------------------------- | :----------------------: | :-------------------------------------------------------------------------- |
-| [ABS()](/influxdb/clustered/reference/influxql/functions/transformations/#abs)                                         | **{{< icon "check" >}}** |                                                                             |
-| [ACOS()](/influxdb/clustered/reference/influxql/functions/transformations/#acos)                                       | **{{< icon "check" >}}** |                                                                             |
-| [ASIN()](/influxdb/clustered/reference/influxql/functions/transformations/#asin)                                       | **{{< icon "check" >}}** |                                                                             |
-| [ATAN()](/influxdb/clustered/reference/influxql/functions/transformations/#atan)                                       | **{{< icon "check" >}}** |                                                                             |
-| [ATAN2()](/influxdb/clustered/reference/influxql/functions/transformations/#atan2)                                     | **{{< icon "check" >}}** |                                                                             |
-| [CEIL()](/influxdb/clustered/reference/influxql/functions/transformations/#ceil)                                       | **{{< icon "check" >}}** |                                                                             |
-| [COS()](/influxdb/clustered/reference/influxql/functions/transformations/#cos)                                         | **{{< icon "check" >}}** |                                                                             |
-| [CUMULATIVE_SUM()](/influxdb/clustered/reference/influxql/functions/transformations/#cumulative_sum)                   | **{{< icon "check" >}}** |                                                                             |
-| [DERIVATIVE()](/influxdb/clustered/reference/influxql/functions/transformations/#derivative)                           | **{{< icon "check" >}}** |                                                                             |
-| [DIFFERENCE()](/influxdb/clustered/reference/influxql/functions/transformations/#difference)                           | **{{< icon "check" >}}** |                                                                             |
-| <span style="opacity: .5;">ELAPSED()<span>                                                                             |                          | [influxdb_iox#6934](https://github.com/influxdata/influxdb_iox/issues/6934) |
-| [EXP()](/influxdb/clustered/reference/influxql/functions/transformations/#exp)                                         | **{{< icon "check" >}}** |                                                                             |
-| [FLOOR()](/influxdb/clustered/reference/influxql/functions/transformations/#floor)                                     | **{{< icon "check" >}}** |                                                                             |
-| [LN()](/influxdb/clustered/reference/influxql/functions/transformations/#ln)                                           | **{{< icon "check" >}}** |                                                                             |
-| [LOG()](/influxdb/clustered/reference/influxql/functions/transformations/#log)                                         | **{{< icon "check" >}}** |                                                                             |
-| [LOG2()](/influxdb/clustered/reference/influxql/functions/transformations/#log2)                                       | **{{< icon "check" >}}** |                                                                             |
-| [LOG10()](/influxdb/clustered/reference/influxql/functions/transformations/#log10)                                     | **{{< icon "check" >}}** |                                                                             |
-| [MOVING_AVERAGE()](/influxdb/clustered/reference/influxql/functions/transformations/#moving_average)                   | **{{< icon "check" >}}** |                                                                             |
-| [NON_NEGATIVE_DERIVATIVE()](/influxdb/clustered/reference/influxql/functions/transformations/#non_negative_derivative) | **{{< icon "check" >}}** |                                                                             |
-| [NON_NEGATIVE_DIFFERENCE()](/influxdb/clustered/reference/influxql/functions/transformations/#non_negative_difference) | **{{< icon "check" >}}** |                                                                             |
-| [POW()](/influxdb/clustered/reference/influxql/functions/transformations/#pow)                                         | **{{< icon "check" >}}** |                                                                             |
-| [ROUND()](/influxdb/clustered/reference/influxql/functions/transformations/#round)                                     | **{{< icon "check" >}}** |                                                                             |
-| [SIN()](/influxdb/clustered/reference/influxql/functions/transformations/#sin)                                         | **{{< icon "check" >}}** |                                                                             |
-| [SQRT()](/influxdb/clustered/reference/influxql/functions/transformations/#sqrt)                                       | **{{< icon "check" >}}** |                                                                             |
-| [TAN()](/influxdb/clustered/reference/influxql/functions/transformations/#tan)                                         | **{{< icon "check" >}}** |                                                                             |
+| Function                                                                                                               |        Supported         |
+| :--------------------------------------------------------------------------------------------------------------------- | :----------------------: |
+| [ABS()](/influxdb/clustered/reference/influxql/functions/transformations/#abs)                                         | **{{< icon "check" >}}** |
+| [ACOS()](/influxdb/clustered/reference/influxql/functions/transformations/#acos)                                       | **{{< icon "check" >}}** |
+| [ASIN()](/influxdb/clustered/reference/influxql/functions/transformations/#asin)                                       | **{{< icon "check" >}}** |
+| [ATAN()](/influxdb/clustered/reference/influxql/functions/transformations/#atan)                                       | **{{< icon "check" >}}** |
+| [ATAN2()](/influxdb/clustered/reference/influxql/functions/transformations/#atan2)                                     | **{{< icon "check" >}}** |
+| [CEIL()](/influxdb/clustered/reference/influxql/functions/transformations/#ceil)                                       | **{{< icon "check" >}}** |
+| [COS()](/influxdb/clustered/reference/influxql/functions/transformations/#cos)                                         | **{{< icon "check" >}}** |
+| [CUMULATIVE_SUM()](/influxdb/clustered/reference/influxql/functions/transformations/#cumulative_sum)                   | **{{< icon "check" >}}** |
+| [DERIVATIVE()](/influxdb/clustered/reference/influxql/functions/transformations/#derivative)                           | **{{< icon "check" >}}** |
+| [DIFFERENCE()](/influxdb/clustered/reference/influxql/functions/transformations/#difference)                           | **{{< icon "check" >}}** |
+| <span style="opacity: .5;">ELAPSED()<span>                                                                             |                          |
+| [EXP()](/influxdb/clustered/reference/influxql/functions/transformations/#exp)                                         | **{{< icon "check" >}}** |
+| [FLOOR()](/influxdb/clustered/reference/influxql/functions/transformations/#floor)                                     | **{{< icon "check" >}}** |
+| [LN()](/influxdb/clustered/reference/influxql/functions/transformations/#ln)                                           | **{{< icon "check" >}}** |
+| [LOG()](/influxdb/clustered/reference/influxql/functions/transformations/#log)                                         | **{{< icon "check" >}}** |
+| [LOG2()](/influxdb/clustered/reference/influxql/functions/transformations/#log2)                                       | **{{< icon "check" >}}** |
+| [LOG10()](/influxdb/clustered/reference/influxql/functions/transformations/#log10)                                     | **{{< icon "check" >}}** |
+| [MOVING_AVERAGE()](/influxdb/clustered/reference/influxql/functions/transformations/#moving_average)                   | **{{< icon "check" >}}** |
+| [NON_NEGATIVE_DERIVATIVE()](/influxdb/clustered/reference/influxql/functions/transformations/#non_negative_derivative) | **{{< icon "check" >}}** |
+| [NON_NEGATIVE_DIFFERENCE()](/influxdb/clustered/reference/influxql/functions/transformations/#non_negative_difference) | **{{< icon "check" >}}** |
+| [POW()](/influxdb/clustered/reference/influxql/functions/transformations/#pow)                                         | **{{< icon "check" >}}** |
+| [ROUND()](/influxdb/clustered/reference/influxql/functions/transformations/#round)                                     | **{{< icon "check" >}}** |
+| [SIN()](/influxdb/clustered/reference/influxql/functions/transformations/#sin)                                         | **{{< icon "check" >}}** |
+| [SQRT()](/influxdb/clustered/reference/influxql/functions/transformations/#sqrt)                                       | **{{< icon "check" >}}** |
+| [TAN()](/influxdb/clustered/reference/influxql/functions/transformations/#tan)                                         | **{{< icon "check" >}}** |
 
 <!-- ELAPSED() [influxdb_iox#6934](https://github.com/influxdata/influxdb_iox/issues/6934) -->
 
