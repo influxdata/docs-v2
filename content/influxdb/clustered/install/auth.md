@@ -357,7 +357,7 @@ Below are example configurations:
 {{% code-tab-content %}}
 <!--------------------------- BEGIN Microsoft Entra --------------------------->
 
-{{% code-placeholders "AZURE_TENANT_ID" %}}
+{{% code-placeholders "AZURE_(CLIENT|TENANT)_ID" %}}
 ```toml
 [[profile]]
     name = "default"
@@ -366,8 +366,8 @@ Below are example configurations:
     port = "8086" # InfluxDB cluster port
 
     [profile.auth.oauth2]
-        client_id = "AZURE_TENANT_ID"
-        scopes = ["AZURE_TENANT_ID/.default"]
+        client_id = "AZURE_CLIENT_ID"
+        scopes = ["AZURE_CLIENT_ID/.default"]
         device_url = "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/devicecode" 
         token_url = "https://login.microsoftonline.com/AZURE_TENANT_ID/oauth2/v2.0/token"
 ```
