@@ -39,10 +39,50 @@ InfluxDB Enterprise builds are available. For more information, see
 ### Features
 
 - Add crypto implementation information to `/debug/vars`.
-- Add tools for manual metadata changes.
-- Upload `influx_tools` binaries to `influxdata-unpublished`.
 - Explicitly run a FIPS POST and log results to ensure the POST is run.
 - Eliminate false FIPS audit failures for replaced modules.
+
+### Flux updates
+
+- Add microsecond and nanosecond support to [`iox.sqlInterval()`](/flux/v0/stdlib/experimental/iox/sqlinterval/).
+- Add `onNonmonotonic` parameter to [`histogramQuantile()`](/flux/v0/stdlib/universe/histogramquantile/)
+  to define behavior when bin counts are not monotonically increasing.
+- Add [`geo.totalDistance()`](/flux/v0/stdlib/experimental/geo/totaldistance/)
+  to aggregate total distance of consecutive points.
+- Add [`iox.sqlInterval()`](/flux/v0/stdlib/experimental/iox/sqlinterval/) to
+  convert Flux durations to SQL interval strings.
+- Add the [`contrib/qxip/hash`](/flux/v0/stdlib/contrib/qxip/hash/) package which
+  includes hashing functions.
+- Add the [`contrib/qxip/logql`](/flux/v0/stdlib/contrib/qxip/logql/) package
+  which provides functions for working with
+  [Grafana Loki](https://grafana.com/oss/loki/) and [LogQL](https://grafana.com/docs/loki/latest/logql/).
+- Add the [`contrib/qxip/clickhouse`](/flux/v0/stdlib/contrib/qxip/clickhouse/)
+  package which provides functions for querying data from [Clickhouse](https://clickhouse.com/).
+- Add [`types.isNumeric()`](/flux/v0/stdlib/types/isnumeric/) to test for numeric values.
+- Add [`dynamic.isType()`](/flux/v0/stdlib/experimental/dynamic/istype/) function.
+- Add [`dynamic.asArray()`](/flux/v0/stdlib/experimental/dynamic/asarray/) function.
+- Add JSON functions that work with dynamic values:
+  - [`dynamic.jsonParse()`](/flux/v0/stdlib/experimental/dynamic/jsonparse/)
+  - [`dynamic.jsonEncode()`](/flux/v0/stdlib/experimental/dynamic/jsonencode/)
+- Add [`iox.sql()`](/flux/v0/stdlib/experimental/iox/sql/) function.
+- Add [dynamic type](/flux/v0/data-types/dynamic/).
+- Add dynamic wrapper function.
+- Add array type conversion functions to the [experimental `array` package](/flux/v0/stdlib/experimental/array/).
+- Add support for piped-forward arrays to [`array.from()`](/flux/v0/stdlib/array/from/).
+- Add parameter to [`experimental.unpivot()`](/flux/v0/stdlib/experimental/unpivot/)
+  for non-field and non-group-key columns.
+- Add [`experimental/polyline` package](/flux/v0/stdlib/experimental/polyline) for
+  downsampling data.
+- Support `apiKey` parameter in [`zenoss.event()`](/flux/v0/stdlib/contrib/bonitoo-io/zenoss/event/)
+  and [`zenoss.endpoint()`](/flux/v0/stdlib/contrib/bonitoo-io/zenoss/endpoint/).
+- Optimize the Holt Winters implementation by using the
+  [gonum Nelder-Mead optimization](https://github.com/gonum/gonum/blob/master/optimize/neldermead.go).
+- Add multiple new join functions to the [`join`](/flux/v0/stdlib/join/) package
+  such as [`join.full()`](/flux/v0/stdlib/join/full/).
+- Add [`initialZero`](/flux/v0/stdlib/universe/derivative/#initialzero) parameter
+  to the derivative function.
+- Add builtin function, [`time()`](/flux/v0/stdlib/date/time/), to the `date`
+  package to convert any timeable into datetime.
 
 ### Bug Fixes
 
