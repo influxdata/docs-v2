@@ -95,7 +95,8 @@ for a complete list of the global `influxd-ctl` flags.
       databases, continuous queries, retention policies. Shards are not exported.
 - `-full`: perform a full backup. Deprecated in favour of `-strategy=full`
 - `-rp <string>`: the name of the single retention policy to back up (must specify `-db` with `-rp`)
-- `-shard <unit>`: the ID of the single shard to back up (cannot be used with `-db`)
+- `-shard <string>`: shard ID to back up (if `-retention` or `-database` flags are provided,
+  the specified database or retention policy must be those in the shard)
 - `-start <timestamp>`: Include all points starting with specified timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
 - `-end <timestamp>`: Exclude all points after timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
 
