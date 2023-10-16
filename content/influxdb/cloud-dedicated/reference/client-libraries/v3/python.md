@@ -14,7 +14,7 @@ aliases:
 related:
   - /influxdb/cloud-dedicated/query-data/execute-queries/troubleshoot/
 list_code_example: >
-  ```py
+  ```python
   from influxdb_client_3 import InfluxDBClient3
 
   # Instantiate an InfluxDB client configured for a database
@@ -76,20 +76,21 @@ module.
 
 Import the module:
 
-```py
+```python
 import influxdb_client_3
 ```
 
 Import specific class methods from the module:
 
-```py
+```python
 from influxdb_client_3 import InfluxDBClient3, Point, WriteOptions
 ```
 
 - [`influxdb_client_3.InfluxDBClient3`](#class-influxdbclient3): a class for interacting with InfluxDB
 - [`influxdb_client_3.Point`](#class-point):a class for constructing a time series data
 point
-- [`influxdb_client_3.WriteOptions`](#class-writeoptions): a class for configuring client
+- `influxdb_client_3.WriteOptions`: a class for configuring client
+write options.
 
 ## API reference
 
@@ -118,7 +119,7 @@ Provides an interface for interacting with InfluxDB APIs for writing and queryin
 
 ### Syntax
 
-```py
+```python
 __init__(self, host=None, org=None, database=None, token=None,
         write_client_options=None, flight_client_options=None, **kwargs)
 ```
@@ -152,14 +153,14 @@ To use batching mode, pass `WriteOptions` as key-value pairs to the client `writ
 1.  Instantiate `WriteOptions()` with defaults or with
 `WriteOptions.write_type=WriteType.batching`.
 
-    ```py
+    ```python
       # Create a WriteOptions instance for batch writes with batch size, flush, and retry defaults.
       write_options = WriteOptions()
     ```
 
 2.  Pass `write_options` from the preceding step to the `write_client_options` function.
 
-    ```py
+    ```python
     wco = write_client_options(WriteOptions=write_options)
     ```
 
@@ -169,7 +170,7 @@ To use batching mode, pass `WriteOptions` as key-value pairs to the client `writ
 
     {{< tabs-wrapper >}}
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```py
+```python
 from influxdb_client_3 import Point, InfluxDBClient3
 
 points = [
@@ -209,7 +210,7 @@ When writing or querying, the client waits synchronously for the response.
 Given `client.write_client_options` doesn't set `WriteOptions`, the client uses the default [non-batch writing](#non-batch-writing) mode.
 
 {{% code-placeholders "DATABASE_(NAME|TOKEN)" %}}
-```py
+```python
 from influxdb_client_3 import InfluxDBClient3
 
 client = InfluxDBClient3(token="DATABASE_TOKEN",
@@ -230,7 +231,7 @@ When writing data, the client uses batch mode with default options and
 invokes the callback function, if specified, for the response status (success, error, or retryable error).
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```py
+```python
   from influxdb_client_3 import InfluxDBClient3,
                                 write_client_options,
                                 WriteOptions,
@@ -279,7 +280,7 @@ Writes a record or a list of records to InfluxDB.
 
 #### Syntax
 
-```py
+```python
 write(self, record=None, **kwargs)
 ```
 
@@ -299,7 +300,7 @@ write(self, record=None, **kwargs)
 
 {{% influxdb/custom-timestamps %}}
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```py
+```python
 from influxdb_client_3 import InfluxDBClient3
 
 points = "home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000"
@@ -319,7 +320,7 @@ point for a measurement and setting fields, tags, and the timestamp for the poin
 The following example shows how to create a `Point` object, and then write the
 data to InfluxDB.
 
-```py
+```python
 from influxdb_client_3 import Point, InfluxDBClient3
 point = Point("home").tag("room", "Kitchen").field("temp", 72)
 ...
@@ -342,7 +343,7 @@ data to InfluxDB.
 
 {{% influxdb/custom-timestamps %}}
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```py
+```python
 from influxdb_client_3 import InfluxDBClient3
 
 # Using point dictionary structure
@@ -370,7 +371,7 @@ Execution is synchronous.
 
 #### Syntax
 
-```py
+```python
 write_file(self, file, measurement_name=None, tag_columns=[],
           timestamp_column='time', **kwargs)
 ```
@@ -408,7 +409,7 @@ The following example shows how to configure write options for batching, retries
 and how to write data from CSV and JSON files to InfluxDB:
 
 {{% code-placeholders "DATABASE_NAME|DATABASE_TOKEN" %}}
-```py
+```python
 from influxdb_client_3 import InfluxDBClient3, write_client_options,
                               WritePrecision, WriteOptions, InfluxDBError
 
@@ -461,7 +462,7 @@ Returns all data in the query result as an Arrow table.
 
 #### Syntax
 
-```py
+```python
 query(self, query, language="sql", mode="all", **kwargs )
 ```
 
@@ -477,12 +478,13 @@ query(self, query, language="sql", mode="all", **kwargs )
     - `pandas`: Read the contents of the stream and return it as a `pandas.DataFrame`.
     - `reader`: Convert the `FlightStreamReader` into a [`pyarrow.RecordBatchReader`](https://arrow.apache.org/docs/python/generated/pyarrow.RecordBatchReader.html#pyarrow-recordbatchreader).
     - `schema`: Return the schema for all record batches in the stream.
+- **`**kwargs`**: [`FlightCallOptions`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightCallOptions.html#pyarrow.flight.FlightCallOptions)
 
 #### Examples
 
 ##### Query using SQL
 
-```py
+```python
 table = client.query("SELECT * FROM measurement WHERE time >= now() - INTERVAL '90 days'")
 # Filter columns.
 print(table.select(['room', 'temp']))
@@ -492,7 +494,7 @@ print(table.group_by('hum').aggregate([]))
 
 ##### Query using InfluxQL
 
-```py
+```python
 query = "SELECT * FROM measurement WHERE time >= -90d"
 table = client.query(query=query, language="influxql")
 # Filter columns.
@@ -501,7 +503,7 @@ print(table.select(['room', 'temp']))
 
 ##### Read all data from the stream and return a pandas DataFrame
 
-```py
+```python
 query = "SELECT * FROM measurement WHERE time >= now() - INTERVAL '90 days'"
 pd = client.query(query=query, mode="pandas")
 # Print the pandas DataFrame formatted as a Markdown table.
@@ -510,7 +512,7 @@ print(pd.to_markdown())
 
 ##### View the schema for all batches in the stream
 
-```py
+```python
 table = client.query('''
   SELECT *
   FROM measurement
@@ -522,10 +524,19 @@ print(table.schema)
 
 ##### Retrieve the result schema and no data
 
-```py
+```python
 query = "SELECT * FROM measurement WHERE time >= now() - INTERVAL '90 days'"
 schema = client.query(query=query, mode="schema")
 print(schema)
+```
+
+##### Specify a timeout
+
+Pass `timeout=<number of seconds>` for [`FlightCallOptions`](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightCallOptions.html#pyarrow.flight.FlightCallOptions) to use a custom timeout.
+
+```python
+query = "SELECT * FROM measurement WHERE time >= now() - INTERVAL '90 days'"
+client.query(query=query, timeout=5)
 ```
 
 ### InfluxDBClient3.close
@@ -535,19 +546,19 @@ and then closes the underlying write client and Flight client to release resourc
 
 #### Syntax
 
-```py
+```python
 close(self)
 ```
 
 #### Examples
 
-```py
+```python
 client.close()
 ```
 
 ## Class Point
 
-```py
+```python
 influxdb_client_3.Point
 ```
 
@@ -557,14 +568,14 @@ point for a measurement, and setting fields, tags, and timestamp.
 The following example shows how to create a `Point`, and then write the
 data to InfluxDB.
 
-```py
+```python
 point = Point("home").tag("room", "Living Room").field("temp", 72)
 client.write(point)
 ```
 
 ## Class WriteOptions
 
-```py
+```python
 influxdb_client_3.WriteOptions
 ```
 
@@ -574,7 +585,7 @@ For client configuration examples, see [Initialize a client](#initialize-a-clien
 
 ### Syntax
 
-```py
+```python
 __init__(self, write_type: WriteType = WriteType.batching,
                  batch_size=1_000, flush_interval=1_000,
                  jitter_interval=0,
@@ -595,7 +606,7 @@ __init__(self, write_type: WriteType = WriteType.batching,
 
 ### Function write_client_options(**kwargs)
 
-```py
+```python
 influxdb_client_3.write_client_options(kwargs)
 ```
 
@@ -607,7 +618,7 @@ influxdb_client_3.write_client_options(kwargs)
 
 ### Function flight_client_options(**kwargs)
 
-```py
+```python
 influxdb_client_3.flight_client_options(kwargs)
 ```
 
@@ -621,7 +632,7 @@ influxdb_client_3.flight_client_options(kwargs)
 
 ##### Specify the root certificate path
 
-```py
+```python
 from influxdb_client_3 import InfluxDBClient3, flight_client_options
 import certifi
 
