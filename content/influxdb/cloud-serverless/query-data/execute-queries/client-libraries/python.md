@@ -26,6 +26,7 @@ related:
     - /influxdb/cloud-serverless/query-data/sql/
     - /influxdb/cloud-serverless/reference/influxql/
     - /influxdb/cloud-serverless/reference/sql/
+    - /influxdb/cloud-serverless/query-data/execute-queries/troubleshoot/
 
 list_code_example: |
     ```py
@@ -33,7 +34,7 @@ list_code_example: |
 
     # Instantiate an InfluxDB client
     client = InfluxDBClient3(
-        host='cloud2.influxdata.com',
+        host='{{< influxdb/host >}}',
         token='DATABASE_TOKEN',
         database='DATABASE_NAME'
     )
@@ -306,7 +307,7 @@ and specify the following arguments:
 
 #### Example {#execute-query-example}
 
-The following examples show how to use SQL or InfluxQL to select all fields in a measurement, and then output the results formatted as a Markdown table.
+The following example shows how to use SQL or InfluxQL to select all fields in a measurement, and then use PyArrow functions to extract metadata and aggregate data.
 
 {{% code-tabs-wrapper %}}
 {{% code-tabs %}}

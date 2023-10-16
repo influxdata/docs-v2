@@ -24,6 +24,7 @@ Learn how to handle responses and troubleshoot errors encountered when querying 
     - [Internal Error: Received RST_STREAM](#internal-error-received-rst_stream)
     - [Internal Error: stream terminated by RST_STREAM with NO_ERROR](#internal-error-stream-terminated-by-rst_stream-with-no_error)
     - [Invalid Argument: Invalid ticket](#invalid-argument-invalid-ticket)
+    - [Timeout: Deadline exceeded](#timeout-deadline-exceeded)
     - [Unauthenticated: Unauthenticated](#unauthenticated-unauthenticated)
     - [Unauthorized: Permission denied](#unauthorized-permission-denied)
     - [FlightUnavailableError: Could not get default pem root certs](#flightunavailableerror-could-not-get-default-pem-root-certs)
@@ -80,7 +81,8 @@ SELECT co, delete, hum, room, temp, time
 
 The Python client library outputs the following schema representation:
 
-```py
+<!--pytest.mark.skip-->
+```python
 Schema:
   co: int64
     -- field metadata --
@@ -175,7 +177,7 @@ _For a list of gRPC codes that servers and clients may return, see [Status codes
 
 **Example**:
 
-```sh
+```structuredtext
 Flight returned internal error, with message: Received RST_STREAM with error code 2. gRPC client debug context: UNKNOWN:Error received from peer ipv4:34.196.233.7:443 {grpc_message:"Received RST_STREAM with error code 2"}
 ```
 
@@ -192,11 +194,12 @@ Flight returned internal error, with message: Received RST_STREAM with error cod
 
 **Example**:
 
+<!--pytest.mark.skip-->
 ```sh
 pyarrow._flight.FlightInternalError: Flight returned internal error, with message: stream terminated by RST_STREAM with error code: NO_ERROR. gRPC client debug context: UNKNOWN:Error received from peer ipv4:3.123.149.45:443 {created_time:"2023-07-26T14:12:44.992317+02:00", grpc_status:13, grpc_message:"stream terminated by RST_STREAM with error code: NO_ERROR"}. Client context: OK
 ```
 
-**Potential Reasons**:
+**Potential reasons**:
 
 - The server terminated the stream, but there wasn't any specific error associated with it.
 - Possible network disruption, even if it's temporary.
@@ -208,21 +211,35 @@ pyarrow._flight.FlightInternalError: Flight returned internal error, with messag
 
 **Example**:
 
+<!--pytest.mark.skip-->
 ```sh
 pyarrow.lib.ArrowInvalid: Flight returned invalid argument error, with message: Invalid ticket. Error: Invalid ticket. gRPC client debug context: UNKNOWN:Error received from peer ipv4:54.158.68.83:443 {created_time:"2023-08-31T17:56:42.909129-05:00", grpc_status:3, grpc_message:"Invalid ticket. Error: Invalid ticket"}. Client context: IOError: Server never sent a data message. Detail: Internal
 ```
 
-**Potential Reasons**:
+**Potential reasons**:
 
 - The request is missing the database name or some other required metadata value.
 - The request contains bad query syntax.
 
 <!-- END -->
 
+#### Timeout: Deadline exceeded
+
+<!--pytest.mark.skip-->
+```sh
+pyarrow._flight.FlightTimedOutError: Flight returned timeout error, with message: Deadline Exceeded. gRPC client debug context: UNKNOWN:Deadline Exceeded {grpc_status:4, created_time:"2023-09-27T15:30:58.540385-05:00"}. Client context: IOError: Server never sent a data message. Detail: Internal
+```
+
+**Potential reasons**:
+
+- The server's response time exceeded the number of seconds allowed by the client.
+  See how to specify `timeout` in [FlightCallOptions](https://arrow.apache.org/docs/python/generated/pyarrow.flight.FlightCallOptions.html#pyarrow.flight.FlightCallOptions).
+
 #### Unauthenticated: Unauthenticated
 
 **Example**:
 
+<!--pytest.mark.skip-->
 ```sh
 Flight returned unauthenticated error, with message: unauthenticated. gRPC client debug context: UNKNOWN:Error received from peer ipv4:34.196.233.7:443 {grpc_message:"unauthenticated", grpc_status:16, created_time:"2023-08-28T15:38:33.380633-05:00"}. Client context: IOError: Server never sent a data message. Detail: Internal
 ```
@@ -238,6 +255,7 @@ Flight returned unauthenticated error, with message: unauthenticated. gRPC clien
 
 **Example**:
 
+<!--pytest.mark.skip-->
 ```sh
 pyarrow._flight.FlightUnauthorizedError: Flight returned unauthorized error, with message: Permission denied. gRPC client debug context: UNKNOWN:Error received from peer ipv4:54.158.68.83:443 {grpc_message:"Permission denied", grpc_status:7, created_time:"2023-08-31T17:51:08.271009-05:00"}. Client context: IOError: Server never sent a data message. Detail: Internal
 ```
@@ -254,6 +272,7 @@ pyarrow._flight.FlightUnauthorizedError: Flight returned unauthorized error, wit
 
 If unable to locate a root certificate for _gRPC+TLS_, the Flight client returns errors similar to the following:
 
+<!--pytest.mark.skip-->
 ```sh
 UNKNOWN:Failed to load file... filename:"/usr/share/grpc/roots.pem",
   children:[UNKNOWN:No such file or directory
