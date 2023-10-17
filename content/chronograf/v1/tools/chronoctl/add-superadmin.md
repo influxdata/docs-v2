@@ -6,7 +6,7 @@ menu:
   chronograf_v1:
     name: chronoctl add-superadmin
     parent: chronoctl
-    weight: 20
+weight: 201
 ---
 
 The `add-superadmin` command creates a new user with superadmin status.

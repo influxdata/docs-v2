@@ -7,7 +7,7 @@ menu:
   chronograf_v1:
     name: chronoctl list-users
     parent: chronoctl
-    weight: 30
+weight: 201
 ---
 
 The `list-users` command lists all users in the Chronograf data store.
