@@ -33,7 +33,7 @@
           <div class="version-col"><p>
             {{ if $cloudExcluded }}
             {{ else if $cloudDeprecated }}<span class="deprecated"></span>
-            {{ else if $cloudSupported }}<span class="cf-icon checkmark-new{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+            {{ else if $cloudSupported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
             {{ end }}
           </p></div>
         </div>
@@ -51,7 +51,7 @@
           <div class="version-col"><p>
             {{ if $excluded }}
             {{ else if $deprecated }}<span class="deprecated"></span>      
-            {{ else if $supported }}<span class="cf-icon checkmark-new{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+            {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
             {{ end }}
           </div>
         </div>
@@ -70,7 +70,7 @@
         <div class="version-col"><p>
           {{ if $excluded }}
           {{ else if $deprecated }}<span class="deprecated"></span>
-          {{ else if $supported }}<span class="cf-icon checkmark-new{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+          {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
           {{ end }}
         </div>
       </div>
@@ -78,11 +78,11 @@
       </div>
 
       <ul class="color-key">
-        <li id="pending-key"><span class="cf-icon checkmark-new pending"></span> Pending (may not be fully deployed or available in the build yet)</li>
+        <li id="pending-key"><span class="cf-icon Checkmark_New pending"></span> Pending (may not be fully deployed or available in the build yet)</li>
         <li id="deprecated-key"><span class="deprecated"></span> Deprecated in this version of InfluxDB</li>
       </ul>
       <div class="more-info">
-        <p><em>For information about what version of Flux is available in each version of InfluxDB, see <a href="/flux/v0.x/influxdb-versions/">Flux versions in InfluxDB</a>.</em></p>
+        <p><em>For information about what version of Flux is available in each version of InfluxDB, see <a href="/flux/v0/influxdb-versions/">Flux versions in InfluxDB</a>.</em></p>
       </div>
     </div>
   </div>

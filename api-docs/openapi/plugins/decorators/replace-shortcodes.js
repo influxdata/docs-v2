@@ -7,8 +7,14 @@ function replaceDocsUrl(field) {
    */
   const shortcode = /\{\{%([^]|\s)*?INFLUXDB_DOCS_URL([^]|\s)*?%\}\}/g
   let replacement = `/influxdb/${process.env.INFLUXDB_PLATFORM}`;
-  return field.replaceAll(shortcode, replacement)
+
+  field = field.replaceAll(shortcode, replacement)
               .replaceAll('https://docs.influxdata.com/influxdb/', '/influxdb/');
+
+  if(process.env.INFLUXDB_PLATFORM === 'cloud-iox') {
+    field = field.replaceAll('/influxdb/cloud/', `${replacement}/`);
+  }
+  return field;
 }
 
 /** @type {import('@redocly/openapi-cli').OasDecorator} */

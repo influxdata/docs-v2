@@ -10,8 +10,14 @@
   {{ .Scratch.Set "menuKey" "platform" }}
 {{ else if eq $product "resources" }}
   {{ .Scratch.Set "menuKey" "resources" }}
+{{ else if in $currentVersion "serverless" }}
+  {{ .Scratch.Set "menuKey" "influxdb_cloud_serverless" }}
+{{ else if in $currentVersion "dedicated" }}
+  {{ .Scratch.Set "menuKey" "influxdb_cloud_dedicated" }}
+{{ else if eq $currentVersion "clustered" }}
+  {{ .Scratch.Set "menuKey" "influxdb_clustered" }}
 {{ else }}
-  {{ .Scratch.Set "menuKey" (print $product "_" (replaceRE `\.` "_" (replaceRE "v" "" $currentVersion))) }}
+  {{ .Scratch.Set "menuKey" (print $product "_" $currentVersion) }}
 {{ end }}
 
 {{ $menuKey := .Scratch.Get "menuKey" }}
@@ -19,20 +25,27 @@
 <!-- Search placeholder -->
 {{ .Scratch.Set "searchPlaceholder" "Search"}}
 
-{{ if and (eq (index .Site.Data.products $product).name nil) (eq (len (findRE `v[1-2]\.` $currentVersion nil)) 0) }}
+{{ $fluxBlacklist := slice "cloud-serverless" "cloud-dedicated" "clustered" }}
+{{ $influxdbProductKey := print "influxdb_" (replaceRE "-" "_" $currentVersion) }}
+
+{{ if and (eq (index .Site.Data.products $product).name nil) (eq (len (findRE `v[1-2]` $currentVersion nil)) 0) }}
   {{ .Scratch.Set "searchPlaceholder" "Search the docs" }}
 {{ else if (eq $currentVersion nil) }}
   {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
 {{ else if eq $product "influxdb" }}
-  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "v") $currentVersion (title $currentVersion)) " & Flux") }}
+  {{ if not (in $fluxBlacklist $currentVersion) }}
+    {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " (cond (in $currentVersion "v") $currentVersion (title $currentVersion)) " & Flux") }}
+  {{ else }}
+    {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $influxdbProductKey).name) }}
+  {{ end }}
 {{ else }}
-  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name " " $currentVersion) }}
+  {{ .Scratch.Set "searchPlaceholder"  (print "Search " (index .Site.Data.products $product).name) }}
 {{ end }}
 
 {{ $searchPlaceholder := .Scratch.Get "searchPlaceholder" }}
 
 <aside class="sidebar">
-  {{ partial "sidebar/sidebar-toggle.html" (dict "state" "close") }}
+  {{ partial "sidebar/sidebar-toggle.html" (dict "state" "Close") }}
   <div class="search-and-nav-toggle">
     <div class="sidebar--search">
       <input  class="sidebar--search-field"
@@ -66,10 +79,10 @@
   {{ end }}
 
   <!-- Flux links for InfluxDB docs -->
-  {{ $fluxWhitelist := slice "influxdb/v1.7" "influxdb/v1.8" "influxdb/v2.0" "influxdb/v2.1" "influxdb/cloud" }}
+  {{ $fluxWhitelist := `influxdb\/((v(1\.[7-8]))|(v(2\.[0-9]))|cloud)$` }}
   {{ $productAndVersion := print $product "/" $currentVersion }}
   {{ $latestFlux := $.Site.Data.products.flux.latest }}
-  {{ if in $fluxWhitelist $productAndVersion }}
+  {{ if gt (len (findRE $fluxWhitelist $productAndVersion)) 0 }}
     <h4 class="flux">Flux</h4>
     <li class="nav-category"><a href="/flux/{{ $latestFlux }}/">Flux {{ $latestFlux }} Documentation</a></li>
     <li class="nav-category"><a href="/flux/{{ $latestFlux }}/get-started/">Get started with Flux</a></li>
@@ -84,7 +97,9 @@
   {{ end }}
 
   <!-- Additional resources for all docs -->
-  {{ if ne $product "resources" }}
+  {{ $resourcesProductWhitelist := slice "platform" "influxdb" "enterprise_influxdb" "telegraf" "chronograf" "kapacitor" "flux" }}
+  {{ $resourcesVersionWhitelist := `(?:v\d\.(?:\d{1,2}|x))|cloud$` }}
+  {{ if and (in $resourcesProductWhitelist $product) (gt (len (findRE $resourcesVersionWhitelist $currentVersion)) 0) }}
     <h4 class="resources">Additional resources</h4>
     <li class="nav-category"><a href="/resources/videos/">Videos</a></li>
     <li class="nav-category"><a href="/resources/how-to-guides/">How-to Guides</a></li>

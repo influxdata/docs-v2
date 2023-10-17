@@ -1,0 +1,47 @@
+// This stylesheet covers the date picker modal window
+// Datepicker-specific styles are in /assets/styles/tools/_datepicker.scss
+
+#influxdb-gs-date-select {
+  width: auto;
+  max-width: 260px;
+
+  p {margin-bottom: 1.5rem;}
+
+  a.btn {
+    position: relative;
+    display: inline-block;
+    margin: 1.25rem 0 .5rem;
+    padding: 0.85rem 1.5rem;
+    color: $article-btn-text !important;
+    border-radius: $radius;
+    text-transform: uppercase;
+    letter-spacing: .06rem;
+    font-size: 1rem;
+    float: right;
+    z-index: 1;
+    @include gradient($article-btn-gradient);
+  
+    &:after {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: $radius;
+      @include gradient($article-btn-gradient-hover);
+      opacity: 0;
+      transition: opacity .2s;
+      z-index: -1;
+    }
+  
+    &:hover {
+      cursor: pointer;
+  
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,8 +1,10 @@
-{{ $latestV2 := cond (isset .Site.Data.products.influxdb "latest_override") .Site.Data.products.influxdb.latest_override .Site.Data.products.influxdb.latest }}
-{{ $pathReplacement := print "/influxdb/" $latestV2 "/" }}
-{{ $path := .Get 0 | default (replaceRE `^influxdb\/cloud\/` $pathReplacement .Page.File.Path) }}
+{{ $productPathData := findRE "[^/]+.*?" .Page.RelPermalink }}
+{{ $cloudVersion := index $productPathData 1 }}
+{{ $pathReplacement := print "/influxdb/v2/" }}
+{{ $relPath := .Get 0 | default "" }}
+{{ $path := cond (eq $relPath "") (replaceRE `(?U)^influxdb\/cloud.*\/` $pathReplacement .Page.File.Path) (print $pathReplacement (replaceRE `^\/` "" $relPath))}}
 
 {{ $page := .Site.GetPage $path }}
 {{ with $page }}
-  {{ .Content | replaceRE `\/influxdb\/v2\.[0-9]{1,2}\/` "/influxdb/cloud/" | replaceRE `<span class="current-version">.*<\/span>` "Cloud" | safeHTML }}
+  {{ .Content | replaceRE `\/influxdb\/v2/` (print "/influxdb/" $cloudVersion "/") | replaceRE `<span class="current-version">.*<\/span>` "Cloud" | safeHTML }}
 {{ end }}

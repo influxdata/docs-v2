@@ -9,6 +9,9 @@ info:
 
     This documentation is generated from the
     [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/swaggerV1Compat.yml).
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
 servers:
   - url: /
 paths:
@@ -426,4 +429,3 @@ tags:
     x-traitTag: true
   - name: Query
   - name: Write
-x-tagGroups: []

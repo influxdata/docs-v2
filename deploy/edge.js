@@ -3,13 +3,13 @@
 const path = require('path');
 
 const latestVersions = {
-  'influxdb': 'v2.4',
-  'influxdbv2': 'v2.4',
-  'telegraf': 'v1.23',
-  'chronograf': 'v1.10',
-  'kapacitor': 'v1.6',
-  'enterprise': 'v1.10',
-  'flux': 'v0.x',
+  'influxdb': 'v2',
+  'influxdbv2': 'v2',
+  'telegraf': 'v1',
+  'chronograf': 'v1',
+  'kapacitor': 'v1',
+  'enterprise': 'v1',
+  'flux': 'v0',
 };
 
 const archiveDomain = 'https://archive.docs.influxdata.com';
@@ -81,9 +81,6 @@ exports.handler = (event, context, callback) => {
     '.sha256': true,
   };
 
-  // Remove multiple slashes from path
-  // permanentRedirect(/\/{2,}/.test(request.uri), request.uri.replace(/\/{2,}/, `/`));
-
   // Remove index.html from path
   permanentRedirect(request.uri.endsWith('index.html'), request.uri.substr(0, request.uri.length - indexPath.length));
 
@@ -100,6 +97,12 @@ exports.handler = (event, context, callback) => {
   ///////////////////////// Force v in version numbers /////////////////////////
   permanentRedirect(/(^\/[\w]*\/)(\d\.)/.test(request.uri), request.uri.replace(/(^\/[\w]*\/)(\d\.)/, `$1v$2`));
 
+  /////////////////// cloud-iox to cloud-serverless redirect //////////////////
+  permanentRedirect(/\/influxdb\/cloud-iox/.test(request.uri), request.uri.replace(/\/influxdb\/cloud-iox/, '/influxdb/cloud-serverless'));
+  
+  ////////////// CLI InfluxQL link (catch before latest redirect) //////////////
+  permanentRedirect(/\/influxdb\/latest\/query_language\/spec/.test(request.uri), request.uri.replace(/latest/, 'v1'));
+
   ////////////////////////// Latest version redirects //////////////////////////
   temporaryRedirect(/\/influxdb\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['influxdb']}`));
   temporaryRedirect(/\/telegraf\/latest/.test(request.uri), request.uri.replace(/\/latest/, `/${latestVersions['telegraf']}`));
@@ -115,6 +118,9 @@ exports.handler = (event, context, callback) => {
   temporaryRedirect(request.uri === '/kapacitor/', `/kapacitor/${latestVersions['kapacitor']}/`);
   temporaryRedirect(request.uri === '/enterprise_influxdb/', `/enterprise_influxdb/${latestVersions['enterprise']}/`);
   temporaryRedirect(request.uri === '/flux/', `/flux/${latestVersions['flux']}/`);
+
+  /////////////////////// VERSION RESTRUCTURE REDIRECTS ////////////////////////
+  permanentRedirect(/^\/\w+\/(v\d{1})\.[\dx]+/.test(request.uri), request.uri.replace(/^\/(\w+)\/(v\d{1})\.[\dx]+(.*$)/, `/$1/$2$3`));
 
   /////////////////////////////// Flux redirects ///////////////////////////////
   // Redirect old Flux guides and introduction 

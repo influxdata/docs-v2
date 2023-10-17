@@ -88,11 +88,32 @@ for version in $versions
 do
   # Trim the trailing slash off the directory name
   version="${version%/}"
-  menu="influxdb_$(echo $version | sed 's/\./_/g;s/v//g;')_ref"
+
+  # Define the menu key
+  if [[ $version == "cloud-serverless" ]] || [[ $version == "cloud-dedicated" ]] || [[ $version == "clustered" ]]; then
+    menu="influxdb_$(echo $version | sed 's/\./_/g;s/-/_/g;')"
+  else 
+    menu="influxdb_$(echo $version | sed 's/\./_/g;')_ref"
+  fi
+
+  # Define the title text based on the version
   if [[ $version == "cloud" ]]; then
     titleVersion="Cloud"
+  elif [[ $version == "cloud-serverless" ]]; then
+    titleVersion="Cloud Serverless"
+  elif [[ $version == "cloud-dedicated" ]]; then
+    titleVersion="Cloud Dedicated"
+  elif [[ $version == "clustered" ]]; then
+    titleVersion="Clustered"
   else
     titleVersion="$version"
+  fi
+
+  # Define frontmatter version
+  if [[ $version == "cloud-serverless" ]] || [[ $version == "cloud-dedicated" ]] || [[ $version == "clustered" ]]; then
+    frontmatterVersion="v3"
+  else 
+    frontmatterVersion="v2"
   fi
 
   # Generate the frontmatter
@@ -111,13 +132,21 @@ weight: 102
   v1compatfrontmatter="---
 title: InfluxDB $titleVersion v1 compatibility API documentation
 description: >
-  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1.x compatibility endpoints.
+  The InfluxDB v1 compatibility API provides a programmatic interface for interactions with InfluxDB $titleVersion using InfluxDB v1 compatibility endpoints.
 layout: api
 menu:
   $menu:
-    parent: 1.x compatibility
+    parent: v1 compatibility
     name: View v1 compatibility API docs
 weight: 304
+---
+"
+  v3frontmatter="---
+title: InfluxDB $titleVersion API documentation
+description: >
+  The InfluxDB API provides a programmatic interface for interactions with InfluxDB $titleVersion.
+layout: api
+weight: 102
 ---
 "
 
@@ -137,27 +166,34 @@ weight: 304
     generateHtml $filePath $outFilename $titleVersion $titleSubmodule
 
     # Create temp file with frontmatter and Redoc html
-    echo "$v2frontmatter" >> $version$outFilename.tmp
+    if [[ $frontmatterVersion == "v3" ]]; then
+      echo "$v3frontmatter" >> $version$outFilename.tmp
+    else
+      echo "$v2frontmatter" >> $version$outFilename.tmp
+    fi
     buildHugoTemplate $version v2 $outFilename
   fi
 
   # If the v1 compatibility spec file differs from master, regenerate the HTML.
   filePath="${version}/swaggerV1Compat.yml"
   update=0
-  if [[ $generate_changed == 0 ]]; then
-    fileChanged=$(git diff --name-status master -- ${filePath})
-    if [[ -z "$fileChanged" ]]; then
-    update=1
+
+  if [ -e "$filePath" ]; then
+    if [[ $generate_changed == 0 ]]; then
+      fileChanged=$(git diff --name-status master -- ${filePath})
+      if [[ -z "$fileChanged" ]]; then
+      update=1
+      fi
     fi
-  fi
 
-  if [[ $update -eq 0 ]]; then
-    outFilename="v1-compatibility"
-    titleSubmodule="v1 compatibility"
-    generateHtml $filePath $outFilename $titleVersion $titleSubmodule
+    if [[ $update -eq 0 ]]; then
+      outFilename="v1-compatibility"
+      titleSubmodule="v1 compatibility"
+      generateHtml $filePath $outFilename $titleVersion $titleSubmodule
 
-    # Create temp file with frontmatter and Redoc html
-    echo "$v1compatfrontmatter" >> $version$outFilename.tmp
-    buildHugoTemplate $version v1 $outFilename
+      # Create temp file with frontmatter and Redoc html
+      echo "$v1compatfrontmatter" >> $version$outFilename.tmp
+      buildHugoTemplate $version v1 $outFilename
+    fi
   fi
 done

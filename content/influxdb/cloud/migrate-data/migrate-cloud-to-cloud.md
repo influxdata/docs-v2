@@ -9,6 +9,8 @@ menu:
     name: Migrate from Cloud to Cloud
     parent: Migrate data
 weight: 102
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/
 ---
 
 To migrate data from one InfluxDB Cloud organization to another, query the
@@ -33,6 +35,7 @@ All query and write requests are subject to your InfluxDB Cloud organization's
   - [Configuration help](#configuration-help)
 - [Monitor the migration progress](#monitor-the-migration-progress)
 - [Troubleshoot migration task failures](#troubleshoot-migration-task-failures)
+- [Migrate to InfluxDB Cloud Serverless powered by IOx](#migrate-to-influxdb-cloud-serverless-powered-by-iox)
 
 ## Set up the migration
 
@@ -80,7 +83,7 @@ Batch range is beyond the migration range. Migration is complete.
     _See [Determine your task interval](#determine-your-task-interval)._
 
 2.  Define the following properties in the `migration`
-    [record](/{{< latest "flux" >}}/data-types/composite/record/):
+    [record](/flux/v0/data-types/composite/record/):
 
     ##### migration
     - **start**: Earliest time to include in the migration.
@@ -165,8 +168,9 @@ data = () =>
 // the batch and is used to generate batch metadata.
 rowCount =
     data()
-        |> group(columns: ["_start", "_stop"])
         |> count()
+        |> group(columns: ["_start", "_stop"])
+        |> sum()
 
 // emptyRange is a stream of tables that acts as filler data if the batch is
 // empty. This is used to generate batch metadata for empty batches and is
@@ -378,3 +382,18 @@ task will fail.
 - Update the `migration.batchInterval` setting in your migration task to use
   a smaller interval. Each batch will then query less data and take less time
   to return results.
+
+### Migrate to InfluxDB Cloud Serverless powered by IOx
+
+To unlock the benefits of the IOx storage engine, including unlimited cardinality and SQL, [migrate your data to an InfluxDB Cloud Serverless organization](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/).
+
+All InfluxDB Cloud [accounts](/influxdb/cloud-serverless/admin/accounts/) and [organizations](/influxdb/cloud-serverless/admin/organizations/) created through
+[cloud2.influxdata.com](https://cloud2.influxdata.com) on or after **January 31, 2023**
+are powered by the InfluxDB IOx storage engine.
+
+To see which storage engine your organization uses,
+find the **InfluxDB Cloud powered by** link in your
+[InfluxDB Cloud organization homepage](https://cloud2.influxdata.com) version information.
+If your organization is using TSM, you'll see **TSM** followed by the version number.
+If IOx, you'll see
+**InfluxDB Cloud Serverless** followed by the version number.

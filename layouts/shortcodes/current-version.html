@@ -1,5 +1,18 @@
+{{- $scratch := newScratch }}
 {{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
-{{- $currentVersion := replaceRE "v" "" (index $productPathData 1) -}}
+{{- $product := index $productPathData 0 -}}
+{{- $majorVersion := index $productPathData 1 -}}
 {{- $keep := .Get "keep" | default false -}}
 {{- $keepClass := cond ( $keep ) " keep" "" -}}
-<span class="current-version{{ $keepClass }}">{{ $currentVersion }}</span>
+{{- $noSpan := .Get "nospan" | default false }}
+{{- $nonNumericVersions := dict "cloud" "Cloud" "cloud-serverless" "Cloud Serverless" "cloud-dedicated" "Cloud Dedicated" "clustered" "Clustered" -}}
+{{- $scratch.Set "versionText" "" -}}
+{{- if gt (len (findRE `^v` $majorVersion)) 0 -}}
+  {{- $latestPatch := index (index $.Site.Data.products $product).latest_patches $majorVersion -}}
+  {{- $scratch.Set "versionText" (replaceRE `\.[0-9]+$` "" $latestPatch) -}}
+{{- else if (ne $majorVersion nil) }}
+  {{- $scratch.Set "versionText"  (index $nonNumericVersions $majorVersion) }}
+{{- end -}}
+{{- $versionText := $scratch.Get "versionText" -}}
+{{- if $noSpan -}}{{- $versionText -}}{{- else -}}
+<span class="current-version{{ $keepClass }}">{{- $versionText -}}</span>{{- end -}}

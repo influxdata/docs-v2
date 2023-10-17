@@ -10,11 +10,11 @@ menu:
     name: Bulk ingest historical data
     parent: Write data
 alias:
-  - /influxdb/v2.0/write-data/bulk-ingest-cloud
+  - /influxdb/v2/write-data/bulk-ingest-cloud
 ---
 
 To upload a large amount **(10GB or greater)** of previously existing *historical*
-data into InfluxDB Cloud, [contact InfluxData Support](https://support.influxdata.com) for assistance.
+data into InfluxDB Cloud, contact [InfluxData Support](https://support.influxdata.com/) for assistance.
 We’ll review your ingest rate limits, volume, and existing
 [data schema](/influxdb/cloud/reference/key-concepts/data-schema) to ensure the
 most efficient migration.

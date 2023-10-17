@@ -192,7 +192,7 @@ Telegraf configuration to write to both InfluxDB 1.x and InfluxDB Cloud:
 ## Migrate time series data
 To migrate time series data from your InfluxDB 1.x instance to InfluxDB Cloud:
 
-1. Use the **InfluxDB 1.x** [`influx_inspect export` command](/{{< latest "influxdb" "v1" >}}/tools/influx_inspect/#export)
+1. Use the **InfluxDB 1.x** [`influx_inspect export` command](/influxdb/v1/tools/influx_inspect/#export)
    to export time series data as line protocol.
    Include the `-lponly` flag to exclude comments and the data definition
    language (DDL) from the output file.
@@ -247,7 +247,7 @@ include the `--rate-limit` flag with `influx write` to rate limit written data.
 influx write \
   --bucket example-bucket \
   --file /path/to/example-db_example-rp.lp \
-  --rate-limit "5 MB / 5 min"
+  --rate-limit "5MB/5min"
 ```
 {{% caption %}}
 See [Required InfluxDB Cloud credentials](#required-influxdb-cloud-credentials)

@@ -14,9 +14,13 @@ menu:
 weight: 202
 influxdb/cloud/tags: [manually, plugin, mqtt]
 related:
-  - /{{< latest "telegraf" >}}/plugins//
+  - /telegraf/v1/plugins/
   - /influxdb/cloud/telegraf-configs/create/
   - /influxdb/cloud/telegraf-configs/update/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/configure/
+  cloud-dedicated: /influxdb/cloud-dedicated/write-data/use-telegraf/configure/
+  clustered: /influxdb/clustered/write-data/use-telegraf/configure/
 ---
 
 Use the Telegraf `influxdb_v2` output plugin to collect and write metrics into an InfluxDB v2.0 bucket.
@@ -35,13 +39,13 @@ Configure Telegraf input and output plugins in the Telegraf configuration file (
 Input plugins collect metrics.
 Output plugins define destinations where metrics are sent.
 
-_See [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//) for a complete list of available plugins._
+_See [Telegraf plugins](/telegraf/v1/plugins/) for a complete list of available plugins._
 
 ### Manually add Telegraf plugins
 
-To manually add any of the available [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//), follow the steps below.
+To manually add any of the available [Telegraf plugins](/telegraf/v1/plugins/), follow the steps below.
 
-1. Find the plugin you want to enable from the complete list of available [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//).
+1. Find the plugin you want to enable from the complete list of available [Telegraf plugins](/telegraf/v1/plugins/).
 2. Click **View** to the right of the plugin name to open the plugin page on GitHub. For example, view the MQTT plugin GitHub page [here](https://github.com/influxdata/telegraf/blob/release-1.14/plugins/inputs/mqtt_consumer/README.md).
 3. Copy and paste the example configuration into your Telegraf configuration file (typically named `telegraf.conf`).
 
@@ -53,7 +57,7 @@ in the `telegraf.conf`.
 
 To find an example InfluxDB v2 output plugin configuration in the UI:
 
-1. In the navigation menu on the left, select **Data (Load Data)** > **Telegraf**.
+1. In the navigation menu on the left, select **Load Data** > **Telegraf**.
 
     {{< nav-icon "load data" >}}
 
@@ -66,7 +70,7 @@ The InfluxDB output plugin configuration contains the following options:
 ##### urls
 An array of URLs for your InfluxDB v2.0 instances.
 See [InfluxDB URLs](/influxdb/cloud/reference/urls/) for information about which URLs to use.
-**{{< cloud-name "short">}} requires HTTPS**.
+**{{< product-name "short">}} requires HTTPS**.
 
 ##### token
 Your InfluxDB v2.0 authorization token.

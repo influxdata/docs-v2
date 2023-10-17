@@ -65,7 +65,10 @@ table + table {
   margin-top: -1.5rem;
 }
 
-#flags:not(.no-shorthand), #global-flags {
+// Adjust spacing to push long-hand and short-hand columns closer together
+#flags:not(.no-shorthand),
+#global-flags,
+.shorthand-flags {
   & + table {
     td:nth-child(2) code { margin-left: -2rem; }
   }
@@ -75,6 +78,10 @@ p.table-group-key {
   margin: 1rem 0 -.75rem;
   font-weight: $medium;
   font-size: .95rem;
+}
+
+table + .table-group-key {
+  margin-top: -2rem;
 }
 
 // Reverse the order of InfluxDB version rows in Flux versions table

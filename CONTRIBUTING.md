@@ -2,7 +2,7 @@
 
 ## Sign the InfluxData CLA
 The InfluxData Contributor License Agreement (CLA) is part of the legal framework
-for the open-source ecosystem that protects both you and InfluxData.
+for the open source ecosystem that protects both you and InfluxData.
 To make substantial contributions to InfluxData documentation, first sign the InfluxData CLA.
 What constitutes a "substantial" change is at the discretion of InfluxData documentation maintainers.
 
@@ -10,7 +10,7 @@ What constitutes a "substantial" change is at the discretion of InfluxData docum
 
 _**Note:** Typo and broken link fixes are greatly appreciated and do not require signing the CLA._
 
-*If it's your first time contributing and you're looking for an easy update, check out our [good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue)!*
+*If you're new to contributing or you're looking for an easy update, check out our [good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue).*
 
 ## Make suggested updates
 
@@ -20,6 +20,20 @@ _**Note:** Typo and broken link fixes are greatly appreciated and do not require
 
 ### Run the documentation locally (optional)
 To run the documentation locally, follow the instructions provided in the README.
+
+### Install and run Vale
+Use the [Vale](https://vale.sh/) style linter to check spelling and enforce style guidelines.
+To install Vale, follow the instructions to install the [Vale CLI](https://vale.sh/docs/vale-cli/installation/) for your system and the [integration](https://vale.sh/docs/integrations/guide/) for your editor.
+
+The `docs-v2` repository contains `.vale.ini` files that configure InfluxData spelling and style rules used by the [Vale CLI](https://vale.sh/docs/vale-cli/installation/) and editor extensions, such as [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode).
+When run (with the CLI or an editor extension) Vale searches for a `.vale.ini` file in the directory of the file being linted.
+
+To lint multiple directories with specified configuration files and generate a report, run the `.ci/vale/vale.sh` script.
+
+`docs-v2` style rules are located at `.ci/vale/styles/`.
+The easiest way to add accepted or rejected spellings is to enter your terms (or regular expression patterns) into the Vocabulary files at `.ci/vale/styles/Vocab`.
+
+To learn more about configuration and rules, see [Vale configuration](https://vale.sh/docs/topics/config).
 
 ### Make your changes
 Make your suggested changes being sure to follow the [style and formatting guidelines](#style--formatting) outline below.
@@ -101,7 +115,7 @@ updated_in: # Product and version the referenced feature was updated in (display
 ### Title usage
 
 ##### `title`
-The `title` frontmatter populates each page's h1 header.
+The `title` frontmatter populates each page's HTML `h1` heading tag.
 It shouldn't be overly long, but should set the context for users coming from outside sources.
 
 ##### `seotitle`
@@ -356,14 +370,30 @@ Maintain CLI version numbers in the `data/products.yml` file instead of updating
 
 ### API endpoint
 Use the `{{< api-endpoint >}}` shortcode to generate a code block that contains
-a colored request method and a specified API endpoint.
+a colored request method, a specified API endpoint, and an optional link to
+the API reference documentation.
 Provide the following arguments:
 
 - **method**: HTTP request method (get, post, patch, put, or delete)
 - **endpoint**: API endpoint
+- **api-ref**: Link the endpoint to a specific place in the API documentation
+- **influxdb_host**: Specify which InfluxDB product host to use
+  _if the `endpoint` contains the `influxdb/host` shortcode_.
+  Uses the current InfluxDB product as default.
+  Supports the following product values:
+
+  - oss
+  - cloud
+  - serverless
+  - dedicated
+  - clustered
 
 ```md
-{{< api-endpoint method="get" endpoint="/api/v2/tasks">}}
+{{< api-endpoint method="get" endpoint="/api/v2/tasks" api-ref="/influxdb/cloud/api/#operation/GetTasks">}}
+```
+
+```md
+{{< api-endpoint method="get" endpoint="{{< influxdb/host >}}/api/v2/tasks" influxdb_host="cloud">}}
 ```
 
 ### Tabbed Content
@@ -527,6 +557,7 @@ The shortcode has the following parameters:
 - **next:** path of the next document _(optional)_
 - **prevText:** override the button text linking to the previous document _(optional)_
 - **nextText:** override the button text linking to the next document _(optional)_
+- **keepTab:** include the currently selected tab in the button link _(optional)_
 
 The shortcode generates buttons that link to both the previous and next documents.
 By default, the shortcode uses either the `list_title` or the `title` of the linked
@@ -538,6 +569,10 @@ document, but you can use `prevText` and `nextText` to override button text.
 
 <!-- Override button text -->
 {{ page-nav prev="/path/to/prev/" prevText="Previous" next="/path/to/next" nextText="Next" >}}
+
+<!-- Add currently selected tab to button link -->
+{{ page-nav prev="/path/to/prev/" next="/path/to/next" keepTab=true>}}
+```
 
 ### Keybinds
 Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
@@ -1116,7 +1151,8 @@ Click {{< caps >}}Add Data{{< /caps >}}
 
 #### Code callouts
 Use the `{{< code-callout >}}` shortcode to highlight and emphasize a specific
-piece of code in a code block. Provide the string to highlight in the code block.
+piece of code (for example, a variable, placeholder, or value) in a code block.
+Provide the string to highlight in the code block.
 Include a syntax for the codeblock to properly style the called out code.
 
 ~~~md
@@ -1231,6 +1267,29 @@ https://cloud2.influxdata.com
 ```
 ~~~
 
+### Automatically populate InfluxDB host placeholder
+The InfluxDB host placeholder that gets replaced by custom domains differs
+between each InfluxDB product/version.
+Use the `influxdb/host` shortcode to automatically render the correct
+host placeholder value for the current product. You can also pass a single
+argument to specify a specific InfluxDB product to use.
+Supported argument values:
+
+- oss
+- cloud
+- cloud-tsm
+- cloud-serverless
+- serverless
+- cloud-dedicated
+- dedicated
+- clustered
+
+```
+{{< host/influxdb >}}
+
+{{< host/influxdb "serverless" >}}
+```
+
 ## New Versions of InfluxDB
 Version bumps occur regularly in the documentation.
 Each minor version has its own directory with unique content.
@@ -1281,7 +1340,7 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
 7. Copy the InfluxDB `swagger.yml` specific to the new version into the
    `/api-docs/v<version-number>/` directory.
 
-8. Commit the changes and push the new branch to Github.
+8. Commit the changes and push the new branch to GitHub.
 
 These changes lay the foundation for the new version.
 All other changes specific to the new version should be merged into this branch.

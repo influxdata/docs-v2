@@ -1,5 +1,6 @@
 ---
 title: InfluxDB Cloud limits and adjustable quotas
+list_title: Limits and adjustable quotas
 description: >
   InfluxDB Cloud has adjustable service quotas and global (non-adjustable) system limits.
 weight: 110
@@ -11,12 +12,15 @@ related:
   - /flux/v0.x/stdlib/experimental/usage/from/
   - /flux/v0.x/stdlib/experimental/usage/limits/
   - /influxdb/cloud/write-data/best-practices/resolve-high-cardinality/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/admin/billing/limits/
 ---
 
-InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis. Currently, InfluxDB Cloud supports one organization per account.
+InfluxDB Cloud applies (non-adjustable) global system limits and adjustable service quotas on a per organization basis.
 
 {{% warn %}}
-All __rates__ (data-in (writes), queries (reads), and deletes) are accrued within a fixed five-minute window. Once a rate is exceeded, an error response is returned until the current five-minute window resets.
+All __rates__ (data-in (writes), queries (reads), and deletes) are accrued within a fixed five-minute window.
+Once a rate is exceeded, an error response is returned until the current five-minute window resets.
 {{% /warn %}}
 
 Review adjustable service quotas and global limits to plan for your bandwidth needs:
@@ -29,8 +33,6 @@ Review adjustable service quotas and global limits to plan for your bandwidth ne
 ## Adjustable service quotas
 
 To reduce the chance of unexpected charges and protect the service for all users, InfluxDB Cloud has adjustable service quotas applied per account.
-
-_To request higher service quotas, reach out to [InfluxData Support](https://support.influxdata.com/)._
 
 ### Free Plan
 
@@ -50,7 +52,7 @@ _To request higher service quotas, reach out to [InfluxData Support](https://sup
 - **Storage**: 30 days of data retention (see [retention period](/influxdb/cloud/reference/glossary/#retention-period))
 
 {{% note %}}
-To write historical data older than 30 days, retain data for more than 30 days, or increase rate limits, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
+To write historical data older than 30 days, retain data for more than 30 days, increase rate limits, or create additional organizations, upgrade to the Cloud [Usage-Based Plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
 {{% /note %}}
 
 ### Usage-Based Plan
@@ -69,7 +71,7 @@ To write historical data older than 30 days, retain data for more than 30 days, 
   - Unlimited checks
   - Unlimited notification rules
   - Unlimited notification endpoints for [all endpoints](/flux/v0.x/tags/notification-endpoints/)
-- **Storage**: Set your retention period to unlimited or up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
+- **Storage**: Set your retention period to unlimited or up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](/influxdb/cloud/reference/cli/influx/).
 
 ## Global limits
 
@@ -93,7 +95,7 @@ Combine delete predicate expressions (if possible) into a single request. Influx
 
 ## UI error messages
 
-The {{< cloud-name >}} UI displays a notification message when service quotas or limits are exceeded. The error messages correspond with the relevant [API error responses](#api-error-responses).
+The {{< product-name >}} UI displays a notification message when service quotas or limits are exceeded. The error messages correspond with the relevant [API error responses](#api-error-responses).
 
 Errors can also be viewed in the [Usage page](/influxdb/cloud/account-management/data-usage/) under **Limit Events**, e.g. `event_type_limited_query`, `event_type_limited_write`,`event_type_limited_cardinality`, or `event_type_limited_delete_rate`.
 
@@ -103,6 +105,6 @@ The following API error responses occur when your plan's service quotas are exce
 
 | HTTP response code              | Error message                               | Description  |
 | :-----------------------------  | :-----------------------------------------  | :----------- |
-| `HTTP 413 "Request Too Large"`  | cannot read data: points in batch is too large | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |  
-| `HTTP 429 "Too Many Requests"`  | Retry-After: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
-| `HTTP 429 "Too Many Requests"` | Series cardinality exceeds your plan's service quota | If **series cardinality** exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) |
+| `HTTP 413 "Request Too Large"`  | cannot read data: points in batch is too large | If a **write** request exceeds the maximum [global limit](#global-limits) |  
+| `HTTP 429 "Too Many Requests"`  | Retry-After: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](#global-limits) |
+| `HTTP 429 "Too Many Requests"` | Series cardinality exceeds your plan's service quota | If **series cardinality** exceeds your plan's [adjustable service quotas](#adjustable-service-quotas) |

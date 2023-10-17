@@ -54,4 +54,7 @@
       color: rgba($article-note-text, 1);
       background: $article-note-code-bg};
   }
+  hr, .expand {
+    border-color: rgba($article-note-base, .4)
+  }
 }

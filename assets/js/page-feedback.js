@@ -9,7 +9,7 @@ const pageData = {
   host: location.hostname,
   path: location.pathname,
   product: pathArr[0],
-  version: (/^v\d/.test(pathArr[1]) || pathArr[1] === "cloud" ? pathArr[1].replace(/^v/, '') : "n/a"),
+  version: (/^v\d/.test(pathArr[1]) || pathArr[1]?.includes('cloud') ? pathArr[1].replace(/^v/, '') : "n/a"),
 }
 
 // Hijack form submission and send feedback data to be stored.

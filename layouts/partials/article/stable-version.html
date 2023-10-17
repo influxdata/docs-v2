@@ -2,16 +2,17 @@
 {{ $product := index $productPathData 0 }}
 {{ $productName := (index .Site.Data.products $product).name }}
 {{ $currentVersion := index $productPathData 1 }}
-{{ $latestV2 := index (last 1 .Site.Data.products.influxdb.versions) 0 }}
+{{ $latestV2 := index (.Site.Data.products.influxdb.versions) 0 }}
 
-{{ $stableVersion := (index .Site.Data.products $product).latest }}
-{{ $stableVersionURL := replaceRE `v[1-2]\.[0-9]{1,2}` $stableVersion .RelPermalink }}
-{{ $v2EquivalentURL := replaceRE `v[1-2]\.[0-9]{1,2}` $latestV2 .Page.Params.v2 }}
+{{ $stableVersion := (replaceRE `\.[0-9x]+$` "" (index .Site.Data.products $product).latest) }}
+{{ $stableVersionURL := replaceRE `v[1-2]` $stableVersion .RelPermalink }}
+{{ $v2EquivalentURL := replaceRE `v[1-2]` $latestV2 .Page.Params.v2 }}
 {{ $v2EquivalentPage := .GetPage (replaceRE `\/$` "" $v2EquivalentURL) }}
 {{ $v2PageExists := gt (len $v2EquivalentPage.Title) 0 }}
-{{ $isCloud := in .Page.RelPermalink "/influxdb/cloud/"}}
+{{ $isCloud := in .Page.RelPermalink "/influxdb/cloud" }}
+{{ $isClustered := in .Page.RelPermalink "/influxdb/clustered" }}
 
-{{ if and (lt $currentVersion $stableVersion) (not $isCloud) }}
+{{ if and (ne $currentVersion $stableVersion) (not (or $isCloud $isClustered)) }}
   <div class="warn block old-version">
     <p>
       This page documents an earlier version of {{ $productName }}.

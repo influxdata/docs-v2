@@ -1,0 +1,202 @@
+{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
+{{- $currentVersion := index $productPathData 1 -}}
+{{- $isOSS := cond (in $currentVersion "cloud") false true -}}
+<div id="series-diagram-wrapper flux">
+  <div class="series-diagram">
+    <table>
+      <thead>
+        <tr>
+          <th align="left">_time</th>
+          <th align="left">_measurement</th>
+          <th align="left"><span class="tooltip" data-tooltip-text="Tag Key">city</span></th>
+          <th align="left"><span class="tooltip" data-tooltip-text="Tag Key">country</span></th>
+          <th align="left">_field</th>
+          <th align="right">_value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td align="left"><span class="tooltip" data-tooltip-text="Timestamp">2022-01-01T12:00:00Z</span></td>
+          <td align="left"><span class="tooltip" data-tooltip-text="Measurement">weather</span></td>
+          <td align="left"><span class="tooltip" data-tooltip-text="Tag Value">London</span></td>
+          <td align="left"><span class="tooltip" data-tooltip-text="Tag Value">UK</span></td>
+          <td align="left"><span class="tooltip" data-tooltip-text="Field Key">temperature</span></td>
+          <td align="right"><span class="tooltip shift-left" data-tooltip-text="Field Value">12.0</span></td>
+        </tr>
+        <tr class="point">
+          <td align="left">2022-02-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">London</td>
+          <td align="left">UK</td>
+          <td align="left">temperature</td>
+          <td align="right">12.1</td>
+        </tr>
+        <tr>
+          <td align="left">2022-03-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">London</td>
+          <td align="left">UK</td>
+          <td align="left">temperature</td>
+          <td align="right">11.5</td>
+        </tr>
+        <tr>
+          <td align="left">2022-04-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">London</td>
+          <td align="left">UK</td>
+          <td align="left">temperature</td>
+          <td align="right">5.9</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="series-diagram">
+    <table>
+      <thead>
+        <tr>
+          <th align="left">_time</th>
+          <th align="left">_measurement</th>
+          <th align="left">city</th>
+          <th align="left">country</th>
+          <th align="left">_field</th>
+          <th align="right">_value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td align="left">2022-01-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">Cologne</td>
+          <td align="left">DE</td>
+          <td align="left">temperature</td>
+          <td align="right">13.2</td>
+        </tr>
+        <tr>
+          <td align="left">2022-02-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">Cologne</td>
+          <td align="left">DE</td>
+          <td align="left">temperature</td>
+          <td align="right">11.5</td>
+        </tr>
+        <tr>
+          <td align="left">2022-03-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">Cologne</td>
+          <td align="left">DE</td>
+          <td align="left">temperature</td>
+          <td align="right">10.2</td>
+        </tr>
+        <tr>
+          <td align="left">2022-04-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">Cologne</td>
+          <td align="left">DE</td>
+          <td align="left">temperature</td>
+          <td align="right">7.9</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  {{ if not $isOSS }}
+  <div class="series-diagram">
+    <table>
+      <thead>
+        <tr>
+          <th align="left">_time</th>
+          <th align="left">_measurement</th>
+          <th align="left">city</th>
+          <th align="left">country</th>
+          <th align="left">_field</th>
+          <th align="right">_value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td align="left">2022-01-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">London</td>
+          <td align="left">UK</td>
+          <td align="left">humidity</td>
+          <td align="right">88.4</td>
+        </tr>
+        <tr>
+          <td align="left">2022-02-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">London</td>
+          <td align="left">UK</td>
+          <td align="left">humidity</td>
+          <td align="right">94.0</td>
+        </tr>
+        <tr>
+          <td align="left">2022-03-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">London</td>
+          <td align="left">UK</td>
+          <td align="left">humidity</td>
+          <td align="right">82.1</td>
+        </tr>
+        <tr>
+          <td align="left">2022-04-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">London</td>
+          <td align="left">UK</td>
+          <td align="left">humidity</td>
+          <td align="right">87.6</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="series-diagram">
+    <table>
+      <thead>
+        <tr>
+          <th align="left">_time</th>
+          <th align="left">_measurement</th>
+          <th align="left">city</th>
+          <th align="left">country</th>
+          <th align="left">_field</th>
+          <th align="right">_value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td align="left">2022-01-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">Cologne</td>
+          <td align="left">DE</td>
+          <td align="left">humidity</td>
+          <td align="right">88.5</td>
+        </tr>
+        <tr>
+          <td align="left">2022-02-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">Cologne</td>
+          <td align="left">DE</td>
+          <td align="left">humidity</td>
+          <td align="right">87.8</td>
+        </tr>
+        <tr>
+          <td align="left">2022-03-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">Cologne</td>
+          <td align="left">DE</td>
+          <td align="left">humidity</td>
+          <td align="right">76.4</td>
+        </tr>
+        <tr>
+          <td align="left">2022-04-01T12:00:00Z</td>
+          <td align="left">weather</td>
+          <td align="left">Cologne</td>
+          <td align="left">DE</td>
+          <td align="left">humidity</td>
+          <td align="right">93.3</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {{ end }}
+</div>

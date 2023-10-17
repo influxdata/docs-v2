@@ -18,13 +18,13 @@ data is consistent and readable.
 
 ##### On this page
 
-<!-- [Data replication](#data-replication)
--->
+- [Data replication](#data-replication)
 - [Backup processes](#backup-processes)
 - [Recovery](#recovery)
 - [Data verification](#data-verification)
 
-<!-- ## Data replication
+## Data replication
+
 InfluxDB Cloud replicates data in both the write tier and the storage tier.
 
 - **Write tier:** all data written to InfluxDB is processed by a durable message queue.
@@ -32,9 +32,9 @@ InfluxDB Cloud replicates data in both the write tier and the storage tier.
   replicates each partition across other physical nodes in the message queue.
 - **Storage tier:** all data in the underlying storage tier is replicated across
   two availability zones in a cloud region.
--->
 
 ## Backup processes
+
 InfluxDB Cloud backs up all data in the following way:
 
 - [Backup on write](#backup-on-write)
@@ -42,6 +42,7 @@ InfluxDB Cloud backs up all data in the following way:
 - [Periodic TSM snapshots](#periodic-tsm-snapshots)
 
 ### Backup on write
+
 All inbound write requests to InfluxDB Cloud are added to a durable message queue.
 The message queue does the following:
 
@@ -60,6 +61,7 @@ To minimize potential data loss due to defects introduced in the InfluxDB Cloud 
 we minimize the code used between the data ingest and backup processes.
 
 ### Backup after compaction
+
 The InfluxDB storage engine compresses data over time in a process known as
 [compaction](/influxdb/cloud/reference/glossary/#compaction).
 When each compaction cycle completes, InfluxDB Cloud stores compressed
@@ -67,10 +69,12 @@ When each compaction cycle completes, InfluxDB Cloud stores compressed
 in object storage.
 
 ### Periodic TSM snapshots
+
 To provide multiple data recovery points, InfluxDB Cloud takes weekly snapshots of TSM files uploaded to object storage. The TSM snapshot includes a copy of all (non-deleted) data when the snapshot is created.
 These snapshots are preserved for 100 days.
 
 ## Recovery
+
 InfluxDB Cloud uses the following out-of-band backups stored in object storage to recover data:
 
 - **Message queue backup:** line protocol from inbound write requests within the last 96 hours
@@ -85,12 +89,14 @@ For example, if we need to rebuild all data from the TSM snapshots and message q
 it could take 24 hours or longer.
 
 ## Data verification
+
 InfluxDB Cloud has two data verification services running at all times:
 
 - **Entropy detection:** ensures that replicated data is consistent
 - **Data verification:** verifies that data written to InfluxDB is readable
 
 ## InfluxDB Cloud status
+
 InfluxDB Cloud regions and underlying services are monitored at all times.
 For information about the current status of InfluxDB Cloud, see the
 [InfluxDB Cloud status page](https://status.influxdata.com).

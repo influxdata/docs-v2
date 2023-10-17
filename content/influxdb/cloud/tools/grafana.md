@@ -12,6 +12,10 @@ related:
   - https://grafana.com/docs/, Grafana documentation
   - /influxdb/cloud/query-data/get-started/
   - /influxdb/cloud/query-data/influxql/
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/visualize-data/grafana/
+  cloud-dedicated: /influxdb/cloud-dedicated/process-data/visualize/grafana/
+  clustered: /influxdb/clustered/process-data/visualize/grafana/
 ---
 
 {{< duplicate-oss >}}

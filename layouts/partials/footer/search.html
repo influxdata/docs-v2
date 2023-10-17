@@ -3,25 +3,33 @@
 {{ $currentVersion := index $productPathData 1 }}
 {{ $latestV2 := .Site.Data.products.influxdb.latest }}
 {{ $fluxSupported := slice "influxdb" "enterprise_influxdb" }}
-{{ $influxdbFluxSupport := slice "v1.7" "v1.8" "v1.9" "cloud" }}
-{{ $includeFlux := cond (and (in $fluxSupported $product) (or (in $influxdbFluxSupport $currentVersion) (gt (len (findRE `v2\.` $currentVersion)) 0))) true false }}
+{{ $influxdbFluxSupport := slice "v1" "v2" "cloud" }}
+{{ $includeFlux := cond (and (in $fluxSupported $product) (in $influxdbFluxSupport $currentVersion)) true false }}
+{{ $includeResources := not (in (slice "cloud-serverless" "cloud-dedicated" "clustered") $currentVersion) }}
 
 <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script>
+var multiVersion = ['influxdb']
 docsearch({
-  apiKey: 'ba4435a9d456ac0d954cc276206eac06',
+  apiKey: '501434b53a46a92a7931aecc7c9672e2',
   appId: 'WHM9UWMP6M',
   indexName: 'influxdata',
   inputSelector: '#algolia-search-input',
   // Set debug to true if you want to inspect the dropdown
   debug: true,
   transformData: function (hits) {
-    function fmtVersion (version) {
+    function fmtVersion (version, productKey) {
       if (version == null) {
         return '';
       } else if (version === 'cloud') {
-        return 'Cloud';
-      } else if (/v\d\./.test(version)) {
+        return 'Cloud (TSM)';
+      } else if (version === 'cloud-serverless') {
+        return 'Cloud Serverless';
+      } else if (version === 'cloud-dedicated') {
+        return 'Cloud Dedicated';
+      } else if (version === 'clustered') {
+        return 'Clustered';
+      } else if (multiVersion.includes(productKey)) {
         return version;
       } else {
         return '';
@@ -40,7 +48,7 @@ docsearch({
     hits.map(hit => {
       pathData = new URL(hit.url).pathname.split('/').filter(n => n);
       product = productNames[pathData[0]];
-      version = fmtVersion(pathData[1]);
+      version = fmtVersion(pathData[1], pathData[0]);
 
       hit.product = product;
       hit.version = version;
@@ -59,9 +67,9 @@ docsearch({
       {{ if or (eq $product "platform") (eq $product "resources") (le (len $productPathData) 1) }}
         'latest:true'
       {{ else if $includeFlux }}
-        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'flux:true', 'resources:true']
+        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'flux:true', 'resources:{{ $includeResources }}']
       {{ else }}
-        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'resources:true']
+        ['searchTag: {{ $product }}-{{ $currentVersion }}', 'resources:{{ $includeResources }}']
       {{ end }}
     ]
   },

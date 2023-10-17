@@ -75,8 +75,8 @@ const productData = yaml.load(fs.readFileSync(path.resolve(__dirname,'../data/pr
 
 // Update InfluxDB version arrays by removing 'v' from each version and filtering
 // out InfluxDB versions that don't have a Flux dependency in their go.mod
-const ossVersionArr = productData.influxdb.versions.map((element, index) => {return element.replace('v', '')}).filter(element => parseFloat(element) >= 1.7).reverse();
-const enterpriseVersionArr = productData.enterprise_influxdb.versions.map((element, index) => {return element.replace('v', '')}).filter(element => parseFloat(element) >= 1.9).reverse();
+const ossVersionArr = productData.influxdb.minor_versions.map((element, index) => {return element.replace('v', '')}).filter(element => parseFloat(element) >= 1.7).reverse();
+const enterpriseVersionArr = productData.enterprise_influxdb.minor_versions.map((element, index) => {return element.replace('v', '')}).filter(element => parseFloat(element) >= 1.9).reverse();
 
 // Instantiate base Flux version variables
 var ossVersions = {};

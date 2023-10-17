@@ -8,7 +8,7 @@ menu:
     parent: Monitor with templates
     name: Monitor InfluxDB Enterprise
 weight: 102
-influxdb/v2.0/tags: [templates, monitor]
+influxdb/cloud/tags: [templates, monitor]
 ---
 
 Use [InfluxDB Cloud](/influxdb/cloud/), the [InfluxDB Enterprise 1.x Template](https://github.com/influxdata/community-templates/tree/master/influxdb-enterprise-1x), and Telegraf to monitor one or more InfluxDB Enterprise instances.
@@ -22,14 +22,14 @@ Do the following:
 5. [View the Monitoring dashboard](#view-the-monitoring-dashboard)
 6. (Optional) [Alert when metrics stop reporting](#alert-when-metrics-stop-reporting)
 7. (Optional) [Create a notification endpoint and rule](#create-a-notification-endpoint-and-rule)
-8. (Optional) [Monitor with InfluxDB Insights and Aware](#monitor-with-influxdb-insights-and-aware)
+8. (Optional) [Monitor with InfluxDB Insights](#monitor-with-influxdb-insights)
 
 ## Review requirements
 
 Before you begin, make sure you have access to the following:
 
  - InfluxDB Cloud account ([sign up for free here](https://cloud2.influxdata.com/signup))
- - Command line access to a machine [running InfluxDB Enterprise 1.x](/enterprise_influxdb/v1.9/introduction/install-and-deploy/) and permissions to install Telegraf on this machine
+ - Command line access to a machine [running InfluxDB Enterprise 1.x](/enterprise_influxdb/v1/introduction/install-and-deploy/) and permissions to install Telegraf on this machine
  - Internet connectivity from the machine running InfluxDB Enterprise 1.x and Telegraf to InfluxDB Cloud
  - Sufficient resource availability to install the template. InfluxDB Cloud Free Plan accounts include [resource limits](/influxdb/cloud/account-management/limits/#free-plan-limits)
 
@@ -53,7 +53,7 @@ The InfluxDB Enterprise Monitoring template includes a Telegraf configuration th
 
 By default, InfluxDB Enterprise 1.x has a `/metrics` endpoint available, which exports Prometheus-style system metrics.
 
-1. Make sure the `/metrics` endpoint is [enabled](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled). If you've changed the default settings to disable the `/metrics` endpoint, [re-enable these settings](/{{< latest "influxdb" >}}/reference/config-options/#metrics-disabled).
+1. Make sure the `/metrics` endpoint is [enabled](/influxdb/v2/reference/config-options/#metrics-disabled). If you've changed the default settings to disable the `/metrics` endpoint, [re-enable these settings](/influxdb/v2/reference/config-options/#metrics-disabled).
 2. Navigate to the `/metrics` endpoint of your InfluxDB Enterprise instance to view the InfluxDB Enterprise system metrics in your browser: 
 
     ```
@@ -95,7 +95,7 @@ To ensure the InfluxDB Enterprise monitoring dashboard can display the recorded 
      
      If you're using unique URLs or have security set up for your `/metrics` endpoint, configure those options here and save the updated configuration.
 
-      For more information about customizing Telegraf, see [Configure Telegraf](/{{< latest "telegraf" >}}/administration/configuration/#global-tags).
+      For more information about customizing Telegraf, see [Configure Telegraf](/telegraf/v1/administration/configuration/#global-tags).
 4. Click **Save Changes**.
 
 ## Set up Telegraf
@@ -177,8 +177,8 @@ Send a notification to PagerDuty or HTTP endpoints (other webhooks) by [upgradin
 1. Go to **Alerts > Notification Rules** and click **{{< icon "plus" >}} Create**. 
 2. Fill out the **About** and **Conditions** section then click **Create Notification Rule**. 
 
-## Monitor with InfluxDB Insights and Aware 
+## Monitor with InfluxDB Insights
 
-For InfluxDB Enterprise customers, Insights and Aware are free services that can monitor your data. InfluxDB Insights sends your data to a private Cloud account and will be monitored with the help of the support team. InfluxDB Aware is a similar service, but you monitor your data yourself. 
+For InfluxDB Enterprise customers, Insights is a free service that monitors your cluster and sends metrics to a private Cloud account. This allows InfluxDB Support to monitor your cluster health and access usage statistics when assisting with support tickets that you raise.
 
-To apply for this service, please contact the [InfluxData Support team](mailto:support@influxdata.com).
+To apply for this service, contact [InfluxData Support](https://support.influxdata.com/).

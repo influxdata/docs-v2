@@ -1,0 +1,11 @@
+batchBucket
+batchInterval
+commentPrefix
+destinationBucket
+destinationHost
+destinationOrg
+destinationToken
+quoteChar
+retentionRules
+sourceBucket
+src

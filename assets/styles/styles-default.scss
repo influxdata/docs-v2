@@ -5,6 +5,7 @@
         "tools/media-queries.scss",
         "tools/mixins.scss",
         "tools/tooltips",
+        "tools/datepicker.scss",
         "tools/normalize.scss";
 
 // Import default light theme
@@ -28,7 +29,9 @@
         "layouts/feature-callouts",
         "layouts/v1-overrides",
         "layouts/notifications",
-        "layouts/fullscreen-code";
+        "layouts/custom-time-trigger",
+        "layouts/code-controls",
+        "layouts/iox-wayfinding";
 
 // Import Product-specifc color schemes
 @import "product-overrides/telegraf",

@@ -3,7 +3,7 @@
 # This script provides a simple way grab the latest fully resolved openapi (OAS, OpenAPI Specification) contract files
 # from the influxdata/openapi repo.
 #
-# Specify a platform to retrieve (cloud, oss, v1compat, all).
+# Specify a platform to retrieve (cloud-iox, cloud, oss, v1compat, all).
 # Optionally specify:
 # - an OSS version as the second argument or using the -o flag.
 #   The version specifies where to write the updated openapi.
@@ -20,6 +20,7 @@
 #   sh ./getswagger.sh -c <platform> -o <version> -b <baseUrl>
 #
 # Examples:
+#   sh ./getswagger.sh cloud-iox
 #   sh ./getswagger.sh cloud
 #   sh ./getswagger.sh -c oss -o v2.0 -b file:///Users/johnsmith/github/openapi
 
@@ -40,6 +41,8 @@ function showHelp {
   echo "    With optional arguments:"
   echo "       ./getswagger.sh <platform> -b <baseUrl> -V"
   echo "       ./getswagger.sh cloud"
+  echo "       ./getswagger.sh cloud-dedicated"
+  echo "       ./getswagger.sh cloud-serverless"
   echo "       ./getswagger.sh oss -o <ossVersion> -V"
   echo "       ./getswagger.sh all -o <ossVersion>"
   echo "Commands:"
@@ -56,7 +59,7 @@ function showHelp {
 subcommand=$1
 
 case "$subcommand" in
-  cloud|oss|v1compat|all)
+  cloud-dedicated|cloud-serverless|cloud|oss|v1compat|all)
     platform=$1
     shift
 
@@ -105,30 +108,42 @@ function postProcess() {
   specPath=$1
   platform="$2"
   apiVersion="$3"
-
   openapiCLI=" @redocly/cli"
+  currentPath=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
   npx --version
 
   # Use Redoc's openapi-cli to regenerate the spec with custom decorations.
   # If you want to lint the source contract (before bundling),
   # pass `--lint` to the `bundle` command.
+  # If you set environment variables (for example, INFLUXDB_PLATFORM=)
+  # preceding the command name, you can then access the variables
+  # in the NodeJS process.env global object.
   INFLUXDB_API_VERSION=$apiVersion \
   INFLUXDB_PLATFORM=$platform \
+  API_DOCS_ROOT_PATH=$currentPath \
   npm_config_yes=true \
   npx $openapiCLI bundle $specPath \
     -o $specPath \
     --config=./.redocly.yaml
-
-  # Lint the bundle output.
-  npx $openapiCLI lint $specPath \
-    --max-problems 2
 }
 
 function updateCloud {
   outFile="cloud/ref.yml"
   curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
   postProcess $outFile cloud
+}
+
+function updateCloudDedicated {
+  outFile="cloud-dedicated/ref.yml"
+  curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  postProcess $outFile cloud-dedicated
+}
+
+function updateCloudServerless {
+  outFile="cloud-serverless/ref.yml"
+  curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  postProcess $outFile cloud-serverless
 }
 
 function updateOSS {
@@ -160,6 +175,12 @@ fi
 if [ "$platform" = "cloud" ];
 then
   updateCloud
+elif [ "$platform" = "cloud-dedicated" ];
+then
+  updateCloudDedicated
+elif [ "$platform" = "cloud-serverless" ];
+then
+  updateCloudServerless
 elif [ "$platform" = "oss" ];
 then
   updateOSS
@@ -169,9 +190,11 @@ then
 elif [ "$platform" = "all" ];
 then
   updateCloud
+  updateCloudDedicated
+  updateCloudServerless
   updateOSS
   updateV1Compat
 else
-  echo "Provide a platform argument: cloud, oss, v1compat, or all."
+  echo "Provide a platform argument: cloud, cloud-iox, oss, v1compat, or all."
   showHelp
 fi

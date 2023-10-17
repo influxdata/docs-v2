@@ -14,7 +14,41 @@ aliases:
 InfluxDB Cloud updates occur frequently. Find a compilation of recent updates below.
 To find information about the latest Flux updates in InfluxDB Cloud, see [Flux release notes](/influxdb/cloud/reference/release-notes/flux/).
 
-## July 2022
+## October 2022
+
+### Custom data retention periods 
+
+Set a custom data retention period for a bucket. Note that free users can only retain data up to 30 days.
+
+### MQTT connector
+
+Connect to your MQTT subscription from the InfluxDB Cloud UI.
+
+## September 2022
+
+### Time zone selector
+
+Choose the time zone for individual dashboard cells. 
+
+### Adaptive zoom
+
+Get a more granular view of graph visualizations by zooming in and requerying the data. For details, see [Graph visualizations](/influxdb/cloud/visualize-data/visualization-types/graph/).
+
+### Arduino onboarding 
+
+Quickly get started with Arduino within minutes of logging in with the Arduino wizard.
+
+## August 2022
+
+### CLI onboarding
+
+The command line interface (CLI) onboarding wizard minimizes the learning curve for using the CLI, making it easy to use within a few minutes of logging in.
+
+### Switch organizations and accounts in the header
+
+Quickly access settings and navigate between multiple accounts or, if applicable, multiple organizations, in the header menu. 
+
+## July
 
 ### Request a proof of concept from the UI
 
@@ -67,7 +101,7 @@ Quickly start writing and querying your data with **JavaScript/Node.js**. Now, w
 ## May 2022
 
 ### Bulk delete API tokens
-Efficiently delete multiple tokens at once. For details, see [Delete a token using the InfluxDB API](/influxdb/v2.2/security/tokens/delete-token/#delete-a-token-using-the-influxdb-api).
+Efficiently delete multiple tokens at once. For details, see [Delete a token using the InfluxDB API](/influxdb/v2/security/tokens/delete-token/#delete-a-token-using-the-influxdb-api).
 
 ### Help bar
 Find relevant content easily from the Cloud UI using the help tab in left side panel.
@@ -177,7 +211,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 - **Paginated tasks in UI**: Previously, the Tasks page only listed the first 100 tasks. Now, all tasks are accessible and paginated on the Tasks page.
 
-- **Enhanced Flux VS Code extension to include tasks**: Add ability to create and edit [InfluxDB tasks](/influxdb/v2.0/process-data/get-started/) in Visual Studio Code using the Flux extension. See how to [use the Flux VS Code extension](/influxdb/v2.0/tools/flux-vscode/).
+- **Enhanced Flux VS Code extension to include tasks**: Add ability to create and edit [InfluxDB tasks](/influxdb/v2/process-data/get-started/) in Visual Studio Code using the Flux extension. See how to [use the Flux VS Code extension](/influxdb/v2/tools/flux-vscode/).
 
 ## August 2021
 
@@ -249,7 +283,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 ### Visualization updates
 
-  - Add new [Band Plot visualization](/influxdb/v2.0/visualize-data/visualization-types/band/).
+  - Add new [Band Plot visualization](/influxdb/v2/visualize-data/visualization-types/band/).
   - Add the `legendColorizeRows` property to toggle the color on and off in the legend.
 
 ### CLI updates

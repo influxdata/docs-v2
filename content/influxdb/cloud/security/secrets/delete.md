@@ -10,7 +10,7 @@ aliases:
   - /influxdb/cloud/security/secrets/manage-secrets/delete/
 ---
 
-Delete secrets using the {{< cloud-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
+Delete secrets using the {{< product-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
 
 - [Delete a secret using the InfluxDB Cloud UI](#delete-a-secret-using-the-influxdb-cloud-ui)
 - [Delete a secret using the influx CLI](#delete-a-secret-using-the-influx-cli)
@@ -18,7 +18,7 @@ Delete secrets using the {{< cloud-name "short" >}} UI, `influx` command line in
 
 ## Delete a secret using the InfluxDB Cloud UI
 
-1. In the {{< cloud-name "short" >}} UI, click **Settings**.
+1. In the {{< product-name "short" >}} UI, click **Settings**.
 
     {{< nav-icon "settings" >}}
 2. Click the **Secrets** tab.

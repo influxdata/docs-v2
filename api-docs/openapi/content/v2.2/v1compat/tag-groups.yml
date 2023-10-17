@@ -1,9 +1,0 @@
-- name: Overview
-  tags:
-    - Authentication
-- name: Data I/O endpoints
-  tags:
-    - Write
-    - Query
-- name: All endpoints
-  tags: []

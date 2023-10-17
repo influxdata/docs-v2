@@ -6,6 +6,9 @@ body {
   min-height: 100%;
   font-family: $proxima;
   background: $body-bg;
+
+  // One off style to hide element injected by Scarf marketing integration
+  & > img[referrerpolicy="no-referrer-when-downgrade"] {display: none;}
 }
 
 * {

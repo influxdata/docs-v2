@@ -23,7 +23,7 @@ This guide requires the following:
 - A valid InfluxDB Enterprise license key, or [sign up for a free InfluxDB Enterprise trial for GCP](https://portal.influxdata.com/users/gcp).
 - Access to [GCP Cloud Shell](https://cloud.google.com/shell/) or the [`gcloud` SDK and command line tools](https://cloud.google.com/sdk/).
 
-To deploy InfluxDB Enterprise on platforms other than GCP, please see [InfluxDB Enterprise installation options](/enterprise_influxdb/v1.6/introduction/installation_guidelines).
+To deploy InfluxDB Enterprise on platforms other than GCP, please see [InfluxDB Enterprise installation options](/enterprise_influxdb/v1/introduction/installation_guidelines).
 
 ## Deploy a cluster
 

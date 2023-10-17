@@ -1,0 +1,9 @@
+.influxql-table-meta p {
+    font-size: .9rem;
+    line-height: 1.25rem;
+    &:last-child {margin-bottom: 0rem}
+}
+
+table + .influxql-table-meta {
+    margin-top:-1.5rem;
+}

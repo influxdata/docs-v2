@@ -3,14 +3,16 @@ title: InfluxDB Cloud plans
 description: >
   InfluxDB Cloud provides two pricing plans to fit your needs – the Free Plan and the Usage-based Plan.
 aliases:
-  - /influxdb/v2.0/cloud/rate-limits/
-  - /influxdb/v2.0/cloud/pricing-plans/
-  - /influxdb/v2.0/pricing-plans/
+  - /influxdb/v2/cloud/rate-limits/
+  - /influxdb/v2/cloud/pricing-plans/
+  - /influxdb/v2/pricing-plans/
 weight: 102
 menu:
   influxdb_cloud:
     parent: Account management
     name: Pricing plans
+alt_links: 
+  cloud-serverless: /influxdb/cloud-serverless/admin/billing/pricing-plans/
 ---
 
 InfluxDB Cloud offers a [Free Plan](#free-plan), a [Usage-Based Plan](#usage-based-plan) to pay as you go, and a discounted [Annual Plan](#annual-plan).
@@ -19,7 +21,7 @@ InfluxDB Cloud offers a [Free Plan](#free-plan), a [Usage-Based Plan](#usage-bas
 
 ## Free Plan
 
-All new {{< cloud-name >}} accounts start with Free Plan that provides a limited number of resources and data usage. See [plan limits](/influxdb/cloud/account-management/limits/).
+All new {{< product-name >}} accounts start with Free Plan that provides a limited number of resources and data usage. See [plan limits](/influxdb/cloud/account-management/limits/).
 
 ## Usage-Based Plan
 

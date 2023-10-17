@@ -4,8 +4,8 @@ description: This is just an example post to show the format of new 2.0 posts
 weight: 1
 draft: true
 related:
-  - /influxdb/v2.0/write-data/
-  - /influxdb/v2.0/write-data/quick-start
+  - /influxdb/v2/write-data/
+  - /influxdb/v2/write-data/quick-start
   - https://influxdata.com, This is an external link
 products: [cloud, oss, enterprise]
 ---
@@ -17,6 +17,8 @@ This is a paragraph. Lorem ipsum dolor ({{< icon "trash" "v2" >}}) sit amet, con
 [foo]: https://docs.influxadata.com
 
 This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
+
+### Clockface 3.x icons
 
 {{< nav-icon "account" "v2" >}}
 {{< nav-icon "data" "v2" >}}
@@ -92,6 +94,89 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< icon "x" "v2" >}} x 
 
 ### Clockface 3.x icons
+
+{{< nav-icon "account" "v3" >}}
+{{< nav-icon "data" "v3" >}}
+{{< nav-icon "explore" "v3" >}}
+{{< nav-icon "boards" "v3" >}}
+{{< nav-icon "tasks" "v3" >}}
+{{< nav-icon "alerts" "v3" >}}
+{{< nav-icon "settings" "v3" >}}
+{{< nav-icon "notebooks" "v3" >}}
+
+{{< icon "add-cell" "v3" >}} add-cell  
+{{< icon "add-label" "v3" >}} add-label  
+{{< icon "alert" "v3" >}} alert  
+{{< icon "annotate" "v3" >}} annotate  
+{{< icon "bar-chart" "v3" >}} bar-chart  
+{{< icon "bar-graph" "v3" >}} bar-graph  
+{{< icon "calendar" "v3" >}} calendar  
+{{< icon "chat" "v3" >}} chat  
+{{< icon "checkmark" "v3" >}} checkmark  
+{{< icon "clock" "v3" >}} clock  
+{{< icon "clone" "v3" >}} clone  
+{{< icon "cloud" "v3" >}} cloud  
+{{< icon "cog" "v3" >}} cog  
+{{< icon "config" "v3" >}} config  
+{{< icon "copy" "v3" >}} copy  
+{{< icon "crown" "v3" >}} crown  
+{{< icon "dashboard" "v3" >}} dashboard  
+{{< icon "dashboards" "v3" >}} dashboards  
+{{< icon "data-explorer" "v3" >}} data-explorer  
+{{< icon "delete" "v3" >}} delete  
+{{< icon "download" "v3" >}} download  
+{{< icon "duplicate" "v3" >}} duplicate  
+{{< icon "edit" "v3" >}} edit  
+{{< icon "expand" "v3" >}} expand  
+{{< icon "export" "v3" >}} export  
+{{< icon "eye" "v3" >}} eye  
+{{< icon "eye-closed" "v3" >}} eye-closed  
+{{< icon "eye-open" "v3" >}} eye-open  
+{{< icon "feedback" "v3" >}} feedback  
+{{< icon "fullscreen" "v3" >}} fullscreen  
+{{< icon "gear" "v3" >}} gear  
+{{< icon "graph" "v3" >}} graph  
+{{< icon "handle" "v3" >}} handle  
+{{< icon "hide" "v3" >}} hide  
+{{< icon "influx" "v3" >}} influx  
+{{< icon "influx-icon" "v3" >}} influx-icon  
+{{< icon "move" "v3" >}} move  
+{{< icon "move-cell" "v3" >}} move-cell  
+{{< icon "nav-admin" "v3" >}} nav-admin  
+{{< icon "nav-config" "v3" >}} nav-config  
+{{< icon "nav-configuration" "v3" >}} nav-configuration  
+{{< icon "nav-dashboards" "v3" >}} nav-dashboards  
+{{< icon "nav-data-explorer" "v3" >}} nav-data-explorer  
+{{< icon "nav-organizations" "v3" >}} nav-organizations  
+{{< icon "nav-orgs" "v3" >}} nav-orgs  
+{{< icon "nav-tasks" "v3" >}} nav-tasks  
+{{< icon "note" "v3" >}} note  
+{{< icon "notebook" "v3" >}} notebook  
+{{< icon "notebooks" "v3" >}} notebooks  
+{{< icon "org" "v3" >}} org  
+{{< icon "orgs" "v3" >}} orgs  
+{{< icon "pause" "v3" >}} pause  
+{{< icon "pencil" "v3" >}} pencil  
+{{< icon "pin" "v3" >}} pin  
+{{< icon "play" "v3" >}} play  
+{{< icon "plus" "v3" >}} plus  
+{{< icon "refresh" "v3" >}} refresh  
+{{< icon "remove" "v3" >}} remove  
+{{< icon "replay" "v3" >}} replay  
+{{< icon "save-as" "v3" >}} save-as  
+{{< icon "search" "v3" >}} search  
+{{< icon "settings" "v3" >}} settings  
+{{< icon "tasks" "v3" >}} tasks  
+{{< icon "toggle" "v3" >}} toggle  
+{{< icon "trash" "v3" >}} trash  
+{{< icon "trashcan" "v3" >}} trashcan  
+{{< icon "triangle" "v3" >}} triangle  
+{{< icon "view" "v3" >}} view  
+{{< icon "wrench" "v3" >}} wrench  
+{{< icon "x" "v3" >}} x 
+
+### Clockface 4.x icons
+
 {{< nav-icon "account" >}}
 {{< nav-icon "data" >}}
 {{< nav-icon "explore" >}}
@@ -140,8 +225,6 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< icon "move" >}} move  
 {{< icon "move-cell" >}} move-cell  
 {{< icon "nav-admin" >}} nav-admin  
-{{< icon "nav-config" >}} nav-config  
-{{< icon "nav-configuration" >}} nav-configuration  
 {{< icon "nav-dashboards" >}} nav-dashboards  
 {{< icon "nav-data-explorer" >}} nav-data-explorer  
 {{< icon "nav-organizations" >}} nav-organizations  
@@ -167,9 +250,7 @@ This is **bold** text. This is _italic_ text. This is _**bold and italic**_.
 {{< icon "toggle" >}} toggle  
 {{< icon "trash" >}} trash  
 {{< icon "trashcan" >}} trashcan  
-{{< icon "triangle" >}} triangle  
 {{< icon "view" >}} view  
-{{< icon "wrench" >}} wrench  
 {{< icon "x" >}} x 
 
 ## h2 This is a header2
