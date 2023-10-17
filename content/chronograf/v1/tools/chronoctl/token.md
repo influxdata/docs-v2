@@ -37,7 +37,7 @@ The following example uses the RSA key used when started the Chronograf server a
 returns an expiring token that can be used to gain superadmin access to Chronograf.
 
 {{% note %}}
-The private key must be correspond to the public key used when starting the
+The private key must correspond to the public key used when starting the
 Chronograf server.
 {{% /note %}}
 

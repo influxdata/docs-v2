@@ -85,7 +85,7 @@ chronograf [flags]
 
 | Flag |                         | Description                                                                                                                                        | Env. Variable         |
 | :--- | ----------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
-|      | `--custom-auto-refresh` | Add custom auto-refresh options using semicolon separated list of label=milliseconds pairs                                                         | `CUSTOM-AUTO-REFRESH` |
+|      | `--custom-auto-refresh` | Add custom auto-refresh options using semicolon-separated list of label=milliseconds pairs                                                         | `CUSTOM-AUTO-REFRESH` |
 |      | `--custom-link`         | Add a custom link to Chronograf user menu options using `<display_name>:<link_address>` syntax. For multiple custom links, include multiple flags. |                       |
 | `-d` | `--develop`             | Run the Chronograf service in developer mode                                                                                                       |                       |
 | `-h` | `--help`                | Display command line help for Chronograf                                                                                                           |                       |
@@ -107,10 +107,10 @@ chronograf [flags]
 
 | Flag |                          | Description                                                                                                                            | Env. Variable      |
 | :--- | ------------------------ | :------------------------------------------------------------------------------------------------------------------------------------- | :----------------- |
-|      | `--github-url`           | Github base URL. Default is `https://github.com`. {{< req "Required if using Github Enterprise" >}}                                    | `GH_URL`           |
+|      | `--github-url`           | GitHub base URL. Default is `https://github.com`. {{< req "Required if using GitHub Enterprise" >}}                                    | `GH_URL`           |
 | `-i` | `--github-client-id`     | GitHub client ID value for OAuth 2.0 support                                                                                           | `GH_CLIENT_ID`     |
 | `-s` | `--github-client-secret` | GitHub client secret value for OAuth 2.0 support                                                                                       | `GH_CLIENT_SECRET` |
-| `-o` | `--github-organization`  | Restricts authorization to users from specified Github organizations. To add more than one organization, add multiple flags. Optional. | `GH_ORGS`          |
+| `-o` | `--github-organization`  | Restricts authorization to users from specified GitHub organizations. To add more than one organization, add multiple flags. Optional. | `GH_ORGS`          |
 
 #### Google-specific OAuth 2.0 authentication flags
 
@@ -128,7 +128,7 @@ chronograf [flags]
 | `--auth0-domain`        | Subdomain of your Auth0 client. Available on the configuration page for your Auth0 client.                                                                                                                     | `AUTH0_DOMAIN`        |
 | `--auth0-client-id`     | Auth0 client ID value for OAuth 2.0 support                                                                                                                                                                    | `AUTH0_CLIENT_ID`     |
 | `--auth0-client-secret` | Auth0 client secret value for OAuth 2.0 support                                                                                                                                                                | `AUTH0_CLIENT_SECRET` |
-| `--auth0-organizations` | Restricts authorization to  users specified Auth0 organization. To add more than one organization, add multiple flags. Optional. Organizations are set using an organization key in the user’s `app_metadata`. | `AUTH0_ORGS`          |
+| `--auth0-organizations` | Restricts authorization to users specified Auth0 organization. To add more than one organization, add multiple flags. Optional. Organizations are set using an organization key in the user’s `app_metadata`. | `AUTH0_ORGS`          |
 
 #### Heroku-specific OAuth 2.0 authentication flags
 
@@ -136,7 +136,7 @@ chronograf [flags]
 | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------- | :----------------- |
 | `--heroku-client-id`    | Heroku client ID value for OAuth 2.0 support                                                                                           | `HEROKU_CLIENT_ID` |
 | `--heroku-secret`       | Heroku secret for OAuth 2.0 support                                                                                                    | `HEROKU_SECRET`    |
-| `--heroku-organization` | Restricts authorization to  users from specified Heroku organization. To add more than one organization, add multiple flags. Optional. | `HEROKU_ORGS`      |
+| `--heroku-organization` | Restricts authorization to users from specified Heroku organization. To add more than one organization, add multiple flags. Optional. | `HEROKU_ORGS`      |
 
 #### Generic OAuth 2.0 authentication flags
 
@@ -161,6 +161,6 @@ chronograf [flags]
 |      | `--etcd-password`        | etcd password                                                                                              | `ETCD_PASSWORD`        |
 |      | `--etcd-dial-timeout`    | Total time to wait before timing out while connecting to etcd endpoints (0 means no timeout, default: -1s) | `ETCD_DIAL_TIMEOUT`    |
 |      | `--etcd-request-timeout` | Total time to wait before timing out the etcd view or update (0 means no timeout, default: -1s)            | `ETCD_REQUEST_TIMEOUT` |
-|      | `--etcd-cert`            | Path to PEM encoded TLS public key certificate for use with TLS                                            | `ETCD_CERTIFICATE`     |
+|      | `--etcd-cert`            | Path to PEM-encoded TLS public key certificate for use with TLS                                            | `ETCD_CERTIFICATE`     |
 |      | `--etcd-key`             | Path to private key associated with given certificate for use with TLS                                     | `ETCD_PRIVATE_KEY`     |
 |      | `--etcd-root-ca`         | Path to root CA certificate for TLS verification                                                           | `ETCD-ROOT-CA`          |
