@@ -8,6 +8,12 @@ menu:
 weight: 101
 ---
 
+## v2.7.3 [2023/10/17]
+
+### Maintenance
+
+- Upgrade Flux to 0.194.3.
+
 ## v2.7.1 [2023-04-28]
 
 ### Bug Fixes
