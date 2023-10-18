@@ -7,9 +7,9 @@ menu:
     weight: 80
 ---
 
-There are many ways InfluxData encourages its community to contribute to its open source products.
-Whether you want to report a bug, write a plugin, or answer support questions the
-following sections will guide you on the process. 
+There are many ways to contribute to InfluxData open source products.
+Whether you want to report a bug, write a plugin, or answer support questions,
+the following sections will guide you on the process. 
 
 - [Open GitHub issues](#open-github-issues)
   - [File bug reports](#file-bug-reports)
