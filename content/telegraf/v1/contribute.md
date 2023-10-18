@@ -25,20 +25,20 @@ the following sections will guide you through the process.
 ### File bug reports
 
 1.  Search [Telegraf GitHub issues](https://github.com/influxdata/telegraf/issues)
-    for related issues that are open or have be fixed. 
+    for related issues that are open or have been fixed. 
 2.  If an issue does not already exist,
     [create a new bug report issue](https://github.com/influxdata/telegraf/issues/new?assignees=&labels=bug&projects=&template=BUG_REPORT.yml).
 3.  Include all the requested details.
 
 {{% note %}}
-Do not open **general support requests** as GitHub issues, for example: "How do I use the MongoDB plugin?"
-Product questions should be directed to the [InfluxDB Community Slack](https://influxdata.com/slack)
+Do not open general support requests as GitHub issues.
+Support-related questions should be directed to the [InfluxDB Community Slack](https://influxdata.com/slack)
 or [InfluxData Community forum](https://community.influxdata.com/).
 {{% /note %}}
 
 ### Open feature requests
 
-We really like to receive feature requests as it helps us prioritize our work.
+Feature requests help to prioritize work. To submit a feature request:
 
 1.  Search [Telegraf GitHub issues](https://github.com/influxdata/telegraf/issues)
     for issues related your feature request. Use the **feature request** label to
@@ -64,7 +64,7 @@ or [InfluxData Community forum](https://community.influxdata.com/).
 1.  [Sign the InfluxData CLA](https://www.influxdata.com/legal/cla/).
 2.  Open a [new issue](https://github.com/influxdata/telegraf/issues/new/choose)
     to discuss the changes you would like to make.
-    This is not strictly required but it may help reduce the amount of rework
+    This is not strictly required, but it may help reduce the amount of rework
     you need to do later.
 3.  Make changes or write plugins using the following plugin guidelines:
 
@@ -96,7 +96,6 @@ and [execd processor](https://github.com/influxdata/telegraf/tree/master/plugins
 plugins without having to change the plugin code.
 
 For more information, see:
-
 
 - [Execd Go Shim](/telegraf/v1/configure_plugins/external_plugins/shim/):
   Use the Go `execd` shim to compile your plugin as a separate app and run it
