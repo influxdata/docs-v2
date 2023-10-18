@@ -6,7 +6,7 @@ menu:
   chronograf_v1:
     name: chronoctl migrate
     parent: chronoctl
-    weight: 40
+weight: 201
 ---
 
 The `migrate` command lets you migrate your Chronograf configuration store.

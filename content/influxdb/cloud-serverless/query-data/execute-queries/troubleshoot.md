@@ -197,7 +197,7 @@ Flight returned internal error, with message: Received RST_STREAM with error cod
 pyarrow._flight.FlightInternalError: Flight returned internal error, with message: stream terminated by RST_STREAM with error code: NO_ERROR. gRPC client debug context: UNKNOWN:Error received from peer ipv4:3.123.149.45:443 {created_time:"2023-07-26T14:12:44.992317+02:00", grpc_status:13, grpc_message:"stream terminated by RST_STREAM with error code: NO_ERROR"}. Client context: OK
 ```
 
-**Potential Reasons**:
+**Potential reasons**:
 
 - The server terminated the stream, but there wasn't any specific error associated with it.
 - Possible network disruption, even if it's temporary.
@@ -213,7 +213,7 @@ pyarrow._flight.FlightInternalError: Flight returned internal error, with messag
 ArrowInvalid: Flight returned invalid argument error, with message: bucket "otel5" not found. gRPC client debug context: UNKNOWN:Error received from peer ipv4:3.123.149.45:443 {grpc_message:"bucket \"otel5\" not found", grpc_status:3, created_time:"2023-08-09T16:37:30.093946+01:00"}. Client context: IOError: Server never sent a data message. Detail: Internal
 ```
 
-**Potential Reasons**:
+**Potential reasons**:
 
 - The specified bucket doesn't exist.
 
@@ -227,7 +227,7 @@ ArrowInvalid: Flight returned invalid argument error, with message: bucket "otel
 pyarrow.lib.ArrowInvalid: Flight returned invalid argument error, with message: Invalid ticket. Error: Invalid ticket. gRPC client debug context: UNKNOWN:Error received from peer ipv4:54.158.68.83:443 {created_time:"2023-08-31T17:56:42.909129-05:00", grpc_status:3, grpc_message:"Invalid ticket. Error: Invalid ticket"}. Client context: IOError: Server never sent a data message. Detail: Internal
 ```
 
-**Potential Reasons**:
+**Potential reasons**:
 
 - The request is missing the bucket name or some other required metadata value.
 - The request contains bad query syntax.
@@ -284,6 +284,6 @@ pyarrow._flight.FlightUnavailableError: Flight returned unavailable error,
 **Potential reason**:
 
 - Non-POSIX-compliant systems (such as Windows) need to specify the root certificates in SslCredentialsOptions for the gRPC client, since the defaults are only configured for POSIX filesystems.
-  [Specify the root certificate path](#specify-the-root-certificate-path) for the Flight gRPC client.
+  [Specify the root certificate path](/influxdb/cloud-serverless/reference/client-libraries/v3/python/#specify-the-root-certificate-path) for the Flight gRPC client.
 
   For more information about gRPC SSL/TLS client-server authentication, see [Using client-side SSL/TLS](https://grpc.io/docs/guides/auth/#using-client-side-ssltls) in the [gRPC.io Authentication guide](https://grpc.io/docs/guides/auth/).
