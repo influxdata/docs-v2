@@ -89,7 +89,7 @@ var varName = dataType: defaultValue
 var varName = [*]
 ```
 
-For information about available data types, see [literal value types](/kapacitor/v1/tick/syntax/#types).
+For information about available data types, see [literal value types](/kapacitor/v1/reference/tick/syntax/#types).
 
 #### Optional variables
 

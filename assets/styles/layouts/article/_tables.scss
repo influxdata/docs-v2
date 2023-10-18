@@ -65,7 +65,10 @@ table + table {
   margin-top: -1.5rem;
 }
 
-#flags:not(.no-shorthand), #global-flags {
+// Adjust spacing to push long-hand and short-hand columns closer together
+#flags:not(.no-shorthand),
+#global-flags,
+.shorthand-flags {
   & + table {
     td:nth-child(2) code { margin-left: -2rem; }
   }

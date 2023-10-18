@@ -79,12 +79,12 @@ influxd-ctl [global-options] backup [backup-options] <path-to-backup-directory>
 
 > **Note:** The `influxd-ctl backup` command exits with `0` for success and `1` for failure. If the backup fails, output can be directed to a log file to troubleshoot.
 
-##### Global options
+##### Global flags
 
-See the [`influxd-ctl` documentation](/enterprise_influxdb/v1/tools/influxd-ctl/#global-options)
-for a complete list of the global `influxd-ctl` options.
+See the [`influxd-ctl` documentation](/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags)
+for a complete list of the global `influxd-ctl` flags.
 
-##### Backup options
+##### Backup flags
 
 - `-db <string>`: name of the single database to back up
 - `-from <TCP-address>`: the data node TCP address to prefer when backing up
@@ -95,7 +95,8 @@ for a complete list of the global `influxd-ctl` options.
       databases, continuous queries, retention policies. Shards are not exported.
 - `-full`: perform a full backup. Deprecated in favour of `-strategy=full`
 - `-rp <string>`: the name of the single retention policy to back up (must specify `-db` with `-rp`)
-- `-shard <unit>`: the ID of the single shard to back up (cannot be used with `-db`)
+- `-shard <string>`: shard ID to back up (if `-rp` or `-db` flags are provided,
+  the specified database or retention policy must match those in the shard)
 - `-start <timestamp>`: Include all points starting with specified timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
 - `-end <timestamp>`: Exclude all points after timestamp (RFC3339 format). Not compatible with `-since` or `-strategy full`.
 
@@ -261,15 +262,15 @@ The existing cluster can have data in the `_internal` database (the database Inf
 The system automatically drops the `_internal` database when it performs a complete restore.
 {{% /note %}}
 
-##### Global options
+##### Global flags
 
-See the [`influxd-ctl` documentation](/enterprise_influxdb/v1/tools/influxd-ctl/#global-options)
-for a complete list of the global `influxd-ctl` options.
+See the [`influxd-ctl` documentation](/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags)
+for a complete list of the global `influxd-ctl` flags.
 
-##### Restore options
+##### Restore flags
 
-See the [`influxd-ctl` documentation](/enterprise_influxdb/v1/tools/influxd-ctl/#restore)
-for a complete list of `influxd-ctl restore` options.
+See the [`influxd-ctl` documentation](/enterprise_influxdb/v1/tools/influxd-ctl/restore/)
+for a complete list of `influxd-ctl restore` flags.
 
 - `-db <string>`: the name of the single database to restore
 - `-list`: shows the contents of the backup
@@ -294,15 +295,15 @@ that the system creates by default.
 The system automatically drops the `_internal` database when it performs a
 complete restore.
 
-##### Global options
+##### Global flags
 
-See the [`influxd-ctl` documentation](/enterprise_influxdb/v1/tools/influxd-ctl/#global-options)
-for a complete list of the global `influxd-ctl` options.
+See the [`influxd-ctl` documentation](/enterprise_influxdb/v1/tools/influxd-ctl/#influxd-ctl-global-flags)
+for a complete list of the global `influxd-ctl` flags.
 
-##### Restore options
+##### Restore flags
 
-See the [`influxd-ctl` documentation](/enterprise_influxdb/v1/tools/influxd-ctl/#restore)
-for a complete list of `influxd-ctl restore` options.
+See the [`influxd-ctl` documentation](/enterprise_influxdb/v1/tools/influxd-ctl/restore/)
+for a complete list of `influxd-ctl restore` flags.
 
 - `-db <string>`: the name of the single database to restore
 - `-list`: shows the contents of the backup

@@ -7,6 +7,8 @@ menu:
     name: View Flux task logs
     parent: Manage Flux tasks
 weight: 4
+related:
+  - /kapacitor/v1/reference/cli/kapacitor/flux/task/log/
 ---
 
 Use the **`kapacitor` CLI** or the **Kapacitor HTTP API** to view Kapacitor Flux task logs.

@@ -1,0 +1,7 @@
+/target
+/Cargo.lock
+node_modules
+.env*
+.pytest_cache
+.test-run.txt
+tmp

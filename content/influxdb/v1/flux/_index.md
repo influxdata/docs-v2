@@ -10,7 +10,7 @@ v2: /influxdb/v2/query-data/get-started/
 ---
 
 Flux is a functional data scripting language designed for querying, analyzing, and acting on time series data.
-Its takes the power of [InfluxQL](/influxdb/v1/query_language/spec/) and the functionality of [TICKscript](/kapacitor/v1/tick/introduction/) and combines them into a single, unified syntax.
+Its takes the power of [InfluxQL](/influxdb/v1/query_language/spec/) and the functionality of [TICKscript](/kapacitor/v1/reference/tick/introduction/) and combines them into a single, unified syntax.
 
 > Flux v0.65 is production-ready and included with [InfluxDB v1.8](/influxdb/v1/).
 > The InfluxDB v1.8 implementation of Flux is read-only and does not support

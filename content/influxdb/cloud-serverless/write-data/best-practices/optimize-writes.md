@@ -44,6 +44,8 @@ whichever threshold is met first.
 Before writing data points to InfluxDB, sort tags by key in lexicographic order.
 _Verify sort results match results from the [Go `bytes.Compare` function](http://golang.org/pkg/bytes/#Compare)._
 
+<!--pytest.mark.skip-->
+
 ```sh
 # Line protocol example with unsorted tags
 measurement,tagC=therefore,tagE=am,tagA=i,tagD=i,tagB=think fieldKey=fieldValue 1562020262
