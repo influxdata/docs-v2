@@ -6,7 +6,7 @@ menu:
   influxdb_cloud:
     name: Query
     parent: Node.js
-influxdb/cloud/tags: [client libraries, Node.js, JavaScript]
+influxdb/cloud/tags: [client libraries, nodejs, JavaScript]
 weight: 201
 aliases:
   - /influxdb/cloud/reference/api/client-libraries/js/query

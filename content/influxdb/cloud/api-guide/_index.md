@@ -25,3 +25,5 @@ that work with InfluxDB 1.x client libraries and third-party integrations like
 [Grafana](https://grafana.com) and others.
 
 <a class="btn" href="/influxdb/cloud/api/v1-compatibility/">View full v1 compatibility API documentation</a>
+
+{{< influxdbu title="Building IoT Apps with InfluxDB" summary="Learn the basics of how to build an IoT application with InfluxDB with this **free** InfluxDB University course." action="Take the course" link="https://university.influxdata.com/courses/building-iot-apps-with-influxdb-tutorial/" >}}

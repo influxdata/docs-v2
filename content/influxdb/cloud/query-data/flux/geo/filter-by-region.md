@@ -8,17 +8,14 @@ menu:
     parent: Geo-temporal data
 weight: 302
 related:
-  - /{{< latest "flux" >}}/stdlib/experimental/geo/
-  - /{{< latest "flux" >}}/stdlib/experimental/geo/filterrows/
+  - /flux/v0/stdlib/experimental/geo/
+  - /flux/v0/stdlib/experimental/geo/filterrows/
 list_code_example: |
   ```js
   import "experimental/geo"
 
   sampleGeoData
-    |> geo.filterRows(
-      region: {lat: 30.04, lon: 31.23, radius: 200.0},
-      strict: true
-    )
+      |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0}, strict: true)
   ```
 ---
 

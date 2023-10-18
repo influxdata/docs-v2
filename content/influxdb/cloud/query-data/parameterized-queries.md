@@ -36,23 +36,23 @@ For example:
 ```
 
 InfluxDB Cloud inserts the `params` JSON object into the Flux query as a
-[Flux record](/{{< latest "flux" >}}/data-types/composite/record/) named `params`.
-Use [dot or bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#reference-values-in-a-record)
+[Flux record](/flux/v0/data-types/composite/record/) named `params`.
+Use [dot or bracket notation](/flux/v0/data-types/composite/record/#reference-values-in-a-record)
 to access parameters in the `params` record in your Flux query.
 For example, using the example `params` JSON above, the following query
 
 ```js
 from(bucket: params.ex1)
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == params.ex2)
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == params.ex2)
 ```
 
 would execute as
 
 ```js
 from(bucket: "foo")
-  |> range(start: -1h)
-  |> filter(fn: (r) => r._measurement == "bar")
+    |> range(start: -1h)
+    |> filter(fn: (r) => r._measurement == "bar")
 ```
 
 ## Example
@@ -60,15 +60,15 @@ from(bucket: "foo")
 To use a parameterized query, do the following:
 
 1. Create your Flux query.
-   Use [dot or bracket notation](/{{< latest "flux" >}}/data-types/composite/record/#reference-values-in-a-record)
+   Use [dot or bracket notation](/flux/v0/data-types/composite/record/#reference-values-in-a-record)
    to reference parameters inside the `params`
    record to populate values at query time.
    The following example uses `params.mybucket` to define the bucket name.
 
     ```js
     from(bucket: params.mybucket)
-      |> range(start: -7d)
-      |> limit(n:2)
+        |> range(start: -7d)
+        |> limit(n:2)
     ```
 2. Use the InfluxDB Cloud `/api/v2/query` API endpoint to execute your query.
    Provide the following in your request body:
@@ -94,8 +94,8 @@ To use a parameterized query, do the following:
 ## Supported parameter data types
 
 Parameterized Flux queries support `int`, `float`, and `string` data types.
-To convert the supported data types into other [Flux basic data types](/{{< latest "flux" >}}/data-types/basic/),
-use [Flux type conversion functions](/{{< latest "flux" >}}/function-types/#type-conversions).
+To convert the supported data types into other [Flux basic data types](/flux/v0/data-types/basic/),
+use [Flux type conversion functions](/flux/v0/function-types/#type-conversions).
 
 For example, to define the `start` parameter of the `range()` function using a parameterized duration value:
 
@@ -103,8 +103,8 @@ For example, to define the `start` parameter of the `range()` function using a p
     
     ```js
     from(bucket:"example-bucket")
-      |> range(start: duration(v: params.mystart))
-      |> limit(n:2)
+        |> range(start: duration(v: params.mystart))
+        |> limit(n:2)
     ```
 
 2. In the `param` field of your query request body, format the duration parameter as a string:

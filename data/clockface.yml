@@ -1,0 +1,28 @@
+influxdb:
+  default: v4
+  cloud: v4
+  v2.6: v4
+  v2.4: v4
+  v2.3: v3
+  v2.2: v3
+  v2.1: v3
+  v2.0: v2
+
+enterprise_influxdb:
+  default: v2
+
+chronograf:
+  default: v2
+
+telegraf:
+  default: v2
+
+kapacitor:
+  default: v2
+
+resources:
+  default: v4
+
+# Only used by content/example.md for testing icons
+example:
+  default: v4

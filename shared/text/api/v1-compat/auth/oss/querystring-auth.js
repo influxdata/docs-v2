@@ -1,11 +1,13 @@
 /**
-  * Use an InfluxDB 1.x compatible username and password
-  * to query the InfluxDB 1.x compatibility API
+  * Use querystring authentication with an
+  * InfluxDB 1.x compatible username and password
+  * to query the InfluxDB 1.x compatibility API.
   *
-  * Use authentication query parameters:
-  *   ?u=<username>&p=<password>
+  * Replace INFLUX_USERNAME with your 1.x-compatible username.
+  * Replace INFLUX_PASSWORD_OR_TOKEN with your InfluxDB API token
+  * or 1.x-compatible password.
   *
-  * Use default retention policy.
+  * Use the default retention policy.
   */
 
 const https = require('https');
@@ -15,8 +17,8 @@ function queryWithToken() {
   const queryparams = {
     db: 'mydb',
     q: 'SELECT * FROM cpu_usage',
-    u: 'OneDotXUsername',
-    p: 'yourPasswordOrToken'
+    u: 'INFLUX_USERNAME',
+    p: 'INFLUX_PASSWORD_OR_TOKEN'
   };
 
   const options = {

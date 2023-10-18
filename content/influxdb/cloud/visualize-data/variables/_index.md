@@ -23,9 +23,9 @@ Reference each variable using dot-notation (e.g. `v.variableName`).
 
 ```js
 from(bucket: v.bucket)
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == v.measurement and r._field == v.field)
-  |> aggregateWindow(every: v.windowPeriod, fn: mean)
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == v.measurement and r._field == v.field)
+    |> aggregateWindow(every: v.windowPeriod, fn: mean)
 ```
 
 When building Flux queries for dashboard cells, view available dashboard variables
@@ -44,14 +44,14 @@ The InfluxDB user interface (UI) provides the following predefined dashboard var
 
 #### v.timeRangeStart
 Specifies the beginning of the queried time range.
-This variable is typically used to define the [`start` parameter](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/range#start)
+This variable is typically used to define the [`start` parameter](/flux/v0/stdlib/universe/range#start)
 of the `range()` function.
 
 The **Time Range** selector defines the value of this variable.
 
 #### v.timeRangeStop
 Specifies the end of the queried time range.
-This variable is typically used to define the [`stop` parameter](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/range#stop)
+This variable is typically used to define the [`stop` parameter](/flux/v0/stdlib/universe/range#stop)
 of the `range()` function.
 
 The **Time Range** selector defines the value of this variable.
@@ -60,7 +60,7 @@ It defaults to `now`.
 #### v.windowPeriod
 Specifies the period of windowed data.
 This variable is typically used to define the `every` or `period` parameters of the
-[`window()` function](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/window)
+[`window()` function](/flux/v0/stdlib/universe/window)
 in data aggregation operations.
 
 The value of this variable is calculated by analyzing the duration of the Flux

@@ -1,72 +1,33 @@
 ---
-title: InfluxDB Cloud pricing plans
+title: InfluxDB Cloud plans
 description: >
   InfluxDB Cloud provides two pricing plans to fit your needs – the Free Plan and the Usage-based Plan.
 aliases:
-  - /influxdb/v2.0/cloud/rate-limits/
-  - /influxdb/v2.0/cloud/pricing-plans/
-  - /influxdb/v2.0/pricing-plans/
+  - /influxdb/v2/cloud/rate-limits/
+  - /influxdb/v2/cloud/pricing-plans/
+  - /influxdb/v2/pricing-plans/
 weight: 102
 menu:
   influxdb_cloud:
     parent: Account management
     name: Pricing plans
-products: [cloud]
+alt_links: 
+  cloud-serverless: /influxdb/cloud-serverless/admin/billing/pricing-plans/
 ---
 
-InfluxDB Cloud offers two plans, which provide different data and resource usage limits:
-
-- [Free Plan](#free-plan)
-- [Usage-Based Plan](#usage-based-plan)
+InfluxDB Cloud offers a [Free Plan](#free-plan), a [Usage-Based Plan](#usage-based-plan) to pay as you go, and a discounted [Annual Plan](#annual-plan).
 
 <!--To estimate your projected usage costs, use the [InfluxDB Cloud pricing calculator](/influxdb/cloud/account-management/pricing-calculator/). -->
 
 ## Free Plan
 
-All new {{< cloud-name >}} accounts start with Free Plan that limits data and resource usage.
-Use this plan as much and as long as you want within the Free Plan limits below.
-
-### Data limits
-
-- **Data In:** 5.1MB every 5 minutes
-- **Query:** 300MB every 5 minutes
-- **Series cardinality:** 10,000
-- **Storage:** 30-day data retention
-{{% note %}}
-To write historical data older than 30 days or retain data for more than 30 days, upgrade to the Cloud [Usage-Based plan](/influxdb/cloud/account-management/pricing-plans/#usage-based-plan).
-{{% /note %}}
-
-### Resource limits
-
-  - 5 dashboards
-  - 5 tasks
-  - 2 buckets
-  - 2 checks
-  - 2 notification rules
-  - Unlimited Slack notification endpoints
-
-_To raise rate limits, [upgrade to a Usage-based Plan](/influxdb/cloud/account-management/billing/#upgrade-to-usage-based-plan)._
+All new {{< product-name >}} accounts start with Free Plan that provides a limited number of resources and data usage. See [plan limits](/influxdb/cloud/account-management/limits/).
 
 ## Usage-Based Plan
 
-The Usage-based Plan offers more flexibility and ensures you only pay for what you [use](/influxdb/cloud/account-management/data-usage/).
+The Usage-Based Plan offers more flexibility and ensures you only pay for what you [use](/influxdb/cloud/account-management/data-usage/). Usage-Based Plans are based on consumption as measured by usage on the [pricing vectors](#pricing-vectors).
 
-### Data limit
-
-- **Ingest batch size:** 50MB
-
-### Soft data limits
-
-To protect against any intentional or unintentional harm, the Usage-Based Plan includes soft limits.
-_To request higher soft data limits, contact [InfluxData Support](mailto:support@influxdata.com)._
-
-- **Data In:** 300MB every 5 minutes
-- **Query:** 3000MB every 5 minutes
-- **Series cardinality:** 1,000,000 initial limit (higher limits available; [contact InfluxData Support](mailto:support@influxdata.com))
-- **Storage:** Unlimited retention
-{{% note %}}
-Set your retention period to unlimited or up to 1 year by [updating a bucket’s retention period in the InfluxDB UI](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period-in-the-influxdb-ui), or [set a custom retention period](/influxdb/cloud/organizations/buckets/update-bucket/#update-a-buckets-retention-period) using the [`influx` CLI](influxdb/cloud/reference/cli/influx/).
-{{% /note %}}
+Usage-Based Plans also offer access to all notification endpoints such as PagerDuty, Slack, HTTP, and [endpoints available in Flux](/flux/v0.x/tags/notification-endpoints/).
 
 ### Pricing vectors
 
@@ -77,17 +38,16 @@ The Usage-Based Plan uses the following pricing vectors to calculate InfluxDB Cl
    - Each individual operation—including queries, tasks, alerts, notifications, and Data Explorer activity—is one billable query operation.
    - Refreshing a dashboard with multiple cells will incur multiple query operations.
    - Failed operations aren’t counted.
-- **Data In** is the amount of data you’re writing into InfluxDB (measured in MB/second).
+- **Data In** is the amount of data you’re writing into InfluxDB (measured in MB).
 - **Storage** is the amount of data you’re storing in InfluxDB (measured in GB/hour).
 
 Discover how to [manage InfluxDB Cloud billing](/influxdb/cloud/account-management/billing/).
 
-### Unlimited resources
+## Annual Plan
+<!-- Maybe this should be "annual commitment"? -->
 
-  - Dashboards
-  - Tasks
-  - Buckets
-  - Users
-  - Checks
-  - Notification rules
-  - PagerDuty, Slack, and HTTP notification endpoints
+An Annual Plan offers a discount for a commitment to a specific amount of usage over set period of time. This plan uses the same pricing vectors and calculation methodology as Usage-Based Plans.
+
+__Interested in an Annual Plan? Reach out to [InfluxData Sales](https://www.influxdata.com/contact-sales/).__
+
+<!-- ## Pricing FAQs -->

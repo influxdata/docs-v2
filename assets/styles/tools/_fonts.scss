@@ -1,0 +1,42 @@
+$rubik: 'Rubik', sans-serif;
+$proxima: 'Proxima Nova', sans-serif;
+$code: 'IBM Plex Mono', monospace;;
+
+// Font weights
+$medium: 500;
+$bold: 700;
+
+// Global font size and rendering
+body {
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("fonts/proxima-nova.otf") format("opentype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('fonts/proxima-nova-medium.otf') format('opentype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('fonts/proxima-nova-semibold.otf') format('opentype');
+  font-weight: 500 600;
+}
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('fonts/proxima-nova-bold.otf') format('opentype');
+  font-weight: 700;
+}
+
+@import "tools/icon-fonts/icomoon-v2";
+@import "tools/icon-fonts/icon-v3";
+@import "tools/icon-fonts/icon-v4";
+
+.v3 {font-family: 'icomoon-v3'}
+.v4 {font-family: 'icomoon-v4'}

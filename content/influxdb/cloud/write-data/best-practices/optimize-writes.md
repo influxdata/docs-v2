@@ -7,6 +7,8 @@ menu:
   influxdb_cloud:
     parent: write-best-practices
 influxdb/cloud/tags: [best practices, write]
+related:
+  - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
 ---
 
 Use these tips to optimize performance and system overhead when writing data to InfluxDB.
@@ -89,7 +91,7 @@ For specific instructions, see the [InfluxDB client libraries documentation](/in
 {{% tab-content %}}
 ### Use gzip compression with the InfluxDB API
 
-When using the InfluxDB API `/write` endpoint to write data,
+When using the InfluxDB API `/api/v2/write` endpoint to write data,
 compress the data with `gzip` and set the `Content-Encoding` header to `gzip`.
 
 ```sh

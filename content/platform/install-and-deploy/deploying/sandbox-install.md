@@ -11,7 +11,7 @@ menu:
     weight: 1
 ---
 
-The quickest way to start using the InfluxB 1.x platform (TICK stack) OSS is to download and deploy the [InfluxData Sandbox](https://github.com/influxdata/sandbox). The InfluxData Sandbox uses Docker containers to deploy the InfluxData Platform components. The InfluxData Sandbox provides a containerized, ready-to-use TICK stack, built using [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/overview/), to capture data from your local machine and the Docker containers.
+The quickest way to start using the InfluxDB 1.x platform (TICK stack) OSS is to download and deploy the [InfluxData Sandbox](https://github.com/influxdata/sandbox). The InfluxData Sandbox uses Docker containers to deploy the InfluxData Platform components. The InfluxData Sandbox provides a containerized, ready-to-use TICK stack, built using [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose/overview/), to capture data from your local machine and the Docker containers.
 
 After deploying using the InfluxData Sandbox, you will have the latest versions of:
 
@@ -69,9 +69,9 @@ Once started, two tabs will open in your browser:
 Chronograf is the web-based user interface for the TICK stack and can be used to manage the stack. You can use Chronograf to:
 
 * query and explore data
-* [create Kapacitor alerts](/chronograf/v1.6/guides/create-alert-rules/)
-* preview [data visualizations](/chronograf/v1.6/guides/visualization-types/)
-* [build custom dashboards](/chronograf/v1.6/guides/create-a-dashboard/)
+* [create Kapacitor alerts](/chronograf/v1/guides/create-alert-rules/)
+* preview [data visualizations](/chronograf/v1/guides/visualization-types/)
+* [build custom dashboards](/chronograf/v1/guides/create-a-dashboard/)
 
 ### Using nightly builds
 

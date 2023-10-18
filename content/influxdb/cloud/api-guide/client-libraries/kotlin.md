@@ -8,6 +8,9 @@ menu:
   influxdb_cloud:
     name: Kotlin
     parent: Client libraries
-    url: https://github.com/influxdata/influxdb-client-java/tree/master/client-kotlin
+    params:
+      url: https://github.com/influxdata/influxdb-client-java/tree/master/client-kotlin
 weight: 201
 ---
+
+{{< duplicate-oss >}}

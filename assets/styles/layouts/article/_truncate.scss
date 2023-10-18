@@ -4,11 +4,22 @@
   position: relative;
   margin-bottom: 3.5rem;
 
+  .truncate-content {
+    overflow: hidden;
+    max-height: 9999px;
+    transition: max-height .4s;
+
+    &.closed {
+      min-height: 250px;
+      max-height: 25vh;
+    }
+  }
+
   .truncate-bottom {
     position: absolute;
     bottom: -30px;
     width: 100%;
-    z-index: 100%;
+    z-index: 100;
     height: auto;
   }
 
@@ -31,12 +42,8 @@
       color: $article-link;
     }
   }
-  &.closed {
-    min-height: 200px;
-    max-height: 25vh;
-    overflow: hidden;
-    margin-top: -1.5rem;
-
+  &.closed { 
+    
     .truncate-bottom {
       bottom: 0;
       background-image: linear-gradient(to bottom, rgba($article-bg, 0), rgba($article-bg, 1));

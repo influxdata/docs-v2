@@ -12,6 +12,7 @@ influxdb/cloud/tags: [client libraries, Go]
 weight: 201
 aliases:
   - /influxdb/cloud/reference/api/client-libraries/go/
+  - /influxdb/cloud/tools/client-libraries/go/
 ---
 
 {{< duplicate-oss >}}

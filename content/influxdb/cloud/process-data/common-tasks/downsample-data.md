@@ -32,7 +32,7 @@ A separate bucket where aggregated, downsampled data is stored.
 To downsample data, it must be aggregated in some way.
 What specific method of aggregation you use depends on your specific use case,
 but examples include mean, median, top, bottom, etc.
-View [Flux's aggregate functions](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/)
+View [Flux's aggregate functions](/flux/v0/stdlib/universe/)
 for more information and ideas.
 
 ## Example downsampling task script
@@ -41,28 +41,26 @@ The example task script below is a very basic form of data downsampling that doe
 1. Defines a task named "cq-mem-data-1w" that runs once a week.
 2. Defines a `data` variable that represents all data from the last 2 weeks in the
    `mem` measurement of the `system-data` bucket.
-3. Uses the [`aggregateWindow()` function](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/aggregates/aggregatewindow/)
+3. Uses the [`aggregateWindow()` function](/flux/v0/stdlib/universe/aggregatewindow/)
    to window the data into 1 hour intervals and calculate the average of each interval.
 4. Stores the aggregated data in the `system-data-downsampled` bucket under the
    `my-org` organization.
 
 ```js
 // Task Options
-option task = {
-  name: "cq-mem-data-1w",
-  every: 1w,
-}
+// Task Options
+option task = {name: "cq-mem-data-1w", every: 1w}
 
 // Defines a data source
 data = from(bucket: "system-data")
-  |> range(start: -duration(v: int(v: task.every) * 2))
-  |> filter(fn: (r) => r._measurement == "mem")
+    |> range(start: -duration(v: int(v: task.every) * 2))
+    |> filter(fn: (r) => r._measurement == "mem")
 
 data
-  // Windows and aggregates the data in to 1h averages
-  |> aggregateWindow(fn: mean, every: 1h)
-  // Stores the aggregated data in a new bucket
-  |> to(bucket: "system-data-downsampled", org: "my-org")
+    // Windows and aggregates the data in to 1h averages
+    |> aggregateWindow(fn: mean, every: 1h)
+    // Stores the aggregated data in a new bucket
+    |> to(bucket: "system-data-downsampled", org: "my-org")
 ```
 
 Again, this is a very basic example, but it should provide you with a foundation

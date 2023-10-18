@@ -1,8 +1,14 @@
+{{- $currentVersion := index (findRE "[^/]+.*?" .Page.RelPermalink) 1 -}}
 <div class="note block">
   <h4 id="authentication-credentials">Authentication credentials</h4>
   <p>
     The examples below assume your InfluxDB <strong>host</strong>, <strong>organization</strong>, and <strong>token</strong> are
-    provided by the <a href="/influxdb/v2.0/reference/cli/influx/#provide-required-authentication-credentials">active <code>influx</code> CLI configuration</a>.
-    If you do not have a CLI configuration set up, use the appropriate flags to provide these required credentials.
+    provided by either the <a href="/influxdb/{{ $currentVersion }}/reference/cli/influx/#provide-required-authentication-credentials">active <code>influx</code> CLI configuration</a> or by environment variables (<code>INFLUX_HOST</code>, <code>INFLUX_ORG</code>, and <code>INFLUX_TOKEN</code>).
+    If you do not have a CLI configuration set up or the environment variables set, include these required credentials for each command with the following flags:
   </p>
+  <ul>
+    <li><code>--host</code>: <a href="/influxdb/{{ $currentVersion }}/reference/urls/">InfluxDB host</a></li>
+    <li><code>-o, --org</code> or <code>--org-id</code>: InfluxDB organization name or ID</li>
+    <li><code>-t, --token</code>: InfluxDB API token</li>
+  </ul>
 </div>

@@ -7,6 +7,7 @@ menu:
     parent: influx stacks
 weight: 201
 influxdb/cloud/tags: [templates]
+updated_in: CLI v2.0.4
 ---
 
 {{< duplicate-oss >}}

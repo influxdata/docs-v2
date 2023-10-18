@@ -1,23 +1,5 @@
 svg {
 
-  &#join-vs-union {
-    max-width: 525px;
-    width: 100%;
-    margin-bottom: 2rem;
-
-    .st0{fill: $svg-table-code-bg;}
-  	.st1{fill: $svg-table-header;}
-  	.st2{fill: $svg-table-row-alt1;}
-  	.st3{fill:none;stroke: $svg-table-stroke;stroke-width:2;stroke-miterlimit:10;}
-  	.st4{fill:none;stroke: $svg-table-stroke;stroke-width:4;stroke-miterlimit:10;}
-  	.st5{fill: $svg-table-row-alt2;}
-  	.st6{fill: $svg-table-code;}
-  	.st7{font-family:'Roboto Mono';}
-  	.st8{font-size:14.2px;}
-  	.st9{fill: $svg-table-code-operator;}
-  	.st10{fill: $svg-table-code-string;}
-  }
-
   &[id^='geo-s2-cells-'] {
     max-width: 250px;
     .geo-cell{fill:rgba($svg-geo-s2-cell, 0.25);stroke:$svg-geo-s2-cell;stroke-width:3;stroke-linejoin:round;stroke-miterlimit:10;}
@@ -30,7 +12,36 @@ svg {
     max-width: 425px;
     .st0 {stroke: $article-text;}
     .st1 {fill: $article-text;}
-    .st2 {font-family: $rubik; font-weight: $medium}
+    .st2 {font-family: $proxima; font-weight: $medium}
+  }
+
+  //////////////////////////////// Join Diagram ////////////////////////////////
+  &#join-diagram {
+    $fill-color: rgba($article-text, .35);
+    display: block;
+    max-width: 250px;
+    margin: 1rem 0 2rem;
+
+    &.center {margin: 0 auto 2rem auto;}
+    &.small {max-width: 125px; path{stroke-width: 3;} }
+
+    path {
+      stroke: $article-text;
+      stroke-width:2;
+      stroke-miterlimit:10;
+      fill: none;
+    }
+    &.inner {path { &#center {fill:$fill-color; }}}
+    &.left {path { &#left, &#center {fill:$fill-color; }}}
+    &.right {path { &#center, &#right {fill:$fill-color; }}}
+    &.full {path { &#left, &#center, &#right {fill:$fill-color; }}}
+  }
+
+}
+
+@include media(small) {
+  svg {
+    &#join-diagram {margin: 1rem auto 2rem; }
   }
 }
 

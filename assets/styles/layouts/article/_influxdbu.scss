@@ -1,0 +1,84 @@
+.influxdbu-banner {
+  background-color: $br-dark-blue;
+  margin: 2.5rem 0 3rem;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 2px 2px 8px $article-shadow;
+  background-image: url('/svgs/home-bg-circle-right.svg');
+  background-size: cover;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .influxdbu-logo {
+    max-width: 170px;
+    margin: 0 0 1rem;
+    box-shadow: none;
+  }
+
+  .banner-content {
+    margin-right: 1rem;
+    max-width: 65%;
+
+    h4 {
+      margin-top: -1.75rem;
+      font-size: 1.5rem;
+      font-style: normal;
+      color: $g20-white;
+    }
+    p {
+      margin-bottom: 0;
+      color: $g20-white;
+      strong { color: $g20-white; }
+    }
+  }
+  
+  .banner-cta {
+    position: relative;
+    a {
+      display: block;
+      position: relative;
+      padding: 1rem 1.5rem;
+      color: $g20-white;
+      text-align: center;
+      border-radius: $radius;
+      @include gradient($grad-burningDusk);
+      z-index: 1;
+
+      &:after {
+        content: "";
+        position: absolute;
+        padding: 0;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: $radius;
+        @include gradient($grad-coolDusk, 270deg);
+        transition: opacity .2s;
+        z-index: -1;
+        opacity: 0;
+      }
+
+      &:hover:after {opacity: 1;}
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+@include media(small) {
+  .influxdbu-banner {
+    flex-direction: column;
+    .banner-content {
+      max-width: 100%;
+      h4 {margin-top: -1.25rem;}
+    }
+    .banner-cta {
+      margin-top: 1.75rem;
+      width: 100%;
+    }
+  }
+}

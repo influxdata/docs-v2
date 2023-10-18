@@ -1,0 +1,269 @@
+/////////////////// Styes for the InfluxDB URL selector modal //////////////////
+
+.products {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  justify-content: flex-start;
+}
+
+.product {
+
+  .providers{
+    display: flex;
+    flex-wrap: wrap;
+    padding: .5rem 1rem;
+    background: rgba($article-text, .05);
+    border-radius: $radius;
+
+    .provider {
+      flex-grow: 1;
+      &:not(:last-child) {margin-right: 1rem;}
+    }
+
+    ul {
+      margin: .5rem .5rem .5rem 0;
+      padding: 0;
+      list-style: none;
+
+      &.clusters {
+        padding-left: 1.75rem;
+      }
+    }
+
+    p.region {
+
+      .fake-radio  {
+        position: relative;
+        display: inline-block;
+        height: 1.15em;
+        width: 1.15em;
+        margin: 0 0.3rem 0 0.1rem;
+        border-radius: $radius;
+        border: 1.5px solid transparent;
+        background: rgba($article-text, 0.05);
+        border: 1.5px solid rgba($article-text, 0.2);
+        vertical-align: text-top;
+        cursor: pointer;
+
+        &:after {
+          content: "";
+          position: absolute;
+          display: block;
+          height: .5rem;
+          width: .5rem;
+          top: .23rem;
+          left: .23rem;
+          border-radius: 50%;
+          background: rgba($article-text, .3);
+          opacity: 0;
+          transition: opacity .2s;
+        }
+
+        &.checked:after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+li.custom {
+  display: flex;
+  align-items: center;
+}
+#custom-url {
+  display: inline-block;
+  width: 100%;
+  padding-left: .5rem;
+  position: relative;
+
+  &:after {
+    display: none;
+    content: attr(data-message);
+    position: absolute;
+    top: -1.8rem;
+    right: 0;
+    font-size: .85rem;
+    font-weight: $medium;
+    color: $r-fire;
+  }
+
+  &.error {
+    &:after { display: block; }
+    input#custom-url-field,
+    input#dedicated-url-field,
+    input#clustered-url-field {
+      border-color: $r-fire;
+      &:focus {
+        border-color: $r-fire;
+        box-shadow: 1px 1px 10px rgba($r-fire,0.5);
+      }
+    }
+  }
+
+  input {
+    &#custom-url-field,
+    &#dedicated-url-field,
+    &#clustered-url-field {
+      font-family: $proxima;
+      font-weight: $medium;
+      background: $modal-field-bg;
+      border-radius: $radius;
+      border: 1px solid $sidebar-search-bg;
+      padding: .5em;
+      width: 100%;
+      color: $sidebar-search-text;
+      transition-property: border, box-shadow;
+      transition-duration: .2s;
+      box-shadow: 2px 2px 6px $sidebar-search-shadow;
+      &:focus {
+        outline: none;
+        border-color: $sidebar-search-highlight;
+        box-shadow: 1px 1px 10px rgba($sidebar-search-highlight, .5);
+        border-radius: $radius;
+      }
+      &::placeholder {
+        color: rgba($sidebar-search-text, .45);
+        font-weight: normal;
+        font-style: italic;
+      }
+    }
+  }
+}
+
+#dedicated-urls,
+#clustered-urls {
+  .providers {
+    padding-bottom: 1rem;
+  }
+  #custom-url {
+    margin-top: .5rem;
+    padding: 0; 
+  }
+}
+
+.radio {
+  position: relative;
+  display: inline-block;
+  height: 1.15em;
+  width: 1.15em;
+  background: rgba($article-text, .05);
+  margin: 0 .3rem 0 .1rem;
+  vertical-align: text-top;
+  border-radius: $radius;
+  cursor: pointer;
+  border: 1.5px solid rgba($article-text, .2);
+  user-select: none;
+}
+
+input[type='radio'] {
+  margin-right: -1.1rem ;
+  padding: 0;
+  vertical-align: top;
+  opacity: 0;
+  cursor: pointer;
+
+  & + .radio:after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: .5rem;
+    width: .5rem;
+    border-radius: 50%;
+    background: $article-link;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: scale(2) translate(-20%, -20%);
+    transition: all .2s;
+  }
+
+  &:checked + .radio:after {
+    opacity: 1;
+    transform: scale(1) translate(-50%, -50%);
+  }
+}
+
+
+td,label,li {
+  &:after {
+    display: inline;
+    vertical-align: middle;
+    font-style: italic;
+    font-weight: $medium;
+    font-size: .75em;
+    margin-left: .35rem;
+    padding: .1rem .3rem .12rem .32rem;
+    line-height: .75rem;
+    border-radius: 1rem;
+  }
+
+  &.beta:after {
+    content: "beta";
+    color: $g20-white;
+    @include gradient($grad-blue);
+  }
+}
+
+label:after {
+  margin-left: .15rem;
+}
+
+/////////////////////////// InfluxDB Preference Tabs ///////////////////////////
+
+#pref-tabs {
+  padding: 0;
+  margin: 0 0 -5px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pref-tab {
+  padding: .75rem 1.25rem;
+  margin-right: 5px;
+  text-align: center;
+  font-weight: bold;
+  width: 49%;
+  color: rgba($article-text, .7);
+  background: rgba($article-text, .05);
+  border-radius: $radius;
+  cursor: pointer;
+  transition: color .2s;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    color: $article-link;
+  }
+
+  &.active {
+    color: $g20-white;
+    @include gradient($article-btn-gradient);
+  }
+
+  span.ephemeral { display: inline; }
+  span.abbr:after {
+    display: none;
+    content: ".";
+  }
+}
+
+.product {
+  &.active { display: block; }
+  &.inactive { display: none; }
+}
+
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+
+@include media(small) {
+  .pref-tab {
+    span.ephemeral { display: none; }
+    span.abbr:after { display: inline; }
+  }
+}

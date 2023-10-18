@@ -10,7 +10,7 @@ aliases:
   - /influxdb/cloud/security/secrets/manage-secrets/update/
 ---
 
-Update secrets using the {{< cloud-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
+Update secrets using the {{< product-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
 
 - [Update a secret using the InfluxDB Cloud UI](#update-a-secret-using-the-influxdb-cloud-ui)
 - [Update a secret using the influx CLI](#update-a-secret-using-the-influx-cli)
@@ -18,7 +18,7 @@ Update secrets using the {{< cloud-name "short" >}} UI, `influx` command line in
 
 ## Update a secret using the InfluxDB Cloud UI
 
-1. In the {{< cloud-name "short" >}} UI, click **Settings**.
+1. In the {{< product-name "short" >}} UI, click **Settings**.
 
     {{< nav-icon "settings" >}}
 2. Click the **Secrets** tab.
@@ -59,7 +59,7 @@ to update a secret in your organization.
 <!-- -->
 ```sh
 curl -XPATCH https://cloud2.influxdata.com/api/v2/orgs/<org-id>/secrets \
-  -H 'Authorization: Token YOURAUTHTOKEN' \
+  -H 'Authorization: Token YOUR_API_TOKEN' \
   -H 'Content-type: application/json' \
   --data '{
 	"<secret-key>": "<secret-value>"

@@ -1,15 +1,14 @@
 {{ $currentVersion := index (findRE "[^/]+.*?" .RelPermalink) 1 }}
-{{ $expRiskURL := print "/flux/v0.x/stdlib/experimental/#experimental-functions-are-subject-to-change" }}
-{{ $expPath := print "/flux/v0.x/stdlib/experimental/" }}
+{{ $expRiskURL := print "/flux/v0/stdlib/experimental/#experimental-packages-are-subject-to-change" }}
+{{ $expPath := print "/flux/v0/stdlib/experimental/" }}
 
 {{ if in .RelPermalink $expPath }}
   {{ if not (eq .RelPermalink $expPath) }}
     {{ if eq .Kind "page" }}
-      {{ $name := replaceRE `^\w*\.\w*\(\)` "<code>$0</code>" .Title }}
+      {{ $name := replaceRE " function" "" .Title }}
       <div class="warn block">
         <p>
-          The {{ $name | safeHTML }} is {{ if in $name "experimental" }}{{ else }}experimental and{{ end }} subject to change at any time.
-          By using this function, you accept the <a href="{{ $expRiskURL }}">risks of experimental functions</a>.
+          <code>{{ $name | safeHTML }}</code> is {{ if in $name "experimental" }}{{ else }}experimental and{{ end }} <a href="{{ $expRiskURL }}">subject to change at any time</a>.
         </p>
       </div>
     {{ else if eq .Kind "section" }}
@@ -17,8 +16,7 @@
         {{ $packageTitle := cond (isset .Params "list_title") $.Params.list_title .Title }}
         {{ $packageName := replaceRE `^(.*)( package)` "<code>$1</code>$2" $packageTitle }}
         <p>
-          The {{ $packageName | safeHTML }} is experimental and subject to change at any time.
-          By using this package, you accept the <a href="{{ $expRiskURL }}">risks of experimental functions</a>.
+          The {{ $packageName | safeHTML }} is experimental and <a href="{{ $expRiskURL }}">subject to change at any time</a>.
         </p>
       </div>
     {{ end }}

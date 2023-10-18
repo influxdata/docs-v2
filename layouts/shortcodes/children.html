@@ -3,6 +3,7 @@
 {{ $hlevel := .Get "hlevel" | default "h3"}}
 {{ $readMore := .Get "readmore" | default false }}
 {{ $hr := .Get "hr" | default false }}
+{{ $doNotList := .Get "filterOut" | default "" }}
 
 {{ if eq $show "all" }}
 	{{ .Scratch.Set "pages" (union .Page.Pages .Page.Sections) }}
@@ -12,7 +13,7 @@
 	{{ .Scratch.Set "pages" .Page.RegularPages }}
 {{ end }}
 
-{{ $pages := .Scratch.Get "pages" }}
+{{ $pages := where (.Scratch.Get "pages") "Title" "not in" (split $doNotList ", ") }}
 
 {{ if eq $type "articles" }}
 	<div class="children-links">
@@ -41,7 +42,15 @@
 				{{ end }}
 			{{ end }}
 			{{ if .Params.list_code_example }}
-				{{ .Params.list_code_example | markdownify }}
+				{{- $productPathData := findRE "[^/]+.*?" .Page.RelPermalink -}}
+				{{- $currentVersion := index $productPathData 1 -}}
+				{{- $isOSS := ne (len (findRE `^v[0-9]` $currentVersion)) 0 -}}
+				{{- $productKey := cond $isOSS "oss" $currentVersion -}}
+				{{- $productAliases := dict "oss" "influxdb" "cloud" "influxdb_cloud" "cloud-tsm" "influxdb_cloud" "cloud-serverless" "influxdb_cloud_serverless" "serverless" "influxdb_cloud_serverless" "cloud-dedicated" "influxdb_cloud_dedicated" "dedicated" "influxdb_cloud_dedicated" "clustered" "influxdb_clustered" -}}
+				{{- $productRef := index $productAliases $productKey -}}
+				{{- $productData := index .Site.Data.products $productRef -}}
+				{{- $placeholderHost := $productData.placeholder_host }}
+				{{ .Params.list_code_example | replaceRE `\{\{[<\%] influxdb/host [>%]\}\}` $placeholderHost | markdownify }}
 			{{ end }}
 
 			{{ if .Params.list_query_example }}

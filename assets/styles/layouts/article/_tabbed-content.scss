@@ -12,10 +12,11 @@
     flex-grow: 1;
     margin: 2px;
     position: relative;
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: $medium;
-    padding: .35rem .75rem;
+    padding: .65rem 1.25rem;
     display: inline-block;
+    white-space: nowrap;
     text-align: center;
     color: $article-tab-text !important;
     border-radius: $radius;
@@ -52,6 +53,40 @@
       }
     }
   }
+  &.small {
+    p { justify-content: flex-start; }
+    a {
+      flex-grow: unset;
+      padding: .35rem 1rem;
+    }
+
+    .tab-view-output {
+      padding: .5rem .5rem 0;
+      font-size: .9rem;
+      opacity: .65;
+      font-style: italic;
+      transition: opacity .2s;
+
+      &:before {
+        content: "\e97a";
+        margin-right: 0.25em;
+        font-family: 'icomoon-v3';
+        font-style: normal;
+      }
+    }
+
+    a.is-active + .tab-view-output {
+      opacity: 0;
+    }
+  }
+  &.medium {
+    p { justify-content: flex-start; }
+    a { flex-grow: unset; }
+  }
+  // Style suggested for tabs that have uneven button widths because of wrapping.
+  &.even-wrap a {
+    flex-basis: 25%;
+  }
 }
 
 .code-tabs {
@@ -65,7 +100,7 @@
     margin: 0;
     border-radius: $radius $radius 0 0;
     display: inline-block;
-    font-size: 0.875rem;
+    font-size: 1rem;
     background: $article-bg;
     color: rgba($article-tab-code-text, .5);
     &:hover {
@@ -90,10 +125,12 @@
   margin: .75rem 0 3rem;
   width: 100%;
 
-  & > :not(table, .fs-diagram) {
+  & > :not(table, .fs-diagram, img) {
     width: 100%;
     margin-left: 0;
   }
+
+  & table:last-child { margin-bottom: 0; }
 }
 
 .tab-content:not(:first-of-type) { display: none; }

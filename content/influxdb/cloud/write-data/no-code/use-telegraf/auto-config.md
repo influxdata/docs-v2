@@ -10,6 +10,8 @@ menu:
 weight: 201
 related:
   - /influxdb/cloud/telegraf-configs/create/
+# alt_links:
+#   cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/configure/auto-config/
 ---
 
 The InfluxDB user interface (UI) can automatically create
@@ -29,7 +31,7 @@ for using Telegraf with InfluxDB v2.0._
 
 ## Create a Telegraf configuration
 
-1. Open the InfluxDB Clou UI.
+1. Open the InfluxDB Cloud UI.
 2. In the navigation menu on the left, select **Data** (**Load Data**) > **Telegraf**.
 
     {{< nav-icon "load data" >}}

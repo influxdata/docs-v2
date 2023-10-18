@@ -69,9 +69,8 @@ InfluxDB Cloud is available on the following cloud providers:
 - [Microsoft Azure](https://azure.microsoft.com/en-us/)
 - [Google Cloud Platform (GCP)](https://cloud.google.com/)
 
-To ensure data security, availability, and durability:
-- Each instance is isolated and protected in its own virtual private cloud (VPC)
-- Clusters are deployed across multiple provider availability zones
+To ensure data security, availability, and durability, each instance is isolated
+and protected in its own virtual private cloud (VPC).
 
 ### Amazon Web Services (AWS)
 
@@ -81,7 +80,6 @@ Each VPC within AWS is segmented into public and private subnets:
 - The public subnet contains resources exposed to the public internet, including load balancers and network address translation (NAT) gateways.
 - The private subnet contains supporting infrastructure (e.g., compute, storage) not exposed to the public internet.
 
-To ensure fault tolerance across the data layer, clusters are deployed across multiple availability zones.
 AWS data centers are compliant with many physical and information security standards.
 For detail about AWS's physical security and data center protocols, see [AWS's Compliance](https://aws.amazon.com/compliance/).
 
@@ -91,7 +89,6 @@ In Google Cloud Platform (GCP), InfluxDB Cloud uses the Google Kubernetes Engine
 and Google Compute Engine to deploy individual cluster components.
 Clusters are isolated at the project level
 to enhance access controls, data governance, and support auditing.
-To ensure fault tolerance across the data layer, clusters are deployed across multiple availability zones.
 
 Google Cloud Platform data centers are compliant with many physical and information security standards.
 For detail about physical security in GCP data centers, see [Google's Compliance website](https://cloud.google.com/security/compliance/).
@@ -102,7 +99,6 @@ In Microsoft Azure, InfluxDB Cloud uses Azure Kubernetes Service (AKS)
 and Azure Virtual Machines to deploy individual cluster components.
 To support auditing and authorization control within Azure,
 clusters are deployed into dedicated VNets within each region.
-To ensure fault tolerance across the data layer, clusters are deployed across multiple availability zones.
 
 Microsoft Azure data centers are compliant with many physical and information security standards.
 For detail about physical security within Microsoft Azure data centers, see [Microsoft's Compliance website](https://www.microsoft.com/en-us/trust-center/compliance/compliance-overview).
@@ -110,7 +106,7 @@ For detail about physical security within Microsoft Azure data centers, see [Mic
 ### Data encryption
 
 InfluxDB Cloud enforces TLS encryption for data in transit from all clients, including Telegraf agents, browsers, and custom applications.
-Requests using TLS 1.2 or earlier are rejected.
+Requests using TLS 1.1 or earlier are rejected.
 
 By default, data at rest is encrypted using strong encrypted methods (AES-256) within AWS, GCP, and Microsoft Azure.
 
@@ -124,8 +120,7 @@ InfluxData maintains the following application and service security controls:
 
 - Administrative privileges are restricted to named groups of authorized users.
 - Shared accounts are prohibited.
-- Multi-factor authentication (MFA) is required for all infrastructure (AWS, GCP, and Azure),
-  for all members of the InfluxData GitHub organization,
+- Multi-factor authentication (MFA) is required for all infrastructure (AWS, GCP, and Azure)
   and for other production systems with access to user information
   (see [InfluxData Subprocessors](https://www.influxdata.com/legal/influxdata-subprocessors/)).
 - InfluxDB Cloud access is logged and audited regularly.
@@ -242,4 +237,5 @@ For users needing stricter security around data access and risk mitigation measu
 ## Compliance and auditing
 
 InfluxDB Cloud is **SOC2 Type II** certified.
-To request a copy of our SOC2 Type II report, please email <security@influxdata.com>.
+To request a copy of our SOC2 Type II report,
+or for information on the ISO 27001 Information Security Management System, please email <sales@influxdata.com>.

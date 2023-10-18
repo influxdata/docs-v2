@@ -1,9 +1,9 @@
 @import "tools/color-palette";
-@import "tools/icomoon";
+@import "tools/fonts";
 
 // Fonts
-$rubik: 'Rubik', sans-serif;
-$roboto-mono: 'Roboto Mono', monospace;
+$proxima: 'Proxima Nova', sans-serif;
+$code: 'IBM Plex Mono', monospace;;
 
 // Font weights
 $medium: 500;
@@ -44,7 +44,7 @@ $bold: 700;
 //////////////////////////////// InfluxDB Header ///////////////////////////////
 
 #influx-header {
-  font-family: $rubik;
+  font-family: $proxima;
   padding: 10px ;
   display: flex;
   align-items: center;
@@ -60,7 +60,7 @@ $bold: 700;
       }
       &:before {
         content: "\e919";
-        font-family: 'icomoon';
+        font-family: 'icomoon-v2';
         margin-right: .65rem;
       }
     }
@@ -77,7 +77,7 @@ $bold: 700;
         display: inline-block;
         font-size: .95rem;
         margin-right: .5rem;
-        font-family: 'icomoon';
+        font-family: 'icomoon-v2';
       }
       &:hover {
         color: $g20-white;
@@ -98,12 +98,12 @@ $bold: 700;
 .cjtbAK {
   h1,h2,h3,h4,h5,h6,
   p,li,th,td {
-    font-family: $rubik !important;
+    font-family: $proxima !important;
   }
 }
 
 #redoc {
-  h1,h2,h3,h4,h5,h6 {
+  h1,h2,h3 {
     font-weight: $medium !important;
   }
 }
@@ -125,7 +125,7 @@ $bold: 700;
   color: $g20-white;
   border: none;
   border-radius: 3px;
-  font-family: $rubik;
+  font-family: $proxima;
   font-size: .85rem;
   font-weight: $medium;
   transition: background-color .2s;
@@ -156,14 +156,14 @@ $bold: 700;
 }
 
 .redoc-json {
-  font-family: $roboto-mono !important;
+  font-family: $code !important;
 }
 
 // Inline Code
 .flfxUM code,
 .gDsWLk code,
 .kTVySD {
-  font-family: $roboto-mono !important;
+  font-family: $code !important;
   color: $cp-marguerite;
   background: $cp-titan;
   border-color: $cp-titan;
@@ -203,7 +203,7 @@ $bold: 700;
 
 // List item text
 .SmuWE, .gcUzvG, .bbViyS, .sc-hrWEMg label {
-  font-family: $rubik !important;
+  font-family: $proxima !important;
 }
 
 .fyUykq {
@@ -230,7 +230,7 @@ $bold: 700;
 .dtUibw, .fLUKgj {
   background-color: $g2-kevlar;
   h3,h4,h5,h6 {
-    font-family: $rubik !important;
+    font-family: $proxima !important;
     font-weight: $medium !important;
   }
 }
@@ -259,7 +259,7 @@ $bold: 700;
 .hOczRB,
 .fRsrDc,
 .hPskZd {
-  font-family: $rubik;
+  font-family: $proxima;
   font-weight: $medium;
   letter-spacing: .04em;
   border-radius: 3px;
@@ -273,19 +273,19 @@ $bold: 700;
 // Content type block
 .gzAoUb {
   background-color: $g2-kevlar;
-  font-family: $rubik;
+  font-family: $proxima;
 }
-.iENVAs { font-family: $roboto-mono; }
-.dpMbau { font-family: $rubik; }
+.iENVAs { font-family: $code; }
+.dpMbau { font-family: $proxima; }
 
 // Code controls
 .fCJmC {
-  font-family: $rubik;
+  font-family: $proxima;
   span { border-radius: 3px; }
 }
 
 // Code blocks
-.kZHJcC { font-family: $roboto-mono; }
+.kZHJcC { font-family: $code; }
 .jCgylq {
   .token.string {
     color: $gr-honeydew;

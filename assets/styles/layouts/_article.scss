@@ -5,7 +5,9 @@
 }
 
 .article--content{
-  max-width: 820px;
+  max-width: 850px;
+  font-size: 1.1rem;
+
   h1,h2,h3,h4,h5,h6 {
     color: $article-heading;
     a {
@@ -21,28 +23,29 @@
     & + .highlight pre { margin-top: .5rem }
     & + pre { margin-top: .5rem }
     & + .code-tabs-wrapper { margin-top: 0; }
+    &.green { color: $gr-rainforest; }
+    &.orange { color: $r-dreamsicle; }
   }
-  .title { margin-bottom: 2.65rem; }
   h1 {
     font-weight: normal;
-    font-size: 2.65rem;
+    font-size: 2.75rem;
     margin: .4em 0 .2em;
   }
   h2 {
-    font-size: 2rem;
+    font-size: 2.1rem;
     margin: -.25rem 0 .5rem;
     padding-top: 1.75rem;
     font-weight: $medium;
     color: $article-heading-alt;
   }
   h3 {
-    font-size: 1.65rem;
+    font-size: 1.75rem;
     font-weight: $medium;
     margin: -1rem 0 .5rem;
     padding-top: 1.75rem;
   }
   h4 {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-style: italic;
     font-weight: $medium;
     margin: -1.25rem 0 .5rem;
@@ -50,12 +53,12 @@
     color: $article-heading-alt;
   }
   h5 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin: -1.25rem 0 .25rem;
     padding-top: 1.75rem;
   }
   h6 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-style: italic;
     margin: -1.25rem 0 .25rem;
     padding-top: 1.75rem;
@@ -63,7 +66,7 @@
 
   p,li {
     color: $article-text;
-    line-height: 1.7rem;
+    line-height: 1.8rem;
   }
 
   p {
@@ -76,6 +79,13 @@
     text-decoration: none;
     &:hover {
       color: $article-link-hover;
+    }
+    &.help-link {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: $article-bg;
     }
   }
 
@@ -115,6 +125,8 @@
           "article/flex",
           "article/flux",
           "article/html-diagrams",
+          "article/influxdbu",
+          "article/influxql",
           "article/keybinding",
           "article/list-filters",
           "article/lists",
@@ -128,6 +140,7 @@
           "article/tables",
           "article/tags",
           "article/telegraf-plugins",
+          "article/title",
           "article/truncate",
           "article/video",
           "article/warn";
@@ -184,6 +197,14 @@
     }
   }
 
+  .nowrap { white-space: nowrap }
+  .all-caps {
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    letter-spacing: .1em;
+    font-weight: $medium !important;
+  }
+
   /////////////////////////// Getting Started Buttons //////////////////////////
 
   .get-started-btns {
@@ -211,10 +232,6 @@
   .article {
     padding: 1.5rem 1.5rem 3rem;
 
-    .title {
-      margin-bottom: 2rem;
-      h1 { margin: .35em 0 .2em; font-size: 2.4rem; }
-    }
     h2 { font-size: 1.9rem; }
     h3 { font-size: 1.55rem; }
     h4 { font-size: 1.3rem; }

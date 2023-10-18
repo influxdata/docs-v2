@@ -1,0 +1,78 @@
+{{ $scratch := newScratch }}
+{{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
+{{ $version := index $productPathData 1 }}
+{{ $altVersion := cond (ne $version "cloud-serverless") "cloud-serverless" "cloud" }}
+{{ $engine := cond (eq $version "cloud-serverless") "IOx" "TSM" }}
+{{ $altEngine := cond (eq $version "cloud-serverless") "TSM" "IOx" }}
+{{ $productName := cond (eq $version "cloud-serverless") "InfluxDB Cloud Serverless" "InfluxDB Cloud (TSM)" }}
+{{ $altProductName := cond (eq $version "cloud-serverless") "InfluxDB Cloud (TSM)" "InfluxDB Cloud Serverless" }}
+{{ $altDoc := .Page.Params.alt_engine | default "" }}
+{{ $altLink := cond (ne $altDoc "") $altDoc (print "/influxdb/" $altVersion "/") }}
+{{ $isCloud := eq $version "cloud" }}
+{{ $isIOx := eq $version "cloud-serverless" }}
+
+{{ $scratch.Set "uiText" "" }}
+{{ $scratch.Set "link" "" }}
+{{ if $isCloud }}
+  {{ $scratch.Set "uiText" "InfluxDB Cloud powered by TSM"}}
+  {{ $altIOxPage := $.GetPage ((replaceRE "influxdb/cloud" "influxdb/cloud-serverless" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+  {{ if ne $altDoc "" }}
+    {{ $scratch.Set "link" $altDoc }}
+  {{ else if gt (len $altIOxPage.Title) 0 }}
+    {{ $scratch.Set "link" $altIOxPage.RelPermalink }}
+  {{ end }}
+{{ else if $isIOx }}
+{{ $scratch.Set "uiText" "InfluxDB Cloud Serverless"}}
+  {{ $altCloudPage := $.GetPage ((replaceRE "influxdb/cloud-serverless" "influxdb/cloud" $.Page.RelPermalink) | replaceRE `\/$` "") }}
+  {{ if ne $altDoc "" }}
+    {{ $scratch.Set "link" $altDoc }}
+  {{ else if gt (len $altCloudPage.Title) 0 }}
+    {{ $scratch.Set "link" $altCloudPage.RelPermalink }}
+  {{ end }}
+{{ end }}
+
+{{ $uiText := $scratch.Get "uiText" }}
+{{ $altLink := cond (eq ($scratch.Get "link") "") (print "/influxdb/" $altVersion "/") ($scratch.Get "link") }}
+
+<div id="iox-wayfinding-modal">
+  <div class="wayfinding-wrapper">
+    <div class="wayfinding-content">
+      <h4>InfluxDB Cloud{{ if $isIOx }} Serverless{{ else }} powered by {{ $engine }}{{end}}</h4>
+      <div class="wayfinding-content-info">
+        <div>
+          <p>
+            You are currently viewing documentation specific to InfluxDB Cloud
+            {{ if $isIOx }}Serverless{{ end }}
+            powered by the <strong>{{ $engine }} storage engine</strong>, which
+            offers different functionality than InfluxDB Cloud
+            {{ if not $isIOx }}Serverless{{ end }}
+            powered by the {{ $altEngine }} storage engine.
+          </p>
+          <p>
+            <strong>Are you using InfluxDB Cloud {{ if $isIOx }}Serverless{{ else }}powered by TSM{{ end }}?</strong>
+            <a href="#" id="find-out-toggle">How to find out?</a>
+          </p>
+          <div id="find-out-instructions">
+            <p>
+              Visit <a href="https://cloud2.influxdata.com" target="_blank">your organization's homepage</a>
+              and look for:
+            </p>
+            <div class="powered-by-example">
+              {{ $uiText }}
+            </div>
+          </div>
+        </div>
+        <div class="wayfinding-actions">
+          <a class="iox-wayfinding-btn" data-engine="{{ $engine | lower }}" href="#" id="iox-wayfinding-stay"><strong>Yes</strong><span class="small"> – I'm using {{ $productName }}</span></a>
+          <a class="iox-wayfinding-btn" data-engine="{{ $altEngine | lower }}" id="iox-wayfinding-switch" href="{{ $altLink }}"><strong>No</strong><span class="small"> – I'm using {{ $altProductName }}</span></a>
+          <label>
+            <input id="iox-wayfinding-opt-out-input" type="checkbox" />
+            <span id="iox-wayfinding-opt-out"  class="checkbox"></span>
+            <span class="checkbox-text">Don't ask again</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <span id="iox-wayfinding-close" class="cf-icon Remove_New"></span>
+  </div>
+</div>

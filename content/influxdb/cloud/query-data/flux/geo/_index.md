@@ -8,13 +8,15 @@ menu:
     name: Geo-temporal data
     parent: Query with Flux
 weight: 220
+related:
+  - /resources/videos/geolocation-and-influxdb/
 list_code_example: |
   ```js
   import "experimental/geo"
 
   sampleGeoData
-    |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0})
-    |> geo.groupByArea(newColumn: "geoArea", level: 5)
+      |> geo.filterRows(region: {lat: 30.04, lon: 31.23, radius: 200.0})
+      |> geo.groupByArea(newColumn: "geoArea", level: 5)
   ```
 ---
 

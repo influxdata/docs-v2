@@ -1,0 +1,120 @@
+.codeblock { position: relative; }
+
+.code-controls {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  top: .5rem;
+  right: .5rem;
+
+  .code-controls-toggle {
+    padding: .05rem .15rem;
+    display: inline-block;
+    font-size: 1.15rem;
+    color: $article-code;
+    opacity: .5;
+    transition: opacity .2s;
+    border-radius: $radius;
+    line-height: 0;
+    cursor: pointer; 
+
+    &:hover {
+      opacity: 1;
+      background-color: rgba($article-text, .1);
+      backdrop-filter: blur(15px);
+    }
+  }
+
+  ul.code-control-options {
+    list-style: none;
+    padding: .5rem;
+    margin: 0;
+    border-radius: $radius;
+    background-color: rgba($article-text, .05);
+    backdrop-filter: blur(15px);
+    display: none;
+
+    li {
+      margin: 0;
+      padding: .4rem .5rem .6rem;
+      border-radius: $radius;
+      color: $article-bold;
+      font-size: .87rem;
+      line-height: 0;
+      cursor: pointer; 
+
+      &:hover {background-color: rgba($article-text, .07)}
+
+      &.copy-code, &.fullscreen-toggle {        
+        .cf-icon {margin-right: .35rem;}
+      }
+
+      &.copy-code {
+        .message {
+          text-shadow: 0px 0px 8px rgba($article-text, 0);
+          font-weight: normal;
+          transition: color .2s, text-shadow .2s;
+        }
+
+        &.success > .message {
+          text-shadow: 0px 0px 8px rgba($article-text, .5);
+          font-weight: bold;
+        }
+
+        &.failed > .message {
+          color: $r-fire;
+          text-shadow: 0px 0px 8px rgba($r-fire, .5);
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  &.open {
+    .code-controls-toggle {display: none;}
+    .code-control-options {display: block;}
+  }
+}
+
+////////////////////////// Fullscreen codeblock styles /////////////////////////
+.fullscreen-code {
+  display: none;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  padding: 2rem;
+  background: $article-code-bg;
+  overflow: scroll !important;
+
+  .fullscreen-close {
+    position: fixed;
+    padding: .1rem;
+    right: .75rem;
+    top: .5rem;
+    display: block;
+    color: $article-code;
+    font-size: 2rem;
+    text-decoration: none;
+    background: $article-code-bg;
+    border-radius: $radius;
+
+    span {
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }    
+
+    &:hover span {opacity: 1};
+  }
+
+  pre {
+    display: block;
+    line-height: 1.75rem;
+    font-family: $code;
+
+    @import "article/code";
+  }
+}

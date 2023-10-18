@@ -9,6 +9,9 @@ menu:
   influxdb_cloud:
     name: Arduino
     parent: Client libraries
-    url: https://github.com/tobiasschuerg/InfluxDB-Client-for-Arduino
+    params:
+      url: https://github.com/tobiasschuerg/InfluxDB-Client-for-Arduino
 weight: 201
 ---
+
+{{< duplicate-oss >}}

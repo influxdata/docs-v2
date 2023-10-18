@@ -27,10 +27,10 @@ Templatable resources are scoped to a single organization, so the simplest way t
 template is to create a new organization, build the template within the organization,
 and then [export all resources](#export-all-resources) as a template.
 
-**[InfluxDB OSS](/{{< latest "influxdb" "v2" >}}/)** supports multiple organizations so you
+**[InfluxDB OSS](/influxdb/v2/)** supports multiple organizations so you
 can create new organizations for the sole purpose of building and maintaining a template.
 In **InfluxDB Cloud**, your user account is an organization.
-**We recommend [using InfluxDB OSS to create InfluxDB templates](/{{< latest "influxdb" "v2" >}}/influxdb-templates/create/).**
+**We recommend [using InfluxDB OSS to create InfluxDB templates](/influxdb/v2/influxdb-templates/create/).**
 {{% /note %}}
 
 ## Export a template
@@ -54,7 +54,7 @@ Provide the following:
 ###### Export all resources to a template
 ```sh
 # Syntax
-influx export all -o <org-name> -f <file-path> -t <token>
+influx export all -o <INFLUX_ORG> -f <FILE_PATH> -t <INFLUX_TOKEN>
 
 # Example
 influx export all \
@@ -108,7 +108,7 @@ Provide the following:
 ###### Export specific resources to a template
 ```sh
 # Syntax
-influx export all -o <org-name> -f <file-path> -t <token> [resource-flags]
+influx export all -o <INFLUX_ORG> -f <FILE_PATH> -t <INFLUX_TOKEN> [resource-flags]
 
 # Example
 influx export all \
@@ -136,10 +136,10 @@ Provide the following:
 ```sh
 # Syntax
 influx export stack \
-  -o <org-name> \
-  -t <token> \
-  -f <file-path> \
-  <stack-id>
+  -o <INFLUX_ORG> \
+  -t <INFLUX_TOKEN> \
+  -f <FILE_PATH> \
+  <STACK_ID>
 
 # Example
 influx export stack \

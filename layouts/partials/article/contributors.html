@@ -1,0 +1,11 @@
+
+{{ if .Params.contributors }}
+<div class="block note">
+<h4 id="package-author-and-maintainer">Package author and maintainer</h4>
+<p>
+  {{ range .Params.contributors }}
+  {{ . | markdownify }}<br/>
+  {{ end }}
+</p>
+</div>
+{{ end }}

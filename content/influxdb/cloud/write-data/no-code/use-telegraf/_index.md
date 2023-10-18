@@ -14,6 +14,10 @@ menu:
   influxdb_cloud:
     name: Telegraf (agent)
     parent: No-code solutions
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/
+  cloud-dedicated: /influxdb/cloud-dedicated/write-data/use-telegraf/
+  clustered: /influxdb/clustered/write-data/use-telegraf/
 ---
 
 [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) is InfluxData's
@@ -22,12 +26,12 @@ Its vast library of input plugins and "plug-and-play" architecture lets you quic
 and easily collect metrics from many different sources.
 This article describes how to use Telegraf to collect and store data in InfluxDB v2.0.
 
-For a list of available plugins, see [Telegraf plugins](/{{< latest "telegraf" >}}/plugins//).
+For a list of available plugins, see [Telegraf plugins](/telegraf/v1/plugins//).
 
 #### Requirements
 - **Telegraf 1.9.2 or greater**.
   _For information about installing Telegraf, see the
-  [Telegraf Installation instructions](/{{< latest "telegraf" >}}/introduction/installation/)._
+  [Telegraf Installation instructions](/telegraf/v1/install/)._
 
 {{< youtube qFS2zANwIrc >}}
 
@@ -36,3 +40,5 @@ Telegraf input and output plugins are enabled and configured in Telegraf's confi
 You have the following options for configuring Telegraf:
 
 {{< children >}}
+
+{{< influxdbu "telegraf-102" >}}

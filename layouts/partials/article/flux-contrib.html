@@ -4,12 +4,11 @@
 {{ if in .RelPermalink $contribPath }}
   {{ if not (eq .RelPermalink $contribPath) }}
     {{ if eq .Kind "page" }}
-      {{ $name := replaceRE `^\w*\.\w*\(\)` "<code>$0</code>" .Title }}
+      {{ $name := replaceRE " function" "" .Title }}
       <div class="note block">
         <p>
-          The {{ $name | safeHTML }} is a user-contributed function maintained by
-          the <a href="#package-author-and-maintainer">package author</a> and can
-          be updated or removed at any time.
+          <code>{{ $name | safeHTML }}</code> is a user-contributed function maintained by
+          the <a href="#package-author-and-maintainer">package author</a>.
         </p>
       </div>
     {{ else if eq .Kind "section" }}
@@ -18,8 +17,7 @@
         {{ $packageName := replaceRE `^(.*)( package)` "<code>$1</code>$2" $packageTitle }}
         <p>
           The {{ $packageName | safeHTML }} is a user-contributed package
-          maintained by the <a href="#package-author-and-maintainer">package author</a>
-          and can be updated or removed at any time.
+          maintained by the <a href="#package-author-and-maintainer">package author</a>.
         </p>
       </div>
     {{ end }}

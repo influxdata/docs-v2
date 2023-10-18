@@ -29,7 +29,13 @@ jobs:
           command: cd api-docs && yarn install
       - run:
           name: Generate API documentation
-          command: cd api-docs && bash generate-api-docs.sh
+          command: cd api-docs && bash generate-api-docs.sh      
+      - run:
+          name: Inject Flux stdlib frontmatter
+          command: node ./flux-build-scripts/inject-flux-stdlib-frontmatter.js
+      - run:
+          name: Update Flux/InfluxDB versions
+          command: node ./flux-build-scripts/update-flux-versions.js
       - save_cache:
           key: install-{{ .Environment.CACHE_VERSION }}-{{ checksum ".circleci/config.yml" }}
           paths:
@@ -44,7 +50,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/golang:latest
+      - image: cimg/go:1.19
     steps:
       - checkout
       - restore_cache:

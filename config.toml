@@ -21,11 +21,24 @@ hrefTargetBlank = true
 smartDashes = false
 
 [taxonomies]
-  "influxdb/v2.0/tag" = "influxdb/v2.0/tags"
+  "influxdb/v2/tag" = "influxdb/v2/tags"
   "influxdb/cloud/tag" = "influxdb/cloud/tags"
-  "flux/v0.x/tag" = "flux/v0.x/tags"
+  "influxdb/cloud-serverless/tag" = "influxdb/cloud-serverless/tags"
+  "influxdb/cloud-dedicated/tag" = "influxdb/cloud-dedicated/tags"
+  "influxdb/clustered/tag" = "influxdb/clustered/tags"
+  "flux/v0/tag" = "flux/v0/tags"
 
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = false
+    disable = false
+    respectDoNotTrack = true
+    useSessionStorage = false
+  [privacy.youtube]
+    disable = false
+    privacyEnhanced = true

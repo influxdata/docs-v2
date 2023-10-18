@@ -12,7 +12,6 @@ weight: 101
 aliases:
   - /influxdb/cloud/influxdb-templates/get_started_cloud/
 influxdb/cloud/tags: [templates]
-products: [cloud]
 ---
 
 To use templates in InfluxDB Cloud, you have a couple options:

@@ -1,0 +1,11 @@
+extends: spelling
+message: "Did you really mean '%s'?"
+level: error
+scope:
+  - ~table.header
+  - ~table.cell
+ignore:
+  # Located at StylesPath/ignore1.txt
+  - InfluxDataDocs/Terms/configuration-terms.txt
+  - InfluxDataDocs/Terms/query-functions.txt
+

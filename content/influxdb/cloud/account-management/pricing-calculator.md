@@ -7,11 +7,10 @@ weight: 2
 menu:
   influxdb_cloud:
     name: Pricing calculator
-products: [cloud]
 draft: true
 ---
 
-Use the {{< cloud-name >}} pricing calculator to estimate costs for the Usage-based Plan by adjusting your number of devices,
+Use the {{< product-name >}} pricing calculator to estimate costs for the Usage-based Plan by adjusting your number of devices,
   plugins, users, dashboards, writes, and retention. Default configurations include:
 
 | Configuration                      | Hobby  | Standard | Professional | Enterprise |
@@ -35,8 +34,8 @@ Guidelines used to estimate costs for default configurations:
 
 1. Do one of the following:
 
-  - Free Plan. Click the **user avatar** in the top right corner of your
-    {{< cloud-name "short" >}} user interface (UI) and select **Billing**.
+  - Free Plan. Click the organization name drop-down list in the upper left of your
+    {{< product-name "short" >}} user interface (UI) and select **Billing**.
     Then click the **Pricing Calculator** link at the bottom of the page.
   - Usage-based Plan. Open the pricing calculator [here](https://cloud2.influxdata.com/pricing).
 3. Choose your region.

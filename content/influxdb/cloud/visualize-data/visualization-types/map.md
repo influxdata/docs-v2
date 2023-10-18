@@ -84,11 +84,11 @@ to display the migration path of a specific bird.
 
 ```js
 from(bucket: "migration")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "migration")
-  |> filter(fn: (r) => r._field == "lat" or r._field == "lon")
-  |> filter(fn: (r) => r.id == "91864A")  
-  |> aggregateWindow(every: v.windowPeriod, fn: last)
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "migration")
+    |> filter(fn: (r) => r._field == "lat" or r._field == "lon")
+    |> filter(fn: (r) => r.id == "91864A")  
+    |> aggregateWindow(every: v.windowPeriod, fn: last)
 ```
 
 ### View earthquakes reported by USGS
@@ -96,8 +96,8 @@ The following query uses the [United States Geological Survey (USGS) earthquake 
 
 ```js
 from(bucket: "usgs")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "earthquakes")
-  |> filter(fn: (r) => r._field == "lat" or r._field == "lon")
+    |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+    |> filter(fn: (r) => r._measurement == "earthquakes")
+    |> filter(fn: (r) => r._field == "lat" or r._field == "lon")
 ```
 

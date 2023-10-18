@@ -1,17 +1,12 @@
 .caption {
   margin: -2rem 0 2rem;
   padding-left: .25rem;
-  font-size: .85rem;
+  font-size: .95rem;
   font-style: italic;
   opacity: .8;
+  color: $article-text;
 
   p { line-height: 1.25rem; }
-}
-
-.code-tabs-wrapper, .code-tab-content {
-  & + .caption {
-    margin-top: -2.75rem;
-  }
 }
 
 p {

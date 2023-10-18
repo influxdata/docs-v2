@@ -3,10 +3,10 @@
 {{ $alt := .Get "alt" }}
 
 {{ if (fileExists ( print "/static" $src )) }}
-  {{ with (imageConfig ( print "/static" $src )) }}
-    {{ $imageWidth := div .Width 2 }}
-    <img src='{{ $src }}' alt='{{ $alt }}' width='{{ $imageWidth }}' />
-  {{ end }}
+{{ with (imageConfig ( print "/static" $src )) }}
+{{ $imageWidth := div .Width 2 }}
+<img src='{{ $src }}' alt='{{ $alt }}' width='{{ $imageWidth }}' />
+{{ end }}
 {{ else }}
-  <img src='{{ $src }}' alt='{{ $alt }}'/>
+<img src='{{ $src }}' alt='{{ $alt }}'/>
 {{ end }}

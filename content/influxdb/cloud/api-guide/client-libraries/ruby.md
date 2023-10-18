@@ -8,6 +8,9 @@ menu:
   influxdb_cloud:
     name: Ruby
     parent: Client libraries
-    url: https://github.com/influxdata/influxdb-client-ruby
+    params:
+      url: https://github.com/influxdata/influxdb-client-ruby
 weight: 201
 ---
+
+{{< duplicate-oss >}}

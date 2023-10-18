@@ -2,7 +2,7 @@
 
 ## Sign the InfluxData CLA
 The InfluxData Contributor License Agreement (CLA) is part of the legal framework
-for the open-source ecosystem that protects both you and InfluxData.
+for the open source ecosystem that protects both you and InfluxData.
 To make substantial contributions to InfluxData documentation, first sign the InfluxData CLA.
 What constitutes a "substantial" change is at the discretion of InfluxData documentation maintainers.
 
@@ -10,7 +10,7 @@ What constitutes a "substantial" change is at the discretion of InfluxData docum
 
 _**Note:** Typo and broken link fixes are greatly appreciated and do not require signing the CLA._
 
-*If it's your first time contributing and you're looking for an easy update, check out our [good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue)!*
+*If you're new to contributing or you're looking for an easy update, check out our [good-first-issues](https://github.com/influxdata/docs-v2/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue).*
 
 ## Make suggested updates
 
@@ -20,6 +20,20 @@ _**Note:** Typo and broken link fixes are greatly appreciated and do not require
 
 ### Run the documentation locally (optional)
 To run the documentation locally, follow the instructions provided in the README.
+
+### Install and run Vale
+Use the [Vale](https://vale.sh/) style linter to check spelling and enforce style guidelines.
+To install Vale, follow the instructions to install the [Vale CLI](https://vale.sh/docs/vale-cli/installation/) for your system and the [integration](https://vale.sh/docs/integrations/guide/) for your editor.
+
+The `docs-v2` repository contains `.vale.ini` files that configure InfluxData spelling and style rules used by the [Vale CLI](https://vale.sh/docs/vale-cli/installation/) and editor extensions, such as [Vale VSCode](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode).
+When run (with the CLI or an editor extension) Vale searches for a `.vale.ini` file in the directory of the file being linted.
+
+To lint multiple directories with specified configuration files and generate a report, run the `.ci/vale/vale.sh` script.
+
+`docs-v2` style rules are located at `.ci/vale/styles/`.
+The easiest way to add accepted or rejected spellings is to enter your terms (or regular expression patterns) into the Vocabulary files at `.ci/vale/styles/Vocab`.
+
+To learn more about configuration and rules, see [Vale configuration](https://vale.sh/docs/topics/config).
 
 ### Make your changes
 Make your suggested changes being sure to follow the [style and formatting guidelines](#style--formatting) outline below.
@@ -94,12 +108,14 @@ prepend: # Prepend markdown content to an article (especially powerful with casc
 append: # Append markdown content to an article (especially powerful with cascade)
   block: # (Optional) Wrap content in a block style (note, warn, cloud)
   content: # Content to append to article
+metadata: [] # List of metadata messages to include under the page h1
+updated_in: # Product and version the referenced feature was updated in (displayed as a unique metadata)
 ```
 
 ### Title usage
 
 ##### `title`
-The `title` frontmatter populates each page's h1 header.
+The `title` frontmatter populates each page's HTML `h1` heading tag.
 It shouldn't be overly long, but should set the context for users coming from outside sources.
 
 ##### `seotitle`
@@ -354,14 +370,30 @@ Maintain CLI version numbers in the `data/products.yml` file instead of updating
 
 ### API endpoint
 Use the `{{< api-endpoint >}}` shortcode to generate a code block that contains
-a colored request method and a specified API endpoint.
+a colored request method, a specified API endpoint, and an optional link to
+the API reference documentation.
 Provide the following arguments:
 
 - **method**: HTTP request method (get, post, patch, put, or delete)
 - **endpoint**: API endpoint
+- **api-ref**: Link the endpoint to a specific place in the API documentation
+- **influxdb_host**: Specify which InfluxDB product host to use
+  _if the `endpoint` contains the `influxdb/host` shortcode_.
+  Uses the current InfluxDB product as default.
+  Supports the following product values:
+
+  - oss
+  - cloud
+  - serverless
+  - dedicated
+  - clustered
 
 ```md
-{{< api-endpoint method="get" endpoint="/api/v2/tasks">}}
+{{< api-endpoint method="get" endpoint="/api/v2/tasks" api-ref="/influxdb/cloud/api/#operation/GetTasks">}}
+```
+
+```md
+{{< api-endpoint method="get" endpoint="{{< influxdb/host >}}/api/v2/tasks" influxdb_host="cloud">}}
 ```
 
 ### Tabbed Content
@@ -383,6 +415,12 @@ The link text is used as the button text.
 This shortcode must be closed with `{{% /tabs %}}`.
 
 **Note**: The `%` characters used in this shortcode indicate that the contents should be processed as Markdown.
+
+The `{{% tabs %}}` shortcode has an optional `style` argument that lets you
+assign CSS classes to the tags HTML container. The following classes are available:
+
+- **small**: Tab buttons are smaller and don't scale to fit the width.
+- **even-wrap**: Prevents uneven tab widths when tabs are forced to wrap.
 
 `{{% tab-content %}}`  
 This shortcode creates a container for a content block.
@@ -455,7 +493,7 @@ WHERE time > now() - 15m
 
 To link to tabbed content, click on the tab and use the URL parameter shown.
 It will have the form `?t=`, plus a string.
-For example: 
+For example:
 
 ```
 [Windows installation](/influxdb/v2.0/install/?t=Windows)
@@ -519,6 +557,7 @@ The shortcode has the following parameters:
 - **next:** path of the next document _(optional)_
 - **prevText:** override the button text linking to the previous document _(optional)_
 - **nextText:** override the button text linking to the next document _(optional)_
+- **keepTab:** include the currently selected tab in the button link _(optional)_
 
 The shortcode generates buttons that link to both the previous and next documents.
 By default, the shortcode uses either the `list_title` or the `title` of the linked
@@ -530,6 +569,10 @@ document, but you can use `prevText` and `nextText` to override button text.
 
 <!-- Override button text -->
 {{ page-nav prev="/path/to/prev/" prevText="Previous" next="/path/to/next" nextText="Next" >}}
+
+<!-- Add currently selected tab to button link -->
+{{ page-nav prev="/path/to/prev/" next="/path/to/next" keepTab=true>}}
+```
 
 ### Keybinds
 Use the `{{< keybind >}}` shortcode to include OS-specific keybindings/hotkeys.
@@ -818,9 +861,11 @@ The following table shows which children types use which frontmatter properties:
 ### Inline icons
 The `icon` shortcode allows you to inject icons in paragraph text.
 It's meant to clarify references to specific elements in the InfluxDB user interface.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< icon "icon-name" >}}
+{{< icon "icon-name" "v2" >}}
 ```
 
 Below is a list of available icons (some are aliases):
@@ -890,9 +935,11 @@ Below is a list of available icons (some are aliases):
 ### InfluxDB UI left navigation icons
 In many cases, documentation references an item in the left nav of the InfluxDB UI.
 Provide a visual example of the navigation item using the `nav-icon` shortcode.
+This shortcode supports clockface (the UI) v2 and v3.
+Specify the version to use as the 2nd argument. The default version is `v3`.
 
 ```
-{{< nav-icon "tasks" >}}
+{{< nav-icon "tasks" "v2" >}}
 ```
 
 The following case insensitive values are supported:
@@ -904,7 +951,7 @@ The following case insensitive values are supported:
 - tasks
 - monitor, alerts, bell
 - cloud, usage
-- disks, load data, load-data
+- data, load data, load-data
 - settings
 - feedback
 
@@ -998,6 +1045,157 @@ Use either `includeRange` argument name or provide the boolean value as the thir
 {{% flux/sample "int" true true %}}
 ```
 
+### Duplicate OSS content in Cloud
+Docs for InfluxDB OSS and InfluxDB Cloud share a majority of content.
+To prevent duplication of content between versions, use the following shortcodes:
+
+- `{{< duplicate-oss >}}`
+- `{{% oss-only %}}`
+- `{{% cloud-only %}}`
+
+#### duplicate-oss
+The `{{< duplicate-oss >}}` shortcode copies the page content of the file located
+at the identical file path in the most recent InfluxDB OSS version.
+The Cloud version of this markdown file should contain the frontmatter required
+for all pages, but the body content should just be the `{{< duplicate-oss >}}` shortcode.
+
+#### oss-only
+Wrap content that should only appear in the OSS version of the doc with the `{{% oss-only %}}` shortcode.
+Use the shortcode on both inline and content blocks:
+
+```md
+{{% oss-only %}}This is inline content that only renders in the InfluxDB OSS docs{{% /oss-only %}}
+
+{{% oss-only %}}
+
+This is a multi-paragraph content block that spans multiple paragraphs and  will
+only render in the InfluxDB OSS documentation.
+
+**Note:** Notice the blank newline after the opening short-code tag.
+This is necessary to get the first sentence/paragraph to render correctly.
+
+{{% /oss-only %}}
+
+- {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+- {{% oss-only %}}
+
+  This is a multi-paragraph list item that will only render in the InfluxDB OSS docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /oss-only %}}
+
+1.  Step 1
+2.  {{% oss-only %}}This is a list item that will only render in InfluxDB OSS docs.{{% /oss-only %}}
+3.  {{% oss-only %}}
+
+     This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB OSS docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /oss-only %}}
+```
+
+#### cloud-only
+Wrap content that should only appear in the Cloud version of the doc with the `{{% cloud-only %}}` shortcode.
+Use the shortcode on both inline and content blocks:
+
+```md
+{{% cloud-only %}}This is inline content that only renders in the InfluxDB Cloud docs{{% /cloud-only %}}
+
+{{% cloud-only %}}
+
+This is a multi-paragraph content block that spans multiple paragraphs and will
+only render in the InfluxDB Cloud documentation.
+
+**Note:** Notice the blank newline after the opening short-code tag.
+This is necessary to get the first sentence/paragraph to render correctly.
+
+{{% /cloud-only %}}
+
+- {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+- {{% cloud-only %}}
+
+  This is a list item that contains multiple paragraphs or nested list items and will only render in the InfluxDB Cloud docs.
+
+  **Note:** Notice shortcode is _inside_ of the line item.
+  There also must be blank newline after the opening short-code tag.
+  This is necessary to get the first sentence/paragraph to render correctly.
+
+  {{% /cloud-only %}}
+
+1.  Step 1
+2.  {{% cloud-only %}}This is a list item that will only render in InfluxDB Cloud docs.{{% /cloud-only %}}
+3.  {{% cloud-only %}}
+
+    This is a multi-paragraph list item that will only render in the InfluxDB Cloud docs.
+
+    **Note:** Notice shortcode is _inside_ of the line item.
+    There also must be blank newline after the opening short-code tag.
+    This is necessary to get the first sentence/paragraph to render correctly.
+
+    {{% /cloud-only %}}
+```
+
+#### All-Caps
+Clockface v3 introduces many buttons with text formatted as all-caps.
+Use the `{{< caps >}}` shortcode to format text to match those buttons.
+
+```md
+Click {{< caps >}}Add Data{{< /caps >}}
+```
+
+#### Code callouts
+Use the `{{< code-callout >}}` shortcode to highlight and emphasize a specific
+piece of code (for example, a variable, placeholder, or value) in a code block.
+Provide the string to highlight in the code block.
+Include a syntax for the codeblock to properly style the called out code.
+
+~~~md
+{{< code-callout "03a2bbf46249a000" >}}
+```sh
+http://localhost:8086/orgs/03a2bbf46249a000/...
+```
+{{< /code-callout >}}
+~~~
+
+#### InfluxDB University banners
+Use the `{{< influxdbu >}}` shortcode to add an InfluxDB University banner that
+points to the InfluxDB University site or a specific course.
+Use the default banner template, a predefined course template, or fully customize
+the content of the banner.
+
+```html
+<!-- Default banner -->
+{{< influxdbu >}}
+
+<!-- Predfined course banner -->
+{{< influxdbu "influxdb-101" >}}
+
+<!-- Custom banner -->
+{{< influxdbu title="Course title" summary="Short course summary." action="Take the course" link="https://university.influxdata.com/" >}}
+```
+
+##### Course templates
+Use one of the following course templates:
+
+- influxdb-101
+- telegraf-102
+- flux-103
+
+##### Custom banner content
+Use the following shortcode parameters to customize the content of the InfluxDB
+University banner:
+
+- **title**: Course or banner title
+- **summary**: Short description shown under the title
+- **action**: Text of the button
+- **link**: URL the button links to
+
 ### Reference content
 The InfluxDB documentation is "task-based," meaning content primarily focuses on
 what a user is **doing**, not what they are **using**.
@@ -1069,6 +1267,29 @@ https://cloud2.influxdata.com
 ```
 ~~~
 
+### Automatically populate InfluxDB host placeholder
+The InfluxDB host placeholder that gets replaced by custom domains differs
+between each InfluxDB product/version.
+Use the `influxdb/host` shortcode to automatically render the correct
+host placeholder value for the current product. You can also pass a single
+argument to specify a specific InfluxDB product to use.
+Supported argument values:
+
+- oss
+- cloud
+- cloud-tsm
+- cloud-serverless
+- serverless
+- cloud-dedicated
+- dedicated
+- clustered
+
+```
+{{< host/influxdb >}}
+
+{{< host/influxdb "serverless" >}}
+```
+
 ## New Versions of InfluxDB
 Version bumps occur regularly in the documentation.
 Each minor version has its own directory with unique content.
@@ -1119,7 +1340,7 @@ _This example assumes v2.0 is the most recent version and v2.1 is the new versio
 7. Copy the InfluxDB `swagger.yml` specific to the new version into the
    `/api-docs/v<version-number>/` directory.
 
-8. Commit the changes and push the new branch to Github.
+8. Commit the changes and push the new branch to GitHub.
 
 These changes lay the foundation for the new version.
 All other changes specific to the new version should be merged into this branch.

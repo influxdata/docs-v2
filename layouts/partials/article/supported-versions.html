@@ -1,8 +1,14 @@
 {{ $productPathData := findRE "[^/]+.*?" .RelPermalink }}
 {{ $product := index $productPathData 0 }}
 {{ $productName := print (index .Site.Data.products $product).name }}
+{{ $inStdlib := and (in .Page.RelPermalink "/flux/v0/stdlib/") (ne .Page.RelPermalink "/flux/v0/stdlib/") (ne .Page.RelPermalink "/flux/v0/stdlib/all-functions/") }}
 {{ if .Page.Params.introduced }}
-  <p class="meta">
+<ul class="metadata">
+  <li>
     {{ $productName }} {{ .Page.Params.introduced }}{{ if .Page.Params.deprecated }}{{ print " – " .Page.Params.deprecated }}{{ else if .Page.Params.removed }}{{ print " – " .Page.Params.removed }}{{ else }}+{{ end }}
-  </p>
+  </li>
+  {{ if $inStdlib }}
+  <li class="flux-influxdb"><a onclick="openFluxVersionModal()">View InfluxDB support</a></li>
+  {{ end }}
+</ul>
 {{ end }}

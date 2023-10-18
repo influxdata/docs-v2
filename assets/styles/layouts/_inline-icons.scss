@@ -4,12 +4,13 @@
     margin: 0 .15rem;
     &.middle:before { vertical-align: middle; }
     &.top:before { vertical-align: text-top; }
+    &.bottom:before { vertical-align: bottom; }
     &.xsmall:before { font-size: .8rem; }
     &.small:before { font-size: .9rem; }
     &.large:before { font-size: 1.1rem; }
 
     &.add-btn-round {
-      font-family: "icomoon";
+      font-family: "icomoon-v2";
       color:#fff;
       background: linear-gradient(45deg,#5c10a0,#8e1fc3);
       border-radius:50%;
@@ -21,6 +22,16 @@
       height: 20px;
       padding-left: .29rem;
       line-height: 1.25rem;
+
+      &.v3, &.v4 {
+        position: relative;
+        background: $g5-pepper;
+        width: 18px;
+        height: 18px;
+        font-size: .65rem;
+        line-height: 0rem;
+        padding: 9px 0 0 4px;
+      }
     }
 
     &.ui-toggle {
@@ -32,9 +43,6 @@
       vertical-align: text-top;
       margin-top: 2px;
 
-      &.blue { background: $b-pool; }
-      &.green { background: $gr-viridian; }
-
       .circle {
         display: inline-block;
         position: absolute;
@@ -44,6 +52,42 @@
         background: $g20-white;
         top: 4px;
         right: 4px;
+      }
+
+      &.blue { background: $b-pool; }
+      &.green { background: $gr-viridian; }
+      &.off {
+        background: #333346;
+        .circle {left: 4px;}
+      }
+
+      &.v3, &.v4 {
+        width: 26px;
+        .circle {
+          height: 12px;
+          width: 12px;
+          top: 2px;
+          right: 2px;
+        }
+        &.off .circle {left: 2px;}
+      }
+    }
+
+    &.notebook-add-cell {
+      display: inline-block;
+      position: relative;
+      border-radius: 50%;
+      height: 1.3rem;
+      width: 1.3rem;
+      background: linear-gradient(45deg, #5c10a0 0%, #8e1fc3 100%);
+      vertical-align: text-bottom;
+      text-align: center;
+      color: #fff;
+      font-size: .8rem;
+
+      & > span {
+        display: block;
+        margin: 0.3rem 0;
       }
     }
   }
@@ -202,8 +246,107 @@
   }
 }
 
+////////////////////////////// CLOCKFACE V3 & v4 ///////////////////////////////
+
+.nav-items-v3,
+.nav-items-v4 {
+  .nav-item-v3,
+  .nav-item-v4 {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 1rem 1.25rem 0;
+    max-width: 225px;
+    background: linear-gradient(rgba(#052943, .9), rgba(#062238, .9));
+    color: $g20-white;
+    height: 60px;
+    border-radius: $radius;
+
+    &.account {
+      padding: 8px;
+
+      .acct-inner-v3,
+      .acct-inner-v4 {
+        display: flex;
+        background-color: #f1f1f30d;
+        border-radius: $radius;
+      }
+
+      .acct-icon-v3,
+      .acct-icon-v4 {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        font-weight: bold;
+        width: 44px;
+        height: 44px;
+        @include gradient($grad-Miyazakisky, 54deg);
+        border-radius: $radius;
+
+        .initial {
+          align-self: center;
+        }
+      }
+
+      .acct-label-v3,
+      .acct-label-v4 {
+        display: inline-block;
+        padding: 8px 0px 0px 8px;
+        width: 165px;
+
+        .username {
+          font-size: .75rem;
+          line-height: .75rem;
+          font-weight: 500;
+          color: #9e9ead;
+        }
+        .orgname {
+          font-size: .85rem;
+          line-height: 1rem;
+        }
+      }
+
+    }
+  }
+
+  .nav-icon-v3,
+  .nav-icon-v4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  p.nav-label-v3,
+  p.nav-label-v4 {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-family: $rubik;
+    font-weight: 500;
+    font-size: 1.15rem;
+    min-width: 225px;
+    color: $g20-white;
+  }
+
+  .cf-icon {
+    display: inline-block;
+    font-size: 1.35rem;
+
+    &.v3 {font-family: 'icomoon-v3'}
+    &.v4 {font-family: 'icomoon-v4'}
+  }
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 @include media(small) {
-  .article--content .nav-item:nth-child(2) {display: none;}
+  .article--content.nav-item:nth-child(2) {display: none;}
+  .article--content.nav-item-v3:nth-child(2) {display: none;}
+  .article--content.nav-item-v4:nth-child(2) {display: none;}
 }

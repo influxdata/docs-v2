@@ -2,7 +2,7 @@
 
 table {
   display: inline-block;
-  margin: 1rem 0 3rem;
+  margin: 1rem 1rem 3rem 0;
   border-spacing: 0;
   color: $article-text;
   max-width: 100%;
@@ -31,8 +31,9 @@ table {
   }
 
   td {
-    font-size: .95rem;
+    font-size: 1.05rem;
     line-height: 1.5em;
+    code {font-size: .95rem;}
   }
 
   tr{
@@ -49,13 +50,25 @@ table {
   }
 
   img { margin-bottom: 0; }
+
+  &.cloud-urls {
+    a { white-space: nowrap; }
+    p {
+      margin: 0 0 .5rem 0;
+      &:last-child { margin-bottom: 0 }
+    }
+    .cluster-name { font-weight: $medium; color: $article-bold; }
+  }
 }
 
 table + table {
   margin-top: -1.5rem;
 }
 
-#flags:not(.no-shorthand), #global-flags {
+// Adjust spacing to push long-hand and short-hand columns closer together
+#flags:not(.no-shorthand),
+#global-flags,
+.shorthand-flags {
   & + table {
     td:nth-child(2) code { margin-left: -2rem; }
   }
@@ -64,5 +77,21 @@ table + table {
 p.table-group-key {
   margin: 1rem 0 -.75rem;
   font-weight: $medium;
-  font-size: .87rem;
+  font-size: .95rem;
+}
+
+table + .table-group-key {
+  margin-top: -2rem;
+}
+
+// Reverse the order of InfluxDB version rows in Flux versions table
+// Hugo doesn't support sorting maps (objects) by keys
+table.flux-influxdb-versions tbody {
+  display: flex;
+  flex-direction: column-reverse;
+
+  tr {
+    display: flex;
+    justify-content: space-between;
+  }
 }

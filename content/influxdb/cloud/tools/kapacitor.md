@@ -10,7 +10,7 @@ menu:
     parent: Tools & integrations
 weight: 102
 related:
-  - /{{< latest "kapacitor" >}}/
+  - /kapacitor/v1/
 ---
 
 {{< duplicate-oss >}}

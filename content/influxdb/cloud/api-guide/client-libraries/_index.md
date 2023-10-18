@@ -8,6 +8,7 @@ aliases:
   - /influxdb/cloud/reference/client-libraries/
   - /influxdb/cloud/reference/api/client-libraries/
   - /influxdb/cloud/tools/client-libraries/
+  - /influxdb/cloud/tools/client-libraries/js/
 menu:
   influxdb_cloud:
     name: Client libraries

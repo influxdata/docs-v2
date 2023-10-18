@@ -9,8 +9,8 @@ menu:
     parent: Query with Flux
 weight: 220
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/stateduration/
-  - /{{< latest "flux" >}}/stdlib/universe/statecount/
+  - /flux/v0/stdlib/universe/stateduration/
+  - /flux/v0/stdlib/universe/statecount/
 ---
 
 {{< duplicate-oss >}}

@@ -1,0 +1,130 @@
+.modal {
+  display: none;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 101;
+
+  .modal-overlay {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    @include gradient($grad-Miyazakisky);
+    opacity: .85;
+  }
+
+  .modal-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .modal-body {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    // width: 100%;
+    max-width: 650px;
+    max-height: 97.5vh;
+    margin-top: 10vh;
+    padding: .75rem 2rem 1.5rem;
+    border-radius: $radius * 1.5;
+    background: $article-bg;
+    color: $article-text;
+    font-size: 1rem;
+    transition: margin .4s;
+  }
+
+  &.open {
+    .modal-body { margin-top: 0; }
+  }
+
+  #modal-close {
+    position: absolute;
+    padding: .25rem;
+    top: 1rem;
+    right: 1rem;
+    color: rgba($article-text, .5);
+    transition: color .2s;
+    text-decoration: none;
+
+    &:hover {
+      color: $article-text;
+    }
+  }
+
+  .modal-content{
+    display: none;
+    overflow: visible;
+    width: 586px;
+    max-width: 100%;
+
+    h3 {
+      color: $article-heading;
+      font-weight: $medium;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    h4 {
+      color: $article-heading;
+      font-weight: $medium;
+      margin: 1rem 0 .5rem $radius;
+    }
+
+    h5 {
+      margin: .5rem 0 0;
+      color: $article-bold;
+    }
+
+    p,li {
+      margin: .25rem 0;
+      line-height: 1.5rem;
+      strong {
+        font-weight: $medium;
+        color: $article-bold;
+      }
+      &.note {
+        padding-top: 1.25rem;
+        margin-top: 1.5rem;
+        color: rgba($article-text, .5);
+        border-top: 1px solid rgba($article-text, .25);
+        font-size: .9rem;
+        font-style: italic;
+      }
+    }
+
+    a {
+      color: $article-link;
+      font-weight: $medium;
+      text-decoration: none;
+      transition: color .2s;
+      &:hover {
+        color: $article-link-hover;
+      }
+    }
+  }
+
+  @import "modals/url-selector";
+  @import "modals/page-feedback";
+  @import "modals/flux-versions";
+  @import "modals/_influxdb-gs-datepicker"
+
+}
+
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+
+@include media(small) {
+  .modal {
+    padding: .5rem;
+    overflow: scroll;
+
+    .modal-body {
+      padding: .5rem 1.5rem 1.5rem;
+    }
+  }
+}

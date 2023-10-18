@@ -4,16 +4,20 @@
   display: inline-block;
   margin: 1rem 0 2rem;
   padding: 1.5rem 2.5rem 1.5rem 1.5rem;
-  font-family: $roboto-mono;
+  font-family: $code;
   border-radius: $radius;
   box-shadow: 1px 3px 10px $article-shadow;
   & > ul { padding: 0; margin: 0;
     li { line-height: 2rem; color: $article-code; }
-    ul { padding-left: 2rem;
+    ul { 
+      padding-left: 2rem;
+      margin: 0;
+
       li {
         position: relative;
-        margin: 0;
-        line-height: 2rem;
+        margin: 0 0 0 -1.45rem;
+        padding-left: 1.45rem;
+        line-height: 2.5rem;
         border-left: 1px solid $article-code;
         &:before {
           content: "";
@@ -21,6 +25,7 @@
           width: 1rem;
           height: .25rem;
           margin-right: .55rem;
+          margin-left: -1.45rem;
           border-top: 1px solid $article-code;
         }
         &:last-child {
@@ -32,7 +37,7 @@
             padding: 0;
             left: 0;
             top: 0;
-            height: 1.1rem;
+            height: 1.4rem;
             border-left: 1px solid $article-code;
           }
         }
@@ -43,7 +48,7 @@
 }
 
 ///////////////////////////////// Shard diagram ////////////////////////////////
-#shard-diagram {
+#shard-diagram, #data-retention {
   display: flex;
   flex-direction: column;
   max-width: 550px;
@@ -71,6 +76,26 @@
         border-left: 1px solid $article-text;
       }
     }
+
+    .one-quarter {width: 25%; height: .75rem;}
+    .three-quarters {width: 75%; height: .75rem;}
+    .border-left {border-left: 1px solid $article-text;}
+    .retention-label {
+      position: relative;
+      &:before {
+        content: "";
+        display: inline-block;
+        width: .65rem;
+        margin-right: .5rem;
+        border-top: 1px solid $article-text;
+        vertical-align: middle;
+      }
+    }
+    .deleted-label {
+      color: $r-ruby;
+      text-align: center;
+      font-size: .9rem;
+    }
   }
   .shard-groups {
     display: flex;
@@ -96,8 +121,304 @@
         padding: .65rem 1rem;
         color: #fff;
         border-radius: .25rem;
-        @include gradient($article-table-header, 90deg)
+        @include gradient($article-table-header, 90deg);
         background-attachment: fixed;
+      }
+
+      &.deleted {
+        opacity: .3;
+        .shard {@include gradient($grad-red-dark)}
+      }
+    }
+  }
+}
+
+///////////////// Data model table in InfluxDB 2.4+ get started ////////////////
+
+.series-diagram {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin: 1rem 3.25rem 1.75rem 0;
+  padding-right: 1.5rem;
+  border-right: 2px solid $tooltip-bg;
+  
+  table {margin: 0;}
+
+  &:after {
+    content: "Series";
+    top: 4rem;
+    right: -3.5rem;
+  }
+
+  &:last-child {margin-bottom: 3rem;}
+
+}
+
+table tr.point{
+  border: 2px solid $tooltip-bg;
+
+  &:after {
+    content: "Point";
+    bottom: -.8rem;
+    left: 1rem;
+  }
+}
+
+.series-diagram, table tr.point {
+  position: relative;
+  &:after {
+    color: $tooltip-text;
+    background: $tooltip-bg;
+    border-radius: $radius;
+    position: absolute;
+    font-size: .9rem;
+    font-weight: $medium;
+    padding: .2rem .5rem;
+    line-height: .9rem;
+  }
+}
+
+.sql table {
+
+  tr.points {
+    position: relative;
+    td:first-child{
+      &:before, &:after {
+        display: block;
+        border-radius: $radius;
+        position: absolute;
+        font-size: .9rem;
+        font-weight: $medium;
+        padding: .2rem .5rem;
+        line-height: .9rem;
+        z-index: 1;
+        top: -.25rem;
+        opacity: 0;
+        transition: opacity .2s, top .2s;
+      }
+      &:before {
+        content: "Point 1";
+        color: $g20-white;
+        background: $br-new-magenta;
+      }
+      &:after {
+        content: "Point 2";
+        color: $tooltip-text;
+        background: $tooltip-bg;
+        left: 5rem;
+      }
+    }
+
+    &:hover { td:first-child {
+      &:before, &:after {
+        opacity: 1;
+        top: -.65rem;
+      }
+    }}
+  }
+  span.point{
+    position: relative;
+    display: inline-block;
+
+    &.one:before{
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-top: 2px solid $br-new-magenta;
+      bottom: -2px;
+    }
+    &.two:after{
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      border-top: 2px solid $tooltip-bg;
+      bottom: -8px;
+    }
+  }
+}
+
+////////////// Line protocol anatomy in InfluxDB 2.4+ get started //////////////
+
+#line-protocol-anatomy {
+  overflow: scroll;
+  margin: 3rem 0 2.5rem;
+
+  p {
+    padding: 3rem 0 2rem;
+    white-space: nowrap;
+    font-family: $code;
+    overflow: visible;
+    text-align: center;
+    
+    span{
+      padding: .75rem 0 .75rem;
+      &.el {
+        position: relative;
+        border-top: 2px solid $tooltip-bg;
+
+        &:before{
+          display: block;
+          position: absolute;
+          font-family: $proxima;
+          font-size: .95rem;
+          color: $tooltip-bg;
+          font-weight: $medium;
+          top: -2.75rem;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        &:after{
+          content: "";
+          display: block;
+          position: absolute;
+          height: 1rem;
+          width: 2px;
+          top: -1rem;
+          left: 50%;
+          transform: translateX(-50%);
+          background: $tooltip-bg;
+        }
+        &.measurement:before{content: "measurement"}
+        &.tagset:before{content: "tag set"}
+        &.fieldset:before{content: "field set"}
+        &.timestamp:before{content: "timestamp"}
+      }
+
+      &.whitespace, &.comma{
+        position: relative;
+        border-bottom: 2px solid $tooltip-bg;
+
+        &:before{
+          white-space: nowrap;
+          display: block;
+          position: absolute;
+          font-family: $proxima;
+          font-size: .95rem;
+          color: $tooltip-bg;
+          font-weight: $medium;
+          bottom: -2.75rem;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        &:after{
+          content: "";
+          display: block;
+          position: absolute;
+          height: 1rem;
+          width: 2px;
+          bottom: -1rem;
+          left: 50%;
+          transform: translateX(-50%);
+          background: $tooltip-bg;
+        }
+        &.whitespace:before{content: attr(data-whitespace) " whitespace";}
+        &.comma:before{content: attr(data-whitespace) "1st comma";}
+      }
+    }
+  }
+
+  &.hide-elements {p span.el { border: none; &:before, &:after {display: none}}}
+  &.hide-commas {p span.comma { border: none; &:before, &:after {display: none}}}
+  &.hide-whitespace {p span.whitespace { border: none; &:before, &:after {display: none}}}
+}
+
+/////////////////////////// InfluxQL window diagram ////////////////////////////
+
+#influxql-window-diagram {
+  min-width: 520px;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  
+  #timerange-label {
+    position: relative;
+    width: .7rem;
+    margin: 10.5rem .5rem 6.5rem .5rem;
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    border-color: rgba($article-text, .3);
+
+    &::before {
+      content: "Queried time range";
+      display: block;
+      position: absolute;
+      background: $article-bg;
+      padding: 0 .75rem;
+      font-weight: $medium;
+      font-size: .9rem;
+      color: rgba($article-text, .5);
+      transform: rotate(-90deg);
+      white-space: nowrap;
+      top: 13.5rem;
+      left: -4.7rem;
+    }
+  }
+
+  td {
+    font-weight: medium;
+    color: $article-bold;
+
+    span.exclude {
+      opacity: .35;
+      font-weight: normal;
+    }
+  }
+
+  .windows {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4rem 0 2.5rem .25rem;
+  }
+
+  .window-hour {
+    justify-content: space-between;
+    height: 100%;
+    margin-bottom: .5rem;
+    border-left: 1px solid rgba($article-text, .3);
+    flex: 1 1 0;
+    position: relative;
+
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 9px;
+      height: 1px;
+      left: -10px;
+      border-top: 1px solid rgba($article-text, .3);
+    }
+    &::before {top: 0}
+    &::after {bottom: -1px} 
+      
+    p {
+      white-space: nowrap;
+      margin-top: .55rem;
+      position: relative;
+
+      &::before {
+        content: "";
+        display: inline-block;
+        margin-right: .5rem;
+        width: 1rem;
+        height: 0;
+        border-top: 1px solid rgba($article-text, .3);
+        vertical-align: middle;
+      }
+      &::after {
+        content: "Predefined window boundary";
+        display: block;
+        position: absolute;
+        top: 1.25rem;
+        left: 1.5rem;
+        font-size: .9rem;
+        font-weight: $medium;
+        color: rgba($article-text, .5);
       }
     }
   }
@@ -126,6 +447,34 @@
     .shard-groups {
       flex-direction: column;
       .shard-group { margin: .25rem 0;}
+    }
+  }
+
+  .series-diagram {
+    width: auto;
+  }
+
+  #influxql-window-diagram {
+    justify-content: flex-start;
+    min-width: 300px;
+    .window-hour{
+      width: 60px;
+      p {
+        transform: rotate(-90deg);
+        position: relative;
+        margin-top: 8.75rem;
+        font-size: .95rem;
+        
+        &::before {
+          transform: rotate(90deg);
+          position: absolute;
+          top: -.5rem;
+          left: 4.5rem;
+        }
+        &::after {
+          left: 0;
+        }
+      }
     }
   }
 };

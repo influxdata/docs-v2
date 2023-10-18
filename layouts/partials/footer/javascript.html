@@ -2,13 +2,27 @@
 {{ $contentInteractions := resources.Get "js/content-interactions.js" }}
 {{ $searchInteractions := resources.Get "js/search-interactions.js" }}
 {{ $listFilters := resources.Get "js/list-filters.js" }}
+{{ $modals := resources.Get "js/modals.js" }}
 {{ $influxdbURLs := resources.Get "js/influxdb-url.js" }}
 {{ $featureCallouts := resources.Get "js/feature-callouts.js" }}
+{{ $tabbedContent := resources.Get "js/tabbed-content.js" }}
 {{ $notifications := resources.Get "js/notifications.js" }}
 {{ $keybindings := resources.Get "js/keybindings.js" }}
 {{ $fluxGroupKeys := resources.Get "js/flux-group-keys.js" }}
-{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $influxdbURLs $featureCallouts $notifications $keybindings | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
-{{ $fluxGroupKeyjs := slice $fluxGroupKeys | resources.Concat "js/flux-group-keys.js" | resources.Fingerprint }}
+{{ $dateTime := resources.Get "js/datetime.js" }}
+{{ $influxdbGSTimestamps := resources.Get "js/custom-timestamps.js" }}
+{{ $codeControls := resources.Get "js/code-controls.js" }}
+{{ $pageFeedback := resources.Get "js/page-feedback.js" }}
+{{ $homepageInteractions := resources.Get "js/home-interactions.js" }}
+{{ $fluxInfluxDBVersions := resources.Get "/js/flux-influxdb-versions.js" }}
+{{ $ioxWayfinding := resources.Get "/js/iox-wayfinding.js"}}
+{{ $codePlaceholders := resources.Get "/js/code-placeholders.js" }}
+{{ $footerjs := slice $versionSelector $contentInteractions $searchInteractions $listFilters $modals $influxdbURLs $featureCallouts $tabbedContent $notifications $keybindings $codeControls $pageFeedback $homepageInteractions $fluxInfluxDBVersions | resources.Concat "js/footer.bundle.js" | resources.Fingerprint }}
+{{ $fluxGroupKeyjs := $fluxGroupKeys | resources.Fingerprint }}
+{{ $dateTimejs := $dateTime | resources.Fingerprint }}
+{{ $influxdbGSTimestampsjs := $influxdbGSTimestamps | resources.Fingerprint }}
+{{ $ioxWayfindingjs := $ioxWayfinding | resources.Fingerprint }}
+{{ $codePlaceholdersjs := $codePlaceholders | resources.Fingerprint }}
 
 <!-- Load cloudUrls array -->
 <script type="text/javascript">
@@ -28,13 +42,9 @@
 <script>
   mermaid.initialize({
     startOnLoad:true,
-    mermaid: {
-      callback:function(id) {
-        $('.mermaid').css('opacity', 1);
-      }
-    },
+    
     themeVariables: {
-      fontFamily: "Rubik",
+      fontFamily: "Proxima Nova",
       fontSize: '18px',
     }
   })
@@ -44,4 +54,25 @@
 <!-- Load group key demo JS if when the group key demo shortcode is present -->
 {{ if .Page.HasShortcode "flux/group-key-demo" }}
 <script type="text/javascript" src="{{ $fluxGroupKeyjs.RelPermalink }}"></script>
+{{ end }}
+
+<!-- Load datetime js if when datetime shortcodes are present -->
+{{ if or (.Page.HasShortcode "datetime/current-time") (.Page.HasShortcode "datetime/current-timestamp") (.Page.HasShortcode "datetime/current-date") (.Page.HasShortcode "datetime/enterprise-eol-date") }}
+<script type="text/javascript" src="{{ $dateTimejs.RelPermalink }}"></script>
+{{ end }}
+
+<!-- Load getting started timestamps js if when the influxdb/custom-gs-timestamps shortcode is present -->
+{{ if or (.Page.HasShortcode "influxdb/custom-timestamps") (.Page.HasShortcode "influxdb/custom-timestamps-span") }}
+<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker.min.js"></script>
+<script type="text/javascript" src="{{ $influxdbGSTimestampsjs.RelPermalink }}"></script>
+{{ end }}
+
+<!-- Load IOx wayfinding JS if page is in cloud or cloud-serverless -->
+{{ if in (slice "cloud" "cloud-serverless") (index (findRE "[^/]+.*?" .Page.RelPermalink) 1) }}
+<script type="text/javascript" src="{{ $ioxWayfinding.RelPermalink }}"></script>
+{{ end }}
+
+<!-- Load code placeholders js when code-placeholders shortcode is present -->
+{{ if .Page.HasShortcode "code-placeholders" }}
+<script type="text/javascript" src="{{ $codePlaceholdersjs.RelPermalink }}"></script>
 {{ end }}

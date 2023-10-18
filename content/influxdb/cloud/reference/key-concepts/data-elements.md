@@ -8,6 +8,8 @@ menu:
     parent: Key concepts
     name: Data elements
 influxdb/cloud/tags: [key concepts, schema]
+related:
+  - /resources/videos/data-model-building-blocks/
 ---
 
 {{< duplicate-oss >}}

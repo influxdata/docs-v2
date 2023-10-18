@@ -11,17 +11,18 @@
     &:after {
       content: "\e905";
       display: block;
-      font-family: 'icomoon';
+      font-family: 'icomoon-v2';
       position: absolute;
-      top: .15rem;
+      top: .25rem;
       right: .25rem;
       color: $article-text;
-      font-size: 1.75rem;
+      font-size: 1.8rem;
     }
 
     input {
-      font-family: $rubik;
-        font-weight: $medium;
+      font-family: $proxima;
+      font-weight: $medium;
+      font-size: 1.1rem;
       background: $sidebar-search-bg;
       border-radius: $radius;
       border: 1px solid $sidebar-search-bg;
@@ -38,9 +39,8 @@
         border-radius: $radius;
       }
       &::placeholder {
-        color: rgba($sidebar-search-text, .45);
+        color: rgba($sidebar-search-text, .35);
         font-weight: normal;
-        font-style: italic;
       }
     }
   }
@@ -117,7 +117,7 @@
 
     ul {
       list-style: none;
-      padding-left: 2rem;
+      padding-left: 2.3rem;
       border-left: 2px solid $nav-border;
     }
 
@@ -167,50 +167,11 @@
       text-decoration: none;
       font-weight: $medium;
       display: inline-block;
-
-      /////////////////////// Product exclusivity labels ///////////////////////
-      span:after{
-        display: inline-block;
-        position: relative;
-        top: -2px;
-        margin-left: .15rem;
-        padding: .45rem .18rem .35rem;
-        line-height: 0;
-        font-size: .6rem;
-        font-style: italic;
-        border-radius: 8px;
-      }
-
-      .cloud {
-        &:after {
-          content: "CLOUD";
-          color: $product-cloud;
-          border: 1px solid rgba($product-cloud, .5);
-          background: rgba($product-cloud, .1);
-        }
-      }
-      .oss {
-        &:after {
-          content: "OSS";
-          color: $product-oss;
-          border: 1px solid rgba($product-oss, .5);
-          background: rgba($product-oss, .1);
-        }
-      }
-      .enterprise {
-        &:after {
-          content: "ENT";
-          color: $product-enterprise;
-          border: 1px solid rgba($product-enterprise, .5);
-          background: rgba($product-enterprise, .1);
-        }
-      }
     }
-    ////////////////////// End Product exclusivity labels //////////////////////
 
     .nav-category > a {
       color: $nav-category;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       &:hover {
         color: $nav-category-hover;
       }
@@ -231,11 +192,11 @@
     }
 
     .children-toggle {
-      width: 1rem;
-      height: 1rem;
+      width: 1.12rem;
+      height: 1.12rem;
       position: absolute;
-      top: .05rem;
-      left: -1.4rem;
+      top: .1rem;
+      left: -1.6rem;
       display: block;
       background: $nav-border;
       border-radius: 50%;
@@ -249,15 +210,15 @@
       }
       &:before {
         top: 4px;
-        left: 7px;
-        height: 8px;
+        left: 8px;
+        height: 10px;
         width: 2px;
       }
       &:after {
-        top: 7px;
+        top: 8px;
         left: 4px;
         height: 2px;
-        width: 8px;
+        width: 10px;
       }
 
       &:hover {
@@ -277,17 +238,16 @@
     // Nav section title styles
     h4 {
       margin: 2rem 0 0 -1rem;
-      color: rgba($article-heading-alt, .6);
-      font-style: italic;
+      color: rgba($article-heading-alt, .5);
       font-weight: 700;
       text-transform: uppercase;
-      font-size: .85rem;
+      font-size: .95rem;
       letter-spacing: .08rem;
 
       &.platform, &.flux {
         &:after {
           content: "\e911";
-          font-family: "icomoon";
+          font-family: "icomoon-v2";
           font-style: normal;
           font-size: 1rem;
           opacity: .4;

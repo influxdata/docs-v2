@@ -1,0 +1,4 @@
+{
+    "vale.valeCLI.config": " \"${workspaceFolder}/.vale.ini\"",
+    "vale.valeCLI.minAlertLevel": "warning",
+}

@@ -3,11 +3,11 @@
   color: $article-bg;
   margin: 3rem 0;
   transition: opacity .5s;
-
+  font-family: $proxima;
 
   .arrowheadPath, .arrowMarkerPath { fill: $diagram-arrow !important; }
   .edgePath .path, .flowchart-link { stroke: $diagram-arrow !important; }
-  .label { color: $article-text !important; }
+  .label, .nodeLabel { color: $article-text !important; }
   .cluster-label .nodeLabel {
     color: $article-code !important;
   }
@@ -28,7 +28,7 @@
       stroke: $diagram-arrow !important;
       stroke-width: 2px !important;
     }
-    .label { color: $article-text !important; }
+    span.label { color: $article-text !important; }
   }
 
   .cluster {
@@ -40,5 +40,9 @@
       fill: $article-code-bg !important;
       stroke: none !important;
     }
+  }
+
+  &[data-processed="true"] {
+    opacity: 1;
   }
 }

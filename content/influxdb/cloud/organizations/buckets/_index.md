@@ -8,6 +8,10 @@ menu:
     parent: Manage organizations
 weight: 105
 influxdb/cloud/tags: [buckets]
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/admin/buckets/
+  cloud-dedicated: /influxdb/cloud-dedicated/admin/databases/
+  clustered: /influxdb/clustered/admin/databases/
 ---
 
 A **bucket** is a named location where time series data is stored.

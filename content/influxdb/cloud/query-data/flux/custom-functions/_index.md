@@ -10,12 +10,11 @@ menu:
 weight: 220
 list_code_example: |
   ```js
-  multByX = (tables=<-, x) =>
-    tables
-      |> map(fn: (r) => ({ r with _value: r._value * x}))
+  multByX = (tables=<-, x) => tables
+      |> map(fn: (r) => ({r with _value: r._value * x}))
 
   data
-    |> multByX(x: 2.0)
+      |> multByX(x: 2.0)
   ```
 ---
 

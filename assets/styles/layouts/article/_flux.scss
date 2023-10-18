@@ -1,16 +1,5 @@
 //////////////////////// Styles unique to the Flux docs ////////////////////////
 
-.title .meta {
-  margin-bottom: 0;
-  padding: 0 .65em 0 .75em;
-  color: $article-heading;
-  background: rgba($article-heading, .07);
-  font-size: .9rem;
-  font-weight: $medium;
-  border-radius: 1em;
-  display: inline-block;
-}
-
 h2,h3,h4 {
   &:after {
     content: attr(data-type);

@@ -13,15 +13,15 @@ menu:
     list_title: SQL data
 weight: 220
 related:
-  - /{{< latest "flux" >}}/stdlib/sql/
+  - /flux/v0/stdlib/sql/
 list_code_example: |
   ```js
   import "sql"
 
   sql.from(
-    driverName: "postgres",
-    dataSourceName: "postgresql://user:password@localhost",
-    query: "SELECT * FROM example_table"
+      driverName: "postgres",
+      dataSourceName: "postgresql://user:password@localhost",
+      query: "SELECT * FROM example_table",
   )
   ```
 ---

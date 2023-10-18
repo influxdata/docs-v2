@@ -10,7 +10,7 @@ aliases:
   - /influxdb/cloud/security/secrets/manage-secrets/view/
 ---
 
-View secret keys using the {{< cloud-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
+View secret keys using the {{< product-name "short" >}} UI, `influx` command line interface (CLI) or the InfluxDB API.
 
 - [View secret keys using the InfluxDB Cloud UI](#view-secret-keys-using-the-influxdb-cloud-ui)
 - [View secret keys using the influx CLI](#view-secret-keys-using-the-influx-cli)
@@ -21,7 +21,7 @@ View secret keys using the {{< cloud-name "short" >}} UI, `influx` command line 
 Follow the steps below to view a list of secret keys.
 Only the keys will be shown, not the values.
 
-1. In the {{< cloud-name "short" >}} UI, click **Settings**.
+1. In the {{< product-name "short" >}} UI, click **Settings**.
 
     {{< nav-icon "settings" >}}
 2. Click on the **Secrets** tab.
@@ -50,5 +50,5 @@ to view your organization's secrets keys.
 <!-- -->
 ```sh
 curl -XGET https://cloud2.influxdata.com/api/v2/orgs/<org-id>/secrets \
-  -H 'Authorization: Token YOURAUTHTOKEN'
+  -H 'Authorization: Token YOUR_API_TOKEN'
 ```

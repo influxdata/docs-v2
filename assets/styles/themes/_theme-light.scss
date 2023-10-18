@@ -14,11 +14,11 @@
 // General Styles
 // --------------------------------------------------
 
-$body-bg: $g18-cloud !default;
-$radius: 3px !default;
+$body-bg: #f3f4fb !default;
+$radius: 2px !default;
 
 // TopNav Colors
-$topnav-link: $g8-storm !default;
+$topnav-link: #020a47 !default;
 $topnav-link-hover: $b-dodger !default;
 $default-dropdown-gradient: $grad-PastelGothic !default;
 $theme-switch-light: none !default;
@@ -26,12 +26,12 @@ $theme-switch-dark: inline-block !default;
 
 // Search
 $sidebar-search-bg: $g20-white !default;
-$sidebar-search-shadow: $g14-chromium !default;
+$sidebar-search-shadow: #cfd1e5 !default;
 $sidebar-search-highlight: $b-pool !default;
-$sidebar-search-text: $g8-storm !default;
+$sidebar-search-text: $g6-smoke !default;
 
 // Left Navigation
-$nav-category: $b-dodger !default;
+$nav-category: $b-ocean !default;
 $nav-category-hover: $br-magenta !default;
 $nav-item: $g9-mountain !default;
 $nav-item-hover: $br-magenta !default;
@@ -50,11 +50,11 @@ $product-enterprise: $br-pulsar !default;
 $article-bg: $g20-white !default;
 $article-heading: $br-pulsar !default;
 $article-heading-alt: $g5-pepper !default;
-$article-text: $g6-smoke !default;
-$article-bold: $g6-smoke !default;
+$article-text: $br-dark-blue !default;
+$article-bold: $br-dark-blue !default;
 $article-link: $b-pool !default;
 $article-link-hover: $br-magenta !default;
-$article-shadow: $g14-chromium !default;
+$article-shadow: #cfd1e5 !default;
 $article-hr: $g15-platinum !default;
 
 // Article Code
@@ -75,7 +75,7 @@ $article-code-scrollbar: $cp-periwinkle !default;
 
 // Article Tables
 $article-table-header: $grad-Miyazakisky !default;
-$article-table-row-alt: #F6F7F8 !default;
+$article-table-row-alt: #f6f8ff !default;
 $article-table-scrollbar: $g14-chromium !default;
 
 // Article Notes & Warnings
@@ -101,6 +101,7 @@ $article-note-code-accent7: #e90 !default;
 $article-note-code-scrollbar: #87DABE !default;
 
 $article-warn-base: $r-dreamsicle !default;
+$article-warn-bg: rgba($r-dreamsicle, .08) !default;
 $article-warn-heading: $r-fire !default;
 $article-warn-text: $r-curacao !default;
 $article-warn-link: $r-curacao !default;
@@ -110,7 +111,7 @@ $article-warn-table-row-alt: #ffe6df !default;
 $article-warn-table-scrollbar: #FFB1B1 !default;
 $article-warn-shadow: #b98a7d !default;
 $article-warn-code: #d0154e !default;
-$article-warn-code-bg: #FFDDDC !default;
+$article-warn-code-bg: #fde6e5 !default;
 $article-warn-code-accent1: #fd99b8 !default;
 $article-warn-code-accent2: #357ae8 !default;
 $article-warn-code-accent3: #6c59cc !default;
@@ -147,7 +148,7 @@ $article-enterprise-link-hover: $b-pool !default;
 
 // Article Tabs for tabbed content
 $article-tab-text: $g8-storm !default;
-$article-tab-bg: $g18-cloud !default;
+$article-tab-bg: $grey95 !default;
 $article-tab-active-text: $g20-white !default;
 $article-tab-active-bg: $b-pool !default;
 $article-tab-code-text: $cp-marguerite !default;
@@ -178,15 +179,13 @@ $landing-btn-grad: $grad-blue !default;
 $landing-btn-grad-hover: $grad-blue-light !default;
 
 // Home page colors
-$home-btn-gradient: $grad-NineteenEightyFour !default;
-$home-btn-gradient-hover: $grad-PastelGothic !default;
-$home-tick-bg-gradient: $grad-grey-mist !default;
-$default-home-card-gradient: $grad-PastelGothic !default;
+$home-icon-c1: $br-dark-blue !default;
+$home-icon-c2: $g20-white !default;
 
 // Tooltip colors
-$tooltip-color: $p-amethyst !default;
+$tooltip-color: $br-new-purple !default;
 $tooltip-color-alt: $p-twilight !default;
-$tooltip-bg: $p-amethyst !default;
+$tooltip-bg: $br-new-purple !default;
 $tooltip-text: $g20-white !default;
 
 // Support and feedback buttons
@@ -215,6 +214,10 @@ $flux-water-process-img: url('/img/flux/0-x-water-process-light.svg') !default;
 
 // Diagram colors
 $diagram-arrow: $g14-chromium !default;
+
+// Code placeholder colors
+$code-placeholder: $br-new-magenta !default;
+$code-placeholder-hover: $br-new-purple !default;
 
 @import "light/telegraf",
         "light/chronograf",

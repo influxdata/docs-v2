@@ -1,6 +1,8 @@
 /**
-  * Use a token in the Authorization header
-  * to query the InfluxDB 1.x compatibility API
+  * Use the Token authentication scheme
+  * to query the InfluxDB 1.x compatibility API.
+  *
+  * Replace INFLUX_API_TOKEN with your InfluxDB API token.
   */
 
 const https = require('https');
@@ -16,7 +18,7 @@ function queryWithToken() {
     host: 'localhost:8086',
     path: "/query?" + querystring.stringify(queryparams),
     headers: {
-      'Authorization': 'Token YourAuthToken',
+      'Authorization': 'Token INFLUX_API_TOKEN',
       'Content-type': 'application/json'
     },
   };

@@ -1,0 +1,89 @@
+{{ $fluxVersions := $.Site.Data.flux_influxdb_versions }}
+{{ $fluxLatest:= $fluxVersions.flux.latest }}
+{{ $cloudVersion := $fluxVersions.cloud.current }}
+{{ $cloudSemVer:= split $fluxVersions.cloud.current "." }}
+{{ $oss:= $fluxVersions.oss }}
+{{ $enterprise:= $fluxVersions.enterprise }}
+{{ $isPackage := in $.Page.Title "package" }}
+{{ $isFunction := in $.Page.Title "function" }}
+{{ .Scratch.Set "itemRef" "" }}
+{{ if $isPackage }}
+  {{ .Scratch.Set "itemRef" (print "the <code>" (replaceRE " package" "" $.Page.Title ) "</code> package") }}
+{{ else }}
+  {{ .Scratch.Set "itemRef" (print "<code>" (replaceRE " function" "" $.Page.Title ) "</code>") }}
+{{ end }}
+{{ $itemRef := .Scratch.Get "itemRef" }}
+{{ $introduced := $.Page.Params.introduced }}
+{{ $introducedSemVer := split $.Page.Params.introduced "." }}
+{{ $deprecatedSemVer := split $.Page.Params.deprecated "." }}
+{{ $sameAsLatest := eq $introduced $fluxLatest }}
+{{ $excludePatternOSS := $.Page.Params.exclude_from.oss | default " " }}
+{{ $excludePatternEnterprise := $.Page.Params.exclude_from.enterprise | default " " }}
+
+<div class="modal-content" id="flux-influxdb-versions">
+  <div class="flex-wrapper">
+    <h3>InfluxDB support for {{ $itemRef | safeHTML }}</h3>
+    <div class="influxdb-versions">
+      <div class="version-list cloud">
+        <div class="version-row">
+          {{ $cloudSupported := cond (ge (index $cloudSemVer 0) (index $introducedSemVer 0)) (cond (ge (index $cloudSemVer 1) (index $introducedSemVer 1)) (cond (ge (index $cloudSemVer 2) (index $introducedSemVer 2)) true false) false) false }}
+          {{ $cloudDeprecated := and (isset $.Page.Params "deprecated") (cond (ge (index $cloudSemVer 0) (index $deprecatedSemVer 0)) (cond (ge (index $cloudSemVer 1) (index $deprecatedSemVer 1)) (cond (ge (index $cloudSemVer 2) (index $deprecatedSemVer 2)) true false) false) false) }}
+          {{ $cloudExcluded := $.Page.Params.exclude_from.cloud }}
+          <div class="version-col"><p><span class="medium">InfluxDB Cloud</span></p></div>
+          <div class="version-col"><p>
+            {{ if $cloudExcluded }}
+            {{ else if $cloudDeprecated }}<span class="deprecated"></span>
+            {{ else if $cloudSupported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+            {{ end }}
+          </p></div>
+        </div>
+      </div>
+
+      <h4>InfluxDB Open Source (OSS)</h4>
+      <div class="version-list">
+      {{ range $key, $value := $oss }}
+        {{ $versionSemVer := split $value "." }}
+        {{ $supported := cond (ge (index $versionSemVer 0) (index $introducedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $introducedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $introducedSemVer 2)) true false) false) false }}
+        {{ $deprecated := and (isset $.Page.Params "deprecated") (cond (ge (index $versionSemVer 0) (index $deprecatedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $deprecatedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $deprecatedSemVer 2)) true false) false) false) }}
+        {{ $excluded := gt (len (findRE (string $excludePatternOSS) $key)) 0 }}
+        <div class="version-row">
+          <div class="version-col"><p>InfluxDB {{ $key }}</p></div>
+          <div class="version-col"><p>
+            {{ if $excluded }}
+            {{ else if $deprecated }}<span class="deprecated"></span>      
+            {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+      </div>
+
+      <h4>InfluxDB Enterprise</h4>
+      <div class="version-list">
+      {{ range $key, $value := $enterprise }}
+      {{ $versionSemVer := split $value "." }}
+      {{ $supported := cond (ge (index $versionSemVer 0) (index $introducedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $introducedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $introducedSemVer 2)) true false) false) false }}
+      {{ $deprecated := and (isset $.Page.Params "deprecated") (cond (ge (index $versionSemVer 0) (index $deprecatedSemVer 0)) (cond (ge (index $versionSemVer 1) (index $deprecatedSemVer 1)) (cond (ge (index $versionSemVer 2) (index $deprecatedSemVer 2)) true false) false) false) }}
+      {{ $excluded := gt (len (findRE (string $excludePatternEnterprise) $key)) 0 }}
+      <div class="version-row">
+        <div class="version-col"><p>InfluxDB Enterprise {{ $key }}</p></div>
+        <div class="version-col"><p>
+          {{ if $excluded }}
+          {{ else if $deprecated }}<span class="deprecated"></span>
+          {{ else if $supported }}<span class="cf-icon Checkmark_New{{ if $sameAsLatest }} pending{{ end }} supported"></span>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+      </div>
+
+      <ul class="color-key">
+        <li id="pending-key"><span class="cf-icon Checkmark_New pending"></span> Pending (may not be fully deployed or available in the build yet)</li>
+        <li id="deprecated-key"><span class="deprecated"></span> Deprecated in this version of InfluxDB</li>
+      </ul>
+      <div class="more-info">
+        <p><em>For information about what version of Flux is available in each version of InfluxDB, see <a href="/flux/v0/influxdb-versions/">Flux versions in InfluxDB</a>.</em></p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,5 +13,3 @@ influxdb/cloud/tags: [query]
 There are multiple ways to execute queries with InfluxDB. Choose from the following options:
 
 {{< children >}}
-
-

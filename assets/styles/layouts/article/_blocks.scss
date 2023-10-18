@@ -7,10 +7,18 @@ blockquote,
   border-width: 0 0 0 4px;
   border-style: solid;
   border-radius: 0 $radius $radius 0;
-  font-size: .95rem;
+  font-size: 1.05rem;
 
   ul,ol {
     &:last-child { margin-bottom: 1.85rem; }
+  }
+
+  & > h2,
+  & > h3,
+  & > h4,
+  & > h5,
+  & > h6 {
+    &:first-child {margin-top: 0; padding-top: 0.25em;}
   }
 }
 
@@ -23,6 +31,21 @@ blockquote {
     color: rgba($article-text, .5);
   }
   *:last-child {margin-bottom: 0;}
+  .cite {
+    display: block;
+    margin-top: -1rem;
+    font-style: italic;
+    font-size: .85rem;
+    opacity: .8;
+  }
+}
+
+// Normal paragraph citations
+& > p span.cite {
+  vertical-align: super;
+  line-height: 0;
+  font-size: .7rem;
+  font-style: italic;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -1,8 +1,10 @@
-{{ $_hugo_config := `{ "version": 1 }` }}
+{{ $uniqueID := .Get 1 | default "" }}
 {{ $expandLabel := .Get 0 }}
-<div class="expand" id="{{ $expandLabel | anchorize }}">
+{{ $expandID := cond (eq $uniqueID "") ($expandLabel | plainify | anchorize) (print ($expandLabel | plainify | anchorize) "-" $uniqueID)}}
+<div class="expand" id="{{ $expandID }}">
+  <a class="expand-link" href="#{{ $expandID }}"><span class="cf-icon Link"></span></a>
   <p class="expand-label">
-      <span class="expand-toggle"></span><span>{{ $expandLabel }}</span>
+      <span class="expand-toggle"></span><span>{{ $expandLabel | markdownify | safeHTML }}</span>
   </p>
   <div class="expand-content" style="display: none;" >
       {{ .Inner }}

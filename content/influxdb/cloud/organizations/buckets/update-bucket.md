@@ -7,11 +7,13 @@ menu:
     name: Update a bucket
     parent: Manage buckets
 weight: 202
+alt_links:
+  cloud-serverless: /influxdb/cloud-serverless/admin/buckets/update-bucket/
 ---
 
-Use the `influx` command line interface (CLI) or the InfluxDB user interface (UI) to update a bucket.
+Use the InfluxDB user interface (UI), the `influx` command line interface (CLI), or the InfluxDB HTTP API to update a bucket.
 
-Note that updating an bucket's name will affect any assets that reference the bucket by name, including the following:
+Note that updating a bucket's name will affect any resources that reference the bucket by name, including the following:
 
   - Queries
   - Dashboards
@@ -19,43 +21,49 @@ Note that updating an bucket's name will affect any assets that reference the bu
   - Telegraf configurations
   - Templates
 
-If you change a bucket name, be sure to update the bucket in the above places as well.
+If you change a bucket name, be sure to update the bucket name in the above places and any resources that reference it.
 
 ## Update a bucket's name in the InfluxDB UI
 
-1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
+1. In the navigation menu on the left, select **Load Data** > **Buckets**.
 
     {{< nav-icon "data" >}}
 
-2. Click **Settings** to the right of the bucket you want to rename.
-3. Click **Rename**.
-3. Review the information in the window that appears and click **I understand, let's rename my bucket**.
+2. Click **{{< caps >}}Settings{{< /caps >}}** to the right of the bucket you want to rename.
+3. Click **{{< caps >}}Rename{{< /caps >}}**.
+3. Review the information in the window that appears and click **{{< caps >}}I understand, let's rename my bucket{{< /caps >}}**.
 4. Update the bucket's name and click **Change Bucket Name**.
+
+{{% note %}}
+For information about permitted bucket names, see
+[bucket naming restrictions](/influxdb/cloud/organizations/buckets/create-bucket/#bucket-naming-restrictions).
+{{% /note %}}
 
 ## Update a bucket's retention period in the InfluxDB UI
 
-1. In the navigation menu on the left, select **Data (Load Data)** > **Buckets**.
+1. In the navigation menu on the left, select **Load Data** > **Buckets**.
 
     {{< nav-icon "data" >}}
 
-2. Click **Settings** next to the bucket you want to update.
+2. Click **{{< caps >}}Settings{{< /caps >}}** next to the bucket you want to update.
 3. In the window that appears, under **Delete data**, select a retention period:
 
-    - **Never**: data in the bucket is retained indefinitely.
-    - **Older Than**: select a predefined retention period from the dropdown menu.
+    - **{{< caps >}}Never{{< /caps >}}**: data in the bucket is retained indefinitely.
+    - **{{< caps >}}Older Than{{< /caps >}}**: select a predefined retention period from the dropdown menu.
 
     {{% note %}}
-Use the [`influx bucket update` command](#update-a-buckets-retention-period) to set a custom retention period.
+Use the [`influx bucket update` command](#update-a-buckets-retention-period)
+or the [InfluxDB HTTP API `PATCH /api/v2/buckets` endpoint](/influxdb/cloud/api/#operation/PatchBucketsID) to set a custom retention period.
     {{% /note %}}
-5. Click **Save Changes**.
+5. Click **{{< caps >}}Save Changes{{< /caps >}}**.
 
 ## Update a bucket using the influx CLI
 
 Use the [`influx bucket update` command](/influxdb/cloud/reference/cli/influx/bucket/update)
-to update a bucket. Updating a bucket requires the following:
+to update a bucket.
+Updating a bucket requires the following:
 
 - The bucket ID _(provided in the output of `influx bucket list`)_
-- The name or ID of the organization the bucket belongs to.
 
 {{< cli/influx-creds-note >}}
 
@@ -71,7 +79,20 @@ influx bucket update -i 034ad714fdd6f000 -n my-new-bucket
 
 ##### Update a bucket's retention period
 
-Valid retention period duration units are nanoseconds (`ns`), microseconds (`us` or `µs`), milliseconds (`ms`), seconds (`s`), minutes (`m`), hours (`h`), days (`d`), or weeks (`w`).
+Valid retention period duration units:
+
+- nanoseconds (`ns`)
+- microseconds (`us` or `µs`)
+- milliseconds (`ms`)
+- seconds (`s`)
+- minutes (`m`)
+- hours (`h`)
+- days (`d`)
+- weeks (`w`)
+
+{{% note %}}
+The minimum retention period is **one hour**.
+{{% /note %}}
 
 ```sh
 # Syntax
@@ -80,3 +101,42 @@ influx bucket update -i <bucket-id> -r <retention period with units>
 # Example
 influx bucket update -i 034ad714fdd6f000 -r 1209600000000000ns
 ```
+
+## Update a bucket using the HTTP API
+
+Use the InfluxDB HTTP API [`PATCH /api/v2/buckets` endpoint](/influxdb/cloud/api/#operation/PatchBucketsID)
+to update a bucket.
+
+Updating a bucket requires the following:
+
+- The bucket ID _(provided in the output of the `GET /api/v2/buckets/` endpoint)_
+
+You can update the following bucket properties:
+
+- name _(see [bucket naming restrictions](/influxdb/cloud/organizations/buckets/create-bucket/#bucket-naming-restrictions))_
+- description
+- retention rules
+
+1. To find the bucket ID, send a request to the HTTP API [`GET /api/v2/buckets/` endpoint](/influxdb/cloud/api/#operation/GetBuckets) to retrieve the list of buckets. <!-- @TODO: provide API auth note about tokens and read access to buckets -->
+
+    {{< api-endpoint method="get" endpoint="https://cloud2.influxdata.com/api/v2/buckets" api-ref="/influxdb/cloud/api/#operation/GetBuckets" >}}
+
+2. Send a request to the HTTP API [PATCH `/api/v2/buckets/{BUCKET_ID}` endpoint](/influxdb/cloud/api/#operation/PatchBucketsID).
+
+    In the URL path, specify the ID of the bucket from the previous step that you want to update.
+    In the request body, set the properties that you want to update--for example:
+
+    {{< api-endpoint method="patch" endpoint="https://cloud2.influxdata.com/api/v2/buckets/{BUCKET_ID}" api-ref="/influxdb/cloud/api/#operation/PatchBucketsID" >}}
+
+    ```js
+    {
+      "name": "air_sensor",
+      "description": "bucket holding air sensor data",
+      "retentionRules": [
+          {
+              "type": "expire",
+              "everySeconds": 2592000
+          }
+      ]
+    }
+    ```

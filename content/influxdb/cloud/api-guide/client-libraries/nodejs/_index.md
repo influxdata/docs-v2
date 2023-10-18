@@ -8,11 +8,12 @@ menu:
   influxdb_cloud:
     name: Node.js
     parent: Client libraries
-influxdb/v2.0/tags: [client libraries, JavaScript]
+influxdb/cloud/tags: [client libraries, JavaScript]
 weight: 201
 aliases:
   - /influxdb/cloud/reference/api/client-libraries/js/
   - /influxdb/cloud/reference/api/client-libraries/nodejs/
+  - /influxdb/cloud/tools/client-libraries/js/
 ---
 
 {{< duplicate-oss >}}

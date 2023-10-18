@@ -4,10 +4,10 @@ a.btn {
   position: relative;
   display: inline-block;
   margin: .5rem .25rem .5rem 0;
-  padding: .5rem 1rem;
+  padding: 0.85rem 1.5rem;
   color: $article-btn-text !important;
   border-radius: $radius;
-  font-size: .95rem;
+  font-size: 1.05rem;
   z-index: 1;
   @include gradient($article-btn-gradient);
 
@@ -36,15 +36,56 @@ a.btn {
 
   &.download:before {
     content: "\e91d";
-    font-family: "icomoon";
+    font-family: "icomoon-v2";
     margin-right: .5rem;
     font-size: 1.1rem;
   }
 
   &.github:before {
     content: "\eab0";
-    font-family: "icomoon";
+    font-family: "icomoon-v2";
     margin-right: .5rem;
     font-size: 1.1rem;
   }
+
+  &.small-plus {
+    padding: .25em;
+    line-height: .65rem;
+  }
+}
+
+///////////////////////////// InfluxDB URL Triggers ////////////////////////////
+
+.select-url {
+  margin: -2.5rem 0 1rem;
+  text-align: right;
+  display: none;
+}
+
+.url-trigger {
+  padding: .25rem .5rem;
+  display: inline-block;
+  font-size: .85rem;
+  font-style: italic;
+  color: rgba($article-tab-code-text, .5);
+  background: $article-code-bg;
+  border-radius: 0 0 $radius $radius;
+
+  &:before {
+    content: "\e924";
+    display: inline-block;
+    margin-right: .35rem;
+    font-family: "icomoon-v2";
+    font-style: normal;
+    font-size: .8rem;
+  }
+
+  &:hover {
+    color: $article-tab-code-text;
+  }
+}
+li .url-trigger { padding: 0rem .5rem; }
+
+.code-tab-content {
+  .select-url{margin-top: -3.25rem}
 }

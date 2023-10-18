@@ -24,6 +24,7 @@ data is consistent and readable.
 - [Data verification](#data-verification)
 
 ## Data replication
+
 InfluxDB Cloud replicates data in both the write tier and the storage tier.
 
 - **Write tier:** all data written to InfluxDB is processed by a durable message queue.
@@ -33,12 +34,15 @@ InfluxDB Cloud replicates data in both the write tier and the storage tier.
   two availability zones in a cloud region.
 
 ## Backup processes
+
 InfluxDB Cloud backs up all data in the following way:
 
 - [Backup on write](#backup-on-write)
 - [Backup after compaction](#backup-after-compaction)
+- [Periodic TSM snapshots](#periodic-tsm-snapshots)
 
 ### Backup on write
+
 All inbound write requests to InfluxDB Cloud are added to a durable message queue.
 The message queue does the following:
 
@@ -57,32 +61,42 @@ To minimize potential data loss due to defects introduced in the InfluxDB Cloud 
 we minimize the code used between the data ingest and backup processes.
 
 ### Backup after compaction
+
 The InfluxDB storage engine compresses data over time in a process known as
 [compaction](/influxdb/cloud/reference/glossary/#compaction).
 When each compaction cycle completes, InfluxDB Cloud stores compressed
 [TSM](/influxdb/cloud/reference/glossary/#tsm-time-structured-merge-tree) files
 in object storage.
 
+### Periodic TSM snapshots
+
+To provide multiple data recovery points, InfluxDB Cloud takes weekly snapshots of TSM files uploaded to object storage. The TSM snapshot includes a copy of all (non-deleted) data when the snapshot is created.
+These snapshots are preserved for 100 days.
+
 ## Recovery
+
 InfluxDB Cloud uses the following out-of-band backups stored in object storage to recover data:
 
 - **Message queue backup:** line protocol from inbound write requests within the last 96 hours
-- **Historic backup:** compressed TSM files
+- **Compaction backup:** TSM files
+- **TSM snapshots:** Weekly snapshots of TSM files in objectstore
 
 The Recovery Point Objective (RPO) is any accepted write.
 The Recovery Time Objective (RTO) is harder to definitively predict as potential failure modes can vary.
 While most common failure modes can be resolved within minutes or hours,
 critical failure modes may take longer.
-For example, if we need to rebuild all data from the message queue backup,
+For example, if we need to rebuild all data from the TSM snapshots and message queue backup,
 it could take 24 hours or longer.
 
 ## Data verification
+
 InfluxDB Cloud has two data verification services running at all times:
 
 - **Entropy detection:** ensures that replicated data is consistent
 - **Data verification:** verifies that data written to InfluxDB is readable
 
 ## InfluxDB Cloud status
+
 InfluxDB Cloud regions and underlying services are monitored at all times.
 For information about the current status of InfluxDB Cloud, see the
 [InfluxDB Cloud status page](https://status.influxdata.com).

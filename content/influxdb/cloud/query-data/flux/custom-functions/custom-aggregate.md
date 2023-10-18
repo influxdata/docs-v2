@@ -8,7 +8,7 @@ menu:
     parent: Custom functions
 weight: 301
 related:
-  - /{{< latest "flux" >}}/stdlib/universe/reduce/
+  - /flux/v0/stdlib/universe/reduce/
 ---
 
 {{< duplicate-oss >}}

@@ -1,10 +1,11 @@
 // InfluxData Docs Default Theme (Light) 
 
 // Import Tools
-@import "tools/icomoon",
+@import "tools/fonts",
         "tools/media-queries.scss",
         "tools/mixins.scss",
         "tools/tooltips",
+        "tools/datepicker.scss",
         "tools/normalize.scss";
 
 // Import default light theme
@@ -23,10 +24,14 @@
         "layouts/algolia-search-overrides",
         "layouts/landing",
         "layouts/error-page",
-        "layouts/url-selector",
+        "layouts/modals",
+        "layouts/loading-spinner",
         "layouts/feature-callouts",
         "layouts/v1-overrides",
-        "layouts/notifications";
+        "layouts/notifications",
+        "layouts/custom-time-trigger",
+        "layouts/code-controls",
+        "layouts/iox-wayfinding";
 
 // Import Product-specifc color schemes
 @import "product-overrides/telegraf",

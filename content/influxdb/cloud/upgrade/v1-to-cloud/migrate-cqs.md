@@ -42,7 +42,7 @@ To migrate continuous queries to InfluxDB Cloud tasks, do the following:
 
 To migrate InfluxDB 1.x continuous queries to InfluxDB Cloud tasks, convert the InfluxQL query syntax to Flux.
 The majority of continuous queries are simple downsampling queries and can be converted quickly
-using the [`aggregateWindow()` function](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/).
+using the [`aggregateWindow()` function](/flux/v0/stdlib/universe/aggregatewindow/).
 For example:
 
 ##### Example continuous query
@@ -58,21 +58,15 @@ END
 
 ##### Equivalent Flux task
 ```js
-option task = {
-  name: "downsample-daily",
-  every: 1d
-}
+option task = {name: "downsample-daily", every: 1d}
 
 from(bucket: "my-db/")
-  |> range(start: -task.every)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> filter(fn: (r) => r._field == "example-field")
-  |> aggregateWindow(every: 1h, fn: mean)
-  |> set(key: "_measurement", value: "average-example-measurement")
-  |> to(
-    org: "example-org",
-    bucket: "my-db/example-rp"
-  )
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> filter(fn: (r) => r._field == "example-field")
+    |> aggregateWindow(every: 1h, fn: mean)
+    |> set(key: "_measurement", value: "average-example-measurement")
+    |> to(org: "example-org", bucket: "my-db/example-rp")
 ```
 
 ### Convert InfluxQL continuous queries to Flux
@@ -92,7 +86,7 @@ The `ON` clause defines the database to query.
 In InfluxDB Cloud, database and retention policy combinations are mapped to specific buckets
 (for more information, see [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/)).
 
-Use the [`from()` function](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/from)
+Use the [`from()` function](/flux/v0/stdlib/influxdata/influxdb/from)
 to specify the bucket to query:
 
 ###### InfluxQL
@@ -121,8 +115,8 @@ In InfluxDB Cloud, database and retention policy combinations are mapped to spec
 (for more information, see [Database and retention policy mapping](/influxdb/cloud/reference/api/influxdb-1x/dbrp/)).
 
 To write to a measurement different than the measurement queried, use
-[`set()`](/{{< latest "flux" >}}/stdlib/universe/set/) or
-[`map()`](/{{< latest "flux" >}}/stdlib/universe/map/)
+[`set()`](/flux/v0/stdlib/universe/set/) or
+[`map()`](/flux/v0/stdlib/universe/map/)
 to change the measurement name.
 Use the `to()` function to specify the bucket to write results to.
 
@@ -142,15 +136,15 @@ INTO "example-db"."example-rp"."example-measurement"
 {{% code-tab-content %}}
 ```js
 // ...
-  |> set(key: "_measurement", value: "example-measurement")
-  |> to(bucket: "example-db/example-rp")
+    |> set(key: "_measurement", value: "example-measurement")
+    |> to(bucket: "example-db/example-rp")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
 // ...
-  |> map(fn: (r) => ({ r with _measurement: "example-measurement"}))
-  |> to(bucket: "example-db/example-rp")
+    |> map(fn: (r) => ({ r with _measurement: "example-measurement"}))
+    |> to(bucket: "example-db/example-rp")
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
@@ -158,12 +152,12 @@ INTO "example-db"."example-rp"."example-measurement"
 ##### Write pivoted data to InfluxDB
 InfluxDB 1.x query results include a column for each field.
 InfluxDB Cloud does not do this by default, but it is possible with
-[`pivot()`](/{{< latest "flux" >}}/stdlib/universe/pivot)
-or [`schema.fieldsAsCols()`](/{{< latest "flux" >}}/stdlib/influxdata/influxdb/schema/fieldsascols/).
+[`pivot()`](/flux/v0/stdlib/universe/pivot)
+or [`schema.fieldsAsCols()`](/flux/v0/stdlib/influxdata/influxdb/schema/fieldsascols/).
 
 If you use `to()` to write _pivoted data_ back to InfluxDB Cloud, each field column is stored as a tag.
 To write pivoted fields back to InfluxDB as fields, import the `experimental` package
-and use the [`experimental.to()` function](/{{< latest "flux" >}}/stdlib/experimental/to/).
+and use the [`experimental.to()` function](/flux/v0/stdlib/experimental/to/).
 
 ###### InfluxQL
 ```sql
@@ -181,17 +175,17 @@ END
 // ...
 
 from(bucket: "my-db/")
-  |> range(start: -task.every)
-  |> filter(fn: (r) => r._measurement == "example-measurement")
-  |> filter(fn: (r) => r._field == "example-field-1" or r._field == "example-field-2")
-  |> aggregateWindow(every: task.every, fn: mean)
-  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
-  |> experimental.to(bucket: "example-db/example-rp")
+    |> range(start: -task.every)
+    |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> filter(fn: (r) => r._field == "example-field-1" or r._field == "example-field-2")
+    |> aggregateWindow(every: task.every, fn: mean)
+    |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+    |> experimental.to(bucket: "example-db/example-rp")
 ```
 
 #### FROM clause
 The from clause defines the measurement to query.
-Use the [`filter()` function](/{{< latest "flux" >}}/stdlib/universe/filter/)
+Use the [`filter()` function](/flux/v0/stdlib/universe/filter/)
 to specify the measurement to query.
 
 ###### InfluxQL
@@ -204,13 +198,13 @@ FROM "example-measurement"
 ###### Flux
 ```js
 // ...
-  |> filter(fn: (r) => r._measurement == "example-measurement")
+    |> filter(fn: (r) => r._measurement == "example-measurement")
 ```
 
 #### AS clause
 The `AS` clause changes the name of the field when writing data back to InfluxDB.
-Use [`set()`](/{{< latest "flux" >}}/stdlib/universe/set/)
-or [`map()`](/{{< latest "flux" >}}/stdlib/universe/map/)
+Use [`set()`](/flux/v0/stdlib/universe/set/)
+or [`map()`](/flux/v0/stdlib/universe/map/)
 to change the field name.
 
 ###### InfluxQL
@@ -229,23 +223,23 @@ AS newfield
 {{% code-tab-content %}}
 ```js
 // ...
-  |> set(key: "_field", value: "newfield")
+    |> set(key: "_field", value: "newfield")
 ```
 {{% /code-tab-content %}}
 {{% code-tab-content %}}
 ```js
 // ...
-  |> map(fn: (r) => ({ r with _field: "newfield"}))
+    |> map(fn: (r) => ({ r with _field: "newfield"}))
 ```
 {{% /code-tab-content %}}
 {{< /code-tabs-wrapper >}}
 
 #### WHERE clause
 The `WHERE` clause uses predicate logic to filter results based on fields, tags, or timestamps.
-Use the [`filter()` function](/{{< latest "flux" >}}/stdlib/universe/filter/)
-and Flux [comparison operators](/{{< latest "flux" >}}/spec/operators/#comparison-operators)
+Use the [`filter()` function](/flux/v0/stdlib/universe/filter/)
+and Flux [comparison operators](/flux/v0/spec/operators/#comparison-operators)
 to filter results based on fields and tags.
-Use the [`range()` function](/{{< latest "flux" >}}/stdlib/universe/range/) to filter results based on timestamps.
+Use the [`range()` function](/flux/v0/stdlib/universe/range/) to filter results based on timestamps.
 
 ###### InfluxQL
 ```sql
@@ -256,16 +250,16 @@ WHERE "example-tag" = "foo" AND time > now() - 7d
 ###### Flux
 ```js
 // ...
-  |> range(start: -7d)
-  |> filter(fn: (r) => r["example-tag"] == "foo")
+    |> range(start: -7d)
+    |> filter(fn: (r) => r["example-tag"] == "foo")
 ```
 
 #### GROUP BY clause
 The InfluxQL `GROUP BY` clause groups data by specific tags or by time (typically to calculate an aggregate value for windows of time).
 
 ##### Group by tags
-Use the [`group()` function](/{{< latest "flux" >}}/stdlib/universe/group/)
-to modify the [group key](/{{< latest "flux" >}}/get-started/data-model/#group-key)
+Use the [`group()` function](/flux/v0/stdlib/universe/group/)
+to modify the [group key](/flux/v0/get-started/data-model/#group-key)
 and change how data is grouped.
 
 ###### InfluxQL
@@ -277,11 +271,11 @@ GROUP BY "location"
 ###### Flux
 ```js
 // ...
-  |> group(columns: ["location"])
+    |> group(columns: ["location"])
 ```
 
 ##### Group by time
-Use the [`aggregateWindow()` function](/{{< latest "flux" >}}/stdlib/universe/aggregatewindow/)
+Use the [`aggregateWindow()` function](/flux/v0/stdlib/universe/aggregatewindow/)
 to group data into time windows and perform an aggregation on each window.
 In CQs, the interval specified in the `GROUP BY time()` clause determines the CQ execution interval.
 Use the `GROUP BY time()` interval to set the `every` task option.
@@ -296,17 +290,11 @@ GROUP BY time(1h)
 
 ###### Flux
 ```js
-option task = {
-  name: "task-name",
-  every: 1h
-}
+option task = {name: "task-name", every: 1h}
 
 // ...
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field"
-  )
-  |> aggregateWindow(every: task.every, fn: mean)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field")
+    |> aggregateWindow(every: task.every, fn: mean)
 ```
 
 #### RESAMPLE clause
@@ -335,22 +323,15 @@ END
 
 ###### Flux
 ```js
-option task = {
-  name: "resample-example",
-  every: 1m
-}
+option task = {name: "resample-example", every: 1m}
 
 from(bucket: "my-db/")
-  |> range(start: -30m)
-  |> filter(fn: (r) =>
-    r._measurement == "example-measurement" and
-    r._field == "example-field" and
-    r.region == "example-region"
-  )
-  |> aggregateWindow(every: 1m, fn: mean)
-  |> exponentialMovingAverage(n: 30)
-  |> set(key: "_measurement", value: "resample-average-example-measurement")
-  |> to(bucket: "my-db/")
+    |> range(start: -30m)
+    |> filter(fn: (r) => r._measurement == "example-measurement" and r._field == "example-field" and r.region == "example-region")
+    |> aggregateWindow(every: 1m, fn: mean)
+    |> exponentialMovingAverage(n: 30)
+    |> set(key: "_measurement", value: "resample-average-example-measurement")
+    |> to(bucket: "my-db/")
 ```
 
 ## Create new InfluxDB tasks
@@ -362,7 +343,7 @@ The following resources are available and may be helpful when converting
 continuous queries to Flux tasks.
 
 ##### Documentation
-- [Get started with Flux](/{{< latest "flux" >}}/get-started/)
+- [Get started with Flux](/flux/v0/get-started/)
 - [Query data with Flux](/influxdb/cloud/query-data/flux/)
 - [Common tasks](/influxdb/cloud/process-data/common-tasks/#downsample-data-with-influxdb)
 

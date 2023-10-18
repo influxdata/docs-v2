@@ -1,11 +1,11 @@
 #docs-notifications {
   position: fixed;
-  top: 10px;
+  top: 65px;
   right: 10px;
   z-index: 100;
   width: calc(100vw - 20px);
-  max-width: 500px;
-  transition: all .4s ease;
+  max-width: 450px;
+  transition: all .4s ease, top 0s;
 
   .notification {
     display: none; // initial hidden state
@@ -13,26 +13,73 @@
     opacity: 0; // initial hidden state
 
     position: relative;
+    padding: 1.25rem 2.5rem 1.25rem 1.25rem;
     border-radius: $radius;
     box-shadow: 2px 2px 6px rgba($g2-kevlar, .35);
+    margin-bottom: 10px;
+
+    color: $g20-white;
+
+    .notification-title {
+      h3 {
+        margin-bottom: 1rem;
+        transition: font-size .2s;
+      }
+    }
+
+    .notification-content-wrapper{
+      position: relative;
+    }
+
+    .notification-slug {
+      font-size: .97rem;
+      margin: -.5rem 0 1.5rem 0;
+
+      & + .notification-content {
+        border-top: 1px dotted rgba($g20-white, .5);
+        padding-top: 1.25rem;
+      }
+    }
 
     .notification-content {
-      padding: 1.25rem 2.35rem .5rem 1.25rem;
-      margin-bottom: 10px;
-      font-size: .95rem;
-      color: $g20-white;
+      font-size: 1.05rem;
+      opacity: 1;
+      max-height: 500px;
+      margin-bottom: 1.5rem;
+      transition: opacity .4s, max-height .2s ease-out, margin .2s ease-out, padding .2s;
+      
+      h1,h2,h3,h4,h5,h6 {
+        margin: 1rem 0 .75rem;
+        &:first-child {margin-top: 0;}
+      }
     }
 
     .close-notification {
       position: absolute;
       top: 8px;
       right: 8px;
-      font-size: 1.1rem;
+      font-size: 1.7rem;
       cursor: pointer;
       transition: color .2s;
       font-weight: bold;
       color: rgba($g20-white, .5);
       &:hover{ color: $g20-white }
+    }
+
+    .show {
+      position: absolute;
+      bottom: 1rem;
+      left: 1.25rem;
+      text-transform: uppercase;
+      font-size: .8rem;
+      font-weight: bold;
+      opacity: .75;
+      transition: opacity .2s;
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+      }
+      &:before {content: "Show less"}
     }
 
     &.note {
@@ -57,13 +104,13 @@
       &:first-child { margin-top: 0; }
     }
 
-    h1,h2 { font-size: 1.5rem; }
-    h3 { font-size: 1.25rem; }
-    h4 { font-size: 1.1rem; }
-    h5 { font-size: 1rem; }
-    h6 { font-size: .95rem; font-style: italic; }
+    h1,h2 { font-size: 1.6rem; }
+    h3 { font-size: 1.35rem; }
+    h4 { font-size: 1.2rem; }
+    h5 { font-size: 1.1rem; }
+    h6 { font-size: 1.05rem; font-style: italic; }
 
-    p,li  { line-height: 1.4rem; }
+    p,li  { line-height: 1.5rem; }
 
     p { margin: 0 0 .75rem; }
 
@@ -89,5 +136,22 @@
       code { background: transparent !important; }
     }
 
+    &.min {
+      .notification-title {h3 {font-size: 1.15rem;}}
+      .notification-content {
+        max-height: 0;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .show::before {content: "Show more"}
+    }
   }
+}
+
+///////////////////////////////// MEDIA QUERIES ////////////////////////////////
+
+@include media(small) {
+  #docs-notifications {top: 50px;}
 }

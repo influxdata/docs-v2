@@ -6,6 +6,7 @@ menu:
     name: influx auth create
     parent: influx auth
 weight: 201
+updated_in: CLI v2.2.0
 ---
 
 {{< duplicate-oss >}}

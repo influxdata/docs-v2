@@ -20,4 +20,4 @@ related:
   - /influxdb/cloud/api-guide/client-libraries/nodejs/query/ 
 ---
 
-{{% duplicate-oss %}}
+{{< duplicate-oss >}}

@@ -13,28 +13,30 @@ cloud:
   providers:
     - name: Amazon Web Services
       short_name: AWS
+      iox: true
       regions:
         - name: US West (Oregon)
           location: Oregon, USA
           url: https://us-west-2-1.aws.cloud2.influxdata.com
+          clusters:
+            - name: us-west-2-1
+              url: https://us-west-2-1.aws.cloud2.influxdata.com
+            - name: us-west-2-2
+              url: https://us-west-2-2.aws.cloud2.influxdata.com
         - name: US East (Virginia)
           location: Virginia, USA
           url: https://us-east-1-1.aws.cloud2.influxdata.com
+          iox: true
         - name: EU Frankfurt
           location: Frankfurt, Germany
           url: https://eu-central-1-1.aws.cloud2.influxdata.com
-        - name: Asia Pacific (Australia)
-          location: Sydney, Australia
-          url: https://ap-southeast-2-1.aws.cloud2.influxdata.com
+          iox: true
     - name: Google Cloud Platform
       short_name: GCP
       regions:
         - name: US Central (Iowa)
           location: Iowa, USA
           url: https://us-central1-1.gcp.cloud2.influxdata.com
-        - name: Europe West (Belgium)
-          location: St. Ghislain, Belgium
-          url: https://europe-west1-1.gcp.cloud2.influxdata.com
     - name: Microsoft Azure
       short_name: Azure
       regions:

@@ -39,8 +39,8 @@ Query variable values are populated using the `_value` column of a Flux query.
 ```js
 // List all buckets
 buckets()
-  |> rename(columns: {"name": "_value"})
-  |> keep(columns: ["_value"])
+    |> rename(columns: {"name": "_value"})
+    |> keep(columns: ["_value"])
 ```
 
 _For examples of dashboard variable queries, see [Common variable queries](/influxdb/cloud/visualize-data/variables/common-variables)._
@@ -49,11 +49,11 @@ _For examples of dashboard variable queries, see [Common variable queries](/infl
 #### Important things to note about variable queries
 - The variable will only use values from the `_value` column.
   If the data you’re looking for is in a column other than `_value`, use the
-  [`rename()`](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/rename/) or
-  [`map()`](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/map/) functions
+  [`rename()`](/flux/v0/stdlib/universe/rename/) or
+  [`map()`](/flux/v0/stdlib/universe/map/) functions
   to change the name of that column to `_value`.
 - The variable will only use the first table in the output stream.
-  Use the [`group()` function](/influxdb/cloud/reference/flux/stdlib/built-in/transformations/group)
+  Use the [`group()` function](/flux/v0/stdlib/universe/group)
   to group everything into a single table.
 - Do not use any [predefined dashboard variables](/influxdb/cloud/visualize-data/variables/#predefined-dashboard-variables) in variable queries.
 {{% /note %}}
