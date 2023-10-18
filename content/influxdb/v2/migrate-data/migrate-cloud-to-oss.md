@@ -156,9 +156,9 @@ data = () =>
 // the batch and is used to generate batch metadata.
 rowCount =
     data()
-        |> group(columns: ["_start", "_stop"])
-        |> toString()
         |> count()
+        |> group(columns: ["_start", "_stop"])
+        |> sum()
 
 // emptyRange is a stream of tables that acts as filler data if the batch is
 // empty. This is used to generate batch metadata for empty batches and is
