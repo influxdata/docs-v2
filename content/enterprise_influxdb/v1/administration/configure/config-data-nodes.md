@@ -622,6 +622,13 @@ Setting the value to `0` disables the slow query logging.
 
 Environment variable: `INFLUXDB_CLUSTER_LOG_QUERIES_AFTER`
 
+#### `log-timedout-queries = false`
+
+Set to `true` to log queries that are killed due to exceeding the `query-timeout`.
+The default setting (`false`) will not log timedout queries.
+
+Environment variable: `INFLUXDB_CLUSTER_LOG_TIMEDOUT_QUERIES`
+
 #### max-select-point
 
 Default is `0`.

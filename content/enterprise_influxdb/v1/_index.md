@@ -3,10 +3,10 @@ title: InfluxDB Enterprise documentation
 description: >
   Documentation for InfluxDB Enterprise, which adds clustering, high availability, fine-grained authorization, and more to InfluxDB OSS.
 aliases:
-  - /enterprise/v1.10/
+  - /enterprise/v1.11/
 menu:
   enterprise_influxdb_v1:
-    name: InfluxDB Enterprise v1.10
+    name: InfluxDB Enterprise v1.11
 weight: 1
 ---
 

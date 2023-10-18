@@ -106,13 +106,14 @@ enterprise_influxdb:
   list_order: 5
   versions: [v1]
   minor_versions:
+    - v1.11
     - v1.10
     - v1.9
     - v1.8
     - v1.7
-  latest: v1.10
+  latest: v1.11
   latest_patches:
-    v1: 1.10.0
+    v1: 1.11.3
 
 flux:
   name: Flux
