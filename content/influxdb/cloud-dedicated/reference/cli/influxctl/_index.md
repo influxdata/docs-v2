@@ -65,6 +65,28 @@ influxctl [flags] [command]
 <!---------------------------- BEGIN MACOS CONTENT ---------------------------->
 {{% tab-content %}}
 
+Use one of the following options to download and install `influxctl` on macOS:
+
+- [Use Homebrew to install influxctl](#use-homebrew-to-install-influxctl)
+- [Manually download and install the influxctl binary](#manually-download-and-install-the-influxctl-binary)
+
+### Use Homebrew to install influxctl
+
+1.  Use `brew tap` to add the `influxdata/tap` repository to the list of
+    formulae that Homebrew tracks, updates, and installs from: 
+    
+    ```sh
+    brew tap influxdata/tap
+    ```
+
+2.  Install the `influxctl` package:
+
+    ```sh
+    brew install influxctl
+    ```
+
+### Manually download and install the influxctl binary
+
 1.  **Download the `influxctl` CLI package** appropriate for your CPU type.
     Download the package from your browser or command line.
 

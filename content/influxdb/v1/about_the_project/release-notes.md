@@ -6,6 +6,8 @@ menu:
     name: Release notes
     weight: 10
     parent: About the project
+aliases:
+  - /influxdb/v1/about_the_project/releasenotes-changelog/
 v2: /influxdb/v2/reference/release-notes/influxdb/
 ---
 
@@ -46,7 +48,7 @@ Due to encountering several issues with build dependencies in v.1.8.8, this vers
 
 ## v1.8.6 [2021-05-21]
 
-This release is for InfluxDB Enterprise 1.8.6 customers only. No OSS-specific changes were made for InfluxDB 1.8.6--updates were made to the code base to support [InfluxDB Enterprise 1.8.6](/enterprise_influxdb/v1/about-the-project/release-notes-changelog/#v186-2021-05-21).
+This release is for InfluxDB Enterprise 1.8.6 customers only. No OSS-specific changes were made for InfluxDB 1.8.6--updates were made to the code base to support [InfluxDB Enterprise 1.8.6](/enterprise_influxdb/v1/about-the-project/release-notes/#v186-2021-05-21).
 
 ## v1.8.5 [2021-04-20]
 
