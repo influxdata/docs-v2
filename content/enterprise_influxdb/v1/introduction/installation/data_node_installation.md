@@ -21,7 +21,30 @@ If you have not set up your meta nodes, please visit
 Bad things can happen if you complete the following steps without meta nodes.
 {{% /warn %}}
 
-## Data node setup description and requirements
+- [Requirements](#requirements)
+  - [Two or more data nodes](#two-or-more-data-nodes)
+  - [License key or file](#license-key-or-file)
+  - [Networking](#networking)
+  - [Load balancer](#load-balancer)
+  - [User account](#user-account)
+- [Set up data nodes](#set-up-data-nodes)
+  1.  [Add DNS entries for each of your servers](#add-dns-entries-for-each-of-your-servers)
+  2.  [Set up, configure, and start the data node services](#set-up-configure-and-start-the-data-node-services)
+      1. [Download and install the data service](#download-and-install-the-data-service)
+      2. [Edit the data node configuration files](#edit-the-data-node-configuration-files)
+      3. [Start the data service](#start-the-data-service)
+  3.  [Join the data nodes to the cluster](#join-the-data-nodes-to-the-cluster)
+- [Next steps](#next-steps)
+
+## Requirements
+
+- [Two or more data nodes](#two-or-more-data-nodes)
+- [License key or file](#license-key-or-file)
+- [Networking](#networking)
+- [Load balancer](#load-balancer)
+- [User account](#user-account)
+
+### Two or more data nodes
 
 The installation process sets up two [data nodes](/enterprise_influxdb/v1/concepts/glossary#data-node)
 and each data node runs on its own server.
@@ -33,20 +56,21 @@ There is no requirement for each data node to run on its own server.
 However, best practices are to deploy each data node on a dedicated server.
 {{% /note %}}
 
-See the [Clustering guide](/enterprise_influxdb/v1/concepts/clustering/#optimal-server-counts)
-for more on cluster architecture.
+_See the [Clustering guide](/enterprise_influxdb/v1/concepts/clustering/#optimal-server-counts)
+for more on cluster architecture._
 
-### Other requirements
-
-#### License key or file
+### License key or file
 
 InfluxDB Enterprise requires a license key **or** a license file to run.
 Your license key is available at [InfluxPortal](https://portal.influxdata.com/licenses).
 Contact support at the email we provided at signup to receive a license file.
-License files are required only if the nodes in your cluster cannot reach
-`portal.influxdata.com` on port `80` or `443`.
 
-#### Networking
+**License _files_ are required in the following conditions:**
+
+- Nodes in your cluster cannot reach `portal.influxdata.com` on port `80` or `443`
+- You're using a [FIPS-compliant InfluxDB Enterprise build](/enterprise_influxdb/v1/introduction/installation/fips-compliant/)
+
+### Networking
 
 Data nodes communicate over ports `8088`, `8089`, and `8091`.
 
@@ -56,7 +80,7 @@ If the data nodes cannot reach `portal.influxdata.com` on port `80` or `443`,
 you'll need to set the `license-path` setting instead of the `license-key`
 setting in the data node configuration file.
 
-#### Load balancer
+### Load balancer
 
 InfluxDB Enterprise does not function as a load balancer.
 You will need to configure your own load balancer to send client traffic to the
@@ -69,21 +93,29 @@ The `influxdb` user also owns certain files that are needed for the service to s
 In some cases, local policies may prevent the local user account from being created and the service fails to start.
 Contact your systems administrator for assistance with this requirement.
 
-# Data node setup
-## Step 1: Add appropriate DNS entries for each of your servers
+## Set up data nodes
+
+1.  [Add DNS entries for each of your servers](#add-dns-entries-for-each-of-your-servers)
+2.  [Set up, configure, and start the data node services](#set-up-configure-and-start-the-data-node-services)
+    1. [Download and install the data service](#download-and-install-the-data-service)
+    2. [Edit the data node configuration files](#edit-the-data-node-configuration-files)
+    3. [Start the data service](#start-the-data-service)
+3.  [Join the data nodes to the cluster](#join-the-data-nodes-to-the-cluster)
+
+### Add DNS entries for each of your servers
 
 Ensure that your servers' hostnames and IP addresses are added to your network's DNS environment.
-The addition of DNS entries and IP assignment is usually site and policy specific;
-contact your DNS administrator for assistance as necessary.
+The addition of DNS entries and IP assignment is usually site and policy specific.
+Contact your DNS administrator for assistance as necessary.
 Ultimately, use entries similar to the following:
 
-| Record Type |               Hostname                |                IP |
-|:------------|:-------------------------------------:|------------------:|
-| A           | ```enterprise-data-01.mydomain.com``` | ```<Data_1_IP>``` |
-| A           | ```enterprise-data-02.mydomain.com``` | ```<Data_2_IP>``` |
+| Record Type |             Hostname              |            IP |
+| :---------- | :-------------------------------: | ------------: |
+| A           | `enterprise-data-01.mydomain.com` | `<Data_1_IP>` |
+| A           | `enterprise-data-02.mydomain.com` | `<Data_2_IP>` |
 
-Before proceeding with the installation, verify on each meta and data server that the other
-servers are resolvable. Here is an example set of shell commands using `ping`:
+Verify on each meta and data server that the other servers are resolvable.
+Here is an example set of shell commands using `ping`:
 
 ```sh
 ping -qc 1 enterprise-meta-01
@@ -97,71 +129,129 @@ We highly recommend that each server be able to resolve the IP from the hostname
 Resolve any connectivity issues before proceeding with the installation.
 A healthy cluster requires that every meta node and data node in a cluster be able to communicate.
 
-## Step 2: Set up, configure, and start the data node services
+### Set up, configure, and start the data node services
 
-Perform the following steps *on each data node*:
+Perform the following steps _on each data node_:
 
-- [a. Download and install the data service](#a-download-and-install-the-data-service)
-- [b. Edit the data node configuration files](#b-edit-the-data-node-configuration-files)
-- [c. Start the data service](#c-start-the-data-service)
+1. [Download and install the data service](#download-and-install-the-data-service)
+2. [Edit the data node configuration files](#edit-the-data-node-configuration-files)
+3. [Start the data service](#start-the-data-service)
 
-### a. Download and install the data service
+#### Download and install the data service
 
-#### Ubuntu and Debian (64-bit)
+InfluxDB Enterprise 1.11+ provides a standard build and a
+[Federal Information Processing Standards (FIPS)-compliant build](/enterprise_influxdb/v1/introduction/installation/fips-compliant/).
+Instructions for both are provided below.
 
+##### Ubuntu and Debian (64-bit)
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Standard](#)
+[FIPS-compliant](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```sh
 wget https://dl.influxdata.com/enterprise/releases/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+sudo dpkg -i influxdb-data_{{< latest-patch >}}-c{{< latest-patch >}}_amd64.deb
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-#### RedHat and CentOS (64-bit)
+##### RedHat and CentOS (64-bit)
 
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Standard](#)
+[FIPS-compliant](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```sh
 wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
 ```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+sudo yum localinstall influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-#### Verify the authenticity of release download (recommended)
+{{< expand-wrapper >}}
+{{% expand "<span class='req'>Recommended:</span> Verify the authenticity of the release download" %}}
 
 For added security, follow these steps to verify the signature of your InfluxDB download with `gpg`.
 
-1. Download and import InfluxData's public key:
-   ```
-   curl -s https://repos.influxdata.com/influxdata-archive_compat.key | gpg --import
-   ```
-2. Download the signature file for the release by adding `.asc` to the download URL.
-   For example:
+1.  Download and import InfluxData's public key:
+   
+    ```sh
+    curl -s https://repos.influxdata.com/influxdata-archive_compat.key | gpg --import
+    ```
+2.  Download the signature file for the release by adding `.asc` to the download URL.
+    For example:
 
-   ```
-   wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
-   ```
+    {{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Standard](#)
+[FIPS-compliant](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```sh
+wget https://dl.influxdata.com/enterprise/releases/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```sh
+wget https://dl.influxdata.com/enterprise/releases/fips/influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm.asc
+```
+{{% /code-tab-content %}}
+  {{< /code-tabs-wrapper >}}
 
-3. Verify the signature with `gpg --verify`:
-   ```
-   gpg --verify influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm.asc influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
-   ```
-   The output from this command should include the following:
-   ```
-   gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
-   ```
+3.  Verify the signature with `gpg --verify`:
+   
+    ```sh
+    gpg --verify influxdb-data-{{< latest-patch >}}-c{{< latest-patch >}}.x86_64.rpm.asc influxdb-data-{{< latest-patch >}}_c{{< latest-patch >}}.x86_64.rpm
+    ```
+    
+    The output from this command should include the following:
+   
+    ```sh
+    gpg: Good signature from "InfluxDB Packaging Service <support@influxdb.com>" [unknown]
+    ```
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
-### b. Edit the data node configuration files
+#### Edit the data node configuration files
 
-First, in `/etc/influxdb/influxdb.conf`:
+In `/etc/influxdb/influxdb.conf`:
 
-* Uncomment `hostname` at the top of the file and set it to the full hostname of the data node.
-* Uncomment `meta-auth-enabled` in the `[meta]` section and set it to `true`.
-* Uncomment `meta-internal-shared-secret` in the `[meta]` section and set it to a long pass phrase.
+- Uncomment `hostname` at the top of the file and set it to the full hostname of the data node.
+- Uncomment `meta-auth-enabled` in the `[meta]` section and set it to `true`.
+- Uncomment `meta-internal-shared-secret` in the `[meta]` section and set it to a long passphrase.
   The internal shared secret is used in JWT authentication for intra-node communication.
-  This value must be same for all of your data nodes and match the `[meta] internal-shared-secret` value in the configuration files of your meta nodes.
+  This value must be same for all of your data nodes and match the
+  `[meta].internal-shared-secret` value in the configuration files of your meta nodes.
+- Set `license-key` in the `[enterprise]` section to the license key you received
+  on InfluxPortal **OR** `license-path` in the `[enterprise]` section to the local
+  path to the JSON license file you received from InfluxData.
 
-Second, in `/etc/influxdb/influxdb.conf`, set:
+  {{% warn %}}
+  The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
+  {{% /warn %}}
 
-`license-key` in the `[enterprise]` section to the license key you received on InfluxPortal **OR** `license-path` in the `[enterprise]` section to the local path to the JSON license file you received from InfluxData.
+**If using a FIPS-compliant InfluxDB Enterprise build, also do the following**:
 
-{{% warn %}}
-The `license-key` and `license-path` settings are mutually exclusive and one must remain set to the empty string.
-{{% /warn %}}
+- Set `[enterprise].license-path` to the local path to the JSON license file
+  you received from InfluxData.
+- Set `[meta].password-hash` to `pbkdf2-sha256` or `pbkdf2-sha512`.
 
 ```toml
 # Change this option to true to disable reporting.
@@ -184,6 +274,9 @@ hostname="<enterprise-data-0x>"
   # This setting must have the same value as the meta nodes' meta.auth-enabled configuration.
   meta-auth-enabled = true
 
+  # FIPS-compliant builds do not support bcrypt for password hashing
+  password-hash = "pbkdf2-sha512"
+
 [...]
 
 [http]
@@ -199,23 +292,29 @@ hostname="<enterprise-data-0x>"
   shared-secret = "long pass phrase used for signing tokens"
 ```
 
-### c. Start the data service
+#### Start the data service
 
-On sysvinit systems, enter:
-
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[sysvinit](#)
+[systemd](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
 ```sh
 service influxdb start
 ```
-
-On systemd systems, enter:
-
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
 ```sh
 sudo systemctl start influxdb
 ```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-**Verification steps:**
+{{< expand-wrapper >}}
+{{% expand "<span style='opacity:.5;font-style:italic'>Optional:</span> Verify the `influxdb` service is running" %}}
 
-Check to see that the process is running by entering:
+Run the following command to search for a running `influxdb` process:
 
 ```sh
 ps aux | grep -v grep | grep influxdb
@@ -232,36 +331,36 @@ Check the [logs](/enterprise_influxdb/v1/administration/logs/)
 for error messages and verify the previous setup steps are complete.
 
 If you see the expected output, repeat for the remaining data nodes.
-Once all data nodes have been installed, configured, and launched, move on to the next section to join the data nodes to the cluster.
+Once all data nodes have been installed, configured, and launched, move on to
+the next section to join the data nodes to the cluster.
 
-## Step 3: Join the data nodes to the cluster
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
-{{% warn %}}You should join your data nodes to the cluster only when you are adding a brand new node,
+### Join the data nodes to the cluster
+
+{{% warn %}}
+You should join your data nodes to the cluster only when you are adding a brand new node,
 either during the initial creation of your cluster or when growing the number of data nodes.
 If you are replacing an existing data node with `influxd-ctl update-data`, skip the rest of this guide.
 {{% /warn %}}
 
-On one and only one of the meta nodes that you set up in the
-[previous document](/enterprise_influxdb/v1/introduction/meta_node_installation/), run:
+On one and only one of the [meta nodes that you set up](/enterprise_influxdb/v1/introduction/installation/meta_node_installation/),
+run the following command for _each_ of your data nodes using the hostname of the
+data node and port `8088`:
 
 ```sh
 influxd-ctl add-data enterprise-data-01:8088
-
-influxd-ctl add-data enterprise-data-02:8088
-```
-
-The expected output is:
-
-```sh
-Added data node y at enterprise-data-0x:8088
 ```
 
 Run the `add-data` command once and only once for each data node you are joining
 to the cluster.
 
-**Verification steps:**
+{{< expand-wrapper >}}
+{{% expand "<span style='opacity:.5;font-style:italic'>Optional:</span> Verify the data node was added to the cluster" %}}
 
-To verify the nodes, issue the following command on any meta node:
+To verify the nodes are added to the cluster, run the following command on any
+meta node:
 
 ```sh
 influxd-ctl show
@@ -293,6 +392,9 @@ If not, there may be artifacts of a previous cluster in the metastore.
 If you do not see your data nodes in the output, please retry adding them
 to the cluster.
 
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 ## Next steps
 
 Once your data nodes are part of your cluster, do the following:
@@ -304,3 +406,5 @@ Once your data nodes are part of your cluster, do the following:
 - [Enable TLS](/enterprise_influxdb/v1/guides/enable-tls/).
 - [Set up Chronograf](/enterprise_influxdb/v1/introduction/installation/installation/chrono_install)
   for UI visualization, dashboards, and management.
+
+{{< page-nav prev="/enterprise_influxdb/v1/introduction/installation/meta_node_installation/" prevText="Install meta nodes" next="/enterprise_influxdb/v1/introduction/installation/chrono_install" >}}

@@ -23,3 +23,4 @@ Complete the following steps to install an InfluxDB Enterprise cluster in your o
 
 #### Other installation options
 - [Install InfluxDB Enterprise on a single server](/enterprise_influxdb/v1/introduction/installation/single-server/)
+- [Federal Information Processing Standards (FIPS)-compliant InfluxDB Enterprise](/enterprise_influxdb/v1/introduction/installation/fips-compliant/)
