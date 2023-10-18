@@ -9,7 +9,7 @@ menu:
 
 There are many ways to contribute to InfluxData open source products.
 Whether you want to report a bug, write a plugin, or answer support questions,
-the following sections will guide you on the process. 
+the following sections will guide you through the process. 
 
 - [Open GitHub issues](#open-github-issues)
   - [File bug reports](#file-bug-reports)
