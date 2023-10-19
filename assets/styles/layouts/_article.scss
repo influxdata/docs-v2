@@ -25,6 +25,19 @@
     & + .code-tabs-wrapper { margin-top: 0; }
     &.green { color: $gr-rainforest; }
     &.orange { color: $r-dreamsicle; }
+    &[metadata]::after {
+      content: attr(metadata);
+      margin-left: .65rem;
+      padding: .1em .5em;
+      color: $article-heading;
+      background: rgba($article-heading, .12);
+      font-size: .75em;
+      font-style: normal;
+      font-weight: $medium;
+      border-radius: 1em;
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
   h1 {
     font-weight: normal;
