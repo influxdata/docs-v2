@@ -1,6 +1,6 @@
 ---
-title: Aggregate or apply selector functions to data
-seotitle: Perform a basic SQL query in InfluxDB Clustered
+title: Aggregate data with SQL
+seotitle: Aggregate or apply selector functions with SQL in InfluxDB Clustered
 description: >
   Use aggregate and selector functions to perform aggregate operations on your
   time series data.
@@ -37,7 +37,7 @@ list_code_example: |
   ```
 ---
 
-An SQL query that aggregates data includes the following clauses:
+An InfluxQL query that aggregates data includes the following clauses:
 
 {{< req type="key" >}}
 
