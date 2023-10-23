@@ -97,7 +97,7 @@ kapacitor:
   versions: [v1]
   latest: v1.7
   latest_patches:
-    v1: 1.7.0
+    v1: 1.7.1
 
 enterprise_influxdb:
   name: "InfluxDB Enterprise"

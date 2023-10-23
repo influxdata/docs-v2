@@ -9,6 +9,14 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
+## v1.7.1 [2023-10-20]
+
+### Bug Fixes
+
+- Security fix: (CVE-2023-44487: HTTP/2 Rapid Reset attack)
+
+---
+
 ## v1.7.0 [2023-08-18]
 
 ### Features
