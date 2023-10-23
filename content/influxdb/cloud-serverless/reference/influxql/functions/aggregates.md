@@ -8,6 +8,8 @@ menu:
     name: Aggregates
     parent: influxql-functions
 weight: 205
+related:
+  - /influxdb/cloud-serverless/query-data/influxql/aggregate-select/
 ---
 
 Use aggregate functions to assess, aggregate, and return values in your data.
