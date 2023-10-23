@@ -43,13 +43,13 @@ An InfluxQL query that aggregates data includes the following clauses:
   measurement or use the wildcard alias (`*`) to select all fields and tags
   from a measurement.
 - {{< req "\*">}} `FROM`: Specify the measurement to query data from.
-- `WHERE`: Only return data that meets the specified conditions--for example, falls within
+- `WHERE`: Only retrieve data that meets the specified conditions--for example, falls within
   a time range, contains specific tag values, or contains a field value outside
   a specified range.
 - `GROUP BY`: Group data by tag values and time intervals.
 
 {{% note %}}
-For simplicity, the term **"aggregate"** in this guide refers to applying
+For simplicity, the term _"aggregate"_ in this guide refers to applying
 both aggregate and selector functions to a dataset.
 {{% /note %}}
 
