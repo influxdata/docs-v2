@@ -8,6 +8,8 @@ menu:
     name: Selectors
     parent: influxql-functions
 weight: 205
+related:
+  - /influxdb/cloud-dedicated/query-data/influxql/aggregate-select/
 ---
 
 Use selector functions to assess, select, and return values in your data.
