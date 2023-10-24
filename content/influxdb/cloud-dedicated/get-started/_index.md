@@ -10,9 +10,9 @@ weight: 3
 influxdb/cloud-dedicated/tags: [get-started]
 ---
 
-InfluxDB Cloud Dedicated is the platform purpose-built to collect, store, and
+{{% product-name %}} is the platform purpose-built to collect, store, and
 query time series data.
-It is powered by the InfluxDB IOx storage engine which provides a number of
+It is powered by the InfluxDB 3.0 storage engine which provides a number of
 benefits including nearly unlimited series cardinality, improved query performance,
 and interoperability with widely used data processing tools and platforms.
 
@@ -28,8 +28,8 @@ Examples of time series data include:
 - Rainfall measurements
 - Stock prices
 
-This multi-part tutorial walks you through writing time series data to
-your dedicated InfluxDB Cloud cluster, querying, and then visualizing that data.
+This multi-part tutorial walks you through writing time series data to {{% product-name %}},
+querying, and then visualizing that data.
 
 ## Key concepts before you get started
 
@@ -43,8 +43,10 @@ throughout this documentation.
 
 ### Data organization
 
-The InfluxDB Cloud Dedicated data model organizes time series data into databases
-and measurements. A database can contain multiple measurements.
+The {{% product-name %}} data model organizes time series data into databases
+and measurements.
+
+A database can contain multiple measurements.
 Measurements contain multiple tags and fields.
 
 - **Database**: Named location where time series data is stored.
@@ -86,24 +88,65 @@ The following definitions are important to understand when using InfluxDB:
 
 ## Tools to use
 
-Throughout this tutorial, there are multiple tools you can use to manage and
-interact with your InfluxDB Cloud Dedicated cluster.
-Examples are provided for each of the following:
+The following table compares tools that you can use to interact with {{% product-name %}}.
+This tutorial covers many of the recommended tools.
 
-<!-- TODO: Define tooling  -->
+| Tool                              | Administration  | Write   | Query   |
+|:--------------------------------- |:---------------:|:-------:|:-------:|
+| [Chronograf](/chronograf/v1/)     |       -         |   -     | **{{< icon "check" >}}**  |
+| <span style="color:gray">`influx` CLI</span>                                        |   -      | -  |   -     |
+| [`influx3` data CLI](#influx3-data-cli){{< req text="\* " color="magenta" >}}               |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
+| [`influxctl` admin CLI](#influxctl-admin-cli)                          |    **{{< icon "check" >}}**         |   -     |   -     |
+| [InfluxDB HTTP API](#influxdb-http-api)                          |    -        |   **{{< icon "check" >}}**  |   **{{< icon "check" >}}**     |
+| <span style="color:gray">InfluxDB user interface</span> |     -      |   -     | -  |
+| [InfluxDB v3 client libraries](#influxdb-v3-client-libraries){{< req text="\* " color="magenta" >}}      |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
+| [InfluxDB v1 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v1/)      |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
+| [InfluxDB v2 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v2/)      |     **{{< icon "check" >}}**      | **{{< icon "check" >}}**  |   -     |
+| Telegraf                          |       -         | **{{< icon "check" >}}**  |   -     |
+| **Third-party tools**                                                   |
+| Flight SQL clients               |       -         |   -     | **{{< icon "check" >}}**  |
+|  [Grafana](/influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/)  |       -         |   -     | **{{< icon "check" >}}**  |
+| [Superset](/influxdb/cloud-dedicated/query-data/sql/execute-queries/superset/) |       -         |   -     | **{{< icon "check" >}}**  |
+| [Tableau](/influxdb/cloud-dedicated/process-data/visualize/tableau/)           |       -         |   -     | **{{< icon "check" >}}**  |
 
-{{% note %}}
-#### InfluxDB client libraries
+{{< req type="key" text="Covered in this tutorial" color="magenta" >}}
 
-[InfluxDB v1 and v2 client libraries](/influxdb/cloud/api-guide/client-libraries/)
-are language-specific clients that interact with the InfluxDB HTTP v1 and v2 API.
-Examples for client libraries are not provided in this tutorial, but these can
-be used to perform actions outlined in this tutorial.
-{{% /note %}}
+{{% warn %}}
+Avoid using the `influx` CLI with {{% product-name %}}.
+While it may coincidentally work, it isn't supported.
+{{% /warn %}}
+
+### `influxctl` admin CLI
+
+The [`influxctl` command line interface (CLI)](/influxdb/cloud-dedicated/reference/cli/influxctl/) performs administrative tasks, such as managing databases and authorization tokens, in a cluster.
+
+### `influx3` data CLI
+
+The [`influx3` data CLI](/influxdb/cloud-dedicated/get-started/query/?t=influx3+CLI#execute-an-sql-query) is a community-maintained tool that lets you write and query data in {{% product-name %}} from a command line.
+It uses the HTTP API to write data and uses Flight gRPC to query data.
+
+### InfluxDB HTTP API
+
+The [InfluxDB HTTP API](/influxdb/v2/reference/api/) provides a simple way to let you manage {{% product-name %}} and write and query data using HTTP(S) clients.
+Examples in this tutorial use cURL, but any HTTP(S) client will work.
+
+The `/write` and `/query` v1-compatible endpoints work with the username/password authentication schemes and existing InfluxDB 1.x tools and code.
+The `/api/v2/write` v2-compatible endpoint works with existing InfluxDB 2.x tools and code.
+
+### InfluxDB client libraries
+
+InfluxDB client libraries are community-maintained, language-specific clients that interact with InfluxDB APIs.
+
+[InfluxDB v3 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v3/) are the recommended client libraries for writing and querying data {{% product-name %}}.
+They use the HTTP API to write data and use Flight gRPC to query data.
+
+[InfluxDB v2 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v2/) can use `/api/v2` HTTP endpoints to manage resources such as buckets and API tokens, and write data in {{% product-name %}}.
+
+[InfluxDB v1 client libraries](/influxdb/cloud-dedicated/reference/client-libraries/v1/) can write data to {{% product-name %}}.
 
 ## Authorization
 
-**InfluxDB Cloud Dedicated requires authentication** using
+**{{% product-name %}} requires authentication** using
 [tokens](/influxdb/cloud-dedicated/admin/tokens/).
 
 There are two types of tokens:
@@ -111,8 +154,8 @@ There are two types of tokens:
 - **Database token**: A token that grants read and write access to InfluxDB
   databases.
 - **Management token**: A short-lived (1 hour) [Auth0 token](#) used to
-  administer your InfluxDB Cloud Dedicated cluster.
-  These are generated by the `influxctl` and do not require any direct management.
+  administer your InfluxDB cluster.
+  These are generated by the `influxctl` CLI and do not require any direct management.
   Management tokens authorize a user to perform tasks related to:
   
   - Account management
@@ -120,5 +163,4 @@ There are two types of tokens:
   - Database token management
   - Pricing
   <!-- - Infrastructure management -->
-
 {{< page-nav next="/influxdb/cloud-dedicated/get-started/setup/" >}}

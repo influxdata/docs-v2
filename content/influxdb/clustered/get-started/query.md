@@ -52,6 +52,15 @@ The examples in this section of the tutorial query the
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/clustered/query-data/execute-queries/influxdb-v1-api/)
 - [Chronograf](/chronograf/v1/)
 
+{{% warn %}}
+
+#### /api/v2/query not supported
+
+The InfluxDB API `/api/v2/query` endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
+The `/api/v2/query` API endpoint and associated tooling, such as the `influx` CLI and InfluxDB v2 client libraries, **aren’t** supported in {{% product-name %}}.
+
+{{% /warn %}}
+
 ## SQL query basics
 
 The {{% product-name %}} SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)

@@ -12,7 +12,7 @@ influxdb/cloud-serverless/tags: [get-started]
 
 InfluxDB {{< current-version >}} is the platform purpose-built to collect, store,
 process and visualize time series data.
-The InfluxDB IOx storage engine provides a number of benefits including nearly
+The InfluxDB v3.0 storage engine provides a number of benefits including nearly
 unlimited series cardinality, improved query performance, and interoperability
 with widely used data processing tools and platforms.
 
@@ -43,7 +43,7 @@ throughout this documentation.
 
 ### Data organization
 
-The InfluxDB data model organizes time series data into buckets and measurements.
+The {{% product-name %}} data model organizes time series data into buckets and measurements.
 A bucket can contain multiple measurements. Measurements contain multiple
 tags and fields.
 
@@ -89,42 +89,77 @@ The following definitions are important to understand when using InfluxDB:
 
 ## Tools to use
 
-Throughout this tutorial, there are multiple tools you can use to interact with
-InfluxDB {{< current-version >}}. Examples are provided for each of the following:
+The following table compares tools that you can use to interact with {{% product-name %}}.
+This tutorial covers many of the recommended tools.
 
-- [InfluxDB user interface](#influxdb-user-interface)
-- [`influx` CLI](#influx-cli)
-- [InfluxDB HTTP API](#influxdb-http-api)
+| Tool                              | Administration  | Write   | Query   |
+|:--------------------------------- |:---------------:|:-------:|:-------:|
+| [Chronograf](/chronograf/v1/)     |       -         |   -     | **{{< icon "check" >}}**  |
+| [`influx` CLI](#influx-cli)                                         |     **{{< icon "check" >}}**      | **{{< icon "check" >}}**  |   -     |
+| [`influx3` data CLI](#influx3-data-cli){{< req text="\* " color="magenta" >}}               |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
+| <span style="color:gray">`influxctl` CLI</span>                          |       -         |   -     |   -     |
+| [InfluxDB HTTP API](#influxdb-http-api)                          |    **{{< icon "check" >}}**        |   **{{< icon "check" >}}**  |   **{{< icon "check" >}}**     |
+| [InfluxDB user interface](#influxdb-user-interface) {{< req text="\* " color="magenta" >}} |     **{{< icon "check" >}}**      |   -     | **{{< icon "check" >}}**  |
+| [InfluxDB v3 client libraries](#influxdb-v3-client-libraries){{< req text="\* " color="magenta" >}}      |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
+| [InfluxDB v1 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v1/)      |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
+| [InfluxDB v2 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v2/)      |     **{{< icon "check" >}}**      | **{{< icon "check" >}}**  |   -     |
+| Telegraf                          |       -         | **{{< icon "check" >}}**  |   -     |
+| **Third-party tools**                                                   |
+| Flight SQL clients               |       -         |   -     | **{{< icon "check" >}}**  |
+|  [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)  |       -         |   -     | **{{< icon "check" >}}**  |
+| [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/) |       -         |   -     | **{{< icon "check" >}}**  |
+| [Tableau](/influxdb/cloud-serverless/process-data/visualize/tableau/)           |       -         |   -     | **{{< icon "check" >}}**  |
+
+{{< req type="key" text="Covered in this tutorial" color="magenta" >}}
+
+{{% warn %}}
+
+The `influxctl` admin CLI isn't available for {{% product-name %}}.
+It only works with InfluxDB Cloud Dedicated and InfluxDB Clustered.
+
+{{% /warn %}}
 
 ### InfluxDB user interface
 
 The InfluxDB user interface (UI) provides a web-based visual interface for interacting with and managing InfluxDB.
-To access the InfluxDB Cloud Serverless UI, [log into your InfluxDB Cloud account](https://cloud2.influxdata.com).
+To access the {{% product-name %}} UI, [log into your InfluxDB Cloud account](https://cloud2.influxdata.com).
 
 ### `influx` CLI
 
-The `influx` CLI lets you interact with and manage InfluxDB Cloud Serverless from a command line.
+The `influx` CLI lets you manage {{% product-name %}} and write data from a command line.
+Querying {{% product-name %}} isn't supported.
+
 For detailed CLI installation instructions, see
 the [`influx` CLI reference](/influxdb/cloud-serverless/reference/cli/influx/).
 
+### `influx3` data CLI
+
+The [`influx3` data CLI](/influxdb/cloud-serverless/get-started/query/?t=influx3+CLI#execute-an-sql-query) is a community-maintained tool that lets you write and query data in {{% product-name %}} from a command line.
+It uses the HTTP API to write data and uses Flight gRPC to query data.
+
 ### InfluxDB HTTP API
 
-The [InfluxDB API](/influxdb/v2/reference/api/) provides a simple way to
-interact with the InfluxDB {{< current-version >}} using HTTP(S) clients.
+The [InfluxDB HTTP API](/influxdb/v2/reference/api/) provides a simple way to let you manage {{% product-name %}} and write and query data using HTTP(S) clients.
 Examples in this tutorial use cURL, but any HTTP(S) client will work.
 
-{{% note %}}
-#### InfluxDB client libraries
+The `/write` and `/query` v1-compatible endpoints work with the username/password authentication schemes and existing InfluxDB 1.x tools and code.
+The `/api/v2/write` v2-compatible endpoint works with existing InfluxDB 2.x tools and code.
 
-[InfluxDB client libraries](/influxdb/v2/api-guide/client-libraries/) are
-language-specific clients that interact with the InfluxDB HTTP API.
-Examples for client libraries are not provided in this tutorial, but these can
-be used to perform all the actions outlined in this tutorial.
-{{% /note %}}
+### InfluxDB client libraries
+
+InfluxDB client libraries are community-maintained, language-specific clients that interact with InfluxDB APIs.
+
+[InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) are the recommended client libraries for writing and querying data {{% product-name %}}.
+They use the HTTP API to write data and use Flight gRPC to query data.
+
+[InfluxDB v2 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v2/) can use `/api/v2` HTTP endpoints to manage resources such as buckets and API tokens, and write data in {{% product-name %}}.
+
+[InfluxDB v1 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v1/) can write data to {{% product-name %}}.
 
 ## Authorization
 
-**InfluxDB {{< current-version >}} requires authentication** using [API tokens](/influxdb/v2/security/tokens/).
+**{{% product-name %}} requires authentication** using [API tokens](/influxdb/cloud-serverless/admin/tokens/).
 Each API token is associated with a user and a specific set of permissions for InfluxDB resources.
+You can use administration tools such as the InfluxDB UI, the `influx` CLI, or the InfluxDB HTTP API to create and manage API tokens.
 
 {{< page-nav next="/influxdb/cloud-serverless/get-started/setup/" >}}
