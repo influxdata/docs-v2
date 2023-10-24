@@ -93,4 +93,47 @@ the following:
 - [jq](https://jqlang.github.io/jq/)
 - [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/README.md)
 
+### Appendix
+
+#### S3 Permissions
+
+The IAM role that you use to access AWS S3 should have the following policy:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObjectAcl",
+                "s3:PutObject",
+                "s3:ListMultipartUploadParts",
+                "s3:GetObjectAcl",
+                "s3:GetObject",
+                "s3:DeleteObject",
+                "s3:AbortMultipartUpload"
+            ],
+            "Resource": "arn:aws:s3:::$CLUSTERED_BUCKET/*",
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn:aws:s3:::$CLUSTERED_BUCKET",
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": "s3:ListAllMyBuckets",
+            "Resource": "*",
+        }
+    ]
+}
+```
+
 {{< page-nav next="/influxdb/clustered/install/auth/" nextText="Set up authentication" >}}
