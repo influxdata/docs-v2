@@ -3,7 +3,7 @@ title: Explore your schema with InfluxQL
 description: >
   Use InfluxQL `SHOW` statements to return information about your data schema.
 menu:
-  influxdb_cloud_clustered:
+  influxdb_clustered:
     name: Explore your schema
     parent: Query with InfluxQL
     identifier: query-influxql-schema
