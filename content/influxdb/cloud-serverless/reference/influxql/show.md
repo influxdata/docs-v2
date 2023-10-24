@@ -12,6 +12,8 @@ list_code_example: |
   ```sql
   SHOW [MEASUREMENTS | FIELD KEYS | TAG KEYS | TAG VALUES]
   ```
+related:
+  - /influxdb/cloud-serverless/query-data/influxql/explore-schema/
 ---
 
 Use InfluxQL `SHOW` statements to query schema information from a bucket.
