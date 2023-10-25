@@ -1905,7 +1905,7 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Internal server error
       description: |
-        Writes data to a bucket.
+        Writes data to a database.
 
         Use this InfluxDB v1-compatible endpoint to send data in [line protocol](/influxdb/clustered/reference/syntax/line-protocol/) format to InfluxDB using v1 API parameters and authorization.
 
