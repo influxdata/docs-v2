@@ -93,4 +93,60 @@ the following:
 - [jq](https://jqlang.github.io/jq/)
 - [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/README.md)
 
+## Configure object storage permissions
+
+Ensure the identity you're using to connect to your S3-compatible object store has the correct
+permissions to allow InfluxDB to perform all the actions it needs to.
+
+{{< expand-wrapper >}}
+{{% expand "View example AWS S3 access policy" %}}
+
+The IAM role that you use to access AWS S3 should have the following policy:
+
+{{% code-placeholders "S3_BUCKET_NAME" %}}
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObjectAcl",
+                "s3:PutObject",
+                "s3:ListMultipartUploadParts",
+                "s3:GetObjectAcl",
+                "s3:GetObject",
+                "s3:DeleteObject",
+                "s3:AbortMultipartUpload"
+            ],
+            "Resource": "arn:aws:s3:::S3_BUCKET_NAME/*",
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn:aws:s3:::S3_BUCKET_NAME",
+        },
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Action": "s3:ListAllMyBuckets",
+            "Resource": "*",
+        }
+    ]
+}
+```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`S3_BUCKET_NAME`{{% /code-placeholder-key %}}: Name of your AWS S3 bucket
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
+
 {{< page-nav next="/influxdb/clustered/install/auth/" nextText="Set up authentication" >}}
