@@ -1,6 +1,7 @@
 - name: Using the InfluxDB HTTP API
   tags:
     - Quick start
+    - API compatibility
     - Authentication
     - Headers
     - Pagination
