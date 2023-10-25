@@ -95,7 +95,7 @@ the following:
 
 ## Configure object storage permissions
 
-Ensure the identity you're using to connect to your S3-compatible object storehas the correct
+Ensure the identity you're using to connect to your S3-compatible object store has the correct
 permissions to allow InfluxDB to perform all the actions it needs to.
 
 {{< expand-wrapper >}}
