@@ -4877,7 +4877,6 @@ components:
             - If you use the `scriptID` property, you can't use the `flux` property.
 
             <!-- TSM-ONLY -->
-
           type: string
         scriptParameters:
           description: |
@@ -5284,7 +5283,6 @@ components:
               - `spec.associations.name`
 
             <!-- TSM-ONLY -->
-
           type: object
         orgID:
           description: |
@@ -5353,7 +5351,6 @@ components:
             Once stored, you can't view secret values in InfluxDB.
 
             <!-- TSM-ONLY -->
-
           type: object
         stackID:
           description: |
@@ -5366,7 +5363,6 @@ components:
             To find a stack ID, use the InfluxDB [`/api/v2/stacks` API endpoint](#operation/ListStacks) to list stacks.
 
             <!-- TSM-ONLY -->
-
           type: string
         template:
           description: |
@@ -6704,14 +6700,10 @@ components:
       name: Authorization
       type: apiKey
 info:
-  title: InfluxDB Cloud (IOx) API Service
-  version: Cloud 2.x
+  title: InfluxDB Cloud Serverless API Service
+  version: InfluxDB v3.0
   description: |
-    The InfluxDB HTTP API provides a programmatic interface for interactions with InfluxDB.
-    Access the InfluxDB API using the `/api/v2/` endpoint or InfluxDB v1 endpoints.
-
-    This documentation is generated from the
-    [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
+    The InfluxDB HTTP API provides a programmatic interface for interacting with InfluxDB.
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -8078,7 +8070,6 @@ paths:
         #### Related endpoints
 
         - [Authorizations](#tag/Authorizations-(API-tokens))
-
       operationId: GetBucketsIDOwners
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -10424,8 +10415,8 @@ paths:
       responses:
         '200':
           content:
-              schema:
-                $ref: '#/components/schemas/ASTResponse'
+            schema:
+              $ref: '#/components/schemas/ASTResponse'
           description: |
             This endpoint isn't supported in InfluxDB Cloud Serverless.
             See how to [query data](/influxdb/cloud-serverless/query-data/).
@@ -10583,7 +10574,6 @@ paths:
         Lists scripts.
 
         <!-- TSM-ONLY -->
-
       operationId: GetScripts
       parameters:
         - description: |
@@ -10685,7 +10675,6 @@ paths:
         and returns the script.
 
         <!-- TSM-ONLY -->
-
       operationId: PostScripts
       requestBody:
         content:
@@ -10755,7 +10744,6 @@ paths:
         responds with an HTTP `204` status code.
 
         <!-- TSM-ONLY -->
-
       operationId: DeleteScriptsID
       parameters:
         - description: |
@@ -10794,7 +10782,6 @@ paths:
         Retrieves a script.
 
         <!-- TSM-ONLY -->
-
       operationId: GetScriptsID
       parameters:
         - description: |
@@ -10862,7 +10849,6 @@ paths:
         code.
 
         <!-- TSM-ONLY -->
-
       operationId: PatchScriptsID
       parameters:
         - description: |
@@ -10963,7 +10949,6 @@ paths:
         ```
 
         <!-- TSM-ONLY -->
-
       operationId: PostScriptsIDInvoke
       parameters:
         - description: |
@@ -11100,7 +11085,6 @@ paths:
         be a structured type such as an array or record.
 
         <!-- TSM-ONLY -->
-
       operationId: GetScriptsIDParams
       parameters:
         - description: |
@@ -11180,7 +11164,6 @@ paths:
         for the organization.
 
         <!-- TSM-ONLY -->
-
       operationId: ListStacks
       parameters:
         - description: |
@@ -11297,7 +11280,6 @@ paths:
         - `write` permission for the organization
 
         <!-- TSM-ONLY -->
-
       operationId: CreateStack
       requestBody:
         content:
@@ -11747,7 +11729,6 @@ paths:
         - You can't use `flux` and `scriptID` for the same task.
 
         <!-- TSM-ONLY -->
-
       operationId: PostTasks
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12454,7 +12435,6 @@ paths:
         To limit which task runs are returned, pass query parameters in your request.
         If no query parameters are passed, InfluxDB returns all task runs up to the default `limit`.
         <!-- TSM-ONLY -->
-
       operationId: GetTasksIDRuns
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12523,7 +12503,6 @@ paths:
         To _retry_ a previous run (and avoid creating a new run),
         use the [`POST /api/v2/tasks/{taskID}/runs/{runID}/retry` endpoint](#operation/PostTasksIDRunsIDRetry).
         <!-- TSM-ONLY -->
-
       operationId: PostTasksIDRuns
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12564,7 +12543,6 @@ paths:
 
         - Doesn't support this operation.
         <!-- TSM-ONLY -->
-
       operationId: DeleteTasksIDRunsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12623,7 +12601,6 @@ paths:
 
         Use this endpoint to retrieve detail and logs for a specific task run.
         <!-- TSM-ONLY -->
-
       operationId: GetTasksIDRunsID
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -12690,7 +12667,6 @@ paths:
 
         Use this endpoint to help analyze task performance and troubleshoot failed task runs.
         <!-- TSM-ONLY -->
-
       operationId: GetTasksIDRunsIDLogs
       parameters:
         - $ref: '#/components/parameters/TraceSpan'
@@ -13315,7 +13291,6 @@ paths:
           For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/account-management/limits/).
 
         <!-- TSM-ONLY -->
-
       operationId: ApplyTemplate
       requestBody:
         content:
@@ -13867,7 +13842,7 @@ paths:
         InfluxDB does the following when you send a write request:
 
         1. Validates the request
-        2. If successful, attempts to [ingest the data](/influxdb/cloud-dedicated/reference/internals/durability/#data-ingest); _error_ otherwise.
+        2. If successful, attempts to [ingest the data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest); _error_ otherwise.
         3.  If successful, responds with _success_ (HTTP `204` status code), acknowledging that the data is written and queryable; _error_ otherwise.
 
         To ensure that InfluxDB Cloud handles writes in the order you request them,
@@ -14014,7 +13989,6 @@ paths:
                   value:
                     code: invalid
                     message: 'failed to parse line protocol: error writing line 2: Unable to insert iox::column_type::field::integer type into column temp  with type iox::column_type::field::string'
-
               schema:
                 $ref: '#/components/schemas/LineProtocolError'
           description: |
@@ -14354,6 +14328,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           description: Internal server error
+      description: |
+        Writes data to a bucket.
+
+        Use this InfluxDB v1-compatible endpoint to send data in [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) format to InfluxDB using v1 API parameters and authorization.
+
+        InfluxDB does the following when you send a write request:
+
+        1. Validates the request
+        2. If successful, attempts to [ingest the data](/influxdb/cloud-serverless/reference/internals/durability/#data-ingest); _error_ otherwise.
+        3.  If successful, responds with _success_ (HTTP `204` status code), acknowledging that the data is written and queryable; _error_ otherwise.
+
+        To ensure that InfluxDB handles writes in the order you request them,
+        wait for a success response (HTTP `2xx` status code) before you send the next request.
+
+        #### Rate limits
+
+        `write` rate limits apply.
+        For more information, see [limits and adjustable quotas](/influxdb/cloud-serverless/admin/billing/limits/).
+
+        #### Related guides
+
+        - [Write data with the InfluxDB API](/influxdb/cloud-serverless/get-started/write/)
+        - [Optimize writes to InfluxDB](/influxdb/cloud-serverless/write-data/best-practices/optimize-writes/)
+        - [Troubleshoot issues writing data](/influxdb/cloud-serverless/write-data/troubleshoot/)
       summary: Write data using the InfluxDB v1 API
       tags:
         - Write
@@ -14362,6 +14360,38 @@ security:
 servers:
   - url: /
 tags:
+  - description: |
+      ### Write data
+
+      InfluxDB Cloud Serverless provides the following HTTP API endpoints for writing data:
+
+      - **Recommended**: `/api/v2/write` endpoint
+        for new write workloads or for bringing existing InfluxDB v2 write workloads to v3.
+      - [`/write` endpoint]((/influxdb/cloud-serverless/api/#operation/PostLegacyWrite)) for bringing existing InfluxDB v1 write workloads to v3.
+
+      Both endpoints accept the same line protocol format and process data in the same way.
+
+      ### Query data
+
+      InfluxDB Cloud Serverless provides the following protocols for executing a query:
+
+      - **Recommended**: _Flight+gRPC_ request that contains an SQL or InfluxQL query. See how to [get started querying InfluxDB using Flight and SQL](/influxdb/cloud-serverless/get-started/query/).
+      - HTTP API [`/query` request](/influxdb/cloud-serverless/api/#operation/GetLegacyQuery) that contains an InfluxQL query.
+        Use this protocol when bringing existing InfluxDB v1 query workloads to v3.
+
+      ### InfluxDB v2 compatibility
+
+      The HTTP API [`/api/v2/write` endpoint](/influxdb/cloud-serverless/api/#operation/PostWrite) works with the [`Token` authentication scheme](#section/Authentication/TokenAuthentication) and existing InfluxDB 2.x tools and code for [writing data](/influxdb/cloud-serverless/write-data/).
+
+      See how to [use the InfluxDB v2 API with InfluxDB Cloud Serverless](/influxdb/cloud-serverless/guides/api-compatibility/v2/).
+
+      ### InfluxDB v1 compatibility
+
+      The HTTP API [`/write` endpoint](/influxdb/cloud-serverless/api/#operation/PostLegacyWrite) and [`/query` endpoint](/influxdb/cloud-serverless/api/#operation/GetLegacyQuery) work with InfluxDB 1.x username/password [authentication schemes](#section/Authentication/) and existing InfluxDB 1.x tools and code.
+
+      See how to [use the InfluxDB v1 API with InfluxDB Cloud Serverless](/influxdb/cloud-serverless/guides/api-compatibility/v1/).
+    name: API compatibility
+    x-traitTag: true
   - description: |
       Use one of the following schemes to authenticate to the InfluxDB API:
 
@@ -14453,7 +14483,7 @@ tags:
       Delete data from an InfluxDB bucket.
     name: Delete
   - description: |
-      InfluxDB `/api/v2` API endpoints use standard HTTP request and response headers.
+      InfluxDB HTTP API endpoints use standard HTTP request and response headers.
       The following table shows common headers used by many InfluxDB API endpoints.
       Some endpoints may use other headers that perform functions more specific to those endpoints--for example,
       the `POST /api/v2/write` endpoint accepts the `Content-Encoding` header to indicate the compression applied to line protocol in the request body.
@@ -14537,13 +14567,16 @@ tags:
     x-traitTag: true
   - name: Ping
   - description: |
-      Use the InfluxDB v1 and v2 HTTP APIs with Flux, SQL, or InfluxQL to retrieve data, analyze queries, and get query suggestions.
+      Query data stored in a bucket.
 
-      To get started using Flight and gRPC for querying InfluxDB v3, see the following:
+      - HTTP clients can query the v1 [`/query` endpoint](/influxdb/cloud-serverless/api/#operation/GetLegacyQuery)
+      using **InfluxQL** and retrieve data in **CSV** or **JSON** format.
+      - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and retrieve data in **Arrow** format.
 
-      - [Get started with InfluxDB Cloud Serverless](/influxdb/cloud-serverless/get-started/)
-      - [Query with Flight SQL](/influxdb/cloud-serverless/query-data/execute-queries/flight-sql/)
-      - [InfluxDB v3 client libraries and Flight clients](/influxdb/cloud-serverless/reference/client-libraries/)
+      #### Related guides
+
+      - [Get started querying InfluxDB](/influxdb/cloud-serverless/get-started/query/)
+      - [Execute queries](/influxdb/cloud-serverless/query-data/execute-queries/)
     name: Query
   - description: |
       See the [**Get started**](/influxdb/cloud-serverless/get-started/) tutorial
@@ -14555,7 +14588,7 @@ tags:
     x-traitTag: true
   - name: Resources
   - description: |
-      InfluxDB `/api/v2` API endpoints use standard HTTP status codes for success and failure responses.
+      InfluxDB HTTP API endpoints use standard HTTP status codes for success and failure responses.
       The response body may include additional details.
       For details about a specific operation's response,
       see **Responses** and **Response Samples** for that operation.
@@ -14654,7 +14687,7 @@ tags:
   - name: Variables
   - name: Views
   - description: |
-      Write time series data to [buckets](/influxdb/cloud-serverless/reference/glossary/#bucket).
+      Write time series data to [buckets](/influxdb/cloud-serverless/reference/glossary/#bucket) using InfluxDB v1 or v2 endpoints.
     name: Write
 x-tagGroups:
   - name: Using the InfluxDB HTTP API

@@ -3,7 +3,7 @@
 # This script provides a simple way grab the latest fully resolved openapi (OAS, OpenAPI Specification) contract files
 # from the influxdata/openapi repo.
 #
-# Specify a platform to retrieve (cloud-iox, cloud, oss, v1compat, all).
+# Specify a platform to retrieve (cloud-serverless, cloud-dedicated, clustered, cloud, oss, v1compat, all).
 # Optionally specify:
 # - an OSS version as the second argument or using the -o flag.
 #   The version specifies where to write the updated openapi.
@@ -13,14 +13,16 @@
 #   The default baseUrl (used for InfluxDB Cloud) is the master branch of influxdata/openapi.
 #   The default baseUrl for OSS is the docs-release/influxdb-oss branch of influxdata/openapi.
 #   For local development, pass your openapi directory using the file:/// protocol.
-#
+#   To use the existing ref.yml and prevent fetching any openapi files, use the -B flag.
 # Syntax:
 #   sh ./getswagger.sh <platform>
 #   sh ./getswagger.sh <platform> -b <baseUrl>
 #   sh ./getswagger.sh -c <platform> -o <version> -b <baseUrl>
+#   sh ./getswagger.sh -c <platform> -o <version> -B
 #
 # Examples:
-#   sh ./getswagger.sh cloud-iox
+#   sh ./getswagger.sh cloud-serverless
+#   sh ./getswagger.sh clustered -B
 #   sh ./getswagger.sh cloud
 #   sh ./getswagger.sh -c oss -o v2.0 -b file:///Users/johnsmith/github/openapi
 
@@ -49,6 +51,7 @@ function showHelp {
   echo "-b <URL> The base URL to fetch from."
   echo "      ex. ./getswagger.sh -b file:///Users/yourname/github/openapi"
   echo "      The default is the influxdata/openapi repo master branch."
+  echo "-B Use the existing ref.yml and prevent fetching any openapi files."
   echo "-h Show this help."
   echo "-o <semantic version> The OSS Version to fetch."
   echo "      ex. ./getswagger.sh oss -o v2.0"
@@ -59,11 +62,11 @@ function showHelp {
 subcommand=$1
 
 case "$subcommand" in
-  cloud-dedicated|cloud-serverless|cloud|oss|v1compat|all)
+  cloud-dedicated|cloud-serverless|clustered|cloud|oss|v1compat|all)
     platform=$1
     shift
 
-  while getopts ":o:b:hV" opt; do
+  while getopts ":o:b:BhV" opt; do
     case ${opt} in
       h)
         showHelp
@@ -71,6 +74,10 @@ case "$subcommand" in
         ;;
       V)
         verbose="-v"
+        ;;
+      B)
+        baseUrl=""
+        baseUrlOSS=""
         ;;
       b)
         baseUrl=$OPTARG
@@ -130,32 +137,68 @@ function postProcess() {
 
 function updateCloud {
   outFile="cloud/ref.yml"
-  curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "Using existing $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  fi
   postProcess $outFile cloud
 }
 
 function updateCloudDedicated {
   outFile="cloud-dedicated/ref.yml"
-  curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "Using existing $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  fi
   postProcess $outFile cloud-dedicated
+}
+
+function updateClustered {
+  outFile="clustered/ref.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "Using existing $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  fi
+  postProcess $outFile clustered
 }
 
 function updateCloudServerless {
   outFile="cloud-serverless/ref.yml"
-  curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "Using existing $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrl}/contracts/ref/cloud.yml -o $outFile
+  fi
   postProcess $outFile cloud-serverless
 }
 
 function updateOSS {
   mkdir -p ${ossVersion}
   outFile="$ossVersion/ref.yml"
-  curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
+  if [[ -z "$baseUrlOSS" ]];
+  then
+    echo "Using existing $outFile"
+  else
+    curl $UPDATE_OPTIONS ${baseUrlOSS}/contracts/ref/oss.yml -o $outFile
+  fi
   postProcess $outFile $ossVersion
 }
 
 function updateV1Compat {
   outFile="cloud/swaggerV1Compat.yml"
+  if [[ -z "$baseUrl" ]];
+  then
+    echo "Using existing $outFile"
+  else
   curl $UPDATE_OPTIONS ${baseUrl}/contracts/swaggerV1Compat.yml -o $outFile
+  fi
   postProcess $outFile cloud v1compat
 
   outFile="$ossVersion/swaggerV1Compat.yml"
@@ -181,6 +224,9 @@ then
 elif [ "$platform" = "cloud-serverless" ];
 then
   updateCloudServerless
+elif [ "$platform" = "clustered" ];
+then
+  updateClustered
 elif [ "$platform" = "oss" ];
 then
   updateOSS
@@ -192,9 +238,10 @@ then
   updateCloud
   updateCloudDedicated
   updateCloudServerless
+  updateClustered
   updateOSS
   updateV1Compat
 else
-  echo "Provide a platform argument: cloud, cloud-iox, oss, v1compat, or all."
+  echo "Provide a platform argument: cloud, cloud-serverless, cloud-dedicated, clustered, oss, v1compat, or all."
   showHelp
 fi

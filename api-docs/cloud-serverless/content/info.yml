@@ -1,11 +1,7 @@
 title: InfluxDB Cloud Serverless API Service
 description: |
-    The InfluxDB HTTP API provides a programmatic interface for all interactions with InfluxDB.
-    Access the InfluxDB API using the `/api/v2/` endpoint.
-
-    This documentation is generated from the
-    [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
-version: Cloud 2.x
+    The InfluxDB HTTP API provides a programmatic interface for interacting with InfluxDB.
+version: InfluxDB v3.0
 license:
   name: MIT
   url: 'https://opensource.org/licenses/MIT'

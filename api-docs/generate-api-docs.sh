@@ -45,6 +45,7 @@ function generateHtml {
     --options.noAutoAuth \
     --templateOptions.version="$version" \
     --templateOptions.titleVersion="$titleVersion" \
+    --templateOptions.titleSubmodule="$titleSubmodule" \
     --output="redoc-static$outFilename.html"
 }
 
