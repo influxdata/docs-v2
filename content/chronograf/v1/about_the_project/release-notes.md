@@ -6,9 +6,33 @@ menu:
     name: Release notes
     weight: 10
     parent: About the project
+aliases:
+  - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
-## v1.10 [2022-08-19]
+## v1.10.2 [2023-10-20]
+
+### Bug Fixes
+
+- Fix error on typing colon.
+- Fix time interval in `Processor_Queue_Length` query.
+
+### Maintenance updates
+
+- Upgrade Go to 1.20.10.
+
+## v1.10.1 [2023-03-17]
+
+### Bug Fixes
+
+- Repair the user interface served under `BASEPATH`.
+
+### Maintenance updates
+
+- Various security updates.
+- Upgrade to Go 1.20.
+
+## v1.10.0 [2022-08-19]
 
 ### Features
 
