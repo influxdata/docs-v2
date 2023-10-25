@@ -96,7 +96,7 @@ Database names must adhere to the following naming restrictions:
 - Cannot contain whitespace, punctuation, or special characters.
   Only alphanumeric, underscore (`_`), dash (`-`), and forward-slash
   (`/`) characters are permitted.
-- Should not start with an underscore (`_`)
+- Should not start with an underscore (`_`).
 - Maximum length of 64 characters.
 
 ## InfluxQL DBRP naming convention
