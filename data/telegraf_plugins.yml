@@ -2150,7 +2150,7 @@ input:
     description: |
       The Windows Eventlog input plugin reports Windows event logging. **Windows Vista and later only**.
     introduced: 1.16.0
-    tags: [windows, servers, systems]
+    tags: [windows, servers, systems, logging]
 
   - name: Windows Services
     id: win_services
