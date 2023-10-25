@@ -53,6 +53,14 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/query-data/execute-queries/influxdb-v1-api/)
 - [Chronograf](/chronograf/v1/)
 
+{{% warn %}}
+
+#### Avoid using /api/v2/query
+
+Avoid using the `/api/v2/query` API endpoint and associated tooling, such as the `influx query` CLI command and InfluxDB v2 client libraries, with {{% product-name %}}.
+
+{{% /warn %}}
+
 ## SQL query basics
 
 The {{% product-name %}} SQL implementation is powered by the [Apache Arrow DataFusion](https://arrow.apache.org/datafusion/)
@@ -171,8 +179,17 @@ Get started with one of the following tools for querying data stored in an {{% p
 
 - **InfluxDB UI**: View your schema, build queries using the query editor, and generate data visualizations.
 - **InfluxDB v3 client libraries**: Use language-specific (Python, Go, etc.) clients to execute queries in your terminal or custom code.
-- **influx3 CLI**: Send queries from your terminal command-line.
+- **influx3 data CLI**: Send queries from your terminal command-line.
 - **Grafana**: Use the [FlightSQL Data Source plugin](https://grafana.com/grafana/plugins/influxdata-flightsql-datasource/), to query, connect, and visualize data.
+
+{{% warn %}}
+
+#### Avoid using /api/v2/query
+
+Avoid using the `/api/v2/query` API endpoint in {{% product-name %}} and associated tooling, such as the `influx query` CLI command and InfluxDB v2 client libraries.
+You can't use SQL or InfluxQL with these tools.
+
+{{% /warn %}}
 
 For this example, use the following query to select all the data written to the
 **get-started** bucket between
