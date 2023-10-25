@@ -1918,11 +1918,6 @@ paths:
         To ensure that InfluxDB handles writes in the order you request them,
         wait for a success response (HTTP `2xx` status code) before you send the next request.
 
-        #### Rate limits
-
-        `write` rate limits apply.
-        For more information, see [limits and adjustable quotas](/influxdb/clustered/admin/billing/limits/).
-
         #### Related guides
 
         - [Write data with the InfluxDB API](/influxdb/clustered/get-started/write/)
