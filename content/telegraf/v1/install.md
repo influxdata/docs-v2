@@ -320,20 +320,7 @@ The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files 
 `C:\Program Files\InfluxData\telegraf` or that you created a Symlink to point to this directory.
     {{% /note %}}
 
-3.  Optional: Disable the [`inputs.processes` plugin](/telegraf/v1/plugins/#input-processes).
-    This plugin doesn't support Windows and returns an error when run with the `--test` flag.
-    Open `telegraf.conf` in your editor and comment the `inputs.processes` configuration lines.
-
-    ```toml
-    ...
-    # This plugin ONLY supports non-Windows
-    # [[inputs.processes]]
-    ...
-    #  # use_sudo = false
-    ...
-    ```
-
-4.  Optional: Enable a plugin to collect Windows-specific metrics--for example, uncomment the [`inputs.win_services`  plugin](/telegraf/v1/plugins/#input-win_services) configuration line:
+3.  Optional: Enable a plugin to collect Windows-specific metrics--for example, uncomment the [`inputs.win_services`  plugin](/telegraf/v1/plugins/#input-win_services) configuration line:
 
     ```toml
     ...
@@ -343,7 +330,7 @@ The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files 
     ...
     ```
 
-5.  Run the following command to install Telegraf and the configuration as a Windows service.
+4.  Run the following command to install Telegraf and the configuration as a Windows service.
     For the `--config` option, pass the absolute path of the `telegraf.conf` configuration file.
 
     ```powershell
@@ -351,7 +338,7 @@ The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files 
     --config "C:\Program Files\InfluxData\telegraf\telegraf.conf"
     ```
 
-6.  To test that the installation works, enter the following command:
+5.  To test that the installation works, enter the following command:
 
     ```powershell
     .\telegraf.exe `
