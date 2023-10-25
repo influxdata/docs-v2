@@ -119,7 +119,7 @@ While it may coincidentally work, it isn't supported.
 
 ### `influxctl` admin CLI
 
-The [`influxctl` command line interface (CLI)](/influxdb/cloud-dedicated/reference/cli/influxctl/) performs administrative tasks, such as managing databases and authorization tokens, in a cluster.
+The [`influxctl` command line interface (CLI)](/influxdb/cloud-dedicated/reference/cli/influxctl/) performs administrative tasks, such as managing databases and authorization tokens in a cluster.
 
 ### `influx3` data CLI
 
