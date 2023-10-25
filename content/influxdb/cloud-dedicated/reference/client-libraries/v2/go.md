@@ -16,8 +16,7 @@ Use the [InfluxDB Go client library](https://github.com/influxdata/influxdb-clie
 {{% note %}}
 ### Use the InfluxDB v3 client library
 
-InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% product-name %}} database.
+This client library can't query an {{% product-name %}} database.
 
 Use the [InfluxDB v3 Go client library](/influxdb/cloud-dedicated/reference/client-libraries/v3/go/)
 to write and query data stored in {{% product-name %}}.

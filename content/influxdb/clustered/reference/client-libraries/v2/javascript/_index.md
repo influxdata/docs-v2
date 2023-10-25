@@ -36,4 +36,13 @@ This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
 
 {{% /note %}}
 
+{{% warn %}}
+
+#### /api/v2/query not supported
+
+The InfluxDB API `/api/v2/query` endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
+The `/api/v2/query` API endpoint and associated tooling, such as the `influx` CLI and InfluxDB v2 client libraries, **aren’t** supported in {{% product-name %}}.
+
+{{% /warn %}}
+
 {{< children depth="999" >}}

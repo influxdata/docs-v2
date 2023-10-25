@@ -6,7 +6,7 @@ menu:
     name: C# .NET
     parent: Arrow Flight clients
     identifier: csharp-flight-client
-influxdb/clustered/tags: [C#, gRPC, SQL, Flight SQL, client libraries]
+influxdb/clustered/tags: [Flight client, C#, gRPC, SQL, Flight SQL, client libraries]
 aliases:
   - /influxdb/clustered/reference/client-libraries/flight-sql/csharp-flightsql/
 weight: 201

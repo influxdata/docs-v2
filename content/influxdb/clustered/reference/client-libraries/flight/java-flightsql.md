@@ -6,7 +6,7 @@ menu:
     name: Java Flight SQL
     parent: Arrow Flight clients
     identifier: java-flightsql-client
-influxdb/clustered/tags: [Java, gRPC, SQL, Flight SQL]
+influxdb/clustered/tags: [Flight client, Java, gRPC, SQL, Flight SQL]
 weight: 201
 related:
   - /influxdb/clustered/reference/client-libraries/v3/java/

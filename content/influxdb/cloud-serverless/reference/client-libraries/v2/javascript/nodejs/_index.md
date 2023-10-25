@@ -24,9 +24,6 @@ integrates with the InfluxDB v2 API to write data from Node.js and browser appli
 
 ### Tools to execute queries
 
-InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
-
 {{% product-name %}} supports many different tools for querying data, including:
 
 - [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
@@ -37,6 +34,15 @@ This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
 - [Chronograf](/chronograf/v1/)
 
 {{% /note %}}
+
+{{% warn %}}
+
+#### Avoid using /api/v2/query
+
+Avoid using the `/api/v2/query` API endpoint in {{% product-name %}} and associated tooling, such as the `influx query` CLI command and InfluxDB v2 client libraries.
+You can't use SQL or InfluxQL with these tools.
+
+{{% /warn %}}
 
 ## Use the client library in a Node.js application
 

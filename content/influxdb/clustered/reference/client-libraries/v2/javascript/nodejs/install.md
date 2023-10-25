@@ -18,11 +18,11 @@ Install the Node.js JavaScript client library to write data to an {{% product-na
 
 ### Tools to execute queries
 
-InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% product-name %}} database.
+This client library can't query an {{% product-name %}} database.
 
 {{% product-name %}} supports many different tools for querying data, including:
 
+- [`influx3` data CLI](https://github.com/InfluxCommunity/influxdb3-python-cli)
 - [InfluxDB v3 client libraries](/influxdb/clustered/reference/client-libraries/v3/)
 - [Flight clients](/influxdb/clustered/reference/client-libraries/flight-sql/)
 - [Superset](/influxdb/clustered/query-data/sql/execute-queries/superset/)
@@ -31,6 +31,15 @@ This endpoint can't query an {{% product-name %}} database.
 - [Chronograf](/chronograf/v1/)
 
 {{% /note %}}
+
+{{% warn %}}
+
+#### /api/v2/query not supported
+
+The InfluxDB API `/api/v2/query` endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
+The `/api/v2/query` API endpoint and associated tooling, such as the `influx` CLI and InfluxDB v2 client libraries, **aren’t** supported in {{% product-name %}}.
+
+{{% /warn %}}
 
 ## Install Node.js
 

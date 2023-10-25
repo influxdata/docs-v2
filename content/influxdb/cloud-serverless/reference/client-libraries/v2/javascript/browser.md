@@ -24,9 +24,6 @@ Use the [InfluxDB v2 JavaScript client library](https://github.com/influxdata/in
 
 ### Tools to execute queries
 
-InfluxDB v2 client libraries use the InfluxDB API `/api/v2/query` endpoint.
-This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
-
 {{% product-name %}} supports many different tools for querying data, including:
 
 - [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
@@ -37,6 +34,15 @@ This endpoint can't query an {{% product-name omit=" Clustered" %}} cluster.
 - [Chronograf](/chronograf/v1/)
 
 {{% /note %}}
+
+{{% warn %}}
+
+#### Avoid using /api/v2/query
+
+Avoid using the `/api/v2/query` API endpoint in {{% product-name %}} and associated tooling, such as the `influx query` CLI command and InfluxDB v2 client libraries.
+You can't use SQL or InfluxQL with these tools.
+
+{{% /warn %}}
 
 This library supports both front-end and server-side environments and provides the following distributions:
 * ECMAScript modules (ESM) and CommonJS modules (CJS)

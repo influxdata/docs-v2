@@ -9,7 +9,7 @@ menu:
     name: Java
     parent: v3 client libraries
     identifier: influxdb3-java
-influxdb/cloud-serverless/tags: [Java, gRPC, SQL, Flight SQL, client libraries]
+influxdb/cloud-serverless/tags: [Flight client, Java, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
 aliases:
   - /cloud-serverless/query-data/sql/execute-queries/java/

@@ -9,7 +9,7 @@ menu:
     name: JavaScript
     parent: v3 client libraries
     identifier: influxdb3-js
-influxdb/cloud-serverless/tags: [JavaScript, gRPC, SQL, Flight SQL, client libraries]
+influxdb/cloud-serverless/tags: [Flight client, JavaScript, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
 aliases:
   - /influxdb/cloud-serverless/reference/api/client-libraries/go/
