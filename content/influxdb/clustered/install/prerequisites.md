@@ -93,12 +93,17 @@ the following:
 - [jq](https://jqlang.github.io/jq/)
 - [crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/README.md)
 
-### Appendix
+## Configure object storage permissions
 
-#### S3 Permissions
+Ensure the identity you're using to connect to your S3-compatible object storehas the correct
+permissions to allow InfluxDB to perform all the actions it needs to.
+
+{{< expand-wrapper >}}
+{{% expand "View example AWS S3 access policy" %}}
 
 The IAM role that you use to access AWS S3 should have the following policy:
 
+{{% code-placeholders "S3_BUCKET_NAME" %}}
 ```json
 {
     "Version": "2012-10-17",
@@ -115,7 +120,7 @@ The IAM role that you use to access AWS S3 should have the following policy:
                 "s3:DeleteObject",
                 "s3:AbortMultipartUpload"
             ],
-            "Resource": "arn:aws:s3:::$CLUSTERED_BUCKET/*",
+            "Resource": "arn:aws:s3:::S3_BUCKET_NAME/*",
         },
         {
             "Sid": "",
@@ -124,7 +129,7 @@ The IAM role that you use to access AWS S3 should have the following policy:
                 "s3:ListBucket",
                 "s3:GetBucketLocation"
             ],
-            "Resource": "arn:aws:s3:::$CLUSTERED_BUCKET",
+            "Resource": "arn:aws:s3:::S3_BUCKET_NAME",
         },
         {
             "Sid": "",
@@ -135,5 +140,13 @@ The IAM role that you use to access AWS S3 should have the following policy:
     ]
 }
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`S3_BUCKET_NAME`{{% /code-placeholder-key %}}: Name of your AWS S3 bucket
+
+{{% /expand %}}
+{{< /expand-wrapper >}}
 
 {{< page-nav next="/influxdb/clustered/install/auth/" nextText="Set up authentication" >}}
