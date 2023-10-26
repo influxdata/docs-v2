@@ -10,9 +10,9 @@ weight: 101
 draft: true
 ---
 
-To add or remove users, update the users list in `myinfluxdb.yml` file.
+To add or remove users, update the users list in the `myinfluxdb.yml` file.
 The users list is found at spec.package.spec.admin.users.
 After updating the list, re-apply `myinfluxdb.yml`.
-See [Step 6: Deploy an InfluxDB cluster](https://docs.google.com/document/d/1UCmGtZS_OQe-gYOd0ASi0E2wFM9t3MOGwfDhxR1wtgg/edit#heading=h.m40zb08bbum1) for details on how to apply `myinfluxdb.yml`.
-Once the `myinfluxdb.yml` has been applied, it will take a couple minutes for the updates to roll out.
-When complete, any new users will have been added and any removed users will have been deleted.
+To learn how to apply `myinfluxdb.yml`, see [Deploy an InfluxDB cluster](/influxdb/clustered/install/deploy).
+After `myinfluxdb.yml` has been applied, updates take a couple of minutes to complete.
+When the updates are finished, new users will have been added, and removed users will have been deleted.
