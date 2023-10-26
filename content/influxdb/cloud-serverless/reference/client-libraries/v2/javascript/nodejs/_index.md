@@ -14,35 +14,21 @@ weight: 201
 aliases:
   - /influxdb/cloud-serverless/reference/api/client-libraries/nodejs/
   - /influxdb/cloud-serverless/reference/api/client-libraries/nodejs/query/
+prepend:
+  block: warn
+  content: |
+    ### Use InfluxDB v3 clients
 
+    The `/api/v2/query` API endpoint and associated tooling, such as InfluxDB v2 client libraries and the `influx` CLI, **can't** query an {{% product-name omit=" Clustered" %}} cluster.
+
+    [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/) and [Flight SQL clients](/influxdb/cloud-serverless/reference/client-libraries/) are available that integrate with your code to write and query data stored in {{% product-name %}}.
+
+    InfluxDB v3 supports many different tools for [**writing**](/influxdb/cloud-serverless/write-data/) and [**querying**](/influxdb/cloud-serverless/query-data/) data.
+    [**Compare tools you can use**](/influxdb/cloud-serverless/get-started/#tools-to-use) to interact with {{% product-name %}}.
 ---
 
 The [InfluxDB v2 JavaScript client library](https://github.com/influxdata/influxdb-client-js)
 integrates with the InfluxDB v2 API to write data from Node.js and browser applications to {{% product-name %}}.
-
-{{% note %}}
-
-### Tools to execute queries
-
-{{% product-name %}} supports many different tools for querying data, including:
-
-- [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
-- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight-sql/)
-- [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
-- [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
-- [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/primers/api/v1/#query-using-the-v1-api)
-- [Chronograf](/chronograf/v1/)
-
-{{% /note %}}
-
-{{% warn %}}
-
-#### Avoid using /api/v2/query
-
-Avoid using the `/api/v2/query` API endpoint in {{% product-name %}} and associated tooling, such as the `influx query` CLI command and InfluxDB v2 client libraries.
-You can't use SQL or InfluxQL with these tools.
-
-{{% /warn %}}
 
 ## Use the client library in a Node.js application
 
