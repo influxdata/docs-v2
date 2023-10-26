@@ -7,7 +7,7 @@ menu:
     name: Python
     parent: v3 client libraries
     identifier: influxdb3-python
-influxdb/clustered/tags: [python, gRPC, SQL, Flight SQL, client libraries]
+influxdb/clustered/tags: [Flight client, python, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
 aliases:
   - /influxdb/clustered/reference/client-libraries/v3/pyinflux3/

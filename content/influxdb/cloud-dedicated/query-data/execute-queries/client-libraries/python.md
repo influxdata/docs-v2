@@ -11,7 +11,7 @@ menu:
     parent: Use client libraries
     name: Use Python
     identifier: query-with-python-sql
-influxdb/cloud-dedicated/tags: [query, flight, python, sql, influxql]
+influxdb/cloud-dedicated/tags: [query, flight, Flight client, python, sql, influxql]
 aliases:
     - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/python/
     - /influxdb/cloud-dedicated/query-data/execute-queries/influxql/python/

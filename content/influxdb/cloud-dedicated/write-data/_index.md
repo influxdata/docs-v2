@@ -18,9 +18,14 @@ influxdb/cloud-dedicated/tags: [write, line protocol]
 
 Write data to {{% product-name %}} using the following tools and methods:
 
-{{% warn %}}
-{{% api/cloud/v2-prefer %}}
-{{% /warn %}}
+{{% note %}}
+
+#### Choose the write endpoint for your workload
+
+When bringing existing v1 write workloads, use the {{% product-name %}} HTTP API [`/write` endpoint](/influxdb/cloud-dedicated/guides/api-compatibility/v1/).
+When creating new write workloads, use the HTTP API [`/api/v2/write` endpoint](/influxdb/cloud-dedicated/guides/api-compatibility/v2/).
+
+{{% /note %}}
 
 {{< children >}}
  

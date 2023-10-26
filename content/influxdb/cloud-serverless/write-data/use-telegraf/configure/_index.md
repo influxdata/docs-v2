@@ -41,10 +41,8 @@ for using Telegraf with {{< product-name >}}._
       - [token](#token)
       - [organization](#organization)
       - [bucket](#bucket)
-      - [Write to InfluxDB v1.x and {{< product-name >}}](#write-to-influxdb-v1x-and--product-name-)
+      - [Write to InfluxDB v1.x and {{< product-name >}}](#write-to-influxdb-v1x-and-influxdb-cloud-serverless)
 - [Start Telegraf](#start-telegraf)
-
-<!-- /TOC -->
 
 ## Configure Telegraf input and output plugins
 

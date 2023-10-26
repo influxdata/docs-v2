@@ -9,7 +9,7 @@ menu:
   influxdb_cloud_serverless:
     parent: Visualize data
     name: Use Superset
-influxdb/cloud-serverless/tags: [query, flightsql, superset]
+influxdb/cloud-serverless/tags: [Flight client, query, flightsql, superset]
 aliases:
   - /influxdb/cloud-serverless/query-data/tools/superset/
   - /influxdb/cloud-serverless/query-data/sql/execute-queries/superset/

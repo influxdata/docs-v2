@@ -45,7 +45,7 @@ For help finding the best workflow for your situation, [contact Support](mailto:
     - [Client libraries](#client-libraries)
 - [Query data](#query-data)
     - [Tools to execute queries](#tools-to-execute-queries)
-  - [/api/v2/query not supported](#apiv2query-not-supported)
+    - [/api/v2/query not supported](#apiv2query-not-supported)
 
 <!-- /TOC -->
 
@@ -232,7 +232,10 @@ To setup and start using client libraries, see the [Get started](/influxdb/cloud
 
 {{% /note %}}
 
-### /api/v2/query not supported
+{{% warn %}}
+#### /api/v2/query not supported
 
-The `/api/v2/query` API endpoint and associated tooling aren't supported in {{% product-name %}}.
+The `/api/v2/query` API endpoint and associated tooling, such as the `influx` CLI and InfluxDB v2 client libraries, **aren’t** supported in {{% product-name %}}.
+
+{{% /warn %}}
 

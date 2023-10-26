@@ -6,7 +6,7 @@ menu:
     name: Python Flight SQL
     parent: Arrow Flight clients
     identifier: python-flightsql-client
-influxdb/cloud-dedicated/tags: [Python, SQL, Flight SQL]
+influxdb/cloud-dedicated/tags: [Flight client, Python, SQL, Flight SQL]
 weight: 201
 aliases:
   - /influxdb/cloud-dedicated/reference/client-libraries/flight-sql/python-flightsql/

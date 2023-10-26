@@ -7,7 +7,7 @@ menu:
     name: Go
     parent: v3 client libraries
     identifier: influxdb3-go
-influxdb/cloud-serverless/tags: [go, InfluxQL, SQL, Flight, client libraries]
+influxdb/cloud-serverless/tags: [Flight client, go, InfluxQL, SQL, Flight, client libraries]
 weight: 201
 aliases:
   - /influxdb/cloud-serverless/reference/api/client-libraries/go/

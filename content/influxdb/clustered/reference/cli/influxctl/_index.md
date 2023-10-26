@@ -13,7 +13,7 @@ influxdb/clustered/tags: [cli]
 ---
 
 The `influxctl` command line interface (CLI) performs administrative tasks in
-an cluster.
+a cluster.
 
 - [Usage](#usage)
 - [Commands](#commands)

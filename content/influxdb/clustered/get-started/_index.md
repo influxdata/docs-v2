@@ -92,18 +92,18 @@ The following definitions are important to understand when using InfluxDB:
 The following table compares tools that you can use to interact with {{% product-name %}}.
 This tutorial covers many of the recommended tools.
 
-| Tool                              | Administration  | Write   | Query   |
-|:--------------------------------- |:---------------:|:-------:|:-------:|
-| [Chronograf](/chronograf/v1/)     |       -         |   -     | **{{< icon "check" >}}**  |
-| <span style="color:gray">`influx` CLI</span>                                        |   -      | -  |   -     |
-| [`influx3` data CLI](#influx3-data-cli){{< req text="\* " color="magenta" >}}               |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
-| [`influxctl` admin CLI](#influxctl-admin-cli)                          |    **{{< icon "check" >}}**         |   -     |   -     |
-| [InfluxDB HTTP API](#influxdb-http-api)                          |    -        |   **{{< icon "check" >}}**  |   **{{< icon "check" >}}**     |
-| <span style="color:gray">InfluxDB user interface</span> |     -      |   -     | -  |
-| [InfluxDB v3 client libraries](#influxdb-v3-client-libraries){{< req text="\* " color="magenta" >}}      |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
-| [InfluxDB v1 client libraries](/influxdb/clustered/reference/client-libraries/v1/)      |       -         | **{{< icon "check" >}}**  | **{{< icon "check" >}}**  |
-| [InfluxDB v2 client libraries](/influxdb/clustered/reference/client-libraries/v2/)      |     **{{< icon "check" >}}**      | **{{< icon "check" >}}**  |   -     |
-| Telegraf                          |       -         | **{{< icon "check" >}}**  |   -     |
+| Tool                                                                                                |      Administration      |          Write           |          Query           |
+|:----------------------------------------------------------------------------------------------------|:------------------------:|:------------------------:|:------------------------:|
+| [Chronograf](/chronograf/v1/)                                                                       |            -             |            -             | **{{< icon "check" >}}** |
+| <span style="color:gray">`influx` CLI</span>                                                        |            -             |            -             |            -             |
+| [`influx3` data CLI](#influx3-data-cli){{< req text="\* " color="magenta" >}}                       |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [`influxctl` admin CLI](#influxctl-admin-cli)                                                       | **{{< icon "check" >}}** |            -             |            -             |
+| [InfluxDB HTTP API](#influxdb-http-api)                                                             |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| <span style="color:gray">InfluxDB user interface</span>                                             |            -             |            -             |            -             |
+| [InfluxDB v3 client libraries](#influxdb-v3-client-libraries){{< req text="\* " color="magenta" >}} |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [InfluxDB v1 client libraries](/influxdb/clustered/reference/client-libraries/v1/)                  |            -             | **{{< icon "check" >}}** | **{{< icon "check" >}}** |
+| [InfluxDB v2 client libraries](/influxdb/clustered/reference/client-libraries/v2/)                  |            -             | **{{< icon "check" >}}** |            -             |
+| Telegraf                                                                                            |            -             | **{{< icon "check" >}}** |            -             |
 | **Third-party tools**                                                   |
 | Flight SQL clients               |       -         |   -     | **{{< icon "check" >}}**  |
 |  [Grafana](/influxdb/clustered/query-data/sql/execute-queries/grafana/)  |       -         |   -     | **{{< icon "check" >}}**  |

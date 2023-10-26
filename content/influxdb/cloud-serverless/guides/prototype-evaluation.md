@@ -183,7 +183,7 @@ as an evaluation or prototyping platform for InfluxDB Cloud Dedicated.
 ### Use the v3 lightweight client libraries
 
 Use the InfluxDB [v3 lightweight client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
-to help make your code for writing and querying cross-compatible with InfluxDB Cloud Serverless and Cloud Dedicated.
+to help make your code for writing and querying cross-compatible with InfluxDB Cloud Serverless, Cloud Dedicated, and Clustered.
 You'll only need to change your InfluxDB connection credentials
 (host, database name, and token).
 

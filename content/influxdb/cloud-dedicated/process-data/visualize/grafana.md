@@ -9,7 +9,7 @@ menu:
   influxdb_cloud_dedicated:
     name: Use Grafana
     parent: Visualize data
-influxdb/cloud-dedicated/tags: [query, visualization]
+influxdb/cloud-dedicated/tags: [Flight client, query, visualization]
 aliases:
   - /influxdb/cloud-dedicated/query-data/tools/grafana/
   - /influxdb/cloud-dedicated/query-data/sql/execute-queries/grafana/
