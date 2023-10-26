@@ -42,16 +42,16 @@ influxctl [flags] [command]
 
 ## Global flags
 
-| Flag |                         | Description                                                     |
-| :--- | :---------------------- | :-------------------------------------------------------------- |
-|      | `--debug`               | Enable debug logging                                            |
-|      | `--escalate`            | Run command with escalated permissions                          |
+| Flag |                         | Description                                                                                     |
+| :--- | :---------------------- | :---------------------------------------------------------------------------------------------- |
+|      | `--debug`               | Enable debug logging                                                                            |
+|      | `--escalate`            | Run command with escalated permissions                                                          |
 |      | `--escalate-do-not-ask` | {{< req "Use with caution" >}}: Run command with escalated permissions and without confirmation |
-|      | `--account`             | Override account ID value in configuration file                 |
-|      | `--cluster`             | Override cluster ID value in configuration file                 |
-|      | `--config`              | Path to configuration file to use                               |
-|      | `--profile`             | Specify a connection profile to use (default is `default`)      |
-| `-h` | `--help`                | Show help                                                       |
+|      | `--account`             | Override account ID value in configuration file                                                 |
+|      | `--cluster`             | Override cluster ID value in configuration file                                                 |
+|      | `--config`              | Path to configuration file to use                                                               |
+|      | `--profile`             | Specify a connection profile to use (default is `default`)                                      |
+| `-h` | `--help`                | Show help                                                                                       |
 
 ---
 
