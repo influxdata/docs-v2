@@ -102,7 +102,7 @@ To manually install the Debian package from a `.deb` file:
 {{% /tab-content %}}
 <!---------- BEGIN RedHat & CentOS ---------->
 {{% tab-content %}}
-To learn how to manually install the RPM package from a file, see the [downloads page](https://influxdata.com/downloads/).
+To learn how to manually install the RPM package from a file, see the [downloads page](https://portal.influxdata.com/downloads/).
 
 Use the `yum` package manager to install the latest stable version of Telegraf:
 
