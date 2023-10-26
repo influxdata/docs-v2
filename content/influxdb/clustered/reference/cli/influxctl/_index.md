@@ -13,7 +13,7 @@ influxdb/clustered/tags: [cli]
 ---
 
 The `influxctl` command line interface (CLI) performs administrative tasks in
-a cluster.
+an InfluxDB cluster.
 
 - [Usage](#usage)
 - [Commands](#commands)
@@ -30,8 +30,8 @@ influxctl [flags] [command]
 
 ## Commands
 
-| Command                                                           | Description                            |
-| :---------------------------------------------------------------- | :------------------------------------- |
+| Command                                                                 | Description                            |
+| :---------------------------------------------------------------------- | :------------------------------------- |
 | [cluster](/influxdb/clustered/reference/cli/influxctl/cluster/)   | List InfluxDB v3 cluster information   |
 | [database](/influxdb/clustered/reference/cli/influxctl/database/) | Manage InfluxDB v3 databases           |
 | [token](/influxdb/clustered/reference/cli/influxctl/token/)       | Manage InfluxDB v3 database tokens     |
@@ -42,14 +42,16 @@ influxctl [flags] [command]
 
 ## Global flags
 
-| Flag |             | Description                                                |
-| :--- | :---------- | :--------------------------------------------------------- |
-|      | `--debug`   | Enable debug logging                                       |
-|      | `--account` | Override account ID value in configuration file            |
-|      | `--cluster` | Override cluster ID value in configuration file            |
-|      | `--config`  | Path to configuration file to use                          |
-|      | `--profile` | Specify a connection profile to use (default is `default`) |
-| `-h` | `--help`    | Show help                                                  |
+| Flag |                         | Description                                                     |
+| :--- | :---------------------- | :-------------------------------------------------------------- |
+|      | `--debug`               | Enable debug logging                                            |
+|      | `--escalate`            | Run command with escalated permissions                          |
+|      | `--escalate-do-not-ask` | {{< req "Use with caution" >}}: Run command with escalated permissions and without confirmation |
+|      | `--account`             | Override account ID value in configuration file                 |
+|      | `--cluster`             | Override cluster ID value in configuration file                 |
+|      | `--config`              | Path to configuration file to use                               |
+|      | `--profile`             | Specify a connection profile to use (default is `default`)      |
+| `-h` | `--help`                | Show help                                                       |
 
 ---
 
@@ -368,23 +370,20 @@ The `influxctl` CLI uses [Auth0](https://auth0.com/) to authenticate access to
 your InfluxDB cluster.
 When you issue an `influxctl` command, the CLI checks for an active **Auth0** token.
 If none exists, you are directed to login to **Auth0** via a browser using
-credentials you should have created when setting up your
-{{< product-name omit=" Clustered" >}} cluster.
+credentials you should have created when setting up your InfluxDB Cloud
+Dedicated cluster.
 Auth0 issues a short-lived (1 hour) token that authenticates access to your
 InfluxDB cluster.
 
 ## Troubleshoot
 
-- **Not loading module "atk-bridge"**: When authenticating, some Linux systems
-  might report the following warning in the terminal (on stderr):
+- **Not loading module "atk-bridge"**: When authenticating, some Linux systems might report the following warning in the terminal (on stderr):
 
   ```sh
   Not loading module "atk-bridge": The functionality is provided by GTK natively. Please try to not load it.
   ```
 
-  To silence the warning when running `influxctl` commands, unset the
-  `GTK_MODULES` environment variable
-  (or remove `gail:atk-bridge` from its value)--for example:
+  To silence the warning when running `influxctl` commands, unset the `GTK_MODULES` environment variable (or remove `gail:atk-bridge` from its value)--for example:
 
   ```sh
   GTK_MODULES= influxctl ...

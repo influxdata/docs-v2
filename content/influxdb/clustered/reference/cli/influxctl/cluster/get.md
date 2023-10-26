@@ -1,14 +1,16 @@
 ---
 title: influxctl cluster get
 description: >
-  The `influxctl cluster get` command returns information about an InfluxDB cluster.
+  The `influxctl cluster get` command returns information about an InfluxDB
+  Cloud Dedicated cluster.
 menu:
   influxdb_clustered:
     parent: influxctl cluster
 weight: 301
 ---
 
-The `influxctl cluster get` command returns information about an InfluxDB cluster.
+The `influxctl cluster get` command returns information about an InfluxDB
+Cloud Dedicated cluster.
 
 The `--format` option lets you print the output in other formats.
 By default, the 'table' format is used, but the 'json' format is
@@ -32,6 +34,10 @@ influxctl cluster get <CLUSTER_ID>
 | :--- | :--------- | :-------------------------------------------- |
 |      | `--format` | Output format (`table` _(default)_ or `json`) |
 | `-h` | `--help`   | Output command help                           |
+
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/clustered/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}
 
 ## Examples
 

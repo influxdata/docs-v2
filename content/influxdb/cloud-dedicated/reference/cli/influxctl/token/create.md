@@ -13,6 +13,10 @@ The `influxctl token create` command creates a database token with specified
 permissions to resources in an InfluxDB Cloud Dedicated cluster and outputs
 the token string.
 
+The `--format` option lets you print the output in other formats.
+By default, the 'table' format is used, but the 'json' format is
+available for programmatic parsing by other tooling.
+
 {{% note %}}
 #### Store secure tokens in a secret store
 
@@ -37,11 +41,16 @@ influxctl token create \
 
 ## Flags
 
-| Flag |                    | Description                                        |
-| :--- | :----------------- | :------------------------------------------------- |
-|      | `--read-database`  | Grant read permissions to a database _(Repeatable)_ |
+| Flag |                    | Description                                          |
+| :--- | :----------------- | :--------------------------------------------------- |
+|      | `--format`         | Output format (`table` _(default)_ or `json`)        |
+|      | `--read-database`  | Grant read permissions to a database _(Repeatable)_  |
 |      | `--write-database` | Grant write permissions to a database _(Repeatable)_ |
-| `-h` | `--help`           | Output command help                                |
+| `-h` | `--help`           | Output command help                                  |
+
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}
 
 ## Examples
 

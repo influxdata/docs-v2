@@ -29,6 +29,10 @@ influxctl token get [command options] <TOKEN_ID>
 |      | `--format` | Output format (`table` _(default)_ or `json`) |
 | `-h` | `--help`   | Output command help                           |
 
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/clustered/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}
+
 ## Examples
 
 {{% code-placeholders "TOKEN_ID" %}}

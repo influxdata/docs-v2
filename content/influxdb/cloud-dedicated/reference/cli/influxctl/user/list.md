@@ -28,3 +28,7 @@ influxctl user list [command options]
 | :--- | :--------- | :-------------------------------------------- |
 |      | `--format` | Output format (`table` _(default)_ or `json`) |
 | `-h` | `--help`   | Output command help                           |
+
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}

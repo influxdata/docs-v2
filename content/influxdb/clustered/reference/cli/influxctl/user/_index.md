@@ -1,7 +1,8 @@
 ---
 title: influxctl user
 description: >
-  The `influxctl user` command and its subcommands manage users in InfluxDB clusters.
+  The `influxctl user` command and its subcommands manage users in InfluxDB
+  Cloud Dedicated clusters.
 menu:
   influxdb_clustered:
     parent: influxctl
@@ -21,12 +22,12 @@ influxctl user [subcommand] [subcommand options] [arguments...]
 
 ## Subcommands
 
-| Subcommand                                                         | Description         |
-| :----------------------------------------------------------------- | :------------------ |
+| Subcommand                                                               | Description         |
+| :----------------------------------------------------------------------- | :------------------ |
 | [delete](/influxdb/clustered/reference/cli/influxctl/user/delete/) | Delete a user       |
 | [invite](/influxdb/clustered/reference/cli/influxctl/user/invite/) | Invite a user       |
 | [list](/influxdb/clustered/reference/cli/influxctl/user/list/)     | List all users      |
-| help, h                                                            | Output command help |
+| help, h                                                                  | Output command help |
 
 ## Flags
 

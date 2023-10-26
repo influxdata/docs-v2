@@ -33,6 +33,10 @@ influxctl database update <DATABASE_NAME> [flags]
 |      | `--max-columns`      | Maximum columns per table (default is 250, 0 uses default)   |
 | `-h` | `--help`             | Output command help                                          |
 
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}
+
 ## Examples
 
 - [Update a database's retention period](#update-a-databases-retention-period)
