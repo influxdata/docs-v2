@@ -19820,7 +19820,7 @@ tags:
       Delete data from an InfluxDB bucket.
     name: Delete
   - description: |
-      InfluxDB `/api/v2` API endpoints use standard HTTP request and response headers.
+      InfluxDB HTTP API endpoints use standard HTTP request and response headers.
       The following table shows common headers used by many InfluxDB API endpoints.
       Some endpoints may use other headers that perform functions more specific to those endpoints--for example,
       the `POST /api/v2/write` endpoint accepts the `Content-Encoding` header to indicate the compression applied to line protocol in the request body.
@@ -19903,7 +19903,7 @@ tags:
   - name: Replications
   - name: Resources
   - description: |
-      InfluxDB `/api/v2` API endpoints use standard HTTP status codes for success and failure responses.
+      InfluxDB HTTP API endpoints use standard HTTP status codes for success and failure responses.
       The response body may include additional details.
       For details about a specific operation's response,
       see **Responses** and **Response Samples** for that operation.

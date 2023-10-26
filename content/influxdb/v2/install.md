@@ -113,7 +113,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 1. Download and import InfluxData's public key:
 
     ```
-    curl -s https://repos.influxdata.com/influxdb2.key | gpg --import -
+    curl -s https://repos.influxdata.com/influxdata-archive_compat.key | gpg --import -
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.
@@ -366,7 +366,7 @@ If `gpg` is not available, see the [GnuPG homepage](https://gnupg.org/download/)
 1. Download and import InfluxData's public key:
 
     ```
-    curl -s https://repos.influxdata.com/influxdb2.key | gpg --import -
+    curl -s https://repos.influxdata.com/influxdata-archive_compat.key | gpg --import -
     ```
 
 2. Download the signature file for the release by adding `.asc` to the download URL.

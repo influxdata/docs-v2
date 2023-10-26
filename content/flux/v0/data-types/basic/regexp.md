@@ -60,8 +60,8 @@ enclosed in parentheses (`()`) and preceded by a question mark (`?`).
 ## Use regular expressions in predicate expressions
 To use regular expressions in [predicate expressions](/flux/v0/get-started/syntax-basics/#predicate-expressions),
 use the [`=~` and `!~` comparison operators](/flux/v0/spec/operators/#comparison-operators).
-The right operand must be a string.
-The left operand must be a regular expression.
+The left operand must be a string.
+The right operand must be a regular expression.
 
 ```js
 "abc" =~ /\w/

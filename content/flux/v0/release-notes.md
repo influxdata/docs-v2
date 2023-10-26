@@ -10,6 +10,27 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
+## v0.194.4 [2023-10-25]
+
+- _Internal code cleanup._
+
+---
+
+## v0.194.3 [2023-05-26]
+
+- _Internal code cleanup._
+
+---
+
+## v0.194.3 [2023-05-26]
+
+### Bug fixes
+
+- Make [`histogramQuantile()`](/flux/v0/stdlib/universe/histogramquantile/)
+  correctly handle cases of zero samples.
+
+---
+
 ## v0.194.1 [2023-04-17]
 
 ### Bug fixes

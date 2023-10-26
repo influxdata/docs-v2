@@ -5,8 +5,8 @@ components:
       example:
         baggage:
           key: value
-        span_id: "1"
-        trace_id: "1"
+        span_id: '1'
+        trace_id: '1'
       in: header
       name: Zap-Trace-Span
       required: false
@@ -49,9 +49,9 @@ components:
               summary: The org or orgID passed doesn't own the token passed in the header
               value:
                 code: invalid
-                message: "failed to decode request body: organization not found"
+                message: 'failed to decode request body: organization not found'
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: '#/components/schemas/Error'
       description: |
         Bad request.
         The response body contains details about the error.
@@ -59,13 +59,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: '#/components/schemas/Error'
       description: Non 2XX error response from server.
     InternalServerError:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: '#/components/schemas/Error'
       description: |
         Internal server error.
         The server encountered an unexpected situation.
@@ -89,7 +89,7 @@ components:
                 code: not found
                 message: organization not found
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: '#/components/schemas/Error'
       description: |
         Not found.
         A requested resource was not found.
@@ -103,7 +103,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: '#/components/schemas/Error'
       description: Non 2XX error response from server.
   schemas:
     AddResourceMemberRequestBody:
@@ -142,13 +142,13 @@ components:
           description: Raw source text
           type: string
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
       type: object
     BooleanLiteral:
       description: Represents boolean values
       properties:
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
         value:
           type: boolean
       type: object
@@ -185,7 +185,7 @@ components:
           readOnly: true
           type: string
         links:
-          $ref: "#/components/schemas/Links"
+          $ref: '#/components/schemas/Links'
         orgID:
           description: |
             An organization ID.
@@ -247,7 +247,7 @@ components:
     DBRPGet:
       properties:
         content:
-          $ref: "#/components/schemas/DBRP"
+          $ref: '#/components/schemas/DBRP'
           required: true
       type: object
     DBRPUpdate:
@@ -267,13 +267,13 @@ components:
       properties:
         content:
           items:
-            $ref: "#/components/schemas/DBRP"
+            $ref: '#/components/schemas/DBRP'
           type: array
     DateTimeLiteral:
       description: Represents an instant in time with nanosecond precision in [RFC3339Nano date/time format](/influxdb/clustered/reference/glossary/#rfc3339nano-timestamp).
       properties:
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
         value:
           format: date-time
           type: string
@@ -341,7 +341,7 @@ components:
           type: array
           uniqueItems: true
         commentPrefix:
-          default: "#"
+          default: '#'
           description: The character prefixed to comment strings. Default is a number sign (`#`).
           maxLength: 1
           minLength: 0
@@ -364,7 +364,7 @@ components:
             - RFC3339Nano
           type: string
         delimiter:
-          default: ","
+          default: ','
           description: The separator used between cells. Default is a comma (`,`).
           maxLength: 1
           minLength: 1
@@ -380,7 +380,7 @@ components:
         magnitude:
           type: integer
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
         unit:
           type: string
       type: object
@@ -388,17 +388,17 @@ components:
       description: Represents the elapsed time between two instants as an int64 nanosecond count with syntax of golang's time.Duration
       properties:
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
         values:
           description: Duration values
           items:
-            $ref: "#/components/schemas/Duration"
+            $ref: '#/components/schemas/Duration'
           type: array
       type: object
     Error:
       properties:
         code:
-          $ref: "#/components/schemas/ErrorCode"
+          $ref: '#/components/schemas/ErrorCode'
           description: code is the machine-readable error code.
           enum:
             - internal error
@@ -458,10 +458,10 @@ components:
         args:
           description: Args are the arguments to the function
           items:
-            $ref: "#/components/schemas/Field"
+            $ref: '#/components/schemas/Field'
           type: array
         type:
-          description: "`type` describes the field type. `func` is a function. `field` is a field reference."
+          description: '`type` describes the field type. `func` is a function. `field` is a field reference.'
           enum:
             - func
             - field
@@ -484,7 +484,7 @@ components:
       description: Represents floating point numbers according to the double representations defined by the IEEE-754-1985
       properties:
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
         value:
           type: number
       type: object
@@ -532,7 +532,7 @@ components:
       description: Represents integer numbers
       properties:
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
         value:
           type: string
       type: object
@@ -600,9 +600,9 @@ components:
     LabelResponse:
       properties:
         label:
-          $ref: "#/components/schemas/Label"
+          $ref: '#/components/schemas/Label'
         links:
-          $ref: "#/components/schemas/Links"
+          $ref: '#/components/schemas/Links'
       type: object
     LabelUpdate:
       properties:
@@ -622,14 +622,14 @@ components:
       type: object
     Labels:
       items:
-        $ref: "#/components/schemas/Label"
+        $ref: '#/components/schemas/Label'
       type: array
     LabelsResponse:
       properties:
         labels:
-          $ref: "#/components/schemas/Labels"
+          $ref: '#/components/schemas/Labels'
         links:
-          $ref: "#/components/schemas/Links"
+          $ref: '#/components/schemas/Links'
       type: object
     LanguageRequest:
       description: Flux query to be analyzed.
@@ -835,11 +835,11 @@ components:
         URI pointers for additional paged results.
       properties:
         next:
-          $ref: "#/components/schemas/Link"
+          $ref: '#/components/schemas/Link'
         prev:
-          $ref: "#/components/schemas/Link"
+          $ref: '#/components/schemas/Link'
         self:
-          $ref: "#/components/schemas/Link"
+          $ref: '#/components/schemas/Link'
       required:
         - self
       type: object
@@ -865,7 +865,7 @@ components:
       properties:
         events:
           items:
-            $ref: "#/components/schemas/LogEvent"
+            $ref: '#/components/schemas/LogEvent'
           readOnly: true
           type: array
       type: object
@@ -877,7 +877,7 @@ components:
         bucket:
           type: string
         limit:
-          $ref: "#/components/schemas/Limit"
+          $ref: '#/components/schemas/Limit'
         org:
           type: string
         password:
@@ -923,21 +923,21 @@ components:
             tasks: /api/v2/tasks?org=myorg
           properties:
             buckets:
-              $ref: "#/components/schemas/Link"
+              $ref: '#/components/schemas/Link'
             dashboards:
-              $ref: "#/components/schemas/Link"
+              $ref: '#/components/schemas/Link'
             labels:
-              $ref: "#/components/schemas/Link"
+              $ref: '#/components/schemas/Link'
             members:
-              $ref: "#/components/schemas/Link"
+              $ref: '#/components/schemas/Link'
             owners:
-              $ref: "#/components/schemas/Link"
+              $ref: '#/components/schemas/Link'
             secrets:
-              $ref: "#/components/schemas/Link"
+              $ref: '#/components/schemas/Link'
             self:
-              $ref: "#/components/schemas/Link"
+              $ref: '#/components/schemas/Link'
             tasks:
-              $ref: "#/components/schemas/Link"
+              $ref: '#/components/schemas/Link'
           readOnly: true
           type: object
         name:
@@ -958,10 +958,10 @@ components:
     Organizations:
       properties:
         links:
-          $ref: "#/components/schemas/Links"
+          $ref: '#/components/schemas/Links'
         orgs:
           items:
-            $ref: "#/components/schemas/Organization"
+            $ref: '#/components/schemas/Organization'
           type: array
       type: object
     Package:
@@ -970,7 +970,7 @@ components:
         files:
           description: Package files
           items:
-            $ref: "#/components/schemas/File"
+            $ref: '#/components/schemas/File'
           type: array
         package:
           description: Package name
@@ -979,7 +979,7 @@ components:
           description: Package import path
           type: string
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
       type: object
     PackageClause:
       description: Defines a package identifier
@@ -1021,7 +1021,7 @@ components:
             The name of the bucket.
           type: string
         retentionRules:
-          $ref: "#/components/schemas/PatchRetentionRules"
+          $ref: '#/components/schemas/PatchRetentionRules'
       type: object
     PatchOrganizationRequest:
       description: |
@@ -1073,18 +1073,18 @@ components:
     PatchRetentionRules:
       description: Updates to rules to expire or retain data. No rules means no updates.
       items:
-        $ref: "#/components/schemas/PatchRetentionRule"
+        $ref: '#/components/schemas/PatchRetentionRule'
       type: array
     PipeLiteral:
       description: Represents a specialized literal value, indicating the left hand value of a pipe expression
       properties:
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
       type: object
     Ready:
       properties:
         started:
-          example: "2019-03-13T10:09:33.891196-04:00"
+          example: '2019-03-13T10:09:33.891196-04:00'
           format: date-time
           type: string
         status:
@@ -1099,7 +1099,7 @@ components:
       description: Expressions begin and end with `/` and are regular expressions with syntax accepted by RE2
       properties:
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
         value:
           type: string
       type: object
@@ -1123,7 +1123,6 @@ components:
             #### InfluxDB Cloud
 
             - Does not use `shardGroupDurationsSeconds`.
-
           format: int64
           type: integer
         type:
@@ -1143,7 +1142,7 @@ components:
 
         - `retentionRules` is required.
       items:
-        $ref: "#/components/schemas/RetentionRule"
+        $ref: '#/components/schemas/RetentionRule'
       type: array
     SecretKeys:
       properties:
@@ -1154,7 +1153,7 @@ components:
       type: object
     SecretKeysResponse:
       allOf:
-        - $ref: "#/components/schemas/SecretKeys"
+        - $ref: '#/components/schemas/SecretKeys'
         - properties:
             links:
               properties:
@@ -1174,7 +1173,7 @@ components:
       description: Expressions begin and end with double quote marks
       properties:
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
         value:
           type: string
       type: object
@@ -1187,7 +1186,7 @@ components:
       description: Represents integer numbers
       properties:
         type:
-          $ref: "#/components/schemas/NodeType"
+          $ref: '#/components/schemas/NodeType'
         value:
           type: string
       type: object
@@ -1212,7 +1211,7 @@ components:
         ```http
         Authorization: Basic <base64-encoded [USERNAME]:DATABASE_TOKEN>
         ```
-  
+
         Replace the following:
 
         - **`[USERNAME]`**: an optional string value (ignored by InfluxDB Clustered).
@@ -1358,13 +1357,9 @@ components:
       type: apiKey
 info:
   title: InfluxDB Clustered API Service
-  version: 3.x
+  version: InfluxDB v3.0
   description: |
-    The InfluxDB HTTP API provides a programmatic interface for interactions with InfluxDB.
-    Access the InfluxDB API using the `/api/v2/` endpoint or InfluxDB v1 endpoints.
-
-    This documentation is generated from the
-    [InfluxDB OpenAPI specification](https://raw.githubusercontent.com/influxdata/openapi/master/contracts/ref/cloud.yml).
+    The InfluxDB HTTP API provides a programmatic interface for interacting with InfluxDB.
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -1381,7 +1376,7 @@ paths:
         This endpoint doesn't require authentication.
       operationId: GetPing
       responses:
-        "204":
+        '204':
           description: |
             Success.
             Headers contain InfluxDB version information.
@@ -1396,11 +1391,12 @@ paths:
                 The version of InfluxDB.
               schema:
                 type: integer
-        "4xx":
+        4xx:
           description: |
             #### InfluxDB Cloud
             - Doesn't return this error.
-      security: [{}]
+      security:
+        - {}
       servers: []
       summary: Get the status of the instance
       tags:
@@ -1415,7 +1411,7 @@ paths:
         This endpoint doesn't require authentication.
       operationId: HeadPing
       responses:
-        "204":
+        '204':
           description: |
             Success.
             Headers contain InfluxDB version information.
@@ -1429,11 +1425,12 @@ paths:
                 The version of InfluxDB.
               schema:
                 type: integer
-        "4xx":
+        4xx:
           description: |
             #### InfluxDB Cloud
             - Doesn't return this error.
-      security: [{}]
+      security:
+        - {}
       servers: []
       summary: Get the status of the instance
       tags:
@@ -1462,7 +1459,7 @@ paths:
         - [Troubleshoot issues writing data](/influxdb/clustered/write-data/troubleshoot/)
       operationId: PostWrite
       parameters:
-        - $ref: "#/components/parameters/TraceSpan"
+        - $ref: '#/components/parameters/TraceSpan'
         - description: |
             The compression applied to the line protocol in the request payload.
             To send a gzip payload, pass `Content-Encoding: gzip` header.
@@ -1504,10 +1501,8 @@ paths:
             Writes only return a response body if they fail--for example,
             due to a formatting problem or quota limit.
 
-            #### InfluxDB Cloud
-
-              - Returns only `application/json` for format and limit errors.
-              - Returns only `text/html` for some quota limit errors.
+            - Returns only `application/json` for format and limit errors.
+            - Returns only `text/html` for some quota limit errors.
 
             #### Related guides
 
@@ -1553,7 +1548,7 @@ paths:
           in: query
           name: precision
           schema:
-            $ref: "#/components/schemas/WritePrecision"
+            $ref: '#/components/schemas/WritePrecision'
       requestBody:
         content:
           text/plain:
@@ -1579,10 +1574,10 @@ paths:
           - [Best practices for optimizing writes](/influxdb/clustered/write-data/best-practices/optimize-writes/)
         required: true
       responses:
-        "204":
+        '204':
           description: |
             Success. Data is written and queryable.
-        "400":
+        '400':
           content:
             application/json:
               examples:
@@ -1591,19 +1586,18 @@ paths:
                   value:
                     code: invalid
                     message: 'failed to parse line protocol: error writing line 2: Unable to insert iox::column_type::field::integer type into column temp  with type iox::column_type::field::string'
-
               schema:
-                $ref: "#/components/schemas/LineProtocolError"
+                $ref: '#/components/schemas/LineProtocolError'
           description: |
             Bad request. The response body contains detail about the error.
 
             InfluxDB returns this error if the line protocol data in the request is malformed or contains a database schema conflict.
             The response body contains the first malformed line in the data, and indicates what was expected.
-        "401":
-          $ref: "#/components/responses/AuthorizationError"
-        "404":
-          $ref: "#/components/responses/ResourceNotFoundError"
-        "413":
+        '401':
+          $ref: '#/components/responses/AuthorizationError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFoundError'
+        '413':
           content:
             application/json:
               examples:
@@ -1612,7 +1606,7 @@ paths:
                   value: |
                     {"code":"request too large","message":"unable to read data: points batch is too large"}
               schema:
-                $ref: "#/components/schemas/LineProtocolLengthError"
+                $ref: '#/components/schemas/LineProtocolLengthError'
             text/html:
               examples:
                 dataExceedsSizeLimit:
@@ -1633,7 +1627,7 @@ paths:
             InfluxDB rejected the batch and did not write any data.
 
             InfluxDB returns this error if the payload exceeds the size limit.
-        "429":
+        '429':
           description: |
             Too many requests.
 
@@ -1652,9 +1646,9 @@ paths:
               schema:
                 format: int32
                 type: integer
-        "500":
-          $ref: "#/components/responses/InternalServerError"
-        "503":
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
           description: |
             Service unavailable.
 
@@ -1668,7 +1662,7 @@ paths:
                 format: int32
                 type: integer
         default:
-          $ref: "#/components/responses/GeneralServerError"
+          $ref: '#/components/responses/GeneralServerError'
       summary: Write data
       tags:
         - Data I/O endpoints
@@ -1678,7 +1672,7 @@ paths:
       description: Queries InfluxDB using InfluxQL with InfluxDB v1 request and response formats.
       operationId: GetLegacyQuery
       parameters:
-        - $ref: "#/components/parameters/TraceSpan"
+        - $ref: '#/components/parameters/TraceSpan'
         - in: header
           name: Accept
           schema:
@@ -1756,21 +1750,21 @@ paths:
               - h
             type: string
       responses:
-        "200":
+        '200':
           content:
             application/csv:
               schema:
-                $ref: "#/components/schemas/InfluxqlCsvResponse"
+                $ref: '#/components/schemas/InfluxqlCsvResponse'
             application/json:
               schema:
-                $ref: "#/components/schemas/InfluxqlJsonResponse"
+                $ref: '#/components/schemas/InfluxqlJsonResponse'
             application/x-msgpack:
               schema:
                 format: binary
                 type: string
             text/csv:
               schema:
-                $ref: "#/components/schemas/InfluxqlCsvResponse"
+                $ref: '#/components/schemas/InfluxqlCsvResponse'
           description: Query results
           headers:
             Content-Encoding:
@@ -1790,7 +1784,7 @@ paths:
               schema:
                 description: Trace ID of a request.
                 type: string
-        "429":
+        '429':
           description: |
             #### InfluxDB Cloud:
               - returns this error if a **read** or **write** request exceeds your
@@ -1808,7 +1802,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
           description: Error processing query
       summary: Query using the InfluxDB v1 API
       tags:
@@ -1817,7 +1811,7 @@ paths:
     post:
       operationId: PostLegacyWrite
       parameters:
-        - $ref: "#/components/parameters/TraceSpan"
+        - $ref: '#/components/parameters/TraceSpan'
         - description: The InfluxDB 1.x username to authenticate the request.
           in: query
           name: u
@@ -1862,33 +1856,33 @@ paths:
         description: Line protocol body
         required: true
       responses:
-        "204":
+        '204':
           description: Write data is correctly formatted and accepted for writing to the database.
-        "400":
+        '400':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LineProtocolError"
+                $ref: '#/components/schemas/LineProtocolError'
           description: Line protocol poorly formed and no points were written.  Response can be used to determine the first malformed line in the body line-protocol. All data in body was rejected and not written.
-        "401":
+        '401':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
           description: Token doesn't have sufficient permissions to write to this  database or the database doesn't exist.
-        "403":
+        '403':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
           description: No token was sent and they are required.
-        "413":
+        '413':
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LineProtocolLengthError"
+                $ref: '#/components/schemas/LineProtocolLengthError'
           description: Write has been rejected because the payload is too large. Error message returns max size supported. All data in body was rejected and not written.
-        "429":
+        '429':
           description: Token is temporarily over quota. The Retry-After header describes when to try the write again.
           headers:
             Retry-After:
@@ -1896,7 +1890,7 @@ paths:
               schema:
                 format: int32
                 type: integer
-        "503":
+        '503':
           description: Server is temporarily unavailable to accept writes.  The Retry-After header describes when to try the write again.
           headers:
             Retry-After:
@@ -1908,8 +1902,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
           description: Internal server error
+      description: |
+        Writes data to a database.
+
+        Use this InfluxDB v1-compatible endpoint to send data in [line protocol](/influxdb/clustered/reference/syntax/line-protocol/) format to InfluxDB using v1 API parameters and authorization.
+
+        InfluxDB does the following when you send a write request:
+
+        1. Validates the request
+        2. If successful, attempts to [ingest the data](/influxdb/clustered/reference/internals/durability/#data-ingest); _error_ otherwise.
+        3.  If successful, responds with _success_ (HTTP `204` status code), acknowledging that the data is written and queryable; _error_ otherwise.
+
+        To ensure that InfluxDB handles writes in the order you request them,
+        wait for a success response (HTTP `2xx` status code) before you send the next request.
+
+        #### Related guides
+
+        - [Write data with the InfluxDB API](/influxdb/clustered/get-started/write/)
+        - [Optimize writes to InfluxDB](/influxdb/clustered/write-data/best-practices/optimize-writes/)
+        - [Troubleshoot issues writing data](/influxdb/clustered/write-data/troubleshoot/)
       summary: Write data using the InfluxDB v1 API
       tags:
         - Write
@@ -1921,6 +1934,37 @@ security:
 servers:
   - url: /
 tags:
+  - description: |
+      ### Write data
+
+      InfluxDB Clustered provides the following HTTP API endpoints for writing data:
+
+      - **Recommended**: [`/api/v2/write` endpoint](/influxdb/clustered/api/#operation/PostWrite) for new write workloads or for bringing existing InfluxDB v2 write workloads to v3.
+      - [`/write` endpoint](/influxdb/clustered/api/#operation/PostLegacyWrite) for bringing existing InfluxDB v1 write workloads to v3.
+
+      Both endpoints accept the same line protocol format and process data in the same way.
+
+      ### Query data
+
+      InfluxDB Clustered provides the following protocols for executing a query:
+
+      - **Recommended**: _Flight+gRPC_ request that contains an SQL or InfluxQL query. See how to [get started querying InfluxDB using Flight and SQL](/influxdb/clustered/get-started/query/).
+      - HTTP API [`/query` request](/influxdb/clustered/api/#operation/GetLegacyQuery) that contains an InfluxQL query.
+        Use this protocol when bringing existing InfluxDB v1 query workloads to v3.
+
+      ### InfluxDB v2 compatibility
+
+      The HTTP API [`/api/v2/write` endpoint](/influxdb/clustered/api/#operation/PostWrite) works with the [`Bearer`](#section/Authentication/BearerAuthentication) and [`Token`](#section/Authentication/TokenAuthentication) authentication schemes and existing InfluxDB 2.x tools and code for [writing data](/influxdb/clustered/write-data/).
+
+      See how to [use the InfluxDB v2 API with InfluxDB Clustered ](/influxdb/clustered/guides/api-compatibility/v2/).
+
+      ### InfluxDB v1 compatibility
+
+      The HTTP API [`/write` endpoint](/influxdb/clustered/api/#operation/PostLegacyWrite) and [`/query` endpoint](/influxdb/clustered/api/#operation/GetLegacyQuery) work with InfluxDB 1.x username/password [authentication schemes](#section/Authentication/) and existing InfluxDB 1.x tools and code.
+
+      See how to [use the InfluxDB v1 API with InfluxDB Clustered ](/influxdb/clustered/guides/api-compatibility/v1/).
+    name: API compatibility
+    x-traitTag: true
   - description: |
       Use one of the following schemes to authenticate to the InfluxDB API:
 
@@ -1947,7 +1991,7 @@ tags:
     description: |
       Write and query data stored in InfluxDB.
   - description: |
-      InfluxDB `/api/v2` API endpoints use standard HTTP request and response headers.
+      InfluxDB HTTP API endpoints use standard HTTP request and response headers.
       The following table shows common headers used by many InfluxDB API endpoints.
       Some endpoints may use other headers that perform functions more specific to those endpoints--for example,
       the `POST /api/v2/write` endpoint accepts the `Content-Encoding` header to indicate the compression applied to line protocol in the request body.
@@ -1969,10 +2013,10 @@ tags:
       - The `/api/v2/query` endpoint can't query InfluxDB Clustered.
       - _Flight + gRPC_ clients can query using **SQL** or **InfluxQL** and retrieve data in **Arrow** format.
 
-      To learn more about using Flight, see the following:
+      #### Related guides
 
-      - [Query with Flight SQL](/influxdb/clustered/query-data/execute-queries/flight-sql/)
-      - [Flight SQL clients](/influxdb/clustered/reference/client-libraries/flight-sql/)
+      - [Get started querying InfluxDB](/influxdb/clustered/get-started/query/)
+      - [Execute queries](/influxdb/clustered/query-data/execute-queries/)
     name: Query
   - description: |
       See the [**Get Started**](/influxdb/clustered/get-started/) tutorial
@@ -1983,7 +2027,7 @@ tags:
     name: Quick start
     x-traitTag: true
   - description: |
-      InfluxDB `/api/v2` API endpoints use standard HTTP status codes for success and failure responses.
+      InfluxDB HTTP API endpoints use standard HTTP status codes for success and failure responses.
       The response body may include additional details.
       For details about a specific operation's response,
       see **Responses** and **Response Samples** for that operation.
@@ -2008,7 +2052,7 @@ tags:
   - name: System information endpoints
   - name: Usage
   - description: |
-      Write time series data to [databases](/influxdb/clustered/admin/databases/).
+      Write time series data to [databases](/influxdb/clustered/admin/databases/) using InfluxDB v1 or v2 endpoints.
     name: Write
 x-tagGroups:
   - name: Using the InfluxDB HTTP API
@@ -2016,7 +2060,9 @@ x-tagGroups:
       - Quick start
       - Authentication
       - Headers
+      - Pagination
       - Response codes
+      - System information endpoints
   - name: All endpoints
     tags:
       - Ping
