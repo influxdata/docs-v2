@@ -23,7 +23,7 @@ configure and deploy your InfluxDB Cluster.
 Installing a CRD requires cluster-wide permissions and may cause `kubectl` to
 fail if you do not have those permissions in your cluster.
 
-`kubit` uses the your local `kubectl` credentials to install CRDs.
+`kubit` uses your local `kubectl` credentials to install CRDs.
 This still requires you to have permissions to install cluster-wide resources
 (CRDs), but doesn’t require `kubit` to be installed with those permissions
 in the cluster. 
