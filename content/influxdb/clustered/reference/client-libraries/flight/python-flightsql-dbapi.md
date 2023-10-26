@@ -8,7 +8,7 @@ menu:
     name: Python Flight SQL
     parent: Arrow Flight clients
     identifier: python-flightsql-client
-influxdb/clustered/tags: [Python, SQL, Flight SQL]
+influxdb/clustered/tags: [Flight client, Python, SQL, Flight SQL]
 weight: 201
 ---
 

@@ -12,7 +12,7 @@ menu:
     name: Use Go
     identifier: query-with-go
 metadata: [InfluxQL, SQL]
-influxdb/clustered/tags: [query, flight, go, sql, influxql]
+influxdb/clustered/tags: [Flight client, query, flight, go, sql, influxql]
 related:
     - /influxdb/clustered/reference/client-libraries/v3/go/
     - /influxdb/clustered/reference/sql/

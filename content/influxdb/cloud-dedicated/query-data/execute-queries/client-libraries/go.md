@@ -12,7 +12,7 @@ menu:
     name: Use Go
     identifier: query-with-go
 metadata: [InfluxQL, SQL]
-influxdb/cloud-dedicated/tags: [query, flight, go, sql, influxql]
+influxdb/cloud-dedicated/tags: [query, flight, Flight client, go, sql, influxql]
 related:
     - /influxdb/cloud-dedicated/reference/client-libraries/v3/go/
     - /influxdb/cloud-dedicated/reference/sql/

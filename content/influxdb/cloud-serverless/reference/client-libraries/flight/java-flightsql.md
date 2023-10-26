@@ -6,7 +6,7 @@ menu:
     name: Java Flight SQL
     parent: Arrow Flight clients
     identifier: java-flightsql-client
-influxdb/cloud-serverless/tags: [Java, gRPC, SQL, Flight SQL]
+influxdb/cloud-serverless/tags: [Flight client, Java, gRPC, SQL, Flight SQL]
 weight: 201
 related:
   - /influxdb/cloud-serverless/reference/client-libraries/v3/java/

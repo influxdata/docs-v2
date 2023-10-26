@@ -9,7 +9,7 @@ menu:
     name: C# .NET
     parent: v3 client libraries
     identifier: influxdb3-csharp
-influxdb/clustered/tags: [C#, gRPC, SQL, Flight SQL, client libraries]
+influxdb/clustered/tags: [Flight client, C#, gRPC, SQL, Flight SQL, client libraries]
 weight: 201
 ---
 

@@ -7,7 +7,7 @@ menu:
     name: Go
     parent: v3 client libraries
     identifier: influxdb3-go
-influxdb/cloud-dedicated/tags: [go, InfluxQL, SQL, Flight, client libraries]
+influxdb/cloud-dedicated/tags: [Flight client, go, InfluxQL, SQL, Flight, client libraries]
 weight: 201
 aliases:
   - /influxdb/cloud-dedicated/reference/api/client-libraries/go/

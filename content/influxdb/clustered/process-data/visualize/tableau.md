@@ -10,7 +10,7 @@ menu:
     parent: Visualize data
     name: Use Tableau
     identifier: query-with-tableau
-influxdb/clustered/tags: [query, flightsql, tableau, sql]
+influxdb/clustered/tags: [Flight client, query, flightsql, tableau, sql]
 aliases:
   - /influxdb/clustered/query-data/execute-queries/flight-sql/tableau/
   - /influxdb/clustered/query-data/tools/tableau/

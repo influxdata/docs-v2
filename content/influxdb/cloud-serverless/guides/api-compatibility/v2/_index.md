@@ -45,7 +45,7 @@ To query data, use the _Flight+gRPC_ protocol  or the InfluxDB v1 `/query` HTTP 
     - [Client libraries](#client-libraries)
 - [Query data](#query-data)
     - [Tools to execute queries](#tools-to-execute-queries)
-  - [/api/v2/query not supported](#apiv2query-not-supported)
+    - [Avoid using /api/v2/query](#avoid-using-apiv2query)
 
 <!-- /TOC -->
 
@@ -210,7 +210,12 @@ InfluxDB v3 provides the following protocols for executing a query:
 
 {{% /note %}}
 
-### /api/v2/query not supported
+{{% warn %}}
 
-The `/api/v2/query` API endpoint and associated tooling aren't supported in {{% product-name %}}.
+#### Avoid using /api/v2/query
+
+Avoid using the `/api/v2/query` API endpoint in {{% product-name %}} and associated tooling, such as the `influx query` CLI command and InfluxDB v2 client libraries.
+You can't use SQL or InfluxQL with these tools.
+
+{{% /warn %}}
 

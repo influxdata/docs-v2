@@ -10,7 +10,7 @@ menu:
     parent: Visualize data
     name: Use Superset
     identifier: query-with-superset
-influxdb/cloud-dedicated/tags: [query, flightsql, superset]
+influxdb/cloud-dedicated/tags: [Flight client, query, flightsql, superset]
 aliases:
   - /influxdb/cloud-dedicated/query-data/execute-queries/flight-sql/superset/
   - /influxdb/cloud-dedicated/query-data/tools/superset/

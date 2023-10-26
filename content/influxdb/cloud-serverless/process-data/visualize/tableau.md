@@ -8,7 +8,7 @@ menu:
   influxdb_cloud_serverless:
     parent: Visualize data
     name: Use Tableau
-influxdb/cloud-serverless/tags: [query, flightsql, tableau, sql]
+influxdb/cloud-serverless/tags: [Flight client, query, flightsql, tableau, sql]
 aliases:
   - /influxdb/cloud-serverless/query-data/sql/execute-queries/tableau/
 metadata: [SQL only]
