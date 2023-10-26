@@ -9,6 +9,44 @@ menu:
 weight: 104
 ---
 
+Use Kubernetes and related tools to deploy your InfluxDB cluster.
+This guide provides instructions for deploying your InfluxDB cluster using the
+following tools:
+
+- **kubectl**: CLI for controlling the Kubernetes cluster manager
+- **kubit operator**: A Kubernetes controller that can render and apply jsonnet
+  templates based on the [kubecfg](https://github.com/kubecfg/kubecfg) jsonnet
+  tooling and framework
+
+InfluxDB Clustered uses an `AppInstance` Kubernetes custom resource (CRD) to
+configure and deploy your InfluxDB Cluster.
+Installing a CRD requires cluster-wide permissions and may cause `kubectl` to
+fail if you do not have those permissions in your cluster.
+
+`kubit` uses the your local `kubectl` credentials to install CRDs.
+This still requires you to have permissions to install cluster-wide resources
+(CRDs), but doesn’t require `kubit` to be installed with those permissions
+in the cluster. 
+
+{{% note %}}
+**Use the `kubit` operator to deploy your cluster if you meet any of the following criteria:**
+
+- You do not have permissions to install a CRD.
+- You do not have permissions to install the operator in the `kubit` namespace.
+- You do not have permissions to create cluster-wide role-based access
+  control (RBAC).
+- You want to preview the generated YAML.
+- You do not want to run the operator in your InfluxDB cluster.
+{{% /note %}}
+
+{{< tabs-wrapper >}}
+{{% tabs %}}
+[kubectl](#)
+[kubit](#)
+{{% /tabs %}}
+{{% tab-content %}}
+<!------------------------------- BEGIN kubectl ------------------------------->
+
 Use the `kubectl apply` command to apply your custom-configured `myinfluxdb.yml`
 and deploy your InfluxDB cluster:
 
@@ -17,6 +55,25 @@ kubectl apply \
   --filename myinfluxdb.yml \
   --namespace influxdb
 ```
+
+<!-------------------------------- END kubectl -------------------------------->
+{{% /tab-content %}}
+{{% tab-content %}}
+<!-------------------------------- BEGIN kubit -------------------------------->
+
+1.  [Install the `kubit` operator](https://github.com/kubecfg/kubit/#installation)
+  and related tools.
+
+2.  Use the `kubit local apply` command to apply your custom-configured
+    `myinfluxdb.yml` and deploy your InfluxDB Cluster.
+
+    ```sh
+    kubit local apply myinfuxdb.yml
+    ```
+
+<!--------------------------------- END kubit --------------------------------->
+{{% /tab-content %}}
+{{< /tabs-wrapper >}}
 
 ## Check deployment status
 
