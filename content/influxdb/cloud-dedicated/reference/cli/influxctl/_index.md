@@ -42,14 +42,14 @@ influxctl [flags] [command]
 
 ## Global flags
 
-| Flag |                         | Description                                                                                     |
-| :--- | :---------------------- | :---------------------------------------------------------------------------------------------- |
-|      | `--debug`               | Enable debug logging                                                                            |
-|      | `--account`             | Override account ID value in configuration file                                                 |
-|      | `--cluster`             | Override cluster ID value in configuration file                                                 |
-|      | `--config`              | Path to configuration file to use                                                               |
-|      | `--profile`             | Specify a connection profile to use (default is `default`)                                      |
-| `-h` | `--help`                | Show help                                                                                       |
+| Flag |             | Description                                                |
+| :--- | :---------- | :--------------------------------------------------------- |
+|      | `--debug`   | Enable debug logging                                       |
+|      | `--account` | Override account ID value in configuration file            |
+|      | `--cluster` | Override cluster ID value in configuration file            |
+|      | `--config`  | Path to configuration file to use                          |
+|      | `--profile` | Specify a connection profile to use (default is `default`) |
+| `-h` | `--help`    | Show help                                                  |
 
 ---
 
