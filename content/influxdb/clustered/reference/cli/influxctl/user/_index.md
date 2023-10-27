@@ -1,8 +1,7 @@
 ---
 title: influxctl user
 description: >
-  The `influxctl user` command and its subcommands manage users in InfluxDB
-  Cloud Dedicated clusters.
+  The `influxctl user` command and its subcommands manage users in InfluxDB clusters.
 menu:
   influxdb_clustered:
     parent: influxctl

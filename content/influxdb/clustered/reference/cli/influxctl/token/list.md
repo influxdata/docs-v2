@@ -1,8 +1,7 @@
 ---
 title: influxctl token list
 description: >
-  The `influxctl token list` command lists all database tokens in an InfluxDB
-  Cloud Dedicated cluster.
+  The `influxctl token list` command lists all database tokens in an InfluxDB cluster.
 menu:
   influxdb_clustered:
     parent: influxctl token

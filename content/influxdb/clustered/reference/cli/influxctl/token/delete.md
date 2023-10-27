@@ -2,7 +2,7 @@
 title: influxctl token delete
 description: >
   The `influxctl token delete` command deletes a database token from an InfluxDB
-  Cloud Dedicated cluster and revokes all permissions associated with the token.
+  cluster and revokes all permissions associated with the token.
 menu:
   influxdb_clustered:
     parent: influxctl token
@@ -10,7 +10,7 @@ weight: 301
 ---
 
 The `influxctl token delete` command deletes a database token from an InfluxDB
-Cloud Dedicated cluster and revokes all permissions associated with the token.
+cluster and revokes all permissions associated with the token.
 
 ## Usage
 
@@ -27,8 +27,7 @@ and cannot be undone.
 #### Rotate deleted tokens
 
 After deleting a database token, any clients using the deleted token need to be
-updated with a new database token to continue to interact with your InfluxDB
-Cloud Dedicated cluster.
+updated with a new database token to continue to interact with your InfluxDB cluster.
 {{% /warn %}}
 
 ## Arguments

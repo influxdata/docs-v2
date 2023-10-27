@@ -1,8 +1,7 @@
 ---
 title: influxctl database create
 description: >
-  The `influxctl database create` command creates a new database in an InfluxDB
-  Cloud Dedicated cluster.
+  The `influxctl database create` command creates a new database in an InfluxDB cluster.
 menu:
   influxdb_clustered:
     parent: influxctl database
