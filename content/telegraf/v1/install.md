@@ -10,7 +10,8 @@ aliases:
 - /telegraf/v1/install/
 ---
 
-This page provides directions for installing, starting, and configuring Telegraf. To install Telegraf, do the following:
+This page provides directions for installing, starting, and configuring Telegraf.
+To install Telegraf, do the following:
 
 - [Download Telegraf](#download)
 - [Review requirements](#requirements)
@@ -23,7 +24,7 @@ Download the latest Telegraf release at the [InfluxData download page](https://p
 
 ## Requirements
 
-Installation of the Telegraf package may require `root` or administrator privileges in order to complete successfully. <!--check instruction for each one to clarify-->
+Installation of the Telegraf package may require `root` or administrator privileges to complete successfully. <!--check instruction for each one to clarify-->
 
 ### Networking
 
@@ -42,7 +43,7 @@ Telegraf uses a host's local time in UTC to assign timestamps to data.
 Use the Network Time Protocol (NTP) to synchronize time between hosts. If hosts' clocks
 aren't synchronized with NTP, the timestamps on the data might be inaccurate.
 
-## Installation
+## Install
 
 {{< tabs-wrapper >}}
 {{% tabs style="even-wrap" %}}
@@ -57,9 +58,7 @@ aren't synchronized with NTP, the timestamps on the data might be inaccurate.
 {{% tab-content %}}
 Debian and Ubuntu users can install the latest stable version of Telegraf using the `apt-get` package manager.
 
-### Ubuntu & Debian
-
-Install Telegraf from the InfluxData repository with the following commands:
+Run the following commands to install Telegraf from the InfluxData repository:
 
 {{< code-tabs-wrapper >}}
 {{% code-tabs %}}
@@ -100,182 +99,167 @@ To manually install the Debian package from a `.deb` file:
    sudo dpkg -i telegraf_{{< latest-patch >}}-1_amd64.deb
    ```
 
-{{% telegraf/verify %}}
-
-## Configuration
-
-### Create a configuration file with default input and output plugins.
-
-Every plugin will be in the file, but most will be commented out.
-
-```
-telegraf config > telegraf.conf
-```
-
-### Create a configuration file with specific inputs and outputs
-```
-telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>[:<outputname>] config > telegraf.conf
-```
-
-For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN RedHat & CentOS ---------->
 {{% tab-content %}}
-For instructions on how to manually install the RPM package from a file, please see the [downloads page](https://influxdata.com/downloads/).
+To learn how to manually install the RPM package from a file, see the [downloads page](https://portal.influxdata.com/downloads/).
 
-**RedHat and CentOS:** Install the latest stable version of Telegraf using the `yum` package manager:
+To use the `yum` package manager to install the latest stable version of Telegraf, follow these steps:
 
-```bash
-cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
-[influxdb]
-name = InfluxData Repository - Stable
-baseurl = https://repos.influxdata.com/stable/\$basearch/main
-enabled = 1
-gpgcheck = 1
-gpgkey = https://repos.influxdata.com/influxdata-archive_compat.key
-EOF
-```
+1. In your terminal, enter the following command to add the InfluxData repository to the `yum` configuration:
 
-Install telegraf once the repository is added to the `yum` configuration:
+    ```bash
+    cat <<EOF | sudo tee /etc/yum.repos.d/influxdb.repo
+    [influxdb]
+    name = InfluxData Repository - Stable
+    baseurl = https://repos.influxdata.com/stable/\$basearch/main
+    enabled = 1
+    gpgcheck = 1
+    gpgkey = https://repos.influxdata.com/influxdata-archive_compat.key
+    EOF
+    ```
 
-```bash
-sudo yum install telegraf
-```
+2.  Enter the following command to install `telegraf` from the repository.
 
-{{% telegraf/verify %}}
+    ```bash
+    sudo yum install telegraf
+    ```
 
-## Configuration
+The `telegraf` configuration file is installed at `/etc/telegraf/telegraf.conf`.
 
-### Create a configuration file with default input and output plugins
-
-Every plugin will be in the file, but most will be commented out.
-
-```
-telegraf config > telegraf.conf
-```
-
-### Create a configuration file with specific inputs and outputs
-```
-telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>[:<outputname>] config > telegraf.conf
-```
-
-For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN SLES & openSUSE ---------->
 {{% tab-content %}}
-There are RPM packages provided by openSUSE Build Service for SUSE Linux users:
+The openSUSE Build Service provides RPM packages for SUSE Linux.
 
-```bash
-# add go repository
-zypper ar -f obs://devel:languages:go/ go
-# install latest telegraf
-zypper in telegraf
-```
+To use the `zypper` package manager to install the latest stable version of Telegraf, follow these steps:
 
-{{% telegraf/verify %}}
+1.  In your terminal, enter the following command to add the Go repository to the `zypper` configuration:
 
-## Configuration
+    ```bash
+    # add go repository
+    zypper ar -f obs://devel:languages:go/ go
+    ```
 
-### Create a configuration file with default input and output plugins
+2.  Enter the following command to install `telegraf`.
 
-Every plugin will be in the file, but most will be commented out.
+    ```bash
+    # install latest telegraf
+    zypper in telegraf
+    ```
 
-```
-telegraf config > telegraf.conf
-```
-
-### Create a configuration file with specific inputs and outputs
-```
-telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>[:<outputname>] config > telegraf.conf
-```
-
-For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1/administration/configuration/).
 {{% /tab-content %}}
 <!---------- BEGIN FreeBSD/PC-BSD ---------->
 {{% tab-content %}}
 Telegraf is part of the FreeBSD package system.
-It can be installed by running:
+
+To use the `pkg` package manager to install the latest stable version of Telegraf, enter the following command:
 
 ```bash
 sudo pkg install telegraf
 ```
 
-The configuration file is located at `/usr/local/etc/telegraf.conf` with examples in `/usr/local/etc/telegraf.conf.sample`.
+The `telegraf` configuration file is installed at `/usr/local/etc/telegraf.conf`.
+Examples are installed at `/usr/local/etc/telegraf.conf.sample`.
 
-{{% telegraf/verify %}}
-
-## Configuration
-
-### Create a configuration file with default input and output plugins.
-
-Every plugin will be in the file, but most will be commented out.
-
-```
-telegraf config > telegraf.conf
-```
-
-### Create a configuration file with specific inputs and outputs
-```
-telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>[:<outputname>] config > telegraf.conf
-```
-
-For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1/administration/configuration/).
 {{% /tab-content %}}
-<!---------- BEGIN macOS ---------->
+<!---------- BEGIN MACOS ---------->
 {{% tab-content %}}
+Choose from the following options to install Telegraf for macOS:
+
+- To manually install Telegraf from a file, see the [downloads page](https://portal.influxdata.com/downloads/).
+- [Install using Homebrew](#install-using-homebrew)
+
+### Install using Homebrew
+
 Users of macOS 10.8 and higher can install Telegraf using the [Homebrew](http://brew.sh/) package manager.
-Once `brew` is installed, you can install Telegraf by running:
 
-```bash
-brew update
-brew install telegraf
+{{% note %}}
+
+The `telegraf` binary installed by Homebrew differs from the macOS `.dmg` builds available from the [downloads page](https://portal.influxdata.com/downloads/).
+
+- `telegraf` (Homebrew) isn't a static binary.
+- `telegraf` (Homebrew) works with the Telegraf CPU plugin (due to Homebrew support for [Cgo](https://pkg.go.dev/cmd/cgo)).
+    The `.dmg` builds available on [downloads](https://portal.influxdata.com/downloads/) don't support the CPU plugin.
+
+{{% /note %}}
+
+To install using Homebrew, do the following:
+
+1.  If you haven't already, follow the instructions to install the [Homebrew](http://brew.sh/) package manager.
+2.  Enter the following commands to update brew and install Telegraf:
+
+    ```zsh
+    brew update && brew install telegraf
+    ```
+
+    The path where `brew` installs the `telegraf.conf` configuration file depends on your system architecture:
+
+    - ARM-based (Apple Silicon) systems: `/opt/homebrew/etc/telegraf.conf`
+    - Intel-based (x86_64) systems: `/usr/local/etc/telegraf.conf`
+3. Choose one of the following methods to start Telegraf and begin collecting and processing metrics:
+
+    - [Run Telegraf in your terminal](#run-telegraf-in-your-terminal)
+    - [Run Telegraf as a service](#run-telegraf-as-a-service)
+
+### Run Telegraf in your terminal
+
+To run `telegraf` in your terminal (in the foreground and not as a service), enter the following command:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[ARM (Apple Silicon)](#)
+[x86_64 (Intel)](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!---- BEGIN ARM ---->
+```zsh
+telegraf -config /opt/homebrew/etc/telegraf.conf
 ```
-
-Run one of the following commands to start Telegraf and begin collecting and processing metrics:
-
-To have launchd start Telegraf as a service after the next login:
-
-```
-ln -sfv /usr/local/opt/telegraf/*.plist ~/Library/LaunchAgents
-```
-
-Start Telegraf as a launchd service:
-
-```
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.telegraf.plist
-```
-
-To run `telegraf` directly (and not as a launchd service):
-
-```
+<!---- END ARM ---->
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!---- BEGIN INTEL ---->
+```zsh
 telegraf -config /usr/local/etc/telegraf.conf
 ```
+<!---- END INTEL ---->
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-{{% telegraf/verify %}}
+### Run Telegraf as a background service
 
-## Configuration
+In your terminal, enter the following command to add `telegraf` to your system's `LaunchAgents`:
 
-### Create a configuration file with default input and output plugins.
-
-Every plugin will be in the file, but most will be commented out.
-
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[ARM (Apple Silicon)](#)
+[x86_64 (Intel)](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+<!---- BEGIN ARM ---->
+```zsh
+ln -sfv /opt/homebrew/opt/telegraf/*.plist ~/Library/LaunchAgents
 ```
-telegraf config > telegraf.conf
+<!---- END ARM ---->
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+<!---- BEGIN INTEL ---->
+```zsh
+ln -sfv /usr/local/opt/telegraf/*.plist ~/Library/LaunchAgents
 ```
+<!---- END INTEL ---->
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
 
-The output `telegraf.conf` contains all available plugins--some are enabled and the rest are commented out.
+The next time you login, launchd starts the `telegraf` service.
 
-### Create a configuration file with specific inputs and outputs
+To immediately start the `telegraf` service, enter the following command:
+
+```zsh
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.telegraf.plist
 ```
-telegraf --input-filter <pluginname>[:<pluginname>] --output-filter <outputname>[:<outputname>] config > telegraf.conf
-```
-
-For more advanced configuration details, see the
-[configuration documentation](/telegraf/v1/configuration/).
+<!---- END MACOS ---->
 {{% /tab-content %}}
 <!---------- BEGIN Windows ---------->
 {{% tab-content %}}
@@ -320,20 +304,7 @@ The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files 
 `C:\Program Files\InfluxData\telegraf` or that you created a Symlink to point to this directory.
     {{% /note %}}
 
-3.  Optional: Disable the [`inputs.processes` plugin](/telegraf/v1/plugins/#input-processes).
-    This plugin doesn't support Windows and returns an error when run with the `--test` flag.
-    Open `telegraf.conf` in your editor and comment the `inputs.processes` configuration lines.
-
-    ```toml
-    ...
-    # This plugin ONLY supports non-Windows
-    # [[inputs.processes]]
-    ...
-    #  # use_sudo = false
-    ...
-    ```
-
-4.  Optional: Enable a plugin to collect Windows-specific metrics--for example, uncomment the [`inputs.win_services`  plugin](/telegraf/v1/plugins/#input-win_services) configuration line:
+3.  Optional: Enable a plugin to collect Windows-specific metrics--for example, uncomment the [`inputs.win_services`  plugin](/telegraf/v1/plugins/#input-win_services) configuration line:
 
     ```toml
     ...
@@ -343,7 +314,7 @@ The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files 
     ...
     ```
 
-5.  Run the following command to install Telegraf and the configuration as a Windows service.
+4.  Run the following command to install Telegraf and the configuration as a Windows service.
     For the `--config` option, pass the absolute path of the `telegraf.conf` configuration file.
 
     ```powershell
@@ -351,7 +322,7 @@ The remaining instructions assume that `telegraf.exe` and `telegraf.conf` files 
     --config "C:\Program Files\InfluxData\telegraf\telegraf.conf"
     ```
 
-6.  To test that the installation works, enter the following command:
+5.  To test that the installation works, enter the following command:
 
     ```powershell
     .\telegraf.exe `
@@ -396,47 +367,131 @@ The following commands are available:
 {{< /tab-content >}}
 {{< /tabs-wrapper >}}
 
+## Generate a custom configuration file
+
+The `telegraf config` command lets you generate a configuration file using Telegraf's list of plugins.
+
+### Create a configuration file with default input and output plugins
+
+To generate a configuration file with default input and output plugins enabled,
+enter the following command in your terminal:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Linux and macOS](#)
+[Windows](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+telegraf config > telegraf.conf
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```powershell
+.\telegraf.exe config > telegraf.conf
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+The generated file contains settings for all available plugins--some are enabled and the rest are commented out.
+
+### Create a configuration file with specific input and output plugins
+
+To generate a configuration file that contains settings for only specific input and output plugins, specify `telegraf` plugin filters--for example:
+
+{{< code-tabs-wrapper >}}
+{{% code-tabs %}}
+[Linux and macOS](#)
+[Windows](#)
+{{% /code-tabs %}}
+{{% code-tab-content %}}
+```bash
+telegraf \
+--input-filter <pluginname>[:<pluginname>] \
+--output-filter <outputname>[:<outputname>] \
+config > telegraf.conf
+```
+{{% /code-tab-content %}}
+{{% code-tab-content %}}
+```powershell
+.\telegraf.exe `
+--input-filter <pluginname>[:<pluginname>] `
+--output-filter <outputname>[:<outputname>] `
+config > telegraf.conf
+```
+{{% /code-tab-content %}}
+{{< /code-tabs-wrapper >}}
+
+For more advanced configuration details, see the
+[configuration documentation](/telegraf/v1/administration/configuration/).
+
 ## Custom-compile Telegraf 
 
 Use the Telegraf custom builder tool to compile Telegraf with only the plugins you need and reduce the Telegraf binary size.
 
-### Requirements
+1. [Prerequisites](#prerequisites)
+2. [Build the custom builder tool](#build-the-custom-builder-tool)
+3. [Run the custom builder to create a `telegraf` binary](#run-the-custom-builder-to-create-a-telegraf-binary)
 
-- Ensure you've installed [Go](https://go.dev/) version is 1.18.0 or later.
-- Create your Telegraf configuration file with the plugins you want to use. For details, see [Configuration options](/telegraf/v1/configuration/).
+### Prerequisites
 
-### Build and run the custom builder
+-  Follow the instructions to install [Go](https://go.dev/) for your system.
+-  [Create your Telegraf configuration file](#generate-a-custom-configuration-file) with the plugins you want to use.
+
+### Build the custom builder tool
 
 1. Clone the Telegraf repository:
-    ```sh
+
+    ```bash
     git clone https://github.com/influxdata/telegraf.git
     ```
 2. Change directories into the top-level of the Telegraf repository:
-    ```
+
+    ```bash
     cd telegraf
     ```
 3. Build the Telegraf custom builder tool by entering the following command:
-    ```sh
+
+    ```bash
     make build_tools
     ```
-4. Run the `custom_builder` utility with at least one `--config` or `--config-directory` flag to specify Telegraf configuration files to build from. `--config` accepts local file paths and URLs. `--config-dir` accepts local directory paths. You can include multiple `--config` and `--config-dir` flags. The custom builder builds a `telegraf` binary with only the plugins included in the specified configuration files or directories:
-    - **Single Telegraf configuration**: 
-        ```sh
-        ./tools/custom_builder/custom_builder --config /etc/telegraf.conf
-        ```
-    - **Single Telegraf configuration and Telegraf configuration directory**: 
-        ```sh
-        ./tools/custom_builder/custom_builder \
-          --config /etc/telegraf.conf \
-          --config-dir /etc/telegraf/telegraf.d
-        ```
-    - **Remote Telegraf configuration**:
-        ```sh
-        ./tools/custom_builder/custom_builder --config http://url-to-remote-telegraf/telegraf.conf
-        ```
 
-5. View your customized Telegraf binary within the top level of your Telegraf repository.
+### Run the custom builder to create a `telegraf` binary
+
+The custom builder builds a `telegraf` binary with only the plugins included in the specified configuration files or directories.
+
+Run the `custom_builder` tool with at least one `--config` or `--config-directory` flag to specify Telegraf configuration files to build from.
+
+- `--config`: accepts local file paths and URLs.
+- `--config-dir`: accepts local directory paths.
+
+You can include multiple `--config` and `--config-dir` flags.
+
+#### Examples
+
+##### Single Telegraf configuration
+
+```bash
+./tools/custom_builder/custom_builder --config /etc/telegraf.conf
+```
+
+##### Single Telegraf configuration and Telegraf configuration directory
+
+```bash
+./tools/custom_builder/custom_builder \
+--config /etc/telegraf.conf \
+--config-dir /etc/telegraf/telegraf.d
+```
+
+##### Remote Telegraf configuration
+
+```bash
+./tools/custom_builder/custom_builder \
+--config http://url-to-remote-telegraf/telegraf.conf
+```
+
+After a successful build, you can view your customized `telegraf` binary within the top level of your Telegraf repository.
 
 ### Update your custom binary
 
-To add or remove plugins from your customized Telegraf build, edit your configuration file and rerun the command from step 4 above. 
+To add or remove plugins from your customized Telegraf build, edit your configuration file, and then [run the custom builder](#run-the-custom-builder-to-create-a-telegraf-binary) to regenerate the Telegraf binary.
