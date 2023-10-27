@@ -32,6 +32,10 @@ influxctl user invite [command options] <FIRST_NAME> <LAST_NAME> <EMAIL>
 | :--- | :------- | :------------------ |
 | `-h` | `--help` | Output command help |
 
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}
+
 ## Examples
 
 {{% code-placeholders "(FIRST|LAST)_NAME|EMAIL" %}}

@@ -20,11 +20,11 @@ influxctl cluster [subcommand] [subcommand options] [arguments...]
 
 ## Subcommands
 
-| Subcommand                                                        | Description                     |
-| :---------------------------------------------------------------- | :------------------------------ |
+| Subcommand                                                              | Description                     |
+| :---------------------------------------------------------------------- | :------------------------------ |
 | [get](/influxdb/clustered/reference/cli/influxctl/cluster/get/)   | Get information about a cluster |
 | [list](/influxdb/clustered/reference/cli/influxctl/cluster/list/) | List all clusters               |
-| help, h                                                           | Output command help             |
+| help, h                                                                 | Output command help             |
 
 ## Flags
 

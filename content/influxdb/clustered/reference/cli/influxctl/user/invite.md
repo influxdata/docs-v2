@@ -1,8 +1,7 @@
 ---
 title: influxctl user invite
 description: >
-  The `influxctl user invite` command invites a user to your InfluxDB Clustered
-  account.
+  The `influxctl user invite` command invites a user to your InfluxDB cluster.
 menu:
   influxdb_clustered:
     parent: influxctl user
@@ -31,6 +30,10 @@ influxctl user invite [command options] <FIRST_NAME> <LAST_NAME> <EMAIL>
 | Flag |          | Description         |
 | :--- | :------- | :------------------ |
 | `-h` | `--help` | Output command help |
+
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/clustered/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}
 
 ## Examples
 
