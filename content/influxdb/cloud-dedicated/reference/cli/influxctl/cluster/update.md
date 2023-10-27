@@ -6,6 +6,7 @@ menu:
   influxdb_cloud_dedicated:
     parent: influxctl cluster
 weight: 301
+draft: true
 ---
 
 The `influxctl cluster update` command updates an {{% product-name omit=" Clustered" %}} cluster.

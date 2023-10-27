@@ -45,8 +45,6 @@ influxctl [flags] [command]
 | Flag |                         | Description                                                                                     |
 | :--- | :---------------------- | :---------------------------------------------------------------------------------------------- |
 |      | `--debug`               | Enable debug logging                                                                            |
-|      | `--escalate`            | Run command with escalated permissions                                                          |
-|      | `--escalate-do-not-ask` | {{< req "Use with caution" >}}: Run command with escalated permissions and without confirmation |
 |      | `--account`             | Override account ID value in configuration file                                                 |
 |      | `--cluster`             | Override cluster ID value in configuration file                                                 |
 |      | `--config`              | Path to configuration file to use                                                               |
