@@ -6,8 +6,6 @@ menu:
   influxdb_clustered:
     parent: influxctl
 weight: 201
-cascade:
-  draft: true
 ---
 
 The `influxctl user` command and its subcommands manage users in
