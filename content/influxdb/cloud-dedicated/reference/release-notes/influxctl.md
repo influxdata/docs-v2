@@ -65,7 +65,8 @@ weight: 202
 
 ### Bug fixes
 
-- Add pagination support to [`influxctl token list`](/influxdb/cloud-dedicated/reference/cli/influxctl/token/list/).
+- Add pagination support to [`influxctl token list`](/influxdb/cloud-dedicated/reference/cli/influxctl/token/list/)
+  and [`influxctl user list`](/influxdb/cloud-dedicated/reference/cli/influxctl/user/list/).
 - Send all logging output to stderr.
 - Return error for commands that are not supported by InfluxDB Clustered.
 
@@ -114,29 +115,18 @@ weight: 202
 
 ## v2.0.0 {date="2023-08-09"}
 
-### Features
+`influxctl` 2.0.0 introduces support for both InfluxDB Cloud Dedicated and
+InfluxDB Clustered. To simplify configuration profile management, all connection
+configurations now managed in a single configuration file. If using `influxctl`
+1.x, migrate your 1.x configuration profiles to the 2.0 format:
 
-- Add support for both InfluxDB Cloud Dedicated and InfluxDB Clustered.
-- Provide public distributions through <https://portal.influxdata.com/downloads/>
-  and the <https://repos.influxdata.com/> repository.
-- The `influxctl` configuration file is now a single file that you can
-  optionally pass in via the CLI.
-- Add additional options to [`influxctl database`](/influxdb/cloud-dedicated/reference/cli/influxctl/database/)
-  and [`influxctl token`](/influxdb/cloud-dedicated/reference/cli/influxctl/token/)
-  subcommands.
-- Introduce [`influxctl cluster`](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/)
-  subcommands.
-- Remove the `influxctl init` subcommand to avoid additional complexity of an
-  InfluxDB Cloud Dedicated configuration.
-
-{{% note %}}
 ### Migrate from influxctl 1.x to 2.0
 
 `influxctl` 2.0+ supports multiple InfluxDB v3 products.
 To simplify connection configuration management, all configurations are now managed
 in a single file rather than separate files for each connection configuration.
 
-To migration `influxctl` 1.x configuration files to the 2.x format, use the
+To migrate `influxctl` 1.x configuration files to the 2.x format, use the
 following guidelines:
 
 1.  Create a 2.0+ configuration file (`config.toml`) at the default location
@@ -166,10 +156,21 @@ following guidelines:
         account_id = "dff3ee52-b494-47c1-9e2c-ab59d90d94eb"
         cluster_id = "5827cdeb-b868-4446-b40e-e08de116fddf"
     ```
-{{% /note %}}
 
 ### Features
 
+- Add support for both InfluxDB Cloud Dedicated and InfluxDB Clustered.
+- Provide public distributions through <https://portal.influxdata.com/downloads/>
+  and the <https://repos.influxdata.com/> repository.
+- The `influxctl` configuration file is now a single file that you can
+  optionally pass in via the CLI.
+- Add additional options to [`influxctl database`](/influxdb/cloud-dedicated/reference/cli/influxctl/database/)
+  and [`influxctl token`](/influxdb/cloud-dedicated/reference/cli/influxctl/token/)
+  subcommands.
+- Introduce [`influxctl cluster`](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/)
+  subcommands.
+- Remove the `influxctl init` subcommand to avoid additional complexity of an
+  InfluxDB Cloud Dedicated configuration.
 - Set maximum tables and columns when creating a database.
 - Support passing a connection configuration file path as a CLI option.
 - Delete multiple tokens or database in one command.
@@ -179,7 +180,7 @@ following guidelines:
 - Add account and authz gRPC method support.
 - Add account and authz protofiles.
 - Add oauth2 authentication.
-- Specifying custom TLS certificates.
+- Specify custom TLS certificates.
 - Store configuration settings for multiple InfluxDB products in a single
   configuration file.
 
@@ -239,12 +240,6 @@ following guidelines:
 ---
 
 ## v1.0.0 {date="2023-04-26"}
-
-{{% note %}}
-#### Production Release
-
-This release supports the production clusters and will NOT work on staging.
-{{% /note %}}
 
 ### Features
 
