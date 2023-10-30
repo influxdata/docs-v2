@@ -28,8 +28,10 @@ for simpler and more performant queries.
     - [Writing individual fields with different timestamps](#writing-individual-fields-with-different-timestamps)
   - [Measurement schemas should be homogenous](#measurement-schemas-should-be-homogenous)
 - [Design for query simplicity](#design-for-query-simplicity)
-  - [Keep measurement names, tag keys, and field keys simple](#keep-measurement-names-tag-keys-and-field-keys-simple)
+  - [Keep measurement names, tags, and fields simple](#keep-measurement-names-tags-and-fields-simple)
   - [Avoid keywords and special characters](#avoid-keywords-and-special-characters)
+
+<!-- TOC -->
 
 ## InfluxDB data structure
 
@@ -60,7 +62,7 @@ tags and fields.
 
 In time series data, the primary key for a row of data is typically a combination of timestamp and other attributes that uniquely identify each data point.
 In InfluxDB, the primary key for a row is the combination of the point's timestamp and _tag set_ - the collection of [tag keys](/influxdb/cloud-serverless/reference/glossary/#tag-key) and [tag values](/influxdb/cloud-serverless/reference/glossary/#tag-value) on the point.
-A row's primary key _tag set_ does not include tags with null values.
+A row's primary key tag set does not include tags with null values.
 
 ### Tags versus fields
 
@@ -68,7 +70,7 @@ When designing your schema for InfluxDB, a common question is, "what should be a
 tag and what should be a field?" The following guidelines should help answer that
 question as you design your schema.
 
-- Use tags to store identifying information about the source or context of the data.
+- Use tags to store metadata, or identifying information, about the source or context of the data.
 - Use fields to store measured values.
 - Tag values can only be strings.
 - Field values can be any of the following data types:
@@ -78,9 +80,12 @@ question as you design your schema.
   - String
   - Boolean
 
+{{% product-name %}} doesn't index tag values or field values.
+Tag keys, field keys, and other metadata are indexed to optimize performance.
+
 {{% note %}}
-The InfluxDB IOx engine supports infinite tag value and series cardinality.
-Unlike InfluxDB powered by the TSM storage engine, **tag value**
+The InfluxDB v3 storage engine supports infinite tag value and series cardinality.
+Unlike InfluxDB backed by the TSM storage engine, **tag value**
 cardinality doesn't affect the overall performance of your database.
 {{% /note %}}
 
@@ -227,21 +232,28 @@ complicate the process of writing queries for your data.
 The following guidelines help to ensure writing queries for your data is as
 simple as possible.
 
-- [Keep measurement names, tag keys, and field keys simple](#keep-measurement-names-tag-keys-and-field-keys-simple)
+- [Keep measurement names, tags, and fields simple](#keep-measurement-names-tags-and-fields-simple)
 - [Avoid keywords and special characters](#avoid-keywords-and-special-characters)
 
-### Keep measurement names, tag keys, and field keys simple
+### Keep measurement names, tags, and fields simple
+
+Use one tag or one field for each data attribute.
+If your source data contains multiple data attributes in a single parameter,
+split each attribute into its own tag or field.
 
 Measurement names, tag keys, and field keys should be simple and accurately
 describe what each contains.
-
+Keep names free of data.
 The most common cause of a complex naming convention is when you try to "embed"
 data attributes into a measurement name, tag key, or field key.
 
+When each key and value represents one attribute (not multiple concatenated attributes) of your data,
+you'll reduce the need for regular expressions in your queries.
+Without regular expressions, your queries will be easier to write and more performant.
+
 #### Not recommended {.orange}
 
-As a basic example, consider the following [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/)
-that embeds sensor metadata (location, model, and ID) into a tag key:
+For example, consider the following [line protocol](/influxdb/cloud-serverless/reference/syntax/line-protocol/) that embeds multiple attributes (location, model, and ID) into a `sensor` tag value:
 
 ```
 home,sensor=loc-kitchen.model-A612.id-1726ZA temp=72.1
@@ -292,7 +304,7 @@ are less performant than simple equality expressions.
 
 #### Recommended {.green}
 
-The better approach would be to write each sensor attribute as an individual tag:
+The better approach would be to write each sensor attribute as a separate tag:
 
 ```
 home,location=kitchen,sensor_model=A612,sensor_id=1726ZA temp=72.1
