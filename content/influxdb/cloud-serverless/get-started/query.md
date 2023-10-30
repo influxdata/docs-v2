@@ -46,8 +46,8 @@ The examples in this section of the tutorial query the [**get-started** bucket](
 
 - [InfluxDB user interface (UI)](?t=InfluxDB+UI#execute-an-sql-query){{< req "\*  " >}}
 - [`influx3` data CLI](?t=influx3+CLI#execute-an-sql-query){{< req "\*  " >}}
-- [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/)
-- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight/){{< req "\*  " >}}
+- [InfluxDB v3 client libraries](/influxdb/cloud-serverless/reference/client-libraries/v3/){{< req "\*  " >}}
+- [Flight clients](/influxdb/cloud-serverless/reference/client-libraries/flight/)
 - [Superset](/influxdb/cloud-serverless/query-data/sql/execute-queries/superset/)
 - [Grafana](/influxdb/cloud-serverless/query-data/sql/execute-queries/grafana/)
 - [InfluxQL with InfluxDB v1 HTTP API](/influxdb/cloud-serverless/query-data/execute-queries/influxdb-v1-api/)
@@ -261,20 +261,23 @@ The following steps include setting up a Python virtual environment already
 covered in [Get started writing data](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb).
 _If your project's virtual environment is already running, skip to step 3._
 
-1.  Setup your Python virtual environment.
-    Inside of your project directory:
+1.  Create a directory for your project and change into it:
 
     ```sh
-    python -m venv envs/virtual-env
+    mkdir influx3-query-example && cd $_
     ```
 
-2.  Activate the virtual environment.
+2.  To create and activate a Python virtual environment, run the following command:
+
+    <!--pytest-codeblocks:cont-->
 
     ```sh
-    source ./envs/virtual-env/bin/activate
+    python -m venv envs/virtual-env && . envs/virtual-env/bin/activate
     ```
 
 3.  Install the CLI package (already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)).
+
+    <!--pytest-codeblocks:cont-->
 
     ```sh
     pip install influxdb3-python-cli
@@ -285,9 +288,10 @@ _If your project's virtual environment is already running, skip to step 3._
 
 4.  Create the `config.json` configuration.
 
-    <!-- code-placeholders breaks when indented here -->
+    <!--pytest-codeblocks:cont-->
+
     ```sh
-    influx3 config \
+    influx3 config create \
       --name="config-serverless" \
       --database="get-started" \
       --host="{{< influxdb/host >}}" \
@@ -302,16 +306,18 @@ _If your project's virtual environment is already running, skip to step 3._
 
 5.  Enter the `influx3 sql` command and your SQL query statement.
 
-  ```sh
-  influx3 sql "SELECT *
-                FROM home
-                WHERE time >= '2022-01-01T08:00:00Z'
-                AND time <= '2022-01-01T20:00:00Z'"
-  ```
+    <!--pytest-codeblocks:cont-->
 
-`influx3` displays query results in your terminal.
+    ```sh
+    influx3 sql "SELECT *
+                  FROM home
+                  WHERE time >= '2022-01-01T08:00:00Z'
+                  AND time <= '2022-01-01T20:00:00Z'"
+    ```
 
- {{% /influxdb/custom-timestamps %}}
+    `influx3` displays query results in your terminal.
+
+{{% /influxdb/custom-timestamps %}}
 <!--------------------------- END influx3 CONTENT --------------------------->
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -327,19 +333,22 @@ _If your project's virtual environment is already running, skip to step 3._
 1.  Open a terminal in the `influxdb_py_client` module directory you created in the
     [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb):
 
-    1.  To create your Python virtual environment, enter the following command in your terminal:
+    1.  To create and activate your Python virtual environment, enter the following command in your terminal:
+
+        <!-- Run for tests and hide from users.
 
         ```sh
-        python -m venv envs/virtual-env
+        mkdir -p influxdb_py_client && cd $_
         ```
+        -->
 
-    2.  Activate the virtual environment.
+        <!--pytest-codeblocks:cont-->
 
         ```sh
-        source ./envs/virtual-env/bin/activate
+        python -m venv envs/virtual-env && . ./envs/virtual-env/bin/activate
         ```
 
-    3.  Install the following dependencies:
+    2.  Install the following dependencies:
 
         {{< req type="key" text="Already installed in the [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Python#write-line-protocol-to-influxdb)" color="magenta" >}}
 
@@ -349,6 +358,8 @@ _If your project's virtual environment is already running, skip to step 3._
 
         In your terminal, enter the following command:
 
+        <!--pytest-codeblocks:cont-->
+
         ```sh
         pip install influxdb3-python pandas tabulate
         ```
@@ -357,19 +368,21 @@ _If your project's virtual environment is already running, skip to step 3._
 
 2.  In `query.py`, enter the following sample code:
 
-    ```py
-    from influxdb_client_3 import InfluxDBClient3
+    <!-- Import for tests and hide from users.
+    ```python
     import os
+    ```
+    -->
 
-    # INFLUX_TOKEN is an environment variable you assigned to your 
-    # API READ token string
-    TOKEN = os.getenv('INFLUX_TOKEN')
+    <!--pytest-codeblocks:cont-->
+
+    ```python
+    from influxdb_client_3 import InfluxDBClient3
 
     client = InfluxDBClient3(
-        host="{{< influxdb/host >}}",
-        token=TOKEN,
-        database="get-started",
-    )
+        host=f"{{< influxdb/host >}}",
+        token=f"API_TOKEN",
+        database=f"get-started")
 
     sql = '''
       SELECT
@@ -382,7 +395,8 @@ _If your project's virtual environment is already running, skip to step 3._
     '''
 
     table = client.query(query=sql)
-    print(reader.to_pandas().to_markdown())
+    assert table['room'], "Expect table to have room column."
+    print(table.to_pandas().to_markdown())
     ```
 
 {{< expand-wrapper >}}
@@ -402,24 +416,21 @@ _If your project's virtual environment is already running, skip to step 3._
   2.  In your Python code, import `certifi` and call the `certifi.where()` method to retrieve the root certificate path.
   3.  When instantiating the client, pass the `flight_client_options.tls_root_certs=<ROOT_CERT_PATH>` option with the certificate path--for example:
 
-      ```py
+      ```python
       from influxdb_client_3 import InfluxDBClient3, flight_client_options
       import os
       import certifi
-
-      TOKEN = os.getenv('INFLUX_TOKEN')
 
       fh = open(certifi.where(), "r")
       cert = fh.read()
       fh.close()
 
       client = InfluxDBClient3(
-          host="{{< influxdb/host >}}",
-          token=TOKEN,
-          database="get-started",
+          host=f"{{< influxdb/host >}}",
+          token=f"API_TOKEN",
+          database=f"get-started",
           flight_client_options=flight_client_options(
               tls_root_certs=cert))
-      ...
       ```
   
   For more information, see [`influxdb_client_3` query exceptions](/influxdb/cloud-serverless/reference/client-libraries/v3/python/#query-exceptions).
@@ -455,6 +466,8 @@ _If your project's virtual environment is already running, skip to step 3._
   7.  Calls the `print()` method to print the markdown table to stdout.
 
 6. In your terminal, enter the following command to run the program and query {{% product-name %}}:
+
+    <!--pytest.mark.skip-->
 
     ```sh
     python query.py
@@ -619,6 +632,8 @@ _If your project's virtual environment is already running, skip to step 3._
 
 4.  In your terminal, enter the following command to install the necessary packages, build the module, and run the program:
 
+    <!--pytest.mark.skip-->
+
     ```sh
     go mod tidy && go build && go run influxdb_go_client
     ```
@@ -637,6 +652,8 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
 1.  In your terminal or editor, change to the `influxdb_js_client` directory you created in the
     [Write data section](/influxdb/cloud-serverless/get-started/write/?t=Nodejs).
 2.  If you haven't already, install the `@influxdata/influxdb3-client` JavaScript client library as a dependency to your project:
+
+    <!--pytest.mark.skip-->
 
     ```sh
     npm install --save @influxdata/influxdb3-client
@@ -736,6 +753,8 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
     ```
 
 9.  In your terminal, execute `index.mjs` to write to and query {{% product-name %}}:
+
+    <!--pytest.mark.skip-->
 
     ```sh
     node index.mjs
@@ -854,6 +873,8 @@ _This tutorial assumes you installed Node.js and npm, and created an `influxdb_j
 
 4.  To build and execute the program and query {{% product-name %}},
     enter the following commands in your terminal:
+
+    <!--pytest.mark.skip-->
 
     ```sh
     dotnet run
@@ -989,6 +1010,8 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
     - `App` defines a `main()` function that calls `Write.writeLineProtocol()` and `Query.querySQL()`.
 4.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
 
+    <!--pytest.mark.skip-->
+
     ```sh
     mvn compile
     ```
@@ -999,6 +1022,8 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
     For example, enter the following command in your terminal:
 
     **Linux/MacOS**
+
+    <!--pytest.mark.skip-->
 
     ```sh
     export MAVEN_OPTS="--add-opens=java.base/java.nio=ALL-UNNAMED"
@@ -1011,6 +1036,8 @@ _This tutorial assumes using Maven version 3.9, Java version >= 15, and an `infl
     ```
 
 6. To run the app to write to and query {{% product-name %}}, execute `App.main()`--for example, using Maven:
+
+    <!--pytest.mark.skip-->
 
     ```sh
     mvn exec:java -Dexec.mainClass="com.influxdbv3.App"
