@@ -38,6 +38,14 @@
       display: inline-block;
       vertical-align: middle;
     }
+    &[date]::after {
+      content: attr(date);
+      margin-left: .65rem;
+      opacity: .4;
+      font-size: .75em;
+      font-weight: $medium;
+      font-style: inherit;
+    }
   }
   h1 {
     font-weight: normal;
