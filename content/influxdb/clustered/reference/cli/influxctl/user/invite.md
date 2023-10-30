@@ -6,6 +6,7 @@ menu:
   influxdb_clustered:
     parent: influxctl user
 weight: 301
+draft: true
 ---
 
 The `influxctl user invite` command invites a user to your {{< product-name >}}
