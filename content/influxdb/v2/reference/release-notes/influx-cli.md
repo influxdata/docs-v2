@@ -8,7 +8,7 @@ menu:
     name: influx CLI 
 ---
 
-## v2.7.3 [2023-04-28]
+## v2.7.3 {date="2023-04-28"}
 
 ### Bug Fixes
 
@@ -18,7 +18,7 @@ menu:
 ### Maintenance
 - Upgrade `go` to 1.20.3.
 
-## v2.7.1 [2023-04-05]
+## v2.7.1 {date="2023-04-05"}
 
 ### Features
 
@@ -39,13 +39,13 @@ menu:
 
 ---
 
-## v2.6.1 [2022-12-29]
+## v2.6.1 {date="2022-12-29"}
 
 - Internal code cleanup.
 
 ---
 
-## v2.6.0 [2022-12-15]
+## v2.6.0 {date="2022-12-15"}
 
 ### Bug Fixes
 
@@ -61,7 +61,7 @@ menu:
 
 ---
 
-## v2.5.0 [2022-11-01]
+## v2.5.0 {date="2022-11-01"}
 
 ### Features
 
@@ -82,7 +82,7 @@ menu:
 
 ---
 
-## v2.4.0 [2022-08-18]
+## v2.4.0 {date="2022-08-18"}
 
 ### Features
 
@@ -105,7 +105,7 @@ menu:
 
 ---
 
-## v2.3.0 [2022-04-08]
+## v2.3.0 {date="2022-04-08"}
 
 ### Features
 
@@ -124,7 +124,7 @@ menu:
 
 ---
 
-## v2.2.1 [2021-11-09]
+## v2.2.1 {date="2021-11-09"}
 
 This release includes two new bug fixes.
 
@@ -137,7 +137,7 @@ run `./influx --help` to see a list of valid commands. Thanks @slai!
 
 ---
 
-## v2.2.0 [2021-10-21]
+## v2.2.0 {date="2021-10-21"}
 
 This release includes three new features and bug fixes.
 
@@ -173,7 +173,7 @@ Add the shorthand flag `-b` for `--bucket` to [`influx delete`](/influxdb/cloud/
 
 ---
 
-## v2.1.1 [2021-09-24]
+## v2.1.1 {date="2021-09-24"}
 
 ### Go version 
 
@@ -189,7 +189,7 @@ Upgrade to Go 1.17.
 
 ---
 
-## v2.1.0 [2021-07-29]
+## v2.1.0 {date="2021-07-29"}
 
 ### New repository
 

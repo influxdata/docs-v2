@@ -9,7 +9,7 @@ aliases:
   - /kapacitor/v1/about_the_project/releasenotes-changelog/
 ---
 
-## v1.7.1 [2023-10-20]
+## v1.7.1 {date="2023-10-20"}
 
 ### Bug Fixes
 
@@ -17,7 +17,7 @@ aliases:
 
 ---
 
-## v1.7.0 [2023-08-18]
+## v1.7.0 {date="2023-08-18"}
 
 ### Features
 
@@ -25,7 +25,7 @@ aliases:
 
 ---
 
-## v1.6.6 [2023-04-12]
+## v1.6.6 {date="2023-04-12"}
 
 ### Features
 
@@ -38,7 +38,7 @@ aliases:
 
 ---
 
-## v1.6.5 [2022-8-18]
+## v1.6.5 {date="2022-08-18"}
 
 ### Features
 
@@ -48,11 +48,11 @@ aliases:
 ### Bug fixes
 
 - Update the `Kafka` client to fix a bug regarding write latency.
-- Update to [Flux v0.171.0](/flux/v0.x/release-notes/#v01710-2022-06-14) to fix "interface {} is nil, not string" issue.
+- Update to [Flux v0.171.0](/flux/v0.x/release-notes/#v01710) to fix "interface {} is nil, not string" issue.
 
 ---
 
-## v1.6.4 [2022-03-15]
+## v1.6.4 {date="2022-03-15"}
 
 ### Features
 
@@ -65,7 +65,7 @@ aliases:
 
 ---
 
-## v1.6.3 [2022-01-25]
+## v1.6.3 {date="2022-01-25"}
 
 ### Features
 
@@ -87,7 +87,7 @@ is 1000.
 
 ---
 
-## v1.6.2 [2021-09-24]
+## v1.6.2 {date="2021-09-24"}
 
 ### Features
 
@@ -103,7 +103,7 @@ is 1000.
 
 ---
 
-## v1.6.1 [2021-07-22]
+## v1.6.1 {date="2021-07-22"}
 
 ### Features
 
@@ -118,7 +118,7 @@ is 1000.
 
 ---
 
-## v1.6.0 [2021-06-28]
+## v1.6.0 {date="2021-06-28"}
 
 {{% warn %}}
 Kapacitor 1.6.0 includes a defect that could result in a memory leak and expose
@@ -162,7 +162,7 @@ If you are using a 32-bit operating system, continue using Kapacitor 1.5.x.
 
 ---
 
-## v1.5.9 [2021-04-01]
+## v1.5.9 {date="2021-04-01"}
 
 ### Features
 
@@ -203,7 +203,7 @@ If you are using a 32-bit operating system, continue using Kapacitor 1.5.x.
 
 ---
 
-## v1.5.8 [2020-01-27]
+## v1.5.8 {date="2020-01-27"}
 
 {{% warn %}}
 If you’ve installed this release, please roll back to v1.5.7 as soon as possible. This release introduced a defect wherein large batch tasks will not completely write all points back to InfluxDB. This primarily affects downsampling tasks where information is written to another retention policy. If the source retention policy is short there is the potential for the source data to age out and the downsample to have never been fully written.
@@ -211,7 +211,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 
 ---
 
-## v1.5.7 [2020-10-26]
+## v1.5.7 {date="2020-10-26"}
 
 ### Features
 
@@ -229,7 +229,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 
 ---
 
-## v1.5.6 [2020-07-17]
+## v1.5.6 {date="2020-07-17"}
 
 ### Features
 
@@ -250,7 +250,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 
 ---
 
-## v1.5.5 [2020-04-20]
+## v1.5.5 {date="2020-04-20"}
 
 ### Breaking changes
 
@@ -262,7 +262,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 
 ---
 
-## v1.5.4 [2020-01-16]
+## v1.5.4 {date="2020-01-16"}
 
 ### Features
 
@@ -276,7 +276,7 @@ If you’ve installed this release, please roll back to v1.5.7 as soon as possib
 
 ---
 
-## v1.5.3 [2019-06-18]
+## v1.5.3 {date="2019-06-18"}
 
 {{% warn %}}
 ### Authentication and shared secret
@@ -299,7 +299,7 @@ kapacitord[4313]: run: open server: open service *influxdb.Service: failed to li
 ```
 {{% /warn %}}
 
-#### Important update [2019-07-11]
+#### Important update {date="2019-07-11"}
 - Some customers have reported a high number of CLOSE_WAIT connections.
   Upgrade to this release to resolve this issue.
 
@@ -317,7 +317,7 @@ kapacitord[4313]: run: open server: open service *influxdb.Service: failed to li
 
 ---
 
-## v1.5.2 [2018-12-12]
+## v1.5.2 {date="2018-12-12"}
 
 ### Features
 
@@ -334,7 +334,7 @@ kapacitord[4313]: run: open server: open service *influxdb.Service: failed to li
 
 ---
 
-## v1.5.1 [2018-08-06]
+## v1.5.1 {date="2018-08-06"}
 
 ### Bug fixes
 
@@ -344,7 +344,7 @@ kapacitord[4313]: run: open server: open service *influxdb.Service: failed to li
 
 ---
 
-## v1.5.0 [2018-05-17]
+## v1.5.0 {date="2018-05-17"}
 
 ### Features
 
@@ -371,7 +371,7 @@ kapacitord[4313]: run: open server: open service *influxdb.Service: failed to li
 
 ---
 
-## v1.4.1 [2018-03-13]
+## v1.4.1 {date="2018-03-13"}
 
 ### Bug fixes
 
@@ -379,7 +379,7 @@ kapacitord[4313]: run: open server: open service *influxdb.Service: failed to li
 
 ---
 
-## v1.4.0 [2017-12-08]
+## v1.4.0 {date="2017-12-08"}
 
 ### Release notes
 
@@ -455,7 +455,7 @@ The `Combine` and `Flatten` nodes previously operated (erroneously) across batch
 
 ---
 
-## v1.3.3 [2017-08-11]
+## v1.3.3 {date="2017-08-11"}
 
 ### Bug fixes
 
@@ -463,7 +463,7 @@ The `Combine` and `Flatten` nodes previously operated (erroneously) across batch
 
 ---
 
-## v1.3.2 [2017-08-08]
+## v1.3.2 {date="2017-08-08"}
 
 ### Bug fixes
 
@@ -471,7 +471,7 @@ The `Combine` and `Flatten` nodes previously operated (erroneously) across batch
 
 ---
 
-## v1.3.1 [2017-06-02]
+## v1.3.1 {date="2017-06-02"}
 
 ### Bug fixes
 
@@ -480,7 +480,7 @@ The `Combine` and `Flatten` nodes previously operated (erroneously) across batch
 
 ---
 
-## v1.3.0 [2017-05-22]
+## v1.3.0 {date="2017-05-22"}
 
 ### Release Notes
 
@@ -660,7 +660,7 @@ For more details on the alerting system, see the full documentation [here](/kapa
 
 ---
 
-## v1.2.0 [2017-01-23]
+## v1.2.0 {date="2017-01-23"}
 
 ### Release Notes
 
@@ -741,7 +741,7 @@ See the [API docs on technical preview](/kapacitor/v1/api/api/#technical-preview
 
 ---
 
-## v1.1.1 [2016-12-02]
+## v1.1.1 {date="2016-12-02"}
 
 ### Release Notes
 
@@ -749,7 +749,7 @@ No changes to Kapacitor, only upgrading to GoLang 1.7.4 for security patches.
 
 ---
 
-## v1.1.0 [2016-10-07]
+## v1.1.0 {date="2016-10-07"}
 
 ### Release Notes
 
@@ -802,7 +802,7 @@ See the [API docs](/kapacitor/v1/api/api/) for more details.
 
 ---
 
-## v1.0.2 [2016-10-06]
+## v1.0.2 {date="2016-10-06"}
 
 ### Bug fixes
 
@@ -811,7 +811,7 @@ See the [API docs](/kapacitor/v1/api/api/) for more details.
 
 ---
 
-## v1.0.1 [2016-09-26]
+## v1.0.1 {date="2016-09-26"}
 
 ### Features
 
@@ -831,7 +831,7 @@ See the [API docs](/kapacitor/v1/api/api/) for more details.
 
 ---
 
-## v1.0.0 [2016-09-02]
+## v1.0.0 {date="2016-09-02"}
 
 ### Release Notes
 

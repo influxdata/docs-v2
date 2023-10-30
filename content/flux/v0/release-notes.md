@@ -10,19 +10,19 @@ aliases:
   - /influxdb/cloud/reference/release-notes/flux/
 ---
 
-## v0.194.4 [2023-10-25]
+## v0.194.4 {date="2023-10-25"}
 
 - _Internal code cleanup._
 
 ---
 
-## v0.194.3 [2023-05-26]
+## v0.194.3 {date="2023-05-26"}
 
 - _Internal code cleanup._
 
 ---
 
-## v0.194.3 [2023-05-26]
+## v0.194.3 {date="2023-05-26"}
 
 ### Bug fixes
 
@@ -31,14 +31,14 @@ aliases:
 
 ---
 
-## v0.194.1 [2023-04-17]
+## v0.194.1 {date="2023-04-17"}
 
 ### Bug fixes
 - Make C foreign function interface (FFI) more robust when checking for valid input.
 
 ---
 
-## v0.194.0 [2023-04-06]
+## v0.194.0 {date="2023-04-06"}
 
 ### Features
 - Add microsecond and nanosecond support to
@@ -50,7 +50,7 @@ aliases:
 
 ---
 
-## v0.193.0 [2023-02-23]
+## v0.193.0 {date="2023-02-23"}
 
 ### Features
 - Add `onNonmonotonic` parameter to [`histogramQuantile()`](/flux/v0/stdlib/universe/histogramquantile/)
@@ -67,7 +67,7 @@ aliases:
 
 ---
 
-## v0.192.0 [2023-01-09]
+## v0.192.0 {date="2023-01-09"}
 
 ### Breaking changes
 - Update iox.sql to detect midstream errors.
@@ -88,21 +88,21 @@ aliases:
 
 ---
 
-## v0.191.0 [2022-11-14]
+## v0.191.0 {date="2022-11-14"}
 
 ### Features
 - Associate registry attributes to import statements.
 
 ---
 
-## v0.190.0 [2022-11-09]
+## v0.190.0 {date="2022-11-09"}
 
 ### Features
 - Add download headers within the CSV dialect.
 
 ---
 
-## v0.189.0 [2022-11-02]
+## v0.189.0 {date="2022-11-02"}
 
 ### Features
 - Add `PartialOrd` and `Ord` to `ast::Position`.
@@ -117,14 +117,14 @@ aliases:
 
 ---
 
-## v0.188.1 [2022-10-31]
+## v0.188.1 {date="2022-10-31"}
 
 ### Bug fixes
 - Correctly handle join operations with large input that exceed the buffer size.
 
 ---
 
-## v0.188.0 [2022-10-25]
+## v0.188.0 {date="2022-10-25"}
 
 ### Features
 - Compile the standard library incrementally.
@@ -135,7 +135,7 @@ aliases:
 
 ---
 
-## v0.187.0 [2022-10-17]
+## v0.187.0 {date="2022-10-17"}
 
 ### Features
 
@@ -151,7 +151,7 @@ aliases:
 
 ---
 
-## v0.186.0 [2022-10-11]
+## v0.186.0 {date="2022-10-11"}
 
 ### Features
 - Add [`dynamic.isType()` function](/flux/v0/stdlib/experimental/dynamic/istype/).
@@ -168,7 +168,7 @@ aliases:
 
 ---
 
-## v0.185.0 [2022-10-03]
+## v0.185.0 {date="2022-10-03"}
 
 ### Features
 - Add dynamic type.
@@ -184,7 +184,7 @@ aliases:
 
 ---
 
-## v0.184.2 [2022-09-26]
+## v0.184.2 {date="2022-09-26"}
 
 ### Bug fixes
 - Remove the `stacker` dependency.
@@ -192,13 +192,13 @@ aliases:
 
 ---
 
-## v0.184.1 [2022-09-21]
+## v0.184.1 {date="2022-09-21"}
 
 - _Internal code cleanup._
 
 ---
 
-## v0.184.0 [2022-09-21]
+## v0.184.0 {date="2022-09-21"}
 
 ### Breaking changes
 - Update logical _null_ handling and align all logical operator implementations
@@ -218,7 +218,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.183.0 [2022-09-12]
+## v0.183.0 {date="2022-09-12"}
 
 ### Features
 - Add support for piped-forward arrays to [`array.from()`](/flux/v0/stdlib/array/from/).
@@ -234,7 +234,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.182.0 [2022-09-06]
+## v0.182.0 {date="2022-09-06"}
 
 ### Features
 - Display yields in `fluxtest`.
@@ -253,7 +253,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.181.0 [2022-08-29]
+## v0.181.0 {date="2022-08-29"}
 
 ### Features
 - Add "headless" JSON-RPC based REPL.
@@ -269,13 +269,13 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.180.1 [2022-08-22]
+## v0.180.1 {date="2022-08-22"}
 
 - _Internal code cleanup._
 
 ---
 
-## v0.180.0 [2022-08-22]
+## v0.180.0 {date="2022-08-22"}
 
 ### Features
 - Rewrite calls to `float()` as `_vectorizedFloat()`.
@@ -289,7 +289,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.179.0 [2022-08-15]
+## v0.179.0 {date="2022-08-15"}
 
 ### Features
 - Add a `Stringify` utility function for `table.Chunk`.
@@ -309,7 +309,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.178.0 [2022-08-09]
+## v0.178.0 {date="2022-08-09"}
 
 ### Features
 - Support `apiKey` parameter in [`zenoss.event()`](/flux/v0/stdlib/contrib/bonitoo-io/zenoss/event/)
@@ -323,14 +323,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.177.1 [2022-08-08]
+## v0.177.1 {date="2022-08-08"}
 
 ### Bug fixes
 - Update `strings.substring()` to check bounds using rune array instead of string length.
 
 ---
 
-## v0.177.0 [2022-08-01]
+## v0.177.0 {date="2022-08-01"}
 
 ### Features
 - Support conditional expressions in vectorized `map()`.
@@ -343,9 +343,9 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.176.0 [2022-07-25]
+## v0.176.0 {date="2022-07-25"}
 
-## Features
+### Features
 - Promote various feature-flagged features and optimizations to be used by default.
 
 ### Bug fixes
@@ -356,7 +356,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.175.0 [2022-07-19]
+## v0.175.0 {date="2022-07-19"}
 
 ### Features
 - Update [`testing.diff()`](/flux/v0/stdlib/testing/diff/) to use
@@ -373,7 +373,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.174.1 [2022-07-12]
+## v0.174.1 {date="2022-07-12"}
 
 ### Bug fixes
 
@@ -385,7 +385,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.174.0 [2022-07-05]
+## v0.174.0 {date="2022-07-05"}
 
 ### Features
 
@@ -410,7 +410,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.173.0 [2022-06-29]
+## v0.173.0 {date="2022-06-29"}
 
 ### Breaking changes
 
@@ -443,7 +443,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.172.0 [2022-06-24]
+## v0.172.0 {date="2022-06-24"}
 
 ### Features
 - Add multiple new join functions to the [`join`](/flux/v0/stdlib/join/) 
@@ -472,7 +472,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.171.0 [2022-06-14]
+## v0.171.0 {date="2022-06-14"}
 
 ### Breaking changes
 - Remove `testing.loadStorage()`.
@@ -491,14 +491,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.170.1 [2022-06-06]
+## v0.170.1 {date="2022-06-06"}
 
 ### Bug fixes
 - Require an earlier minimum version of `lsp-types`.
 
 ---
 
-## v0.170.0 [2022-06-02]
+## v0.170.0 {date="2022-06-02"}
 
 ### Features
 - Add a `pretty.rs`-based MonoType formatter.
@@ -508,7 +508,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.169.0 [2022-05-31]
+## v0.169.0 {date="2022-05-31"}
 
 ### Features
 - Add a `_status` tag to PagerDuty records.
@@ -524,7 +524,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.168.0 [2022-05-23]
+## v0.168.0 {date="2022-05-23"}
 
 ### Features
 - Enable [`movingAverage()`](/flux/v0/stdlib/universe/movingaverage/) and
@@ -540,7 +540,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.167.0 [2022-05-16]
+## v0.167.0 {date="2022-05-16"}
 
 ### Features
 - Allow default types to be specified for default arguments.
@@ -558,7 +558,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.166.0 [2022-05-09]
+## v0.166.0 {date="2022-05-09"}
 
 ### Features
 - Add InfluxData semantic commit and pull request title validator.
@@ -573,7 +573,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.165.0 [2022-04-25]
+## v0.165.0 {date="2022-04-25"}
 
 ### Features
 - Add support for options in the `testcase` extension.
@@ -592,14 +592,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.164.1 [2022-04-18]
+## v0.164.1 {date="2022-04-18"}
 
 ### Bug fixes
 - Remove an extraneous `go generate` statement.
 
 ---
 
-## v0.164.0 [2022-04-13]
+## v0.164.0 {date="2022-04-13"}
 
 ### Features
 - Allow Go to pass compilation options to Rust.
@@ -610,7 +610,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.163.0 [2022-04-07]
+## v0.163.0 {date="2022-04-07"}
 
 ### Features
 - Report skipped tests.
@@ -622,7 +622,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.162.0 [2022-04-05]
+## v0.162.0 {date="2022-04-05"}
 
 ### Features
 - Add [OpenTracing spans](https://opentracing.io/docs/overview/spans/) to the Flux runtime.
@@ -642,7 +642,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.161.0 [2022-03-24]
+## v0.161.0 {date="2022-03-24"}
 
 ### Features
 - Re-enable the dialer pool and update dependency injection.
@@ -652,7 +652,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.160.0 [2022-03-22]
+## v0.160.0 {date="2022-03-22"}
 
 ### Features
 - Remove the `concurrencyLimit` feature flag and keep it in the dependencies.
@@ -672,7 +672,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.159.0 [2022-03-14]
+## v0.159.0 {date="2022-03-14"}
 
 ### Features
 - Added a `finish` state to parallel-merge and always protect with a mutex lock.
@@ -684,7 +684,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.158.0 [2022-03-09]
+## v0.158.0 {date="2022-03-09"}
 
 ### Features
 - Add inline documentation to the `universe` package.
@@ -696,7 +696,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.157.0 [2022-03-03]
+## v0.157.0 {date="2022-03-03"}
 
 ### Features
 - Update `fill()` to use narrow transformation.
@@ -714,7 +714,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.156.0 [2022-02-22]
+## v0.156.0 {date="2022-02-22"}
 
 ### Features
 - Add second pass to physical planner for parallelization rules.
@@ -732,14 +732,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.155.1 [2022-02-15]
+## v0.155.1 {date="2022-02-15"}
 
 ### Bug fixes
 - Update tests to use an explicit yield.
 
 ---
 
-## v0.155.0 [2022-02-14]
+## v0.155.0 {date="2022-02-14"}
 
 ### Features
 - Add new [experimental array functions](/flux/v0/stdlib/experimental/array/)
@@ -753,7 +753,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.154.0 [2022-02-09]
+## v0.154.0 {date="2022-02-09"}
 
 ### Features
 - Add [`requests.peek()`](/flux/v0/stdlib/experimental/http/requests/peek/) to
@@ -768,7 +768,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.153.0 [2022-02-07]
+## v0.153.0 {date="2022-02-07"}
 
 ### Features
 - Connect language server protocol (LSP) features through the Flux crate.
@@ -780,7 +780,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.152.0 [2022-01-31]
+## v0.152.0 {date="2022-01-31"}
 
 ### Features
 - Add the [`experimental/http/requests` package](/flux/v0/stdlib/experimental/http/requests/)
@@ -796,14 +796,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.151.1 [2022-01-24]
+## v0.151.1 {date="2022-01-24"}
 
 ### Features
 - Update to Rust 1.58.1.
 
 ---
 
-## v0.151.0 [2022-01-20]
+## v0.151.0 {date="2022-01-20"}
 
 ### Features
 - Expose `MonoType::parameter` and `MonoType::field`.
@@ -813,14 +813,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.150.1 [2022-01-19]
+## v0.150.1 {date="2022-01-19"}
 
 ### Bug fixes
 - Remove duplicate `die` builtin in the `universe` package.
 
 ---
 
-## v0.150.0 [2022-01-19]
+## v0.150.0 {date="2022-01-19"}
 
 ### Features
 - Update inline documentation in the following packages:
@@ -836,7 +836,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.149.0 [2022-01-12]
+## v0.149.0 {date="2022-01-12"}
 
 ### Features
 - Add `Get` methods to `metadata`.
@@ -853,7 +853,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.148.0 [2022-01-10]
+## v0.148.0 {date="2022-01-10"}
 
 ### Features
 - Report multiple errors from a single `unify` call.
@@ -886,7 +886,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.147.0 [2021-12-14]
+## v0.147.0 {date="2021-12-14"}
 
 ### Features
 - Optimize [`union()` transformation](/flux/v0/stdlib/universe/union/).
@@ -905,7 +905,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.146.0 [2021-12-13]
+## v0.146.0 {date="2021-12-13"}
 
 ### Features
 - Update `pkg-config` to support `aarch64-apple-darwin`.
@@ -923,7 +923,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.145.0 [2021-12-08]
+## v0.145.0 {date="2021-12-08"}
 
 ### Features
 - Add inline documentation to the following packages:
@@ -938,7 +938,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.144.0 [2021-12-06]
+## v0.144.0 {date="2021-12-06"}
 
 ### Features
 - Add location and message methods to `semantic::Error`.
@@ -950,14 +950,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.143.1 [2021-11-22]
+## v0.143.1 {date="2021-11-22"}
 
 ### Bug fixes
 - Add targets to `rust-toolchain`.
 
 ---
 
-## v0.143.0 [2021-11-22]
+## v0.143.0 {date="2021-11-22"}
 
 ### Breaking changes
 - Add new parameters to [`difference()`](/flux/v0/stdlib/universe/difference/)
@@ -986,7 +986,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.142.0 [2021-11-22]
+## v0.142.0 {date="2021-11-22"}
 
 ### Features
 - Default to erroring dependencies
@@ -996,7 +996,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.141.0 [2021-11-22]
+## v0.141.0 {date="2021-11-22"}
 
 ### Features
 - Add `is_type` to query the runtime type.
@@ -1034,7 +1034,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.140.0 [2021-11-22]
+## v0.140.0 {date="2021-11-22"}
 
 ### Features
 - Support reporting unlimited diagnostics.
@@ -1057,7 +1057,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.139.0 [2021-11-01]
+## v0.139.0 {date="2021-11-01"}
 
 ### Features
 - Continue type inference through errors at runtime.
@@ -1067,7 +1067,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.138.0 [2021-11-01]
+## v0.138.0 {date="2021-11-01"}
 
 ### Features
 - Create a BigTable dependency to let Flux mimic or control BigTable API usage.
@@ -1081,7 +1081,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.137.0 [2021-10-28]
+## v0.137.0 {date="2021-10-28"}
 
 ### Features
 - Add support for [Vertica](https://www.vertica.com/) to the [`sql` package](/flux/v0/stdlib/sql/).
@@ -1091,7 +1091,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.136.0 [2021-10-25]
+## v0.136.0 {date="2021-10-25"}
 
 ### Features
 - Enable executable examples to documentation generated by `fluxdoc`.
@@ -1110,7 +1110,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.135.1 [2021-10-18]
+## v0.135.1 {date="2021-10-18"}
 
 ### Features
 - Add a disposable interface for transformations.
@@ -1120,7 +1120,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.134.0 [2021-10-15]
+## v0.134.0 {date="2021-10-15"}
 
 ### Features
 - Add short mode to `fluxdoc dump` command.
@@ -1137,7 +1137,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.133.0 [2021-10-04]
+## v0.133.0 {date="2021-10-04"}
 
 ### Features
 - Expose location functionality to [`window()`](/flux/v0/stdlib/universe/window/),
@@ -1155,7 +1155,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.132.0 [2021-09-28]
+## v0.132.0 {date="2021-09-28"}
 
 ### Features
 - Copy location-related code from the Go `time` package.
@@ -1178,7 +1178,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.131.0 [2021-09-20]
+## v0.131.0 {date="2021-09-20"}
 
 ### Features
 - Update `group` to use new `GroupTransformation` interface.
@@ -1195,14 +1195,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.130.0 [2021-09-15]
+## v0.130.0 {date="2021-09-15"}
 
 ### Features
 - Add narrow state transformation transport.
 
 ---
 
-## v0.129.0 [2021-09-14]
+## v0.129.0 {date="2021-09-14"}
 
 ### Features
 - Make `flux-dump-docs` use a nested documentation structure.
@@ -1214,7 +1214,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.128.0 [2021-09-07]
+## v0.128.0 {date="2021-09-07"}
 
 ### Features
 - Add [`sampledata` package](/flux/v0/stdlib/sampledata/) with basic sample datasets.
@@ -1222,14 +1222,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.127.3 [2021-09-01]
+## v0.127.3 {date="2021-09-01"}
 
 ### Bug fixes
 - Add `FormatDuration` method that can be exported in other repositories.
 
 ---
 
-## v0.127.2 [2021-09-01]
+## v0.127.2 {date="2021-09-01"}
 
 ### Bug fixes
 - Remove `flux wasm` crate and moved it to `lsp`.
@@ -1239,14 +1239,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.127.1 [2021-08-30]
+## v0.127.1 {date="2021-08-30"}
 
 ### Bug fixes
 - `limit()` correctly resets the offset after processing a partial buffer.
 
 ---
 
-## v0.127.0 [2021-08-26]
+## v0.127.0 {date="2021-08-26"}
 
 ### Features
 - Create an executable to retrieve all `stdlib` documentation and updated WASM functions.
@@ -1259,7 +1259,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.126.0 [2021-08-19]
+## v0.126.0 {date="2021-08-19"}
 
 ### Features
 - Update `filter()` to use narrow transformation.
@@ -1272,7 +1272,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.125.0 [2021-08-11]
+## v0.125.0 {date="2021-08-11"}
 
 ### Features
 - Add feature flag library as an internal package.
@@ -1289,7 +1289,7 @@ representative of the Flux SPEC.
 - Fix pivot operations when no data is left to operate on.
 - Update `join()` to produce columns of equivalent length when combining mismatched schemas.
 
-## v0.124.0 [2021-08-03]
+## v0.124.0 {date="2021-08-03"}
 
 ### Features
 - Update the string array builder to support constant data.
@@ -1305,7 +1305,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.123.0 [2021-07-19]
+## v0.123.0 {date="2021-07-19"}
 
 ### Breaking changes
 - Remove the `sleep()` function.
@@ -1317,14 +1317,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.122.0 [2021-07-13]
+## v0.122.0 {date="2021-07-13"}
 
 ### Features
 - Add `--skip` flag to the `flux test` command to skip specific tests.
 
 ---
 
-## v0.121.0 [2021-07-12]
+## v0.121.0 {date="2021-07-12"}
 
 ### Features
 - Update [`experimental.to()`](/flux/v0/stdlib/experimental/to/)
@@ -1332,12 +1332,12 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.120.1 [2021-07-06]
+## v0.120.1 {date="2021-07-06"}
 - _Add inline Flux function documentation._
 
 ---
 
-## v0.120.0 [2021-07-06]
+## v0.120.0 {date="2021-07-06"}
 
 ### Features
 - Bootstrap documentation methods.
@@ -1352,18 +1352,18 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.119.1 [2021-06-29]
+## v0.119.1 {date="2021-06-29"}
 - _Add inline Flux function documentation._
 
 ---
 
 
-## v0.118.1 [2021-06-15]
+## v0.118.1 {date="2021-06-15"}
 - _Internal code cleanup._
 
 ---
 
-## v0.118.0 [2021-06-15]
+## v0.118.0 {date="2021-06-15"}
 
 ###  Features
 - Add `exclude` parameter to `pagerduty.dedupKey()`.
@@ -1375,12 +1375,12 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.117.3 [2021-06-07]
+## v0.117.3 {date="2021-06-07"}
 - _Internal code cleanup._
 
 ---
 
-## v0.117.2 [2021-06-07]
+## v0.117.2 {date="2021-06-07"}
 
 ### Bug fixes
 - Remove `tabstop` processing from formatter.
@@ -1391,7 +1391,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.117.1 [2021-06-01]
+## v0.117.1 {date="2021-06-01"}
 
 ### Bug fixes
 - Update `group_no_agg_table` acceptance test to run in a consistent order.
@@ -1401,7 +1401,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.117.0 [2021-05-24]
+## v0.117.0 {date="2021-05-24"}
 
 ### Features
 - [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/) function
@@ -1421,22 +1421,22 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.116.0 [2021-05-17]
+## v0.116.0 {date="2021-05-17"}
 
-## Features
+### Features
 - Add Jaeger tracing information to profile metadata.
 - Add `flux fmt` step to the continuous integration pipeline.
 - Update the `window` implementation to use `interval.Window`.
 - Add [`today()` function](/flux/v0/stdlib/universe/today/).
 
-## Bug fixes
+### Bug fixes
 - Remove deadlock when an error occurs while the dispatcher is stopping.
 - Prevent errors caused by the the auto-formatter removing brackets around `if` expressions.
 - Auto-format remaining Flux files.
 
 ---
 
-## v0.115.0 [2021-05-11]
+## v0.115.0 {date="2021-05-11"}
 
 ### Features
 - Add [Alerta notifications support](/flux/v0/stdlib/contrib/bonitoo-io/alerta/).
@@ -1453,7 +1453,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.114.1 [2021-05-04]
+## v0.114.1 {date="2021-05-04"}
 
 ### Bug fixes
 - Upgrade `mssqldb` dependency for Go 1.16.
@@ -1461,7 +1461,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.114.0 [2021-05-03]
+## v0.114.0 {date="2021-05-03"}
 
 ### Features
 - Add `debug.slurp()` and `debug.sink()`.
@@ -1476,7 +1476,7 @@ representative of the Flux SPEC.
 - Wait for the dispatcher to finish before finishing query.
 - Remove `codecov` job.
 
-## v0.113.0 [2021-04-21]
+## v0.113.0 {date="2021-04-21"}
 
 ### Features
 - Add ported table test.
@@ -1487,14 +1487,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.112.1 [2021-04-12]
+## v0.112.1 {date="2021-04-12"}
 
 ### Bug fixes
 - Add `Comment` fields to Go AST structs to preserve comments in the AST.
 
 ----
 
-## v0.112.0 [2021-04-06]
+## v0.112.0 {date="2021-04-06"}
 
 ### Features
 - Add [`testing.load`](/flux/v0/stdlib/testing/load/) for using raw tables in tests.
@@ -1508,7 +1508,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.111.0 [2021-03-30]
+## v0.111.0 {date="2021-03-30"}
 
 ### Features
 - Use `FnvHasher` for hash maps.
@@ -1520,7 +1520,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.109.1 [2021-03-24]
+## v0.109.1 {date="2021-03-24"}
 
 ### Bug fixes
 - Perform testing checks as part of query `done`.
@@ -1528,7 +1528,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.109.0 [2021-03-23]
+## v0.109.0 {date="2021-03-23"}
 
 ### Features
 - Add support for null values in string interpolation.
@@ -1542,12 +1542,12 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.108.1 [2021-03-15]
+## v0.108.1 {date="2021-03-15"}
 - _Internal code cleanup._
 
 ---
 
-## v0.108.0 [2021-03-15]
+## v0.108.0 {date="2021-03-15"}
 
 ### Features
 - Add [BigPanda notification support](/flux/v0/stdlib/contrib/rhajek/bigpanda/).
@@ -1558,7 +1558,7 @@ representative of the Flux SPEC.
 - Classify "Option not found error" as internal.
 - Remove `as_user` parameter from `slack.message` payload.
 
-## v0.107.0 [2021-03-09]
+## v0.107.0 {date="2021-03-09"}
 
 ### Features
 - Add new [`experimental.kaufmansAMA()` function](/flux/v0/stdlib/experimental/kaufmansama/) signature.
@@ -1574,7 +1574,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.106.0 [2021-02-22]
+## v0.106.0 {date="2021-02-22"}
 
 ### Features
 - Add new [experimental `integral()` function](/flux/v0/stdlib/experimental/integral/) signature.
@@ -1587,14 +1587,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.105.0 [2021-02-03]
+## v0.105.0 {date="2021-02-03"}
 
 ### Features
 - Add `interval` package to `window` transformation.
 
 ---
 
-## v0.104.0 [2021-02-02]
+## v0.104.0 {date="2021-02-02"}
 
 ### Features
 - Reintroduce `IsZero` method on time windows.
@@ -1604,7 +1604,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.103.0 [2021-02-01]
+## v0.103.0 {date="2021-02-01"}
 
 ### Features
 - Add `testing/expect` package for test expectations.
@@ -1614,7 +1614,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.102.0 [2021-01-25]
+## v0.102.0 {date="2021-01-25"}
 
 ### Features
 - Add `fluxdoc` command to generate JSON and HTML from Flux source code.
@@ -1626,7 +1626,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.101.0 [2021-01-19]
+## v0.101.0 {date="2021-01-19"}
 
 ### Features
 - Validate IP addresses from the dialer `Control` function.
@@ -1634,7 +1634,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.100.0 [2021-01-07]
+## v0.100.0 {date="2021-01-07"}
 
 ### Features
 - Add ability to execute tests from `.tar` and `.zip` archives.
@@ -1644,7 +1644,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.99.0 [2020-12-14]
+## v0.99.0 {date="2020-12-14"}
 
 ### Features
 - Evaluate [dictionary literals](/flux/v0/spec/expressions/#dictionary-literals).
@@ -1661,7 +1661,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.98.0 [2020-12-07]
+## v0.98.0 {date="2020-12-07"}
 
 ### Features
 - Transform `testcase` AST into pure flux.
@@ -1673,7 +1673,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.97.0 [2020-12-01]
+## v0.97.0 {date="2020-12-01"}
 
 ### Features
 - Add dict package for interacting with dictionaries.
@@ -1684,7 +1684,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.96.0 [2020-11-23]
+## v0.96.0 {date="2020-11-23"}
 
 ### Features
 - Create a Dictionary type interface and implementation.
@@ -1692,7 +1692,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.95.0 [2020-11-16]
+## v0.95.0 {date="2020-11-16"}
 
 ### Features
 - Use `tabwriter` to vertically align tab stops.
@@ -1702,7 +1702,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.94.0 [2020-11-09]
+## v0.94.0 {date="2020-11-09"}
 
 ### Features
 - Add "everything" Rust benchmark.
@@ -1713,14 +1713,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.93.0 [2020-11-02]
+## v0.93.0 {date="2020-11-02"}
 
 ### Features
 - Ensure query plan nodes have unique IDs.
 
 ---
 
-## v0.92.0 [2020-10-30]
+## v0.92.0 {date="2020-10-30"}
 
 ### Features
 - Add `fluxinit` package as an alternative to importing `builtin`.
@@ -1735,7 +1735,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.91.0 [2020-10-26]
+## v0.91.0 {date="2020-10-26"}
 
 ### Features
 - Aggregate results for `operator` profiler.
@@ -1755,7 +1755,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.90.0 [2020-10-19]
+## v0.90.0 {date="2020-10-19"}
 
 ### Features
 - Add [Sensu package](/flux/v0/stdlib/contrib/sranka/sensu).
@@ -1766,7 +1766,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.89.0 [2020-10-12]
+## v0.89.0 {date="2020-10-12"}
 
 ### Features
 - Add support for SAP HANA databases.
@@ -1774,7 +1774,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.88.0 [2020-10-05]
+## v0.88.0 {date="2020-10-05"}
 
 ### Features
 - Move functions from `v1` package to `schema` package.
@@ -1787,7 +1787,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.87.1 [2020-10-01]
+## v0.87.1 {date="2020-10-01"}
 
 ### Bug fixes
 - Fetch ragel dependency over HTTPS.
@@ -1796,7 +1796,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.87.0 [2020-09-28]
+## v0.87.0 {date="2020-09-28"}
 
 ### Features
 - Linear interpolation.
@@ -1809,7 +1809,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.86.0 [2020-09-21]
+## v0.86.0 {date="2020-09-21"}
 
 ### Features
 - Add operator profiler.
@@ -1823,7 +1823,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.85.0 [2020-09-14]
+## v0.85.0 {date="2020-09-14"}
 
 ### Features
 - Add `Aggregate.window` for an alternative windowing aggregate.
@@ -1833,7 +1833,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.84.0 [2020-09-09]
+## v0.84.0 {date="2020-09-09"}
 
 ### Breaking changes
 - Remove time-column parameters from `range()` function and update type signature.
@@ -1849,14 +1849,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.83.1 [2020-09-02]
+## v0.83.1 {date="2020-09-02"}
 
 ### Bug fixes
 - Single value integral interpolation.
 
 ---
 
-## v0.83.0 [2020-09-01]
+## v0.83.0 {date="2020-09-01"}
 
 ### Features
 - Improve window errors.
@@ -1875,7 +1875,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.82.2 [2020-08-25]
+## v0.82.2 {date="2020-08-25"}
 
 ### Features
 - Add [`tasks.lastSuccess` function](/flux/v0/stdlib/influxdata/influxdb/tasks/lastsuccess/)
@@ -1883,12 +1883,12 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.82.1 [2020-08-25]
+## v0.82.1 {date="2020-08-25"}
 - _Internal code cleanup._
 
 ---
 
-## v0.82.0 [2020-08-24]
+## v0.82.0 {date="2020-08-24"}
 
 ### Features
 - Add the [`profiler` package](/flux/v0/stdlib/profiler/).
@@ -1900,7 +1900,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.81.0 [2020-08-17]
+## v0.81.0 {date="2020-08-17"}
 
 ### Features
 - Delete old parser.
@@ -1912,7 +1912,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.80.0 [2020-08-12]
+## v0.80.0 {date="2020-08-12"}
 
 ### Features
 - Add `nulls` parameter to `gen.tables()`.
@@ -1923,7 +1923,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.79.0 [2020-08-11]
+## v0.79.0 {date="2020-08-11"}
 
 ### Features
 - Add `array.from()` function to convert Flux values into a table.
@@ -1933,7 +1933,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.78.0 [2020-08-10]
+## v0.78.0 {date="2020-08-10"}
 
 ### Breaking changes
 - Removed `correlationKey` parameter from `geo.toRows` and `geo.shapeData`.
@@ -1950,14 +1950,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.77.1 [2020-08-03]
+## v0.77.1 {date="2020-08-03"}
 
 ### Bug fixes
 - Write tests and fix issues with `rows.map`.
 
 ---
 
-## v0.77.0 [2020-08-03]
+## v0.77.0 {date="2020-08-03"}
 
 ### Features
 - Add a faster `map()` function _(user-contributed `/contrib/jsternberg/rows` package)_.
@@ -1974,21 +1974,21 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.76.1 [2020-07-27]
+## v0.76.1 {date="2020-07-27"}
 
 ### Bug fixes
 - Fix data race in metadata.
 
 ---
 
-## v0.76.0 [2020-07-27]
+## v0.76.0 {date="2020-07-27"}
 
 ### Features
 - Add query plan to query metadata.
 
 ---
 
-## v0.75.0 [2020-07-27]
+## v0.75.0 {date="2020-07-27"}
 
 ###  Features
 - Update `parse_record` to return `MonoType` for consistent results from functions
@@ -2006,7 +2006,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.74.0 [2020-07-21]
+## v0.74.0 {date="2020-07-21"}
 
 ### Features
 - Add `discord.endpoint()` function.
@@ -2023,7 +2023,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.73.0 [2020-07-13]
+## v0.73.0 {date="2020-07-13"}
 
 ### Features
 - Add parameter for applying substitution to top-level environment.
@@ -2035,14 +2035,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.72.1 [2020-07-09]
+## v0.72.1 {date="2020-07-09"}
 
 ### Bug fixes
 - Correctly classify "duplicate yield" error.
 
 ---
 
-## v0.72.0 [2020-07-09]
+## v0.72.0 {date="2020-07-09"}
 
 ### Features
 - Update `from()` to use `Timeable`.
@@ -2059,14 +2059,14 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.71.1 [2020-07-03]
+## v0.71.1 {date="2020-07-03"}
 
 ### Bug fixes
 - Add a check to ensure `every` is non-negative.
 
 ---
 
-## v0.71.0 [2020-06-30]
+## v0.71.0 {date="2020-06-30"}
 
 ### Features
 - Apply `Timeable` constraint to integer type to support integer values in
@@ -2076,7 +2076,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.70.0 [2020-06-29]
+## v0.70.0 {date="2020-06-29"}
 ### Features
 - Update all `date` functions to accept time and duration types.
 - Add [Microsoft Teams package](/flux/v0/stdlib/contrib/sranka/teams/).
@@ -2098,21 +2098,21 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.69.2 [2020-06-10]
+## v0.69.2 {date="2020-06-10"}
 
 ### Bug fixes
 - Include a hash of sources for `libflux`.
 
 ---
 
-## v0.69.1 [2020-06-09]
+## v0.69.1 {date="2020-06-09"}
 
 ### Bug fixes
 - Fix experimental `json.parse()` test.
 
 ---
 
-## v0.69.0 [2020-06-08]
+## v0.69.0 {date="2020-06-08"}
 
 ### Features
 - Add [Discord package](/flux/v0/stdlib/contrib/chobbs/discord/)
@@ -2124,7 +2124,7 @@ representative of the Flux SPEC.
 
 ---
 
-## v0.68.0 [2020-05-28]
+## v0.68.0 {date="2020-05-28"}
 This version of Flux introduces an updated type inference system that improves
 performance, error messaging, and usability of the
 [Flux Language Server Protocol (LSP)](https://github.com/influxdata/flux-lsp).
@@ -2239,7 +2239,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.67.0 [2020-04-28]
+## v0.67.0 {date="2020-04-28"}
 
 ### Features
 - Planner Pattern interface supplies a set of ProcedureKind as root.
@@ -2255,14 +2255,14 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.66.1 [2020-04-14]
+## v0.66.1 {date="2020-04-14"}
 
 ### Bug fixes
 - Add bounds to `alignTime()` tests.
 
 ---
 
-## v0.66.0 [2020-04-13]
+## v0.66.0 {date="2020-04-13"}
 
 ### Features
 - Add [`epsilon` parameter](/flux/v0/stdlib/testing/diff/#epsilon) to `testing.diff()`.
@@ -2279,7 +2279,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.65.0 [2020-03-27]
+## v0.65.0 {date="2020-03-27"}
 
 ### Features
 - Add [`experimental.join()`](/flux/v0/stdlib/experimental/join/) function.
@@ -2295,7 +2295,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.64.0 [2020-03-11]
+## v0.64.0 {date="2020-03-11"}
 
 ### Features
 - Hand-transpile `elapsed()` aggregate.
@@ -2311,7 +2311,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.63.0 [2020-03-03]
+## v0.63.0 {date="2020-03-03"}
 
 ### Features
 - Experimental `geo` package.
@@ -2319,7 +2319,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.62.0 [2020-02-28]
+## v0.62.0 {date="2020-02-28"}
 
 ### Features
 - InfluxQL decode and series aggregation tests.
@@ -2330,7 +2330,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.61.0 [2020-02-21]
+## v0.61.0 {date="2020-02-21"}
 
 ### Features
 - Add experimental aggregate package with `rate()` function.
@@ -2341,7 +2341,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.60.0 [2020-02-19]
+## v0.60.0 {date="2020-02-19"}
 
 ### Features
 - Add experimental `query` package.
@@ -2369,21 +2369,21 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.59.6 [2020-02-13]
+## v0.59.6 {date="2020-02-13"}
 
 ### Bug fixes
 - `derivative()` works properly across multiple buffers.
 
 ---
 
-## v0.59.5 [2020-01-24]
+## v0.59.5 {date="2020-01-24"}
 
 ### Bug fixes
 - Revert window optimizations to fix regression in output row sorting.
 
 ---
 
-## v0.59.4 [2020-01-21]
+## v0.59.4 {date="2020-01-21"}
 
 ### Bug fixes
 - Remove `tags` line from local tags.
@@ -2391,21 +2391,21 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.59.3 [2020-01-16]
+## v0.59.3 {date="2020-01-16"}
 
 ### Bug fixes
 - Link both `libflux` and `libstd` for flux-config.
 
 ---
 
-## v0.59.2 [2020-01-16]
+## v0.59.2 {date="2020-01-16"}
 
 ### Bug fixes
 - Link `libstd` into the lib directory instead of `libflux`.
 
 ---
 
-## v0.59.1 [2020-01-16]
+## v0.59.1 {date="2020-01-16"}
 
 ### Bug fixes
 - Flux-config correctly copies `stdlib` when using a module.
@@ -2413,7 +2413,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.59.0 [2020-01-14]
+## v0.59.0 {date="2020-01-14"}
 
 ### Features
 - Add Go/Rust API for getting semantic graph.
@@ -2430,35 +2430,35 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.58.4 [2020-01-07]
+## v0.58.4 {date="2020-01-07"}
 
 ### Bug fixes
 - Skip stdlib symlink was removed erroneously.
 
 ---
 
-## v0.58.3 [2020-01-07]
+## v0.58.3 {date="2020-01-07"}
 
 ### Bug fixes
 - Ensure stdlib directory is created.
 
 ---
 
-## v0.58.2 [2020-01-07]
+## v0.58.2 {date="2020-01-07"}
 
 ### Bug fixes
 - Correctly skip the stdlib symlink in libflux.
 
 ---
 
-## v0.58.1 [2020-01-07]
+## v0.58.1 {date="2020-01-07"}
 
 ### Bug fixes
 - Ensure that stdlib is present when building with flux-config.
 
 ---
 
-## v0.58.0 [2020-01-06]
+## v0.58.0 {date="2020-01-06"}
 
 ### Features
 - Serialize semantic graph flatbuffers.
@@ -2486,7 +2486,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.57.0 [2019-12-10]
+## v0.57.0 {date="2019-12-10"}
 
 ### Features
 - Categorize more Flux errors with codes.
@@ -2503,7 +2503,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.56.0 [2019-12-05]
+## v0.56.0 {date="2019-12-05"}
 
 ### Features
 - Crate for typing Flux standard library.
@@ -2521,14 +2521,14 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.55.1 [2019-12-02]
+## v0.55.1 {date="2019-12-02"}
 
 ### Bug fixes
 - Fix e2e usage test so that their queries are properly pushed down.
 
 ---
 
-## v0.55.0 [2019-12-02]
+## v0.55.0 {date="2019-12-02"}
 
 ### Breaking changes
 - Expand the interface for `BufferedTable`.
@@ -2558,7 +2558,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.54.0 [2019-11-11]
+## v0.54.0 {date="2019-11-11"}
 
 ### Features
 - Expose function to analyze from string.
@@ -2577,7 +2577,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.53.0 [2019-11-05]
+## v0.53.0 {date="2019-11-05"}
 
 ### Breaking changes
 - Interpret months as part of the semantic duration.
@@ -2599,7 +2599,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.52.0 [2019-10-30]
+## v0.52.0 {date="2019-10-30"}
 
 ### Features
 - `Visitor` uses `Rc` for nodes.
@@ -2610,7 +2610,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.51.0 [2019-10-24]
+## v0.51.0 {date="2019-10-24"}
 
 ### Breaking changes
 - Update the Flux SPEC to remove duration addition and subtraction.
@@ -2635,14 +2635,14 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.50.2 [2019-10-24]
+## v0.50.2 {date="2019-10-24"}
 
 ### Bug fixes
 - Make `keep()` and `drop()` throw an error if merging tables with different schemas.
 
 ---
 
-## v0.50.1 [2019-10-24]
+## v0.50.1 {date="2019-10-24"}
 
 ### Bug fixes
 - Add annotated errors to the execute package where it affects normal usage.
@@ -2650,7 +2650,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.50.0 [2019-10-11]
+## v0.50.0 {date="2019-10-11"}
 
 ### Features
 - Add `experimental/prometheus` package.
@@ -2672,7 +2672,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.49.0 [2019-09-24]
+## v0.49.0 {date="2019-09-24"}
 
 ### Features
 - Optimize `filter()` to pass through tables when possible.
@@ -2687,7 +2687,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.48.0 [2019-09-20]
+## v0.48.0 {date="2019-09-20"}
 
 ### Breaking changes
 - Convert the Flux memory allocator into an arrow allocator.
@@ -2703,14 +2703,14 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.47.1 [2019-09-18]
+## v0.47.1 {date="2019-09-18"}
 
 ### Bug fixes
 - Pass dependencies to WalkIR
 
 ---
 
-## v0.47.0 [2019-09-13]
+## v0.47.0 {date="2019-09-13"}
 
 ### Bug fixes
 - Introduce ParenExpression.
@@ -2720,7 +2720,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.46.2 [2019-09-12]
+## v0.46.2 {date="2019-09-12"}
 
 ### Bug fixes
 - Make `to` use URL validator.
@@ -2728,7 +2728,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.46.1 [2019-09-11]
+## v0.46.1 {date="2019-09-11"}
 
 ### Bug fixes
 - Add a filesystem service.
@@ -2736,7 +2736,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.46.0 [2019-09-10]
+## v0.46.0 {date="2019-09-10"}
 
 ### Features
 - Replace EnvironmentSecretService with EmptySecret….
@@ -2748,7 +2748,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.45.2 [2019-09-10]
+## v0.45.2 {date="2019-09-10"}
 
 ### Bug fixes
 - Push the tag before running goreleaser.
@@ -2756,14 +2756,14 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.45.1 [2019-09-09]
+## v0.45.1 {date="2019-09-09"}
 
 ### Bug fixes
 - Ensure `http.post` respects the context.
 
 ---
 
-## v0.45.0 [2019-09-06]
+## v0.45.0 {date="2019-09-06"}
 
 ### Features
 - Added Google Bigtable `from()`.
@@ -2776,7 +2776,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.44.0 [2019-09-05]
+## v0.44.0 {date="2019-09-05"}
 
 ### Features
 - Add `http.basicAuth` function.
@@ -2787,14 +2787,14 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.43.0 [2019-09-04]
+## v0.43.0 {date="2019-09-04"}
 
 ### Features
 - PagerDuty endpoint for alerts and notifications.
 
 ---
 
-## v0.42.0 [2019-08-30]
+## v0.42.0 {date="2019-08-30"}
 
 ### Features
 - Add `stateChanges` function.
@@ -2808,7 +2808,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.41.0 [2019-08-26]
+## v0.41.0 {date="2019-08-26"}
 
 ### Features
 - Add ability to validate URLs before making `http.post` requests.
@@ -2829,21 +2829,21 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.40.2 [2019-08-22]
+## v0.40.2 {date="2019-08-22"}
 
 ### Bug fixes
 - Resolved `holtWinters()` panic.
 
 ---
 
-## v0.40.1 [2019-08-21]
+## v0.40.1 {date="2019-08-21"}
 
 ### Bug fixes
 - Use non-pointer receiver for `interpreter.function`.
 
 ---
 
-## v0.40.0 [2019-08-20]
+## v0.40.0 {date="2019-08-20"}
 
 ### Breaking changes
 - Update compiler package to use true scope.
@@ -2874,7 +2874,7 @@ performance, error messaging, and usability of the
 
 ---
 
-## v0.39.0 [2019-08-13]
+## v0.39.0 {date="2019-08-13"}
 
 {{% warn %}}
 In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
@@ -2903,7 +2903,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.38.0 [2019-08-06]
+## v0.38.0 {date="2019-08-06"}
 
 ### Features
 - Update selectors to operate on time columns.
@@ -2927,13 +2927,13 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.37.2 [2019-07-24]
+## v0.37.2 {date="2019-07-24"}
 
 - _General cleanup of internal code._
 
 ---
 
-## v0.37.1 [2019-07-23]
+## v0.37.1 {date="2019-07-23"}
 
 ### Bug fixes
 - Fixed InfluxDB test errors.
@@ -2941,7 +2941,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.37.0 [2019-07-22]
+## v0.37.0 {date="2019-07-22"}
 
 ### Features
 - Add PromQL to Flux transpiler and Flux helper functions.
@@ -2958,7 +2958,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.36.2 [2019-07-12]
+## v0.36.2 {date="2019-07-12"}
 
 ### Bug fixes
 - Add helper methods for comparing entire result sets.
@@ -2966,7 +2966,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.36.1 [2019-07-10]
+## v0.36.1 {date="2019-07-10"}
 
 ### Bug fixes
 - Add `range` call to some end-to-end tests.
@@ -2974,7 +2974,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.36.0 [2019-07-09]
+## v0.36.0 {date="2019-07-09"}
 
 ### Features
 - Updated `movingAverage()` and added `timedMovingAverage`.
@@ -2999,14 +2999,14 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.35.1 [2019-07-03]
+## v0.35.1 {date="2019-07-03"}
 
 ### Bug fixes
 - Re-add `mergeKey` parameter to `map()` in deprecated state.
 
 ---
 
-## v0.35.0 [2019-07-02]
+## v0.35.0 {date="2019-07-02"}
 
 ### Breaking changes
 - Remove `mergeKey` parameter from the `map()` function.
@@ -3022,14 +3022,14 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.34.2 [2019-06-27]
+## v0.34.2 {date="2019-06-27"}
 
 ### Bug fixes
 - Parse float types with PostgreSQL.
 
 ---
 
-## v0.34.1 [2019-06-26]
+## v0.34.1 {date="2019-06-26"}
 
 ### Features
 - Add custom PostgreSQL type support.
@@ -3043,21 +3043,21 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.33.2 [2019-06-25]
+## v0.33.2 {date="2019-06-25"}
 
 ### Bug fixes
 - Use `strings.Replace` instead of `strings.ReplaceAll` for compatibility.
 
 ---
 
-## v0.33.1 [2019-06-20]
+## v0.33.1 {date="2019-06-20"}
 
 ### Bug fixes
 - Copy table will report if it is empty correctly.
 
 ---
 
-## v0.33.0 [2019-06-18]
+## v0.33.0 {date="2019-06-18"}
 
 ### Breaking changes
 - Implement nulls in the compiler runtime.
@@ -3080,14 +3080,14 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.32.1 [2019-06-10]
+## v0.32.1 {date="2019-06-10"}
 
 ### Bug fixes
 - Identify memory limit exceeded errors in dispatcher.
 
 ---
 
-## v0.32.0 [2019-06-05]
+## v0.32.0 {date="2019-06-05"}
 
 ### Breaking changes
 - Remove the control package.
@@ -3098,14 +3098,14 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.31.1 [2019-05-29]
+## v0.31.1 {date="2019-05-29"}
 
 ### Bug fixes
 - Do not call done after calling the function.
 
 ---
 
-## v0.31.0 [2019-05-28]
+## v0.31.0 {date="2019-05-28"}
 
 ### Breaking changes
 - Copy the table when a table is used multiple times.
@@ -3118,14 +3118,14 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.30.0 [2019-05-16]
+## v0.30.0 {date="2019-05-16"}
 
 ### Features
 - Support for dynamic queries.
 
 ---
 
-## v0.29.0 [2019-05-15]
+## v0.29.0 {date="2019-05-15"}
 
 ### Breaking changes
 - Make `on` a required parameter to `join()`.
@@ -3150,7 +3150,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.28.3 [2019-05-01]
+## v0.28.3 {date="2019-05-01"}
 
 ### Bug fixes
 
@@ -3159,21 +3159,21 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.28.2 [2019-04-26]
+## v0.28.2 {date="2019-04-26"}
 
 ### Bug fixes
 - Preallocate data when constructing a new string array.
 
 ---
 
-## v0.28.1 [2019-04-25]
+## v0.28.1 {date="2019-04-25"}
 
 ### Bug fixes
 - Make executor respect memory limit from caller.
 
 ---
 
-## v0.28.0 [2019-04-24]
+## v0.28.0 {date="2019-04-24"}
 
 ### Features
 - Allow choosing sample/population mode in `stddev()`.
@@ -3184,7 +3184,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.27.0 [2019-04-22]
+## v0.27.0 {date="2019-04-22"}
 
 ### Features
 - Add `trimSuffix` and `trimPrefix` functions to the strings package.
@@ -3198,7 +3198,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.26.0 [2019-04-18]
+## v0.26.0 {date="2019-04-18"}
 
 ### Breaking changes
 - Aggregates now accept only a `column` parameter. `columns` not used.
@@ -3227,7 +3227,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.25.0 [2019-04-08]
+## v0.25.0 {date="2019-04-08"}
 
 ### Breaking changes
 - Fix logical operators (`and`, `or`) precedence.
@@ -3238,7 +3238,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.24.0 [2019-04-01]
+## v0.24.0 {date="2019-04-01"}
 
 ### Breaking changes
 - Rename `percentile()` function to `quantile()`.
@@ -3249,7 +3249,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.23.0 [2019-03-26]
+## v0.23.0 {date="2019-03-26"}
 
 ### Breaking changes
 - Remove unused statistics from the struct.
@@ -3267,7 +3267,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.22.0 [2019-03-18]
+## v0.22.0 {date="2019-03-18"}
 
 ### Features
 - Added a math package and ported all 64 bit go math library functions.
@@ -3277,7 +3277,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.21.4 [2019-03-06]
+## v0.21.4 {date="2019-03-06"}
 
 ### Bug fixes
 - Test union.flux correctly uses sort.
@@ -3287,7 +3287,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.21.3 [2019-03-05]
+## v0.21.3 {date="2019-03-05"}
 
 ### Bug fixes
 - Fix test to pass in InfluxDB.
@@ -3298,14 +3298,14 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.21.2 [2019-03-01]
+## v0.21.2 {date="2019-03-01"}
 
 ### Bug fixes
 - Add AST compiler to mappings.
 
 ---
 
-## v0.21.1 [2019-03-01]
+## v0.21.1 {date="2019-03-01"}
 
 ### Bug fixes
 - Make ASTCompiler marshalable.
@@ -3314,7 +3314,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.21.0 [2019-02-25]
+## v0.21.0 {date="2019-02-25"}
 
 ### Breaking changes
 - Support attaching arbitrary query metadata from the executor.
@@ -3328,7 +3328,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.20.0 [2019-02-20]
+## v0.20.0 {date="2019-02-20"}
 
 ### Features
 - AST match.
@@ -3341,7 +3341,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.19.0 [2019-02-11]
+## v0.19.0 {date="2019-02-11"}
 
 ### Breaking changes
 - Make `window()` parameters match SPEC.
@@ -3356,7 +3356,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.18.0 [2019-02-07]
+## v0.18.0 {date="2019-02-07"}
 
 ### Features
 - Add strings package with functions to trim/change string case.
@@ -3376,7 +3376,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.17.0 [2019-01-22]
+## v0.17.0 {date="2019-01-22"}
 
 ### Features
 - Checks for option dependencies.
@@ -3396,14 +3396,14 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.16.1 [2019-01-17]
+## v0.16.1 {date="2019-01-17"}
 
 ### Bug fixes
 - Copy packages for importer copy.
 
 ---
 
-## v0.16.0 [2019-01-17]
+## v0.16.0 {date="2019-01-17"}
 
 ### Features
 - Adds various v1 meta queries helper functions
@@ -3418,7 +3418,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.15.0 [2019-01-16]
+## v0.15.0 {date="2019-01-16"}
 
 ### Features
 - Add rule to remove filter true nodes.
@@ -3429,7 +3429,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.14.0 [2019-01-14]
+## v0.14.0 {date="2019-01-14"}
 
 ### Breaking changes
 - Implement and require builtin statements.
@@ -3464,7 +3464,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.13.0 [2019-01-07]
+## v0.13.0 {date="2019-01-07"}
 
 ### Breaking changes
 - Add File and Package nodes to the AST.
@@ -3483,7 +3483,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.12.0 [2019-01-02]
+## v0.12.0 {date="2019-01-02"}
 
 ### Features
 - Slice utils.
@@ -3498,7 +3498,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.11.0 [2018-12-18]
+## v0.11.0 {date="2018-12-18"}
 
 ### Features
 - Add utility methods for converting a slice into an arrow array buffer.
@@ -3509,7 +3509,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.10.0 [2018-12-17]
+## v0.10.0 {date="2018-12-17"}
 
 ### Breaking changes
 - Change "label" to "column" for state tracking functions.
@@ -3526,7 +3526,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.9.0 [2018-12-11]
+## v0.9.0 {date="2018-12-11"}
 
 ### Features
 - Option Editor.
@@ -3536,7 +3536,7 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.8.0 [2018-12-11]
+## v0.8.0 {date="2018-12-11"}
 
 ### Features
 - Rule to chain group operations.
@@ -3564,14 +3564,14 @@ In Flux 0.39.0, `holtWinters()` can cause the query engine to panic.
 
 ---
 
-## v0.7.4 (2018-12-04)
+## v0.7.4 {date="2018-12-04"}
 
 ### Bug Fixes
 - Add missing comparison operators.
 
 ---
 
-## v0.7.3 (2018-12-04)
+## v0.7.3 {date="2018-12-04"}
 
 ### Bug Fixes
 - Fix the ident statement to use expression suffix.
