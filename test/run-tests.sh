@@ -22,9 +22,11 @@ for file in `find . -type f` ; do
 
     # Shell-specific replacements.
     sed -i 's/API_TOKEN/$INFLUX_TOKEN/g;
+    s/ORG_ID/$INFLUX_ORG/g;
     s/DATABASE_TOKEN/$INFLUX_TOKEN/g;
     s/BUCKET_NAME/$INFLUX_DATABASE/g;
-    s/DATABASE_NAME/$INFLUX_DATABASE/g;' \
+    s/DATABASE_NAME/$INFLUX_DATABASE/g;
+    s/get-started/$INFLUX_DATABASE/g;' \
     $file
   fi
   cat $file
