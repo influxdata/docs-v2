@@ -20,13 +20,13 @@ influxctl database [subcommand] [flags]
 
 ## Subcommands
 
-| Subcommand                                                             | Description         |
-| :--------------------------------------------------------------------- | :------------------ |
+| Subcommand                                                                   | Description         |
+| :--------------------------------------------------------------------------- | :------------------ |
 | [create](/influxdb/clustered/reference/cli/influxctl/database/create/) | Create a database   |
 | [delete](/influxdb/clustered/reference/cli/influxctl/database/delete/) | Delete a database   |
 | [list](/influxdb/clustered/reference/cli/influxctl/database/list/)     | List databases      |
 | [update](/influxdb/clustered/reference/cli/influxctl/database/list/)   | Update a database   |
-| help, h                                                                | Output command help |
+| help, h                                                                      | Output command help |
 
 ## Flags
 

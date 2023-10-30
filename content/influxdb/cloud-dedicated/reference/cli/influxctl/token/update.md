@@ -43,6 +43,10 @@ To retain existing permissions, include them in the update command.
 |      | `--write-database` | Grant write permissions to a database _(Repeatable)_ |
 | `-h` | `--help`           | Output command help                                  |
 
+{{% caption %}}
+_Also see [`influxctl` global flags](/influxdb/cloud-dedicated/reference/cli/influxctl/#global-flags)._
+{{% /caption %}}
+
 ## Examples
 
 - [Update a token's permissions](#update-a-tokens-permissions)
