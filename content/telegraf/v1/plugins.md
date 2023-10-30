@@ -6,7 +6,6 @@ description: >
   View and search all available Telegraf plugins.
 menu:
   telegraf_v1_ref:
-
     weight: 10
 weight: 6
 aliases:

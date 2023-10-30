@@ -4,13 +4,14 @@ description: Important features and changes in the latest version of Telegraf.
 aliases:
   - /telegraf/v1/reference/release-notes/influxdb/
   - /telegraf/v1/about_the_project/release-notes-changelog/
+  - /telegraf/v1/release-notes-changelog/
 menu:
   telegraf_v1_ref:
     name: Release notes
     weight: 60
 ---
 
-## v1.28.1 [2023-09-12]
+## v1.28.1 {date="2023-09-12"}
 
 ### Bugfixes
 
@@ -18,7 +19,7 @@ menu:
 - Redis (`inputs.redis`): Fix password typo
 - Vsphere (`inputs.vsphere`): Fix config name typo in example
 
-## v1.28.0 [2023-09-11]
+## v1.28.0 {date="2023-09-11"}
 
 ### Important Changes
 
@@ -138,7 +139,7 @@ menu:
 - Update github.com/showwin/speedtest-go from 1.6.2 to 1.6.6
 - Update k8s.io/api from 0.27.4 to 0.28.1
 
-## v1.27.0 [2023-06-12]
+## v1.27.0 {date="2023-06-12"}
 
 ### Important Changes
 
@@ -268,7 +269,7 @@ menu:
 - Update github.com/urfave/cli/v2 from 2.23.5 to 2.25.5.
 - Update k8s.io/client-go from 0.26.2 to 0.27.2.
 
-## v1.26.0 [2023-03-13]
+## v1.26.0 {date="2023-03-13"}
 
 ### Important Changes
 
@@ -390,7 +391,7 @@ menu:
 - Update github.com/stretchr/testify from 1.8.1 to 1.8.2.
 - Update OpenTelemetry from 0.3.1 to 0.3.3.
 
-## v1.25.3 [2023-02-27]
+## v1.25.3 {date="2023-02-27"}
 
 ### Bugfixes
 
@@ -415,7 +416,7 @@ menu:
 - Update k8s.io/apimachinery from 0.25.3 to 0.25.6.
 - Update testcontainers from 0.14.0 to 0.18.0.
 
-## v1.25.2 [2023-02-13]
+## v1.25.2 {date="2023-02-13"}
 
 ### Bug fixes
 - Only read the config once.
@@ -450,7 +451,7 @@ menu:
 - Update google.golang.org/grpc from 1.51.0 to 1.52.0.
 - Update google.golang.org/grpc from 1.52.0 to 1.52.3.
 
-## v1.25.1 [2023-01-30]
+## v1.25.1 {date="2023-01-30"}
 
 ### Bug fixes
 - Catch non-existing commands and error out.
@@ -497,7 +498,7 @@ menu:
 - Update github.com/kardianos/service from 1.2.1 to 1.2.2.
 - Update github.com/nats-io/nats-server/v2 from 2.9.4 to 2.9.9.
 
-## v1.25.0 [2022-12-12]
+## v1.25.0 {date="2022-12-12"}
 
 ### New Plugins
 
@@ -610,7 +611,7 @@ menu:
 - Update `github.com/gosnmp/gosnmp` from 1.34.0 to 1.35.0
 - Update `OpenTelemetry` from 0.2.30 to 0.2.33
 
-## v1.24.4 [2022-11-29]
+## v1.24.4 {date="2022-11-29"}
 
 ### Bug fixes
 - Amazon CloudWatch (`inputs.cloudwatch`): Correctly handle multiple namespaces.
@@ -642,7 +643,7 @@ menu:
 - Update `cloud.google.com/go/pubsub` from 1.25.1 to 1.26.0
 - Update `go.mongodb.org/mongo-driver` from 1.10.2 to 1.11.0
 
-## v1.24.3 [2022-11-02]
+## v1.24.3 {date="2022-11-02"}
 
 ### Bug fixes
 - Restore warning on unused configuration options.
@@ -695,7 +696,7 @@ menu:
 - Update cloud.google.com/go/monitoring from 1.5.0 to 1.7.0
 - Update github.com/nats-io/nats-server/v2 from 2.8.4 to 2.9.4
 
-## v1.24.2  [2022-10-03]
+## v1.24.2  {date="2022-10-03"}
 
 ### Bug fixes
 - Support old style of filtering sample configurations in CLI.
@@ -723,7 +724,7 @@ menu:
 - Update `github.com/rabbitmq/amqp091-go` from 1.4.0 to 1.5.0.
 - Update `github.com/docker/distribution` from v2.7.1 to v2.8.1.
 
-## v1.24.1 [2022-09-19]
+## v1.24.1 {date="2022-09-19"}
 
 ### Bug fixes
 - Clear error message when provided configuration is not a text file.
@@ -749,7 +750,7 @@ menu:
 - Update `github.com/wavefronthq/wavefront-sdk-go`.
 - Update `cloud.google.com/go/bigquery` from 1.33.0 to 1.40.0.
 
-## v1.24.0 [2022-09-12]
+## v1.24.0 {date="2022-09-12"}
 
 ### Breaking change
 
@@ -884,7 +885,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 
 
 
-## v1.23.4 [2022-08-16]
+## v1.23.4 {date="2022-08-16"}
 
 ### Bug fixes
 
@@ -937,7 +938,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Update `github.com/aws/aws-sdk-go-v2/feature/ec2/imds`.
 - Update `github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs`.
 
-## v1.23.4 [2022-08-16]
+## v1.23.4 {date="2022-08-16"}
 
 - Update `github.com/lxc/lxd` to be able to run tests.
 - Sync sql output and input build constraints to handle loong64 in go1.19.
@@ -945,7 +946,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Fixes to linter issues
 - Add Coralogix dialect to open telemetry.
 
-## Input plugin updates
+### Input plugin updates
 
 - Cloudwatch (`cloudwatch`): Customizable batch size when querying.
 - Kube Inventory (`kube_inventory`): Send file location to enable token auto-refresh.
@@ -956,7 +957,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Stackdriver (`stackdriver`) Handle when no buckets available.
 
 
-## Dependency Updates
+### Dependency Updates
 
 - Bump github.com/testcontainers/testcontainers-go from 0.12.0 to 0.13.0.
 - Bump github.com/apache/thrift from 0.15.0 to 0.16.0.
@@ -989,9 +990,9 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Bump github.com/aws/aws-sdk-go-v2/feature/ec2/imds.
 - Bump github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs.
 
-## v1.23.3 [2022-07-25]
+## v1.23.3 {date="2022-07-25"}
 
-## Bug fixes
+### Bug fixes
 - Openstack input plugin (`inputs.openstack`): Use v3 volume library.
 - MQTT Consumer input plugin (`inputs.mqtt_consumer`): Topic parsing error when topic having prefix '/'.
 - SNMP Trap input plugin (`inputs.snmp_trap`): Prevent map panic when using with `netsnmp` translator.
@@ -999,12 +1000,12 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - `common.cookie`: Use reader over readcloser, regenerate `cookie-jar` at reauthorization.
 - Prometheus parser (`parsers.prometheus`): Histogram infinity bucket is now always present.
 
-## Dependency updates
+### Dependency updates
 - Bump `github.com/antchfx/jsonquery` from 1.1.5 to 1.2.0.
 
-## v1.23.2 [2022-7-11]
+## v1.23.2 {date="2022-07-11"}
 
-## Bug fixes
+### Bug fixes
 
 - Remove unexpected deprecation warnings for non-deprecated packages that occurred in 1.24.1.
 - HTTP input plugin (`inputs.http`): Allow both 200 and 201 response codes when generating cookie authentication. Also update the cookie header docs to show a TOML map rather than a string.
@@ -1012,12 +1013,12 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - gNMI input plugin (`inputs.gnmi`): Refactor `tag_only` subscriptions for complex keys (such as `network-instances`) and to improve concurrrency. The subscription key is no longer hardcoded to the device name and the `name` tag. Adds ability to specify a subscription key on a per-tag basis.
 - SNMP input plugin (`inputs.snmp`): Now sets gosnmp's `UseUnconnectedUDPSocket` to true when using UDP. Adds support to accept SNMP responses from any address (not just the requested address). Useful when gathering responses from redundant/failover systems.
 
-## Dependency updates
+### Dependency updates
 - Bump `github.com/docker/docker` from 20.10.14 to 20.10.17.
 
-## v1.23.1 [2022-7-5]
+## v1.23.1 {date="2022-07-05"}
 
-## Bug fixes
+### Bug fixes
 - Jolokia2 input plugin (`jolikia2`): Resolve panic on null response.
 - RabbitMQ input plugin (`rabbitmq`) Don't require listeners to be present in overview.
 - Sync back `sample.confs` for Couchbuse input plugin (`couchbase`) and Groundwork output plugin (`groundwork`).
@@ -1026,7 +1027,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Restore sample configurations broken during initial migration
 - Sync back sample.confs for inputs.couchbase and outputs.groundwork.
 
-## Dependency updates
+### Dependency updates
 - Bump `cloud.google.com/go/monitoring` from 1.2.0 to 1.5.0.
 - Bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.12.2 to 1.12.5.
 - Bump `google.golang.org/grpc` from 1.46.2 to 1.47.0.
@@ -1056,7 +1057,7 @@ Older versions can be manually reverted on a per-plugin basis using the `tls_min
 - Bump `k8s.io/api` from 0.24.1 to 0.24.2.
 - Bump `github.com/prometheus/client_golang` from 1.12.1 to 1.12.2.
 
-## v1.23.0 [2022-6-13]
+## v1.23.0 {date="2022-06-13"}
 
 - Sample configuration (`sample.conf`) files for the different plugins are now embedded into the Golang code by the Go compiler. You can now download the sample configuration from
 Telegraf without having to paste in sample configurations from each plugin's README.md.
@@ -1101,7 +1102,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - HTTP (`elasticsearch`): Add healthcheck timeout.
 - SQL (`sql`): Add table existence cache.
 
-## Dependency updates
+### Dependency updates
 - Update `github.com/wavefronthq/wavefront-sdk-go` from 0.9.10 to 0.9.11.
 - Update `github.com/aws/aws-sdk-go-v2/config` from 1.15.3 to 1.15.7.
 - Update `github.com/sensu/sensu-go/api/core/v2` from 2.13.0 to 2.14.0.
@@ -1114,7 +1115,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - Update `github.com/containerd/containerd` from v1.5.11 to v1.5.13.
 - Update `github.com/tidwall/gjson` from 1.10.2 to 1.14.1.
 
-## v1.22.4 [2022-5-17]
+## v1.22.4 {date="2022-05-17"}
 
 - Wait for network up in `systemd` packaging.
 
@@ -1131,7 +1132,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - Update `github.com/showwin/speedtest-go` from 1.1.4 to 1.1.5.
 - Update OpenTelemetry plugins to v0.51.0.
 
-## v1.22.3 [2022-4-28]
+## v1.22.3 {date="2022-04-28"}
 
 - Update Go to 1.18.1.
 
@@ -1140,12 +1141,12 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - GNMI (`gnmi`): Use external xpath parser.
 - System (`system`): Reduce log level back to original level.
 
-## v1.22.2 [2022-4-25]
+## v1.22.2 {date="2022-04-25"}
 
 - Allow Makefile to work on Windows.
 - Allow zero outputs when using `test-wait` parameter.
 
-## Input plugin updates
+### Input plugin updates
 - Aerospike (`aerospike`): Fix statistics query bug.
 - Aliyun CMS (`aliyuncms`): Ensure metrics accept array.
 - Cisco Telemetry MDT (`cisco_telemetry_mdt`):
@@ -1159,10 +1160,10 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - SMART (`smart`): Correctly parse various numeric forms
 - Prometheus (`prometheus`): Moved from watcher to informer.
 
-## Output plugin updates
+### Output plugin updates
 - InfluxDB v2 (`influxdb_v2`): Improve error message.
 
-## Dependency updates
+### Dependency updates
 - Update `github.com/Azure/azure-kusto-go` from 0.5.0 to 0.60.
 - Update `opentelemetry` from v0.2.10 to v0.2.17.
 - Update `go.opentelemetry.io/collector/pdata` from v0.48.0 to v0.49.0.
@@ -1177,14 +1178,14 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - Update `go.mongodb.org/mongo-driver` from 1.8.3 to 1.9.0.
 - Update `starlark 7a1108eaa012->d1966c6b9fcd`.
 
-## v1.22.1 [2022-4-6]
+## v1.22.1 {date="2022-04-06"}
 
 - Update `gonum.org/v1/gonum` from 0.9.3 to 0.11.0.
 - Update `github.com/golang-jwt/jwt/v4` from 4.2.0 to 4.4.1.
 - Update `gopsutil` and associated dependencies for improved OpenBSD support.
 - Fix default value for logfile rotation interval.
 
-## Input plugin updates
+### Input plugin updates
 - Intel PMU (`intel_pmu`): Fix slow running intel-pmu test.
 - Cloud PubSub (`cloud_pubsub`): Skip longer integration tests on `-short` mode.
 - Cloud PubSub Push (`cloud_pubsub_push`): Reduce timeouts and sleeps.
@@ -1192,19 +1193,19 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - ZFS (`zfs`): Fix redundant pool tag.
 - vSphere (`vsphere`): Update debug message information.
 
-## Output plugin updates
+### Output plugin updates
 - Azure Monitor (`azure_monitor`): Include body in error message.
 - HTTP (`http`): Switch HTTP 100 test case values.
 
-## Processor plugin updates
+### Processor plugin updates
 - TopK (`topk`) Clarify the `k` and `fields` parameters.
 
-## New external plugins
+### New external plugins
 - [PSI External Plugin](https://github.com/gridscale/linux-psi-telegraf-plugin/blob/main/README.md)(`external.psi`) - Contributed by [@ajfriesen](https://github.com/ajfriesen).
 
-## v1.22.0 [2022-3-22]
+## v1.22.0 {date="2022-03-22"}
 
-## Features
+### Features
 
 - Add `autorestart` and `restartdelay` flags to Windows service
 - Add builds for `riscv64`.
@@ -1217,7 +1218,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - `common.proxy`: Add `socks5` proxy support.
 - Improve error logging on plugin initialization.
 
-## Bug fixes
+### Bug fixes
 
 - Print loaded plugins and deprecations for once and test.
 - Remove signed MacOS artifacts.
@@ -1244,9 +1245,9 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - Log error when loading mibs.
 - Fix Mac signing issue with arm64.
 
-## New plugins
+### New plugins
 
-### Inputs
+#### Inputs
 
 - [Hashicorp Consul Agent Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/consul_metrics)(`consul_agent`) - Contributed by [@efbar](https://github.com/efbar).
 - [Hashicorp Nomad Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/nomad)(`nomad`) - Contributed by [@efbar](https://github.com/efbar).
@@ -1257,7 +1258,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - [Socketstat Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/socketstat)(`socketstat`) - Contributed by [@sajoupa](https://github.com/sajoupa).
 - [XtremIO Input Plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/xtremio)(`xtremio`) - Contributed by [@cthiel42](https://github.com/cthiel42).
 
-### Processors
+#### Processors
 
 - [Noise Processor](https://github.com/influxdata/telegraf/tree/master/plugins/processors/noise) (`noise`) - Contributed by [@wizarq](https://github.com/wizarq).
 
@@ -1365,7 +1366,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
     - Run `gofmt`.
     - Fix panic if no mibs folder is found.
 
-## Parser plugin updates
+### Parser plugin updates
 
 - CSV (`csv`):
   - Empty import tzdata for Windows binaries.
@@ -1443,7 +1444,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - Update `github.com/pion/dtls/v2` from 2.0.9 to 2.0.13.
 - Update `github.com/eclipse/paho.mqtt.golang` from 1.3.0 to 1.3.5.
 
-## v1.21.4 [2022-2-16]
+## v1.21.4 {date="2022-02-16"}
 
 - Update to Go 1.17.7 to address [three security issues](https://groups.google.com/g/golang-announce/c/SUsQn0aSgPQ/m/gx45t8JEAgAJ?pli=1) in the library.
 - Update all `go.opentelemetry.io` from 0.24.0 to 0.27.0.
@@ -1489,7 +1490,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - [apt](https://github.com/x70b1/telegraf-apt/blob/master/README.md)(`telegraf-apt`) - Contributed by [@x70b1](https://github.com/x70b1).
 - [knot](https://github.com/x70b1/telegraf-knot/blob/master/README.md)(`telegraf-knot`) - Contributed by [@x70b1](https://github.com/x70b1).
 
-## v1.21.3 [2022-1-27]
+## v1.21.3 {date="2022-01-27"}
 
 - Update `grpc` module to v1.44.0.
 - Update `google.golang.org/api` module from 0.54.0 to 0.65.0.
@@ -1534,7 +1535,7 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - Wavefront (`wavefront`): Add missing setting `wavefront_disable_prefix_conversion`.
 
 
-## v1.21.2 [2022-1-5]
+## v1.21.2 {date="2022-01-05"}
 
 - Add arm64 MacOS builds for M1 devices.
 - Add RISC-V64 Linux builds.
@@ -1562,17 +1563,17 @@ Telegraf without having to paste in sample configurations from each plugin's REA
 - CSV (`csv`): Use an empty import of `tzdata` to correctly set the time zone.
 
 
-## v1.21.1 [2021-12-16]
+## v1.21.1 {date="2021-12-16"}
 
-## Bug fixes
+### Bug fixes
 - Fix panic in parsers due to missing log.
 - Update `go-sensu module` to v2.12.0
 - Fix typo in OpenStack input plugin.
 
-## Features
+### Features
 - Add SMART input plugin concurrency configuration option, `nvme-cli v1.14+` support, and lint fixes.
 
-## v1.21 [2021-12-15]
+## v1.21 {date="2021-12-15"}
 
 {{% note %}}
 The signing for RPM digest has changed to use sha256 to improve security. Due to this change, RPM builds might not be compatible with RHEL6 and older releases. (Telegraf only supports releases in RHEL production.)
@@ -1590,7 +1591,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - Add full metadata to configuration for `common.kafka`.
 - Update `google.golang.org/grpc` module from 1.39.1 to 1.40.0.
 
-## Input plugin updates
+### Input plugin updates
 - Cloudwatch (`cloudwatch`): Fix metrics collection.
 - CPU (`cpu`): Update `shirou/gopsutil` from v2 to v3.
 - Directory Monitor (`directory_monitor`):
@@ -1622,7 +1623,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - Windows Services (`win_services`): Add exclude filter.
 - ZFS (`zfs`): Pool detection and metrics gathering for ZFS >= 2.1.x
 
-## Output plugin updates
+### Output plugin updates
 - Register `bigquery` to all output plugins.
 - Azure Data Explorer (`azure_data_explorer`):
   - Add option to skip table creation.
@@ -1639,14 +1640,14 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - Wavefront (`wavefront`): Flush sender on error to clean up broken connections.
 
 
-## Parser plugin updates
+### Parser plugin updates
 - XPath (`xpath`): Handle duplicate registration of protocol-buffer files gracefully
 - JSON v2 (`json_v2`):
   - Parser timestamp setting order.
   - Remove dead code.
   - Support defining field/tag tables within an object table.
 
-## Processor plugin updates
+### Processor plugin updates
 - IfName (`ifname`):
   - Eliminate MIB dependency.
   - Parallelism fix.
@@ -1654,11 +1655,11 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - Starlark (`starlark`): Example for processing `sparkplug_b` messages.
 - RegEx (`regex`): Extend to allow renaming of measurements, tags, and fields.
 
-## Aggregator plugin updates
+### Aggregator plugin updates
 - Implement deprecation infrastructure
 - Add support of aggregator as Starlark script
 
-## New plugins
+### New plugins
 
 #### Inputs
 
@@ -1674,7 +1675,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 #### Aggregator
 - [Starlark Aggregator](https://github.com/influxdata/telegraf/blob/master/plugins/aggregators/starlark/README.md)(`starlark`) - Contributed by [@essobedo](https://github.com/essobedo).
 
-## v1.20.4 [2021-11-17]
+## v1.20.4 {date="2021-11-17"}
 
 - Update `BurntSushi/toml` from 0.3.1 to 0.4.1.
 - Update `gosnmp` module from 1.32 to 1.33.
@@ -1697,7 +1698,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 ### Output plugin updates
 - Loki (`loki`): Include the metric name as a label for improved query performance and metric filtering.
 
-## v1.20.3 [2021-10-28]
+## v1.20.3 {date="2021-10-28"}
 
 - Update Go to 1.17.2.
 - Update `gjson` module to v1.10.2.
@@ -1739,7 +1740,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - [IBM DB2](https://github.com/bonitoo-io/telegraf-input-db2): Contributed by @sranka.
 - [Oracle Database](https://github.com/bonitoo-io/telegraf-input-oracle): Contributed by @sranka.
 
-## v1.20.2 [2021-10-07]
+## v1.20.2 {date="2021-10-07"}
 
 - Fix makefile typo that prevented i386 tar and rpm packages from being built.
 
@@ -1751,7 +1752,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - JSON V2 (`json_v2`): Duplicate line_protocol when using object and fields.
 - Influx (`influx`): Fix memory leak.
 
-## v1.20.1 [2021-10-06]
+## v1.20.1 {date="2021-10-06"}
 
 - Fix output buffer never completely flushing.
 - Update `k8s.io/apimachinery` module to 0.22.2.
@@ -1776,7 +1777,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - Loki (`loki`): Update http_headers setting to match sample config.
 - MQTT (`mqtt`): Add "keep alive" config option and documentation around issue with eclipse/mosquito version.
 
-## v.1.20 [2021-09-16]
+## v.1.20 {date="2021-09-16"}
 
 - Update Go to 1.17.0
 - Update runc module to v1.0.0-rc95.
@@ -1836,7 +1837,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - [OpenTelemetry](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/opentelemetry) - Contributed by @jacobmarble
 - [Azure Data Explorer](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/azure_data_explorer) - Contributed by @minwal
 
-## v.1.19.3 [2021-08-19]
+## v.1.19.3 {date="2021-08-19"}
 
 - Update `sirupsen/logrus` module from 1.7.0 to 1.8.1.
 - Update `testcontainers/testcontainers-go` module from 0.11.0 to 0.11.1.
@@ -1864,7 +1865,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 ### Processor plugin updates
 - AWS (`aws`): Refactor EC2 init.
 
-## v.1.19.2 [2021-07-28]
+## v.1.19.2 {date="2021-07-28"}
 
 - Update Go to 1.16.6.
 - Linter fixes.
@@ -1901,7 +1902,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
     - Fix an issue to handle nested objects in arrays properly.
 
 
-## v.1.19.1 [2021-07-07]
+## v.1.19.1 {date="2021-07-07"}
 
 - Update nat-server module to v2.2.6.
 - Update apimachinary module to v0.21.1.
@@ -1931,7 +1932,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 ### Parser plugin updates
 - (`json_v2`): Don't require tags to be added to included_keys.
 
-## v1.19.0 [2021-06-17]
+## v1.19.0 {date="2021-06-17"}
 
 - Update Go to 1.16.5.
 
@@ -2011,7 +2012,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - [ldap_org and ds389](https://github.com/falon/CSI-telegraf-plugins) - Contributed by @falon
 - [x509_crl](https://github.com/jcgonnard/telegraf-input-x590crl) - Contributed by @jcgonnard
 
-## v1.18.3 [2021-05-21]
+## v1.18.3 {date="2021-05-21"}
 
 - Add FreeBSD ARMv7 build.
 - Dependencies:
@@ -2040,7 +2041,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 
 
 
-## v1.18.2 [2021-04-29]
+## v1.18.2 {date="2021-04-29"}
 
 - Make JSON format compatible with nulls to ensure Telegraf successfully detects null values and returns an empty metric without error.
 - Update `common.shim` by changing `NewStreamParser` to accept larger inputs from scanner.
@@ -2063,7 +2064,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - [Converter Processor](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/processors/converter/README.md) (`converter`):
    Add support for `float64` to support converting longer hexadecimal string values to a numeric type without losing in precision. Note, if a string number exceeds the size limit for `float64`, precison may be lost.
 
-## v1.18.1 [2021-04-07]
+## v1.18.1 {date="2021-04-07"}
 
 - Agent: Closes running outputs when agent reloads on SIGHUP.
 
@@ -2101,7 +2102,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
   Retrieve interface name more efficiently.
 
 
-## v1.18 [2021-3-17]
+## v1.18 {date="2021-03-17"}
 
 ### Features
 - Update to Go 1.16.2.
@@ -2142,7 +2143,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - [MessagePack](https://github.com/influxdata/telegraf/tree/master/plugins/serializers/msgpack)(`msgpack`) - Contributed by [@dialogbox](https://github.com/dialogbox)
 
 
-## v.1.17.3 [2021-2-17]
+## v.1.17.3 {date="2021-02-17"}
 
 - Update to Go 1.15.8.
 
@@ -2169,14 +2170,14 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
    - Update `github.com/gopcua/opcua` to 0.1.13.
    - Update `go-ping` to latest version.
 
-## v.1.17.2 [2021-1-28]
+## v.1.17.2 {date="2021-01-28"}
 
 ### Input plugin updates
 - `ping`:
   - Added support to the interface in native mode using either the name or IP address.
   - Resolved regression from 1.17.1 by adding back missing function.
 
-## v.1.17.1 [2021-1-27]
+## v.1.17.1 {date="2021-01-27"}
 
 ### Features
 - Add Event Log support for Windows platforms.
@@ -2214,7 +2215,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 ### Aggregator plugin updates
 - `merge`: Performance optimization improvements.
 
-## v1.17.0 [2020-12-17]
+## v1.17.0 {date="2020-12-17"}
 
 ### Features
 - Update Go to 1.15.5.
@@ -2288,7 +2289,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 
 - `starlark`: Can now store state between runs using a global state variable.
 
-## v1.16.3 [2020-12-01]
+## v1.16.3 {date="2020-12-01"}
 
 ### Features
 - Update `godirwalk` to 1.16.1 for Dragonfly BSD support.
@@ -2313,7 +2314,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
   - Add support for logging.
   - Add capability to return multiple metrics.
 
-## v1.16.2 [2020-11-13]
+## v1.16.2 {date="2020-11-13"}
 
 ### Input plugin updates
 
@@ -2337,7 +2338,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - Dynatrace (`dynatrace`): Fix pushing metrics to separate Dynatrace environments.
 - Wavefront (`wavefront`): Add `immediate_flush` tag.
 
-## v1.16.1 [2020-10-28]
+## v1.16.1 {date="2020-10-28"}
 
 ### Input plugin updates
 
@@ -2356,7 +2357,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 
 - Apache Kafka (`kafka`): Add Kafka SASL-mechanism authentication support for SCRAM-SHA-256, SCRAM-SHA-512, GSSAPI.
 
-## v1.16.0 [2020-10-21]
+## v1.16.0 {date="2020-10-21"}
 
 ### New plugins
 
@@ -2446,7 +2447,7 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - Fix bugs found by LGTM analysis platform.
 - Update to Go 1.15.2
 
-## v.1.15.3 [2020-09-11]
+## v.1.15.3 {date="2020-09-11"}
 
 ### Features
 - `processors.starlark`:
@@ -2469,19 +2470,19 @@ The signing for RPM digest has changed to use sha256 to improve security. Due to
 - `inputs.vsphere`: Fixed missing cluster name.
 - `outputs.opentsdb` Fix JSON handling of values `NaN` and `Inf`.
 
-## v1.15.2 [2020-07-31]
+## v1.15.2 {date="2020-07-31"}
 
 ### Bug Fixes
 - Fix RPM `/var/log/telegraf` permissions.
 - Fix tail following on EOF.
 
-## v1.15.1 [2020-07-22]
+## v1.15.1 {date="2020-07-22"}
 
 ### Bug fixes
 
 - Fix architecture in non-amd64 deb and rpm packages.
 
-## v1.15.0 [2020-07-22]
+## v1.15.0 {date="2020-07-22"}
 
 {{% warn %}}
 Critical bug that impacted non-amd64 packages was introduced in 1.15.0. **Do not install this release.** Instead, install 1.15.1, which includes the features, new plugins, and bug fixes below.
@@ -2602,7 +2603,7 @@ Breaking changes are updates that may cause Telegraf plugins to fail or function
 - Fix incorrect Azure SQL DB server properties.
 - Send metrics in FIFO order.
 
-## v1.14.5 [2020-06-30]
+## v1.14.5 {date="2020-06-30"}
 
 ### Bug fixes
 
@@ -2614,7 +2615,7 @@ Breaking changes are updates that may cause Telegraf plugins to fail or function
 - Allow any key usage type on x509 certificate.
 - Allow histograms and summary types without buckets or quantiles in `prometheus_client` output.
 
-## v1.14.4 [2020-06-09]
+## v1.14.4 {date="2020-06-09"}
 
 ### Bug fixes
 
@@ -2623,7 +2624,7 @@ Breaking changes are updates that may cause Telegraf plugins to fail or function
 - Fix a numeric to bool conversion in the `converter` processor.
 - Fix an issue with the `influx` stream parser blocking when the data is in buffer.
 
-## v1.14.3 [2020-05-19]
+## v1.14.3 {date="2020-05-19"}
 
 ### Bug fixes
 
@@ -2632,7 +2633,7 @@ Breaking changes are updates that may cause Telegraf plugins to fail or function
 - Fix reconnection of timed out HTTP2 connections `influxdb` outputs.
 - Fix negative value parsing in `impi_sensor` input.
 
-## v1.14.2 [2020-04-28]
+## v1.14.2 {date="2020-04-28"}
 
 ### Bug fixes
 
@@ -2646,7 +2647,7 @@ Breaking changes are updates that may cause Telegraf plugins to fail or function
 - Don't retry create database when using database_tag if forbidden by the server in `influxdb` output.
 - Allow CR and FF inside of string fields in InfluxDB line protocol parser.
 
-## v1.14.1 [2020-04-14]
+## v1.14.1 {date="2020-04-14"}
 
 ### Bug fixes
 
@@ -2656,7 +2657,7 @@ Breaking changes are updates that may cause Telegraf plugins to fail or function
 - Fix exclude database and retention policy tags.
 - Fix status path when using globs in `phpfpm`.
 
-## v1.14 [2020-03-26]
+## v1.14 {date="2020-03-26"}
 
 ### Breaking changes
 
@@ -2764,7 +2765,7 @@ Telegraf now uses the [Go TLS library](https://golang.org/pkg/crypto/tls/).
   - Continue parsing after error.
   - Set headers on ping URL.
 
-## v1.13.4 [2020-02-25]
+## v1.13.4 {date="2020-02-25"}
 
 ### Release Notes
 Official packages now built with Go 1.13.8.
@@ -2778,7 +2779,7 @@ Official packages now built with Go 1.13.8.
 - Fix inconsistency with input error counting in Telegraf v1.x (`internal`) input plugin.
 - Use the same timestamp per call if no time is provided in Prometheus (`prometheus`) input plugin.
 
-## v1.13.3 [2020-02-04]
+## v1.13.3 {date="2020-02-04"}
 
 ### Bug fixes
 
@@ -2793,7 +2794,7 @@ Official packages now built with Go 1.13.8.
 - Increase support for up to 4096 statistics in the Ethtool (`ethtool`) input plugin.
 - Remove expired metrics from the Prometheus Client (`prometheus_client`) output plugin. Previously, expired metrics were only removed when new metrics were added.
 
-## v1.13.2 [2020-01-21]
+## v1.13.2 {date="2020-01-21"}
 
 ### Bug fixes
 
@@ -2805,7 +2806,7 @@ Official packages now built with Go 1.13.8.
 - Remove invalid timestamps from Kafka messages.
 - Update `json` parser to fix `json_strict` option and set `default` to `true`.
 
-## v1.13.1 [2020-01-08]
+## v1.13.1 {date="2020-01-08"}
 
 ### Bug fixes
 - Fix ServerProperty query stops working on Azure after failover.
@@ -2821,7 +2822,7 @@ Official packages now built with Go 1.13.8.
 - Use last path element as field key if path fully specified in Cisco GNMI Telemetry
   (`cisco_telemetry_gnmi`) input plugin.
 
-## v1.13 [2019-12-12]
+## v1.13 {date="2019-12-12"}
 
 ### Release Notes
 Official packages built with Go 1.13.5.
@@ -2912,7 +2913,7 @@ for details about the mapping.
 - Replace colon characters in Prometheus (`prometheus_client`) output labels with `metric_version=1`.
 - Set TrimLeadingSpace when TrimSpace is on in CSV (`csv`) parser.
 
-## v1.12.6 [2019-11-19]
+## v1.12.6 {date="2019-11-19"}
 
 ### Bug fixes
 - Fix many plugin errors logged at debug logging level.
@@ -2920,7 +2921,7 @@ for details about the mapping.
 - Fix interface option with `method = native` in Ping (`ping`) input plugin.
 - Fix panic in MongoDB (`mongodb`) input plugin if shard connection pool stats are unreadable.
 
-## v1.12.5 [2019-11-12]
+## v1.12.5 {date="2019-11-12"}
 
 ### Bug fixes
 - Fix incorrect results in Ping (`ping`) input plugin.
@@ -2933,7 +2934,7 @@ for details about the mapping.
 - Fix MySQL field type conflict in conversion of `gtid_mode` to an integer.
 - Fix MySQL field type conflict with `ssl_verify_depth` and `ssl_ctx_verify_depth`.
 
-## v1.12.4 [2019-10-23]
+## v1.12.4 {date="2019-10-23"}
 
 - Build official packages with Go 1.12.12.
 
@@ -2942,7 +2943,7 @@ for details about the mapping.
 - Exclude alias tag if unset from plugin internal stats.
 - Fix `socket_mode` option in PowerDNS Recursor (`powerdns_recursor`) input plugin.
 
-## v1.12.3 [2019-10-07]
+## v1.12.3 {date="2019-10-07"}
 
 - Build official packages with Go 1.12.10.
 
@@ -2954,7 +2955,7 @@ for details about the mapping.
 - Fix database routing on retry with `exclude_database_tag`.
 - Fix logging panic in Exec (`exec`) input plugin with Nagios data format.
 
-## v1.12.2 [2019-09-24]
+## v1.12.2 {date="2019-09-24"}
 
 ### Bug fixes
 - Fix timestamp format detection in `csv` and `json` parsers.
@@ -2965,7 +2966,7 @@ for details about the mapping.
 - Cisco GNMI Telemetry input (`cisco_telemetry_gnmi`)
   - Fix path handling issues.
 
-## v1.12.1 [2019-09-10]
+## v1.12.1 {date="2019-09-10"}
 
 ### Bug fixes
 - Fix dependenciess on GLIBC_2.14 symbol version.
@@ -2985,7 +2986,7 @@ for details about the mapping.
   - Display retry log message only when retry after is received.
 
 
-## v1.12 [2019-09-03]
+## v1.12 {date="2019-09-03"}
 
 ### Release Notes
 - The cluster health related fields in the Elasticsearch input have been split out
@@ -3078,7 +3079,7 @@ for details about the mapping.
 - Query oplog only when connected to a replica set.
 - Use environment variables to locate Program Files on Windows.
 
-## v1.11.5 [2019-08-27]
+## v1.11.5 {date="2019-08-27"}
 
 ### Bug fixes
 - Update `go-sql-driver/mysql` driver to 1.4.1 to address auth issues.
@@ -3090,7 +3091,7 @@ for details about the mapping.
 - Remove leading slash from rcon command.
 - Allow jobs with dashes in the name in `lustre2` input plugin.
 
-## v1.11.4 [2019-08-06]
+## v1.11.4 {date="2019-08-06"}
 
 ### Bug fixes
 
@@ -3102,7 +3103,7 @@ for details about the mapping.
 - Socket Listener input (`socket_listener`)
   - Fix reload panic.
 
-## v1.11.3 [2019-07-23]
+## v1.11.3 {date="2019-07-23"}
 
 ### Bug fixes
 
@@ -3126,7 +3127,7 @@ for details about the mapping.
 - VMware vSphere input (`vsphere`)
   - Fix unable to reconnect after vCenter reboot.
 
-## v1.11.2 [2019-07-09]
+## v1.11.2 {date="2019-07-09"}
 
 ### Bug fixes
 
@@ -3147,7 +3148,7 @@ for details about the mapping.
 - Tail input (`tail`)
   - Fix stop working after reload.
 
-## v1.11.1 [2019-06-25]
+## v1.11.1 {date="2019-06-25"}
 
 ### Bug fixes
 
@@ -3172,7 +3173,7 @@ for details about the mapping.
 - System input (`system`)
   - Ignore error when `utmp` is missing.
 
-## v1.11.0 [2019-06-11]
+## v1.11.0 {date="2019-06-11"}
 
 - System (`system`) input plugin
   - The `uptime_format` field has been deprecated — use the `uptime` field instead.
@@ -3319,7 +3320,7 @@ for details about the mapping.
 - VMware vSphere (`vsphere`) input
   - Fixed datastore name mapping.
 
-## v1.10.4 [2019-05-14]
+## v1.10.4 {date="2019-05-14"}
 
 ### Bug fixes
 
@@ -3344,7 +3345,7 @@ for details about the mapping.
 - VMware vSphere input (`vsphere`)
   - Fix interval estimation.
 
-## v1.10.3 [2019-04-16]
+## v1.10.3 {date="2019-04-16"}
 
 ### Bug fixes
 
@@ -3357,7 +3358,7 @@ for details about the mapping.
 - Prometheus Client (`prometheus_client`) output plugin.
   - Allow colons in metric names.
 
-## v1.10.2 [2019-04-02]
+## v1.10.2 {date="2019-04-02"}
 
 ### Breaking changes
 
@@ -3396,7 +3397,7 @@ for details about the mapping.
 - StatsD (`statsd`) input
   - Listen before leaving start.
 
-## v1.10.1 [2019-03-19]
+## v1.10.1 {date="2019-03-19"}
 
 #### Bug fixes
 
@@ -3407,7 +3408,7 @@ for details about the mapping.
 - Fix invalid measurement name and skip column in the CSV input data format parser.
 - Fix System (`system`) input plugin causing high CPU usage on Raspbian.
 
-## v1.10 [2019-03-05]
+## v1.10 {date="2019-03-05"}
 
 #### New input plugins
 
@@ -3511,7 +3512,7 @@ for details about the mapping.
     - Skip string fields when writing.
     - Send metrics in ascending time order.
 
-## v1.9.5 [2019-02-26]
+## v1.9.5 {date="2019-02-26"}
 
 ### Bug fixes
 
@@ -3532,7 +3533,7 @@ for details about the mapping.
   * Skip string fields when writing to stackdriver output.
   * Send metrics in ascending time order.
 
-## v1.9.4 [2019-02-05]
+## v1.9.4 {date="2019-02-05"}
 
 ### Bug fixes
 
@@ -3544,7 +3545,7 @@ for details about the mapping.
 * Syslog (`syslog`) input plugin
     * Fix definition of multiple syslog plugins.
 
-## v1.9.3 [2019-01-22]
+## v1.9.3 {date="2019-01-22"}
 
 #### Bug fixes
 
@@ -3561,7 +3562,7 @@ for details about the mapping.
 * Prometheus (`prometheus`) input plugin
   * Fix `prometheus` input not detecting added and removed pods.
 
-## v1.9.2 [2019-01-08]
+## v1.9.2 {date="2019-01-08"}
 
 ### Bug fixes
 
@@ -3580,7 +3581,7 @@ for details about the mapping.
 - Fix panic in Docker input with bad endpoint.
 - Fix original metric modified by aggregator filters.
 
-## v1.9.1 [2018-12-11]
+## v1.9.1 {date="2018-12-11"}
 
 ### Bug fixes
 
@@ -3595,7 +3596,7 @@ for details about the mapping.
 - Use `-W` flag on BSD variants in ping input.
 - Allow delta metrics in Wavefront parser.
 
-## v1.9.0 [2018-11-20]
+## v1.9.0 {date="2018-11-20"}
 
 #### Release Notes
 
@@ -3677,7 +3678,7 @@ for details about the mapping.
 - Fix outputs block inputs when batch size is reached.
 - Fix potential missing datastore metrics in VMware vSphere (`vsphere`) input plugin.
 
-## v1.8.3 [2018-10-30]
+## v1.8.3 {date="2018-10-30"}
 
 ### Bug fixes
 
@@ -3689,7 +3690,7 @@ for details about the mapping.
 - Don't add unserializable fields to Jolokia2 (`jolokia2`) input plugin.
 - Fix version check in PostgreSQL Exstensible (`postgresql_extensible`) plugin.
 
-## v1.8.2 [2018-10-17]
+## v1.8.2 {date="2018-10-17"}
 
 ### Bug fixes
 
@@ -3714,7 +3715,7 @@ for details about the mapping.
 * X.509 Certificate (`x509_cert`) input plugin
   * Fix segfault.
 
-## v1.8.1 [2018-10-03]
+## v1.8.1 {date="2018-10-03"}
 
 ### Bug fixes
 
@@ -3729,7 +3730,7 @@ for details about the mapping.
 - Fix missing non-realtime samples in VMware vSphere (`vsphere`) input plugin.
 - Fix case of `timezone`/`grok_timezone` options in grok parser and logparser input plugin.
 
-## v1.8 [2018-09-21]
+## v1.8 {date="2018-09-21"}
 
 ### New input plugins
 
@@ -3856,7 +3857,7 @@ for details about the mapping.
 - Fix CSV format configuration loading.
 
 
-## v1.7.4 [2018-08-29]
+## v1.7.4 {date="2018-08-29"}
 
 ### Bug fixes
 
@@ -3869,7 +3870,7 @@ for details about the mapping.
 * Fix sending of basic authentication credentials in HTTP `(output)` output plugin.
 * Use the correct `GOARM` value in the Linux armel package.
 
-## v1.7.3 [2018-08-07]
+## v1.7.3 {date="2018-08-07"}
 
 ### Bug fixes
 
@@ -3881,7 +3882,7 @@ for details about the mapping.
 * Use explicit `zpool` properties to fix parse error on FreeBSD 11.2.
 * Lock buffer when adding metrics.
 
-## v1.7.2 [2018-07-18]
+## v1.7.2 {date="2018-07-18"}
 
 ### Bug fixes
 
@@ -3893,7 +3894,7 @@ for details about the mapping.
 * Reset read deadline for Syslog (`syslog`) input plugin.
 * Exclude cached memory on Docker (`docker`) input plugin.
 
-## v1.7.1 [2018-07-03]
+## v1.7.1 {date="2018-07-03"}
 
 ### Bug fixes
 
@@ -3906,7 +3907,7 @@ for details about the mapping.
 * Document Swap (`swap`) input plugin.
 * Fix incorrect precision being applied to metric in HTTP Listener (`http_listener`) input plugin.
 
-## v1.7 [2018-06-12]
+## v1.7 {date="2018-06-12"}
 
 ### Release notes
 
@@ -3984,7 +3985,7 @@ for details about the mapping.
 - Use same flags for all BSD family ping variants.
 
 
-## v1.6.4 [2018-06-05]
+## v1.6.4 {date="2018-06-05"}
 
 ### Bug fixes
 
@@ -3993,7 +3994,7 @@ for details about the mapping.
 * Fix documentation of `instance_name` option in Varnish input.
 * Revert to previous Aerospike library version due to memory leak.
 
-## v1.6.3 [2018-05-21]
+## v1.6.3 {date="2018-05-21"}
 
 ### Bug fixes
 
@@ -4004,7 +4005,7 @@ for details about the mapping.
 * Fix Librato (`librato`) output plugin support for unsigned integer (`uint`) and Boolean (`bool`).
 * Fix WaitGroup deadlock, if URL is incorrect, in Apache input plugin.
 
-## v1.6.2 [2018-05-08]
+## v1.6.2 {date="2018-05-08"}
 
 ### Bug fixes
 
@@ -4015,7 +4016,7 @@ for details about the mapping.
 * Fix uint support in CrateDB (`cratedb`) output.
 
 
-## v1.6.1 [2018-04-23]
+## v1.6.1 {date="2018-04-23"}
 
 ### Bug fixes
 
@@ -4031,7 +4032,7 @@ for details about the mapping.
 * Return errors in SSL/TLS configuration of MongoDB (`mongodb`) input plugin.
 
 
-## v1.6 [2018-04-16]
+## v1.6 {date="2018-04-16"}
 
 ### Release notes
 
@@ -4139,7 +4140,7 @@ for details about the mapping.
 * Fix SNMPv3 connection with Cisco ASA 5515 in SNMP (`snmp`) input plugin.
 
 
-## v1.5.3 [2018-03-14]
+## v1.5.3 {date="2018-03-14"}
 
 ### Bug fixes
 
@@ -4151,7 +4152,7 @@ for details about the mapping.
 * Fix uptime metric in Passenger (`passenger`) input plugin.
 * Add output of stderr in case of error to exec log message.
 
-## v1.5.2 [2018-01-30]
+## v1.5.2 {date="2018-01-30"}
 
 ### Bug fixes
 
@@ -4165,7 +4166,7 @@ for details about the mapping.
 - Add `timeout` to Wavefront output write.
 - Exclude `master_replid` fields from Redis input.
 
-## v1.5.1 [2017-01-10]
+## v1.5.1 {date="2017-01-10"}
 
 ### Bug fixes
 
@@ -4176,7 +4177,7 @@ for details about the mapping.
 - Fix `deliver_get` field in RabbitMQ (`rabbitmq`) input plugin.
 - Escape environment variables during config TOML parsing.
 
-## v1.5 [2017-12-14]
+## v1.5 {date="2017-12-14"}
 
 ### New plugins
 
@@ -4267,7 +4268,7 @@ for details about the mapping.
 - Fix separation of multiple prometheus_client outputs.
 - Don't add system input uptime_format as a counter.
 
-## v1.4.5 [2017-12-01]
+## v1.4.5 {date="2017-12-01"}
 
 ### Bug fixes
 
@@ -4275,7 +4276,7 @@ for details about the mapping.
 - Fix error getting net connections info in netstat input.
 - Fix HOST_MOUNT_PREFIX in Docker with disk input.
 
-## v1.4.4 [2017-11-08]
+## v1.4.4 {date="2017-11-08"}
 
 ### Bug fixes
 - Use schema specified in mqtt_consumer input.
@@ -4284,7 +4285,7 @@ for details about the mapping.
 - Support HOST_VAR envvar to locate /var in system input.
 - Use current time if Docker container read time is zero value.
 
-## v1.4.3 [2017-10-25]
+## v1.4.3 {date="2017-10-25"}
 
 ### Bug fixes
 
@@ -4300,7 +4301,7 @@ for details about the mapping.
 - Fix unquoting error with Tomcat 6.
 - Fix syscall panic in diskio on some Linux systems.
 
-## v1.4.2 [2017-10-10]
+## v1.4.2 {date="2017-10-10"}
 
 ### Bug fixes
 
@@ -4314,7 +4315,7 @@ for details about the mapping.
 - Fix panic in CPU input if number of CPUs changes.
 - Use chunked transfer encoding in InfluxDB output.
 
-## v1.4.1 [2017-09-26]
+## v1.4.1 {date="2017-09-26"}
 
 ### Bug fixes
 
@@ -4327,7 +4328,7 @@ for details about the mapping.
 - Fix panic in statsd p100 calculation.
 - Fix arm64 packages contain 32-bit executable.
 
-## v1.4.0 [2017-09-05]
+## v1.4.0 {date="2017-09-05"}
 
 ### Release Notes
 
@@ -4432,7 +4433,7 @@ for details about the mapping.
 - Skip non-numerical values in graphite format.
 - Fix panic when handling string fields with escapes.
 
-## v1.3.5 [2017-07-26]
+## v1.3.5 {date="2017-07-26"}
 
 ### Bug fixes
 
@@ -4441,7 +4442,7 @@ for details about the mapping.
 - Fix ntpq parse issue when using dns_lookup.
 - Fix panic when agent.interval = "0s".
 
-## v1.3.4 [2017-07-12]
+## v1.3.4 {date="2017-07-12"}
 
 ### Bug fixes
 
@@ -4450,7 +4451,7 @@ for details about the mapping.
 - Do not allow metrics with trailing slashes.
 - Prevent Write from being called concurrently.
 
-## v1.3.3 [2017-06-28]
+## v1.3.3 {date="2017-06-28"}
 
 ### Bug fixes
 
@@ -4459,7 +4460,7 @@ for details about the mapping.
 - Fix bug parsing default timestamps with modified precision.
 - Fix panic in elasticsearch input if cannot determine master.
 
-## v1.3.2 [2017-06-14]
+## v1.3.2 {date="2017-06-14"}
 
 ### Bug fixes
 
@@ -4467,7 +4468,7 @@ for details about the mapping.
 - Fix mongodb/leofs urls without scheme.
 - Fix inconsistent label dimensions in prometheus output.
 
-## v1.3.1 [2017-05-31]
+## v1.3.1 {date="2017-05-31"}
 
 ### Bug fixes
 
@@ -4479,7 +4480,7 @@ for details about the mapping.
 - Fix panic in mongo input.
 - Fix length calculation of split metric buffer.
 
-## v1.3.0 [2017-05-09]
+## v1.3.0 {date="2017-05-09"}
 
 #### Changes to the Windows ping plugin
 
@@ -4604,7 +4605,7 @@ These plugins will replace [udp_listener](https://github.com/influxdata/telegraf
 - AMQP output disconnect blocks all outputs.
 - Improve documentation for redis input plugin.
 
-## v1.2.1 [2017-02-01]
+## v1.2.1 {date="2017-02-01"}
 
 ### Bug fixes
 
@@ -4615,7 +4616,7 @@ These plugins will replace [udp_listener](https://github.com/influxdata/telegraf
 
 - Go (golang) version update 1.7.4 -> 1.7.5
 
-## v1.2 [2017-01-24]
+## v1.2 {date="2017-01-24"}
 
 ### Release Notes
 
@@ -4688,20 +4689,20 @@ plugins, not just statsd.
 - Influx parser: parse line-protocol without newlines.
 - InfluxDB output: fix field type conflict blocking output buffer.
 
-## v1.1.2 [2016-12-12]
+## v1.1.2 {date="2016-12-12"}
 
 ### Bug fixes
 
 - Make snmptranslate not required when using numeric OID.
 - Add a global snmp translation cache.
 
-## v1.1.1 [2016-11-14]
+## v1.1.1 {date="2016-11-14"}
 
 ### Bug fixes
 
 - Fix issue parsing toml durations with single quotes.
 
-## v1.1.0 [2016-11-07]
+## v1.1.0 {date="2016-11-07"}
 
 ### Release Notes
 
@@ -4778,7 +4779,7 @@ continue sending logs to /var/log/telegraf/telegraf.log.
 - Ping input odd timeout behavior.
 - Switch to github.com/kballard/go-shellquote.
 
-## v1.0.1 [2016-09-26]
+## v1.0.1 {date="2016-09-26"}
 
 ### Bug fixes
 
@@ -4787,7 +4788,7 @@ continue sending logs to /var/log/telegraf/telegraf.log.
 - Add configurable timeout to influxdb input plugin.
 - Fix statsd no default value panic.
 
-## v1.0 [2016-09-08]
+## v1.0 {date="2016-09-08"}
 
 ### Release Notes
 

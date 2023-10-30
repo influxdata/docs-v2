@@ -10,7 +10,7 @@ aliases:
   - /chronograf/v1/about_the_project/release-notes-changelog/
 ---
 
-## v1.10.2 [2023-10-20]
+## v1.10.2 {date="2023-10-20"}
 
 ### Bug Fixes
 
@@ -21,7 +21,7 @@ aliases:
 
 - Upgrade Go to 1.20.10.
 
-## v1.10.1 [2023-03-17]
+## v1.10.1 {date="2023-03-17"}
 
 ### Bug Fixes
 
@@ -32,7 +32,7 @@ aliases:
 - Various security updates.
 - Upgrade to Go 1.20.
 
-## v1.10.0 [2022-08-19]
+## v1.10.0 {date="2022-08-19"}
 
 ### Features
 
@@ -64,7 +64,7 @@ aliases:
 - Upgrade JavaScript dependencies.
 - Upgrade Node.js to 16 LTS.
 
-## v1.9.4 [2022-03-28]
+## v1.9.4 {date="2022-03-28"}
 
 ### Features
 
@@ -100,7 +100,7 @@ Improved pagination and performance of the UI when you have large numbers of TIC
 - Show failure reason on Queries page.
 - Reorder Alerting side menu.
 
-## v1.9.3 [2022-02-02]
+## v1.9.3 {date="2022-02-02"}
 
 {{% note %}} **NOTE:** We did not release version 1.9.2 due to a bug that impacted communication between the browser’s main thread and background workers.  This bug has been fixed in the 1.9.3 release.
 {{% /note %}}
@@ -126,7 +126,7 @@ Improved pagination and performance of the UI when you have large numbers of TIC
 #### Security
 - Upgrade `github.com/microcosm-cc/bluemonday` to resolve CVE-2021-42576.
 
-## v1.9.1 [2021-10-08]
+## v1.9.1 {date="2021-10-08"}
 
 ### Features
 - Distinguish tasks created from templates by appending "created from template" on the Manage Tasks page.
@@ -167,7 +167,7 @@ This requires Kapacitor 1.6.2, which now provides information about the template
 - Upgrade `github.com/microcosm-cc/bluemonday` to resolve CVE-2021-29272.
 - Upgrade `github.com/golang-jwt/jwt` to resolve CVE-2020-26160.
 
-## v1.9.0 [2021-06-25]
+## v1.9.0 {date="2021-06-25"}
 
 {{% warn %}}
 ### Breaking Changes
@@ -252,7 +252,7 @@ include the `--oauth-no-pkce` flag when starting `chronograf`.
 - Upgrade Go to 1.16.
 - Upgrade build process to Python 3.
 
-## v1.8.10 [2020-02-08]
+## v1.8.10 {date="2020-02-08"}
 
 ### Features
 
@@ -279,7 +279,7 @@ USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '
   - Avoid endless networking loop.
   - Show timestamp with full nanosecond precision.
 
-## v1.8.9.1 [2020-12-10]
+## v1.8.9.1 {date="2020-12-10"}
 
 ### Features
 - Configure etcd with client TLS certificate.
@@ -303,13 +303,13 @@ USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '
 - Repair possible millisecond differences in duration computation.
 - Remove deprecated React SFC type.
 
-## v.1.8.8 [2020-11-04]
+## v.1.8.8 {date="2020-11-04"}
 
-## Features
+### Features
 
 - Add the option to select a recovery action in the [OpsGenie2](/chronograf/v1/guides/configuring-alert-endpoints/#opsgenie2) configuration.
 
-## Bug Fixes
+### Bug Fixes
 
 - Ensure the alert rule name is correctly displayed in the Alert Rules and TICKscript lists.
 - Resolve the issue that caused a truncated dashboard name.
@@ -318,7 +318,7 @@ USE "db_name"; DELETE FROM "measurement_name" WHERE "tag" = 'value' AND time < '
 - Retain the selected time zone (local or UTC) in the range picker.
 - Export CSV with a time column formatted according to the selected time zone (local or UTC).
 
-## v.1.8.7 [2020-10-06]
+### v.1.8.7 {date="2020-10-06"}
 
 {{% warn %}}
 This release includes breaking changes:
@@ -327,13 +327,13 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
   - The `TLS_MIN_VERSION=1.1` environment variable
 {{% /warn %}}
 
-## Features
+### Features
 - Allow to configure HTTP basic access authentication.
 - Allow setting token-prefix in Alerta configuration.
 - Make session inactivity duration configurable.
 - Allow configuration of TLS ciphers and versions.
 
-## Bug Fixes
+### Bug Fixes
 - Disable default dashboard auto-refresh.
 - Fix to user migration.
 - Add `isPresent` filter to rule TICKscript.
@@ -342,7 +342,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Require well-formatted commit messages in pull request.
 - Upgrade `node` to v12.
 
-## v1.8.6 [2020-08-27]
+## v1.8.6 {date="2020-08-27"}
 
 ### Features
 
@@ -357,7 +357,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Resolve an issue that caused existing data to be overwritten when there were multiple results for a specific time. Now, all query results are successfully shown in the Table visualization.
 - Resolve an issue that prevented boolean field and tag values from being displayed. Now, field and tag values are printed in TICKscript logs.
 
-## v1.8.5 [2020-07-08]
+## v1.8.5 {date="2020-07-08"}
 
 ### Bug Fixes
 
@@ -376,13 +376,13 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Avoid exiting presentation mode when zooming out.
 - Avoid duplication of `csv.from` in functions list.
 
-## v1.8.4 [2020-05-01]
+## v1.8.4 {date="2020-05-01"}
 
 ### Bug Fixes
 
 - Fix misaligned tables when scrolling.
 
-## v1.8.3 [2020-04-23]
+## v1.8.3 {date="2020-04-23"}
 
 ### Bug Fixes
 
@@ -395,7 +395,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Added ability to ignore or verify custom OAuth certs.
 
 
-## v1.8.2 [2020-04-13]
+## v1.8.2 {date="2020-04-13"}
 
 ### Features
 
@@ -405,9 +405,9 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 
 - Fix table rendering bug introduced in 1.8.1.
 
-## v1.8.1 [2020-04-06]
+## v1.8.1 {date="2020-04-06"}
 
-{{% warn %}} **Warning:** Critical bug that impacted table rendering was introduced in 1.8.1. **Do not install this release**, install [v1.8.2](##v1-8-2-2020-04-13), which includes the features and bug fixes below.
+{{% warn %}} **Warning:** Critical bug that impacted table rendering was introduced in 1.8.1. **Do not install this release**, install [v1.8.2](#v182), which includes the features and bug fixes below.
 {{% /warn %}}
 
 ### Features
@@ -419,7 +419,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Update table results to output formatted strings rather than as single-line values.
 - Handle change to newsfeed data structure.
 
-## v1.8.0 [2020-02-19]
+## v1.8.0 {date="2020-02-19"}
 
 ### Features
 
@@ -444,13 +444,13 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 
 * No longer support direct upgrade from Chronograf 1.3.x. If you're upgrading 1.3.x, first install 1.7.x, and then install 1.8.
 
-## v1.7.17 [2020-01-08]
+## v1.7.17 {date="2020-01-08"}
 
 ### Bug Fixes
 
 - Allow logging out when using OAuth.
 
-## v1.7.16 [2019-12-18]
+## v1.7.16 {date="2019-12-18"}
 
 ### Bug Fixes
 
@@ -459,7 +459,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Add `:upperDashboardTime:` to InfluxQL queries to support custom dashboard time ranges.
 - Update the heuristic for matching Kapacitor TICKscripts when creating batch tasks.
 
-## v1.7.15 [2019-11-12]
+## v1.7.15 {date="2019-11-12"}
 
 ### Features
 
@@ -473,14 +473,14 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Upgrade to Flux v0.50.2, includes updated Flux functions.
 - Fix date range picker in Data Explorer.
 
-## v1.7.14 [2019-08-27]
+## v1.7.14 {date="2019-08-27"}
 
 ### Bug Fixes
 
 - Fix Data Explorer crashing due to empty query.
 - Fix styles in Kapacitor alert config page.
 
-## v1.7.13 [2019-08-20]
+## v1.7.13 {date="2019-08-20"}
 
 ### Bug Fixes
 
@@ -506,9 +506,9 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Add time zone toggle.
 - Add Login Hint and redirect to OAuth provider automatically.
 
-## v1.7.12 [2019-06-20]
+## v1.7.12 {date="2019-06-20"}
 
-## Bug Fixes
+### Bug Fixes
 
 - Clarify wording of PagerDuty v1 deprecation message.
 - Requesting info from an unavailable source no longer causes the page to hang.
@@ -521,13 +521,13 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 
 - Allow negative numbers for configured y-axis minimums
 
-## v1.7.11 [2019-04-24]
+## v1.7.11 {date="2019-04-24"}
 
-## Bug Fixes
+### Bug Fixes
 
 - Fix fetching tag keys in Flux Builder.
 
-## v1.7.10 [2019-04-16]
+## v1.7.10 {date="2019-04-16"}
 
 ### Bug Fixes
 
@@ -539,7 +539,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 
 - Updated the UI to work with the latest Flux version.
 
-## v1.7.9 [2019-3-20]
+## v1.7.9 {date="2019-03-20"}
 
 ### Bug Fixes
 
@@ -549,7 +549,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Fix double-quoting of map template values.
 * Fix disappearing data when scrolling a table.
 
-## v1.7.8 [2019-2-13]
+## v1.7.8 {date="2019-02-13"}
 
 ### Bug Fixes
 
@@ -560,13 +560,13 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Fix multiple organizations not showing configured Kapacitor connections.
 * Fix the inability to edit Kapacitor info in the onboarding wizard.
 
-## v1.7.7 [2019-1-16]
+## v1.7.7 {date="2019-01-16"}
 
 ### Bug Fixes
 
 * Use JWT in Enterprise for authentication in Flux.
 
-## v1.7.6 [2019-1-14]
+## v1.7.6 {date="2019-01-14"}
 
 ### Bug Fixes
 
@@ -576,13 +576,13 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Prevent meta node URLs from being overwritten in Connection Wizard.
 * Update functions list for Flux 0.12.
 
-## v1.7.5 [2018-12-17]
+## v1.7.5 {date="2018-12-17"}
 
 ### Bug Fixes
 
 * Update Go, Node, and Alpine versions.
 
-## v1.7.4 [2018-12-12]
+## v1.7.4 {date="2018-12-12"}
 
 ### UI Improvements
 
@@ -606,7 +606,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Fix Flux editor scrollbars.
 * Use valid characters for Sensu IDs.
 
-## v1.7.3 [2018-11-13]
+## v1.7.3 {date="2018-11-13"}
 
 ### UI Improvements
 
@@ -623,13 +623,13 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Remove "dismiss" text from and add "X to dismiss" to wizard overlay steps.
 * Update Docker, InfluxDB, and PostgreSQL protoboards.
 
-## v1.7.2 [2018-11-08]
+## v1.7.2 {date="2018-11-08"}
 
 ### Bug Fixes
 
 * Remove hardcoded database/retention period from protoboards.
 
-## v1.7.1 [2018-11-07]
+## v1.7.1 {date="2018-11-07"}
 
 ### Bug Fixes
 
@@ -641,7 +641,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Fix scroll loading indicator not hiding in logs.
 
 
-## v1.7.0 [2018-11-06]
+## v1.7.0 {date="2018-11-06"}
 
 ### Features
 
@@ -685,7 +685,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Add validation to alert rule messages.
 * Fix search results updating race condition.
 
-## v1.6.1 [2018-08-02]
+## v1.6.1 {date="2018-08-02"}
 
 ### Features
 
@@ -707,7 +707,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Fix crosshairs and hover legend display in Alert Rule visualization
 * Size loading spinners based on height of their container
 
-## v1.6.0 [2018-07-18]
+## v1.6.0 {date="2018-07-18"}
 
 ### Features
 
@@ -744,13 +744,13 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Change decimal places to enforce 2 places by default in cells.
 
 
-## v1.5.0.1 [2018-06-04]
+## v1.5.0.1 {date="2018-06-04"}
 
 ### Bug Fixes
 
 * Fix Color Scale Dropdown
 
-## v1.5.0.0 [2018-05-22]
+## v1.5.0.0 {date="2018-05-22"}
 
 ### Features
 
@@ -796,13 +796,13 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Fix data explorer query error reporting regression.
 * Fix Kapacitor Logs fetch regression.
 
-## v1.4.4.1 [2018-04-16]
+## v1.4.4.1 {date="2018-04-16"}
 
 ### Bug fixes
 
 * Snapshot all db struct types in migration files.
 
-## v1.4.4.0 [2018-04-13]
+## v1.4.4.0 {date="2018-04-13"}
 
 ### Features
 
@@ -839,13 +839,13 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Show valid time in custom time range when now is selected.
 * Default to zero for gauges.
 
-## v1.4.3.3 [2018-04-12]
+## v1.4.3.3 {date="2018-04-12"}
 
 ### Bug Fixes
 
 * Require that emails on GitHub & Generic OAuth2 principals be verified & primary if those fields are provided.
 
-## v1.4.3.1 [2018-04-02]
+## v1.4.3.1 {date="2018-04-02"}
 
 ### Bug fixes
 
@@ -854,7 +854,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Fix template variables not loading all values.
 
 
-## v1.4.3.0 [2018-3-28]
+## v1.4.3.0 {date="2018-03-28"}
 
 ### Features
 
@@ -878,19 +878,19 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Fix intermittent missing fill from graphs
 * Support custom time range in annotations API wrapper
 
-## v1.4.2.5 [2018-04-12]
+## v1.4.2.5 {date="2018-04-12"}
 
 ### Bug Fixes
 
 * Require that emails on GitHub & Generic OAuth2 principals be verified & primary if those fields are provided.
 
-## v1.4.2.3 [2018-03-08]
+## v1.4.2.3 {date="2018-03-08"}
 
 ### Bug fixes
 
 *  Include URL in Kapacitor connection creation requests.
 
-## v1.4.2.1 [2018-02-28]
+## v1.4.2.1 {date="2018-02-28"}
 
 ### Features
 
@@ -912,19 +912,19 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Maintain y-axis labels in dashboard cells.
 * Deprecate `--new-sources` in CLI.
 
-## v1.4.1.5 [2018-04-12]
+## v1.4.1.5 {date="2018-04-12"}
 
 ### Bug Fixes
 
 * Require that emails on GitHub & Generic OAuth2 principals be verified & primary if those fields are provided.
 
-## v1.4.1.3 [2018-02-14]
+## v1.4.1.3 {date="2018-02-14"}
 
 ### Bug fixes
 
 * Allow self-signed certificates for InfluxDB Enterprise meta nodes.
 
-## v1.4.1.2 [2018-02-13]
+## v1.4.1.2 {date="2018-02-13"}
 
 ### Bug fixes
 
@@ -932,7 +932,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Set default `tempVar` `:interval`: with Data Explorer CSV download call.
 * Display series with value of `0` in a cell legend.
 
-## v1.4.1.1 [2018-02-12]
+## v1.4.1.1 {date="2018-02-12"}
 
 ### Features
 
@@ -963,13 +963,13 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Fix disappearance of text in Single Stat graphs during editing.
 - Redirect to Alerts page after saving Alert Rule.
 
-## v1.4.0.3 [2018-4-12]
+## v1.4.0.3 {date="2018-04-12"}
 
 ### Bug Fixes
 
 * Require that emails on GitHub & Generic OAuth2 principals be verified & primary if those fields are provided.
 
-## v1.4.0.1 [2018-1-9]
+## v1.4.0.1 {date="2018-01-09"}
 
 ### Features
 
@@ -981,7 +981,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 - Allow insecure (self-signed) certificates for Kapacitor and InfluxDB.
 - Fix positioning of custom time indicator.
 
-## v1.4.0.0 [2017-12-22]
+## v1.4.0.0 {date="2017-12-22"}
 
 ### Features
 
@@ -1028,7 +1028,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Fix hoverline intermittently not rendering
 * Update MySQL pre-canned dashboard to have query derivative correctly
 
-## v1.3.10.0 [2017-10-24]
+## v1.3.10.0 {date="2017-10-24"}
 
 ### Bug fixes
 
@@ -1056,7 +1056,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Redesign dashboard naming & renaming interaction.
 * Redesign dashboard switching dropdown.
 
-## v1.3.9.0 [2017-10-06]
+## v1.3.9.0 {date="2017-10-06"}
 
 ### Bug fixes
 
@@ -1090,7 +1090,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Add ability to use "Default" values in Source Connection form.
 * Display name & port in SourceIndicator tool tip.
 
-## v1.3.8.3 [2017-09-29]
+## v1.3.8.3 {date="2017-09-29"}
 
 ### Bug fixes
 
@@ -1099,20 +1099,20 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Fix no alert for duplicate db name.
 * Fix unresponsive display options and query builder in dashboards.
 
-## v1.3.8.2 [2017-09-22]
+## v1.3.8.2 {date="2017-09-22"}
 
 ### Bug fixes
 
 * Fix duration for custom time ranges.
 
-## v1.3.8.1 [2017-09-08]
+## v1.3.8.1 {date="2017-09-08"}
 
 ### Bug fixes
 
 * Fix return code on meta nodes when raft redirects to leader.
 * Reduce points per graph to one point per 3 pixels.
 
-## v1.3.8.0 [2017-09-07]
+## v1.3.8.0 {date="2017-09-07"}
 
 ### Bug fixes
 
@@ -1140,7 +1140,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 * Improve UX of navigation to a sub-nav item in the navbar.
 
 
-## v1.3.7.0 [2017-08-23]
+## v1.3.7.0 {date="2017-08-23"}
 
 ### Bug fixes
 
@@ -1164,7 +1164,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 ### UI improvements
  * Show "Add Graph" button on cells with no queries.
 
-## v1.3.6.1 [2017-08-14]
+## v1.3.6.1 {date="2017-08-14"}
 
 **Upgrade Note** This release (1.3.6.1) fixes a possibly data corruption issue with dashboard cells' graph types. If you upgraded to 1.3.6.0 and visited any dashboard, once you have then upgraded to this release (1.3.6.1) you will need to manually reset the graph type for every cell via the cell's caret --> Edit --> Display Options. If you upgraded directly to 1.3.6.1, you should not experience this issue.
 
@@ -1181,7 +1181,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
 
  * Increase screen real estate of Query Maker in the Cell Editor Overlay.
 
-## v1.3.6.0 [2017-08-08]
+## v1.3.6.0 {date="2017-08-08"}
 
 ### Bug fixes
 
@@ -1203,7 +1203,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
  * Improve error message when request for Status Page News Feed fails.
  * Provide affirmative UI choice for 'auto' in DisplayOptions with new toggle-based component.
 
-## v1.3.5.0 [2017-07-27]
+## v1.3.5.0 {date="2017-07-27"}
 
 ### Bug fixes
 
@@ -1232,7 +1232,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
  * Move custom time range indicator on cells into corner when in presentation mode.
  * Highlight legend "Snip" toggle when active.
 
-## v1.3.4.0 [2017-07-10]
+## v1.3.4.0 {date="2017-07-10"}
 
 ### Bug fixes
  * Disallow writing to \_internal in the Data Explorer.
@@ -1256,7 +1256,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
  * Redesign Dashboards table and sort them alphabetically.
  * Bring design of navigation sidebar in line with Branding Documentation.
 
-## v1.3.3.0 [2017-06-19]
+## v1.3.3.0 {date="2017-06-19"}
 
 ### Bug fixes
 
@@ -1278,7 +1278,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
   * Redesign [Line + Single Stat](/chronograf/v1/guides/visualization-types/#line-graph-single-stat) cells to appear more like a sparkline, and improve legibility
 
 
-## v1.3.2.0 [2017-06-05]
+## v1.3.2.0 {date="2017-06-05"}
 
 ### Bug fixes
 
@@ -1303,7 +1303,7 @@ TLS1.2 is now the default minimum required TLS version. If you have clients that
   * Disable query save in cell editor mode if the query does not have a database, measurement, and field
   * Improve UX of applying functions to fields in the query builder
 
-## v1.3.1.0 [2017-05-22]
+## v1.3.1.0 {date="2017-05-22"}
 
 ### Release notes
 
@@ -1336,7 +1336,7 @@ In versions 1.3.1+, installing a new version of Chronograf automatically clears 
   * Use milliseconds in the InfluxDB dashboard instead of nanoseconds
   * Notify users when local settings are cleared
 
-## v1.3.0 [2017-05-09]
+## v1.3.0 {date="2017-05-09"}
 
 ### Bug fixes
 
