@@ -41,22 +41,23 @@ The adoption of this feature was lower than anticipated given most customers
 continued to use [Telegraf](/telegraf/v1/), InfluxData’s data collection agent,
 which provides more features for MQTT ingestion than this feature did.
 After a thorough assessment, we determined that our customers can have a similar
-(and even superior) experience with the
+(and even superior) experience using the
 [MQTT Consumer Telegraf input plugin](https://www.influxdata.com/integration/mqtt-telegraf-consumer/).
 
 ### What alternatives are available in light of this EOL announcement?
 
-We recommend using the [MQTT Consumer Telegraf input plugin](https://www.influxdata.com/integration/mqtt-telegraf-consumer/)
+We recommend using [Telegraf](/telegraf/v1/) with the [MQTT Consumer Telegraf input plugin](https://www.influxdata.com/integration/mqtt-telegraf-consumer/)
 as an alternative to the Native Collector - MQTT feature.
-InfluxData’s very popular open source data collection agent with 300+ plugins,
+
+Telegraf is InfluxData’s popular open source data collection agent that comes with 300+ plugins for data input and output,
 including MQTT.
 
 ### What are the expected next steps?
 
 The Native Collector - MQTT feature will continue to work and function until
-**April 30th, 2024**.  We will not be doing any new product development or
-enhancements to the feature in the meantime. After the EOL date, the feature
-will be decommissioned and any MQTT subscriptions that you have made will no
+**April 30th, 2024**.
+In the meantime, we won't release any new enhancements to the feature.
+After the EOL date, we will decommission the feature, and any MQTT subscriptions that you have will no
 longer receive and ingest data into InfluxDB.
 
 ### Will I lose any data already ingested?
