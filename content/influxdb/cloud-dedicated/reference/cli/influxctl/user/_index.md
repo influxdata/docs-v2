@@ -22,10 +22,13 @@ influxctl user [subcommand] [subcommand options] [arguments...]
 
 | Subcommand                                                               | Description         |
 | :----------------------------------------------------------------------- | :------------------ |
-| [delete](/influxdb/cloud-dedicated/reference/cli/influxctl/user/delete/) | Delete a user       |
-| [invite](/influxdb/cloud-dedicated/reference/cli/influxctl/user/invite/) | Invite a user       |
 | [list](/influxdb/cloud-dedicated/reference/cli/influxctl/user/list/)     | List all users      |
 | help, h                                                                  | Output command help |
+
+<!--
+| [delete](/influxdb/cloud-dedicated/reference/cli/influxctl/user/delete/) | Delete a user       |
+| [invite](/influxdb/cloud-dedicated/reference/cli/influxctl/user/invite/) | Invite a user       |
+-->
 
 ## Flags
 

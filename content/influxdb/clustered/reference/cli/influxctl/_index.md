@@ -30,15 +30,14 @@ influxctl [flags] [command]
 
 ## Commands
 
-| Command                                                                 | Description                            |
-| :---------------------------------------------------------------------- | :------------------------------------- |
+| Command                                                           | Description                            |
+| :---------------------------------------------------------------- | :------------------------------------- |
 | [cluster](/influxdb/clustered/reference/cli/influxctl/cluster/)   | List InfluxDB v3 cluster information   |
 | [database](/influxdb/clustered/reference/cli/influxctl/database/) | Manage InfluxDB v3 databases           |
 | [token](/influxdb/clustered/reference/cli/influxctl/token/)       | Manage InfluxDB v3 database tokens     |
+| [user](/influxdb/clustered/reference/cli/influxctl/user/)         | Manage InfluxDB v3 cluster users       |
 | [version](/influxdb/clustered/reference/cli/influxctl/version/)   | Output the current `influxctl` version |
 | [help](/influxdb/clustered/reference/cli/influxctl/help/)         | Output `influxctl` help information    |
-
-<!-- | [user](/influxdb/clustered/reference/cli/influxctl/user/)         | Manage InfluxDB v3 cluster users       | -->
 
 ## Global flags
 

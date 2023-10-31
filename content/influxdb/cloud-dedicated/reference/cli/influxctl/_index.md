@@ -35,10 +35,9 @@ influxctl [flags] [command]
 | [cluster](/influxdb/cloud-dedicated/reference/cli/influxctl/cluster/)   | List InfluxDB v3 cluster information   |
 | [database](/influxdb/cloud-dedicated/reference/cli/influxctl/database/) | Manage InfluxDB v3 databases           |
 | [token](/influxdb/cloud-dedicated/reference/cli/influxctl/token/)       | Manage InfluxDB v3 database tokens     |
+| [user](/influxdb/cloud-dedicated/reference/cli/influxctl/user/)         | Manage InfluxDB v3 cluster users       |
 | [version](/influxdb/cloud-dedicated/reference/cli/influxctl/version/)   | Output the current `influxctl` version |
 | [help](/influxdb/cloud-dedicated/reference/cli/influxctl/help/)         | Output `influxctl` help information    |
-
-<!-- | [user](/influxdb/cloud-dedicated/reference/cli/influxctl/user/)         | Manage InfluxDB v3 cluster users       | -->
 
 ## Global flags
 
