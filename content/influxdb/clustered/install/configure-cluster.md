@@ -55,10 +55,10 @@ For simplicity, we assume this namespace is named `influxdb`, however
 you're free to use any name you like.
 
 The InfluxDB installation, update, and upgrade processes are driven by editing
-and applying a [Kubernetes custom resource](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+and applying a [Kubernetes custom resource (CRD)](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 called `AppInstance`.
-The Kubernetes custom resource is defined in a YAML file (use `example-customer.yml`
-as a starting point) that contains key information, such as:
+The `AppInstance` CRD is defined in a YAML file (use `example-customer.yml` as a
+starting point) that contains key information, such as:
 
 - Name of the target namespace
 - Version of the InfluxDB package
