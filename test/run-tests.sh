@@ -28,6 +28,14 @@ for file in `find . -type f` ; do
     s/DATABASE_NAME/$INFLUX_DATABASE/g;
     s/get-started/$INFLUX_DATABASE/g;' \
     $file
+
+    # v2-specific replacements.
+    sed -i 's|https:\/\/us-west-2-1.aws.cloud2.influxdata.com|$INFLUX_HOST|g;
+    s|{{< latest-patch >}}|${LATEST_PATCH}|g;
+    s|sudo dpkg.*$||g;
+    s|sudo yum.*$||g;
+    s|sudo ||g;' \
+    $file
   fi
   cat $file
 done
