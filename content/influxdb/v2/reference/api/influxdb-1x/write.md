@@ -7,7 +7,7 @@ description: >
 menu:
   influxdb_v2_ref:
     name: /write
-    parent: 1.x compatibility
+    parent: v1 compatibility
 weight: 301
 influxdb/v2/tags: [write]
 list_code_example: |

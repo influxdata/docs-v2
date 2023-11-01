@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_v2_ref:
     name: DBRP mapping
-    parent: 1.x compatibility
+    parent: v1 compatibility
 weight: 302
 related:
   - /influxdb/v2/reference/api/influxdb-1x/query
