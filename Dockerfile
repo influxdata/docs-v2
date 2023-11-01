@@ -10,6 +10,8 @@ FROM python:${PYTHON_VERSION}-slim as base
 RUN apt-get update && apt-get install -y \
   curl \
   git \
+  gpg \
+  wget \
    && rm -rf /var/lib/apt/lists/*
 
 ARG SOURCE_DIR
