@@ -4,6 +4,7 @@ services:
   test:
     image: docs-v2-tests
     env_file:
+      - ./test/.env.influxdbv2
       - ./test/.env.influxdbv3
     volumes:
       - type: bind
