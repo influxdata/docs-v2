@@ -2,7 +2,7 @@
 title: Install InfluxDB Enterprise data nodes
 aliases:
     - /enterprise_influxdb/v1/installation/data_node_installation/
-    - /enterprise_influxdb/v1/introduction/installation/installation/data_node_installation/
+    - /enterprise_influxdb/v1/introduction/install-and-deploy/installation/data_node_installation/
 menu:
   enterprise_influxdb_v1:
     name: Install data nodes
@@ -17,7 +17,7 @@ your InfluxDB Enterprise cluster: the data nodes.
 
 {{% warn %}}
 If you have not set up your meta nodes, please visit
-[Installing meta nodes](/enterprise_influxdb/v1/introduction/installation/installation/meta_node_installation/).
+[Installing meta nodes](/enterprise_influxdb/v1/introduction/installation/meta_node_installation/).
 Bad things can happen if you complete the following steps without meta nodes.
 {{% /warn %}}
 
@@ -404,7 +404,7 @@ Once your data nodes are part of your cluster, do the following:
   if you want to add more users in addition to admin user,
   see [Manage users and permissions](/enterprise_influxdb/v1/administration/manage/users-and-permissions/).
 - [Enable TLS](/enterprise_influxdb/v1/guides/enable-tls/).
-- [Set up Chronograf](/enterprise_influxdb/v1/introduction/installation/installation/chrono_install)
+- [Set up Chronograf](/enterprise_influxdb/v1/introduction/installation/chrono_install)
   for UI visualization, dashboards, and management.
 
 {{< page-nav prev="/enterprise_influxdb/v1/introduction/installation/meta_node_installation/" prevText="Install meta nodes" next="/enterprise_influxdb/v1/introduction/installation/chrono_install" >}}
