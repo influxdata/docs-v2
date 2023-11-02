@@ -9,6 +9,8 @@ menu:
     name: Use templates
 weight: 102
 influxdb/cloud/tags: [templates]
+aliases:
+  - /influxdb/cloud/influxdb-templates/use/
 related:
   - /influxdb/cloud/reference/cli/influx/apply/
   - /influxdb/cloud/reference/cli/influx/template/

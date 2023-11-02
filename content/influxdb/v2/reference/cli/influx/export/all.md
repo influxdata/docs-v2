@@ -17,7 +17,7 @@ related:
 The `influx export all` command exports all resources in an
 organization as an InfluxDB template.
 _For detailed examples of exporting InfluxDB templates, see
-[Create an InfluxDB template](/influxdb/v2/influxdb-templates/create/)._
+[Create an InfluxDB template](/influxdb/v2/tools/influxdb-templates/create/)._
 
 {{% note %}}
 To export resources as a template, you must use the **Operator token** created for
@@ -64,7 +64,7 @@ The following resources can be exported:
 - Variable
 
 For additional information on each resource, please see 
-[template resources](/influxdb/v2/influxdb-templates/#template-resources).
+[template resources](/influxdb/v2/tools/influxdb-templates/#template-resources).
 
 ## Examples
 

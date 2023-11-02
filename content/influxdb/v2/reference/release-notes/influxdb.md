@@ -950,7 +950,7 @@ Highlights include:
    - To upgrade **from InfluxDB 2.0 beta 16 or earlier**, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2/upgrade/v2-beta-to-v2).
 - **Flux**, our powerful new functional data scripting language designed for querying, analyzing, and acting on data. This release includes [Flux v0.94.0](/flux/v0/release-notes/#v0940). If you're new to Flux, [check out how to get started with Flux](/influxdb/v2/query-data/get-started/). Next, delve deeper into the [Flux standard library](/flux/v0/stdlib//) reference docs and see how to [query with Flux](/influxdb/v2/query-data/flux/).
 - Support for [InfluxDB 1.x API compatibility](/influxdb/v2/reference/api/influxdb-1x/).
-- **Templates** and **stacks**. Discover how to [use community templates](/influxdb/v2/influxdb-templates/use/) and how to [manage templates with stacks](/influxdb/v2/influxdb-templates/stacks/).
+- **Templates** and **stacks**. Discover how to [use community templates](/influxdb/v2/tools/influxdb-templates/use/) and how to [manage templates with stacks](/influxdb/v2/tools/influxdb-templates/stacks/).
 
 If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/influxdb/v2/get-started/) and [InfluxDB key concepts](/influxdb/v2/reference/key-concepts/).
 
@@ -1087,7 +1087,7 @@ To simplify the migration for existing users of InfluxDB 1.x, this release inclu
 
 #### Community templates added to InfluxDB UI
 
-- Add [InfluxDB community templates](/influxdb/v2/influxdb-templates/) directly in the InfluxDB user interface (UI).
+- Add [InfluxDB community templates](/influxdb/v2/tools/influxdb-templates/) directly in the InfluxDB user interface (UI).
 
 #### New data sources
 

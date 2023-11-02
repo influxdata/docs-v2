@@ -9,6 +9,8 @@ menu:
   influxdb_cloud:
     parent: InfluxDB templates
 weight: 105
+aliases:
+  - /influxdb/cloud/influxdb-templates/stacks/
 related:
   - /influxdb/cloud/reference/cli/stacks/
 ---
@@ -41,7 +43,7 @@ apply updates without creating duplicate resources.
 In many cases, users have more than one instance of InfluxDB running and apply
 the same template to each separate instance.
 By using stacks, you can make changes to a stack on one instance,
-[export the stack as a template](/influxdb/cloud/influxdb-templates/create/#export-a-stack)
+[export the stack as a template](/influxdb/cloud/tools/influxdb-templates/create/#export-a-stack)
 and then apply the changes to your other InfluxDB instances.
 
 ## Manage InfluxDB Stacks

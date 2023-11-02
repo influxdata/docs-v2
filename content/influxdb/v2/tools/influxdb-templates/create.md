@@ -8,6 +8,8 @@ menu:
     name: Create a template
     identifier: Create an InfluxDB template
 weight: 103
+aliases:
+  - /influxdb/v2/influxdb-templates/create/
 influxdb/v2/tags: [templates]
 related:
   - /influxdb/v2/reference/cli/influx/export/
@@ -15,7 +17,7 @@ related:
 ---
 
 Use the InfluxDB user interface (UI) and the [`influx export` command](/influxdb/v2/reference/cli/influx/export/) to
-create InfluxDB templates from [resources](/influxdb/v2/influxdb-templates/#template-resources) in an organization.
+create InfluxDB templates from [resources](/influxdb/v2/tools/influxdb-templates/#template-resources) in an organization.
 Add buckets, Telegraf configurations, tasks, and more in the InfluxDB
 UI and then export those resources as a template.
 
@@ -35,7 +37,7 @@ Follow these steps to create a template from a new organization.
 
 1. [Start InfluxDB](/influxdb/v2/get-started/).
 2. [Create an organization](/influxdb/v2/organizations/create-org/).
-3. In the InfluxDB UI, add one or more [resources](/influxdb/v2/influxdb-templates/#template-resources).
+3. In the InfluxDB UI, add one or more [resources](/influxdb/v2/tools/influxdb-templates/#template-resources).
 4. [Create an **All-Access** API token](/influxdb/v2/security/tokens/create-token/) (or a token that has **read** access to the organization).
 5. Use the API token from **Step 4** with the [`influx export all` subcommand](/influxdb/v2/reference/cli/influx/export/all/) to [export all resources]() in the organization to a template file.
 
@@ -56,8 +58,8 @@ If you want to export resources that depend on other resources, be sure to expor
 
 {{< cli/influx-creds-note >}}
 
-To create a template that **adds, modifies, and deletes resources** when applied to an organization, use [InfluxDB stacks](/influxdb/v2/influxdb-templates/stacks/).
-First, [initialize the stack](/influxdb/v2/influxdb-templates/stacks/init/)
+To create a template that **adds, modifies, and deletes resources** when applied to an organization, use [InfluxDB stacks](/influxdb/v2/tools/influxdb-templates/stacks/).
+First, [initialize the stack](/influxdb/v2/tools/influxdb-templates/stacks/init/)
 and then [export the stack](#export-a-stack).
 
 To create a template that only **adds resources** when applied to an organization (and doesn't modify existing resources there), choose one of the following:
@@ -67,7 +69,7 @@ To create a template that only **adds resources** when applied to an organizatio
 
 ### Export all resources
 
-To export all [resources](/influxdb/v2/influxdb-templates/#template-resources)
+To export all [resources](/influxdb/v2/tools/influxdb-templates/#template-resources)
 within an organization to a template manifest file, use the
 [`influx export all` subcommand](/influxdb/v2/reference/cli/influx/export/all/)
 with the `--file` (`-f`) option.
@@ -115,7 +117,7 @@ For more options and examples, see the
 
 ### Export specific resources
 
-To export specific [resources](/influxdb/v2/influxdb-templates/#template-resources) by name or ID, use the **[`influx export` command](/influxdb/v2/reference/cli/influx/export/)** with one or more lists of resources to include.
+To export specific [resources](/influxdb/v2/tools/influxdb-templates/#template-resources) by name or ID, use the **[`influx export` command](/influxdb/v2/reference/cli/influx/export/)** with one or more lists of resources to include.
 
 Provide the following:
 
@@ -155,7 +157,7 @@ influx export \
 
 ### Export a stack
 
-To export an InfluxDB [stack](/influxdb/v2/influxdb-templates/stacks/) and all its associated resources as a template, use the
+To export an InfluxDB [stack](/influxdb/v2/tools/influxdb-templates/stacks/) and all its associated resources as a template, use the
 `influx export stack` command.
 Provide the following:
 
@@ -237,7 +239,7 @@ metadata:
   {{< /code-tabs-wrapper >}}
 
 Using the example above, users are prompted to provide a value for `bucket-name-1`
-when [applying the template](/influxdb/v2/influxdb-templates/use/#apply-templates).
+when [applying the template](/influxdb/v2/tools/influxdb-templates/use/#apply-templates).
 Users can also include the `--env-ref` flag with the appropriate key-value pair
 when installing the template.
 

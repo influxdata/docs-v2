@@ -121,8 +121,8 @@ influx config create \
 ```
 
 ## Use templates to migrate InfluxDB resources
-[InfluxDB templates](/influxdb/cloud/influxdb-templates/) let you export InfluxDB
-[resources](/influxdb/cloud/influxdb-templates/#template-resources) such as buckets,
+[InfluxDB templates](/influxdb/cloud/tools/influxdb-templates/) let you export InfluxDB
+[resources](/influxdb/cloud/tools/influxdb-templates/#template-resources) such as buckets,
 dashboards, labels, tasks, and more and import them into another InfluxDB instance.
 Export resources from your **InfluxDB 2.x** instance and migrate them to
 your **InfluxDB Cloud** instance.

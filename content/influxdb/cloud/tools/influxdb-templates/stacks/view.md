@@ -2,22 +2,24 @@
 title: View InfluxDB stacks
 list_title: View stacks
 description: >
-  Use the [`influx stacks` command](/influxdb/v2/reference/cli/influx/stacks/)
+  Use the [`influx stacks` command](/influxdb/cloud/reference/cli/influx/stacks/)
   to view installed InfluxDB stacks and their associated resources.
 menu:
-  influxdb_v2:
+  influxdb_cloud:
     parent: InfluxDB stacks
     name: View stacks
-weight: 204
+weight: 203
+aliases:
+  - /influxdb/cloud/influxdb-templates/stacks/view/
 related:
-  - /influxdb/v2/reference/cli/influx/stacks/
+  - /influxdb/cloud/reference/cli/influx/stacks/
 list_code_example: |
   ```sh
   influx stacks -o example-org
   ```
 ---
 
-Use the [`influx stacks` command](/influxdb/v2/reference/cli/influx/stacks/)
+Use the [`influx stacks` command](/influxdb/cloud/reference/cli/influx/stacks/)
 to view installed InfluxDB stacks and their associated resources.
 
 **Provide the following:**
@@ -34,12 +36,10 @@ influx stacks -o example-org
 ```
 
 ### Filter stacks
-
 To output information about specific stacks, use the `--stack-name` or `--stack-id`
 flags to filter output by stack names or stack IDs.
 
 ##### Filter by stack name
-
 ```sh
 # Syntax
 influx stacks \
@@ -54,7 +54,6 @@ influx stacks \
 ```
 
 ### Filter by stack ID
-
 ```sh
 # Syntax
 influx stacks \

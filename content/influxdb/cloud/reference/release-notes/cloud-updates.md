@@ -230,7 +230,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 ## May 2021
 
-- Add new [Cloud 2 Usage Dashboard template](https://github.com/influxdata/community-templates/tree/master/usage_dashboard) to monitor your Cloud usage data, including rate limiting events. For more detail on Cloud data usage and rate limiting events, see how to [view InfluxDB Cloud data usage](/influxdb/cloud/account-management/data-usage/). For more detail on how to install and customize this template, see [InfluxDB templates in InfluxDB Cloud](/influxdb/cloud/influxdb-templates/cloud/).
+- Add new [Cloud 2 Usage Dashboard template](https://github.com/influxdata/community-templates/tree/master/usage_dashboard) to monitor your Cloud usage data, including rate limiting events. For more detail on Cloud data usage and rate limiting events, see how to [view InfluxDB Cloud data usage](/influxdb/cloud/account-management/data-usage/). For more detail on how to install and customize this template, see [InfluxDB templates in InfluxDB Cloud](/influxdb/cloud/tools/influxdb-templates/cloud/).
 
 - Add support for [using annotations](/influxdb/cloud/visualize-data/annotations/) in your dashboards.
 - Add new [map visualization](/influxdb/cloud/visualize-data/visualization-types/map/) to display geo-temporal data.
@@ -268,7 +268,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 - Add [Microsoft (Windows Live) social sign-on](https://cloud2.influxdata.com/signup). Use your Windows Live credentials to easily sign in to your InfluxDB Cloud account.
 ### InfluxDB community templates
 
-- Access any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/cloud/influxdb-templates/cloud/).
+- Access any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/cloud/tools/influxdb-templates/cloud/).
 
 - Use the new [InfluxDB 2 Operational Monitoring community template](https://github.com/influxdata/community-templates/tree/master/influxdb2_operational_monitoring) to monitor InfluxDB OSS 2.0.
 
@@ -321,7 +321,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 ### Install and customize InfluxDB community templates in the Cloud UI
 
-Install and customize any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/cloud/influxdb-templates/cloud/).
+Install and customize any [InfluxDB community template](https://github.com/influxdata/community-templates#templates) directly in the Cloud user interface (UI). For more details, see how to [install and customize a template in the UI](/influxdb/cloud/tools/influxdb-templates/cloud/).
 
 ## 2020-09-02
 

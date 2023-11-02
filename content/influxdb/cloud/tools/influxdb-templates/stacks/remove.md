@@ -9,6 +9,8 @@ menu:
     parent: InfluxDB stacks
     name: Remove a stack
 weight: 204
+aliases:
+  - /influxdb/cloud/influxdb-templates/stacks/remove/
 related:
   - /influxdb/cloud/reference/cli/influx/stacks/remove/
 list_code_example: |

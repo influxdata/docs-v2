@@ -8,6 +8,8 @@ menu:
     parent: Monitor with templates
     name: Monitor InfluxDB Enterprise
 weight: 102
+aliases:
+   - /influxdb/cloud/influxdb-templates/monitor-enterprise/
 influxdb/cloud/tags: [templates, monitor]
 ---
 

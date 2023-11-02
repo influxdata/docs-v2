@@ -9,6 +9,8 @@ menu:
     identifier: Create an InfluxDB template
 weight: 103
 influxdb/cloud/tags: [templates]
+aliases:
+  - /influxdb/cloud/influxdb-templates/create/
 related:
   - /influxdb/cloud/reference/cli/influx/export/
   - /influxdb/cloud/reference/cli/influx/export/all/
@@ -30,7 +32,7 @@ and then [export all resources](#export-all-resources) as a template.
 **[InfluxDB OSS](/influxdb/v2/)** supports multiple organizations so you
 can create new organizations for the sole purpose of building and maintaining a template.
 In **InfluxDB Cloud**, your user account is an organization.
-**We recommend [using InfluxDB OSS to create InfluxDB templates](/influxdb/v2/influxdb-templates/create/).**
+**We recommend [using InfluxDB OSS to create InfluxDB templates](/influxdb/v2/tools/influxdb-templates/create/).**
 {{% /note %}}
 
 ## Export a template
@@ -200,7 +202,7 @@ metadata:
   {{< /code-tabs-wrapper >}}
 
 Using the example above, users are prompted to provide a value for `bucket-name-1`
-when [applying the template](/influxdb/cloud/influxdb-templates/use/#apply-templates).
+when [applying the template](/influxdb/cloud/tools/influxdb-templates/use/#apply-templates).
 Users can also include the `--env-ref` flag with the appropriate key-value pair
 when installing the template.
 

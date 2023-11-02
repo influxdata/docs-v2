@@ -11,6 +11,7 @@ menu:
 weight: 101
 aliases:
   - /influxdb/cloud/influxdb-templates/get_started_cloud/
+  - /influxdb/cloud/influxdb-templates/cloud/
 influxdb/cloud/tags: [templates]
 ---
 
@@ -46,7 +47,7 @@ The Template Installer displays the template name and the number of resources in
     - Notification rules. [Update notification rules](/influxdb/cloud/monitor-alert/notification-rules/update/)
     - Telegraf configurations. [Update a Telegraf configurations](/influxdb/cloud/telegraf-configs/update/)
 
-7. (Optional) Add or delete resources from the template, and then use the `influx` CLI to [export resources to a new template (JSON or YAML file)](/influxdb/cloud/influxdb-templates/create/#export-all-resources).
+7. (Optional) Add or delete resources from the template, and then use the `influx` CLI to [export resources to a new template (JSON or YAML file)](/influxdb/cloud/tools/influxdb-templates/create/#export-all-resources).
 
 {{% note %}}
 To install and configure the `influx` CLI, complete steps 1-2 in the procedure below.
@@ -64,5 +65,5 @@ If you haven’t already, do the following:
 3. [Use the `influx` CLI](/influxdb/cloud/reference/cli/influx/) to use, manage, and create
    InfluxDB templates:
 
-    - [Use templates](/influxdb/cloud/influxdb-templates/use/)
-    - [Create templates](/influxdb/cloud/influxdb-templates/create/)
+    - [Use templates](/influxdb/cloud/tools/influxdb-templates/use/)
+    - [Create templates](/influxdb/cloud/tools/influxdb-templates/create/)

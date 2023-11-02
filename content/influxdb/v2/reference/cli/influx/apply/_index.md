@@ -17,7 +17,7 @@ metadata: [influx CLI 2.0.0+, InfluxDB 2.0.0+]
 
 The `influx apply` command applies InfluxDB templates.
 _For information about finding and using InfluxDB templates, see
-[Use InfluxDB templates](/influxdb/v2/influxdb-templates/use/)._
+[Use InfluxDB templates](/influxdb/v2/tools/influxdb-templates/use/)._
 
 ## Usage
 ```

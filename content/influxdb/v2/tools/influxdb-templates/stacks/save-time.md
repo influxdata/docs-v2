@@ -8,9 +8,10 @@ menu:
     parent: InfluxDB stacks
     name: Save time with stacks
 weight: 201
+aliases:
+  - /influxdb/v2/influxdb-templates/stacks/save-time/
 related:
   - /influxdb/v2/reference/cli/influx/stacks/
-
 ---
 
 Save time and money using InfluxDB stacks. Here's a few ideal use cases:
@@ -155,7 +156,7 @@ apply updates without creating duplicate resources.
 In many cases, you may have more than one instance of InfluxDB running and want to apply
 the same template to each separate instance.
 Using stacks, you can make changes to a stack on one instance,
-[export the stack as a template](/influxdb/v2/influxdb-templates/create/#export-a-stack)
+[export the stack as a template](/influxdb/v2/tools/influxdb-templates/create/#export-a-stack)
 and then apply the changes to your other InfluxDB instances.
 
 ### Develop templates

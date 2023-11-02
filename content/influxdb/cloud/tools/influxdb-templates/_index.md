@@ -3,8 +3,12 @@ title: InfluxDB templates
 description: >
   InfluxDB templates are prepackaged InfluxDB configurations that contain everything
   from dashboards and Telegraf configurations to notifications and alerts.
-menu: influxdb_cloud
-weight: 9
+menu:
+  influxdb_cloud:
+    parent: Tools & integrations
+weight: 102
+aliases:
+  - /influxdb/cloud/influxdb-templates/
 influxdb/cloud/tags: [templates]
 ---
 
@@ -40,7 +44,7 @@ The `metadata.name` field in manifests uniquely identifies each resource in the 
 If resources in the template depend on other InfluxDB resources, all dependencies
 must be included in the template.
 
-_See [Create an InfluxDB template](/influxdb/cloud/influxdb-templates/create/) for information about
+_See [Create an InfluxDB template](/influxdb/cloud/tools/influxdb-templates/create/) for information about
 generating template manifests._
 
 ### Template resources

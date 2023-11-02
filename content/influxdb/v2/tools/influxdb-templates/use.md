@@ -8,6 +8,8 @@ menu:
     parent: InfluxDB templates
     name: Use templates
 weight: 102
+aliases:
+  - /influxdb/v2/influxdb-templates/use/
 influxdb/v2/tags: [templates]
 related:
   - /influxdb/v2/reference/cli/influx/apply/
@@ -126,7 +128,7 @@ from your local filesystem or from URLs.
 To apply a template to an existing stack, include the stack ID when applying the template.
 Any time you apply a template without a stack ID, InfluxDB initializes a new stack
 and all new resources.
-For more information, see [InfluxDB stacks](/influxdb/v2/influxdb-templates/stacks/).
+For more information, see [InfluxDB stacks](/influxdb/v2/tools/influxdb-templates/stacks/).
 {{% /note %}}
 
 ### Apply a template from a file
@@ -202,7 +204,7 @@ influx apply -o example-org \
 ```
 
 ### Define environment references
-Some templates include [environment references](/influxdb/v2/influxdb-templates/create/#include-user-definable-resource-names) that let you provide custom resource names.
+Some templates include [environment references](/influxdb/v2/tools/influxdb-templates/create/#include-user-definable-resource-names) that let you provide custom resource names.
 The `influx apply` command prompts you to provide a value for each environment
 reference in the template.
 You can also provide values for environment references by including an `--env-ref`

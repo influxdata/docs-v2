@@ -17,9 +17,9 @@ To replicate the state of an organization:
 1. Create a new organization using the [InfluxDB Cloud sign up page](https://cloud2.influxdata.com/signup).
    Use a different email address for the new organization.
 2. **Replicate metadata**.  
-   Use an [InfluxDB template](/influxdb/cloud/influxdb-templates/create/) to migrate metadata resources.
+   Use an [InfluxDB template](/influxdb/cloud/tools/influxdb-templates/create/) to migrate metadata resources.
    Export all resources, like dashboards and buckets, to a template manifest
-   with [`influx export all`](/influxdb/cloud/influxdb-templates/create/#export-all-resources).
+   with [`influx export all`](/influxdb/cloud/tools/influxdb-templates/create/#export-all-resources).
    Then, [apply the template](/influxdb/cloud/reference/cli/influx/apply/#examples-how-to-apply-a-template-or-stack)
    to the new organization.
 3. **Replicate data**.  

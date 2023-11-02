@@ -89,7 +89,7 @@ the following:
 
 3.  Use the [`influx export all` command](/influxdb/cloud/reference/cli/influx/export/all/#export-all-resources-in-an-organization-as-a-template)
     to export all resources from your **source account** to an
-    [InfluxDB template](/influxdb/cloud/influxdb-templates/use/).
+    [InfluxDB template](/influxdb/cloud/tools/influxdb-templates/use/).
 
     ```sh
     influx export all

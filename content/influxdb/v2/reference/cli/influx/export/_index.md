@@ -17,7 +17,7 @@ cascade:
 
 The `influx export` command exports existing resources as an InfluxDB template.
 _For detailed examples of exporting InfluxDB templates, see
-[Create an InfluxDB template](/influxdb/v2/influxdb-templates/create/)._
+[Create an InfluxDB template](/influxdb/v2/tools/influxdb-templates/create/)._
 
 ## Usage
 
