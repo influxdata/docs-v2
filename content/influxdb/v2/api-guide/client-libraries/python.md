@@ -45,7 +45,7 @@ We are going to write some data in [line protocol](/influxdb/v2/reference/syntax
    from influxdb_client.client.write_api import SYNCHRONOUS
    ```
 
-2. Define a few variables with the name of your [bucket](/influxdb/v2/organizations/buckets/), [organization](/influxdb/v2/organizations/), and [token](/influxdb/v2/security/tokens/).
+2. Define a few variables with the name of your [bucket](/influxdb/v2/admin/buckets/), [organization](/influxdb/v2/admin/organizations/), and [token](/influxdb/v2/security/tokens/).
 
    ```python
    bucket = "<my-bucket>"

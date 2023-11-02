@@ -90,7 +90,7 @@ _For more information about DBRP mapping, see
 **To map a DBRP combination to an InfluxDB Cloud bucket**
 
 1.  **Create a bucket**  
-    [Create an InfluxDB Cloud bucket](/influxdb/cloud/organizations/buckets/create-bucket/).
+    [Create an InfluxDB Cloud bucket](/influxdb/cloud/admin/buckets/create-bucket/).
     We recommend creating a bucket for each unique 1.x database and retention
     policy combination using the following naming convention:
 
@@ -109,7 +109,7 @@ _For more information about DBRP mapping, see
 
     - database name
     - retention policy name _(not retention period)_
-    - [bucket ID](/influxdb/cloud/organizations/buckets/view-buckets/)
+    - [bucket ID](/influxdb/cloud/admin/buckets/view-buckets/)
     - _(optional)_ `--default` flag if you want the retention policy to be the default retention
       policy for the specified database
 
@@ -264,4 +264,4 @@ see [Migrate continuous queries to tasks](/influxdb/cloud/upgrade/v1-to-cloud/mi
 
 ## Collaborate with other users
 To collaborate with other users in your InfluxDB Cloud organization,
-[invite users to join your organization](/influxdb/cloud/organizations/users/#invite-a-user-to-your-organization/).
+[invite users to join your organization](/influxdb/cloud/admin/organizations/users/#invite-a-user-to-your-organization/).

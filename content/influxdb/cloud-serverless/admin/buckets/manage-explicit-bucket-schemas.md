@@ -13,7 +13,7 @@ related:
   - /influxdb/cloud-serverless/admin/buckets/create-bucket/
   - /influxdb/cloud-serverless/reference/cli/influx/
 alt_links:
-  cloud: /influxdb/cloud/organizations/buckets/bucket-schema/
+  cloud: /influxdb/cloud/admin/buckets/bucket-schema/
 ---
 
 {{% warn %}}

@@ -52,7 +52,7 @@ to update a secret in your organization.
 
 **Include the following:**
 
-- Your [organization ID](/influxdb/cloud/organizations/view-orgs/#view-your-organization-id) in the request URL
+- Your [organization ID](/influxdb/cloud/admin/organizations/view-orgs/#view-your-organization-id) in the request URL
 - Your [API token](/influxdb/cloud/security/tokens/view-tokens/) in the `Authorization` header
 - The updated secret key-value pair in the request body
 

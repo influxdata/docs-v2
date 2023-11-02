@@ -1325,7 +1325,7 @@ The beta 11 version was **not released**. Changes below are included in the beta
   specified shell (`bash` or `zsh`).
 - Make all `pkg` resources unique by `metadata.name` field.
 - Ensure Telegraf configuration tokens aren't retrievable after creation. New tokens can be created after Telegraf has been setup.
-- [Delete bucket by name](/influxdb/v2/organizations/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
+- [Delete bucket by name](/influxdb/v2/admin/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
 - Add helper module to write line protocol to specified url, org, and bucket.
 - Add [`pkg stack`](/influxdb/v2/reference/cli/influx/stacks) for stateful package management.
 - Add `--no-tasks` flag to `influxd` to disable scheduling of tasks.

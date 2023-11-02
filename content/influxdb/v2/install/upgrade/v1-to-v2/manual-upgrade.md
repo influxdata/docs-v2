@@ -149,7 +149,7 @@ _For more information about DBRP mapping, see
 **To map a DBRP combination to an InfluxDB {{< current-version >}} bucket:**
 
 1.  **Create a bucket**  
-    [Create an InfluxDB {{< current-version >}} bucket](/influxdb/v2/organizations/buckets/create-bucket/).
+    [Create an InfluxDB {{< current-version >}} bucket](/influxdb/v2/admin/buckets/create-bucket/).
     We recommend creating a bucket for each unique 1.x database and retention
     policy combination using the following naming convention:
 
@@ -168,7 +168,7 @@ _For more information about DBRP mapping, see
 
     - database name
     - retention policy name _(not retention period)_
-    - [bucket ID](/influxdb/v2/organizations/buckets/view-buckets/)
+    - [bucket ID](/influxdb/v2/admin/buckets/view-buckets/)
     - _(optional)_ `--default` flag if you want the retention policy to be the default retention
       policy for the specified database
 
@@ -260,7 +260,7 @@ Use the InfluxDB {{< current-version >}} [`influx v1 auth create` command](/infl
 to create a 1.x-compatible authorization that grants read/write permissions to specific {{< current-version >}} buckets.
 Provide the following:
 
-- list of [bucket IDs](/influxdb/v2/organizations/buckets/view-buckets/) to
+- list of [bucket IDs](/influxdb/v2/admin/buckets/view-buckets/) to
   grant read or write permissions to
 - new v1 auth username
 - new v1 auth password _(when prompted)_

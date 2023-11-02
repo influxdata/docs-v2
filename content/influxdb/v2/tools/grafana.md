@@ -61,9 +61,9 @@ configure your InfluxDB connection:
 
 2.  Under **InfluxDB Details**, enter the following:
 
-    - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/v2/organizations/view-orgs/).
+    - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/v2/admin/organizations/view-orgs/).
     - **Token**: Your InfluxDB [API token](/influxdb/v2/security/tokens/).
-    - **Default Bucket**: The default [bucket](/influxdb/v2/organizations/buckets/) to use in Flux queries.
+    - **Default Bucket**: The default [bucket](/influxdb/v2/admin/buckets/) to use in Flux queries.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
       Default is `10s`
     - **Max series**: The maximum number of series or tables Grafana will process.
@@ -142,7 +142,7 @@ influx v1 auth list
 Use the [`influx v1 auth create` command](/influxdb/v2/reference/cli/influx/v1/auth/create/)
 to grant read/write permissions to specific buckets. Provide the following:
 
-- [bucket IDs](/influxdb/v2/organizations/buckets/view-buckets/) to grant read
+- [bucket IDs](/influxdb/v2/admin/buckets/view-buckets/) to grant read
   or write permissions to
 - new username
 - new password _(when prompted)_
@@ -180,7 +180,7 @@ Provide the following:
 
 - database name
 - retention policy name _(not retention period)_
-- [bucket ID](/influxdb/v2/organizations/buckets/view-buckets/)
+- [bucket ID](/influxdb/v2/admin/buckets/view-buckets/)
 - _(optional)_ `--default` flag if you want the retention policy to be the default retention
   policy for the specified database
 
@@ -230,7 +230,7 @@ To query InfluxDB Cloud from Grafana using InfluxQL:
    and provide the following:
 
    - [InfluxDB Cloud URL](/influxdb/cloud/reference/regions/)
-   - [organization name](/influxdb/cloud/organizations/) _(by default, your email address)_
+   - [organization name](/influxdb/cloud/admin/organizations/) _(by default, your email address)_
    - [API token](/influxdb/cloud/security/tokens/)
 
     ```sh
@@ -266,7 +266,7 @@ Provide the following:
 
 - database name
 - [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp) name _(not retention period)_
-- [bucket ID](/influxdb/cloud/organizations/buckets/view-buckets/)
+- [bucket ID](/influxdb/cloud/admin/buckets/view-buckets/)
 - _(optional)_ `--default` flag if you want the retention policy to be the default retention
   policy for the specified database
 

@@ -40,7 +40,7 @@ influx bucket create [flags]
 | `-o` | `--org`                  | Organization name (mutually exclusive with `--org-id`)                                                                                                                      |   string   | `INFLUX_ORG`          |
 |      | `--org-id`               | Organization ID (mutually exclusive with `--org`)                                                                                                                           |   string   | `INFLUX_ORG_ID`       |
 | `-r` | `--retention`            | Duration bucket retains data (0 is infinite, default is 0)                                                                                                                  |  duration  |                       |
-|      | `--schema-type`          | Bucket schema type (`explicit`, default `implicit`) _(Cloud only)_. For more information, see [Manage bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/). |   string   |                       |
+|      | `--schema-type`          | Bucket schema type (`explicit`, default `implicit`) _(Cloud only)_. For more information, see [Manage bucket schema](/influxdb/cloud/admin/buckets/bucket-schema/). |   string   |                       |
 |      | `--shard-group-duration` | Bucket shard group duration (OSS only)                                                                                                                                      |   string   |                       |
 |      | `--skip-verify`          | Skip TLS certificate verification                                                                                                                                           |            | `INFLUX_SKIP_VERIFY`  |
 | `-t` | `--token`                | API token                                                                                                                                                                   |   string   | `INFLUX_TOKEN`        |
@@ -108,7 +108,7 @@ influx bucket create \
 {{% cloud %}}
 [Explicit bucket schemas](/influxdb/cloud/reference/cli/influx/bucket-schema) are only
 supported in **InfluxDB Cloud**.
-For more information, see [Manage bucket schema](/influxdb/cloud/organizations/buckets/bucket-schema/).
+For more information, see [Manage bucket schema](/influxdb/cloud/admin/buckets/bucket-schema/).
 {{% /cloud %}}
 
 ```sh

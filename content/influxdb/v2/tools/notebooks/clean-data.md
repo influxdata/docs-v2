@@ -56,7 +56,7 @@ the normalized data to a bucket.
         Use [`to()`](/flux/v0/stdlib/influxdata/influxdb/to/)
         to write the normalized data back to InfluxDB.
         Specify an existing bucket to write to or
-        [create a new bucket](/influxdb/v2/organizations/buckets/create-bucket/).
+        [create a new bucket](/influxdb/v2/admin/buckets/create-bucket/).
 
         {{% /cloud-only %}}
     

@@ -11,7 +11,7 @@ products: [oss]
 ---
 
 Users are those with access to InfluxDB.
-To grant a user permission to access data, add them as a [member of an organization](/influxdb/v2/organizations/members/)
+To grant a user permission to access data, add them as a [member of an organization](/influxdb/v2/admin/organizations/members/)
 and provide them with an [API token](/influxdb/v2/security/tokens/).
 
 The following articles walk through managing users.

@@ -128,7 +128,7 @@ Navigate to UI pages without having to enter your organization ID in the URL usi
 
 ### Remove yourself from an organization
 
-You can now remove yourself as a member of an organization in the Cloud UI. For details, see [Remove a user from your organization](/influxdb/cloud/organizations/users/#remove-a-user-from-your-organization/).
+You can now remove yourself as a member of an organization in the Cloud UI. For details, see [Remove a user from your organization](/influxdb/cloud/admin/organizations/users/#remove-a-user-from-your-organization/).
 
 ### Add auto-refresh functionality to Notebooks
 
@@ -215,7 +215,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 ## August 2021
 
-- Add support for [explicit bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/), which lets you enforce explicit schemas for each InfluxDB measurement, including column names, tags, fields, and data types.
+- Add support for [explicit bucket schemas](/influxdb/cloud/admin/buckets/bucket-schema/), which lets you enforce explicit schemas for each InfluxDB measurement, including column names, tags, fields, and data types.
 - Add ability to convert [notebook cells into raw Flux script](/influxdb/cloud/tools/notebooks/create-notebook/#view-and-edit-flux-script-in-a-cell). Now you can view and edit the code.
 - Add [delete request rate limits](/influxdb/cloud/account-management/data-usage/#exceeded-rate-limits) per organization.
 

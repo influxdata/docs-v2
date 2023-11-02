@@ -32,7 +32,7 @@ _See [Recover from a failed restore](#recover-from-a-failed-restore)._
 #### Cannot restore to existing buckets
 The `influx restore` command cannot restore data to existing buckets.
 Use the `--new-bucket` flag to create a new bucket to restore data to.
-To restore data and retain bucket names, [delete existing buckets](/influxdb/v2/organizations/buckets/delete-bucket/)
+To restore data and retain bucket names, [delete existing buckets](/influxdb/v2/admin/buckets/delete-bucket/)
 and then begin the restore process.
 {{% /note %}}
 

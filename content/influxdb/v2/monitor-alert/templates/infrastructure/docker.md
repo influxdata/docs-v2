@@ -43,7 +43,7 @@ Ensure your `influx` CLI is configured with your account credentials and that co
     - Depending on how you run Docker, you may need to customize the [Docker input plugin](/telegraf/v1/plugins//#docker) configuration, for example, you may need to specify the `endpoint` value.
     - Set the following environment variables:
       - INFLUX_TOKEN: Token must have permissions to read Telegraf configurations and write data to the `telegraf` bucket. See how to [view tokens](/influxdb/v2/security/tokens/view-tokens/).
-      - INFLUX_ORG: Name of your organization. See how to [view your organization](/influxdb/v2/organizations/view-orgs/).
+      - INFLUX_ORG: Name of your organization. See how to [view your organization](/influxdb/v2/admin/organizations/view-orgs/).
       - INFLUX_HOST: Your InfluxDB host URL, for example, localhost, a remote instance, or InfluxDB Cloud.
 
 4. [Start Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/auto-config/#start-telegraf).

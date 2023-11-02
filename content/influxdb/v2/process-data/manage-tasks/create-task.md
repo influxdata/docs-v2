@@ -145,7 +145,7 @@ Provide the following in your API request:
 JSON object with the following fields:
 
 - **flux**: raw Flux task string that contains a [`task` option](/flux/v0/spec/options/) and a query.
-- **orgID**: your [InfluxDB organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
+- **orgID**: your [InfluxDB organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
 - **status**: task status ("active" or "inactive")
 - **description**: task description
 

@@ -76,7 +76,7 @@ The client examples include an [`env`](https://github.com/influxdata/influxdb-cl
 The examples use these properties to interact with the InfluxDB API.
 {{% /note %}}
 
-1. Set environment variables or update `env.mjs` with your InfluxDB [bucket](/influxdb/v2/organizations/buckets/), [organization](/influxdb/v2/organizations/), [token](/influxdb/v2/security/tokens/), and [url](/influxdb/v2/reference/urls/).
+1. Set environment variables or update `env.mjs` with your InfluxDB [bucket](/influxdb/v2/admin/buckets/), [organization](/influxdb/v2/admin/organizations/), [token](/influxdb/v2/security/tokens/), and [url](/influxdb/v2/reference/urls/).
 
    ```sh
    export INFLUX_URL=http://localhost:8086

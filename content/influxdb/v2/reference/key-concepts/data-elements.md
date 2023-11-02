@@ -190,11 +190,11 @@ A **point** includes the series key, a field value, and a timestamp. For example
 
 ## Bucket
 
-All InfluxDB data is stored in a bucket. A **bucket** combines the concept of a database and a retention period (the duration of time that each data point persists). A bucket belongs to an organization. For more information about buckets, see [Manage buckets](/influxdb/v2/organizations/buckets/).
+All InfluxDB data is stored in a bucket. A **bucket** combines the concept of a database and a retention period (the duration of time that each data point persists). A bucket belongs to an organization. For more information about buckets, see [Manage buckets](/influxdb/v2/admin/buckets/).
 
 ## Organization
 
-An InfluxDB **organization** is a workspace for a group of [users](/influxdb/v2/users/). All [dashboards](/influxdb/v2/visualize-data/dashboards/), [tasks](/influxdb/v2/process-data/), buckets, and users belong to an organization. For more information about organizations, see [Manage organizations](/influxdb/v2/organizations/).
+An InfluxDB **organization** is a workspace for a group of [users](/influxdb/v2/users/). All [dashboards](/influxdb/v2/visualize-data/dashboards/), [tasks](/influxdb/v2/process-data/), buckets, and users belong to an organization. For more information about organizations, see [Manage organizations](/influxdb/v2/admin/organizations/).
 
 If you're just starting out, we recommend taking a look at the following guides:
 

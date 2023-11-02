@@ -81,7 +81,7 @@ Include the following:
 - {{< req "\*" >}} **org** and **token** to authenticate. We recommend setting your organization and token to your active InfluxDB connection configuration in the influx CLI, so you don't have to add these parameters to each command. To set up your active InfluxDB configuration, see [`influx config set`](/influxdb/v2/reference/cli/influx/config/set/).
 - {{< req "\*" >}} **database name** to map
 - {{< req "\*" >}} **retention policy** name to map
-- {{< req "\*" >}} [Bucket ID](/influxdb/v2/organizations/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to
+- {{< req "\*" >}} [Bucket ID](/influxdb/v2/admin/buckets/view-buckets/#view-buckets-in-the-influxdb-ui) to map to
 - **Default flag** to set the provided retention policy as the default retention policy for the database
 
 ```sh
@@ -107,10 +107,10 @@ Include the following:
   - **Content-type:** `application/json`
 - **Request body:** JSON object with the following fields:  
   {{< req type="key" >}}
-  - {{< req "\*" >}} **bucketID:** [bucket ID](/influxdb/v2/organizations/buckets/view-buckets/)
+  - {{< req "\*" >}} **bucketID:** [bucket ID](/influxdb/v2/admin/buckets/view-buckets/)
   - {{< req "\*" >}} **database:** database name
   - **default:** set the provided retention policy as the default retention policy for the database
-  - {{< req "\*" >}} **org** or **orgID:** organization name or [organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
+  - {{< req "\*" >}} **org** or **orgID:** organization name or [organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
   - {{< req "\*" >}} **retention_policy:** retention policy name
 
 <!--  -->
@@ -178,8 +178,8 @@ Include the following:
   - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2/security/tokens/)
 - **Query parameters:**  
   {{< req type="key" >}}
-  - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
-  - **bucketID:** [bucket ID](/influxdb/v2/organizations/buckets/view-buckets/) _(to list DBRP mappings for a specific bucket)_
+  - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
+  - **bucketID:** [bucket ID](/influxdb/v2/admin/buckets/view-buckets/) _(to list DBRP mappings for a specific bucket)_
   - **database:** database name _(to list DBRP mappings with a specific database name)_
   - **rp:** retention policy name _(to list DBRP mappings with a specific retention policy name)_
   - **id:** DBRP mapping ID _(to list a specific DBRP mapping)_
@@ -264,7 +264,7 @@ Include the following:
 - **Path parameters:**
   - {{< req "\*" >}} **id:** DBRP mapping ID to update
 - **Query parameters:**  
-  - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
+  - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
 - **Request body (JSON):**
   - **rp:** retention policy name to update to
   - **default:** set the retention policy as the default retention policy for the database
@@ -332,7 +332,7 @@ Include the following:
 - **Path parameters:**
   - {{< req "\*" >}} **id:** DBRP mapping ID to update
 - **Query parameters:**  
-  - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
+  - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
 
 ```sh
 curl --request DELETE \

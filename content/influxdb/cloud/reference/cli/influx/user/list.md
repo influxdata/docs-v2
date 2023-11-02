@@ -16,7 +16,7 @@ canonical: /influxdb/v2/reference/cli/influx/user/list/
 The `influx user list` command lists users in **InfluxDB OSS 2.x**,
 but does not list users in **InfluxDB Cloud**.
 For information about managing InfluxDB Cloud users, see
-[Manage users](/influxdb/cloud/organizations/users/).
+[Manage users](/influxdb/cloud/admin/organizations/users/).
 {{% /note %}}
 
 {{< duplicate-oss >}}

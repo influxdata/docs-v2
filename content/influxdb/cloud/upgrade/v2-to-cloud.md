@@ -344,4 +344,4 @@ influx write \
 
 ## Collaborate with other users
 To collaborate with other users in your InfluxDB Cloud organization,
-[invite users to join your organization](/influxdb/cloud/organizations/users/#invite-a-user-to-your-organization/).
+[invite users to join your organization](/influxdb/cloud/admin/organizations/users/#invite-a-user-to-your-organization/).

@@ -56,9 +56,9 @@ any buckets in addition to these two will exceed the your plan's bucket limit.
     1.  Add the **InfluxDB Cloud API token from the source organization** as a
         secret using the key, `INFLUXDB_CLOUD_TOKEN`.
         _See [Add secrets](/influxdb/cloud/security/secrets/add/) for more information._
-    2.  [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/)
+    2.  [Create a bucket](/influxdb/cloud/admin/buckets/create-bucket/)
         **to migrate data to**.
-    3.  [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/)
+    3.  [Create a bucket](/influxdb/cloud/admin/buckets/create-bucket/)
         **to store temporary migration metadata**.
     4.  [Create a new task](/influxdb/cloud/process-data/manage-tasks/create-task/)
         using the provided [migration task](#migration-task).

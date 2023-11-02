@@ -18,7 +18,7 @@ cascade:
     block: cloud
     content: |
       #### Works with InfluxDB Cloud bucket schemas
-      `influx bucket-schema` and its subcommands work with [InfluxDB Cloud bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema).
+      `influx bucket-schema` and its subcommands work with [InfluxDB Cloud bucket schemas](/influxdb/cloud/admin/buckets/bucket-schema).
       This feature is not available in InfluxDB OSS v2.3.
 ---
 

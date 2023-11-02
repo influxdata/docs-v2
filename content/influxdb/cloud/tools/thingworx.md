@@ -25,7 +25,7 @@ InfluxDB Cloud is a built-in component of ThingWorx on PTC Cloud in Azure. There
 1. [Sign up for a Cloud account](/influxdb/cloud/sign-up/), and do the following when signing up:
    - Select an AWS or Google region to store your data. To deploy on Azure region, see [use PTC Cloud](https://www.ptc.com/en/customer-success/cloud).
    - Select a Usage-based plan by entering credit card information.
-2. [Create a bucket](/influxdb/cloud/organizations/buckets/create-bucket/) with an infinite retention period (select **Never** for when to **Delete Data**), and then copy the new bucket ID and save for step 4.
+2. [Create a bucket](/influxdb/cloud/admin/buckets/create-bucket/) with an infinite retention period (select **Never** for when to **Delete Data**), and then copy the new bucket ID and save for step 4.
 {{% note %}}
 **Tip:** We recommend naming your bucket “thingworx”. In ThingWorx, this bucket name becomes the database name selected for the InfluxDB persistence provider configuration.
 {{% /note %}}
@@ -48,7 +48,7 @@ InfluxDB Cloud is a built-in component of ThingWorx on PTC Cloud in Azure. There
     Replace the following:
     - *`INFLUX_BUCKET_ID`*: your [InfluxDB bucket](/influxdb/cloud/reference/glossary/#bucket) ID, created in step 2
     - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token), created in step 3
-    - *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
+    - *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
     - *`INFLUX_BUCKET`*: your [InfluxDB bucket](/influxdb/cloud/reference/glossary/#bucket) name (`thingworx`), created in step 2
     - *`INFLUX_RETENTION_PERIOD`*: your [InfluxDB retention period](/influxdb/cloud/reference/glossary/#retention-period), typically `autogen`
 

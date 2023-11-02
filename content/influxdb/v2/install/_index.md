@@ -770,7 +770,7 @@ influx config create \
 
 Replace the following:
 
-- **`INFLUX_ORG`**: [your organization name](/influxdb/v2/organizations/view-orgs/).
+- **`INFLUX_ORG`**: [your organization name](/influxdb/v2/admin/organizations/view-orgs/).
 - **`INFLUX_API_TOKEN`**: [your API token](/influxdb/v2/security/tokens/view-tokens/).
 
 This configures a new profile named `default` and makes the profile active

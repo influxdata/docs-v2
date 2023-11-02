@@ -35,9 +35,9 @@ Continue to use Chronograf with **InfluxDB Cloud** and **InfluxDB OSS {{< curren
       ```
 
     - **Connection Name:** Name to uniquely identify this connection configuration
-    - **Organization:** InfluxDB [organization](/influxdb/v2/organizations/)
+    - **Organization:** InfluxDB [organization](/influxdb/v2/admin/organizations/)
     - **Token:** InfluxDB [API token](/influxdb/v2/security/tokens/)
-    - **Telegraf Database Name:** InfluxDB [bucket](/influxdb/v2/organizations/buckets/)
+    - **Telegraf Database Name:** InfluxDB [bucket](/influxdb/v2/admin/buckets/)
       Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
     - **Default Retention Policy:** default [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp)
       _**(leave blank)**_

@@ -130,4 +130,4 @@ Review [best practices for schema design](/influxdb/v2/write-data/best-practices
 ## Delete data to reduce high cardinality
 
 Consider whether you need the data that is causing high cardinality.
-If you no longer need this data, you can [delete the whole bucket](/influxdb/v2/organizations/buckets/delete-bucket/) or [delete a range of data](/influxdb/v2/write-data/delete-data/).
+If you no longer need this data, you can [delete the whole bucket](/influxdb/v2/admin/buckets/delete-bucket/) or [delete a range of data](/influxdb/v2/write-data/delete-data/).

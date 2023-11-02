@@ -16,7 +16,7 @@ to delete a user.
 {{% warn %}}
 Deleting a user removes them completely from InfluxDB.
 To remove a user from an organization without deleting the user entirely, see
-[Remove a member from an organization](/influxdb/v2/organizations/members/remove-member/).
+[Remove a member from an organization](/influxdb/v2/admin/organizations/members/remove-member/).
 {{% /warn %}}
 
 ## Delete a user from the InfluxDB UI

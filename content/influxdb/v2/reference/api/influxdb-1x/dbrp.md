@@ -48,7 +48,7 @@ default retention policy for a database.
 
 ### When creating a bucket
 
-When you [create a bucket](/influxdb/v2/organizations/buckets/create-bucket/),
+When you [create a bucket](/influxdb/v2/admin/buckets/create-bucket/),
 InfluxDB {{< current-version >}} automatically creates a "virtual" DBRP mapping.
 Virtual DBRP mappings are those that are created on your behalf.
 

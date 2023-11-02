@@ -14,7 +14,7 @@ metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 The `influx org members remove` command removes organization members in **InfluxDB OSS 2.x**,
 but cannot remove organization members in **InfluxDB Cloud**.
 For information about removing a user from your InfluxDB Cloud organization, see
-[Remove a user](/influxdb/cloud/organizations/users/#remove-a-user-from-your-organization/).
+[Remove a user](/influxdb/cloud/admin/organizations/users/#remove-a-user-from-your-organization/).
 {{% /note %}}
 
 {{< duplicate-oss >}}

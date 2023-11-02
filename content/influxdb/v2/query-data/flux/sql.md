@@ -245,7 +245,7 @@ curl --request PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
 
 **To store secrets, you need:**
 
-- [your organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)  
+- [your organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)  
 - [your API token](/influxdb/v2/security/tokens/view-tokens/)
 {{% /tab-content %}}
 {{% tab-content %}}
@@ -315,7 +315,7 @@ Sample sensor information is stored in PostgreSQL.
 
 #### Download sample air sensor data
 
-1.  [Create a bucket](/influxdb/v2/organizations/buckets/create-bucket/) to store the data.
+1.  [Create a bucket](/influxdb/v2/admin/buckets/create-bucket/) to store the data.
 2.  [Create an InfluxDB task](/influxdb/v2/process-data/manage-tasks/create-task/)
     and use the [`sample.data()` function](/flux/v0/stdlib/influxdata/influxdb/sample/data/)
     to download sample air sensor data every 15 minutes.

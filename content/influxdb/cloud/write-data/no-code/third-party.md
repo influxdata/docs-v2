@@ -46,8 +46,8 @@ To configure Apache JMeter, complete the following steps in InfluxDB and JMeter.
 
 ##### In InfluxDB
 
-1. [Find the name of your organization](/influxdb/cloud/organizations/view-orgs/) (needed to create a bucket and token).
-2. [Create a bucket using the influx CLI](/influxdb/cloud/organizations/buckets/create-bucket/#create-a-bucket-using-the-influx-cli) and name it `jmeter`.
+1. [Find the name of your organization](/influxdb/cloud/admin/organizations/view-orgs/) (needed to create a bucket and token).
+2. [Create a bucket using the influx CLI](/influxdb/cloud/admin/buckets/create-bucket/#create-a-bucket-using-the-influx-cli) and name it `jmeter`.
 3. [Create a token](/influxdb/cloud/security/tokens/create-token/).
 
 ##### In JMeter

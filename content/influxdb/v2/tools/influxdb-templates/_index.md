@@ -79,7 +79,7 @@ generating template manifests._
 
 Templates may contain the following InfluxDB resources:
 
-- [buckets](/influxdb/v2/organizations/buckets/create-bucket/)
+- [buckets](/influxdb/v2/admin/buckets/create-bucket/)
 - [checks](/influxdb/v2/monitor-alert/checks/create/)
 - [dashboards](/influxdb/v2/visualize-data/dashboards/create-dashboard/)
 - [dashboard variables](/influxdb/v2/visualize-data/variables/create-variable/)

@@ -111,7 +111,7 @@ A bucket belongs to an organization.
 
 In InfluxDB Cloud, an explicit bucket schema lets you strictly enforce the data that can be written into one or more measurements in a bucket by defining the column names, tags, fields, and data types allowed for each measurement. By default, buckets in InfluxDB {{< current-version >}} have an `implicit` schema that lets you write data without restrictions on columns, fields, or data types.
 
-Learn how to [manage bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/) in InfluxDB Cloud.
+Learn how to [manage bucket schemas](/influxdb/cloud/admin/buckets/bucket-schema/) in InfluxDB Cloud.
 
 Related entries: [data type](#data-type), [field](#field), [measurement](#measurement)
 
@@ -1023,7 +1023,7 @@ The duration of time or interval that each [shard group](#shard-group) covers. S
 For more information, see:
 
 - [Shards and shard groups (OSS)](/influxdb/v2/reference/internals/shards/)
-- [Manage buckets](/influxdb/v2/organizations/buckets/)
+- [Manage buckets](/influxdb/v2/admin/buckets/)
 
 <!-- See [Retention Policy management](/influxdb/v1/query_language/manage-database/#retention-policy-management) for more information.
 

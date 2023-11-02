@@ -14,7 +14,7 @@ related:
 aliases:
   - /influxdb/cloud-serverless/organizations/buckets/create-bucket/
 alt_links:
-  cloud: /influxdb/cloud/organizations/buckets/create-bucket/
+  cloud: /influxdb/cloud/admin/buckets/create-bucket/
 ---
 
 Use the InfluxDB user interface (UI), `influx` command line interface (CLI), or InfluxDB HTTP API

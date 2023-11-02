@@ -37,7 +37,7 @@ Ensure your `influx` CLI is configured with your account credentials and that co
 3. In your [Telegraf configuration file (`telegraf.conf`)](/influxdb/v2/tools/telegraf-configs/), do the following:
     - Set the following environment variables:
       - INFLUX_TOKEN: Token must have permissions to read Telegraf configurations and write data to the `telegraf` bucket. See how to [view tokens](/influxdb/v2/security/tokens/view-tokens/).
-      - INFLUX_ORG: Name of your organization. See how to [view your organization](/influxdb/v2/organizations/view-orgs/).
+      - INFLUX_ORG: Name of your organization. See how to [view your organization](/influxdb/v2/admin/organizations/view-orgs/).
       - INFLUX_HOST: Your InfluxDB host URL, for example, localhost, a remote instance, or InfluxDB Cloud.
       - INFLUX_BUCKET: Bucket to store data in. To use the bucket included, you must export the variable: `export INFLUX_BUCKET=vsphere`
 4.    - Set the host address to the vSphere and provide the `username` and `password` as variables:

@@ -39,7 +39,7 @@ The Template Installer displays the template name and the number of resources in
    - Click **View Readme**. Complete the instructions to finalize your template.
    - (Optional) To customize a template, under **Installed Resources**, expand the template resources, and then click a resource to update it. Update any of the following resources included in the template:
 
-    - Buckets. [Update buckets](/influxdb/cloud/organizations/buckets/update-bucket/)
+    - Buckets. [Update buckets](/influxdb/cloud/admin/buckets/update-bucket/)
     - Dashboards. [Control dashboards](/influxdb/cloud/visualize-data/dashboards/control-dashboard/)
     - Labels. [Edit labels](/influxdb/cloud/visualize-data/labels/#edit-a-label)
     - Checks. [Update checks](/influxdb/cloud/monitor-alert/checks/update/)

@@ -67,7 +67,7 @@ the following:
 
     - Connection configuration name
     - [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/)
-    - [InfluxDB organization name](/influxdb/cloud/organizations/)
+    - [InfluxDB organization name](/influxdb/cloud/admin/organizations/)
     - [InfluxDB API token](/influxdb/cloud/security/tokens/)
 
     ```sh
