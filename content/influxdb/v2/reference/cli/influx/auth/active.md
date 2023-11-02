@@ -2,7 +2,7 @@
 title: influx auth active
 description: The `influx auth active` command sets an API token to active in InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx auth active
     parent: influx auth
 weight: 201

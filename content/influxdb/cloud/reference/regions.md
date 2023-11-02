@@ -7,8 +7,9 @@ aliases:
   - /influxdb/cloud/reference/urls/
 weight: 6
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: InfluxDB Cloud regions
+    parent: Reference
 ---
 
 InfluxDB Cloud is available on multiple cloud providers and in multiple regions.

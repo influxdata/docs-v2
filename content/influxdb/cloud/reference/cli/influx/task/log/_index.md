@@ -4,7 +4,7 @@ description: >
   The `influx task log` and its subcommand, `list`, output log information
   related to a task.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx task log
     parent: influx task
 weight: 201

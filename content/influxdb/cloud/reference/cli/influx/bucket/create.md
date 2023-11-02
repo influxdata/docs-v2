@@ -2,7 +2,7 @@
 title: influx bucket create
 description: The `influx bucket create` command creates a new bucket in InfluxDB.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx bucket create
     parent: influx bucket
 weight: 201

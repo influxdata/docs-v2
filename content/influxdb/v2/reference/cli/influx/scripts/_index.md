@@ -2,7 +2,7 @@
 title: influx scripts
 description: The `influx scripts` command and its subcommands manage invokable scripts in InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx scripts
     parent: influx
 weight: 101

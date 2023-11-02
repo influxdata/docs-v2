@@ -2,7 +2,7 @@
 title: influx apply
 description: The `influx apply` command applies InfluxDB templates.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx apply
     parent: influx
 weight: 101

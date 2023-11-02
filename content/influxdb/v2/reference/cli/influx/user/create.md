@@ -2,7 +2,7 @@
 title: influx user create
 description: The `influx user create` command creates a user in InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx user create
     parent: influx user
 weight: 201

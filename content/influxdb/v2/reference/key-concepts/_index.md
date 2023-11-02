@@ -4,8 +4,9 @@ description: >
   Concepts related to InfluxDB.
 weight: 2
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: Key concepts
+    parent: Reference
 influxdb/v2/tags: [key concepts]
 ---
 

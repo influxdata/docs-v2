@@ -2,7 +2,7 @@
 title: influx secret
 description: The `influx secret` command manages secrets.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx secret
     parent: influx
 weight: 101

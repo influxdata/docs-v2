@@ -2,7 +2,7 @@
 title: influx backup
 description: The `influx backup` command backs up data stored in InfluxDB.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx backup
     parent: influx
 weight: 101

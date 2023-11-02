@@ -5,7 +5,7 @@ description: >
   [Operator token](/influxdb/v2/security/tokens/#operator-token) directly on disk
   for a specified user.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: influxd recovery auth
 weight: 401
 ---

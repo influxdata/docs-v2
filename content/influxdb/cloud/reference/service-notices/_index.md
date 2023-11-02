@@ -3,8 +3,9 @@ title: InfluxDB Cloud (TSM) service notices
 description: >
   Important service notices related to the InfluxDB Cloud (TSM) platform.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: Service notices
+    parent: Reference
 weight: 12
 ---
 

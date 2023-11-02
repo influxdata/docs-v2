@@ -3,7 +3,7 @@ title: influx v1
 description: >
   The `influx v1` command provides commands for working with the InfluxDB 1.x API in InfluxDB 2.x.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx v1
     parent: influx
 weight: 101

@@ -2,7 +2,7 @@
 title: influx server-config
 description: The `influx server-config` command displays the runtime server configuration.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx server-config
     parent: influx
 weight: 101

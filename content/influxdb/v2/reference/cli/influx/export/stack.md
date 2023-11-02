@@ -3,7 +3,7 @@ title: influx export stack
 description: >
   The `influx export stack` command exports all resources associated with a stack as an InfluxDB template.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: influx export
 weight: 201
 aliases:

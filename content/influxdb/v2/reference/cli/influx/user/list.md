@@ -2,7 +2,7 @@
 title: influx user list
 description: The `influx user list` lists users in InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx user list
     parent: influx user
 weight: 201

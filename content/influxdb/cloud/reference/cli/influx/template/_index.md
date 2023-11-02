@@ -2,7 +2,7 @@
 title: influx template
 description: The `influx template` command summarizes the specified InfluxDB template.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx template
     parent: influx
 weight: 101

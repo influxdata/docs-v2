@@ -2,7 +2,7 @@
 title: influx config list
 description: The `influx config list` command lists all InfluxDB connection configurations.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx config list
     parent: influx config
 weight: 201

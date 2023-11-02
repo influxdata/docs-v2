@@ -5,7 +5,7 @@ description: >
   The InfluxDB `/delete` endpoint uses an InfluxQL-like predicate syntax to determine
   what data points to delete.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     parent: Syntax
     name: Delete predicate
 weight: 104

@@ -2,7 +2,7 @@
 title: influx org delete
 description: The `influx org delete` command deletes an organization in InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx org delete
     parent: influx org
 weight: 201

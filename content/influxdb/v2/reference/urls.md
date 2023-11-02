@@ -5,8 +5,9 @@ description: >
   customize your InfluxDB host and port.
 weight: 6
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: InfluxDB URLs
+    parent: Reference
 ---
 
 InfluxDB OSS is accessed at `localhost:8086` by default, but you can also

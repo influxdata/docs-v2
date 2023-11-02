@@ -5,7 +5,7 @@ description: >
   InfluxDB organizes time series data into **shards** when storing data to disk.
   Shards are grouped into **shard groups**.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: Shards & shard groups
     parent: InfluxDB internals
 weight: 103

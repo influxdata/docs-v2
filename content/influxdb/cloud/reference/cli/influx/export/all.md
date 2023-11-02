@@ -3,7 +3,7 @@ title: influx export all
 description: >
   The `influx export all` command exports all resources in an organization as an InfluxDB template.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     parent: influx export
 weight: 201
 related:

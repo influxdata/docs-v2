@@ -4,7 +4,7 @@ description: >
   InfluxDB Cloud is built on industry-standard security practices and principles.
 weight: 101
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: Security
     parent: InfluxDB Cloud internals
 influxdb/cloud/tags: [security, internals]

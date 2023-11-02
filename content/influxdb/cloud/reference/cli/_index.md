@@ -6,8 +6,9 @@ description: >
   with InfluxDB from the command line.
 influxdb/cloud/tags: [cli]
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: Command line tools
+    parent: Reference
 weight: 4
 ---
 

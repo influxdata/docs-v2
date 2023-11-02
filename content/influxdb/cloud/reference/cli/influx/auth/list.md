@@ -2,7 +2,7 @@
 title: influx auth list
 description: The `influx auth list` command lists API tokens in InfluxDB.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx auth list
     parent: influx auth
 weight: 201

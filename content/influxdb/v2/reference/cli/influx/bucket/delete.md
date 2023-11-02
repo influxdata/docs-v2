@@ -2,7 +2,7 @@
 title: influx bucket delete
 description: The `influx bucket delete` command deletes a bucket from InfluxDB and all the data it contains.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx bucket delete
     parent: influx bucket
 weight: 201

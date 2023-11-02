@@ -3,7 +3,7 @@ title: InfluxDB Cloud updates
 description: Important changes and what's new in each InfluxDB Cloud update.
 weight: 101
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     parent: Release notes
     name: InfluxDB Cloud updates
 aliases:

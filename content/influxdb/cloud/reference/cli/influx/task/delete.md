@@ -2,7 +2,7 @@
 title: influx task delete
 description: The `influx task delete` command deletes a task in InfluxDB.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx task delete
     parent: influx task
 weight: 201

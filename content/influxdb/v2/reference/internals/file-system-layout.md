@@ -5,7 +5,7 @@ description: >
   or containerization platform used to install InfluxDB.
 weight: 102
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: File system layout
     parent: InfluxDB internals
 influxdb/v2/tags: [storage, internals]

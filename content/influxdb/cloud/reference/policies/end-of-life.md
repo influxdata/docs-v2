@@ -4,7 +4,7 @@ description: >
   InfluxData adheres to the following process for any End-of-Life (EOL) of
   products and features, including the shutdown of InfluxDB Cloud regions.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     parent: Policies & procedures
     name: End-of-life procedures
 weight: 101

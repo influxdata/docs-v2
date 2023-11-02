@@ -3,7 +3,7 @@ title: influx v1 shell
 description: >
   The `influx v1 shell` subcommand starts an InfluxQL shell (REPL).
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx v1 shell
     parent: influx v1
 weight: 101

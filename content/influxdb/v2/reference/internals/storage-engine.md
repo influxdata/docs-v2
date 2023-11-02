@@ -4,7 +4,7 @@ description: >
   An overview of the InfluxDB storage engine architecture.
 weight: 101
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: Storage engine
     parent: InfluxDB internals
 influxdb/v2/tags: [storage, internals]

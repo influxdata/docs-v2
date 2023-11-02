@@ -3,7 +3,7 @@ title: influx user update
 description: >
   The `influx user update` command updates information related to a user such as their user name.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx user update
     parent: influx user
 weight: 201
