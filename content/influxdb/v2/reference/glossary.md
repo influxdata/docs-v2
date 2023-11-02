@@ -1132,7 +1132,7 @@ A new feature released to gather feedback from customers and the InfluxDB commun
 
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
-Related entries: [Automatically configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/auto-config/), [Manually configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/manual-config/), [Telegraf plugins](/telegraf/v1/plugins//), [Use Telegraf to collect data](/influxdb/v2/write-data/no-code/use-telegraf/), [View a Telegraf configuration](/influxdb/v2/telegraf-configs/view/)
+Related entries: [Automatically configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/auto-config/), [Manually configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/manual-config/), [Telegraf plugins](/telegraf/v1/plugins//), [Use Telegraf to collect data](/influxdb/v2/write-data/no-code/use-telegraf/), [View a Telegraf configuration](/influxdb/v2/tools/telegraf-configs/view/)
 
 ### time (data type)
 

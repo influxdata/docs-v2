@@ -22,7 +22,7 @@ The Raspberry Pi template includes the following:
   - [Processes input plugin](/telegraf/v1/plugins//#processes) 
   - [Swap input plugin](/telegraf/v1/plugins//#swap) 
   - [System input plugin](/telegraf/v1/plugins//#system) 
-- one [Telegraf configuration](/influxdb/v2/telegraf-configs/)
+- one [Telegraf configuration](/influxdb/v2/tools/telegraf-configs/)
 - one [dashboard](/influxdb/v2/reference/glossary/#dashboard): Raspberry Pi System
 - two variables: `bucket` and `linux_host`
 

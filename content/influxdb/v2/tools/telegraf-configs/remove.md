@@ -10,7 +10,8 @@ menu:
     parent: Telegraf configurations
 aliases:
   - /influxdb/v2/write-data/no-code/use-telegraf/auto-config/delete-telegraf-config/
-  - /influxdb/v2/collect-data/use-telegraf/auto-config/delete-telegraf-config
+  - /influxdb/v2/collect-data/use-telegraf/auto-config/delete-telegraf-config/
+  - /influxdb/v2/telegraf-configs/remove/
 ---
 
 Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2/reference/cli/influx/)

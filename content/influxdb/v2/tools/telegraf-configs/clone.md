@@ -7,6 +7,8 @@ menu:
   influxdb_v2:
     name: Clone a config
     parent: Telegraf configurations
+aliases:
+  - /influxdb/v2/telegraf-configs/clone/
 ---
 
 Use the InfluxDB user interface (UI) to clone a Telegraf configuration.

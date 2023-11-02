@@ -7,6 +7,8 @@ menu:
   influxdb_cloud:
     name: Clone a config
     parent: Telegraf configurations
+aliases:
+  - /influxdb/cloud/telegraf-configs/clone/
 ---
 
 {{< duplicate-oss >}}

@@ -8,6 +8,8 @@ menu:
   influxdb_cloud:
     name: Update a config
     parent: Telegraf configurations
+aliases:
+  - /influxdb/cloud/telegraf-configs/update/
 # alt_links:
 #   cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/telegraf-configs/update/
 ---

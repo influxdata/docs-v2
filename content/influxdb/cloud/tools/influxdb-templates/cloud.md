@@ -45,7 +45,7 @@ The Template Installer displays the template name and the number of resources in
     - Checks. [Update checks](/influxdb/cloud/monitor-alert/checks/update/)
     - Notification endpoints. [Update notification endpoints](/influxdb/cloud/monitor-alert/notification-endpoints/update/)
     - Notification rules. [Update notification rules](/influxdb/cloud/monitor-alert/notification-rules/update/)
-    - Telegraf configurations. [Update a Telegraf configurations](/influxdb/cloud/telegraf-configs/update/)
+    - Telegraf configurations. [Update a Telegraf configurations](/influxdb/cloud/tools/telegraf-configs/update/)
 
 7. (Optional) Add or delete resources from the template, and then use the `influx` CLI to [export resources to a new template (JSON or YAML file)](/influxdb/cloud/tools/influxdb-templates/create/#export-all-resources).
 

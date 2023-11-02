@@ -205,7 +205,7 @@ Upgrade to [Flux v0.139](/flux/v0.x/release-notes/).
 
 ### Telegraf configuration UI
 
-Update Telegraf configuration in the UI to make it easier to set up and configure Telegraf plugins. See how to [use the InfluxDB UI to generate and store new Telegraf plugins](/influxdb/cloud/telegraf-configs/create/#use-the-influxdb-ui).
+Update Telegraf configuration in the UI to make it easier to set up and configure Telegraf plugins. See how to [use the InfluxDB UI to generate and store new Telegraf plugins](/influxdb/cloud/tools/telegraf-configs/create/#use-the-influxdb-ui).
 
 ## September 2021
 

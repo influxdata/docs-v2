@@ -133,4 +133,4 @@ telegraf -config http://localhost:8086/api/v2/telegrafs/0xoX00oOx0xoX00o
 ## Manage Telegraf configurations
 
 For more information about managing Telegraf configurations in InfluxDB, see
-[Telegraf configurations](/influxdb/v2/telegraf-configs/).
+[Telegraf configurations](/influxdb/v2/tools/telegraf-configs/).

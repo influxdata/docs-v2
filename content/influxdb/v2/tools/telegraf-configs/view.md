@@ -10,7 +10,8 @@ menu:
     parent: Telegraf configurations
 aliases:
   - /influxdb/v2/write-data/no-code/use-telegraf/auto-config/view-telegraf-config/
-  - /influxdb/v2/collect-data/use-telegraf/auto-config/view-telegraf-config
+  - /influxdb/v2/collect-data/use-telegraf/auto-config/view-telegraf-config/
+  - /influxdb/v2/telegraf-configs/view/
 ---
 
 Use the InfluxDB user interface (UI) or the [`influx` CLI](/influxdb/v2/reference/cli/influx/)

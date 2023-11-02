@@ -8,6 +8,8 @@ menu:
   influxdb_v2:
     name: Create a config
     parent: Telegraf configurations
+aliases:
+  - /influxdb/v2/telegraf-configs/create/
 related:
   - /influxdb/v2/write-data/no-code/use-telegraf/manual-config/
   - /influxdb/v2/write-data/no-code/use-telegraf/auto-config/

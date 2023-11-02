@@ -744,7 +744,7 @@ The prefix used for Prometheus metrics from the query controller has changed fro
   - [Mosiac visualization type](/influxdb/v2/visualize-data/visualization-types/mosaic/)
   - [Configure axis tick marks](/influxdb/v2/visualize-data/visualization-types/graph/#x-axis)
   - Upload CSV files through the InfluxDB UI
-  - [Edit Telegraf configurations](/influxdb/v2/telegraf-configs/update/#edit-the-configuration-file-directly-in-the-ui) in the InfluxDB UI
+  - [Edit Telegraf configurations](/influxdb/v2/tools/telegraf-configs/update/#edit-the-configuration-file-directly-in-the-ui) in the InfluxDB UI
   - [Legend orientation options](/influxdb/v2/visualize-data/visualization-types/graph/#legend)
   - [Refresh a single dashboard cell](/influxdb/v2/visualize-data/dashboards/control-dashboard/#refresh-a-single-dashboard-cell)
 - Upgrade to **Flux v0.113.0**.

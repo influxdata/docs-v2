@@ -147,4 +147,4 @@ telegraf -config https://cloud2.influxdata.com/api/v2/telegrafs/0xoX00oOx0xoX00o
 ## Manage Telegraf configurations
 
 For more information about managing Telegraf configurations in InfluxDB, see
-[Telegraf configurations](/influxdb/cloud/telegraf-configs/).
+[Telegraf configurations](/influxdb/cloud/tools/telegraf-configs/).

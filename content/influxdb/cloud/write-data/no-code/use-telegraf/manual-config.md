@@ -153,8 +153,8 @@ of Telegraf configurations in InfluxDB, use the [`influx telegrafs create`](/inf
 or [`influx telegrafs update`](/influxdb/cloud/reference/cli/influx/telegrafs/update/) commands.
 For more information, see:
 
-- [Create a Telegraf configuration](/influxdb/cloud/telegraf-configs/create/#use-the-influx-cli)
-- [Update a Telegraf configuration](/influxdb/cloud/telegraf-configs/update/#use-the-influx-cli)
+- [Create a Telegraf configuration](/influxdb/cloud/tools/telegraf-configs/create/#use-the-influx-cli)
+- [Update a Telegraf configuration](/influxdb/cloud/tools/telegraf-configs/update/#use-the-influx-cli)
 
 ## Start Telegraf
 
