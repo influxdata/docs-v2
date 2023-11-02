@@ -8,6 +8,8 @@ menu:
   influxdb_cloud:
     name: Overview of notebooks
     parent: Notebooks
+aliases:
+  - /influxdb/cloud/notebooks/overview/
 ---
 
 {{< duplicate-oss >}}

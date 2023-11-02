@@ -400,7 +400,7 @@ This release includes the following new features:
 
 #### Notebooks, annotations, and visualization updates
 
-- Add support for [notebooks](/influxdb/v2/notebooks/) and [annotations](/influxdb/v2/visualize-data/annotations/).
+- Add support for [notebooks](/influxdb/v2/tools/notebooks/) and [annotations](/influxdb/v2/visualize-data/annotations/).
 - Add support for static legends to line graphs and band plots.
 - Enable new dashboard auto-refresh.
 - Simplify display of data for table visualizations.

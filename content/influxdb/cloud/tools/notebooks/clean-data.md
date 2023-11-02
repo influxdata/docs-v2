@@ -9,6 +9,8 @@ menu:
   influxdb_cloud:
     name: Normalize data
     parent: Notebooks
+aliases:
+  - /influxdb/cloud/notebooks/clean-data/
 ---
 
 {{< duplicate-oss >}}

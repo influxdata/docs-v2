@@ -11,6 +11,8 @@ menu:
     name: Downsample data
     identifier: notebooks-downsample
     parent: Notebooks
+aliases:
+  - /influxdb/cloud/notebooks/downsample/
 ---
 
 {{< duplicate-oss >}}

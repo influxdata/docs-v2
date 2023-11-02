@@ -8,5 +8,7 @@ menu:
   influxdb_cloud:
     name: Create a notebook
     parent: Notebooks
+aliases:
+  - /influxdb/cloud/notebooks/create-notebook/
 ---
 {{< duplicate-oss >}}

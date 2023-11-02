@@ -8,11 +8,13 @@ menu:
   influxdb_v2:
     name: Overview of notebooks
     parent: Notebooks
+aliases:
+  - /influxdb/v2/notebooks/overview/
 ---
 
 Learn how notebooks can help to streamline and simplify your day-to-day business processes.
 
-See an overview of [notebook concepts](/influxdb/v2/notebooks/overview/#notebook-concepts), [notebook controls](/influxdb/v2/notebooks/overview/#notebook-controls), and [notebook cell types](/influxdb/v2/notebooks/overview/#notebook-cell-types) also know as the basic building blocks of a notebook.
+See an overview of [notebook concepts](/influxdb/v2/tools/notebooks/overview/#notebook-concepts), [notebook controls](/influxdb/v2/tools/notebooks/overview/#notebook-controls), and [notebook cell types](/influxdb/v2/tools/notebooks/overview/#notebook-cell-types) also know as the basic building blocks of a notebook.
 
 ## Notebook concepts
 
@@ -65,7 +67,7 @@ Select from the options in the dropdown list or select **Custom Time Range** to 
 ### Share notebook
 
 To generate a URL for the notebook, click the **{{< icon "share" >}}** icon.
-For more detail, see how to [share a notebook](/influxdb/cloud/notebooks/manage-notebooks/#share-a-notebook).
+For more detail, see how to [share a notebook](/influxdb/cloud/tools/notebooks/manage-notebooks/#share-a-notebook).
 
 {{% /cloud-only %}}
 

@@ -6,7 +6,10 @@ description: >
 menu:
   influxdb_cloud:
     name: Notebooks
-weight: 6
+    parent: Tools & integrations
+weight: 101
+aliases:
+  - /influxdb/cloud/notebooks/
 ---
 
 {{< duplicate-oss >}}

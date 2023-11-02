@@ -132,7 +132,7 @@ You can now remove yourself as a member of an organization in the Cloud UI. For 
 
 ### Add auto-refresh functionality to Notebooks
 
-Automatically refresh Notebooks data. For details, see [Create a notebook](/influxdb/cloud/notebooks/create-notebook/).
+Automatically refresh Notebooks data. For details, see [Create a notebook](/influxdb/cloud/tools/notebooks/create-notebook/).
 
 ## Performance improvements to dashboards and queries
 
@@ -180,7 +180,7 @@ Now, you can add the following buckets with sample data to your notebooks:
 
 ### Add ability to share notebooks
 
-Add ability to [share a notebook](/influxdb/cloud/notebooks/manage-notebooks/#share-a-notebook) in the the InfluxDB Cloud notebook UI.
+Add ability to [share a notebook](/influxdb/cloud/tools/notebooks/manage-notebooks/#share-a-notebook) in the the InfluxDB Cloud notebook UI.
 
 ## October 2021
 
@@ -216,7 +216,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 ## August 2021
 
 - Add support for [explicit bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/), which lets you enforce explicit schemas for each InfluxDB measurement, including column names, tags, fields, and data types.
-- Add ability to convert [notebook cells into raw Flux script](/influxdb/cloud/notebooks/create-notebook/#view-and-edit-flux-script-in-a-cell). Now you can view and edit the code.
+- Add ability to convert [notebook cells into raw Flux script](/influxdb/cloud/tools/notebooks/create-notebook/#view-and-edit-flux-script-in-a-cell). Now you can view and edit the code.
 - Add [delete request rate limits](/influxdb/cloud/account-management/data-usage/#exceeded-rate-limits) per organization.
 
 ## July 2021
@@ -239,7 +239,7 @@ Update Telegraf configuration in the UI to make it easier to set up and configur
 
 - Add new [GCP Europe West (Belgium) region](/influxdb/cloud/reference/regions/#google-cloud-platform-gcp).
 - Add [mosaic visualization](/influxdb/cloud/visualize-data/visualization-types/mosaic/). Use this visualization to display state changes in your time series data.
-- Add [notebooks](/influxdb/cloud/notebooks/). Use notebooks to build and share ways to explore, visualize, and process your time series data. Learn how notebooks can help you [downsample](/influxdb/cloud/notebooks/downsample/) and [normalize](/influxdb/cloud/notebooks/clean-data/) your time series data.
+- Add [notebooks](/influxdb/cloud/tools/notebooks/). Use notebooks to build and share ways to explore, visualize, and process your time series data. Learn how notebooks can help you [downsample](/influxdb/cloud/tools/notebooks/downsample/) and [normalize](/influxdb/cloud/tools/notebooks/clean-data/) your time series data.
 
 ## January 2021
 

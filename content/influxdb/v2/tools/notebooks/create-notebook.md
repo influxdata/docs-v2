@@ -8,11 +8,13 @@ menu:
   influxdb_v2:
     name: Create a notebook
     parent: Notebooks
+aliases:
+  - /influxdb/v2/notebooks/create-notebook/
 ---
 
 Create a notebook to explore, visualize, and process your data.
 Learn how to add and configure cells to customize your notebook.
-To learn the benefits and concepts of notebooks, see [Overview of Notebooks](/influxdb/v2/notebooks/overview/).
+To learn the benefits and concepts of notebooks, see [Overview of Notebooks](/influxdb/v2/tools/notebooks/overview/).
 
 - [Create a notebook from a preset](#create-a-notebook-from-a-preset)
 - [Use data source cells](#use-data-source-cells)
@@ -88,7 +90,7 @@ You won't be able to undo this step.
 
 ## Add a data source cell
 
-Add a [data source cell](/influxdb/v2/notebooks/overview/#data-source) to pull information into your notebook.
+Add a [data source cell](/influxdb/v2/tools/notebooks/overview/#data-source) to pull information into your notebook.
 
 To add a data source cell, do the following:
 1. Click {{< icon "notebook-add-cell" >}}.
@@ -123,7 +125,7 @@ For detail on available visualization types and how to use them, see [Visualizat
 
 ## Add an action cell
 
-Add an [action cell](/influxdb/v2/notebooks/overview/#action) to create an [alert](/influxdb/v2/monitor-alert/)
+Add an [action cell](/influxdb/v2/tools/notebooks/overview/#action) to create an [alert](/influxdb/v2/monitor-alert/)
 {{% cloud-only %}}or{{% /cloud-only %}}{{% oss-only %}},{{% /oss-only %}} process data with a [task](/influxdb/v2/process-data/manage-tasks/)
 {{% oss-only %}}, or output data to a bucket{{% /oss-only %}}.
 

@@ -7,6 +7,8 @@ menu:
   influxdb_cloud:
     name: Manage notebooks
     parent: Notebooks
+aliases:
+  - /influxdb/cloud/notebooks/manage-notebooks/
 ---
 
 {{< duplicate-oss >}}

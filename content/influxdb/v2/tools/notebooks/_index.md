@@ -6,7 +6,10 @@ description: >
 menu:
   influxdb_v2:
     name: Notebooks
-weight: 6
+    parent: Tools & integrations
+weight: 101
+aliases:
+  - /influxdb/v2/notebooks/
 influxdb/v2/tags: [notebooks]
 ---
 

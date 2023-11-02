@@ -11,6 +11,8 @@ menu:
     name: Downsample data
     identifier: notebooks-downsample
     parent: Notebooks
+aliases:
+  - /influxdb/v2/notebooks/downsample/
 ---
 
 Create a notebook to downsample data. Downsampling aggregates or summarizes data
@@ -23,7 +25,7 @@ and then writes the downsampled data to an InfluxDB bucket.
 
 1.  If you do not have an existing bucket to write the downsampled data to,
     [create a new bucket](/influxdb/v2/organizations/buckets/create-bucket/).
-2.  [Create a new notebook](/influxdb/v2/notebooks/create-notebook/).
+2.  [Create a new notebook](/influxdb/v2/tools/notebooks/create-notebook/).
 3.  Select **Past 1h** from the time range drop-down list at the top of your notebook.
 4.  In the **Build a Query** cell:
 

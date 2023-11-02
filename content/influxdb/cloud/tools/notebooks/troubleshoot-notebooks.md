@@ -7,6 +7,8 @@ menu:
   influxdb_cloud:
     name: Troubleshoot notebooks
     parent: Notebooks
+aliases:
+  - /influxdb/cloud/notebooks/troubleshoot-notebooks/
 ---
 
 {{< duplicate-oss >}}

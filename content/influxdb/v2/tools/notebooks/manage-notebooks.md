@@ -7,6 +7,8 @@ menu:
   influxdb_v2:
     name: Manage notebooks
     parent: Notebooks
+aliases:
+  - /influxdb/v2/notebooks/manage-notebooks/
 ---
 
 Manage your notebooks in the UI:

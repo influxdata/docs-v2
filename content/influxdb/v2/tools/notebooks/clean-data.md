@@ -9,6 +9,8 @@ menu:
   influxdb_v2:
     name: Normalize data
     parent: Notebooks
+aliases:
+  - /influxdb/v2/notebooks/clean-data/
 ---
 
 Learn how to create a notebook that normalizes data.
@@ -26,7 +28,7 @@ the normalized data to a bucket.
 {{% /cloud %}}  
 {{< /cloud-only >}}
 
-1.  [Create a new notebook](/influxdb/v2/notebooks/create-notebook/).
+1.  [Create a new notebook](/influxdb/v2/tools/notebooks/create-notebook/).
 2.  In the **Build a Query** cell:
 
     1.  In the **FROM** column under **{{% caps %}}Sample{{% /caps %}}**,
