@@ -4,9 +4,9 @@ description: >
   Connect [ThingWorx](https://www.ptc.com/en/products/thingworx) with your **InfluxDB Cloud** instance.
 menu:
   influxdb_cloud:
-    name: Use ThingWorx
+    name: ThingWorx
     parent: Tools & integrations
-weight: 109
+weight: 140
 influxdb/cloud/tags: [thingworx, ptc, iiot, persistence provider]
 ---
 

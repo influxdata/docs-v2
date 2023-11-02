@@ -6,9 +6,9 @@ description: >
   Use Kapacitor with **InfluxDB OSS 2.x**.
 menu:
   influxdb_v2:
-    name: Use Kapacitor
+    name: Kapacitor
     parent: Tools & integrations
-weight: 102
+weight: 121
 related:
   - /kapacitor/v1/
 ---

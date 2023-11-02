@@ -6,11 +6,12 @@ description: >
 menu:
   influxdb_v2:
     parent: Tools & integrations
-    name: Use Postman
-weight: 105
+    name: Postman
+weight: 140
 influxdb/v2/tags: [api, authentication]
 aliases:
   - /influxdb/v2/reference/api/postman/
+  - /influxdb/v2/api-guide/postman/
 ---
 
 Use [Postman](https://www.postman.com/), a popular tool for exploring APIs,

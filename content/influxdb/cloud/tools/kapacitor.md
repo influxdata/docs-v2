@@ -6,9 +6,9 @@ description: >
   Use Kapacitor with **InfluxDB Cloud**.
 menu:
   influxdb_cloud:
-    name: Use Kapacitor
+    name: Kapacitor
     parent: Tools & integrations
-weight: 102
+weight: 121
 related:
   - /kapacitor/v1/
 ---

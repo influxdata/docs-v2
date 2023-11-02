@@ -6,11 +6,12 @@ description: >
 menu:
   influxdb_cloud:
     parent: Tools & integrations
-    name: Use Postman
-weight: 105
+    name: Postman
+weight: 140
 influxdb/cloud/tags: [api, authentication]
 aliases:
   - /influxdb/cloud/reference/api/postman/
+  - /influxdb/cloud/api-guide/postman/
 ---
 
 {{% duplicate-oss %}}

@@ -7,7 +7,7 @@ menu:
   influxdb_cloud:
     name: Notebooks
     parent: Tools & integrations
-weight: 101
+weight: 102
 aliases:
   - /influxdb/cloud/notebooks/
 ---

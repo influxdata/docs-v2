@@ -5,9 +5,9 @@ description:
 menu:
   influxdb_cloud:
     parent: Tools & integrations
-    name: Use the influx CLI
+    name: influx CLI
     identifier: influx-cli-task-based
-weight: 101
+weight: 110
 influxdb/cloud/tags: [cli]
 aliases:
   - /influxdb/cloud/tools/clis/

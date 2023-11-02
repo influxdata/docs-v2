@@ -41,4 +41,4 @@ Use tokens in [API requests](/influxdb/v2/api-guide/api_intro/#authentication).
 
 ### Use a token in Postman
 
-Make authenticated requests with tokens [using Postman](/influxdb/v2/api-guide/postman/).
+Make authenticated requests with tokens [using Postman](/influxdb/v2/tools/postman/).

@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_v2:
     parent: Tools & integrations
-weight: 102
+weight: 103
 aliases:
   - /influxdb/v2/influxdb-templates/
 influxdb/v2/tags: [templates]

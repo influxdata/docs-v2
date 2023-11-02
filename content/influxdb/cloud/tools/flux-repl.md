@@ -6,9 +6,9 @@ description: >
 influxdb/cloud/tags: [flux]
 menu:
   influxdb_cloud:
-    name: Use the Flux REPL
+    name: Flux REPL
     parent: Tools & integrations
-weight: 103
+weight: 111
 aliases:
   - /influxdb/cloud/tools/repl/
 ---

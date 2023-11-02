@@ -5,10 +5,10 @@ description:
   manage InfluxDB.
 menu:
   influxdb_v2:
-    name: Use the influx CLI
+    name: influx CLI
     parent: Tools & integrations
     identifier: influx-cli-task-based
-weight: 101
+weight: 110
 influxdb/v2/tags: [cli]
 aliases:
   - /influxdb/v2/tools/clis/
