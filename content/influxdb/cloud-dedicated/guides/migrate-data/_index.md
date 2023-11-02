@@ -11,7 +11,7 @@ weight: 104
 aliases: 
   - /influxdb/cloud-dedicated/write-data/migrate-data/
 alt_links:
-  cloud: /influxdb/cloud/migrate-data/
+  cloud: /influxdb/cloud/write-data/migrate-data/
 ---
 
 Migrate data to InfluxDB Cloud Dedicated powered by InfluxDB IOx from other 

@@ -8,6 +8,8 @@ menu:
     parent: Upgrade InfluxDB
     name: InfluxDB 1.x to 2.7
 weight: 11
+aliases:
+  - /influxdb/v2/upgrade/v1-to-v2/
 ---
 
 Explore different methods for upgrading from InfluxDB 1.x to InfluxDB {{< current-version >}} and

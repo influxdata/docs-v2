@@ -9,6 +9,8 @@ menu:
     parent: InfluxDB 1.x to 2.7
     name: Upgrade with Docker
 weight: 101
+aliases:
+  - /influxdb/v2/upgrade/v1-to-v2/docker/
 ---
 
 Use the automated upgrade process built into the [InfluxDB 2.x Docker image](https://hub.docker.com/_/influxdb)

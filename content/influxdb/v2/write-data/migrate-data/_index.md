@@ -6,7 +6,10 @@ description: >
 menu:
   influxdb_v2:
     name: Migrate data
-weight: 9
+    parent: Write data
+aliases:
+  - /influxdb/v2/migrate-data/
+weight: 106
 ---
 
 Migrate data to InfluxDB from other InfluxDB instances including by InfluxDB OSS

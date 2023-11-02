@@ -7,6 +7,8 @@ menu:
   influxdb_v2:
     name: Migrate from Cloud to OSS
     parent: Migrate data
+aliases:
+  - /influxdb/v2/migrate-data/migrate-cloud-to-oss/
 weight: 102
 ---
 

@@ -29,7 +29,7 @@ related:
    - [Query and explore data](/influxdb/v2/query-data/)
    - [Process data](/influxdb/v2/process-data/)
    - [Visualize data](/influxdb/v2/visualize-data/)
-   - [Migrate data](/influxdb/v2/migrate-data/)
+   - [Migrate data](/influxdb/cloud/write-data/migrate-data/)
    - [Monitor and alert](/influxdb/v2/monitor-alert/)
 
 The following video discusses different ways to write data to InfluxDB:

@@ -9,6 +9,8 @@ menu:
     name: Migrate data from OSS
     parent: Migrate data
 weight: 101
+aliases:
+  - /influxdb/v2/migrate-data/migrate-oss/
 ---
 
 To migrate data from an InfluxDB OSS bucket to another InfluxDB OSS or InfluxDB

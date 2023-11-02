@@ -10,6 +10,7 @@ menu:
 weight: 10
 aliases:
   - /influxdb/v2/reference/upgrading/influxd-upgrade-guide/
+  - /influxdb/v2/upgrade/v1-to-v2/automatic-upgrade/
 related:
   - /influxdb/v2/reference/cli/influxd/upgrade/
   - /influxdb/v2/upgrade/v1-to-v2/manual-upgrade/

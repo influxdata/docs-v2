@@ -9,6 +9,8 @@ menu:
     parent: Upgrade InfluxDB
     name: Downgrade InfluxDB
 weight: 12
+aliases:
+  - /influxdb/v2/upgrade/downgrade/
 related:
   - /influxdb/v2/reference/cli/influxd/downgrade/
 ---

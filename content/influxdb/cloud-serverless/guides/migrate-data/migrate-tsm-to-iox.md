@@ -13,7 +13,7 @@ weight: 102
 aliases:
   - /influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox
 alt_links:
-  cloud: /influxdb/cloud/migrate-data/migrate-cloud-to-cloud/
+  cloud: /influxdb/cloud/write-data/migrate-data/migrate-cloud-to-cloud/
 ---
 
 To migrate data from an InfluxDB Cloud (TSM) organization to an 

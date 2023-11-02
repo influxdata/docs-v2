@@ -9,6 +9,8 @@ menu:
     parent: InfluxDB 1.x to 2.7
     name: Migrate CQs
 weight: 102
+aliases:
+  - /influxdb/v2/upgrade/v1-to-v2/migrate-cqs/
 related:
   - /influxdb/v2/query-data/get-started/
   - /influxdb/v2/query-data/flux/

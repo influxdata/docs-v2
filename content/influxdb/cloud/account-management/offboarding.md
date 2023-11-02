@@ -57,7 +57,7 @@ To export all your data, query your data out in time-based batches and store it
 in to an external system or an InfluxDB OSS instance.
 
 For information about automatically exporting and migrating data from InfluxDB 
-Cloud to InfluxDB OSS, see: [Migrate data from InfluxDB Cloud to InfluxDB OSS](/influxdb/cloud/migrate-data/migrate-cloud-to-oss/).
+Cloud to InfluxDB OSS, see: [Migrate data from InfluxDB Cloud to InfluxDB OSS](/influxdb/cloud/write-data/migrate-data/migrate-cloud-to-oss/).
 
 ### Cancel service
 

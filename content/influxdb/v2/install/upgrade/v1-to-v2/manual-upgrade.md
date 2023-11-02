@@ -10,6 +10,8 @@ menu:
     parent: InfluxDB 1.x to 2.7
     name: Manually upgrade
 weight: 11
+aliases:
+  - /influxdb/v2/upgrade/v1-to-v2/manual-upgrade/
 related:
   - /influxdb/v2/upgrade/v1-to-v2/
   - /influxdb/v2/upgrade/v1-to-v2/migrate-cqs/

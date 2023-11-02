@@ -7,6 +7,8 @@ menu:
   influxdb_cloud:
     name: Migrate data from OSS
     parent: Migrate data
+aliases:
+  - /influxdb/cloud/migrate-data/migrate-oss/
 weight: 101
 ---
 

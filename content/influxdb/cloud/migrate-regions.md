@@ -27,7 +27,7 @@ or [our new database engine, InfluxDB IOx](/blog/announcing-general-availability
 To benefit from IOx's unlimited cardinality and support for SQL, migrate your data to IOx.
 
 - [Migrate data TSM to IOx](/influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/)
-- [Migrate data from TSM to TSM](/influxdb/cloud/migrate-data/migrate-cloud-to-cloud/). 
+- [Migrate data from TSM to TSM](/influxdb/cloud/write-data/migrate-data/migrate-cloud-to-cloud/). 
 
 To see which storage engine your organization is using,
 find the **InfluxDB Cloud powered by** link in your

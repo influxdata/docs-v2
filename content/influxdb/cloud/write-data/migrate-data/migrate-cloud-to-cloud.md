@@ -8,6 +8,8 @@ menu:
   influxdb_cloud:
     name: Migrate from Cloud to Cloud
     parent: Migrate data
+aliases:
+  - /influxdb/cloud/migrate-data/migrate-cloud-to-cloud/
 weight: 102
 alt_links:
   cloud-serverless: /influxdb/cloud-serverless/write-data/migrate-data/migrate-tsm-to-iox/

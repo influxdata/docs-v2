@@ -8,6 +8,8 @@ menu:
     parent: Upgrade InfluxDB
     name: InfluxDB 2.x to 2.7
 weight: 9
+aliases:
+  - /influxdb/v2/upgrade/v2-to-v2/
 related:
   - /influxdb/v2/reference/cli/influxd/downgrade/
   - /influxdb/v2/install/
