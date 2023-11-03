@@ -17,7 +17,7 @@ list_code_example: |
     "Read-only on DATABASE1_NAME, Read/write on DATABASE2_NAME"
   ```
 alt_links:
-  cloud: /influxdb/cloud/security/tokens/create-token/
+  cloud: /influxdb/cloud/admin/tokens/create-token/
   cloud-serverless: /influxdb/cloud-serverless/admin/tokens/create-token/
 ---
 

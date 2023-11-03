@@ -37,7 +37,7 @@ All queries against data in InfluxDB Cloud are subject to your organization's
 ## Set up the migration
 1.  [Install and set up InfluxDB OSS](/influxdb/{{< current-version-link >}}/install/).
 
-2.  **In InfluxDB Cloud**, [create an API token](/influxdb/cloud/security/tokens/create-token/)
+2.  **In InfluxDB Cloud**, [create an API token](/influxdb/cloud/admin/tokens/create-token/)
         with **read access** to the bucket you want to migrate.
 
 3.  **In InfluxDB OSS**:

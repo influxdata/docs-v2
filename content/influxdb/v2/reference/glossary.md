@@ -1176,7 +1176,7 @@ There are different types of API tokens:
 
 {{% /cloud-only %}}
 
-Related entries: [Create a token](/influxdb/v2/security/tokens/create-token/).
+Related entries: [Create a token](/influxdb/v2/admin/tokens/create-token/).
 
 ### tracing
 

@@ -74,7 +74,7 @@ See [InfluxDB URLs](/influxdb/cloud/reference/urls/) for information about which
 
 ##### token
 Your InfluxDB v2.0 authorization token.
-For information about viewing tokens, see [View tokens](/influxdb/cloud/security/tokens/view-tokens/).
+For information about viewing tokens, see [View tokens](/influxdb/cloud/admin/tokens/view-tokens/).
 
 {{% note %}}
 ###### Avoid storing tokens in `telegraf.conf`

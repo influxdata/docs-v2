@@ -27,7 +27,7 @@ options in a configuration file.
 
 Use the `influx` CLI or the InfluxDB API to get the runtime server configuration of your InfluxDB instance.
 
-Server configuration commands require an [Operator token](/influxdb/v2/security/tokens/#operator-token).
+Server configuration commands require an [Operator token](/influxdb/v2/admin/tokens/#operator-token).
 
 #### View your server configuration with the CLI
 
@@ -499,7 +499,7 @@ flux-log-enabled = "true"
 
 ### hardening-enabled
 
-Enable [additional security features](/influxdb/v2/security/enable-hardening/)
+Enable [additional security features](/influxdb/v2/admin/security/enable-hardening/)
 in InfluxDB.
 **Default:** `false`
 | influxd flag          | Environment variable        | Configuration key   |
@@ -2802,7 +2802,7 @@ testing-always-allow-setup = true
 Path to TLS certificate file.
 Requires the [`tls-key`](#tls-key) to be set.
 
-_For more information, see [Enable TLS encryption](/influxdb/v2/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2/admin/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 | :----------- | :------------------- | :---------------- |
@@ -2850,7 +2850,7 @@ tls-cert = "/path/to/influxdb.crt"
 Path to TLS key file.
 Requires the [`tls-cert`](#tls-cert) to be set.
 
-_For more information, see [Enable TLS encryption](/influxdb/v2/security/enable-tls/)._
+_For more information, see [Enable TLS encryption](/influxdb/v2/admin/security/enable-tls/)._
 
 | influxd flag | Environment variable | Configuration key |
 | :----------- | :------------------- | :---------------- |

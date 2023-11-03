@@ -317,7 +317,7 @@ To recover user credentials, use [`influx recovery user list`](/influxdb/v2/refe
 
 ### Security updates
 
-- Add the [`hardening-enabled`](/influxdb/v2/security/enable-hardening) option to limit flux/pkger HTTP requests. The new `hardening-enabled` option ensures that InfluxDB first verifies the IP address of the URL is not private.
+- Add the [`hardening-enabled`](/influxdb/v2/admin/security/enable-hardening) option to limit flux/pkger HTTP requests. The new `hardening-enabled` option ensures that InfluxDB first verifies the IP address of the URL is not private.
   By default, Flux HTTP and template fetching requests are allowed to access localhost and private IP addresses.
   - Disable use of jsonnet with `/api/v2/templates/apply`.
 This prevents crafted authenticated requests from exfiltrating files accessible to the user InfluxDB runs as.
@@ -417,7 +417,7 @@ This release includes the following new features:
 
 Added several new configuration options to [`influxd`](/influxdb/v2/reference/cli/influxd/):
 
-- Add `influxd recovery` command to let you create a recovery [Operator token](/influxdb/v2/security/tokens/#operator-token).
+- Add `influxd recovery` command to let you create a recovery [Operator token](/influxdb/v2/admin/tokens/#operator-token).
 - Add `--sqlite-path` flag for specifying a user-defined path to the SQLite database file.
 - Add `--storage-wal-max-concurrent-writes` flag to enable tuning memory pressure under heavy write load.
 - Add `--storage-wal-max-write-delay` flag to prevent deadlocks when the WAL is overloaded with concurrent writes.

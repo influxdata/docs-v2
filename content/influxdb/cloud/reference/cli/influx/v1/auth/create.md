@@ -15,7 +15,7 @@ updated_in: CLI v2.0.3
 #### Not supported in InfluxDB Cloud
 **InfluxDB Cloud** does not support InfluxDB 1.x compatible authorizations.
 Using the `influx v1 auth create` command with InfluxDB Cloud will result in an error.
-To authenticate with InfluxDB Cloud, use [InfluxDB token authentication](/influxdb/cloud/security/tokens/).
+To authenticate with InfluxDB Cloud, use [InfluxDB token authentication](/influxdb/cloud/admin/tokens/).
 {{% /cloud %}}
 
 {{< duplicate-oss >}}

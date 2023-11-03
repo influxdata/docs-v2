@@ -41,7 +41,7 @@ The Raspberry Pi template includes the following:
 
     - `INFLUX_HOST`: {{% oss-only %}}Your [InfluxDB URL](/influxdb/v2/reference/urls/){{% /oss-only %}}
       {{% cloud-only %}}Your [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/){{% /cloud-only %}}
-    - `INFLUX_TOKEN`: Your [InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} API token](/influxdb/v2/security/tokens/)
+    - `INFLUX_TOKEN`: Your [InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} API token](/influxdb/v2/admin/tokens/)
     - `INFLUX_ORG`: Your InfluxDB {{% cloud-only %}}Cloud{{% /cloud-only %}} organization name.
     
     ```sh

@@ -19,7 +19,7 @@ aliases:
 The `influx server-config` command displays the InfluxDB runtime [server configuration](/influxdb/v2/reference/config-options/).
 
 {{% note %}}
-To display the server configuration, you must use an [operator token](/influxdb/v2/security/tokens/#operator-token).
+To display the server configuration, you must use an [operator token](/influxdb/v2/admin/tokens/#operator-token).
 {{% /note %}}
 
 ## Usage

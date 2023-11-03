@@ -37,7 +37,7 @@ Create a task where you:
 ### Solution Explained
 1. Import packages and define task options and secrets. Import the following packages:
   - [Flux Telegram package](/flux/v0.x/stdlib/contrib/sranka/telegram/): This package 
-  - [Flux InfluxDB secrets package](/flux/v0.x/stdlib/influxdata/influxdb/secrets/): This package contains the [secrets.get()](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/) function which allows you to retrieve secrets from the InfluxDB secret store. Learn how to [manage secrets](/influxdb/v2/security/secrets/) in InfluxDB to use this package.    
+  - [Flux InfluxDB secrets package](/flux/v0.x/stdlib/influxdata/influxdb/secrets/): This package contains the [secrets.get()](/flux/v0.x/stdlib/influxdata/influxdb/secrets/get/) function which allows you to retrieve secrets from the InfluxDB secret store. Learn how to [manage secrets](/influxdb/v2/admin/secrets/) in InfluxDB to use this package.    
   - [Flux InfluxDB monitoring package](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/monitor/): This package contains functions and tools for monitoring your data.  
   
 

@@ -102,7 +102,7 @@ influx restore \
 #### Restore to a new InfluxDB server
 If using a backup to populate a new InfluxDB server:
 
-1. Retrieve the [admin token](/influxdb/v2/security/tokens/#admin-token) from your source InfluxDB instance.
+1. Retrieve the [admin token](/influxdb/v2/admin/tokens/#admin-token) from your source InfluxDB instance.
 2. Set up your new InfluxDB instance, but use the `-t`, `--token` flag to use the
    **admin token** from your source instance as the admin token on your new instance.
 

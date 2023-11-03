@@ -68,7 +68,7 @@ the following:
     - Connection configuration name
     - [InfluxDB Cloud region URL](/influxdb/cloud/reference/regions/)
     - [InfluxDB organization name](/influxdb/cloud/admin/organizations/)
-    - [InfluxDB API token](/influxdb/cloud/security/tokens/)
+    - [InfluxDB API token](/influxdb/cloud/admin/tokens/)
 
     ```sh
     # Create your source connection configuration and set it to active

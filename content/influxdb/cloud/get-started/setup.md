@@ -13,7 +13,7 @@ weight: 101
 metadata: [1 / 5]
 related:
   - /influxdb/cloud/reference/config-options/
-  - /influxdb/cloud/security/tokens/
+  - /influxdb/cloud/admin/tokens/
   - /influxdb/cloud/organizations/buckets/
   - /influxdb/cloud/tools/influx-cli/
   - /influxdb/cloud/reference/api/

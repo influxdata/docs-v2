@@ -219,7 +219,7 @@ influx apply -o example-org -f /path/to/template.yml \
 ```
 
 ### Include a secret when installing a template
-Some templates use [secrets](/influxdb/v2/security/secrets/) in queries.
+Some templates use [secrets](/influxdb/v2/admin/secrets/) in queries.
 Secret values are not included in templates.
 To define secret values when installing a template, include the `--secret` flag
 with the secret key-value pair.
@@ -240,4 +240,4 @@ influx apply -o example-org -f /path/to/template.yml \
   --secret=BAZ=quz
 ```
 
-_To add a secret after applying a template, see [Add secrets](/influxdb/v2/security/secrets/manage-secrets/add/)._
+_To add a secret after applying a template, see [Add secrets](/influxdb/v2/admin/secrets/manage-secrets/add/)._

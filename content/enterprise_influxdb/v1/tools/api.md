@@ -114,7 +114,7 @@ The `/api/v2/write` endpoint maps the supplied version 1.8 database and retentio
 
 **Include the following HTTP header:**
 
-- `Authorization`: InfluxDB 2.x uses this header with the `Token` scheme and [API Tokens](/influxdb/v2/security/tokens/)
+- `Authorization`: InfluxDB 2.x uses this header with the `Token` scheme and [API Tokens](/influxdb/v2/admin/tokens/)
   to authenticate each API request.
   InfluxDB v1.x uses username and password credentials for authenticating API requests.
   To provide InfluxDB 1.x credentials, use the `Token` scheme and include your username and password separated by a colon (`:`).
@@ -174,7 +174,7 @@ The [/api/v2/buckets](/influxdb/latest/api/#tag/Buckets) endpoint accepts `GET`,
 
 **Include the following HTTP header:**
 
-- `Authorization`: InfluxDB 2.x uses this header with the `Token` scheme and [API Tokens](/influxdb/v2/security/tokens/)
+- `Authorization`: InfluxDB 2.x uses this header with the `Token` scheme and [API Tokens](/influxdb/v2/admin/tokens/)
   to authenticate each API request.
   InfluxDB v1.x uses username and password credentials for authenticating API requests.
   To provide InfluxDB 1.x credentials, use the `Token` scheme and include your username and password separated by a colon (`:`).
@@ -213,7 +213,7 @@ The [`/api/v2/delete`](/influxdb/latest/api/#tag/Delete) endpoint accepts `POST`
 
 **Include the following HTTP header:**
 
-- `Authorization`: InfluxDB 2.x uses this header with the `Token` scheme and [API Tokens](/influxdb/v2/security/tokens/)
+- `Authorization`: InfluxDB 2.x uses this header with the `Token` scheme and [API Tokens](/influxdb/v2/admin/tokens/)
   to authenticate each API request.
   InfluxDB v1.x uses username and password credentials for authenticating API requests.
   To provide InfluxDB 1.x credentials, use the `Token` scheme and include your username and password separated by a colon (`:`).

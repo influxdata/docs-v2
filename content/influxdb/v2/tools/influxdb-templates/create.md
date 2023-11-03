@@ -38,7 +38,7 @@ Follow these steps to create a template from a new organization.
 1. [Start InfluxDB](/influxdb/v2/get-started/).
 2. [Create an organization](/influxdb/v2/admin/organizations/create-org/).
 3. In the InfluxDB UI, add one or more [resources](/influxdb/v2/tools/influxdb-templates/#template-resources).
-4. [Create an **All-Access** API token](/influxdb/v2/security/tokens/create-token/) (or a token that has **read** access to the organization).
+4. [Create an **All-Access** API token](/influxdb/v2/admin/tokens/create-token/) (or a token that has **read** access to the organization).
 5. Use the API token from **Step 4** with the [`influx export all` subcommand](/influxdb/v2/reference/cli/influx/export/all/) to [export all resources]() in the organization to a template file.
 
    ```sh
@@ -52,7 +52,7 @@ Follow these steps to create a template from a new organization.
 
 The [`influx export` command](/influxdb/v2/reference/cli/influx/export/) and subcommands let you
 export [resources](#template-resources) from an organization to a template manifest.
-Your [API token](/influxdb/v2/security/tokens/) must have **read** access to resources that you want to export.
+Your [API token](/influxdb/v2/admin/tokens/) must have **read** access to resources that you want to export.
 
 If you want to export resources that depend on other resources, be sure to export the dependencies.
 
@@ -273,9 +273,9 @@ templates, check the following:
 
 ### Ensure read access
 
-The [API token](/influxdb/v2/security/tokens/) must have **read** access to resources that you want to export. The `influx export all` command only exports resources that the API token can read. For example, to export all resources in an organization that has ID `abc123`, the API token must have the `read:/orgs/abc123` permission.
+The [API token](/influxdb/v2/admin/tokens/) must have **read** access to resources that you want to export. The `influx export all` command only exports resources that the API token can read. For example, to export all resources in an organization that has ID `abc123`, the API token must have the `read:/orgs/abc123` permission.
 
-To learn more about permissions, see [how to view authorizations](/influxdb/v2/security/tokens/view-tokens/) and [how to create a token](/influxdb/v2/security/tokens/create-token/) with specific permissions.
+To learn more about permissions, see [how to view authorizations](/influxdb/v2/admin/tokens/view-tokens/) and [how to create a token](/influxdb/v2/admin/tokens/create-token/) with specific permissions.
 
 ### Use Organization ID
 

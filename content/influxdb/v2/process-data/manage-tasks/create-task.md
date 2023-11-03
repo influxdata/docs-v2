@@ -298,7 +298,7 @@ EOF
 
 Replace the following:
 
-- **`INFLUX_API_TOKEN`**: your InfluxDB [API token](/influxdb/cloud/security/tokens/view-tokens/)
+- **`INFLUX_API_TOKEN`**: your InfluxDB [API token](/influxdb/cloud/admin/tokens/view-tokens/)
 - **`INFLUX_ORG`**: your InfluxDB organization name
 - **`INFLUX_ORG_ID`**: your InfluxDB organization ID
 

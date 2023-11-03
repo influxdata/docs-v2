@@ -49,13 +49,13 @@ any buckets in addition to these two will exceed the your plan's bucket limit.
 {{% /note %}}
 
 1.  **In the InfluxDB Cloud organization you're migrating data _from_**,
-    [create an API token](/influxdb/cloud/security/tokens/create-token/)
+    [create an API token](/influxdb/cloud/admin/tokens/create-token/)
     with **read access** to the bucket you want to migrate.
 
 2.  **In the InfluxDB Cloud organization you're migrating data _to_**:
     1.  Add the **InfluxDB Cloud API token from the source organization** as a
         secret using the key, `INFLUXDB_CLOUD_TOKEN`.
-        _See [Add secrets](/influxdb/cloud/security/secrets/add/) for more information._
+        _See [Add secrets](/influxdb/cloud/admin/secrets/add/) for more information._
     2.  [Create a bucket](/influxdb/cloud/admin/buckets/create-bucket/)
         **to migrate data to**.
     3.  [Create a bucket](/influxdb/cloud/admin/buckets/create-bucket/)

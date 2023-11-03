@@ -14,7 +14,7 @@ metadata: [1 / 5]
 related:
   - /influxdb/v2/install/
   - /influxdb/v2/reference/config-options/
-  - /influxdb/v2/security/tokens/
+  - /influxdb/v2/admin/tokens/
   - /influxdb/v2/admin/buckets/
   - /influxdb/v2/tools/influx-cli/
   - /influxdb/v2/reference/api/
@@ -52,7 +52,7 @@ see [InfluxDB configuration options](/influxdb/v2/reference/config-options/).
     If starting InfluxDB for the first time, use the InfluxDB UI or the `influx`
     CLI to initialize your InfluxDB instance.
     This process creates a default user, organization, and bucket and provides
-    you with an [operator token](/influxdb/v2/security/tokens/#operator-token)
+    you with an [operator token](/influxdb/v2/admin/tokens/#operator-token)
     for managing your InfluxDB instance.
 
     For detailed instructions, see [Install InfluxDB – Set up InfluxDB](/influxdb/v2/install/#set-up-influxdb).

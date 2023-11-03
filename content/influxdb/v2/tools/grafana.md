@@ -62,7 +62,7 @@ configure your InfluxDB connection:
 2.  Under **InfluxDB Details**, enter the following:
 
     - **Organization**: Your InfluxDB [organization name **or** ID](/influxdb/v2/admin/organizations/view-orgs/).
-    - **Token**: Your InfluxDB [API token](/influxdb/v2/security/tokens/).
+    - **Token**: Your InfluxDB [API token](/influxdb/v2/admin/tokens/).
     - **Default Bucket**: The default [bucket](/influxdb/v2/admin/buckets/) to use in Flux queries.
     - **Min time interval**: The [Grafana minimum time interval](https://grafana.com/docs/grafana/latest/features/datasources/influxdb/#min-time-interval).
       Default is `10s`
@@ -102,7 +102,7 @@ and then complete the instructions to configure Grafana:
 ### Installed a new InfluxDB instance
 To configure Grafana to use InfluxQL with a new install of InfluxDB {{< current-version >}}, do the following:
 
-1. [Authenticate with InfluxDB {{< current-version >}} tokens](/influxdb/v2/security/tokens/).
+1. [Authenticate with InfluxDB {{< current-version >}} tokens](/influxdb/v2/admin/tokens/).
 2. [Manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
 
 ### Upgraded from InfluxDB 1.x to 2.x
@@ -120,7 +120,7 @@ To configure Grafana to use InfluxQL when you've manually migrated from InfluxDB
 1. If your InfluxDB 1.x instance required authentication,
    [create v1 compatible authentication credentials](#view-and-create-influxdb-v1-authorizations)
    to match your previous 1.x username and password.
-   Otherwise, use [InfluxDB v2 token authentication](/influxdb/v2/security/tokens/).
+   Otherwise, use [InfluxDB v2 token authentication](/influxdb/v2/admin/tokens/).
 2. [Manually create DBRP mappings](#view-and-create-influxdb-dbrp-mappings).
 
 {{< expand-wrapper >}}
@@ -231,7 +231,7 @@ To query InfluxDB Cloud from Grafana using InfluxQL:
 
    - [InfluxDB Cloud URL](/influxdb/cloud/reference/regions/)
    - [organization name](/influxdb/cloud/admin/organizations/) _(by default, your email address)_
-   - [API token](/influxdb/cloud/security/tokens/)
+   - [API token](/influxdb/cloud/admin/tokens/)
 
     ```sh
     influx config create \
@@ -313,7 +313,7 @@ With **InfluxQL** selected as the query language in your InfluxDB data source se
         - Under **Custom HTTP Headers**, select **{{< icon "plus" >}}Add Header**. Provide your InfluxDB API token:
 
           - **Header**: Enter `Authorization`
-          - **Value**: Use the `Token` schema and provide your [InfluxDB API token](/influxdb/v2/security/tokens/).
+          - **Value**: Use the `Token` schema and provide your [InfluxDB API token](/influxdb/v2/admin/tokens/).
             For example:
 
             ```

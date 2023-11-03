@@ -29,7 +29,7 @@ brew install --cask postman
 
 ## Send authenticated API requests with Postman
 
-All requests to the [InfluxDB v2 API](/influxdb/v2/api-guide/) must include an [InfluxDB API token](/influxdb/v2/security/tokens/).
+All requests to the [InfluxDB v2 API](/influxdb/v2/api-guide/) must include an [InfluxDB API token](/influxdb/v2/admin/tokens/).
 
 {{% note %}}
 
@@ -39,9 +39,9 @@ If you need to send a username and password (`Authorization: Basic`) to the [Inf
 
 {{% /note %}}
 
-To configure Postman to send an [InfluxDB API token](/influxdb/v2/security/tokens/) with the `Authorization: Token` HTTP header, do the following:
+To configure Postman to send an [InfluxDB API token](/influxdb/v2/admin/tokens/) with the `Authorization: Token` HTTP header, do the following:
 
-1. If you have not already, [create a token](/influxdb/v2/security/tokens/create-token/).
+1. If you have not already, [create a token](/influxdb/v2/admin/tokens/create-token/).
 2. In the Postman **Authorization** tab, select **API Key** in the **Type** dropdown.
 3. For **Key**, enter `Authorization`.
 4. For **Value**, enter `Token INFLUX_API_TOKEN`, replacing *`INFLUX_API_TOKEN`* with the token generated in step 1.

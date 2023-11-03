@@ -30,7 +30,7 @@ and optionally make that member an owner across all organizations.
    - Organization name
    - User ID
    - _(Optional)_ `--owner` flag to add the user as an owner 
-    _(requires an [operator token](/influxdb/v2/security/tokens/#operator-token))_
+    _(requires an [operator token](/influxdb/v2/admin/tokens/#operator-token))_
 
     {{< code-tabs-wrapper >}}
 {{% code-tabs %}}

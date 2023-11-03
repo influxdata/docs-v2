@@ -106,7 +106,7 @@ This library includes an example browser app that queries from and writes to you
     cd examples
     ```
 
-3. Update `./env_browser.js` with your InfluxDB [url](/influxdb/v2/reference/urls/), [bucket](/influxdb/v2/admin/buckets/), [organization](/influxdb/v2/admin/organizations/), and [token](/influxdb/v2/security/tokens/)
+3. Update `./env_browser.js` with your InfluxDB [url](/influxdb/v2/reference/urls/), [bucket](/influxdb/v2/admin/buckets/), [organization](/influxdb/v2/admin/organizations/), and [token](/influxdb/v2/admin/tokens/)
 
 4. Run the following command to start the application at [http://localhost:3001/examples/index.html]()
 

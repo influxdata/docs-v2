@@ -25,7 +25,7 @@ at least every hour, but maybe more often.
 
 In order to follow this guide you’ll need to create the following resources:
 
-- An [All-Access token](/influxdb/cloud/security/tokens/#all-access-token). 
+- An [All-Access token](/influxdb/cloud/admin/tokens/#all-access-token). 
 - Three InfluxDB buckets: 
     - **water_level_raw**: Stores the raw water level data.
     - **water_level_mean**: Stores one minute averages of water levels.

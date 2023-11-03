@@ -24,7 +24,7 @@ to update a password for a user. To update a password, you need the following:
 
 - Username or user ID _(provided in the output of `influx user list`)_
 - New password
-- [Operator token](/influxdb/v2/security/tokens/#operator-token)
+- [Operator token](/influxdb/v2/admin/tokens/#operator-token)
 
 ##### Update a password
 ```sh

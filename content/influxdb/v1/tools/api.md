@@ -112,7 +112,7 @@ The `/api/v2/write` endpoint maps the supplied version 1.8 database and retentio
 
 **Include the following HTTP header:**
 
-- `Authorization`: In InfluxDB 2.0 uses [API Tokens](/influxdb/v2/security/tokens/)
+- `Authorization`: In InfluxDB 2.0 uses [API Tokens](/influxdb/v2/admin/tokens/)
   to access the platform and all its capabilities.
   InfluxDB v1.x uses a username and password combination when accessing the HTTP APIs.
   Use the Token schema to provide your InfluxDB 1.x username and password separated by a colon (`:`).

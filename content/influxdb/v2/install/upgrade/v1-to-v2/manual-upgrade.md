@@ -225,7 +225,7 @@ InfluxDB {{< current-version >}} requires authentication and provides two authen
 - [1.x compatible authorizations](#1x-compatible-authorizations)
 
 ### Token authentication
-Use [InfluxDB {{< current-version >}} token authentication](/influxdb/v2/security/tokens/) to
+Use [InfluxDB {{< current-version >}} token authentication](/influxdb/v2/admin/tokens/) to
 authenticate requests to InfluxDB {{< current-version >}}.
 
 ##### Recommended if:

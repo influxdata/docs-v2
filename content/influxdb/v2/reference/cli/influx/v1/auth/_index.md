@@ -19,7 +19,7 @@ cascade:
 The `influx v1 auth` subcommands provide authorization management for the
 [InfluxDB 1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/).
 
-InfluxDB {{< current-version >}} uses [API tokens](/influxdb/v2/security/tokens/) to authorize API requests.
+InfluxDB {{< current-version >}} uses [API tokens](/influxdb/v2/admin/tokens/) to authorize API requests.
 The [1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/) lets clients authenticate with InfluxDB {{< current-version >}} using the InfluxDB 1.x convention of username and password.
 
 {{% note %}}

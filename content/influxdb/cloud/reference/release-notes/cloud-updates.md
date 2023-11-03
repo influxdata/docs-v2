@@ -101,7 +101,7 @@ Quickly start writing and querying your data with **JavaScript/Node.js**. Now, w
 ## May 2022
 
 ### Bulk delete API tokens
-Efficiently delete multiple tokens at once. For details, see [Delete a token using the InfluxDB API](/influxdb/v2/security/tokens/delete-token/#delete-a-token-using-the-influxdb-api).
+Efficiently delete multiple tokens at once. For details, see [Delete a token using the InfluxDB API](/influxdb/v2/admin/tokens/delete-token/#delete-a-token-using-the-influxdb-api).
 
 ### Help bar
 Find relevant content easily from the Cloud UI using the help tab in left side panel.
@@ -142,7 +142,7 @@ Previously, InfluxDB loaded all variables on the client side, even those not inc
 
 ### Update Tokens UI
 
-To enhance security, the Tokens UI will only display an InfluxDB Cloud token when it's [first created](/influxdb/cloud/security/tokens/create-token/). If you return to the Token page later, you won't be able to view or copy the token. To learn more about token access restrictions, see [Create an API token](/influxdb/cloud/security/tokens/create-token/).
+To enhance security, the Tokens UI will only display an InfluxDB Cloud token when it's [first created](/influxdb/cloud/admin/tokens/create-token/). If you return to the Token page later, you won't be able to view or copy the token. To learn more about token access restrictions, see [Create an API token](/influxdb/cloud/admin/tokens/create-token/).
 
 ### Multi-account support
 

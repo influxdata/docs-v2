@@ -103,7 +103,7 @@ Include the following:
 
 - **Request method:** `POST`
 - **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2/security/tokens/)
+  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2/admin/tokens/)
   - **Content-type:** `application/json`
 - **Request body:** JSON object with the following fields:  
   {{< req type="key" >}}
@@ -175,7 +175,7 @@ Include the following:
 
 - **Request method:** `GET`
 - **Headers:**
-  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2/security/tokens/)
+  - **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2/admin/tokens/)
 - **Query parameters:**  
   {{< req type="key" >}}
   - {{< req "\*" >}} **orgID:** [organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
@@ -260,7 +260,7 @@ Include the following:
 
 - **Request method:** `PATCH`
 - **Headers:**
-  - {{< req "\*" >}} **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2/security/tokens/)
+  - {{< req "\*" >}} **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2/admin/tokens/)
 - **Path parameters:**
   - {{< req "\*" >}} **id:** DBRP mapping ID to update
 - **Query parameters:**  
@@ -328,7 +328,7 @@ Include the following:
 
 - **Request method:** `PATCH`
 - **Headers:**
-  - {{< req "\*" >}} **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2/security/tokens/)
+  - {{< req "\*" >}} **Authorization:** `Token` schema with your InfluxDB [API token](/influxdb/v2/admin/tokens/)
 - **Path parameters:**
   - {{< req "\*" >}} **id:** DBRP mapping ID to update
 - **Query parameters:**  

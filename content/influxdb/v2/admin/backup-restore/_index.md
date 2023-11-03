@@ -9,7 +9,7 @@ menu:
   influxdb_v2:
     name: Back up & restore data
     parent: Administer InfluxDB
-weight: 13
+weight: 15
 aliases:
   - /influxdb/v2/backup-restore/
 ---

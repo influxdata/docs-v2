@@ -227,7 +227,7 @@ InfluxDB {{< current-version >}} supports the following token types:
 - {{% cloud-only %}}Custom tokens{{% /cloud-only %}}
 - {{% oss-only %}}Read/Write tokens{{% /oss-only %}}
 
-For more information about each token type, see [Manage API tokens](/influxdb/v2/security/tokens/).
+For more information about each token type, see [Manage API tokens](/influxdb/v2/admin/tokens/).
 
 #### Can I use InfluxDB with authentication disabled?
 InfluxDB {{< current-version >}} enforces security best practices by requiring

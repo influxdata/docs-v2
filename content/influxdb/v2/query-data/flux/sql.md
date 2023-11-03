@@ -217,10 +217,10 @@ Use the variable to manipulate queries in your dashboards.
 ---
 
 ## Use secrets to store SQL database credentials
-If your SQL database requires authentication, use [InfluxDB secrets](/influxdb/v2/security/secrets/)
+If your SQL database requires authentication, use [InfluxDB secrets](/influxdb/v2/admin/secrets/)
 to store and populate connection credentials.
 By default, InfluxDB base64-encodes and stores secrets in its internal key-value store, BoltDB.
-For added security, [store secrets in Vault](/influxdb/v2/security/secrets/use-vault/).
+For added security, [store secrets in Vault](/influxdb/v2/admin/secrets/use-vault/).
 
 ### Store your database credentials as secrets
 Use the [InfluxDB API](/influxdb/v2/reference/api/) or the [`influx` CLI](/influxdb/v2/reference/cli/influx/secret/)
@@ -246,7 +246,7 @@ curl --request PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
 **To store secrets, you need:**
 
 - [your organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)  
-- [your API token](/influxdb/v2/security/tokens/view-tokens/)
+- [your API token](/influxdb/v2/admin/tokens/view-tokens/)
 {{% /tab-content %}}
 {{% tab-content %}}
 ```sh

@@ -40,7 +40,7 @@ for the upgrade process.
 2. Click **{{< icon "plus" >}} Generate**, and then select **All-Access Token**.
 3. Enter a description for the token, and then click **{{< icon "check" >}} Save**.
 
-_For more information about managing tokens and token types, see [Manage tokens](/influxdb/cloud/security/tokens/)._
+_For more information about managing tokens and token types, see [Manage tokens](/influxdb/cloud/admin/tokens/)._
 
 ## Download and install the influx CLI
 1.  Visit the [InfluxDB downloads page](https://portal.influxdata.com/downloads/)

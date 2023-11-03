@@ -83,7 +83,7 @@ A token identifies specific permissions to the InfluxDB instance.
 
 ### Configure your token as an environment variable
 
-1. Find your API token. _For information about viewing tokens, see [View tokens](/influxdb/cloud/security/tokens/view-tokens/)._
+1. Find your API token. _For information about viewing tokens, see [View tokens](/influxdb/cloud/admin/tokens/view-tokens/)._
 
 2. To configure your token as the `INFLUX_TOKEN` environment variable, run the command appropriate for your operating system and command-line tool:
 

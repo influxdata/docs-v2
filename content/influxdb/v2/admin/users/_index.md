@@ -7,7 +7,7 @@ menu:
   influxdb_v2:
     name: Manage users
     parent: Administer InfluxDB
-weight: 11
+weight: 12
 aliases:
   - /influxdb/v2/users/
 ---
@@ -15,7 +15,7 @@ aliases:
 Users are those with access to InfluxDB.
 To grant a user permission to access data, add them as a
 [member of an organization](/influxdb/v2/admin/organizations/members/)
-and provide them with an [API token](/influxdb/v2/security/tokens/).
+and provide them with an [API token](/influxdb/v2/admin/tokens/).
 
 The following articles walk through managing users.
 

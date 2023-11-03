@@ -70,7 +70,7 @@ See [InfluxDB URLs](/influxdb/v2/reference/urls/) for information about which UR
 
 ##### token
 Your InfluxDB {{< current-version >}} API token.
-For information about viewing tokens, see [View tokens](/influxdb/v2/security/tokens/view-tokens/).
+For information about viewing tokens, see [View tokens](/influxdb/v2/admin/tokens/view-tokens/).
 
 {{% note %}}
 ###### Avoid storing tokens in `telegraf.conf`

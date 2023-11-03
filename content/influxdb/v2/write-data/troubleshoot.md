@@ -63,7 +63,7 @@ Write requests return the following status codes:
 | :-------------------------------| :---------------------------------------------------------------        | :------------- |
 | `204 "Success"`                 |                                                                         | If InfluxDB validated the request data format and queued the data for writing to the bucket |
 | `400 "Bad request"`             | `message` contains the first malformed line                             | If data is malformed    |
-| `401 "Unauthorized"`            |                                                                         | If the [`Authorization: Token` header](/influxdb/cloud/api-guide/api_intro/#authentication) is missing or malformed or if the [API token](/influxdb/cloud/api-guide/api_intro/#authentication) doesn't have [permission](/influxdb/cloud/security/tokens/) to write to the bucket |
+| `401 "Unauthorized"`            |                                                                         | If the [`Authorization: Token` header](/influxdb/cloud/api-guide/api_intro/#authentication) is missing or malformed or if the [API token](/influxdb/cloud/api-guide/api_intro/#authentication) doesn't have [permission](/influxdb/cloud/admin/tokens/) to write to the bucket |
 | `404 "Not found"`               | requested **resource type**, e.g. "organization", and **resource name**     | If a requested resource (e.g. organization or bucket) wasn't found |
 | `413 “Request too large”`       | cannot read data: points in batch is too large                          | If a **write** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
 | `429 “Too many requests”`       | `Retry-After` header: xxx (seconds to wait before retrying the request) | If a **read** or **write** request exceeds your plan's [adjustable service quotas](/influxdb/cloud/account-management/limits/#adjustable-service-quotas) or if a **delete** request exceeds the maximum [global limit](/influxdb/cloud/account-management/limits/#global-limits) |
@@ -80,7 +80,7 @@ Write requests return the following status codes:
 - `401` **Unauthorized**: May indicate one of the following:
   - [`Authorization: Token` header](/influxdb/v2/api-guide/api_intro/#authentication) is missing or malformed.
   - [API token](/influxdb/v2/api-guide/api_intro/#authentication) value is missing from the header.
-  - API token does not have sufficient permissions to write to the organization and the bucket. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2/security/tokens/).
+  - API token does not have sufficient permissions to write to the organization and the bucket. For more information about token types and permissions, see [Manage API tokens](/influxdb/v2/admin/tokens/).
 - `404` **Not found**: A requested resource (e.g. an organization or bucket) was not found. The response body contains the requested resource type, e.g. "organization", and resource name.
 - `413` **Request entity too large**: All request data was rejected and not written. InfluxDB OSS only returns this error if the [Go (golang) `ioutil.ReadAll()`](https://pkg.go.dev/io/ioutil#ReadAll) function raises an error.
 - `500` **Internal server error**: Default HTTP status for an error.

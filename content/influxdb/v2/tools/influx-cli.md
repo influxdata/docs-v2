@@ -225,7 +225,7 @@ influx config create --config-name <config-name> \
 For more information about managing CLI configurations, see the
 [`influx config` documentation](/influxdb/v2/reference/cli/influx/config/).
 
-For instructions on how to create API tokens, see [Create a token](/influxdb/v2/security/tokens/create-token/).
+For instructions on how to create API tokens, see [Create a token](/influxdb/v2/admin/tokens/create-token/).
 
 {{% oss-only %}}
 

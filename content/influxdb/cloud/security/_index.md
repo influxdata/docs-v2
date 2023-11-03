@@ -9,6 +9,7 @@ menu:
   influxdb_cloud:
     name: Security & authorization
 influxdb/cloud/tags: [security, authentication]
+draft: true
 ---
 
 Security, access control, and sensitive secret handling are incredibly important

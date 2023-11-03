@@ -66,7 +66,7 @@ To create an InfluxDB connection in the Chronograf UI:
 
 - **Connection Name**: Unique name for this connection.
 - **Organiziation**: InfluxDB [organization](/influxdb/v2/admin/organizations/)
-- **Token**: InfluxDB [authentication token](/influxdb/v2/security/tokens/)
+- **Token**: InfluxDB [authentication token](/influxdb/v2/admin/tokens/)
 - **Telegraf Database Name:** InfluxDB [bucket](/influxdb/v2/admin/buckets/)
   Chronograf uses to populate parts of the application, including the Host List page (default is `telegraf`)
 - **Default Retention Policy:** default [retention policy](/influxdb/v1/concepts/glossary/#retention-policy-rp)

@@ -111,7 +111,7 @@ To create a bucket with the InfluxDB HTTP API, send a request to the following e
 Include the following in your request:
 
 - **Headers:**
-  - **Authorization:** `Token` scheme with your InfluxDB [API token](/influxdb/cloud/security/tokens/)
+  - **Authorization:** `Token` scheme with your InfluxDB [API token](/influxdb/cloud/admin/tokens/)
   - **Content-type:** `application/json`
 - **Request body:** JSON object with the following fields:  
   {{< req type="key" >}}

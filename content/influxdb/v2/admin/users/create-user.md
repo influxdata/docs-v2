@@ -18,7 +18,7 @@ Additional users cannot be created in the InfluxDB UI.
 {{% /note %}}
 
 To create a new user, you must have an [operator token](/influxdb/v2/reference/glossary/#token).
-For more information, see how to [create an operator token](/influxdb/v2/security/tokens/create-token/#create-an-operator-token).
+For more information, see how to [create an operator token](/influxdb/v2/admin/tokens/create-token/#create-an-operator-token).
 Use the [`influx user create` command](/influxdb/v2/reference/cli/influx/user/create) and include the following:
 
 - Username

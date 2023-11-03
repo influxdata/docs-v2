@@ -279,7 +279,7 @@ You can't modify or delete columns in bucket schemas.
 ### Bucket not found
 
 Creating and updating bucket schema requires `WRITE` permission for the bucket.  
-If your [API token](/influxdb/cloud/security/tokens/) doesn't have `WRITE` permission for the bucket, InfluxDB returns the following error:
+If your [API token](/influxdb/cloud/admin/tokens/) doesn't have `WRITE` permission for the bucket, InfluxDB returns the following error:
 
 ```sh
 Error: bucket "my_explicit_bucket" not found

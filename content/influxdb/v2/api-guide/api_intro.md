@@ -31,10 +31,10 @@ an [InfluxDB Cloud account](/influxdb/cloud/sign-up).
 
 ### Authentication
 
-InfluxDB uses [API tokens](/influxdb/v2/security/tokens/) to authorize API requests.
+InfluxDB uses [API tokens](/influxdb/v2/admin/tokens/) to authorize API requests.
 
 1. Before exploring the API, use the InfluxDB UI to
-[create an initial API token](/influxdb/v2/security/tokens/create-token/) for your application.
+[create an initial API token](/influxdb/v2/admin/tokens/create-token/) for your application.
 
 2. Include your API token in an `Authorization: Token YOUR_API_TOKEN` HTTP header with each request.
 

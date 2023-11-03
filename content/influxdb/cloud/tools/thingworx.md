@@ -29,7 +29,7 @@ InfluxDB Cloud is a built-in component of ThingWorx on PTC Cloud in Azure. There
 {{% note %}}
 **Tip:** We recommend naming your bucket “thingworx”. In ThingWorx, this bucket name becomes the database name selected for the InfluxDB persistence provider configuration.
 {{% /note %}}
-3. [Create an All-Access token](/influxdb/cloud/security/tokens/create-token/) in InfluxDB Cloud, and save the token string for step 4. To access this string in the UI, double-clicking the new token name, and copy the string at the top of the dialog.
+3. [Create an All-Access token](/influxdb/cloud/admin/tokens/create-token/) in InfluxDB Cloud, and save the token string for step 4. To access this string in the UI, double-clicking the new token name, and copy the string at the top of the dialog.
 4. Create a DBRP mapping for your bucket by sending an HTTP `POST` request to the `/api/v2/dbrps/` InfluxDB API endpoint.
 
     ```sh
@@ -52,7 +52,7 @@ InfluxDB Cloud is a built-in component of ThingWorx on PTC Cloud in Azure. There
     - *`INFLUX_BUCKET`*: your [InfluxDB bucket](/influxdb/cloud/reference/glossary/#bucket) name (`thingworx`), created in step 2
     - *`INFLUX_RETENTION_PERIOD`*: your [InfluxDB retention period](/influxdb/cloud/reference/glossary/#retention-period), typically `autogen`
 
-5. (Optional) We recommend [creating a new Read/Write token](/influxdb/cloud/security/tokens/create-token/) with read/write access to the bucket that you set up in step 2. A read/write token is useful for non-admin users to access configuration settings in ThingWorx. Copy and save the new token string to [set up PTC ThingWorx](#set-up-ptc-thingworx). (To do this, double-click the token in the UI, and copy the string at the top of the dialog.)
+5. (Optional) We recommend [creating a new Read/Write token](/influxdb/cloud/admin/tokens/create-token/) with read/write access to the bucket that you set up in step 2. A read/write token is useful for non-admin users to access configuration settings in ThingWorx. Copy and save the new token string to [set up PTC ThingWorx](#set-up-ptc-thingworx). (To do this, double-click the token in the UI, and copy the string at the top of the dialog.)
 
 ## Set up PTC ThingWorx
 
