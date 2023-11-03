@@ -7,7 +7,8 @@ menu:
     name: Recover credentials
     parent: Manage users
 weight: 106
-products: [oss]
+aliases:
+  - /influxdb/v2/users/recover-credentials/
 related:
   - /influxdb/v2/reference/cli/influxd/recovery/
 ---

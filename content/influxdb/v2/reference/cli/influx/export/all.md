@@ -9,7 +9,7 @@ weight: 201
 aliases:
   - /influxdb/v2/reference/cli/influx/pkg/export/all/
 related:
-  - /influxdb/v2/influxdb-templates/create/
+  - /influxdb/v2/tools/influxdb-templates/create/
   - /influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions
 ---

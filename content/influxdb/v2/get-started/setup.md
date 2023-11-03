@@ -15,7 +15,7 @@ related:
   - /influxdb/v2/install/
   - /influxdb/v2/reference/config-options/
   - /influxdb/v2/security/tokens/
-  - /influxdb/v2/organizations/buckets/
+  - /influxdb/v2/admin/buckets/
   - /influxdb/v2/tools/influx-cli/
   - /influxdb/v2/reference/api/
 ---

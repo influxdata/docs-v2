@@ -7,7 +7,8 @@ menu:
     name: View users
     parent: Manage users
 weight: 102
-products: [oss]
+aliases:
+  - /influxdb/v2/users/view-users/
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)

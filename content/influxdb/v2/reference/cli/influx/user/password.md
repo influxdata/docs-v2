@@ -7,7 +7,7 @@ menu:
     parent: influx user
 weight: 201
 related:
-  - /influxdb/v2/users/change-password/
+  - /influxdb/v2/admin/users/change-password/
 canonical: /influxdb/v2/reference/cli/influx/user/password/
 ---
 

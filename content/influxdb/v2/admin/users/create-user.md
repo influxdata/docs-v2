@@ -7,7 +7,8 @@ menu:
     name: Create a user
     parent: Manage users
 weight: 101
-products: [oss]
+aliases:
+  - /influxdb/v2/users/create-user
 ---
 
 Use the `influx` command line interface (CLI) to create a user.
@@ -35,6 +36,7 @@ influx user create -n johndoe -o example-org
 ```
 
 ### Create a user with a password and organization
+
 To create a new user with a password and add the user as a member of an organization,
 include a password and organization ID with the `influx user create` command.
 

@@ -13,8 +13,8 @@ weight: 11
 aliases:
   - /influxdb/v2/upgrade/v1-to-v2/manual-upgrade/
 related:
-  - /influxdb/v2/upgrade/v1-to-v2/
-  - /influxdb/v2/upgrade/v1-to-v2/migrate-cqs/
+  - /influxdb/v2/install/upgrade/v1-to-v2/
+  - /influxdb/v2/install/upgrade/v1-to-v2/migrate-cqs/
 ---
 
 To manually upgrade from InfluxDB 1.x to InfluxDB {{< current-version >}}:

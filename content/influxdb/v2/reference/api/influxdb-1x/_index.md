@@ -11,7 +11,7 @@ weight: 104
 influxdb/v2/tags: [influxql, query, write]
 related:
   - /influxdb/v2/query-data/influxql
-  - /influxdb/v2/upgrade/v1-to-v2/
+  - /influxdb/v2/install/upgrade/v1-to-v2/
 ---
 
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with

@@ -6,12 +6,15 @@ influxdb/v2/tags: [users, authentication]
 menu:
   influxdb_v2:
     name: Manage users
+    parent: Administer InfluxDB
 weight: 11
-products: [oss]
+aliases:
+  - /influxdb/v2/users/
 ---
 
 Users are those with access to InfluxDB.
-To grant a user permission to access data, add them as a [member of an organization](/influxdb/v2/admin/organizations/members/)
+To grant a user permission to access data, add them as a
+[member of an organization](/influxdb/v2/admin/organizations/members/)
 and provide them with an [API token](/influxdb/v2/security/tokens/).
 
 The following articles walk through managing users.

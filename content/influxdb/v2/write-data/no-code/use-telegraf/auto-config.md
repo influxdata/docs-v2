@@ -12,7 +12,7 @@ menu:
     parent: Telegraf (agent)
 weight: 201
 related:
-  - /influxdb/v2/telegraf-configs/create/
+  - /influxdb/v2/tools/telegraf-configs/create/
 ---
 
 The InfluxDB user interface (UI) can automatically create Telegraf configuration files based on user-selected Telegraf plugins.

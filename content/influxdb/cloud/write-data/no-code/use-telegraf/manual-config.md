@@ -15,8 +15,8 @@ weight: 202
 influxdb/cloud/tags: [manually, plugin, mqtt]
 related:
   - /telegraf/v1/plugins/
-  - /influxdb/cloud/telegraf-configs/create/
-  - /influxdb/cloud/telegraf-configs/update/
+  - /influxdb/cloud/tools/telegraf-configs/create/
+  - /influxdb/cloud/tools/telegraf-configs/update/
 alt_links:
   cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/configure/
   cloud-dedicated: /influxdb/cloud-dedicated/write-data/use-telegraf/configure/

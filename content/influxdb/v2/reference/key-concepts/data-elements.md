@@ -194,7 +194,7 @@ All InfluxDB data is stored in a bucket. A **bucket** combines the concept of a 
 
 ## Organization
 
-An InfluxDB **organization** is a workspace for a group of [users](/influxdb/v2/users/). All [dashboards](/influxdb/v2/visualize-data/dashboards/), [tasks](/influxdb/v2/process-data/), buckets, and users belong to an organization. For more information about organizations, see [Manage organizations](/influxdb/v2/admin/organizations/).
+An InfluxDB **organization** is a workspace for a group of [users](/influxdb/v2/admin/users/). All [dashboards](/influxdb/v2/visualize-data/dashboards/), [tasks](/influxdb/v2/process-data/), buckets, and users belong to an organization. For more information about organizations, see [Manage organizations](/influxdb/v2/admin/organizations/).
 
 If you're just starting out, we recommend taking a look at the following guides:
 

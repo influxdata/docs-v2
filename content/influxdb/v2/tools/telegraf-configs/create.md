@@ -13,7 +13,7 @@ aliases:
 related:
   - /influxdb/v2/write-data/no-code/use-telegraf/manual-config/
   - /influxdb/v2/write-data/no-code/use-telegraf/auto-config/
-  - /influxdb/v2/telegraf-configs/update/
+  - /influxdb/v2/tools/telegraf-configs/update/
 ---
 Telegraf has an extensive list of plugins for many different technologies and use cases.
 Not all plugins are available through the InfluxDB UI, but you can

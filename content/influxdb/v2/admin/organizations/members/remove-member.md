@@ -17,7 +17,7 @@ to remove a member from an organization.
 {{% note %}}
 Removing a member from an organization removes all permissions associated with the organization,
 but it does not delete the user from the system entirely.
-For information about deleting a user from InfluxDB, see [Delete a user](/influxdb/v2/users/delete-user/).
+For information about deleting a user from InfluxDB, see [Delete a user](/influxdb/v2/admin/users/delete-user/).
 {{% /note %}}
 
 ## Remove a member from an organization in the InfluxDB UI

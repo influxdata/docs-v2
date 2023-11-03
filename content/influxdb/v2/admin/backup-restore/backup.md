@@ -8,9 +8,10 @@ menu:
     parent: Back up & restore data
 weight: 101
 related:
-  - /influxdb/v2/backup-restore/restore/
+  - /influxdb/v2/admin/backup-restore/restore/
   - /influxdb/v2/reference/cli/influx/backup/
-products: [oss]
+aliases:
+  - /influxdb/v2/backup-restore/backup/
 ---
 
 Use the [`influx backup` command](/influxdb/v2/reference/cli/influx/backup/) to back up

@@ -120,7 +120,7 @@ Use the [`influx` CLI](/influxdb/v2/reference/cli/influx/) and the
 [`influx user password` command](/influxdb/v2/reference/cli/influx/user/password/)
 command to update a user's password.
 For more information, see
-[Change your password](/influxdb/v2/users/change-password/).
+[Change your password](/influxdb/v2/admin/users/change-password/).
 
 {{% /oss-only %}}
 

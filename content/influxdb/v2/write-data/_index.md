@@ -17,7 +17,7 @@ related:
   - /influxdb/v2/reference/syntax/line-protocol
   - /influxdb/v2/reference/syntax/annotated-csv
   - /influxdb/v2/reference/cli/influx/write
-  - /influxdb/v2/migrate-data/
+  - /influxdb/v2/write-data/migrate-data/
   - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
 ---
 

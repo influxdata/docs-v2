@@ -9,7 +9,7 @@ menu:
     parent: Telegraf (agent)
 weight: 201
 related:
-  - /influxdb/cloud/telegraf-configs/create/
+  - /influxdb/cloud/tools/telegraf-configs/create/
 # alt_links:
 #   cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/configure/auto-config/
 ---

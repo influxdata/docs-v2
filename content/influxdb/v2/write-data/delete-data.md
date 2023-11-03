@@ -13,7 +13,7 @@ influxdb/v2/tags: [delete]
 related:
   - /influxdb/v2/reference/syntax/delete-predicate/
   - /influxdb/v2/reference/cli/influx/delete/
-  - /influxdb/v2/organizations/buckets/delete-bucket/
+  - /influxdb/v2/admin/buckets/delete-bucket/
 ---
 
 Use the [`influx` CLI](/influxdb/v2/reference/cli/influx/) or the InfluxDB API

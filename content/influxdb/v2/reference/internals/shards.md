@@ -12,7 +12,7 @@ weight: 103
 influxdb/v2/tags: [storage, internals]
 related:
   - /influxdb/v2/reference/internals/storage-engine/
-  - /influxdb/v2/organizations/buckets/
+  - /influxdb/v2/admin/buckets/
   - /influxdb/v2/reference/cli/influx/bucket/
   - /influxdb/v2/admin/internals/
 ---

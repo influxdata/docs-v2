@@ -7,6 +7,8 @@ menu:
     name: Change your password
     parent: Manage users
 weight: 105
+aliases:
+  - /influxdb/v2/users/change-password/
 ---
 
 Use `influx` command line interface (CLI) to update your password.

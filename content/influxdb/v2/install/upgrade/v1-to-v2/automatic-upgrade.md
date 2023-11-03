@@ -13,8 +13,8 @@ aliases:
   - /influxdb/v2/upgrade/v1-to-v2/automatic-upgrade/
 related:
   - /influxdb/v2/reference/cli/influxd/upgrade/
-  - /influxdb/v2/upgrade/v1-to-v2/manual-upgrade/
-  - /influxdb/v2/upgrade/v1-to-v2/docker/
+  - /influxdb/v2/install/upgrade/v1-to-v2/manual-upgrade/
+  - /influxdb/v2/install/upgrade/v1-to-v2/docker/
 ---
 
 Use the `influxd upgrade` command to upgrade InfluxDB 1.x to InfluxDB {{< current-version >}}.

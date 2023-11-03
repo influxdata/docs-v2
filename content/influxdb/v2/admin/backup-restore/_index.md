@@ -8,8 +8,10 @@ influxdb/v2/tags: [backup, restore]
 menu:
   influxdb_v2:
     name: Back up & restore data
-weight: 9
-products: [oss]
+    parent: Administer InfluxDB
+weight: 13
+aliases:
+  - /influxdb/v2/backup-restore/
 ---
 
 InfluxDB provides tools to back up and restore data and metadata stored in InfluxDB.

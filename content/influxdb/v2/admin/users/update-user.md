@@ -7,7 +7,8 @@ menu:
     name: Update a user
     parent: Manage users
 weight: 103
-products: [oss]
+aliases:
+  - /influxdb/v2/users/update-user/
 ---
 
 Use the InfluxDB user interface (UI) or the `influx` command line interface (CLI)
