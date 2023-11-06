@@ -35,12 +35,12 @@ A query may be slow due to the following reasons:
 - It queries many overlapped parquet files.
 - It queries many string values. A query against a field that stores integers outperforms a query against string data.
 
-Follow these strategies to help improve query performance and resource use:
+Follow these strategies to help improve query performance:
 
 - Follow [schema design best practices](/influxdb/clustered/write-data/best-practices/schema-design/) to make your data easier to query.
 - [Downsample data](/influxdb/clustered/process-data/downsample/).
 - Use custom-partitioning for your data. (How?)
-
+- If resource usage and costs allow, “prewarm” query caches by running the query a few times.
 (Qualify this? For example, if query speed is more important than cost or resource use?)
 - "Prewarm" query caches by running the query a few times.
 
