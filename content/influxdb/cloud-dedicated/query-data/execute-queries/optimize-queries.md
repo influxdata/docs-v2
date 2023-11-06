@@ -47,7 +47,7 @@ Follow these strategies to help improve query performance and resource use:
 
 - Follow [schema design best practices](/influxdb/cloud-dedicated/write-data/best-practices/schema-design/) to make your data easier to query.
 - [Downsample data](/influxdb/cloud-dedicated/process-data/downsample/).
-- Custom-partition your data (Not available for Serverless)
+- Use custom-partitioning for your data. (How?)
 
 (Qualify this? For example, if query speed is more important than cost or resource use?)
 - "Prewarm" query caches by running the query a few times.
