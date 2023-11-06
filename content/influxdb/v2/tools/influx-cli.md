@@ -51,6 +51,9 @@ Do one of the following:
 - [Manually download and install](#manually-download-and-install)
 
 ### Use Homebrew
+
+<!--pytest.mark.skip-->
+
 ```sh
 brew install influxdb-cli
 ```
@@ -62,6 +65,8 @@ If you used Homebrew to install **InfluxDB {{< current-version >}}**, the `influ
 formula was downloaded as a dependency and should already be installed.
 If installed, `influxdb-cli` will appear in the output of the following command:
 
+<!--pytest.mark.skip-->
+
 ```sh
 brew list | grep influxdb-cli
 ```
@@ -71,38 +76,66 @@ brew list | grep influxdb-cli
 
 ### Manually download and install
 
-1. **Download the `influx` CLI package.**
+1.  Download the `influx` CLI package [from your browser](#download-from-your-browser)
+    or [from the command line](#download-from-the-command-line).
+
+    #### Download from your browser
 
     <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz" download>influx CLI v{{< latest-patch cli=true >}} (macOS)</a>
 
-2. **Unpackage the downloaded package.**
+    #### Download from the command line
+
+    ```sh
+    curl -O https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz \
+        --output-dir ~/Downloads
+    ```
+
+2.  Unpackage the downloaded binary.
 
     Do one of the following:
     
-    - Double-click the downloaded package file in **Finder**.
-    - Run the following command in a macOS command prompt application such
-    **Terminal** or **[iTerm2](https://www.iterm2.com/)**:
+    - In **Finder**, double-click the downloaded package file.
+    - In your terminal (for example, **Terminal** or **[iTerm2](https://www.iterm2.com/)**) use `tar` to extract the package--for example, enter the following command to extract it into `~/Downloads`:
 
         ```sh
-        # Unpackage contents to the current working directory
-        tar zxvf ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz
+        tar zxvf ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64.tar.gz \
+          --directory ~/Downloads
         ```
 
-3. **(Optional) Place the binary in your `$PATH`.**
+3.  Optional: Place the `influx` binary in your `$PATH`--for example, copy the binary to `/usr/local/bin`:
 
     ```sh
-    # (Optional) Copy the influx binary to your $PATH
-    sudo cp ~/Downloads/influxdb2-client-{{< latest-patch cli=true >}}-darwin-amd64/influx /usr/local/bin/
+    sudo cp ~/Downloads/influx /usr/local/bin/
     ```
 
-    If you do not move the `influx` binary into your `$PATH`, prefix the executable
-    `./` to run it in place.
+    With the `influx` binary in your `$PATH` (`/usr/local/bin`), you can enter `influx` in your terminal to run the CLI.
 
-4. **(macOS Catalina and newer) Authorize the `influx` binary.**
+    If you do not move the `influx` binary into your `$PATH`, enter the path to the binary to run the CLI--for example:
+
+    <!--pytest.mark.xfail-->
+
+    ```sh
+    ~/Downloads/influx
+    ```
+
+4.  (macOS Catalina and newer) Authorize the `influx` binary.
 
     macOS requires downloaded binaries to be signed by registered Apple developers.
-    When you first attempt to run `influx`, macOS will prevent it from running.
+    When you first attempt to run `influx`, macOS prevents it from running.
     To authorize the `influx` binary:
+
+    **Allow the binary on macOS Ventura**
+
+    1.  Follow the preceding instructions to attempt to start `influx`.
+    2.  Open **System Settings** and click **Privacy & Security**.
+    3.  Under the **Security** heading, there is a message about "influxd" being blocked, click **Allow Anyway**.
+    5.  When prompted, enter your password to allow the setting.
+    6.  Close **System Settings**.
+    7.  Attempt to start `influx`.
+    8.  A prompt appears with the message _"macOS cannot verify the developer of "influx"...""_.
+        Click **Open**.
+
+    **Allow the binary on macOS Catalina**
 
     1. Attempt to run an `influx` command.
     2. Open **System Preferences** and click **Security & Privacy**.
@@ -115,9 +148,7 @@ brew list | grep influxdb-cli
 <!-------------------------------- BEGIN Linux -------------------------------->
 {{% tab-content %}}
 
-1. **Download the influx CLI package.**
-
-    Download the `influx` CLI package [from your browser](#download-from-your-browser)
+1.  Download the `influx` CLI package [from your browser](#download-from-your-browser)
     or [from the command line](#download-from-the-command-line).
 
     #### Download from your browser
@@ -127,38 +158,49 @@ brew list | grep influxdb-cli
 
     #### Download from the command line
 
-    ```sh
-    # amd64
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
+      ```sh
+      # amd64
+      wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
+      ```
 
-    # arm
-    wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
-    ```
+      ```sh
+      # arm
+      wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
+      ```
 
-4. **Unpackage the downloaded package.**
+2. Unpackage the downloaded binary.
 
     _**Note:** The following commands are examples. Adjust the filenames, paths, and utilities if necessary._
 
     ```sh
     # amd64
-    tar xvzf path/to/influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
-
-    # arm
-    tar xvzf path/to/influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
+    tar xvzf ./influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64.tar.gz
     ```
 
-3. **(Optional) Place the unpackaged `influx` executable in your system `$PATH`.**
+    ```sh
+    # arm
+    tar xvzf ./influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64.tar.gz
+    ```
+
+3. Optional: Place the unpackaged `influx` executable in your system `$PATH`.
 
     ```sh
     # amd64
-    sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-amd64/influx /usr/local/bin/
-
-    # arm
-    sudo cp influxdb2-client-{{< latest-patch cli=true >}}-linux-arm64/influx /usr/local/bin/
+    sudo cp ./influx /usr/local/bin/
     ```
 
-    If you do not move the `influx` binary into your `$PATH`, prefix the executable
-    `./` to run it in place.
+    ```sh
+    # arm
+    sudo cp ./influx /usr/local/bin/
+    ```
+
+    If you do not move the `influxd` binary into your `$PATH`, enter the path to the binary to start the server--for example:
+
+    <!--pytest.mark.xfail-->
+
+    ```sh
+    ./influx
+    ```
 
 {{% /tab-content %}}
 <!--------------------------------- END Linux --------------------------------->
@@ -171,20 +213,22 @@ We recommend running `influx` CLI commands in Powershell.
 Command Prompt is not fully compatible.
 {{% /note %}}
 
-1. **Download the `influx` CLI package.**
+1.  Download the `influx` CLI package.
 
     <a class="btn download" href="https://dl.influxdata.com/influxdb/releases/influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip" download>influx CLI v{{< latest-patch cli=true >}} (Windows)</a>
 
-2. **Expand the downloaded archive.**
+2.  Expand the downloaded archive.
   
     Expand the downloaded archive into `C:\Program Files\InfluxData\` and rename it if desired.
+
+    <!--pytest.mark.skip-->
 
     ```powershell
     > Expand-Archive .\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64.zip -DestinationPath 'C:\Program Files\InfluxData\'
     > mv 'C:\Program Files\InfluxData\influxdb2-client-{{< latest-patch cli=true >}}-windows-amd64' 'C:\Program Files\InfluxData\influx'
     ```
 
-3. **Grant network access to the `influx` CLI.**
+3.  Grant network access to the `influx` CLI.
 
     When using the `influx` CLI for the first time, **Windows Defender** displays
     the following message:
@@ -214,13 +258,22 @@ credentials from the active config.
 Use the [`influx config create` command](/influxdb/v2/reference/cli/influx/config/create/)
 to create an `influx` CLI config and set it as active:
 
+
+{{% code-placeholders "API_TOKEN|ORG|http://localhost:8086|CONFIG_NAME" %}}
 ```sh
-influx config create --config-name <config-name> \
+influx config create --config-name CONFIG_NAME \
   --host-url http://localhost:8086 \
-  --org <your-org> \
-  --token <your-auth-token> \
+  --org ORG \
+  --token API_TOKEN \
   --active
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`CONFIG_NAME`{{% /code-placeholder-key %}}: Connection configuration name.
+- {{% code-placeholder-key %}}`ORG_NAME`{{% /code-placeholder-key %}}: your InfluxDB [organization](/influxdb/v2/organizations/).
+- {{% code-placeholder-key %}}`API_TOKEN`{{% /code-placeholder-key %}}: your [API token](/influxdb/v2/security/tokens/).
 
 For more information about managing CLI configurations, see the
 [`influx config` documentation](/influxdb/v2/reference/cli/influx/config/).
@@ -239,16 +292,24 @@ The CLI retrieves a session cookie and stores it, unencrypted, in your
 
 Use the `--username-password`, `-p` option to provide your username and password
 using the `<username>:<password>` syntax.
-If no password is provided, the CLI will prompt for a password after each
+If no password is provided, the CLI prompts for a password after each
 command that requires authentication.
 
+{{% code-placeholders "API_TOKEN|ORG|http://localhost:8086|CONFIG_NAME|USERNAME|PASSWORD" %}}
 ```sh
 influx config create \
-  -n config-name \
+  -n CONFIG_NAME \
   -u http://localhost:8086 \
-  -p example-user:example-password \
-  -o example-org
+  -p USERNAME:PASSWORD \
+  -o ORG
 ```
+{{% /code-placeholders %}}
+
+Replace the following:
+
+- {{% code-placeholder-key %}}`CONFIG_NAME`{{% /code-placeholder-key %}}: Connection configuration name.
+- {{% code-placeholder-key %}}`ORG`{{% /code-placeholder-key %}}: [your organization name](/influxdb/v2/organizations/).
+- {{% code-placeholder-key %}}`USERNAME:PASSWORD`{{% /code-placeholder-key %}}: your UI username and password combination.
 
 {{% /oss-only %}}
 
