@@ -6,7 +6,7 @@ description: >
 menu:
   influxdb_v2_ref:
     name: /query
-    parent: 1.x compatibility
+    parent: v1 compatibility
 weight: 301
 influxdb/v2/tags: [influxql, query]
 list_code_example: |
