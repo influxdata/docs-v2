@@ -30,7 +30,7 @@ rm -rf "$target"/*
 # Check if the user provided a path to copy.
 if [ -z "$paths" ]; then
   echo "No path provided. Running tests for *.md files that have been added or modified in the current branch."
-  paths=$(git diff --name-only --diff-filter=AM --relative master | \
+  paths=$(git diff --name-only --diff-filter=AM --relative origin/master | \
     grep -E '\.md$')
 else
   paths=$(find "$paths" -type f -name '*.md')
@@ -39,5 +39,14 @@ fi
 # Log the list of files to be tested and copy them to the test directory.
 echo "$paths" >> "$testrun"
 echo "$paths" | rsync -arv --files-from=- . "$target"
-# Start a new container and run the tests.
-docker compose run --no-TTY test
+
+# Build the test image, run the tests, and then remove the container after it exits.
+docker compose run --build --rm test
+
+# To help debug test failures, run the container and pass additional flags to be used by the container's entrypoint and the test runners it executes--for example:
+# docker compose run --rm test -v
+# docker compose run --rm test --entrypoint /bin/bash
+
+# If you want to examine files or run commands for debugging tests,
+# start the container and use `exec` to open an interactive shell--for example:
+# docker start test && docker exec -it test /bin/bash
