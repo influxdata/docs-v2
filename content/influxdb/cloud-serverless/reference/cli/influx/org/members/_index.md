@@ -14,7 +14,7 @@ metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 The `influx org members` command works with **InfluxDB OSS 2.x**, but does not
 work with **InfluxDB Cloud Serverless**.
 For information about managing users in your InfluxDB Cloud Serverless organization,
-see [Manage users](/influxdb/cloud/admin/organizations/users/).
+see [Manage users](/influxdb/cloud-serverless/admin/organizations/users/).
 {{% /note %}}
 
 {{< duplicate-oss >}}

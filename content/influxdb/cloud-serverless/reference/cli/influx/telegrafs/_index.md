@@ -11,7 +11,7 @@ weight: 101
 influxdb/cloud-serverless/tags: [telegraf]
 cascade:
   related:
-    - /influxdb/cloud/tools/telegraf-configs/
+    - /influxdb/cloud-serverless/tools/telegraf-configs/
     - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
     - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   metadata: [influx CLI 2.0.0+]

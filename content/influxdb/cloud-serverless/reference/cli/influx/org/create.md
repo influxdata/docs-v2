@@ -11,11 +11,12 @@ metadata: [influx CLI 2.0.0+, InfluxDB OSS only]
 
 {{% note %}}
 #### Works with InfluxDB OSS 2.x
+
 The `influx org create` command works with **InfluxDB OSS 2.x**, but does not
 work with **InfluxDB Cloud Serverless**.
 New organizations are created for each new InfluxDB account.
 For information about creating an InfluxDB Cloud Serverless account, see
-[sign up for InfluxDB Cloud Serverless](/influxdb/cloud/sign-up/).
+[sign up for InfluxDB Cloud Serverless](/influxdb/cloud-serverless/sign-up/).
 {{% /note %}}
 
 {{< duplicate-oss >}}

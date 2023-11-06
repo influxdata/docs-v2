@@ -6,8 +6,6 @@ menu:
     name: influx bucket-schema create
     parent: influx bucket-schema
 weight: 201
-related:
-  - /influxdb/cloud/organizations/buckets/bucket-schema
 ---
 
 {{< duplicate-oss >}}

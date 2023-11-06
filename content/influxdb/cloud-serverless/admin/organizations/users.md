@@ -5,16 +5,9 @@ description: >
   Learn how to invite, view, and manage users in your InfluxDB Cloud organization.
 weight: 106
 menu:
-  influxdb_cloud:
+  influxdb_cloud_serverless:
     parent: Manage organizations
     name: Manage users
-aliases:
-  - /influxdb/v2/account-management/multi-user/
-  - /influxdb/cloud/account-management/multi-user/
-  - /influxdb/cloud/account-management/multi-user/invite-user/
-  - /influxdb/cloud/account-management/multi-user/remove-user/
-  - /influxdb/cloud/users/
-  - /influxdb/cloud/organizations/users/
 ---
 
 {{< product-name >}} lets you invite and collaborate with multiple users in your organization.

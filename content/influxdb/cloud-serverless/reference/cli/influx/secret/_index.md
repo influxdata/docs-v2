@@ -9,7 +9,6 @@ weight: 101
 cascade:
   influxdb/cloud-serverless/tags: [secrets]
   related:
-    - /influxdb/cloud/admin/secrets/
     - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
     - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   metadata: [influx CLI 2.0.0+]

@@ -38,13 +38,12 @@ Learn how to upgrade your plan, access billing details, and review and resolve p
 
 ## Access billing details
 
-1. In the {{< product-name "short" >}} UI, select the **user avatar** in the left
-   navigation menu, and select **Account** >
-   **Billing**.
+1.  In the top navigation menu, click the drop-down menu with the same of your
+    account.
 
-    {{< nav-icon "account" >}}
+2.  Click **{{% icon "billing" %}} Billing**.
 
-2. Do one of the following:
+3. Do one of the following:
     - If you subscribed to an InfluxDB Cloud plan through [**AWS Marketplace**](https://aws.amazon.com/marketplace/pp/B08234JZPS), [**Azure Marketplace**](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/influxdata.influxdb-cloud), or [**GCP Marketplace**](https://console.cloud.google.com/marketplace/details/influxdata-public/cloud2-gcp-marketplace-prod?pli=1), click the **AWS**, **Microsoft**, or **GCP** link to access your billing and subscription information.
 
    - If you subscribed to an InfluxDB Cloud plan through **InfluxData**, complete the following procedures as needed:
@@ -53,7 +52,7 @@ Learn how to upgrade your plan, access billing details, and review and resolve p
        - [Add or update your contact information](#add-or-update-your-contact-information)
        - [Send notifications when usage exceeds an amount](#send-notifications-when-usage-exceeds-an-amount)
 
-3. View information about:
+4. View information about:
 
     - [Usage-Based Plan](#view-usage-based-plan-information)
     - [Free Plan](#view-free-plan-information)

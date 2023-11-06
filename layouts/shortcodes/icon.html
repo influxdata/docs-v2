@@ -210,7 +210,7 @@
   {{- else if eq $icon "search" -}}
   <span class="inline {{ $version }} cf-icon Search_New middle small"></span>
   {{- else if or (eq $icon "trash") (eq $icon "trashcan") (eq $icon "delete") -}}
-  <span class="inline {{ $version }} cf-icon Trash_New top small"></span>
+  <span class="inline {{ $version }} cf-icon Trash_New small"></span>
   {{- else if eq $icon "cloud" -}}
   <span class="inline cf-icon Cloud large"></span>
   {{- else if eq $icon "feedback" -}}
@@ -249,5 +249,9 @@
   <span class="inline {{ $version }} cf-icon BucketSolid top"></span>
   {{- else if or (eq $icon "more") (eq $icon "...") (eq $icon "ellipses") -}}
   <span class="inline {{ $version }} cf-icon More bottom"></span>
+  {{- else if or (eq $icon "members") (eq $icon "group") -}}
+  <span class="inline {{ $version }} cf-icon Group"></span>
+  {{- else if or (eq $icon "billing") (eq $icon "bill") -}}
+  <span class="inline {{ $version }} cf-icon Bill"></span>
   {{- end -}}
 {{- end -}}
