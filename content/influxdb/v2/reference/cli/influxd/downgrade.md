@@ -4,11 +4,11 @@ description: >
   The `influxd downgrade` command downgrades the metadata schema used by
   `influxd` to match the schema of an older release.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: influxd
 weight: 201
 related:
-  - /influxdb/v2/upgrade/downgrade/
+  - /influxdb/v2/install/upgrade/downgrade/
 ---
 
 Use the `influxd downgrade` command to downgrade the metadata schema used by

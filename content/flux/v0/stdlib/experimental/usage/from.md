@@ -90,7 +90,7 @@ _(Required if executed outside of your InfluxDB Cloud organization or region)_.
 
 ### token
 
-InfluxDB Cloud [API token](/influxdb/cloud/security/tokens/).
+InfluxDB Cloud [API token](/influxdb/cloud/admin/tokens/).
 Default is `""`.
 
 _(Required if executed outside of your InfluxDB Cloud organization or region)_.

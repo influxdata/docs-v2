@@ -19,7 +19,7 @@ The AWS CloudWatch Monitoring template includes the following:
 - two [buckets](/influxdb/v2/reference/glossary/#bucket): `kubernetes` and `cloudwatch`
 - two labels: `inputs.cloudwatch`, `AWS`
 - one variable: `v.bucket`
-- one [Telegraf configuration](/influxdb/v2/telegraf-configs/): [AWS CloudWatch input plugin](/telegraf/v1/plugins//#cloudwatch)
+- one [Telegraf configuration](/influxdb/v2/tools/telegraf-configs/): [AWS CloudWatch input plugin](/telegraf/v1/plugins//#cloudwatch)
 
 ## Apply the template
 

@@ -11,7 +11,7 @@ influxdb/cloud-serverless/tags: [InfluxQL]
 related:
   - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-  - /influxdb/cloud/query-data/influxql/
+  - /influxdb/cloud-serverless/query-data/influxql/
   - /influxdb/v2/tools/influxql-shell/
 metadata: [influx CLI 2.4.0+, InfluxDB Cloud]
 ---

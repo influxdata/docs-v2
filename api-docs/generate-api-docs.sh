@@ -94,7 +94,7 @@ do
   if [[ $version == "cloud-serverless" ]] || [[ $version == "cloud-dedicated" ]] || [[ $version == "clustered" ]]; then
     menu="influxdb_$(echo $version | sed 's/\./_/g;s/-/_/g;')"
   else 
-    menu="influxdb_$(echo $version | sed 's/\./_/g;')_ref"
+    menu="influxdb_$(echo $version | sed 's/\./_/g;')"
   fi
 
   # Define the title text based on the version

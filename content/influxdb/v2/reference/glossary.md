@@ -4,8 +4,9 @@ description: >
   Terms related to InfluxData products and platforms.
 weight: 9
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: Glossary
+    parent: Reference
 influxdb/v2/tags: [glossary]
 ---
 
@@ -110,7 +111,7 @@ A bucket belongs to an organization.
 
 In InfluxDB Cloud, an explicit bucket schema lets you strictly enforce the data that can be written into one or more measurements in a bucket by defining the column names, tags, fields, and data types allowed for each measurement. By default, buckets in InfluxDB {{< current-version >}} have an `implicit` schema that lets you write data without restrictions on columns, fields, or data types.
 
-Learn how to [manage bucket schemas](/influxdb/cloud/organizations/buckets/bucket-schema/) in InfluxDB Cloud.
+Learn how to [manage bucket schemas](/influxdb/cloud/admin/buckets/bucket-schema/) in InfluxDB Cloud.
 
 Related entries: [data type](#data-type), [field](#field), [measurement](#measurement)
 
@@ -1022,7 +1023,7 @@ The duration of time or interval that each [shard group](#shard-group) covers. S
 For more information, see:
 
 - [Shards and shard groups (OSS)](/influxdb/v2/reference/internals/shards/)
-- [Manage buckets](/influxdb/v2/organizations/buckets/)
+- [Manage buckets](/influxdb/v2/admin/buckets/)
 
 <!-- See [Retention Policy management](/influxdb/v1/query_language/manage-database/#retention-policy-management) for more information.
 
@@ -1131,7 +1132,7 @@ A new feature released to gather feedback from customers and the InfluxDB commun
 
 A plugin-driven agent that collects, processes, aggregates, and writes metrics.
 
-Related entries: [Automatically configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/auto-config/), [Manually configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/manual-config/), [Telegraf plugins](/telegraf/v1/plugins//), [Use Telegraf to collect data](/influxdb/v2/write-data/no-code/use-telegraf/), [View a Telegraf configuration](/influxdb/v2/telegraf-configs/view/)
+Related entries: [Automatically configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/auto-config/), [Manually configure Telegraf](/influxdb/v2/write-data/no-code/use-telegraf/manual-config/), [Telegraf plugins](/telegraf/v1/plugins//), [Use Telegraf to collect data](/influxdb/v2/write-data/no-code/use-telegraf/), [View a Telegraf configuration](/influxdb/v2/tools/telegraf-configs/view/)
 
 ### time (data type)
 
@@ -1175,7 +1176,7 @@ There are different types of API tokens:
 
 {{% /cloud-only %}}
 
-Related entries: [Create a token](/influxdb/v2/security/tokens/create-token/).
+Related entries: [Create a token](/influxdb/v2/admin/tokens/create-token/).
 
 ### tracing
 

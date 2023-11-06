@@ -2,7 +2,7 @@
 title: influx replication create
 description: Create a new InfluxDB replication stream.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx replication create
     parent: influx replication
 weight: 101

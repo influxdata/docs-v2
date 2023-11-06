@@ -2,7 +2,7 @@
 title: influx delete
 description: The `influx delete` command deletes points from an InfluxDB bucket.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx delete
     parent: influx
 weight: 101

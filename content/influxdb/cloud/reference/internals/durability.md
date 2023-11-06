@@ -6,7 +6,7 @@ description: >
   and verifying that replicated data is consistent and readable.
 weight: 101
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: Data durability
     parent: InfluxDB Cloud internals
 influxdb/cloud/tags: [backups, internals]

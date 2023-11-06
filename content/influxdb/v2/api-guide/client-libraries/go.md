@@ -50,7 +50,7 @@ Use the Go library to write and query data from InfluxDB.
    )
    ```
 
-2. Define variables for your InfluxDB [bucket](/influxdb/v2/organizations/buckets/), [organization](/influxdb/v2/organizations/), and [token](/influxdb/v2/security/tokens/).
+2. Define variables for your InfluxDB [bucket](/influxdb/v2/admin/buckets/), [organization](/influxdb/v2/admin/organizations/), and [token](/influxdb/v2/admin/tokens/).
 
    ```go
    bucket := "example-bucket"

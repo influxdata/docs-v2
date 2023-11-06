@@ -5,8 +5,9 @@ description: >
   writing, querying, processing, and deleting data.
 weight: 5
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: Syntax
+    parent: Reference
 influxdb/cloud/tags: [syntax]
 ---
 

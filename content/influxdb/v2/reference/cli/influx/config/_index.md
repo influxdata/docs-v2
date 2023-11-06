@@ -2,7 +2,7 @@
 title: influx config
 description: The `influx config` command and subcommands manage multiple InfluxDB connection configurations.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx config
     parent: influx
 weight: 101

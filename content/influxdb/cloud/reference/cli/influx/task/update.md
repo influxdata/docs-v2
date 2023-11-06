@@ -2,7 +2,7 @@
 title: influx task update
 description: The `influx task update` command updates information related to tasks in InfluxDB.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx task update
     parent: influx task
 weight: 201

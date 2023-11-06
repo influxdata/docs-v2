@@ -2,7 +2,7 @@
 title: influx replication list
 description: List InfluxDB replication streams and corresponding metrics.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx replication list
     parent: influx replication
 weight: 102

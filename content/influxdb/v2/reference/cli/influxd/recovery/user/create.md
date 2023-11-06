@@ -4,7 +4,7 @@ description: >
   The `influxd recovery user create` command creates a new user directly
   on disk for recovery purposes.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: influxd recovery user
 weight: 401
 ---

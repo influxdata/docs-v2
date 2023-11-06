@@ -14,7 +14,7 @@ influxdb/cloud-serverless/tags: [authorization]
 #### Not supported in InfluxDB Cloud
 **InfluxDB Cloud** does not support InfluxDB 1.x compatible authorizations.
 Using the `influx v1 auth set-active` command with InfluxDB Cloud will result in an error.
-To authenticate with InfluxDB Cloud, use [InfluxDB token authentication](/influxdb/cloud/security/tokens/).
+To authenticate with InfluxDB Cloud, use [InfluxDB token authentication](/influxdb/cloud-serverless/admin/tokens/).
 {{% /cloud %}}
 
 {{< duplicate-oss >}}

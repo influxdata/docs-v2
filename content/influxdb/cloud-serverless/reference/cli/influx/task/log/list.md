@@ -6,8 +6,6 @@ menu:
     name: influx task log list
     parent: influx task log
 weight: 301
-aliases:
-  - /influxdb/cloud/reference/cli/influx/task/log/list
 ---
 
 {{< duplicate-oss >}}

@@ -28,7 +28,7 @@ Provide the following parameters to both functions:
 - **org** or **orgID**: _InfluxDB organization name_ or _organization ID_ to write to.
 - **host**: [InfluxDB URL](/influxdb/v2/reference/urls/) or
   [InfluxDB Cloud region](/influxdb/cloud/reference/regions) URL.
-- **token**: [InfluxDB API token](/influxdb/v2/security/tokens/).
+- **token**: [InfluxDB API token](/influxdb/v2/admin/tokens/).
 
 ##### Write options
 - [Write data to InfluxDB](#write-data-to-influxdb)

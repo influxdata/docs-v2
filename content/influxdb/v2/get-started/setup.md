@@ -14,8 +14,8 @@ metadata: [1 / 5]
 related:
   - /influxdb/v2/install/
   - /influxdb/v2/reference/config-options/
-  - /influxdb/v2/security/tokens/
-  - /influxdb/v2/organizations/buckets/
+  - /influxdb/v2/admin/tokens/
+  - /influxdb/v2/admin/buckets/
   - /influxdb/v2/tools/influx-cli/
   - /influxdb/v2/reference/api/
 ---
@@ -52,7 +52,7 @@ see [InfluxDB configuration options](/influxdb/v2/reference/config-options/).
     If starting InfluxDB for the first time, use the InfluxDB UI or the `influx`
     CLI to initialize your InfluxDB instance.
     This process creates a default user, organization, and bucket and provides
-    you with an [operator token](/influxdb/v2/security/tokens/#operator-token)
+    you with an [operator token](/influxdb/v2/admin/tokens/#operator-token)
     for managing your InfluxDB instance.
 
     For detailed instructions, see [Install InfluxDB – Set up InfluxDB](/influxdb/v2/install/#set-up-influxdb).
@@ -110,7 +110,7 @@ see [InfluxDB configuration options](/influxdb/v2/reference/config-options/).
     - `--all-access` flag
     - `--host` flag with your [InfluxDB host URL](/influxdb/v2/reference/urls/)
     - `-o, --org` or `--org-id` flags with your InfluxDB organization name or
-      [ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
+      [ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
     - `-t, --token` flag with your Operator token
 
     ```sh
@@ -140,13 +140,13 @@ Include the following with your request:
 - **Request body**: JSON body with the following properties:
   - **status**: `"active"`
   - **description**: API token description
-  - **orgID**: [InfluxDB organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
+  - **orgID**: [InfluxDB organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
   - **permissions**: Array of objects where each object represents permissions
     for an InfluxDB resource type or a specific resource. Each permission contains the following properties:
       - **action**: "read" or "write"
       - **resource**: JSON object that represents the InfluxDB resource to grant
         permission to. Each resource contains at least the following properties:
-          - **orgID**: [InfluxDB organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
+          - **orgID**: [InfluxDB organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
           - **type**: Resource type.
             _For information about what InfluxDB resource types exist, use the
             [`/api/v2/resources` endpoint](/influxdb/v2/api/#operation/GetResources)._
@@ -307,7 +307,7 @@ Set the following environment variables in your command line session:
 
 - `INFLUX_HOST`: [InfluxDB host URL](/influxdb/v2/reference/urls/).
 - `INFLUX_ORG`: InfluxDB organization name.
-- `INFLUX_ORG_ID`: InfluxDB [organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id).
+- `INFLUX_ORG_ID`: InfluxDB [organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id).
 - `INFLUX_TOKEN`: InfluxDB API token.
 
 ```sh
@@ -325,7 +325,7 @@ Use the following `influx` CLI flags to provide required credentials to commands
 
 - `--host`: [InfluxDB host URL](/influxdb/v2/reference/urls/).
 - `-o`, `--org` or `--org-id`: InfluxDB organization name or
-  [ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id).
+  [ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id).
 - `-t`, `--token`: InfluxDB API token.
 
 {{% /expand %}}

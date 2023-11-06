@@ -2,8 +2,9 @@
 title: Frequently asked questions
 description: Find answers to common questions related to InfluxDB OSS.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: Frequently asked questions
+    parent: Reference
 weight: 9
 ---
 
@@ -119,7 +120,7 @@ Use the [`influx` CLI](/influxdb/v2/reference/cli/influx/) and the
 [`influx user password` command](/influxdb/v2/reference/cli/influx/user/password/)
 command to update a user's password.
 For more information, see
-[Change your password](/influxdb/v2/users/change-password/).
+[Change your password](/influxdb/v2/admin/users/change-password/).
 
 {{% /oss-only %}}
 
@@ -226,7 +227,7 @@ InfluxDB {{< current-version >}} supports the following token types:
 - {{% cloud-only %}}Custom tokens{{% /cloud-only %}}
 - {{% oss-only %}}Read/Write tokens{{% /oss-only %}}
 
-For more information about each token type, see [Manage API tokens](/influxdb/v2/security/tokens/).
+For more information about each token type, see [Manage API tokens](/influxdb/v2/admin/tokens/).
 
 #### Can I use InfluxDB with authentication disabled?
 InfluxDB {{< current-version >}} enforces security best practices by requiring

@@ -177,7 +177,7 @@ Environment variable: `$INFLUXDB_ORG`
 
 ### `--influxdb-token`
 
-InfluxDB 2.x or InfluxDB Cloud [authentication token](/influxdb/cloud/security/tokens/).
+InfluxDB 2.x or InfluxDB Cloud [authentication token](/influxdb/cloud/admin/tokens/).
 
 Environment variable: `$INFLUXDB_TOKEN`
 

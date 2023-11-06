@@ -2,7 +2,7 @@
 title: InfluxDB OSS release notes
 description: Important changes and what's new in each version of InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: InfluxDB
     parent: Release notes
 weight: 101
@@ -317,7 +317,7 @@ To recover user credentials, use [`influx recovery user list`](/influxdb/v2/refe
 
 ### Security updates
 
-- Add the [`hardening-enabled`](/influxdb/v2/security/enable-hardening) option to limit flux/pkger HTTP requests. The new `hardening-enabled` option ensures that InfluxDB first verifies the IP address of the URL is not private.
+- Add the [`hardening-enabled`](/influxdb/v2/admin/security/enable-hardening) option to limit flux/pkger HTTP requests. The new `hardening-enabled` option ensures that InfluxDB first verifies the IP address of the URL is not private.
   By default, Flux HTTP and template fetching requests are allowed to access localhost and private IP addresses.
   - Disable use of jsonnet with `/api/v2/templates/apply`.
 This prevents crafted authenticated requests from exfiltrating files accessible to the user InfluxDB runs as.
@@ -400,7 +400,7 @@ This release includes the following new features:
 
 #### Notebooks, annotations, and visualization updates
 
-- Add support for [notebooks](/influxdb/v2/notebooks/) and [annotations](/influxdb/v2/visualize-data/annotations/).
+- Add support for [notebooks](/influxdb/v2/tools/notebooks/) and [annotations](/influxdb/v2/visualize-data/annotations/).
 - Add support for static legends to line graphs and band plots.
 - Enable new dashboard auto-refresh.
 - Simplify display of data for table visualizations.
@@ -417,7 +417,7 @@ This release includes the following new features:
 
 Added several new configuration options to [`influxd`](/influxdb/v2/reference/cli/influxd/):
 
-- Add `influxd recovery` command to let you create a recovery [Operator token](/influxdb/v2/security/tokens/#operator-token).
+- Add `influxd recovery` command to let you create a recovery [Operator token](/influxdb/v2/admin/tokens/#operator-token).
 - Add `--sqlite-path` flag for specifying a user-defined path to the SQLite database file.
 - Add `--storage-wal-max-concurrent-writes` flag to enable tuning memory pressure under heavy write load.
 - Add `--storage-wal-max-write-delay` flag to prevent deadlocks when the WAL is overloaded with concurrent writes.
@@ -744,7 +744,7 @@ The prefix used for Prometheus metrics from the query controller has changed fro
   - [Mosiac visualization type](/influxdb/v2/visualize-data/visualization-types/mosaic/)
   - [Configure axis tick marks](/influxdb/v2/visualize-data/visualization-types/graph/#x-axis)
   - Upload CSV files through the InfluxDB UI
-  - [Edit Telegraf configurations](/influxdb/v2/telegraf-configs/update/#edit-the-configuration-file-directly-in-the-ui) in the InfluxDB UI
+  - [Edit Telegraf configurations](/influxdb/v2/tools/telegraf-configs/update/#edit-the-configuration-file-directly-in-the-ui) in the InfluxDB UI
   - [Legend orientation options](/influxdb/v2/visualize-data/visualization-types/graph/#legend)
   - [Refresh a single dashboard cell](/influxdb/v2/visualize-data/dashboards/control-dashboard/#refresh-a-single-dashboard-cell)
 - Upgrade to **Flux v0.113.0**.
@@ -950,7 +950,7 @@ Highlights include:
    - To upgrade **from InfluxDB 2.0 beta 16 or earlier**, see [Upgrade from InfluxDB 2.0 beta to InfluxDB 2.0](/influxdb/v2/upgrade/v2-beta-to-v2).
 - **Flux**, our powerful new functional data scripting language designed for querying, analyzing, and acting on data. This release includes [Flux v0.94.0](/flux/v0/release-notes/#v0940). If you're new to Flux, [check out how to get started with Flux](/influxdb/v2/query-data/get-started/). Next, delve deeper into the [Flux standard library](/flux/v0/stdlib//) reference docs and see how to [query with Flux](/influxdb/v2/query-data/flux/).
 - Support for [InfluxDB 1.x API compatibility](/influxdb/v2/reference/api/influxdb-1x/).
-- **Templates** and **stacks**. Discover how to [use community templates](/influxdb/v2/influxdb-templates/use/) and how to [manage templates with stacks](/influxdb/v2/influxdb-templates/stacks/).
+- **Templates** and **stacks**. Discover how to [use community templates](/influxdb/v2/tools/influxdb-templates/use/) and how to [manage templates with stacks](/influxdb/v2/tools/influxdb-templates/stacks/).
 
 If you're new to InfluxDB 2.0, we recommend checking out [how to get started](/influxdb/v2/get-started/) and [InfluxDB key concepts](/influxdb/v2/reference/key-concepts/).
 
@@ -1087,7 +1087,7 @@ To simplify the migration for existing users of InfluxDB 1.x, this release inclu
 
 #### Community templates added to InfluxDB UI
 
-- Add [InfluxDB community templates](/influxdb/v2/influxdb-templates/) directly in the InfluxDB user interface (UI).
+- Add [InfluxDB community templates](/influxdb/v2/tools/influxdb-templates/) directly in the InfluxDB user interface (UI).
 
 #### New data sources
 
@@ -1325,7 +1325,7 @@ The beta 11 version was **not released**. Changes below are included in the beta
   specified shell (`bash` or `zsh`).
 - Make all `pkg` resources unique by `metadata.name` field.
 - Ensure Telegraf configuration tokens aren't retrievable after creation. New tokens can be created after Telegraf has been setup.
-- [Delete bucket by name](/influxdb/v2/organizations/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
+- [Delete bucket by name](/influxdb/v2/admin/buckets/delete-bucket/#delete-a-bucket-by-name) using the `influx` CLI.
 - Add helper module to write line protocol to specified url, org, and bucket.
 - Add [`pkg stack`](/influxdb/v2/reference/cli/influx/stacks) for stateful package management.
 - Add `--no-tasks` flag to `influxd` to disable scheduling of tasks.

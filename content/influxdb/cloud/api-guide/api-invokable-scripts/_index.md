@@ -43,7 +43,7 @@ JSON object with the following fields:
 - **language** : language of your script ("flux")
 - **name** : script name, unique within your organization
 - **description** : script description
-- **orgID**: your [InfluxDB organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
+- **orgID**: your [InfluxDB organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
 
 ### Use parameters in a script
 To create an invokable script that accepts parameters (variables),
@@ -68,7 +68,7 @@ The following example creates a new Flux script that references the `params.mybu
 ```
 Replace the following:
 - *`INFLUX_API_TOKEN`*: your [InfluxDB API token](/influxdb/cloud/reference/glossary/#token)
-- *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)
+- *`INFLUX_ORG_ID`*: your [InfluxDB organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)
 
 InfluxDB returns the newly created script. Next, see how to [invoke a script](#invoke-a-script).
 

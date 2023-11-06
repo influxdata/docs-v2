@@ -15,7 +15,7 @@ The `influx org delete` command works with **InfluxDB OSS 2.x**, but does not
 work with **InfluxDB Cloud Serverless**.
 An organization is associated with your InfluxDB account.
 For information about removing your InfluxDB Cloud Serverless account and its organization,
-see [Cancel your InfluxDB Cloud Serverless subscription](/influxdb/cloud/account-management/offboarding/).
+see [Cancel your InfluxDB Cloud Serverless subscription](/influxdb/cloud-serverless/admin/accounts/cancel-account/).
 {{% /note %}}
 
 {{< duplicate-oss >}}

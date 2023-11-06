@@ -4,7 +4,7 @@ description: >
   InfluxDB system buckets contain time series data used by and generated from the
   InfluxDB monitoring and alerting system and the task engine.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: System buckets
     parent: InfluxDB Cloud internals
 weight: 101

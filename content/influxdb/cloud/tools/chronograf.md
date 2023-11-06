@@ -7,9 +7,9 @@ description: >
   [1.x compatibility API](/influxdb/v2/reference/api/influxdb-1x/).
 menu:
   influxdb_cloud:
-    name: Use Chronograf
+    name: Chronograf
     parent: Tools & integrations
-weight: 103
+weight: 121
 related:
   - /chronograf/v1/
 ---

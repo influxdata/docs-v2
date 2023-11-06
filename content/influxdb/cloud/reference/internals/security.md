@@ -4,7 +4,7 @@ description: >
   InfluxDB Cloud is built on industry-standard security practices and principles.
 weight: 101
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: Security
     parent: InfluxDB Cloud internals
 influxdb/cloud/tags: [security, internals]
@@ -208,7 +208,7 @@ User accounts can be created directly on the InfluxDB Cloud system via Auth0.
 Users also have the option to use “social sign-on” with their existing Google or Microsoft accounts for authentication.
 API access within custom applications requires an API token.
 Tokens belong to an organization and are mapped to InfluxDB permissions within the organization as defined when the token is created.
-For more information on the types of tokens and ways to create them, see [Manage API tokens](/influxdb/cloud/security/tokens/).
+For more information on the types of tokens and ways to create them, see [Manage API tokens](/influxdb/cloud/admin/tokens/).
 
 ### Role-based access controls (RBAC)
 

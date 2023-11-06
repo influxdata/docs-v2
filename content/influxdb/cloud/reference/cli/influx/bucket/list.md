@@ -2,7 +2,7 @@
 title: influx bucket list
 description: The `influx bucket list` command lists and searches for buckets in InfluxDB.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx bucket list
     parent: influx bucket
 weight: 201

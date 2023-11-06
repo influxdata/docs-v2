@@ -2,7 +2,7 @@
 title: influx task run retry
 description: The `influx task run retry` command retries to run a task in InfluxDB.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx task run retry
     parent: influx task run
 weight: 301
@@ -34,7 +34,7 @@ influx task run retry [flags]
 
 {{% note %}}
 #### Required permissions
-Use an [{{% oss-only %}}**Operator** or{{% /oss-only %}} <span>**All-Access**</span> token](/influxdb/v2/security/tokens/) to retry tasks.
+Use an [{{% oss-only %}}**Operator** or{{% /oss-only %}} <span>**All-Access**</span> token](/influxdb/v2/admin/tokens/) to retry tasks.
 {{% /note %}}
 
 ##### Retry a task run

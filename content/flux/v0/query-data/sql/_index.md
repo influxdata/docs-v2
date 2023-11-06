@@ -58,7 +58,7 @@ _See the [database guides](#databases) for information about DSNs for each drive
 
 #### Store sensitive credentials as secrets
 If using **InfluxDB Cloud** or **InfluxDB OSS 2.x**, we recommend storing DSN
-credentials as [InfluxDB secrets](/influxdb/cloud/security/secrets/).
+credentials as [InfluxDB secrets](/influxdb/cloud/admin/secrets/).
 Use [`secrets.get()`](/flux/v0/stdlib/influxdata/influxdb/secrets/get/) to
 retrieve a secret from the InfluxDB secrets API.
 

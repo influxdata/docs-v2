@@ -6,8 +6,6 @@ menu:
     name: influx stacks remove
     parent: influx stacks
 weight: 201
-aliases:
-  - /influxdb/cloud/reference/cli/influx/pkg/stack/remove/
 influxdb/cloud-serverless/tags: [templates]
 ---
 

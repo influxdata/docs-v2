@@ -8,12 +8,10 @@ menu:
   influxdb_cloud_serverless:
     name: Write data
 influxdb/cloud-serverless/tags: [write, line protocol]
-# related:
-#   - /influxdb/cloud/api/#tag/Write, InfluxDB API /write endpoint
-#   - /influxdb/cloud/reference/syntax/line-protocol
-#   - /influxdb/cloud/reference/syntax/annotated-csv
-#   - /influxdb/cloud/reference/cli/influx/write
-#   - /resources/videos/ingest-data/, How to Ingest Data in InfluxDB (Video)
+related:
+  - /influxdb/cloud-serverless/api/#tag/Write, InfluxDB API /write endpoint
+  - /influxdb/cloud-serverless/reference/syntax/line-protocol
+  - /influxdb/cloud-serverless/reference/cli/influx/write
 ---
 
 Write data to {{% product-name %}} using the following tools and methods:

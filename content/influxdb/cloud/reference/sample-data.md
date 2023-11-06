@@ -6,7 +6,9 @@ description: >
   and InfluxDB Cloud.
 aliases:
   - /influxdb/cloud/write-data/sample-data/
-menu: influxdb_cloud_ref
+menu:
+  influxdb_cloud:
+    parent: Reference
 weight: 7
 ---
 

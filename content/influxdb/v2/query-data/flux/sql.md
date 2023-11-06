@@ -217,10 +217,10 @@ Use the variable to manipulate queries in your dashboards.
 ---
 
 ## Use secrets to store SQL database credentials
-If your SQL database requires authentication, use [InfluxDB secrets](/influxdb/v2/security/secrets/)
+If your SQL database requires authentication, use [InfluxDB secrets](/influxdb/v2/admin/secrets/)
 to store and populate connection credentials.
 By default, InfluxDB base64-encodes and stores secrets in its internal key-value store, BoltDB.
-For added security, [store secrets in Vault](/influxdb/v2/security/secrets/use-vault/).
+For added security, [store secrets in Vault](/influxdb/v2/admin/secrets/use-vault/).
 
 ### Store your database credentials as secrets
 Use the [InfluxDB API](/influxdb/v2/reference/api/) or the [`influx` CLI](/influxdb/v2/reference/cli/influx/secret/)
@@ -245,8 +245,8 @@ curl --request PATCH http://localhost:8086/api/v2/orgs/<org-id>/secrets \
 
 **To store secrets, you need:**
 
-- [your organization ID](/influxdb/v2/organizations/view-orgs/#view-your-organization-id)  
-- [your API token](/influxdb/v2/security/tokens/view-tokens/)
+- [your organization ID](/influxdb/v2/admin/organizations/view-orgs/#view-your-organization-id)  
+- [your API token](/influxdb/v2/admin/tokens/view-tokens/)
 {{% /tab-content %}}
 {{% tab-content %}}
 ```sh
@@ -315,7 +315,7 @@ Sample sensor information is stored in PostgreSQL.
 
 #### Download sample air sensor data
 
-1.  [Create a bucket](/influxdb/v2/organizations/buckets/create-bucket/) to store the data.
+1.  [Create a bucket](/influxdb/v2/admin/buckets/create-bucket/) to store the data.
 2.  [Create an InfluxDB task](/influxdb/v2/process-data/manage-tasks/create-task/)
     and use the [`sample.data()` function](/flux/v0/stdlib/influxdata/influxdb/sample/data/)
     to download sample air sensor data every 15 minutes.

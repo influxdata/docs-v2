@@ -73,7 +73,7 @@ integrations, create corresponding tokens for each in your InfluxDB Cloud instan
 You cannot migrate tokens from InfluxDB 2.x to InfluxDB Cloud.
 {{% /note %}}
 
-_For more information about managing tokens and token types, see [Manage tokens](/influxdb/cloud/security/tokens/)._
+_For more information about managing tokens and token types, see [Manage tokens](/influxdb/cloud/admin/tokens/)._
 
 ## Set up influx CLI connection configurations
 The `influx` command line interface (CLI) lets you create connection configurations
@@ -97,7 +97,7 @@ Include the following flags for each configuration:
   The default organization name in InfluxDB Cloud is the email address associated with your account. 
 - **-\-token**: API token to use to connect to InfluxDB. 
     - **InfluxDB Cloud**: Provide an **All-Access** token.
-    - **InfluxDB OSS 2.x**: Provide an [Operator token](/influxdb/v2/security/tokens/#operator-token). 
+    - **InfluxDB OSS 2.x**: Provide an [Operator token](/influxdb/v2/admin/tokens/#operator-token). 
 
 ##### Create an InfluxDB Cloud connection configuration
 ```sh
@@ -121,8 +121,8 @@ influx config create \
 ```
 
 ## Use templates to migrate InfluxDB resources
-[InfluxDB templates](/influxdb/cloud/influxdb-templates/) let you export InfluxDB
-[resources](/influxdb/cloud/influxdb-templates/#template-resources) such as buckets,
+[InfluxDB templates](/influxdb/cloud/tools/influxdb-templates/) let you export InfluxDB
+[resources](/influxdb/cloud/tools/influxdb-templates/#template-resources) such as buckets,
 dashboards, labels, tasks, and more and import them into another InfluxDB instance.
 Export resources from your **InfluxDB 2.x** instance and migrate them to
 your **InfluxDB Cloud** instance.
@@ -344,4 +344,4 @@ influx write \
 
 ## Collaborate with other users
 To collaborate with other users in your InfluxDB Cloud organization,
-[invite users to join your organization](/influxdb/cloud/organizations/users/#invite-a-user-to-your-organization/).
+[invite users to join your organization](/influxdb/cloud/admin/organizations/users/#invite-a-user-to-your-organization/).

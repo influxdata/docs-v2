@@ -2,13 +2,13 @@
 title: influx backup
 description: The `influx backup` command backs up data stored in InfluxDB to a specified directory.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: influx backup
     parent: influx
 weight: 101
 influxdb/v2/tags: [backup]
 related:
-  - /influxdb/v2/backup-restore/backup/
+  - /influxdb/v2/admin/backup-restore/backup/
   - /influxdb/v2/reference/cli/influx/restore/
   - /influxdb/v2/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
   - /influxdb/v2/reference/cli/influx/#flag-patterns-and-conventions, influx CLI—Flag patterns and conventions

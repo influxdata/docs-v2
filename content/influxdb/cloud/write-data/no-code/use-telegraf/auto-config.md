@@ -9,7 +9,7 @@ menu:
     parent: Telegraf (agent)
 weight: 201
 related:
-  - /influxdb/cloud/telegraf-configs/create/
+  - /influxdb/cloud/tools/telegraf-configs/create/
 # alt_links:
 #   cloud-serverless: /influxdb/cloud-serverless/write-data/use-telegraf/configure/auto-config/
 ---
@@ -83,7 +83,7 @@ A token identifies specific permissions to the InfluxDB instance.
 
 ### Configure your token as an environment variable
 
-1. Find your API token. _For information about viewing tokens, see [View tokens](/influxdb/cloud/security/tokens/view-tokens/)._
+1. Find your API token. _For information about viewing tokens, see [View tokens](/influxdb/cloud/admin/tokens/view-tokens/)._
 
 2. To configure your token as the `INFLUX_TOKEN` environment variable, run the command appropriate for your operating system and command-line tool:
 
@@ -147,4 +147,4 @@ telegraf -config https://cloud2.influxdata.com/api/v2/telegrafs/0xoX00oOx0xoX00o
 ## Manage Telegraf configurations
 
 For more information about managing Telegraf configurations in InfluxDB, see
-[Telegraf configurations](/influxdb/cloud/telegraf-configs/).
+[Telegraf configurations](/influxdb/cloud/tools/telegraf-configs/).

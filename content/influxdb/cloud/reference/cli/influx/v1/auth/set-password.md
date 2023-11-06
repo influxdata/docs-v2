@@ -3,7 +3,7 @@ title: influx v1 auth set-password
 description: >
   The `influx v1 auth set-password` command sets a password for an existing authorization in the InfluxDB 1.x compatibility API.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: influx v1 auth set-password
     parent: influx v1 auth
 weight: 101
@@ -15,7 +15,7 @@ updated_in: CLI v2.0.3
 #### Not supported in InfluxDB Cloud
 **InfluxDB Cloud** does not support InfluxDB 1.x compatible authorizations.
 Using the `influx v1 auth set-password` command with InfluxDB Cloud will result in an error.
-To authenticate with InfluxDB Cloud, use [InfluxDB token authentication](/influxdb/cloud/security/tokens/).
+To authenticate with InfluxDB Cloud, use [InfluxDB token authentication](/influxdb/cloud/admin/tokens/).
 {{% /cloud %}}
 
 {{< duplicate-oss >}}

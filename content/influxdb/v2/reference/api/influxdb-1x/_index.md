@@ -4,14 +4,14 @@ description: >
   The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
   InfluxDB 1.x client libraries and third-party integrations like [Grafana](https://grafana.com) and others.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     name: v1 compatibility
     parent: InfluxDB v2 API
 weight: 104
 influxdb/v2/tags: [influxql, query, write]
 related:
   - /influxdb/v2/query-data/influxql
-  - /influxdb/v2/upgrade/v1-to-v2/
+  - /influxdb/v2/install/upgrade/v1-to-v2/
 ---
 
 The InfluxDB v2 API includes InfluxDB 1.x compatibility endpoints that work with
@@ -22,7 +22,7 @@ InfluxDB 1.x client libraries and third-party integrations like [Grafana](https:
 ## Authentication
 
 InfluxDB 1.x compatibility endpoints require all query and write requests to be authenticated with an
-[API token](/influxdb/v2/security/tokens/) or 1.x-compatible
+[API token](/influxdb/v2/admin/tokens/) or 1.x-compatible
 credentials.
 
 * [Authenticate with the Token scheme](#authenticate-with-the-token-scheme)
@@ -31,7 +31,7 @@ credentials.
 ### Authenticate with the Token scheme
 Token authentication requires the following credential:
 
-- **token**: InfluxDB [API token](/influxdb/v2/security/tokens/)
+- **token**: InfluxDB [API token](/influxdb/v2/admin/tokens/)
 
 Use the `Authorization` header with the `Token` scheme to provide your token to InfluxDB.
 
@@ -78,7 +78,7 @@ Username and password schemes require the following credentials:
 {{% note %}}
 #### Password or Token
 If you have [set a password](/influxdb/v2/upgrade/v1-to-v2/manual-upgrade/#1x-compatible-authorizations) for the 1.x-compatible username, provide the 1.x-compatible password.
-If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/v2/security/tokens/) as the password.
+If you haven't set a password for the 1.x-compatible username, provide the InfluxDB [authentication token](/influxdb/v2/admin/tokens/) as the password.
 {{% /note %}}
 
 For information about creating and managing 1.x-compatible authorizations, see:
@@ -92,7 +92,7 @@ For information about creating and managing 1.x-compatible authorizations, see:
 
 - **username**: InfluxDB Cloud username
   (Use the email address you signed up with as your username, _e.g._ `exampleuser@influxdata.com`.)
-- **password**: InfluxDB Cloud [API token](/influxdb/cloud/security/tokens/)
+- **password**: InfluxDB Cloud [API token](/influxdb/cloud/admin/tokens/)
 
 {{% /cloud-only %}}
 

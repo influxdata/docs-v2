@@ -3,7 +3,7 @@ title: influx export stack
 description: >
   The `influx export stack` command exports all resources associated with a stack as an InfluxDB template.
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: influx export
 weight: 201
 aliases:
@@ -19,7 +19,7 @@ All `metadata.name` fields remain the same.
 {{% note %}}
 To export resources as a template, you must use the **Operator token** created for
 the initial InfluxDB user or an **All-Access token**.
-For information about creating an All-Access API token, see [Create an API token](/influxdb/v2/security/tokens/create-token/).
+For information about creating an All-Access API token, see [Create an API token](/influxdb/v2/admin/tokens/create-token/).
 {{% /note %}}
 
 ## Usage

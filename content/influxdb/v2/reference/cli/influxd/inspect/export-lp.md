@@ -5,7 +5,7 @@ description: >
   as line protocol.
 influxdb/v2/tags: [inspect, export]
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: influxd inspect
 weight: 301
 ---

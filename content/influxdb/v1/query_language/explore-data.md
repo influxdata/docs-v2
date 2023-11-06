@@ -1763,7 +1763,7 @@ WHERE time > now() - 100w AND time < now() - 90w GROUP BY *
 
 SELECT *
 INTO <destination_database>.<retention_policy_name>.<measurement_name>
-FROM <source_database>.<retention_policy_name>.<measurement_name>
+FROM <source_database>.<retention_policy_name>.<measurement_name>}
 WHERE time > now() - 90w AND < now() - 80w GROUP BY *
 
 SELECT *

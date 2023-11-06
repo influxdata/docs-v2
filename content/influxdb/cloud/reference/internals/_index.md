@@ -1,8 +1,9 @@
 ---
 title: InfluxDB Cloud internals
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     name: InfluxDB Cloud internals
+    parent: Reference
 weight: 7
 ---
 

@@ -9,7 +9,7 @@ menu:
     parent: Guides
 weight: 104
 alt_links:
-  cloud: /influxdb/cloud/migrate-data/
+  cloud: /influxdb/cloud/write-data/migrate-data/
 ---
 
 Migrate data to InfluxDB Clustered powered by InfluxDB IOx from other 

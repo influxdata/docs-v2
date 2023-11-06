@@ -11,7 +11,6 @@ cascade:
   related:
     - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
     - /influxdb/cloud-serverless/reference/cli/influx/#provide-required-authentication-credentials, influx CLI—Provide required authentication credentials
-    - /influxdb/cloud/api-guide/api-invokable-scripts/
   metadata: [influx CLI 2.4.0+, InfluxDB Cloud only]
 ---
 

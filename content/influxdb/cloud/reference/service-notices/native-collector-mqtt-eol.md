@@ -5,7 +5,7 @@ description: >
   Native Collector - MQTT feature that is currently available in
   InfluxDB Cloud (TSM) on **April 30th, 2024**.
 menu:
-  influxdb_cloud_ref:
+  influxdb_cloud:
     parent: Service notices
     name: EOL - Native Collector - MQTT
 weight: 101

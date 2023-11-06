@@ -4,7 +4,7 @@ description: >
   The `influxd inspect merge-schema` command merges a set of schema files.
 influxdb/v2/tags: [shards, inspect]
 menu:
-  influxdb_v2_ref:
+  influxdb_v2:
     parent: influxd inspect
 weight: 301
 ---
