@@ -17,7 +17,7 @@ canonical: /influxdb/cloud-dedicated/reference/release-notes/influxctl/
 _Features updated in this release are meant for internal InfluxData use and do
 not affect any public APIs._
 
-### Dependency Updates
+### Dependency updates
 
 - Update `github.com/go-git/go-git/v5` from 5.9.0 to 5.10.0.
 - Update `github.com/google/uuid` from 1.3.1 to 1.4.0.
