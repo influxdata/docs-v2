@@ -11,6 +11,20 @@ menu:
 weight: 202
 ---
 
+## v2.3.0 {date="2023-11-06"}
+
+_Features updated in this release are meant for internal InfluxData use and do
+not affect any public APIs._
+
+### Dependency Updates
+
+- Update `github.com/go-git/go-git/v5` from 5.9.0 to 5.10.0.
+- Update `github.com/google/uuid` from 1.3.1 to 1.4.0.
+- Update `github.com/jedib0t/go-pretty/v6` from 6.4.8 to 6.4.9.
+- Update `golang.org/x/mod` from 0.13.0 to 0.14.0.
+
+---
+
 ## v2.2.0 {date="2023-10-27"}
 
 ### Features
