@@ -15,13 +15,34 @@ related:
   - /influxdb/clustered/reference/client-libraries/v3/
 ---
 
-Use the following tools to help you identify performance bottlenecks and troubleshoot problems in queries:
+Optimize your queries to reduce their memory and compute (CPU) requirements.
+Use tools to help you identify performance bottlenecks and troubleshoot problems in queries.
 
 <!-- TOC -->
 
+- [Strategies for improving query performance](#strategies-for-improving-query-performance)
 - [EXPLAIN and ANALYZE](#explain-and-analyze)
 
-<!-- /TOC -->
+
+## Strategies for improving query performance
+
+A query may be slow due to the following reasons:
+
+- It queries a large time-range of data.
+- It includes intensive operations, such as `ORDER BY`.
+- The query plan isn't optimal--for example, applying the same sort (`ORDER BY`) to already sorted data.
+- It needs to retrieve many parquet files from object storage. The same query performs better if it retrieves fewer - though, larger - files.
+- It queries many overlapped parquet files.
+- It queries many string values. A query against a field that stores integers outperforms a query against string data.
+
+Follow these strategies to help improve query performance and resource use:
+
+- Follow [schema design best practices](/influxdb/clustered/write-data/best-practices/schema-design/) to make your data easier to query.
+- [Downsample data](/influxdb/clustered/process-data/downsample/).
+- Custom-partition your data (Not available for Serverless)
+
+(Qualify this? For example, if query speed is more important than cost or resource use?)
+- "Prewarm" query caches by running the query a few times.
 
 ### EXPLAIN and ANALYZE
 
@@ -102,7 +123,7 @@ client.close()
 Replace the following:
 
 - {{% code-placeholder-key %}}`DATABASE_NAME`{{% /code-placeholder-key %}}: your {{% product-name %}} database
-- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/cloud-dedicated/admin/tokens/) with sufficient permissions to the specified database
+- {{% code-placeholder-key %}}`DATABASE_TOKEN`{{% /code-placeholder-key %}}: a [database token](/influxdb/clustered/admin/tokens/) with sufficient permissions to the specified database
 
 {{< expand-wrapper >}}
 {{% expand "View EXPLAIN ANALYZE example results" %}}

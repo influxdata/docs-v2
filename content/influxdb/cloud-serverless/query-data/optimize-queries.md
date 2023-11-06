@@ -17,13 +17,36 @@ aliases:
   - /influxdb/cloud-serverless/query-data/execute-queries/optimize-queries/
 ---
 
-## Troubleshoot query performance
+Optimize your queries to reduce their memory and compute (CPU) requirements.
+Use tools to help you identify performance bottlenecks and troubleshoot problems in queries.
 
-Use the following tools to help you identify performance bottlenecks and troubleshoot problems in queries:
+<!-- TOC -->
 
+- [Strategies for improving query performance](#strategies-for-improving-query-performance)
 - [Troubleshoot query performance](#troubleshoot-query-performance)
   - [EXPLAIN and ANALYZE](#explain-and-analyze)
   - [Enable trace logging](#enable-trace-logging)
+
+
+## Strategies for improving query performance
+
+A query may be slow due to the following reasons:
+
+- It queries a large time-range of data.
+- It includes intensive operations, such as `ORDER BY`.
+- The query plan isn't optimal--for example, applying the same sort (`ORDER BY`) to already sorted data.
+- It needs to retrieve many parquet files from object storage. The same query performs better if it retrieves fewer - though, larger - files.
+- It queries many overlapped parquet files.
+- It queries many string values. A query against a field that stores integers outperforms a query against string data.
+
+Follow these strategies to help improve query performance and resource use:
+
+- Follow [schema design best practices](/influxdb/serverless/write-data/best-practices/schema-design/) to make your data easier to query.
+- [Downsample data](/influxdb/serverless/process-data/downsample/).
+- (If you need custom-partitioning for your data, contact Sales/Support for [CST/Clustered]?)
+
+(Qualify this? For example, if query speed is more important than cost or resource use?)
+- "Prewarm" query caches by running the query a few times.
 
 ### EXPLAIN and ANALYZE
 
