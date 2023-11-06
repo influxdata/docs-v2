@@ -1,6 +1,5 @@
 ## Code sample dependencies
-# Temporary fork for passing headers in query options.
-influxdb3-python @ git+https://github.com/jstirnaman/influxdb3-python@4abd41c710e79f85333ba81258b10daff54d05b0
+influxdb3-python
 pandas
 ## Tabulate for printing pandas DataFrames.
 tabulate
