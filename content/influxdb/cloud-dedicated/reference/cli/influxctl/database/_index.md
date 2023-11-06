@@ -25,7 +25,7 @@ influxctl database [subcommand] [flags]
 | [create](/influxdb/cloud-dedicated/reference/cli/influxctl/database/create/) | Create a database   |
 | [delete](/influxdb/cloud-dedicated/reference/cli/influxctl/database/delete/) | Delete a database   |
 | [list](/influxdb/cloud-dedicated/reference/cli/influxctl/database/list/)     | List databases      |
-| [update](/influxdb/cloud-dedicated/reference/cli/influxctl/database/list/)   | Update a database   |
+| [update](/influxdb/cloud-dedicated/reference/cli/influxctl/database/update/) | Update a database   |
 | help, h                                                                      | Output command help |
 
 ## Flags
