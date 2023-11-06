@@ -14,7 +14,7 @@ alt_links:
   cloud: /influxdb/cloud/write-data/migrate-data/
 ---
 
-Migrate data to InfluxDB Cloud Dedicated powered by InfluxDB IOx from other 
+Migrate data to InfluxDB Cloud Dedicated from other 
 InfluxDB instances powered by TSM including InfluxDB OSS 1.x, 2.x,
 InfluxDB Enterprise, and InfluxDB Cloud (TSM).
 
