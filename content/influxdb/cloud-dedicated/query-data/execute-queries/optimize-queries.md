@@ -37,7 +37,7 @@ Use tools to help you identify performance bottlenecks and troubleshoot problems
 A query may be slow due to the following reasons:
 
 - It queries a large time-range of data.
-- It includes intensive operations, such as `ORDER BY`.
+- It includes intensive operations, such as `ORDER BY` on large amounts of data.
 - The query plan isn't optimal--for example, applying the same sort (`ORDER BY`) to already sorted data.
 - It needs to retrieve many parquet files from object storage. The same query performs better if it retrieves fewer - though, larger - files.
 - It queries many overlapped parquet files.
