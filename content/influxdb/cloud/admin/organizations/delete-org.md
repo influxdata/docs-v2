@@ -11,7 +11,7 @@ admin:
   - /influxdb/cloud/organizations/delete-org/
 ---
 
-The process of deleting your organization from InfluxDB cloud depends on your
+The process of deleting your organization from {{< product-name >}} depends on your
 [InfluxDB Cloud pricing plan](/influxdb/cloud/account-management/pricing-plans/).
 
 - [Free plan](#free-plan)
