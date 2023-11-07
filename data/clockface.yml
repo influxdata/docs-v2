@@ -2,6 +2,9 @@ influxdb:
   default: v4
   cloud: v4
 
+flux:
+  default: v4
+
 enterprise_influxdb:
   default: v2
 
