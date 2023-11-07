@@ -21,7 +21,7 @@ RUN chmod -R 755 .
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
-	@@ -22,26 +28,23 @@ ENV PYTHONDONTWRITEBYTECODE=1
+
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 

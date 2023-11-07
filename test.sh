@@ -32,6 +32,11 @@ if [ -z "$paths" ]; then
   echo "No path provided. Running tests for *.md files that have been added or modified in the current branch."
   paths=$(git diff --name-only --diff-filter=AM --relative origin/master | \
     grep -E '\.md$')
+
+  if [ -z "$paths" ]; then
+    echo "No files found for pattern: $paths"
+    exit 1
+  fi
 else
   paths=$(find "$paths" -type f -name '*.md')
 fi
