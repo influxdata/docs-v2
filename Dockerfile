@@ -6,7 +6,11 @@ FROM python:3.12.0-slim-bookworm
 RUN apt-get update && apt-get install -y \
   curl \
   git \
+  golang \
   gpg \
+  maven \
+  nodejs \
+  npm \
   wget \
    && rm -rf /var/lib/apt/lists/*
 

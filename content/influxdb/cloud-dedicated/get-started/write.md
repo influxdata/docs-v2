@@ -445,26 +445,30 @@ dependencies to your current project.
 
 1. Create a module directory and navigate into it--for example:
 
-    ```sh
-    mkdir influxdb_py_client && cd $_
+    <!--
+      Using bash here is required when running with pytest.
+      I don't know why, but sh evaluates $_ to /usr/bin/pytest.
+    -->
+    ```bash
+    mkdir influxdb_py_client && cd influxdb_py_client
     ```
 
 2.  Setup your Python virtual environment.
     Inside of your module directory:
 
-    ```sh
+    ```bash
     python -m venv envs/virtual-env
     ```
 
 3. Activate the virtual environment.
 
-    ```sh
+    ```bash
     source ./envs/virtual-env/bin/activate
     ```
 
 4.  Install the client library package:
 
-    ```sh
+    ```bash
     pip install influxdb3-python
     ```
 
@@ -472,7 +476,7 @@ dependencies to your current project.
 
 5.  In your terminal or editor, create a new file for your code--for example: `write.py`.
 
-    ```sh
+    ```bash
     touch write.py
     ```
 
@@ -548,9 +552,14 @@ dependencies to your current project.
 6.  To execute the module and write line protocol to your {{% product-name %}}
     database, enter the following command in your terminal:
     
-      ```sh
+      ```bash
       python write.py
       ```
+      <!--test-teardown
+      ```bash
+      cd ../
+      ```
+      -->
 
 {{% /influxdb/custom-timestamps %}}
 
@@ -565,19 +574,23 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 
 1.  Inside of your project directory, create a new module directory and navigate into it.
 
-    ```sh
-    mkdir influxdb_go_client && cd $_
+    <!--
+      Using bash here is required when running with pytest.
+      I don't know why, but sh evaluates $_ to /usr/bin/pytest.
+    -->
+    ```bash
+    mkdir -p influxdb_go_client && cd influxdb_go_client
     ```
 
 2.  Initialize a new Go module in the directory.
 
-    ```sh
+    ```bash
     go mod init influxdb_go_client
     ```
 
 3.  In your terminal or editor, create a new file for your code--for example: `write.go`.
 
-    ```sh
+    ```bash
     touch write.go
     ```
 
@@ -709,9 +722,16 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 
 6.  In your terminal, enter the following command to install the packages listed in `imports`, build the `influxdb_go_client` module, and execute the `main()` function:
 
+    <!--pytest.mark.skip-->
     ```sh
     go mod tidy && go build && go run influxdb_go_client
     ```
+
+    <!--test-teardown
+    ```bash
+    cd ../
+    ```
+    -->
 
     The program writes the line protocol to your {{% product-name %}} database.
 
