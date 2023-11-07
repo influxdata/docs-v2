@@ -9,7 +9,7 @@ menu:
     parent: contrib/bonitoo-io/tickscript
     identifier: contrib/bonitoo-io/tickscript/join
 weight: 301
-flux/v0.x/tags: [transformations]
+flux/v0/tags: [transformations]
 ---
 
 <!------------------------------------------------------------------------------

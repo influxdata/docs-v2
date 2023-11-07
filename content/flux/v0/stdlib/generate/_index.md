@@ -9,7 +9,7 @@ menu:
     identifier: generate
 weight: 11
 cascade:
-  flux/v0.x/tags: [generate]
+  flux/v0/tags: [generate]
   introduced: 0.17.0
 ---
 

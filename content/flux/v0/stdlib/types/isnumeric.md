@@ -8,7 +8,7 @@ menu:
     parent: types
     identifier: types/isNumeric
 weight: 101
-flux/v0.x/tags: [types, tests]
+flux/v0/tags: [types, tests]
 introduced: 0.187.0
 ---
 

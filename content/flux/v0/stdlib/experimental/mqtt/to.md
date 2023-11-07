@@ -8,7 +8,7 @@ menu:
     parent: experimental/mqtt
     identifier: experimental/mqtt/to
 weight: 201
-flux/v0.x/tags: [mqtt, outputs]
+flux/v0/tags: [mqtt, outputs]
 ---
 
 <!------------------------------------------------------------------------------

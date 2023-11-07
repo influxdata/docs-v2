@@ -12,7 +12,7 @@ weight: 102
 cascade:
   related:
     - https://prometheus.io/docs/concepts/metric_types/, Prometheus metric types
-flux/v0.x/tags: [prometheus]
+flux/v0/tags: [prometheus]
 ---
 
 Learn how to use Flux to work with the four core

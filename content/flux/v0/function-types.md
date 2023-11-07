@@ -69,7 +69,7 @@ and important function behaviors.
 Flux input functions return data from data sources.
 The following input functions are available:
 
-{{< list-all-functions filters="inputs" >}}
+{{< flux/list-all-functions filters="inputs" >}}
 
 ---
 
@@ -77,7 +77,7 @@ The following input functions are available:
 Flux output functions yield results or send data to a specified output destination.
 The following output functions are are available:
 
-{{< list-all-functions filters="outputs" >}}
+{{< flux/list-all-functions filters="outputs" >}}
 
 ---
 
@@ -119,7 +119,7 @@ Each output table from an aggregate function will:
 
 **The following aggregate functions are available:**
 
-{{< list-all-functions filters="aggregates" >}}
+{{< flux/list-all-functions filters="aggregates" >}}
 
 ##### Aggregate selectors
 The following functions are both aggregates and selectors.
@@ -144,7 +144,7 @@ Each output table from a selector function will:
 
 **The following selector functions are available:**
 
-{{< list-all-functions filters="selectors" >}}
+{{< flux/list-all-functions filters="selectors" >}}
 
 ##### Selectors and aggregates
 The following functions can be used as both selectors or aggregates, but they are
@@ -160,7 +160,7 @@ Flux dynamic query functions extract a table from a stream of tables and access 
 columns and records.
 For recommended usage, see [Extract scalar values](/influxdb/cloud/query-data/flux/scalar-values/).
 
-{{< list-all-functions filters="dynamic queries" >}}
+{{< flux/list-all-functions filters="dynamic queries" >}}
 
 ---
 
@@ -181,7 +181,7 @@ specified conditions.
 Rows that do not match the specified conditions are dropped from the output.
 The following filter functions are available:
 
-{{< list-all-functions filters="filters" >}}
+{{< flux/list-all-functions filters="filters" >}}
 
 ---
 
@@ -189,7 +189,7 @@ The following filter functions are available:
 Flux type conversion functions convert scalar values or columns to a specific data type.
 The following type conversion functions are available:
 
-{{< list-all-functions filters="type-conversions" >}}
+{{< flux/list-all-functions filters="type-conversions" >}}
 
 ---
 
@@ -198,7 +198,7 @@ Flux testing functions test various aspects of data.
 Tests return either `true` or `false`, a transformed stream of tables, or, upon failure, an error.
 The following testing functions are available:
 
-{{< list-all-functions filters="tests" >}}
+{{< flux/list-all-functions filters="tests" >}}
 
 ---
 
@@ -207,7 +207,7 @@ Flux date/time functions return or operate on [time](/flux/v0/data-types/basic/t
 or [duration](/flux/v0/spec/types/#duration-types) values.
 The following data/time functions are available:
 
-{{< list-all-functions filters="date/time" >}}
+{{< flux/list-all-functions filters="date/time" >}}
 
 ---
 
@@ -215,7 +215,7 @@ The following data/time functions are available:
 Flux metadata functions return metadata from the input stream or from an underlying data source.
 The following metadata functions are available:
 
-{{< list-all-functions filters="metadata" >}}
+{{< flux/list-all-functions filters="metadata" >}}
 
 ---
 
@@ -223,7 +223,7 @@ The following metadata functions are available:
 Flux notification endpoint functions send notifications to external endpoints or services.
 The following notification endpoint functions are available:
 
-{{< list-all-functions filters="notification endpoints" >}}
+{{< flux/list-all-functions filters="notification endpoints" >}}
 
 ---
 
@@ -231,4 +231,4 @@ The following notification endpoint functions are available:
 Flux geotemporal functions are designed to work with geotemporal data (geographic location over time).
 The following geotemporal functions are available:
 
-{{< list-all-functions filters="geotemporal" >}}
+{{< flux/list-all-functions filters="geotemporal" >}}

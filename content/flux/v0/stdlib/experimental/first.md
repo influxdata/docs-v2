@@ -9,7 +9,7 @@ menu:
     parent: experimental
     identifier: experimental/first
 weight: 101
-flux/v0.x/tags: [transformations, selectors]
+flux/v0/tags: [transformations, selectors]
 introduced: 0.112.0
 ---
 

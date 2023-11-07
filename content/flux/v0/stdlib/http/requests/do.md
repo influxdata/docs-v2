@@ -8,7 +8,7 @@ menu:
     parent: http/requests
     identifier: http/requests/do
 weight: 201
-flux/v0.x/tags: [http, inputs]
+flux/v0/tags: [http, inputs]
 ---
 
 <!------------------------------------------------------------------------------

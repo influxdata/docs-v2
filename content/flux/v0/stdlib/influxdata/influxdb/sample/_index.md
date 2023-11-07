@@ -9,7 +9,7 @@ menu:
     identifier: influxdata/influxdb/sample
 weight: 31
 cascade:
-  flux/v0.x/tags: [sample data]
+  flux/v0/tags: [sample data]
   introduced: 0.123.0
 ---
 

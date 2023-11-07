@@ -8,7 +8,7 @@ menu:
     parent: influxdata/influxdb/schema
     identifier: influxdata/influxdb/schema/measurements
 weight: 301
-flux/v0.x/tags: [metadata]
+flux/v0/tags: [metadata]
 ---
 
 <!------------------------------------------------------------------------------

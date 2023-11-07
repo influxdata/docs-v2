@@ -9,7 +9,7 @@ menu:
     parent: contrib/sranka/webexteams
     identifier: contrib/sranka/webexteams/message
 weight: 301
-flux/v0.x/tags: [single notification]
+flux/v0/tags: [single notification]
 ---
 
 <!------------------------------------------------------------------------------

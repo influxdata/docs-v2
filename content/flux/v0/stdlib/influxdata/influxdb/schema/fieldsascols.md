@@ -10,7 +10,7 @@ menu:
     parent: influxdata/influxdb/schema
     identifier: influxdata/influxdb/schema/fieldsAsCols
 weight: 301
-flux/v0.x/tags: [transformations]
+flux/v0/tags: [transformations]
 ---
 
 <!------------------------------------------------------------------------------

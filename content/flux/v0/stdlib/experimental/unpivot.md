@@ -11,7 +11,7 @@ menu:
     parent: experimental
     identifier: experimental/unpivot
 weight: 101
-flux/v0.x/tags: [transformations]
+flux/v0/tags: [transformations]
 introduced: 0.172.0
 ---
 

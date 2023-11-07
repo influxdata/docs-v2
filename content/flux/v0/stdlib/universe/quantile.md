@@ -10,7 +10,7 @@ menu:
     parent: universe
     identifier: universe/quantile
 weight: 101
-flux/v0.x/tags: [transformations, aggregates, selectors]
+flux/v0/tags: [transformations, aggregates, selectors]
 introduced: 0.24.0
 ---
 

@@ -8,7 +8,7 @@ menu:
     parent: experimental/prometheus
     identifier: experimental/prometheus/histogramQuantile
 weight: 201
-flux/v0.x/tags: [transformations, aggregates, prometheus]
+flux/v0/tags: [transformations, aggregates, prometheus]
 ---
 
 <!------------------------------------------------------------------------------

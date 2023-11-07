@@ -8,7 +8,7 @@ menu:
     parent: contrib/jsternberg/influxdb
     identifier: contrib/jsternberg/influxdb/from
 weight: 301
-flux/v0.x/tags: [inputs]
+flux/v0/tags: [inputs]
 ---
 
 <!------------------------------------------------------------------------------

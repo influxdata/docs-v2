@@ -9,7 +9,7 @@ menu:
     identifier: bitwise
 weight: 11
 cascade:
-  flux/v0.x/tags: [bitwise]
+  flux/v0/tags: [bitwise]
   introduced: 0.173.0
 ---
 

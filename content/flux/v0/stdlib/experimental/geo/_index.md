@@ -10,7 +10,7 @@ menu:
     identifier: experimental/geo
 weight: 21
 cascade:
-  flux/v0.x/tags: [geotemporal]
+  flux/v0/tags: [geotemporal]
   introduced: 0.63.0
 ---
 

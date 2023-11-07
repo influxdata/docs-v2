@@ -9,7 +9,7 @@ menu:
     parent: experimental/prometheus
     identifier: experimental/prometheus/scrape
 weight: 201
-flux/v0.x/tags: [inputs, prometheus]
+flux/v0/tags: [inputs, prometheus]
 ---
 
 <!------------------------------------------------------------------------------

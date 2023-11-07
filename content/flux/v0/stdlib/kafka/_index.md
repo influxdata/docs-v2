@@ -9,7 +9,7 @@ menu:
     identifier: kafka
 weight: 11
 cascade:
-  flux/v0.x/tags: [kafka]
+  flux/v0/tags: [kafka]
   introduced: 0.14.0
 ---
 

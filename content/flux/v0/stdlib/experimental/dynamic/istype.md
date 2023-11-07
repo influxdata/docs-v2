@@ -8,7 +8,7 @@ menu:
     parent: experimental/dynamic
     identifier: experimental/dynamic/isType
 weight: 201
-flux/v0.x/tags: [types, tests]
+flux/v0/tags: [types, tests]
 introduced: 0.186.0
 ---
 

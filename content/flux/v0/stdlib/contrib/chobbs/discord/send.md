@@ -8,7 +8,7 @@ menu:
     parent: contrib/chobbs/discord
     identifier: contrib/chobbs/discord/send
 weight: 301
-flux/v0.x/tags: [single notification]
+flux/v0/tags: [single notification]
 ---
 
 <!------------------------------------------------------------------------------

@@ -8,7 +8,7 @@ menu:
     parent: experimental/table
     identifier: experimental/table/fill
 weight: 201
-flux/v0.x/tags: [transformations, table]
+flux/v0/tags: [transformations, table]
 ---
 
 <!------------------------------------------------------------------------------

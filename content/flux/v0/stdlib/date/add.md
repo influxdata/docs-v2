@@ -8,7 +8,7 @@ menu:
     parent: date
     identifier: date/add
 weight: 101
-flux/v0.x/tags: [date/time]
+flux/v0/tags: [date/time]
 introduced: 0.162.0
 ---
 

@@ -8,7 +8,7 @@ menu:
     parent: experimental/array
     identifier: experimental/array/toUInt
 weight: 201
-flux/v0.x/tags: [type-conversions]
+flux/v0/tags: [type-conversions]
 introduced: 0.184.0
 ---
 

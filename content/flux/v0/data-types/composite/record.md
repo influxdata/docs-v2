@@ -10,7 +10,7 @@ menu:
     name: Record
     parent: Composite types
 weight: 201
-flux/v0.x/tags: ["composite types", "data types"]
+flux/v0/tags: ["composite types", "data types"]
 list_code_example: |
   ```js
   {foo: "bar", baz: 123.4, quz: -2}

@@ -8,7 +8,7 @@ menu:
     parent: experimental
     identifier: experimental/to
 weight: 101
-flux/v0.x/tags: [outputs]
+flux/v0/tags: [outputs]
 introduced: 0.40.0
 deprecated: 0.174.0
 ---

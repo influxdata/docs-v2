@@ -10,7 +10,7 @@ menu:
     parent: universe
     identifier: universe/doubleEMA
 weight: 101
-flux/v0.x/tags: [transformations]
+flux/v0/tags: [transformations]
 introduced: 0.38.0
 ---
 

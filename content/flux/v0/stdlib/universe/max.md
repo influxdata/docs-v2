@@ -9,7 +9,7 @@ menu:
     parent: universe
     identifier: universe/max
 weight: 101
-flux/v0.x/tags: [transformations, selectors]
+flux/v0/tags: [transformations, selectors]
 introduced: 0.7.0
 ---
 

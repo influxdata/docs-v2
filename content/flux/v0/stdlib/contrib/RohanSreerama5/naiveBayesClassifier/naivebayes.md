@@ -8,7 +8,7 @@ menu:
     parent: contrib/RohanSreerama5/naiveBayesClassifier
     identifier: contrib/RohanSreerama5/naiveBayesClassifier/naiveBayes
 weight: 301
-flux/v0.x/tags: [transformations]
+flux/v0/tags: [transformations]
 ---
 
 <!------------------------------------------------------------------------------

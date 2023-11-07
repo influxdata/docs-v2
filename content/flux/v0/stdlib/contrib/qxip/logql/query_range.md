@@ -10,7 +10,7 @@ menu:
     parent: contrib/qxip/logql
     identifier: contrib/qxip/logql/query_range
 weight: 301
-flux/v0.x/tags: [inputs]
+flux/v0/tags: [inputs]
 ---
 
 <!------------------------------------------------------------------------------

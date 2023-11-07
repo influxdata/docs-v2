@@ -8,7 +8,7 @@ menu:
     parent: contrib/bonitoo-io/victorops
     identifier: contrib/bonitoo-io/victorops/alert
 weight: 301
-flux/v0.x/tags: [single notification]
+flux/v0/tags: [single notification]
 ---
 
 <!------------------------------------------------------------------------------

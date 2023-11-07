@@ -9,7 +9,7 @@ menu:
     parent: experimental/query
     identifier: experimental/query/inBucket
 weight: 201
-flux/v0.x/tags: [inputs]
+flux/v0/tags: [inputs]
 ---
 
 <!------------------------------------------------------------------------------

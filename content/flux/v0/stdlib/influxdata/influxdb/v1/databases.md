@@ -8,7 +8,7 @@ menu:
     parent: influxdata/influxdb/v1
     identifier: influxdata/influxdb/v1/databases
 weight: 301
-flux/v0.x/tags: [metadata]
+flux/v0/tags: [metadata]
 ---
 
 <!------------------------------------------------------------------------------

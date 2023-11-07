@@ -8,7 +8,7 @@ menu:
     parent: timezone
     identifier: timezone/fixed
 weight: 101
-flux/v0.x/tags: [date/time, location]
+flux/v0/tags: [date/time, location]
 ---
 
 <!------------------------------------------------------------------------------

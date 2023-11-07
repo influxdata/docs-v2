@@ -8,7 +8,7 @@ menu:
     parent: experimental/geo
     identifier: experimental/geo/ST_LineString
 weight: 201
-flux/v0.x/tags: [geotemporal, transformations, aggregates]
+flux/v0/tags: [geotemporal, transformations, aggregates]
 introduced: 0.78.0
 ---
 

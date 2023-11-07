@@ -18,4 +18,4 @@ see [Flux function types and categories](/flux/v0/function-types/).
 
 {{< list-filters "flux" >}}
 
-{{< list-all-functions >}}
+{{< flux/list-all-functions >}}

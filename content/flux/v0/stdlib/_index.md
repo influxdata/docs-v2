@@ -11,7 +11,7 @@ aliases:
   - /influxdb/cloud/reference/flux/stdlib/
   - /influxdb/cloud/reference/flux/stdlib/
   - /flux/v0/functions/
-flux/v0.x/tags: [flux, functions, package]
+flux/v0/tags: [flux, functions, package]
 menu:
   flux_v0_ref:
     name: Standard library

@@ -9,7 +9,7 @@ menu:
     parent: universe
     identifier: universe/pivot
 weight: 101
-flux/v0.x/tags: [transformations]
+flux/v0/tags: [transformations]
 introduced: 0.7.0
 ---
 

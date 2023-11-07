@@ -9,7 +9,7 @@ menu:
     identifier: experimental/bitwise
 weight: 21
 cascade:
-  flux/v0.x/tags: [bitwise]
+  flux/v0/tags: [bitwise]
   introduced: 0.138.0
   deprecated: 0.173.0
 ---

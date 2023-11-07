@@ -9,7 +9,7 @@ menu:
     identifier: experimental/json
 weight: 21
 cascade:
-  flux/v0.x/tags: [json]
+  flux/v0/tags: [json]
   introduced: 0.69.0
 ---
 

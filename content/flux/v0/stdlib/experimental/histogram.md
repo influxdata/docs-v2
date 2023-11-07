@@ -9,7 +9,7 @@ menu:
     parent: experimental
     identifier: experimental/histogram
 weight: 101
-flux/v0.x/tags: [transformations]
+flux/v0/tags: [transformations]
 introduced: 0.112.0
 ---
 

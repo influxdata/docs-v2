@@ -9,7 +9,7 @@ menu:
     parent: experimental/http
     identifier: experimental/http/get
 weight: 201
-flux/v0.x/tags: [http, inputs]
+flux/v0/tags: [http, inputs]
 ---
 
 <!------------------------------------------------------------------------------

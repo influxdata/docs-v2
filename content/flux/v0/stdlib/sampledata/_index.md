@@ -9,7 +9,7 @@ menu:
     identifier: sampledata
 weight: 11
 cascade:
-  flux/v0.x/tags: [sample data]
+  flux/v0/tags: [sample data]
   introduced: 0.128.0
 ---
 

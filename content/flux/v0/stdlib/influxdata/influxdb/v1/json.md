@@ -8,7 +8,7 @@ menu:
     parent: influxdata/influxdb/v1
     identifier: influxdata/influxdb/v1/json
 weight: 301
-flux/v0.x/tags: [inputs]
+flux/v0/tags: [inputs]
 ---
 
 <!------------------------------------------------------------------------------

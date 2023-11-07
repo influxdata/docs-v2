@@ -9,7 +9,7 @@ menu:
     parent: universe
     identifier: universe/findRecord
 weight: 101
-flux/v0.x/tags: [dynamic queries]
+flux/v0/tags: [dynamic queries]
 introduced: 0.68.0
 ---
 

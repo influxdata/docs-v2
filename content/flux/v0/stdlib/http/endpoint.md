@@ -9,7 +9,7 @@ menu:
     parent: http
     identifier: http/endpoint
 weight: 101
-flux/v0.x/tags: [notification endpoints]
+flux/v0/tags: [notification endpoints]
 ---
 
 <!------------------------------------------------------------------------------

@@ -9,7 +9,7 @@ menu:
     parent: experimental/geo
     identifier: experimental/geo/totalDistance
 weight: 201
-flux/v0.x/tags: [transformations, geotemporal, aggregates]
+flux/v0/tags: [transformations, geotemporal, aggregates]
 introduced: 0.192.0
 ---
 

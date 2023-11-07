@@ -9,7 +9,7 @@ menu:
     parent: universe
     identifier: universe/truncateTimeColumn
 weight: 101
-flux/v0.x/tags: [transformations, date/time]
+flux/v0/tags: [transformations, date/time]
 introduced: 0.37.0
 ---
 

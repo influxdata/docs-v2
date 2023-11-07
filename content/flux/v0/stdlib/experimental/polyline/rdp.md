@@ -9,7 +9,7 @@ menu:
     parent: experimental/polyline
     identifier: experimental/polyline/rdp
 weight: 201
-flux/v0.x/tags: [transformations]
+flux/v0/tags: [transformations]
 ---
 
 <!------------------------------------------------------------------------------

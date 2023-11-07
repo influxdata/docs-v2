@@ -8,7 +8,7 @@ menu:
     parent: universe
     identifier: universe/bytes
 weight: 101
-flux/v0.x/tags: [type-conversions]
+flux/v0/tags: [type-conversions]
 introduced: 0.40.0
 ---
 

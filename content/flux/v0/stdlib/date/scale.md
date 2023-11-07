@@ -8,7 +8,7 @@ menu:
     parent: date
     identifier: date/scale
 weight: 101
-flux/v0.x/tags: [date/time]
+flux/v0/tags: [date/time]
 ---
 
 <!------------------------------------------------------------------------------

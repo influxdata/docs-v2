@@ -10,7 +10,7 @@ menu:
     name: Float
     parent: Basic types
 weight: 202
-flux/v0.x/tags: ["basic types", "numeric types", "data types"]
+flux/v0/tags: ["basic types", "numeric types", "data types"]
 related:
   - /flux/v0/stdlib/universe/float/
   - /flux/v0/stdlib/universe/tofloat/

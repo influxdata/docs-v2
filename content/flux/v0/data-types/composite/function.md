@@ -10,7 +10,7 @@ menu:
     name: Function
     parent: Composite types
 weight: 204
-flux/v0.x/tags: ["composite types", "data types"]
+flux/v0/tags: ["composite types", "data types"]
 related:
   - /flux/v0/define-functions/
 list_code_example: |

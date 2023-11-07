@@ -9,7 +9,7 @@ menu:
     name: Boolean
     parent: Basic types
 weight: 201
-flux/v0.x/tags: ["basic types", "data types"]
+flux/v0/tags: ["basic types", "data types"]
 related:
   - /flux/v0/stdlib/universe/bool/
   - /flux/v0/stdlib/universe/tobool/

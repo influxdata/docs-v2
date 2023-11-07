@@ -9,7 +9,7 @@ menu:
     parent: slack
     identifier: slack/message
 weight: 101
-flux/v0.x/tags: [single notification]
+flux/v0/tags: [single notification]
 ---
 
 <!------------------------------------------------------------------------------

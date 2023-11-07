@@ -8,7 +8,7 @@ menu:
     parent: system
     identifier: system/time
 weight: 101
-flux/v0.x/tags: [date/time]
+flux/v0/tags: [date/time]
 ---
 
 <!------------------------------------------------------------------------------

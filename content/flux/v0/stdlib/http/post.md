@@ -9,7 +9,7 @@ menu:
     parent: http
     identifier: http/post
 weight: 101
-flux/v0.x/tags: [single notification]
+flux/v0/tags: [single notification]
 introduced: 0.40.0
 ---
 

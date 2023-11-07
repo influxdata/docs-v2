@@ -8,7 +8,7 @@ menu:
     parent: contrib/tomhollingworth/events
     identifier: contrib/tomhollingworth/events/duration
 weight: 301
-flux/v0.x/tags: [transformations, events]
+flux/v0/tags: [transformations, events]
 ---
 
 <!------------------------------------------------------------------------------

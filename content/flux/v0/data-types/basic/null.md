@@ -11,7 +11,7 @@ menu:
 weight: 204
 related: 
   - /flux/v0/stdlib/internal/debug/null/
-flux/v0.x/tags: ["basic types", "data types"]
+flux/v0/tags: ["basic types", "data types"]
 ---
 
 The **null type** represents a missing or unknown value.

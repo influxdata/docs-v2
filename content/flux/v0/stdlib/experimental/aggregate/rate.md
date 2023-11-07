@@ -9,7 +9,7 @@ menu:
     parent: experimental/aggregate
     identifier: experimental/aggregate/rate
 weight: 201
-flux/v0.x/tags: [transformations, aggregates]
+flux/v0/tags: [transformations, aggregates]
 ---
 
 <!------------------------------------------------------------------------------
