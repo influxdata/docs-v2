@@ -53,6 +53,10 @@ and important function behaviors.
 - [Function types](#function-types)
 - [Function categories](#function-categories)
 
+{{% note %}}
+The {{% icon "experimental" %}} icon indicates the function is experimental.
+{{% /note %}}
+
 ---
 
 ## Function types

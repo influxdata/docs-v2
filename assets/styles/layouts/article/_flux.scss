@@ -12,6 +12,17 @@ h2,h3,h4 {
   }
 }
 
+.function-list a.experimental::after {
+  content: '\e903';
+  font-family: 'icomoon-v4';
+  margin-left: .45rem;
+  color: rgba($article-text, .35);
+  // font-size: .75em;
+  font-style: normal;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 #flux-group-keys-demo {
   table {
     margin-bottom: 1.25rem;
