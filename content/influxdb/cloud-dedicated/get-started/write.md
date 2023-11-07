@@ -103,7 +103,7 @@ The resulting line protocol would look something like the following:
 
 ##### Home sensor data line protocol
 
-```sh
+```text
 home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
 home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
 home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
@@ -168,6 +168,39 @@ and then write it to {{< product-name >}}.
 
 2.  Copy and save the [home sensor data sample](#home-sensor-data-line-protocol) to a file on your local system--for example, `home.lp`.
 
+    {{% influxdb/custom-timestamps %}}
+    ```sh
+    cat <<- EOF > home.lp
+    home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000
+    home,room=Kitchen temp=21.0,hum=35.9,co=0i 1641024000
+    home,room=Living\ Room temp=21.4,hum=35.9,co=0i 1641027600
+    home,room=Kitchen temp=23.0,hum=36.2,co=0i 1641027600
+    home,room=Living\ Room temp=21.8,hum=36.0,co=0i 1641031200
+    home,room=Kitchen temp=22.7,hum=36.1,co=0i 1641031200
+    home,room=Living\ Room temp=22.2,hum=36.0,co=0i 1641034800
+    home,room=Kitchen temp=22.4,hum=36.0,co=0i 1641034800
+    home,room=Living\ Room temp=22.2,hum=35.9,co=0i 1641038400
+    home,room=Kitchen temp=22.5,hum=36.0,co=0i 1641038400
+    home,room=Living\ Room temp=22.4,hum=36.0,co=0i 1641042000
+    home,room=Kitchen temp=22.8,hum=36.5,co=1i 1641042000
+    home,room=Living\ Room temp=22.3,hum=36.1,co=0i 1641045600
+    home,room=Kitchen temp=22.8,hum=36.3,co=1i 1641045600
+    home,room=Living\ Room temp=22.3,hum=36.1,co=1i 1641049200
+    home,room=Kitchen temp=22.7,hum=36.2,co=3i 1641049200
+    home,room=Living\ Room temp=22.4,hum=36.0,co=4i 1641052800
+    home,room=Kitchen temp=22.4,hum=36.0,co=7i 1641052800
+    home,room=Living\ Room temp=22.6,hum=35.9,co=5i 1641056400
+    home,room=Kitchen temp=22.7,hum=36.0,co=9i 1641056400
+    home,room=Living\ Room temp=22.8,hum=36.2,co=9i 1641060000
+    home,room=Kitchen temp=23.3,hum=36.9,co=18i 1641060000
+    home,room=Living\ Room temp=22.5,hum=36.3,co=14i 1641063600
+    home,room=Kitchen temp=23.1,hum=36.6,co=22i 1641063600
+    home,room=Living\ Room temp=22.2,hum=36.4,co=17i 1641067200
+    home,room=Kitchen temp=22.7,hum=36.5,co=26i 1641067200
+    EOF
+    ```
+    {{% /influxdb/custom-timestamps %}}
+
 3.  Run the following command to generate a Telegraf configuration file (`./telegraf.conf`) that enables the `inputs.file` and `outputs.influxdb_v2` plugins:
 
     ```sh
@@ -189,12 +222,21 @@ and then write it to {{< product-name >}}.
         files = ["home.lp"]
       ```
 
+      <!--test
+      ```bash
+      echo '[[inputs.file]]' > telegraf.conf
+      echo '  ## Files to parse each interval.  Accept standard unix glob matching rules,' >> telegraf.conf
+      echo '  ## as well as ** to match recursive files and directories.' >> telegraf.conf
+      echo '  files = ["home.lp"]' >> telegraf.conf
+      ```
+      -->
+
     - **`output-influxdb_v2` output plugin**: In the `[[outputs.influxdb_v2]]` section, replace the default values with the following configuration for your {{% product-name %}} database:
 
       ```toml
       [[outputs.influxdb_v2]]
         # InfluxDB Cloud Dedicated cluster URL
-        urls = ["${INFLUX_URL}"]
+        urls = ["${INFLUX_HOST}"]
 
         # INFLUX_TOKEN is an environment variable you assigned to your database token
         token = "${INFLUX_TOKEN}"
@@ -206,9 +248,26 @@ and then write it to {{< product-name >}}.
         bucket = "get-started"
       ```
 
+      <!--test
+      ```bash
+      echo '[[outputs.influxdb_v2]]' >> telegraf.conf
+      echo '  # InfluxDB Cloud Dedicated cluster URL' >> telegraf.conf
+      echo '  urls = ["${INFLUX_HOST}"]' >> telegraf.conf
+      echo '' >> telegraf.conf
+      echo '  # INFLUX_TOKEN is an environment variable you assigned to your database token' >> telegraf.conf
+      echo '  token = "${INFLUX_TOKEN}"' >> telegraf.conf
+      echo '' >> telegraf.conf
+      echo '  # An empty string (InfluxDB ignores this parameter)' >> telegraf.conf
+      echo '  organization = ""' >> telegraf.conf
+      echo '' >> telegraf.conf
+      echo '  # Database name' >> telegraf.conf
+      echo '  bucket = "get-started"' >> telegraf.conf
+      ```
+      -->
+
       The example configuration uses the following InfluxDB credentials:
 
-      - **`urls`**: an array containing your **`INFLUX_URL`** environment variable
+      - **`urls`**: an array containing your **`INFLUX_HOST`** environment variable
       - **`token`**: your **`INFLUX_TOKEN`** environment variable
       - **`organization`**: an empty string (InfluxDB ignores this parameter)
       - **`bucket`**: the name of the database to write to
