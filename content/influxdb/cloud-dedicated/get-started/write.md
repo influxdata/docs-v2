@@ -327,8 +327,8 @@ to InfluxDB:
 {{% code-placeholders "DATABASE_TOKEN" %}}
 {{% influxdb/custom-timestamps %}}
 ```sh
-curl -i 'https://{{< influxdb/host >}}/write?db=get-started&precision=s' \
-    --header 'Authorization: Bearer DATABASE_TOKEN' \
+curl -i "https://{{< influxdb/host >}}/write?db=get-started&precision=s" \
+    --header "Authorization: Bearer DATABASE_TOKEN" \
     --header "Content-type: text/plain; charset=utf-8" \
     --header "Accept: application/json" \
     --data-binary "
