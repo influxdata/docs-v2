@@ -93,4 +93,4 @@ mkdir -p ~/Downloads && rm -rf ~/Downloads/*
 gpg -q --batch --yes --delete-key D8FF8E1F7DF8B07E > /dev/null 2>&1
 
 # Run test commands with options provided in the CMD of the Dockerfile.
-pytest --codeblocks ./content "$@"
+pytest --codeblocks . "$@"
