@@ -28,12 +28,6 @@ to perform administrative actions.
 Token strings are returned _only_ on token creation.
 We recommend storing database tokens in a **secure secret store**.
 For example, see how to [authenticate Telegraf using tokens in your OS secret store](https://github.com/influxdata/telegraf/tree/master/plugins/secretstores/os).
-
-#### Tokens cannot be updated
-
-Once created, token permissions cannot be updated.
-If you need a token with different permissions, create a token with the
-appropriate permissions.
 {{% /note %}}
 
 ---
