@@ -23,14 +23,6 @@ if [ -z "$TEMP_DIR" ]; then
   TEMP_DIR=./tmp
 fi
 
-# Parse YAML config files into dotenv files
-curl -sO https://raw.githubusercontent.com/mrbaseman/parse_yaml/master/src/parse_yaml.sh
-source ./parse_yaml.sh && parse_yaml ./data/products.yml > .env.products
-
-# Load shell environment variables from .env files generated in the build (not provided at build-time.
-# To provide .env files available at build-time, set them in the docker compose file).
-set -a && source .env.products && set +a
-
 cd $TEMP_DIR
 
 for file in `find . -type f` ; do

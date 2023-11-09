@@ -7,6 +7,8 @@ services:
     env_file:
       - ./test/.env.influxdbv2
       - ./test/.env.influxdbv3
+    profiles:
+      - test
     volumes:
       - type: bind
         source: ./test
@@ -16,6 +18,7 @@ services:
         target: /usr/src/app/test/data
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: test.Dockerfile
       args:
-        - SOURCE_DIR=test        
+        - SOURCE_DIR=test
+        - DOCKER_IMAGE=docs-v2-tests

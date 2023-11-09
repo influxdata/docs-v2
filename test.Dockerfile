@@ -29,7 +29,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /usr/src/app/${SOURCE_DIR}
+WORKDIR /usr/src/app/test
 
 COPY test/run-tests.sh /usr/local/bin/run-tests.sh
 RUN chmod +x /usr/local/bin/run-tests.sh
@@ -46,6 +46,10 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 #     --mount=type=bind,source=package.json,target=package.json \
 #     npm install
 
+# Install parse_yaml.sh and parse YAML config files into dotenv files to be used by tests.
+RUN /bin/bash -c 'curl -sO https://raw.githubusercontent.com/mrbaseman/parse_yaml/master/src/parse_yaml.sh'
+RUN /bin/bash -c 'source ./parse_yaml.sh && parse_yaml ./data/products.yml > .env.products'
+
 # Install Telegraf for use in tests.
 # Follow the install instructions (https://docs.influxdata.com/telegraf/v1/install/?t=curl), except for sudo (which isn't available in Docker).
 # influxdata-archive_compat.key GPG Fingerprint: 9D539D90D3328DC7D6C8D3B9D8FF8E1F7DF8B07E
@@ -57,6 +61,6 @@ echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https
     && \
 apt-get update && apt-get install telegraf
 
-ENV TEMP_DIR=./tmp
+ENV TEMP_DIR=/usr/src/app/test/tmp
 ENTRYPOINT [ "run-tests.sh" ]
 CMD [""]
