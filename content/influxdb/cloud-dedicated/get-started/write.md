@@ -450,11 +450,13 @@ dependencies to your current project.
       I don't know why, but sh evaluates $_ to /usr/bin/pytest.
     -->
     ```bash
-    mkdir influxdb_py_client && cd influxdb_py_client
+    mkdir -p influxdb_py_client && cd influxdb_py_client
     ```
 
 2.  Setup your Python virtual environment.
     Inside of your module directory:
+
+    <!--pytest-codeblocks:cont-->
 
     ```bash
     python -m venv envs/virtual-env
@@ -462,11 +464,15 @@ dependencies to your current project.
 
 3. Activate the virtual environment.
 
+    <!--pytest-codeblocks:cont-->
+
     ```bash
     source ./envs/virtual-env/bin/activate
     ```
 
 4.  Install the client library package:
+
+    <!--pytest-codeblocks:cont-->
 
     ```bash
     pip install influxdb3-python
@@ -475,6 +481,8 @@ dependencies to your current project.
     The `influxdb3-python` package provides the `influxdb_client_3` module and also installs the [`pyarrow` package](https://arrow.apache.org/docs/python/index.html) for working with Arrow data returned from queries.
 
 5.  In your terminal or editor, create a new file for your code--for example: `write.py`.
+
+    <!--pytest-codeblocks:cont-->
 
     ```bash
     touch write.py
@@ -552,9 +560,14 @@ dependencies to your current project.
 6.  To execute the module and write line protocol to your {{% product-name %}}
     database, enter the following command in your terminal:
     
+      <!--pytest.mark.skip-->
+
       ```bash
       python write.py
       ```
+
+      <!--pytest-codeblocks:cont-->
+
       <!--test-teardown
       ```bash
       cd ../
@@ -584,11 +597,15 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 
 2.  Initialize a new Go module in the directory.
 
+    <!--pytest-codeblocks:cont-->
+
     ```bash
     go mod init influxdb_go_client
     ```
 
 3.  In your terminal or editor, create a new file for your code--for example: `write.go`.
+
+    <!--pytest-codeblocks:cont-->
 
     ```bash
     touch write.go
@@ -723,15 +740,10 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 6.  In your terminal, enter the following command to install the packages listed in `imports`, build the `influxdb_go_client` module, and execute the `main()` function:
 
     <!--pytest.mark.skip-->
+
     ```sh
     go mod tidy && go build && go run influxdb_go_client
     ```
-
-    <!--test-teardown
-    ```bash
-    cd ../
-    ```
-    -->
 
     The program writes the line protocol to your {{% product-name %}} database.
 
@@ -743,27 +755,40 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 <!---------------------------- BEGIN NODE.JS CONTENT --------------------------->
 
 1.  If you haven't already, follow the instructions for [Downloading and installing Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) for your system.
-2.  In your terminal, enter the following command to create a `influxdb_js_client` project and `package.json` file:
+2.  In your terminal, enter the following command to create a `influxdb_js_client` directory for your project:
 
-    ```sh
-    npm init -y -w influxdb_js_client
+    ```bash
+    mkdir influxdb_js_client && cd influxdb_js_client
+    ```
+3.  Inside of `influxdb_js_client`, enter the following command to initialize a package.
+    This example configures the package to use [ECMAScript modules (ESM)](https://nodejs.org/api/packages.html#modules-loaders).
+
+    <!--pytest-codeblocks:cont-->
+
+    ```bash
+    npm init -y; npm pkg set type="module"
     ```
 
-3.  Change into the `influxdb_js_client` directory.
+4.  Install the `@influxdata/influxdb3-client` JavaScript client library as a dependency to your project.
 
-    ```sh
-    cd influxdb_js_client
-    ```
-4.  Install the `@influxdata/influxdb3-client` JavaScript client library as a dependency to your project:
+    <!--pytest-codeblocks:cont-->
 
-    ```sh
+    ```bash
     npm install --save @influxdata/influxdb3-client
     ```
-5.  In your terminal or editor, create a `write.mjs` file. The `.mjs` extension tells the Node.js interpreter that this is an [ES6 module](https://nodejs.org/api/esm.html#modules-ecmascript-modules).
-6.  Inside of `write.mjs`, enter the following sample code:
+
+5.  In your terminal or editor, create a `write.js` file.
+
+    <!--pytest-codeblocks:cont-->
+
+    ```bash
+    touch write.js
+    ```
+
+6.  Inside of `write.js`, enter the following sample code:
 
     ```js
-    // write.mjs
+    // write.js
     import { InfluxDBClient } from "@influxdata/influxdb3-client";
 
     /**
@@ -771,10 +796,6 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
     */
     const host = "https://cluster-id.influxdb.io";
     const database = "get-started";
-    /**
-    * INFLUX_TOKEN is an environment variable you assigned to your
-    * database WRITE token value.
-    */
     const token = process.env.INFLUX_TOKEN;
 
     /**
@@ -884,6 +905,8 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 
 9.  In your terminal, execute `index.mjs` to write to {{% product-name %}}:
 
+    <!--pytest-codeblocks:cont-->
+
     ```sh
     node index.mjs
     ```
@@ -897,17 +920,23 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 1.  If you haven't already, follow the [Microsoft.com download instructions](https://dotnet.microsoft.com/en-us/download) to install .NET and the `dotnet` CLI.
 2. In your terminal, create an executable C# project using the .NET **console** template.
 
+    <!--pytest.mark.skip-->
+
     ```sh
     dotnet new console --name influxdb_csharp_client
     ```
 
 3. Change into the generated `influxdb_csharp_client` directory.
     
+    <!--pytest.mark.skip-->
+
     ```sh
     cd influxdb_csharp_client
     ```
 
 4. Run the following command to install the latest version of the InfluxDB v3 C# client library.
+
+    <!--pytest.mark.skip-->
 
     ```sh
     dotnet add package InfluxDB3.Client
@@ -1040,6 +1069,8 @@ InfluxDB v3 [influxdb3-go client library package](https://github.com/InfluxCommu
 
 7.  To build and execute the program and write the line protocol to your {{% product-name %}} database, enter the following command in your terminal:
 
+    <!--pytest.mark.skip-->
+
     ```sh
     dotnet run
     ```
@@ -1055,7 +1086,7 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
 1.  If you haven't already, follow the instructions to download and install the [Java JDK](https://www.oracle.com/java/technologies/downloads/) and [Maven](https://maven.apache.org/download.cgi) for your system.
 2.  In your terminal or editor, use Maven to generate a project--for example:
 
-    ```sh
+    ```bash
     mvn org.apache.maven.plugins:maven-archetype-plugin:3.1.2:generate \
     -DarchetypeArtifactId="maven-archetype-quickstart" \
     -DarchetypeGroupId="org.apache.maven.archetypes" -DarchetypeVersion="1.4" \
@@ -1068,9 +1099,12 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
 
 3.  In your terminal or editor, change into the `./influxdb_java_client` directory--for example:
 
-    ```sh
+    <!--pytest-codeblocks:cont-->
+
+    ```bash
     cd ./influxdb_java_client
     ```
+
 4.  In your editor, open the `pom.xml` Maven configuration file and add the `com.influxdb.influxdb3-java` client library into `dependencies`.
 
     ```pom
@@ -1087,7 +1121,9 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
     ```
 5.  To validate your `pom.xml`, run Maven's `validate` command--for example, enter the following in your terminal:
     
-    ```sh
+    <!--pytest.mark.skip-->
+
+    ```bash
     mvn validate
     ```
 
@@ -1232,11 +1268,15 @@ _The tutorial assumes using Maven version 3.9 and Java version >= 15._
     - `App` defines a `main()` function that calls `Write.writeLineProtocol()`.
 9.  In your terminal or editor, use Maven to to install dependencies and compile the project code--for example:
 
-    ```sh
+    <!--pytest.mark.skip-->
+
+    ```bash
     mvn compile
     ```
 
 10. In your terminal or editor, execute `App.main()` to write to InfluxDB--for example, using Maven:
+
+    <!--pytest.mark.skip-->
 
     ```sh
     mvn exec:java -Dexec.mainClass="com.influxdbv3.App"
