@@ -171,11 +171,15 @@ Comparison operators evaluate the relationship between the left and right operan
 
 ### Logical operators
 
-| Operator | Meaning                                                           |
-| :------: | :---------------------------------------------------------------- |
-|  `AND`   | Returns true if both operands are true. Otherwise, returns false. |
-|   `OR`   | Returns true if any operand is true. Otherwise, returns false.    |
-|  `NOT`   | Negates the subsequent expression                                 |
+| Operator  | Meaning                                                                    |
+| :-------: | :------------------------------------------------------------------------- |
+|   `AND`   | Returns true if both operands are true. Otherwise, returns false.          |
+| `BETWEEN` | Returns true if the left operand is within the range of the right operand. |
+| `EXISTS`  | Returns true if the operand is not null.                                   |
+|   `IN`    | Returns true if the left operand is in the right operand list.             |
+|  `LIKE`   | Returns true if the left operand matches the right operand pattern string. |
+|   `NOT`   | Negates the subsequent expression.                                          |
+|   `OR`    | Returns true if any operand is true. Otherwise, returns false.             |
 
 ### Bitwise operators
 
@@ -185,7 +189,6 @@ Bitwise operators perform bitwise operations on bit patterns or binary numerals.
 | :------: | :------------------ | :------- | -----: |
 |   `&`    | Bitwise and         | `5 & 3`  |    `1` |
 |   `\|`   | Bitwise or          | `5 \| 3` |    `7` |
-|   `#`    | Bitwise xor         | `5 # 3`  |    `6` |
 |   `^`    | Bitwise xor         | `5 ^ 3`  |    `6` |
 |   `>>`   | Bitwise shift right | `5 >> 3` |    `0` |
 |   `<<`   | Bitwise shift left  | `5 << 3` |   `40` |
@@ -220,6 +223,7 @@ IN
 INNER JOIN
 JOIN
 LEFT JOIN
+LIKE
 LIMIT
 NOT
 EXISTS
